@@ -1,6 +1,8 @@
 'use client';
 
 import React, {
+  DetailedHTMLProps,
+  HTMLAttributes,
   useCallback,
   useEffect,
   useRef,
@@ -10,20 +12,22 @@ import React, {
 } from 'react';
 import { cn } from '../../utils/cn';
 
-type WithResizerProps = {
-  initialWidth: number;
-  maxWidth?: number;
-  minWidth?: number;
-};
+type HeightResizerProps = {
+  initialHeight: number;
+  maxHeight?: number;
+  minHeight?: number;
+} & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
-  initialWidth,
-  maxWidth,
-  minWidth = 0,
+export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
+  initialHeight,
+  maxHeight,
+  minHeight = 0,
   children,
+  className,
+  ...props
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(initialWidth);
+  const [height, setHeight] = useState(initialHeight);
   const [isResizing, setIsResizing] = useState(false);
 
   // Handler to start resizing
@@ -49,19 +53,21 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
     (mouseMoveEvent: MouseEvent | TouchEvent) => {
       const container = containerRef.current;
       if (isResizing && container && parent) {
-        const { left: containerLeft } = container.getBoundingClientRect();
+        const { height: containerHeight, top: containerTop } =
+          container.getBoundingClientRect();
 
-        let clientX = 0;
+        let clientY = 0;
         if (mouseMoveEvent instanceof MouseEvent) {
-          clientX = mouseMoveEvent.clientX;
+          clientY = mouseMoveEvent.clientY;
         } else if (mouseMoveEvent instanceof TouchEvent) {
-          clientX = mouseMoveEvent.touches[0].clientX;
+          clientY = mouseMoveEvent.touches[0].clientY;
         }
 
-        const newWidth = clientX - containerLeft;
-        const correctedWidth = Math.max(newWidth, 0);
+        const resizeDifference = clientY - containerTop;
+        const newHeight = containerHeight - resizeDifference;
+        const correctedHeight = Math.max(newHeight, 0);
 
-        setWidth(correctedWidth);
+        setHeight(correctedHeight);
       }
     },
     [isResizing]
@@ -85,24 +91,26 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   return (
     <div
       className={cn(
-        minWidth && `max-w-[${maxWidth}px]`,
-        maxWidth && `min-w-[${minWidth}px]`,
-        'relative h-full w-full max-w-[80%] cursor-ew-resize border-r-[2px] border-neutral-200 transition dark:border-neutral-950',
-        'after:absolute after:right-0 after:top-1/2 after:block after:h-10 after:w-2 after:-translate-y-1/2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
-        'active:border-neutral-400 active:after:bg-neutral-400 dark:active:border-neutral-600 active:dark:after:bg-neutral-600'
+        minHeight && `max-w-[${maxHeight}px]`,
+        maxHeight && `min-w-[${minHeight}px]`,
+        'relative h-full w-full max-h-[80%] cursor-ns-resize border-t-[2px] border-neutral-200 transition dark:border-neutral-950',
+        'before:absolute before:top-0 before:z-10 before:left-1/2 before:block before:w-10 before:h-2 before:-translate-y-1/2 before:-translate-x-1/2 before:transform before:cursor-ns-resize before:rounded-full before:bg-neutral-200 before:transition before:content-[""] dark:before:bg-neutral-950',
+        'active:border-neutral-400 active:before:bg-neutral-400 dark:active:border-neutral-600 active:dark:before:bg-neutral-600',
+        className
       )}
       style={{
-        width: `${width}px`,
+        height: `${height}px`,
       }}
       ref={containerRef}
       onMouseDown={startResizing}
       onTouchStart={startResizing}
-      aria-valuemin={minWidth}
-      aria-valuemax={maxWidth}
-      aria-valuenow={width}
+      aria-valuemin={minHeight}
+      aria-valuemax={maxHeight}
+      aria-valuenow={height}
       aria-label="Resizable component"
       role="slider"
       tabIndex={0}
+      {...props}
     >
       <div
         className="absolute left-0 top-0 size-full cursor-default overflow-hidden"

@@ -1,17 +1,8 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Button, Container, MaxWidthSmoother } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
-import { ArrowRightToLine } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import {
-  useEffect,
-  useState,
-  type FC,
-  type HTMLAttributes,
-  useRef,
-} from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
 
 type NavTitles2Props = {
   title2: HTMLElement[];
@@ -47,7 +38,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
   );
 };
 
-export const NavTitles1: FC = () => {
+export const NavTitles: FC = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const { pathWithoutLocale } = useLocale();
   const [h2List, setH2List] = useState<HTMLElement[]>([]);
@@ -181,55 +172,5 @@ export const NavTitles1: FC = () => {
         })}
       </ul>
     </nav>
-  );
-};
-
-type NavTitlesProps = HTMLAttributes<HTMLDivElement>;
-
-export const NavTitles: FC<NavTitlesProps> = (props) => {
-  const { title, collapseButton } = useIntlayer('nav-titles');
-  const [isHidden, setIsHidden] = useState(false);
-
-  return (
-    <Container
-      roundedSize="none"
-      transparency="sm"
-      className="h-full"
-      {...props}
-    >
-      <aside className="relative h-full max-w-80 px-2">
-        <Container
-          transparency="sm"
-          className="sticky top-14 z-10 max-h-[calc(100vh-4rem)]"
-          roundedSize="none"
-        >
-          <div className="relative flex flex-row items-center pt-6">
-            <Button
-              Icon={ArrowRightToLine}
-              size="icon-md"
-              variant="hoverable"
-              color="text"
-              label={collapseButton.label.value}
-              className={cn(
-                'transition-transform max-md:hidden',
-                isHidden && 'rotate-180'
-              )}
-              onClick={() => setIsHidden((isHidden) => !isHidden)}
-            />
-            <MaxWidthSmoother isHidden={isHidden}>
-              <h2 className="ml-3 text-nowrap font-bold">{title}</h2>
-            </MaxWidthSmoother>
-            <div className="from-card/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
-          </div>
-        </Container>
-        <div className="flex flex-1 md:sticky md:top-28 md:pt-0">
-          <MaxWidthSmoother isHidden={isHidden}>
-            <div className="overflow-hidden pl-5">
-              <NavTitles1 />
-            </div>
-          </MaxWidthSmoother>
-        </div>
-      </aside>
-    </Container>
   );
 };

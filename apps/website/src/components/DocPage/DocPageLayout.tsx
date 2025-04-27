@@ -1,7 +1,7 @@
+import { AsideNavigation } from '@components/AsideNavigation/AsideNavigation';
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { type Locales } from 'intlayer';
-import { type ReactNode, type FC } from 'react';
-import { NavTitles } from '../NavTitles/NavTitles';
+import { type FC, type ReactNode } from 'react';
 import { DocBreadCrumb } from './DocBreadCrumb';
 import { getDocData } from './docData';
 import { DocNavList } from './DocNavList';
@@ -10,7 +10,7 @@ type DocPageLayoutProps = {
   children?: ReactNode;
   activeSections?: string[];
   locale: Locales;
-  displayDocNavTitles?: boolean;
+  displayAsideNavigation?: boolean;
   displayBreadCrumb?: boolean;
 };
 
@@ -18,7 +18,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   children,
   locale,
   activeSections = ['get-started'],
-  displayDocNavTitles = true,
+  displayAsideNavigation = true,
   displayBreadCrumb = true,
 }) => {
   const docData = getDocData(locale);
@@ -45,7 +45,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
             {children}
           </article>
           <aside className="flex-none max-lg:hidden">
-            {displayDocNavTitles && <NavTitles />}
+            {displayAsideNavigation && <AsideNavigation />}
           </aside>
         </div>
       </BackgroundLayout>

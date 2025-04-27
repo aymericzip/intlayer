@@ -5,7 +5,14 @@ import {
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useCallback, useMemo } from 'react';
+import {
+  type FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import {
@@ -18,9 +25,20 @@ export type StoredValue = {
   answer: string | undefined;
 };
 
-export const ChatBot: FC = () => {
+type ChatBotProps = {
+  additionalButtons?: ReactNode;
+  displayRelatedFiles?: boolean;
+  stateReloaderTrigger?: any;
+};
+
+export const ChatBot: FC<ChatBotProps> = ({
+  additionalButtons,
+  displayRelatedFiles = true,
+  stateReloaderTrigger,
+}) => {
   const { isLoading, askDocQuestion } = useAskDocQuestion();
   const { firstMessageContent } = useIntlayer('chat');
+  const isFirstRender = useRef(true);
 
   const firstMessage: ChatCompletionRequestMessage = useMemo(
     () => ({
@@ -30,13 +48,12 @@ export const ChatBot: FC = () => {
     [firstMessageContent.content.value]
   );
 
-  const [storedPrompt, setStoredPrompt] = usePersistedStore<
+  const [storedPrompt, setStoredPrompt, loadStoredPrompt] = usePersistedStore<
     ChatCompletionRequestMessage[]
   >('chat-bot-messages', [firstMessage]);
-  const [relatedFiles, setRelatedFiles] = usePersistedStore<string[]>(
-    'chat-bot-related-files-keys',
-    []
-  );
+  const [relatedFiles, setRelatedFiles, loadRelatedFiles] = usePersistedStore<
+    string[]
+  >('chat-bot-related-files-keys', []);
 
   const handleAskNewQuestion = useCallback(
     (newQuestion: string) => {
@@ -74,6 +91,18 @@ export const ChatBot: FC = () => {
     setRelatedFiles([]);
   }, [firstMessage, setStoredPrompt, setRelatedFiles]);
 
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (typeof stateReloaderTrigger === 'undefined') return;
+
+    loadStoredPrompt();
+    loadRelatedFiles();
+  }, [loadStoredPrompt, loadRelatedFiles, stateReloaderTrigger]);
+
   return (
     <div className="flex size-full flex-col items-center justify-between overflow-auto">
       <div className="relative flex size-full flex-auto">
@@ -82,12 +111,13 @@ export const ChatBot: FC = () => {
         </div>
       </div>
       <div className="w-full flex-1">
-        <FileReference relatedFiles={relatedFiles} />
+        {displayRelatedFiles && <FileReference relatedFiles={relatedFiles} />}
 
         <FormSection
           askNewQuestion={handleAskNewQuestion}
           clear={handleClear}
           nbMessages={storedPrompt.length}
+          additionalButtons={additionalButtons}
         />
       </div>
     </div>

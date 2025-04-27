@@ -1,7 +1,7 @@
+import { AsideNavigation } from '@components/AsideNavigation/AsideNavigation';
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { type Locales } from 'intlayer';
-import { type ReactNode, type FC } from 'react';
-import { NavTitles } from '../NavTitles/NavTitles';
+import { type FC, type ReactNode } from 'react';
 import { BlogBreadCrumb } from './BlogBreadCrumb';
 import { getBlogData } from './blogData';
 import { BlogNavList } from './BlogNavList';
@@ -10,14 +10,14 @@ type BlogPageLayoutProps = {
   children?: ReactNode;
   activeSections?: string[];
   locale: Locales;
-  displayBlogNavTitles?: boolean;
+  displayAsideNavigation?: boolean;
 };
 
 export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
   children,
   locale,
   activeSections = [],
-  displayBlogNavTitles = true,
+  displayAsideNavigation = true,
 }) => {
   const blogData = getBlogData(locale);
 
@@ -44,7 +44,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
             {children}
           </article>
           <aside className="flex-none max-lg:hidden">
-            {displayBlogNavTitles && <NavTitles />}
+            {displayAsideNavigation && <AsideNavigation />}
           </aside>
         </div>
       </BackgroundLayout>

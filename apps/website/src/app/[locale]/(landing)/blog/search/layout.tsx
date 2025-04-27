@@ -1,4 +1,3 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
 import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
 import { type NextLayoutIntlayer } from 'next-intlayer';
 export { generateMetadata } from './metadata';
@@ -13,7 +12,7 @@ const BlogLayout: NextLayoutIntlayer<BlogProps> = async ({
 }) => {
   const { locale } = await params;
   return (
-    <BlogPageLayout locale={locale} displayBlogNavTitles={false}>
+    <BlogPageLayout locale={locale} displayAsideNavigation={false}>
       {children}
     </BlogPageLayout>
   );

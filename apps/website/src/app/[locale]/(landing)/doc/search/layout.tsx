@@ -1,4 +1,3 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { type NextLayoutIntlayer } from 'next-intlayer';
 export { generateMetadata } from './metadata';
@@ -13,7 +12,7 @@ const DocLayout: NextLayoutIntlayer<DocProps> = async ({
 }) => {
   const { locale } = await params;
   return (
-    <DocPageLayout locale={locale} displayDocNavTitles={false}>
+    <DocPageLayout locale={locale} displayAsideNavigation={false}>
       {children}
     </DocPageLayout>
   );

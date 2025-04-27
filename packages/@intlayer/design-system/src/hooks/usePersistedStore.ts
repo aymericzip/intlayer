@@ -1,18 +1,18 @@
 'use client';
 
 import {
-  useState,
-  useEffect,
   useCallback,
-  type SetStateAction,
-  type Dispatch,
+  useEffect,
   useMemo,
+  useState,
+  type Dispatch,
+  type SetStateAction,
 } from 'react';
 
 export const usePersistedStore = <S>(
   key: string,
   initialState?: S | (() => S)
-): [S, Dispatch<SetStateAction<S>>] => {
+): [S, Dispatch<SetStateAction<S>>, () => void] => {
   const [state, setState] = useState<S>(() => {
     // If you have an initial value on the client, send a message out immediately
     if (initialState !== undefined) {
@@ -73,5 +73,15 @@ export const usePersistedStore = <S>(
     [key, setState]
   );
 
-  return useMemo(() => [state, setStateWrapper], [state, setStateWrapper]);
+  const loadState = useCallback(() => {
+    const savedState = localStorage?.getItem(key);
+    if (savedState) {
+      setState(JSON.parse(savedState));
+    }
+  }, [key, setState]);
+
+  return useMemo(
+    () => [state, setStateWrapper, loadState],
+    [state, setStateWrapper, loadState]
+  );
 };
