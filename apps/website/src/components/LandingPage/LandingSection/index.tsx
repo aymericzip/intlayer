@@ -19,19 +19,23 @@ export const LandingSection: FC = () => {
               </h1>
               <div className="flex flex-col gap-4">
                 {description.map((el) => (
-                  <AnimatedDescription className="text-neutral inset-x-0 w-full px-8 leading-7">
+                  <AnimatedDescription
+                    className="text-neutral max-md:text-sm inset-x-0 w-full px-8 leading-7"
+                    key={el.value}
+                  >
                     {el}
                   </AnimatedDescription>
                 ))}
               </div>
               <div className="flex flex-col gap-3 px-8 ml-8">
                 {keyPoints.map((el) => (
-                  <div className="flex gap-2 items-center text-sm">
-                    <Check className="text-lime-800  dark:text-lime-600 size-3" />
+                  <div
+                    className="flex gap-2 items-center text-sm"
+                    key={el.value}
+                  >
+                    <Check className="text-lime-800 dark:text-lime-600 size-3" />
 
-                    <span className="text-neutral" key={el.value}>
-                      {el}
-                    </span>
+                    <span className="text-neutral">{el}</span>
                   </div>
                 ))}
               </div>
