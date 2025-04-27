@@ -142,7 +142,7 @@ export const NavTitles: FC = () => {
 
   return (
     <nav ref={navRef}>
-      <ul className="flex max-h-[calc(100vh-8rem)] min-w-52 flex-1 flex-col gap-3 overflow-auto pb-20 pr-3 pt-8 text-sm">
+      <ul className="flex max-h-[calc(100vh-8rem)] flex-1 flex-col gap-3 overflow-auto pb-20 pr-3 pt-8 text-sm">
         {h2List.map((h2) => {
           const id = h2.id;
           const h2List = h2ToH3Map.get(h2);
