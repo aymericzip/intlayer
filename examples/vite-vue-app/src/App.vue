@@ -1,17 +1,27 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { useIntlayer } from 'vue-intlayer';
+import HelloWorld from './components/HelloWorld.vue';
+import LocaleSwitcher from './components/LocaleSwitcher.vue';
+import { useI18nHTMLAttributes } from './composables/useI18nHTMLAttributes';
+
+// Use the useIntlayer composable to access translations
+const content = useIntlayer('app');
+
+// Apply HTML language attributes based on current locale
+useI18nHTMLAttributes();
 </script>
 
 <template>
   <div>
+    <LocaleSwitcher />
     <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
+      <img src="/vite.svg" class="logo" :alt="content.viteLogo" />
     </a>
     <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
+      <img src="./assets/vue.svg" class="logo vue" :alt="content.vueLogo" />
     </a>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <HelloWorld :msg="content.title" />
 </template>
 
 <style scoped>

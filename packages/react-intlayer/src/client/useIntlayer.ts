@@ -1,6 +1,6 @@
 'use client';
 
-import type { Locales } from '@intlayer/config/client';
+import type { LocalesValues } from '@intlayer/config/client';
 import type { DictionaryKeys } from '@intlayer/core';
 import { useChangedContent } from '@intlayer/editor-react';
 // @ts-ignore intlayer declared for module augmentation
@@ -18,7 +18,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  */
 export const useIntlayer = <T extends DictionaryKeys>(
   key: T,
-  locale?: Locales
+  locale?: LocalesValues
 ): DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']> => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
   const { changedContent } = useChangedContent();

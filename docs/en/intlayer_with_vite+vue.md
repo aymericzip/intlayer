@@ -40,7 +40,7 @@ yarn add intlayer vue-intlayer vite-intlayer
   The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md).
 
 - **vue-intlayer**
-  The package that integrates Intlayer with Vue application. It provides context providers and hooks for Vue internationalization.
+  The package that integrates Intlayer with Vue application. It provides context providers and composables for Vue internationalization.
 
 - **vite-intlayer**
   Includes the Vite plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
@@ -113,34 +113,34 @@ Add the intlayer plugin into your configuration.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import vue from "@vitejs/plugin-vue";
 import { intlayerPlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayerPlugin()],
+  plugins: [vue(), intlayerPlugin()],
 });
 ```
 
 ```javascript fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import vue from "@vitejs/plugin-vue";
 import { intlayerPlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayerPlugin()],
+  plugins: [vue(), intlayerPlugin()],
 });
 ```
 
 ```javascript fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
+const vue = require("@vitejs/plugin-vue");
 const { intlayerPlugin } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [react(), intlayerPlugin()],
+  plugins: [vue(), intlayerPlugin()],
 });
 ```
 
@@ -150,12 +150,43 @@ module.exports = defineConfig({
 
 Create and manage your content declarations to store translations:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    viteLogo: t({
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    vueLogo: t({
+      en: "Vue logo",
+      fr: "Logo Vue",
+      es: "Logo Vue",
+    }),
+
+    title: "Vite + Vue",
+
+    count: t({
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+
+    edit: t({
+      en: "Edit <code>src/App.vue</code> and save to test HMR",
+      fr: "Éditez <code>src/App.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>src/App.vue</code> y guarda para probar HMR",
+    }),
+
+    readTheDocs: t({
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 } satisfies Dictionary;
 
 export default appContent;
@@ -167,7 +198,38 @@ import { t } from "intlayer";
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    viteLogo: t({
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    vueLogo: t({
+      en: "Vue logo",
+      fr: "Logo Vue",
+      es: "Logo Vue",
+    }),
+
+    title: "Vite + Vue",
+
+    count: t({
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+
+    edit: t({
+      en: "Edit <code>src/App.vue</code> and save to test HMR",
+      fr: "Éditez <code>src/App.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>src/App.vue</code> y guarda para probar HMR",
+    }),
+
+    readTheDocs: t({
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 };
 
 export default appContent;
@@ -179,7 +241,38 @@ const { t } = require("intlayer");
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    viteLogo: t({
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    vueLogo: t({
+      en: "Vue logo",
+      fr: "Logo Vue",
+      es: "Logo Vue",
+    }),
+
+    title: "Vite + Vue",
+
+    count: t({
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+
+    edit: t({
+      en: "Edit <code>src/App.vue</code> and save to test HMR",
+      fr: "Éditez <code>src/App.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>src/App.vue</code> y guarda para probar HMR",
+    }),
+
+    readTheDocs: t({
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 };
 
 module.exports = appContent;
@@ -189,7 +282,56 @@ module.exports = appContent;
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "app",
-  "content": {}
+  "content": {
+    "viteLogo": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Vite logo",
+        "fr": "Logo Vite",
+        "es": "Logo Vite"
+      }
+    },
+    "vueLogo": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Vue logo",
+        "fr": "Logo Vue",
+        "es": "Logo Vue"
+      }
+    },
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Vite + Vue",
+        "fr": "Vite + Vue",
+        "es": "Vite + Vue"
+      }
+    },
+    "count": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "count is ",
+        "fr": "le compte est ",
+        "es": "el recuento es "
+      }
+    },
+    "edit": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Edit <code>src/App.vue</code> and save to test HMR",
+        "fr": "Éditez <code>src/App.vue</code> et enregistrez pour tester HMR",
+        "es": "Edita <code>src/App.vue</code> y guarda para probar HMR"
+      }
+    },
+    "readTheDocs": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Click on the Vite and Vue logos to learn more",
+        "fr": "Cliquez sur les logos Vite et Vue pour en savoir plus",
+        "es": "Haga clic en los logotipos de Vite y Vue para obtener más información"
+      }
+    }
+  }
 }
 ```
 
@@ -198,27 +340,508 @@ module.exports = appContent;
 
 ### Step 5: Utilize Intlayer in Your Code
 
-[to complete]
+Access your content dictionaries throughout your application by creating a main Vue component and using the Intlayer composables:
+
+```vue fileName="src/App.vue" codeFormat="vue"
+<template>
+  <div id="app">
+    <div>
+      <a href="https://vitejs.dev" target="_blank">
+        <img src="/vite.svg" class="logo" :alt="content.viteLogo.value" />
+      </a>
+      <a href="https://vuejs.org" target="_blank">
+        <img
+          src="./assets/vue.svg"
+          class="logo vue"
+          :alt="content.vueLogo.value"
+        />
+      </a>
+    </div>
+    <h1>{{ content.title }}</h1>
+    <div class="card">
+      <button @click="count++">{{ content.count }}{{ count }}</button>
+      <p v-html="content.edit.value"></p>
+    </div>
+    <p class="read-the-docs">{{ content.readTheDocs }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+import { useIntlayer } from "vue-intlayer";
+
+// Use the useIntlayer composable to access translations
+const content = useIntlayer("app");
+const count = ref(0);
+</script>
+
+<style scoped>
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vue:hover {
+  filter: drop-shadow(0 0 2em #42b883aa);
+}
+</style>
+```
+
+> If you want to use your content in an attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function with `.value`, like:
+>
+> ```vue
+> <img src="./logo.svg" :alt="content.image.value" />
+> ```
+
+To use Intlayer in your Vue application, you need to register the plugin in your main file:
+
+```js fileName="src/main.js" codeFormat="javascript"
+import { createApp } from "vue";
+import App from "./App.vue";
+import "./style.css";
+
+const app = createApp(App);
+
+// Create the app and mount it
+app.mount("#app");
+```
 
 ### (Optional) Step 6: Change the language of your content
 
-[to complete]
+To change the language of your content, you can use the `setLocale` function provided by the `useLocale` composable. This function allows you to set the locale of the application and update the content accordingly.
+
+Create a component to switch between languages:
+
+```vue fileName="src/components/LocaleSwitcher.vue" codeFormat="vue"
+<template>
+  <div class="locale-switcher">
+    <select v-model="selectedLocale" @change="changeLocale">
+      <option v-for="loc in availableLocales" :key="loc" :value="loc">
+        {{ getLocaleName(loc) }}
+      </option>
+    </select>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from "vue";
+import { Locales, getLocaleName } from "intlayer";
+import { useLocale } from "vue-intlayer";
+
+// Get locale information and setLocale function
+const { locale, availableLocales, setLocale } = useLocale();
+
+// Track the selected locale with a ref
+const selectedLocale = ref(locale.value);
+
+// Update the locale when the selection changes
+const changeLocale = () => {
+  setLocale(selectedLocale.value);
+};
+
+// Keep the selectedLocale in sync with the global locale
+watch(
+  () => locale.value,
+  (newLocale) => {
+    selectedLocale.value = newLocale;
+  }
+);
+</script>
+
+<style scoped>
+.locale-switcher {
+  margin: 1rem 0;
+}
+</style>
+```
+
+Then, use this component in your App.vue:
+
+```vue fileName="src/App.vue" codeFormat="vue"
+<template>
+  <div id="app">
+    <!-- Add the LocaleSwitcher component -->
+    <LocaleSwitcher />
+
+    <!-- Rest of your app content -->
+    <!-- ... -->
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+import { useIntlayer } from "vue-intlayer";
+import LocaleSwitcher from "./components/LocaleSwitcher.vue";
+
+const content = useIntlayer("app");
+const count = ref(0);
+</script>
+```
 
 ### (Optional) Step 7: Add localized Routing to your application
 
-[to complete]
+Adding localized routing in a Vue application typically involves using Vue Router with locale prefixes. This makes unique routes for each language, which is useful for SEO and SEO-friendly URLs.
+
+Example:
+
+```
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
+```
+
+First, install Vue Router:
+
+```bash
+npm install vue-router
+```
+
+Then, create a router configuration that handles locale-based routing:
+
+```js fileName="src/router/index.js" codeFormat="javascript"
+import { createRouter, createWebHistory } from "vue-router";
+import { configuration, getPathWithoutLocale } from "intlayer";
+import HomeView from "../views/HomeView.vue";
+import AboutView from "../views/AboutView.vue";
+
+// Get internationalization configuration
+const { internationalization, middleware } = configuration;
+const { locales, defaultLocale } = internationalization;
+
+// Define your routes without locale prefixes
+const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: HomeView,
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: AboutView,
+  },
+];
+
+// Create a function to generate localized routes
+const generateLocalizedRoutes = () => {
+  let allRoutes = [];
+
+  // Add locale prefix to all routes except for default locale when prefixDefault is false
+  locales.forEach((locale) => {
+    // Skip default locale if prefixDefault is false
+    if (!middleware.prefixDefault && locale === defaultLocale) {
+      return;
+    }
+
+    const localizedRoutes = routes.map((route) => {
+      return {
+        ...route,
+        path: `/${locale}${route.path}`,
+        meta: {
+          ...route.meta,
+          locale,
+        },
+      };
+    });
+
+    allRoutes = [...allRoutes, ...localizedRoutes];
+  });
+
+  // If default locale is not prefixed, add routes without locale prefix
+  if (!middleware.prefixDefault) {
+    allRoutes = [
+      ...allRoutes,
+      ...routes.map((route) => ({
+        ...route,
+        meta: {
+          ...route.meta,
+          locale: defaultLocale,
+        },
+      })),
+    ];
+  }
+
+  return allRoutes;
+};
+
+// Create the router instance
+const router = createRouter({
+  history: createWebHistory(),
+  routes: generateLocalizedRoutes(),
+});
+
+// Add navigation guard for locale handling
+router.beforeEach((to, from, next) => {
+  // Extract locale from the path or use default
+  const pathSegments = to.path.split("/").filter(Boolean);
+  const localeFromPath = pathSegments[0];
+
+  // Check if the path starts with a valid locale
+  if (locales.includes(localeFromPath)) {
+    // Valid locale in URL, proceed
+    next();
+  } else if (!middleware.prefixDefault) {
+    // No locale in URL, and we don't prefix default - assume default locale
+    next();
+  } else {
+    // No valid locale, redirect to the path with default locale
+    const pathWithoutLocale = getPathWithoutLocale(to.path);
+    next(`/${defaultLocale}${pathWithoutLocale}${to.search}`);
+  }
+});
+
+export default router;
+```
+
+Then, register the router in your main.js file:
+
+```js fileName="src/main.js" codeFormat="javascript"
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import "./style.css";
+
+const app = createApp(App);
+
+// Add the router to the app
+app.use(router);
+
+// Mount the app
+app.mount("#app");
+```
 
 ### (Optional) Step 8: Change the URL when the locale changes
 
-[to complete]
+To automatically update the URL when the user changes the language, you can modify the `LocaleSwitcher` component to use Vue Router:
+
+```vue fileName="src/components/LocaleSwitcher.vue" codeFormat="vue"
+<template>
+  <div class="locale-switcher">
+    <select v-model="selectedLocale" @change="changeLocale">
+      <option v-for="loc in availableLocales" :key="loc" :value="loc">
+        {{ getLocaleName(loc) }}
+      </option>
+    </select>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import { Locales, getLocaleName, getLocalizedUrl } from "intlayer";
+import { useLocale } from "vue-intlayer";
+
+// Get Vue Router
+const router = useRouter();
+
+// Get locale information and setLocale function
+const { locale, availableLocales, setLocale } = useLocale({
+  onLocaleChange: (newLocale) => {
+    // Get current route and create a localized URL
+    const currentPath = router.currentRoute.value.fullPath;
+    const localizedPath = getLocalizedUrl(currentPath, newLocale);
+
+    // Navigate to the localized route without reloading the page
+    router.push(localizedPath);
+  },
+});
+
+// Track the selected locale with a ref
+const selectedLocale = ref(locale.value);
+
+// Update the locale when the selection changes
+const changeLocale = () => {
+  setLocale(selectedLocale.value);
+};
+
+// Keep the selectedLocale in sync with the global locale
+watch(
+  () => locale.value,
+  (newLocale) => {
+    selectedLocale.value = newLocale;
+  }
+);
+</script>
+
+<style scoped>
+.locale-switcher {
+  margin: 1rem 0;
+}
+</style>
+```
 
 ### (Optional) Step 9: Switch the HTML Language and Direction Attributes
 
-[to complete]
+When your application supports multiple languages, it's important to update the `<html>` tag's `lang` and `dir` attributes to match the current locale:
+
+```js fileName="src/composables/useI18nHTMLAttributes.js" codeFormat="javascript"
+import { watch } from "vue";
+import { useLocale } from "vue-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+/**
+ * Composable that updates the HTML <html> element's `lang` and `dir` attributes
+ * based on the current locale.
+ *
+ * @example
+ * // In your App.vue or a global component
+ * import { useI18nHTMLAttributes } from './composables/useI18nHTMLAttributes'
+ *
+ * useI18nHTMLAttributes()
+ */
+export function useI18nHTMLAttributes() {
+  const { locale } = useLocale();
+
+  // Update the HTML attributes whenever the locale changes
+  watch(
+    () => locale.value,
+    (newLocale) => {
+      if (!newLocale) return;
+
+      // Update the language attribute
+      document.documentElement.lang = newLocale;
+
+      // Set the text direction (ltr for most languages, rtl for Arabic, Hebrew, etc.)
+      document.documentElement.dir = getHTMLTextDir(newLocale);
+    },
+    { immediate: true }
+  );
+}
+```
+
+Use this composable in your App.vue or a global component:
+
+```vue fileName="src/App.vue" codeFormat="vue"
+<script setup>
+import { ref } from "vue";
+import { useIntlayer } from "vue-intlayer";
+import { useI18nHTMLAttributes } from "./composables/useI18nHTMLAttributes";
+import LocaleSwitcher from "./components/LocaleSwitcher.vue";
+
+// Apply the HTML attributes based on the current locale
+useI18nHTMLAttributes();
+
+const content = useIntlayer("app");
+const count = ref(0);
+</script>
+
+<template>
+  <!-- Your app template -->
+</template>
+```
 
 ### (Optional) Step 10: Creating a Localized Link Component
 
-[to complete]
+When working with internationalized applications, it's helpful to have a component that automatically creates links with the correct locale prefix:
+
+```vue fileName="src/components/LocalizedLink.vue" codeFormat="vue"
+<template>
+  <a :href="localizedHref" v-bind="$attrs">
+    <slot></slot>
+  </a>
+</template>
+
+<script setup>
+import { computed } from "vue";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "vue-intlayer";
+
+const props = defineProps({
+  href: {
+    type: String,
+    required: true,
+  },
+});
+
+const { locale } = useLocale();
+
+// Check if the link is external
+const isExternalLink = computed(() => /^https?:\/\//.test(props.href || ""));
+
+// Create a localized href for internal links
+const localizedHref = computed(() =>
+  isExternalLink.value ? props.href : getLocalizedUrl(props.href, locale.value)
+);
+</script>
+```
+
+For use with Vue Router, create a router-specific version:
+
+```vue fileName="src/components/LocalizedRouterLink.vue" codeFormat="vue"
+<template>
+  <router-link :to="localizedTo" v-bind="$attrs">
+    <slot></slot>
+  </router-link>
+</template>
+
+<script setup>
+import { computed } from "vue";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "vue-intlayer";
+
+const props = defineProps({
+  to: {
+    type: [String, Object],
+    required: true,
+  },
+});
+
+const { locale } = useLocale();
+
+// Create localized to-prop for router-link
+const localizedTo = computed(() => {
+  if (typeof props.to === "string") {
+    return getLocalizedUrl(props.to, locale.value);
+  } else {
+    // If 'to' is an object, localize the path property
+    return {
+      ...props.to,
+      path: getLocalizedUrl(props.to.path || "/", locale.value),
+    };
+  }
+});
+</script>
+```
+
+Use these components in your application:
+
+```vue
+<template>
+  <div>
+    <LocalizedLink href="/about">About Us</LocalizedLink>
+    <LocalizedRouterLink to="/contact">Contact</LocalizedRouterLink>
+  </div>
+</template>
+
+<script setup>
+import LocalizedLink from "./components/LocalizedLink.vue";
+import LocalizedRouterLink from "./components/LocalizedRouterLink.vue";
+</script>
+```
+
+### Configure TypeScript
+
+Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
+
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+
+Ensure your TypeScript configuration includes the autogenerated types.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Your existing TypeScript configurations
+  "include": [
+    // ... Your existing TypeScript configurations
+    ".intlayer/**/*.ts", // Include the auto-generated types
+  ],
+}
+```
 
 ### Git Configuration
 

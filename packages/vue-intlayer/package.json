@@ -10,7 +10,9 @@
     "multilingual",
     "i18n",
     "typescript",
-    "vue"
+    "vue",
+    "vite",
+    "json"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
@@ -39,6 +41,16 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./server": {
+      "types": "./dist/types/server/index.d.ts",
+      "require": "./dist/cjs/server/index.cjs",
+      "import": "./dist/esm/server/index.mjs"
+    },
+    "./editor": {
+      "types": "./dist/types/editor/index.d.ts",
+      "require": "./dist/cjs/editor/index.cjs",
+      "import": "./dist/esm/editor/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -56,11 +68,9 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm build:package & pnpm build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "build": "vite build",
     "clean": "rimraf ./dist",
-    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
+    "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
@@ -70,29 +80,38 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@intlayer/chokidar": "workspace:*",
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/core": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
+    "js-cookie": "^3.0.5"
   },
   "devDependencies": {
+    "@intlayer/backend": "workspace:*",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.13.10",
     "@typescript-eslint/parser": "^8.27.0",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
+    "@vitejs/plugin-vue": "^5.2.2",
     "concurrently": "^9.1.2",
     "eslint": "^9.22.0",
+    "fast-glob": "^3.3.3",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.11",
-    "tsup": "^8.4.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vite": "^6.3.1",
+    "vite-plugin-dts": "^4.5.3",
+    "vue": "^3.5.13"
   },
   "peerDependencies": {
-    "@intlayer/chokidar": "workspace:*",
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
+    "intlayer": "workspace:*",
     "vue": "^3.5.13"
   },
   "engines": {

@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from 'vue';
+import { useIntlayer } from 'vue-intlayer';
 
 defineProps({
   msg: String,
 });
 
+const content = useIntlayer('helloworld');
 const count = ref(0);
 </script>
 
@@ -12,28 +14,27 @@ const count = ref(0);
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+    <button type="button" @click="count++">
+      {{ content.count }}{{ count }}
+    </button>
+    <p v-html="content.edit.value"></p>
   </div>
 
   <p>
-    Check out
+    {{ content.checkOut }}
     <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
       >create-vue</a
-    >, the official Vue + Vite starter
+    >, {{ content.officialStarter }}
   </p>
   <p>
-    Learn more about IDE Support for Vue in the
+    {{ content.learnMore }}
     <a
       href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
       target="_blank"
-      >Vue Docs Scaling up Guide</a
+      >{{ content.vueDocs }}</a
     >.
   </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  <p class="read-the-docs">{{ content.readTheDocs }}</p>
 </template>
 
 <style scoped>
