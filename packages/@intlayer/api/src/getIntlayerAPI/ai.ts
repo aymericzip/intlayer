@@ -23,6 +23,7 @@ import type {
   AutocompleteResponse,
   // @ts-ignore: @intlayer/backend is not built yet
   ChatCompletionRequestMessage,
+  // @ts-ignore: @intlayer/backend is not built yet
 } from '@intlayer/backend';
 
 import configuration from '@intlayer/config/built';
