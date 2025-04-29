@@ -28,7 +28,7 @@ export const AsideNavigation: FC = (props) => {
         className="h-full"
         {...props}
       >
-        <aside className="relative h-full max-w-80 px-2 min-w-80">
+        <aside className="relative h-full max-w-80 px-2">
           <Container
             transparency="sm"
             className="sticky top-14 z-10"
@@ -54,7 +54,7 @@ export const AsideNavigation: FC = (props) => {
             </div>
           </Container>
           <div className="flex flex-1 md:sticky max-h-[calc(100vh-8rem)] h-screen md:top-28 md:pt-0 w-full">
-            <MaxWidthSmoother isHidden={isHidden} className="w-full">
+            <MaxWidthSmoother isHidden={isHidden}>
               <div className="pl-5">
                 <NavTitles />
               </div>

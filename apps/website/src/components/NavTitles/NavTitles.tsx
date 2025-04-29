@@ -157,7 +157,7 @@ export const NavTitles: FC = () => {
                 color="text"
                 variant="hoverable"
                 isActive={isActive}
-                className="text-neutral text-wrap p-2 transition-colors"
+                className="text-neutral text-wrap p-2 transition-colors w-80"
               >
                 {h2.innerText}
               </Link>
