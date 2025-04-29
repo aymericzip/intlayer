@@ -5,14 +5,8 @@ import {
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import {
-  type FC,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import { type FC, ReactNode, useEffect, useRef } from 'react';
+import { v4 as uuid } from 'uuid'; // if you prefer a UUID library
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import {
@@ -40,56 +34,56 @@ export const ChatBot: FC<ChatBotProps> = ({
   const { firstMessageContent } = useIntlayer('chat');
   const isFirstRender = useRef(true);
 
-  const firstMessage: ChatCompletionRequestMessage = useMemo(
-    () => ({
-      role: 'system',
-      content: firstMessageContent.content.value,
-    }),
-    [firstMessageContent.content.value]
-  );
+  const firstMessage: ChatCompletionRequestMessage = {
+    role: 'system',
+    content: firstMessageContent.content.value,
+  };
 
+  const [discutionId, setDiscutionId, loadDiscutionId] =
+    usePersistedStore<string>('chat-bot-discution-id');
   const [storedPrompt, setStoredPrompt, loadStoredPrompt] = usePersistedStore<
     ChatCompletionRequestMessage[]
-  >('chat-bot-messages', [firstMessage]);
+  >('chat-bot-messages', []);
   const [relatedFiles, setRelatedFiles, loadRelatedFiles] = usePersistedStore<
     string[]
   >('chat-bot-related-files-keys', []);
 
-  const handleAskNewQuestion = useCallback(
-    (newQuestion: string) => {
-      setStoredPrompt((storedPrompt) => [
-        ...storedPrompt,
-        { role: 'user', content: newQuestion },
+  const handleAskNewQuestion = (newQuestion: string) => {
+    setStoredPrompt((storedPrompt) => [
+      ...storedPrompt,
+      { role: 'user', content: newQuestion },
+    ]);
+
+    const newMessages: ChatCompletionRequestMessage[] = [
+      ...storedPrompt.slice(0, -1),
+      { role: 'user', content: newQuestion },
+    ];
+
+    askDocQuestion({
+      messages: newMessages,
+      discutionId,
+    }).then((response) => {
+      const content = response.data?.response;
+
+      setStoredPrompt(
+        (storedPrompt) =>
+          [
+            ...storedPrompt,
+            { role: 'assistant', content },
+          ] as ChatCompletionRequestMessage[]
+      );
+
+      setRelatedFiles((prev) => [
+        ...new Set([...prev, ...(response.data?.relatedFiles ?? [])]),
       ]);
+    });
+  };
 
-      const newMessages: ChatCompletionRequestMessage[] = [
-        ...storedPrompt.slice(0, -1),
-        { role: 'user', content: newQuestion },
-      ];
-
-      askDocQuestion({ messages: newMessages }).then((response) => {
-        const content = response.data?.response;
-
-        setStoredPrompt(
-          (storedPrompt) =>
-            [
-              ...storedPrompt,
-              { role: 'assistant', content },
-            ] as ChatCompletionRequestMessage[]
-        );
-
-        setRelatedFiles((prev) => [
-          ...new Set([...prev, ...(response.data?.relatedFiles ?? [])]),
-        ]);
-      });
-    },
-    [askDocQuestion, setStoredPrompt, setRelatedFiles, storedPrompt]
-  );
-
-  const handleClear = useCallback(() => {
-    setStoredPrompt([firstMessage]);
+  const handleClear = () => {
+    setDiscutionId(uuid());
+    setStoredPrompt([]);
     setRelatedFiles([]);
-  }, [firstMessage, setStoredPrompt, setRelatedFiles]);
+  };
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -99,15 +93,25 @@ export const ChatBot: FC<ChatBotProps> = ({
 
     if (typeof stateReloaderTrigger === 'undefined') return;
 
+    loadDiscutionId();
     loadStoredPrompt();
     loadRelatedFiles();
-  }, [loadStoredPrompt, loadRelatedFiles, stateReloaderTrigger]);
+  }, [stateReloaderTrigger]);
+
+  useEffect(() => {
+    if (!discutionId) {
+      setDiscutionId(uuid());
+    }
+  }, [discutionId]);
 
   return (
     <div className="flex size-full flex-col items-center justify-between overflow-auto">
       <div className="relative flex size-full flex-auto">
         <div className="absolute inset-0 size-full">
-          <MessagesList storedPrompt={storedPrompt} isLoading={isLoading} />
+          <MessagesList
+            storedPrompt={[firstMessage, ...storedPrompt]}
+            isLoading={isLoading}
+          />
         </div>
       </div>
       <div className="w-full flex-1">

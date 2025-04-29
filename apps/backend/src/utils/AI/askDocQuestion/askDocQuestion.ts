@@ -1,8 +1,8 @@
-import fs from 'fs';
 import { getBlogs } from '@intlayer/blog';
 import { Locales } from '@intlayer/config';
 import { getDocs } from '@intlayer/docs';
 import dotenv from 'dotenv';
+import fs from 'fs';
 import { OpenAI } from 'openai';
 import embeddingsList from './embeddings.json' with { type: 'json' };
 

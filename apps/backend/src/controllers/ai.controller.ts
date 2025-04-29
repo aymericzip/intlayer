@@ -1,8 +1,11 @@
+import { DiscussionModel } from '@/models/discussion.model';
+import type { Dictionary } from '@/types/dictionary.types';
+import type { Tag } from '@/types/tag.types';
 import { type KeyPath } from '@intlayer/core';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
-import { getTagsByKeys } from '@services/tag.service';
 import * as tagService from '@services/tag.service';
+import { getTagsByKeys } from '@services/tag.service';
 import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
 import * as auditContentDeclarationUtil from '@utils/AI/auditDictionary';
 import * as auditContentDeclarationFieldUtil from '@utils/AI/auditDictionaryField';
@@ -13,8 +16,6 @@ import { type AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import type { Locales } from 'intlayer';
-import type { Dictionary } from '@/types/dictionary.types';
-import type { Tag } from '@/types/tag.types';
 
 export type AuditContentDeclarationBody = {
   openAiApiKey?: string;
@@ -303,6 +304,7 @@ export const auditTag = async (
 
 export type AskDocQuestionBody = {
   messages: askDocQuestionUtil.ChatCompletionRequestMessage[];
+  discutionId: string;
 };
 export type AskDocQuestionResult =
   ResponseData<askDocQuestionUtil.AskDocQuestionResult>;
@@ -311,9 +313,30 @@ export const askDocQuestion = async (
   req: Request<undefined, undefined, AskDocQuestionBody>,
   res: ResponseWithInformation<AskDocQuestionResult>
 ) => {
-  const { messages } = req.body;
+  const { messages, discutionId } = req.body;
+  const { user, project, organization } = res.locals;
+
   try {
     const response = await askDocQuestionUtil.askDocQuestion(messages);
+
+    // Store / update the discussion in the database
+    await DiscussionModel.findOneAndUpdate(
+      { discutionId },
+      {
+        $set: {
+          discutionId,
+          userId: user?._id,
+          projectId: project?._id,
+          organizationId: organization?._id,
+          messages: messages.map((msg) => ({
+            role: msg.role,
+            content: msg.content,
+            timestamp: new Date(),
+          })),
+        },
+      },
+      { upsert: true, new: true }
+    );
 
     const responseData =
       formatResponse<askDocQuestionUtil.AskDocQuestionResult>({
