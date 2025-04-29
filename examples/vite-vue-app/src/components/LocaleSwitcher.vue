@@ -10,7 +10,7 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import { Locales, getLocaleName } from 'intlayer';
+import { getLocaleName } from 'intlayer';
 import { useLocale } from 'vue-intlayer';
 
 // Get locale information and setLocale function

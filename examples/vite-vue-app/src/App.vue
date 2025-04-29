@@ -3,6 +3,10 @@ import { useIntlayer } from 'vue-intlayer';
 import HelloWorld from './components/HelloWorld.vue';
 import LocaleSwitcher from './components/LocaleSwitcher.vue';
 import { useI18nHTMLAttributes } from './composables/useI18nHTMLAttributes';
+import { useLocale } from 'vue-intlayer';
+import { ref, watch } from 'vue';
+
+const { locale, availableLocales, setLocale } = useLocale();
 
 // Use the useIntlayer composable to access translations
 const content = useIntlayer('app');

@@ -150,37 +150,34 @@ module.exports = defineConfig({
 
 Create and manage your content declarations to store translations:
 
-```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/helloWorld.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
-const appContent = {
-  key: "app",
+const helloWorldContent = {
+  key: "helloworld",
   content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    vueLogo: t({
-      en: "Vue logo",
-      fr: "Logo Vue",
-      es: "Logo Vue",
-    }),
-
-    title: "Vite + Vue",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
+    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
     edit: t({
-      en: "Edit <code>src/App.vue</code> and save to test HMR",
-      fr: "Éditez <code>src/App.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>src/App.vue</code> y guarda para probar HMR",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
     }),
-
+    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
+    officialStarter: t({
+      en: ", the official Vue + Vite starter",
+      fr: ", le starter officiel Vue + Vite",
+      es: ", el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
     readTheDocs: t({
       en: "Click on the Vite and Vue logos to learn more",
       fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
@@ -189,41 +186,38 @@ const appContent = {
   },
 } satisfies Dictionary;
 
-export default appContent;
+export default helloWorldContent;
 ```
 
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
+```javascript fileName="src/helloWorld.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
+const helloWorldContent = {
+  key: "helloworld",
   content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    vueLogo: t({
-      en: "Vue logo",
-      fr: "Logo Vue",
-      es: "Logo Vue",
-    }),
-
-    title: "Vite + Vue",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
+    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
     edit: t({
-      en: "Edit <code>src/App.vue</code> and save to test HMR",
-      fr: "Éditez <code>src/App.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>src/App.vue</code> y guarda para probar HMR",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
     }),
-
+    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
+    officialStarter: t({
+      en: ", the official Vue + Vite starter",
+      fr: ", le starter officiel Vue + Vite",
+      es: ", el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
     readTheDocs: t({
       en: "Click on the Vite and Vue logos to learn more",
       fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
@@ -232,41 +226,38 @@ const appContent = {
   },
 };
 
-export default appContent;
+export default helloWorldContent;
 ```
 
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
+```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
-  key: "app",
+  key: "helloworld",
   content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    vueLogo: t({
-      en: "Vue logo",
-      fr: "Logo Vue",
-      es: "Logo Vue",
-    }),
-
-    title: "Vite + Vue",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
+    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
     edit: t({
-      en: "Edit <code>src/App.vue</code> and save to test HMR",
-      fr: "Éditez <code>src/App.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>src/App.vue</code> y guarda para probar HMR",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
     }),
-
+    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
+    officialStarter: t({
+      en: ", the official Vue + Vite starter",
+      fr: ", le starter officiel Vue + Vite",
+      es: ", el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
     readTheDocs: t({
       en: "Click on the Vite and Vue logos to learn more",
       fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
@@ -278,35 +269,11 @@ const appContent = {
 module.exports = appContent;
 ```
 
-```json fileName="src/app.content.json" contentDeclarationFormat="json"
+```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
-  "key": "app",
+  "key": "helloworld",
   "content": {
-    "viteLogo": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Vite logo",
-        "fr": "Logo Vite",
-        "es": "Logo Vite"
-      }
-    },
-    "vueLogo": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Vue logo",
-        "fr": "Logo Vue",
-        "es": "Logo Vue"
-      }
-    },
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Vite + Vue",
-        "fr": "Vite + Vue",
-        "es": "Vite + Vue"
-      }
-    },
     "count": {
       "nodeType": "translation",
       "translation": {
@@ -318,9 +285,41 @@ module.exports = appContent;
     "edit": {
       "nodeType": "translation",
       "translation": {
-        "en": "Edit <code>src/App.vue</code> and save to test HMR",
-        "fr": "Éditez <code>src/App.vue</code> et enregistrez pour tester HMR",
-        "es": "Edita <code>src/App.vue</code> y guarda para probar HMR"
+        "en": "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+        "fr": "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+        "es": "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR"
+      }
+    },
+    "checkOut": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Check out ",
+        "fr": "Vérifiez ",
+        "es": "Compruebe "
+      }
+    },
+    "officialStarter": {
+      "nodeType": "translation",
+      "translation": {
+        "en": ", the official Vue + Vite starter",
+        "fr": ", le starter officiel Vue + Vite",
+        "es": ", el starter oficial Vue + Vite"
+      }
+    },
+    "learnMore": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Learn more about IDE Support for Vue in the ",
+        "fr": "En savoir plus sur le support IDE pour Vue dans le ",
+        "es": "Aprenda más sobre el soporte IDE para Vue en el "
+      }
+    },
+    "vueDocs": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Vue Docs Scaling up Guide",
+        "fr": "Vue Docs Scaling up Guide",
+        "es": "Vue Docs Scaling up Guide"
       }
     },
     "readTheDocs": {
@@ -340,40 +339,55 @@ module.exports = appContent;
 
 ### Step 5: Utilize Intlayer in Your Code
 
+To utilize Intlayer's internationalization features throughout your Vue application, you first need to register the Intlayer singleton instance in your main file. This step is crucial as it provides the internationalization context to all components in your application, making translations accessible anywhere in your component tree.
+
+```javascript fileName=main.js
+import { createApp } from "vue";
+import { installIntlayer } from "vue-intlayer";
+import App from "./App.vue";
+import "./style.css";
+
+const app = createApp(App);
+
+// Inject the provider at the top level
+installIntlayer(app); // provide the singleton instance
+
+// Mount the app
+app.mount("#app");
+```
+
 Access your content dictionaries throughout your application by creating a main Vue component and using the Intlayer composables:
 
 ```vue fileName="src/App.vue" codeFormat="vue"
-<template>
-  <div id="app">
-    <div>
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo" :alt="content.viteLogo.value" />
-      </a>
-      <a href="https://vuejs.org" target="_blank">
-        <img
-          src="./assets/vue.svg"
-          class="logo vue"
-          :alt="content.vueLogo.value"
-        />
-      </a>
-    </div>
-    <h1>{{ content.title }}</h1>
-    <div class="card">
-      <button @click="count++">{{ content.count }}{{ count }}</button>
-      <p v-html="content.edit.value"></p>
-    </div>
-    <p class="read-the-docs">{{ content.readTheDocs }}</p>
-  </div>
-</template>
-
 <script setup>
-import { ref } from "vue";
 import { useIntlayer } from "vue-intlayer";
+import HelloWorld from "./components/HelloWorld.vue";
+import LocaleSwitcher from "./components/LocaleSwitcher.vue";
+import { useI18nHTMLAttributes } from "./composables/useI18nHTMLAttributes";
+import { useLocale } from "vue-intlayer";
+import { ref, watch } from "vue";
+
+const { locale, availableLocales, setLocale } = useLocale();
 
 // Use the useIntlayer composable to access translations
 const content = useIntlayer("app");
-const count = ref(0);
+
+// Apply HTML language attributes based on current locale
+useI18nHTMLAttributes();
 </script>
+
+<template>
+  <div>
+    <LocaleSwitcher />
+    <a href="https://vite.dev" target="_blank">
+      <img src="/vite.svg" class="logo" :alt="content.viteLogo" />
+    </a>
+    <a href="https://vuejs.org/" target="_blank">
+      <img src="./assets/vue.svg" class="logo vue" :alt="content.vueLogo" />
+    </a>
+  </div>
+  <HelloWorld :msg="content.title" />
+</template>
 
 <style scoped>
 .logo {
@@ -429,7 +443,7 @@ Create a component to switch between languages:
 
 <script setup>
 import { ref, watch } from "vue";
-import { Locales, getLocaleName } from "intlayer";
+import { getLocaleName } from "intlayer";
 import { useLocale } from "vue-intlayer";
 
 // Get locale information and setLocale function
@@ -456,30 +470,61 @@ watch(
 .locale-switcher {
   margin: 1rem 0;
 }
+select {
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+}
 </style>
 ```
 
 Then, use this component in your App.vue:
 
 ```vue fileName="src/App.vue" codeFormat="vue"
-<template>
-  <div id="app">
-    <!-- Add the LocaleSwitcher component -->
-    <LocaleSwitcher />
+<script setup>
+import { useIntlayer } from "vue-intlayer";
+import HelloWorld from "./components/HelloWorld.vue";
+import LocaleSwitcher from "./components/LocaleSwitcher.vue";
+import { useI18nHTMLAttributes } from "./composables/useI18nHTMLAttributes";
+import { useLocale } from "vue-intlayer";
+import { ref, watch } from "vue";
 
-    <!-- Rest of your app content -->
-    <!-- ... -->
+const { locale, availableLocales, setLocale } = useLocale();
+
+// Use the useIntlayer composable to access translations
+const content = useIntlayer("app");
+
+// Apply HTML language attributes based on current locale
+useI18nHTMLAttributes();
+</script>
+
+<template>
+  <div>
+    <LocaleSwitcher />
+    <a href="https://vite.dev" target="_blank">
+      <img src="/vite.svg" class="logo" :alt="content.viteLogo" />
+    </a>
+    <a href="https://vuejs.org/" target="_blank">
+      <img src="./assets/vue.svg" class="logo vue" :alt="content.vueLogo" />
+    </a>
   </div>
+  <HelloWorld :msg="content.title" />
 </template>
 
-<script setup>
-import { ref } from "vue";
-import { useIntlayer } from "vue-intlayer";
-import LocaleSwitcher from "./components/LocaleSwitcher.vue";
-
-const content = useIntlayer("app");
-const count = ref(0);
-</script>
+<style scoped>
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vue:hover {
+  filter: drop-shadow(0 0 2em #42b883aa);
+}
+</style>
 ```
 
 ### (Optional) Step 7: Add localized Routing to your application

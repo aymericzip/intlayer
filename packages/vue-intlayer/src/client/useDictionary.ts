@@ -1,14 +1,19 @@
 import type { LocalesValues } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
-import { computed, ref } from 'vue';
+import { computed, inject } from 'vue';
+import { INTLAYER_SYMBOL } from '../constants';
 import { getDictionary } from '../getDictionary';
+import { IntlayerProvider } from '../types/intlayer';
 
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,
   locale?: LocalesValues
 ) => {
-  const currentLocale = ref<LocalesValues>();
-  const localeTarget = computed(() => locale ?? currentLocale.value);
+  const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
-  return getDictionary<T, LocalesValues>(dictionary, localeTarget.value);
+  const localeTarget = computed(() => locale ?? intlayer?.locale.value);
+
+  return computed(() =>
+    getDictionary<T, LocalesValues>(dictionary, localeTarget.value)
+  );
 };
