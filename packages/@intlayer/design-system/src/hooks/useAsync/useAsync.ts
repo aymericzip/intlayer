@@ -225,6 +225,7 @@ export const useAsync = <
           }
         })
         .catch((error) => {
+          console.error({ error });
           const msg = error instanceof Error ? error.message : String(error);
 
           makeQueryInError(keyWithArgs, msg);

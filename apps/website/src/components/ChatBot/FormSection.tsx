@@ -64,7 +64,7 @@ export const FormSection: FC<FormSectionProps> = ({
           }
         }
       />
-      <div className="ml-auto flex items-center gap-2 max-md:w-full">
+      <div className="ml-auto flex items-center gap-2 max-md:w-full justify-between">
         {additionalButtons}
         {nbMessages > 1 && (
           <Form.Button
@@ -73,7 +73,6 @@ export const FormSection: FC<FormSectionProps> = ({
             color="text"
             variant="outline"
             size="icon-md"
-            className="max-md:w-full"
             disabled={isSubmitting}
             Icon={Eraser}
             onClick={handleClear}

@@ -261,6 +261,10 @@ export type AskDocQuestionResult = {
   relatedFiles: string[];
 };
 
+export type AskDocQuestionOptions = {
+  onMessage?: (chunk: string) => void;
+};
+
 /**
  * Handles the "Ask a question" endpoint in an Express.js route.
  * Processes user messages, retrieves relevant documents, and interacts with OpenAI's chat API to generate responses.
@@ -269,7 +273,8 @@ export type AskDocQuestionResult = {
  * @returns The assistant's response as a string
  */
 export const askDocQuestion = async (
-  messages: ChatCompletionRequestMessage[]
+  messages: ChatCompletionRequestMessage[],
+  options?: AskDocQuestionOptions
 ): Promise<AskDocQuestionResult> => {
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -309,9 +314,17 @@ export const askDocQuestion = async (
     model: MODEL,
     temperature: MODEL_TEMPERATURE,
     messages: messagesList,
+    stream: true,
   });
 
-  const result = response.choices[0].message.content; // Extract the assistant's reply
+  let fullResponse = '';
+  for await (const chunk of response) {
+    const content = chunk.choices[0]?.delta?.content || '';
+    if (content) {
+      fullResponse += content;
+      options?.onMessage?.(content);
+    }
+  }
 
   // 4) Extract unique related files
   const relatedFiles = [
@@ -320,7 +333,7 @@ export const askDocQuestion = async (
 
   // 5) Return the assistant's response to the user
   return {
-    response: result ?? 'Error: No result found',
+    response: fullResponse ?? 'Error: No result found',
     relatedFiles,
   };
 };

@@ -316,38 +316,56 @@ export const askDocQuestion = async (
   const { messages, discutionId } = req.body;
   const { user, project, organization } = res.locals;
 
-  try {
-    const response = await askDocQuestionUtil.askDocQuestion(messages);
+  // 1. Prepare SSE headers and flush them NOW
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no'); // disable nginx buffering
+  res.flushHeaders?.();
+  res.write(': connected\n\n'); // initial comment keeps some browsers happy
+  res.flush?.();
 
-    // Store / update the discussion in the database
-    await DiscussionModel.findOneAndUpdate(
-      { discutionId },
-      {
-        $set: {
-          discutionId,
-          userId: user?._id,
-          projectId: project?._id,
-          organizationId: organization?._id,
-          messages: messages.map((msg) => ({
-            role: msg.role,
-            content: msg.content,
-            timestamp: new Date(),
-          })),
-        },
+  // 2. Kick off the upstream stream WITHOUT awaiting it
+  askDocQuestionUtil
+    .askDocQuestion(messages, {
+      onMessage: (chunk) => {
+        res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
+        res.flush?.();
       },
-      { upsert: true, new: true }
-    );
+    })
+    .then(async (fullResponse) => {
+      // 3. Persist discussion while the client already has all chunks
+      await DiscussionModel.findOneAndUpdate(
+        { discutionId },
+        {
+          $set: {
+            discutionId,
+            userId: user?._id,
+            projectId: project?._id,
+            organizationId: organization?._id,
+            messages: messages.map((msg) => ({
+              role: msg.role,
+              content: msg.content,
+              timestamp: new Date(),
+            })),
+          },
+        },
+        { upsert: true, new: true }
+      );
 
-    const responseData =
-      formatResponse<askDocQuestionUtil.AskDocQuestionResult>({
-        data: response,
-      });
-
-    res.json(responseData);
-  } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
-  }
+      // 4. Tell the client we’re done and close the stream
+      res.write(
+        `data: ${JSON.stringify({ done: true, response: fullResponse })}\n\n`
+      );
+      res.end();
+    })
+    .catch((err) => {
+      // propagate error as an SSE event so the client knows why it closed
+      res.write(
+        `event: error\ndata: ${JSON.stringify({ message: err.message })}\n\n`
+      );
+      res.end();
+    });
 };
 
 export type AutocompleteBody = {

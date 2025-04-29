@@ -5,7 +5,7 @@ import {
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, ReactNode, useEffect, useRef } from 'react';
+import { type FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid'; // if you prefer a UUID library
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
@@ -13,6 +13,33 @@ import {
   type ChatCompletionRequestMessage,
   MessagesList,
 } from './MessagesList';
+
+type AskDocQuestionResult =
+  | {
+      success: boolean;
+      status: number;
+      data: {
+        response: string;
+        relatedFiles: string[];
+      } | null;
+      message?: string;
+      description?: string;
+      error?:
+        | {
+            code: string;
+            title: string;
+            message: string;
+          }
+        | Array<{
+            code: string;
+            title: string;
+            message: string;
+          }>;
+    }
+  | {
+      response: string;
+      relatedFiles: string[];
+    };
 
 export type StoredValue = {
   question: string | undefined;
@@ -33,6 +60,7 @@ export const ChatBot: FC<ChatBotProps> = ({
   const { isLoading, askDocQuestion } = useAskDocQuestion();
   const { firstMessageContent } = useIntlayer('chat');
   const isFirstRender = useRef(true);
+  const [currentResponse, setCurrentResponse] = useState('');
 
   const firstMessage: ChatCompletionRequestMessage = {
     role: 'system',
@@ -49,33 +77,45 @@ export const ChatBot: FC<ChatBotProps> = ({
   >('chat-bot-related-files-keys', []);
 
   const handleAskNewQuestion = (newQuestion: string) => {
+    setCurrentResponse('');
     setStoredPrompt((storedPrompt) => [
       ...storedPrompt,
-      { role: 'user', content: newQuestion },
+      { role: 'user' as const, content: newQuestion },
     ]);
 
     const newMessages: ChatCompletionRequestMessage[] = [
       ...storedPrompt.slice(0, -1),
-      { role: 'user', content: newQuestion },
+      { role: 'user' as const, content: newQuestion },
     ];
 
     askDocQuestion({
       messages: newMessages,
       discutionId,
-    }).then((response) => {
-      const content = response.data?.response;
+      onMessage: (chunk: string) => setCurrentResponse((prev) => prev + chunk),
+      onDone: (response: AskDocQuestionResult) => {
+        const responseData = 'data' in response ? response.data : response;
 
-      setStoredPrompt(
-        (storedPrompt) =>
-          [
-            ...storedPrompt,
-            { role: 'assistant', content },
-          ] as ChatCompletionRequestMessage[]
-      );
+        if (!responseData?.response) {
+          console.error('Invalid response format:', response);
+          return;
+        }
 
-      setRelatedFiles((prev) => [
-        ...new Set([...prev, ...(response.data?.relatedFiles ?? [])]),
-      ]);
+        setStoredPrompt((storedPrompt) => [
+          ...storedPrompt,
+          {
+            role: 'assistant' as const,
+            content: responseData.response,
+          },
+        ]);
+        setRelatedFiles((prev) => [
+          ...new Set([...prev, ...(responseData.relatedFiles ?? [])]),
+        ]);
+        setCurrentResponse('');
+      },
+    }).catch((error) => {
+      console.error('Error in askDocQuestion:', error);
+      setCurrentResponse('');
+      // You might want to show an error toast here
     });
   };
 
@@ -83,6 +123,7 @@ export const ChatBot: FC<ChatBotProps> = ({
     setDiscutionId(uuid());
     setStoredPrompt([]);
     setRelatedFiles([]);
+    setCurrentResponse('');
   };
 
   useEffect(() => {
@@ -109,7 +150,13 @@ export const ChatBot: FC<ChatBotProps> = ({
       <div className="relative flex size-full flex-auto">
         <div className="absolute inset-0 size-full">
           <MessagesList
-            storedPrompt={[firstMessage, ...storedPrompt]}
+            storedPrompt={[
+              firstMessage,
+              ...storedPrompt,
+              ...(currentResponse
+                ? [{ role: 'assistant' as const, content: currentResponse }]
+                : []),
+            ]}
             isLoading={isLoading}
           />
         </div>
