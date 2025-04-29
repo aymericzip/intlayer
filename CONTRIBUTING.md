@@ -26,6 +26,91 @@ npm i -g pnpm@10.6.3
 pnpm install
 ```
 
+##### Tips
+
+If you're only working on a specific example (`vite-react-app`, `nextjs-14-app`, etc.), you can install only the necessary dependencies.  
+This prevents installing docs, backend apps, and all other frameworks you're not working with.
+
+✅ Example: Install only the root package, utils, `react-intlayer`, and the `vite-react-app` example
+
+```bash
+pnpm install \
+  -F . \
+  -F ./utils/ts-config \
+  -F ./utils/ts-config-types \
+  -F ./utils/tsup-config \
+  -F ./utils/eslint-config \
+  -F ./packages/react-intlayer \
+  -F ./examples/vite-react-app
+```
+
+> 📦 `-F` is the short form for `--filter`, used to limit installation to selected packages only.
+
+##### Packages List
+
+###### 🛠 Core repository
+
+- `.` (root `package.json`)
+- `utils/ts-config`
+- `utils/ts-config-types`
+- `utils/tsup-config`
+- `utils/eslint-config`
+
+###### Official Packages
+
+- `packages/svelte-intlayer`
+- `packages/solid-intlayer`
+- `packages/vite-intlayer`
+- `packages/vue-intlayer`
+- `packages/express-intlayer`
+- `packages/preact-intlayer`
+- `packages/react-scripts-intlayer`
+- `packages/angular-intlayer`
+- `packages/react-native-intlayer`
+- `packages/intlayer`
+- `packages/next-intlayer`
+- `packages/lynx-intlayer`
+- `packages/react-intlayer`
+- `packages/intlayer-editor`
+- `packages/intlayer-cli`
+
+###### Intlayer Internal Packages (`@intlayer/`)
+
+- `packages/@intlayer/core`
+- `packages/@intlayer/config`
+- `packages/@intlayer/chokidar`
+- `packages/@intlayer/dictionaries-entry`
+- `packages/@intlayer/cli`
+- `packages/@intlayer/editor-react`
+- `packages/@intlayer/webpack`
+- `packages/@intlayer/api`
+- `packages/@intlayer/design-system`
+- `packages/@intlayer/editor`
+
+###### ⚡ Applications
+
+- `apps/website`
+- `apps/backend`
+
+###### Documentation & Blog
+
+- `docs/`
+- `blog/`
+
+###### Examples
+
+- `examples/vite-solid-app`
+- `examples/react-app`
+- `examples/vite-vue-app`
+- `examples/vite-svelte-app`
+- `examples/vite-preact-app`
+- `examples/vite-react-app`
+- `examples/react-native-app`
+- `examples/express-app`
+- `examples/cli/`
+- `examples/nextjs-14-app`
+- `examples/nextjs-15-app`
+
 ### Development mode
 
 > If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
