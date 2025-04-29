@@ -1,12 +1,11 @@
 'use client';
 
 import {
-  type FC,
-  useRef,
-  useEffect,
   type ChangeEventHandler,
+  type FC,
+  useEffect,
   useImperativeHandle,
-  useCallback,
+  useRef,
 } from 'react';
 import { cn } from '../../utils/cn';
 import { type TextAreaProps, TextArea } from './TextArea';
@@ -31,7 +30,7 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
 
   useImperativeHandle(ref, () => textAreaRef.current!);
 
-  const adjustHeight = useCallback(() => {
+  const adjustHeight = () => {
     const textAreaEl = textAreaRef.current;
 
     if (!textAreaEl || !autoSize) return;
@@ -47,7 +46,7 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
     // Set the new height
     textAreaStyle.height =
       Math.max(Math.min(scrollHeight, maxHeight), minHeight) + 'px';
-  }, [autoSize, maxRows]);
+  };
 
   useEffect(() => {
     adjustHeight();
@@ -58,15 +57,12 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
     adjustHeight();
   };
 
-  const setRef = useCallback(
-    (el: HTMLTextAreaElement | null) => {
-      textAreaRef.current = el;
-      if (el) {
-        adjustHeight();
-      }
-    },
-    [adjustHeight]
-  );
+  const setRef = (el: HTMLTextAreaElement | null) => {
+    textAreaRef.current = el;
+    if (el) {
+      adjustHeight();
+    }
+  };
 
   return (
     <TextArea
