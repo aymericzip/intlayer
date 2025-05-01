@@ -397,12 +397,6 @@ const count = ref(0);
   </p>
   <p class="read-the-docs">{{ content.readTheDocs }}</p>
 </template>
-
-<style scoped>
-.read-the-docs {
-  color: #888;
-}
-</style>
 ```
 
 > If you want to use your content in an attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function with `.value`, like:
@@ -450,17 +444,6 @@ watch(
   }
 );
 </script>
-
-<style scoped>
-.locale-switcher {
-  margin: 1rem 0;
-}
-select {
-  padding: 0.5rem;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-</style>
 ```
 
 Then, use this component in your App.vue:
@@ -487,21 +470,6 @@ const content = useIntlayer("app"); // Create related intlayer declaration file
   </div>
   <HelloWorld :msg="content.title" />
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
 ```
 
 ### (Optional) Step 7: Add localized Routing to your application
@@ -621,8 +589,9 @@ app.mount("#app");
 
 Then update your `App.vue` file to render the RouterView component. This component will display the matched component for the current route.
 
+```vue
 <script setup>
-import LocaleSwitcher from '@components/LocaleSwitcher.vue';
+import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </script>
 
 <template>
@@ -631,19 +600,42 @@ import LocaleSwitcher from '@components/LocaleSwitcher.vue';
   </nav>
   <RouterView />
 </template>
+```
 
-<style>
-nav {
-  position: fixed;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  top: 0;
-  left: 0;
-  gap: 2rem;
-  margin-top: 1rem;
-}
-</style>
+In parallel, you can also use the `intLayerMiddlewarePlugin` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+
+```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue(), intlayerPlugin(), intLayerMiddlewarePlugin()],
+});
+```
+
+```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue(), intlayerPlugin(), intLayerMiddlewarePlugin()],
+});
+```
+
+```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
+const { defineConfig } = require("vite");
+const vue = require("@vitejs/plugin-vue");
+const { intlayerPlugin, intLayerMiddlewarePlugin } = require("vite-intlayer");
+
+// https://vitejs.dev/config/
+module.exports = defineConfig({
+  plugins: [vue(), intlayerPlugin(), intLayerMiddlewarePlugin()],
+});
+```
 
 ### (Optional) Step 8: Change the URL when the locale changes
 

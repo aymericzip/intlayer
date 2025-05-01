@@ -1000,7 +1000,7 @@ export default defineConfig({
 });
 ```
 
-```javascript {5,10} fileName="vite.config.cjs" codeFormat="commonjs"
+```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
 const { intlayerPlugin, intLayerMiddlewarePlugin } = require("vite-intlayer");
