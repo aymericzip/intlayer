@@ -1,7 +1,7 @@
 import { t, type Dictionary } from 'intlayer';
 
 const appContent = {
-  key: 'app',
+  key: 'root',
   content: {
     viteLogo: t({
       en: 'Vite logo',

@@ -8,7 +8,7 @@ type Dictionary<T = undefined> = DictionaryCore<T, true>;
  */
 type DeclarationContent<T = undefined> = Dictionary<T>;
 
-export type { Dictionary, DeclarationContent };
+export type { DeclarationContent, Dictionary };
 
 /**
  * Rexport using named import because πof Tsup bug in CJS
@@ -21,34 +21,35 @@ const getConfiguration = () => configuration;
 export { configuration, getConfiguration, IntlayerConfig };
 
 export {
-  type LanguageContent,
-  type ContentNode,
-  getLocaleName,
-  enu,
   cond,
-  md,
-  t,
-  nest,
-  insert,
+  enu,
+  getDictionary,
   getEnumeration,
   /**
    * @deprecated Use `getEnumeration` instead.
    */
   getEnumeration as getEnumerationContent,
-  getDictionary,
+  getHTMLTextDir,
   getIntlayer,
   getIntlayerAsync,
+  getLocaleLang,
+  getLocaleName,
+  getLocalizedUrl,
+  getMultilingualUrls,
+  getNesting,
+  getPathWithoutLocale,
   getTranslation,
   /**
    * @deprecated Use `getTranslation` instead.
    */
   getTranslation as getTranslationContent,
-  getNesting,
-  getLocaleLang,
-  getHTMLTextDir,
-  getPathWithoutLocale,
-  getMultilingualUrls,
-  getLocalizedUrl,
+  insert,
   localeList,
+  localeMapper,
+  md,
+  nest,
+  t,
+  type ContentNode,
+  type LanguageContent,
 } from '@intlayer/core';
 export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser

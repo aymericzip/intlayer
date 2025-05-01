@@ -1,9 +1,9 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
 import { localeList } from '@intlayer/core';
-import { computed, inject, ref, watch } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { INTLAYER_SYMBOL } from '../constants';
-import type { IntlayerProvider } from '../types/intlayer';
+import { IntlayerProvider } from './createIntlayerClient';
 import { useLocaleCookie } from './useLocaleCookie';
 
 type useLocaleProps = {
@@ -21,19 +21,6 @@ export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
 
   // Create a reactive reference for the locale
   const currentLocale = ref(intlayer?.locale?.value ?? defaultLocale);
-
-  // Watch for changes in the intlayer locale and update our local state
-  if (intlayer?.locale) {
-    watch(
-      () => intlayer.locale.value,
-      (newLocale) => {
-        if (newLocale) {
-          currentLocale.value = newLocale;
-        }
-      },
-      { immediate: true }
-    );
-  }
 
   // Exported computed value based on our local reactive reference
   const locale = computed(() => currentLocale.value);

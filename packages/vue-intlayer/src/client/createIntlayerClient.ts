@@ -1,30 +1,38 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
-import { ref } from 'vue';
+import { type App, readonly, ref } from 'vue';
 import { INTLAYER_SYMBOL } from '../constants';
-import type { IntlayerProvider } from '../types/intlayer';
 
 /**
  * Singleton instance
  */
 let instance: IntlayerProvider | null = null;
 
+export interface IntlayerProvider {
+  locale: {
+    value: LocalesValues;
+  };
+  setLocale: (locale: LocalesValues) => void;
+}
+
 /**
  * Create and return a single IntlayerProvider instance
  */
-export const createIntlayerClient = (): IntlayerProvider => {
+export const createIntlayerClient = (
+  locale?: LocalesValues
+): IntlayerProvider => {
   if (instance) return instance;
 
   const { defaultLocale } = configuration.internationalization ?? {};
 
-  const locale = ref<LocalesValues>(defaultLocale);
+  const targetLocale = ref<LocalesValues>(locale ?? defaultLocale);
 
   const setLocale = (newLocale: LocalesValues) => {
-    locale.value = newLocale;
+    targetLocale.value = newLocale;
   };
 
   instance = {
-    locale,
+    locale: readonly(targetLocale),
     setLocale,
   };
 
@@ -34,7 +42,7 @@ export const createIntlayerClient = (): IntlayerProvider => {
 /**
  * Helper to install the Intlayer provider into the app
  */
-export const installIntlayer = (app: any) => {
-  const client = createIntlayerClient();
+export const installIntlayer = (app: App, locale?: LocalesValues) => {
+  const client = createIntlayerClient(locale);
   app.provide(INTLAYER_SYMBOL, client);
 };

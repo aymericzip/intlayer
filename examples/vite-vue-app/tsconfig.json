@@ -18,8 +18,13 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@views/*": ["./src/views/*"]
+    }
   },
-  "include": ["**/*", ".intlayer/**/*.ts"],
+  "include": ["**/*", "shims-vue.d.ts", ".intlayer/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

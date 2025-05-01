@@ -358,7 +358,7 @@ app.mount("#app");
 
 Access your content dictionaries throughout your application by creating a main Vue component and using the Intlayer composables:
 
-```vue fileName="src/App.vue" codeFormat="vue"
+```vue fileName="src/App.vue"
 <script setup>
 import { useIntlayer } from "vue-intlayer";
 import HelloWorld from "./components/HelloWorld.vue";
@@ -413,7 +413,7 @@ useI18nHTMLAttributes();
 
 To use Intlayer in your Vue application, you need to register the plugin in your main file:
 
-```js fileName="src/main.js" codeFormat="javascript"
+```js fileName="src/main.ts"
 import { createApp } from "vue";
 import App from "./App.vue";
 import "./style.css";
@@ -430,7 +430,7 @@ To change the language of your content, you can use the `setLocale` function pro
 
 Create a component to switch between languages:
 
-```vue fileName="src/components/LocaleSwitcher.vue" codeFormat="vue"
+```vue fileName="src/components/LocaleSwitcher.vue"
 <template>
   <div class="locale-switcher">
     <select v-model="selectedLocale" @change="changeLocale">
@@ -480,7 +480,7 @@ select {
 
 Then, use this component in your App.vue:
 
-```vue fileName="src/App.vue" codeFormat="vue"
+```vue fileName="src/App.vue"
 <script setup>
 import { useIntlayer } from "vue-intlayer";
 import HelloWorld from "./components/HelloWorld.vue";
@@ -533,7 +533,7 @@ Adding localized routing in a Vue application typically involves using Vue Route
 
 Example:
 
-```
+```plaintext
 - https://example.com/about
 - https://example.com/es/about
 - https://example.com/fr/about
@@ -547,104 +547,74 @@ npm install vue-router
 
 Then, create a router configuration that handles locale-based routing:
 
-```js fileName="src/router/index.js" codeFormat="javascript"
-import { createRouter, createWebHistory } from "vue-router";
-import { configuration, getPathWithoutLocale } from "intlayer";
-import HomeView from "../views/HomeView.vue";
-import AboutView from "../views/AboutView.vue";
+```js fileName="src/router/index.ts"
+import {
+  configuration,
+  getPathWithoutLocale,
+  localeMapper,
+  Locales,
+} from 'intlayer';
+import { createIntlayerClient } from 'vue-intlayer';
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from './views/home/HomeView.vue';
+import RootView from './views/root/Root.vue';
 
 // Get internationalization configuration
 const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
+const { defaultLocale } = internationalization;
 
-// Define your routes without locale prefixes
-const routes = [
+const routes = localeMapper((localizedData) => [
   {
-    path: "/",
-    name: "Home",
+    path: `/${localizedData.urlPrefix}/`,
+    name: `${localizedData.locale}-Root`,
+    component: RootView,
+    meta: {
+      locale: localizedData.locale,
+    },
+  },
+  {
+    path: `/${localizedData.urlPrefix}/home`,
+    name: `${localizedData.locale}-Home`,
     component: HomeView,
+    meta: {
+      locale: localizedData.locale,
+    },
   },
-  {
-    path: "/about",
-    name: "About",
-    component: AboutView,
-  },
-];
-
-// Create a function to generate localized routes
-const generateLocalizedRoutes = () => {
-  let allRoutes = [];
-
-  // Add locale prefix to all routes except for default locale when prefixDefault is false
-  locales.forEach((locale) => {
-    // Skip default locale if prefixDefault is false
-    if (!middleware.prefixDefault && locale === defaultLocale) {
-      return;
-    }
-
-    const localizedRoutes = routes.map((route) => {
-      return {
-        ...route,
-        path: `/${locale}${route.path}`,
-        meta: {
-          ...route.meta,
-          locale,
-        },
-      };
-    });
-
-    allRoutes = [...allRoutes, ...localizedRoutes];
-  });
-
-  // If default locale is not prefixed, add routes without locale prefix
-  if (!middleware.prefixDefault) {
-    allRoutes = [
-      ...allRoutes,
-      ...routes.map((route) => ({
-        ...route,
-        meta: {
-          ...route.meta,
-          locale: defaultLocale,
-        },
-      })),
-    ];
-  }
-
-  return allRoutes;
-};
+]);
 
 // Create the router instance
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(),
-  routes: generateLocalizedRoutes(),
+  routes: routes.flat(),
 });
 
 // Add navigation guard for locale handling
-router.beforeEach((to, from, next) => {
-  // Extract locale from the path or use default
-  const pathSegments = to.path.split("/").filter(Boolean);
-  const localeFromPath = pathSegments[0];
+router.beforeEach((to, _from, next) => {
+  const client = createIntlayerClient();
 
-  // Check if the path starts with a valid locale
-  if (locales.includes(localeFromPath)) {
-    // Valid locale in URL, proceed
-    next();
-  } else if (!middleware.prefixDefault) {
-    // No locale in URL, and we don't prefix default - assume default locale
+  const metaLocale = to.meta.locale as Locales | undefined;
+
+  if (metaLocale) {
+    // Reuse the locale defined in the route meta
+    client.setLocale(metaLocale);
     next();
   } else {
-    // No valid locale, redirect to the path with default locale
-    const pathWithoutLocale = getPathWithoutLocale(to.path);
-    next(`/${defaultLocale}${pathWithoutLocale}${to.search}`);
+    // Fallback: no locale in meta, possibly unmatched route
+    // Optional: handle 404 or redirect to default locale
+    client.setLocale(defaultLocale);
+
+    if (middleware.prefixDefault) {
+      next(`/${defaultLocale}${getPathWithoutLocale(to.path)}`);
+    } else {
+      next(getPathWithoutLocale(to.path));
+    }
   }
 });
-
-export default router;
 ```
 
 Then, register the router in your main.js file:
 
-```js fileName="src/main.js" codeFormat="javascript"
+```js fileName="src/main.ts"
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -663,7 +633,7 @@ app.mount("#app");
 
 To automatically update the URL when the user changes the language, you can modify the `LocaleSwitcher` component to use Vue Router:
 
-```vue fileName="src/components/LocaleSwitcher.vue" codeFormat="vue"
+```vue fileName="src/components/LocaleSwitcher.vue"
 <template>
   <div class="locale-switcher">
     <select v-model="selectedLocale" @change="changeLocale">
@@ -723,7 +693,7 @@ watch(
 
 When your application supports multiple languages, it's important to update the `<html>` tag's `lang` and `dir` attributes to match the current locale:
 
-```js fileName="src/composables/useI18nHTMLAttributes.js" codeFormat="javascript"
+```js fileName="src/composables/useI18nHTMLAttributes.ts"
 import { watch } from "vue";
 import { useLocale } from "vue-intlayer";
 import { getHTMLTextDir } from "intlayer";
@@ -760,7 +730,7 @@ export function useI18nHTMLAttributes() {
 
 Use this composable in your App.vue or a global component:
 
-```vue fileName="src/App.vue" codeFormat="vue"
+```vue fileName="src/App.vue"
 <script setup>
 import { ref } from "vue";
 import { useIntlayer } from "vue-intlayer";
@@ -783,7 +753,7 @@ const count = ref(0);
 
 When working with internationalized applications, it's helpful to have a component that automatically creates links with the correct locale prefix:
 
-```vue fileName="src/components/LocalizedLink.vue" codeFormat="vue"
+```vue fileName="src/components/LocalizedLink.vue"
 <template>
   <a :href="localizedHref" v-bind="$attrs">
     <slot></slot>
@@ -816,7 +786,7 @@ const localizedHref = computed(() =>
 
 For use with Vue Router, create a router-specific version:
 
-```vue fileName="src/components/LocalizedRouterLink.vue" codeFormat="vue"
+```vue fileName="src/components/LocalizedRouterLink.vue"
 <template>
   <router-link :to="localizedTo" v-bind="$attrs">
     <slot></slot>

@@ -1,9 +1,10 @@
-export { getLocaleName } from './getLocaleName';
 export { getHTMLTextDir } from './getHTMLTextDir';
 export { getLocaleLang } from './getLocaleLang';
-export { localeList } from './localeList';
-export { localeResolver } from './localeResolver';
-export { localeDetector } from './localeDetector';
-export { getPathWithoutLocale } from './getPathWithoutLocale';
-export { getMultilingualUrls } from './getMultilingualUrls';
+export { getLocaleName } from './getLocaleName';
 export { getLocalizedUrl } from './getLocalizedUrl';
+export { getMultilingualUrls } from './getMultilingualUrls';
+export { getPathWithoutLocale } from './getPathWithoutLocale';
+export { localeDetector } from './localeDetector';
+export { localeList } from './localeList';
+export { localeMapper } from './localeMapper';
+export { localeResolver } from './localeResolver';
