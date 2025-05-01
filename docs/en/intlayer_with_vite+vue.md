@@ -204,9 +204,9 @@ const helloWorldContent = {
     }),
     checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
     officialStarter: t({
-      en: ", the official Vue + Vite starter",
-      fr: ", le starter officiel Vue + Vite",
-      es: ", el starter oficial Vue + Vite",
+      en: "the official Vue + Vite starter",
+      fr: "le starter officiel Vue + Vite",
+      es: "el starter oficial Vue + Vite",
     }),
     learnMore: t({
       en: "Learn more about IDE Support for Vue in the ",
@@ -244,9 +244,9 @@ const appContent = {
     }),
     checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
     officialStarter: t({
-      en: ", the official Vue + Vite starter",
-      fr: ", le starter officiel Vue + Vite",
-      es: ", el starter oficial Vue + Vite",
+      en: "the official Vue + Vite starter",
+      fr: "le starter officiel Vue + Vite",
+      es: "el starter oficial Vue + Vite",
     }),
     learnMore: t({
       en: "Learn more about IDE Support for Vue in the ",
@@ -301,9 +301,9 @@ module.exports = appContent;
     "officialStarter": {
       "nodeType": "translation",
       "translation": {
-        "en": ", the official Vue + Vite starter",
-        "fr": ", le starter officiel Vue + Vite",
-        "es": ", el starter oficial Vue + Vite"
+        "en": "the official Vue + Vite starter",
+        "fr": "le starter officiel Vue + Vite",
+        "es": "el starter oficial Vue + Vite"
       }
     },
     "learnMore": {
@@ -350,57 +350,57 @@ import "./style.css";
 const app = createApp(App);
 
 // Inject the provider at the top level
-installIntlayer(app); // provide the singleton instance
+installIntlayer(app);
 
 // Mount the app
 app.mount("#app");
 ```
 
-Access your content dictionaries throughout your application by creating a main Vue component and using the Intlayer composables:
+Access your content dictionaries throughout your application by creating a main Vue component and using the `useIntlayer` composables:
 
-```vue fileName="src/App.vue"
+```vue fileName="src/HelloWord.vue"
 <script setup>
+import { ref } from "vue";
 import { useIntlayer } from "vue-intlayer";
-import HelloWorld from "@components/HelloWorld.vue";
-import LocaleSwitcher from "@components/LocaleSwitcher.vue";
-import { useI18nHTMLAttributes } from "./composables/useI18nHTMLAttributes";
-import { useLocale } from "vue-intlayer";
-import { ref, watch } from "vue";
 
-const { locale, availableLocales, setLocale } = useLocale();
+defineProps({
+  msg: String,
+});
 
-// Use the useIntlayer composable to access translations
-const content = useIntlayer("app");
-
-// Apply HTML language attributes based on current locale
-useI18nHTMLAttributes();
+const content = useIntlayer("helloworld");
+const count = ref(0);
 </script>
 
 <template>
-  <div>
-    <LocaleSwitcher />
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" :alt="content.viteLogo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" :alt="content.vueLogo" />
-    </a>
+  <h1>{{ msg }}</h1>
+
+  <div class="card">
+    <button type="button" @click="count++">
+      {{ content.count }}{{ count }}
+    </button>
+    <p v-html="content.edit.value"></p>
   </div>
-  <HelloWorld :msg="content.title" />
+
+  <p>
+    {{ content.checkOut }}
+    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
+      >create-vue</a
+    >, {{ content.officialStarter }}
+  </p>
+  <p>
+    {{ content.learnMore }}
+    <a
+      href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
+      target="_blank"
+      >{{ content.vueDocs }}</a
+    >.
+  </p>
+  <p class="read-the-docs">{{ content.readTheDocs }}</p>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.read-the-docs {
+  color: #888;
 }
 </style>
 ```
@@ -410,19 +410,6 @@ useI18nHTMLAttributes();
 > ```vue
 > <img src="./logo.svg" :alt="content.image.value" />
 > ```
-
-To use Intlayer in your Vue application, you need to register the plugin in your main file:
-
-```js fileName="src/main.ts"
-import { createApp } from "vue";
-import App from "./App.vue";
-import "./style.css";
-
-const app = createApp(App);
-
-// Create the app and mount it
-app.mount("#app");
-```
 
 ### (Optional) Step 6: Change the language of your content
 
@@ -453,9 +440,7 @@ const { locale, availableLocales, setLocale } = useLocale();
 const selectedLocale = ref(locale.value);
 
 // Update the locale when the selection changes
-const changeLocale = () => {
-  setLocale(selectedLocale.value);
-};
+const changeLocale = () => setLocale(selectedLocale.value);
 
 // Keep the selectedLocale in sync with the global locale
 watch(
@@ -485,17 +470,9 @@ Then, use this component in your App.vue:
 import { useIntlayer } from "vue-intlayer";
 import HelloWorld from "@components/HelloWorld.vue";
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
-import { useI18nHTMLAttributes } from "./composables/useI18nHTMLAttributes";
-import { useLocale } from "vue-intlayer";
 import { ref, watch } from "vue";
 
-const { locale, availableLocales, setLocale } = useLocale();
-
-// Use the useIntlayer composable to access translations
-const content = useIntlayer("app");
-
-// Apply HTML language attributes based on current locale
-useI18nHTMLAttributes();
+const content = useIntlayer("app"); // Create related intlayer declaration file
 </script>
 
 <template>
@@ -541,8 +518,16 @@ Example:
 
 First, install Vue Router:
 
-```bash
-npm install vue-router
+```bash packageManager="npm"
+npm install intlayer vue-router
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer vue-router
+```
+
+```bash packageManager="yarn"
+yarn add intlayer vue-router
 ```
 
 Then, create a router configuration that handles locale-based routing:
@@ -552,7 +537,7 @@ import {
   configuration,
   getPathWithoutLocale,
   localeFlatMap,
-  Locales,
+  type Locales,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -634,6 +619,32 @@ app.use(router);
 app.mount("#app");
 ```
 
+Then update your `App.vue` file to render the RouterView component. This component will display the matched component for the current route.
+
+<script setup>
+import LocaleSwitcher from '@components/LocaleSwitcher.vue';
+</script>
+
+<template>
+  <nav>
+    <LocaleSwitcher />
+  </nav>
+  <RouterView />
+</template>
+
+<style>
+nav {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+</style>
+
 ### (Optional) Step 8: Change the URL when the locale changes
 
 To automatically update the URL when the user changes the language, you can modify the `LocaleSwitcher` component to use Vue Router:
@@ -686,17 +697,17 @@ watch(
   }
 );
 </script>
-
-<style scoped>
-.locale-switcher {
-  margin: 1rem 0;
-}
-</style>
 ```
 
 ### (Optional) Step 9: Switch the HTML Language and Direction Attributes
 
-When your application supports multiple languages, it's important to update the `<html>` tag's `lang` and `dir` attributes to match the current locale:
+When your application supports multiple languages, it's crucial to update the `<html>` tag's `lang` and `dir` attributes to match the current locale. Doing so ensures:
+
+- **Accessibility**: Screen readers and assistive technologies rely on the correct `lang` attribute to pronounce and interpret content accurately.
+- **Text Rendering**: The `dir` (direction) attribute ensures that text is rendered in the proper order (e.g., left-to-right for English, right-to-left for Arabic or Hebrew), which is essential for readability.
+- **SEO**: Search engines use the `lang` attribute to determine the language of your page, helping to serve the right localized content in search results.
+
+By updating these attributes dynamically when the locale changes, you guarantee a consistent and accessible experience for users across all supported languages.
 
 ```js fileName="src/composables/useI18nHTMLAttributes.ts"
 import { watch } from "vue";
@@ -733,20 +744,14 @@ export function useI18nHTMLAttributes() {
 }
 ```
 
-Use this composable in your App.vue or a global component:
+Use this composable in your `App.vue` or a global component:
 
 ```vue fileName="src/App.vue"
 <script setup>
-import { ref } from "vue";
-import { useIntlayer } from "vue-intlayer";
 import { useI18nHTMLAttributes } from "@composables/useI18nHTMLAttributes";
-import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 
 // Apply the HTML attributes based on the current locale
 useI18nHTMLAttributes();
-
-const content = useIntlayer("app");
-const count = ref(0);
 </script>
 
 <template>
@@ -756,9 +761,15 @@ const count = ref(0);
 
 ### (Optional) Step 10: Creating a Localized Link Component
 
-When working with internationalized applications, it's helpful to have a component that automatically creates links with the correct locale prefix:
+To ensure that your application’s navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language, so that. For example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
 
-```vue fileName="src/components/LocalizedLink.vue"
+This behavior is useful for several reasons:
+
+- **SEO and User Experience**: Localized URLs help search engines index language-specific pages correctly and provide users with content in their preferred language.
+- **Consistency**: By using a localized link throughout your application, you guarantee that navigation stays within the current locale, preventing unexpected language switches.
+- **Maintainability**: Centralizing the localization logic in a single component simplifies the management of URLs, making your codebase easier to maintain and extend as your application grows.
+
+```vue fileName="src/components/Link.vue"
 <template>
   <a :href="localizedHref" v-bind="$attrs">
     <slot></slot>
@@ -791,7 +802,7 @@ const localizedHref = computed(() =>
 
 For use with Vue Router, create a router-specific version:
 
-```vue fileName="src/components/LocalizedRouterLink.vue"
+```vue fileName="src/components/RouterLink.vue"
 <template>
   <router-link :to="localizedTo" v-bind="$attrs">
     <slot></slot>
@@ -820,7 +831,7 @@ const localizedTo = computed(() => {
     // If 'to' is an object, localize the path property
     return {
       ...props.to,
-      path: getLocalizedUrl(props.to.path || "/", locale.value),
+      path: getLocalizedUrl(props.to.path ?? "/", locale.value),
     };
   }
 });
@@ -832,14 +843,18 @@ Use these components in your application:
 ```vue
 <template>
   <div>
-    <LocalizedLink href="/about">About Us</LocalizedLink>
-    <LocalizedRouterLink to="/contact">Contact</LocalizedRouterLink>
+    <!-- Vue router  -->
+    <RouterLink to="/">Root</RouterLink>
+    <RouterLink to="/home">Home</RouterLink>
+    <!-- Other -->
+    <Link href="/">Root</Link>
+    <Link href="/home">Home</Link>
   </div>
 </template>
 
 <script setup>
-import LocalizedLink from "@components/LocalizedLink.vue";
-import LocalizedRouterLink from "@components/LocalizedRouterLink.vue";
+import Link from "@components/Link.vue";
+import RouterLink from "@components/RouterLink.vue";
 </script>
 ```
 

@@ -1,6 +1,5 @@
 <script setup>
 import { useIntlayer } from 'vue-intlayer';
-import LocaleSwitcher from '@components/LocaleSwitcher.vue';
 
 // Use the useIntlayer composable to access translations
 const content = useIntlayer('home');

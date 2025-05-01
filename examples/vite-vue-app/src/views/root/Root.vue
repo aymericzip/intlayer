@@ -1,15 +1,12 @@
 <script setup>
 import { useIntlayer } from 'vue-intlayer';
 import HelloWorld from '@components/helloWorld/HelloWorld.vue';
-import LocaleSwitcher from '@components/LocaleSwitcher.vue';
 
-// Use the useIntlayer composable to access translations
 const { viteLogo, vueLogo, title } = useIntlayer('root');
 </script>
 
 <template>
   <div>
-    <LocaleSwitcher />
     <a href="https://vite.dev" target="_blank">
       <img src="/vite.svg" class="logo" :alt="viteLogo" />
     </a>

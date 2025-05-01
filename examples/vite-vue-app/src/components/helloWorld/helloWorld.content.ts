@@ -11,9 +11,9 @@ const helloWorldContent = {
     }),
     checkOut: t({ en: 'Check out ', fr: 'Vérifiez ', es: 'Compruebe ' }),
     officialStarter: t({
-      en: ', the official Vue + Vite starter',
-      fr: ', le starter officiel Vue + Vite',
-      es: ', el starter oficial Vue + Vite',
+      en: 'the official Vue + Vite starter',
+      fr: 'le starter officiel Vue + Vite',
+      es: 'el starter oficial Vue + Vite',
     }),
     learnMore: t({
       en: 'Learn more about IDE Support for Vue in the ',
