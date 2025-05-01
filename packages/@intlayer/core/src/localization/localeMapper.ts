@@ -18,10 +18,72 @@ const baseLocaleData = {
   locales,
 } satisfies Partial<LocaleData>;
 
-export const localeMapper = <T extends object>(
+/**
+ * Map the locale data to an array of objects
+ *
+ * @example
+ * ```ts
+ * const routes = localeMap((localizedData) =>
+ * ({
+ *    path: localizedData.urlPrefix,
+ *    name: localizedData.locale,
+ *    isDefault: localizedData.isDefault,
+ *    locales: localizedData.locales,
+ *    defaultLocale: localizedData.defaultLocale,
+ *  }),
+ * );
+ *
+ * // Result
+ * [
+ *   { path: '/', name: 'en', isDefault: true, locales: ['en'], defaultLocale: 'en', urlPrefix: '' },
+ *   { path: '/fr', name: 'fr', isDefault: false, locales: ['fr'], defaultLocale: 'en', urlPrefix: '/fr' },
+ *   { path: '/es', name: 'es', isDefault: false, locales: ['es'], defaultLocale: 'en', urlPrefix: '/es' },
+ * ]
+ * ```
+ *
+ * @param mapper - The mapper function that returns an object
+ * @returns An array of objects
+ */
+export const localeMap = <T extends object>(
   mapper: (locale: LocaleData) => T
 ): T[] =>
   locales.map((locale) =>
+    mapper({
+      ...baseLocaleData,
+      locale,
+      isDefault: locale === defaultLocale,
+      urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
+    })
+  );
+
+/**
+ * Flatten the locale map into a single array of objects
+ *
+ * @example
+ * ```ts
+ * const routes = localeMap((localizedData) =>
+ * [{
+ *    path: localizedData.urlPrefix,
+ *    name: localizedData.locale,
+ *    isDefault: localizedData.isDefault,
+ *    locales: localizedData.locales,
+ *    defaultLocale: localizedData.defaultLocale,
+ *  }],
+ * );
+ *
+ * // Result
+ * [
+ *   { path: '/', name: 'en', isDefault: true, locales: ['en'], defaultLocale: 'en', urlPrefix: '' },
+ *   { path: '/fr', name: 'fr', isDefault: false, locales: ['fr'], defaultLocale: 'en', urlPrefix: '/fr' },
+ *   { path: '/es', name: 'es', isDefault: false, locales: ['es'], defaultLocale: 'en', urlPrefix: '/es' },
+ * ]
+ * ```
+ *
+ * @param mapper - The mapper function that returns an array of objects
+ * @returns An array of objects
+ */
+export const localeFlatMap = <T>(mapper: (locale: LocaleData) => T[]): T[] =>
+  locales.flatMap((locale) =>
     mapper({
       ...baseLocaleData,
       locale,

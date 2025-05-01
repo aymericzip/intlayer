@@ -1,7 +1,7 @@
 import {
   configuration,
   getPathWithoutLocale,
-  localeMapper,
+  localeFlatMap,
   Locales,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
@@ -13,7 +13,7 @@ import RootView from './views/root/Root.vue';
 const { internationalization, middleware } = configuration;
 const { defaultLocale } = internationalization;
 
-const routes = localeMapper((localizedData) => [
+const routes = localeFlatMap((localizedData) => [
   {
     path: `${localizedData.urlPrefix}/`,
     name: `Root-${localizedData.locale}`,
@@ -35,7 +35,7 @@ const routes = localeMapper((localizedData) => [
 // Create the router instance
 export const router = createRouter({
   history: createWebHistory(),
-  routes: routes.flat(),
+  routes,
 });
 
 // Add navigation guard for locale handling

@@ -551,7 +551,7 @@ Then, create a router configuration that handles locale-based routing:
 import {
   configuration,
   getPathWithoutLocale,
-  localeMapper,
+  localeFlatMap,
   Locales,
 } from 'intlayer';
 import { createIntlayerClient } from 'vue-intlayer';
@@ -563,18 +563,21 @@ import RootView from './views/root/Root.vue';
 const { internationalization, middleware } = configuration;
 const { defaultLocale } = internationalization;
 
-const routes = localeMapper((localizedData) => [
+/**
+ * Declare the routes with locale-specific paths and metadata.
+ */
+const routes = localeFlatMap((localizedData) => [
   {
-    path: `/${localizedData.urlPrefix}/`,
-    name: `${localizedData.locale}-Root`,
+    path: `${localizedData.urlPrefix}/`,
+    name: `Root-${localizedData.locale}`,
     component: RootView,
     meta: {
       locale: localizedData.locale,
     },
   },
   {
-    path: `/${localizedData.urlPrefix}/home`,
-    name: `${localizedData.locale}-Home`,
+    path: `${localizedData.urlPrefix}/home`,
+    name: `Home-${localizedData.locale}`,
     component: HomeView,
     meta: {
       locale: localizedData.locale,
@@ -585,7 +588,7 @@ const routes = localeMapper((localizedData) => [
 // Create the router instance
 export const router = createRouter({
   history: createWebHistory(),
-  routes: routes.flat(),
+  routes,
 });
 
 // Add navigation guard for locale handling
@@ -612,12 +615,14 @@ router.beforeEach((to, _from, next) => {
 });
 ```
 
+> The name is used to identify the route in the router. It should be unique across all routes to avoid conflicts and ensure proper navigation and linking.
+
 Then, register the router in your main.js file:
 
 ```js fileName="src/main.ts"
 import { createApp } from "vue";
 import App from "./App.vue";
-import router from "./router";
+import { router } from "./router";
 import "./style.css";
 
 const app = createApp(App);
