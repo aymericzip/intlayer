@@ -361,8 +361,8 @@ Access your content dictionaries throughout your application by creating a main 
 ```vue fileName="src/App.vue"
 <script setup>
 import { useIntlayer } from "vue-intlayer";
-import HelloWorld from "./components/HelloWorld.vue";
-import LocaleSwitcher from "./components/LocaleSwitcher.vue";
+import HelloWorld from "@components/HelloWorld.vue";
+import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 import { useI18nHTMLAttributes } from "./composables/useI18nHTMLAttributes";
 import { useLocale } from "vue-intlayer";
 import { ref, watch } from "vue";
@@ -483,8 +483,8 @@ Then, use this component in your App.vue:
 ```vue fileName="src/App.vue"
 <script setup>
 import { useIntlayer } from "vue-intlayer";
-import HelloWorld from "./components/HelloWorld.vue";
-import LocaleSwitcher from "./components/LocaleSwitcher.vue";
+import HelloWorld from "@components/HelloWorld.vue";
+import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 import { useI18nHTMLAttributes } from "./composables/useI18nHTMLAttributes";
 import { useLocale } from "vue-intlayer";
 import { ref, watch } from "vue";
@@ -739,8 +739,8 @@ Use this composable in your App.vue or a global component:
 <script setup>
 import { ref } from "vue";
 import { useIntlayer } from "vue-intlayer";
-import { useI18nHTMLAttributes } from "./composables/useI18nHTMLAttributes";
-import LocaleSwitcher from "./components/LocaleSwitcher.vue";
+import { useI18nHTMLAttributes } from "@composables/useI18nHTMLAttributes";
+import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 
 // Apply the HTML attributes based on the current locale
 useI18nHTMLAttributes();
@@ -838,8 +838,8 @@ Use these components in your application:
 </template>
 
 <script setup>
-import LocalizedLink from "./components/LocalizedLink.vue";
-import LocalizedRouterLink from "./components/LocalizedRouterLink.vue";
+import LocalizedLink from "@components/LocalizedLink.vue";
+import LocalizedRouterLink from "@components/LocalizedRouterLink.vue";
 </script>
 ```
 

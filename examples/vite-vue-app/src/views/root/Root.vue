@@ -14,7 +14,7 @@ const { viteLogo, vueLogo, title } = useIntlayer('root');
       <img src="/vite.svg" class="logo" :alt="viteLogo" />
     </a>
     <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" :alt="vueLogo" />
+      <img src="../../assets/vue.svg" class="logo vue" :alt="vueLogo" />
     </a>
   </div>
   <HelloWorld :msg="title" />

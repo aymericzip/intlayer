@@ -12,6 +12,9 @@ export default defineConfig({
       '@components': fileURLToPath(
         new URL('./src/components', import.meta.url)
       ),
+      '@composables': fileURLToPath(
+        new URL('./src/composables', import.meta.url)
+      ),
       '@views': fileURLToPath(new URL('./src/views', import.meta.url)),
     },
   },
