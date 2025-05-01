@@ -401,7 +401,7 @@ const count = ref(0);
 
 > If you want to use your content in an attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function with `.value`, like:
 >
-> ```vue
+> ```html
 > <img src="./logo.svg" :alt="content.image.value" />
 > ```
 
@@ -589,7 +589,7 @@ app.mount("#app");
 
 Then update your `App.vue` file to render the RouterView component. This component will display the matched component for the current route.
 
-```vue
+```vue fileName="src/App.vue"
 <script setup>
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </script>
@@ -866,7 +866,7 @@ const localizedTo = computed(() => {
 
 Use these components in your application:
 
-```vue
+```vue fileName="src/App.vue"
 <template>
   <div>
     <!-- Vue router  -->
