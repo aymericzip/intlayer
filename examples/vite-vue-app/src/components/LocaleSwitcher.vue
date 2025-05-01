@@ -33,9 +33,7 @@ const { locale, availableLocales, setLocale } = useLocale({
 const selectedLocale = ref(locale.value);
 
 // Update the locale when the selection changes
-const changeLocale = () => {
-  setLocale(selectedLocale.value);
-};
+const changeLocale = () => setLocale(selectedLocale.value);
 
 // Keep the selectedLocale in sync with the global locale
 watch(

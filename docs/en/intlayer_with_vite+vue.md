@@ -699,6 +699,40 @@ watch(
 </script>
 ```
 
+Tip: For better SEO and accessibility, use tags as `<a href="/fr/home" hreflang="fr">` to link to localized pages, as shown in Step 10. This allows search engines to discover and index language-specific URLs properly. To preserve SPA behavior, you can prevent the default navigation with @click.prevent, change the locale using useLocale, and programmatically navigate using Vue Router.
+
+```html
+<ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
+  <li>
+    <a
+      hreflang="x-default"
+      aria-label="Switch to English"
+      target="_self"
+      aria-current="page"
+      href="/doc/get-started"
+    >
+      <div>
+        <div><span dir="ltr" lang="en">English</span><span>English</span></div>
+        <span>EN</span>
+      </div>
+    </a>
+  </li>
+  <li>
+    <a
+      hreflang="es"
+      aria-label="Switch to Spanish"
+      target="_self"
+      href="/es/doc/get-started"
+    >
+      <div>
+        <span dir="ltr" lang="es">Español</span><span>Spanish</span>
+        <span>ES</span>
+      </div>
+    </a>
+  </li>
+</ol>
+```
+
 ### (Optional) Step 9: Switch the HTML Language and Direction Attributes
 
 When your application supports multiple languages, it's crucial to update the `<html>` tag's `lang` and `dir` attributes to match the current locale. Doing so ensures:
