@@ -42,11 +42,6 @@ const homeContent = {
         }),
       },
     },
-    ctaButton: t({
-      en: 'Get Started',
-      fr: 'Commencer',
-      es: 'Empezar',
-    }),
   },
 } satisfies Dictionary;
 

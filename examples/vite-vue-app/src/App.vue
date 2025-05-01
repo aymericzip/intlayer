@@ -1,6 +1,5 @@
 <script setup>
 import { useI18nHTMLAttributes } from '@composables/useI18nHTMLAttributes';
-import Links from '@components/Links.vue';
 import LocaleSwitcher from '@components/LocaleSwitcher.vue';
 import RouterLink from '@components/RouterLink.vue';
 // Apply HTML language attributes based on current locale
@@ -9,8 +8,6 @@ useI18nHTMLAttributes();
 
 <template>
   <nav>
-    <Links href="/">Root</Links>
-    <Links href="/home">Home</Links>
     <RouterLink to="/">Root</RouterLink>
     <RouterLink to="/home">Home</RouterLink>
     <LocaleSwitcher />

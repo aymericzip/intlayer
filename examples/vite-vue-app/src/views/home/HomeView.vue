@@ -26,10 +26,6 @@ const content = useIntlayer('home');
           <li>{{ content.features.list.item3 }}</li>
         </ul>
       </section>
-
-      <section class="cta">
-        <button>{{ content.ctaButton }}</button>
-      </section>
     </main>
   </div>
 </template>
@@ -49,13 +45,12 @@ header {
 
 h1 {
   font-size: 2.5rem;
-  color: #2c3e50;
   margin-bottom: 1rem;
 }
 
 .subtitle {
   font-size: 1.25rem;
-  color: #546e7a;
+  color: #7e7e7e;
 }
 
 .description {
@@ -65,43 +60,27 @@ h1 {
 }
 
 .features {
-  background-color: #f8f9fa;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 2.5rem;
 }
 
 .features h2 {
-  color: #2c3e50;
   margin-bottom: 1rem;
 }
 
 .features ul {
+  margin: auto;
   padding-left: 1.5rem;
+  text-align: left;
 }
 
 .features li {
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
-}
-
-.cta {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.cta button {
-  background-color: #42b883;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1.1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.cta button:hover {
-  background-color: #3aa876;
 }
 </style>
