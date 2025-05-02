@@ -23,8 +23,10 @@ npm i -g pnpm@10.6.3
 #### Installing Dependencies
 
 ```sh
-pnpm install
+pnpm install --filter '!./examples/**'
 ```
+
+The `--filter '!./examples/\*\*'` argument in pnpm install is used to exclude all packages within the examples directory from being installed. This is necessary to avoid installing dependencies for example projects that you are not currently working on, which can save time and disk space by only installing the essential packages needed for your specific development task.
 
 ##### Tips
 
