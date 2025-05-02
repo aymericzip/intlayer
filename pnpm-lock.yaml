@@ -220,8 +220,8 @@ importers:
         specifier: workspace:*
         version: link:../../utils/tsup-config
       esbuild-fix-imports-plugin:
-        specifier: ^1.0.19
-        version: 1.0.19
+        specifier: ^1.0.20
+        version: 1.0.20
       eslint:
         specifier: ^9.22.0
         version: 9.22.0(jiti@2.4.2)
@@ -3042,8 +3042,8 @@ importers:
         specifier: ^0.25.2
         version: 0.25.2
       esbuild-fix-imports-plugin:
-        specifier: 1.0.19
-        version: 1.0.19
+        specifier: ^1.0.20
+        version: 1.0.20
       eslint:
         specifier: ^9.22.0
         version: 9.22.0(jiti@2.4.2)
@@ -16550,10 +16550,10 @@ packages:
       }
     engines: { node: '>= 0.4' }
 
-  esbuild-fix-imports-plugin@1.0.19:
+  esbuild-fix-imports-plugin@1.0.20:
     resolution:
       {
-        integrity: sha512-VsI6ozJaEOiRYRr/hWHbP8S+Pm7HNjHPbEctWVAUZ5NRUpES1PBLMSkMvB4WXKGniTKw0zupd01BlHog2bqsSg==,
+        integrity: sha512-kpxszoCMSDhLPjwK058HjG1MGnOWDF9qfn+FXYcjO2gGFpAP6B5UoO0A5SxK67ItghByHJIAkApEAdHsSz3GQw==,
       }
 
   esbuild-register@3.6.0:
@@ -40616,7 +40616,7 @@ snapshots:
       is-date-object: 1.1.0
       is-symbol: 1.1.1
 
-  esbuild-fix-imports-plugin@1.0.19: {}
+  esbuild-fix-imports-plugin@1.0.20: {}
 
   esbuild-register@3.6.0(esbuild@0.25.2):
     dependencies:
