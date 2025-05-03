@@ -32,6 +32,7 @@ export {
   getHTMLTextDir,
   getIntlayer,
   getIntlayerAsync,
+  getLocaleFromPath,
   getLocaleLang,
   getLocaleName,
   getLocalizedUrl,

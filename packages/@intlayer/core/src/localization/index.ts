@@ -1,4 +1,5 @@
 export { getHTMLTextDir } from './getHTMLTextDir';
+export { getLocaleFromPath } from './getLocaleFromPath';
 export { getLocaleLang } from './getLocaleLang';
 export { getLocaleName } from './getLocaleName';
 export { getLocalizedUrl } from './getLocalizedUrl';

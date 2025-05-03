@@ -2,7 +2,6 @@
 
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
-
 import { localeList } from '@intlayer/core';
 import { useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
