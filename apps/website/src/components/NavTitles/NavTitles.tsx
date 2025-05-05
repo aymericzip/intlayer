@@ -128,8 +128,8 @@ export const NavTitles: FC = () => {
     const navigationRef = navRef.current;
 
     navigationRef?.addEventListener('click', getFirstVisibleTitle);
-    window.addEventListener('scroll', getFirstVisibleTitle);
-    window.addEventListener('resize', getFirstVisibleTitle);
+    window.addEventListener('scroll', getFirstVisibleTitle, { passive: true });
+    window.addEventListener('resize', getFirstVisibleTitle, { passive: true });
     window.addEventListener('orientationchange', getFirstVisibleTitle);
 
     return () => {

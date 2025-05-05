@@ -9,7 +9,6 @@ type EditedContentRendererProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   children: string;
-  renderChildren?: (children: any) => any;
   locale?: Locales;
 };
 

@@ -87,7 +87,7 @@ export const useDevice = (breakpoint: SizeType | number = 'md') => {
       setResult(calculateIsMobile(breakpoint));
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
 
     // Cleanup listener on unmount
     return () => window.removeEventListener('resize', handleResize);

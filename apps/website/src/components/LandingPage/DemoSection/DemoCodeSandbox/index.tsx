@@ -1,7 +1,7 @@
 'use client';
 
 import { Loader } from '@intlayer/design-system';
-import { useEffect, useState, useRef, type FC } from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
 
 export const DemoCodeSandbox: FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,8 +22,8 @@ export const DemoCodeSandbox: FC = () => {
     checkVisibility();
 
     // Optional: Re-check visibility on window resize or scroll
-    window.addEventListener('resize', checkVisibility);
-    window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('resize', checkVisibility, { passive: true });
+    window.addEventListener('scroll', checkVisibility, { passive: true });
 
     // Cleanup listeners
     return () => {

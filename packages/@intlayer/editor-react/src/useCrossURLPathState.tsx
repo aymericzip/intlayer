@@ -1,5 +1,6 @@
 'use client';
 
+import { MessageKey } from '@intlayer/editor';
 import { useEffect } from 'react';
 import {
   useCrossFrameState,
@@ -9,7 +10,7 @@ import {
 export const useCrossURLPathState = (
   initialState?: string,
   options?: CrossFrameStateOptions
-) => useCrossFrameState('INTLAYER_URL_CHANGE', initialState, options);
+) => useCrossFrameState(MessageKey.INTLAYER_URL_CHANGE, initialState, options);
 
 export const useCrossURLPathSetter = (initialState?: string) => {
   const states = useCrossURLPathState(initialState, {

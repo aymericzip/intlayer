@@ -403,7 +403,7 @@ app.mount("#app");
 通过创建主 Vue 组件并使用 `useIntlayer` 可组合函数，在整个应用程序中访问您的内容字典：
 
 ```vue fileName="src/HelloWord.vue"
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { useIntlayer } from "vue-intlayer";
 
@@ -466,7 +466,7 @@ const count = ref(0);
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { getLocaleName } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -493,7 +493,7 @@ watch(
 然后，在您的 App.vue 中使用此组件：
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 import HelloWorld from "@components/HelloWorld.vue";
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
@@ -635,7 +635,7 @@ app.mount("#app");
 然后更新您的 `App.vue` 文件以渲染 RouterView 组件。此组件将显示当前路由的匹配组件。
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </script>
 
@@ -697,7 +697,7 @@ module.exports = defineConfig({
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { Locales, getLocaleName, getLocalizedUrl } from "intlayer";
@@ -817,7 +817,7 @@ export function useI18nHTMLAttributes() {
 在您的 `App.vue` 或全局组件中使用此可组合函数：
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import { useI18nHTMLAttributes } from "@composables/useI18nHTMLAttributes";
 
 // 根据当前语言环境应用 HTML 属性
@@ -842,11 +842,11 @@ useI18nHTMLAttributes();
 ```vue fileName="src/components/Link.vue"
 <template>
   <a :href="localizedHref" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </a>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -875,11 +875,11 @@ const localizedHref = computed(() =>
 ```vue fileName="src/components/RouterLink.vue"
 <template>
   <router-link :to="localizedTo" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </router-link>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -922,7 +922,7 @@ const localizedTo = computed(() => {
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Link from "@components/Link.vue";
 import RouterLink from "@components/RouterLink.vue";
 </script>

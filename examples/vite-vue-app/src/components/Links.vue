@@ -1,10 +1,10 @@
 <template>
   <a :href="localizedHref" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </a>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import { getLocalizedUrl } from 'intlayer';
 import { useLocale } from 'vue-intlayer';
@@ -19,7 +19,7 @@ const props = defineProps({
 const { locale } = useLocale();
 
 // Check if the link is external
-const isExternalLink = computed(() => /^https?:\/\//.test(props.href || ''));
+const isExternalLink = computed(() => /^https?:\/\//.test(props.href ?? ''));
 
 // Create a localized href for internal links
 const localizedHref = computed(() =>

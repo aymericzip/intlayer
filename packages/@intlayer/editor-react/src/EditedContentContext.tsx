@@ -1,27 +1,28 @@
 'use client';
 
 import {
-  type Dictionary,
-  type ContentNode,
-  type KeyPath,
   editDictionaryByKeyPath,
   getContentNodeByKeyPath,
   renameContentNodeByKeyPath,
+  type ContentNode,
+  type Dictionary,
+  type KeyPath,
 } from '@intlayer/core';
+import { MessageKey } from '@intlayer/editor';
 import {
-  type Dispatch,
   createContext,
   useContext,
-  type SetStateAction,
+  type Dispatch,
   type FC,
   type PropsWithChildren,
+  type SetStateAction,
 } from 'react';
 import {
   useDictionariesRecord,
   type DictionaryContent,
 } from './DictionariesRecordContext';
-import { useCrossFrameState } from './useCrossFrameState';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
+import { useCrossFrameState } from './useCrossFrameState';
 
 type EditedContentStateContextType = {
   editedContent: Record<Dictionary['key'], Dictionary> | undefined;
@@ -35,7 +36,7 @@ export const usePostEditedContentState = <S,>(
   onEventTriggered?: (data: S) => void
 ) =>
   useCrossFrameMessageListener(
-    'INTLAYER_EDITED_CONTENT_CHANGED/post',
+    `${MessageKey.INTLAYER_EDITED_CONTENT_CHANGED}/post`,
     onEventTriggered
   );
 
@@ -43,7 +44,7 @@ export const useGetEditedContentState = <S,>(
   onEventTriggered?: (data: S) => void
 ) =>
   useCrossFrameMessageListener(
-    'INTLAYER_EDITED_CONTENT_CHANGED/get',
+    `${MessageKey.INTLAYER_EDITED_CONTENT_CHANGED}/get`,
     onEventTriggered
   );
 
@@ -93,7 +94,9 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
   const { localeDictionaries } = useDictionariesRecord();
 
   const [editedContent, setEditedContentState] =
-    useCrossFrameState<DictionaryContent>('INTLAYER_EDITED_CONTENT_CHANGED');
+    useCrossFrameState<DictionaryContent>(
+      MessageKey.INTLAYER_EDITED_CONTENT_CHANGED
+    );
 
   const setEditedDictionary: Dispatch<SetStateAction<Dictionary>> = (
     newValue

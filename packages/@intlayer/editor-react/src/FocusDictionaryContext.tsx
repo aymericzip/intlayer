@@ -1,12 +1,13 @@
 'use client';
 
 import type { KeyPath } from '@intlayer/core';
+import { MessageKey } from '@intlayer/editor';
 import {
   createContext,
   useContext,
+  type Dispatch,
   type FC,
   type PropsWithChildren,
-  type Dispatch,
   type SetStateAction,
 } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
@@ -40,7 +41,7 @@ export const FocusDictionaryProvider: FC<PropsWithChildren> = ({
 }) => {
   const [focusedContent, setFocusedContent] =
     useCrossFrameState<FileContent | null>(
-      'INTLAYER_FOCUSED_CONTENT_CHANGED',
+      MessageKey.INTLAYER_FOCUSED_CONTENT_CHANGED,
       null
     );
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useKeyboardDetector = () => {
   const [windowHeight, setWindowHeight] = useState<number | null>(null);
@@ -20,7 +20,9 @@ export const useKeyboardDetector = () => {
     };
 
     // Listen for changes in visualViewport height
-    window.visualViewport?.addEventListener('resize', updateHeight);
+    window.visualViewport?.addEventListener('resize', updateHeight, {
+      passive: true,
+    });
     updateHeight(); // Set initial height
 
     return () => {

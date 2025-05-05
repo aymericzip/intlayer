@@ -1,8 +1,8 @@
 'use client';
 
+import { type MessageKey } from '@intlayer/editor';
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 import { useCommunicator } from './CommunicatorContext';
-import { type MessageKey } from './messageKey';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
 export type CrossFrameStateOptions = {
@@ -29,9 +29,9 @@ const resolveState = <S,>(state?: SetStateAction<S>, prevState?: S): S =>
  * It uses the `postMessage` API to communicate state changes and updates between instances.
  *
  * @template S - The type of the state.
- * @param {`${MessageKey}`} key - A unique identifier for the state to synchronize.
- * @param {S | (() => S)} [initialState] - The initial state value or a function to compute it lazily.
- * @param {CrossFrameStateOptions} [options] - Configuration options to control emitting and receiving messages.
+ * @param key - A unique identifier for the state to synchronize.
+ * @param initialState - The initial state value or a function to compute it lazily.
+ * @param options - Configuration options to control emitting and receiving messages.
  *   - `emit` (default: true): Whether to broadcast state changes to other instances.
  *   - `receive` (default: true): Whether to listen for state updates from other instances.
  *

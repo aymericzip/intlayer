@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useIntlayer } from 'vue-intlayer';
 import HelloWorld from '@components/helloWorld/HelloWorld.vue';
 

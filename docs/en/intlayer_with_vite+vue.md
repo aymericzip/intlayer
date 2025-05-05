@@ -359,7 +359,7 @@ app.mount("#app");
 Access your content dictionaries throughout your application by creating a main Vue component and using the `useIntlayer` composables:
 
 ```vue fileName="src/HelloWord.vue"
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { useIntlayer } from "vue-intlayer";
 
@@ -367,43 +367,57 @@ defineProps({
   msg: String,
 });
 
-const content = useIntlayer("helloworld");
-const count = ref(0);
+const {
+  count,
+  edit,
+  checkOut,
+  officialStarter,
+  learnMore,
+  vueDocs,
+  readTheDocs,
+} = useIntlayer("helloworld");
+const countRef = ref(0);
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="count++">
-      {{ content.count }}{{ count }}
+    <button type="button" @click="countRef++">
+      <count />
+      {{ countRef }}
     </button>
-    <p v-html="content.edit.value"></p>
+    <p v-html="edit"></p>
   </div>
 
   <p>
-    {{ content.checkOut }}
+    <checkOut />
     <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
       >create-vue</a
-    >, {{ content.officialStarter }}
+    >, <officialStarter />
   </p>
   <p>
-    {{ content.learnMore }}
+    <learnMore />
     <a
       href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
       target="_blank"
-      >{{ content.vueDocs }}</a
+      ><vueDocs /></a
     >.
   </p>
-  <p class="read-the-docs">{{ content.readTheDocs }}</p>
+  <p class="read-the-docs"><readTheDocs /></p>
+  <p class="read-the-docs">{{ readTheDocs }}</p>
 </template>
 ```
 
-> If you want to use your content in an attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function with `.value`, like:
->
-> ```html
-> <img src="./logo.svg" :alt="content.image.value" />
-> ```
+#### Accessing Content in Intlayer
+
+Intlayer offers two APIs to access your content:
+
+- **Component-based syntax** (recommended):
+  Use the `<myContent />` syntax to render content as an Intlayer Node. This integrates seamlessly with the [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md) and [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md).
+
+- **String-based syntax**:
+  Use `{{ myContent }}` to render the content as plain text, without any interactivity.
 
 ### (Optional) Step 6: Change the language of your content
 
@@ -422,7 +436,7 @@ Create a component to switch between languages:
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { getLocaleName } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -449,7 +463,7 @@ watch(
 Then, use this component in your App.vue:
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 import HelloWorld from "@components/HelloWorld.vue";
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
@@ -590,7 +604,7 @@ app.mount("#app");
 Then update your `App.vue` file to render the RouterView component. This component will display the matched component for the current route.
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </script>
 
@@ -652,7 +666,7 @@ To automatically update the URL when the user changes the language, you can modi
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { Locales, getLocaleName, getLocalizedUrl } from "intlayer";
@@ -750,7 +764,7 @@ import { getHTMLTextDir } from "intlayer";
  *
  * useI18nHTMLAttributes()
  */
-export function useI18nHTMLAttributes() {
+export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   // Update the HTML attributes whenever the locale changes
@@ -767,13 +781,13 @@ export function useI18nHTMLAttributes() {
     },
     { immediate: true }
   );
-}
+};
 ```
 
 Use this composable in your `App.vue` or a global component:
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import { useI18nHTMLAttributes } from "@composables/useI18nHTMLAttributes";
 
 // Apply the HTML attributes based on the current locale
@@ -798,11 +812,11 @@ This behavior is useful for several reasons:
 ```vue fileName="src/components/Link.vue"
 <template>
   <a :href="localizedHref" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </a>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -831,11 +845,11 @@ For use with Vue Router, create a router-specific version:
 ```vue fileName="src/components/RouterLink.vue"
 <template>
   <router-link :to="localizedTo" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </router-link>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -878,7 +892,7 @@ Use these components in your application:
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Link from "@components/Link.vue";
 import RouterLink from "@components/RouterLink.vue";
 </script>

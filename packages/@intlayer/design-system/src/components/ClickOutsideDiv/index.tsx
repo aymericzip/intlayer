@@ -1,11 +1,11 @@
 'use client';
 
 import {
-  type HTMLAttributes,
   type FC,
+  type HTMLAttributes,
   type PropsWithChildren,
-  useRef,
   useEffect,
+  useRef,
 } from 'react';
 
 export type ClickOutsideDivProps = PropsWithChildren<{
@@ -29,7 +29,7 @@ export const ClickOutsideDiv: FC<ClickOutsideDivProps> = ({
     };
 
     // Attach the event listener
-    document.addEventListener('mousedown', handleClick);
+    document.addEventListener('mousedown', handleClick, { passive: true });
 
     // Clean up on unmount
     return () => {

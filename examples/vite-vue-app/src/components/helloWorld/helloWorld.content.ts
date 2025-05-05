@@ -1,7 +1,7 @@
 import { t, type Dictionary } from 'intlayer';
 
 const helloWorldContent = {
-  key: 'helloworld',
+  key: 'hello-world',
   content: {
     count: t({ en: 'count is ', fr: 'le compte est ', es: 'el recuento es ' }),
     edit: t({

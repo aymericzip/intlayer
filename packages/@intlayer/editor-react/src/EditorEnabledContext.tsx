@@ -1,16 +1,17 @@
 'use client';
 
+import { MessageKey } from '@intlayer/editor';
 import {
   createContext,
   useContext,
   type FC,
   type PropsWithChildren,
 } from 'react';
-import {
-  type CrossFrameStateOptions,
-  useCrossFrameState,
-} from './useCrossFrameState';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
+import {
+  useCrossFrameState,
+  type CrossFrameStateOptions,
+} from './useCrossFrameState';
 
 export type EditorEnabledStateProps = {
   enabled: boolean;
@@ -21,20 +22,23 @@ const EditorEnabledContext = createContext<EditorEnabledStateProps>({
 });
 
 export const useEditorEnabledState = (options?: CrossFrameStateOptions) =>
-  useCrossFrameState('INTLAYER_EDITOR_ENABLED', false, options);
+  useCrossFrameState(MessageKey.INTLAYER_EDITOR_ENABLED, false, options);
 
 export const usePostEditorEnabledState = <S,>(
   onEventTriggered?: (data: S) => void
 ) =>
   useCrossFrameMessageListener(
-    'INTLAYER_EDITOR_ENABLED/post',
+    `${MessageKey.INTLAYER_EDITOR_ENABLED}/post`,
     onEventTriggered
   );
 
 export const useGetEditorEnabledState = <S,>(
   onEventTriggered?: (data: S) => void
 ) =>
-  useCrossFrameMessageListener('INTLAYER_EDITOR_ENABLED/get', onEventTriggered);
+  useCrossFrameMessageListener(
+    `${MessageKey.INTLAYER_EDITOR_ENABLED}/get`,
+    onEventTriggered
+  );
 
 export const EditorEnabledProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isEnabled] = useEditorEnabledState({

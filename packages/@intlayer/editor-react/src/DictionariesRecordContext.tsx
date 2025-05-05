@@ -1,14 +1,15 @@
 'use client';
 
 import type { Dictionary } from '@intlayer/core';
+import { MessageKey } from '@intlayer/editor';
 import {
   createContext,
   useContext,
+  useMemo,
   type Dispatch,
-  type SetStateAction,
   type FC,
   type PropsWithChildren,
-  useMemo,
+  type SetStateAction,
 } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
 
@@ -34,7 +35,7 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
 }) => {
   const [localeDictionaries, setLocaleDictionaries] =
     useCrossFrameState<DictionaryContent>(
-      'INTLAYER_LOCALE_DICTIONARIES_CHANGED',
+      MessageKey.INTLAYER_LOCALE_DICTIONARIES_CHANGED,
       undefined
     );
 

@@ -84,7 +84,9 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
-    "js-cookie": "^3.0.5"
+    "@intlayer/editor": "workspace:*",
+    "js-cookie": "^3.0.5",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:*",
@@ -103,8 +105,7 @@
     "rimraf": "^6.0.1",
     "typescript": "^5.8.2",
     "vite": "^6.3.1",
-    "vite-plugin-dts": "^4.5.3",
-    "vue": "^3.5.13"
+    "vite-plugin-dts": "^4.5.3"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",

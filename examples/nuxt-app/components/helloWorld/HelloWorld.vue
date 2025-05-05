@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import { useIntlayer } from 'vue-intlayer';
 
@@ -6,7 +6,7 @@ defineProps({
   msg: String,
 });
 
-const content = useIntlayer('helloworld');
+const content = useIntlayer('hello-world');
 const count = ref(0);
 </script>
 

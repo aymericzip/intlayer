@@ -1,10 +1,10 @@
 <template>
   <router-link :to="localizedTo" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </router-link>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import { getLocalizedUrl } from 'intlayer';
 import { useLocale } from 'vue-intlayer';

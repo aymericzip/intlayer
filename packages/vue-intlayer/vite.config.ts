@@ -30,6 +30,10 @@ const external: string[] = [
   ...Object.keys(packageJson.devDependencies),
   '@intlayer/config/built',
   '@intlayer/config/client',
+  'vue',
+  'vue/runtime-core',
+  '@vue/shared',
+  '@vue/server-renderer',
 ];
 
 const globals = {
@@ -37,6 +41,20 @@ const globals = {
 };
 
 export default defineConfig({
+  resolve: {
+    // **DEDUPE** Vue so that all imports of "vue" in your lib
+    // and in the consumer app resolve to the same copy.
+    dedupe: ['vue'],
+    extensions: [
+      '.mjs',
+      '.js',
+      '.ts',
+      '.jsx',
+      '.tsx',
+      '.json',
+      '.vue', // enable resolving imports like './UI/ContentSelector.vue' :contentReference[oaicite:1]{index=1}:contentReference[oaicite:2]{index=2}
+    ],
+  },
   plugins: [
     vue(),
     dts({
@@ -55,24 +73,27 @@ export default defineConfig({
     sourcemap: false,
     manifest: false,
     minify: true,
-    ssr: true,
-    target: ['esnext'],
     lib: {
       entry,
       name: 'VueIntlayer',
     },
     rollupOptions: {
-      external,
+      // external,
+      external: (id) => {
+        return external.includes(id) || /^vue/.test(id);
+      },
       output: [
         {
           format: 'es',
           entryFileNames: ({ name }) => `esm/${name}.mjs`,
           globals,
+          exports: 'named',
         },
         {
           format: 'cjs',
           entryFileNames: ({ name }) => `cjs/${name}.cjs`,
           globals,
+          exports: 'named',
         },
       ],
     },

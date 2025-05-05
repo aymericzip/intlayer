@@ -69,6 +69,7 @@
   "dependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/editor": "workspace:*",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

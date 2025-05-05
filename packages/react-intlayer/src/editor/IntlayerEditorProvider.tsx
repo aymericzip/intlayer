@@ -12,11 +12,11 @@ import type { Dictionary } from '@intlayer/core';
 import dictionaries from '@intlayer/dictionaries-entry';
 import {
   EditorProvider,
+  useChangedContentActions,
   useCrossURLPathSetter,
   useDictionariesRecordActions,
-  useIframeClickInterceptor,
   useEditorEnabled,
-  useChangedContentActions,
+  useIframeClickInterceptor,
 } from '@intlayer/editor-react';
 import { useEffect, type FC, type PropsWithChildren } from 'react';
 
@@ -81,6 +81,9 @@ export const IntlayerEditorProvider: FC<PropsWithChildren> = ({ children }) => {
     <EditorProvider
       postMessage={(data: any) => {
         if (typeof window === 'undefined') return;
+
+        const isInIframe = window.self !== window.top;
+        if (!isInIframe) return;
 
         if (editor.applicationURL.length > 0) {
           window?.postMessage(

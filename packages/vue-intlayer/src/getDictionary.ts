@@ -5,6 +5,7 @@ import {
   Plugins,
   getDictionary as getDictionaryCore,
 } from '@intlayer/core';
+import { intlayerNodePlugins } from './plugins';
 
 export const getDictionary = <
   T extends Dictionary,
@@ -14,7 +15,10 @@ export const getDictionary = <
   locale?: L,
   additionalPlugins?: Plugins[]
 ) => {
-  const plugins: Plugins[] = [...(additionalPlugins ?? [])];
+  const plugins: Plugins[] = [
+    intlayerNodePlugins,
+    ...(additionalPlugins ?? []),
+  ];
 
   return getDictionaryCore(
     dictionary,

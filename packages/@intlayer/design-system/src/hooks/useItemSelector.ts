@@ -120,8 +120,12 @@ export const useItemSelector = (
 
     if (isHoverable) {
       optionsRefs.current.forEach((option) => {
-        option?.addEventListener('mouseenter', handleMouseEnter);
-        option?.addEventListener('mouseleave', handleMouseLeave);
+        option?.addEventListener('mouseenter', handleMouseEnter, {
+          passive: true,
+        });
+        option?.addEventListener('mouseleave', handleMouseLeave, {
+          passive: true,
+        });
       });
     }
 

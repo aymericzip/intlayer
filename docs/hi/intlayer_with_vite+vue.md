@@ -492,7 +492,7 @@ app.mount("#app");
 फिर अपने `App.vue` फ़ाइल को अपडेट करें ताकि RouterView कंपोनेंट को रेंडर किया जा सके। यह कंपोनेंट वर्तमान रूट के लिए मेल खाने वाले कंपोनेंट को प्रदर्शित करेगा।
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </script>
 
@@ -554,7 +554,7 @@ module.exports = defineConfig({
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { Locales, getLocaleName, getLocalizedUrl } from "intlayer";
@@ -675,7 +675,7 @@ export function useI18nHTMLAttributes() {
 अपने `App.vue` या एक वैश्विक घटक में इस कंपोज़ेबल का उपयोग करें:
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import { useI18nHTMLAttributes } from "@composables/useI18nHTMLAttributes";
 
 // वर्तमान लोकेल के आधार पर HTML गुण लागू करें
@@ -700,11 +700,11 @@ useI18nHTMLAttributes();
 ```vue fileName="src/components/Link.vue"
 <template>
   <a :href="localizedHref" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </a>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -733,11 +733,11 @@ Vue राउटर के साथ उपयोग के लिए, एक �
 ```vue fileName="src/components/RouterLink.vue"
 <template>
   <router-link :to="localizedTo" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </router-link>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -780,7 +780,7 @@ const localizedTo = computed(() => {
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Link from "@components/Link.vue";
 import RouterLink from "@components/RouterLink.vue";
 </script>

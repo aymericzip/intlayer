@@ -75,9 +75,9 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
 
   // Add event listeners for mouse move and mouse up
   useEffect(() => {
-    window.addEventListener('mousemove', resize);
+    window.addEventListener('mousemove', resize, { passive: true });
     window.addEventListener('mouseup', stopResizing);
-    window.addEventListener('touchmove', resize);
+    window.addEventListener('touchmove', resize, { passive: true });
     window.addEventListener('touchend', stopResizing);
 
     return () => {

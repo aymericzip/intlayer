@@ -73,8 +73,10 @@ export const useScrollDetection = (props?: useScrollDetectionProps) => {
 
   useEffect(() => {
     if (isEnabled) {
-      containerElement?.addEventListener('wheel', onScroll);
-      containerElement?.addEventListener('touchstart', onMobileMove);
+      containerElement?.addEventListener('wheel', onScroll, { passive: true });
+      containerElement?.addEventListener('touchstart', onMobileMove, {
+        passive: true,
+      });
     } else {
       setIsScrolled(false);
     }

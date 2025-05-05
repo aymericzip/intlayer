@@ -2,7 +2,7 @@
 
 import createGlobe from 'cobe';
 import { useTheme } from 'next-themes';
-import { type RefObject, type FC, memo, useEffect, useRef } from 'react';
+import { type FC, memo, type RefObject, useEffect, useRef } from 'react';
 import { useSpring } from 'react-spring';
 
 export const Globe: FC = memo(() => {
@@ -29,7 +29,7 @@ export const Globe: FC = memo(() => {
     let width = 0;
     const onResize = () =>
       canvasRef.current && (width = canvasRef.current.offsetWidth);
-    window.addEventListener('resize', onResize);
+    window.addEventListener('resize', onResize, { passive: true });
     onResize();
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,

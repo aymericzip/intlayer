@@ -403,7 +403,7 @@ app.mount("#app");
 Greifen Sie auf Ihre Inhaltswörterbücher in Ihrer gesamten Anwendung zu, indem Sie eine Haupt-Vue-Komponente erstellen und die `useIntlayer`-Composables verwenden:
 
 ```vue fileName="src/HelloWord.vue"
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { useIntlayer } from "vue-intlayer";
 
@@ -466,7 +466,7 @@ Erstellen Sie eine Komponente, um zwischen Sprachen zu wechseln:
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { getLocaleName } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -493,7 +493,7 @@ watch(
 Verwenden Sie diese Komponente dann in Ihrer App.vue:
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 import HelloWorld from "@components/HelloWorld.vue";
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
@@ -635,7 +635,7 @@ app.mount("#app");
 Aktualisieren Sie dann Ihre `App.vue`-Datei, um die RouterView-Komponente zu rendern. Diese Komponente zeigt die übereinstimmende Komponente für die aktuelle Route an.
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </script>
 
@@ -697,7 +697,7 @@ Um die URL automatisch zu aktualisieren, wenn der Benutzer die Sprache ändert, 
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { Locales, getLocaleName, getLocalizedUrl } from "intlayer";
@@ -818,7 +818,7 @@ export function useI18nHTMLAttributes() {
 Verwenden Sie dieses Composable in Ihrer `App.vue` oder einer globalen Komponente:
 
 ```vue fileName="src/App.vue"
-<script setup>
+<script setup lang="ts">
 import { useI18nHTMLAttributes } from "@composables/useI18nHTMLAttributes";
 
 // Anwenden der HTML-Attribute basierend auf der aktuellen Sprache
@@ -843,11 +843,11 @@ Dieses Verhalten ist aus mehreren Gründen nützlich:
 ```vue fileName="src/components/Link.vue"
 <template>
   <a :href="localizedHref" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </a>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -876,11 +876,11 @@ Für die Verwendung mit Vue Router erstellen Sie eine router-spezifische Version
 ```vue fileName="src/components/RouterLink.vue"
 <template>
   <router-link :to="localizedTo" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </router-link>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
@@ -923,7 +923,7 @@ Verwenden Sie diese Komponenten in Ihrer Anwendung:
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Link from "@components/Link.vue";
 import RouterLink from "@components/RouterLink.vue";
 </script>

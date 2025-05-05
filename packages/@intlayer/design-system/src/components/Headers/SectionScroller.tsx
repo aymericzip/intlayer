@@ -21,7 +21,7 @@ export const SectionScroller = () => {
   useEffect(() => {
     setHash(window.location.hash.slice(1));
 
-    window.addEventListener('hashchange', onHashChange);
+    window.addEventListener('hashchange', onHashChange, { passive: true });
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 

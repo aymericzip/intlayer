@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { useI18nHTMLAttributes } from '@composables/useI18nHTMLAttributes';
 import LocaleSwitcher from '@components/LocaleSwitcher.vue';
 import RouterLink from '@components/RouterLink.vue';
+
 // Apply HTML language attributes based on current locale
 useI18nHTMLAttributes();
 </script>

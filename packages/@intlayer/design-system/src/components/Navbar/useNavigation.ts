@@ -37,7 +37,7 @@ export const useNavActions = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', detectActiveSection);
+    window.addEventListener('scroll', detectActiveSection, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', detectActiveSection);

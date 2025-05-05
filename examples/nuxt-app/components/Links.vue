@@ -1,10 +1,10 @@
 <template>
   <a :href="localizedHref" v-bind="$attrs">
-    <slot></slot>
+    <slot />
   </a>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import { getLocalizedUrl } from 'intlayer';
 import { useLocale } from 'vue-intlayer';

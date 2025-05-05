@@ -1,12 +1,10 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 'use client';
 
 import { ChevronLeft, X } from 'lucide-react';
 import {
-  type ReactNode,
   type FC,
   type MouseEventHandler,
+  type ReactNode,
   useEffect,
   useRef,
 } from 'react';

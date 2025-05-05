@@ -4,7 +4,7 @@ import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
 
 import { localeResolver } from '@intlayer/core';
-import { useCrossFrameState } from '@intlayer/editor-react';
+import { MessageKey, useCrossFrameState } from '@intlayer/editor-react';
 import {
   type FC,
   type PropsWithChildren,
@@ -59,7 +59,7 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
     localeProp ?? localeCookie ?? defaultLocaleProp ?? defaultLocaleConfig;
 
   const [currentLocale, setCurrentLocale] = useCrossFrameState(
-    'INTLAYER_CURRENT_LOCALE',
+    MessageKey.INTLAYER_CURRENT_LOCALE,
     defaultLocale
   );
 

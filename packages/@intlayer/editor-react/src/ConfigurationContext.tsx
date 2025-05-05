@@ -1,6 +1,7 @@
 'use client';
 
 import { type IntlayerConfig } from '@intlayer/config/client';
+import { MessageKey } from '@intlayer/editor';
 import {
   type FC,
   type PropsWithChildren,
@@ -14,10 +15,14 @@ const ConfigurationStatesContext = createContext<IntlayerConfig | undefined>(
 );
 
 export const useConfigurationState = () =>
-  useCrossFrameState<IntlayerConfig>('INTLAYER_CONFIGURATION', undefined, {
-    receive: false,
-    emit: true,
-  });
+  useCrossFrameState<IntlayerConfig>(
+    MessageKey.INTLAYER_CONFIGURATION,
+    undefined,
+    {
+      receive: false,
+      emit: true,
+    }
+  );
 
 export type ConfigurationProviderProps = {
   configuration?: IntlayerConfig;
