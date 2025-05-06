@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/docs",
-  "version": "5.4.0-canary.0",
+  "version": "5.4.0",
   "private": true,
   "description": "Intlayer documentation",
   "keywords": [
