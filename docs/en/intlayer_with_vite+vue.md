@@ -1,8 +1,6 @@
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and Vue
 
-> This package is in development. See the [issue](https://github.com/aymericzip/intlayer/issues/113) for more information. Show your interest in Intlayer for Vue by liking the issue
-
-<!-- See [Application Template](https://github.com/aymericzip/intlayer-vue-template) on GitHub. -->
+See [Application Template](https://github.com/aymericzip/intlayer-vite-vue-template) on GitHub.
 
 ## What is Intlayer?
 
