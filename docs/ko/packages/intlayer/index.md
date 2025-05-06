@@ -234,7 +234,7 @@ module.exports = clientComponentContent;
 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer-cli/readme.md)를 사용하여 사전을 빌드할 수 있습니다.
 
 ```bash packageManager="npm"
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 ```bash packageManager="yarn"

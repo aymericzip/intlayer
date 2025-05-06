@@ -124,7 +124,7 @@ JSON や異なる JS フレーバー（ `.cjs`、 `.mjs`）を好む場合、構
 
 ```bash
 # npm で
-npx intlayer build
+npx intlayer dictionaries build
 
 # yarn で
 yarn intlayer build

@@ -46,13 +46,13 @@ Um zu sehen, wie verfügbare Lokalisierungen oder andere Parameter konfiguriert 
 Um Ihre Wörterbücher zu erstellen, können Sie die folgenden Befehle ausführen:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 oder im Watch-Modus
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 Dieser Befehl findet standardmäßig Ihre Deklarationsinhaltsdateien unter `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` und erstellt die Wörterbücher im Verzeichnis `.intlayer`.
@@ -166,8 +166,8 @@ Durch das Hochladen der Konfiguration wird Ihr Projekt vollständig in das Intla
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

@@ -46,13 +46,13 @@ Intlayerは複数の設定ファイル形式を受け入れます:
 辞書をビルドするには、以下のコマンドを実行します:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 またはウォッチモードで実行:
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 このコマンドは、デフォルトで`./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`のような宣言コンテンツファイルを見つけ、`.intlayer`ディレクトリに辞書をビルドします。
@@ -166,8 +166,8 @@ npx intlayer config push
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

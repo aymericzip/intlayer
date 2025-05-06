@@ -46,13 +46,13 @@ Para ver como configurar os locais disponíveis ou outros parâmetros, consulte 
 Para construir seus dicionários, você pode executar os comandos:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 ou no modo de observação
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 Este comando encontrará seus arquivos de conteúdo de declaração como padrão em `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. E construirá os dicionários no diretório `.intlayer`.
@@ -166,8 +166,8 @@ Ao enviar a configuração, seu projeto é totalmente integrado ao CMS do Intlay
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

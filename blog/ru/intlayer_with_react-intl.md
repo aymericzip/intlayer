@@ -124,7 +124,7 @@ export default content;
 
 ```bash
 # с npm
-npx intlayer build
+npx intlayer dictionaries build
 
 # с yarn
 yarn intlayer build

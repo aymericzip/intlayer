@@ -46,13 +46,13 @@ Intlayer는 여러 설정 파일 형식을 지원합니다:
 사전을 빌드하려면 다음 명령을 실행하세요:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 또는 감시 모드에서 실행
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 이 명령은 기본적으로 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`로 선언된 콘텐츠 파일을 찾고 `.intlayer` 디렉토리에 사전을 빌드합니다.
@@ -166,8 +166,8 @@ npx intlayer config push
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

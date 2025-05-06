@@ -46,13 +46,13 @@ To see how to configure available locales, or other parameters, refer to the [co
 To build your dictionaries, you can run the commands:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 or in watch mode
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 This command will find your declaration content files as default as `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. And build the dictionaries in the `.intlayer` directory.
@@ -166,8 +166,8 @@ By pushing the configuration, your project is fully integrated with the Intlayer
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

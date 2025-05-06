@@ -240,7 +240,7 @@ module.exports = clientComponentContent;
 आप [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer-cli/readme.md) का उपयोग करके अपने शब्दकोश बना सकते हैं।
 
 ```bash packageManager="npm"
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 ```bash packageManager="yarn"

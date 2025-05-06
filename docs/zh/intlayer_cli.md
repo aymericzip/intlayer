@@ -46,13 +46,13 @@ Intlayer 支持多种配置文件格式：
 要构建您的字典，可以运行以下命令：
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 或者使用监视模式
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 此命令将默认查找您的声明内容文件，例如 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`，并在 `.intlayer` 目录中构建字典。
@@ -166,8 +166,8 @@ npx intlayer config push
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

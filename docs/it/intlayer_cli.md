@@ -46,13 +46,13 @@ Per vedere come configurare le lingue disponibili o altri parametri, fai riferim
 Per costruire i tuoi dizionari, puoi eseguire i comandi:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 o in modalità watch
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 Questo comando troverà i tuoi file di dichiarazione dei contenuti come predefinito `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. E costruirà i dizionari nella directory `.intlayer`.
@@ -166,8 +166,8 @@ Caricando la configurazione, il tuo progetto è completamente integrato con il C
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

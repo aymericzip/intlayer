@@ -86,6 +86,7 @@ declare module '@intlayer/docs' {
   export type DocsKeys = keyof typeof DocsKeysEnum;
 
   export function getDocs(lang?: string): Docs;
+  export function getFequentQuestions(): Record<string, string>;
   export function getDoc<T extends DocsKeys>(
     docName: T,
     lang?: string

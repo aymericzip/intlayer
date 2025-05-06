@@ -46,13 +46,13 @@ Pour voir comment configurer les locales disponibles ou d'autres paramètres, r�
 Pour construire vos dictionnaires, vous pouvez exécuter les commandes :
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 ou en mode watch
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 Cette commande trouvera vos fichiers de contenu de déclaration par défaut comme `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Et construira les dictionnaires dans le répertoire `.intlayer`.
@@ -166,8 +166,8 @@ En poussant la configuration, votre projet est entièrement intégré au CMS Int
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

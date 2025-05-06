@@ -1,9 +1,9 @@
+import type { Tag } from '@/types/tag.types';
+import { logger } from '@logger';
 import { readFileSync } from 'fs';
+import { OpenAI } from 'openai';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { logger } from '@logger';
-import { OpenAI } from 'openai';
-import type { Tag } from '@/types/tag.types';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

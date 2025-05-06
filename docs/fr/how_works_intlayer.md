@@ -69,7 +69,7 @@ Le serveur, basé sur Express, est utilisé pour recevoir les requêtes visuelle
 
 ### intlayer-cli
 
-Le package `intlayer-cli` peut être utilisé pour générer des dictionnaires en utilisant la commande `npx intlayer build`. Si `intlayer` est déjà installé, le CLI est automatiquement installé et ce package n'est pas nécessaire.
+Le package `intlayer-cli` peut être utilisé pour générer des dictionnaires en utilisant la commande `npx intlayer dictionaries build`. Si `intlayer` est déjà installé, le CLI est automatiquement installé et ce package n'est pas nécessaire.
 
 ### @intlayer/core
 

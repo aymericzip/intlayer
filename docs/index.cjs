@@ -1,4 +1,6 @@
 const { Locales } = require('@intlayer/config');
+const fg = require('fast-glob');
+const { join } = require('path');
 
 /**
  * This condition is a hack to import markdown files either in node or in the browser
@@ -1186,4 +1188,14 @@ const getDocs = (lang = Locales.ENGLISH) =>
 
 const getDoc = (docName, lang = Locales.ENGLISH) => docs[docName]?.[lang];
 
-module.exports = { getDoc, getDocs };
+const fequentQuestions = {
+  build_dictionaries: require('./en/frequent_questions/build_dictionaries.md'),
+  esbuild_error: require('./en/frequent_questions/esbuild_error.md'),
+};
+
+const getFequentQuestions = () =>
+  Object.fromEntries(
+    Object.entries(fequentQuestions).map(([key, value]) => [key, value])
+  );
+
+module.exports = { getDoc, getDocs, getFequentQuestions };

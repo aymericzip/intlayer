@@ -124,7 +124,7 @@ Pour générer les fichiers JSON de messages réels pour **react-intl**, exécut
 
 ```bash
 # avec npm
-npx intlayer build
+npx intlayer dictionaries build
 
 # avec yarn
 yarn intlayer build

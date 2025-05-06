@@ -11,8 +11,8 @@
     "start": "next start",
     "start:editor": "npx intlayer-editor start",
     "test": "",
-    "transpile": "npx intlayer build",
-    "watch": "npx intlayer build --watch"
+    "transpile": "npx intlayer dictionaries build",
+    "watch": "npx intlayer dictionaries build --watch"
   },
   "dependencies": {
     "intlayer": "workspace:*",

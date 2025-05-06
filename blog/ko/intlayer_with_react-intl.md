@@ -124,7 +124,7 @@ JSON이나 다양한 JS 유형(`.cjs`, `.mjs`)을 선호하는 경우, 구조는
 
 ```bash
 # npm으로
-npx intlayer build
+npx intlayer dictionaries build
 
 # yarn으로
 yarn intlayer build

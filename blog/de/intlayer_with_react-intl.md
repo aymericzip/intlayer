@@ -124,7 +124,7 @@ Um die tatsächlichen Nachrichten-JSON-Dateien für **react-intl** zu generieren
 
 ```bash
 # mit npm
-npx intlayer build
+npx intlayer dictionaries build
 
 # mit yarn
 yarn intlayer build

@@ -46,13 +46,13 @@ pnpm add intlayer-cli
 لبناء القواميس الخاصة بك، يمكنك تشغيل الأوامر:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 أو في وضع المراقبة
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 سيقوم هذا الأمر بالعثور على ملفات محتوى التصريح الخاصة بك افتراضيًا كـ `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. وبناء القواميس في دليل `.intlayer`.
@@ -166,8 +166,8 @@ npx intlayer config push
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

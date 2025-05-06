@@ -216,7 +216,7 @@ module.exports = {
 要构建 next-intl 的消息文件，请运行：
 
 ```bash packageManager="npm"
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 ```bash packageManager="yarn"

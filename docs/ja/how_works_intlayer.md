@@ -69,7 +69,7 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
 
 ### intlayer-cli
 
-`intlayer-cli`パッケージは、`npx intlayer build`コマンドを使用して辞書を生成するために使用されます。`intlayer`がすでにインストールされている場合、CLIは自動的にインストールされ、このパッケージは不要です。
+`intlayer-cli`パッケージは、`npx intlayer dictionaries build`コマンドを使用して辞書を生成するために使用されます。`intlayer`がすでにインストールされている場合、CLIは自動的にインストールされ、このパッケージは不要です。
 
 ### @intlayer/core
 

@@ -232,7 +232,7 @@ module.exports = clientComponentContent;
 Puedes construir tus diccionarios utilizando el [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer-cli/readme.md).
 
 ```bash packageManager="npm"
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 ```bash packageManager="yarn"

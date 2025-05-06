@@ -46,13 +46,13 @@ Para ver cómo configurar los locales disponibles u otros parámetros, consulta 
 Para construir tus diccionarios, puedes ejecutar los comandos:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 o en modo observación
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 Este comando encontrará tus archivos de contenido de declaración por defecto como `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Y construirá los diccionarios en el directorio `.intlayer`.
@@ -166,8 +166,8 @@ Al enviar la configuración, tu proyecto se integra completamente con el CMS de 
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

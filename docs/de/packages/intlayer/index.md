@@ -232,7 +232,7 @@ module.exports = clientComponentContent;
 Sie können Ihre Wörterbücher mit dem [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer-cli/readme.md) erstellen.
 
 ```bash packageManager="npm"
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 ```bash packageManager="yarn"

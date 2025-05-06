@@ -69,7 +69,7 @@
 
 ### intlayer-cli
 
-يمكن استخدام حزمة `intlayer-cli` لإنشاء القواميس باستخدام الأمر `npx intlayer build`. إذا تم تثبيت `intlayer` بالفعل، يتم تثبيت cli تلقائيًا وهذه الحزمة ليست ضرورية.
+يمكن استخدام حزمة `intlayer-cli` لإنشاء القواميس باستخدام الأمر `npx intlayer dictionaries build`. إذا تم تثبيت `intlayer` بالفعل، يتم تثبيت cli تلقائيًا وهذه الحزمة ليست ضرورية.
 
 ### @intlayer/core
 

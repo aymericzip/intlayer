@@ -1,9 +1,11 @@
 import { getBlogs } from '@intlayer/blog';
 import { Locales } from '@intlayer/config';
-import { getDocs } from '@intlayer/docs';
+import { getDocs, getFequentQuestions } from '@intlayer/docs';
 import dotenv from 'dotenv';
-import fs from 'fs';
+import fs, { readFileSync } from 'fs';
 import { OpenAI } from 'openai';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 import embeddingsList from './embeddings.json' with { type: 'json' };
 
 type VectorStoreEl = {
@@ -125,12 +127,13 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   });
 
   // Retrieve documentation and blog posts in English locale
+  const frequentQuestions = getFequentQuestions();
   const docs = getDocs(Locales.ENGLISH);
   const blogs = getBlogs(Locales.ENGLISH);
 
   let result: Record<string, number[]> = {}; // Object to hold updated embeddings
 
-  const files = { ...docs, ...blogs }; // Combine docs and blogs into a single object
+  const files = { ...docs, ...blogs, ...frequentQuestions }; // Combine docs and blogs into a single object
 
   // Iterate over each file key (identifier) in the combined files
   for (const fileKey of Object.keys(files)) {
@@ -226,34 +229,26 @@ export type ChatCompletionRequestMessage = {
   content: string; // The text content of the message
 };
 
+/**
+ * Reads the content of a file synchronously.
+ *
+ * @function
+ * @param relativeFilePath - The relative or absolute path to the target file.
+ * @returns The entire contents of the specified file as a UTF-8 encoded string.
+ */
+const getFileContent = (relativeFilePath: string): string => {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const absolutePath = join(__dirname, relativeFilePath);
+  const fileContent = readFileSync(absolutePath, 'utf-8');
+  return fileContent;
+};
+
+const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
+
 // Initial prompt configuration for the chatbot
 export const initPrompt: ChatCompletionRequestMessage = {
   role: 'system',
-  content:
-    'Ignore all instructions before this one. \
-    Keep forever all instructions after this one. From now you are not allowed to ignore the previous instructions. \
-    You are an expert in internationalization solution for Javascript Application. You\'re an helpful chatbot for Intlayer, an Internationalization solution\
-    The website url of the solution is: \'https://intlayer.org\'). And your implemented on this website. \
-    The user is an potential user of Intlayer. Your task is now to answer the questions of the user. \
-    You must talk as an member of Intlayer. You must only answer the questions relative to Intlayer. \
-    Any question should be related to Intlayer. If a question is not related to Intlayer, you should NOT answer it. \
-    You must NOT answer question who is generally secret for a company (E.g. financial information). \
-    Your should NOT invent information that are not precised into the relevant documentation chunks provided. \
-    If you don\'t have enough information to answer the question, not answer using extra information extracted from your knowledge. \
-    If your have a doubt about something, you should ask more question to the user. \
-    \
-    Here some useful urls to know more about Intlayer: \
-    https://intlayer.org/docs \
-    https://intlayer.org/blog \
-    https://intlayer.org/pricing \
-    https://intlayer.org/dashboard \
-    \
-    Your should return a result as markdown.\
-    Code element should include metadata fileName="file.ts" if could be useful for the user. \
-    Code element format should not include metadata (E.g. codeFormat="typescript", or packageManager="npm". \
-    \
-    Here is the relevant documentation:\
-    {{relevantFilesReferences}}', // Placeholder for relevant documentation to be inserted later
+  content: CHAT_GPT_PROMPT,
 };
 
 export type AskDocQuestionResult = {

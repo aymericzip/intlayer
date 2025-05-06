@@ -46,13 +46,13 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 अपने शब्दकोश बनाने के लिए, आप निम्नलिखित कमांड चला सकते हैं:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 या वॉच मोड में
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 यह कमांड आपकी घोषणा सामग्री फाइलों को डिफ़ॉल्ट रूप से `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` के रूप में खोजेगा। और `.intlayer` डायरेक्टरी में शब्दकोश बनाएगा।
@@ -166,8 +166,8 @@ npx intlayer config push
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

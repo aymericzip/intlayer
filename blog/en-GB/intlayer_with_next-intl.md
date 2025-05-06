@@ -216,7 +216,7 @@ module.exports = {
 To build the message files for next-intl, run:
 
 ```bash packageManager="npm"
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 ```bash packageManager="yarn"

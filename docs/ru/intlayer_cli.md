@@ -46,13 +46,13 @@ Intlayer поддерживает несколько форматов конфи
 Для сборки ваших словарей вы можете выполнить команды:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 или в режиме наблюдения
 
 ```bash
-npx intlayer build --watch
+npx intlayer dictionaries build --watch
 ```
 
 Эта команда найдет ваши файлы деклараций контента по умолчанию как `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` и соберет словари в директорию `.intlayer`.
@@ -166,8 +166,8 @@ npx intlayer config push
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer build",
-  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:build": "npx intlayer dictionaries build",
+  "intlayer:watch": "npx intlayer dictionaries build --watch",
   "intlayer:push": "npx intlayer dictionary push",
   "intlayer:pull": "npx intlayer dictionary pull",
   "intlayer:audit": "npx intlayer audit"

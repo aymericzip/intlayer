@@ -27,7 +27,7 @@ yarn add intlayer-cli
 以下は`intlayer-cli`パッケージの使用例です:
 
 ```bash
-npx intlayer build
+npx intlayer dictionaries build
 ```
 
 ## CLIコマンド
