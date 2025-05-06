@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, h } from 'vue';
+import { ref } from 'vue';
 import { useIntlayer } from 'vue-intlayer';
 
 defineProps({
@@ -7,7 +7,11 @@ defineProps({
 });
 
 const content = useIntlayer('hello-world');
+// const { mdTest } = content;
 const countRef = ref(0);
+
+// console.log('test1', content?.value.mdTest);
+// console.log('test2', content?.mdTest.markdown);
 </script>
 
 <template>
@@ -18,6 +22,11 @@ const countRef = ref(0);
     </button>
     <p v-html="content.edit"></p>
   </div>
+
+  <!-- works -->
+  <!-- {{ JSON.stringify(content.mdTest) }}
+  {{ JSON.stringify(mdTest) }} -->
+  {{ content.mdTest }}
 
   <p>
     <content.checkOut />

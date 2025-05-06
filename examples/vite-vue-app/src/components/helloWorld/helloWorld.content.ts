@@ -1,8 +1,9 @@
-import { t, type Dictionary } from 'intlayer';
+import { md, t, type Dictionary } from 'intlayer';
 
 const helloWorldContent = {
   key: 'hello-world',
   content: {
+    mdTest: md('Hello **World**!'),
     count: t({ en: 'count is ', fr: 'le compte est ', es: 'el recuento es ' }),
     edit: t({
       en: 'Edit <code>components/HelloWorld.vue</code> and save to test HMR',

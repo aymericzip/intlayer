@@ -1,7 +1,8 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import type { DeepTransformContent, Dictionary } from '@intlayer/core';
+import type { Dictionary } from '@intlayer/core';
 import { computed, inject } from 'vue';
 import { getDictionary } from '../getDictionary';
+import { DeepTransformContent } from '../plugins';
 import { INTLAYER_SYMBOL, IntlayerProvider } from './installIntlayer';
 
 export const useDictionary = <T extends Dictionary>(
@@ -10,9 +11,10 @@ export const useDictionary = <T extends Dictionary>(
 ): DeepTransformContent<T['content']> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
-  const localeTarget = computed(() => locale ?? intlayer?.locale.value);
-
   return computed(() =>
-    getDictionary<T, LocalesValues>(dictionary, localeTarget.value)
+    getDictionary<T, LocalesValues>(
+      dictionary,
+      locale ?? intlayer?.locale.value
+    )
   ) as any;
 };

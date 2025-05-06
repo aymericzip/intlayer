@@ -898,6 +898,54 @@ import RouterLink from "@components/RouterLink.vue";
 </script>
 ```
 
+### (Optional) Step 11: Render Markdown
+
+Intlayer supports rendering Markdown content directly in your Vue application. By default, Markdown is treated as plain text. To convert Markdown into rich HTML, you can integrate [markdown-it](https://github.com/markdown-it/markdown-it), a Markdown parser.
+
+This is particularly useful when your translations include formatted content like lists, links, or emphasis.
+
+By default Intlayer render markdown as string. But Intlayer also provides a way to render markdown into HTML using the `installIntlayerMarkdown` function.
+
+> To see how to declare markdown content using the `intlayer` package, see the [markdown doc](https://github.com/aymericzip/intlayer/tree/main/docs/en/dictionary/markdown.md).
+
+```ts filename="main.ts"
+import MarkdownIt from "markdown-it";
+import { createApp, h } from "vue";
+import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+
+const app = createApp(App);
+
+installIntlayer(app);
+
+const md = new MarkdownIt({
+  html: true, // allow HTML tags
+  linkify: true, // auto-link URLs
+  typographer: true, // enable smart quotes, dashes, etc.
+});
+
+// Tell Intlayer to use md.render() whenever it needs to turn markdown into HTML
+installIntlayerMarkdown(app, (markdown) => {
+  const html = md.render(markdown);
+  return h("div", { innerHTML: html });
+});
+```
+
+Once registered, you can use the component-based syntax to display the Markdown content directly:
+
+```vue
+<template>
+  <div>
+    <myMarkdownContent />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { myMarkdownContent } = useIntlayer("my-component");
+</script>
+```
+
 ### Configure TypeScript
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
