@@ -6,44 +6,45 @@ defineProps({
   msg: String,
 });
 
-const content = useIntlayer('hello-world');
-// const { mdTest } = content;
+const {
+  count,
+  mdTest,
+  edit,
+  checkOut,
+  officialStarter,
+  learnMore,
+  readTheDocs,
+} = useIntlayer('hello-world');
 const countRef = ref(0);
-
-// console.log('test1', content?.value.mdTest);
-// console.log('test2', content?.mdTest.markdown);
 </script>
 
 <template>
   <div class="card">
     <button type="button" @click="countRef++">
-      <content.count />
+      <count />
       {{ countRef }}
     </button>
-    <p v-html="content.edit"></p>
+    <p v-html="edit"></p>
   </div>
 
-  <!-- works -->
-  <!-- {{ JSON.stringify(content.mdTest) }}
-  {{ JSON.stringify(mdTest) }} -->
-  {{ content.mdTest }}
+  <mdTest />
 
   <p>
-    <content.checkOut />
+    <checkOut />
     <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
       >create-vue</a
     >,
-    <content.officialStarter />
+    <officialStarter />
   </p>
   <p>
-    <content.learnMore />
+    <learnMore />
     <a
       href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
       target="_blank"
-      ><content.vueDocs /></a
+      ><vueDocs /></a
     >.
   </p>
-  <p class="read-the-docs"><content.readTheDocs /></p>
+  <p class="read-the-docs"><readTheDocs /></p>
 </template>
 
 <style scoped>
