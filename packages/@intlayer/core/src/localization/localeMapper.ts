@@ -1,10 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { LocalesValues } from '@intlayer/config/client';
 
-const { internationalization, middleware } = configuration;
-const { prefixDefault } = middleware;
-const { locales, defaultLocale } = internationalization;
-
 export type LocaleData = {
   locale: LocalesValues;
   defaultLocale: LocalesValues;
@@ -12,11 +8,6 @@ export type LocaleData = {
   locales: LocalesValues[];
   urlPrefix: string;
 };
-
-const baseLocaleData = {
-  defaultLocale: defaultLocale,
-  locales,
-} satisfies Partial<LocaleData>;
 
 /**
  * Map the locale data to an array of objects
@@ -45,12 +36,17 @@ const baseLocaleData = {
  * @returns An array of objects
  */
 export const localeMap = <T extends object>(
-  mapper: (locale: LocaleData) => T
+  mapper: (locale: LocaleData) => T,
+  locales: LocalesValues[] = configuration.internationalization.locales,
+  defaultLocale: LocalesValues = configuration.internationalization
+    .defaultLocale,
+  prefixDefault: boolean = configuration.middleware.prefixDefault
 ): T[] =>
   locales.map((locale) =>
     mapper({
-      ...baseLocaleData,
       locale,
+      defaultLocale,
+      locales,
       isDefault: locale === defaultLocale,
       urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
     })
@@ -82,11 +78,18 @@ export const localeMap = <T extends object>(
  * @param mapper - The mapper function that returns an array of objects
  * @returns An array of objects
  */
-export const localeFlatMap = <T>(mapper: (locale: LocaleData) => T[]): T[] =>
+export const localeFlatMap = <T>(
+  mapper: (locale: LocaleData) => T[],
+  locales: LocalesValues[] = configuration.internationalization.locales,
+  defaultLocale: LocalesValues = configuration.internationalization
+    .defaultLocale,
+  prefixDefault: boolean = configuration.middleware.prefixDefault
+): T[] =>
   locales.flatMap((locale) =>
     mapper({
-      ...baseLocaleData,
       locale,
+      defaultLocale,
+      locales,
       isDefault: locale === defaultLocale,
       urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
     })
