@@ -1,28 +1,26 @@
 import type { LocalesValues } from '@intlayer/config/client';
 
+const dnCache = new Map<LocalesValues, Intl.DisplayNames>();
+
 export const getLocaleName = (
   displayLocale: LocalesValues,
   targetLocale: LocalesValues = displayLocale
 ): string => {
-  // Native path (modern browsers & Node 18+)
-  if (typeof Intl?.DisplayNames === 'function') {
-    try {
-      const displayNames = new Intl.DisplayNames([targetLocale], {
-        type: 'language',
-      });
-      return displayNames.of(displayLocale) ?? 'Unknown locale';
-    } catch {
-      return displayLocale;
+  if (typeof Intl?.DisplayNames !== 'function') {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(
+        `Intl.DisplayNames is not supported; falling back to raw locale (${displayLocale}).`
+      );
     }
+    return displayLocale;
   }
 
-  const isDev = process.env.NODE_ENV === 'development';
-
-  if (isDev) {
-    console.warn(
-      `getLocaleName: Intl.DisplayNames is not supported in this browser. Using displayLocale: ${displayLocale}`
-    );
+  // new Intl.DisplayNames() is fairly heavy: under the hood every call parses CLDR data and builds a resolver table. In your LocaleSwitcher it’s invoked:
+  let dn = dnCache.get(targetLocale);
+  if (!dn) {
+    dn = new Intl.DisplayNames([targetLocale], { type: 'language' });
+    dnCache.set(targetLocale, dn);
   }
 
-  return displayLocale;
+  return dn.of(displayLocale) ?? 'Unknown locale';
 };
