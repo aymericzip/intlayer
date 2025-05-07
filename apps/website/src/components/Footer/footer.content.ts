@@ -267,8 +267,8 @@ const footerContent = {
       },
       {
         title: t({
-          en: 'Lean more',
-          'en-GB': 'Lean more',
+          en: 'Learn more',
+          'en-GB': 'Learn more',
           fr: 'En savoir plus',
           es: 'Aprende más',
           de: 'Mehr erfahren',
