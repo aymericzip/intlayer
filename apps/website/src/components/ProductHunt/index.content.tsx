@@ -115,6 +115,21 @@ const productHuntContent = {
       ar: 'اذهب لرؤيةه على Product Hunt',
       ru: 'Посетите на Product Hunt',
     }),
+    closeLabel: t({
+      en: 'Close',
+      fr: 'Fermer',
+      es: 'Cerrar',
+      'en-GB': 'Close',
+      de: 'Schließen',
+      ja: '閉じる',
+      ko: '닫기',
+      zh: '关闭',
+      it: 'Chiudi',
+      pt: 'Fechar',
+      hi: 'बंद करें',
+      ar: 'إغلاق',
+      ru: 'Закрыть',
+    }),
   },
 } satisfies Dictionary;
 

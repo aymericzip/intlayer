@@ -2,6 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import {
+  Button,
   Container,
   MaxWidthSmoother,
   ProductHuntLogo,
@@ -62,7 +63,8 @@ export const ProductHunt: FC = () => {
       revalidateTime: 5 * 60 * 1000, // 5 minutes
     }
   );
-  const { title, content, details, linkLabel } = useIntlayer('product-hunt');
+  const { title, content, details, linkLabel, closeLabel } =
+    useIntlayer('product-hunt');
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -125,13 +127,18 @@ export const ProductHunt: FC = () => {
           </MaxWidthSmoother>
         </div>
       </Link>
-      <X
+      <Button
+        Icon={X}
+        label={closeLabel.value}
         onClick={(e) => {
+          e.preventDefault();
           e.stopPropagation();
           setIsVisible(false);
         }}
-        className="absolute right-2 top-2 cursor-pointer"
-        size={25}
+        color="text"
+        variant="hoverable"
+        className="!absolute right-2 top-2 cursor-pointer"
+        size="icon-md"
       />
     </Container>
   );
