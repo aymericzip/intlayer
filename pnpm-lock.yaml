@@ -86,9 +86,9 @@ importers:
       '@types/node':
         specifier: ^22.13.10
         version: 22.13.10
-      bcrypt:
-        specifier: ^5.1.1
-        version: 5.1.1
+      bcryptjs:
+        specifier: ^3.0.2
+        version: 3.0.2
       compression:
         specifier: ^1.8.0
         version: 1.8.0
@@ -168,9 +168,6 @@ importers:
       '@intlayer/docs':
         specifier: workspace:*
         version: link:../../docs
-      '@types/bcrypt':
-        specifier: ^5.0.2
-        version: 5.0.2
       '@types/body-parser':
         specifier: ^1.19.5
         version: 1.19.5
@@ -6381,7 +6378,7 @@ packages:
       {
         integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==,
       }
-    engines: { node: '>=0.10.0' }
+    engines: { '0': node >=0.10.0 }
 
   '@expo/cli@0.22.19':
     resolution:
@@ -11206,12 +11203,6 @@ packages:
         integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==,
       }
 
-  '@types/bcrypt@5.0.2':
-    resolution:
-      {
-        integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==,
-      }
-
   '@types/body-parser@1.19.5':
     resolution:
       {
@@ -13638,12 +13629,12 @@ packages:
         integrity: sha512-x+VAiMRL6UPkx+kudNvxTl6hB2XNNCG2r+7wixVfIYwu/2HKRXimwQyaumLjMveWvT2Hkd/cAJw+QBMfJ/EKVw==,
       }
 
-  bcrypt@5.1.1:
+  bcryptjs@3.0.2:
     resolution:
       {
-        integrity: sha512-AGBHOG5hPYZ5Xl9KXzU5iKq9516yEmvCKDg3ecP5kX2aB6UqTeXZxk2ELnDgDm6BQSMlLt9rDB4LoSMx0rYwww==,
+        integrity: sha512-k38b3XOZKv60C4E2hVsXTolJWfkGRMbILBIe2IBITXciy5bOsTKot5kDrf3ZfufQtQOUN5mXceUEpU1rTl9Uog==,
       }
-    engines: { node: '>= 10.0.0' }
+    hasBin: true
 
   better-opn@3.0.2:
     resolution:
@@ -22826,12 +22817,6 @@ packages:
     resolution:
       {
         integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==,
-      }
-
-  node-addon-api@5.1.0:
-    resolution:
-      {
-        integrity: sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==,
       }
 
   node-addon-api@7.1.1:
@@ -37041,10 +37026,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.27.1
 
-  '@types/bcrypt@5.0.2':
-    dependencies:
-      '@types/node': 22.13.10
-
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
@@ -38899,13 +38880,7 @@ snapshots:
 
   batch@0.6.1: {}
 
-  bcrypt@5.1.1:
-    dependencies:
-      '@mapbox/node-pre-gyp': 1.0.11
-      node-addon-api: 5.1.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
+  bcryptjs@3.0.2: {}
 
   better-opn@3.0.2:
     dependencies:
@@ -46043,8 +46018,6 @@ snapshots:
     dependencies:
       lower-case: 2.0.2
       tslib: 2.8.1
-
-  node-addon-api@5.1.0: {}
 
   node-addon-api@7.1.1: {}
 

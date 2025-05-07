@@ -1,4 +1,3 @@
-import crypto from 'crypto';
 import { logger } from '@logger';
 import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import {
@@ -10,28 +9,29 @@ import {
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
-import { hash, genSalt, compare } from 'bcrypt';
+import { compare, genSalt, hash } from 'bcryptjs';
+import crypto from 'crypto';
 import type { Response } from 'express';
 // @ts-ignore express-intlayer not build yet
-import { t } from 'express-intlayer';
-import jwt from 'jsonwebtoken';
-import type { ObjectId } from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
-import { getUserByEmail, getUserById, updateUserById } from './user.service';
 import type { Organization } from '@/types/organization.types';
 import type { Project } from '@/types/project.types';
 import type {
-  SessionProviders,
   EmailPasswordSessionProvider,
-  GoogleSessionProvider,
   GithubSessionProvider,
+  GoogleSessionProvider,
   Session,
+  SessionProviders,
 } from '@/types/session.types';
 import type {
   User,
   UserDocument,
   UserWithPasswordNotHashed,
 } from '@/types/user.types';
+import { t } from 'express-intlayer';
+import jwt from 'jsonwebtoken';
+import type { ObjectId } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
+import { getUserByEmail, getUserById, updateUserById } from './user.service';
 
 /**
  * Adds a session to a user or updates the existing one.
