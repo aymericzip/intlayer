@@ -83,9 +83,6 @@ importers:
       '@react-email/components':
         specifier: ^0.0.34
         version: 0.0.34(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@types/node':
-        specifier: ^22.13.10
-        version: 22.13.10
       bcryptjs:
         specifier: ^3.0.2
         version: 3.0.2
@@ -192,6 +189,9 @@ importers:
       '@types/jsonwebtoken':
         specifier: ^9.0.9
         version: 9.0.9
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.13.10
       '@types/oauth2-server':
         specifier: ^3.0.18
         version: 3.0.18

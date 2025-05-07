@@ -67,7 +67,6 @@
   },
   "dependencies": {
     "@react-email/components": "^0.0.34",
-    "@types/node": "^22.13.10",
     "bcryptjs": "^3.0.2",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
