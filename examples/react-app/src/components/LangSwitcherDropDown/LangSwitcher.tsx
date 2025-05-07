@@ -3,8 +3,8 @@
 import { getLocaleName, getLocalizedUrl } from 'intlayer';
 import type { ButtonHTMLAttributes, FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 const ButtonItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   children,
@@ -25,7 +25,7 @@ export const LocaleSwitcher: FC = () => {
   const { pathname, search } = useLocation(); // Get the current URL path. Example: /fr/about
   const navigate = useNavigate();
 
-  const { localeList, availableLocales, setLocale } = useLocale({
+  const { availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
       // Construct the URL with the updated locale
       // Example: /es/about
@@ -47,7 +47,7 @@ export const LocaleSwitcher: FC = () => {
         <div className="separator min-w-[100px] items-end divide-y divide-dashed p-1">
           <h2 className={`mb-3 text-xl font-semibold`}>{content.title} </h2>
 
-          {localeList.map((lang) => (
+          {availableLocales.map((lang) => (
             <ButtonItem
               key={lang}
               onClick={() => setLocale(lang)}

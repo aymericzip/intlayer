@@ -1,6 +1,5 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
-import { localeList } from '@intlayer/core';
 import { computed, inject } from 'vue';
 import { INTLAYER_SYMBOL, IntlayerProvider } from './installIntlayer';
 import { useLocaleCookie } from './useLocaleCookie';
@@ -38,7 +37,6 @@ export const useLocale = ({ onLocaleChange }: useLocaleProps = {}) => {
     locale, // Current locale
     defaultLocale, // Principal locale defined in config
     availableLocales, // List of the available locales defined in config
-    localeList, // List of all available locales
     setLocale, // Function to set the locale
   };
 };

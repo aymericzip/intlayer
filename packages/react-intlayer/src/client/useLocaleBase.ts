@@ -1,8 +1,6 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-
-import { localeList } from '@intlayer/core';
 import { useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 
@@ -19,7 +17,6 @@ export const useLocaleBase = () => {
     locale, // Current locale
     defaultLocale, // Principal locale defined in config
     availableLocales, // List of the available locales defined in config
-    localeList, // List of all available locales
     setLocale, // Function to set the locale
   };
 };

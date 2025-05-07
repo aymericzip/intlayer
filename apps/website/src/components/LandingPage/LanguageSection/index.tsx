@@ -5,8 +5,8 @@ import { cn } from '@utils/cn';
 import {
   getHTMLTextDir,
   getLocaleName,
-  type Locales,
   localeList,
+  type Locales,
 } from 'intlayer';
 import {
   useEffect,

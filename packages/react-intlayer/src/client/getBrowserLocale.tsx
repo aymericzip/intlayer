@@ -1,7 +1,5 @@
-import { Locales } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
-
-import { localeList } from '@intlayer/core';
+import { Locales } from '@intlayer/config/client';
 
 export enum LanguageDetector {
   Querystring = 'querystring',
@@ -160,14 +158,11 @@ const getFirstAvailableLocale = (
     const localesArray = [locales[detector]].flat();
 
     for (const locale of localesArray) {
-      if (
-        locale &&
-        (internationalization?.locales ?? localeList).includes(locale)
-      ) {
+      if (locale && (internationalization?.locales).includes(locale)) {
         return locale;
       } else if (
         locale?.includes('-') &&
-        (internationalization?.locales ?? localeList).includes(
+        (internationalization?.locales).includes(
           locale.split('-')[0] as Locales
         )
       ) {
