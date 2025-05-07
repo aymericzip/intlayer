@@ -45,17 +45,17 @@ export const AvailableTechnoSection: FC = () => {
         >
           <ViteLogo className="size-full max-h-full h-20" />
         </Link>
-      </div>
-      <h2 className="text-neutral">{commingSoon}</h2>
-      <div className="flex w-3/4 flex-row justify-evenly flex-wrap gap-6 p-6">
         <Link
           href={PagesRoutes.Doc_Environment_ViteAndVue}
           className="grow-0"
           color="custom"
           label={vite.label.value}
         >
-          <VuejsLogo className="grayscale-60 max-h-full opacity-50 h-20" />
+          <VuejsLogo className="size-full max-h-full h-20" />
         </Link>
+      </div>
+      <h2 className="text-neutral">{commingSoon}</h2>
+      <div className="flex w-3/4 flex-row justify-evenly flex-wrap gap-6 p-6">
         <NuxtLogo className="grayscale-60 max-h-full opacity-50 h-20" />
         <Link
           href={PagesRoutes.Doc_Environment_Angular}
