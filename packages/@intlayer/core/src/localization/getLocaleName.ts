@@ -9,7 +9,7 @@ export const getLocaleName = (
   if (typeof Intl?.DisplayNames !== 'function') {
     if (process.env.NODE_ENV === 'development') {
       console.warn(
-        `Intl.DisplayNames is not supported; falling back to raw locale (${displayLocale}).`
+        `Intl.DisplayNames is not supported; falling back to raw locale (${displayLocale}). Consider adding a polyfill as https://formatjs.github.io/docs/polyfills/intl-displaynames/`
       );
     }
     return displayLocale;
