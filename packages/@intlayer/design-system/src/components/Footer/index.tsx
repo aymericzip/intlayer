@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 import { Logo } from '../Logo';
-
+import { SocialNetworks } from '../SocialNetworks';
 export type FooterLink = {
   href: string;
   text: ReactNode;
@@ -14,11 +14,14 @@ type FooterProps = { links?: LinkGroup[] };
 
 export const Footer: FC<FooterProps> = ({ links }) => (
   <footer className="flex flex-auto flex-row flex-wrap items-center justify-around gap-10 p-6">
-    <aside className="flex flex-col items-center justify-between md:w-1/4">
-      <Logo type="logoWithTextBelow" width={80} height={80} />
+    <aside className="flex flex-col items-center justify-between md:w-1/4 gap-3">
+      <Logo type="logoWithTextBelow" className="size-full max-w-[120px]" />
       <span className="text-neutral text-center text-xs">
         © 2024 Intlayer, Inc.
       </span>
+      <div className="flex flex-row gap-3">
+        <SocialNetworks />
+      </div>
     </aside>
     <div className="m-auto flex w-full flex-row flex-wrap justify-around gap-x-3 gap-y-6 md:w-2/3">
       {(links ?? []).map(({ title, links }) => (

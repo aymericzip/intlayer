@@ -39,6 +39,7 @@ export * from './PressableSpan';
 export * from './ProfileDropDown';
 export * from './RightDrawer';
 export * from './Select';
+export * from './SocialNetworks';
 export * from './SwitchSelector';
 export * from './TabSelector';
 export * from './Tag';

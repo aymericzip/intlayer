@@ -8,6 +8,7 @@ import {
   HeightResizer,
   MaxWidthSmoother,
   Modal,
+  SocialNetworks,
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { ArrowRightToLine, MoveDiagonal } from 'lucide-react';
@@ -34,23 +35,28 @@ export const AsideNavigation: FC = (props) => {
             className="sticky top-14 z-10"
             roundedSize="none"
           >
-            <div className="relative flex flex-row items-center pt-6">
-              <Button
-                Icon={ArrowRightToLine}
-                size="icon-md"
-                variant="hoverable"
-                color="text"
-                label={collapseButton.label.value}
-                className={cn(
-                  'transition-transform max-md:hidden',
-                  isHidden && 'rotate-180'
-                )}
-                onClick={() => setIsHidden((isHidden) => !isHidden)}
-              />
-              <MaxWidthSmoother isHidden={isHidden}>
-                <h2 className="ml-3 text-nowrap font-bold">{title}</h2>
-              </MaxWidthSmoother>
-              <div className="from-card/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
+            <div className="relative flex flex-col items-center pt-2">
+              <div className="flex flex-row gap-5 justify-center items-center h-5 w-full">
+                <SocialNetworks className="w-3.5 h-full" />
+              </div>
+              <div className="relative flex flex-row items-center pt-2 w-full">
+                <Button
+                  Icon={ArrowRightToLine}
+                  size="icon-md"
+                  variant="hoverable"
+                  color="text"
+                  label={collapseButton.label.value}
+                  className={cn(
+                    'transition-transform max-md:hidden',
+                    isHidden && 'rotate-180'
+                  )}
+                  onClick={() => setIsHidden((isHidden) => !isHidden)}
+                />
+                <MaxWidthSmoother isHidden={isHidden}>
+                  <h2 className="ml-3 text-nowrap font-bold">{title}</h2>
+                </MaxWidthSmoother>
+                <div className="from-card/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
+              </div>
             </div>
           </Container>
           <div className="flex flex-1 md:sticky max-h-[calc(100vh-8rem)] h-screen md:top-28 md:pt-0 w-full">
