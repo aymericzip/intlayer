@@ -1,5 +1,4 @@
 import { t, type Dictionary } from 'intlayer';
-import React from 'react';
 
 const productHuntContent = {
   key: 'product-hunt',
@@ -8,79 +7,79 @@ const productHuntContent = {
     content: t({
       en: (
         <>
-          Intlayer Launches This <strong>Friday, August 16th</strong> on{' '}
+          Intlayer Launches This <strong>Sunday, May 11th</strong> on{' '}
           <strong className="underline">Product Hunt</strong>
         </>
       ),
       fr: (
         <>
-          Intlayer lance cette <strong>vendredi 16 août</strong> sur{' '}
+          Intlayer lance cette <strong>dimanche 11 mai</strong> sur{' '}
           <strong className="underline">Product Hunt</strong>
         </>
       ),
       es: (
         <>
-          Intlayer lanza esta <strong>viernes 16 agosto</strong> en{' '}
+          Intlayer lanza esta <strong>domingo 11 mayo</strong> en{' '}
           <strong className="underline">Product Hunt</strong>
         </>
       ),
       'en-GB': (
         <>
-          Intlayer Launches This <strong>Friday, August 16th</strong> on{' '}
+          Intlayer Launches This <strong>Sunday, May 11th</strong> on{' '}
           <strong className="underline">Product Hunt</strong>
         </>
       ),
       de: (
         <>
-          Intlayer startet diesen <strong>Freitag, den 16. August</strong> auf{' '}
+          Intlayer startet diesen <strong>Sonntag, den 11. Mai</strong> auf{' '}
           <strong className="underline">Product Hunt</strong>
         </>
       ),
       ja: (
         <>
-          Intlayerはこの<strong>8月16日金曜日</strong>に{' '}
+          Intlayerはこの<strong>日曜日、5月11日</strong>に{' '}
           <strong className="underline">Product Hunt</strong>でローンチします
         </>
       ),
       ko: (
         <>
-          Intlayer가<strong>8월 16일 금요일</strong>에{' '}
+          Intlayer가<strong>일요일, 5월 11일</strong>에{' '}
           <strong className="underline">Product Hunt</strong>에서 런칭됩니다
         </>
       ),
       zh: (
         <>
-          Intlayer将在<strong>8月16日星期五</strong>在{' '}
+          Intlayer将在<strong>星期日，5月11日</strong>在{' '}
           <strong className="underline">Product Hunt</strong>发布
         </>
       ),
       it: (
         <>
-          Intlayer lancia questo<strong>venerdì 16 agosto</strong> su{' '}
+          Intlayer lancia questo<strong>domenica 11 maggio</strong> su{' '}
           <strong className="underline">Product Hunt</strong>
         </>
       ),
       pt: (
         <>
-          Intlayer lança este<strong>sexta-feira, 16 de agosto</strong> no{' '}
+          Intlayer lança este<strong>domingo, 11 de maio</strong> no{' '}
           <strong className="underline">Product Hunt</strong>
         </>
       ),
       hi: (
         <>
-          Intlayer<strong>शुक्रवार, 16 अगस्त</strong> को{' '}
+          Intlayer<strong>रविवार, 11 मई</strong> को{' '}
           <strong className="underline">Product Hunt</strong> पर लॉन्च होता है
         </>
       ),
       ar: (
         <>
-          Intlayer تطلق هذا<strong>الجمعة، 16 أغسطس</strong> على{' '}
+          Intlayer تطلق هذا<strong>الأحد، 11 مايو</strong> على{' '}
           <strong className="underline">Product Hunt</strong>
         </>
       ),
       ru: (
         <>
-          Intlayer запускается<strong>в пятницу, 16 августа</strong> на{' '}
+          Intlayer запускается<strong>в воскресенье, 11 мая</strong> на{' '}
           <strong className="underline">Product Hunt</strong>
         </>
       ),

@@ -51,6 +51,7 @@ const secureHeaders = createSecureHeaders({
         'raw.githubusercontent.com',
         '*.openai.com',
         '*.stripe.com',
+        '*.producthunt.com',
         'cdn.jsdelivr.net',
       ],
       imgSrc: ["'self'", 'https:', 'data:'],

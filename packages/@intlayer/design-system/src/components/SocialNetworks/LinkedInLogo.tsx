@@ -8,7 +8,7 @@ export const LinkedInLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g transform="translate(-180.000000, -7479.000000)" fill="currentColor">
         <g transform="translate(56.000000, 160.000000)">
           <path

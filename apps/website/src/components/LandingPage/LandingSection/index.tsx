@@ -1,4 +1,5 @@
 import { Globe } from '@components/Globe/Globe';
+import { ProductHunt } from '@components/ProductHunt';
 import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
@@ -50,6 +51,7 @@ export const LandingSection: FC = () => {
           </div>
         </div>
         <ActionButtons className="z-10 mb-5 p-8 pt-0 md:hidden" />
+        <ProductHunt />
       </div>
     </section>
   );

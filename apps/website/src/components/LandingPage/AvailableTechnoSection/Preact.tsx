@@ -17,7 +17,7 @@ export const PreactLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
       <ellipse
         cx="0"
         cy="0"
-        stroke-width="16"
+        strokeWidth="16"
         rx="75"
         ry="196"
         fill="none"
@@ -28,7 +28,7 @@ export const PreactLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
       <ellipse
         cx="0"
         cy="0"
-        stroke-width="16"
+        strokeWidth="16"
         rx="75"
         ry="196"
         fill="none"
