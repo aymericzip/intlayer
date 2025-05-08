@@ -74,8 +74,6 @@ export const ProductHunt: FC = () => {
     useIntlayer('product-hunt');
 
   useEffect(() => {
-    if (isVisible === false) return;
-
     const timer = setTimeout(() => {
       setIsMiniaturized(true);
     }, MINIATURIZING_END_TIME);
@@ -84,12 +82,16 @@ export const ProductHunt: FC = () => {
   }, [isMobile, isVisible]);
 
   useEffect(() => {
+    if (isVisible !== null) return;
+
     const timer = setTimeout(() => {
+      if (isVisible !== null) return;
+
       setIsVisible(true);
     }, VISIBLE_START_TIME);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [isVisible]);
 
   const isMiniaturizable = !isMobile && isMiniaturized;
 
