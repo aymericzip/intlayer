@@ -97,20 +97,21 @@ export const markdownStringPlugin: Plugins = {
     return renderIntlayerNode({
       ...props,
       value: node,
-      children: h(
-        // EditorSelectorRenderer, // Maximum stack size exceeded
-        ContentSelectorWrapper,
-        {
-          dictionaryKey: rest.dictionaryKey,
-          keyPath: rest.keyPath,
-        },
-        {
-          default: () => {
-            const { renderMarkdown } = useMarkdown();
-            return renderMarkdown(node);
+      children: () =>
+        h(
+          // EditorSelectorRenderer, // Maximum stack size exceeded
+          ContentSelectorWrapper,
+          {
+            dictionaryKey: rest.dictionaryKey,
+            keyPath: rest.keyPath,
           },
-        }
-      ),
+          {
+            default: () => {
+              const { renderMarkdown } = useMarkdown();
+              return renderMarkdown(node);
+            },
+          }
+        ),
       additionalProps: {
         metadata: metadataNodes,
       },
