@@ -1,10 +1,11 @@
+import { AppProviders, type AppProvidersProps } from '@/providers/AppProviders';
 import type { FC } from 'react';
+import { FirstConsultationProvider } from './FirstConsultationProvider';
 import {
-  type PageContentLayoutProps,
   PageContentLayout,
+  type PageContentLayoutProps,
 } from './PageContentLayout';
 import { RootHTMLLayout } from './RootHTMLLayout';
-import { AppProviders, type AppProvidersProps } from '@/providers/AppProviders';
 
 type PageLayoutProps = AppProvidersProps & PageContentLayoutProps;
 
@@ -15,7 +16,9 @@ export const PageLayout: FC<PageLayoutProps> = ({
 }) => (
   <RootHTMLLayout locale={locale}>
     <AppProviders locale={locale}>
-      <PageContentLayout {...props}>{children}</PageContentLayout>
+      <PageContentLayout {...props}>
+        <FirstConsultationProvider>{children}</FirstConsultationProvider>
+      </PageContentLayout>
     </AppProviders>
   </RootHTMLLayout>
 );
