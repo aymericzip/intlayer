@@ -7,7 +7,11 @@ import {
   MaxWidthSmoother,
   ProductHuntLogo,
 } from '@intlayer/design-system';
-import { useAsync, useDevice } from '@intlayer/design-system/hooks';
+import {
+  useAsync,
+  useDevice,
+  usePersistedStore,
+} from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -49,7 +53,10 @@ const fetchUpvotes = async () => {
 
 export const ProductHunt: FC = () => {
   const { isMobile } = useDevice('sm');
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = usePersistedStore<boolean | null>(
+    'product-hunt-visible',
+    null
+  );
   const [isMiniaturized, setIsMiniaturized] = useState(false);
   const { data: upvotes, isLoading } = useAsync(
     'product-hunt-upvotes',
@@ -67,6 +74,8 @@ export const ProductHunt: FC = () => {
     useIntlayer('product-hunt');
 
   useEffect(() => {
+    if (isVisible === false) return;
+
     const timer = setTimeout(() => {
       setIsMiniaturized(true);
     }, MINIATURIZING_END_TIME);
