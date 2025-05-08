@@ -14,6 +14,7 @@ const {
   officialStarter,
   learnMore,
   readTheDocs,
+  vueDocs,
 } = useIntlayer('hello-world');
 const countRef = ref(0);
 </script>
