@@ -20,7 +20,7 @@ import { FC, useEffect, useState } from 'react';
 const VISIBLE_START_TIME = 3000;
 const MINIATURIZING_END_TIME = 6000;
 const MIN_COUNT_TO_SHOW_ONE = 5;
-const PRODUCT_HUNT_SLUG = 'intlayer';
+const PRODUCT_HUNT_SLUG = 'intlayer-i18n-cms-for-react-now-vue';
 
 const fetchUpvotes = async () => {
   try {
