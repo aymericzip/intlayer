@@ -54,7 +54,7 @@ const fetchUpvotes = async () => {
 export const ProductHunt: FC = () => {
   const { isMobile } = useDevice('sm');
   const [isVisible, setIsVisible] = usePersistedStore<boolean | null>(
-    'product-hunt-visible',
+    `product-hunt-visible+${PRODUCT_HUNT_SLUG}`,
     null
   );
   const [isMiniaturized, setIsMiniaturized] = useState(false);
