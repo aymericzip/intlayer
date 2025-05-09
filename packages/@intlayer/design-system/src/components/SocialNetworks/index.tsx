@@ -24,7 +24,7 @@ const socialNetworks = [
     label: 'YouTube',
   },
   {
-    href: 'https://www.linkedin.com/company/intlayer',
+    href: 'https://www.linkedin.com/company/intlayerorg',
     component: <LinkedInLogo className="max-w-full max-h-full" />,
     label: 'LinkedIn',
   },
