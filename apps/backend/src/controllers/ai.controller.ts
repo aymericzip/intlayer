@@ -12,11 +12,69 @@ import * as auditContentDeclarationUtil from '@utils/AI/auditDictionary';
 import * as auditContentDeclarationFieldUtil from '@utils/AI/auditDictionaryField';
 import * as auditContentDeclarationMetadataUtil from '@utils/AI/auditDictionaryMetadata';
 import * as autocompleteUtil from '@utils/AI/autocomplete';
+import * as translateJSONUtil from '@utils/AI/translateJSON';
 import * as auditTagUtil from '@utils/auditTag';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import type { Locales } from 'intlayer';
+
+export type TranslateJSONBody = Omit<
+  translateJSONUtil.TranslateJSONOptions,
+  'tags'
+> & {
+  tagsKeys?: string[];
+};
+export type TranslateJSONResult =
+  ResponseData<translateJSONUtil.TranslateJSONResultData>;
+
+export const translateJSON = async (
+  req: Request<AuditContentDeclarationBody>,
+  res: ResponseWithInformation<TranslateJSONResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { user, project, organization } = res.locals;
+  const { aiOptions, tagsKeys, ...rest } = req.body;
+
+  // Check if any API key is present
+  const hasApiKey = Boolean(aiOptions?.apiKey);
+
+  if (!hasApiKey) {
+    if (!user || !project || !organization) {
+      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+      return;
+    }
+  }
+
+  try {
+    let tags: Tag[] = [];
+
+    if (project?.organizationId) {
+      tags = await getTagsByKeys(tagsKeys, project.organizationId);
+    }
+
+    const auditResponse = await translateJSONUtil.translateJSON({
+      ...rest,
+      tags,
+    });
+
+    if (!auditResponse) {
+      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
+      return;
+    }
+
+    const responseData =
+      formatResponse<translateJSONUtil.TranslateJSONResultData>({
+        data: auditResponse,
+      });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
 
 export type AuditContentDeclarationBody = {
   aiOptions?: AIOptions;
@@ -49,7 +107,7 @@ export const auditContentDeclaration = async (
   } = req.body;
 
   // Check if any API key is present
-  const hasApiKey = aiOptions;
+  const hasApiKey = Boolean(aiOptions?.apiKey);
 
   if (!hasApiKey) {
     if (!user || !project || !organization) {
@@ -115,7 +173,7 @@ export const auditContentDeclarationField = async (
   const { fileContent, aiOptions, locales, tagsKeys, keyPath } = req.body;
 
   // Check if any API key is present
-  const hasApiKey = aiOptions?.apiKey;
+  const hasApiKey = Boolean(aiOptions?.apiKey);
 
   if (!hasApiKey) {
     if (!user || !project || !organization) {
@@ -178,7 +236,7 @@ export const auditContentDeclarationMetadata = async (
     req.body;
 
   // Check if any API key is present
-  const hasApiKey = aiOptions?.apiKey;
+  const hasApiKey = Boolean(aiOptions?.apiKey);
 
   if (!hasApiKey) {
     if (!user || !project || !organization) {
@@ -240,7 +298,7 @@ export const auditTag = async (
   const { aiOptions, tag } = req.body;
 
   // Check if any API key is present
-  const hasApiKey = aiOptions?.apiKey;
+  const hasApiKey = Boolean(aiOptions?.apiKey);
 
   if (!hasApiKey) {
     if (!user || !project || !organization) {
@@ -363,7 +421,7 @@ export const autocomplete = async (
     const { user, project, organization } = res.locals;
 
     // Check if any API key is present
-    const hasApiKey = aiOptions?.apiKey;
+    const hasApiKey = Boolean(aiOptions?.apiKey);
 
     if (!hasApiKey) {
       if (!user || !project || !organization) {

@@ -660,6 +660,15 @@ export const useCancelSubscription = (
  * AI
  */
 
+export const useTranslateJSONDeclaration = (
+  args?: UseAsyncOptions<IntlayerAPI['ai']['translateJSON']>
+) =>
+  useAppAsync('translateJSON', useIntlayerAuth().ai.translateJSON, args, {
+    requireUser: true,
+    requireOrganization: true,
+    requireProject: true,
+  });
+
 export const useAuditContentDeclaration = (
   args?: UseAsyncOptions<IntlayerAPI['ai']['auditContentDeclaration']>
 ) =>

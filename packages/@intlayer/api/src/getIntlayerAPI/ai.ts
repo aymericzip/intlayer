@@ -24,6 +24,9 @@ import type {
   // @ts-ignore: @intlayer/backend is not built yet
   ChatCompletionRequestMessage,
   // @ts-ignore: @intlayer/backend is not built yet
+  TranslateJSONResult,
+  // @ts-ignore: @intlayer/backend is not built yet
+  TranslateJSONResultBody,
 } from '@intlayer/backend';
 
 import configuration from '@intlayer/config/built';
@@ -54,6 +57,25 @@ export const getAiAPI = (
   }
 
   const AI_API_ROUTE = `${backendURL}/api/ai`;
+
+  /**
+   * Translate a JSON
+   * @param body - Audit file parameters.
+   * @returns Audited file content.
+   */
+  const translateJSON = async (
+    body?: TranslateJSONResultBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<TranslateJSONResult>(
+      `${AI_API_ROUTE}/translate/json`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: body,
+      }
+    );
 
   /**
    * Audits a content declaration file
@@ -230,6 +252,7 @@ export const getAiAPI = (
     );
 
   return {
+    translateJSON,
     auditContentDeclaration,
     auditContentDeclarationField,
     auditContentDeclarationMetadata,

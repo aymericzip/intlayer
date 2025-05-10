@@ -20,7 +20,7 @@ export type AuditOptions = {
   aiOptions?: AIOptions;
 };
 
-export type AuditFileResultData = {
+export type TranslateJSONResultData = {
   fileContent: string;
   tokenUsed: number;
 };
@@ -36,7 +36,7 @@ export const auditTag = async ({
   aiOptions,
   dictionaries,
   tag,
-}: AuditOptions): Promise<AuditFileResultData | undefined> => {
+}: AuditOptions): Promise<TranslateJSONResultData | undefined> => {
   try {
     // Prepare the prompt for AI by replacing placeholders with actual values.
     const prompt = CHAT_GPT_PROMPT.replace(

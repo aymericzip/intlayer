@@ -1,13 +1,13 @@
+import type { Routes } from '@/types/Routes';
 import {
   askDocQuestion,
-  auditContentDeclaration,
   auditContentDeclarationField,
   auditContentDeclarationMetadata,
   auditTag,
   autocomplete,
+  translateJSON,
 } from '@controllers/ai.controller';
 import { Router } from 'express';
-import type { Routes } from '@/types/Routes';
 
 export const aiRouter: Router = Router();
 
@@ -15,6 +15,11 @@ const baseURL = () => `${process.env.BACKEND_URL}/api/ai`;
 
 export const getAiRoutes = () =>
   ({
+    translateJSON: {
+      urlModel: '/translate/json',
+      url: `${baseURL()}/translate/json`,
+      method: 'POST',
+    },
     auditContentDeclaration: {
       urlModel: '/audit/dictionary',
       url: `${baseURL()}/audit/dictionary`,
@@ -46,6 +51,8 @@ export const getAiRoutes = () =>
       method: 'POST',
     },
   }) satisfies Routes;
+
+aiRouter.post(getAiRoutes().translateJSON.urlModel, translateJSON);
 
 aiRouter.post(
   getAiRoutes().auditContentDeclaration.urlModel,
