@@ -76,6 +76,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 - [Intlayer Editor](https://intlayer.org/doc/concept/editor)
 - [Intlayer CMS](https://intlayer.org/doc/concept/cms)
 - [Dictionary](https://intlayer.org/doc/concept/content)
+  - [Per-Locale Content Declaration File](https://intlayer.org/doc/concept/content/per-locale-file)
   - [Translation](https://intlayer.org/doc/concept/content/translation)
   - [Enumeration](https://intlayer.org/doc/concept/content/enumeration)
   - [Condition](https://intlayer.org/doc/concept/content/condition)
