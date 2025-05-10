@@ -1,9 +1,10 @@
+import { openai } from '@ai-sdk/openai';
 import { getBlogs } from '@intlayer/blog';
 import { Locales } from '@intlayer/config';
 import { getDocs, getFequentQuestions } from '@intlayer/docs';
+import { streamText } from 'ai';
 import dotenv from 'dotenv';
 import fs, { readFileSync } from 'fs';
-import { OpenAI } from 'openai';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import embeddingsList from './embeddings.json' with { type: 'json' };
@@ -25,11 +26,10 @@ type VectorStoreEl = {
  */
 const vectorStore: VectorStoreEl[] = [];
 
-// Constants defining OpenAI's token and character limits
-const MODEL: OpenAI.Chat.ChatModel = 'gpt-4o-2024-11-20'; // Model to use for chat completions
+// Constants defining model and settings
+const MODEL = 'gpt-4o-2024-11-20'; // Model to use for chat completions
 const MODEL_TEMPERATURE = 0.1; // Temperature to use for chat completions
-const EMBEDDING_MODEL: OpenAI.Embeddings.EmbeddingModel =
-  'text-embedding-3-large'; // Model to use for embedding generation
+const EMBEDDING_MODEL = 'text-embedding-3-large'; // Model to use for embedding generation
 const OVERLAP_TOKENS = 200; // Number of tokens to overlap between chunks
 const MAX_CHUNK_TOKENS = 800; // Maximum number of tokens per chunk
 const CHAR_BY_TOKEN = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
@@ -82,13 +82,16 @@ const chunkText = (text: string): string[] => {
  */
 const generateEmbedding = async (text: string): Promise<number[]> => {
   try {
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    const response = await openai.embeddings.create({
-      model: EMBEDDING_MODEL, // Specify the embedding model
+    // Create a standard OpenAI client for embeddings since the AI SDK doesn't directly support embeddings yet
+    const { OpenAI } = await import('openai');
+    const openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+    const response = await openaiClient.embeddings.create({
+      model: EMBEDDING_MODEL,
       input: text,
     });
 
-    return response.data[0].embedding; // Return the generated embedding
+    return response.data[0].embedding;
   } catch (error) {
     console.error('Error generating embedding:', error);
     return [];
@@ -262,7 +265,7 @@ export type AskDocQuestionOptions = {
 
 /**
  * Handles the "Ask a question" endpoint in an Express.js route.
- * Processes user messages, retrieves relevant documents, and interacts with OpenAI's chat API to generate responses.
+ * Processes user messages, retrieves relevant documents, and interacts with AI models to generate responses.
  *
  * @param messages - An array of chat messages from the user and assistant
  * @returns The assistant's response as a string
@@ -271,8 +274,6 @@ export const askDocQuestion = async (
   messages: ChatCompletionRequestMessage[],
   options?: AskDocQuestionOptions
 ): Promise<AskDocQuestionResult> => {
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
   // Assistant's response are filtered out otherwise the chatbot will be stuck in a self-referential loop
   // Note that the embedding precision will be lowered if the user change of context in the chat
   const userMessages = messages.filter((message) => message.role === 'user');
@@ -286,39 +287,36 @@ export const askDocQuestion = async (
   const relevantFilesReferences = await searchChunkReference(query);
 
   // 2) Integrate the relevant documents into the initial system prompt
-  const messagesList: ChatCompletionRequestMessage[] = [
-    {
-      ...initPrompt,
-      content: initPrompt.content.replace(
-        '{{relevantFilesReferences}}',
-        relevantFilesReferences.length === 0
-          ? 'Not relevant file found related to the question.'
-          : relevantFilesReferences
-              .map(
-                (doc, idx) =>
-                  `[Chunk ${idx}] docKey = "${doc.fileKey}":\n${doc.content}`
-              )
-              .join('\n\n') // Insert relevant docs into the prompt
-      ),
-    },
-    ...messages, // Include all user and assistant messages
+  const systemPrompt = initPrompt.content.replace(
+    '{{relevantFilesReferences}}',
+    relevantFilesReferences.length === 0
+      ? 'Not relevant file found related to the question.'
+      : relevantFilesReferences
+          .map(
+            (doc, idx) =>
+              `[Chunk ${idx}] docKey = "${doc.fileKey}":\n${doc.content}`
+          )
+          .join('\n\n') // Insert relevant docs into the prompt
+  );
+
+  // Format messages for AI SDK
+  const aiMessages = [
+    { role: 'system' as const, content: systemPrompt },
+    ...messages,
   ];
 
-  // 3) Send the compiled messages to OpenAI's Chat Completion API (using a specific model)
-  const response = await openai.chat.completions.create({
-    model: MODEL,
+  // 3) Use the AI SDK to stream the response
+  let fullResponse = '';
+  const stream = streamText({
+    model: openai(MODEL),
     temperature: MODEL_TEMPERATURE,
-    messages: messagesList,
-    stream: true,
+    messages: aiMessages,
   });
 
-  let fullResponse = '';
-  for await (const chunk of response) {
-    const content = chunk.choices[0]?.delta?.content || '';
-    if (content) {
-      fullResponse += content;
-      options?.onMessage?.(content);
-    }
+  // Process the stream
+  for await (const chunk of await stream.textStream) {
+    fullResponse += chunk;
+    options?.onMessage?.(chunk);
   }
 
   // 4) Extract unique related files
@@ -328,7 +326,7 @@ export const askDocQuestion = async (
 
   // 5) Return the assistant's response to the user
   return {
-    response: fullResponse ?? 'Error: No result found',
+    response: fullResponse || 'Error: No result found',
     relatedFiles,
   };
 };
