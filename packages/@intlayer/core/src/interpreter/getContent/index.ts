@@ -1,3 +1,4 @@
 export * from './deepTransform';
-export * from './plugins';
 export * from './getContent';
+export * from './getLocalisedContent';
+export * from './plugins';

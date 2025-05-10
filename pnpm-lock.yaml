@@ -1276,6 +1276,9 @@ importers:
       '@intlayer/dictionaries-entry':
         specifier: workspace:*
         version: link:../dictionaries-entry
+      '@intlayer/unmerged-dictionaries-entry':
+        specifier: workspace:*
+        version: link:../unmerged-dictionaries-entry
       commander:
         specifier: ^13.0.0
         version: 13.1.0

@@ -66,6 +66,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "commander": "^13.0.0",
     "fast-glob": "^3.3.3",
     "p-limit": "^3.1.0"
