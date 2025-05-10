@@ -74,6 +74,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "chokidar": "^3.6.0",
     "crypto-js": "^4.2.0",
     "deep-equal": "^2.2.3",

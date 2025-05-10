@@ -3,8 +3,8 @@ import type {
   DictionaryOutput,
   InternationalizationConfig,
   IntlayerConfig,
-  MiddlewareConfig,
   LogConfig,
+  MiddlewareConfig,
   ServerSetCookieRule,
   StrictMode,
 } from '../types/config';
@@ -72,6 +72,14 @@ export const getConfiguration = (
     dictionaryOutput: getEnvValue<DictionaryOutput>(
       env.content.dictionaryOutput,
       'array'
+    )!,
+    unmergedDictionariesDirName: getEnvValue(
+      env.content.unmergedDictionariesDirName,
+      'string'
+    )!,
+    unmergedDictionariesDir: getEnvValue(
+      env.content.unmergedDictionariesDir,
+      'string'
     )!,
     dictionariesDirName: getEnvValue(
       env.content.dictionariesDirName,

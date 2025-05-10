@@ -10,6 +10,7 @@ import { getContentDeclarationGetStatedData } from './docDataContent/concept/dic
 import { getContentDeclarationInsertionData } from './docDataContent/concept/dictionary/insertion';
 import { getContentDeclarationMarkdownData } from './docDataContent/concept/dictionary/markdown';
 import { getContentDeclarationNestingData } from './docDataContent/concept/dictionary/nesting';
+import { getContentDeclarationPerLocaleFileData } from './docDataContent/concept/dictionary/per-locale-file';
 import { getContentDeclarationTranslationData } from './docDataContent/concept/dictionary/translation';
 import { getHowWorksIntlayerData } from './docDataContent/concept/howWorksIntlayer';
 import { getInterestOfIntlayerData } from './docDataContent/concept/interestOfIntlayer';
@@ -111,6 +112,13 @@ export const getDocData = (
           default: getContentDeclarationGetStatedData(locale),
 
           subSections: {
+            'per-locale-file': {
+              title:
+                content.concept.subSections.content.subsections[
+                  'per-locale-file'
+                ].title,
+              default: getContentDeclarationPerLocaleFileData(locale),
+            },
             translation: {
               title:
                 content.concept.subSections.content.subsections.translation

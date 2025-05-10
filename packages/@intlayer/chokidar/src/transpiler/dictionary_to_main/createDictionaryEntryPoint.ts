@@ -1,7 +1,8 @@
+import { getConfiguration } from '@intlayer/config';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, extname, relative, resolve } from 'path';
-import { getConfiguration } from '@intlayer/config';
 import { getBuiltDictionariesPath } from '../../getBuiltDictionariesPath';
+import { getBuiltUnmergedDictionariesPath } from '../../getBuiltUnmergedDictionariesPath';
 import { getFileHash } from '../../utils';
 
 /**
@@ -74,4 +75,27 @@ export const createDictionaryEntryPoint = (
     configuration
   );
   writeFileSync(resolve(mainDir, 'dictionaries.mjs'), esmContent);
+
+  const unmergedDictionariesPath: string[] =
+    getBuiltUnmergedDictionariesPath(configuration);
+
+  const unmergedCjsContent = generateDictionaryListContent(
+    unmergedDictionariesPath,
+    'cjs',
+    configuration
+  );
+  writeFileSync(
+    resolve(mainDir, 'unmerged_dictionaries.cjs'),
+    unmergedCjsContent
+  );
+
+  const unmergedEsmContent = generateDictionaryListContent(
+    unmergedDictionariesPath,
+    'esm',
+    configuration
+  );
+  writeFileSync(
+    resolve(mainDir, 'unmerged_dictionaries.mjs'),
+    unmergedEsmContent
+  );
 };

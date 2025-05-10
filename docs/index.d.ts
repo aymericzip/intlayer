@@ -32,6 +32,7 @@ declare module '@intlayer/docs' {
     dictionary__function_fetching,
     dictionary__get_started,
     dictionary__content_extention_customization,
+    dictionary__per_locale_file,
     terms_of_service,
     privacy_notice,
     'package__intlayer',

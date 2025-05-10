@@ -1,21 +1,21 @@
-import { basename, relative } from 'path';
 import {
   type IntlayerConfig,
   appLogger,
   getConfiguration,
 } from '@intlayer/config';
+import { basename, relative } from 'path';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { getBuiltDictionariesPath } from '../getBuiltDictionariesPath';
+import { listDictionaries } from '../listDictionariesPath';
 import { loadLocalDictionaries } from '../loadDictionaries/loadLocalDictionaries';
+import { prepareIntlayer } from '../prepareIntlayer';
 import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
 import { createDictionaryEntryPoint } from '../transpiler/dictionary_to_main/createDictionaryEntryPoint';
 import {
-  createTypes,
   createModuleAugmentation,
+  createTypes,
 } from '../transpiler/dictionary_to_type/index';
-import { prepareIntlayer } from '../prepareIntlayer';
-import { listDictionaries } from '../listDictionariesPath';
 
 const recentlyAddedFiles = new Set<string>();
 

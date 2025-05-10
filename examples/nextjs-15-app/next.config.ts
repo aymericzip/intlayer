@@ -5,4 +5,4 @@ const nextConfig: NextConfig = {
   /* config options here */
 };
 
-export default withIntlayer(nextConfig);
+export default withIntlayer(nextConfig as any);

@@ -1,12 +1,12 @@
+import { prepareContentDeclaration } from '@intlayer/chokidar';
+import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import type { Dictionary } from '@intlayer/core';
+import dictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
+import deepEqual from 'deep-equal';
 import { existsSync } from 'fs';
 import * as fsPromises from 'fs/promises';
 import { basename, dirname, extname } from 'path';
-import type { IntlayerConfig } from '@intlayer/config/client';
-import { prepareContentDeclaration } from '@intlayer/chokidar';
-import configuration from '@intlayer/config/built';
-import type { Dictionary } from '@intlayer/core';
-import dictionariesRecord from '@intlayer/dictionaries-entry';
-import deepEqual from 'deep-equal';
 import type { DictionaryStatus } from './dictionaryStatus';
 
 const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
@@ -23,7 +23,9 @@ export const writeContentDeclaration = async (
     newDictionariesPath ?? DEFAULT_NEW_DICTIONARY_PATH;
   const newDictionaryLocationPath = `${baseDir}/${newDictionaryRelativeLocationPath}`;
 
-  const existingDictionary = dictionariesRecord[dictionary.key];
+  const existingDictionary = (
+    dictionariesRecord[dictionary.key] as Dictionary[]
+  ).filter((el) => el.filePath === dictionary.filePath);
 
   const preparedContentDeclaration =
     await prepareContentDeclaration(dictionary);

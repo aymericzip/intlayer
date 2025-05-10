@@ -493,6 +493,7 @@ module.exports = {
 
 For more details in Intlayer, refer to the following resources:
 
+- [Per-Locale Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/per_locale_file.md)
 - [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md)
 - [Enumeration Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md)
 - [Condition Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md)

@@ -1,6 +1,6 @@
-import { join, relative, resolve } from 'path';
 import { prepareIntlayer, watch } from '@intlayer/chokidar';
 import { getConfiguration } from '@intlayer/config';
+import { join, relative, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { type PluginOption } from 'vite';
 
@@ -37,6 +37,13 @@ export const intlayerPlugin = (
     const dictionariesPath = join(mainDir, 'dictionaries.mjs');
     const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
+    const unmergedDictionariesPath = join(mainDir, 'unmerged_dictionaries.mjs');
+    const relativeUnmergedDictionariesPath = relative(
+      baseDir,
+      unmergedDictionariesPath
+    );
+    console.log({ unmergedDictionariesPath, relativeUnmergedDictionariesPath });
+
     const configurationPath = join(configDir, 'configuration.json');
     const relativeConfigurationPath = relative(baseDir, configurationPath);
 
@@ -46,6 +53,9 @@ export const intlayerPlugin = (
       alias: {
         ...config.resolve?.alias,
         '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+        '@intlayer/unmerged-dictionaries-entry': resolve(
+          relativeUnmergedDictionariesPath
+        ),
         '@intlayer/config/built': resolve(relativeConfigurationPath),
       },
     };
@@ -57,6 +67,7 @@ export const intlayerPlugin = (
         exclude: [
           ...(config.optimizeDeps?.exclude ?? []),
           '@intlayer/dictionaries-entry',
+          '@intlayer/unmerged-dictionaries-entry',
           '@intlayer/config/built',
         ],
       };

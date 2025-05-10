@@ -1,9 +1,9 @@
 import type {
-  InternationalizationConfig,
-  MiddlewareConfig,
   ContentConfig,
   EditorConfig,
+  InternationalizationConfig,
   LogConfig,
+  MiddlewareConfig,
 } from '../../types/config';
 import type { IntlayerConfigEnvVariable, ReplaceValue } from './types';
 
@@ -33,6 +33,8 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     resultDirName: process.env.REACT_APP_INTLAYER_RESULT_DIR_NAME,
     moduleAugmentationDirName:
       process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
+    unmergedDictionariesDirName:
+      process.env.REACT_APP_INTLAYER_UNMERGED_DICTIONARIES_DIR_NAME,
     dictionariesDirName: process.env.REACT_APP_INTLAYER_DICTIONARIES_DIR_NAME,
     i18nextResourcesDirName:
       process.env.REACT_APP_INTLAYER_I18N_RESOURCES_DIR_NAME,
@@ -44,6 +46,8 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     resultDir: process.env.REACT_APP_INTLAYER_RESULT_DIR,
     moduleAugmentationDir:
       process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR,
+    unmergedDictionariesDir:
+      process.env.REACT_APP_INTLAYER_UNMERGED_DICTIONARIES_DIR,
     dictionariesDir: process.env.REACT_APP_INTLAYER_DICTIONARIES_DIR,
     i18nextResourcesDir: process.env.REACT_APP_INTLAYER_I18N_DICTIONARIES_DIR,
     reactIntlMessagesDir:

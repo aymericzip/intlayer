@@ -7,13 +7,20 @@ type LoadDistantDictionariesOptions = {
   newDictionariesPath?: string;
 };
 
+const formatDistantDictionaries = (dictionaries: DictionaryAPI[]) => {
+  return dictionaries.map((dict) => ({
+    ...dict,
+    location: 'distant' as const,
+  }));
+};
+
 export const loadDistantDictionaries = async (
   options: LoadDistantDictionariesOptions
 ): Promise<DictionaryAPI[]> => {
   try {
     const distantDictionaries = await fetchDistantDictionaries(options);
 
-    return distantDictionaries;
+    return formatDistantDictionaries(distantDictionaries);
   } catch (error) {
     console.error(error);
     return [];

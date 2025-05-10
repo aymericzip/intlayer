@@ -1,31 +1,32 @@
 import { join } from 'path';
 import {
+  CONFIG_DIR_NAME,
   CONTENT_DIR_NAME,
   DICTIONARIES_DIR_NAME,
-  FILE_EXTENSIONS,
-  RESULT_DIR_NAME,
+  DICTIONARY_OUTPUT,
   EXCLUDED_PATHS,
-  TYPES_DIR_NAME,
+  FILE_EXTENSIONS,
+  I18NEXT_DICTIONARIES_DIR_NAME,
   MAIN_DIR_NAME,
   MODULE_AUGMENTATION_DIR_NAME,
-  I18NEXT_DICTIONARIES_DIR_NAME,
-  DICTIONARY_OUTPUT,
-  WATCH,
   REACT_INTL_MESSAGES_DIR_NAME,
-  CONFIG_DIR_NAME,
+  RESULT_DIR_NAME,
+  TYPES_DIR_NAME,
+  UNMERGED_DICTIONARIES_DIR_NAME,
+  WATCH,
 } from '../defaultValues/content';
 import {
   APPLICATION_URL,
-  EDITOR_URL,
-  CMS_URL,
   BACKEND_URL,
+  CMS_URL,
   DICTIONARY_PRIORITY_STRATEGY,
-  IS_ENABLED,
-  PORT,
+  EDITOR_URL,
   HOT_RELOAD,
+  IS_ENABLED,
   OPEN_AI_API_KEY,
   OPEN_AI_API_MODEL,
   OPEN_AI_API_TEMPERATURE,
+  PORT,
 } from '../defaultValues/editor';
 import {
   DEFAULT_LOCALE,
@@ -43,17 +44,17 @@ import {
   SERVER_SET_COOKIE,
 } from '../defaultValues/middleware';
 import type {
+  BaseContentConfig,
   BaseDerivedConfig,
   ContentConfig,
   CustomIntlayerConfig,
-  PatternsContentConfig,
+  EditorConfig,
   InternationalizationConfig,
   IntlayerConfig,
-  MiddlewareConfig,
-  BaseContentConfig,
-  ResultDirDerivedConfig,
-  EditorConfig,
   LogConfig,
+  MiddlewareConfig,
+  PatternsContentConfig,
+  ResultDirDerivedConfig,
 } from '../types/config';
 
 let storedConfiguration: IntlayerConfig;
@@ -249,6 +250,20 @@ const buildContentFields = (
     /**
      * Related to the intlayer result directory
      *
+     * Directory name where the unmerged dictionaries will be stored
+     *
+     * Default: 'unmerged_dictionary'
+     *
+     * Example: 'unmerged_translations'
+     *
+     */
+    unmergedDictionariesDirName:
+      customConfiguration?.unmergedDictionariesDirName ??
+      UNMERGED_DICTIONARIES_DIR_NAME,
+
+    /**
+     * Related to the intlayer result directory
+     *
      * Directory name where the dictionaries will be stored
      *
      * Default: 'dictionary'
@@ -426,7 +441,20 @@ const buildContentFields = (
 
   const resultDirDerivedConfiguration: ResultDirDerivedConfig = {
     /**
-     * Directory where the dictionaries will be stored
+     * Directory where the unmerged dictionaries will be stored
+     *
+     * Relative to the result directory
+     *
+     * Default: {{resultDir}} / {{unmergedDictionariesDirName}}
+     *
+     */
+    unmergedDictionariesDir: join(
+      baseDirDerivedConfiguration.resultDir,
+      notDerivedContentConfig.unmergedDictionariesDirName
+    ),
+
+    /**
+     * Directory where the final dictionaries will be stored
      *
      * Relative to the result directory
      *

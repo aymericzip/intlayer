@@ -2,10 +2,8 @@
 import type { DictionaryAPI } from '@intlayer/backend';
 import { appLogger, ESMxCJSRequire, getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import merge from 'deepmerge';
 import { fetchDistantDictionaryKeys } from '../fetchDistantDictionaryKeys';
 import { logger } from '../log';
-import { mergeByKey } from '../mergeDictionaries';
 import { sortAlphabetically } from '../utils';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadDistantDictionaries } from './loadDistantDictionaries';
@@ -46,7 +44,6 @@ export const loadDictionaries = async (
 
     let distantDictionaries: DictionaryAPI[] = [];
     let distantDictionaryKeys: string[] = [];
-    let mergedDictionaries = localDictionaries;
 
     if (editor.clientId && editor.clientSecret) {
       try {
@@ -63,17 +60,6 @@ export const loadDictionaries = async (
         distantDictionaries = await loadDistantDictionaries({
           dictionaryKeys: orderedDistantDictionaryKeys,
         });
-        if (editor.dictionaryPriorityStrategy === 'distant_first') {
-          // Merge the dictionaries
-          mergedDictionaries = merge(localDictionaries, distantDictionaries, {
-            arrayMerge: mergeByKey('key'),
-          });
-        } else {
-          // Merge the dictionaries
-          mergedDictionaries = merge(distantDictionaries, localDictionaries, {
-            arrayMerge: mergeByKey('key'),
-          });
-        }
       } catch (_error) {
         appLogger('Error during fetching distant dictionaries', {
           level: 'error',
@@ -84,7 +70,7 @@ export const loadDictionaries = async (
     // Ensure the logger is stopped
     logger.stop();
 
-    return mergedDictionaries;
+    return [...localDictionaries, ...distantDictionaries];
   } catch (error) {
     // Ensure the logger is stopped
     logger.stop();

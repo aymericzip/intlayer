@@ -6,6 +6,7 @@ const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
+    strictMode: 'loose',
   },
   editor: {
     enabled: true,
@@ -15,6 +16,9 @@ const config: IntlayerConfig = {
     backendURL: 'http://localhost:3100',
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+  log: {
+    mode: 'verbose',
   },
 };
 

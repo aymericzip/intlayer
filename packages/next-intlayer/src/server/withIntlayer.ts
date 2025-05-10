@@ -43,6 +43,12 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
+  const unmergedDictionariesPath = join(mainDir, 'unmerged_dictionaries.mjs');
+  const relativeUnmergedDictionariesPath = relative(
+    baseDir,
+    unmergedDictionariesPath
+  );
+
   const configurationPath = join(configDir, 'configuration.json');
   const relativeConfigurationPath = relative(baseDir, configurationPath);
 
@@ -51,6 +57,7 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
     resolveAlias: {
       // "prefix by './' to consider the path as relative to the project root. This is necessary for turbo to work correctly."
       '@intlayer/dictionaries-entry': `./${relativeDictionariesPath}`,
+      '@intlayer/unmerged-dictionaries-entry': `./${relativeUnmergedDictionariesPath}`,
       '@intlayer/config/built': `./${relativeConfigurationPath}`,
     },
     rules: {
@@ -107,6 +114,9 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
       config.resolve.alias = {
         ...config.resolve.alias,
         '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+        '@intlayer/unmerged-dictionaries-entry': resolve(
+          relativeUnmergedDictionariesPath
+        ),
         '@intlayer/config/built': resolve(relativeConfigurationPath),
       };
 

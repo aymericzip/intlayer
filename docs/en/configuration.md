@@ -315,10 +315,22 @@ Settings related to content handling within the application, including directory
   - _DerivedFrom_: `'baseDir'` / `'moduleAugmentationDirName'`
   - _Description_: The path for module augmentation and additional type definitions.
 
+- **unmergedDictionariesDirName**:
+  - _Type_: `string`
+  - _Default_: `'dictionary'`
+  - _Description_: Directory for storing unmerged dictionaries.
+  - _Example_: `'translations'`
+  - _Note_: If not at the result directory level, update `unmergedDictionariesDir`.
+- **unmergedDictionariesDir**:
+
+  - _Type_: `string`
+  - _DerivedFrom_: `'resultDir'` / `'unmergedDictionariesDirName'`
+  - _Description_: The directory for storing unmerged dictionaries.
+
 - **dictionariesDirName**:
   - _Type_: `string`
   - _Default_: `'dictionary'`
-  - _Description_: Directory for storing dictionaries.
+  - _Description_: Directory for storing final dictionaries.
   - _Example_: `'translations'`
   - _Note_: If not at the result directory level, update `dictionariesDir`.
 - **dictionariesDir**:

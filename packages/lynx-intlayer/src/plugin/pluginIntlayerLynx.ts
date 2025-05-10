@@ -1,11 +1,11 @@
-import type { RsbuildPlugin } from '@rsbuild/core';
-import { join, relative } from 'path';
-import { ESMxCJSRequire, getConfiguration, logger } from '@intlayer/config';
 import {
+  checkDictionaryChanges,
   prepareIntlayer,
   watch,
-  checkDictionaryChanges,
 } from '@intlayer/chokidar';
+import { ESMxCJSRequire, getConfiguration, logger } from '@intlayer/config';
+import type { RsbuildPlugin } from '@rsbuild/core';
+import { join, relative } from 'path';
 
 /**
  * A Lynx plugin to integrate Intlayer into the Lynx build process.
@@ -41,8 +41,19 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
 
       // Compute the relative paths for alias configuration.
       const { mainDir, configDir, baseDir } = intlayerConfig.content;
+
       const dictionariesPath = join(mainDir, 'dictionaries.mjs');
       const relativeDictionariesPath = relative(baseDir, dictionariesPath);
+
+      const unmergedDictionariesPath = join(
+        mainDir,
+        'unmerged_dictionaries.mjs'
+      );
+      const relativeUnmergedDictionariesPath = relative(
+        baseDir,
+        unmergedDictionariesPath
+      );
+
       const configurationPath = join(configDir, 'configuration.json');
       const relativeConfigurationPath = relative(baseDir, configurationPath);
 
@@ -57,6 +68,8 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
           source: {
             alias: {
               '@intlayer/dictionaries-entry': relativeDictionariesPath,
+              '@intlayer/unmerged-dictionaries-entry':
+                relativeUnmergedDictionariesPath,
               '@intlayer/config/built': relativeConfigurationPath,
               react: ESMxCJSRequire.resolve('@lynx-js/react'),
             },

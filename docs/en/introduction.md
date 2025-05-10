@@ -12,28 +12,12 @@ Intlayer also provides an optional visual editor that allows you to easily edit 
 
 ### Example of usage
 
-```bash codeFormat="typescript"
-.
-└── Components
-    └── MyComponent
-        ├── index.content.ts
-        └── index.tsx
-```
-
-```bash codeFormat="commonjs"
+```bash
 .
 └── Components
     └── MyComponent
         ├── index.content.cjs
         └── index.mjs
-```
-
-```bash codeFormat="esm"
-.
-└── Components
-    └── MyComponent
-        ├── index.content.mjs
-        └── index.js
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"

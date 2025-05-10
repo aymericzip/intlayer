@@ -1,6 +1,7 @@
 export const packageBuildOrder = [
   'packages/@intlayer/config',
   'packages/@intlayer/dictionaries-entry',
+  'packages/@intlayer/unmerged-dictionaries-entry',
   'packages/@intlayer/api',
   'packages/@intlayer/core',
   'packages/@intlayer/chokidar',

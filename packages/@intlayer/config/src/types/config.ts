@@ -375,7 +375,19 @@ export type BaseContentConfig = {
   moduleAugmentationDirName: string;
 
   /**
-   * Name of the directory where dictionaries are stored
+   * Name of the directory where unmerged dictionaries are stored
+   *
+   * Default: 'unmerged_dictionary'
+   *
+   * The directory for storing unmerged localization dictionaries.
+   *
+   * Note:
+   * - Ensure the dictionaries output includes unmerged to build the dictionaries for unmerged
+   */
+  unmergedDictionariesDirName: string;
+
+  /**
+   * Name of the directory where final dictionaries are stored
    *
    * Default: 'dictionary'
    *
@@ -498,7 +510,16 @@ export type BaseDerivedConfig = {
  */
 export type ResultDirDerivedConfig = {
   /**
-   * Directory where dictionaries are stored, relative to the result directory
+   * Directory where unmerged dictionaries are stored, relative to the result directory
+   *
+   * Default: {{resultDir}} / {{unmergedDictionariesDirName}}
+   *
+   * Specifies the derived path for unmerged dictionaries relative to the result directory.
+   */
+  unmergedDictionariesDir: string;
+
+  /**
+   * Directory where final dictionaries are stored, relative to the result directory
    *
    * Default: {{resultDir}} / {{dictionariesDirName}}
    *

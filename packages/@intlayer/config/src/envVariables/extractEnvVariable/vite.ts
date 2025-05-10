@@ -1,10 +1,10 @@
 import { logger } from '../../logger';
 import type {
-  InternationalizationConfig,
-  MiddlewareConfig,
   ContentConfig,
   EditorConfig,
+  InternationalizationConfig,
   LogConfig,
+  MiddlewareConfig,
 } from '../../types/config';
 import type { IntlayerConfigEnvVariable, ReplaceValue } from './types';
 import { extractEmptyEnvVariable } from './undefined_platform';
@@ -42,6 +42,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     resultDirName: import.meta.env.VITE_INTLAYER_RESULT_DIR_NAME,
     moduleAugmentationDirName: import.meta.env
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
+    unmergedDictionariesDirName: import.meta.env
+      .VITE_INTLAYER_UNMERGED_DICTIONARIES_DIR_NAME,
     dictionariesDirName: import.meta.env.VITE_INTLAYER_DICTIONARIES_DIR_NAME,
     i18nextResourcesDirName: import.meta.env
       .VITE_INTLAYER_I18N_RESOURCES_DIR_NAME,
@@ -53,6 +55,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     resultDir: import.meta.env.VITE_INTLAYER_RESULT_DIR,
     moduleAugmentationDir: import.meta.env
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR,
+    unmergedDictionariesDir: import.meta.env
+      .VITE_INTLAYER_UNMERGED_DICTIONARIES_DIR,
     dictionariesDir: import.meta.env.VITE_INTLAYER_DICTIONARIES_DIR,
     i18nextResourcesDir: import.meta.env.VITE_INTLAYER_I18N_DICTIONARIES_DIR,
     reactIntlMessagesDir: import.meta.env
