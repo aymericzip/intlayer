@@ -1,98 +1,71 @@
+import type { Dictionary } from '@/types/dictionary.types';
+import type { Tag } from '@/types/tag.types';
+import { logger } from '@logger';
+import { generateText } from 'ai';
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { logger } from '@logger';
-import { OpenAI } from 'openai';
-import type { Dictionary } from '@/types/dictionary.types';
-import type { Tag } from '@/types/tag.types';
+import { AIOptions, getAIConfig } from '../AI/aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export type AIOptions = {
-  model?: string;
-  temperature?: number;
-  openAiApiKey?: string;
+// Get the content of a file at the specified path
+const getFileContent = (filePath: string) => {
+  return readFileSync(join(__dirname, filePath), { encoding: 'utf-8' });
 };
 
 export type AuditOptions = {
-  tag: Tag;
   dictionaries: Dictionary[];
-  customPrompt?: string;
-} & AIOptions;
-export type AuditFileResultData = { fileContent: string; tokenUsed: number };
-
-/**
- * Reads the content of a file synchronously.
- *
- * @function
- * @param relativeFilePath - The relative or absolute path to the target file.
- * @returns The entire contents of the specified file as a UTF-8 encoded string.
- */
-const getFileContent = (relativeFilePath: string): string => {
-  const absolutePath = join(__dirname, relativeFilePath);
-  const fileContent = readFileSync(absolutePath, 'utf-8');
-  return fileContent;
+  tag: Tag;
+  aiOptions?: AIOptions;
 };
 
-// The prompt template to send to ChatGPT, requesting an audit of content declaration files.
+export type AuditFileResultData = {
+  fileContent: string;
+  tokenUsed: number;
+};
+
+// The prompt template to send to AI models
 const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
 
 /**
- * Audits a content declaration file by constructing a prompt for ChatGPT.
- * The prompt includes details about the project's locales, file paths of content declarations,
- * and requests for identifying issues or inconsistencies. It prints the prompt for each file,
- * and could be adapted to send requests to the ChatGPT model.
- *
- * @async
- * @function
- * @param filePath - The relative or absolute path to the target file.
- * @param options - Optional configuration for the audit process.
- * @returns This function returns a Promise that resolves once the audit is complete.
+ * Audits a tag by constructing a prompt for AI models.
+ * The prompt includes details about the tag and related dictionaries.
  */
 export const auditTag = async ({
-  model,
-  openAiApiKey,
-  customPrompt,
-  temperature,
-  tag,
+  aiOptions,
   dictionaries,
+  tag,
 }: AuditOptions): Promise<AuditFileResultData | undefined> => {
   try {
-    // Optionally, you could initialize and configure the OpenAI client here, if you intend to make API calls.
-    // Uncomment and configure the following lines if you have `openai` installed and want to call the API:
+    // Prepare the prompt for AI by replacing placeholders with actual values.
+    const prompt = CHAT_GPT_PROMPT.replace(
+      '{{tag.description}}',
+      tag.description ?? ''
+    )
+      .replace('{{tag.key}}', tag.key)
+      .replace('{{dictionaries}}', JSON.stringify(dictionaries, null, 2));
 
-    const openai = new OpenAI({
-      apiKey: openAiApiKey ?? process.env.OPENAI_API_KEY,
-    });
+    // Get the appropriate AI model configuration
+    const aiConfig = await getAIConfig(aiOptions);
 
-    // Prepare the prompt for ChatGPT by replacing placeholders with actual values.
-    const prompt =
-      customPrompt ??
-      CHAT_GPT_PROMPT.replace('{{tag}}', `${JSON.stringify(tag)}`).replace(
-        '{{contentDeclarations}}',
-        dictionaries
-          .map((dictionary) => `- ${JSON.stringify(dictionary)}`)
-          .join('\n\n')
-      );
+    if (!aiConfig) {
+      logger.error('Failed to configure AI model');
+      return undefined;
+    }
 
-    // Example of how you might request a completion from ChatGPT:
-    const chatCompletion = await openai.chat.completions.create({
-      model: openAiApiKey
-        ? (model ?? 'gpt-4o-2024-11-20')
-        : 'gpt-4o-2024-11-20',
-      temperature: openAiApiKey ? (temperature ?? 0.1) : 0.1,
+    // Use the AI SDK to generate the completion
+    const { text: newContent, usage } = await generateText({
+      model: aiConfig.model,
+      temperature: aiConfig.temperature,
       messages: [{ role: 'system', content: prompt }],
     });
 
-    const newContent = chatCompletion.choices[0].message?.content;
-
-    logger.info(
-      `${chatCompletion.usage?.total_tokens} tokens used in the request`
-    );
+    logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
 
     return {
-      fileContent: newContent ?? '',
-      tokenUsed: chatCompletion.usage?.total_tokens ?? 0,
+      fileContent: newContent,
+      tokenUsed: usage?.totalTokens ?? 0,
     };
   } catch (error) {
     console.error(error);

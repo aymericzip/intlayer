@@ -66,7 +66,13 @@
     "test": ""
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^1.2.11",
+    "@ai-sdk/deepseek": "^0.1.17",
+    "@ai-sdk/google": "^1.2.17",
+    "@ai-sdk/mistral": "^1.2.8",
+    "@ai-sdk/openai": "^1.0.0",
     "@react-email/components": "^0.0.34",
+    "ai": "^4.2.0",
     "bcryptjs": "^3.0.2",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
@@ -92,7 +98,7 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@intlayer/blog": "workspace:*",
+    "@intlayer/blog": "workspace:^",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/docs": "workspace:*",

@@ -51,7 +51,7 @@ Intlayer offers a more flexible and modern approach to **internationalization** 
   With full TypeScript support, Intlayer enables type-safe content definitions, improving code quality and boosting developer productivity.
 
 - **Powerful Customization Options**  
-  Tailor Intlayer to meet your project’s unique needs. Adjust settings for internationalization, middleware, and content handling with ease.  
+  Tailor Intlayer to meet your project's unique needs. Adjust settings for internationalization, middleware, and content handling with ease.  
   [Discover how to configure Intlayer](https://intlayer.org/doc/concept/configuration)
 
 Start your journey with Intlayer today and experience a smoother, more powerful approach to internationalization.  
@@ -71,6 +71,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 - [How Intlayer Works](https://intlayer.org/doc/concept/how-works-intlayer)
 - [Configuration](https://intlayer.org/doc/concept/configuration)
+- [AI provider](https://intlayer.org/doc/concept/ai)
 - [Interest of Intlayer](https://intlayer.org/doc/concept/interest)
 - [Intlayer CLI](https://intlayer.org/doc/concept/cli)
 - [Intlayer Editor](https://intlayer.org/doc/concept/editor)
