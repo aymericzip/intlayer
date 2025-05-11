@@ -1,6 +1,7 @@
 import type { Routes } from '@/types/Routes';
 import {
   askDocQuestion,
+  auditContentDeclaration,
   auditContentDeclarationField,
   auditContentDeclarationMetadata,
   auditTag,
