@@ -36,6 +36,7 @@ const secureHeaders = createSecureHeaders({
         '*.googletagmanager.com',
         '*.stripe.com',
         'cdn.jsdelivr.net',
+        '*.ahrefs.com',
       ],
       connectSrc: [
         "'self'",
