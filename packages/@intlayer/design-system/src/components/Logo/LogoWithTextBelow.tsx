@@ -11,6 +11,7 @@ export const LogoWithTextBelow: FC<LogoBaseProps> = ({ bgColor, ...props }) => (
     viewBox="0 0 1868 1215"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid"
     {...props}
   >
     <path

@@ -60,7 +60,7 @@ export const Navbar: FC = () => {
     <UINavBar
       logo={
         <Link href={logo.url.value} label={logo.label.value} color="text">
-          <LogoWithText className="max-h-6 flex-auto sm:max-h-6" />
+          <LogoWithText className="max-h-6 w-auto flex-auto sm:max-h-6" />
         </Link>
       }
       selectedChoice={getCleanTabSelector(pathWithoutLocale)}
