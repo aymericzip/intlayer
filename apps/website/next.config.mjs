@@ -138,6 +138,10 @@ const nextConfig = {
       source: '/:path((?!api).*)*',
       headers: [
         ...secureHeaders,
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=60, stale-while-revalidate=30',
+        },
         { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
         { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
         {
