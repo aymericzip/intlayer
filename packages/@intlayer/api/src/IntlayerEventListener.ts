@@ -1,9 +1,8 @@
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
-import type { IntlayerConfig } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
-
-import { getIntlayerAPI } from './getIntlayerAPI';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import { getAuthAPI } from './getIntlayerAPI/auth';
 
 export type IntlayerMessageEvent = MessageEvent;
 
@@ -59,10 +58,10 @@ export class IntlayerEventListener {
     const backendURL = this.intlayerConfig.editor.backendURL;
 
     // Retrieve the access token
-    const oAuth2TokenResult = await getIntlayerAPI(
+    const oAuth2TokenResult = await getAuthAPI(
       {},
       this.intlayerConfig
-    ).auth.getOAuth2AccessToken();
+    ).getOAuth2AccessToken();
     const accessToken = oAuth2TokenResult.data?.accessToken;
 
     if (!accessToken) {

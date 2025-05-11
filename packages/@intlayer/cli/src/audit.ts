@@ -1,12 +1,12 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { join, relative } from 'path';
-import { getIntlayerAPI } from '@intlayer/api';
+import { getAiAPI, getAuthAPI, type AIOptions } from '@intlayer/api';
 import {
   getConfiguration,
   GetConfigurationOptions,
   logger,
 } from '@intlayer/config';
+import { readFileSync, writeFileSync } from 'fs';
 import pLimit from 'p-limit';
+import { join, relative } from 'path';
 import { getContentDeclaration } from './listContentDeclaration';
 
 // Depending on your implementation, you may need the OpenAI API client.
@@ -14,13 +14,11 @@ import { getContentDeclaration } from './listContentDeclaration';
 
 type AuditOptions = {
   files?: string[];
-  model?: string;
-  customPrompt?: string;
   asyncLimit?: number;
-  openAiApiKey?: string;
   excludedGlobs?: string[];
   headers?: Record<string, string>;
   logPrefix?: string;
+  aiOptions?: AIOptions;
 } & GetConfigurationOptions;
 
 const projectPath = process.cwd();
@@ -52,15 +50,12 @@ export const auditFile = async (filePath: string, options?: AuditOptions) => {
     const fileContent = readFileSync(filePath, 'utf-8');
 
     // Example of how you might request a completion from ChatGPT:
-    const auditFileResult = await getIntlayerAPI().ai.auditContentDeclaration(
+    const auditFileResult = await getAiAPI().auditContentDeclaration(
       {
         fileContent,
         filePath,
         locales,
         defaultLocale,
-        model: options?.model,
-        openAiApiKey: options?.openAiApiKey,
-        customPrompt: options?.customPrompt,
       },
       {
         headers: options?.headers,
@@ -119,15 +114,14 @@ export const audit = async (options: AuditOptions) => {
   let headers: Record<string, string> = {};
 
   if (clientId && clientSecret) {
-    const oAuth2TokenResult =
-      await getIntlayerAPI().auth.getOAuth2AccessToken();
+    const oAuth2TokenResult = await getAuthAPI().getOAuth2AccessToken();
 
     const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
 
     headers = { Authorization: `Bearer ${oAuth2AccessToken}` };
-  } else if (!options?.openAiApiKey) {
+  } else if (!options?.aiOptions?.apiKey) {
     throw new Error(
-      'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project. You can also provide your own OpenAI API key to audit the content declaration files. For that you need to provide the --openAiApiKey option.'
+      'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project. You can also provide your own Model and API key to audit the content declaration files. For that you need to provide the --openAiApiKey option.'
     );
   }
 

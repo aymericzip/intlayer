@@ -1,13 +1,13 @@
-import { getIntlayerAPI } from '@intlayer/api';
+import { getAuthAPI } from '@intlayer/api';
 import { Form, H2, Loader, useForm, useUser } from '@intlayer/design-system';
 import { Check } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
-import { type VerifyEmail, getVerifyEmailSchema } from './VerifyEmailSchema';
+import { getVerifyEmailSchema, type VerifyEmail } from './VerifyEmailSchema';
 
 export const VerifyEmailStepForm: FC = () => {
   const VerifyEmailSchema = getVerifyEmailSchema();
@@ -42,7 +42,7 @@ export const VerifyEmailStepForm: FC = () => {
     // EventSource alow to receive server-sent events from the server
     // In this case, we are listening to the email verification status
     const eventSource = new EventSource(
-      getIntlayerAPI().auth.getVerifyEmailStatusURL(targetedUserId!)
+      getAuthAPI().getVerifyEmailStatusURL(targetedUserId!)
     );
 
     eventSource.onmessage = async (event) => {

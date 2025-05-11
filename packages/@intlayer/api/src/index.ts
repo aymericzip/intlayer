@@ -1,4 +1,16 @@
-export * from './getIntlayerAPI';
 export * from './distantDictionary/index';
 export * from './fetcher';
+export * from './getIntlayerAPI';
+export * from './getIntlayerAPI/ai';
+export * from './getIntlayerAPI/auth';
+export * from './getIntlayerAPI/dictionary';
+export * from './getIntlayerAPI/editor';
+export * from './getIntlayerAPI/organization';
+export * from './getIntlayerAPI/project';
+export * from './getIntlayerAPI/stripe';
+export * from './getIntlayerAPI/tag';
+export * from './getIntlayerAPI/user';
 export * from './IntlayerEventListener';
+
+// @ts-ignore @intlayer/backend is not build yet
+export { AIOptions } from '@intlayer/backend';

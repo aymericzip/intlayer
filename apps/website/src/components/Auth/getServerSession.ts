@@ -1,4 +1,4 @@
-import { getIntlayerAPI } from '@intlayer/api';
+import { getAuthAPI } from '@intlayer/api';
 import type { Session } from '@intlayer/design-system';
 import { cookies } from 'next/headers';
 
@@ -11,9 +11,7 @@ export const getServerSession = async () => {
   }
 
   try {
-    const { data } = await getIntlayerAPI().auth.getSession(
-      session_token.value
-    );
+    const { data } = await getAuthAPI().getSession(session_token.value);
 
     const session: Session = {
       user: data?.user ?? null,
