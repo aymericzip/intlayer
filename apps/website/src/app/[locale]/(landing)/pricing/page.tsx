@@ -1,5 +1,5 @@
 import { PricingPage as PricingPageContent } from '@components/PricingPage';
-import { getPricingAPI } from '@intlayer/api';
+import { getStripeAPI } from '@intlayer/api';
 import { ProductHeader } from '@structuredData/ProductHeader';
 import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
@@ -10,7 +10,7 @@ import { generateMetadata } from './metadata';
 export { generateMetadata };
 
 // Cache the data at build time
-const pricingData = await getPricingAPI({
+const pricingData = await getStripeAPI().getPricing({
   priceIds: [
     process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
     process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
