@@ -5,17 +5,17 @@ import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import {
-  Navbar as UINavBar,
-  Logo,
-  useUser,
-  Button,
   Avatar,
+  Button,
+  LogoWithText,
+  Navbar as UINavBar,
+  useUser,
 } from '@intlayer/design-system';
 import { StarIcon } from 'lucide-react';
-import dynamic from 'next/dynamic';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import type { FC } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
+import type { FC } from 'react';
 
 const SwitchThemeSwitcher = dynamic(
   () =>
@@ -60,7 +60,7 @@ export const Navbar: FC = () => {
     <UINavBar
       logo={
         <Link href={logo.url.value} label={logo.label.value} color="text">
-          <Logo type="logoWithText" className="max-h-6 flex-auto sm:max-h-6" />
+          <LogoWithText className="max-h-6 flex-auto sm:max-h-6" />
         </Link>
       }
       selectedChoice={getCleanTabSelector(pathWithoutLocale)}

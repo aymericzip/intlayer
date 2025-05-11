@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from 'react';
-import { Logo } from '../Logo';
+import { LogoWithTextBelow } from '../Logo';
 import { SocialNetworks } from '../SocialNetworks';
 export type FooterLink = {
   href: string;
@@ -14,8 +14,8 @@ type FooterProps = { links?: LinkGroup[] };
 
 export const Footer: FC<FooterProps> = ({ links }) => (
   <footer className="flex flex-auto flex-row flex-wrap items-center justify-around gap-10 p-6">
-    <aside className="flex flex-col items-center justify-between md:w-1/4 gap-3">
-      <Logo type="logoWithTextBelow" className="size-full max-w-[120px]" />
+    <aside className="flex flex-col items-center justify-between gap-3 md:w-1/4">
+      <LogoWithTextBelow className="size-full max-w-[120px]" />
       <span className="text-neutral text-center text-xs">
         © 2024 Intlayer, Inc.
       </span>

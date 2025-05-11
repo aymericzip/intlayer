@@ -25,7 +25,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   return (
     <footer className="flex flex-auto flex-row flex-wrap items-center gap-4 overflow-auto p-6">
       <Link href={logo.url.value} label={logo.label.value} color="text">
-        <Logo type="logoOnly" width={80} height={80} className="size-6" />
+        <Logo width={80} height={80} className="size-6" />
       </Link>
       <Link href={github.url.value} label={github.label.value} color="text">
         <GithubLogo width={25} />

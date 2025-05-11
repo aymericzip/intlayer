@@ -1,16 +1,16 @@
 'use client';
 
+import { type ExternalLinks, PagesRoutes } from '@/Routes';
 import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { Container, Logo, TabSelector, useAuth } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
-import dynamic from 'next/dynamic';
 import { useLocale } from 'next-intlayer';
+import dynamic from 'next/dynamic';
 import { type FC, type ReactNode } from 'react';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
-import { type ExternalLinks, PagesRoutes } from '@/Routes';
 
 const SwitchThemeSwitcher = dynamic(
   () =>
@@ -78,7 +78,7 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
       <div className="flex justify-between">
         <div className="flex w-auto items-center gap-4">
           <Link href={PagesRoutes.Home} label="Dashboard" color="text">
-            <Logo type="logoOnly" className="size-6" />
+            <Logo className="size-6" />
           </Link>
           {!isMobile && (
             <div className="flex w-auto items-center gap-4">
