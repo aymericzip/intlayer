@@ -54,6 +54,7 @@ const secureHeaders = createSecureHeaders({
         '*.stripe.com',
         '*.producthunt.com',
         'cdn.jsdelivr.net',
+        '*.ahrefs.com',
       ],
       imgSrc: ["'self'", 'https:', 'data:'],
       workerSrc: [
