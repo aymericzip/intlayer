@@ -2,7 +2,7 @@ import type { FC, PropsWithChildren } from 'react';
 
 export { generateMetadata } from './metadata';
 
-export const revalidate = 60; // revalidate at most every 60s
+export const dynamic = 'force-static';
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => children;
 
