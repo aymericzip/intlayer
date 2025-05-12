@@ -29,6 +29,7 @@ import type {
   UpdateDictionaryParam,
   // @ts-ignore: @intlayer/backend is not built yet
   UpdateDictionaryResult,
+  // @ts-ignore: @intlayer/backend is not built yet
 } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
