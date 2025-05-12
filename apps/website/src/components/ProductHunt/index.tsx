@@ -22,7 +22,13 @@ const MINIATURIZING_END_TIME = 6000;
 const MIN_COUNT_TO_SHOW_ONE = 5;
 const PRODUCT_HUNT_SLUG = 'intlayer-i18n-cms-for-react-now-vue';
 
-const fetchUpvotes = async () => {
+interface ProductHuntData {
+  votesCount: number;
+  createdAt: string; // ISO date string
+  featuredAt: string | null; // ISO date string or null
+}
+
+const fetchProductHuntData = async (): Promise<ProductHuntData | null> => {
   try {
     const response = await fetch('https://api.producthunt.com/v2/api/graphql', {
       method: 'POST',
@@ -35,20 +41,38 @@ const fetchUpvotes = async () => {
           query {
             post(slug: "${PRODUCT_HUNT_SLUG}") {
               votesCount
+              createdAt
+              featuredAt
             }
           }
         `,
       }),
     });
     const data = await response.json();
-    if (data.data?.post?.votesCount) {
-      return data.data.post.votesCount;
+    if (data.data?.post) {
+      return {
+        votesCount: data.data.post.votesCount || 0,
+        createdAt: data.data.post.createdAt,
+        featuredAt: data.data.post.featuredAt,
+      };
     }
     return null;
   } catch (error) {
-    console.error('Error fetching ProductHunt upvotes:', error);
+    console.error('Error fetching ProductHunt data:', error);
     return null;
   }
+};
+
+// Launch typically lasts 24 hours
+const isLaunchActive = (phData: ProductHuntData | null): boolean => {
+  if (!phData || !phData.featuredAt) return false;
+
+  const featuredDate = new Date(phData.featuredAt);
+  const endDate = new Date(featuredDate);
+  endDate.setDate(endDate.getDate() + 1); // Launch lasts 24 hours
+
+  const now = new Date();
+  return now < endDate;
 };
 
 export const ProductHunt: FC = () => {
@@ -58,9 +82,9 @@ export const ProductHunt: FC = () => {
     null
   );
   const [isMiniaturized, setIsMiniaturized] = useState(false);
-  const { data: upvotes, isLoading } = useAsync(
-    'product-hunt-upvotes',
-    fetchUpvotes,
+  const { data: phData, isLoading } = useAsync(
+    'product-hunt-data',
+    fetchProductHuntData,
     {
       cache: true,
       store: true,
@@ -72,6 +96,16 @@ export const ProductHunt: FC = () => {
   );
   const { title, content, details, linkLabel, closeLabel } =
     useIntlayer('product-hunt');
+
+  const upvotes = phData?.votesCount || 0;
+  const launchActive = isLaunchActive(phData);
+
+  useEffect(() => {
+    // If launch is over, hide the component
+    if (phData && !launchActive && isVisible !== false) {
+      setIsVisible(false);
+    }
+  }, [phData, launchActive, isVisible, setIsVisible]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -87,11 +121,19 @@ export const ProductHunt: FC = () => {
     const timer = setTimeout(() => {
       if (isVisible !== null) return;
 
-      setIsVisible(true);
+      // Only show if the launch is active
+      if (launchActive) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
     }, VISIBLE_START_TIME);
 
     return () => clearTimeout(timer);
-  }, [isVisible]);
+  }, [isVisible, launchActive, setIsVisible]);
+
+  // Don't render if the launch is over
+  if (!launchActive && isVisible === false) return null;
 
   const isMiniaturizable = !isMobile && isMiniaturized;
 
