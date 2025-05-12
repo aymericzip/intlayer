@@ -716,7 +716,8 @@ Tip: For better SEO and accessibility, use tags as `<a href="/fr/home" hreflang=
       href="/doc/get-started"
     >
       <div>
-        <div><span dir="ltr" lang="en">English</span><span>English</span></div>
+        <span dir="ltr" lang="en">English</span>
+        <span>English</span>
         <span>EN</span>
       </div>
     </a>
@@ -729,7 +730,8 @@ Tip: For better SEO and accessibility, use tags as `<a href="/fr/home" hreflang=
       href="/es/doc/get-started"
     >
       <div>
-        <span dir="ltr" lang="es">Español</span><span>Spanish</span>
+        <span dir="ltr" lang="es">Español</span>
+        <span>Spanish</span>
         <span>ES</span>
       </div>
     </a>
