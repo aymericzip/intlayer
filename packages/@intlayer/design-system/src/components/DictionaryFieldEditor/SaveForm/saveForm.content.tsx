@@ -3,6 +3,38 @@ import { t, type Dictionary } from 'intlayer';
 export const saveDictionaryContent = {
   key: 'save-dictionary-details',
   content: {
+    deleteButton: {
+      text: t({
+        en: 'Delete dictionary',
+        'en-GB': 'Delete dictionary',
+        fr: 'Supprimer le dictionnaire',
+        es: 'Eliminar diccionario',
+        de: 'Wörterbuch löschen',
+        ja: '辞書を削除',
+        ko: '사전 삭제',
+        zh: '删除字典',
+        it: 'Elimina dizionario',
+        pt: 'Excluir dicionário',
+        hi: 'शब्दकोश हटाएं',
+        ar: 'حذف القاموس',
+        ru: 'Удалить словарь',
+      }),
+      label: t({
+        en: 'Click to delete dictionary',
+        'en-GB': 'Click to delete dictionary',
+        fr: 'Cliquez pour supprimer le dictionnaire',
+        es: 'Haga clic para eliminar el diccionario',
+        de: 'Klicken Sie, um das Wörterbuch zu löschen',
+        ja: '辞書を削除するにはクリックしてください',
+        ko: '사전을 삭제하려면 클릭하세요',
+        zh: '单击以删除字典',
+        it: 'Fai clic per eliminare il dizionario',
+        pt: 'Clique para excluir o dicionário',
+        hi: 'शब्दकोश हटाने के लिए क्लिक करें',
+        ar: 'انقر لحذف القاموس',
+        ru: 'Нажмите, чтобы удалить словарь',
+      }),
+    },
     resetButton: {
       text: t({
         en: 'Reset all changes',

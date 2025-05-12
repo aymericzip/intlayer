@@ -580,24 +580,34 @@ export const deleteDictionary = async (
   const { project, dictionaryRights } = res.locals;
   const { dictionaryId } = req.params as Partial<DeleteDictionaryParam>;
 
+  console.log('dictionaryId1', dictionaryId);
+
   if (!dictionaryId) {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_ID_NOT_FOUND');
     return;
   }
+
+  console.log('dictionaryId2', dictionaryId);
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 
+  console.log('dictionaryId3', dictionaryId);
+
   if (!dictionaryRights?.admin) {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_ADMIN');
     return;
   }
 
+  console.log('dictionaryId4', dictionaryId);
+
   try {
     const dictionaryToDelete =
       await dictionaryService.getDictionaryById(dictionaryId);
+
+    console.log('dictionaryToDelete', dictionaryToDelete);
 
     if (!dictionaryToDelete.projectIds.includes(project._id)) {
       ErrorHandler.handleGenericErrorResponse(

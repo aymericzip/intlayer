@@ -22,6 +22,7 @@ import { StructureEditor } from './StructureEditor';
 type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
   onClickDictionaryList?: () => void;
+  onDelete?: () => void;
   isDarkMode?: boolean;
   mode: ('local' | 'remote')[];
 };
@@ -38,6 +39,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   onClickDictionaryList,
   isDarkMode,
   mode,
+  onDelete,
 }) => {
   const config = useConfiguration();
   const [editorView, setEditorView] = useState<EditorViewType>(
@@ -122,7 +124,14 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
         )}
 
-        <SaveForm dictionary={dictionary} mode={mode} />
+        <SaveForm
+          dictionary={dictionary}
+          mode={mode}
+          onDelete={() => {
+            setFocusedContent(null);
+            onDelete?.();
+          }}
+        />
       </div>
     </LocaleSwitcherContentProvider>
   );

@@ -6,34 +6,47 @@ import {
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';
-import { ArrowUpFromLine, Download, RotateCcw, Save } from 'lucide-react';
+import {
+  ArrowUpFromLine,
+  Download,
+  RotateCcw,
+  Save,
+  Trash,
+} from 'lucide-react';
 import {
   type DetailedHTMLProps,
-  type FormHTMLAttributes,
   type FC,
+  type FormHTMLAttributes,
   useState,
 } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { usePushDictionaries, useWriteDictionary } from '../../../hooks';
+import { Modal } from '../../../components/Modal';
+import {
+  useDeleteDictionary,
+  usePushDictionaries,
+  useWriteDictionary,
+} from '../../../hooks';
 import { cn } from '../../../utils/cn';
 import { useAuth } from '../../Auth';
 import { Form } from '../../Form';
 import { saveDictionaryContent } from './saveForm.content';
-import { Modal } from '../../../components/Modal';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
   mode: ('local' | 'remote')[];
+  onDelete?: () => void;
 } & DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
 
 export const SaveForm: FC<DictionaryDetailsProps> = ({
   dictionary,
   mode,
   className,
+  onDelete,
   ...props
 }) => {
   const [isFormatAlertModalOpen, setIsFormatAlertModalOpen] = useState(false);
   const { setLocaleDictionary } = useDictionariesRecordActions();
+  const { deleteDictionary, isLoading: isDeleting } = useDeleteDictionary();
   const { writeDictionary, isLoading: isWriting } = useWriteDictionary();
   const { pushDictionaries, isLoading: isPushing } = usePushDictionaries();
   const isLoading = isWriting || isPushing;
@@ -42,6 +55,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
 
   const { editedContent, restoreEditedContent } = useEditedContent();
   const {
+    deleteButton,
     resetButton,
     saveButton,
     publishButton,
@@ -56,8 +70,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
     editedDictionary &&
     JSON.stringify(editedDictionary) !== JSON.stringify(dictionary);
 
-  const isLocalDictionary =
-    typeof (dictionary as DistantDictionary)?._id === 'undefined';
+  const isDistantDictionary =
+    typeof (dictionary as DistantDictionary)?._id !== 'undefined';
 
   const handleSaveDictionaryConfirmation = async () => {
     if (!editedContent?.[dictionary.key]) return;
@@ -85,6 +99,18 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       if (res) {
         setLocaleDictionary(editedContent?.[dictionary.key]);
         restoreEditedContent(dictionary.key);
+      }
+    });
+  };
+
+  const handleDeleteDictionary = async () => {
+    if (!(dictionary as DistantDictionary)._id) return;
+
+    await deleteDictionary(
+      (dictionary as DistantDictionary)._id.toString()
+    ).then((res) => {
+      if (res) {
+        onDelete?.();
       }
     });
   };
@@ -133,6 +159,22 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         className={cn('flex justify-end gap-2 max-md:flex-col', className)}
         {...props}
       >
+        {mode.includes('remote') &&
+          isDistantDictionary &&
+          onDelete &&
+          isAuthenticated && (
+            <Form.Button
+              label={deleteButton.label.value}
+              Icon={Trash}
+              color="error"
+              variant="outline"
+              className="max-md:w-full"
+              isLoading={isDeleting}
+              onClick={handleDeleteDictionary}
+            >
+              {deleteButton.text}
+            </Form.Button>
+          )}
         {isEdited && (
           <Form.Button
             label={resetButton.label.value}
@@ -160,7 +202,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             {downloadButton.text}
           </Form.Button>
         )}
-        {mode.includes('remote') && isAuthenticated && isLocalDictionary && (
+        {mode.includes('remote') && isAuthenticated && !isDistantDictionary && (
           <Form.Button
             label={publishButton.label.value}
             disabled={isLoading}
@@ -175,7 +217,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         )}
         {mode.includes('remote') &&
           isAuthenticated &&
-          !isLocalDictionary &&
+          isDistantDictionary &&
           isEdited && (
             <Form.Button
               label={saveButton.label.value}

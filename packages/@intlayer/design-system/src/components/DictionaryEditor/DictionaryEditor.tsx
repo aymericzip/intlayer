@@ -11,15 +11,18 @@ type DictionaryEditorProps = {
   dictionary: Dictionary;
   locale: Locales;
   mode: ('local' | 'remote')[];
+  onDelete?: () => void;
 };
 
 export const DictionaryEditor: FC<DictionaryEditorProps> = ({
   dictionary,
   mode,
+  onDelete,
   ...props
 }) => {
   const { editedContent, addEditedContent } = useEditedContent();
-  const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
+  const { focusedContent, setFocusedContentKeyPath, setFocusedContent } =
+    useFocusDictionary();
 
   const focusedKeyPath = focusedContent?.keyPath;
 
@@ -42,7 +45,15 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
           onFocusKeyPath={setFocusedContentKeyPath}
         />
       </div>
-      <SaveForm dictionary={dictionary} mode={mode} className="mb-4 flex-col" />
+      <SaveForm
+        dictionary={dictionary}
+        mode={mode}
+        className="mb-4 flex-col"
+        onDelete={() => {
+          setFocusedContent(null);
+          onDelete?.();
+        }}
+      />
     </div>
   );
 };

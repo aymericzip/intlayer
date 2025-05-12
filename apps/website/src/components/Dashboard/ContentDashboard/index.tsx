@@ -1,15 +1,15 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
 import { DictionaryFieldEditor, Loader } from '@intlayer/design-system';
 import {
   useGetAllDictionaries,
   useGetDictionary,
 } from '@intlayer/design-system/hooks';
-import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import { useRouter } from 'next/navigation';
 import { Suspense, type FC } from 'react';
 import { EditorConfigurationProvider } from './ConfigurationProvider';
-import { PagesRoutes } from '@/Routes';
 
 type ContentDashboardContentProps = {
   dictionaryKey: string;
@@ -38,7 +38,10 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
                 router.push(PagesRoutes.Dashboard_Content)
               }
               isDarkMode={resolvedTheme === 'dark'}
-              mode="remote"
+              mode={['remote']}
+              onDelete={() => {
+                router.push(PagesRoutes.Dashboard_Content);
+              }}
             />
           )}
         </EditorConfigurationProvider>

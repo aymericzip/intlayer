@@ -3,12 +3,12 @@
 import type { Locales } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
 import {
-  RightDrawer,
-  DictionaryEditor,
-  Modal,
-  DictionaryFieldEditor,
-  useRightDrawerStore,
   Button,
+  DictionaryEditor,
+  DictionaryFieldEditor,
+  Modal,
+  RightDrawer,
+  useRightDrawerStore,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionary } from '@intlayer/editor-react';
@@ -18,9 +18,9 @@ import { useDictionary } from 'react-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import dictionaryEditionDrawerContent from './dictionaryEditionDrawer.content';
 import {
-  type FileContent as FileContentWithDictionaryPath,
-  useDictionaryEditionDrawer,
   getDrawerIdentifier,
+  useDictionaryEditionDrawer,
+  type FileContent as FileContentWithDictionaryPath,
 } from './useDictionaryEditionDrawer';
 
 type DictionaryEditionDrawerContentProps = {
@@ -70,6 +70,10 @@ export const DictionaryEditionDrawerContent: FC<
             onClickDictionaryList={onClickDictionaryList}
             isDarkMode={isDarkMode}
             mode={['local', 'remote']}
+            onDelete={() => {
+              setEditionModalOpen(false);
+              handleOnBack();
+            }}
           />
         </div>
       </Modal>
