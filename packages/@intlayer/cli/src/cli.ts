@@ -156,7 +156,15 @@ export const setAPI = (): Command => {
     .description('List the content declaration files')
     .action(listContentDeclaration);
 
-  program
+  const aiOptions = [
+    ['--provider [provider]', 'Provider'],
+    ['--temperature [temperature]', 'Temperature'],
+    ['--model [model]', 'Model'],
+    ['--api-key [apiKey]', 'Provider API key'],
+    ['--custom-prompt [prompt]', 'Custom prompt'],
+  ];
+
+  const auditProgram = program
     .command('audit')
     .description('Audit the dictionaries')
     .option('-f, --files [files...]', 'List of Dictionary files to audit')
@@ -164,12 +172,11 @@ export const setAPI = (): Command => {
       '--exclude [excludedGlobs...]',
       'Globs pattern to exclude from the audit'
     )
-    .option('-m, --model [model]', 'Model')
-    .option('-p, --custom-prompt [prompt]', 'Custom prompt')
     .option('-l, --async-limit [asyncLimit]', 'Async limit')
-    .option('-k, --open-ai-api-key [openAiApiKey]', 'OpenAI API key')
-    .option('-e, --env [env]', 'Environment')
-    .action(audit);
+    .option('-e, --env [env]', 'Environment');
+
+  aiOptions.forEach((opt) => auditProgram.option(opt[0], opt[1]));
+  auditProgram.action(audit);
 
   program.parse(process.argv);
 
