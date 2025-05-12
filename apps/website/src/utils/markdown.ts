@@ -1,139 +1,13 @@
-import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { urlMapper } from '@/Routes';
 import { Locales } from 'intlayer';
 import { locales } from '../../intlayer.config';
 
 const getDocLocale = (url: string, locale: Locales): string =>
   url.replace('/en/', `/${locale}/`);
 
-const urlRecord: Partial<Record<GithubRoutes, PagesRoutes>> = {
-  [GithubRoutes.Introduction]: PagesRoutes.Doc,
-  [GithubRoutes.HowWorksIntlayer]: PagesRoutes.Doc_HowWorksIntlayer,
-  [GithubRoutes.Configuration]: PagesRoutes.Doc_Configuration,
-  [GithubRoutes.InterestOfIntlayer]: PagesRoutes.Doc_Interest,
-  [GithubRoutes.IntlayerCLI]: PagesRoutes.Doc_CLI,
-  [GithubRoutes.IntlayerVisualEditor]: PagesRoutes.Doc_IntlayerVisualEditor,
-  [GithubRoutes.IntlayerCMS]: PagesRoutes.Doc_IntlayerCMS,
-  [GithubRoutes.IntlayerWithNextJS15]: PagesRoutes.Doc_Environment_NextJS_15,
-  [GithubRoutes.IntlayerWithNextJS14]: PagesRoutes.Doc_Environment_NextJS_14,
-  [GithubRoutes.IntlayerWithNextJSUsingPageRouter]:
-    PagesRoutes.Doc_Intlayer_with_NextJS_using_Page_Router,
-  [GithubRoutes.IntlayerWithReactCRA]: PagesRoutes.Doc_Environment_CRA,
-  [GithubRoutes.IntlayerWithViteReact]:
-    PagesRoutes.Doc_Environment_ViteAndReact,
-  [GithubRoutes.IntlayerWithExpress]: PagesRoutes.Doc_Environment_Express,
-  [GithubRoutes.Dictionary_GetStarted]: PagesRoutes.Doc_ContentDeclaration,
-  [GithubRoutes.Dictionary_ContentExtensionCustomization]:
-    PagesRoutes.Doc_ContentDeclaration,
-  [GithubRoutes.Dictionary_Enumeration]: PagesRoutes.Doc_Dictionary_Enumeration,
-  [GithubRoutes.Dictionary_FunctionFetching]:
-    PagesRoutes.Doc_Dictionary_FunctionFetching,
-  [GithubRoutes.Dictionary_Translation]: PagesRoutes.Doc_Dictionary_Translation,
-  [GithubRoutes.Dictionary_Markdown]: PagesRoutes.Doc_Dictionary_Markdown,
-  [GithubRoutes.Dictionary_Condition]: PagesRoutes.Doc_Dictionary_Condition,
-  [GithubRoutes.Dictionary_Nesting]: PagesRoutes.Doc_Dictionary_Nesting,
-  [GithubRoutes.Dictionary_File]: PagesRoutes.Doc_Dictionary_File,
-  [GithubRoutes.Dictionary_Insertion]: PagesRoutes.Doc_Dictionary_Insertion,
-  [GithubRoutes['Packages_intlayer']]: PagesRoutes['Doc_Packages_intlayer'],
-  [GithubRoutes['Packages_intlayer_getConfiguration']]:
-    PagesRoutes['Doc_Packages_intlayer_getConfiguration'],
-  [GithubRoutes['Packages_intlayer_getDictionary']]:
-    PagesRoutes['Doc_Packages_intlayer_getDictionary'],
-  [GithubRoutes['Packages_intlayer_getLocaleLang']]:
-    PagesRoutes['Doc_Packages_intlayer_getLocaleLang'],
-  [GithubRoutes['Packages_intlayer_getLocaleName']]:
-    PagesRoutes['Doc_Packages_intlayer_getLocaleName'],
-  [GithubRoutes['Packages_intlayer_getHTMLTextDir']]:
-    PagesRoutes['Doc_Packages_intlayer_getHTMLTextDir'],
-  [GithubRoutes['Packages_intlayer_getLocalizedUrl']]:
-    PagesRoutes['Doc_Packages_intlayer_getLocalizedUrl'],
-  [GithubRoutes['Packages_intlayer_getMultilingualUrls']]:
-    PagesRoutes['Doc_Packages_intlayer_getMultilingualUrls'],
-  [GithubRoutes['Packages_intlayer_getPathWithoutLocale']]:
-    PagesRoutes['Doc_Packages_intlayer_getPathWithoutLocale'],
-  [GithubRoutes['Packages_intlayer_getTranslation']]:
-    PagesRoutes['Doc_Packages_intlayer_getTranslation'],
-  [GithubRoutes['Packages_intlayer_getEnumeration']]:
-    PagesRoutes['Doc_Packages_intlayer_getEnumeration'],
-  [GithubRoutes['Packages_intlayer_removeLocaleFromUrl']]:
-    PagesRoutes['Doc_Packages_intlayer_removeLocaleFromUrl'],
-  [GithubRoutes['Packages_express-intlayer']]:
-    PagesRoutes['Doc_Packages_express-intlayer'],
-  [GithubRoutes['Packages_express-intlayer_t']]:
-    PagesRoutes['Doc_Packages_express-intlayer_t'],
-  [GithubRoutes['Packages_react-intlayer']]:
-    PagesRoutes['Doc_Packages_react-intlayer'],
-  [GithubRoutes['Packages_react-intlayer_t']]:
-    PagesRoutes['Doc_Packages_react-intlayer_t'],
-  [GithubRoutes['Packages_react-intlayer_useIntlayer']]:
-    PagesRoutes['Doc_Packages_react-intlayer_useIntlayer'],
-  [GithubRoutes['Packages_react-intlayer_useIntlayerAsync']]:
-    PagesRoutes['Doc_Packages_react-intlayer_useIntlayerAsync'],
-  [GithubRoutes['Packages_react-intlayer_useDictionary']]:
-    PagesRoutes['Doc_Packages_react-intlayer_useDictionary'],
-  [GithubRoutes['Packages_react-intlayer_useLocale']]:
-    PagesRoutes['Doc_Packages_react-intlayer_useLocale'],
-  [GithubRoutes['Packages_next-intlayer']]:
-    PagesRoutes['Doc_Packages_next-intlayer'],
-  [GithubRoutes['Packages_next-intlayer_t']]:
-    PagesRoutes['Doc_Packages_next-intlayer_t'],
-  [GithubRoutes['Packages_next-intlayer_useIntlayer']]:
-    PagesRoutes['Doc_Packages_next-intlayer_useIntlayer'],
-  [GithubRoutes['Packages_next-intlayer_useIntlayerAsync']]:
-    PagesRoutes['Doc_Packages_next-intlayer_useIntlayerAsync'],
-  [GithubRoutes['Packages_next-intlayer_useDictionary']]:
-    PagesRoutes['Doc_Packages_next-intlayer_useDictionary'],
-  [GithubRoutes['Packages_next-intlayer_useLocale']]:
-    PagesRoutes['Doc_Packages_next-intlayer_useLocale'],
-  [GithubRoutes['Packages_react-scripts-intlayer']]:
-    PagesRoutes['Doc_Packages_react-scripts-intlayer'],
-  [GithubRoutes['Packages_vite-intlayer']]:
-    PagesRoutes['Doc_Packages_vite-intlayer'],
-  [GithubRoutes['Packages_lynx-intlayer']]:
-    PagesRoutes['Doc_Packages_lynx-intlayer'],
-  [GithubRoutes['Packages_react-native-intlayer']]:
-    PagesRoutes['Doc_Packages_react-native-intlayer'],
-  [GithubRoutes['VS_Code_extension_intlayer']]:
-    PagesRoutes['VS_Code_Extension'],
-
-  [GithubRoutes.BlogIndex]: PagesRoutes['Blog'],
-  [GithubRoutes.IntlayerWithNextI18next]:
-    PagesRoutes['Blog_Intlayer_with_Next-i18next'],
-  [GithubRoutes.IntlayerWithReactI18next]:
-    PagesRoutes['Blog_Intlayer_with_React-i18next'],
-  [GithubRoutes.IntlayerWithNextIntl]:
-    PagesRoutes['Blog_Intlayer_with_Next-intl'],
-  [GithubRoutes.IntlayerWithReactIntl]:
-    PagesRoutes['Blog_Intlayer_with_React-intl'],
-  [GithubRoutes['Next-i18next_vs_Next-intl_vs_Intlayer']]:
-    PagesRoutes['Blog_Next-i18next_vs_Next-intl_vs_Intlayer'],
-  [GithubRoutes['React-i18next_vs_React-intl_vs_Intlayer']]:
-    PagesRoutes['Blog_React-i18next_vs_React-intl_vs_Intlayer'],
-  [GithubRoutes['I18nAndSEO']]: PagesRoutes.Blog_SEO_and_i18n,
-  [GithubRoutes['i18n-technologies__frameworks__angular']]:
-    PagesRoutes['Blog_i18n-technologies__frameworks__angular'],
-  [GithubRoutes['i18n-technologies__frameworks__vue']]:
-    PagesRoutes['Blog_i18n-technologies__frameworks__vue'],
-  [GithubRoutes['i18n-technologies__frameworks__svelte']]:
-    PagesRoutes['Blog_i18n-technologies__frameworks__svelte'],
-  [GithubRoutes['i18n-technologies__frameworks__flutter']]:
-    PagesRoutes['Blog_i18n-technologies__frameworks__flutter'],
-  [GithubRoutes['i18n-technologies__frameworks__react']]:
-    PagesRoutes['Blog_i18n-technologies__frameworks__react'],
-  [GithubRoutes['i18n-technologies__frameworks__react-native']]:
-    PagesRoutes['Blog_i18n-technologies__frameworks__react-native'],
-  [GithubRoutes['i18n-technologies__CMS__wordpress']]:
-    PagesRoutes['Blog_i18n-technologies__CMS__wordpress'],
-  [GithubRoutes['i18n-technologies__CMS__drupal']]:
-    PagesRoutes['Blog_i18n-technologies__CMS__drupal'],
-  [GithubRoutes['i18n-technologies__CMS__wix']]:
-    PagesRoutes['Blog_i18n-technologies__CMS__wix'],
-  [GithubRoutes.PrivacyPolicy]: PagesRoutes.PrivacyPolicy,
-  [GithubRoutes.TermsOfService]: PagesRoutes.TermsOfService,
-};
-
 const urlRenamerMultiLocale: Record<string, string> = locales.reduce(
   (acc, locale) =>
-    Object.entries(urlRecord).reduce((acc, [githubRoute, pagesRoute]) => {
+    Object.entries(urlMapper).reduce((acc, [githubRoute, pagesRoute]) => {
       const githubUrl = getDocLocale(githubRoute, locale);
 
       if (locale === Locales.ENGLISH) {
@@ -197,13 +71,14 @@ const removeURLDomain = (text: string): string => {
  * @returns The updated content with URLs replaced.
  */
 export const urlRenamer = (content: string): string => {
-  let updatedContent = content;
+  let updatedContent = content ?? '';
 
   // Sort the entries by URL length in descending order to prevent partial replacements
   const sortedEntries = Object.entries(urlRenamerMultiLocale);
 
   sortedEntries.forEach(([githubUrl, pagesRoute]) => {
     const regex = new RegExp(escapeRegExp(githubUrl), 'g');
+
     updatedContent = updatedContent.replace(regex, pagesRoute);
   });
 
