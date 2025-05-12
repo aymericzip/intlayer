@@ -1,5 +1,4 @@
 import { Globe } from '@components/Globe/Globe';
-import { ProductHunt } from '@components/ProductHunt';
 import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
@@ -12,7 +11,7 @@ export const LandingSection: FC = () => {
   return (
     <section className="flex min-h-[calc(100vh-64px)] w-full flex-col gap-16 md:flex-row md:px-10 md:pr-0">
       <div className="relative flex w-full flex-1 flex-col items-center justify-between md:justify-center">
-        <div className="flex md:flex-auto md:items-center w-full">
+        <div className="flex w-full md:flex-auto md:items-center">
           <div className="relative z-10 flex flex-col md:w-3/5">
             <div className="/90 bg-background/90 relative z-10 flex w-full flex-col justify-evenly gap-4 md:gap-16 md:!bg-transparent">
               <h1 className="mt-5 px-8 text-4xl font-light leading-[3rem] md:w-[120%] md:text-6xl md:leading-[4rem]">
@@ -21,20 +20,20 @@ export const LandingSection: FC = () => {
               <div className="flex flex-col gap-4">
                 {description.map((el) => (
                   <AnimatedDescription
-                    className="text-neutral max-md:text-sm inset-x-0 w-full px-8 leading-7"
+                    className="text-neutral inset-x-0 w-full px-8 leading-7 max-md:text-sm"
                     key={el.value}
                   >
                     {el}
                   </AnimatedDescription>
                 ))}
               </div>
-              <div className="flex flex-col gap-3 px-8 ml-8">
+              <div className="ml-8 flex flex-col gap-3 px-8">
                 {keyPoints.map((el) => (
                   <div
-                    className="flex gap-2 items-center text-sm"
+                    className="flex items-center gap-2 text-sm"
                     key={el.value}
                   >
-                    <Check className="text-lime-800 dark:text-lime-600 size-3" />
+                    <Check className="size-3 text-lime-800 dark:text-lime-600" />
 
                     <span className="text-neutral">{el}</span>
                   </div>
@@ -51,7 +50,6 @@ export const LandingSection: FC = () => {
           </div>
         </div>
         <ActionButtons className="z-10 mb-5 p-8 pt-0 md:hidden" />
-        <ProductHunt />
       </div>
     </section>
   );
