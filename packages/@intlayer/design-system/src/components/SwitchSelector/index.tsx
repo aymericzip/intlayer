@@ -2,11 +2,11 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
-  useRef,
-  type ReactNode,
-  type HTMLAttributes,
-  useState,
   useEffect,
+  useRef,
+  useState,
+  type HTMLAttributes,
+  type ReactNode,
 } from 'react';
 import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';
@@ -52,7 +52,7 @@ const switchSelectorVariant = cva(
 );
 
 const choiceVariant = cva(
-  'z-1 w-full flex-1 text-sm font-medium transition-all duration-300 ease-in-out aria-selected:cursor-default aria-selected:text-text-opposite motion-reduce:transition-none',
+  'z-1 w-full flex-1 text-sm font-medium transition-all duration-300 ease-in-out cursor-pointer aria-selected:cursor-default aria-selected:text-text-opposite motion-reduce:transition-none',
   {
     variants: {
       size: {
