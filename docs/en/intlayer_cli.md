@@ -90,6 +90,8 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
 ##### Aliases:
 
 - `npx intlayer dictionaries pull`
+- `npx intlayer dic pull`
+- `npx intlayer pull`
 
 ##### Arguments:
 
@@ -115,6 +117,8 @@ This command analyzes your content declaration files for potential issues such a
 ##### Aliases:
 
 - `npx intlayer dictionaries audit`
+- `npx intlayer dic audit`
+- `npx intlayer audit`
 
 ##### Arguments:
 
@@ -192,10 +196,10 @@ By pushing the configuration, your project is fully integrated with the Intlayer
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer dictionaries build",
-  "intlayer:watch": "npx intlayer dictionaries build --watch",
-  "intlayer:push": "npx intlayer dictionary push",
-  "intlayer:pull": "npx intlayer dictionary pull",
+  "intlayer:build": "npx intlayer build",
+  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:push": "npx intlayer push",
+  "intlayer:pull": "npx intlayer pull",
   "intlayer:audit": "npx intlayer audit"
 }
 ```

@@ -28,39 +28,96 @@ export const setAPI = (): Command => {
     .command('dictionary')
     .alias('dictionaries')
     .alias('dic')
+    .alias('')
     .description('Dictionaries operations');
 
-  dictionariesProgram
+  // Dictionary build command
+  const buildOptions = {
+    description: 'Build the dictionaries',
+    options: [
+      ['-w, --watch', 'Watch for changes'],
+      ['-e, --env [env]', 'Environment'],
+    ],
+    action: build,
+  };
+
+  // Add build command to dictionaries program
+  const dictionariesBuildCmd = dictionariesProgram
     .command('build')
-    .description('Build the dictionaries')
-    .option('-w, --watch', 'Watch for changes')
-    .option('-e, --env [env]', 'Environment')
-    .action(build);
+    .description(buildOptions.description);
+  buildOptions.options.forEach((opt) =>
+    dictionariesBuildCmd.option(opt[0], opt[1])
+  );
+  dictionariesBuildCmd.action(buildOptions.action);
 
-  dictionariesProgram
+  // Add build command to root program as well
+  const rootBuildCmd = program
+    .command('build')
+    .description(buildOptions.description);
+  buildOptions.options.forEach((opt) => rootBuildCmd.option(opt[0], opt[1]));
+  rootBuildCmd.action(buildOptions.action);
+
+  // Dictionary pull command
+  const pullOptions = {
+    description: 'Pull dictionaries from the server',
+    options: [
+      ['-d, --dictionaries [ids...]', 'List of dictionary IDs to pull'],
+      ['--newDictionariesPath [path]', 'Path to save the new dictionaries'],
+      ['-e, --env [env]', 'Environment'],
+    ],
+    action: pull,
+  };
+
+  // Add pull command to dictionaries program
+  const dictionariesPullCmd = dictionariesProgram
     .command('pull')
-    .option('-d, --dictionaries [ids...]', 'List of dictionary IDs to pull')
-    .option('--newDictionariesPath [path]', 'Path to save the new dictionaries')
-    .option('-e, --env [env]', 'Environment')
-    .action(pull);
+    .description(pullOptions.description);
+  pullOptions.options.forEach((opt) =>
+    dictionariesPullCmd.option(opt[0], opt[1])
+  );
+  dictionariesPullCmd.action(pullOptions.action);
 
-  // Define the main `push` command
-  dictionariesProgram
+  // Add pull command to root program as well
+  const rootPullCmd = program
+    .command('pull')
+    .description(pullOptions.description);
+  pullOptions.options.forEach((opt) => rootPullCmd.option(opt[0], opt[1]));
+  rootPullCmd.action(pullOptions.action);
+
+  // Dictionary push command
+  const pushOptions = {
+    description:
+      'Push all dictionaries. Create or update the pushed dictionaries',
+    options: [
+      ['-d, --dictionaries [ids...]', 'List of dictionary IDs to push'],
+      [
+        '-r, --deleteLocaleDictionary',
+        'Delete the local dictionaries after pushing',
+      ],
+      [
+        '-k, --keepLocaleDictionary',
+        'Keep the local dictionaries after pushing',
+      ],
+      ['-e, --env [env]', 'Environment'],
+    ],
+    action: push,
+  };
+
+  // Add push command to dictionaries program
+  const dictionariesPushCmd = dictionariesProgram
     .command('push')
-    .description(
-      'Push all dictionaries. Create or update the pushed dictionaries'
-    )
-    .option('-d, --dictionaries [ids...]', 'List of dictionary IDs to push')
-    .option(
-      '-r, --deleteLocaleDictionary',
-      'Delete the local dictionaries after pushing'
-    )
-    .option(
-      '-k, --keepLocaleDictionary',
-      'Keep the local dictionaries after pushing'
-    )
-    .option('-e, --env [env]', 'Environment')
-    .action(push);
+    .description(pushOptions.description);
+  pushOptions.options.forEach((opt) =>
+    dictionariesPushCmd.option(opt[0], opt[1])
+  );
+  dictionariesPushCmd.action(pushOptions.action);
+
+  // Add push command to root program as well
+  const rootPushCmd = program
+    .command('push')
+    .description(pushOptions.description);
+  pushOptions.options.forEach((opt) => rootPushCmd.option(opt[0], opt[1]));
+  rootPushCmd.action(pushOptions.action);
 
   /**
    * CONFIGURATION
