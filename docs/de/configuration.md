@@ -392,3 +392,55 @@ Einstellungen, die den Logger steuern, einschließlich des zu verwendenden Präf
   - _Beschreibung_: Das Präfix des Loggers.
   - _Beispiel_: `'[my custom prefix] '`
   - _Hinweis_: Das Präfix des Loggers.
+
+### KI-Konfiguration
+
+Einstellungen, die die KI-Funktionen von Intlayer steuern, einschließlich des Anbieters, des Modells und des API-Schlüssels.
+
+Diese Konfiguration ist optional, wenn Sie im [Intlayer Dashboard](https://intlayer.org/dashboard/project) mit einem Zugriffsschlüssel registriert sind. Intlayer verwaltet automatisch die effizienteste und kostengünstigste KI-Lösung für Ihre Bedürfnisse. Die Verwendung der Standardoptionen gewährleistet eine bessere langfristige Wartbarkeit, da Intlayer kontinuierlich aktualisiert wird, um die relevantesten Modelle zu verwenden.
+
+Wenn Sie Ihren eigenen API-Schlüssel oder ein spezifisches Modell verwenden möchten, können Sie Ihre eigene KI-Konfiguration definieren.
+Diese KI-Konfiguration wird global in Ihrer Intlayer-Umgebung verwendet. CLI-Befehle verwenden diese Einstellungen als Standardwerte für die Befehle (z.B. `fill`), sowie das SDK, den Visuellen Editor und das CMS. Sie können diese Standardwerte für spezifische Anwendungsfälle durch Befehlsparameter überschreiben.
+
+Intlayer unterstützt mehrere KI-Anbieter für mehr Flexibilität und Auswahl. Die derzeit unterstützten Anbieter sind:
+
+- **OpenAI** (Standard)
+- **Anthropic Claude**
+- **Mistral AI**
+- **DeepSeek**
+- **Google Gemini**
+- **Meta Llama**
+
+#### Eigenschaften
+
+- **provider** :
+
+  - _Typ_ : `string`
+  - _Standard_ : `'openai'`
+  - _Beschreibung_ : Der Anbieter, der für die KI-Funktionen von Intlayer verwendet werden soll.
+  - _Optionen_ : `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Beispiel_ : `'anthropic'`
+  - _Hinweis_ : Verschiedene Anbieter können unterschiedliche API-Schlüssel erfordern und unterschiedliche Preismodelle haben.
+
+- **model** :
+
+  - _Typ_ : `string`
+  - _Standard_ : Keine
+  - _Beschreibung_ : Das Modell, das für die KI-Funktionen von Intlayer verwendet werden soll.
+  - _Beispiel_ : `'gpt-4o-2024-11-20'`
+  - _Hinweis_ : Das spezifische zu verwendende Modell variiert je nach Anbieter.
+
+- **temperature** :
+
+  - _Typ_ : `number`
+  - _Standard_ : Keine
+  - _Beschreibung_ : Die Temperatur steuert die Zufälligkeit der KI-Antworten.
+  - _Beispiel_ : `0.1`
+  - _Hinweis_ : Eine höhere Temperatur macht die KI kreativer und weniger vorhersehbar.
+
+- **apiKey** :
+  - _Typ_ : `string`
+  - _Standard_ : Keine
+  - _Beschreibung_ : Ihr API-Schlüssel für den ausgewählten Anbieter.
+  - _Beispiel_ : `process.env.OPENAI_API_KEY`
+  - _Hinweis_ : Wichtig: API-Schlüssel müssen geheim gehalten und nicht öffentlich geteilt werden. Bitte bewahren Sie sie an einem sicheren Ort auf, wie z.B. in Umgebungsvariablen.

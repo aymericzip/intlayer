@@ -392,3 +392,55 @@ Configurações que controlam o logger, incluindo o prefixo a ser usado.
   - _Descrição_: O prefixo do logger.
   - _Exemplo_: `'[my custom prefix] '`
   - _Nota_: O prefixo do logger.
+
+### Configuração de IA
+
+Configurações que controlam os recursos de IA do Intlayer, incluindo o provedor, o modelo e a chave API.
+
+Esta configuração é opcional se você estiver registrado no [Painel do Intlayer](https://intlayer.org/dashboard/project) usando uma chave de acesso. O Intlayer gerenciará automaticamente a solução de IA mais eficiente e econômica para suas necessidades. O uso das opções padrão garante melhor manutenibilidade a longo prazo, pois o Intlayer atualiza continuamente para usar os modelos mais relevantes.
+
+Se você preferir usar sua própria chave API ou um modelo específico, você pode definir sua configuração de IA personalizada.
+Esta configuração de IA será usada globalmente em seu ambiente Intlayer. Os comandos CLI usarão essas configurações como valores padrão para os comandos (por exemplo, `fill`), bem como o SDK, o Editor Visual e o CMS. Você pode substituir esses valores padrão para casos de uso específicos usando parâmetros de comando.
+
+O Intlayer suporta vários provedores de IA para maior flexibilidade e escolha. Os provedores atualmente suportados são:
+
+- **OpenAI** (padrão)
+- **Anthropic Claude**
+- **Mistral AI**
+- **DeepSeek**
+- **Google Gemini**
+- **Meta Llama**
+
+#### Propriedades
+
+- **provider** :
+
+  - _Tipo_ : `string`
+  - _Padrão_ : `'openai'`
+  - _Descrição_ : O provedor a ser usado para os recursos de IA do Intlayer.
+  - _Opções_ : `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Exemplo_ : `'anthropic'`
+  - _Nota_ : Provedores diferentes podem exigir chaves API diferentes e ter modelos de preços diferentes.
+
+- **model** :
+
+  - _Tipo_ : `string`
+  - _Padrão_ : Nenhum
+  - _Descrição_ : O modelo a ser usado para os recursos de IA do Intlayer.
+  - _Exemplo_ : `'gpt-4o-2024-11-20'`
+  - _Nota_ : O modelo específico a ser usado varia de acordo com o provedor.
+
+- **temperature** :
+
+  - _Tipo_ : `number`
+  - _Padrão_ : Nenhum
+  - _Descrição_ : A temperatura controla a aleatoriedade das respostas da IA.
+  - _Exemplo_ : `0.1`
+  - _Nota_ : Uma temperatura mais alta tornará a IA mais criativa e menos previsível.
+
+- **apiKey** :
+  - _Tipo_ : `string`
+  - _Padrão_ : Nenhum
+  - _Descrição_ : Sua chave API para o provedor selecionado.
+  - _Exemplo_ : `process.env.OPENAI_API_KEY`
+  - _Nota_ : Importante: As chaves API devem ser mantidas em segredo e não compartilhadas publicamente. Certifique-se de armazená-las em um local seguro, como variáveis de ambiente.

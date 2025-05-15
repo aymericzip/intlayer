@@ -1194,21 +1194,6 @@ const docs = {
     es: require('./es/vs_code_extension.md'),
     'en-GB': require('./en-GB/vs_code_extension.md'),
   },
-  ai_providers: {
-    en: require('./en/ai_providers.md'),
-    de: require('./de/ai_providers.md'),
-    hi: require('./hi/ai_providers.md'),
-    it: require('./it/ai_providers.md'),
-    ja: require('./ja/ai_providers.md'),
-    ko: require('./ko/ai_providers.md'),
-    pt: require('./pt/ai_providers.md'),
-    ru: require('./ru/ai_providers.md'),
-    zh: require('./zh/ai_providers.md'),
-    ar: require('./ar/ai_providers.md'),
-    'en-GB': require('./en-GB/ai_providers.md'),
-    fr: require('./fr/ai_providers.md'),
-    es: require('./es/ai_providers.md'),
-  },
 };
 
 const getDocs = (lang = Locales.ENGLISH) =>

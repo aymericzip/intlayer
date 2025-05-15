@@ -392,3 +392,55 @@ module.exports = config;
   - _描述_: 日志记录器的前缀。
   - _示例_: `'[my custom prefix] '`
   - _注意_: 日志记录器的前缀。
+
+### AI 配置
+
+控制 Intlayer AI 功能的设置，包括提供商、模型和 API 密钥。
+
+如果您使用访问密钥在 [Intlayer 仪表板](https://intlayer.org/dashboard/project) 注册，此配置是可选的。Intlayer 将自动管理最有效和最具成本效益的 AI 解决方案。使用默认选项可确保更好的长期可维护性，因为 Intlayer 会不断更新以使用最相关的模型。
+
+如果您想使用自己的 API 密钥或特定模型，您可以定义自定义 AI 配置。
+此 AI 配置将在您的 Intlayer 环境中全局使用。CLI 命令将使用这些设置作为命令（例如 `fill`）的默认值，以及 SDK、可视化编辑器和 CMS。您可以使用命令参数为特定用例覆盖这些默认值。
+
+Intlayer 支持多个 AI 提供商以提供更大的灵活性和选择。目前支持的提供商有：
+
+- **OpenAI**（默认）
+- **Anthropic Claude**
+- **Mistral AI**
+- **DeepSeek**
+- **Google Gemini**
+- **Meta Llama**
+
+#### 属性
+
+- **provider** :
+
+  - _类型_ : `string`
+  - _默认值_ : `'openai'`
+  - _描述_ : 用于 Intlayer AI 功能的提供商。
+  - _选项_ : `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _示例_ : `'anthropic'`
+  - _注意_ : 不同的提供商可能需要不同的 API 密钥并具有不同的定价模型。
+
+- **model** :
+
+  - _类型_ : `string`
+  - _默认值_ : 无
+  - _描述_ : 用于 Intlayer AI 功能的模型。
+  - _示例_ : `'gpt-4o-2024-11-20'`
+  - _注意_ : 具体使用的模型因提供商而异。
+
+- **temperature** :
+
+  - _类型_ : `number`
+  - _默认值_ : 无
+  - _描述_ : 温度控制 AI 响应的随机性。
+  - _示例_ : `0.1`
+  - _注意_ : 较高的温度会使 AI 更具创造性和不可预测性。
+
+- **apiKey** :
+  - _类型_ : `string`
+  - _默认值_ : 无
+  - _描述_ : 所选提供商的 API 密钥。
+  - _示例_ : `process.env.OPENAI_API_KEY`
+  - _注意_ : 重要：API 密钥必须保密且不得公开共享。请确保将它们存储在安全的位置，例如环境变量中。

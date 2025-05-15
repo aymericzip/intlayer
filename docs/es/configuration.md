@@ -428,3 +428,55 @@ Ajustes que controlan el logger, incluyendo el prefijo a usar.
   - _Descripción_: El prefijo del logger.
   - _Ejemplo_: `'[my custom prefix] '`
   - _Nota_: El prefijo del logger.
+
+### Configuración de IA
+
+Configuración que controla las características de IA de Intlayer, incluyendo el proveedor, el modelo y la clave API.
+
+Esta configuración es opcional si estás registrado en el [Panel de Control de Intlayer](https://intlayer.org/dashboard/project) usando una clave de acceso. Intlayer gestionará automáticamente la solución de IA más eficiente y rentable para tus necesidades. El uso de las opciones predeterminadas garantiza una mejor mantenibilidad a largo plazo ya que Intlayer actualiza continuamente para usar los modelos más relevantes.
+
+Si prefieres usar tu propia clave API o un modelo específico, puedes definir tu configuración de IA personalizada.
+Esta configuración de IA se utilizará globalmente en tu entorno Intlayer. Los comandos CLI usarán estos ajustes como valores predeterminados para los comandos (por ejemplo `fill`), así como el SDK, el Editor Visual y el CMS. Puedes anular estos valores predeterminados para casos de uso específicos usando parámetros de comando.
+
+Intlayer admite múltiples proveedores de IA para mayor flexibilidad y opciones. Los proveedores actualmente soportados son:
+
+- **OpenAI** (predeterminado)
+- **Anthropic Claude**
+- **Mistral AI**
+- **DeepSeek**
+- **Google Gemini**
+- **Meta Llama**
+
+#### Propiedades
+
+- **provider** :
+
+  - _Tipo_ : `string`
+  - _Predeterminado_ : `'openai'`
+  - _Descripción_ : El proveedor a utilizar para las características de IA de Intlayer.
+  - _Opciones_ : `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Ejemplo_ : `'anthropic'`
+  - _Nota_ : Diferentes proveedores pueden requerir diferentes claves API y tener diferentes modelos de precios.
+
+- **model** :
+
+  - _Tipo_ : `string`
+  - _Predeterminado_ : Ninguno
+  - _Descripción_ : El modelo a utilizar para las características de IA de Intlayer.
+  - _Ejemplo_ : `'gpt-4o-2024-11-20'`
+  - _Nota_ : El modelo específico a utilizar varía según el proveedor.
+
+- **temperature** :
+
+  - _Tipo_ : `number`
+  - _Predeterminado_ : Ninguno
+  - _Descripción_ : La temperatura controla la aleatoriedad de las respuestas de la IA.
+  - _Ejemplo_ : `0.1`
+  - _Nota_ : Una temperatura más alta hará que la IA sea más creativa y menos predecible.
+
+- **apiKey** :
+  - _Tipo_ : `string`
+  - _Predeterminado_ : Ninguno
+  - _Descripción_ : Tu clave API para el proveedor seleccionado.
+  - _Ejemplo_ : `process.env.OPENAI_API_KEY`
+  - _Nota_ : Importante: Las claves API deben mantenerse en secreto y no compartirse públicamente. Por favor, asegúrate de guardarlas en una ubicación segura, como variables de entorno.

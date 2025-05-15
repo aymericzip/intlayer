@@ -212,4 +212,58 @@ Definisce le impostazioni relative all'editor integrato, inclusi la porta del se
   - _Descrizione_: La strategia per dare priorità ai dizionari nel caso in cui siano presenti sia dizionari locali che remoti. Se impostato su `'distant_first'`, l'applicazione darà priorità ai dizionari remoti rispetto a quelli locali. Se impostato su `'local_first'`, l'applicazione darà priorità ai dizionari locali rispetto a quelli remoti.
   - _Esempio_: `'distant_first'`
 
+---
+
+### Configurazione IA
+
+Impostazioni che controllano le funzionalità di IA di Intlayer, inclusi il provider, il modello e la chiave API.
+
+Questa configurazione è opzionale se sei registrato nel [Dashboard Intlayer](https://intlayer.org/dashboard/project) utilizzando una chiave di accesso. Intlayer gestirà automaticamente la soluzione di IA più efficiente ed economica per le tue esigenze. L'utilizzo delle opzioni predefinite garantisce una migliore manutenibilità a lungo termine poiché Intlayer si aggiorna continuamente per utilizzare i modelli più rilevanti.
+
+Se preferisci utilizzare la tua chiave API o un modello specifico, puoi definire la tua configurazione di IA personalizzata.
+Questa configurazione di IA verrà utilizzata globalmente nel tuo ambiente Intlayer. I comandi CLI utilizzeranno queste impostazioni come valori predefiniti per i comandi (ad esempio `fill`), così come l'SDK, l'Editor Visivo e il CMS. Puoi sovrascrivere questi valori predefiniti per casi d'uso specifici utilizzando i parametri dei comandi.
+
+Intlayer supporta più provider di IA per una maggiore flessibilità e scelta. I provider attualmente supportati sono:
+
+- **OpenAI** (predefinito)
+- **Anthropic Claude**
+- **Mistral AI**
+- **DeepSeek**
+- **Google Gemini**
+- **Meta Llama**
+
+#### Proprietà
+
+- **provider** :
+
+  - _Tipo_ : `string`
+  - _Predefinito_ : `'openai'`
+  - _Descrizione_ : Il provider da utilizzare per le funzionalità di IA di Intlayer.
+  - _Opzioni_ : `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Esempio_ : `'anthropic'`
+  - _Nota_ : Provider diversi possono richiedere chiavi API diverse e avere modelli di prezzo diversi.
+
+- **model** :
+
+  - _Tipo_ : `string`
+  - _Predefinito_ : Nessuno
+  - _Descrizione_ : Il modello da utilizzare per le funzionalità di IA di Intlayer.
+  - _Esempio_ : `'gpt-4o-2024-11-20'`
+  - _Nota_ : Il modello specifico da utilizzare varia in base al provider.
+
+- **temperature** :
+
+  - _Tipo_ : `number`
+  - _Predefinito_ : Nessuno
+  - _Descrizione_ : La temperatura controlla la casualità delle risposte dell'IA.
+  - _Esempio_ : `0.1`
+  - _Nota_ : Una temperatura più alta renderà l'IA più creativa e meno prevedibile.
+
+- **apiKey** :
+  - _Tipo_ : `string`
+  - _Predefinito_ : Nessuno
+  - _Descrizione_ : La tua chiave API per il provider selezionato.
+  - _Esempio_ : `process.env.OPENAI_API_KEY`
+  - _Nota_ : Importante: Le chiavi API devono essere mantenute segrete e non condivise pubblicamente. Assicurati di conservarle in un luogo sicuro, come variabili d'ambiente.
+
 ...

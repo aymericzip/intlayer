@@ -402,3 +402,55 @@ Settings that control the logger, including the prefix to use.
   - _Description_: The prefix of the logger.
   - _Example_: `'[my custom prefix] '`
   - _Note_: The prefix of the logger.
+
+### AI Configuration
+
+Settings that control the AI features of Intlayer, including the provider, model, and API key.
+
+This configuration is optional if you're registered on the [Intlayer Dashboard](https://intlayer.org/dashboard/project) using an access key. Intlayer will automatically manage the most efficient and cost-effective AI solution for your needs. Using the default options ensures better long-term maintainability as Intlayer continuously updates to use the most relevant models.
+
+If you prefer to use your own API key or specific model, you can define your custom AI configuration.
+This AI configuration will be used globally across your Intlayer environment. CLI commands will use these settings as defaults for the commands (e.g. `fill`), as well as the SDK, Visual Editor, and CMS. You can override these default values for specific use cases using command parameters.
+
+Intlayer supports multiple AI providers for enhanced flexibility and choice. Currently supported providers are:
+
+- **OpenAI** (default)
+- **Anthropic Claude**
+- **Mistral AI**
+- **DeepSeek**
+- **Google Gemini**
+- **Meta Llama**
+
+#### Properties
+
+- **provider**:
+
+  - _Type_: `string`
+  - _Default_: `'openai'`
+  - _Description_: The provider to use for the AI features of Intlayer.
+  - _Options_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
+  - _Example_: `'anthropic'`
+  - _Note_: Different providers may require different API keys and have different pricing models.
+
+- **model**:
+
+  - _Type_: `string`
+  - _Default_: None
+  - _Description_: The model to use for the AI features of Intlayer.
+  - _Example_: `'gpt-4o-2024-11-20'`
+  - _Note_: The specific model to use varies by provider.
+
+- **temperature**:
+
+  - _Type_: `number`
+  - _Default_: None
+  - _Description_: The temperature controls the randomness of the AI's responses.
+  - _Example_: `0.1`
+  - _Note_: A higher temperature will make the AI more creative and less predictable.
+
+- **apiKey**:
+  - _Type_: `string`
+  - _Default_: None
+  - _Description_: Your API key for the selected provider.
+  - _Example_: `process.env.OPENAI_API_KEY`
+  - _Note_: Important: API keys should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
