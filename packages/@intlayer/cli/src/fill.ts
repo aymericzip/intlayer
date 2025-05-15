@@ -16,16 +16,14 @@ import {
 } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
-import { exec } from 'child_process';
 import { dirname, extname, join, relative } from 'path';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
+import simpleGit from 'simple-git';
 
 const getGitRootDir = async (): Promise<string | null> => {
   try {
-    const { stdout } = await execAsync('git rev-parse --show-toplevel');
-    return stdout.trim();
+    const git = simpleGit();
+    const rootDir = await git.revparse(['--show-toplevel']);
+    return rootDir.trim();
   } catch (error) {
     appLogger('Error getting git root directory:' + error, {
       level: 'error',
@@ -36,8 +34,9 @@ const getGitRootDir = async (): Promise<string | null> => {
 
 const getChangedFilesList = async () => {
   try {
-    const gitChangedFiles = await execAsync(`git diff --name-only HEAD`);
-    return gitChangedFiles.stdout.split('\n').filter(Boolean);
+    const git = simpleGit();
+    const diff = await git.diff(['--name-only', 'HEAD']);
+    return diff.split('\n').filter(Boolean);
   } catch (error) {
     return null;
   }
@@ -60,13 +59,10 @@ export type FillOptions = {
 
 const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
 
-const filterDictionary = async (
-  dictionaries: Dictionary[],
-  options: FillOptions
-) => {
+const getTargetDictionary = async (options: FillOptions) => {
   const { baseDir } = configuration.content;
 
-  let result = dictionaries;
+  let result = Object.values(unmergedDictionariesRecord).flat();
 
   // 1. if filePath not defined, list all content declaration files based on unmerged dictionaries list
   if (typeof options.file !== 'undefined') {
@@ -121,7 +117,7 @@ const filterDictionary = async (
         return gitChangedFiles.some(
           (gitFile) =>
             dictPathRelativeToGitRoot === gitFile ||
-            gitFile.endsWith(dictPathRelativeToGitRoot)
+            gitFile.includes(dictPathRelativeToGitRoot)
         );
       });
     }
@@ -308,10 +304,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
     level: 'info',
   });
 
-  const targetUnmergedDictionaries = await filterDictionary(
-    Object.values(unmergedDictionariesRecord).flat(),
-    options
-  );
+  const targetUnmergedDictionaries = await getTargetDictionary(options);
 
   // Determine output locales
   const outputLocalesList: Locales[] = (

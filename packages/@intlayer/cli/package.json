@@ -69,7 +69,8 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "commander": "^13.0.0",
     "fast-glob": "^3.3.3",
-    "p-limit": "^3.1.0"
+    "p-limit": "^3.1.0",
+    "simple-git": "^3.27.0"
   },
   "devDependencies": {
     "@intlayer/core": "workspace:*",

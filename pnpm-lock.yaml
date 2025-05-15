@@ -1324,6 +1324,9 @@ importers:
       p-limit:
         specifier: ^3.1.0
         version: 3.1.0
+      simple-git:
+        specifier: ^3.27.0
+        version: 3.27.0
     devDependencies:
       '@intlayer/core':
         specifier: workspace:*
