@@ -6,7 +6,7 @@ import {
   reduceDictionaryContent,
   writeContentDeclaration,
 } from '@intlayer/chokidar';
-import { appLogger, Locales, logger } from '@intlayer/config';
+import { appLogger, Locales } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import {
   type AutoFill,
@@ -27,7 +27,7 @@ const getGitRootDir = async (): Promise<string | null> => {
     const { stdout } = await execAsync('git rev-parse --show-toplevel');
     return stdout.trim();
   } catch (error) {
-    logger('Error getting git root directory:' + error, {
+    appLogger('Error getting git root directory:' + error, {
       level: 'error',
     });
     return null;
@@ -151,11 +151,12 @@ const autoFill = async (
   dictionary: Dictionary,
   contentDeclarationFile: Dictionary,
   autoFillOptions: AutoFill,
+  outputLocales?: Locales[],
   parentLocales?: Locales[]
 ) => {
-  let localeList: Locales[] = configuration.internationalization.locales.filter(
-    (locale) => !parentLocales?.includes(locale)
-  );
+  let localeList: Locales[] = (
+    outputLocales ?? configuration.internationalization.locales
+  ).filter((locale) => !parentLocales?.includes(locale));
 
   const outputContentDeclarationFile: AutoFillData[] = [];
 
@@ -196,12 +197,15 @@ const autoFill = async (
         ),
       }));
 
+      console.log({ output });
+
       outputContentDeclarationFile.push(...output);
     } else {
       outputContentDeclarationFile.push({
         localeList,
         filePath: transformUriToAbsolutePath(autoFillOptions, filePath),
       });
+      console.log({ outputContentDeclarationFile });
     }
   }
 
@@ -218,7 +222,7 @@ const autoFill = async (
     outputContentDeclarationFile.push(...output);
   }
 
-  logger(
+  appLogger(
     `Auto fill data: ${JSON.stringify(outputContentDeclarationFile, null, 2)}`,
     {
       level: 'info',
@@ -240,6 +244,7 @@ const autoFill = async (
     // write file
     await writeContentDeclaration({
       ...dictionary,
+      locale: output.localeList.length === 1 ? output.localeList[0] : undefined,
       content: filteredDictionary.content,
       filePath: output.filePath,
       autoFill: undefined,
@@ -295,8 +300,10 @@ export const fill = async (options: FillOptions): Promise<void> => {
   for (const targetUnmergedDictionary of targetUnmergedDictionaries) {
     const dictionaryKey = targetUnmergedDictionary.key;
     const mainDictionaryToProcess = dictionariesRecord[dictionaryKey];
-    const sourceLocale =
-      options.sourceLocale ?? targetUnmergedDictionary.locale ?? defaultLocale;
+    const sourceLocale: Locales =
+      options.sourceLocale ??
+      (targetUnmergedDictionary.locale as Locales) ??
+      defaultLocale;
 
     if (!mainDictionaryToProcess) {
       appLogger(
@@ -419,6 +426,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
       mergedResults,
       targetUnmergedDictionary,
       formattedDict.autoFill,
+      outputLocalesList,
       [sourceLocale]
     );
   }

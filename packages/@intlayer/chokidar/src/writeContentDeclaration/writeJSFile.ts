@@ -4,7 +4,10 @@ import traverse, { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
 import { appLogger, logger } from '@intlayer/config';
 import { Dictionary, TranslationContent, TypedNode } from '@intlayer/core';
+import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
+import { extname } from 'path';
+import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import { formatCode } from './formatCode';
 
 /**
@@ -17,11 +20,40 @@ export const writeJSFile = async (
   filePath: string,
   dictionary: Dictionary
 ): Promise<void> => {
-  const { key: dictionaryIdentifierKey, content: updatesToApply } = dictionary;
+  const {
+    key: dictionaryIdentifierKey,
+    content: updatesToApply,
+    locale,
+  } = dictionary;
+  const isPerLocaleDeclarationFile = typeof locale === 'string';
+
+  // Check if the file exist
+  if (!existsSync(filePath)) {
+    const fileExtension = extname(filePath);
+
+    let format = 'ts' as 'ts' | 'cjs' | 'esm';
+
+    if (fileExtension === '.js') {
+      format = 'cjs';
+    } else if (fileExtension === '.mjs') {
+      format = 'esm';
+    }
+
+    appLogger('File does not exist, creating it', {
+      isVerbose: true,
+    });
+    const template = await getContentDeclarationFileTemplate(
+      dictionaryIdentifierKey,
+      format,
+      { locale }
+    );
+
+    await writeFile(filePath, template, 'utf-8');
+  }
 
   let sourceCode: string;
   try {
-    sourceCode = await readFile(filePath ?? '', 'utf-8');
+    sourceCode = await readFile(filePath, 'utf-8');
   } catch (error) {
     const err = error as Error;
     appLogger(`Failed to read file: ${filePath}`, {
@@ -223,12 +255,65 @@ export const writeJSFile = async (
 
     if (!targetPropertyPath || !targetPropertyPath.isObjectProperty()) {
       appLogger(
-        `Key '${entryKeyToUpdate}' not found in content object of ${filePath}. Skipping update for this key.`,
+        `Key '${entryKeyToUpdate}' not found in content object of ${filePath}. Adding the missing key.`,
         {
-          level: 'warn',
+          level: 'info',
           isVerbose: true,
         }
       );
+
+      // Create a new property for the missing key
+      let valueNode: t.Expression;
+
+      if ((newEntryData as TypedNode).nodeType === 'translation') {
+        // Create a new t() call with the translations
+        const translationContent = newEntryData as TranslationContent;
+
+        if (
+          isPerLocaleDeclarationFile &&
+          typeof locale === 'string' &&
+          translationContent.translation[locale]
+        ) {
+          // For per-locale files, use the string value directly
+          valueNode = t.stringLiteral(
+            String(translationContent.translation[locale])
+          );
+        } else {
+          // Otherwise create a t() call with translations object
+          const translationsObj = t.objectExpression(
+            Object.entries(translationContent.translation).map(
+              ([langKey, langValue]) => {
+                const keyNode = t.isValidIdentifier(langKey)
+                  ? t.identifier(langKey)
+                  : t.stringLiteral(langKey);
+                return t.objectProperty(
+                  keyNode,
+                  t.stringLiteral(String(langValue))
+                );
+              }
+            )
+          );
+          valueNode = t.callExpression(t.identifier('t'), [translationsObj]);
+        }
+      } else if (typeof newEntryData === 'string') {
+        // Create a string literal for string values
+        valueNode = t.stringLiteral(newEntryData);
+      } else {
+        // Fallback to empty string if we don't know how to handle this type
+        appLogger(
+          `Unsupported data type for new key '${entryKeyToUpdate}'. Using empty string.`,
+          { level: 'warn', isVerbose: true }
+        );
+        valueNode = t.stringLiteral('');
+      }
+
+      // Add the new property to the content object
+      const keyNode = t.isValidIdentifier(entryKeyToUpdate)
+        ? t.identifier(entryKeyToUpdate)
+        : t.stringLiteral(entryKeyToUpdate);
+      const newProperty = t.objectProperty(keyNode, valueNode);
+      contentObjectPath.node.properties.push(newProperty);
+
       continue;
     }
 
@@ -253,6 +338,28 @@ export const writeJSFile = async (
               isVerbose: true,
             }
           );
+          continue;
+        }
+
+        if (isPerLocaleDeclarationFile && typeof locale === 'string') {
+          // For per-locale files, replace t() call with direct string
+          const translations = (newEntryData as TranslationContent).translation;
+          if (translations[locale]) {
+            targetPropertyPath
+              .get('value')
+              .replaceWith(t.stringLiteral(String(translations[locale])));
+          } else {
+            appLogger(
+              `Missing translation for locale '${locale}' in '${entryKeyToUpdate}'. Using first available translation.`,
+              { level: 'warn', isVerbose: true }
+            );
+            const firstValue = Object.values(translations)[0];
+            if (firstValue) {
+              targetPropertyPath
+                .get('value')
+                .replaceWith(t.stringLiteral(String(firstValue)));
+            }
+          }
           continue;
         }
 

@@ -22,7 +22,7 @@ You are an expert in internationalization, copy writing and content management. 
    - **Escape Special Characters:** If the translations contain special characters, escape them using the appropriate escape sequence.
    - **Respect the tags and description instructions:** If the tags and description instructions are provided, ensure that the audited file adheres to them.
    - **Consider the Preset Output Content** If Preset Output Content is provided, and coherent with the entry, you can consider reuse it to fill the output file content.
-   - **Should not be translated** A node as `{ nodeType: "XXX", ...}` should not be translated. But the childend of this node should be translated.
+   - **Should not be translated** A value as `{ 'nodeType': 'XXX', ...}` should not be translated.
 
 **Tags Instructions:**
 
