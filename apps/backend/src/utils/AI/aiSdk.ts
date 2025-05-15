@@ -24,7 +24,7 @@ export type AIOptions = {
   temperature?: number;
   provider?: AIProvider;
   customPrompt?: string;
-  apiKey: string;
+  apiKey?: string;
 };
 
 /**

@@ -70,6 +70,10 @@
     "test": ""
   },
   "dependencies": {
+    "@babel/generator": "^7.27.1",
+    "@babel/parser": "^7.27.2",
+    "@babel/traverse": "^7.27.1",
+    "@babel/types": "^7.27.1",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -86,6 +90,8 @@
   "devDependencies": {
     "@changesets/cli": "2.28.1",
     "@intlayer/backend": "workspace:*",
+    "@types/babel__generator": "^7.27.0",
+    "@types/babel__traverse": "^7.20.7",
     "@types/crypto-js": "^4.2.2",
     "@types/deep-equal": "^1.0.4",
     "@types/node": "^22.13.10",

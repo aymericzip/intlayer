@@ -55,6 +55,7 @@ export const translateJSON = async (
 
     const auditResponse = await translateJSONUtil.translateJSON({
       ...rest,
+      aiOptions,
       tags,
     });
 
@@ -96,15 +97,8 @@ export const auditContentDeclaration = async (
   _next: NextFunction
 ): Promise<void> => {
   const { user, project, organization } = res.locals;
-  const {
-    fileContent,
-    filePath,
-    aiOptions,
-
-    locales,
-    defaultLocale,
-    tagsKeys,
-  } = req.body;
+  const { fileContent, filePath, aiOptions, locales, defaultLocale, tagsKeys } =
+    req.body;
 
   // Check if any API key is present
   const hasApiKey = Boolean(aiOptions?.apiKey);

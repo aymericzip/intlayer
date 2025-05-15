@@ -79,7 +79,10 @@ export const translateJSON = async ({
 }: TranslateJSONOptions): Promise<TranslateJSONResultData | undefined> => {
   try {
     // Get the appropriate AI model configuration
-    const aiConfig = await getAIConfig(aiOptions);
+    const aiConfig = await getAIConfig({
+      model: 'gpt-4o-mini-2024-07-18',
+      ...aiOptions,
+    });
 
     // Prepare the prompt for AI by replacing placeholders with actual values.
     const prompt = CHAT_GPT_PROMPT.replace(
@@ -113,17 +116,13 @@ export const translateJSON = async ({
       };
     })();
 
-    console.log({
-      prompt,
-      fileContent: result.fileContent,
-      tokenUsed: result.tokenUsed,
-    });
-
     return {
       fileContent: result.fileContent,
       tokenUsed: result.tokenUsed,
     };
   } catch (error) {
-    console.error(error);
+    logger.error('Error translating JSON:' + error, {
+      level: 'error',
+    });
   }
 };

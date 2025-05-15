@@ -5,9 +5,10 @@ import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
 import { existsSync } from 'fs';
-import * as fsPromises from 'fs/promises';
-import { basename, dirname, extname } from 'path';
+import { mkdir, writeFile } from 'fs/promises';
+import { dirname, extname } from 'path';
 import type { DictionaryStatus } from './dictionaryStatus';
+import { writeJSFile } from './writeJSFile';
 
 const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
 
@@ -47,36 +48,9 @@ export const writeContentDeclaration = async (
       };
     } else {
       if (filePath) {
-        const isDictionaryJSON = filePath.endsWith('.json');
+        await writeFileWithDirectories(filePath, formattedContentDeclaration);
 
-        if (isDictionaryJSON) {
-          const contentDeclarationPath = `${baseDir}/${filePath}`;
-
-          await writeFileWithDirectories(
-            contentDeclarationPath,
-            formattedContentDeclaration
-          );
-          return { status: 'updated', path: contentDeclarationPath };
-        } else {
-          // Remove the existing dictionary file
-          await fsPromises.rm(filePath);
-
-          // Write the dictionary to the intlayer-dictionaries directory
-          const dictionariesDirPath = dirname(filePath);
-          const dictionariesFileName = basename(filePath, extname(filePath));
-
-          const newFilePath = `${dictionariesDirPath}/${dictionariesFileName}.json`;
-
-          await writeFileWithDirectories(
-            newFilePath,
-            formattedContentDeclaration
-          );
-
-          return {
-            status: 'replaced',
-            path: newFilePath,
-          };
-        }
+        return { status: 'updated', path: filePath };
       } else {
         // Write the dictionary to the intlayer-dictionaries directory
         const contentDeclarationPath = `${newDictionaryLocationPath}/${dictionary.key}.content.json`;
@@ -121,13 +95,19 @@ const writeFileWithDirectories = async (
 
     if (!directoryExists) {
       // Create the directory recursively
-      await fsPromises.mkdir(dir, { recursive: true });
+      await mkdir(dir, { recursive: true });
     }
 
-    const jsonDictionary = JSON.stringify(data, null, 2);
+    const isDictionaryJSON = extname(filePath) === '.json';
 
-    // Write the file
-    await fsPromises.writeFile(filePath, jsonDictionary);
+    if (isDictionaryJSON) {
+      const jsonDictionary = JSON.stringify(data, null, 2);
+
+      // Write the file
+      await writeFile(filePath, jsonDictionary);
+    } else {
+      await writeJSFile(filePath, data as unknown as Dictionary);
+    }
   } catch (error) {
     throw new Error(`Error writing file to ${filePath}: ${error}`);
   }

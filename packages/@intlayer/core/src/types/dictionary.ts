@@ -1,5 +1,9 @@
 // @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector, LocalesValues } from 'intlayer';
+import type {
+  IntlayerDictionaryTypesConnector,
+  LanguageContent,
+  LocalesValues,
+} from 'intlayer';
 import type { ConditionContent } from '../transpiler/condition';
 import type { EnumerationContent } from '../transpiler/enumeration';
 import type { FileContent } from '../transpiler/file';
@@ -80,6 +84,8 @@ type ReplaceContentValue<
         | ReplaceContentValueObject<NodeType, FetchableNode>
   : ContentNode<NodeType, FetchableNode>;
 
+export type AutoFill = true | false | string | LanguageContent<string>;
+
 export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   $schema?: string;
   key: string;
@@ -90,6 +96,7 @@ export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   filePath?: string;
   tags?: string[];
   locale?: LocalesValues;
+  autoFill?: AutoFill;
   location?: 'distant' | 'locale';
   content: ContentType extends undefined // Applying the generic to replace ContentValue with Replacement
     ? any

@@ -4,6 +4,7 @@ import { getDocs, getFequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
 import fs, { readFileSync } from 'fs';
+import { OpenAI } from 'openai';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { AIProvider, getAIConfig } from '../aiSdk';
@@ -82,9 +83,6 @@ const chunkText = (text: string): string[] => {
  */
 const generateEmbedding = async (text: string): Promise<number[]> => {
   try {
-    // Use OpenAI for embeddings with aiSdk configuration
-    const { OpenAI } = await import('openai');
-
     // Set API key through the SDK configuration
     await getAIConfig({
       provider: AIProvider.OPENAI,

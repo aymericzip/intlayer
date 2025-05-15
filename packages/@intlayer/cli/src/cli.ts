@@ -1,11 +1,39 @@
+import type { AIOptions } from '@intlayer/api';
 import { Command } from 'commander';
 import { audit } from './audit';
 import { build } from './build';
 import { getConfig } from './config';
+import { fill, FillOptions } from './fill';
 import { listContentDeclaration } from './listContentDeclaration';
 import { pull } from './pull';
 import { push } from './push';
 import { pushConfig } from './pushConfig';
+
+const aiOptions = [
+  ['--provider [provider]', 'Provider'],
+  ['--temperature [temperature]', 'Temperature'],
+  ['--model [model]', 'Model'],
+  ['--api-key [apiKey]', 'Provider API key'],
+  ['--custom-prompt [prompt]', 'Custom prompt'],
+];
+
+const extractAiOptions = ({
+  provider,
+  temperature,
+  model,
+  apiKey,
+  customPrompt,
+  ...options
+}: AIOptions) => ({
+  aiOptions: {
+    provider,
+    temperature,
+    model,
+    apiKey,
+    customPrompt,
+  },
+  ...options,
+});
 
 /**
  * Set the API for the CLI
@@ -156,14 +184,6 @@ export const setAPI = (): Command => {
     .description('List the content declaration files')
     .action(listContentDeclaration);
 
-  const aiOptions = [
-    ['--provider [provider]', 'Provider'],
-    ['--temperature [temperature]', 'Temperature'],
-    ['--model [model]', 'Model'],
-    ['--api-key [apiKey]', 'Provider API key'],
-    ['--custom-prompt [prompt]', 'Custom prompt'],
-  ];
-
   const auditProgram = program
     .command('audit')
     .description('Audit the dictionaries')
@@ -176,7 +196,43 @@ export const setAPI = (): Command => {
     .option('-e, --env [env]', 'Environment');
 
   aiOptions.forEach((opt) => auditProgram.option(opt[0], opt[1]));
-  auditProgram.action(audit);
+  auditProgram.action((options) => audit(extractAiOptions(options)));
+
+  const fillProgram = program
+    .command('fill')
+    .description('Fill the dictionaries')
+    .option('-f, --file [files...]', 'List of Dictionary files to fill')
+    .option(
+      '--exclude [excludedGlobs...]',
+      'Globs pattern to exclude from the fill'
+    )
+    .option('-l, --async-limit [asyncLimit]', 'Async limit')
+    .option('-e, --env [env]', 'Environment')
+    .option('--source-locale [sourceLocale]', 'Source locale to translate from')
+    .option(
+      '--output-locales [outputLocales...]',
+      'Target locales to translate to'
+    )
+    .option(
+      '--mode [mode]',
+      'Translation mode: complete, review, or missing-only',
+      'missing-only'
+    )
+    .option('--git-diff', 'Only run on dictionaries with unpushed changes')
+    .option('--keys [keys...]', 'Filter dictionaries based on keys')
+    .option(
+      '--excluded-keys [excludedKeys...]',
+      'Filter out dictionaries based on keys'
+    )
+    .option(
+      '--path-filter [pathFilters...]',
+      'Filter dictionaries based on glob pattern'
+    );
+
+  aiOptions.forEach((opt) => fillProgram.option(opt[0], opt[1]));
+  fillProgram.action((options) =>
+    fill(extractAiOptions(options) as FillOptions)
+  );
 
   program.parse(process.argv);
 

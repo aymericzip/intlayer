@@ -1,0 +1,425 @@
+import { AIOptions, getAiAPI } from '@intlayer/api'; // Importing only getAiAPI for now
+import {
+  filterDictionaryLocales,
+  mergeDictionaries,
+  processPerLocaleDictionary,
+  reduceDictionaryContent,
+  writeContentDeclaration,
+} from '@intlayer/chokidar';
+import { appLogger, Locales, logger } from '@intlayer/config';
+import configuration from '@intlayer/config/built';
+import {
+  type AutoFill,
+  type ContentNode,
+  type Dictionary,
+  getLocalisedContent,
+} from '@intlayer/core';
+import dictionariesRecord from '@intlayer/dictionaries-entry';
+import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
+import { exec } from 'child_process';
+import { dirname, extname, join, relative } from 'path';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
+
+const getGitRootDir = async (): Promise<string | null> => {
+  try {
+    const { stdout } = await execAsync('git rev-parse --show-toplevel');
+    return stdout.trim();
+  } catch (error) {
+    logger('Error getting git root directory:' + error, {
+      level: 'error',
+    });
+    return null;
+  }
+};
+
+const getChangedFilesList = async () => {
+  try {
+    const gitChangedFiles = await execAsync(`git diff --name-only HEAD`);
+    return gitChangedFiles.stdout.split('\n').filter(Boolean);
+  } catch (error) {
+    return null;
+  }
+};
+
+// Arguments for the fill function
+export type FillOptions = {
+  sourceLocale: Locales;
+  outputLocales?: Locales | Locales[];
+  file?: string | string[];
+  mode?: 'complete' | 'review' | 'missing-only';
+  gitDiff?: boolean;
+  keys?: string | string[];
+  excludedKeys?: string | string[];
+  filter?: (entry: Dictionary) => boolean; // DictionaryEntry needs to be defined
+  pathFilter?: string | string[];
+  aiOptions?: AIOptions; // Added aiOptions to be passed to translateJSON
+  verbose?: boolean;
+};
+
+const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
+
+const filterDictionary = async (
+  dictionaries: Dictionary[],
+  options: FillOptions
+) => {
+  const { baseDir } = configuration.content;
+
+  let result = dictionaries;
+
+  // 1. if filePath not defined, list all content declaration files based on unmerged dictionaries list
+  if (typeof options.file !== 'undefined') {
+    const fileArray = ensureArray(options.file);
+    const absoluteFilePaths = fileArray.map((file) => join(baseDir, file));
+
+    result = result.filter(
+      (dict) =>
+        dict.filePath &&
+        (absoluteFilePaths.includes(dict.filePath) ||
+          absoluteFilePaths.includes(join(baseDir, dict.filePath)))
+    );
+  }
+
+  if (typeof options.keys !== 'undefined') {
+    result = result.filter((dict) =>
+      ensureArray(options.keys)?.includes(dict.key)
+    );
+  }
+
+  if (typeof options.excludedKeys !== 'undefined') {
+    result = result.filter(
+      (dict) => !ensureArray(options.excludedKeys)?.includes(dict.key)
+    );
+  }
+
+  if (typeof options.pathFilter !== 'undefined') {
+    result = result.filter((dict) =>
+      ensureArray(options.pathFilter)?.includes(dict.filePath ?? '')
+    );
+  }
+
+  if (typeof options.filter !== 'undefined') {
+    result = result.filter(options.filter);
+  }
+
+  if (options.gitDiff) {
+    const gitChangedFiles = await getChangedFilesList();
+    const gitRootDir = await getGitRootDir();
+
+    if (gitChangedFiles && gitRootDir) {
+      // Convert dictionary file paths to be relative to git root for comparison
+
+      // Filter dictionaries based on git changed files
+      result = result.filter((dict) => {
+        if (!dict.filePath) return false;
+
+        // For each dictionary, check if its path matches any of the git changed files
+        // We need to ensure both paths are relative to the same base (git root)
+        const dictPathRelativeToGitRoot = relative(gitRootDir, dict.filePath);
+
+        return gitChangedFiles.some(
+          (gitFile) =>
+            dictPathRelativeToGitRoot === gitFile ||
+            gitFile.endsWith(dictPathRelativeToGitRoot)
+        );
+      });
+    }
+  }
+
+  return result;
+};
+
+const transformUriToAbsolutePath = (uri: string, filePath: string) => {
+  if (uri.startsWith('/')) {
+    return join(configuration.content.baseDir, uri);
+  }
+
+  if (uri.startsWith('./')) {
+    return join(dirname(filePath), uri);
+  }
+
+  return filePath;
+};
+
+export type AutoFillData = {
+  localeList: Locales[];
+  filePath: string;
+};
+
+const autoFill = async (
+  dictionary: Dictionary,
+  contentDeclarationFile: Dictionary,
+  autoFillOptions: AutoFill,
+  parentLocales?: Locales[]
+) => {
+  let localeList: Locales[] = configuration.internationalization.locales.filter(
+    (locale) => !parentLocales?.includes(locale)
+  );
+
+  const outputContentDeclarationFile: AutoFillData[] = [];
+
+  const filePath = contentDeclarationFile.filePath;
+
+  if (!filePath) {
+    appLogger('No file path found for dictionary', {
+      level: 'error',
+    });
+    return;
+  }
+
+  if (!Boolean(autoFillOptions)) return;
+
+  if (autoFillOptions === true) {
+    // wanted jsonFilePath: /..../src/components/home/index.content.json
+    // replace file extension in json
+    let jsonFilePath = filePath.replace(extname(filePath), '.json');
+
+    // if both filePath jsonFilePath are same path, change it as : /..../src/components/home/index.fill.content.json
+    if (filePath === jsonFilePath) {
+      jsonFilePath = jsonFilePath.replace(extname(jsonFilePath), '.fill.json');
+    }
+
+    outputContentDeclarationFile.push({
+      localeList,
+      filePath: jsonFilePath,
+    });
+  }
+
+  if (typeof autoFillOptions === 'string') {
+    if (autoFillOptions.includes('{{locale}}')) {
+      const output = localeList.map((locale) => ({
+        localeList: [locale],
+        filePath: transformUriToAbsolutePath(
+          autoFillOptions.replace('{{locale}}', locale),
+          filePath
+        ),
+      }));
+
+      outputContentDeclarationFile.push(...output);
+    } else {
+      outputContentDeclarationFile.push({
+        localeList,
+        filePath: transformUriToAbsolutePath(autoFillOptions, filePath),
+      });
+    }
+  }
+
+  if (typeof autoFillOptions === 'object') {
+    const localeList = Object.keys(autoFillOptions).filter(
+      (locale) => typeof autoFillOptions[locale] === 'string'
+    ) as Locales[];
+
+    const output = localeList.map((locale) => ({
+      localeList: [locale],
+      filePath: transformUriToAbsolutePath(autoFillOptions[locale], filePath),
+    }));
+
+    outputContentDeclarationFile.push(...output);
+  }
+
+  logger(
+    `Auto fill data: ${JSON.stringify(outputContentDeclarationFile, null, 2)}`,
+    {
+      level: 'info',
+      isVerbose: true,
+    }
+  );
+
+  for await (const output of outputContentDeclarationFile) {
+    const reducedDictionary = reduceDictionaryContent(
+      dictionary,
+      contentDeclarationFile
+    );
+
+    const filteredDictionary = filterDictionaryLocales(
+      reducedDictionary,
+      output.localeList
+    );
+
+    // write file
+    await writeContentDeclaration({
+      ...dictionary,
+      content: filteredDictionary.content,
+      filePath: output.filePath,
+      autoFill: undefined,
+    });
+  }
+};
+
+/**
+ * Fill translations based on the provided options.
+ */
+export const fill = async (options: FillOptions): Promise<void> => {
+  const { defaultLocale, locales } = configuration.internationalization;
+
+  if (!configuration.editor.clientId && !options.aiOptions?.apiKey) {
+    appLogger('AI options or API key not provided. Skipping AI translation.', {
+      level: 'error',
+    });
+    // Potentially handle this case differently, e.g., by using a different translation method or stopping.
+
+    return;
+  }
+
+  appLogger(
+    'Starting fill function with options:' + JSON.stringify(options, null, 2),
+    {
+      level: 'info',
+    }
+  );
+
+  const targetUnmergedDictionaries = await filterDictionary(
+    Object.values(unmergedDictionariesRecord).flat(),
+    options
+  );
+
+  // Determine output locales
+  const outputLocalesList: Locales[] = (
+    options.outputLocales ? ensureArray(options.outputLocales) : locales
+  ).filter((locale) => locale !== (options.sourceLocale ?? defaultLocale));
+
+  const affectedDictionaryKeys = new Set<string>();
+  targetUnmergedDictionaries.forEach((dict) => {
+    affectedDictionaryKeys.add(dict.key);
+  });
+
+  appLogger(
+    'Affected dictionary keys for processing:' +
+      JSON.stringify(Array.from(affectedDictionaryKeys), null, 2),
+    {
+      isVerbose: true,
+    }
+  );
+
+  for (const targetUnmergedDictionary of targetUnmergedDictionaries) {
+    const dictionaryKey = targetUnmergedDictionary.key;
+    const mainDictionaryToProcess = dictionariesRecord[dictionaryKey];
+    const sourceLocale =
+      options.sourceLocale ?? targetUnmergedDictionary.locale ?? defaultLocale;
+
+    if (!mainDictionaryToProcess) {
+      appLogger(
+        `Dictionary with key "${dictionaryKey}" not found in dictionariesRecord. Skipping.`,
+        {
+          level: 'warn',
+        }
+      );
+      continue;
+    }
+
+    appLogger(
+      `Processing content declaration: ${targetUnmergedDictionary.filePath}`,
+      {
+        isVerbose: true,
+      }
+    );
+
+    // 4. apply getLocalisedContent on dictionary record (for source locale)
+    const sourceLocaleContent = getLocalisedContent(
+      mainDictionaryToProcess as unknown as ContentNode,
+      sourceLocale,
+      { dictionaryKey, keyPath: [] }
+    );
+
+    if (Object.keys(sourceLocaleContent).length === 0) {
+      appLogger(
+        `No content found for dictionary ${dictionaryKey} in source locale ${sourceLocale}. Skipping translation for this dictionary.`,
+        {
+          level: 'warn',
+        }
+      );
+      continue;
+    }
+
+    const result: Dictionary[] = [];
+
+    // 5. for each locale to translate (exclude base locale) generate json translations
+    for await (const targetLocale of outputLocalesList) {
+      if (targetLocale === sourceLocale) continue;
+
+      appLogger(
+        `Preparing translation for ${dictionaryKey} from ${sourceLocale} to ${targetLocale}`,
+        {
+          isVerbose: true,
+        }
+      );
+
+      const presetOutputContent = getLocalisedContent(
+        mainDictionaryToProcess as unknown as ContentNode,
+        targetLocale,
+        { dictionaryKey, keyPath: [] }
+      );
+
+      try {
+        const translationResult = await getAiAPI().translateJSON({
+          entryFileContent: sourceLocaleContent.content, // Should be JSON, ensure getLocalisedContent provides this.
+          presetOutputContent: presetOutputContent.content, // Should be JSON
+          dictionaryDescription: mainDictionaryToProcess.description,
+          entryLocale: sourceLocale,
+          outputLocale: targetLocale,
+          aiOptions: options.aiOptions,
+        });
+
+        if (!translationResult.data?.fileContent) {
+          appLogger(
+            `No translation result found for ${dictionaryKey} to ${targetLocale}`,
+            {
+              level: 'error',
+            }
+          );
+          continue;
+        }
+
+        const processedPerLocaleDictionary = processPerLocaleDictionary({
+          ...mainDictionaryToProcess,
+          content: translationResult.data?.fileContent,
+          locale: targetLocale,
+        });
+
+        result.push(processedPerLocaleDictionary);
+      } catch (error) {
+        appLogger(
+          `Error translating ${dictionaryKey} to ${targetLocale}:` + error,
+          {
+            level: 'error',
+          }
+        );
+      }
+    }
+
+    const mergedResults = mergeDictionaries([
+      mainDictionaryToProcess,
+      ...result,
+    ]);
+
+    let formattedDict = targetUnmergedDictionary;
+
+    if (formattedDict.locale) {
+      const presetOutputContent = getLocalisedContent(
+        mainDictionaryToProcess as unknown as ContentNode,
+        formattedDict.locale,
+        { dictionaryKey, keyPath: [] }
+      );
+      formattedDict = {
+        ...formattedDict,
+        content: presetOutputContent.content,
+      };
+    }
+
+    const reducedResult = reduceDictionaryContent(mergedResults, formattedDict);
+
+    await writeContentDeclaration(
+      { ...formattedDict, content: reducedResult.content },
+      configuration,
+      formattedDict.filePath
+    );
+
+    await autoFill(
+      mergedResults,
+      targetUnmergedDictionary,
+      formattedDict.autoFill,
+      [sourceLocale]
+    );
+  }
+};

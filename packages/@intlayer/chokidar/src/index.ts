@@ -1,23 +1,27 @@
+export { checkDictionaryChanges } from './checkDictionaryChanges';
 export {
-  watch,
+  buildAndWatchIntlayer,
   handleAdditionalContentDeclarationFile,
   handleContentDeclarationFileChange,
-  buildAndWatchIntlayer,
+  watch,
 } from './chokidar/watcher';
+export { fetchDistantDictionaries } from './fetchDistantDictionaries';
+export { fetchDistantDictionaryKeys } from './fetchDistantDictionaryKeys';
+export { filterDictionaryLocales } from './filterDictionaryLocales';
+export { listDictionaries } from './listDictionariesPath';
+export {
+  loadDictionaries,
+  loadDistantDictionaries,
+  loadLocalDictionaries,
+} from './loadDictionaries/index';
+export { mergeDictionaries } from './mergeDictionaries';
+export { prepareContentDeclaration } from './prepareContentDeclaration';
 export { prepareIntlayer } from './prepareIntlayer';
+export { processPerLocaleDictionary } from './processPerLocaleDictionary';
+export { reduceDictionaryContent } from './reduceDictionaryContent/reduceDictionaryContent';
 export { buildDictionary } from './transpiler/declaration_file_to_dictionary/index';
 export { createDictionaryEntryPoint } from './transpiler/dictionary_to_main/createDictionaryEntryPoint';
 export { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
-export { fetchDistantDictionaries } from './fetchDistantDictionaries';
-export { fetchDistantDictionaryKeys } from './fetchDistantDictionaryKeys';
-export {
-  loadDistantDictionaries,
-  loadDictionaries,
-  loadLocalDictionaries,
-} from './loadDictionaries/index';
-export { checkDictionaryChanges } from './checkDictionaryChanges';
-export { listDictionaries } from './listDictionariesPath';
-export { prepareContentDeclaration } from './prepareContentDeclaration';
 export {
   writeContentDeclaration,
   type DictionaryStatus,
