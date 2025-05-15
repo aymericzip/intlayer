@@ -6,8 +6,13 @@ import {
   reduceDictionaryContent,
   writeContentDeclaration,
 } from '@intlayer/chokidar';
-import { appLogger, Locales } from '@intlayer/config';
-import configuration from '@intlayer/config/built';
+import {
+  appLogger,
+  getConfiguration,
+  GetConfigurationOptions,
+  type IntlayerConfig,
+  Locales,
+} from '@intlayer/config';
 import {
   type AutoFill,
   type ContentNode,
@@ -55,11 +60,13 @@ export type FillOptions = {
   pathFilter?: string | string[];
   aiOptions?: AIOptions; // Added aiOptions to be passed to translateJSON
   verbose?: boolean;
-};
+} & GetConfigurationOptions;
 
 const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
 
 const getTargetDictionary = async (options: FillOptions) => {
+  const configuration = getConfiguration(options);
+
   const { baseDir } = configuration.content;
 
   let result = Object.values(unmergedDictionariesRecord).flat();
@@ -126,9 +133,13 @@ const getTargetDictionary = async (options: FillOptions) => {
   return result.filter((dict) => !dict.autoFilled);
 };
 
-const transformUriToAbsolutePath = (uri: string, filePath: string) => {
+const transformUriToAbsolutePath = (
+  uri: string,
+  filePath: string,
+  baseDir: string
+) => {
   if (uri.startsWith('/')) {
-    return join(configuration.content.baseDir, uri);
+    return join(baseDir, uri);
   }
 
   if (uri.startsWith('./')) {
@@ -147,7 +158,8 @@ const formatAutoFillData = (
   autoFillOptions: AutoFill,
   localeList: Locales[],
   filePath: string,
-  dictionaryKey: string
+  dictionaryKey: string,
+  configuration: IntlayerConfig
 ): AutoFillData[] => {
   const outputContentDeclarationFile: AutoFillData[] = [];
 
@@ -177,7 +189,8 @@ const formatAutoFillData = (
           autoFillOptions
             .replace('{{locale}}', locale)
             .replace('{{key}}', dictionaryKey),
-          filePath
+          filePath,
+          configuration.content.baseDir
         ),
       }));
 
@@ -185,7 +198,11 @@ const formatAutoFillData = (
     } else {
       outputContentDeclarationFile.push({
         localeList,
-        filePath: transformUriToAbsolutePath(autoFillOptions, filePath),
+        filePath: transformUriToAbsolutePath(
+          autoFillOptions,
+          filePath,
+          configuration.content.baseDir
+        ),
       });
     }
 
@@ -201,7 +218,8 @@ const formatAutoFillData = (
       localeList: [locale],
       filePath: transformUriToAbsolutePath(
         autoFillOptions[locale].replace('{{key}}', dictionaryKey),
-        filePath
+        filePath,
+        configuration.content.baseDir
       ),
     }));
 
@@ -215,8 +233,9 @@ const autoFill = async (
   fullDictionary: Dictionary,
   contentDeclarationFile: Dictionary,
   autoFillOptions: AutoFill,
-  outputLocales?: Locales[],
-  parentLocales?: Locales[]
+  outputLocales: Locales[],
+  parentLocales: Locales[],
+  configuration: IntlayerConfig
 ) => {
   let localeList: Locales[] = (
     outputLocales ?? configuration.internationalization.locales
@@ -235,7 +254,8 @@ const autoFill = async (
     autoFillOptions,
     localeList,
     filePath,
-    fullDictionary.key
+    fullDictionary.key,
+    configuration
   );
 
   appLogger(`Auto fill data: ${JSON.stringify(autoFillData, null, 2)}`, {
@@ -289,6 +309,7 @@ const autoFill = async (
  * Fill translations based on the provided options.
  */
 export const fill = async (options: FillOptions): Promise<void> => {
+  const configuration = getConfiguration(options);
   const { defaultLocale, locales } = configuration.internationalization;
 
   if (!configuration.editor.clientId && !options.aiOptions?.apiKey) {
@@ -455,7 +476,8 @@ export const fill = async (options: FillOptions): Promise<void> => {
       targetUnmergedDictionary,
       formattedDict.autoFill,
       outputLocalesList,
-      [sourceLocale]
+      [sourceLocale],
+      configuration
     );
   }
 };

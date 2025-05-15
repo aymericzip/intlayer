@@ -46,16 +46,22 @@ To see how to configure available locales, or other parameters, refer to the [co
 To build your dictionaries, you can run the commands:
 
 ```bash
-npx intlayer dictionaries build
+npx intlayer build
 ```
 
 or in watch mode
 
 ```bash
-npx intlayer dictionaries build --watch
+npx intlayer build --watch
 ```
 
 This command will find your declaration content files as default as `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. And build the dictionaries in the `.intlayer` directory.
+
+##### Aliases:
+
+- `npx intlayer dictionaries build`
+- `npx intlayer dictionary build`
+- `npx intlayer dic build`
 
 ### Push dictionaries
 
@@ -68,6 +74,8 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
 ##### Aliases:
 
 - `npx intlayer dictionaries push`
+- `npx intlayer dictionary push`
+- `npx intlayer dic push`
 
 ##### Arguments:
 
@@ -82,7 +90,7 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
 ### Pull distant dictionaries
 
 ```bash
-npx intlayer dictionary pull
+npx intlayer pull
 ```
 
 If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
@@ -90,15 +98,15 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
 ##### Aliases:
 
 - `npx intlayer dictionaries pull`
+- `npx intlayer dictionary pull`
 - `npx intlayer dic pull`
-- `npx intlayer pull`
 
 ##### Arguments:
 
 - `-d, --dictionaries`: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
   > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
-- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- `--env`: Specify the environment (e.g., `development`, `production`).
 
 ##### Example:
 
@@ -106,49 +114,80 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
-### Audit dictionaries
+### Fill / audit / translate dictionaries
 
 ```bash
-npx intlayer dictionary audit
+npx intlayer fill
 ```
 
-This command analyzes your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer audit** will propose or apply updates to keep your dictionaries consistent and complete.
+This command analyzes your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer fill** will propose or apply updates to keep your dictionaries consistent and complete.
 
 ##### Aliases:
 
-- `npx intlayer dictionaries audit`
-- `npx intlayer dic audit`
-- `npx intlayer audit`
+- `npx intlayer dictionaries fill`
+- `npx intlayer dictionary fill`
+- `npx intlayer dic fill`
 
 ##### Arguments:
 
-- **`-f, --files [files...]`**  
+- `-f, --file [files...]`
   A list of specific content declaration files to audit. If not provided, all discovered `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` files will be audited.
 
-- **`--exclude [excludedGlobs...]`**  
+- `--exclude [excludedGlobs...]`
   Globs pattern to exclude from the audit (e.g. `--exclude "src/test/**"`).
 
-- **`-m, --model [model]`**  
-  The ChatGPT model to use for the audit (e.g., `gpt-3.5-turbo`).
+- `--source-locale [sourceLocale]`
+  The source locale to translate from. If not specified, the default locale from your configuration will be used.
 
-- **`-p, --custom-prompt [prompt]`**  
-  Provide a custom prompt for your audit instructions.
+- `--output-locales [outputLocales...]`
+  Target locales to translate to. If not specified, all locales from your configuration will be used except the source locale.
 
-- **`-l, --async-limit [asyncLimit]`**  
-  Maximum number of files to process concurrently.
+- `--mode [mode]`
+  Translation mode: 'complete', 'review', or 'missing-only'. Default is 'missing-only'.
 
-- **`-k, --open-ai-api-key [openAiApiKey]`**  
-  Provide your own OpenAI API key to bypass OAuth2 authentication.
+- `--git-diff`
+  Only run on dictionaries with unpushed changes in the git repository.
 
-- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- `--keys [keys...]`
+  Filter dictionaries based on specified keys.
+
+- `--excluded-keys [excludedKeys...]`
+  Filter out dictionaries based on specified keys.
+
+- `--path-filter [pathFilters...]`
+  Filter dictionaries based on glob pattern for file paths.
+
+- `--model [model]`
+  The AI model to use for the translation (e.g., `gpt-3.5-turbo`).
+
+- `--provider [provider]`
+  The AI provider to use for the translation.
+
+- `--temperature [temperature]`
+  Temperature setting for the AI model.
+
+- `--api-key [apiKey]`
+  Provide your own API key for the AI service.
+
+- `--custom-prompt [prompt]`
+  Provide a custom prompt for your translation instructions.
+
+- `--env`
+  Specify the environment (e.g., `development`, `production`).
+
+- `--env-file [envFile]`
+  Provide a custom environment file to load variables from.
+
+- `--verbose`
+  Enable verbose logging for debugging.
 
 ##### Example:
 
 ```bash
-npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
+npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
-This command will ignore any files under `tests/**` and use the `gpt-3.5-turbo` model to audit the discovered content declaration files. If any issues are found, like missing translations, they will be corrected in-place, preserving the original file structure.
+This command will translate content from English to French and Spanish for all content declaration files in the `src/home/` directory using the GPT-3.5 Turbo model.
 
 ### Manage Configuration
 
@@ -200,6 +239,6 @@ By pushing the configuration, your project is fully integrated with the Intlayer
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
-  "intlayer:audit": "npx intlayer audit"
+  "intlayer:fill": "npx intlayer fill"
 }
 ```

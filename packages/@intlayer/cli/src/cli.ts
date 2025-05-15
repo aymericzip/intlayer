@@ -9,6 +9,13 @@ import { pull } from './pull';
 import { push } from './push';
 import { pushConfig } from './pushConfig';
 
+const logOptions = [['--verbose', 'Verbose']];
+
+const configurationOptions = [
+  ['--env-file [envFile]', 'Environment file'],
+  ['-e, --env [env]', 'Environment'],
+];
+
 const aiOptions = [
   ['--provider [provider]', 'Provider'],
   ['--temperature [temperature]', 'Temperature'],
@@ -16,6 +23,19 @@ const aiOptions = [
   ['--api-key [apiKey]', 'Provider API key'],
   ['--custom-prompt [prompt]', 'Custom prompt'],
 ];
+
+/**
+ * Helper functions to apply common options to commands
+ */
+const applyOptions = (command: Command, options: string[][]) => {
+  options.forEach(([flag, description]) => command.option(flag, description));
+  return command;
+};
+
+const applyLogOptions = (command: Command) => applyOptions(command, logOptions);
+const applyConfigOptions = (command: Command) =>
+  applyOptions(command, configurationOptions);
+const applyAIOptions = (command: Command) => applyOptions(command, aiOptions);
 
 const enrichAiOptionsWithConfiguration = (aiOptions?: AIOptions) => ({
   ...aiOptions,
@@ -64,16 +84,12 @@ export const setAPI = (): Command => {
     .command('dictionary')
     .alias('dictionaries')
     .alias('dic')
-    .alias('')
     .description('Dictionaries operations');
 
   // Dictionary build command
   const buildOptions = {
     description: 'Build the dictionaries',
-    options: [
-      ['-w, --watch', 'Watch for changes'],
-      ['-e, --env [env]', 'Environment'],
-    ],
+    options: [['-w, --watch', 'Watch for changes']],
     action: build,
   };
 
@@ -81,16 +97,18 @@ export const setAPI = (): Command => {
   const dictionariesBuildCmd = dictionariesProgram
     .command('build')
     .description(buildOptions.description);
-  buildOptions.options.forEach((opt) =>
-    dictionariesBuildCmd.option(opt[0], opt[1])
-  );
+
+  applyOptions(dictionariesBuildCmd, buildOptions.options);
+  applyConfigOptions(dictionariesBuildCmd);
   dictionariesBuildCmd.action(buildOptions.action);
 
   // Add build command to root program as well
   const rootBuildCmd = program
     .command('build')
     .description(buildOptions.description);
-  buildOptions.options.forEach((opt) => rootBuildCmd.option(opt[0], opt[1]));
+
+  applyOptions(rootBuildCmd, buildOptions.options);
+  applyConfigOptions(rootBuildCmd);
   rootBuildCmd.action(buildOptions.action);
 
   // Dictionary pull command
@@ -99,7 +117,6 @@ export const setAPI = (): Command => {
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to pull'],
       ['--newDictionariesPath [path]', 'Path to save the new dictionaries'],
-      ['-e, --env [env]', 'Environment'],
     ],
     action: pull,
   };
@@ -108,16 +125,18 @@ export const setAPI = (): Command => {
   const dictionariesPullCmd = dictionariesProgram
     .command('pull')
     .description(pullOptions.description);
-  pullOptions.options.forEach((opt) =>
-    dictionariesPullCmd.option(opt[0], opt[1])
-  );
+
+  applyOptions(dictionariesPullCmd, pullOptions.options);
+  applyConfigOptions(dictionariesPullCmd);
   dictionariesPullCmd.action(pullOptions.action);
 
   // Add pull command to root program as well
   const rootPullCmd = program
     .command('pull')
     .description(pullOptions.description);
-  pullOptions.options.forEach((opt) => rootPullCmd.option(opt[0], opt[1]));
+
+  applyOptions(rootPullCmd, pullOptions.options);
+  applyConfigOptions(rootPullCmd);
   rootPullCmd.action(pullOptions.action);
 
   // Dictionary push command
@@ -134,7 +153,6 @@ export const setAPI = (): Command => {
         '-k, --keepLocaleDictionary',
         'Keep the local dictionaries after pushing',
       ],
-      ['-e, --env [env]', 'Environment'],
     ],
     action: push,
   };
@@ -143,16 +161,18 @@ export const setAPI = (): Command => {
   const dictionariesPushCmd = dictionariesProgram
     .command('push')
     .description(pushOptions.description);
-  pushOptions.options.forEach((opt) =>
-    dictionariesPushCmd.option(opt[0], opt[1])
-  );
+
+  applyOptions(dictionariesPushCmd, pushOptions.options);
+  applyConfigOptions(dictionariesPushCmd);
   dictionariesPushCmd.action(pushOptions.action);
 
   // Add push command to root program as well
   const rootPushCmd = program
     .command('push')
     .description(pushOptions.description);
-  pushOptions.options.forEach((opt) => rootPushCmd.option(opt[0], opt[1]));
+
+  applyOptions(rootPushCmd, pushOptions.options);
+  applyConfigOptions(rootPushCmd);
   rootPushCmd.action(pushOptions.action);
 
   /**
@@ -166,22 +186,22 @@ export const setAPI = (): Command => {
     .alias('conf')
     .description('Configuration operations');
 
-  configurationProgram
+  const configGetCmd = configurationProgram
     .command('get')
-    .description('Get the configuration')
-    .option('--env-file [envFile]', 'Environment file')
-    .option('--verbose', 'Verbose')
-    .option('-e, --env [env]', 'Environment')
-    .action(getConfig);
+    .description('Get the configuration');
+
+  applyConfigOptions(configGetCmd);
+  applyLogOptions(configGetCmd);
+  configGetCmd.action(getConfig);
 
   // Define the `push config` subcommand and add it to the `push` command
-  configurationProgram
+  const configPushCmd = configurationProgram
     .command('push')
-    .description('Push the configuration')
-    .option('--env-file [envFile]', 'Environment file')
-    .option('--verbose', 'Verbose')
-    .option('-e, --env [env]', 'Environment')
-    .action(pushConfig);
+    .description('Push the configuration');
+
+  applyConfigOptions(configPushCmd);
+  applyLogOptions(configPushCmd);
+  configPushCmd.action(pushConfig);
 
   /**
    * CONTENT DECLARATION
@@ -196,12 +216,6 @@ export const setAPI = (): Command => {
     .command('fill')
     .description('Fill the dictionaries')
     .option('-f, --file [files...]', 'List of Dictionary files to fill')
-    .option(
-      '--exclude [excludedGlobs...]',
-      'Globs pattern to exclude from the fill'
-    )
-    .option('-l, --async-limit [asyncLimit]', 'Async limit')
-    .option('-e, --env [env]', 'Environment')
     .option('--source-locale [sourceLocale]', 'Source locale to translate from')
     .option(
       '--output-locales [outputLocales...]',
@@ -223,7 +237,10 @@ export const setAPI = (): Command => {
       'Filter dictionaries based on glob pattern'
     );
 
-  aiOptions.forEach((opt) => fillProgram.option(opt[0], opt[1]));
+  applyLogOptions(fillProgram);
+  applyConfigOptions(fillProgram);
+  applyAIOptions(fillProgram);
+
   fillProgram.action((options) =>
     fill(extractAiOptions(options) as FillOptions)
   );
