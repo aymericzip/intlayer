@@ -1,6 +1,5 @@
 import { AIOptions, getAiAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
-  buildAndWatchIntlayer,
   filterDictionaryLocales,
   mergeDictionaries,
   processPerLocaleDictionary,
@@ -294,11 +293,6 @@ const autoFill = async (
  * Fill translations based on the provided options.
  */
 export const fill = async (options: FillOptions): Promise<void> => {
-  // Build the dictionaries to ensure the content declaration files are up to date
-  await buildAndWatchIntlayer({
-    configuration,
-  });
-
   const { defaultLocale, locales } = configuration.internationalization;
 
   if (!configuration.editor.clientId && !options.aiOptions?.apiKey) {
