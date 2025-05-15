@@ -23,6 +23,25 @@
     "filePath": {
       "type": "string"
     },
+    "locale": {
+      "type": "string"
+    },
+    "autoFill": {
+      "anyOf": [
+        { "type": "boolean" },
+        { "type": "string" },
+        {
+          "type": "object",
+          "description": "LanguageContent<string> - object with locale codes as keys and string values",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "autoFilled": {
+      "type": "boolean"
+    },
     "tags": {
       "type": "array",
       "items": {
