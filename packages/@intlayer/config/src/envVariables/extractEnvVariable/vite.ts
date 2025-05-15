@@ -1,5 +1,6 @@
 import { logger } from '../../logger';
 import type {
+  AiConfig,
   ContentConfig,
   EditorConfig,
   InternationalizationConfig,
@@ -85,14 +86,17 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryPriorityStrategy: import.meta.env
       .VITE_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
     hotReload: import.meta.env.VITE_INTLAYER_HOT_RELOAD,
-    openAiApiKey: import.meta.env.VITE_INTLAYER_OPEN_AI_API_KEY,
-    openAiApiModel: import.meta.env.VITE_INTLAYER_OPEN_AI_API_MODEL,
-    openAiApiTemperature: import.meta.env.VITE_INTLAYER_OPEN_AI_API_TEMPERATURE,
   };
 
   const log: ReplaceValue<LogConfig> = {
     mode: import.meta.env.VITE_INTLAYER_LOG_MODE,
     prefix: import.meta.env.VITE_INTLAYER_LOG_PREFIX,
+  };
+
+  const ai: ReplaceValue<AiConfig> = {
+    provider: import.meta.env.VITE_INTLAYER_AI_PROVIDER,
+    model: import.meta.env.VITE_INTLAYER_AI_MODEL,
+    temperature: import.meta.env.VITE_INTLAYER_AI_TEMPERATURE,
   };
 
   return {
@@ -101,5 +105,6 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     content,
     editor,
     log,
+    ai,
   };
 };

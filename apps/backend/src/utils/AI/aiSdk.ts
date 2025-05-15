@@ -20,11 +20,11 @@ export enum AIProvider {
  * Common options for all AI providers
  */
 export type AIOptions = {
+  provider?: AIProvider;
   model?: string;
   temperature?: number;
-  provider?: AIProvider;
-  customPrompt?: string;
   apiKey?: string;
+  customPrompt?: string;
 };
 
 /**

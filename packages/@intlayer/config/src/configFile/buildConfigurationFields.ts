@@ -23,9 +23,6 @@ import {
   EDITOR_URL,
   HOT_RELOAD,
   IS_ENABLED,
-  OPEN_AI_API_KEY,
-  OPEN_AI_API_MODEL,
-  OPEN_AI_API_TEMPERATURE,
   PORT,
 } from '../defaultValues/editor';
 import {
@@ -44,6 +41,7 @@ import {
   SERVER_SET_COOKIE,
 } from '../defaultValues/middleware';
 import type {
+  AiConfig,
   BaseContentConfig,
   BaseDerivedConfig,
   ContentConfig,
@@ -702,39 +700,6 @@ const buildEditorFields = (
    * Default: false
    */
   hotReload: customConfiguration?.hotReload ?? HOT_RELOAD,
-
-  /**
-   * OpenAI API key
-   *
-   * Use your own OpenAI API key to use the AI features of Intlayer.
-   * If you don't have an OpenAI API key, you can get one for free at https://openai.com/api/.
-   *
-   * Default: ''
-   */
-  openAiApiKey: customConfiguration?.openAiApiKey ?? OPEN_AI_API_KEY,
-
-  /**
-   * OpenAI API model
-   *
-   * The model to use for the AI features of Intlayer.
-   *
-   * Default: 'gpt-4o-2024-11-20'
-   *
-   * > Necessitate to define openAiApiKey to use this model
-   */
-  openAiApiModel: customConfiguration?.openAiApiModel ?? OPEN_AI_API_MODEL,
-
-  /**
-   * OpenAI API temperature
-   *
-   * The temperature to use for the AI features of Intlayer.
-   * The temperature controls the randomness of the AI's responses.
-   * A higher temperature will make the AI more creative and less predictable.
-   *
-   * Default: 0.1
-   */
-  openAiApiTemperature:
-    customConfiguration?.openAiApiTemperature ?? OPEN_AI_API_TEMPERATURE,
 });
 
 const buildLogFields = (
@@ -761,6 +726,28 @@ const buildLogFields = (
   prefix: customConfiguration?.prefix ?? PREFIX,
 });
 
+const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
+  /**
+   * AI configuration
+   */
+  provider: customConfiguration?.provider,
+
+  /**
+   * API key
+   */
+  apiKey: customConfiguration?.apiKey,
+
+  /**
+   * API model
+   */
+  model: customConfiguration?.model,
+
+  /**
+   * Temperature
+   */
+  temperature: customConfiguration?.temperature,
+});
+
 /**
  * Build the configuration fields by merging the default values with the custom configuration
  */
@@ -785,12 +772,15 @@ export const buildConfigurationFields = (
 
   const logConfig = buildLogFields(customConfiguration?.log);
 
+  const aiConfig = buildAiFields(customConfiguration?.ai);
+
   storedConfiguration = {
     internationalization: internationalizationConfig,
     middleware: middlewareConfig,
     content: contentConfig,
     editor: editorConfig,
     log: logConfig,
+    ai: aiConfig,
   };
 
   return storedConfiguration;

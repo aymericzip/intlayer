@@ -1,4 +1,5 @@
 import type {
+  AiConfig,
   ContentConfig,
   EditorConfig,
   InternationalizationConfig,
@@ -76,15 +77,17 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryPriorityStrategy:
       process.env.REACT_APP_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
     hotReload: process.env.REACT_APP_INTLAYER_HOT_RELOAD,
-    openAiApiKey: process.env.REACT_APP_INTLAYER_OPEN_AI_API_KEY,
-    openAiApiModel: process.env.REACT_APP_INTLAYER_OPEN_AI_API_MODEL,
-    openAiApiTemperature:
-      process.env.REACT_APP_INTLAYER_OPEN_AI_API_TEMPERATURE,
   };
 
   const log: ReplaceValue<LogConfig> = {
     mode: process.env.REACT_APP_INTLAYER_LOG_MODE,
     prefix: process.env.REACT_APP_INTLAYER_LOG_PREFIX,
+  };
+
+  const ai: ReplaceValue<AiConfig> = {
+    provider: process.env.REACT_APP_INTLAYER_AI_PROVIDER,
+    model: process.env.REACT_APP_INTLAYER_AI_MODEL,
+    temperature: process.env.REACT_APP_INTLAYER_AI_TEMPERATURE,
   };
 
   return {
@@ -93,5 +96,6 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     content,
     editor,
     log,
+    ai,
   };
 };

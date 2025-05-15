@@ -1,6 +1,6 @@
 import type { AIOptions } from '@intlayer/api';
+import configuration from '@intlayer/config/built';
 import { Command } from 'commander';
-import { audit } from './audit';
 import { build } from './build';
 import { getConfig } from './config';
 import { fill, FillOptions } from './fill';
@@ -17,6 +17,14 @@ const aiOptions = [
   ['--custom-prompt [prompt]', 'Custom prompt'],
 ];
 
+const enrichAiOptionsWithConfiguration = (aiOptions?: AIOptions) => ({
+  ...aiOptions,
+  apiKey: aiOptions?.apiKey ?? configuration.ai?.apiKey,
+  provider: aiOptions?.provider ?? configuration.ai?.provider,
+  model: aiOptions?.model ?? configuration.ai?.model,
+  temperature: aiOptions?.temperature ?? configuration.ai?.temperature,
+});
+
 const extractAiOptions = ({
   provider,
   temperature,
@@ -25,13 +33,13 @@ const extractAiOptions = ({
   customPrompt,
   ...options
 }: AIOptions) => ({
-  aiOptions: {
+  aiOptions: enrichAiOptionsWithConfiguration({
     provider,
     temperature,
     model,
     apiKey,
     customPrompt,
-  },
+  }),
   ...options,
 });
 
@@ -183,20 +191,6 @@ export const setAPI = (): Command => {
     .command('content list')
     .description('List the content declaration files')
     .action(listContentDeclaration);
-
-  const auditProgram = program
-    .command('audit')
-    .description('Audit the dictionaries')
-    .option('-f, --files [files...]', 'List of Dictionary files to audit')
-    .option(
-      '--exclude [excludedGlobs...]',
-      'Globs pattern to exclude from the audit'
-    )
-    .option('-l, --async-limit [asyncLimit]', 'Async limit')
-    .option('-e, --env [env]', 'Environment');
-
-  aiOptions.forEach((opt) => auditProgram.option(opt[0], opt[1]));
-  auditProgram.action((options) => audit(extractAiOptions(options)));
 
   const fillProgram = program
     .command('fill')

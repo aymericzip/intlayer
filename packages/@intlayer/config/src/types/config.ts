@@ -222,38 +222,54 @@ export type EditorConfig = {
    * Default: false
    */
   hotReload: boolean;
+};
 
+export type AiConfig = {
   /**
-   * OpenAI API key
+   * Provider
    *
-   * Use your own OpenAI API key to use the AI features of Intlayer.
-   * If you don't have an OpenAI API key, you can get one for free at https://openai.com/api/.
+   * The provider to use for the AI features of Intlayer.
    *
-   * Default: ''
+   * Available providers:
+   * - 'openai'
+   * - 'anthropic'
+   * - 'mistral'
+   * - 'deepseek'
+   * - 'gemini'
+   *
+   * Default: 'openai'
    */
-  openAiApiKey: string;
+  provider?: string;
 
   /**
-   * OpenAI API model
+   * API model
    *
    * The model to use for the AI features of Intlayer.
    *
-   * Default: 'gpt-4o-2024-11-20'
+   * Example: 'gpt-4o-2024-11-20'
    *
-   * > Necessitate to define openAiApiKey to use this model
    */
-  openAiApiModel: string;
+  model?: string;
 
   /**
-   * OpenAI API temperature
+   *  temperature
    *
    * The temperature to use for the AI features of Intlayer.
    * The temperature controls the randomness of the AI's responses.
    * A higher temperature will make the AI more creative and less predictable.
    *
-   * Default: 0.1
+   * Example: 0.1
    */
-  openAiApiTemperature: number;
+  temperature?: number;
+
+  /**
+   * API key
+   *
+   * Use your own OpenAI API key to use the AI features of Intlayer.
+   * If you don't have an OpenAI API key, you can get one for free at https://openai.com/api/.
+   *
+   */
+  apiKey?: string;
 };
 
 /**
@@ -284,6 +300,11 @@ export type CustomIntlayerConfig = {
    * Custom middleware configuration
    */
   log?: Partial<LogConfig>;
+
+  /**
+   * Custom AI configuration
+   */
+  ai?: Partial<AiConfig>;
 };
 
 /**
@@ -314,6 +335,11 @@ export type IntlayerConfig = {
    * Logger configuration
    */
   log: LogConfig;
+
+  /**
+   * AI configuration
+   */
+  ai?: Partial<AiConfig>;
 };
 
 /**

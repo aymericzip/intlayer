@@ -20,6 +20,9 @@ const config: IntlayerConfig = {
   log: {
     mode: 'verbose',
   },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+  },
 };
 
 export default config;

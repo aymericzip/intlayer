@@ -6,6 +6,3 @@ export const BACKEND_URL = 'https://back.intlayer.org';
 export const IS_ENABLED = true;
 export const HOT_RELOAD = false;
 export const DICTIONARY_PRIORITY_STRATEGY = 'local_first';
-export const OPEN_AI_API_KEY = '';
-export const OPEN_AI_API_MODEL = 'gpt-4o-2024-11-20';
-export const OPEN_AI_API_TEMPERATURE = 0.1;

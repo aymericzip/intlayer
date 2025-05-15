@@ -1,4 +1,5 @@
 import type {
+  AiConfig,
   ContentConfig,
   DictionaryOutput,
   InternationalizationConfig,
@@ -137,17 +138,18 @@ export const getConfiguration = (
       'string'
     )! as 'local_first' | 'distant_first',
     hotReload: getEnvValue(env.editor.hotReload, 'boolean')!,
-    openAiApiKey: getEnvValue(env.editor.openAiApiKey, 'string')!,
-    openAiApiModel: getEnvValue(env.editor.openAiApiModel, 'string')!,
-    openAiApiTemperature: getEnvValue(
-      env.editor.openAiApiTemperature,
-      'number'
-    )!,
   };
 
   const logConfiguration: LogConfig = {
     mode: getEnvValue(env.log.mode, 'string')!,
     prefix: getEnvValue(env.log.prefix, 'string')!,
+  };
+
+  const aiConfiguration: AiConfig = {
+    provider: getEnvValue(env.ai?.provider, 'string')!,
+    model: getEnvValue(env.ai?.model, 'string')!,
+    temperature: getEnvValue(env.ai?.temperature, 'number')!,
+    apiKey: getEnvValue(env.ai?.apiKey, 'string')!,
   };
 
   const intlayerConfiguration: IntlayerConfig = {
@@ -156,6 +158,7 @@ export const getConfiguration = (
     content: intlayerContentConfiguration,
     editor: intlayerEditorConfiguration,
     log: logConfiguration,
+    ai: aiConfiguration,
   };
 
   return intlayerConfiguration;

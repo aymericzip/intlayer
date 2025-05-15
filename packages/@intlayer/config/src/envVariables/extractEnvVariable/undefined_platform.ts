@@ -1,4 +1,5 @@
 import type {
+  AiConfig,
   ContentConfig,
   EditorConfig,
   InternationalizationConfig,
@@ -71,9 +72,12 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryPriorityStrategy:
       process.env.INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
     hotReload: process.env.INTLAYER_HOT_RELOAD,
-    openAiApiKey: process.env.INTLAYER_OPENAI_API_KEY,
-    openAiApiModel: process.env.INTLAYER_OPENAI_API_MODEL,
-    openAiApiTemperature: process.env.INTLAYER_OPENAI_API_TEMPERATURE,
+  };
+
+  const ai: ReplaceValue<AiConfig> = {
+    provider: process.env.INTLAYER_AI_PROVIDER,
+    model: process.env.INTLAYER_AI_MODEL,
+    temperature: process.env.INTLAYER_AI_TEMPERATURE,
   };
 
   const log: ReplaceValue<LogConfig> = {
@@ -87,5 +91,6 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     content,
     editor,
     log,
+    ai,
   };
 };
