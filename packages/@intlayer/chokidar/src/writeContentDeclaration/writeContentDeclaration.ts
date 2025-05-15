@@ -1,4 +1,3 @@
-import { prepareContentDeclaration } from '@intlayer/chokidar';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
@@ -7,10 +6,28 @@ import deepEqual from 'deep-equal';
 import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { dirname, extname } from 'path';
+import { prepareContentDeclaration } from '../prepareContentDeclaration';
 import type { DictionaryStatus } from './dictionaryStatus';
 import { writeJSFile } from './writeJSFile';
 
 const DEFAULT_NEW_DICTIONARY_PATH = 'intlayer-dictionaries';
+
+const formatContentDeclaration = async (dictionary: Dictionary) => {
+  // Clean Markdown, Insertion, File, etc. node metadata
+  const preparedContentDeclaration =
+    await prepareContentDeclaration(dictionary);
+
+  // Remove the filePath from the dictionary and set $schema
+  const { filePath, $schema, ...dictionaryWithoutPath } =
+    preparedContentDeclaration;
+
+  const formattedContentDeclaration = {
+    $schema: 'https://intlayer.org/schema.json',
+    ...dictionaryWithoutPath,
+  };
+
+  return formattedContentDeclaration;
+};
 
 export const writeContentDeclaration = async (
   dictionary: Dictionary,
@@ -28,15 +45,9 @@ export const writeContentDeclaration = async (
     dictionariesRecord[dictionary.key] as Dictionary[]
   ).filter((el) => el.filePath === dictionary.filePath);
 
-  const preparedContentDeclaration =
-    await prepareContentDeclaration(dictionary);
-
-  const { filePath, $schema, ...dictionaryWithoutPath } =
-    preparedContentDeclaration;
-  const formattedContentDeclaration = {
-    $schema: 'https://intlayer.org/schema.json',
-    ...dictionaryWithoutPath,
-  };
+  const filePath = dictionary.filePath;
+  const formattedContentDeclaration =
+    await formatContentDeclaration(dictionary);
 
   if (existingDictionary) {
     // Compare existing dictionary with distant dictionary

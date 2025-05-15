@@ -2,17 +2,17 @@ import type { Locales, LocalesValues } from '@intlayer/config/client';
 import type {
   ConditionContent,
   EnumerationContent,
+  FileContent,
+  InsertionContent,
   NestedContent,
   TranslationContent,
-  InsertionContent,
-  FileContent,
 } from '../../transpiler';
 import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import { getCondition } from '../getCondition';
 import { getEnumeration } from '../getEnumeration';
+import { getInsertion } from '../getInsertion';
 import { type GetNestingResult, getNesting } from '../getNesting';
 import { getTranslation } from '../getTranslation';
-import { getInsertion } from '../getInsertion';
 
 /** ---------------------------------------------
  *  PLUGIN DEFINITION
@@ -50,7 +50,10 @@ export type TranslationCond<T, S> = T extends {
   : never;
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
-export const translationPlugin = (locale: LocalesValues): Plugins => ({
+export const translationPlugin = (
+  locale: LocalesValues,
+  fallback: boolean = true
+): Plugins => ({
   id: 'translation-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
@@ -71,7 +74,7 @@ export const translationPlugin = (locale: LocalesValues): Plugins => ({
         childProps
       );
     }
-    return getTranslation(result, locale);
+    return getTranslation(result, locale, fallback);
   },
 });
 

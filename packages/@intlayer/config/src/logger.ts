@@ -23,21 +23,23 @@ export const logger: Logger = (
 
   if (details.isVerbose && mode !== 'verbose') return;
 
+  const flatContent = [content].flat();
+
   if (details.level === 'debug') {
-    return console.debug(`${prefix}${content}`);
+    return console.debug(prefix, ...flatContent);
   }
 
   if (details.level === 'info') {
-    return console.info(`${prefix}${content}`);
+    return console.info(prefix, ...flatContent);
   }
 
   if (details.level === 'warn') {
-    return console.warn(`${prefix}${content}`);
+    return console.warn(prefix, ...flatContent);
   }
 
   if (details.level === 'error') {
-    return console.error(`${prefix}${content}`);
+    return console.error(prefix, ...flatContent);
   }
 
-  console.log(`${prefix}${content}`);
+  console.log(prefix, ...flatContent);
 };

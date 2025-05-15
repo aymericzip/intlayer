@@ -1,6 +1,6 @@
-import { t, type Dictionary } from 'intlayer';
+import { t } from 'intlayer';
 
-/\*_ @type {import('intlayer').Dictionary} _/
+/** @type {import('intlayer').Dictionary} **/
 const {{name}}Content = {
 key: '{{key}}',{{fileParams}}
 content: {},

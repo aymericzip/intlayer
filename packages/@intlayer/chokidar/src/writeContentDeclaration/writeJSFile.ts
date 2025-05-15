@@ -3,7 +3,12 @@ import * as babelParser from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
 import { appLogger, logger } from '@intlayer/config';
-import { Dictionary, TranslationContent, TypedNode } from '@intlayer/core';
+import {
+  Dictionary,
+  NodeType,
+  TranslationContent,
+  TypedNode,
+} from '@intlayer/core';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
 import { extname } from 'path';
@@ -24,6 +29,7 @@ export const writeJSFile = async (
     key: dictionaryIdentifierKey,
     content: updatesToApply,
     locale,
+    autoFilled,
   } = dictionary;
   const isPerLocaleDeclarationFile = typeof locale === 'string';
 
@@ -33,9 +39,11 @@ export const writeJSFile = async (
 
     let format = 'ts' as 'ts' | 'cjs' | 'esm';
 
-    if (fileExtension === '.js') {
+    if (fileExtension === '.ts' || fileExtension === '.tsx') {
+      format = 'ts';
+    } else if (fileExtension === '.cjs' || fileExtension === '.cjsx') {
       format = 'cjs';
-    } else if (fileExtension === '.mjs') {
+    } else {
       format = 'esm';
     }
 
@@ -45,7 +53,7 @@ export const writeJSFile = async (
     const template = await getContentDeclarationFileTemplate(
       dictionaryIdentifierKey,
       format,
-      { locale }
+      { locale, autoFilled }
     );
 
     await writeFile(filePath, template, 'utf-8');
@@ -265,23 +273,23 @@ export const writeJSFile = async (
       // Create a new property for the missing key
       let valueNode: t.Expression;
 
-      if ((newEntryData as TypedNode).nodeType === 'translation') {
+      if ((newEntryData as TypedNode)?.nodeType === NodeType.Translation) {
         // Create a new t() call with the translations
         const translationContent = newEntryData as TranslationContent;
 
         if (
           isPerLocaleDeclarationFile &&
           typeof locale === 'string' &&
-          translationContent.translation[locale]
+          translationContent?.[NodeType.Translation]?.[locale]
         ) {
           // For per-locale files, use the string value directly
           valueNode = t.stringLiteral(
-            String(translationContent.translation[locale])
+            String(translationContent[NodeType.Translation][locale])
           );
         } else {
           // Otherwise create a t() call with translations object
           const translationsObj = t.objectExpression(
-            Object.entries(translationContent.translation).map(
+            Object.entries(translationContent?.[NodeType.Translation]).map(
               ([langKey, langValue]) => {
                 const keyNode = t.isValidIdentifier(langKey)
                   ? t.identifier(langKey)
@@ -326,7 +334,7 @@ export const writeJSFile = async (
 
       // Handle 't' function calls
       if (
-        (newEntryData as TypedNode).nodeType === 'translation' &&
+        (newEntryData as TypedNode)?.nodeType === 'translation' &&
         calleeName === 't'
       ) {
         const args = (callExpressionPath.node as t.CallExpression).arguments;
@@ -343,7 +351,10 @@ export const writeJSFile = async (
 
         if (isPerLocaleDeclarationFile && typeof locale === 'string') {
           // For per-locale files, replace t() call with direct string
-          const translations = (newEntryData as TranslationContent).translation;
+          const translations = (newEntryData as TranslationContent)?.[
+            NodeType.Translation
+          ];
+
           if (translations[locale]) {
             targetPropertyPath
               .get('value')
@@ -378,15 +389,15 @@ export const writeJSFile = async (
 
             if (
               astLangKeyName &&
-              (newEntryData as TranslationContent).translation.hasOwnProperty(
-                astLangKeyName
-              )
+              (newEntryData as TranslationContent)?.[
+                NodeType.Translation
+              ].hasOwnProperty(astLangKeyName)
             ) {
               prop.value = t.stringLiteral(
                 String(
-                  (newEntryData as TranslationContent).translation[
-                    astLangKeyName
-                  ]
+                  (newEntryData as TranslationContent)?.[
+                    NodeType.Translation
+                  ]?.[astLangKeyName]
                 )
               );
               processedLangKeysInJsonUpdate.add(astLangKeyName);
@@ -396,7 +407,7 @@ export const writeJSFile = async (
 
         // Add new language properties from the JSON update that were not originally in the AST node
         for (const [jsonLangKey, jsonLangValue] of Object.entries(
-          (newEntryData as TranslationContent).translation
+          (newEntryData as TranslationContent)?.[NodeType.Translation]
         )) {
           if (!processedLangKeysInJsonUpdate.has(jsonLangKey)) {
             const newKeyNode = t.isValidIdentifier(jsonLangKey)
@@ -426,9 +437,11 @@ export const writeJSFile = async (
         targetPropertyPath
           .get('value')
           .replaceWith(t.stringLiteral(newEntryData));
-      } else if ((newEntryData as any).translation) {
+      } else if ((newEntryData as any)?.[NodeType.Translation]) {
         // Handle translation content (use first available translation)
-        const translations = (newEntryData as TranslationContent).translation;
+        const translations = (newEntryData as TranslationContent)[
+          NodeType.Translation
+        ];
         const firstValue = Object.values(translations)[0];
         if (firstValue) {
           targetPropertyPath
@@ -457,9 +470,11 @@ export const writeJSFile = async (
           .replaceWith(t.stringLiteral(newEntryData));
       }
       // For translation content, use a smart approach
-      else if ((newEntryData as any).translation) {
+      else if ((newEntryData as any)?.[NodeType.Translation]) {
         // Extract just the value relevant to this file's locale
-        const translations = (newEntryData as TranslationContent).translation;
+        const translations = (newEntryData as TranslationContent)[
+          NodeType.Translation
+        ];
 
         // Try to determine locale from file path (assuming a pattern like .fr.content.ts)
         const localeMatch = filePath.match(/\.([a-z]{2})\.content\.(ts|js)$/i);

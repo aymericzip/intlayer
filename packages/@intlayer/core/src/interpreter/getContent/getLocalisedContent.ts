@@ -23,10 +23,11 @@ export const getLocalisedContent = <
 >(
   node: T,
   locale: L = configuration.internationalization.defaultLocale as L,
-  nodeProps: NodeProps
+  nodeProps: NodeProps,
+  fallback: boolean = false
 ) => {
   const plugins: Plugins[] = [
-    translationPlugin(locale),
+    translationPlugin(locale, fallback),
     ...(nodeProps.plugins ?? []),
   ];
 

@@ -1,9 +1,9 @@
 import { t } from 'intlayer';
 
-/\*_ @type {import('intlayer').Dictionary} _/
+/** @type {import('intlayer').Dictionary} **/
 const {{name}}Content = {
 key: '{{key}}',{{fileParams}}
 content: {},
-} satisfies Dictionary;
+};
 
-export default {{name}}Content;
+module.exports = {{name}}Content;

@@ -1,5 +1,5 @@
-import type { LocalesValues } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/config/client';
 import { LanguageContent } from '../types';
 
 /**
@@ -25,17 +25,20 @@ import { LanguageContent } from '../types';
  */
 export const getTranslation = <Content = string>(
   languageContent: LanguageContent<Content>,
-  locale?: LocalesValues
+  locale?: LocalesValues,
+  fallback: boolean = true
 ): Content => {
   const { defaultLocale } = configuration?.internationalization;
 
-  const result =
+  let result =
     languageContent[
       (locale ?? defaultLocale) as unknown as keyof typeof languageContent
-    ] ??
-    (languageContent[
-      defaultLocale as unknown as keyof typeof languageContent
-    ] as Content);
+    ];
 
-  return result;
+  if (fallback && !result) {
+    result =
+      languageContent[defaultLocale as unknown as keyof typeof languageContent];
+  }
+
+  return result as unknown as Content;
 };

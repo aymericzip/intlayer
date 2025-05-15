@@ -84,7 +84,7 @@ type ReplaceContentValue<
         | ReplaceContentValueObject<NodeType, FetchableNode>
   : ContentNode<NodeType, FetchableNode>;
 
-export type AutoFill = true | false | string | LanguageContent<string>;
+export type AutoFill = true | string | LanguageContent<string>;
 
 export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   $schema?: string;
@@ -97,6 +97,7 @@ export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   tags?: string[];
   locale?: LocalesValues;
   autoFill?: AutoFill;
+  autoFilled?: true;
   location?: 'distant' | 'locale';
   content: ContentType extends undefined // Applying the generic to replace ContentValue with Replacement
     ? any

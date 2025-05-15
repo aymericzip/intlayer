@@ -1,5 +1,6 @@
 import { AIOptions, getAiAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
+  buildAndWatchIntlayer,
   filterDictionaryLocales,
   mergeDictionaries,
   processPerLocaleDictionary,
@@ -127,7 +128,7 @@ const filterDictionary = async (
     }
   }
 
-  return result;
+  return result.filter((dict) => !dict.autoFilled);
 };
 
 const transformUriToAbsolutePath = (uri: string, filePath: string) => {
@@ -147,29 +148,15 @@ export type AutoFillData = {
   filePath: string;
 };
 
-const autoFill = async (
-  dictionary: Dictionary,
-  contentDeclarationFile: Dictionary,
+const formatAutoFillData = (
   autoFillOptions: AutoFill,
-  outputLocales?: Locales[],
-  parentLocales?: Locales[]
-) => {
-  let localeList: Locales[] = (
-    outputLocales ?? configuration.internationalization.locales
-  ).filter((locale) => !parentLocales?.includes(locale));
-
+  localeList: Locales[],
+  filePath: string,
+  dictionaryKey: string
+): AutoFillData[] => {
   const outputContentDeclarationFile: AutoFillData[] = [];
 
-  const filePath = contentDeclarationFile.filePath;
-
-  if (!filePath) {
-    appLogger('No file path found for dictionary', {
-      level: 'error',
-    });
-    return;
-  }
-
-  if (!Boolean(autoFillOptions)) return;
+  if (!Boolean(autoFillOptions)) return outputContentDeclarationFile;
 
   if (autoFillOptions === true) {
     // wanted jsonFilePath: /..../src/components/home/index.content.json
@@ -192,12 +179,12 @@ const autoFill = async (
       const output = localeList.map((locale) => ({
         localeList: [locale],
         filePath: transformUriToAbsolutePath(
-          autoFillOptions.replace('{{locale}}', locale),
+          autoFillOptions
+            .replace('{{locale}}', locale)
+            .replace('{{key}}', dictionaryKey),
           filePath
         ),
       }));
-
-      console.log({ output });
 
       outputContentDeclarationFile.push(...output);
     } else {
@@ -205,8 +192,9 @@ const autoFill = async (
         localeList,
         filePath: transformUriToAbsolutePath(autoFillOptions, filePath),
       });
-      console.log({ outputContentDeclarationFile });
     }
+
+    return outputContentDeclarationFile;
   }
 
   if (typeof autoFillOptions === 'object') {
@@ -216,39 +204,89 @@ const autoFill = async (
 
     const output = localeList.map((locale) => ({
       localeList: [locale],
-      filePath: transformUriToAbsolutePath(autoFillOptions[locale], filePath),
+      filePath: transformUriToAbsolutePath(
+        autoFillOptions[locale].replace('{{key}}', dictionaryKey),
+        filePath
+      ),
     }));
 
     outputContentDeclarationFile.push(...output);
   }
 
-  appLogger(
-    `Auto fill data: ${JSON.stringify(outputContentDeclarationFile, null, 2)}`,
-    {
-      level: 'info',
-      isVerbose: true,
-    }
+  return outputContentDeclarationFile;
+};
+
+const autoFill = async (
+  fullDictionary: Dictionary,
+  contentDeclarationFile: Dictionary,
+  autoFillOptions: AutoFill,
+  outputLocales?: Locales[],
+  parentLocales?: Locales[]
+) => {
+  let localeList: Locales[] = (
+    outputLocales ?? configuration.internationalization.locales
+  ).filter((locale) => !parentLocales?.includes(locale));
+
+  const filePath = contentDeclarationFile.filePath;
+
+  if (!filePath) {
+    appLogger('No file path found for dictionary', {
+      level: 'error',
+    });
+    return;
+  }
+
+  const autoFillData: AutoFillData[] = formatAutoFillData(
+    autoFillOptions,
+    localeList,
+    filePath,
+    fullDictionary.key
   );
 
-  for await (const output of outputContentDeclarationFile) {
+  appLogger(`Auto fill data: ${JSON.stringify(autoFillData, null, 2)}`, {
+    level: 'info',
+    isVerbose: true,
+  });
+
+  for await (const output of autoFillData) {
     const reducedDictionary = reduceDictionaryContent(
-      dictionary,
+      fullDictionary,
       contentDeclarationFile
     );
 
-    const filteredDictionary = filterDictionaryLocales(
-      reducedDictionary,
-      output.localeList
-    );
+    const isPerLocaleDeclarationFile = output.localeList.length === 1;
 
-    // write file
-    await writeContentDeclaration({
-      ...dictionary,
-      locale: output.localeList.length === 1 ? output.localeList[0] : undefined,
-      content: filteredDictionary.content,
-      filePath: output.filePath,
-      autoFill: undefined,
-    });
+    if (isPerLocaleDeclarationFile) {
+      const sourceLocale = output.localeList[0];
+      const sourceLocaleContent = getLocalisedContent(
+        reducedDictionary as unknown as ContentNode,
+        sourceLocale,
+        { dictionaryKey: reducedDictionary.key, keyPath: [] }
+      );
+
+      await writeContentDeclaration({
+        ...fullDictionary,
+        locale: sourceLocale,
+        autoFilled: true,
+        autoFill: undefined,
+        content: sourceLocaleContent.content,
+        filePath: output.filePath,
+      });
+    } else {
+      const filteredDictionary = filterDictionaryLocales(
+        reducedDictionary,
+        output.localeList
+      );
+
+      // write file
+      await writeContentDeclaration({
+        ...fullDictionary,
+        autoFilled: true,
+        autoFill: undefined,
+        content: filteredDictionary.content,
+        filePath: output.filePath,
+      });
+    }
   }
 };
 
@@ -256,6 +294,11 @@ const autoFill = async (
  * Fill translations based on the provided options.
  */
 export const fill = async (options: FillOptions): Promise<void> => {
+  // Build the dictionaries to ensure the content declaration files are up to date
+  await buildAndWatchIntlayer({
+    configuration,
+  });
+
   const { defaultLocale, locales } = configuration.internationalization;
 
   if (!configuration.editor.clientId && !options.aiOptions?.apiKey) {
@@ -267,12 +310,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
     return;
   }
 
-  appLogger(
-    'Starting fill function with options:' + JSON.stringify(options, null, 2),
-    {
-      level: 'info',
-    }
-  );
+  appLogger(['Starting fill function with options:', options], {
+    level: 'info',
+  });
 
   const targetUnmergedDictionaries = await filterDictionary(
     Object.values(unmergedDictionariesRecord).flat(),
@@ -290,8 +330,10 @@ export const fill = async (options: FillOptions): Promise<void> => {
   });
 
   appLogger(
-    'Affected dictionary keys for processing:' +
-      JSON.stringify(Array.from(affectedDictionaryKeys), null, 2),
+    [
+      'Affected dictionary keys for processing:',
+      Array.from(affectedDictionaryKeys).join(', '),
+    ],
     {
       isVerbose: true,
     }
@@ -301,8 +343,8 @@ export const fill = async (options: FillOptions): Promise<void> => {
     const dictionaryKey = targetUnmergedDictionary.key;
     const mainDictionaryToProcess = dictionariesRecord[dictionaryKey];
     const sourceLocale: Locales =
-      options.sourceLocale ??
       (targetUnmergedDictionary.locale as Locales) ??
+      options.sourceLocale ??
       defaultLocale;
 
     if (!mainDictionaryToProcess) {
@@ -322,7 +364,6 @@ export const fill = async (options: FillOptions): Promise<void> => {
       }
     );
 
-    // 4. apply getLocalisedContent on dictionary record (for source locale)
     const sourceLocaleContent = getLocalisedContent(
       mainDictionaryToProcess as unknown as ContentNode,
       sourceLocale,
