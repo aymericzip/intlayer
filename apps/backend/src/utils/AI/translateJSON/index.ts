@@ -25,6 +25,7 @@ export type TranslateJSONOptions = {
   outputLocale: Locales;
   tags: Tag[];
   aiOptions?: AIOptions;
+  mode: 'complete' | 'review';
 };
 
 export type TranslateJSONResultData = {
@@ -63,6 +64,14 @@ const formatTagInstructions = (tags: Tag[]): string => {
 ${tags.map(({ key, description }) => `- ${key}: ${description}`).join('\n\n')}`;
 };
 
+const getModeInstructions = (mode: 'complete' | 'review'): string => {
+  if (mode === 'complete') {
+    return 'Complete mode: Enrich the preset content with the missing keys and values. Do not update existing keys. Everything should be returned in the output.';
+  }
+
+  return 'Review mode: Fill missing content and review existing keys from the preset content.';
+};
+
 /**
  * TranslateJSONs a content declaration file by constructing a prompt for AI models.
  * The prompt includes details about the project's locales, file paths of content declarations,
@@ -76,6 +85,7 @@ export const translateJSON = async ({
   entryLocale,
   outputLocale,
   tags,
+  mode,
 }: TranslateJSONOptions): Promise<TranslateJSONResultData | undefined> => {
   try {
     // Get the appropriate AI model configuration
@@ -93,7 +103,8 @@ export const translateJSON = async ({
       .replace('{{entryFileContent}}', JSON.stringify(entryFileContent))
       .replace('{{presetOutputContent}}', JSON.stringify(presetOutputContent))
       .replace('{{dictionaryDescription}}', dictionaryDescription)
-      .replace('{{tagsInstructions}}', formatTagInstructions(tags));
+      .replace('{{tagsInstructions}}', formatTagInstructions(tags))
+      .replace('{{modeInstructions}}', getModeInstructions(mode));
 
     if (!aiConfig) {
       logger.error('Failed to configure AI model');

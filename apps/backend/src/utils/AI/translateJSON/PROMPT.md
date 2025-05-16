@@ -24,6 +24,10 @@ You are an expert in internationalization, copy writing and content management. 
    - **Consider the Preset Output Content** If Preset Output Content is provided, and coherent with the entry, you can consider reuse it to fill the output file content.
    - **Should not be translated** A value as `{ 'nodeType': 'XXX', ...}` should not be translated.
 
+**Mode Instruction:**
+
+{{modeInstructions}}
+
 **Tags Instructions:**
 
 {{tagsInstructions}}

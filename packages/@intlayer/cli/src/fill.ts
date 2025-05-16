@@ -52,7 +52,7 @@ export type FillOptions = {
   sourceLocale: Locales;
   outputLocales?: Locales | Locales[];
   file?: string | string[];
-  mode?: 'complete' | 'review' | 'missing-only';
+  mode?: 'complete' | 'review';
   gitDiff?: boolean;
   keys?: string | string[];
   excludedKeys?: string | string[];
@@ -414,6 +414,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
           dictionaryDescription: mainDictionaryToProcess.description,
           entryLocale: sourceLocale,
           outputLocale: targetLocale,
+          mode,
           aiOptions: options.aiOptions,
         });
 
