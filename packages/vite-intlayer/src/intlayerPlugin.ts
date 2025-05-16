@@ -42,7 +42,6 @@ export const intlayerPlugin = (
       baseDir,
       unmergedDictionariesPath
     );
-    console.log({ unmergedDictionariesPath, relativeUnmergedDictionariesPath });
 
     const configurationPath = join(configDir, 'configuration.json');
     const relativeConfigurationPath = relative(baseDir, configurationPath);
