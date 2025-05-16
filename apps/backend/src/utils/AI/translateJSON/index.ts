@@ -1,8 +1,8 @@
 import type { Tag } from '@/types/tag.types';
+import { retryManager } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import { logger } from '@logger';
 import { extractJson } from '@utils/extractJSON';
-import { retryManager } from '@utils/retryManager';
 import { generateText } from 'ai';
 import { readFileSync } from 'fs';
 import type { Locales } from 'intlayer';
@@ -66,10 +66,10 @@ ${tags.map(({ key, description }) => `- ${key}: ${description}`).join('\n\n')}`;
 
 const getModeInstructions = (mode: 'complete' | 'review'): string => {
   if (mode === 'complete') {
-    return 'Complete mode: Enrich the preset content with the missing keys and values. Do not update existing keys. Everything should be returned in the output.';
+    return 'Mode: "Complete" - Enrich the preset content with the missing keys and values. Do not update existing keys. Everything should be returned in the output.';
   }
 
-  return 'Review mode: Fill missing content and review existing keys from the preset content.';
+  return 'Mode: "Review" - Fill missing content and review existing keys from the preset content. If you detect misspelled content, or content should be reformulated, correct it.';
 };
 
 /**

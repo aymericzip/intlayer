@@ -311,6 +311,7 @@ const autoFill = async (
 export const fill = async (options: FillOptions): Promise<void> => {
   const configuration = getConfiguration(options);
   const { defaultLocale, locales } = configuration.internationalization;
+  const mode = options.mode ?? 'review';
 
   if (!configuration.editor.clientId && !options.aiOptions?.apiKey) {
     appLogger('AI options or API key not provided. Skipping AI translation.', {
@@ -330,7 +331,13 @@ export const fill = async (options: FillOptions): Promise<void> => {
   // Determine output locales
   const outputLocalesList: Locales[] = (
     options.outputLocales ? ensureArray(options.outputLocales) : locales
-  ).filter((locale) => locale !== (options.sourceLocale ?? defaultLocale));
+  ).filter((locale) =>
+    // If mode is review, translate all locales
+    // If mode is complete, translate only the locales that are not the source locale
+    mode === 'review'
+      ? true
+      : locale !== (options.sourceLocale ?? defaultLocale)
+  );
 
   const affectedDictionaryKeys = new Set<string>();
   targetUnmergedDictionaries.forEach((dict) => {
@@ -392,8 +399,6 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     // 5. for each locale to translate (exclude base locale) generate json translations
     for await (const targetLocale of outputLocalesList) {
-      if (targetLocale === sourceLocale) continue;
-
       appLogger(
         `Preparing translation for ${dictionaryKey} from ${sourceLocale} to ${targetLocale}`,
         {
@@ -420,7 +425,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
         if (!translationResult.data?.fileContent) {
           appLogger(
-            `No translation result found for ${dictionaryKey} to ${targetLocale}`,
+            `No content result found for ${dictionaryKey} to ${targetLocale}`,
             {
               level: 'error',
             }
@@ -437,7 +442,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
         result.push(processedPerLocaleDictionary);
       } catch (error) {
         appLogger(
-          `Error translating ${dictionaryKey} to ${targetLocale}:` + error,
+          `Error filling ${dictionaryKey} to ${targetLocale}:` + error,
           {
             level: 'error',
           }
@@ -445,10 +450,14 @@ export const fill = async (options: FillOptions): Promise<void> => {
       }
     }
 
-    const mergedResults = mergeDictionaries([
-      mainDictionaryToProcess,
-      ...result,
-    ]);
+    const dictionaryToMerge =
+      mode === 'review'
+        ? [...result, mainDictionaryToProcess] // Mode review: generated content will override the base one
+        : [mainDictionaryToProcess, ...result]; // Mode complete: base content will override the generated one
+
+    console.log('dictionaryToMerge', dictionaryToMerge);
+    const mergedResults = mergeDictionaries(dictionaryToMerge);
+    console.log('mergedResults', mergedResults);
 
     let formattedDict = targetUnmergedDictionary;
 

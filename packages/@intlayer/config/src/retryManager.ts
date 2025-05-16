@@ -1,10 +1,12 @@
-import { logger } from '@logger';
+import { logger } from './logger';
 
 export type RetryManagerOptions = {
   /** maximum number of retries before giving up */
   maxRetry?: number;
   /** delay between attempts, in milliseconds */
   delay?: number;
+  /** function to call when an error occurs */
+  onError?: (err: Error) => void;
 };
 
 const DEFAULT_MAX_RETRY = 3;
@@ -23,6 +25,7 @@ export const retryManager =
     {
       maxRetry = DEFAULT_MAX_RETRY,
       delay = DEFAULT_DELAY,
+      onError,
     }: RetryManagerOptions = {}
   ): ((...args: Args) => Promise<R>) =>
   // ───────────────────────────────^ returned wrapper function
@@ -31,7 +34,10 @@ export const retryManager =
       try {
         return await fn(...args);
       } catch (err) {
-        logger.error('Request failed', err);
+        onError?.(err as Error);
+        logger(['Request failed', err], {
+          level: 'error',
+        });
         if (attempt >= maxRetry) throw err; // out of retries
         if (delay > 0) await new Promise((res) => setTimeout(res, delay));
       }
