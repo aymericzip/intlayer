@@ -11,6 +11,14 @@ export const applyMask = (full: Dictionary, mask: any): Dictionary => {
     return mask.map((m, i) => applyMask(full[i], m)) as any;
   }
 
+  // handle node with nodeType property
+  if (full && typeof full === 'object' && 'nodeType' in full) {
+    if (mask && typeof mask === 'object') {
+      return full; // Keep the full object with nodeType intact
+    }
+    return full;
+  }
+
   // generic object
   if (mask && typeof mask === 'object' && full && typeof full === 'object') {
     const out: any = {};

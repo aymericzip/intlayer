@@ -1,11 +1,16 @@
-import { type Dictionary } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const exampleContent = {
   key: 'example',
-  locale: 'es',
-  autoFill: '/messages/{{locale}}/{{key}}.content.cjs',
+  autoFill: {
+    es: '/messages/{{locale}}/{{key}}.content.cjs',
+  },
   content: {
-    new: 'Aquí un ejemplo de nuevo campo',
+    new: t({
+      en: 'This is an example of a new field',
+      fr: 'Voici un exemple de nouveau champ',
+      es: 'Este es un ejemplo de un nuevo campo',
+    }),
   },
 } satisfies Dictionary;
 

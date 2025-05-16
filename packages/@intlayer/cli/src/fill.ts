@@ -312,6 +312,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
   const configuration = getConfiguration(options);
   const { defaultLocale, locales } = configuration.internationalization;
   const mode = options.mode ?? 'review';
+  const baseLocale = options.sourceLocale ?? defaultLocale;
 
   if (!configuration.editor.clientId && !options.aiOptions?.apiKey) {
     appLogger('AI options or API key not provided. Skipping AI translation.', {
@@ -334,9 +335,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
   ).filter((locale) =>
     // If mode is review, translate all locales
     // If mode is complete, translate only the locales that are not the source locale
-    mode === 'review'
-      ? true
-      : locale !== (options.sourceLocale ?? defaultLocale)
+    mode === 'review' ? true : locale !== baseLocale
   );
 
   const affectedDictionaryKeys = new Set<string>();
@@ -358,9 +357,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
     const dictionaryKey = targetUnmergedDictionary.key;
     const mainDictionaryToProcess = dictionariesRecord[dictionaryKey];
     const sourceLocale: Locales =
-      (targetUnmergedDictionary.locale as Locales) ??
-      options.sourceLocale ??
-      defaultLocale;
+      (targetUnmergedDictionary.locale as Locales) ?? baseLocale;
 
     if (!mainDictionaryToProcess) {
       appLogger(
@@ -455,9 +452,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
         ? [...result, mainDictionaryToProcess] // Mode review: generated content will override the base one
         : [mainDictionaryToProcess, ...result]; // Mode complete: base content will override the generated one
 
-    console.log('dictionaryToMerge', dictionaryToMerge);
     const mergedResults = mergeDictionaries(dictionaryToMerge);
-    console.log('mergedResults', mergedResults);
 
     let formattedDict = targetUnmergedDictionary;
 
