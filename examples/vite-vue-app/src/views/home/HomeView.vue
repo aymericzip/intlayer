@@ -8,7 +8,6 @@ const content = useIntlayer('home');
 <template>
   <div class="home-container">
     <header>
-      <LocaleSwitcher />
       <h1><content.welcome /></h1>
       <p class="subtitle"><content.subtitle /></p>
     </header>

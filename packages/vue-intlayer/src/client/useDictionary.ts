@@ -4,12 +4,7 @@ import { computed, inject, reactive, watchEffect } from 'vue';
 import { getDictionary } from '../getDictionary';
 import { DeepTransformContent } from '../plugins';
 import { INTLAYER_SYMBOL, IntlayerProvider } from './installIntlayer';
-
-/** tiny helper – the node exported by `renderIntlayerNode` now exposes this */
-type UpdatableNode = {
-  /** replace the node’s internal value & render fn without changing identity */
-  __update: (next: unknown) => void;
-};
+import { isUpdatableNode } from './useIntlayer';
 
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,
@@ -29,14 +24,16 @@ export const useDictionary = <T extends Dictionary>(
       localeTarget.value
     );
 
-    // add / update entries
     for (const prop in next) {
-      if (prop in content) {
-        // keep the existing node reference – just push the new data inside it
-        (content[prop] as unknown as UpdatableNode).__update(next[prop]);
+      const current = content[prop] as unknown;
+      const incoming = next[prop];
+
+      if (prop in content && isUpdatableNode(current)) {
+        /** same entry -> patch in-place */
+        current.__update(incoming as any);
       } else {
-        // brand-new entry
-        content[prop] = next[prop];
+        /** new entry *or* not an IntlayerNode -> replace wholesale */
+        content[prop] = incoming;
       }
     }
 
