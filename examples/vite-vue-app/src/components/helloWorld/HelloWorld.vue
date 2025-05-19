@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useIntlayer } from 'vue-intlayer';
 
 defineProps({
-  msg: String,
+  msg: Object,
 });
 
 const {

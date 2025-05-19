@@ -1,59 +1,80 @@
-import type { NodeProps } from '@intlayer/core';
-import type { VNode, VNodeChild } from 'vue';
+import { markRaw, ref, type VNode, type VNodeChild } from 'vue';
 
-export type IntlayerNode<T = NodeProps['children'], AdditionalProps = {}> = {
-  value: T;
-  render: () => VNode;
-  toString: () => T;
-} & AdditionalProps;
+export type IntlayerNode<T = string> = {
+  raw: T; // primitive value (reactive)
+  render: () => VNode; // component renderer
+  toString: () => T; // string interpolation
+  value: IntlayerNode<T>; // <content.title.value />
+  __update: (next: IntlayerNode<T>) => void; // invoked by useIntlayer
+};
 
-interface RenderIntlayerNodeProps<T> {
+export const renderIntlayerNode = <
+  T extends string | number | boolean | null | undefined,
+>({
+  value,
+  children,
+  additionalProps = {},
+}: {
   value: T;
   children: VNodeChild | (() => VNodeChild);
-  additionalProps?: Record<string, any>;
-}
+  additionalProps?: Record<string, unknown>;
+}): IntlayerNode<T> => {
+  /* ------------------------------------------------------------------ */
+  /* 1.  A reactive ref keeps the primitive value                       */
+  /* ------------------------------------------------------------------ */
+  const rawRef = ref(value) as { value: T };
 
-/**
- * Creates a dual-purpose object that acts both as a Vue component (renders a <span>)
- * and a primitive value (returns the raw value when coerced to a string).
- *
- * This is useful when you want a value that can be used in templates both as:
- * - an interpolated string (e.g. `{{ value }}`)
- * - a component tag (e.g. `<value />`)
- *
- * @template T - The type of the primitive text value (string, number, boolean, null, or undefined).
- * @param {T} text - The value to render and stringify.
- * @returns {{
- *   render: () => import('vue').VNode,
- *   toString: () => T
- * }} An object with `render()` for Vue and `toString()` for string interpolation.
- *
- * @example
- * const title = dual('Hello');
- * // In template:
- * // {{ title }} -> "Hello"
- * // <title />   -> <span>Hello</span>
- */
-export const renderIntlayerNode = <
-  T extends number | string | boolean | null | undefined,
->(
-  props: RenderIntlayerNodeProps<T>
-): IntlayerNode<T> => {
-  const { children, value, additionalProps = {} } = props;
+  /* 2.  We keep a *mutable* “currentRender” function.                  */
+  /*     When the dictionary/locale changes, useIntlayer swaps it.      */
+  let currentRender: () => VNode =
+    typeof children === 'function'
+      ? () => (children as () => VNode)()
+      : () => children as unknown as VNode;
 
-  return {
-    render: () => {
-      if (typeof children === 'function') {
-        return children() as unknown as VNode;
-      }
+  /* 3.  The component’s `render` method uses both:                     */
+  /*     – it *touches* `rawRef.value` so Vue tracks reactivity         */
+  /*     – it delegates the actual markup to `currentRender()`          */
+  const renderFn = () => {
+    /* touch rawRef so the component updates when the value changes */
+    void rawRef.value;
+    return currentRender();
+  };
 
-      return children as unknown as VNode;
+  /* ------------------------------------------------------------------ */
+  /* 4.  Assemble the stable component object                           */
+  /* ------------------------------------------------------------------ */
+  const node: IntlayerNode<T> = {
+    /* component renderer */
+    render: renderFn,
+
+    /* string interpolation */
+    toString: () => rawRef.value,
+
+    /* reactive getter/setter for the primitive value */
+    get raw() {
+      return rawRef.value;
+    },
+    set raw(val: T) {
+      rawRef.value = val;
     },
 
-    toString: () => value,
+    /* circular ref for the “.value” trick */
+    value: undefined as never,
 
-    value,
+    /* called by useIntlayer when the dictionary entry changes */
+    __update(next: IntlayerNode<T>) {
+      /* swap in the new renderer (locale-specific markup) */
+      currentRender = next.render;
+      /* update the primitive value – this *triggers* reactivity */
+      this.raw = next.raw;
+    },
 
     ...additionalProps,
   };
+
+  /* finish the circular reference */
+  (node as any).value = node;
+
+  /* make sure Vue never tries to proxy the component object itself */
+  return markRaw(node);
 };
