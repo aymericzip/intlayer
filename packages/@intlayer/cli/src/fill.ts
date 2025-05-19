@@ -214,7 +214,7 @@ const formatAutoFillData = (
       (locale) => typeof autoFillOptions[locale] === 'string'
     ) as Locales[];
 
-    const output = localeList.map((locale) => ({
+    const output: AutoFillData[] = localeList.map((locale) => ({
       localeList: [locale],
       filePath: transformUriToAbsolutePath(
         autoFillOptions[locale].replace('{{key}}', dictionaryKey),
@@ -223,7 +223,18 @@ const formatAutoFillData = (
       ),
     }));
 
-    outputContentDeclarationFile.push(...output);
+    // Group by filePath and merge localeList
+    const groupedByFilePath = output.reduce((acc, curr) => {
+      const existing = acc.find((item) => item.filePath === curr.filePath);
+      if (existing) {
+        existing.localeList.push(...curr.localeList);
+      } else {
+        acc.push(curr);
+      }
+      return acc;
+    }, [] as AutoFillData[]);
+
+    outputContentDeclarationFile.push(...groupedByFilePath);
   }
 
   return outputContentDeclarationFile;
