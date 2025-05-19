@@ -123,7 +123,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 >
 > - [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)
 
-### 2. IntLayer CMS (원격)
+### 2. Intlayer CMS (원격)
 
 - 코드베이스를 수정하지 않고 온라인에서 애플리케이션 콘텐츠를 관리할 수 있는 **호스팅 CMS** 솔루션입니다.
 - 콘텐츠 선언, 번역 관리 및 구문 또는 철자 오류 수정을 위한 AI 지원 기능을 제공합니다.
@@ -135,7 +135,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
 ---
 
-## IntLayer CLI
+## Intlayer CLI
 
 - **감사 및 번역 생성**: 콘텐츠 파일을 감사하여 누락된 번역을 생성하거나 사용되지 않는 번역을 식별합니다.
 - **원격 상호작용**: 로컬 콘텐츠를 원격 CMS에 게시하거나 원격 콘텐츠를 가져와 로컬 애플리케이션에 통합합니다.

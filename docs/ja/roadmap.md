@@ -123,7 +123,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 >
 > - [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)
 
-### 2. IntLayer CMS（リモート）
+### 2. Intlayer CMS（リモート）
 
 - コードベースに触れることなく、オンラインでアプリケーションコンテンツを管理できる**ホスト型CMS**ソリューション。
 - コンテンツ宣言、翻訳管理、構文やスペルエラーの修正を支援するAI機能を提供。
@@ -135,7 +135,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 
 ---
 
-## IntLayer CLI
+## Intlayer CLI
 
 - **監査と翻訳生成**: コンテンツファイルを監査して、欠けている翻訳を生成したり、未使用のものを特定。
 - **リモート操作**: ローカルコンテンツをリモートCMSに公開したり、リモートコンテンツを取得してローカルアプリケーションに統合。

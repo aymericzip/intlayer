@@ -123,7 +123,7 @@ O Intlayer suporta **TypeScript** (também JavaScript) e **JSON** para declarar 
 >
 > - [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md)
 
-### 2. IntLayer CMS (Remoto)
+### 2. Intlayer CMS (Remoto)
 
 - Uma solução de **CMS hospedado** que permite gerenciar o conteúdo da aplicação online, sem tocar na base de código.
 - Fornece recursos assistidos por IA para declarar conteúdo, gerenciar traduções e corrigir erros de sintaxe ou ortografia.
@@ -135,7 +135,7 @@ O Intlayer suporta **TypeScript** (também JavaScript) e **JSON** para declarar 
 
 ---
 
-## IntLayer CLI
+## Intlayer CLI
 
 - **Auditoria e Geração de Traduções**: Execute auditorias nos arquivos de conteúdo para gerar traduções ausentes ou identificar traduções não utilizadas.
 - **Interação Remota**: Publique seu conteúdo local no CMS remoto ou busque conteúdo remoto para integrar na sua aplicação local.

@@ -123,7 +123,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 >
 > - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)
 
-### 2. IntLayer CMS（远程）
+### 2. Intlayer CMS（远程）
 
 - 一个 **托管的 CMS** 解决方案，允许您在线管理应用程序内容，而无需接触代码库。
 - 提供 AI 辅助功能，用于声明内容、管理翻译以及修复语法或拼写错误。
@@ -135,7 +135,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
 ---
 
-## IntLayer CLI
+## Intlayer CLI
 
 - **审计和翻译生成**：对内容文件运行审计以生成缺失的翻译或识别未使用的翻译。
 - **远程交互**：将本地内容发布到远程 CMS 或获取远程内容以集成到本地应用程序中。

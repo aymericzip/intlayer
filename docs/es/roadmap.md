@@ -86,7 +86,7 @@ Intlayer soporta **TypeScript** (también JavaScript) y **JSON** para declarar c
   - Sugerir mejoras
 - Puede alojarse localmente o desplegarse en un servidor remoto.
 
-### 2. IntLayer CMS (Remoto)
+### 2. Intlayer CMS (Remoto)
 
 - Una solución de **CMS alojado** que te permite gestionar el contenido de tu aplicación en línea, sin tocar tu base de código.
 - Proporciona funciones asistidas por IA para declarar contenido, gestionar traducciones y corregir errores de sintaxis u ortografía.
@@ -94,7 +94,7 @@ Intlayer soporta **TypeScript** (también JavaScript) y **JSON** para declarar c
 
 ---
 
-## IntLayer CLI
+## Intlayer CLI
 
 - **Auditoría y Generación de Traducciones**: Realiza auditorías en tus archivos de contenido para generar traducciones faltantes o identificar las no utilizadas.
 - **Interacción Remota**: Publica tu contenido local en el CMS remoto o recupera contenido remoto para integrarlo en tu aplicación local.
