@@ -109,9 +109,19 @@ const writeFileWithDirectories = async (
       await mkdir(dir, { recursive: true });
     }
 
-    const isDictionaryJSON = extname(filePath) === '.json';
+    const extention = extname(filePath);
 
-    if (isDictionaryJSON) {
+    if (
+      !['.json', '.js', '.jsx', '.mjs', '.mjx', '.ts', '.tsx'].includes(
+        extention
+      )
+    ) {
+      throw new Error(
+        `Invalid file extension: ${extention}, file: ${filePath}`
+      );
+    }
+
+    if (extention === '.json') {
       const jsonDictionary = JSON.stringify(data, null, 2);
 
       // Write the file

@@ -321,6 +321,7 @@ const autoFill = async (
  */
 export const fill = async (options: FillOptions): Promise<void> => {
   const configuration = getConfiguration(options);
+
   const { defaultLocale, locales } = configuration.internationalization;
   const mode = options.mode ?? 'review';
   const baseLocale = options.sourceLocale ?? defaultLocale;

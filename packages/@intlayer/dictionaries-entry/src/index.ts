@@ -10,17 +10,25 @@ import { join } from 'path';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 
-let dictionaries = undefined;
+export const getDictionaries = () => {
+  const { content } = getConfiguration();
+  const isESModule = typeof import.meta.url === 'string';
+  const extension = isESModule ? 'mjs' : 'cjs';
 
-const { content } = getConfiguration();
-const dictionariesPath = join(content.mainDir, 'dictionaries.cjs');
+  const dictionariesPath = join(content.mainDir, `dictionaries.${extension}`);
 
-// Test if the dictionaries file exists
-if (existsSync(dictionariesPath)) {
-  dictionaries = ESMxCJSRequire(dictionariesPath);
-}
+  let dictionaries = {};
+  if (existsSync(dictionariesPath)) {
+    delete ESMxCJSRequire.cache[dictionariesPath];
 
-export default (dictionaries ?? {}) as Record<
-  IntlayerDictionaryTypesConnector['key'],
-  IntlayerDictionaryTypesConnector
->;
+    dictionaries = ESMxCJSRequire(dictionariesPath);
+    console.log('getDictionaries', dictionaries);
+  }
+
+  return (dictionaries ?? {}) as Record<
+    IntlayerDictionaryTypesConnector['key'],
+    IntlayerDictionaryTypesConnector
+  >;
+};
+
+export default getDictionaries();
