@@ -28,28 +28,13 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
   const content: ReplaceValue<ContentConfig> = {
     fileExtensions: process.env.REACT_APP_INTLAYER_FILE_EXTENSIONS,
     baseDir: process.env.REACT_APP_INTLAYER_BASE_DIR,
-    contentDirName: process.env.REACT_APP_INTLAYER_CONTENT_DIR_NAME,
     contentDir: process.env.REACT_APP_INTLAYER_CONTENT_DIR,
     excludedPath: process.env.REACT_APP_INTLAYER_EXCLUDED_PATH,
-    resultDirName: process.env.REACT_APP_INTLAYER_RESULT_DIR_NAME,
-    moduleAugmentationDirName:
-      process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
-    unmergedDictionariesDirName:
-      process.env.REACT_APP_INTLAYER_UNMERGED_DICTIONARIES_DIR_NAME,
-    dictionariesDirName: process.env.REACT_APP_INTLAYER_DICTIONARIES_DIR_NAME,
-    i18nextResourcesDirName:
-      process.env.REACT_APP_INTLAYER_I18N_RESOURCES_DIR_NAME,
-    reactIntlMessagesDirName:
-      process.env.REACT_APP_INTLAYER_REACT_INTL_MESSAGES_DIR_NAME,
-    typeDirName: process.env.REACT_APP_INTLAYER_TYPE_DIR_NAME,
-    mainDirName: process.env.REACT_APP_INTLAYER_MAIN_DIR_NAME,
-    configDirName: process.env.REACT_APP_INTLAYER_CONFIG_DIR_NAME,
-    resultDir: process.env.REACT_APP_INTLAYER_RESULT_DIR,
+    dictionariesDir: process.env.REACT_APP_INTLAYER_RESULT_DIR,
     moduleAugmentationDir:
       process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR,
     unmergedDictionariesDir:
       process.env.REACT_APP_INTLAYER_UNMERGED_DICTIONARIES_DIR,
-    dictionariesDir: process.env.REACT_APP_INTLAYER_DICTIONARIES_DIR,
     i18nextResourcesDir: process.env.REACT_APP_INTLAYER_I18N_DICTIONARIES_DIR,
     reactIntlMessagesDir:
       process.env.REACT_APP_INTLAYER_REACT_INTL_DICTIONARIES_DIR,

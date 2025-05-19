@@ -8,7 +8,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   content: {
-    contentDirName: '.', // Because by default Intayer will watch content declaration files from the `./src` directory
+    contentDir: ['.'], // Because by default Intayer will watch content declaration files from the `./src` directory
   },
   editor: {
     enabled: true,

@@ -1,6 +1,6 @@
+import { getConfiguration } from '@intlayer/config';
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
-import { getConfiguration } from '@intlayer/config';
 import type { I18nextDictionariesOutput } from './convertContentDeclarationInto18nDictionaries';
 
 export type DictionariesDeclaration = Record<string, I18nextDictionariesOutput>;
@@ -23,11 +23,11 @@ export const writeDictionary = async (
       const contentString = JSON.stringify(content);
 
       const outputFileName = `${nameSpace}.json`;
-      const resultDirPath = resolve(i18nextResourcesDir, locale);
-      const resultFilePath = resolve(resultDirPath, outputFileName);
+      const dictionariesDirPath = resolve(i18nextResourcesDir, locale);
+      const resultFilePath = resolve(dictionariesDirPath, outputFileName);
 
       // Create the dictionaries folder if it doesn't exist
-      await mkdir(resultDirPath, { recursive: true });
+      await mkdir(dictionariesDirPath, { recursive: true });
 
       // Create the json file
       await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {

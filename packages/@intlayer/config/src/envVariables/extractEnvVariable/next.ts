@@ -28,34 +28,19 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
   const content: ReplaceValue<ContentConfig> = {
     fileExtensions: process.env.NEXT_PUBLIC_INTLAYER_FILE_EXTENSIONS,
     baseDir: process.env.NEXT_PUBLIC_INTLAYER_BASE_DIR,
-    contentDirName: process.env.NEXT_PUBLIC_INTLAYER_CONTENT_DIR_NAME,
     contentDir: process.env.NEXT_PUBLIC_INTLAYER_CONTENT_DIR,
     excludedPath: process.env.NEXT_PUBLIC_INTLAYER_EXCLUDED_PATH,
-    resultDirName: process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR_NAME,
-    moduleAugmentationDirName:
-      process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
-    unmergedDictionariesDirName:
-      process.env.NEXT_PUBLIC_INTLAYER_UNMERGED_DICTIONARIES_DIR_NAME,
-    dictionariesDirName: process.env.NEXT_PUBLIC_INTLAYER_DICTIONARIES_DIR_NAME,
-    i18nextResourcesDir: process.env.NEXT_PUBLIC_INTLAYER_I18N_RESOURCES_DIR,
-    reactIntlMessagesDir:
-      process.env.NEXT_PUBLIC_INTLAYER_REACT_INTL_MESSAGES_DIR,
-    typeDirName: process.env.NEXT_PUBLIC_INTLAYER_TYPE_DIR_NAME,
-    mainDirName: process.env.NEXT_PUBLIC_INTLAYER_MAIN_DIR_NAME,
-    configDirName: process.env.NEXT_PUBLIC_INTLAYER_CONFIG_DIR_NAME,
-    resultDir: process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR,
+    dictionariesDir: process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR,
     moduleAugmentationDir:
       process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR,
     unmergedDictionariesDir:
       process.env.NEXT_PUBLIC_INTLAYER_UNMERGED_DICTIONARIES_DIR,
-    dictionariesDir: process.env.NEXT_PUBLIC_INTLAYER_DICTIONARIES_DIR,
-    i18nextResourcesDirName:
-      process.env.NEXT_PUBLIC_INTLAYER_I18N_RESOURCES_DIR_NAME,
-    reactIntlMessagesDirName:
-      process.env.NEXT_PUBLIC_INTLAYER_REACT_INTL_MESSAGES_DIR_NAME,
-    typesDir: process.env.NEXT_PUBLIC_INTLAYER_TYPE_DIR,
+    i18nextResourcesDir: process.env.NEXT_PUBLIC_INTLAYER_I18N_RESOURCES_DIR,
+    reactIntlMessagesDir:
+      process.env.NEXT_PUBLIC_INTLAYER_REACT_INTL_MESSAGES_DIR,
     mainDir: process.env.NEXT_PUBLIC_INTLAYER_MAIN_DIR,
     configDir: process.env.NEXT_PUBLIC_INTLAYER_CONFIG_DIR,
+    typesDir: process.env.NEXT_PUBLIC_INTLAYER_TYPE_DIR,
     watchedFilesPattern: process.env.NEXT_PUBLIC_INTLAYER_WATCHED_FILES_PATTERN,
     watchedFilesPatternWithPath:
       process.env.NEXT_PUBLIC_INTLAYER_WATCHED_FILES_PATTERN_WITH_PATH,

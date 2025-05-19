@@ -23,7 +23,7 @@ const CHAT_GPT_CUSTOM_PROMPT: string = '';
 
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_LIST: string[] = ['./en/dictionary/per_locale_file.md'];
+const DOC_LIST: string[] = ['./en/configuration.md'];
 
 export const LOCALE_LIST: Locales[] = [
   // Locales.ENGLISH,
@@ -43,7 +43,7 @@ export const LOCALE_LIST: Locales[] = [
 
 const NB_SIMULTANEOUS_REQUESTS: number = 3;
 
-const SKIP_RANGE_OF_LAST_UPDATE_TIME: number = 2 * 60 * 60 * 1000; // 2 hours
+const SKIP_RANGE_OF_LAST_UPDATE_TIME: number = 0; //2 * 60 * 60 * 1000; // 2 hours
 
 const ERROR_MAX_RETRY_COUNT: number = 3;
 const ERROR_WAIT_TIME: number = 30 * 1000; // 30 seconds

@@ -1,20 +1,18 @@
-import { existsSync, rmSync } from 'fs';
 import { getConfiguration } from '@intlayer/config';
+import { existsSync, rmSync } from 'fs';
 import { createDictionaryEntryPoint } from './transpiler/dictionary_to_main/createDictionaryEntryPoint';
 
 export const cleanOutputDir = (configuration = getConfiguration()) => {
-  const { resultDir, typesDir, dictionariesDir } = configuration.content;
+  const { dictionariesDir, typesDir } = configuration.content;
 
-  if (existsSync(resultDir)) {
+  if (existsSync(dictionariesDir)) {
     // Delete the dictionary directory
-    if (existsSync(dictionariesDir)) {
-      rmSync(dictionariesDir, { recursive: true });
-    }
+    rmSync(dictionariesDir, { recursive: true });
+  }
 
-    // Delete the types directory
-    if (existsSync(typesDir)) {
-      rmSync(typesDir, { recursive: true });
-    }
+  // Delete the types directory
+  if (existsSync(typesDir)) {
+    rmSync(typesDir, { recursive: true });
   }
 
   createDictionaryEntryPoint(configuration);

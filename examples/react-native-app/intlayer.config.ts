@@ -11,7 +11,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   content: {
-    contentDirName: '.', // Check content files in the whole application
+    contentDir: ['.'], // Check content files in the whole application
   },
 };
 

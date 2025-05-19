@@ -37,28 +37,13 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
   const content: ReplaceValue<ContentConfig> = {
     fileExtensions: import.meta.env.VITE_INTLAYER_FILE_EXTENSIONS,
     baseDir: import.meta.env.VITE_INTLAYER_BASE_DIR,
-    contentDirName: import.meta.env.VITE_INTLAYER_CONTENT_DIR_NAME,
     contentDir: import.meta.env.VITE_INTLAYER_CONTENT_DIR,
     excludedPath: import.meta.env.VITE_INTLAYER_EXCLUDED_PATH,
-    resultDirName: import.meta.env.VITE_INTLAYER_RESULT_DIR_NAME,
-    moduleAugmentationDirName: import.meta.env
-      .VITE_INTLAYER_MODULE_AUGMENTATION_DIR_NAME,
-    unmergedDictionariesDirName: import.meta.env
-      .VITE_INTLAYER_UNMERGED_DICTIONARIES_DIR_NAME,
-    dictionariesDirName: import.meta.env.VITE_INTLAYER_DICTIONARIES_DIR_NAME,
-    i18nextResourcesDirName: import.meta.env
-      .VITE_INTLAYER_I18N_RESOURCES_DIR_NAME,
-    reactIntlMessagesDirName: import.meta.env
-      .VITE_INTLAYER_REACT_INTL_MESSAGES_DIR_NAME,
-    typeDirName: import.meta.env.VITE_INTLAYER_TYPE_DIR_NAME,
-    mainDirName: import.meta.env.VITE_INTLAYER_MAIN_DIR_NAME,
-    configDirName: import.meta.env.VITE_INTLAYER_CONFIG_DIR_NAME,
-    resultDir: import.meta.env.VITE_INTLAYER_RESULT_DIR,
+    dictionariesDir: import.meta.env.VITE_INTLAYER_RESULT_DIR,
     moduleAugmentationDir: import.meta.env
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR,
     unmergedDictionariesDir: import.meta.env
       .VITE_INTLAYER_UNMERGED_DICTIONARIES_DIR,
-    dictionariesDir: import.meta.env.VITE_INTLAYER_DICTIONARIES_DIR,
     i18nextResourcesDir: import.meta.env.VITE_INTLAYER_I18N_DICTIONARIES_DIR,
     reactIntlMessagesDir: import.meta.env
       .VITE_INTLAYER_REACT_INTL_DICTIONARIES_DIR,

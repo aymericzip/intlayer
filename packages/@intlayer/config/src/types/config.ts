@@ -365,15 +365,6 @@ export type BaseContentConfig = {
   baseDir: string;
 
   /**
-   * Name of the directory where the content is stored
-   *
-   * Default: 'src'
-   *
-   * Specifies the directory where the primary content is stored.
-   */
-  contentDirName: string;
-
-  /**
    * Directories to be excluded from content processing
    *
    * Default: ['node_modules']
@@ -381,99 +372,6 @@ export type BaseContentConfig = {
    * A list of directories to exclude from content processing.
    */
   excludedPath: string[];
-
-  /**
-   * Name of the directory where results are stored
-   *
-   * Default: '.intlayer'
-   *
-   * The directory for storing intermediate or output results.
-   */
-  resultDirName: string;
-
-  /**
-   * Name of the directory for module augmentation
-   *
-   * Default: 'types'
-   *
-   * Defines the directory for additional module types.
-   */
-  moduleAugmentationDirName: string;
-
-  /**
-   * Name of the directory where unmerged dictionaries are stored
-   *
-   * Default: 'unmerged_dictionary'
-   *
-   * The directory for storing unmerged localization dictionaries.
-   *
-   * Note:
-   * - Ensure the dictionaries output includes unmerged to build the dictionaries for unmerged
-   */
-  unmergedDictionariesDirName: string;
-
-  /**
-   * Name of the directory where final dictionaries are stored
-   *
-   * Default: 'dictionary'
-   *
-   * The directory for storing localization dictionaries.
-   *
-   * Note:
-   * - Ensure the dictionaries output includes intlayer to build the dictionaries for intlayer
-   */
-  dictionariesDirName: string;
-
-  /**
-   * Name of the directory where dictionaries are stored
-   *
-   * Default: 'i18next_dictionary'
-   *
-   * The directory for storing localization dictionaries.
-   *
-   * Note:
-   * - Ensure the dictionaries output includes 'i18next' to build the dictionaries for i18next
-   */
-  i18nextResourcesDirName: string;
-
-  /**
-   * Name of the directory where dictionaries are stored
-   *
-   * Default: 'react-intl_dictionary'
-   *
-   * The directory for storing localization dictionaries.
-   *
-   * Note:
-   * - Ensure the dictionaries output includes 'react-intl' to build the dictionaries for react-intl
-   */
-  reactIntlMessagesDirName: string;
-
-  /**
-   * Name of the directory where dictionary types are stored
-   *
-   * Default: 'types'
-   *
-   * The directory for storing dictionary type definitions.
-   */
-  typeDirName: string;
-
-  /**
-   * Name of the directory where the main files are stored
-   *
-   * Default: 'main'
-   *
-   * Specifies the directory for storing main application files.
-   */
-  mainDirName: string;
-
-  /**
-   * Name of the directory where the configuration files are stored
-   *
-   * Default: 'config'
-   *
-   * Specifies the directory for storing configuration files.
-   */
-  configDirName: string;
 
   /**
    * Indicates if Intlayer should watch for changes in the content declaration files in the app to rebuild the related dictionaries.
@@ -492,25 +390,25 @@ export type BaseDerivedConfig = {
   /**
    * Directory where the content is stored, relative to the base directory
    *
-   * Default: {{baseDir}} / {{contentDirName}}
+   * Default: ['src']
    *
    * Derived content directory based on the base configuration.
    */
-  contentDir: string;
+  contentDir: string[];
 
   /**
    * Directory where the results are stored, relative to the base directory
    *
-   * Default: {{baseDir}} / {{resultDirName}}
+   * Default: .intlayer/dictionary
    *
    * Derived results directory based on the base configuration.
    */
-  resultDir: string;
+  dictionariesDir: string;
 
   /**
    * Directory for module augmentation, relative to the base directory
    *
-   * Default: {{baseDir}} / {{moduleAugmentationDirName}}
+   * Default: .intlayer/types
    *
    * Defines the derived path for module augmentation.
    */
@@ -538,7 +436,7 @@ export type ResultDirDerivedConfig = {
   /**
    * Directory where unmerged dictionaries are stored, relative to the result directory
    *
-   * Default: {{resultDir}} / {{unmergedDictionariesDirName}}
+   * Default: .intlayer/unmerged_dictionary
    *
    * Specifies the derived path for unmerged dictionaries relative to the result directory.
    */
@@ -547,7 +445,7 @@ export type ResultDirDerivedConfig = {
   /**
    * Directory where final dictionaries are stored, relative to the result directory
    *
-   * Default: {{resultDir}} / {{dictionariesDirName}}
+   * Default: .intlayer/dictionary
    *
    * Specifies the derived path for dictionaries relative to the result directory.
    */
@@ -556,7 +454,7 @@ export type ResultDirDerivedConfig = {
   /**
    * Directory where dictionaries are stored, relative to the result directory
    *
-   * Default: {{resultDir}} / {{i18nextResourcesDirName}}
+   * Default: i18next_resources
    *
    * Specifies the derived path for dictionaries relative to the result directory.
    *
@@ -568,7 +466,7 @@ export type ResultDirDerivedConfig = {
   /**
    * Directory where dictionaries are stored, relative to the result directory
    *
-   * Default: {{resultDir}} / {{reactIntlMessagesDirName}}
+   * Default: intl_messages
    *
    * Specifies the derived path for dictionaries relative to the result directory.
    *
@@ -580,7 +478,7 @@ export type ResultDirDerivedConfig = {
   /**
    * Directory where dictionary types are stored, relative to the result directory
    *
-   * Default: {{resultDir}} / {{typeDirName}}
+   * Default: .intlayer/types
    *
    * Specifies the derived path for dictionary types relative to the result directory.
    */
@@ -589,7 +487,7 @@ export type ResultDirDerivedConfig = {
   /**
    * Directory where the main files are stored, relative to the result directory
    *
-   * Default: {{resultDir}} / {{mainDirName}}
+   * Default: .intlayer/main
    *
    * Specifies the derived path for the main files relative to the result directory.
    */
@@ -598,7 +496,7 @@ export type ResultDirDerivedConfig = {
   /**
    * Directory where the configuration files are stored, relative to the result directory
    *
-   * Default: {{resultDir}} / {{configDirName}}
+   * Default: .intlayer/config
    *
    * Specifies the derived path for the configuration files relative to the result directory.
    */
@@ -621,7 +519,7 @@ export type PatternsContentConfig = {
   /**
    * Patterns of files to watch for changes including the relative path
    *
-   * Default: ['{{contentDir}}/**\/*.content.ts', '{{contentDir}}/**\/*.content.js', '{{contentDir}}/**\/*.content.json', '{{contentDir}}/**\/*.content.cjs', '{{contentDir}}/**\/*.content.mjs', '{{contentDir}}/**\/*.content.tsx', '{{contentDir}}/**\/*.content.jsx']
+   * Default: ['src/**\/*.content.ts', 'src/**\/*.content.js', 'src/**\/*.content.json', 'src/**\/*.content.cjs', 'src/**\/*.content.mjs', 'src/**\/*.content.tsx', 'src/**\/*.content.jsx']
    *
    * Specifies the file patterns for content to watch, including relative paths.
    */

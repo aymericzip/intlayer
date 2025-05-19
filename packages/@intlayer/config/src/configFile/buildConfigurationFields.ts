@@ -1,18 +1,17 @@
 import { join } from 'path';
 import {
-  CONFIG_DIR_NAME,
-  CONTENT_DIR_NAME,
-  DICTIONARIES_DIR_NAME,
+  CONFIG_DIR,
+  CONTENT_DIR,
+  DICTIONARIES_DIR,
   DICTIONARY_OUTPUT,
   EXCLUDED_PATHS,
   FILE_EXTENSIONS,
-  I18NEXT_DICTIONARIES_DIR_NAME,
-  MAIN_DIR_NAME,
-  MODULE_AUGMENTATION_DIR_NAME,
-  REACT_INTL_MESSAGES_DIR_NAME,
-  RESULT_DIR_NAME,
-  TYPES_DIR_NAME,
-  UNMERGED_DICTIONARIES_DIR_NAME,
+  I18NEXT_DICTIONARIES_DIR,
+  MAIN_DIR,
+  MODULE_AUGMENTATION_DIR,
+  REACT_INTL_MESSAGES_DIR,
+  TYPES_DIR,
+  UNMERGED_DICTIONARIES_DIR,
   WATCH,
 } from '../defaultValues/content';
 import {
@@ -189,7 +188,7 @@ const buildContentFields = (
     /**
      * Absolute path of the directory of the project
      * - Default: process.cwd()
-     * - Example: '/path/to/project'
+     * - Example: '
      *
      * Will be used to resolve all intlayer directories
      *
@@ -198,155 +197,6 @@ const buildContentFields = (
      * - Can be changed to a custom directory to externalize either the content used in the project, or the intlayer application from the project
      */
     baseDir: customConfiguration?.baseDir ?? baseDir ?? process.cwd(),
-
-    /**
-     * Directory name where the content is stored
-     *
-     * Default: 'src'
-     *
-     * Example:
-     *  - 'data' -> '/path/to/project/data'
-     *  - 'content' -> '/path/to/project/content'
-     *  - 'locales' -> '/path/to/project/locales'
-     *
-     * Note: If this directory is not at the base directory level, update the contentDir field instead
-     */
-    contentDirName: customConfiguration?.contentDirName ?? CONTENT_DIR_NAME,
-
-    /**
-     * Directory name where the result will be stored
-     *
-     * Default: '.intlayer'
-     *
-     * Example:
-     *  - '.next'
-     *  - 'outputOFIntlayer'
-     *
-     * Note: If this directory is not at the base directory level, update the resultDir field instead
-     */
-    resultDirName: customConfiguration?.resultDirName ?? RESULT_DIR_NAME,
-
-    /**
-     *
-     * Directory name where the module augmentation will be stored
-     *
-     * Module augmentation allow better IDE suggestions and type checking
-     *
-     * Default: 'types'
-     *
-     * Example: 'intlayer-types'
-     *
-     * Note:
-     * - If this path changed, be sure to include it from the tsconfig.json file
-     * - If this directory is not at the base directory level, update the moduleAugmentationDir field instead
-     */
-    moduleAugmentationDirName:
-      customConfiguration?.moduleAugmentationDirName ??
-      MODULE_AUGMENTATION_DIR_NAME,
-    // @TODO: Make Module Augmentation optional by adding a flag in the configuration
-
-    /**
-     * Related to the intlayer result directory
-     *
-     * Directory name where the unmerged dictionaries will be stored
-     *
-     * Default: 'unmerged_dictionary'
-     *
-     * Example: 'unmerged_translations'
-     *
-     */
-    unmergedDictionariesDirName:
-      customConfiguration?.unmergedDictionariesDirName ??
-      UNMERGED_DICTIONARIES_DIR_NAME,
-
-    /**
-     * Related to the intlayer result directory
-     *
-     * Directory name where the dictionaries will be stored
-     *
-     * Default: 'dictionary'
-     *
-     * Example: 'translations'
-     *
-     * Note:
-     * - If this directory is not at the result directory level, update the dictionariesDir field instead
-     *
-     */
-    dictionariesDirName:
-      customConfiguration?.dictionariesDirName ?? DICTIONARIES_DIR_NAME,
-
-    /**
-     * Related to the intlayer result directory
-     *
-     * Directory name where the dictionaries will be stored
-     *
-     * Default: 'dictionary'
-     *
-     * Example: 'translations'
-     *
-     * Note:
-     * - If this directory is not at the result directory level, update the dictionariesDir field instead
-     *
-     */
-    i18nextResourcesDirName:
-      customConfiguration?.i18nextResourcesDirName ??
-      I18NEXT_DICTIONARIES_DIR_NAME,
-
-    /**
-     *  Related to the intlayer result directory
-     *
-     * Directory name where the dictionaries will be stored
-     *
-     * Default: 'react-intl_dictionary'
-     *
-     * Example: 'translations'
-     *
-     * Note:
-     * - If this directory is not at the result directory level, update the dictionariesDir field instead
-     *
-     */
-    reactIntlMessagesDirName:
-      customConfiguration?.reactIntlMessagesDirName ??
-      REACT_INTL_MESSAGES_DIR_NAME,
-
-    /**
-     *  Related to the intlayer result directory
-     *
-     * Directory name where the dictionaries types will be stored
-     *
-     * Default: 'types'
-     *
-     * Example: 'intlayer-types'
-     *
-     * Note:
-     * - If this directory is not at the result directory level, update the typesDir field instead
-     *
-     */
-    typeDirName: customConfiguration?.typeDirName ?? TYPES_DIR_NAME,
-
-    /**
-     * Related to the intlayer result directory
-     *
-     * Directory name where the main files will be stored
-     *
-     * Default: 'main'
-     *
-     * Example: 'intlayer-main'
-     *
-     * Note:
-     * - If this directory is not at the result directory level, update the mainDir field instead
-     */
-    mainDirName: customConfiguration?.mainDirName ?? MAIN_DIR_NAME,
-
-    /**
-     * Name of the directory where the configuration files are stored
-     *
-     * Default: 'config'
-     *
-     * Example: 'intlayer-config'
-     *
-     */
-    configDirName: customConfiguration?.configDirName ?? CONFIG_DIR_NAME,
 
     /**
      * Should exclude some directories from the content search
@@ -372,17 +222,16 @@ const buildContentFields = (
      *
      * Relative to the base directory of the project
      *
-     * Default: {{baseDir}} / {{contentDirName}}
+     * Default: ./src
      *
-     * Example: '/path/to/project/src'
+     * Example: 'src'
      *
      * Note:
      * - Can be changed to a custom directory to externalize the content used in the project
      * - If the content is not at the base directory level, update the contentDirName field instead
      */
-    contentDir: join(
-      notDerivedContentConfig.baseDir,
-      notDerivedContentConfig.contentDirName
+    contentDir: (customConfiguration?.contentDir ?? CONTENT_DIR).map(
+      (contentDir) => join(notDerivedContentConfig.baseDir, contentDir)
     ),
 
     /**
@@ -390,17 +239,18 @@ const buildContentFields = (
      *
      * Relative to the base directory of the project
      *
-     * Default: {{baseDir}} / {{resultDirName}}
+     * Default: .intlayer/dictionary
      *
-     * Example: '/path/to/project/.intlayer'
+     * Example: '.intlayer'
      *
      * Note:
      * - Can be changed to a custom directory to externalize the intlayer application from the project
-     * - If the result is not at the base directory level, update the resultDirName field instead
+     * - If the result is not at the base directory level, update the dictionariesDirName field instead
      */
-    resultDir: join(
+    dictionariesDir: join(
       notDerivedContentConfig.baseDir,
-      notDerivedContentConfig.resultDirName
+
+      customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
     ),
 
     /**
@@ -410,9 +260,9 @@ const buildContentFields = (
      *
      * Relative to the base directory of the project
      *
-     * Default: {{baseDir}} / {{moduleAugmentationDirName}}
+     * Default: .intlayer/types
      *
-     * Example: '/path/to/project/types'
+     * Example: 'types'
      *
      * Note:
      * - If this path changed, be sure to include it from the tsconfig.json file
@@ -421,7 +271,8 @@ const buildContentFields = (
      */
     moduleAugmentationDir: join(
       notDerivedContentConfig.baseDir,
-      notDerivedContentConfig.moduleAugmentationDirName
+
+      customConfiguration?.moduleAugmentationDir ?? MODULE_AUGMENTATION_DIR
     ),
 
     /**
@@ -437,18 +288,19 @@ const buildContentFields = (
       customConfiguration?.dictionaryOutput ?? DICTIONARY_OUTPUT,
   };
 
-  const resultDirDerivedConfiguration: ResultDirDerivedConfig = {
+  const dictionariesDirDerivedConfiguration: ResultDirDerivedConfig = {
     /**
      * Directory where the unmerged dictionaries will be stored
      *
      * Relative to the result directory
      *
-     * Default: {{resultDir}} / {{unmergedDictionariesDirName}}
+     * Default: '.intlayer/unmerged_dictionary'
      *
      */
     unmergedDictionariesDir: join(
-      baseDirDerivedConfiguration.resultDir,
-      notDerivedContentConfig.unmergedDictionariesDirName
+      notDerivedContentConfig.baseDir,
+
+      customConfiguration?.unmergedDictionariesDir ?? UNMERGED_DICTIONARIES_DIR
     ),
 
     /**
@@ -456,9 +308,9 @@ const buildContentFields = (
      *
      * Relative to the result directory
      *
-     * Default: {{resultDir}} / {{dictionariesDirName}}
+     * Default: .intlayer/dictionary
      *
-     * Example: '/path/to/project/.intlayer/dictionary'
+     * Example: '.intlayer/dictionary'
      *
      * Note:
      * - If the types are not at the result directory level, update the dictionariesDirName field instead
@@ -467,8 +319,9 @@ const buildContentFields = (
      * - The dictionaries are built from the content files
      */
     dictionariesDir: join(
-      baseDirDerivedConfiguration.resultDir,
-      notDerivedContentConfig.dictionariesDirName
+      notDerivedContentConfig.baseDir,
+
+      customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
     ),
 
     /**
@@ -476,16 +329,17 @@ const buildContentFields = (
      *
      * Relative to the result directory
      *
-     * Default: {{resultDir}} / {{i18nextResourcesDirName}}
+     * Default: i18next_resources
      *
-     * Example: '/path/to/project/.intlayer/dictionary/i18n'
+     * Example: '.intlayer/dictionary/i18n'
      *
      * Note:
      * - If the types are not at the result directory level, update the i18nextResourcesDirName field instead
      */
     i18nextResourcesDir: join(
-      baseDirDerivedConfiguration.resultDir,
-      notDerivedContentConfig.i18nextResourcesDirName
+      notDerivedContentConfig.baseDir,
+
+      customConfiguration?.i18nextResourcesDir ?? I18NEXT_DICTIONARIES_DIR
     ),
 
     /**
@@ -493,16 +347,17 @@ const buildContentFields = (
      *
      * Relative to the result directory
      *
-     * Default: {{resultDir}} / {{reactIntlMessagesDirName}}
+     * Default: intl_messages
      *
-     * Example: '/path/to/project/.intlayer/react-intl_dictionary'
+     * Example: '.intlayer/react-intl_dictionary'
      *
      * Note:
      * - If the types are not at the result directory level, update the dictionariesDirName field instead
      */
     reactIntlMessagesDir: join(
-      baseDirDerivedConfiguration.resultDir,
-      notDerivedContentConfig.reactIntlMessagesDirName
+      notDerivedContentConfig.baseDir,
+
+      customConfiguration?.reactIntlMessagesDir ?? REACT_INTL_MESSAGES_DIR
     ),
 
     /**
@@ -510,16 +365,17 @@ const buildContentFields = (
      *
      * Relative to the result directory
      *
-     * Default: {{resultDir}} / {{typeDirName}}
+     * Default: .intlayer/types
      *
-     * Example: '/path/to/project/types'
+     * Example: 'types'
      *
      * Note:
      * - If the types are not at the result directory level, update the typesDirName field instead
      */
     typesDir: join(
-      baseDirDerivedConfiguration.resultDir,
-      notDerivedContentConfig.typeDirName
+      notDerivedContentConfig.baseDir,
+
+      customConfiguration?.typesDir ?? TYPES_DIR
     ),
 
     /**
@@ -527,17 +383,18 @@ const buildContentFields = (
      *
      * Relative to the result directory
      *
-     * Default: {{resultDir}} / {{mainDirName}}
+     * Default: .intlayer/main
      *
-     * Example: '/path/to/project/.intlayer/main'
+     * Example: '.intlayer/main'
      *
      * Note:
      *
      * - If the main files are not at the result directory level, update the mainDirName field instead
      */
     mainDir: join(
-      baseDirDerivedConfiguration.resultDir,
-      notDerivedContentConfig.mainDirName
+      notDerivedContentConfig.baseDir,
+
+      customConfiguration?.mainDir ?? MAIN_DIR
     ),
 
     /**
@@ -545,17 +402,18 @@ const buildContentFields = (
      *
      * Relative to the result directory
      *
-     * Default: {{resultDir}} / {{configDirName}}
+     * Default: .intlayer/config
      *
-     * Example: '/path/to/project/.intlayer/config'
+     * Example: '.intlayer/config'
      *
      * Note:
      *
      * - If the configuration files are not at the result directory level, update the configDirName field instead
      */
     configDir: join(
-      baseDirDerivedConfiguration.resultDir,
-      notDerivedContentConfig.configDirName
+      notDerivedContentConfig.baseDir,
+
+      customConfiguration?.configDir ?? CONFIG_DIR
     ),
   };
 
@@ -572,24 +430,27 @@ const buildContentFields = (
     /**
      * Pattern of files to watch including the relative path
      *
-     * Default: ['{{contentDir}}/**\/*.content.ts', '{{contentDir}}/**\/*.content.js', '{{contentDir}}/**\/*.content.json', '{{contentDir}}/**\/*.content.cjs', '{{contentDir}}/**\/*.content.mjs', '{{contentDir}}/**\/*.content.tsx', '{{contentDir}}/**\/*.content.jsx']
+     * Default: ['src/**\/*.content.ts', 'src/**\/*.content.js', 'src/**\/*.content.json', 'src/**\/*.content.cjs', 'src/**\/*.content.mjs', 'src/**\/*.content.tsx', 'src/**\/*.content.jsx']
      */
-    watchedFilesPatternWithPath: notDerivedContentConfig.fileExtensions.map(
-      (ext) => `${baseDirDerivedConfiguration.contentDir}/**/*${ext}`
+    watchedFilesPatternWithPath: notDerivedContentConfig.fileExtensions.flatMap(
+      (ext) =>
+        baseDirDerivedConfiguration.contentDir.map(
+          (contentDir) => `${contentDir}/**/*${ext}`
+        )
     ),
 
     /**
      * Pattern of dictionary to interpret
      *
-     * Default: '{{dictionariesDir}}/**\/*.json'
+     * Default: '.intlayer/dictionary/**\/*.json'
      */
-    outputFilesPatternWithPath: `${resultDirDerivedConfiguration.dictionariesDir}/**/*.json`,
+    outputFilesPatternWithPath: `${dictionariesDirDerivedConfiguration.dictionariesDir}/**/*.json`,
   };
 
   return {
     ...notDerivedContentConfig,
     ...baseDirDerivedConfiguration,
-    ...resultDirDerivedConfiguration,
+    ...dictionariesDirDerivedConfiguration,
     ...patternsConfiguration,
   };
 };

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Intlayer configuration files allow customization of various aspects of the plugin, such as internationalisation, middleware, and content handling. This document provides a detailed description of each property in the configuration.
+Intlayer configuration files allow customisation of various aspects of the plugin, such as internationalisation, middleware, and content handling. This document provides a detailed description of each property in the configuration.
 
 ---
 
@@ -104,12 +104,13 @@ Defines settings related to internationalisation, including available locales an
 
   - _Type_: `string`
   - _Default_: `inclusive`
-  - _Description_: Ensure strong implementations of internationalised content using typescript.
-  - _Note_: If set to "strict", the translation `t` function will require each declared locales to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
-  - _Note_: If set to "inclusive", the translation `t` function will require each declared locales to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exists.
+  - _Description_: Ensure strong implementations of internationalised content using TypeScript.
+  - _Note_: If set to "strict", the translation `t` function will require each declared locale to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
+  - _Note_: If set to "inclusive", the translation `t` function will require each declared locale to be defined. If one locale is missing, it will throw a warning. But it will accept if a locale is not declared in your config, but exists.
   - _Note_: If set to "loose", the translation `t` function will accept any existing locale.
 
 - **defaultLocale**:
+
   - _Type_: `string`
   - _Default_: `'en'`
   - _Description_: The default locale used as a fallback if the requested locale is not found.
@@ -127,10 +128,9 @@ Defines settings related to the integrated editor, including server port and act
 - **applicationURL**:
 
   - _Type_: `string`
-  - _Default_: `'*'`
+  - _Default_: `http://localhost:3000`
   - _Description_: The URL of the application. Used to restrict the origin of the editor for security reasons.
   - _Example_:
-    - `'*'`
     - `'http://localhost:3000'`
     - `'https://example.com'`
     - `process.env.INTLAYER_EDITOR_URL`
@@ -150,7 +150,6 @@ Defines settings related to the integrated editor, including server port and act
     - `'http://localhost:3000'`
     - `'https://example.com'`
     - `process.env.INTLAYER_EDITOR_URL`
-    - `''*'`
   - _Note_: The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if port is changed, or if the editor is hosted on a different domain.
 
 - **cmsURL**:
@@ -174,13 +173,13 @@ Defines settings related to the integrated editor, including server port and act
   - _Default_: `true`
   - _Description_: Indicates if the application interacts with the visual editor.
   - _Example_: `process.env.NODE_ENV !== 'production'`
-  - _Note_: If true, the editor will be able to interact with the application. If false, the editor will not be able to interact with the application. In any case, the editor can only be enabled by the visual editor. Disabling the editor for specific environments is a way to enforce the security.
+  - _Note_: If true, the editor will be able to interact with the application. If false, the editor will not be able to interact with the application. In any case, the editor can only be enabled by the visual editor. Disabling the editor for specific environments is a way to enforce security.
 
 - **clientId**:
 
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
+  - _Description_: clientId and clientSecret allow the Intlayer packages to authenticate with the backend using OAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
@@ -188,7 +187,7 @@ Defines settings related to the integrated editor, including server port and act
 
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
+  - _Description_: clientId and clientSecret allow the Intlayer packages to authenticate with the backend using OAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
@@ -214,36 +213,50 @@ Settings that control middleware behaviour, including how the application handle
 #### Properties
 
 - **headerName**:
+
   - _Type_: `string`
   - _Default_: `'x-intlayer-locale'`
   - _Description_: The name of the HTTP header used to determine the locale.
   - _Example_: `'x-custom-locale'`
   - _Note_: This is useful for API-based locale determination.
+
+---
+
+---
+
 - **cookieName**:
+
   - _Type_: `string`
   - _Default_: `'intlayer-locale'`
   - _Description_: The name of the cookie used to store the locale.
   - _Example_: `'custom-locale'`
   - _Note_: Used to persist the locale across sessions.
+
 - **prefixDefault**:
+
   - _Type_: `boolean`
   - _Default_: `true`
   - _Description_: Whether to include the default locale in the URL.
   - _Example_: `false`
   - _Note_: If `false`, URLs for the default locale will not have a locale prefix.
+
 - **basePath**:
+
   - _Type_: `string`
   - _Default_: `''`
   - _Description_: The base path for the application URLs.
   - _Example_: `'/my-app'`
   - _Note_: This affects how URLs are constructed for the application.
+
 - **serverSetCookie**:
+
   - _Type_: `string`
   - _Default_: `'always'`
   - _Description_: Rule for setting the locale cookie on the server.
   - _Options_: `'always'`, `'never'`
   - _Example_: `'never'`
   - _Note_: Controls whether the locale cookie is set on every request or never.
+
 - **noPrefix**:
   - _Type_: `boolean`
   - _Default_: `false`
@@ -260,113 +273,89 @@ Settings related to content handling within the application, including directory
 #### Properties
 
 - **watch**:
+
   - _Type_: `boolean`
   - _Default_: `process.env.NODE_ENV === 'development'`
   - _Description_: Indicates if Intlayer should watch for changes in the content declaration files in the app to rebuild the related dictionaries.
+
 - **fileExtensions**:
+
   - _Type_: `string[]`
   - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
   - _Description_: File extensions to look for when building dictionaries.
   - _Example_: `['.data.ts', '.data.js', '.data.json']`
   - _Note_: Customising file extensions can help avoid conflicts.
+
 - **baseDir**:
+
   - _Type_: `string`
   - _Default_: `process.cwd()`
   - _Description_: The base directory for the project.
   - _Example_: `'/path/to/project'`
   - _Note_: This is used to resolve all Intlayer-related directories.
+
 - **dictionaryOutput**:
+
   - _Type_: `string[]`
   - _Default_: `['intlayer']`
   - _Description_: The type of dictionary output to use, e.g., `'intlayer'` or `'i18next'`.
-- **contentDirName**:
-  - _Type_: `string`
-  - _Default_: `'src'`
-  - _Description_: The name of the directory where the content is stored.
-  - _Example_: `'data'`, `'content'`, `'locales'`
-  - _Note_: If not at the base directory level, update the `contentDir`.
+
 - **contentDir**:
 
-  - _Type_: `string`
-  - _DerivedFrom_: `'baseDir'` / `'contentDirName'`
+  - _Type_: `string[]`
+  - _Default_: `['src']`
   - _Description_: The directory path where content is stored.
 
-- **resultDirName**:
-  - _Type_: `string`
-  - _Default_: `'.intlayer'`
-  - _Description_: The name of the directory where results are stored.
-  - _Example_: `'outputOFIntlayer'`
-  - _Note_: If this directory is not at the base level, update `resultDir`.
-- **resultDir**:
+- **dictionariesDir**:
 
   - _Type_: `string`
-  - _DerivedFrom_: `'baseDir'` / `'resultDirName'`
-  - _Description_: The directory for storing intermediate or output results.
-
-- **moduleAugmentationDirName**:
-
-  - _Type_: `string`
-  - _Default_: `'types'`
-  - _Description_: Directory for module augmentation, allowing better IDE suggestions and type checking.
-  - _Example_: `'intlayer-types'`
-  - _Note_: Be sure to include this in `tsconfig.json`.
+  - _Default_: `'.intlayer/dictionaries'`
+  - _Description_: The directory path for storing intermediate or output results.
 
 - **moduleAugmentationDir**:
 
   - _Type_: `string`
-  - _DerivedFrom_: `'baseDir'` / `'moduleAugmentationDirName'`
-  - _Description_: The path for module augmentation and additional type definitions.
+  - _Default_: `'.intlayer/types'`
+  - _Description_: Directory for module augmentation, allowing better IDE suggestions and type checking.
+  - _Example_: `'intlayer-types'`
+  - _Note_: Be sure to include this in `tsconfig.json`.
 
-- **dictionariesDirName**:
+- **unmergedDictionariesDir**:
+
   - _Type_: `string`
-  - _Default_: `'dictionary'`
-  - _Description_: Directory for storing dictionaries.
+  - _Default_: `'.intlayer/unmerged_dictionary'`
+  - _Description_: The directory for storing unmerged dictionaries.
   - _Example_: `'translations'`
-  - _Note_: If not at the result directory level, update `dictionariesDir`.
+
 - **dictionariesDir**:
 
   - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'dictionariesDirName'`
+  - _Default_: `'.intlayer/dictionary'`
   - _Description_: The directory for storing localisation dictionaries.
-
-- **i18nextResourcesDirName**:
-  - _Type_: `string`
-  - _Default_: `'i18next_dictionary'`
-  - _Description_: Directory for storing i18n dictionaries.
   - _Example_: `'translations'`
-  - _Note_: If not at the result directory level, update `i18nextResourcesDir`.
-  - _Note_: Ensure the i18n dictionaries output includes i18next to build the dictionaries for i18next
+
 - **i18nextResourcesDir**:
 
   - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'i18nextResourcesDirName'`
+  - _Default_: `'i18next_dictionary'`
   - _Description_: The directory for storing i18n dictionaries.
+  - _Example_: `'translations'`
   - _Note_: Ensure this directory is configured for the i18next output type.
-
-- **typeDirName**:
-
-  - _Type_: `string`
-  - _Default_: `'types'`
-  - _Description_: Directory for storing dictionary types.
-  - _Example_: `'intlayer-types'`
-  - _Note_: If not at the result directory level, update `typesDir`.
 
 - **typesDir**:
 
   - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'typeDirName'`
+  - _Default_: `'types'`
   - _Description_: The directory for storing dictionary types.
+  - _Example_: `'intlayer-types'`
 
-- **mainDirName**:
+- **mainDir**:
+
   - _Type_: `string`
   - _Default_: `'main'`
-  - _Description_: Directory for storing main files.
-  - _Example_: `'intlayer-main'`
-  - _Note_: If not at the result directory level, update `mainDir`.
-- **mainDir**:
-  - _Type_: `string`
-  - _DerivedFrom_: `'resultDir'` / `'mainDirName'`
   - _Description_: The directory where main application files are stored.
+  - _Example_: `'intlayer-main'`
+
 - **excludedPath**:
   - _Type_: `string[]`
   - _Default_: `['node_modules']`
@@ -380,13 +369,16 @@ Settings that control the logger, including the prefix to use.
 #### Properties
 
 - **mode**:
+
   - _Type_: `string`
   - _Default_: `default`
   - _Description_: Indicates the mode of the logger.
   - _Options_: `default`, `verbose`, `disabled`
   - _Example_: `default`
   - _Note_: The mode of the logger. Verbose mode will log more information, but can be used for debugging purposes. Disabled mode will disable the logger.
+
 - **prefix**:
+
   - _Type_: `string`
   - _Default_: `'[intlayer] '`
   - _Description_: The prefix of the logger.
@@ -444,3 +436,5 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Description_: Your API key for the selected provider.
   - _Example_: `process.env.OPENAI_API_KEY`
   - _Note_: Important: API keys should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
+
+---

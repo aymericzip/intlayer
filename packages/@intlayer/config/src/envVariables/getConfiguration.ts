@@ -57,15 +57,9 @@ export const getConfiguration = (
   const intlayerContentConfiguration: ContentConfig = {
     fileExtensions: getEnvValue<string>(env.content.fileExtensions, 'array')!,
     baseDir: getEnvValue(env.content.baseDir, 'string')!,
-    contentDirName: getEnvValue(env.content.contentDirName, 'string')!,
-    contentDir: getEnvValue(env.content.contentDir, 'string')!,
+    contentDir: getEnvValue<string>(env.content.contentDir, 'array')!,
     excludedPath: getEnvValue<string>(env.content.excludedPath, 'array')!,
-    resultDirName: getEnvValue(env.content.resultDirName, 'string')!,
-    resultDir: getEnvValue(env.content.resultDir, 'string')!,
-    moduleAugmentationDirName: getEnvValue(
-      env.content.moduleAugmentationDirName,
-      'string'
-    )!,
+    dictionariesDir: getEnvValue(env.content.dictionariesDir, 'string')!,
     moduleAugmentationDir: getEnvValue(
       env.content.moduleAugmentationDir,
       'string'
@@ -74,40 +68,20 @@ export const getConfiguration = (
       env.content.dictionaryOutput,
       'array'
     )!,
-    unmergedDictionariesDirName: getEnvValue(
-      env.content.unmergedDictionariesDirName,
-      'string'
-    )!,
     unmergedDictionariesDir: getEnvValue(
       env.content.unmergedDictionariesDir,
-      'string'
-    )!,
-    dictionariesDirName: getEnvValue(
-      env.content.dictionariesDirName,
-      'string'
-    )!,
-    dictionariesDir: getEnvValue(env.content.dictionariesDir, 'string')!,
-    i18nextResourcesDirName: getEnvValue(
-      env.content.i18nextResourcesDirName,
       'string'
     )!,
     i18nextResourcesDir: getEnvValue(
       env.content.i18nextResourcesDir,
       'string'
     )!,
-    reactIntlMessagesDirName: getEnvValue(
-      env.content.reactIntlMessagesDirName,
-      'string'
-    )!,
     reactIntlMessagesDir: getEnvValue(
       env.content.reactIntlMessagesDir,
       'string'
     )!,
-    typeDirName: getEnvValue(env.content.typeDirName, 'string')!,
     typesDir: getEnvValue(env.content.typesDir, 'string')!,
-    mainDirName: getEnvValue(env.content.mainDirName, 'string')!,
     mainDir: getEnvValue(env.content.mainDir, 'string')!,
-    configDirName: getEnvValue(env.content.configDirName, 'string')!,
     configDir: getEnvValue(env.content.configDir, 'string')!,
     watchedFilesPattern: getEnvValue<string>(
       env.content.watchedFilesPattern,
