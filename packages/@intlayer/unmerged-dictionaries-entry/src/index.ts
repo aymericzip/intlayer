@@ -28,7 +28,6 @@ export const getUnmergedDictionaries = () => {
   if (existsSync(dictionariesPath)) {
     delete ESMxCJSRequire.cache[dictionariesPath];
     dictionaries = ESMxCJSRequire(dictionariesPath);
-    console.log('getUnmergedDictionaries', dictionaries);
   }
 
   return dictionaries;

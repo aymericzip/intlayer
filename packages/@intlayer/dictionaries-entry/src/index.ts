@@ -22,7 +22,6 @@ export const getDictionaries = () => {
     delete ESMxCJSRequire.cache[dictionariesPath];
 
     dictionaries = ESMxCJSRequire(dictionariesPath);
-    console.log('getDictionaries', dictionaries);
   }
 
   return (dictionaries ?? {}) as Record<
