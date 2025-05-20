@@ -339,7 +339,6 @@ export const setAPI = (): Command => {
       'Fill mode: complete, review. Complete will fill all missing content, review will fill missing content and review existing keys',
       'review'
     )
-    .option('--git-diff', 'Only run on dictionaries with unpushed changes')
     .option('--keys [keys...]', 'Filter dictionaries based on keys')
     .option(
       '--excluded-keys [excludedKeys...]',
