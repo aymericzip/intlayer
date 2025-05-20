@@ -1,18 +1,18 @@
-import type { LocalesValues } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/config/client';
 
 import { getLocalizedUrl } from '@intlayer/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink } from 'lucide-react';
 import {
-  type DetailedHTMLProps,
   type AnchorHTMLAttributes,
+  type DetailedHTMLProps,
   type FC,
 } from 'react';
 import { cn } from '../../utils/cn';
 
 export const linkVariants = cva(
-  'gap-3 font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
+  'gap-3 transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -25,7 +25,7 @@ export const linkVariants = cva(
         'button-outlined':
           'rounded-lg border-[1.5px] hover:bg-current/30 min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
         hoverable:
-          'block rounded-lg border-none bg-current/0 transition hover:bg-current/10 aria-[current]:bg-current/5',
+          'block rounded-lg border-none bg-current/0 transition hover:bg-current/20 aria-[current]:bg-current/5',
       },
       color: {
         primary: 'text-primary',

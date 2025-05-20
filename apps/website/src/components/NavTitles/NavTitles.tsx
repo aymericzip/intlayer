@@ -14,7 +14,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
   const { pathWithoutLocale } = useLocale();
 
   return (
-    <ul className="border-neutral my-3 flex w-full min-w-52 flex-col gap-3 border-l-[0.5px] pl-3">
+    <ul className="border-neutral my-3 flex w-full min-w-52 flex-col gap-5 border-l-[0.5px] pl-3">
       {title2.map((h3) => {
         const { id } = h3;
         const isActive = activeSectionsId === id;
@@ -27,7 +27,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               aria-current={isActive ? 'location' : undefined}
               color="text"
               variant="hoverable"
-              className="text-neutral text-wrap p-2 transition-colors"
+              className="text-wrap p-2 transition-colors flex"
             >
               {h3.innerText}
             </Link>
@@ -157,7 +157,7 @@ export const NavTitles: FC = () => {
                 color="text"
                 variant="hoverable"
                 isActive={isActive}
-                className="text-neutral text-wrap p-2 transition-colors w-80"
+                className="text-wrap p-2 transition-colors flex"
               >
                 {h2.innerText}
               </Link>

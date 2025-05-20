@@ -69,7 +69,11 @@ export const Link: FC<LinkProps> = (props) => {
       )}
       {...otherProps}
     >
-      {variant === 'button' ? <span>{children}</span> : children}
+      {variant === 'button' ? (
+        <span className="size-full">{children}</span>
+      ) : (
+        children
+      )}
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />
       )}

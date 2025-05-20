@@ -1,13 +1,14 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Link } from '@components/Link/Link';
 import {
-  Container,
   Accordion,
   Button,
-  MaxWidthSmoother,
   ClickOutsideDiv,
+  Container,
+  MaxWidthSmoother,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
@@ -15,18 +16,35 @@ import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useState, type ComponentProps, type FC } from 'react';
 import type { Section } from './types';
-import { PagesRoutes } from '@/Routes';
 
 type OptionalLinkProps = ComponentProps<typeof Link>;
 
-const OptionalLink: FC<OptionalLinkProps> = ({ href, isActive, ...props }) => {
-  if (!href) return <span {...props} />;
+const OptionalLink: FC<OptionalLinkProps> = ({
+  href,
+  isActive,
+  className,
+  ...props
+}) => {
+  if (!href)
+    return (
+      <span
+        className={cn(
+          'flex w-full text-nowrap p-2 text-left transition-color text-neutral font-bold',
+          className
+        )}
+        {...props}
+      />
+    );
   return (
     <Link
       href={href}
       variant="hoverable"
       color="text"
       isActive={isActive}
+      className={cn(
+        'flex w-full text-nowrap p-2 text-left transition-color font-bold',
+        className
+      )}
       onClick={(e) => e.stopPropagation()}
       {...props}
     />
@@ -55,11 +73,9 @@ export const DocNavListContent: FC<DocNavListProps> = ({
           <div key={key1}>
             <OptionalLink
               href={sectionDefault?.url ?? ''}
-              className={cn([
-                'text-neutral hover:text-text h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors',
-              ])}
               label={key1}
               isActive={isActive}
+              className="p-0 pl-3"
             >
               {section1Data.title}
             </OptionalLink>
@@ -83,7 +99,6 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                             <OptionalLink
                               label={key2}
                               href={sectionDefault?.url ?? ''}
-                              className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors"
                               isActive={isActive}
                             >
                               {section2Data?.title}
@@ -93,7 +108,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                           isOpen={isActive}
                           className="!py-0 !pl-0"
                         >
-                          <div className="pl-3">
+                          <div className="pl-3 text-sm">
                             {subSections2 &&
                               Object.keys(subSections2).length > 0 && (
                                 <div className="text-neutral hover:text-text flex flex-col items-start gap-2 p-1 transition-colors">
@@ -110,7 +125,6 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                                         key={key3}
                                         label={key3}
                                         href={section3Data.default?.url ?? ''}
-                                        className="text-neutral hover:text-text block w-full text-nowrap p-2 text-left text-xs transition-colors"
                                         isActive={isActive}
                                       >
                                         {section3Data.title}
@@ -124,7 +138,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                       ) : (
                         <OptionalLink
                           href={sectionDefault?.url ?? ''}
-                          className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors"
+                          className="hover:text-text block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors"
                           label={key2}
                           isActive={isActive}
                         >
@@ -141,25 +155,18 @@ export const DocNavListContent: FC<DocNavListProps> = ({
       })}
 
       <div>
-        <OptionalLink
-          href={PagesRoutes.Blog}
-          className={cn(
-            'text-neutral hover:text-text h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors'
-          )}
-          label={blogButton.label.value}
-        >
+        <OptionalLink href={PagesRoutes.Blog} label={blogButton.label.value}>
           {blogButton?.text}
         </OptionalLink>
       </div>
       <div>
         <OptionalLink
           href={PagesRoutes.Doc_Chat}
-          className={cn(
-            'text-neutral hover:text-text flex h-full max-h-full items-center text-nowrap pl-3 text-left font-semibold transition-colors'
-          )}
           label={chatBotButton.label.value}
+          className="flex items-center"
         >
-          <Bot /> {chatBotButton?.text}
+          <Bot />
+          {chatBotButton?.text}
         </OptionalLink>
       </div>
     </nav>
@@ -229,5 +236,3 @@ export const DocNavList: FC<DocNavListProps> = ({
     </ClickOutsideDiv>
   );
 };
-
-export default DocNavList;
