@@ -67,12 +67,22 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB
 
 ##### Arguments:
 
-- `-d`, `--dictionaries`: ids of the dictionaries to pull. If not specified, all dictionaries will be pushed.
+- `-d`, `--dictionaries`: IDs of the dictionaries to push. If not specified, all dictionaries will be pushed.
   > Example: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
+- `-r`, `--deleteLocaleDictionary`: Skip the question that asks to delete the locales directories once the dictionaries are pushed, and remove them. By default, if the dictionary is defined locally, it will overwrite distant dictionaries content.
   > Example: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
+- `-k`, `--keepLocaleDictionary`: Skip the question that asks to delete the locales directories once the dictionaries are pushed, and keep them. By default, if the dictionary is defined locally, it will overwrite distant dictionaries content.
   > Example: `npx intlayer dictionary push -k`
+- `--env`: Specify the environment (e.g., `development`, `production`).
+- `--env-file`: Provide a custom environment file to load variables from.
+- `--base-dir`: Specify the base directory for the project.
+- `--verbose`: Enable verbose logging for debugging.
+- `--git-diff`: Only run on dictionaries with unpushed changes.
+- `--git-diff-base`: Specify the base reference for git diff.
+- `--git-diff-current`: Specify the current reference for git diff.
+- `--uncommitted`: Include uncommitted changes.
+- `--unpushed`: Include unpushed changes.
+- `--untracked`: Include untracked files.
 
 ### Pull distant dictionaries
 
@@ -84,15 +94,13 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB
 
 ##### Arguments:
 
-- `-d, --dictionaries`: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
+- `-d, --dictionaries`: IDs of the dictionaries to pull. If not specified, all dictionaries will be pulled.
   > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
-
-##### Example:
-
-```bash
-npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
-```
+- `--newDictionariesPath`: Path to the directory where the new dictionaries will be saved. If not specified, the new dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` field is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
+- `--env`: Specify the environment (e.g., `development`, `production`).
+- `--env-file`: Provide a custom environment file to load variables from.
+- `--base-dir`: Specify the base directory for the project.
+- `--verbose`: Enable verbose logging for debugging.
 
 ### Audit dictionaries
 
@@ -110,17 +118,71 @@ This command analyzes your content declaration files for potential issues such a
 - **`--exclude [excludedGlobs...]`**  
   Globs pattern to exclude from the audit (e.g. `--exclude "src/test/**"`).
 
-- **`-m, --model [model]`**  
-  The ChatGPT model to use for the audit (e.g., `gpt-3.5-turbo`).
+- **`--source-locale [sourceLocale]`**  
+  The source locale to translate from. If not specified, the default locale from your configuration will be used.
 
-- **`-p, --custom-prompt [prompt]`**  
-  Provide a custom prompt for your audit instructions.
+- **`--output-locales [outputLocales...]`**  
+  Target locales to translate to. If not specified, all locales from your configuration will be used except the source locale.
 
-- **`-l, --async-limit [asyncLimit]`**  
-  Maximum number of files to process concurrently.
+- **`--mode [mode]`**  
+  Translation mode: 'complete', 'review', or 'missing-only'. Default is 'missing-only'.
 
-- **`-k, --open-ai-api-key [openAiApiKey]`**  
-  Provide your own OpenAI API key to bypass OAuth2 authentication.
+- **`--git-diff`**  
+  Only run on dictionaries with unpushed changes in the git repository.
+
+- **`--git-diff-base`**  
+  Specify the base reference for git diff.
+
+- **`--git-diff-current`**  
+  Specify the current reference for git diff.
+
+- **`--uncommitted`**  
+  Include uncommitted changes.
+
+- **`--unpushed`**  
+  Include unpushed changes.
+
+- **`--untracked`**  
+  Include untracked files.
+
+- **`--keys [keys...]`**  
+  Filter dictionaries based on specified keys.
+
+- **`--excluded-keys [excludedKeys...]`**  
+  Filter out dictionaries based on specified keys.
+
+- **`--path-filter [pathFilters...]`**  
+  Filter dictionaries based on glob pattern for file paths.
+
+- **`--model [model]`**  
+  The AI model to use for the translation (e.g., `gpt-3.5-turbo`).
+
+- **`--provider [provider]`**  
+  The AI provider to use for the translation.
+
+- **`--temperature [temperature]`**  
+  Temperature setting for the AI model.
+
+- **`--api-key [apiKey]`**  
+  Provide your own API key for the AI service.
+
+- **`--custom-prompt [prompt]`**  
+  Provide a custom prompt for your translation instructions.
+
+- **`--application-context [applicationContext]`**  
+  Provide additional context for the AI translation.
+
+- **`--env`**  
+  Specify the environment (e.g., `development`, `production`).
+
+- **`--env-file [envFile]`**  
+  Provide a custom environment file to load variables from.
+
+- **`--base-dir`**  
+  Specify the base directory for the project.
+
+- **`--verbose`**  
+  Enable verbose logging for debugging.
 
 ##### Example:
 
@@ -144,6 +206,7 @@ npx intlayer config get
 
 - **`--env`**: Specify the environment (e.g., `development`, `production`).
 - **`--env-file`**: Provide a custom environment file to load variables from.
+- **`--base-dir`**: Specify the base directory for the project.
 - **`--verbose`**: Enable verbose logging for debugging.
 
 #### Push Configuration
@@ -158,6 +221,7 @@ npx intlayer config push
 
 - **`--env`**: Specify the environment (e.g., `development`, `production`).
 - **`--env-file`**: Provide a custom environment file to load variables from.
+- **`--base-dir`**: Specify the base directory for the project.
 - **`--verbose`**: Enable verbose logging for debugging.
 
 By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.

@@ -1,6 +1,8 @@
 import { AIOptions, getAiAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
   filterDictionaryLocales,
+  listGitFiles,
+  ListGitFilesOptions,
   mergeDictionaries,
   processPerLocaleDictionary,
   reduceDictionaryContent,
@@ -21,31 +23,7 @@ import {
 } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
-import { dirname, extname, join, relative } from 'path';
-import simpleGit from 'simple-git';
-
-const getGitRootDir = async (): Promise<string | null> => {
-  try {
-    const git = simpleGit();
-    const rootDir = await git.revparse(['--show-toplevel']);
-    return rootDir.trim();
-  } catch (error) {
-    appLogger('Error getting git root directory:' + error, {
-      level: 'error',
-    });
-    return null;
-  }
-};
-
-const getChangedFilesList = async () => {
-  try {
-    const git = simpleGit();
-    const diff = await git.diff(['--name-only', 'HEAD']);
-    return diff.split('\n').filter(Boolean);
-  } catch (error) {
-    return null;
-  }
-};
+import { dirname, extname, join } from 'path';
 
 // Arguments for the fill function
 export type FillOptions = {
@@ -53,19 +31,20 @@ export type FillOptions = {
   outputLocales?: Locales | Locales[];
   file?: string | string[];
   mode?: 'complete' | 'review';
-  gitDiff?: boolean;
   keys?: string | string[];
   excludedKeys?: string | string[];
   filter?: (entry: Dictionary) => boolean; // DictionaryEntry needs to be defined
   pathFilter?: string | string[];
+  gitOptions?: ListGitFilesOptions;
+  configOptions?: GetConfigurationOptions;
   aiOptions?: AIOptions; // Added aiOptions to be passed to translateJSON
   verbose?: boolean;
-} & GetConfigurationOptions;
+};
 
 const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
 
 const getTargetDictionary = async (options: FillOptions) => {
-  const configuration = getConfiguration(options);
+  const configuration = getConfiguration(options.configOptions);
 
   const { baseDir } = configuration.content;
 
@@ -106,26 +85,18 @@ const getTargetDictionary = async (options: FillOptions) => {
     result = result.filter(options.filter);
   }
 
-  if (options.gitDiff) {
-    const gitChangedFiles = await getChangedFilesList();
-    const gitRootDir = await getGitRootDir();
+  const gitOptions = options.gitOptions;
+  if (gitOptions) {
+    const gitChangedFiles = await listGitFiles(gitOptions);
 
-    if (gitChangedFiles && gitRootDir) {
+    if (gitChangedFiles) {
       // Convert dictionary file paths to be relative to git root for comparison
 
       // Filter dictionaries based on git changed files
       result = result.filter((dict) => {
         if (!dict.filePath) return false;
 
-        // For each dictionary, check if its path matches any of the git changed files
-        // We need to ensure both paths are relative to the same base (git root)
-        const dictPathRelativeToGitRoot = relative(gitRootDir, dict.filePath);
-
-        return gitChangedFiles.some(
-          (gitFile) =>
-            dictPathRelativeToGitRoot === gitFile ||
-            gitFile.includes(dictPathRelativeToGitRoot)
-        );
+        return gitChangedFiles.some((gitFile) => dict.filePath === gitFile);
       });
     }
   }
@@ -320,7 +291,7 @@ const autoFill = async (
  * Fill translations based on the provided options.
  */
 export const fill = async (options: FillOptions): Promise<void> => {
-  const configuration = getConfiguration(options);
+  const configuration = getConfiguration(options.configOptions);
 
   const { defaultLocale, locales } = configuration.internationalization;
   const mode = options.mode ?? 'review';

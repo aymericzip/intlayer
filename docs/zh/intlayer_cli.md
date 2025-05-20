@@ -67,12 +67,22 @@ npx intlayer dictionary push
 
 ##### 参数：
 
-- `-d`, `--dictionaries`: 要推送的字典 ID。如果未指定，将推送所有字典。
+- `-d`, `--dictionaries`: 要推送的字典ID。如果未指定，将推送所有字典。
   > 示例：`npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: 跳过询问是否删除语言环境目录的问题，并删除它们。默认情况下，如果字典在本地定义，它将覆盖远程字典内容。
+- `-r`, `--deleteLocaleDictionary`: 跳过询问是否在推送字典后删除语言目录，并删除。默认情况下，如果字典在本地定义，它将覆盖远程字典的内容。
   > 示例：`npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: 跳过询问是否删除语言环境目录的问题，并保留它们。默认情况下，如果字典在本地定义，它将覆盖远程字典内容。
+- `-k`, `--keepLocaleDictionary`: 跳过询问是否在推送字典后删除语言目录，并保留。默认情况下，如果字典在本地定义，它将覆盖远程字典的内容。
   > 示例：`npx intlayer dictionary push -k`
+- `--env`: 指定环境（例如：`development`、`production`）。
+- `--env-file`: 提供自定义环境文件以加载变量。
+- `--base-dir`: 指定项目的基本目录。
+- `--verbose`: 启用详细日志记录以进行调试。
+- `--git-diff`: 仅执行在git仓库中有未推送更改的字典。
+- `--git-diff-base`: 指定git diff的基本引用。
+- `--git-diff-current`: 指定git diff的当前引用。
+- `--uncommitted`: 包含未提交的更改。
+- `--unpushed`: 包含未推送的更改。
+- `--untracked`: 包含未跟踪的文件。
 
 ### 拉取远程字典
 
@@ -84,9 +94,13 @@ npx intlayer dictionary pull
 
 ##### 参数：
 
-- `-d, --dictionaries`: 要拉取的字典 ID。如果未指定，将拉取所有字典。
+- `-d, --dictionaries`: 要拉取的字典ID。如果未指定，将拉取所有字典。
   > 示例：`npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : 新字典保存的目录路径。如果未指定，新字典将保存在项目的 `./intlayer-dictionaries` 目录中。如果您的字典内容中指定了 `filePath` 字段，字典将忽略此参数，并保存在指定的 `filePath` 目录中。
+- `--newDictionariesPath`: 新字典将存储的目录路径。如果未指定，新字典将存储在项目的`./intlayer-dictionaries`目录中。如果字典内容中指定了`filePath`字段，字典将存储在指定的`filePath`目录中，忽略此参数。
+- `--env`: 指定环境（例如：`development`、`production`）。
+- `--env-file`: 提供自定义环境文件以加载变量。
+- `--base-dir`: 指定项目的基本目录。
+- `--verbose`: 启用详细日志记录以进行调试。
 
 ##### 示例：
 
@@ -110,17 +124,71 @@ npx intlayer audit
 - **`--exclude [excludedGlobs...]`**  
   要从审核中排除的全局模式（例如 `--exclude "src/test/**"`）。
 
-- **`-m, --model [model]`**  
-  要用于审核的 ChatGPT 模型（例如 `gpt-3.5-turbo`）。
+- **`--source-locale [sourceLocale]`**  
+  要翻译的源语言。如果未指定，将使用配置中的默认语言。
 
-- **`-p, --custom-prompt [prompt]`**  
-  提供自定义提示以进行审核指令。
+- **`--output-locales [outputLocales...]`**  
+  要翻译的目标语言。如果未指定，将使用配置中除源语言外的所有语言。
 
-- **`-l, --async-limit [asyncLimit]`**  
-  并发处理的最大文件数。
+- **`--mode [mode]`**  
+  翻译模式：'complete'、'review'或'missing-only'。默认为'missing-only'。
 
-- **`-k, --open-ai-api-key [openAiApiKey]`**  
-  提供您自己的 OpenAI API 密钥以绕过 OAuth2 身份验证。
+- **`--git-diff`**  
+  仅执行在git仓库中有未推送更改的字典。
+
+- **`--git-diff-base`**  
+  指定git diff的基本引用。
+
+- **`--git-diff-current`**  
+  指定git diff的当前引用。
+
+- **`--uncommitted`**  
+  包含未提交的更改。
+
+- **`--unpushed`**  
+  包含未推送的更改。
+
+- **`--untracked`**  
+  包含未跟踪的文件。
+
+- **`--keys [keys...]`**  
+  基于指定键过滤字典。
+
+- **`--excluded-keys [excludedKeys...]`**  
+  基于指定键排除字典。
+
+- **`--path-filter [pathFilters...]`**  
+  基于文件路径的glob模式过滤字典。
+
+- **`--model [model]`**  
+  用于翻译的AI模型（例如：`gpt-3.5-turbo`）。
+
+- **`--provider [provider]`**  
+  用于翻译的AI提供商。
+
+- **`--temperature [temperature]`**  
+  AI模型的温度设置。
+
+- **`--api-key [apiKey]`**  
+  为AI服务提供您自己的API密钥。
+
+- **`--custom-prompt [prompt]`**  
+  为翻译指令提供自定义提示。
+
+- **`--application-context [applicationContext]`**  
+  为AI翻译提供额外的上下文。
+
+- **`--env`**  
+  指定环境（例如：`development`、`production`）。
+
+- **`--env-file [envFile]`**  
+  提供自定义环境文件以加载变量。
+
+- **`--base-dir`**  
+  指定项目的基本目录。
+
+- **`--verbose`**  
+  启用详细日志记录以进行调试。
 
 ##### 示例：
 
@@ -144,6 +212,7 @@ npx intlayer config get
 
 - **`--env`**: 指定环境（例如 `development`，`production`）。
 - **`--env-file`**: 提供自定义环境文件以加载变量。
+- **`--base-dir`**: 指定项目的基本目录。
 - **`--verbose`**: 启用详细日志记录以进行调试。
 
 #### 推送配置
@@ -158,6 +227,7 @@ npx intlayer config push
 
 - **`--env`**: 指定环境（例如 `development`，`production`）。
 - **`--env-file`**: 提供自定义环境文件以加载变量。
+- **`--base-dir`**: 指定项目的基本目录。
 - **`--verbose`**: 启用详细日志记录以进行调试。
 
 通过推送配置，您的项目将完全集成到 Intlayer CMS 中，从而实现团队间的无缝字典管理。

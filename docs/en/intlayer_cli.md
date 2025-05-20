@@ -86,6 +86,15 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
 - `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
   > Example: `npx intlayer dictionary push -k`
 - `--env`: Specify the environment (e.g., `development`, `production`).
+- `--env-file`: Provide a custom environment file to load variables from.
+- `--base-dir`: Specify the base directory for the project.
+- `--verbose`: Enable verbose logging for debugging.
+- `--git-diff`: Only run on dictionaries that includes changes from base (default `origin/main`) to current branch (default: `HEAD`).
+- `--git-diff-base`: Specify the base reference for git diff (default `origin/main`).
+- `--git-diff-current`: Specify the current reference for git diff (default: `HEAD`).
+- `--uncommitted`: Include uncommitted changes.
+- `--unpushed`: Include unpushed changes.
+- `--untracked`: Include untracked files.
 
 ### Pull distant dictionaries
 
@@ -107,6 +116,9 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/in
   > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
 - `--env`: Specify the environment (e.g., `development`, `production`).
+- `--env-file`: Provide a custom environment file to load variables from.
+- `--base-dir`: Specify the base directory for the project.
+- `--verbose`: Enable verbose logging for debugging.
 
 ##### Example:
 
@@ -146,7 +158,22 @@ This command analyzes your content declaration files for potential issues such a
   Translation mode: 'complete', 'review', or 'missing-only'. Default is 'missing-only'.
 
 - `--git-diff`
-  Only run on dictionaries with unpushed changes in the git repository.
+  Filters dictionaries that includes changes from base (default `origin/main`) to current branch (default: `HEAD`).
+
+- `--git-diff-base`
+  Specify the base reference for git diff (default `origin/main`).
+
+- `--git-diff-current`
+  Specify the current reference for git diff (default: `HEAD`).
+
+- `--uncommitted`
+  Filters dictionaries that includes uncommitted changes.
+
+- `--unpushed`
+  Filters dictionaries that includes unpushed changes.
+
+- `--untracked`
+  Filters dictionaries that includes untracked files.
 
 - `--keys [keys...]`
   Filter dictionaries based on specified keys.
@@ -172,11 +199,17 @@ This command analyzes your content declaration files for potential issues such a
 - `--custom-prompt [prompt]`
   Provide a custom prompt for your translation instructions.
 
+- `--application-context [applicationContext]`
+  Provide additional context for the AI translation.
+
 - `--env`
   Specify the environment (e.g., `development`, `production`).
 
 - `--env-file [envFile]`
   Provide a custom environment file to load variables from.
+
+- `--base-dir`
+  Specify the base directory for the project.
 
 - `--verbose`
   Enable verbose logging for debugging.
@@ -208,6 +241,7 @@ npx intlayer configuration get
 
 - **`--env`**: Specify the environment (e.g., `development`, `production`).
 - **`--env-file`**: Provide a custom environment file to load variables from.
+- **`--base-dir`**: Specify the base directory for the project.
 - **`--verbose`**: Enable verbose logging for debugging.
 
 #### Push Configuration
@@ -227,6 +261,7 @@ npx intlayer configuration push
 
 - **`--env`**: Specify the environment (e.g., `development`, `production`).
 - **`--env-file`**: Provide a custom environment file to load variables from.
+- **`--base-dir`**: Specify the base directory for the project.
 - **`--verbose`**: Enable verbose logging for debugging.
 
 By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.

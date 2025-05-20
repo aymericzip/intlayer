@@ -22,6 +22,8 @@ export enum PagesRoutes {
   Doc_IntlayerVisualEditor = '/doc/concept/editor',
   Doc_IntlayerCMS = '/doc/concept/cms',
   Doc_CLI = '/doc/concept/cli',
+  Doc_CI_CD = '/doc/concept/ci-cd',
+
   Doc_ContentDeclaration = '/doc/concept/content',
   Doc_Dictionary_Translation = '/doc/concept/content/translation',
   Doc_Dictionary_Enumeration = '/doc/concept/content/enumeration',
@@ -193,6 +195,7 @@ export enum GithubRoutes {
   'Packages_react-native-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md',
   'Packages_react-scripts-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md',
   'VS_Code_extension_intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/vs_code_extension.md',
+  'Doc_CI_CD' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md',
 
   BlogIndex = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md',
   WhatIsi18n = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md',
@@ -306,6 +309,7 @@ export const urlMapper: Partial<Record<GithubRoutes, PagesRoutes>> = {
     PagesRoutes['Doc_Packages_react-native-intlayer'],
   [GithubRoutes['VS_Code_extension_intlayer']]:
     PagesRoutes['VS_Code_Extension'],
+  [GithubRoutes['Doc_CI_CD']]: PagesRoutes['Doc_CI_CD'],
 
   [GithubRoutes.BlogIndex]: PagesRoutes['Blog'],
   [GithubRoutes.IntlayerWithNextI18next]:

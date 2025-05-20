@@ -23,7 +23,7 @@ const CHAT_GPT_CUSTOM_PROMPT: string = '';
 
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_LIST: string[] = ['./en/configuration.md'];
+const DOC_LIST: string[] = ['./en/CI_CD.md'];
 
 export const LOCALE_LIST: Locales[] = [
   // Locales.ENGLISH,

@@ -1,22 +1,25 @@
-import * as fsPromises from 'fs/promises';
-import { relative } from 'path';
-import * as readline from 'readline';
 import { getIntlayerAPI } from '@intlayer/api';
+import { listGitFiles } from '@intlayer/chokidar';
 import {
+  appLogger,
   getConfiguration,
   GetConfigurationOptions,
-  logger,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
+import * as fsPromises from 'fs/promises';
 import pLimit from 'p-limit';
+import { relative } from 'path';
+import * as readline from 'readline';
+import { ListGitFilesOptions } from '../../chokidar/dist/types/listGitFiles';
 
 type PushOptions = {
   deleteLocaleDictionary?: boolean;
   keepLocaleDictionary?: boolean;
   dictionaries?: string[];
-  logPrefix?: string;
-} & GetConfigurationOptions;
+  gitOptions?: ListGitFilesOptions;
+  configOptions?: GetConfigurationOptions;
+};
 
 type DictionariesStatus = {
   dictionary: Dictionary;
@@ -42,7 +45,7 @@ const GREY_DARK = '\x1b[90m';
  */
 export const push = async (options?: PushOptions): Promise<void> => {
   try {
-    const config = getConfiguration(options);
+    const config = getConfiguration(options?.configOptions);
     const { clientId, clientSecret } = config.editor;
 
     if (!clientId || !clientSecret) {
@@ -66,15 +69,12 @@ export const push = async (options?: PushOptions): Promise<void> => {
       );
 
       if (noneExistingDictionariesOption.length > 0) {
-        logger(
+        appLogger(
           `The following dictionaries do not exist: ${noneExistingDictionariesOption.join(
             ', '
           )} and have been ignored.`,
           {
             level: 'error',
-            config: {
-              prefix: options?.logPrefix,
-            },
           }
         );
       }
@@ -85,22 +85,19 @@ export const push = async (options?: PushOptions): Promise<void> => {
       );
     }
 
+    if (options?.gitOptions) {
+      const gitFiles = await listGitFiles(options.gitOptions);
+    }
+
     // Check if the dictionaries list is empty
     if (dictionaries.length === 0) {
-      logger('No local dictionaries found', {
+      appLogger('No local dictionaries found', {
         level: 'error',
-        config: {
-          prefix: options?.logPrefix,
-        },
       });
       return;
     }
 
-    logger('Pushing dictionaries:', {
-      config: {
-        prefix: options?.logPrefix,
-      },
-    });
+    appLogger('Pushing dictionaries:', {});
 
     // Prepare dictionaries statuses
     const dictionariesStatuses: DictionariesStatus[] = dictionaries.map(
@@ -175,11 +172,8 @@ export const push = async (options?: PushOptions): Promise<void> => {
     // Output any error messages
     for (const statusObj of dictionariesStatuses) {
       if (statusObj.errorMessage) {
-        logger(statusObj.errorMessage, {
+        appLogger(statusObj.errorMessage, {
           level: 'error',
-          config: {
-            prefix: options?.logPrefix,
-          },
         });
       }
     }
@@ -209,11 +203,8 @@ export const push = async (options?: PushOptions): Promise<void> => {
       }
     }
   } catch (error) {
-    logger(error, {
+    appLogger(error, {
       level: 'error',
-      config: {
-        prefix: options?.logPrefix,
-      },
     });
   }
 };
@@ -244,11 +235,8 @@ const deleteLocalDictionaries = async (
     const { filePath } = dictionary;
 
     if (!filePath) {
-      logger(`Dictionary ${dictionary.key} does not have a file path`, {
+      appLogger(`Dictionary ${dictionary.key} does not have a file path`, {
         level: 'error',
-        config: {
-          prefix: options?.logPrefix,
-        },
       });
       continue;
     }
@@ -264,30 +252,15 @@ const deleteLocalDictionaries = async (
 
       if (stats.isFile()) {
         await fsPromises.unlink(filePath);
-        logger(`Deleted file ${relativePath}`, {
-          config: {
-            prefix: options?.logPrefix,
-          },
-        });
+        appLogger(`Deleted file ${relativePath}`, {});
       } else if (stats.isDirectory()) {
-        logger(`Path is a directory ${relativePath}, skipping.`, {
-          config: {
-            prefix: options?.logPrefix,
-          },
-        });
+        appLogger(`Path is a directory ${relativePath}, skipping.`, {});
       } else {
-        logger(`Unknown file type for ${relativePath}, skipping.`, {
-          config: {
-            prefix: options?.logPrefix,
-          },
-        });
+        appLogger(`Unknown file type for ${relativePath}, skipping.`, {});
       }
     } catch (err) {
-      logger(`Error deleting ${relativePath}: ${err}`, {
+      appLogger(`Error deleting ${relativePath}: ${err}`, {
         level: 'error',
-        config: {
-          prefix: options?.logPrefix,
-        },
       });
     }
   }

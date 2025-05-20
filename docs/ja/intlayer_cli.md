@@ -67,12 +67,22 @@ npx intlayer dictionary push
 
 ##### 引数:
 
-- `-d`, `--dictionaries`: プルする辞書のID。指定しない場合、すべての辞書がプッシュされます。
+- `-d`, `--dictionaries`: プッシュする辞書のID。指定しない場合、すべての辞書がプッシュされます。
   > 例: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: 辞書がプッシュされた後にロケールディレクトリを削除するかどうかを尋ねる質問をスキップし、それらを削除します。デフォルトでは、辞書がローカルで定義されている場合、リモート辞書の内容を上書きします。
+- `-r`, `--deleteLocaleDictionary`: 辞書をプッシュした後にロケールディレクトリを削除するかどうかの質問をスキップし、削除します。デフォルトでは、辞書がローカルで定義されている場合、リモート辞書の内容を上書きします。
   > 例: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: 辞書がプッシュされた後にロケールディレクトリを削除するかどうかを尋ねる質問をスキップし、それらを保持します。デフォルトでは、辞書がローカルで定義されている場合、リモート辞書の内容を上書きします。
+- `-k`, `--keepLocaleDictionary`: 辞書をプッシュした後にロケールディレクトリを削除するかどうかの質問をスキップし、保持します。デフォルトでは、辞書がローカルで定義されている場合、リモート辞書の内容を上書きします。
   > 例: `npx intlayer dictionary push -k`
+- `--env`: 環境を指定します（例: `development`, `production`）。
+- `--env-file`: 変数を読み込むためのカスタム環境ファイルを提供します。
+- `--base-dir`: プロジェクトのベースディレクトリを指定します。
+- `--verbose`: デバッグ用の詳細なログを有効にします。
+- `--git-diff`: プッシュされていない変更がある辞書のみを実行します。
+- `--git-diff-base`: git diffのベース参照を指定します。
+- `--git-diff-current`: git diffの現在の参照を指定します。
+- `--uncommitted`: コミットされていない変更を含めます。
+- `--unpushed`: プッシュされていない変更を含めます。
+- `--untracked`: 追跡されていないファイルを含めます。
 
 ### リモート辞書のプル
 
@@ -84,9 +94,13 @@ npx intlayer dictionary pull
 
 ##### 引数:
 
-- `-d, --dictionaries`: プルする辞書のID。指定しない場合、すべての辞書がプルされます。
+- `-d, --dictionaries`: 取得する辞書のID。指定しない場合、すべての辞書が取得されます。
   > 例: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : 新しい辞書を保存するディレクトリのパス。指定しない場合、新しい辞書はプロジェクトの`./intlayer-dictionaries`ディレクトリに保存されます。辞書コンテンツに`filePath`フィールドが指定されている場合、この引数は無視され、指定された`filePath`ディレクトリに保存されます。
+- `--newDictionariesPath`: 新しい辞書が保存されるディレクトリのパス。指定しない場合、新しい辞書はプロジェクトの`./intlayer-dictionaries`ディレクトリに保存されます。辞書の内容に`filePath`フィールドが指定されている場合、辞書はこの引数を考慮せず、指定された`filePath`ディレクトリに保存されます。
+- `--env`: 環境を指定します（例: `development`, `production`）。
+- `--env-file`: 変数を読み込むためのカスタム環境ファイルを提供します。
+- `--base-dir`: プロジェクトのベースディレクトリを指定します。
+- `--verbose`: デバッグ用の詳細なログを有効にします。
 
 ##### 例:
 
@@ -110,31 +124,85 @@ npx intlayer audit
 - **`--exclude [excludedGlobs...]`**  
   監査から除外するグロブパターン（例: `--exclude "src/test/**"`）。
 
-- **`-m, --model [model]`**  
-  監査に使用するChatGPTモデル（例: `gpt-3.5-turbo`）。
+- **`--source-locale [sourceLocale]`**  
+  翻訳元のソースロケール。指定しない場合、設定のデフォルトロケールが使用されます。
 
-- **`-p, --custom-prompt [prompt]`**  
-  監査指示のカスタムプロンプトを提供します。
+- **`--output-locales [outputLocales...]`**  
+  翻訳先のターゲットロケール。指定しない場合、ソースロケールを除く設定のすべてのロケールが使用されます。
 
-- **`-l, --async-limit [asyncLimit]`**  
-  同時に処理するファイルの最大数。
+- **`--mode [mode]`**  
+  翻訳モード: 'complete'、'review'、または'missing-only'。デフォルトは'missing-only'です。
 
-- **`-k, --open-ai-api-key [openAiApiKey]`**  
-  OAuth2認証をバイパスするために独自のOpenAI APIキーを提供します。
+- **`--git-diff`**  
+  gitリポジトリでプッシュされていない変更がある辞書のみを実行します。
+
+- **`--git-diff-base`**  
+  git diffのベース参照を指定します。
+
+- **`--git-diff-current`**  
+  git diffの現在の参照を指定します。
+
+- **`--uncommitted`**  
+  コミットされていない変更を含めます。
+
+- **`--unpushed`**  
+  プッシュされていない変更を含めます。
+
+- **`--untracked`**  
+  追跡されていないファイルを含めます。
+
+- **`--keys [keys...]`**  
+  指定されたキーに基づいて辞書をフィルタリングします。
+
+- **`--excluded-keys [excludedKeys...]`**  
+  指定されたキーに基づいて辞書を除外します。
+
+- **`--path-filter [pathFilters...]`**  
+  ファイルパスのグロブパターンに基づいて辞書をフィルタリングします。
+
+- **`--model [model]`**  
+  翻訳に使用するAIモデル（例: `gpt-3.5-turbo`）。
+
+- **`--provider [provider]`**  
+  翻訳に使用するAIプロバイダー。
+
+- **`--temperature [temperature]`**  
+  AIモデルの温度設定。
+
+- **`--api-key [apiKey]`**  
+  AIサービスの独自のAPIキーを提供します。
+
+- **`--custom-prompt [prompt]`**  
+  翻訳指示のためのカスタムプロンプトを提供します。
+
+- **`--application-context [applicationContext]`**  
+  AI翻訳のための追加コンテキストを提供します。
+
+- **`--env`**  
+  環境を指定します（例: `development`, `production`）。
+
+- **`--env-file [envFile]`**  
+  変数を読み込むためのカスタム環境ファイルを提供します。
+
+- **`--base-dir`**  
+  プロジェクトのベースディレクトリを指定します。
+
+- **`--verbose`**  
+  デバッグ用の詳細なログを有効にします。
 
 ##### 例:
 
 ```bash
-npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
+npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
-このコマンドは、`tests/**`以下のファイルを無視し、`gpt-3.5-turbo`モデルを使用して発見された宣言コンテンツファイルを監査します。翻訳の欠落などの問題が見つかった場合、それらは元のファイル構造を保持しながら修正されます。
+このコマンドは、GPT-3.5 Turboモデルを使用して、`src/home/`ディレクトリ内のすべてのコンテンツ宣言ファイルの内容を英語からフランス語とスペイン語に翻訳します。
 
 ### 設定の管理
 
 #### 設定の取得
 
-`get configuration`コマンドは、特にロケール設定に関する現在のIntlayer設定を取得します。セットアップを確認するのに便利です。
+`get configuration`コマンドは、Intlayerの現在の設定、特にロケール設定を取得します。これは設定を確認するのに役立ちます。
 
 ```bash
 npx intlayer config get
@@ -144,11 +212,12 @@ npx intlayer config get
 
 - **`--env`**: 環境を指定します（例: `development`, `production`）。
 - **`--env-file`**: 変数を読み込むためのカスタム環境ファイルを提供します。
-- **`--verbose`**: デバッグのために詳細なログを有効にします。
+- **`--base-dir`**: プロジェクトのベースディレクトリを指定します。
+- **`--verbose`**: デバッグ用の詳細なログを有効にします。
 
 #### 設定のプッシュ
 
-`push configuration`コマンドは、設定をIntlayer CMSおよびエディターにアップロードします。このステップは、Intlayer Visual Editorでリモート辞書を使用するために必要です。
+`push configuration`コマンドは、設定をIntlayer CMSとエディタにアップロードします。このステップは、Intlayer Visual Editorでリモート辞書を使用できるようにするために必要です。
 
 ```bash
 npx intlayer config push
@@ -158,9 +227,10 @@ npx intlayer config push
 
 - **`--env`**: 環境を指定します（例: `development`, `production`）。
 - **`--env-file`**: 変数を読み込むためのカスタム環境ファイルを提供します。
-- **`--verbose`**: デバッグのために詳細なログを有効にします。
+- **`--base-dir`**: プロジェクトのベースディレクトリを指定します。
+- **`--verbose`**: デバッグ用の詳細なログを有効にします。
 
-設定をプッシュすることで、プロジェクトはIntlayer CMSと完全に統合され、チーム間での辞書管理がシームレスになります。
+設定をプッシュすることで、プロジェクトはIntlayer CMSと完全に統合され、チーム間でシームレスな辞書管理が可能になります。
 
 ## `package.json`でintlayerコマンドを使用する
 

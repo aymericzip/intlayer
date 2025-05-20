@@ -7,10 +7,11 @@ import {
 
 type PushOptions = {
   logPrefix?: string;
-} & GetConfigurationOptions;
+  configOptions?: GetConfigurationOptions;
+};
 
 export const pushConfig = async (options?: PushOptions) => {
-  const config = getConfiguration(options);
+  const config = getConfiguration(options?.configOptions);
 
   const { clientId, clientSecret } = config.editor;
 

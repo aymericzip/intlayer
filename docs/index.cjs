@@ -1194,6 +1194,19 @@ const docs = {
     es: require('./es/vs_code_extension.md'),
     'en-GB': require('./en-GB/vs_code_extension.md'),
   },
+  ci_cd: {
+    en: require('./en/CI_CD.md'),
+    fr: require('./fr/CI_CD.md'),
+    es: require('./es/CI_CD.md'),
+    'en-GB': require('./en-GB/CI_CD.md'),
+    de: require('./de/CI_CD.md'),
+    hi: require('./hi/CI_CD.md'),
+    it: require('./it/CI_CD.md'),
+    ja: require('./ja/CI_CD.md'),
+    ko: require('./ko/CI_CD.md'),
+    pt: require('./pt/CI_CD.md'),
+    ru: require('./ru/CI_CD.md'),
+  },
 };
 
 const getDocs = (lang = Locales.ENGLISH) =>

@@ -1,20 +1,21 @@
 import {
+  appLogger,
   getConfiguration,
   type GetConfigurationOptions,
-  logger,
 } from '@intlayer/config';
 import fg from 'fast-glob';
 
 type GetContentDeclarationOptions = {
   exclude?: string[];
-} & GetConfigurationOptions;
+  configOptions?: GetConfigurationOptions;
+};
 
 export const getContentDeclaration = (
   options?: GetContentDeclarationOptions
 ): string[] => {
   const {
     content: { watchedFilesPatternWithPath },
-  } = getConfiguration(options);
+  } = getConfiguration(options?.configOptions);
 
   const contentDeclarationFilesPath: string[] = fg.sync(
     watchedFilesPatternWithPath,
@@ -27,17 +28,13 @@ export const getContentDeclaration = (
 };
 
 type ListContentDeclarationOptions = {
-  logPrefix?: string;
+  configOptions?: GetConfigurationOptions;
 };
 
 export const listContentDeclaration = (
-  options: ListContentDeclarationOptions
+  options?: ListContentDeclarationOptions
 ) => {
-  const contentDeclarationFilesPath = getContentDeclaration();
+  const contentDeclarationFilesPath = getContentDeclaration(options);
 
-  logger(`Content declaration files: ${contentDeclarationFilesPath}`, {
-    config: {
-      prefix: options?.logPrefix,
-    },
-  });
+  appLogger(`Content declaration files: ${contentDeclarationFilesPath}`);
 };

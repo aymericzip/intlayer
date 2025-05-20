@@ -10,6 +10,11 @@ export { fetchDistantDictionaryKeys } from './fetchDistantDictionaryKeys';
 export { filterDictionaryLocales } from './filterDictionaryLocales';
 export { listDictionaries } from './listDictionariesPath';
 export {
+  listGitFiles,
+  type DiffMode,
+  type ListGitFilesOptions,
+} from './listGitFiles';
+export {
   loadDictionaries,
   loadDistantDictionaries,
   loadLocalDictionaries,

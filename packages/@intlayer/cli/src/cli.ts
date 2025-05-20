@@ -1,6 +1,11 @@
 import type { AIOptions } from '@intlayer/api';
+import { GetConfigurationOptions } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { Command } from 'commander';
+import {
+  DiffMode,
+  ListGitFilesOptions,
+} from '../../chokidar/dist/types/listGitFiles';
 import { build } from './build';
 import { getConfig } from './config';
 import { fill, FillOptions } from './fill';
@@ -9,11 +14,11 @@ import { pull } from './pull';
 import { push } from './push';
 import { pushConfig } from './pushConfig';
 
-const logOptions = [['--verbose', 'Verbose']];
-
 const configurationOptions = [
   ['--env-file [envFile]', 'Environment file'],
   ['-e, --env [env]', 'Environment'],
+  ['--base-dir [baseDir]', 'Base directory'],
+  ['--verbose', 'Verbose'],
 ];
 
 const aiOptions = [
@@ -25,6 +30,15 @@ const aiOptions = [
   ['--application-context [applicationContext]', 'Application context'],
 ];
 
+const gitOptions = [
+  ['--git-diff [gitDiff]', 'Git diff mode - Check git diff between two refs'],
+  ['--git-diff-base [gitDiffBase]', 'Git diff base ref'],
+  ['--git-diff-current [gitDiffCurrent]', 'Git diff current ref'],
+  ['--uncommitted [uncommitted]', 'Uncommitted'],
+  ['--unpushed [unpushed]', 'Unpushed'],
+  ['--untracked [untracked]', 'Untracked'],
+];
+
 /**
  * Helper functions to apply common options to commands
  */
@@ -33,38 +47,90 @@ const applyOptions = (command: Command, options: string[][]) => {
   return command;
 };
 
-const applyLogOptions = (command: Command) => applyOptions(command, logOptions);
 const applyConfigOptions = (command: Command) =>
   applyOptions(command, configurationOptions);
 const applyAIOptions = (command: Command) => applyOptions(command, aiOptions);
+const applyGitOptions = (command: Command) => applyOptions(command, gitOptions);
 
-const enrichAiOptionsWithConfiguration = (aiOptions?: AIOptions) => ({
-  ...aiOptions,
-  apiKey: aiOptions?.apiKey ?? configuration.ai?.apiKey,
-  provider: aiOptions?.provider ?? configuration.ai?.provider,
-  model: aiOptions?.model ?? configuration.ai?.model,
-  temperature: aiOptions?.temperature ?? configuration.ai?.temperature,
-  applicationContext:
-    aiOptions?.applicationContext ?? configuration.ai?.applicationContext,
-});
+const extractAiOptions = (options: AIOptions) => {
+  const isOptionEmpty = !Object.values(options).some(Boolean);
 
-const extractAiOptions = ({
-  provider,
-  temperature,
-  model,
-  apiKey,
-  customPrompt,
-  ...options
-}: AIOptions) => ({
-  aiOptions: enrichAiOptionsWithConfiguration({
-    provider,
-    temperature,
-    model,
-    apiKey,
-    customPrompt,
-  }),
-  ...options,
-});
+  if (isOptionEmpty) {
+    return undefined;
+  }
+
+  const { apiKey, provider, model, temperature, applicationContext } = options;
+
+  return {
+    apiKey: apiKey ?? configuration.ai?.apiKey,
+    provider: provider ?? configuration.ai?.provider,
+    model: model ?? configuration.ai?.model,
+    temperature: temperature ?? configuration.ai?.temperature,
+    applicationContext:
+      applicationContext ?? configuration.ai?.applicationContext,
+  };
+};
+
+type GitOptions = {
+  gitDiff?: boolean;
+  gitDiffBase?: string;
+  gitDiffCurrent?: string;
+  uncommitted?: boolean;
+  unpushed?: boolean;
+  untracked?: boolean;
+};
+
+const extractGitOptions = (
+  options: GitOptions
+): ListGitFilesOptions | undefined => {
+  const isOptionEmpty = !Object.values(options).some(Boolean);
+
+  if (isOptionEmpty) {
+    return undefined;
+  }
+
+  const {
+    gitDiff,
+    gitDiffBase,
+    gitDiffCurrent,
+    uncommitted,
+    unpushed,
+    untracked,
+  } = options;
+
+  const mode = [
+    gitDiff && 'gitDiff',
+    uncommitted && 'uncommitted',
+    unpushed && 'unpushed',
+    untracked && 'untracked',
+  ].filter(Boolean) as DiffMode[];
+
+  return {
+    mode,
+    baseRef: gitDiffBase,
+    currentRef: gitDiffCurrent,
+    absolute: true,
+  };
+};
+
+const extractConfigOptions = (
+  options: GetConfigurationOptions
+): GetConfigurationOptions | undefined => {
+  const isOptionEmpty = !Object.values(options).some(Boolean);
+
+  if (isOptionEmpty) {
+    return undefined;
+  }
+
+  const { baseDir, verbose, env, envFile } = options;
+
+  return {
+    baseDir,
+    verbose,
+    env,
+    envFile,
+  };
+};
 
 /**
  * Set the API for the CLI
@@ -93,7 +159,6 @@ export const setAPI = (): Command => {
   const buildOptions = {
     description: 'Build the dictionaries',
     options: [['-w, --watch', 'Watch for changes']],
-    action: build,
   };
 
   // Add build command to dictionaries program
@@ -103,7 +168,12 @@ export const setAPI = (): Command => {
 
   applyOptions(dictionariesBuildCmd, buildOptions.options);
   applyConfigOptions(dictionariesBuildCmd);
-  dictionariesBuildCmd.action(buildOptions.action);
+  dictionariesBuildCmd.action((options) => {
+    build({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
 
   // Add build command to root program as well
   const rootBuildCmd = program
@@ -112,7 +182,12 @@ export const setAPI = (): Command => {
 
   applyOptions(rootBuildCmd, buildOptions.options);
   applyConfigOptions(rootBuildCmd);
-  rootBuildCmd.action(buildOptions.action);
+  rootBuildCmd.action((options) => {
+    build({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
 
   // Dictionary pull command
   const pullOptions = {
@@ -121,7 +196,6 @@ export const setAPI = (): Command => {
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to pull'],
       ['--newDictionariesPath [path]', 'Path to save the new dictionaries'],
     ],
-    action: pull,
   };
 
   // Add pull command to dictionaries program
@@ -131,7 +205,15 @@ export const setAPI = (): Command => {
 
   applyOptions(dictionariesPullCmd, pullOptions.options);
   applyConfigOptions(dictionariesPullCmd);
-  dictionariesPullCmd.action(pullOptions.action);
+  dictionariesPullCmd.action((options) => {
+    pull({
+      ...options,
+      configOptions: {
+        ...options.configOptions,
+        baseDir: options.baseDir,
+      },
+    });
+  });
 
   // Add pull command to root program as well
   const rootPullCmd = program
@@ -140,7 +222,12 @@ export const setAPI = (): Command => {
 
   applyOptions(rootPullCmd, pullOptions.options);
   applyConfigOptions(rootPullCmd);
-  rootPullCmd.action(pullOptions.action);
+  rootPullCmd.action((options) => {
+    pull({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
 
   // Dictionary push command
   const pushOptions = {
@@ -157,7 +244,6 @@ export const setAPI = (): Command => {
         'Keep the local dictionaries after pushing',
       ],
     ],
-    action: push,
   };
 
   // Add push command to dictionaries program
@@ -167,7 +253,15 @@ export const setAPI = (): Command => {
 
   applyOptions(dictionariesPushCmd, pushOptions.options);
   applyConfigOptions(dictionariesPushCmd);
-  dictionariesPushCmd.action(pushOptions.action);
+  applyGitOptions(dictionariesPushCmd);
+
+  dictionariesPushCmd.action((options) =>
+    push({
+      ...options,
+      gitOptions: extractGitOptions(options),
+      configOptions: extractConfigOptions(options),
+    } as FillOptions)
+  );
 
   // Add push command to root program as well
   const rootPushCmd = program
@@ -176,7 +270,15 @@ export const setAPI = (): Command => {
 
   applyOptions(rootPushCmd, pushOptions.options);
   applyConfigOptions(rootPushCmd);
-  rootPushCmd.action(pushOptions.action);
+  applyGitOptions(rootPushCmd);
+
+  rootPushCmd.action((options) =>
+    push({
+      ...options,
+      gitOptions: extractGitOptions(options),
+      configOptions: extractConfigOptions(options),
+    } as FillOptions)
+  );
 
   /**
    * CONFIGURATION
@@ -194,8 +296,12 @@ export const setAPI = (): Command => {
     .description('Get the configuration');
 
   applyConfigOptions(configGetCmd);
-  applyLogOptions(configGetCmd);
-  configGetCmd.action(getConfig);
+  configGetCmd.action((options) => {
+    getConfig({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
 
   // Define the `push config` subcommand and add it to the `push` command
   const configPushCmd = configurationProgram
@@ -203,8 +309,12 @@ export const setAPI = (): Command => {
     .description('Push the configuration');
 
   applyConfigOptions(configPushCmd);
-  applyLogOptions(configPushCmd);
-  configPushCmd.action(pushConfig);
+  configPushCmd.action((options) => {
+    pushConfig({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
 
   /**
    * CONTENT DECLARATION
@@ -240,12 +350,17 @@ export const setAPI = (): Command => {
       'Filter dictionaries based on glob pattern'
     );
 
-  applyLogOptions(fillProgram);
   applyConfigOptions(fillProgram);
   applyAIOptions(fillProgram);
+  applyGitOptions(fillProgram);
 
   fillProgram.action((options) =>
-    fill(extractAiOptions(options) as FillOptions)
+    fill({
+      ...options,
+      aiOptions: extractAiOptions(options),
+      gitOptions: extractGitOptions(options),
+      configOptions: extractConfigOptions(options),
+    } as FillOptions)
   );
 
   program.parse(process.argv);

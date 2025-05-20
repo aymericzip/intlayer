@@ -73,6 +73,16 @@ Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/f
   > Exemple : `npx intlayer dictionary push -r`
 - `-k`, `--keepLocaleDictionary` : Passez la question demandant de supprimer les répertoires des locales une fois les dictionnaires poussés, et conservez-les. Par défaut, si le dictionnaire est défini localement, il écrasera le contenu des dictionnaires distants.
   > Exemple : `npx intlayer dictionary push -k`
+- `--env` : Spécifiez l'environnement (par exemple, `development`, `production`).
+- `--env-file` : Fournir un fichier d'environnement personnalisé pour charger les variables.
+- `--base-dir` : Spécifiez le répertoire de base du projet.
+- `--verbose` : Activer la journalisation détaillée pour le débogage.
+- `--git-diff` : Exécuter uniquement sur les dictionnaires avec des modifications non poussées.
+- `--git-diff-base` : Spécifiez la référence de base pour git diff.
+- `--git-diff-current` : Spécifiez la référence actuelle pour git diff.
+- `--uncommitted` : Inclure les modifications non validées.
+- `--unpushed` : Inclure les modifications non poussées.
+- `--untracked` : Inclure les fichiers non suivis.
 
 ### Récupérer les dictionnaires distants
 
@@ -87,6 +97,10 @@ Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/f
 - `-d, --dictionaries` : Ids des dictionnaires à récupérer. Si non spécifié, tous les dictionnaires seront récupérés.
   > Exemple : `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 - `--newDictionariesPath` : Chemin vers le répertoire où les nouveaux dictionnaires seront enregistrés. Si non spécifié, les nouveaux dictionnaires seront enregistrés dans le répertoire `./intlayer-dictionaries` du projet. Si un champ `filePath` est spécifié dans le contenu de votre dictionnaire, les dictionnaires ne tiendront pas compte de cet argument et seront enregistrés dans le répertoire spécifié par `filePath`.
+- `--env` : Spécifiez l'environnement (par exemple, `development`, `production`).
+- `--env-file` : Fournir un fichier d'environnement personnalisé pour charger les variables.
+- `--base-dir` : Spécifiez le répertoire de base du projet.
+- `--verbose` : Activer la journalisation détaillée pour le débogage.
 
 ##### Exemple :
 
@@ -110,25 +124,79 @@ Cette commande analyse vos fichiers de déclaration de contenu pour détecter de
 - **`--exclude [excludedGlobs...]`**  
   Modèles globaux à exclure de l'audit (par exemple, `--exclude "src/test/**"`).
 
-- **`-m, --model [model]`**  
-  Le modèle ChatGPT à utiliser pour l'audit (par exemple, `gpt-3.5-turbo`).
+- **`--source-locale [sourceLocale]`**  
+  La locale source à partir de laquelle traduire. Si non spécifiée, la locale par défaut de votre configuration sera utilisée.
 
-- **`-p, --custom-prompt [prompt]`**  
-  Fournir une invite personnalisée pour vos instructions d'audit.
+- **`--output-locales [outputLocales...]`**  
+  Locales cibles vers lesquelles traduire. Si non spécifiées, toutes les locales de votre configuration seront utilisées sauf la locale source.
 
-- **`-l, --async-limit [asyncLimit]`**  
-  Nombre maximum de fichiers à traiter simultanément.
+- **`--mode [mode]`**  
+  Mode de traduction : 'complete', 'review', ou 'missing-only'. Par défaut, 'missing-only'.
 
-- **`-k, --open-ai-api-key [openAiApiKey]`**  
-  Fournir votre propre clé API OpenAI pour contourner l'authentification OAuth2.
+- **`--git-diff`**  
+  Exécuter uniquement sur les dictionnaires avec des modifications non poussées dans le dépôt git.
+
+- **`--git-diff-base`**  
+  Spécifiez la référence de base pour git diff.
+
+- **`--git-diff-current`**  
+  Spécifiez la référence actuelle pour git diff.
+
+- **`--uncommitted`**  
+  Inclure les modifications non validées.
+
+- **`--unpushed`**  
+  Inclure les modifications non poussées.
+
+- **`--untracked`**  
+  Inclure les fichiers non suivis.
+
+- **`--keys [keys...]`**  
+  Filtrer les dictionnaires en fonction des clés spécifiées.
+
+- **`--excluded-keys [excludedKeys...]`**  
+  Exclure les dictionnaires en fonction des clés spécifiées.
+
+- **`--path-filter [pathFilters...]`**  
+  Filtrer les dictionnaires en fonction du modèle glob pour les chemins de fichiers.
+
+- **`--model [model]`**  
+  Le modèle d'IA à utiliser pour la traduction (par exemple, `gpt-3.5-turbo`).
+
+- **`--provider [provider]`**  
+  Le fournisseur d'IA à utiliser pour la traduction.
+
+- **`--temperature [temperature]`**  
+  Paramètre de température pour le modèle d'IA.
+
+- **`--api-key [apiKey]`**  
+  Fournir votre propre clé API pour le service d'IA.
+
+- **`--custom-prompt [prompt]`**  
+  Fournir une invite personnalisée pour vos instructions de traduction.
+
+- **`--application-context [applicationContext]`**  
+  Fournir un contexte supplémentaire pour la traduction IA.
+
+- **`--env`**  
+  Spécifiez l'environnement (par exemple, `development`, `production`).
+
+- **`--env-file [envFile]`**  
+  Fournir un fichier d'environnement personnalisé pour charger les variables.
+
+- **`--base-dir`**  
+  Spécifiez le répertoire de base du projet.
+
+- **`--verbose`**  
+  Activer la journalisation détaillée pour le débogage.
 
 ##### Exemple :
 
 ```bash
-npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
+npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
-Cette commande ignorera tous les fichiers sous `tests/**` et utilisera le modèle `gpt-3.5-turbo` pour auditer les fichiers de déclaration de contenu découverts. Si des problèmes sont détectés, comme des traductions manquantes, ils seront corrigés sur place, en préservant la structure originale du fichier.
+Cette commande traduira le contenu de l'anglais vers le français et l'espagnol pour tous les fichiers de déclaration de contenu dans le répertoire `src/home/` en utilisant le modèle GPT-3.5 Turbo.
 
 ### Gérer la configuration
 
@@ -144,6 +212,7 @@ npx intlayer config get
 
 - **`--env`** : Spécifiez l'environnement (par exemple, `development`, `production`).
 - **`--env-file`** : Fournir un fichier d'environnement personnalisé pour charger les variables.
+- **`--base-dir`** : Spécifiez le répertoire de base du projet.
 - **`--verbose`** : Activer la journalisation détaillée pour le débogage.
 
 #### Pousser la configuration
@@ -158,6 +227,7 @@ npx intlayer config push
 
 - **`--env`** : Spécifiez l'environnement (par exemple, `development`, `production`).
 - **`--env-file`** : Fournir un fichier d'environnement personnalisé pour charger les variables.
+- **`--base-dir`** : Spécifiez le répertoire de base du projet.
 - **`--verbose`** : Activer la journalisation détaillée pour le débogage.
 
 En poussant la configuration, votre projet est entièrement intégré au CMS Intlayer, permettant une gestion fluide des dictionnaires entre les équipes.

@@ -67,26 +67,40 @@ Se o [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/
 
 ##### Argumentos:
 
-- `-d`, `--dictionaries`: ids dos dicionários a serem enviados. Se não especificado, todos os dicionários serão enviados.
+- `-d`, `--dictionaries`: IDs dos dicionários a serem enviados. Se não especificado, todos os dicionários serão enviados.
   > Exemplo: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Pula a pergunta que pergunta se deseja excluir os diretórios de locais uma vez que os dicionários são enviados, e os remove. Por padrão, se o dicionário estiver definido localmente, ele sobrescreverá o conteúdo dos dicionários distantes.
+- `-r`, `--deleteLocaleDictionary`: Ignora a pergunta sobre excluir o diretório de localização após o envio do dicionário e exclui. Por padrão, se o dicionário estiver definido localmente, ele sobrescreve o conteúdo do dicionário remoto.
   > Exemplo: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: Pula a pergunta que pergunta se deseja excluir os diretórios de locais uma vez que os dicionários são enviados, e os mantém. Por padrão, se o dicionário estiver definido localmente, ele sobrescreverá o conteúdo dos dicionários distantes.
+- `-k`, `--keepLocaleDictionary`: Ignora a pergunta sobre excluir o diretório de localização após o envio do dicionário e mantém. Por padrão, se o dicionário estiver definido localmente, ele sobrescreve o conteúdo do dicionário remoto.
   > Exemplo: `npx intlayer dictionary push -k`
+- `--env`: Especifica o ambiente (ex: `development`, `production`).
+- `--env-file`: Fornece um arquivo de ambiente personalizado para carregar variáveis.
+- `--base-dir`: Especifica o diretório base do projeto.
+- `--verbose`: Ativa o registro detalhado para depuração.
+- `--git-diff`: Executa apenas dicionários com alterações não enviadas no repositório git.
+- `--git-diff-base`: Especifica a referência base para o git diff.
+- `--git-diff-current`: Especifica a referência atual para o git diff.
+- `--uncommitted`: Inclui alterações não commitadas.
+- `--unpushed`: Inclui alterações não enviadas.
+- `--untracked`: Inclui arquivos não rastreados.
 
-### Buscar dicionários distantes
+### Obter Dicionários Remotos
 
 ```bash
 npx intlayer dictionary pull
 ```
 
-Se o [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md) estiver instalado, você também pode buscar dicionários do editor. Dessa forma, você pode sobrescrever o conteúdo de seus dicionários para atender às necessidades de sua aplicação.
+Se você tiver o [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md) instalado, você também pode obter dicionários do editor. Isso permite sobrescrever o conteúdo dos dicionários de acordo com as necessidades da sua aplicação.
 
 ##### Argumentos:
 
-- `-d, --dictionaries`: Ids dos dicionários a serem buscados. Se não especificado, todos os dicionários serão buscados.
+- `-d, --dictionaries`: IDs dos dicionários a serem obtidos. Se não especificado, todos os dicionários serão obtidos.
   > Exemplo: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath`: Caminho para o diretório onde os novos dicionários serão salvos. Se não especificado, os novos dicionários serão salvos no diretório `./intlayer-dictionaries` do projeto. Se um campo `filePath` for especificado no conteúdo do seu dicionário, os dicionários não considerarão este argumento e serão salvos no diretório especificado em `filePath`.
+- `--newDictionariesPath`: Caminho do diretório onde os novos dicionários serão armazenados. Se não especificado, os novos dicionários serão armazenados no diretório `./intlayer-dictionaries` do projeto. Se o conteúdo do dicionário tiver um campo `filePath` especificado, o dicionário será armazenado no diretório `filePath` especificado, ignorando este argumento.
+- `--env`: Especifica o ambiente (ex: `development`, `production`).
+- `--env-file`: Fornece um arquivo de ambiente personalizado para carregar variáveis.
+- `--base-dir`: Especifica o diretório base do projeto.
+- `--verbose`: Ativa o registro detalhado para depuração.
 
 ##### Exemplo:
 
@@ -94,47 +108,101 @@ Se o [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
-### Auditar dicionários
+### Auditoria de Dicionários
 
 ```bash
 npx intlayer audit
 ```
 
-Este comando analisa seus arquivos de declaração de conteúdo em busca de possíveis problemas, como traduções ausentes, inconsistências estruturais ou incompatibilidades de tipo. Se encontrar algum problema, o **intlayer audit** proporá ou aplicará atualizações para manter seus dicionários consistentes e completos.
+Este comando analisa os arquivos de declaração de conteúdo para encontrar problemas potenciais, como traduções ausentes, inconsistências estruturais ou incompatibilidades de tipo. Se problemas forem encontrados, o **intlayer audit** sugere ou aplica atualizações para manter os dicionários consistentes e completos.
 
 ##### Argumentos:
 
 - **`-f, --files [files...]`**  
-  Uma lista de arquivos específicos de declaração de conteúdo a serem auditados. Se não fornecido, todos os arquivos `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` descobertos serão auditados.
+  Lista de arquivos de declaração de conteúdo específicos para auditar. Se não fornecido, todos os arquivos `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` encontrados serão auditados.
 
 - **`--exclude [excludedGlobs...]`**  
-  Padrões glob para excluir da auditoria (ex.: `--exclude "src/test/**"`).
+  Padrões glob para excluir da auditoria (ex: `--exclude "src/test/**"`).
 
-- **`-m, --model [model]`**  
-  O modelo ChatGPT a ser usado para a auditoria (ex.: `gpt-3.5-turbo`).
+- **`--source-locale [sourceLocale]`**  
+  Local de origem para tradução. Se não especificado, o local padrão da configuração será usado.
 
-- **`-p, --custom-prompt [prompt]`**  
-  Forneça um prompt personalizado para suas instruções de auditoria.
+- **`--output-locales [outputLocales...]`**  
+  Locais de destino para tradução. Se não especificado, todos os locais da configuração, exceto o local de origem, serão usados.
 
-- **`-l, --async-limit [asyncLimit]`**  
-  Número máximo de arquivos a serem processados simultaneamente.
+- **`--mode [mode]`**  
+  Modo de tradução: 'complete', 'review', ou 'missing-only'. O padrão é 'missing-only'.
 
-- **`-k, --open-ai-api-key [openAiApiKey]`**  
-  Forneça sua própria chave de API OpenAI para ignorar a autenticação OAuth2.
+- **`--git-diff`**  
+  Executa apenas dicionários com alterações não enviadas no repositório git.
+
+- **`--git-diff-base`**  
+  Especifica a referência base para o git diff.
+
+- **`--git-diff-current`**  
+  Especifica a referência atual para o git diff.
+
+- **`--uncommitted`**  
+  Inclui alterações não commitadas.
+
+- **`--unpushed`**  
+  Inclui alterações não enviadas.
+
+- **`--untracked`**  
+  Inclui arquivos não rastreados.
+
+- **`--keys [keys...]`**  
+  Filtra dicionários com base em chaves específicas.
+
+- **`--excluded-keys [excludedKeys...]`**  
+  Exclui dicionários com base em chaves específicas.
+
+- **`--path-filter [pathFilters...]`**  
+  Filtra dicionários com base em padrões glob de caminho de arquivo.
+
+- **`--model [model]`**  
+  Modelo de IA a ser usado para tradução (ex: `gpt-3.5-turbo`).
+
+- **`--provider [provider]`**  
+  Provedor de IA a ser usado para tradução.
+
+- **`--temperature [temperature]`**  
+  Configuração de temperatura para o modelo de IA.
+
+- **`--api-key [apiKey]`**  
+  Fornece sua própria chave de API para o serviço de IA.
+
+- **`--custom-prompt [prompt]`**  
+  Fornece um prompt personalizado para instruções de tradução.
+
+- **`--application-context [applicationContext]`**  
+  Fornece contexto adicional para tradução de IA.
+
+- **`--env`**  
+  Especifica o ambiente (ex: `development`, `production`).
+
+- **`--env-file [envFile]`**  
+  Fornece um arquivo de ambiente personalizado para carregar variáveis.
+
+- **`--base-dir`**  
+  Especifica o diretório base do projeto.
+
+- **`--verbose`**  
+  Ativa o registro detalhado para depuração.
 
 ##### Exemplo:
 
 ```bash
-npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
+npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
-Este comando ignorará quaisquer arquivos em `tests/**` e usará o modelo `gpt-3.5-turbo` para auditar os arquivos de declaração de conteúdo descobertos. Se forem encontrados problemas, como traduções ausentes, eles serão corrigidos no local, preservando a estrutura original do arquivo.
+Este comando traduz o conteúdo de todos os arquivos de declaração de conteúdo no diretório `src/home/` do inglês para francês e espanhol usando o modelo GPT-3.5 Turbo.
 
-### Gerenciar Configuração
+### Gerenciamento de Configuração
 
 #### Obter Configuração
 
-O comando `get configuration` recupera a configuração atual do Intlayer, particularmente as configurações de localidade. Isso é útil para verificar sua configuração.
+O comando `get configuration` obtém a configuração atual do Intlayer, especialmente as configurações de local. Isso é útil para verificar a configuração.
 
 ```bash
 npx intlayer config get
@@ -142,13 +210,14 @@ npx intlayer config get
 
 ##### Argumentos:
 
-- **`--env`**: Especifica o ambiente (ex.: `development`, `production`).
+- **`--env`**: Especifica o ambiente (ex: `development`, `production`).
 - **`--env-file`**: Fornece um arquivo de ambiente personalizado para carregar variáveis.
-- **`--verbose`**: Habilita o registro detalhado para depuração.
+- **`--base-dir`**: Especifica o diretório base do projeto.
+- **`--verbose`**: Ativa o registro detalhado para depuração.
 
 #### Enviar Configuração
 
-O comando `push configuration` carrega sua configuração para o CMS e editor do Intlayer. Esta etapa é necessária para habilitar o uso de dicionários distantes no Editor Visual do Intlayer.
+O comando `push configuration` faz upload da configuração para o CMS e Editor do Intlayer. Esta etapa é necessária para usar dicionários remotos no Editor Visual do Intlayer.
 
 ```bash
 npx intlayer config push
@@ -156,13 +225,14 @@ npx intlayer config push
 
 ##### Argumentos:
 
-- **`--env`**: Especifica o ambiente (ex.: `development`, `production`).
+- **`--env`**: Especifica o ambiente (ex: `development`, `production`).
 - **`--env-file`**: Fornece um arquivo de ambiente personalizado para carregar variáveis.
-- **`--verbose`**: Habilita o registro detalhado para depuração.
+- **`--base-dir`**: Especifica o diretório base do projeto.
+- **`--verbose`**: Ativa o registro detalhado para depuração.
 
-Ao enviar a configuração, seu projeto é totalmente integrado ao CMS do Intlayer, permitindo um gerenciamento de dicionários contínuo entre equipes.
+Ao enviar a configuração, seu projeto fica totalmente integrado ao CMS do Intlayer, permitindo um gerenciamento perfeito de dicionários entre equipes.
 
-## Usar comandos intlayer no seu `package.json`
+## Usando Comandos intlayer no `package.json`
 
 ```json fileName="package.json"
 "scripts": {

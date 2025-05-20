@@ -69,10 +69,20 @@ npx intlayer dictionary push
 
 - `-d`, `--dictionaries`: 푸시할 사전의 ID. 지정하지 않으면 모든 사전이 푸시됩니다.
   > 예: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: 사전이 푸시된 후 로케일 디렉토리를 삭제할지 묻는 질문을 건너뛰고 삭제합니다. 기본적으로 로컬에 정의된 사전은 원격 사전 내용을 덮어씁니다.
+- `-r`, `--deleteLocaleDictionary`: 사전을 푸시한 후 로케일 디렉토리를 삭제할지 묻는 질문을 건너뛰고 삭제합니다. 기본적으로 사전이 로컬에 정의된 경우 원격 사전의 내용을 덮어씁니다.
   > 예: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: 사전이 푸시된 후 로케일 디렉토리를 삭제할지 묻는 질문을 건너뛰고 유지합니다. 기본적으로 로컬에 정의된 사전은 원격 사전 내용을 덮어씁니다.
+- `-k`, `--keepLocaleDictionary`: 사전을 푸시한 후 로케일 디렉토리를 삭제할지 묻는 질문을 건너뛰고 유지합니다. 기본적으로 사전이 로컬에 정의된 경우 원격 사전의 내용을 덮어씁니다.
   > 예: `npx intlayer dictionary push -k`
+- `--env`: 환경을 지정합니다 (예: `development`, `production`).
+- `--env-file`: 변수를 로드하기 위한 사용자 정의 환경 파일을 제공합니다.
+- `--base-dir`: 프로젝트의 기본 디렉토리를 지정합니다.
+- `--verbose`: 디버깅을 위한 자세한 로깅을 활성화합니다.
+- `--git-diff`: 푸시되지 않은 변경 사항이 있는 사전만 실행합니다.
+- `--git-diff-base`: git diff의 기본 참조를 지정합니다.
+- `--git-diff-current`: git diff의 현재 참조를 지정합니다.
+- `--uncommitted`: 커밋되지 않은 변경 사항을 포함합니다.
+- `--unpushed`: 푸시되지 않은 변경 사항을 포함합니다.
+- `--untracked`: 추적되지 않은 파일을 포함합니다.
 
 ### 원격 사전 가져오기
 
@@ -84,9 +94,13 @@ npx intlayer dictionary pull
 
 ##### 인수:
 
-- `-d, --dictionaries`: 가져올 사전의 ID. 지정하지 않으면 모든 사전이 가져옵니다.
+- `-d, --dictionaries`: 가져올 사전의 ID. 지정하지 않으면 모든 사전이 가져와집니다.
   > 예: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : 새 사전을 저장할 디렉토리 경로. 지정하지 않으면 새 사전은 프로젝트의 `./intlayer-dictionaries` 디렉토리에 저장됩니다. 사전 콘텐츠에 `filePath` 필드가 지정된 경우, 이 인수는 무시되고 지정된 `filePath` 디렉토리에 저장됩니다.
+- `--newDictionariesPath`: 새 사전이 저장될 디렉토리의 경로. 지정하지 않으면 새 사전은 프로젝트의 `./intlayer-dictionaries` 디렉토리에 저장됩니다. 사전 내용에 `filePath` 필드가 지정된 경우 사전은 이 인수를 고려하지 않고 지정된 `filePath` 디렉토리에 저장됩니다.
+- `--env`: 환경을 지정합니다 (예: `development`, `production`).
+- `--env-file`: 변수를 로드하기 위한 사용자 정의 환경 파일을 제공합니다.
+- `--base-dir`: 프로젝트의 기본 디렉토리를 지정합니다.
+- `--verbose`: 디버깅을 위한 자세한 로깅을 활성화합니다.
 
 ##### 예:
 
@@ -100,7 +114,7 @@ npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 npx intlayer audit
 ```
 
-이 명령은 콘텐츠 선언 파일에서 누락된 번역, 구조적 불일치 또는 타입 불일치와 같은 잠재적인 문제를 분석합니다. 문제가 발견되면 **intlayer audit**은 사전을 일관되고 완전하게 유지하기 위해 업데이트를 제안하거나 적용합니다.
+이 명령은 콘텐츠 선언 파일을 분석하여 누락된 번역, 구조적 불일치 또는 타입 비호환성과 같은 잠재적인 문제를 찾습니다. 문제가 발견되면 **intlayer audit**은 사전을 일관되고 완전하게 유지하기 위해 업데이트를 제안하거나 적용합니다.
 
 ##### 인수:
 
@@ -108,27 +122,81 @@ npx intlayer audit
   감사할 특정 콘텐츠 선언 파일 목록. 제공되지 않으면 발견된 모든 `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` 파일이 감사됩니다.
 
 - **`--exclude [excludedGlobs...]`**  
-  감사에서 제외할 글롭 패턴 (예: `--exclude "src/test/**"`).
+  감사에서 제외할 글로브 패턴 (예: `--exclude "src/test/**"`).
 
-- **`-m, --model [model]`**  
-  감사에 사용할 ChatGPT 모델 (예: `gpt-3.5-turbo`).
+- **`--source-locale [sourceLocale]`**  
+  번역할 소스 로케일. 지정하지 않으면 구성의 기본 로케일이 사용됩니다.
 
-- **`-p, --custom-prompt [prompt]`**  
-  감사 지침에 대한 사용자 지정 프롬프트를 제공합니다.
+- **`--output-locales [outputLocales...]`**  
+  번역할 대상 로케일. 지정하지 않으면 소스 로케일을 제외한 구성의 모든 로케일이 사용됩니다.
 
-- **`-l, --async-limit [asyncLimit]`**  
-  동시에 처리할 파일의 최대 수.
+- **`--mode [mode]`**  
+  번역 모드: 'complete', 'review', 또는 'missing-only'. 기본값은 'missing-only'입니다.
 
-- **`-k, --open-ai-api-key [openAiApiKey]`**  
-  OAuth2 인증을 우회하기 위해 OpenAI API 키를 제공합니다.
+- **`--git-diff`**  
+  git 저장소에서 푸시되지 않은 변경 사항이 있는 사전만 실행합니다.
+
+- **`--git-diff-base`**  
+  git diff의 기본 참조를 지정합니다.
+
+- **`--git-diff-current`**  
+  git diff의 현재 참조를 지정합니다.
+
+- **`--uncommitted`**  
+  커밋되지 않은 변경 사항을 포함합니다.
+
+- **`--unpushed`**  
+  푸시되지 않은 변경 사항을 포함합니다.
+
+- **`--untracked`**  
+  추적되지 않은 파일을 포함합니다.
+
+- **`--keys [keys...]`**  
+  지정된 키를 기반으로 사전을 필터링합니다.
+
+- **`--excluded-keys [excludedKeys...]`**  
+  지정된 키를 기반으로 사전을 제외합니다.
+
+- **`--path-filter [pathFilters...]`**  
+  파일 경로의 글로브 패턴을 기반으로 사전을 필터링합니다.
+
+- **`--model [model]`**  
+  번역에 사용할 AI 모델 (예: `gpt-3.5-turbo`).
+
+- **`--provider [provider]`**  
+  번역에 사용할 AI 제공자.
+
+- **`--temperature [temperature]`**  
+  AI 모델의 온도 설정.
+
+- **`--api-key [apiKey]`**  
+  AI 서비스에 대한 자체 API 키를 제공합니다.
+
+- **`--custom-prompt [prompt]`**  
+  번역 지침을 위한 사용자 정의 프롬프트를 제공합니다.
+
+- **`--application-context [applicationContext]`**  
+  AI 번역을 위한 추가 컨텍스트를 제공합니다.
+
+- **`--env`**  
+  환경을 지정합니다 (예: `development`, `production`).
+
+- **`--env-file [envFile]`**  
+  변수를 로드하기 위한 사용자 정의 환경 파일을 제공합니다.
+
+- **`--base-dir`**  
+  프로젝트의 기본 디렉토리를 지정합니다.
+
+- **`--verbose`**  
+  디버깅을 위한 자세한 로깅을 활성화합니다.
 
 ##### 예:
 
 ```bash
-npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
+npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
-이 명령은 `tests/**` 아래의 파일을 무시하고 `gpt-3.5-turbo` 모델을 사용하여 발견된 콘텐츠 선언 파일을 감사합니다. 누락된 번역과 같은 문제가 발견되면 원래 파일 구조를 유지하면서 수정됩니다.
+이 명령은 GPT-3.5 Turbo 모델을 사용하여 `src/home/` 디렉토리의 모든 콘텐츠 선언 파일의 내용을 영어에서 프랑스어와 스페인어로 번역합니다.
 
 ### 설정 관리
 
@@ -144,6 +212,7 @@ npx intlayer config get
 
 - **`--env`**: 환경을 지정합니다 (예: `development`, `production`).
 - **`--env-file`**: 변수를 로드할 사용자 지정 환경 파일을 제공합니다.
+- **`--base-dir`**: 프로젝트의 기본 디렉토리를 지정합니다.
 - **`--verbose`**: 디버깅을 위한 자세한 로깅을 활성화합니다.
 
 #### 설정 푸시
@@ -158,6 +227,7 @@ npx intlayer config push
 
 - **`--env`**: 환경을 지정합니다 (예: `development`, `production`).
 - **`--env-file`**: 변수를 로드할 사용자 지정 환경 파일을 제공합니다.
+- **`--base-dir`**: 프로젝트의 기본 디렉토리를 지정합니다.
 - **`--verbose`**: 디버깅을 위한 자세한 로깅을 활성화합니다.
 
 설정을 푸시하면 프로젝트가 Intlayer CMS와 완전히 통합되어 팀 간 원활한 사전 관리를 가능하게 합니다.

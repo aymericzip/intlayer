@@ -67,12 +67,22 @@ Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 
 ##### Argumente:
 
-- `-d`, `--dictionaries`: IDs der Wörterbücher, die hochgeladen werden sollen. Wenn nicht angegeben, werden alle Wörterbücher hochgeladen.
+- `-d`, `--dictionaries`: IDs der zu übertragenden Wörterbücher. Wenn nicht angegeben, werden alle Wörterbücher übertragen.
   > Beispiel: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Überspringt die Frage, ob die Lokalisierungsverzeichnisse nach dem Hochladen der Wörterbücher gelöscht werden sollen, und entfernt sie. Standardmäßig wird der lokale Wörterbuchinhalt überschrieben, wenn das Wörterbuch lokal definiert ist.
+- `-r`, `--deleteLocaleDictionary`: Überspringen Sie die Frage, ob die Locale-Verzeichnisse nach dem Übertragen der Wörterbücher gelöscht werden sollen, und löschen Sie sie. Standardmäßig überschreibt das Wörterbuch, wenn es lokal definiert ist, den Inhalt der entfernten Wörterbücher.
   > Beispiel: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: Überspringt die Frage, ob die Lokalisierungsverzeichnisse nach dem Hochladen der Wörterbücher gelöscht werden sollen, und behält sie bei. Standardmäßig wird der lokale Wörterbuchinhalt überschrieben, wenn das Wörterbuch lokal definiert ist.
+- `-k`, `--keepLocaleDictionary`: Überspringen Sie die Frage, ob die Locale-Verzeichnisse nach dem Übertragen der Wörterbücher gelöscht werden sollen, und behalten Sie sie. Standardmäßig überschreibt das Wörterbuch, wenn es lokal definiert ist, den Inhalt der entfernten Wörterbücher.
   > Beispiel: `npx intlayer dictionary push -k`
+- `--env`: Geben Sie die Umgebung an (z.B. `development`, `production`).
+- `--env-file`: Stellen Sie eine benutzerdefinierte Umgebungsdatei zum Laden der Variablen bereit.
+- `--base-dir`: Geben Sie das Basisverzeichnis des Projekts an.
+- `--verbose`: Aktivieren Sie die detaillierte Protokollierung für Debugging-Zwecke.
+- `--git-diff`: Nur für Wörterbücher mit nicht übertragenen Änderungen ausführen.
+- `--git-diff-base`: Geben Sie die Basis-Referenz für git diff an.
+- `--git-diff-current`: Geben Sie die aktuelle Referenz für git diff an.
+- `--uncommitted`: Nicht committete Änderungen einschließen.
+- `--unpushed`: Nicht übertragene Änderungen einschließen.
+- `--untracked`: Nicht verfolgte Dateien einschließen.
 
 ### Entfernte Wörterbücher abrufen
 
@@ -80,13 +90,17 @@ Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 npx intlayer dictionary pull
 ```
 
-Wenn der [Intlayer-Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md) installiert ist, können Sie Wörterbücher auch aus dem Editor abrufen. Auf diese Weise können Sie den Inhalt Ihrer Wörterbücher für die Anforderungen Ihrer Anwendung überschreiben.
+Wenn der [intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md) installiert ist, können Sie auch Wörterbücher vom Editor abrufen. Auf diese Weise können Sie den Inhalt Ihrer Wörterbücher für die Anforderungen Ihrer Anwendung überschreiben.
 
 ##### Argumente:
 
-- `-d, --dictionaries`: IDs der Wörterbücher, die abgerufen werden sollen. Wenn nicht angegeben, werden alle Wörterbücher abgerufen.
+- `-d, --dictionaries`: IDs der abzurufenden Wörterbücher. Wenn nicht angegeben, werden alle Wörterbücher abgerufen.
   > Beispiel: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath`: Pfad zum Verzeichnis, in dem die neuen Wörterbücher gespeichert werden. Wenn nicht angegeben, werden die neuen Wörterbücher im Verzeichnis `./intlayer-dictionaries` des Projekts gespeichert. Wenn ein `filePath`-Feld in Ihrem Wörterbuchinhalt angegeben ist, wird dieses Argument ignoriert und die Wörterbücher werden im angegebenen `filePath`-Verzeichnis gespeichert.
+- `--newDictionariesPath`: Pfad zum Verzeichnis, in dem die neuen Wörterbücher gespeichert werden sollen. Wenn nicht angegeben, werden die neuen Wörterbücher im Verzeichnis `./intlayer-dictionaries` des Projekts gespeichert. Wenn ein `filePath`-Feld im Inhalt Ihres Wörterbuchs angegeben ist, berücksichtigen die Wörterbücher dieses Argument nicht und werden im angegebenen `filePath`-Verzeichnis gespeichert.
+- `--env`: Geben Sie die Umgebung an (z.B. `development`, `production`).
+- `--env-file`: Stellen Sie eine benutzerdefinierte Umgebungsdatei zum Laden der Variablen bereit.
+- `--base-dir`: Geben Sie das Basisverzeichnis des Projekts an.
+- `--verbose`: Aktivieren Sie die detaillierte Protokollierung für Debugging-Zwecke.
 
 ##### Beispiel:
 
@@ -100,41 +114,95 @@ npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 npx intlayer audit
 ```
 
-Dieser Befehl analysiert Ihre Inhaltsdeklarationsdateien auf potenzielle Probleme wie fehlende Übersetzungen, strukturelle Inkonsistenzen oder Typabweichungen. Wenn Probleme gefunden werden, schlägt **intlayer audit** Updates vor oder wendet sie an, um Ihre Wörterbücher konsistent und vollständig zu halten.
+Dieser Befehl analysiert Ihre Inhaltsdeklarationsdateien auf potenzielle Probleme wie fehlende Übersetzungen, strukturelle Inkonsistenzen oder Typinkompatibilitäten. Wenn Probleme gefunden werden, wird **intlayer audit** Aktualisierungen vorschlagen oder anwenden, um Ihre Wörterbücher konsistent und vollständig zu halten.
 
 ##### Argumente:
 
 - **`-f, --files [files...]`**  
-  Eine Liste spezifischer Inhaltsdeklarationsdateien, die geprüft werden sollen. Wenn nicht angegeben, werden alle gefundenen `*.content.{ts,js,mjs,cjs,tsx,jsx,json}`-Dateien geprüft.
+  Eine Liste spezifischer Inhaltsdeklarationsdateien zur Prüfung. Wenn nicht angegeben, werden alle gefundenen `*.content.{ts,js,mjs,cjs,tsx,jsx,json}`-Dateien geprüft.
 
 - **`--exclude [excludedGlobs...]`**  
-  Glob-Muster, die von der Prüfung ausgeschlossen werden sollen (z. B. `--exclude "src/test/**"`).
+  Glob-Muster zum Ausschließen von der Prüfung (z.B. `--exclude "src/test/**"`).
 
-- **`-m, --model [model]`**  
-  Das ChatGPT-Modell, das für die Prüfung verwendet werden soll (z. B. `gpt-3.5-turbo`).
+- **`--source-locale [sourceLocale]`**  
+  Die Quell-Locale, von der übersetzt werden soll. Wenn nicht angegeben, wird die Standard-Locale aus Ihrer Konfiguration verwendet.
 
-- **`-p, --custom-prompt [prompt]`**  
-  Benutzerdefinierte Eingabeaufforderung für Ihre Prüfungsanweisungen bereitstellen.
+- **`--output-locales [outputLocales...]`**  
+  Ziel-Locales, in die übersetzt werden soll. Wenn nicht angegeben, werden alle Locales aus Ihrer Konfiguration außer der Quell-Locale verwendet.
 
-- **`-l, --async-limit [asyncLimit]`**  
-  Maximale Anzahl von Dateien, die gleichzeitig verarbeitet werden sollen.
+- **`--mode [mode]`**  
+  Übersetzungsmodus: 'complete', 'review' oder 'missing-only'. Standard ist 'missing-only'.
 
-- **`-k, --open-ai-api-key [openAiApiKey]`**  
-  Eigener OpenAI-API-Schlüssel, um die OAuth2-Authentifizierung zu umgehen.
+- **`--git-diff`**  
+  Nur für Wörterbücher mit nicht übertragenen Änderungen im Git-Repository ausführen.
+
+- **`--git-diff-base`**  
+  Geben Sie die Basis-Referenz für git diff an.
+
+- **`--git-diff-current`**  
+  Geben Sie die aktuelle Referenz für git diff an.
+
+- **`--uncommitted`**  
+  Nicht committete Änderungen einschließen.
+
+- **`--unpushed`**  
+  Nicht übertragene Änderungen einschließen.
+
+- **`--untracked`**  
+  Nicht verfolgte Dateien einschließen.
+
+- **`--keys [keys...]`**  
+  Wörterbücher basierend auf angegebenen Schlüsseln filtern.
+
+- **`--excluded-keys [excludedKeys...]`**  
+  Wörterbücher basierend auf angegebenen Schlüsseln ausschließen.
+
+- **`--path-filter [pathFilters...]`**  
+  Wörterbücher basierend auf Glob-Muster für Dateipfade filtern.
+
+- **`--model [model]`**  
+  Das KI-Modell für die Übersetzung (z.B. `gpt-3.5-turbo`).
+
+- **`--provider [provider]`**  
+  Der KI-Anbieter für die Übersetzung.
+
+- **`--temperature [temperature]`**  
+  Temperatur-Einstellung für das KI-Modell.
+
+- **`--api-key [apiKey]`**  
+  Stellen Sie Ihren eigenen API-Schlüssel für den KI-Dienst bereit.
+
+- **`--custom-prompt [prompt]`**  
+  Stellen Sie einen benutzerdefinierten Prompt für Ihre Übersetzungsanweisungen bereit.
+
+- **`--application-context [applicationContext]`**  
+  Stellen Sie zusätzlichen Kontext für die KI-Übersetzung bereit.
+
+- **`--env`**  
+  Geben Sie die Umgebung an (z.B. `development`, `production`).
+
+- **`--env-file [envFile]`**  
+  Stellen Sie eine benutzerdefinierte Umgebungsdatei zum Laden der Variablen bereit.
+
+- **`--base-dir`**  
+  Geben Sie das Basisverzeichnis des Projekts an.
+
+- **`--verbose`**  
+  Aktivieren Sie die detaillierte Protokollierung für Debugging-Zwecke.
 
 ##### Beispiel:
 
 ```bash
-npx intlayer audit --exclude "tests/**" --model gpt-3.5-turbo
+npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
-Dieser Befehl ignoriert alle Dateien unter `tests/**` und verwendet das Modell `gpt-3.5-turbo`, um die gefundenen Inhaltsdeklarationsdateien zu prüfen. Wenn Probleme wie fehlende Übersetzungen gefunden werden, werden diese direkt korrigiert, wobei die ursprüngliche Dateistruktur erhalten bleibt.
+Dieser Befehl übersetzt Inhalte vom Englischen ins Französische und Spanische für alle Inhaltsdeklarationsdateien im Verzeichnis `src/home/` unter Verwendung des GPT-3.5 Turbo-Modells.
 
 ### Konfiguration verwalten
 
 #### Konfiguration abrufen
 
-Der Befehl `get configuration` ruft die aktuelle Konfiguration für Intlayer ab, insbesondere die Lokalisierungseinstellungen. Dies ist nützlich, um Ihre Einrichtung zu überprüfen.
+Der Befehl `get configuration` ruft die aktuelle Konfiguration für Intlayer ab, insbesondere die Locale-Einstellungen. Dies ist nützlich, um Ihre Konfiguration zu überprüfen.
 
 ```bash
 npx intlayer config get
@@ -142,13 +210,14 @@ npx intlayer config get
 
 ##### Argumente:
 
-- **`--env`**: Geben Sie die Umgebung an (z. B. `development`, `production`).
-- **`--env-file`**: Benutzerdefinierte Umgebungsdatei angeben, aus der Variablen geladen werden sollen.
-- **`--verbose`**: Aktivieren Sie ausführliche Protokollierung für Debugging.
+- **`--env`**: Geben Sie die Umgebung an (z.B. `development`, `production`).
+- **`--env-file`**: Stellen Sie eine benutzerdefinierte Umgebungsdatei zum Laden der Variablen bereit.
+- **`--base-dir`**: Geben Sie das Basisverzeichnis des Projekts an.
+- **`--verbose`**: Aktivieren Sie die detaillierte Protokollierung für Debugging-Zwecke.
 
-#### Konfiguration hochladen
+#### Konfiguration übertragen
 
-Der Befehl `push configuration` lädt Ihre Konfiguration in das Intlayer-CMS und den Editor hoch. Dieser Schritt ist erforderlich, um die Verwendung entfernter Wörterbücher im Intlayer Visual Editor zu ermöglichen.
+Der Befehl `push configuration` lädt Ihre Konfiguration in das Intlayer CMS und den Editor hoch. Dieser Schritt ist notwendig, um die Verwendung entfernter Wörterbücher im Intlayer Visual Editor zu aktivieren.
 
 ```bash
 npx intlayer config push
@@ -156,11 +225,12 @@ npx intlayer config push
 
 ##### Argumente:
 
-- **`--env`**: Geben Sie die Umgebung an (z. B. `development`, `production`).
-- **`--env-file`**: Benutzerdefinierte Umgebungsdatei angeben, aus der Variablen geladen werden sollen.
-- **`--verbose`**: Aktivieren Sie ausführliche Protokollierung für Debugging.
+- **`--env`**: Geben Sie die Umgebung an (z.B. `development`, `production`).
+- **`--env-file`**: Stellen Sie eine benutzerdefinierte Umgebungsdatei zum Laden der Variablen bereit.
+- **`--base-dir`**: Geben Sie das Basisverzeichnis des Projekts an.
+- **`--verbose`**: Aktivieren Sie die detaillierte Protokollierung für Debugging-Zwecke.
 
-Durch das Hochladen der Konfiguration wird Ihr Projekt vollständig in das Intlayer-CMS integriert, was eine nahtlose Wörterbuchverwaltung über Teams hinweg ermöglicht.
+Durch das Übertragen der Konfiguration ist Ihr Projekt vollständig in das Intlayer CMS integriert, was eine nahtlose Wörterbuchverwaltung zwischen Teams ermöglicht.
 
 ## Intlayer-Befehle in Ihrer `package.json` verwenden
 

@@ -1,22 +1,23 @@
-import * as readline from 'readline';
 import { getIntlayerAPI } from '@intlayer/api';
+import {
+  writeContentDeclaration,
+  type DictionaryStatus,
+} from '@intlayer/chokidar';
 import {
   getConfiguration,
   GetConfigurationOptions,
   logger,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import {
-  writeContentDeclaration,
-  type DictionaryStatus,
-} from '@intlayer/chokidar';
 import pLimit from 'p-limit';
+import * as readline from 'readline';
 
 type PullOptions = {
   dictionaries?: string[];
   newDictionariesPath?: string;
   logPrefix?: string;
-} & GetConfigurationOptions;
+  configOptions?: GetConfigurationOptions;
+};
 
 type DictionariesStatus = {
   dictionaryKey: string;
@@ -44,7 +45,7 @@ const GREY_DARK = '\x1b[90m';
  */
 export const pull = async (options?: PullOptions): Promise<void> => {
   try {
-    const config = getConfiguration(options);
+    const config = getConfiguration(options?.configOptions);
     const { clientId, clientSecret } = config.editor;
 
     if (!clientId || !clientSecret) {
