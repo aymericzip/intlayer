@@ -1,16 +1,16 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-
 import { getLocalizedUrl } from '@intlayer/core';
 import {
+  checkIsExternalLink,
   linkVariants,
   type LinkProps as LinkUIProps,
-  checkIsExternalLink,
 } from '@intlayer/design-system';
+import { cn } from '@utils/cn';
 import { ExternalLink } from 'lucide-react';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import { useLocale } from 'next-intlayer';
+import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import { type FC } from 'react';
 
 export type LinkProps = LinkUIProps & NextLinkProps;
@@ -59,12 +59,14 @@ export const Link: FC<LinkProps> = (props) => {
       rel={rel}
       target={target}
       aria-current={isActive ? 'page' : undefined}
-      className={linkVariants({
-        variant,
-        color,
-        underlined,
-        className,
-      })}
+      className={cn(
+        linkVariants({
+          variant,
+          color,
+          underlined,
+          className,
+        })
+      )}
       {...otherProps}
     >
       {variant === 'button' ? <span>{children}</span> : children}

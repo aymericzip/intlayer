@@ -1,3 +1,4 @@
+import { PagesRoutes } from '@/Routes';
 import {
   getBlogDataByPath,
   getPreviousNextBlogData,
@@ -10,12 +11,11 @@ import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
 import { ChevronLeft, ChevronRight, Edit } from 'lucide-react';
-import { redirect } from 'next/navigation';
 import { type LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { redirect } from 'next/navigation';
 import type { FC } from 'react';
 import type { BlogProps } from './layout';
-import { PagesRoutes } from '@/Routes';
 
 const Contribution: FC<{ githubUrl: string }> = ({ githubUrl }) => {
   const { contribution } = useIntlayer('blog-page');
@@ -64,13 +64,13 @@ const BlogPageNavigation: FC<BlogPageNavigationProps> = ({
   const { goToNextSection, goToPreviousSection } = useIntlayer('blog-page');
 
   return (
-    <div className="flex flex-row flex-wrap justify-between gap-10 p-10 text-sm">
+    <div className="flex flex-row flex-wrap justify-between gap-3 text-sm px-10 mt-3">
       {prevBlog && (
         <Link
           href={prevBlog?.url}
           label={goToPreviousSection.label.value}
           color="text"
-          className="mr-auto flex flex-row items-center gap-2 text-nowrap"
+          className="mr-auto flex flex-row justify-start items-center break-words whitespace-normal gap-2 px-2 py-5 text-nowrap max-w-1/2 rounded-lg border-text border-1 h-auto flex-1"
         >
           <ChevronLeft className="size-5" />
           {prevBlog?.title}
@@ -81,7 +81,7 @@ const BlogPageNavigation: FC<BlogPageNavigationProps> = ({
           href={nextBlog?.url}
           label={goToNextSection.label.value}
           color="text"
-          className="ml-auto flex flex-row items-center gap-2 text-nowrap"
+          className="ml-auto flex flex-row justify-end items-center break-words whitespace-normal gap-2 px-2 py-5 text-nowrap max-w-1/2 rounded-lg border-text border-1 h-auto flex-1"
         >
           {nextBlog?.title}
           <ChevronRight className="size-5" />
