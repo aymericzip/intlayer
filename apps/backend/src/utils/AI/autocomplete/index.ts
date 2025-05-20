@@ -36,7 +36,10 @@ export const autocomplete = async ({
 }: AutocompleteOptions): Promise<AutocompleteFileResultData | undefined> => {
   try {
     // Prepare the prompt for AI by replacing placeholders with actual values.
-    const prompt = CHAT_GPT_PROMPT;
+    const prompt = CHAT_GPT_PROMPT.replace(
+      '{{applicationContext}}',
+      aiOptions?.applicationContext ?? ''
+    );
 
     // Get the appropriate AI model configuration
     const aiConfig = await getAIConfig(aiOptions);

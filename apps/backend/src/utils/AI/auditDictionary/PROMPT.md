@@ -138,6 +138,10 @@ You are an expert in internationalization, copy writing and content management. 
        - The import of the `t` function was imported from `react-intlayer` instead of `intlayer`.
        - A type `Dictionary` was added to the file to strengthen the content declaration.
 
+**Application Context**
+
+{{applicationContext}}
+
 **Tags Instructions:**
 
 {{tagsInstructions}}

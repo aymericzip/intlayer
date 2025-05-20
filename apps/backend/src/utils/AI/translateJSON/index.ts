@@ -103,6 +103,7 @@ export const translateJSON = async ({
       .replace('{{entryFileContent}}', JSON.stringify(entryFileContent))
       .replace('{{presetOutputContent}}', JSON.stringify(presetOutputContent))
       .replace('{{dictionaryDescription}}', dictionaryDescription)
+      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '')
       .replace('{{tagsInstructions}}', formatTagInstructions(tags))
       .replace('{{modeInstructions}}', getModeInstructions(mode));
 

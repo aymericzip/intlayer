@@ -48,7 +48,9 @@ export const auditDictionaryMetadata = async ({
         null,
         2
       )}`
-    ).replace('{{contentDeclaration}}', fileContent);
+    )
+      .replace('{{contentDeclaration}}', fileContent)
+      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '');
 
     // Get the appropriate AI model configuration
     const aiConfig = await getAIConfig(aiOptions);

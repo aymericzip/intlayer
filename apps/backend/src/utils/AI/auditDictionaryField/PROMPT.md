@@ -108,6 +108,10 @@ You are an expert in internationalization, copy writing and content management. 
 
       Développeurs, Responsables de contenu
 
+**Application Context**
+
+{{applicationContext}}
+
 **Tags Instructions:**
 
 {{tagsInstructions}}

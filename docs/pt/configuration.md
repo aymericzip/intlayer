@@ -426,8 +426,15 @@ O Intlayer suporta vários provedores de IA para maior flexibilidade e escolha. 
   - _Nota_: Uma temperatura mais alta tornará a IA mais criativa e menos previsível.
 
 - **apiKey**:
+
   - _Tipo_: `string`
   - _Padrão_: Nenhum
   - _Descrição_: Sua chave de API para o provedor selecionado.
   - _Exemplo_: `process.env.OPENAI_API_KEY`
   - _Nota_: Importante: As chaves de API devem ser mantidas em segredo e não compartilhadas publicamente. Certifique-se de mantê-las em um local seguro, como variáveis de ambiente.
+
+- **applicationContext**:
+
+  - _Tipo_: `string`
+  - _Padrão_: Nenhum
+  - _Descrição_: Fornece contexto adicional sobre sua aplicação ao modelo de IA, ajudando-o a gerar traduções mais precisas e contextualmente apropriadas. Isso pode incluir informações sobre o domínio do seu aplicativo, público-alvo, tom ou terminologia específica.

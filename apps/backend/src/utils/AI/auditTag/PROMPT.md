@@ -21,6 +21,10 @@ Your role is to review a tag. A tag is attached to a content declaration and is 
    - **Do Not Alter Structure:** If the file structure is correct, do not modify it. Only add, update, or remove content declarations as necessary.
    - **Return Only Final File Content:** Provide the updated file content without any additional comments or explanations.
 
+**Application Context**
+
+{{applicationContext}}
+
 **Tags to Audit:**
 
 {{tag}}

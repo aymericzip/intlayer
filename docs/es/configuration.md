@@ -426,8 +426,15 @@ Intlayer admite múltiples proveedores de AI para mayor flexibilidad y elección
   - _Nota_: Una temperatura más alta hará que la AI sea más creativa y menos predecible.
 
 - **apiKey**:
+
   - _Tipo_: `string`
   - _Por defecto_: Ninguno
   - _Descripción_: Tu clave API para el proveedor seleccionado.
   - _Ejemplo_: `process.env.OPENAI_API_KEY`
   - _Nota_: Importante: Las claves API deben mantenerse en secreto y no compartirse públicamente. Asegúrate de mantenerlas en un lugar seguro, como variables de entorno.
+
+- **applicationContext**:
+
+  - _Tipo_: `string`
+  - _Por defecto_: Ninguno
+  - _Descripción_: Proporciona contexto adicional sobre tu aplicación al modelo de AI, ayudándolo a generar traducciones más precisas y contextualmente apropiadas. Esto puede incluir información sobre el dominio de tu aplicación, audiencia objetivo, tono o terminología específica.

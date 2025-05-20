@@ -73,6 +73,8 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     provider: process.env.REACT_APP_INTLAYER_AI_PROVIDER,
     model: process.env.REACT_APP_INTLAYER_AI_MODEL,
     temperature: process.env.REACT_APP_INTLAYER_AI_TEMPERATURE,
+    apiKey: process.env.REACT_APP_INTLAYER_AI_API_KEY,
+    applicationContext: process.env.REACT_APP_INTLAYER_AI_APPLICATION_CONTEXT,
   };
 
   return {

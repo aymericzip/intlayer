@@ -68,6 +68,8 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     provider: process.env.NEXT_PUBLIC_INTLAYER_AI_PROVIDER,
     model: process.env.NEXT_PUBLIC_INTLAYER_AI_MODEL,
     temperature: process.env.NEXT_PUBLIC_INTLAYER_AI_TEMPERATURE,
+    apiKey: process.env.NEXT_PUBLIC_INTLAYER_AI_API_KEY,
+    applicationContext: process.env.NEXT_PUBLIC_INTLAYER_AI_APPLICATION_CONTEXT,
   };
 
   const log: ReplaceValue<LogConfig> = {

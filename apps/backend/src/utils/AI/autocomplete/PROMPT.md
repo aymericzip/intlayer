@@ -11,3 +11,7 @@ Your completion should not exceed one sentence. Minimize the completion length i
 The user input will be provided in the next user message: { role: 'user', content: 'xxx' }
 
 You should return your autocompletion without any additional text or formatting.
+
+**Application Context**
+
+{{applicationContext}}

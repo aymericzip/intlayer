@@ -5,7 +5,7 @@ import { generateText } from 'ai';
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { AIOptions, getAIConfig } from '../AI/aiSdk';
+import { AIOptions, getAIConfig } from '../aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -44,7 +44,8 @@ export const auditTag = async ({
       tag.description ?? ''
     )
       .replace('{{tag.key}}', tag.key)
-      .replace('{{dictionaries}}', JSON.stringify(dictionaries, null, 2));
+      .replace('{{dictionaries}}', JSON.stringify(dictionaries, null, 2))
+      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '');
 
     // Get the appropriate AI model configuration
     const aiConfig = await getAIConfig(aiOptions);

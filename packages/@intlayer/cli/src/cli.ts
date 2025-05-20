@@ -22,6 +22,7 @@ const aiOptions = [
   ['--model [model]', 'Model'],
   ['--api-key [apiKey]', 'Provider API key'],
   ['--custom-prompt [prompt]', 'Custom prompt'],
+  ['--application-context [applicationContext]', 'Application context'],
 ];
 
 /**
@@ -43,6 +44,8 @@ const enrichAiOptionsWithConfiguration = (aiOptions?: AIOptions) => ({
   provider: aiOptions?.provider ?? configuration.ai?.provider,
   model: aiOptions?.model ?? configuration.ai?.model,
   temperature: aiOptions?.temperature ?? configuration.ai?.temperature,
+  applicationContext:
+    aiOptions?.applicationContext ?? configuration.ai?.applicationContext,
 });
 
 const extractAiOptions = ({

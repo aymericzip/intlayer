@@ -25,6 +25,7 @@ export type AIOptions = {
   temperature?: number;
   apiKey?: string;
   customPrompt?: string;
+  applicationContext?: string;
 };
 
 /**

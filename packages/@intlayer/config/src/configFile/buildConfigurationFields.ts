@@ -607,6 +607,11 @@ const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
    * Temperature
    */
   temperature: customConfiguration?.temperature,
+
+  /**
+   * Application context
+   */
+  applicationContext: customConfiguration?.applicationContext,
 });
 
 /**

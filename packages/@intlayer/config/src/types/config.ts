@@ -270,6 +270,15 @@ export type AiConfig = {
    *
    */
   apiKey?: string;
+
+  /**
+   * Application context
+   *
+   * The context of the application to use for the AI features of Intlayer.
+   *
+   * Example: 'This is a website for a company that sells products online.'
+   */
+  applicationContext?: string;
 };
 
 /**

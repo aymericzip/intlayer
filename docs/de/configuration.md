@@ -424,8 +424,15 @@ Intlayer unterstützt mehrere KI-Anbieter für mehr Flexibilität und Auswahl. D
   - _Hinweis_: Eine höhere Temperatur macht die KI kreativer und weniger vorhersehbar.
 
 - **apiKey**:
+
   - _Typ_: `string`
   - _Standard_: Keine
   - _Beschreibung_: Ihr API-Schlüssel für den ausgewählten Anbieter.
   - _Beispiel_: `process.env.OPENAI_API_KEY`
   - _Hinweis_: Wichtig: API-Schlüssel sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte bewahren Sie sie an einem sicheren Ort auf, z. B. in Umgebungsvariablen.
+
+- **applicationContext**:
+
+  - _Typ_: `string`
+  - _Standard_: Keine
+  - _Beschreibung_: Stellt dem KI-Modell zusätzlichen Kontext über Ihre Anwendung zur Verfügung, um genauere und kontextbezogenere Übersetzungen zu generieren. Dies kann Informationen über den Bereich Ihrer Anwendung, die Zielgruppe, den Ton oder spezifische Terminologie umfassen.

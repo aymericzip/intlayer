@@ -21,7 +21,9 @@ const config: IntlayerConfig = {
     mode: 'verbose',
   },
   ai: {
+    provider: 'openai',
     apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: 'This is a test application',
   },
 };
 

@@ -79,6 +79,7 @@ export const auditDictionaryField = async ({
     )
       .replace('{{keyPath}}', JSON.stringify(keyPath))
       .replace('{{fileContent}}', fileContent)
+      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '')
       .replace('{{tagsInstructions}}', formatTagInstructions(tags));
 
     // Get the appropriate AI model configuration

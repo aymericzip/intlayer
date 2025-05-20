@@ -90,6 +90,7 @@ export const auditDictionary = async ({
       )
       .replace('{{filePath}}', filePath ?? '')
       .replace('{{fileContent}}', fileContent)
+      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '')
       .replace('{{tagsInstructions}}', formatTagInstructions(tags));
 
     if (!aiConfig) {

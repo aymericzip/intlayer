@@ -82,6 +82,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     provider: import.meta.env.VITE_INTLAYER_AI_PROVIDER,
     model: import.meta.env.VITE_INTLAYER_AI_MODEL,
     temperature: import.meta.env.VITE_INTLAYER_AI_TEMPERATURE,
+    apiKey: import.meta.env.VITE_INTLAYER_AI_API_KEY,
+    applicationContext: import.meta.env.VITE_INTLAYER_AI_APPLICATION_CONTEXT,
   };
 
   return {

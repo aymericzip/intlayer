@@ -65,6 +65,10 @@ export default metadataContent;
 }
 ```
 
+**Application Context**
+
+{{applicationContext}}
+
 **List of existing Tags:**
 
 Here the list of existing tags as a context to help you to pick related ones.
