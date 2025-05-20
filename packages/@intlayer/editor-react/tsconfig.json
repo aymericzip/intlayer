@@ -1,11 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
-  "include": [
-    "**/*",
-    "../editor/src/messageKeys.ts",
-    "../editor/src/messageKeys.ts"
-  ],
+  "include": ["**/*"],
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
