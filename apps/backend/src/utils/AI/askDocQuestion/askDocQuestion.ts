@@ -279,14 +279,8 @@ export const askDocQuestion = async (
   messages: ChatCompletionRequestMessage[],
   options?: AskDocQuestionOptions
 ): Promise<AskDocQuestionResult> => {
-  // Assistant's response are filtered out otherwise the chatbot will be stuck in a self-referential loop
-  // Note that the embedding precision will be lowered if the user change of context in the chat
-  const userMessages = messages.filter((message) => message.role === 'user');
-
   // Format the user's question to keep only the relevant keywords
-  const query = userMessages
-    .map((message) => `- ${message.content}`)
-    .join('\n');
+  const query = messages.map((message) => `- ${message.content}`).join('\n');
 
   // 1) Find relevant documents based on the user's question
   const relevantFilesReferences = await searchChunkReference(query);
