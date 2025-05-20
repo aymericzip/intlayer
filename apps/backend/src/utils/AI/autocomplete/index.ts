@@ -42,7 +42,11 @@ export const autocomplete = async ({
     );
 
     // Get the appropriate AI model configuration
-    const aiConfig = await getAIConfig(aiOptions);
+    const aiConfig = await getAIConfig({
+      ...aiOptions,
+      model: 'gpt-4o-mini',
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
     if (!aiConfig) {
       logger.error('Failed to configure AI model');
