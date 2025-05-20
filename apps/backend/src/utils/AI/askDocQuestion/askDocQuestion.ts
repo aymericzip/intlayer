@@ -86,7 +86,7 @@ const generateEmbedding = async (text: string): Promise<number[]> => {
     // Set API key through the SDK configuration
     await getAIConfig({
       provider: AIProvider.OPENAI,
-      apiKey: process.env.OPENAI_API_KEY ?? '',
+      apiKey: process.env.OPENAI_API_KEY,
     });
 
     const openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });

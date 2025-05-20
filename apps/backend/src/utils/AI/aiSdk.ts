@@ -6,6 +6,59 @@ import { openai } from '@ai-sdk/openai';
 import { logger } from '@logger';
 
 /**
+ * Supported AI models
+ */
+export type Model =
+  // OpenAI Models
+  | 'gpt-4o-mini'
+  | 'gpt-4o'
+  | 'gpt-4.1'
+  | 'gpt-4.1-mini'
+  | 'gpt-4.1-nano'
+  | 'gpt-4.5'
+  | 'gpt-3.5-turbo'
+  | 'gpt-4-turbo-preview'
+  | 'gpt-4-vision-preview'
+  | 'gpt-4o-audio-preview'
+  | 'gpt-4o-mini-audio-preview'
+  | 'o1-mini'
+  | 'o1'
+  | 'o1-pro'
+  | 'o3-mini'
+  | 'o3-mini-high'
+  | 'o3'
+  | 'o4-mini'
+  | 'o4-mini-high'
+  // Anthropic Models
+  | 'claude-3-haiku-20240307'
+  | 'claude-3-sonnet-20240229'
+  | 'claude-3-opus-20240229'
+  // Mistral Models
+  | 'mistral-tiny'
+  | 'mistral-small'
+  | 'mistral-small-3.1'
+  | 'mistral-medium'
+  | 'mistral-medium-3'
+  | 'mistral-large'
+  | 'mistral-large-2'
+  | 'mistral-large-latest'
+  | 'codestral'
+  | 'codestral-mamba'
+  | 'mixtral-8x7b'
+  | 'mixtral-8x22b'
+  | 'mathstral-7b'
+  | 'pixtral-large'
+  // DeepSeek Models
+  | 'deepseek-coder'
+  | 'deepseek-chat'
+  | 'deepseek-v3'
+  // Google Models
+  | 'gemini-1.0-pro'
+  | 'gemini-1.5-pro'
+  | 'gemini-1.5-flash'
+  | (string & {});
+
+/**
  * Supported AI SDK providers
  */
 export enum AIProvider {
@@ -21,7 +74,7 @@ export enum AIProvider {
  */
 export type AIOptions = {
   provider?: AIProvider;
-  model?: string;
+  model?: Model;
   temperature?: number;
   apiKey?: string;
   customPrompt?: string;
@@ -34,39 +87,6 @@ export type AIOptions = {
 export type AIModelConfig = {
   model: any; // Using any to handle different provider model types
   temperature?: number;
-};
-
-/**
- * Set environment variables for AI provider API keys
- *
- * @param provider The AI provider
- * @param apiKey The API key to set
- */
-export const setApiKeyForProvider = (
-  provider: AIProvider,
-  apiKey?: string
-): void => {
-  if (!apiKey) return;
-
-  switch (provider) {
-    case AIProvider.OPENAI:
-      process.env.OPENAI_API_KEY = apiKey;
-      break;
-    case AIProvider.ANTHROPIC:
-      process.env.ANTHROPIC_API_KEY = apiKey;
-      break;
-    case AIProvider.MISTRAL:
-      process.env.MISTRAL_API_KEY = apiKey;
-      break;
-    case AIProvider.DEEPSEEK:
-      process.env.DEEPSEEK_API_KEY = apiKey;
-      break;
-    case AIProvider.GEMINI:
-      process.env.GOOGLE_API_KEY = apiKey;
-      break;
-    default:
-      logger.error(`Unsupported AI provider: ${provider}`);
-  }
 };
 
 /**
@@ -113,9 +133,6 @@ export const getAIConfig = async (
       logger.error(`API key for ${provider} is missing`);
       return undefined;
     }
-
-    // Set API key as environment variable
-    setApiKeyForProvider(provider, options?.apiKey);
 
     // Handle each provider with appropriate model loading
     if (provider === AIProvider.OPENAI) {

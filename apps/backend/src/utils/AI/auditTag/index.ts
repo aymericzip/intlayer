@@ -5,7 +5,7 @@ import { generateText } from 'ai';
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { AIOptions, getAIConfig } from '../aiSdk';
+import { AIOptions, AIProvider, getAIConfig } from '../aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -48,7 +48,12 @@ export const auditTag = async ({
       .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '');
 
     // Get the appropriate AI model configuration
-    const aiConfig = await getAIConfig(aiOptions);
+    const aiConfig = await getAIConfig({
+      provider: AIProvider.OPENAI,
+      model: 'gpt-4o-mini',
+      apiKey: process.env.OPENAI_API_KEY,
+      ...aiOptions,
+    });
 
     if (!aiConfig) {
       logger.error('Failed to configure AI model');

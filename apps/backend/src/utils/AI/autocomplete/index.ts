@@ -3,7 +3,7 @@ import { generateText } from 'ai';
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { AIOptions, getAIConfig } from '../aiSdk';
+import { AIOptions, AIProvider, getAIConfig } from '../aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -43,9 +43,10 @@ export const autocomplete = async ({
 
     // Get the appropriate AI model configuration
     const aiConfig = await getAIConfig({
-      ...aiOptions,
       model: 'gpt-4o-mini',
+      provider: AIProvider.OPENAI,
       apiKey: process.env.OPENAI_API_KEY,
+      ...aiOptions,
     });
 
     if (!aiConfig) {
