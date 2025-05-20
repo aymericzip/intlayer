@@ -12,10 +12,8 @@ import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 
 export const getDictionaries = () => {
   const { content } = getConfiguration();
-  const isESModule = typeof import.meta.url === 'string';
-  const extension = isESModule ? 'mjs' : 'cjs';
 
-  const dictionariesPath = join(content.mainDir, `dictionaries.${extension}`);
+  const dictionariesPath = join(content.mainDir, `dictionaries.cjs`);
 
   let dictionaries = {};
   if (existsSync(dictionariesPath)) {

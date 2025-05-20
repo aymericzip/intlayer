@@ -12,13 +12,8 @@ import type { Dictionary, IntlayerDictionaryTypesConnector } from 'intlayer';
 
 export const getUnmergedDictionaries = () => {
   const { content } = getConfiguration();
-  const isESModule = typeof import.meta.url === 'string';
-  const extension = isESModule ? 'mjs' : 'cjs';
 
-  const dictionariesPath = join(
-    content.mainDir,
-    `unmerged_dictionaries.${extension}`
-  );
+  const dictionariesPath = join(content.mainDir, `unmerged_dictionaries.cjs`);
 
   let dictionaries: Record<
     IntlayerDictionaryTypesConnector['key'],
