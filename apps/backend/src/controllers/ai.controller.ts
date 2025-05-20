@@ -226,8 +226,7 @@ export const auditContentDeclarationMetadata = async (
   _next: NextFunction
 ): Promise<void> => {
   const { user, organization, project } = res.locals;
-  const { fileContent, aiOptions, provider, customPrompt, model, temperature } =
-    req.body;
+  const { fileContent, aiOptions } = req.body;
 
   // Check if any API key is present
   const hasApiKey = Boolean(aiOptions?.apiKey);
