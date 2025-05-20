@@ -110,12 +110,11 @@ const writeFileWithDirectories = async (
     }
 
     const extention = extname(filePath);
+    const acceptedExtensions = configuration.content.fileExtensions.map(
+      (extention) => extname(extention)
+    );
 
-    if (
-      !['.json', '.js', '.jsx', '.mjs', '.mjx', '.ts', '.tsx'].includes(
-        extention
-      )
-    ) {
+    if (!acceptedExtensions.includes(extention)) {
       throw new Error(
         `Invalid file extension: ${extention}, file: ${filePath}`
       );
