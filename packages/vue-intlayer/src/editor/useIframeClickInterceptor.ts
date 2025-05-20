@@ -40,7 +40,7 @@ export const useIframeClickMerger = createSharedComposable(() => {
   useIframeClickInterceptor();
 
   useCrossFrameMessageListener<MessageEvent>(
-    `${MessageKey.INTLAYER_IFRAME_CLICKED}/get`,
+    MessageKey.INTLAYER_IFRAME_CLICKED,
     mergeIframeClick
   );
 });

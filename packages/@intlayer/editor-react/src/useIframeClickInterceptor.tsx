@@ -6,14 +6,13 @@ import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
 export const useIframeClickInterceptor = () => {
   const postMessage = useCrossFrameMessageListener<undefined>(
-    `${MessageKey.INTLAYER_IFRAME_CLICKED}/post`
+    MessageKey.INTLAYER_IFRAME_CLICKED
   );
+  const handlePostMessageEvent: EventListener = () => {
+    postMessage();
+  };
 
   useEffect(() => {
-    const handlePostMessageEvent: EventListener = () => {
-      postMessage(undefined);
-    };
-
     window.addEventListener('mousedown', handlePostMessageEvent);
 
     return () =>
@@ -23,6 +22,6 @@ export const useIframeClickInterceptor = () => {
 
 export const useIframeClickMerger = () =>
   useCrossFrameMessageListener<MessageEvent>(
-    `${MessageKey.INTLAYER_IFRAME_CLICKED}/get`,
+    MessageKey.INTLAYER_IFRAME_CLICKED,
     mergeIframeClick
   );
