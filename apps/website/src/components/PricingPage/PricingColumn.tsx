@@ -1,13 +1,13 @@
 import { Link } from '@components/Link/Link';
 import {
-  H2,
   Container,
   type ContainerProps,
+  H2,
   Loader,
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { Check } from 'lucide-react';
-import { type ReactNode, type FC } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 type PricingColumnProps = {
   title: ReactNode;
@@ -97,6 +97,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       variant="button"
       color="text"
       isExternalLink={false}
+      className="text-center"
     >
       {callToActionText}
     </Link>

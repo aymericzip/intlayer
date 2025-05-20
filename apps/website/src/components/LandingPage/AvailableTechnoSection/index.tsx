@@ -23,7 +23,7 @@ export const AvailableTechnoSection: FC = () => {
       <div className="flex w-3/4 flex-row justify-evenly gap-6 p-6 flex-wrap">
         <Link
           href={PagesRoutes.Doc_Environment_CRA}
-          className="grow-0"
+          className="grow-0 hover:scale-108 transition-all duration-100"
           color="custom"
           label={react.label.value}
         >
@@ -31,7 +31,7 @@ export const AvailableTechnoSection: FC = () => {
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_NextJS_15}
-          className="grow-0"
+          className="grow-0 hover:scale-108 transition-all duration-100"
           color="custom"
           label={nextjs.label.value}
         >
@@ -39,7 +39,7 @@ export const AvailableTechnoSection: FC = () => {
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_ViteAndReact}
-          className="grow-0"
+          className="grow-0 hover:scale-108 transition-all duration-100"
           color="custom"
           label={vite.label.value}
         >
@@ -47,7 +47,7 @@ export const AvailableTechnoSection: FC = () => {
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_ViteAndVue}
-          className="grow-0"
+          className="grow-0 hover:scale-108 transition-all duration-100"
           color="custom"
           label={vite.label.value}
         >
@@ -59,7 +59,7 @@ export const AvailableTechnoSection: FC = () => {
         <NuxtLogo className="grayscale-60 max-h-full opacity-50 h-20" />
         <Link
           href={PagesRoutes.Doc_Environment_Angular}
-          className="grow-0"
+          className="grow-0 hover:scale-108 transition-all duration-100"
           color="custom"
           label={vite.label.value}
         >
@@ -67,7 +67,7 @@ export const AvailableTechnoSection: FC = () => {
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_ViteAndSvelte}
-          className="grow-0"
+          className="grow-0 hover:scale-108 transition-all duration-100"
           color="custom"
           label={vite.label.value}
         >
@@ -75,7 +75,7 @@ export const AvailableTechnoSection: FC = () => {
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_ViteAndPreact}
-          className="grow-0"
+          className="grow-0 hover:scale-108 transition-all duration-100"
           color="custom"
           label={vite.label.value}
         >
@@ -83,7 +83,7 @@ export const AvailableTechnoSection: FC = () => {
         </Link>
         <Link
           href={PagesRoutes.Doc_Environment_ViteAndSolid}
-          className="grow-0"
+          className="grow-0 hover:scale-108 transition-all duration-100"
           color="custom"
           label={vite.label.value}
         >

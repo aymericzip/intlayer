@@ -2,22 +2,22 @@
 
 import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
 import { Steps } from '@components/OnboardPage/steps';
+import { GetPricingResult } from '@intlayer/backend';
 import { useUser } from '@intlayer/design-system';
+import { useGetPricing } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
+import { useSearchParams } from 'next/navigation';
 import React, {
-  type FC,
-  type MouseEventHandler,
-  type TouchEventHandler,
-  type HTMLAttributes,
   useEffect,
   useRef,
   useState,
+  type FC,
+  type HTMLAttributes,
+  type MouseEventHandler,
+  type TouchEventHandler,
 } from 'react';
 import { Plans, type Period } from './data.content';
 import { PricingColumn } from './PricingColumn';
-import { useSearchParams } from 'next/navigation';
-import { useGetPricing } from '@intlayer/design-system/hooks';
-import { GetPricingResult } from '@intlayer/backend';
 
 type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
   pricings: GetPricingResult['data'];
@@ -378,6 +378,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
             })}
             title={pricing[focusedPeriod][plan].title.value}
             description={pricing[focusedPeriod][plan].description.value}
+            className={displayedPlanIndex !== index ? 'hover:scale-103' : ''}
           />
         </div>
       ))}
