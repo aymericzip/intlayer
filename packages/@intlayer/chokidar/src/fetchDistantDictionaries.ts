@@ -1,7 +1,7 @@
 import { getAuthAPI, getDictionaryAPI } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { appLogger, getConfiguration } from '@intlayer/config';
+import { getAppLogger, getConfiguration } from '@intlayer/config';
 import pLimit from 'p-limit';
 import { logger } from './log';
 
@@ -17,8 +17,9 @@ type FetchDistantDictionariesOptions = {
 export const fetchDistantDictionaries = async (
   options: FetchDistantDictionariesOptions
 ): Promise<DictionaryAPI[]> => {
+  const config = getConfiguration();
+  const appLogger = getAppLogger(config);
   try {
-    const config = getConfiguration();
     const { clientId, clientSecret } = config.editor;
     const authAPI = getAuthAPI(undefined, config);
     const dictionaryAPI = getDictionaryAPI(undefined, config);

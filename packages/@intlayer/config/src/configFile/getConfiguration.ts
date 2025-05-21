@@ -1,3 +1,4 @@
+import merge from 'deepmerge';
 import { relative } from 'path';
 import type { LoadEnvFileOptions } from '../envVariables/loadEnvFile';
 import { logger } from '../logger';
@@ -12,10 +13,8 @@ let storedNumCustomConfiguration: number | undefined;
 
 export type GetConfigurationOptions = {
   baseDir?: string;
-  verbose?: boolean;
+  override?: CustomIntlayerConfig;
 } & LoadEnvFileOptions;
-
-//
 
 const BASE_DIR_PATH = process.cwd();
 
@@ -30,7 +29,7 @@ export const getConfiguration = (
     ...options,
   };
 
-  const { baseDir, verbose, env, envFile } = mergedOptions;
+  const { baseDir, env, envFile } = mergedOptions;
 
   if (!storedConfiguration || typeof options !== 'undefined') {
     // Search for configuration files
@@ -58,14 +57,14 @@ export const getConfiguration = (
   }
 
   // Log warning if multiple configuration files are found
-  if (verbose) {
+  if (options?.override?.log?.mode === 'verbose') {
     logConfigFileResult(
       storedNumCustomConfiguration,
       storedConfigurationFilePath
     );
   }
 
-  return storedConfiguration;
+  return merge(storedConfiguration, options?.override ?? {}) as IntlayerConfig;
 };
 
 const logConfigFileResult = (

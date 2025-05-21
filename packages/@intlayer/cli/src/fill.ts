@@ -9,7 +9,7 @@ import {
   writeContentDeclaration,
 } from '@intlayer/chokidar';
 import {
-  appLogger,
+  getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
   type IntlayerConfig,
@@ -219,6 +219,7 @@ const autoFill = async (
   parentLocales: Locales[],
   configuration: IntlayerConfig
 ) => {
+  const appLogger = getAppLogger(configuration);
   let localeList: Locales[] = (
     outputLocales ?? configuration.internationalization.locales
   ).filter((locale) => !parentLocales?.includes(locale));
@@ -292,6 +293,7 @@ const autoFill = async (
  */
 export const fill = async (options: FillOptions): Promise<void> => {
   const configuration = getConfiguration(options.configOptions);
+  const appLogger = getAppLogger(configuration);
 
   const { defaultLocale, locales } = configuration.internationalization;
   const mode = options.mode ?? 'review';

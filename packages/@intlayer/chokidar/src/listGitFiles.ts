@@ -1,4 +1,5 @@
-import { appLogger } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config';
+import configuration from '@intlayer/config/built';
 import { join } from 'path';
 import simpleGit from 'simple-git';
 
@@ -10,6 +11,7 @@ const getGitRootDir = async (): Promise<string | null> => {
     const rootDir = await git.revparse(['--show-toplevel']);
     return rootDir.trim();
   } catch (error) {
+    const appLogger = getAppLogger(configuration);
     appLogger('Error getting git root directory:' + error, {
       level: 'error',
     });

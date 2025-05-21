@@ -10,9 +10,7 @@ import {
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 
-const { middleware, internationalization } = getConfiguration({
-  verbose: true,
-});
+const { middleware, internationalization } = getConfiguration();
 const { headerName, cookieName } = middleware;
 
 const appNamespace = createNamespace('app');

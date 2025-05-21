@@ -1,6 +1,7 @@
 import {
+  GetConfigurationOptions,
   type IntlayerConfig,
-  appLogger,
+  getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
 import { basename, relative } from 'path';
@@ -23,11 +24,9 @@ export const handleAdditionalContentDeclarationFile = async (
   filePath: string,
   configuration?: IntlayerConfig
 ) => {
-  const { content } =
-    configuration ??
-    getConfiguration({
-      verbose: true,
-    });
+  const config = configuration ?? getConfiguration();
+  const appLogger = getAppLogger(config);
+  const { content } = config;
 
   // Process the file with the functionToRun
   appLogger(
@@ -60,11 +59,9 @@ export const handleUnlikedContentDeclarationFile = async (
   filePath: string,
   configuration?: IntlayerConfig
 ) => {
-  const { content } =
-    configuration ??
-    getConfiguration({
-      verbose: true,
-    });
+  const config = configuration ?? getConfiguration();
+  const appLogger = getAppLogger(config);
+  const { content } = config;
 
   // Process the file with the functionToRun
   appLogger(`Unlinked detected: ${relative(content.baseDir, filePath)}`, {
@@ -96,11 +93,9 @@ export const handleContentDeclarationFileChange = async (
   filePath: string,
   configuration?: IntlayerConfig
 ) => {
-  const { content } =
-    configuration ??
-    getConfiguration({
-      verbose: true,
-    });
+  const config = configuration ?? getConfiguration();
+  const appLogger = getAppLogger(config);
+  const { content } = config;
 
   // Process the file with the functionToRun
   appLogger(`Change detected: ${relative(content.baseDir, filePath)}`, {
@@ -133,15 +128,13 @@ export const handleContentDeclarationFileChange = async (
 
 type WatchOptions = ChokidarOptions & {
   configuration?: IntlayerConfig;
+  configOptions?: GetConfigurationOptions;
 };
 
 // Initialize chokidar watcher (non-persistent)
 export const watch = (options?: WatchOptions) => {
-  const configuration =
-    options?.configuration ??
-    getConfiguration({
-      verbose: true,
-    });
+  const configuration = options?.configuration ?? getConfiguration();
+  const appLogger = getAppLogger(configuration);
 
   const { watch: isWatchMode, watchedFilesPatternWithPath } =
     configuration.content;
@@ -189,7 +182,8 @@ export const watch = (options?: WatchOptions) => {
 };
 
 export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
-  const configuration = options?.configuration ?? getConfiguration();
+  const configuration =
+    options?.configuration ?? getConfiguration(options?.configOptions);
 
   await prepareIntlayer(configuration);
 

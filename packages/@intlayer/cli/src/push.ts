@@ -1,7 +1,7 @@
 import { getIntlayerAPI } from '@intlayer/api';
-import { listGitFiles } from '@intlayer/chokidar';
+import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
-  appLogger,
+  getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
 } from '@intlayer/config';
@@ -11,7 +11,6 @@ import * as fsPromises from 'fs/promises';
 import pLimit from 'p-limit';
 import { relative } from 'path';
 import * as readline from 'readline';
-import { ListGitFilesOptions } from '../../chokidar/dist/types/listGitFiles';
 
 type PushOptions = {
   deleteLocaleDictionary?: boolean;
@@ -44,10 +43,10 @@ const GREY_DARK = '\x1b[90m';
  * Get all locale dictionaries and push them simultaneously.
  */
 export const push = async (options?: PushOptions): Promise<void> => {
+  const config = getConfiguration(options?.configOptions);
+  const appLogger = getAppLogger(config);
+  const { clientId, clientSecret } = config.editor;
   try {
-    const config = getConfiguration(options?.configOptions);
-    const { clientId, clientSecret } = config.editor;
-
     if (!clientId || !clientSecret) {
       throw new Error(
         'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
@@ -226,7 +225,9 @@ const deleteLocalDictionaries = async (
   dictionariesToDelete: Dictionary[],
   options?: PushOptions
 ): Promise<void> => {
-  const { baseDir } = getConfiguration().content;
+  const config = getConfiguration(options?.configOptions);
+  const appLogger = getAppLogger(config);
+  const { baseDir } = config.content;
 
   // Use a Set to collect all unique file paths
   const filePathsSet: Set<string> = new Set();
@@ -278,10 +279,6 @@ const getStatusIcon = (status: string): string => {
 };
 
 const getStatusLine = (statusObj: DictionariesStatus): string => {
-  const {
-    log: { prefix },
-  } = getConfiguration();
-
   let icon = getStatusIcon(statusObj.status);
   let colorStart = '';
   let colorEnd = '';

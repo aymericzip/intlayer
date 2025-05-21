@@ -1,8 +1,8 @@
 import {
+  getAppLogger,
   getConfiguration,
   type GetConfigurationOptions,
 } from '@intlayer/config';
-import { appLogger } from '@intlayer/config/client';
 
 type ConfigOptions = {
   configOptions?: GetConfigurationOptions;
@@ -10,6 +10,7 @@ type ConfigOptions = {
 
 export const getConfig = (options?: ConfigOptions) => {
   const config = getConfiguration(options?.configOptions);
+  const appLogger = getAppLogger(config);
 
   appLogger(JSON.stringify(config, null, 2));
 };

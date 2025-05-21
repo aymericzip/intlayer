@@ -83,6 +83,7 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
+    "deepmerge": "^4.3.1",
     "dotenv": "^16.4.7",
     "esbuild": "^0.25.2"
   },

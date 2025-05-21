@@ -1,6 +1,8 @@
-import { appLogger } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config';
+import configuration from '@intlayer/config/built';
 
 export const formatCode = async (filePath: string, code: string) => {
+  const appLogger = getAppLogger(configuration);
   // Try to import prettier if it exists
   let prettier: any;
   try {

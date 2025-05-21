@@ -1,4 +1,3 @@
-export { appLogger } from './appLoggerServer';
 export {
   getConfiguration,
   type GetConfigurationOptions,
@@ -12,7 +11,7 @@ export {
 } from './envVariables/index';
 export { getSandBoxContext } from './getSandboxContext';
 export { loadExternalFile } from './loadExternalFile';
-export { logger } from './logger';
+export { getAppLogger, logger, type Logger } from './logger';
 export { retryManager } from './retryManager';
 export type {
   BaseContentConfig,

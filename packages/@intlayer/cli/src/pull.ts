@@ -4,10 +4,11 @@ import {
   type DictionaryStatus,
 } from '@intlayer/chokidar';
 import {
+  getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
-  logger,
 } from '@intlayer/config';
+
 import type { Dictionary } from '@intlayer/core';
 import pLimit from 'p-limit';
 import * as readline from 'readline';
@@ -15,7 +16,6 @@ import * as readline from 'readline';
 type PullOptions = {
   dictionaries?: string[];
   newDictionariesPath?: string;
-  logPrefix?: string;
   configOptions?: GetConfigurationOptions;
 };
 
@@ -44,6 +44,8 @@ const GREY_DARK = '\x1b[90m';
  * with progress indicators and concurrency control.
  */
 export const pull = async (options?: PullOptions): Promise<void> => {
+  const appLogger = getAppLogger(options?.configOptions?.override);
+
   try {
     const config = getConfiguration(options?.configOptions);
     const { clientId, clientSecret } = config.editor;
@@ -81,20 +83,13 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
     // Check if dictionaries list is empty
     if (distantDictionariesKeys.length === 0) {
-      logger('No dictionaries to fetch', {
+      appLogger('No dictionaries to fetch', {
         level: 'error',
-        config: {
-          prefix: options?.logPrefix,
-        },
       });
       return;
     }
 
-    logger('Fetching dictionaries:', {
-      config: {
-        prefix: options?.logPrefix,
-      },
-    });
+    appLogger('Fetching dictionaries:');
 
     // Prepare dictionaries statuses
     const dictionariesStatuses: DictionariesStatus[] =
@@ -175,20 +170,14 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     // Output any error messages
     for (const statusObj of dictionariesStatuses) {
       if (statusObj.errorMessage) {
-        logger(statusObj.errorMessage, {
+        appLogger(statusObj.errorMessage, {
           level: 'error',
-          config: {
-            prefix: options?.logPrefix,
-          },
         });
       }
     }
   } catch (error) {
-    logger(error, {
+    appLogger(error, {
       level: 'error',
-      config: {
-        prefix: options?.logPrefix,
-      },
     });
   }
 };

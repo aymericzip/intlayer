@@ -2,7 +2,8 @@ import generator from '@babel/generator';
 import * as babelParser from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { appLogger, logger } from '@intlayer/config';
+import { getAppLogger, logger } from '@intlayer/config';
+import configuration from '@intlayer/config/built';
 import {
   Dictionary,
   NodeType,
@@ -25,6 +26,8 @@ export const writeJSFile = async (
   filePath: string,
   dictionary: Dictionary
 ): Promise<void> => {
+  const appLogger = getAppLogger(configuration);
+
   const {
     key: dictionaryIdentifierKey,
     content: updatesToApply,

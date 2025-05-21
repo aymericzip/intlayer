@@ -1,7 +1,7 @@
 import {
   ESMxCJSRequire,
   type IntlayerConfig,
-  appLogger,
+  getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
 import { cleanOutputDir } from './cleanOutputDir';
@@ -19,6 +19,8 @@ export const prepareIntlayer = async (
   configuration: IntlayerConfig = getConfiguration(),
   projectRequire = ESMxCJSRequire
 ) => {
+  const appLogger = getAppLogger(configuration);
+
   cleanOutputDir(configuration);
 
   appLogger('Output directory cleaned', {

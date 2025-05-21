@@ -1,4 +1,4 @@
-import { appLogger } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/core';
 import { getNodeType } from '@intlayer/core';
@@ -10,6 +10,7 @@ const checkTypesMatch = (
   dictionaryKey: string,
   path: string[] = []
 ): void => {
+  const appLogger = getAppLogger(configuration);
   const type1 = getNodeType(obj1);
   const type2 = getNodeType(obj2);
 

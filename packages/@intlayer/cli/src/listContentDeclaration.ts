@@ -1,5 +1,5 @@
 import {
-  appLogger,
+  getAppLogger,
   getConfiguration,
   type GetConfigurationOptions,
 } from '@intlayer/config';
@@ -36,5 +36,8 @@ export const listContentDeclaration = (
 ) => {
   const contentDeclarationFilesPath = getContentDeclaration(options);
 
-  appLogger(`Content declaration files: ${contentDeclarationFilesPath}`);
+  const config = getConfiguration(options?.configOptions);
+  const appLogger = getAppLogger(config);
+
+  appLogger([contentDeclarationFilesPath]);
 };

@@ -1,6 +1,10 @@
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { appLogger, ESMxCJSRequire, getConfiguration } from '@intlayer/config';
+import {
+  ESMxCJSRequire,
+  getAppLogger,
+  getConfiguration,
+} from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { fetchDistantDictionaryKeys } from '../fetchDistantDictionaryKeys';
 import { logger } from '../log';
@@ -14,6 +18,7 @@ export const loadDictionaries = async (
   projectRequire = ESMxCJSRequire
 ): Promise<Dictionary[]> => {
   try {
+    const appLogger = getAppLogger(configuration);
     const { editor } = configuration;
 
     appLogger('Dictionaries:', { isVerbose: true });

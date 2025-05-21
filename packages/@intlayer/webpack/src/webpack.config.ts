@@ -1,14 +1,12 @@
-import { join } from 'path';
 import { getConfiguration } from '@intlayer/config';
+import { join } from 'path';
 import type { Configuration as WebPackConfiguration } from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import { getEntries } from './getEntries';
 import { defineDirname } from './utils';
 import { IntlayerPlugin } from './webpack-plugin';
 
-const { content } = getConfiguration({
-  verbose: false,
-});
+const { content } = getConfiguration();
 const { fileExtensions } = content;
 
 /**

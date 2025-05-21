@@ -1,11 +1,12 @@
+import { getAppLogger } from '@intlayer/config';
+import configuration from '@intlayer/config/built';
 import { existsSync, readFileSync } from 'fs';
+import { relative, resolve } from 'path';
 import {
   formatNodeType,
   NodeType,
   type TypedNodeModel,
 } from '../../types/index';
-import { relative, resolve } from 'path';
-import { appLogger } from '@intlayer/config';
 
 export type FileContentConstructor<T extends Record<string, any> = {}> =
   TypedNodeModel<NodeType.File, string, T>;
@@ -38,6 +39,7 @@ export const file = (path: string): FileContent => {
 
   const isAbsolutePath = path.startsWith('/');
   const isRelativePath = path.startsWith('./') || path.startsWith('../');
+  const appLogger = getAppLogger(configuration);
 
   let filePath: string;
   if (isAbsolutePath) {

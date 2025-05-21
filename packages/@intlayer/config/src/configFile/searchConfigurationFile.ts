@@ -29,7 +29,7 @@ type SearchConfigurationFileResult = {
  * - .intlayerrc
  */
 export const searchConfigurationFile = (
-  configFilePath: string
+  configFilePath: string = process.cwd()
 ): SearchConfigurationFileResult => {
   let configurationFilePath: string | undefined = undefined;
   let numCustomConfiguration = 0;
