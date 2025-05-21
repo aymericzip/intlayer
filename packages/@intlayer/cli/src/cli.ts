@@ -2,6 +2,9 @@ import type { AIOptions } from '@intlayer/api';
 import { GetConfigurationOptions } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { Command } from 'commander';
+import { readFileSync } from 'fs';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import {
   DiffMode,
   ListGitFilesOptions,
@@ -14,11 +17,21 @@ import { pull } from './pull';
 import { push } from './push';
 import { pushConfig } from './pushConfig';
 
+const CJS_ESM_Dirname = __dirname ?? dirname(fileURLToPath(import.meta.url));
+const packageJson = JSON.parse(
+  readFileSync(resolve(CJS_ESM_Dirname, '../../package.json'), 'utf8')
+);
+
+const logOptions = [
+  ['--verbose', 'Verbose'],
+  ['--prefix [prefix]', 'Prefix'],
+];
+
 const configurationOptions = [
   ['--env-file [envFile]', 'Environment file'],
   ['-e, --env [env]', 'Environment'],
   ['--base-dir [baseDir]', 'Base directory'],
-  ['--verbose', 'Verbose'],
+  ...logOptions,
 ];
 
 const aiOptions = [
@@ -47,6 +60,11 @@ const applyOptions = (command: Command, options: string[][]) => {
   return command;
 };
 
+const removeUndefined = <T extends Record<string, any>>(obj: T): T =>
+  Object.fromEntries(
+    Object.entries(obj).filter(([_, value]) => value !== undefined)
+  ) as T;
+
 const applyConfigOptions = (command: Command) =>
   applyOptions(command, configurationOptions);
 const applyAIOptions = (command: Command) => applyOptions(command, aiOptions);
@@ -61,14 +79,14 @@ const extractAiOptions = (options: AIOptions) => {
 
   const { apiKey, provider, model, temperature, applicationContext } = options;
 
-  return {
+  return removeUndefined({
     apiKey: apiKey ?? configuration.ai?.apiKey,
     provider: provider ?? configuration.ai?.provider,
     model: model ?? configuration.ai?.model,
     temperature: temperature ?? configuration.ai?.temperature,
     applicationContext:
       applicationContext ?? configuration.ai?.applicationContext,
-  };
+  });
 };
 
 type GitOptions = {
@@ -105,31 +123,45 @@ const extractGitOptions = (
     untracked && 'untracked',
   ].filter(Boolean) as DiffMode[];
 
-  return {
+  return removeUndefined({
     mode,
     baseRef: gitDiffBase,
     currentRef: gitDiffCurrent,
     absolute: true,
-  };
+  });
 };
 
+type LogOptions = {
+  prefix?: string;
+  verbose?: boolean;
+};
+
+export type ConfigurationOptions = {
+  baseDir?: string;
+  env?: string;
+  envFile?: string;
+} & LogOptions;
+
 const extractConfigOptions = (
-  options: GetConfigurationOptions
+  options: ConfigurationOptions
 ): GetConfigurationOptions | undefined => {
-  const isOptionEmpty = !Object.values(options).some(Boolean);
+  const { baseDir, env, envFile, verbose, prefix } = options;
 
-  if (isOptionEmpty) {
-    return undefined;
-  }
-
-  const { baseDir, verbose, env, envFile } = options;
-
-  return {
-    baseDir,
+  const log = {
+    prefix: prefix ?? '', // Should not consider the prefix set in the intlayer configuration file
     verbose,
+  };
+
+  const override = {
+    log,
+  };
+
+  return removeUndefined({
+    baseDir,
     env,
     envFile,
-  };
+    override,
+  });
 };
 
 /**
@@ -143,7 +175,7 @@ const extractConfigOptions = (
 export const setAPI = (): Command => {
   const program = new Command();
 
-  program.version('1.0.0').description('Intlayer CLI');
+  program.version(packageJson.version).description('Intlayer CLI');
 
   /**
    * DICTIONARIES

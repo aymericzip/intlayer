@@ -17,31 +17,33 @@ export const logger: Logger = (
   }
 ) => {
   const mode = details.config?.mode ?? 'default';
-  const prefix = details.config?.prefix ?? '';
+  const prefix = Boolean(details.config?.prefix)
+    ? details.config?.prefix
+    : undefined;
 
   if (mode === 'disabled') return;
 
   if (details.isVerbose && mode !== 'verbose') return;
 
-  const flatContent = [content].flat();
+  const flatContent = prefix ? [prefix, ...[content].flat()] : [content].flat();
 
   if (details.level === 'debug') {
-    return console.debug(prefix, ...flatContent);
+    return console.debug(...flatContent);
   }
 
   if (details.level === 'info') {
-    return console.info(prefix, ...flatContent);
+    return console.info(...flatContent);
   }
 
   if (details.level === 'warn') {
-    return console.warn(prefix, ...flatContent);
+    return console.warn(...flatContent);
   }
 
   if (details.level === 'error') {
-    return console.error(prefix, ...flatContent);
+    return console.error(...flatContent);
   }
 
-  console.log(prefix, ...flatContent);
+  console.log(...flatContent);
 };
 
 /**
