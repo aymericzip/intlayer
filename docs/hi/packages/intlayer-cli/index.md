@@ -11,15 +11,15 @@
 अपने पसंदीदा पैकेज मैनेजर का उपयोग करके आवश्यक पैकेज स्थापित करें:
 
 ```bash packageManager="npm"
-npm install intlayer-cli
+npm install intlayer-cli -g
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-cli
+pnpm add intlayer-cli -g
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-cli
+yarn add intlayer-cli -g
 ```
 
 ## उपयोग

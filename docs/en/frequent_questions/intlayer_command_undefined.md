@@ -46,16 +46,18 @@ Commands:
     help [command]           display help for command
 ```
 
-2. **Install the package globally**
+2. **Install the intlayer-cli package globally**
+
+```bash
+npm install intlayer-cli -g -g
+```
+
+> It should not be necessary if you've already installed `intlayer` package
+
+3. **Install the package globally**
 
 ```bash
 npm install intlayer -g
-```
-
-3. **Install the intlayer-cli package locally**
-
-```bash
-npm install intlayer-cli
 ```
 
 4. **Restart your terminal**

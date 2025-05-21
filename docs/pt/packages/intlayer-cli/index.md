@@ -11,15 +11,15 @@ O pacote **`intlayer-cli`** é um pacote NPM que consome o pacote `@intlayer/cli
 Instale o pacote necessário usando o gerenciador de pacotes de sua preferência:
 
 ```bash packageManager="npm"
-npm install intlayer-cli
+npm install intlayer-cli -g
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-cli
+pnpm add intlayer-cli -g
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-cli
+yarn add intlayer-cli -g
 ```
 
 ## Uso

@@ -5,15 +5,15 @@
 Instala los paquetes necesarios usando npm:
 
 ```bash packageManager="npm"
-npm install intlayer-cli
+npm install intlayer-cli -g
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-cli
+yarn add intlayer-cli -g
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-cli
+pnpm add intlayer-cli -g
 ```
 
 > Si el paquete `intlayer` ya está instalado, el CLI se instala automáticamente. Puedes omitir este paso.

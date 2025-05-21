@@ -5,15 +5,15 @@
 使用 npm 安装必要的包：
 
 ```bash packageManager="npm"
-npm install intlayer-cli
+npm install intlayer-cli -g
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer-cli
+yarn add intlayer-cli -g
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer-cli
+pnpm add intlayer-cli -g
 ```
 
 > 如果已经安装了 `intlayer` 包，CLI 会自动安装。您可以跳过此步骤。
