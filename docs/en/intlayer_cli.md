@@ -294,8 +294,8 @@ npx intlayer@latest --version           # current latest intlayer version
 You can check with:
 
 ```bash
-npx intlayer --help        # Shows a list of available commands and usage information
-npx intlayer build --help
+npx intlayer --help                     # Shows the list of available commands and usage information
+npx intlayer dictionary build --help    # Shows the list of available options for a command
 ```
 
 ### 3. **Restart your terminal**
