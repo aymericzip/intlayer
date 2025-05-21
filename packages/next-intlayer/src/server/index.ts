@@ -1,9 +1,10 @@
 export {
-  useDictionary,
   IntlayerServer,
   IntlayerServerProvider,
   locale,
-  useIntlayer,
   t,
+  useDictionary,
+  useIntlayer,
+  useLocale,
 } from 'react-intlayer/server';
 export { withIntlayer } from './withIntlayer';
