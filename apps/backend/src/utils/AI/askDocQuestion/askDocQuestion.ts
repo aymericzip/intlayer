@@ -235,6 +235,7 @@ export const searchChunkReference = async (
 export type ChatCompletionRequestMessage = {
   role: 'system' | 'user' | 'assistant'; // The role of the message sender
   content: string; // The text content of the message
+  timestamp?: Date; // The timestamp of the message
 };
 
 /**

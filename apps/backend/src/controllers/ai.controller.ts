@@ -371,11 +371,19 @@ export const askDocQuestion = async (
             userId: user?._id,
             projectId: project?._id,
             organizationId: organization?._id,
-            messages: messages.map((msg) => ({
-              role: msg.role,
-              content: msg.content,
-              timestamp: new Date(),
-            })),
+            messages: [
+              ...messages.map((msg) => ({
+                role: msg.role,
+                content: msg.content,
+                timestamp: msg.timestamp,
+              })),
+              {
+                role: 'assistant',
+                content: fullResponse.response,
+                relatedFiles: fullResponse.relatedFiles,
+                timestamp: new Date(),
+              },
+            ],
           },
         },
         { upsert: true, new: true }

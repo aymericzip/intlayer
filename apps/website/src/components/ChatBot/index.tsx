@@ -80,12 +80,19 @@ export const ChatBot: FC<ChatBotProps> = ({
     setCurrentResponse('');
     setStoredPrompt((storedPrompt) => [
       ...storedPrompt,
-      { role: 'user' as const, content: newQuestion },
+      {
+        role: 'user' as const,
+        content: newQuestion,
+        timestamp: new Date(),
+      },
     ]);
 
     const newMessages: ChatCompletionRequestMessage[] = [
       ...storedPrompt.slice(0, -1),
-      { role: 'user' as const, content: newQuestion },
+      {
+        role: 'user' as const,
+        content: newQuestion,
+      },
     ];
 
     askDocQuestion({
@@ -105,6 +112,7 @@ export const ChatBot: FC<ChatBotProps> = ({
           {
             role: 'assistant' as const,
             content: responseData.response,
+            timestamp: new Date(),
           },
         ]);
         setRelatedFiles((prev) => [

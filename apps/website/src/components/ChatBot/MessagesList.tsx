@@ -5,6 +5,7 @@ import { ChatBumble, ChatBumbleType } from './ChatBumble';
 export type ChatCompletionRequestMessage = {
   role: 'system' | 'user' | 'assistant';
   content: string;
+  timestamp?: Date;
 };
 
 export type MessagesListProps = {
