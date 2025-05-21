@@ -1221,6 +1221,7 @@ const fequentQuestions = {
   esbuild_error: require('./en/frequent_questions/esbuild_error.md'),
   static_rendering: require('./en/frequent_questions/static_rendering.md'),
   domain_routing: require('./en/frequent_questions/domain_routing.md'),
+  intlayer_command_undefined: require('./en/frequent_questions/intlayer_command_undefined.md'),
 };
 
 const getFequentQuestions = () =>
