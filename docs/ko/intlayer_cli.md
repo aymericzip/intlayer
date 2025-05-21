@@ -261,7 +261,6 @@ npx intlayer@latest --version          # 최신 intlayer 버전
 
 ```bash
 npx intlayer --help      # 사용 가능한 명령어 목록과 사용 정보 표시
-man npx intlayer         # 명령어의 매뉴얼 페이지 표시 (사용 가능한 경우)
 ```
 
 ### 3. **터미널 재시작**

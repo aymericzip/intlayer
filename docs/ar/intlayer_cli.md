@@ -245,7 +245,6 @@ npx intlayer@latest --version          # أحدث إصدار من intlayer
 
 ```bash
 npx intlayer --help      # يعرض قائمة بالأوامر المتاحة ومعلومات الاستخدام
-man npx intlayer         # يعرض صفحة الدليل للأمر، إذا كانت متاحة
 ```
 
 ### 3. **أعد تشغيل الطرفية**

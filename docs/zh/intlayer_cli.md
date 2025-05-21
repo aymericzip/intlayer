@@ -261,7 +261,6 @@ npx intlayer@latest --version          # 最新 intlayer 版本
 
 ```bash
 npx intlayer --help      # 显示可用命令列表和使用信息
-man npx intlayer         # 显示命令的手册页（如果可用）
 ```
 
 ### 3. **重启终端**

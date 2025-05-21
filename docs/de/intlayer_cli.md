@@ -261,7 +261,6 @@ Sie können überprüfen mit:
 
 ```bash
 npx intlayer --help      # Zeigt eine Liste der verfügbaren Befehle und Nutzungsinformationen
-man npx intlayer         # Zeigt die Handbuchseite für den Befehl an, falls verfügbar
 ```
 
 ### 3. **Starten Sie Ihr Terminal neu**

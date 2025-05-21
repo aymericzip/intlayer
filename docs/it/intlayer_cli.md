@@ -261,7 +261,6 @@ Puoi verificare con:
 
 ```bash
 npx intlayer --help      # Mostra un elenco dei comandi disponibili e le informazioni sull'utilizzo
-man npx intlayer         # Mostra la pagina del manuale per il comando, se disponibile
 ```
 
 ### 3. **Riavvia il terminale**

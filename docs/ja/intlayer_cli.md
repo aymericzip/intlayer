@@ -261,7 +261,6 @@ npx intlayer@latest --version          # 最新のintlayerバージョン
 
 ```bash
 npx intlayer --help      # 利用可能なコマンドと使用方法の情報を表示
-man npx intlayer         # コマンドのマニュアルページを表示（利用可能な場合）
 ```
 
 ### 3. **ターミナルを再起動**
