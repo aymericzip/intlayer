@@ -243,3 +243,33 @@ Durch das Übertragen der Konfiguration ist Ihr Projekt vollständig in das Intl
   "intlayer:audit": "npx intlayer audit"
 }
 ```
+
+## Intlayer-Befehl debuggen
+
+### 1. **Stellen Sie sicher, dass Sie die neueste Version verwenden**
+
+Führen Sie aus:
+
+```bash
+npx intlayer --version                  # aktuelle lokale intlayer-Version
+npx intlayer@latest --version          # neueste intlayer-Version
+```
+
+### 2. **Überprüfen Sie, ob der Befehl registriert ist**
+
+Sie können überprüfen mit:
+
+```bash
+npx intlayer --help      # Zeigt eine Liste der verfügbaren Befehle und Nutzungsinformationen
+man npx intlayer         # Zeigt die Handbuchseite für den Befehl an, falls verfügbar
+```
+
+### 3. **Starten Sie Ihr Terminal neu**
+
+Manchmal ist ein Neustart des Terminals erforderlich, um neue Befehle zu erkennen.
+
+### 4. **Löschen Sie den npx-Cache (falls Sie mit einer älteren Version feststecken)**
+
+```bash
+npx clear-npx-cache
+```

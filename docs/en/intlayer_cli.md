@@ -277,3 +277,33 @@ By pushing the configuration, your project is fully integrated with the Intlayer
   "intlayer:fill": "npx intlayer fill"
 }
 ```
+
+## Debug intlayer command
+
+### 1. **Ensure you're using the latest version**
+
+Run:
+
+```bash
+npx intlayer --version                  # current locale intlayer version
+npx intlayer@latest --version           # current latest intlayer version
+```
+
+### 2. **Check if the command is registered**
+
+You can check with:
+
+```bash
+npx intlayer --help      # Shows a list of available commands and usage information
+man npx intlayer         # Displays the manual page for the command, if available
+```
+
+### 3. **Restart your terminal**
+
+Sometimes a terminal restart is needed to recognize new commands.
+
+### 4. **Clear npx cache (if you're stuck with an older version)**
+
+```bash
+npx clear-npx-cache
+```

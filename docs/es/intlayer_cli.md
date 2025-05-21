@@ -243,3 +243,33 @@ Al enviar la configuración, tu proyecto está completamente integrado con el CM
   "intlayer:audit": "npx intlayer audit"
 }
 ```
+
+## Depurar el comando intlayer
+
+### 1. **Asegúrese de usar la última versión**
+
+Ejecute:
+
+```bash
+npx intlayer --version                  # versión local actual de intlayer
+npx intlayer@latest --version          # última versión de intlayer
+```
+
+### 2. **Verifique si el comando está registrado**
+
+Puede verificar con:
+
+```bash
+npx intlayer --help      # Muestra una lista de comandos disponibles e información de uso
+man npx intlayer         # Muestra la página del manual para el comando, si está disponible
+```
+
+### 3. **Reinicie su terminal**
+
+A veces es necesario reiniciar el terminal para reconocer nuevos comandos.
+
+### 4. **Limpie la caché de npx (si está atascado con una versión anterior)**
+
+```bash
+npx clear-npx-cache
+```

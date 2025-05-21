@@ -243,3 +243,33 @@ npx intlayer config push
   "intlayer:audit": "npx intlayer audit"
 }
 ```
+
+## intlayerコマンドのデバッグ
+
+### 1. **最新バージョンを使用していることを確認**
+
+実行:
+
+```bash
+npx intlayer --version                  # 現在のローカルintlayerバージョン
+npx intlayer@latest --version          # 最新のintlayerバージョン
+```
+
+### 2. **コマンドが登録されているか確認**
+
+以下のコマンドで確認できます:
+
+```bash
+npx intlayer --help      # 利用可能なコマンドと使用方法の情報を表示
+man npx intlayer         # コマンドのマニュアルページを表示（利用可能な場合）
+```
+
+### 3. **ターミナルを再起動**
+
+新しいコマンドを認識するには、ターミナルの再起動が必要な場合があります。
+
+### 4. **npxキャッシュをクリア（古いバージョンで問題が発生している場合）**
+
+```bash
+npx clear-npx-cache
+```

@@ -243,3 +243,33 @@ npx intlayer config push
   "intlayer:audit": "npx intlayer audit"
 }
 ```
+
+## intlayer 명령어 디버깅
+
+### 1. **최신 버전을 사용하고 있는지 확인**
+
+실행:
+
+```bash
+npx intlayer --version                  # 현재 로컬 intlayer 버전
+npx intlayer@latest --version          # 최신 intlayer 버전
+```
+
+### 2. **명령어가 등록되어 있는지 확인**
+
+다음과 같이 확인할 수 있습니다:
+
+```bash
+npx intlayer --help      # 사용 가능한 명령어 목록과 사용 정보 표시
+man npx intlayer         # 명령어의 매뉴얼 페이지 표시 (사용 가능한 경우)
+```
+
+### 3. **터미널 재시작**
+
+새로운 명령어를 인식하기 위해 터미널 재시작이 필요할 수 있습니다.
+
+### 4. **npx 캐시 지우기 (이전 버전에 문제가 있는 경우)**
+
+```bash
+npx clear-npx-cache
+```

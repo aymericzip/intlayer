@@ -243,3 +243,33 @@ En poussant la configuration, votre projet est entièrement intégré au CMS Int
   "intlayer:audit": "npx intlayer audit"
 }
 ```
+
+## Déboguer la commande intlayer
+
+### 1. **Assurez-vous d'utiliser la dernière version**
+
+Exécutez :
+
+```bash
+npx intlayer --version                  # version locale actuelle d'intlayer
+npx intlayer@latest --version          # dernière version d'intlayer
+```
+
+### 2. **Vérifiez si la commande est enregistrée**
+
+Vous pouvez vérifier avec :
+
+```bash
+npx intlayer --help      # Affiche une liste des commandes disponibles et les informations d'utilisation
+man npx intlayer         # Affiche la page de manuel pour la commande, si disponible
+```
+
+### 3. **Redémarrez votre terminal**
+
+Parfois, un redémarrage du terminal est nécessaire pour reconnaître les nouvelles commandes.
+
+### 4. **Effacez le cache npx (si vous êtes bloqué avec une ancienne version)**
+
+```bash
+npx clear-npx-cache
+```

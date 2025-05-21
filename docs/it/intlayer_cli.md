@@ -243,3 +243,33 @@ Caricando la configurazione, il tuo progetto è completamente integrato con il C
   "intlayer:audit": "npx intlayer audit"
 }
 ```
+
+## Debug del comando intlayer
+
+### 1. **Assicurati di utilizzare l'ultima versione**
+
+Esegui:
+
+```bash
+npx intlayer --version                  # versione locale attuale di intlayer
+npx intlayer@latest --version          # ultima versione di intlayer
+```
+
+### 2. **Verifica se il comando è registrato**
+
+Puoi verificare con:
+
+```bash
+npx intlayer --help      # Mostra un elenco dei comandi disponibili e le informazioni sull'utilizzo
+man npx intlayer         # Mostra la pagina del manuale per il comando, se disponibile
+```
+
+### 3. **Riavvia il terminale**
+
+A volte è necessario riavviare il terminale per riconoscere i nuovi comandi.
+
+### 4. **Cancella la cache di npx (se sei bloccato con una versione precedente)**
+
+```bash
+npx clear-npx-cache
+```

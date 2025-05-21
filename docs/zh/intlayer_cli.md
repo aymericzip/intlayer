@@ -243,3 +243,33 @@ npx intlayer config push
   "intlayer:audit": "npx intlayer audit"
 }
 ```
+
+## 调试 intlayer 命令
+
+### 1. **确保使用最新版本**
+
+运行:
+
+```bash
+npx intlayer --version                  # 当前本地 intlayer 版本
+npx intlayer@latest --version          # 最新 intlayer 版本
+```
+
+### 2. **检查命令是否已注册**
+
+您可以通过以下方式检查:
+
+```bash
+npx intlayer --help      # 显示可用命令列表和使用信息
+man npx intlayer         # 显示命令的手册页（如果可用）
+```
+
+### 3. **重启终端**
+
+有时需要重启终端才能识别新命令。
+
+### 4. **清除 npx 缓存（如果卡在旧版本）**
+
+```bash
+npx clear-npx-cache
+```
