@@ -1219,6 +1219,8 @@ const getDoc = (docName, lang = Locales.ENGLISH) => docs[docName]?.[lang];
 const fequentQuestions = {
   build_dictionaries: require('./en/frequent_questions/build_dictionaries.md'),
   esbuild_error: require('./en/frequent_questions/esbuild_error.md'),
+  static_rendering: require('./en/frequent_questions/static_rendering.md'),
+  domain_routing: require('./en/frequent_questions/domain_routing.md'),
 };
 
 const getFequentQuestions = () =>
