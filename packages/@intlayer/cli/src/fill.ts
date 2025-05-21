@@ -308,7 +308,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
     return;
   }
 
-  appLogger(['Starting fill function with options:', options], {
+  appLogger('Starting fill function', {
     level: 'info',
   });
 
