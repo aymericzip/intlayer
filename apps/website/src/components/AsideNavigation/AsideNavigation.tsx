@@ -36,9 +36,11 @@ export const AsideNavigation: FC = (props) => {
             roundedSize="none"
           >
             <div className="relative flex flex-col items-center pt-2">
-              <div className="flex flex-row gap-5 justify-center items-center h-5 w-full">
-                <SocialNetworks className="w-3.5 h-full flex justify-center items-center" />
-              </div>
+              <MaxWidthSmoother isHidden={isHidden}>
+                <div className="flex flex-row gap-5 justify-center items-center h-5 w-full">
+                  <SocialNetworks className="w-3.5 h-full flex justify-center items-center" />
+                </div>
+              </MaxWidthSmoother>
               <div className="relative flex flex-row items-center pt-2 w-full">
                 <Button
                   Icon={ArrowRightToLine}
