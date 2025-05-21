@@ -1223,6 +1223,7 @@ const fequentQuestions = {
   domain_routing: require('./en/frequent_questions/domain_routing.md'),
   intlayer_command_undefined: require('./en/frequent_questions/intlayer_command_undefined.md'),
   unknown_command: require('./en/frequent_questions/unknown_command.md'),
+  locale_incorect_in_url: require('./en/frequent_questions/locale_incorect_in_url.md'),
 };
 
 const getFequentQuestions = () =>
