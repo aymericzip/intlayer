@@ -52,6 +52,12 @@ type ChatBotProps = {
   stateReloaderTrigger?: any;
 };
 
+type DiscutionStore = {
+  discutionId: string;
+  storedPrompt: ChatCompletionRequestMessage[];
+  relatedFiles: string[];
+};
+
 export const ChatBot: FC<ChatBotProps> = ({
   additionalButtons,
   displayRelatedFiles = true,
@@ -67,28 +73,30 @@ export const ChatBot: FC<ChatBotProps> = ({
     content: firstMessageContent.content.value,
   };
 
-  const [discutionId, setDiscutionId, loadDiscutionId] =
-    usePersistedStore<string>('chat-bot-discution-id');
-  const [storedPrompt, setStoredPrompt, loadStoredPrompt] = usePersistedStore<
-    ChatCompletionRequestMessage[]
-  >('chat-bot-messages', []);
-  const [relatedFiles, setRelatedFiles, loadRelatedFiles] = usePersistedStore<
-    string[]
-  >('chat-bot-related-files-keys', []);
+  const [discution, setDiscution, loadDiscution] = usePersistedStore<
+    DiscutionStore | undefined
+  >('chat-bot-discution-store');
 
   const handleAskNewQuestion = (newQuestion: string) => {
     setCurrentResponse('');
-    setStoredPrompt((storedPrompt) => [
-      ...storedPrompt,
-      {
-        role: 'user' as const,
-        content: newQuestion,
-        timestamp: new Date(),
-      },
-    ]);
+    setDiscution(
+      (discution) =>
+        ({
+          ...discution,
+          discutionId: discution?.discutionId ?? uuid(),
+          storedPrompt: [
+            ...(discution?.storedPrompt ?? []),
+            {
+              role: 'user' as const,
+              content: newQuestion,
+              timestamp: new Date(),
+            },
+          ],
+        }) as DiscutionStore
+    );
 
     const newMessages: ChatCompletionRequestMessage[] = [
-      ...storedPrompt.slice(0, -1),
+      ...(discution?.storedPrompt ?? []).slice(0, -1),
       {
         role: 'user' as const,
         content: newQuestion,
@@ -97,7 +105,7 @@ export const ChatBot: FC<ChatBotProps> = ({
 
     askDocQuestion({
       messages: newMessages,
-      discutionId,
+      discutionId: discution?.discutionId ?? '',
       onMessage: (chunk: string) => setCurrentResponse((prev) => prev + chunk),
       onDone: (response: AskDocQuestionResult) => {
         const responseData = 'data' in response ? response.data : response;
@@ -107,17 +115,32 @@ export const ChatBot: FC<ChatBotProps> = ({
           return;
         }
 
-        setStoredPrompt((storedPrompt) => [
-          ...storedPrompt,
-          {
-            role: 'assistant' as const,
-            content: responseData.response,
-            timestamp: new Date(),
-          },
-        ]);
-        setRelatedFiles((prev) => [
-          ...new Set([...prev, ...(responseData.relatedFiles ?? [])]),
-        ]);
+        setDiscution(
+          (discution) =>
+            ({
+              ...discution,
+              storedPrompt: [
+                ...(discution?.storedPrompt ?? []),
+                {
+                  role: 'assistant' as const,
+                  content: responseData.response,
+                  timestamp: new Date(),
+                },
+              ],
+            }) as DiscutionStore
+        );
+        setDiscution(
+          (discution) =>
+            ({
+              ...discution,
+              relatedFiles: [
+                ...new Set([
+                  ...(discution?.relatedFiles ?? []),
+                  ...(responseData.relatedFiles ?? []),
+                ]),
+              ],
+            }) as DiscutionStore
+        );
         setCurrentResponse('');
       },
     }).catch((error) => {
@@ -128,30 +151,26 @@ export const ChatBot: FC<ChatBotProps> = ({
   };
 
   const handleClear = () => {
-    setDiscutionId(uuid());
-    setStoredPrompt([]);
-    setRelatedFiles([]);
+    setDiscution((discution) => ({
+      ...discution,
+      discutionId: uuid(),
+      storedPrompt: [],
+      relatedFiles: [],
+    }));
     setCurrentResponse('');
   };
 
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
+      loadDiscution();
       return;
     }
 
     if (typeof stateReloaderTrigger === 'undefined') return;
 
-    loadDiscutionId();
-    loadStoredPrompt();
-    loadRelatedFiles();
+    loadDiscution();
   }, [stateReloaderTrigger]);
-
-  useEffect(() => {
-    if (!discutionId) {
-      setDiscutionId(uuid());
-    }
-  }, [discutionId]);
 
   return (
     <div className="flex size-full flex-col items-center justify-between overflow-auto">
@@ -160,7 +179,7 @@ export const ChatBot: FC<ChatBotProps> = ({
           <MessagesList
             storedPrompt={[
               firstMessage,
-              ...storedPrompt,
+              ...(discution?.storedPrompt ?? []),
               ...(currentResponse
                 ? [{ role: 'assistant' as const, content: currentResponse }]
                 : []),
@@ -170,12 +189,14 @@ export const ChatBot: FC<ChatBotProps> = ({
         </div>
       </div>
       <div className="w-full flex-1">
-        {displayRelatedFiles && <FileReference relatedFiles={relatedFiles} />}
+        {displayRelatedFiles && (
+          <FileReference relatedFiles={discution?.relatedFiles ?? []} />
+        )}
 
         <FormSection
           askNewQuestion={handleAskNewQuestion}
           clear={handleClear}
-          nbMessages={storedPrompt.length}
+          nbMessages={(discution?.storedPrompt ?? []).length}
           additionalButtons={additionalButtons}
         />
       </div>
