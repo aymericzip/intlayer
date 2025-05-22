@@ -362,32 +362,43 @@ export const askDocQuestion = async (
       },
     })
     .then(async (fullResponse) => {
-      // 3. Persist discussion while the client already has all chunks
-      await DiscussionModel.findOneAndUpdate(
-        { discutionId },
-        {
-          $set: {
-            discutionId,
-            userId: user?._id,
-            projectId: project?._id,
-            organizationId: organization?._id,
-            messages: [
-              ...messages.map((msg) => ({
-                role: msg.role,
-                content: msg.content,
-                timestamp: msg.timestamp,
-              })),
-              {
-                role: 'assistant',
-                content: fullResponse.response,
-                relatedFiles: fullResponse.relatedFiles,
-                timestamp: new Date(),
-              },
-            ],
+      const lastUserMessageContent = messages.findLast(
+        (msg) => msg.role === 'user'
+      )?.content;
+      const lastUserMessageNbWords = lastUserMessageContent
+        ? lastUserMessageContent.split(' ').length
+        : 0;
+      if (lastUserMessageNbWords > 2) {
+        // If the last user message is less than 3 words, don't persist the discussion
+        // Example: "Hello", "Hi", "Hey", "test", etc.
+
+        // 3. Persist discussion while the client already has all chunks
+        await DiscussionModel.findOneAndUpdate(
+          { discutionId },
+          {
+            $set: {
+              discutionId,
+              userId: user?._id,
+              projectId: project?._id,
+              organizationId: organization?._id,
+              messages: [
+                ...messages.map((msg) => ({
+                  role: msg.role,
+                  content: msg.content,
+                  timestamp: msg.timestamp,
+                })),
+                {
+                  role: 'assistant',
+                  content: fullResponse.response,
+                  relatedFiles: fullResponse.relatedFiles,
+                  timestamp: new Date(),
+                },
+              ],
+            },
           },
-        },
-        { upsert: true, new: true }
-      );
+          { upsert: true, new: true }
+        );
+      }
 
       // 4. Tell the client we're done and close the stream
       res.write(
