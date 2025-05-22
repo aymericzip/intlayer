@@ -117,13 +117,6 @@ export const getDocData = (
           default: getContentDeclarationGetStatedData(locale),
 
           subSections: {
-            'per-locale-file': {
-              title:
-                content.concept.subSections.content.subsections[
-                  'per-locale-file'
-                ].title,
-              default: getContentDeclarationPerLocaleFileData(locale),
-            },
             translation: {
               title:
                 content.concept.subSections.content.subsections.translation
@@ -168,6 +161,12 @@ export const getDocData = (
               default: getContentDeclarationFunctionFetchingData(locale),
             },
           },
+        },
+        'per-locale-file': {
+          title:
+            content.concept.subSections.content.subsections['per-locale-file']
+              .title,
+          default: getContentDeclarationPerLocaleFileData(locale),
         },
       },
     },
