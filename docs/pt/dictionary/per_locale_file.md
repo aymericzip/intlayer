@@ -134,14 +134,14 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
+```tsx fileName="hello-world.es.content.mjs" contentDeclarationFormat="esm"
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 const helloWorldContent = {
   key: "hello-world",
-  locale: Locales.ENGLISH, // Importante
-  content: { multilingualContent: "Title of my component" },
+  locale: Locales.SPANISH, // Importante
+  content: { multilingualContent: "Título de mi componente" },
 };
 
 export default helloWorldContent;

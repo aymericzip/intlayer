@@ -118,7 +118,9 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // 중요
   content: { multilingualContent: "Título de mi componente" },
-};
+} satisfies Dictionary;
+
+export default helloWorldContent;
 ```
 
 ```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
@@ -134,14 +136,14 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
+```tsx fileName="hello-world.es.content.mjs" contentDeclarationFormat="esm"
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 const helloWorldContent = {
   key: "hello-world",
-  locale: Locales.ENGLISH, // 중요
-  content: { multilingualContent: "Title of my component" },
+  locale: Locales.SPANISH, // 중요
+  content: { multilingualContent: "Título de mi componente" },
 };
 
 export default helloWorldContent;
