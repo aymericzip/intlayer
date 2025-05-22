@@ -121,7 +121,7 @@ Per impostazione predefinita, Intlayer esegue la scansione dei file con estensio
 
 Ecco un esempio di dichiarazione di contenuti:
 
-```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="src/ClientComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 // Dichiarazione dei contenuti del componente client
@@ -147,7 +147,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
+```jsx fileName="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -174,7 +174,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
+```jsx fileName="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -201,7 +201,7 @@ const clientComponentContent = {
 module.exports = clientComponentContent;
 ```
 
-```json filePath="src/ClientComponent/index.content.json" codeFormat="json"
+```json fileName="src/ClientComponent/index.content.json" codeFormat="json"
 {
   "key": "client-component",
   "content": {
@@ -339,7 +339,7 @@ Output:
 
 Ad esempio, il file **en/client-component.json** potrebbe apparire così:
 
-```json filePath="intlayer/dictionary/en/client-component.json"
+```json fileName="intlayer/dictionary/en/client-component.json"
 {
   "myTranslatedContent": "Hello World",
   "zero_numberOfCar": "No cars",
@@ -425,7 +425,7 @@ Output:
 
 Ad esempio, il file **en/client-component.json** potrebbe apparire così:
 
-```json filePath="intlayer/dictionary/en/client-component.json"
+```json fileName="intlayer/dictionary/en/client-component.json"
 {
   "myTranslatedContent": "Hello World",
   "zero_numberOfCar": "No cars",

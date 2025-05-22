@@ -149,7 +149,7 @@ Jede Datei ist ein JSON-Objekt, dessen **oberste Schlüssel** den jeweiligen **`
 
 Zum Beispiel könnte die **en.json** so aussehen:
 
-```json filePath="react-intl/messages/en/my-component.json"
+```json fileName="react-intl/messages/en/my-component.json"
 {
   "helloWorld": "Hello World",
   "description": "This is a description"

@@ -124,7 +124,7 @@ Intlayer के साथ, आप अपनी सामग्री को अ�
 
 यहाँ सामग्री घोषणा का एक उदाहरण है:
 
-```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="src/ClientComponent/index.content.ts" codeFormat="typescript"
 // सामग्री को बहुभाषी रूप में परिभाषित करें
 import { t, type Dictionary } from "intlayer";
 
@@ -151,7 +151,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
+```jsx fileName="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
 // सामग्री को बहुभाषी रूप में परिभाषित करें
 import { t } from "intlayer";
 
@@ -179,7 +179,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
+```jsx fileName="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
 // सामग्री को बहुभाषी रूप में परिभाषित करें
 const { t } = require("intlayer");
 
@@ -207,7 +207,7 @@ const clientComponentContent = {
 module.exports = clientComponentContent;
 ```
 
-```json filePath="src/ClientComponent/index.content.json" codeFormat="json"
+```json fileName="src/ClientComponent/index.content.json" codeFormat="json"
 {
   "key": "client-component",
   "content": {

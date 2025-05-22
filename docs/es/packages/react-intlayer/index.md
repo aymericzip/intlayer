@@ -83,7 +83,7 @@ Por defecto, Intlayer busca archivos con la extensión `.content.{json,ts,tsx,js
 
 Aquí tienes un ejemplo de declaración de contenido:
 
-```tsx filePath="src/Component1/index.content.ts" codeFormat="typescript"
+```tsx fileName="src/Component1/index.content.ts" codeFormat="typescript"
 // Declaración de contenido para el componente 1
 import { t, type Dictionary } from "intlayer";
 
@@ -109,7 +109,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
+```jsx fileName="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
 // Declaración de contenido para el componente 1
 import { t } from "intlayer";
 
@@ -136,7 +136,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
+```jsx fileName="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
 // Declaración de contenido para el componente 1
 const { t } = require("intlayer");
 
@@ -163,7 +163,7 @@ const component1Content = {
 module.exports = component1Content;
 ```
 
-```json filePath="src/Component1/index.content.json" codeFormat="json"
+```json fileName="src/Component1/index.content.json" codeFormat="json"
 {
   "key": "component-1",
   "content": {

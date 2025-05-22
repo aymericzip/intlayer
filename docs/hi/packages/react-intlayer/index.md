@@ -83,7 +83,7 @@ Intlayer के साथ, आप अपनी सामग्री को अ�
 
 यहाँ सामग्री घोषणा का एक उदाहरण है:
 
-```tsx filePath="src/Component1/index.content.ts" codeFormat="typescript"
+```tsx fileName="src/Component1/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const component1Content = {
@@ -109,7 +109,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
+```jsx fileName="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -136,7 +136,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
+```jsx fileName="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -163,7 +163,7 @@ const component1Content = {
 module.exports = component1Content;
 ```
 
-```json filePath="src/Component1/index.content.json" codeFormat="json"
+```json fileName="src/Component1/index.content.json" codeFormat="json"
 {
   "key": "component-1",
   "content": {

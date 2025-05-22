@@ -149,7 +149,7 @@ Chaque fichier est un objet JSON dont les **clés de niveau supérieur** corresp
 
 Par exemple, le **en.json** pourrait ressembler à :
 
-```json filePath="react-intl/messages/en/my-component.json"
+```json fileName="react-intl/messages/en/my-component.json"
 {
   "helloWorld": "Hello World",
   "description": "This is a description"

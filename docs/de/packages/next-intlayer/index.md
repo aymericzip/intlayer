@@ -83,7 +83,7 @@ Standardmäßig durchsucht Intlayer Dateien mit der Erweiterung `.content.{json,
 
 Hier ist ein Beispiel für eine Inhaltsdeklaration:
 
-```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="src/ClientComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {
@@ -108,7 +108,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
+```jsx fileName="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -134,7 +134,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
+```jsx fileName="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -160,7 +160,7 @@ const clientComponentContent = {
 module.exports = clientComponentContent;
 ```
 
-```json filePath="src/ClientComponent/index.content.json" codeFormat="json"
+```json fileName="src/ClientComponent/index.content.json" codeFormat="json"
 {
   "key": "client-component",
   "content": {

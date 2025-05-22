@@ -83,7 +83,7 @@ Intlayer를 사용하면 코드베이스 어디에서나 구조화된 방식으�
 
 다음은 콘텐츠 선언 예제입니다:
 
-```tsx filePath="src/Component1/index.content.ts" codeFormat="typescript"
+```tsx fileName="src/Component1/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 // 한국어 주석: 콘텐츠 선언
@@ -109,7 +109,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
+```jsx fileName="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -136,7 +136,7 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx filePath="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
+```jsx fileName="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -163,7 +163,7 @@ const component1Content = {
 module.exports = component1Content;
 ```
 
-```json filePath="src/Component1/index.content.json" codeFormat="json"
+```json fileName="src/Component1/index.content.json" codeFormat="json"
 {
   "key": "component-1",
   "content": {

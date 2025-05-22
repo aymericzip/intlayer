@@ -75,7 +75,7 @@ By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,j
 
 Here’s an example of content declaration:
 
-```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="src/ClientComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {

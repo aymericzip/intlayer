@@ -4,7 +4,7 @@
 
 يعمل آلية الملء التلقائي من خلال علاقة _سيد-عبد_ بين ملفات إعلان المحتوى. عندما يتم تحديث الملف الرئيسي (السيد)، سيقوم Intlayer تلقائياً بتطبيق هذه التغييرات على ملفات الإعلان المشتقة (المملوءة تلقائياً).
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -29,7 +29,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 سيقوم Intlayer تلقائياً بإنشاء ملف الإعلان المشتق في `src/components/example/example.content.json`، وملء جميع اللغات التي لم يتم الإعلان عنها بعد في الملف الرئيسي.
 
-```json5 filePath="src/components/example/example.content.json"
+```json5 fileName="src/components/example/example.content.json"
 {
   "key": "example",
   "content": {
@@ -50,7 +50,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 التنسيق الموصى به لملفات الإعلان المملوءة تلقائياً هو **JSON**، مما يساعد على تجنب قيود التنسيق. ومع ذلك، يدعم Intlayer أيضاً تنسيقات `.ts`، `.js`، `.mjs`، `.cjs` وغيرها.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -79,7 +79,7 @@ src/components/example/example.filled.content.ts
 
 يدعم حقل `autoFill` أيضاً المسارات المطلقة.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -103,7 +103,7 @@ export default exampleContent;
 
 يدعم حقل `autoFill` أيضاً إنشاء ملفات إعلان المحتوى **لكل لغة**.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -129,7 +129,7 @@ export default exampleContent;
 
 يتيح استخدام كائن لحقل `autoFill` تطبيق المرشحات وإنشاء ملفات لغة محددة فقط.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -156,7 +156,7 @@ export default exampleContent;
 - `{{locale}}` – رمز اللغة (مثال: `fr`، `es`)
 - `{{key}}` – مفتاح القاموس (مثال: `example`)
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {

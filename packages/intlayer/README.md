@@ -87,7 +87,7 @@ By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,j
 
 Here’s an example of content declaration:
 
-```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="src/ClientComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {
@@ -187,7 +187,7 @@ Output:
 
 For example, the **en/client-component.json** might look like:
 
-```json filePath="intlayer/dictionary/en/client-component.json"
+```json fileName="intlayer/dictionary/en/client-component.json"
 {
   "myTranslatedContent": "Hello World",
   "zero_numberOfCar": "No cars",
@@ -237,7 +237,7 @@ Output:
 
 For example, the **en/client-component.json** might look like:
 
-```json filePath="intlayer/dictionary/en/client-component.json"
+```json fileName="intlayer/dictionary/en/client-component.json"
 {
   "myTranslatedContent": "Hello World",
   "zero_numberOfCar": "No cars",

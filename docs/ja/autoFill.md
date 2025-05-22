@@ -4,7 +4,7 @@
 
 自動入力メカニズムは、コンテンツ宣言ファイル間の*マスター-スレーブ*関係を通じて機能します。メイン（マスター）ファイルが更新されると、Intlayerは自動的にそれらの変更を派生（自動入力）宣言ファイルに適用します。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -29,7 +29,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 Intlayerは自動的に`src/components/example/example.content.json`に派生宣言ファイルを生成し、メインファイルでまだ宣言されていないすべての言語を入力します。
 
-```json5 filePath="src/components/example/example.content.json"
+```json5 fileName="src/components/example/example.content.json"
 {
   "key": "example",
   "content": {
@@ -50,7 +50,7 @@ Intlayerは自動的に`src/components/example/example.content.json`に派生宣
 
 自動入力宣言ファイルの推奨形式は**JSON**で、フォーマットの制約を避けるのに役立ちます。ただし、Intlayerは`.ts`、`.js`、`.mjs`、`.cjs`などの形式もサポートしています。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -79,7 +79,7 @@ src/components/example/example.filled.content.ts
 
 `autoFill`フィールドは絶対パスもサポートしています。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -103,7 +103,7 @@ export default exampleContent;
 
 `autoFill`フィールドは**言語ごと**のコンテンツ宣言ファイルの生成もサポートしています。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -129,7 +129,7 @@ export default exampleContent;
 
 `autoFill`フィールドにオブジェクトを使用することで、フィルターを適用し、特定の言語ファイルのみを生成できます。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -156,7 +156,7 @@ export default exampleContent;
 - `{{locale}}` – 言語コード（例：`fr`、`es`）
 - `{{key}}` – 辞書キー（例：`example`）
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {

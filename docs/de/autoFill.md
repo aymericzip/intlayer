@@ -4,7 +4,7 @@
 
 Der Autofill-Mechanismus funktioniert über eine _Master-Slave_-Beziehung zwischen Inhaltsdeklarationsdateien. Wenn die Hauptdatei (Master) aktualisiert wird, werden diese Änderungen von Intlayer automatisch auf die abgeleiteten (automatisch ausgefüllten) Deklarationsdateien angewendet.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -29,7 +29,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 Intlayer generiert automatisch die abgeleitete Deklarationsdatei unter `src/components/example/example.content.json` und füllt alle Sprachen aus, die in der Hauptdatei noch nicht deklariert sind.
 
-```json5 filePath="src/components/example/example.content.json"
+```json5 fileName="src/components/example/example.content.json"
 {
   "key": "example",
   "content": {
@@ -50,7 +50,7 @@ Anschließend werden beide Deklarationsdateien in ein einzelnes Wörterbuch zusa
 
 Das empfohlene Format für automatisch ausgefüllte Deklarationsdateien ist **JSON**, was hilft, Formatierungsbeschränkungen zu vermeiden. Intlayer unterstützt jedoch auch die Formate `.ts`, `.js`, `.mjs`, `.cjs` und andere.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -79,7 +79,7 @@ src/components/example/example.filled.content.ts
 
 Das `autoFill`-Feld unterstützt auch absolute Pfade.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -103,7 +103,7 @@ Dies generiert die Datei unter:
 
 Das `autoFill`-Feld unterstützt auch die Generierung von **pro-Sprache** Inhaltsdeklarationsdateien.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -129,7 +129,7 @@ Dies generiert zwei separate Dateien:
 
 Die Verwendung eines Objekts für das `autoFill`-Feld ermöglicht es Ihnen, Filter anzuwenden und nur bestimmte Sprachdateien zu generieren.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -156,7 +156,7 @@ Sie können Variablen innerhalb des `autoFill`-Pfads verwenden, um die Zielpfade
 - `{{locale}}` – Sprachcode (z.B. `fr`, `es`)
 - `{{key}}` – Wörterbuchschlüssel (z.B. `example`)
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {

@@ -149,7 +149,7 @@ pnpm intlayer build
 
 예를 들어, **en.json**은 다음과 같을 수 있습니다:
 
-```json filePath="react-intl/messages/en/my-component.json"
+```json fileName="react-intl/messages/en/my-component.json"
 {
   "helloWorld": "Hello World",
   "description": "This is a description"

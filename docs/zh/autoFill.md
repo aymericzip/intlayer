@@ -4,7 +4,7 @@
 
 自动填充机制通过内容声明文件之间的*主从*关系工作。当主（主控）文件更新时，Intlayer将自动将这些更改应用到派生（自动填充）声明文件。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -29,7 +29,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 Intlayer将自动在`src/components/example/example.content.json`生成派生声明文件，填充主文件中尚未声明的所有语言。
 
-```json5 filePath="src/components/example/example.content.json"
+```json5 fileName="src/components/example/example.content.json"
 {
   "key": "example",
   "content": {
@@ -50,7 +50,7 @@ Intlayer将自动在`src/components/example/example.content.json`生成派生声
 
 自动填充声明文件的推荐格式是**JSON**，这有助于避免格式限制。但是，Intlayer也支持`.ts`、`.js`、`.mjs`、`.cjs`等格式。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -79,7 +79,7 @@ src/components/example/example.filled.content.ts
 
 `autoFill`字段也支持绝对路径。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -103,7 +103,7 @@ export default exampleContent;
 
 `autoFill`字段还支持**按语言**生成内容声明文件。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -129,7 +129,7 @@ export default exampleContent;
 
 使用对象作为`autoFill`字段允许你应用过滤器并仅生成特定语言的文件。
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -156,7 +156,7 @@ export default exampleContent;
 - `{{locale}}` – 语言代码（例如：`fr`、`es`）
 - `{{key}}` – 字典键（例如：`example`）
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {

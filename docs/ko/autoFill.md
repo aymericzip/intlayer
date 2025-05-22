@@ -4,7 +4,7 @@
 
 자동 채우기 메커니즘은 콘텐츠 선언 파일 간의 _마스터-슬레이브_ 관계를 통해 작동합니다. 메인(마스터) 파일이 업데이트되면 Intlayer는 자동으로 이러한 변경사항을 파생(자동 채워진) 선언 파일에 적용합니다.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -29,7 +29,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 Intlayer는 자동으로 `src/components/example/example.content.json`에 파생 선언 파일을 생성하고, 메인 파일에서 아직 선언되지 않은 모든 언어를 채웁니다.
 
-```json5 filePath="src/components/example/example.content.json"
+```json5 fileName="src/components/example/example.content.json"
 {
   "key": "example",
   "content": {
@@ -50,7 +50,7 @@ Intlayer는 자동으로 `src/components/example/example.content.json`에 파생
 
 자동 채우기 선언 파일의 권장 형식은 **JSON**이며, 이는 형식 제약을 피하는 데 도움이 됩니다. 그러나 Intlayer는 `.ts`, `.js`, `.mjs`, `.cjs` 등의 형식도 지원합니다.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -79,7 +79,7 @@ src/components/example/example.filled.content.ts
 
 `autoFill` 필드는 절대 경로도 지원합니다.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -103,7 +103,7 @@ export default exampleContent;
 
 `autoFill` 필드는 **언어별** 콘텐츠 선언 파일의 생성도 지원합니다.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -129,7 +129,7 @@ export default exampleContent;
 
 `autoFill` 필드에 객체를 사용하면 필터를 적용하고 특정 언어 파일만 생성할 수 있습니다.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -156,7 +156,7 @@ export default exampleContent;
 - `{{locale}}` – 언어 코드(예: `fr`, `es`)
 - `{{key}}` – 사전 키(예: `example`)
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {

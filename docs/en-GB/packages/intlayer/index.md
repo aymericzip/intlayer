@@ -121,7 +121,7 @@ By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,j
 
 Here’s an example of content declaration:
 
-```tsx filePath="src/ClientComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="src/ClientComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const clientComponentContent = {
@@ -146,7 +146,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
+```jsx fileName="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -172,7 +172,7 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx filePath="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
+```jsx fileName="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -198,7 +198,7 @@ const clientComponentContent = {
 module.exports = clientComponentContent;
 ```
 
-```json filePath="src/ClientComponent/index.content.json" codeFormat="json"
+```json fileName="src/ClientComponent/index.content.json" codeFormat="json"
 {
   "key": "client-component",
   "content": {
@@ -336,7 +336,7 @@ Output:
 
 For example, the **en/client-component.json** might look like:
 
-```json filePath="intlayer/dictionary/en/client-component.json"
+```json fileName="intlayer/dictionary/en/client-component.json"
 {
   "myTranslatedContent": "Hello World",
   "zero_numberOfCar": "No cars",
@@ -422,7 +422,7 @@ Output:
 
 For example, the **en/client-component.json** might look like:
 
-```json filePath="intlayer/dictionary/en/client-component.json"
+```json fileName="intlayer/dictionary/en/client-component.json"
 {
   "myTranslatedContent": "Hello World",
   "zero_numberOfCar": "No cars",

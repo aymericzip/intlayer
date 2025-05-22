@@ -4,7 +4,7 @@ Les **fichiers de déclaration de contenu auto-remplis** sont un moyen d'accél�
 
 Le mécanisme d'auto-remplissage fonctionne selon une relation _maître-esclave_ entre les fichiers de déclaration de contenu. Lorsque le fichier principal (maître) est mis à jour, Intlayer appliquera automatiquement ces modifications aux fichiers de déclaration dérivés (auto-remplis).
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -29,7 +29,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 Intlayer générera automatiquement le fichier de déclaration dérivé à `src/components/example/example.content.json`, en remplissant toutes les locales non encore déclarées dans le fichier principal.
 
-```json5 filePath="src/components/example/example.content.json"
+```json5 fileName="src/components/example/example.content.json"
 {
   "key": "example",
   "content": {
@@ -50,7 +50,7 @@ Par la suite, les deux fichiers de déclaration seront fusionnés en un seul dic
 
 Le format recommandé pour les fichiers de déclaration auto-remplis est le **JSON**, ce qui aide à éviter les contraintes de formatage. Cependant, Intlayer prend également en charge les formats `.ts`, `.js`, `.mjs`, `.cjs` et autres.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -79,7 +79,7 @@ src/components/example/example.filled.content.ts
 
 Le champ `autoFill` prend également en charge les chemins absolus.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -103,7 +103,7 @@ Cela générera le fichier à :
 
 Le champ `autoFill` prend également en charge la génération de fichiers de déclaration de contenu **par locale**.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -129,7 +129,7 @@ Cela générera deux fichiers séparés :
 
 L'utilisation d'un objet pour le champ `autoFill` vous permet d'appliquer des filtres et de générer uniquement des fichiers de locale spécifiques.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -156,7 +156,7 @@ Vous pouvez utiliser des variables dans le chemin `autoFill` pour résoudre dyna
 - `{{locale}}` – Code de locale (ex. `fr`, `es`)
 - `{{key}}` – Clé du dictionnaire (ex. `example`)
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {

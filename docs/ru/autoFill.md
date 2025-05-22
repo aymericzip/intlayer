@@ -4,7 +4,7 @@
 
 Механизм автозаполнения работает через отношение _master-slave_ между файлами объявления контента. Когда основной (master) файл обновляется, Intlayer автоматически применяет эти изменения к производным (автоматически заполненным) файлам объявления.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -29,7 +29,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 Intlayer автоматически сгенерирует производный файл объявления в `src/components/example/example.content.json`, заполнив все языки, которые еще не объявлены в основном файле.
 
-```json5 filePath="src/components/example/example.content.json"
+```json5 fileName="src/components/example/example.content.json"
 {
   "key": "example",
   "content": {
@@ -50,7 +50,7 @@ Intlayer автоматически сгенерирует производны�
 
 Рекомендуемый формат для автоматически заполняемых файлов объявления - **JSON**, что помогает избежать ограничений форматирования. Однако Intlayer также поддерживает форматы `.ts`, `.js`, `.mjs`, `.cjs` и другие.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -79,7 +79,7 @@ src/components/example/example.filled.content.ts
 
 Поле `autoFill` также поддерживает абсолютные пути.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -103,7 +103,7 @@ export default exampleContent;
 
 Поле `autoFill` также поддерживает генерацию файлов объявления контента **для каждого языка**.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -129,7 +129,7 @@ export default exampleContent;
 
 Использование объекта для поля `autoFill` позволяет применять фильтры и генерировать только файлы для конкретных языков.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -156,7 +156,7 @@ export default exampleContent;
 - `{{locale}}` – Код языка (например, `fr`, `es`)
 - `{{key}}` – Ключ словаря (например, `example`)
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {

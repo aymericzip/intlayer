@@ -4,7 +4,7 @@
 
 The autofill mechanism works through a _master-slave_ relationship between content declaration files. When the main (master) file is updated, Intlayer will automatically apply those changes to the derived (autofilled) declaration files.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -29,7 +29,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 Intlayer will automatically generate the derived declaration file at `src/components/example/example.content.json`, filling in all locales not already declared in the main file.
 
-```json5 filePath="src/components/example/example.content.json"
+```json5 fileName="src/components/example/example.content.json"
 {
   "key": "example",
   "content": {
@@ -50,7 +50,7 @@ Afterward, both declaration files will be merged into a single dictionary, acces
 
 The recommended format for autofilled declaration files is **JSON**, which helps avoid formatting constraints. However, Intlayer also supports `.ts`, `.js`, `.mjs`, `.cjs`, and other formats.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -79,7 +79,7 @@ src/components/example/example.filled.content.ts
 
 The `autoFill` field also supports absolute paths.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -103,7 +103,7 @@ This will generate the file at:
 
 The `autoFill` field also supports generation of **per-locale** content declaration files.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -129,7 +129,7 @@ This will generate two separate files:
 
 Using an object for the `autoFill` field allows you to apply filters and generate only specific locale files.
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -156,7 +156,7 @@ You can use variables inside the `autoFill` path to dynamically resolve the targ
 - `{{locale}}` – Locale code (e.g. `fr`, `es`)
 - `{{key}}` – Dictionary key (e.g. `example`)
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {

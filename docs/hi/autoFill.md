@@ -4,7 +4,7 @@
 
 स्वचालित भरण तंत्र सामग्री घोषणा फ़ाइलों के बीच एक _मास्टर-स्लेव_ संबंध के माध्यम से काम करता है। जब मुख्य (मास्टर) फ़ाइल अपडेट होती है, तो Intlayer स्वचालित रूप से उन परिवर्तनों को व्युत्पन्न (स्वचालित रूप से भरी गई) घोषणा फ़ाइलों पर लागू करेगा।
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -29,7 +29,7 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 
 Intlayer स्वचालित रूप से `src/components/example/example.content.json` में व्युत्पन्न घोषणा फ़ाइल उत्पन्न करेगा, मुख्य फ़ाइल में अभी तक घोषित नहीं की गई सभी भाषाओं को भरते हुए।
 
-```json5 filePath="src/components/example/example.content.json"
+```json5 fileName="src/components/example/example.content.json"
 {
   "key": "example",
   "content": {
@@ -50,7 +50,7 @@ Intlayer स्वचालित रूप से `src/components/example/examp
 
 स्वचालित भरण घोषणा फ़ाइलों के लिए अनुशंसित प्रारूप **JSON** है, जो प्रारूप प्रतिबंधों से बचने में मदद करता है। हालांकि, Intlayer `.ts`, `.js`, `.mjs`, `.cjs` और अन्य प्रारूपों का भी समर्थन करता है।
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -79,7 +79,7 @@ src/components/example/example.filled.content.ts
 
 `autoFill` फ़ील्ड निरपेक्ष पथों का भी समर्थन करता है।
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -103,7 +103,7 @@ export default exampleContent;
 
 `autoFill` फ़ील्ड **प्रति-भाषा** सामग्री घोषणा फ़ाइलों के उत्पादन का भी समर्थन करता है।
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -129,7 +129,7 @@ export default exampleContent;
 
 `autoFill` फ़ील्ड के लिए एक वस्तु का उपयोग आपको फ़िल्टर लागू करने और केवल विशिष्ट भाषा फ़ाइलें उत्पन्न करने की अनुमति देता है।
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
@@ -156,7 +156,7 @@ export default exampleContent;
 - `{{locale}}` – भाषा कोड (उदाहरण: `fr`, `es`)
 - `{{key}}` – शब्दकोश कुंजी (उदाहरण: `example`)
 
-```ts filePath="src/components/example/example.content.ts"
+```ts fileName="src/components/example/example.content.ts"
 import { Locales } from "intlayer";
 
 const exampleContent = {
