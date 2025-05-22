@@ -1207,6 +1207,21 @@ const docs = {
     pt: require('./pt/CI_CD.md'),
     ru: require('./ru/CI_CD.md'),
   },
+  autoFill: {
+    en: require('./en/autoFill.md'),
+    fr: require('./fr/autoFill.md'),
+    es: require('./es/autoFill.md'),
+    'en-GB': require('./en-GB/autoFill.md'),
+    de: require('./de/autoFill.md'),
+    hi: require('./hi/autoFill.md'),
+    it: require('./it/autoFill.md'),
+    ja: require('./ja/autoFill.md'),
+    ko: require('./ko/autoFill.md'),
+    pt: require('./pt/autoFill.md'),
+    ru: require('./ru/autoFill.md'),
+    zh: require('./zh/autoFill.md'),
+    ar: require('./ar/autoFill.md'),
+  },
 };
 
 const getDocs = (lang = Locales.ENGLISH) =>

@@ -83,6 +83,7 @@ declare module '@intlayer/docs' {
     'package__@intlayer_editor-react',
     vscode_extension,
     ci_cd,
+    autoFill,
   }
 
   export type DocsKeys = keyof typeof DocsKeysEnum;

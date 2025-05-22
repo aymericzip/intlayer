@@ -106,21 +106,7 @@ const docDataContent = {
           }),
         },
         cli: {
-          title: t({
-            en: 'Intlayer CLI',
-            'en-GB': 'Intlayer CLI',
-            fr: 'Intlayer CLI',
-            es: 'Intlayer CLI',
-            de: 'Intlayer CLI',
-            it: 'Intlayer CLI',
-            ja: 'Intlayer CLI',
-            ko: 'Intlayer CLI',
-            zh: 'Intlayer CLI',
-            pt: 'Intlayer CLI',
-            hi: 'Intlayer CLI',
-            ar: 'Intlayer CLI',
-            ru: 'Intlayer CLI',
-          }),
+          title: 'Intlayer CLI',
         },
         editor: {
           title: t({
@@ -140,21 +126,7 @@ const docDataContent = {
           }),
         },
         cms: {
-          title: t({
-            en: 'CMS',
-            'en-GB': 'CMS',
-            fr: 'CMS',
-            es: 'CMS',
-            de: 'CMS',
-            it: 'CMS',
-            ja: 'CMS',
-            ko: 'CMS',
-            zh: 'CMS',
-            pt: 'CMS',
-            hi: 'CMS',
-            ar: 'CMS',
-            ru: 'CMS',
-          }),
+          title: 'CMS',
         },
         'ci-cd': {
           title: t({
@@ -190,23 +162,6 @@ const docDataContent = {
             ru: 'Объявление контента',
           }),
           subsections: {
-            'per-locale-file': {
-              title: t({
-                en: 'Per Locale File',
-                'en-GB': 'Per Locale File',
-                fr: 'Fichier par locale',
-                es: 'Archivo por locale',
-                de: 'Datei pro Locale',
-                it: 'File per locale',
-                ja: 'ロケールごとのファイル',
-                ko: '로케일별 파일',
-                zh: '每个语言环境的文件',
-                pt: 'Arquivo por locale',
-                hi: 'प्रति लोकेल फ़ाइल',
-                ar: 'ملف لكل لغة',
-                ru: 'Файл для каждой локали',
-              }),
-            },
             translation: {
               title: t({
                 en: 'Translation',
@@ -310,21 +265,7 @@ const docDataContent = {
               }),
             },
             markdown: {
-              title: t({
-                en: 'Markdown',
-                'en-GB': 'Markdown',
-                fr: 'Markdown',
-                es: 'Markdown',
-                de: 'Markdown',
-                it: 'Markdown',
-                ja: 'Markdown',
-                ko: 'Markdown',
-                zh: 'Markdown',
-                pt: 'Markdown',
-                hi: 'Markdown',
-                ar: 'Markdown',
-                ru: 'Markdown',
-              }),
+              title: 'Markdown',
             },
             'function-fetching': {
               title: t({
@@ -344,6 +285,40 @@ const docDataContent = {
               }),
             },
           },
+        },
+        'per-locale-file': {
+          title: t({
+            en: 'Per Locale File',
+            'en-GB': 'Per Locale File',
+            fr: 'Fichier par locale',
+            es: 'Archivo por locale',
+            de: 'Datei pro Locale',
+            it: 'File per locale',
+            ja: 'ロケールごとのファイル',
+            ko: '로케일별 파일',
+            zh: '每个语言环境的文件',
+            pt: 'Arquivo por locale',
+            hi: 'प्रति लोकेल फ़ाइल',
+            ar: 'ملف لكل لغة',
+            ru: 'Файл для каждой локали',
+          }),
+        },
+        'auto-fill': {
+          title: t({
+            en: 'Auto Fill',
+            'en-GB': 'Auto Fill',
+            fr: 'Remplissage automatique',
+            es: 'Autocompletado',
+            de: 'Automatisches Ausfüllen',
+            it: 'Compilazione automatica',
+            ja: '自動入力',
+            ko: '자동 채우기',
+            zh: '自动填充',
+            pt: 'Preenchimento automático',
+            hi: 'स्वतः भरण',
+            ar: 'الملء التلقائي',
+            ru: 'Автозаполнение',
+          }),
         },
       },
     },

@@ -3,6 +3,7 @@ import { getCI_CDData } from './docDataContent/concept/ci_cd';
 import { getCliData } from './docDataContent/concept/cli';
 import { getCMSData } from './docDataContent/concept/cms';
 import { getConfigurationData } from './docDataContent/concept/configuration';
+import { getContentDeclarationAutoFillData } from './docDataContent/concept/dictionary/autoFill';
 import { getContentDeclarationConditionData } from './docDataContent/concept/dictionary/condition';
 import { getContentDeclarationEnumerationData } from './docDataContent/concept/dictionary/enumeration';
 import { getContentDeclarationFileData } from './docDataContent/concept/dictionary/file';
@@ -163,10 +164,12 @@ export const getDocData = (
           },
         },
         'per-locale-file': {
-          title:
-            content.concept.subSections.content.subsections['per-locale-file']
-              .title,
+          title: content.concept.subSections['per-locale-file'].title,
           default: getContentDeclarationPerLocaleFileData(locale),
+        },
+        'auto-fill': {
+          title: content.concept.subSections['auto-fill'].title,
+          default: getContentDeclarationAutoFillData(locale),
         },
       },
     },
