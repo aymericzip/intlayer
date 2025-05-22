@@ -51,8 +51,6 @@ Intlayer는 자동으로 `src/components/example/example.content.json`에 파생
 자동 채우기 선언 파일의 권장 형식은 **JSON**이며, 이는 형식 제약을 피하는 데 도움이 됩니다. 그러나 Intlayer는 `.ts`, `.js`, `.mjs`, `.cjs` 등의 형식도 지원합니다.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
@@ -60,8 +58,6 @@ const exampleContent = {
     // 콘텐츠
   },
 };
-
-export default exampleContent;
 ```
 
 이것은 다음 위치에 파일을 생성합니다:
@@ -80,8 +76,6 @@ src/components/example/example.filled.content.ts
 `autoFill` 필드는 절대 경로도 지원합니다.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
@@ -89,8 +83,6 @@ const exampleContent = {
     // 콘텐츠
   },
 };
-
-export default exampleContent;
 ```
 
 이것은 다음 위치에 파일을 생성합니다:
@@ -104,8 +96,6 @@ export default exampleContent;
 `autoFill` 필드는 **언어별** 콘텐츠 선언 파일의 생성도 지원합니다.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -116,8 +106,6 @@ const exampleContent = {
     // 콘텐츠
   },
 };
-
-export default exampleContent;
 ```
 
 이것은 두 개의 별도 파일을 생성합니다:
@@ -130,8 +118,6 @@ export default exampleContent;
 `autoFill` 필드에 객체를 사용하면 필터를 적용하고 특정 언어 파일만 생성할 수 있습니다.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -141,8 +127,6 @@ const exampleContent = {
     // 콘텐츠
   },
 };
-
-export default exampleContent;
 ```
 
 이것은 프랑스어 번역 파일만 생성합니다.
@@ -157,8 +141,6 @@ export default exampleContent;
 - `{{key}}` – 사전 키(예: `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -166,8 +148,6 @@ const exampleContent = {
     // 콘텐츠
   },
 };
-
-export default exampleContent;
 ```
 
 이것은 다음을 생성합니다:

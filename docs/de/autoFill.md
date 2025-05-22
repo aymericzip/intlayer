@@ -51,8 +51,6 @@ Anschließend werden beide Deklarationsdateien in ein einzelnes Wörterbuch zusa
 Das empfohlene Format für automatisch ausgefüllte Deklarationsdateien ist **JSON**, was hilft, Formatierungsbeschränkungen zu vermeiden. Intlayer unterstützt jedoch auch die Formate `.ts`, `.js`, `.mjs`, `.cjs` und andere.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
@@ -60,8 +58,6 @@ const exampleContent = {
     // Ihr Inhalt
   },
 };
-
-export default exampleContent;
 ```
 
 Dies generiert die Datei unter:
@@ -80,8 +76,6 @@ src/components/example/example.filled.content.ts
 Das `autoFill`-Feld unterstützt auch absolute Pfade.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
@@ -89,8 +83,6 @@ const exampleContent = {
     // Ihr Inhalt
   },
 };
-
-export default exampleContent;
 ```
 
 Dies generiert die Datei unter:
@@ -104,8 +96,6 @@ Dies generiert die Datei unter:
 Das `autoFill`-Feld unterstützt auch die Generierung von **pro-Sprache** Inhaltsdeklarationsdateien.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -116,8 +106,6 @@ const exampleContent = {
     // Ihr Inhalt
   },
 };
-
-export default exampleContent;
 ```
 
 Dies generiert zwei separate Dateien:
@@ -130,8 +118,6 @@ Dies generiert zwei separate Dateien:
 Die Verwendung eines Objekts für das `autoFill`-Feld ermöglicht es Ihnen, Filter anzuwenden und nur bestimmte Sprachdateien zu generieren.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -141,8 +127,6 @@ const exampleContent = {
     // Ihr Inhalt
   },
 };
-
-export default exampleContent;
 ```
 
 Dies generiert nur die französische Übersetzungsdatei.
@@ -157,8 +141,6 @@ Sie können Variablen innerhalb des `autoFill`-Pfads verwenden, um die Zielpfade
 - `{{key}}` – Wörterbuchschlüssel (z.B. `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -166,8 +148,6 @@ const exampleContent = {
     // Ihr Inhalt
   },
 };
-
-export default exampleContent;
 ```
 
 Dies generiert:

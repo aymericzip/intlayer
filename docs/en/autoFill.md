@@ -51,8 +51,6 @@ Afterward, both declaration files will be merged into a single dictionary, acces
 The recommended format for autofilled declaration files is **JSON**, which helps avoid formatting constraints. However, Intlayer also supports `.ts`, `.js`, `.mjs`, `.cjs`, and other formats.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
@@ -60,8 +58,6 @@ const exampleContent = {
     // Your content
   },
 };
-
-export default exampleContent;
 ```
 
 This will generate the file at:
@@ -80,8 +76,6 @@ src/components/example/example.filled.content.ts
 The `autoFill` field also supports absolute paths.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
@@ -89,8 +83,6 @@ const exampleContent = {
     // Your content
   },
 };
-
-export default exampleContent;
 ```
 
 This will generate the file at:
@@ -104,8 +96,6 @@ This will generate the file at:
 The `autoFill` field also supports generation of **per-locale** content declaration files.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -116,8 +106,6 @@ const exampleContent = {
     // Your content
   },
 };
-
-export default exampleContent;
 ```
 
 This will generate two separate files:
@@ -130,8 +118,6 @@ This will generate two separate files:
 Using an object for the `autoFill` field allows you to apply filters and generate only specific locale files.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -141,8 +127,6 @@ const exampleContent = {
     // Your content
   },
 };
-
-export default exampleContent;
 ```
 
 This will only generate the French translation file.
@@ -157,8 +141,6 @@ You can use variables inside the `autoFill` path to dynamically resolve the targ
 - `{{key}}` – Dictionary key (e.g. `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -166,8 +148,6 @@ const exampleContent = {
     // Your content
   },
 };
-
-export default exampleContent;
 ```
 
 This will generate:

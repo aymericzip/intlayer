@@ -51,8 +51,6 @@ Intlayer स्वचालित रूप से `src/components/example/examp
 स्वचालित भरण घोषणा फ़ाइलों के लिए अनुशंसित प्रारूप **JSON** है, जो प्रारूप प्रतिबंधों से बचने में मदद करता है। हालांकि, Intlayer `.ts`, `.js`, `.mjs`, `.cjs` और अन्य प्रारूपों का भी समर्थन करता है।
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
@@ -60,8 +58,6 @@ const exampleContent = {
     // आपकी सामग्री
   },
 };
-
-export default exampleContent;
 ```
 
 यह फ़ाइल को यहां उत्पन्न करेगा:
@@ -80,8 +76,6 @@ src/components/example/example.filled.content.ts
 `autoFill` फ़ील्ड निरपेक्ष पथों का भी समर्थन करता है।
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
@@ -89,8 +83,6 @@ const exampleContent = {
     // आपकी सामग्री
   },
 };
-
-export default exampleContent;
 ```
 
 यह फ़ाइल को यहां उत्पन्न करेगा:
@@ -104,8 +96,6 @@ export default exampleContent;
 `autoFill` फ़ील्ड **प्रति-भाषा** सामग्री घोषणा फ़ाइलों के उत्पादन का भी समर्थन करता है।
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -116,8 +106,6 @@ const exampleContent = {
     // आपकी सामग्री
   },
 };
-
-export default exampleContent;
 ```
 
 यह दो अलग-अलग फ़ाइलें उत्पन्न करेगा:
@@ -130,8 +118,6 @@ export default exampleContent;
 `autoFill` फ़ील्ड के लिए एक वस्तु का उपयोग आपको फ़िल्टर लागू करने और केवल विशिष्ट भाषा फ़ाइलें उत्पन्न करने की अनुमति देता है।
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -141,8 +127,6 @@ const exampleContent = {
     // आपकी सामग्री
   },
 };
-
-export default exampleContent;
 ```
 
 यह केवल फ्रेंच अनुवाद फ़ाइल उत्पन्न करेगा।
@@ -157,8 +141,6 @@ export default exampleContent;
 - `{{key}}` – शब्दकोश कुंजी (उदाहरण: `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -166,8 +148,6 @@ const exampleContent = {
     // आपकी सामग्री
   },
 };
-
-export default exampleContent;
 ```
 
 यह उत्पन्न करेगा:

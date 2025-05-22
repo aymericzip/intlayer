@@ -51,8 +51,6 @@ Intlayerは自動的に`src/components/example/example.content.json`に派生宣
 自動入力宣言ファイルの推奨形式は**JSON**で、フォーマットの制約を避けるのに役立ちます。ただし、Intlayerは`.ts`、`.js`、`.mjs`、`.cjs`などの形式もサポートしています。
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
@@ -60,8 +58,6 @@ const exampleContent = {
     // コンテンツ
   },
 };
-
-export default exampleContent;
 ```
 
 これにより、以下のファイルが生成されます：
@@ -80,8 +76,6 @@ src/components/example/example.filled.content.ts
 `autoFill`フィールドは絶対パスもサポートしています。
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
@@ -89,8 +83,6 @@ const exampleContent = {
     // コンテンツ
   },
 };
-
-export default exampleContent;
 ```
 
 これにより、以下のファイルが生成されます：
@@ -104,8 +96,6 @@ export default exampleContent;
 `autoFill`フィールドは**言語ごと**のコンテンツ宣言ファイルの生成もサポートしています。
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -116,8 +106,6 @@ const exampleContent = {
     // コンテンツ
   },
 };
-
-export default exampleContent;
 ```
 
 これにより、2つの別々のファイルが生成されます：
@@ -130,8 +118,6 @@ export default exampleContent;
 `autoFill`フィールドにオブジェクトを使用することで、フィルターを適用し、特定の言語ファイルのみを生成できます。
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -141,8 +127,6 @@ const exampleContent = {
     // コンテンツ
   },
 };
-
-export default exampleContent;
 ```
 
 これにより、フランス語の翻訳ファイルのみが生成されます。
@@ -157,8 +141,6 @@ export default exampleContent;
 - `{{key}}` – 辞書キー（例：`example`）
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -166,8 +148,6 @@ const exampleContent = {
     // コンテンツ
   },
 };
-
-export default exampleContent;
 ```
 
 これにより、以下が生成されます：

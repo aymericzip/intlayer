@@ -51,8 +51,6 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 التنسيق الموصى به لملفات الإعلان المملوءة تلقائياً هو **JSON**، مما يساعد على تجنب قيود التنسيق. ومع ذلك، يدعم Intlayer أيضاً تنسيقات `.ts`، `.js`، `.mjs`، `.cjs` وغيرها.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
@@ -60,8 +58,6 @@ const exampleContent = {
     // المحتوى الخاص بك
   },
 };
-
-export default exampleContent;
 ```
 
 سيقوم هذا بإنشاء الملف في:
@@ -80,8 +76,6 @@ src/components/example/example.filled.content.ts
 يدعم حقل `autoFill` أيضاً المسارات المطلقة.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
@@ -89,8 +83,6 @@ const exampleContent = {
     // المحتوى الخاص بك
   },
 };
-
-export default exampleContent;
 ```
 
 سيقوم هذا بإنشاء الملف في:
@@ -104,8 +96,6 @@ export default exampleContent;
 يدعم حقل `autoFill` أيضاً إنشاء ملفات إعلان المحتوى **لكل لغة**.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -116,8 +106,6 @@ const exampleContent = {
     // المحتوى الخاص بك
   },
 };
-
-export default exampleContent;
 ```
 
 سيقوم هذا بإنشاء ملفين منفصلين:
@@ -130,8 +118,6 @@ export default exampleContent;
 يتيح استخدام كائن لحقل `autoFill` تطبيق المرشحات وإنشاء ملفات لغة محددة فقط.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -141,8 +127,6 @@ const exampleContent = {
     // المحتوى الخاص بك
   },
 };
-
-export default exampleContent;
 ```
 
 سيقوم هذا بإنشاء ملف الترجمة الفرنسية فقط.
@@ -157,8 +141,6 @@ export default exampleContent;
 - `{{key}}` – مفتاح القاموس (مثال: `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -166,8 +148,6 @@ const exampleContent = {
     // المحتوى الخاص بك
   },
 };
-
-export default exampleContent;
 ```
 
 سيقوم هذا بإنشاء:

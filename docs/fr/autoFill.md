@@ -51,8 +51,6 @@ Par la suite, les deux fichiers de déclaration seront fusionnés en un seul dic
 Le format recommandé pour les fichiers de déclaration auto-remplis est le **JSON**, ce qui aide à éviter les contraintes de formatage. Cependant, Intlayer prend également en charge les formats `.ts`, `.js`, `.mjs`, `.cjs` et autres.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
@@ -60,8 +58,6 @@ const exampleContent = {
     // Votre contenu
   },
 };
-
-export default exampleContent;
 ```
 
 Cela générera le fichier à :
@@ -80,8 +76,6 @@ src/components/example/example.filled.content.ts
 Le champ `autoFill` prend également en charge les chemins absolus.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
@@ -89,8 +83,6 @@ const exampleContent = {
     // Votre contenu
   },
 };
-
-export default exampleContent;
 ```
 
 Cela générera le fichier à :
@@ -104,8 +96,6 @@ Cela générera le fichier à :
 Le champ `autoFill` prend également en charge la génération de fichiers de déclaration de contenu **par locale**.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -116,8 +106,6 @@ const exampleContent = {
     // Votre contenu
   },
 };
-
-export default exampleContent;
 ```
 
 Cela générera deux fichiers séparés :
@@ -130,8 +118,6 @@ Cela générera deux fichiers séparés :
 L'utilisation d'un objet pour le champ `autoFill` vous permet d'appliquer des filtres et de générer uniquement des fichiers de locale spécifiques.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -141,8 +127,6 @@ const exampleContent = {
     // Votre contenu
   },
 };
-
-export default exampleContent;
 ```
 
 Cela ne générera que le fichier de traduction français.
@@ -157,8 +141,6 @@ Vous pouvez utiliser des variables dans le chemin `autoFill` pour résoudre dyna
 - `{{key}}` – Clé du dictionnaire (ex. `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -166,8 +148,6 @@ const exampleContent = {
     // Votre contenu
   },
 };
-
-export default exampleContent;
 ```
 
 Cela générera :

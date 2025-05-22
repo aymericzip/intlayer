@@ -51,8 +51,6 @@ Intlayer将自动在`src/components/example/example.content.json`生成派生声
 自动填充声明文件的推荐格式是**JSON**，这有助于避免格式限制。但是，Intlayer也支持`.ts`、`.js`、`.mjs`、`.cjs`等格式。
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
@@ -60,8 +58,6 @@ const exampleContent = {
     // 你的内容
   },
 };
-
-export default exampleContent;
 ```
 
 这将在以下位置生成文件：
@@ -80,8 +76,6 @@ src/components/example/example.filled.content.ts
 `autoFill`字段也支持绝对路径。
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
@@ -89,8 +83,6 @@ const exampleContent = {
     // 你的内容
   },
 };
-
-export default exampleContent;
 ```
 
 这将在以下位置生成文件：
@@ -104,8 +96,6 @@ export default exampleContent;
 `autoFill`字段还支持**按语言**生成内容声明文件。
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -116,8 +106,6 @@ const exampleContent = {
     // 你的内容
   },
 };
-
-export default exampleContent;
 ```
 
 这将生成两个单独的文件：
@@ -130,8 +118,6 @@ export default exampleContent;
 使用对象作为`autoFill`字段允许你应用过滤器并仅生成特定语言的文件。
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -141,8 +127,6 @@ const exampleContent = {
     // 你的内容
   },
 };
-
-export default exampleContent;
 ```
 
 这将只生成法语翻译文件。
@@ -157,8 +141,6 @@ export default exampleContent;
 - `{{key}}` – 字典键（例如：`example`）
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -166,8 +148,6 @@ const exampleContent = {
     // 你的内容
   },
 };
-
-export default exampleContent;
 ```
 
 这将生成：

@@ -51,8 +51,6 @@ Intlayer автоматически сгенерирует производны�
 Рекомендуемый формат для автоматически заполняемых файлов объявления - **JSON**, что помогает избежать ограничений форматирования. Однако Intlayer также поддерживает форматы `.ts`, `.js`, `.mjs`, `.cjs` и другие.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
@@ -60,8 +58,6 @@ const exampleContent = {
     // Ваш контент
   },
 };
-
-export default exampleContent;
 ```
 
 Это сгенерирует файл в:
@@ -80,8 +76,6 @@ src/components/example/example.filled.content.ts
 Поле `autoFill` также поддерживает абсолютные пути.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
@@ -89,8 +83,6 @@ const exampleContent = {
     // Ваш контент
   },
 };
-
-export default exampleContent;
 ```
 
 Это сгенерирует файл в:
@@ -104,8 +96,6 @@ export default exampleContent;
 Поле `autoFill` также поддерживает генерацию файлов объявления контента **для каждого языка**.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -116,8 +106,6 @@ const exampleContent = {
     // Ваш контент
   },
 };
-
-export default exampleContent;
 ```
 
 Это сгенерирует два отдельных файла:
@@ -130,8 +118,6 @@ export default exampleContent;
 Использование объекта для поля `autoFill` позволяет применять фильтры и генерировать только файлы для конкретных языков.
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: {
@@ -141,8 +127,6 @@ const exampleContent = {
     // Ваш контент
   },
 };
-
-export default exampleContent;
 ```
 
 Это сгенерирует только файл французского перевода.
@@ -157,8 +141,6 @@ export default exampleContent;
 - `{{key}}` – Ключ словаря (например, `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
-import { Locales } from "intlayer";
-
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -166,8 +148,6 @@ const exampleContent = {
     // Ваш контент
   },
 };
-
-export default exampleContent;
 ```
 
 Это сгенерирует:
