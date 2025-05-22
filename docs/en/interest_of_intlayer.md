@@ -119,4 +119,13 @@ const ComponentExample = () => {
 - **Simplified Setup**: Get up and running quickly with minimal configuration, especially optimized for Next.js projects.
 - **Server Component Support**: Perfectly suited for Next.js server components, ensuring smooth server-side rendering.
 - **Enhanced Routing**: Full support for Next.js app routing, adapting seamlessly to complex application structures.
+- **Organized Codebase**: Keep your codebase more organized: 1 component = 1 dictionary in the same folder.
+- **Automatic TypeScript Types**: TypeScript types are automatically implemented, preventing code breakage from renamed or deleted keys.
+- **CI Auto-translation**: Autofill your translations in your CI using your own OpenAI API key, eliminating the need for an L10n platform.
+- **Markdown Support**: Import and interpret markdown files for multilingual content like privacy policies.
+- **Free Visual Editor & CMS**: A free visual editor and CMS are available if you need to work with content writers for your translations, again removing the need for a localization platform and allowing content externalization from the codebase.
+- **Simplified Content Retrieval**: No need to call your `t` function for each piece of content; retrieve all your content directly using a single hook.
+- **Consistent Implementation**: The same implementation for both client and server components, no need to pass your `t` function across each server component.
+- **Tree-shakable Content**: The content is tree-shakable, which lightens the final bundle.
+- **Non-blocking Static Rendering**: Intlayer doesn't block Static Rendering as `next-intl` does.
 - **Interoperability**: Allow interoperability with [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-intl.md), and [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-intl.md).

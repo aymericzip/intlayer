@@ -1,6 +1,6 @@
-# Intlayer: アプリケーションを翻訳するための近道
+# Intlayer: あなたのウェブサイトを翻訳するためのカスタマイズされた方法
 
-**Intlayer**は、JavaScript開発者向けに設計された国際化ライブラリです。コード内のどこでもコンテンツを宣言できるようにします。多言語コンテンツの宣言を構造化された辞書に変換し、コードに簡単に統合できます。TypeScriptを使用することで、**Intlayer**は開発をより強力かつ効率的にします。
+**Intlayer**は、JavaScript開発者向けに特別に設計された国際化ライブラリです。コード内のどこでもコンテンツを宣言することができます。多言語コンテンツの宣言を構造化された辞書に変換し、コードに簡単に統合できます。TypeScriptを使用することで、**Intlayer**は開発をより堅牢で効率的にします。
 
 ## 使用例
 
@@ -113,10 +113,19 @@ const ComponentExample = () => {
 
 ## なぜIntlayerを選ぶのか？
 
-- **JavaScriptベースのコンテンツ管理**: JavaScriptの柔軟性を活かして、効率的にコンテンツを定義および管理。
-- **型安全な環境**: TypeScriptを活用して、すべてのコンテンツ定義を正確かつエラーのないものに。
-- **統合されたコンテンツファイル**: 翻訳を対応するコンポーネントの近くに保ち、保守性と明確さを向上。
-- **簡素化されたセットアップ**: 最小限の設定で迅速に開始可能、特にNext.jsプロジェクトに最適化。
-- **サーバーコンポーネントのサポート**: Next.jsのサーバーコンポーネントに完全対応し、スムーズなサーバーサイドレンダリングを実現。
-- **強化されたルーティング**: Next.jsアプリのルーティングを完全サポートし、複雑なアプリケーション構造にシームレスに適応。
-- **相互運用性**: [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_next-intl.md)、および[react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_react-intl.md)との相互運用性を提供。
+- **JavaScriptベースのコンテンツ管理**: JavaScriptの柔軟性を活用して、コンテンツを効率的に定義・管理できます。
+- **型安全な環境**: TypeScriptを使用して、すべてのコンテンツ定義が正確でエラーのないことを保証します。
+- **統合されたコンテンツファイル**: 翻訳をそれぞれのコンポーネントの近くに保持し、保守性と明確性を向上させます。
+- **簡素化されたセットアップ**: 最小限の設定で素早く始められ、Next.jsプロジェクトに特に最適化されています。
+- **サーバーコンポーネントのサポート**: Next.jsのサーバーコンポーネントに最適で、スムーズなサーバーサイドレンダリングを保証します。
+- **改善されたルーティング**: Next.jsアプリケーションのルーティングを完全にサポートし、複雑なアプリケーション構造にシームレスに適応します。
+- **整理されたコードベース**: コードベースをより整理された状態に保ちます：1コンポーネント = 1辞書を同じフォルダに配置。
+- **自動TypeScript型**: TypeScript型が自動的に実装され、キーの名前変更や削除によるコードの破損を防ぎます。
+- **CI自動翻訳**: 独自のOpenAI APIキーを使用してCIで翻訳を自動的に入力し、L10nプラットフォームの必要性を排除します。
+- **Markdownサポート**: プライバシーポリシーなどの多言語コンテンツ用のMarkdownファイルをインポートして解釈します。
+- **無料のビジュアルエディタとCMS**: コンテンツライターと翻訳作業を行う必要がある場合に利用できる無料のビジュアルエディタとCMSを提供し、ローカライゼーションプラットフォームの必要性を再度排除し、コードベースからのコンテンツの外部化を可能にします。
+- **簡素化されたコンテンツ取得**: 各コンテンツ要素に対して`t`関数を呼び出す必要がなく、単一のフックを使用してすべてのコンテンツを直接取得できます。
+- **一貫した実装**: クライアントとサーバーコンポーネントで同じ実装を使用し、各サーバーコンポーネントを通じて`t`関数を渡す必要がありません。
+- **Tree-shakableコンテンツ**: コンテンツはtree-shakableで、最終的なバンドルを軽量化します。
+- **非ブロッキング静的レンダリング**: Intlayerは`next-intl`のように静的レンダリングをブロックしません。
+- **相互運用性**: [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-intl.md)、[react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-intl.md)との相互運用性を可能にします。

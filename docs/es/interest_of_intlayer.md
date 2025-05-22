@@ -1,6 +1,6 @@
-# Intlayer: Una forma más cercana de traducir tu aplicación
+# Intlayer: Una forma personalizada de traducir tu sitio web
 
-**Intlayer** es una biblioteca de internacionalización diseñada específicamente para desarrolladores de JavaScript. Permite la declaración de tu contenido en cualquier parte de tu código. Convierte la declaración de contenido multilingüe en diccionarios estructurados para integrarlos fácilmente en tu código. Usando TypeScript, **Intlayer** hace que tu desarrollo sea más sólido y eficiente.
+**Intlayer** es una biblioteca de internacionalización diseñada específicamente para desarrolladores JavaScript. Permite declarar tu contenido en cualquier parte de tu código. Convierte la declaración de contenido multilingüe en diccionarios estructurados para integrarse fácilmente en tu código. Usando TypeScript, **Intlayer** hace que tu desarrollo sea más robusto y eficiente.
 
 ## Ejemplo de uso
 
@@ -31,7 +31,6 @@
 ```tsx fileName="./Components/MyComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
-// Ejemplo de contenido del componente
 const componentExampleContent = {
   key: "component-example",
   content: {
@@ -49,7 +48,6 @@ export default componentExampleContent;
 ```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
 import { t } from "intlayer";
 
-// Ejemplo de contenido del componente
 /** @type {import('intlayer').Dictionary} */
 const componentExampleContent = {
   key: "component-example",
@@ -68,7 +66,6 @@ export default componentExampleContent;
 ```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
 const { t } = require("intlayer");
 
-// Ejemplo de contenido del componente
 /** @type {import('intlayer').Dictionary} */
 const componentExampleContent = {
   key: "component-example",
@@ -87,7 +84,6 @@ module.exports = componentExampleContent;
 ```tsx fileName="./Components/MyComponent/index.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer";
 
-// Ejemplo del componente
 export const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
@@ -98,7 +94,6 @@ export const ComponentExample = () => {
 ```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
-// Ejemplo del componente
 const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
@@ -109,7 +104,6 @@ const ComponentExample = () => {
 ```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
-// Ejemplo del componente
 const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
@@ -119,10 +113,19 @@ const ComponentExample = () => {
 
 ## ¿Por qué elegir Intlayer?
 
-- **Gestión de contenido impulsada por JavaScript**: Aprovecha la flexibilidad de JavaScript para definir y gestionar tu contenido de manera eficiente.
-- **Entorno seguro con tipos**: Utiliza TypeScript para garantizar que todas tus definiciones de contenido sean precisas y sin errores.
+- **Gestión de contenido basada en JavaScript**: Aprovecha la flexibilidad de JavaScript para definir y gestionar tu contenido de manera eficiente.
+- **Entorno con tipos seguros**: Utiliza TypeScript para garantizar que todas tus definiciones de contenido sean precisas y sin errores.
 - **Archivos de contenido integrados**: Mantén tus traducciones cerca de sus respectivos componentes, mejorando la mantenibilidad y claridad.
-- **Configuración simplificada**: Ponte en marcha rápidamente con una configuración mínima, especialmente optimizada para proyectos de Next.js.
-- **Soporte para componentes del servidor**: Perfectamente adecuado para componentes del servidor de Next.js, asegurando un renderizado del lado del servidor fluido.
-- **Enrutamiento mejorado**: Soporte completo para el enrutamiento de aplicaciones de Next.js, adaptándose perfectamente a estructuras de aplicaciones complejas.
-- **Interoperabilidad**: Permite la interoperabilidad con [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_next-intl.md), y [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_react-intl.md).
+- **Configuración simplificada**: Comienza rápidamente con una configuración mínima, especialmente optimizada para proyectos Next.js.
+- **Soporte para componentes de servidor**: Perfectamente adaptado para componentes de servidor Next.js, asegurando un renderizado del lado del servidor fluido.
+- **Enrutamiento mejorado**: Soporte completo para el enrutamiento de aplicaciones Next.js, adaptándose perfectamente a estructuras de aplicación complejas.
+- **Base de código organizada**: Mantén tu base de código más organizada: 1 componente = 1 diccionario en la misma carpeta.
+- **Tipos TypeScript automáticos**: Los tipos TypeScript se implementan automáticamente, evitando la rotura del código debido a claves renombradas o eliminadas.
+- **Traducción automática en CI**: Rellena automáticamente tus traducciones en tu CI usando tu propia clave API de OpenAI, eliminando la necesidad de una plataforma L10n.
+- **Soporte para Markdown**: Importa e interpreta archivos markdown para contenido multilingüe como políticas de privacidad.
+- **Editor visual y CMS gratuitos**: Un editor visual y CMS gratuitos están disponibles si necesitas trabajar con redactores de contenido para tus traducciones, eliminando nuevamente la necesidad de una plataforma de localización y permitiendo la externalización del contenido desde la base de código.
+- **Recuperación de contenido simplificada**: No es necesario llamar a tu función `t` para cada pieza de contenido; recupera todo tu contenido directamente usando un solo hook.
+- **Implementación consistente**: La misma implementación para componentes de cliente y servidor, no es necesario pasar tu función `t` a través de cada componente de servidor.
+- **Contenido tree-shakable**: El contenido es tree-shakable, lo que aligera el bundle final.
+- **Renderizado estático no bloqueante**: Intlayer no bloquea el renderizado estático como lo hace `next-intl`.
+- **Interoperabilidad**: Permite la interoperabilidad con [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-intl.md), y [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-intl.md).
