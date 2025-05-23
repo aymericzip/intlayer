@@ -6,6 +6,9 @@ const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
+  content: {
+    contentDir: ['./', '../../apps'],
+  },
   editor: {
     enabled: true,
     applicationURL: 'http://localhost:5173',
