@@ -50,7 +50,8 @@ const generateDictionaryListContent = (
  * This function generates a list of dictionaries in the main directory
  */
 export const createDictionaryEntryPoint = (
-  configuration = getConfiguration()
+  configuration = getConfiguration(),
+  dictionariesKeys?: string[]
 ) => {
   const { mainDir } = configuration.content;
 
@@ -59,7 +60,13 @@ export const createDictionaryEntryPoint = (
     mkdirSync(mainDir, { recursive: true });
   }
 
-  const dictionariesPath: string[] = getBuiltDictionariesPath(configuration);
+  let dictionariesPath: string[] = getBuiltDictionariesPath(configuration);
+
+  if (dictionariesKeys) {
+    dictionariesPath = dictionariesPath.filter((dictionaryPath) =>
+      dictionariesKeys.some((key) => dictionaryPath.endsWith(`${key}.json`))
+    );
+  }
 
   // Create the dictionary list file
   const cjsContent = generateDictionaryListContent(
