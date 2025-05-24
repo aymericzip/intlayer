@@ -119,7 +119,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "esbuild-fix-imports-plugin": "^1.0.20",
+    "esbuild-fix-imports-plugin": "^1.0.21",
     "eslint": "^9.22.0",
     "intlayer": "workspace:*",
     "prettier": "^3.5.0",
