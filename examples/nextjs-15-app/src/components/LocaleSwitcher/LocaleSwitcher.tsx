@@ -1,7 +1,8 @@
 'use client';
 
-import { getHTMLTextDir, getLocaleName } from 'intlayer';
-import { useIntlayer, useLocale } from 'next-intlayer';
+import { getHTMLTextDir, getLocaleName, getLocalizedUrl } from 'intlayer';
+import { useIntlayer, useLocale, useLocaleCookie } from 'next-intlayer';
+import Link from 'next/link';
 import { useRef, useState, type FC } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
 
@@ -9,7 +10,8 @@ export const LocaleSwitcher: FC = () => {
   const { searchInput, localeSwitcherLabel } = useIntlayer('locale-switcher');
   const inputRef = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const { locale, availableLocales, setLocale } = useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
   const { searchResults, handleSearch } = useLocaleSearch(
     availableLocales,
     locale
@@ -47,34 +49,30 @@ export const LocaleSwitcher: FC = () => {
             {searchResults.map(
               ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
                 <li key={localeItem} className="p-1">
-                  <button
-                    className={`w-full text-left p-2 rounded-xl ${
+                  <Link
+                    href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+                    className={`w-full flex flex-row items-center justify-between gap-3 text-left p-2 rounded-xl ${
                       locale === localeItem
                         ? 'bg-neutral-800'
                         : 'cursor-pointer hover:bg-neutral-800'
                     }`}
                     onClick={() => {
-                      setLocale(localeItem);
+                      setLocaleCookie(localeItem);
                       setIsOpen(false);
                     }}
                   >
-                    <div className="flex flex-row items-center justify-between gap-3">
-                      <div className="flex flex-col">
-                        <span
-                          dir={getHTMLTextDir(localeItem)}
-                          lang={localeItem}
-                        >
-                          {ownLocaleName}
-                        </span>
-                        <span className="text-gray-600 text-xs">
-                          {currentLocaleName}
-                        </span>
-                      </div>
-                      <span className="text-gray-600 text-sm">
-                        {localeItem.toUpperCase()}
+                    <div className="flex flex-col">
+                      <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+                        {ownLocaleName}
+                      </span>
+                      <span className="text-gray-600 text-xs">
+                        {currentLocaleName}
                       </span>
                     </div>
-                  </button>
+                    <span className="text-gray-600 text-sm">
+                      {localeItem.toUpperCase()}
+                    </span>
+                  </Link>
                 </li>
               )
             )}
