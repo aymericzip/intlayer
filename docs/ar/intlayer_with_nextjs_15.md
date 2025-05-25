@@ -957,8 +957,8 @@ import { useLocale } from "next-intlayer";
 import Link from "next/link";
 
 export const LocaleSwitcher: FC = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -970,10 +970,7 @@ export const LocaleSwitcher: FC = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* اللغة - مثال: FR */}
@@ -1012,8 +1009,8 @@ import { useLocale } from "next-intlayer";
 import Link from "next/link";
 
 export const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -1025,10 +1022,7 @@ export const LocaleSwitcher = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* اللغة - مثال: FR */}
@@ -1067,8 +1061,8 @@ const { useLocale } = require("next-intlayer");
 const Link = require("next/link");
 
 export const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -1080,10 +1074,7 @@ export const LocaleSwitcher = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* اللغة - مثال: FR */}

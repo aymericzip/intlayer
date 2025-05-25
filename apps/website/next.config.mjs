@@ -130,7 +130,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   compiler: {
-    removeConsole: isProd,
+    // removeConsole: isProd,
   },
 
   headers: async () => [

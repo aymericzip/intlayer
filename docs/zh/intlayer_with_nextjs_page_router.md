@@ -738,10 +738,7 @@ const LocaleSwitcher: FC = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* 语言代码 - 例如 FR */}
@@ -790,10 +787,7 @@ const LocaleSwitcher = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* 语言代码 - 例如 FR */}

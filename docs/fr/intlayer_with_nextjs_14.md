@@ -891,8 +891,8 @@ import { type FC } from "react";
 import Link from "next/link";
 
 const LocaleSwitcher: FC = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -904,10 +904,7 @@ const LocaleSwitcher: FC = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* Langue - ex. FR */}
@@ -946,8 +943,8 @@ import { useLocale } from "next-intlayer";
 import Link from "next/link";
 
 const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -959,10 +956,7 @@ const LocaleSwitcher = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* Langue - ex. FR */}
@@ -1001,8 +995,8 @@ const { useLocale } = require("next-intlayer");
 const Link = require("next/link");
 
 const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -1014,10 +1008,7 @@ const LocaleSwitcher = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* Langue - ex. FR */}

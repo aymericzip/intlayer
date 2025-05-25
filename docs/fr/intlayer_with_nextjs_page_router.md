@@ -729,10 +729,7 @@ const LocaleSwitcher: FC = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* Locale - ex. FR */}
@@ -781,10 +778,7 @@ const LocaleSwitcher = () => {
             hrefLang={localeItem}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
+            onClick={() => setLocaleCookie(localeItem)}
           >
             <span>
               {/* Locale - ex. FR */}

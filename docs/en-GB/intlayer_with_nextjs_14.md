@@ -891,8 +891,8 @@ import { type FC } from "react";
 import Link from "next/link";
 
 const LocaleSwitcher: FC = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -946,8 +946,8 @@ import { useLocale } from "next-intlayer";
 import Link from "next/link";
 
 const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>
@@ -1001,8 +1001,8 @@ const { useLocale } = require("next-intlayer");
 const Link = require("next/link");
 
 const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
 
   return (
     <div>

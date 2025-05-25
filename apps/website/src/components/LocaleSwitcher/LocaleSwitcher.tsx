@@ -9,7 +9,7 @@ import {
   type PanelProps,
 } from '@intlayer/design-system';
 import { MoveVertical } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
+import { useIntlayer, useLocale, useLocaleCookie } from 'next-intlayer';
 import { useRef, type FC } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
 
@@ -33,8 +33,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   } = useIntlayer('locale-switcher');
   let localeName = defaultLocaleName.value as string;
   const inputRef = useRef<HTMLInputElement>(null);
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, pathWithoutLocale, availableLocales } = useLocale();
+  const { setLocaleCookie } = useLocaleCookie();
   const { searchResults, handleSearch } = useLocaleSearch(
     availableLocales,
     locale
@@ -90,15 +90,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                       isActive={locale === localeItem}
                       variant="hoverable"
                       color="text"
-                      onPointerDown={(e) => {
-                        // fires earlier than click
-                        e.preventDefault();
-                        setLocale(localeItem);
-                      }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setLocale(localeItem);
-                      }}
+                      onClick={() => setLocaleCookie(localeItem)}
                     >
                       <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                         <div className="flex flex-col text-nowrap">
