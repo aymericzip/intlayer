@@ -1,5 +1,5 @@
-import { type Locales } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import { type Locales } from '@intlayer/config/client';
 
 import {
   type NextFetchEvent,
@@ -18,6 +18,34 @@ const {
   serverSetCookie,
   noPrefix,
 } = middleware;
+
+/**
+ * Detects if the request is a prefetch request from Next.js.
+ *
+ * Next.js prefetch requests can be identified by several headers:
+ * - purpose: 'prefetch' (standard prefetch header)
+ * - next-router-prefetch: '1' (Next.js router prefetch)
+ * - next-url: present (Next.js internal navigation)
+ *
+ * During prefetch, we should ignore cookie-based locale detection
+ * to prevent unwanted redirects when users are switching locales.
+ *
+ * @param request - The incoming Next.js request object.
+ * @returns - True if the request is a prefetch request, false otherwise.
+ */
+const isPrefetchRequest = (request: NextRequest): boolean => {
+  const purpose = request.headers.get('purpose');
+  const nextRouterPrefetch = request.headers.get('next-router-prefetch');
+  const nextUrl = request.headers.get('next-url');
+  const xNextjsData = request.headers.get('x-nextjs-data');
+
+  return (
+    purpose === 'prefetch' ||
+    nextRouterPrefetch === '1' ||
+    !!nextUrl ||
+    !!xNextjsData
+  );
+};
 
 /**
  * Middleware that handles the internationalization layer
@@ -48,8 +76,13 @@ export const intlayerMiddleware = (
   _response?: NextResponse
 ): NextResponse => {
   const pathname = request.nextUrl.pathname;
-  const cookieLocale = getCookieLocale(request);
+  const isPrefetch = isPrefetchRequest(request);
+  const cookieLocale = isPrefetch ? undefined : getCookieLocale(request);
   const basePathTrailingSlash = basePath.endsWith('/');
+
+  if (isPrefetch) {
+    console.log('Prefetch request detected - ignoring cookie locale');
+  }
 
   if (
     noPrefix // If the application is configured not to use locale prefixes in URLs
@@ -63,6 +96,15 @@ export const intlayerMiddleware = (
   }
 
   const pathLocale = getPathLocale(pathname);
+
+  console.log('--------------------------------');
+  console.log('intlayerMiddleware', {
+    pathname,
+    cookieLocale,
+    pathLocale,
+    basePathTrailingSlash,
+    isPrefetch,
+  });
 
   return handlePrefix(
     request,
@@ -186,6 +228,14 @@ const handleMissingPathLocale = (
     );
     locale = defaultLocale;
   }
+
+  console.log('handleMissingPathLocale', {
+    locale,
+    pathname,
+    basePath,
+    basePathTrailingSlash,
+    search: request.nextUrl.search,
+  });
   const newPath = constructPath(
     locale,
     pathname,
@@ -222,6 +272,12 @@ const handleExistingPathLocale = (
     cookieLocale !== pathLocale &&
     serverSetCookie !== 'always'
   ) {
+    console.log('handleExistingPathLocale', {
+      pathname,
+      pathLocale,
+      cookieLocale,
+    });
+
     const newPath = handleCookieLocaleMismatch(
       request,
       pathname,
@@ -264,6 +320,12 @@ const handleCookieLocaleMismatch = (
   // Replace the pathLocale in the pathname with the cookieLocale
   const newPath = pathname.replace(`/${pathLocale}`, `/${cookieLocale}`);
 
+  console.log('handleCookieLocaleMismatch', {
+    newPath,
+    pathLocale,
+    cookieLocale,
+  });
+
   return constructPath(
     cookieLocale,
     newPath,
@@ -302,6 +364,12 @@ const handleDefaultLocaleRedirect = (
     if (request.nextUrl.search) {
       pathWithoutLocale += request.nextUrl.search;
     }
+
+    console.log('handleDefaultLocaleRedirect', {
+      pathWithoutLocale,
+      basePath,
+      pathLocale,
+    });
 
     return rewriteUrl(request, `${basePath}${pathWithoutLocale}`, pathLocale);
   }
@@ -351,6 +419,7 @@ const rewriteUrl = (
   locale: Locales
 ): NextResponse => {
   const response = NextResponse.rewrite(new URL(newPath, request.url));
+  console.log('rewriteUrl', { newPath, url: request.url });
   response.headers.set(headerName, locale);
   return response;
 };
@@ -362,5 +431,7 @@ const rewriteUrl = (
  * @param newPath - The new path to redirect to.
  * @returns - The redirect response.
  */
-const redirectUrl = (request: NextRequest, newPath: string): NextResponse =>
-  NextResponse.redirect(new URL(newPath, request.url));
+const redirectUrl = (request: NextRequest, newPath: string): NextResponse => {
+  console.log('redirectUrl', { newPath, url: request.url });
+  return NextResponse.redirect(new URL(newPath, request.url));
+};
