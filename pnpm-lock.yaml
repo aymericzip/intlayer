@@ -669,6 +669,9 @@ importers:
 
   examples/nextjs-15-app:
     dependencies:
+      fuse.js:
+        specifier: ^7.1.0
+        version: 7.1.0
       intlayer:
         specifier: workspace:*
         version: link:../../packages/intlayer

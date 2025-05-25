@@ -1,0 +1,72 @@
+import { t, type Dictionary } from 'intlayer';
+
+const localeSwitcherContent = {
+  key: 'locale-switcher',
+  content: {
+    localeSwitcherLabel: t({
+      en: 'Language switcher',
+      'en-GB': 'Language switcher',
+      fr: 'Changer de langue',
+      es: 'Cambiar idioma',
+      de: 'Sprachwechsler',
+      ja: '言語スイッチャー',
+      ko: '언어 스위치',
+      zh: '语言切换器',
+      it: 'Cambia lingua',
+      pt: 'Mudar idioma',
+      hi: 'भाषा स्विचर',
+      ar: 'مبدل اللغة',
+      ru: 'Переключатель языка',
+    }),
+
+    searchInput: {
+      text: t({
+        en: 'Search Locale',
+        'en-GB': 'Search Locale',
+        fr: 'Rechercher la locale',
+        es: 'Buscar idioma',
+        de: 'Sprache durchsuchen',
+        ja: 'ロケールを検索',
+        ko: '언어 검색',
+        zh: '搜索语言',
+        it: 'Cerca lingua',
+        pt: 'Pesquisar idioma',
+        hi: 'भाषा खोजें',
+        ar: 'بحث اللغة',
+        ru: 'Поиск языка',
+      }),
+      placeholder: t({
+        en: 'Search a locale',
+        'en-GB': 'Search a locale',
+        fr: 'Rechercher une locale',
+        es: 'Buscar un idioma',
+        de: 'Sprache suchen',
+        ja: 'ロケールを検索',
+        ko: '언어 검색',
+        zh: '搜索语言',
+        it: 'Cerca una lingua',
+        pt: 'Pesquisar um idioma',
+        hi: 'भाषा खोजें',
+        ar: 'بحث اللغة',
+        ru: 'Поиск языка',
+      }),
+      ariaLabel: t({
+        en: 'Language search',
+        'en-GB': 'Language search',
+        fr: 'Recherche de langue',
+        es: 'Búsqueda de idioma',
+        de: 'Sprachsuche',
+        ja: '言語検索',
+        ko: '언어 검색',
+        zh: '语言搜索',
+        it: 'Ricerca lingua',
+        pt: 'Pesquisa de idioma',
+        hi: 'भाषा खोजें',
+        ar: 'بحث اللغة',
+        ru: 'Поиск языка',
+      }),
+    },
+  },
+} satisfies Dictionary;
+
+export default localeSwitcherContent;

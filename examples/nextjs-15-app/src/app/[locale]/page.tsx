@@ -1,14 +1,14 @@
-import { IntlayerProvider } from '@providers/IntlayerProvider';
 import { HomeContent } from '@components/HomeContent';
 import { NextPageIntlayer } from 'next-intlayer';
+import { IntlayerServerProvider } from 'next-intlayer/server';
 
 const Page: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
 
   return (
-    <IntlayerProvider locale={locale}>
+    <IntlayerServerProvider locale={locale}>
       <HomeContent />
-    </IntlayerProvider>
+    </IntlayerServerProvider>
   );
 };
 

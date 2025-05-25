@@ -1,7 +1,9 @@
+import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
+import { IntlayerProvider } from '@providers/IntlayerProvider';
+import { getHTMLTextDir, getTranslation, type IConfigLocales } from 'intlayer';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import { getHTMLTextDir, type IConfigLocales, getTranslation } from 'intlayer';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
+import localFont from 'next/font/local';
 
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
@@ -44,13 +46,18 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
 
   return (
-    <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <IntlayerProvider locale={locale}>
+      <html lang={locale} dir={getHTMLTextDir(locale)}>
+        <header className="fixed top-5 w-full flex justify-end px-10">
+          <LocaleSwitcher />
+        </header>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    </IntlayerProvider>
   );
 };
 
