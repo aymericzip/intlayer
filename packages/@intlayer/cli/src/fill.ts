@@ -27,7 +27,7 @@ import { dirname, extname, join } from 'path';
 
 // Arguments for the fill function
 export type FillOptions = {
-  sourceLocale: Locales;
+  sourceLocale?: Locales;
   outputLocales?: Locales | Locales[];
   file?: string | string[];
   mode?: 'complete' | 'review';
