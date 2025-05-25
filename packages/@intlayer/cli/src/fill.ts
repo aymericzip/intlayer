@@ -305,7 +305,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
     });
     // Potentially handle this case differently, e.g., by using a different translation method or stopping.
 
-    return;
+    throw new Error(
+      'AI options or API key not provided. Skipping AI translation.'
+    );
   }
 
   appLogger('Starting fill function', {
