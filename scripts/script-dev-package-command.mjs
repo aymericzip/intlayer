@@ -17,13 +17,18 @@
  */
 
 import { spawnSync } from 'child_process';
-import process from 'process';
 import chokidar from 'chokidar';
 import minimist from 'minimist';
+import process from 'process';
 import { packageBuildOrder } from './package-build-order.mjs';
 
 const args = minimist(process.argv.slice(2));
 const chosenCommand = args.command ?? 'build';
+
+// Queue system for handling multiple changes
+let buildTimeout = null;
+let pendingChanges = new Set();
+const DEBOUNCE_DELAY = 1000; // 1 second delay
 
 /**
  * Runs the chosen npm command in each relevant package, based on the file path.
@@ -31,16 +36,23 @@ const chosenCommand = args.command ?? 'build';
  * @param {string} path - The path to the file that triggered the event (change or add)
  * @throws {Error} Will throw an error if running the npm command fails
  */
-const runBuild = (path) => {
+const runBuild = (paths) => {
   try {
-    console.info(`\nDetected changes. Running "${chosenCommand}"...\n`);
+    console.info(
+      `\nDetected changes in ${paths.size} files. Running "${chosenCommand}"...\n`
+    );
 
-    const filteredPackages = packageBuildOrder.filter((pkg) => {
-      const pkgPath = path.startsWith(pkg) ? pkg : `${pkg}/`;
-      return path.startsWith(pkgPath);
-    });
+    // Get unique packages that need to be rebuilt
+    const packagesToRebuild = new Set();
+    for (const path of paths) {
+      const filteredPackages = packageBuildOrder.filter((pkg) => {
+        const pkgPath = path.startsWith(pkg) ? pkg : `${pkg}/`;
+        return path.startsWith(pkgPath);
+      });
+      filteredPackages.forEach((pkg) => packagesToRebuild.add(pkg));
+    }
 
-    for (const pkg of filteredPackages) {
+    for (const pkg of packagesToRebuild) {
       console.info(`\n--- Running "${chosenCommand}" in ${pkg} ---\n`);
       const result = spawnSync('npm', ['run', chosenCommand], {
         cwd: pkg,
@@ -59,6 +71,24 @@ const runBuild = (path) => {
   } catch (err) {
     console.error('Failed to run build:', err);
   }
+};
+
+/**
+ * Queues a file change for processing
+ * @param {string} path - The path of the changed file
+ */
+const queueChange = (path) => {
+  pendingChanges.add(path);
+
+  if (buildTimeout) {
+    clearTimeout(buildTimeout);
+  }
+
+  buildTimeout = setTimeout(() => {
+    const changesToProcess = new Set(pendingChanges);
+    pendingChanges.clear();
+    runBuild(changesToProcess);
+  }, DEBOUNCE_DELAY);
 };
 
 let watcher;
@@ -82,17 +112,18 @@ const startWatcher = () => {
       '**/build/**',
       '**/.next/**',
       '**/.intlayer/**',
+      '**/tsup.config.bundled_*.mjs',
     ],
   });
 
   watcher.on('change', (path) => {
     console.info(`[File changed] ${path}`);
-    runBuild(path);
+    queueChange(path);
   });
 
   watcher.on('add', (path) => {
     console.info(`[File added] ${path}`);
-    runBuild(path);
+    queueChange(path);
   });
 
   watcher.on('error', (error) => {
