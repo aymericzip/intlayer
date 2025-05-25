@@ -1,3 +1,5 @@
+'use client';
+
 import { LazyMotion, domAnimation } from 'framer-motion';
 import type { FC, PropsWithChildren } from 'react';
 

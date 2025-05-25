@@ -90,7 +90,7 @@
     "cors": "^2.8.5",
     "express": "^5.0.1",
     "express-intlayer": "workspace:*",
-    "framer-motion": "12.12.2",
+    "framer-motion": "^12.12.2",
     "helmet": "^8.1.0",
     "lucide-react": "^0.488.0",
     "mime": "^4.0.6",

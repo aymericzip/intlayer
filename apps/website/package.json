@@ -68,7 +68,7 @@
     "chokidar": "^3.6.0",
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
-    "framer-motion": "12.12.2",
+    "framer-motion": "^12.12.2",
     "fuse.js": "^7.1.0",
     "intlayer": "workspace:*",
     "intlayer-editor": "workspace:*",
