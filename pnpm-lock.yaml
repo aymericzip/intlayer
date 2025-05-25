@@ -310,8 +310,8 @@ importers:
         specifier: ^0.6.3
         version: 0.6.3
       framer-motion:
-        specifier: ^12.5.0
-        version: 12.12.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 12.12.2
+        version: 12.12.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
@@ -1538,8 +1538,8 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       framer-motion:
-        specifier: ^12.5.0
-        version: 12.12.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 12.12.2
+        version: 12.12.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
@@ -2258,8 +2258,8 @@ importers:
         specifier: workspace:*
         version: link:../express-intlayer
       framer-motion:
-        specifier: ^12.5.0
-        version: 12.12.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 12.12.2
+        version: 12.12.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       helmet:
         specifier: ^8.1.0
         version: 8.1.0
@@ -17470,10 +17470,10 @@ packages:
         integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==,
       }
 
-  framer-motion@12.12.1:
+  framer-motion@12.12.2:
     resolution:
       {
-        integrity: sha512-PFw4/GCREHI2suK/NlPSUxd+x6Rkp80uQsfCRFSOQNrm5pZif7eGtmG1VaD/UF1fW9tRBy5AaS77StatB3OJDg==,
+        integrity: sha512-qCszZCiGWkilL40E3VuhIJJC/CS3SIBl2IHyGK8FU30nOUhTmhBNWPrNFyozAWH/bXxwzi19vJHIGVdALF0LCg==,
       }
     peerDependencies:
       '@emotion/is-prop-valid': '*'
@@ -41517,7 +41517,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@12.12.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  framer-motion@12.12.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       motion-dom: 12.12.1
       motion-utils: 12.12.1
