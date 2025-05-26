@@ -8,6 +8,8 @@ export {
 export { fetchDistantDictionaries } from './fetchDistantDictionaries';
 export { fetchDistantDictionaryKeys } from './fetchDistantDictionaryKeys';
 export { filterDictionaryLocales } from './filterDictionaryLocales';
+export { getBuiltDictionariesPath } from './getBuiltDictionariesPath';
+export { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionariesPath';
 export { listDictionaries } from './listDictionariesPath';
 export {
   listGitFiles,
@@ -25,7 +27,10 @@ export { prepareIntlayer } from './prepareIntlayer';
 export { processPerLocaleDictionary } from './processPerLocaleDictionary';
 export { reduceDictionaryContent } from './reduceDictionaryContent/reduceDictionaryContent';
 export { buildDictionary } from './transpiler/declaration_file_to_dictionary/index';
-export { createDictionaryEntryPoint } from './transpiler/dictionary_to_main/createDictionaryEntryPoint';
+export {
+  createDictionaryEntryPoint,
+  generateDictionaryListContent,
+} from './transpiler/dictionary_to_main';
 export { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
 export {
   writeContentDeclaration,

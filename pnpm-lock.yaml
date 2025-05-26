@@ -904,7 +904,7 @@ importers:
         version: 13.12.5(react-native@0.76.7(@babel/core@7.27.1)(@babel/preset-env@7.27.2(@babel/core@7.27.1))(@types/react@18.3.22)(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@babel/core':
-        specifier: ^7.25.2
+        specifier: ^7.27.1
         version: 7.27.1
       '@types/jest':
         specifier: ^29.5.12
@@ -1176,6 +1176,88 @@ importers:
       intlayer-editor:
         specifier: workspace:*
         version: link:../../intlayer-editor
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tsc-alias:
+        specifier: ^1.8.11
+        version: 1.8.16
+      tsup:
+        specifier: ^8.4.0
+        version: 8.5.0(@microsoft/api-extractor@7.52.8(@types/node@22.15.21))(@swc/core@1.11.29(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.8.0)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
+
+  packages/@intlayer/babel:
+    dependencies:
+      '@babel/core':
+        specifier: ^7.27.1
+        version: 7.27.1
+      '@babel/generator':
+        specifier: ^7.27.1
+        version: 7.27.1
+      '@babel/parser':
+        specifier: ^7.27.2
+        version: 7.27.2
+      '@babel/traverse':
+        specifier: ^7.27.1
+        version: 7.27.1
+      '@intlayer/chokidar':
+        specifier: workspace:*
+        version: link:../chokidar
+      '@intlayer/config':
+        specifier: workspace:*
+        version: link:../config
+    devDependencies:
+      '@babel/types':
+        specifier: ^7.27.1
+        version: 7.27.1
+      '@changesets/cli':
+        specifier: 2.28.1
+        version: 2.28.1
+      '@types/babel__core':
+        specifier: ^7.20.5
+        version: 7.20.5
+      '@types/babel__generator':
+        specifier: ^7.20.5
+        version: 7.27.0
+      '@types/babel__parser':
+        specifier: ^7.1.5
+        version: 7.1.5
+      '@types/babel__traverse':
+        specifier: ^7.20.5
+        version: 7.20.7
+      '@types/crypto-js':
+        specifier: ^4.2.2
+        version: 4.2.2
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.15.21
+      '@typescript-eslint/parser':
+        specifier: ^8.27.0
+        version: 8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+      '@utils/eslint-config':
+        specifier: workspace:*
+        version: link:../../../utils/eslint-config
+      '@utils/ts-config':
+        specifier: workspace:*
+        version: link:../../../utils/ts-config
+      '@utils/ts-config-types':
+        specifier: workspace:*
+        version: link:../../../utils/ts-config-types
+      '@utils/tsup-config':
+        specifier: workspace:*
+        version: link:../../../utils/tsup-config
+      concurrently:
+        specifier: ^9.1.2
+        version: 9.1.2
+      eslint:
+        specifier: ^9.22.0
+        version: 9.27.0(jiti@2.4.2)
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -2887,6 +2969,9 @@ importers:
 
   packages/vite-intlayer:
     dependencies:
+      '@intlayer/babel':
+        specifier: workspace:*
+        version: link:../@intlayer/babel
       '@intlayer/chokidar':
         specifier: workspace:*
         version: link:../@intlayer/chokidar
@@ -10624,6 +10709,13 @@ packages:
       {
         integrity: sha512-ufFd2Xi92OAVPYsy+P4n7/U7e68fex0+Ee8gSG9KX7eo084CWiQ4sdxktvdl0bOPupXtVJPY19zk6EwWqUQ8lg==,
       }
+
+  '@types/babel__parser@7.1.5':
+    resolution:
+      {
+        integrity: sha512-yyWPJg3KawM9ydArmt2q+UE6dhy0usfXNB1yxDv0gE27KbZXeFCDtqR2L4jdVxXqq7I9tvkL9zuSY/ZVgF6fXQ==,
+      }
+    deprecated: This is a stub types definition. @babel/parser provides its own type definitions, so you do not need this installed.
 
   '@types/babel__template@7.4.4':
     resolution:
@@ -36237,6 +36329,10 @@ snapshots:
     dependencies:
       '@babel/types': 7.27.1
 
+  '@types/babel__parser@7.1.5':
+    dependencies:
+      '@babel/parser': 7.27.2
+
   '@types/babel__template@7.4.4':
     dependencies:
       '@babel/parser': 7.27.2
@@ -37505,7 +37601,7 @@ snapshots:
 
   agent-base@6.0.2:
     dependencies:
-      debug: 4.3.4
+      debug: 4.4.1
     transitivePeerDependencies:
       - supports-color
 
@@ -41204,7 +41300,7 @@ snapshots:
 
   extract-zip@2.0.1:
     dependencies:
-      debug: 4.3.4
+      debug: 4.4.1
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -42080,7 +42176,7 @@ snapshots:
   https-proxy-agent@5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.4
+      debug: 4.4.1
     transitivePeerDependencies:
       - supports-color
 

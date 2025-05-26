@@ -1,18 +1,18 @@
 {
-  "name": "vite-intlayer",
+  "name": "@intlayer/babel",
   "version": "5.5.1",
   "private": false,
-  "description": "A Vite plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration",
+  "description": "A Babel plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
     "intlayer",
-    "data",
+    "babel",
+    "plugin",
     "internationalization",
-    "multilingual",
-    "i18n",
+    "transpile",
     "typescript",
-    "react",
-    "vite",
-    "json"
+    "javascript",
+    "json",
+    "file"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
@@ -66,18 +66,26 @@
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --write",
+    "prettier:fix": "prettier --write src/**/*",
     "reset": "pnpm clean & pnpm build",
-    "test": "",
-    "typecheck": "tsup --project ./tsconfig.json --noEmit"
+    "test": ""
   },
   "dependencies": {
-    "@intlayer/babel": "workspace:*",
+    "@babel/core": "^7.27.1",
+    "@babel/generator": "^7.27.1",
+    "@babel/parser": "^7.27.2",
+    "@babel/traverse": "^7.27.1",
     "@intlayer/chokidar": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/config": "workspace:*"
   },
   "devDependencies": {
+    "@babel/types": "^7.27.1",
+    "@changesets/cli": "2.28.1",
+    "@types/babel__core": "^7.20.5",
+    "@types/babel__generator": "^7.20.5",
+    "@types/babel__parser": "^7.1.5",
+    "@types/babel__traverse": "^7.20.5",
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.13.10",
     "@typescript-eslint/parser": "^8.27.0",
     "@utils/eslint-config": "workspace:*",
@@ -94,9 +102,7 @@
   },
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "vite": ">=4.0.0"
+    "@intlayer/config": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

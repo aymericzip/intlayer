@@ -3,10 +3,12 @@ import { getConfiguration } from '@intlayer/config';
 import { join, relative, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { type PluginOption } from 'vite';
+import { IntlayerPrunePlugin } from './intlayerPrunePlugin';
 
 // Plugin options type definition
 type PluginOptions = {
   // Custom options for your plugin, if any
+  enableBabelTransform?: boolean;
 };
 
 /**
@@ -21,73 +23,90 @@ type PluginOptions = {
  * ```
  *  */
 export const intlayerPlugin = (
-  _pluginOptions: PluginOptions = {}
-): PluginOption => ({
-  name: 'vite-intlayer-plugin',
+  pluginOptions: PluginOptions = {}
+): PluginOption => {
+  const { enableBabelTransform = process.env.NODE_ENV === 'production' } =
+    pluginOptions;
 
-  config: (config) => {
-    const intlayerConfig = getConfiguration();
-    const {
-      mainDir,
-      configDir,
-      baseDir,
-      watch: isWatchMode,
-    } = intlayerConfig.content;
+  const plugins: PluginOption[] = [
+    {
+      name: 'vite-intlayer-plugin',
 
-    const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-    const relativeDictionariesPath = relative(baseDir, dictionariesPath);
+      config: (config) => {
+        const intlayerConfig = getConfiguration();
+        const {
+          mainDir,
+          configDir,
+          baseDir,
+          watch: isWatchMode,
+        } = intlayerConfig.content;
 
-    const unmergedDictionariesPath = join(mainDir, 'unmerged_dictionaries.mjs');
-    const relativeUnmergedDictionariesPath = relative(
-      baseDir,
-      unmergedDictionariesPath
-    );
+        const dictionariesPath = join(mainDir, 'dictionaries.mjs');
+        const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
-    const configurationPath = join(configDir, 'configuration.json');
-    const relativeConfigurationPath = relative(baseDir, configurationPath);
+        const unmergedDictionariesPath = join(
+          mainDir,
+          'unmerged_dictionaries.mjs'
+        );
+        const relativeUnmergedDictionariesPath = relative(
+          baseDir,
+          unmergedDictionariesPath
+        );
 
-    // Update Vite's resolve alias
-    config.resolve = {
-      ...config.resolve,
-      alias: {
-        ...config.resolve?.alias,
-        '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-        '@intlayer/unmerged-dictionaries-entry': resolve(
-          relativeUnmergedDictionariesPath
-        ),
-        '@intlayer/config/built': resolve(relativeConfigurationPath),
+        const configurationPath = join(configDir, 'configuration.json');
+        const relativeConfigurationPath = relative(baseDir, configurationPath);
+
+        // Update Vite's resolve alias
+        config.resolve = {
+          ...config.resolve,
+          alias: {
+            ...config.resolve?.alias,
+            '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+            '@intlayer/unmerged-dictionaries-entry': resolve(
+              relativeUnmergedDictionariesPath
+            ),
+            '@intlayer/config/built': resolve(relativeConfigurationPath),
+          },
+        };
+
+        if (isWatchMode) {
+          // Ajout de l'option optimizeDeps.exclude
+          config.optimizeDeps = {
+            ...config.optimizeDeps,
+            exclude: [
+              ...(config.optimizeDeps?.exclude ?? []),
+              '@intlayer/dictionaries-entry',
+              '@intlayer/unmerged-dictionaries-entry',
+              '@intlayer/config/built',
+            ],
+          };
+        }
+
+        return config;
       },
-    };
 
-    if (isWatchMode) {
-      // Ajout de l'option optimizeDeps.exclude
-      config.optimizeDeps = {
-        ...config.optimizeDeps,
-        exclude: [
-          ...(config.optimizeDeps?.exclude ?? []),
-          '@intlayer/dictionaries-entry',
-          '@intlayer/unmerged-dictionaries-entry',
-          '@intlayer/config/built',
-        ],
-      };
-    }
+      configureServer: async () => {
+        // Runs when the dev server starts
+        const intlayerConfig = getConfiguration();
 
-    return config;
-  },
+        if (intlayerConfig.content.watch) {
+          // Start watching (assuming watch is also async)
+          watch({ configuration: intlayerConfig });
+        }
+      },
 
-  configureServer: async () => {
-    // Runs when the dev server starts
-    const intlayerConfig = getConfiguration();
+      buildStart: async () => {
+        // Code to run when Vite build starts
+        const intlayerConfig = getConfiguration();
+        await prepareIntlayer(intlayerConfig);
+      },
+    },
+  ];
 
-    if (intlayerConfig.content.watch) {
-      // Start watching (assuming watch is also async)
-      watch({ configuration: intlayerConfig });
-    }
-  },
+  // Add Babel transform plugin if enabled
+  if (enableBabelTransform) {
+    plugins.push(IntlayerPrunePlugin());
+  }
 
-  buildStart: async () => {
-    // Code to run when Vite build starts
-    const intlayerConfig = getConfiguration();
-    await prepareIntlayer(intlayerConfig);
-  },
-});
+  return plugins;
+};

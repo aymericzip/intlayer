@@ -8,6 +8,7 @@ export const packageBuildOrder = [
   'packages/@intlayer/webpack',
   'packages/@intlayer/editor',
   'packages/@intlayer/cli',
+  'packages/@intlayer/babel',
   'packages/@intlayer/editor-react',
   'packages/intlayer-cli',
   'packages/intlayer',

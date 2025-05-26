@@ -16,11 +16,16 @@
   />
 </div>
 
-# vite-intlayer: Internationalize (i18n) an Vite application
+# vite-intlayer
 
-**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
+A Vite plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration.
 
-**The `vite-intlayer` package** allows you to internationalize your Vite application. It includes the Vite plugin to set the configuration through environment variables into the [Vite bundler](https://vitejs.dev/guide/why.html#why-bundle-for-production). It also provides middleware to detect the user's preferred locale, and redirect the user to the appropriate URL as specified in the [configuration](https://intlayer.org/doc/concept/configuration).
+## Features
+
+- **Automatic Dictionary Resolution**: Resolves dictionary paths and configurations
+- **Hot Reload Support**: Watches for dictionary changes during development
+- **Babel Transform Plugin**: Automatically transforms `useIntlayer` calls to `useDictionary` calls at build time
+- **TypeScript Support**: Full TypeScript support with proper type definitions
 
 ## Why Internationalize Your Vite Application?
 
@@ -32,43 +37,145 @@ The `vite-intlayer` package works seamlessly with the [`react-intlayer` package]
 
 ## Installation
 
-Install the necessary package using your preferred package manager:
-
-```bash packageManager="npm"
+```bash
 npm install vite-intlayer
-```
-
-```bash packageManager="yarn"
+# or
+pnpm add vite-intlayer
+# or
 yarn add vite-intlayer
 ```
 
-```bash packageManager="pnpm"
-pnpm add vite-intlayer
-```
+## Usage
 
-## Example of usage
+### Basic Setup
 
-See an example of how to include the plugins into your vite configuration.
-
-```typescript fileName="vite.config.ts"
+```ts
+// vite.config.ts
 import { defineConfig } from "vite";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin } from "vite-intlayer";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [intlayerPlugin()],
 });
 ```
 
-> The `intlayerPlugin()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimize performance.
+### Configuration Options
 
-> The `intLayerMiddlewarePlugin()` add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayerPlugin } from "vite-intlayer";
 
-## Mastering the internationalization of your Vite application
+export default defineConfig({
+  plugins: [
+    intlayerPlugin({
+      enableBabelTransform: true, // Enable automatic useIntlayer transformation (default: true)
+    }),
+  ],
+});
+```
 
-Intlayer provides a lot of features to help you internationalize your Vite application.
+## Babel Plugin: Automatic useIntlayer Transformation
 
-**To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application.**
+The plugin includes a Babel transformation that automatically converts `useIntlayer` calls to `useDictionary` calls at build time, providing better performance and tree-shaking.
+
+### Transformation Example
+
+**Input:**
+
+```tsx
+import { useIntlayer } from "react-intlayer";
+
+function MyComponent() {
+  const content = useIntlayer("home-content");
+  const otherContent = useIntlayer("about-page", "en");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{otherContent.description}</p>
+    </div>
+  );
+}
+```
+
+**Output:**
+
+```tsx
+import homeContentDictionary from "./.intlayer/dictionary/home-content.json";
+import aboutPageDictionary from "./.intlayer/dictionary/about-page.json";
+import { useDictionary } from "react-intlayer";
+
+function MyComponent() {
+  const content = useDictionary(homeContentDictionary);
+  const otherContent = useDictionary(aboutPageDictionary, "en");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{otherContent.description}</p>
+    </div>
+  );
+}
+```
+
+### Benefits of the Transformation
+
+1. **Better Performance**: Direct dictionary access instead of key-based lookup
+2. **Tree Shaking**: Unused dictionaries can be eliminated from the bundle
+3. **Type Safety**: Better TypeScript inference with direct dictionary references
+4. **Build-time Optimization**: Transformation happens at build time, not runtime
+5. **Individual File Loading**: Only the dictionaries you use are imported, reducing bundle size
+6. **Better Caching**: Individual dictionary files can be cached separately by the browser
+
+### Using the Babel Plugin Separately
+
+You can also use the Babel plugin independently:
+
+```ts
+// babel.config.js
+import { babelPluginIntlayer } from "vite-intlayer";
+
+export default {
+  plugins: [
+    babelPluginIntlayer,
+    // other plugins...
+  ],
+};
+```
+
+### Disabling the Transformation
+
+If you prefer to use `useIntlayer` without transformation:
+
+```ts
+// vite.config.ts
+export default defineConfig({
+  plugins: [
+    intlayerPlugin({
+      enableBabelTransform: false,
+    }),
+  ],
+});
+```
+
+## How It Works
+
+1. **Dictionary Resolution**: The plugin resolves paths to generated dictionaries and configurations
+2. **Alias Setup**: Sets up Vite aliases for dictionary entry points
+3. **Watch Mode**: In development, watches for dictionary changes and triggers rebuilds
+4. **Babel Transformation**: Transforms `useIntlayer` calls to `useDictionary` calls for better performance
+
+## Related Packages
+
+- [`@intlayer/dictionaries-entry`](../dictionaries-entry): Dictionary entry point package
+- [`react-intlayer`](../react-intlayer): React integration for Intlayer
+- [`@intlayer/config`](../config): Configuration management
+- [`@intlayer/chokidar`](../chokidar): File watching and dictionary building
+
+## License
+
+Apache-2.0
 
 ## Read about Intlayer
 
