@@ -1,4 +1,4 @@
-import { Locales, getIntlayer } from 'intlayer';
+import { Locales, LocalesValues, getIntlayer } from 'intlayer';
 import { getBlogIndexData } from './blogDataContent';
 import { getBlogI18nTechnologiesCMSDrupalData } from './blogDataContent/i18n_technologies/CMS/drupal';
 import { getBlogI18nTechnologiesCMSWixData } from './blogDataContent/i18n_technologies/CMS/wix';
@@ -17,7 +17,7 @@ import { getBlogReactI18nVSReactIntlVSIntlayerData } from './blogDataContent/rea
 import { getBlogIntlayerWithReactIntlData } from './blogDataContent/reactIntl';
 import { getBlogSEOData } from './blogDataContent/SEO';
 import { getBlogWhatIsi18nData } from './blogDataContent/whatIsI18n';
-import type { CategorizedBlogData, BlogData, Section } from './types';
+import type { BlogData, CategorizedBlogData, Section } from './types';
 
 export const getBlogData = (
   locale = Locales.ENGLISH
@@ -235,8 +235,8 @@ export const getBlogPathsArray = (
   return getBlogSection(docData['blog'].subSections as Section).paths;
 };
 
-export const getBlogDataArray = (locale?: Locales): BlogData[] => {
-  const docData = getBlogData(locale);
+export const getBlogDataArray = (locale?: LocalesValues): BlogData[] => {
+  const docData = getBlogData(locale as Locales);
   return getBlogSection(docData['blog'].subSections as Section).blog;
 };
 

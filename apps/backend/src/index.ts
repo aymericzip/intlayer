@@ -16,22 +16,23 @@ import {
 import { logAPIRequestURL } from '@middlewares/request.middleware';
 import {
   type ResponseWithInformation,
-  checkUser,
+  checkAdmin,
   checkOrganization,
   checkProject,
-  checkAdmin,
+  checkUser,
 } from '@middlewares/sessionAuth.middleware';
 
 // Routes
+import { aiRouter } from '@routes/ai.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
+import { eventListenerRouter } from '@routes/eventListener.routes';
 import { organizationRouter } from '@routes/organization.routes';
 import { projectRouter } from '@routes/project.routes';
-import { tagRouter } from '@routes/tags.routes';
+import { searchRouter } from '@routes/search.routes';
 import { sessionAuthRouter } from '@routes/sessionAuth.routes';
-import { userRouter } from '@routes/user.routes';
 import { stripeRouter } from '@routes/stripe.routes';
-import { aiRouter } from '@routes/ai.routes';
-import { eventListenerRouter } from '@routes/eventListener.routes';
+import { tagRouter } from '@routes/tags.routes';
+import { userRouter } from '@routes/user.routes';
 
 // Webhooks
 import { stripeWebhook } from '@webhooks/stripe.webhook';
@@ -187,6 +188,7 @@ app.use('/api/dictionary', dictionaryRouter);
 app.use('/api/stripe', stripeRouter);
 app.use('/api/ai', aiRouter);
 app.use('/api/event-listener', eventListenerRouter);
+app.use('/api/search', searchRouter);
 
 // Server
 app.listen(process.env.PORT, () => {

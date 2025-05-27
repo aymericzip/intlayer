@@ -1,24 +1,21 @@
 'use client';
 
-import { type DocData, getDocDataArray } from '@components/DocPage/docData';
+import { getBlogDataArray } from '@components/BlogPage/blogData';
+import { getDocDataArray } from '@components/DocPage/docData';
 import {
   Breadcrumb,
   type BreadcrumbLink,
   Button,
   Input,
+  Loader,
 } from '@intlayer/design-system';
+import { useSearchDoc } from '@intlayer/design-system/hooks';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { ArrowRight, Search } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { useRouter, useSearchParams } from 'next/navigation';
-import {
-  type FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
+import type { DocData } from '../types';
 
 // Convert the documentation into an array of objects for Fuse.js
 // Fuse.js options
@@ -29,6 +26,24 @@ const fuseOptions: IFuseOptions<DocData> = {
     { name: 'keywords', weight: 0.1 },
   ],
   threshold: 0.02, // Defines how fuzzy the matching should be (lower is more strict)
+};
+
+// Debounce function
+const debounce = <T extends (...args: any[]) => void>(
+  func: T,
+  delay: number,
+  onAbort: () => void
+): ((...args: Parameters<T>) => void) => {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+  return (...args: Parameters<T>) => {
+    if (timeoutId) {
+      onAbort();
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
 };
 
 const SearchResultItem: FC<{ doc: DocData; onClickLink: () => void }> = ({
@@ -75,39 +90,72 @@ export const SearchView: FC<{ onClickLink?: () => void }> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const { locale } = useLocale();
   const searchQuery = useSearchParams().get('search');
-  const documentationArray: DocData[] = getDocDataArray(locale);
+  const documentationArray: DocData[] = [
+    ...getDocDataArray(locale),
+    ...(getBlogDataArray(locale) as unknown as DocData[]),
+  ];
   const [results, setResults] = useState<DocData[]>([]);
+  const { searchDoc, isLoading, abort: abortSearch } = useSearchDoc();
 
   const { noContentText, searchInput } = useIntlayer('doc-search-view');
 
   // Create a new Fuse instance with the options and documentation data
-  const fuse = useMemo(
-    () => new Fuse(documentationArray, fuseOptions),
-    [documentationArray]
-  );
+  const fuse = new Fuse(documentationArray, fuseOptions);
 
-  const handleSearch = useCallback(
-    (searchQuery: string) => {
-      if (searchQuery) {
-        // Perform search on every input change
-        const searchResults = fuse
-          .search(searchQuery)
-          .map((result) => result.item);
-        setResults(searchResults);
-      } else {
-        setResults([]);
+  const handleSearch = async (searchQuery: string) => {
+    if (searchQuery) {
+      let backendResults: DocData[] = [];
+      // Prioritize backend search for longer queries, but always include Fuse results
+      if (searchQuery.length > 2) {
+        // Adjusted threshold for calling backend search
+        const backendFilePaths = await searchDoc({
+          input: searchQuery,
+        });
+        if (backendFilePaths && backendFilePaths.data) {
+          backendResults = backendFilePaths.data
+            .map((docName: string) =>
+              documentationArray.find((doc) => doc.docName === docName)
+            )
+            .filter((doc: DocData | undefined): doc is DocData => Boolean(doc));
+        }
       }
-    },
-    [fuse]
-  );
+
+      // Perform client-side Fuse search
+      const fuseSearchResults = fuse
+        .search(searchQuery)
+        .map((result) => result.item);
+
+      // Merge results: backend results first, then Fuse results, avoiding duplicates
+      const combinedResults = [...backendResults];
+      const backendResultUrls = new Set(
+        backendResults.map((doc) => doc.docName)
+      );
+
+      fuseSearchResults.forEach((fuseDoc) => {
+        if (!backendResultUrls.has(fuseDoc.docName)) {
+          combinedResults.push(fuseDoc);
+        }
+      });
+
+      setResults(combinedResults);
+    } else {
+      setResults([]);
+    }
+  };
+
+  const debouncedSearch = debounce(handleSearch, 200, abortSearch);
 
   useEffect(() => {
     if (!searchQuery) return;
+    // Call the original handleSearch directly for the initial search query from URL
     handleSearch(searchQuery);
-  }, [searchQuery, handleSearch]);
+  }, [searchQuery]); // Removed handleSearch from dependencies as it's stable now
 
   const isNoResult =
-    results.length === 0 && inputRef.current && inputRef.current?.value !== '';
+    !isLoading &&
+    results.length === 0 &&
+    inputRef.current &&
+    inputRef.current?.value !== '';
 
   return (
     <div className="relative w-full p-4">
@@ -117,7 +165,7 @@ export const SearchView: FC<{ onClickLink?: () => void }> = ({
           type="search"
           placeholder={searchInput.placeholder.value}
           aria-label={searchInput.label.value}
-          onChange={(e) => handleSearch(e.target.value)}
+          onChange={(e) => debouncedSearch(e.target.value)}
           defaultValue={searchQuery ?? ''}
           className="m-3"
           ref={inputRef}
@@ -135,6 +183,7 @@ export const SearchView: FC<{ onClickLink?: () => void }> = ({
             ))}
           </ul>
         )}
+        <Loader isLoading={isLoading} />
       </div>
     </div>
   );

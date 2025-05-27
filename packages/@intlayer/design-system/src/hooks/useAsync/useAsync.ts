@@ -20,6 +20,7 @@ type UseAsyncResultBase<T extends (...args: any[]) => Promise<any>> = {
   errorCount: number;
   revalidate: T;
   setData: (data: Awaited<ReturnType<T> | null>) => void;
+  abort: () => void;
 };
 
 // Options type for the hook, allowing customization of behavior.
@@ -36,6 +37,7 @@ export type UseAsyncOptions<T extends (...args: any[]) => Promise<any>> = {
   updateQueries?: string[]; // Update other queries when the data is updated
   onSuccess?: (data: Awaited<ReturnType<T>>) => void; // Callback function that is called when the asynchronous function resolves successfully
   onError?: (error: string) => void; // Callback function that is called when the asynchronous function rejects or encounters an error
+  abort?: () => void; // Abort the request
   args?: Parameters<T>; // Arguments to pass to the asynchronous function
 };
 
@@ -425,6 +427,12 @@ export const useAsync = <
     });
   };
 
+  const abort = () => {
+    if (controllerRef.current) {
+      controllerRef.current.abort();
+    }
+  };
+
   // Memoization to prevent unnecessary re-renders
   const memoResult = {
     isFetched,
@@ -441,6 +449,7 @@ export const useAsync = <
     [key]: execute, // Name the execute function as the given key to avoid conflicts with other hooks (e.g. `const { fetchUser } = useAsync('fetchUser', () => fetchUserFunction());`)
     revalidate,
     setData: setDataMemo,
+    abort,
   };
 
   useEffect(

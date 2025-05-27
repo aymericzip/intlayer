@@ -740,3 +740,11 @@ export const useWriteDictionary = (
     useIntlayerAuth().editor.writeDictionary,
     args
   );
+
+/**
+ * Search
+ */
+
+export const useSearchDoc = (
+  args?: UseAsyncOptions<IntlayerAPI['search']['searchDoc']>
+) => useAppAsync('searchDoc', useIntlayerAuth().search.searchDoc, args);

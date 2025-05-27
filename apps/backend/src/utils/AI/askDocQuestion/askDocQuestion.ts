@@ -212,7 +212,9 @@ indexMarkdownFiles();
  * @returns An array of the top matching document chunks' content
  */
 export const searchChunkReference = async (
-  query: string
+  query: string,
+  maxResults: number = MAX_RELEVANT_CHUNKS_NB,
+  minSimilarity: number = MIN_RELEVANT_CHUNKS_SIMILARITY
 ): Promise<VectorStoreEl[]> => {
   // Generate an embedding for the user's query
   const queryEmbedding = await generateEmbedding(query);
@@ -223,9 +225,9 @@ export const searchChunkReference = async (
       ...chunk,
       similarity: cosineSimilarity(queryEmbedding, chunk.embedding), // Add similarity score to each doc
     }))
-    .filter((chunk) => chunk.similarity > MIN_RELEVANT_CHUNKS_SIMILARITY) // Filter out documents with low similarity scores
+    .filter((chunk) => chunk.similarity > minSimilarity) // Filter out documents with low similarity scores
     .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
-    .slice(0, MAX_RELEVANT_CHUNKS_NB); // Select the top 6 most similar documents
+    .slice(0, maxResults); // Select the top 6 most similar documents
 
   // Return the content of the top matching documents
   return results;

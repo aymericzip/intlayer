@@ -13,6 +13,7 @@ export type * from '@controllers/oAuth2.controller';
 export type * from '@controllers/organization.controller';
 export type * from '@controllers/project.controller';
 export type * from '@controllers/projectAccessKey.controller';
+export type * from '@controllers/search.controller';
 export type * from '@controllers/sessionAuth.controller';
 export type * from '@controllers/stripe.controller';
 export type * from '@controllers/tag.controller';

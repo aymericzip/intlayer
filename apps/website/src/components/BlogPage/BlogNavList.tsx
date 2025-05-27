@@ -1,13 +1,14 @@
 'use client';
 
-import { SearchTrigger } from '@components/BlogPage/Search/SearchTrigger';
+import { PagesRoutes } from '@/Routes';
+import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Link } from '@components/Link/Link';
 import {
-  Container,
   Accordion,
   Button,
-  MaxWidthSmoother,
   ClickOutsideDiv,
+  Container,
+  MaxWidthSmoother,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
@@ -15,7 +16,6 @@ import { ArrowLeftToLine } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useState, type ComponentProps, type FC } from 'react';
 import type { Section } from './types';
-import { PagesRoutes } from '@/Routes';
 
 type OptionalLinkProps = ComponentProps<typeof Link>;
 
