@@ -80,10 +80,6 @@ export const intlayerMiddleware = (
   const cookieLocale = isPrefetch ? undefined : getCookieLocale(request);
   const basePathTrailingSlash = basePath.endsWith('/');
 
-  if (isPrefetch) {
-    console.log('Prefetch request detected - ignoring cookie locale');
-  }
-
   if (
     noPrefix // If the application is configured not to use locale prefixes in URLs
   ) {
@@ -96,15 +92,6 @@ export const intlayerMiddleware = (
   }
 
   const pathLocale = getPathLocale(pathname);
-
-  console.log('--------------------------------');
-  console.log('intlayerMiddleware', {
-    pathname,
-    cookieLocale,
-    pathLocale,
-    basePathTrailingSlash,
-    isPrefetch,
-  });
 
   return handlePrefix(
     request,
@@ -223,19 +210,9 @@ const handleMissingPathLocale = (
     localeDetector?.(request) ??
     defaultLocale) as Locales;
   if (!locales.includes(locale)) {
-    console.warn(
-      'The localeDetector callback must return a locale included in your locales array. Reverting to using defaultLocale.'
-    );
     locale = defaultLocale;
   }
 
-  console.log('handleMissingPathLocale', {
-    locale,
-    pathname,
-    basePath,
-    basePathTrailingSlash,
-    search: request.nextUrl.search,
-  });
   const newPath = constructPath(
     locale,
     pathname,
@@ -272,12 +249,6 @@ const handleExistingPathLocale = (
     cookieLocale !== pathLocale &&
     serverSetCookie !== 'always'
   ) {
-    console.log('handleExistingPathLocale', {
-      pathname,
-      pathLocale,
-      cookieLocale,
-    });
-
     const newPath = handleCookieLocaleMismatch(
       request,
       pathname,
@@ -320,12 +291,6 @@ const handleCookieLocaleMismatch = (
   // Replace the pathLocale in the pathname with the cookieLocale
   const newPath = pathname.replace(`/${pathLocale}`, `/${cookieLocale}`);
 
-  console.log('handleCookieLocaleMismatch', {
-    newPath,
-    pathLocale,
-    cookieLocale,
-  });
-
   return constructPath(
     cookieLocale,
     newPath,
@@ -364,12 +329,6 @@ const handleDefaultLocaleRedirect = (
     if (request.nextUrl.search) {
       pathWithoutLocale += request.nextUrl.search;
     }
-
-    console.log('handleDefaultLocaleRedirect', {
-      pathWithoutLocale,
-      basePath,
-      pathLocale,
-    });
 
     return rewriteUrl(request, `${basePath}${pathWithoutLocale}`, pathLocale);
   }
@@ -419,7 +378,6 @@ const rewriteUrl = (
   locale: Locales
 ): NextResponse => {
   const response = NextResponse.rewrite(new URL(newPath, request.url));
-  console.log('rewriteUrl', { newPath, url: request.url });
   response.headers.set(headerName, locale);
   return response;
 };
@@ -432,6 +390,5 @@ const rewriteUrl = (
  * @returns - The redirect response.
  */
 const redirectUrl = (request: NextRequest, newPath: string): NextResponse => {
-  console.log('redirectUrl', { newPath, url: request.url });
   return NextResponse.redirect(new URL(newPath, request.url));
 };
