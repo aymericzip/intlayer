@@ -172,7 +172,9 @@ export const SearchView: FC<{ onClickLink?: () => void }> = ({
         />
       </div>
       <div className="mt-4">
-        {isNoResult && <p className="m-auto">{noContentText}</p>}
+        {isNoResult && (
+          <p className="text-center text-neutral text-sm">{noContentText}</p>
+        )}
 
         {results.length > 0 && (
           <ul className="flex flex-col gap-10">
