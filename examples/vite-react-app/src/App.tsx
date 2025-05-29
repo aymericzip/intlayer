@@ -8,8 +8,7 @@ import viteLogo from '/vite.svg';
 
 const AppContent: FC = () => {
   const [count, setCount] = useState(0);
-  const dic = 'app';
-  const content = useIntlayer(dic);
+  const content = useIntlayer('app');
 
   return (
     <>

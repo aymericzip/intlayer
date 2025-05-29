@@ -32,6 +32,7 @@ export {
   generateDictionaryListContent,
 } from './transpiler/dictionary_to_main';
 export { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
+export { getFileHash } from './utils';
 export {
   writeContentDeclaration,
   type DictionaryStatus,

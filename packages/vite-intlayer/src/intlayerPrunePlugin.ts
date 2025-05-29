@@ -1,6 +1,8 @@
 // @ts-ignore - Fix error Module '"vite"' has no exported member
-import { babelPluginIntlayer } from '@intlayer/babel';
+import { intlayerBabelPlugin } from '@intlayer/babel';
 import { ESMxCJSRequire } from '@intlayer/config';
+import configuration from '@intlayer/config/built';
+import { join } from 'path';
 import { type PluginOption } from 'vite';
 
 export const IntlayerPrunePlugin = (): PluginOption => ({
@@ -19,9 +21,25 @@ export const IntlayerPrunePlugin = (): PluginOption => ({
 
     try {
       const babel = ESMxCJSRequire('@babel/core');
+      const dictionariesPath = join(
+        configuration.content.mainDir,
+        'dictionaries.mjs'
+      );
+
       const result = babel.transformSync(code, {
         filename: id,
-        plugins: [babelPluginIntlayer],
+        plugins: [
+          [
+            intlayerBabelPlugin,
+            {
+              //  absolute or relative to your repo root — wherever the *.json
+              //  dictionaries land after “intlayer build-dictionaries”
+              dictionariesDir: configuration.content.dictionariesDir,
+              //  if you also rely on it:
+              dictionariesEntryPath: dictionariesPath,
+            },
+          ],
+        ],
         parserOpts: {
           sourceType: 'module',
           allowImportExportEverywhere: true,
@@ -41,6 +59,8 @@ export const IntlayerPrunePlugin = (): PluginOption => ({
           ],
         },
       });
+
+      console.log(result.code);
 
       if (result?.code) {
         return {

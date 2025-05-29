@@ -1,238 +1,202 @@
-import type { PluginObj, PluginPass } from '@babel/core';
-import { parse } from '@babel/parser';
-import type { NodePath } from '@babel/traverse';
+import type { NodePath, PluginObj, PluginPass } from '@babel/core';
 import * as t from '@babel/types';
-import {
-  generateDictionaryListContent,
-  getBuiltDictionariesPath,
-} from '@intlayer/chokidar';
-import { getAppLogger, getConfiguration } from '@intlayer/config';
-import { extname, relative, sep } from 'path';
+import { getFileHash } from '@intlayer/chokidar';
+import { dirname, join, relative } from 'node:path';
 
-type PluginState = PluginPass & {
-  opts: {
-    enableTransform?: boolean;
-  };
-  // Add tracking for imports per file
-  importedPackages?: Set<string>;
-  hasValidIntlayerImport?: boolean;
-};
+/* ────────────────────────────────────────── constants ───────────────────── */
 
-// ────────────────────────────────────────────────────────────
-// shared state across ALL files (1 build = 1 Node process)
 const PACKAGE_LIST = [
   'react-intlayer',
   'react-intlayer/client',
   'react-intlayer/server',
   'next-intlayer',
-  'next-intlayer/server',
   'next-intlayer/client',
+  'next-intlayer/server',
   'svelte-intlayer',
   'vue-intlayer',
   'angular-intlayer',
   'preact-intlayer',
   'solid-intlayer',
 ];
-const CALLER_LIST = ['useIntlayer', 'getIntlayer'];
-const globalUsedKeys = new Set<string>();
-let isThreeShakable = true;
-// ────────────────────────────────────────────────────────────
 
-// Helper function to check if file is in contentDir
-const isFileInContentDir = (
-  filePath: string,
-  contentDirs: string[]
-): boolean => {
-  return contentDirs.some((dir) => {
-    const normalizedDir = dir.replace(/[/\\]+$/, '');
-    return filePath.startsWith(normalizedDir);
-  });
+const CALLER_LIST = ['useIntlayer', 'getIntlayer'] as const;
+
+/* ────────────────────────────────────────── types ───────────────────────── */
+
+type State = PluginPass & {
+  opts: { dictionariesDir: string; dictionariesEntryPath: string };
+  /** map key → generated ident (per-file) */
+  _newImports?: Map<string, t.Identifier>;
+  /** whether the current file imported *any* intlayer package */
+  _hasValidImport?: boolean;
+  /** whether the current file *is* the dictionaries entry file */
+  _isDictEntry?: boolean;
 };
 
-// Helper function to check if import is from valid package
-const isValidIntlayerImport = (source: string): boolean => {
-  return PACKAGE_LIST.includes(source);
+/* ────────────────────────────────────────── helpers ─────────────────────── */
+
+/**
+ * Replicates the xxHash64 → Base-62 algorithm used by the SWC version
+ * and prefixes an underscore so the generated identifiers never collide
+ * with user-defined ones.
+ */
+const makeIdent = (key: string): t.Identifier => {
+  const hash = getFileHash(key);
+  return t.identifier(`_${hash}`);
 };
 
-export const babelPluginIntlayer = (): PluginObj<PluginState> => {
-  const configuration = getConfiguration();
-  const dictionariesRoot: string = configuration.content.mainDir.replace(
-    /[/\\]+$/,
-    ''
-  );
-  const contentDir: string[] = configuration.content.contentDir;
-  const appLogger = getAppLogger(configuration);
+const computeRelativeImport = (
+  fromFile: string,
+  dictDir: string,
+  key: string
+): string => {
+  const jsonPath = join(dictDir, `${key}.json`);
+  let rel = relative(dirname(fromFile), jsonPath).replace(/\\/g, '/'); // win →
+  if (!rel.startsWith('./') && !rel.startsWith('../')) rel = `./${rel}`;
+  return rel;
+};
 
+/* ────────────────────────────────────────── plugin ──────────────────────── */
+
+/**
+ * Babel plugin that transforms `useIntlayer/getIntlayer` calls into
+ * `useDictionary/getDictionary` and auto-imports the required JSON dictionaries.
+ *
+ * **New behaviour**: if the currently processed file matches `dictionariesEntryPath`,
+ * its entire contents are replaced with a simple `export default {}` so that it
+ * never contains stale or circular references.
+ *
+ * The **critical detail** (bug-fix) is that we still **only rewrite** an import
+ * specifier when its *imported* name is `useIntlayer`/`getIntlayer`.
+ *
+ * This means cases like:
+ * ```ts
+ * import { useDictionary as useIntlayer } from 'react-intlayer';
+ * ```
+ * —where `useIntlayer` is merely an *alias* or re-export—are left untouched
+ * because `imported.name` is `useDictionary`.
+ */
+export const intlayerBabelPlugin = (): PluginObj<State> => {
   return {
-    name: 'babel-plugin-intlayer-prune',
+    name: 'babel-plugin-intlayer-transform',
+
+    pre() {
+      this._newImports = new Map();
+      this._hasValidImport = false;
+      this._isDictEntry = false;
+    },
 
     visitor: {
+      /* 0. If this file *is* the dictionaries entry, short-circuit: export {} */
       Program: {
-        enter(_programPath, state: PluginState) {
-          // Initialize per-file state
-          state.importedPackages = new Set<string>();
-          state.hasValidIntlayerImport = false;
-
-          const filePath: string = state.file.opts.filename ?? '';
-
-          // Skip files that are not in contentDir
-          if (!isFileInContentDir(filePath, contentDir)) {
-            return;
+        enter(programPath, state) {
+          const filename = state.file.opts.filename!;
+          if (filename === state.opts.dictionariesEntryPath) {
+            state._isDictEntry = true;
+            // Replace all existing statements with: export default {}
+            programPath.node.body = [
+              t.exportDefaultDeclaration(t.objectExpression([])),
+            ];
+            // Stop further traversal for this plugin – nothing else to transform
+            programPath.stop();
           }
         },
 
-        /*
-         * After the whole file has been walked, decide if THIS file is the
-         * dictionary entry-point.  If it is, swap its body for the generated
-         * code that imports only the used dictionaries.
-         */
-        exit(programPath, state: PluginState) {
-          const filePath: string = state.file.opts.filename ?? '';
+        /* 3. After full traversal, inject the JSON dictionary imports. */
+        exit(programPath, state) {
+          if (state._isDictEntry) return; // nothing else to do – already replaced
+          if (!state._hasValidImport) return; // early-out if we touched nothing
 
-          // Skip files that are not in contentDir
-          if (!isFileInContentDir(filePath, contentDir)) return;
+          const file = state.file.opts.filename!;
+          const dictDir = state.opts.dictionariesDir;
+          const imports: t.ImportDeclaration[] = [];
 
-          // Skip files is bundle is not three-shakable
-          if (!isThreeShakable) return;
+          for (const [key, ident] of state._newImports!) {
+            const rel = computeRelativeImport(file, dictDir, key);
+            imports.push(
+              t.importDeclaration(
+                [t.importDefaultSpecifier(t.identifier(ident.name))],
+                t.stringLiteral(rel)
+              )
+            );
+          }
 
-          // Is this *the* entry-point we want to shrink?
-          if (!filePath.startsWith(dictionariesRoot)) return;
+          if (!imports.length) return;
 
-          const keys = Array.from(globalUsedKeys);
-          if (!keys.length) return; // nothing collected yet – leave the file untouched
-
-          const extension = extname(filePath); // .js / .mjs / .cjs
-          const format = extension === '.cjs' ? 'cjs' : 'esm';
-
-          // Pick only the dictionaries whose basename matches a collected key
-          const dictionaries = getBuiltDictionariesPath(configuration).filter(
-            (p) => keys.some((k) => p.endsWith(`${sep}${k}.json`))
-          );
-
-          const generatedSrc = generateDictionaryListContent(
-            dictionaries,
-            format,
-            configuration
-          );
-          if (!generatedSrc) return;
-
-          // Replace the current AST with the new one
-          const newAst = parse(generatedSrc, {
-            sourceType: format === 'cjs' ? 'script' : 'module',
-            plugins: ['importMeta'],
-          });
-
-          appLogger('Unused dictionaries pruned to reduce bundle size', {
-            level: 'info',
-          });
-
-          // Clear and inject
-          programPath.node.body = [];
-          programPath.pushContainer('body', newAst.program.body);
-
-          // Optional: mark the file as "transformed" for other tooling
-          state.file.metadata = {
-            ...state.file.metadata,
-            intlayerPruned: true,
-          };
-        },
-      },
-
-      ImportDeclaration(
-        path: NodePath<t.ImportDeclaration>,
-        state: PluginState
-      ) {
-        const filePath: string = state.file.opts.filename ?? '';
-
-        // Skip files that are not in contentDir
-        if (!isFileInContentDir(filePath, contentDir)) {
-          return;
-        }
-
-        const source = path.node.source.value;
-        state.importedPackages?.add(source);
-
-        // Check if this import is from a valid intlayer package
-        if (isValidIntlayerImport(source)) {
-          // Check if any of the imported specifiers include useIntlayer or getIntlayer
-          const hasIntlayerFunction = path.node.specifiers.some((specifier) => {
+          /* Keep "use client" / "use server" directives at the very top. */
+          const bodyPaths = programPath.get('body') as NodePath<t.Statement>[];
+          let insertPos = 0;
+          for (const stmtPath of bodyPaths) {
+            const stmt = stmtPath.node;
             if (
-              t.isImportSpecifier(specifier) &&
-              t.isIdentifier(specifier.imported)
+              t.isExpressionStatement(stmt) &&
+              t.isStringLiteral(stmt.expression) &&
+              (stmt.expression.value === 'use client' ||
+                stmt.expression.value === 'use server')
             ) {
-              return CALLER_LIST.includes(specifier.imported.name);
+              insertPos += 1;
+            } else {
+              break;
             }
-            return false;
-          });
+          }
 
-          if (hasIntlayerFunction) {
-            state.hasValidIntlayerImport = true;
+          programPath.node.body.splice(insertPos, 0, ...imports);
+        },
+      },
+
+      /* 1. Inspect *every* intlayer import. */
+      ImportDeclaration(path, state) {
+        if (state._isDictEntry) return; // skip if entry file – already handled
+
+        const src = path.node.source.value;
+        if (!PACKAGE_LIST.includes(src)) return;
+
+        // Mark that we do import from an intlayer package in this file; this is
+        // enough to know that we *might* need to inject runtime helpers later.
+        state._hasValidImport = true;
+
+        for (const spec of path.node.specifiers) {
+          if (!t.isImportSpecifier(spec)) continue;
+
+          // ⚠️  We now key off *imported* name, *not* local name.
+          const importedName = t.isIdentifier(spec.imported)
+            ? spec.imported.name
+            : (spec.imported as t.StringLiteral).value;
+
+          if (importedName === 'useIntlayer') {
+            spec.imported = t.identifier('useDictionary');
+          } else if (importedName === 'getIntlayer') {
+            spec.imported = t.identifier('getDictionary');
           }
         }
       },
 
-      CallExpression(path: NodePath<t.CallExpression>, state: PluginState) {
-        const filePath: string = state.file.opts.filename ?? '';
+      /* 2. Replace calls: useIntlayer("foo") → useDictionary(_hash) */
+      CallExpression(path, state) {
+        if (state._isDictEntry) return; // skip if entry file – already handled
 
-        // Skip files that are not in contentDir
-        if (!isFileInContentDir(filePath, contentDir)) return;
-        if (!isThreeShakable) return;
+        const callee = path.node.callee;
+        if (!t.isIdentifier(callee)) return;
+        if (!CALLER_LIST.includes(callee.name as any)) return;
 
-        const { node } = path;
+        // Ensure we ultimately emit helper imports for files that *invoke*
+        // the hooks, even if they didn’t import them directly (edge cases with
+        // re-exports).
+        state._hasValidImport = true;
 
-        const renderError = (message: string) => {
-          const filePath: string = state.file.opts.filename ?? '';
+        const arg = path.node.arguments[0];
+        if (!arg || !t.isStringLiteral(arg)) return; // must be literal
 
-          // Generate code frame to show the error context
-          const codeFrame = path.buildCodeFrameError('').message;
-
-          console.info(''); // For formating
-          appLogger(message, {
-            level: 'error',
-          });
-          appLogger(`At ${relative(process.cwd(), filePath)}`, {
-            level: 'error',
-          });
-          appLogger(codeFrame.split('\n').slice(1).join('\n'), {
-            level: 'error',
-          });
-        };
-
-        if (
-          t.isIdentifier(node.callee) &&
-          CALLER_LIST.includes(node.callee.name)
-        ) {
-          // Check if the function is imported from a valid package
-          if (!state.hasValidIntlayerImport) {
-            isThreeShakable = false;
-
-            renderError(
-              `For dictionary optimization to work, ${node.callee.name} must be imported from one of these packages: ${PACKAGE_LIST.join(', ')}`
-            );
-            return;
-          }
-
-          // Check if arguments exist
-          if (!node.arguments.length) {
-            isThreeShakable = false;
-
-            renderError(`${node.callee.name} requires at least one argument`);
-
-            return;
-          }
-
-          // Check if the first argument is a string literal
-          if (!t.isStringLiteral(node.arguments[0])) {
-            isThreeShakable = false;
-
-            renderError(
-              `For dictionary optimization to work, ${node.callee.name} key must be a literal string, otherwise tree shaking cannot be performed properly`
-            );
-            return;
-          }
-
-          globalUsedKeys.add(node.arguments[0].value);
+        const key = arg.value;
+        // per-file cache
+        let ident = state._newImports!.get(key);
+        if (!ident) {
+          ident = makeIdent(key);
+          state._newImports!.set(key, ident);
         }
+
+        // replace first arg with ident
+        path.node.arguments[0] = t.identifier(ident.name);
       },
     },
   };
