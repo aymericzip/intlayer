@@ -34,7 +34,6 @@ export const Link: FC<LinkProps> = (props) => {
     className,
     locale: localeProp,
     prefetch,
-    isExternalLink: isExternalLinkProp,
     href: hrefProp,
     children,
     ...otherProps
