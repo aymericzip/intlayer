@@ -1,0 +1,35 @@
+[package]
+name = "intlayer-swc-plugin"
+version = "5.5.2"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+lto = true
+
+[dependencies]
+data-encoding = "2.3.3"
+sha2 = "0.10.8"
+serde = "1.0.207"
+serde_json = "1.0.125"
+regex = "1.10.6"
+once_cell = "1.19.0"
+parking_lot = "0.12.3"
+pathdiff = "0.2"
+swc_core = { version = "26.2.2", features = [
+  "ecma_codegen",
+  "ecma_plugin_transform",
+  "ecma_utils",
+  "ecma_visit",
+  "ecma_ast",
+  "ecma_parser",
+  "common"
+] }
+twox-hash = "2.1.0"
+base62 = "2.2.1"
+
+# .cargo/config.toml defines few alias to build plugin.
+# cargo build-wasip1 generates wasm32-wasip1 binary
+# cargo build-wasm32 generates wasm32-unknown-unknown binary.

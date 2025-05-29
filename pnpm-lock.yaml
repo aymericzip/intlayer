@@ -691,6 +691,9 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
     devDependencies:
+      '@intlayer/swc':
+        specifier: workspace:*
+        version: link:../../packages/@intlayer/swc
       '@tailwindcss/postcss':
         specifier: ^4.0.14
         version: 4.1.7
@@ -703,6 +706,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.4
         version: 19.1.5(@types/react@19.1.5)
+      '@types/webpack-bundle-analyzer':
+        specifier: ^4.7.0
+        version: 4.7.0
       eslint:
         specifier: ^9.22.0
         version: 9.27.0(jiti@2.4.2)
@@ -721,6 +727,9 @@ importers:
       typescript:
         specifier: ^5.8.2
         version: 5.8.3
+      webpack-bundle-analyzer:
+        specifier: ^4.10.2
+        version: 4.10.2
 
   examples/nuxt-app:
     dependencies:
@@ -1938,6 +1947,8 @@ importers:
         specifier: ^5.8.2
         version: 5.8.3
 
+  packages/@intlayer/swc: {}
+
   packages/@intlayer/unmerged-dictionaries-entry:
     dependencies:
       '@intlayer/config':
@@ -2515,6 +2526,9 @@ importers:
       '@intlayer/dictionaries-entry':
         specifier: workspace:*
         version: link:../@intlayer/dictionaries-entry
+      '@intlayer/swc':
+        specifier: workspace:*
+        version: link:../@intlayer/swc
       '@intlayer/webpack':
         specifier: workspace:*
         version: link:../@intlayer/webpack
@@ -11397,6 +11411,12 @@ packages:
     resolution:
       {
         integrity: sha512-CiJJvcRtIgzadHCYXw7dqEnMNRjhGZlYK05Mj9OyktqV8uVT8fD2BFOB7S1uwBE3Kj2Z+4UyPmFw/Ixgw/LAlA==,
+      }
+
+  '@types/webpack-bundle-analyzer@4.7.0':
+    resolution:
+      {
+        integrity: sha512-c5i2ThslSNSG8W891BRvOd/RoCjI2zwph8maD22b1adtSns20j+0azDDMCK06DiVrzTgnwiDl5Ntmu1YRJw8Sg==,
       }
 
   '@types/webpack@5.28.5':
@@ -36744,6 +36764,17 @@ snapshots:
 
   '@types/webidl-conversions@7.0.3': {}
 
+  '@types/webpack-bundle-analyzer@4.7.0':
+    dependencies:
+      '@types/node': 22.15.21
+      tapable: 2.2.2
+      webpack: 5.99.9
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
+      - webpack-cli
+
   '@types/webpack@5.28.5(@swc/core@1.11.29(@swc/helpers@0.5.17))':
     dependencies:
       '@types/node': 22.15.21
@@ -49491,6 +49522,15 @@ snapshots:
     optionalDependencies:
       esbuild: 0.25.4
 
+  terser-webpack-plugin@5.3.14(webpack@5.99.9):
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.25
+      jest-worker: 27.5.1
+      schema-utils: 4.3.2
+      serialize-javascript: 6.0.2
+      terser: 5.39.2
+      webpack: 5.99.9
+
   terser@5.39.2:
     dependencies:
       '@jridgewell/source-map': 0.3.6
@@ -50679,6 +50719,37 @@ snapshots:
   webpack-sources@3.2.3: {}
 
   webpack-virtual-modules@0.6.2: {}
+
+  webpack@5.99.9:
+    dependencies:
+      '@types/eslint-scope': 3.7.7
+      '@types/estree': 1.0.7
+      '@types/json-schema': 7.0.15
+      '@webassemblyjs/ast': 1.14.1
+      '@webassemblyjs/wasm-edit': 1.14.1
+      '@webassemblyjs/wasm-parser': 1.14.1
+      acorn: 8.14.1
+      browserslist: 4.24.5
+      chrome-trace-event: 1.0.4
+      enhanced-resolve: 5.18.1
+      es-module-lexer: 1.7.0
+      eslint-scope: 5.1.1
+      events: 3.3.0
+      glob-to-regexp: 0.4.1
+      graceful-fs: 4.2.11
+      json-parse-even-better-errors: 2.3.1
+      loader-runner: 4.3.0
+      mime-types: 2.1.35
+      neo-async: 2.6.2
+      schema-utils: 4.3.2
+      tapable: 2.2.2
+      terser-webpack-plugin: 5.3.14(webpack@5.99.9)
+      watchpack: 2.4.4
+      webpack-sources: 3.2.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
 
   webpack@5.99.9(@swc/core@1.11.29(@swc/helpers@0.5.17)):
     dependencies:

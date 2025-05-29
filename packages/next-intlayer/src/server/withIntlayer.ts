@@ -1,4 +1,8 @@
-import { getConfiguration } from '@intlayer/config';
+import {
+  ESMxCJSRequire,
+  getConfiguration,
+  IntlayerConfig,
+} from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import merge from 'deepmerge';
 import type { NextConfig } from 'next';
@@ -14,6 +18,48 @@ const nextVersion = getNextVersion();
 const isGteNext13 = compareVersions(nextVersion, '≥', '13.0.0');
 const isGteNext15 = compareVersions(nextVersion, '≥', '15.0.0');
 const isTurbopackStable = compareVersions(nextVersion, '≥', '15.3.0');
+
+// Check if SWC plugin is available
+const isSwcPluginAvailable = (() => {
+  try {
+    ESMxCJSRequire.resolve('@intlayer/swc');
+    return true;
+  } catch (e) {
+    return false;
+  }
+})();
+
+const getPruneConfig = (
+  intlayerConfig: IntlayerConfig
+): Partial<NextConfig> => {
+  const { contentDir, dictionariesDir, baseDir, mainDir } =
+    intlayerConfig.content;
+
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  if (!isProduction) return {};
+
+  if (!isGteNext13) return {};
+
+  if (!isSwcPluginAvailable) return {};
+
+  const dictionariesPath = join(mainDir, 'dictionaries.mjs');
+
+  return {
+    experimental: {
+      swcPlugins: [
+        [
+          require.resolve('@intlayer/swc'),
+          {
+            dictionaries_dir: dictionariesDir,
+            dictionaries_entry_path: dictionariesPath,
+            content_dir: contentDir,
+          } as any,
+        ],
+      ],
+    },
+  };
+};
 
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
@@ -146,6 +192,10 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
     },
   };
 
+  const pruneConfig: Partial<NextConfig> = getPruneConfig(intlayerConfig);
+
+  const intlayerNextConfig: Partial<NextConfig> = merge(pruneConfig, newConfig);
+
   // Merge the new config with the user's config
-  return merge(nextConfig, newConfig) as NextConfig & T;
+  return merge(nextConfig, intlayerNextConfig) as NextConfig & T;
 };

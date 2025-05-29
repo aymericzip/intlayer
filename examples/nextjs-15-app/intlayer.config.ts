@@ -9,6 +9,9 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
     strictMode: 'strict',
   },
+  content: {
+    contentDir: ['./', '../../apps'],
+  },
   editor: {
     applicationURL: 'http://localhost:3000',
   },

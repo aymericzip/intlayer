@@ -31,7 +31,7 @@ const PACKAGE_LIST = [
   'vue-intlayer',
   'angular-intlayer',
   'preact-intlayer',
-  'solid-inltayer',
+  'solid-intlayer',
 ];
 const CALLER_LIST = ['useIntlayer', 'getIntlayer'];
 const globalUsedKeys = new Set<string>();
