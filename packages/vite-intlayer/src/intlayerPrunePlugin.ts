@@ -60,8 +60,6 @@ export const IntlayerPrunePlugin = (): PluginOption => ({
         },
       });
 
-      console.log(result.code);
-
       if (result?.code) {
         return {
           code: result.code,
