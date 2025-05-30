@@ -364,6 +364,9 @@ importers:
       '@intlayer/backend':
         specifier: workspace:*
         version: link:../backend
+      '@intlayer/swc':
+        specifier: workspace:*
+        version: link:../../packages/@intlayer/swc
       '@tailwindcss/postcss':
         specifier: ^4.0.14
         version: 4.1.7
