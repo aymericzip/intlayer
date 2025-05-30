@@ -729,6 +729,14 @@ export const useAutocomplete = (
 ) => useAppAsync('autocomplete', useIntlayerAuth().ai.autocomplete, args);
 
 /**
+ * Search
+ */
+
+export const useSearchDoc = (
+  args?: UseAsyncOptions<IntlayerAPI['search']['searchDoc']>
+) => useAppAsync('searchDoc', useIntlayerAuth().search.searchDoc, args);
+
+/**
  * Editor
  */
 
@@ -741,10 +749,11 @@ export const useWriteDictionary = (
     args
   );
 
-/**
- * Search
- */
-
-export const useSearchDoc = (
-  args?: UseAsyncOptions<IntlayerAPI['search']['searchDoc']>
-) => useAppAsync('searchDoc', useIntlayerAuth().search.searchDoc, args);
+export const useGetEditorDictionaries = (
+  args?: UseAsyncOptions<IntlayerAPI['editor']['getDictionaries']>
+) =>
+  useEditorAsync('getDictionaries', useIntlayerAuth().editor.getDictionaries, {
+    store: true,
+    cache: true,
+    ...args,
+  });

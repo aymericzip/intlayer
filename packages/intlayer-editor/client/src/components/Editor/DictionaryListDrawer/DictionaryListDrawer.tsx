@@ -2,23 +2,38 @@
 
 import type { Locales } from '@intlayer/config';
 import {
-  RightDrawer,
   Button,
+  RightDrawer,
   useRightDrawerStore,
 } from '@intlayer/design-system';
-import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
-import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
+import {
+  useGetAllDictionaries,
+  useGetEditorDictionaries,
+} from '@intlayer/design-system/hooks';
+import {
+  useDictionariesRecordActions,
+  useEditedContent,
+  useFocusDictionary,
+} from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
-import { type FC, useCallback, useMemo } from 'react';
+import { type FC, useEffect } from 'react';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
 import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';
 
 export const DictionaryListDrawer: FC = () => {
   const { all: dictionaries } = useGetAllDictionaries();
-  const dictionaryKeyList = useMemo(
-    () => Object.keys(dictionaries) as Locales[],
-    [dictionaries]
-  );
+  const dictionaryKeyList = Object.keys(dictionaries) as Locales[];
+
+  const { setLocaleDictionaries } = useDictionariesRecordActions();
+  const { data: localeDictionaries } = useGetEditorDictionaries({
+    autoFetch: true,
+  });
+
+  useEffect(() => {
+    if (!localeDictionaries) return;
+
+    setLocaleDictionaries(localeDictionaries);
+  }, [dictionaries]);
 
   const { close: closeDrawer, open: openDrawer } = useRightDrawerStore();
 
@@ -37,11 +52,8 @@ export const DictionaryListDrawer: FC = () => {
     openDrawer(getDrawerIdentifier(dictionaryKey));
   };
 
-  const isDictionaryEdited = useCallback(
-    (dictionaryKey: string) =>
-      Object.keys(editedContent ?? {}).includes(dictionaryKey),
-    [editedContent]
-  );
+  const isDictionaryEdited = (dictionaryKey: string) =>
+    Object.keys(editedContent ?? {}).includes(dictionaryKey);
 
   return (
     <RightDrawer

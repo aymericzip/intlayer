@@ -2,7 +2,7 @@
 
 import { type Locales } from '@intlayer/config/client';
 import { MessageKey, useCrossFrameState } from '@intlayer/editor-react';
-import type { FC, PropsWithChildren } from 'react';
+import { type FC, type PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
 

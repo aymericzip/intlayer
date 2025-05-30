@@ -1,5 +1,5 @@
-import type { IntlayerConfig } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/config/client';
 
 import type {
   // @ts-ignore: intlayer-editor is not built yet
@@ -41,6 +41,21 @@ export const getEditorAPI = (
   };
 
   /**
+   * Get the Intlayer configuration
+   */
+  const getDictionaries = async (
+    otherOptions: FetcherOptions = {}
+  ): Promise<Record<string, any>> => {
+    const response = await fetcher<Record<string, any>>(
+      `${EDITOR_API_ROUTE}/dictionary`,
+      authAPIOptions,
+      otherOptions
+    );
+
+    return response.data;
+  };
+
+  /**
    * Adds a new dictionary to the database.
    * @param dictionary - Dictionary data.
    */
@@ -59,6 +74,7 @@ export const getEditorAPI = (
     );
 
   return {
+    getDictionaries,
     getConfiguration,
     writeDictionary,
   };

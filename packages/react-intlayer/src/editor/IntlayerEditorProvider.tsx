@@ -2,19 +2,10 @@
 
 import { IntlayerEventListener } from '@intlayer/api';
 import configuration from '@intlayer/config/built';
-
-import type { Dictionary } from '@intlayer/core';
-/**
- * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
- * Using an external package allow to alias it in the bundle configuration (such as webpack).
- * The alias allow hot reload the app (such as nextjs) on any dictionary change.
- */
-import dictionaries from '@intlayer/dictionaries-entry';
 import {
   EditorProvider,
   useChangedContentActions,
   useCrossURLPathSetter,
-  useDictionariesRecordActions,
   useEditorEnabled,
   useIframeClickInterceptor,
 } from '@intlayer/editor-react';
@@ -25,17 +16,6 @@ const IntlayerEditorHooksEnabled: FC = () => {
    * URL Messages
    */
   useCrossURLPathSetter();
-
-  /**
-   * Locale Dictionaries Messages
-   */
-  const { setLocaleDictionaries } = useDictionariesRecordActions();
-
-  useEffect(() => {
-    setLocaleDictionaries(
-      dictionaries as unknown as Record<string, Dictionary>
-    );
-  }, []);
 
   /**
    * Click Messages

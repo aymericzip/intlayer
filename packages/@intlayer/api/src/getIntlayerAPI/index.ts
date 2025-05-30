@@ -23,8 +23,8 @@ export const getIntlayerAPI = (
   stripe: getStripeAPI(authAPIOptions, intlayerConfig),
   ai: getAiAPI(authAPIOptions, intlayerConfig),
   tag: getTagAPI(authAPIOptions, intlayerConfig),
-  editor: getEditorAPI(authAPIOptions, intlayerConfig),
   search: getSearchAPI(authAPIOptions, intlayerConfig),
+  editor: getEditorAPI(authAPIOptions, intlayerConfig),
 });
 
 export type IntlayerAPI = ReturnType<typeof getIntlayerAPI>;

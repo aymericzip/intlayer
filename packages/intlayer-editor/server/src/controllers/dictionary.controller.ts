@@ -1,12 +1,48 @@
-import { getConfiguration } from '@intlayer/config';
-import { type Dictionary } from '@intlayer/core';
-import { type ResponseData, formatResponse } from '@utils/responseData';
 import {
   writeContentDeclaration as writeContentDeclarationEditor,
   type DictionaryStatus,
 } from '@intlayer/chokidar';
+import { getConfiguration } from '@intlayer/config';
+import { type Dictionary } from '@intlayer/core';
+import dictionaries from '@intlayer/dictionaries-entry';
+import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
+
+type GetDictionariesResult = ResponseData<Record<string, Dictionary>>;
+
+/**
+ * Get the Intlayer configuration
+ */
+export const getDictionaries = async (
+  req: Request,
+  res: Response<GetDictionariesResult>,
+  _next: NextFunction
+): Promise<void> => {
+  try {
+    const formattedResponse = formatResponse<Record<string, Dictionary>>({
+      data: dictionaries,
+    });
+
+    res.json(formattedResponse);
+    return;
+  } catch (err) {
+    const errorMessage =
+      (err as { message?: string; status?: number }) ?? 'Internal Server Error';
+
+    const formattedErrorResponse = formatResponse<Record<string, Dictionary>>({
+      error: {
+        message: errorMessage.message ?? 'Internal Server Error',
+        code: 'INTERNAL_SERVER_ERROR',
+        title: 'Internal Server Error',
+      },
+      status: errorMessage.status ?? 500,
+    });
+
+    res.json(formattedErrorResponse);
+    return;
+  }
+};
 
 export type WriteContentDeclarationBody = { dictionary: Dictionary };
 type WriteContentDeclarationResultData = {
