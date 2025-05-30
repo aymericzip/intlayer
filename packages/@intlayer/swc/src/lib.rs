@@ -26,7 +26,7 @@ use base62::encode as base62_encode;
 use twox_hash::XxHash64;
 
 
-static DEBUG_LOG: bool = true;
+static DEBUG_LOG: bool = false;
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -91,6 +91,8 @@ impl<'a> TransformVisitor<'a> {
 
 static PACKAGE_LIST: LazyLock<Vec<Atom>> = LazyLock::new(|| {
     [
+        "intlayer",
+        "@intlayer/core",
         "react-intlayer",
         "react-intlayer/client",
         "react-intlayer/server",
@@ -158,7 +160,7 @@ impl<'a> VisitMut for TransformVisitor<'a> {
             }
             _ => return,
         };
-        if callee_ident != "useIntlayer" {
+        if callee_ident != "useIntlayer" && callee_ident != "getIntlayer" {
             return;
         }
 
