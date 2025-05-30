@@ -32,8 +32,7 @@ const isSwcPluginAvailable = (() => {
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig
 ): Partial<NextConfig> => {
-  const { contentDir, dictionariesDir, baseDir, mainDir } =
-    intlayerConfig.content;
+  const { contentDir, dictionariesDir, mainDir } = intlayerConfig.content;
 
   const isProduction = process.env.NODE_ENV === 'production';
 
@@ -49,7 +48,7 @@ const getPruneConfig = (
     experimental: {
       swcPlugins: [
         [
-          require.resolve('@intlayer/swc'),
+          ESMxCJSRequire.resolve('@intlayer/swc'),
           {
             dictionaries_dir: dictionariesDir,
             dictionaries_entry_path: dictionariesPath,
