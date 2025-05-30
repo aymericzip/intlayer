@@ -5,6 +5,8 @@ import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 import localFont from 'next/font/local';
 
+export { generateStaticParams } from 'next-intlayer';
+
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -41,6 +43,7 @@ export const generateMetadata = async ({
     description,
   };
 };
+export const dynamic = 'force-static';
 
 const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
@@ -48,7 +51,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   return (
     <IntlayerProvider locale={locale}>
       <html lang={locale} dir={getHTMLTextDir(locale)}>
-        <header className="fixed top-5 w-full flex justify-end px-10">
+        <header className="fixed top-5 flex w-full justify-end px-10">
           <LocaleSwitcher />
         </header>
         <body
