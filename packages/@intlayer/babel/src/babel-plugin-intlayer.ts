@@ -6,6 +6,8 @@ import { dirname, join, relative } from 'node:path';
 /* ────────────────────────────────────────── constants ───────────────────── */
 
 const PACKAGE_LIST = [
+  'intlayer',
+  '@intlayer/core',
   'react-intlayer',
   'react-intlayer/client',
   'react-intlayer/server',
