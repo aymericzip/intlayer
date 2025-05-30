@@ -27,8 +27,10 @@ export const getDictionaries = async (
     res.json(formattedResponse);
     return;
   } catch (err) {
-    const errorMessage =
-      (err as { message?: string; status?: number }) ?? 'Internal Server Error';
+    const errorMessage = (err as { message?: string; status?: number }) ?? {
+      message: 'Internal Server Error',
+      status: 500,
+    };
 
     const formattedErrorResponse = formatResponse<Record<string, Dictionary>>({
       error: {
@@ -123,8 +125,10 @@ export const writeContentDeclaration = async (
     res.json(formattedResponse);
     return;
   } catch (err) {
-    const errorMessage =
-      (err as { message?: string; status?: number }) ?? 'Internal Server Error';
+    const errorMessage = (err as { message?: string; status?: number }) ?? {
+      message: 'Internal Server Error',
+      status: 500,
+    };
 
     console.error(errorMessage);
 

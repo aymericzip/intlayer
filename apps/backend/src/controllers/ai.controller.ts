@@ -6,7 +6,7 @@ import type { ResponseWithInformation } from '@middlewares/sessionAuth.middlewar
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
-import { AIOptions } from '@utils/AI/aiSdk';
+import type { AIOptions, ChatCompletionRequestMessage } from '@utils/AI/aiSdk';
 import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
 import * as auditContentDeclarationUtil from '@utils/AI/auditDictionary';
 import * as auditContentDeclarationFieldUtil from '@utils/AI/auditDictionaryField';
@@ -331,7 +331,7 @@ export const auditTag = async (
 };
 
 export type AskDocQuestionBody = {
-  messages: askDocQuestionUtil.ChatCompletionRequestMessage[];
+  messages: ChatCompletionRequestMessage[];
   discutionId: string;
 };
 export type AskDocQuestionResult =

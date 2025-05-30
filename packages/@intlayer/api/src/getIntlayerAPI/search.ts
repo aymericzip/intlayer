@@ -1,10 +1,4 @@
-import type {
-  // @ts-ignore: @intlayer/backend is not built yet
-  SearchDocUtilParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  SearchDocUtilResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-} from '@intlayer/backend';
+import type { SearchDocUtilParams, SearchDocUtilResult } from '../types';
 
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';

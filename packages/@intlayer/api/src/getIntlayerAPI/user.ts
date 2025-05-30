@@ -1,32 +1,19 @@
-import type {
-  // @ts-ignore: @intlayer/backend is not built yet
-  CreateUserBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  CreateUserResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetUserByAccountParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetUserByAccountResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetUserByEmailParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetUserByEmailResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetUserByIdParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetUserByIdResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetUsersParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetUsersResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateUserBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateUserResult,
-  // @ts-ignore @intlayer/backend is not build yet
-} from '@intlayer/backend';
-import { type IntlayerConfig } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import { type IntlayerConfig } from '@intlayer/config/client';
+import type {
+  CreateUserBody,
+  CreateUserResult,
+  GetUserByAccountParams,
+  GetUserByAccountResult,
+  GetUserByEmailParams,
+  GetUserByEmailResult,
+  GetUserByIdParams,
+  GetUserByIdResult,
+  GetUsersParams,
+  GetUsersResult,
+  UpdateUserBody,
+  UpdateUserResult,
+} from '../types';
 
 import { fetcher, type FetcherOptions } from '../fetcher';
 

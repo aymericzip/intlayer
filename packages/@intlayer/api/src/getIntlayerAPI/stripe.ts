@@ -1,16 +1,11 @@
-import type {
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetCheckoutSessionBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetCheckoutSessionResult,
-  // @ts-ignore @intlayer/backend is not build yet
-  GetPricingBody,
-  // @ts-ignore @intlayer/backend is not build yet
-  GetPricingResult,
-  // @ts-ignore @intlayer/backend is not build yet
-} from '@intlayer/backend';
-import type { IntlayerConfig } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import type {
+  GetCheckoutSessionBody,
+  GetCheckoutSessionResult,
+  GetPricingBody,
+  GetPricingResult,
+} from '../types';
 
 import { fetcher, type FetcherOptions } from '../fetcher';
 

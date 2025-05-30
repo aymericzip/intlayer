@@ -1,34 +1,19 @@
 import type {
-  // @ts-ignore: @intlayer/backend is not built yet
   AskDocQuestionResult,
-  // @ts-ignore: @intlayer/backend is not built yet
   AuditContentDeclarationBody,
-  // @ts-ignore: @intlayer/backend is not built yet
   AuditContentDeclarationFieldBody,
-  // @ts-ignore: @intlayer/backend is not built yet
   AuditContentDeclarationFieldResult,
-  // @ts-ignore: @intlayer/backend is not built yet
   AuditContentDeclarationMetadataBody,
-  // @ts-ignore: @intlayer/backend is not built yet
   AuditContentDeclarationMetadataResult,
-  // @ts-ignore: @intlayer/backend is not built yet
   AuditContentDeclarationResult,
-  // @ts-ignore: @intlayer/backend is not built yet
   AuditTagBody,
-  // @ts-ignore: @intlayer/backend is not built yet
   AuditTagResult,
-  // @ts-ignore: @intlayer/backend is not built yet
   AutocompleteBody,
-  // @ts-ignore: @intlayer/backend is not built yet
   AutocompleteResponse,
-  // @ts-ignore: @intlayer/backend is not built yet
   ChatCompletionRequestMessage,
-  // @ts-ignore: @intlayer/backend is not built yet
+  TranslateJSONBody,
   TranslateJSONResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  TranslateJSONResultBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-} from '@intlayer/backend';
+} from '../types';
 
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
@@ -65,7 +50,7 @@ export const getAiAPI = (
    * @returns Audited file content.
    */
   const translateJSON = async (
-    body?: TranslateJSONResultBody,
+    body?: TranslateJSONBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<TranslateJSONResult>(

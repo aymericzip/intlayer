@@ -7,7 +7,11 @@ import fs, { readFileSync } from 'fs';
 import { OpenAI } from 'openai';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { AIProvider, getAIConfig } from '../aiSdk';
+import {
+  AIProvider,
+  ChatCompletionRequestMessage,
+  getAIConfig,
+} from '../aiSdk';
 import embeddingsList from './embeddings.json' with { type: 'json' };
 
 type VectorStoreEl = {
@@ -231,13 +235,6 @@ export const searchChunkReference = async (
 
   // Return the content of the top matching documents
   return results;
-};
-
-// Define the structure of messages used in chat completions
-export type ChatCompletionRequestMessage = {
-  role: 'system' | 'user' | 'assistant'; // The role of the message sender
-  content: string; // The text content of the message
-  timestamp?: Date; // The timestamp of the message
 };
 
 /**

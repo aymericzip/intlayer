@@ -1,16 +1,11 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
-
-import type {
-  // @ts-ignore: intlayer-editor is not built yet
-  GetConfigurationResult,
-  // @ts-ignore: intlayer-editor is not built yet
-  WriteContentDeclarationBody,
-  // @ts-ignore: intlayer-editor is not built yet
-  WriteContentDeclarationResult,
-  // @ts-ignore: intlayer-editor is not built yet
-} from 'intlayer-editor';
 import { fetcher, type FetcherOptions } from '../fetcher';
+import type {
+  GetConfigurationResult,
+  WriteContentDeclarationBody,
+  WriteContentDeclarationResult,
+} from '../types';
 
 export const getEditorAPI = (
   authAPIOptions: FetcherOptions = {},

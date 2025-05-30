@@ -1,60 +1,31 @@
-import type {
-  // @ts-ignore: @intlayer/backend is not built yet
-  AskResetPasswordBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  AskResetPasswordResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  CreateSessionBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  CreateSessionResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetSessionInformationQuery,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GithubLoginQueryParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GoogleLoginQueryParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetSessionInformationResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  LoginBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  LoginResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  RegisterBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  RegisterQuery,
-  // @ts-ignore: @intlayer/backend is not built yet
-  RegisterResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  ResetPasswordParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  ResetPasswordResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  DefinePasswordBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  DefinePasswordResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdatePasswordBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdatePasswordResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  ValidEmailParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  ValidEmailResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  SetCSRFTokenResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetOAuth2TokenBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetOAuth2TokenResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UserAPI,
-  // @ts-ignore: @intlayer/backend is not built yet
-  CheckIfUserHasPasswordResult,
-  // @ts-ignore @intlayer/backend is not build yet
-} from '@intlayer/backend';
-import type { IntlayerConfig } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import type {
+  AskResetPasswordBody,
+  AskResetPasswordResult,
+  CheckIfUserHasPasswordResult,
+  CreateSessionBody,
+  CreateSessionResult,
+  DefinePasswordBody,
+  DefinePasswordResult,
+  GetOAuth2TokenBody,
+  GetOAuth2TokenResult,
+  GetSessionInformationQuery,
+  GetSessionInformationResult,
+  GithubLoginQueryParams,
+  GoogleLoginQueryParams,
+  LoginBody,
+  LoginResult,
+  RegisterBody,
+  RegisterQuery,
+  RegisterResult,
+  SetCSRFTokenResult,
+  UpdatePasswordBody,
+  UpdatePasswordResult,
+  UserAPI,
+  ValidEmailParams,
+  ValidEmailResult,
+} from '../types';
 
 import { fetcher, type FetcherOptions } from '../fetcher';
 
@@ -163,22 +134,6 @@ export const getAuthAPI = (
         method: 'POST',
         body: { email },
       }
-    );
-
-  /**
-   * Resets the password of a user with the provided email address.
-   * @param email - Email address of the user.
-   * @returns User object.
-   */
-  const resetPassword = async (
-    params: ResetPasswordParams,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<ResetPasswordResult>(
-      `${AUTH_API_ROUTE}/password/reset`,
-      authAPIOptions,
-      otherOptions,
-      { params, method: 'POST' }
     );
 
   /**
@@ -336,7 +291,6 @@ export const getAuthAPI = (
     getLoginWithGoogleURL,
     register,
     logout,
-    resetPassword,
     defineNewPassword,
     askResetPassword,
     checkIfUserHasPassword,

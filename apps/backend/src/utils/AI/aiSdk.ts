@@ -89,6 +89,13 @@ export type AIModelConfig = {
   temperature?: number;
 };
 
+// Define the structure of messages used in chat completions
+export type ChatCompletionRequestMessage = {
+  role: 'system' | 'user' | 'assistant'; // The role of the message sender
+  content: string; // The text content of the message
+  timestamp?: Date; // The timestamp of the message
+};
+
 /**
  * Get AI model configuration based on the selected provider and options
  * This function handles the configuration for different AI providers

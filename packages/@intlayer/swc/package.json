@@ -45,6 +45,7 @@
   ],
   "scripts": {
     "build": "",
+    "clean": "",
     "prepublishOnly": "cargo build-wasip1 --release",
     "reset": ""
   },

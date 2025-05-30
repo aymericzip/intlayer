@@ -1,38 +1,22 @@
-import type {
-  // @ts-ignore: @intlayer/backend is not built yet
-  AddDictionaryBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  AddDictionaryResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  DeleteDictionaryParam,
-  // @ts-ignore: @intlayer/backend is not built yet
-  DeleteDictionaryResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetDictionariesKeysResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetDictionariesParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetDictionariesResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetDictionaryParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetDictionaryQuery,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetDictionaryResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  PushDictionariesBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  PushDictionariesResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateDictionaryBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateDictionaryParam,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateDictionaryResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-} from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
+import type {
+  AddDictionaryBody,
+  AddDictionaryResult,
+  DeleteDictionaryParam,
+  DeleteDictionaryResult,
+  GetDictionariesKeysResult,
+  GetDictionariesParams,
+  GetDictionariesResult,
+  GetDictionaryParams,
+  GetDictionaryQuery,
+  GetDictionaryResult,
+  PushDictionariesBody,
+  PushDictionariesResult,
+  UpdateDictionaryBody,
+  UpdateDictionaryParam,
+  UpdateDictionaryResult,
+} from '../types';
 
 import { fetcher, type FetcherOptions } from '../fetcher';
 

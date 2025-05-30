@@ -1,26 +1,16 @@
-import type {
-  // @ts-ignore: @intlayer/backend is not built yet
-  AddTagBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  AddTagResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  DeleteTagParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  DeleteTagResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetTagsParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetTagsResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateTagBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateTagParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateTagResult,
-  // @ts-ignore @intlayer/backend is not build yet
-} from '@intlayer/backend';
-import type { IntlayerConfig } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import type {
+  AddTagBody,
+  AddTagResult,
+  DeleteTagParams,
+  DeleteTagResult,
+  GetTagsParams,
+  GetTagsResult,
+  UpdateTagBody,
+  UpdateTagParams,
+  UpdateTagResult,
+} from '../types';
 
 import { fetcher, type FetcherOptions } from '../fetcher';
 

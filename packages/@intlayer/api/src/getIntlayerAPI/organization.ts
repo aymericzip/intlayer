@@ -1,40 +1,23 @@
-import type {
-  // @ts-ignore: @intlayer/backend is not built yet
-  AddOrganizationBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  AddOrganizationResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  DeleteOrganizationResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetOrganizationParam,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetOrganizationResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetOrganizationsParams,
-  // @ts-ignore: @intlayer/backend is not built yet
-  GetOrganizationsResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateOrganizationBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateOrganizationResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  SelectOrganizationParam,
-  // @ts-ignore: @intlayer/backend is not built yet
-  SelectOrganizationResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UnselectOrganizationResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateOrganizationMembersBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  UpdateOrganizationMembersResult,
-  // @ts-ignore: @intlayer/backend is not built yet
-  AddOrganizationMemberBody,
-  // @ts-ignore: @intlayer/backend is not built yet
-  AddOrganizationMemberResult,
-  // @ts-ignore @intlayer/backend is not build yet
-} from '@intlayer/backend';
-import type { IntlayerConfig } from '@intlayer/config/client';
 import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import type {
+  AddOrganizationBody,
+  AddOrganizationMemberBody,
+  AddOrganizationMemberResult,
+  AddOrganizationResult,
+  DeleteOrganizationResult,
+  GetOrganizationParam,
+  GetOrganizationResult,
+  GetOrganizationsParams,
+  GetOrganizationsResult,
+  SelectOrganizationParam,
+  SelectOrganizationResult,
+  UnselectOrganizationResult,
+  UpdateOrganizationBody,
+  UpdateOrganizationMembersBody,
+  UpdateOrganizationMembersResult,
+  UpdateOrganizationResult,
+} from '../types';
 
 import { fetcher, type FetcherOptions } from '../fetcher';
 

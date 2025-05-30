@@ -2338,6 +2338,9 @@ importers:
       '@types/cookie-parser':
         specifier: ^1.4.8
         version: 1.4.8(@types/express@5.0.2)
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.15.21
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -2432,6 +2435,9 @@ importers:
       tailwindcss:
         specifier: ^4.0.14
         version: 4.1.7
+      tsc-alias:
+        specifier: ^1.8.11
+        version: 1.8.16
       tsup:
         specifier: ^8.4.0
         version: 8.5.0(@microsoft/api-extractor@7.52.8(@types/node@22.15.21))(@swc/core@1.11.29(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.8.0)

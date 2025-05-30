@@ -178,17 +178,7 @@ export const useAskResetPassword = (
     useIntlayerAuth().auth.askResetPassword,
     args
   );
-export const useResetPassword = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['resetPassword']>
-) => useAppAsync('resetPassword', useIntlayerAuth().auth.resetPassword, args);
-export const useDefineNewPassword = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['defineNewPassword']>
-) =>
-  useAppAsync(
-    'defineNewPassword',
-    useIntlayerAuth().auth.defineNewPassword,
-    args
-  );
+
 export const useCheckIfUserHasPassword = (
   args?: UseAsyncOptions<IntlayerAPI['auth']['checkIfUserHasPassword']>
 ) =>
