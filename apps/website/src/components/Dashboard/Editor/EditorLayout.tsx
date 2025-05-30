@@ -1,12 +1,16 @@
 'use client';
 
 import { type Locales } from '@intlayer/config/client';
-import { useCrossFrameState } from '@intlayer/editor-react';
+import { Container } from '@intlayer/design-system';
+import dictionaries from '@intlayer/dictionaries-entry';
+import {
+  useCrossFrameState,
+  useDictionariesRecordActions,
+} from '@intlayer/editor-react';
 import { useTheme } from 'next-themes';
-import type { FC, PropsWithChildren } from 'react';
+import { useEffect, type FC, type PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
-import { Container } from '@intlayer/design-system';
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   const { resolvedTheme } = useTheme();
@@ -19,6 +23,12 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
     }
   );
 
+  const { setLocaleDictionaries } = useDictionariesRecordActions();
+
+  useEffect(() => {
+    setLocaleDictionaries(dictionaries);
+  }, []);
+
   return (
     <>
       <Container
@@ -29,7 +39,6 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
       >
         {children}
       </Container>
-
       <DictionaryEditionDrawerController
         locale={currentLocale}
         isDarkMode={resolvedTheme === 'dark'}

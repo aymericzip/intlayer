@@ -59,6 +59,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/docs": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "@monaco-editor/react": "^4.7.0",
@@ -88,7 +89,6 @@
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:*",
-    "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "^4.0.14",
     "@types/next-pwa": "^5.6.9",
     "@types/node": "^22.13.10",

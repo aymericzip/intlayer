@@ -282,6 +282,9 @@ importers:
       '@intlayer/design-system':
         specifier: workspace:*
         version: link:../../packages/@intlayer/design-system
+      '@intlayer/dictionaries-entry':
+        specifier: workspace:*
+        version: link:../../packages/@intlayer/dictionaries-entry
       '@intlayer/docs':
         specifier: workspace:*
         version: link:../../docs
@@ -364,9 +367,6 @@ importers:
       '@intlayer/backend':
         specifier: workspace:*
         version: link:../backend
-      '@intlayer/swc':
-        specifier: workspace:*
-        version: link:../../packages/@intlayer/swc
       '@tailwindcss/postcss':
         specifier: ^4.0.14
         version: 4.1.7
