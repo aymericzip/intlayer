@@ -88,6 +88,7 @@
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:*",
+    "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "^4.0.14",
     "@types/next-pwa": "^5.6.9",
     "@types/node": "^22.13.10",
