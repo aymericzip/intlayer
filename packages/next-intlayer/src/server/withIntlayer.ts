@@ -20,14 +20,14 @@ const isGteNext15 = compareVersions(nextVersion, '≥', '15.0.0');
 const isTurbopackStable = compareVersions(nextVersion, '≥', '15.3.0');
 
 // Check if SWC plugin is available
-const isSwcPluginAvailable = (() => {
+const getIsSwcPluginAvailable = () => {
   try {
     ESMxCJSRequire.resolve('@intlayer/swc');
     return true;
   } catch (e) {
     return false;
   }
-})();
+};
 
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig
@@ -40,6 +40,7 @@ const getPruneConfig = (
 
   if (!isGteNext13) return {};
 
+  const isSwcPluginAvailable = getIsSwcPluginAvailable();
   if (!isSwcPluginAvailable) return {};
 
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
