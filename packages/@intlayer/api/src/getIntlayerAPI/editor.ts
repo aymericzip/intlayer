@@ -32,7 +32,7 @@ export const getEditorAPI = (
       otherOptions
     );
 
-    return response.data;
+    return response.data as unknown as GetConfigurationResult;
   };
 
   /**
