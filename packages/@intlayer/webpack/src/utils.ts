@@ -1,13 +1,12 @@
+import { isESModule } from '@intlayer/config';
+import crypto from 'crypto-js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import crypto from 'crypto-js';
 
 /**
  * Set the __dirname global variable to make the config work in both ESM and CJS environments
  */
 export const defineDirname = () => {
-  const isESModule = typeof import.meta.url === 'string';
-
   const filename = isESModule
     ? fileURLToPath(import.meta.url)
     : require('url').pathToFileURL(__filename).toString();
