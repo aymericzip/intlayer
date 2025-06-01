@@ -1,3 +1,5 @@
+# Contenu d'insertion / Insertion in Intlayer
+
 ## Comment fonctionne l'insertion
 
 Dans Intlayer, le contenu d'insertion est réalisé via la fonction `insertion`, qui identifie les champs de type placeholder dans une chaîne (comme `{{name}}` ou `{{age}}`) pouvant être remplacés dynamiquement à l'exécution. Cette approche vous permet de créer des chaînes flexibles, semblables à des modèles, où des parties spécifiques du contenu sont déterminées par des données passées depuis votre application.

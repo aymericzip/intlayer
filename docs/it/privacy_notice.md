@@ -1,3 +1,5 @@
+# Informativa sulla Privacy di Intlayer
+
 ## Introduzione
 
 In Intlayer, prendiamo la privacy molto seriamente. Questa informativa spiega come gestiamo le informazioni raccolte attraverso il nostro sito web e CMS.

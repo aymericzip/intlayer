@@ -1,3 +1,5 @@
+# Aviso de Privacidade
+
 ## Introdução
 
 No Intlayer, levamos a privacidade a sério. Este aviso explica como lidamos com as informações coletadas através do nosso site e CMS.

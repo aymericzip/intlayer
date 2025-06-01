@@ -1,3 +1,5 @@
+# Intlayer Privacy Notice
+
 ## Introduction
 
 At Intlayer, we take privacy seriously. This notice explains how we handle information collected through our website and CMS.

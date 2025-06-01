@@ -1,3 +1,5 @@
+# Contenido de Inserción / Insertion in Intlayer
+
 ## Cómo Funciona la Inserción
 
 En Intlayer, el contenido de inserción se logra a través de la función `insertion`, que identifica campos de marcador de posición en una cadena (como `{{name}}` o `{{age}}`) que pueden ser reemplazados dinámicamente en tiempo de ejecución. Este enfoque te permite crear cadenas flexibles, similares a plantillas, donde partes específicas del contenido son determinadas por los datos proporcionados desde tu aplicación.

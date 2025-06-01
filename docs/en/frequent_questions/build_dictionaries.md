@@ -1,6 +1,8 @@
-### Build Dictionaries
+# Build Dictionaries
 
-To build dictionaries, you need to run the following command:
+## How to Build Dictionaries
+
+Intlayer provides a command-line tool to build dictionaries.
 
 ```bash
 npx intlayer dictionaries build

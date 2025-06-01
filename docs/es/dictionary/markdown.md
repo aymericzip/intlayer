@@ -1,3 +1,5 @@
+# Contenido Markdown / Markdown en Intlayer
+
 ## Cómo Funciona Markdown
 
 Intlayer admite contenido de texto enriquecido definido mediante la sintaxis de Markdown. Esto se logra a través de la función `md`, que convierte una cadena de Markdown en un formato que puede ser gestionado por Intlayer. Al usar Markdown, puedes escribir y mantener contenido con formato enriquecido fácilmente, como blogs, artículos y más.

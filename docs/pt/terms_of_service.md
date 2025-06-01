@@ -1,4 +1,4 @@
-# Termos de Uso do Intlayer
+# Termos de Serviço
 
 ## 1. Aceitação dos Termos
 

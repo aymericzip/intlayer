@@ -1,5 +1,3 @@
-**File Translated to Italiano:**
-
 # Termini di Utilizzo di Intlayer
 
 ## 1. Accettazione dei Termini

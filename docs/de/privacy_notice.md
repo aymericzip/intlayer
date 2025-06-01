@@ -1,3 +1,5 @@
+# Datenschutzhinweis für Intlayer
+
 ## Einführung
 
 Bei Intlayer nehmen wir den Datenschutz ernst. Dieser Hinweis erklärt, wie wir Informationen behandeln, die über unsere Website und unser CMS gesammelt werden.

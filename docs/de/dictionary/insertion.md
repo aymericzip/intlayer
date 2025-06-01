@@ -1,3 +1,5 @@
+# Einfügeinhalte
+
 ## Wie das Einfügen funktioniert
 
 In Intlayer wird das Einfügen von Inhalten durch die Funktion `insertion` erreicht, die Platzhalterfelder in einem String (wie `{{name}}` oder `{{age}}`) identifiziert, die zur Laufzeit dynamisch ersetzt werden können. Dieser Ansatz ermöglicht es Ihnen, flexible, vorlagenähnliche Strings zu erstellen, bei denen spezifische Teile des Inhalts durch Daten aus Ihrer Anwendung bestimmt werden.

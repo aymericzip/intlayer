@@ -1,3 +1,5 @@
+# Contenido de Archivo / Archivo en Intlayer
+
 ## Cómo Funciona la Incrustación de Archivos
 
 En Intlayer, la función `file` permite incrustar contenido de archivos externos en un diccionario. Este enfoque asegura que Intlayer reconozca el archivo fuente, permitiendo una integración fluida con el Editor Visual y el CMS de Intlayer. A diferencia de los métodos directos de `import`, `require` o lectura de archivos con `fs`, el uso de `file` asocia el archivo con el diccionario, permitiendo que Intlayer rastree y actualice el contenido dinámicamente cuando se edita el archivo.

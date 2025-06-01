@@ -1,4 +1,4 @@
-### ESBuild Error
+# ESBuild Error
 
 If you encounter an ESBuild error during the build process, it's likely that the Intlayer plugin has not been configured correctly.
 

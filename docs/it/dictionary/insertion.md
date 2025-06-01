@@ -1,3 +1,5 @@
+# Contenuto di Inserimento / Insertion in Intlayer
+
 ## Come Funziona l'Inserimento
 
 In Intlayer, il contenuto di inserimento viene realizzato attraverso la funzione `insertion`, che identifica i campi segnaposto in una stringa (come `{{name}}` o `{{age}}`) che possono essere sostituiti dinamicamente durante l'esecuzione. Questo approccio consente di creare stringhe flessibili, simili a modelli, in cui parti specifiche del contenuto sono determinate dai dati passati dalla tua applicazione.

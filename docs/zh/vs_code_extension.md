@@ -1,3 +1,5 @@
+# Intlayer VS Code 扩展
+
 ## 概述
 
 **Intlayer** 是 **Intlayer** 的官方 Visual Studio Code 扩展，旨在提升开发者在 **React、Next.js 和 JavaScript** 项目中处理本地化内容的体验。

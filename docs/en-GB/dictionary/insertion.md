@@ -1,3 +1,5 @@
+# Insertion Content / Insertion in Intlayer
+
 ## How Insertion Works
 
 In Intlayer, insertion content is achieved through the `insertion` function, which identifies placeholder fields in a string (such as `{{name}}` or `{{age}}`) that can be replaced dynamically at runtime. This approach allows you to create flexible, template-like strings where specific parts of the content are determined by data passed in from your application.

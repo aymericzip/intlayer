@@ -1,3 +1,5 @@
+# Politique de confidentialité de Intlayer
+
 ## Introduction
 
 Chez Intlayer, nous prenons la confidentialité très au sérieux. Cet avis explique comment nous traitons les informations collectées via notre site web et notre CMS.

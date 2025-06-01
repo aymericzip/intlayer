@@ -1,4 +1,4 @@
-# Intlayer Nutzungsbedingungen
+# Nutzungsbedingungen
 
 ## 1. Annahme der Bedingungen
 

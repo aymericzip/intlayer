@@ -1,3 +1,5 @@
+# Aviso de privacidad
+
 ## Introducción
 
 En Intlayer, nos tomamos la privacidad en serio. Este aviso explica cómo manejamos la información recopilada a través de nuestro sitio web y CMS.
