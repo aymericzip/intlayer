@@ -62,6 +62,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/docs": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@monaco-editor/react": "^4.7.0",
     "@next/third-parties": "^15.3.0",
     "@stripe/react-stripe-js": "^3.5.1",
@@ -69,6 +70,7 @@
     "chokidar": "^3.6.0",
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
+    "deepmerge": "^4.3.1",
     "framer-motion": "^12.12.2",
     "fuse.js": "^7.1.0",
     "intlayer": "workspace:*",
@@ -89,6 +91,7 @@
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:*",
+    "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "^4.0.14",
     "@types/next-pwa": "^5.6.9",
     "@types/node": "^22.13.10",

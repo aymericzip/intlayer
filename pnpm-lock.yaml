@@ -291,6 +291,9 @@ importers:
       '@intlayer/editor-react':
         specifier: workspace:*
         version: link:../../packages/@intlayer/editor-react
+      '@intlayer/unmerged-dictionaries-entry':
+        specifier: workspace:*
+        version: link:../../packages/@intlayer/unmerged-dictionaries-entry
       '@monaco-editor/react':
         specifier: ^4.7.0
         version: 4.7.0(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -312,6 +315,9 @@ importers:
       cobe:
         specifier: ^0.6.3
         version: 0.6.3
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       framer-motion:
         specifier: ^12.12.2
         version: 12.12.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -367,6 +373,9 @@ importers:
       '@intlayer/backend':
         specifier: workspace:*
         version: link:../backend
+      '@intlayer/swc':
+        specifier: workspace:*
+        version: link:../../packages/@intlayer/swc
       '@tailwindcss/postcss':
         specifier: ^4.0.14
         version: 4.1.7

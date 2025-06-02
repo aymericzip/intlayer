@@ -2,15 +2,16 @@
 
 import { type Locales } from '@intlayer/config/client';
 import { Container } from '@intlayer/design-system';
-import dictionaries from '@intlayer/dictionaries-entry';
 import {
   useCrossFrameState,
   useDictionariesRecordActions,
 } from '@intlayer/editor-react';
+import unmergedDictionaries from '@intlayer/unmerged-dictionaries-entry';
 import { useTheme } from 'next-themes';
 import { useEffect, type FC, type PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
+import { mergeDictionaries } from './mergeDictionaries';
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   const { resolvedTheme } = useTheme();
@@ -26,7 +27,16 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   const { setLocaleDictionaries } = useDictionariesRecordActions();
 
   useEffect(() => {
-    setLocaleDictionaries(dictionaries);
+    const dictionariesList = Object.fromEntries(
+      Object.entries(unmergedDictionaries).map(([key, value]) => [
+        key,
+        mergeDictionaries(value),
+      ])
+    );
+
+    console.log({ dictionariesList, unmergedDictionaries });
+
+    setLocaleDictionaries(dictionariesList);
   }, []);
 
   return (
