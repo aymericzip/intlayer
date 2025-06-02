@@ -1,4 +1,4 @@
-import { getIntlayerAPI } from '@intlayer/api';
+import { getAuthAPI, getDictionaryAPI } from '@intlayer/api';
 import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
   getAppLogger,
@@ -53,8 +53,8 @@ export const push = async (options?: PushOptions): Promise<void> => {
       );
     }
 
-    const intlayerAPI = getIntlayerAPI(undefined, config);
-    const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
+    const intlayerAuthAPI = getAuthAPI(undefined, config);
+    const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
 
     const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
 
@@ -127,7 +127,8 @@ export const push = async (options?: PushOptions): Promise<void> => {
       statusObj.status = 'pushing';
 
       try {
-        const pushResult = await intlayerAPI.dictionary.pushDictionaries(
+        const intlayerDictionaryAPI = getDictionaryAPI(undefined, config);
+        const pushResult = await intlayerDictionaryAPI.pushDictionaries(
           [statusObj.dictionary],
           {
             headers: {

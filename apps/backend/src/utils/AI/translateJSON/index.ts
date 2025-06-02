@@ -66,10 +66,10 @@ ${tags.map(({ key, description }) => `- ${key}: ${description}`).join('\n\n')}`;
 
 const getModeInstructions = (mode: 'complete' | 'review'): string => {
   if (mode === 'complete') {
-    return 'Mode: "Complete" - Enrich the preset content with the missing keys and values. Do not update existing keys. Everything should be returned in the output.';
+    return 'Mode: "Complete" - Enrich the preset content with the missing keys and values in the output locale. Do not update existing keys. Everything should be returned in the output.';
   }
 
-  return 'Mode: "Review" - Fill missing content and review existing keys from the preset content. If you detect misspelled content, or content should be reformulated, correct it.';
+  return 'Mode: "Review" - Fill missing content and review existing keys from the preset content. If a key from the entry is missing in the output, it must be translated to the target language and added. If you detect misspelled content, or content that should be reformulated, correct it. If a translation is not coherent with the desired language, translate it.';
 };
 
 /**

@@ -52,6 +52,9 @@ const gitOptions = [
   ['--untracked [untracked]', 'Untracked'],
 ];
 
+const extractKeysFromOptions = (options: object, keys: string[]) =>
+  keys.filter((key) => options[key as keyof typeof options]);
+
 /**
  * Helper functions to apply common options to commands
  */
@@ -71,12 +74,6 @@ const applyAIOptions = (command: Command) => applyOptions(command, aiOptions);
 const applyGitOptions = (command: Command) => applyOptions(command, gitOptions);
 
 const extractAiOptions = (options: AIOptions) => {
-  const isOptionEmpty = !Object.values(options).some(Boolean);
-
-  if (isOptionEmpty) {
-    return undefined;
-  }
-
   const { apiKey, provider, model, temperature, applicationContext } = options;
 
   return removeUndefined({
@@ -98,14 +95,23 @@ type GitOptions = {
   untracked?: boolean;
 };
 
+const gitOptionKeys: (keyof GitOptions)[] = [
+  'gitDiff',
+  'gitDiffBase',
+  'gitDiffCurrent',
+  'uncommitted',
+  'unpushed',
+  'untracked',
+];
+
 const extractGitOptions = (
   options: GitOptions
 ): ListGitFilesOptions | undefined => {
-  const isOptionEmpty = !Object.values(options).some(Boolean);
+  const filteredOptions = extractKeysFromOptions(options, gitOptionKeys);
 
-  if (isOptionEmpty) {
-    return undefined;
-  }
+  const isOptionEmpty = !Object.values(filteredOptions).some(Boolean);
+
+  if (isOptionEmpty) return undefined;
 
   const {
     gitDiff,
@@ -142,9 +148,28 @@ export type ConfigurationOptions = {
   envFile?: string;
 } & LogOptions;
 
+const configurationOptionKeys: (keyof ConfigurationOptions)[] = [
+  'baseDir',
+  'env',
+  'envFile',
+  'verbose',
+  'prefix',
+];
+
 const extractConfigOptions = (
   options: ConfigurationOptions
 ): GetConfigurationOptions | undefined => {
+  const filteredOptions = extractKeysFromOptions(
+    options,
+    configurationOptionKeys
+  );
+
+  const isOptionEmpty = !Object.values(filteredOptions).some(Boolean);
+
+  if (isOptionEmpty) {
+    return undefined;
+  }
+
   const { baseDir, env, envFile, verbose, prefix } = options;
 
   const log = {
@@ -371,7 +396,7 @@ export const setAPI = (): Command => {
       'Fill mode: complete, review. Complete will fill all missing content, review will fill missing content and review existing keys',
       'review'
     )
-    .option('--keys [keys...]', 'Filter dictionaries based on keys')
+    .option('-k, --keys [keys...]', 'Filter dictionaries based on keys')
     .option(
       '--excluded-keys [excludedKeys...]',
       'Filter out dictionaries based on keys'

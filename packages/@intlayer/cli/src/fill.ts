@@ -1,4 +1,4 @@
-import { AIOptions, getAiAPI } from '@intlayer/api'; // Importing only getAiAPI for now
+import { AIOptions, getAiAPI, getAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
   filterDictionaryLocales,
   listGitFiles,
@@ -256,6 +256,7 @@ const autoFill = async (
 
     if (isPerLocaleDeclarationFile) {
       const sourceLocale = output.localeList[0];
+
       const sourceLocaleContent = getLocalisedContent(
         reducedDictionary as unknown as ContentNode,
         sourceLocale,
@@ -308,6 +309,14 @@ export const fill = async (options: FillOptions): Promise<void> => {
     throw new Error(
       'AI options or API key not provided. Skipping AI translation.'
     );
+  }
+
+  let oAuth2AccessToken: string | undefined;
+  if (configuration.editor.clientId) {
+    const intlayerAuthAPI = getAuthAPI(undefined, configuration);
+    const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
+
+    oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
   }
 
   appLogger('Starting fill function', {
@@ -397,15 +406,27 @@ export const fill = async (options: FillOptions): Promise<void> => {
       );
 
       try {
-        const translationResult = await getAiAPI().translateJSON({
-          entryFileContent: sourceLocaleContent.content, // Should be JSON, ensure getLocalisedContent provides this.
-          presetOutputContent: presetOutputContent.content, // Should be JSON
-          dictionaryDescription: mainDictionaryToProcess.description,
-          entryLocale: sourceLocale,
-          outputLocale: targetLocale,
-          mode,
-          aiOptions: options.aiOptions,
-        });
+        const translationResult = await getAiAPI(
+          undefined,
+          configuration
+        ).translateJSON(
+          {
+            entryFileContent: sourceLocaleContent.content, // Should be JSON, ensure getLocalisedContent provides this.
+            presetOutputContent: presetOutputContent.content, // Should be JSON
+            dictionaryDescription: mainDictionaryToProcess.description,
+            entryLocale: sourceLocale,
+            outputLocale: targetLocale,
+            mode,
+            aiOptions: options.aiOptions,
+          },
+          oAuth2AccessToken
+            ? {
+                headers: {
+                  Authorization: `Bearer ${oAuth2AccessToken}`,
+                },
+              }
+            : undefined
+        );
 
         if (!translationResult.data?.fileContent) {
           appLogger(
