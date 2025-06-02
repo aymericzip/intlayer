@@ -15,9 +15,8 @@ export const getUnmergedDictionaries = () => {
 
   const dictionariesPath = join(
     content.mainDir,
-    isESModule ? 'unmerged-dictionaries.mjs' : 'unmerged-dictionaries.cjs'
+    isESModule ? 'unmerged_dictionaries.mjs' : 'unmerged_dictionaries.cjs'
   );
-
   let dictionaries: Record<
     IntlayerDictionaryTypesConnector['key'],
     Dictionary[]
