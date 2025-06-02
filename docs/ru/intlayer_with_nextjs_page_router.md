@@ -11,7 +11,7 @@
 - **Обеспечить поддержку TypeScript** с автогенерацией типов, улучшая автодополнение и обнаружение ошибок.
 - **Использовать расширенные функции**, такие как динамическое определение и переключение локали.
 
-> Intlayer совместим с Next.js 12, 13, 14 и 15. Если вы используете Next.js App Router, обратитесь к [руководству по App Router](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_nextjs_14.md). Для Next.js 15 следуйте этому [руководству](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_nextjs_15.md).
+> Intlayer совместим с Next.js 12, 13, 14 и 15. Если вы используете Next.js App Router, обратитсь к [руководству по App Router](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_nextjs_14.md). Для Next.js 15 следуйте этому [руководству](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_nextjs_15.md).
 
 ---
 
@@ -1020,6 +1020,24 @@ Link.displayName = 'Link';
 
 - **Возврат ссылки**:  
   Компонент возвращает элемент `<a>` с локализованным URL, обеспечивая согласованность навигации с локалью.
+
+### (Опционально) Шаг 11: Оптимизация размера вашего бандла
+
+При использовании `next-intlayer` словари по умолчанию включаются в бандл для каждой страницы. Чтобы оптимизировать размер бандла, Intlayer предоставляет опциональный SWC плагин, который интеллектуально заменяет вызовы `useIntlayer` с помощью макросов. Это гарантирует, что словари включаются только в бандлы тех страниц, которые их действительно используют.
+
+Чтобы включить эту оптимизацию, установите пакет `@intlayer/swc`. После установки `next-intlayer` автоматически обнаружит и использует плагин:
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
 
 ### Настройка TypeScript
 

@@ -1236,6 +1236,24 @@ const Link = ({ href, children, ...props }) => {
 
 この`Link`コンポーネントをアプリケーション全体で統合することで、一貫性があり、言語に配慮したユーザーエクスペリエンスを維持しながら、SEOと使いやすさを向上させることができます。
 
+### （オプション）ステップ12: バンドルサイズを最適化する
+
+`next-intlayer`を使用する際、辞書はデフォルトで各ページのバンドルに含まれます。バンドルサイズを最適化するために、Intlayerはマクロを使用して`useIntlayer`呼び出しをインテリジェントに置き換えるオプションのSWCプラグインを提供しています。これにより、辞書は実際に使用されるページのバンドルにのみ含まれるようになります。
+
+この最適化を有効にするには、`@intlayer/swc`パッケージをインストールしてください。インストールが完了すると、`next-intlayer`は自動的にプラグインを検出して使用します：
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
 ### TypeScriptを設定する
 
 Intlayerは、TypeScriptのメリットを活用し、コードベースを強化するためにモジュール拡張を使用します。

@@ -478,7 +478,7 @@ const Page = async ({ params }) => {
 - **`IntlayerClientProvider`** est utilisé pour fournir la locale aux composants côté client. Il peut être placé dans n'importe quel composant parent, y compris la disposition. Cependant, il est recommandé de le placer dans une disposition car Next.js partage le code de disposition entre les pages, ce qui le rend plus efficace. En utilisant `IntlayerClientProvider` dans la disposition, vous évitez de le réinitialiser pour chaque page, améliorant ainsi les performances et maintenant un contexte de localisation cohérent dans toute votre application.
 - **`IntlayerServerProvider`** est utilisé pour fournir la locale aux enfants côté serveur. Il ne peut pas être défini dans la disposition.
 
-  > La disposition et la page ne peuvent pas partager un contexte serveur commun car le système de contexte serveur est basé sur un magasin de données par requête (via le mécanisme [React’s cache](https://react.dev/reference/react/cache)), ce qui entraîne la recréation de chaque "contexte" pour différents segments de l'application. Placer le fournisseur dans une disposition partagée briserait cette isolation, empêchant la propagation correcte des valeurs de contexte serveur à vos composants serveur.
+  > La disposition et la page ne peuvent pas partager un contexte serveur commun car le système de contexte serveur est basé sur un magasin de données par requête (via le mécanisme [React's cache](https://react.dev/reference/react/cache)), ce qui entraîne la recréation de chaque "contexte" pour différents segments de l'application. Placer le fournisseur dans une disposition partagée briserait cette isolation, empêchant la propagation correcte des valeurs de contexte serveur à vos composants serveur.
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -1235,6 +1235,24 @@ const Link = ({ href, children, ...props }) => {
   Le composant retourne un élément `<a>` avec l'URL localisée, garantissant que la navigation est cohérente avec la locale.
 
 En intégrant ce composant `Link` dans toute votre application, vous maintenez une expérience utilisateur cohérente et respectueuse de la langue tout en bénéficiant d'un SEO et d'une convivialité améliorés.
+
+### (Optionnel) Étape 12 : Optimisez la taille de votre bundle
+
+Lorsque vous utilisez `next-intlayer`, les dictionnaires sont inclus dans le bundle de chaque page par défaut. Pour optimiser la taille de votre bundle, Intlayer propose un plugin SWC optionnel qui remplace intelligemment les appels à `useIntlayer` à l'aide de macros. Cela garantit que les dictionnaires ne sont inclus que dans les bundles des pages qui les utilisent réellement.
+
+Pour activer cette optimisation, installez le package `@intlayer/swc`. Une fois installé, `next-intlayer` le détectera et l'utilisera automatiquement :
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
 
 ### Configurer TypeScript
 

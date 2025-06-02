@@ -1247,6 +1247,24 @@ const Link = ({ href, children, ...props }) => {
 
 이 `Link` 컴포넌트를 애플리케이션 전반에 통합하면 일관되고 언어를 인식하는 사용자 경험을 유지하면서 SEO 및 사용성을 개선할 수 있습니다.
 
+### (선택 사항) 단계 12: 번들 크기 최적화
+
+`next-intlayer`를 사용할 때, 사전은 기본적으로 모든 페이지의 번들에 포함됩니다. 번들 크기를 최적화하기 위해, Intlayer는 매크로를 사용하여 `useIntlayer` 호출을 지능적으로 대체하는 선택적 SWC 플러그인을 제공합니다. 이를 통해 사전은 실제로 사용하는 페이지의 번들에만 포함됩니다.
+
+이 최적화를 활성화하려면 `@intlayer/swc` 패키지를 설치하세요. 설치가 완료되면, `next-intlayer`는 자동으로 플러그인을 감지하고 사용합니다:
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
 ### TypeScript 구성
 
 Intlayer는 TypeScript의 모듈 확장을 사용하여 코드베이스를 더욱 강력하게 만듭니다.

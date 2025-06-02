@@ -1030,6 +1030,24 @@ Link.displayName = 'Link';
 - **Retornando o Link**:  
   O componente retorna um elemento `<a>` com o URL localizado, garantindo que a navegação seja consistente com a localidade.
 
+### (Opcional) Passo 11: Otimize o tamanho do seu bundle
+
+Ao usar o `next-intlayer`, os dicionários são incluídos no bundle de cada página por padrão. Para otimizar o tamanho do bundle, o Intlayer fornece um plugin SWC opcional que substitui inteligentemente as chamadas `useIntlayer` usando macros. Isso garante que os dicionários sejam incluídos apenas nos bundles das páginas que realmente os utilizam.
+
+Para habilitar essa otimização, instale o pacote `@intlayer/swc`. Uma vez instalado, o `next-intlayer` detectará automaticamente e usará o plugin:
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
 ### Configurar TypeScript
 
 O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e tornar sua base de código mais robusta.

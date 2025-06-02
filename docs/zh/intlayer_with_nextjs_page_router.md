@@ -1014,6 +1014,24 @@ Link.displayName = 'Link';
 - **返回链接**：  
   组件返回一个带有本地化 URL 的 `<a>` 元素，确保导航与语言环境一致。
 
+### （可选）步骤 11：优化您的包大小
+
+使用 `next-intlayer` 时，字典默认包含在每个页面的包中。为了优化包大小，Intlayer 提供了一个可选的 SWC 插件，该插件通过宏智能地替换 `useIntlayer` 调用。这确保字典仅包含在实际使用它们的页面包中。
+
+要启用此优化，请安装 `@intlayer/swc` 包。安装后，`next-intlayer` 将自动检测并使用该插件：
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
 ### 配置 TypeScript
 
 Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更强大。

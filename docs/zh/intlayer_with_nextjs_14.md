@@ -1216,6 +1216,24 @@ Link.displayName = 'Link';
 
 通过在整个应用程序中集成此 `Link` 组件，您可以维护一致的语言感知用户体验，同时受益于改进的SEO和可用性。
 
+### （可选）步骤 12：优化您的包大小
+
+使用 `next-intlayer` 时，字典默认包含在每个页面的包中。为了优化包大小，Intlayer 提供了一个可选的 SWC 插件，该插件通过宏智能地替换 `useIntlayer` 调用。这确保字典仅包含在实际使用它们的页面包中。
+
+要启用此优化，请安装 `@intlayer/swc` 包。安装后，`next-intlayer` 将自动检测并使用该插件：
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
 ### 配置 TypeScript
 
 Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更强大。

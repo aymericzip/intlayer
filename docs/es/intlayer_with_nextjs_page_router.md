@@ -1010,6 +1010,24 @@ Link.displayName = 'Link';
 
 Al integrar este componente `Link` en toda tu aplicación, mantienes una experiencia de usuario coherente y consciente del idioma, además de beneficiarte de un mejor SEO y usabilidad.
 
+### (Opcional) Paso 11: Optimiza el tamaño de tu bundle
+
+Cuando usas `next-intlayer`, los diccionarios se incluyen en el bundle de cada página por defecto. Para optimizar el tamaño de tu bundle, Intlayer ofrece un plugin SWC opcional que reemplaza de forma inteligente las llamadas a `useIntlayer` usando macros. Esto asegura que los diccionarios solo se incluyan en los bundles de las páginas que realmente los utilizan.
+
+Para habilitar esta optimización, instala el paquete `@intlayer/swc`. Una vez instalado, `next-intlayer` lo detectará y lo usará automáticamente:
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
 ### Configurar TypeScript
 
 Intlayer utiliza la ampliación de módulos para obtener beneficios de TypeScript y fortalecer tu base de código.
