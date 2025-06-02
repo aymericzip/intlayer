@@ -880,7 +880,7 @@ module.exports = robots;
 
 ### (اختياري) الخطوة 10: تغيير لغة المحتوى الخاص بك
 
-لتغيير لغة المحتوى الخاص بك، يمكنك استخدام وظيفة `setLocale` المقدمة من خلال الخطاف `useLocale`. تتيح لك هذه الوظيفة تعيين اللغة المحلية للتطبيق وتحديث المحتوى وفقًا لذلك.
+لتغيير لغة المحتوى الخاص بك في Next.js، الطريقة الموصى بها هي استخدام مكون `Link` لإعادة توجيه المستخدمين إلى الصفحة المحلية المناسبة. يتيح مكون `Link` جلب الصفحة مسبقًا، مما يساعد على تجنب إعادة تحميل الصفحة بالكامل.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -935,7 +935,7 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
+```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
 "use client";
 
 import {
@@ -987,7 +987,7 @@ const LocaleSwitcher = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
 "use client";
 
 const {

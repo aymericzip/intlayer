@@ -941,7 +941,7 @@ module.exports = robots;
 
 ### (선택 사항) 10단계: 콘텐츠 언어 변경
 
-콘텐츠의 언어를 변경하려면 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수는 애플리케이션의 로케일을 설정하고 콘텐츠를 업데이트합니다.
+Next.js에서 콘텐츠의 언어를 변경하려면, 사용자를 적절한 로컬 페이지로 리디렉션하기 위해 `Link` 컴포넌트를 사용하는 것이 권장됩니다. `Link` 컴포넌트는 페이지의 사전 로드를 가능하게 하여 전체 페이지 새로 고침을 피하는 데 도움이 됩니다.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";

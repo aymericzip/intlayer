@@ -871,7 +871,7 @@ const LocaleSwitcher = () => {
 
 ### (Opcional) Paso 10: Crear un Componente de Enlace Localizado
 
-Para garantizar que la navegación de tu aplicación respete el idioma actual, puedes crear un componente personalizado `Link`. Este componente automáticamente agrega el prefijo de idioma a las URLs internas, de modo que, por ejemplo, cuando un usuario que habla francés haga clic en un enlace a la página "Acerca de", sea redirigido a `/fr/about` en lugar de `/about`.
+Para cambiar el idioma de tu contenido en Next.js, la forma recomendada es usar el componente `Link` para redirigir a los usuarios a la página localizada apropiada. El componente `Link` permite la precarga de la página, lo que ayuda a evitar una recarga completa de la página.
 
 Este comportamiento es útil por varias razones:
 

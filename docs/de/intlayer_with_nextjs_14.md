@@ -875,7 +875,7 @@ module.exports = robots;
 
 ### (Optional) Schritt 10: Ändern der Sprache Ihrer Inhalte
 
-Um die Sprache Ihrer Inhalte zu ändern, können Sie die von der `useLocale`-Hook bereitgestellte Funktion `setLocale` verwenden. Mit dieser Funktion können Sie die Sprache der Anwendung festlegen und die Inhalte entsprechend aktualisieren.
+Um die Sprache Ihrer Inhalte in Next.js zu ändern, wird empfohlen, die `Link`-Komponente zu verwenden, um Benutzer auf die entsprechende lokalisierte Seite umzuleiten. Die `Link`-Komponente ermöglicht das Vorladen der Seite, was hilft, einen vollständigen Seitenneuladen zu vermeiden.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -930,7 +930,7 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
+```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
 "use client";
 
 import {
@@ -982,7 +982,7 @@ const LocaleSwitcher = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
 "use client";
 
 const {

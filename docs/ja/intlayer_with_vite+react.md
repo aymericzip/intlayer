@@ -1067,7 +1067,7 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
+```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Locales,
@@ -1131,7 +1131,7 @@ const LocaleSwitcher = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
 const { useLocation, useNavigate } = require("react-router-dom");
 const {
   Locales,

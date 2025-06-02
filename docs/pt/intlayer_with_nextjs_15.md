@@ -941,7 +941,7 @@ module.exports = robots;
 
 ### (Opcional) Passo 10: Alterar o idioma do seu conteúdo
 
-Para alterar o idioma do seu conteúdo, você pode usar a função `setLocale` fornecida pelo hook `useLocale`. Essa função permite definir a localidade da aplicação e atualizar o conteúdo de acordo.
+Para alterar o idioma do seu conteúdo no Next.js, a maneira recomendada é usar o componente `Link` para redirecionar os usuários para a página localizada apropriada. O componente `Link` permite o pré-carregamento da página, o que ajuda a evitar um recarregamento completo da página.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";

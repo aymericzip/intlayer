@@ -1011,7 +1011,7 @@ module.exports = defineConfig({
 
 لتغيير عنوان URL عند تغيير اللغة، يمكنك استخدام الخاصية `onLocaleChange` المقدمة من الخطاف `useLocale`. بالتوازي، يمكنك استخدام الخطافين `useLocation` و `useNavigate` من `react-router-dom` لتحديث مسار URL.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```jsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Locales,
@@ -1076,7 +1076,7 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
+```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Locales,
@@ -1140,7 +1140,7 @@ const LocaleSwitcher = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
 const { useLocation, useNavigate } = require("react-router-dom");
 const {
   Locales,

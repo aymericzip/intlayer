@@ -874,7 +874,7 @@ module.exports = robots;
 
 ### (オプション) ステップ10: コンテンツの言語を変更する
 
-コンテンツの言語を変更するには、`useLocale`フックが提供する`setLocale`関数を使用します。この関数を使用すると、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
+Next.jsでコンテンツの言語を変更するには、`Link`コンポーネントを使用してユーザーを適切なローカライズされたページにリダイレクトするのが推奨される方法です。`Link`コンポーネントはページのプリフェッチを可能にし、完全なページリロードを避けるのに役立ちます。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -929,7 +929,7 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
+```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
 "use client";
 
 import {
@@ -981,7 +981,7 @@ const LocaleSwitcher = () => {
 };
 ```
 
-```tsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
+```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
 "use client";
 
 const {

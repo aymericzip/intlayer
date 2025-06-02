@@ -944,7 +944,7 @@ module.exports = robots;
 
 ### (可选) 第 10 步：更改内容的语言
 
-要更改内容的语言，您可以使用 `useLocale` 钩子提供的 `setLocale` 函数。此函数允许您设置应用程序的语言环境并相应地更新内容。
+要在 Next.js 中更改内容的语言，推荐的方法是使用 `Link` 组件将用户重定向到适当的本地化页面。`Link` 组件支持页面的预加载，有助于避免整个页面重新加载。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";

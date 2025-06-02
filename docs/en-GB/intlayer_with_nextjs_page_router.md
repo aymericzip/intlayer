@@ -703,7 +703,7 @@ module.exports = {
 
 ### (Optional) Step 9: Change the Language of Your Content
 
-To allow users to switch languages dynamically, use the `setLocale` function provided by the `useLocale` hook.
+To change the language of your content in Next.js, the recommended way is to use the `Link` component to redirect users to the appropriate localized page. The `Link` component enables prefetching of the page, which helps avoid a full page reload.
 
 ```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat="typescript"
 import {

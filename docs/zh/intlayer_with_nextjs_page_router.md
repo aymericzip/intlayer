@@ -516,7 +516,7 @@ const ComponentExample = () => {
 };
 ```
 
-````jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
+```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
 const { useIntlayer } = require("next-intlayer");
 
 const ComponentExample = () => {
@@ -529,6 +529,7 @@ const ComponentExample = () => {
     </div>
   );
 };
+```
 
 > 在 `string` 属性中使用翻译（例如 `alt`、`title`、`href`、`aria-label`）时，调用函数的值如下：
 >
@@ -597,7 +598,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export default HomePage;
 
 // ... 包括 getStaticPaths 的其余代码
-````
+```
 
 ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -711,7 +712,7 @@ module.exports = {
 
 ### （可选）步骤 9：更改内容的语言
 
-要允许用户动态切换语言，请使用 `useLocale` 钩子提供的 `setLocale` 函数。
+要在 Next.js 中更改内容的语言，推荐的方法是使用 `Link` 组件将用户重定向到适当的本地化页面。`Link` 组件支持页面的预加载，有助于避免整个页面重新加载。
 
 ```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat="typescript"
 import {
@@ -1002,16 +1003,16 @@ Link.displayName = 'Link';
 
 #### 工作原理
 
-- **检测外部链接**：  
+- **检测外部链接**：
   辅助函数 `checkIsExternalLink` 用于判断 URL 是否为外部链接。外部链接保持不变，因为它们不需要本地化。
 
-- **获取当前语言环境**：  
+- **获取当前语言环境**：
   `useLocale` 钩子提供当前语言环境（例如，法语为 `fr`）。
 
-- **本地化 URL**：  
+- **本地化 URL**：
   对于内部链接（即非外部链接），使用 `getLocalizedUrl` 自动为 URL 添加当前语言的前缀。这意味着如果用户使用法语，传递 `/about` 作为 `href` 会被转换为 `/fr/about`。
 
-- **返回链接**：  
+- **返回链接**：
   组件返回一个带有本地化 URL 的 `<a>` 元素，确保导航与语言环境一致。
 
 ### （可选）步骤 11：优化您的包大小
@@ -1077,3 +1078,7 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 ### 更进一步
 
 若要更进一步，您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md) 或通过 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md) 外部化您的内容。
+
+```
+
+```

@@ -930,7 +930,7 @@ module.exports = robots;
 
 ### (Optional) Step 10: Change the language of your content
 
-To change the language of your content, you can use the `setLocale` function provided by the `useLocale` hook. This function allows you to set the locale of the application and update the content accordingly.
+To change the language of your content in Next.js, the recommended way is to use the `Link` component to redirect users to the appropriate localized page. The `Link` component enables prefetching of the page, which helps avoid a full page reload.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -1086,6 +1086,30 @@ export const LocaleSwitcher = () => {
     </div>
   );
 };
+```
+
+> An alternative way is to use the `setLocale` function provided by the `useLocale` hook. This function will not allow prefetching the page and will reload the page.
+> In this case, without redirection using `router.push`, only your server-side code will change the locale of the content.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intlayer";
+import { getLocalizedUrl } from "intlayer";
+
+// ... Rest of the code
+
+const router = useRouter();
+const { setLocale } = useLocale({
+  onLocaleChange: (locale) => {
+    router.push(getLocalizedUrl(pathWithoutLocale, locale));
+  },
+});
+
+return (
+  <button onClick={() => setLocale(Locales.FRENCH)}>Change to French</button>
+);
 ```
 
 > Documentation references:

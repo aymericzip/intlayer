@@ -702,7 +702,7 @@ module.exports = {
 
 ### (オプション) ステップ9: コンテンツの言語を変更
 
-ユーザーが動的に言語を切り替えられるようにするには、`useLocale`フックが提供する`setLocale`関数を使用します。
+Next.jsでコンテンツの言語を変更するには、`Link`コンポーネントを使用してユーザーを適切なローカライズされたページにリダイレクトするのが推奨される方法です。`Link`コンポーネントはページのプリフェッチを可能にし、完全なページリロードを避けるのに役立ちます。
 
 ```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat="typescript"
 import {
