@@ -153,6 +153,7 @@ export const useLogin = (
     invalidateQueries: ['getSession'],
     ...args,
   });
+
 export const useRegister = (
   args?: UseAsyncOptions<IntlayerAPI['auth']['register']>
 ) =>
@@ -160,6 +161,7 @@ export const useRegister = (
     invalidateQueries: ['getSession'],
     ...args,
   });
+
 export const useLogout = (
   args?: UseAsyncOptions<IntlayerAPI['auth']['logout']>
 ) =>
@@ -167,15 +169,26 @@ export const useLogout = (
     invalidateQueries: ['getSession'],
     ...args,
   });
+
 export const useChangePassword = (
   args?: UseAsyncOptions<IntlayerAPI['auth']['changePassword']>
 ) => useAppAsync('changePassword', useIntlayerAuth().auth.changePassword, args);
+
 export const useAskResetPassword = (
   args?: UseAsyncOptions<IntlayerAPI['auth']['askResetPassword']>
 ) =>
   useAppAsync(
     'askResetPassword',
     useIntlayerAuth().auth.askResetPassword,
+    args
+  );
+
+export const useDefineNewPassword = (
+  args?: UseAsyncOptions<IntlayerAPI['auth']['defineNewPassword']>
+) =>
+  useAppAsync(
+    'defineNewPassword',
+    useIntlayerAuth().auth.defineNewPassword,
     args
   );
 
@@ -190,6 +203,7 @@ export const useCheckIfUserHasPassword = (
       requireUser: true,
     }
   );
+
 export const useVerifyEmail = (
   args?: UseAsyncOptions<IntlayerAPI['auth']['verifyEmail']>
 ) => useAppAsync('verifyEmail', useIntlayerAuth().auth.verifyEmail, args);
@@ -225,6 +239,7 @@ export const useGetUsers = (
       requireUser: true,
     }
   );
+
 export const useCreateUser = (
   args?: UseAsyncOptions<IntlayerAPI['user']['createUser']>
 ) =>
@@ -232,6 +247,7 @@ export const useCreateUser = (
     invalidateQueries: ['getUsers'],
     ...args,
   });
+
 export const useUpdateUser = (
   args?: UseAsyncOptions<IntlayerAPI['user']['updateUser']>
 ) =>
@@ -239,6 +255,7 @@ export const useUpdateUser = (
     invalidateQueries: ['getSession'],
     ...args,
   });
+
 export const useDeleteUser = (
   args?: UseAsyncOptions<IntlayerAPI['user']['deleteUser']>
 ) =>
@@ -282,6 +299,7 @@ export const useAddOrganization = (
       ...args,
     }
   );
+
 export const useUpdateOrganization = (
   args?: UseAsyncOptions<IntlayerAPI['organization']['updateOrganization']>
 ) =>
@@ -293,6 +311,7 @@ export const useUpdateOrganization = (
       ...args,
     }
   );
+
 export const useUpdateOrganizationMembers = (
   args?: UseAsyncOptions<
     IntlayerAPI['organization']['updateOrganizationMembers']
@@ -306,6 +325,7 @@ export const useUpdateOrganizationMembers = (
       ...args,
     }
   );
+
 export const useAddOrganizationMember = (
   args?: UseAsyncOptions<IntlayerAPI['organization']['addOrganizationMember']>
 ) =>
@@ -317,6 +337,7 @@ export const useAddOrganizationMember = (
       ...args,
     }
   );
+
 export const useDeleteOrganization = (
   args?: UseAsyncOptions<IntlayerAPI['organization']['deleteOrganization']>
 ) =>
@@ -328,6 +349,7 @@ export const useDeleteOrganization = (
       ...args,
     }
   );
+
 export const useSelectOrganization = (
   args?: UseAsyncOptions<IntlayerAPI['organization']['selectOrganization']>
 ) =>
@@ -339,6 +361,7 @@ export const useSelectOrganization = (
       ...args,
     }
   );
+
 export const useUnselectOrganization = (
   args?: UseAsyncOptions<IntlayerAPI['organization']['unselectOrganization']>
 ) =>
@@ -375,6 +398,7 @@ export const useGetProjects = (
       requireOrganization: true,
     }
   );
+
 export const useAddProject = (
   args?: UseAsyncOptions<IntlayerAPI['project']['addProject']>
 ) =>
@@ -382,6 +406,7 @@ export const useAddProject = (
     invalidateQueries: ['getProjects'],
     ...args,
   });
+
 export const useUpdateProject = (
   args?: UseAsyncOptions<IntlayerAPI['project']['updateProject']>
 ) =>
@@ -389,6 +414,7 @@ export const useUpdateProject = (
     invalidateQueries: ['getSession'],
     ...args,
   });
+
 export const useUpdateProjectMembers = (
   args?: UseAsyncOptions<IntlayerAPI['project']['updateProjectMembers']>
 ) =>
@@ -400,6 +426,7 @@ export const useUpdateProjectMembers = (
       ...args,
     }
   );
+
 export const useDeleteProject = (
   args?: UseAsyncOptions<IntlayerAPI['project']['deleteProject']>
 ) =>
@@ -407,6 +434,7 @@ export const useDeleteProject = (
     invalidateQueries: ['getProjects', 'getSession'],
     ...args,
   });
+
 export const useSelectProject = (
   args?: UseAsyncOptions<IntlayerAPI['project']['selectProject']>
 ) =>
@@ -414,6 +442,7 @@ export const useSelectProject = (
     invalidateQueries: ['getSession'],
     ...args,
   });
+
 export const useUnselectProject = (
   args?: UseAsyncOptions<IntlayerAPI['project']['unselectProject']>
 ) =>
@@ -421,6 +450,7 @@ export const useUnselectProject = (
     invalidateQueries: ['getSession'],
     ...args,
   });
+
 export const useAddNewAccessKey = (
   args?: UseAsyncOptions<IntlayerAPI['project']['addNewAccessKey']>
 ) =>
@@ -428,6 +458,7 @@ export const useAddNewAccessKey = (
     invalidateQueries: ['getSession'],
     ...args,
   });
+
 export const useDeleteAccessKey = (
   args?: UseAsyncOptions<IntlayerAPI['project']['deleteAccessKey']>
 ) =>
@@ -435,6 +466,7 @@ export const useDeleteAccessKey = (
     invalidateQueries: ['getSession'],
     ...args,
   });
+
 export const useRefreshAccessKey = (
   args?: UseAsyncOptions<IntlayerAPI['project']['refreshAccessKey']>
 ) =>
@@ -511,6 +543,7 @@ export const useGetDictionary = (
       requireProject: true,
     }
   );
+
 export const useAddDictionary = (
   args?: UseAsyncOptions<IntlayerAPI['dictionary']['addDictionary']>
 ) =>
@@ -534,6 +567,7 @@ export const usePushDictionaries = (
       ...args,
     }
   );
+
 export const useUpdateDictionary = (
   args?: UseAsyncOptions<IntlayerAPI['dictionary']['updateDictionary']>
 ) =>
@@ -545,6 +579,7 @@ export const useUpdateDictionary = (
       ...args,
     }
   );
+
 export const useDeleteDictionary = (
   args?: UseAsyncOptions<IntlayerAPI['dictionary']['deleteDictionary']>
 ) =>
@@ -585,6 +620,7 @@ export const useGetTags = (
       requireOrganization: true,
     }
   );
+
 export const useAddTag = (
   args?: UseAsyncOptions<IntlayerAPI['tag']['addTag']>
 ) =>
@@ -592,6 +628,7 @@ export const useAddTag = (
     invalidateQueries: ['getTags'],
     ...args,
   });
+
 export const useUpdateTag = (
   args?: UseAsyncOptions<IntlayerAPI['tag']['updateTag']>
 ) =>
@@ -599,6 +636,7 @@ export const useUpdateTag = (
     invalidateQueries: ['getTags'],
     ...args,
   });
+
 export const useDeleteTag = (
   args?: UseAsyncOptions<IntlayerAPI['tag']['deleteTag']>
 ) =>
