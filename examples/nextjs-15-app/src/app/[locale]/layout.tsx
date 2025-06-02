@@ -51,12 +51,12 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   return (
     <IntlayerProvider locale={locale}>
       <html lang={locale} dir={getHTMLTextDir(locale)}>
-        <header className="fixed top-5 flex w-full justify-end px-10">
-          <LocaleSwitcher />
-        </header>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+          <header className="fixed top-5 flex w-full justify-end px-10">
+            <LocaleSwitcher />
+          </header>
           {children}
         </body>
       </html>
