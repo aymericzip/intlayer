@@ -1023,6 +1023,9 @@ pnpm add @intlayer/swc --save-dev
 yarn add @intlayer/swc --save-dev
 ```
 
+> Note: This optimization is only available for Next.js 13 and above.
+> Note: This package is not installed by default because SWC plugins are still experimental on Next.js. It may change in the future.
+
 ### Configure TypeScript
 
 Intlayer use module augmentation to get benefits of TypeScript and make your codebase stronger.

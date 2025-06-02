@@ -1268,6 +1268,9 @@ pnpm add @intlayer/swc --save-dev
 yarn add @intlayer/swc --save-dev
 ```
 
+> 注意：此优化仅在 Next.js 13 及更高版本中可用。
+> 注意：此包不会默认安装，因为 SWC 插件仍在 Next.js 中处于实验阶段。这可能会在未来发生变化。
+
 ### 配置 TypeScript
 
 Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更强大。

@@ -1254,6 +1254,9 @@ pnpm add @intlayer/swc --save-dev
 yarn add @intlayer/swc --save-dev
 ```
 
+> 注: この最適化はNext.js 13以降でのみ利用可能です。
+> 注: このパッケージはデフォルトではインストールされていません。なぜなら、SWCプラグインはNext.jsでまだ実験的な段階にあるためです。将来的に変更される可能性があります。
+
 ### TypeScriptを設定する
 
 Intlayerは、TypeScriptのメリットを活用し、コードベースを強化するためにモジュール拡張を使用します。
