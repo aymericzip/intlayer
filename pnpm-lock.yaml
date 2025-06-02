@@ -2544,9 +2544,6 @@ importers:
       '@intlayer/dictionaries-entry':
         specifier: workspace:*
         version: link:../@intlayer/dictionaries-entry
-      '@intlayer/swc':
-        specifier: workspace:*
-        version: link:../@intlayer/swc
       '@intlayer/webpack':
         specifier: workspace:*
         version: link:../@intlayer/webpack
