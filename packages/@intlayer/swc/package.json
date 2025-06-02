@@ -40,7 +40,7 @@
   },
   "main": "target/wasm32-wasip1/release/intlayer_swc_plugin.wasm",
   "files": [
-    "./target",
+    "./target/wasm32-wasip1/release/intlayer_swc_plugin.wasm",
     "./package.json"
   ],
   "scripts": {
