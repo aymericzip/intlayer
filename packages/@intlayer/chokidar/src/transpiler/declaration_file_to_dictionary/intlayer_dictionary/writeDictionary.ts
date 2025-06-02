@@ -54,6 +54,8 @@ export const writeUnmergedDictionaries = async (
   const groupedDictionaries = groupDictionariesByKey(dictionaries);
 
   for (const [key, dictionaries] of Object.entries(groupedDictionaries)) {
+    if (key === 'undefined') continue;
+
     const isDevelopment = process.env.NODE_ENV === 'development';
     const contentString = isDevelopment
       ? JSON.stringify(dictionaries, null, 2)
@@ -96,6 +98,8 @@ export const writeFinalDictionaries = async (
 
   // Merge dictionaries with the same key and write to dictionariesDir
   for (const [key, dictionaries] of Object.entries(groupedDictionaries)) {
+    if (key === 'undefined') continue;
+
     const multiLocaleDictionaries = dictionaries.map((dictionary) =>
       processPerLocaleDictionary(dictionary)
     );
