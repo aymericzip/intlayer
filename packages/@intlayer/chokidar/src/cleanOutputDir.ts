@@ -1,13 +1,30 @@
-import { getConfiguration } from '@intlayer/config';
+import { getAppLogger, getConfiguration } from '@intlayer/config';
 import { existsSync, rmSync } from 'fs';
-import { createDictionaryEntryPoint } from './transpiler/dictionary_to_main/createDictionaryEntryPoint';
 
 export const cleanOutputDir = (configuration = getConfiguration()) => {
-  const { dictionariesDir, typesDir } = configuration.content;
+  const {
+    dictionariesDir,
+    unmergedDictionariesDir,
+    mainDir,
+    typesDir,
+    configDir,
+  } = configuration.content;
+
+  const appLogger = getAppLogger(configuration);
 
   if (existsSync(dictionariesDir)) {
     // Delete the dictionary directory
     rmSync(dictionariesDir, { recursive: true });
+  }
+
+  if (existsSync(unmergedDictionariesDir)) {
+    // Delete the unmerged dictionaries directory
+    rmSync(unmergedDictionariesDir, { recursive: true });
+  }
+
+  // Delete the main directory
+  if (existsSync(mainDir)) {
+    rmSync(mainDir, { recursive: true });
   }
 
   // Delete the types directory
@@ -15,5 +32,12 @@ export const cleanOutputDir = (configuration = getConfiguration()) => {
     rmSync(typesDir, { recursive: true });
   }
 
-  createDictionaryEntryPoint(configuration);
+  // Delete the config directory
+  if (existsSync(configDir)) {
+    rmSync(configDir, { recursive: true });
+  }
+
+  appLogger('Output directory cleaned', {
+    isVerbose: true,
+  });
 };

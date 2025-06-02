@@ -1,3 +1,4 @@
+import { cleanOutputDir } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
   getConfiguration,
@@ -10,6 +11,8 @@ import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import { join, relative, resolve } from 'path';
 import { compareVersions } from './compareVersion';
 import { getNextVersion } from './getNextVertion';
+
+cleanOutputDir();
 
 // Extract from the start script if --turbo or --turbopack flag is used
 const isTurbopackEnabled =

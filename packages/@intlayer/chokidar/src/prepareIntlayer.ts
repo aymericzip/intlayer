@@ -23,10 +23,6 @@ export const prepareIntlayer = async (
 
   cleanOutputDir(configuration);
 
-  appLogger('Output directory cleaned', {
-    isVerbose: true,
-  });
-
   const files: string[] = listDictionaries(configuration);
 
   const dictionaries = await loadDictionaries(

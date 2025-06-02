@@ -1,4 +1,4 @@
-import { prepareIntlayer, watch } from '@intlayer/chokidar';
+import { cleanOutputDir, prepareIntlayer, watch } from '@intlayer/chokidar';
 import { getConfiguration } from '@intlayer/config';
 import { join, relative, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
@@ -10,6 +10,8 @@ type PluginOptions = {
   // Custom options for your plugin, if any
   enableBabelTransform?: boolean;
 };
+
+cleanOutputDir();
 
 /**
  *
@@ -35,8 +37,10 @@ export const intlayerPlugin = (
       config: (config) => {
         const intlayerConfig = getConfiguration();
         const {
+          dictionariesDir,
           mainDir,
           configDir,
+          typesDir,
           baseDir,
           watch: isWatchMode,
         } = intlayerConfig.content;
@@ -85,7 +89,7 @@ export const intlayerPlugin = (
         return config;
       },
 
-      configureServer: async () => {
+      configureServer: async (server) => {
         // Runs when the dev server starts
         const intlayerConfig = getConfiguration();
 

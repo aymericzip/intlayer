@@ -5,6 +5,7 @@ export {
   handleContentDeclarationFileChange,
   watch,
 } from './chokidar/watcher';
+export { cleanOutputDir } from './cleanOutputDir';
 export { fetchDistantDictionaries } from './fetchDistantDictionaries';
 export { fetchDistantDictionaryKeys } from './fetchDistantDictionaryKeys';
 export { filterDictionaryLocales } from './filterDictionaryLocales';
