@@ -1,6 +1,7 @@
 import { cleanOutputDir } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
+  getAppLogger,
   getConfiguration,
   IntlayerConfig,
 } from '@intlayer/config';
@@ -48,6 +49,10 @@ const getPruneConfig = (
   const isSwcPluginAvailable = getIsSwcPluginAvailable();
 
   if (!isSwcPluginAvailable) return {};
+
+  const logger = getAppLogger(intlayerConfig);
+
+  logger('Intlayer prune plugin is enabled');
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
 

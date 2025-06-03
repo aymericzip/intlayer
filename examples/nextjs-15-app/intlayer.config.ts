@@ -16,7 +16,6 @@ const config: IntlayerConfig = {
     applicationURL: 'http://localhost:3000',
   },
   build: {
-    optimize: process.env.NODE_ENV === 'production',
     activateDynamicImport: true,
   },
 };
