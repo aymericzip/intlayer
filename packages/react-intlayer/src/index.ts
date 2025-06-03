@@ -5,21 +5,22 @@ declare module '@intlayer/core' {
 }
 
 export {
+  getBrowserLocale,
+  IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
-  type IntlayerProviderProps,
-  IntlayerClientContext,
-  useIntlayer,
-  useIntlayerAsync,
-  useDictionary,
-  useLocale,
-  useLocaleCookie,
-  useIntlayerContext,
   localeCookie,
   setLocaleCookie,
-  getBrowserLocale,
-  useLocaleBase,
   t,
+  useDictionary,
+  useIntlayer,
+  useIntlayerAsync,
+  useIntlayerContext,
+  useLoadDynamic,
+  useLocale,
+  useLocaleBase,
+  useLocaleCookie,
+  type IntlayerProviderProps,
 } from './client/index';
 export { type IntlayerNode } from './IntlayerNode';
 export { MarkdownProvider } from './markdown/index';

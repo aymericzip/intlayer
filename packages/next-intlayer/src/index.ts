@@ -1,27 +1,28 @@
 export {
   IntlayerClientContext,
   MarkdownProvider,
+  t,
+  useDictionary,
   useIntlayer,
   useIntlayerAsync,
-  useDictionary,
+  useLoadDynamic,
   useLocaleCookie,
   type IntlayerNode,
-  t,
 } from 'react-intlayer';
+export {
+  IntlayerClientProvider,
+  useLocale,
+  useLocalePageRouter,
+  type IntlayerClientProviderProps,
+} from './client/index';
 export { generateStaticParams } from './generateStaticParams';
 export type {
   LocalParams,
   LocalPromiseParams,
-  Next14PageIntlayer,
-  Next15PageIntlayer,
-  NextPageIntlayer,
   Next14LayoutIntlayer,
+  Next14PageIntlayer,
   Next15LayoutIntlayer,
+  Next15PageIntlayer,
   NextLayoutIntlayer,
+  NextPageIntlayer,
 } from './types/index';
-export {
-  useLocale,
-  useLocalePageRouter,
-  IntlayerClientProvider,
-  type IntlayerClientProviderProps,
-} from './client/index';

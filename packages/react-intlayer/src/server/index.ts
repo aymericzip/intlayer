@@ -6,4 +6,5 @@ export {
 export { t } from './t';
 export { useDictionary } from './useDictionary';
 export { useIntlayer } from './useIntlayer';
+export { useLoadDynamic } from './useLoadDynamic';
 export { useLocale } from './useLocale';
