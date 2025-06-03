@@ -43,10 +43,10 @@ export const generateDictionaryEntryPoint = (
       );
 
       if (format === 'esm') {
-        return `  ${locale}: () => import('./${relativePath}', { assert: { type: 'json' }}).then(mod => mod.default)`;
+        return `  '${locale}': () => import('./${relativePath}', { assert: { type: 'json' }}).then(mod => mod.default)`;
       }
 
-      return `  ${locale}: () => Promise.resolve(require('./${relativePath}'))`;
+      return `  '${locale}': () => Promise.resolve(require('./${relativePath}'))`;
     })
     .join(',\n');
 
