@@ -480,7 +480,7 @@ as chamadas para `useIntlayer` por `useDynamicDictionary`.
 
 - **traversePattern**:
   - _Tipo_: `string[]`
-  - _Padrão_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Padrão_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
   - _Descrição_: Padrões que definem quais arquivos devem ser percorridos durante a otimização.
   - _Exemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
   - _Nota_: Use isso para limitar a otimização a arquivos de código relevantes e melhorar o desempenho do build.

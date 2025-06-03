@@ -301,7 +301,7 @@ Wenn diese Option auf true gesetzt ist, wird nur der Wörterbuchinhalt für die 
 
 - **traversePattern**:
   - _Typ_: `string[]`
-  - _Standard_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Standard_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
   - _Beschreibung_: Muster, die festlegen, welche Dateien während der Optimierung durchlaufen werden sollen.
   - _Beispiel_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
   - _Hinweis_: Verwenden Sie dies, um die Optimierung auf relevante Code-Dateien zu beschränken und die Build-Leistung zu verbessern.

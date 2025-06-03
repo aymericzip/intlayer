@@ -489,7 +489,7 @@ module.exports = config;
 
 - **traversePattern**:
   - _النوع_: `string[]`
-  - _القيمة الافتراضية_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _القيمة الافتراضية_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
   - _الوصف_: الأنماط التي تحدد الملفات التي يجب اجتيازها أثناء التحسين.
   - _مثال_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
   - _ملاحظة_: استخدم هذا لتقييد التحسين على ملفات الكود ذات الصلة وتحسين أداء البناء.

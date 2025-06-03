@@ -480,7 +480,7 @@ las llamadas a `useIntlayer` con `useDynamicDictionary`.
 
 - **traversePattern**:
   - _Tipo_: `string[]`
-  - _Valor por defecto_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Valor por defecto_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
   - _Descripción_: Patrones que definen qué archivos deben ser recorridos durante la optimización.
   - _Ejemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
   - _Nota_: Usa esto para limitar la optimización a archivos de código relevantes y mejorar el rendimiento de la compilación.

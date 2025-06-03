@@ -484,7 +484,7 @@ Intlayerは、柔軟性と選択肢を向上させるために複数のAIプロ�
 
 - **traversePattern**:
   - _型_: `string[]`
-  - _デフォルト_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _デフォルト_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
   - _説明_: 最適化中にトラバースするファイルを定義するパターン。
   - _例_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
   - _注意_: 関連するコードファイルに最適化を制限し、ビルドパフォーマンスを向上させるために使用します。
