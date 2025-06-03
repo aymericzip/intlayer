@@ -20,6 +20,7 @@ export const IntlayerPrunePlugin = (): PluginOption => {
 
   return {
     name: 'vite-intlayer-babel-transform',
+    enforce: 'post', // Run after other transformations as vue
     transform(code, id) {
       const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
       const dynamicDictionariesEntryPath = join(
@@ -32,14 +33,23 @@ export const IntlayerPrunePlugin = (): PluginOption => {
         dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
       ];
 
-      if (!filesList.includes(id)) return null;
+      /**
+       * Transform file as
+       * .../HelloWorld.vue?vue&type=script&setup=true&lang.ts
+       * Into
+       * .../HelloWorld.vue
+       *
+       * Prevention for virtual file
+       */
+      const filename = id.split('?', 1)[0];
+      if (!filesList.includes(filename)) return null;
       if (!optimize) return null;
 
       try {
         const babel = ESMxCJSRequire('@babel/core');
 
         const result = babel.transformSync(code, {
-          filename: id,
+          filename,
           plugins: [
             [
               intlayerBabelPlugin,

@@ -167,7 +167,7 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
     pre() {
       this._newStaticImports = new Map();
       this._newDynamicImports = new Map();
-      this._isIncluded = false;
+      this._isIncluded = true;
       this._hasValidImport = false;
       this._isDictEntry = false;
       this._useDynamicHelpers = false;

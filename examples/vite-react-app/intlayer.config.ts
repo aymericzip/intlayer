@@ -19,7 +19,7 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   build: {
-    optimize: process.env.NODE_ENV === 'production',
+    // optimize: process.env.NODE_ENV === 'production',
     activateDynamicImport: true,
   },
 };
