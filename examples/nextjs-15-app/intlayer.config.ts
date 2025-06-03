@@ -10,10 +10,14 @@ const config: IntlayerConfig = {
     strictMode: 'strict',
   },
   content: {
-    contentDir: ['./', '../../apps'],
+    // contentDir: ['./', '../../apps'],
   },
   editor: {
     applicationURL: 'http://localhost:3000',
+  },
+  build: {
+    optimize: process.env.NODE_ENV === 'production',
+    activateDynamicImport: true,
   },
 };
 

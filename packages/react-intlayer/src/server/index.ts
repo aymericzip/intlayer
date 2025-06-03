@@ -5,6 +5,7 @@ export {
 } from './IntlayerServerProvider';
 export { t } from './t';
 export { useDictionary } from './useDictionary';
+export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useIntlayer } from './useIntlayer';
 export { useLoadDynamic } from './useLoadDynamic';
 export { useLocale } from './useLocale';

@@ -1,5 +1,6 @@
 import type {
   AiConfig,
+  BuildConfig,
   ContentConfig,
   DictionaryOutput,
   InternationalizationConfig,
@@ -130,6 +131,15 @@ export const getConfiguration = (
     apiKey: getEnvValue(env.ai?.apiKey, 'string')!,
   };
 
+  const buildConfiguration: BuildConfig = {
+    optimize: getEnvValue(env.build.optimize, 'boolean')!,
+    activateDynamicImport: getEnvValue(
+      env.build.activateDynamicImport,
+      'boolean'
+    )!,
+    traversePattern: getEnvValue<string>(env.build.traversePattern, 'array')!,
+  };
+
   const intlayerConfiguration: IntlayerConfig = {
     internationalization: intlayerIntlConfiguration,
     middleware: intlayerMiddlewareConfiguration,
@@ -137,6 +147,7 @@ export const getConfiguration = (
     editor: intlayerEditorConfiguration,
     log: logConfiguration,
     ai: aiConfiguration,
+    build: buildConfiguration,
   };
 
   return intlayerConfiguration;

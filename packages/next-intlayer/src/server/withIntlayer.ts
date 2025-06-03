@@ -6,6 +6,7 @@ import {
 } from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import merge from 'deepmerge';
+import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import { join, relative, resolve } from 'path';
@@ -35,18 +36,36 @@ const getIsSwcPluginAvailable = () => {
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig
 ): Partial<NextConfig> => {
-  const { contentDir, dictionariesDir, mainDir } = intlayerConfig.content;
+  const { optimize, traversePattern, activateDynamicImport } =
+    intlayerConfig.build;
+  const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
+    intlayerConfig.content;
 
-  const isProduction = process.env.NODE_ENV === 'production';
-
-  if (!isProduction) return {};
+  if (!optimize) return {};
 
   if (!isGteNext13) return {};
 
   const isSwcPluginAvailable = getIsSwcPluginAvailable();
+
   if (!isSwcPluginAvailable) return {};
 
-  const dictionariesPath = join(mainDir, 'dictionaries.mjs');
+  const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
+
+  const dynamicDictionariesEntryPath = join(
+    mainDir,
+    'dynamic_dictionaries.mjs'
+  );
+
+  const filesListPattern = fg
+    .sync(traversePattern, {
+      cwd: baseDir,
+    })
+    .map((file) => join(baseDir, file));
+
+  const filesList = [
+    ...filesListPattern,
+    dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
+  ];
 
   return {
     experimental: {
@@ -54,9 +73,12 @@ const getPruneConfig = (
         [
           ESMxCJSRequire.resolve('@intlayer/swc'),
           {
-            dictionaries_dir: dictionariesDir,
-            dictionaries_entry_path: dictionariesPath,
-            content_dir: contentDir,
+            dictionariesDir,
+            dictionariesEntryPath,
+            dynamicDictionariesDir,
+            dynamicDictionariesEntryPath,
+            activateDynamicImport,
+            filesList,
           } as any,
         ],
       ],

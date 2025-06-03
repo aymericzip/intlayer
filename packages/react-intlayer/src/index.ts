@@ -13,6 +13,7 @@ export {
   setLocaleCookie,
   t,
   useDictionary,
+  useDictionaryDynamic,
   useIntlayer,
   useIntlayerAsync,
   useIntlayerContext,

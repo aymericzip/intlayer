@@ -5,12 +5,6 @@ import { join, relative, resolve } from 'path';
 import { type PluginOption } from 'vite';
 import { IntlayerPrunePlugin } from './intlayerPrunePlugin';
 
-// Plugin options type definition
-type PluginOptions = {
-  // Custom options for your plugin, if any
-  enableBabelTransform?: boolean;
-};
-
 cleanOutputDir();
 
 /**
@@ -24,27 +18,21 @@ cleanOutputDir();
  * });
  * ```
  *  */
-export const intlayerPlugin = (
-  pluginOptions: PluginOptions = {}
-): PluginOption => {
-  const { enableBabelTransform = process.env.NODE_ENV === 'production' } =
-    pluginOptions;
+export const intlayerPlugin = (pluginOptions = {}): PluginOption => {
+  const intlayerConfig = getConfiguration();
+  const {
+    mainDir,
+    configDir,
+    baseDir,
+    watch: isWatchMode,
+  } = intlayerConfig.content;
+  const { optimize } = intlayerConfig.build;
 
   const plugins: PluginOption[] = [
     {
       name: 'vite-intlayer-plugin',
 
       config: (config) => {
-        const intlayerConfig = getConfiguration();
-        const {
-          dictionariesDir,
-          mainDir,
-          configDir,
-          typesDir,
-          baseDir,
-          watch: isWatchMode,
-        } = intlayerConfig.content;
-
         const dictionariesPath = join(mainDir, 'dictionaries.mjs');
         const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
@@ -108,7 +96,7 @@ export const intlayerPlugin = (
   ];
 
   // Add Babel transform plugin if enabled
-  if (enableBabelTransform) {
+  if (optimize) {
     plugins.push(IntlayerPrunePlugin());
   }
 

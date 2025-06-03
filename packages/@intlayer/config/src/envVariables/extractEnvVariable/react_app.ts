@@ -1,5 +1,6 @@
 import type {
   AiConfig,
+  BuildConfig,
   ContentConfig,
   EditorConfig,
   InternationalizationConfig,
@@ -79,6 +80,13 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     applicationContext: process.env.REACT_APP_INTLAYER_AI_APPLICATION_CONTEXT,
   };
 
+  const build: ReplaceValue<BuildConfig> = {
+    optimize: process.env.REACT_APP_INTLAYER_BUILD_OPTIMIZE,
+    activateDynamicImport:
+      process.env.REACT_APP_INTLAYER_BUILD_ACTIVATE_DYNAMIC_IMPORT,
+    traversePattern: process.env.REACT_APP_INTLAYER_BUILD_TRAVERSE_PATTERN,
+  };
+
   return {
     internationalization,
     middleware,
@@ -86,5 +94,6 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     editor,
     log,
     ai,
+    build,
   };
 };

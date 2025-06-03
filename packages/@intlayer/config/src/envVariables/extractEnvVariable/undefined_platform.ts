@@ -1,5 +1,6 @@
 import type {
   AiConfig,
+  BuildConfig,
   ContentConfig,
   EditorConfig,
   InternationalizationConfig,
@@ -75,6 +76,12 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     prefix: process.env.INTLAYER_LOG_PREFIX,
   };
 
+  const build: ReplaceValue<BuildConfig> = {
+    optimize: process.env.INTLAYER_BUILD_OPTIMIZE,
+    activateDynamicImport: process.env.INTLAYER_BUILD_ACTIVATE_DYNAMIC_IMPORT,
+    traversePattern: process.env.INTLAYER_BUILD_TRAVERSE_PATTERN,
+  };
+
   return {
     internationalization,
     middleware,
@@ -82,5 +89,6 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     editor,
     log,
     ai,
+    build,
   };
 };

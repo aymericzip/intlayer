@@ -4,6 +4,7 @@ export {
   locale,
   t,
   useDictionary,
+  useDictionaryDynamic,
   useIntlayer,
   useLoadDynamic,
   useLocale,

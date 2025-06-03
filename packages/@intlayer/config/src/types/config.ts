@@ -281,6 +281,51 @@ export type AiConfig = {
   applicationContext?: string;
 };
 
+export type BuildConfig = {
+  /**
+   * Indicates if the build should be optimized
+   *
+   * Default: process.env.NODE_ENV === 'production'
+   *
+   * If true, the build will be optimized.
+   * If false, the build will not be optimized.
+   *
+   * Intlayer will replace all call of calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used.
+   *
+   *
+   * Note:
+   * - Intlayer will replace all call of `useIntlayer` with `useDictionary`, `getIntlayer` with `getDictionary`.
+   * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+   */
+  optimize: boolean;
+
+  /**
+   * Indicates if the dynamic import should be activated
+   *
+   * Default: false
+   *
+   * By default, when a dictionary is loaded, it imports content for all locales.
+   * If this option is set to true, only the current locale’s dictionary content
+   * will be fetched via dynamic import. In that case, Intlayer will replace all
+   * calls to `useIntlayer` with `useDynamicDictionary`.
+   *
+   * Note:
+   * - Enabling dynamic imports will rely on React Suspense, which can slightly
+   *   slow down rendering.
+   * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+   */
+  activateDynamicImport: boolean;
+
+  /**
+   * Pattern to traverse the code to optimize.
+   *
+   * It's useful to avoid to traverse the code that is not relevant to the optimization.
+   *
+   * Default: ['**\/!(*node_modules)/**\/*.{tsx?|jsx?|vue|svelte|cjs|mjs|js|cjx|mjx}']
+   */
+  traversePattern: string[];
+};
+
 /**
  * Custom configuration that can be provided to override default settings
  */
@@ -314,6 +359,11 @@ export type CustomIntlayerConfig = {
    * Custom AI configuration
    */
   ai?: Partial<AiConfig>;
+
+  /**
+   * Custom build configuration
+   */
+  build?: Partial<BuildConfig>;
 };
 
 /**
@@ -349,6 +399,11 @@ export type IntlayerConfig = {
    * AI configuration
    */
   ai?: Partial<AiConfig>;
+
+  /**
+   * Build configuration
+   */
+  build: BuildConfig;
 };
 
 /**

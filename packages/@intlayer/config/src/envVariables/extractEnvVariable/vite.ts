@@ -1,6 +1,7 @@
 import { logger } from '../../logger';
 import type {
   AiConfig,
+  BuildConfig,
   ContentConfig,
   EditorConfig,
   InternationalizationConfig,
@@ -88,6 +89,13 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     applicationContext: import.meta.env.VITE_INTLAYER_AI_APPLICATION_CONTEXT,
   };
 
+  const build: ReplaceValue<BuildConfig> = {
+    optimize: import.meta.env.VITE_INTLAYER_BUILD_OPTIMIZE,
+    activateDynamicImport: import.meta.env
+      .VITE_INTLAYER_BUILD_ACTIVATE_DYNAMIC_IMPORT,
+    traversePattern: import.meta.env.VITE_INTLAYER_BUILD_TRAVERSE_PATTERN,
+  };
+
   return {
     internationalization,
     middleware,
@@ -95,5 +103,6 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     editor,
     log,
     ai,
+    build,
   };
 };

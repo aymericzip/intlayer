@@ -3,7 +3,6 @@ import type { Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { relative, resolve } from 'path';
 import { filterDictionaryLocales } from '../../../filterDictionaryLocales';
-import { getFileHash } from '../../../utils';
 import { formatDictionaryText } from './formatDictionaryText';
 import { MergedDictionaryOutput } from './writeMergedDictionary';
 
@@ -33,43 +32,28 @@ export const generateDictionaryEntryPoint = (
 
   let content = '';
 
-  // Flatten the structure and create a mapping of locale to dictionary info
-  const dictionariesByLocale: Record<
-    string,
-    { relativePath: string; hash: string }
-  > = {};
-
-  Object.entries(localedDictionariesPathsRecord).forEach(
-    ([locale, dictionaryPaths]) => {
-      if (dictionaryPaths) {
-        const dictionaryPath = dictionaryPaths.dictionaryPath; // Take the first path
-        dictionariesByLocale[locale] = {
-          relativePath: relative(dynamicDictionariesDir, dictionaryPath),
-          hash: `_${getFileHash(dictionaryPath)}`, // Get the hash of the dictionary to avoid conflicts
-        };
-      }
-    }
-  );
-
-  // Import all dictionaries
-  Object.values(dictionariesByLocale).forEach((dictionary) => {
-    if (format === 'esm')
-      content += `const ${dictionary.hash} = () => import('${dictionary.relativePath}' with { type: 'json' });\n`;
-    if (format === 'cjs')
-      content += `const ${dictionary.hash} = () => Promise.resolve(require('${dictionary.relativePath}'));\n`;
-  });
-
-  content += '\n';
-
   // Format Dictionary Map - map locales to functions
-  const formattedDictionaryMap: string = Object.entries(dictionariesByLocale)
-    .map(([locale, dictionary]) => `  ${locale}: ${dictionary.hash}`)
+  const formattedDictionaryMap: string = Object.entries(
+    localedDictionariesPathsRecord
+  )
+    .map(([locale, dictionary]) => {
+      const relativePath = relative(
+        dynamicDictionariesDir,
+        dictionary.dictionaryPath
+      );
+
+      if (format === 'esm') {
+        return `  ${locale}: () => import('./${relativePath}', { assert: { type: 'json' }}).then(mod => mod.default)`;
+      }
+
+      return `  ${locale}: () => Promise.resolve(require('./${relativePath}'))`;
+    })
     .join(',\n');
 
-  if (format === 'esm')
-    content += `export default {\n${formattedDictionaryMap}\n};\n`;
-  if (format === 'cjs')
-    content += `module.exports = {\n${formattedDictionaryMap}\n};\n`;
+  content += `const content = {\n${formattedDictionaryMap}\n};\n`;
+
+  if (format === 'esm') content += `export default content;\n`;
+  if (format === 'cjs') content += `module.exports = content;\n`;
 
   return content;
 };

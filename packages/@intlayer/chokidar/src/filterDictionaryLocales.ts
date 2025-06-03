@@ -17,7 +17,10 @@ const filterTranlationsPlugin = (locales: Locales[] | Locales): Plugins => ({
     const isSingleLocale = localesArray.length === 1;
 
     if (isSingleLocale) {
-      return translationMap[localesArray[0] as Locales];
+      return deepTransformNode(
+        translationMap[localesArray[0] as Locales],
+        props
+      );
     }
 
     const filteredTranslationMap = Object.fromEntries(

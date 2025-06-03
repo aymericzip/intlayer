@@ -1,5 +1,10 @@
 import { join } from 'path';
 import {
+  ACTIVATE_DYNAMIC_IMPORT,
+  OPTIMIZE,
+  TRAVERSE_PATTERN,
+} from '../defaultValues/build';
+import {
   CONFIG_DIR,
   CONTENT_DIR,
   DICTIONARIES_DIR,
@@ -44,6 +49,7 @@ import type {
   AiConfig,
   BaseContentConfig,
   BaseDerivedConfig,
+  BuildConfig,
   ContentConfig,
   CustomIntlayerConfig,
   EditorConfig,
@@ -627,6 +633,54 @@ const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
   applicationContext: customConfiguration?.applicationContext,
 });
 
+const buildBuildFields = (
+  customConfiguration?: Partial<BuildConfig>
+): BuildConfig => ({
+  /**
+   * Indicates if the build should be optimized
+   *
+   * Default: process.env.NODE_ENV === 'production'
+   *
+   * If true, the build will be optimized.
+   * If false, the build will not be optimized.
+   *
+   * Intlayer will replace all call of calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used.
+   *
+   *
+   * Note:
+   * - Intlayer will replace all call of `useIntlayer` with `useDictionary`, `getIntlayer` with `getDictionary`.
+   * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+   */
+  optimize: customConfiguration?.optimize ?? OPTIMIZE,
+
+  /**
+   * Indicates if the dynamic import should be activated
+   *
+   * Default: false
+   *
+   * By default, when a dictionary is loaded, it imports content for all locales.
+   * If this option is set to true, only the current locale’s dictionary content
+   * will be fetched via dynamic import. In that case, Intlayer will replace all
+   * calls to `useIntlayer` with `useDynamicDictionary`.
+   *
+   * Note:
+   * - Enabling dynamic imports will rely on React Suspense, which can slightly
+   *   slow down rendering.
+   * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+   */
+  activateDynamicImport:
+    customConfiguration?.activateDynamicImport ?? ACTIVATE_DYNAMIC_IMPORT,
+
+  /**
+   * Pattern to traverse the code to optimize.
+   *
+   * It's useful to avoid to traverse the code that is not relevant to the optimization.
+   *
+   * Default: ['**\/!(*node_modules)/**\/*.{tsx?|jsx?|vue|svelte|cjs|mjs|js|cjx|mjx}']
+   */
+  traversePattern: customConfiguration?.traversePattern ?? TRAVERSE_PATTERN,
+});
+
 /**
  * Build the configuration fields by merging the default values with the custom configuration
  */
@@ -653,6 +707,8 @@ export const buildConfigurationFields = (
 
   const aiConfig = buildAiFields(customConfiguration?.ai);
 
+  const buildConfig = buildBuildFields(customConfiguration?.build);
+
   storedConfiguration = {
     internationalization: internationalizationConfig,
     middleware: middlewareConfig,
@@ -660,6 +716,7 @@ export const buildConfigurationFields = (
     editor: editorConfig,
     log: logConfig,
     ai: aiConfig,
+    build: buildConfig,
   };
 
   return storedConfiguration;

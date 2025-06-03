@@ -30,7 +30,7 @@ static DEBUG_LOG: bool = false;
 
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  GLOBAL REGISTRY (optional – you can delete if you don’t need it)
+//  GLOBAL REGISTRY (optional – you can delete if you don't need it)
 // ─────────────────────────────────────────────────────────────────────────────
 static INTLAYER_KEYS: LazyLock<Mutex<HashSet<String>>> =
     LazyLock::new(|| Mutex::new(HashSet::new()));
@@ -40,12 +40,29 @@ static INTLAYER_KEYS: LazyLock<Mutex<HashSet<String>>> =
 // ─────────────────────────────────────────────────────────────────────────────
 #[derive(Debug, Deserialize)]
 struct PluginConfig {
-    /// Directory that contains `<key>.json` files
+    /// Directory that contains `<key>.json` files for static imports
+    #[serde(rename = "dictionariesDir")]
     dictionaries_dir: String,
 
-    // Path to the dictionaries entry file
+    /// Path to the dictionaries entry file
+    #[serde(rename = "dictionariesEntryPath")]
     dictionaries_entry_path: String,
- 
+
+    /// Directory that contains `<key>.mjs` files for dynamic imports
+    #[serde(rename = "dynamicDictionariesDir")]
+    dynamic_dictionaries_dir: String,
+
+    /// Path to the dynamic dictionaries entry file
+    #[serde(rename = "dynamicDictionariesEntryPath")]
+    dynamic_dictionaries_entry_path: String,
+
+    /// Indicates if the dynamic import should be activated
+    #[serde(rename = "activateDynamicImport")]
+    activate_dynamic_import: Option<bool>,
+
+    /// Files list to traverse
+    #[serde(rename = "filesList")]
+    files_list: Vec<String>,
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -53,18 +70,27 @@ struct PluginConfig {
 // ─────────────────────────────────────────────────────────────────────────────
 struct TransformVisitor<'a> {
     dictionaries_dir: &'a str,
-    /// Per-file cache: key → imported ident
-    new_imports: BTreeMap<String, Ident>,
+    dynamic_dictionaries_dir: &'a str,
+    activate_dynamic_import: bool,
+    /// Per-file cache: key → imported ident for static imports
+    new_static_imports: BTreeMap<String, Ident>,
+    /// Per-file cache: key → imported ident for dynamic imports
+    new_dynamic_imports: BTreeMap<String, Ident>,
+    /// Track if current file imports from packages supporting dynamic imports
+    use_dynamic_helpers: bool,
 }
 
 impl<'a> TransformVisitor<'a> {
-    fn new(dictionaries_dir: &'a str) -> Self {
+    fn new(dictionaries_dir: &'a str, dynamic_dictionaries_dir: &'a str, activate_dynamic_import: bool) -> Self {
         Self {
             dictionaries_dir,
-            new_imports: BTreeMap::new(),
+            dynamic_dictionaries_dir,
+            activate_dynamic_import,
+            new_static_imports: BTreeMap::new(),
+            new_dynamic_imports: BTreeMap::new(),
+            use_dynamic_helpers: false,
         }
     }
-
 
     /// Turn an i18n key into a short, opaque identifier, e.g.
     ///   "locale-switcher" ➜ "_eEmT39vss4n4"
@@ -77,7 +103,7 @@ impl<'a> TransformVisitor<'a> {
         // 2) base-62-encode the 64-bit number ⇒ up to 11 chars
         let mut encoded = base62_encode(hash);
 
-        // 3) prepend “_” so the ident never begins with a digit
+        // 3) prepend "_" so the ident never begins with a digit
         encoded.insert(0, '_');
 
         Ident::new(
@@ -86,8 +112,28 @@ impl<'a> TransformVisitor<'a> {
             SyntaxContext::empty(),
         )
     }
-}
 
+    /// Create a dynamic import identifier (with _dyn suffix)
+    fn make_dynamic_ident(&self, key: &str) -> Ident {
+        // 1) hash the key
+        let mut hasher = BuildHasherDefault::<XxHash64>::default().build_hasher();
+        hasher.write(key.as_bytes());
+        let hash = hasher.finish();          // u64
+
+        // 2) base-62-encode the 64-bit number ⇒ up to 11 chars
+        let mut encoded = base62_encode(hash);
+
+        // 3) prepend "_" and append "_dyn" for dynamic imports
+        encoded.insert(0, '_');
+        encoded.push_str("_dyn");
+
+        Ident::new(
+            Atom::from(encoded),
+            DUMMY_SP,
+            SyntaxContext::empty(),
+        )
+    }
+}
 
 static PACKAGE_LIST: LazyLock<Vec<Atom>> = LazyLock::new(|| {
     [
@@ -110,6 +156,19 @@ static PACKAGE_LIST: LazyLock<Vec<Atom>> = LazyLock::new(|| {
     .collect()
 });
 
+static PACKAGE_LIST_DYNAMIC: LazyLock<Vec<Atom>> = LazyLock::new(|| {
+    [
+        "react-intlayer",
+        "react-intlayer/client",
+        "react-intlayer/server",
+        "next-intlayer",
+        "next-intlayer/client",
+        "next-intlayer/server",
+    ]
+    .into_iter()
+    .map(|s| Atom::from(s))
+    .collect()
+});
 
 impl<'a> VisitMut for TransformVisitor<'a> {
     // ── 1.  patch  import { useIntlayer }  ──────────────────────────────────
@@ -121,18 +180,36 @@ impl<'a> VisitMut for TransformVisitor<'a> {
             return;
         }
 
+        // Determine if this package supports dynamic imports
+        let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a == &pkg);
+        let should_use_dynamic_helpers = self.activate_dynamic_import && package_supports_dynamic;
+        
+        if should_use_dynamic_helpers {
+            self.use_dynamic_helpers = true;
+        }
+
         for spec in &mut import.specifiers {
             if let ImportSpecifier::Named(named) = spec {
                 match named.local.sym.as_ref() {
                     "useIntlayer" => {
-                        // keep local alias, swap the imported name
-                        named.imported = Some(ModuleExportName::Ident(Ident::new(
-                            Atom::from("useDictionary"),
-                            DUMMY_SP,
-                            SyntaxContext::empty(),
-                        )));
+                        if should_use_dynamic_helpers {
+                            // Use dynamic helper for useIntlayer when dynamic imports are enabled
+                            named.imported = Some(ModuleExportName::Ident(Ident::new(
+                                Atom::from("useDictionaryDynamic"),
+                                DUMMY_SP,
+                                SyntaxContext::empty(),
+                            )));
+                        } else {
+                            // Use static helper
+                            named.imported = Some(ModuleExportName::Ident(Ident::new(
+                                Atom::from("useDictionary"),
+                                DUMMY_SP,
+                                SyntaxContext::empty(),
+                            )));
+                        }
                     }
                     "getIntlayer" => {
+                        // getIntlayer always uses static imports
                         named.imported = Some(ModuleExportName::Ident(Ident::new(
                             Atom::from("getDictionary"),
                             DUMMY_SP,
@@ -149,7 +226,7 @@ impl<'a> VisitMut for TransformVisitor<'a> {
     fn visit_mut_call_expr(&mut self, call: &mut CallExpr) {
         call.visit_mut_children_with(self);
 
-        // is callee the bare identifier `useIntlayer` ?
+        // is callee the bare identifier `useIntlayer` or `getIntlayer` ?
         let callee_ident = match &call.callee {
             Callee::Expr(expr) => {
                 if let Expr::Ident(id) = &**expr {
@@ -175,17 +252,38 @@ impl<'a> VisitMut for TransformVisitor<'a> {
             set.insert(key.clone());
         }
 
-        // get/create per-file ident
-        let ident = if let Some(id) = self.new_imports.get(&key) {
-            id.clone()
-        } else {
-            let id = self.make_ident(&key);
-            self.new_imports.insert(key.clone(), id.clone());
-            id
-        };
+        // Determine if this specific call should use dynamic imports
+        let should_use_dynamic_for_this_call = callee_ident == "useIntlayer" && self.use_dynamic_helpers;
 
-        // replace the argument
-        first_arg.expr = Box::new(Expr::Ident(ident));
+        if should_use_dynamic_for_this_call {
+            // Use dynamic imports for useIntlayer when dynamic helpers are enabled
+            let ident = if let Some(id) = self.new_dynamic_imports.get(&key) {
+                id.clone()
+            } else {
+                let id = self.make_dynamic_ident(&key);
+                self.new_dynamic_imports.insert(key.clone(), id.clone());
+                id
+            };
+
+            // Dynamic helper: first argument is the dictionary, second is the original key
+            call.args.insert(0, ExprOrSpread {
+                spread: None,
+                expr: Box::new(Expr::Ident(ident)),
+            });
+            // Keep the original string literal as the second argument
+        } else {
+            // Use static imports for getIntlayer or useIntlayer when not using dynamic helpers
+            let ident = if let Some(id) = self.new_static_imports.get(&key) {
+                id.clone()
+            } else {
+                let id = self.make_ident(&key);
+                self.new_static_imports.insert(key.clone(), id.clone());
+                id
+            };
+
+            // Static helper: replace the string argument with the identifier
+            first_arg.expr = Box::new(Expr::Ident(ident));
+        }
     }
 }
 
@@ -209,7 +307,12 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         None => return program,
     };
 
-    // ── 2.a  short-circuit the dictionaries entry file  ─────────────────────
+    // ── 2.a  skip file if not in files_list (when files_list is not empty)  ──
+    if !cfg.files_list.is_empty() && !cfg.files_list.contains(&filename) {
+        return program; // skip processing this file
+    }
+
+    // ── 2.b  short-circuit the dictionaries entry file  ─────────────────────
     if filename == cfg.dictionaries_entry_path {
         return Program::Module(Module {
             span: DUMMY_SP,
@@ -227,14 +330,17 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
     }
 
     // 3) run visitor
-    let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir);
+    let activate_dynamic_import = cfg.activate_dynamic_import.unwrap_or(false);
+    let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir, &cfg.dynamic_dictionaries_dir, activate_dynamic_import);
     program.visit_mut_with(&mut visitor);
 
-    // ── 4) inject JSON imports (if any) ───────────────────────────────────────
+    // ── 4) inject JSON/MJS imports (if any) ───────────────────────────────────
     if let Program::Module(Module { body, .. }) = &mut program {
-        // save the string so we don’t need `visitor` inside the loop
-        // take ownership of the map, then iterate
+        println!("[swc-intlayer] final code");
+
+        // save the strings so we don't need `visitor` inside the loop
         let dictionaries_dir = visitor.dictionaries_dir.to_owned();
+        let dynamic_dictionaries_dir = visitor.dynamic_dictionaries_dir.to_owned();
 
         // 4.a  where should we inject?  ─────────────────────────────────────
         //     keep all leading `'use …'` strings at the top
@@ -255,18 +361,16 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             break;                           // first non-directive stmt reached
         }
 
-        // 4.b  inject imports after the directives  ─────────────────────────
-        for (key, ident) in visitor.new_imports.clone().into_iter().rev() {
-            // `filename` comes from your metadata.get_context(Filename)
-        
+        // 4.b  inject static imports after the directives  ─────────────────────
+        for (key, ident) in visitor.new_static_imports.clone().into_iter().rev() {
             let file_path = Path::new(&filename);
             let dict_file = Path::new(&dictionaries_dir).join(format!("{}.json", key));
 
-            // Compute a relative path FROM the source file’s directory TO the JSON file
+            // Compute a relative path FROM the source file's directory TO the JSON file
             let relative = diff_paths(&dict_file, file_path.parent().unwrap())
                 .unwrap_or_else(|| PathBuf::from(&dict_file));
 
-            // If it doesn’t start with “./” or “../”, add “./”
+            // If it doesn't start with "./" or "../", add "./"
             let import_path = {
                 let s = relative.to_string_lossy();
                 if s.starts_with("./") || s.starts_with("../") {
@@ -276,9 +380,6 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                 }
             };
 
-            let import_src = import_path; // now relative
-            
-            
             body.insert(
                 insert_pos,
                 ModuleItem::ModuleDecl(ModuleDecl::Import(ImportDecl {
@@ -287,7 +388,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                         span: DUMMY_SP,
                         local: ident,
                     })],
-                    src: Box::new(Str::from(import_src)),
+                    src: Box::new(Str::from(import_path)),
                     type_only: false,
                     with: None,
                     phase: ImportPhase::Evaluation,
@@ -297,9 +398,44 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             insert_pos += 1;                 // keep later injected imports in order
         }
 
+        // 4.c  inject dynamic imports after the static imports  ─────────────────
+        for (key, ident) in visitor.new_dynamic_imports.clone().into_iter().rev() {
+            let file_path = Path::new(&filename);
+            let dict_file = Path::new(&dynamic_dictionaries_dir).join(format!("{}.mjs", key));
+
+            // Compute a relative path FROM the source file's directory TO the MJS file
+            let relative = diff_paths(&dict_file, file_path.parent().unwrap())
+                .unwrap_or_else(|| PathBuf::from(&dict_file));
+
+            // If it doesn't start with "./" or "../", add "./"
+            let import_path = {
+                let s = relative.to_string_lossy();
+                if s.starts_with("./") || s.starts_with("../") {
+                    s.into_owned()
+                } else {
+                    format!("./{}", s)
+                }
+            };
+
+            body.insert(
+                insert_pos,
+                ModuleItem::ModuleDecl(ModuleDecl::Import(ImportDecl {
+                    span: DUMMY_SP,
+                    specifiers: vec![ImportSpecifier::Default(ImportDefaultSpecifier {
+                        span: DUMMY_SP,
+                        local: ident,
+                    })],
+                    src: Box::new(Str::from(import_path)),
+                    type_only: false,
+                    with: None,
+                    phase: ImportPhase::Evaluation,
+                })),
+            );
+            
+            insert_pos += 1;                 // keep later injected imports in order
+        }
 
         if DEBUG_LOG {
-
             // ── 5) print entire transformed file as JS ──────────────────────────
             {
                 // Create a fresh SourceMap just for codegen (no real sourcemaps needed here)
@@ -322,9 +458,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                     println!("\n[swc-intlayer] final code for {}:\n{}\n", filename, code);
             }
         }
-
     }
-
 
     program
 }

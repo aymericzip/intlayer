@@ -16,8 +16,10 @@ export const getBuiltDynamicDictionariesPath = (
     mkdirSync(mainDir, { recursive: true });
   }
 
+  const extension = format === 'cjs' ? 'cjs' : 'mjs';
+
   const dictionariesPath: string[] = fg.sync(
-    `${dynamicDictionariesDir}/**/*.${format}`
+    `${dynamicDictionariesDir}/**/*.${extension}`
   );
 
   return dictionariesPath;
