@@ -4,7 +4,8 @@ import { resolve } from 'path';
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { writeDictionary } from './writeDictionary';
+import { writeMergedDictionaries } from './writeMergedDictionary';
+import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
 
 /**
  * This function transpile the bundled code to to make dictionaries as JSON files
@@ -18,10 +19,15 @@ export const buildIntlayerDictionary = async (
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dictionariesDir), { recursive: true });
 
-  const dictionariesPaths: string[] = await writeDictionary(
-    contentDeclarations as Dictionary[],
+  const unmergedDictionaries = await writeUnmergedDictionaries(
+    contentDeclarations,
     configuration
   );
 
-  return dictionariesPaths;
+  const mergedDictionaries = await writeMergedDictionaries(
+    unmergedDictionaries,
+    configuration
+  );
+
+  return mergedDictionaries;
 };
