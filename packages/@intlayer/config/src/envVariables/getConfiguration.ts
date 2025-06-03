@@ -72,6 +72,10 @@ export const getConfiguration = (
       env.content.unmergedDictionariesDir,
       'string'
     )!,
+    dynamicDictionariesDir: getEnvValue(
+      env.content.dynamicDictionariesDir,
+      'string'
+    )!,
     i18nextResourcesDir: getEnvValue(
       env.content.i18nextResourcesDir,
       'string'

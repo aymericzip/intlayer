@@ -6,7 +6,7 @@ import { buildIntlayerDictionary } from './intlayer_dictionary/index';
 export const buildDictionary = async (
   dictionaries: Dictionary[],
   configuration = getConfiguration()
-): Promise<string[]> => {
+) => {
   const { dictionaryOutput } = configuration.content;
 
   if (dictionaryOutput.includes('i18next')) {
@@ -16,6 +16,4 @@ export const buildDictionary = async (
   if (dictionaryOutput.includes('intlayer')) {
     return await buildIntlayerDictionary(dictionaries, configuration);
   }
-
-  return [];
 };

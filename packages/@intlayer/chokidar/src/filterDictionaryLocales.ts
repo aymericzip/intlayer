@@ -16,13 +16,15 @@ const filterTranlationsPlugin = (locales: Locales[] | Locales): Plugins => ({
     const localesArray = Array.isArray(locales) ? locales : [locales];
     const isSingleLocale = localesArray.length === 1;
 
-    const filteredTranslationMap = isSingleLocale
-      ? translationMap[localesArray[0] as Locales]
-      : Object.fromEntries(
-          Object.entries(translationMap).filter(([key]) =>
-            locales.includes(key as Locales)
-          )
-        );
+    if (isSingleLocale) {
+      return translationMap[localesArray[0] as Locales];
+    }
+
+    const filteredTranslationMap = Object.fromEntries(
+      Object.entries(translationMap).filter(([key]) =>
+        locales.includes(key as Locales)
+      )
+    );
 
     return {
       ...node,

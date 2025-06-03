@@ -32,9 +32,13 @@ export const prepareIntlayer = async (
   );
 
   // Build locale dictionaries
-  const dictionariesPaths = await buildDictionary(dictionaries, configuration);
+  const dictionariesOutput = await buildDictionary(dictionaries, configuration);
 
-  createTypes(dictionariesPaths, configuration);
+  const dictionariesPaths = Object.values(
+    dictionariesOutput?.mergedDictionaries ?? {}
+  ).map((dictionary) => dictionary.dictionaryPath);
+
+  createTypes(dictionariesPaths);
 
   createDictionaryEntryPoint(configuration);
 

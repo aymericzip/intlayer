@@ -21,6 +21,8 @@ export const DICTIONARIES_DIR = '.intlayer/dictionary';
 
 export const UNMERGED_DICTIONARIES_DIR = '.intlayer/unmerged_dictionary';
 
+export const DYNAMIC_DICTIONARIES_DIR = '.intlayer/dynamic_dictionary';
+
 export const TYPES_DIR = '.intlayer/types';
 
 export const MODULE_AUGMENTATION_DIR = '.intlayer/types';

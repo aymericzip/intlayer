@@ -31,10 +31,12 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     contentDir: process.env.REACT_APP_INTLAYER_CONTENT_DIR,
     excludedPath: process.env.REACT_APP_INTLAYER_EXCLUDED_PATH,
     dictionariesDir: process.env.REACT_APP_INTLAYER_RESULT_DIR,
-    moduleAugmentationDir:
-      process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR,
     unmergedDictionariesDir:
       process.env.REACT_APP_INTLAYER_UNMERGED_DICTIONARIES_DIR,
+    dynamicDictionariesDir:
+      process.env.REACT_APP_INTLAYER_DYNAMIC_DICTIONARIES_DIR,
+    moduleAugmentationDir:
+      process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR,
     i18nextResourcesDir: process.env.REACT_APP_INTLAYER_I18N_DICTIONARIES_DIR,
     reactIntlMessagesDir:
       process.env.REACT_APP_INTLAYER_REACT_INTL_DICTIONARIES_DIR,

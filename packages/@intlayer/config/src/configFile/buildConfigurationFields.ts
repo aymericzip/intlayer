@@ -4,6 +4,7 @@ import {
   CONTENT_DIR,
   DICTIONARIES_DIR,
   DICTIONARY_OUTPUT,
+  DYNAMIC_DICTIONARIES_DIR,
   EXCLUDED_PATHS,
   FILE_EXTENSIONS,
   I18NEXT_DICTIONARIES_DIR,
@@ -322,6 +323,18 @@ const buildContentFields = (
       notDerivedContentConfig.baseDir,
 
       customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
+    ),
+
+    /**
+     * Directory where the dynamic dictionaries will be stored
+     *
+     * Relative to the result directory
+     *
+     * Default: .intlayer/dynamic_dictionary
+     */
+    dynamicDictionariesDir: join(
+      notDerivedContentConfig.baseDir,
+      customConfiguration?.dynamicDictionariesDir ?? DYNAMIC_DICTIONARIES_DIR
     ),
 
     /**

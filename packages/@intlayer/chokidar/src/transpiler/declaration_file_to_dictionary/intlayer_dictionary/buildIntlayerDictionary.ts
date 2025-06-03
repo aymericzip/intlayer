@@ -1,9 +1,8 @@
-import { mkdir } from 'fs/promises';
-import { resolve } from 'path';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
+import { writeDynamicDictionary } from './writeDynamicDictionary';
 import { writeMergedDictionaries } from './writeMergedDictionary';
 import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
 
@@ -12,13 +11,9 @@ import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
  */
 export const buildIntlayerDictionary = async (
   contentDeclarations: (DictionaryAPI | Dictionary)[],
-  configuration = getConfiguration()
+  configuration = getConfiguration(),
+  formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
 ) => {
-  const { dictionariesDir } = configuration.content;
-
-  // Create the dictionaries folder if it doesn't exist
-  await mkdir(resolve(dictionariesDir), { recursive: true });
-
   const unmergedDictionaries = await writeUnmergedDictionaries(
     contentDeclarations,
     configuration
@@ -29,5 +24,15 @@ export const buildIntlayerDictionary = async (
     configuration
   );
 
-  return mergedDictionaries;
+  const dynamicDictionaries = await writeDynamicDictionary(
+    mergedDictionaries,
+    configuration,
+    formats
+  );
+
+  return {
+    unmergedDictionaries,
+    mergedDictionaries,
+    dynamicDictionaries,
+  };
 };

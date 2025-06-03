@@ -1,15 +1,24 @@
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { writeFile } from 'fs/promises';
+import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { mergeDictionaries } from '../../../mergeDictionaries';
 import { processPerLocaleDictionary } from '../../../processPerLocaleDictionary';
+import { formatDictionaryText } from './formatDictionaryText';
+import { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
+
+export type MergedDictionaryResult = {
+  dictionaryPath: string;
+  dictionary: Dictionary;
+};
+
+export type MergedDictionaryOutput = Record<string, MergedDictionaryResult>;
 
 /**
- * Write the final dictionaries to the dictionariesDir
+ * Write the merged dictionaries to the dictionariesDir
  * @param groupedDictionaries - The grouped dictionaries
  * @param configuration - The configuration
- * @returns The final dictionaries
+ * @returns The merged dictionaries
  *
  * @example
  * ```ts
@@ -22,25 +31,29 @@ import { processPerLocaleDictionary } from '../../../processPerLocaleDictionary'
  * ```
  */
 export const writeMergedDictionaries = async (
-  groupedDictionaries: Record<string, Dictionary[]>,
+  groupedDictionaries: UnmergedDictionaryOutput,
   configuration = getConfiguration()
-) => {
+): Promise<MergedDictionaryOutput> => {
   const { dictionariesDir } = configuration.content;
-  const resultDictionariesPaths: string[] = [];
+
+  // Create the dictionaries folder if it doesn't exist
+  await mkdir(resolve(dictionariesDir), { recursive: true });
+
+  let resultDictionariesPaths: MergedDictionaryOutput = {};
 
   // Merge dictionaries with the same key and write to dictionariesDir
-  for (const [key, dictionaries] of Object.entries(groupedDictionaries)) {
+  for await (const [key, dictionariesEntry] of Object.entries(
+    groupedDictionaries
+  )) {
     if (key === 'undefined') continue;
 
-    const multiLocaleDictionaries = dictionaries.map((dictionary) =>
-      processPerLocaleDictionary(dictionary)
+    const multiLocaleDictionaries = dictionariesEntry.dictionaries.map(
+      (dictionary) => processPerLocaleDictionary(dictionary)
     );
+
     const mergedDictionary = mergeDictionaries(multiLocaleDictionaries);
 
-    const isDevelopment = process.env.NODE_ENV === 'development';
-    const contentString = isDevelopment
-      ? JSON.stringify(mergedDictionary, null, 2)
-      : JSON.stringify(mergedDictionary);
+    const contentString = formatDictionaryText(mergedDictionary);
 
     const outputFileName = `${key}.json`;
     const resultFilePath = resolve(dictionariesDir, outputFileName);
@@ -50,7 +63,10 @@ export const writeMergedDictionaries = async (
       console.error(`Error creating merged ${outputFileName}:`, err);
     });
 
-    resultDictionariesPaths.push(resultFilePath);
+    resultDictionariesPaths[key] = {
+      dictionaryPath: resultFilePath,
+      dictionary: mergedDictionary,
+    };
   }
 
   return resultDictionariesPaths;

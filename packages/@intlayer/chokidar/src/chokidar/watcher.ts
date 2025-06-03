@@ -38,7 +38,11 @@ export const handleAdditionalContentDeclarationFile = async (
 
   const localeDictionaries = await loadLocalDictionaries(filePath);
 
-  const dictionariesPaths = await buildDictionary(localeDictionaries);
+  const dictionariesOutput = await buildDictionary(localeDictionaries);
+
+  const dictionariesPaths = Object.values(
+    dictionariesOutput?.mergedDictionaries ?? {}
+  ).map((dictionary) => dictionary.dictionaryPath);
 
   createTypes(dictionariesPaths);
 
@@ -72,7 +76,11 @@ export const handleUnlikedContentDeclarationFile = async (
 
   const localeDictionaries = await loadLocalDictionaries(files);
 
-  const dictionariesPaths = await buildDictionary(localeDictionaries);
+  const dictionariesOutput = await buildDictionary(localeDictionaries);
+
+  const dictionariesPaths = Object.values(
+    dictionariesOutput?.mergedDictionaries ?? {}
+  ).map((dictionary) => dictionary.dictionaryPath);
 
   createTypes(dictionariesPaths);
 
@@ -104,7 +112,11 @@ export const handleContentDeclarationFileChange = async (
 
   const localeDictionaries = await loadLocalDictionaries(filePath);
 
-  const updatedDictionariesPaths = await buildDictionary(localeDictionaries);
+  const dictionariesOutput = await buildDictionary(localeDictionaries);
+  const updatedDictionariesPaths = Object.values(
+    dictionariesOutput?.mergedDictionaries ?? {}
+  ).map((dictionary) => dictionary.dictionaryPath);
+
   const allDictionariesPaths: string[] = getBuiltDictionariesPath();
 
   createTypes(updatedDictionariesPaths);

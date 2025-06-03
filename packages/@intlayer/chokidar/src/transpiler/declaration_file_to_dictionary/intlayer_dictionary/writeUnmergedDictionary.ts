@@ -2,6 +2,7 @@ import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
+import { formatDictionaryText } from './formatDictionaryText';
 
 const groupDictionariesByKey = (
   dictionaries: Dictionary[]
@@ -18,6 +19,13 @@ const groupDictionariesByKey = (
     {} as Record<string, Dictionary[]>
   );
 };
+
+export type UnmergedDictionaryResult = {
+  dictionaryPath: string;
+  dictionaries: Dictionary[];
+};
+
+export type UnmergedDictionaryOutput = Record<string, UnmergedDictionaryResult>;
 
 /**
  * Write the unmerged dictionaries to the unmergedDictionariesDir
@@ -42,22 +50,21 @@ const groupDictionariesByKey = (
 export const writeUnmergedDictionaries = async (
   dictionaries: Dictionary[],
   configuration = getConfiguration()
-): Promise<Record<string, Dictionary[]>> => {
+): Promise<UnmergedDictionaryOutput> => {
   const { unmergedDictionariesDir } = configuration.content;
 
-  // Create the merged dictionaries directory
-  await mkdir(unmergedDictionariesDir, { recursive: true });
+  // Create the dictionaries folder if it doesn't exist
+  await mkdir(resolve(unmergedDictionariesDir), { recursive: true });
 
   //  Group dictionaries by key and write to unmergedDictionariesDir
   const groupedDictionaries = groupDictionariesByKey(dictionaries);
 
-  for (const [key, dictionaries] of Object.entries(groupedDictionaries)) {
+  let resultDictionariesPaths: UnmergedDictionaryOutput = {};
+
+  for await (const [key, dictionaries] of Object.entries(groupedDictionaries)) {
     if (key === 'undefined') continue;
 
-    const isDevelopment = process.env.NODE_ENV === 'development';
-    const contentString = isDevelopment
-      ? JSON.stringify(dictionaries, null, 2)
-      : JSON.stringify(dictionaries);
+    const contentString = formatDictionaryText(dictionaries);
 
     const outputFileName = `${key}.json`;
     const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
@@ -66,7 +73,12 @@ export const writeUnmergedDictionaries = async (
     await writeFile(unmergedFilePath, contentString, 'utf8').catch((err) => {
       console.error(`Error creating unmerged ${outputFileName}:`, err);
     });
+
+    resultDictionariesPaths[key] = {
+      dictionaryPath: unmergedFilePath,
+      dictionaries: dictionaries,
+    };
   }
 
-  return groupedDictionaries;
+  return resultDictionariesPaths;
 };

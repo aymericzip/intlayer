@@ -31,10 +31,12 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     contentDir: process.env.NEXT_PUBLIC_INTLAYER_CONTENT_DIR,
     excludedPath: process.env.NEXT_PUBLIC_INTLAYER_EXCLUDED_PATH,
     dictionariesDir: process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR,
-    moduleAugmentationDir:
-      process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR,
+    dynamicDictionariesDir:
+      process.env.NEXT_PUBLIC_INTLAYER_DYNAMIC_DICTIONARIES_DIR,
     unmergedDictionariesDir:
       process.env.NEXT_PUBLIC_INTLAYER_UNMERGED_DICTIONARIES_DIR,
+    moduleAugmentationDir:
+      process.env.NEXT_PUBLIC_INTLAYER_MODULE_AUGMENTATION_DIR,
     i18nextResourcesDir: process.env.NEXT_PUBLIC_INTLAYER_I18N_RESOURCES_DIR,
     reactIntlMessagesDir:
       process.env.NEXT_PUBLIC_INTLAYER_REACT_INTL_MESSAGES_DIR,

@@ -461,6 +461,15 @@ export type ResultDirDerivedConfig = {
   dictionariesDir: string;
 
   /**
+   * Directory where dynamic dictionaries are stored, relative to the result directory
+   *
+   * Default: .intlayer/dynamic_dictionary
+   *
+   * Specifies the derived path for dynamic dictionaries relative to the result directory.
+   */
+  dynamicDictionariesDir: string;
+
+  /**
    * Directory where dictionaries are stored, relative to the result directory
    *
    * Default: i18next_resources
