@@ -10,37 +10,37 @@ import { YoutubeLogo } from './YoutubeLogo';
 const socialNetworks = [
   {
     href: 'https://www.producthunt.com/posts/intlayer?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-intlayer',
-    component: <ProductHuntLogo className="max-w-full max-h-full" />,
+    component: <ProductHuntLogo className="max-w-full max-h-full h-auto" />,
     label: 'Product Hunt',
   },
   {
     href: 'https://x.com/Intlayer183096',
-    component: <XLogo className="max-w-full max-h-full" />,
+    component: <XLogo className="max-w-full max-h-full h-auto" />,
     label: 'X',
   },
   {
     href: 'https://www.youtube.com/@intlayer',
-    component: <YoutubeLogo className="max-w-full max-h-full" />,
+    component: <YoutubeLogo className="max-w-full max-h-full h-auto" />,
     label: 'YouTube',
   },
   {
     href: 'https://www.linkedin.com/company/intlayerorg',
-    component: <LinkedInLogo className="max-w-full max-h-full" />,
+    component: <LinkedInLogo className="max-w-full max-h-full h-auto" />,
     label: 'LinkedIn',
   },
   {
     href: 'https://www.tiktok.com/@intlayer',
-    component: <TiktokLogo className="max-w-full max-h-full" />,
+    component: <TiktokLogo className="max-w-full max-h-full h-auto" />,
     label: 'TikTok',
   },
   {
     href: 'https://www.instagram.com/intlayer_org/',
-    component: <InstagramLogo className="max-w-full max-h-full" />,
+    component: <InstagramLogo className="max-w-full max-h-full h-auto" />,
     label: 'Instagram',
   },
   {
     href: 'https://www.facebook.com/intlayer',
-    component: <FacebookLogo className="max-w-full max-h-full" />,
+    component: <FacebookLogo className="max-w-full max-h-full h-auto" />,
     label: 'Facebook',
   },
 ];
