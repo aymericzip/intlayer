@@ -42,7 +42,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
     <Form
       schema={DictionarySchema}
       onSubmitSuccess={onSubmitSuccess}
-      className="w-full max-w-[400px]"
+      className="w-full max-w-[400px] m-auto"
       {...form}
     >
       <Form.Input
@@ -81,6 +81,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
         color="text"
         isLoading={isSubmitting}
         label={createDictionaryButton.ariaLabel.value}
+        isFullWidth
       >
         {createDictionaryButton.text}
       </Form.Button>
