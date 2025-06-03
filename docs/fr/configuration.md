@@ -258,8 +258,6 @@ Paramètres qui contrôlent le comportement des middlewares, y compris la gestio
   - _Exemple_: `true`
   - _Remarque_: Si `true`, les URL ne contiendront pas d'informations sur la langue.
 
----
-
 ### Configuration du contenu
 
 Paramètres liés à la gestion du contenu dans l'application, y compris les noms de répertoires, les extensions de fichiers et les configurations dérivées.
@@ -436,3 +434,53 @@ Intlayer prend en charge plusieurs fournisseurs d'IA pour une flexibilité et un
   - _Type_: `string`
   - _Par défaut_: Aucun
   - _Description_: Fournit un contexte supplémentaire sur votre application au modèle d'IA, l'aidant à générer des traductions plus précises et contextuellement appropriées. Cela peut inclure des informations sur le domaine de votre application, le public cible, le ton ou la terminologie spécifique.
+
+### Configuration de Build
+
+Paramètres qui contrôlent la façon dont Intlayer optimise et compile l'internationalisation de votre application.
+
+Les options de build s'appliquent aux plugins `@intlayer/babel` et `@intlayer/swc`.
+
+> En mode développement, Intlayer utilise une importation statique centralisée pour les dictionnaires afin de simplifier l'expérience de développement.
+
+> En optimisant le build, Intlayer remplacera tous les appels de dictionnaires pour optimiser le chunking. Ainsi, le bundle final n'importera que les dictionnaires qui sont utilisés.
+
+Par défaut, lorsqu'un dictionnaire est chargé, il importe le contenu pour toutes les langues.
+Si cette option est définie sur true, seul le contenu du dictionnaire de la langue actuelle
+sera récupéré via une importation dynamique. Dans ce cas, Intlayer remplacera tous les
+appels à `useIntlayer` par `useDynamicDictionary`.
+
+- **Note** : `@intlayer/babel` est disponible par défaut sur le package `vite-intlayer`, mais `@intlayer/swc` n'est pas installé par défaut sur le package `next-intlayer` car les plugins SWC sont encore expérimentaux sur Next.js.
+
+#### Propriétés
+
+- **optimize** :
+
+  - _Type_ : `boolean`
+  - _Défaut_ : `process.env.NODE_ENV === 'production'`
+  - _Description_ : Contrôle si le build doit être optimisé.
+  - _Exemple_ : `true`
+  - _Note_ : Cela permettra d'importer uniquement les dictionnaires utilisés dans le bundle. Mais toutes les importations resteront des importations statiques pour éviter le traitement asynchrone lors du chargement des dictionnaires.
+  - _Note_ : Lorsqu'activé, Intlayer optimisera le chunking des dictionnaires en remplaçant tous les appels de `useIntlayer` par `useDictionary` et `getIntlayer` par `getDictionary`.
+  - _Note_ : Assurez-vous que toutes les clés sont déclarées statiquement dans les appels `useIntlayer`. par exemple : `useIntlayer('navbar')`.
+
+- **activateDynamicImport** :
+
+  - _Type_ : `boolean`
+  - _Défaut_ : `false`
+  - _Description_ : Contrôle si le contenu du dictionnaire doit être importé dynamiquement par langue.
+  - _Exemple_ : `true`
+  - _Note_ : Cela permettra d'importer dynamiquement le contenu du dictionnaire uniquement pour la langue actuelle.
+  - _Note_ : Les importations dynamiques reposent sur React Suspense et peuvent légèrement impacter les performances de rendu. Mais si désactivé, toutes les langues seront chargées en même temps, même si elles ne sont pas utilisées.
+  - _Note_ : Lorsqu'activé, Intlayer optimisera le chunking des dictionnaires en remplaçant tous les appels de `useIntlayer` par `useDynamicDictionary`.
+  - _Note_ : Cette option sera ignorée si `optimize` est désactivé.
+  - _Note_ : Assurez-vous que toutes les clés sont déclarées statiquement dans les appels `useIntlayer`. par exemple : `useIntlayer('navbar')`.
+
+- **traversePattern** :
+  - _Type_ : `string[]`
+  - _Défaut_ : `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Description_ : Motifs qui définissent quels fichiers doivent être parcourus pendant l'optimisation.
+  - _Exemple_ : `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Note_ : Utilisez ceci pour limiter l'optimisation aux fichiers de code pertinents et améliorer les performances de build.
+  - _Note_ : Cette option sera ignorée si `optimize` est désactivé.
+  - _Note_ : Utilisez le motif glob.

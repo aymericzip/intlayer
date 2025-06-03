@@ -260,8 +260,6 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
   - _Ejemplo_: `true`
   - _Nota_: Si es `true`, las URLs no contendrán información de configuración regional.
 
----
-
 ### Configuración de Contenido
 
 Configuraciones relacionadas con el manejo de contenido dentro de la aplicación, incluyendo nombres de directorios, extensiones de archivos y configuraciones derivadas.
@@ -438,3 +436,53 @@ Intlayer admite múltiples proveedores de AI para mayor flexibilidad y elección
   - _Tipo_: `string`
   - _Por defecto_: Ninguno
   - _Descripción_: Proporciona contexto adicional sobre tu aplicación al modelo de AI, ayudándolo a generar traducciones más precisas y contextualmente apropiadas. Esto puede incluir información sobre el dominio de tu aplicación, audiencia objetivo, tono o terminología específica.
+
+### Configuración de Compilación
+
+Ajustes que controlan cómo Intlayer optimiza y compila la internacionalización de tu aplicación.
+
+Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intlayer/swc`.
+
+> En modo desarrollo, Intlayer utiliza una importación estática centralizada para los diccionarios para simplificar la experiencia de desarrollo.
+
+> Al optimizar la compilación, Intlayer reemplazará todas las llamadas de diccionarios para optimizar el chunking. De esta manera, el bundle final importará solo los diccionarios que se utilizan.
+
+Por defecto, cuando se carga un diccionario, importa contenido para todos los idiomas.
+Si esta opción se establece en true, solo se obtendrá el contenido del diccionario
+del idioma actual mediante importación dinámica. En ese caso, Intlayer reemplazará todas
+las llamadas a `useIntlayer` con `useDynamicDictionary`.
+
+- **Nota**: `@intlayer/babel` está disponible por defecto en el paquete `vite-intlayer`, pero `@intlayer/swc` no está instalado por defecto en el paquete `next-intlayer` ya que los plugins SWC aún son experimentales en Next.js.
+
+#### Propiedades
+
+- **optimize**:
+
+  - _Tipo_: `boolean`
+  - _Valor por defecto_: `process.env.NODE_ENV === 'production'`
+  - _Descripción_: Controla si la compilación debe ser optimizada.
+  - _Ejemplo_: `true`
+  - _Nota_: Permitirá importar solo los diccionarios que se utilizan en el bundle. Pero todas las importaciones permanecerán como importación estática para evitar el procesamiento asíncrono al cargar los diccionarios.
+  - _Nota_: Cuando está habilitado, Intlayer optimizará el chunking del diccionario reemplazando todas las llamadas de `useIntlayer` con `useDictionary` y `getIntlayer` con `getDictionary`.
+  - _Nota_: Asegúrate de que todas las claves estén declaradas estáticamente en las llamadas `useIntlayer`. por ejemplo: `useIntlayer('navbar')`.
+
+- **activateDynamicImport**:
+
+  - _Tipo_: `boolean`
+  - _Valor por defecto_: `false`
+  - _Descripción_: Controla si el contenido del diccionario debe importarse dinámicamente por idioma.
+  - _Ejemplo_: `true`
+  - _Nota_: Permitirá importar dinámicamente el contenido del diccionario solo para el idioma actual.
+  - _Nota_: Las importaciones dinámicas dependen de React Suspense y pueden afectar ligeramente el rendimiento del renderizado. Pero si está deshabilitado, todos los idiomas se cargarán a la vez, incluso si no se utilizan.
+  - _Nota_: Cuando está habilitado, Intlayer optimizará el chunking del diccionario reemplazando todas las llamadas de `useIntlayer` con `useDynamicDictionary`.
+  - _Nota_: Esta opción será ignorada si `optimize` está deshabilitado.
+  - _Nota_: Asegúrate de que todas las claves estén declaradas estáticamente en las llamadas `useIntlayer`. por ejemplo: `useIntlayer('navbar')`.
+
+- **traversePattern**:
+  - _Tipo_: `string[]`
+  - _Valor por defecto_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Descripción_: Patrones que definen qué archivos deben ser recorridos durante la optimización.
+  - _Ejemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Nota_: Usa esto para limitar la optimización a archivos de código relevantes y mejorar el rendimiento de la compilación.
+  - _Nota_: Esta opción será ignorada si `optimize` está deshabilitado.
+  - _Nota_: Usa patrón glob.

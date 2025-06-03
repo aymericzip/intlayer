@@ -258,7 +258,55 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
   - _Beispiel_: `true`
   - _Hinweis_: Wenn `true`, enthalten URLs keine Sprachinformationen.
 
----
+### Build-Konfiguration
+
+Einstellungen, die steuern, wie Intlayer die Internationalisierung Ihrer Anwendung optimiert und erstellt.
+
+Build-Optionen gelten für die `@intlayer/babel` und `@intlayer/swc` Plugins.
+
+> Im Entwicklungsmodus verwendet Intlayer einen zentralisierten statischen Import für Wörterbücher, um die Entwicklungserfahrung zu vereinfachen.
+
+> Durch die Build-Optimierung ersetzt Intlayer alle Wörterbuchaufrufe, um das Chunking zu optimieren. Auf diese Weise importiert der finale Build nur die tatsächlich verwendeten Wörterbücher.
+
+Standardmäßig wird beim Laden eines Wörterbuchs der Inhalt für alle Sprachen importiert.
+Wenn diese Option auf true gesetzt ist, wird nur der Wörterbuchinhalt für die aktuelle Sprache
+über dynamischen Import geladen. In diesem Fall ersetzt Intlayer alle
+`useIntlayer` Aufrufe durch `useDynamicDictionary`.
+
+- **Hinweis**: `@intlayer/babel` ist standardmäßig im `vite-intlayer` Paket verfügbar, aber `@intlayer/swc` ist standardmäßig nicht im `next-intlayer` Paket installiert, da SWC-Plugins in Next.js noch experimentell sind.
+
+#### Eigenschaften
+
+- **optimize**:
+
+  - _Typ_: `boolean`
+  - _Standard_: `process.env.NODE_ENV === 'production'`
+  - _Beschreibung_: Steuert, ob der Build optimiert werden soll.
+  - _Beispiel_: `true`
+  - _Hinweis_: Ermöglicht es, nur die verwendeten Wörterbücher in das Bundle zu importieren. Alle Importe bleiben jedoch statische Importe, um asynchrone Verarbeitung beim Laden der Wörterbücher zu vermeiden.
+  - _Hinweis_: Wenn aktiviert, optimiert Intlayer das Wörterbuch-Chunking, indem alle `useIntlayer` Aufrufe durch `useDictionary` und `getIntlayer` durch `getDictionary` ersetzt werden.
+  - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel in den `useIntlayer` Aufrufen statisch deklariert sind. z.B. `useIntlayer('navbar')`.
+
+- **activateDynamicImport**:
+
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Steuert, ob Wörterbuchinhalte pro Sprache dynamisch importiert werden sollen.
+  - _Beispiel_: `true`
+  - _Hinweis_: Ermöglicht den dynamischen Import von Wörterbuchinhalten nur für die aktuelle Sprache.
+  - _Hinweis_: Dynamische Importe basieren auf React Suspense und können die Rendering-Leistung leicht beeinträchtigen. Wenn deaktiviert, werden alle Sprachen auf einmal geladen, auch wenn sie nicht verwendet werden.
+  - _Hinweis_: Wenn aktiviert, optimiert Intlayer das Wörterbuch-Chunking, indem alle `useIntlayer` Aufrufe durch `useDynamicDictionary` ersetzt werden.
+  - _Hinweis_: Diese Option wird ignoriert, wenn `optimize` deaktiviert ist.
+  - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel in den `useIntlayer` Aufrufen statisch deklariert sind. z.B. `useIntlayer('navbar')`.
+
+- **traversePattern**:
+  - _Typ_: `string[]`
+  - _Standard_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Beschreibung_: Muster, die festlegen, welche Dateien während der Optimierung durchlaufen werden sollen.
+  - _Beispiel_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Hinweis_: Verwenden Sie dies, um die Optimierung auf relevante Code-Dateien zu beschränken und die Build-Leistung zu verbessern.
+  - _Hinweis_: Diese Option wird ignoriert, wenn `optimize` deaktiviert ist.
+  - _Hinweis_: Verwenden Sie Glob-Muster.
 
 ### Inhaltskonfiguration
 

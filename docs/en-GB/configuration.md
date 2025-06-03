@@ -443,3 +443,53 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Type_: `string`
   - _Default_: None
   - _Description_: Provides additional context about your application to the AI model, helping it generate more accurate and contextually appropriate translations. This can include information about your app's domain, target audience, tone, or specific terminology.
+
+### Build Configuration
+
+Settings that control how Intlayer optimises and builds your application's internationalisation.
+
+Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
+
+> In development mode, Intlayer use a centralised static import for dictionaries to simplify the development experience.
+
+> By optimising the build, Intlayer will replace all calls of dictionaries to optimise chunking. That way the final bundle will import only the dictionaries that are used.
+
+By default, when a dictionary is loaded, it imports content for all locales.
+If this option is set to true, only the current locale's dictionary content
+will be fetched via dynamic import. In that case, Intlayer will replace all
+calls to `useIntlayer` with `useDynamicDictionary`.
+
+- **Note**: `@intlayer/babel` is available by default on `vite-intlayer` package, but `@intlayer/swc` is not installed by default on `next-intlayer` package as SWC plugins are still experimental on Next.js.
+
+#### Properties
+
+- **optimize**:
+
+  - _Type_: `boolean`
+  - _Default_: `process.env.NODE_ENV === 'production'`
+  - _Description_: Controls whether the build should be optimised.
+  - _Example_: `true`
+  - _Note_: It will allows to import only the dictionaries that are used into the bundle. But all imports will stay as static import to avoid async processing when loading the dictionaries.
+  - _Note_: When enabled, Intlayer will optimise dictionary chunking by replacing all calls of `useIntlayer` with `useDictionary` and `getIntlayer` with `getDictionary`.
+  - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+
+- **activateDynamicImport**:
+
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Controls whether dictionary content should be dynamically imported per locale.
+  - _Example_: `true`
+  - _Note_: It will allows to import dynamically the dictionary content for the current locale only.
+  - _Note_: Dynamic imports rely on React Suspense and may slightly impact rendering performance. But if disabled all locales will be loaded at once, even if they are not used.
+  - _Note_: When enabled, Intlayer will optimise dictionary chunking by replacing all calls of `useIntlayer` calls with `useDynamicDictionary`.
+  - _Note_: This option will be ignored if `optimize` is disabled.
+  - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+
+- **traversePattern**:
+  - _Type_: `string[]`
+  - _Default_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Description_: Patterns that define which files should be traversed during optimisation.
+  - _Example_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Note_: Use this to limit optimisation to relevant code files and improve build performance.
+  - _Note_: This option will be ignored if `optimize` is disabled.
+  - _Note_: Use glob pattern.

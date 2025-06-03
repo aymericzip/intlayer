@@ -260,8 +260,6 @@ module.exports = config;
   - _示例_: `true`
   - _注意_: 如果为 `true`，URL 将不包含语言环境信息。
 
----
-
 ### 内容配置
 
 与应用程序中的内容处理相关的设置，包括目录名称、文件扩展名和派生配置。
@@ -439,3 +437,52 @@ Intlayer 支持多个 AI 提供商以增强灵活性和选择性。目前支持�
   - _类型_: `string`
   - _默认值_: 无
   - _描述_: 为 AI 模型提供有关您应用程序的额外上下文，帮助其生成更准确和上下文适当的翻译。这可以包括有关您应用程序的领域、目标受众、语气或特定术语的信息。
+
+### 构建配置
+
+控制 Intlayer 如何优化和构建应用程序国际化的设置。
+
+构建选项适用于 `@intlayer/babel` 和 `@intlayer/swc` 插件。
+
+> 在开发模式下，Intlayer 使用集中式静态导入字典以简化开发体验。
+
+> 通过优化构建，Intlayer 将替换所有字典调用以优化分块。这样，最终的包只会导入使用到的字典。
+
+默认情况下，当加载字典时，它会导入所有语言环境的内容。
+如果此选项设置为 true，则只会通过动态导入获取当前语言环境的字典内容。
+在这种情况下，Intlayer 将把所有 `useIntlayer` 调用替换为 `useDynamicDictionary`。
+
+- **注意**：`@intlayer/babel` 在 `vite-intlayer` 包中默认可用，但 `@intlayer/swc` 在 `next-intlayer` 包中默认未安装，因为 SWC 插件在 Next.js 中仍处于实验阶段。
+
+#### 属性
+
+- **optimize**：
+
+  - _类型_：`boolean`
+  - _默认值_：`process.env.NODE_ENV === 'production'`
+  - _描述_：控制是否应该优化构建。
+  - _示例_：`true`
+  - _注意_：这将允许只导入包中使用的字典。但所有导入都将保持为静态导入，以避免加载字典时的异步处理。
+  - _注意_：启用时，Intlayer 将通过将所有 `useIntlayer` 调用替换为 `useDictionary` 和 `getIntlayer` 替换为 `getDictionary` 来优化字典分块。
+  - _注意_：确保所有键都在 `useIntlayer` 调用中静态声明。例如：`useIntlayer('navbar')`。
+
+- **activateDynamicImport**：
+
+  - _类型_：`boolean`
+  - _默认值_：`false`
+  - _描述_：控制是否应该按语言环境动态导入字典内容。
+  - _示例_：`true`
+  - _注意_：这将允许仅动态导入当前语言环境的字典内容。
+  - _注意_：动态导入依赖于 React Suspense，可能会略微影响渲染性能。但如果禁用，所有语言环境将一次性加载，即使它们未被使用。
+  - _注意_：启用时，Intlayer 将通过将所有 `useIntlayer` 调用替换为 `useDynamicDictionary` 来优化字典分块。
+  - _注意_：如果 `optimize` 被禁用，此选项将被忽略。
+  - _注意_：确保所有键都在 `useIntlayer` 调用中静态声明。例如：`useIntlayer('navbar')`。
+
+- **traversePattern**：
+  - _类型_：`string[]`
+  - _默认值_：`['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _描述_：定义在优化期间应遍历哪些文件的模式。
+  - _示例_：`['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _注意_：使用此选项将优化限制在相关代码文件上并提高构建性能。
+  - _注意_：如果 `optimize` 被禁用，此选项将被忽略。
+  - _注意_：使用 glob 模式。

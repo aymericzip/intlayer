@@ -290,12 +290,13 @@ export type BuildConfig = {
    * If true, the build will be optimized.
    * If false, the build will not be optimized.
    *
-   * Intlayer will replace all call of calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used.
-   *
+   * Intlayer will replace all calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used.
+   * All imports will stay as static import to avoid async processing when loading the dictionaries.
    *
    * Note:
    * - Intlayer will replace all call of `useIntlayer` with `useDictionary`, `getIntlayer` with `getDictionary`.
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+   * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    */
   optimize: boolean;
 
@@ -304,24 +305,32 @@ export type BuildConfig = {
    *
    * Default: false
    *
-   * By default, when a dictionary is loaded, it imports content for all locales.
+   * By default, when a dictionary is loaded, it imports content for all locales as it's imported statically.
    * If this option is set to true, only the current locale’s dictionary content
    * will be fetched via dynamic import. In that case, Intlayer will replace all
    * calls to `useIntlayer` with `useDynamicDictionary`.
    *
    * Note:
-   * - Enabling dynamic imports will rely on React Suspense, which can slightly
-   *   slow down rendering.
+   * - Dynamic imports rely on React Suspense and may slightly impact rendering performance. But if desabled all locales will be loaded at once, even if they are not used.
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+   * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+   * - This option will be ignored if `optimize` is disabled.
    */
   activateDynamicImport: boolean;
 
   /**
    * Pattern to traverse the code to optimize.
    *
-   * It's useful to avoid to traverse the code that is not relevant to the optimization.
+   * Allows to avoid to traverse the code that is not relevant to the optimization.
+   * Improve build performance.
    *
-   * Default: ['**\/!(*node_modules)/**\/*.{tsx?|jsx?|vue|svelte|cjs|mjs|js|cjx|mjx}']
+   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']
+   *
+   * Example: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**\/node_modules/**']`
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   * - Use glob pattern.
    */
   traversePattern: string[];
 };

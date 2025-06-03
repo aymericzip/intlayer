@@ -260,8 +260,6 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Exemplo_: `true`
   - _Nota_: Se `true`, as URLs não conterão informações de idioma.
 
----
-
 ### Configuração de Conteúdo
 
 Configurações relacionadas ao gerenciamento de conteúdo dentro da aplicação, incluindo nomes de diretórios, extensões de arquivos e configurações derivadas.
@@ -438,3 +436,53 @@ O Intlayer suporta vários provedores de IA para maior flexibilidade e escolha. 
   - _Tipo_: `string`
   - _Padrão_: Nenhum
   - _Descrição_: Fornece contexto adicional sobre sua aplicação ao modelo de IA, ajudando-o a gerar traduções mais precisas e contextualmente apropriadas. Isso pode incluir informações sobre o domínio do seu aplicativo, público-alvo, tom ou terminologia específica.
+
+### Configuração de Build
+
+Configurações que controlam como o Intlayer otimiza e compila a internacionalização do seu aplicativo.
+
+As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
+
+> No modo de desenvolvimento, o Intlayer usa uma importação estática centralizada para dicionários para simplificar a experiência de desenvolvimento.
+
+> Ao otimizar o build, o Intlayer substituirá todas as chamadas de dicionários para otimizar o chunking. Dessa forma, o bundle final importará apenas os dicionários que são utilizados.
+
+Por padrão, quando um dicionário é carregado, ele importa conteúdo para todos os idiomas.
+Se esta opção estiver definida como true, apenas o conteúdo do dicionário do idioma atual
+será buscado via importação dinâmica. Nesse caso, o Intlayer substituirá todas
+as chamadas para `useIntlayer` por `useDynamicDictionary`.
+
+- **Nota**: `@intlayer/babel` está disponível por padrão no pacote `vite-intlayer`, mas `@intlayer/swc` não está instalado por padrão no pacote `next-intlayer` pois os plugins SWC ainda são experimentais no Next.js.
+
+#### Propriedades
+
+- **optimize**:
+
+  - _Tipo_: `boolean`
+  - _Padrão_: `process.env.NODE_ENV === 'production'`
+  - _Descrição_: Controla se o build deve ser otimizado.
+  - _Exemplo_: `true`
+  - _Nota_: Permitirá importar apenas os dicionários que são utilizados no bundle. Mas todas as importações permanecerão como importação estática para evitar processamento assíncrono ao carregar os dicionários.
+  - _Nota_: Quando ativado, o Intlayer otimizará o chunking do dicionário substituindo todas as chamadas de `useIntlayer` por `useDictionary` e `getIntlayer` por `getDictionary`.
+  - _Nota_: Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas `useIntlayer`. por exemplo: `useIntlayer('navbar')`.
+
+- **activateDynamicImport**:
+
+  - _Tipo_: `boolean`
+  - _Padrão_: `false`
+  - _Descrição_: Controla se o conteúdo do dicionário deve ser importado dinamicamente por idioma.
+  - _Exemplo_: `true`
+  - _Nota_: Permitirá importar dinamicamente o conteúdo do dicionário apenas para o idioma atual.
+  - _Nota_: Importações dinâmicas dependem do React Suspense e podem impactar levemente o desempenho de renderização. Mas se desativado todos os idiomas serão carregados de uma vez, mesmo que não sejam utilizados.
+  - _Nota_: Quando ativado, o Intlayer otimizará o chunking do dicionário substituindo todas as chamadas de `useIntlayer` por `useDynamicDictionary`.
+  - _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
+  - _Nota_: Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas `useIntlayer`. por exemplo: `useIntlayer('navbar')`.
+
+- **traversePattern**:
+  - _Tipo_: `string[]`
+  - _Padrão_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Descrição_: Padrões que definem quais arquivos devem ser percorridos durante a otimização.
+  - _Exemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Nota_: Use isso para limitar a otimização a arquivos de código relevantes e melhorar o desempenho do build.
+  - _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
+  - _Nota_: Use padrão glob.
