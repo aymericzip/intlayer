@@ -1,3 +1,9 @@
-/target
-^target/
-target
+# 1) ignore everything under /target
+/target/**
+
+# 2) unignore each directory on the path to your .wasm
+!/target/wasm32-wasip1/
+!/target/wasm32-wasip1/release/
+
+# 3) finally, unignore the .wasm itself
+!/target/wasm32-wasip1/release/intlayer_swc_plugin.wasm
