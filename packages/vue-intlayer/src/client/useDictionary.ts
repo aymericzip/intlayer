@@ -15,6 +15,7 @@ export const useDictionary = <T extends Dictionary>(
   const localeTarget = computed(() => locale ?? intlayer?.locale?.value);
 
   /** a *stable* reactive dictionary object */
+  // @ts-expect-error - Fix Type instantiation is excessively deep and possibly infinite
   const content = reactive({}) as DeepTransformContent<T['content']>;
 
   /** whenever `key` or `locale` change, refresh the dictionary */
