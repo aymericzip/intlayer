@@ -2,7 +2,7 @@
   "extends": "@utils/ts-config",
   "include": ["**/*"],
   "compilerOptions": {
-    "outDir": "dist/types",
+    "outDir": "dist",
     "baseUrl": "src",
     "paths": {
       "@controllers/*": ["./controllers/*"],

@@ -35,15 +35,15 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./server/dist/types/export.d.ts",
-      "import": "./server/dist/esm/export.mjs",
-      "require": "./server/dist/cjs/export.cjs"
+      "types": "./server/dist/export.d.ts",
+      "import": "./server/dist/export.mjs",
+      "require": "./server/dist/export.cjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "./server/dist/cjs/export.cjs",
-  "module": "./server/dist/esm/export.mjs",
-  "types": "./server/dist/types/export.d.ts",
+  "main": "./server/dist/export.cjs",
+  "module": "./server/dist/export.mjs",
+  "types": "./server/dist/export.d.ts",
   "typesVersions": {
     "*": {
       "package.json": [

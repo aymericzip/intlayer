@@ -3,7 +3,7 @@
   "extends": "@utils/ts-config-types",
   "include": ["src/**/*"],
   "compilerOptions": {
-    "outDir": "dist/types",
+    "outDir": "dist",
     "baseUrl": "src",
     "paths": {
       "@controllers/*": ["./controllers/*"],

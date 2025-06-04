@@ -8,6 +8,6 @@ const dir = __dirname ? __dirname : dirname(fileURLToPath(import.meta.url));
 export default defineConfig(
   packageBuildOptions.map((options) => ({
     ...options,
-    outDir: `${dir}/${options.outDir}`,
+    outDir: `${dir}/dist`,
   }))
 );
