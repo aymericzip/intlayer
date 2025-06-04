@@ -25,7 +25,7 @@ const createSuspender = <T>(promise: Promise<T>) => {
 
 const cache = new Map<string, ReturnType<typeof createSuspender>>();
 
-export const useLoadDynamic = <T>(key: string, promise: Promise<T>) => {
+export const useLoadDynamic = <T>(key: string, promise: Promise<T>): T => {
   if (!cache.has(key)) {
     cache.set(key, createSuspender(promise));
   }
