@@ -1,8 +1,7 @@
 import { getConfiguration, Locales } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/core';
+import { getLocalisedContent, type Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { relative, resolve } from 'path';
-import { filterDictionaryLocales } from '../../../filterDictionaryLocales';
 import { formatDictionaryText } from './formatDictionaryText';
 import { MergedDictionaryOutput } from './writeMergedDictionary';
 
@@ -96,10 +95,20 @@ export const writeDynamicDictionary = async (
     let localedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
     for await (const locale of locales) {
-      const localizedDictionary = filterDictionaryLocales(
-        dictionaryEntry.dictionary,
-        locale
-      );
+      const localizedDictionary = {
+        ...dictionaryEntry.dictionary,
+        locale,
+        // @ts-expect-error - Fix Type instantiation is excessively deep and possibly infinite
+        content: getLocalisedContent(
+          dictionaryEntry.dictionary.content as any,
+          locale,
+          {
+            dictionaryKey: key,
+            keyPath: [],
+          },
+          true // fallback mean that if field is not translated, it will use the default locale
+        ),
+      };
 
       const contentString = formatDictionaryText(localizedDictionary);
 
