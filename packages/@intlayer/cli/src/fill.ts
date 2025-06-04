@@ -1,6 +1,6 @@
 import { AIOptions, getAiAPI, getAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
-  filterDictionaryLocales,
+  getFilteredLocalesContent,
   listGitFiles,
   ListGitFilesOptions,
   mergeDictionaries,
@@ -272,9 +272,10 @@ const autoFill = async (
         filePath: output.filePath,
       });
     } else {
-      const filteredDictionary = filterDictionaryLocales(
-        reducedDictionary,
-        output.localeList
+      const content = getFilteredLocalesContent(
+        reducedDictionary.content as unknown as ContentNode,
+        output.localeList,
+        { dictionaryKey: reducedDictionary.key, keyPath: [] }
       );
 
       // write file
@@ -282,7 +283,7 @@ const autoFill = async (
         ...fullDictionary,
         autoFilled: true,
         autoFill: undefined,
-        content: filteredDictionary.content,
+        content,
         filePath: output.filePath,
       });
     }

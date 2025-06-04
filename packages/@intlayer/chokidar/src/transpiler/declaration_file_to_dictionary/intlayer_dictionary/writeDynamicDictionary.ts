@@ -1,7 +1,8 @@
 import { getConfiguration, Locales } from '@intlayer/config';
-import { getLocalisedContent, type Dictionary } from '@intlayer/core';
+import { type Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { relative, resolve } from 'path';
+import { getFilteredLocalesContent } from '../../../getFilteredLocalesContent';
 import { formatDictionaryText } from './formatDictionaryText';
 import { MergedDictionaryOutput } from './writeMergedDictionary';
 
@@ -78,7 +79,7 @@ export const writeDynamicDictionary = async (
   configuration = getConfiguration(),
   formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
 ): Promise<LocalizedDictionaryOutput> => {
-  const { locales } = configuration.internationalization;
+  const { locales, defaultLocale } = configuration.internationalization;
   const { dynamicDictionariesDir } = configuration.content;
 
   // Create the dictionaries folder if it doesn't exist
@@ -95,23 +96,14 @@ export const writeDynamicDictionary = async (
     let localedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
     for await (const locale of locales) {
-      const content = dictionaryEntry.dictionary.content;
-
-      // Prevent structured clone of Symbols or other non-serializable values
-      const jsonContent = JSON.stringify(content);
-
       const localizedDictionary = {
         ...dictionaryEntry.dictionary,
         locale,
-        content: getLocalisedContent(
-          // Prevent structured clone of Symbols
-          jsonContent,
+        content: getFilteredLocalesContent(
+          dictionaryEntry.dictionary.content as any,
           locale,
-          {
-            dictionaryKey: key,
-            keyPath: [],
-          },
-          true // fallback mean that if field is not translated, it will use the default locale
+          { dictionaryKey: key, keyPath: [] },
+          defaultLocale
         ),
       };
 
