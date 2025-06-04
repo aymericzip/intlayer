@@ -336,7 +336,6 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
 
     // ── 4) inject JSON/MJS imports (if any) ───────────────────────────────────
     if let Program::Module(Module { body, .. }) = &mut program {
-        println!("[swc-intlayer] final code");
 
         // save the strings so we don't need `visitor` inside the loop
         let dictionaries_dir = visitor.dictionaries_dir.to_owned();
