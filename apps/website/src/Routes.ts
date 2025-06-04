@@ -122,9 +122,15 @@ export enum PagesRoutes {
 export enum ExternalLinks {
   Github = 'https://github.com/aymericzip/intlayer',
   LinkedIn = 'https://www.linkedin.com/company/intlayerorg/',
-  ExampleIntlayerWithNextjs = 'https://github.com/aymericzip/intlayer/tree/3c64451e85648f8a354a54d84216a27b68f4cb2d/examples/nextjs-app',
-  ExampleIntlayerWithReactJS = 'https://github.com/aymericzip/intlayer/tree/3c64451e85648f8a354a54d84216a27b68f4cb2d/examples/react-app',
-  ExampleIntlayerWithViteAndReact = 'https://github.com/aymericzip/intlayer/tree/3c64451e85648f8a354a54d84216a27b68f4cb2d/examples/vite-app',
+  ExampleIntlayerWithNextjs = 'https://github.com/aymericzip/intlayer/tree/main/examples/nextjs-15-app',
+  ExampleIntlayerWithReactJS = 'https://github.com/aymericzip/intlayer/tree/main/examples/react-app',
+  ExampleIntlayerWithViteAndReact = 'https://github.com/aymericzip/intlayer/tree/main/examples/vite-react-app',
+  ExampleIntlayerWithViteAndVue = 'https://github.com/aymericzip/intlayer/tree/main/examples/vite-vue-app',
+  ExampleIntlayerWithViteAndSvelte = 'https://github.com/aymericzip/intlayer/tree/main/examples/vite-svelte-app',
+  ExampleIntlayerWithViteAndSolid = 'https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app',
+  ExampleIntlayerWithViteAndPreact = 'https://github.com/aymericzip/intlayer/tree/main/examples/vite-preact-app',
+  ExampleIntlayerWithReactNative = 'https://github.com/aymericzip/intlayer/tree/main/examples/react-native-app',
+  ExampleIntlayerWithExpress = 'https://github.com/aymericzip/intlayer/tree/main/examples/express-app',
 }
 
 export enum GithubRoutes {
