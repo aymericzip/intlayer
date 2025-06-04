@@ -95,12 +95,17 @@ export const writeDynamicDictionary = async (
     let localedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
     for await (const locale of locales) {
+      const content = dictionaryEntry.dictionary.content;
+
+      // Prevent structured clone of Symbols or other non-serializable values
+      const jsonContent = JSON.stringify(content);
+
       const localizedDictionary = {
         ...dictionaryEntry.dictionary,
         locale,
-        // @ts-expect-error - Fix Type instantiation is excessively deep and possibly infinite
         content: getLocalisedContent(
-          dictionaryEntry.dictionary.content as any,
+          // Prevent structured clone of Symbols
+          jsonContent,
           locale,
           {
             dictionaryKey: key,
