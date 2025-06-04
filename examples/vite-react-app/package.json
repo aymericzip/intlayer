@@ -16,8 +16,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "^7.4.0",
-    "vite-intlayer": "workspace:*"
+    "react-router-dom": "^7.4.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.14",
@@ -34,6 +33,7 @@
     "prettier": "^3.5.3",
     "tailwindcss": "^4.0.14",
     "typescript": "^5.8.2",
-    "vite": "^6.3.1"
+    "vite": "^6.3.1",
+    "vite-intlayer": "workspace:*"
   }
 }

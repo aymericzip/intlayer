@@ -577,14 +577,14 @@ importers:
         specifier: ^20.0.1
         version: 20.0.1(2d4af8c749de922a375cd8f17957b6ca)
       angular-intlayer:
-        specifier: ^5.5.4
-        version: 5.5.4(@intlayer/chokidar@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)
+        specifier: workspace:*
+        version: link:../../packages/angular-intlayer
       express:
         specifier: ^5.1.0
         version: 5.1.0
       intlayer:
-        specifier: ^5.5.4
-        version: 5.5.4(@intlayer/cli@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)
+        specifier: workspace:*
+        version: link:../../packages/intlayer
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
@@ -836,15 +836,16 @@ importers:
       nuxt:
         specifier: ^3.17.1
         version: 3.17.4(@parcel/watcher@2.5.1)(@types/node@22.15.21)(db0@0.3.2)(encoding@0.1.13)(eslint@9.27.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.41.0)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))(yaml@2.8.0)
-      vite-intlayer:
-        specifier: workspace:*
-        version: link:../../packages/vite-intlayer
       vue:
         specifier: ^3.5.13
         version: 3.5.14(typescript@5.8.3)
       vue-intlayer:
         specifier: workspace:*
         version: link:../../packages/vue-intlayer
+    devDependencies:
+      vite-intlayer:
+        specifier: workspace:*
+        version: link:../../packages/vite-intlayer
 
   examples/react-app:
     dependencies:
@@ -1051,9 +1052,6 @@ importers:
       preact-intlayer:
         specifier: workspace:*
         version: link:../../packages/preact-intlayer
-      vite-intlayer:
-        specifier: workspace:*
-        version: link:../../packages/vite-intlayer
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.10.1
@@ -1064,6 +1062,9 @@ importers:
       vite:
         specifier: ^6.3.1
         version: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
+      vite-intlayer:
+        specifier: workspace:*
+        version: link:../../packages/vite-intlayer
 
   examples/vite-react-app:
     dependencies:
@@ -1082,9 +1083,6 @@ importers:
       react-router-dom:
         specifier: ^7.4.0
         version: 7.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      vite-intlayer:
-        specifier: workspace:*
-        version: link:../../packages/vite-intlayer
     devDependencies:
       '@tailwindcss/vite':
         specifier: ^4.0.14
@@ -1131,6 +1129,9 @@ importers:
       vite:
         specifier: ^6.3.1
         version: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
+      vite-intlayer:
+        specifier: workspace:*
+        version: link:../../packages/vite-intlayer
 
   examples/vite-solid-app:
     dependencies:
@@ -1143,9 +1144,6 @@ importers:
       solid-js:
         specifier: ^1.9.5
         version: 1.9.7
-      vite-intlayer:
-        specifier: workspace:*
-        version: link:../../packages/vite-intlayer
     devDependencies:
       typescript:
         specifier: ~5.7.2
@@ -1153,6 +1151,9 @@ importers:
       vite:
         specifier: ^6.3.1
         version: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
+      vite-intlayer:
+        specifier: workspace:*
+        version: link:../../packages/vite-intlayer
       vite-plugin-solid:
         specifier: ^2.11.6
         version: 2.11.6(@testing-library/jest-dom@6.6.3)(solid-js@1.9.7)(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
@@ -1165,9 +1166,6 @@ importers:
       svelte-intlayer:
         specifier: workspace:*
         version: link:../../packages/svelte-intlayer
-      vite-intlayer:
-        specifier: workspace:*
-        version: link:../../packages/vite-intlayer
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^5.0.3
@@ -1190,6 +1188,9 @@ importers:
       vite:
         specifier: ^6.3.1
         version: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
+      vite-intlayer:
+        specifier: workspace:*
+        version: link:../../packages/vite-intlayer
 
   examples/vite-vue-app:
     dependencies:
@@ -1208,9 +1209,6 @@ importers:
       markdown-it:
         specifier: ^14.1.0
         version: 14.1.0
-      vite-intlayer:
-        specifier: workspace:*
-        version: link:../../packages/vite-intlayer
       vue:
         specifier: ^3.5.13
         version: 3.5.14(typescript@5.8.3)
@@ -1236,6 +1234,9 @@ importers:
       vite:
         specifier: ^6.3.1
         version: 6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0)
+      vite-intlayer:
+        specifier: workspace:*
+        version: link:../../packages/vite-intlayer
       vue-demi:
         specifier: ^0.14.10
         version: 0.14.10(vue@3.5.14(typescript@5.8.3))
@@ -6636,7 +6637,7 @@ packages:
       {
         integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==,
       }
-    engines: { node: '>=0.10.0' }
+    engines: { '0': node >=0.10.0 }
 
   '@expo/cli@0.22.26':
     resolution:
@@ -7413,82 +7414,6 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
-
-  '@intlayer/api@5.5.4':
-    resolution:
-      {
-        integrity: sha512-ne4AbKPt2CXxueyCyfygh5vDC3nUEmI+cIbxnMg9UHIfMC9Yv85PRYg+lKL+mDLwe4WGthB2xyfitHi4ttRTcA==,
-      }
-    engines: { node: '>=14.18' }
-    hasBin: true
-    peerDependencies:
-      '@intlayer/config': 5.5.4
-
-  '@intlayer/chokidar@5.5.4':
-    resolution:
-      {
-        integrity: sha512-w6gPeO7Uop7kVGhhcclNY/P446vtbiPW1EiOjfq4Vdze17mEyjaUfKvBzcTWi5t+cUcPlS/BYTTKg4q+0ErpSw==,
-      }
-    engines: { node: '>=14.18' }
-    peerDependencies:
-      '@intlayer/api': 5.5.4
-      '@intlayer/config': 5.5.4
-      '@intlayer/core': 5.5.4
-      fast-glob: ^3.3.3
-      intlayer: 5.5.4
-      react: 19.0.0
-
-  '@intlayer/cli@5.5.4':
-    resolution:
-      {
-        integrity: sha512-frQEbOjz2yYZCvgHblPBJYe1l5DrZf7zjO9keTP26KC7DJGxRxBL8bQRtYwAUvWviW903S4lRZMMbvaS+2tKrw==,
-      }
-    peerDependencies:
-      '@intlayer/api': 5.5.4
-      '@intlayer/chokidar': 5.5.4
-      '@intlayer/config': 5.5.4
-      '@intlayer/dictionaries-entry': 5.5.4
-
-  '@intlayer/config@5.5.4':
-    resolution:
-      {
-        integrity: sha512-pPV3244s7iGmKXuagGVtBcBsE+5iqSyQAt9CmaHVscoNWsUOKJb0JU9+5iP7dnSDPHW/+oCCyUGfANYS/qjh6g==,
-      }
-    engines: { node: '>=14.18' }
-    peerDependencies:
-      intlayer: 5.5.4
-
-  '@intlayer/core@5.5.4':
-    resolution:
-      {
-        integrity: sha512-kTPRQLeyp50lZRtFeNE7+xyV6HGk8HjWUG2CGxBasOYd3Gb9XQZDzwduZ5gVkfyaspphtzVyHvVLTQNcf5FrGQ==,
-      }
-    engines: { node: '>=14.18' }
-    peerDependencies:
-      '@intlayer/api': 5.5.4
-      '@intlayer/config': 5.5.4
-      '@intlayer/dictionaries-entry': 5.5.4
-      intlayer: 5.5.4
-
-  '@intlayer/dictionaries-entry@5.5.4':
-    resolution:
-      {
-        integrity: sha512-NsU3mrOSoa5DFG0yD/6K/t6D4QFSL61lA8CuPcQz0JHWuQ0HJ9TZSKQ3c1Ra9IwJWR0qJa2S51TL5W1dtGBALQ==,
-      }
-    engines: { node: '>=14.18' }
-    peerDependencies:
-      '@intlayer/config': 5.5.4
-      intlayer: 5.5.4
-
-  '@intlayer/unmerged-dictionaries-entry@5.5.4':
-    resolution:
-      {
-        integrity: sha512-r+fwBUYRgyBr7X5s7g6qX4JIA/4uZL5I8x1lvwfFfsHw/PNp5iXt0FyMgw/zN2CG/l5a4kELFnc3TgsVYXm5Eg==,
-      }
-    engines: { node: '>=14.18' }
-    peerDependencies:
-      '@intlayer/config': 5.5.4
-      intlayer: 5.5.4
 
   '@ioredis/commands@1.2.0':
     resolution:
@@ -13997,17 +13922,6 @@ packages:
         integrity: sha512-itUAVzhczTmP2U5yX67xVpsbbOiquusbWVyA9N+sy6+r6YVbFkahXvNCeEPWEOMhwDYwbVbGHFkVL03N9I5g+Q==,
       }
 
-  angular-intlayer@5.5.4:
-    resolution:
-      {
-        integrity: sha512-ZZaHLKHLvWRZ7xT1DfuDsVqS/jIq5VLrfEjRIXoqEvUiip0oQ4e+SYzKz3PWlQSbKuoqukob2vv7vqVCD9ZrUg==,
-      }
-    engines: { node: '>=14.18' }
-    peerDependencies:
-      '@intlayer/chokidar': 5.5.4
-      '@intlayer/config': 5.5.4
-      '@intlayer/core': 5.5.4
-
   anser@1.4.10:
     resolution:
       {
@@ -20312,18 +20226,6 @@ packages:
         integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==,
       }
     engines: { node: '>= 0.4' }
-
-  intlayer@5.5.4:
-    resolution:
-      {
-        integrity: sha512-amKZaMEyBiszsj74VDM4N0VCt6N3OpYMQAdVfz8ZL7p38+v7SzgvdMolfpGASV/ZDs9ooOu658l207ZxqpKgbg==,
-      }
-    engines: { node: '>=14.18' }
-    hasBin: true
-    peerDependencies:
-      '@intlayer/cli': 5.5.4
-      '@intlayer/config': 5.5.4
-      '@intlayer/core': 5.5.4
 
   invariant@2.2.4:
     resolution:
@@ -35504,71 +35406,6 @@ snapshots:
     optionalDependencies:
       '@types/node': 20.17.57
 
-  '@intlayer/api@5.5.4(@intlayer/config@5.5.4)':
-    dependencies:
-      '@intlayer/config': 5.5.4(intlayer@5.5.4)
-
-  '@intlayer/chokidar@5.5.4(@intlayer/api@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)(fast-glob@3.3.3)(intlayer@5.5.4)(react@19.0.0)':
-    dependencies:
-      '@babel/generator': 7.27.1
-      '@babel/parser': 7.27.2
-      '@babel/traverse': 7.27.1
-      '@babel/types': 7.27.1
-      '@intlayer/api': 5.5.4(@intlayer/config@5.5.4)
-      '@intlayer/config': 5.5.4(intlayer@5.5.4)
-      '@intlayer/core': 5.5.4(@intlayer/api@5.5.4)(@intlayer/config@5.5.4)(@intlayer/dictionaries-entry@5.5.4)(intlayer@5.5.4)
-      '@intlayer/dictionaries-entry': 5.5.4(@intlayer/config@5.5.4)(intlayer@5.5.4)
-      '@intlayer/unmerged-dictionaries-entry': 5.5.4(@intlayer/config@5.5.4)(intlayer@5.5.4)
-      chokidar: 3.6.0
-      crypto-js: 4.2.0
-      deep-equal: 2.2.3
-      deepmerge: 4.3.1
-      fast-glob: 3.3.3
-      intlayer: 5.5.4(@intlayer/cli@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)
-      p-limit: 3.1.0
-      react: 19.0.0
-      simple-git: 3.27.0
-    transitivePeerDependencies:
-      - supports-color
-
-  '@intlayer/cli@5.5.4(@intlayer/api@5.5.4)(@intlayer/chokidar@5.5.4)(@intlayer/config@5.5.4)(@intlayer/dictionaries-entry@5.5.4)(intlayer@5.5.4)':
-    dependencies:
-      '@intlayer/api': 5.5.4(@intlayer/config@5.5.4)
-      '@intlayer/chokidar': 5.5.4(@intlayer/api@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)(fast-glob@3.3.3)(intlayer@5.5.4)(react@19.0.0)
-      '@intlayer/config': 5.5.4(intlayer@5.5.4)
-      '@intlayer/dictionaries-entry': 5.5.4(@intlayer/config@5.5.4)(intlayer@5.5.4)
-      '@intlayer/unmerged-dictionaries-entry': 5.5.4(@intlayer/config@5.5.4)(intlayer@5.5.4)
-      commander: 13.1.0
-      fast-glob: 3.3.3
-      p-limit: 3.1.0
-    transitivePeerDependencies:
-      - intlayer
-
-  '@intlayer/config@5.5.4(intlayer@5.5.4)':
-    dependencies:
-      deepmerge: 4.3.1
-      dotenv: 16.5.0
-      esbuild: 0.25.5
-      intlayer: 5.5.4(@intlayer/cli@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)
-
-  '@intlayer/core@5.5.4(@intlayer/api@5.5.4)(@intlayer/config@5.5.4)(@intlayer/dictionaries-entry@5.5.4)(intlayer@5.5.4)':
-    dependencies:
-      '@intlayer/api': 5.5.4(@intlayer/config@5.5.4)
-      '@intlayer/config': 5.5.4(intlayer@5.5.4)
-      '@intlayer/dictionaries-entry': 5.5.4(@intlayer/config@5.5.4)(intlayer@5.5.4)
-      intlayer: 5.5.4(@intlayer/cli@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)
-      negotiator: 1.0.0
-
-  '@intlayer/dictionaries-entry@5.5.4(@intlayer/config@5.5.4)(intlayer@5.5.4)':
-    dependencies:
-      '@intlayer/config': 5.5.4(intlayer@5.5.4)
-      intlayer: 5.5.4(@intlayer/cli@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)
-
-  '@intlayer/unmerged-dictionaries-entry@5.5.4(@intlayer/config@5.5.4)(intlayer@5.5.4)':
-    dependencies:
-      '@intlayer/config': 5.5.4(intlayer@5.5.4)
-      intlayer: 5.5.4(@intlayer/cli@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)
-
   '@ioredis/commands@1.2.0': {}
 
   '@isaacs/cliui@8.0.2':
@@ -40567,12 +40404,6 @@ snapshots:
 
   alien-signals@0.4.14: {}
 
-  angular-intlayer@5.5.4(@intlayer/chokidar@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4):
-    dependencies:
-      '@intlayer/chokidar': 5.5.4(@intlayer/api@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4)(fast-glob@3.3.3)(intlayer@5.5.4)(react@19.0.0)
-      '@intlayer/config': 5.5.4(intlayer@5.5.4)
-      '@intlayer/core': 5.5.4(@intlayer/api@5.5.4)(@intlayer/config@5.5.4)(@intlayer/dictionaries-entry@5.5.4)(intlayer@5.5.4)
-
   anser@1.4.10: {}
 
   ansi-colors@4.1.3: {}
@@ -43087,8 +42918,8 @@ snapshots:
       '@typescript-eslint/parser': 8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       eslint: 9.27.0(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.31.0)(eslint@9.27.0(jiti@2.4.2))
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.27.0(jiti@2.4.2))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.27.0(jiti@2.4.2))
       eslint-plugin-react: 7.37.5(eslint@9.27.0(jiti@2.4.2))
       eslint-plugin-react-hooks: 5.2.0(eslint@9.27.0(jiti@2.4.2))
@@ -43107,8 +42938,8 @@ snapshots:
       '@typescript-eslint/parser': 8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       eslint: 9.27.0(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.31.0)(eslint@9.27.0(jiti@2.4.2))
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.27.0(jiti@2.4.2))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.27.0(jiti@2.4.2))
       eslint-plugin-react: 7.37.5(eslint@9.27.0(jiti@2.4.2))
       eslint-plugin-react-hooks: 5.2.0(eslint@9.27.0(jiti@2.4.2))
@@ -43185,6 +43016,21 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2)):
+    dependencies:
+      '@nolyfill/is-core-module': 1.0.39
+      debug: 4.4.1
+      eslint: 9.27.0(jiti@2.4.2)
+      get-tsconfig: 4.10.1
+      is-bun-module: 2.0.0
+      stable-hash: 0.0.5
+      tinyglobby: 0.2.13
+      unrs-resolver: 1.7.2
+    optionalDependencies:
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2))
+    transitivePeerDependencies:
+      - supports-color
+
   eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0)(eslint@9.27.0(jiti@2.4.2)):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
@@ -43238,6 +43084,17 @@ snapshots:
       '@typescript-eslint/parser': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       eslint: 9.27.0(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
+    transitivePeerDependencies:
+      - supports-color
+
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2)):
+    dependencies:
+      debug: 3.2.7
+    optionalDependencies:
+      '@typescript-eslint/parser': 8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+      eslint: 9.27.0(jiti@2.4.2)
+      eslint-import-resolver-node: 0.3.9
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2))
     transitivePeerDependencies:
       - supports-color
 
@@ -43321,6 +43178,35 @@ snapshots:
       tsconfig-paths: 3.15.0
     optionalDependencies:
       '@typescript-eslint/parser': 5.62.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+    transitivePeerDependencies:
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - supports-color
+
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2)):
+    dependencies:
+      '@rtsao/scc': 1.1.0
+      array-includes: 3.1.8
+      array.prototype.findlastindex: 1.2.6
+      array.prototype.flat: 1.3.3
+      array.prototype.flatmap: 1.3.3
+      debug: 3.2.7
+      doctrine: 2.1.0
+      eslint: 9.27.0(jiti@2.4.2)
+      eslint-import-resolver-node: 0.3.9
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2)))(eslint@9.27.0(jiti@2.4.2))
+      hasown: 2.0.2
+      is-core-module: 2.16.1
+      is-glob: 4.0.3
+      minimatch: 3.1.2
+      object.fromentries: 2.0.8
+      object.groupby: 1.0.3
+      object.values: 1.2.1
+      semver: 6.3.1
+      string.prototype.trimend: 1.0.9
+      tsconfig-paths: 3.15.0
+    optionalDependencies:
+      '@typescript-eslint/parser': 8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
@@ -45269,12 +45155,6 @@ snapshots:
       es-errors: 1.3.0
       hasown: 2.0.2
       side-channel: 1.1.0
-
-  intlayer@5.5.4(@intlayer/cli@5.5.4)(@intlayer/config@5.5.4)(@intlayer/core@5.5.4):
-    dependencies:
-      '@intlayer/cli': 5.5.4(@intlayer/api@5.5.4)(@intlayer/chokidar@5.5.4)(@intlayer/config@5.5.4)(@intlayer/dictionaries-entry@5.5.4)(intlayer@5.5.4)
-      '@intlayer/config': 5.5.4(intlayer@5.5.4)
-      '@intlayer/core': 5.5.4(@intlayer/api@5.5.4)(@intlayer/config@5.5.4)(@intlayer/dictionaries-entry@5.5.4)(intlayer@5.5.4)
 
   invariant@2.2.4:
     dependencies:

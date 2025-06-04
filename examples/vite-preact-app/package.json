@@ -11,12 +11,12 @@
   "dependencies": {
     "intlayer": "workspace:*",
     "preact": "^10.26.4",
-    "preact-intlayer": "workspace:*",
-    "vite-intlayer": "workspace:*"
+    "preact-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
     "typescript": "~5.7.2",
-    "vite": "^6.3.1"
+    "vite": "^6.3.1",
+    "vite-intlayer": "workspace:*"
   }
 }

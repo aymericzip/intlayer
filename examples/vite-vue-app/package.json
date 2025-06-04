@@ -15,7 +15,6 @@
     "intlayer": "workspace:*",
     "js-cookie": "^3.0.5",
     "markdown-it": "^14.1.0",
-    "vite-intlayer": "workspace:*",
     "vue": "^3.5.13",
     "vue-intlayer": "workspace:*",
     "vue-router": "^4.5.1"
@@ -26,6 +25,7 @@
     "@vitejs/plugin-vue": "^5.2.2",
     "intlayer-editor": "workspace:*",
     "vite": "^6.3.1",
+    "vite-intlayer": "workspace:*",
     "vue-demi": "^0.14.10"
   }
 }
