@@ -4,12 +4,13 @@ import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import { ActionButtons } from './ActionButtons';
 import { AnimatedDescription } from './AnimatedDescription';
+import { ChevronDown } from './ChevronDown';
 
 export const LandingSection: FC = () => {
   const { title, description, keyPoints } = useIntlayer('landing-section');
 
   return (
-    <section className="flex min-h-[calc(100vh-64px)] w-full flex-col gap-16 md:flex-row md:px-10 md:pr-0">
+    <section className="relative flex min-h-[calc(100vh-64px)] w-full flex-col gap-16 md:flex-row md:px-10 md:pr-0">
       <div className="relative flex w-full flex-1 flex-col items-center justify-between md:justify-center">
         <div className="flex w-full md:flex-auto md:items-center">
           <div className="relative z-10 flex flex-col md:w-3/5">
@@ -51,6 +52,7 @@ export const LandingSection: FC = () => {
         </div>
         <ActionButtons className="z-10 mb-5 p-8 pt-0 md:hidden" />
       </div>
+      <ChevronDown className="absolute z-10 max-md:hidden text-neutral bottom-10 left-1/2 -translate-x-1/2 size-10 hover:cursor-pointer hover:translate-y-1 animate-bounce animate-infinite animate-duration-1000 animate-ease-linear" />
     </section>
   );
 };
