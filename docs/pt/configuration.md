@@ -29,10 +29,20 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH],
   },
   content: {
-    typesDir: "content/types",
+    contentDir: ["src", "../ui-library"],
   },
   middleware: {
     noPrefix: false,
+  },
+  editor: {
+    applicationURL: "https://example.com",
+  },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: "This is a test application",
+  },
+  build: {
+    activateDynamicImport: true,
   },
 };
 
@@ -48,10 +58,20 @@ const config = {
     locales: [Locales.ENGLISH],
   },
   content: {
-    typesDir: "content/types",
+    contentDir: ["src", "../ui-library"],
   },
   middleware: {
     noPrefix: false,
+  },
+  editor: {
+    applicationURL: "https://example.com",
+  },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: "This is a test application",
+  },
+  build: {
+    activateDynamicImport: true,
   },
 };
 

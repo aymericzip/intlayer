@@ -29,10 +29,20 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH],
   },
   content: {
-    typesDir: "content/types",
+    contentDir: ["src", "../ui-library"],
   },
   middleware: {
     noPrefix: false,
+  },
+  editor: {
+    applicationURL: "https://example.com",
+  },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: "This is a test application",
+  },
+  build: {
+    activateDynamicImport: true,
   },
 };
 
@@ -48,10 +58,20 @@ const config = {
     locales: [Locales.ENGLISH],
   },
   content: {
-    typesDir: "content/types",
+    contentDir: ["src", "../ui-library"],
   },
   middleware: {
     noPrefix: false,
+  },
+  editor: {
+    applicationURL: "https://example.com",
+  },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: "This is a test application",
+  },
+  build: {
+    activateDynamicImport: true,
   },
 };
 
@@ -300,6 +320,7 @@ Settings related to content handling within the application, including directory
 
   - _Type_: `string[]`
   - _Default_: `['src']`
+  - _Example_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Description_: The directory path where content is stored.
 
 - **dictionariesDir**:
