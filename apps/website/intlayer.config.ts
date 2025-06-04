@@ -2,18 +2,18 @@ import { Locales, type IntlayerConfig } from 'intlayer';
 
 export const locales = [
   Locales.ENGLISH,
-  Locales.ENGLISH_UNITED_KINGDOM,
-  Locales.FRENCH,
-  Locales.SPANISH,
-  Locales.GERMAN,
+  Locales.RUSSIAN,
   Locales.JAPANESE,
+  Locales.FRENCH,
   Locales.KOREAN,
   Locales.CHINESE,
+  Locales.SPANISH,
+  Locales.GERMAN,
+  Locales.ARABIC,
   Locales.ITALIAN,
+  Locales.ENGLISH_UNITED_KINGDOM,
   Locales.PORTUGUESE,
   Locales.HINDI,
-  Locales.ARABIC,
-  Locales.RUSSIAN,
 ];
 export const defaultLocale = Locales.ENGLISH;
 
