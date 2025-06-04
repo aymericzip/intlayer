@@ -448,10 +448,6 @@ Intlayer 支持多个 AI 提供商以增强灵活性和选择性。目前支持�
 
 > 通过优化构建，Intlayer 将替换所有字典调用以优化分块。这样，最终的包只会导入使用到的字典。
 
-默认情况下，当加载字典时，它会导入所有语言环境的内容。
-如果此选项设置为 true，则只会通过动态导入获取当前语言环境的字典内容。
-在这种情况下，Intlayer 将把所有 `useIntlayer` 调用替换为 `useDynamicDictionary`。
-
 - **注意**：`@intlayer/babel` 在 `vite-intlayer` 包中默认可用，但 `@intlayer/swc` 在 `next-intlayer` 包中默认未安装，因为 SWC 插件在 Next.js 中仍处于实验阶段。
 
 #### 属性

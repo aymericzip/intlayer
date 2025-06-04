@@ -470,11 +470,6 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 > By optimizing the build, Intlayer will replace all calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used.
 
-By default, when a dictionary is loaded, it imports content for all locales.
-If this option is set to true, only the current locale’s dictionary content
-will be fetched via dynamic import. In that case, Intlayer will replace all
-calls to `useIntlayer` with `useDynamicDictionary`.
-
 - **Note**: `@intlayer/babel` is available by default on `vite-intlayer` package, but `@intlayer/swc` is not installed by default on `next-intlayer` package as SWC plugins are still experimental on Next.js.
 
 #### Properties

@@ -288,11 +288,6 @@ Build-Optionen gelten für die `@intlayer/babel` und `@intlayer/swc` Plugins.
 
 > Durch die Build-Optimierung ersetzt Intlayer alle Wörterbuchaufrufe, um das Chunking zu optimieren. Auf diese Weise importiert der finale Build nur die tatsächlich verwendeten Wörterbücher.
 
-Standardmäßig wird beim Laden eines Wörterbuchs der Inhalt für alle Sprachen importiert.
-Wenn diese Option auf true gesetzt ist, wird nur der Wörterbuchinhalt für die aktuelle Sprache
-über dynamischen Import geladen. In diesem Fall ersetzt Intlayer alle
-`useIntlayer` Aufrufe durch `useDynamicDictionary`.
-
 - **Hinweis**: `@intlayer/babel` ist standardmäßig im `vite-intlayer` Paket verfügbar, aber `@intlayer/swc` ist standardmäßig nicht im `next-intlayer` Paket installiert, da SWC-Plugins in Next.js noch experimentell sind.
 
 #### Eigenschaften

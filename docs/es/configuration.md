@@ -467,11 +467,6 @@ Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intl
 
 > Al optimizar la compilación, Intlayer reemplazará todas las llamadas de diccionarios para optimizar el chunking. De esta manera, el bundle final importará solo los diccionarios que se utilizan.
 
-Por defecto, cuando se carga un diccionario, importa contenido para todos los idiomas.
-Si esta opción se establece en true, solo se obtendrá el contenido del diccionario
-del idioma actual mediante importación dinámica. En ese caso, Intlayer reemplazará todas
-las llamadas a `useIntlayer` con `useDynamicDictionary`.
-
 - **Nota**: `@intlayer/babel` está disponible por defecto en el paquete `vite-intlayer`, pero `@intlayer/swc` no está instalado por defecto en el paquete `next-intlayer` ya que los plugins SWC aún son experimentales en Next.js.
 
 #### Propiedades
