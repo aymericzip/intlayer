@@ -72,7 +72,8 @@
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/core": "workspace:*",
+    "@intlayer/editor": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.13.10",
@@ -93,6 +94,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/editor": "workspace:*",
     "preact": "^10.26.4"
   },
   "engines": {
