@@ -112,6 +112,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/editor": "workspace:*",
     "intlayer": "workspace:*",
     "vue": "^3.5.13"
   },

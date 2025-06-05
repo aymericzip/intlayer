@@ -2767,6 +2767,9 @@ importers:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../@intlayer/core
+      '@intlayer/editor':
+        specifier: workspace:*
+        version: link:../@intlayer/editor
       preact:
         specifier: ^10.26.4
         version: 10.26.6
@@ -3038,6 +3041,9 @@ importers:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../@intlayer/core
+      '@intlayer/editor':
+        specifier: workspace:*
+        version: link:../@intlayer/editor
       solid-js:
         specifier: ^1.9.5
         version: 1.9.7
@@ -3093,6 +3099,9 @@ importers:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../@intlayer/core
+      '@intlayer/editor':
+        specifier: workspace:*
+        version: link:../@intlayer/editor
       svelte:
         specifier: ^5.23.1
         version: 5.33.1
