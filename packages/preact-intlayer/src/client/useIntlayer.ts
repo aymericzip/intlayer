@@ -24,7 +24,7 @@ export const useIntlayer = <T extends DictionaryKeys>(
   const { changedContent } = useChangedContent();
   const localeTarget = locale ?? currentLocale;
 
-  if (changedContent?.[key]) {
+  if (changedContent?.[key as unknown as keyof typeof changedContent]) {
     // @ts-ignore fix instantiation is excessively deep and possibly infinite
     return getDictionary(changedContent?.[key], localeTarget);
   }

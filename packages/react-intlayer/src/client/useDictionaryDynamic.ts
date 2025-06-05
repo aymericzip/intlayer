@@ -28,7 +28,7 @@ export const useDictionaryDynamic = <
   const localeTarget = locale ?? currentLocale;
 
   const dictionary = useLoadDynamic<T>(
-    `${key}.${localeTarget}`,
+    `${String(key)}.${localeTarget}`,
     dictionaryPromise[localeTarget]!()
   ) as T;
 

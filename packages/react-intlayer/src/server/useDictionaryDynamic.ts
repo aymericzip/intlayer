@@ -22,7 +22,7 @@ export const useDictionaryDynamic = <T extends Dictionary>(
     configuration.internationalization.defaultLocale;
 
   const dictionary = useLoadDynamic<T>(
-    `${key}.${localeTarget}`,
+    `${String(key)}.${localeTarget}`,
     dictionaryPromise[localeTarget]!()
   );
 
