@@ -18,7 +18,10 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "jsx": "react-jsx",
+    "jsxImportSource": "solid-js"
   },
   "include": ["**/*", ".intlayer/**/*.ts"],
   "exclude": ["node_modules", "dist"]
