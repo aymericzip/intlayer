@@ -1,5 +1,3 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
 'use client';
 
 import { IntlayerEventListener } from '@intlayer/api';

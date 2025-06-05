@@ -53,6 +53,14 @@ export const AvailableTechnoSection: FC = () => {
         >
           <VuejsLogo className="size-full max-h-full h-20" />
         </Link>
+        <Link
+          href={PagesRoutes.Doc_Environment_ViteAndPreact}
+          className="grow-0 hover:scale-108 transition-all duration-100"
+          color="custom"
+          label={vite.label.value}
+        >
+          <PreactLogo className="grayscale-60 max-h-full opacity-50 h-20" />
+        </Link>
       </div>
       <h2 className="text-neutral">{commingSoon}</h2>
       <div className="flex w-3/4 flex-row justify-evenly flex-wrap gap-6 p-6">
@@ -73,14 +81,7 @@ export const AvailableTechnoSection: FC = () => {
         >
           <SvelteLogo className="grayscale-60 max-h-full opacity-50 h-20" />
         </Link>
-        <Link
-          href={PagesRoutes.Doc_Environment_ViteAndPreact}
-          className="grow-0 hover:scale-108 transition-all duration-100"
-          color="custom"
-          label={vite.label.value}
-        >
-          <PreactLogo className="grayscale-60 max-h-full opacity-50 h-20" />
-        </Link>
+
         <Link
           href={PagesRoutes.Doc_Environment_ViteAndSolid}
           className="grow-0 hover:scale-108 transition-all duration-100"

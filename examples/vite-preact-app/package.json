@@ -6,15 +6,20 @@
   "scripts": {
     "build": "tsc -b && vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:editor": "intlayer-editor start"
   },
   "dependencies": {
     "intlayer": "workspace:*",
     "preact": "^10.26.4",
-    "preact-intlayer": "workspace:*"
+    "preact-intlayer": "workspace:*",
+    "preact-iso": "^2.9.1"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
+    "@tailwindcss/vite": "^4.0.14",
+    "intlayer-editor": "workspace:*",
+    "tailwindcss": "^4.0.14",
     "typescript": "~5.7.2",
     "vite": "^6.3.1",
     "vite-intlayer": "workspace:*"

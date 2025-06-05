@@ -1,5 +1,3 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
 'use client';
 
 import configuration from '@intlayer/config/built';

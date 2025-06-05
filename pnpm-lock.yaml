@@ -1052,10 +1052,22 @@ importers:
       preact-intlayer:
         specifier: workspace:*
         version: link:../../packages/preact-intlayer
+      preact-iso:
+        specifier: ^2.9.1
+        version: 2.9.1(preact-render-to-string@6.5.13(preact@10.26.6))(preact@10.26.6)
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.10.1
         version: 2.10.1(@babel/core@7.27.1)(preact@10.26.6)(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
+      '@tailwindcss/vite':
+        specifier: ^4.0.14
+        version: 4.1.7(vite@6.3.5(@types/node@22.15.21)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.88.0)(terser@5.39.2)(tsx@4.19.4)(yaml@2.8.0))
+      intlayer-editor:
+        specifier: workspace:*
+        version: link:../../packages/intlayer-editor
+      tailwindcss:
+        specifier: ^4.0.14
+        version: 4.1.7
       typescript:
         specifier: ~5.7.2
         version: 5.7.3
@@ -26732,6 +26744,23 @@ packages:
       }
     engines: { node: ^10 || ^12 || >=14 }
 
+  preact-iso@2.9.1:
+    resolution:
+      {
+        integrity: sha512-65+oY5FHeSC3mjq2Dg6v72HYjsTYTqI9hXl1BK6vtUkxwfCqDJ5aqk33zjOH3aSuCY7duWiulyqMQ53GXpPIIQ==,
+      }
+    peerDependencies:
+      preact: '>=10'
+      preact-render-to-string: '>=6.4.0'
+
+  preact-render-to-string@6.5.13:
+    resolution:
+      {
+        integrity: sha512-iGPd+hKPMFKsfpR2vL4kJ6ZPcFIoWZEcBf0Dpm3zOpdVvj77aY8RlLiQji5OMrngEyaxGogeakTb54uS2FvA6w==,
+      }
+    peerDependencies:
+      preact: '>=10'
+
   preact@10.26.6:
     resolution:
       {
@@ -50145,6 +50174,15 @@ snapshots:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
+
+  preact-iso@2.9.1(preact-render-to-string@6.5.13(preact@10.26.6))(preact@10.26.6):
+    dependencies:
+      preact: 10.26.6
+      preact-render-to-string: 6.5.13(preact@10.26.6)
+
+  preact-render-to-string@6.5.13(preact@10.26.6):
+    dependencies:
+      preact: 10.26.6
 
   preact@10.26.6: {}
 

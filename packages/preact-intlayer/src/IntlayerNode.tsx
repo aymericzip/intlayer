@@ -1,5 +1,3 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
 import type { NodeProps } from '@intlayer/core';
 import {
   type ComponentChildren,

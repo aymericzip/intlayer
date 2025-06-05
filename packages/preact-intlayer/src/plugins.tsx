@@ -1,5 +1,3 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
 import {
   KeyPath,
   NodeType,

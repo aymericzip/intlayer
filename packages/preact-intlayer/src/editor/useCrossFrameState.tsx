@@ -1,5 +1,3 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
 'use client';
 
 import { type MessageKey } from '@intlayer/editor';
