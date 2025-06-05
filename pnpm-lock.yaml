@@ -2773,10 +2773,16 @@ importers:
       preact:
         specifier: ^10.26.4
         version: 10.26.6
+      uuid:
+        specifier: ^11.1.0
+        version: 11.1.0
     devDependencies:
       '@types/node':
         specifier: ^22.13.10
         version: 22.15.21
+      '@types/uuid':
+        specifier: ^10.0.0
+        version: 10.0.0
       '@typescript-eslint/parser':
         specifier: ^8.27.0
         version: 8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)

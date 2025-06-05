@@ -4,6 +4,8 @@
   "include": ["src/**/*", "types/**/*"],
   "compilerOptions": {
     "outDir": "dist/types",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
   }
 }
