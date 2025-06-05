@@ -4,7 +4,7 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
-import { ESMxCJSRequire, getConfiguration, isESModule } from '@intlayer/config';
+import { ESMxCJSRequire, getConfiguration } from '@intlayer/config';
 import { existsSync } from 'fs';
 import { join } from 'path';
 // @ts-ignore intlayer declared for module augmentation
@@ -21,15 +21,6 @@ export const getDictionaries = () => {
 
     dictionaries = ESMxCJSRequire(dictionariesPath);
   }
-
-  console.log({
-    isESModule,
-    isESModule2: typeof import.meta.url === 'string',
-    dictionariesPath,
-    dictionaries: existsSync(dictionariesPath)
-      ? ESMxCJSRequire(dictionariesPath)
-      : undefined,
-  });
 
   return (dictionaries ?? {}) as Record<
     IntlayerDictionaryTypesConnector['key'],
