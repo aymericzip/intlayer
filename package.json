@@ -35,7 +35,7 @@
     "changeset:publish": "changeset publish",
     "changeset:version": "changeset version",
     "clean": "node ./scripts/script-package-command.mjs --command clean",
-    "clean:dist": "rimraf node_modules ./**/node_modules",
+    "clean:dist": "rimraf node_modules ./**/dist",
     "clean:examples": "node ./scripts/script-package-command.mjs --command clean",
     "clean:node_modules": "rimraf node_modules ./**/node_modules",
     "dev": "node ./scripts/script-dev-package-command.mjs --command reset",

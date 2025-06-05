@@ -2770,6 +2770,9 @@ importers:
 
   packages/preact-intlayer:
     dependencies:
+      '@intlayer/api':
+        specifier: workspace:*
+        version: link:../@intlayer/api
       '@intlayer/chokidar':
         specifier: workspace:*
         version: link:../@intlayer/chokidar
@@ -2782,6 +2785,9 @@ importers:
       '@intlayer/editor':
         specifier: workspace:*
         version: link:../@intlayer/editor
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       preact:
         specifier: ^10.26.4
         version: 10.26.6
@@ -3062,6 +3068,9 @@ importers:
       '@intlayer/editor':
         specifier: workspace:*
         version: link:../@intlayer/editor
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       solid-js:
         specifier: ^1.9.5
         version: 1.9.7
@@ -3120,6 +3129,9 @@ importers:
       '@intlayer/editor':
         specifier: workspace:*
         version: link:../@intlayer/editor
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       svelte:
         specifier: ^5.23.1
         version: 5.33.1
