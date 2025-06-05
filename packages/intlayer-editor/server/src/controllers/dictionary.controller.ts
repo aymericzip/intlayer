@@ -15,7 +15,7 @@ type GetDictionariesResult = ResponseData<Record<string, Dictionary>>;
  * Get the Intlayer configuration
  */
 export const getDictionaries = async (
-  req: Request,
+  _req: Request,
   res: Response<GetDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {

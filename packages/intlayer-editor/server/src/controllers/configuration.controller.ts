@@ -11,7 +11,7 @@ export type GetConfigurationResult = ResponseData<IntlayerConfig>;
  * Get the Intlayer configuration
  */
 export const getConfiguration = async (
-  req: Request,
+  _req: Request,
   res: Response<GetConfigurationResult>,
   _next: NextFunction
 ): Promise<void> => {

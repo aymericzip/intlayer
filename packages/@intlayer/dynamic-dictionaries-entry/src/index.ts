@@ -6,7 +6,7 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
-import { ESMxCJSRequire, getConfiguration, isESModule } from '@intlayer/config';
+import { ESMxCJSRequire, getConfiguration } from '@intlayer/config';
 import { existsSync } from 'fs';
 import {
   Dictionary,
@@ -18,10 +18,7 @@ import { join } from 'path';
 export const getDynamicDictionaries = () => {
   const { content } = getConfiguration();
 
-  const dictionariesPath = join(
-    content.mainDir,
-    isESModule ? 'dynamic_dictionaries.mjs' : 'dynamic_dictionaries.cjs'
-  );
+  const dictionariesPath = join(content.mainDir, 'dynamic_dictionaries.cjs');
   let dictionaries: Record<
     IntlayerDictionaryTypesConnector['key'],
     LanguageContent<Dictionary>

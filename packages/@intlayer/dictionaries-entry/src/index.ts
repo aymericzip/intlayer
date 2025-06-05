@@ -13,10 +13,7 @@ import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 export const getDictionaries = () => {
   const { content } = getConfiguration();
 
-  const dictionariesPath = join(
-    content.mainDir,
-    isESModule ? 'dictionaries.mjs' : 'dictionaries.cjs'
-  );
+  const dictionariesPath = join(content.mainDir, 'dictionaries.cjs');
 
   let dictionaries = {};
   if (existsSync(dictionariesPath)) {
@@ -24,6 +21,15 @@ export const getDictionaries = () => {
 
     dictionaries = ESMxCJSRequire(dictionariesPath);
   }
+
+  console.log({
+    isESModule,
+    isESModule2: typeof import.meta.url === 'string',
+    dictionariesPath,
+    dictionaries: existsSync(dictionariesPath)
+      ? ESMxCJSRequire(dictionariesPath)
+      : undefined,
+  });
 
   return (dictionaries ?? {}) as Record<
     IntlayerDictionaryTypesConnector['key'],

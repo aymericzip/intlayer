@@ -4,7 +4,7 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
-import { ESMxCJSRequire, getConfiguration, isESModule } from '@intlayer/config';
+import { ESMxCJSRequire, getConfiguration } from '@intlayer/config';
 import { existsSync } from 'fs';
 import { join } from 'path';
 // @ts-ignore intlayer declared for module augmentation
@@ -13,10 +13,7 @@ import type { Dictionary, IntlayerDictionaryTypesConnector } from 'intlayer';
 export const getUnmergedDictionaries = () => {
   const { content } = getConfiguration();
 
-  const dictionariesPath = join(
-    content.mainDir,
-    isESModule ? 'unmerged_dictionaries.mjs' : 'unmerged_dictionaries.cjs'
-  );
+  const dictionariesPath = join(content.mainDir, 'unmerged_dictionaries.cjs');
   let dictionaries: Record<
     IntlayerDictionaryTypesConnector['key'],
     Dictionary[]
