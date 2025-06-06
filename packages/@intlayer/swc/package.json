@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/swc",
-  "version": "5.5.6",
+  "version": "5.5.7",
   "private": false,
   "description": "A SWC plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
