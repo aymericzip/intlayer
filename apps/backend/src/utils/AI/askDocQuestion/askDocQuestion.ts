@@ -40,7 +40,7 @@ const MAX_CHUNK_TOKENS = 800; // Maximum number of tokens per chunk
 const CHAR_BY_TOKEN = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
 const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
 const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
-const MAX_RELEVANT_CHUNKS_NB = 8; // Maximum number of relevant chunks to attach to chatGPT context
+const MAX_RELEVANT_CHUNKS_NB = 25; // Maximum number of relevant chunks to attach to chatGPT context
 const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.25; // Minimum similarity required for a chunk to be considered relevant
 
 /**
@@ -303,6 +303,8 @@ export const askDocQuestion = async (
     { role: 'system' as const, content: systemPrompt },
     ...messages,
   ];
+
+  console.log('aiMessages', JSON.stringify(aiMessages));
 
   // Get AI configuration
   const aiConfig = await getAIConfig({
