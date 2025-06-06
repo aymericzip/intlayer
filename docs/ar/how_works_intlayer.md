@@ -120,7 +120,7 @@ const MyComponent = () => {
 
 تُستخدم حزمة `solid-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Solid.js.
 
-### preact-intlayer (قيد العمل)
+### preact-intlayer
 
 تُستخدم حزمة `preact-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Preact.
 

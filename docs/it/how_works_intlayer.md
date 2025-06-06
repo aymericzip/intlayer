@@ -120,7 +120,7 @@ Il pacchetto `svelte-intlayer` è utilizzato per interpretare i dizionari di Int
 
 Il pacchetto `solid-intlayer` è utilizzato per interpretare i dizionari di Intlayer e renderli utilizzabili nelle applicazioni Solid.js.
 
-### preact-intlayer (WIP)
+### preact-intlayer
 
 Il pacchetto `preact-intlayer` è utilizzato per interpretare i dizionari di Intlayer e renderli utilizzabili nelle applicazioni Preact.
 

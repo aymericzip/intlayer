@@ -120,7 +120,7 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 `solid-intlayer` 包用于解释 Intlayer 字典并使其在 Solid.js 应用中可用。
 
-### preact-intlayer (开发中)
+### preact-intlayer
 
 `preact-intlayer` 包用于解释 Intlayer 字典并使其在 Preact 应用中可用。
 

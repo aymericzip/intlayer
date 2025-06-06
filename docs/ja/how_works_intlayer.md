@@ -120,7 +120,7 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
 
 `solid-intlayer`パッケージは、Intlayer辞書を解釈し、Solid.jsアプリケーションで使用可能にします。
 
-### preact-intlayer (作業中)
+## preact-intlayer(作業中)
 
 `preact-intlayer`パッケージは、Intlayer辞書を解釈し、Preactアプリケーションで使用可能にします。
 

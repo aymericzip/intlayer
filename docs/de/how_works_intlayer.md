@@ -119,7 +119,7 @@ Das `svelte-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interp
 
 Das `solid-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Solid.js-Anwendungen nutzbar zu machen.
 
-### preact-intlayer (WIP)
+### preact-intlayer
 
 Das `preact-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Preact-Anwendungen nutzbar zu machen.
 
