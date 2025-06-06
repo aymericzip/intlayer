@@ -85,6 +85,10 @@ export const getDocData = (
     concept: {
       title: content.concept.title,
       subSections: {
+        interest: {
+          title: content.concept.subSections.interest.title,
+          default: getInterestOfIntlayerData(locale),
+        },
         'how-works-intlayer': {
           title: content.concept.subSections['how-works-intlayer'].title,
           default: getHowWorksIntlayerData(locale),
@@ -93,26 +97,7 @@ export const getDocData = (
           title: content.concept.subSections.configuration.title,
           default: getConfigurationData(locale),
         },
-        interest: {
-          title: content.concept.subSections.interest.title,
-          default: getInterestOfIntlayerData(locale),
-        },
-        cli: {
-          title: content.concept.subSections.cli.title,
-          default: getCliData(locale),
-        },
-        editor: {
-          title: content.concept.subSections.editor.title,
-          default: getVisualEditorData(locale),
-        },
-        cms: {
-          title: content.concept.subSections.cms.title,
-          default: getCMSData(locale),
-        },
-        'ci-cd': {
-          title: content.concept.subSections['ci-cd'].title,
-          default: getCI_CDData(locale),
-        },
+
         content: {
           title: content.concept.subSections.content.title,
           default: getContentDeclarationGetStatedData(locale),
@@ -167,9 +152,25 @@ export const getDocData = (
           title: content.concept.subSections['per-locale-file'].title,
           default: getContentDeclarationPerLocaleFileData(locale),
         },
+        cli: {
+          title: content.concept.subSections.cli.title,
+          default: getCliData(locale),
+        },
         'auto-fill': {
           title: content.concept.subSections['auto-fill'].title,
           default: getContentDeclarationAutoFillData(locale),
+        },
+        'ci-cd': {
+          title: content.concept.subSections['ci-cd'].title,
+          default: getCI_CDData(locale),
+        },
+        editor: {
+          title: content.concept.subSections.editor.title,
+          default: getVisualEditorData(locale),
+        },
+        cms: {
+          title: content.concept.subSections.cms.title,
+          default: getCMSData(locale),
         },
       },
     },

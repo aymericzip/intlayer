@@ -106,7 +106,7 @@ const docDataContent = {
           }),
         },
         cli: {
-          title: 'Intlayer CLI',
+          title: 'CLI',
         },
         editor: {
           title: t({
