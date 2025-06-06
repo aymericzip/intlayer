@@ -40,7 +40,7 @@ const MAX_CHUNK_TOKENS = 800; // Maximum number of tokens per chunk
 const CHAR_BY_TOKEN = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
 const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
 const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
-const MAX_RELEVANT_CHUNKS_NB = 25; // Maximum number of relevant chunks to attach to chatGPT context
+const MAX_RELEVANT_CHUNKS_NB = 20; // Maximum number of relevant chunks to attach to chatGPT context
 const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.25; // Minimum similarity required for a chunk to be considered relevant
 
 /**
@@ -224,7 +224,7 @@ export const searchChunkReference = async (
   const queryEmbedding = await generateEmbedding(query);
 
   // Calculate similarity scores between the query embedding and each document's embedding
-  const results = vectorStore
+  const selection = vectorStore
     .map((chunk) => ({
       ...chunk,
       similarity: cosineSimilarity(queryEmbedding, chunk.embedding), // Add similarity score to each doc
@@ -232,6 +232,12 @@ export const searchChunkReference = async (
     .filter((chunk) => chunk.similarity > minSimilarity) // Filter out documents with low similarity scores
     .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
     .slice(0, maxResults); // Select the top 6 most similar documents
+
+  const results = vectorStore.filter((chunk) =>
+    selection.some(
+      (v) => v.fileKey === chunk.fileKey && v.chunkNumber === chunk.chunkNumber
+    )
+  );
 
   // Return the content of the top matching documents
   return results;
@@ -293,18 +299,19 @@ export const askDocQuestion = async (
       : relevantFilesReferences
           .map(
             (doc, idx) =>
-              `[Chunk ${idx}] docKey = "${doc.fileKey}":\n${doc.content}`
+              `-----\n\n[Chunk ${idx}] doc name = "${doc.fileKey}" (chunk ${doc.chunkNumber}/${doc.fileKey.length})):\n${doc.content}`
           )
           .join('\n\n') // Insert relevant docs into the prompt
   );
 
   // Format messages for AI SDK
   const aiMessages = [
-    { role: 'system' as const, content: systemPrompt },
+    {
+      role: 'system' as const,
+      content: systemPrompt,
+    },
     ...messages,
   ];
-
-  console.log('aiMessages', JSON.stringify(aiMessages));
 
   // Get AI configuration
   const aiConfig = await getAIConfig({
