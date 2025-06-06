@@ -33,6 +33,7 @@ const PACKAGE_LIST_DYNAMIC = [
   'next-intlayer',
   'next-intlayer/client',
   'next-intlayer/server',
+  'preact-intlayer',
 ] as const;
 
 const STATIC_IMPORT_FUNCTION = {

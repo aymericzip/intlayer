@@ -19,6 +19,9 @@ const config: IntlayerConfig = {
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
+  build: {
+    activateDynamicImport: true,
+  },
 };
 
 export default config;

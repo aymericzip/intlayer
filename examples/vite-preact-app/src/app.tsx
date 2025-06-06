@@ -1,5 +1,6 @@
 import type { FunctionalComponent } from 'preact';
 import { useIntlayer } from 'preact-intlayer';
+import { Suspense } from 'preact/compat';
 import { useState } from 'preact/hooks';
 import './app.css';
 import preactLogo from './assets/preact.svg';
@@ -41,6 +42,8 @@ const AppContent: FunctionalComponent = () => {
 
 export const App: FunctionalComponent = () => (
   <LocaleRouter>
-    <AppContent />
+    <Suspense fallback={<div>loading dynamic dictionaries...</div>}>
+      <AppContent />
+    </Suspense>
   </LocaleRouter>
 );

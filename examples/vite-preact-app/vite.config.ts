@@ -1,5 +1,6 @@
 import preact from '@preact/preset-vite';
 import tailwindcss from '@tailwindcss/vite';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { intLayerMiddlewarePlugin, intlayerPlugin } from 'vite-intlayer';
 
@@ -10,5 +11,9 @@ export default defineConfig({
     intlayerPlugin(),
     intLayerMiddlewarePlugin(),
     tailwindcss(),
+    visualizer({
+      emitFile: true,
+      filename: 'stats.html',
+    }),
   ],
 });
