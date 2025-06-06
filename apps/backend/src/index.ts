@@ -23,16 +23,23 @@ import {
 } from '@middlewares/sessionAuth.middleware';
 
 // Routes
-import { aiRouter } from '@routes/ai.routes';
-import { dictionaryRouter } from '@routes/dictionary.routes';
-import { eventListenerRouter } from '@routes/eventListener.routes';
-import { organizationRouter } from '@routes/organization.routes';
-import { projectRouter } from '@routes/project.routes';
-import { searchRouter } from '@routes/search.routes';
+import { aiRoute, aiRouter } from '@routes/ai.routes';
+import { dictionaryRoute, dictionaryRouter } from '@routes/dictionary.routes';
+import {
+  eventListenerRoute,
+  eventListenerRouter,
+} from '@routes/eventListener.routes';
+import { newsletterRoute, newsletterRouter } from '@routes/newsletter.routes';
+import {
+  organizationRoute,
+  organizationRouter,
+} from '@routes/organization.routes';
+import { projectRoute, projectRouter } from '@routes/project.routes';
+import { searchRoute, searchRouter } from '@routes/search.routes';
 import { sessionAuthRouter } from '@routes/sessionAuth.routes';
-import { stripeRouter } from '@routes/stripe.routes';
-import { tagRouter } from '@routes/tags.routes';
-import { userRouter } from '@routes/user.routes';
+import { stripeRoute, stripeRouter } from '@routes/stripe.routes';
+import { tagRoute, tagRouter } from '@routes/tags.routes';
+import { userRoute, userRouter } from '@routes/user.routes';
 
 // Webhooks
 import { stripeWebhook } from '@webhooks/stripe.webhook';
@@ -180,15 +187,16 @@ app.use(/(.*)/, (req, res, next) => {
 });
 
 // Routes
-app.use('/api/user', userRouter);
-app.use('/api/organization', organizationRouter);
-app.use('/api/project', projectRouter);
-app.use('/api/tag', tagRouter);
-app.use('/api/dictionary', dictionaryRouter);
-app.use('/api/stripe', stripeRouter);
-app.use('/api/ai', aiRouter);
-app.use('/api/event-listener', eventListenerRouter);
-app.use('/api/search', searchRouter);
+app.use(userRoute, userRouter);
+app.use(organizationRoute, organizationRouter);
+app.use(projectRoute, projectRouter);
+app.use(tagRoute, tagRouter);
+app.use(dictionaryRoute, dictionaryRouter);
+app.use(stripeRoute, stripeRouter);
+app.use(aiRoute, aiRouter);
+app.use(eventListenerRoute, eventListenerRouter);
+app.use(searchRoute, searchRouter);
+app.use(newsletterRoute, newsletterRouter);
 
 // Server
 app.listen(process.env.PORT, () => {

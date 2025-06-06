@@ -1,24 +1,26 @@
+import type { Routes } from '@/types/Routes';
 import {
-  registerEmailPassword,
-  loginEmailPassword,
-  logOut,
-  updatePassword,
-  validEmail,
   askResetPassword,
+  checkIfUserHasPassword,
   definePassword,
   githubCallback,
-  googleCallback,
   githubLoginQuery,
+  googleCallback,
   googleLoginQuery,
+  loginEmailPassword,
+  logOut,
+  registerEmailPassword,
+  updatePassword,
+  validEmail,
   verifyEmailStatusSSE,
-  checkIfUserHasPassword,
 } from '@controllers/sessionAuth.controller';
 import { Router } from 'express';
-import type { Routes } from '@/types/Routes';
 
 export const sessionAuthRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/auth`;
+export const sessionAuthRoute = '/api/auth';
+
+const baseURL = () => `${process.env.BACKEND_URL}${sessionAuthRoute}`;
 
 export const getSessionAuthRoutes = () =>
   ({

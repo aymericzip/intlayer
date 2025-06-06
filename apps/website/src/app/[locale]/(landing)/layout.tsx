@@ -1,3 +1,4 @@
+import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
 import { PageLayout } from '@layouts/PageLayout';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 
@@ -6,7 +7,12 @@ const LandingLayout: NextLayoutIntlayer<{
 }> = async ({ children, params }) => {
   const { locale } = await params;
 
-  return <PageLayout locale={locale}>{children}</PageLayout>;
+  return (
+    <PageLayout locale={locale}>
+      <EmailRegistrationToast />
+      {children}
+    </PageLayout>
+  );
 };
 
 export default LandingLayout;

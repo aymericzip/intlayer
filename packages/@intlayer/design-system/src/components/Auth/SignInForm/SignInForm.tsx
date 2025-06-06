@@ -43,18 +43,19 @@ export const SignInForm: FC<SignInFormProps> = ({
         <div className="flex flex-col gap-y-6">
           <Form.Input
             name="email"
+            type="email"
+            autoComplete="email"
             label={emailInput.label.value}
             placeholder={emailInput.placeholder.value}
             isRequired
-            autoComplete="email"
           />
 
           <Form.InputPassword
             name="password"
+            autoComplete="current-password"
             label={passwordInput.label.value}
             placeholder={passwordInput.placeholder.value}
             isRequired
-            autoComplete="current-password"
           />
         </div>
 

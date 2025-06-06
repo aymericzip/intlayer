@@ -1,5 +1,6 @@
 import { AsideNavigation } from '@components/AsideNavigation/AsideNavigation';
 import { BackgroundLayout } from '@components/BackgroundLayout';
+import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
 import { type Locales } from 'intlayer';
 import { type FC, type ReactNode } from 'react';
 import { DocBreadCrumb } from './DocBreadCrumb';
@@ -49,6 +50,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
           </aside>
         </div>
       </BackgroundLayout>
+      <EmailRegistrationToast />
     </div>
   );
 };

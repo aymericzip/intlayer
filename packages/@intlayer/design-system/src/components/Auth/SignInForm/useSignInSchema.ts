@@ -17,6 +17,7 @@ export const useSignInSchema = () => {
         invalid_type_error: invalidTypeErrorEmail.value,
       })
       .min(1, { message: invalidTypeErrorEmail.value })
+      .email({ message: invalidTypeErrorEmail.value })
       .default(''),
     password: z
       .string({

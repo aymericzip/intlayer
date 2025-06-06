@@ -1,17 +1,19 @@
+import type { Routes } from '@/types/Routes';
 import {
-  getUsers,
-  updateUser,
-  getUserByEmail,
-  getUserById,
   createUser,
   getUserByAccount,
+  getUserByEmail,
+  getUserById,
+  getUsers,
+  updateUser,
 } from '@controllers/user.controller';
 import { Router } from 'express';
-import type { Routes } from '@/types/Routes';
 
 export const userRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/user`;
+export const userRoute = '/api/user';
+
+const baseURL = () => `${process.env.BACKEND_URL}${userRoute}`;
 
 export const getUserRoutes = () =>
   ({

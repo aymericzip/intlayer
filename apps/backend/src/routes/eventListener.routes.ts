@@ -1,10 +1,12 @@
+import type { Routes } from '@/types/Routes';
 import { listenChangeSSE } from '@controllers/eventListener.controller';
 import { Router } from 'express';
-import type { Routes } from '@/types/Routes';
 
 export const eventListenerRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/event-listener`;
+export const eventListenerRoute = '/api/event-listener';
+
+const baseURL = () => `${process.env.BACKEND_URL}${eventListenerRoute}`;
 
 export const eventListenerRoutes = () =>
   ({

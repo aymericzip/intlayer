@@ -1,14 +1,16 @@
+import type { Routes } from '@/types/Routes';
 import {
-  getPricing,
   cancelSubscription,
+  getPricing,
   getSubscription,
 } from '@controllers/stripe.controller';
 import { Router } from 'express';
-import type { Routes } from '@/types/Routes';
 
 export const stripeRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/stipe`;
+export const stripeRoute = '/api/stripe';
+
+const baseURL = () => `${process.env.BACKEND_URL}${stripeRoute}`;
 
 export const getStripeRoutes = () =>
   ({

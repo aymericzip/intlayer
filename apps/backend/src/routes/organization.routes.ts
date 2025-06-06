@@ -1,19 +1,21 @@
+import type { Routes } from '@/types/Routes';
 import {
   addOrganization,
+  addOrganizationMember,
   deleteOrganization,
-  selectOrganization,
   getOrganizations,
+  selectOrganization,
+  unselectOrganization,
   updateOrganization,
   updateOrganizationMembers,
-  unselectOrganization,
-  addOrganizationMember,
 } from '@controllers/organization.controller';
 import { Router } from 'express';
-import type { Routes } from '@/types/Routes';
 
 export const organizationRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/organization`;
+export const organizationRoute = '/api/organization';
+
+const baseURL = () => `${process.env.BACKEND_URL}${organizationRoute}`;
 
 export const getOrganizationRoutes = () =>
   ({

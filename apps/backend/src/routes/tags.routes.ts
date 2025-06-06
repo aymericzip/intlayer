@@ -1,3 +1,4 @@
+import type { Routes } from '@/types/Routes';
 import {
   addTag,
   deleteTag,
@@ -5,11 +6,12 @@ import {
   updateTag,
 } from '@controllers/tag.controller';
 import { Router } from 'express';
-import type { Routes } from '@/types/Routes';
 
 export const tagRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/tag`;
+export const tagRoute = '/api/tag';
+
+const baseURL = () => `${process.env.BACKEND_URL}${tagRoute}`;
 
 export const getTagRoutes = () =>
   ({

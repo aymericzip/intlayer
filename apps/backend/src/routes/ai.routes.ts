@@ -12,7 +12,9 @@ import { Router } from 'express';
 
 export const aiRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/ai`;
+export const aiRoute = '/api/ai';
+
+const baseURL = () => `${process.env.BACKEND_URL}${aiRoute}`;
 
 export const getAiRoutes = () =>
   ({

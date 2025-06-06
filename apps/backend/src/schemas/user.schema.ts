@@ -1,10 +1,10 @@
+import type { User } from '@/types/user.types';
 import {
   NAMES_MAX_LENGTH,
   NAMES_MIN_LENGTH,
 } from '@utils/validation/validateUser';
 import { Schema } from 'mongoose';
 import validator from 'validator';
-import type { User } from '@/types/user.types';
 
 const SessionSchema = new Schema(
   {
@@ -70,6 +70,16 @@ export const userSchema = new Schema<User>(
 
     customerId: {
       type: String,
+      required: false,
+    },
+
+    emailsList: {
+      type: {
+        newsLetter: {
+          type: Boolean,
+          default: false,
+        },
+      },
       required: false,
     },
 

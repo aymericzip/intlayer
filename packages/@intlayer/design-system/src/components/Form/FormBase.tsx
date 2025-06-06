@@ -4,8 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { type HTMLAttributes } from 'react';
 import {
   FormProvider,
-  type FormProviderProps,
   useForm as useFormReactHookForm,
+  type FormProviderProps,
   type UseFormProps,
 } from 'react-hook-form';
 import type { ZodType, z } from 'zod';
@@ -69,6 +69,7 @@ export const Form = <T extends ZodType>({
         className={cn('flex size-full flex-col gap-y-6', className)}
         onSubmit={props.handleSubmit(onSubmit)}
         autoComplete={autoComplete ? 'on' : 'off'}
+        noValidate
       >
         {children}
       </form>

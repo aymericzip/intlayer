@@ -1,5 +1,6 @@
 // Routes
 export { getDictionaryRoutes } from '@routes/dictionary.routes';
+export { getNewsletterRoutes } from '@routes/newsletter.routes';
 export { getOrganizationRoutes } from '@routes/organization.routes';
 export { getProjectRoutes } from '@routes/project.routes';
 export { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
@@ -9,6 +10,7 @@ export { getUserRoutes } from '@routes/user.routes';
 export type * from '@controllers/ai.controller';
 export type * from '@controllers/dictionary.controller';
 export type * from '@controllers/eventListener.controller';
+export type * from '@controllers/newsletter.controller';
 export type * from '@controllers/oAuth2.controller';
 export type * from '@controllers/organization.controller';
 export type * from '@controllers/project.controller';

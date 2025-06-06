@@ -765,6 +765,37 @@ export const useSearchDoc = (
 ) => useAppAsync('searchDoc', useIntlayerAuth().search.searchDoc, args);
 
 /**
+ * Newsletter
+ */
+
+export const useSubscribeToNewsletter = (
+  args?: UseAsyncOptions<IntlayerAPI['newsletter']['subscribeToNewsletter']>
+) =>
+  useAppAsync(
+    'subscribeToNewsletter',
+    useIntlayerAuth().newsletter.subscribeToNewsletter,
+    args
+  );
+
+export const useUnsubscribeFromNewsletter = (
+  args?: UseAsyncOptions<IntlayerAPI['newsletter']['unsubscribeFromNewsletter']>
+) =>
+  useAppAsync(
+    'unsubscribeFromNewsletter',
+    useIntlayerAuth().newsletter.unsubscribeFromNewsletter,
+    args
+  );
+
+export const useGetNewsletterStatus = (
+  args?: UseAsyncOptions<IntlayerAPI['newsletter']['getNewsletterStatus']>
+) =>
+  useAppAsync(
+    'getNewsletterStatus',
+    useIntlayerAuth().newsletter.getNewsletterStatus,
+    args
+  );
+
+/**
  * Editor
  */
 

@@ -38,6 +38,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
       <div className="flex flex-col gap-y-6">
         <Form.Input
           name="email"
+          type="email"
           label={emailInput.label.value}
           placeholder={emailInput.placeholder.value}
           isRequired

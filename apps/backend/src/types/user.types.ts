@@ -1,4 +1,4 @@
-import type { ObjectId, Model, Document } from 'mongoose';
+import type { Document, Model, ObjectId } from 'mongoose';
 import type { Session, SessionProviders } from './session.types';
 
 export interface UserData {
@@ -8,11 +8,18 @@ export interface UserData {
   dateOfBirth?: Date;
 }
 
+export enum EmailsList {
+  NEWS_LETTER = 'newsLetter',
+}
+
 export interface User extends UserData {
   _id: ObjectId;
   provider?: SessionProviders[];
   customerId?: string;
   session?: Session;
+  emailsList?: {
+    [key in EmailsList]: boolean;
+  };
   createdAt: number;
   updatedAt: number;
 }

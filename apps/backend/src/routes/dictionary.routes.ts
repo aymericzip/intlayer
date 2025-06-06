@@ -1,18 +1,20 @@
+import type { Routes } from '@/types/Routes';
 import {
-  pushDictionaries,
   addDictionary,
   deleteDictionary,
   getDictionaries,
-  updateDictionary,
-  getDictionaryByKey,
   getDictionariesKeys,
+  getDictionaryByKey,
+  pushDictionaries,
+  updateDictionary,
 } from '@controllers/dictionary.controller';
 import { Router } from 'express';
-import type { Routes } from '@/types/Routes';
 
 export const dictionaryRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/dictionary`;
+export const dictionaryRoute = '/api/dictionary';
+
+const baseURL = () => `${process.env.BACKEND_URL}${dictionaryRoute}`;
 
 export const getDictionaryRoutes = () =>
   ({

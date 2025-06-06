@@ -4,7 +4,9 @@ import { Router } from 'express';
 
 export const searchRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/search`;
+export const searchRoute = '/api/search';
+
+const baseURL = () => `${process.env.BACKEND_URL}${searchRoute}`;
 
 export const getSearchRoutes = () =>
   ({

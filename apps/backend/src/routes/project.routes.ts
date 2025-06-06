@@ -1,12 +1,13 @@
+import type { Routes } from '@/types/Routes';
 import {
   addProject,
   deleteProject,
   getProjects,
-  updateProject,
+  pushProjectConfiguration,
   selectProject,
   unselectProject,
+  updateProject,
   updateProjectMembers,
-  pushProjectConfiguration,
 } from '@controllers/project.controller';
 import {
   addNewAccessKey,
@@ -14,11 +15,12 @@ import {
   refreshAccessKey,
 } from '@controllers/projectAccessKey.controller';
 import { Router } from 'express';
-import type { Routes } from '@/types/Routes';
 
 export const projectRouter: Router = Router();
 
-const baseURL = () => `${process.env.BACKEND_URL}/api/project`;
+export const projectRoute = '/api/project';
+
+const baseURL = () => `${process.env.BACKEND_URL}${projectRoute}`;
 
 export const getProjectRoutes = () =>
   ({

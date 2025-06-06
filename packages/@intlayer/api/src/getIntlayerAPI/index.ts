@@ -4,6 +4,7 @@ import { getAiAPI } from './ai';
 import { getAuthAPI } from './auth';
 import { getDictionaryAPI } from './dictionary';
 import { getEditorAPI } from './editor';
+import { getNewsletterAPI } from './newsletter';
 import { getOrganizationAPI } from './organization';
 import { getProjectAPI } from './project';
 import { getSearchAPI } from './search';
@@ -25,6 +26,7 @@ export const getIntlayerAPI = (
   tag: getTagAPI(authAPIOptions, intlayerConfig),
   search: getSearchAPI(authAPIOptions, intlayerConfig),
   editor: getEditorAPI(authAPIOptions, intlayerConfig),
+  newsletter: getNewsletterAPI(authAPIOptions, intlayerConfig),
 });
 
 export type IntlayerAPI = ReturnType<typeof getIntlayerAPI>;
