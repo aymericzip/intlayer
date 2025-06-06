@@ -81,20 +81,20 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.1",
-    "@changesets/cli": "2.28.1",
-    "@types/node": "^22.13.10",
-    "@typescript-eslint/parser": "^8.27.0",
+    "@changesets/cli": "2.29.4",
+    "@types/node": "^22.15.30",
+    "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
-    "eslint": "^9.22.0",
+    "eslint": "^9.28.0",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.11",
-    "tsup": "^8.4.0",
-    "typescript": "^5.8.2"
+    "tsc-alias": "^1.8.16",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=14.18"

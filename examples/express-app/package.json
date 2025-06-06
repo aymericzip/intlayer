@@ -32,22 +32,22 @@
     "test": ""
   },
   "dependencies": {
-    "express": "^5.0.1",
+    "express": "^5.1.0",
     "express-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.13.10",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.30",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "eslint": "^9.22.0",
+    "eslint": "^9.28.0",
     "intlayer": "workspace:*",
     "prettier": "^3.5.3",
-    "tsc-alias": "^1.8.11",
-    "tsup": "^8.4.0",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "tsc-alias": "^1.8.16",
+    "tsup": "^8.5.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }

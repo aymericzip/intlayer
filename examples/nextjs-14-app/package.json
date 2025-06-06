@@ -22,17 +22,17 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.14",
+    "@tailwindcss/postcss": "^4.1.8",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
     "@utils/eslint-config": "workspace:*",
     "autoprefixer": "^10.4.21",
-    "eslint": "^9.22.0",
+    "eslint": "^9.28.0",
     "eslint-config-next": "15.0.4",
     "intlayer-editor": "workspace:*",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.4",
     "prettier": "^3.5.3",
-    "tailwindcss": "^4.0.14",
-    "typescript": "^5.8.2"
+    "tailwindcss": "^4.1.8",
+    "typescript": "^5.8.3"
   }
 }

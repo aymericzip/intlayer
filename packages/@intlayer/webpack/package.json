@@ -78,31 +78,31 @@
     "@intlayer/config": "workspace:*",
     "crypto-js": "^4.2.0",
     "fast-glob": "^3.3.3",
-    "webpack": "^5.98.0",
+    "webpack": "^5.99.9",
     "webpack-dev-server": "^5.2.0"
   },
   "devDependencies": {
-    "@changesets/cli": "2.28.1",
+    "@changesets/cli": "2.29.4",
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "^22.13.10",
-    "@typescript-eslint/parser": "^8.27.0",
+    "@types/node": "^22.15.30",
+    "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
-    "eslint": "^9.22.0",
+    "eslint": "^9.28.0",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.11",
-    "tsup": "^8.4.0",
-    "typescript": "^5.8.2"
+    "tsc-alias": "^1.8.16",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "webpack": "^5.96.1"
+    "webpack": "^5.99.9"
   },
   "engines": {
     "node": ">=14.18"
