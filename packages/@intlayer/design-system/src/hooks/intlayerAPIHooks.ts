@@ -7,6 +7,10 @@ import { useToast } from '../components/Toaster';
 import { type UseAsyncOptions, useAsync } from './useAsync/useAsync';
 import { useIntlayerAuth } from './useIntlayerAPI';
 
+const formatErrorCode = (errorCode: string) => {
+  return errorCode.split('_').join(' ');
+};
+
 /**
  *  Hook to handle error logging and toast notifications
  */
@@ -35,10 +39,11 @@ const useErrorHandling = <T extends UseAsyncOptions<any>>(options: T): T => {
         .flatMap((error) => error)
         .forEach((error) =>
           toast({
-            title:
+            title: formatErrorCode(
               (process.env.NODE_ENV === 'production'
                 ? error.title
-                : error.code) ?? 'Error',
+                : error.code) ?? 'Error'
+            ),
             description: error.message ?? errorMessage ?? 'An error occurred',
             variant: 'error',
           })
