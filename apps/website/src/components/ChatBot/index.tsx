@@ -96,7 +96,7 @@ export const ChatBot: FC<ChatBotProps> = ({
     );
 
     const newMessages: ChatCompletionRequestMessage[] = [
-      ...(discution?.storedPrompt ?? []).slice(0, -1),
+      ...(discution?.storedPrompt ?? []),
       {
         role: 'user' as const,
         content: newQuestion,
