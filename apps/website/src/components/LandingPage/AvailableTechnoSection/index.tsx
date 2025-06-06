@@ -59,7 +59,7 @@ export const AvailableTechnoSection: FC = () => {
           color="custom"
           label={vite.label.value}
         >
-          <PreactLogo className="grayscale-60 max-h-full opacity-50 h-20" />
+          <PreactLogo className="grayscale-60 max-h-full h-20" />
         </Link>
       </div>
       <h2 className="text-neutral">{commingSoon}</h2>
