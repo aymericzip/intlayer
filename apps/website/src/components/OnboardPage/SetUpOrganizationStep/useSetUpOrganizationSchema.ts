@@ -1,5 +1,5 @@
 import { useIntlayer } from 'next-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const useSetUpOrganizationSchema = () => {
   const { requiredErrorOrganizationId } = useIntlayer(
@@ -8,8 +8,10 @@ export const useSetUpOrganizationSchema = () => {
 
   return z.object({
     organizationId: z.string({
-      required_error: requiredErrorOrganizationId.value,
-      invalid_type_error: requiredErrorOrganizationId.value,
+      error: (issue) =>
+        issue.input === undefined
+          ? requiredErrorOrganizationId.value
+          : requiredErrorOrganizationId.value,
     }),
   });
 };

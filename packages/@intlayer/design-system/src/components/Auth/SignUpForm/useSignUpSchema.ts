@@ -1,5 +1,5 @@
 import { useDictionary } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { signUpSchemaContent } from './useSignUpSchema.content';
 
 export const useSignUpSchema = () => {
@@ -16,24 +16,29 @@ export const useSignUpSchema = () => {
   return z
     .object({
       email: z
-        .string({
-          required_error: requiredErrorEmail.value,
-          invalid_type_error: invalidTypeErrorEmail.value,
+        .email({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorEmail.value
+              : invalidTypeErrorEmail.value,
         })
-        .min(1, { message: invalidTypeErrorEmail.value })
-        .email({ message: invalidTypeErrorEmail.value }),
+        .min(1, { error: invalidTypeErrorEmail.value }),
       password: z
         .string({
-          required_error: requiredErrorPassword.value,
-          invalid_type_error: invalidTypeErrorPassword.value,
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorPassword.value
+              : invalidTypeErrorPassword.value,
         })
-        .min(8, { message: invalidTypeErrorPassword.value }),
+        .min(8, { error: invalidTypeErrorPassword.value }),
       passwordConfirmation: z
         .string({
-          required_error: requiredErrorPasswordConfirmation.value,
-          invalid_type_error: invalidTypeErrorPasswordConfirmation.value,
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorPasswordConfirmation.value
+              : invalidTypeErrorPasswordConfirmation.value,
         })
-        .min(8, { message: invalidTypeErrorPasswordConfirmation.value }),
+        .min(8, { error: invalidTypeErrorPasswordConfirmation.value }),
     })
     .refine((data) => data.password === data.passwordConfirmation, {
       message: passwordNotMatchError.value,

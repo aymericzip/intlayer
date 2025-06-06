@@ -1,5 +1,5 @@
 import { useDictionary } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { dictionaryFormSchemaContent } from './useDictionaryFormSchema.content';
 
 export const useDictionarySchema = (projectId: string) => {
@@ -13,16 +13,20 @@ export const useDictionarySchema = (projectId: string) => {
   return z.object({
     key: z
       .string({
-        required_error: requiredErrorName.value,
-        invalid_type_error: invalidTypeErrorName.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? requiredErrorName.value
+            : invalidTypeErrorName.value,
       })
-      .min(1, { message: invalidTypeErrorName.value })
+      .min(1, { error: invalidTypeErrorName.value })
       .default(''),
     projectIds: z
       .array(
         z.string({
-          required_error: requiredErrorProjectId.value,
-          invalid_type_error: invalidTypeErrorProjectId.value,
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorProjectId.value
+              : invalidTypeErrorProjectId.value,
         })
       )
       .default([projectId]),

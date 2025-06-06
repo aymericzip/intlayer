@@ -1,5 +1,5 @@
 import { useDictionary } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { changePasswordSchemaContent } from './useChangePasswordSchema.content';
 
 export const useChangePasswordSchema = () => {
@@ -18,22 +18,28 @@ export const useChangePasswordSchema = () => {
     .object({
       currentPassword: z
         .string({
-          required_error: requiredErrorPassword.value,
-          invalid_type_error: invalidTypeErrorPassword.value,
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorPassword.value
+              : invalidTypeErrorPassword.value,
         })
-        .min(8, { message: invalidPasswordLengthError.value }),
+        .min(8, { error: invalidPasswordLengthError.value }),
       newPassword: z
         .string({
-          required_error: requiredErrorNewPassword.value,
-          invalid_type_error: invalidTypeErrorNewPassword.value,
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorNewPassword.value
+              : invalidTypeErrorNewPassword.value,
         })
-        .min(8, { message: invalidPasswordLengthError.value }),
+        .min(8, { error: invalidPasswordLengthError.value }),
       newPasswordConfirmation: z
         .string({
-          required_error: requiredErrorNewPasswordConfirmation.value,
-          invalid_type_error: invalidTypeErrorNewPasswordConfirmation.value,
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorNewPasswordConfirmation.value
+              : invalidTypeErrorNewPasswordConfirmation.value,
         })
-        .min(8, { message: invalidPasswordLengthError.value }),
+        .min(8, { error: invalidPasswordLengthError.value }),
     })
     .refine((data) => data.newPassword === data.newPasswordConfirmation, {
       message: passwordNotMatchError.value,

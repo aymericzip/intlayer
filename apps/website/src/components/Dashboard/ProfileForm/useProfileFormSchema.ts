@@ -1,5 +1,5 @@
 import { useIntlayer } from 'next-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const useProfileFormSchema = () => {
   const { requiredErrorName, invalidTypeErrorName } = useIntlayer(
@@ -9,10 +9,12 @@ export const useProfileFormSchema = () => {
   return z.object({
     name: z
       .string({
-        required_error: requiredErrorName.value,
-        invalid_type_error: invalidTypeErrorName.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? requiredErrorName.value
+            : invalidTypeErrorName.value,
       })
-      .min(1, { message: invalidTypeErrorName.value })
+      .min(1, invalidTypeErrorName.value)
       .default(''),
   });
 };

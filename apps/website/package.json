@@ -87,7 +87,7 @@
     "sharp": "^0.33.5",
     "tailwind-merge": "^3.0.2",
     "uuid": "^11.1.0",
-    "zod": "^3.24.2"
+    "zod": "^3.25.56"
   },
   "devDependencies": {
     "@intlayer/backend": "workspace:*",

@@ -1,5 +1,5 @@
 import { useIntlayer } from 'next-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const useTagSchema = () => {
   const {
@@ -16,35 +16,43 @@ export const useTagSchema = () => {
   return z.object({
     key: z
       .string({
-        required_error: requiredErrorKey.value,
-        invalid_type_error: invalidTypeErrorKey.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? requiredErrorKey.value
+            : invalidTypeErrorKey.value,
       })
-      .min(1, { message: invalidTypeErrorKey.value })
-      .max(20, { message: invalidTypeErrorKey.value }),
+      .min(1, { error: invalidTypeErrorKey.value })
+      .max(20, { error: invalidTypeErrorKey.value }),
 
     name: z
       .string({
-        required_error: requiredErrorName.value,
-        invalid_type_error: invalidTypeErrorName.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? requiredErrorName.value
+            : invalidTypeErrorName.value,
       })
-      .min(1, { message: invalidTypeErrorName.value })
-      .max(50, { message: invalidTypeErrorName.value })
+      .min(1, { error: invalidTypeErrorName.value })
+      .max(50, { error: invalidTypeErrorName.value })
       .optional(),
 
     description: z
       .string({
-        required_error: requiredErrorDescription.value,
-        invalid_type_error: invalidTypeErrorDescription.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? requiredErrorDescription.value
+            : invalidTypeErrorDescription.value,
       })
-      .min(1, { message: invalidTypeErrorDescription.value })
+      .min(1, { error: invalidTypeErrorDescription.value })
       .optional(),
 
     instructions: z
       .string({
-        required_error: requiredErrorInstructions.value,
-        invalid_type_error: invalidTypeErrorInstructions.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? requiredErrorInstructions.value
+            : invalidTypeErrorInstructions.value,
       })
-      .min(1, { message: invalidTypeErrorInstructions.value })
+      .min(1, { error: invalidTypeErrorInstructions.value })
       .optional(),
   });
 };

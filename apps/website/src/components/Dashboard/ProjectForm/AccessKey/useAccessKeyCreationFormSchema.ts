@@ -1,5 +1,5 @@
 import { useIntlayer } from 'next-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const useAccessKeyCreationSchema = () => {
   const { requiredErrorName, invalidTypeErrorName, invalidDateErrorName } =
@@ -8,10 +8,12 @@ export const useAccessKeyCreationSchema = () => {
   return z.object({
     name: z
       .string({
-        required_error: requiredErrorName.value,
-        invalid_type_error: invalidTypeErrorName.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? requiredErrorName.value
+            : invalidTypeErrorName.value,
       })
-      .min(1, { message: invalidTypeErrorName.value })
+      .min(1, invalidTypeErrorName.value)
       .default(''),
     expiresAt: z
       .string()
@@ -20,9 +22,7 @@ export const useAccessKeyCreationSchema = () => {
           value
             ? new Date(value).toISOString() > new Date().toISOString()
             : true,
-        {
-          message: invalidDateErrorName,
-        }
+        invalidDateErrorName.value
       )
       .optional(),
     rights: z.object({

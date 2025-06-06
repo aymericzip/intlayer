@@ -3,22 +3,22 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { FC, FormEvent, HTMLProps } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 const Schema = z.object({
   test: z.string().min(3, 'test error'),
 });
 
 type FormElementWrapperProps = HTMLProps<HTMLFormElement> & {
-  schema?: z.AnyZodObject;
-  values?: z.infer<z.AnyZodObject>;
+  schema?: z.ZodObject;
+  values?: z.infer<z.ZodObject>;
 };
 
 export const FormElementWrapper: FC<FormElementWrapperProps> = (props) => {
   const objectFormSchema = props.schema ?? Schema;
 
   const form = useForm<z.infer<typeof objectFormSchema>>({
-    resolver: zodResolver(objectFormSchema),
+    resolver: zodResolver(objectFormSchema as any),
     values: props.values,
   });
 

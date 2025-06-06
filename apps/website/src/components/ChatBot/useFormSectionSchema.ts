@@ -1,5 +1,5 @@
 import { useIntlayer } from 'next-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const useFormSectionSchema = () => {
   const { questionRequiredError, questionInvalidTypeError } = useIntlayer(
@@ -8,8 +8,10 @@ export const useFormSectionSchema = () => {
 
   return z.object({
     question: z.string({
-      required_error: questionRequiredError.value,
-      invalid_type_error: questionInvalidTypeError.value,
+      error: (issue) =>
+        issue.input === undefined
+          ? questionRequiredError.value
+          : questionInvalidTypeError.value,
     }),
   });
 };

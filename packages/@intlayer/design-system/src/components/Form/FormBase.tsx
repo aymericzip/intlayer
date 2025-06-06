@@ -8,10 +8,10 @@ import {
   type FormProviderProps,
   type UseFormProps,
 } from 'react-hook-form';
-import type { ZodType, z } from 'zod';
+import type { ZodObject, z } from 'zod/v4';
 import { cn } from '../../utils/cn';
 
-type FormProps<T extends ZodType> = HTMLAttributes<HTMLFormElement> &
+type FormProps<T extends ZodObject> = HTMLAttributes<HTMLFormElement> &
   FormProviderProps<z.infer<T>> & {
     schema?: T;
     onSubmit?: (data: z.infer<T>) => void | Promise<void>;
@@ -31,7 +31,7 @@ const awaitFunction = async (fn: any) => {
   return fn;
 };
 
-export const Form = <T extends ZodType>({
+export const Form = <T extends ZodObject>({
   schema,
   onSubmit: onSubmitProp,
   onSubmitSuccess: onSubmitSuccessProp,
@@ -41,7 +41,7 @@ export const Form = <T extends ZodType>({
   autoComplete,
   ...props
 }: FormProps<T>) => {
-  const onSubmit = async (values: T) => {
+  const onSubmit = async (values: z.infer<T>) => {
     const parsedValues = schema?.safeParse(values) ?? {
       success: true,
       data: undefined,
@@ -56,7 +56,7 @@ export const Form = <T extends ZodType>({
       await awaitFunction(
         onSubmitErrorProp?.(
           new Error(
-            parsedValues.error.errors.map((error) => error.message).join(', ')
+            parsedValues.error.issues.map((error) => error.message).join(', ')
           )
         )
       );
@@ -77,12 +77,12 @@ export const Form = <T extends ZodType>({
   );
 };
 
-export const useForm = <T extends ZodType>(
+export const useForm = <T extends ZodObject>(
   schema: T,
   props?: UseFormProps<z.infer<T>>
 ) => {
   const form = useFormReactHookForm<z.infer<T>>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema as any),
     ...props,
   });
 

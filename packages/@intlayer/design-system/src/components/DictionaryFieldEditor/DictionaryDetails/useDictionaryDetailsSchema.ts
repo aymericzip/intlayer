@@ -1,5 +1,5 @@
 import { useDictionary } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { useDictionaryDetailsSchemaContent } from './useDictionaryDetailsSchema.content';
 
 export const useDictionaryDetailsSchema = (projectId: string) => {
@@ -21,20 +21,24 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
   return z.object({
     title: z
       .string({
-        required_error: titleRequiredError.value,
-        invalid_type_error: titleInvalidTypeError.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? titleRequiredError.value
+            : titleInvalidTypeError.value,
       })
       // Can be length of 0 or > 4
       .refine((val) => val.length === 0 || val.length >= 4, {
-        message: titleMinLengthError.value,
+        error: titleMinLengthError.value,
       })
       .optional(),
     key: z
       .string({
-        required_error: keyRequiredError.value,
-        invalid_type_error: keyInvalidTypeError.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? keyRequiredError.value
+            : keyInvalidTypeError.value,
       })
-      .min(4, { message: keyMinLengthError.value })
+      .min(4, { error: keyMinLengthError.value })
       /**
        * Valid :
        * my-key
@@ -44,26 +48,30 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
        * my key
        * my.key
        */
-      .regex(/^[a-zA-Z0-9-_]+$/, { message: keySpaceError.value })
+      .regex(/^[a-zA-Z0-9-_]+$/, { error: keySpaceError.value })
       .default(''),
     description: z
       .string({
-        required_error: descriptionRequiredError.value,
-        invalid_type_error: descriptionInvalidTypeError.value,
+        error: (issue) =>
+          issue.input === undefined
+            ? descriptionRequiredError.value
+            : descriptionInvalidTypeError.value,
       })
       .optional(),
     projectIds: z
       .array(
         z.string({
-          required_error: requiredErrorProjectId.value,
-          invalid_type_error: invalidTypeErrorProjectId.value,
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorProjectId.value
+              : invalidTypeErrorProjectId.value,
         })
       )
       .default([projectId]),
     tags: z
       .array(
         z.string({
-          invalid_type_error: invalidTypeErrorTags.value,
+          error: () => invalidTypeErrorTags.value,
         })
       )
       .default([]),

@@ -1,5 +1,5 @@
 import { useIntlayer } from 'next-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const useOrganizationMembersSchema = () => {
   const { requiredErrorMember, requiredErrorAdmin } = useIntlayer(
@@ -7,8 +7,10 @@ export const useOrganizationMembersSchema = () => {
   );
 
   return z.object({
-    membersIds: z.array(z.string()).min(1, { message: requiredErrorMember }),
-    adminsIds: z.array(z.string()).min(1, { message: requiredErrorAdmin }),
+    membersIds: z
+      .array(z.string())
+      .min(1, { error: requiredErrorMember.value }),
+    adminsIds: z.array(z.string()).min(1, { error: requiredErrorAdmin.value }),
   });
 };
 

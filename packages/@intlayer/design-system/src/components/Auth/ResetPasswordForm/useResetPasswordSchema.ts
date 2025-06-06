@@ -1,5 +1,5 @@
 import { useDictionary } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { useResetPasswordSchemaContent } from './useResetPasswordSchema.content';
 
 export const useResetPasswordSchema = () => {
@@ -8,11 +8,13 @@ export const useResetPasswordSchema = () => {
 
   return z.object({
     email: z
-      .string({
-        required_error: requiredErrorEmail.value,
-        invalid_type_error: invalidTypeErrorEmail.value,
+      .email({
+        error: (issue) =>
+          issue.input === undefined
+            ? requiredErrorEmail.value
+            : invalidTypeErrorEmail.value,
       })
-      .min(1, { message: invalidLengthErrorEmail.value }),
+      .min(1, { error: invalidLengthErrorEmail.value }),
   });
 };
 

@@ -1,5 +1,4 @@
-// import { t } from 'next-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const getVerifyEmailSchema = () => {
   return z.object({});

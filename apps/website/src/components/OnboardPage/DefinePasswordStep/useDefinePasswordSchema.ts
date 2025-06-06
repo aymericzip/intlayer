@@ -1,5 +1,5 @@
 import { useIntlayer } from 'next-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const useDefinePasswordSchema = (isPasswordDefined: boolean) => {
   const {
@@ -18,23 +18,29 @@ export const useDefinePasswordSchema = (isPasswordDefined: boolean) => {
       currentPassword: isPasswordDefined
         ? z
             .string({
-              required_error: requiredErrorPassword.value,
-              invalid_type_error: invalidTypeErrorPassword.value,
+              error: (issue) =>
+                issue.input === undefined
+                  ? requiredErrorPassword.value
+                  : invalidTypeErrorPassword.value,
             })
-            .min(8, { message: invalidPasswordLengthError.value })
+            .min(8, invalidPasswordLengthError.value)
         : z.undefined(),
       newPassword: z
         .string({
-          required_error: requiredErrorNewPassword.value,
-          invalid_type_error: invalidTypeErrorNewPassword.value,
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorNewPassword.value
+              : invalidTypeErrorNewPassword.value,
         })
-        .min(8, { message: invalidPasswordLengthError.value }),
+        .min(8, invalidPasswordLengthError.value),
       newPasswordConfirmation: z
         .string({
-          required_error: requiredErrorNewPasswordConfirmation.value,
-          invalid_type_error: invalidTypeErrorNewPasswordConfirmation.value,
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorNewPasswordConfirmation.value
+              : invalidTypeErrorNewPasswordConfirmation.value,
         })
-        .min(8, { message: invalidPasswordLengthError.value }),
+        .min(8, invalidPasswordLengthError.value),
     })
     .refine((data) => data.newPassword === data.newPasswordConfirmation, {
       message: passwordNotMatchError.value,
