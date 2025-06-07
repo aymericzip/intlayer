@@ -1,10 +1,10 @@
-import { runInNewContext } from 'vm';
-import { type BuildOptions, buildSync, type BuildResult } from 'esbuild';
-import { getSandBoxContext } from './getSandboxContext';
-import { ESMxCJSRequire } from './utils/ESMxCJSRequire';
-import { logger } from './logger';
-import { LoadEnvFileOptions } from './envVariables/loadEnvFile';
+import { buildSync, type BuildOptions, type BuildResult } from 'esbuild';
 import { dirname } from 'path';
+import { runInNewContext } from 'vm';
+import { LoadEnvFileOptions } from './envVariables/loadEnvFile';
+import { getSandBoxContext } from './getSandboxContext';
+import { logger } from './logger';
+import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
 const getTransformationOptions = (filePath: string): BuildOptions => ({
   loader: {

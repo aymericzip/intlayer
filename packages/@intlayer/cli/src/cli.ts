@@ -1,9 +1,9 @@
 import type { AIOptions } from '@intlayer/api';
-import { GetConfigurationOptions } from '@intlayer/config';
+import { GetConfigurationOptions, isESModule } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { Command } from 'commander';
 import { readFileSync } from 'fs';
-import { dirname, resolve } from 'path';
+import { dirname as pathDirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import {
   DiffMode,
@@ -17,9 +17,12 @@ import { pull } from './pull';
 import { push } from './push';
 import { pushConfig } from './pushConfig';
 
-const CJS_ESM_Dirname = __dirname ?? dirname(fileURLToPath(import.meta.url));
+export const dirname = isESModule
+  ? pathDirname(fileURLToPath(import.meta.url))
+  : __dirname;
+
 const packageJson = JSON.parse(
-  readFileSync(resolve(CJS_ESM_Dirname, '../../package.json'), 'utf8')
+  readFileSync(resolve(dirname, '../../package.json'), 'utf8')
 );
 
 const logOptions = [

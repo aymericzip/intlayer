@@ -3,7 +3,7 @@ import {
   type LoadEnvFileOptions,
   loadEnvFile,
 } from './envVariables/loadEnvFile';
-import { ESMxCJSRequire } from './utils/ESMxCJSRequire';
+import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
 export const getSandBoxContext = (
   envVarOptions?: LoadEnvFileOptions,

@@ -11,6 +11,7 @@ export const packageBuildOrder = [
   'packages/@intlayer/babel',
   'packages/@intlayer/swc',
   'packages/@intlayer/editor-react',
+  'packages/@intlayer/mcp',
   'packages/intlayer-cli',
   'packages/intlayer',
   'packages/express-intlayer',
