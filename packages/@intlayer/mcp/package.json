@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "@intlayer/cli": "workspace:*",
+    "@intlayer/config": "workspace:*",
     "@intlayer/docs": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.9.0",
     "zod": "^3.25.56"
@@ -91,8 +92,8 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
-    "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
+    "@intlayer/config": "workspace:*",
     "@intlayer/docs": "workspace:*"
   },
   "engines": {

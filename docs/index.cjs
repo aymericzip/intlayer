@@ -1222,6 +1222,21 @@ const docs = {
     zh: require('./zh/autoFill.md'),
     ar: require('./ar/autoFill.md'),
   },
+  mcp_server: {
+    en: require('./en/mcp_server.md'),
+    fr: require('./fr/mcp_server.md'),
+    es: require('./es/mcp_server.md'),
+    'en-GB': require('./en-GB/mcp_server.md'),
+    de: require('./de/mcp_server.md'),
+    hi: require('./hi/mcp_server.md'),
+    it: require('./it/mcp_server.md'),
+    ja: require('./ja/mcp_server.md'),
+    ko: require('./ko/mcp_server.md'),
+    pt: require('./pt/mcp_server.md'),
+    ru: require('./ru/mcp_server.md'),
+    zh: require('./zh/mcp_server.md'),
+    ar: require('./ar/mcp_server.md'),
+  },
 };
 
 const getDocs = (lang = Locales.ENGLISH) =>

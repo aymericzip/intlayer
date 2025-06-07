@@ -29,4 +29,4 @@ export type {
 } from './types/config';
 export { Locales } from './types/locales';
 export type { LocalesValues } from './types/locales';
-export { ESMxCJSRequire, dirname, isESModule } from './utils/ESMxCJSHelpers';
+export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';

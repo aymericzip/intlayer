@@ -84,6 +84,7 @@ declare module '@intlayer/docs' {
     vscode_extension,
     ci_cd,
     autoFill,
+    mcp_server,
   }
 
   export type DocsKeys = keyof typeof DocsKeysEnum;

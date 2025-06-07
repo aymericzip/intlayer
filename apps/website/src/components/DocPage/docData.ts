@@ -32,6 +32,7 @@ import { getEnvironmentViteAndReactData } from './docDataContent/environment/vit
 import { getEnvironmentViteAndSolidData } from './docDataContent/environment/viteAndSolid';
 import { getEnvironmentViteAndSvelteData } from './docDataContent/environment/viteAndSvelte';
 import { getEnvironmentViteAndVueData } from './docDataContent/environment/viteAndVue';
+import { getMCPServerData } from './docDataContent/mcp_server';
 import { getPackagesAngularIntlayerData } from './docDataContent/packages/angular-intlayer';
 import { getPackagesExpressIntlayerData } from './docDataContent/packages/express-intlayer';
 import { getPackagesExpressIntlayerTData } from './docDataContent/packages/express-intlayer/t';
@@ -428,6 +429,10 @@ export const getDocData = (
     'vs-code-extension': {
       title: content['vs-code-extension'].title,
       default: getVSCodeExtensionData(locale),
+    },
+    'mcp-server': {
+      title: content.mcp_server.title,
+      default: getMCPServerData(locale),
     },
   } satisfies Section;
 };

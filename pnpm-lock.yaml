@@ -2108,12 +2108,12 @@ importers:
 
   packages/@intlayer/mcp:
     dependencies:
-      '@intlayer/api':
-        specifier: workspace:*
-        version: link:../api
       '@intlayer/cli':
         specifier: workspace:*
         version: link:../cli
+      '@intlayer/config':
+        specifier: workspace:*
+        version: link:../config
       '@intlayer/docs':
         specifier: workspace:*
         version: link:../../../docs

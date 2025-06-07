@@ -710,6 +710,23 @@ const docDataContent = {
         hi: 'VS Code एक्सटेंशन',
       }),
     },
+    mcp_server: {
+      title: t({
+        en: 'Intlayer MCP Server',
+        fr: 'Serveur MCP Intlayer',
+        es: 'Servidor MCP Intlayer',
+        'en-GB': 'Intlayer MCP Server',
+        de: 'Intlayer MCP-Server',
+        ja: 'Intlayer MCPサーバー',
+        ko: 'Intlayer MCP 서버',
+        zh: 'Intlayer MCP服务器',
+        it: 'Server MCP Intlayer',
+        pt: 'Servidor MCP Intlayer',
+        hi: 'इंटलेयर MCP सर्वर',
+        ar: 'خادم MCP Intlayer',
+        ru: 'Сервер MCP Intlayer',
+      }),
+    },
     blog: {
       title: t({
         en: 'Blog',

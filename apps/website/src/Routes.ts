@@ -84,6 +84,7 @@ export enum PagesRoutes {
   'Doc_Packages_react-native-intlayer' = '/doc/packages/react-native-intlayer',
   'Doc_Packages_react-scripts-intlayer' = '/doc/packages/react-scripts-intlayer',
   'VS_Code_Extension' = '/doc/vs-code-extension',
+  'MCP_Server' = '/doc/mcp-server',
 
   Blog = '/blog/search/',
   Blog_Search = '/blog/search',
@@ -203,6 +204,7 @@ export enum GithubRoutes {
   'Packages_react-native-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md',
   'Packages_react-scripts-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md',
   'VS_Code_extension_intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/vs_code_extension.md',
+  'MCP_Server' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md',
   'Doc_CI_CD' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md',
 
   BlogIndex = 'https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md',
@@ -317,6 +319,7 @@ export const urlMapper: Partial<Record<GithubRoutes, PagesRoutes>> = {
     PagesRoutes['Doc_Packages_react-native-intlayer'],
   [GithubRoutes['VS_Code_extension_intlayer']]:
     PagesRoutes['VS_Code_Extension'],
+  [GithubRoutes['MCP_Server']]: PagesRoutes['MCP_Server'],
   [GithubRoutes['Doc_CI_CD']]: PagesRoutes['Doc_CI_CD'],
 
   [GithubRoutes.BlogIndex]: PagesRoutes['Blog'],
