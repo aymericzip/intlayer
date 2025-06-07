@@ -60,8 +60,9 @@ export const autocomplete = async ({
       temperature: aiConfig.temperature,
       messages: [
         { role: 'system', content: prompt },
-        { role: 'user', content: text },
+        { role: 'assistant', content: text },
       ],
+      maxTokens: 6, // Generate next 6 tokens
     });
 
     logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
