@@ -120,7 +120,6 @@ const ComponentExample = () => {
 - **Server Component Support**: Perfectly suited for Next.js server components, ensuring smooth server-side rendering.
 - **Enhanced Routing**: Full support for Next.js app routing, adapting seamlessly to complex application structures.
 - **Organized Codebase**: Keep your codebase more organized: 1 component = 1 dictionary in the same folder.
-- **Automatic TypeScript Types**: TypeScript types are automatically implemented, preventing code breakage from renamed or deleted keys.
 - **CI Auto-translation**: Autofill your translations in your CI using your own OpenAI API key, eliminating the need for an L10n platform.
 - **Markdown Support**: Import and interpret markdown files for multilingual content like privacy policies.
 - **Free Visual Editor & CMS**: A free visual editor and CMS are available if you need to work with content writers for your translations, again removing the need for a localization platform and allowing content externalization from the codebase.
