@@ -32,7 +32,7 @@ type VectorStoreEl = {
 const vectorStore: VectorStoreEl[] = [];
 
 // Constants defining model and settings
-const MODEL = 'gpt-4o-2024-11-20'; // Model to use for chat completions
+const MODEL = 'chatgpt-4o-latest'; // Model to use for chat completions
 const MODEL_TEMPERATURE = 0.1; // Temperature to use for chat completions
 const EMBEDDING_MODEL = 'text-embedding-3-large'; // Model to use for embedding generation
 const OVERLAP_TOKENS = 200; // Number of tokens to overlap between chunks
@@ -87,12 +87,6 @@ const chunkText = (text: string): string[] => {
  */
 const generateEmbedding = async (text: string): Promise<number[]> => {
   try {
-    // Set API key through the SDK configuration
-    await getAIConfig({
-      provider: AIProvider.OPENAI,
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-
     const openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
     const response = await openaiClient.embeddings.create({
@@ -286,7 +280,10 @@ export const askDocQuestion = async (
   options?: AskDocQuestionOptions
 ): Promise<AskDocQuestionResult> => {
   // Format the user's question to keep only the relevant keywords
-  const query = messages.map((message) => `- ${message.content}`).join('\n');
+  const query = messages
+    .filter((message) => message.role === 'user')
+    .map((message) => `- ${message.content}`)
+    .join('\n');
 
   // 1) Find relevant documents based on the user's question
   const relevantFilesReferences = await searchChunkReference(query);
