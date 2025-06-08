@@ -34,6 +34,7 @@ Intlayer facilita la condivisione dei file di dichiarazione dei contenuti tra pi
 ### Configurare Intlayer per Esportare Dizionari i18next
 
 > Note Importanti
+
 > L'esportazione dei dizionari i18next è attualmente in beta e non garantisce una compatibilità 1:1 con altri framework. Si consiglia di attenersi a una configurazione basata su Intlayer per ridurre i problemi.
 
 Per esportare i dizionari i18next, è necessario configurare Intlayer in modo appropriato. Di seguito è riportato un esempio di come impostare Intlayer per esportare sia i dizionari Intlayer che quelli i18next.

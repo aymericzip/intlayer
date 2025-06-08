@@ -375,7 +375,9 @@ const appContent = {
 ```
 
 > يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك طالما تم تضمينها في دليل `contentDir` (افتراضيًا، `./src`). وتطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+
 > إذا كان ملف المحتوى الخاص بك يتضمن كود TSX، يجب أن تفكر في استيراد `import React from "react";` في ملف المحتوى الخاص بك.
 
 ### الخطوة 5: استخدام Intlayer في الكود الخاص بك
@@ -524,9 +526,15 @@ module.exports = App;
 ```
 
 > إذا كنت تريد استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الوظيفة، مثل:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useIntlayer.md).
@@ -1205,14 +1213,21 @@ const LocaleSwitcher = () => {
 ```
 
 > مراجع التوثيق:
->
+
 > - [دالة `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useLocale.md)
+
 > - [دالة `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocaleName.md)
+
 > - [دالة `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocalizedUrl.md)
+
 > - [دالة `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getHTMLTextDir.md)
+
 > - [خاصية `hrefLang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ar)
+
 > - [خاصية `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [خاصية `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [خاصية `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ---

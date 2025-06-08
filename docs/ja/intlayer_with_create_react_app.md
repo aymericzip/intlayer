@@ -214,7 +214,9 @@ module.exports = appContent;
 ```
 
 > コンテンツ宣言は、`contentDir`ディレクトリ（デフォルトでは`./src`）に含まれる限り、アプリケーション内のどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトでは`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致する必要があります。
+
 > 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
+
 > コンテンツファイルにTSXコードが含まれている場合は、`import React from "react";`をコンテンツファイルにインポートすることを検討してください。
 
 ### ステップ5: コード内でIntlayerを利用
@@ -321,9 +323,15 @@ const App = () => (
 ```
 
 > 注意: `alt`、`title`、`href`、`aria-label`などの`string`属性でコンテンツを使用したい場合は、関数の値を呼び出す必要があります。例：
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
@@ -959,14 +967,21 @@ const LocaleSwitcher = () => {
 ```
 
 > ドキュメント参照：
->
+
 > - [`useLocale`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useLocale.md)
+
 > - [`getLocaleName`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang`属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [`lang`属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir`属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current`属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (オプション) ステップ9: HTMLの言語と方向属性を切り替え

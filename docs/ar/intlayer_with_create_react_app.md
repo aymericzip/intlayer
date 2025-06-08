@@ -224,7 +224,9 @@ module.exports = appContent;
 ```
 
 > يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك طالما تم تضمينها في دليل `contentDir` (افتراضيًا، `./src`). وتطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+
 > إذا كان ملف المحتوى الخاص بك يتضمن كود TSX، يجب أن تفكر في استيراد `import React from "react";` في ملف المحتوى الخاص بك.
 
 ### الخطوة 5: استخدام Intlayer في الكود الخاص بك
@@ -329,9 +331,15 @@ const App = () => (
 ```
 
 > ملاحظة: إذا كنت ترغب في استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، وما إلى ذلك، يجب عليك استدعاء قيمة الوظيفة، مثل:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useIntlayer.md).
@@ -971,14 +979,21 @@ const LocaleSwitcher = () => {
 ```
 
 > مراجع التوثيق:
->
+
 > - [خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useLocale.md)
+
 > - [خطاف `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocaleName.md)
+
 > - [خطاف `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocalizedUrl.md)
+
 > - [خطاف `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getHTMLTextDir.md)
+
 > - [خاصية `hrefLang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [خاصية `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [خاصية `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [خاصية `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (اختياري) الخطوة 9: تغيير سمات اللغة والاتجاه في HTML

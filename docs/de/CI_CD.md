@@ -143,5 +143,7 @@ jobs:
 ```
 
 > Wie bei Husky können Sie im Fall eines Monorepos das Argument `--base-dir` verwenden, um jede App nacheinander zu behandeln.
+
 > Standardmäßig filtert das Argument `--git-diff` Wörterbücher, die Änderungen von der Basis (Standard `origin/main`) zum aktuellen Branch (Standard: `HEAD`) enthalten.
+
 > Weitere Informationen zu Intlayer CLI-Befehlen und deren Verwendung finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md).

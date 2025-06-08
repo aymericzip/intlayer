@@ -379,6 +379,7 @@ module.exports = appContent;
 ````
 
 > あなたのコンテンツ宣言は、アプリケーション内のどこにでも定義できますが、`contentDir` ディレクトリ（デフォルトでは `./src`）に含まれている必要があります。そして、コンテンツ宣言ファイルの拡張子（デフォルトでは `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致する必要があります。
+
 > 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md) を参照してください。
 
 ### ステップ5: Intlayerをコードで利用する
@@ -444,9 +445,15 @@ const count = ref(0);
 ```
 
 > コンテンツを `alt`、`title`、`href`、`aria-label` などの属性で使用したい場合、関数の値を `.value` で呼び出す必要があります。例:
->
+
 > ```html
+>
+> ```
+
 > <img src="./logo.svg" :alt="content.image.value" />
+
+> ```
+>
 > ```
 
 ### （オプション）ステップ6: コンテンツの言語を変更する

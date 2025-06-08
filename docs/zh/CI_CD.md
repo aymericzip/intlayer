@@ -143,5 +143,7 @@ jobs:
 ```
 
 > 与 Husky 相同，在 monorepo 的情况下，您可以使用 `--base-dir` 参数依次处理每个应用程序。
+
 > 默认情况下，`--git-diff` 参数会过滤从基线（默认 `origin/main`）到当前分支（默认：`HEAD`）的更改中包含的字典。
+
 > 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)。

@@ -239,6 +239,7 @@ module.exports = LocaleLayout;
 
 ````
 
+
 > Сегмент пути `[locale]` используется для определения локали. Пример: `/en-US/about` будет относиться к `en-US`, а `/fr/about` к `fr`.
 
 Затем реализуйте функцию `generateStaticParams` в макете вашего приложения.
@@ -585,9 +586,15 @@ const ServerComponentExample = () => {
 ```
 
 > Если вы хотите использовать ваш контент в атрибуте `string`, таком как `alt`, `title`, `href`, `aria-label` и т.д., вы должны вызвать значение функции, например:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/next-intlayer/useIntlayer.md).
@@ -1102,14 +1109,21 @@ export const LocaleSwitcher = () => {
 ```
 
 > Ссылки на документацию:
->
+
 > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/next-intlayer/useLocale.md)
+
 > - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ru)
+
 > - [`lang` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (Необязательно) Шаг 11: Создание компонента локализованной ссылки
@@ -1267,6 +1281,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > Примечание: Эта оптимизация доступна только в Next.js 13 и выше.
+
 > Примечание: Этот пакет не устанавливается по умолчанию, потому что плагин SWC еще находится на этапе экспериментального использования в Next.js. Это может измениться в будущем.
 
 ### Настройка TypeScript

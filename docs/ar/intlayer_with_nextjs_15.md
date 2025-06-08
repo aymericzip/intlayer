@@ -370,6 +370,7 @@ module.exports = pageContent;
 ```
 
 > يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك طالما تم تضمينها في دليل `contentDir` (افتراضيًا، `./src`). وتطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 
 ### الخطوة 6: استخدام المحتوى في الكود الخاص بك
@@ -584,9 +585,15 @@ const ServerComponentExample = () => {
 ```
 
 > إذا كنت تريد استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الوظيفة، مثل:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > لمعرفة المزيد عن خطاف `useIntlayer`، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useIntlayer.md).
@@ -1101,14 +1108,21 @@ export const LocaleSwitcher = () => {
 ```
 
 > مراجع الوثائق:
->
+
 > - [خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useLocale.md)
+
 > - [خطاف `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocaleName.md)
+
 > - [خطاف `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocalizedUrl.md)
+
 > - [خطاف `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getHTMLTextDir.md)
+
 > - [سمة `hrefLang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ar)
+
 > - [سمة `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [سمة `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [سمة `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (اختياري) الخطوة 11: إنشاء مكون رابط محلي
@@ -1258,6 +1272,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > ملاحظة: هذا التحسين متاح فقط لـ Next.js 13 وما فوق.
+
 > ملاحظة: لم يتم تثبيت هذه الحزمة افتراضيًا لأن مكونات SWC لا تزال تجريبية على Next.js. قد يتغير ذلك في المستقبل.
 
 ### تكوين TypeScript

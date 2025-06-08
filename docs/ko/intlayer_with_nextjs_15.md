@@ -369,7 +369,8 @@ module.exports = pageContent;
 }
 ```
 
-> 콘텐츠 선언은 애플리케이션 어디에서나 정의할 수 있으며, `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치해야 합니다.  
+> 콘텐츠 선언은 애플리케이션 어디에서나 정의할 수 있으며, `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치해야 합니다.
+
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 참조하세요.
 
 ### 6단계: 코드에서 콘텐츠 활용
@@ -584,9 +585,15 @@ const ServerComponentExample = () => {
 ```
 
 > `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 콘텐츠를 사용하려면 함수의 값을 호출해야 합니다:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > `useIntlayer` 훅에 대한 자세한 내용은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
@@ -1101,14 +1108,21 @@ export const LocaleSwitcher = () => {
 ```
 
 > 문서 참조:
->
+
 > - [`useLocale` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useLocale.md)
+
 > - [`getLocaleName` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang` 속성](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [`lang` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` 속성](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (선택 사항) 11단계: 로컬화된 링크 컴포넌트 생성
@@ -1266,6 +1280,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > 참고: 이 최적화는 Next.js 13 이상에서만 사용할 수 있습니다.
+
 > 참고: 이 패키지는 기본적으로 설치되지 않습니다. 이유는 SWC 플러그인이 Next.js에서 아직 실험적이기 때문입니다. 이는 향후 변경될 수 있습니다.
 
 ### TypeScript 구성

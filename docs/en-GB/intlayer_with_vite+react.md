@@ -408,7 +408,9 @@ module.exports = appContent;
 ```
 
 > Your content declarations can be defined anywhere in your application as soon they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md).
+
 > If your content file includes TSX code, you should consider importing `import React from "react";` in your content file.
 
 ### Step 5: Utilise Intlayer in Your Code
@@ -557,9 +559,15 @@ module.exports = App;
 ```
 
 > If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function, like:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/useIntlayer.md).

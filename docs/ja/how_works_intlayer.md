@@ -86,6 +86,7 @@ Intlayerは、視覚的にコンテンツを編集できるビジュアルエデ
 [設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で`activateDynamicImport`オプションを有効にすると、Intlayerは動的インポートを使用して辞書をロードします。このオプションは、アプリケーションのレンダリング時に非同期処理を回避するためにデフォルトでは無効になっています。
 
 > `@intlayer/babel`は`vite-intlayer`パッケージでデフォルトで利用可能です。
+
 > `@intlayer/swc`は、Next.jsでSWCプラグインがまだ実験的であるため、`next-intlayer`パッケージにはデフォルトでインストールされていません。
 
 アプリケーションのビルドを設定する方法については、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を参照してください。
@@ -213,4 +214,4 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 
 ## スマートドキュメントとチャットする
 
-- [スマートドキュメントに質問する](https://intlayer.org/docs/chat)
+- [スマートドキュメントに質問する](https://intlayer.org/doc/chat)

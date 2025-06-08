@@ -143,5 +143,7 @@ jobs:
 ```
 
 > Husky の場合と同様に、モノレポの場合は `--base-dir` 引数を使用して各アプリを順次処理できます。
+
 > デフォルトでは、`--git-diff` 引数は、ベース（デフォルトは `origin/main`）から現在のブランチ（デフォルトは `HEAD`）までの変更を含む辞書をフィルタリングします。
+
 > Intlayer CLI コマンドとその使用方法についての詳細は、[CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)を参照してください。

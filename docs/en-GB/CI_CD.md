@@ -143,5 +143,7 @@ jobs:
 ```
 
 > Same as for Husky, in the case of a monorepo, you can use the `--base-dir` argument to sequentially treat each app.
+
 > By default, the `--git-diff` argument filters dictionaries that include changes from base (default `origin/main`) to current branch (default: `HEAD`).
+
 > For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_cli.md).

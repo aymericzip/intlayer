@@ -225,7 +225,9 @@ module.exports = appContent;
 ```
 
 > Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, solange sie im `contentDir`-Verzeichnis (standardmäßig `./src`) enthalten sind und die Inhaltsdeklarationsdateierweiterung (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`) übereinstimmt.
+
 > Weitere Details finden Sie in der [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
+
 > Wenn Ihre Inhaltsdatei TSX-Code enthält, sollten Sie `import React from "react";` in Ihrer Inhaltsdatei importieren.
 
 ### Schritt 5: Verwenden Sie Intlayer in Ihrem Code
@@ -332,9 +334,15 @@ const App = () => (
 ```
 
 > Hinweis: Wenn Sie Ihre Inhalte in einem `string`-Attribut wie `alt`, `title`, `href`, `aria-label` usw. verwenden möchten, müssen Sie den Wert der Funktion aufrufen, wie:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > Weitere Informationen zum `useIntlayer`-Hook finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/react-intlayer/useIntlayer.md).
@@ -973,14 +981,21 @@ const LocaleSwitcher = () => {
 ```
 
 > Dokumentationsreferenzen:
->
+
 > - [`useLocale`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/react-intlayer/useLocale.md)
+
 > - [`getLocaleName`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang`-Attribut](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=de)
+
 > - [`lang`-Attribut](https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir`-Attribut](https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current`-Attribut](https://developer.mozilla.org/de/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (Optional) Schritt 9: Ändern der HTML-Sprach- und Richtungsattribute

@@ -244,7 +244,8 @@ export default content;
 
 यदि आप JSON, `.cjs`, या `.mjs` पसंद करते हैं, तो [Intlayer docs](https://intlayer.org/hi/doc/concept/content) देखें।
 
-> डिफ़ॉल्ट रूप से, मान्य सामग्री घोषणाएँ फ़ाइल एक्सटेंशन पैटर्न से मेल खाती हैं:  
+> डिफ़ॉल्ट रूप से, मान्य सामग्री घोषणाएँ फ़ाइल एक्सटेंशन पैटर्न से मेल खाती हैं:
+
 > `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`
 
 ## Using the Translations in React Components

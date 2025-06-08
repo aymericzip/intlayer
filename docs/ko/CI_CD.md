@@ -143,5 +143,7 @@ jobs:
 ```
 
 > Husky와 마찬가지로 모노레포의 경우 `--base-dir` 인수를 사용하여 각 앱을 순차적으로 처리할 수 있습니다.
+
 > 기본적으로 `--git-diff` 인수는 기본(기본값 `origin/main`)에서 현재 브랜치(기본값: `HEAD`)까지의 변경 사항이 포함된 사전을 필터링합니다.
+
 > Intlayer CLI 명령과 사용법에 대한 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)를 참조하세요.

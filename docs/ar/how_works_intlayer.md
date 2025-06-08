@@ -86,6 +86,7 @@ const MyComponent = () => {
 بتفعيل الخيار `activateDynamicImport` في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md)، سيستخدم Intlayer الاستيراد الديناميكي لتحميل القواميس. هذا الخيار معطل افتراضيًا لتجنب المعالجة غير المتزامنة عند عرض التطبيق.
 
 > `@intlayer/babel` متاح افتراضيًا في حزمة `vite-intlayer`,
+
 > `@intlayer/swc` غير مثبت افتراضيًا في حزمة `next-intlayer` حيث أن مكونات SWC لا تزال تجريبية في Next.js.
 
 لرؤية كيفية تكوين بناء تطبيقك، يمكنك قراءة [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
@@ -215,4 +216,4 @@ const MyComponent = () => {
 
 ## تحدث مع وثائقنا الذكية
 
-- [اطرح أسئلتك على وثائقنا الذكية](https://intlayer.org/docs/chat)
+- [اطرح أسئلتك على وثائقنا الذكية](https://intlayer.org/doc/chat)

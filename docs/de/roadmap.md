@@ -14,7 +14,7 @@ Intlayer ist eine Lösung für Content-Management und Internationalisierung, die
 - **Verteilt**: Alternativ können Sie Ihre Inhalte in separate Dateien auf Komponenten- oder Funktionsebene aufteilen, um die Wartbarkeit zu verbessern. Dadurch bleiben Ihre Inhalte in der Nähe des relevanten Codes (Komponenten, Tests, Storybook usw.). Das Entfernen einer Komponente stellt sicher, dass alle zugehörigen Inhalte ebenfalls entfernt werden, wodurch verhindert wird, dass verbleibende Daten Ihren Code verunreinigen.
 
 > Ressourcen:
->
+
 > - [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md)
 
 ### 2. Internationalisierung
@@ -23,7 +23,7 @@ Intlayer ist eine Lösung für Content-Management und Internationalisierung, die
 - Verwalten Sie Übersetzungen für all diese Regionen einfach an einem Ort.
 
 > Ressourcen:
->
+
 > - [Internationalisierung](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/translation.md)
 
 ### 3. Markdown-Unterstützung
@@ -32,7 +32,7 @@ Intlayer ist eine Lösung für Content-Management und Internationalisierung, die
 - Ideal für Blogbeiträge, Artikel, Dokumentationsseiten oder jede Situation, in der eine reichhaltige Textformatierung erforderlich ist.
 
 > Ressourcen:
->
+
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/markdown.md)
 
 ### 4. Bedingte Darstellung
@@ -41,7 +41,7 @@ Intlayer ist eine Lösung für Content-Management und Internationalisierung, die
 - Hilft, personalisierte Erlebnisse zu schaffen, ohne Inhalte über mehrere Dateien zu duplizieren.
 
 > Ressourcen:
->
+
 > - [Bedingte Darstellung](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/condition.md)
 
 ### 5. Formate für Inhaltsdeklaration
@@ -86,7 +86,7 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** für die Dek
 - Vollständig kompatibel mit dem neuen Next.js Turbopack sowie dem traditionellen Webpack.
 
 > Ressourcen:
->
+
 > - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
@@ -94,7 +94,7 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** für die Dek
 - Ähnlich wie bei Next.js können Sie Intlayer mit Vite integrieren und eine **Middleware** verwenden, um Benutzer basierend auf ihrer bevorzugten Sprache weiterzuleiten.
 
 > Ressourcen:
->
+
 > - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_vite+react.md)
 
 ### 3. Express
@@ -103,7 +103,7 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** für die Dek
 - Personalisieren Sie E-Mails, Fehlermeldungen, Push-Benachrichtigungen und mehr mit lokalisierten Texten.
 
 > Ressourcen:
->
+
 > - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_express.md)
 
 ---
@@ -120,7 +120,7 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** für die Dek
 - Kann lokal gehostet oder auf einem Remote-Server bereitgestellt werden.
 
 > Ressourcen:
->
+
 > - [Visueller Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (Remote)
@@ -130,7 +130,7 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** für die Dek
 - Interagieren Sie mit Ihren Inhalten über Ihre Live-Anwendungsschnittstelle.
 
 > Ressourcen:
->
+
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md)
 
 ---
@@ -142,7 +142,7 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** für die Dek
 - Nützlich für **CI/CD-Pipelines**, um sicherzustellen, dass Ihre Inhalte immer mit Ihrem Code synchronisiert sind.
 
 > Ressourcen:
->
+
 > - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md)
 
 ---
@@ -159,7 +159,7 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** für die Dek
 - Bei Verwendung von Remote-Wörterbüchern und dem Intlayer CMS können Sie die Inhalte Ihrer Anwendung **sofort aktualisieren**, ohne eine erneute Bereitstellung vornehmen zu müssen.
 
 > Ressourcen:
->
+
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md)
 
 ---

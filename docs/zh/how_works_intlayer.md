@@ -86,6 +86,7 @@ Intlayer 还提供了一个可视化编辑器，允许您以可视化的方式�
 通过在 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 中激活选项 `activateDynamicImport`，Intlayer 将使用动态导入加载字典。默认情况下，此选项是禁用的，以避免在渲染应用时进行异步处理。
 
 > `@intlayer/babel` 默认包含在 `vite-intlayer` 包中，
+
 > `@intlayer/swc` 默认未安装在 `next-intlayer` 包中，因为 SWC 插件在 Next.js 中仍然是实验性的。
 
 要了解如何配置应用的构建，您可以阅读 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
@@ -213,4 +214,4 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 ## 与我们的智能文档聊天
 
-- [向我们的智能文档提问](https://intlayer.org/docs/chat)
+- [向我们的智能文档提问](https://intlayer.org/doc/chat)

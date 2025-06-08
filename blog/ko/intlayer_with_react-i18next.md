@@ -244,7 +244,8 @@ export default content;
 
 JSON, `.cjs` 또는 `.mjs`를 선호하는 경우 [Intlayer 문서](https://intlayer.org/en/doc/concept/content)를 참조하세요.
 
-> 기본적으로 유효한 콘텐츠 선언은 파일 확장자 패턴과 일치합니다:  
+> 기본적으로 유효한 콘텐츠 선언은 파일 확장자 패턴과 일치합니다:
+
 > `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`
 
 ## React 구성 요소에서 번역 사용하기

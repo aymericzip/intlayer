@@ -393,7 +393,9 @@ module.exports = appContent;
 ```
 
 > Ваши декларации контента могут быть определены в любом месте вашего приложения, если они включены в каталог `contentDir` (по умолчанию, `./src`). И соответствуют расширению файла декларации контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > Для получения дополнительной информации обратитесь к [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md).
+
 > Если ваш файл контента включает код TSX, вам может потребоваться импортировать `import { h } from "preact";` или убедиться, что ваша директива JSX правильно настроена для Preact.
 
 ### Шаг 5: Используйте Intlayer в вашем коде
@@ -543,9 +545,15 @@ module.exports = App;
 ```
 
 > Если вы хотите использовать ваш контент в атрибуте `string`, таком как `alt`, `title`, `href`, `aria-label` и т.д., вы должны вызвать значение функции, например:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > Примечание: В Preact, `className` обычно пишется как `class`.
@@ -1229,15 +1237,23 @@ module.exports = LocaleSwitcher;
 ```
 
 > Ссылки на документацию:
->
+
 > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/react-intlayer/useLocale.md) (API аналогичен для `preact-intlayer`)
+
 > - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hreflang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ru)
+
 > - [`lang` attribute](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` attribute](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` attribute](https://developer.mozilla.org/ru/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
 > - [Popover API](https://developer.mozilla.org/ru/docs/Web/API/Popover_API)
 
 ---

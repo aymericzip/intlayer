@@ -356,7 +356,9 @@ const appContent = {
 ```
 
 > 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认情况下为 `./src`）。并匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+
 > 有关更多详细信息，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
+
 > 如果您的内容文件包含 TSX 代码，您可能需要导入 `import { h } from "preact";` 或确保您的 JSX pragma 为 Preact 正确设置。
 
 ### 第五步：在代码中使用 Intlayer
@@ -506,9 +508,15 @@ module.exports = App;
 ```
 
 > 如果您希望在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须调用函数的值，例如：
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > 注意：在 Preact 中，`className` 通常写作 `class`。
@@ -1247,15 +1255,23 @@ module.exports = LocaleSwitcher;
 ```
 
 > 文档参考：
->
+
 > - [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/useLocale.md)（`preact-intlayer` 的 API 类似）
+
 > - [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hreflang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=zh)
+
 > - [`lang` 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` 属性](https://developer.mozilla.org/zh-CN/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
 > - [Popover API](https://developer.mozilla.org/zh-CN/docs/Web/API/Popover_API)
 
 以下是更新的 **步骤 9**，包含详细说明和优化的代码示例：

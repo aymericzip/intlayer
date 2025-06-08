@@ -359,7 +359,9 @@ module.exports = appContent;
 ```
 
 > コンテンツ宣言は、`contentDir`ディレクトリ（デフォルトでは`./src`）に含まれている限り、アプリケーション内のどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトでは`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）と一致する必要があります。
+
 > 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
+
 > コンテンツファイルにTSXコードが含まれている場合、`import { h } from "preact";`をインポートするか、JSXプラグマがPreact用に正しく設定されていることを確認する必要があります。
 
 ### ステップ5: コード内でIntlayerを利用する
@@ -509,9 +511,15 @@ module.exports = App;
 ```
 
 > `alt`、`title`、`href`、`aria-label`などの`string`属性でコンテンツを使用する場合、関数の値を呼び出す必要があります:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > 注: Preactでは、`className`は通常`class`として記述されます。
@@ -1166,15 +1174,23 @@ module.exports = LocaleSwitcher;
 ```
 
 > ドキュメント参照:
->
+
 > - [`useLocale`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useLocale.md) (`preact-intlayer`のAPIも類似)
+
 > - [`getLocaleName`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hreflang`属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ja)
+
 > - [`lang`属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir`属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current`属性](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
 > - [Popover API](https://developer.mozilla.org/ja/docs/Web/API/Popover_API)
 
 以下は、説明を追加し、コード例を改良した**ステップ9**です:

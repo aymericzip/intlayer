@@ -532,9 +532,15 @@ const ComponentExample = () => {
 ```
 
 > 在 `string` 属性中使用翻译（例如 `alt`、`title`、`href`、`aria-label`）时，调用函数的值如下：
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > 要了解更多关于 `useIntlayer` 钩子的内容，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useIntlayer.md)。
@@ -867,13 +873,19 @@ const LocaleSwitcher = () => {
 > `useLocalePageRouter` API 与 `useLocale` 相同。要了解更多关于 `useLocale` 钩子的内容，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useLocale.md)。
 
 > 文档参考：
->
+
 > - [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [`lang` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### （可选）步骤 10：创建一个本地化的链接组件
@@ -1034,6 +1046,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > 注意：此优化仅在 Next.js 13 及更高版本中可用。
+
 > 注意：此包不会默认安装，因为 SWC 插件仍在 Next.js 中处于实验阶段。这可能会在未来发生变化。
 
 ### 配置 TypeScript

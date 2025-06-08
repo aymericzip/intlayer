@@ -86,6 +86,7 @@ Intlayer एक दृश्य संपादक भी प्रदान क
 [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) में `activateDynamicImport` विकल्प को सक्रिय करके, Intlayer डिक्शनरीज़ को लोड करने के लिए डायनेमिक आयात का उपयोग करेगा। यह विकल्प डिफ़ॉल्ट रूप से अक्षम है ताकि एप्लिकेशन को रेंडर करते समय असिंक्रोनस प्रोसेसिंग से बचा जा सके।
 
 > `@intlayer/babel` डिफ़ॉल्ट रूप से `vite-intlayer` पैकेज पर उपलब्ध है,
+
 > `@intlayer/swc` डिफ़ॉल्ट रूप से `next-intlayer` पैकेज पर स्थापित नहीं है क्योंकि SWC प्लगइन्स अभी भी Next.js पर प्रयोगात्मक हैं।
 
 अपने एप्लिकेशन के निर्माण को कॉन्फ़िगर करने का तरीका देखने के लिए, आप [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) पढ़ सकते हैं।
@@ -213,4 +214,4 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 
 ## हमारी स्मार्ट डाक्यूमेंटेशन के साथ चैट करें
 
-- [हमारी स्मार्ट डाक्यूमेंटेशन से अपने सवाल पूछें](https://intlayer.org/docs/chat)
+- [हमारी स्मार्ट डाक्यूमेंटेशन से अपने सवाल पूछें](https://intlayer.org/doc/chat)

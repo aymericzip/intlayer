@@ -202,8 +202,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 ```
 
 > **Tip**: वास्तविक परियोजनाओं के लिए, आप:
->
+
 > - रनटाइम पर JSON संदेशों को गतिशील रूप से लोड कर सकते हैं।
+
 > - वातावरण-आधारित, ब्राउज़र-आधारित, या उपयोगकर्ता खाता–आधारित लोकल पहचान का उपयोग कर सकते हैं।
 
 ### 2. Use `<FormattedMessage>` or `useIntl()`

@@ -564,9 +564,15 @@ const ServerComponentExample = () => {
 ```
 
 > `alt`、`title`、`href`、`aria-label`などの`string`属性でコンテンツを使用する場合は、関数の値を呼び出す必要があります。例：
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useIntlayer.md)を参照してください。
@@ -1034,14 +1040,21 @@ const LocaleSwitcher = () => {
 ```
 
 > ドキュメント参照：
->
+
 > - [`useLocale`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useLocale.md)
+
 > - [`getLocaleName`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang`属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [`lang`属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir`属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current`属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (オプション) ステップ11: ローカライズされたリンクコンポーネントの作成
@@ -1204,6 +1217,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > 注: この最適化はNext.js 13以降でのみ利用可能です。
+
 > 注: このパッケージはデフォルトではインストールされていません。なぜなら、SWCプラグインはNext.jsでまだ実験的な段階にあるためです。将来的に変更される可能性があります。
 
 ### TypeScriptの設定

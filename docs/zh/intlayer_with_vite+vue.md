@@ -379,6 +379,7 @@ module.exports = appContent;
 ````
 
 > 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认情况下为 `./src`）。并匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+
 > 有关更多详细信息，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
 
 ### 第五步：在您的代码中使用 Intlayer
@@ -444,9 +445,15 @@ const count = ref(0);
 ```
 
 > 如果您想在属性中使用内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须使用 `.value` 调用函数的值，例如：
->
+
 > ```html
+>
+> ```
+
 > <img src="./logo.svg" :alt="content.image.value" />
+
+> ```
+>
 > ```
 
 ### （可选）第六步：更改内容的语言

@@ -377,7 +377,9 @@ module.exports = appContent;
 ```
 
 > Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, solange sie im `contentDir`-Verzeichnis (standardmäßig `./src`) enthalten sind. Und die Dateierweiterung der Inhaltsdeklaration übereinstimmt (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > Weitere Details finden Sie in der [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
+
 > Wenn Ihre Inhaltsdatei TSX-Code enthält, müssen Sie möglicherweise `import { h } from "preact";` importieren oder sicherstellen, dass Ihr JSX-Pragma korrekt für Preact eingestellt ist.
 
 ### Schritt 5: Verwenden Sie Intlayer in Ihrem Code
@@ -527,9 +529,15 @@ module.exports = App;
 ```
 
 > Wenn Sie Ihren Inhalt in einem `string`-Attribut wie `alt`, `title`, `href`, `aria-label` usw. verwenden möchten, müssen Sie den Wert der Funktion aufrufen, wie:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > Hinweis: In Preact wird `className` typischerweise als `class` geschrieben.
@@ -1266,15 +1274,23 @@ module.exports = LocaleSwitcher;
 ```
 
 > Dokumentationsreferenzen:
->
+
 > - [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/react-intlayer/useLocale.md) (API ist ähnlich für `preact-intlayer`)
+
 > - [`getLocaleName` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hreflang` Attribut](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [`lang` Attribut](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` Attribut](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` Attribut](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
 > - [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
 Unten ist der aktualisierte **Schritt 9** mit zusätzlichen Erklärungen und verfeinerten Codebeispielen:

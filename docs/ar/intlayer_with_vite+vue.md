@@ -379,6 +379,7 @@ module.exports = appContent;
 ````
 
 > يمكن تعريف إعلانات المحتوى في أي مكان في تطبيقك طالما تم تضمينها في دليل `contentDir` (افتراضيًا، `./src`). وتطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
 
 ### الخطوة 5: استخدام Intlayer في الكود الخاص بك
@@ -444,9 +445,15 @@ const count = ref(0);
 ```
 
 > إذا كنت تريد استخدام المحتوى الخاص بك في سمة، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الوظيفة باستخدام `.value`، مثل:
->
+
 > ```html
+>
+> ```
+
 > <img src="./logo.svg" :alt="content.image.value" />
+
+> ```
+>
 > ```
 
 ### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك

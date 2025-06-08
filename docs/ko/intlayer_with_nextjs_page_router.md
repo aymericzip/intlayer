@@ -531,9 +531,15 @@ const ComponentExample = () => {
 ```
 
 > `string` 속성(예: `alt`, `title`, `href`, `aria-label`)에서 번역을 사용할 때는 다음과 같이 함수 값을 호출하세요:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
@@ -869,13 +875,19 @@ const LocaleSwitcher = () => {
 > `useLocalePageRouter` API는 `useLocale`과 동일합니다. `useLocale` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useLocale.md)를 참조하세요.
 
 > 문서 참조:
->
+
 > - [`getLocaleName` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang` 속성](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [`lang` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` 속성](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (선택 사항) 10단계: 로컬라이즈된 링크 컴포넌트 생성
@@ -1038,6 +1050,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > 참고: 이 최적화는 Next.js 13 이상에서만 사용할 수 있습니다.
+
 > 참고: 이 패키지는 기본적으로 설치되지 않습니다. 이유는 SWC 플러그인이 Next.js에서 아직 실험적이기 때문입니다. 이는 향후 변경될 수 있습니다.
 
 ### TypeScript 구성

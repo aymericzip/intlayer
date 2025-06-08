@@ -359,8 +359,10 @@ module.exports = appContent;
 }
 ```
 
-> 콘텐츠 선언은 애플리케이션의 어디에서나 정의할 수 있으며, `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치해야 합니다.  
-> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 참조하세요.  
+> 콘텐츠 선언은 애플리케이션의 어디에서나 정의할 수 있으며, `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치해야 합니다.
+
+> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 참조하세요.
+
 > 콘텐츠 파일에 TSX 코드가 포함된 경우, `import { h } from "preact";`를 가져오거나 JSX 프래그마가 Preact에 대해 올바르게 설정되었는지 확인해야 할 수 있습니다.
 
 ### 5단계: 코드에서 Intlayer 사용하기
@@ -510,9 +512,15 @@ module.exports = App;
 ```
 
 > `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 콘텐츠를 사용하려면 함수의 값을 호출해야 합니다:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > 참고: Preact에서는 `className` 대신 일반적으로 `class`를 사용합니다.
@@ -1249,15 +1257,23 @@ module.exports = LocaleSwitcher;
 ```
 
 > 문서 참조:
->
+
 > - [`useLocale` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/useLocale.md) (`preact-intlayer`와 API 유사)
+
 > - [`getLocaleName` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hreflang` 속성](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ko)
+
 > - [`lang` 속성](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` 속성](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` 속성](https://developer.mozilla.org/ko/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
 > - [Popover API](https://developer.mozilla.org/ko/docs/Web/API/Popover_API)
 
 ---

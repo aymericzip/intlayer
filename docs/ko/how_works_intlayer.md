@@ -85,6 +85,7 @@ Intlayer는 콘텐츠를 시각적으로 편집할 수 있는 시각적 편집�
 [설정](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)에서 `activateDynamicImport` 옵션을 활성화하면 Intlayer는 동적 가져오기를 사용하여 사전을 로드합니다. 이 옵션은 애플리케이션 렌더링 시 비동기 처리를 방지하기 위해 기본적으로 비활성화되어 있습니다.
 
 > `@intlayer/babel`은 기본적으로 `vite-intlayer` 패키지에 포함되어 있으며,
+
 > `@intlayer/swc`는 Next.js에서 SWC 플러그인이 아직 실험적이므로 `next-intlayer` 패키지에 기본적으로 설치되어 있지 않습니다.
 
 애플리케이션 빌드를 구성하는 방법을 보려면 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 읽어보세요.
@@ -212,4 +213,4 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 
 ## 스마트 문서와 채팅하기
 
-- [스마트 문서에 질문하기](https://intlayer.org/docs/chat)
+- [스마트 문서에 질문하기](https://intlayer.org/doc/chat)

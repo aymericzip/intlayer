@@ -244,7 +244,8 @@ export default content;
 
 Wenn Sie JSON, `.cjs` oder `.mjs` bevorzugen, siehe die [Intlayer-Dokumentation](https://intlayer.org/en/doc/concept/content).
 
-> Standardmäßig entsprechen gültige Inhaltsdeklarationen dem Dateiendungsmuster:  
+> Standardmäßig entsprechen gültige Inhaltsdeklarationen dem Dateiendungsmuster:
+
 > `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`
 
 ## Verwendung der Übersetzungen in React-Komponenten

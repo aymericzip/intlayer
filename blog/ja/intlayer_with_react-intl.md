@@ -202,8 +202,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 ```
 
 > **ヒント**: 実際のプロジェクトでは、以下のことを行うかもしれません：
->
+
 > - ランタイムで JSON メッセージを動的に読み込む。
+
 > - 環境ベース、ブラウザベース、またはユーザーアカウントベースのロケール検出を使用する。
 
 ### 2. `<FormattedMessage>` または `useIntl()` を使用する

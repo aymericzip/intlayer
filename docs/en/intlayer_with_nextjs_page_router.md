@@ -525,10 +525,17 @@ const ComponentExample = () => {
 ```
 
 > When using translations in `string` attributes (e.g., `alt`, `title`, `href`, `aria-label`), call the
+
 > value of the function as follows:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md).
@@ -855,6 +862,7 @@ const LocaleSwitcher = () => {
 ```
 
 > An alternative way is to use the `setLocale` function provided by the `useLocale` hook. This function will not allow prefetching the page and will reload the page.
+
 > In this case, without redirection using `router.push`, only your server-side code will change the locale of the content.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
@@ -881,13 +889,19 @@ return (
 > The `useLocalePageRouter` API is the same as `useLocale`. To Learn more about the `useLocale` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md).
 
 > Documentation references:
->
+
 > - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [`lang` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (Optional) Step 10: Creating a Localized Link Component
@@ -1050,6 +1064,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > Note: This optimization is only available for Next.js 13 and above.
+
 > Note: This package is not installed by default because SWC plugins are still experimental on Next.js. It may change in the future.
 
 ### Configure TypeScript

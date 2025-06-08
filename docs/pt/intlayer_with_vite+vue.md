@@ -379,6 +379,7 @@ module.exports = appContent;
 ````
 
 > Suas declarações de conteúdo podem ser definidas em qualquer lugar em sua aplicação, desde que estejam incluídas no diretório `contentDir` (por padrão, `./src`). E correspondam à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
 
 ### Passo 5: Utilize o Intlayer no Seu Código
@@ -444,9 +445,15 @@ const count = ref(0);
 ```
 
 > Se você quiser usar seu conteúdo em um atributo, como `alt`, `title`, `href`, `aria-label`, etc., você deve chamar o valor da função com `.value`, como:
->
+
 > ```html
+>
+> ```
+
 > <img src="./logo.svg" :alt="content.image.value" />
+
+> ```
+>
 > ```
 
 ### (Opcional) Passo 6: Alterar o idioma do seu conteúdo

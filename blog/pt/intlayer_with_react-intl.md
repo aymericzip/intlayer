@@ -204,8 +204,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 ```
 
 > **Dica**: Para projetos reais, você pode:
->
+
 > - Carregar dinamicamente as mensagens JSON em tempo de execução.
+
 > - Usar detecção de localidade baseada em ambiente, no navegador ou na conta do usuário.
 
 ### 2. Usar `<FormattedMessage>` ou `useIntl()`

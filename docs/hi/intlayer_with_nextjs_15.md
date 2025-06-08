@@ -370,6 +370,7 @@ module.exports = pageContent;
 ```
 
 > आपकी सामग्री घोषणाओं को आपके एप्लिकेशन में कहीं भी परिभाषित किया जा सकता है जब तक कि वे `contentDir` निर्देशिका (डिफ़ॉल्ट रूप से, `./src`) में शामिल हैं। और सामग्री घोषणा फ़ाइल एक्सटेंशन से मेल खाते हैं (डिफ़ॉल्ट रूप से, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)।
+
 > अधिक विवरण के लिए, [सामग्री घोषणा दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) देखें।
 
 ### चरण 6: अपनी कोड में सामग्री का उपयोग करें
@@ -584,9 +585,15 @@ const ServerComponentExample = () => {
 ```
 
 > यदि आप अपनी सामग्री का उपयोग किसी `string` विशेषता में करना चाहते हैं, जैसे कि `alt`, `title`, `href`, `aria-label`, आदि, तो आपको फ़ंक्शन के मान को कॉल करना होगा, जैसे:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > `useIntlayer` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/next-intlayer/useIntlayer.md) देखें।
@@ -1101,14 +1108,21 @@ export const LocaleSwitcher = () => {
 ```
 
 > दस्तावेज़ संदर्भ:
->
+
 > - [`useLocale` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/next-intlayer/useLocale.md)
+
 > - [`getLocaleName` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` हुक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang` विशेषता](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [`lang` विशेषता](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` विशेषता](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` विशेषता](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (वैकल्पिक) चरण 11: एक स्थानीयकृत लिंक घटक बनाना
@@ -1266,6 +1280,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > नोट: यह अनुकूलन केवल Next.js 13 और उच्चतर के लिए उपलब्ध है।
+
 > नोट: यह पैकेज डिफ़ॉल्ट रूप से स्थापित नहीं होता है क्योंकि SWC प्लगइन अभी भी Next.js पर प्रयोगात्मक हैं। यह भविष्य में बदल सकता है।
 
 ### TypeScript कॉन्फ़िगर करें

@@ -370,6 +370,7 @@ module.exports = pageContent;
 ```
 
 > Le dichiarazioni dei tuoi contenuti possono essere definite ovunque nella tua applicazione purché siano incluse nella directory `contentDir` (di default, `./src`). E corrispondano all'estensione del file di dichiarazione dei contenuti (di default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > Per maggiori dettagli, fai riferimento alla [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md).
 
 ### Passo 6: Utilizza i contenuti nel tuo codice
@@ -584,9 +585,15 @@ const ServerComponentExample = () => {
 ```
 
 > Se desideri utilizzare i tuoi contenuti in un attributo `string`, come `alt`, `title`, `href`, `aria-label`, ecc., devi chiamare il valore della funzione, come:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > Per saperne di più sull'hook `useIntlayer`, fai riferimento alla [documentazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/next-intlayer/useIntlayer.md).
@@ -1101,14 +1108,21 @@ export const LocaleSwitcher = () => {
 ```
 
 > Riferimenti alla documentazione:
->
+
 > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/next-intlayer/useLocale.md)
+
 > - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getLocaleName.md)
+
 > - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getLocalizedUrl.md)
+
 > - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getHTMLTextDir.md)
+
 > - [Attributo `hrefLang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=it)
+
 > - [Attributo `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [Attributo `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [Attributo `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (Opzionale) Passo 11: Creazione di un componente Link localizzato
@@ -1266,6 +1280,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > Nota: Questa ottimizzazione è disponibile solo per Next.js 13 e versioni successive.
+
 > Nota: Questo pacchetto non è installato di default perché i plugin SWC sono ancora sperimentali su Next.js. Potrebbe cambiare in futuro.
 
 ### Configura TypeScript

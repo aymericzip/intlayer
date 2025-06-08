@@ -90,14 +90,14 @@ Der Leitfaden bietet auch einen **gründlichen Einblick in Intlayer**, der zeigt
 
 ## Nebeneinander Feature-Vergleich
 
-| **Feature**                           | **next-intl**                            | **next-i18next**                               | **Intlayer**                                   |
-| ------------------------------------- | ---------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| **Übersetzungen nahe bei Komponenten halten** | Teilweise – typischerweise ein Lokalisierungsordner   | Nicht standardmäßig – oft `public/locales`           | **Ja – empfohlen & einfach**                   |
-| **TypeScript automatisch generiert**  | Grundlegende TS-Definitionen                     | Grundlegende TS-Unterstützung                               | **Ja – fortgeschritten out-of-the-box**              |
-| **Erkennung fehlender Übersetzungen** | Vorwiegend Rückfallzeichenfolgen                  | Vorwiegend Rückfallzeichenfolgen                        | **Ja – Checks zur Buildzeit**                    |
-| **Unterstützung von Serverkomponenten** | Funktioniert, aber nicht spezialisiert                | Unterstützt, kann jedoch umständlich sein                   | **Vollständige Unterstützung mit spezialisierten Anbietern**    |
-| **Routing & Middleware**              | Manuell in Next-Middleware integriert | Bereitgestellt über Umleitungs-Konfiguration                  | **Dediziertes i18n-Middleware + erweiterte Hooks** |
-| **Einrichtungs-Komplexität**         | Einfach, minimale Konfiguration            | Traditionell, kann für erweiterte Nutzung umständlich sein | **Eine Konfigurationsdatei & Plugin**                   |
+| **Feature**                                   | **next-intl**                                       | **next-i18next**                                           | **Intlayer**                                                 |
+| --------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| **Übersetzungen nahe bei Komponenten halten** | Teilweise – typischerweise ein Lokalisierungsordner | Nicht standardmäßig – oft `public/locales`                 | **Ja – empfohlen & einfach**                                 |
+| **TypeScript automatisch generiert**          | Grundlegende TS-Definitionen                        | Grundlegende TS-Unterstützung                              | **Ja – fortgeschritten out-of-the-box**                      |
+| **Erkennung fehlender Übersetzungen**         | Vorwiegend Rückfallzeichenfolgen                    | Vorwiegend Rückfallzeichenfolgen                           | **Ja – Checks zur Buildzeit**                                |
+| **Unterstützung von Serverkomponenten**       | Funktioniert, aber nicht spezialisiert              | Unterstützt, kann jedoch umständlich sein                  | **Vollständige Unterstützung mit spezialisierten Anbietern** |
+| **Routing & Middleware**                      | Manuell in Next-Middleware integriert               | Bereitgestellt über Umleitungs-Konfiguration               | **Dediziertes i18n-Middleware + erweiterte Hooks**           |
+| **Einrichtungs-Komplexität**                  | Einfach, minimale Konfiguration                     | Traditionell, kann für erweiterte Nutzung umständlich sein | **Eine Konfigurationsdatei & Plugin**                        |
 
 ---
 

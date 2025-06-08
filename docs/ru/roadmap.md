@@ -14,7 +14,7 @@ Intlayer , это решение для управления контентом 
 - **Распределенная**: Альтернативно, разделите ваш контент на отдельные файлы на уровне компонентов или функций для лучшей поддерживаемости. Это позволяет держать контент рядом с соответствующим кодом (компоненты, тесты, Storybook и т.д.). Удаление компонента гарантирует, что любой связанный контент также будет удален, предотвращая накопление ненужных данных в вашем коде.
 
 > Ресурсы:
->
+
 > - [Декларация контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md)
 
 ### 2. Интернационализация
@@ -23,7 +23,7 @@ Intlayer , это решение для управления контентом 
 - Легкое управление переводами для всех этих локалей из одного места.
 
 > Ресурсы:
->
+
 > - [Интернационализация](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/translation.md)
 
 ### 3. Поддержка Markdown
@@ -32,7 +32,7 @@ Intlayer , это решение для управления контентом 
 - Идеально подходит для блогов, статей, страниц документации или любых сценариев, где требуется форматирование текста.
 
 > Ресурсы:
->
+
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/markdown.md)
 
 ### 4. Условный рендеринг
@@ -41,7 +41,7 @@ Intlayer , это решение для управления контентом 
 - Помогает создавать персонализированные впечатления без дублирования контента в нескольких файлах.
 
 > Ресурсы:
->
+
 > - [Условный рендеринг](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/condition.md)
 
 ### 5. Форматы декларации контента
@@ -86,7 +86,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 - Полностью совместим с новым Turbopack от Next.js, а также с традиционным Webpack.
 
 > Ресурсы:
->
+
 > - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
@@ -94,7 +94,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 - Аналогично Next.js, вы можете интегрировать Intlayer с Vite и использовать **middleware** для перенаправления пользователей на контент на основе их предпочтительного языка.
 
 > Ресурсы:
->
+
 > - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_vite+react.md)
 
 ### 3. Express
@@ -103,7 +103,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 - Персонализируйте электронные письма, сообщения об ошибках, push-уведомления и многое другое с локализованным текстом.
 
 > Ресурсы:
->
+
 > - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_express.md)
 
 ---
@@ -120,7 +120,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 - Может быть размещен локально или развернут на удаленном сервере.
 
 > Ресурсы:
->
+
 > - [Визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (удаленный)
@@ -130,7 +130,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 - Взаимодействуйте с вашим контентом через интерфейс вашего живого приложения.
 
 > Ресурсы:
->
+
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_CMS.md)
 
 ---
@@ -142,7 +142,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 - Полезно для **CI/CD конвейеров**, обеспечивая синхронизацию контента с вашим кодом.
 
 > Ресурсы:
->
+
 > - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md)
 
 ---
@@ -159,7 +159,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 - При использовании удаленных словарей и Intlayer CMS вы можете **обновлять контент вашего приложения на лету**, без необходимости повторного развертывания.
 
 > Ресурсы:
->
+
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_CMS.md)
 
 ---

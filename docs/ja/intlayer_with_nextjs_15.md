@@ -365,6 +365,7 @@ module.exports = pageContent;
 ```
 
 > コンテンツ宣言は、`contentDir`ディレクトリ（デフォルトでは`./src`）に含まれている限り、アプリケーション内のどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトでは`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致する必要があります。
+
 > 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
 
 ### ステップ6: コード内でコンテンツを利用する
@@ -579,9 +580,15 @@ const ServerComponentExample = () => {
 ```
 
 > コンテンツを`alt`、`title`、`href`、`aria-label`などの`string`属性で使用する場合は、関数の値を呼び出す必要があります。例えば：
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useIntlayer.md)を参照してください。
@@ -1090,14 +1097,21 @@ export const LocaleSwitcher = () => {
 ```
 
 > ドキュメント参照：
->
+
 > - [`useLocale`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useLocale.md)
+
 > - [`getLocaleName`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang`属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ja)
+
 > - [`lang`属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir`属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current`属性](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (オプション) ステップ11: ローカライズされたリンクコンポーネントを作成する
@@ -1255,6 +1269,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > 注: この最適化はNext.js 13以降でのみ利用可能です。
+
 > 注: このパッケージはデフォルトではインストールされていません。なぜなら、SWCプラグインはNext.jsでまだ実験的な段階にあるためです。将来的に変更される可能性があります。
 
 ### TypeScriptを設定する

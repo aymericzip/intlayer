@@ -202,8 +202,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 ```
 
 > **Tipp**: Für reale Projekte könnten Sie:
->
+
 > - Die JSON-Nachrichten zur Laufzeit dynamisch laden.
+
 > - Umweltbasierte, browserbasierte oder benutzerkontobasierte Lokalisierungserkennung verwenden.
 
 ### 2. Verwenden von `<FormattedMessage>` oder `useIntl()`

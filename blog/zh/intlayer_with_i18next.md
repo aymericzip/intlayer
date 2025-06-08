@@ -34,6 +34,7 @@ Intlayer 促进了跨多个应用程序和共享库的内容声明文件共享�
 ### 配置 Intlayer 以导出 i18next 字典
 
 > 重要提示
+
 > i18next 字典的导出当前处于测试阶段，并不确保与其他框架的 1:1 兼容性。建议遵循基于 Intlayer 的配置以最小化问题。
 
 要导出 i18next 字典，您需要适当地配置 Intlayer。以下是如何设置 Intlayer 以导出 Intlayer 和 i18next 字典的示例。

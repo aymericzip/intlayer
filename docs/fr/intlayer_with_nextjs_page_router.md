@@ -525,9 +525,15 @@ const ComponentExample = () => {
 ```
 
 > Lorsque vous utilisez des traductions dans des attributs `string` (par exemple, `alt`, `title`, `href`, `aria-label`), appelez la valeur de la fonction comme suit :
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > Pour en savoir plus sur le hook `useIntlayer`, consultez la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/next-intlayer/useIntlayer.md).
@@ -857,13 +863,19 @@ const LocaleSwitcher = () => {
 > L'API `useLocalePageRouter` est la même que `useLocale`. Pour en savoir plus sur le hook `useLocale`, consultez la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/next-intlayer/useLocale.md).
 
 > Références de documentation :
->
+
 > - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/intlayer/getLocaleName.md)
+
 > - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/intlayer/getLocalizedUrl.md)
+
 > - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/intlayer/getHTMLTextDir.md)
+
 > - [Attribut `hrefLang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [Attribut `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [Attribut `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [Attribut `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (Optionnel) Étape 10 : Créer un composant de lien localisé
@@ -1026,6 +1038,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > Note: Cette optimisation n'est disponible que pour Next.js 13 et supérieur.
+
 > Note: Ce paquet n'est pas installé par défaut car les plugins SWC sont encore expérimentaux sur Next.js. Cela peut changer dans le futur.
 
 ### Configurer TypeScript

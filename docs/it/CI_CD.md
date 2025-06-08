@@ -143,5 +143,7 @@ jobs:
 ```
 
 > Come per Husky, nel caso di un monorepo, puoi utilizzare l'argomento `--base-dir` per trattare sequenzialmente ogni applicazione.
+
 > Per impostazione predefinita, l'argomento `--git-diff` filtra i dizionari che includono modifiche dalla base (default `origin/main`) al branch corrente (default: `HEAD`).
+
 > Per ulteriori informazioni sui comandi CLI di Intlayer e sul loro utilizzo, consulta la [documentazione CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).

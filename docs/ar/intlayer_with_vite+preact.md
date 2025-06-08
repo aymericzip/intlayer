@@ -357,7 +357,9 @@ module.exports = appContent;
 ```
 
 > يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك طالما تم تضمينها في دليل `contentDir` (افتراضيًا، `./src`). وتطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
 > لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+
 > إذا كان ملف المحتوى الخاص بك يتضمن كود TSX، قد تحتاج إلى استيراد `import { h } from "preact";` أو التأكد من إعداد JSX pragma بشكل صحيح لـ Preact.
 
 ### الخطوة 5: استخدام Intlayer في الكود الخاص بك
@@ -507,9 +509,15 @@ module.exports = App;
 ```
 
 > إذا كنت ترغب في استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الوظيفة، مثل:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > ملاحظة: في Preact، يتم كتابة `className` عادةً كـ `class`.
@@ -1246,15 +1254,23 @@ module.exports = LocaleSwitcher;
 ```
 
 > مراجع التوثيق:
->
+
 > - [خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useLocale.md) (تشابه API مع `preact-intlayer`)
+
 > - [خطاف `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocaleName.md)
+
 > - [خطاف `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocalizedUrl.md)
+
 > - [خطاف `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getHTMLTextDir.md)
+
 > - [خاصية `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ar)
+
 > - [خاصية `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [خاصية `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [خاصية `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
 > - [واجهة برمجة التطبيقات Popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
 ---

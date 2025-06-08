@@ -531,10 +531,17 @@ const ComponentExample = () => {
 ```
 
 > عند استخدام الترجمات في سمات `string` (مثل `alt`، `title`، `href`، `aria-label`)، قم باستدعاء
+
 > قيمة الوظيفة كما يلي:
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > لمعرفة المزيد حول الخطاف `useIntlayer`، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useIntlayer.md).
@@ -870,13 +877,19 @@ const LocaleSwitcher = () => {
 > واجهة برمجة التطبيقات `useLocalePageRouter` هي نفسها `useLocale`. لمعرفة المزيد حول الخطاف `useLocale`، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useLocale.md).
 
 > مراجع الوثائق:
->
+
 > - [خطاف `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocaleName.md)
+
 > - [خطاف `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getLocalizedUrl.md)
+
 > - [خطاف `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/getHTMLTextDir.md)
+
 > - [سمة `hrefLang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ar)
+
 > - [سمة `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [سمة `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [سمة `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (اختياري) الخطوة 10: إنشاء مكون رابط محلي
@@ -1039,6 +1052,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > ملاحظة: هذا التحسين متاح فقط لـ Next.js 13 وما فوق.
+
 > ملاحظة: لم يتم تثبيت هذه الحزمة افتراضيًا لأن مكونات SWC لا تزال تجريبية على Next.js. قد يتغير ذلك في المستقبل.
 
 ### تكوين TypeScript

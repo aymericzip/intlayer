@@ -378,7 +378,8 @@ module.exports = appContent;
 }
 ````
 
-> 콘텐츠 선언은 애플리케이션의 `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치하는 한 어디에나 정의할 수 있습니다.  
+> 콘텐츠 선언은 애플리케이션의 `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치하는 한 어디에나 정의할 수 있습니다.
+
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 참조하세요.
 
 ### 5단계: 코드에서 Intlayer 활용하기
@@ -444,9 +445,15 @@ const count = ref(0);
 ```
 
 > 콘텐츠를 `alt`, `title`, `href`, `aria-label` 등 속성에서 사용하려면 `.value`를 사용하여 함수 값을 호출해야 합니다:
->
+
 > ```html
+>
+> ```
+
 > <img src="./logo.svg" :alt="content.image.value" />
+
+> ```
+>
 > ```
 
 ### (선택 사항) 6단계: 콘텐츠 언어 변경하기

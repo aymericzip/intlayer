@@ -14,7 +14,7 @@ Intlayer is a content management and internationalization solution designed to s
 - **Distributed**: Alternatively, split your content into separate files at the component or feature level for better maintainability. This keeps your content close to the relevant code (components, tests, Storybook, etc.). Removing a component ensures any associated content is also removed, preventing leftover data from cluttering your codebase.
 
 > Resources:
->
+
 > - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md)
 
 ### 2. Internationalization
@@ -23,7 +23,7 @@ Intlayer is a content management and internationalization solution designed to s
 - Easily manage translations for all these locales from one place.
 
 > Resources:
->
+
 > - [Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md)
 
 ### 3. Markdown Support
@@ -32,7 +32,7 @@ Intlayer is a content management and internationalization solution designed to s
 - Ideal for blog posts, articles, documentation pages, or any scenario where rich text formatting is needed.
 
 > Resources:
->
+
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md)
 
 ### 4. External file support
@@ -43,7 +43,7 @@ Intlayer is a content management and internationalization solution designed to s
 - Enables multilingual content management by linking language-specific Markdown files dynamically.
 
 > Resources:
->
+
 > - [File Content Embedding](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md)
 
 ### 5. Dynamic Content & Logic-Based Rendering
@@ -157,7 +157,7 @@ This section ensures all related dynamic content and logic-driven features are g
 Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring content.
 
 > Resources:
->
+
 > - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/content_extention_customization.md)
 
 (Other sections remain unchanged.)

@@ -385,7 +385,8 @@ module.exports = pageContent;
 }
 ```
 
-> 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认情况下为 `./src`）。并匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。  
+> 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认情况下为 `./src`）。并匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+
 > 有关更多详细信息，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
 
 ### 第七步：在代码中使用内容
@@ -575,9 +576,15 @@ const ServerComponentExample = () => {
 ```
 
 > 如果您想在 `string` 属性中使用内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须调用函数的值，例如：
->
+
 > ```jsx
+>
+> ```
+
 > <img src={content.image.src.value} alt={content.image.value} />
+
+> ```
+>
 > ```
 
 > 要了解更多关于 `useIntlayer` 钩子的内容，请参考 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useIntlayer.md)。
@@ -1065,14 +1072,21 @@ const LocaleSwitcher = () => {
 ```
 
 > 文档参考:
->
+
 > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useLocale.md)
+
 > - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocaleName.md)
+
 > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocalizedUrl.md)
+
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getHTMLTextDir.md)
+
 > - [`hrefLang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+
 > - [`lang` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+
 > - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+
 > - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### （可选）步骤11：创建一个本地化的链接组件
@@ -1235,6 +1249,7 @@ yarn add @intlayer/swc --save-dev
 ```
 
 > 注意：此优化仅在 Next.js 13 及更高版本中可用。
+
 > 注意：此包不会默认安装，因为 SWC 插件仍在 Next.js 中处于实验阶段。这可能会在未来发生变化。
 
 ### 配置 TypeScript

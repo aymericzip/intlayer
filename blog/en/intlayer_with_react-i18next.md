@@ -244,7 +244,8 @@ export default content;
 
 If you prefer JSON, `.cjs`, or `.mjs`, refer to the [Intlayer docs](https://intlayer.org/en/doc/concept/content).
 
-> By default, valid content declarations match the file extension pattern:  
+> By default, valid content declarations match the file extension pattern:
+
 > `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`
 
 ## Using the Translations in React Components

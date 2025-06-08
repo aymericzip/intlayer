@@ -34,6 +34,7 @@ Intlayer erleichtert das Teilen von Inhaltsdeklarationsdateien über mehrere Anw
 ### Konfiguration von Intlayer zum Export von i18next-Wörterbüchern
 
 > Wichtige Hinweise
+
 > Der Export von i18next-Wörterbüchern befindet sich derzeit in der Beta-Phase und gewährleistet keine 1:1-Kompatibilität mit anderen Frameworks. Es wird empfohlen, eine auf Intlayer basierende Konfiguration zu verwenden, um Probleme zu minimieren.
 
 Um i18next-Wörterbücher zu exportieren, müssen Sie Intlayer entsprechend konfigurieren. Im Folgenden finden Sie ein Beispiel dafür, wie Sie Intlayer so einrichten, dass sowohl Intlayer- als auch i18next-Wörterbücher exportiert werden.

@@ -244,7 +244,8 @@ export default content;
 
 إذا كنت تفضل JSON أو `.cjs` أو `.mjs`، راجع [مستندات Intlayer](https://intlayer.org/ar/doc/concept/content).
 
-> بشكل افتراضي، تتطابق إعلانات المحتوى الصحيحة مع نمط امتداد الملف:  
+> بشكل افتراضي، تتطابق إعلانات المحتوى الصحيحة مع نمط امتداد الملف:
+
 > `*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}`
 
 ## Using the Translations in React Components

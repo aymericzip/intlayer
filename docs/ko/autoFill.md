@@ -67,8 +67,9 @@ src/components/example/example.filled.content.ts
 ```
 
 > `.js`, `.ts` 등의 파일 생성은 다음과 같이 작동합니다:
->
+
 > - 파일이 이미 존재하는 경우, Intlayer는 AST(추상 구문 트리)를 사용하여 각 필드를 찾고 누락된 번역을 삽입합니다.
+
 > - 파일이 존재하지 않는 경우, Intlayer는 콘텐츠 선언 파일의 기본 템플릿을 사용하여 생성합니다.
 
 ## 절대 경로

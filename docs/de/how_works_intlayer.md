@@ -85,6 +85,7 @@ Durch die Optimierung des Builds ersetzt Intlayer alle Wörterbuchaufrufe, um da
 Durch Aktivieren der Option `activateDynamicImport` in der [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md) verwendet Intlayer den dynamischen Import, um die Wörterbücher zu laden. Diese Option ist standardmäßig deaktiviert, um asynchrone Verarbeitung beim Rendern der Anwendung zu vermeiden.
 
 > `@intlayer/babel` ist standardmäßig im `vite-intlayer`-Paket verfügbar,
+
 > `@intlayer/swc` ist standardmäßig nicht im `next-intlayer`-Paket installiert, da SWC-Plugins in Next.js noch experimentell sind.
 
 Um zu sehen, wie Sie den Build Ihrer Anwendung konfigurieren können, lesen Sie die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md).
@@ -212,4 +213,4 @@ Das `@intlayer/backend` Paket exportiert Backend-Typen und wird in Zukunft das B
 
 ## Chat mit unserer intelligenten Dokumentation
 
-- [Stellen Sie Ihre Fragen an unsere intelligente Dokumentation](https://intlayer.org/de/docs/chat)
+- [Stellen Sie Ihre Fragen an unsere intelligente Dokumentation](https://intlayer.org/de/doc/chat)
