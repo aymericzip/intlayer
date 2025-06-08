@@ -52,7 +52,7 @@ O Intlayer oferece muitos recursos para ajudá-lo a internacionalizar sua aplica
 ## Leia sobre o Intlayer
 
 - [Site do Intlayer](https://intlayer.org)
-- [Documentação do Intlayer](https://intlayer.org/docs)
+- [Documentação do Intlayer](https://intlayer.org/doc)
 - [GitHub do Intlayer](https://github.com/aymericzip/intlayer)
 
-- [Faça suas perguntas à nossa documentação inteligente](https://intlayer.org/docs/chat)
+- [Faça suas perguntas à nossa documentação inteligente](https://intlayer.org/docchat)

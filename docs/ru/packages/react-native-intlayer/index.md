@@ -51,7 +51,7 @@ Intlayer предоставляет множество функций, кото�
 ## Узнайте больше о Intlayer
 
 - [Сайт Intlayer](https://intlayer.org)
-- [Документация Intlayer](https://intlayer.org/docs)
+- [Документация Intlayer](https://intlayer.org/doc)
 - [GitHub Intlayer](https://github.com/aymericzip/intlayer)
 
-- [Задайте свои вопросы нашей умной документации](https://intlayer.org/docs/chat)
+- [Задайте свои вопросы нашей умной документации](https://intlayer.org/docchat)

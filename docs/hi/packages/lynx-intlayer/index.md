@@ -52,7 +52,7 @@ Intlayer आपके Vite एप्लिकेशन का अंतर्र
 ## Intlayer के बारे में पढ़ें
 
 - [Intlayer वेबसाइट](https://intlayer.org)
-- [Intlayer दस्तावेज़](https://intlayer.org/docs)
+- [Intlayer दस्तावेज़](https://intlayer.org/doc)
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
-- [हमारे स्मार्ट दस्तावेज़ से अपने प्रश्न पूछें](https://intlayer.org/docs/chat)
+- [हमारे स्मार्ट दस्तावेज़ से अपने प्रश्न पूछें](https://intlayer.org/docchat)

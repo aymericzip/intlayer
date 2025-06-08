@@ -51,7 +51,7 @@ Intlayer는 Vite 애플리케이션을 국제화하는 데 도움이 되는 다�
 ## Intlayer에 대해 읽어보기
 
 - [Intlayer 웹사이트](https://intlayer.org)
-- [Intlayer 문서](https://intlayer.org/docs)
+- [Intlayer 문서](https://intlayer.org/doc)
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
-- [스마트 문서에 질문하기](https://intlayer.org/docs/chat)
+- [스마트 문서에 질문하기](https://intlayer.org/docchat)

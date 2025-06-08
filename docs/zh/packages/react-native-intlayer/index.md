@@ -51,7 +51,7 @@ Intlayer 提供了许多功能来帮助您国际化您的 Vite 应用程序。
 ## 阅读关于 Intlayer 的内容
 
 - [Intlayer 网站](https://intlayer.org)
-- [Intlayer 文档](https://intlayer.org/docs)
+- [Intlayer 文档](https://intlayer.org/doc)
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
-- [向我们的智能文档提问](https://intlayer.org/docs/chat)
+- [向我们的智能文档提问](https://intlayer.org/docchat)

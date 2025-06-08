@@ -51,7 +51,7 @@ Intlayerは、Viteアプリケーションを国際化するための多くの�
 ## Intlayerについて読む
 
 - [Intlayer公式ウェブサイト](https://intlayer.org)
-- [Intlayerドキュメント](https://intlayer.org/docs)
+- [Intlayerドキュメント](https://intlayer.org/doc)
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
-- [スマートドキュメントに質問する](https://intlayer.org/docs/chat)
+- [スマートドキュメントに質問する](https://intlayer.org/docchat)

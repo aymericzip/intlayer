@@ -51,7 +51,7 @@ Intlayer offre molte funzionalità per aiutarti a internazionalizzare la tua app
 ## Leggi di più su Intlayer
 
 - [Sito Web di Intlayer](https://intlayer.org)
-- [Documentazione di Intlayer](https://intlayer.org/docs)
+- [Documentazione di Intlayer](https://intlayer.org/doc)
 - [GitHub di Intlayer](https://github.com/aymericzip/intlayer)
 
-- [Fai le tue domande alla nostra documentazione intelligente](https://intlayer.org/docs/chat)
+- [Fai le tue domande alla nostra documentazione intelligente](https://intlayer.org/docchat)

@@ -52,7 +52,7 @@ Intlayer offre de nombreuses fonctionnalités pour vous aider à internationalis
 ## En savoir plus sur Intlayer
 
 - [Site Web Intlayer](https://intlayer.org)
-- [Documentation Intlayer](https://intlayer.org/docs)
+- [Documentation Intlayer](https://intlayer.org/doc)
 - [GitHub Intlayer](https://github.com/aymericzip/intlayer)
 
-- [Posez vos questions à notre documentation intelligente](https://intlayer.org/docs/chat)
+- [Posez vos questions à notre documentation intelligente](https://intlayer.org/docchat)

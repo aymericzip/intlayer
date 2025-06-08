@@ -178,7 +178,7 @@ The `next-intlayer` package also provides some functions to help you to internat
 ## Read about Intlayer
 
 - [Intlayer Website](https://intlayer.org)
-- [Intlayer Documentation](https://intlayer.org/docs)
+- [Intlayer Documentation](https://intlayer.org/doc)
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
-- [Ask your questions to our smart documentation](https://intlayer.org/docs/chat)
+- [Ask your questions to our smart documentation](https://intlayer.org/docchat)

@@ -52,7 +52,7 @@ Intlayer bietet viele Funktionen, um Ihnen bei der Internationalisierung Ihrer V
 ## Lesen Sie mehr über Intlayer
 
 - [Intlayer Website](https://intlayer.org)
-- [Intlayer Dokumentation](https://intlayer.org/docs)
+- [Intlayer Dokumentation](https://intlayer.org/doc)
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
-- [Stellen Sie Ihre Fragen an unsere intelligente Dokumentation](https://intlayer.org/docs/chat)
+- [Stellen Sie Ihre Fragen an unsere intelligente Dokumentation](https://intlayer.org/docchat)

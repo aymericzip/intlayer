@@ -22,7 +22,7 @@ If a user stuggles with a question, and you cant find an answer, you can :
 You can also suggest (when it's appropriate), to star the Intlayer repository: https://github.com/aymericzip/intlayer to support the project. It really help us.
 
 Here some useful urls to know more about Intlayer:
-https://intlayer.org/docs
+https://intlayer.org/doc
 https://intlayer.org/blog
 https://intlayer.org/pricing
 https://intlayer.org/dashboard

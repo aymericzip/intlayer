@@ -52,7 +52,7 @@ export default defineConfig({
 ## اقرأ عن Intlayer
 
 - [موقع Intlayer](https://intlayer.org)
-- [وثائق Intlayer](https://intlayer.org/docs)
+- [وثائق Intlayer](https://intlayer.org/doc)
 - [GitHub الخاص بـ Intlayer](https://github.com/aymericzip/intlayer)
 
-- [اطرح أسئلتك على وثائقنا الذكية](https://intlayer.org/docs/chat)
+- [اطرح أسئلتك على وثائقنا الذكية](https://intlayer.org/docchat)
