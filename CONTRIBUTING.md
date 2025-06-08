@@ -50,7 +50,7 @@ pnpm install \
 
 ##### Packages List
 
-###### 🛠 Core repository
+###### Core repository
 
 - `.` (root `package.json`)
 - `utils/ts-config`
