@@ -70,14 +70,36 @@ jobs:
         run: |
           pnpm build
 
+      - name: 🔍 Check for changesets
+        id: check-changesets
+        run: |
+          # Check if there are any changesets that would result in version bumps
+          status_output=$(npx changeset status 2>&1 || true)
+          if echo "$status_output" | grep -q "No changesets present"; then
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+            echo "No changesets present"
+          elif echo "$status_output" | grep -q "The following packages are included in this release"; then
+            echo "has_changesets=true" >> $GITHUB_OUTPUT
+            echo "Found changesets to process"
+          else
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+            echo "No packages to release"
+          fi
+
       - name: 📣 Create Release Pull Request or Publish to npm
         id: changesets
+        if: steps.check-changesets.outputs.has_changesets == 'true'
         uses: changesets/action@v1
         with:
           commit: 'chore(release): version packages'
           title: 'chore(release): version packages'
           version: node .github/changeset-version.js
           publish: npx changeset publish
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
+
+      - name: 📄 No changesets found
+        if: steps.check-changesets.outputs.has_changesets == 'false'
+        run: echo "No changesets found - skipping release process"
