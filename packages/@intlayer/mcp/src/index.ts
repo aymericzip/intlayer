@@ -1,5 +1,6 @@
 import { build, fill, pull, push } from '@intlayer/cli';
 import { isESModule, Locales, type LogConfig } from '@intlayer/config';
+import { getDoc, getDocs } from '@intlayer/docs';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { readFileSync } from 'fs';
@@ -304,11 +305,23 @@ server.tool(
   }
 );
 
-server.tool('test', { a: z.number(), b: z.number() }, async ({ a, b }) => {
+server.tool('get-doc-list', {}, async ({}) => {
+  const docList = Object.keys(getDocs());
   return {
-    content: [{ type: 'text', text: String(a + b) }],
+    content: docList.map((doc) => ({ type: 'text', text: doc })),
   };
 });
+
+server.tool(
+  'get-doc',
+  { docName: z.string(), lang: z.nativeEnum(Locales) },
+  async ({ docName, lang }) => {
+    const doc = getDoc(docName as any, 'en');
+    return {
+      content: [{ type: 'text', text: doc }],
+    };
+  }
+);
 
 const main = async () => {
   const transport = new StdioServerTransport();
