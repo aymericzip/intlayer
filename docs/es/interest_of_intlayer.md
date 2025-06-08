@@ -122,6 +122,7 @@ const ComponentExample = () => {
 - **Base de código organizada**: Mantén tu base de código más organizada: 1 componente = 1 diccionario en la misma carpeta.
 - **Tipos TypeScript automáticos**: Los tipos TypeScript se implementan automáticamente, evitando la rotura del código debido a claves renombradas o eliminadas.
 - **Traducción automática en CI**: Rellena automáticamente tus traducciones en tu CI usando tu propia clave API de OpenAI, eliminando la necesidad de una plataforma L10n.
+- **Integración de servidor MCP**: Proporciona un servidor MCP (Model Context Protocol) para automatización IDE, habilitando gestión de contenido y flujos de trabajo i18n sin problemas directamente dentro de tu entorno de desarrollo. [Aprender más](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md).
 - **Soporte para Markdown**: Importa e interpreta archivos markdown para contenido multilingüe como políticas de privacidad.
 - **Editor visual y CMS gratuitos**: Un editor visual y CMS gratuitos están disponibles si necesitas trabajar con redactores de contenido para tus traducciones, eliminando nuevamente la necesidad de una plataforma de localización y permitiendo la externalización del contenido desde la base de código.
 - **Recuperación de contenido simplificada**: No es necesario llamar a tu función `t` para cada pieza de contenido; recupera todo tu contenido directamente usando un solo hook.

@@ -119,4 +119,5 @@ const ComponentExample = () => {
 - **Simplified Setup**: Get up and running quickly with minimal configuration, especially optimised for Next.js projects.
 - **Server Component Support**: Perfectly suited for Next.js server components, ensuring smooth server-side rendering.
 - **Enhanced Routing**: Full support for Next.js app routing, adapting seamlessly to complex application structures.
+- **MCP Server Integration**: Provides an MCP (Model Context Protocol) server for IDE automation, enabling seamless content management and i18n workflows directly within your development environment. [Learn more](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md).
 - **Interoperability**: Allow interoperability with [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_next-intl.md), and [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_react-intl.md).
