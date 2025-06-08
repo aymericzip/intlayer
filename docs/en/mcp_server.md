@@ -1,6 +1,6 @@
 # Intlayer MCP Server
 
-The **Intlayer MCP (Model Context Protocol) Server** provides AI-powered IDE assistance tailored for the [Intlayer](https://github.com/aymericzip/intlayer) ecosystem. Designed for modern developer environments like **Cursor**, **GitHub Copilot workspace**, and any IDE supporting the MCP protocol, this server gives you contextual, real-time support based on your project's setup.
+The **Intlayer MCP (Model Context Protocol) Server** provides AI-powered IDE assistance tailored for the Intlayer ecosystem. Designed for modern developer environments like **Cursor**, **GitHub Copilot workspace**, and any IDE supporting the MCP protocol, this server gives you contextual, real-time support based on your project's setup.
 
 ## Why Use the Intlayer MCP Server?
 

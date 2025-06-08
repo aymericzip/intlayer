@@ -1,6 +1,6 @@
 # Intlayer MCP サーバー
 
-**Intlayer MCP (Model Context Protocol) サーバー**は、[Intlayer](https://github.com/aymericzip/intlayer) エコシステム向けに設計されたAI支援のIDEアシスタンスを提供します。**Cursor**、**GitHub Copilot ワークスペース**、およびMCPプロトコルをサポートする任意のIDEなど、現代の開発者環境向けに設計されており、プロジェクトのセットアップに基づいたコンテキスト対応のリアルタイムサポートを提供します。
+**Intlayer MCP (Model Context Protocol) サーバー**は、Intlayer エコシステム向けに設計されたAI支援のIDEアシスタンスを提供します。**Cursor**、**GitHub Copilot ワークスペース**、およびMCPプロトコルをサポートする任意のIDEなど、現代の開発者環境向けに設計されており、プロジェクトのセットアップに基づいたコンテキスト対応のリアルタイムサポートを提供します。
 
 ## Intlayer MCP サーバーを使用する理由
 

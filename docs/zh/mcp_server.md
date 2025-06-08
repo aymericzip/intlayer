@@ -1,6 +1,6 @@
 # Intlayer MCP 服务器文档
 
-**Intlayer MCP (Model Context Protocol) 服务器** 提供基于 AI 的 IDE 辅助功能，专为 [Intlayer](https://github.com/aymericzip/intlayer) 生态系统设计。适用于现代开发者环境，如 **Cursor**、**GitHub Copilot 工作区**，以及任何支持 MCP 协议的 IDE，此服务器根据您的项目设置提供上下文相关的实时支持。
+**Intlayer MCP (Model Context Protocol) 服务器** 提供基于 AI 的 IDE 辅助功能，专为 Intlayer 生态系统设计。适用于现代开发者环境，如 **Cursor**、**GitHub Copilot 工作区**，以及任何支持 MCP 协议的 IDE，此服务器根据您的项目设置提供上下文相关的实时支持。
 
 ## 为什么使用 Intlayer MCP 服务器？
 
