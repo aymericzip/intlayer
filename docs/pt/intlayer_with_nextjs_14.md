@@ -482,7 +482,7 @@ const ClientComponentExample: FC = () => {
 
   return (
     <div>
-      <h2>{content.title} </h2>
+      <h2>{content.title}</h2>
       <p>{content.content}</p>
     </div>
   );
@@ -499,7 +499,7 @@ const ClientComponentExample = () => {
 
   return (
     <div>
-      <h2>{content.title} </h2>
+      <h2>{content.title}</h2>
       <p>{content.content}</p>
     </div>
   );
@@ -516,7 +516,7 @@ const ClientComponentExample = () => {
 
   return (
     <div>
-      <h2>{content.title} </h2>
+      <h2>{content.title}</h2>
       <p>{content.content}</p>
     </div>
   );
@@ -532,7 +532,7 @@ const ServerComponentExample: FC = () => {
 
   return (
     <div>
-      <h2>{content.title} </h2>
+      <h2>{content.title}</h2>
       <p>{content.content}</p>
     </div>
   );
@@ -547,7 +547,7 @@ const ServerComponentExample = () => {
 
   return (
     <div>
-      <h2>{content.title} </h2>
+      <h2>{content.title}</h2>
       <p>{content.content}</p>
     </div>
   );
@@ -562,7 +562,7 @@ const ServerComponentExample = () => {
 
   return (
     <div>
-      <h2>{content.title} </h2>
+      <h2>{content.title}</h2>
       <p>{content.content}</p>
     </div>
   );
