@@ -222,12 +222,16 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
               key,
               false // Always static
             );
-            imports.push(
-              t.importDeclaration(
-                [t.importDefaultSpecifier(t.identifier(ident.name))],
-                t.stringLiteral(rel)
-              )
+            const importDeclarationNode = t.importDeclaration(
+              [t.importDefaultSpecifier(t.identifier(ident.name))],
+              t.stringLiteral(rel)
             );
+
+            importDeclarationNode.attributes = [
+              t.importAttribute(t.identifier('type'), t.stringLiteral('json')),
+            ];
+
+            imports.push(importDeclarationNode);
           }
 
           // Generate dynamic imports (for useIntlayer when using dynamic helpers)

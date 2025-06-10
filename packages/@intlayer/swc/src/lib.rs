@@ -389,7 +389,23 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                     })],
                     src: Box::new(Str::from(import_path)),
                     type_only: false,
-                    with: None,
+                    with: Some(Box::new(ObjectLit {
+                        span: DUMMY_SP,
+                        props: vec![
+                            PropOrSpread::Prop(Box::new(Prop::KeyValue(KeyValueProp {
+                                key: PropName::Ident(Ident::new(
+                                    Atom::from("type"),
+                                    DUMMY_SP,
+                                    SyntaxContext::empty()
+                                ).into()),
+                                value: Box::new(Expr::Lit(Lit::Str(Str {
+                                    span: DUMMY_SP,
+                                    value: Atom::from("json"),
+                                    raw: None,
+                                }))),
+                            })))
+                        ],
+                    })),
                     phase: ImportPhase::Evaluation,
                 })),
             );
