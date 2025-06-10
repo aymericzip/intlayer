@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { build, fill, pull, push } from '@intlayer/cli';
 import { isESModule, Locales, type LogConfig } from '@intlayer/config';
 import { getDoc, getDocs } from '@intlayer/docs';
