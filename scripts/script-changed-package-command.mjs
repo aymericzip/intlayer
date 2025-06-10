@@ -13,14 +13,21 @@
  */
 
 import { spawnSync } from 'child_process';
-import process from 'process';
 import minimist from 'minimist';
+import process from 'process';
 import { packageBuildOrder } from './package-build-order.mjs'; // Your build order
 
 const args = minimist(process.argv.slice(2));
 
 // Default command is 'build' if not provided
 const chosenCommand = args.command ?? 'build';
+
+/**
+ * Normalizes a file path to use forward slashes, which is consistent across platforms.
+ * @param {string} filePath - The file path to normalize.
+ * @returns {string} The normalized file path.
+ */
+const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
 
 /**
  * Gets the list of changed files between the current HEAD and the main branch.
@@ -54,10 +61,14 @@ if (!changedFiles.length) {
 // 2) Determine which packages have changed files
 const changedPackagesSet = new Set();
 for (const filePath of changedFiles) {
+  const normalizedFilePath = normalizePath(filePath);
   for (const packagePath of packageBuildOrder) {
-    // If the changed file is inside the package folder
-    // Adjust the condition to your folder structure as necessary
-    if (filePath.startsWith(packagePath)) {
+    const normalizedPackagePath = normalizePath(packagePath);
+    const pkgPath = normalizedPackagePath.endsWith('/')
+      ? normalizedPackagePath
+      : `${normalizedPackagePath}/`;
+
+    if (normalizedFilePath.startsWith(pkgPath)) {
       changedPackagesSet.add(packagePath);
     }
   }

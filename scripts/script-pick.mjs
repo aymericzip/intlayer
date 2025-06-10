@@ -14,15 +14,22 @@
  */
 
 import { spawn } from 'child_process';
-import fs from 'fs';
-import path from 'path';
 import Enquirer from 'enquirer';
 import fg from 'fast-glob';
+import fs from 'fs';
 import minimist from 'minimist';
+import path from 'path';
 
 const args = minimist(process.argv.slice(2));
 // Defaults to 'dev' if not provided
 const chosenCommand = args.command ?? 'dev';
+
+/**
+ * Normalizes a file path to use forward slashes, which is consistent across platforms.
+ * @param {string} filePath - The file path to normalize.
+ * @returns {string} The normalized file path.
+ */
+const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
 
 /**
  * Fetches packages from a given glob pattern.
@@ -41,7 +48,7 @@ const getPackages = (pattern, index) => {
     );
     return {
       name: packageJson.name,
-      value: `${index}:${packageRelativePath}`,
+      value: `${index}:${normalizePath(packageRelativePath)}`,
     };
   });
 };
