@@ -8,5 +8,4 @@
  * @param path - The path to normalize
  * @returns The normalized path
  */
-export const normalizePathForGlob = (path: string): string =>
-  path.replace(/\\/g, '/');
+export const normalizePath = (path: string): string => path.replace(/\\/g, '/');

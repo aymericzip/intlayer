@@ -1,8 +1,4 @@
-import {
-  Locales,
-  getConfiguration,
-  normalizePathForGlob,
-} from '@intlayer/config';
+import { Locales, getConfiguration, normalizePath } from '@intlayer/config';
 import fg from 'fast-glob';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, extname, join, relative } from 'path';
@@ -117,7 +113,7 @@ export const createModuleAugmentation = (
   }
 
   const dictionariesTypesDefinitions: string[] = fg.sync(
-    normalizePathForGlob(`${typesDir}/*.ts`),
+    normalizePath(`${typesDir}/*.ts`),
     {
       ignore: ['**/*.d.ts'],
     }

@@ -60,7 +60,7 @@ import type {
   PatternsContentConfig,
   ResultDirDerivedConfig,
 } from '../types/config';
-import { normalizePathForGlob } from '../utils/normalizePathForGlob';
+import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
 
@@ -455,7 +455,7 @@ const buildContentFields = (
     watchedFilesPatternWithPath: notDerivedContentConfig.fileExtensions.flatMap(
       (ext) =>
         baseDirDerivedConfiguration.contentDir.map(
-          (contentDir) => `${normalizePathForGlob(contentDir)}/**/*${ext}`
+          (contentDir) => `${normalizePath(contentDir)}/**/*${ext}`
         )
     ),
 
@@ -464,7 +464,7 @@ const buildContentFields = (
      *
      * Default: '.intlayer/dictionary/**\/*.json'
      */
-    outputFilesPatternWithPath: `${normalizePathForGlob(
+    outputFilesPatternWithPath: `${normalizePath(
       dictionariesDirDerivedConfiguration.dictionariesDir
     )}/**/*.json`,
   };

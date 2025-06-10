@@ -1,4 +1,4 @@
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, normalizePath } from '@intlayer/config';
 import { basename, extname, relative } from 'path';
 import { getFileHash } from '../../utils';
 
@@ -15,7 +15,7 @@ export const generateDictionaryListContent = (
   let content = '';
 
   const dictionariesRef = dictionaries.map((dictionaryPath) => ({
-    relativePath: relative(mainDir, dictionaryPath),
+    relativePath: normalizePath(relative(mainDir, dictionaryPath)),
     id: basename(dictionaryPath, extname(dictionaryPath)), // Get the base name as the dictionary id
     hash: `_${getFileHash(dictionaryPath)}`, // Get the hash of the dictionary to avoid conflicts
   }));

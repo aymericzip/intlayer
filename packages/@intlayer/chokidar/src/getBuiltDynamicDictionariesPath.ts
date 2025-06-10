@@ -1,4 +1,4 @@
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, normalizePath } from '@intlayer/config';
 import fg from 'fast-glob';
 import { existsSync, mkdirSync } from 'fs';
 
@@ -19,7 +19,7 @@ export const getBuiltDynamicDictionariesPath = (
   const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
   const dictionariesPath: string[] = fg.sync(
-    `${dynamicDictionariesDir}/**/*.${extension}`
+    `${normalizePath(dynamicDictionariesDir)}/**/*.${extension}`
   );
 
   return dictionariesPath;
