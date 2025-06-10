@@ -1,7 +1,11 @@
+import {
+  Locales,
+  getConfiguration,
+  normalizePathForGlob,
+} from '@intlayer/config';
+import fg from 'fast-glob';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, extname, join, relative } from 'path';
-import { Locales, getConfiguration } from '@intlayer/config';
-import fg from 'fast-glob';
 import { getFileHash, kebabCaseToCamelCase } from '../../utils';
 
 export const getTypeName = (key: string): string =>
@@ -112,9 +116,12 @@ export const createModuleAugmentation = (
     mkdirSync(moduleAugmentationDir, { recursive: true });
   }
 
-  const dictionariesTypesDefinitions: string[] = fg.sync(`${typesDir}/*.ts`, {
-    ignore: ['**/*.d.ts'],
-  });
+  const dictionariesTypesDefinitions: string[] = fg.sync(
+    normalizePathForGlob(`${typesDir}/*.ts`),
+    {
+      ignore: ['**/*.d.ts'],
+    }
+  );
   // Create the dictionary list file
 
   const tsContent = generateTypeIndexContent(dictionariesTypesDefinitions);

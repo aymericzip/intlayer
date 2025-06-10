@@ -1,4 +1,4 @@
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, normalizePathForGlob } from '@intlayer/config';
 import fg from 'fast-glob';
 import { existsSync, mkdirSync } from 'fs';
 
@@ -16,7 +16,7 @@ export const getBuiltUnmergedDictionariesPath = (
   }
 
   const dictionariesPath: string[] = fg.sync(
-    `${unmergedDictionariesDir}/**/*.json`
+    `${normalizePathForGlob(unmergedDictionariesDir)}/**/*.json`
   );
 
   return dictionariesPath;

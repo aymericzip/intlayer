@@ -60,6 +60,7 @@ import type {
   PatternsContentConfig,
   ResultDirDerivedConfig,
 } from '../types/config';
+import { normalizePathForGlob } from '../utils/normalizePathForGlob';
 
 let storedConfiguration: IntlayerConfig;
 
@@ -454,7 +455,7 @@ const buildContentFields = (
     watchedFilesPatternWithPath: notDerivedContentConfig.fileExtensions.flatMap(
       (ext) =>
         baseDirDerivedConfiguration.contentDir.map(
-          (contentDir) => `${contentDir}/**/*${ext}`
+          (contentDir) => `${normalizePathForGlob(contentDir)}/**/*${ext}`
         )
     ),
 
@@ -463,7 +464,9 @@ const buildContentFields = (
      *
      * Default: '.intlayer/dictionary/**\/*.json'
      */
-    outputFilesPatternWithPath: `${dictionariesDirDerivedConfiguration.dictionariesDir}/**/*.json`,
+    outputFilesPatternWithPath: `${normalizePathForGlob(
+      dictionariesDirDerivedConfiguration.dictionariesDir
+    )}/**/*.json`,
   };
 
   return {
@@ -660,7 +663,7 @@ const buildBuildFields = (
    * Default: false
    *
    * By default, when a dictionary is loaded, it imports content for all locales as it's imported statically.
-   * If this option is set to true, only the current locale’s dictionary content
+   * If this option is set to true, only the current locale's dictionary content
    * will be fetched via dynamic import. In that case, Intlayer will replace all
    * calls to `useIntlayer` with `useDynamicDictionary`.
    *

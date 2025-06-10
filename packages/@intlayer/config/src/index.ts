@@ -30,3 +30,4 @@ export type {
 export { Locales } from './types/locales';
 export type { LocalesValues } from './types/locales';
 export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
+export { normalizePathForGlob } from './utils/normalizePathForGlob';
