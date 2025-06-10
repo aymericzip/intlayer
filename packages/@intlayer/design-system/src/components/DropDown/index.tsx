@@ -1,5 +1,4 @@
 import type { FC, HTMLAttributes } from 'react';
-import { checkIsIphoneOrSafariDevice } from '../../hooks';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
@@ -73,10 +72,8 @@ const Trigger: FC<TriggerProps> = ({
     className={cn('w-full cursor-pointer', className)}
     aria-label={`Open panel ${identifier}`}
     onClick={(e) => {
-      const isIOS = checkIsIphoneOrSafariDevice();
-      if (isIOS) {
-        (e.currentTarget as HTMLButtonElement).focus({ preventScroll: true });
-      }
+      // Ensure focus behavior is consistent across all mobile browsers
+      (e.currentTarget as HTMLButtonElement).focus();
     }}
     onBlur={(e) => (e.currentTarget as HTMLButtonElement).blur()}
     {...props}
