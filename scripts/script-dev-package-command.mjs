@@ -31,6 +31,13 @@ let pendingChanges = new Set();
 const DEBOUNCE_DELAY = 1000; // 1 second delay
 
 /**
+ * Normalizes a file path to use forward slashes, which is consistent across platforms.
+ * @param {string} filePath - The file path to normalize.
+ * @returns {string} The normalized file path.
+ */
+const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
+
+/**
  * Runs the chosen npm command in each relevant package, based on the file path.
  *
  * @param {string} path - The path to the file that triggered the event (change or add)
@@ -45,9 +52,13 @@ const runBuild = (paths) => {
     // Get unique packages that need to be rebuilt
     const packagesToRebuild = new Set();
     for (const path of paths) {
+      const normalizedPath = normalizePath(path);
       const filteredPackages = packageBuildOrder.filter((pkg) => {
-        const pkgPath = path.startsWith(pkg) ? pkg : `${pkg}/`;
-        return path.startsWith(pkgPath);
+        const normalizedPkg = normalizePath(pkg);
+        const pkgPath = normalizedPkg.endsWith('/')
+          ? normalizedPkg
+          : `${normalizedPkg}/`;
+        return normalizedPath.startsWith(pkgPath);
       });
       filteredPackages.forEach((pkg) => packagesToRebuild.add(pkg));
     }
