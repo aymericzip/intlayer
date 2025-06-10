@@ -1,7 +1,7 @@
 {
   "name": "@intlayer/blog",
   "version": "5.5.9",
-  "private": true,
+  "private": false,
   "description": "Intlayer blog",
   "keywords": [
     "intlayer",
