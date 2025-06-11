@@ -63,7 +63,7 @@
   "scripts": {
     "build": "pnpm build:client && pnpm build:server",
     "build:client": "vite build --config ./client/vite.config.ts",
-    "build:server": "tsup 'server/src/**/*.ts' --config ./server/tsup.config.ts --tsconfig ./server/tsconfig.json && pnpm build:types",
+    "build:server": "tsup \"server/src/**/*.ts\" --config ./server/tsup.config.ts --tsconfig ./server/tsconfig.json && pnpm build:types",
     "build:types": "tsc --project ./server/tsconfig.types.json && tsc-alias --project ./server/tsconfig.types.json",
     "clean": "pnpm clean:client && pnpm clean:server",
     "clean:client": "rimraf ./client/dist",
