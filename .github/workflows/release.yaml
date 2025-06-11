@@ -24,7 +24,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node-version: [lts/*]
-        pnpm-version: [10.6.3]
+        pnpm-version: [10.12.1]
     runs-on: ${{ matrix.os }}
     steps:
       - name: ⬇️ Checkout

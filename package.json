@@ -80,11 +80,11 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.2"
   },
-  "packageManager": "pnpm@10.6.3",
+  "packageManager": "pnpm@10.12.1",
   "engines": {
     "node": ">=16.0.0",
     "npm": "please-use-pnpm",
-    "pnpm": ">=9.0.0",
+    "pnpm": "10.12.1",
     "yarn": "please-use-pnpm"
   },
   "pnpm": {
