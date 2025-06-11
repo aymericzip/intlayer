@@ -529,13 +529,7 @@ const ComponentExample = () => {
 > value of the function as follows:
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/next-intlayer/useIntlayer.md).

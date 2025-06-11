@@ -582,13 +582,7 @@ const ServerComponentExample = () => {
 > コンテンツを`alt`、`title`、`href`、`aria-label`などの`string`属性で使用する場合は、関数の値を呼び出す必要があります。例えば：
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useIntlayer.md)を参照してください。

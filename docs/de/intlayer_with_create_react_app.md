@@ -336,13 +336,7 @@ const App = () => (
 > Hinweis: Wenn Sie Ihre Inhalte in einem `string`-Attribut wie `alt`, `title`, `href`, `aria-label` usw. verwenden möchten, müssen Sie den Wert der Funktion aufrufen, wie:
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > Weitere Informationen zum `useIntlayer`-Hook finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/react-intlayer/useIntlayer.md).

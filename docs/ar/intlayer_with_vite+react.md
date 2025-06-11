@@ -528,13 +528,7 @@ module.exports = App;
 > إذا كنت تريد استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الوظيفة، مثل:
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useIntlayer.md).

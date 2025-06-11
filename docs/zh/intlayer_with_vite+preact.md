@@ -510,13 +510,7 @@ module.exports = App;
 > 如果您希望在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须调用函数的值，例如：
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > 注意：在 Preact 中，`className` 通常写作 `class`。

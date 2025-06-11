@@ -534,13 +534,7 @@ const ComponentExample = () => {
 > 在 `string` 属性中使用翻译（例如 `alt`、`title`、`href`、`aria-label`）时，调用函数的值如下：
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > 要了解更多关于 `useIntlayer` 钩子的内容，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useIntlayer.md)。

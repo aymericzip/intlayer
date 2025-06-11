@@ -513,13 +513,7 @@ module.exports = App;
 > `alt`、`title`、`href`、`aria-label`などの`string`属性でコンテンツを使用する場合、関数の値を呼び出す必要があります:
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > 注: Preactでは、`className`は通常`class`として記述されます。

@@ -530,13 +530,7 @@ const ComponentExample = () => {
 > Al usar traducciones en atributos de tipo `string` (por ejemplo, `alt`, `title`, `href`, `aria-label`), llama al valor de la función de la siguiente manera:
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > Para aprender más sobre el hook `useIntlayer`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/next-intlayer/useIntlayer.md).

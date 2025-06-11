@@ -533,13 +533,7 @@ const ComponentExample = () => {
 > `string` 속성(예: `alt`, `title`, `href`, `aria-label`)에서 번역을 사용할 때는 다음과 같이 함수 값을 호출하세요:
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.

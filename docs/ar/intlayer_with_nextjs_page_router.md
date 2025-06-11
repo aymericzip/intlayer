@@ -535,13 +535,7 @@ const ComponentExample = () => {
 > قيمة الوظيفة كما يلي:
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > لمعرفة المزيد حول الخطاف `useIntlayer`، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useIntlayer.md).

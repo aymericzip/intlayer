@@ -533,13 +533,7 @@ const ComponentExample = () => {
 > जब `string` विशेषताओं (जैसे `alt`, `title`, `href`, `aria-label`) में अनुवादों का उपयोग करते हैं, तो फ़ंक्शन के मान को निम्नानुसार कॉल करें:
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > `useIntlayer` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/next-intlayer/useIntlayer.md) देखें।

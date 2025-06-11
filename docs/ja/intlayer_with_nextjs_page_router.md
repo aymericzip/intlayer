@@ -527,13 +527,7 @@ const ComponentExample = () => {
 > `string`属性（例：`alt`、`title`、`href`、`aria-label`）で翻訳を使用する場合、次のように値を呼び出します：
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useIntlayer.md)を参照してください。

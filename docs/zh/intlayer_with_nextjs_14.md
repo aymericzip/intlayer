@@ -578,13 +578,7 @@ const ServerComponentExample = () => {
 > 如果您想在 `string` 属性中使用内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须调用函数的值，例如：
 
 > ```jsx
->
-> ```
-
 > <img src={content.image.src.value} alt={content.image.value} />
-
-> ```
->
 > ```
 
 > 要了解更多关于 `useIntlayer` 钩子的内容，请参考 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useIntlayer.md)。
