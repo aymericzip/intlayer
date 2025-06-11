@@ -1,4 +1,3 @@
-import type { TemplateRef } from '@angular/core';
 import {
   getMarkdownMetadata,
   KeyPath,
@@ -8,6 +7,9 @@ import {
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type Plugins,
 } from '@intlayer/core';
+import { ContentSelectorWrapperComponent } from './editor';
+import { useMarkdown } from './markdown/installIntlayerMarkdown';
+import { renderIntlayerNode } from './renderIntlayerNode';
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -30,32 +32,19 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (_node, { children, ...rest }) => ({
-    ...rest,
-    value: children,
-    children,
-  }),
-};
-
-/** ---------------------------------------------
- *  ANGULAR TEMPLATE PLUGIN
- *  --------------------------------------------- */
-
-export type AngularTemplateCond<T> =
-  T extends TemplateRef<any> ? TemplateRef<any> : never;
-
-/** Angular template plugin. Handles Angular TemplateRef objects. */
-export const angularTemplatePlugin: Plugins = {
-  id: 'angular-template-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' &&
-    node &&
-    typeof node.createEmbeddedView === 'function',
-  transform: (node, { plugins, ...rest }) => ({
-    ...rest,
-    value: '[[angular-template]]',
-    children: node,
-  }),
+  transform: (_node, { children, ...rest }) =>
+    renderIntlayerNode({
+      ...rest,
+      value: children,
+      children: () => ({
+        component: ContentSelectorWrapperComponent,
+        props: {
+          dictionaryKey: rest.dictionaryKey,
+          keyPath: rest.keyPath,
+        },
+        children: children,
+      }),
+    }),
 };
 
 /**
@@ -72,7 +61,7 @@ export const markdownStringPlugin: Plugins = {
   canHandle: (node) => typeof node === 'string',
   transform: (node: string, props, deepTransformNode) => {
     const {
-      plugins, // Removed to avoid circular dependencies
+      plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
       ...rest
     } = props;
 
@@ -85,11 +74,12 @@ export const markdownStringPlugin: Plugins = {
         typeof metadataNode === 'number' ||
         typeof metadataNode === 'boolean' ||
         !metadataNode,
-      transform: (metadataNode, props) => ({
-        ...props,
-        value: metadataNode,
-        children: node,
-      }),
+      transform: (metadataNode, props) =>
+        renderIntlayerNode({
+          ...props,
+          value: metadataNode,
+          children: node,
+        }),
     };
 
     // Transform metadata while keeping the same structure
@@ -99,14 +89,24 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    return {
+    return renderIntlayerNode({
       ...props,
       value: node,
-      children: node,
+      children: () => ({
+        component: ContentSelectorWrapperComponent,
+        props: {
+          dictionaryKey: rest.dictionaryKey,
+          keyPath: rest.keyPath,
+        },
+        children: () => {
+          const { renderMarkdown } = useMarkdown();
+          return renderMarkdown(node);
+        },
+      }),
       additionalProps: {
         metadata: metadataNodes,
       },
-    };
+    });
   },
 };
 
@@ -146,7 +146,6 @@ export const markdownPlugin: Plugins = {
  *  --------------------------------------------- */
 
 export interface IInterpreterPluginAngular<T> {
-  angularTemplate: AngularTemplateCond<T>;
   intlayerNode: IntlayerNodeCond<T>;
   markdown: MarkdownCond<T>;
 }
@@ -157,7 +156,6 @@ export interface IInterpreterPluginAngular<T> {
  * Otherwise the the `angular-intlayer` plugins will override the types of `intlayer` functions.
  */
 export type IInterpreterPluginState = IInterpreterPluginStateCore & {
-  angularTemplate: true;
   intlayerNode: true;
   markdown: true;
 };

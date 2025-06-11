@@ -72,7 +72,9 @@
   "dependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/core": "workspace:*",
+    "@intlayer/editor": "workspace:*",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
@@ -90,6 +92,7 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
+    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
     "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",

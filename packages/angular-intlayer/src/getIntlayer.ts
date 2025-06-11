@@ -1,17 +1,28 @@
-import type { Locales, LocalesValues } from '@intlayer/config';
-import type { Dictionary, Plugins } from '@intlayer/core';
+import {
+  DictionaryKeys,
+  getIntlayer as getIntlayerCore,
+  Plugins,
+} from '@intlayer/core';
+// @ts-ignore intlayer declared for module augmentation
+import type { IntlayerDictionaryTypesConnector, LocalesValues } from 'intlayer';
+import {
+  DeepTransformContent,
+  intlayerNodePlugins,
+  markdownPlugin,
+} from './plugins';
 
-/**
- * Function to get the content of a dictionary for Angular applications
- */
-export const getIntlayer = <
-  T extends Dictionary,
-  L extends LocalesValues = Locales,
->(
-  dictionary: T,
-  locale: L,
+export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
+  key: T,
+  locale?: L,
   additionalPlugins?: Plugins[]
-): any => {
-  // Simplified implementation to avoid type complexity
-  return dictionary.content || dictionary;
+) => {
+  const plugins: Plugins[] = [
+    intlayerNodePlugins,
+    markdownPlugin,
+    ...(additionalPlugins ?? []),
+  ];
+
+  return getIntlayerCore(key, locale, plugins) as any as DeepTransformContent<
+    IntlayerDictionaryTypesConnector[T]['content']
+  >;
 };
