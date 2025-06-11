@@ -66,6 +66,10 @@ type State = PluginPass & {
      */
     dynamicDictionariesEntryPath: string;
     /**
+     * If true, the plugin will replace the dictionary entry file with `export default {}`.
+     */
+    replaceDictionaryEntry?: boolean;
+    /**
      * If true, the plugin will activate the dynamic import of the dictionaries.
      */
     activateDynamicImport?: boolean;
@@ -191,7 +195,10 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
       Program: {
         enter(programPath, state) {
           const filename = state.file.opts.filename!;
-          if (filename === state.opts.dictionariesEntryPath) {
+          if (
+            state.opts.replaceDictionaryEntry &&
+            filename === state.opts.dictionariesEntryPath
+          ) {
             state._isDictEntry = true;
             // Replace all existing statements with: export default {}
             programPath.node.body = [

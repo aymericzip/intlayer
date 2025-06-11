@@ -84,6 +84,7 @@ const getPruneConfig = (
             dynamicDictionariesEntryPath,
             activateDynamicImport,
             filesList,
+            replaceDictionaryEntry: false,
           } as any,
         ],
       ],

@@ -60,6 +60,10 @@ struct PluginConfig {
     #[serde(rename = "activateDynamicImport")]
     activate_dynamic_import: Option<bool>,
 
+    /// If true, the plugin will replace the dictionary entry file with `export default {}`.
+    #[serde(rename = "replaceDictionaryEntry")]
+    replace_dictionary_entry: Option<bool>,
+
     /// Files list to traverse
     #[serde(rename = "filesList")]
     files_list: Vec<String>,
@@ -313,7 +317,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
     }
 
     // ── 2.b  short-circuit the dictionaries entry file  ─────────────────────
-    if filename == cfg.dictionaries_entry_path {
+    if cfg.replace_dictionary_entry.unwrap_or(false) && filename == cfg.dictionaries_entry_path {
         return Program::Module(Module {
             span: DUMMY_SP,
             body: vec![ModuleItem::ModuleDecl(ModuleDecl::ExportDefaultExpr(

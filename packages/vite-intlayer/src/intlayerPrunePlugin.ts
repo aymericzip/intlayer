@@ -60,6 +60,7 @@ export const IntlayerPrunePlugin = (): PluginOption => {
                 dynamicDictionariesEntryPath,
                 activateDynamicImport,
                 filesList,
+                replaceDictionaryEntry: false,
               },
             ],
           ],
