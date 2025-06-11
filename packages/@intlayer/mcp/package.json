@@ -54,7 +54,7 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm build:package & pnpm build:types & pnpm manange:permissions",
+    "build": "pnpm build:package && pnpm build:types && pnpm manange:permissions",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
@@ -62,8 +62,8 @@
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "manange:permissions": "pnpm manange:permissions:cjs & pnpm manange:permissions:mjs",
-    "manange:permissions:cjs": "node -e \"require('fs').chmodSync('dist/cjs/index.cjs', '755')\"",
-    "manange:permissions:mjs": "node -e \"require('fs').chmodSync('dist/esm/index.mjs', '755')\"",
+    "manange:permissions:cjs": "chmod 755 dist/cjs/index.cjs",
+    "manange:permissions:mjs": "chmod 755 dist/esm/index.mjs",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
