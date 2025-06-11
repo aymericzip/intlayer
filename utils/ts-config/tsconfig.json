@@ -17,7 +17,8 @@
     "jsx": "react-jsx",
     "types": ["node"],
     "allowImportingTsExtensions": true,
-    "noEmit": true
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules", "dist", "build", ".next", "storybook-static"],
   "include": ["**/*"]
