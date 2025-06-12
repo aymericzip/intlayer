@@ -2305,9 +2305,15 @@ importers:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../@intlayer/core
+      '@intlayer/dictionaries-entry':
+        specifier: workspace:*
+        version: link:../@intlayer/dictionaries-entry
       '@intlayer/editor':
         specifier: workspace:*
         version: link:../@intlayer/editor
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       rxjs:
         specifier: ^6.0.0 || ^7.0.0
         version: 7.8.2
