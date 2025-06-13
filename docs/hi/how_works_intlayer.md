@@ -196,7 +196,7 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 
 `@intlayer/babel` पैकेज Vite और Webpack आधारित एप्लिकेशनों के लिए शब्दकोशों की बंडलिंग को अनुकूलित करने वाले उपकरण प्रदान करता है।
 
-### @intlayer/swc (WIP)
+### @intlayer/swc
 
 `@intlayer/swc` पैकेज Next.js एप्लिकेशनों के लिए शब्दकोशों की बंडलिंग को अनुकूलित करने वाले उपकरण प्रदान करता है।
 

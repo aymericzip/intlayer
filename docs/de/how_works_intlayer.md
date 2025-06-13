@@ -195,7 +195,7 @@ Das `@intlayer/editor-react` Paket bietet Zustände, Kontexte, Hooks und Kompone
 
 Das `@intlayer/babel` Paket stellt Tools bereit, die das Bundling von Wörterbüchern für Vite- und Webpack-basierte Anwendungen optimieren.
 
-### @intlayer/swc (WIP)
+### @intlayer/swc
 
 Das `@intlayer/swc` Paket stellt Tools bereit, die das Bundling von Wörterbüchern für Next.js-Anwendungen optimieren.
 

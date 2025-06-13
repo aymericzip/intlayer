@@ -195,7 +195,7 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 
 `@intlayer/babel` 패키지는 Vite 및 Webpack 기반 애플리케이션의 사전 번들링을 최적화하는 도구를 제공합니다.
 
-### @intlayer/swc (WIP)
+### @intlayer/swc
 
 `@intlayer/swc` 패키지는 Next.js 애플리케이션의 사전 번들링을 최적화하는 도구를 제공합니다.
 

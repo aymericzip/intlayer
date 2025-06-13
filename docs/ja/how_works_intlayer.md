@@ -196,7 +196,7 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 
 `@intlayer/babel`パッケージは、ViteおよびWebpackベースのアプリケーションの辞書のバンドリングを最適化するツールを提供します。
 
-### @intlayer/swc (WIP)
+### @intlayer/swc
 
 `@intlayer/swc`パッケージは、Next.jsアプリケーションの辞書のバンドリングを最適化するツールを提供します。
 

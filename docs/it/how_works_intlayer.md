@@ -196,7 +196,7 @@ Il pacchetto `@intlayer/editor-react` fornisce stati, contesti, hook e component
 
 Il pacchetto `@intlayer/babel` fornisce strumenti che ottimizzano il bundling dei dizionari per applicazioni basate su Vite e Webpack.
 
-### @intlayer/swc (WIP)
+### @intlayer/swc
 
 Il pacchetto `@intlayer/swc` fornisce strumenti che ottimizzano il bundling dei dizionari per applicazioni Next.js.
 

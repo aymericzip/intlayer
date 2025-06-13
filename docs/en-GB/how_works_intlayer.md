@@ -67,21 +67,29 @@ Intlayer allows you to declare content locally, and then export it to the CMS to
 
 Thus, you will be able to push and pull content from the CMS to your application, in a similar way to what you do with Git for your code.
 
-If configured on your project, Intlayer will automatically manage the fetching of the content from the CMS when the application starts (dev) / builds (prod).
+For externalized dictionaries using the CMS, Intlayer performs a basic fetch operation to retrieve distant dictionaries and merges them with your local ones. If configured on your project, Intlayer will automatically manage the fetching of the content from the CMS when the application starts (dev) / builds (prod).
 
 ## Visual editor
 
 Intlayer also provides a visual editor to allow you to edit your content in a visual way. This [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_visual_editor.md) is available in the external `intlayer-editor` package.
 
+The visual editor is a standalone application that can be used to edit your content. It's composed on two parts: the server and the client.
+
 ![visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
+
+- The server is a simple Express application that listens to requests from the client and retreives the content of your application, such as the `dictionaries` and the configuration to make it accessible on the client side.
+- On the other hand, the client is a React application that is used to interact with your content using a visual interface.
+
+When you call your content using `useIntlayer` and the editor is enabled, it automatically wraps your strings with an Proxy object named `IntlayerNode`. This node uses `window.sendMessage` to communicate with a wrapped iframe containing the visual editor interface.
+On the editor side, the editor listens to these messages and simulates real interaction with your content, allowing you to edit text directly in your application's context.
 
 ## App build optimisation
 
 To optimise the bundle size of your application, Intlayer provides two plugins to optimise the build of your application: `@intlayer/babel` and `@intlayer/swc` plugins.
 
-In development mode, Intlayer uses a centralised static import for dictionaries to simplify the development experience.
+The Babel and SWC plugins work by analyzing your application's Abstract Syntax Tree (AST) to replace calls of Intlayer functions with optimized code. This process makes your final bundle lighter in production by ensuring that only the dictionaries that are actually used are imported, optimizing chunking and reducing bundle size.
 
-By optimising the build, Intlayer will replace all calls of dictionaries to optimise chunking. That way the final bundle will import only the dictionaries that are used.
+In development mode, Intlayer uses a centralised static import for dictionaries to simplify the development experience.
 
 By activating the option `activateDynamicImport` in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md), Intlayer will use the dynamic import to load the dictionaries. This option is disabled by default to avoid asynchronous processing when rendering the application.
 
@@ -176,6 +184,10 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 
 The `@intlayer/cli` package is an NPM package that is used to declare the scripts related to the Intlayer command line interfaces. It ensures the uniformity of all Intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/en-GB/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/en-GB/packages/intlayer/index.md) packages.
 
+### @intlayer/mcp
+
+The `@intlayer/mcp` package provides an MCP (Model Context Protocol) server that delivers AI-powered IDE assistance tailored for the Intlayer ecosystem. It automatically loads documentation and integrates with the Intlayer CLI.
+
 ### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
 
 The `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` and `@intlayer/dynamic-dictionaries-entry` packages return the entry path of the Intlayer dictionaries. Since searching the filesystem from the browser is impossible, using bundlers like Webpack or Rollup to retrieve the entry path of the dictionaries is not possible. These packages are designed to be aliased, allowing for bundling optimisation across various bundlers such as Vite, Webpack, and Turbopack.
@@ -196,7 +208,7 @@ The `@intlayer/editor-react` package provides states, contexts, hooks and compon
 
 The `@intlayer/babel` package provides tools that optimise bundling of dictionaries for Vite and Webpack-based applications.
 
-### @intlayer/swc (WIP)
+### @intlayer/swc
 
 The `@intlayer/swc` package provides tools that optimise bundling of dictionaries for Next.js applications.
 
