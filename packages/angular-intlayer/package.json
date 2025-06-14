@@ -80,6 +80,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
+    "@intlayer/webpack": "workspace:*",
     "deepmerge": "^4.3.1",
     "js-cookie": "^3.0.5",
     "uuid": "^11.1.0"
