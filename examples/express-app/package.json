@@ -33,9 +33,12 @@
   },
   "dependencies": {
     "express": "^5.1.0",
-    "express-intlayer": "workspace:*"
+    "express-intlayer": "workspace:*",
+    "intlayer": "workspace:*"
   },
   "devDependencies": {
+    "@intlayer/config": "workspace:*",
+    "@intlayer/webpack": "workspace:*",
     "@types/express": "^5.0.2",
     "@types/node": "^22.15.30",
     "@utils/eslint-config": "workspace:*",
@@ -43,7 +46,6 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "eslint": "^9.28.0",
-    "intlayer": "workspace:*",
     "prettier": "^3.5.3",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",

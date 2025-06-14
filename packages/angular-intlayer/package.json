@@ -39,6 +39,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./webpack": {
+      "types": "./dist/types/webpack/index.d.ts",
+      "require": "./dist/cjs/webpack/index.cjs",
+      "import": "./dist/esm/webpack/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -75,11 +80,13 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
+    "deepmerge": "^4.3.1",
     "js-cookie": "^3.0.5",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
+    "@types/webpack": "^5.28.5",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
@@ -94,8 +101,8 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
-    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
