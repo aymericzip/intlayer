@@ -14,7 +14,7 @@ Intlayer è una soluzione per la gestione dei contenuti e l'internazionalizzazio
 - **Distribuita**: In alternativa, suddividi i tuoi contenuti in file separati a livello di componente o funzionalità per una migliore manutenibilità. Questo mantiene i tuoi contenuti vicini al codice pertinente (componenti, test, Storybook, ecc.). Rimuovere un componente garantisce che qualsiasi contenuto associato venga rimosso, evitando che dati residui ingombrino il tuo codice.
 
 > Risorse:
-
+>
 > - [Dichiarazione dei Contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md)
 
 ### 2. Internazionalizzazione
@@ -23,7 +23,7 @@ Intlayer è una soluzione per la gestione dei contenuti e l'internazionalizzazio
 - Gestisci facilmente le traduzioni per tutte queste localizzazioni da un unico posto.
 
 > Risorse:
-
+>
 > - [Internazionalizzazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/translation.md)
 
 ### 3. Supporto Markdown
@@ -32,7 +32,7 @@ Intlayer è una soluzione per la gestione dei contenuti e l'internazionalizzazio
 - Ideale per post di blog, articoli, pagine di documentazione o qualsiasi scenario in cui è necessaria una formattazione di testo ricca.
 
 > Risorse:
-
+>
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/markdown.md)
 
 ### 4. Rendering Condizionale
@@ -41,7 +41,7 @@ Intlayer è una soluzione per la gestione dei contenuti e l'internazionalizzazio
 - Aiuta a creare esperienze personalizzate senza duplicare contenuti in più file.
 
 > Risorse:
-
+>
 > - [Rendering Condizionale](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/condition.md)
 
 ### 5. Formati di Dichiarazione dei Contenuti
@@ -86,7 +86,7 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 - Completamente compatibile con il nuovo Turbopack di Next.js e con il tradizionale Webpack.
 
 > Risorse:
-
+>
 > - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
@@ -94,7 +94,7 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 - Simile a Next.js, puoi integrare Intlayer con Vite e utilizzare un **middleware** per reindirizzare gli utenti ai contenuti in base alla loro lingua preferita.
 
 > Risorse:
-
+>
 > - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_vite+react.md)
 
 ### 3. Express
@@ -103,7 +103,7 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 - Personalizza email, messaggi di errore, notifiche push e altro con testo localizzato.
 
 > Risorse:
-
+>
 > - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_express.md)
 
 ---
@@ -120,7 +120,7 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 - Può essere ospitato localmente o distribuito su un server remoto.
 
 > Risorse:
-
+>
 > - [Editor Visivo](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (Remoto)
@@ -130,7 +130,7 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 - Interagisci con i tuoi contenuti tramite l'interfaccia della tua applicazione live.
 
 > Risorse:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_CMS.md)
 
 ---
@@ -142,7 +142,7 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 - Utile per **pipeline CI/CD**, garantendo che i tuoi contenuti siano sempre sincronizzati con il tuo codice.
 
 > Risorse:
-
+>
 > - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md)
 
 ---
@@ -159,7 +159,7 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 - Quando utilizzi dizionari remoti e il CMS Intlayer, puoi **aggiornare i contenuti della tua applicazione al volo**, senza bisogno di ridistribuire.
 
 > Risorse:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_CMS.md)
 
 ---

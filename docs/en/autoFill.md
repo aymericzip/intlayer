@@ -67,9 +67,8 @@ src/components/example/example.filled.content.ts
 ```
 
 > The generation of `.js`, `.ts`, and similar files works as follows:
-
+>
 > - If the file already exists, Intlayer will parse it using the AST (Abstract Syntax Tree) to locate each field and insert any missing translations.
-
 > - If the file does not exist, Intlayer will generate it using the default content declaration file template.
 
 ## Absolute Paths

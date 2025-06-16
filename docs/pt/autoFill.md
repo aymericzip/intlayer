@@ -67,9 +67,8 @@ src/components/example/example.filled.content.ts
 ```
 
 > A geração de arquivos `.js`, `.ts` e similares funciona da seguinte maneira:
-
+>
 > - Se o arquivo já existir, o Intlayer o analisará usando o AST (Árvore de Sintaxe Abstrata) para localizar cada campo e inserir as traduções faltantes.
-
 > - Se o arquivo não existir, o Intlayer o gerará usando o modelo padrão para arquivos de declaração de conteúdo.
 
 ## Caminhos Absolutos

@@ -14,7 +14,7 @@ Intlayer 是一种内容管理和国际化解决方案，旨在简化您在应�
 - **分布式**：或者，将内容拆分到组件或功能级别的单独文件中，以提高可维护性。这使您的内容与相关代码（组件、测试、Storybook 等）保持紧密联系。移除组件时，相关内容也会被移除，防止遗留数据使代码库变得混乱。
 
 > 资源:
-
+>
 > - [内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)
 
 ### 2. 国际化
@@ -23,7 +23,7 @@ Intlayer 是一种内容管理和国际化解决方案，旨在简化您在应�
 - 可以轻松地从一个地方管理所有这些语言的翻译。
 
 > 资源:
-
+>
 > - [国际化](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/translation.md)
 
 ### 3. Markdown 支持
@@ -32,7 +32,7 @@ Intlayer 是一种内容管理和国际化解决方案，旨在简化您在应�
 - 非常适合博客文章、文档页面或任何需要丰富文本格式的场景。
 
 > 资源:
-
+>
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/markdown.md)
 
 ### 4. 条件渲染
@@ -41,7 +41,7 @@ Intlayer 是一种内容管理和国际化解决方案，旨在简化您在应�
 - 帮助定制个性化体验，而无需在多个文件中重复内容。
 
 > 资源:
-
+>
 > - [条件渲染](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/condition.md)
 
 ### 5. 内容声明格式
@@ -86,7 +86,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 - 完全兼容新的 Next.js Turbopack 以及传统的 Webpack。
 
 > 资源:
-
+>
 > - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
@@ -94,7 +94,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 - 类似于 Next.js，您可以将 Intlayer 与 Vite 集成，并使用 **中间件** 根据用户的首选语言重定向到相应内容。
 
 > 资源:
-
+>
 > - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md)
 
 ### 3. Express
@@ -103,7 +103,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 - 使用本地化文本个性化电子邮件、错误消息、推送通知等。
 
 > 资源:
-
+>
 > - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_express.md)
 
 ---
@@ -120,7 +120,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 - 可以本地托管或部署在远程服务器上。
 
 > 资源:
-
+>
 > - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS（远程）
@@ -130,7 +130,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 - 通过您的实时应用程序界面与内容交互。
 
 > 资源:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md)
 
 ---
@@ -142,7 +142,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 - 对于 **CI/CD 管道** 非常有用，确保您的内容始终与代码同步。
 
 > 资源:
-
+>
 > - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)
 
 ---
@@ -159,7 +159,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 - 使用远程字典和 Intlayer CMS 时，您可以 **实时更新应用程序的内容**，无需重新部署。
 
 > 资源:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md)
 
 ---

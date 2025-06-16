@@ -1231,23 +1231,15 @@ module.exports = LocaleSwitcher;
 ```
 
 > Ссылки на документацию:
-
+>
 > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/react-intlayer/useLocale.md) (API аналогичен для `preact-intlayer`)
-
 > - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocaleName.md)
-
 > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocalizedUrl.md)
-
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getHTMLTextDir.md)
-
 > - [`hreflang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ru)
-
 > - [`lang` attribute](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/lang)
-
 > - [`dir` attribute](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/dir)
-
 > - [`aria-current` attribute](https://developer.mozilla.org/ru/docs/Web/Accessibility/ARIA/Attributes/aria-current)
-
 > - [Popover API](https://developer.mozilla.org/ru/docs/Web/API/Popover_API)
 
 ---

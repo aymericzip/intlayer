@@ -222,9 +222,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 ```
 
 > **Tip**: For real projects, you might:
-
+>
 > - Dynamically load the JSON messages at runtime.
-
 > - Use environment-based, browser-based, or user account–based locale detection.
 
 ### 2. Use `<FormattedMessage>` or `useIntl()`

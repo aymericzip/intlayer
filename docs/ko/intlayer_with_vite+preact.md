@@ -1251,23 +1251,15 @@ module.exports = LocaleSwitcher;
 ```
 
 > 문서 참조:
-
+>
 > - [`useLocale` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/useLocale.md) (`preact-intlayer`와 API 유사)
-
 > - [`getLocaleName` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocaleName.md)
-
 > - [`getLocalizedUrl` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocalizedUrl.md)
-
 > - [`getHTMLTextDir` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getHTMLTextDir.md)
-
 > - [`hreflang` 속성](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ko)
-
 > - [`lang` 속성](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)
-
 > - [`dir` 속성](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/dir)
-
 > - [`aria-current` 속성](https://developer.mozilla.org/ko/docs/Web/Accessibility/ARIA/Attributes/aria-current)
-
 > - [Popover API](https://developer.mozilla.org/ko/docs/Web/API/Popover_API)
 
 ---

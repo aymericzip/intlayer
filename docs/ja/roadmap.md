@@ -14,7 +14,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 - **分散型**: 代わりに、コンポーネントや機能レベルでコンテンツを個別のファイルに分割して、保守性を向上させます。これにより、関連するコード（コンポーネント、テスト、Storybookなど）にコンテンツを近づけることができます。コンポーネントを削除すると、関連するコンテンツも削除され、コードベースに不要なデータが残るのを防ぎます。
 
 > リソース:
-
+>
 > - [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)
 
 ### 2. 国際化
@@ -23,7 +23,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 - これらすべてのロケールの翻訳を一元管理。
 
 > リソース:
-
+>
 > - [国際化](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/translation.md)
 
 ### 3. Markdownサポート
@@ -32,7 +32,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 - ブログ記事、ドキュメントページ、またはリッチテキストフォーマットが必要なシナリオに最適。
 
 > リソース:
-
+>
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/markdown.md)
 
 ### 4. 条件付きレンダリング
@@ -41,7 +41,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 - 複数のファイルにコンテンツを複製することなく、パーソナライズされた体験を提供。
 
 > リソース:
-
+>
 > - [条件付きレンダリング](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/condition.md)
 
 ### 5. コンテンツ宣言フォーマット
@@ -86,7 +86,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 - 新しいNext.js Turbopackおよび従来のWebpackと完全互換。
 
 > リソース:
-
+>
 > - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
@@ -94,7 +94,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 - Next.jsと同様に、IntlayerをViteと統合し、**ミドルウェア**を使用してユーザーを好みの言語に基づいたコンテンツにリダイレクト可能。
 
 > リソース:
-
+>
 > - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)
 
 ### 3. Express
@@ -103,7 +103,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 - ローカライズされたテキストでメール、エラーメッセージ、プッシュ通知などをパーソナライズ。
 
 > リソース:
-
+>
 > - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_express.md)
 
 ---
@@ -120,7 +120,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 - ローカルでホストするか、リモートサーバーにデプロイ可能。
 
 > リソース:
-
+>
 > - [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS（リモート）
@@ -130,7 +130,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 - ライブアプリケーションインターフェースを介してコンテンツと対話。
 
 > リソース:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)
 
 ---
@@ -142,7 +142,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 - **CI/CDパイプライン**に役立ち、コンテンツが常にコードと同期していることを保証。
 
 > リソース:
-
+>
 > - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)
 
 ---
@@ -159,7 +159,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 - リモート辞書とIntlayer CMSを使用する場合、アプリケーションのコンテンツを**即座に更新**可能で、再デプロイは不要。
 
 > リソース:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)
 
 ---

@@ -1249,23 +1249,15 @@ module.exports = LocaleSwitcher;
 ```
 
 > 文档参考：
-
+>
 > - [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/useLocale.md)（`preact-intlayer` 的 API 类似）
-
 > - [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocaleName.md)
-
 > - [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocalizedUrl.md)
-
 > - [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getHTMLTextDir.md)
-
 > - [`hreflang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=zh)
-
 > - [`lang` 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/lang)
-
 > - [`dir` 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/dir)
-
 > - [`aria-current` 属性](https://developer.mozilla.org/zh-CN/docs/Web/Accessibility/ARIA/Attributes/aria-current)
-
 > - [Popover API](https://developer.mozilla.org/zh-CN/docs/Web/API/Popover_API)
 
 以下是更新的 **步骤 9**，包含详细说明和优化的代码示例：

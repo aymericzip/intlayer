@@ -14,7 +14,7 @@ Intlayer는 애플리케이션 전반에서 콘텐츠를 선언, 관리 및 업�
 - **분산형**: 또는 콘텐츠를 컴포넌트나 기능 수준에서 별도의 파일로 나누어 유지 관리성을 향상시킬 수 있습니다. 이를 통해 관련 코드(컴포넌트, 테스트, Storybook 등)와 가까운 위치에 콘텐츠를 유지할 수 있습니다. 컴포넌트를 제거하면 관련 콘텐츠도 제거되어 코드베이스에 남아 있는 데이터를 방지합니다.
 
 > 리소스:
-
+>
 > - [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)
 
 ### 2. 국제화
@@ -23,7 +23,7 @@ Intlayer는 애플리케이션 전반에서 콘텐츠를 선언, 관리 및 업�
 - 한 곳에서 이러한 모든 로케일의 번역을 쉽게 관리할 수 있습니다.
 
 > 리소스:
-
+>
 > - [국제화](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/translation.md)
 
 ### 3. Markdown 지원
@@ -32,7 +32,7 @@ Intlayer는 애플리케이션 전반에서 콘텐츠를 선언, 관리 및 업�
 - 블로그 게시물, 기사, 문서 페이지 또는 리치 텍스트 서식이 필요한 모든 시나리오에 이상적입니다.
 
 > 리소스:
-
+>
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/markdown.md)
 
 ### 4. 조건부 렌더링
@@ -41,7 +41,7 @@ Intlayer는 애플리케이션 전반에서 콘텐츠를 선언, 관리 및 업�
 - 여러 파일에 콘텐츠를 중복하지 않고 개인화된 경험을 제공합니다.
 
 > 리소스:
-
+>
 > - [조건부 렌더링](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/condition.md)
 
 ### 5. 콘텐츠 선언 형식
@@ -86,7 +86,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 - 새로운 Next.js Turbopack뿐만 아니라 기존 Webpack과도 완벽히 호환됩니다.
 
 > 리소스:
-
+>
 > - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
@@ -94,7 +94,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 - Next.js와 유사하게 Intlayer를 Vite와 통합하고 사용자의 선호 언어에 따라 콘텐츠로 리디렉션하는 **미들웨어**를 사용할 수 있습니다.
 
 > 리소스:
-
+>
 > - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_vite+react.md)
 
 ### 3. Express
@@ -103,7 +103,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 - 이메일, 오류 메시지, 푸시 알림 등을 로컬라이즈된 텍스트로 개인화합니다.
 
 > 리소스:
-
+>
 > - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_express.md)
 
 ---
@@ -120,7 +120,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 - 로컬에서 호스팅하거나 원격 서버에 배포할 수 있습니다.
 
 > 리소스:
-
+>
 > - [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (원격)
@@ -130,7 +130,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 - 라이브 애플리케이션 인터페이스를 통해 콘텐츠와 상호작용합니다.
 
 > 리소스:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)
 
 ---
@@ -142,7 +142,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 - **CI/CD 파이프라인**에 유용하며 콘텐츠가 항상 코드와 동기화되도록 보장합니다.
 
 > 리소스:
-
+>
 > - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)
 
 ---
@@ -159,7 +159,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 - 원격 사전 및 Intlayer CMS를 사용할 때 애플리케이션의 콘텐츠를 **실시간으로 업데이트**할 수 있으며, 재배포가 필요하지 않습니다.
 
 > 리소스:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)
 
 ---

@@ -202,9 +202,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 ```
 
 > **Consejo**: Para proyectos reales, podrías:
-
+>
 > - Cargar dinámicamente los mensajes JSON en tiempo de ejecución.
-
 > - Usar detección de local basado en el entorno, navegador o cuenta de usuario.
 
 ### 2. Usar `<FormattedMessage>` o `useIntl()`

@@ -1091,21 +1091,14 @@ export const LocaleSwitcher = () => {
 ```
 
 > Documentation references:
-
+>
 > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/next-intlayer/useLocale.md)
-
 > - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getLocaleName.md)
-
 > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getLocalizedUrl.md)
-
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/getHTMLTextDir.md)
-
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localised-versions?hl=fr)
-
 > - [`lang` attribute](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/lang)
-
 > - [`dir` attribute](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/dir)
-
 > - [`aria-current` attribute](https://developer.mozilla.org/en-GB/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (Optional) Step 11: Creating a Localised Link Component

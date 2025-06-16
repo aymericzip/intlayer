@@ -67,9 +67,8 @@ src/components/example/example.filled.content.ts
 ```
 
 > La génération des fichiers `.js`, `.ts` et similaires fonctionne comme suit :
-
+>
 > - Si le fichier existe déjà, Intlayer l'analysera en utilisant l'AST (Arbre de Syntaxe Abstraite) pour localiser chaque champ et insérer les traductions manquantes.
-
 > - Si le fichier n'existe pas, Intlayer le générera en utilisant le modèle par défaut de fichier de déclaration de contenu.
 
 ## Chemins Absolus

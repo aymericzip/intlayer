@@ -975,21 +975,14 @@ const LocaleSwitcher = () => {
 ```
 
 > Dokumentationsreferenzen:
-
+>
 > - [`useLocale`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/react-intlayer/useLocale.md)
-
 > - [`getLocaleName`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getLocaleName.md)
-
 > - [`getLocalizedUrl`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getLocalizedUrl.md)
-
 > - [`getHTMLTextDir`-Hook](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/getHTMLTextDir.md)
-
 > - [`hrefLang`-Attribut](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=de)
-
 > - [`lang`-Attribut](https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/lang)
-
 > - [`dir`-Attribut](https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/dir)
-
 > - [`aria-current`-Attribut](https://developer.mozilla.org/de/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (Optional) Schritt 9: Ändern der HTML-Sprach- und Richtungsattribute

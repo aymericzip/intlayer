@@ -874,19 +874,13 @@ const LocaleSwitcher = () => {
 > API `useLocalePageRouter` идентичен `useLocale`. Чтобы узнать больше о хуке `useLocale`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/next-intlayer/useLocale.md).
 
 > Ссылки на документацию:
-
+>
 > - [Хук `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocaleName.md)
-
 > - [Хук `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getLocalizedUrl.md)
-
 > - [Хук `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/getHTMLTextDir.md)
-
 > - [Атрибут `hrefLang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ru)
-
 > - [Атрибут `lang`](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/lang)
-
 > - [Атрибут `dir`](https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/dir)
-
 > - [Атрибут `aria-current`](https://developer.mozilla.org/ru/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (Опционально) Шаг 10: Создание локализованного компонента ссылки

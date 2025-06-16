@@ -1168,23 +1168,15 @@ module.exports = LocaleSwitcher;
 ```
 
 > ドキュメント参照:
-
+>
 > - [`useLocale`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useLocale.md) (`preact-intlayer`のAPIも類似)
-
 > - [`getLocaleName`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocaleName.md)
-
 > - [`getLocalizedUrl`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getLocalizedUrl.md)
-
 > - [`getHTMLTextDir`フック](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/getHTMLTextDir.md)
-
 > - [`hreflang`属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ja)
-
 > - [`lang`属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/lang)
-
 > - [`dir`属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/dir)
-
 > - [`aria-current`属性](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Attributes/aria-current)
-
 > - [Popover API](https://developer.mozilla.org/ja/docs/Web/API/Popover_API)
 
 以下は、説明を追加し、コード例を改良した**ステップ9**です:

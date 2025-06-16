@@ -67,9 +67,8 @@ src/components/example/example.filled.content.ts
 ```
 
 > `.js`、`.ts`等文件的生成过程如下：
-
+>
 > - 如果文件已存在，Intlayer将使用AST（抽象语法树）分析它，以定位每个字段并插入缺失的翻译。
-
 > - 如果文件不存在，Intlayer将使用内容声明文件的默认模板生成它。
 
 ## 绝对路径

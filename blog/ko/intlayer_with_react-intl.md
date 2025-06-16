@@ -202,9 +202,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 ```
 
 > **팁**: 실제 프로젝트에서는:
-
+>
 > - 런타임에 JSON 메시지를 동적으로 로드할 수 있습니다.
-
 > - 환경 기반, 브라우저 기반 또는 사용자 계정 기반의 로케일 감지를 사용할 수 있습니다.
 
 ### 2. `<FormattedMessage>` 또는 `useIntl()` 사용하기

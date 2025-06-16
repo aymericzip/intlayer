@@ -14,7 +14,7 @@ Intlayer is a content management and internationalization solution designed to s
 - **Distributed**: Alternatively, split your content into separate files at the component or feature level for better maintainability. This keeps your content close to the relevant code (components, tests, Storybook, etc.). Removing a component ensures any associated content is also removed, preventing leftover data from cluttering your codebase.
 
 > Resources:
-
+>
 > - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md)
 
 ### 2. Internationalization
@@ -23,7 +23,7 @@ Intlayer is a content management and internationalization solution designed to s
 - Easily manage translations for all these locales from one place.
 
 > Resources:
-
+>
 > - [Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md)
 
 ### 3. Markdown Support
@@ -32,7 +32,7 @@ Intlayer is a content management and internationalization solution designed to s
 - Ideal for blog posts, articles, documentation pages, or any scenario where rich text formatting is needed.
 
 > Resources:
-
+>
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md)
 
 ### 4. External file support
@@ -43,7 +43,7 @@ Intlayer is a content management and internationalization solution designed to s
 - Enables multilingual content management by linking language-specific Markdown files dynamically.
 
 > Resources:
-
+>
 > - [File Content Embedding](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md)
 
 ### 5. Dynamic Content & Function Fetching
@@ -132,7 +132,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 - Fully compatible with the new Next.js Turbopack as well as traditional Webpack.
 
 > Resources:
-
+>
 > - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
@@ -140,7 +140,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 - Similar to Next.js, you can integrate Intlayer with Vite and use a **middleware** to redirect users to content based on their preferred language.
 
 > Resources:
-
+>
 > - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md)
 
 ### 3. Express
@@ -149,7 +149,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 - Personalize emails, error messages, push notifications, and more with localized text.
 
 > Resources:
-
+>
 > - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md)
 
 ### 4. React Native
@@ -158,7 +158,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 - Supports both iOS and Android platforms.
 
 > Resources:
-
+>
 > - [React Native](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react_native.md)
 
 ### 5. Lynx
@@ -167,7 +167,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 - Supports both iOS and Android platforms.
 
 > Resources:
-
+>
 > - [Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx.md)
 
 ---
@@ -184,7 +184,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 - Can be hosted locally or deployed on a remote server.
 
 > Resources:
-
+>
 > - [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (Remote)
@@ -194,7 +194,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 - Interact with your content via your live application interface.
 
 > Resources:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md)
 
 ---
@@ -206,7 +206,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 - Useful for **CI/CD pipelines**, ensuring your content is always synchronized with your code.
 
 > Resources:
-
+>
 > - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md)
 
 ---
@@ -223,7 +223,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 - When using remote dictionaries and the Intlayer CMS, you can **update your application’s content on the fly**, without needing to redeploy.
 
 > Resources:
-
+>
 > - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md)
 
 ---

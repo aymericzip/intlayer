@@ -202,9 +202,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 ```
 
 > **نصيحة**: لمشاريع حقيقية، قد ترغب في:
-
+>
 > - تحميل الرسائل JSON بشكل ديناميكي وقت التشغيل.
-
 > - استخدام الكشف عن اللغة المبني على البيئة أو على المتصفح أو على حساب المستخدم.
 
 ### 2. استخدام `<FormattedMessage>` أو `useIntl()`
