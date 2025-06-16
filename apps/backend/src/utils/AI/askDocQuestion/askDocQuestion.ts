@@ -3,7 +3,7 @@ import { Locales } from '@intlayer/config';
 import { getDocs, getFequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
-import fs, { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { OpenAI } from 'openai';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -125,6 +125,7 @@ const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
 /**
  * Indexes all Markdown documents by generating embeddings for each chunk and storing them in memory.
  * Also updates the embeddings.json file if new embeddings are generated.
+ * Handles cases where files have been updated and chunk counts have changed.
  */
 export const indexMarkdownFiles = async (): Promise<void> => {
   const env = process.env.NODE_ENV;
@@ -138,6 +139,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   const blogs = getBlogs(Locales.ENGLISH);
 
   let result: Record<string, number[]> = {}; // Object to hold updated embeddings
+  const currentChunkKeys = new Set<string>(); // Track which chunks should exist
 
   const files = { ...docs, ...blogs, ...frequentQuestions }; // Combine docs and blogs into a single object
 
@@ -145,6 +147,23 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   for (const fileKey of Object.keys(files)) {
     // Split the document into chunks based on headings
     const fileChunks = chunkText(files[fileKey as keyof typeof files]);
+
+    // Check if the number of chunks has changed for this file
+    const existingChunksForFile = Object.keys(embeddingsList).filter((key) =>
+      key.startsWith(`${fileKey}/chunk_`)
+    );
+    const currentChunkCount = fileChunks.length;
+    const previousChunkCount = existingChunksForFile.length;
+
+    let shouldRegenerateFileEmbeddings = false;
+
+    // If chunk count differs, we need to regenerate embeddings for this file
+    if (currentChunkCount !== previousChunkCount) {
+      console.info(
+        `File "${fileKey}" chunk count changed: ${previousChunkCount} -> ${currentChunkCount}. Regenerating embeddings.`
+      );
+      shouldRegenerateFileEmbeddings = true;
+    }
 
     // Iterate over each chunk within the current file
     for (const chunkIndex of Object.keys(fileChunks)) {
@@ -156,19 +175,23 @@ export const indexMarkdownFiles = async (): Promise<void> => {
       ] as string;
 
       const embeddingKeyName = `${fileKey}/chunk_${chunkNumber}`; // Unique key for the chunk
+      currentChunkKeys.add(embeddingKeyName); // Track this chunk as current
 
-      // Retrieve precomputed embedding if available
-      const docEmbedding = embeddingsList[
-        embeddingKeyName as keyof typeof embeddingsList
-      ] as number[] | undefined;
+      // Retrieve precomputed embedding if available and file hasn't changed
+      const docEmbedding = !shouldRegenerateFileEmbeddings
+        ? (embeddingsList[embeddingKeyName as keyof typeof embeddingsList] as
+            | number[]
+            | undefined)
+        : undefined;
 
-      let embedding = docEmbedding; // Use existing embedding if available
+      let embedding = docEmbedding; // Use existing embedding if available and valid
 
       if (!embedding) {
-        embedding = await generateEmbedding(fileChunk); // Generate embedding if not present
+        embedding = await generateEmbedding(fileChunk); // Generate embedding if not present or file changed
+        console.info(`- Generated new embedding: ${embeddingKeyName}`);
       }
 
-      // Update the result object with the new embedding
+      // Update the result object with the embedding
       result = { ...result, [embeddingKeyName]: embedding };
 
       // Store the embedding and content in the in-memory vector store
@@ -183,15 +206,30 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     }
   }
 
+  // Remove outdated embeddings that no longer exist in current files
+  const filteredEmbeddings: Record<string, number[]> = {};
+  for (const [key, embedding] of Object.entries(embeddingsList)) {
+    if (currentChunkKeys.has(key)) {
+      // Only keep embeddings for chunks that still exist
+      if (!result[key]) {
+        filteredEmbeddings[key] = embedding;
+      }
+    }
+  }
+
+  // Merge filtered existing embeddings with new ones
+  result = { ...filteredEmbeddings, ...result };
+
   if (process.env.NODE_ENV === 'development') {
     try {
       // Compare the newly generated embeddings with existing ones
       if (JSON.stringify(result) !== JSON.stringify(embeddingsList)) {
-        // If there are new embeddings, save them to embeddings.json
-        fs.writeFileSync(
+        // If there are new embeddings or changes, save them to embeddings.json
+        writeFileSync(
           'src/utils/AI/askDocQuestion/embeddings.json',
           JSON.stringify(result, null, 2)
         );
+        console.info('Updated embeddings.json with new/changed embeddings.');
       }
     } catch (error) {
       console.error(error); // Log any errors during the file write process
