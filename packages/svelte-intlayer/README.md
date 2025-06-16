@@ -5,15 +5,48 @@
 </div>
 
 <div align="center">
-  <a href="https://www.npmjs.com/package/svelte-intlayer">
-    <img alt="npm" src="https://img.shields.io/npm/v/svelte-intlayer.svg?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/svelte-intlayer">
-    <img alt="downloads" src="https://badgen.net/npm/dm/svelte-intlayer?labelColor=49516F&color=8994BC" />
-  </a>
-  <a href="https://npmjs.org/package/svelte-intlayer">
-    <img alt="types included" src="https://badgen.net/npm/types/svelte-intlayer?labelColor=49516F&color=8994BC" 
-  />
+  <a href="https://www.npmjs.com/package/svelte-intlayer" target="blank"><img
+    align="center"
+    alt="npm"
+    src="https://img.shields.io/npm/v/svelte-intlayer.svg?labelColor=49516F&color=8994BC&style=for-the-badge"
+    height="30" /></a>
+  <a href="https://npmjs.org/package/svelte-intlayer" target="blank"><img
+      align="center"
+      src="https://img.shields.io/npm/dm/svelte-intlayer?labelColor=49516F&color=8994BC&style=for-the-badge"
+      alt="monthly downloads"
+      height="30"
+    /></a>
+  <a href="https://npmjs.org/package/svelte-intlayer" target="blank"><img
+      align="center"
+      src="https://img.shields.io/npm/types/svelte-intlayer?label=types%20included&labelColor=49516F&color=8994BC&style=for-the-badge"
+      alt="types included"
+      height="30"
+    /></a>
+</div>
+
+<div>
+    <br/>
+    <p align="center">
+      <a href="https://www.linkedin.com/company/intlayerorg" target="blank"><img align="center"
+         src="https://img.shields.io/badge/linkedin-%231DA1F2.svg?style=for-the-badge&logo=linkedin&logoColor=white"
+         alt="Intlayer LinkedIn" height="30"/></a>
+      <a href="https://www.facebook.com/intlayer" target="blank"><img align="center"
+         src="https://img.shields.io/badge/facebook-4267B2.svg?style=for-the-badge&logo=facebook&logoColor=white"
+         alt="Intlayer Facebook" height="30"/></a>
+      <a href="https://www.instagram.com/intlayer_org/" target="blank"><img align="center"
+         src="https://img.shields.io/badge/instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white"
+         alt="Intlayer Instagram" height="30"/></a>
+      <a href="https://x.com/Intlayer183096" target="blank"><img align="center"
+         src="https://img.shields.io/badge/x-1DA1F2.svg?style=for-the-badge&logo=x&logoColor=white"
+         alt="Intlayer X" height="30"/></a>
+      <a href="https://www.youtube.com/@intlayer" target="blank"><img align="center"
+         src="https://img.shields.io/badge/youtube-FF0000.svg?style=for-the-badge&logo=youtube&logoColor=white"
+         alt="Intlayer YouTube" height="30"/></a>
+      <a href="https://www.tiktok.com/@intlayer" target="blank"><img align="center"
+         src="https://img.shields.io/badge/tiktok-000000.svg?style=for-the-badge&logo=tiktok&logoColor=white"
+         alt="Intlayer TikTok" height="30"/></a>
+      <br>
+    </p>
 </div>
 
 > This package is in development.
