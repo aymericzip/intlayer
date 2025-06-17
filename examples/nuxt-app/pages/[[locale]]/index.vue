@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useIntlayer } from 'vue-intlayer';
 import HelloWorld from '~/components/helloWorld/HelloWorld.vue';
+import LocaleSwitcher from '~/components/LocaleSwitcher.vue';
 
 const { nuxtLogo, intlayerLogo, title } = useIntlayer('root');
 </script>
@@ -15,6 +16,7 @@ const { nuxtLogo, intlayerLogo, title } = useIntlayer('root');
     </a>
   </div>
   <HelloWorld :msg="title" />
+  <LocaleSwitcher />
 </template>
 
 <style scoped>

@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "_postinstall": "nuxt prepare",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "postinstall": "nuxt prepare",
     "preview": "nuxt preview"
   },
   "dependencies": {
@@ -16,6 +16,6 @@
     "vue-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "vite-intlayer": "workspace:*"
+    "nuxt-intlayer": "workspace:*"
   }
 }

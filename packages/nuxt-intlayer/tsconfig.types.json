@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@utils/ts-config-types",
+  "include": ["src/**/*", "types/**/*"],
+  "compilerOptions": {
+    "outDir": "dist/types",
+    "baseUrl": "src"
+  }
+}

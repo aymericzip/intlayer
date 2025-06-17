@@ -25,6 +25,7 @@ export const packageBuildOrder = [
   'packages/preact-intlayer',
   'packages/angular-intlayer',
   'packages/vite-intlayer',
+  'packages/nuxt-intlayer',
   'packages/react-native-intlayer',
   'packages/lynx-intlayer',
   'packages/@intlayer/design-system',
