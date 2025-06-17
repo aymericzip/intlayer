@@ -443,6 +443,23 @@ const docDataContent = {
             ru: 'Intlayer с Vite и Vue',
           }),
         },
+        'nuxt-and-vue': {
+          title: t({
+            en: 'Intlayer with Nuxt and Vue',
+            fr: 'Intlayer avec Nuxt et Vue',
+            es: 'Intlayer con Nuxt y Vue',
+            'en-GB': 'Intlayer with Nuxt and Vue',
+            de: 'Intlayer mit Nuxt und Vue',
+            ja: 'IntlayerとNuxtおよびVue',
+            ko: 'Intlayer와 Nuxt 및 Vue',
+            zh: 'Intlayer与Nuxt和Vue',
+            it: 'Intlayer con Nuxt e Vue',
+            pt: 'Intlayer com Nuxt e Vue',
+            hi: 'Intlayer के साथ Nuxt और Vue',
+            ar: 'Intlayer مع Nuxt و Vue',
+            ru: 'Intlayer с Nuxt и Vue',
+          }),
+        },
         'vite-and-solid': {
           title: t({
             en: 'Intlayer with Vite and Solid',
@@ -669,6 +686,9 @@ const docDataContent = {
         },
         'vue-intlayer': {
           title: 'vue-intlayer',
+        },
+        'nuxt-intlayer': {
+          title: 'nuxt-intlayer',
         },
         'solid-intlayer': {
           title: 'solid-intlayer',

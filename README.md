@@ -121,6 +121,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 - [Intlayer with Vite and Svelte](https://intlayer.org/doc/environment/vite-and-svelte)
 - [Intlayer with Vite and Preact](https://intlayer.org/doc/environment/vite-and-preact)
 - [Intlayer with Vite and Vue](https://intlayer.org/doc/environment/vite-and-vue)
+- [Intlayer with Vite and Nuxt](https://intlayer.org/doc/environment/vite-and-nuxt)
 - [Intlayer with Vite and Solid](https://intlayer.org/doc/environment/vite-and-solid)
 - [Intlayer with Angular](https://intlayer.org/doc/environment/angular)
 - [Intlayer with Express](https://intlayer.org/doc/environment/express)

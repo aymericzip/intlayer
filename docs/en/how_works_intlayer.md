@@ -119,6 +119,10 @@ The `next-intlayer` package is used as a layer on top of `react-intlayer` to mak
 
 The `vue-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Vue applications.
 
+### nuxt-intlayer
+
+The `nuxt-intlayer` package is as Nuxt module to make Intlayer dictionaries usable in Nuxt applications. It integrates essential features to make Intlayer work in a Nuxt environment, such as translation middleware, routing, or the `nuxt.config.js` file configuration.
+
 ### svelte-intlayer (WIP)
 
 The `svelte-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Svelte applications.

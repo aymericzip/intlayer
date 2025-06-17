@@ -25,6 +25,7 @@ import { getEnvironmentExpressData } from './docDataContent/environment/express'
 import { getEnvironmentLynxAndReactData } from './docDataContent/environment/lynxAndReact';
 import { getEnvironmentNextJSNextJS15Data } from './docDataContent/environment/nextjs';
 import { getEnvironmentNextJSNextJS14Data } from './docDataContent/environment/nextjs14';
+import { getEnvironmentNuxtAndVueData } from './docDataContent/environment/NuxtAndVue';
 import { getEnvironmentNextJSPageRouterData } from './docDataContent/environment/pageRouter';
 import { getEnvironmentReactNativeAndExpoData } from './docDataContent/environment/reactNative';
 import { getEnvironmentViteAndPreactData } from './docDataContent/environment/viteAndPreact';
@@ -53,6 +54,7 @@ import { getPackagesNextIntlayerUseDictionaryData } from './docDataContent/packa
 import { getPackagesNextIntlayerUseIntlayerData } from './docDataContent/packages/next-intlayer/useIntlayer';
 import { getPackagesNextIntlayerUseIntlayerAsyncData } from './docDataContent/packages/next-intlayer/useIntlayerAsync';
 import { getPackagesNextIntlayerUseLocaleData } from './docDataContent/packages/next-intlayer/useLocale';
+import { getPackagesNuxtIntlayerData } from './docDataContent/packages/nuxt-intlayer';
 import { getPackagesPreactIntlayerData } from './docDataContent/packages/preact-intlayer';
 import { getPackagesReactIntlayerData } from './docDataContent/packages/react-inltayer';
 import { getPackagesReactIntlayerTData } from './docDataContent/packages/react-inltayer/t';
@@ -207,6 +209,10 @@ export const getDocData = (
         'vite-and-vue': {
           title: content.environment.subSections['vite-and-vue'].title,
           default: getEnvironmentViteAndVueData(locale),
+        },
+        'nuxt-and-vue': {
+          title: content.environment.subSections['nuxt-and-vue'].title,
+          default: getEnvironmentNuxtAndVueData(locale),
         },
         'vite-and-solid': {
           title: content.environment.subSections['vite-and-solid'].title,
@@ -395,6 +401,10 @@ export const getDocData = (
         'vue-intlayer': {
           title: content.packages.subSections['vue-intlayer'].title,
           default: getPackagesVueIntlayerData(locale),
+        },
+        'nuxt-intlayer': {
+          title: content.packages.subSections['nuxt-intlayer'].title,
+          default: getPackagesNuxtIntlayerData(locale),
         },
         'solid-intlayer': {
           title: content.packages.subSections['solid-intlayer'].title,

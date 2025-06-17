@@ -44,6 +44,8 @@ export enum PagesRoutes {
   Doc_Environment_ViteAndSolid = '/doc/environment/vite-and-solid',
   Doc_Environment_ViteAndSvelte = '/doc/environment/vite-and-svelte',
   Doc_Environment_ViteAndPreact = '/doc/environment/vite-and-preact',
+  Doc_Environment_NuxtAndVue = '/doc/environment/nuxt-and-vue',
+  Doc_Intlayer_with_Lynx_and_React = '/doc/environment/lynx-and-react',
   Doc_Environment_Angular = '/doc/environment/angular',
   Doc_Environment_ReactNativeAndExpo = '/doc/environment/react-native-and-expo',
   Doc_Environment_Lynx = '/doc/environment/lynx-and-react',
@@ -76,6 +78,7 @@ export enum PagesRoutes {
   'Doc_Packages_next-intlayer_useLocale' = '/doc/packages/next-intlayer/useLocale',
   'Doc_Packages_vite-intlayer' = '/doc/packages/vite-intlayer',
   'Doc_Packages_vue-intlayer' = '/doc/packages/vue-intlayer',
+  'Doc_Packages_nuxt-intlayer' = '/doc/packages/nuxt-intlayer',
   'Doc_Packages_svelte-intlayer' = '/doc/packages/svelte-intlayer',
   'Doc_Packages_solid-intlayer' = '/doc/packages/solid-intlayer',
   'Doc_Packages_preact-intlayer' = '/doc/packages/preact-intlayer',
@@ -151,6 +154,7 @@ export enum GithubRoutes {
   IntlayerWithVitePreact = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+preact.md',
   IntlayerWithViteVue = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+vue.md',
   IntlayerWithViteSvelte = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+svelte.md',
+  IntlayerWithNuxtAndVue = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nuxt.md',
   IntlayerWithViteSolid = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+solid.md',
   IntlayerWithAngular = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_angular.md',
   IntlayerWithReactNativeAndExpo = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react_native+expo.md',
@@ -196,6 +200,7 @@ export enum GithubRoutes {
   'Packages_next-intlayer_useLocale' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md',
   'Packages_vite-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md',
   'Packages_vue-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vue-intlayer/index.md',
+  'Packages_nuxt-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/nuxt-intlayer/index.md',
   'Packages_svelte-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/svelte-intlayer/index.md',
   'Packages_preact-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/preact-intlayer/index.md',
   'Packages_angular-intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/angular-intlayer/index.md',
@@ -245,6 +250,19 @@ export const urlMapper: Partial<Record<GithubRoutes, PagesRoutes>> = {
   [GithubRoutes.IntlayerWithReactCRA]: PagesRoutes.Doc_Environment_CRA,
   [GithubRoutes.IntlayerWithViteReact]:
     PagesRoutes.Doc_Environment_ViteAndReact,
+  [GithubRoutes.IntlayerWithViteVue]: PagesRoutes.Doc_Environment_ViteAndVue,
+  [GithubRoutes.IntlayerWithViteSvelte]:
+    PagesRoutes.Doc_Environment_ViteAndSvelte,
+  [GithubRoutes.IntlayerWithVitePreact]:
+    PagesRoutes.Doc_Environment_ViteAndPreact,
+  [GithubRoutes.IntlayerWithViteSolid]:
+    PagesRoutes.Doc_Environment_ViteAndSolid,
+  [GithubRoutes.IntlayerWithAngular]: PagesRoutes.Doc_Environment_Angular,
+  [GithubRoutes.IntlayerWithReactNativeAndExpo]:
+    PagesRoutes.Doc_Environment_ReactNativeAndExpo,
+  [GithubRoutes.IntlayerWithLynxReact]:
+    PagesRoutes.Doc_Intlayer_with_Lynx_and_React,
+  [GithubRoutes.IntlayerWithNuxtAndVue]: PagesRoutes.Doc_Environment_NuxtAndVue,
   [GithubRoutes.IntlayerWithExpress]: PagesRoutes.Doc_Environment_Express,
   [GithubRoutes.Dictionary_GetStarted]: PagesRoutes.Doc_ContentDeclaration,
   [GithubRoutes.Dictionary_ContentExtensionCustomization]:
@@ -313,6 +331,16 @@ export const urlMapper: Partial<Record<GithubRoutes, PagesRoutes>> = {
     PagesRoutes['Doc_Packages_react-scripts-intlayer'],
   [GithubRoutes['Packages_vite-intlayer']]:
     PagesRoutes['Doc_Packages_vite-intlayer'],
+  [GithubRoutes['Packages_vue-intlayer']]:
+    PagesRoutes['Doc_Packages_vue-intlayer'],
+  [GithubRoutes['Packages_solid-intlayer']]:
+    PagesRoutes['Doc_Packages_solid-intlayer'],
+  [GithubRoutes['Packages_preact-intlayer']]:
+    PagesRoutes['Doc_Packages_preact-intlayer'],
+  [GithubRoutes['Packages_angular-intlayer']]:
+    PagesRoutes['Doc_Packages_angular-intlayer'],
+  [GithubRoutes['Packages_nuxt-intlayer']]:
+    PagesRoutes['Doc_Packages_nuxt-intlayer'],
   [GithubRoutes['Packages_lynx-intlayer']]:
     PagesRoutes['Doc_Packages_lynx-intlayer'],
   [GithubRoutes['Packages_react-native-intlayer']]:
