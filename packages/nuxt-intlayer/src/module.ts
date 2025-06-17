@@ -3,6 +3,7 @@ import { getConfiguration } from '@intlayer/config';
 import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
 import { join, relative, resolve } from 'path';
+import { intLayerMiddlewarePlugin } from 'vite-intlayer';
 
 // @ts-ignore fix instantiation is excessively deep and possibly infinite
 export const module: NuxtModule = defineNuxtModule({
@@ -32,17 +33,19 @@ export const module: NuxtModule = defineNuxtModule({
       mode: 'all',
     });
 
-    // Inject the intlayer middleware plugin into Nuxt's Vite config
-    // nuxt.hook('vite:extendConfig', (viteConfig, { isServer }) => {
-    //   // We only need the middleware on the server side during development
-    //   // @ts-ignore -- viteConfig.plugins can be undefined at this stage
-    //   (viteConfig.plugins ||= []).push(intLayerMiddlewarePlugin());
-    // });
+    // // Inject the intlayer middleware plugin into Nuxt's Vite config
+    nuxt.hook('vite:extendConfig', (viteConfig, { isServer }) => {
+      if (isServer) {
+        // We only need the middleware on the server side during development
+        // @ts-ignore -- viteConfig.plugins can be undefined at this stage
+        (viteConfig.plugins ?? []).push(intLayerMiddlewarePlugin());
+      }
+    });
 
-    // Equivalent to buildStart in Vite plugin
+    // // Equivalent to buildStart in Vite plugin
     nuxt.hook('build:before', async () => prepareIntlayer(configuration));
 
-    // Equivalent to configureServer in Vite plugin
+    // // Equivalent to configureServer in Vite plugin
     nuxt.hook('ready', async () => {
       if (configuration.content.watch) {
         // Start watching when dev server is ready
@@ -86,7 +89,7 @@ export const module: NuxtModule = defineNuxtModule({
       // Build a RegExp string with supported locales (e.g. "en|fr|de") to ensure the param only accepts known locales
       const filteredLocales = prefixDefault
         ? locales
-        : locales.filter((l) => l !== defaultLocale);
+        : locales.filter((locale) => locale !== defaultLocale);
       const localeGroupRegex = filteredLocales.map(String).join('|');
 
       // If no locales remain to prefix (e.g., only default locale and prefixDefault is false) skip extension
