@@ -12,7 +12,7 @@ export const KeyboardScreenAdapter: FC<
   return (
     <div
       className={cn(
-        'h-screen w-screen overflow-scroll scroll-smooth transition',
+        'h-screen w-screen overflow-auto scroll-smooth transition',
         className
       )}
       style={{

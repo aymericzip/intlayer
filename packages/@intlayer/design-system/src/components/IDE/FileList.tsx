@@ -1,4 +1,4 @@
-import type { HTMLAttributes, FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 import { Container } from '../Container';
 import { FileTree } from './FileTree';
 
@@ -8,7 +8,7 @@ export type FileListProps = {
 
 export const FileList: FC<FileListProps> = ({ filePaths, ...props }) => (
   <Container
-    className="flex size-full flex-col justify-start overflow-scroll shadow-lg"
+    className="flex size-full flex-col justify-start overflow-auto shadow-lg"
     roundedSize="3xl"
     transparency="none"
     {...props}

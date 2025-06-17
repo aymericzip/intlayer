@@ -88,7 +88,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             ),
             pre: (props) => props.children,
             table: ({ className, ...props }) => (
-              <div className="grid w-full max-w-full overflow-scroll rounded">
+              <div className="grid w-full max-w-full overflow-auto rounded">
                 <table
                   className={cn(
                     'max-w-full table-auto overflow-hidden text-left',

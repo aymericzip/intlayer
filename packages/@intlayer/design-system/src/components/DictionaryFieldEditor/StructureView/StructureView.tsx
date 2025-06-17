@@ -1,14 +1,14 @@
 'use client';
 
 import {
-  type KeyPath,
-  type TypedNode,
   type ContentNode,
+  getDefaultNode,
   getNodeChildren,
   getNodeType,
   isSameKeyPath,
+  type KeyPath,
   NodeType,
-  getDefaultNode,
+  type TypedNode,
 } from '@intlayer/core';
 import {
   useConfiguration,
@@ -248,7 +248,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
   }
 
   return (
-    <div className="flex flex-col gap-2 overflow-y-scroll">
+    <div className="flex flex-col gap-2 overflow-y-auto">
       <ul className="mr-auto flex flex-col gap-4">
         {Object.keys(section).map((key) => (
           <li key={key} className="flex w-full">

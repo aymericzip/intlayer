@@ -69,7 +69,7 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
       ref={setRef}
       onChange={handleChange}
       className={cn(
-        'overflow-y-scroll',
+        'overflow-y-auto',
         autoSize ? 'resize-none' : '',
         className
       )}
