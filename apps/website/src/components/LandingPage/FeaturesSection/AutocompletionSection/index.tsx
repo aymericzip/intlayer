@@ -41,7 +41,7 @@ export const AutocompletionSection: FC<AutocompletionSectionProps> = ({
         background="none"
         border
         roundedSize="2xl"
-        className="h-auto flex-1 overflow-scroll p-5"
+        className="h-auto flex-1 overflow-auto p-5"
       >
         <AutoCompleteTextarea
           value={text}

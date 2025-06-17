@@ -39,7 +39,7 @@ export const MarkdownSection: FC<MarkdownSectionProps> = ({
         background="none"
         border
         roundedSize="2xl"
-        className="w-full flex-1 overflow-scroll p-5"
+        className="w-full flex-1 overflow-auto p-5"
       >
         <MarkdownRenderer
           options={{

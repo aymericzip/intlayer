@@ -31,7 +31,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => (
     <body
       className={cn(
         inter.className,
-        'bg-background relative flex size-full min-h-screen flex-col overflow-scroll scroll-smooth leading-8 transition'
+        'bg-background relative flex size-full min-h-screen flex-col overflow-auto scroll-smooth leading-8 transition'
       )}
       suppressHydrationWarning
     >
