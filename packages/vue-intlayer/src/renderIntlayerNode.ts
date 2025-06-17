@@ -4,7 +4,7 @@ export type IntlayerNode<T = string> = {
   raw: T; // primitive value (reactive)
   render: () => VNode; // component renderer
   toString: () => T; // string interpolation
-  value: IntlayerNode<T>; // <content.title.value />
+  value: T; // <content.title.value />
   __update: (next: IntlayerNode<T>) => void; // invoked by useIntlayer
 };
 
@@ -31,7 +31,7 @@ export const renderIntlayerNode = <
       ? () => (children as () => VNode)()
       : () => children as unknown as VNode;
 
-  /* 3.  The component’s `render` method uses both:                     */
+  /* 3.  The component's `render` method uses both:                     */
   /*     – it *touches* `rawRef.value` so Vue tracks reactivity         */
   /*     – it delegates the actual markup to `currentRender()`          */
   const renderFn = () => {
@@ -42,13 +42,26 @@ export const renderIntlayerNode = <
 
   /* ------------------------------------------------------------------ */
   /* 4.  Assemble the stable component object                           */
+  /*     We purposefully create the object with String.prototype in     */
+  /*     its prototype chain so that `instanceof String` === true.      */
+  /*     Vue's runtime prop validator for `String` types accepts        */
+  /*     values that satisfy `val instanceof String`, therefore this    */
+  /*     silences the "Invalid prop: type check failed" warning while   */
+  /*     keeping full object capabilities.                              */
   /* ------------------------------------------------------------------ */
-  const node: IntlayerNode<T> = {
+
+  const node: IntlayerNode<T> = Object.create(String.prototype);
+
+  Object.assign(node, {
     /* component renderer */
     render: renderFn,
 
     /* string interpolation */
     toString: () => rawRef.value,
+
+    /* primitive coercion helpers */
+    valueOf: () => rawRef.value,
+    [Symbol.toPrimitive]: () => rawRef.value,
 
     /* reactive getter/setter for the primitive value */
     get raw() {
@@ -58,7 +71,7 @@ export const renderIntlayerNode = <
       rawRef.value = val;
     },
 
-    /* circular ref for the “.value” trick */
+    /* circular ref for the ".value" trick */
     value: undefined as never,
 
     /* called by useIntlayer when the dictionary entry changes */
@@ -66,11 +79,11 @@ export const renderIntlayerNode = <
       /* swap in the new renderer (locale-specific markup) */
       currentRender = next.render;
       /* update the primitive value – this *triggers* reactivity */
-      this.raw = next.raw;
+      (this as any).raw = next.raw;
     },
 
     ...additionalProps,
-  };
+  });
 
   /* finish the circular reference */
   (node as any).value = node;

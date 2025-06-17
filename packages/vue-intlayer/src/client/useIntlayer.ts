@@ -22,7 +22,7 @@ export const useIntlayer = <T extends DictionaryKeys>(
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL)!;
 
   /** which locale should we use right now? */
-  const localeTarget = computed(() => locale ?? intlayer.locale.value);
+  const localeTarget = computed(() => locale ?? intlayer?.locale.value);
 
   /** a *stable* reactive dictionary object */
   const content = reactive({}) as DeepTransformContent<
