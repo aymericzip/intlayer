@@ -79,7 +79,8 @@
     "@nuxt/kit": "^3.17.5",
     "@nuxt/schema": "^3.17.5",
     "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0"
+    "tsup": "^8.5.0",
+    "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
@@ -98,7 +99,8 @@
   "peerDependencies": {
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/core": "workspace:*",
+    "vite-intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

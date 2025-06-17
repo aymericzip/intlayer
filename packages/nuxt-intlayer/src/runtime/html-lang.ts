@@ -1,4 +1,6 @@
-import { defineNuxtPlugin, useRoute } from '#imports';
+// @ts-nocheck -- Nuxt runtime types are provided at application level
+import { defineNuxtPlugin } from '#app';
+import { useRoute } from '#imports';
 import { getHTMLTextDir, type Locales } from 'intlayer';
 
 export default defineNuxtPlugin((nuxtApp) => {
