@@ -83,61 +83,31 @@ yarn add nuxt-intlayer
 pnpm add nuxt-intlayer
 ```
 
+## What does `nuxt-intlayer` do as a Nuxt module?
+
+`nuxt-intlayer` is a Nuxt module that seamlessly integrates internationalization (i18n) into your Nuxt application. As a module, it:
+
+- Automatically sets up i18n support for your app with minimal configuration.
+- Provides composables and helpers for translation, locale switching, and dictionary management.
+- Loads and manages translation dictionaries efficiently.
+- Integrates with Nuxt SSR and routing for locale-aware navigation and static generation.
+- Keeps your translations type-safe and close to your components.
+
+### Quickstart: Add to your Nuxt config
+
+Add `nuxt-intlayer` to your `modules` in `nuxt.config.ts`:
+
+```ts
+export default defineNuxtConfig({
+  modules: ["nuxt-intlayer"],
+});
+```
+
+Once added, you can use composables like `useIntlayer()` or helpers provided by the module in your components and pages to translate content and manage locales.
+
 ## Example of usage
 
-With Intlayer, you can declare your content in a structured way anywhere in your codebase.
-
-By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
-
-> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://intlayer.org/doc/concept/configuration).
-
-```bash codeFormat="typescript"
-.
-├── intlayer.config.ts
-└── src
-    └── components
-        ├── Component1
-        │   ├── index.content.ts
-        │   └── index.vue
-        └── Component2
-            ├── index.content.ts
-            └── index.vue
-```
-
-### Declare your content
-
-`nuxt-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
-
-Here’s an example of content declaration:
-
-```tsx fileName="src/Component1/index.content.ts" codeFormat="typescript"
-import { t, type Dictionary } from "intlayer";
-
-const component1Content = {
-  key: "component-1",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola Mundo",
-    }),
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-    }),
-  },
-} satisfies Dictionary;
-
-export default component1Content;
-```
-
-### Utilize Content in Your Code
-
-...
+to fill
 
 ## Mastering the internationalization of your Vue application
 
