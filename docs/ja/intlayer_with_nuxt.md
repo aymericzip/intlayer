@@ -420,10 +420,18 @@ const countRef = ref(0);
 Intlayer は、コンテンツにアクセスするための 2 つの API を提供します:
 
 - **コンポーネントベースの構文**（推奨）:
-  `<myContent />` 構文を使用して、コンテンツを Intlayer ノードとしてレンダリングします。これは、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md) および [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md) とシームレスに統合されます。
+  `<myContent />` または `<Component :is="myContent" />` 構文を使用して、コンテンツを Intlayer ノードとしてレンダリングします。これは、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md) および [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md) とシームレスに統合されます。
 
 - **文字列ベースの構文**:
-  `{{ myContent }}` を使用して、インタラクティブ性のないプレーンテキストとしてコンテンツをレンダリングします。
+  `{{ myContent }}` を使用して、ビジュアルエディターのサポートなしにプレーンテキストとしてコンテンツをレンダリングします。
+
+- **生のHTML構文**:
+  `<div v-html="myContent" />` を使用して、ビジュアルエディターのサポートなしに生のHTMLとしてコンテンツをレンダリングします。
+
+- **デストラクチャリング構文**:
+  `useIntlayer` コンポーザブルは、コンテンツを含むプロキシを返します。このプロキシは、リアクティビティを維持しながらコンテンツにアクセスするためにデストラクチャリングできます。
+  - `const content = useIntlayer("myContent");` と `{{ content.myContent }}` / `<content.myContent />` を使用します。
+  - または、`const { myContent } = useIntlayer("myContent");` と `{{ myContent }}` / `<myContent />` を使用してコンテンツをデストラクチャリングします。
 
 ### （オプション）ステップ 6: コンテンツの言語を変更する
 

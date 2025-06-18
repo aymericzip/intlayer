@@ -259,52 +259,60 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
----
-
+```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/\*_ @type {import('intlayer').Dictionary} _/
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
-key: "helloworld",
-content: {
-count: t({ ja: "カウントは ", en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-edit: t({
-ja: "<code>components/HelloWorld.vue</code> を編集して保存し、HMRをテストしてください",
-en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-}),
-checkOut: t({ ja: "チェックアウト ", en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-officialStarter: t({
-ja: "公式のVue + Viteスターター",
-en: "the official Vue + Vite starter",
-fr: "le starter officiel Vue + Vite",
-es: "el starter oficial Vue + Vite",
-}),
-learnMore: t({
-ja: "VueのIDEサポートについてさらに学ぶには、",
-en: "Learn more about IDE Support for Vue in the ",
-fr: "En savoir plus sur le support IDE pour Vue dans le ",
-es: "Aprenda más sobre el soporte IDE para Vue en el ",
-}),
-vueDocs: t({
-ja: "Vueドキュメントスケーリングアップガイド",
-en: "Vue Docs Scaling up Guide",
-fr: "Vue Docs Scaling up Guide",
-es: "Vue Docs Scaling up Guide",
-}),
-readTheDocs: t({
-ja: "ViteとVueのロゴをクリックして詳細を学ぶ",
-en: "Click on the Vite and Vue logos to learn more",
-fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-}),
-},
+  key: "helloworld",
+  content: {
+    count: t({
+      ja: "カウントは ",
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+    edit: t({
+      ja: "<code>components/HelloWorld.vue</code> を編集して保存し、HMRをテストしてください",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    }),
+    checkOut: t({
+      ja: "チェックアウト ",
+      en: "Check out ",
+      fr: "Vérifiez ",
+      es: "Compruebe ",
+    }),
+    officialStarter: t({
+      ja: "公式のVue + Viteスターター",
+      en: "the official Vue + Vite starter",
+      fr: "le starter officiel Vue + Vite",
+      es: "el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      ja: "VueのIDEサポートについてさらに学ぶには、",
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      ja: "Vueドキュメントスケーリングアップガイド",
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
+    readTheDocs: t({
+      ja: "ViteとVueのロゴをクリックして詳細を学ぶ",
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 };
 
 module.exports = appContent;
-
-````
+```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
@@ -376,7 +384,7 @@ module.exports = appContent;
     }
   }
 }
-````
+```
 
 > あなたのコンテンツ宣言は、アプリケーション内のどこにでも定義できますが、`contentDir` ディレクトリ（デフォルトでは `./src`）に含まれている必要があります。そして、コンテンツ宣言ファイルの拡張子（デフォルトでは `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致する必要があります。
 
@@ -444,23 +452,20 @@ const count = ref(0);
 </template>
 ```
 
-> コンテンツを `alt`、`title`、`href`、`aria-label` などの属性で使用したい場合、関数の値を `.value` で呼び出す必要があります。例:
+#### Intlayerでのコンテンツへのアクセス
 
-> ```html
->
-> ```
+Intlayerは、コンテンツにアクセスするためのさまざまなAPIを提供しています。
 
-> <img src="./logo.svg" :alt="content.image.value" />
+- **コンポーネントベースの構文**（推奨）： `<myContent />`または`<Component :is="myContent" />`構文を使用して、コンテンツをIntlayerノードとしてレンダリングします。これは[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)および[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)とシームレスに統合されます。
 
-> ```
->
-> ```
-
-### （オプション）ステップ6: コンテンツの言語を変更する
-
-コンテンツの言語を変更するには、`useLocale` コンポーザブルが提供する `setLocale` 関数を使用します。この関数を使用すると、アプリケーションのロケールを設定し、コンテンツを更新できます。
-
-言語を切り替えるコンポーネントを作成します:
+- **文字列ベースの構文**: `{{ myContent }}`を使用して、ビジュアルエディタをサポートせずにコンテンツをプレーンテキストとしてレンダリングします。
+- **生のHTML構文**: `<div v-html="myContent" />`を使用して、ビジュアルエディタをサポートせずにコンテンツを生のHTMLとしてレンダリングします。
+- **分割代入構文**:
+  `useIntlayer`コンポーザブルは、コンテンツとともにプロキシを返します。このプロキシは、リアクティビティを維持しながらコンテンツにアクセスするために分割代入できます。
+- `const content = useIntlayer("myContent");`と`{{ content.myContent }}` / `<content.myContent />`を使用します。 - または、`const { myContent } = useIntlayer("myContent");`と`{{ myContent }}` / `<myContent />`を使用してコンテンツを分割代入します。 ### (任意) ステップ6:
+  コンテンツの言語を変更する
+  コンテンツの言語を変更するには、`useLocale`コンポーザブルが提供する`setLocale`関数を使用できます。この関数を使用すると、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
+  言語を切り替えるコンポーネントを作成します:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
 <template>
@@ -531,18 +536,15 @@ Vueアプリケーションでローカライズされたルーティングを�
 
 ```plaintext
 - https://example.com/about
-```
-
 - https://example.com/ja/about
 - https://example.com/fr/about
-
-````
+```
 
 まず、Vue Routerをインストールします:
 
 ```bash packageManager="npm"
 npm install intlayer vue-router
-````
+```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-router

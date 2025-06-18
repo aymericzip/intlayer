@@ -304,8 +304,6 @@ es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
 
 module.exports = appContent;
 
-````
-
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -376,7 +374,7 @@ module.exports = appContent;
     }
   }
 }
-````
+```
 
 > Suas declarações de conteúdo podem ser definidas em qualquer lugar em sua aplicação, desde que estejam incluídas no diretório `contentDir` (por padrão, `./src`). E correspondam à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
@@ -444,23 +442,27 @@ const count = ref(0);
 </template>
 ```
 
-> Se você quiser usar seu conteúdo em um atributo, como `alt`, `title`, `href`, `aria-label`, etc., você deve chamar o valor da função com `.value`, como:
+#### Acessando o Conteúdo no Intlayer O Intlayer oferece diferentes APIs para
 
-> ```html
->
-> ```
+acessar seu conteúdo:
 
-> <img src="./logo.svg" :alt="content.image.value" />
-
-> ```
->
-> ```
+- **Sintaxe baseada em componentes** (recomendado): Use a
+  sintaxe `<meuConteudo />`, ou `<Component :is="meuConteudo" />` para renderizar o conteúdo como um Nó do Intlayer. Isso se integra
+  perfeitamente com o [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md) e o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_CMS.md).
+- **Sintaxe baseada em strings**: Use `{{ meuConteudo }}` para renderizar o
+  conteúdo como texto simples, sem suporte do Editor Visual. - **Sintaxe de HTML
+  bruto**: Use `<div v-html="meuConteudo" />` para renderizar o conteúdo como HTML bruto, sem suporte do Editor Visual.
+- **Sintaxe de desestruturação**: O composable `useIntlayer` retorna um Proxy com
+  o conteúdo. Este proxy pode ser desestruturado para acessar o conteúdo, mantendo
+  a reatividade. - Use `const content = useIntlayer("meuConteudo");` e `{{ content.meuConteudo }}` / `<content.meuConteudo />`.
+- Ou use `const { meuConteudo } = useIntlayer("meuConteudo");` e `{{ meuConteudo }}` / `<meuConteudo />` para desestruturar o conteúdo.
 
 ### (Opcional) Passo 6: Alterar o idioma do seu conteúdo
 
-Para alterar o idioma do seu conteúdo, você pode usar a função `setLocale` fornecida pelo composable `useLocale`. Esta função permite definir o idioma da aplicação e atualizar o conteúdo de acordo.
-
-Crie um componente para alternar entre idiomas:
+Para alterar o idioma do seu conteúdo, você pode usar a função
+`setLocale` fornecida pelo composable `useLocale`. Esta função permite que você
+defina a localidade do aplicativo e atualize o conteúdo de acordo. Crie um
+componente para alternar entre idiomas:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
 <template>
@@ -531,7 +533,6 @@ Exemplo:
 
 ```plaintext
 - https://example.com/about
-
 - https://example.com/pt/about
 - https://example.com/fr/about
 ```

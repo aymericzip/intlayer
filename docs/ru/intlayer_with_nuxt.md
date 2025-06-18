@@ -420,10 +420,18 @@ const countRef = ref(0);
 Intlayer предлагает два API для доступа к вашему контенту:
 
 - **Синтаксис на основе компонентов** (рекомендуется):
-  Используйте синтаксис `<myContent />` для отображения контента как узла Intlayer. Это бесшовно интегрируется с [Визуальным редактором](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md) и [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_CMS.md).
+  Используйте синтаксис `<myContent />` или `<Component :is="myContent" />` для отображения контента как узла Intlayer. Это бесшовно интегрируется с [Визуальным редактором](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md) и [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_CMS.md).
 
 - **Синтаксис на основе строк**:
-  Используйте `{{ myContent }}`, чтобы отобразить контент как обычный текст, без какой-либо интерактивности.
+  Используйте `{{ myContent }}`, чтобы отобразить контент как обычный текст, без поддержки Визуального редактора.
+
+- **Синтаксис необработанного HTML**:
+  Используйте `<div v-html="myContent" />` для отображения контента как необработанного HTML, без поддержки Визуального редактора.
+
+- **Синтаксис деструктуризации**:
+  Компонент `useIntlayer` возвращает прокси с контентом. Этот прокси можно деструктурировать для доступа к контенту с сохранением реактивности.
+  - Используйте `const content = useIntlayer("myContent");` и `{{ content.myContent }}` / `<content.myContent />`.
+  - Или используйте `const { myContent } = useIntlayer("myContent");` и `{{ myContent }}` / `<myContent />` для деструктуризации контента.
 
 ### (Опционально) Шаг 6: Изменение языка вашего контента
 

@@ -259,52 +259,60 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
----
-
+```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/\*_ @type {import('intlayer').Dictionary} _/
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
-key: "helloworld",
-content: {
-count: t({ hi: "गणना है ", en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-edit: t({
-hi: "संपादित करें <code>components/HelloWorld.vue</code> और HMR का परीक्षण करने के लिए सहेजें",
-en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-}),
-checkOut: t({ hi: "जांचें ", en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-officialStarter: t({
-hi: "आधिकारिक Vue + Vite स्टार्टर",
-en: "the official Vue + Vite starter",
-fr: "le starter officiel Vue + Vite",
-es: "el starter oficial Vue + Vite",
-}),
-learnMore: t({
-hi: "Vue के लिए IDE समर्थन के बारे में और जानें ",
-en: "Learn more about IDE Support for Vue in the ",
-fr: "En savoir plus sur le support IDE pour Vue dans le ",
-es: "Aprenda más sobre el soporte IDE para Vue en el ",
-}),
-vueDocs: t({
-hi: "Vue Docs स्केलिंग अप गाइड",
-en: "Vue Docs Scaling up Guide",
-fr: "Vue Docs Scaling up Guide",
-es: "Vue Docs Scaling up Guide",
-}),
-readTheDocs: t({
-hi: "अधिक जानने के लिए Vite और Vue लोगो पर क्लिक करें",
-en: "Click on the Vite and Vue logos to learn more",
-fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-}),
-},
+  key: "helloworld",
+  content: {
+    count: t({
+      hi: "गणना है ",
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+    edit: t({
+      hi: "संपादित करें <code>components/HelloWorld.vue</code> और HMR का परीक्षण करने के लिए सहेजें",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    }),
+    checkOut: t({
+      hi: "जांचें ",
+      en: "Check out ",
+      fr: "Vérifiez ",
+      es: "Compruebe ",
+    }),
+    officialStarter: t({
+      hi: "आधिकारिक Vue + Vite स्टार्टर",
+      en: "the official Vue + Vite starter",
+      fr: "le starter officiel Vue + Vite",
+      es: "el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      hi: "Vue के लिए IDE समर्थन के बारे में और जानें ",
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      hi: "Vue Docs स्केलिंग अप गाइड",
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
+    readTheDocs: t({
+      hi: "अधिक जानने के लिए Vite और Vue लोगो पर क्लिक करें",
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 };
 
 module.exports = appContent;
-
-````
+```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
@@ -376,22 +384,23 @@ module.exports = appContent;
     }
   }
 }
-````
+```
 
 > आपकी सामग्री घोषणाएँ आपके एप्लिकेशन में कहीं भी परिभाषित की जा सकती हैं, जब तक वे `contentDir` निर्देशिका (डिफ़ॉल्ट रूप से, `./src`) में शामिल हैं। और सामग्री घोषणा फ़ाइल एक्सटेंशन से मेल खाती हैं (डिफ़ॉल्ट रूप से, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)।
 
 > अधिक विवरण के लिए, [सामग्री घोषणा दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) देखें।
 
+```
+- https://example.com
 - https://example.com/hi/about
 - https://example.com/fr/about
-
-````
+```
 
 सबसे पहले, Vue Router इंस्टॉल करें:
 
 ```bash packageManager="npm"
 npm install intlayer vue-router
-````
+```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-router

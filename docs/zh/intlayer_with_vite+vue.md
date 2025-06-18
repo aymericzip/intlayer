@@ -452,22 +452,23 @@ const count = ref(0);
 </template>
 ```
 
-> 如果您想在属性中使用内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须使用 `.value` 调用函数的值，例如：
+#### 在 Intlayer 中访问内容 Intlayer 提供了不同的 API 来访问您的内容： -
 
-> ```html
->
-> ```
+**基于组件的语法**（推荐）： 使用 `<myContent />` 或 `<Component :is="myContent" />` 语法将内容呈现为 Intlayer
 
-> <img src="./logo.svg" :alt="content.image.value" />
+节点。这与[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)和 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md)
+无缝集成。
 
-> ```
->
-> ```
+- **基于字符串的语法**： 使用 `{{ myContent }}` 将内容呈现为纯文本，不支持可视化编辑器。
+- **原始 HTML 语法**： 使用 `<div v-html="myContent" />` 将内容呈现为原始 HTML，不支持可视化编辑器。
+- **解构语法**： `useIntlayer` 可组合函数返回一个包含内容的代理。可以解构此代理以访问内容，同时保持反应性。
+  - 使用 `const content = useIntlayer("myContent");` 和 `{{ content.myContent }}` /
+    `<content.myContent />`。
+  - 或使用 `const { myContent } = useIntlayer("myContent");` 和 `{{ myContent }}` / `<myContent />` 来解构内容。
 
-### （可选）第六步：更改内容的语言
+### (可选) 第6步：更改内容的语言
 
-要更改内容的语言，可以使用 `useLocale` 可组合函数提供的 `setLocale` 函数。此函数允许您设置应用程序的语言环境并相应地更新内容。
-
+要更改内容的语言，您可以使用 `useLocale` 可组合函数提供的 `setLocale` 函数。此函数允许您设置应用程序的区域设置并相应地更新内容。
 创建一个组件以在语言之间切换：
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
@@ -539,7 +540,6 @@ const content = useIntlayer("app"); // 创建相关的 intlayer 声明文件
 
 ```plaintext
 - https://example.com/about
-
 - https://example.com/zh/about
 - https://example.com/fr/about
 ```
@@ -846,7 +846,7 @@ useI18nHTMLAttributes();
 
 ### （可选）步骤 10：创建一个本地化链接组件
 
-为了确保您的应用程序导航符合当前语言环境，您可以创建一个自定义的 `Link` 组件。此组件会自动为内部 URL 添加当前语言的前缀。例如，当法语用户点击“关于”页面的链接时，他们会被重定向到 `/fr/about` 而不是 `/about`。
+为了确保您的应用程序导航符合当前语言环境，您可以创建一个自定义的 `Link` 组件。此组件会自动为内部 URL 添加当前语言的前缀。例如，当法语用户点击"关于"页面的链接时，他们会被重定向到 `/fr/about` 而不是 `/about`。
 
 此行为的好处包括：
 

@@ -259,52 +259,60 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
----
-
+```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/\*_ @type {import('intlayer').Dictionary} _/
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
-key: "helloworld",
-content: {
-count: t({ de: "Anzahl ist ", en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-edit: t({
-de: "Bearbeiten Sie <code>components/HelloWorld.vue</code> und speichern Sie, um HMR zu testen",
-en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-}),
-checkOut: t({ de: "Schauen Sie sich ", en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-officialStarter: t({
-de: "den offiziellen Vue + Vite Starter",
-en: "the official Vue + Vite starter",
-fr: "le starter officiel Vue + Vite",
-es: "el starter oficial Vue + Vite",
-}),
-learnMore: t({
-de: "Erfahren Sie mehr über die IDE-Unterstützung für Vue im ",
-en: "Learn more about IDE Support for Vue in the ",
-fr: "En savoir plus sur le support IDE pour Vue dans le ",
-es: "Aprenda más sobre el soporte IDE para Vue en el ",
-}),
-vueDocs: t({
-de: "Vue-Dokumentation Skalierungsleitfaden",
-en: "Vue Docs Scaling up Guide",
-fr: "Vue Docs Scaling up Guide",
-es: "Vue Docs Scaling up Guide",
-}),
-readTheDocs: t({
-de: "Klicken Sie auf die Vite- und Vue-Logos, um mehr zu erfahren",
-en: "Click on the Vite and Vue logos to learn more",
-fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-}),
-},
+  key: "helloworld",
+  content: {
+    count: t({
+      de: "Anzahl ist ",
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+    edit: t({
+      de: "Bearbeiten Sie <code>components/HelloWorld.vue</code> und speichern Sie, um HMR zu testen",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    }),
+    checkOut: t({
+      de: "Schauen Sie sich ",
+      en: "Check out ",
+      fr: "Vérifiez ",
+      es: "Compruebe ",
+    }),
+    officialStarter: t({
+      de: "den offiziellen Vue + Vite Starter",
+      en: "the official Vue + Vite starter",
+      fr: "le starter officiel Vue + Vite",
+      es: "el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      de: "Erfahren Sie mehr über die IDE-Unterstützung für Vue im ",
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      de: "Vue-Dokumentation Skalierungsleitfaden",
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
+    readTheDocs: t({
+      de: "Klicken Sie auf die Vite- und Vue-Logos, um mehr zu erfahren",
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 };
 
 module.exports = appContent;
-
-````
+```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
@@ -376,7 +384,7 @@ module.exports = appContent;
     }
   }
 }
-````
+```
 
 > Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, solange sie im Verzeichnis `contentDir` enthalten sind (standardmäßig `./src`). Und sie müssen mit der Dateierweiterung der Inhaltsdeklaration übereinstimmen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
@@ -444,23 +452,35 @@ const count = ref(0);
 </template>
 ```
 
-> Wenn Sie Ihren Inhalt in einem Attribut wie `alt`, `title`, `href`, `aria-label` usw. verwenden möchten, müssen Sie den Wert der Funktion mit `.value` aufrufen, wie:
+#### Zugriff auf Inhalte in Intlayer Intlayer bietet verschiedene APIs für
 
-> ```html
->
-> ```
+den Zugriff auf Ihre Inhalte: - **Komponentenbasierte Syntax** (empfohlen):
+Verwenden Sie die Syntax `<meinInhalt />` oder `<Component :is="meinInhalt" />`, um Inhalte als Intlayer-Knoten zu rendern. Dies lässt sich nahtlos in den
+[Visuellen
+Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md)
+und das
+[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md)
+integrieren. - **Zeichenkettenbasierte Syntax**: Verwenden Sie `{{
+  meinInhalt
+}}`, um den Inhalt als reinen Text ohne Unterstützung des Visuellen Editors zu
+rendern. - **Rohe HTML-Syntax**: Verwenden Sie `
 
-> <img src="./logo.svg" :alt="content.image.value" />
-
-> ```
->
-> ```
-
-### (Optional) Schritt 6: Ändern Sie die Sprache Ihres Inhalts
-
-Um die Sprache Ihres Inhalts zu ändern, können Sie die Funktion `setLocale` verwenden, die vom `useLocale`-Composable bereitgestellt wird. Diese Funktion ermöglicht es Ihnen, die Sprache der Anwendung festzulegen und den Inhalt entsprechend zu aktualisieren.
-
-Erstellen Sie eine Komponente, um zwischen Sprachen zu wechseln:
+<div v-html="meinInhalt" />
+`, um den Inhalt als rohes HTML ohne Unterstützung des Visuellen Editors zu
+rendern. - **Destrukturierungssyntax**: Das `useIntlayer`-Composable gibt einen
+Proxy mit dem Inhalt zurück. Dieser Proxy kann destrukturiert werden, um auf den
+Inhalt zuzugreifen und dabei die Reaktivität beizubehalten. - Verwenden Sie
+`const content = useIntlayer("meinInhalt");` und `{{ content.meinInhalt }}` / `
+<content.meinInhalt />
+`. - Oder verwenden Sie `const { meinInhalt } = useIntlayer("meinInhalt");` und
+`{{ meinInhalt }}` / `
+<meinInhalt />
+`, um den Inhalt zu destrukturieren. ### (Optional) Schritt 6: Ändern Sie die
+Sprache Ihres Inhalts Um die Sprache Ihres Inhalts zu ändern, können Sie die
+`setLocale`-Funktion verwenden, die vom `useLocale`-Composable bereitgestellt
+wird. Mit dieser Funktion können Sie die Locale der Anwendung festlegen und den
+Inhalt entsprechend aktualisieren. Erstellen Sie eine Komponente, um zwischen
+Sprachen zu wechseln:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
 <template>
@@ -531,7 +551,6 @@ Beispiel:
 
 ```plaintext
 - https://example.com/about
-
 - https://example.com/de/about
 - https://example.com/fr/about
 ```

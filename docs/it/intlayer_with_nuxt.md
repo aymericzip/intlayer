@@ -420,11 +420,19 @@ const countRef = ref(0);
 
 Intlayer offre due API per accedere ai tuoi contenuti:
 
-- **Sintassi basata su componenti** (raccomandata):
-  Usa la sintassi `<myContent />` per rendere il contenuto come un nodo Intlayer. Questo si integra perfettamente con l'[Editor Visivo](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md) e il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_CMS.md).
+- **Sintassi basata su componenti** (consigliata):
+  Utilizza la sintassi `<myContent />` o `<Component :is="myContent" />` per rendere il contenuto come un nodo Intlayer. Questo si integra perfettamente con l'[Editor Visivo](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md) e il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_CMS.md).
 
 - **Sintassi basata su stringhe**:
-  Usa `{{ myContent }}` per rendere il contenuto come testo semplice, senza interattività.
+  Utilizza `{{ myContent }}` per rendere il contenuto come testo semplice, senza supporto per l'Editor Visivo.
+
+- **Sintassi HTML grezza**:
+  Utilizza `<div v-html="myContent" />` per rendere il contenuto come HTML grezzo, senza supporto per l'Editor Visivo.
+
+- **Sintassi di destrutturazione**:
+  Il composable `useIntlayer` restituisce un Proxy con il contenuto. Questo proxy può essere destrutturato per accedere al contenuto mantenendo la reattività.
+  - Utilizza `const content = useIntlayer("myContent");` e `{{ content.myContent }}` / `<content.myContent />`.
+  - Oppure utilizza `const { myContent } = useIntlayer("myContent");` e `{{ myContent }}` / `<myContent />` per destrutturare il contenuto.
 
 ### (Opzionale) Passo 6: Cambia la lingua dei tuoi contenuti
 

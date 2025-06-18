@@ -444,23 +444,30 @@ const count = ref(0);
 </template>
 ```
 
-> Se desideri utilizzare il tuo contenuto in un attributo, come `alt`, `title`, `href`, `aria-label`, ecc., devi chiamare il valore della funzione con `.value`, come:
+#### Accesso ai Contenuti in Intlayer Intlayer offre diverse API per accedere ai tuoi contenuti:
 
-> ```html
->
-> ```
+- **Sintassi basata su componenti** (consigliata): Usa la
+  sintassi `<mioContenuto />`, o `<Component :is="mioContenuto" />` per renderizzare il contenuto come un Nodo Intlayer. Questo si integra
+  perfettamente con l'[Editor Visuale](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md)
+  e il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_CMS.md).
 
-> <img src="./logo.svg" :alt="content.image.value" />
+- **Sintassi basata su stringhe**: Usa `{{ mioContenuto }}` per renderizzare il
+  contenuto come testo semplice, senza il supporto dell'Editor Visuale.
+- **Sintassi HTML grezza**: Usa `<div v-html="mioContenuto" />` per renderizzare il contenuto come HTML grezzo, senza il supporto dell'Editor
+  Visuale.
+- **Sintassi di destrutturazione**: Il composable `useIntlayer`
+  restituisce un Proxy con il contenuto. Questo proxy può essere destrutturato per
+  accedere al contenuto mantenendo la reattività.
+  - Usa `const content = useIntlayer("mioContenuto");` e `{{ content.mioContenuto }}` / `<content.mioContenuto />`.
+  - Oppure usa `const { mioContenuto } = useIntlayer("mioContenuto");` e `{{ mioContenuto }}` / `<mioContenuto />` per destrutturare il contenuto.
 
-> ```
->
-> ```
+### (Opzionale) Passaggio 6: Cambiare la lingua dei tuoi contenuti
 
-### (Opzionale) Passaggio 6: Cambiare la lingua del tuo contenuto
-
-Per cambiare la lingua del tuo contenuto, puoi utilizzare la funzione `setLocale` fornita dal composable `useLocale`. Questa funzione ti consente di impostare la lingua dell'applicazione e aggiornare di conseguenza il contenuto.
-
-Crea un componente per passare da una lingua all'altra:
+Per cambiare la lingua dei tuoi contenuti, puoi
+utilizzare la funzione `setLocale` fornita dal composable `useLocale`. Questa
+funzione ti permette di impostare la locale dell'applicazione e aggiornare i
+contenuti di conseguenza. Crea un componente per passare da una lingua
+all'altra:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
 <template>
@@ -531,7 +538,6 @@ Esempio:
 
 ```plaintext
 - https://example.com/about
-
 - https://example.com/it/about
 - https://example.com/fr/about
 ```

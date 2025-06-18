@@ -259,52 +259,60 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
----
-
+```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/\*_ @type {import('intlayer').Dictionary} _/
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
-key: "helloworld",
-content: {
-count: t({ ko: "카운트는 ", en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-edit: t({
-ko: "<code>components/HelloWorld.vue</code>를 편집하고 저장하여 HMR을 테스트하세요",
-en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-}),
-checkOut: t({ ko: "확인하세요 ", en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-officialStarter: t({
-ko: "공식 Vue + Vite 스타터",
-en: "the official Vue + Vite starter",
-fr: "le starter officiel Vue + Vite",
-es: "el starter oficial Vue + Vite",
-}),
-learnMore: t({
-ko: "Vue에 대한 IDE 지원에 대해 자세히 알아보세요 ",
-en: "Learn more about IDE Support for Vue in the ",
-fr: "En savoir plus sur le support IDE pour Vue dans le ",
-es: "Aprenda más sobre el soporte IDE para Vue en el ",
-}),
-vueDocs: t({
-ko: "Vue 문서 확장 가이드",
-en: "Vue Docs Scaling up Guide",
-fr: "Vue Docs Scaling up Guide",
-es: "Vue Docs Scaling up Guide",
-}),
-readTheDocs: t({
-ko: "Vite와 Vue 로고를 클릭하여 자세히 알아보세요",
-en: "Click on the Vite and Vue logos to learn more",
-fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-}),
-},
+  key: "helloworld",
+  content: {
+    count: t({
+      ko: "카운트는 ",
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+    edit: t({
+      ko: "<code>components/HelloWorld.vue</code>를 편집하고 저장하여 HMR을 테스트하세요",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    }),
+    checkOut: t({
+      ko: "확인하세요 ",
+      en: "Check out ",
+      fr: "Vérifiez ",
+      es: "Compruebe ",
+    }),
+    officialStarter: t({
+      ko: "공식 Vue + Vite 스타터",
+      en: "the official Vue + Vite starter",
+      fr: "le starter officiel Vue + Vite",
+      es: "el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      ko: "Vue에 대한 IDE 지원에 대해 자세히 알아보세요 ",
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      ko: "Vue 문서 확장 가이드",
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
+    readTheDocs: t({
+      ko: "Vite와 Vue 로고를 클릭하여 자세히 알아보세요",
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 };
 
 module.exports = appContent;
-
-````
+```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
@@ -376,7 +384,7 @@ module.exports = appContent;
     }
   }
 }
-````
+```
 
 > 콘텐츠 선언은 애플리케이션의 `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치하는 한 어디에나 정의할 수 있습니다.
 
@@ -444,23 +452,23 @@ const count = ref(0);
 </template>
 ```
 
-> 콘텐츠를 `alt`, `title`, `href`, `aria-label` 등 속성에서 사용하려면 `.value`를 사용하여 함수 값을 호출해야 합니다:
+#### Intlayer에서 콘텐츠에 액세스하기 Intlayer는 콘텐츠에 액세스하기 위한 다양한
 
-> ```html
->
-> ```
+API를 제공합니다.
 
-> <img src="./logo.svg" :alt="content.image.value" />
+- **컴포넌트 기반 구문**(권장): `<myContent />` 또는 `<Component :is="myContent" />` 구문을 사용하여 콘텐츠를 Intlayer 노드로 렌더링합니다. 이는 [비주얼
+  에디터](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md) 및 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)와
+  원활하게 통합됩니다.
+- **문자열 기반 구문**: `{{ myContent }}`를 사용하여 비주얼 에디터 지원 없이 콘텐츠를 일반 텍스트로 렌더링합니다.
+- **원시 HTML 구문**: `<div v-html="myContent" />`를 사용하여 비주얼 에디터 지원 없이 콘텐츠를 원시 HTML로 렌더링합니다.
+- **구조 분해 구문**: `useIntlayer` 컴포저블은 콘텐츠와 함께 프록시를 반환합니다. 이
+  프록시는 반응성을 유지하면서 콘텐츠에 액세스하기 위해 구조 분해할 수 있습니다.
+  - `const content = useIntlayer("myContent");` 및 `{{ content.myContent }}` / `<content.myContent />`를 사용합니다.
+  - 또는 `const { myContent } = useIntlayer("myContent");` 및 `{{ myContent }}` / `<myContent />`를 사용하여 콘텐츠를 구조 분해합니다. ### (선택 사항) 6단계: 콘텐츠 언어 변경
 
-> ```
->
-> ```
-
-### (선택 사항) 6단계: 콘텐츠 언어 변경하기
-
-콘텐츠 언어를 변경하려면 `useLocale` 컴포저블에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수는 애플리케이션의 로케일을 설정하고 콘텐츠를 업데이트합니다.
-
-언어를 전환하는 구성 요소를 생성하세요:
+콘텐츠의 언어를 변경하려면 `useLocale` 컴포저블에서 제공하는 `setLocale` 함수를
+사용할 수 있습니다. 이 함수를 사용하면 애플리케이션의 로케일을 설정하고 그에
+따라 콘텐츠를 업데이트할 수 있습니다. 언어를 전환하는 구성 요소를 생성하세요:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
 <template>
@@ -531,7 +539,6 @@ Vue 애플리케이션에서 로컬화된 라우팅을 추가하려면 일반적
 
 ```plaintext
 - https://example.com/about
-
 - https://example.com/ko/about
 - https://example.com/fr/about
 ```

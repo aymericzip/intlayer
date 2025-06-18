@@ -229,47 +229,45 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
----
-
+```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/\*_ @type {import('intlayer').Dictionary} _/
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
-key: "helloworld",
-content: {
-count: t({ es: "el recuento es ", en: "count is ", fr: "le compte est " }),
-edit: t({
-es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-}),
-checkOut: t({ es: "Compruebe ", en: "Check out ", fr: "Vérifiez " }),
-officialStarter: t({
-es: "el starter oficial Vue + Vite",
-en: "the official Vue + Vite starter",
-fr: "le starter officiel Vue + Vite",
-}),
-learnMore: t({
-es: "Aprenda más sobre el soporte IDE para Vue en el ",
-en: "Learn more about IDE Support for Vue in the ",
-fr: "En savoir plus sur le support IDE pour Vue dans le ",
-}),
-vueDocs: t({
-es: "Vue Docs Scaling up Guide",
-en: "Vue Docs Scaling up Guide",
-fr: "Vue Docs Scaling up Guide",
-}),
-readTheDocs: t({
-es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-en: "Click on the Vite and Vue logos to learn more",
-fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-}),
-},
+  key: "helloworld",
+  content: {
+    count: t({ es: "el recuento es ", en: "count is ", fr: "le compte est " }),
+    edit: t({
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+    }),
+    checkOut: t({ es: "Compruebe ", en: "Check out ", fr: "Vérifiez " }),
+    officialStarter: t({
+      es: "el starter oficial Vue + Vite",
+      en: "the official Vue + Vite starter",
+      fr: "le starter officiel Vue + Vite",
+    }),
+    learnMore: t({
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+    }),
+    vueDocs: t({
+      es: "Vue Docs Scaling up Guide",
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+    }),
+    readTheDocs: t({
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+    }),
+  },
 };
 
 module.exports = appContent;
-
-````
+```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
@@ -334,7 +332,7 @@ module.exports = appContent;
     }
   }
 }
-````
+```
 
 > Sus declaraciones de contenido pueden definirse en cualquier lugar de su aplicación siempre que estén incluidas en el directorio `contentDir` (por defecto, `./src`). Y coincidan con la extensión del archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
@@ -402,22 +400,35 @@ const count = ref(0);
 </template>
 ```
 
-> Si desea usar su contenido en un atributo, como `alt`, `title`, `href`, `aria-label`, etc., debe llamar al valor de la función con `.value`, como:
+#### Accediendo al Contenido en Intlayer Intlayer ofrece diferentes API para
 
-> ```html
->
-> ```
+acceder a tu contenido:
 
-> <img src="./logo.svg" :alt="content.image.value" />
+- **Sintaxis basada en componentes** (recomendado): Usa
+  la sintaxis `<miContenido />`, o `<Component :is="miContenido" />` para renderizar contenido como un Nodo de Intlayer. Esto se integra
+  perfectamente con el [Editor
+  Visual](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_visual_editor.md)
+  y el
+  [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_CMS.md).
 
-> ```
->
-> ```
+- **Sintaxis basada en cadenas de texto**: Usa `{{ miContenido }}` para
+  renderizar el contenido como texto plano, sin soporte para el Editor Visual.
+
+- **Sintaxis de HTML crudo**: Usa `
+  <div v-html="miContenido" />
+  ` para renderizar el contenido como HTML crudo, sin soporte para el Editor
+  Visual.
+
+- **Sintaxis de desestructuración**: El composable `useIntlayer`
+  devuelve un Proxy con el contenido. Este proxy se puede desestructurar para
+  acceder al contenido manteniendo la reactividad.
+  - Usa `const content = useIntlayer("miContenido");` y `{{ content.miContenido }}` / `<content.miContenido />`. - O usa `const { miContenido } = useIntlayer("miContenido");` y `{{ miContenido }}` / `<miContenido />` para desestructurar el contenido.
 
 ### (Opcional) Paso 6: Cambiar el idioma de su contenido
 
-Para cambiar el idioma de su contenido, puede usar la función `setLocale` proporcionada por el composable `useLocale`. Esta función le permite establecer el idioma de la aplicación y actualizar el contenido en consecuencia.
-
+Para cambiar el idioma de su contenido, puede usar la función
+`setLocale` proporcionada por el composable `useLocale`. Esta función le permite
+establecer el idioma de la aplicación y actualizar el contenido en consecuencia.
 Cree un componente para cambiar entre idiomas:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
@@ -489,7 +500,6 @@ Ejemplo:
 
 ```plaintext
 - https://example.com/about
-
 - https://example.com/es/about
 - https://example.com/fr/about
 ```
@@ -740,7 +750,7 @@ Consejo: Para un mejor SEO y accesibilidad, usa etiquetas como `<a href="/fr/hom
 Cuando tu aplicación soporta múltiples idiomas, es crucial actualizar los atributos `lang` y `dir` de la etiqueta `<html>` para que coincidan con el idioma actual. Hacer esto asegura:
 
 - **Accesibilidad**: Los lectores de pantalla y tecnologías de asistencia dependen del atributo `lang` correcto para pronunciar e interpretar el contenido con precisión.
-- **Renderizado de Texto**: El atributo `dir` (dirección) asegura que el texto se renderice en el orden correcto (por ejemplo, de izquierda a derecha para inglés, de derecha a izquierda para árabe o hebreo), lo cual es esencial para la legibilidad.
+- **Renderizado de Texto**: El atributo `dir` (dirección) asegura que el texto se renderice en el orden correcto (por ejemplo, de izquierda a derecha para inglés, de derecha a izquierda para árabe, hebreo), lo cual es esencial para la legibilidad.
 - **SEO**: Los motores de búsqueda usan el atributo `lang` para determinar el idioma de tu página, ayudando a servir el contenido localizado correcto en los resultados de búsqueda.
 
 Al actualizar estos atributos dinámicamente cuando cambia el idioma, garantizas una experiencia consistente y accesible para los usuarios en todos los idiomas soportados.

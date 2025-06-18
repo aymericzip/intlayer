@@ -456,9 +456,27 @@ const count = ref(0);
 >
 > ```
 
+#### الوصول إلى المحتوى في Intlayer
+
+يقدم Intlayer واجهات برمجة تطبيقات مختلفة للوصول إلى المحتوى الخاص بك:
+
+- **بناء يعتمد على المكونات** (موصى به):
+  استخدم بناء `<myContent />` أو `<Component :is="myContent" />` لعرض المحتوى كعقدة Intlayer. يتكامل هذا بسلاسة مع [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md) و [نظام إدارة المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_CMS.md).
+
+- **بناء يعتمد على السلاسل النصية**:
+  استخدم `{{ myContent }}` لعرض المحتوى كنص عادي، بدون دعم المحرر المرئي.
+
+- **بناء HTML خام**:
+  استخدم `<div v-html="myContent" />` لعرض المحتوى كـ HTML خام، بدون دعم المحرر المرئي.
+
+- **بناء التفكيك**:
+  يعيد `useIntlayer` القابل للتركيب وكيلًا (Proxy) مع المحتوى. يمكن تفكيك هذا الوكيل للوصول إلى المحتوى مع الحفاظ على التفاعلية.
+  - استخدم `const content = useIntlayer("myContent");` و `{{ content.myContent }}` / `<content.myContent />`.
+  - أو استخدم `const { myContent } = useIntlayer("myContent");` و `{{ myContent }}` / `<myContent />` لتفكيك المحتوى.
+
 ### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
 
-لتغيير لغة المحتوى الخاص بك، يمكنك استخدام وظيفة `setLocale` المقدمة من قبل `useLocale`. تتيح لك هذه الوظيفة تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
+لتغيير لغة المحتوى الخاص بك، يمكنك استخدام دالة `setLocale` التي يوفرها `useLocale` composable. تسمح لك هذه الدالة بتعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
 
 قم بإنشاء مكون للتبديل بين اللغات:
 
@@ -531,7 +549,6 @@ const content = useIntlayer("app"); // قم بإنشاء ملف إعلان intla
 
 ```plaintext
 - https://example.com/about
-
 - https://example.com/ar/about
 - https://example.com/ar/about
 ```

@@ -420,10 +420,18 @@ const countRef = ref(0);
 يوفر Intlayer طريقتين للوصول إلى المحتوى الخاص بك:
 
 - **صيغة تعتمد على المكونات** (موصى بها):
-  استخدم صيغة `<myContent />` لعرض المحتوى كعقدة Intlayer. يتكامل هذا بسلاسة مع [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md) و[نظام إدارة المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_CMS.md).
+  استخدم صيغة `<myContent />` أو `<Component :is="myContent" />` لعرض المحتوى كعقدة Intlayer. يتكامل هذا بسلاسة مع [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md) و[نظام إدارة المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_CMS.md).
 
 - **صيغة تعتمد على النصوص**:
-  استخدم `{{ myContent }}` لعرض المحتوى كنص عادي، بدون أي تفاعلية.
+  استخدم `{{ myContent }}` لعرض المحتوى كنص عادي، بدون دعم المحرر المرئي.
+
+- **صيغة HTML الخام**:
+  استخدم `<div v-html="myContent" />` لعرض المحتوى كـ HTML خام، بدون دعم المحرر المرئي.
+
+- **صيغة التفكيك**:
+  يقوم المكون `useIntlayer` بإرجاع Proxy مع المحتوى. يمكن تفكيك هذا الوكيل للوصول إلى المحتوى مع الحفاظ على التفاعلية.
+  - استخدم `const content = useIntlayer("myContent");` و `{{ content.myContent }}` / `<content.myContent />`.
+  - أو استخدم `const { myContent } = useIntlayer("myContent");` و `{{ myContent }}` / `<myContent/>` لتفكيك المحتوى.
 
 ### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
 

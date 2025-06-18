@@ -261,52 +261,61 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
----
-
+```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/\*_ @type {import('intlayer').Dictionary} _/
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
-key: "helloworld",
-content: {
-count: t({ 'en-GB': "count is ", en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-edit: t({
-'en-GB': "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-}),
-checkOut: t({ 'en-GB': "Check out ", en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-officialStarter: t({
-'en-GB': "the official Vue + Vite starter",
-en: "the official Vue + Vite starter",
-fr: "le starter officiel Vue + Vite",
-es: "el starter oficial Vue + Vite",
-}),
-learnMore: t({
-'en-GB': "Learn more about IDE Support for Vue in the ",
-en: "Learn more about IDE Support for Vue in the ",
-fr: "En savoir plus sur le support IDE pour Vue dans le ",
-es: "Aprenda más sobre el soporte IDE para Vue en el ",
-}),
-vueDocs: t({
-'en-GB': "Vue Docs Scaling up Guide",
-en: "Vue Docs Scaling up Guide",
-fr: "Vue Docs Scaling up Guide",
-es: "Vue Docs Scaling up Guide",
-}),
-readTheDocs: t({
-'en-GB': "Click on the Vite and Vue logos to learn more",
-en: "Click on the Vite and Vue logos to learn more",
-fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-}),
-},
+  key: "helloworld",
+  content: {
+    count: t({
+      "en-GB": "count is ",
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+    edit: t({
+      "en-GB":
+        "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    }),
+    checkOut: t({
+      "en-GB": "Check out ",
+      en: "Check out ",
+      fr: "Vérifiez ",
+      es: "Compruebe ",
+    }),
+    officialStarter: t({
+      "en-GB": "the official Vue + Vite starter",
+      en: "the official Vue + Vite starter",
+      fr: "le starter officiel Vue + Vite",
+      es: "el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      "en-GB": "Learn more about IDE Support for Vue in the ",
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      "en-GB": "Vue Docs Scaling up Guide",
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
+    readTheDocs: t({
+      "en-GB": "Click on the Vite and Vue logos to learn more",
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 };
 
 module.exports = appContent;
-
-````
+```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
@@ -378,7 +387,7 @@ module.exports = appContent;
     }
   }
 }
-````
+```
 
 > Your content declarations can be defined anywhere in your application as long as they are included in the `contentDir` directory (by default, `./src`). They must also match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
@@ -446,23 +455,18 @@ const count = ref(0);
 </template>
 ```
 
-> If you want to use your content in an attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function with `.value`, like:
+#### Accessing Content in Intlayer Intlayer offers different APIs to access your content
 
-> ```html
->
-> ```
-
-> <img src="./logo.svg" :alt="content.image.value" />
-
-> ```
->
-> ```
+- **Component-based syntax** (recommended): Use the `<myContent />`, or `<Component :is="myContent" />` syntax to render content as an Intlayer Node. This integrates seamlessly with the [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_visual_editor.md) and [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_CMS.md).
+- **String-based syntax**: Use `{{ myContent }}` to render the content as plain text, without Visual Editor support.
+- **Raw HTML syntax**: Use `<div v-html="myContent" />` to render the content as raw HTML, without Visual Editor support.
+- **Destructuration syntax**: The `useIntlayer` composable returns a Proxy with the content. This proxy can be destructured to access the content while maintaining reactivity.
+  - Use `const content = useIntlayer("myContent");` and `{{ content.myContent }}` / `<content.myContent />`.
+  - Or use `const { myContent } = useIntlayer("myContent");` and `{{ myContent }}` / `<myContent />` to destructure the content.
 
 ### (Optional) Step 6: Change the language of your content
 
-To change the language of your content, you can use the `setLocale` function provided by the `useLocale` composable. This function allows you to set the locale of the application and update the content accordingly.
-
-Create a component to switch between languages:
+To change the language of your content, you can use the `setLocale` function provided by the `useLocale` composable. This function allows you to set the locale of the application and update the content accordingly. Create a component to switch between languages:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
 <template>
@@ -533,7 +537,6 @@ Example:
 
 ```plaintext
 - https://example.com/about
-
 - https://example.com/en-GB/about
 - https://example.com/fr/about
 ```
@@ -843,7 +846,7 @@ useI18nHTMLAttributes();
 
 ### (Optional) Step 10: Creating a Localised Link Component
 
-To ensure that your application’s navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language, so that, for example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
+To ensure that your application's navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language, so that, for example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
 
 This behaviour is useful for several reasons:
 
