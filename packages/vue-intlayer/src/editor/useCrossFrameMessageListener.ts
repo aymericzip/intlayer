@@ -39,6 +39,8 @@ function ensureGlobalListener(
   selfId: string
 ) {
   if (windowListenerAttached) return;
+  if (!window) return;
+
   window.addEventListener('message', (event) => {
     const { type, data, senderId } = event.data ?? {};
     if (!type) return; // guard malformed messages

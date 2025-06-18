@@ -1,6 +1,6 @@
 <template>
   <ContentSelector
-    v-if="enabled"
+    v-if="editorEnabled?.enabled"
     @press="handleSelect"
     :isSelecting="isSelected"
   >
@@ -25,21 +25,25 @@ type Props = NodeProps & /* @vue-ignore */ Omit<HTMLAttributes, 'children'>;
 const props = defineProps<Props>();
 
 // pull in the editor state & focus API
-const { focusedContent, setFocusedContent } = useFocusDictionary();
-const { enabled } = useEditorEnabled();
+const focusDictionary = useFocusDictionary();
+const editorEnabled = useEditorEnabled();
 useEditor();
 
 // compute whether this node is the current focus
 const isSelected = computed(
   () =>
-    focusedContent.value?.dictionaryKey === props.dictionaryKey &&
-    (focusedContent.value.keyPath?.length ?? 0) > 0 &&
-    isSameKeyPath(focusedContent.value.keyPath ?? [], props.keyPath)
+    focusDictionary?.focusedContent.value?.dictionaryKey ===
+      props.dictionaryKey &&
+    (focusDictionary?.focusedContent.value.keyPath?.length ?? 0) > 0 &&
+    isSameKeyPath(
+      focusDictionary?.focusedContent.value.keyPath ?? [],
+      props.keyPath
+    )
 );
 
 // when the selector is clicked, update focus
 const handleSelect = () => {
-  setFocusedContent({
+  focusDictionary?.setFocusedContent({
     dictionaryKey: props.dictionaryKey,
     keyPath: props.keyPath,
   });
