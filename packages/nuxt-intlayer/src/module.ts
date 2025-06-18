@@ -3,7 +3,7 @@ import { getConfiguration } from '@intlayer/config';
 import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
 import { join, relative, resolve } from 'path';
-import { intLayerMiddlewarePlugin } from 'vite-intlayer';
+import { intLayerMiddlewarePlugin, IntlayerPrunePlugin } from 'vite-intlayer';
 
 // @ts-ignore fix instantiation is excessively deep and possibly infinite
 export const module: NuxtModule = defineNuxtModule({
@@ -13,6 +13,8 @@ export const module: NuxtModule = defineNuxtModule({
   setup({}, nuxt) {
     const configuration = getConfiguration();
 
+    const { mainDir, baseDir, configDir } = configuration.content;
+    const { optimize } = configuration.build;
     /**
      * -------------------------------------------------
      *  RUNTIME PLUGIN REGISTRATION
@@ -37,8 +39,12 @@ export const module: NuxtModule = defineNuxtModule({
     nuxt.hook('vite:extendConfig', (viteConfig, { isServer }) => {
       if (isServer) {
         // We only need the middleware on the server side during development
-        // @ts-ignore -- viteConfig.plugins can be undefined at this stage
+        // viteConfig.plugins can be undefined at this stage
         (viteConfig.plugins ?? []).push(intLayerMiddlewarePlugin());
+      }
+      if (optimize) {
+        // viteConfig.plugins can be undefined at this stage
+        viteConfig.plugins?.push(IntlayerPrunePlugin());
       }
     });
 
@@ -52,8 +58,6 @@ export const module: NuxtModule = defineNuxtModule({
         watch({ configuration });
       }
     });
-
-    const { mainDir, baseDir, configDir } = configuration.content;
 
     const dictionariesPath = join(mainDir, 'dictionaries.mjs');
     const relativeDictionariesPath = relative(baseDir, dictionariesPath);
