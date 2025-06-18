@@ -115,17 +115,20 @@ const startWatcher = () => {
     watcher.close(); // Close existing watcher before starting a new one
   }
 
-  watcher = chokidar.watch('**/*.{js,cjs,mjs,ts,jsx,tsx}', {
-    ignoreInitial: true,
-    ignored: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/build/**',
-      '**/.next/**',
-      '**/.intlayer/**',
-      '**/tsup.config.bundled_*.mjs',
-    ],
-  });
+  watcher = chokidar.watch(
+    '**/*.{js,cjs,mjs,ts,jsx,tsx,vue,json,md,yml,yaml,svelte}',
+    {
+      ignoreInitial: true,
+      ignored: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/build/**',
+        '**/.next/**',
+        '**/.intlayer/**',
+        '**/tsup.config.bundled_*.mjs',
+      ],
+    }
+  );
 
   watcher.on('change', (path) => {
     console.info(`[File changed] ${path}`);
