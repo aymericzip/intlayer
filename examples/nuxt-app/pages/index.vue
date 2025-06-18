@@ -15,13 +15,17 @@ useSeoMeta(meta);
 <template>
   <div>
     <a href="https://nuxt.com" target="_blank">
-      <img :src="`/nuxt.svg`" class="logo" :alt="nuxtLogo" />
+      <img :src="`/nuxt.svg`" class="logo" :alt="nuxtLogo.value" />
     </a>
     <a href="https://intlayer.org/" target="_blank">
-      <img :src="`/intlayer.svg`" class="logo intlayer" :alt="intlayerLogo" />
+      <img
+        :src="`/intlayer.svg`"
+        class="logo intlayer"
+        :alt="intlayerLogo.value"
+      />
     </a>
   </div>
-  <HelloWorld :msg="title" />
+  <HelloWorld :msg="title.value" />
   <LocaleSwitcher />
 </template>
 
