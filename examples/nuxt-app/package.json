@@ -7,14 +7,17 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "start:editor": "npx intlayer-editor start"
   },
   "dependencies": {
     "intlayer": "workspace:*",
     "nuxt": "^3.17.1",
-    "nuxt-intlayer": "workspace:*",
     "vue": "^3.5.13",
     "vue-intlayer": "workspace:*"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "intlayer-editor": "workspace:*",
+    "nuxt-intlayer": "workspace:*"
+  }
 }
