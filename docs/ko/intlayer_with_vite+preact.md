@@ -24,15 +24,18 @@ Intlayer를 사용하면 다음을 수행할 수 있습니다:
 npm을 사용하여 필요한 패키지를 설치하세요:
 
 ```bash packageManager="npm"
-npm install intlayer preact-intlayer vite-intlayer
+npm install intlayer preact-intlayer
+npm install --save-dev vite-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer preact-intlayer vite-intlayer
+pnpm add intlayer preact-intlayer
+pnpm add --save-dev vite-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer preact-intlayer vite-intlayer
+yarn add intlayer preact-intlayer
+yarn add --save-dev vite-intlayer
 ```
 
 - **intlayer**

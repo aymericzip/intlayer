@@ -20,15 +20,18 @@ With Intlayer, you can:
 From your React Native project, install the following packages:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer react-native-intlayer
+npm install intlayer react-intlayer
+npm install --save-dev react-native-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer react-native-intlayer
+pnpm add intlayer react-intlayer
+pnpm add --save-dev react-native-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer react-native-intlayer
+yarn add intlayer react-intlayer
+yarn add --save-dev react-native-intlayer
 ```
 
 ### Packages

@@ -18,15 +18,18 @@ Intlayer를 사용하면 다음을 수행할 수 있습니다:
 React Native 프로젝트에서 다음 패키지를 설치하세요:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer react-native-intlayer
+npm install intlayer react-intlayer
+npm install --save-dev react-native-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer react-native-intlayer
+pnpm add intlayer react-intlayer
+pnpm add --save-dev react-native-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer react-native-intlayer
+yarn add intlayer react-intlayer
+yarn add --save-dev react-native-intlayer
 ```
 
 ### 패키지

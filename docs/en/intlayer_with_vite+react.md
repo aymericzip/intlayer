@@ -22,15 +22,18 @@ With Intlayer, you can:
 Install the necessary packages using npm:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer vite-intlayer
+npm install intlayer react-intlayer
+npm install --save-dev vite-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer vite-intlayer
+pnpm add intlayer react-intlayer
+pnpm add --save-dev vite-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer vite-intlayer
+yarn add intlayer react-intlayer
+yarn add --save-dev vite-intlayer
 ```
 
 - **intlayer**

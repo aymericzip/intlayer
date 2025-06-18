@@ -22,15 +22,18 @@ Intlayer를 사용하면 다음을 수행할 수 있습니다:
 npm을 사용하여 필요한 패키지를 설치하세요:
 
 ```bash packageManager="npm"
-npm install intlayer vue-intlayer nuxt-intlayer
+npm install intlayer vue-intlayer
+npm install --save-dev nuxt-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-intlayer nuxt-intlayer
+pnpm add intlayer vue-intlayer
+pnpm add --save-dev nuxt-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-intlayer nuxt-intlayer
+yarn add intlayer vue-intlayer
+yarn add --save-dev nuxt-intlayer
 ```
 
 - **intlayer**

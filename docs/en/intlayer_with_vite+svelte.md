@@ -24,15 +24,18 @@ With Intlayer, you can:
 Install the necessary packages using npm:
 
 ```bash packageManager="npm"
-npm install intlayer svelte-intlayer vite-intlayer
+npm install intlayer svelte-intlayer
+npm install --save-dev vite-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer svelte-intlayer vite-intlayer
+pnpm add intlayer svelte-intlayer
+pnpm add --save-dev vite-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer svelte-intlayer vite-intlayer
+yarn add intlayer svelte-intlayer
+yarn add --save-dev vite-intlayer
 ```
 
 - **intlayer**

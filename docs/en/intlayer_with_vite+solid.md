@@ -24,15 +24,18 @@ With Intlayer, you can:
 Install the necessary packages using npm:
 
 ```bash packageManager="npm"
-npm install intlayer solid-intlayer vite-intlayer
+npm install intlayer solid-intlayer
+npm install --save-dev vite-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer solid-intlayer vite-intlayer
+pnpm add intlayer solid-intlayer
+pnpm add --save-dev vite-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer solid-intlayer vite-intlayer
+yarn add intlayer solid-intlayer
+yarn add --save-dev vite-intlayer
 ```
 
 - **intlayer**

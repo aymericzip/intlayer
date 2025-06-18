@@ -24,15 +24,18 @@ Intlayer के साथ, आप कर सकते हैं:
 npm का उपयोग करके आवश्यक पैकेज स्थापित करें:
 
 ```bash packageManager="npm"
-npm install intlayer vue-intlayer vite-intlayer
+npm install intlayer vue-intlayer
+npm install --save-dev vite-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer vue-intlayer vite-intlayer
+pnpm add intlayer vue-intlayer
+pnpm add --save-dev vite-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer vue-intlayer vite-intlayer
+yarn add intlayer vue-intlayer
+yarn add --save-dev vite-intlayer
 ```
 
 - **intlayer**
