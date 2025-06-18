@@ -84,9 +84,10 @@ const SearchResultItem: FC<{ doc: DocData; onClickLink: () => void }> = ({
   );
 };
 
-export const SearchView: FC<{ onClickLink?: () => void }> = ({
-  onClickLink = () => {},
-}) => {
+export const SearchView: FC<{
+  onClickLink?: () => void;
+  isOpen?: boolean;
+}> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { locale } = useLocale();
   const searchQuery = useSearchParams().get('search');
@@ -150,6 +151,12 @@ export const SearchView: FC<{ onClickLink?: () => void }> = ({
     // Call the original handleSearch directly for the initial search query from URL
     handleSearch(searchQuery);
   }, [searchQuery]); // Removed handleSearch from dependencies as it's stable now
+
+  useEffect(() => {
+    if (isOpen) {
+      inputRef.current?.focus();
+    }
+  }, [isOpen]);
 
   const isNoResult =
     !isLoading &&
