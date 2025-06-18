@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { useIntlayer } from 'vue-intlayer';
+import { useSeoMeta } from 'nuxt/app';
+import { useIntlayer, useLocale } from 'vue-intlayer';
+import { getIntlayer } from 'intlayer';
 
 // Use the useIntlayer composable to access translations
 const content = useIntlayer('home');
+
+const { locale } = useLocale();
+const meta = getIntlayer('home-meta', locale.value);
+useSeoMeta(meta);
 </script>
 
 <template>

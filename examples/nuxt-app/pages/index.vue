@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { useIntlayer } from 'vue-intlayer';
+import { useSeoMeta } from 'nuxt/app';
+import { getIntlayer } from 'intlayer';
+import { useIntlayer, useLocale } from 'vue-intlayer';
 import HelloWorld from '~/components/helloWorld/HelloWorld.vue';
 import LocaleSwitcher from '~/components/LocaleSwitcher.vue';
 
 const { nuxtLogo, intlayerLogo, title } = useIntlayer('root');
+
+const { locale } = useLocale();
+const meta = getIntlayer('root-meta', locale.value);
+useSeoMeta(meta);
 </script>
 
 <template>

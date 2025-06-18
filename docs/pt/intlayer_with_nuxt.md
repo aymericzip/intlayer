@@ -604,15 +604,16 @@ O Nuxt oferece excelentes capacidades de SEO. Você pode usar o Intlayer para ge
 
 ```vue fileName="pages/about.vue"
 <script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
+import { useSeoMeta } from "nuxt/app";
+import { getIntlayer } from "intlayer";
+import { useLocale } from "vue-intlayer";
 
-const content = useIntlayer("about-meta");
+const { locale } = useLocale();
+const content = getIntlayer("about-meta", locale.value);
 
 useSeoMeta({
   title: content.title,
   description: content.description,
-  ogTitle: content.title,
-  ogDescription: content.description,
 });
 </script>
 
@@ -626,8 +627,9 @@ useSeoMeta({
 
 Crie a declaração de conteúdo correspondente:
 
-```typescript fileName="pages/about-meta.content.ts"
+```typescript fileName="pages/about-meta.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
+import type { useSeoMeta } from "nuxt/app";
 
 const aboutMetaContent = {
   key: "about-meta",
@@ -644,22 +646,86 @@ const aboutMetaContent = {
       fr: "En savoir plus sur notre société et notre mission",
       es: "Conozca más sobre nuestra empresa y nuestra misión",
     }),
-    pageTitle: t({
-      pt: "Sobre Nós",
-      en: "About Us",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-    pageContent: t({
-      pt: "Somos uma empresa dedicada a...",
-      en: "We are a company dedicated to...",
-      fr: "Nous sommes une société dédiée à...",
-      es: "Somos una empresa dedicada a...",
-    }),
   },
-} satisfies Dictionary;
+} satisfies Dictionary<Parameters<typeof useSeoMeta>[0]>;
 
 export default aboutMetaContent;
+```
+
+```typescript fileName="pages/about-meta.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
+
+/** @type {import('intlayer').Dictionary} */
+const aboutMetaContent = {
+  key: "about-meta",
+  content: {
+    title: t({
+      pt: "Sobre Nós - Minha Empresa",
+      en: "About Us - My Company",
+      fr: "À Propos - Ma Société",
+      es: "Acerca de Nosotros - Mi Empresa",
+    }),
+    description: t({
+      pt: "Saiba mais sobre nossa empresa e nossa missão",
+      en: "Learn more about our company and our mission",
+      fr: "En savoir plus sur notre société et notre mission",
+      es: "Conozca más sobre nuestra empresa y nuestra misión",
+    }),
+  },
+};
+
+export default aboutMetaContent;
+```
+
+```typescript fileName="pages/about-meta.content.js" contentDeclarationFormat="cjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const aboutMetaContent = {
+  key: "about-meta",
+  content: {
+    title: t({
+      pt: "Sobre Nós - Minha Empresa",
+      en: "About Us - My Company",
+      fr: "À Propos - Ma Société",
+      es: "Acerca de Nosotros - Mi Empresa",
+    }),
+    description: t({
+      pt: "Saiba mais sobre nossa empresa e nossa missão",
+      en: "Learn more about our company and our mission",
+      fr: "En savoir plus sur notre société et notre mission",
+      es: "Conozca más sobre nuestra empresa y nuestra misión",
+    }),
+  },
+};
+
+module.exports = aboutMetaContent;
+```
+
+```json fileName="pages/about-meta.content.json" contentDeclarationFormat="json"
+{
+  "key": "about-meta",
+  "content": {
+    "title": {
+      "nodeType": "translation",
+      "translations": {
+        "pt": "Sobre Nós - Minha Empresa",
+        "en": "About Us - My Company",
+        "fr": "À Propos - Ma Société",
+        "es": "Acerca de Nosotros - Mi Empresa"
+      }
+    },
+    "description": {
+      "nodeType": "translation",
+      "translations": {
+        "pt": "Saiba mais sobre nossa empresa e nossa missão",
+        "en": "Learn more about our company and our mission",
+        "fr": "En savoir plus sur notre société et notre mission",
+        "es": "Conozca más sobre nuestra empresa y nuestra misión"
+      }
+    }
+  }
+}
 ```
 
 ### Configurar TypeScript
