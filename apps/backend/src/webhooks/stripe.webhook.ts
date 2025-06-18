@@ -1,3 +1,4 @@
+import type { Plan } from '@/types/plan.types';
 import { logger } from '@logger';
 import * as emailService from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';
@@ -11,7 +12,6 @@ import { GenericError } from '@utils/errors';
 import type { Request, Response } from 'express';
 import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
-import type { Plan } from '@/types/plan.types';
 
 type SubscriptionMetadata = {
   locale: Locales; // Localization setting (e.g., 'en', 'fr', 'es')
@@ -111,7 +111,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         to: user.email,
         email: user.email,
         cancellationDate: new Date(
-          subscription.current_period_end
+          (subscription as any).current_period_end * 1000
         ).toLocaleDateString(),
         reactivateLink: `${process.env.CLIENT_URL}/pricing`,
         username: user.name,
@@ -126,7 +126,10 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     invoice: Stripe.Invoice,
     status: 'active' | 'incomplete'
   ) => {
-    const subscriptionId = invoice.subscription as string; // Extract the subscription ID from the invoice
+    const subscriptionId =
+      typeof (invoice as any).subscription === 'string'
+        ? (invoice as any).subscription
+        : (invoice as any).subscription?.id; // Extract the subscription ID from the invoice
     if (!subscriptionId) {
       logger.warn('Subscription ID is undefined in invoice.');
       return;
