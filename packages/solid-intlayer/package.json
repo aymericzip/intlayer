@@ -68,6 +68,7 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
@@ -90,6 +91,7 @@
     "vite-plugin-dts": "^4.5.3"
   },
   "peerDependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
