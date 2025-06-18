@@ -1,5 +1,3 @@
-'use client';
-
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
 import { createMemo, type Component, type JSX } from 'solid-js';
 import { useIntlayerContext } from '../client';

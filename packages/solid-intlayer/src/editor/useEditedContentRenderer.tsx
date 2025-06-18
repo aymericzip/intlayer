@@ -1,5 +1,3 @@
-'use client';
-
 import { Locales } from '@intlayer/config/client';
 import { getContent, type KeyPath } from '@intlayer/core';
 import type { Component } from 'solid-js';

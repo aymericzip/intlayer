@@ -1,5 +1,3 @@
-'use client';
-
 import { type MessageKey, compareUrls } from '@intlayer/editor';
 import { onCleanup, onMount } from 'solid-js';
 import { useCommunicator } from './CommunicatorContext';

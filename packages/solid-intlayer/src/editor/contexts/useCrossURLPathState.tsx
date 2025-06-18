@@ -1,5 +1,3 @@
-'use client';
-
 import { MessageKey } from '@intlayer/editor';
 import { onCleanup, onMount } from 'solid-js';
 import {

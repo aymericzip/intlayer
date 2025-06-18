@@ -1,5 +1,3 @@
-'use client';
-
 import type { Dictionary } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import {

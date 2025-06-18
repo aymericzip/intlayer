@@ -1,5 +1,3 @@
-'use client';
-
 import { IntlayerEventListener } from '@intlayer/api';
 import configuration from '@intlayer/config/built';
 import { onCleanup, onMount, type Component, type ParentProps } from 'solid-js';

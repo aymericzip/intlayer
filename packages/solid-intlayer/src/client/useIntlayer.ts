@@ -1,5 +1,3 @@
-'use client';
-
 import type { LocalesValues } from '@intlayer/config/client';
 import type { DictionaryKeys } from '@intlayer/core';
 import { createMemo, useContext } from 'solid-js';

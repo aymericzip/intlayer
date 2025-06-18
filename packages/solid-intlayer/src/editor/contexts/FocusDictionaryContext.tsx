@@ -1,5 +1,3 @@
-'use client';
-
 import type { KeyPath } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import {

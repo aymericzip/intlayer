@@ -1,5 +1,3 @@
-'use client';
-
 import { LocalesValues } from '@intlayer/config/client';
 import {
   ContentNode,

@@ -1,5 +1,3 @@
-'use client';
-
 import { MessageKey, mergeIframeClick } from '@intlayer/editor';
 import { onCleanup, onMount } from 'solid-js';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';

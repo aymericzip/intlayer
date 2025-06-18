@@ -1,5 +1,3 @@
-'use client';
-
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
 import { createEffect, useContext } from 'solid-js';

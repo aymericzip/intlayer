@@ -1,5 +1,3 @@
-'use client';
-
 import configuration from '@intlayer/config/built';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';

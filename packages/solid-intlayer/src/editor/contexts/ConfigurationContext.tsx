@@ -1,5 +1,3 @@
-'use client';
-
 import { type IntlayerConfig } from '@intlayer/config/client';
 import { MessageKey } from '@intlayer/editor';
 import {
