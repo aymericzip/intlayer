@@ -1,5 +1,3 @@
-'use client';
-
 import { type MessageKey, compareUrls } from '@intlayer/editor';
 import {
   getCurrentInstance,
