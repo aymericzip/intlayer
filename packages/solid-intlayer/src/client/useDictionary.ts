@@ -1,26 +1,32 @@
-import type { LocalesValues } from '@intlayer/config/client';
-import { Dictionary } from '@intlayer/core';
-import { createEffect, createMemo, createSignal } from 'solid-js';
-import { getDictionary } from '../getDictionary';
-import { useIntlayerContext } from './installIntlayer';
+'use client';
 
+import type { LocalesValues } from '@intlayer/config/client';
+import type { Dictionary } from '@intlayer/core';
+import { createMemo, useContext } from 'solid-js';
+import { useChangedContent } from '../editor/contexts';
+import { getDictionary } from '../getDictionary';
+import { IntlayerClientContext } from './IntlayerProvider';
+
+/**
+ * On the client side, Hook that transform a dictionary and return the content
+ *
+ * If the locale is not provided, it will use the locale from the client context
+ */
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,
   locale?: LocalesValues
-): any => {
-  const intlayer = useIntlayerContext();
+) => {
+  const context = useContext(IntlayerClientContext);
+  const { changedContent } = useChangedContent();
 
-  /** which locale should we use right now? */
-  const localeTarget = createMemo(() => locale ?? intlayer.locale());
+  return createMemo(() => {
+    const localeTarget = locale ?? context?.locale?.();
 
-  /** a reactive signal for the content */
-  const [content, setContent] = createSignal<any>({});
+    if (changedContent?.[dictionary.key]) {
+      // @ts-ignore fix instantiation is excessively deep and possibly infinite
+      return getDictionary(changedContent?.[dictionary.key], localeTarget);
+    }
 
-  /** whenever `dictionary` or `locale` change, refresh the content */
-  createEffect(() => {
-    const next = getDictionary(dictionary, localeTarget());
-    setContent(next as any);
+    return getDictionary<T, LocalesValues>(dictionary, localeTarget);
   });
-
-  return content();
 };

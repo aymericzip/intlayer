@@ -1,35 +1,51 @@
+import {
+  IntlayerProvider,
+  MarkdownProvider,
+  useIntlayer,
+} from 'solid-intlayer';
 import { createSignal } from 'solid-js';
 import './App.css';
 import solidLogo from './assets/solid.svg';
 import viteLogo from '/vite.svg';
 
-function App() {
+const AppContent = () => {
   const [count, setCount] = createSignal(0);
+  const content = useIntlayer('app');
+  const {
+    viteAndVue,
+    viteLogoLabel,
+    solidLogoLabel,
+    countIs,
+    editSrcAppTsx,
+    readTheDocs,
+  } = content();
 
   return (
     <>
       <div>
         <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
+          <img src={viteLogo} class="logo" alt={viteLogoLabel.value} />
         </a>
         <a href="https://solidjs.com" target="_blank">
-          <img src={solidLogo} class="logo solid" alt="Solid logo" />
+          <img src={solidLogo} class="logo solid" alt={solidLogoLabel.value} />
         </a>
       </div>
-      <h1>Vite + Solid</h1>
+      <h1>{viteAndVue}</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count()}
+          {/* {countIs({ count: count() })} */}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        {/* <p>{editSrcAppTsx}</p> */}
       </div>
-      <p class="read-the-docs">
-        Click on the Vite and Solid logos to learn more
-      </p>
+      {/* <p class="read-the-docs">{readTheDocs}</p> */}
     </>
   );
-}
+};
 
-export default App;
+export const App = () => (
+  <IntlayerProvider>
+    <MarkdownProvider renderMarkdown={(content) => <div>{content}</div>}>
+      <AppContent />
+    </MarkdownProvider>
+  </IntlayerProvider>
+);

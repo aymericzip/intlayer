@@ -1,14 +1,14 @@
 import {
-  DictionaryKeys,
+  type DictionaryKeys,
+  type Plugins,
   getIntlayer as getIntlayerCore,
-  Plugins,
 } from '@intlayer/core';
-// @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector, LocalesValues } from 'intlayer';
 import {
-  DeepTransformContent,
+  type DeepTransformContent,
   intlayerNodePlugins,
   markdownPlugin,
+  solidNodePlugins,
 } from './plugins';
 
 export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
@@ -18,6 +18,7 @@ export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
 ) => {
   const plugins: Plugins[] = [
     intlayerNodePlugins,
+    solidNodePlugins,
     markdownPlugin,
     ...(additionalPlugins ?? []),
   ];
