@@ -1,6 +1,6 @@
 <template>
   <ContentSelector
-    v-if="editorEnabled?.enabled"
+    v-if="editorEnabled?.enabled.value"
     @press="handleSelect"
     :isSelecting="isSelected"
   >
@@ -27,6 +27,7 @@ const props = defineProps<Props>();
 // pull in the editor state & focus API
 const focusDictionary = useFocusDictionary();
 const editorEnabled = useEditorEnabled();
+
 useEditor();
 
 // compute whether this node is the current focus
