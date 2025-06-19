@@ -72,10 +72,10 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "js-cookie": "^3.0.5",
-    "vite-plugin-solid": "^2.11.6"
+    "js-cookie": "^3.0.5"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.15.30",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
@@ -88,14 +88,14 @@
     "rimraf": "^6.0.1",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
-    "vite-plugin-dts": "^4.5.3"
+    "vite-plugin-dts": "^4.5.3",
+    "vite-plugin-solid": "^2.11.6"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "@types/js-cookie": "^3.0.6",
     "solid-js": "^1.9.5"
   },
   "engines": {

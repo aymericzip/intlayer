@@ -1,9 +1,9 @@
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import fg from 'fast-glob';
 import { fileURLToPath } from 'node:url';
 import { extname, relative } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import solidPlugin from 'vite-plugin-solid';
 
 import packageJson from './package.json' with { type: 'json' };
 
@@ -30,7 +30,7 @@ const external: string[] = [
   ...Object.keys(packageJson.devDependencies),
   '@intlayer/config/built',
   '@intlayer/config/client',
-  'solid-js',
+  'svelte',
 ];
 
 const globals = {
@@ -39,9 +39,9 @@ const globals = {
 
 export default defineConfig({
   resolve: {
-    // **DEDUPE** Solid so that all imports of "solid-js" in your lib
+    // **DEDUPE** Svelte so that all imports of "svelte" in your lib
     // and in the consumer app resolve to the same copy.
-    dedupe: ['solid-js'],
+    dedupe: ['svelte'],
     extensions: [
       '.mjs',
       '.js',
@@ -53,7 +53,7 @@ export default defineConfig({
     ],
   },
   plugins: [
-    solidPlugin(),
+    svelte(),
     dts({
       entryRoot: 'src',
       exclude: ['**/*.stories.*', '**/*.test.*'],
@@ -72,7 +72,7 @@ export default defineConfig({
     minify: true,
     lib: {
       entry,
-      name: 'SolidIntlayer',
+      name: 'SvelteIntlayer',
     },
     rollupOptions: {
       // external,

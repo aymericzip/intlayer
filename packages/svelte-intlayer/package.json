@@ -56,11 +56,9 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm build:package & pnpm build:types",
-    "build:package": "tsup",
-    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "build": "vite build",
     "clean": "rimraf ./dist",
-    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
+    "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
@@ -70,13 +68,15 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@intlayer/chokidar": "workspace:*",
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "js-cookie": "^3.0.5"
   },
   "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.1.0",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.15.30",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
@@ -87,16 +87,16 @@
     "eslint": "^9.28.0",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
-    "tsc-alias": "^1.8.16",
-    "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.3"
   },
   "peerDependencies": {
-    "@intlayer/chokidar": "workspace:*",
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "svelte": "^5.23.1"
+    "svelte": ">=5.0.0"
   },
   "engines": {
     "node": ">=14.18"

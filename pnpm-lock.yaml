@@ -3238,19 +3238,16 @@ importers:
       '@intlayer/editor':
         specifier: workspace:*
         version: link:../@intlayer/editor
-      '@types/js-cookie':
-        specifier: ^3.0.6
-        version: 3.0.6
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
       solid-js:
         specifier: ^1.9.5
         version: 1.9.7
-      vite-plugin-solid:
-        specifier: ^2.11.6
-        version: 2.11.6(@testing-library/jest-dom@6.6.3)(solid-js@1.9.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
     devDependencies:
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/node':
         specifier: ^22.15.30
         version: 22.15.32
@@ -3290,12 +3287,15 @@ importers:
       vite-plugin-dts:
         specifier: ^4.5.3
         version: 4.5.4(@types/node@22.15.32)(rollup@4.43.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
+      vite-plugin-solid:
+        specifier: ^2.11.6
+        version: 2.11.6(@testing-library/jest-dom@6.6.3)(solid-js@1.9.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
 
   packages/svelte-intlayer:
     dependencies:
-      '@intlayer/chokidar':
+      '@intlayer/api':
         specifier: workspace:*
-        version: link:../@intlayer/chokidar
+        version: link:../@intlayer/api
       '@intlayer/config':
         specifier: workspace:*
         version: link:../@intlayer/config
@@ -3309,9 +3309,15 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5
       svelte:
-        specifier: ^5.23.1
-        version: 5.34.3
+        specifier: '>=5.0.0'
+        version: 5.34.7
     devDependencies:
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^5.1.0
+        version: 5.1.0(svelte@5.34.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/node':
         specifier: ^22.15.30
         version: 22.15.32
@@ -3342,15 +3348,15 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
-      tsc-alias:
-        specifier: ^1.8.16
-        version: 1.8.16
-      tsup:
-        specifier: ^8.5.0
-        version: 8.5.0(@microsoft/api-extractor@7.52.8(@types/node@22.15.32))(@swc/core@1.12.1(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.6)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vite:
+        specifier: ^6.3.5
+        version: 6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
+      vite-plugin-dts:
+        specifier: ^4.5.3
+        version: 4.5.4(@types/node@22.15.32)(rollup@4.43.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
 
   packages/vite-intlayer:
     dependencies:
@@ -30061,6 +30067,13 @@ packages:
       }
     engines: { node: '>=18' }
 
+  svelte@5.34.7:
+    resolution:
+      {
+        integrity: sha512-5PEg+QQKce4t1qiOtVUhUS3AQRTtxJyGBTpxLcNWnr0Ve8q4r06bMo0Gv8uhtCPWlztZHoi3Ye7elLhu+PCTMg==,
+      }
+    engines: { node: '>=18' }
+
   svg-parser@2.0.4:
     resolution:
       {
@@ -39809,6 +39822,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.1.0(svelte@5.34.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)))(svelte@5.34.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))':
+    dependencies:
+      '@sveltejs/vite-plugin-svelte': 5.1.0(svelte@5.34.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
+      debug: 4.4.1
+      svelte: 5.34.7
+      vite: 6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
+    transitivePeerDependencies:
+      - supports-color
+
   '@sveltejs/vite-plugin-svelte@5.1.0(svelte@5.34.3)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))':
     dependencies:
       '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.1.0(svelte@5.34.3)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)))(svelte@5.34.3)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
@@ -39817,6 +39839,19 @@ snapshots:
       kleur: 4.1.5
       magic-string: 0.30.17
       svelte: 5.34.3
+      vite: 6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
+      vitefu: 1.0.6(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
+    transitivePeerDependencies:
+      - supports-color
+
+  '@sveltejs/vite-plugin-svelte@5.1.0(svelte@5.34.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))':
+    dependencies:
+      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.1.0(svelte@5.34.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)))(svelte@5.34.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
+      debug: 4.4.1
+      deepmerge: 4.3.1
+      kleur: 4.1.5
+      magic-string: 0.30.17
+      svelte: 5.34.7
       vite: 6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
       vitefu: 1.0.6(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
     transitivePeerDependencies:
@@ -43123,7 +43158,7 @@ snapshots:
       postcss-modules-scope: 3.2.1(postcss@8.5.6)
       postcss-modules-values: 4.0.0(postcss@8.5.6)
       postcss-value-parser: 4.2.0
-      semver: 7.7.1
+      semver: 7.7.2
     optionalDependencies:
       '@rspack/core': 1.3.12(@swc/helpers@0.5.17)
       webpack: 5.98.0(@swc/core@1.12.1(@swc/helpers@0.5.17))(esbuild@0.25.4)
@@ -46758,7 +46793,7 @@ snapshots:
       '@babel/parser': 7.27.5
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
-      semver: 7.7.1
+      semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
 
@@ -49698,7 +49733,7 @@ snapshots:
     dependencies:
       hosted-git-info: 8.1.0
       proc-log: 5.0.0
-      semver: 7.7.1
+      semver: 7.7.2
       validate-npm-package-name: 6.0.1
 
   npm-packlist@9.0.0:
@@ -49710,7 +49745,7 @@ snapshots:
       npm-install-checks: 7.1.1
       npm-normalize-package-bin: 4.0.0
       npm-package-arg: 12.0.2
-      semver: 7.7.1
+      semver: 7.7.2
 
   npm-pick-manifest@9.1.0:
     dependencies:
@@ -50848,7 +50883,7 @@ snapshots:
       cosmiconfig: 9.0.0(typescript@5.7.3)
       jiti: 1.21.7
       postcss: 8.5.2
-      semver: 7.7.1
+      semver: 7.7.2
     optionalDependencies:
       '@rspack/core': 1.3.12(@swc/helpers@0.5.17)
       webpack: 5.98.0(@swc/core@1.12.1(@swc/helpers@0.5.17))(esbuild@0.25.4)
@@ -53891,6 +53926,23 @@ snapshots:
       - picomatch
 
   svelte@5.34.3:
+    dependencies:
+      '@ampproject/remapping': 2.3.0
+      '@jridgewell/sourcemap-codec': 1.5.0
+      '@sveltejs/acorn-typescript': 1.0.5(acorn@8.15.0)
+      '@types/estree': 1.0.8
+      acorn: 8.15.0
+      aria-query: 5.3.2
+      axobject-query: 4.1.0
+      clsx: 2.1.1
+      esm-env: 1.2.2
+      esrap: 1.4.9
+      is-reference: 3.0.3
+      locate-character: 3.0.0
+      magic-string: 0.30.17
+      zimmerframe: 1.1.2
+
+  svelte@5.34.7:
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@jridgewell/sourcemap-codec': 1.5.0
