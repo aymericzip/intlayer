@@ -63,6 +63,9 @@ const config: IntlayerConfig = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
+  content: {
+    contentDir: ["."],
+  },
 };
 
 export default config;
@@ -82,6 +85,9 @@ const config = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
+  content: {
+    contentDir: ["."],
+  },
 };
 
 export default config;
@@ -100,6 +106,9 @@ const config = {
       // Ihre weiteren Sprachen
     ],
     defaultLocale: Locales.ENGLISH,
+  },
+  content: {
+    contentDir: ["."],
   },
 };
 

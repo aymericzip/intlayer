@@ -63,6 +63,9 @@ const config: IntlayerConfig = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
+  content: {
+    contentDir: ["."], // Because by default Intayer will watch content declaration files from the `./src` directory
+  },
 };
 
 export default config;
@@ -82,6 +85,9 @@ const config = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
+  content: {
+    contentDir: ["."],
+  },
 };
 
 export default config;
@@ -100,6 +106,9 @@ const config = {
       // Your other locales
     ],
     defaultLocale: Locales.ENGLISH,
+  },
+  content: {
+    contentDir: ["."],
   },
 };
 
