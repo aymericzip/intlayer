@@ -232,47 +232,44 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
----
-
+```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/\*_ @type {import('intlayer').Dictionary} _/
-const appContent = {
-key: "helloworld",
-content: {
-count: t({ fr: "le compte est ", en: "count is ", es: "el recuento es " }),
-edit: t({
-fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-}),
-checkOut: t({ fr: "Vérifiez ", en: "Check out ", es: "Compruebe " }),
-officialStarter: t({
-fr: "le starter officiel Vue + Vite",
-en: "the official Vue + Vite starter",
-es: "el starter oficial Vue + Vite",
-}),
-learnMore: t({
-fr: "En savoir plus sur le support IDE pour Vue dans le ",
-en: "Learn more about IDE Support for Vue in the ",
-es: "Aprenda más sobre el soporte IDE para Vue en el ",
-}),
-vueDocs: t({
-fr: "Vue Docs Scaling up Guide",
-en: "Vue Docs Scaling up Guide",
-es: "Vue Docs Scaling up Guide",
-}),
-readTheDocs: t({
-fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-en: "Click on the Vite and Vue logos to learn more",
-es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-}),
-},
+/* @type {import('intlayer').Dictionary} */ const appContent = {
+  key: "helloworld",
+  content: {
+    count: t({ fr: "le compte est ", en: "count is ", es: "el recuento es " }),
+    edit: t({
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    }),
+    checkOut: t({ fr: "Vérifiez ", en: "Check out ", es: "Compruebe " }),
+    officialStarter: t({
+      fr: "le starter officiel Vue + Vite",
+      en: "the official Vue + Vite starter",
+      es: "el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      en: "Learn more about IDE Support for Vue in the ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      fr: "Vue Docs Scaling up Guide",
+      en: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
+    readTheDocs: t({
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      en: "Click on the Vite and Vue logos to learn more",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 };
 
 module.exports = appContent;
-
-````
+```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
@@ -337,7 +334,7 @@ module.exports = appContent;
     }
   }
 }
-````
+```
 
 > Vos déclarations de contenu peuvent être définies n'importe où dans votre application tant qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 

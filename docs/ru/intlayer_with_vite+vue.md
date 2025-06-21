@@ -262,50 +262,60 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
+```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/\*_ @type {import('intlayer').Dictionary} _/
+/** @type {import('intlayer').Dictionary} */
 const appContent = {
-key: "helloworld",
-content: {
-count: t({ ru: "счет равен ", en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-edit: t({
-ru: "Редактируйте <code>components/HelloWorld.vue</code> и сохраните для тестирования HMR",
-en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-}),
-checkOut: t({ ru: "Проверьте ", en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-officialStarter: t({
-ru: "официальный стартер Vue + Vite",
-en: "the official Vue + Vite starter",
-fr: "le starter officiel Vue + Vite",
-es: "el starter oficial Vue + Vite",
-}),
-learnMore: t({
-ru: "Узнайте больше о поддержке IDE для Vue в ",
-en: "Learn more about IDE Support for Vue in the ",
-fr: "En savoir plus sur le support IDE pour Vue dans le ",
-es: "Aprenda más sobre el soporte IDE para Vue en el ",
-}),
-vueDocs: t({
-ru: "Руководство по масштабированию Vue Docs",
-en: "Vue Docs Scaling up Guide",
-fr: "Vue Docs Scaling up Guide",
-es: "Vue Docs Scaling up Guide",
-}),
-readTheDocs: t({
-ru: "Нажмите на логотипы Vite и Vue, чтобы узнать больше",
-en: "Click on the Vite and Vue logos to learn more",
-fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-}),
-},
+  key: "helloworld",
+  content: {
+    count: t({
+      ru: "счет равен ",
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+    edit: t({
+      ru: "Редактируйте <code>components/HelloWorld.vue</code> и сохраните для тестирования HMR",
+      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+    }),
+    checkOut: t({
+      ru: "Проверьте ",
+      en: "Check out ",
+      fr: "Vérifiez ",
+      es: "Compruebe ",
+    }),
+    officialStarter: t({
+      ru: "официальный стартер Vue + Vite",
+      en: "the official Vue + Vite starter",
+      fr: "le starter officiel Vue + Vite",
+      es: "el starter oficial Vue + Vite",
+    }),
+    learnMore: t({
+      ru: "Узнайте больше о поддержке IDE для Vue в ",
+      en: "Learn more about IDE Support for Vue in the ",
+      fr: "En savoir plus sur le support IDE pour Vue dans le ",
+      es: "Aprenda más sobre el soporte IDE para Vue en el ",
+    }),
+    vueDocs: t({
+      ru: "Руководство по масштабированию Vue Docs",
+      en: "Vue Docs Scaling up Guide",
+      fr: "Vue Docs Scaling up Guide",
+      es: "Vue Docs Scaling up Guide",
+    }),
+    readTheDocs: t({
+      ru: "Нажмите на логотипы Vite и Vue, чтобы узнать больше",
+      en: "Click on the Vite and Vue logos to learn more",
+      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    }),
+  },
 };
 
 module.exports = appContent;
-
-````
+```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
 {
@@ -377,7 +387,7 @@ module.exports = appContent;
     }
   }
 }
-````
+```
 
 > Ваши декларации контента могут быть определены в любом месте вашего приложения, если они включены в каталог `contentDir` (по умолчанию, `./src`) и соответствуют расширению файла декларации контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
