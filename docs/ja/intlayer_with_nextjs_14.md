@@ -245,6 +245,8 @@ module.exports = LocaleLayout;
 
 > `[locale]`パスセグメントはロケールを定義するために使用されます。例：`/en-US/about`は`en-US`を参照し、`/fr/about`は`fr`を参照します。
 
+> この段階で、`Error: Missing <html> and <body> tags in the root layout.` というエラーが発生します。これは予想されるもので、`/app/page.tsx` ファイルがもはや使用されておらず、削除できるためです。代わりに、`[locale]` パスセグメントが `/app/[locale]/page.tsx` ページをアクティブにします。その結果、ページはブラウザで `/en`、`/fr`、`/es` などのパスを通じてアクセス可能になります。デフォルトのロケールをルートページとして設定するには、ステップ7の `middleware` 設定を参照してください。
+
 次に、アプリケーションレイアウトに`generateStaticParams`関数を実装します。
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"

@@ -239,6 +239,8 @@ module.exports = LocaleLayout;
 
 > El segmento de ruta `[locale]` se utiliza para definir el local. Ejemplo: `/en-US/about` se referirá a `en-US` y `/fr/about` a `fr`.
 
+> En esta etapa, encontrarás el error: `Error: Missing <html> and <body> tags in the root layout.`. Esto es esperado porque el archivo `/app/page.tsx` ya no se utiliza y puede ser eliminado. En su lugar, el segmento de ruta `[locale]` activará la página `/app/[locale]/page.tsx`. Como resultado, las páginas serán accesibles a través de rutas como `/en`, `/fr`, `/es` en tu navegador. Para establecer el local predeterminado como la página raíz, consulta la configuración de `middleware` en el paso 7.
+
 Luego, implementa la función `generateStaticParams` en el diseño de tu aplicación.
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"

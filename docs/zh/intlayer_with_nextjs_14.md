@@ -201,6 +201,8 @@ module.exports = {
 
 > 保持 `RootLayout` 组件为空，可以为 `<html>` 标签设置 [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) 和 [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) 属性。
 
+> 在此阶段，您将遇到错误：`Error: Missing <html> and <body> tags in the root layout.`。这是预期的，因为 `/app/page.tsx` 文件不再使用，可以删除。相反，`[locale]` 路径段将激活 `/app/[locale]/page.tsx` 页面。因此，页面可以通过浏览器中的 `/en`、`/fr`、`/es` 等路径访问。要将默认语言设置为根页面，请参阅步骤 4 中的 `middleware` 设置。
+
 要实现动态路由，请通过在 `[locale]` 目录中添加一个新布局来提供语言路径：
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"

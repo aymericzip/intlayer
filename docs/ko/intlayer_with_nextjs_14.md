@@ -245,6 +245,8 @@ module.exports = LocaleLayout;
 
 > `[locale]` 경로 세그먼트는 로케일을 정의하는 데 사용됩니다. 예: `/en-US/about`는 `en-US`를, `/fr/about`는 `fr`을 참조합니다.
 
+> 이 단계에서는 `Error: Missing <html> and <body> tags in the root layout.`라는 오류가 발생할 수 있습니다. 이는 `/app/page.tsx` 파일이 더 이상 사용되지 않으며 제거될 수 있기 때문에 예상된 것입니다. 대신 `[locale]` 경로 세그먼트가 `/app/[locale]/page.tsx` 페이지를 활성화합니다. 따라서 페이지는 브라우저에서 `/en`, `/fr`, `/es`와 같은 경로를 통해 액세스할 수 있습니다. 기본 로케일을 루트 페이지로 설정하려면 4단계의 `middleware` 설정을 참조하세요.
+
 그런 다음, 애플리케이션 레이아웃에 `generateStaticParams` 함수를 구현합니다.
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"

@@ -239,6 +239,8 @@ module.exports = LocaleLayout;
 
 > O segmento de caminho `[locale]` é usado para definir a localidade. Exemplo: `/en-US/about` se referirá a `en-US` e `/fr/about` a `fr`.
 
+> Nesta etapa, você encontrará o erro: `Erro: Faltam as tags <html> e <body> no layout raiz.`. Isso é esperado porque o arquivo `/app/page.tsx` não está mais em uso e pode ser removido. Em vez disso, o segmento de caminho `[locale]` ativará a página `/app/[locale]/page.tsx`. Consequentemente, as páginas estarão acessíveis por meio de caminhos como `/en`, `/fr`, `/es` no seu navegador. Para definir a localidade padrão como a página raiz, consulte a configuração do `middleware` no passo 7.
+
 Em seguida, implemente a função `generateStaticParams` no Layout da sua aplicação.
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"

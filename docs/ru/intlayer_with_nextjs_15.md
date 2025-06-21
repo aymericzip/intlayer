@@ -235,12 +235,9 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
 };
 ```
 
-module.exports = LocaleLayout;
-
-````
-
-
 > Сегмент пути `[locale]` используется для определения локали. Пример: `/en-US/about` будет относиться к `en-US`, а `/fr/about` к `fr`.
+
+> На этом этапе вы столкнетесь с ошибкой: `Ошибка: Отсутствуют теги <html> и <body> в корневом макете.`. Это ожидаемо, так как файл `/app/page.tsx` больше не используется и может быть удален. Вместо этого сегмент пути `[locale]` активирует страницу `/app/[locale]/page.tsx`. Таким образом, страницы будут доступны по путям, таким как `/en`, `/fr`, `/es` в вашем браузере. Чтобы установить локаль по умолчанию в качестве корневой страницы, обратитесь к настройке `middleware` на шаге 7.
 
 Затем реализуйте функцию `generateStaticParams` в макете вашего приложения.
 
@@ -252,7 +249,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-````
+```
 
 ```jsx {1} fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
 export { generateStaticParams } from "next-intlayer"; // Строка для вставки

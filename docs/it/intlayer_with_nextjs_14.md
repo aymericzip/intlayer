@@ -245,6 +245,8 @@ module.exports = LocaleLayout;
 
 > Il segmento di percorso `[locale]` è utilizzato per definire la lingua. Esempio: `/en-US/about` si riferirà a `en-US` e `/fr/about` a `fr`.
 
+> In questa fase, incontrerai l'errore: `Error: Missing <html> and <body> tags in the root layout.`. Questo è previsto perché il file `/app/page.tsx` non è più in uso e può essere rimosso. Invece, il segmento di percorso `[locale]` attiverà la pagina `/app/[locale]/page.tsx`. Di conseguenza, le pagine saranno accessibili tramite percorsi come `/en`, `/fr`, `/es` nel tuo browser. Per impostare la lingua predefinita come pagina principale, fai riferimento alla configurazione del `middleware` nel passo 4.
+
 Poi, implementa la funzione `generateStaticParams` nel layout della tua applicazione.
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"

@@ -245,6 +245,8 @@ module.exports = LocaleLayout;
 
 > Das `[locale]`-Pfadsegment wird verwendet, um die Sprache zu definieren. Beispiel: `/en-US/about` bezieht sich auf `en-US` und `/fr/about` auf `fr`.
 
+> In diesem Stadium werden Sie auf den Fehler stoßen: `Error: Missing <html> and <body> tags in the root layout.`. Dies ist zu erwarten, da die Datei `/app/page.tsx` nicht mehr verwendet wird und entfernt werden kann. Stattdessen wird das `[locale]`-Pfadsegment die Seite `/app/[locale]/page.tsx` aktivieren. Folglich sind Seiten über Pfade wie `/en`, `/fr`, `/es` in Ihrem Browser zugänglich. Um die Standardsprache als Root-Seite festzulegen, beziehen Sie sich auf die `middleware`-Einrichtung in Schritt 4.
+
 Dann implementieren Sie die Funktion `generateStaticParams` in Ihrem Anwendungs-Layout.
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"

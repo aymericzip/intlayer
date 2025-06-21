@@ -245,6 +245,8 @@ module.exports = LocaleLayout;
 
 > The `[locale]` path segment is used to define the locale. Example: `/en-GB/about` will refer to `en-GB` and `/fr/about` to `fr`.
 
+> At this stage, you will encounter the error: `Error: Missing <html> and <body> tags in the root layout.`. This is expected because the `/app/page.tsx` file is no longer in use and can be removed. Instead, the `[locale]` path segment will activate the `/app/[locale]/page.tsx` page. Consequently, pages will be accessible via paths like `/en`, `/fr`, `/es` in your browser. To set the default locale as the root page, refer to the `middleware` setup in step 4.
+
 Then, implement the `generateStaticParams` function in your application Layout.
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"

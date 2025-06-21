@@ -252,6 +252,8 @@ module.exports = LocaleLayout;
 
 > `[locale]` पथ खंड का उपयोग लोकेल को परिभाषित करने के लिए किया जाता है। उदाहरण: `/en-US/about` `en-US` को संदर्भित करेगा और `/fr/about` `fr` को।
 
+> इस चरण में, आपको त्रुटि का सामना करना पड़ेगा: `Error: Missing <html> and <body> tags in the root layout.`। यह अपेक्षित है क्योंकि `/app/page.tsx` फ़ाइल अब उपयोग में नहीं है और इसे हटाया जा सकता है। इसके बजाय, `[locale]` पथ खंड `/app/[locale]/page.tsx` पृष्ठ को सक्रिय करेगा। परिणामस्वरूप, पृष्ठ आपके ब्राउज़र में `/en`, `/fr`, `/es` जैसे पथों के माध्यम से सुलभ होंगे। डिफ़ॉल्ट लोकेल को रूट पृष्ठ के रूप में सेट करने के लिए, चरण 4 में `middleware` सेटअप देखें।
+
 फिर, अपने एप्लिकेशन लेआउट में `generateStaticParams` फ़ंक्शन लागू करें।
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"

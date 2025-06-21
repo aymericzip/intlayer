@@ -239,6 +239,8 @@ module.exports = LocaleLayout;
 
 > يتم استخدام جزء المسار `[locale]` لتحديد اللغة. مثال: `/en-US/about` سيشير إلى `en-US` و `/fr/about` إلى `fr`.
 
+> في هذه المرحلة، ستواجه الخطأ: `Error: Missing <html> and <body> tags in the root layout.`. هذا متوقع لأن ملف `/app/page.tsx` لم يعد قيد الاستخدام ويمكن إزالته. بدلاً من ذلك، سيقوم جزء المسار `[locale]` بتفعيل صفحة `/app/[locale]/page.tsx`. وبالتالي، ستكون الصفحات متاحة عبر مسارات مثل `/en`، `/fr`، `/es` في متصفحك. لتعيين اللغة الافتراضية كصفحة الجذر، ارجع إلى إعداد `middleware` في الخطوة 7.
+
 ثم قم بتنفيذ وظيفة `generateStaticParams` في تخطيط تطبيقك.
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
