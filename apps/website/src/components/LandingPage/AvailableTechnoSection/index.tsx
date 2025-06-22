@@ -81,7 +81,7 @@ export const AvailableTechnoSection: FC = () => {
         {scroll ? availableOn : null}
       </h2>
       <div
-        className={`flex flex-row justify-evenly gap-6 p-6 flex-wrap border ${scroll ? 'w-1/3' : 'w-3/4 h-76 md:h-96'}`}
+        className={`flex flex-row justify-evenly sm:gap-2 sm:p-2 lg:gap-6 lg:p-6 flex-wrap ${scroll ? 'w-1/3' : 'w-3/4 h-76 md:h-96'}`}
       >
         {/* 1-ViteLogo */}
         <motion.div
@@ -98,7 +98,7 @@ export const AvailableTechnoSection: FC = () => {
             label={vite.label.value}
           >
             <ViteLogo
-              className={`${scroll ? 'h-20' : 'mt-[-50px] h-20 sm:h-35'}`}
+              className={`${scroll ? 'h-20' : 'mt-[-50px] h-15 sm:h-35'}`}
             />
           </Link>
         </motion.div>
@@ -176,7 +176,7 @@ export const AvailableTechnoSection: FC = () => {
             label={vite.label.value}
           >
             <VuejsLogo
-              className={`${scroll ? 'h-20' : 'mt-[-70px] md:mt-[-50px] h-20'}`}
+              className={`${scroll ? 'h-20' : 'mt-[-70px] md:mt-[-50px] h-15 sm:h-20'}`}
             />
           </Link>
         </motion.div>
@@ -195,7 +195,9 @@ export const AvailableTechnoSection: FC = () => {
             color="custom"
             label={vite.label.value}
           >
-            <NuxtLogo className={`h-20 ${scroll ? null : 'mt-[120px]'}`} />
+            <NuxtLogo
+              className={`${scroll ? 'h-20' : 'md:mt-[-30px] lg:mt-[120px] h-15 sm:h-20'}`}
+            />
           </Link>
         </motion.div>
       </div>
@@ -205,7 +207,7 @@ export const AvailableTechnoSection: FC = () => {
         {scroll ? commingSoon : null}
       </h2>
       <div
-        className={`flex flex-row justify-evenly gap-6 p-6 flex-wrap border ${scroll ? 'w-1/3 md:w-1/2' : 'w-3/4'}`}
+        className={`flex flex-row justify-evenly gap-6 p-6 flex-wrap ${scroll ? 'w-1/3 md:w-1/2' : 'w-3/4'}`}
       >
         {/* 7-SolidLogo */}
         <motion.div
@@ -242,7 +244,7 @@ export const AvailableTechnoSection: FC = () => {
             label={vite.label.value}
           >
             <SvelteLogo
-              className={`grayscale-60 max-h-full opacity-50 ${scroll ? 'h-20' : 'mt-[-100px] md:mt-[-50px] h-20 sm:h-25 md:h-30'}`}
+              className={`grayscale-60 max-h-full opacity-50 ${scroll ? 'h-20' : 'md:mt-[-50px] lg:mt-[-100px] h-20 sm:h-25 md:h-30'}`}
             />
           </Link>
         </motion.div>
