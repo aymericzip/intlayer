@@ -1287,6 +1287,8 @@ const fequentQuestions = {
   get_locale_cookie: require('./en/frequent_questions/get_locale_cookie.md'),
   ssr_next_no_locale: require('./en/frequent_questions/SSR_Next_no_[locale].md'),
   array_as_content_declaration: require('./en/frequent_questions/array_as_content_declaration.md'),
+  translated_path_url: require('./en/frequent_questions/translated_path_url.md'),
+  customized_locale_list: require('./en/frequent_questions/customized_locale_list.md'),
 };
 
 const getFequentQuestions = () =>
