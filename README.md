@@ -18,41 +18,29 @@
 
 # Intlayer: A tailored way to translate your website
 
-Intlayer offers a more flexible and modern approach to **internationalization** (i18n). Its seamless integration with **Next.js**, **React**, **Vite** and **Express**, customizable configuration, and support for various content declaration formats, such as **TypeScript** make it a powerful choice for internationalization.
+Intlayer offers a more flexible and modern approach to **internationalization** (i18n). Its seamless integration with **Next.js**, **React**, **Vite** and **Express**, customizable configuration, and support for various Content declaration formats, such as **TypeScript** make it a powerful choice for internationalization.
 
 ![Watch the video](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
 
 ### Key Benefits of Intlayer:
 
-- **Effortless Dictionary**  
-  Organize and maintain your multilingual content efficiently by declaring content dictionaries directly alongside your components. This not only reduces complexity but also improves maintainability.  
-  [Learn more about content declaration](https://intlayer.org/doc/concept/content)
-
-- **Seamless Integration with Next.js, React, and Express**  
-  Intlayer is designed to work flawlessly with Next.js and React, supporting features like server-side rendering, dynamic routing, and client-side rendering. This makes it the perfect choice for developers building modern web applications.  
-  [Explore Next.js integration](https://intlayer.org/doc/environment/nextjs)  
-  [Explore React integration](https://intlayer.org/doc/environment/create-react-app)
-  [Explore Express integration](https://intlayer.org/doc/environment/express)
-
-- **Simplified Content Management for Non-Developers**  
-  With the command `npm intlayer push`, you can externalize content management, making it accessible to non-developer teams. Intlayer includes a free Content Management System (CMS), enabling your team to manage translations effortlessly.  
-  [Learn about Intlayer CLI](https://intlayer.org/doc/concept/cli)
-
-- **AI-Powered Translation**  
-  Transform your website into 231 languages with just one click using Intlayer's advanced AI-powered translation tools. This feature simplifies the translation process and ensures global reach.  
-  [Learn about Intlayer CLI](https://intlayer.org/doc/concept/cli)  
-  [Learn about Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md)
-
-- **Optimized for Server Components**  
-  Intlayer seamlessly supports React Server Components, enabling efficient internationalization in modern server-rendered applications. This ensures faster load times and improved SEO performance while maintaining a consistent multilingual experience across your app.  
-  [Learn more about Server Components](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)
-
-- **Enhanced Developer Experience with TypeScript**  
-  With full TypeScript support, Intlayer enables type-safe content definitions, improving code quality and boosting developer productivity.
-
-- **Powerful Customization Options**  
-  Tailor Intlayer to meet your project's unique needs. Adjust settings for internationalization, middleware, and content handling with ease.  
-  [Discover how to configure Intlayer](https://intlayer.org/doc/concept/configuration)
+| Feature                                                                                                          | Description                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.png)       | **JavaScript-Powered Content Management**<br><br>Harness the flexibility of JavaScript to define and manage your content efficiently. <br><br> - [Content declaration](https://intlayer.org/doc/concept/content)                                                                                                                                                                               |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png) | **Per-Locale Content Declaration File**<br><br>Speed up your development by declaring your content once, before auto generation. <br><br> - [Per-Locale Content Declaration File](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                            |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)                      | **Type-Safe Environment**<br><br>Leverage TypeScript to ensure your content definitions and code are error-free, while also benefiting from IDE autocompletion.<br><br> - [TypeScript configuration](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                 |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png)                         | **Simplified Setup**<br><br>Get up and running quickly with minimal configuration. Adjust settings for internationalization, routing, AI, build, and content handling with ease. <br><br> - [Explore Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                         |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png)                   | **Simplified Content Retrieval**<br><br>No need to call your `t` function for each piece of content; retrieve all your content directly using a single hook. <br><br> - [React integration](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                             |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png)                    | **Consistent Server Component Implementation**<br><br>Perfectly suited for Next.js server components, use the same implementation for both client and server components, no need to pass your `t` function across each server component. <br><br> - [Server Components](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                                       |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png)                           | **Organized Codebase**<br><br>Keep your codebase more organized: 1 component = 1 dictionary in the same folder. Translations close to their respective components, enhance maintainability and clarity. <br><br> - [How Intlayer works](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                                   |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png)                         | **Enhanced Routing**<br><br>Full support for Next.js app routing, adapting seamlessly to complex application structures. <br><br> - [Explore Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                 |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png)                            | **Markdown Support**<br><br>Import and interpret markdown files for multilingual content like privacy policies. <br><br> - [Content files](https://intlayer.org/doc/concept/content/file)                                                                                                                                                                                                      |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.png)                       | **Free Visual Editor & CMS**<br><br>A free visual editor and CMS are available for content writers, removing the need for a localization platform. <br><br> - [Intlayer Editor](https://intlayer.org/doc/concept/editor) <br> - [Intlayer CMS](https://intlayer.org/doc/concept/cms)                                                                                                           |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png)                              | **Tree-shakable Content**<br><br>The content is tree-shakable, which lightens the final bundle. <br><br> - [App build optimization](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                                                                                                                                                                                |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png)                    | **Static Rendering**<br><br>Intlayer doesn't block Static Rendering as other solutions do. <br><br> - [Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                       |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png)                      | **AI-Powered Translation**<br><br>Transform your website into 231 languages with just one click using Intlayer's advanced AI-powered translation tools using your own AI provider / API key. <br><br> - [CI/CD integration](https://intlayer.org/doc/concept/ci-cd) <br> - [Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [Auto fill](https://intlayer.org/doc/concept/auto-fill) |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png)                                 | **MCP Server Integration**<br><br>Provides an MCP (Model Context Protocol) server for IDE automation, enabling seamless content management and i18n workflows directly within your development environment. <br><br> - [MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md)                                                                                    |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png)                    | **Interoperability**<br><br>Allow interoperability with react-i18next, next-i18next, next-intl, and react-intl. <br><br> - [Intlayer and react-intl](https://intlayer.org//blog/intlayer-with-react-intl) <br> - [Intlayer and next-intl](https://intlayer.org//blog/intlayer-with-next-intl) <br> - [Intlayer and next-i18next](https://intlayer.org//blog/intlayer-with-next-i18next)        |
 
 Start your journey with Intlayer today and experience a smoother, more powerful approach to internationalization.  
 [Get Started with Intlayer](https://intlayer.org/doc/concept/content)
@@ -96,79 +84,12 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 - [Intlayer with Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md)
 - [Intlayer with React Native](https://intlayer.org/fr/doc/environment/react-native-and-expo)
 - [Intlayer with Lynx and React](https://intlayer.org/fr/doc/environment/lynx-and-react)
+- [Intlayer with Vite and Svelte](https://intlayer.org/doc/environment/vite-and-svelte)
+- [Intlayer with Vite and Preact](https://intlayer.org/doc/environment/vite-and-preact)
+- [Intlayer with Vite and Vue](https://intlayer.org/doc/environment/vite-and-vue)
+- [Intlayer with Vite and Solid](https://intlayer.org/doc/environment/vite-and-solid)
+- [Intlayer with Angular](https://intlayer.org/doc/environment/angular)
 - [Intlayer with Express](https://intlayer.org/doc/environment/express)
-
-### Packages
-
-#### intlayer
-
-- [Package](https://intlayer.org/doc/packages/intlayer)
-  - [getConfiguration](https://intlayer.org/doc/packages/intlayer/getConfiguration)
-  - [getHTMLTextDir](https://intlayer.org/doc/packages/intlayer/getHTMLTextDir)
-  - [getLocaleLang](https://intlayer.org/doc/packages/intlayer/getLocaleLang)
-  - [getLocaleName](https://intlayer.org/doc/packages/intlayer/getLocaleName)
-  - [getLocalizedUrl](https://intlayer.org/doc/packages/intlayer/getLocalizedUrl)
-  - [getMultilingualUrls](https://intlayer.org/doc/packages/intlayer/getMultilingualUrls)
-  - [getPathWithoutLocale](https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale)
-  - [getTranslation](https://intlayer.org/doc/packages/intlayer/getTranslation)
-  - [getEnumeration](https://intlayer.org/doc/packages/intlayer/getEnumeration)
-
-#### express-intlayer
-
-- [Package](https://intlayer.org/doc/packages/express-intlayer)
-  - [t](https://intlayer.org/doc/packages/express-intlayer/t)
-
-#### react-intlayer
-
-- [Package](https://intlayer.org/doc/packages/react-intlayer)
-  - [t](https://intlayer.org/doc/packages/react-intlayer/t)
-  - [useIntlayer](https://intlayer.org/doc/packages/react-intlayer/useIntlayer)
-  - [useDictionary](https://intlayer.org/doc/packages/react-intlayer/useDictionary)
-  - [useLocale](https://intlayer.org/doc/packages/react-intlayer/useLocale)
-
-#### next-intlayer
-
-- [Package](https://intlayer.org/doc/packages/next-intlayer)
-  - [t](https://intlayer.org/doc/packages/next-intlayer/t)
-  - [useIntlayer](https://intlayer.org/doc/packages/next-intlayer/useIntlayer)
-  - [useDictionary](https://intlayer.org/doc/packages/next-intlayer/useDictionary)
-  - [useLocale](https://intlayer.org/doc/packages/next-intlayer/useLocale)
-
-#### vite-intlayer
-
-- [Package](https://intlayer.org/doc/packages/vite-intlayer)
-
-#### lynx-intlayer
-
-- [Package](https://intlayer.org/doc/packages/lynx-intlayer)
-
-#### react-native-intlayer
-
-- [Package](https://intlayer.org/doc/packages/react-native-intlayer)
-
-#### react-scripts-intlayer
-
-- [Package](https://intlayer.org/doc/packages/react-scripts-intlayer)
-
-#### vue-intlayer
-
-- [Package](https://intlayer.org/doc/packages/vue-intlayer)
-
-#### svelte-intlayer
-
-- [Package](https://intlayer.org/doc/packages/svelte-intlayer)
-
-#### solid-intlayer
-
-- [Package](https://intlayer.org/doc/packages/solid-intlayer)
-
-#### angular-intlayer
-
-- [Package](https://intlayer.org/doc/packages/angular-intlayer)
-
-#### preact-intlayer
-
-- [Package](https://intlayer.org/doc/packages/preact-intlayer)
 
 ### Blog
 
@@ -187,4 +108,4 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 ### Contribution
 
-For more detailed guidelines on contributing to this project, please refer to the `CONTRIBUTING.md` file. It contains essential information on our development process, commit message conventions, and release procedures. Your contributions are valuable to us, and we appreciate your efforts in making this project better!
+For more detailed guidelines on contributing to this project, please refer to the [`CONTRIBUTING.md`](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md) file. It contains essential information on our development process, commit message conventions, and release procedures. Your contributions are valuable to us, and we appreciate your efforts in making this project better!

@@ -81,14 +81,13 @@ export const AvailableTechnoSection: FC = () => {
         {scroll ? availableOn : null}
       </h2>
       <div
-        className={`flex flex-row justify-evenly sm:gap-2 sm:p-2 lg:gap-6 lg:p-6 flex-wrap ${scroll ? 'w-1/3' : 'w-3/4 h-76 md:h-96'}`}
+        className={`mt-[30px] grid justify-items-center grid-cols-3  w-2/3 h-76 
+        ${scroll ? 'gap-0 p-0 sm:w-1/3' : 'gap-2 p-2 md:h-96'}`}
       >
         {/* 1-ViteLogo */}
         <motion.div
           animate={scroll ? { y: 0 } : floatUp}
-          className={
-            scroll ? 'basis-1/4 flex-shrink-0 flex justify-center' : null
-          }
+          className="w-[70px] h-[70px] flex-shrink-0 flex justify-center"
           layout
           transition={{ type: 'spring', stiffness: 50, damping: 20 }}
         >
@@ -97,38 +96,14 @@ export const AvailableTechnoSection: FC = () => {
             color="custom"
             label={vite.label.value}
           >
-            <ViteLogo
-              className={`${scroll ? 'h-20' : 'mt-[-50px] h-15 sm:h-35'}`}
-            />
+            <ViteLogo className={`h-20 ${scroll ? '' : 'sm:scale-150'}`} />
           </Link>
         </motion.div>
 
-        {/* 2-NextJSLogo */}
-        <motion.div
-          animate={scroll ? { y: 0 } : floatDown}
-          className={
-            scroll ? 'basis-1/4 flex-shrink-0 flex justify-center' : null
-          }
-          layout
-          transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-        >
-          <Link
-            href={PagesRoutes.Doc_Environment_NextJS_15}
-            color="custom"
-            label={nextjs.label.value}
-          >
-            <NextJSLogo
-              className={`${scroll ? 'h-20' : 'mt-[100px] h-15 sm:h-20'}`}
-            />
-          </Link>
-        </motion.div>
-
-        {/* 3-ReactLogo */}
+        {/* 2-ReactLogo */}
         <motion.div
           animate={scroll ? { y: 0 } : floatUp}
-          className={
-            scroll ? 'basis-1/4 flex-shrink-0 flex justify-center' : null
-          }
+          className="w-[70px] h-[70px] flex-shrink-0 flex justify-center"
           layout
           transition={{ type: 'spring', stiffness: 50, damping: 20 }}
         >
@@ -138,35 +113,15 @@ export const AvailableTechnoSection: FC = () => {
             label={react.label.value}
           >
             <ReactLogo
-              className={`${scroll ? 'h-20' : 'mt-[-100px] md:mt-[-50px] h-20 sm:h-30 md:h-35'}`}
+              className={`h-20 ${scroll ? '' : 'sm:scale-200 sm:mt-[-50px]'}`}
             />
           </Link>
         </motion.div>
 
-        {/* 4-PreactLogo */}
-        <motion.div
-          animate={scroll ? { y: 0 } : floatUp}
-          className={
-            scroll ? 'basis-1/4 flex-shrink-0 flex justify-center' : null
-          }
-          layout
-          transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-        >
-          <Link
-            href={PagesRoutes.Doc_Environment_ViteAndPreact}
-            color="custom"
-            label={vite.label.value}
-          >
-            <PreactLogo className={`h-20 ${scroll ? null : 'mt-[100px]'}`} />
-          </Link>
-        </motion.div>
-
-        {/* 5-VuejsLogo  */}
+        {/* 3-VuejsLogo  */}
         <motion.div
           animate={scroll ? { y: 0 } : floatDown}
-          className={
-            scroll ? 'basis-1/4 flex-shrink-0 flex justify-center' : null
-          }
+          className="w-[70px] h-[70px] flex-shrink-0 flex justify-center"
           layout
           transition={{ type: 'spring', stiffness: 50, damping: 20 }}
         >
@@ -176,17 +131,33 @@ export const AvailableTechnoSection: FC = () => {
             label={vite.label.value}
           >
             <VuejsLogo
-              className={`${scroll ? 'h-20' : 'mt-[-70px] md:mt-[-50px] h-15 sm:h-20'}`}
+              className={`h-17 ${scroll ? '' : 'sm:mt-[-30px] sm:scale-150'}`}
             />
           </Link>
         </motion.div>
 
-        {/* 6-NuxtLogo */}
+        {/* 4-NextJSLogo */}
         <motion.div
           animate={scroll ? { y: 0 } : floatDown}
-          className={
-            scroll ? 'basis-1/4 flex-shrink-0 flex justify-center' : null
-          }
+          className="w-[70px] h-[70px] flex-shrink-0 flex justify-center"
+          layout
+          transition={{ type: 'spring', stiffness: 50, damping: 20 }}
+        >
+          <Link
+            href={PagesRoutes.Doc_Environment_NextJS_15}
+            color="custom"
+            label={nextjs.label.value}
+          >
+            <NextJSLogo
+              className={`h-15 ${scroll ? '' : 'sm:scale-125 sm:ml-[100px]'}`}
+            />
+          </Link>
+        </motion.div>
+
+        {/* 5-PreactLogo */}
+        <motion.div
+          animate={scroll ? { y: 0 } : floatUp}
+          className="w-[70px] h-[70px] flex-shrink-0 flex justify-center"
           layout
           transition={{ type: 'spring', stiffness: 50, damping: 20 }}
         >
@@ -195,9 +166,25 @@ export const AvailableTechnoSection: FC = () => {
             color="custom"
             label={vite.label.value}
           >
-            <NuxtLogo
-              className={`${scroll ? 'h-20' : 'md:mt-[-30px] lg:mt-[120px] h-15 sm:h-20'}`}
+            <PreactLogo
+              className={`h-17 ${scroll ? '' : 'sm:ml-[100px] sm:mt-[60px]'}`}
             />
+          </Link>
+        </motion.div>
+
+        {/* 6-NuxtLogo */}
+        <motion.div
+          animate={scroll ? { y: 0 } : floatDown}
+          className="w-[70px] h-[70px] flex-shrink-0 flex justify-center"
+          layout
+          transition={{ type: 'spring', stiffness: 50, damping: 20 }}
+        >
+          <Link
+            href={PagesRoutes.Doc_Environment_ViteAndPreact}
+            color="custom"
+            label={vite.label.value}
+          >
+            <NuxtLogo className={`h-17`} />
           </Link>
         </motion.div>
       </div>
@@ -207,14 +194,13 @@ export const AvailableTechnoSection: FC = () => {
         {scroll ? commingSoon : null}
       </h2>
       <div
-        className={`flex flex-row justify-evenly gap-6 p-6 flex-wrap ${scroll ? 'w-1/3 md:w-1/2' : 'w-3/4'}`}
+        className={`mt-[30px] grid justify-items-center grid-cols-3 w-2/3 h-56
+         ${scroll ? 'gap-0 p-0 sm:w-1/3' : 'gap-2 p-2 md:h-56'}`}
       >
         {/* 7-SolidLogo */}
         <motion.div
           animate={scroll ? { y: 0 } : floatUp}
-          className={
-            scroll ? 'basis-1/4 flex-shrink-0 flex justify-center' : null
-          }
+          className="w-[70px] h-[70px] flex justify-center flex-shrink-0"
           layout
           transition={{ type: 'spring', stiffness: 50, damping: 20 }}
         >
@@ -224,16 +210,16 @@ export const AvailableTechnoSection: FC = () => {
             color="custom"
             label={vite.label.value}
           >
-            <SolidLogo className="grayscale-60 max-h-full opacity-50 h-20" />
+            <SolidLogo
+              className={`grayscale-60 max-h-full opacity-50 h-20 ${scroll ? '' : 'sm:mt-[30px]'}`}
+            />
           </Link>
         </motion.div>
 
         {/* 8-SvelteLogo */}
         <motion.div
           animate={scroll ? { y: 0 } : floatDown}
-          className={
-            scroll ? 'basis-1/4 flex-shrink-0 flex justify-center' : null
-          }
+          className="w-[70px] h-[70px] flex justify-center flex-shrink-0"
           layout
           transition={{ type: 'spring', stiffness: 50, damping: 20 }}
         >
@@ -244,7 +230,7 @@ export const AvailableTechnoSection: FC = () => {
             label={vite.label.value}
           >
             <SvelteLogo
-              className={`grayscale-60 max-h-full opacity-50 ${scroll ? 'h-20' : 'md:mt-[-50px] lg:mt-[-100px] h-20 sm:h-25 md:h-30'}`}
+              className={`grayscale-60 max-h-full opacity-50 h-20 ${scroll ? '' : 'sm:scale-150'}`}
             />
           </Link>
         </motion.div>
@@ -252,9 +238,7 @@ export const AvailableTechnoSection: FC = () => {
         {/* 9-AngularLogo */}
         <motion.div
           animate={scroll ? { y: 0 } : floatUp}
-          className={
-            scroll ? 'basis-1/4 flex-shrink-0 flex justify-center' : null
-          }
+          className="w-[70px] h-[70px] flex justify-center flex-shrink-0"
           layout
           transition={{ type: 'spring', stiffness: 50, damping: 20 }}
         >
@@ -265,7 +249,7 @@ export const AvailableTechnoSection: FC = () => {
             label={vite.label.value}
           >
             <AngularLogo
-              className={`grayscale-60 max-h-full opacity-50 h-20 ${scroll ? null : 'mr-[100px]'}`}
+              className={`grayscale-60 max-h-full opacity-50 h-20 ${scroll ? '' : 'sm:mt-[30px]'}`}
             />
           </Link>
         </motion.div>
