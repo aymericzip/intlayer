@@ -33,6 +33,7 @@
     }
   ],
   "sideEffects": false,
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",

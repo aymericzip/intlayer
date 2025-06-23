@@ -34,7 +34,7 @@ const external: string[] = [
 ];
 
 const globals = {
-  vue: 'Vue',
+  svelte: 'Svelte',
 };
 
 export default defineConfig({
@@ -42,15 +42,7 @@ export default defineConfig({
     // **DEDUPE** Svelte so that all imports of "svelte" in your lib
     // and in the consumer app resolve to the same copy.
     dedupe: ['svelte'],
-    extensions: [
-      '.mjs',
-      '.js',
-      '.ts',
-      '.jsx',
-      '.tsx',
-      '.json',
-      '.vue', // enable resolving imports like './UI/ContentSelector.vue' :contentReference[oaicite:1]{index=1}:contentReference[oaicite:2]{index=2}
-    ],
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.svelte'],
   },
   plugins: [
     svelte(),
@@ -77,7 +69,7 @@ export default defineConfig({
     rollupOptions: {
       // external,
       external: (id) => {
-        return external.includes(id) || /^vue/.test(id);
+        return external.includes(id) || /^svelte/.test(id);
       },
       output: [
         {
