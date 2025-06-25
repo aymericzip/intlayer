@@ -11,6 +11,7 @@ export const packageBuildOrder = [
   'packages/@intlayer/babel',
   'packages/@intlayer/swc',
   'packages/@intlayer/editor-react',
+  'docs',
   'packages/@intlayer/mcp',
   'packages/intlayer-cli',
   'packages/intlayer',
@@ -30,5 +31,4 @@ export const packageBuildOrder = [
   'packages/lynx-intlayer',
   'packages/@intlayer/design-system',
   'packages/intlayer-editor',
-  'docs',
 ];
