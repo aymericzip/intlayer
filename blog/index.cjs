@@ -1,287 +1,88 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { Locales } = require('@intlayer/config');
+const { localeRecord: localeRecordCore } = require('@intlayer/core');
 
 /**
  * This condition is a hack to import markdown files either in node or in the browser
  */
 if (require.extensions) {
   require.extensions['.md'] = (module, filename) => {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
     module.exports = require('fs').readFileSync(filename, 'utf8');
   };
 }
 
+const localeList = [
+  Locales.ENGLISH,
+  Locales.FRENCH,
+  Locales.SPANISH,
+  Locales.GERMAN,
+  Locales.ARABIC,
+  Locales.ITALIAN,
+  Locales.ENGLISH_UNITED_KINGDOM,
+  Locales.PORTUGUESE,
+  Locales.HINDI,
+  Locales.JAPANESE,
+  Locales.KOREAN,
+  Locales.CHINESE,
+];
+const defaultLocale = Locales.ENGLISH;
+
+const localeRecord = (mapper) =>
+  localeRecordCore(mapper, localeList, defaultLocale);
+
 const blogs = {
-  index: {
-    en: require('./en/index.md'),
-    fr: require('./fr/index.md'),
-    es: require('./es/index.md'),
-    'en-GB': require('./en-GB/index.md'),
-    de: require('./de/index.md'),
-    hi: require('./hi/index.md'),
-    it: require('./it/index.md'),
-    ja: require('./ja/index.md'),
-    ko: require('./ko/index.md'),
-    pt: require('./pt/index.md'),
-    ru: require('./ru/index.md'),
-    zh: require('./zh/index.md'),
-    ar: require('./ar/index.md'),
-  },
-  what_is_internationalization: {
-    en: require('./en/what_is_internationalization.md'),
-    fr: require('./fr/what_is_internationalization.md'),
-    es: require('./es/what_is_internationalization.md'),
-    'en-GB': require('./en-GB/what_is_internationalization.md'),
-    de: require('./de/what_is_internationalization.md'),
-    hi: require('./hi/what_is_internationalization.md'),
-    it: require('./it/what_is_internationalization.md'),
-    ja: require('./ja/what_is_internationalization.md'),
-    ko: require('./ko/what_is_internationalization.md'),
-    pt: require('./pt/what_is_internationalization.md'),
-    ru: require('./ru/what_is_internationalization.md'),
-    zh: require('./zh/what_is_internationalization.md'),
-    ar: require('./ar/what_is_internationalization.md'),
-  },
-  internationalization_and_SEO: {
-    en: require('./en/internationalization_and_SEO.md'),
-    fr: require('./fr/internationalization_and_SEO.md'),
-    es: require('./es/internationalization_and_SEO.md'),
-    'en-GB': require('./en-GB/internationalization_and_SEO.md'),
-    de: require('./de/internationalization_and_SEO.md'),
-    hi: require('./hi/internationalization_and_SEO.md'),
-    it: require('./it/internationalization_and_SEO.md'),
-    ja: require('./ja/internationalization_and_SEO.md'),
-    ko: require('./ko/internationalization_and_SEO.md'),
-    pt: require('./pt/internationalization_and_SEO.md'),
-    ru: require('./ru/internationalization_and_SEO.md'),
-    zh: require('./zh/internationalization_and_SEO.md'),
-    ar: require('./ar/internationalization_and_SEO.md'),
-  },
-  'intlayer_with_next-i18next': {
-    en: require('./en/intlayer_with_next-i18next.md'),
-    fr: require('./fr/intlayer_with_next-i18next.md'),
-    es: require('./es/intlayer_with_next-i18next.md'),
-    'en-GB': require('./en-GB/intlayer_with_next-i18next.md'),
-    de: require('./de/intlayer_with_next-i18next.md'),
-    hi: require('./hi/intlayer_with_next-i18next.md'),
-    it: require('./it/intlayer_with_next-i18next.md'),
-    ja: require('./ja/intlayer_with_next-i18next.md'),
-    ko: require('./ko/intlayer_with_next-i18next.md'),
-    pt: require('./pt/intlayer_with_next-i18next.md'),
-    ru: require('./ru/intlayer_with_next-i18next.md'),
-    zh: require('./zh/intlayer_with_next-i18next.md'),
-    ar: require('./ar/intlayer_with_next-i18next.md'),
-  },
-  'intlayer_with_next-intl': {
-    en: require('./en/intlayer_with_next-intl.md'),
-    fr: require('./fr/intlayer_with_next-intl.md'),
-    es: require('./es/intlayer_with_next-intl.md'),
-    'en-GB': require('./en-GB/intlayer_with_next-intl.md'),
-    de: require('./de/intlayer_with_next-intl.md'),
-    hi: require('./hi/intlayer_with_next-intl.md'),
-    it: require('./it/intlayer_with_next-intl.md'),
-    ja: require('./ja/intlayer_with_next-intl.md'),
-    ko: require('./ko/intlayer_with_next-intl.md'),
-    pt: require('./pt/intlayer_with_next-intl.md'),
-    ru: require('./ru/intlayer_with_next-intl.md'),
-    zh: require('./zh/intlayer_with_next-intl.md'),
-    ar: require('./ar/intlayer_with_next-intl.md'),
-  },
-  'intlayer_with_react-i18next': {
-    en: require('./en/intlayer_with_react-i18next.md'),
-    fr: require('./fr/intlayer_with_react-i18next.md'),
-    es: require('./es/intlayer_with_react-i18next.md'),
-    'en-GB': require('./en-GB/intlayer_with_react-i18next.md'),
-    de: require('./de/intlayer_with_react-i18next.md'),
-    hi: require('./hi/intlayer_with_react-i18next.md'),
-    it: require('./it/intlayer_with_react-i18next.md'),
-    ja: require('./ja/intlayer_with_react-i18next.md'),
-    ko: require('./ko/intlayer_with_react-i18next.md'),
-    pt: require('./pt/intlayer_with_react-i18next.md'),
-    ru: require('./ru/intlayer_with_react-i18next.md'),
-    zh: require('./zh/intlayer_with_react-i18next.md'),
-    ar: require('./ar/intlayer_with_react-i18next.md'),
-  },
-  'intlayer_with_react-intl': {
-    en: require('./en/intlayer_with_react-intl.md'),
-    fr: require('./fr/intlayer_with_react-intl.md'),
-    es: require('./es/intlayer_with_react-intl.md'),
-    'en-GB': require('./en-GB/intlayer_with_react-intl.md'),
-    de: require('./de/intlayer_with_react-intl.md'),
-    hi: require('./hi/intlayer_with_react-intl.md'),
-    it: require('./it/intlayer_with_react-intl.md'),
-    ja: require('./ja/intlayer_with_react-intl.md'),
-    ko: require('./ko/intlayer_with_react-intl.md'),
-    pt: require('./pt/intlayer_with_react-intl.md'),
-    ru: require('./ru/intlayer_with_react-intl.md'),
-    zh: require('./zh/intlayer_with_react-intl.md'),
-    ar: require('./ar/intlayer_with_react-intl.md'),
-  },
-  'next-i18next_vs_next-intl_vs_intlayer': {
-    en: require('./en/next-i18next_vs_next-intl_vs_intlayer.md'),
-    fr: require('./fr/next-i18next_vs_next-intl_vs_intlayer.md'),
-    es: require('./es/next-i18next_vs_next-intl_vs_intlayer.md'),
-    'en-GB': require('./en-GB/next-i18next_vs_next-intl_vs_intlayer.md'),
-    de: require('./de/next-i18next_vs_next-intl_vs_intlayer.md'),
-    hi: require('./hi/next-i18next_vs_next-intl_vs_intlayer.md'),
-    it: require('./it/next-i18next_vs_next-intl_vs_intlayer.md'),
-    ja: require('./ja/next-i18next_vs_next-intl_vs_intlayer.md'),
-    ko: require('./ko/next-i18next_vs_next-intl_vs_intlayer.md'),
-    pt: require('./pt/next-i18next_vs_next-intl_vs_intlayer.md'),
-    ru: require('./ru/next-i18next_vs_next-intl_vs_intlayer.md'),
-    zh: require('./zh/next-i18next_vs_next-intl_vs_intlayer.md'),
-    ar: require('./ar/next-i18next_vs_next-intl_vs_intlayer.md'),
-  },
-  'react-i18next_vs_react-intl_vs_intlayer': {
-    en: require('./en/react-i18next_vs_react-intl_vs_intlayer.md'),
-    fr: require('./fr/react-i18next_vs_react-intl_vs_intlayer.md'),
-    es: require('./es/react-i18next_vs_react-intl_vs_intlayer.md'),
-    'en-GB': require('./en-GB/react-i18next_vs_react-intl_vs_intlayer.md'),
-    de: require('./de/react-i18next_vs_react-intl_vs_intlayer.md'),
-    hi: require('./hi/react-i18next_vs_react-intl_vs_intlayer.md'),
-    it: require('./it/react-i18next_vs_react-intl_vs_intlayer.md'),
-    ja: require('./ja/react-i18next_vs_react-intl_vs_intlayer.md'),
-    ko: require('./ko/react-i18next_vs_react-intl_vs_intlayer.md'),
-    pt: require('./pt/react-i18next_vs_react-intl_vs_intlayer.md'),
-    ru: require('./ru/react-i18next_vs_react-intl_vs_intlayer.md'),
-    zh: require('./zh/react-i18next_vs_react-intl_vs_intlayer.md'),
-    ar: require('./ar/react-i18next_vs_react-intl_vs_intlayer.md'),
-  },
-  list_i18n_technologies__frameworks__angular: {
-    en: require('./en/list_i18n_technologies/frameworks/angular.md'),
-    fr: require('./fr/list_i18n_technologies/frameworks/angular.md'),
-    es: require('./es/list_i18n_technologies/frameworks/angular.md'),
-    'en-GB': require('./en-GB/list_i18n_technologies/frameworks/angular.md'),
-    de: require('./de/list_i18n_technologies/frameworks/angular.md'),
-    hi: require('./hi/list_i18n_technologies/frameworks/angular.md'),
-    it: require('./it/list_i18n_technologies/frameworks/angular.md'),
-    ja: require('./ja/list_i18n_technologies/frameworks/angular.md'),
-    ko: require('./ko/list_i18n_technologies/frameworks/angular.md'),
-    pt: require('./pt/list_i18n_technologies/frameworks/angular.md'),
-    ru: require('./ru/list_i18n_technologies/frameworks/angular.md'),
-    zh: require('./zh/list_i18n_technologies/frameworks/angular.md'),
-    ar: require('./ar/list_i18n_technologies/frameworks/angular.md'),
-  },
-  list_i18n_technologies__frameworks__react: {
-    en: require('./en/list_i18n_technologies/frameworks/react.md'),
-    fr: require('./fr/list_i18n_technologies/frameworks/react.md'),
-    es: require('./es/list_i18n_technologies/frameworks/react.md'),
-    'en-GB': require('./en-GB/list_i18n_technologies/frameworks/react.md'),
-    de: require('./de/list_i18n_technologies/frameworks/react.md'),
-    hi: require('./hi/list_i18n_technologies/frameworks/react.md'),
-    it: require('./it/list_i18n_technologies/frameworks/react.md'),
-    ja: require('./ja/list_i18n_technologies/frameworks/react.md'),
-    ko: require('./ko/list_i18n_technologies/frameworks/react.md'),
-    pt: require('./pt/list_i18n_technologies/frameworks/react.md'),
-    ru: require('./ru/list_i18n_technologies/frameworks/react.md'),
-    zh: require('./zh/list_i18n_technologies/frameworks/react.md'),
-    ar: require('./ar/list_i18n_technologies/frameworks/react.md'),
-  },
-  list_i18n_technologies__frameworks__vue: {
-    en: require('./en/list_i18n_technologies/frameworks/vue.md'),
-    fr: require('./fr/list_i18n_technologies/frameworks/vue.md'),
-    es: require('./es/list_i18n_technologies/frameworks/vue.md'),
-    'en-GB': require('./en-GB/list_i18n_technologies/frameworks/vue.md'),
-    de: require('./de/list_i18n_technologies/frameworks/vue.md'),
-    hi: require('./hi/list_i18n_technologies/frameworks/vue.md'),
-    it: require('./it/list_i18n_technologies/frameworks/vue.md'),
-    ja: require('./ja/list_i18n_technologies/frameworks/vue.md'),
-    ko: require('./ko/list_i18n_technologies/frameworks/vue.md'),
-    pt: require('./pt/list_i18n_technologies/frameworks/vue.md'),
-    ru: require('./ru/list_i18n_technologies/frameworks/vue.md'),
-    zh: require('./zh/list_i18n_technologies/frameworks/vue.md'),
-    ar: require('./ar/list_i18n_technologies/frameworks/vue.md'),
-  },
-  list_i18n_technologies__frameworks__svelte: {
-    en: require('./en/list_i18n_technologies/frameworks/svelte.md'),
-    fr: require('./fr/list_i18n_technologies/frameworks/svelte.md'),
-    es: require('./es/list_i18n_technologies/frameworks/svelte.md'),
-    'en-GB': require('./en-GB/list_i18n_technologies/frameworks/svelte.md'),
-    de: require('./de/list_i18n_technologies/frameworks/svelte.md'),
-    hi: require('./hi/list_i18n_technologies/frameworks/svelte.md'),
-    it: require('./it/list_i18n_technologies/frameworks/svelte.md'),
-    ja: require('./ja/list_i18n_technologies/frameworks/svelte.md'),
-    ko: require('./ko/list_i18n_technologies/frameworks/svelte.md'),
-    pt: require('./pt/list_i18n_technologies/frameworks/svelte.md'),
-    ru: require('./ru/list_i18n_technologies/frameworks/svelte.md'),
-    zh: require('./zh/list_i18n_technologies/frameworks/svelte.md'),
-    ar: require('./ar/list_i18n_technologies/frameworks/svelte.md'),
-  },
-  list_i18n_technologies__frameworks__flutter: {
-    en: require('./en/list_i18n_technologies/frameworks/flutter.md'),
-    fr: require('./fr/list_i18n_technologies/frameworks/flutter.md'),
-    es: require('./es/list_i18n_technologies/frameworks/flutter.md'),
-    'en-GB': require('./en-GB/list_i18n_technologies/frameworks/flutter.md'),
-    de: require('./de/list_i18n_technologies/frameworks/flutter.md'),
-    hi: require('./hi/list_i18n_technologies/frameworks/flutter.md'),
-    it: require('./it/list_i18n_technologies/frameworks/flutter.md'),
-    ja: require('./ja/list_i18n_technologies/frameworks/flutter.md'),
-    ko: require('./ko/list_i18n_technologies/frameworks/flutter.md'),
-    pt: require('./pt/list_i18n_technologies/frameworks/flutter.md'),
-    ru: require('./ru/list_i18n_technologies/frameworks/flutter.md'),
-    zh: require('./zh/list_i18n_technologies/frameworks/flutter.md'),
-    ar: require('./ar/list_i18n_technologies/frameworks/flutter.md'),
-  },
-  'list_i18n_technologies__frameworks__react-native': {
-    en: require('./en/list_i18n_technologies/frameworks/react-native.md'),
-    fr: require('./fr/list_i18n_technologies/frameworks/react-native.md'),
-    es: require('./es/list_i18n_technologies/frameworks/react-native.md'),
-    'en-GB': require('./en-GB/list_i18n_technologies/frameworks/react-native.md'),
-    de: require('./de/list_i18n_technologies/frameworks/react-native.md'),
-    hi: require('./hi/list_i18n_technologies/frameworks/react-native.md'),
-    it: require('./it/list_i18n_technologies/frameworks/react-native.md'),
-    ja: require('./ja/list_i18n_technologies/frameworks/react-native.md'),
-    ko: require('./ko/list_i18n_technologies/frameworks/react-native.md'),
-    pt: require('./pt/list_i18n_technologies/frameworks/react-native.md'),
-    ru: require('./ru/list_i18n_technologies/frameworks/react-native.md'),
-    zh: require('./zh/list_i18n_technologies/frameworks/react-native.md'),
-    ar: require('./ar/list_i18n_technologies/frameworks/react-native.md'),
-  },
-  list_i18n_technologies__CMS__wordpress: {
-    en: require('./en/list_i18n_technologies/CMS/wordpress.md'),
-    fr: require('./fr/list_i18n_technologies/CMS/wordpress.md'),
-    es: require('./es/list_i18n_technologies/CMS/wordpress.md'),
-    'en-GB': require('./en-GB/list_i18n_technologies/CMS/wordpress.md'),
-    de: require('./de/list_i18n_technologies/CMS/wordpress.md'),
-    hi: require('./hi/list_i18n_technologies/CMS/wordpress.md'),
-    it: require('./it/list_i18n_technologies/CMS/wordpress.md'),
-    ja: require('./ja/list_i18n_technologies/CMS/wordpress.md'),
-    ko: require('./ko/list_i18n_technologies/CMS/wordpress.md'),
-    pt: require('./pt/list_i18n_technologies/CMS/wordpress.md'),
-    ru: require('./ru/list_i18n_technologies/CMS/wordpress.md'),
-    zh: require('./zh/list_i18n_technologies/CMS/wordpress.md'),
-    ar: require('./ar/list_i18n_technologies/CMS/wordpress.md'),
-  },
-  list_i18n_technologies__CMS__drupal: {
-    en: require('./en/list_i18n_technologies/CMS/drupal.md'),
-    fr: require('./fr/list_i18n_technologies/CMS/drupal.md'),
-    es: require('./es/list_i18n_technologies/CMS/drupal.md'),
-    'en-GB': require('./en-GB/list_i18n_technologies/CMS/drupal.md'),
-    de: require('./de/list_i18n_technologies/CMS/drupal.md'),
-    hi: require('./hi/list_i18n_technologies/CMS/drupal.md'),
-    it: require('./it/list_i18n_technologies/CMS/drupal.md'),
-    ja: require('./ja/list_i18n_technologies/CMS/drupal.md'),
-    ko: require('./ko/list_i18n_technologies/CMS/drupal.md'),
-    pt: require('./pt/list_i18n_technologies/CMS/drupal.md'),
-    ru: require('./ru/list_i18n_technologies/CMS/drupal.md'),
-    zh: require('./zh/list_i18n_technologies/CMS/drupal.md'),
-    ar: require('./ar/list_i18n_technologies/CMS/drupal.md'),
-  },
-  list_i18n_technologies__CMS__wix: {
-    en: require('./en/list_i18n_technologies/CMS/wix.md'),
-    fr: require('./fr/list_i18n_technologies/CMS/wix.md'),
-    es: require('./es/list_i18n_technologies/CMS/wix.md'),
-    'en-GB': require('./en-GB/list_i18n_technologies/CMS/wix.md'),
-    de: require('./de/list_i18n_technologies/CMS/wix.md'),
-    hi: require('./hi/list_i18n_technologies/CMS/wix.md'),
-    it: require('./it/list_i18n_technologies/CMS/wix.md'),
-    ja: require('./ja/list_i18n_technologies/CMS/wix.md'),
-    ko: require('./ko/list_i18n_technologies/CMS/wix.md'),
-    pt: require('./pt/list_i18n_technologies/CMS/wix.md'),
-    ru: require('./ru/list_i18n_technologies/CMS/wix.md'),
-    zh: require('./zh/list_i18n_technologies/CMS/wix.md'),
-    ar: require('./ar/list_i18n_technologies/CMS/wix.md'),
-  },
+  index: localeRecord(({ locale }) => require(`./${locale}/index.md`)),
+  what_is_internationalization: localeRecord(({ locale }) =>
+    require(`./${locale}/what_is_internationalization.md`)
+  ),
+  internationalization_and_SEO: localeRecord(({ locale }) =>
+    require(`./${locale}/internationalization_and_SEO.md`)
+  ),
+  'intlayer_with_next-i18next': localeRecord(({ locale }) =>
+    require(`./${locale}/intlayer_with_next-i18next.md`)
+  ),
+  'intlayer_with_next-intl': localeRecord(({ locale }) =>
+    require(`./${locale}/intlayer_with_next-intl.md`)
+  ),
+  'intlayer_with_react-i18next': localeRecord(({ locale }) =>
+    require(`./${locale}/intlayer_with_react-i18next.md`)
+  ),
+  'intlayer_with_react-intl': localeRecord(({ locale }) =>
+    require(`./${locale}/intlayer_with_react-intl.md`)
+  ),
+  'next-i18next_vs_next-intl_vs_intlayer': localeRecord(({ locale }) =>
+    require(`./${locale}/next-i18next_vs_next-intl_vs_intlayer.md`)
+  ),
+  'react-i18next_vs_react-intl_vs_intlayer': localeRecord(({ locale }) =>
+    require(`./${locale}/react-i18next_vs_react-intl_vs_intlayer.md`)
+  ),
+  list_i18n_technologies__frameworks__angular: localeRecord(({ locale }) =>
+    require(`./${locale}/list_i18n_technologies/frameworks/angular.md`)
+  ),
+  list_i18n_technologies__frameworks__react: localeRecord(({ locale }) =>
+    require(`./${locale}/list_i18n_technologies/frameworks/react.md`)
+  ),
+  list_i18n_technologies__frameworks__vue: localeRecord(({ locale }) =>
+    require(`./${locale}/list_i18n_technologies/frameworks/vue.md`)
+  ),
+  list_i18n_technologies__frameworks__svelte: localeRecord(({ locale }) =>
+    require(`./${locale}/list_i18n_technologies/frameworks/svelte.md`)
+  ),
+  list_i18n_technologies__frameworks__flutter: localeRecord(({ locale }) =>
+    require(`./${locale}/list_i18n_technologies/frameworks/flutter.md`)
+  ),
+  'list_i18n_technologies__frameworks__react-native': localeRecord(
+    ({ locale }) =>
+      require(`./${locale}/list_i18n_technologies/frameworks/react-native.md`)
+  ),
+  list_i18n_technologies__CMS__wordpress: localeRecord(({ locale }) =>
+    require(`./${locale}/list_i18n_technologies/CMS/wordpress.md`)
+  ),
+  list_i18n_technologies__CMS__drupal: localeRecord(({ locale }) =>
+    require(`./${locale}/list_i18n_technologies/CMS/drupal.md`)
+  ),
+  list_i18n_technologies__CMS__wix: localeRecord(({ locale }) =>
+    require(`./${locale}/list_i18n_technologies/CMS/wix.md`)
+  ),
 };
 
 const getBlogs = (lang = Locales.ENGLISH) =>
