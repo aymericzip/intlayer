@@ -1,3 +1,21 @@
+---
+blogName: internationalization_and_SEO
+url: /blog/SEO-and-i18n
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md
+createdAt: 2024-12-24
+updatedAt: 2024-12-24
+title: SEO와 국제화
+description: 검색 엔진을 위해 다국어 웹사이트를 최적화하고 SEO를 개선하는 방법을 알아보세요.
+keywords:
+  - SEO
+  - Intlayer
+  - 국제화
+  - 문서화
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # SEO & I18n: 웹사이트를 다국어로 만드는 궁극적인 가이드
 
 전 세계적으로 더 많은 사용자에게 다가가고 싶으신가요? 웹사이트를 다국어로 만드는 것은 청중을 확장하고 SEO(검색 엔진 최적화)를 개선하는 가장 좋은 방법 중 하나입니다. 이 블로그 게시물에서는 국제 SEO의 기본, 종종 **i18n**(“internationalization”의 약어로 사용), 를 쉽게 이해할 수 있는 용어로 설명합니다. 필요한 주요 결정, `hreflang`와 같은 기술 요소를 사용하는 방법, 그리고 **Intlayer**와 같은 도구가 귀하의 다국어 Next.js 프로젝트를 어떻게 간소화할 수 있는지에 대해 배우게 됩니다.

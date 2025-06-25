@@ -1,3 +1,22 @@
+---
+blogName: what_is_internationalization
+url: /blog/what-is-internationalization
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md
+createdAt: 2025-01-16
+updatedAt: 2025-01-16
+title: 국제화란? 정의와 도전
+description: 웹사이트를 국제화하는 이유를 알아보세요. 검색 엔진을 부스트 하고 사용자 경험을 향상시키고 전세계 방위를 확장하는 키 원칙을 배우세요.
+keywords:
+  - i18n
+  - 다국어
+  - SEO
+  - 국제화
+  - 블로그
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 국제화(i18n)란? 정의 및 도전 과제
 
 ![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/ko/assets/i18n.webp)

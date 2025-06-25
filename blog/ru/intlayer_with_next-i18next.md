@@ -1,3 +1,22 @@
+---
+blogName: intlayer_with_next-i18next
+url: /blog/intlayer-with-next-i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+createdAt: 2024-08-11
+updatedAt: 2025-01-02
+title: Intlayer и next-i18next
+description: Интегрируйте Intlayer с next-i18next для приложения Next.js
+keywords:
+  - i18next
+  - next-i18next
+  - Intlayer
+  - Интернационализация
+  - Документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js Интернационализация (i18n) с next-i18next и Intlayer
 
 Как next-i18next, так и Intlayer являются открытыми фреймворками интернационализации (i18n), разработанными для приложений Next.js. Они широко используются для управления переводами, локализацией и переключением языков в программных проектах.

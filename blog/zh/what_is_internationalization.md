@@ -1,3 +1,22 @@
+---
+blogName: what_is_internationalization
+url: /blog/what-is-internationalization
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md
+createdAt: 2025-01-16
+updatedAt: 2025-01-16
+title: 什么是国际化？定义和挑战
+description: 了解为什么对你的网站进行国际化是必要的。了解如何加速搜索引擎，提高用户体验，并扩大你的全球影响力。
+keywords:
+  - i18n
+  - 多语言
+  - SEO
+  - 国際化
+  - 博客
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 什么是国际化 (i18n)? 定义与挑战
 
 ![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)

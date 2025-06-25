@@ -1,3 +1,21 @@
+---
+blogName: intlayer_with_next-intl
+url: /blog/intlayer-with-next-intl
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-intl.md
+createdAt: 2025-01-02
+updatedAt: 2025-01-02
+title: Intlayer e next-intl
+description: Integre o Intlayer com o next-intl para a internacionalização (i18n) de um aplicativo React
+keywords:
+  - next-intl
+  - Intlayer
+  - Internacionalização
+  - Blogumentação
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js Internacionalização (i18n) com next-intl e Intlayer
 
 Tanto o next-intl quanto o Intlayer são frameworks de internacionalização (i18n) de código aberto projetados para aplicações Next.js. Eles são amplamente utilizados para gerenciar traduções, localização e troca de idiomas em projetos de software.

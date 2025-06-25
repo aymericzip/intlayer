@@ -1,3 +1,22 @@
+---
+blogName: intlayer_with_react-i18next
+url: /blog/intlayer-with-react-i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_react-i18next.md
+createdAt: 2025-01-02
+updatedAt: 2025-01-02
+title: Intlayer e react-i18next
+description: Confronta Intlayer con react-i18next per un'app React
+keywords:
+  - react-i18next
+  - i18next
+  - Intlayer
+  - Internazionalizzazione
+  - Blogumentazione
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React Internazionalizzazione (i18n) con react-i18next e Intlayer
 
 ## Panoramica

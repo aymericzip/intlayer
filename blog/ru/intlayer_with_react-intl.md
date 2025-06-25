@@ -1,3 +1,21 @@
+---
+blogName: intlayer_with_react-intl
+url: /blog/intlayer-with-react-intl
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_react-intl.md
+createdAt: 2025-01-02
+updatedAt: 2025-01-02
+title: Intlayer и react-intl
+description: Интегрируйте Intlayer с react-intl для React-приложения
+keywords:
+  - react-intl
+  - Intlayer
+  - Интернационализация
+  - Документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React Internationalization (i18n) с **react-intl** и Intlayer
 
 Этот гид показывает, как интегрировать **Intlayer** с **react-intl** для управления переводами в приложении React. Вы будете объявлять ваши переводимые данные с помощью Intlayer, а затем использовать эти сообщения с **react-intl**, популярной библиотекой из экосистемы [FormatJS](https://formatjs.io/docs/react-intl).

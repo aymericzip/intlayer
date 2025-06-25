@@ -1,3 +1,22 @@
+---
+blogName: intlayer_with_next-i18next
+url: /blog/intlayer-with-next-i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+createdAt: 2024-08-11
+updatedAt: 2025-01-02
+title: Intlayer और next-i18next
+description: Next.js एप्लिकेशन के लिए next-i18next को एक्सटेंशन करें
+keywords:
+  - i18next
+  - next-i18next
+  - Intlayer
+  - अंतर्राष्ट्रीयकरण
+  - दस्तावेज़ीकरण
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js अंतर्राष्ट्रीयकरण (i18n) next-i18next और Intlayer के साथ
 
 next-i18next और Intlayer दोनों ओपन-सोर्स अंतर्राष्ट्रीयकरण (i18n) ढांचे हैं जो Next.js अनुप्रयोगों के लिए डिज़ाइन किए गए हैं। उनका उपयोग सॉफ़्टवेयर परियोजनाओं में अनुवाद, स्थानीयकरण और भाषा स्विचिंग के प्रबंधन के लिए किया जाता है।

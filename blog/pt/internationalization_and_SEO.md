@@ -1,3 +1,21 @@
+---
+blogName: internationalization_and_SEO
+url: /blog/SEO-and-i18n
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md
+createdAt: 2024-12-24
+updatedAt: 2024-12-24
+title: SEO e Internacionalização
+description: Descubra como otimizar o seu site multilíngue para os motores de busca e melhorar o seu SEO.
+keywords:
+  - SEO
+  - Intlayer
+  - Internacionalização
+  - Blogumentação
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # SEO & I18n: O Guia Definitivo para Tornar Seu Site Multilíngue
 
 Quer alcançar mais usuários em todo o mundo? Tornar seu site multilíngue é uma das melhores maneiras de expandir seu público e melhorar seu SEO (Otimização para Mecanismos de Busca). Neste post do blog, vamos descrever os fundamentos do SEO internacional, frequentemente referido como **i18n** (abreviação de “integração”), em termos claros e compreensíveis. Você aprenderá sobre as principais decisões que precisa tomar, como usar elementos técnicos como `hreflang`, e por que ferramentas como **Intlayer** podem simplificar seus projetos Next.js multilíngues.

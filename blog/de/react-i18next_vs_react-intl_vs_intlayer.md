@@ -1,3 +1,22 @@
+---
+blogName: react-i18next_vs_react-intl_vs_intlayer
+url: /blog/react-i18next-vs-react-intl-vs-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/react-i18next_vs_react-intl_vs_intlayer.md
+createdAt: 2025-01-02
+updatedAt: 2025-01-02
+title: react-i18n vs react-intl vs Intlayer
+description: Integrieren Sie react-i18next mit next-intl und Intlayer für die Internationalisierung (i18n) einer React-App
+keywords:
+  - next-intl
+  - react-i18next
+  - Intlayer
+  - Internationalisierung
+  - Dokumentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React-Intl VS React-i18next VS Intlayer | React Internationalisierung (i18n)
 
 Nachfolgend finden Sie einen prägnanten Vergleich von drei beliebten i18n (Internationalisierungs-) Bibliotheken für React: **React-Intl**, **React-i18next** und **Intlayer**. Jede Bibliothek bietet einzigartige Funktionen und Arbeitsabläufe zur Integration von mehrsprachiger Unterstützung in Ihre React-Anwendung. Nach dem Lesen sollten Sie in der Lage sein zu entscheiden, welche Lösung am besten zu Ihren Bedürfnissen passt.
@@ -118,16 +137,16 @@ Unten finden Sie eine Übersicht über jede Lösung, gefolgt von einem Funktions
 
 ## 5. Funktionsvergleich
 
-| **Funktion**                  | **React-Intl**                                                        | **React-i18next**                                                                                   | **Intlayer**                                                                                                               |
-| ------------------------------ | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Primärer Anwendungsfall**    | Stringbasierte Übersetzungen, Daten-/Zahlenformatierung, ICU-Nachrichtensyntax | Vollwertige i18n mit einfachem dynamischem Wechsel, Verschachtelung, Plugin-Ökosystem                | Typensichere Übersetzungen mit Fokus auf deklarativen Inhalt, lokalisierten Routen & optionaler Server-Middleware            |
-| **Ansatz**                     | Nutzung von `<IntlProvider>` & FormatJS-Nachrichtenkomponenten        | Nutzung von `I18nextProvider` & `useTranslation()`-Hook                                              | Nutzung von `<IntlayerProvider>` & `useIntlayer()`-Hook mit Inhaltsdeklarationen                                           |
-| **Lokalisierungsformat**       | ICU-basierte Strings (JSON oder JavaScript-Kataloge)                 | JSON-Ressourcendateien (oder benutzerdefinierte Loader). ICU-Format optional über i18next-Plugin    | `.content.[ts/js/tsx]` oder JSON-Deklarationen; kann Strings oder React-Komponenten enthalten                             |
-| **Routing**                    | Extern behandelt (kein integriertes lokales Routing)                  | Extern mit i18next-Plugins (Pfad-, Subdomainerkennung usw.)                                        | Eingebaute Unterstützung für lokales Routing (z. B. `/de/about`, `/fr/about`), plus optionale Server-Middleware (für SSR/Vite) |
-| **TypeScript Unterstützung**    | Gut (Typisierung für offizielle Pakete)                               | Gut, aber zusätzliche Konfiguration für typisierte Übersetzungen, wenn Sie strenge Überprüfungen wünschen | Hervorragend (automatisch generierte Typdefinitionen für Inhaltsschlüssel und Übersetzungen)                               |
+| **Funktion**                      | **React-Intl**                                                                           | **React-i18next**                                                                                                   | **Intlayer**                                                                                                                                                |
+| --------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Primärer Anwendungsfall**       | Stringbasierte Übersetzungen, Daten-/Zahlenformatierung, ICU-Nachrichtensyntax           | Vollwertige i18n mit einfachem dynamischem Wechsel, Verschachtelung, Plugin-Ökosystem                               | Typensichere Übersetzungen mit Fokus auf deklarativen Inhalt, lokalisierten Routen & optionaler Server-Middleware                                           |
+| **Ansatz**                        | Nutzung von `<IntlProvider>` & FormatJS-Nachrichtenkomponenten                           | Nutzung von `I18nextProvider` & `useTranslation()`-Hook                                                             | Nutzung von `<IntlayerProvider>` & `useIntlayer()`-Hook mit Inhaltsdeklarationen                                                                            |
+| **Lokalisierungsformat**          | ICU-basierte Strings (JSON oder JavaScript-Kataloge)                                     | JSON-Ressourcendateien (oder benutzerdefinierte Loader). ICU-Format optional über i18next-Plugin                    | `.content.[ts/js/tsx]` oder JSON-Deklarationen; kann Strings oder React-Komponenten enthalten                                                               |
+| **Routing**                       | Extern behandelt (kein integriertes lokales Routing)                                     | Extern mit i18next-Plugins (Pfad-, Subdomainerkennung usw.)                                                         | Eingebaute Unterstützung für lokales Routing (z. B. `/de/about`, `/fr/about`), plus optionale Server-Middleware (für SSR/Vite)                              |
+| **TypeScript Unterstützung**      | Gut (Typisierung für offizielle Pakete)                                                  | Gut, aber zusätzliche Konfiguration für typisierte Übersetzungen, wenn Sie strenge Überprüfungen wünschen           | Hervorragend (automatisch generierte Typdefinitionen für Inhaltsschlüssel und Übersetzungen)                                                                |
 | **Pluralisierung & Formatierung** | Fortgeschritten: Eingebaute Daten-/Zahlenformatierung, Plural-/ Geschlechtsunterstützung | Konfigurierbare Pluralisierung. Datums-/Zeitformatierung in der Regel über externe Bibliotheken oder i18next-Plugin | Kann auf Standard-JavaScript-Intl angewiesen sein oder Logik in den Inhalten einbetten. Nicht so spezialisiert wie FormatJS, behandelt aber typische Fälle. |
-| **Community & Ökosystem**      | Groß, Teil des FormatJS-Ökosystems                                   | Sehr groß, sehr aktiv, viele Plugins (Erkennung, Caching, Frameworks)                               | Kleiner, aber wachsend; Open Source, moderner Ansatz                                                                          |
-| **Lernkurve**                  | Mäßig (Lernen der ICU-Nachrichtensyntax, FormatJS-Konventionen)       | Niedrig bis mäßig (gerade Nutzung, aber fortschrittliche Konfiguration kann ausführlich werden)     | Mäßig (Konzept der Inhaltsdeklarationen und spezialisierte Build-Schritte)                                                  |
+| **Community & Ökosystem**         | Groß, Teil des FormatJS-Ökosystems                                                       | Sehr groß, sehr aktiv, viele Plugins (Erkennung, Caching, Frameworks)                                               | Kleiner, aber wachsend; Open Source, moderner Ansatz                                                                                                        |
+| **Lernkurve**                     | Mäßig (Lernen der ICU-Nachrichtensyntax, FormatJS-Konventionen)                          | Niedrig bis mäßig (gerade Nutzung, aber fortschrittliche Konfiguration kann ausführlich werden)                     | Mäßig (Konzept der Inhaltsdeklarationen und spezialisierte Build-Schritte)                                                                                  |
 
 ---
 

@@ -1,3 +1,22 @@
+---
+blogName: next-i18next_vs_next-intl_vs_intlayer
+url: /blog/next-i18next-vs-next-intl-vs-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/next-i18next_vs_next-intl_vs_intlayer.md
+createdAt: 2024-08-11
+updatedAt: 2025-01-02
+title: next-i18next vs next-intl vs Intlayer
+description: 比较Next.js应用程序的next-i18next与next-intl与Intlayer
+keywords:
+  - next-intl
+  - next-i18next
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # next-i18next VS next-intl VS Intlayer | Next.js 国际化 (i18n)
 
 下面是 **三个流行库** 进行 Next.js 应用国际化 (i18n) 的简要比较：**next-intl**、**next-i18next** 和 **Intlayer**。
