@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-removeLocaleFromUrl-intlayer-metadata',
   content: {
+    docName: 'package__intlayer__removeLocaleFromUrl',
+    url: PagesRoutes['Doc_Packages_intlayer_removeLocaleFromUrl'],
+    githubUrl: GithubRoutes['Packages_intlayer_removeLocaleFromUrl'],
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'removeLocaleFromUrl Function Documentation | intlayer',
       'en-GB': 'removeLocaleFromUrl Function Documentation | intlayer',
@@ -183,6 +189,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

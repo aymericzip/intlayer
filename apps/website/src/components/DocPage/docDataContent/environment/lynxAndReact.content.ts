@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-intlayer-with-lynx-and-react-metadata',
   content: {
+    docName: 'intlayer_with_lynx_react',
+    url: PagesRoutes.Doc_Environment_Lynx,
+    githubUrl: GithubRoutes.IntlayerWithLynxReact,
+    createdAt: '2025-03-09',
+    updatedAt: '2025-03-09',
     title: t({
       en: 'Translate your Lynx and React mobile app (i18n)',
       fr: 'Traduit ton application mobile Lynx et React (i18n)',
@@ -140,6 +146,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

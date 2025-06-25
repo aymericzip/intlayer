@@ -1,11 +1,16 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-dictionary-markdown-metadata',
   content: {
+    docName: 'dictionary__markdown',
+    url: PagesRoutes.Doc_Dictionary_Markdown,
+    githubUrl: GithubRoutes.Dictionary_Markdown,
+    createdAt: '2025-02-7',
+    updatedAt: '2025-02-7',
     title: 'Markdown',
-
     description: t({
       en: 'Learn how to declare and use Markdown content in your multilingual website with Intlayer. Follow the steps in this online documentation to integrate Markdown seamlessly into your project.',
       'en-GB':
@@ -60,6 +65,6 @@ const docContent = {
       'React',
     ],
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

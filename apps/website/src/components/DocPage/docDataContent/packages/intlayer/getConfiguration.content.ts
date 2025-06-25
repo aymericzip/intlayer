@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-getConfiguration-intlayer-metadata',
   content: {
+    docName: 'package__intlayer__getConfiguration',
+    url: PagesRoutes['Doc_Packages_intlayer_getConfiguration'],
+    githubUrl: GithubRoutes['Packages_intlayer_getConfiguration'],
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'getConfiguration Function Documentation | intlayer',
       'en-GB': 'getConfiguration Function Documentation | intlayer',
@@ -183,6 +189,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

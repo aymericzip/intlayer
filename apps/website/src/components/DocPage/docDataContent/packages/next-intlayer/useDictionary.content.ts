@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-useDictionary-next-intlayer-metadata',
   content: {
+    docName: 'package__next-intlayer__useDictionary',
+    url: PagesRoutes['Doc_Packages_next-intlayer_useDictionary'],
+    githubUrl: GithubRoutes['Packages_next-intlayer_useDictionary'],
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'useDictionary Hook Documentation | next-intlayer',
       'en-GB': 'useDictionary Hook Documentation | next-intlayer',
@@ -183,6 +189,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

@@ -4,13 +4,13 @@ import { IntlayerNode } from 'next-intlayer';
 
 export type DocData = {
   docName: DocsKeys;
-  url: PagesRoutes;
-  githubUrl: GithubRoutes;
+  url: `${PagesRoutes}` | PagesRoutes;
+  githubUrl: `${GithubRoutes}` | GithubRoutes;
   title: IntlayerNode | string;
   description: IntlayerNode | string;
   keywords: (IntlayerNode | string)[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Section = Record<string, CategorizedDocData>;

@@ -1,9 +1,14 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
-
 const docContent = {
   key: 'doc-dictionary-enumeration-metadata',
   content: {
+    docName: 'dictionary__enumeration',
+    url: PagesRoutes.Doc_Dictionary_Enumeration,
+    githubUrl: GithubRoutes.Dictionary_Enumeration,
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'Enumeration',
       'en-GB': 'Enumeration',
@@ -156,6 +161,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

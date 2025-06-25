@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-cli-metadata',
   content: {
+    docName: 'intlayer_cli',
+    url: PagesRoutes.Doc_CLI,
+    githubUrl: GithubRoutes.IntlayerCLI,
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: 'CLI',
     description: t({
       en: 'Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.',
@@ -154,6 +160,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

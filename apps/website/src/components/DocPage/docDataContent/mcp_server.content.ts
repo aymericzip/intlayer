@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { Dictionary, t } from 'intlayer';
+import { DocData } from '../types';
 
 const docContent = {
   key: 'doc-mcp-server-metadata',
   content: {
+    docName: 'mcp_server',
+    url: PagesRoutes.MCP_Server,
+    githubUrl: GithubRoutes['MCP_Server'],
+    createdAt: '2025-06-07',
+    updatedAt: '2025-06-07',
     title: t({
       en: 'MCP Server Documentation',
       'en-GB': 'MCP Server Documentation',
@@ -155,6 +161,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

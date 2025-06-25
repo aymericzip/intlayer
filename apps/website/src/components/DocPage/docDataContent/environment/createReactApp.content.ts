@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-intlayer-with-create-react-app-metadata',
   content: {
+    docName: 'intlayer_with_create_react_app',
+    url: PagesRoutes.Doc_Environment_CRA,
+    githubUrl: GithubRoutes.IntlayerWithReactCRA,
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'Translate your Create React App (CRA) website (i18n)',
       'en-GB': 'Translate your Create React App (CRA) website (i18n)',
@@ -156,6 +162,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

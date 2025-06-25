@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-lynx-intlayer-metadata',
   content: {
+    docName: 'package__lynx-intlayer',
+    url: PagesRoutes['Doc_Packages_lynx-intlayer'],
+    githubUrl: GithubRoutes['Packages_lynx-intlayer'],
+    createdAt: '2025-03-13',
+    updatedAt: '2025-03-13',
     title: t({
       en: 'Package Documentation | lynx-intlayer',
       'en-GB': 'Package Documentation | lynx-intlayer',
@@ -156,6 +162,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

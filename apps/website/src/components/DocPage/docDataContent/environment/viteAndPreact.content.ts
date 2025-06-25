@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-intlayer-with-vite-preact-metadata',
   content: {
+    docName: 'intlayer_with_vite_preact',
+    url: PagesRoutes.Doc_Environment_ViteAndPreact,
+    githubUrl: GithubRoutes.IntlayerWithVitePreact,
+    createdAt: '2025-04-18',
+    updatedAt: '2025-04-18',
     title: t({
       en: 'Translate your Vite and Preact website (i18n)',
       fr: 'Traduire votre site web Vite et Preact (i18n)',
@@ -129,6 +135,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

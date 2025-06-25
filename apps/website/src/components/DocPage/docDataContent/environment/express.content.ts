@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-intlayer-with-express-metadata',
   content: {
+    docName: 'intlayer_with_express',
+    url: PagesRoutes.Doc_Environment_Express,
+    githubUrl: GithubRoutes.IntlayerWithExpress,
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'Translate your Express backend (i18n)',
       fr: 'Traduire votre Express backend (i18n)',
@@ -122,6 +128,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

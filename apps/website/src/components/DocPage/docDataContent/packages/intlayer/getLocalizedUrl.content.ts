@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-getLocalizedUrl-intlayer-metadata',
   content: {
+    docName: 'package__intlayer__getLocalizedUrl',
+    url: PagesRoutes['Doc_Packages_intlayer_getLocalizedUrl'],
+    githubUrl: GithubRoutes['Packages_intlayer_getLocalizedUrl'],
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'getLocalizedUrl Function Documentation | intlayer',
       'en-GB': 'getLocalizedUrl Function Documentation | intlayer',
@@ -183,6 +189,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

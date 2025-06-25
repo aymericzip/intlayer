@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-configuration-metadata',
   content: {
+    docName: 'configuration',
+    url: PagesRoutes.Doc_Configuration,
+    githubUrl: GithubRoutes.Configuration,
+    createdAt: '2024-08-13',
+    updatedAt: '2024-08-13',
     title: t({
       en: 'Configuration',
       'en-GB': 'Configuration',
@@ -82,6 +88,6 @@ const docContent = {
       ru: ['Конфигурация', 'Настройки', 'Кастомизация', 'Intlayer', 'Опции'],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

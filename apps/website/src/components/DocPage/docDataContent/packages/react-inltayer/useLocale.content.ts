@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-useLocale-react-intlayer-metadata',
   content: {
+    docName: 'package__react-intlayer__useLocale',
+    url: PagesRoutes['Doc_Packages_react-intlayer_useLocale'],
+    githubUrl: GithubRoutes['Packages_react-intlayer_useLocale'],
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'useLocale Hook Documentation | react-intlayer',
       fr: 'Documentation du hook useLocale | react-intlayer',
@@ -181,6 +187,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

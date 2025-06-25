@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import type { DocData } from '@components/DocPage/types';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
 
 const docContent = {
   key: 'doc-dictionary-condition-metadata',
   content: {
+    docName: 'dictionary__condition',
+    url: PagesRoutes.Doc_Dictionary_Condition,
+    githubUrl: GithubRoutes.Dictionary_Condition,
+    createdAt: '2025-02-7',
+    updatedAt: '2025-02-7',
     title: t({
       en: 'Conditional Content',
       'en-GB': 'Conditional Content',
@@ -88,6 +94,6 @@ const docContent = {
       'React',
     ],
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

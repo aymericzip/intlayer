@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-intlayer-with-react-native-expo-metadata',
   content: {
+    docName: 'intlayer_with_react_native_and_expo',
+    url: PagesRoutes.Doc_Environment_ReactNativeAndExpo,
+    githubUrl: GithubRoutes.IntlayerWithViteReact,
+    createdAt: '2025-03-07',
+    updatedAt: '2025-03-07',
     title: t({
       en: 'Translate your React Native and Expo mobile app (i18n)',
       fr: 'Traduire votre application mobile React Native et Expo (i18n)',
@@ -156,6 +162,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

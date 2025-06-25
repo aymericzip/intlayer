@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-dictionary-per-locale-file-metadata',
   content: {
+    docName: 'dictionary__per_locale_file',
+    url: PagesRoutes.Doc_Dictionary_PerLocaleFile,
+    githubUrl: GithubRoutes.Dictionary_PerLocaleFile,
+    createdAt: '2025-05-09',
+    updatedAt: '2025-05-09',
     title: t({
       en: "Dictionary's per-locale file",
       'en-GB': "Dictionary's per-locale file",
@@ -73,6 +79,6 @@ const docContent = {
       'React',
     ],
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

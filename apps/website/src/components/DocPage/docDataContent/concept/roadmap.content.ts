@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-roadmap-metadata',
   content: {
+    docName: 'roadmap',
+    url: PagesRoutes.Doc_Roadmap,
+    githubUrl: GithubRoutes.Roadmap,
+    createdAt: '2025-03-01',
+    updatedAt: '2025-03-01',
     title: t({
       en: 'Roadmap',
       fr: 'Feuille de route',
@@ -87,6 +93,6 @@ const docContent = {
       }),
     ],
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

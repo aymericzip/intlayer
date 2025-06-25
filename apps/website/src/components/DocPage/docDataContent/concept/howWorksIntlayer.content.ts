@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-how-works-intlayer-metadata',
   content: {
+    docName: 'how_works_intlayer',
+    url: PagesRoutes.Doc_HowWorksIntlayer,
+    githubUrl: GithubRoutes.HowWorksIntlayer,
+    createdAt: '2024-08-12',
+    updatedAt: '2024-08-12',
     title: t({
       en: 'How Intlayer Works',
       'en-GB': 'How Intlayer Works',
@@ -124,6 +130,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-vue-intlayer-metadata',
   content: {
+    docName: 'package__vue-intlayer',
+    url: PagesRoutes['Doc_Packages_vue-intlayer'],
+    githubUrl: GithubRoutes['Packages_vue-intlayer'],
+    createdAt: '2025-04-18',
+    updatedAt: '2025-04-18',
     title: t({
       en: 'Package Documentation | vue-intlayer',
       'en-GB': 'Package Documentation | vue-intlayer',
@@ -129,6 +135,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

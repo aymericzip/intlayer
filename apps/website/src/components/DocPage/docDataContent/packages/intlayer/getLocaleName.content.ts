@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-getLocaleName-intlayer-metadata',
   content: {
+    docName: 'package__intlayer__getLocaleName',
+    url: PagesRoutes['Doc_Packages_intlayer_getLocaleName'],
+    githubUrl: GithubRoutes['Packages_intlayer_getLocaleName'],
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'getLocaleName Function Documentation | intlayer',
       'en-GB': 'getLocaleName Function Documentation | intlayer',
@@ -182,6 +188,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

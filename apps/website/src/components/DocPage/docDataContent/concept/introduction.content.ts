@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-introduction-metadata',
   content: {
+    docName: 'introduction',
+    url: PagesRoutes.Doc,
+    githubUrl: GithubRoutes.Introduction,
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'Introduction',
       'en-GB': 'Introduction',
@@ -70,6 +76,6 @@ const docContent = {
       ru: ['Введение', 'Начать', 'Intlayer', 'Приложение', 'Пакеты'],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-nuxt-intlayer-metadata',
   content: {
+    docName: 'package__nuxt-intlayer',
+    url: PagesRoutes['Doc_Packages_nuxt-intlayer'],
+    githubUrl: GithubRoutes['Packages_nuxt-intlayer'],
+    createdAt: '2025-06-18',
+    updatedAt: '2025-06-18',
     title: t({
       en: 'Package Documentation | nuxt-intlayer',
       'en-GB': 'Package Documentation | nuxt-intlayer',
@@ -129,6 +135,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

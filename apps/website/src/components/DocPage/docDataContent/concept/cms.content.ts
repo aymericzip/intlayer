@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-cms-metadata',
   content: {
+    docName: 'intlayer_CMS',
+    url: PagesRoutes.Doc_IntlayerCMS,
+    githubUrl: GithubRoutes.IntlayerCMS,
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'Intlayer CMS | Externalize your content into the Intlayer CMS',
       'en-GB': 'Intlayer CMS | Externalize your content into the Intlayer CMS',
@@ -170,6 +176,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

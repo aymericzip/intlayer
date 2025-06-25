@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-react-native-intlayer-metadata',
   content: {
+    docName: 'package__react-native-intlayer',
+    url: PagesRoutes['Doc_Packages_react-native-intlayer'],
+    githubUrl: GithubRoutes['Packages_react-native-intlayer'],
+    createdAt: '2025-03-13',
+    updatedAt: '2025-03-13',
     title: t({
       en: 'Package Documentation | react-native-intlayer',
       'en-GB': 'Package Documentation | react-native-intlayer',
@@ -169,6 +175,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

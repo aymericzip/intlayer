@@ -1,9 +1,14 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { t } from 'intlayer';
 
 const docContent = {
   key: 'doc-dictionary-function-fetching-metadata',
   content: {
+    docName: 'dictionary__function_fetching',
+    url: PagesRoutes.Doc_Dictionary_FunctionFetching,
+    githubUrl: GithubRoutes.Dictionary_FunctionFetching,
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'Function Fetching',
       'en-GB': 'Function Fetching',
@@ -156,6 +161,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

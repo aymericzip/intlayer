@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-dictionary-metadata',
   content: {
+    docName: 'dictionary__get_started',
+    url: PagesRoutes.Doc_ContentDeclaration,
+    githubUrl: GithubRoutes.Dictionary_GetStarted,
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'Dictionary | Get Started',
       'en-GB': 'Dictionary | Get Started',
@@ -155,6 +161,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;
