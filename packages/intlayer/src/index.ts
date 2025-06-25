@@ -48,6 +48,7 @@ export {
   localeFlatMap,
   localeList,
   localeMap,
+  localeRecord,
   md,
   nest,
   t,

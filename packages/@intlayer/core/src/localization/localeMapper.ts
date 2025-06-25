@@ -94,3 +94,25 @@ export const localeFlatMap = <T>(
       urlPrefix: locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
     })
   );
+
+export const localeRecord = <T extends object>(
+  mapper: (locale: LocaleData) => T,
+  locales: LocalesValues[] = configuration.internationalization.locales,
+  defaultLocale: LocalesValues = configuration.internationalization
+    .defaultLocale,
+  prefixDefault: boolean = configuration.middleware.prefixDefault
+): Record<LocalesValues, T> =>
+  locales.reduce(
+    (acc, locale) => {
+      acc[locale] = mapper({
+        locale,
+        defaultLocale,
+        locales,
+        isDefault: locale === defaultLocale,
+        urlPrefix:
+          locale === defaultLocale && !prefixDefault ? '' : `/${locale}`,
+      });
+      return acc;
+    },
+    {} as Record<LocalesValues, T>
+  );
