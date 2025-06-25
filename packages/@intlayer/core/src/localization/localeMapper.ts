@@ -95,6 +95,29 @@ export const localeFlatMap = <T>(
     })
   );
 
+/**
+ * Creates a record object mapping locales to values transformed by the mapper function
+ *
+ * @example
+ * ```ts
+ * const translations = localeRecord(({ locale }) =>
+ *   require(`./translations/${locale}.json`)
+ * );
+ *
+ * // Result
+ * {
+ *   en: { ... }, // Content of translations/en.json
+ *   fr: { ... }, // Content of translations/fr.json
+ *   es: { ... }  // Content of translations/es.json
+ * }
+ * ```
+ *
+ * @param mapper - Function that takes locale data and returns a value for that locale
+ * @param locales - Array of locale codes to map over (defaults to configured locales)
+ * @param defaultLocale - The default locale (defaults to configured default)
+ * @param prefixDefault - Whether to prefix the default locale in URLs (defaults to configured value)
+ * @returns Record mapping locale codes to mapped values
+ */
 export const localeRecord = <T extends object>(
   mapper: (locale: LocaleData) => T,
   locales: LocalesValues[] = configuration.internationalization.locales,
