@@ -24,10 +24,8 @@ const localeList = [
   Locales.KOREAN,
   Locales.CHINESE,
 ];
-const defaultLocale = Locales.ENGLISH;
 
-const localeRecord = (mapper) =>
-  localeRecordCore(mapper, localeList, defaultLocale);
+const localeRecord = (mapper) => localeRecordCore(mapper, localeList);
 
 const blogs = {
   index: localeRecord(({ locale }) => require(`./${locale}/index.md`)),
