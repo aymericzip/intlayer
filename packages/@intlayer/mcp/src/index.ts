@@ -308,7 +308,7 @@ server.tool(
 );
 
 server.tool('get-doc-list', {}, async ({}) => {
-  const docList = Object.keys(getDocs());
+  const docList = Object.keys(await getDocs());
   return {
     content: docList.map((doc) => ({ type: 'text', text: doc })),
   };
@@ -318,7 +318,7 @@ server.tool(
   'get-doc',
   { docName: z.string(), lang: z.nativeEnum(Locales) },
   async ({ docName, lang }) => {
-    const doc = getDoc(docName as any, 'en');
+    const doc = await getDoc(docName as any, lang);
     return {
       content: [{ type: 'text', text: doc }],
     };

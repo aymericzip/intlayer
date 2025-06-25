@@ -5,8 +5,8 @@ import {
 } from '@components/BlogPage/blogData';
 import { BlogRender } from '@components/BlogPage/BlogRender';
 import { Link } from '@components/Link/Link';
-import { getBlog } from '@intlayer/blog';
 import { Container } from '@intlayer/design-system';
+import { getBlog } from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
@@ -104,7 +104,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
     locale
   );
 
-  const file = getBlog(blogData?.blogName ?? '', locale);
+  const file = await getBlog(blogData?.blogName ?? '', locale);
 
   const blogContent = urlRenamer(file);
 

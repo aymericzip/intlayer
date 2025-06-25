@@ -177,9 +177,6 @@ importers:
         specifier: ^3.17.0
         version: 3.17.0
     devDependencies:
-      '@intlayer/blog':
-        specifier: workspace:^
-        version: link:../../blog
       '@intlayer/config':
         specifier: workspace:*
         version: link:../../packages/@intlayer/config
@@ -273,9 +270,6 @@ importers:
       '@intlayer/api':
         specifier: workspace:*
         version: link:../../packages/@intlayer/api
-      '@intlayer/blog':
-        specifier: workspace:*
-        version: link:../../blog
       '@intlayer/config':
         specifier: workspace:*
         version: link:../../packages/@intlayer/config
@@ -430,64 +424,6 @@ importers:
       tailwindcss:
         specifier: ^4.1.8
         version: 4.1.10
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
-
-  blog:
-    dependencies:
-      '@intlayer/config':
-        specifier: workspace:*
-        version: link:../packages/@intlayer/config
-      '@intlayer/core':
-        specifier: workspace:*
-        version: link:../packages/@intlayer/core
-    devDependencies:
-      '@types/node':
-        specifier: ^22.15.30
-        version: 22.15.32
-      '@utils/ts-config':
-        specifier: workspace:*
-        version: link:../utils/ts-config
-      '@utils/ts-config-types':
-        specifier: workspace:*
-        version: link:../utils/ts-config-types
-      '@utils/tsup-config':
-        specifier: workspace:*
-        version: link:../utils/tsup-config
-      concurrently:
-        specifier: ^9.1.2
-        version: 9.1.2
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.5.0
-      eslint:
-        specifier: ^9.28.0
-        version: 9.29.0(jiti@2.4.2)
-      fast-glob:
-        specifier: ^3.3.3
-        version: 3.3.3
-      openai:
-        specifier: ^4.89.0
-        version: 4.104.0(encoding@0.1.13)(ws@8.18.2)(zod@3.25.67)
-      p-limit:
-        specifier: ^3.1.0
-        version: 3.1.0
-      prettier:
-        specifier: ^3.5.3
-        version: 3.5.3
-      rimraf:
-        specifier: ^6.0.1
-        version: 6.0.1
-      tsc-alias:
-        specifier: ^1.8.16
-        version: 1.8.16
-      tsup:
-        specifier: ^8.5.0
-        version: 8.5.0(@microsoft/api-extractor@7.52.8(@types/node@22.15.32))(@swc/core@1.12.1(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.6)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0)
-      tsx:
-        specifier: ^4.19.4
-        version: 4.20.3
       typescript:
         specifier: ^5.8.3
         version: 5.8.3

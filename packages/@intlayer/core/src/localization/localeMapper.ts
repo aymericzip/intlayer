@@ -118,7 +118,7 @@ export const localeFlatMap = <T>(
  * @param prefixDefault - Whether to prefix the default locale in URLs (defaults to configured value)
  * @returns Record mapping locale codes to mapped values
  */
-export const localeRecord = <T extends object>(
+export const localeRecord = <T>(
   mapper: (locale: LocaleData) => T,
   locales: LocalesValues[] = configuration.internationalization.locales,
   defaultLocale: LocalesValues = configuration.internationalization

@@ -98,7 +98,6 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@intlayer/blog": "workspace:^",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/docs": "workspace:*",

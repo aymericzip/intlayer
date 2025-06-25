@@ -1,6 +1,5 @@
-import { getBlogs } from '@intlayer/blog';
 import { Locales } from '@intlayer/config';
-import { getDocs, getFequentQuestions } from '@intlayer/docs';
+import { getBlogs, getDocs, getFequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
 import { readFileSync, writeFileSync } from 'fs';
@@ -135,8 +134,8 @@ export const indexMarkdownFiles = async (): Promise<void> => {
 
   // Retrieve documentation and blog posts in English locale
   const frequentQuestions = getFequentQuestions();
-  const docs = getDocs(Locales.ENGLISH);
-  const blogs = getBlogs(Locales.ENGLISH);
+  const docs = await getDocs(Locales.ENGLISH);
+  const blogs = await getBlogs(Locales.ENGLISH);
 
   let result: Record<string, number[]> = {}; // Object to hold updated embeddings
   const currentChunkKeys = new Set<string>(); // Track which chunks should exist

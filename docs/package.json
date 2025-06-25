@@ -33,37 +33,35 @@
   "type": "commonjs",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "require": "./index.cjs",
-      "import": "./index.cjs"
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
     }
   },
-  "main": "./index.cjs",
-  "module": "./index.cjs",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
   "files": [
-    "index.d.ts",
-    "index.cjs",
-    "ar/*",
-    "de/*",
-    "en/*",
-    "en-GB/*",
-    "es/*",
-    "fr/*",
-    "hi/*",
-    "it/*",
-    "ja/*",
-    "ko/*",
-    "pt/*",
-    "ru/*",
-    "zh/*"
+    "docs",
+    "dist",
+    "frequent_questions",
+    "blog"
   ],
   "scripts": {
+    "build": "pnpm build:package & pnpm build:types",
+    "build:package": "tsup",
+    "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
+    "clean": "rimraf ./dist",
+    "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
+    "reset": "pnpm clean & pnpm build",
+    "serve": "webpack serve --config ./webpack.config.ts",
     "test": "",
-    "translate": "node --import=tsx ./src/translate.ts"
+    "transpile": "webpack --config ./webpack.config.ts",
+    "typecheck": "tsup --project ./tsconfig.json --noEmit",
+    "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
     "@intlayer/config": "workspace:*",

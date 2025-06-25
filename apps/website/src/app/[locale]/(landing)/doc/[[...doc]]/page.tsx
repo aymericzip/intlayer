@@ -73,7 +73,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
 
   const { prevDocData, nextDocData } = getPreviousNextDocData(docData, locale);
 
-  const file = getDoc(docData?.docName ?? '', locale);
+  const file = await getDoc(docData?.docName ?? '', locale);
 
   const docContent = urlRenamer(file);
 

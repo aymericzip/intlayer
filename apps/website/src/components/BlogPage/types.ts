@@ -1,5 +1,5 @@
 import { type GithubRoutes, type PagesRoutes } from '@/Routes';
-import { type BlogsKeys } from '@intlayer/blogs';
+import { type BlogsKeys } from '@intlayer/docs';
 
 export type BlogData = {
   blogName: BlogsKeys;

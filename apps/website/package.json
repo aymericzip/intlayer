@@ -55,7 +55,6 @@
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
-    "@intlayer/blog": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",

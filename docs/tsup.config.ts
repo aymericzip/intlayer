@@ -5,8 +5,8 @@ const option: Options[] = [
   {
     ...commonOptions,
     format: ['cjs'],
-    entry: ['src/ts/**/*'],
-    outDir: 'src/cjs',
+    entry: ['src/**/*.ts'],
+    outDir: 'dist/cjs',
     outExtension: () => ({
       js: '.cjs',
       dts: '.d.ts',
@@ -18,8 +18,8 @@ const option: Options[] = [
   {
     ...commonOptions,
     format: ['esm'],
-    entry: ['src/ts/**/*'],
-    outDir: 'src/esm',
+    entry: ['src/**/*.ts'],
+    outDir: 'dist/esm',
     outExtension: () => ({
       js: '.mjs',
       dts: '.d.ts',
