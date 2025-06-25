@@ -1,6 +1,6 @@
 ---
 docName: dictionary__get_started
-url: /doc/concept/content
+url: https://intlayer.org/doc/concept/content
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

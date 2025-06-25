@@ -1,6 +1,6 @@
 ---
 docName: intlayer_with_create_react_app
-url: /doc/environment/create-react-app
+url: https://intlayer.org/doc/environment/create-react-app
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

@@ -1,6 +1,6 @@
 ---
 docName: dictionary__file
-url: /doc/concept/content/file
+url: https://intlayer.org/doc/concept/content/file
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13

@@ -1,6 +1,6 @@
 ---
 blogName: list_i18n_technologies__frameworks__vue
-url: /blog/i18n-technologies/frameworks/vue
+url: https://intlayer.org/blog/i18n-technologies/frameworks/vue
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/vue.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16

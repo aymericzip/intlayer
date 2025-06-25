@@ -1,6 +1,6 @@
 ---
 docName: package__intlayer__getPathWithoutLocale
-url: /doc/packages/intlayer/getPathWithoutLocale
+url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

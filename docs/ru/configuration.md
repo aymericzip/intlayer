@@ -1,6 +1,6 @@
 ---
 docName: configuration
-url: /doc/concept/configuration
+url: https://intlayer.org/doc/concept/configuration
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md
 createdAt: 2024-08-13
 updatedAt: 2024-08-13

@@ -1,6 +1,6 @@
 ---
 docName: package__next-intlayer__useIntlayerAsync
-url: /doc/packages/next-intlayer/useIntlayerAsync
+url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

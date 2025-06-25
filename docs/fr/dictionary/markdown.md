@@ -1,6 +1,6 @@
 ---
 docName: dictionary__markdown
-url: /doc/concept/content/markdown
+url: https://intlayer.org/doc/concept/content/markdown
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md
 createdAt: 2025-02-7
 updatedAt: 2025-02-7

@@ -1,6 +1,6 @@
 ---
 docName: dictionary__nesting
-url: /doc/concept/content/nesting
+url: https://intlayer.org/doc/concept/content/nesting
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
 updatedAt: 2025-02-7

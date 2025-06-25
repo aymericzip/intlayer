@@ -1,6 +1,6 @@
 ---
 docName: mcp_server
-url: /doc/mcp-server
+url: https://intlayer.org/doc/mcp-server
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07

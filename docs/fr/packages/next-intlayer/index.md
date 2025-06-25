@@ -1,6 +1,6 @@
 ---
 docName: package__next-intlayer
-url: /doc/packages/next-intlayer
+url: https://intlayer.org/doc/packages/next-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

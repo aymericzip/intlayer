@@ -1,6 +1,6 @@
 ---
 docName: dictionary__enumeration
-url: /doc/concept/content/enumeration
+url: https://intlayer.org/doc/concept/content/enumeration
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

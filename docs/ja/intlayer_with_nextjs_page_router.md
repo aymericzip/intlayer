@@ -1,6 +1,6 @@
 ---
 docName: intlayer_with_nextjs_page_router
-url: /doc/environment/nextjs/next-with-Page-Router
+url: https://intlayer.org/doc/environment/nextjs/next-with-Page-Router
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_page_router.md
 createdAt: 2024-12-07
 updatedAt: 2024-12-07

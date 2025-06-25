@@ -1,6 +1,6 @@
 ---
 docName: package__express-intlayer__t
-url: /doc/packages/express-intlayer/t
+url: https://intlayer.org/doc/packages/express-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
 updatedAt: 2024-12-02

@@ -1,6 +1,6 @@
 ---
 docName: package__next-intlayer__t
-url: /doc/packages/next-intlayer/t
+url: https://intlayer.org/doc/packages/next-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

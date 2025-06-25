@@ -1,6 +1,6 @@
 ---
 docName: package__react-intlayer__t
-url: /doc/packages/react-intlayer/t
+url: https://intlayer.org/doc/packages/react-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

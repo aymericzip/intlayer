@@ -1,6 +1,6 @@
 ---
 docName: package__react-intlayer__useIntlayer
-url: /doc/packages/react-intlayer/useIntlayer
+url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

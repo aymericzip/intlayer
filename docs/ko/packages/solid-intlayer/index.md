@@ -1,6 +1,6 @@
 ---
 docName: package__solid-intlayer
-url: /doc/packages/solid-intlayer
+url: https://intlayer.org/doc/packages/solid-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/solid-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

@@ -1,6 +1,6 @@
 ---
 docName: package__intlayer__getLocaleLang
-url: /doc/packages/intlayer/getLocaleLang
+url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

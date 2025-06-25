@@ -1,6 +1,6 @@
 ---
 docName: package__intlayer
-url: /doc/packages/intlayer
+url: https://intlayer.org/doc/packages/intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

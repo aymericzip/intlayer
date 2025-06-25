@@ -1,6 +1,6 @@
 ---
 docName: package__vite-intlayer
-url: /doc/packages/vite-intlayer
+url: https://intlayer.org/doc/packages/vite-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

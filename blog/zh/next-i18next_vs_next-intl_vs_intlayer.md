@@ -1,6 +1,6 @@
 ---
 blogName: next-i18next_vs_next-intl_vs_intlayer
-url: /blog/next-i18next-vs-next-intl-vs-intlayer
+url: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/next-i18next_vs_next-intl_vs_intlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-01-02

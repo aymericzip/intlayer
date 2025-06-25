@@ -1,6 +1,6 @@
 ---
 docName: intlayer_with_react_native_and_expo
-url: /doc/environment/react-native-and-expo
+url: https://intlayer.org/doc/environment/react-native-and-expo
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md
 createdAt: 2025-03-07
 updatedAt: 2025-03-07

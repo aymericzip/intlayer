@@ -1,6 +1,6 @@
 ---
 docName: intlayer_with_express
-url: /doc/environment/express
+url: https://intlayer.org/doc/environment/express
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

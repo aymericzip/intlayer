@@ -1,6 +1,6 @@
 ---
 docName: package__intlayer__getTranslation
-url: /doc/packages/intlayer/getTranslation
+url: https://intlayer.org/doc/packages/intlayer/getTranslation
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

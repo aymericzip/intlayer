@@ -1,6 +1,6 @@
 ---
 blogName: intlayer_with_next-intl
-url: /blog/intlayer-with-next-intl
+url: https://intlayer.org/blog/intlayer-with-next-intl
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-intl.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02

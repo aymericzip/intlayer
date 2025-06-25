@@ -1,6 +1,6 @@
 ---
 blogName: index
-url: /blog/search/
+url: https://intlayer.org/blog/search/
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md
 createdAt: 2024-24-12
 updatedAt: 2024-24-12

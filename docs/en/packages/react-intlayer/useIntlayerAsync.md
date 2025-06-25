@@ -1,6 +1,6 @@
 ---
 docName: package__react-intlayer__useIntlayerAsync
-url: /doc/packages/react-intlayer/useIntlayerAsync
+url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

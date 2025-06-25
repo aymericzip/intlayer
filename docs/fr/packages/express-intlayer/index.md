@@ -1,6 +1,6 @@
 ---
 docName: package__express-intlayer
-url: /doc/packages/express-intlayer
+url: https://intlayer.org/doc/packages/express-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

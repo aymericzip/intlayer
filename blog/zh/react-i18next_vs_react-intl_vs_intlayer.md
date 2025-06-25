@@ -1,6 +1,6 @@
 ---
 blogName: react-i18next_vs_react-intl_vs_intlayer
-url: /blog/react-i18next-vs-react-intl-vs-intlayer
+url: https://intlayer.org/blog/react-i18next-vs-react-intl-vs-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/react-i18next_vs_react-intl_vs_intlayer.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02

@@ -1,6 +1,6 @@
 ---
 docName: dictionary__insertion
-url: /doc/concept/content/insertion
+url: https://intlayer.org/doc/concept/content/insertion
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13

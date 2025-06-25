@@ -1,6 +1,6 @@
 ---
 docName: intlayer_cli
-url: /doc/concept/cli
+url: https://intlayer.org/doc/concept/cli
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11

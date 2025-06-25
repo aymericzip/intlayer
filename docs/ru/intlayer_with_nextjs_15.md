@@ -1,6 +1,6 @@
 ---
 docName: intlayer_with_nextjs_15
-url: /doc/environment/nextjs
+url: https://intlayer.org/doc/environment/nextjs
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_15.md
 createdAt: 2024-12-06
 updatedAt: 2024-12-07
