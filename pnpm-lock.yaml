@@ -439,10 +439,10 @@ importers:
       '@intlayer/config':
         specifier: workspace:*
         version: link:../packages/@intlayer/config
-    devDependencies:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../packages/@intlayer/core
+    devDependencies:
       '@types/node':
         specifier: ^22.15.30
         version: 22.15.32
@@ -497,10 +497,10 @@ importers:
       '@intlayer/config':
         specifier: workspace:*
         version: link:../packages/@intlayer/config
-    devDependencies:
       '@intlayer/core':
         specifier: workspace:*
         version: link:../packages/@intlayer/core
+    devDependencies:
       '@types/node':
         specifier: ^22.15.30
         version: 22.15.32
