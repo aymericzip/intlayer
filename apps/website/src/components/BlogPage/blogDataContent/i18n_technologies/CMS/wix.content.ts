@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { BlogData } from '@components/BlogPage/types';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
 
 const blogContent = {
   key: 'blog-i18n_technologies_CMS_wix-metadata',
   content: {
+    blogName: 'list_i18n_technologies__CMS__wix',
+    url: PagesRoutes['Blog_i18n-technologies__CMS__wix'],
+    githubUrl: GithubRoutes['i18n-technologies__CMS__wix'],
+    createdAt: '2025-01-16',
+    updatedAt: '2025-01-16',
     title: t({
       en: 'Best Internationalization (i18n) Tools for Wix',
       'en-GB': 'Best Internationalization (i18n) Tools for Wix',
@@ -140,6 +146,6 @@ const blogContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<BlogData>;
 
 export default blogContent;

@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-dictionary-nesting-metadata',
   content: {
+    docName: 'dictionary__nesting',
+    url: PagesRoutes.Doc_Dictionary_Nesting,
+    githubUrl: GithubRoutes.Dictionary_Nesting,
+    createdAt: '2025-02-7',
+    updatedAt: '2025-02-7',
     title: t({
       en: "Dictionary's nesting",
       'en-GB': "Dictionary's nesting",
@@ -74,6 +80,6 @@ const docContent = {
       'React',
     ],
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

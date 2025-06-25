@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-t-express-intlayer-metadata',
   content: {
+    docName: 'package__express-intlayer__t',
+    url: PagesRoutes['Doc_Packages_express-intlayer_t'],
+    githubUrl: GithubRoutes['Packages_express-intlayer_t'],
+    createdAt: '2024-12-02',
+    updatedAt: '2024-12-02',
     title: t({
       en: 't Function Documentation | express-intlayer',
       fr: 'Documentation de la fonction t | express-intlayer',
@@ -168,6 +174,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

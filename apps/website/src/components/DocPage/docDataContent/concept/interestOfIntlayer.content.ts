@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-interest-of-intlayer-metadata',
   content: {
+    docName: 'interest_of_intlayer',
+    url: PagesRoutes.Doc_Interest,
+    githubUrl: GithubRoutes.InterestOfIntlayer,
+    createdAt: '2024-08-14',
+    updatedAt: '2024-08-14',
     title: t({
       en: 'Interest of Intlayer',
       'en-GB': 'Interest of Intlayer',
@@ -58,6 +64,6 @@ const docContent = {
       ru: ['Преимущества', 'Плюсы', 'Intlayer', 'Фреймворк', 'Сравнение'],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

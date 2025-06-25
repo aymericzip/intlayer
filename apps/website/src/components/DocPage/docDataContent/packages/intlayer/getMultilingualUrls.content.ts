@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-getMultilingualUrls-intlayer-metadata',
   content: {
+    docName: 'package__intlayer__getMultilingualUrls',
+    url: PagesRoutes['Doc_Packages_intlayer_getMultilingualUrls'],
+    githubUrl: GithubRoutes['Packages_intlayer_getMultilingualUrls'],
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'getMultilingualUrls Function Documentation | intlayer',
       'en-GB': 'getMultilingualUrls Function Documentation | intlayer',
@@ -183,6 +189,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

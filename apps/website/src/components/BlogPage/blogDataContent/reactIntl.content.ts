@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { BlogData } from '../types';
 
 const blogContent = {
   key: 'blog-intlayer-with-react-intl-metadata',
   content: {
+    blogName: 'intlayer_with_react-intl',
+    url: PagesRoutes['Blog_Intlayer_with_React-intl'],
+    githubUrl: GithubRoutes.IntlayerWithReactIntl,
+    createdAt: '2025-01-02',
+    updatedAt: '2025-01-02',
     title: t({
       en: 'Intlayer and react-intl',
       'en-GB': 'Intlayer and react-intl',
@@ -156,6 +162,6 @@ const blogContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<BlogData>;
 
 export default blogContent;

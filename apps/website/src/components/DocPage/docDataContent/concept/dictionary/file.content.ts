@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import type { DocData } from '@components/DocPage/types';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
 
 const docContent = {
   key: 'doc-dictionary-file-metadata',
   content: {
+    docName: 'dictionary__file',
+    url: PagesRoutes.Doc_Dictionary_File,
+    githubUrl: GithubRoutes.Dictionary_File,
+    createdAt: '2025-03-13',
+    updatedAt: '2025-03-13',
     title: t({
       en: 'File',
       fr: 'Fichier',
@@ -156,6 +162,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

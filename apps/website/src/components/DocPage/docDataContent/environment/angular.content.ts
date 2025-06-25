@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-intlayer-with-angular-metadata',
   content: {
+    docName: 'intlayer_with_angular',
+    url: PagesRoutes.Doc_Environment_Angular,
+    githubUrl: GithubRoutes.IntlayerWithAngular,
+    createdAt: '2025-04-18',
+    updatedAt: '2025-04-18',
     title: t({
       en: 'Translate your Angular website (i18n)',
       fr: 'Traduire votre site web Angular (i18n)',
@@ -112,6 +118,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

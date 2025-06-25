@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
 
 const docContent = {
   key: 'doc-dictionary-auto-fill-metadata',
   content: {
+    docName: 'autoFill',
+    url: PagesRoutes.Doc_Dictionary_AutoFill,
+    githubUrl: GithubRoutes.Dictionary_AutoFill,
+    createdAt: '2025-03-13',
+    updatedAt: '2025-03-13',
     title: t({
       en: 'Auto Fill',
       'en-GB': 'Auto Fill',
@@ -157,6 +163,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

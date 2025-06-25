@@ -1,22 +1,4 @@
 import { Locales, LocalesValues, getIntlayer } from 'intlayer';
-import { getBlogIndexData } from './blogDataContent';
-import { getBlogI18nTechnologiesCMSDrupalData } from './blogDataContent/i18n_technologies/CMS/drupal';
-import { getBlogI18nTechnologiesCMSWixData } from './blogDataContent/i18n_technologies/CMS/wix';
-import { getBlogI18nTechnologiesCMSWordpressData } from './blogDataContent/i18n_technologies/CMS/wordpress';
-import { getBlogI18nTechnologiesFrameworksAngularData } from './blogDataContent/i18n_technologies/frameworks/angular';
-import { getBlogI18nTechnologiesFrameworksFlutterData } from './blogDataContent/i18n_technologies/frameworks/flutter';
-import { getBlogI18nTechnologiesFrameworksReactData } from './blogDataContent/i18n_technologies/frameworks/react';
-import { getBlogI18nTechnologiesFrameworksReactNativeData } from './blogDataContent/i18n_technologies/frameworks/react-native';
-import { getBlogI18nTechnologiesFrameworksSvelteData } from './blogDataContent/i18n_technologies/frameworks/svelte';
-import { getBlogI18nTechnologiesFrameworksVueData } from './blogDataContent/i18n_technologies/frameworks/vue';
-import { getBlogIntlayerWithNextI18nextData } from './blogDataContent/nextI18next';
-import { getBlogNextI18nVSNextIntlVSIntlayerData } from './blogDataContent/nextI18nextVSnextIntlVSIntlayer';
-import { getBlogIntlayerWithNextIntlData } from './blogDataContent/nextIntl';
-import { getBlogIntlayerWithReactI18nextData } from './blogDataContent/reactI18next';
-import { getBlogReactI18nVSReactIntlVSIntlayerData } from './blogDataContent/reactI18nextVSreactIntlVSIntlayer';
-import { getBlogIntlayerWithReactIntlData } from './blogDataContent/reactIntl';
-import { getBlogSEOData } from './blogDataContent/SEO';
-import { getBlogWhatIsi18nData } from './blogDataContent/whatIsI18n';
 import type { BlogData, CategorizedBlogData, Section } from './types';
 
 export const getBlogData = (
@@ -27,46 +9,61 @@ export const getBlogData = (
   return {
     blog: {
       title: content.default.title,
-      default: getBlogIndexData(locale),
+      default: getIntlayer('blog-metadata', locale),
       subSections: {
         'what-is-internationalization': {
           title:
             content.default.subSections['what-is-internationalization'].title,
-          default: getBlogWhatIsi18nData(locale),
+          default: getIntlayer('blog-what-is-i18n-metadata', locale),
         },
         'SEO-and-i18n': {
           title: content.default.subSections.SEO.title,
-          default: getBlogSEOData(locale),
+          default: getIntlayer('blog-i18n-and-SEO-metadata', locale),
         },
         'intlayer-with-next-i18next': {
           title:
             content.default.subSections['intlayer-with-next-i18next'].title,
-          default: getBlogIntlayerWithNextI18nextData(locale),
+          default: getIntlayer(
+            'blog-intlayer-with-next-i18next-metadata',
+            locale
+          ),
         },
         'intlayer-with-react-i18next': {
           title:
             content.default.subSections['intlayer-with-react-i18next'].title,
-          default: getBlogIntlayerWithReactI18nextData(locale),
+          default: getIntlayer(
+            'blog-intlayer-with-react-i18next-metadata',
+            locale
+          ),
         },
         'intlayer-with-next-intl': {
           title: content.default.subSections['intlayer-with-next-intl'].title,
-          default: getBlogIntlayerWithNextIntlData(locale),
+          default: getIntlayer('blog-intlayer-with-next-intl-metadata', locale),
         },
         'intlayer-with-react-intl': {
           title: content.default.subSections['intlayer-with-react-intl'].title,
-          default: getBlogIntlayerWithReactIntlData(locale),
+          default: getIntlayer(
+            'blog-intlayer-with-react-intl-metadata',
+            locale
+          ),
         },
         'next-i18next-vs-next-intl-vs-intlayer': {
           title:
             content.default.subSections['next-i18next_vs_next-intl_vs_intlayer']
               .title,
-          default: getBlogNextI18nVSNextIntlVSIntlayerData(locale),
+          default: getIntlayer(
+            'blog-next-i18next-vs-next-intl-vs-intlayer-metadata',
+            locale
+          ),
         },
         'react-i18next-vs-react-intl-vs-intlayer': {
           title:
             content.default.subSections['react-i18n-vs-react-intl-vs-intlayer']
               .title,
-          default: getBlogReactI18nVSReactIntlVSIntlayerData(locale),
+          default: getIntlayer(
+            'blog-react-i18n-vs-react-intl-vs-intlayer-metadata',
+            locale
+          ),
         },
         'i18n-technologies': {
           title: content.default.subSections['i18n-technologies'].title,
@@ -80,38 +77,55 @@ export const getBlogData = (
                   title:
                     content.default.subSections['i18n-technologies'].subSections
                       .frameworks.subSections.angular.title,
-                  default: getBlogI18nTechnologiesFrameworksAngularData(locale),
+                  default: getIntlayer(
+                    'blog-i18n_technologies_frameworks_angular-metadata',
+                    locale
+                  ),
                 },
                 react: {
                   title:
                     content.default.subSections['i18n-technologies'].subSections
                       .frameworks.subSections.react.title,
-                  default: getBlogI18nTechnologiesFrameworksReactData(locale),
+                  default: getIntlayer(
+                    'blog-i18n_technologies_frameworks_react-metadata',
+                    locale
+                  ),
                 },
                 vue: {
                   title:
                     content.default.subSections['i18n-technologies'].subSections
                       .frameworks.subSections.vue.title,
-                  default: getBlogI18nTechnologiesFrameworksVueData(locale),
+                  default: getIntlayer(
+                    'blog-i18n_technologies_frameworks_vue-metadata',
+                    locale
+                  ),
                 },
                 svelte: {
                   title:
                     content.default.subSections['i18n-technologies'].subSections
                       .frameworks.subSections.svelte.title,
-                  default: getBlogI18nTechnologiesFrameworksSvelteData(locale),
+                  default: getIntlayer(
+                    'blog-i18n_technologies_frameworks_svelte-metadata',
+                    locale
+                  ),
                 },
                 flutter: {
                   title:
                     content.default.subSections['i18n-technologies'].subSections
                       .frameworks.subSections.flutter.title,
-                  default: getBlogI18nTechnologiesFrameworksFlutterData(locale),
+                  default: getIntlayer(
+                    'blog-i18n_technologies_frameworks_flutter-metadata',
+                    locale
+                  ),
                 },
                 'react-native': {
                   title:
                     content.default.subSections['i18n-technologies'].subSections
                       .frameworks.subSections['react-native'].title,
-                  default:
-                    getBlogI18nTechnologiesFrameworksReactNativeData(locale),
+                  default: getIntlayer(
+                    'blog-i18n_technologies_frameworks_react-native-metadata',
+                    locale
+                  ),
                 },
               },
             },
@@ -124,19 +138,28 @@ export const getBlogData = (
                   title:
                     content.default.subSections['i18n-technologies'].subSections
                       .CMS.subSections.wordpress.title,
-                  default: getBlogI18nTechnologiesCMSWordpressData(locale),
+                  default: getIntlayer(
+                    'blog-i18n_technologies_CMS_wordpress-metadata',
+                    locale
+                  ),
                 },
                 drupal: {
                   title:
                     content.default.subSections['i18n-technologies'].subSections
                       .CMS.subSections.drupal.title,
-                  default: getBlogI18nTechnologiesCMSDrupalData(locale),
+                  default: getIntlayer(
+                    'blog-i18n_technologies_CMS_drupal-metadata',
+                    locale
+                  ),
                 },
                 wix: {
                   title:
                     content.default.subSections['i18n-technologies'].subSections
                       .CMS.subSections.wix.title,
-                  default: getBlogI18nTechnologiesCMSWixData(locale),
+                  default: getIntlayer(
+                    'blog-i18n_technologies_CMS_wix-metadata',
+                    locale
+                  ),
                 },
               },
             },

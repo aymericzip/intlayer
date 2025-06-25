@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-dictionary-insertion-metadata',
   content: {
+    docName: 'dictionary__insertion',
+    url: PagesRoutes.Doc_Dictionary_Insertion,
+    githubUrl: GithubRoutes.Dictionary_Insertion,
+    createdAt: '2025-03-13',
+    updatedAt: '2025-03-13',
     title: t({
       en: 'Insertion',
       fr: 'Insertion',
@@ -156,6 +162,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

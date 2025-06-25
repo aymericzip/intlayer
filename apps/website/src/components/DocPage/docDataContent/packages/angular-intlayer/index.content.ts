@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-angular-intlayer-metadata',
   content: {
+    docName: 'package__angular-intlayer',
+    url: PagesRoutes['Doc_Packages_angular-intlayer'],
+    githubUrl: GithubRoutes['Packages_angular-intlayer'],
+    createdAt: '2025-04-18',
+    updatedAt: '2025-04-18',
     title: t({
       en: 'Package Documentation | angular-intlayer',
       'en-GB': 'Package Documentation | angular-intlayer',
@@ -143,6 +149,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

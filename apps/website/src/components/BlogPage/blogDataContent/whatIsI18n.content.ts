@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { BlogData } from '../types';
 
 const blogContent = {
   key: 'blog-what-is-i18n-metadata',
   content: {
+    blogName: 'what_is_internationalization',
+    url: PagesRoutes.Blog_What_is_i18n,
+    githubUrl: GithubRoutes.WhatIsi18n,
+    createdAt: '2025-01-16',
+    updatedAt: '2025-01-16',
     title: t({
       en: 'What is Internationalization (i18n)? Definition and challenges',
       'en-GB': 'What is Internationalization (i18n)? Definition and challenges',
@@ -168,6 +174,6 @@ const blogContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<BlogData>;
 
 export default blogContent;

@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-solid-intlayer-metadata',
   content: {
+    docName: 'package__solid-intlayer',
+    url: PagesRoutes['Doc_Packages_solid-intlayer'],
+    githubUrl: GithubRoutes['Packages_solid-intlayer'],
+    createdAt: '2024-08-11',
+    updatedAt: '2024-08-11',
     title: t({
       en: 'Package Documentation | solid-intlayer',
       'en-GB': 'Package Documentation | solid-intlayer',
@@ -156,6 +162,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

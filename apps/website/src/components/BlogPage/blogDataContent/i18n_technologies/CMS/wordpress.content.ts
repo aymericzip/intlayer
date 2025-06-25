@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { BlogData } from '@components/BlogPage/types';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
 
 const blogContent = {
   key: 'blog-i18n_technologies_CMS_wordpress-metadata',
   content: {
+    blogName: 'list_i18n_technologies__CMS__wordpress',
+    url: PagesRoutes['Blog_i18n-technologies__CMS__wordpress'],
+    githubUrl: GithubRoutes['i18n-technologies__CMS__wordpress'],
+    createdAt: '2025-01-16',
+    updatedAt: '2025-01-16',
     title: t({
       en: 'Best Internationalization (i18n) Tools for Wordpress',
       'en-GB': 'Best Internationalization (i18n) Tools for Wordpress',
@@ -156,6 +162,6 @@ const blogContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<BlogData>;
 
 export default blogContent;

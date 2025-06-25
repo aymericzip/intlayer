@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { BlogData } from '../types';
 
 const blogContent = {
   key: 'blog-intlayer-with-next-intl-metadata',
   content: {
+    blogName: 'intlayer_with_next-intl',
+    url: PagesRoutes['Blog_Intlayer_with_Next-intl'],
+    githubUrl: GithubRoutes.IntlayerWithNextIntl,
+    createdAt: '2025-01-02',
+    updatedAt: '2025-01-02',
     title: t({
       en: 'Intlayer and next-intl',
       'en-GB': 'Intlayer and next-intl',
@@ -157,6 +163,6 @@ const blogContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<BlogData>;
 
 export default blogContent;

@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-intlayer-with-nextjs-14-metadata',
   content: {
+    docName: 'intlayer_with_nextjs_14',
+    url: PagesRoutes.Doc_Environment_NextJS_14,
+    githubUrl: GithubRoutes.IntlayerWithNextJS14,
+    createdAt: '2024-12-06',
+    updatedAt: '2024-12-07',
     title: t({
       en: 'Translate your Next.js 14 and App Router website (i18n)',
       fr: 'Traduire votre site web Next.js 14 et App Router (i18n)',
@@ -129,6 +135,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

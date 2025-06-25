@@ -42,7 +42,7 @@ The `--filter '!./examples/\*\*'` argument in pnpm install is used to exclude al
 If you're only working on a specific example (`vite-react-app`, `nextjs-14-app`, etc.), you can install only the necessary dependencies.  
 This prevents installing docs, backend apps, and all other frameworks you're not working with.
 
-✅ Example: Install only the root package, utils, `react-intlayer`, and the `vite-react-app` example
+Example: Install only the root package, utils, `react-intlayer`, and the `vite-react-app` example
 
 ```bash
 pnpm install \

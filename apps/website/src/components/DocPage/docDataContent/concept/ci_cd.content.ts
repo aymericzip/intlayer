@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { DocData } from '@components/DocPage/types';
+import { Dictionary, t } from 'intlayer';
 
 const docContent = {
   key: 'doc-ci-cd-metadata',
   content: {
+    docName: 'ci_cd',
+    url: PagesRoutes.Doc_CI_CD,
+    githubUrl: GithubRoutes.Doc_CI_CD,
+    createdAt: '2025-05-20',
+    updatedAt: '2025-05-20',
     title: t({
       en: 'CI/CD Integration',
       'en-GB': 'CI/CD Integration',
@@ -157,6 +163,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;

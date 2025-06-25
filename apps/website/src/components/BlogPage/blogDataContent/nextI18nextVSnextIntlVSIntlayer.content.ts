@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { BlogData } from '../types';
 
 const blogContent = {
   key: 'blog-next-i18next-vs-next-intl-vs-intlayer-metadata',
   content: {
+    blogName: 'next-i18next_vs_next-intl_vs_intlayer',
+    url: PagesRoutes['Blog_Next-i18next_vs_Next-intl_vs_Intlayer'],
+    githubUrl: GithubRoutes['Next-i18next_vs_Next-intl_vs_Intlayer'],
+    createdAt: '2024-08-11',
+    updatedAt: '2025-01-02',
     title: t({
       en: 'next-i18next vs next-intl vs Intlayer',
       'en-GB': 'next-i18next vs next-intl vs Intlayer',
@@ -170,6 +176,6 @@ const blogContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<BlogData>;
 
 export default blogContent;

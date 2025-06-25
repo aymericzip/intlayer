@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { BlogData } from '../types';
 
 const blogContent = {
   key: 'blog-i18n-and-SEO-metadata',
   content: {
+    blogName: 'internationalization_and_SEO',
+    url: PagesRoutes.Blog_SEO_and_i18n,
+    githubUrl: GithubRoutes.I18nAndSEO,
+    createdAt: '2024-12-24',
+    updatedAt: '2024-12-24',
     title: t({
       en: 'SEO and Internationalization',
       'en-GB': 'SEO and Internationalization',
@@ -157,6 +163,6 @@ const blogContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<BlogData>;
 
 export default blogContent;

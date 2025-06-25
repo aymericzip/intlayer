@@ -1,9 +1,15 @@
-import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { Dictionary, t } from 'intlayer';
+import { DocData } from '../types';
 
 const docContent = {
   key: 'doc-vscode-extension-metadata',
   content: {
+    docName: 'vscode_extension',
+    url: PagesRoutes.VS_Code_Extension,
+    githubUrl: GithubRoutes['VS_Code_extension_intlayer'],
+    createdAt: '2025-03-17',
+    updatedAt: '2025-03-17',
     title: t({
       en: 'Official VS Code Extension',
       'en-GB': 'Official VS Code Extension',
@@ -168,6 +174,6 @@ const docContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<DocData>;
 
 export default docContent;
