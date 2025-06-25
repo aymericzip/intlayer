@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: 辞書のネスト
+description: Intlayerでコンテンツのネストを使用して、多言語コンテンツを効率的に再利用および構造化する方法を学びます。このドキュメントに従って、ネストを簡単に実装しましょう。
+keywords:
+  - Nesting
+  - コンテンツの再利用
+  - 文書
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # ネスト / サブコンテンツ参照
 
 ## ネストの仕組み

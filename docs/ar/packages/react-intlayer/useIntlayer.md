@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayer
+url: /doc/packages/react-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق خطاف useIntlayer | react-intlayer
+description: انظر كيف تستخدم خطاف useIntlayer لحزمة react-intlayer
+keywords:
+  - useIntlayer
+  - قاموس
+  - مفتاح
+  - Intlayer
+  - الدولية
+  - التوثيق
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React Integration: `useIntlayer` Hook Documentation
 
 هذا القسم يوفر إرشادات مفصلة حول استخدام `useIntlayer` في تطبيقات React، مما يتيح توطين المحتوى بكفاءة.

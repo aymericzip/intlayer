@@ -1,3 +1,22 @@
+---
+blogName: intlayer_with_next-i18next
+url: /blog/intlayer-with-next-i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+createdAt: 2024-08-11
+updatedAt: 2025-01-02
+title: Intlayer وnext-i18next
+description: قم بدمج Intlayer مع next-i18next لتطبيق Next.js
+keywords:
+  - i18next
+  - next-i18next
+  - Intlayer
+  - التدويل
+  - التوثيق
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js Internationalization (i18n) مع next-i18next و Intlayer
 
 كل من next-i18next و Intlayer هما إطاران مفتوحا المصدر للتدويل (i18n) مصممان لتطبيقات Next.js. يتم استخدامهما على نطاق واسع لإدارة الترجمات، والتعريب، وتبديل اللغة في مشاريع البرمجيات.

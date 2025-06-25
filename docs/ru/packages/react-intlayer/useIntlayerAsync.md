@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayerAsync
+url: /doc/packages/react-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Документация по хуку useIntlayerAsync | react-intlayer
+description: Узнайте, как использовать хук useIntlayerAsync для пакета react-intlayer
+keywords:
+  - useIntlayerAsync
+  - словарь
+  - ключ
+  - Intlayer
+  - Интернационализация
+  - Документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React Интеграция: Документация хука `useIntlayerAsync`
 
 Хук `useIntlayerAsync` расширяет функциональность `useIntlayer`, возвращая не только предварительно отрендеренные словари, но и асинхронно загружая обновления, что делает его идеальным для приложений, которые часто обновляют локализованный контент после первоначального рендера.

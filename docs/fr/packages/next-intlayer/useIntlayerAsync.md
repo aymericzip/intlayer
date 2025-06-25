@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayerAsync
+url: /doc/packages/next-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentation du hook useIntlayerAsync | next-intlayer
+description: Découvrez comment utiliser le hook useIntlayerAsync pour le package next-intlayer
+keywords:
+  - useIntlayerAsync
+  - dictionnaire
+  - clé
+  - Intlayer
+  - Internationalisation
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intégration Next.js : Documentation du Hook `useIntlayerAsync`
 
 Le hook `useIntlayerAsync` étend la fonctionnalité de `useIntlayer` en retournant non seulement des dictionnaires pré-rendus, mais également en récupérant des mises à jour de manière asynchrone, ce qui le rend idéal pour les applications qui mettent fréquemment à jour leur contenu localisé après le rendu initial.

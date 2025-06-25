@@ -1,3 +1,21 @@
+---
+docName: ci_cd
+url: /doc/concept/ci-cd
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+createdAt: 2025-05-20
+updatedAt: 2025-05-20
+title: CI/CD集成
+description: 了解如何将Intlayer集成到您的CI/CD管道中，以实现自动化的内容管理和部署。
+keywords:
+  - CI/CD
+  - 持续集成
+  - 持续部署
+  - 自动化
+  - 国际化
+  - 文档
+  - Intlayer
+---
+
 # 在 CI/CD 管道中自动生成翻译
 
 Intlayer 允许为您的内容声明文件自动生成翻译。根据您的工作流程，有多种方法可以实现这一点。

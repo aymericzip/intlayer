@@ -1,3 +1,21 @@
+---
+docName: dictionary__translation
+url: /doc/concept/content/translation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: अनुवाद
+description: जानें कि अपने बहुभाषी वेबसाइट पर अनुवाद को कैसे घोषणा और उपयोग करें। अपने प्रोजेक्ट को कुछ मिनटों में सेट करने के लिए इस ऑनलाइन दस्तावेज में चरणों का पालन करें।
+keywords:
+  - अनुवाद
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Intlayer
+  - Next.js
+  - जावास्क्रिप्ट
+  - React
+---
+
 # अनुवाद
 
 ## अनुवाद परिभाषित करना

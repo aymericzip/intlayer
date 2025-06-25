@@ -1,3 +1,22 @@
+---
+blogName: intlayer_with_next-i18next
+url: /blog/intlayer-with-next-i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+createdAt: 2024-08-11
+updatedAt: 2025-01-02
+title: Intlayer和next-i18next
+description: 与Next.js应用程序的next-i18next集成Intlayer
+keywords:
+  - i18next
+  - next-i18next
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js 国际化 (i18n) 与 next-i18next 和 Intlayer
 
 both next-i18next 和 Intlayer 是为 Next.js 应用程序设计的开源国际化 (i18n) 框架。它们广泛用于软件项目中的翻译、地方化和语言切换管理。

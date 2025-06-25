@@ -170,7 +170,7 @@ export enum GithubRoutes {
   Dictionary_Nesting = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md',
   Dictionary_Condition = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md',
   Dictionary_File = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md',
-  Dictionary_PerLocaleFile = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/per-locale-file.md',
+  Dictionary_PerLocaleFile = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/per_locale_file.md',
   Dictionary_AutoFill = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md',
   'Packages_intlayer' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md',
   'Packages_intlayer_getConfiguration' = 'https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md',

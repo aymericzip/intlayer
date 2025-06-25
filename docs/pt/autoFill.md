@@ -1,3 +1,21 @@
+---
+docName: autoFill
+url: /doc/concept/auto-fill
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Preenchimento automático
+description: Descubra como usar a funcionalidade de preenchimento automático no Intlayer para preencher automaticamente o conteúdo com base em padrões predefinidos. Siga esta documentação para implementar recursos de preenchimento automático de forma eficiente em seu projeto.
+keywords:
+  - Preenchimento automático
+  - Automação de conteúdo
+  - Conteúdo dinâmico
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Arquivos de Declaração de Conteúdo Preenchidos Automaticamente
 
 Os **arquivos de declaração de conteúdo preenchidos automaticamente** são uma maneira de acelerar seu fluxo de trabalho de desenvolvimento.

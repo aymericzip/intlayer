@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getTranslation
+url: /doc/packages/intlayer/getTranslation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getTranslation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Dokumentation der t-Funktion | intlayer
+description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetTranslation verwenden
+keywords:
+  - getTranslation
+  - Übersetzung
+  - Intlayer
+  - intlayer
+  - Internationalisierung
+  - Dokumentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Dokumentation: `getTranslationContent` Funktion in `intlayer`
 
 ## Beschreibung

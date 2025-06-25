@@ -1,3 +1,21 @@
+---
+docName: mcp_server
+url: /doc/mcp-server
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+createdAt: 2025-06-07
+updatedAt: 2025-06-07
+title: MCPサーバーのドキュメント
+description: MCPサーバーの機能とセットアップを探索して、サーバー管理と運用を最適化します。
+keywords:
+  - MCPサーバー
+  - サーバー管理
+  - 最適化
+  - Intlayer
+  - ドキュメント
+  - セットアップ
+  - 機能
+---
+
 # Intlayer MCP サーバー
 
 **Intlayer MCP (Model Context Protocol) サーバー**は、Intlayer エコシステム向けに設計されたAI支援のIDEアシスタンスを提供します。**Cursor**、**GitHub Copilot ワークスペース**、およびMCPプロトコルをサポートする任意のIDEなど、現代の開発者環境向けに設計されており、プロジェクトのセットアップに基づいたコンテキスト対応のリアルタイムサポートを提供します。

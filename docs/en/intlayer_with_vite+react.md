@@ -1,3 +1,21 @@
+---
+docName: intlayer_with_react_native_and_expo
+url: /doc/environment/react-native-and-expo
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md
+createdAt: 2025-03-07
+updatedAt: 2025-03-07
+title: Translate your React Native and Expo mobile app (i18n)
+description: Discover how to make your React Native and Expo mobile app multilingual. Follow the documentation to internationalize (i18n) and translate it.
+keywords:
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Vite
+  - React
+  - React Native
+  - JavaScript
+---
+
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and React
 
 See [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) on GitHub.

@@ -1,3 +1,20 @@
+---
+docName: package__nuxt-intlayer
+url: /doc/packages/nuxt-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/nuxt-intlayer/index.md
+createdAt: 2025-06-18
+updatedAt: 2025-06-18
+title: 包文档 | nuxt-intlayer
+description: 查看如何使用 nuxt-intlayer 软件包
+keywords:
+  - Intlayer
+  - nuxt-intlayer
+  - 国际化
+  - 文档
+  - JavaScript
+  - Nuxt
+---
+
 # nuxt-intlayer: 用于国际化 (i18n) Vue 应用的 NPM 包
 
 **Intlayer** 是专为 JavaScript 开发者设计的一套工具包。它兼容 Vue、Vue 和 Express.js 等框架。

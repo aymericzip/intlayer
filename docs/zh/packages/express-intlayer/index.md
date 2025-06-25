@@ -1,3 +1,21 @@
+---
+docName: package__express-intlayer
+url: /doc/packages/express-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 包文档 | express-intlayer
+description: 查看如何使用 express-intlayer 软件包
+keywords:
+  - Intlayer
+  - express-intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # express-intlayer: 用于国际化 (i18n) Express.js 应用的 JavaScript 包
 
 **Intlayer** 是专为 JavaScript 开发者设计的一套工具包。它兼容 React、Next.js 和 Express.js 等框架。

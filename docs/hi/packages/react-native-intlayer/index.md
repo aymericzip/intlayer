@@ -1,3 +1,22 @@
+---
+docName: package__react-native-intlayer
+url: /doc/packages/react-native-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: पैकेज के डॉक्यूमेंटेशन | react-native-intlayer
+description: react-native-intlayer पैकेज का उपयोग कैसे करें
+keywords:
+  - Intlayer
+  - React Native
+  - react-native-intlayer
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **Intlayer** विशेष रूप से जावास्क्रिप्ट डेवलपर्स के लिए डिज़ाइन किए गए पैकेजों का एक सूट है। यह React, React, और Express.js जैसे फ्रेमवर्क्स के साथ संगत है।
 
 **`react-native-intlayer` पैकेज** आपको अपने Vite एप्लिकेशन को अंतर्राष्ट्रीयकरण करने की अनुमति देता है। इसमें मेट्रो प्लगइन शामिल है जो पर्यावरण वेरिएबल्स के माध्यम से [मेट्रो बंडलर](https://docs.expo.dev/guides/customizing-metro/) में कॉन्फ़िगरेशन सेट करता है।

@@ -1,3 +1,22 @@
+---
+blogName: what_is_internationalization
+url: /blog/what-is-internationalization
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md
+createdAt: 2025-01-16
+updatedAt: 2025-01-16
+title: What is Internationalization (i18n)? Definition and challenges
+description: Discover why internationalizing your website is essential. Learn key principles to boost SEO, enhance user experience, and expand your global reach.
+keywords:
+  - i18n
+  - multilingual
+  - SEO
+  - Internationalization
+  - Blog
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # What is Internationalization (i18n)? Definition and challenges
 
 ![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)

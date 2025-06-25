@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Verschachtelung des Wörterbuchs
+description: Erfahren Sie, wie Sie die Inhaltsverschachtelung in Intlayer nutzen können, um Ihre mehrsprachigen Inhalte effizient wiederzuverwenden und zu strukturieren. Folgen Sie dieser Dokumentation, um die Verschachtelung nahtlos in Ihr Projekt zu integrieren.
+keywords:
+  - Nesting
+  - Inhaltswiederverwendung
+  - Dokumentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Verschachtelung / Sub-Content-Referenzierung
 
 ## Wie Verschachtelung funktioniert

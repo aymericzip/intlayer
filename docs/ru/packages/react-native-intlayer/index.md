@@ -1,3 +1,22 @@
+---
+docName: package__react-native-intlayer
+url: /doc/packages/react-native-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Документация пакета | react-native-intlayer
+description: Узнайте, как использовать пакет react-native-intlayer
+keywords:
+  - Intlayer
+  - React Native
+  - react-native-intlayer
+  - интернационализация
+  - документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **Intlayer** , это набор пакетов, специально разработанных для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
 
 **Пакет `react-native-intlayer`** позволяет интернационализировать ваше приложение Vite. Он включает плагин Metro для настройки конфигурации через переменные окружения в [Metro bundler](https://docs.expo.dev/guides/customizing-metro/).

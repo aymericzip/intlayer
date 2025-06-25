@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_vite_solid
+url: /doc/environment/vite-and-solid
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+solid.md
+createdAt: 2025-04-18
+updatedAt: 2025-04-18
+title: Translate your Vite and Solid website (i18n)
+description: Discover how to make your Vite and Solid website multilingual. Follow the documentation to internationalize (i18n) and translate it.
+keywords:
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Vite
+  - Solid
+  - JavaScript
+---
+
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and Solid
 
 > This package is in development. See the [issue](https://github.com/aymericzip/intlayer/issues/117) for more information. Show your interest in Intlayer for Solid by liking the issue

@@ -1,3 +1,21 @@
+---
+docName: package__vite-intlayer
+url: /doc/packages/vite-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: パッケージドキュメント | vite-intlayer
+description: vite-intlayerパッケージの使用方法を確認してください
+keywords:
+  - Intlayer
+  - vite-intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # vite-intlayer: Viteアプリケーションを国際化（i18n）するためのNPMパッケージ
 
 **Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、React、Express.jsなどのフレームワークと互換性があります。

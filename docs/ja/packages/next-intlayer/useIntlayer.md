@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayer
+url: /doc/packages/next-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayerフックのドキュメント | next-intlayer
+description: next-intlayerパッケージのuseIntlayerフックの使い方を見てください
+keywords:
+  - useIntlayer
+  - 辞書
+  - キー
+  - Intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js統合: `useIntlayer`フックのドキュメント
 
 `useIntlayer`フックは、Next.jsアプリケーション向けに設計されており、ローカライズされたコンテンツを効率的に取得および管理するためのものです。このドキュメントでは、Next.jsプロジェクト内でフックを利用する方法に焦点を当て、適切なローカライゼーションの実践を確保します。

@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_vite_vue
+url: /doc/environment/vite-and-vue
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+vue.md
+createdAt: 2025-04-18
+updatedAt: 2025-04-18
+title: Traduci il tuo sito web Vite e Vue (i18n)
+description: Scopri come rendere multilingue il tuo sito web con Vite e Vue. Segui la documentazione per internazionalizzarlo (i18n) e tradurlo.
+keywords:
+  - Internazionalizzazione
+  - Documentazione
+  - Intlayer
+  - Vite
+  - Vue
+  - JavaScript
+---
+
 # Iniziare con l'Internazionalizzazione (i18n) con Intlayer, Vite e Vue
 
 > Questo pacchetto è in fase di sviluppo. Vedi il [problema](https://github.com/aymericzip/intlayer/issues/113) per maggiori informazioni. Mostra il tuo interesse per Intlayer per Vue mettendo un like al problema.

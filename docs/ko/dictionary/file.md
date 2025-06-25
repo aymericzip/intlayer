@@ -1,3 +1,21 @@
+---
+docName: dictionary__file
+url: /doc/concept/content/file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: 파일
+description: Intlayer의 `file` 함수를 사용하여 외부 파일을 콘텐츠 사전에 삽입하는 방법을 학습합니다. 이 문서에서는 Intlayer가 파일 콘텐츠를 동적으로 관리하는 방법을 설명합니다.
+keywords:
+  - 파일
+  - 국제화
+  - 문서
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 ## 파일 임베딩 작동 방식
 
 Intlayer에서 `file` 함수는 외부 파일 콘텐츠를 딕셔너리에 임베딩할 수 있도록 합니다. 이 접근 방식은 Intlayer가 소스 파일을 인식하여 Intlayer Visual Editor 및 CMS와의 원활한 통합을 가능하게 합니다. 직접적인 `import`, `require` 또는 `fs` 파일 읽기 방법과는 달리, `file`을 사용하면 파일이 딕셔너리와 연결되어 파일이 편집될 때 콘텐츠를 동적으로 추적하고 업데이트할 수 있습니다.

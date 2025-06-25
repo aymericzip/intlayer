@@ -1,3 +1,21 @@
+---
+docName: dictionary__file
+url: /doc/concept/content/file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: File
+description: Scopri come incorporare file esterni nel tuo dizionario di contenuti utilizzando la funzione `file`. Questa documentazione spiega come Intlayer collega e gestisce dinamicamente il contenuto dei file.
+keywords:
+  - File
+  - Internazionalizzazione
+  - Documentazione
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 ## Come Funziona l'Incorporazione dei File
 
 In Intlayer, la funzione `file` consente di incorporare il contenuto di file esterni in un dizionario. Questo approccio garantisce che Intlayer riconosca il file sorgente, consentendo un'integrazione senza soluzione di continuità con l'Editor Visivo e il CMS di Intlayer. A differenza dei metodi diretti di lettura dei file come `import`, `require` o `fs`, l'uso di `file` associa il file al dizionario, permettendo a Intlayer di tracciare e aggiornare dinamicamente il contenuto quando il file viene modificato.

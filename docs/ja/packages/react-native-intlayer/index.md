@@ -1,3 +1,22 @@
+---
+docName: package__react-native-intlayer
+url: /doc/packages/react-native-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: パッケージドキュメント | react-native-intlayer
+description: react-native-intlayerパッケージの使用方法を確認してください
+keywords:
+  - Intlayer
+  - React Native
+  - react-native-intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **Intlayer**は、JavaScript開発者向けに設計されたパッケージスイートです。React、React、Express.jsなどのフレームワークと互換性があります。
 
 **`react-native-intlayer`パッケージ**は、Viteアプリケーションを国際化するためのものです。環境変数を通じて[Metroバンドラー](https://docs.expo.dev/guides/customizing-metro/)に設定を適用するためのMetroプラグインが含まれています。

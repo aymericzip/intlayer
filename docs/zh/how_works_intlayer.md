@@ -1,3 +1,19 @@
+---
+docName: how_works_intlayer
+url: /doc/concept/how-works-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+createdAt: 2024-08-12
+updatedAt: 2024-08-12
+title: Intlayer 的工作原理
+description: 了解Intlayer的内部运作方式。理解使Intlayer强大的架构和组件。
+keywords:
+  - Intlayer
+  - 如何运作
+  - 架构
+  - 组成部分
+  - 内部运作
+---
+
 # Intlayer 的工作原理
 
 ## 概述

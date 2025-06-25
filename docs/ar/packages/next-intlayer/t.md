@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__t
+url: /doc/packages/next-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق دالة t | next-intlayer
+description: انظر كيف تستخدم دالة t لحزمة next-intlayer
+keywords:
+  - t
+  - ترجمة
+  - Intlayer
+  - next-intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # التوثيق: وظيفة `t` في `next-intlayer`
 
 وظيفة `t` في حزمة `next-intlayer` هي أداة أساسية للتدويل المضمّن داخل تطبيق Next.js الخاص بك. تتيح لك تعريف الترجمات مباشرة داخل مكوناتك، مما يجعل من السهل عرض المحتوى المحلي بناءً على اللغة الحالية.

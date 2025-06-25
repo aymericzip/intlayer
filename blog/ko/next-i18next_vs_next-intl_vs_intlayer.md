@@ -1,3 +1,22 @@
+---
+blogName: next-i18next_vs_next-intl_vs_intlayer
+url: /blog/next-i18next-vs-next-intl-vs-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/next-i18next_vs_next-intl_vs_intlayer.md
+createdAt: 2024-08-11
+updatedAt: 2025-01-02
+title: next-i18next vs next-intl vs Intlayer
+description: Next.js 앱을 위해 next-i18next와 next-intl와 Intlayer를 비교하다
+keywords:
+  - next-intl
+  - next-i18next
+  - Intlayer
+  - 국제화
+  - 문서화
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # next-i18next VS next-intl VS Intlayer | Next.js Internationalization (i18n)
 
 아래는 **Next.js 애플리케이션**을 국제화(i18n)하기 위한 **세 가지 인기 라이브러리**인 **next-intl**, **next-i18next**, 그리고 **Intlayer**의 간결한 비교입니다.

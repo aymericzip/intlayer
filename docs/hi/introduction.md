@@ -1,3 +1,19 @@
+---
+docName: introduction
+url: /doc/get-started
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/introduction.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: परिचय
+description: जानें कि Intlayer कैसे काम करता है। अपने अनुप्रयोग में Intlayer द्वारा उपयोग किए गए चरणों को देखें। विभिन्न पैकेज क्या करते हैं, यह देखें।
+keywords:
+  - परिचय
+  - शुरू करें
+  - Intlayer
+  - अनुप्रयोग
+  - पैकेज
+---
+
 # Intlayer दस्तावेज़ीकरण
 
 आधिकारिक Intlayer दस्तावेज़ीकरण में आपका स्वागत है! यहां, आपको Intlayer को एकीकृत, कॉन्फ़िगर और मास्टर करने के लिए आवश्यक सभी जानकारी मिलेगी, चाहे आप Next.js, React, Vite, Express, या किसी अन्य JavaScript वातावरण के साथ काम कर रहे हों।

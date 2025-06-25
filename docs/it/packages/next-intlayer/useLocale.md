@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useLocale
+url: /doc/packages/next-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentazione del hook useLocale | next-intlayer
+description: Scopri come utilizzare il hook useLocale per il pacchetto next-intlayer
+keywords:
+  - useLocale
+  - dizionario
+  - chiave
+  - Intlayer
+  - Internazionalizzazione
+  - Documentazione
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Integrazione Next.js: Documentazione del hook `useLocale` per `next-intlayer`
 
 Questa sezione offre una documentazione dettagliata sul hook `useLocale` progettato per applicazioni Next.js all'interno della libreria `next-intlayer`. È progettato per gestire i cambiamenti di lingua e il routing in modo efficiente.

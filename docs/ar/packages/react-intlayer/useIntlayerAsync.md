@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayerAsync
+url: /doc/packages/react-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق خطاف useIntlayerAsync | react-intlayer
+description: انظر كيف تستخدم خطاف useIntlayerAsync لحزمة react-intlayer
+keywords:
+  - useIntlayerAsync
+  - قاموس
+  - مفتاح
+  - Intlayer
+  - الدولية
+  - التوثيق
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React Integration: `useIntlayerAsync` توثيق الخطاف
 
 يمدد الخطاف `useIntlayerAsync` وظيفة `useIntlayer` من خلال عدم إعادة القواميس المسبقة فقط ولكن أيضًا جلب التحديثات بشكل غير متزامن، مما يجعله مثاليًا للتطبيقات التي تقوم بتحديث محتواها المحلي بشكل متكرر بعد العرض الأولي.

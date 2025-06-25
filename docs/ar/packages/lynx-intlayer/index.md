@@ -1,3 +1,21 @@
+---
+docName: package__lynx-intlayer
+url: /doc/packages/lynx-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: وثائق حزمة | lynx-intlayer
+description: انظر كيف تستخدم حزمة lynx-intlayer
+keywords:
+  - Intlayer
+  - lynx-intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وReact وExpress.js.
 
 **حزمة `lynx-intlayer`** تتيح لك تعريب تطبيق Vite الخاص بك. تتضمن مكون Metro الإضافي لتعيين التكوين من خلال متغيرات البيئة في [مُجمّع Lynx](https://lynxjs.org/index.html).

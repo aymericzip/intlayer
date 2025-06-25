@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useDictionary
+url: /doc/packages/next-intlayer/useDictionary
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useDictionary钩子的文档 | next-intlayer
+description: 查看如何为next-intlayer包使用useDictionary钩子
+keywords:
+  - useDictionary
+  - 字典
+  - 关键
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - 反应
+---
+
 # React 集成：`useDictionary` 钩子文档
 
 本节提供了在 React 应用程序中使用 `useDictionary` 钩子的详细指南，支持在没有可视化编辑器的情况下高效处理本地化内容。

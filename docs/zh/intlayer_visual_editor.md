@@ -1,3 +1,21 @@
+---
+docName: intlayer_visual_editor
+url: /doc/concept/editor
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Intlayer 可视编辑器 | 使用可视编辑器编辑您的内容
+description: 发现如何使用Intlayer编辑器来管理您的多语言网站。遵循本在线文档中的步骤，在几分钟内设置您的项目。
+keywords:
+  - 编辑器
+  - 国际化
+  - 文档
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer 可视化编辑器文档
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

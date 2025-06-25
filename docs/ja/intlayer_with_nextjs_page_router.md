@@ -1,3 +1,21 @@
+---
+docName: intlayer_with_nextjs_page_router
+url: /doc/environment/nextjs/next-with-Page-Router
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_page_router.md
+createdAt: 2024-12-07
+updatedAt: 2024-12-07
+title: Next.jsとPage Routerのウェブサイトを翻訳する (i18n)
+description: Page Routerを使用したNext.jsのウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
+keywords:
+  - 国際化
+  - ドキュメンテーション
+  - Intlayer
+  - ページルーター
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Getting Started Internationalizing (i18n) with Intlayer and Next.js using Page Router
 
 ## Intlayerとは？

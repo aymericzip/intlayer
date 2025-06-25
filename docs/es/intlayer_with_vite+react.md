@@ -1,3 +1,21 @@
+---
+docName: intlayer_with_react_native_and_expo
+url: /doc/environment/react-native-and-expo
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md
+createdAt: 2025-03-07
+updatedAt: 2025-03-07
+title: Traduce su aplicación móvil React Native y Expo (i18n)
+description: Descubre cómo hacer que tu aplicación móvil React Native y Expo sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
+keywords:
+  - Internacionalización
+  - Documentación
+  - Intlayer
+  - Vite
+  - React
+  - React Native
+  - JavaScript
+---
+
 # Comenzando con la Internacionalización (i18n) con Intlayer, Vite y React
 
 <iframe title="Vite + React: Build a Multilingual App from Scratch using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayer
+url: /doc/packages/next-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayer Hook 文档 | next-intlayer
+description: 了解如何为 next-intlayer 包使用 useIntlayer Hook
+keywords:
+  - useIntlayer
+  - 字典
+  - 键
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js 集成：`useIntlayer` 钩子文档
 
 `useIntlayer` 钩子专为 Next.js 应用程序设计，用于高效地获取和管理本地化内容。本篇文档将重点介绍如何在 Next.js 项目中使用该钩子，确保正确的本地化实践。

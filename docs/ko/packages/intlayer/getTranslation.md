@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getTranslation
+url: /doc/packages/intlayer/getTranslation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getTranslation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: getTranslation 함수 문서 | intlayer
+description: intlayer 패키지의 getTranslation 함수 사용 방법을 확인하세요
+keywords:
+  - getTranslation
+  - 번역
+  - Intlayer
+  - intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 문서: `getTranslationContent` 함수 in `intlayer`
 
 ## 설명

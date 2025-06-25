@@ -1,3 +1,22 @@
+---
+blogName: next-i18next_vs_next-intl_vs_intlayer
+url: /blog/next-i18next-vs-next-intl-vs-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/next-i18next_vs_next-intl_vs_intlayer.md
+createdAt: 2024-08-11
+updatedAt: 2025-01-02
+title: next-i18next vs next-intl vs Intlayer
+description: قارن بين next-i18next باستخدام next-intl و Intlayer للتدويل الدولي (i18n) لتطبيق Next.js
+keywords:
+  - next-intl
+  - next-i18next
+  - Intlayer
+  - التدويل
+  - التوثيق
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # next-i18next VS next-intl VS Intlayer | Next.js Internationalization (i18n)
 
 فيما يلي مقارنة موجزة بين **ثلاث مكتبات شائعة** لتدويل (i18n) تطبيق Next.js: **next-intl**، **next-i18next**، و **Intlayer**.

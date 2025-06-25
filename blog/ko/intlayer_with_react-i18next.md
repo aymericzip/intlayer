@@ -1,3 +1,22 @@
+---
+blogName: intlayer_with_react-i18next
+url: /blog/intlayer-with-react-i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_react-i18next.md
+createdAt: 2025-01-02
+updatedAt: 2025-01-02
+title: Intlayer와 react-i18next
+description: React 앱을 위해 react-i18next와 Intlayer를 비교하다
+keywords:
+  - react-i18next
+  - i18next
+  - Intlayer
+  - 국제화
+  - 문서화
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React 국제화 (i18n) react-i18next 및 Intlayer와 함께
 
 ## 개요

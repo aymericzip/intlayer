@@ -1,3 +1,20 @@
+---
+docName: roadmap
+url: /doc/roadmap
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+createdAt: 2025-03-01
+updatedAt: 2025-03-01
+title: 路线图
+description: 发现Intlayer的路线图。查看所有已实现的Intlayer功能，并查看它打算实现的功能。
+keywords:
+  - Roadmap
+  - Intlayer
+  - 国际化
+  - CMS
+  - 内容管理系统
+  - 视觉编辑器
+---
+
 # Intlayer: 功能概览与路线图
 
 Intlayer 是一种内容管理和国际化解决方案，旨在简化您在应用程序中声明、管理和更新内容的方式。它提供了强大的功能，例如集中式或分布式内容声明、广泛的国际化选项、Markdown 支持、条件渲染、TypeScript/JavaScript/JSON 集成等。以下是 Intlayer 当前功能的全面概述，以及即将推出的路线图功能。

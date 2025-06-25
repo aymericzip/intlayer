@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Anidación del diccionario
+description: Descubre cómo usar la anidación de contenido en Intlayer para reutilizar y estructurar tu contenido multilingüe de manera eficiente. Sigue esta documentación para implementar la anidación sin problemas en tu proyecto.
+keywords:
+  - Nesting
+  - Reutilización de contenido
+  - Documentación
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Anidación / Referencia de Subcontenido
 
 ## Cómo Funciona la Anidación

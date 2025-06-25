@@ -1,3 +1,21 @@
+---
+docName: autoFill
+url: /doc/concept/auto-fill
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Auto Fill
+description: Learn how to use auto fill functionality in Intlayer to automatically populate content based on predefined patterns. Follow this documentation to implement auto fill features efficiently in your project.
+keywords:
+  - Auto Fill
+  - Content Automation
+  - Dynamic Content
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Autofill Content Declaration File Translations
 
 **Autofill content declaration files** are a way to speed up your development workflow.

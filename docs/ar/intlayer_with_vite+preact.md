@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_vite_preact
+url: /doc/environment/vite-and-preact
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+preact.md
+createdAt: 2025-04-18
+updatedAt: 2025-04-18
+title: ترجم موقعك الإلكتروني Vite و Preact (i18n)
+description: اكتشف كيفية جعل موقعك الإلكتروني باستخدام Vite وPreact متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
+keywords:
+  - التدويل
+  - ت Documentation
+  - Intlayer
+  - Vite
+  - Preact
+  - JavaScript
+---
+
 # البدء في التدويل (i18n) باستخدام Intlayer و Vite و Preact
 
 > هذه الحزمة قيد التطوير. انظر [المشكلة](https://github.com/aymericzip/intlayer/issues/118) لمزيد من المعلومات. أظهر اهتمامك بـ Intlayer لـ Preact من خلال الإعجاب بالمشكلة.

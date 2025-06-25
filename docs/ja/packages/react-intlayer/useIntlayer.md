@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayer
+url: /doc/packages/react-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayerフックのドキュメント | react-intlayer
+description: react-intlayerパッケージのuseIntlayerフックの使用方法を確認してください
+keywords:
+  - useIntlayer
+  - 辞書
+  - キー
+  - Intlayer
+  - 国際化
+  - ドキュメンテーション
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React統合: `useIntlayer`フックドキュメント
 
 このセクションでは、Reactアプリケーション内で`useIntlayer`フックを使用するための詳細なガイダンスを提供し、効率的なコンテンツのローカライズを可能にします。

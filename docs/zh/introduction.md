@@ -1,3 +1,19 @@
+---
+docName: introduction
+url: /doc/get-started
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/introduction.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 介绍
+description: 了解Intlayer的工作原理。查看Intlayer在您的应用程序中使用的步骤。查看不同包的功能。
+keywords:
+  - 介绍
+  - 开始
+  - Intlayer
+  - 应用程序
+  - 包
+---
+
 # Intlayer 文档
 
 欢迎来到官方 Intlayer 文档！在这里，您将找到集成、配置和掌握 Intlayer 所需的一切，无论您是使用 Next.js、React、Vite、Express 还是其他 JavaScript 环境。

@@ -1,3 +1,21 @@
+---
+docName: package__react-scripts-intlayer
+url: /doc/packages/react-scripts-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: パッケージドキュメント | react-scripts-intlayer
+description: react-scripts-intlayerパッケージの使用方法を確認してください
+keywords:
+  - Intlayer
+  - react-scripts-intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # react-scripts-intlayer: React Create AppアプリケーションでIntlayerを使用するためのNPMパッケージ
 
 **Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、React、Express.jsなどのフレームワークと互換性があります。

@@ -1,3 +1,22 @@
+---
+docName: package__react-native-intlayer
+url: /doc/packages/react-native-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: 包文档 | react-native-intlayer
+description: 查看如何使用 react-native-intlayer 软件包
+keywords:
+  - Intlayer
+  - React Native
+  - react-native-intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **Intlayer** 是专为 JavaScript 开发者设计的一套工具包。它兼容 React、React 和 Express.js 等框架。
 
 **`react-native-intlayer` 包** 允许您对 Vite 应用程序进行国际化。它包括 Metro 插件，通过环境变量在 [Metro bundler](https://docs.expo.dev/guides/customizing-metro/) 中设置配置。

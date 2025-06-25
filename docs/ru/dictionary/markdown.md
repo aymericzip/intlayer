@@ -1,3 +1,21 @@
+---
+docName: dictionary__markdown
+url: /doc/concept/content/markdown
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Markdown
+description: Узнайте, как объявлять и использовать Markdown-контент на вашем многоязычном сайте с помощью Intlayer. Следуйте шагам этой онлайн-документации, чтобы без проблем интегрировать Markdown в ваш проект.
+keywords:
+  - Markdown
+  - Интернационализация
+  - Документация
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 ## Как работает Markdown
 
 Intlayer поддерживает контент с богатым форматированием, определяемый с использованием синтаксиса Markdown. Это достигается с помощью функции `md`, которая преобразует строку Markdown в формат, который может быть управляем Intlayer. Используя Markdown, вы можете легко писать и поддерживать контент с богатым форматированием, такой как блоги, статьи и многое другое.

@@ -1,3 +1,21 @@
+---
+docName: intlayer_visual_editor
+url: /doc/concept/editor
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Intlayer Visual Editor | Bearbeiten Sie Ihren Inhalt mit einem visuellen Editor
+description: Erfahren Sie, wie Sie den Intlayer-Editor zur Verwaltung Ihrer mehrsprachigen Website nutzen können. Befolgen Sie die Schritte in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
+keywords:
+  - Editor
+  - Internationalisierung
+  - Dokumentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer Visual Editor Dokumentation
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

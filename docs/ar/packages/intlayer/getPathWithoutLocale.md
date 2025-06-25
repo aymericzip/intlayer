@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getPathWithoutLocale
+url: /doc/packages/intlayer/getPathWithoutLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getPathWithoutLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق دالة getPathWithoutLocale | intlayer
+description: انظر كيف تستخدم دالة getPathWithoutLocale لحزمة intlayer
+keywords:
+  - getPathWithoutLocale
+  - ترجمة
+  - Intlayer
+  - intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentation: `getPathWithoutLocale` وظائف في `intlayer`
 
 ## الوصف

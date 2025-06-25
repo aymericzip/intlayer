@@ -1,3 +1,22 @@
+---
+blogName: intlayer_with_next-i18next
+url: /blog/intlayer-with-next-i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+createdAt: 2024-08-11
+updatedAt: 2025-01-02
+title: Intlayer와 next-i18next
+description: Next.js 앱을 위해 next-i18next와 Intlayer를 통합하다
+keywords:
+  - i18next
+  - next-i18next
+  - Intlayer
+  - 국제화
+  - 문서화
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js 국제화 (i18n) with next-i18next 및 Intlayer
 
 both next-i18next와 Intlayer는 Next.js 애플리케이션용으로 설계된 오픈 소스 국제화(i18n) 프레임워크입니다. 이들은 소프트웨어 프로젝트에서 번역, 지역화 및 언어 전환을 관리하는 데 널리 사용됩니다.

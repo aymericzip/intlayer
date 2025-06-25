@@ -1,3 +1,22 @@
+---
+docName: package__express-intlayer__t
+url: /doc/packages/express-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+createdAt: 2024-12-02
+updatedAt: 2024-12-02
+title: t関数のドキュメント | express-intlayer
+description: express-intlayerパッケージのt関数の使い方を見てみましょう
+keywords:
+  - t
+  - 翻訳
+  - Intlayer
+  - 国際化
+  - ドキュメンテーション
+  - エクスプレス
+  - JavaScript
+  - リアクト
+---
+
 # ドキュメント: `express-intlayer` の `t` 関数
 
 `express-intlayer` パッケージの `t` 関数は、Express アプリケーションでローカライズされたレスポンスを提供するための主要なユーティリティです。ユーザーの希望する言語に基づいてコンテンツを動的に選択することで、国際化 (i18n) を簡素化します。

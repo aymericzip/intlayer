@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useLocale
+url: /doc/packages/react-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useLocale हुक दस्तावेज़ | react-intlayer
+description: react-intlayer पैकेज के लिए useLocale हुक का उपयोग कैसे करें, देखें
+keywords:
+  - useLocale
+  - शब्दकोश
+  - कुंजी
+  - Intlayer
+  - अंतरराष्ट्रीयकरण
+  - दस्तावेज
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React एकीकरण: `useLocale` हुक दस्तावेज़
 
 यह अनुभाग React अनुप्रयोगों में स्थानीय प्रबंधन के लिए डिज़ाइन की गई `react-intlayer` लाइब्रेरी से `useLocale` हुक पर व्यापक विवरण प्रदान करता है।

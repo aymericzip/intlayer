@@ -1,3 +1,21 @@
+---
+docName: dictionary__insertion
+url: /doc/concept/content/insertion
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: 挿入
+description: コンテンツに挿入プレースホルダーを宣言し、使用する方法を学びます。このドキュメントでは、あらかじめ定義されたコンテンツ構造内に値を動的に挿入する手順を説明します。
+keywords:
+  - 挿入
+  - 動的コンテンツ
+  - プレースホルダー
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 挿入コンテンツ / 挿入のIntlayer
 
 ## 挿入の仕組み

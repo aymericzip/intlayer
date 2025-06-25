@@ -1,3 +1,21 @@
+---
+docName: package__react-scripts-intlayer
+url: /doc/packages/react-scripts-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 패키지 문서 | react-scripts-intlayer
+description: react-scripts-intlayer 패키지 사용 방법을 확인하세요
+keywords:
+  - Intlayer
+  - react-scripts-intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # react-scripts-intlayer: React Create App 애플리케이션에서 Intlayer를 사용하기 위한 NPM 패키지
 
 **Intlayer**는 JavaScript 개발자를 위해 특별히 설계된 패키지 모음입니다. React, React, Express.js와 같은 프레임워크와 호환됩니다.

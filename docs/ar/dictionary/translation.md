@@ -1,3 +1,21 @@
+---
+docName: dictionary__translation
+url: /doc/concept/content/translation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: ترجمة
+description: اكتشف كيفية إعلان واستخدام الترجمة في موقعك الإلكتروني متعدد اللغات. اتبع الخطوات في هذه الوثائق عبر الإنترنت لإعداد مشروعك في بضع دقائق.
+keywords:
+  - ترجمة
+  - دوليّة
+  - وثائق
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # الترجمة
 
 ## تعريف الترجمات

@@ -1,3 +1,21 @@
+---
+docName: dictionary__condition
+url: /doc/concept/content/condition
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: 条件内容
+description: 了解如何在Intlayer中使用条件内容，以根据特定条件动态显示内容。按照本文档的步骤高效实现条件。
+keywords:
+  - 条件内容
+  - 动态渲染
+  - 文档
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 条件内容 / Intlayer 中的条件
 
 ## 条件如何工作

@@ -1,3 +1,21 @@
+---
+docName: dictionary__translation
+url: /doc/concept/content/translation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Translation
+description: Discover how to declare and use translation in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+keywords:
+  - Translation
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Translation
 
 ## Defining Translations

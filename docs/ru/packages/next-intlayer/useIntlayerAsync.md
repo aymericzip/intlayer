@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayerAsync
+url: /doc/packages/next-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Документация по хуку useIntlayerAsync | next-intlayer
+description: Узнайте, как использовать хук useIntlayerAsync для пакета next-intlayer
+keywords:
+  - useIntlayerAsync
+  - словарь
+  - ключ
+  - Intlayer
+  - Интернационализация
+  - Документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js Интеграция: Документация по хуку `useIntlayerAsync`
 
 Хук `useIntlayerAsync` расширяет функциональность `useIntlayer`, возвращая не только предварительно отрендеренные словари, но и асинхронно загружая обновления, что делает его идеальным для приложений, которые часто обновляют локализованный контент после начального рендера.

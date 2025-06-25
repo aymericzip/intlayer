@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Dictionary's nesting
+description: Learn how to use content nesting in Intlayer to reuse and structure your multilingual content efficiently. Follow this documentation to implement nesting seamlessly in your project.
+keywords:
+  - Nesting
+  - Content Reusability
+  - Documentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Nesting / Sub Content Referencing
 
 ## How Nesting Works

@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayerAsync
+url: /doc/packages/react-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayerAsync钩子文档 | react-intlayer
+description: 查看如何为react-intlayer包使用useIntlayerAsync钩子
+keywords:
+  - useIntlayerAsync
+  - 字典
+  - 键
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React 集成: `useIntlayerAsync` Hook 文档
 
 `useIntlayerAsync` hook 扩展了 `useIntlayer` 的功能，不仅返回预渲染的字典，还可以异步获取更新，非常适合在初始渲染后频繁更新本地化内容的应用程序。

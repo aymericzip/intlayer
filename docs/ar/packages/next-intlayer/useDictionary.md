@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useDictionary
+url: /doc/packages/next-intlayer/useDictionary
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق خطاف useDictionary | next-intlayer
+description: شاهد كيفية استخدام خطاف useDictionary لحزمة next-intlayer
+keywords:
+  - useDictionary
+  - قاموس
+  - مفتاح
+  - Intlayer
+  - التدويل
+  - وثائق
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # دمج React: توثيق `useDictionary` Hook
 
 يوفر هذا القسم إرشادات مفصلة حول استخدام `useDictionary` hook داخل تطبيقات React، مما يتيح التعامل الفعال مع المحتوى المحلي دون الحاجة إلى محرر مرئي.

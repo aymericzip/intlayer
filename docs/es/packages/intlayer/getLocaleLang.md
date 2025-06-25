@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getLocaleLang
+url: /doc/packages/intlayer/getLocaleLang
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleLang.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentación de la función getLocaleLang | intlayer
+description: Descubre cómo usar la función getLocaleLang para el paquete intlayer
+keywords:
+  - getLocaleLang
+  - traducción
+  - Intlayer
+  - intlayer
+  - Internacionalización
+  - Documentación
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentación: Función `getLocaleLang` en `intlayer`
 
 ## Descripción

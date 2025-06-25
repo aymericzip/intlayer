@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_nextjs_14
+url: /doc/environment/nextjs/14
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_14.md
+createdAt: 2024-12-06
+updatedAt: 2024-12-07
+title: ترجم موقعك الإلكتروني Next.js 14 و App Router (i18n)
+description: اكتشف كيفية جعل موقع Next.js 14 App Router الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
+keywords:
+  - التدوين الدولي
+  - الوثائق
+  - Intlayer
+  - Next.js 14
+  - جافا سكريبت
+  - React
+---
+
 # البدء في التدويل (i18n) باستخدام Intlayer و Next.js 14 مع App Router
 
 انظر [Template Application](https://github.com/aymericzip/intlayer-next-14-template) على GitHub.

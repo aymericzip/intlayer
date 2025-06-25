@@ -1,3 +1,21 @@
+---
+docName: dictionary__file
+url: /doc/concept/content/file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: 文件
+description: 了解如何使用Intlayer的`file`函数将外部文件嵌入到内容字典中。本文件解释了Intlayer如何动态链接和管理文件内容。
+keywords:
+  - 文件
+  - 国际化
+  - 文档
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 文件内容 / 在 Intlayer 中嵌入文件
 
 ## 文件嵌入的工作原理

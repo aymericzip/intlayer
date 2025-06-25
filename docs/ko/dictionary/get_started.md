@@ -1,3 +1,21 @@
+---
+docName: dictionary__get_started
+url: /doc/concept/content
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 콘텐츠 선언 | 시작하기
+description: 다국어 웹사이트에서 콘텐츠 선언을 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 안에 프로젝트를 설정하세요.
+keywords:
+  - 시작하기
+  - 국제화
+  - 문서
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 시작하기: 콘텐츠 선언
 
 <iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

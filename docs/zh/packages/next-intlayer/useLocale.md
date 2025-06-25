@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useLocale
+url: /doc/packages/next-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useLocale钩子的文档 | next-intlayer
+description: 查看如何使用next-intlayer软件包的useLocale钩子
+keywords:
+  - useLocale
+  - 字典
+  - 键
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js 集成: `useLocale` 钩子文档 for `next-intlayer`
 
 本节提供了针对 Next.js 应用程序的 `useLocale` 钩子的详细文档，适用于 `next-intlayer` 库。它旨在高效处理语言环境的更改和路由。

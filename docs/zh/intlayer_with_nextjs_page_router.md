@@ -1,3 +1,21 @@
+---
+docName: intlayer_with_nextjs_page_router
+url: /doc/environment/nextjs/next-with-Page-Router
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_page_router.md
+createdAt: 2024-12-07
+updatedAt: 2024-12-07
+title: 翻译你的Next.js和Page Router网站 (i18n)
+description: 了解如何使您的使用Page Router的Next.js网站实现多语言。请遵循文档进行国际化（i18n）和翻译。
+keywords:
+  - 国际化
+  - 文档
+  - Intlayer
+  - 页面路由
+  - Next.js
+  - JavaScript
+  - 反应
+---
+
 # 开始使用 Intlayer 和 Next.js 的页面路由进行国际化 (i18n)
 
 ## 什么是 Intlayer？

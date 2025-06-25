@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayerAsync
+url: /doc/packages/next-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayerAsyncフックのドキュメント | next-intlayer
+description: next-intlayerパッケージのuseIntlayerAsyncフックの使用方法を確認してください
+keywords:
+  - useIntlayerAsync
+  - 辞書
+  - キー
+  - Intlayer
+  - 国際化
+  - ドキュメンテーション
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js統合: `useIntlayerAsync`フックドキュメント
 
 `useIntlayerAsync`フックは、事前レンダリングされた辞書を返すだけでなく、非同期で更新を取得する機能を追加し、初期レンダリング後にローカライズされたコンテンツを頻繁に更新するアプリケーションに最適です。

@@ -1,3 +1,21 @@
+---
+docName: mcp_server
+url: /doc/mcp-server
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+createdAt: 2025-06-07
+updatedAt: 2025-06-07
+title: Documentación del servidor MCP
+description: Explore las características y la configuración del servidor MCP para optimizar la gestión y las operaciones de su servidor.
+keywords:
+  - Servidor MCP
+  - Gestión de servidores
+  - Optimización
+  - Intlayer
+  - Documentación
+  - Configuración
+  - Características
+---
+
 # Servidor Intlayer MCP
 
 El **Servidor Intlayer MCP (Model Context Protocol)** proporciona asistencia IDE impulsada por IA adaptada al ecosistema de Intlayer. Diseñado para entornos de desarrollo modernos como **Cursor**, **GitHub Copilot workspace**, y cualquier IDE que soporte el protocolo MCP, este servidor te ofrece soporte contextual y en tiempo real basado en la configuración de tu proyecto.

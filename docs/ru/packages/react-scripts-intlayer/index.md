@@ -1,3 +1,21 @@
+---
+docName: package__react-scripts-intlayer
+url: /doc/packages/react-scripts-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Документация пакета | react-scripts-intlayer
+description: Узнайте, как использовать пакет react-scripts-intlayer
+keywords:
+  - Intlayer
+  - react-scripts-intlayer
+  - интернационализация
+  - документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # react-scripts-intlayer: NPM Пакет для использования Intlayer в приложении React Create App
 
 **Intlayer** , это набор пакетов, разработанных специально для разработчиков на JavaScript. Он совместим с такими фреймворками, как React, React и Express.js.

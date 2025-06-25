@@ -1,3 +1,21 @@
+---
+docName: intlayer_with_lynx_react
+url: /doc/environment/lynx-and-react
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md
+createdAt: 2025-03-09
+updatedAt: 2025-03-09
+title: Traduce su aplicación móvil Lynx y React (i18n)
+description: Descubre cómo hacer que tu aplicación móvil Lynx y React sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
+keywords:
+  - Internacionalización
+  - Documentación
+  - Intlayer
+  - Vite
+  - React
+  - Lynx
+  - JavaScript
+---
+
 # Comenzando con la Internacionalización (i18n) usando Intlayer, Lynx y React
 
 Consulta [Application Template](https://github.com/aymericzip/intlayer-lynx-template) en GitHub.

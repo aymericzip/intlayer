@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useLocale
+url: /doc/packages/next-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Документация по хуку useLocale | next-intlayer
+description: Узнайте, как использовать хук useLocale для пакета next-intlayer
+keywords:
+  - useLocale
+  - словарь
+  - ключ
+  - Intlayer
+  - Международализация
+  - Документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Интеграция Next.js: Документация по хуку `useLocale` для `next-intlayer`
 
 Этот раздел предлагает подробную документацию по хуку `useLocale`, адаптированному для приложений Next.js в рамках библиотеки `next-intlayer`. Он предназначен для эффективного управления изменениями локали и маршрутизацией.

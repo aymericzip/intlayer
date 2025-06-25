@@ -1,3 +1,21 @@
+---
+docName: dictionary__translation
+url: /doc/concept/content/translation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 翻訳
+description: あなたの多言語ウェブサイトで翻訳を宣言し、使用する方法を発見してください。このオンラインドキュメントの手順に従って、数分でプロジェクトを設定してください。
+keywords:
+  - 翻訳
+  - 国際化
+  - 文書
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 翻訳
 
 ## 翻訳の定義

@@ -128,8 +128,8 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
         creativeWorkDescription={blogData.description}
         creativeWorkContent={blogContent}
         keywords={blogData.keywords.join(', ')}
-        dateModified={blogData.updatedAt}
-        datePublished={blogData.createdAt}
+        dateModified={new Date(blogData.updatedAt)}
+        datePublished={new Date(blogData.createdAt)}
         url={blogData.url}
       />
       <BlogRender>{blogContent}</BlogRender>

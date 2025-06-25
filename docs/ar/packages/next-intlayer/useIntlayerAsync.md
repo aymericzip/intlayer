@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayerAsync
+url: /doc/packages/next-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق خطاف useIntlayerAsync | next-intlayer
+description: انظر كيف تستخدم خطاف useIntlayerAsync لحزمة next-intlayer
+keywords:
+  - useIntlayerAsync
+  - قاموس
+  - مفتاح
+  - Intlayer
+  - الدولية
+  - التوثيق
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # دمج Next.js: توثيق `useIntlayerAsync` Hook
 
 يمدد الخطاف `useIntlayerAsync` وظائف `useIntlayer` من خلال عدم إرجاع القواميس المسبقة العرض فقط، بل أيضًا جلب التحديثات بشكل غير متزامن، مما يجعله مثاليًا للتطبيقات التي تقوم بتحديث محتواها المحلي بشكل متكرر بعد العرض الأولي.

@@ -1,3 +1,22 @@
+---
+docName: package__express-intlayer__t
+url: /doc/packages/express-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+createdAt: 2024-12-02
+updatedAt: 2024-12-02
+title: Документация функции t | express-intlayer
+description: Смотрите, как использовать функцию t для пакета express-intlayer
+keywords:
+  - t
+  - перевод
+  - Intlayer
+  - Интернационализация
+  - Документация
+  - Express
+  - JavaScript
+  - React
+---
+
 # Документация: Функция `t` в `express-intlayer`
 
 Функция `t` в пакете `express-intlayer` является основным инструментом для предоставления локализованных ответов в вашем приложении Express. Она упрощает интернационализацию (i18n), динамически выбирая контент на основе предпочтительного языка пользователя.

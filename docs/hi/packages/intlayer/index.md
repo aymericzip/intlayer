@@ -1,3 +1,21 @@
+---
+docName: package__intlayer
+url: /doc/packages/intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: पैकेज के डॉक्यूमेंटेशन | intlayer
+description: intlayer पैकेज का उपयोग कैसे करें
+keywords:
+  - Intlayer
+  - intlayer
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # intlayer: बहुभाषी शब्दकोश (i18n) प्रबंधन के लिए NPM पैकेज
 
 **Intlayer** विशेष रूप से जावास्क्रिप्ट डेवलपर्स के लिए डिज़ाइन किया गया पैकेजों का एक सेट है। यह React, Next.js, और Express.js जैसे फ्रेमवर्क्स के साथ संगत है।

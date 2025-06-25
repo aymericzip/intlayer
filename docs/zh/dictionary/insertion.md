@@ -1,3 +1,21 @@
+---
+docName: dictionary__insertion
+url: /doc/concept/content/insertion
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: 插入
+description: 了解如何在内容中声明和使用插入占位符。本文档指导您完成在预定义内容结构中动态插入值的步骤。
+keywords:
+  - 插入
+  - 动态内容
+  - 占位符
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 插入内容 / 插入 Intlayer
 
 ## 插入如何工作

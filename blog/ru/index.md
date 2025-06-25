@@ -1,3 +1,20 @@
+---
+blogName: index
+url: /blog/search/
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md
+createdAt: 2024-24-12
+updatedAt: 2024-24-12
+title: Блог
+description: Узнайте о всех темах, связанных с Intlayer, интернационализацией и другими
+keywords:
+  - Intlayer
+  - Интернационализация
+  - Документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Принятие интернационализации в JavaScript: Расширение глобального охвата и SEO
 
 Добро пожаловать в наш блог, посвященный всем аспектам **интернационализации** для JavaScript-приложений! Здесь мы исследуем лучшие практики, стратегии и инструменты, которые помогут разработчикам расширить свои цифровые продукты по всему миру.

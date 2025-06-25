@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Nesting del dizionario
+description: Scopri come utilizzare l’annidamento dei contenuti in Intlayer per riutilizzare e strutturare il tuo contenuto multilingue in modo efficiente. Segui questa documentazione per implementare facilmente l’annidamento nel tuo progetto.
+keywords:
+  - Nesting
+  - Riutilizzo del contenuto
+  - Documentazione
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Annidamento / Riferimento a Contenuti Annidati
 
 ## Come Funziona l'Annidamento

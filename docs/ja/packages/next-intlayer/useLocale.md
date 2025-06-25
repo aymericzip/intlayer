@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useLocale
+url: /doc/packages/next-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useLocaleフックのドキュメント | next-intlayer
+description: next-intlayerパッケージのuseLocaleフックの使用方法を確認してください
+keywords:
+  - useLocale
+  - 辞書
+  - キー
+  - Intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js統合: `useLocale`フックのドキュメント for `next-intlayer`
 
 このセクションでは、`next-intlayer`ライブラリ内でNext.jsアプリケーション向けに調整された`useLocale`フックの詳細なドキュメントを提供します。これは、ロケールの変更とルーティングを効率的に処理するよう設計されています。

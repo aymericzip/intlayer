@@ -1,3 +1,20 @@
+---
+blogName: index
+url: /blog/search/
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md
+createdAt: 2024-24-12
+updatedAt: 2024-24-12
+title: مدونة
+description: اكتشف جميع المواضيع ذات صلة مع Intlayer، التدويل الدولي وغيرها
+keywords:
+  - Intlayer
+  - التدويل
+  - التوثيق
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # احتضان أنظمة التدويل في JavaScript: تعزيز الوصول العالمي وتحسين محركات البحث
 
 مرحبًا بك في مدونتنا المخصصة لكل ما يتعلق بـ **التدويل** لتطبيقات JavaScript! هنا، نستكشف أفضل الممارسات والاستراتيجيات والأدوات لمساعدة المطورين في توسيع منتجاتهم الرقمية عبر العالم.

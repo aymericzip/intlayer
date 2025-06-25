@@ -1,3 +1,21 @@
+---
+docName: ci_cd
+url: /doc/concept/ci-cd
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+createdAt: 2025-05-20
+updatedAt: 2025-05-20
+title: تكامل CI/CD
+description: تعرف على كيفية دمج Intlayer في خط أنابيب CI/CD الخاص بك لإدارة المحتوى والنشر الآلي.
+keywords:
+  - CI/CD
+  - التكامل المستمر
+  - النشر المستمر
+  - الأتمتة
+  - التدويل
+  - توثيق
+  - Intlayer
+---
+
 # توليد الترجمات تلقائيًا في خط أنابيب CI/CD
 
 تتيح Intlayer إنشاء الترجمات تلقائيًا لملفات إعلان المحتوى الخاصة بك. هناك طرق متعددة لتحقيق ذلك بناءً على سير العمل الخاص بك.

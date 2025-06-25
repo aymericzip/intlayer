@@ -1,3 +1,21 @@
+---
+docName: dictionary__insertion
+url: /doc/concept/content/insertion
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Einfügung
+description: Erfahren Sie, wie Sie Platzhalter für Einfügungen in Ihrem Inhalt deklarieren und verwenden. Diese Dokumentation führt Sie durch die Schritte zur dynamischen Einfügung von Werten in vordefinierte Inhaltsstrukturen.
+keywords:
+  - Einfügung
+  - Dynamischer Inhalt
+  - Platzhalter
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Einfügeinhalte
 
 ## Wie das Einfügen funktioniert

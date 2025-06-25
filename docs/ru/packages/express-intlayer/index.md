@@ -1,3 +1,21 @@
+---
+docName: package__express-intlayer
+url: /doc/packages/express-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Документация пакета | express-intlayer
+description: Узнайте, как использовать пакет express-intlayer
+keywords:
+  - Intlayer
+  - express-intlayer
+  - интернационализация
+  - документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # express-intlayer: JavaScript Пакет для интернационализации (i18n) приложения Express.js
 
 **Intlayer** , это набор пакетов, специально разработанных для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, Next.js и Express.js.

@@ -1,3 +1,21 @@
+---
+docName: mcp_server
+url: /doc/mcp-server
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+createdAt: 2025-06-07
+updatedAt: 2025-06-07
+title: توثيق خادم MCP
+description: استكشف ميزات وإعدادات خادم MCP لتحسين إدارة الخادم وعملياته.
+keywords:
+  - خادم MCP
+  - إدارة الخادم
+  - تحسين
+  - Intlayer
+  - توثيق
+  - إعداد
+  - ميزات
+---
+
 # خادم Intlayer MCP
 
 يوفر **خادم Intlayer MCP (بروتوكول سياق النموذج)** مساعدة مدعومة بالذكاء الاصطناعي مخصصة لنظام Intlayer. تم تصميمه لبيئات المطورين الحديثة مثل **Cursor**، و**GitHub Copilot workspace**، وأي بيئة تطوير متكاملة تدعم بروتوكول MCP، حيث يقدم هذا الخادم دعمًا سياقيًا وفي الوقت الفعلي بناءً على إعداد مشروعك.

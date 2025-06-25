@@ -1,3 +1,21 @@
+---
+docName: dictionary__markdown
+url: /doc/concept/content/markdown
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Markdown
+description: Intlayer के साथ अपने बहुभाषी वेबसाइट में Markdown सामग्री को घोषित करने और उपयोग करने का तरीका जानें। इस ऑनलाइन डाक्यूमेंटेशन में दिए गए चरणों का पालन करें और अपने प्रोजेक्ट में Markdown को आसानी से एकीकृत करें।
+keywords:
+  - Markdown
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # मार्कडाउन / रिच टेक्स्ट सामग्री
 
 ## मार्कडाउन कैसे काम करता है

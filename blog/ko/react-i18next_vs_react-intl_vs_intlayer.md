@@ -1,3 +1,22 @@
+---
+blogName: react-i18next_vs_react-intl_vs_intlayer
+url: /blog/react-i18next-vs-react-intl-vs-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/react-i18next_vs_react-intl_vs_intlayer.md
+createdAt: 2025-01-02
+updatedAt: 2025-01-02
+title: react-i18n vs react-intl vs Intlayer
+description: React 앱에서 react-i18next와 next-intl와 Intlayer를 통합하십시오
+keywords:
+  - next-intl
+  - react-i18next
+  - Intlayer
+  - 국제화
+  - 문서화
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React-Intl VS React-i18next VS Intlayer | React 국제화 (i18n)
 
 아래는 React용 세 가지 인기 있는 i18n (국제화) 라이브러리인 **React-Intl**, **React-i18next**, 및 **Intlayer**에 대한 간결한 비교입니다. 각 라이브러리는 React 애플리케이션에서 다국어 지원을 통합하는 독특한 기능과 워크플로를 제공합니다. 이 문서를 읽은 후, 귀하의 요구에 가장 적합한 솔루션을 결정할 수 있어야 합니다.

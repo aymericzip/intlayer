@@ -1,3 +1,21 @@
+---
+docName: dictionary__enumeration
+url: /doc/concept/content/enumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: التعداد
+description: اكتشف كيفية إعلان واستخدام التعدادات في موقعك الإلكتروني متعدد اللغات. اتبع الخطوات في هذه الوثيقة الإلكترونية لإعداد مشروعك في بضع دقائق.
+keywords:
+  - التعداد
+  - التدويل
+  - التوثيق
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # التعداد / الجمع
 
 ## كيف يعمل التعداد

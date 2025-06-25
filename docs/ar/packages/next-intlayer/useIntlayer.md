@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayer
+url: /doc/packages/next-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق hook useIntlayer | next-intlayer
+description: اطلع على كيفية استخدام hook useIntlayer لحزمة next-intlayer
+keywords:
+  - useIntlayer
+  - قاموس
+  - مفتاح
+  - Intlayer
+  - التدويل
+  - الوثائق
+  - Next.js
+  - جافا سكريبت
+  - React
+---
+
 # دمج Next.js: توثيق `useIntlayer` Hook
 
 تم تصميم `useIntlayer` خصيصًا لتطبيقات Next.js لجلب وإدارة المحتوى المحلي بكفاءة. يركز هذا التوثيق على كيفية استخدام الـ hook داخل مشاريع Next.js، مع ضمان اتباع ممارسات التوطين الصحيحة.

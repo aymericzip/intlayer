@@ -1,3 +1,21 @@
+---
+docName: autoFill
+url: /doc/concept/auto-fill
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Remplissage automatique
+description: Découvrez comment utiliser la fonctionnalité de remplissage automatique dans Intlayer pour remplir automatiquement le contenu selon des modèles prédéfinis. Suivez cette documentation pour implémenter efficacement les fonctionnalités de remplissage automatique dans votre projet.
+keywords:
+  - Remplissage automatique
+  - Automatisation du contenu
+  - Contenu dynamique
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Fichiers de Déclaration de Contenu Auto-remplis
 
 Les **fichiers de déclaration de contenu auto-remplis** sont un moyen d'accélérer votre flux de travail de développement.

@@ -1,3 +1,21 @@
+---
+docName: dictionary__function_fetching
+url: /doc/concept/content/function-fetching
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Funktion Abrufen
+description: Erfahren Sie, wie Sie das Abrufen von Funktionen in Ihrer mehrsprachigen Website erklären und verwenden. Folgen Sie der Anleitung in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
+keywords:
+  - Funktionsabruf
+  - Internationalisierung
+  - Dokumentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Funktionsabruf
 
 Intlayer ermöglicht es Ihnen, Inhaltsfunktionen in Ihren Inhaltsmodulen zu deklarieren, die entweder synchron oder asynchron sein können. Wenn die Anwendung erstellt wird, führt Intlayer diese Funktionen aus, um das Ergebnis der Funktion zu erhalten. Der Rückgabewert muss ein JSON-Objekt oder ein einfacher Wert wie ein String oder eine Zahl sein.

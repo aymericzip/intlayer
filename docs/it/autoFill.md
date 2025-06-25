@@ -1,3 +1,21 @@
+---
+docName: autoFill
+url: /doc/concept/auto-fill
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Compilazione automatica
+description: Scopri come utilizzare la funzionalità di compilazione automatica in Intlayer per popolare automaticamente i contenuti in base a modelli predefiniti. Segui questa documentazione per implementare le funzionalità di compilazione automatica in modo efficiente nel tuo progetto.
+keywords:
+  - Compilazione automatica
+  - Automazione dei contenuti
+  - Contenuto dinamico
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # File di Dichiarazione dei Contenuti Autocompletati
 
 I **file di dichiarazione dei contenuti autocompletati** sono un modo per accelerare il flusso di lavoro di sviluppo.

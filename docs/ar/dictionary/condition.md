@@ -1,3 +1,21 @@
+---
+docName: dictionary__condition
+url: /doc/concept/content/condition
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: محتوى شرطي
+description: تعلم كيفية استخدام المحتوى الشرطي في Intlayer لعرض المحتوى ديناميكيًا بناءً على شروط محددة. اتبع هذه الوثيقة لتنفيذ الشروط بكفاءة في مشروعك.
+keywords:
+  - محتوى شرطي
+  - التصيير الديناميكي
+  - وثائق
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # المحتوى الشرطي / الشرط في Intlayer
 
 ## كيف يعمل الشرط

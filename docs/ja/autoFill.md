@@ -1,3 +1,21 @@
+---
+docName: autoFill
+url: /doc/concept/auto-fill
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: 自動入力
+description: Intlayerで自動入力機能を使用して、事前定義されたパターンに基づいてコンテンツを自動的に入力する方法を学びます。このドキュメントに従って、プロジェクトに自動入力機能を効率的に実装してください。
+keywords:
+  - 自動入力
+  - コンテンツ自動化
+  - 動的コンテンツ
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 自動入力コンテンツ宣言ファイル
 
 **自動入力コンテンツ宣言ファイル**は、開発ワークフローを高速化する方法です。

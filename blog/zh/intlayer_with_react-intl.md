@@ -1,3 +1,21 @@
+---
+blogName: intlayer_with_react-intl
+url: /blog/intlayer-with-react-intl
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_react-intl.md
+createdAt: 2025-01-02
+updatedAt: 2025-01-02
+title: Intlayer和react-intl
+description: 与React应用程序一起使用react-intl和Intlayer
+keywords:
+  - react-intl
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React Internationalization (i18n) with **react-intl** and Intlayer
 
 本指南展示了如何将 **Intlayer** 与 **react-intl** 集成，以管理 React 应用程序中的翻译。您将使用 Intlayer 声明可翻译的内容，然后使用 **react-intl** 这个来自 [FormatJS](https://formatjs.io/docs/react-intl) 生态系统的流行库来消费这些消息。

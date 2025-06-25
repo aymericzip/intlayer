@@ -1,3 +1,21 @@
+---
+docName: intlayer_visual_editor
+url: /doc/concept/editor
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Intlayer वीजियो संपादक | वीजियो संपादक का उपयोग करके अपने कंटेंट को संपादित करें
+description: Intlayer संपादक का उपयोग करके अपने बहुभाषी वेबसाइट का प्रबंधन करने का तरीका जानें। अपने प्रोजेक्ट को कुछ ही मिनटों में सेट करने के लिए इस ऑनलाइन दस्तावेज़ में दिए गए चरणों का पालन करें।
+keywords:
+  - संपादक
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer विजुअल एडिटर दस्तावेज़ीकरण
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

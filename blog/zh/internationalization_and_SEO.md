@@ -1,3 +1,21 @@
+---
+blogName: internationalization_and_SEO
+url: /blog/SEO-and-i18n
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md
+createdAt: 2024-12-24
+updatedAt: 2024-12-24
+title: SEO和国际化
+description: 了解如何为搜索引擎优化您的多语言网站，并提升您的SEO。
+keywords:
+  - SEO
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # SEO & I18n: 为您的网站提供多语言支持的终极指南
 
 想要在全球范围内吸引更多用户吗？让您的网站支持多语言是扩展您受众和改善 SEO（搜索引擎优化）的最佳方法之一。在这篇博客文章中，我们将以清晰易懂的术语分解国际 SEO 的基础知识, , 通常称为 **i18n**（国际化的缩写）。您将了解需要做出的关键决策，如何使用 `hreflang` 等技术元素，以及像 **Intlayer** 这样的工具如何简化您的多语言 Next.js 项目。

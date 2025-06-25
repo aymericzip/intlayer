@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: 사전 중첩
+description: Intlayer에서 콘텐츠 중첩을 사용하여 다국어 콘텐츠를 효율적으로 재사용하고 구조화하는 방법을 알아보세요. 이 문서를 따라 중첩을 원활하게 구현하세요.
+keywords:
+  - Nesting
+  - 콘텐츠 재사용
+  - 문서
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 중첩 / 하위 콘텐츠 참조
 
 ## 중첩 작동 방식

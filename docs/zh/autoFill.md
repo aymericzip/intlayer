@@ -1,3 +1,21 @@
+---
+docName: autoFill
+url: /doc/concept/auto-fill
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: 自动填充
+description: 了解如何在Intlayer中使用自动填充功能，根据预定义的模式自动填充内容。按照本文档在您的项目中高效实现自动填充功能。
+keywords:
+  - 自动填充
+  - 内容自动化
+  - 动态内容
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 自动填充内容声明文件
 
 **自动填充内容声明文件**是一种加速开发工作流程的方法。

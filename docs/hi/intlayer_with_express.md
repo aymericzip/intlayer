@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_express
+url: /doc/environment/express
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Express का बैकएंड को अनुवाद करें (i18n)
+description: जानें कि कैसे अपनी vite बैकएंड को बहुभाषी बनाया जाए। इसे अंतर्राष्ट्रीय बनाने (i18n) और अनुवाद करने के लिए दस्तावेज़ का पालन करें।
+keywords:
+  - आंतरराष्ट्रीयकरण
+  - दस्तावेज़ीकरण
+  - Intlayer
+  - Express
+  - JavaScript
+  - बैकएंड
+---
+
 # अंतरराष्ट्रीयकरण (i18n) के साथ Intlayer और Express का उपयोग शुरू करना
 
 `express-intlayer` Express अनुप्रयोगों के लिए एक शक्तिशाली अंतरराष्ट्रीयकरण (i18n) मिडलवेयर है, जिसे क्लाइंट की प्राथमिकताओं के आधार पर स्थानीयकृत प्रतिक्रियाएँ प्रदान करके आपके बैकएंड सेवाओं को वैश्विक रूप से सुलभ बनाने के लिए डिज़ाइन किया गया है।

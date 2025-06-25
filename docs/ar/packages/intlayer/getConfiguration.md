@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getConfiguration
+url: /doc/packages/intlayer/getConfiguration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق دالة getConfiguration | intlayer
+description: انظر كيف تستخدم دالة getConfiguration لحزمة intlayer
+keywords:
+  - getConfiguration
+  - ترجمة
+  - Intlayer
+  - intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # التوثيق: وظيفة `getConfiguration` في `intlayer`
 
 ## الوصف

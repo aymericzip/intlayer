@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_express
+url: /doc/environment/express
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: ترجم موقعك الإلكتروني Express (i18n)
+description: اكتشف كيفية جعل الواجهة الخلفية لـ vite متعددة اللغات. اتبع الوثائق لتدويل (i18n) وترجمتها.
+keywords:
+  - دولية
+  - توثيق
+  - Intlayer
+  - Express
+  - JavaScript
+  - الخلفية
+---
+
 # البدء في التدويل (i18n) باستخدام Intlayer و Express
 
 `express-intlayer` هو وسيط قوي للتدويل (i18n) لتطبيقات Express، مصمم لجعل خدماتك الخلفية متاحة عالميًا من خلال توفير استجابات محلية بناءً على تفضيلات العميل.

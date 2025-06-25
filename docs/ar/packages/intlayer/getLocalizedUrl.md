@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getLocalizedUrl
+url: /doc/packages/intlayer/getLocalizedUrl
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق دالة getLocalizedUrl | intlayer
+description: انظر كيف تستخدم دالة getLocalizedUrl لحزمة intlayer
+keywords:
+  - getLocalizedUrl
+  - ترجمة
+  - Intlayer
+  - intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # توثيق: وظيفة `getLocalizedUrl` في `intlayer`
 
 ## الوصف

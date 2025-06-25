@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayer
+url: /doc/packages/react-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayer钩子文档 | react-intlayer
+description: 查看如何为react-intlayer包使用useIntlayer钩子
+keywords:
+  - useIntlayer
+  - 字典
+  - 键
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React 集成：`useIntlayer` Hook 文档
 
 本节提供了在 React 应用程序中使用 `useIntlayer` hook 的详细指南，以实现高效的内容本地化。

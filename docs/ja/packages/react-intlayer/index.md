@@ -1,3 +1,21 @@
+---
+docName: package__react-intlayer
+url: /doc/packages/react-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: パッケージドキュメント | react-intlayer
+description: react-intlayerパッケージの使用方法を確認してください
+keywords:
+  - Intlayer
+  - react-intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # react-intlayer: Reactアプリケーションを国際化（i18n）するためのNPMパッケージ
 
 **Intlayer**は、JavaScript開発者向けに特化したパッケージ群です。React、React、Express.jsなどのフレームワークと互換性があります。

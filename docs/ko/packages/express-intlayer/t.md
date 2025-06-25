@@ -1,3 +1,22 @@
+---
+docName: package__express-intlayer__t
+url: /doc/packages/express-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+createdAt: 2024-12-02
+updatedAt: 2024-12-02
+title: t 함수 문서 | express-intlayer
+description: express-intlayer 패키지에 대해 t 함수를 사용하는 방법을 확인하십시오
+keywords:
+  - t
+  - 번역
+  - Intlayer
+  - 국제화
+  - 문서
+  - 익스프레스
+  - JavaScript
+  - React
+---
+
 # 문서: `t` 함수 in `express-intlayer`
 
 `express-intlayer` 패키지의 `t` 함수는 Express 애플리케이션에서 지역화된 응답을 제공하기 위한 핵심 유틸리티입니다. 사용자의 선호 언어에 따라 동적으로 콘텐츠를 선택하여 국제화(i18n)를 간소화합니다.

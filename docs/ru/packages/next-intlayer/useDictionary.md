@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useDictionary
+url: /doc/packages/next-intlayer/useDictionary
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Документация по хуку useDictionary | next-intlayer
+description: Посмотрите, как использовать хук useDictionary для пакета next-intlayer
+keywords:
+  - useDictionary
+  - словарь
+  - ключ
+  - Intlayer
+  - интернационализация
+  - документация
+  - Next.js
+  - JavaScript
+  - Реакция
+---
+
 # React Интеграция: Документация по хуку `useDictionary`
 
 Этот раздел предоставляет подробное руководство по использованию хука `useDictionary` в React-приложениях, позволяя эффективно управлять локализованным контентом без визуального редактора.

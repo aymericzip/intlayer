@@ -1,3 +1,21 @@
+---
+docName: dictionary__function_fetching
+url: /doc/concept/content/function-fetching
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 関数フェッチング
+description: 多言語ウェブサイトで関数フェッチングを宣言および使用する方法を発見してください。このオンラインドキュメンテーションの手順に従って、数分でプロジェクトを設定できます。
+keywords:
+  - 関数フェッチング
+  - 国際化
+  - ドキュメンテーション
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 関数フェッチング
 
 Intlayerを使用すると、コンテンツモジュール内で同期または非同期のコンテンツ関数を宣言できます。アプリケーションがビルドされると、Intlayerはこれらの関数を実行して関数の結果を取得します。戻り値はJSONオブジェクト、または文字列や数値のような単純な値である必要があります。

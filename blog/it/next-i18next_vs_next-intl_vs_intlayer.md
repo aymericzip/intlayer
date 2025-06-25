@@ -1,3 +1,22 @@
+---
+blogName: next-i18next_vs_next-intl_vs_intlayer
+url: /blog/next-i18next-vs-next-intl-vs-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/next-i18next_vs_next-intl_vs_intlayer.md
+createdAt: 2024-08-11
+updatedAt: 2025-01-02
+title: next-i18next vs next-intl vs Intlayer
+description: Confronta next-i18next con next-intl e Intlayer per l'internazionalizzazione (i18n) di un'app Next.js
+keywords:
+  - next-intl
+  - next-i18next
+  - Intlayer
+  - Internazionalizzazione
+  - Blogumentazione
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # next-i18next VS next-intl VS Intlayer | Next.js Internazionalizzazione (i18n)
 
 Di seguito è riportato un confronto conciso di **tre librerie popolari** per internazionalizzare (i18n) un'applicazione Next.js: **next-intl**, **next-i18next** e **Intlayer**.

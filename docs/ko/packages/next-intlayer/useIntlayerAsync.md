@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayerAsync
+url: /doc/packages/next-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayerAsync 훅 설명서 | next-intlayer
+description: next-intlayer 패키지에 대한 useIntlayerAsync 훅 사용 방법을 확인하세요
+keywords:
+  - useIntlayerAsync
+  - 사전
+  - 키
+  - Intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js 통합: `useIntlayerAsync` 훅 문서
 
 `useIntlayerAsync` 훅은 `useIntlayer`의 기능을 확장하여 미리 렌더링된 사전을 반환할 뿐만 아니라 비동기적으로 업데이트를 가져옵니다. 이는 초기 렌더링 이후 자주 로컬라이즈된 콘텐츠를 업데이트하는 애플리케이션에 이상적입니다.

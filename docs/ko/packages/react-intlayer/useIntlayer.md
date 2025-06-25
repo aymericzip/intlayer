@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayer
+url: /doc/packages/react-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayer 훅 설명서 | react-intlayer
+description: react-intlayer 패키지에 대한 useIntlayer 훅 사용 방법을 확인하세요
+keywords:
+  - useIntlayer
+  - 사전
+  - 키
+  - Intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React 통합: `useIntlayer` 훅 문서
 
 이 섹션은 React 애플리케이션 내에서 `useIntlayer` 훅을 사용하여 효율적인 콘텐츠 로컬라이제이션을 구현하는 방법에 대한 자세한 지침을 제공합니다.

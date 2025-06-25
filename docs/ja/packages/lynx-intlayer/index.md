@@ -1,3 +1,21 @@
+---
+docName: package__lynx-intlayer
+url: /doc/packages/lynx-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: パッケージドキュメント | lynx-intlayer
+description: lynx-intlayerパッケージの使用方法を確認してください
+keywords:
+  - Intlayer
+  - lynx-intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **Intlayer**は、JavaScript開発者向けに設計されたパッケージ群です。React、React、Express.jsなどのフレームワークと互換性があります。
 
 **`lynx-intlayer`パッケージ**は、Viteアプリケーションを国際化するためのものです。環境変数を通じて設定を行うためのMetroプラグインを含み、[Lynxバンドラー](https://lynxjs.org/index.html)に統合されています。
