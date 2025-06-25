@@ -1,9 +1,15 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
+import { BlogData } from '@components/BlogPage/types';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
 
 const blogContent = {
   key: 'blog-metadata',
   content: {
+    blogName: 'index',
+    url: PagesRoutes.Blog,
+    githubUrl: GithubRoutes.BlogIndex,
+    createdAt: '2024-24-12',
+    updatedAt: '2024-24-12',
     title: t({
       en: 'Blog',
       fr: 'Blog',
@@ -123,6 +129,6 @@ const blogContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<BlogData>;
 
 export default blogContent;

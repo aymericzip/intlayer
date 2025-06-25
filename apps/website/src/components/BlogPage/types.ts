@@ -1,15 +1,15 @@
+import { type GithubRoutes, type PagesRoutes } from '@/Routes';
 import { type BlogsKeys } from '@intlayer/blogs';
-import { type PagesRoutes, type GithubRoutes } from '@/Routes';
 
 export type BlogData = {
   blogName: BlogsKeys;
-  url: PagesRoutes;
-  githubUrl: GithubRoutes;
+  url: `${PagesRoutes}`;
+  githubUrl: `${GithubRoutes}`;
   title: string;
   description: string;
   keywords: string[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Section = Record<string, CategorizedBlogData>;

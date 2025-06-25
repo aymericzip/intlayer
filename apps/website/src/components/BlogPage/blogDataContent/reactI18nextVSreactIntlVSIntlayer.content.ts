@@ -1,11 +1,16 @@
+import { GithubRoutes, PagesRoutes } from '@/Routes';
 import { t, type Dictionary } from 'intlayer';
-import { type Metadata } from 'next';
+import { BlogData } from '../types';
 
 const blogContent = {
   key: 'blog-react-i18n-vs-react-intl-vs-intlayer-metadata',
   content: {
+    blogName: 'react-i18next_vs_react-intl_vs_intlayer',
+    url: PagesRoutes['Blog_React-i18next_vs_React-intl_vs_Intlayer'],
+    githubUrl: GithubRoutes['React-i18next_vs_React-intl_vs_Intlayer'],
+    createdAt: '2025-01-02',
+    updatedAt: '2025-01-02',
     title: 'react-i18n vs react-intl vs Intlayer',
-
     description: t({
       en: 'Integrate react-i18next with next-intl and Intlayer for the internationalization (i18n) of a React app',
       'en-GB':
@@ -156,6 +161,6 @@ const blogContent = {
       ],
     }),
   },
-} satisfies Dictionary<Metadata>;
+} satisfies Dictionary<BlogData>;
 
 export default blogContent;
