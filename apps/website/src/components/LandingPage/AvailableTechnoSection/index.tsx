@@ -2,11 +2,18 @@
 
 import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
-import { useScreenWidth } from '@intlayer/design-system/hooks';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
+import { cn } from '@utils/cn';
+import {
+  motion,
+  MotionValue,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import { useIntlayer } from 'next-intlayer';
-import type { FC } from 'react';
-import { useRef } from 'react';
+import type { CSSProperties, FC, SVGProps } from 'react';
+import { useRef, useState } from 'react';
 import { AngularLogo } from './Angular';
 import { NextJSLogo } from './Nextjs';
 import { NuxtLogo } from './Nuxt';
@@ -18,6 +25,82 @@ import { ViteLogo } from './Vitejs';
 import { VuejsLogo } from './Vuejs';
 
 const BASE_SCREEN_WIDTH = 1500;
+
+type LogoConfig = {
+  Logo: FC<SVGProps<SVGSVGElement>>;
+  route: string;
+  intitialPost: {
+    scale: number;
+    x: number;
+    y: number;
+  };
+  label: string;
+};
+
+type LogoItemProps = LogoConfig & {
+  animationProgress: MotionValue<number>;
+  outputRange: [number, number];
+  label: string;
+  logoClassName?: string;
+  getXPosition: (value: number) => number;
+  isMobile?: boolean;
+  animationDelay: number;
+};
+
+const LogoItem: FC<LogoItemProps> = ({
+  Logo,
+  route,
+  intitialPost,
+  animationProgress,
+  outputRange,
+  label,
+  logoClassName,
+  getXPosition,
+  isMobile,
+  animationDelay,
+}) => {
+  const x = useTransform(animationProgress, outputRange, [
+    getXPosition(intitialPost.x),
+    0,
+  ]);
+  const y = useTransform(animationProgress, outputRange, [intitialPost.y, 0]);
+  const scale = useTransform(animationProgress, outputRange, [
+    intitialPost.scale,
+    1,
+  ]);
+  const isEnabled = useTransform(animationProgress, outputRange, [true, false]);
+
+  const [isFloating, setIsFloating] = useState(isEnabled.get());
+
+  useMotionValueEvent(isEnabled, 'change', (latest) => {
+    setIsFloating(latest);
+  });
+
+  return (
+    <motion.div
+      style={{
+        x,
+        y,
+        scale: isMobile ? 1 : scale,
+      }}
+    >
+      <Link href={route} color="custom" label={label}>
+        <Logo
+          className={cn(
+            'size-14 hover:scale-110 transition-transform duration-200',
+            isFloating && 'animate-float',
+            logoClassName
+          )}
+          style={
+            {
+              animationDelay: `${animationDelay}s`,
+            } as CSSProperties
+          }
+        />
+      </Link>
+    </motion.div>
+  );
+};
 
 const logos = [
   {
@@ -67,13 +150,13 @@ const logos = [
     intitialPost: {
       scale: 1.2,
       x: 0,
-      y: 0,
+      y: 30,
     },
     label: 'preact',
   },
   {
     Logo: NuxtLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndPreact,
+    route: PagesRoutes.Doc_Environment_NuxtAndVue,
     intitialPost: {
       scale: 1.2,
       x: 200,
@@ -117,108 +200,61 @@ const comingSoon = [
 ] as const;
 
 export const AvailableTechnoSection: FC = () => {
-  const content = useIntlayer('available-techno-section');
+  const { commingSoon, availableOn, icons } = useIntlayer(
+    'available-techno-section'
+  );
 
+  const { isMobile } = useDevice();
   const { screenWith } = useScreenWidth();
-  const ref = useRef(null);
-  // Scroll progress for the whole section.
+
+  const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: containerRef,
     offset: ['start end', 'end start'],
   });
 
   // Animation progress that starts at 50% scroll
   const animationProgress = useTransform(scrollYProgress, [0.4, 1], [0, 1]);
 
-  const getXPosition = (index: number) => {
-    return index * (screenWith / BASE_SCREEN_WIDTH);
-  };
+  const getXPosition = (index: number) =>
+    index * (screenWith / BASE_SCREEN_WIDTH);
 
   return (
     <section
-      ref={ref}
+      ref={containerRef}
       className="z-10 flex w-full flex-col items-center justify-center"
     >
-      <h2 className="text-neutral-500 mb-3 text-lg">{content.availableOn}</h2>
+      <h2 className="text-neutral-500 mb-3 text-lg">{availableOn}</h2>
       <motion.div className="mt-[30px] grid justify-items-center grid-cols-3  w-2/3 h-76 gap-0 p-0 sm:w-1/3">
-        {logos.map(({ Logo, route, label, intitialPost }, i) => {
-          const x = useTransform(
-            animationProgress,
-            [0, 0.05],
-            [getXPosition(intitialPost.x), 0]
-          );
-          const y = useTransform(
-            animationProgress,
-            [0, 0.05],
-            [intitialPost.y, 0]
-          );
-          const scale = useTransform(
-            animationProgress,
-            [0, 0.05],
-            [intitialPost.scale, 1]
-          );
-
-          return (
-            <motion.div
-              key={i}
-              style={{
-                x,
-                y,
-                scale,
-              }}
-            >
-              <Link
-                href={route}
-                color="custom"
-                label={content[label]?.label.value}
-              >
-                <Logo className="size-14" />
-              </Link>
-            </motion.div>
-          );
-        })}
+        {logos.map((logoConfig, index) => (
+          <LogoItem
+            key={index}
+            {...logoConfig}
+            animationProgress={animationProgress}
+            outputRange={[0, 0.15]}
+            animationDelay={index * 0.15}
+            label={icons[logoConfig.label].label.value}
+            getXPosition={getXPosition}
+            isMobile={isMobile}
+          />
+        ))}
       </motion.div>
 
-      <h2 className="text-neutral-500 mb-3 text-lg mt-5">
-        {content.commingSoon}
-      </h2>
+      <h2 className="text-neutral-500 mb-3 text-lg mt-5">{commingSoon}</h2>
       <motion.div className="mt-[30px] grid justify-items-center grid-cols-3 w-2/3 h-56 gap-0 p-0 sm:w-1/3">
-        {comingSoon.map(({ Logo, route, label, intitialPost }, i) => {
-          const x = useTransform(
-            animationProgress,
-            [0.05, 0.1],
-            [getXPosition(intitialPost.x), 0]
-          );
-          const y = useTransform(
-            animationProgress,
-            [0.05, 0.1],
-            [intitialPost.y, 0]
-          );
-          const scale = useTransform(
-            animationProgress,
-            [0.05, 0.1],
-            [intitialPost.scale, 1]
-          );
-
-          return (
-            <motion.div
-              key={i}
-              style={{
-                x,
-                y,
-                scale,
-              }}
-            >
-              <Link
-                href={route}
-                color="custom"
-                label={content[label]?.label.value}
-              >
-                <Logo className="size-14 grayscale-70" />
-              </Link>
-            </motion.div>
-          );
-        })}
+        {comingSoon.map((logoConfig, index) => (
+          <LogoItem
+            key={index}
+            {...logoConfig}
+            animationProgress={animationProgress}
+            outputRange={[0.15, 0.3]}
+            animationDelay={index * 0.15}
+            label={icons[logoConfig.label].label.value}
+            logoClassName="grayscale-70"
+            getXPosition={getXPosition}
+            isMobile={isMobile}
+          />
+        ))}
       </motion.div>
     </section>
   );

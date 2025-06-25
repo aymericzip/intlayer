@@ -23,6 +23,16 @@
   }
 }
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--float-distance, 10px));
+  }
+}
+
 .horizontal-loop-1 {
   animation-name: infiniteScroll;
   animation-duration: 85s;
@@ -35,4 +45,11 @@
   animation-duration: 85s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+}
+
+.animate-float {
+  animation-name: float;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
