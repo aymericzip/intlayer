@@ -97,8 +97,8 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
         creativeWorkDescription={docData.description}
         creativeWorkContent={docContent}
         keywords={docData.keywords.join(', ')}
-        dateModified={docData.updatedAt}
-        datePublished={docData.createdAt}
+        dateModified={new Date(docData.updatedAt)}
+        datePublished={new Date(docData.createdAt)}
         url={docData.url}
       />
       <TranslatedContentMessage pageUrl={docData.url} />
