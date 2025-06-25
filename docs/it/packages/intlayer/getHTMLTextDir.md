@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getHTMLTextDir
+url: /doc/packages/intlayer/getHTMLTextDir
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getHTMLTextDir.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentazione della funzione getHTMLTextDir | intlayer
+description: Scopri come utilizzare la funzione getHTMLTextDir per il pacchetto intlayer
+keywords:
+  - getHTMLTextDir
+  - traduzione
+  - Intlayer
+  - intlayer
+  - internazionalizzazione
+  - documentazione
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentazione: Funzione `getHTMLTextDir` in `intlayer`
 
 ## Descrizione

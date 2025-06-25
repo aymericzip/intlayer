@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayer
+url: /doc/packages/next-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentação do hook useIntlayer | next-intlayer
+description: Veja como usar o hook useIntlayer para o pacote next-intlayer
+keywords:
+  - useIntlayer
+  - dicionário
+  - chave
+  - Intlayer
+  - Internacionalização
+  - Documentação
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Integração com Next.js: Documentação do Hook `useIntlayer`
 
 O hook `useIntlayer` é adaptado para aplicações Next.js para buscar e gerenciar conteúdo localizado de forma eficiente. Esta documentação se concentrará em como utilizar o hook em projetos Next.js, garantindo práticas adequadas de localização.

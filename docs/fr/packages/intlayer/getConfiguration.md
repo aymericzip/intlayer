@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getConfiguration
+url: /doc/packages/intlayer/getConfiguration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentation de la fonction getConfiguration | intlayer
+description: Découvrez commengetConfiguration utiliser la fonction getConfiguration pour le package intlayer
+keywords:
+  - getConfiguration
+  - traduction
+  - Intlayer
+  - intlayer
+  - Internationalisation
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentation: `getConfiguration` Fonction dans `intlayer`
 
 ## Description

@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useLocale
+url: /doc/packages/react-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useLocale 훅 문서 | react-intlayer
+description: react-intlayer 패키지의 useLocale 훅을 사용하는 방법을 확인하세요
+keywords:
+  - useLocale
+  - 사전
+  - 키
+  - Intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React 통합: `useLocale` 훅 문서
 
 이 섹션은 React 애플리케이션에서 로케일 관리를 위해 설계된 `react-intlayer` 라이브러리의 `useLocale` 훅에 대한 포괄적인 세부 정보를 제공합니다.

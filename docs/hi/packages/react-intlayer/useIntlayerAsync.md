@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayerAsync
+url: /doc/packages/react-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayerAsync हुक दस्तावेज | react-intlayer
+description: react-intlayer पैकेज के लिए useIntlayerAsync हुक का उपयोग कैसे करें यह देखें
+keywords:
+  - useIntlayerAsync
+  - शब्दकोश
+  - चाबी
+  - Intlayer
+  - अंतर्राष्ट्रीयकरण
+  - दस्तावेज़
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React एकीकरण: `useIntlayerAsync` हुक दस्तावेज़
 
 `useIntlayerAsync` हुक `useIntlayer` की कार्यक्षमता को बढ़ाता है, जो न केवल पूर्व-रेंडर की गई डिक्शनरी लौटाता है बल्कि अद्यतन सामग्री को असिंक्रोनस रूप से प्राप्त करता है। यह उन अनुप्रयोगों के लिए आदर्श है जो प्रारंभिक रेंडर के बाद बार-बार स्थानीयकृत सामग्री को अपडेट करते हैं।

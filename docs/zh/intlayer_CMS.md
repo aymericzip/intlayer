@@ -1,3 +1,22 @@
+---
+docName: intlayer_CMS
+url: /doc/concept/cms
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Intlayer CMS | 将您的内容外部化到Intlayer CMS
+description: 将您的内容外部化到Intlayer CMS，以代表您的团队管理您的内容。
+keywords:
+  - CMS
+  - 可视编辑器
+  - 国际化
+  - 文档
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer 内容管理系统 (CMS) 文档
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

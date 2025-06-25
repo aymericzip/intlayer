@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useDictionary
+url: /doc/packages/next-intlayer/useDictionary
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useDictionary Hook Documentation | next-intlayer
+description: See how to use the useDictionary hook for next-intlayer package
+keywords:
+  - useDictionary
+  - dictionary
+  - key
+  - Intlayer
+  - Internationalization
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React Integration: `useDictionary` Hook Documentation
 
 This section provides detailed guidance on using the `useDictionary` hook within React applications, enabling efficient handling of localised content without a visual editor.

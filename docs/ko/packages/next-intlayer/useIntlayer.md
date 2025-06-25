@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayer
+url: /doc/packages/next-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayer 후크 문서 | next-intlayer
+description: next-intlayer 패키지용 useIntlayer 후크를 사용하는 방법을 확인하세요
+keywords:
+  - useIntlayer
+  - 사전
+  - 키
+  - Intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js 통합: `useIntlayer` 훅 문서
 
 `useIntlayer` 훅은 Next.js 애플리케이션에서 로컬라이즈된 콘텐츠를 효율적으로 가져오고 관리하기 위해 설계되었습니다. 이 문서는 Next.js 프로젝트 내에서 훅을 활용하는 방법에 초점을 맞추며, 적절한 로컬라이제이션 실천 방법을 보장합니다.

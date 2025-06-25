@@ -1,3 +1,21 @@
+---
+docName: package__next-intlayer
+url: /doc/packages/next-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق حزمة | next-intlayer
+description: انظر كيف تستخدم حزمة next-intlayer
+keywords:
+  - Intlayer
+  - next-intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # next-intlayer: حزمة NPM لتدويل (i18n) تطبيق Next.js
 
 **Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وNext.js وExpress.js.

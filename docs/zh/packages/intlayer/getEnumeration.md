@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getEnumeration
+url: /doc/packages/intlayer/getEnumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getEnumeration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t函数文档 | intlayer
+description: 查看如何使用 intlayer 软件包的 getEnumeration 函数
+keywords:
+  - getEnumeration
+  - 翻译
+  - Intlayer
+  - intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 文档: `getEnumeration` 函数在 `intlayer` 中
 
 ## 描述

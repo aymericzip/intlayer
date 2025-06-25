@@ -1,3 +1,21 @@
+---
+docName: dictionary__condition
+url: /doc/concept/content/condition
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: 条件内容
+description: Intlayerで条件付きコンテンツを使用し、特定の条件に基づいて動的にコンテンツを表示する方法を学びます。このドキュメントに従って、効率的に条件を実装しましょう。
+keywords:
+  - 条件内容
+  - 動的レンダリング
+  - 文書
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 条件付きコンテンツ / Intlayerの条件
 
 ## 条件の仕組み

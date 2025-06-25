@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useDictionary
+url: /doc/packages/next-intlayer/useDictionary
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useDictionary 훅 문서 | next-intlayer
+description: next-intlayer 패키지에서 useDictionary 훅을 사용하는 방법을 확인하세요
+keywords:
+  - useDictionary
+  - 사전
+  - 키
+  - Intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React 통합: `useDictionary` 훅 문서
 
 이 섹션은 React 애플리케이션에서 `useDictionary` 훅을 사용하는 방법에 대한 자세한 가이드를 제공하며, 시각적 편집기 없이 로컬라이즈된 콘텐츠를 효율적으로 처리할 수 있도록 합니다.

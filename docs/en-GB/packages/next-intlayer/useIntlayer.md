@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayer
+url: /doc/packages/next-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayer Hook Documentation | next-intlayer
+description: See how to use the useIntlayer hook for next-intlayer package
+keywords:
+  - useIntlayer
+  - dictionary
+  - key
+  - Intlayer
+  - Internationalization
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js Integration: `useIntlayer` Hook Documentation
 
 The `useIntlayer` hook is tailored for Next.js applications to fetch and manage localized content efficiently. This documentation will focus on how to utilise the hook within Next.js projects, ensuring proper localisation practices.

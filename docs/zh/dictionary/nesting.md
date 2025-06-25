@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: 词典嵌套
+description: 了解如何在Intlayer中使用内容嵌套，以高效地重用和构造您的多语言内容。按照本文档的步骤无缝实施嵌套。
+keywords:
+  - Nesting
+  - 内容重用
+  - 文档
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 嵌套 / 子内容引用
 
 ## 嵌套如何工作

@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useLocale
+url: /doc/packages/react-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useLocaleフックのドキュメント | react-intlayer
+description: react-intlayerパッケージのuseLocaleフックの使い方を参照してください
+keywords:
+  - useLocale
+  - 辞書
+  - キー
+  - Intlayer
+  - 国際化
+  - 文書
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React統合: `useLocale`フックのドキュメント
 
 このセクションでは、Reactアプリケーションでロケール管理を行うために設計された`react-intlayer`ライブラリの`useLocale`フックに関する包括的な詳細を提供します。

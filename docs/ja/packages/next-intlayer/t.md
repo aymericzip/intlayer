@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__t
+url: /doc/packages/next-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t関数のドキュメント | next-intlayer
+description: next-intlayerパッケージのt関数の使用方法を確認してください
+keywords:
+  - t
+  - 翻訳
+  - Intlayer
+  - next-intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # ドキュメント: `t` 関数 in `next-intlayer`
 
 `next-intlayer` パッケージの `t` 関数は、Next.js アプリケーション内でインライン国際化を実現するための基本的なツールです。コンポーネント内で直接翻訳を定義できるため、現在のロケールに基づいてローカライズされたコンテンツを簡単に表示できます。

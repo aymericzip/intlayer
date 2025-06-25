@@ -1,3 +1,21 @@
+---
+docName: ci_cd
+url: /doc/concept/ci-cd
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+createdAt: 2025-05-20
+updatedAt: 2025-05-20
+title: CI/CD 통합
+description: 자동화된 콘텐츠 관리 및 배포를 위해 Intlayer를 CI/CD 파이프라인에 통합하는 방법을 알아보세요.
+keywords:
+  - CI/CD
+  - 지속적 통합
+  - 지속적 배포
+  - 자동화
+  - 국제화
+  - 문서
+  - Intlayer
+---
+
 # CI/CD 파이프라인에서 번역 자동 생성
 
 Intlayer는 콘텐츠 선언 파일에 대한 번역을 자동으로 생성할 수 있습니다. 워크플로우에 따라 이를 달성하는 여러 가지 방법이 있습니다.

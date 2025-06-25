@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getMultilingualUrls
+url: /doc/packages/intlayer/getMultilingualUrls
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getMultilingualUrls.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: getMultilingualUrls 함수 문서 | intlayer
+description: intlayer 패키지의 getMultilingualUrls 함수 사용 방법을 확인하세요
+keywords:
+  - getMultilingualUrls
+  - 번역
+  - Intlayer
+  - intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 문서: `getMultilingualUrls` 함수 in `intlayer`
 
 ## 설명

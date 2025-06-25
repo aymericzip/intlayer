@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Imbrication du dictionnaire
+description: Découvrez comment utiliser l’imbrication de contenu dans Intlayer pour réutiliser et structurer efficacement votre contenu multilingue. Suivez cette documentation pour implémenter l’imbrication facilement dans votre projet.
+keywords:
+  - Nesting
+  - Réutilisation de contenu
+  - Documentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Imbrication / Référencement de Sous-Contenu
 
 ## Comment fonctionne l'imbrication

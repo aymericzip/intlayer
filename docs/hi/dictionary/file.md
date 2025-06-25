@@ -1,3 +1,21 @@
+---
+docName: dictionary__file
+url: /doc/concept/content/file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: फ़ाइल
+description: जानें कि Intlayer के `file` फ़ंक्शन का उपयोग करके बाहरी फ़ाइलों को अपनी सामग्री शब्दकोश में कैसे एम्बेड करें। यह दस्तावेज़ बताता है कि Intlayer फ़ाइल सामग्री को गतिशील रूप से कैसे प्रबंधित करता है।
+keywords:
+  - फ़ाइल
+  - अंतर्राष्ट्रीयकरण
+  - डॉक्यूमेंटेशन
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # फ़ाइल सामग्री / फ़ाइल एम्बेडिंग कैसे काम करता है
 
 ## फ़ाइल एम्बेडिंग कैसे काम करती है

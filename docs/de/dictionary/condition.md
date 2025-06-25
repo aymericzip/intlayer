@@ -1,3 +1,21 @@
+---
+docName: dictionary__condition
+url: /doc/concept/content/condition
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Bedingte Inhalte
+description: Erfahren Sie, wie Sie bedingte Inhalte in Intlayer nutzen können, um Inhalte dynamisch basierend auf bestimmten Bedingungen anzuzeigen. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihr Projekt zu integrieren.
+keywords:
+  - Bedingte Inhalte
+  - Dynamische Darstellung
+  - Dokumentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Bedingter Inhalt / Bedingung in Intlayer
 
 ## Wie Bedingung funktioniert

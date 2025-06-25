@@ -1,3 +1,20 @@
+---
+docName: roadmap
+url: /doc/roadmap
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+createdAt: 2025-03-01
+updatedAt: 2025-03-01
+title: 로드맵
+description: Intlayer의 로드맵을 발견하세요. 모든 기능을 알아보세요. Intlayer가 구현한 모든 기능을 검토하고 구현할 계획을 검토하세요.
+keywords:
+  - Roadmap
+  - Intlayer
+  - 국제화
+  - CMS
+  - 콘텐츠 관리 시스템
+  - 비주얼 편집기
+---
+
 # Intlayer: 기능 개요 및 로드맵
 
 Intlayer는 애플리케이션 전반에서 콘텐츠를 선언, 관리 및 업데이트하는 방식을 간소화하도록 설계된 콘텐츠 관리 및 국제화 솔루션입니다. 중앙 집중식 또는 분산형 콘텐츠 선언, 광범위한 국제화 옵션, Markdown 지원, 조건부 렌더링, TypeScript/JavaScript/JSON 통합 등 강력한 기능을 제공합니다. 아래는 Intlayer의 현재 제공 기능에 대한 종합적인 개요와 향후 로드맵 기능입니다.

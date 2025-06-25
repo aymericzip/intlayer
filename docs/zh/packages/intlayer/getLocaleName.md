@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getLocaleName
+url: /doc/packages/intlayer/getLocaleName
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleName.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t函数文档 | intlayer
+description: 查看如何使用 intlayer 软件包的 getLocaleName 函数
+keywords:
+  - getLocaleName
+  - 翻译
+  - Intlayer
+  - intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 文档: `getLocaleName` 函数在 `intlayer` 中
 
 ## 描述

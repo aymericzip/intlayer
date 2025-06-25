@@ -1,3 +1,19 @@
+---
+docName: configuration
+url: /doc/concept/configuration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md
+createdAt: 2024-08-13
+updatedAt: 2024-08-13
+title: التكوين
+description: تعلم كيفية تكوين Intlayer لتطبيقك. فهم الإعدادات والخيارات المختلفة المتاحة لتخصيص Intlayer وفقًا لاحتياجاتك.
+keywords:
+  - التكوين
+  - الإعدادات
+  - التخصيص
+  - Intlayer
+  - الخيارات
+---
+
 # Intlayer وثائق التكوين
 
 ## نظرة عامة

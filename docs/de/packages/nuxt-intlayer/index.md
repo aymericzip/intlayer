@@ -1,3 +1,20 @@
+---
+docName: package__nuxt-intlayer
+url: /doc/packages/nuxt-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/nuxt-intlayer/index.md
+createdAt: 2025-06-18
+updatedAt: 2025-06-18
+title: Paketdokumentation | nuxt-intlayer
+description: Erfahren Sie, wie Sie das nuxt-intlayer-Paket verwenden
+keywords:
+  - Intlayer
+  - nuxt-intlayer
+  - Internationalisierung
+  - Dokumentation
+  - JavaScript
+  - Nuxt
+---
+
 **Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurde. Es ist kompatibel mit Frameworks wie Vue, Vue und Express.js.
 
 **Das `nuxt-intlayer`-Paket** ermöglicht es Ihnen, Ihre Vue-Anwendung zu internationalisieren. Es bietet Kontextanbieter und Hooks für die Internationalisierung in Vue.

@@ -1,3 +1,21 @@
+---
+docName: mcp_server
+url: /doc/mcp-server
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+createdAt: 2025-06-07
+updatedAt: 2025-06-07
+title: MCP सर्वर दस्तावेज़ीकरण
+description: MCP सर्वर की विशेषताओं और सेटअप का अन्वेषण करें ताकि आपके सर्वर प्रबंधन और संचालन को अनुकूलित किया जा सके।
+keywords:
+  - MCP सर्वर
+  - सर्वर प्रबंधन
+  - अनुकूलन
+  - Intlayer
+  - दस्तावेज़ीकरण
+  - सेटअप
+  - विशेषताएं
+---
+
 # Intlayer MCP सर्वर
 
 **Intlayer MCP (मॉडल कॉन्टेक्स्ट प्रोटोकॉल) सर्वर** Intlayer इकोसिस्टम के लिए AI-संचालित IDE सहायता प्रदान करता है। आधुनिक डेवलपर वातावरण जैसे **Cursor**, **GitHub Copilot workspace**, और किसी भी MCP प्रोटोकॉल का समर्थन करने वाले IDE के लिए डिज़ाइन किया गया यह सर्वर आपके प्रोजेक्ट की सेटअप के आधार पर संदर्भित, वास्तविक समय समर्थन प्रदान करता है।

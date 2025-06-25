@@ -1,3 +1,21 @@
+---
+docName: dictionary__insertion
+url: /doc/concept/content/insertion
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: إدراج
+description: تعلم كيفية إعلان واستخدام عناصر نائبة للإدراج في المحتوى الخاص بك. يوجهك هذا الدليل عبر الخطوات لإدراج القيم ديناميكيًا داخل هياكل المحتوى المحددة مسبقًا.
+keywords:
+  - إدراج
+  - محتوى ديناميكي
+  - العناصر النائبة
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # إدراج المحتوى / الإدراج في Intlayer
 
 ## كيف يعمل الإدراج

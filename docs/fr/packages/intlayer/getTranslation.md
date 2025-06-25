@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getTranslation
+url: /doc/packages/intlayer/getTranslation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getTranslation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentation de la fonction getTranslation | intlayer
+description: Découvrez commengetTranslation utiliser la fonction getTranslation pour le package intlayer
+keywords:
+  - getTranslation
+  - traduction
+  - Intlayer
+  - intlayer
+  - Internationalisation
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentation: Fonction `getTranslationContent` dans `intlayer`
 
 ## Description

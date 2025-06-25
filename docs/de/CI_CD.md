@@ -1,3 +1,21 @@
+---
+docName: ci_cd
+url: /doc/concept/ci-cd
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+createdAt: 2025-05-20
+updatedAt: 2025-05-20
+title: CI/CD-Integration
+description: Erfahren Sie, wie Sie Intlayer in Ihre CI/CD-Pipeline integrieren können, um Inhalte automatisch zu verwalten und bereitzustellen.
+keywords:
+  - CI/CD
+  - Kontinuierliche Integration
+  - Kontinuierliche Bereitstellung
+  - Automatisierung
+  - Internationalisierung
+  - Dokumentation
+  - Intlayer
+---
+
 # Automatische Generierung von Übersetzungen in einer CI/CD-Pipeline
 
 Intlayer ermöglicht die automatische Generierung von Übersetzungen für Ihre Inhaltsdeklarationsdateien. Es gibt mehrere Möglichkeiten, dies je nach Ihrem Workflow zu erreichen.

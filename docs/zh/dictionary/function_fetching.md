@@ -1,3 +1,21 @@
+---
+docName: dictionary__function_fetching
+url: /doc/concept/content/function-fetching
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 功能获取
+description: 发现如何在您的多语言网站中声明和使用功能获取。按照此在线文档中的步骤，在几分钟内设置您的项目。
+keywords:
+  - 功能获取
+  - 国际化
+  - 文档
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 函数获取
 
 Intlayer 允许您在内容模块中声明内容函数，这些函数可以是同步的或异步的。当应用程序构建时，Intlayer 执行这些函数以获取函数的结果。返回值必须是一个 JSON 对象或一个简单的值，例如字符串或数字。

@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_nextjs_15
+url: /doc/environment/nextjs
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_15.md
+createdAt: 2024-12-06
+updatedAt: 2024-12-07
+title: Переведите свой сайт Next.js 15
+description: Узнайте, как сделать ваш сайт на Next.js 15 многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
+keywords:
+  - Интернационализация
+  - Документация
+  - Intlayer
+  - Next.js 15
+  - JavaScript
+  - React
+---
+
 # Начало работы с интернационализацией (i18n) с Intlayer и Next.js 15 App Router
 
 <iframe title="The best i18n solution for Next.js? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getConfiguration
+url: /doc/packages/intlayer/getConfiguration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Dokumentation der t-Funktion | intlayer
+description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetConfiguration verwenden
+keywords:
+  - getConfiguration
+  - Übersetzung
+  - Intlayer
+  - intlayer
+  - Internationalisierung
+  - Dokumentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Dokumentation: `getConfiguration` Funktion in `intlayer`
 
 ## Beschreibung

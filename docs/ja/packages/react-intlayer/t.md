@@ -1,3 +1,22 @@
+---
+docName: package__react-intlayer__t
+url: /doc/packages/react-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t関数のドキュメント | react-intlayer
+description: react-intlayerパッケージ用のt関数の使い方を見てください
+keywords:
+  - t
+  - 翻訳
+  - Intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # ドキュメント: `t` 関数 in `react-intlayer`
 
 `react-intlayer` パッケージの `t` 関数は、React アプリケーション内でインライン国際化を行うための基本ツールです。コンポーネント内で直接翻訳を定義できるため、現在のロケールに基づいてローカライズされたコンテンツを簡単に表示できます。

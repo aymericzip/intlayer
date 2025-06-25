@@ -1,3 +1,21 @@
+---
+docName: mcp_server
+url: /doc/mcp-server
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+createdAt: 2025-06-07
+updatedAt: 2025-06-07
+title: MCP服务器文档
+description: 探索MCP服务器的功能和设置，以优化您的服务器管理和操作。
+keywords:
+  - MCP服务器
+  - 服务器管理
+  - 优化
+  - Intlayer
+  - 文档
+  - 设置
+  - 功能
+---
+
 # Intlayer MCP 服务器文档
 
 **Intlayer MCP (Model Context Protocol) 服务器** 提供基于 AI 的 IDE 辅助功能，专为 Intlayer 生态系统设计。适用于现代开发者环境，如 **Cursor**、**GitHub Copilot 工作区**，以及任何支持 MCP 协议的 IDE，此服务器根据您的项目设置提供上下文相关的实时支持。

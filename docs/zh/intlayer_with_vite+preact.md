@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_vite_preact
+url: /doc/environment/vite-and-preact
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+preact.md
+createdAt: 2025-04-18
+updatedAt: 2025-04-18
+title: 翻译你的Vite和Preact网站 (i18n)
+description: 了解如何使您使用 Vite 和 Preact 构建的网站实现多语言支持。请参阅文档以进行国际化（i18n）和翻译。
+keywords:
+  - 国际化
+  - 文档
+  - Intlayer
+  - Vite
+  - Preact
+  - JavaScript
+---
+
 # 开始使用 Intlayer 和 Vite 及 Preact 进行国际化 (i18n)
 
 > 此软件包正在开发中。有关更多信息，请参阅 [问题](https://github.com/aymericzip/intlayer/issues/118)。通过点赞该问题来表达您对 Intlayer for Preact 的兴趣。

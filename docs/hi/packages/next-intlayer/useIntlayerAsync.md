@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayerAsync
+url: /doc/packages/next-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayerAsync हुक दस्तावेज | next-intlayer
+description: next-intlayer पैकेज के लिए useIntlayerAsync हुक का उपयोग कैसे करें यह देखें
+keywords:
+  - useIntlayerAsync
+  - शब्दकोश
+  - चाबी
+  - Intlayer
+  - अंतर्राष्ट्रीयकरण
+  - दस्तावेज़
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js एकीकरण: `useIntlayerAsync` हुक दस्तावेज़ीकरण
 
 `useIntlayerAsync` हुक `useIntlayer` की कार्यक्षमता को बढ़ाता है, जो केवल पूर्व-रेंडर की गई शब्दकोशों को लौटाने के बजाय, अद्यतन को असिंक्रोनस रूप से प्राप्त करता है। यह उन अनुप्रयोगों के लिए आदर्श है जो प्रारंभिक रेंडर के बाद अपने स्थानीयकृत सामग्री को बार-बार अपडेट करते हैं।

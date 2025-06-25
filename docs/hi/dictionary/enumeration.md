@@ -1,3 +1,21 @@
+---
+docName: dictionary__enumeration
+url: /doc/concept/content/enumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: सूची
+description: अपने बहुभाषी वेबसाइट में अनुक्रमों को घोषित और उपयोग करने का तरीका खोजें। अपने प्रोजेक्ट को कुछ मिनटों में सेटअप करने के लिए इस ऑनलाइन दस्तावेज़ में चरणों का पालन करें।
+keywords:
+  - सूची
+  - अंतर्राष्ट्रीयकरण
+  - डॉक्यूमेंटेशन
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # गणना / बहुवचन
 
 ## गणना कैसे काम करती है

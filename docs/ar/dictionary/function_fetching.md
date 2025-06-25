@@ -1,3 +1,21 @@
+---
+docName: dictionary__function_fetching
+url: /doc/concept/content/function-fetching
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: استرجاع الوظيفة
+description: اكتشف كيفية إعلان واستخدام استرجاع الوظيفة في موقعك متعدد اللغات. اتبع الخطوات في هذه الوثائق الإلكترونية لإعداد مشروعك في دقائق.
+keywords:
+  - استرجاع الوظيفة
+  - دولي
+  - التوثيق
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # جلب الوظائف
 
 يسمح Intlayer لك بإعلان وظائف المحتوى في وحدات المحتوى الخاصة بك، والتي يمكن أن تكون متزامنة أو غير متزامنة. عند بناء التطبيق، يقوم Intlayer بتنفيذ هذه الوظائف للحصول على نتيجة الوظيفة. يجب أن تكون القيمة المرجعة كائن JSON أو قيمة بسيطة مثل سلسلة نصية أو رقم.

@@ -1,3 +1,21 @@
+---
+docName: dictionary__translation
+url: /doc/concept/content/translation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Перевод
+description: Узнайте, как объявить и использовать перевод на вашем многоязычном сайте. Следуйте инструкциям в этой онлайн-документации, чтобы настроить свой проект за несколько минут.
+keywords:
+  - Перевод
+  - Интернационализация
+  - Документация
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Перевод
 
 ## Определение переводов

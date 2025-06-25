@@ -1,3 +1,21 @@
+---
+docName: intlayer_with_react_native_and_expo
+url: /doc/environment/react-native-and-expo
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md
+createdAt: 2025-03-07
+updatedAt: 2025-03-07
+title: React Native와 Expo의 모바일 앱을 번역하십시오 (i18n)
+description: React Native와 Expo를 사용하여 Page Router 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
+keywords:
+  - 국제화
+  - 문서
+  - Intlayer
+  - Vite
+  - React
+  - React Native
+  - JavaScript
+---
+
 # Intlayer와 Vite 및 React를 사용한 국제화(i18n) 시작하기
 
 <iframe title="Vite + React: Build a Multilingual App from Scratch using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

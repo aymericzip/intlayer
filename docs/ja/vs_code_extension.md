@@ -1,3 +1,22 @@
+---
+docName: vscode_extension
+url: /doc/vs-code-extension
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/vs_code_extension.md
+createdAt: 2025-03-17
+updatedAt: 2025-03-17
+title: 公式VS Code拡張機能
+description: VS CodeでIntlayer拡張機能を使用して、開発ワークフローを強化する方法を学びます。ローカライズされたコンテンツ間を素早く移動し、辞書を効率的に管理します。
+keywords:
+  - VS Code 拡張機能
+  - Intlayer
+  - ローカリゼーション
+  - 開発ツール
+  - React
+  - Next.js
+  - JavaScript
+  - TypeScript
+---
+
 # 公式VS Code拡張機能
 
 ## 概要

@@ -1,3 +1,21 @@
+---
+docName: package__lynx-intlayer
+url: /doc/packages/lynx-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: 패키지 문서 | lynx-intlayer
+description: lynx-intlayer 패키지 사용 방법을 확인하세요
+keywords:
+  - Intlayer
+  - lynx-intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **Intlayer**는 JavaScript 개발자를 위해 설계된 패키지 모음입니다. React, React 및 Express.js와 같은 프레임워크와 호환됩니다.
 
 **`lynx-intlayer` 패키지**는 Vite 애플리케이션을 국제화할 수 있도록 합니다. 환경 변수를 통해 [Lynx 번들러](https://lynxjs.org/index.html)에 설정을 적용하는 Metro 플러그인을 포함하고 있습니다.

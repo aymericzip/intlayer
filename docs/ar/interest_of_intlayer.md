@@ -1,3 +1,19 @@
+---
+docName: interest_of_intlayer
+url: /doc/concept/interest
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md
+createdAt: 2024-08-14
+updatedAt: 2024-08-14
+title: اهتمام لبرنامج Intlayer
+description: اكتشف مزايا وفوائد استخدام Intlayer في مشاريعك. افهم لماذا يتفوق Intlayer بين الأطر الأخرى.
+keywords:
+  - فوائد
+  - إيجابيات
+  - Intlayer
+  - إطار العمل
+  - مقارنة
+---
+
 # Intlayer: طريقة مخصصة لترجمة موقعك
 
 **Intlayer** هي مكتبة دولية مصممة خصيصًا لمطوري JavaScript. تتيح إعلان المحتوى الخاص بك في كل مكان في الكود الخاص بك. تحول إعلان المحتوى متعدد اللغات إلى قواميس منظمة للتكامل بسهولة في الكود الخاص بك. باستخدام TypeScript، يجعل **Intlayer** تطويرك أقوى وأكثر كفاءة.

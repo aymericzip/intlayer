@@ -1,3 +1,19 @@
+---
+docName: how_works_intlayer
+url: /doc/concept/how-works-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+createdAt: 2024-08-12
+updatedAt: 2024-08-12
+title: كيف يعمل Intlayer
+description: تعلم كيف يعمل Intlayer داخليًا. افهم البنية والمكونات التي تجعل Intlayer قويًا.
+keywords:
+  - Intlayer
+  - كيف يعمل
+  - الهندسة المعمارية
+  - المكونات
+  - العمليات الداخلية
+---
+
 # كيف يعمل Intlayer
 
 ## نظرة عامة

@@ -1,3 +1,19 @@
+---
+docName: interest_of_intlayer
+url: /doc/concept/interest
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md
+createdAt: 2024-08-14
+updatedAt: 2024-08-14
+title: Intlayer的优势
+description: 发现使用Intlayer进行项目的好处和优点。了解为什么Intlayer在其他框架中脱颖而出。
+keywords:
+  - 好处
+  - 优势
+  - Intlayer
+  - 框架
+  - 比较
+---
+
 # Intlayer: 一种定制化的网站翻译方式
 
 **Intlayer** 是一个专门为 JavaScript 开发者设计的国际化库。它允许你在代码的任何地方声明你的内容。它将多语言内容的声明转换为结构化字典，以便轻松集成到你的代码中。使用 TypeScript，**Intlayer** 使你的开发更加健壮和高效。

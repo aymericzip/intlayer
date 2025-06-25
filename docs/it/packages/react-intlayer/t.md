@@ -1,3 +1,22 @@
+---
+docName: package__react-intlayer__t
+url: /doc/packages/react-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentazione della funzione t | react-intlayer
+description: Scopri come utilizzare la funzione t per il pacchetto react-intlayer
+keywords:
+  - t
+  - traduzione
+  - Intlayer
+  - Internazionalizzazione
+  - Documentazione
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentazione: Funzione `t` in `react-intlayer`
 
 La funzione `t` nel pacchetto `react-intlayer` è uno strumento fondamentale per l'internazionalizzazione inline all'interno della tua applicazione React. Ti consente di definire traduzioni direttamente nei tuoi componenti, rendendo semplice visualizzare contenuti localizzati in base alla lingua corrente.

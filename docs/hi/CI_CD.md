@@ -1,3 +1,21 @@
+---
+docName: ci_cd
+url: /doc/concept/ci-cd
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+createdAt: 2025-05-20
+updatedAt: 2025-05-20
+title: CI/CD एकीकरण
+description: स्वचालित सामग्री प्रबंधन और तैनाती के लिए Intlayer को अपने CI/CD पाइपलाइन में एकीकृत करने का तरीका जानें।
+keywords:
+  - CI/CD
+  - निरंतर एकीकरण
+  - निरंतर तैनाती
+  - स्वचालन
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Intlayer
+---
+
 # CI/CD पाइपलाइन में स्वचालित अनुवाद उत्पन्न करें
 
 Intlayer आपके सामग्री घोषणा फ़ाइलों के लिए अनुवादों को स्वचालित रूप से उत्पन्न करने की अनुमति देता है। इसे प्राप्त करने के लिए आपके वर्कफ़्लो के आधार पर कई तरीके हैं।

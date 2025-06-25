@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getLocaleName
+url: /doc/packages/intlayer/getLocaleName
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleName.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق دالة getLocaleName | intlayer
+description: انظر كيف تستخدم دالة getLocaleName لحزمة intlayer
+keywords:
+  - getLocaleName
+  - ترجمة
+  - Intlayer
+  - intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # وثائق: وظيفة `getLocaleName` في `intlayer`
 
 ## الوصف

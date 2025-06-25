@@ -1,3 +1,22 @@
+---
+docName: package__express-intlayer__t
+url: /doc/packages/express-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+createdAt: 2024-12-02
+updatedAt: 2024-12-02
+title: t函数文档 | express-intlayer
+description: 请查看如何使用 express-intlayer 包的 t 函数
+keywords:
+  - t
+  - 翻译
+  - Intlayer
+  - 国际化
+  - 文档
+  - Express
+  - JavaScript
+  - React
+---
+
 # 文档: `t` 函数在 `express-intlayer` 中的使用
 
 `express-intlayer` 包中的 `t` 函数是为您的 Express 应用程序提供本地化响应的核心工具。它通过根据用户的首选语言动态选择内容，简化了国际化 (i18n)。

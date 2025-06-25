@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getLocaleLang
+url: /doc/packages/intlayer/getLocaleLang
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleLang.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق دالة getLocaleLang | intlayer
+description: انظر كيف تستخدم دالة getLocaleLang لحزمة intlayer
+keywords:
+  - getLocaleLang
+  - ترجمة
+  - Intlayer
+  - intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 To translate this file into Arabic (العربية):
 
 # التوثيق: وظيفة `getLocaleLang` في `intlayer`

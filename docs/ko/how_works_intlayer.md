@@ -1,3 +1,19 @@
+---
+docName: how_works_intlayer
+url: /doc/concept/how-works-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+createdAt: 2024-08-12
+updatedAt: 2024-08-12
+title: Intlayer 작동 방식
+description: Intlayer가 내부적으로 어떻게 작동하는지 알아보세요. Intlayer를 강력하게 만드는 아키텍처와 구성 요소를 이해하십시오.
+keywords:
+  - Intlayer
+  - 어떻게 작동하는가
+  - 아키텍처
+  - 구성 요소
+  - 내부 작동
+---
+
 # Intlayer 작동 방식
 
 ## 개요

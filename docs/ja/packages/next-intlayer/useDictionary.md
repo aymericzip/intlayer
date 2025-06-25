@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useDictionary
+url: /doc/packages/next-intlayer/useDictionary
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useDictionaryフックのドキュメント | next-intlayer
+description: next-intlayerパッケージのuseDictionaryフックの使用方法をご覧ください
+keywords:
+  - useDictionary
+  - 辞書
+  - キー
+  - Intlayer
+  - 国際化
+  - ドキュメンテーション
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React統合: `useDictionary`フックドキュメント
 
 このセクションでは、Reactアプリケーション内で`useDictionary`フックを使用するための詳細なガイダンスを提供します。これにより、ビジュアルエディタを使用せずに効率的にローカライズされたコンテンツを処理できます。

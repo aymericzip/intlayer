@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__t
+url: /doc/packages/next-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t Function Documentation | next-intlayer
+description: See how to use the t function for next-intlayer package
+keywords:
+  - t
+  - translation
+  - Intlayer
+  - next-intlayer
+  - Internationalization
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentation: `t` Function in `next-intlayer`
 
 The `t` function in the `next-intlayer` package is a fundamental tool for inline internationalisation within your Next.js application. It allows you to define translations directly within your components, making it simple to display localised content based on the current locale.

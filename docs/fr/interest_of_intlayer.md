@@ -1,3 +1,19 @@
+---
+docName: interest_of_intlayer
+url: /doc/concept/interest
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md
+createdAt: 2024-08-14
+updatedAt: 2024-08-14
+title: Intérêt d'Intlayer
+description: Découvrez les avantages et bénéfices d'utiliser Intlayer dans vos projets. Comprenez pourquoi Intlayer se démarque parmi les autres frameworks.
+keywords:
+  - Avantages
+  - Intérêt
+  - Intlayer
+  - Framework
+  - Comparaison
+---
+
 # Intlayer : Une façon personnalisée de traduire votre site web
 
 **Intlayer** est une bibliothèque d'internationalisation conçue spécifiquement pour les développeurs JavaScript. Elle permet de déclarer votre contenu partout dans votre code. Elle convertit la déclaration de contenu multilingue en dictionnaires structurés pour s'intégrer facilement dans votre code. En utilisant TypeScript, **Intlayer** rend votre développement plus robuste et plus efficace.

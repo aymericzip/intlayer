@@ -1,3 +1,22 @@
+---
+docName: package__react-intlayer__t
+url: /doc/packages/react-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t函数文档 | react-intlayer
+description: 查看如何使用react-intlayer包的t函数
+keywords:
+  - t
+  - 翻译
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 文档: `t` 函数在 `react-intlayer` 中的使用
 
 `react-intlayer` 包中的 `t` 函数是一个用于在 React 应用中实现内联国际化的基础工具。它允许您直接在组件中定义翻译，从而根据当前语言环境轻松显示本地化内容。

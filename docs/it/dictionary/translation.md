@@ -1,3 +1,21 @@
+---
+docName: dictionary__translation
+url: /doc/concept/content/translation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Traduzione
+description: Scopri come dichiarare e utilizzare le traduzioni nel tuo sito web multilingue. Segui i passaggi in questa documentazione online per configurare il tuo progetto in pochi minuti.
+keywords:
+  - Traduzione
+  - Internazionalizzazione
+  - Documentazione
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Traduzione
 
 ## Definizione delle Traduzioni

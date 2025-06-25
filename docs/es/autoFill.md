@@ -1,3 +1,21 @@
+---
+docName: autoFill
+url: /doc/concept/auto-fill
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Autocompletado
+description: Descubre cómo usar la funcionalidad de autocompletado en Intlayer para llenar automáticamente el contenido basado en patrones predefinidos. Sigue esta documentación para implementar características de autocompletado de manera eficiente en tu proyecto.
+keywords:
+  - Autocompletado
+  - Automatización de contenido
+  - Contenido dinámico
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Archivos de Declaración de Contenido Autocompletados
 
 Los **archivos de declaración de contenido autocompletados** son una forma de acelerar tu flujo de trabajo de desarrollo.

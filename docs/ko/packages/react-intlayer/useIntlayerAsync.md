@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayerAsync
+url: /doc/packages/react-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayerAsync 훅 설명서 | react-intlayer
+description: react-intlayer 패키지에 대한 useIntlayerAsync 훅 사용 방법을 확인하세요
+keywords:
+  - useIntlayerAsync
+  - 사전
+  - 키
+  - Intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React 통합: `useIntlayerAsync` 훅 문서
 
 `useIntlayerAsync` 훅은 `useIntlayer`의 기능을 확장하여 사전 렌더링된 사전뿐만 아니라 비동기적으로 업데이트를 가져와 초기 렌더링 후 자주 업데이트되는 로컬라이즈된 콘텐츠를 사용하는 애플리케이션에 이상적입니다.

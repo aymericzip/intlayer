@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useLocale
+url: /doc/packages/react-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useLocale钩子文档 | react-intlayer
+description: 查看如何使用react-intlayer包的useLocale钩子
+keywords:
+  - useLocale
+  - 字典
+  - 键
+  - Intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React 集成：`useLocale` 钩子文档
 
 本节提供了关于 `react-intlayer` 库中的 `useLocale` 钩子的全面详细信息，该库专为在 React 应用程序中处理语言环境管理而设计。

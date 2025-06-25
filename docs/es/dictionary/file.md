@@ -1,3 +1,21 @@
+---
+docName: dictionary__file
+url: /doc/concept/content/file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Archivo
+description: Aprenda a incorporar archivos externos en su diccionario de contenido utilizando la función `file`. Esta documentación explica cómo Intlayer vincula y administra dinámicamente el contenido de los archivos.
+keywords:
+  - Archivo
+  - Internacionalización
+  - Documentación
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Contenido de Archivo / Archivo en Intlayer
 
 ## Cómo Funciona la Incrustación de Archivos

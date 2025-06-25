@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayer
+url: /doc/packages/react-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Документация по хуку useIntlayer | react-intlayer
+description: Узнайте, как использовать хук useIntlayer для пакета react-intlayer
+keywords:
+  - useIntlayer
+  - словарь
+  - ключ
+  - Intlayer
+  - Интернационализация
+  - Документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React Интеграция: Документация по хуку `useIntlayer`
 
 Этот раздел предоставляет подробное руководство по использованию хука `useIntlayer` в React-приложениях, позволяя эффективно локализовать контент.

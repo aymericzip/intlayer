@@ -1,3 +1,21 @@
+---
+docName: autoFill
+url: /doc/concept/auto-fill
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: स्वतः भरण
+description: Intlayer में स्वतः भरण कार्यक्षमता का उपयोग करके पूर्वनिर्धारित पैटर्न के आधार पर सामग्री को स्वचालित रूप से भरने का तरीका जानें। इस दस्तावेज़ का पालन करें और अपने प्रोजेक्ट में स्वतः भरण सुविधाओं को कुशलतापूर्वक लागू करें।
+keywords:
+  - स्वतः भरण
+  - सामग्री स्वचालन
+  - गतिशील सामग्री
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # स्वचालित भरण सामग्री घोषणा फ़ाइलें
 
 **स्वचालित भरण सामग्री घोषणा फ़ाइलें** आपके विकास वर्कफ़्लो को तेज़ करने का एक तरीका हैं।

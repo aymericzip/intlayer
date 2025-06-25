@@ -1,3 +1,21 @@
+---
+docName: ci_cd
+url: /doc/concept/ci-cd
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+createdAt: 2025-05-20
+updatedAt: 2025-05-20
+title: CI/CD統合
+description: コンテンツの自動管理とデプロイメントのために、IntlayerをCI/CDパイプラインに統合する方法を学びましょう。
+keywords:
+  - CI/CD
+  - 継続的インテグレーション
+  - 継続的デプロイメント
+  - 自動化
+  - 国際化
+  - ドキュメント
+  - Intlayer
+---
+
 # CI/CD パイプラインでの翻訳の自動生成
 
 Intlayer は、コンテンツ宣言ファイルの翻訳を自動生成する機能を提供します。ワークフローに応じて、これを実現する方法は複数あります。

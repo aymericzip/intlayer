@@ -1,3 +1,21 @@
+---
+docName: package__next-intlayer
+url: /doc/packages/next-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentación del paquete | next-intlayer
+description: Descubre cómo usar el paquete next-intlayer
+keywords:
+  - Intlayer
+  - next-intlayer
+  - Internacionalización
+  - Documentación
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # next-intlayer: Paquete NPM para internacionalizar (i18n) una aplicación Next.js
 
 **Intlayer** es un conjunto de paquetes diseñados específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, Next.js y Express.js.

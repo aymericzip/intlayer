@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getMultilingualUrls
+url: /doc/packages/intlayer/getMultilingualUrls
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getMultilingualUrls.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentazione della funzione getMultilingualUrls | intlayer
+description: Scopri come utilizzare la funzione getMultilingualUrls per il pacchetto intlayer
+keywords:
+  - getMultilingualUrls
+  - traduzione
+  - Intlayer
+  - intlayer
+  - internazionalizzazione
+  - documentazione
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **File Translated to Italian:**
 
 # Documentazione: Funzione `getMultilingualUrls` in `intlayer`

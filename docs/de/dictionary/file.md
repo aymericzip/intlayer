@@ -1,3 +1,21 @@
+---
+docName: dictionary__file
+url: /doc/concept/content/file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Datei
+description: Erfahren Sie, wie Sie externe Dateien in Ihr Inhaltsverzeichnis einbetten können, indem Sie die `file`-Funktion verwenden. Diese Dokumentation erklärt, wie Intlayer Dateiinhalte dynamisch verknüpft und verwaltet.
+keywords:
+  - Datei
+  - Internationalisierung
+  - Dokumentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 ## Wie Dateieinbettung funktioniert
 
 In Intlayer ermöglicht die Funktion `file` das Einbetten externer Dateiinhalte in ein Wörterbuch. Dieser Ansatz stellt sicher, dass Intlayer die Quelldatei erkennt, was eine nahtlose Integration mit dem Intlayer Visual Editor und CMS ermöglicht. Im Gegensatz zu direkten `import`, `require` oder `fs` Methoden zur Dateilesung wird durch die Verwendung von `file` die Datei mit dem Wörterbuch verknüpft, sodass Intlayer den Inhalt dynamisch aktualisieren kann, wenn die Datei bearbeitet wird.

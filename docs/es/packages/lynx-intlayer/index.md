@@ -1,3 +1,21 @@
+---
+docName: package__lynx-intlayer
+url: /doc/packages/lynx-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Documentación del paquete | lynx-intlayer
+description: Descubre cómo usar el paquete lynx-intlayer
+keywords:
+  - Intlayer
+  - lynx-intlayer
+  - Internacionalización
+  - Documentación
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **Intlayer** es un conjunto de paquetes diseñado específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
 
 **El paquete `lynx-intlayer`** te permite internacionalizar tu aplicación Vite. Incluye el plugin Metro para configurar a través de variables de entorno en el [empaquetador Lynx](https://lynxjs.org/index.html).

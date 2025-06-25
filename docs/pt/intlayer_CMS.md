@@ -1,3 +1,22 @@
+---
+docName: intlayer_CMS
+url: /doc/concept/cms
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: CMS Intlayer | Externe seu conteúdo no CMS Intlayer
+description: Externe seu conteúdo no CMS Intlayer para delegar a gestão do seu conteúdo ao seu time.
+keywords:
+  - CMS
+  - Editor visual
+  - Internacionalização
+  - Documentação
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer Sistema de Gerenciamento de Conteúdo (CMS) Documentação
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

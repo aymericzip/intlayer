@@ -1,3 +1,21 @@
+---
+docName: dictionary__get_started
+url: /doc/concept/content
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: कंटेंट डिक्लेरेशन | प्रारंभ करें
+description: अपने बहुभाषी वेबसाइट में सामग्री घोषणाओं को कैसे घोषित और उपयोग करें, यह जानें। इस ऑनलाइन दस्तावेज़ में चरणों का पालन करें ताकि आप कुछ ही मिनटों में अपने प्रोजेक्ट को सेट अप कर सकें।
+keywords:
+  - शुरुआत करें
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # अपनी सामग्री की घोषणा शुरू करना
 
 <iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

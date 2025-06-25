@@ -1,3 +1,21 @@
+---
+docName: dictionary__get_started
+url: /doc/concept/content
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: コンテンツ宣言 | 始める
+description: 多言語ウェブサイトでコンテンツ宣言を宣言し、使用する方法を発見してください。このオンラインドキュメントの手順に従って、数分でプロジェクトを設定できます。
+keywords:
+  - 始める
+  - 国際化
+  - ドキュメント
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # コンテンツの宣言を始める
 
 <iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

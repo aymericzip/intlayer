@@ -1,3 +1,21 @@
+---
+docName: dictionary__condition
+url: /doc/concept/content/condition
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Contenido condicional
+description: Descubre cómo usar contenido condicional en Intlayer para mostrar contenido dinámico basado en condiciones específicas. Sigue esta documentación para implementar condiciones de manera eficiente en tu proyecto.
+keywords:
+  - Contenido condicional
+  - Renderizado dinámico
+  - Documentación
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Contenido Condicional / Condición en Intlayer
 
 ## Cómo Funciona la Condición

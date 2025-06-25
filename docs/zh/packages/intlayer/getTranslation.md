@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getTranslation
+url: /doc/packages/intlayer/getTranslation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getTranslation.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t函数文档 | intlayer
+description: 查看如何使用 intlayer 软件包的 getTranslation 函数
+keywords:
+  - getTranslation
+  - 翻译
+  - Intlayer
+  - intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 文档: `getTranslationContent` 函数在 `intlayer` 中
 
 ## 描述

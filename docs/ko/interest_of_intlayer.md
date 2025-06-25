@@ -1,3 +1,19 @@
+---
+docName: interest_of_intlayer
+url: /doc/concept/interest
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md
+createdAt: 2024-08-14
+updatedAt: 2024-08-14
+title: Intlayer의 이점
+description: 프로젝트에서 Intlayer를 사용할 때의 이점과 장점을 알아보세요. Intlayer가 다른 프레임워크 중에서 두드러지는 이유를 이해하세요.
+keywords:
+  - 장점
+  - 이점
+  - Intlayer
+  - 프레임워크
+  - 비교
+---
+
 # Intlayer: 웹사이트를 번역하는 맞춤형 방법
 
 **Intlayer**는 JavaScript 개발자를 위해 특별히 설계된 국제화 라이브러리입니다. 코드 어디에서나 콘텐츠를 선언할 수 있습니다. 다국어 콘텐츠 선언을 구조화된 사전으로 변환하여 코드에 쉽게 통합할 수 있습니다. TypeScript를 사용하여 **Intlayer**는 개발을 더욱 견고하고 효율적으로 만듭니다.

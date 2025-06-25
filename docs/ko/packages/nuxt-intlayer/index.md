@@ -1,3 +1,20 @@
+---
+docName: package__nuxt-intlayer
+url: /doc/packages/nuxt-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/nuxt-intlayer/index.md
+createdAt: 2025-06-18
+updatedAt: 2025-06-18
+title: 패키지 문서 | nuxt-intlayer
+description: nuxt-intlayer 패키지 사용 방법을 확인하세요
+keywords:
+  - Intlayer
+  - nuxt-intlayer
+  - 국제화
+  - 문서
+  - JavaScript
+  - Nuxt
+---
+
 # nuxt-intlayer: Vue 애플리케이션을 국제화(i18n)하기 위한 NPM 패키지
 
 **Intlayer**는 JavaScript 개발자를 위해 설계된 패키지 모음입니다. Vue, Vue 및 Express.js와 같은 프레임워크와 호환됩니다.

@@ -1,3 +1,20 @@
+---
+docName: roadmap
+url: /doc/roadmap
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+createdAt: 2025-03-01
+updatedAt: 2025-03-01
+title: Hoja de ruta
+description: Descubre el roadmap de Intlayer. Vea todas las funciones que Intlayer implementó, y está planeando implementarlas.
+keywords:
+  - Roadmap
+  - Intlayer
+  - Internacionalización
+  - CMS
+  - Sistema de gestión de contenido
+  - Editor visual
+---
+
 # Intlayer: Descripción de Funcionalidades y Hoja de Ruta
 
 Intlayer es una solución de gestión de contenido e internacionalización diseñada para optimizar cómo declaras, gestionas y actualizas contenido en tus aplicaciones. Ofrece potentes funcionalidades como declaración de contenido centralizada o distribuida, amplias opciones de internacionalización, soporte para Markdown, renderizado condicional, integración con TypeScript/JavaScript/JSON, y más. A continuación, se presenta una descripción completa de lo que Intlayer ofrece actualmente, seguida de las características futuras en la hoja de ruta.

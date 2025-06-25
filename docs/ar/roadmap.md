@@ -1,3 +1,20 @@
+---
+docName: roadmap
+url: /doc/roadmap
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+createdAt: 2025-03-01
+updatedAt: 2025-03-01
+title: خريطة الطريق
+description: اكتشف الطريق التالي للرواد مايكروسفت. اطلع على جميع الميزات التي تم تنفيذها في التطبيق، والذي يقترح بتنفيذها.
+keywords:
+  - Roadmap
+  - Intlayer
+  - الترجمة
+  - CMS
+  - نظام إدارة المحتوى
+  - محرر المرئيات
+---
+
 # Intlayer: نظرة عامة على الميزات وخريطة الطريق
 
 ## Intlayer: نظرة عامة على الميزات وخارطة الطريق

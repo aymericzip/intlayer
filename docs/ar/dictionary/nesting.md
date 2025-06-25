@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: تداخل القاموس
+description: تعلم كيفية استخدام تداخل المحتوى في Intlayer لإعادة استخدام وتنظيم المحتوى متعدد اللغات بكفاءة. اتبع هذه الوثيقة لتنفيذ التداخل بسلاسة في مشروعك.
+keywords:
+  - Nesting
+  - إعادة استخدام المحتوى
+  - وثائق
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # التعشيش / الإشارة إلى المحتوى الفرعي
 
 ## كيف يعمل التعشيش

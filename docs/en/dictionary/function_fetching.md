@@ -1,3 +1,21 @@
+---
+docName: dictionary__function_fetching
+url: /doc/concept/content/function-fetching
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Function Fetching
+description: Discover how to declare and use function fetching in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+keywords:
+  - Function Fetching
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Function Fetching
 
 Intlayer allows you to declare content functions in your content modules, which can be either synchronous or asynchronous. When the application builds, Intlayer executes these functions to obtain the function's result. The return value must be a JSON object or a simple value like a string or number.

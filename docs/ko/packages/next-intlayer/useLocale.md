@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useLocale
+url: /doc/packages/next-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useLocale 훅 문서 | next-intlayer
+description: next-intlayer 패키지의 useLocale 훅을 사용하는 방법을 확인하세요
+keywords:
+  - useLocale
+  - 사전
+  - 키
+  - Intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js 통합: `useLocale` 훅 문서 for `next-intlayer`
 
 이 섹션은 `next-intlayer` 라이브러리 내에서 Next.js 애플리케이션을 위해 설계된 `useLocale` 훅에 대한 자세한 문서를 제공합니다. 이 훅은 로케일 변경 및 라우팅을 효율적으로 처리하도록 설계되었습니다.

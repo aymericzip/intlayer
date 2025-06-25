@@ -1,3 +1,21 @@
+---
+docName: package__next-intlayer
+url: /doc/packages/next-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 包文档 | next-intlayer
+description: 查看如何使用 next-intlayer 软件包
+keywords:
+  - Intlayer
+  - next-intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # next-intlayer: 用于国际化 (i18n) Next.js 应用程序的 NPM 包
 
 **Intlayer** 是专为 JavaScript 开发人员设计的一套包。它兼容 React、Next.js 和 Express.js 等框架。

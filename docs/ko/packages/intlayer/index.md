@@ -1,3 +1,21 @@
+---
+docName: package__intlayer
+url: /doc/packages/intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 패키지 문서 | intlayer
+description: intlayer 패키지 사용 방법을 확인하세요
+keywords:
+  - Intlayer
+  - intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # intlayer: 다국어 사전(i18n)을 관리하기 위한 NPM 패키지
 
 **Intlayer**는 JavaScript 개발자를 위해 특별히 설계된 패키지 모음입니다. React, Next.js, Express.js와 같은 프레임워크와 호환됩니다.

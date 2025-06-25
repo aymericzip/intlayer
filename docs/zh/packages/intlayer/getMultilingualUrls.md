@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getMultilingualUrls
+url: /doc/packages/intlayer/getMultilingualUrls
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getMultilingualUrls.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t函数文档 | intlayer
+description: 查看如何使用 intlayer 软件包的 getMultilingualUrls 函数
+keywords:
+  - getMultilingualUrls
+  - 翻译
+  - Intlayer
+  - intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 文档: `getMultilingualUrls` 函数在 `intlayer` 中
 
 ## 描述

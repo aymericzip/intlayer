@@ -1,3 +1,21 @@
+---
+docName: package__vite-intlayer
+url: /doc/packages/vite-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: पैकेज के डॉक्यूमेंटेशन | vite-intlayer
+description: vite-intlayer पैकेज का उपयोग कैसे करें
+keywords:
+  - Intlayer
+  - vite-intlayer
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # vite-intlayer: Vite एप्लिकेशन को अंतर्राष्ट्रीयकरण (i18n) करने के लिए NPM पैकेज
 
 **Intlayer** विशेष रूप से जावास्क्रिप्ट डेवलपर्स के लिए डिज़ाइन किए गए पैकेजों का एक समूह है। यह React, React और Express.js जैसे फ्रेमवर्क के साथ संगत है।

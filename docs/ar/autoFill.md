@@ -1,3 +1,21 @@
+---
+docName: autoFill
+url: /doc/concept/auto-fill
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: الملء التلقائي
+description: تعلم كيفية استخدام وظيفة الملء التلقائي في Intlayer لملء المحتوى تلقائيًا بناءً على الأنماط المحددة مسبقًا. اتبع هذه الوثيقة لتنفيذ ميزات الملء التلقائي بكفاءة في مشروعك.
+keywords:
+  - الملء التلقائي
+  - أتمتة المحتوى
+  - محتوى ديناميكي
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # ملفات إعلان المحتوى المملوءة تلقائياً
 
 **ملفات إعلان المحتوى المملوءة تلقائياً** هي طريقة لتسريع سير العمل في التطوير.

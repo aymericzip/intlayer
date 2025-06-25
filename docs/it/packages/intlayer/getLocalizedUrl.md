@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getLocalizedUrl
+url: /doc/packages/intlayer/getLocalizedUrl
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentazione della funzione getLocalizedUrl | intlayer
+description: Scopri come utilizzare la funzione getLocalizedUrl per il pacchetto intlayer
+keywords:
+  - getLocalizedUrl
+  - traduzione
+  - Intlayer
+  - intlayer
+  - internazionalizzazione
+  - documentazione
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentazione: Funzione `getLocalizedUrl` in `intlayer`
 
 ## Descrizione

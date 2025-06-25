@@ -1,3 +1,19 @@
+---
+docName: configuration
+url: /doc/concept/configuration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md
+createdAt: 2024-08-13
+updatedAt: 2024-08-13
+title: 配置
+description: 学习如何为您的应用程序配置Intlayer。了解可用于根据您的需要自定义Intlayer的各种设置和选项。
+keywords:
+  - 配置
+  - 设置
+  - 自定义
+  - Intlayer
+  - 选项
+---
+
 # Intlayer 配置文档
 
 ## 概述

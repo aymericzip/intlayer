@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getMultilingualUrls
+url: /doc/packages/intlayer/getMultilingualUrls
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getMultilingualUrls.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Dokumentation der t-Funktion | intlayer
+description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetMultilingualUrls verwenden
+keywords:
+  - getMultilingualUrls
+  - Übersetzung
+  - Intlayer
+  - intlayer
+  - Internationalisierung
+  - Dokumentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Dokumentation: `getMultilingualUrls` Funktion in `intlayer`
 
 ## Beschreibung

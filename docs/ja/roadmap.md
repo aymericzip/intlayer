@@ -1,3 +1,20 @@
+---
+docName: roadmap
+url: /doc/roadmap
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+createdAt: 2025-03-01
+updatedAt: 2025-03-01
+title: ロードマップ
+description: Intlayerのロードマップを発見してください。すべてのフィーチャを見てください。Intlayerが実装したすべての機能を確認し、実装する予定の機能を確認してください。
+keywords:
+  - Roadmap
+  - Intlayer
+  - 国際化
+  - CMS
+  - コンテンツマネジメントシステム
+  - ビジュアルエディター
+---
+
 # Intlayer: 機能概要とロードマップ
 
 Intlayerは、アプリケーション全体でコンテンツを宣言、管理、更新する方法を効率化するために設計されたコンテンツ管理および国際化ソリューションです。集中型または分散型のコンテンツ宣言、広範な国際化オプション、Markdownサポート、条件付きレンダリング、TypeScript/JavaScript/JSON統合などの強力な機能を提供します。以下は、Intlayerが現在提供している機能の包括的な概要と、今後のロードマップ機能です。

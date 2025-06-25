@@ -1,3 +1,21 @@
+---
+docName: dictionary__insertion
+url: /doc/concept/content/insertion
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: 삽입
+description: 콘텐츠에서 삽입 플레이스홀더를 선언하고 사용하는 방법을 배우세요. 이 문서는 사전 정의된 콘텐츠 구조 내에서 값을 동적으로 삽입하는 단계를 안내합니다.
+keywords:
+  - 삽입
+  - 동적 콘텐츠
+  - 플레이스홀더
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 삽입 콘텐츠 / 삽입 Intlayer
 
 ## 삽입 작동 방식

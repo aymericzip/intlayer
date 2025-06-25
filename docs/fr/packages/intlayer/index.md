@@ -1,3 +1,21 @@
+---
+docName: package__intlayer
+url: /doc/packages/intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentation du package | intlayer
+description: Découvrez comment utiliser le package intlayer
+keywords:
+  - Intlayer
+  - intlayer
+  - Internationalisation
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # intlayer : Package NPM pour Gérer un Dictionnaire Multilingue (i18n)
 
 **Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, Next.js et Express.js.

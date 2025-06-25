@@ -1,3 +1,22 @@
+---
+docName: vscode_extension
+url: /doc/vs-code-extension
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/vs_code_extension.md
+createdAt: 2025-03-17
+updatedAt: 2025-03-17
+title: Official VS Code Extension
+description: Learn how to use the Intlayer extension in VS Code to enhance your development workflow. Quickly navigate between localized content and manage your dictionaries efficiently.
+keywords:
+  - VS Code Extension
+  - Intlayer
+  - Localization
+  - Development Tools
+  - React
+  - Next.js
+  - JavaScript
+  - TypeScript
+---
+
 # Official VS Code Extension
 
 ## Overview

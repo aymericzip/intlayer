@@ -1,3 +1,19 @@
+---
+docName: introduction
+url: /doc/get-started
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/introduction.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 소개
+description: Intlayer가 작동하는 방식을 알아보세요. 귀하의 애플리케이션에서 Intlayer가 사용하는 단계를 확인하세요. 다양한 패키지가 하는 일을 확인하세요.
+keywords:
+  - 소개
+  - 시작하기
+  - Intlayer
+  - 애플리케이션
+  - 패키지
+---
+
 # Intlayer 문서
 
 공식 Intlayer 문서에 오신 것을 환영합니다! 여기에서 Next.js, React, Vite, Express 또는 기타 JavaScript 환경에서 국제화(i18n) 요구 사항을 통합, 구성 및 마스터하는 데 필요한 모든 정보를 찾을 수 있습니다.

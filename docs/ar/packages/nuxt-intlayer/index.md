@@ -1,3 +1,20 @@
+---
+docName: package__nuxt-intlayer
+url: /doc/packages/nuxt-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/nuxt-intlayer/index.md
+createdAt: 2025-06-18
+updatedAt: 2025-06-18
+title: وثائق حزمة | nuxt-intlayer
+description: انظر كيف تستخدم حزمة nuxt-intlayer
+keywords:
+  - Intlayer
+  - nuxt-intlayer
+  - الدولية
+  - المستندات
+  - JavaScript
+  - Nuxt
+---
+
 **Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل Vue وExpress.js.
 
 **حزمة `nuxt-intlayer`** تتيح لك تدويل تطبيق Vue الخاص بك. توفر مزودي السياق وخطافات لتدويل Vue.

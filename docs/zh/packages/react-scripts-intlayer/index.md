@@ -1,3 +1,21 @@
+---
+docName: package__react-scripts-intlayer
+url: /doc/packages/react-scripts-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 包文档 | react-scripts-intlayer
+description: 查看如何使用 react-scripts-intlayer 软件包
+keywords:
+  - Intlayer
+  - react-scripts-intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # react-scripts-intlayer: 用于在 React Create App 应用程序中使用 Intlayer 的 NPM 包
 
 **Intlayer** 是专为 JavaScript 开发人员设计的一套软件包。它兼容 React、React 和 Express.js 等框架。

@@ -1,3 +1,20 @@
+---
+docName: package__nuxt-intlayer
+url: /doc/packages/nuxt-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/nuxt-intlayer/index.md
+createdAt: 2025-06-18
+updatedAt: 2025-06-18
+title: Документация пакета | nuxt-intlayer
+description: Узнайте, как использовать пакет nuxt-intlayer
+keywords:
+  - Intlayer
+  - nuxt-intlayer
+  - интернационализация
+  - документация
+  - JavaScript
+  - Nuxt
+---
+
 # nuxt-intlayer: NPM пакет для интернационализации (i18n) Vue-приложения
 
 **Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как Vue, Vue и Express.js.

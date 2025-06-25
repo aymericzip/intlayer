@@ -1,3 +1,19 @@
+---
+docName: introduction
+url: /doc/get-started
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/introduction.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: イントロダクション
+description: Intlayerの仕組みを発見してください。アプリケーションでIntlayerが使用する手順を確認してください。さまざまなパッケージの機能を確認してください。
+keywords:
+  - イントロダクション
+  - 始める
+  - Intlayer
+  - アプリケーション
+  - パッケージ
+---
+
 # Intlayer ドキュメント
 
 公式の Intlayer ドキュメントへようこそ！ここでは、Next.js、React、Vite、Express、またはその他の JavaScript 環境での国際化 (i18n) ニーズに対応するための Intlayer の統合、設定、および習得に必要なすべての情報を見つけることができます。

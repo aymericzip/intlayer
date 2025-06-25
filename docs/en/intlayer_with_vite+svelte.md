@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_vite_svelte
+url: /doc/environment/vite-and-svelte
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+svelte.md
+createdAt: 2025-04-18
+updatedAt: 2025-04-18
+title: Translate your Vite and Svelte website (i18n)
+description: Discover how to make your Vite and Svelte website multilingual. Follow the documentation to internationalize (i18n) and translate it.
+keywords:
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Vite
+  - Svelte
+  - JavaScript
+---
+
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and Svelte
 
 > This package is in development. See the [issue](https://github.com/aymericzip/intlayer/issues/114) for more information. Show your interest in Intlayer for Svelte by liking the issue

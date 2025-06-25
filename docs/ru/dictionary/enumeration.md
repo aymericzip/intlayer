@@ -1,3 +1,21 @@
+---
+docName: dictionary__enumeration
+url: /doc/concept/content/enumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Перечисление
+description: Узнайте, как объявлять и использовать перечисления на вашем многоязычном сайте. Следуйте шагам в этой онлайн-документации, чтобы настроить свой проект за несколько минут.
+keywords:
+  - Перечисление
+  - Интернационализация
+  - Документация
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Перечисление / Множественное число
 
 ## Как работает перечисление

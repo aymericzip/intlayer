@@ -1,3 +1,21 @@
+---
+docName: dictionary__function_fetching
+url: /doc/concept/content/function-fetching
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 함수 가져오기
+description: 다국어 웹사이트에서 함수 가져오기를 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정하세요.
+keywords:
+  - 함수 가져오기
+  - 국제화
+  - 문서
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 함수 가져오기
 
 Intlayer는 콘텐츠 모듈에서 동기 또는 비동기 콘텐츠 함수를 선언할 수 있도록 합니다. 애플리케이션이 빌드될 때, Intlayer는 이러한 함수를 실행하여 함수의 결과를 얻습니다. 반환 값은 JSON 객체 또는 문자열이나 숫자와 같은 단순 값이어야 합니다.

@@ -1,3 +1,21 @@
+---
+docName: dictionary__nesting
+url: /doc/concept/content/nesting
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: Вложенность словаря
+description: Узнайте, как использовать вложенность контента в Intlayer для эффективного повторного использования и структурирования многоязычного контента. Следуйте этой документации, чтобы без проблем реализовать вложенность в вашем проекте.
+keywords:
+  - Nesting
+  - Повторное использование контента
+  - Документация
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Вложенность / Ссылки на Подконтент
 
 ## Как работает вложенность

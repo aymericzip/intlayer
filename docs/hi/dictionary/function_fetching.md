@@ -1,3 +1,21 @@
+---
+docName: dictionary__function_fetching
+url: /doc/concept/content/function-fetching
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: फंक्शन फेचिंग
+description: अपने बहुभाषी वेबसाइट में फ़ंक्शन फ़ेचिंग को घोषित करने और उपयोग करने का तरीका जानें। अपने प्रोजेक्ट को कुछ ही मिनटों में सेट अप करने के लिए इस ऑनलाइन डोक्यूमेंटेशन में चरणों का पालन करें।
+keywords:
+  - फंक्शन फेचिंग
+  - अंतर्राष्ट्रीयकरण
+  - दस्तावेज़ीकरण
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # फ़ंक्शन फ़ेचिंग
 
 Intlayer आपको अपने सामग्री मॉड्यूल्स में सामग्री फ़ंक्शन्स घोषित करने की अनुमति देता है, जो या तो सिंक्रोनस या असिंक्रोनस हो सकते हैं। जब एप्लिकेशन बनता है, Intlayer इन फ़ंक्शन्स को निष्पादित करता है ताकि फ़ंक्शन का परिणाम प्राप्त किया जा सके। रिटर्न वैल्यू JSON ऑब्जेक्ट या एक साधारण मान जैसे स्ट्रिंग या नंबर होना चाहिए।

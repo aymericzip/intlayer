@@ -1,3 +1,21 @@
+---
+docName: package__react-intlayer
+url: /doc/packages/react-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentação do pacote | react-intlayer
+description: Veja como usar o pacote react-intlayer
+keywords:
+  - Intlayer
+  - react-intlayer
+  - internacionalização
+  - documentação
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # react-intlayer: Pacote NPM para internacionalizar (i18n) uma aplicação React
 
 **Intlayer** é um conjunto de pacotes projetados especificamente para desenvolvedores JavaScript. É compatível com frameworks como React, React e Express.js.

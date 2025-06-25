@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useDictionary
+url: /doc/packages/next-intlayer/useDictionary
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useDictionary हुक दस्तावेज़ | next-intlayer
+description: next-intlayer पैकेज के लिए useDictionary हुक का उपयोग कैसे करें देखें
+keywords:
+  - useDictionary
+  - शब्दकोश
+  - कुंजी
+  - Intlayer
+  - अंतर्राष्ट्रीयकरण
+  - दस्तावेज
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React इंटीग्रेशन: `useDictionary` हुक दस्तावेज़ीकरण
 
 यह अनुभाग React एप्लिकेशन में `useDictionary` हुक का उपयोग करने के लिए विस्तृत मार्गदर्शन प्रदान करता है, जो बिना विज़ुअल एडिटर के स्थानीयकृत सामग्री को कुशलतापूर्वक संभालने में सक्षम बनाता है।

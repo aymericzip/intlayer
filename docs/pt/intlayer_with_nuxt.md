@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_nuxt
+url: /doc/environment/nuxt-and-vue
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nuxt.md
+createdAt: 2025-06-18
+updatedAt: 2025-06-18
+title: Traduza o seu site Nuxt e Vue (i18n)
+description: Descubra como tornar seu site com Nuxt e Vue multilíngue. Siga a documentação para internacionalizá-lo (i18n) e traduzi-lo.
+keywords:
+  - Internacionalização
+  - Documentação
+  - Intlayer
+  - Nuxt
+  - Vue
+  - JavaScript
+---
+
 # Começando com a Internacionalização (i18n) com Intlayer e Nuxt
 
 Veja [Modelo de Aplicação](https://github.com/aymericzip/intlayer-nuxt-template) no GitHub.

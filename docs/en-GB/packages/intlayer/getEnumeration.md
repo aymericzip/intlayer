@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getEnumeration
+url: /doc/packages/intlayer/getEnumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getEnumeration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: getEnumeration Function Documentation | intlayer
+description: See how to use the getEnumeration function for intlayer package
+keywords:
+  - getEnumeration
+  - translation
+  - Intlayer
+  - intlayer
+  - Internationalization
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentation: `getEnumeration` Function in `intlayer`
 
 ## Description

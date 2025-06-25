@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayer
+url: /doc/packages/react-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayer हुक दस्तावेज | react-intlayer
+description: react-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें यह देखें
+keywords:
+  - useIntlayer
+  - शब्दकोश
+  - चाबी
+  - Intlayer
+  - अंतर्राष्ट्रीयकरण
+  - दस्तावेज़
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React एकीकरण: `useIntlayer` हुक प्रलेखन
 
 यह अनुभाग React अनुप्रयोगों में `useIntlayer` हुक का उपयोग करने के लिए विस्तृत मार्गदर्शन प्रदान करता है, जो सामग्री स्थानीयकरण को कुशल बनाता है।

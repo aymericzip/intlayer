@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getHTMLTextDir
+url: /doc/packages/intlayer/getHTMLTextDir
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getHTMLTextDir.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t函数文档 | intlayer
+description: 查看如何使用 intlayer 软件包的 getHTMLTextDir 函数
+keywords:
+  - getHTMLTextDir
+  - 翻译
+  - Intlayer
+  - intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 文档: `getHTMLTextDir` 函数在 `intlayer` 中
 
 ## 描述

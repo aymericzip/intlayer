@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getEnumeration
+url: /doc/packages/intlayer/getEnumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getEnumeration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t関数のドキュメント | intlayer
+description: intlayerパッケージのt関数の使用方法を確認してください
+keywords:
+  - getEnumeration
+  - 翻訳
+  - Intlayer
+  - intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # ドキュメント: `getEnumeration` 関数 in `intlayer`
 
 ## 説明

@@ -1,3 +1,21 @@
+---
+docName: dictionary__insertion
+url: /doc/concept/content/insertion
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: Insertion
+description: Learn how to declare and use insertion placeholders in your content. This documentation guides you through the steps to dynamically insert values within predefined content structures.
+keywords:
+  - Insertion
+  - Dynamic Content
+  - Placeholders
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Insertion Content / Insertion in Intlayer
 
 ## How Insertion Works

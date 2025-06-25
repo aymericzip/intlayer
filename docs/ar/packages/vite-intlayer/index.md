@@ -1,3 +1,21 @@
+---
+docName: package__vite-intlayer
+url: /doc/packages/vite-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق حزمة | vite-intlayer
+description: انظر كيف تستخدم حزمة vite-intlayer
+keywords:
+  - Intlayer
+  - vite-intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # vite-intlayer: حزمة NPM لتدويل (i18n) تطبيق Vite
 
 **Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React، React، و Express.js.

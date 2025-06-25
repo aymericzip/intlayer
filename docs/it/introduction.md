@@ -1,3 +1,19 @@
+---
+docName: introduction
+url: /doc/get-started
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/introduction.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Introduzione
+description: Scopri come funziona Intlayer. Vedi i passaggi utilizzati da Intlayer nella tua applicazione. Vedi cosa fanno i diversi pacchetti.
+keywords:
+  - Introduzione
+  - Iniziare
+  - Intlayer
+  - Applicazione
+  - Pacchetti
+---
+
 # Intlayer Documentazione
 
 Benvenuto nella documentazione ufficiale di Intlayer! Qui troverai tutto ciò di cui hai bisogno per integrare, configurare e padroneggiare Intlayer per tutte le tue esigenze di internazionalizzazione (i18n), che tu stia lavorando con Next.js, React, Vite, Express o un altro ambiente JavaScript.

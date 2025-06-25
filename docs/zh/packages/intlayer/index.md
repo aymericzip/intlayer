@@ -1,3 +1,21 @@
+---
+docName: package__intlayer
+url: /doc/packages/intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 包文档 | intlayer
+description: 查看如何使用 intlayer 软件包
+keywords:
+  - Intlayer
+  - intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # intlayer: 管理多语言词典的NPM包 (i18n)
 
 **Intlayer** 是专为JavaScript开发者设计的一套工具包。它兼容React、Next.js和Express.js等框架。

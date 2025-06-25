@@ -1,3 +1,21 @@
+---
+docName: intlayer_with_lynx_react
+url: /doc/environment/lynx-and-react
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md
+createdAt: 2025-03-09
+updatedAt: 2025-03-09
+title: Lynx와 React의 모바일 앱을 번역하십시오 (i18n)
+description: Lynx와 React를 사용하여 Page Router 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
+keywords:
+  - 국제화
+  - 문서
+  - Intlayer
+  - Vite
+  - React
+  - Lynx
+  - JavaScript
+---
+
 # Intlayer와 Lynx 및 React를 사용한 국제화(i18n) 시작하기
 
 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-lynx-template)를 GitHub에서 보십시오.

@@ -1,3 +1,19 @@
+---
+docName: configuration
+url: /doc/concept/configuration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md
+createdAt: 2024-08-13
+updatedAt: 2024-08-13
+title: Configuration
+description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
+keywords:
+  - Configuration
+  - Settings
+  - Customization
+  - Intlayer
+  - Options
+---
+
 # Intlayer Configuration Documentation
 
 ## Overview

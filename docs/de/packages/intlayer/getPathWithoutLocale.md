@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getPathWithoutLocale
+url: /doc/packages/intlayer/getPathWithoutLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getPathWithoutLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Dokumentation der t-Funktion | intlayer
+description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetPathWithoutLocale verwenden
+keywords:
+  - getPathWithoutLocale
+  - Übersetzung
+  - Intlayer
+  - intlayer
+  - Internationalisierung
+  - Dokumentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Dokumentation: `getPathWithoutLocale` Funktionen in `intlayer`
 
 ## Beschreibung

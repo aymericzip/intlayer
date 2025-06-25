@@ -1,3 +1,21 @@
+---
+docName: dictionary__file
+url: /doc/concept/content/file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: ملف
+description: تعلم كيفية تضمين الملفات الخارجية في قاموس المحتوى الخاص بك باستخدام وظيفة `file`. توضح هذه الوثيقة كيفية قيام Intlayer بربط محتوى الملفات وإدارته ديناميكيًا.
+keywords:
+  - ملف
+  - التدويل
+  - التوثيق
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # محتوى الملف / تضمين الملفات في Intlayer
 
 ## كيفية عمل تضمين الملفات

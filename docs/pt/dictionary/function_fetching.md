@@ -1,3 +1,21 @@
+---
+docName: dictionary__function_fetching
+url: /doc/concept/content/function-fetching
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Recuperação de Função
+description: Descubra como declarar e usar a recuperação de função em seu site multilíngue. Siga as etapas desta documentação online para configurar seu projeto em poucos minutos.
+keywords:
+  - Recuperação de Função
+  - Internacionalização
+  - Documentação
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Função de Busca
 
 O Intlayer permite que você declare funções de conteúdo em seus módulos de conteúdo, que podem ser síncronas ou assíncronas. Quando o aplicativo é construído, o Intlayer executa essas funções para obter o resultado da função. O valor de retorno deve ser um objeto JSON ou um valor simples como uma string ou número.

@@ -1,3 +1,21 @@
+---
+docName: dictionary__get_started
+url: /doc/concept/content
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Declaração de Conteúdo | Começar
+description: Descubra como declarar e usar a declaração de conteúdo em seu site multilíngue. Siga os passos desta documentação online para configurar seu projeto em poucos minutos.
+keywords:
+  - Começar
+  - Internacionalização
+  - Documentação
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Introdução à declaração do seu conteúdo
 
 <iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

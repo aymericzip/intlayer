@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getLocaleName
+url: /doc/packages/intlayer/getLocaleName
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleName.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Документация функции getLocaleName | intlayer
+description: Узнайте, как использовать функцию getLocaleName для пакета intlayer
+keywords:
+  - getLocaleName
+  - перевод
+  - Intlayer
+  - intlayer
+  - интернационализация
+  - документация
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Документация: Функция `getLocaleName` в `intlayer`
 
 ## Описание

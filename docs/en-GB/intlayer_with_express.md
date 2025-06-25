@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_express
+url: /doc/environment/express
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Translate your Express backend (i18n)
+description: Discover how to make your vite backend multilingual. Follow the documentation to internationalize (i18n) and translate it.
+keywords:
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Express
+  - JavaScript
+  - Backend
+---
+
 # Getting Started internationalising (i18n) with Intlayer and Express
 
 `express-intlayer` is a powerful internationalisation (i18n) middleware for Express applications, designed to make your backend services globally accessible by providing localised responses based on the client's preferences.

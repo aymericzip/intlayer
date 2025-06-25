@@ -1,3 +1,22 @@
+---
+docName: package__react-intlayer__t
+url: /doc/packages/react-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t 함수 문서 | react-intlayer
+description: react-intlayer 패키지의 t 함수를 사용하는 방법을 확인하세요
+keywords:
+  - t
+  - 번역
+  - Intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Documentation: `t` Function in `react-intlayer`
 
 `react-intlayer` 패키지의 `t` 함수는 React 애플리케이션 내에서 인라인 국제화를 위한 기본 도구입니다. 이 함수는 컴포넌트 내에서 직접 번역을 정의할 수 있게 하여 현재 로케일에 따라 로컬라이즈된 콘텐츠를 간단히 표시할 수 있습니다.

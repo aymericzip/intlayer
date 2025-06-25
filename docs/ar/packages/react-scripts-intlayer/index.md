@@ -1,3 +1,21 @@
+---
+docName: package__react-scripts-intlayer
+url: /doc/packages/react-scripts-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: وثائق حزمة | react-scripts-intlayer
+description: انظر كيف تستخدم حزمة react-scripts-intlayer
+keywords:
+  - Intlayer
+  - react-scripts-intlayer
+  - الدولية
+  - المستندات
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # react-scripts-intlayer: حزمة NPM لاستخدام Intlayer في تطبيق React Create App
 
 **Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React، وReact، وExpress.js.

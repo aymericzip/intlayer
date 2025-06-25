@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__useIntlayer
+url: /doc/packages/next-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayer हुक दस्तावेज़ | next-intlayer
+description: next-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें, यह देखें
+keywords:
+  - useIntlayer
+  - शब्दकोश
+  - कुंजी
+  - Intlayer
+  - अंतरराष्ट्रीयकरण
+  - दस्तावेज़
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Next.js एकीकरण: `useIntlayer` हुक दस्तावेज़ीकरण
 
 `useIntlayer` हुक Next.js अनुप्रयोगों के लिए डिज़ाइन किया गया है ताकि स्थानीयकृत सामग्री को प्रभावी ढंग से प्राप्त और प्रबंधित किया जा सके। यह दस्तावेज़ीकरण Next.js परियोजनाओं में हुक का उपयोग करने पर ध्यान केंद्रित करेगा, यह सुनिश्चित करते हुए कि उचित स्थानीयकरण प्रथाओं का पालन किया जाए।

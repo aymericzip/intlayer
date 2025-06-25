@@ -1,3 +1,21 @@
+---
+docName: package__express-intlayer
+url: /doc/packages/express-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: पैकेज के डॉक्यूमेंटेशन | express-intlayer
+description: express-intlayer पैकेज का उपयोग कैसे करें
+keywords:
+  - Intlayer
+  - express-intlayer
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # express-intlayer: Express.js एप्लिकेशन को अंतर्राष्ट्रीय बनाने के लिए JavaScript पैकेज
 
 **Intlayer** विशेष रूप से JavaScript डेवलपर्स के लिए डिज़ाइन किए गए पैकेजों का एक सूट है। यह React, Next.js, और Express.js जैसे फ्रेमवर्क्स के साथ संगत है।

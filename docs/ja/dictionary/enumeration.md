@@ -1,3 +1,21 @@
+---
+docName: dictionary__enumeration
+url: /doc/concept/content/enumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: 列挙
+description: 多言語ウェブサイトで列挙を宣言し使用する方法を発見してください。このオンライン文書の手順に従って、数分でプロジェクトをセットアップします。
+keywords:
+  - 列挙
+  - 国際化
+  - 文書
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 列挙 / 複数形化
 
 ## 列挙の仕組み

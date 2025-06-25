@@ -1,3 +1,22 @@
+---
+docName: intlayer_CMS
+url: /doc/concept/cms
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Intlayer CMS | Intlayer CMSにコンテンツを外部化します
+description: Intlayer CMSにコンテンツを外部化して、コンテンツの管理をチームに委譲します。
+keywords:
+  - CMS
+  - ビジュアルエディター
+  - 国際化
+  - ドキュメント
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer コンテンツ管理システム (CMS) ドキュメント
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

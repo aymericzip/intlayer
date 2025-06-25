@@ -1,3 +1,21 @@
+---
+docName: intlayer_visual_editor
+url: /doc/concept/editor
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Intlayer 비주얼 편집기 | 비주얼 편집기를 사용하여 콘텐츠를 편집합니다
+description: Intlayer 편집기를 사용하여 다국어 웹사이트를 관리하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정하세요.
+keywords:
+  - 편집자
+  - 국제화
+  - 문서
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer Visual Editor Documentation
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

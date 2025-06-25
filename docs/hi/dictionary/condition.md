@@ -1,3 +1,21 @@
+---
+docName: dictionary__condition
+url: /doc/concept/content/condition
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md
+createdAt: 2025-02-7
+updatedAt: 2025-02-7
+title: शर्तों के साथ सामग्री
+description: Intlayer में शर्तीय सामग्री का उपयोग करके विशिष्ट शर्तों के आधार पर सामग्री को गतिशील रूप से प्रदर्शित करने का तरीका जानें। इस दस्तावेज़ का पालन करें और अपने प्रोजेक्ट में शर्तों को कुशलतापूर्वक लागू करें।
+keywords:
+  - शर्तों के साथ सामग्री
+  - गतिशील रेंडरिंग
+  - प्रलेखन
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Conditional Content / Condition in Intlayer
 
 ## शर्त कैसे काम करती है

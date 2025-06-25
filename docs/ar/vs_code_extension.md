@@ -1,3 +1,22 @@
+---
+docName: vscode_extension
+url: /doc/vs-code-extension
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/vs_code_extension.md
+createdAt: 2025-03-17
+updatedAt: 2025-03-17
+title: الامتداد الرسمي لـ VS Code
+description: تعلم كيفية استخدام إضافة Intlayer في VS Code لتعزيز سير عمل التطوير لديك. تنقل بسرعة بين المحتوى المحلي وأدر قواميسك بكفاءة.
+keywords:
+  - إضافة VS Code
+  - Intlayer
+  - التوطين
+  - أدوات التطوير
+  - React
+  - Next.js
+  - JavaScript
+  - TypeScript
+---
+
 # امتداد VS Code الرسمي لـ Intlayer
 
 ## نظرة عامة

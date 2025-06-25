@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayerAsync
+url: /doc/packages/react-intlayer/useIntlayerAsync
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentazione del hook useIntlayerAsync | react-intlayer
+description: Scopri come utilizzare il hook useIntlayerAsync per il pacchetto react-intlayer
+keywords:
+  - useIntlayerAsync
+  - dizionario
+  - chiave
+  - Intlayer
+  - Internazionalizzazione
+  - Documentazione
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Integrazione React: Documentazione del Hook `useIntlayerAsync`
 
 Il hook `useIntlayerAsync` estende la funzionalità di `useIntlayer` non solo restituendo dizionari pre-renderizzati, ma anche recuperando aggiornamenti in modo asincrono, rendendolo ideale per applicazioni che aggiornano frequentemente i loro contenuti localizzati dopo il rendering iniziale.

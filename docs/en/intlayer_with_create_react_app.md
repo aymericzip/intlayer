@@ -1,3 +1,21 @@
+---
+docName: intlayer_with_create_react_app
+url: /doc/environment/create-react-app
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Translate your Create React App (CRA) website (i18n)
+description: Discover how to make your Create React App (CRA) website multilingual. Follow the documentation to internationalize (i18n) and translate it.
+keywords:
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Create React App
+  - CRA
+  - JavaScript
+  - React
+---
+
 # Getting Started Internationalizing (i18n) with Intlayer and React Create App
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-cra-template) on GitHub.

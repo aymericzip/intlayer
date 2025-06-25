@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_vite_vue
+url: /doc/environment/vite-and-vue
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+vue.md
+createdAt: 2025-04-18
+updatedAt: 2025-04-18
+title: Vite와 Vue의 웹사이트를 번역하십시오 (i18n)
+description: Vite와 Vue를 사용한 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위해 문서를 참조하세요.
+keywords:
+  - 국제화
+  - 문서
+  - Intlayer
+  - Vite
+  - Vue
+  - JavaScript
+---
+
 # Intlayer와 Vite 및 Vue를 사용한 국제화(i18n) 시작하기
 
 > 이 패키지는 개발 중입니다. 자세한 내용은 [이슈](https://github.com/aymericzip/intlayer/issues/113)를 참조하세요. Vue용 Intlayer에 관심이 있다면 이슈에 좋아요를 눌러주세요.

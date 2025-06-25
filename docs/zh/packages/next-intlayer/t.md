@@ -1,3 +1,23 @@
+---
+docName: package__next-intlayer__t
+url: /doc/packages/next-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: t函数文档 | next-intlayer
+description: 查看如何使用 next-intlayer 软件包的 t 函数
+keywords:
+  - t
+  - 翻译
+  - Intlayer
+  - next-intlayer
+  - 国际化
+  - 文档
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 文档: `t` 函数在 `next-intlayer` 中的使用
 
 `next-intlayer` 包中的 `t` 函数是一个在 Next.js 应用中进行内联国际化的基本工具。它允许您直接在组件中定义翻译，从而根据当前语言环境轻松显示本地化内容。

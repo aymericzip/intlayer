@@ -1,3 +1,19 @@
+---
+docName: introduction
+url: /doc/get-started
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/introduction.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: مقدمة
+description: اكتشف كيف يعمل Intlayer. اطلع على الخطوات المستخدمة من قبل Intlayer في تطبيقك. انظر ماذا تفعل الحزم المختلفة.
+keywords:
+  - مقدمة
+  - ابدأ
+  - Intlayer
+  - تطبيق
+  - حزم
+---
+
 # Intlayer وثائق
 
 مرحبًا بكم في الوثائق الرسمية لـ Intlayer! هنا، ستجد كل ما تحتاجه لتكامل، تكوين، وإتقان Intlayer لجميع احتياجاتك في التدويل (i18n)، سواء كنت تعمل مع Next.js، React، Vite، Express، أو بيئة JavaScript أخرى.

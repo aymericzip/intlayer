@@ -1,3 +1,22 @@
+---
+docName: intlayer_cli
+url: /doc/concept/cli
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: CLI
+description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+keywords:
+  - CLI
+  - Command Line Interface
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer CLI
 
 ## Install Package

@@ -1,3 +1,21 @@
+---
+docName: package__lynx-intlayer
+url: /doc/packages/lynx-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: पैकेज के डॉक्यूमेंटेशन | lynx-intlayer
+description: lynx-intlayer पैकेज का उपयोग कैसे करें
+keywords:
+  - Intlayer
+  - lynx-intlayer
+  - अंतर्राष्ट्रीयकरण
+  - प्रलेखन
+  - Next.js
+  - JavaScript
+  - React
+---
+
 **Intlayer** विशेष रूप से जावास्क्रिप्ट डेवलपर्स के लिए डिज़ाइन किए गए पैकेजों का एक सेट है। यह React, React और Express.js जैसे फ्रेमवर्क के साथ संगत है।
 
 **`lynx-intlayer` पैकेज** आपको अपने Vite एप्लिकेशन का अंतर्राष्ट्रीयकरण करने की अनुमति देता है। इसमें मेट्रो प्लगइन शामिल है जो पर्यावरण वेरिएबल्स के माध्यम से [Lynx बंडलर](https://lynxjs.org/index.html) में कॉन्फ़िगरेशन सेट करता है।

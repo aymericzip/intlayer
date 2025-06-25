@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_express
+url: /doc/environment/express
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Traduci il tuo backend Express (i18n)
+description: Scopri come rendere il tuo backend vite multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
+keywords:
+  - Internazionalizzazione
+  - Documentazione
+  - Intlayer
+  - Express
+  - JavaScript
+  - Backend
+---
+
 # Introduzione all'internazionalizzazione (i18n) con Intlayer ed Express
 
 `express-intlayer` è un potente middleware di internazionalizzazione (i18n) per applicazioni Express, progettato per rendere i tuoi servizi backend accessibili globalmente fornendo risposte localizzate in base alle preferenze del cliente.

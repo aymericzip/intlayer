@@ -1,3 +1,23 @@
+---
+docName: package__intlayer__getLocaleLang
+url: /doc/packages/intlayer/getLocaleLang
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleLang.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: getLocaleLang 함수 문서 | intlayer
+description: intlayer 패키지의 getLocaleLang 함수 사용 방법을 확인하세요
+keywords:
+  - getLocaleLang
+  - 번역
+  - Intlayer
+  - intlayer
+  - 국제화
+  - 문서
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # 문서: `getLocaleLang` 함수 in `intlayer`
 
 ## 설명

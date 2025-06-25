@@ -1,3 +1,21 @@
+---
+docName: dictionary__file
+url: /doc/concept/content/file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+createdAt: 2025-03-13
+updatedAt: 2025-03-13
+title: File
+description: Learn how to embed external files into your content dictionary using the `file` function. This documentation explains how Intlayer links and manages file content dynamically.
+keywords:
+  - File
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # File Content / Embedding Files in Intlayer
 
 ## How File Embedding Works

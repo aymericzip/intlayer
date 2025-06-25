@@ -1,3 +1,21 @@
+---
+docName: dictionary__enumeration
+url: /doc/concept/content/enumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Enumeração
+description: Descubra como declarar e usar enumerações em seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
+keywords:
+  - Enumeração
+  - Internacionalização
+  - Documentação
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Enumeração / Pluralização
 
 ## Como Funciona a Enumeração

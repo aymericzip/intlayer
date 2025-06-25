@@ -1,3 +1,21 @@
+---
+docName: package__express-intlayer
+url: /doc/packages/express-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: パッケージドキュメント | express-intlayer
+description: express-intlayerパッケージの使用方法を確認してください
+keywords:
+  - Intlayer
+  - express-intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # express-intlayer: Express.jsアプリケーションを国際化（i18n）するためのJavaScriptパッケージ
 
 **Intlayer**は、JavaScript開発者向けに特化して設計されたパッケージ群です。React、Next.js、Express.jsなどのフレームワークと互換性があります。

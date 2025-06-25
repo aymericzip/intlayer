@@ -1,3 +1,21 @@
+---
+docName: package__vite-intlayer
+url: /doc/packages/vite-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Package Documentation | vite-intlayer
+description: See how to use the vite-intlayer package
+keywords:
+  - Intlayer
+  - vite-intlayer
+  - Internationalization
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # vite-intlayer: NPM Package to internationalise (i18n) a Vite application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.

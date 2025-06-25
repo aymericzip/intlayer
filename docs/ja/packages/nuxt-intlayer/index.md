@@ -1,3 +1,20 @@
+---
+docName: package__nuxt-intlayer
+url: /doc/packages/nuxt-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/nuxt-intlayer/index.md
+createdAt: 2025-06-18
+updatedAt: 2025-06-18
+title: パッケージドキュメント | nuxt-intlayer
+description: nuxt-intlayerパッケージの使用方法を確認してください
+keywords:
+  - Intlayer
+  - nuxt-intlayer
+  - 国際化
+  - ドキュメント
+  - JavaScript
+  - Nuxt
+---
+
 **Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージスイートです。Vue、Vue、Express.jsなどのフレームワークと互換性があります。
 
 **`nuxt-intlayer`パッケージ**は、Vueアプリケーションを国際化するためのものです。Vueの国際化のためのコンテキストプロバイダーとフックを提供します。

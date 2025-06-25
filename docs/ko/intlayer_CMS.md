@@ -1,3 +1,22 @@
+---
+docName: intlayer_CMS
+url: /doc/concept/cms
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Intlayer CMS | Intlayer CMS에 콘텐츠를 외부화합니다
+description: Intlayer CMS에 콘텐츠를 외부화하여 콘텐츠의 관리를 팀에게 위임합니다.
+keywords:
+  - CMS
+  - 비주얼 편집기
+  - 국제화
+  - 문서
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer 콘텐츠 관리 시스템 (CMS) 문서
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>

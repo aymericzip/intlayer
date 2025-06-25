@@ -1,3 +1,21 @@
+---
+docName: package__intlayer
+url: /doc/packages/intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: パッケージドキュメント | intlayer
+description: intlayerパッケージの使用方法を確認してください
+keywords:
+  - Intlayer
+  - intlayer
+  - 国際化
+  - ドキュメント
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # intlayer: 多言語辞書を管理するためのNPMパッケージ (i18n)
 
 **Intlayer**は、JavaScript開発者向けに特化して設計されたパッケージ群です。React、Next.js、Express.jsなどのフレームワークと互換性があります。

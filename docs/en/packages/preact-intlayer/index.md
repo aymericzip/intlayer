@@ -1,3 +1,20 @@
+---
+docName: package__preact-intlayer
+url: /doc/packages/preact-intlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/preact-intlayer/index.md
+createdAt: 2025-04-18
+updatedAt: 2025-04-18
+title: Package Documentation | preact-intlayer
+description: See how to use the preact-intlayer package
+keywords:
+  - Intlayer
+  - preact-intlayer
+  - Internationalization
+  - Documentation
+  - JavaScript
+  - Preact
+---
+
 # preact-intlayer: NPM Package to internationalize (i18n) an Preact application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like Preact, Preact, and Express.js.

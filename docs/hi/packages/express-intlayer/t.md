@@ -1,3 +1,22 @@
+---
+docName: package__express-intlayer__t
+url: /doc/packages/express-intlayer/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+createdAt: 2024-12-02
+updatedAt: 2024-12-02
+title: t फ़ंक्शन दस्तावेज़ | express-intlayer
+description: express-intlayer पैकेज के लिए t फ़ंक्शन का उपयोग कैसे करें देखें
+keywords:
+  - t
+  - अनुवाद
+  - Intlayer
+  - अंतर्राष्ट्रीयकरण
+  - दस्तावेज़ीकरण
+  - एक्सप्रेस
+  - जावास्क्रिप्ट
+  - रिएक्ट
+---
+
 # दस्तावेज़: `t` फ़ंक्शन `express-intlayer` में
 
 `express-intlayer` पैकेज में `t` फ़ंक्शन आपके Express एप्लिकेशन में स्थानीयकृत प्रतिक्रियाएँ प्रदान करने के लिए मुख्य उपयोगिता है। यह उपयोगकर्ता की प्राथमिक भाषा के आधार पर सामग्री को गतिशील रूप से चुनकर अंतर्राष्ट्रीयकरण (i18n) को सरल बनाता है।

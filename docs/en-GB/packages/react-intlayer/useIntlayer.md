@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useIntlayer
+url: /doc/packages/react-intlayer/useIntlayer
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: useIntlayer Hook Documentation | react-intlayer
+description: See how to use the useIntlayer hook for react-intlayer package
+keywords:
+  - useIntlayer
+  - dictionary
+  - key
+  - Intlayer
+  - Internationalization
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # React Integration: `useIntlayer` Hook Documentation
 
 This section provides detailed guidance on using the `useIntlayer` hook within React applications, allowing for efficient content localisation.

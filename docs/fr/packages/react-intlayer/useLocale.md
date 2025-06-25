@@ -1,3 +1,23 @@
+---
+docName: package__react-intlayer__useLocale
+url: /doc/packages/react-intlayer/useLocale
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useLocale.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: Documentation du hook useLocale | react-intlayer
+description: Découvrez comment utiliser le hook useLocale pour le package react-intlayer
+keywords:
+  - useLocale
+  - dictionnaire
+  - clé
+  - Intlayer
+  - Internationalisation
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intégration React : Documentation du Hook `useLocale`
 
 Cette section fournit des détails complets sur le hook `useLocale` de la bibliothèque `react-intlayer`, conçu pour gérer la gestion des paramètres régionaux dans les applications React.

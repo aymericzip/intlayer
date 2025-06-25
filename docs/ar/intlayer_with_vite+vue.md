@@ -1,3 +1,20 @@
+---
+docName: intlayer_with_vite_vue
+url: /doc/environment/vite-and-vue
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+vue.md
+createdAt: 2025-04-18
+updatedAt: 2025-04-18
+title: ترجم موقعك الإلكتروني Vite و Vue (i18n)
+description: اكتشف كيفية جعل موقعك الإلكتروني باستخدام Vite وVue متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
+keywords:
+  - التدويل
+  - ت Documentation
+  - Intlayer
+  - Vite
+  - Vue
+  - JavaScript
+---
+
 # البدء في التدويل (i18n) مع Intlayer و Vite و Vue
 
 > هذه الحزمة قيد التطوير. انظر [المشكلة](https://github.com/aymericzip/intlayer/issues/113) لمزيد من المعلومات. أظهر اهتمامك بـ Intlayer لـ Vue من خلال الإعجاب بالمشكلة.

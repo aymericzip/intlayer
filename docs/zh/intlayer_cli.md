@@ -1,3 +1,22 @@
+---
+docName: intlayer_cli
+url: /doc/concept/cli
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md
+createdAt: 2024-08-11
+updatedAt: 2024-08-11
+title: CLI
+description: 发现如何使用Intlayer CLI来管理您的多语言网站。按照此在线文档中的步骤，在几分钟内设置您的项目。
+keywords:
+  - CLI
+  - 命令行界面
+  - 国际化
+  - 文档
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+---
+
 # Intlayer CLI
 
 ## 安装包
