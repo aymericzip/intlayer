@@ -8,6 +8,15 @@ To understand the project, you can read the [documentation named "How Intlayer W
 
 Intlayer is developed as a mono-repo using pnpm.
 
+To set up the repository, you will need to follow these steps:
+
+1. Clone the repository
+2. Install the approved version of pnpm
+3. Install dependencies
+4. Build packages
+5. Start dev mode (to interact with packages)
+6. Launch apps (to interact with frontend, CMS, online docs, etc.)
+
 ### Cloning
 
 ```sh
@@ -46,88 +55,82 @@ pnpm install \
   -F ./examples/vite-react-app
 ```
 
-> 📦 `-F` is the short form for `--filter`, used to limit installation to selected packages only.
+> `-F` is the short form for `--filter`, used to limit installation to selected packages only.
 
 ##### Packages List
+
+To understand the interest of all packages, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md).
 
 ###### Core repository
 
 - `.` (root `package.json`)
+- `utils/eslint-config`
 - `utils/ts-config`
 - `utils/ts-config-types`
 - `utils/tsup-config`
-- `utils/eslint-config`
 
 ###### Official Packages
 
-- `packages/svelte-intlayer`
+- `packages/angular-intlayer`
+- `packages/express-intlayer`
+- `packages/intlayer`
+- `packages/intlayer-cli`
+- `packages/intlayer-editor`
+- `packages/lynx-intlayer`
+- `packages/next-intlayer`
+- `packages/nuxt-intlayer`
+- `packages/preact-intlayer`
+- `packages/react-intlayer`
+- `packages/react-native-intlayer`
+- `packages/react-scripts-intlayer`
 - `packages/solid-intlayer`
+- `packages/svelte-intlayer`
 - `packages/vite-intlayer`
 - `packages/vue-intlayer`
-- `packages/express-intlayer`
-- `packages/preact-intlayer`
-- `packages/react-scripts-intlayer`
-- `packages/angular-intlayer`
-- `packages/react-native-intlayer`
-- `packages/intlayer`
-- `packages/next-intlayer`
-- `packages/lynx-intlayer`
-- `packages/react-intlayer`
-- `packages/intlayer-editor`
-- `packages/intlayer-cli`
 
 ###### Intlayer Internal Packages (`@intlayer/`)
 
-- `packages/@intlayer/core`
-- `packages/@intlayer/config`
-- `packages/@intlayer/chokidar`
-- `packages/@intlayer/dictionaries-entry`
-- `packages/@intlayer/cli`
-- `packages/@intlayer/editor-react`
-- `packages/@intlayer/webpack`
 - `packages/@intlayer/api`
+- `packages/@intlayer/babel`
+- `packages/@intlayer/chokidar`
+- `packages/@intlayer/cli`
+- `packages/@intlayer/config`
+- `packages/@intlayer/core`
 - `packages/@intlayer/design-system`
+- `packages/@intlayer/dictionaries-entry`
+- `packages/@intlayer/dynamic-dictionaries-entry`
+- `packages/@intlayer/unmerged-dictionaries-entry`
 - `packages/@intlayer/editor`
+- `packages/@intlayer/editor-react`
+- `packages/@intlayer/mcp`
+- `packages/@intlayer/swc`
+- `packages/@intlayer/webpack`
 
-###### ⚡ Applications
+###### Applications
 
-- `apps/website`
 - `apps/backend`
+- `apps/website`
 
 ###### Documentation & Blog
 
-- `docs/`
 - `blog/`
+- `docs/`
 
 ###### Examples
 
-- `examples/vite-solid-app`
-- `examples/react-app`
-- `examples/vite-vue-app`
-- `examples/vite-svelte-app`
-- `examples/vite-preact-app`
-- `examples/vite-react-app`
-- `examples/react-native-app`
+- `examples/angular-app`
+- `examples/cli`
 - `examples/express-app`
-- `examples/cli/`
 - `examples/nextjs-14-app`
 - `examples/nextjs-15-app`
-
-### Development mode
-
-> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
-
-```sh
-# Start development mode for all packages
-# Watch the change related to each files. If the modified file is included in a package, the package will be rebuilt
-pnpm dev
-```
-
-```sh
-# Start development mode for selected packages or apps
-# This command allow to pick the packages to execute in watch-mode, avoid conflicts, and optimize performances during development
-pnpm dev:pick
-```
+- `examples/nuxt-app`
+- `examples/react-app`
+- `examples/react-native-app`
+- `examples/vite-preact-app`
+- `examples/vite-react-app`
+- `examples/vite-solid-app`
+- `examples/vite-svelte-app`
+- `examples/vite-vue-app`
 
 ### Building pacakges
 
@@ -148,9 +151,23 @@ pnpm build:pick
 pnpm build:changes
 ```
 
-### Reset the source
+### Development mode
 
 > If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
+
+```sh
+# Start development mode for all packages
+# Watch the change related to each files. If the modified file is included in a package, the package will be rebuilt
+pnpm dev
+```
+
+```sh
+# Start development mode for selected packages or apps
+# This command allow to pick the packages to execute in watch-mode, avoid conflicts, and optimize performances during development
+pnpm dev:pick
+```
+
+### Reset
 
 If you meet problems with the build, you can use the command `pnpm clean` to remove the dist folders of the packages.
 
@@ -171,13 +188,17 @@ pnpm reset:pick
 pnpm reset:changes
 ```
 
+### Includes a new package
+
+> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
+
 ### Setup environment variables
 
 For each project necessitating environment variables, like `@intlayer/backend`, you can find a `.env.template` file in the root of the project. Copy the file and rename it to `.env`. Then, fill the variables with the correct values.
 
 For specific environment, use `.env.local`, `.env.[environment]` or `.env.[environment].local` files.
 
-### Commit formatting
+## Commit formatting
 
 We follow a conventional commit format to make our Git history cleaner and more readable. Each commit message should follow the pattern:
 
@@ -189,7 +210,7 @@ We follow a conventional commit format to make our Git history cleaner and more 
 - `<scope>` (optional): Can be a package name, app name, or a general scope.
 - `<message>`: A clear, concise description of the change.
 
-#### Common types
+### Common types
 
 - `feat`: New features or capabilities
 - `fix`: Bug fixes
@@ -202,9 +223,9 @@ We follow a conventional commit format to make our Git history cleaner and more 
 - `build`: Changes affecting the build system or dependencies
 - `ci`: Changes to CI configuration or scripts
 
-#### Examples
+### Examples of commit messages
 
-```sh
+```txt
 feat(next-intlayer): add version comparison utility and integrate deepmerge for configuration management
 fix(website): fix 404 layout
 feat(solid-intlayer): prepare solid and preact intlayer
@@ -214,7 +235,7 @@ chore: update lockfile
 
 Maintaining this format helps ensure consistent, readable commit history and is also necessary for automated tools like [changesets](https://github.com/changesets/changesets) to work correctly.
 
-### Release and PR
+## Release and PR
 
 > Dont works properly. Need to fix it.
 
@@ -228,3 +249,7 @@ Once a changeset present, run the command `pnpm changeset:version` to increment 
 If new version of packages are referenced, and you're a maintainer, the command `pnpm changeset:publish` is dedicated to the packages release.
 
 Note: the versioning and the publication are automatically managed by the CI/CD.
+
+### Includes a new package
+
+If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
