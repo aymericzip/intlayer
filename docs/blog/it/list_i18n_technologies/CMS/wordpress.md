@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__wordpress
 url: https://intlayer.org/blog/i18n-technologies/CMS/wordpress
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/wordpress.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wordpress.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Migliori strumenti di internazionalizzazione (i18n) per Wordpress
@@ -22,13 +22,13 @@ Nell'attuale panorama digitale, espandere la portata del tuo sito web per soddis
 
 ---
 
-![illustrazione i18n](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![illustrazione i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Cos'è l'internazionalizzazione (i18n)?
 
 L'internazionalizzazione, abbreviata come i18n, è il processo di progettazione e preparazione del tuo sito web per supportare più lingue e contesti culturali. Nel mondo di WordPress, questo significa creare una base flessibile in cui il contenuto (pagine, post, menu, stringhe di tema) può essere facilmente tradotto e localizzato per diversi pubblici.
 
-Scopri di più su i18n leggendo il nostro articolo: [Cos'è l'internazionalizzazione (i18n)? Definizione e sfide](https://github.com/aymericzip/intlayer/blob/main/blog/it/cos_e_internazionalizzazione.md).
+Scopri di più su i18n leggendo il nostro articolo: [Cos'è l'internazionalizzazione (i18n)? Definizione e sfide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/cos_e_internazionalizzazione.md).
 
 ---
 

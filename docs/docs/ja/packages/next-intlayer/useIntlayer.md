@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayerフックのドキュメント | next-intlayer
@@ -63,7 +63,7 @@ Next.jsアプリケーションでクライアントサイドまたはサーバ�
 
 すべてのコンテンツキーがコンテンツ宣言ファイル内で定義されていることが重要です。これにより、ランタイムエラーを防ぎ、型安全性を確保できます。このアプローチは、TypeScript統合を容易にし、コンパイル時の検証を可能にします。
 
-コンテンツ宣言ファイルの設定手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)をご覧ください。
+コンテンツ宣言ファイルの設定手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)をご覧ください。
 
 ## Next.jsでの使用例
 
@@ -252,6 +252,6 @@ const ServerComponentExample = () => {
 
 ## 詳細情報
 
-- **Intlayerビジュアルエディタ**: コンテンツ管理を容易にするビジュアルエディタの使用方法については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)をご覧ください。
+- **Intlayerビジュアルエディタ**: コンテンツ管理を容易にするビジュアルエディタの使用方法については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
 このドキュメントは、Next.js環境内での`useIntlayer`フックの使用に特化しており、Next.jsアプリケーション全体でローカライゼーションを管理するための堅牢なソリューションを提供します。

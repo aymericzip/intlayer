@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useDictionary
 url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useDictionary Hook Documentation | next-intlayer
@@ -63,7 +63,7 @@ The hook accepts two parameters:
 
 ## Dictionary
 
-All dictionary objects should be declared in structured content files to ensure type safety and prevent runtime errors. You can find the [setup instructions here](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md). Here's an example of content declaration:
+All dictionary objects should be declared in structured content files to ensure type safety and prevent runtime errors. You can find the [setup instructions here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md). Here's an example of content declaration:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";

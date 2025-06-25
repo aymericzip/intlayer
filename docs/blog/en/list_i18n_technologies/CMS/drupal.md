@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__drupal
 url: https://intlayer.org/blog/i18n-technologies/CMS/drupal
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/drupal.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/drupal.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Best Internationalization (i18n) Tools for Drupal
@@ -26,7 +26,7 @@ In today's digital landscape, expanding your website’s reach to cater to a glo
 
 Internationalization (i18n) is the process of designing your website so that it can easily be adapted for various languages and cultural contexts without needing to redesign its framework. In Drupal, this involves building a foundation where content including pages, posts, menus, and configuration settings can be efficiently translated and localized for diverse audiences.
 
-Learn more about i18n by reading our comprehensive guide: [What is Internationalization (i18n)? Definition and Challenges](https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md).
+Learn more about i18n by reading our comprehensive guide: [What is Internationalization (i18n)? Definition and Challenges](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md).
 
 ---
 

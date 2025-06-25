@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__t
 url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق دالة t | next-intlayer
@@ -354,7 +354,7 @@ const text = t(translations);
 
 وظيفة `t` في `next-intlayer` هي أداة قوية ومريحة لإدارة الترجمات المضمّنة في تطبيقات Next.js الخاصة بك. من خلال دمجها بشكل فعّال، تعزز قدرات التدويل لتطبيقك، مما يوفر تجربة أفضل للمستخدمين في جميع أنحاء العالم.
 
-للحصول على استخدام أكثر تفصيلاً وميزات متقدمة، راجع [توثيق next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md).
+للحصول على استخدام أكثر تفصيلاً وميزات متقدمة، راجع [توثيق next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 ---
 

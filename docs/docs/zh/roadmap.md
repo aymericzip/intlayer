@@ -1,7 +1,7 @@
 ---
 docName: roadmap
 url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-03-01
 title: 路线图
@@ -32,7 +32,7 @@ Intlayer 是一种内容管理和国际化解决方案，旨在简化您在应�
 
 > 资源:
 >
-> - [内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)
+> - [内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)
 
 ### 2. 国际化
 
@@ -41,7 +41,7 @@ Intlayer 是一种内容管理和国际化解决方案，旨在简化您在应�
 
 > 资源:
 >
-> - [国际化](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/translation.md)
+> - [国际化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)
 
 ### 3. Markdown 支持
 
@@ -50,7 +50,7 @@ Intlayer 是一种内容管理和国际化解决方案，旨在简化您在应�
 
 > 资源:
 >
-> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/markdown.md)
+> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)
 
 ### 4. 条件渲染
 
@@ -59,7 +59,7 @@ Intlayer 是一种内容管理和国际化解决方案，旨在简化您在应�
 
 > 资源:
 >
-> - [条件渲染](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/condition.md)
+> - [条件渲染](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md)
 
 ### 5. 内容声明格式
 
@@ -77,7 +77,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
   > 资源:
   >
-  > - [内容声明格式](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/content_extention_customization.md)
+  > - [内容声明格式](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_extention_customization.md)
 
 ---
 
@@ -104,7 +104,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
 > 资源:
 >
-> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)
+> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
 
@@ -112,7 +112,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
 > 资源:
 >
-> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md)
+> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
 
 ### 3. Express
 
@@ -121,7 +121,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
 > 资源:
 >
-> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_express.md)
+> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_express.md)
 
 ---
 
@@ -138,7 +138,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
 > 资源:
 >
-> - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)
+> - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS（远程）
 
@@ -148,7 +148,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
 > 资源:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 ---
 
@@ -160,7 +160,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
 > 资源:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)
 
 ---
 
@@ -177,7 +177,7 @@ Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 声�
 
 > 资源:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 ---
 

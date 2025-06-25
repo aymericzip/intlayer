@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocaleLang
 url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleLang.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Документация функции getLocaleLang | intlayer
@@ -76,4 +76,4 @@ getLocaleLang(Locales.FRENCH); // Вывод: "fr"
 - **Некорректные строки локали:**
   - Если `locale` не соответствует формату `language-country` (например, `Locales.ENGLISH-US`), функция безопасно возвращает часть до `'-'` или всю строку, если `'-'` отсутствует.
 
-[Документация на GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/ru/getLocaleLang.md)
+[Документация на GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/getLocaleLang.md)

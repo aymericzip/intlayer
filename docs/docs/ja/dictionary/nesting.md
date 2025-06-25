@@ -1,7 +1,7 @@
 ---
 docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
 updatedAt: 2025-02-7
 title: 辞書のネスト
@@ -260,8 +260,8 @@ module.exports = NestComponent;
 
 設定や使用方法の詳細については、以下のリソースを参照してください:
 
-- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)
-- [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)
-- [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)
+- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
+- [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)
+- [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
 
 これらのリソースは、さまざまな環境やフレームワークでのIntlayerのセットアップと使用方法についてさらに詳しく説明しています。

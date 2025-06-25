@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentação do hook useIntlayerAsync | next-intlayer
@@ -219,12 +219,12 @@ Assim como no `useIntlayer`, você pode recuperar valores de atributos localizad
 
 Todas as chaves de conteúdo devem ser definidas em seus arquivos de declaração de conteúdo para segurança de tipo e para evitar erros em tempo de execução. Esses arquivos permitem validação no TypeScript, garantindo que você sempre faça referência a chaves e localidades existentes.
 
-Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
+Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
 
 ## Mais Informações
 
 - **Editor Visual do Intlayer:**  
-  Integre com o editor visual do Intlayer para gerenciar e editar conteúdo diretamente da interface do usuário. Mais detalhes [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md).
+  Integre com o editor visual do Intlayer para gerenciar e editar conteúdo diretamente da interface do usuário. Mais detalhes [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md).
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentation du hook useIntlayer | react-intlayer
@@ -63,7 +63,7 @@ Le hook accepte deux paramètres :
 
 ## Dictionnaire
 
-Toutes les clés du dictionnaire doivent être déclarées dans les fichiers de déclaration de contenu pour améliorer la sécurité des types et éviter les erreurs. Vous pouvez trouver les instructions de configuration [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md).
+Toutes les clés du dictionnaire doivent être déclarées dans les fichiers de déclaration de contenu pour améliorer la sécurité des types et éviter les erreurs. Vous pouvez trouver les instructions de configuration [ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md).
 
 ## Exemple d'utilisation dans React
 
@@ -249,6 +249,6 @@ Lors de la localisation des attributs, accédez aux valeurs de contenu de maniè
 
 ## Ressources Supplémentaires
 
-- **Éditeur Visuel Intlayer** : Pour une expérience de gestion de contenu plus intuitive, consultez la documentation de l'éditeur visuel [ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_visual_editor.md).
+- **Éditeur Visuel Intlayer** : Pour une expérience de gestion de contenu plus intuitive, consultez la documentation de l'éditeur visuel [ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md).
 
 Cette section cible spécifiquement l'intégration du hook `useIntlayer` dans les applications React, simplifiant le processus de localisation et garantissant la cohérence du contenu entre les différentes locales.

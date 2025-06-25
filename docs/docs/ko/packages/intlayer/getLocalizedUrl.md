@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocalizedUrl
 url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: getLocalizedUrl 함수 문서 | intlayer
@@ -42,18 +42,18 @@ keywords:
 
   - **설명**: 지원되는 로케일의 선택적 배열입니다. 기본적으로 프로젝트에서 구성된 로케일이 제공됩니다.
   - **유형**: `Locales[]`
-  - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md#middleware)
+  - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
   - **설명**: 애플리케이션의 기본 로케일입니다. 기본적으로 프로젝트에서 구성된 기본 로케일이 제공됩니다.
   - **유형**: `Locales`
-  - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md#middleware)
+  - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
 
 - `prefixDefault: boolean`
   - **설명**: 기본 로케일에 대해 URL에 접두사를 추가할지 여부입니다. 기본적으로 프로젝트에서 구성된 값이 제공됩니다.
   - **유형**: `boolean`
-  - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md#middleware)
+  - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
 
 ### 반환값
 

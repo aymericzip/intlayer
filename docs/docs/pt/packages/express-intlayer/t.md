@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer__t
 url: https://intlayer.org/doc/packages/express-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
 updatedAt: 2024-12-02
 title: Documentação da função t | express-intlayer
@@ -283,4 +283,4 @@ app.get("/greet", (_req, res) => {
 
 ## Conclusão
 
-A função `t` é uma ferramenta poderosa para internacionalização no backend. Usando-a de forma eficaz, você pode criar uma aplicação mais inclusiva e amigável para um público global. Para uso avançado e opções detalhadas de configuração, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md).
+A função `t` é uma ferramenta poderosa para internacionalização no backend. Usando-a de forma eficaz, você pode criar uma aplicação mais inclusiva e amigável para um público global. Para uso avançado e opções detalhadas de configuração, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).

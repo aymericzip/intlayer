@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocalizedUrl
 url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق دالة getLocalizedUrl | intlayer
@@ -42,18 +42,18 @@ keywords:
 
   - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. بشكل افتراضي، يتم توفير اللغات المكونة في المشروع.
   - **النوع**: `Locales[]`
-  - **الافتراضي**: [`إعداد المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md#middleware)
+  - **الافتراضي**: [`إعداد المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
   - **الوصف**: اللغة الافتراضية للتطبيق. بشكل افتراضي، يتم توفير اللغة الافتراضية المكونة في المشروع.
   - **النوع**: `Locales`
-  - **الافتراضي**: [`إعداد المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md#middleware)
+  - **الافتراضي**: [`إعداد المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
 - `prefixDefault: boolean`
   - **الوصف**: ما إذا كان يجب إضافة بادئة للرابط للغة الافتراضية. بشكل افتراضي، يتم توفير القيمة المكونة في المشروع.
   - **النوع**: `boolean`
-  - **الافتراضي**: [`إعداد المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md#middleware)
+  - **الافتراضي**: [`إعداد المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
 ### الإرجاع
 

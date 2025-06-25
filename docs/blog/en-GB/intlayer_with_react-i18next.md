@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_react-i18next
 url: https://intlayer.org/blog/intlayer-with-react-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_react-i18next.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_react-i18next.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02
 title: Intlayer and react-i18next
@@ -126,7 +126,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **Note**: If you’re not using TypeScript, you can create this config file as `.cjs`, `.mjs`, or `.js` (see the [Intlayer docs](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/doc/concept/configuration) for details).
+> **Note**: If you’re not using TypeScript, you can create this config file as `.cjs`, `.mjs`, or `.js` (see the [Intlayer docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/doc/concept/configuration) for details).
 
 ## Building the i18next Resources
 
@@ -261,7 +261,7 @@ const content = {
 export default content;
 ```
 
-If you prefer JSON, `.cjs`, or `.mjs`, refer to the [Intlayer docs](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/doc/concept/content).
+If you prefer JSON, `.cjs`, or `.mjs`, refer to the [Intlayer docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/doc/concept/content).
 
 > By default, valid content declarations match the file extension pattern:
 

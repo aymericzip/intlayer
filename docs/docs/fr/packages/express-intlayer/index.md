@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer
 url: https://intlayer.org/doc/packages/express-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentation du package | express-intlayer
@@ -108,7 +108,7 @@ const config = {
 module.exports = config;
 ```
 
-> Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
+> Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
 ## Exemple d'utilisation
 
@@ -196,9 +196,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` est entièrement compatible avec :
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/react-intlayer/index.md) pour les applications React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/next-intlayer/index.md) pour les applications Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/vite-intlayer/index.md) pour les applications Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/index.md) pour les applications React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/index.md) pour les applications Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/index.md) pour les applications Vite
 
 Il fonctionne également parfaitement avec toute solution d'internationalisation dans divers environnements, y compris les navigateurs et les requêtes API. Vous pouvez personnaliser le middleware pour détecter la langue via les en-têtes ou les cookies :
 
@@ -253,4 +253,4 @@ Par défaut, `express-intlayer` interprétera l'en-tête `Accept-Language` pour 
 
 ## Fonctions fournies par le package `express-intlayer`
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/fr-GB/packages/express-intlayer/t.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr-GB/packages/express-intlayer/t.md)

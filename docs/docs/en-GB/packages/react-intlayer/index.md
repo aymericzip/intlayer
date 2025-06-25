@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer
 url: https://intlayer.org/doc/packages/react-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Package Documentation | react-intlayer
@@ -54,7 +54,7 @@ With Intlayer, you can declare your content in a structured way anywhere in your
 
 By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md).
+> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,j
 
 ### Declare your content
 
-`react-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
+`react-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
 
 Here’s an example of content declaration:
 
@@ -262,14 +262,14 @@ const Component1Example = () => {
 
 Intlayer provides a lot of features to help you internationalise your React application.
 
-**To learn more about these features, refer to the [React Internationalisation (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_vite+react.md) guide for Vite and React Application, or the [React Internationalisation (i18n) with Intlayer and React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_create_react_app.md) guide for React Create App.**
+**To learn more about these features, refer to the [React Internationalisation (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md) guide for Vite and React Application, or the [React Internationalisation (i18n) with Intlayer and React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md) guide for React Create App.**
 
 ## Functions provided by `react-intlayer` package
 
 The `react-intlayer` package also provides some functions to help you to internationalise your application.
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayerAsync.md)

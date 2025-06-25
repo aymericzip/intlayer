@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer
 url: https://intlayer.org/doc/packages/express-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: पैकेज के डॉक्यूमेंटेशन | express-intlayer
@@ -105,7 +105,7 @@ const config = {
 module.exports = config;
 ```
 
-> उपलब्ध पैरामीटरों की पूरी सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) देखें।
+> उपलब्ध पैरामीटरों की पूरी सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
 ## उपयोग का उदाहरण
 
@@ -193,9 +193,9 @@ app.listen(3000, () => console.log(`पोर्ट 3000 पर सुन रह
 
 `express-intlayer` पूरी तरह से संगत है:
 
-- React एप्लिकेशन के लिए [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/react-intlayer/index.md)
-- Next.js एप्लिकेशन के लिए [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/next-intlayer/index.md)
-- Vite एप्लिकेशन के लिए [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/vite-intlayer/index.md)
+- React एप्लिकेशन के लिए [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/index.md)
+- Next.js एप्लिकेशन के लिए [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md)
+- Vite एप्लिकेशन के लिए [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md)
 
 यह विभिन्न वातावरणों में किसी भी अंतर्राष्ट्रीयकरण समाधान के साथ सहजता से काम करता है, जिसमें ब्राउज़र और एपीआई अनुरोध शामिल हैं। आप हेडर या कुकीज़ के माध्यम से भाषा का पता लगाने के लिए मिडलवेयर को अनुकूलित कर सकते हैं:
 
@@ -247,4 +247,4 @@ module.exports = config;
 
 ## `express-intlayer` पैकेज द्वारा प्रदान किए गए फ़ंक्शन
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/hi-GB/packages/express-intlayer/t.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi-GB/packages/express-intlayer/t.md)

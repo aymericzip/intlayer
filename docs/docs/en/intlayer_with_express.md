@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Translate your Express backend (i18n)
@@ -195,7 +195,7 @@ module.exports = indexContent;
 
 > Your content declarations can be defined anywhere in your application as soon as they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md).
+> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
 
 ### Express Application Setup
 
@@ -307,9 +307,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` is fully compatible with:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md) for React applications
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md) for Next.js applications
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md) for Vite applications
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md) for React applications
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md) for Next.js applications
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md) for Vite applications
 
 It also works seamlessly with any internationalization solution across various environments, including browsers and API requests. You can customize the middleware to detect locale through headers or cookies:
 
@@ -359,7 +359,7 @@ module.exports = config;
 
 By default, `express-intlayer` will interpret the `Accept-Language` header to determine the client's preferred language.
 
-> For more information on configuration and advanced topics, visit our [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+> For more information on configuration and advanced topics, visit our [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ### Configure TypeScript
 

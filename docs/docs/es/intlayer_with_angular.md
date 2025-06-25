@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_angular
 url: https://intlayer.org/doc/environment/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_angular.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_angular.md
 createdAt: 2025-04-18
 updatedAt: 2025-04-18
 title: Traduce su sitio web Angular (i18n)

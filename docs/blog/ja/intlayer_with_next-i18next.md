@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-i18next
 url: https://intlayer.org/blog/intlayer-with-next-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11
 updatedAt: 2025-01-02
 title: Intlayerとnext-i18next
@@ -34,7 +34,7 @@ Both solutions include three principal notions:
 
 ## Intlayer vs. i18next: 主な違い
 
-i18nextとIntlayerの違いを探るには、私たちの[次-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/blog/ja/i18next_vs_next-intl_vs_intlayer.md)ブログ投稿をチェックしてください。
+i18nextとIntlayerの違いを探るには、私たちの[次-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_next-intl_vs_intlayer.md)ブログ投稿をチェックしてください。
 
 ## Intlayerでnext-i18next辞書を生成する方法
 

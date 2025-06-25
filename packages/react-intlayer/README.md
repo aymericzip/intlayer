@@ -104,7 +104,7 @@ By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,j
 
 ### Declare your content
 
-`react-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
+`react-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
 
 Here’s an example of content declaration:
 
@@ -190,7 +190,7 @@ const Component1Example = () => {
 
 Intlayer provides a lot of features to help you internationalize your React application.
 
-**To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application, or the [React Internationalization (i18n) with Intlayer and React (CRA)](https://intlayer.org/doc/environment/create-react-app) guide for React Create App.**
+**To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application, or the [React Internationalization (i18n) with Intlayer and React (CRA)](https://intlayer.org/doc/environment/create-react-app) guide for React Create App.**
 
 ## Functions provided by `react-intlayer` package
 

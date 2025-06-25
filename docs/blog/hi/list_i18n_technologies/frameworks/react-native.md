@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react-native
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react-native
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react-native.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react-native.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: React Native के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण
@@ -22,14 +22,14 @@ keywords:
 
 ---
 
-![i18n चित्रण](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n चित्रण](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## अंतर्राष्ट्रीयकरण (i18n) क्या है?
 
 अंतर्राष्ट्रीयकरण, या i18n, एक एप्लिकेशन को इस प्रकार से ढालने में शामिल होता है कि यह विभिन्न भाषाओं, क्षेत्रीय प्रारूपों, और सांस्कृतिक मानदंडों के अनुसार आसानी से अनुकूलित हो सके। React Native में, i18n में बटन और लेबल के लिए स्ट्रिंग को संभालना, और उपयोगकर्ता की संस्कृति के अनुसार दिनांक, समय, मुद्रा, और अधिक को प्रारूपित करना शामिल है। सही ढंग से तैयार किए गए React Native ऐप्स आपको अतिरिक्त भाषाओं और सांस्कृतिक विशेषताओं को बाद में बिना बड़े सुधारों के समेकित करने की अनुमति देते हैं।
 
 अंतर्राष्ट्रीयकरण के सिद्धांतों में गहराई से जानने के लिए हमारे लेख पर जाने:  
-[अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/blog/hi/what_is_internationalization.md).
+[अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/what_is_internationalization.md).
 
 ---
 

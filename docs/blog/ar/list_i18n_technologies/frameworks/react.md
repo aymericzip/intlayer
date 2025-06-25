@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: أفضل أدوات التدويل (i18n) للإنترات
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## ما هي الدولية (i18n)؟
 
 الدولية، المختصرة إلى i18n، هي عملية تصميم وإعداد موقعك لدعم لغات وسياقات ثقافية متعددة. في React، يعني هذا إعداد التطبيق الخاص بك بحيث يمكن تعديل النصوص، وتنسيقات التاريخ، وتنسيقات الأرقام، وحتى التخطيط بسهولة للمستخدمين من مناطق مختلفة. إعداد تطبيق React الخاص بك لـ i18n يضع الأساس لدمج الترجمات وميزات التوطين الأخرى بشكل نظيف.
 
-اكتشف المزيد عن i18n من خلال قراءة مقالتنا: [ما هي الدولية (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/blog/ar/what_is_internationalization.md).
+اكتشف المزيد عن i18n من خلال قراءة مقالتنا: [ما هي الدولية (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/what_is_internationalization.md).
 
 ---
 

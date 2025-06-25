@@ -1,7 +1,7 @@
 ---
 docName: package__lynx-intlayer
 url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: パッケージドキュメント | lynx-intlayer
@@ -26,7 +26,7 @@ Lynxアプリケーションを国際化することは、グローバルなオ�
 
 ## 設定
 
-`lynx-intlayer`パッケージは、[`react-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/index.md)および[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/index.md)とシームレスに連携します。詳細については、関連するドキュメントをご覧ください。
+`lynx-intlayer`パッケージは、[`react-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)および[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/index.md)とシームレスに連携します。詳細については、関連するドキュメントをご覧ください。
 
 ## インストール
 
@@ -65,7 +65,7 @@ export default defineConfig({
 
 Intlayerは、Viteアプリケーションを国際化するための多くの機能を提供します。
 
-**これらの機能について詳しく知りたい場合は、[IntlayerとLynxを使用したReactの国際化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_lynx+react.md)ガイドをご覧ください。**
+**これらの機能について詳しく知りたい場合は、[IntlayerとLynxを使用したReactの国際化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_lynx+react.md)ガイドをご覧ください。**
 
 ## Intlayerについて読む
 

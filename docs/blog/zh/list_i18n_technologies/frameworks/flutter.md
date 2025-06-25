@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__flutter
 url: https://intlayer.org/blog/i18n-technologies/frameworks/flutter
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/flutter.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/flutter.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Flutter的最佳国际化工具
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 什么是国际化 (i18n)？
 
 国际化，通常称为 i18n，是设计应用程序的过程，以便它可以轻松支持多种语言和文化格式。在 Flutter 中，这涉及到设置您的应用程序，以无缝管理本地化字符串、日期/时间格式和数字格式。通过为 i18n 准备您的 Flutter 应用，您为集成翻译和处理区域差异打下了坚实的基础。
 
-如果您对这个概念不熟悉，请查看我们的文章：[什么是国际化 (i18n)？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/blog/zh/what_is_internationalization.md)。
+如果您对这个概念不熟悉，请查看我们的文章：[什么是国际化 (i18n)？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/what_is_internationalization.md)。
 
 ---
 

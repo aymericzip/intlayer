@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_nextjs_page_router
 url: https://intlayer.org/doc/environment/nextjs/next-with-Page-Router
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_page_router.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md
 createdAt: 2024-12-07
 updatedAt: 2024-12-07
 title: 翻译你的Next.js和Page Router网站 (i18n)
@@ -29,7 +29,7 @@ keywords:
 - **确保 TypeScript 支持**，通过自动生成类型提高自动补全和错误检测。
 - **享受高级功能**，如动态语言检测和切换。
 
-> Intlayer 兼容 Next.js 12、13、14 和 15。如果您使用的是 Next.js App Router，请参考 [App Router 指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_14.md)。对于 Next.js 15，请遵循此 [指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)。
+> Intlayer 兼容 Next.js 12、13、14 和 15。如果您使用的是 Next.js App Router，请参考 [App Router 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md)。对于 Next.js 15，请遵循此 [指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)。
 
 ---
 
@@ -53,7 +53,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  提供国际化工具的核心包，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)。
+  提供国际化工具的核心包，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
 
 - **next-intlayer**
 
@@ -119,7 +119,7 @@ const config = {
 module.exports = config;
 ```
 
-> 通过此配置文件，您可以设置本地化 URL、中间件重定向、Cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参考 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+> 通过此配置文件，您可以设置本地化 URL、中间件重定向、Cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参考 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ### 第三步：将 Intlayer 集成到 Next.js 配置中
 
@@ -430,7 +430,7 @@ module.exports = homeContent;
 }
 ```
 
-有关声明内容的更多信息，请参阅 [内容声明指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
+有关声明内容的更多信息，请参阅 [内容声明指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
 
 ### 第 7 步：在代码中使用内容
 
@@ -555,7 +555,7 @@ const ComponentExample = () => {
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> 要了解更多关于 `useIntlayer` 钩子的内容，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useIntlayer.md)。
+> 要了解更多关于 `useIntlayer` 钩子的内容，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayer.md)。
 
 ### （可选）步骤 8：国际化您的元数据
 
@@ -882,13 +882,13 @@ const LocaleSwitcher = () => {
 };
 ```
 
-> `useLocalePageRouter` API 与 `useLocale` 相同。要了解更多关于 `useLocale` 钩子的内容，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useLocale.md)。
+> `useLocalePageRouter` API 与 `useLocale` 相同。要了解更多关于 `useLocale` 钩子的内容，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useLocale.md)。
 
 > 文档参考：
 >
-> - [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/getHTMLTextDir.md)
+> - [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
 > - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
@@ -1089,14 +1089,14 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 ## 其他资源
 
 - **Intlayer 文档：** [GitHub 仓库](https://github.com/aymericzip/intlayer)
-- **词典指南：** [词典](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)
-- **配置文档：** [配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)
+- **词典指南：** [词典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)
+- **配置文档：** [配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 通过遵循本指南，您可以将 Intlayer 有效集成到您的 Next.js 应用程序中，使用 Page Router 实现强大且可扩展的国际化支持，为您的 Web 项目提供支持。
 
 ### 更进一步
 
-若要更进一步，您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md) 或通过 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md) 外部化您的内容。
+若要更进一步，您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或通过 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 外部化您的内容。
 
 ```
 

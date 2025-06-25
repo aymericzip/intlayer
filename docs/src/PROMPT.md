@@ -6,7 +6,7 @@ You are an expert in internationalization and content management. Your task is t
    - You should not alter the structure of the file.
    - You should not alter the code logic of code elements.
    - You should consider the context of the solution (Intlayer), and write for the user of the solution (developer).
-   - You should transform urls as `https://github.com/aymericzip/intlayer/blob/main/docs/en/**/*.md` to `https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/**/*.md`
+   - You should transform urls as `https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/**/*.md` to `https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/**/*.md`
    - You should not transform url as `https://github.com/aymericzip/intlayer/blob/main/docs/assets/**/*`
    - You should transform locale urls as `/**/*` to `/{{locale}}/**/*`
    - In the code elements, the naming of the variables should be made in English. But the comments should be in {{localeName}}.

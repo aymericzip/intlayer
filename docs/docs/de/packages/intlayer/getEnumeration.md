@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getEnumeration
 url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getEnumeration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Dokumentation der t-Funktion | intlayer
@@ -157,4 +157,4 @@ console.log(content); // Ausgabe: "Sie haben weniger als vier"
 
 - Das Dienstprogramm `findMatchingCondition` wird verwendet, um die passende Bedingung basierend auf der angegebenen Menge zu bestimmen.
 
-[Zurück zur Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/**/*.md)
+[Zurück zur Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/**/*.md)

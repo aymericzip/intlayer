@@ -1,7 +1,7 @@
 ---
 docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Archivo
@@ -215,10 +215,10 @@ La función `file` se basa en el módulo `fs` de Node.js para leer el contenido 
 
 Para más detalles sobre la configuración y el uso de la incrustación de archivos en Intlayer, consulta los siguientes recursos:
 
-- [Documentación de Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md)
-- [Documentación de React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_create_react_app.md)
-- [Documentación de Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_nextjs_15.md)
-- [Documentación de Contenido Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/markdown.md)
-- [Documentación de Contenido de Traducción](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/translation.md)
+- [Documentación de Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md)
+- [Documentación de React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md)
+- [Documentación de Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md)
+- [Documentación de Contenido Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md)
+- [Documentación de Contenido de Traducción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/translation.md)
 
 Estos recursos proporcionan más información sobre la incrustación de archivos, la gestión de contenido y la integración de Intlayer con varios frameworks.

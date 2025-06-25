@@ -1,7 +1,7 @@
 ---
 docName: how_works_intlayer
 url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2024-08-12
 title: Comment Intlayer fonctionne
@@ -40,13 +40,13 @@ Il y a donc deux étapes principales :
 L'étape de construction peut être réalisée de trois manières :
 
 - en utilisant la CLI avec `npx intlayer build`
-- en utilisant [l'extension vscode](https://github.com/aymericzip/intlayer/blob/main/docs/fr/vs_code_extension.md)
-- en utilisant les plugins d'application tels que le package [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/vite-intlayer/index.md), ou leurs équivalents pour [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/next-intlayer/index.md). Lorsque vous utilisez l'un de ces plugins, Intlayer construira automatiquement vos dictionnaires lorsque vous démarrez (dev) ou construisez (prod) votre application.
+- en utilisant [l'extension vscode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)
+- en utilisant les plugins d'application tels que le package [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/index.md), ou leurs équivalents pour [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/index.md). Lorsque vous utilisez l'un de ces plugins, Intlayer construira automatiquement vos dictionnaires lorsque vous démarrez (dev) ou construisez (prod) votre application.
 
 1. Déclaration des fichiers de contenu
 
    - Les fichiers de contenu peuvent être définis dans divers formats, tels que TypeScript, ECMAScript, CommonJS ou JSON.
-   - Les fichiers de contenu peuvent être définis partout dans le projet, ce qui permet une meilleure maintenance et évolutivité. Il est important de respecter les conventions d'extension de fichier pour les fichiers de contenu. Cette extension est par défaut `*.content.{js|cjs|mjs|ts|tsx|json}`, mais elle peut être modifiée dans le [fichier de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
+   - Les fichiers de contenu peuvent être définis partout dans le projet, ce qui permet une meilleure maintenance et évolutivité. Il est important de respecter les conventions d'extension de fichier pour les fichiers de contenu. Cette extension est par défaut `*.content.{js|cjs|mjs|ts|tsx|json}`, mais elle peut être modifiée dans le [fichier de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
 2. Génération des `dictionnaires`
 
@@ -75,7 +75,7 @@ const MyComponent = () => {
 
 Ce hook gérera pour vous la détection de la locale et renverra le contenu pour la locale actuelle. En utilisant ce hook, vous pourrez également interpréter le markdown, gérer la pluralisation, et bien plus encore.
 
-> Pour voir toutes les fonctionnalités d'Intlayer, vous pouvez lire la [documentation des dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md).
+> Pour voir toutes les fonctionnalités d'Intlayer, vous pouvez lire la [documentation des dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md).
 
 ## Contenu distant
 
@@ -87,7 +87,7 @@ Si configuré sur votre projet, Intlayer gérera automatiquement pour vous la r�
 
 ## Éditeur visuel
 
-Intlayer fournit également un éditeur visuel pour vous permettre d'éditer votre contenu de manière visuelle. Cet [éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_visual_editor.md) est disponible dans le package externe `intlayer-editor`.
+Intlayer fournit également un éditeur visuel pour vous permettre d'éditer votre contenu de manière visuelle. Cet [éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est disponible dans le package externe `intlayer-editor`.
 
 ![éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -99,13 +99,13 @@ En mode développement, Intlayer utilise une importation statique centralisée p
 
 En optimisant la construction, Intlayer remplacera tous les appels des dictionnaires pour optimiser le découpage. Ainsi, le bundle final n'importera que les dictionnaires utilisés.
 
-En activant l'option `activateDynamicImport` dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md), Intlayer utilisera l'importation dynamique pour charger les dictionnaires. Cette option est désactivée par défaut pour éviter le traitement asynchrone lors du rendu de l'application.
+En activant l'option `activateDynamicImport` dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md), Intlayer utilisera l'importation dynamique pour charger les dictionnaires. Cette option est désactivée par défaut pour éviter le traitement asynchrone lors du rendu de l'application.
 
 > `@intlayer/babel` est disponible par défaut dans le package `vite-intlayer`,
 
 > `@intlayer/swc` n'est pas installé par défaut dans le package `next-intlayer` car les plugins SWC sont encore expérimentaux sur Next.js.
 
-Pour voir comment configurer la construction de votre application, vous pouvez lire la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
+Pour voir comment configurer la construction de votre application, vous pouvez lire la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
 ## Packages
 

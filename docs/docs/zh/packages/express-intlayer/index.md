@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer
 url: https://intlayer.org/doc/packages/express-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 包文档 | express-intlayer
@@ -105,7 +105,7 @@ const config = {
 module.exports = config;
 ```
 
-> 有关可用参数的完整列表，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+> 有关可用参数的完整列表，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ## 使用示例
 
@@ -190,9 +190,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` 完全兼容：
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/index.md) 用于 React 应用
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/index.md) 用于 Next.js 应用
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/vite-intlayer/index.md) 用于 Vite 应用
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md) 用于 React 应用
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 用于 Next.js 应用
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md) 用于 Vite 应用
 
 它还可以无缝地与各种环境（包括浏览器和 API 请求）的任何国际化解决方案一起使用。您可以自定义中间件通过头信息或 Cookie 检测语言环境：
 
@@ -244,4 +244,4 @@ module.exports = config;
 
 ## `express-intlayer` 包提供的功能
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh-GB/packages/express-intlayer/t.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-GB/packages/express-intlayer/t.md)

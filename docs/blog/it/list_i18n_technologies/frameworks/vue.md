@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__vue
 url: https://intlayer.org/blog/i18n-technologies/frameworks/vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/vue.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/vue.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Migliori strumenti di internazionalizzazione (i18n) per Vue
@@ -22,13 +22,13 @@ In un panorama digitale sempre più globalizzato, estendere la portata del tuo s
 
 ---
 
-![illustrazione i18n](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![illustrazione i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Cos'è l'Internazionalizzazione (i18n)?
 
 L'internazionalizzazione (i18n) è la pratica di preparare un'applicazione software (o un sito web) per più lingue e convenzioni culturali. All'interno dell'ecosistema Vue.js, questo include stabilire come testo, date, numeri, valute e altri elementi localizzabili possono essere adattati a varie località. Impostando l'i18n fin dall'inizio, garantisci una struttura organizzata e scalabile per aggiungere nuove lingue e gestire le future esigenze di localizzazione.
 
-Per saperne di più sui fondamenti dell'i18n, dai un'occhiata al nostro riferimento: [Cos'è l'Internazionalizzazione (i18n)? Definizione e Sfide](https://github.com/aymericzip/intlayer/blob/main/blog/it/what_is_internationalization.md).
+Per saperne di più sui fondamenti dell'i18n, dai un'occhiata al nostro riferimento: [Cos'è l'Internazionalizzazione (i18n)? Definizione e Sfide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/what_is_internationalization.md).
 
 ---
 

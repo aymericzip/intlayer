@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-intl
 url: https://intlayer.org/blog/intlayer-with-next-intl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-intl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-intl.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02
 title: Intlayer and next-intl
@@ -24,7 +24,7 @@ They share three principal notions:
 
 1. **Dictionary**: The method for defining the translatable content of your application.
 
-   - Named `content declaration file` in Intlayer, which can be a JSON, JS, or TS file exporting the structured data. See [Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/concept/content) for more information.
+   - Named `content declaration file` in Intlayer, which can be a JSON, JS, or TS file exporting the structured data. See [Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/concept/content) for more information.
    - Named `messages` or `locale messages` in next-intl, usually in JSON files. See [next-intl documentation](https://github.com/amannn/next-intl) for more information.
 
 2. **Utilities**: Tools to build and interpret content declarations in the application, such as `useIntlayer()` or `useLocale()` for Intlayer, and `useTranslations()` for next-intl.
@@ -33,7 +33,7 @@ They share three principal notions:
 
 ## Intlayer vs. next-intl: Key Differences
 
-For a deeper analysis of how Intlayer compares to other i18n libraries for Next.js (such as next-intl), check out the [next-i18next vs. next-intl vs. Intlayer blog post](https://github.com/aymericzip/intlayer/blob/main/blog/en-GB/i18next_vs_next-intl_vs_intlayer.md).
+For a deeper analysis of how Intlayer compares to other i18n libraries for Next.js (such as next-intl), check out the [next-i18next vs. next-intl vs. Intlayer blog post](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18next_vs_next-intl_vs_intlayer.md).
 
 ## How to Generate next-intl Messages with Intlayer
 

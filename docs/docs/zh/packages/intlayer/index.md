@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer
 url: https://intlayer.org/doc/packages/intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 包文档 | intlayer
@@ -92,7 +92,7 @@ const config = {
 module.exports = config;
 ```
 
-> 有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+> 有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ## 使用示例
 
@@ -100,7 +100,7 @@ module.exports = config;
 
 默认情况下，Intlayer会扫描扩展名为`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`的文件。
 
-> 可以通过在[配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)中设置`contentDir`属性来修改默认扩展名。
+> 可以通过在[配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中设置`contentDir`属性来修改默认扩展名。
 
 ```bash codeFormat="typescript"
 .
@@ -346,7 +346,7 @@ const config = {
 module.exports = config;
 ```
 
-> 有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+> 有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 输出：
 

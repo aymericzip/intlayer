@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-i18next
 url: https://intlayer.org/blog/intlayer-with-next-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11
 updatedAt: 2025-01-02
 title: Intlayer и next-i18next
@@ -26,7 +26,7 @@ keywords:
 1. **Декларация контента**: Метод определения переводимого контента вашего приложения.
 
    - Называемый `resource` в случае `i18next`, декларация контента - это структурированный объект JSON, содержащий пары ключ-значение для переводов на одном или нескольких языках. Смотрите [документацию i18next](https://www.i18next.com/translation-function/essentials) для получения дополнительной информации.
-   - Называемый `content declaration file` в случае `Intlayer`, декларация контента может быть JSON, JS или TS файлом, экспортирующим структурированные данные. Смотрите [документацию Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/doc/concept/content) для получения дополнительной информации.
+   - Называемый `content declaration file` в случае `Intlayer`, декларация контента может быть JSON, JS или TS файлом, экспортирующим структурированные данные. Смотрите [документацию Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/doc/concept/content) для получения дополнительной информации.
 
 2. **Утилиты**: Инструменты для создания и интерпретации деклараций контента в приложении, такие как `getI18n()`, `useCurrentLocale()`, или `useChangeLocale()` для next-i18next, и `useIntlayer()` или `useLocale()` для Intlayer.
 
@@ -34,7 +34,7 @@ keywords:
 
 ## Intlayer против i18next: Ключевые различия
 
-Чтобы изучить различия между i18next и Intlayer, ознакомьтесь с нашим [next-i18next против next-intl против Intlayer](https://github.com/aymericzip/intlayer/blob/main/blog/ru/i18next_vs_next-intl_vs_intlayer.md) блогом.
+Чтобы изучить различия между i18next и Intlayer, ознакомьтесь с нашим [next-i18next против next-intl против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_next-intl_vs_intlayer.md) блогом.
 
 ## Как сгенерировать словари next-i18next с Intlayer
 

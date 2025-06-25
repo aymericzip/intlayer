@@ -38,4 +38,4 @@ Intlayer bietet ein CLI-Tool, um:
 - Wörterbücher aus Ihren Inhaltsdeklarationen zu erstellen
 - entfernte Wörterbücher von Ihrem CMS in Ihr lokales Projekt zu übertragen und umgekehrt
 
-Konsultieren Sie [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md) für weitere Informationen.
+Konsultieren Sie [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) für weitere Informationen.

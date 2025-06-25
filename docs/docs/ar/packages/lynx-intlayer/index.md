@@ -1,7 +1,7 @@
 ---
 docName: package__lynx-intlayer
 url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: وثائق حزمة | lynx-intlayer
@@ -26,7 +26,7 @@ keywords:
 
 ## التكوين
 
-تعمل حزمة `lynx-intlayer` بسلاسة مع [حزمة `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/index.md)، وحزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). اطلع على الوثائق ذات الصلة لمزيد من المعلومات.
+تعمل حزمة `lynx-intlayer` بسلاسة مع [حزمة `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)، وحزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md). اطلع على الوثائق ذات الصلة لمزيد من المعلومات.
 
 ## التثبيت
 
@@ -65,7 +65,7 @@ export default defineConfig({
 
 يوفر Intlayer العديد من الميزات لمساعدتك في تعريب تطبيق Vite الخاص بك.
 
-**لمعرفة المزيد عن هذه الميزات، راجع دليل [تعريب React (i18n) باستخدام Intlayer وLynx](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_lynx+react.md) لتطبيق Lynx.**
+**لمعرفة المزيد عن هذه الميزات، راجع دليل [تعريب React (i18n) باستخدام Intlayer وLynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_lynx+react.md) لتطبيق Lynx.**
 
 ## اقرأ عن Intlayer
 

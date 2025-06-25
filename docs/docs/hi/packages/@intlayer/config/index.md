@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> अधिक विवरण के लिए [Intlayer कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) देखें।
+> अधिक विवरण के लिए [Intlayer कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
 2. पर्यावरण वेरिएबल्स को परिभाषित करें।
 

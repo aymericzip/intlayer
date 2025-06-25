@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getConfiguration
 url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentación de la función getConfiguration | intlayer
@@ -40,7 +40,7 @@ La función no toma ningún parámetro. En su lugar, utiliza variables de entorn
   - `content`: Configuraciones relacionadas con archivos de contenido, directorios y patrones.
   - `editor`: Configuraciones específicas del editor.
 
-Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md) para más detalles.
+Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para más detalles.
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getEnumeration
 url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getEnumeration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: t函数文档 | intlayer
@@ -157,4 +157,4 @@ console.log(content); // 输出: "您有小于四"
 
 - `findMatchingCondition` 工具用于根据给定数量确定适当的条件。
 
-https://github.com/aymericzip/intlayer/blob/main/docs/zh/**/*.md
+https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/**/*.md

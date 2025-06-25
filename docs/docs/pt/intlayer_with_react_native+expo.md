@@ -107,7 +107,7 @@ Nesta configuração, você pode:
 - Definir a **lista de idiomas suportados**.
 - Configurar um **idioma padrão**.
 - Mais tarde, adicionar opções avançadas (por exemplo, logs, diretórios personalizados para conteúdo, etc.).
-- Consulte a [documentação de configuração do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md) para mais informações.
+- Consulte a [documentação de configuração do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) para mais informações.
 
 ---
 
@@ -198,7 +198,7 @@ const homeScreenContent = {
 export default homeScreenContent;
 ```
 
-> Para mais detalhes sobre a declaração de conteúdo, consulte a [documentação do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md).
+> Para mais detalhes sobre a declaração de conteúdo, consulte a [documentação do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
 
 ---
 
@@ -257,6 +257,6 @@ Para evitar o commit de arquivos gerados automaticamente pelo Intlayer, adicione
 
 ## Vá Além
 
-- **Editor Visual**: Gerencie traduções com o [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md).
-- **Integração com CMS**: Exporte e obtenha traduções de um [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md).
-- **Comandos CLI**: Explore o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md).
+- **Editor Visual**: Gerencie traduções com o [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
+- **Integração com CMS**: Exporte e obtenha traduções de um [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+- **Comandos CLI**: Explore o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).

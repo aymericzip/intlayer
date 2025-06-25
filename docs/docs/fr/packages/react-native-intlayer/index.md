@@ -1,7 +1,7 @@
 ---
 docName: package__react-native-intlayer
 url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Documentation du package | react-native-intlayer
@@ -27,7 +27,7 @@ Internationaliser votre application React Native est essentiel pour servir effic
 
 ## Configuration
 
-Le package `react-native-intlayer` fonctionne parfaitement avec le [`package react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/react-intlayer/index.md), et le [`package intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/intlayer/index.md). Consultez la documentation pertinente pour plus d'informations.
+Le package `react-native-intlayer` fonctionne parfaitement avec le [`package react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/index.md), et le [`package intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/index.md). Consultez la documentation pertinente pour plus d'informations.
 
 ## Installation
 
@@ -65,7 +65,7 @@ module.exports = (async () => {
 
 Intlayer propose de nombreuses fonctionnalités pour vous aider à internationaliser votre application Vite.
 
-**Pour en savoir plus sur ces fonctionnalités, consultez le guide [Internationalisation (i18n) avec Intlayer et React Native](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_with_react_native+expo.md) pour les applications React Native.**
+**Pour en savoir plus sur ces fonctionnalités, consultez le guide [Internationalisation (i18n) avec Intlayer et React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_native+expo.md) pour les applications React Native.**
 
 ## En savoir plus sur Intlayer
 

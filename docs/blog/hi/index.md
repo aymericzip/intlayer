@@ -1,7 +1,7 @@
 ---
 blogName: index
 url: https://intlayer.org/blog/search/
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md
 createdAt: 2024-24-12
 updatedAt: 2024-24-12
 title: ब्लॉग
@@ -60,7 +60,7 @@ keywords:
 
 हम समुदाय-प्रेरित ज्ञान साझा करने में विश्वास करते हैं। यदि आपके पास अंतरराष्ट्रीयकरण, **SEO**, या किसी अन्य प्रासंगिक विषय से संबंधित ब्लॉग पोस्ट के लिए एक शानदार विचार है, तो हम आपसे सुनने के लिए उत्सुक हैं। आप हमारे GitHub रिपॉजिटरी में अपने प्रस्तावित ब्लॉग पोस्ट को जोड़कर एक पुल अनुरोध सबमिट कर सकते हैं:
 
-[**यहां अपना पोस्ट सबमिट करें**](https://github.com/aymericzip/intlayer/blob/main/blog)
+[**यहां अपना पोस्ट सबमिट करें**](https://github.com/aymericzip/intlayer/blob/main/docs/blog)
 
 आपका योगदान हमें इस प्लेटफॉर्म को समृद्ध बनाने और दुनियाभर के डेवलपर्स को सशक्त बनाने में मदद करता है। चलिए एक वैश्विक-प्रथम अनुप्रयोगों का समुदाय बनाते हैं, साथ में।
 

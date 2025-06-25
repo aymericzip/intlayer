@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: React के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## अंतर्राष्ट्रीयकरण (i18n) क्या है?
 
 अंतर्राष्ट्रीयकरण, जिसे i18n के रूप में संक्षिप्त किया जाता है, आपकी वेबसाइट को कई भाषाओं और सांस्कृतिक संदर्भों का समर्थन करने के लिए डिजाइन और तैयार करने की प्रक्रिया है। React में, इसका मतलब है कि आपके ऐप को इस तरह से सेट करना कि स्ट्रिंग्स, तारीख प्रारूप, संख्या प्रारूप, और यहां तक कि लेआउट को विभिन्न क्षेत्रों के उपयोगकर्ताओं के लिए आसानी से अनुकूलित किया जा सके। अपने React ऐप को i18n के लिए तैयार करना अनुवादों और अन्य स्थानीयकरण सुविधाओं को स्वच्छ रूप से एकीकृत करने के लिए आधार तैयार करता है।
 
-i18n के बारे में अधिक जानें हमारे लेख को पढ़कर: [अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/blog/hi/what_is_internationalization.md).
+i18n के बारे में अधिक जानें हमारे लेख को पढ़कर: [अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/what_is_internationalization.md).
 
 ---
 

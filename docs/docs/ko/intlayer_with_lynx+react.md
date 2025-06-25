@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-03-09
 title: Lynx와 React의 모바일 앱을 번역하십시오 (i18n)
@@ -122,7 +122,7 @@ module.exports = config;
 - **지원되는 로케일 목록**을 구성합니다.
 - **기본 로케일**을 설정합니다.
 - 나중에 더 고급 옵션(예: 로그, 사용자 지정 콘텐츠 디렉토리 등)을 추가할 수 있습니다.
-- [Intlayer 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
+- [Intlayer 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
 ## 3단계: Lynx 번들러에 Intlayer 플러그인 추가
 
@@ -353,7 +353,7 @@ module.exports = appContent;
 }
 ```
 
-> 콘텐츠 선언에 대한 자세한 내용은 [Intlayer의 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 참조하세요.
+> 콘텐츠 선언에 대한 자세한 내용은 [Intlayer의 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 참조하세요.
 
 ---
 
@@ -457,7 +457,7 @@ export const LocaleSwitcher: FC = () => {
 
 이 작업은 Intlayer 콘텐츠를 사용하는 모든 컴포넌트를 다시 렌더링하며, 새로운 로케일에 대한 번역을 표시합니다.
 
-> 자세한 내용은 [`useLocale` 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
+> 자세한 내용은 [`useLocale` 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 
 ## TypeScript 구성 (TypeScript를 사용하는 경우)
 
@@ -495,6 +495,6 @@ Intlayer에 의해 자동 생성된 파일을 커밋하지 않으려면 `.gitign
 
 ## 더 알아보기
 
-- **시각적 편집기**: [Intlayer 시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)를 사용하여 번역을 시각적으로 관리하세요.
-- **CMS 통합**: 사전 콘텐츠를 외부화하고 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)에서 가져올 수도 있습니다.
-- **CLI 명령어**: **번역 추출** 또는 **누락된 키 확인**과 같은 작업을 위한 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)를 탐색하세요.
+- **시각적 편집기**: [Intlayer 시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 사용하여 번역을 시각적으로 관리하세요.
+- **CMS 통합**: 사전 콘텐츠를 외부화하고 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)에서 가져올 수도 있습니다.
+- **CLI 명령어**: **번역 추출** 또는 **누락된 키 확인**과 같은 작업을 위한 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 탐색하세요.

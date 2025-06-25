@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__drupal
 url: https://intlayer.org/blog/i18n-technologies/CMS/drupal
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/drupal.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/drupal.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: أفضل أدوات التدويل (i18n) للإنترات
@@ -26,7 +26,7 @@ keywords:
 
 التدويل (i18n) هو عملية تصميم موقع الويب الخاص بك بحيث يمكن تعديله بسهولة لمختلف اللغات والسياقات الثقافية دون الحاجة إلى إعادة تصميم إطاره. في Drupal، ينطوي هذا على بناء أساس حيث يمكن ترجمة المحتوى, بما في ذلك الصفحات، والمنشورات، والقوائم، وإعدادات التكوين, بكفاءة لتناسب جماهير متنوعة.
 
-تعرف على المزيد حول i18n من خلال قراءة دليلنا الشامل: [ما هو التدويل (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/docs/ar/what_is_internationalization.md).
+تعرف على المزيد حول i18n من خلال قراءة دليلنا الشامل: [ما هو التدويل (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/what_is_internationalization.md).
 
 ---
 

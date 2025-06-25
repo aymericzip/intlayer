@@ -1,7 +1,7 @@
 ---
 docName: mcp_server
 url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: Документация сервера MCP
@@ -25,7 +25,7 @@ keywords:
 Включив Intlayer MCP Сервер в вашей IDE, вы получите:
 
 - **Интеграция с CLI**
-  Доступ и выполнение команд Intlayer CLI прямо из интерфейса вашей IDE. Полный список команд и опций можно найти в [документации Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md).
+  Доступ и выполнение команд Intlayer CLI прямо из интерфейса вашей IDE. Полный список команд и опций можно найти в [документации Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
 
 - **Контекстная документация**
   MCP сервер загружает и предоставляет документацию, соответствующую версии Intlayer, используемой в вашем проекте. Это гарантирует, что предложения по коду, параметры команд и объяснения всегда актуальны и релевантны.
@@ -164,7 +164,7 @@ npm test
 
 ## Полезные ссылки
 
-- [Документация Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md)
+- [Документация Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md)
 - [Репозиторий Intlayer на GitHub](https://github.com/aymericzip/intlayer)
 
 ---

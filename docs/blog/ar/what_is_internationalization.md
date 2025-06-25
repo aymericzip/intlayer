@@ -1,7 +1,7 @@
 ---
 blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: ما هو التدويل (i18n)? التعريف والمعاملات
@@ -19,7 +19,7 @@ keywords:
 
 # ما هو التدويل (i18n)؟ التعريف والتحديات
 
-![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## فهم التدويل (i18n)
 
@@ -73,7 +73,7 @@ keywords:
 
 ## التحديات الشائعة في i18n
 
-![توضيح ألم i18n](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
+![توضيح ألم i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
 
 - **قابلية الصيانة**  
   يجب أن تتزامن كل تحديثات الموقع مع جميع اللغات، مما يتطلب سير عمل فعال وتنسيق دقيق لضمان الاتساق عبر جميع النسخ.
@@ -145,16 +145,16 @@ keywords:
 
 ### لأنظمة إدارة المحتوى (CMS)
 
-- WordPress: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/CMS/wordpress.md)
-- Drupal: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/CMS/drupal.md)
+- WordPress: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/CMS/drupal.md)
 
 ### لتطبيقات JavaScript (الواجهة الأمامية)
 
-- React: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/react.md)
-- Angular: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/angular.md)
-- Vue: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/vue.md)
-- Svelte: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/svelte.md)
-- React Native: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ar/list_i18n_technologies/frameworks/react-native.md)
+- React: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/react.md)
+- Angular: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/angular.md)
+- Vue: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/svelte.md)
+- React Native: [راجع قائمة بمكتبات وأدوات i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

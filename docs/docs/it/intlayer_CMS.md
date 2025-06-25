@@ -1,7 +1,7 @@
 ---
 docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: CMS Intlayer | Esterna il tuo contenuto nel CMS Intlayer
@@ -37,7 +37,7 @@ Intlayer distingue tra dizionari 'locali' e 'remoti'.
 
 ## Editor visivo vs CMS
 
-L'[Editor Visivo di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md) è uno strumento che consente di gestire i contenuti in un editor visivo per i dizionari locali. Una volta apportata una modifica, il contenuto verrà sostituito nella base di codice. Ciò significa che l'applicazione verrà ricostruita e la pagina verrà ricaricata per visualizzare il nuovo contenuto.
+L'[Editor Visivo di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) è uno strumento che consente di gestire i contenuti in un editor visivo per i dizionari locali. Una volta apportata una modifica, il contenuto verrà sostituito nella base di codice. Ciò significa che l'applicazione verrà ricostruita e la pagina verrà ricaricata per visualizzare il nuovo contenuto.
 
 Al contrario, il CMS di Intlayer è uno strumento che consente di gestire i contenuti in un editor visivo per i dizionari remoti. Una volta apportata una modifica, il contenuto **non** influirà sulla base di codice. E il sito web visualizzerà automaticamente il contenuto modificato.
 
@@ -47,15 +47,15 @@ Per maggiori dettagli su come installare il pacchetto, consulta la sezione perti
 
 ### Integrazione con Next.js
 
-Per l'integrazione con Next.js, consulta la [guida all'installazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_nextjs_15.md).
+Per l'integrazione con Next.js, consulta la [guida all'installazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_15.md).
 
 ### Integrazione con Create React App
 
-Per l'integrazione con Create React App, consulta la [guida all'installazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_create_react_app.md).
+Per l'integrazione con Create React App, consulta la [guida all'installazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_create_react_app.md).
 
 ### Integrazione con Vite + React
 
-Per l'integrazione con Vite + React, consulta la [guida all'installazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_vite+react.md).
+Per l'integrazione con Vite + React, consulta la [guida all'installazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vite+react.md).
 
 ## Configurazione
 
@@ -214,7 +214,7 @@ module.exports = config;
 
 > Se non hai un client ID e un client secret, puoi ottenerli creando un nuovo client nella [Dashboard di Intlayer - Progetti](https://intlayer.org/dashboard/projects).
 
-> Per vedere tutti i parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+> Per vedere tutti i parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
 ## Utilizzo del CMS
 

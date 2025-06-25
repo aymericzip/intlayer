@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__t
 url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: t函数文档 | next-intlayer
@@ -351,7 +351,7 @@ const text = t(translations);
 
 `next-intlayer` 中的 `t` 函数是管理 Next.js 应用中内联翻译的强大且方便的工具。通过有效集成它，您可以增强应用的国际化能力，为全球用户提供更好的体验。
 
-有关更详细的用法和高级功能，请参阅 [next-intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)。
+有关更详细的用法和高级功能，请参阅 [next-intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 ---
 

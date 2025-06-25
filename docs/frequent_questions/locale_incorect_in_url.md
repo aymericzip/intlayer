@@ -49,4 +49,4 @@ This middleware is responsible for rewriting routes when `prefixDefault` is set 
 - French: `/about`
 - Spanish: `/about`
 
-For more details about these configuration options, see the [Configuration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
+For more details about these configuration options, see the [Configuration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).

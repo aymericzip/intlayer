@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getConfiguration
 url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: getConfiguration फ़ंक्शन प्रलेखन | intlayer
@@ -40,7 +40,7 @@ keywords:
   - `content`: सामग्री फ़ाइलों, निर्देशिकाओं और पैटर्न से संबंधित सेटिंग्स।
   - `editor`: संपादक-विशिष्ट कॉन्फ़िगरेशन।
 
-अधिक विवरण के लिए [Intlayer कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) देखें।
+अधिक विवरण के लिए [Intlayer कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
 ---
 

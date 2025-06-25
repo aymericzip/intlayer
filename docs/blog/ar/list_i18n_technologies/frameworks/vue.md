@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__vue
 url: https://intlayer.org/blog/i18n-technologies/frameworks/vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/vue.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/vue.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: أفضل أدوات التدويل (i18n) للإنترات
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## ما هي العولمة (i18n)؟
 
 العولمة (i18n) هي ممارسة إعداد تطبيق برمجي (أو موقع ويب) لعدة لغات وعادات ثقافية. ضمن نظام Vue.js البيئي، يشمل ذلك تحديد كيفية تكييف النصوص، والتواريخ، والأرقام، والعملة، والعناصر الأخرى القابلة للتخصيص لمواقع مختلفة. من خلال إعداد i18n من البداية، تضمن هيكلًا منظمًا وقابلًا للتوسع لإضافة لغات جديدة والتعامل مع احتياجات الترجمة المستقبلية.
 
-لمعرفة المزيد حول أساسيات i18n، تحقق من مرجعنا: [ما هي العولمة (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/blog/ar/what_is_internationalization.md).
+لمعرفة المزيد حول أساسيات i18n، تحقق من مرجعنا: [ما هي العولمة (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/what_is_internationalization.md).
 
 ---
 

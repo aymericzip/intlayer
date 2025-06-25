@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getConfiguration
 url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق دالة getConfiguration | intlayer
@@ -40,7 +40,7 @@ keywords:
   - `content`: الإعدادات المتعلقة بملفات المحتوى، الأدلة، والأنماط.
   - `editor`: التكوينات الخاصة بالمحرر.
 
-راجع [توثيق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md) لمزيد من التفاصيل.
+راجع [توثيق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لمزيد من التفاصيل.
 
 ---
 

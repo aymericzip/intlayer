@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> См. [Документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md) для получения более подробной информации.
+> См. [Документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) для получения более подробной информации.
 
 2. Определите переменные окружения.
 

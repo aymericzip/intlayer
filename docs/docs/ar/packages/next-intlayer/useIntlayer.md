@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق hook useIntlayer | next-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 من المهم أن يتم تعريف جميع مفاتيح المحتوى داخل ملفات تعريف المحتوى لتجنب أخطاء وقت التشغيل وضمان سلامة النوع. يتيح هذا النهج أيضًا تكامل TypeScript للتحقق أثناء وقت الترجمة.
 
-تعليمات إعداد ملفات تعريف المحتوى متوفرة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+تعليمات إعداد ملفات تعريف المحتوى متوفرة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
 
 ## مثال على الاستخدام في Next.js
 
@@ -252,6 +252,6 @@ const ServerComponentExample = () => {
 
 ## معلومات إضافية
 
-- **محرر Intlayer البصري**: تعرف على كيفية استخدام المحرر البصري لإدارة المحتوى بسهولة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md).
+- **محرر Intlayer البصري**: تعرف على كيفية استخدام المحرر البصري لإدارة المحتوى بسهولة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 يوضح هذا التوثيق استخدام الـ hook `useIntlayer` بشكل خاص في بيئات Next.js، مما يوفر حلاً قويًا لإدارة التوطين عبر تطبيقات Next.js الخاصة بك.

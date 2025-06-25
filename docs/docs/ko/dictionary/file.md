@@ -1,7 +1,7 @@
 ---
 docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: 파일
@@ -216,10 +216,10 @@ const myMultilingualContent = {
 
 Intlayer에서 파일 임베딩을 구성하고 사용하는 방법에 대한 자세한 내용은 다음 자료를 참조하십시오:
 
-- [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)
-- [React Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_create_react_app.md)
-- [Next Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md)
-- [Markdown 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/markdown.md)
-- [번역 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/translation.md)
+- [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)
+- [React Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)
+- [Next Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)
+- [Markdown 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md)
+- [번역 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)
 
 이 자료들은 파일 임베딩, 콘텐츠 관리 및 Intlayer의 다양한 프레임워크와의 통합에 대한 추가적인 통찰력을 제공합니다.

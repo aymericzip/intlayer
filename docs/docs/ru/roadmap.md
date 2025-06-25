@@ -1,7 +1,7 @@
 ---
 docName: roadmap
 url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-03-01
 title: Дорожная карта
@@ -32,7 +32,7 @@ Intlayer , это решение для управления контентом 
 
 > Ресурсы:
 >
-> - [Декларация контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md)
+> - [Декларация контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md)
 
 ### 2. Интернационализация
 
@@ -41,7 +41,7 @@ Intlayer , это решение для управления контентом 
 
 > Ресурсы:
 >
-> - [Интернационализация](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/translation.md)
+> - [Интернационализация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md)
 
 ### 3. Поддержка Markdown
 
@@ -50,7 +50,7 @@ Intlayer , это решение для управления контентом 
 
 > Ресурсы:
 >
-> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/markdown.md)
+> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md)
 
 ### 4. Условный рендеринг
 
@@ -59,7 +59,7 @@ Intlayer , это решение для управления контентом 
 
 > Ресурсы:
 >
-> - [Условный рендеринг](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/condition.md)
+> - [Условный рендеринг](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md)
 
 ### 5. Форматы декларации контента
 
@@ -77,7 +77,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
   > Ресурсы:
   >
-  > - [Форматы декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/content_extention_customization.md)
+  > - [Форматы декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_extention_customization.md)
 
 ---
 
@@ -104,7 +104,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
 > Ресурсы:
 >
-> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_nextjs_15.md)
+> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
 
@@ -112,7 +112,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
 > Ресурсы:
 >
-> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_vite+react.md)
+> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md)
 
 ### 3. Express
 
@@ -121,7 +121,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
 > Ресурсы:
 >
-> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_express.md)
+> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_express.md)
 
 ---
 
@@ -138,7 +138,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
 > Ресурсы:
 >
-> - [Визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md)
+> - [Визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (удаленный)
 
@@ -148,7 +148,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
 > Ресурсы:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 ---
 
@@ -160,7 +160,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
 > Ресурсы:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md)
 
 ---
 
@@ -177,7 +177,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
 > Ресурсы:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 ---
 

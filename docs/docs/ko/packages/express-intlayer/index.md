@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer
 url: https://intlayer.org/doc/packages/express-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 패키지 문서 | express-intlayer
@@ -105,7 +105,7 @@ const config = {
 module.exports = config;
 ```
 
-> 사용 가능한 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
+> 사용 가능한 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
 ## 사용 예제
 
@@ -190,9 +190,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer`는 다음과 완벽히 호환됩니다:
 
-- React 애플리케이션용 [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/index.md)
-- Next.js 애플리케이션용 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/index.md)
-- Vite 애플리케이션용 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/vite-intlayer/index.md)
+- React 애플리케이션용 [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md)
+- Next.js 애플리케이션용 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md)
+- Vite 애플리케이션용 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md)
 
 또한 브라우저 및 API 요청을 포함한 다양한 환경에서의 국제화 솔루션과 원활하게 작동합니다. 헤더 또는 쿠키를 통해 로케일을 감지하도록 미들웨어를 사용자 정의할 수 있습니다:
 
@@ -244,4 +244,4 @@ module.exports = config;
 
 ## `express-intlayer` 패키지가 제공하는 함수
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ko-GB/packages/express-intlayer/t.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko-GB/packages/express-intlayer/t.md)

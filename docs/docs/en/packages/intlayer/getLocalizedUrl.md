@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocalizedUrl
 url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: getLocalizedUrl Function Documentation | intlayer
@@ -42,18 +42,18 @@ The `getLocalizedUrl` function generates a localized URL by prefixing the given 
 
   - **Description**: Optional array of supported locales. By defaults, the configured locales in the project are provided.
   - **Type**: `Locales[]`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md#middleware)
+  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
   - **Description**: The default locale for the application. By defaults, the configured default locale in the project are provided.
   - **Type**: `Locales`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md#middleware)
+  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
 - `prefixDefault: boolean`
   - **Description**: Whether to prefix the URL for the default locale. By defaults, the configured value in the project are provided.
   - **Type**: `boolean`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md#middleware)
+  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
 ### Returns
 

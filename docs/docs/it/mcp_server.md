@@ -1,7 +1,7 @@
 ---
 docName: mcp_server
 url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: Documentazione del server MCP
@@ -25,7 +25,7 @@ Il **Server MCP (Model Context Protocol) di Intlayer** fornisce assistenza IDE p
 Abilitando il Server MCP di Intlayer nel tuo IDE, sbloccherai:
 
 - **Integrazione CLI Intelligente**  
-  Accedi ed esegui i comandi CLI di Intlayer direttamente dall'interfaccia del tuo IDE. Visualizza l'elenco completo dei comandi e delle opzioni nella [documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
+  Accedi ed esegui i comandi CLI di Intlayer direttamente dall'interfaccia del tuo IDE. Visualizza l'elenco completo dei comandi e delle opzioni nella [documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).
 
 - **Documentazione Contestuale**  
   Il server MCP carica ed espone la documentazione corrispondente alla versione di Intlayer che stai utilizzando nel tuo progetto. Questo garantisce che i suggerimenti di codice, le opzioni dei comandi e le spiegazioni siano sempre aggiornati e pertinenti.
@@ -164,7 +164,7 @@ Il server esporrà strumenti e risorse specifici di Intlayer che possono essere 
 
 ## Link Utili
 
-- [Documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md)
+- [Documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md)
 - [Repository GitHub di Intlayer](https://github.com/aymericzip/intlayer)
 
 ---

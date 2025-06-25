@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-03-09
 title: Traduce su aplicación móvil Lynx y React (i18n)
@@ -122,7 +122,7 @@ En esta configuración puedes:
 - Definir tu **lista de locales soportados**.
 - Fijar un local **por defecto**.
 - Más adelante, podrías añadir opciones avanzadas (p. ej., logs, directorios de contenido personalizados, etc.).
-- Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md) para más información.
+- Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) para más información.
 
 ---
 
@@ -344,7 +344,7 @@ module.exports = appContent;
 }
 ```
 
-> Para más información sobre la declaración de contenido, visita la [documentación de contenido de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md).
+> Para más información sobre la declaración de contenido, visita la [documentación de contenido de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
 
 ---
 
@@ -448,7 +448,7 @@ export const LocaleSwitcher: FC = () => {
 
 Esto provoca que se vuelvan a renderizar todos los componentes que usan contenido de Intlayer, mostrándose ahora las traducciones para el nuevo local.
 
-> Consulta la [documentación de `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useLocale.md) para más detalles.
+> Consulta la [documentación de `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) para más detalles.
 
 ---
 
@@ -488,6 +488,6 @@ Para evitar subir a tu repositorio los archivos generados automáticamente por I
 
 ## Para profundizar
 
-- **Editor visual**: Usa el [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md) para administrar traducciones de forma visual.
-- **Integración con CMS**: También puedes externalizar y obtener el contenido de tus diccionarios desde un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md).
-- **Comandos CLI**: Explora el [CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md) para tareas como **extraer traducciones** o **comprobar claves faltantes**.
+- **Editor visual**: Usa el [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) para administrar traducciones de forma visual.
+- **Integración con CMS**: También puedes externalizar y obtener el contenido de tus diccionarios desde un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+- **Comandos CLI**: Explora el [CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) para tareas como **extraer traducciones** o **comprobar claves faltantes**.

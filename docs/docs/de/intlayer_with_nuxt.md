@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_nuxt
 url: https://intlayer.org/doc/environment/nuxt-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nuxt.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-18
 title: Übersetzen Sie Ihre Nuxt und Vue-Website (i18n)
@@ -55,7 +55,7 @@ yarn add --save-dev nuxt-intlayer
 
 - **intlayer**
 
-  Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzung, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md), Transpilation und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md) bereitstellt.
+  Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzung, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md), Transpilation und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) bereitstellt.
 
 - **vue-intlayer**
   Das Paket, das Intlayer in Vue-Anwendungen integriert. Es bietet die Composables für die Vue-Komponenten.
@@ -132,7 +132,7 @@ const config = {
 module.exports = config;
 ```
 
-> Über diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Umleitungen, Cookie-Namen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen festlegen, Intlayer-Logs in der Konsole deaktivieren und mehr. Eine vollständige Liste der verfügbaren Parameter finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md).
+> Über diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Umleitungen, Cookie-Namen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen festlegen, Intlayer-Logs in der Konsole deaktivieren und mehr. Eine vollständige Liste der verfügbaren Parameter finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
 ### Schritt 3: Intlayer in Ihre Nuxt-Konfiguration integrieren
 
@@ -391,7 +391,7 @@ module.exports = helloWorldContent;
 
 > Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, solange sie im `contentDir` Verzeichnis (standardmäßig `./src`) enthalten sind und der Dateierweiterung für Inhaltsdeklarationen entsprechen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> Für weitere Details, lesen Sie die [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
+> Für weitere Details, lesen Sie die [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
 
 ### Schritt 5: Verwenden Sie Intlayer in Ihrem Code
 
@@ -449,7 +449,7 @@ const countRef = ref(0);
 Intlayer bietet zwei APIs, um auf Ihre Inhalte zuzugreifen:
 
 - **Komponentenbasierte Syntax** (empfohlen):
-  Verwenden Sie die `<myContent />` oder `<Component :is="myContent" />` Syntax, um Inhalte als Intlayer Node darzustellen. Dies integriert sich nahtlos mit dem [Visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md) und [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md).
+  Verwenden Sie die `<myContent />` oder `<Component :is="myContent" />` Syntax, um Inhalte als Intlayer Node darzustellen. Dies integriert sich nahtlos mit dem [Visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) und [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md).
 
 - **String-basierte Syntax**:
   Verwenden Sie `{{ myContent }}`, um den Inhalt als einfachen Text darzustellen, ohne Unterstützung für den visuellen Editor.
@@ -814,4 +814,4 @@ Weitere Details zur Verwendung der Erweiterung finden Sie in der [Intlayer VS Co
 
 ### Weiterführende Schritte
 
-Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md) auslagern.
+Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.

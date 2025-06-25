@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-i18next
 url: https://intlayer.org/blog/intlayer-with-next-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11
 updatedAt: 2025-01-02
 title: Intlayer와 next-i18next
@@ -34,7 +34,7 @@ both next-i18next와 Intlayer는 Next.js 애플리케이션용으로 설계된 �
 
 ## Intlayer vs. i18next: 주요 차이점
 
-i18next와 Intlayer의 차이를 알고 싶다면 우리의 [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/blog/ko/i18next_vs_next-intl_vs_intlayer.md) 블로그 게시물을 확인하십시오.
+i18next와 Intlayer의 차이를 알고 싶다면 우리의 [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_next-intl_vs_intlayer.md) 블로그 게시물을 확인하십시오.
 
 ## Intlayer로 next-i18next 사전 생성하는 방법
 

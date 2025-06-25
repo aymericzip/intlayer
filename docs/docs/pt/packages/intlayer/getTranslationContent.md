@@ -174,4 +174,4 @@ console.log(customContent.greeting); // Saída: "Bonjour"
 - **Enforcement do TypeScript:**
   - Se os locales em `languageContent` não corresponderem à configuração do projeto, o TypeScript exigirá que todos os locales necessários sejam definidos, garantindo que o conteúdo seja completo e seguro em termos de tipo.
 
-[Documentação em Português](https://github.com/aymericzip/intlayer/blob/main/docs/pt/**/*.md)
+[Documentação em Português](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/**/*.md)

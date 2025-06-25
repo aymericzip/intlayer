@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentação do hook useIntlayer | next-intlayer
@@ -63,7 +63,7 @@ Dependendo se você está trabalhando com componentes do lado do cliente ou do s
 
 É crucial que todas as chaves de conteúdo sejam definidas dentro de arquivos de declaração de conteúdo para evitar erros em tempo de execução e garantir a segurança de tipos. Essa abordagem também facilita a integração com TypeScript para validação em tempo de compilação.
 
-Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
+Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
 
 ## Exemplo de Uso no Next.js
 
@@ -252,6 +252,6 @@ Para localizar atributos como `alt`, `title`, `href`, `aria-label`, etc., certif
 
 ## Mais Informações
 
-- **Editor Visual Intlayer**: Saiba como usar o editor visual para facilitar o gerenciamento de conteúdo [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md).
+- **Editor Visual Intlayer**: Saiba como usar o editor visual para facilitar o gerenciamento de conteúdo [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md).
 
 Esta documentação descreve o uso do hook `useIntlayer` especificamente em ambientes Next.js, fornecendo uma solução robusta para gerenciar a localização em suas aplicações Next.js.

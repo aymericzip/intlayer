@@ -1,7 +1,7 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: 自動入力
@@ -37,7 +37,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-これは`autoFill`命令を使用した[言語ごとのコンテンツ宣言ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/ja/per_locale_file.md)です。
+これは`autoFill`命令を使用した[言語ごとのコンテンツ宣言ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)です。
 
 次に、以下のコマンドを実行すると：
 

@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayerAsync钩子文档 | next-intlayer
@@ -219,12 +219,12 @@ const AsyncClientComponentExample = () => {
 
 所有内容键都必须在您的内容声明文件中定义，以确保类型安全并防止运行时错误。这些文件启用 TypeScript 验证，确保您始终引用现有的键和语言环境。
 
-有关设置内容声明文件的说明，请参阅 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
+有关设置内容声明文件的说明，请参阅 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
 
 ## 更多信息
 
 - **Intlayer 可视化编辑器：**  
-  集成 Intlayer 可视化编辑器以直接从 UI 管理和编辑内容。更多详情请参阅 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)。
+  集成 Intlayer 可视化编辑器以直接从 UI 管理和编辑内容。更多详情请参阅 [这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 ---
 

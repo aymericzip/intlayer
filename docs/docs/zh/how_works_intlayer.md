@@ -1,7 +1,7 @@
 ---
 docName: how_works_intlayer
 url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2024-08-12
 title: Intlayer 的工作原理
@@ -40,13 +40,13 @@ Intlayer 的核心理念是采用每个组件的内容管理。因此，Intlayer
 构建步骤可以通过以下三种方式完成：
 
 - 使用 CLI 命令 `npx intlayer build`
-- 使用 [vscode 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/zh/vs_code_extension.md)
-- 使用应用插件，例如 [`vite-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/vite-intlayer/index.md)，或其在 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/index.md) 中的等价插件。当您使用这些插件之一时，Intlayer 会在启动（开发模式）或构建（生产模式）应用时自动构建您的字典。
+- 使用 [vscode 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+- 使用应用插件，例如 [`vite-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md)，或其在 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 中的等价插件。当您使用这些插件之一时，Intlayer 会在启动（开发模式）或构建（生产模式）应用时自动构建您的字典。
 
 1. 内容文件的声明
 
    - 内容文件可以以多种格式定义，例如 TypeScript、ECMAScript、CommonJS 或 JSON。
-   - 内容文件可以在项目中的任何地方定义，这有助于更好的维护和扩展性。重要的是要遵守内容文件的文件扩展名约定。默认扩展名为 `*.content.{js|cjs|mjs|ts|tsx|json}`，但可以在 [配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 中修改。
+   - 内容文件可以在项目中的任何地方定义，这有助于更好的维护和扩展性。重要的是要遵守内容文件的文件扩展名约定。默认扩展名为 `*.content.{js|cjs|mjs|ts|tsx|json}`，但可以在 [配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 中修改。
 
 2. `字典` 的生成
 
@@ -75,7 +75,7 @@ const MyComponent = () => {
 
 此钩子将为您管理语言环境检测，并返回当前语言环境的内容。通过此钩子，您还可以解释 markdown、管理复数化等。
 
-> 要查看 Intlayer 的所有功能，您可以阅读 [字典文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
+> 要查看 Intlayer 的所有功能，您可以阅读 [字典文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
 
 ## 远程内容
 
@@ -87,7 +87,7 @@ Intlayer 允许您在本地声明内容，然后将其导出到 CMS，以便您�
 
 ## 可视化编辑器
 
-Intlayer 还提供了一个可视化编辑器，允许您以可视化的方式编辑内容。此 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md) 可在外部 `intlayer-editor` 包中使用。
+Intlayer 还提供了一个可视化编辑器，允许您以可视化的方式编辑内容。此 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 可在外部 `intlayer-editor` 包中使用。
 
 ![可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -99,13 +99,13 @@ Intlayer 还提供了一个可视化编辑器，允许您以可视化的方式�
 
 通过优化构建，Intlayer 将替换所有字典调用以优化分块。这样，最终的包只会导入实际使用的字典。
 
-通过在 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 中激活选项 `activateDynamicImport`，Intlayer 将使用动态导入加载字典。默认情况下，此选项是禁用的，以避免在渲染应用时进行异步处理。
+通过在 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 中激活选项 `activateDynamicImport`，Intlayer 将使用动态导入加载字典。默认情况下，此选项是禁用的，以避免在渲染应用时进行异步处理。
 
 > `@intlayer/babel` 默认包含在 `vite-intlayer` 包中，
 
 > `@intlayer/swc` 默认未安装在 `next-intlayer` 包中，因为 SWC 插件在 Next.js 中仍然是实验性的。
 
-要了解如何配置应用的构建，您可以阅读 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+要了解如何配置应用的构建，您可以阅读 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ## 包
 

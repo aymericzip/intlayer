@@ -1,7 +1,7 @@
 ---
 blogName: index
 url: https://intlayer.org/blog/search/
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md
 createdAt: 2024-24-12
 updatedAt: 2024-24-12
 title: مدونة
@@ -60,7 +60,7 @@ keywords:
 
 نحن نؤمن بمشاركة المعرفة المستندة إلى المجتمع. إذا كانت لديك فكرة رائعة لمقال مدونة تتعلق بالتدويل، أو **تحسين محركات البحث**، أو أي موضوع ذي صلة آخر، نحب أن نسمع منك. يمكنك تقديم طلب سحب من خلال إضافة مقالك المقترح إلى مستودع GitHub الخاص بنا:
 
-[**قدّم مقالك هنا**](https://github.com/aymericzip/intlayer/blob/main/blog)
+[**قدّم مقالك هنا**](https://github.com/aymericzip/intlayer/blob/main/docs/blog)
 
 تساعد مساهماتك في إثراء هذه المنصة وتمكين المطورين في جميع أنحاء العالم. دعونا نبني مجتمعًا من التطبيقات العالمية أولاً, معًا.
 

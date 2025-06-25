@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_vite_vue
 url: https://intlayer.org/doc/environment/vite-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+vue.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md
 createdAt: 2025-04-18
 updatedAt: 2025-04-18
 title: Traduza o seu site Vite e Vue (i18n)
@@ -57,7 +57,7 @@ yarn add --save-dev vite-intlayer
 
 - **intlayer**
 
-  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md), transpilação e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_cli.md).
+  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md), transpilação e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md).
 
 - **vue-intlayer**
   O pacote que integra o Intlayer com a aplicação Vue. Ele fornece provedores de contexto e composables para internacionalização no Vue.
@@ -125,7 +125,7 @@ const config = {
 module.exports = config;
 ```
 
-> Através deste arquivo de configuração, você pode configurar URLs localizados, redirecionamento de middleware, nomes de cookies, a localização e extensão de suas declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md).
+> Através deste arquivo de configuração, você pode configurar URLs localizados, redirecionamento de middleware, nomes de cookies, a localização e extensão de suas declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
 ### Passo 3: Integrar o Intlayer na Configuração do Vite
 
@@ -407,7 +407,7 @@ module.exports = appContent;
 
 > Suas declarações de conteúdo podem ser definidas em qualquer lugar em sua aplicação, desde que estejam incluídas no diretório `contentDir` (por padrão, `./src`). E correspondam à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
+> Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
 
 ### Passo 5: Utilize o Intlayer no Seu Código
 
@@ -477,7 +477,7 @@ acessar seu conteúdo:
 
 - **Sintaxe baseada em componentes** (recomendado): Use a
   sintaxe `<meuConteudo />`, ou `<Component :is="meuConteudo" />` para renderizar o conteúdo como um Nó do Intlayer. Isso se integra
-  perfeitamente com o [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md) e o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_CMS.md).
+  perfeitamente com o [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) e o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
 - **Sintaxe baseada em strings**: Use `{{ meuConteudo }}` para renderizar o
   conteúdo como texto simples, sem suporte do Editor Visual. - **Sintaxe de HTML
   bruto**: Use `<div v-html="meuConteudo" />` para renderizar o conteúdo como HTML bruto, sem suporte do Editor Visual.
@@ -1016,4 +1016,4 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da Ex
 
 ### Vá Além
 
-## Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_CMS.md).
+## Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).

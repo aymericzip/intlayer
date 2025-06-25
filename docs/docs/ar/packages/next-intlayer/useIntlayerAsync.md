@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق خطاف useIntlayerAsync | next-intlayer
@@ -219,12 +219,12 @@ const AsyncClientComponentExample = () => {
 
 يجب تعريف جميع مفاتيح المحتوى في ملفات إعلان المحتوى الخاصة بك لضمان الأمان من النوع ولتجنب أخطاء وقت التشغيل. تتيح هذه الملفات التحقق من صحة TypeScript، مما يضمن دائمًا الرجوع إلى المفاتيح واللغات الموجودة.
 
-تعليمات إعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+تعليمات إعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
 
 ## معلومات إضافية
 
 - **محرر Intlayer المرئي:**  
-  قم بالدمج مع محرر Intlayer المرئي لإدارة وتحرير المحتوى مباشرة من واجهة المستخدم. مزيد من التفاصيل [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md).
+  قم بالدمج مع محرر Intlayer المرئي لإدارة وتحرير المحتوى مباشرة من واجهة المستخدم. مزيد من التفاصيل [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 ---
 

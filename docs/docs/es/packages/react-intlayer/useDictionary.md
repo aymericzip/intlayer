@@ -43,7 +43,7 @@ El hook acepta dos parámetros:
 
 ## Diccionario
 
-Todos los objetos de diccionario deben declararse en archivos de contenido estructurados para garantizar la seguridad de tipos y prevenir errores en tiempo de ejecución. Puedes encontrar las instrucciones de configuración [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md). Aquí tienes un ejemplo de declaración de contenido:
+Todos los objetos de diccionario deben declararse en archivos de contenido estructurados para garantizar la seguridad de tipos y prevenir errores en tiempo de ejecución. Puedes encontrar las instrucciones de configuración [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md). Aquí tienes un ejemplo de declaración de contenido:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 // Declaración del contenido del componente en TypeScript

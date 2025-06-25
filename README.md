@@ -73,7 +73,7 @@ Intlayer offers a more flexible and modern approach to **internationalization** 
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true)                              | **Tree-shakable Content**<br><br>Tree-shakable content, reducing the size of the final bundle. Loads content per component, excluding any unused content from your bundle. Supports lazy loading to enhance app loading efficiency. <br><br> - [App build optimization](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                                            |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png?raw=true)                    | **Static Rendering**<br><br>Doesn't block Static Rendering. <br><br> - [Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                      |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true)                      | **AI-Powered Translation**<br><br>Transform your website into 231 languages with just one click using Intlayer's advanced AI-powered translation tools using your own AI provider / API key. <br><br> - [CI/CD integration](https://intlayer.org/doc/concept/ci-cd) <br> - [Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [Auto fill](https://intlayer.org/doc/concept/auto-fill) |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                 | **MCP Server Integration**<br><br>Provides an MCP (Model Context Protocol) server for IDE automation, enabling seamless content management and i18n workflows directly within your development environment. <br><br> - [MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md)                                                                                    |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                 | **MCP Server Integration**<br><br>Provides an MCP (Model Context Protocol) server for IDE automation, enabling seamless content management and i18n workflows directly within your development environment. <br><br> - [MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)                                                                               |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                    | **Interoperability**<br><br>Allow interoperability with react-i18next, next-i18next, next-intl, and react-intl. <br><br> - [Intlayer and react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer and next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer and next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)           |
 
 Start your journey with Intlayer today and experience a smoother, more powerful approach to internationalization.  
@@ -115,7 +115,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   - [Intlayer with Next.js 14 (App Router)](https://intlayer.org/doc/environment/nextjs/14)
   - [Intlayer with Next.js Page Router](https://intlayer.org/doc/environment/nextjs/next-with-Page-Router)
 - [Intlayer with React CRA](https://intlayer.org/doc/environment/create-react-app)
-- [Intlayer with Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md)
+- [Intlayer with Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 - [Intlayer with React Native](https://intlayer.org/fr/doc/environment/react-native-and-expo)
 - [Intlayer with Lynx and React](https://intlayer.org/fr/doc/environment/lynx-and-react)
 - [Intlayer with Vite and Svelte](https://intlayer.org/doc/environment/vite-and-svelte)
@@ -128,7 +128,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 ### Blog
 
-- [What is i18n](https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md)
+- [What is i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md)
 - [i18n and SEO](https://intlayer.org//blog/SEO-and-i18n)
 - [Intlayer and i18next](https://intlayer.org//blog/intlayer-with-next-i18next)
 - [Intlayer and react-intl](https://intlayer.org//blog/intlayer-with-react-i18next)

@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_vite_svelte
 url: https://intlayer.org/doc/environment/vite-and-svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+svelte.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+svelte.md
 createdAt: 2025-04-18
 updatedAt: 2025-04-18
 title: 翻译你的Vite和Svelte网站 (i18n)

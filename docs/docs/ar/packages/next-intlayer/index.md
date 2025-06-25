@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer
 url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق حزمة | next-intlayer
@@ -54,7 +54,7 @@ pnpm add next-intlayer
 
 بشكل افتراضي، يقوم Intlayer بفحص الملفات ذات الامتداد `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-> يمكنك تعديل الامتداد الافتراضي عن طريق تعيين خاصية `contentDir` في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+> يمكنك تعديل الامتداد الافتراضي عن طريق تعيين خاصية `contentDir` في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ pnpm add next-intlayer
 
 ### إعلان المحتوى الخاص بك
 
-`next-intlayer` مصمم للعمل مع [حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). `intlayer` هي حزمة تتيح لك إعلان المحتوى الخاص بك في أي مكان في الكود الخاص بك. تقوم بتحويل إعلانات المحتوى متعدد اللغات إلى قواميس منظمة تندمج بسلاسة في تطبيقك.
+`next-intlayer` مصمم للعمل مع [حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md). `intlayer` هي حزمة تتيح لك إعلان المحتوى الخاص بك في أي مكان في الكود الخاص بك. تقوم بتحويل إعلانات المحتوى متعدد اللغات إلى قواميس منظمة تندمج بسلاسة في تطبيقك.
 
 إليك مثال على إعلان المحتوى:
 
@@ -267,19 +267,19 @@ const ClientComponentExample = () => {
 يوفر Intlayer العديد من الميزات لمساعدتك في تدويل تطبيق Next.js الخاص بك. إليك بعض الميزات الرئيسية:
 
 - **تدويل مكونات الخادم**: يتيح لك Intlayer تدويل مكونات الخادم بنفس طريقة مكونات العميل. هذا يعني أنه يمكنك استخدام نفس إعلانات المحتوى لكل من مكونات العميل والخادم.
-- **وسيط لاكتشاف اللغة**: يوفر Intlayer وسيطًا لاكتشاف اللغة المفضلة للمستخدم. يُستخدم هذا الوسيط لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيههم إلى الرابط المناسب كما هو محدد في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+- **وسيط لاكتشاف اللغة**: يوفر Intlayer وسيطًا لاكتشاف اللغة المفضلة للمستخدم. يُستخدم هذا الوسيط لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيههم إلى الرابط المناسب كما هو محدد في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 - **تدويل البيانات الوصفية**: يوفر Intlayer طريقة لتدويل البيانات الوصفية الخاصة بك، مثل عنوان صفحتك، باستخدام وظيفة `generateMetadata` التي يوفرها Next.js. يمكنك استخدام وظيفة `getTranslation` لترجمة البيانات الوصفية الخاصة بك.
 - **تدويل sitemap.xml وrobots.txt**: يتيح لك Intlayer تدويل ملفات sitemap.xml وrobots.txt الخاصة بك. يمكنك استخدام وظيفة `getMultilingualUrls` لإنشاء روابط متعددة اللغات لملف sitemap الخاص بك.
 - **تدويل الروابط**: يتيح لك Intlayer تدويل الروابط الخاصة بك باستخدام وظيفة `getMultilingualUrls`. تقوم هذه الوظيفة بإنشاء روابط متعددة اللغات لملف sitemap الخاص بك.
 
-**لتعلم المزيد عن هذه الميزات، راجع دليل [تدويل Next.js (i18n) مع Intlayer وNext.js 15 App Router](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md).**
+**لتعلم المزيد عن هذه الميزات، راجع دليل [تدويل Next.js (i18n) مع Intlayer وNext.js 15 App Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md).**
 
 ## الوظائف التي توفرها حزمة `next-intlayer`
 
 توفر حزمة `next-intlayer` أيضًا بعض الوظائف لمساعدتك في تدويل تطبيقك.
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useIntlayerAsync.md)

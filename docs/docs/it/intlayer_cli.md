@@ -1,7 +1,7 @@
 ---
 docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: CLI
@@ -39,7 +39,7 @@ pnpm add intlayer-cli -g
 
 ## Pacchetto intlayer-cli
 
-Il pacchetto `intlayer-cli` ha lo scopo di trasporre le tue [dichiarazioni intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/dictionary/get_started.md) in dizionari.
+Il pacchetto `intlayer-cli` ha lo scopo di trasporre le tue [dichiarazioni intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md) in dizionari.
 
 Questo pacchetto trasporrà tutti i file intlayer, come `src/**/*.content.{ts|js|mjs|cjs|json}`. [Scopri come dichiarare i tuoi file di dichiarazione Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
@@ -56,7 +56,7 @@ Intlayer accetta diversi formati di file di configurazione:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-Per vedere come configurare le lingue disponibili o altri parametri, fai riferimento alla [documentazione di configurazione qui](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+Per vedere come configurare le lingue disponibili o altri parametri, fai riferimento alla [documentazione di configurazione qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
 ## Esegui comandi intlayer
 
@@ -82,7 +82,7 @@ Questo comando troverà i tuoi file di dichiarazione dei contenuti come predefin
 npx intlayer dictionary push
 ```
 
-Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md) è installato, puoi anche caricare i dizionari nell'editor. Questo comando renderà i dizionari disponibili per [l'editor](https://intlayer.org/dashboard). In questo modo, puoi condividere i tuoi dizionari con il tuo team e modificare i tuoi contenuti senza modificare il codice della tua applicazione.
+Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) è installato, puoi anche caricare i dizionari nell'editor. Questo comando renderà i dizionari disponibili per [l'editor](https://intlayer.org/dashboard). In questo modo, puoi condividere i tuoi dizionari con il tuo team e modificare i tuoi contenuti senza modificare il codice della tua applicazione.
 
 ##### Argomenti:
 
@@ -109,7 +109,7 @@ Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/it/in
 npx intlayer dictionary pull
 ```
 
-Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_visual_editor.md) è installato, puoi anche scaricare i dizionari dall'editor. In questo modo, puoi sovrascrivere il contenuto dei tuoi dizionari per le esigenze della tua applicazione.
+Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) è installato, puoi anche scaricare i dizionari dall'editor. In questo modo, puoi sovrascrivere il contenuto dei tuoi dizionari per le esigenze della tua applicazione.
 
 ##### Argomenti:
 

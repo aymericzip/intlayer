@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__wix
 url: https://intlayer.org/blog/i18n-technologies/CMS/wix
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/wix.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wix.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: أفضل أدوات التدويل (i18n) للإنترات
@@ -26,7 +26,7 @@ keywords:
 
 يشير التدويل (i18n) إلى عملية تصميم وإعداد موقعك على الويب بحيث يمكنه بسهولة دعم لغات وسياقات ثقافية متعددة. في Wix، يعني ذلك إنشاء بنية موقع مرنة حيث يمكن تعديل أو ترجمة النصوص والصور والقوائم وحتى العناصر التفاعلية للمناطق المختلفة. من خلال التخطيط للتدويل من البداية، تضمن أن محتواك يمكن أن يكون مخصصًا بفعالية، مما يجعله متاحًا وجذابًا لجمهور عالمي.
 
-لمزيد من المعلومات حول التدويل وأهميته في تصميم الويب، تحقق من مقالنا الأساسي حول [مفهوم التدويل](https://github.com/aymericzip/intlayer/blob/main/docs/ar/**/*.md).
+لمزيد من المعلومات حول التدويل وأهميته في تصميم الويب، تحقق من مقالنا الأساسي حول [مفهوم التدويل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/**/*.md).
 
 ---
 

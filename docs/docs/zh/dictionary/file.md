@@ -1,7 +1,7 @@
 ---
 docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: 文件
@@ -218,10 +218,10 @@ const myMultilingualContent = {
 
 有关在 Intlayer 中配置和使用文件嵌入的更多详细信息，请参考以下资源：
 
-- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)
-- [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)
-- [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)
-- [Markdown 内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/markdown.md)
-- [翻译内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/translation.md)
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)
+- [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
+- [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
+- [Markdown 内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)
+- [翻译内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)
 
 这些资源提供了有关文件嵌入、内容管理以及 Intlayer 与各种框架集成的更多见解。

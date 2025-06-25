@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer
 url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 패키지 문서 | next-intlayer
@@ -54,7 +54,7 @@ Intlayer를 사용하면 코드베이스 어디에서나 구조화된 방식으�
 
 기본적으로 Intlayer는 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` 확장자를 가진 파일을 스캔합니다.
 
-> [구성 파일](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)의 `contentDir` 속성을 설정하여 기본 확장자를 수정할 수 있습니다.
+> [구성 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)의 `contentDir` 속성을 설정하여 기본 확장자를 수정할 수 있습니다.
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ Intlayer를 사용하면 코드베이스 어디에서나 구조화된 방식으�
 
 ### 콘텐츠 선언하기
 
-`next-intlayer`는 [`intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/index.md)와 함께 작동하도록 설계되었습니다. `intlayer`는 코드 어디에서나 콘텐츠를 선언할 수 있도록 해주는 패키지입니다. 다국어 콘텐츠 선언을 구조화된 사전으로 변환하여 애플리케이션에 원활하게 통합합니다.
+`next-intlayer`는 [`intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/index.md)와 함께 작동하도록 설계되었습니다. `intlayer`는 코드 어디에서나 콘텐츠를 선언할 수 있도록 해주는 패키지입니다. 다국어 콘텐츠 선언을 구조화된 사전으로 변환하여 애플리케이션에 원활하게 통합합니다.
 
 다음은 콘텐츠 선언 예제입니다:
 
@@ -267,19 +267,19 @@ const ClientComponentExample = () => {
 Intlayer는 Next.js 애플리케이션을 국제화하는 데 도움이 되는 다양한 기능을 제공합니다. 주요 기능은 다음과 같습니다:
 
 - **서버 구성 요소의 국제화**: Intlayer는 클라이언트 구성 요소와 동일한 방식으로 서버 구성 요소를 국제화할 수 있습니다. 즉, 클라이언트 및 서버 구성 요소 모두에 동일한 콘텐츠 선언을 사용할 수 있습니다.
-- **로케일 감지를 위한 미들웨어**: Intlayer는 사용자의 선호 로케일을 감지하기 위한 미들웨어를 제공합니다. 이 미들웨어는 사용자의 선호 로케일을 감지하고 [구성](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)에 지정된 대로 적절한 URL로 리디렉션합니다.
+- **로케일 감지를 위한 미들웨어**: Intlayer는 사용자의 선호 로케일을 감지하기 위한 미들웨어를 제공합니다. 이 미들웨어는 사용자의 선호 로케일을 감지하고 [구성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에 지정된 대로 적절한 URL로 리디렉션합니다.
 - **메타데이터의 국제화**: Intlayer는 페이지 제목과 같은 메타데이터를 국제화하는 방법을 제공합니다. Next.js에서 제공하는 `generateMetadata` 함수를 사용하여 메타데이터를 번역할 수 있습니다.
 - **sitemap.xml 및 robots.txt의 국제화**: Intlayer는 sitemap.xml 및 robots.txt 파일을 국제화할 수 있습니다. `getMultilingualUrls` 함수를 사용하여 다국어 URL을 생성할 수 있습니다.
 - **URL의 국제화**: Intlayer는 `getMultilingualUrls` 함수를 사용하여 URL을 국제화할 수 있습니다. 이 함수는 sitemap을 위한 다국어 URL을 생성합니다.
 
-**이 기능에 대한 자세한 내용은 [Next.js 15 App Router와 Intlayer를 사용한 Next.js 국제화(i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md) 가이드를 참조하세요.**
+**이 기능에 대한 자세한 내용은 [Next.js 15 App Router와 Intlayer를 사용한 Next.js 국제화(i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md) 가이드를 참조하세요.**
 
 ## `next-intlayer` 패키지가 제공하는 함수들
 
 `next-intlayer` 패키지는 애플리케이션을 국제화하는 데 도움이 되는 몇 가지 함수를 제공합니다.
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useIntlayerAsync.md)

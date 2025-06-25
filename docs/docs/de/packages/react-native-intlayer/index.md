@@ -1,7 +1,7 @@
 ---
 docName: package__react-native-intlayer
 url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Paketdokumentation | react-native-intlayer
@@ -27,7 +27,7 @@ Die Internationalisierung Ihrer React Native Anwendung ist entscheidend, um ein 
 
 ## Konfiguration
 
-Das `react-native-intlayer` Paket funktioniert nahtlos mit dem [`react-intlayer` Paket](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/react-intlayer/index.md) und dem [`intlayer` Paket](https://github.com/aymericzip/intlayer/blob/main/docs/de/packages/intlayer/index.md). Schauen Sie sich die entsprechende Dokumentation für weitere Informationen an.
+Das `react-native-intlayer` Paket funktioniert nahtlos mit dem [`react-intlayer` Paket](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md) und dem [`intlayer` Paket](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/index.md). Schauen Sie sich die entsprechende Dokumentation für weitere Informationen an.
 
 ## Installation
 
@@ -65,7 +65,7 @@ module.exports = (async () => {
 
 Intlayer bietet viele Funktionen, die Ihnen helfen, Ihre Vite-Anwendung zu internationalisieren.
 
-**Um mehr über diese Funktionen zu erfahren, lesen Sie den [React Internationalisierung (i18n) mit Intlayer und React Native](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_react_native+expo.md) Leitfaden für React Native Anwendungen.**
+**Um mehr über diese Funktionen zu erfahren, lesen Sie den [React Internationalisierung (i18n) mit Intlayer und React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_react_native+expo.md) Leitfaden für React Native Anwendungen.**
 
 ## Lesen Sie mehr über Intlayer
 

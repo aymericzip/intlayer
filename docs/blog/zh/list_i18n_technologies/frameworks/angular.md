@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__angular
 url: https://intlayer.org/blog/i18n-technologies/frameworks/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/angular.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/angular.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Angular的最佳国际化工具
@@ -20,13 +20,13 @@ keywords:
 
 在当今互联的世界中，提供多种语言的网站可以显著扩大您的覆盖面并改善用户体验。对于使用 Angular 的开发人员来说，实现国际化 (i18n) 对于有效管理翻译，同时保持应用程序结构、SEO 和性能至关重要。在本文中，我们将探讨各种 i18n 方法, , 从 Angular 的内置解决方案到流行的第三方库, , 帮助您确定最适合您项目的方案。
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 什么是国际化 (i18n)？
 
 国际化，通常称为 i18n，是设计和准备您的应用程序以支持多种语言和文化背景的过程。在 Angular 中，这涉及到配置您的应用程序，使得文本、日期、数字，甚至 UI 布局可以无缝适应不同的区域设置。妥善打下这一基础可以确保将来集成翻译时保持组织有序和高效。
 
-了解 i18n 基本知识，请阅读我们的文章：[什么是国际化 (i18n)？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/blog/zh/what_is_internationalization.md)。
+了解 i18n 基本知识，请阅读我们的文章：[什么是国际化 (i18n)？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/what_is_internationalization.md)。
 
 ---
 

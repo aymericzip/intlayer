@@ -1,7 +1,7 @@
 ---
 docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-05-20
 title: CI/CD-Integration
@@ -51,7 +51,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Weitere Informationen zum CMS finden Sie in der [offiziellen Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md).
+Weitere Informationen zum CMS finden Sie in der [offiziellen Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md).
 
 ## Verwendung von Husky
 
@@ -88,7 +88,7 @@ npx intlayer build                          # Sicherstellen, dass Wörterbücher
 npx intlayer fill --unpushed --mode fill    # Nur fehlende Inhalte ausfüllen, bestehende nicht aktualisieren
 ```
 
-> Weitere Informationen zu Intlayer CLI-Befehlen und deren Verwendung finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md).
+> Weitere Informationen zu Intlayer CLI-Befehlen und deren Verwendung finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
 
 > Wenn Sie mehrere Apps in Ihrem Repository haben, die separate Intlayer-Instanzen verwenden, können Sie das Argument `--base-dir` wie folgt verwenden:
 
@@ -164,4 +164,4 @@ jobs:
 
 > Standardmäßig filtert das Argument `--git-diff` Wörterbücher, die Änderungen von der Basis (Standard `origin/main`) zum aktuellen Branch (Standard: `HEAD`) enthalten.
 
-> Weitere Informationen zu Intlayer CLI-Befehlen und deren Verwendung finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_cli.md).
+> Weitere Informationen zu Intlayer CLI-Befehlen und deren Verwendung finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).

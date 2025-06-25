@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer
 url: https://intlayer.org/doc/packages/intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق حزمة | intlayer
@@ -92,7 +92,7 @@ const config = {
 module.exports = config;
 ```
 
-> للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+> للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ## مثال على الاستخدام
 
@@ -100,7 +100,7 @@ module.exports = config;
 
 بشكل افتراضي، يقوم Intlayer بفحص الملفات ذات الامتداد `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-> يمكن تعديل الامتداد الافتراضي عن طريق تعيين خاصية `contentDir` في [ملف الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+> يمكن تعديل الامتداد الافتراضي عن طريق تعيين خاصية `contentDir` في [ملف الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ```bash codeFormat="typescript"
 .

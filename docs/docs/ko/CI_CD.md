@@ -1,7 +1,7 @@
 ---
 docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-05-20
 title: CI/CD 통합
@@ -51,7 +51,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-CMS에 대한 자세한 내용은 [공식 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)를 참조하세요.
+CMS에 대한 자세한 내용은 [공식 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 참조하세요.
 
 ## Husky 사용
 
@@ -88,7 +88,7 @@ npx intlayer build                          # 사전이 최신 상태인지 확�
 npx intlayer fill --unpushed --mode fill    # 누락된 콘텐츠만 채우고, 기존 콘텐츠는 업데이트하지 않음
 ```
 
-> Intlayer CLI 명령과 사용법에 대한 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)를 참조하세요.
+> Intlayer CLI 명령과 사용법에 대한 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 참조하세요.
 
 > 저장소에 여러 앱이 있고 각각 별도의 intlayer 인스턴스를 사용하는 경우, 다음과 같이 `--base-dir` 인수를 사용할 수 있습니다:
 
@@ -164,4 +164,4 @@ jobs:
 
 > 기본적으로 `--git-diff` 인수는 기본(기본값 `origin/main`)에서 현재 브랜치(기본값: `HEAD`)까지의 변경 사항이 포함된 사전을 필터링합니다.
 
-> Intlayer CLI 명령과 사용법에 대한 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)를 참조하세요.
+> Intlayer CLI 명령과 사용법에 대한 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 참조하세요.

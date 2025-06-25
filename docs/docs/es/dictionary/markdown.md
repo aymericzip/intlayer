@@ -1,7 +1,7 @@
 ---
 docName: dictionary__markdown
 url: https://intlayer.org/doc/concept/content/markdown
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
 createdAt: 2025-02-7
 updatedAt: 2025-02-7
 title: Markdown
@@ -22,7 +22,7 @@ keywords:
 
 Intlayer admite contenido de texto enriquecido definido mediante la sintaxis de Markdown. Esto se logra a través de la función `md`, que convierte una cadena de Markdown en un formato que puede ser gestionado por Intlayer. Al usar Markdown, puedes escribir y mantener contenido con formato enriquecido fácilmente, como blogs, artículos y más.
 
-[El editor visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_visual_editor.md) y el [CMS de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_CMS.md) admiten la gestión de contenido en Markdown.
+[El editor visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) y el [CMS de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) admiten la gestión de contenido en Markdown.
 
 Cuando se integra con una aplicación React, puedes usar un proveedor de renderizado de Markdown (como [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)) para renderizar el contenido de Markdown en HTML. Esto te permite escribir contenido en Markdown mientras aseguras que se muestre correctamente en tu aplicación.
 
@@ -348,9 +348,9 @@ const IntlayerMarkdownProvider = ({ children }) => (
 
 ## Recursos Adicionales
 
-- [Documentación de Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md)
-- [Documentación de React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_create_react_app.md)
-- [Documentación de Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_nextjs_15.md)
+- [Documentación de Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md)
+- [Documentación de React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md)
+- [Documentación de Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md)
 - [markdown-to-jsx en npm](https://www.npmjs.com/package/markdown-to-jsx)
 
 Estos recursos proporcionan información adicional sobre cómo configurar y usar Intlayer con varios tipos de contenido y frameworks.

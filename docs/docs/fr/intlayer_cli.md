@@ -1,7 +1,7 @@
 ---
 docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: CLI
@@ -39,7 +39,7 @@ pnpm add intlayer-cli -g
 
 ## Package intlayer-cli
 
-Le package `intlayer-cli` a pour but de transcrire vos [déclarations intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md) en dictionnaires.
+Le package `intlayer-cli` a pour but de transcrire vos [déclarations intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md) en dictionnaires.
 
 Ce package transcrira tous les fichiers intlayer, tels que `src/**/*.content.{ts|js|mjs|cjs|json}`. [Voir comment déclarer vos fichiers de déclaration Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
@@ -56,7 +56,7 @@ Intlayer accepte plusieurs formats de fichiers de configuration :
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-Pour voir comment configurer les locales disponibles ou d'autres paramètres, référez-vous à la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md).
+Pour voir comment configurer les locales disponibles ou d'autres paramètres, référez-vous à la [documentation de configuration ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
 ## Exécuter les commandes intlayer
 
@@ -82,7 +82,7 @@ Cette commande trouvera vos fichiers de contenu de déclaration par défaut comm
 npx intlayer dictionary push
 ```
 
-Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_visual_editor.md) est installé, vous pouvez également pousser les dictionnaires vers l'éditeur. Cette commande permettra de rendre les dictionnaires disponibles dans [l'éditeur](https://intlayer.org/dashboard). De cette manière, vous pouvez partager vos dictionnaires avec votre équipe et éditer votre contenu sans modifier le code de votre application.
+Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est installé, vous pouvez également pousser les dictionnaires vers l'éditeur. Cette commande permettra de rendre les dictionnaires disponibles dans [l'éditeur](https://intlayer.org/dashboard). De cette manière, vous pouvez partager vos dictionnaires avec votre équipe et éditer votre contenu sans modifier le code de votre application.
 
 ##### Arguments :
 
@@ -109,7 +109,7 @@ Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/f
 npx intlayer dictionary pull
 ```
 
-Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_visual_editor.md) est installé, vous pouvez également récupérer les dictionnaires depuis l'éditeur. De cette manière, vous pouvez écraser le contenu de vos dictionnaires pour les besoins de votre application.
+Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est installé, vous pouvez également récupérer les dictionnaires depuis l'éditeur. De cette manière, vous pouvez écraser le contenu de vos dictionnaires pour les besoins de votre application.
 
 ##### Arguments :
 

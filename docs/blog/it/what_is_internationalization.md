@@ -1,7 +1,7 @@
 ---
 blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Cos'è l'internazionalizzazione (i18n)? Definizione e sfide
@@ -19,7 +19,7 @@ keywords:
 
 # Cos'è l'internazionalizzazione (i18n)? Definizione e sfide
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Comprensione dell'internazionalizzazione (i18n)
 
@@ -73,7 +73,7 @@ Questa panoramica concisa copre gli elementi principali che dovrebbero essere in
 
 ## Sfide comuni nell'i18n
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
 
 - **manutenibilità**  
   Ogni aggiornamento del sito web deve essere replicato in ogni lingua, richiedendo flussi di lavoro efficienti e attenta coordinazione per garantire coerenza tra tutte le versioni.
@@ -145,16 +145,16 @@ Se stai cercando un elenco di librerie e strumenti i18n per tecnologia, dai un'o
 
 ### Per i sistemi di gestione dei contenuti (CMS)
 
-- WordPress: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/blog/it/list_i18n_technologies/CMS/wordpress.md)
-- Drupal: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/blog/it/list_i18n_technologies/CMS/drupal.md)
+- WordPress: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/list_i18n_technologies/CMS/drupal.md)
 
 ### Per applicazioni JavaScript (Frontend)
 
-- React: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/blog/it/list_i18n_technologies/frameworks/react.md)
-- Angular: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/blog/it/list_i18n_technologies/frameworks/angular.md)
-- Vue: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/blog/it/list_i18n_technologies/frameworks/vue.md)
-- Svelte: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/blog/it/list_i18n_technologies/frameworks/svelte.md)
-- React Native: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/blog/it/list_i18n_technologies/frameworks/react-native.md)
+- React: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/list_i18n_technologies/frameworks/react.md)
+- Angular: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/list_i18n_technologies/frameworks/angular.md)
+- Vue: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/list_i18n_technologies/frameworks/svelte.md)
+- React Native: [Vedi l'elenco di librerie e strumenti i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

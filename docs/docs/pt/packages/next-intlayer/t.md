@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__t
 url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentação da função t | next-intlayer
@@ -354,7 +354,7 @@ const text = t(translations);
 
 A função `t` no `next-intlayer` é uma ferramenta poderosa e conveniente para gerenciar traduções inline em suas aplicações Next.js. Ao integrá-la de forma eficaz, você aprimora as capacidades de internacionalização do seu aplicativo, proporcionando uma melhor experiência para usuários em todo o mundo.
 
-Para mais detalhes sobre o uso e recursos avançados, consulte a [documentação do next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md).
+Para mais detalhes sobre o uso e recursos avançados, consulte a [documentação do next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md).
 
 ---
 

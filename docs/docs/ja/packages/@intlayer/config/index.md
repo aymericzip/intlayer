@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)をご覧ください。
+> 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
 
 2. 環境変数を定義します。
 

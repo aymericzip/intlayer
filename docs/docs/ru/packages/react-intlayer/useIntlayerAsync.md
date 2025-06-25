@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Документация по хуку useIntlayerAsync | react-intlayer
@@ -234,12 +234,12 @@ const ComponentExample = () => {
 
 Все ключи контента должны быть определены в ваших файлах декларации контента для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Эти файлы позволяют использовать проверку TypeScript, гарантируя, что вы всегда ссылаетесь на существующие ключи и локали.
 
-Инструкции по настройке файлов декларации контента доступны [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md).
+Инструкции по настройке файлов декларации контента доступны [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md).
 
 ## Дополнительная информация
 
 - **Визуальный редактор Intlayer:**  
-  Интеграция с визуальным редактором Intlayer для управления и редактирования контента напрямую из пользовательского интерфейса. Подробнее [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md).
+  Интеграция с визуальным редактором Intlayer для управления и редактирования контента напрямую из пользовательского интерфейса. Подробнее [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
 ---
 

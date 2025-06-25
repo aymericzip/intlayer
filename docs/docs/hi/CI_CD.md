@@ -1,7 +1,7 @@
 ---
 docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-05-20
 title: CI/CD एकीकरण
@@ -51,7 +51,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-CMS के बारे में अधिक जानने के लिए, [आधिकारिक दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_CMS.md) देखें।
+CMS के बारे में अधिक जानने के लिए, [आधिकारिक दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) देखें।
 
 ## Husky का उपयोग करना
 
@@ -88,7 +88,7 @@ npx intlayer build                          # सुनिश्चित कर
 npx intlayer fill --unpushed --mode fill    # केवल गायब सामग्री को भरें, मौजूदा को अपडेट न करें
 ```
 
-> Intlayer CLI कमांड्स और उनके उपयोग के बारे में अधिक जानकारी के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) देखें।
+> Intlayer CLI कमांड्स और उनके उपयोग के बारे में अधिक जानकारी के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md) देखें।
 
 > यदि आपके रिपॉजिटरी में कई ऐप्स हैं जो अलग-अलग intlayer इंस्टेंस का उपयोग करते हैं, तो आप `--base-dir` तर्क का उपयोग इस प्रकार कर सकते हैं:
 
@@ -164,4 +164,4 @@ jobs:
 
 > डिफ़ॉल्ट रूप से, `--git-diff` तर्क उन शब्दकोशों को फ़िल्टर करता है जिनमें बेस (डिफ़ॉल्ट `origin/main`) से वर्तमान शाखा (डिफ़ॉल्ट: `HEAD`) तक परिवर्तन शामिल हैं।
 
-> Intlayer CLI कमांड्स और उनके उपयोग के बारे में अधिक जानकारी के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) देखें।
+> Intlayer CLI कमांड्स और उनके उपयोग के बारे में अधिक जानकारी के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md) देखें।

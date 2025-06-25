@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getConfiguration
 url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Dokumentation der t-Funktion | intlayer
@@ -40,7 +40,7 @@ Die Funktion nimmt keine Parameter entgegen. Stattdessen verwendet sie Umgebungs
   - `content`: Einstellungen zu Inhaltsdateien, Verzeichnissen und Mustern.
   - `editor`: Editor-spezifische Konfigurationen.
 
-Siehe [Intlayer-Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md) für weitere Details.
+Siehe [Intlayer-Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) für weitere Details.
 
 ---
 

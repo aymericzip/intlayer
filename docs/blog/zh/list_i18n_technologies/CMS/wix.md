@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__wix
 url: https://intlayer.org/blog/i18n-technologies/CMS/wix
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/wix.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wix.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Wix的最佳国际化工具
@@ -26,7 +26,7 @@ keywords:
 
 国际化（i18n）是指设计和准备您的网站，以便它可以轻松支持多种语言和文化背景的过程。在 Wix 中，这意味着建立一个灵活的网站架构，使文本、图像、菜单甚至互动元素可以适应或翻译为不同地区的版本。通过从一开始就为 i18n 进行规划，您可以确保您的内容能够高效本地化，使其对全球受众可访问且具有吸引力。
 
-有关国际化及其在网页设计中重要性的更多见解，请查看我们关于[国际化概念](https://github.com/aymericzip/intlayer/blob/main/docs/zh/concept_of_internationalization.md)的基础文章。
+有关国际化及其在网页设计中重要性的更多见解，请查看我们关于[国际化概念](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/concept_of_internationalization.md)的基础文章。
 
 ---
 

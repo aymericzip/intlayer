@@ -1,7 +1,7 @@
 ---
 docName: mcp_server
 url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: MCP सर्वर दस्तावेज़ीकरण
@@ -25,7 +25,7 @@ keywords:
 अपने IDE में Intlayer MCP सर्वर को सक्षम करके, आप निम्नलिखित सुविधाओं का लाभ उठा सकते हैं:
 
 - **स्मार्ट CLI इंटीग्रेशन**
-  अपने IDE इंटरफ़ेस से सीधे Intlayer CLI कमांड्स को एक्सेस और रन करें। कमांड्स और विकल्पों की पूरी सूची [Intlayer CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) में देखें।
+  अपने IDE इंटरफ़ेस से सीधे Intlayer CLI कमांड्स को एक्सेस और रन करें। कमांड्स और विकल्पों की पूरी सूची [Intlayer CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md) में देखें।
 
 - **संदर्भ-सचेत दस्तावेज़ीकरण**
   MCP सर्वर उस संस्करण की दस्तावेज़ीकरण को लोड और एक्सपोज़ करता है जो आपके प्रोजेक्ट में उपयोग हो रहा है। यह सुनिश्चित करता है कि कोड सुझाव, कमांड विकल्प, और व्याख्याएं हमेशा अद्यतन और प्रासंगिक हों।
@@ -164,5 +164,5 @@ npm test
 
 ## उपयोगी लिंक
 
-- [Intlayer CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md)
+- [Intlayer CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md)
 - [Intlayer GitHub रिपॉजिटरी](https://github.com/aymericzip/intlayer)

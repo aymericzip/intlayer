@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__angular
 url: https://intlayer.org/blog/i18n-technologies/frameworks/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/angular.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/angular.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Angular용 최상의 국제화 도구
@@ -20,13 +20,13 @@ keywords:
 
 오늘날의 상호 연결된 세계에서 웹사이트를 여러 언어로 제공하는 것은 사용자 경험을 개선하고 도달 범위를 크게 확장할 수 있습니다. Angular로 작업하는 개발자에게 국제화(i18n)를 구현하는 것은 애플리케이션 구조, SEO 및 성능을 보존하면서 번역 관리를 효율적으로 수행하는 데 중요합니다. 이 문서에서는 Angular의 내장 솔루션부터 인기 있는 서드파티 라이브러리까지 다양한 i18n 접근 방식을 탐구하여 프로젝트에 가장 적합한 선택을 할 수 있도록 도와줍니다.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 국제화(i18n)가 무엇인가요?
 
 국제화는 종종 i18n이라고 불리며, 애플리케이션이 여러 언어와 문화적 맥락을 지원하도록 설계하고 준비하는 과정입니다. Angular에서는 텍스트, 날짜, 숫자 및 UI 레이아웃이 다양한 로케일에 원활하게 적응할 수 있도록 앱을 구성하는 것을 의미합니다. 이러한 기초 작업을 올바르게 수행하면 앞으로의 번역 통합이 조직적이고 효율적으로 유지될 수 있습니다.
 
-i18n 기본 사항에 대한 자세한 내용은 다음 기사를 읽어보십시오: [국제화(i18n)란 무엇인가요? 정의와 도전 과제](https://github.com/aymericzip/intlayer/blob/main/blog/ko/what_is_internationalization.md).
+i18n 기본 사항에 대한 자세한 내용은 다음 기사를 읽어보십시오: [국제화(i18n)란 무엇인가요? 정의와 도전 과제](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/what_is_internationalization.md).
 
 ---
 

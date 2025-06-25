@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayerフックのドキュメント | react-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 ## 辞書
 
-すべての辞書キーは、型の安全性を高め、エラーを防ぐためにコンテンツ宣言ファイル内で宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)をご覧ください。
+すべての辞書キーは、型の安全性を高め、エラーを防ぐためにコンテンツ宣言ファイル内で宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)をご覧ください。
 
 ## Reactでの使用例
 
@@ -240,6 +240,6 @@ const ServerComponentExample = () => {
 
 ## 追加リソース
 
-- **Intlayerビジュアルエディター**: より直感的なコンテンツ管理体験のために、ビジュアルエディターのドキュメントは[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)をご覧ください。
+- **Intlayerビジュアルエディター**: より直感的なコンテンツ管理体験のために、ビジュアルエディターのドキュメントは[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
 このセクションは、Reactアプリケーションでの`useIntlayer`フックの統合に特化しており、ローカライズプロセスを簡素化し、異なるロケール間でのコンテンツの一貫性を確保します。

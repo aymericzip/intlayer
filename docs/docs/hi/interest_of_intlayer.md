@@ -1,7 +1,7 @@
 ---
 docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2024-08-14
 title: Intlayer की रुचि
@@ -138,11 +138,11 @@ const ComponentExample = () => {
 - **अच्छी तरह से संगठित कोडबेस**: कोडबेस को अधिक संगठित रखें: 1 घटक = 1 शब्दकोश एक ही फ़ोल्डर में।
 - **स्वचालित TypeScript प्रकार**: TypeScript प्रकार स्वचालित रूप से लागू होते हैं, कुंजियों के पुनर्नामकरण या हटाने के कारण कोड टूटने से बचाते हैं।
 - **CI स्वचालित अनुवाद**: अपने CI में अपनी स्वयं की OpenAI API कुंजी का उपयोग करके अपने अनुवादों को स्वचालित रूप से भरें, L10n प्लेटफ़ॉर्म की आवश्यकता को समाप्त करते हुए।
-- **MCP सर्वर एकीकरण**: IDE स्वचालन के लिए एक MCP (Model Context Protocol) सर्वर प्रदान करता है, जो आपके विकास वातावरण के भीतर सीधे सामग्री प्रबंधन और i18n वर्कफ़्लो को सक्षम बनाता है। [और जानें](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md)।
+- **MCP सर्वर एकीकरण**: IDE स्वचालन के लिए एक MCP (Model Context Protocol) सर्वर प्रदान करता है, जो आपके विकास वातावरण के भीतर सीधे सामग्री प्रबंधन और i18n वर्कफ़्लो को सक्षम बनाता है। [और जानें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)।
 - **मार्कडाउन समर्थन**: गोपनीयता नीतियों जैसी बहुभाषी सामग्री के लिए मार्कडाउन फ़ाइलों को आयात और व्याख्या करें।
 - **मुफ्त विज़ुअल एडिटर और CMS**: यदि आपको अनुवाद के लिए सामग्री लेखकों के साथ सहयोग करने की आवश्यकता है, तो मुफ्त विज़ुअल एडिटर और CMS का उपयोग करें, फिर से स्थानीयकरण प्लेटफ़ॉर्म की आवश्यकता को समाप्त करें और कोडबेस से सामग्री को बाहरीकृत करने की अनुमति दें।
 - **सरल सामग्री पुनर्प्राप्ति**: प्रत्येक सामग्री टुकड़े के लिए `t` फ़ंक्शन को कॉल करने की आवश्यकता नहीं है; सभी सामग्री को सीधे पुनर्प्राप्त करने के लिए एक ही हुक का उपयोग करें।
 - **संगत कार्यान्वयन**: क्लाइंट और सर्वर घटक एक ही कार्यान्वयन का उपयोग करते हैं, प्रत्येक सर्वर घटक के माध्यम से `t` फ़ंक्शन पास करने की आवश्यकता नहीं है।
 - **Tree-shakable सामग्री**: सामग्री tree-shakable है, जिससे अंतिम पैकेज हल्का होता है।
 - **गैर-अवरुद्ध स्थिर रेंडरिंग**: Intlayer `next-intl` की तरह स्थिर रेंडरिंग को अवरुद्ध नहीं करता है।
-- **अंतरसंचालन**: [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-intl.md) और [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-intl.md) के साथ अंतरसंचालन की अनुमति देता है।
+- **अंतरसंचालन**: [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md) और [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-intl.md) के साथ अंतरसंचालन की अनुमति देता है।

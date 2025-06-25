@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__drupal
 url: https://intlayer.org/blog/i18n-technologies/CMS/drupal
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/drupal.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/drupal.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Drupal的最佳国际化工具
@@ -26,7 +26,7 @@ keywords:
 
 国际化（i18n）是设计您网站的过程，以便可以轻松地适应各种语言和文化背景，而无需重新设计其框架。在Drupal中，这涉及构建一个基础，使内容, , 包括页面、帖子、菜单和配置设置, , 可以高效地翻译和本地化以适应不同的受众。
 
-通过阅读我们的综合指南了解更多关于i18n的信息：[什么是国际化（i18n）？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/docs/zh/what_is_internationalization.md)。
+通过阅读我们的综合指南了解更多关于i18n的信息：[什么是国际化（i18n）？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/what_is_internationalization.md)。
 
 ---
 

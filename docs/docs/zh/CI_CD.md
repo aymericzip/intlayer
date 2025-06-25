@@ -1,7 +1,7 @@
 ---
 docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-05-20
 title: CI/CD集成
@@ -51,7 +51,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-要了解有关 CMS 的更多信息，请参阅[官方文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md)。
+要了解有关 CMS 的更多信息，请参阅[官方文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)。
 
 ## 使用 Husky
 
@@ -88,7 +88,7 @@ npx intlayer build                          # 确保字典是最新的
 npx intlayer fill --unpushed --mode fill    # 仅填充缺失内容，不更新现有内容
 ```
 
-> 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)。
+> 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
 
 > 如果您的仓库中有多个应用程序使用单独的 Intlayer 实例，您可以使用 `--base-dir` 参数，如下所示：
 
@@ -164,4 +164,4 @@ jobs:
 
 > 默认情况下，`--git-diff` 参数会过滤从基线（默认 `origin/main`）到当前分支（默认：`HEAD`）的更改中包含的字典。
 
-> 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)。
+> 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。

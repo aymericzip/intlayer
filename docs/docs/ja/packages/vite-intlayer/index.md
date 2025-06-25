@@ -1,7 +1,7 @@
 ---
 docName: package__vite-intlayer
 url: https://intlayer.org/doc/packages/vite-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: パッケージドキュメント | vite-intlayer
@@ -20,7 +20,7 @@ keywords:
 
 **Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、React、Express.jsなどのフレームワークと互換性があります。
 
-**`vite-intlayer`パッケージ**は、Viteアプリケーションを国際化するためのものです。このパッケージには、[Viteバンドラー](https://vitejs.dev/guide/why.html#why-bundle-for-production)に環境変数を設定するためのViteプラグインが含まれています。また、ユーザーの優先ロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で指定された適切なURLにリダイレクトするためのミドルウェアも提供します。
+**`vite-intlayer`パッケージ**は、Viteアプリケーションを国際化するためのものです。このパッケージには、[Viteバンドラー](https://vitejs.dev/guide/why.html#why-bundle-for-production)に環境変数を設定するためのViteプラグインが含まれています。また、ユーザーの優先ロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で指定された適切なURLにリダイレクトするためのミドルウェアも提供します。
 
 ## なぜViteアプリケーションを国際化するのか？
 
@@ -28,7 +28,7 @@ Viteアプリケーションを国際化することは、グローバルなオ�
 
 ## 設定
 
-`vite-intlayer`パッケージは、[`react-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/index.md)や[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/index.md)とシームレスに連携します。詳細については、関連するドキュメントをご覧ください。
+`vite-intlayer`パッケージは、[`react-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)や[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/index.md)とシームレスに連携します。詳細については、関連するドキュメントをご覧ください。
 
 ## インストール
 
@@ -68,4 +68,4 @@ export default defineConfig({
 
 Intlayerは、Viteアプリケーションを国際化するための多くの機能を提供します。
 
-**これらの機能について詳しくは、[IntlayerとViteおよびReactを使用したReactの国際化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)ガイドをご覧ください。**
+**これらの機能について詳しくは、[IntlayerとViteおよびReactを使用したReactの国際化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)ガイドをご覧ください。**

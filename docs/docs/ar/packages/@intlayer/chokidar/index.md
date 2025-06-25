@@ -2,7 +2,7 @@
 
 **Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وExpress.js.
 
-تُستخدم حزمة **`@intlayer/chokidar`** لمسح وبناء ملفات إعلان Intlayer إلى قواميس باستخدام [chokidar](https://github.com/paulmillr/chokidar) ووفقًا لـ [تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+تُستخدم حزمة **`@intlayer/chokidar`** لمسح وبناء ملفات إعلان Intlayer إلى قواميس باستخدام [chokidar](https://github.com/paulmillr/chokidar) ووفقًا لـ [تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ## الاستخدام
 

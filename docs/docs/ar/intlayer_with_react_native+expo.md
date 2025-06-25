@@ -107,7 +107,7 @@ module.exports = config;
 - تكوين **قائمة اللغات المدعومة**.
 - تعيين لغة **افتراضية**.
 - لاحقًا، يمكنك إضافة خيارات أكثر تقدمًا (مثل السجلات، أدلة المحتوى المخصصة، إلخ).
-- راجع [وثائق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md) لمزيد من التفاصيل.
+- راجع [وثائق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لمزيد من التفاصيل.
 
 ## الخطوة 3: إضافة إضافة Metro
 
@@ -300,7 +300,7 @@ module.exports = appContent;
 }
 ```
 
-> لمزيد من التفاصيل حول إعلانات المحتوى، راجع [وثائق محتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+> لمزيد من التفاصيل حول إعلانات المحتوى، راجع [وثائق محتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
 
 ---
 
@@ -497,7 +497,7 @@ const LocaleSwitcher = () => {
 
 هذا يؤدي إلى إعادة عرض جميع المكونات التي تستخدم محتوى Intlayer، الآن مع عرض الترجمات للغة الجديدة.
 
-> راجع [وثائق `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useLocale.md) لمزيد من التفاصيل.
+> راجع [وثائق `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) لمزيد من التفاصيل.
 
 ## تكوين TypeScript (إذا كنت تستخدم TypeScript)
 
@@ -535,8 +535,8 @@ const LocaleSwitcher = () => {
 
 ## الذهاب أبعد
 
-- **المحرر المرئي**: استخدم [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md) لإدارة الترجمات بشكل مرئي.
-- **تكامل CMS**: يمكنك أيضًا استخراج محتوى القاموس الخاص بك من [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_CMS.md).
-- **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
+- **المحرر المرئي**: استخدم [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لإدارة الترجمات بشكل مرئي.
+- **تكامل CMS**: يمكنك أيضًا استخراج محتوى القاموس الخاص بك من [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+- **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
 
 استمتع ببناء تطبيقات **React Native** الخاصة بك مع دعم كامل للتدويل من خلال **Intlayer**!

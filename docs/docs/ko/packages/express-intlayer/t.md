@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer__t
 url: https://intlayer.org/doc/packages/express-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
 updatedAt: 2024-12-02
 title: t 함수 문서 | express-intlayer
@@ -448,4 +448,4 @@ app.get("/morning", (_req, res) => {
 
 ## 결론
 
-`t` 함수는 백엔드 국제화를 위한 강력한 도구입니다. 이를 효과적으로 사용하면 글로벌 사용자에게 더 포괄적이고 사용자 친화적인 애플리케이션을 만들 수 있습니다. 고급 사용법 및 자세한 구성 옵션은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
+`t` 함수는 백엔드 국제화를 위한 강력한 도구입니다. 이를 효과적으로 사용하면 글로벌 사용자에게 더 포괄적이고 사용자 친화적인 애플리케이션을 만들 수 있습니다. 고급 사용법 및 자세한 구성 옵션은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.

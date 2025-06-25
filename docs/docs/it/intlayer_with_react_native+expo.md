@@ -107,7 +107,7 @@ In questa configurazione, puoi:
 - Definire la lista delle **lingue supportate**.
 - Impostare una **lingua predefinita**.
 - Aggiungere opzioni avanzate in seguito (es. log, directory personalizzate per i contenuti, ecc.).
-- Consulta la [documentazione sulla configurazione di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md) per maggiori dettagli.
+- Consulta la [documentazione sulla configurazione di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) per maggiori dettagli.
 
 ---
 
@@ -260,5 +260,5 @@ Aggiungi `.intlayer` a `tsconfig.json` per includere i tipi generati:
 
 ## Vai Oltre
 
-- **Editor Visuale**: Usa l’[Editor Visuale di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md).
-- **CLI Intlayer**: Scopri i [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md).
+- **Editor Visuale**: Usa l’[Editor Visuale di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
+- **CLI Intlayer**: Scopri i [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).

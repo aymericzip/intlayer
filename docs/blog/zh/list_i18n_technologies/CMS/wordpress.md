@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__wordpress
 url: https://intlayer.org/blog/i18n-technologies/CMS/wordpress
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/wordpress.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wordpress.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Wordpress的最佳国际化工具
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 什么是国际化 (i18n)?
 
 国际化，缩写为 i18n，是设计和准备您网站以支持多种语言和文化背景的过程。在 WordPress 世界中，这意味着创建一个灵活的基础，使内容（页面、帖子、菜单、主题字符串）可以轻松翻译和本地化以适应不同的受众。
 
-通过阅读我们的文章了解更多关于 i18n 的信息：[什么是国际化 (i18n)? 定义和挑战](https://github.com/aymericzip/intlayer/blob/main/blog/zh/what_is_internationalization.md)。
+通过阅读我们的文章了解更多关于 i18n 的信息：[什么是国际化 (i18n)? 定义和挑战](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/what_is_internationalization.md)。
 
 ---
 

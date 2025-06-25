@@ -1,7 +1,7 @@
 ---
 docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
 updatedAt: 2025-02-7
 title: शब्दकोश नेस्टिंग
@@ -260,8 +260,8 @@ module.exports = NestComponent;
 
 कॉन्फ़िगरेशन और उपयोग पर अधिक विस्तृत जानकारी के लिए, निम्नलिखित संसाधनों का संदर्भ लें:
 
-- [Intlayer CLI प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md)
-- [React Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_create_react_app.md)
-- [Next Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md)
+- [Intlayer CLI प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md)
+- [React Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_create_react_app.md)
+- [Next Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)
 
 ये संसाधन विभिन्न वातावरणों और विभिन्न फ्रेमवर्क्स के साथ Intlayer की सेटअप और उपयोग के बारे में और अधिक जानकारी प्रदान करते हैं।

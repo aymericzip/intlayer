@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: React的最佳国际化工具
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 什么是国际化（i18n）？
 
 国际化，缩写为 i18n，是设计和准备您的网站以支持多种语言和文化背景的过程。在 React 中，这意味着设置您的应用程序，以便字符串、日期格式、数字格式，甚至布局都可以轻松适应来自不同地区的用户。为 i18n 准备您的 React 应用程序为干净地集成翻译和其他本地化功能奠定基础。
 
-通过阅读我们的文章了解更多关于 i18n 的信息：[什么是国际化（i18n）？定义与挑战](https://github.com/aymericzip/intlayer/blob/main/blog/zh/what_is_internationalization.md)。
+通过阅读我们的文章了解更多关于 i18n 的信息：[什么是国际化（i18n）？定义与挑战](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/what_is_internationalization.md)。
 
 ---
 

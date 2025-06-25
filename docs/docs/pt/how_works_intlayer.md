@@ -1,7 +1,7 @@
 ---
 docName: how_works_intlayer
 url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2024-08-12
 title: Como o Intlayer funciona
@@ -40,13 +40,13 @@ Portanto, existem duas etapas principais:
 A etapa de construção pode ser feita de três maneiras:
 
 - usando a CLI com `npx intlayer build`
-- usando a [extensão do vscode](https://github.com/aymericzip/intlayer/blob/main/docs/pt/vs_code_extension.md)
-- usando os plugins de aplicativos, como o pacote [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/vite-intlayer/index.md), ou seus equivalentes para [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/next-intlayer/index.md). Quando você usa um desses plugins, o Intlayer construirá automaticamente seus dicionários ao iniciar (dev) ou construir (prod) sua aplicação.
+- usando a [extensão do vscode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md)
+- usando os plugins de aplicativos, como o pacote [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/index.md), ou seus equivalentes para [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/next-intlayer/index.md). Quando você usa um desses plugins, o Intlayer construirá automaticamente seus dicionários ao iniciar (dev) ou construir (prod) sua aplicação.
 
 1. Declaração de arquivos de conteúdo
 
    - Os arquivos de conteúdo podem ser definidos em vários formatos, como TypeScript, ECMAScript, CommonJS ou JSON.
-   - Os arquivos de conteúdo podem ser definidos em qualquer lugar do projeto, o que permite uma melhor manutenção e escalabilidade. É importante respeitar as convenções de extensão de arquivo para arquivos de conteúdo. Essa extensão é por padrão `*.content.{js|cjs|mjs|ts|tsx|json}`, mas pode ser modificada no [arquivo de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md).
+   - Os arquivos de conteúdo podem ser definidos em qualquer lugar do projeto, o que permite uma melhor manutenção e escalabilidade. É importante respeitar as convenções de extensão de arquivo para arquivos de conteúdo. Essa extensão é por padrão `*.content.{js|cjs|mjs|ts|tsx|json}`, mas pode ser modificada no [arquivo de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
 2. Geração de `dicionários`
 
@@ -74,7 +74,7 @@ const MyComponent = () => {
 
 Esse hook gerenciará a detecção de localidade para você e retornará o conteúdo para a localidade atual. Usando esse hook, você também poderá interpretar markdown, gerenciar pluralização e muito mais.
 
-> Para ver todos os recursos do Intlayer, você pode ler a [documentação de dicionário](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
+> Para ver todos os recursos do Intlayer, você pode ler a [documentação de dicionário](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
 
 ## Conteúdo remoto
 
@@ -86,7 +86,7 @@ Se configurado em seu projeto, o Intlayer gerenciará automaticamente para você
 
 ## Editor visual
 
-O Intlayer também fornece um editor visual para permitir que você edite seu conteúdo de forma visual. Este [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md) está disponível no pacote externo `intlayer-editor`.
+O Intlayer também fornece um editor visual para permitir que você edite seu conteúdo de forma visual. Este [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) está disponível no pacote externo `intlayer-editor`.
 
 ![editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -98,13 +98,13 @@ No modo de desenvolvimento, o Intlayer usa uma importação estática centraliza
 
 Ao otimizar a construção, o Intlayer substituirá todas as chamadas de dicionários para otimizar o particionamento. Dessa forma, o pacote final importará apenas os dicionários que são usados.
 
-Ao ativar a opção `activateDynamicImport` na [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md), o Intlayer usará a importação dinâmica para carregar os dicionários. Essa opção está desativada por padrão para evitar processamento assíncrono ao renderizar a aplicação.
+Ao ativar a opção `activateDynamicImport` na [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md), o Intlayer usará a importação dinâmica para carregar os dicionários. Essa opção está desativada por padrão para evitar processamento assíncrono ao renderizar a aplicação.
 
 > `@intlayer/babel` está disponível por padrão no pacote `vite-intlayer`,
 
 > `@intlayer/swc` não está instalado por padrão no pacote `next-intlayer`, pois os plugins SWC ainda são experimentais no Next.js.
 
-Para ver como configurar a construção de sua aplicação, você pode ler a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md).
+Para ver como configurar a construção de sua aplicação, você pode ler a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
 ## Pacotes
 
@@ -189,7 +189,7 @@ O pacote `@intlayer/webpack` é usado para fornecer uma configuração do Webpac
 
 ### @intlayer/cli
 
-O pacote `@intlayer/cli` é um pacote NPM usado para declarar os scripts relacionados às interfaces de linha de comando do Intlayer. Ele garante a uniformidade de todos os comandos CLI do Intlayer. Este pacote é notavelmente consumido pelos pacotes [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/intlayer-cli/index.md) e [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/intlayer/index.md).
+O pacote `@intlayer/cli` é um pacote NPM usado para declarar os scripts relacionados às interfaces de linha de comando do Intlayer. Ele garante a uniformidade de todos os comandos CLI do Intlayer. Este pacote é notavelmente consumido pelos pacotes [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer-cli/index.md) e [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/index.md).
 
 ### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
 

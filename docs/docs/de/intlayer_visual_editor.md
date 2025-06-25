@@ -1,7 +1,7 @@
 ---
 docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Intlayer Visual Editor | Bearbeiten Sie Ihren Inhalt mit einem visuellen Editor
@@ -30,7 +30,7 @@ Das `intlayer-editor`-Paket basiert auf Intlayer und ist für JavaScript-Anwendu
 
 Der Intlayer Visual Editor ist ein Tool, mit dem Sie Ihre Inhalte in einem visuellen Editor für lokale Wörterbücher verwalten können. Sobald eine Änderung vorgenommen wird, wird der Inhalt im Code-Basis ersetzt. Das bedeutet, dass die Anwendung neu aufgebaut wird und die Seite neu geladen wird, um den neuen Inhalt anzuzeigen.
 
-Im Gegensatz dazu ist das [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_CMS.md) ein Tool, mit dem Sie Ihre Inhalte in einem visuellen Editor für entfernte Wörterbücher verwalten können. Sobald eine Änderung vorgenommen wird, wird der Inhalt **nicht** Ihre Code-Basis beeinflussen. Und die Website zeigt automatisch den geänderten Inhalt an.
+Im Gegensatz dazu ist das [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) ein Tool, mit dem Sie Ihre Inhalte in einem visuellen Editor für entfernte Wörterbücher verwalten können. Sobald eine Änderung vorgenommen wird, wird der Inhalt **nicht** Ihre Code-Basis beeinflussen. Und die Website zeigt automatisch den geänderten Inhalt an.
 
 ## Intlayer in Ihre Anwendung integrieren
 
@@ -38,15 +38,15 @@ Für weitere Details zur Integration von Intlayer, siehe den entsprechenden Absc
 
 ### Integration mit Next.js
 
-Für die Integration mit Next.js, siehe den [Setup-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_nextjs_15.md).
+Für die Integration mit Next.js, siehe den [Setup-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_15.md).
 
 ### Integration mit Create React App
 
-Für die Integration mit Create React App, siehe den [Setup-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_create_react_app.md).
+Für die Integration mit Create React App, siehe den [Setup-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_create_react_app.md).
 
 ### Integration mit Vite + React
 
-Für die Integration mit Vite + React, siehe den [Setup-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_vite+react.md).
+Für die Integration mit Vite + React, siehe den [Setup-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md).
 
 ## Wie der Intlayer Editor funktioniert
 
@@ -186,7 +186,7 @@ const config = {
 module.exports = config;
 ```
 
-> Um alle verfügbaren Parameter zu sehen, siehe die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md).
+> Um alle verfügbaren Parameter zu sehen, siehe die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
 ## Verwendung des Editors
 

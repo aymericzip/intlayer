@@ -1,7 +1,7 @@
 ---
 docName: package__react-native-intlayer
 url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Документация пакета | react-native-intlayer
@@ -27,7 +27,7 @@ keywords:
 
 ## Конфигурация
 
-Пакет `react-native-intlayer` работает без проблем с [`react-intlayer` пакетом](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/react-intlayer/index.md) и [`intlayer` пакетом](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/intlayer/index.md). Ознакомьтесь с соответствующей документацией для получения дополнительной информации.
+Пакет `react-native-intlayer` работает без проблем с [`react-intlayer` пакетом](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md) и [`intlayer` пакетом](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/index.md). Ознакомьтесь с соответствующей документацией для получения дополнительной информации.
 
 ## Установка
 
@@ -65,7 +65,7 @@ module.exports = (async () => {
 
 Intlayer предоставляет множество функций, которые помогут вам интернационализировать ваше приложение Vite.
 
-**Чтобы узнать больше об этих функциях, обратитесь к [Руководству по интернационализации (i18n) React с Intlayer и React Native](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_react_native+expo.md) для приложения React Native.**
+**Чтобы узнать больше об этих функциях, обратитесь к [Руководству по интернационализации (i18n) React с Intlayer и React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_react_native+expo.md) для приложения React Native.**
 
 ## Узнайте больше о Intlayer
 

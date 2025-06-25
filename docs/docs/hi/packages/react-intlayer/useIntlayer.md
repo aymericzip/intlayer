@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayer हुक दस्तावेज | react-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 ## शब्दकोश
 
-सभी शब्दकोश कुंजियों को सामग्री घोषणा फ़ाइलों के भीतर घोषित किया जाना चाहिए ताकि प्रकार सुरक्षा बढ़ सके और त्रुटियों से बचा जा सके। सेटअप निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) देखें।
+सभी शब्दकोश कुंजियों को सामग्री घोषणा फ़ाइलों के भीतर घोषित किया जाना चाहिए ताकि प्रकार सुरक्षा बढ़ सके और त्रुटियों से बचा जा सके। सेटअप निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md) देखें।
 
 ## React में उपयोग का उदाहरण
 
@@ -240,6 +240,6 @@ const ServerComponentExample = () => {
 
 ## अतिरिक्त संसाधन
 
-- **Intlayer विज़ुअल एडिटर**: अधिक सहज सामग्री प्रबंधन अनुभव के लिए, विज़ुअल एडिटर प्रलेखन [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md) देखें।
+- **Intlayer विज़ुअल एडिटर**: अधिक सहज सामग्री प्रबंधन अनुभव के लिए, विज़ुअल एडिटर प्रलेखन [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) देखें।
 
 यह अनुभाग विशेष रूप से React अनुप्रयोगों में `useIntlayer` हुक के एकीकरण को लक्षित करता है, स्थानीयकरण प्रक्रिया को सरल बनाता है और विभिन्न लोकेल्स में सामग्री स्थिरता सुनिश्चित करता है।

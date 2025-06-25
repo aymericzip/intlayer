@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__wordpress
 url: https://intlayer.org/blog/i18n-technologies/CMS/wordpress
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/wordpress.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wordpress.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: أفضل أدوات التدويل (i18n) للإنترات
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## ما هو التدويل (i18n)؟
 
 التدويل، المختصر بـ i18n، هو عملية تصميم وإعداد موقعك لدعم العديد من اللغات والسياقات الثقافية. في عالم WordPress، يعني هذا إنشاء أساس مرن حيث يمكن ترجمة المحتوى (صفحات، منشورات، قوائم، سلاسل ثيمات) بسهولة وتكييفه لعدة جمهور.
 
-تعرف على المزيد عن i18n من خلال قراءة مقالتنا: [ما هو التدويل (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/blog/ar/what_is_internationalization.md).
+تعرف على المزيد عن i18n من خلال قراءة مقالتنا: [ما هو التدويل (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/what_is_internationalization.md).
 
 ---
 

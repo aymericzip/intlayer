@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 查看 [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 了解更多详情。
+> 查看 [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 了解更多详情。
 
 2. 定义环境变量。
 

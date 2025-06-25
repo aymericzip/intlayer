@@ -38,4 +38,4 @@ Intlayer는 다음을 수행할 수 있는 CLI 도구를 제공합니다:
 - 콘텐츠 선언에서 사전을 빌드
 - CMS에서 로컬 프로젝트로 원격 사전을 푸시 및 풀
 
-자세한 내용은 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)를 참조하세요.
+자세한 내용은 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 참조하세요.

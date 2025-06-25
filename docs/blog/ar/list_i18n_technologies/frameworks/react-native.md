@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react-native
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react-native
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react-native.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react-native.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: أفضل أدوات التدويل (i18n) للإنترات
@@ -22,14 +22,14 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## ما هي الـ Internationalization (i18n)؟
 
 تتضمن Internationalization، أو i18n، هيكلة التطبيق بحيث يمكنه التكيف بسهولة مع لغات مختلفة، وتنسيقات إقليمية، وأعراف ثقافية. في React Native، تشمل i18n التعامل مع السلاسل للنوافذ والأزرار، بالإضافة إلى تنسيق التواريخ، والأوقات، والعملات، والمزيد وفقًا لإعدادات المستخدم. تتيح لك تطبيقات React Native المعدة بشكل صحيح دمج اللغات الإضافية وسلوكيات محددة محليًا لاحقًا, دون عمليات إعادة هيكلة ضخمة.
 
 للتعمق أكثر في مفاهيم الـ internationalization، تحقق من مقالتنا:  
-[ما هي Internationalization (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/blog/ar/what_is_internationalization.md).
+[ما هي Internationalization (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/what_is_internationalization.md).
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: ترجم موقعك الإلكتروني Express (i18n)
@@ -201,9 +201,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` متوافق تمامًا مع:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/index.md) لتطبيقات React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/index.md) لتطبيقات Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/vite-intlayer/index.md) لتطبيقات Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md) لتطبيقات React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md) لتطبيقات Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md) لتطبيقات Vite
 
 كما يعمل بسلاسة مع أي حل تدويل عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص الوسيط لاكتشاف اللغة من خلال الرؤوس أو الكوكيز:
 
@@ -253,7 +253,7 @@ module.exports = config;
 
 بشكل افتراضي، سيقوم `express-intlayer` بتفسير رأس `Accept-Language` لتحديد اللغة المفضلة للعميل.
 
-> لمزيد من المعلومات حول التكوين والمواضيع المتقدمة، قم بزيارة [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+> لمزيد من المعلومات حول التكوين والمواضيع المتقدمة، قم بزيارة [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ### تكوين TypeScript
 

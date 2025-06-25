@@ -1,7 +1,7 @@
 ---
 docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
 updatedAt: 2025-02-7
 title: تداخل القاموس
@@ -260,8 +260,8 @@ module.exports = NestComponent;
 
 لمزيد من المعلومات التفصيلية حول التكوين والاستخدام، راجع الموارد التالية:
 
-- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md)
-- [وثائق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md)
-- [وثائق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md)
+- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)
+- [وثائق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)
+- [وثائق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
 
 توفر هذه الموارد مزيدًا من الأفكار حول إعداد واستخدام Intlayer في بيئات مختلفة ومع أطر عمل متنوعة.

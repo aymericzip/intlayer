@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer
 url: https://intlayer.org/doc/packages/express-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق حزمة | express-intlayer
@@ -105,7 +105,7 @@ const config = {
 module.exports = config;
 ```
 
-> للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+> للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق الإعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ## مثال على الاستخدام
 
@@ -193,9 +193,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` متوافق تمامًا مع:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/index.md) لتطبيقات React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/index.md) لتطبيقات Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/vite-intlayer/index.md) لتطبيقات Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md) لتطبيقات React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md) لتطبيقات Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md) لتطبيقات Vite
 
 كما يعمل بسلاسة مع أي حل تدويل عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص الوسيط لاكتشاف اللغة من خلال الرؤوس أو الكوكيز:
 
@@ -247,4 +247,4 @@ module.exports = config;
 
 ## الوظائف التي يوفرها حزمة `express-intlayer`
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar-GB/packages/express-intlayer/t.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar-GB/packages/express-intlayer/t.md)

@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__wix
 url: https://intlayer.org/blog/i18n-technologies/CMS/wix
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/wix.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wix.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Meilleures outils d'internationalisation (i18n) pour Wix
@@ -26,7 +26,7 @@ Dans le marché numérique mondial d'aujourd'hui, s'assurer que votre site web p
 
 L'internationalisation (i18n) fait référence au processus de conception et de préparation de votre site web afin qu'il puisse facilement prendre en charge plusieurs langues et contextes culturels. Dans Wix, cela signifie mettre en place une architecture de site web flexible où le texte, les images, les menus et même les éléments interactifs peuvent être adaptés ou traduits pour différentes régions. En planifiant pour l'i18n dès le départ, vous vous assurez que votre contenu peut être localisé efficacement, le rendant accessible et engageant pour un public mondial.
 
-Pour plus d'informations sur l'internationalisation et son importance dans la conception web, consultez notre article de base sur le [concept de l'internationalisation](https://github.com/aymericzip/intlayer/blob/main/docs/fr/concept-de-linternationalisation.md).
+Pour plus d'informations sur l'internationalisation et son importance dans la conception web, consultez notre article de base sur le [concept de l'internationalisation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/concept-de-linternationalisation.md).
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-intl
 url: https://intlayer.org/blog/intlayer-with-next-intl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-intl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-intl.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02
 title: Intlayer et next-intl
@@ -24,7 +24,7 @@ Ils partagent trois notions principales :
 
 1. **Déclaration de Contenu** : La méthode pour définir le contenu traduisible de votre application.
 
-   - Appelé `fichier de déclaration de contenu` dans Intlayer, qui peut être un fichier JSON, JS ou TS exportant des données structurées. Consultez la [documentation d’Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/concept/content.md) pour plus d'informations.
+   - Appelé `fichier de déclaration de contenu` dans Intlayer, qui peut être un fichier JSON, JS ou TS exportant des données structurées. Consultez la [documentation d’Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/concept/content.md) pour plus d'informations.
    - Appelé `messages` ou `locale messages` dans next-intl, généralement dans des fichiers JSON. Consultez la [documentation de next-intl](https://github.com/amannn/next-intl) pour plus d'informations.
 
 2. **Utilitaires** : Outils pour construire et interpréter des déclarations de contenu dans l'application, comme `useIntlayer()` ou `useLocale()` pour Intlayer, et `useTranslations()` pour next-intl.
@@ -33,7 +33,7 @@ Ils partagent trois notions principales :
 
 ## Intlayer vs. next-intl : Différences Clés
 
-Pour une analyse plus approfondie de la façon dont Intlayer se compare à d'autres bibliothèques i18n pour Next.js (comme next-intl), consultez l'[article de blog next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/blog/fr/i18next_vs_next-intl_vs_intlayer.md).
+Pour une analyse plus approfondie de la façon dont Intlayer se compare à d'autres bibliothèques i18n pour Next.js (comme next-intl), consultez l'[article de blog next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18next_vs_next-intl_vs_intlayer.md).
 
 ## Comment Générer des Messages next-intl avec Intlayer
 

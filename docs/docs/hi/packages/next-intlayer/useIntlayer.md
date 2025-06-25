@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayer हुक दस्तावेज़ | next-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 यह महत्वपूर्ण है कि सभी सामग्री कुंजियाँ सामग्री घोषणा फ़ाइलों के भीतर परिभाषित हों ताकि रनटाइम त्रुटियों को रोका जा सके और प्रकार सुरक्षा सुनिश्चित की जा सके। यह दृष्टिकोण टाइपस्क्रिप्ट एकीकरण को संकलन-समय मान्यता के लिए भी सक्षम बनाता है।
 
-सामग्री घोषणा फ़ाइलों को सेट करने के निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) उपलब्ध हैं।
+सामग्री घोषणा फ़ाइलों को सेट करने के निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md) उपलब्ध हैं।
 
 ## Next.js में उपयोग का उदाहरण
 
@@ -252,6 +252,6 @@ const ServerComponentExample = () => {
 
 ## अधिक जानकारी
 
-- **Intlayer विज़ुअल संपादक**: आसान सामग्री प्रबंधन के लिए विज़ुअल संपादक का उपयोग कैसे करें [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md) जानें।
+- **Intlayer विज़ुअल संपादक**: आसान सामग्री प्रबंधन के लिए विज़ुअल संपादक का उपयोग कैसे करें [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) जानें।
 
 यह दस्तावेज़ीकरण विशेष रूप से Next.js वातावरण के भीतर `useIntlayer` हुक के उपयोग को रेखांकित करता है, जो आपके Next.js अनुप्रयोगों में स्थानीयकरण प्रबंधन के लिए एक मजबूत समाधान प्रदान करता है।

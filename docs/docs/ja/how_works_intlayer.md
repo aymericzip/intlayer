@@ -1,7 +1,7 @@
 ---
 docName: how_works_intlayer
 url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2024-08-12
 title: Intlayerの仕組み
@@ -40,13 +40,13 @@ Intlayerの主なアイデアは、コンポーネントごとのコンテンツ
 ビルドステップは以下の3つの方法で実行できます：
 
 - CLIを使用して`npx intlayer build`を実行
-- [vscode拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/ja/vs_code_extension.md)を使用
-- [`vite-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/vite-intlayer/index.md)などのアプリプラグインを使用、または[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/index.md)用の同等のプラグインを使用。これらのプラグインのいずれかを使用すると、アプリケーションを開始（開発）またはビルド（本番）する際に、Intlayerが自動的に辞書をビルドします。
+- [vscode拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を使用
+- [`vite-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)などのアプリプラグインを使用、または[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)用の同等のプラグインを使用。これらのプラグインのいずれかを使用すると、アプリケーションを開始（開発）またはビルド（本番）する際に、Intlayerが自動的に辞書をビルドします。
 
 1. コンテンツファイルの宣言
 
    - コンテンツファイルは、TypeScript、ECMAScript、CommonJS、JSONなど、さまざまな形式で定義できます。
-   - コンテンツファイルはプロジェクト内のどこにでも定義でき、これによりメンテナンス性とスケーラビリティが向上します。コンテンツファイルの拡張子の規約を守ることが重要です。この拡張子はデフォルトで`*.content.{js|cjs|mjs|ts|tsx|json}`ですが、[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で変更できます。
+   - コンテンツファイルはプロジェクト内のどこにでも定義でき、これによりメンテナンス性とスケーラビリティが向上します。コンテンツファイルの拡張子の規約を守ることが重要です。この拡張子はデフォルトで`*.content.{js|cjs|mjs|ts|tsx|json}`ですが、[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で変更できます。
 
 2. `辞書`の生成
 
@@ -75,7 +75,7 @@ const MyComponent = () => {
 
 このフックはロケールの検出を管理し、現在のロケールに対応するコンテンツを返します。このフックを使用すると、Markdownの解釈、複数形の管理なども可能です。
 
-> Intlayerのすべての機能を見るには、[辞書ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
+> Intlayerのすべての機能を見るには、[辞書ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)を参照してください。
 
 ## 遠隔コンテンツ
 
@@ -87,7 +87,7 @@ Intlayerを使用すると、コンテンツをローカルで宣言し、それ
 
 ## ビジュアルエディタ
 
-Intlayerは、視覚的にコンテンツを編集できるビジュアルエディタも提供しています。この[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)は、外部の`intlayer-editor`パッケージで利用可能です。
+Intlayerは、視覚的にコンテンツを編集できるビジュアルエディタも提供しています。この[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)は、外部の`intlayer-editor`パッケージで利用可能です。
 
 ![ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -99,13 +99,13 @@ Intlayerは、視覚的にコンテンツを編集できるビジュアルエデ
 
 ビルドを最適化することで、Intlayerは辞書の呼び出しを置き換えてチャンク化を最適化します。この方法では、最終的なバンドルは使用される辞書のみをインポートします。
 
-[設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で`activateDynamicImport`オプションを有効にすると、Intlayerは動的インポートを使用して辞書をロードします。このオプションは、アプリケーションのレンダリング時に非同期処理を回避するためにデフォルトでは無効になっています。
+[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で`activateDynamicImport`オプションを有効にすると、Intlayerは動的インポートを使用して辞書をロードします。このオプションは、アプリケーションのレンダリング時に非同期処理を回避するためにデフォルトでは無効になっています。
 
 > `@intlayer/babel`は`vite-intlayer`パッケージでデフォルトで利用可能です。
 
 > `@intlayer/swc`は、Next.jsでSWCプラグインがまだ実験的であるため、`next-intlayer`パッケージにはデフォルトでインストールされていません。
 
-アプリケーションのビルドを設定する方法については、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を参照してください。
+アプリケーションのビルドを設定する方法については、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
 ## パッケージ
 

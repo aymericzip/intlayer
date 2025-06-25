@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 翻译你的Express后端 (i18n)
@@ -198,9 +198,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` 完全兼容以下工具：
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/index.md) 适用于 React 应用程序
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/index.md) 适用于 Next.js 应用程序
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/vite-intlayer/index.md) 适用于 Vite 应用程序
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md) 适用于 React 应用程序
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 适用于 Next.js 应用程序
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md) 适用于 Vite 应用程序
 
 它还可以与各种环境中的任何国际化解决方案无缝协作，包括浏览器和 API 请求。您可以自定义中间件以通过头信息或 Cookie 检测语言环境：
 
@@ -250,7 +250,7 @@ module.exports = config;
 
 默认情况下，`express-intlayer` 将解释 `Accept-Language` 头信息以确定客户端的首选语言。
 
-> 有关配置和高级主题的更多信息，请访问我们的[文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+> 有关配置和高级主题的更多信息，请访问我们的[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ### 配置 TypeScript
 

@@ -1,7 +1,7 @@
 ---
 docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Intlayer 可视编辑器 | 使用可视编辑器编辑您的内容
@@ -30,7 +30,7 @@ Intlayer 可视化编辑器是一种工具，可以将您的网站包装起来�
 
 Intlayer 可视化编辑器是一种工具，允许您在本地字典的可视化编辑器中管理内容。一旦进行了更改，内容将在代码库中被替换。这意味着应用程序将被重新构建，页面将重新加载以显示新内容。
 
-相比之下，[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md) 是一种工具，允许您在远程字典的可视化编辑器中管理内容。一旦进行了更改，内容将**不会**影响您的代码库。网站将自动显示更改后的内容。
+相比之下，[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 是一种工具，允许您在远程字典的可视化编辑器中管理内容。一旦进行了更改，内容将**不会**影响您的代码库。网站将自动显示更改后的内容。
 
 ## 将 Intlayer 集成到您的应用程序中
 
@@ -38,15 +38,15 @@ Intlayer 可视化编辑器是一种工具，允许您在本地字典的可视�
 
 ### 与 Next.js 集成
 
-有关与 Next.js 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)。
+有关与 Next.js 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)。
 
 ### 与 Create React App 集成
 
-有关与 Create React App 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)。
+有关与 Create React App 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)。
 
 ### 与 Vite + React 集成
 
-有关与 Vite + React 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md)。
+有关与 Vite + React 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)。
 
 ## Intlayer 编辑器如何工作
 
@@ -186,7 +186,7 @@ const config = {
 module.exports = config;
 ```
 
-> 要查看所有可用参数，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+> 要查看所有可用参数，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ## 使用编辑器
 

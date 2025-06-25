@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getConfiguration
 url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getConfiguration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Документация функции getConfiguration | intlayer
@@ -40,7 +40,7 @@ keywords:
   - `content`: Настройки, связанные с файлами контента, директориями и шаблонами.
   - `editor`: Конфигурации, специфичные для редактора.
 
-См. [Документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md) для получения дополнительных сведений.
+См. [Документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) для получения дополнительных сведений.
 
 ---
 

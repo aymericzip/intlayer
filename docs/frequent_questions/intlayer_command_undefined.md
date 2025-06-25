@@ -7,7 +7,7 @@ The Intlayer CLI provides a convenient way to control your intlayer content, inc
 You can access the intlayer commands in different ways:
 
 - Using the `intlayer` cli command directly
-- Using the [VSCode extension](https://github.com/aymericzip/intlayer/blob/main/docs/en/vs_code_extension.md)
+- Using the [VSCode extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
 - Using the `@intlayer/cli` SDK
 
 ## Problem

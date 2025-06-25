@@ -1,7 +1,7 @@
 ---
 docName: mcp_server
 url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: MCPサーバーのドキュメント
@@ -25,7 +25,7 @@ keywords:
 IDEでIntlayer MCP サーバーを有効にすることで、以下の利点を得られます：
 
 - **スマートCLI統合**  
-  IDEインターフェースから直接Intlayer CLIコマンドにアクセスして実行できます。コマンドとオプションの完全なリストは、[Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)で確認できます。
+  IDEインターフェースから直接Intlayer CLIコマンドにアクセスして実行できます。コマンドとオプションの完全なリストは、[Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)で確認できます。
 
 - **コンテキスト対応ドキュメント**  
   MCPサーバーは、プロジェクトで使用しているIntlayerのバージョンに対応するドキュメントをロードして公開します。これにより、コードの提案、コマンドオプション、および説明が常に最新で関連性のあるものになります。
@@ -164,5 +164,5 @@ npm test
 
 ## 便利なリンク
 
-- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)
+- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
 - [Intlayer GitHub リポジトリ](https://github.com/aymericzip/intlayer)

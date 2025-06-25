@@ -1,7 +1,7 @@
 ---
 docName: package__react-native-intlayer
 url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Package Documentation | react-native-intlayer
@@ -27,7 +27,7 @@ Internationalising your React Native application is essential for serving a glob
 
 ## Configuration
 
-The `react-native-intlayer` package works seamlessly with the [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/index.md), and the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/intlayer/index.md). Have a look at the relevant documentation for more information.
+The `react-native-intlayer` package works seamlessly with the [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/index.md), and the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/index.md). Have a look at the relevant documentation for more information.
 
 ## Installation
 
@@ -65,7 +65,7 @@ module.exports = (async () => {
 
 Intlayer provides a lot of features to help you internationalise your Vite application.
 
-**To learn more about these features, refer to the [React Internationalisation (i18n) with Intlayer and React Native](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_with_react_native+expo.md) guide for React Native Application.**
+**To learn more about these features, refer to the [React Internationalisation (i18n) with Intlayer and React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_react_native+expo.md) guide for React Native Application.**
 
 ## Read about Intlayer
 

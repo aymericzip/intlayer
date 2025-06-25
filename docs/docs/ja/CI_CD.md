@@ -1,7 +1,7 @@
 ---
 docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-05-20
 title: CI/CD統合
@@ -51,7 +51,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-CMS についての詳細は、[公式ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)を参照してください。
+CMS についての詳細は、[公式ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を参照してください。
 
 ## Husky を使用する
 
@@ -88,7 +88,7 @@ npx intlayer build                          # 辞書が最新であることを�
 npx intlayer fill --unpushed --mode fill    # 欠落しているコンテンツのみを埋める（既存のものは更新しない）
 ```
 
-> Intlayer CLI コマンドとその使用方法についての詳細は、[CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)を参照してください。
+> Intlayer CLI コマンドとその使用方法についての詳細は、[CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。
 
 > リポジトリ内に複数のアプリがあり、それぞれが別々の Intlayer インスタンスを使用している場合、以下のように `--base-dir` 引数を使用できます：
 
@@ -164,4 +164,4 @@ jobs:
 
 > デフォルトでは、`--git-diff` 引数は、ベース（デフォルトは `origin/main`）から現在のブランチ（デフォルトは `HEAD`）までの変更を含む辞書をフィルタリングします。
 
-> Intlayer CLI コマンドとその使用方法についての詳細は、[CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)を参照してください。
+> Intlayer CLI コマンドとその使用方法についての詳細は、[CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。

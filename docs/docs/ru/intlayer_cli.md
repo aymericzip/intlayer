@@ -1,7 +1,7 @@
 ---
 docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: CLI
@@ -39,7 +39,7 @@ pnpm add intlayer-cli -g
 
 ## Пакет intlayer-cli
 
-Пакет `intlayer-cli` предназначен для транспиляции ваших [объявлений intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md) в словари.
+Пакет `intlayer-cli` предназначен для транспиляции ваших [объявлений intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md) в словари.
 
 Этот пакет транспилирует все файлы intlayer, такие как `src/**/*.content.{ts|js|mjs|cjs|json}`. [Смотрите, как объявлять файлы деклараций Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
@@ -56,7 +56,7 @@ Intlayer поддерживает несколько форматов конфи
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-Чтобы узнать, как настроить доступные локали или другие параметры, обратитесь к [документации по конфигурации здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md).
+Чтобы узнать, как настроить доступные локали или другие параметры, обратитесь к [документации по конфигурации здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
 ## Запуск команд intlayer
 
@@ -82,7 +82,7 @@ npx intlayer dictionaries build --watch
 npx intlayer dictionary push
 ```
 
-Если установлен [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md), вы также можете отправить словари в редактор. Эта команда позволит сделать словари доступными для [редактора](https://intlayer.org/dashboard). Таким образом, вы можете делиться своими словарями с командой и редактировать контент без изменения кода вашего приложения.
+Если установлен [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), вы также можете отправить словари в редактор. Эта команда позволит сделать словари доступными для [редактора](https://intlayer.org/dashboard). Таким образом, вы можете делиться своими словарями с командой и редактировать контент без изменения кода вашего приложения.
 
 ##### Аргументы:
 
@@ -109,7 +109,7 @@ npx intlayer dictionary push
 npx intlayer dictionary pull
 ```
 
-Если у вас установлен [Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md), вы также можете получить словари из редактора. Это позволяет перезаписать содержимое словарей в соответствии с потребностями вашего приложения.
+Если у вас установлен [Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), вы также можете получить словари из редактора. Это позволяет перезаписать содержимое словарей в соответствии с потребностями вашего приложения.
 
 ##### Аргументы:
 

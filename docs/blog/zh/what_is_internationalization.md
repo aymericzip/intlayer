@@ -1,7 +1,7 @@
 ---
 blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: 什么是国际化？定义和挑战
@@ -19,7 +19,7 @@ keywords:
 
 # 什么是国际化 (i18n)? 定义与挑战
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 理解国际化 (i18n)
 
@@ -73,7 +73,7 @@ keywords:
 
 ## 常见的国际化挑战
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
 
 - **可维护性**  
   每个网站更新都必须在每种语言中反映，要求高效的工作流程和仔细的协调，以确保所有版本的一致性。
@@ -145,16 +145,16 @@ keywords:
 
 ### 内容管理系统 (CMS)
 
-- WordPress: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/CMS/wordpress.md)
-- Drupal: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/CMS/drupal.md)
+- WordPress: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/CMS/drupal.md)
 
 ### JavaScript 应用程序 (前端)
 
-- React: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/react.md)
-- Angular: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/angular.md)
-- Vue: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/vue.md)
-- Svelte: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/svelte.md)
-- React Native: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/blog/zh/list_i18n_technologies/frameworks/react-native.md)
+- React: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/react.md)
+- Angular: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/angular.md)
+- Vue: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/svelte.md)
+- React Native: [查看国际化库和工具列表](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

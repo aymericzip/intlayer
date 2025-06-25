@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__svelte
 url: https://intlayer.org/blog/i18n-technologies/frameworks/svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/svelte.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/svelte.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Beste Internationalisierung (i18n)-Tools für Svelte
@@ -20,13 +20,13 @@ keywords:
 
 Da das Web weiterhin Menschen auf der ganzen Welt verbindet, wird es zunehmend wichtig, Inhalte in mehreren Sprachen anzubieten. Für Entwickler, die mit **Svelte** arbeiten, ist die Implementierung von i18n entscheidend, um Übersetzungen effizient zu verwalten, sauberen Code zu erhalten und gute SEO-Praktiken aufrechtzuerhalten. In diesem Artikel tauchen wir in verschiedene i18n-Lösungen und Arbeitsabläufe für Svelte ein – und helfen Ihnen, diejenige auszuwählen, die am besten zu den Anforderungen Ihres Projekts passt.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Was ist Internationalisierung (i18n)?
 
 Internationalisierung, allgemein als i18n abgekürzt, ist der Prozess der Gestaltung und des Aufbaus Ihrer Anwendung, damit sie sich leicht an verschiedene Sprachen, Regionen und kulturelle Konventionen anpassen kann. In Svelte bedeutet dies in der Regel, Übersetzungsstrings einzurichten, Daten, Zeiten und Zahlen zu lokalisieren und sicherzustellen, dass die Benutzeroberfläche dynamisch zwischen verschiedenen Lokalen ohne größere Codeänderungen wechseln kann.
 
-Um mehr über die Grundlagen von i18n zu erfahren, lesen Sie unseren Artikel: [Was ist Internationalisierung (i18n)? Definition und Herausforderungen](https://github.com/aymericzip/intlayer/blob/main/blog/de/what_is_internationalization.md).
+Um mehr über die Grundlagen von i18n zu erfahren, lesen Sie unseren Artikel: [Was ist Internationalisierung (i18n)? Definition und Herausforderungen](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/what_is_internationalization.md).
 
 ---
 

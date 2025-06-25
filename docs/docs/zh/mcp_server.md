@@ -1,7 +1,7 @@
 ---
 docName: mcp_server
 url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: MCP服务器文档
@@ -25,7 +25,7 @@ keywords:
 在您的 IDE 中启用 Intlayer MCP 服务器后，您将获得以下功能：
 
 - **智能 CLI 集成**
-  直接从 IDE 界面访问并运行 Intlayer CLI 命令。查看完整的命令和选项列表，请参阅 [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)。
+  直接从 IDE 界面访问并运行 Intlayer CLI 命令。查看完整的命令和选项列表，请参阅 [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
 
 - **上下文感知文档**
   MCP 服务器加载并显示与您项目中使用的 Intlayer 版本对应的文档。这确保了代码建议、命令选项和解释始终是最新且相关的。
@@ -164,7 +164,7 @@ npm test
 
 ## 有用链接
 
-- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)
 - [Intlayer GitHub 仓库](https://github.com/aymericzip/intlayer)
 
 ---

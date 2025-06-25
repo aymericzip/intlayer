@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__angular
 url: https://intlayer.org/blog/i18n-technologies/frameworks/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/angular.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/angular.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Mejores herramientas de internacionalización (i18n) para Angular
@@ -20,13 +20,13 @@ keywords:
 
 En el mundo interconectado de hoy, ofrecer tu sitio web en múltiples idiomas puede expandir significativamente tu alcance y mejorar la experiencia del usuario. Para los desarrolladores que trabajan con Angular, implementar la internacionalización (i18n) es crucial para gestionar eficientemente las traducciones mientras se preserva la estructura de la aplicación, el SEO y el rendimiento. En este artículo, exploraremos varios enfoques de i18n, desde las soluciones integradas de Angular hasta las populares bibliotecas de terceros, para ayudarte a determinar la mejor opción para tu proyecto.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## ¿Qué es la Internacionalización (i18n)?
 
 La internacionalización, a menudo conocida como i18n, es el proceso de diseñar y preparar tu aplicación para soportar múltiples idiomas y contextos culturales. En Angular, implica configurar tu aplicación de manera que el texto, fechas, números e incluso los diseños de la interfaz de usuario puedan adaptarse sin problemas a diferentes locales. Realizar esta preparación adecuadamente asegura que la integración de futuras traducciones se mantenga organizada y eficiente.
 
-Aprende más sobre los fundamentos de i18n leyendo nuestro artículo: [¿Qué es la Internacionalización (i18n)? Definición y Desafíos](https://github.com/aymericzip/intlayer/blob/main/blog/es/what_is_internationalization.md).
+Aprende más sobre los fundamentos de i18n leyendo nuestro artículo: [¿Qué es la Internacionalización (i18n)? Definición y Desafíos](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/what_is_internationalization.md).
 
 ---
 

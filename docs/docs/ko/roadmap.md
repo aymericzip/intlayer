@@ -1,7 +1,7 @@
 ---
 docName: roadmap
 url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-03-01
 title: 로드맵
@@ -32,7 +32,7 @@ Intlayer는 애플리케이션 전반에서 콘텐츠를 선언, 관리 및 업�
 
 > 리소스:
 >
-> - [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)
+> - [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)
 
 ### 2. 국제화
 
@@ -41,7 +41,7 @@ Intlayer는 애플리케이션 전반에서 콘텐츠를 선언, 관리 및 업�
 
 > 리소스:
 >
-> - [국제화](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/translation.md)
+> - [국제화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)
 
 ### 3. Markdown 지원
 
@@ -50,7 +50,7 @@ Intlayer는 애플리케이션 전반에서 콘텐츠를 선언, 관리 및 업�
 
 > 리소스:
 >
-> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/markdown.md)
+> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md)
 
 ### 4. 조건부 렌더링
 
@@ -59,7 +59,7 @@ Intlayer는 애플리케이션 전반에서 콘텐츠를 선언, 관리 및 업�
 
 > 리소스:
 >
-> - [조건부 렌더링](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/condition.md)
+> - [조건부 렌더링](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition.md)
 
 ### 5. 콘텐츠 선언 형식
 
@@ -77,7 +77,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
   > 리소스:
   >
-  > - [콘텐츠 선언 형식](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/content_extention_customization.md)
+  > - [콘텐츠 선언 형식](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_extention_customization.md)
 
 ---
 
@@ -104,7 +104,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
 > 리소스:
 >
-> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md)
+> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
 
@@ -112,7 +112,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
 > 리소스:
 >
-> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_vite+react.md)
+> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)
 
 ### 3. Express
 
@@ -121,7 +121,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
 > 리소스:
 >
-> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_express.md)
+> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_express.md)
 
 ---
 
@@ -138,7 +138,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
 > 리소스:
 >
-> - [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)
+> - [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (원격)
 
@@ -148,7 +148,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
 > 리소스:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 ---
 
@@ -160,7 +160,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
 > 리소스:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)
 
 ---
 
@@ -177,7 +177,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(JavaScript도 포함) 및 
 
 > 리소스:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 ---
 

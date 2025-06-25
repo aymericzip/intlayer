@@ -1,7 +1,7 @@
 ---
 docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Intlayer CMS | 将您的内容外部化到Intlayer CMS
@@ -37,7 +37,7 @@ Intlayer 区分“本地”字典和“远程”字典。
 
 ## 可视化编辑器与 CMS
 
-[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md) 是一个工具，允许您在本地字典中以可视化方式管理内容。一旦更改完成，内容将被替换到代码库中。这意味着应用程序将被重新构建，页面将重新加载以显示新内容。
+[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 是一个工具，允许您在本地字典中以可视化方式管理内容。一旦更改完成，内容将被替换到代码库中。这意味着应用程序将被重新构建，页面将重新加载以显示新内容。
 
 相比之下，Intlayer CMS 是一个工具，允许您在远程字典中以可视化方式管理内容。一旦更改完成，内容将**不会**影响您的代码库。网站将自动显示更改后的内容。
 
@@ -47,15 +47,15 @@ Intlayer 区分“本地”字典和“远程”字典。
 
 ### 与 Next.js 集成
 
-有关与 Next.js 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)。
+有关与 Next.js 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)。
 
 ### 与 Create React App 集成
 
-有关与 Create React App 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)。
+有关与 Create React App 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)。
 
 ### 与 Vite + React 集成
 
-有关与 Vite + React 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md)。
+有关与 Vite + React 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)。
 
 ## 配置
 
@@ -214,7 +214,7 @@ module.exports = config;
 
 > 如果您没有客户端 ID 和客户端密钥，可以通过在 [Intlayer 仪表板 - 项目](https://intlayer.org/dashboard/projects) 中创建新客户端来获取。
 
-> 要查看所有可用参数，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+> 要查看所有可用参数，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ## 使用 CMS
 

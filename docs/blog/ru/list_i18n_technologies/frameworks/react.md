@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Лучшие инструменты интернационализации (i18n) для React
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Что такое международная локализация (i18n)?
 
 Международная локализация, сокращенно i18n, , это процесс проектирования и подготовки вашего веб-сайта для поддержки нескольких языков и культурных контекстов. В React это означает настройку вашего приложения так, чтобы строки, форматы дат, числовые форматы и даже макет можно было легко адаптировать для пользователей из разных регионов. Подготовка вашего React-приложения для i18n закладывает основу для чистой интеграции переводов и других функций локализации.
 
-Узнайте больше о i18n, прочитав нашу статью: [Что такое международная локализация (i18n)? Определение и проблемы](https://github.com/aymericzip/intlayer/blob/main/blog/ru/what_is_internationalization.md).
+Узнайте больше о i18n, прочитав нашу статью: [Что такое международная локализация (i18n)? Определение и проблемы](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/what_is_internationalization.md).
 
 ---
 

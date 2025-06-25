@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer
 url: https://intlayer.org/doc/packages/express-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: パッケージドキュメント | express-intlayer
@@ -105,7 +105,7 @@ const config = {
 module.exports = config;
 ```
 
-> 利用可能なパラメーターの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を参照してください。
+> 利用可能なパラメーターの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
 ## 使用例
 
@@ -190,9 +190,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer`は以下と完全に互換性があります:
 
-- [Reactアプリケーション用の`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/index.md)
-- [Next.jsアプリケーション用の`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/index.md)
-- [Viteアプリケーション用の`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/vite-intlayer/index.md)
+- [Reactアプリケーション用の`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)
+- [Next.jsアプリケーション用の`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)
+- [Viteアプリケーション用の`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)
 
 また、ブラウザやAPIリクエストを含むさまざまな環境で、あらゆる国際化ソリューションとシームレスに動作します。ミドルウェアをカスタマイズして、ヘッダーやクッキーを介してロケールを検出することもできます:
 
@@ -244,4 +244,4 @@ module.exports = config;
 
 ## `express-intlayer`パッケージが提供する関数
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja-GB/packages/express-intlayer/t.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja-GB/packages/express-intlayer/t.md)

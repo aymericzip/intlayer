@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-03-09
 title: 翻译你的Lynx和React移动应用 (i18n)
@@ -124,7 +124,7 @@ module.exports = config;
 - 配置您的**支持语言列表**。
 - 设置一个**默认**语言。
 - 以后，您可以添加更高级的选项（例如日志、自定义内容目录等）。
-- 查看 [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 了解更多。
+- 查看 [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 了解更多。
 
 ## 第三步：将 Intlayer 插件添加到 Lynx 打包器
 
@@ -355,7 +355,7 @@ module.exports = appContent;
 }
 ```
 
-> 有关内容声明的详细信息，请参阅 [Intlayer 的内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
+> 有关内容声明的详细信息，请参阅 [Intlayer 的内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
 
 ---
 
@@ -459,7 +459,7 @@ export const LocaleSwitcher: FC = () => {
 
 这将触发使用 Intlayer 内容的所有组件的重新渲染，现在显示新语言环境的翻译。
 
-> 有关更多详细信息，请参阅 [`useLocale` 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/useLocale.md)。
+> 有关更多详细信息，请参阅 [`useLocale` 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
 
 ## 配置 TypeScript（如果您使用 TypeScript）
 
@@ -497,6 +497,6 @@ Intlayer 在一个隐藏文件夹中生成类型定义（默认是 `.intlayer`�
 
 ## 深入了解
 
-- **可视化编辑器**：使用 [Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md) 以可视化方式管理翻译。
-- **CMS 集成**：您还可以将字典内容外部化并从 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md) 中获取。
-- **CLI 命令**：探索 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 以执行诸如**提取翻译**或**检查缺失键**等任务。
+- **可视化编辑器**：使用 [Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 以可视化方式管理翻译。
+- **CMS 集成**：您还可以将字典内容外部化并从 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 中获取。
+- **CLI 命令**：探索 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 以执行诸如**提取翻译**或**检查缺失键**等任务。

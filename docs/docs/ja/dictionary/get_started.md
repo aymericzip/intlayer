@@ -1,7 +1,7 @@
 ---
 docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: コンテンツ宣言 | 始める
@@ -36,7 +36,7 @@ keywords:
 
 アプリケーションはデフォルトで `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` のグロブパターンに一致するファイルを検索します。
 
-これらのデフォルト拡張子はほとんどのアプリケーションに適しています。ただし、特定の要件がある場合は、[コンテンツ拡張子カスタマイズガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md#content-configuration) を参照して管理方法を確認してください。
+これらのデフォルト拡張子はほとんどのアプリケーションに適しています。ただし、特定の要件がある場合は、[コンテンツ拡張子カスタマイズガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#content-configuration) を参照して管理方法を確認してください。
 
 設定オプションの完全なリストについては、設定ドキュメントをご覧ください。
 

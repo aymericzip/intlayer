@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react-native
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react-native
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react-native.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react-native.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: React Nativeのための最適な国際化ツール
@@ -22,14 +22,14 @@ keywords:
 
 ---
 
-![i18nのイラスト](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18nのイラスト](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 国際化（i18n）とは？
 
 国際化、またはi18nは、アプリケーションを構造化して、さまざまな言語、地域の形式、文化的規範に簡単に適応できるようにすることを含みます。React Nativeにおけるi18nは、ボタンやラベルの文字列を扱うだけでなく、ユーザーのロケールに応じて日付、時間、通貨などをフォーマットすることも含まれます。適切に準備されたReact Nativeアプリは、後から追加の言語やロケール特有の動作をシームレスに統合できるため、大規模なリファクタリングなしに行うことができます。
 
 国際化の概念についてさらに深く掘り下げるには、以下の記事をご覧ください：  
-[国際化（i18n）とは？定義と課題](https://github.com/aymericzip/intlayer/blob/main/blog/ja/what_is_internationalization.md)。
+[国際化（i18n）とは？定義と課題](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/what_is_internationalization.md)。
 
 ---
 

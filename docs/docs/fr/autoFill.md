@@ -1,7 +1,7 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Remplissage automatique
@@ -37,7 +37,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-Voici un [fichier de déclaration de contenu par locale](https://github.com/aymericzip/intlayer/blob/main/docs/fr/per_locale_file.md) utilisant l'instruction `autoFill`.
+Voici un [fichier de déclaration de contenu par locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/per_locale_file.md) utilisant l'instruction `autoFill`.
 
 Ensuite, lorsque vous exécutez la commande suivante :
 

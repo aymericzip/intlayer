@@ -1,7 +1,7 @@
 ---
 docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: إعلان المحتوى | ابدأ
@@ -36,7 +36,7 @@ keywords:
 
 سيبحث التطبيق عن الملفات التي تطابق النمط `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` بشكل افتراضي.
 
-هذه الامتدادات الافتراضية مناسبة لمعظم التطبيقات. ومع ذلك، إذا كانت لديك متطلبات محددة، راجع [دليل تخصيص امتداد المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md#content-configuration) للحصول على تعليمات حول كيفية إدارتها.
+هذه الامتدادات الافتراضية مناسبة لمعظم التطبيقات. ومع ذلك، إذا كانت لديك متطلبات محددة، راجع [دليل تخصيص امتداد المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#content-configuration) للحصول على تعليمات حول كيفية إدارتها.
 
 للحصول على قائمة كاملة بخيارات التكوين، قم بزيارة وثائق التكوين.
 

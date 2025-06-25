@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Express 백엔드를 번역하십시오 (i18n)
@@ -198,9 +198,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer`는 다음과 완벽히 호환됩니다:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/index.md) React 애플리케이션용
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/index.md) Next.js 애플리케이션용
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/vite-intlayer/index.md) Vite 애플리케이션용
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md) React 애플리케이션용
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md) Next.js 애플리케이션용
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md) Vite 애플리케이션용
 
 또한 브라우저 및 API 요청을 포함한 다양한 환경에서 모든 국제화 솔루션과 원활하게 작동합니다. 헤더 또는 쿠키를 통해 로케일을 감지하도록 미들웨어를 사용자 정의할 수 있습니다:
 
@@ -250,7 +250,7 @@ module.exports = config;
 
 기본적으로 `express-intlayer`는 `Accept-Language` 헤더를 해석하여 클라이언트의 선호 언어를 결정합니다.
 
-> 구성 및 고급 주제에 대한 자세한 내용은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하십시오.
+> 구성 및 고급 주제에 대한 자세한 내용은 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하십시오.
 
 ### TypeScript 구성
 

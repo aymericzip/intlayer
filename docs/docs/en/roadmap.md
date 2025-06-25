@@ -1,7 +1,7 @@
 ---
 docName: roadmap
 url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-03-01
 title: Roadmap
@@ -32,7 +32,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md)
+> - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)
 
 ### 2. Internationalization
 
@@ -41,7 +41,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md)
+> - [Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
 
 ### 3. Markdown Support
 
@@ -50,7 +50,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md)
+> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
 
 ### 4. External file support
 
@@ -61,7 +61,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [File Content Embedding](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md)
+> - [File Content Embedding](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
 
 ### 5. Dynamic Content & Function Fetching
 
@@ -123,7 +123,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
   > Resources:
   >
-  > - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/content_extention_customization.md)
+  > - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_extention_customization.md)
 
 ---
 
@@ -150,7 +150,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_15.md)
+> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
 
@@ -158,7 +158,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md)
+> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 ### 3. Express
 
@@ -167,7 +167,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md)
+> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md)
 
 ### 4. React Native
 
@@ -176,7 +176,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [React Native](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react_native.md)
+> - [React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_native.md)
 
 ### 5. Lynx
 
@@ -185,7 +185,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx.md)
+> - [Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx.md)
 
 ---
 
@@ -202,7 +202,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md)
+> - [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (Remote)
 
@@ -212,7 +212,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 ---
 
@@ -224,7 +224,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
 
 ---
 
@@ -241,7 +241,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 ---
 

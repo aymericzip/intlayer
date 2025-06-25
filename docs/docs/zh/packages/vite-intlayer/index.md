@@ -1,7 +1,7 @@
 ---
 docName: package__vite-intlayer
 url: https://intlayer.org/doc/packages/vite-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 包文档 | vite-intlayer
@@ -20,7 +20,7 @@ keywords:
 
 **Intlayer** 是专为 JavaScript 开发者设计的一套工具包。它兼容 React、React 和 Express.js 等框架。
 
-**`vite-intlayer` 包** 允许您对 Vite 应用进行国际化。它包括一个 Vite 插件，通过环境变量将配置设置到 [Vite 打包器](https://vitejs.dev/guide/why.html#why-bundle-for-production)。此外，它还提供中间件来检测用户的首选语言环境，并根据 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 将用户重定向到适当的 URL。
+**`vite-intlayer` 包** 允许您对 Vite 应用进行国际化。它包括一个 Vite 插件，通过环境变量将配置设置到 [Vite 打包器](https://vitejs.dev/guide/why.html#why-bundle-for-production)。此外，它还提供中间件来检测用户的首选语言环境，并根据 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 将用户重定向到适当的 URL。
 
 ## 为什么要对 Vite 应用进行国际化？
 
@@ -28,7 +28,7 @@ keywords:
 
 ## 配置
 
-`vite-intlayer` 包可以无缝地与 [`react-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/index.md) 和 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/index.md) 一起使用。有关更多信息，请参阅相关文档。
+`vite-intlayer` 包可以无缝地与 [`react-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md) 和 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/index.md) 一起使用。有关更多信息，请参阅相关文档。
 
 ## 安装
 
@@ -68,4 +68,4 @@ export default defineConfig({
 
 Intlayer 提供了许多功能来帮助您对 Vite 应用进行国际化。
 
-**要了解更多这些功能，请参考 [使用 Intlayer 和 Vite 以及 React 进行国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md) 的指南，适用于 Vite 和 React 应用。**
+**要了解更多这些功能，请参考 [使用 Intlayer 和 Vite 以及 React 进行国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md) 的指南，适用于 Vite 和 React 应用。**

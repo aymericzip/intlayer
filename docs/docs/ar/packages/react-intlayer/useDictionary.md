@@ -43,7 +43,7 @@
 
 ## القاموس
 
-يجب إعلان جميع كائنات القاموس في ملفات محتوى منظمة لضمان أمان النوع وتجنب أخطاء وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md). فيما يلي مثال على إعلان المحتوى:
+يجب إعلان جميع كائنات القاموس في ملفات محتوى منظمة لضمان أمان النوع وتجنب أخطاء وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md). فيما يلي مثال على إعلان المحتوى:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";

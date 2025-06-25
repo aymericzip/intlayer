@@ -1,7 +1,7 @@
 ---
 docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: CLI
@@ -39,7 +39,7 @@ pnpm add intlayer-cli -g
 
 ## intlayer-cli パッケージ
 
-`intlayer-cli`パッケージは、[intlayer宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を辞書にトランスパイルすることを目的としています。
+`intlayer-cli`パッケージは、[intlayer宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)を辞書にトランスパイルすることを目的としています。
 
 このパッケージは、`src/**/*.content.{ts|js|mjs|cjs|json}`のようなすべてのintlayerファイルをトランスパイルします。[Intlayer宣言ファイルの宣言方法はこちらをご覧ください](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
 
@@ -56,7 +56,7 @@ Intlayerは複数の設定ファイル形式を受け入れます:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-利用可能なロケールやその他のパラメータの設定方法については、[こちらの設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を参照してください。
+利用可能なロケールやその他のパラメータの設定方法については、[こちらの設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
 ## Intlayerコマンドの実行
 
@@ -82,7 +82,7 @@ npx intlayer dictionaries build --watch
 npx intlayer dictionary push
 ```
 
-[intlayerエディター](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)がインストールされている場合、辞書をエディターにプッシュすることもできます。このコマンドにより、辞書を[エディター](https://intlayer.org/dashboard)で利用可能にします。この方法で、チームと辞書を共有し、アプリケーションのコードを編集せずにコンテンツを編集できます。
+[intlayerエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)がインストールされている場合、辞書をエディターにプッシュすることもできます。このコマンドにより、辞書を[エディター](https://intlayer.org/dashboard)で利用可能にします。この方法で、チームと辞書を共有し、アプリケーションのコードを編集せずにコンテンツを編集できます。
 
 ##### 引数:
 
@@ -109,7 +109,7 @@ npx intlayer dictionary push
 npx intlayer dictionary pull
 ```
 
-[intlayerエディター](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)がインストールされている場合、エディターから辞書をプルすることもできます。この方法で、アプリケーションのニーズに合わせて辞書の内容を上書きできます。
+[intlayerエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)がインストールされている場合、エディターから辞書をプルすることもできます。この方法で、アプリケーションのニーズに合わせて辞書の内容を上書きできます。
 
 ##### 引数:
 

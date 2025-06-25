@@ -38,4 +38,4 @@ O Intlayer fornece uma ferramenta CLI para:
 - construir dicionários a partir de suas declarações de conteúdo
 - enviar e receber dicionários distantes do seu CMS para o seu projeto local
 
-Consulte [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_cli.md) para mais informações.
+Consulte [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md) para mais informações.

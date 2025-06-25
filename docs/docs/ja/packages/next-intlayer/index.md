@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer
 url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: パッケージドキュメント | next-intlayer
@@ -54,7 +54,7 @@ Intlayerを使用すると、コードベースのどこにでも構造化され
 
 デフォルトでは、Intlayerは拡張子が`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`のファイルをスキャンします。
 
-> デフォルトの拡張子は[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)の`contentDir`プロパティを設定することで変更できます。
+> デフォルトの拡張子は[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)の`contentDir`プロパティを設定することで変更できます。
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ Intlayerを使用すると、コードベースのどこにでも構造化され
 
 ### コンテンツを宣言する
 
-`next-intlayer`は[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/index.md)と連携して動作します。`intlayer`は、コード内のどこにでもコンテンツを宣言できるパッケージです。多言語コンテンツの宣言を構造化された辞書に変換し、アプリケーションにシームレスに統合します。
+`next-intlayer`は[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/index.md)と連携して動作します。`intlayer`は、コード内のどこにでもコンテンツを宣言できるパッケージです。多言語コンテンツの宣言を構造化された辞書に変換し、アプリケーションにシームレスに統合します。
 
 以下はコンテンツ宣言の例です:
 
@@ -263,19 +263,19 @@ const ClientComponentExample = () => {
 Intlayerは、Next.jsアプリケーションを国際化するための多くの機能を提供します。以下は主な機能の一部です:
 
 - **サーバーコンポーネントの国際化**: Intlayerを使用すると、クライアントコンポーネントと同じ方法でサーバーコンポーネントを国際化できます。これにより、クライアントとサーバーの両方のコンポーネントで同じコンテンツ宣言を使用できます。
-- **ロケール検出のためのミドルウェア**: Intlayerは、ユーザーの優先ロケールを検出するためのミドルウェアを提供します。このミドルウェアは、ユーザーの優先ロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)で指定された適切なURLにリダイレクトします。
+- **ロケール検出のためのミドルウェア**: Intlayerは、ユーザーの優先ロケールを検出するためのミドルウェアを提供します。このミドルウェアは、ユーザーの優先ロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で指定された適切なURLにリダイレクトします。
 - **メタデータの国際化**: Intlayerは、ページのタイトルなどのメタデータを国際化する方法を提供します。Next.jsが提供する`generateMetadata`関数を使用して、`getTranslation`関数を使用してメタデータを翻訳できます。
 - **sitemap.xmlとrobots.txtの国際化**: Intlayerを使用すると、sitemap.xmlとrobots.txtファイルを国際化できます。`getMultilingualUrls`関数を使用して、多言語URLを生成できます。
 - **URLの国際化**: Intlayerを使用すると、`getMultilingualUrls`関数を使用してURLを国際化できます。この関数は、sitemap用の多言語URLを生成します。
 
-**これらの機能の詳細については、[Next.js 15 App Routerを使用したIntlayerによるNext.jsの国際化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)ガイドを参照してください。**
+**これらの機能の詳細については、[Next.js 15 App Routerを使用したIntlayerによるNext.jsの国際化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)ガイドを参照してください。**
 
 ## `next-intlayer`パッケージが提供する関数
 
 `next-intlayer`パッケージは、アプリケーションを国際化するためのいくつかの関数も提供します。
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useIntlayerAsync.md)

@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayer钩子文档 | react-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 ## 字典
 
-所有字典键必须在内容声明文件中声明，以增强类型安全性并避免错误。您可以在[这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)找到设置说明。
+所有字典键必须在内容声明文件中声明，以增强类型安全性并避免错误。您可以在[这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)找到设置说明。
 
 ## 在 React 中的示例用法
 
@@ -240,6 +240,6 @@ const ServerComponentExample = () => {
 
 ## 其他资源
 
-- **Intlayer 可视化编辑器**：有关更直观的内容管理体验，请参考可视化编辑器文档[这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)。
+- **Intlayer 可视化编辑器**：有关更直观的内容管理体验，请参考可视化编辑器文档[这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 本节专门针对在 React 应用程序中集成 `useIntlayer` hook，简化本地化过程并确保不同语言环境下的内容一致性。

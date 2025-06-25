@@ -1,7 +1,7 @@
 ---
 docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2024-08-14
 title: Intlayerの利点
@@ -138,11 +138,11 @@ const ComponentExample = () => {
 - **整理されたコードベース**: コードベースをより整理された状態に保ちます：1コンポーネント = 1辞書を同じフォルダに配置。
 - **自動TypeScript型**: TypeScript型が自動的に実装され、キーの名前変更や削除によるコードの破損を防ぎます。
 - **CI自動翻訳**: 独自のOpenAI APIキーを使用してCIでの翻訳を自動入力し、L10nプラットフォームの必要性を排除します。
-- **MCPサーバー統合**: IDE自動化のためのMCP（Model Context Protocol）サーバーを提供し、開発環境内で直接コンテンツ管理とi18nワークフローをシームレスに実現します。[詳細を見る](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md)。
+- **MCPサーバー統合**: IDE自動化のためのMCP（Model Context Protocol）サーバーを提供し、開発環境内で直接コンテンツ管理とi18nワークフローをシームレスに実現します。[詳細を見る](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)。
 - **Markdownサポート**: プライバシーポリシーなどの多言語コンテンツのMarkdownファイルをインポートして解釈します。
 - **無料のビジュアルエディタとCMS**: コンテンツライターと翻訳作業を行う必要がある場合に利用できる無料のビジュアルエディタとCMSを提供し、ローカライゼーションプラットフォームの必要性を再度排除し、コードベースからのコンテンツの外部化を可能にします。
 - **簡素化されたコンテンツ取得**: 各コンテンツ要素に対して`t`関数を呼び出す必要がなく、単一のフックを使用してすべてのコンテンツを直接取得できます。
 - **一貫した実装**: クライアントとサーバーコンポーネントで同じ実装を使用し、各サーバーコンポーネントを通じて`t`関数を渡す必要がありません。
 - **Tree-shakableコンテンツ**: コンテンツはtree-shakableで、最終的なバンドルを軽量化します。
 - **非ブロッキング静的レンダリング**: Intlayerは`next-intl`のように静的レンダリングをブロックしません。
-- **相互運用性**: [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-intl.md)、[react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-intl.md)との相互運用性を可能にします。
+- **相互運用性**: [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md)、[react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-intl.md)との相互運用性を可能にします。

@@ -1,7 +1,7 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: الملء التلقائي
@@ -37,7 +37,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-هذا هو [ملف إعلان المحتوى لكل لغة](https://github.com/aymericzip/intlayer/blob/main/docs/ar/per_locale_file.md) باستخدام تعليمات `autoFill`.
+هذا هو [ملف إعلان المحتوى لكل لغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) باستخدام تعليمات `autoFill`.
 
 ثم، عندما تقوم بتنفيذ الأمر التالي:
 

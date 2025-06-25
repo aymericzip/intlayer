@@ -43,7 +43,7 @@
 
 ## 字典
 
-所有字典对象应在结构化内容文件中声明，以确保类型安全并防止运行时错误。您可以在[这里](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)找到设置说明。以下是内容声明的示例：
+所有字典对象应在结构化内容文件中声明，以确保类型安全并防止运行时错误。您可以在[这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)找到设置说明。以下是内容声明的示例：
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";

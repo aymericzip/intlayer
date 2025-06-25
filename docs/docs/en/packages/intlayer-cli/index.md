@@ -38,4 +38,4 @@ Intlayer provides a CLI tool to:
 - build dictionaries from your content declarations
 - push and pull distant dictionaries from your CMS to your locale project
 
-Consult [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md) for more information.
+Consult [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) for more information.

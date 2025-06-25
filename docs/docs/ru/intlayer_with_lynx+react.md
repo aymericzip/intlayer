@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-03-09
 title: Переведите свой мобильный приложение Lynx и React (i18n)
@@ -122,7 +122,7 @@ module.exports = config;
 - Настроить **список поддерживаемых локалей**.
 - Установить **локаль по умолчанию**.
 - Позже вы можете добавить более сложные опции (например, логи, пользовательские директории контента и т.д.).
-- См. [документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md) для получения дополнительной информации.
+- См. [документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) для получения дополнительной информации.
 
 ## Шаг 3: Добавьте плагин Intlayer в бандлер Lynx
 
@@ -353,7 +353,7 @@ module.exports = appContent;
 }
 ```
 
-> Для получения подробной информации о декларациях контента, см. [документацию по контенту Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md).
+> Для получения подробной информации о декларациях контента, см. [документацию по контенту Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md).
 
 ---
 
@@ -457,7 +457,7 @@ export const LocaleSwitcher: FC = () => {
 
 Это вызывает повторный рендер всех компонентов, использующих контент Intlayer, теперь с переводами для новой локали.
 
-> См. [документацию по `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/react-intlayer/useLocale.md) для получения дополнительной информации.
+> См. [документацию по `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md) для получения дополнительной информации.
 
 ## Настройка TypeScript (если вы используете TypeScript)
 
@@ -495,6 +495,6 @@ Intlayer генерирует определения типов в скрыто�
 
 ## Узнайте больше
 
-- **Визуальный редактор**: Используйте [визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md) для управления переводами визуально.
-- **Интеграция с CMS**: Вы также можете вынести и получить содержимое вашего словаря из [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_CMS.md).
-- **CLI команды**: Изучите [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md) для выполнения задач, таких как **извлечение переводов** или **проверка отсутствующих ключей**.
+- **Визуальный редактор**: Используйте [визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) для управления переводами визуально.
+- **Интеграция с CMS**: Вы также можете вынести и получить содержимое вашего словаря из [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
+- **CLI команды**: Изучите [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md) для выполнения задач, таких как **извлечение переводов** или **проверка отсутствующих ключей**.

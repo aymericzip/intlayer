@@ -1,7 +1,7 @@
 ---
 docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: ファイル
@@ -218,10 +218,10 @@ const myMultilingualContent = {
 
 ファイル埋め込みの設定と使用に関する詳細は、以下のリソースを参照してください：
 
-- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)
-- [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)
-- [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)
-- [Markdown コンテンツ ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/markdown.md)
-- [翻訳コンテンツ ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/translation.md)
+- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
+- [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)
+- [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
+- [Markdown コンテンツ ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- [翻訳コンテンツ ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)
 
 これらのリソースは、ファイル埋め込み、コンテンツ管理、およびさまざまなフレームワークとのIntlayerの統合に関するさらなる洞察を提供します。

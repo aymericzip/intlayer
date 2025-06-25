@@ -1,7 +1,7 @@
 ---
 blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: 국제화란? 정의와 도전
@@ -19,7 +19,7 @@ keywords:
 
 # 국제화(i18n)란? 정의 및 도전 과제
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/ko/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/assets/i18n.webp)
 
 ## 국제화(i18n) 이해하기
 
@@ -73,7 +73,7 @@ i18n의 또 다른 중요한 이점은 사용자 경험의 향상입니다. 사�
 
 ## 일반적인 i18n 도전 과제
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/ko/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/assets/pain_i18n.webp)
 
 ## 일반적인 i18n 도전 과제
 
@@ -147,16 +147,16 @@ i18n의 또 다른 중요한 이점은 사용자 경험의 향상입니다. 사�
 
 ### 콘텐츠 관리 시스템(CMS)용
 
-- WordPress: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/CMS/wordpress.md)
-- Drupal: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/CMS/drupal.md)
+- WordPress: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/list_i18n_technologies/CMS/drupal.md)
 
 ### JavaScript 애플리케이션(프론트 엔드)용
 
-- React: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/react.md)
-- Angular: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/angular.md)
-- Vue: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/vue.md)
-- Svelte: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/svelte.md)
-- React Native : [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/list_i18n_technologies/frameworks/react-native.md)
+- React: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/list_i18n_technologies/frameworks/react.md)
+- Angular: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/list_i18n_technologies/frameworks/angular.md)
+- Vue: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/list_i18n_technologies/frameworks/svelte.md)
+- React Native : [i18n 라이브러리 및 도구 목록 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

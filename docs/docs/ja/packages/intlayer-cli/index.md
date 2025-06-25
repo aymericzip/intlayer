@@ -38,4 +38,4 @@ Intlayerは以下のためのCLIツールを提供します:
 - コンテンツ宣言から辞書を構築する
 - CMSからローカルプロジェクトへ、またはその逆にリモート辞書をプッシュおよびプルする
 
-詳細については[intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)を参照してください。
+詳細については[intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。

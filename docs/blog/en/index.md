@@ -1,7 +1,7 @@
 ---
 blogName: index
 url: https://intlayer.org/blog/search/
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md
 createdAt: 2024-24-12
 updatedAt: 2024-24-12
 title: Blog
@@ -60,7 +60,7 @@ Stay tuned for these updates and more!
 
 We believe in community-driven knowledge sharing. If you have a great idea for a blog post related to internationalization, **SEO**, or any other relevant topic, we’d love to hear from you. You can submit a Pull Request by adding your proposed blog post to our GitHub repository:
 
-[**Submit your post here**](https://github.com/aymericzip/intlayer/blob/main/blog)
+[**Submit your post here**](https://github.com/aymericzip/intlayer/blob/main/docs/blog)
 
 Your contributions help us enrich this platform and empower developers worldwide.
 

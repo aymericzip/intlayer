@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__t
 url: https://intlayer.org/doc/packages/react-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: توثيق دالة t | react-intlayer
@@ -295,7 +295,7 @@ const text = t(translations);
 
 وظيفة `t` في `react-intlayer` هي أداة قوية ومريحة لإدارة الترجمات المضمنة في تطبيقات React الخاصة بك. من خلال دمجها بشكل فعّال، تعزز قدرات التدويل في تطبيقك، مما يوفر تجربة أفضل للمستخدمين في جميع أنحاء العالم.
 
-لمزيد من الاستخدامات التفصيلية والميزات المتقدمة، راجع [توثيق react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md).
+لمزيد من الاستخدامات التفصيلية والميزات المتقدمة، راجع [توثيق react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 ---
 

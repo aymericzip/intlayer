@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_nuxt
 url: https://intlayer.org/doc/environment/nuxt-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nuxt.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-18
 title: 翻译你的Nuxt和Vue网站 (i18n)
@@ -55,7 +55,7 @@ yarn add --save-dev nuxt-intlayer
 
 - **intlayer**
 
-  提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 的核心包。
+  提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 的核心包。
 
 - **vue-intlayer**
   将 Intlayer 集成到 Vue 应用中的包。它为 Vue 组件提供可组合的功能。
@@ -132,7 +132,7 @@ const config = {
 module.exports = config;
 ```
 
-> 通过此配置文件，您可以设置本地化 URL、中间件重定向、Cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+> 通过此配置文件，您可以设置本地化 URL、中间件重定向、Cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ### 第三步：在 Nuxt 配置中集成 Intlayer
 
@@ -391,7 +391,7 @@ module.exports = helloWorldContent;
 
 > 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认情况下为 `./src`）。并匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
 
-> 有关更多详细信息，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
+> 有关更多详细信息，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
 
 ### 第五步：在代码中使用 Intlayer
 
@@ -449,7 +449,7 @@ const countRef = ref(0);
 Intlayer 提供两种 API 来访问您的内容：
 
 - **基于组件的语法**（推荐）：
-  使用 `<myContent />` 语法将内容呈现为 Intlayer 节点。这与 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md) 和 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md) 无缝集成。
+  使用 `<myContent />` 语法将内容呈现为 Intlayer 节点。这与 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 和 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 无缝集成。
 
 - **基于字符串的语法**：
   使用 `{{ myContent }}` 将内容呈现为纯文本，无任何交互性。
@@ -807,4 +807,4 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 
 ### 更进一步
 
-## 要更进一步，您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md) 或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md) 外部化您的内容。
+## 要更进一步，您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 外部化您的内容。

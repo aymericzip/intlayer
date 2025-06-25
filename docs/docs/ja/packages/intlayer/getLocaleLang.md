@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocaleLang
 url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleLang.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: t関数のドキュメント | intlayer
@@ -76,4 +76,4 @@ getLocaleLang(Locales.FRENCH); // 出力: "fr"
 - **不正なロケール文字列:**
   - `locale` が `language-country` フォーマット（例: `Locales.ENGLISH-US`）に従わない場合、関数は安全に `'-'` の前の部分、または `'-'` が存在しない場合は文字列全体を返します。
 
-[詳細はこちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/getLocaleLang.md)
+[詳細はこちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/getLocaleLang.md)

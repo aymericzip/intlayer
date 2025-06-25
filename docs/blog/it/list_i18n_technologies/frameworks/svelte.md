@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__svelte
 url: https://intlayer.org/blog/i18n-technologies/frameworks/svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/svelte.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/svelte.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Migliori strumenti di internazionalizzazione (i18n) per Svelte
@@ -20,13 +20,13 @@ keywords:
 
 Man mano che il web continua a connettere persone in tutto il mondo, fornire contenuti in più lingue diventa sempre più importante. Per gli sviluppatori che lavorano con **Svelte**, implementare l’i18n è essenziale per gestire efficacemente le traduzioni, mantenere un codice pulito e rispettare buone pratiche SEO. In questo articolo, esploreremo diverse soluzioni i18n e flussi di lavoro per Svelte, aiutandoti a scegliere quello che meglio si adatta alle esigenze del tuo progetto.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Cos'è l'internazionalizzazione (i18n)?
 
 L'internazionalizzazione, comunemente abbreviata come i18n, è il processo di progettazione e costruzione della tua applicazione in modo che possa facilmente adattarsi a varie lingue, regioni e convenzioni culturali. In Svelte, questo significa tipicamente impostare stringhe di traduzione, localizzare date, ore e numeri, e garantire che l'interfaccia utente possa passare dinamicamente tra diverse lingue senza grandi riscritture di codice.
 
-Per saperne di più sui fondamenti dell’i18n, leggi il nostro articolo: [Cos'è l'internazionalizzazione (i18n)? Definizione e Sfide](https://github.com/aymericzip/intlayer/blob/main/blog/it/what_is_internationalization.md).
+Per saperne di più sui fondamenti dell’i18n, leggi il nostro articolo: [Cos'è l'internazionalizzazione (i18n)? Definizione e Sfide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/what_is_internationalization.md).
 
 ---
 

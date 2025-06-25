@@ -1,7 +1,7 @@
 ---
 docName: package__vite-intlayer
 url: https://intlayer.org/doc/packages/vite-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق حزمة | vite-intlayer
@@ -20,7 +20,7 @@ keywords:
 
 **Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React، React، و Express.js.
 
-**حزمة `vite-intlayer`** تتيح لك تدويل تطبيق Vite الخاص بك. تتضمن مكون Vite لإعداد التكوين من خلال متغيرات البيئة في [Vite bundler](https://vitejs.dev/guide/why.html#why-bundle-for-production). كما توفر وسيطًا لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيهه إلى عنوان URL المناسب كما هو محدد في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+**حزمة `vite-intlayer`** تتيح لك تدويل تطبيق Vite الخاص بك. تتضمن مكون Vite لإعداد التكوين من خلال متغيرات البيئة في [Vite bundler](https://vitejs.dev/guide/why.html#why-bundle-for-production). كما توفر وسيطًا لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيهه إلى عنوان URL المناسب كما هو محدد في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ## لماذا تدويل تطبيق Vite الخاص بك؟
 
@@ -28,7 +28,7 @@ keywords:
 
 ## التكوين
 
-تعمل حزمة `vite-intlayer` بسلاسة مع [حزمة `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/index.md)، و [حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). ألقِ نظرة على الوثائق ذات الصلة لمزيد من المعلومات.
+تعمل حزمة `vite-intlayer` بسلاسة مع [حزمة `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)، و [حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md). ألقِ نظرة على الوثائق ذات الصلة لمزيد من المعلومات.
 
 ## التثبيت
 
@@ -68,4 +68,4 @@ export default defineConfig({
 
 يوفر Intlayer العديد من الميزات لمساعدتك في تدويل تطبيق Vite الخاص بك.
 
-**لتعلم المزيد عن هذه الميزات، راجع دليل [التدويل (i18n) مع Intlayer و Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_vite+react.md) لتطبيقات Vite و React.**
+**لتعلم المزيد عن هذه الميزات، راجع دليل [التدويل (i18n) مع Intlayer و Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md) لتطبيقات Vite و React.**

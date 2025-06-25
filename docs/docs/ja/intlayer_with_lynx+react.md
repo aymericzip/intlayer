@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-03-09
 title: LynxとReactのモバイルアプリを翻訳する (i18n)
@@ -122,7 +122,7 @@ module.exports = config;
 - **サポートするロケールのリスト**を設定します。
 - **デフォルトロケール**を設定します。
 - 後で、より高度なオプション（例：ログ、カスタムコンテンツディレクトリなど）を追加することができます。
-- 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)をご覧ください。
+- 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
 
 ## ステップ3: LynxバンドラーにIntlayerプラグインを追加する
 
@@ -353,7 +353,7 @@ module.exports = appContent;
 }
 ```
 
-> コンテンツ宣言の詳細については、[Intlayerのコンテンツドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)を参照してください。
+> コンテンツ宣言の詳細については、[Intlayerのコンテンツドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)を参照してください。
 
 ---
 
@@ -457,7 +457,7 @@ export const LocaleSwitcher: FC = () => {
 
 これにより、Intlayerコンテンツを使用するすべてのコンポーネントが再レンダリングされ、新しいロケールの翻訳が表示されます。
 
-> 詳細については、[`useLocale`ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
+> 詳細については、[`useLocale`ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
 
 ## TypeScriptの設定（TypeScriptを使用している場合）
 
@@ -495,6 +495,6 @@ Intlayerによって自動生成されたファイルをコミットしないよ
 
 ## さらに進む
 
-- **ビジュアルエディター**: [Intlayerビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)を使用して翻訳を視覚的に管理します。
-- **CMS統合**: 辞書コンテンツを[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)から外部化して取得することもできます。
-- **CLIコマンド**: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)を使用して、**翻訳の抽出**や**欠落キーの確認**などのタスクを実行します。
+- **ビジュアルエディター**: [Intlayerビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を使用して翻訳を視覚的に管理します。
+- **CMS統合**: 辞書コンテンツを[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)から外部化して取得することもできます。
+- **CLIコマンド**: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を使用して、**翻訳の抽出**や**欠落キーの確認**などのタスクを実行します。

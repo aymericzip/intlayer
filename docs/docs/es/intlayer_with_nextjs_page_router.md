@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_nextjs_page_router
 url: https://intlayer.org/doc/environment/nextjs/next-with-Page-Router
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_page_router.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md
 createdAt: 2024-12-07
 updatedAt: 2024-12-07
 title: Traduce su sitio web Next.js y Page Router (i18n)
@@ -29,7 +29,7 @@ Con Intlayer, puedes:
 - **Garantizar soporte para TypeScript** con tipos autogenerados, mejorando la autocompletación y la detección de errores.
 - **Beneficiarte de características avanzadas**, como la detección y cambio dinámico de locales.
 
-> Intlayer es compatible con Next.js 12, 13, 14 y 15. Si estás utilizando Next.js App Router, consulta la [guía de App Router](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_nextjs_14.md). Para Next.js 15, sigue esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_nextjs_15.md).
+> Intlayer es compatible con Next.js 12, 13, 14 y 15. Si estás utilizando Next.js App Router, consulta la [guía de App Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_14.md). Para Next.js 15, sigue esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md).
 
 ---
 
@@ -53,7 +53,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuraciones, traducciones, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md).
+  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuraciones, traducciones, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -122,7 +122,7 @@ const config = {
 module.exports = config;
 ```
 
-> A través de este archivo de configuración, puedes configurar URLs localizadas, redirección de middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los logs de Intlayer en la consola, y más. Para una lista completa de parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md).
+> A través de este archivo de configuración, puedes configurar URLs localizadas, redirección de middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los logs de Intlayer en la consola, y más. Para una lista completa de parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 ### Paso 3: Integrar Intlayer con la Configuración de Next.js
 
@@ -426,7 +426,7 @@ module.exports = homeContent;
 }
 ```
 
-Para más información sobre cómo declarar contenido, consulta la [guía de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md).
+Para más información sobre cómo declarar contenido, consulta la [guía de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
 
 ### Paso 7: Utilizar Contenido en Tu Código
 
@@ -551,7 +551,7 @@ const ComponentExample = () => {
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> Para aprender más sobre el hook `useIntlayer`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/next-intlayer/useIntlayer.md).
+> Para aprender más sobre el hook `useIntlayer`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useIntlayer.md).
 
 ### (Opcional) Paso 8: Internacionalizar Tus Metadatos
 
@@ -875,13 +875,13 @@ const LocaleSwitcher = () => {
 };
 ```
 
-> La API `useLocalePageRouter` es la misma que `useLocale`. Para aprender más sobre el hook `useLocale`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/next-intlayer/useLocale.md).
+> La API `useLocalePageRouter` es la misma que `useLocale`. Para aprender más sobre el hook `useLocale`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useLocale.md).
 
 > Referencias de la documentación:
 >
-> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/intlayer/getHTMLTextDir.md)
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
@@ -1084,11 +1084,11 @@ Agrega las siguientes líneas a tu archivo `.gitignore`:
 ## Recursos Adicionales
 
 - **Documentación de Intlayer:** [Repositorio de GitHub](https://github.com/aymericzip/intlayer)
-- **Guía de Diccionario:** [Diccionario](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md)
-- **Documentación de Configuración:** [Guía de Configuración](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md)
+- **Guía de Diccionario:** [Diccionario](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md)
+- **Documentación de Configuración:** [Guía de Configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
 
 Siguiendo esta guía, puedes integrar eficazmente Intlayer en tu aplicación Next.js utilizando el Page Router, habilitando un soporte de internacionalización robusto y escalable para tus proyectos web.
 
 ### Ir Más Allá
 
-Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_visual_editor.md) o externalizar tu contenido utilizando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_CMS.md).
+Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido utilizando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).

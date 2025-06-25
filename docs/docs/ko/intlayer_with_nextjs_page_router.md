@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_nextjs_page_router
 url: https://intlayer.org/doc/environment/nextjs/next-with-Page-Router
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_page_router.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md
 createdAt: 2024-12-07
 updatedAt: 2024-12-07
 title: Next.js와 페이지 라우터의 웹사이트를 번역하십시오 (i18n)
@@ -29,7 +29,7 @@ Intlayer를 사용하면 다음을 수행할 수 있습니다:
 - **자동 생성된 타입을 통해 TypeScript 지원을 보장**하여 자동 완성과 오류 감지를 개선합니다.
 - **동적 로케일 감지 및 전환과 같은 고급 기능**을 활용합니다.
 
-> Intlayer는 Next.js 12, 13, 14, 15와 호환됩니다. Next.js 앱 라우터를 사용하는 경우 [앱 라우터 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_14.md)를 참조하세요. Next.js 15의 경우 [이 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md)를 따르세요.
+> Intlayer는 Next.js 12, 13, 14, 15와 호환됩니다. Next.js 앱 라우터를 사용하는 경우 [앱 라우터 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_14.md)를 참조하세요. Next.js 15의 경우 [이 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)를 따르세요.
 
 ---
 
@@ -53,7 +53,7 @@ yarn add intlayer next-intlayer
 
 - **intlayer**
 
-  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md), 트랜스파일링 및 [CLI 명령](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_cli.md)을 위한 국제화 도구를 제공하는 핵심 패키지입니다.
+  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md), 트랜스파일링 및 [CLI 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)을 위한 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **next-intlayer**
 
@@ -119,7 +119,7 @@ const config = {
 module.exports = config;
 ```
 
-> 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자, 콘솔에서 Intlayer 로그 비활성화 등을 설정할 수 있습니다. 사용 가능한 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
+> 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자, 콘솔에서 Intlayer 로그 비활성화 등을 설정할 수 있습니다. 사용 가능한 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
 ### 3단계: Next.js 구성에 Intlayer 통합
 
@@ -429,7 +429,7 @@ module.exports = homeContent;
 }
 ```
 
-콘텐츠 선언에 대한 자세한 내용은 [콘텐츠 선언 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 참조하세요.
+콘텐츠 선언에 대한 자세한 내용은 [콘텐츠 선언 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 참조하세요.
 
 ### 7단계: 코드에서 콘텐츠 활용
 
@@ -554,7 +554,7 @@ const ComponentExample = () => {
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
+> `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
 
 ### (선택 사항) 8단계: 메타데이터 국제화
 
@@ -884,13 +884,13 @@ const LocaleSwitcher = () => {
 };
 ```
 
-> `useLocalePageRouter` API는 `useLocale`과 동일합니다. `useLocale` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/useLocale.md)를 참조하세요.
+> `useLocalePageRouter` API는 `useLocale`과 동일합니다. `useLocale` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md)를 참조하세요.
 
 > 문서 참조:
 >
-> - [`getLocaleName` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/getHTMLTextDir.md)
+> - [`getLocaleName` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` 속성](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
 > - [`dir` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
@@ -1093,11 +1093,11 @@ TypeScript 구성에 자동 생성된 타입을 포함하세요.
 ## 추가 리소스
 
 - **Intlayer 문서:** [GitHub Repository](https://github.com/aymericzip/intlayer)
-- **사전 가이드:** [Dictionary](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)
-- **구성 문서:** [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)
+- **사전 가이드:** [Dictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)
+- **구성 문서:** [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 이 가이드를 따르면 Intlayer를 Next.js 애플리케이션에 페이지 라우터를 사용하여 효과적으로 통합하고 웹 프로젝트에 강력하고 확장 가능한 국제화 지원을 구현할 수 있습니다.
 
 ### 더 나아가기
 
-더 나아가려면 [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+더 나아가려면 [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.

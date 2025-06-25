@@ -1,7 +1,7 @@
 ---
 docName: package__react-scripts-intlayer
 url: https://intlayer.org/doc/packages/react-scripts-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-scripts-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 패키지 문서 | react-scripts-intlayer
@@ -24,7 +24,7 @@ keywords:
 
 ## 구성
 
-`react-scripts-intlayer` 패키지는 [`react-intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/index.md) 및 [`intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/index.md)와 원활하게 작동합니다. 자세한 내용은 관련 문서를 참조하세요.
+`react-scripts-intlayer` 패키지는 [`react-intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md) 및 [`intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/index.md)와 원활하게 작동합니다. 자세한 내용은 관련 문서를 참조하세요.
 
 ## 설치
 
@@ -72,4 +72,4 @@ Webpack 구성을 사용자 정의해야 하는 경우, intlayer craco 플러그
 ## React Create App에 대한 전체 Intlayer 가이드 읽기
 
 Intlayer는 React 애플리케이션을 국제화하는 데 도움이 되는 많은 기능을 제공합니다.
-[React Create App에서 Intlayer를 사용하는 방법 보기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_create_react_app.md).
+[React Create App에서 Intlayer를 사용하는 방법 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md).

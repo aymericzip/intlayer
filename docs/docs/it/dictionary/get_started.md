@@ -1,7 +1,7 @@
 ---
 docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Dichiarazione dei contenuti | Inizia
@@ -36,7 +36,7 @@ Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti est
 
 L'applicazione cercherà i file che corrispondono al pattern glob `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` per impostazione predefinita.
 
-Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, se hai requisiti specifici, consulta la [guida alla personalizzazione delle estensioni di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md#content-configuration) per istruzioni su come gestirle.
+Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, se hai requisiti specifici, consulta la [guida alla personalizzazione delle estensioni di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#content-configuration) per istruzioni su come gestirle.
 
 Per un elenco completo delle opzioni di configurazione, visita la documentazione di configurazione.
 

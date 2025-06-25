@@ -15,7 +15,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md)
+> - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)
 
 ### 2. Internationalization
 
@@ -24,7 +24,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md)
+> - [Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
 
 ### 3. Markdown Support
 
@@ -33,7 +33,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md)
+> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
 
 ### 4. External file support
 
@@ -44,7 +44,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [File Content Embedding](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md)
+> - [File Content Embedding](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
 
 ### 5. Dynamic Content & Logic-Based Rendering
 
@@ -158,6 +158,6 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/content_extention_customization.md)
+> - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_extention_customization.md)
 
 (Other sections remain unchanged.)

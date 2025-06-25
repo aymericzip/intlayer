@@ -1,7 +1,7 @@
 ---
 blogName: internationalization_and_SEO
 url: https://intlayer.org/blog/SEO-and-i18n
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
 updatedAt: 2024-12-24
 title: SEO और अंतर्राष्ट्रीयकरण
@@ -75,22 +75,22 @@ keywords:
 <link
   rel="alternate"
   hreflang="en"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/hi/en"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/en"
 />
 <link
   rel="alternate"
   hreflang="fr"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/hi/fr"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/fr"
 />
 <link
   rel="alternate"
   hreflang="es"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/hi/es"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/es"
 />
 <link
   rel="alternate"
   hreflang="x-default"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/hi/en"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/en"
 />
 ```
 
@@ -143,7 +143,7 @@ keywords:
 ```html
 <link
   rel="canonical"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/hi/fr/produits"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/fr/produits"
 />
 ```
 

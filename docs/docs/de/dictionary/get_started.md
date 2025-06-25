@@ -1,7 +1,7 @@
 ---
 docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Inhaltsdeklaration | Anfangen
@@ -36,7 +36,7 @@ Standardmäßig überwacht Intlayer alle Dateien mit den folgenden Erweiterungen
 
 Die Anwendung sucht standardmäßig nach Dateien, die dem Glob-Muster `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` entsprechen.
 
-Diese Standarderweiterungen sind für die meisten Anwendungen geeignet. Wenn Sie jedoch spezifische Anforderungen haben, lesen Sie den [Leitfaden zur Anpassung von Inhaltserweiterungen](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md#content-configuration), um Anweisungen zur Verwaltung zu erhalten.
+Diese Standarderweiterungen sind für die meisten Anwendungen geeignet. Wenn Sie jedoch spezifische Anforderungen haben, lesen Sie den [Leitfaden zur Anpassung von Inhaltserweiterungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md#content-configuration), um Anweisungen zur Verwaltung zu erhalten.
 
 Für eine vollständige Liste der Konfigurationsoptionen besuchen Sie die Konfigurationsdokumentation.
 

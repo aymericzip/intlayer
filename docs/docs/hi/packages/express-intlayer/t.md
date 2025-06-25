@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer__t
 url: https://intlayer.org/doc/packages/express-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
 updatedAt: 2024-12-02
 title: t फ़ंक्शन दस्तावेज़ | express-intlayer
@@ -461,4 +461,4 @@ app.get("/morning", (_req, res) => {
 
 ## निष्कर्ष
 
-`t` फ़ंक्शन बैकएंड अंतर्राष्ट्रीयकरण के लिए एक शक्तिशाली उपकरण है। इसे प्रभावी ढंग से उपयोग करके, आप एक अधिक समावेशी और उपयोगकर्ता-अनुकूल एप्लिकेशन बना सकते हैं जो वैश्विक दर्शकों के लिए उपयुक्त हो। उन्नत उपयोग और विस्तृत कॉन्फ़िगरेशन विकल्पों के लिए, [डॉक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) देखें।
+`t` फ़ंक्शन बैकएंड अंतर्राष्ट्रीयकरण के लिए एक शक्तिशाली उपकरण है। इसे प्रभावी ढंग से उपयोग करके, आप एक अधिक समावेशी और उपयोगकर्ता-अनुकूल एप्लिकेशन बना सकते हैं जो वैश्विक दर्शकों के लिए उपयुक्त हो। उन्नत उपयोग और विस्तृत कॉन्फ़िगरेशन विकल्पों के लिए, [डॉक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।

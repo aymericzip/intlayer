@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayerAsync 훅 설명서 | next-intlayer
@@ -219,12 +219,12 @@ const AsyncClientComponentExample = () => {
 
 모든 콘텐츠 키는 타입 안전성을 위해 콘텐츠 선언 파일에 정의되어야 하며 런타임 오류를 방지합니다. 이러한 파일은 TypeScript 유효성을 검사하여 항상 기존 키와 로케일을 참조하도록 보장합니다.
 
-콘텐츠 선언 파일 설정에 대한 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다.
+콘텐츠 선언 파일 설정에 대한 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다.
 
 ## 추가 정보
 
 - **Intlayer 비주얼 에디터:**  
-  UI에서 콘텐츠를 직접 관리하고 편집할 수 있도록 Intlayer 비주얼 에디터와 통합하세요. 자세한 내용은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)에서 확인할 수 있습니다.
+  UI에서 콘텐츠를 직접 관리하고 편집할 수 있도록 Intlayer 비주얼 에디터와 통합하세요. 자세한 내용은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)에서 확인할 수 있습니다.
 
 ---
 

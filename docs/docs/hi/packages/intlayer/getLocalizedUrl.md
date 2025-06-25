@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocalizedUrl
 url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: getLocalizedUrl फ़ंक्शन प्रलेखन | intlayer
@@ -42,18 +42,18 @@ keywords:
 
   - **विवरण**: समर्थित लोकेल की वैकल्पिक सूची। डिफ़ॉल्ट रूप से, प्रोजेक्ट में कॉन्फ़िगर किए गए लोकेल प्रदान किए जाते हैं।
   - **प्रकार**: `Locales[]`
-  - **डिफ़ॉल्ट**: [`प्रोजेक्ट कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md#middleware)
+  - **डिफ़ॉल्ट**: [`प्रोजेक्ट कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
   - **विवरण**: एप्लिकेशन के लिए डिफ़ॉल्ट लोकेल। डिफ़ॉल्ट रूप से, प्रोजेक्ट में कॉन्फ़िगर किया गया डिफ़ॉल्ट लोकेल प्रदान किया जाता है।
   - **प्रकार**: `Locales`
-  - **डिफ़ॉल्ट**: [`प्रोजेक्ट कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md#middleware)
+  - **डिफ़ॉल्ट**: [`प्रोजेक्ट कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
 
 - `prefixDefault: boolean`
   - **विवरण**: डिफ़ॉल्ट लोकेल के लिए URL को प्रीफिक्स करना है या नहीं। डिफ़ॉल्ट रूप से, प्रोजेक्ट में कॉन्फ़िगर किया गया मान प्रदान किया जाता है।
   - **प्रकार**: `boolean`
-  - **डिफ़ॉल्ट**: [`प्रोजेक्ट कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md#middleware)
+  - **डिफ़ॉल्ट**: [`प्रोजेक्ट कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
 
 ### रिटर्न
 

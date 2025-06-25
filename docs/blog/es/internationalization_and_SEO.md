@@ -1,7 +1,7 @@
 ---
 blogName: internationalization_and_SEO
 url: https://intlayer.org/blog/SEO-and-i18n
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
 updatedAt: 2024-12-24
 title: SEO y Internacionalización
@@ -99,7 +99,7 @@ En tu HTML, agregarás algo como:
    - Solo debes traducir el texto y los títulos del archivo.
    - No debes alterar la estructura del archivo.
    - No debes alterar la lógica del código de los elementos de código.
-   - Debes transformar las urls como `https://github.com/aymericzip/intlayer/blob/main/docs/en/**/*.md` a `https://github.com/aymericzip/intlayer/blob/main/docs/es/**/*.md`
+   - Debes transformar las urls como `https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/**/*.md` a `https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/**/*.md`
    - No debes transformar la url como `https://github.com/aymericzip/intlayer/blob/main/docs/assets/**/*`
    - Debes transformar las urls locales como `/**/*` a `/{{locale}}/**/*`
    - En los elementos de código, los nombres de las variables deben estar en inglés. Pero los comentarios deben estar en Español.

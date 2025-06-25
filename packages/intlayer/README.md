@@ -298,15 +298,15 @@ Intlayer is available as a package for your application.
 
 ### React Application
 
-To use Intlayer in your React application, you can use [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md).
+To use Intlayer in your React application, you can use [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md).
 
 ### Next.js Application
 
-To use Intlayer in your Next.js application, you can use [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md).
+To use Intlayer in your Next.js application, you can use [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md).
 
 ### Express Application
 
-To use Intlayer in your Express application, you can use [express-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md).
+To use Intlayer in your Express application, you can use [express-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md).
 
 ## Functions provided by `intlayer` package
 

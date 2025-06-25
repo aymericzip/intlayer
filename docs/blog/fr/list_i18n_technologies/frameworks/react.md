@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Meilleures outils d'internationalisation (i18n) pour React
@@ -22,13 +22,13 @@ Dans le paysage numérique d'aujourd'hui, étendre la portée de votre site web 
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Qu'est-ce que l'Internationalisation (i18n) ?
 
 L'internationalisation, abrégée en i18n, est le processus de conception et de préparation de votre site web pour prendre en charge plusieurs langues et contextes culturels. Dans React, cela signifie configurer votre application de manière à ce que les chaînes, les formats de date, les formats de nombre, et même la mise en page puissent être facilement adaptés pour les utilisateurs de différentes régions. Préparer votre application React pour l'i18n pose les bases d'une intégration propre des traductions et d'autres fonctionnalités de localisation.
 
-En savoir plus sur l'i18n en lisant notre article : [Qu'est-ce que l'Internationalisation (i18n) ? Définition et Défis](https://github.com/aymericzip/intlayer/blob/main/blog/fr/what_is_internationalization.md).
+En savoir plus sur l'i18n en lisant notre article : [Qu'est-ce que l'Internationalisation (i18n) ? Définition et Défis](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/what_is_internationalization.md).
 
 ---
 

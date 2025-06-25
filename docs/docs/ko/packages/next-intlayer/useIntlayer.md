@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayer 후크 문서 | next-intlayer
@@ -63,7 +63,7 @@ Next.js 애플리케이션에서 클라이언트 측 또는 서버 측 컴포넌
 
 모든 콘텐츠 키는 런타임 오류를 방지하고 타입 안전성을 보장하기 위해 콘텐츠 선언 파일 내에 정의되어야 합니다. 이 접근 방식은 TypeScript 통합을 통해 컴파일 타임 유효성 검사를 용이하게 합니다.
 
-콘텐츠 선언 파일 설정에 대한 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다.
+콘텐츠 선언 파일 설정에 대한 지침은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)에서 확인할 수 있습니다.
 
 ## Next.js에서의 사용 예시
 
@@ -252,6 +252,6 @@ const ServerComponentExample = () => {
 
 ## 추가 정보
 
-- **Intlayer 비주얼 에디터**: 콘텐츠 관리를 더 쉽게 하기 위한 비주얼 에디터 사용 방법은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)에서 확인할 수 있습니다.
+- **Intlayer 비주얼 에디터**: 콘텐츠 관리를 더 쉽게 하기 위한 비주얼 에디터 사용 방법은 [여기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)에서 확인할 수 있습니다.
 
 이 문서는 Next.js 환경 내에서 `useIntlayer` 훅을 사용하는 방법을 설명하며, Next.js 애플리케이션 전반에 걸쳐 로컬라이제이션을 관리하기 위한 강력한 솔루션을 제공합니다.

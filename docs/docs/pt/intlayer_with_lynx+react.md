@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-03-09
 title: Traduza o seu aplicativo móvel Lynx e React (i18n)
@@ -122,7 +122,7 @@ Dentro desta configuração, você pode:
 - Configurar sua **lista de locais (locales) suportados**.
 - Definir o localidade padrão (**defaultLocale**).
 - Posteriormente, pode adicionar opções mais avançadas (por exemplo, logs, diretórios de conteúdo personalizados etc.).
-- Consulte a [documentação de configuração do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md) para mais detalhes.
+- Consulte a [documentação de configuração do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) para mais detalhes.
 
 ## Passo 3: Adicione o plugin do Intlayer ao bundler do Lynx
 
@@ -338,7 +338,7 @@ module.exports = appContent;
 }
 ```
 
-> Para mais detalhes sobre declarações de conteúdo, consulte a [documentação de conteúdo do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md).
+> Para mais detalhes sobre declarações de conteúdo, consulte a [documentação de conteúdo do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
 
 ---
 
@@ -442,7 +442,7 @@ export const LocaleSwitcher: FC = () => {
 
 Isso dispara um re-render de todos os componentes que usam conteúdo do Intlayer, agora exibindo as traduções para a nova localidade.
 
-> Consulte a [documentação do `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useLocale.md) para mais detalhes.
+> Consulte a [documentação do `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) para mais detalhes.
 
 ## Configure o TypeScript (se você usa TypeScript)
 
@@ -480,6 +480,6 @@ Para evitar o commit de arquivos gerados automaticamente pelo Intlayer, adicione
 
 ## Vá Além
 
-- **Editor Visual**: Use o [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md) para gerenciar traduções de forma visual.
-- **Integração com CMS**: Você também pode externalizar e buscar o conteúdo do seu dicionário a partir de um [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md).
-- **Comandos de CLI**: Explore o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md) para tarefas como **extrair traduções** ou **verificar chaves faltantes**.
+- **Editor Visual**: Use o [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) para gerenciar traduções de forma visual.
+- **Integração com CMS**: Você também pode externalizar e buscar o conteúdo do seu dicionário a partir de um [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+- **Comandos de CLI**: Explore o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) para tarefas como **extrair traduções** ou **verificar chaves faltantes**.

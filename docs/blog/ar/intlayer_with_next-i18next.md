@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-i18next
 url: https://intlayer.org/blog/intlayer-with-next-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11
 updatedAt: 2025-01-02
 title: Intlayer وnext-i18next
@@ -34,7 +34,7 @@ keywords:
 
 ## Intlayer مقابل i18next: الفرق الرئيسي
 
-لاستكشاف الفروقات بين i18next و Intlayer، تحقق من منشور المدونة الخاص بنا [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/blog/ar/i18next_vs_next-intl_vs_intlayer.md).
+لاستكشاف الفروقات بين i18next و Intlayer، تحقق من منشور المدونة الخاص بنا [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_next-intl_vs_intlayer.md).
 
 ## كيفية توليد قواميس next-i18next مع Intlayer
 

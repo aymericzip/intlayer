@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useDictionary
 url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق خطاف useDictionary | next-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 ## القاموس
 
-يجب أن يتم إعلان جميع كائنات القاموس في ملفات محتوى منظمة لضمان سلامة النوع وتجنب أخطاء وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md). إليك مثال على إعلان المحتوى:
+يجب أن يتم إعلان جميع كائنات القاموس في ملفات محتوى منظمة لضمان سلامة النوع وتجنب أخطاء وقت التشغيل. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md). إليك مثال على إعلان المحتوى:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";

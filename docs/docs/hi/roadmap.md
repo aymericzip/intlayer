@@ -1,7 +1,7 @@
 ---
 docName: roadmap
 url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-03-01
 title: रोडमैप
@@ -32,7 +32,7 @@ Intlayer एक सामग्री प्रबंधन और अंतर�
 
 > संसाधन:
 >
-> - [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md)
+> - [सामग्री घोषणा](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md)
 
 ### 2. अंतर्राष्ट्रीयकरण
 
@@ -41,7 +41,7 @@ Intlayer एक सामग्री प्रबंधन और अंतर�
 
 > संसाधन:
 >
-> - [अंतर्राष्ट्रीयकरण](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/translation.md)
+> - [अंतर्राष्ट्रीयकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)
 
 ### 3. Markdown समर्थन
 
@@ -50,7 +50,7 @@ Intlayer एक सामग्री प्रबंधन और अंतर�
 
 > संसाधन:
 >
-> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/markdown.md)
+> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
 
 ### 4. सशर्त रेंडरिंग
 
@@ -59,7 +59,7 @@ Intlayer एक सामग्री प्रबंधन और अंतर�
 
 > संसाधन:
 >
-> - [सशर्त रेंडरिंग](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/condition.md)
+> - [सशर्त रेंडरिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md)
 
 ### 5. सामग्री घोषणा प्रारूप
 
@@ -77,7 +77,7 @@ Intlayer सामग्री घोषित करने के लिए **T
 
   > संसाधन:
   >
-  > - [सामग्री घोषणा प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/content_extention_customization.md)
+  > - [सामग्री घोषणा प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_extention_customization.md)
 
 ---
 
@@ -104,7 +104,7 @@ Intlayer सामग्री घोषित करने के लिए **T
 
 > संसाधन:
 >
-> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md)
+> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
 
@@ -112,7 +112,7 @@ Intlayer सामग्री घोषित करने के लिए **T
 
 > संसाधन:
 >
-> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_vite+react.md)
+> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)
 
 ### 3. Express
 
@@ -121,7 +121,7 @@ Intlayer सामग्री घोषित करने के लिए **T
 
 > संसाधन:
 >
-> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_express.md)
+> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_express.md)
 
 ---
 
@@ -138,7 +138,7 @@ Intlayer सामग्री घोषित करने के लिए **T
 
 > संसाधन:
 >
-> - [दृश्य संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md)
+> - [दृश्य संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (रिमोट)
 
@@ -148,7 +148,7 @@ Intlayer सामग्री घोषित करने के लिए **T
 
 > संसाधन:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 ---
 
@@ -160,7 +160,7 @@ Intlayer सामग्री घोषित करने के लिए **T
 
 > संसाधन:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md)
 
 ---
 
@@ -177,7 +177,7 @@ Intlayer सामग्री घोषित करने के लिए **T
 
 > संसाधन:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 
 ---
 

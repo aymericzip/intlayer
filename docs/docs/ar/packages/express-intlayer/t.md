@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer__t
 url: https://intlayer.org/doc/packages/express-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
 updatedAt: 2024-12-02
 title: توثيق دالة t | express-intlayer
@@ -464,4 +464,4 @@ app.get("/morning", (_req, res) => {
 
 ## الخاتمة
 
-وظيفة `t` هي أداة قوية لتدويل الواجهة الخلفية. باستخدامها بفعالية، يمكنك إنشاء تطبيق أكثر شمولاً وسهولة في الاستخدام لجمهور عالمي. للحصول على استخدام متقدم وخيارات تكوين مفصلة، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+وظيفة `t` هي أداة قوية لتدويل الواجهة الخلفية. باستخدامها بفعالية، يمكنك إنشاء تطبيق أكثر شمولاً وسهولة في الاستخدام لجمهور عالمي. للحصول على استخدام متقدم وخيارات تكوين مفصلة، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).

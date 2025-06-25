@@ -1,7 +1,7 @@
 ---
 blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Что такое интернационализация (i18n)? Определение и представления
@@ -19,7 +19,7 @@ keywords:
 
 # Что такое Интернационализация (i18n)? Определение и вызовы
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Понимание Интернационализации (i18n)
 
@@ -73,7 +73,7 @@ keywords:
 
 ## Общие вызовы i18n
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
 
 - **поддерживаемость**  
   Каждое обновление веб-сайта должно быть отражено на всех языках, требуя эффективных рабочих процессов и тщательной координации для обеспечения согласованности во всех версиях.
@@ -145,16 +145,16 @@ keywords:
 
 ### Для Систем Управления Контентом (CMS)
 
-- WordPress: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/CMS/wordpress.md)
-- Drupal: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/CMS/drupal.md)
+- WordPress: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/list_i18n_technologies/CMS/wordpress.md)
+- Drupal: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/list_i18n_technologies/CMS/drupal.md)
 
 ### Для JavaScript Приложений (Frontend)
 
-- React: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/react.md)
-- Angular: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/angular.md)
-- Vue: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/vue.md)
-- Svelte: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/svelte.md)
-- React Native: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/blog/ru/list_i18n_technologies/frameworks/react-native.md)
+- React: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/list_i18n_technologies/frameworks/react.md)
+- Angular: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/list_i18n_technologies/frameworks/angular.md)
+- Vue: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/list_i18n_technologies/frameworks/vue.md)
+- Svelte: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/list_i18n_technologies/frameworks/svelte.md)
+- React Native: [Смотрите список библиотек и инструментов i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 

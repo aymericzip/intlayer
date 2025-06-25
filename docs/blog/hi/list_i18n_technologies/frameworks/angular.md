@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__angular
 url: https://intlayer.org/blog/i18n-technologies/frameworks/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/angular.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/angular.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Angular के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## अंतरराष्ट्रीयकरण (i18n) क्या है?
 
 अंतरराष्ट्रीयकरण, जिसे अक्सर i18n कहा जाता है, एक प्रक्रिया है जिसमें आपके एप्लिकेशन को कई भाषाओं और सांस्कृतिक संदर्भों का समर्थन करने के लिए डिजाइन और तैयार किया जाता है। Angular में, इसका अर्थ है कि आपके ऐप को इस तरह से कॉन्फ़िगर करना कि पाठ, दिनांक, संख्या, और यहां तक कि UI लेआउट विभिन्न स्थानीयताओं के लिए आसानी से अनुकूलित हो सकें। इस आधारभूत कार्य को सही ढंग से तैयार करना यह सुनिश्चित करता है कि भविष्य के अनुवादों का एकीकृत और प्रभावी ढंग से एकीकृत करना संभव हो।
 
-i18n के मूल बातें जानने के लिए हमारे लेख को पढ़ें: [अंतरराष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/what_is_internationalization.md).
+i18n के मूल बातें जानने के लिए हमारे लेख को पढ़ें: [अंतरराष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/what_is_internationalization.md).
 
 ---
 

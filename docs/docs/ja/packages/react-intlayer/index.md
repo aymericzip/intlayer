@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer
 url: https://intlayer.org/doc/packages/react-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: パッケージドキュメント | react-intlayer
@@ -54,7 +54,7 @@ Intlayerを使用すると、コードベースのどこにでも構造化され
 
 デフォルトでは、Intlayerは拡張子が`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`のファイルをスキャンします。
 
-> デフォルトの拡張子は[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)の`contentDir`プロパティを設定することで変更できます。
+> デフォルトの拡張子は[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)の`contentDir`プロパティを設定することで変更できます。
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ Intlayerを使用すると、コードベースのどこにでも構造化され
 
 ### コンテンツを宣言する
 
-`react-intlayer`は[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/intlayer/index.md)と連携して動作します。`intlayer`は、コード内のどこにでもコンテンツを宣言できるパッケージです。多言語コンテンツの宣言を構造化された辞書に変換し、アプリケーションにシームレスに統合します。
+`react-intlayer`は[`intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/index.md)と連携して動作します。`intlayer`は、コード内のどこにでもコンテンツを宣言できるパッケージです。多言語コンテンツの宣言を構造化された辞書に変換し、アプリケーションにシームレスに統合します。
 
 以下はコンテンツ宣言の例です:
 
@@ -262,14 +262,14 @@ const Component1Example = () => {
 
 Intlayerは、Reactアプリケーションを国際化するための多くの機能を提供します。
 
-**これらの機能について詳しくは、[ViteとReactを使用したIntlayerによるReact国際化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)ガイド、または[React Create Appを使用したIntlayerによるReact国際化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)ガイドをご覧ください。**
+**これらの機能について詳しくは、[ViteとReactを使用したIntlayerによるReact国際化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)ガイド、または[React Create Appを使用したIntlayerによるReact国際化（i18n）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)ガイドをご覧ください。**
 
 ## `react-intlayer`パッケージが提供する関数
 
 `react-intlayer`パッケージは、アプリケーションを国際化するためのいくつかの関数も提供します。
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayerAsync.md)

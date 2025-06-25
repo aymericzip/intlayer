@@ -1,7 +1,7 @@
 ---
 docName: package__lynx-intlayer
 url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Documentación del paquete | lynx-intlayer
@@ -26,7 +26,7 @@ Internacionalizar tu aplicación Lynx es esencial para atender eficazmente a una
 
 ## Configuración
 
-El paquete `lynx-intlayer` funciona perfectamente con el [paquete `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/react-intlayer/index.md), y el [paquete `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/intlayer/index.md). Consulta la documentación relevante para más información.
+El paquete `lynx-intlayer` funciona perfectamente con el [paquete `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md), y el [paquete `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/index.md). Consulta la documentación relevante para más información.
 
 ## Instalación
 
@@ -65,7 +65,7 @@ export default defineConfig({
 
 Intlayer proporciona muchas características para ayudarte a internacionalizar tu aplicación Vite.
 
-**Para aprender más sobre estas características, consulta la guía [Internacionalización (i18n) con Intlayer y Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_with_lynx+react.md) para aplicaciones Lynx.**
+**Para aprender más sobre estas características, consulta la guía [Internacionalización (i18n) con Intlayer y Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_lynx+react.md) para aplicaciones Lynx.**
 
 ## Lee sobre Intlayer
 

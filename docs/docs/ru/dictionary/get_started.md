@@ -1,7 +1,7 @@
 ---
 docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Декларация контента | Начало
@@ -36,7 +36,7 @@ keywords:
 
 Приложение будет искать файлы, соответствующие шаблону `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` по умолчанию.
 
-Эти стандартные расширения подходят для большинства приложений. Однако, если у вас есть специфические требования, обратитесь к [руководству по настройке расширений контента](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#content-configuration) для инструкций по их управлению.
+Эти стандартные расширения подходят для большинства приложений. Однако, если у вас есть специфические требования, обратитесь к [руководству по настройке расширений контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#content-configuration) для инструкций по их управлению.
 
 Для полного списка опций конфигурации посетите документацию по конфигурации.
 

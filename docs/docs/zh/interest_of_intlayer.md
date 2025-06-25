@@ -1,7 +1,7 @@
 ---
 docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2024-08-14
 title: Intlayer的优势
@@ -138,11 +138,11 @@ const ComponentExample = () => {
 - **组织良好的代码库**：保持代码库更有组织性：1 个组件 = 1 个字典在同一文件夹中。
 - **自动 TypeScript 类型**：TypeScript 类型自动实现，防止因重命名或删除键而导致的代码破坏。
 - **CI 自动翻译**：使用您自己的 OpenAI API 密钥在 CI 中自动填充您的翻译，消除对 L10n 平台的需求。
-- **MCP 服务器集成**：为 IDE 自动化提供 MCP（Model Context Protocol）服务器，直接在您的开发环境中实现无缝的内容管理和 i18n 工作流。[了解更多](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md)。
+- **MCP 服务器集成**：为 IDE 自动化提供 MCP（Model Context Protocol）服务器，直接在您的开发环境中实现无缝的内容管理和 i18n 工作流。[了解更多](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)。
 - **Markdown 支持**：导入和解释 markdown 文件以处理多语言内容，如隐私政策。
 - **免费可视化编辑器和 CMS**：如果你需要与内容作者合作进行翻译，可以使用免费的可视化编辑器和 CMS，再次消除对本地化平台的需求，并允许从代码库中外部化内容。
 - **简化的内容检索**：无需为每个内容片段调用 `t` 函数；使用单个钩子直接检索所有内容。
 - **一致的实现**：客户端和服务器组件使用相同的实现，无需通过每个服务器组件传递 `t` 函数。
 - **Tree-shakable 内容**：内容是 tree-shakable 的，使最终包更轻量。
 - **非阻塞静态渲染**：Intlayer 不会像 `next-intl` 那样阻塞静态渲染。
-- **互操作性**：允许与 [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-intl.md) 和 [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-intl.md) 进行互操作。
+- **互操作性**：允许与 [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md) 和 [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-intl.md) 进行互操作。

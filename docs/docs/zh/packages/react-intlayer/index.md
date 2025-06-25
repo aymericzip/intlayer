@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer
 url: https://intlayer.org/doc/packages/react-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 包文档 | react-intlayer
@@ -54,7 +54,7 @@ pnpm add react-intlayer
 
 默认情况下，Intlayer 会扫描扩展名为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` 的文件。
 
-> 您可以通过在[配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)中设置 `contentDir` 属性来修改默认扩展名。
+> 您可以通过在[配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中设置 `contentDir` 属性来修改默认扩展名。
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ pnpm add react-intlayer
 
 ### 声明您的内容
 
-`react-intlayer` 是为 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/index.md) 设计的。`intlayer` 是一个允许您在代码中的任何地方声明内容的包。它将多语言内容声明转换为结构化字典，无缝集成到您的应用中。
+`react-intlayer` 是为 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/index.md) 设计的。`intlayer` 是一个允许您在代码中的任何地方声明内容的包。它将多语言内容声明转换为结构化字典，无缝集成到您的应用中。
 
 以下是内容声明的示例：
 
@@ -262,14 +262,14 @@ const Component1Example = () => {
 
 Intlayer 提供了许多功能来帮助您国际化您的 React 应用。
 
-**要了解更多关于这些功能的信息，请参考 [使用 Intlayer 和 Vite 以及 React 进行 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md) 的指南，或 [使用 Intlayer 和 React (CRA) 进行 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md) 的指南。**
+**要了解更多关于这些功能的信息，请参考 [使用 Intlayer 和 Vite 以及 React 进行 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md) 的指南，或 [使用 Intlayer 和 React (CRA) 进行 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md) 的指南。**
 
 ## `react-intlayer` 包提供的功能
 
 `react-intlayer` 包还提供了一些功能来帮助您国际化您的应用。
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayerAsync.md)

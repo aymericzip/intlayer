@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-i18next
 url: https://intlayer.org/blog/intlayer-with-next-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11
 updatedAt: 2025-01-02
 title: Intlayer और next-i18next
@@ -34,7 +34,7 @@ next-i18next और Intlayer दोनों ओपन-सोर्स अंत
 
 ## Intlayer बनाम i18next: महत्वपूर्ण मतभेद
 
-i18next और Intlayer के बीच मतभेदों का पता लगाने के लिए हमारे [next-i18next बनाम next-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/blog/hi/i18next_vs_next-intl_vs_intlayer.md) के ब्लॉग पोस्ट पर जाएँ।
+i18next और Intlayer के बीच मतभेदों का पता लगाने के लिए हमारे [next-i18next बनाम next-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_next-intl_vs_intlayer.md) के ब्लॉग पोस्ट पर जाएँ।
 
 ## Intlayer के साथ next-i18next शब्दकोश कैसे उत्पन्न करें
 

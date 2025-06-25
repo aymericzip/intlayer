@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 
 > यदि आपके पास क्लाइंट आईडी और क्लाइंट सीक्रेट नहीं है, तो आप [Intlayer डैशबोर्ड - प्रोजेक्ट्स](https://intlayer.org/dashboard/projects) में एक नया क्लाइंट बनाकर उन्हें प्राप्त कर सकते हैं।
 
-> सभी उपलब्ध पैरामीटर देखने के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) देखें।
+> सभी उपलब्ध पैरामीटर देखने के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
 `intlayer-editor` पैकेज Intlayer पर आधारित है और यह जावास्क्रिप्ट एप्लिकेशन जैसे React (Create React App), Vite + React, और Next.js के लिए उपलब्ध है।
 
@@ -54,15 +54,15 @@ const config: IntlayerConfig = {
 
 ### Next.js के साथ एकीकरण
 
-Next.js के साथ एकीकरण के लिए, [सेटअप गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md) देखें।
+Next.js के साथ एकीकरण के लिए, [सेटअप गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md) देखें।
 
 ### Create React App के साथ एकीकरण
 
-Create React App के साथ एकीकरण के लिए, [सेटअप गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_create_react_app.md) देखें।
+Create React App के साथ एकीकरण के लिए, [सेटअप गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_create_react_app.md) देखें।
 
 ### Vite + React के साथ एकीकरण
 
-Vite + React के साथ एकीकरण के लिए, [सेटअप गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_vite+react.md) देखें।
+Vite + React के साथ एकीकरण के लिए, [सेटअप गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md) देखें।
 
 ### एकीकरण का उदाहरण
 

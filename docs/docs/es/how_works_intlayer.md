@@ -1,7 +1,7 @@
 ---
 docName: how_works_intlayer
 url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2024-08-12
 title: Cómo funciona Intlayer
@@ -40,13 +40,13 @@ Entonces, hay dos pasos principales:
 El paso de construcción se puede realizar de tres maneras:
 
 - usando la CLI con `npx intlayer build`
-- usando [extensión de vscode](https://github.com/aymericzip/intlayer/blob/main/docs/es/vs_code_extension.md)
-- usando los plugins de la aplicación como el paquete [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/vite-intlayer/index.md), o sus equivalentes para [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/es/packages/next-intlayer/index.md). Cuando usas uno de estos plugins, Intlayer construirá automáticamente tus diccionarios cuando inicies (dev) o construyas (prod) tu aplicación.
+- usando [extensión de vscode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md)
+- usando los plugins de la aplicación como el paquete [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md), o sus equivalentes para [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md). Cuando usas uno de estos plugins, Intlayer construirá automáticamente tus diccionarios cuando inicies (dev) o construyas (prod) tu aplicación.
 
 1. Declaración de archivos de contenido
 
    - Los archivos de contenido pueden definirse en varios formatos, como TypeScript, ECMAScript, CommonJS o JSON.
-   - Los archivos de contenido pueden definirse en cualquier lugar del proyecto, lo que permite un mejor mantenimiento y escalabilidad. Es importante respetar las convenciones de extensión de archivo para los archivos de contenido. Esta extensión es por defecto `*.content.{js|cjs|mjs|ts|tsx|json}`, pero puede modificarse en el [archivo de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md).
+   - Los archivos de contenido pueden definirse en cualquier lugar del proyecto, lo que permite un mejor mantenimiento y escalabilidad. Es importante respetar las convenciones de extensión de archivo para los archivos de contenido. Esta extensión es por defecto `*.content.{js|cjs|mjs|ts|tsx|json}`, pero puede modificarse en el [archivo de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 2. Generación de `diccionarios`
 
@@ -75,7 +75,7 @@ const MyComponent = () => {
 
 Este hook gestionará la detección del idioma por ti y devolverá el contenido para el idioma actual. Usando este hook, también podrás interpretar markdown, gestionar pluralización y más.
 
-> Para ver todas las características de Intlayer, puedes leer la [documentación de diccionarios](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md).
+> Para ver todas las características de Intlayer, puedes leer la [documentación de diccionarios](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
 
 ## Contenido remoto
 
@@ -87,7 +87,7 @@ Si está configurado en tu proyecto, Intlayer gestionará automáticamente la ob
 
 ## Editor visual
 
-Intlayer también proporciona un editor visual para permitirte editar tu contenido de manera visual. Este [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_visual_editor.md) está disponible en el paquete externo `intlayer-editor`.
+Intlayer también proporciona un editor visual para permitirte editar tu contenido de manera visual. Este [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) está disponible en el paquete externo `intlayer-editor`.
 
 ![editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -99,13 +99,13 @@ En modo de desarrollo, Intlayer utiliza una importación estática centralizada 
 
 Al optimizar la construcción, Intlayer reemplazará todas las llamadas de diccionarios para optimizar la división de archivos. De esta manera, el paquete final importará solo los diccionarios que se utilicen.
 
-Al activar la opción `activateDynamicImport` en la [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md), Intlayer usará la importación dinámica para cargar los diccionarios. Esta opción está desactivada por defecto para evitar el procesamiento asíncrono al renderizar la aplicación.
+Al activar la opción `activateDynamicImport` en la [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md), Intlayer usará la importación dinámica para cargar los diccionarios. Esta opción está desactivada por defecto para evitar el procesamiento asíncrono al renderizar la aplicación.
 
 > `@intlayer/babel` está disponible por defecto en el paquete `vite-intlayer`,
 
 > `@intlayer/swc` no está instalado por defecto en el paquete `next-intlayer` ya que los plugins SWC aún son experimentales en Next.js.
 
-Para ver cómo configurar la construcción de tu aplicación, puedes leer la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md).
+Para ver cómo configurar la construcción de tu aplicación, puedes leer la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 ## Paquetes
 

@@ -1,7 +1,7 @@
 ---
 docName: dictionary__markdown
 url: https://intlayer.org/doc/concept/content/markdown
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
 createdAt: 2025-02-7
 updatedAt: 2025-02-7
 title: Markdown
@@ -22,7 +22,7 @@ keywords:
 
 Intlayer 支持使用 Markdown 语法定义的富文本内容。这是通过 `md` 函数实现的，该函数将 Markdown 字符串转换为可以由 Intlayer 管理的格式。通过使用 Markdown，您可以轻松编写和维护具有丰富格式的内容，例如博客、文章等。
 
-[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md) 和 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_CMS.md) 都支持 Markdown 内容管理。
+[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 和 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 都支持 Markdown 内容管理。
 
 当与 React 应用程序集成时，您可以使用 Markdown 渲染提供程序（例如 [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)）将 Markdown 内容渲染为 HTML。这使您可以用 Markdown 编写内容，同时确保其在应用程序中正确显示。
 
@@ -352,9 +352,9 @@ const IntlayerMarkdownProvider = ({ children }) => (
 
 ## 其他资源
 
-- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md)
-- [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)
-- [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)
+- [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
+- [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
 - [markdown-to-jsx on npm](https://www.npmjs.com/package/markdown-to-jsx)
 
 这些资源提供了有关设置和使用 Intlayer 与各种内容类型和框架的更多见解。

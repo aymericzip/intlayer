@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__wordpress
 url: https://intlayer.org/blog/i18n-technologies/CMS/wordpress
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/wordpress.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wordpress.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Wordpress के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## अंतरराष्ट्रीयकरण (i18n) क्या है?
 
 अंतरराष्ट्रीयकरण, जिसे i18n के संक्षेप में जाना जाता है, आपकी वेबसाइट को कई भाषाओं और सांस्कृतिक संदर्भों का समर्थन करने के लिए डिज़ाइन करने और तैयार करने की प्रक्रिया है। वर्डप्रेस की दुनिया में, इसका तात्पर्य यह है कि एक लचीला आधार बनाना जहां सामग्री (पृष्ठ, पोस्ट, मेनू, थीम स्ट्रिंग्स) का आसानी से अनुवाद और स्थानीयकरण किया जा सके।
 
-i18n के बारे में अधिक जानने के लिए हमारे लेख को पढ़ें: [अंतरराष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियां](https://github.com/aymericzip/intlayer/blob/main/blog/hi/what_is_internationalization.md).
+i18n के बारे में अधिक जानने के लिए हमारे लेख को पढ़ें: [अंतरराष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियां](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/what_is_internationalization.md).
 
 ---
 

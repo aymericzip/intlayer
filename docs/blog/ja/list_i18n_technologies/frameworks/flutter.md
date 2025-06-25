@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__flutter
 url: https://intlayer.org/blog/i18n-technologies/frameworks/flutter
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/flutter.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/flutter.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Flutterのための最適な国際化ツール
@@ -20,13 +20,13 @@ keywords:
 
 よりつながりのある世界において、Flutter アプリケーションを複数の言語で提供することは、そのリーチを広げ、英語話者以外のユーザーの使いやすさを向上させることができます。Flutter における国際化 (i18n) を実装することで、テキスト、日付、その他の文化に敏感な情報が適切にローカライズされます。この記事では、Flutter における i18n のさまざまなアプローチ、公式フレームワークからコミュニティ主導のライブラリまでを探り、プロジェクトに最適なものを選択できるようにします。
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 国際化 (i18n) とは？
 
 国際化は一般に i18n として知られており、アプリが複数の言語や文化的フォーマットを容易にサポートできるように設計するプロセスです。Flutter では、アプリを設定してローカライズされた文字列、日付/時間形式、数値形式をシームレスに管理することを含みます。Flutter アプリを i18n 用に準備することで、翻訳を統合し、地域差を最小限の摩擦で処理するための堅固な基盤を構築できます。
 
-この概念が初めての場合は、次の記事をチェックしてください: [国際化 (i18n) とは？定義と課題](https://github.com/aymericzip/intlayer/blob/main/blog/ja/what_is_internationalization.md)。
+この概念が初めての場合は、次の記事をチェックしてください: [国際化 (i18n) とは？定義と課題](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/what_is_internationalization.md)。
 
 ---
 

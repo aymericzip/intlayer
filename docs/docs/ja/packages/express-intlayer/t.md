@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer__t
 url: https://intlayer.org/doc/packages/express-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
 updatedAt: 2024-12-02
 title: t関数のドキュメント | express-intlayer
@@ -448,4 +448,4 @@ app.get("/morning", (_req, res) => {
 
 ## 結論
 
-`t` 関数は、バックエンドの国際化において強力なツールです。これを効果的に使用することで、グローバルなオーディエンスに対してより包括的でユーザーフレンドリーなアプリケーションを作成できます。高度な使用法や詳細な設定オプションについては、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md) を参照してください。
+`t` 関数は、バックエンドの国際化において強力なツールです。これを効果的に使用することで、グローバルなオーディエンスに対してより包括的でユーザーフレンドリーなアプリケーションを作成できます。高度な使用法や詳細な設定オプションについては、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md) を参照してください。

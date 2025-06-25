@@ -1,7 +1,7 @@
 ---
 docName: dictionary__markdown
 url: https://intlayer.org/doc/concept/content/markdown
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
 createdAt: 2025-02-7
 updatedAt: 2025-02-7
 title: Markdown
@@ -22,7 +22,7 @@ keywords:
 
 Intlayer मार्कडाउन सिंटैक्स का उपयोग करके परिभाषित रिच टेक्स्ट सामग्री का समर्थन करता है। यह `md` फ़ंक्शन के माध्यम से प्राप्त किया जाता है, जो एक मार्कडाउन स्ट्रिंग को एक प्रारूप में परिवर्तित करता है जिसे Intlayer द्वारा प्रबंधित किया जा सकता है। मार्कडाउन का उपयोग करके, आप आसानी से ब्लॉग, लेख और अन्य सामग्री को रिच फॉर्मेटिंग के साथ लिख और प्रबंधित कर सकते हैं।
 
-[Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md) और [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_CMS.md) दोनों मार्कडाउन सामग्री प्रबंधन का समर्थन करते हैं।
+[Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) और [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) दोनों मार्कडाउन सामग्री प्रबंधन का समर्थन करते हैं।
 
 React एप्लिकेशन के साथ एकीकृत होने पर, आप मार्कडाउन सामग्री को HTML में रेंडर करने के लिए एक मार्कडाउन रेंडरिंग प्रोवाइडर (जैसे [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)) का उपयोग कर सकते हैं। यह आपको मार्कडाउन में सामग्री लिखने की अनुमति देता है जबकि यह सुनिश्चित करता है कि यह आपके ऐप में सही ढंग से प्रदर्शित हो।
 
@@ -354,9 +354,9 @@ const IntlayerMarkdownProvider = ({ children }) => (
 
 ## अतिरिक्त संसाधन
 
-- [Intlayer CLI प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md)
-- [React Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_create_react_app.md)
-- [Next Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md)
+- [Intlayer CLI प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md)
+- [React Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_create_react_app.md)
+- [Next Intlayer प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)
 - [markdown-to-jsx npm पर](https://www.npmjs.com/package/markdown-to-jsx)
 
 ये संसाधन विभिन्न सामग्री प्रकारों और फ्रेमवर्क्स के साथ Intlayer को सेटअप और उपयोग करने में और अधिक जानकारी प्रदान करते हैं।

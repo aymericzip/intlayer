@@ -69,7 +69,7 @@ Dentro de esta configuración, puedes:
 - Configurar tu **lista de idiomas soportados**.
 - Establecer un idioma **predeterminado**.
 - Más adelante, podrás agregar opciones avanzadas (por ejemplo, registros, directorios de contenido personalizados, etc.).
-- Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/configuration.md) para más detalles.
+- Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para más detalles.
 
 ## Paso 3: Agregar el plugin de Metro
 
@@ -142,7 +142,7 @@ const homeScreenContent = {
 export default homeScreenContent;
 ```
 
-> Para más detalles sobre declaraciones de contenido, consulta la [documentación de contenido de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/dictionary/get_started.md).
+> Para más detalles sobre declaraciones de contenido, consulta la [documentación de contenido de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
 
 ---
 
@@ -176,8 +176,8 @@ Esto actualizará todos los componentes que usan contenido de Intlayer con el nu
 
 ## Continúa explorando
 
-- **Editor visual**: Usa el [Editor Visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_visual_editor.md).
-- **Integración con CMS**: Aprende cómo conectar Intlayer con un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_CMS.md).
-- **Comandos CLI**: Descubre los comandos de la [CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/es/intlayer_cli.md).
+- **Editor visual**: Usa el [Editor Visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md).
+- **Integración con CMS**: Aprende cómo conectar Intlayer con un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+- **Comandos CLI**: Descubre los comandos de la [CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
 
 Disfruta creando aplicaciones **React Native** con i18n completo gracias a **Intlayer**!

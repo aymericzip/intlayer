@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__flutter
 url: https://intlayer.org/blog/i18n-technologies/frameworks/flutter
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/flutter.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/flutter.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Melhores Ferramentas de Internacionalização (i18n) para Flutter
@@ -20,13 +20,13 @@ keywords:
 
 Em um mundo cada vez mais conectado, oferecer seu aplicativo Flutter em vários idiomas pode expandir seu alcance e melhorar a usabilidade para falantes de outras línguas. Implementar a internacionalização (i18n) no Flutter garante que texto, datas e outras informações culturalmente sensíveis sejam localizadas corretamente. Neste artigo, exploraremos diferentes abordagens para i18n no Flutter - desde frameworks oficiais até bibliotecas desenvolvidas pela comunidade - para que você possa selecionar a melhor opção para seu projeto.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## O que é Internacionalização (i18n)?
 
 A internacionalização, comumente conhecida como i18n, é o processo de projetar um aplicativo para que ele possa facilmente suportar vários idiomas e formatos culturais. No Flutter, isso envolve configurar seu aplicativo para gerenciar strings localizadas, formatos de data/hora e formatos numéricos de maneira integrada. Ao preparar seu aplicativo Flutter para i18n, você constrói uma base sólida para integrar traduções e lidar com diferenças regionais com mínima fricção.
 
-Se você é novo no conceito, confira nosso artigo: [O que é Internacionalização (i18n)? Definição e Desafios](https://github.com/aymericzip/intlayer/blob/main/blog/pt/what_is_internationalization.md).
+Se você é novo no conceito, confira nosso artigo: [O que é Internacionalização (i18n)? Definição e Desafios](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/what_is_internationalization.md).
 
 ---
 

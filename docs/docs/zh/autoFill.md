@@ -1,7 +1,7 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: 自动填充
@@ -37,7 +37,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-这是一个使用`autoFill`指令的[按语言内容声明文件](https://github.com/aymericzip/intlayer/blob/main/docs/zh/per_locale_file.md)。
+这是一个使用`autoFill`指令的[按语言内容声明文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)。
 
 然后，当你运行以下命令时：
 

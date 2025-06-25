@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-intl
 url: https://intlayer.org/blog/intlayer-with-next-intl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-intl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-intl.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02
 title: Intlayer和next-intl
@@ -24,7 +24,7 @@ next-intl 和 Intlayer 是为 Next.js 应用程序设计的开源国际化 (i18n
 
 1. **内容声明**: 定义应用程序可翻译内容的方法。
 
-   - 在 Intlayer 中称为 `content declaration file`，可以是导出结构化数据的 JSON、JS 或 TS 文件。有关更多信息，请参见 [Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/concept/content.md)。
+   - 在 Intlayer 中称为 `content declaration file`，可以是导出结构化数据的 JSON、JS 或 TS 文件。有关更多信息，请参见 [Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/concept/content.md)。
    - 在 next-intl 中称为 `messages` 或 `locale messages`，通常在 JSON 文件中。有关更多信息，请参见 [next-intl 文档](https://github.com/amannn/next-intl/blob/main/docs/zh/introduction.md)。
 
 2. **工具**: 用于构建和解释应用程序中的内容声明的工具，例如 Intlayer 的 `useIntlayer()` 或 `useLocale()`，以及 next-intl 的 `useTranslations()`。
@@ -33,7 +33,7 @@ next-intl 和 Intlayer 是为 Next.js 应用程序设计的开源国际化 (i18n
 
 ## Intlayer 与 next-intl: 关键区别
 
-要深入分析 Intlayer 如何与其他 i18n 库（如 next-intl）进行比较，请查看 [next-i18next vs. next-intl vs. Intlayer 博客文章](https://github.com/aymericzip/intlayer/blob/main/blog/zh/i18next_vs_next-intl_vs_intlayer.md)。
+要深入分析 Intlayer 如何与其他 i18n 库（如 next-intl）进行比较，请查看 [next-i18next vs. next-intl vs. Intlayer 博客文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_next-intl_vs_intlayer.md)。
 
 ## 如何生成 next-intl 消息与 Intlayer
 

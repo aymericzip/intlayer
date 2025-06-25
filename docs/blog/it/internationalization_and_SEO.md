@@ -1,7 +1,7 @@
 ---
 blogName: internationalization_and_SEO
 url: https://intlayer.org/blog/SEO-and-i18n
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
 updatedAt: 2024-12-24
 title: SEO e Internazionalizzazione
@@ -75,22 +75,22 @@ Nel tuo HTML, aggiungerai qualcosa di simile a:
 <link
   rel="alternate"
   hreflang="en"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/it/example.com/en"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/example.com/en"
 />
 <link
   rel="alternate"
   hreflang="fr"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/it/example.com/fr"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/example.com/fr"
 />
 <link
   rel="alternate"
   hreflang="es"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/it/example.com/es"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/example.com/es"
 />
 <link
   rel="alternate"
   hreflang="x-default"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/it/example.com/en"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/example.com/en"
 />
 ```
 
@@ -143,7 +143,7 @@ I tag canonici indicano ai motori di ricerca quale pagina è la “originale” 
 ```html
 <link
   rel="canonical"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/it/example.com/fr/produits"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/example.com/fr/produits"
 />
 ```
 

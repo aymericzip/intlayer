@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocalizedUrl
 url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: t函数文档 | intlayer
@@ -42,18 +42,18 @@ keywords:
 
   - **描述**: 可选的支持语言环境数组。默认情况下，项目中配置的语言环境会被提供。
   - **类型**: `Locales[]`
-  - **默认值**: [`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md#middleware)
+  - **默认值**: [`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
   - **描述**: 应用程序的默认语言环境。默认情况下，项目中配置的默认语言环境会被提供。
   - **类型**: `Locales`
-  - **默认值**: [`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md#middleware)
+  - **默认值**: [`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
 
 - `prefixDefault: boolean`
   - **描述**: 是否为默认语言环境添加前缀。默认情况下，项目中配置的值会被提供。
   - **类型**: `boolean`
-  - **默认值**: [`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md#middleware)
+  - **默认值**: [`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
 
 ### 返回值
 

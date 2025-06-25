@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayerAsyncフックのドキュメント | react-intlayer
@@ -234,12 +234,12 @@ const ComponentExample = () => {
 
 すべてのコンテンツキーは、型の安全性を確保し、ランタイムエラーを防ぐためにコンテンツ宣言ファイルで定義する必要があります。これらのファイルはTypeScript検証を可能にし、常に既存のキーとロケールを参照することを保証します。
 
-コンテンツ宣言ファイルの設定手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)をご覧ください。
+コンテンツ宣言ファイルの設定手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)をご覧ください。
 
 ## 詳細情報
 
 - **Intlayerビジュアルエディター:**  
-  Intlayerビジュアルエディターと統合して、UIから直接コンテンツを管理および編集します。詳細は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)。
+  Intlayerビジュアルエディターと統合して、UIから直接コンテンツを管理および編集します。詳細は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)。
 
 ---
 

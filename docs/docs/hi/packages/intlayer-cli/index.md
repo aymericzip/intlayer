@@ -38,4 +38,4 @@ Intlayer एक CLI टूल प्रदान करता है जो:
 - आपकी सामग्री घोषणाओं से शब्दकोश बनाता है
 - आपके CMS से आपके स्थानीय प्रोजेक्ट में दूरस्थ शब्दकोशों को पुश और पुल करता है
 
-अधिक जानकारी के लिए [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md) पर परामर्श करें।
+अधिक जानकारी के लिए [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md) पर परामर्श करें।

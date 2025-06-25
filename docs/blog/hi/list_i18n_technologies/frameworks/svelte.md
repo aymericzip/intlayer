@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__svelte
 url: https://intlayer.org/blog/i18n-technologies/frameworks/svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/svelte.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/svelte.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Svelte के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## अंतरराष्ट्रीयकरण (i18n) क्या है?
 
 अंतरराष्ट्रीयकरण, जिसे सामान्यतः i18n के रूप में संक्षिप्त किया जाता है, आपकी एप्लिकेशन को इस तरह से डिजाइन और बनाना है कि यह विभिन्न भाषाओं, क्षेत्रों और सांस्कृतिक परंपराओं के लिए आसानी से अनुकूलित हो सके। Svelte में, इसका मतलब आमतौर पर अनुवाद स्ट्रिंग सेट करना, अंतिम तिथियों, समयों और संख्याओं को स्थानीय बनाना, और सुनिश्चित करना है कि उपयोगकर्ता इंटरफ़ेस विभिन्न स्थलों के बीच बिना प्रमुख कोड पुनर्लेखन के गतिशील रूप से बदल सके।
 
-i18n के मूल तत्वों के बारे में अधिक जानने के लिए, हमारा लेख पढ़ें: [अंतरराष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/blog/hi/what_is_internationalization.md)。
+i18n के मूल तत्वों के बारे में अधिक जानने के लिए, हमारा लेख पढ़ें: [अंतरराष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/what_is_internationalization.md)。
 
 ---
 

@@ -38,4 +38,4 @@ npx intlayer dictionaries build
 - إنشاء القواميس من إعلانات المحتوى الخاص بك
 - دفع وسحب القواميس البعيدة من CMS الخاص بك إلى مشروعك المحلي
 
-راجع [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md) لمزيد من المعلومات.
+راجع [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) لمزيد من المعلومات.

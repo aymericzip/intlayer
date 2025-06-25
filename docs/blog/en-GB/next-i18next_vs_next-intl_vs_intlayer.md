@@ -1,7 +1,7 @@
 ---
 blogName: next-i18next_vs_next-intl_vs_intlayer
 url: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/next-i18next_vs_next-intl_vs_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-01-02
 title: next-i18next vs next-intl vs Intlayer
@@ -94,7 +94,7 @@ The guide also provides an **in-depth look at Intlayer**, showing why it can be 
 
 5. **Enhanced Routing & Middleware**
 
-   - Includes a dedicated [**`intlayerMiddleware`**](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/#) for **automatic locale detection** (via cookies or browser headers) and advanced route generation.
+   - Includes a dedicated [**`intlayerMiddleware`**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/#) for **automatic locale detection** (via cookies or browser headers) and advanced route generation.
    - Dynamically handles localised paths (e.g., `/en-GB/about` vs. `/fr/about`) with minimal configuration.
    - Offers helper methods like `getMultilingualUrls` for generating alternate language links (great for **SEO**).
 
@@ -153,7 +153,7 @@ For teams migrating to or building on top of **Next.js App Router** (versions 13
 
 ## Example: Intlayer in Action
 
-Below is a _very_ condensed snippet illustrating how to harness Intlayer in a Next.js 15 project. For the full details and code examples, [check out the full Intlayer guide](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/#).
+Below is a _very_ condensed snippet illustrating how to harness Intlayer in a Next.js 15 project. For the full details and code examples, [check out the full Intlayer guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/#).
 
 <details>
 <summary>Step-by-step example</summary>

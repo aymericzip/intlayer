@@ -295,4 +295,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### 自動翻訳生成
 
-[インレイヤーCLI](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)を使用して、好みのサービスに基づいて不足している翻訳を自動的に埋めることができます。
+[インレイヤーCLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を使用して、好みのサービスに基づいて不足している翻訳を自動的に埋めることができます。

@@ -1,7 +1,7 @@
 ---
 docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Файл
@@ -218,10 +218,10 @@ const myMultilingualContent = {
 
 Для получения дополнительной информации о настройке и использовании встраивания файлов в Intlayer обратитесь к следующим ресурсам:
 
-- [Документация Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md)
-- [Документация React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_create_react_app.md)
-- [Документация Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_with_nextjs_15.md)
-- [Документация Markdown Content](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/markdown.md)
-- [Документация Translation Content](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/translation.md)
+- [Документация Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md)
+- [Документация React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_create_react_app.md)
+- [Документация Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_15.md)
+- [Документация Markdown Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md)
+- [Документация Translation Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md)
 
 Эти ресурсы предоставляют дополнительную информацию о встраивании файлов, управлении содержимым и интеграции Intlayer с различными фреймворками.

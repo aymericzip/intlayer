@@ -38,4 +38,4 @@ Intlayer 提供了一个 CLI 工具来：
 - 从您的内容声明中构建字典
 - 从您的 CMS 推送和拉取远程字典到您的本地项目
 
-请查阅 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 了解更多信息。
+请查阅 [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 了解更多信息。

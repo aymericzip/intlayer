@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__flutter
 url: https://intlayer.org/blog/i18n-technologies/frameworks/flutter
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/flutter.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/flutter.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Migliori strumenti di internazionalizzazione (i18n) per Flutter
@@ -22,13 +22,13 @@ In un mondo sempre più connesso, offrire la tua applicazione Flutter in più li
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/it/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/assets/i18n.webp)
 
 ## Che cos'è l'Internazionalizzazione (i18n)?
 
 L'internazionalizzazione, comunemente conosciuta come i18n, è il processo di progettazione di un'app in modo che possa facilmente supportare più lingue e formati culturali. In Flutter, ciò implica impostare la tua app per gestire stringhe localizzate, formati di data/ora e formati numerici senza problemi. Preparando la tua app Flutter per l'i18n, costruisci una solida base per integrare le traduzioni e gestire le differenze regionali con il minimo attrito.
 
-Se sei nuovo al concetto, dai un'occhiata al nostro articolo: [Che cos'è l'Internazionalizzazione (i18n)? Definizione e Sfide](https://github.com/aymericzip/intlayer/blob/main/docs/it/what_is_internationalization.md).
+Se sei nuovo al concetto, dai un'occhiata al nostro articolo: [Che cos'è l'Internazionalizzazione (i18n)? Definizione e Sfide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/what_is_internationalization.md).
 
 ---
 

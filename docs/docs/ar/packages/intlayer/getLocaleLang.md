@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocaleLang
 url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocaleLang.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق دالة getLocaleLang | intlayer
@@ -78,4 +78,4 @@ getLocaleLang(Locales.FRENCH); // الناتج: "fr"
 - **سلاسل لغة محلية غير صحيحة:**
   - إذا لم تتبع `locale` تنسيق `language-country` (على سبيل المثال، `Locales.ENGLISH-US`)، فإن الوظيفة تعود بأمان بالجزء قبل `'-'` أو السلسلة الكاملة إذا لم يكن هناك `'-'`.
 
-[رابط التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/ar/**/*.md)
+[رابط التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/**/*.md)

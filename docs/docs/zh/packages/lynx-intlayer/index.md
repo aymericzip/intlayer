@@ -1,7 +1,7 @@
 ---
 docName: package__lynx-intlayer
 url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/lynx-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: 包文档 | lynx-intlayer
@@ -28,7 +28,7 @@ keywords:
 
 ## 配置
 
-`lynx-intlayer` 包与 [`react-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/index.md) 和 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/index.md) 无缝协作。请查看相关文档以获取更多信息。
+`lynx-intlayer` 包与 [`react-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md) 和 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/index.md) 无缝协作。请查看相关文档以获取更多信息。
 
 ## 安装
 
@@ -67,7 +67,7 @@ export default defineConfig({
 
 Intlayer 提供了许多功能来帮助您对 Vite 应用程序进行国际化。
 
-**要了解更多这些功能，请参考 [使用 Intlayer 和 Lynx 的 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_lynx+react.md) 指南，适用于 Lynx 应用程序。**
+**要了解更多这些功能，请参考 [使用 Intlayer 和 Lynx 的 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_lynx+react.md) 指南，适用于 Lynx 应用程序。**
 
 ## 阅读关于 Intlayer 的信息
 

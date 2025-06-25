@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-intl
 url: https://intlayer.org/blog/intlayer-with-next-intl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-intl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-intl.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02
 title: Intlayer와 next-intl
@@ -24,7 +24,7 @@ next-intl과 Intlayer는 Next.js 애플리케이션을 위해 설계된 오픈 �
 
 1. **콘텐츠 선언**: 애플리케이션의 번역 가능한 콘텐츠를 정의하는 방법입니다.
 
-   - Intlayer에서 `content declaration file`이라고 불리는 이 파일은 구조화된 데이터를 내보내는 JSON, JS 또는 TS 파일이 될 수 있습니다. 자세한 내용은 [Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/concept/content)에서 확인하세요.
+   - Intlayer에서 `content declaration file`이라고 불리는 이 파일은 구조화된 데이터를 내보내는 JSON, JS 또는 TS 파일이 될 수 있습니다. 자세한 내용은 [Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/concept/content)에서 확인하세요.
    - next-intl에서는 일반적으로 JSON 파일에서 `messages` 또는 `locale messages`라고 불립니다. 자세한 내용은 [next-intl 문서](https://github.com/amannn/next-intl)에서 확인하세요.
 
 2. **유틸리티**: 애플리케이션 내에서 콘텐츠 선언을 구축하고 해석하기 위한 도구로, Intlayer의 `useIntlayer()` 또는 `useLocale()`, next-intl의 `useTranslations()` 등이 있습니다.
@@ -33,7 +33,7 @@ next-intl과 Intlayer는 Next.js 애플리케이션을 위해 설계된 오픈 �
 
 ## Intlayer vs. next-intl: 주요 차이점
 
-Intlayer가 next.js의 다른 i18n 라이브러리(예: next-intl)와 어떻게 비교되는지에 대한 더 깊은 분석을 위해서는 [next-i18next vs. next-intl vs. Intlayer 블로그 포스트](https://github.com/aymericzip/intlayer/blob/main/blog/ko/i18next_vs_next-intl_vs_intlayer.md)를 확인하세요.
+Intlayer가 next.js의 다른 i18n 라이브러리(예: next-intl)와 어떻게 비교되는지에 대한 더 깊은 분석을 위해서는 [next-i18next vs. next-intl vs. Intlayer 블로그 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_next-intl_vs_intlayer.md)를 확인하세요.
 
 ## Intlayer로 next-intl 메시지 생성 방법
 

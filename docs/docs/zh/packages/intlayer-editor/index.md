@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 
 > 如果您没有客户端 ID 和客户端密钥，可以通过在 [Intlayer 仪表板 - 项目](https://intlayer.org/dashboard/projects) 中创建新客户端来获取。
 
-> 要查看所有可用参数，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)
+> 要查看所有可用参数，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 `intlayer-editor` 包基于 Intlayer，可用于 JavaScript 应用程序，例如 React (Create React App)、Vite + React 和 Next.js。
 
@@ -54,15 +54,15 @@ const config: IntlayerConfig = {
 
 ### 与 Next.js 集成
 
-有关与 Next.js 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)。
+有关与 Next.js 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)。
 
 ### 与 Create React App 集成
 
-有关与 Create React App 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)
+有关与 Create React App 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
 
 ### 与 Vite + React 集成
 
-有关与 Vite + React 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md)
+有关与 Vite + React 集成的内容，请参阅[设置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
 
 ### 集成示例
 

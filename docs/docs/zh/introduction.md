@@ -1,7 +1,7 @@
 ---
 docName: introduction
 url: https://intlayer.org/doc/get-started
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/introduction.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/introduction.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 介绍
@@ -158,9 +158,9 @@ const MyComponent = () => {
 Intlayer 提供了多种功能，以满足现代 Web 开发的需求。以下是关键功能，并附有详细文档的链接：
 
 - **国际化支持**：通过内置的国际化支持，增强您的应用程序的全球影响力。
-- **可视化编辑器**：通过为 Intlayer 设计的编辑器插件改进您的开发工作流。查看 [可视化编辑器指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)。
-- **配置灵活性**：通过广泛的配置选项自定义您的设置，详细信息请参阅 [配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
-- **高级 CLI 工具**：使用 Intlayer 的命令行界面高效管理您的项目。探索 [CLI 工具文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 中的功能。
+- **可视化编辑器**：通过为 Intlayer 设计的编辑器插件改进您的开发工作流。查看 [可视化编辑器指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
+- **配置灵活性**：通过广泛的配置选项自定义您的设置，详细信息请参阅 [配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+- **高级 CLI 工具**：使用 Intlayer 的命令行界面高效管理您的项目。探索 [CLI 工具文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 中的功能。
 
 ## 核心概念
 
@@ -168,34 +168,34 @@ Intlayer 提供了多种功能，以满足现代 Web 开发的需求。以下是
 
 将您的多语言内容组织在代码附近，以保持一致性和可维护性。
 
-- **[快速开始](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)**  
+- **[快速开始](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)**  
   学习在 Intlayer 中声明内容的基础知识。
 
-- **[翻译](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/translation.md)**  
+- **[翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)**  
   了解翻译是如何生成、存储和在您的应用程序中使用的。
 
-- **[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/enumeration.md)**  
+- **[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)**  
   轻松管理跨多种语言的重复或固定数据集。
 
-- **[函数获取](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/function_fetching.md)**  
+- **[函数获取](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/function_fetching.md)**  
   了解如何使用自定义逻辑动态获取内容，以匹配您的项目工作流。
 
 ### 环境与集成
 
 我们设计了 Intlayer 的灵活性，提供了与流行框架和构建工具的无缝集成：
 
-- **[Intlayer 与 Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md)**
-- **[Intlayer 与 Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_14.md)**
-- **[Intlayer 与 Next.js 页面路由](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer 与 React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_create_react_app.md)**
-- **[Intlayer 与 Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_vite+react.md)**
-- **[Intlayer 与 Express](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_express.md)**
+- **[Intlayer 与 Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)**
+- **[Intlayer 与 Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md)**
+- **[Intlayer 与 Next.js 页面路由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)**
+- **[Intlayer 与 React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)**
+- **[Intlayer 与 Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)**
+- **[Intlayer 与 Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_express.md)**
 
 每个集成指南都包括使用 Intlayer 功能的最佳实践，例如 **服务器端渲染**、**动态路由** 或 **客户端渲染**，以便您可以维护快速、SEO 友好且高度可扩展的应用程序。
 
 ## 贡献与反馈
 
-我们重视开源和社区驱动的开发。如果您想提出改进建议、添加新指南或纠正文档中的任何问题，请随时在我们的 [GitHub 仓库](https://github.com/aymericzip/intlayer/blob/main/docs) 提交拉取请求或打开问题。
+我们重视开源和社区驱动的开发。如果您想提出改进建议、添加新指南或纠正文档中的任何问题，请随时在我们的 [GitHub 仓库](https://github.com/aymericzip/intlayer/blob/main/docs/docs) 提交拉取请求或打开问题。
 
 **准备好更快、更高效地翻译您的应用程序了吗？** 浏览我们的文档，立即开始使用 Intlayer。体验一种强大、简化的国际化方法，让您的内容井然有序，让您的团队更高效。
 

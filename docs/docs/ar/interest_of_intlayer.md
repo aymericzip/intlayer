@@ -1,7 +1,7 @@
 ---
 docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2024-08-14
 title: اهتمام لبرنامج Intlayer
@@ -138,11 +138,11 @@ const ComponentExample = () => {
 - **قاعدة كود منظمة**: حافظ على قاعدة الكود الخاصة بك أكثر تنظيماً: 1 مكون = 1 قاموس في نفس المجلد.
 - **أنواع TypeScript التلقائية**: يتم تنفيذ أنواع TypeScript تلقائيًا، مما يمنع كسر الكود من المفاتيح المعاد تسميتها أو المحذوفة.
 - **الترجمة التلقائية في CI**: املأ ترجماتك تلقائيا في CI باستخدام مفتاح OpenAI API الخاص بك، مما يلغي الحاجة لمنصة L10n.
-- **تكامل خادم MCP**: يوفر خادم MCP (Model Context Protocol) لأتمتة IDE، مما يتيح إدارة المحتوى وسير عمل i18n بسلاسة مباشرة داخل بيئة التطوير الخاصة بك. [تعلم أكثر](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md).
+- **تكامل خادم MCP**: يوفر خادم MCP (Model Context Protocol) لأتمتة IDE، مما يتيح إدارة المحتوى وسير عمل i18n بسلاسة مباشرة داخل بيئة التطوير الخاصة بك. [تعلم أكثر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md).
 - **دعم Markdown**: استيراد وتفسير ملفات markdown للمحتوى متعدد اللغات مثل سياسات الخصوصية.
 - **محرر مرئي و CMS مجاني**: يتوفر محرر مرئي و CMS مجاني إذا كنت بحاجة إلى العمل مع كتاب المحتوى لترجماتك، مما يلغي مرة أخرى الحاجة إلى منصة توطين ويسمح بتخارج المحتوى من قاعدة الكود.
 - **استرجاع محتوى مبسط**: لا حاجة لاستدعاء دالة `t` الخاصة بك لكل جزء من المحتوى؛ استرجع كل المحتوى الخاص بك مباشرة باستخدام خطاف واحد.
 - **تنفيذ متسق**: نفس التنفيذ لكل من مكونات العميل والخادم، لا حاجة لتمرير دالة `t` الخاصة بك عبر كل مكون خادم.
 - **محتوى قابل للهز**: المحتوى قابل للهز، مما يخفف الحزمة النهائية.
 - **عرض ثابت غير محظور**: لا يحظر Intlayer العرض الثابت كما يفعل `next-intl`.
-- **التشغيل البيني**: السماح بالتشغيل البيني مع [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-i18next.md)، [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-i18next.md)، [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-intl.md)، و [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-intl.md).
+- **التشغيل البيني**: السماح بالتشغيل البيني مع [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-i18next.md)، [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-i18next.md)، [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md)، و [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-intl.md).

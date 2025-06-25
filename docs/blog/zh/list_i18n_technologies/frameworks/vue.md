@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__vue
 url: https://intlayer.org/blog/i18n-technologies/frameworks/vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/vue.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/vue.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Vue的最佳国际化工具
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 什么是国际化 (i18n)？
 
 国际化 (i18n) 是为多个语言和文化习俗准备软件应用程序（或网站）的做法。在 Vue.js 生态系统中，这包括确定如何将文本、日期、数字、货币和其他可本地化元素适配到各种区域。通过从一开始就设置 i18n，您可以确保一个有序、可扩展的结构，以便添加新语言和处理未来的本地化需求。
 
-要了解更多关于 i18n 基础知识，请查看我们的参考：[什么是国际化 (i18n)？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/blog/zh/what_is_internationalization.md)。
+要了解更多关于 i18n 基础知识，请查看我们的参考：[什么是国际化 (i18n)？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/what_is_internationalization.md)。
 
 ---
 

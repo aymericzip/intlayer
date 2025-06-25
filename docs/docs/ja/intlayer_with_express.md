@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Expressのバックエンドを翻訳する (i18n)
@@ -198,9 +198,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` は以下と完全に互換性があります:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/index.md) (Reactアプリケーション向け)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/next-intlayer/index.md) (Next.jsアプリケーション向け)
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/vite-intlayer/index.md) (Viteアプリケーション向け)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md) (Reactアプリケーション向け)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md) (Next.jsアプリケーション向け)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md) (Viteアプリケーション向け)
 
 また、ブラウザやAPIリクエストを含むさまざまな環境での国際化ソリューションとシームレスに動作します。ミドルウェアをカスタマイズして、ヘッダーやクッキーを通じてロケールを検出することもできます:
 
@@ -250,7 +250,7 @@ module.exports = config;
 
 デフォルトでは、`express-intlayer` は `Accept-Language` ヘッダーを解釈してクライアントの好みの言語を判断します。
 
-> 設定や高度なトピックに関する詳細は、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)をご覧ください。
+> 設定や高度なトピックに関する詳細は、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
 
 ### TypeScriptの設定
 

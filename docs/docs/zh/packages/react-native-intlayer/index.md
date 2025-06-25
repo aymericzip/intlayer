@@ -1,7 +1,7 @@
 ---
 docName: package__react-native-intlayer
 url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: 包文档 | react-native-intlayer
@@ -27,7 +27,7 @@ keywords:
 
 ## 配置
 
-`react-native-intlayer` 包与 [`react-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/react-intlayer/index.md) 和 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/index.md) 无缝协作。请查看相关文档以获取更多信息。
+`react-native-intlayer` 包与 [`react-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md) 和 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/index.md) 无缝协作。请查看相关文档以获取更多信息。
 
 ## 安装
 
@@ -65,7 +65,7 @@ module.exports = (async () => {
 
 Intlayer 提供了许多功能来帮助您国际化您的 Vite 应用程序。
 
-**要了解更多这些功能，请参考 [使用 Intlayer 和 React Native 进行 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_react_native+expo.md) 指南，适用于 React Native 应用程序。**
+**要了解更多这些功能，请参考 [使用 Intlayer 和 React Native 进行 React 国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_native+expo.md) 指南，适用于 React Native 应用程序。**
 
 ## 阅读关于 Intlayer 的内容
 

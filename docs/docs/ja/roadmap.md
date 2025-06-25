@@ -1,7 +1,7 @@
 ---
 docName: roadmap
 url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-03-01
 title: ロードマップ
@@ -32,7 +32,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 
 > リソース:
 >
-> - [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)
+> - [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)
 
 ### 2. 国際化
 
@@ -41,7 +41,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 
 > リソース:
 >
-> - [国際化](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/translation.md)
+> - [国際化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)
 
 ### 3. Markdownサポート
 
@@ -50,7 +50,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 
 > リソース:
 >
-> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/markdown.md)
+> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
 
 ### 4. 条件付きレンダリング
 
@@ -59,7 +59,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 
 > リソース:
 >
-> - [条件付きレンダリング](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/condition.md)
+> - [条件付きレンダリング](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md)
 
 ### 5. コンテンツ宣言フォーマット
 
@@ -77,7 +77,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 
   > リソース:
   >
-  > - [コンテンツ宣言フォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/content_extention_customization.md)
+  > - [コンテンツ宣言フォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_extention_customization.md)
 
 ---
 
@@ -104,7 +104,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 
 > リソース:
 >
-> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)
+> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
 
@@ -112,7 +112,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 
 > リソース:
 >
-> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)
+> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
 
 ### 3. Express
 
@@ -121,7 +121,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 
 > リソース:
 >
-> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_express.md)
+> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_express.md)
 
 ---
 
@@ -138,7 +138,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 
 > リソース:
 >
-> - [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)
+> - [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS（リモート）
 
@@ -148,7 +148,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 
 > リソース:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 ---
 
@@ -160,7 +160,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 
 > リソース:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
 
 ---
 
@@ -177,7 +177,7 @@ Intlayerは、コンテンツ宣言に**TypeScript**（およびJavaScript）と
 
 > リソース:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 ---
 

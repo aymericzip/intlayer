@@ -1,7 +1,7 @@
 ---
 docName: package__vite-intlayer
 url: https://intlayer.org/doc/packages/vite-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 패키지 문서 | vite-intlayer
@@ -20,7 +20,7 @@ keywords:
 
 **Intlayer**는 JavaScript 개발자를 위해 특별히 설계된 패키지 모음입니다. React, React, Express.js와 같은 프레임워크와 호환됩니다.
 
-**`vite-intlayer` 패키지**는 Vite 애플리케이션을 국제화할 수 있도록 합니다. 이 패키지는 환경 변수를 통해 [Vite 번들러](https://vitejs.dev/guide/why.html#why-bundle-for-production)에 설정을 적용하는 Vite 플러그인을 포함합니다. 또한 사용자의 선호 로케일을 감지하고, [설정](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)에 지정된 URL로 사용자를 리디렉션하는 미들웨어를 제공합니다.
+**`vite-intlayer` 패키지**는 Vite 애플리케이션을 국제화할 수 있도록 합니다. 이 패키지는 환경 변수를 통해 [Vite 번들러](https://vitejs.dev/guide/why.html#why-bundle-for-production)에 설정을 적용하는 Vite 플러그인을 포함합니다. 또한 사용자의 선호 로케일을 감지하고, [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에 지정된 URL로 사용자를 리디렉션하는 미들웨어를 제공합니다.
 
 ## Vite 애플리케이션을 국제화해야 하는 이유?
 
@@ -28,7 +28,7 @@ Vite 애플리케이션을 국제화하는 것은 글로벌 사용자에게 효�
 
 ## 설정
 
-`vite-intlayer` 패키지는 [`react-intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/react-intlayer/index.md) 및 [`intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/intlayer/index.md)와 원활하게 작동합니다. 자세한 내용은 관련 문서를 참조하세요.
+`vite-intlayer` 패키지는 [`react-intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md) 및 [`intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/index.md)와 원활하게 작동합니다. 자세한 내용은 관련 문서를 참조하세요.
 
 ## 설치
 
@@ -68,4 +68,4 @@ export default defineConfig({
 
 Intlayer는 Vite 애플리케이션을 국제화하는 데 도움이 되는 다양한 기능을 제공합니다.
 
-**이러한 기능에 대해 더 알아보려면 [Intlayer와 Vite 및 React를 사용한 React 국제화(i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_vite+react.md) 가이드를 참조하세요.**
+**이러한 기능에 대해 더 알아보려면 [Intlayer와 Vite 및 React를 사용한 React 국제화(i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md) 가이드를 참조하세요.**

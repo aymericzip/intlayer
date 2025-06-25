@@ -1,7 +1,7 @@
 ---
 blogName: internationalization_and_SEO
 url: https://intlayer.org/blog/SEO-and-i18n
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
 updatedAt: 2024-12-24
 title: SEO e Internacionalização
@@ -75,22 +75,22 @@ No seu HTML, você adicionará algo como:
 <link
   rel="alternate"
   hreflang="en"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/pt/en"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/en"
 />
 <link
   rel="alternate"
   hreflang="fr"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/pt/fr"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/fr"
 />
 <link
   rel="alternate"
   hreflang="es"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/pt/es"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/es"
 />
 <link
   rel="alternate"
   hreflang="x-default"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/pt/en"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/en"
 />
 ```
 
@@ -115,7 +115,7 @@ No seu HTML, você adicionará algo como:
    - Você deve apenas traduzir o texto e os títulos do arquivo.
    - Você não deve alterar a estrutura do arquivo.
    - Você não deve alterar a lógica do código dos elementos de código.
-   - Você deve transformar URLs como `https://github.com/aymericzip/intlayer/blob/main/docs/en/**/*.md` em `https://github.com/aymericzip/intlayer/blob/main/docs/pt/**/*.md`
+   - Você deve transformar URLs como `https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/**/*.md` em `https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/**/*.md`
    - Você não deve transformar URLs como `https://github.com/aymericzip/intlayer/blob/main/docs/assets/**/*`
    - Você deve transformar URLs de local como `/**/*` em `/{{locale}}/**/*`
    - Nos elementos de código, a nomeação das variáveis deve ser feita em inglês. Mas os comentários devem ser em português.
@@ -164,7 +164,7 @@ Tags canônicas informam aos mecanismos de busca qual página é a “original�
 ```html
 <link
   rel="canonical"
-  href="https://github.com/aymericzip/intlayer/blob/main/docs/pt/fr/produits"
+  href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/fr/produits"
 />
 ```
 

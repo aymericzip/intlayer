@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__t
 url: https://intlayer.org/doc/packages/react-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: t函数文档 | react-intlayer
@@ -283,7 +283,7 @@ const text = t(translations);
 
 `react-intlayer` 中的 `t` 函数是一个强大且方便的工具，用于在 React 应用中管理内联翻译。通过有效集成它，可以增强应用的国际化能力，为全球用户提供更好的体验。
 
-有关更详细的用法和高级功能，请参阅 [react-intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)。
+有关更详细的用法和高级功能，请参阅 [react-intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 ---
 

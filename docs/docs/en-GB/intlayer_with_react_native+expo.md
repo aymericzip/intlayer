@@ -107,7 +107,7 @@ Within this config, you can:
 - Configure your **list of supported locales**.
 - Set a **default** locale.
 - Later, you may add more advanced options (e.g., logs, custom content directories, etc.).
-- See the [Intlayer configuration docs](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md) for more.
+- See the [Intlayer configuration docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md) for more.
 
 ## Step 3: Add the Metro plugin
 
@@ -300,7 +300,7 @@ module.exports = appContent;
 }
 ```
 
-> For details on content declarations, see [Intlayer’s content docs](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/dictionary/get_started.md).
+> For details on content declarations, see [Intlayer’s content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md).
 
 ---
 
@@ -497,7 +497,7 @@ const LocaleSwitcher = () => {
 
 This triggers a re-render of all components that use Intlayer content, now showing translations for the new locale.
 
-> See [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/packages/react-intlayer/useLocale.md) for more details.
+> See [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md) for more details.
 
 ## Configure TypeScript (if you use TypeScript)
 
@@ -535,8 +535,8 @@ To avoid committing auto-generated files by Intlayer, add the following to your 
 
 ## Go Further
 
-- **Visual Editor**: Use the [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_visual_editor.md) to manage translations visually.
-- **CMS Integration**: You can also externalise and fetch your dictionary content from a [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_CMS.md).
-- **CLI Commands**: Explore the [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/intlayer_cli.md) for tasks like **extracting translations** or **checking missing keys**.
+- **Visual Editor**: Use the [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) to manage translations visually.
+- **CMS Integration**: You can also externalise and fetch your dictionary content from a [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
+- **CLI Commands**: Explore the [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md) for tasks like **extracting translations** or **checking missing keys**.
 
 Enjoy building your **React Native** apps with fully powered i18n through **Intlayer**!

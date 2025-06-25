@@ -295,4 +295,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### إنشاء الترجمة تلقائيًا
 
-استخدم [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md) لملء الترجمات المفقودة تلقائيًا بناءً على الخدمات المفضلة لديك.
+استخدم [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) لملء الترجمات المفقودة تلقائيًا بناءً على الخدمات المفضلة لديك.

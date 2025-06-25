@@ -2,7 +2,7 @@
 
 **Intlayer** , это набор пакетов, специально разработанных для разработчиков на JavaScript. Он совместим с такими фреймворками, как React, React и Express.js.
 
-Пакет **`@intlayer/chokidar`** используется для сканирования и создания файлов деклараций Intlayer в словари с использованием [chokidar](https://github.com/paulmillr/chokidar) и в соответствии с [конфигурацией Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md).
+Пакет **`@intlayer/chokidar`** используется для сканирования и создания файлов деклараций Intlayer в словари с использованием [chokidar](https://github.com/paulmillr/chokidar) и в соответствии с [конфигурацией Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
 ## Использование
 

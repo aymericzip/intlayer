@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer
 url: https://intlayer.org/doc/packages/intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentazione del pacchetto | intlayer
@@ -89,7 +89,7 @@ const config = {
 module.exports = config;
 ```
 
-> Per un elenco completo dei parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+> Per un elenco completo dei parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
 ## Esempio di utilizzo
 
@@ -97,7 +97,7 @@ Con Intlayer, puoi dichiarare i tuoi contenuti in modo strutturato ovunque nella
 
 Per impostazione predefinita, Intlayer esegue la scansione dei file con estensione `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-> Puoi modificare l'estensione predefinita impostando la proprietà `contentDir` nel [file di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+> Puoi modificare l'estensione predefinita impostando la proprietà `contentDir` nel [file di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -336,7 +336,7 @@ const config = {
 module.exports = config;
 ```
 
-> Per un elenco completo dei parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+> Per un elenco completo dei parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
 Output:
 
@@ -422,7 +422,7 @@ const config = {
 module.exports = config;
 ```
 
-> Per un elenco completo dei parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+> Per un elenco completo dei parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
 Output:
 
@@ -461,7 +461,7 @@ Intlayer fornisce uno strumento CLI per:
 - costruire dizionari dalle dichiarazioni dei contenuti
 - caricare e scaricare dizionari remoti dal tuo CMS al tuo progetto locale
 
-Consulta [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md) per maggiori informazioni.
+Consulta [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md) per maggiori informazioni.
 
 ## Utilizzare Intlayer nella tua applicazione
 
@@ -471,27 +471,27 @@ Intlayer è disponibile come pacchetto per la tua applicazione.
 
 ### Applicazione React
 
-Per utilizzare Intlayer nella tua applicazione React, puoi usare [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/react-intlayer/index.md).
+Per utilizzare Intlayer nella tua applicazione React, puoi usare [react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/index.md).
 
 ### Applicazione Next.js
 
-Per utilizzare Intlayer nella tua applicazione Next.js, puoi usare [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/next-intlayer/index.md).
+Per utilizzare Intlayer nella tua applicazione Next.js, puoi usare [next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/index.md).
 
 ### Applicazione Express
 
-Per utilizzare Intlayer nella tua applicazione Express, puoi usare [express-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/express-intlayer/index.md).
+Per utilizzare Intlayer nella tua applicazione Express, puoi usare [express-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/express-intlayer/index.md).
 
 ## Funzioni fornite dal pacchetto `intlayer`
 
 Il pacchetto `intlayer` fornisce anche alcune funzioni per aiutarti a internazionalizzare la tua applicazione.
 
-- [`getConfiguration()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getConfiguration.md)
-- [`getTranslation()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getTranslation.md)
-- [`getEnumeration()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getEnumeration.md)
-- [`getLocaleName()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getLocaleName.md)
-- [`getLocaleLang()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getLocaleLang.md)
-- [`getHTMLTextDir()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getHTMLTextDir.md)
-- [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getPathWithoutLocale.md)
-- [`getMultilingualUrls()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getMultilingualUrls.md)
-- [`getLocalizedUrl()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getLocalizedUrl.md)
-- [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/getPathWithoutLocale.md)
+- [`getConfiguration()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getConfiguration.md)
+- [`getTranslation()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getTranslation.md)
+- [`getEnumeration()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getEnumeration.md)
+- [`getLocaleName()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocaleName.md)
+- [`getLocaleLang()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocaleLang.md)
+- [`getHTMLTextDir()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getHTMLTextDir.md)
+- [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getPathWithoutLocale.md)
+- [`getMultilingualUrls()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getMultilingualUrls.md)
+- [`getLocalizedUrl()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocalizedUrl.md)
+- [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getPathWithoutLocale.md)

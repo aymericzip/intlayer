@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-i18next
 url: https://intlayer.org/blog/intlayer-with-next-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11
 updatedAt: 2025-01-02
 title: Intlayer和next-i18next
@@ -34,7 +34,7 @@ both next-i18next 和 Intlayer 是为 Next.js 应用程序设计的开源国际�
 
 ## Intlayer vs. i18next：主要区别
 
-要探索 i18next 和 Intlayer 之间的区别，请查看我们的 [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/blog/zh/i18next_vs_next-intl_vs_intlayer.md) 博客文章。
+要探索 i18next 和 Intlayer 之间的区别，请查看我们的 [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_next-intl_vs_intlayer.md) 博客文章。
 
 ## 如何使用 Intlayer 生成 next-i18next 字典
 

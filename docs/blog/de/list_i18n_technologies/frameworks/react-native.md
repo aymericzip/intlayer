@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react-native
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react-native
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react-native.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react-native.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Beste Internationalisierung (i18n)-Tools für React Native
@@ -22,14 +22,14 @@ In einem zunehmend globalen Markt kann die Bereitstellung Ihrer React Native-App
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Was ist Internationalisierung (i18n)?
 
 Internationalisierung oder i18n umfasst die Strukturierung einer Anwendung, damit sie sich leicht an verschiedene Sprachen, regionale Formate und kulturelle Normen anpassen kann. In React Native umfasst i18n die Verarbeitung von Zeichenfolgen für Schaltflächen und Beschriftungen sowie die Formatierung von Daten, Zeiten, Währungen und mehr gemäß der Spracheinstellungen eines Benutzers. Richtig vorbereitete React Native-Apps ermöglichen es Ihnen, zusätzliche Sprachen und sprachspezifisches Verhalten später nahtlos zu integrieren - ohne massive Refaktorierungen.
 
 Für einen tieferen Einblick in die Konzepte der Internationalisierung lesen Sie unseren Artikel:  
-[Was ist Internationalisierung (i18n)? Definition und Herausforderungen](https://github.com/aymericzip/intlayer/blob/main/blog/de/what_is_internationalization.md).
+[Was ist Internationalisierung (i18n)? Definition und Herausforderungen](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/what_is_internationalization.md).
 
 ---
 

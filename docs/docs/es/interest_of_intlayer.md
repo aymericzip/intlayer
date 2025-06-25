@@ -1,7 +1,7 @@
 ---
 docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/interest_of_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2024-08-14
 title: Interés de Intlayer
@@ -138,11 +138,11 @@ const ComponentExample = () => {
 - **Base de código organizada**: Mantén tu base de código más organizada: 1 componente = 1 diccionario en la misma carpeta.
 - **Tipos TypeScript automáticos**: Los tipos TypeScript se implementan automáticamente, evitando la rotura del código debido a claves renombradas o eliminadas.
 - **Traducción automática en CI**: Rellena automáticamente tus traducciones en tu CI usando tu propia clave API de OpenAI, eliminando la necesidad de una plataforma L10n.
-- **Integración de servidor MCP**: Proporciona un servidor MCP (Model Context Protocol) para automatización IDE, habilitando gestión de contenido y flujos de trabajo i18n sin problemas directamente dentro de tu entorno de desarrollo. [Aprender más](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md).
+- **Integración de servidor MCP**: Proporciona un servidor MCP (Model Context Protocol) para automatización IDE, habilitando gestión de contenido y flujos de trabajo i18n sin problemas directamente dentro de tu entorno de desarrollo. [Aprender más](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md).
 - **Soporte para Markdown**: Importa e interpreta archivos markdown para contenido multilingüe como políticas de privacidad.
 - **Editor visual y CMS gratuitos**: Un editor visual y CMS gratuitos están disponibles si necesitas trabajar con redactores de contenido para tus traducciones, eliminando nuevamente la necesidad de una plataforma de localización y permitiendo la externalización del contenido desde la base de código.
 - **Recuperación de contenido simplificada**: No es necesario llamar a tu función `t` para cada pieza de contenido; recupera todo tu contenido directamente usando un solo hook.
 - **Implementación consistente**: La misma implementación para componentes de cliente y servidor, no es necesario pasar tu función `t` a través de cada componente de servidor.
 - **Contenido tree-shakable**: El contenido es tree-shakable, lo que aligera el bundle final.
 - **Renderizado estático no bloqueante**: Intlayer no bloquea el renderizado estático como lo hace `next-intl`.
-- **Interoperabilidad**: Permite la interoperabilidad con [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_next-intl.md), y [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react-intl.md).
+- **Interoperabilidad**: Permite la interoperabilidad con [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md), y [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-intl.md).

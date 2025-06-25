@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق خطاف useIntlayer | react-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 ## القاموس
 
-يجب أن يتم إعلان جميع مفاتيح القاموس داخل ملفات تعريف المحتوى لتعزيز أمان النوع وتجنب الأخطاء. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+يجب أن يتم إعلان جميع مفاتيح القاموس داخل ملفات تعريف المحتوى لتعزيز أمان النوع وتجنب الأخطاء. يمكنك العثور على تعليمات الإعداد [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
 
 ## مثال على الاستخدام في React
 
@@ -240,6 +240,6 @@ const ServerComponentExample = () => {
 
 ## موارد إضافية
 
-- **محرر Intlayer البصري**: للحصول على تجربة إدارة محتوى أكثر سهولة، راجع وثائق المحرر البصري [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md).
+- **محرر Intlayer البصري**: للحصول على تجربة إدارة محتوى أكثر سهولة، راجع وثائق المحرر البصري [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 هذا القسم يستهدف تحديدًا دمج الخطاف `useIntlayer` في تطبيقات React، مما يبسط عملية التوطين ويضمن تناسق المحتوى عبر اللغات المختلفة.

@@ -1,7 +1,7 @@
 ---
 docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Intlayer CMS | Intlayer CMSにコンテンツを外部化します
@@ -37,7 +37,7 @@ Intlayer は「ローカル辞書」と「遠隔辞書」を区別します。
 
 ## ビジュアルエディタ vs CMS
 
-[Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md) エディタは、ローカル辞書のコンテンツをビジュアルエディタで管理するためのツールです。変更が行われると、コンテンツはコードベースに置き換えられます。つまり、アプリケーションが再構築され、新しいコンテンツを表示するためにページがリロードされます。
+[Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) エディタは、ローカル辞書のコンテンツをビジュアルエディタで管理するためのツールです。変更が行われると、コンテンツはコードベースに置き換えられます。つまり、アプリケーションが再構築され、新しいコンテンツを表示するためにページがリロードされます。
 
 対照的に、Intlayer CMS は遠隔辞書のコンテンツをビジュアルエディタで管理するためのツールです。変更が行われても、コードベースには影響を与えません。そして、ウェブサイトは自動的に変更されたコンテンツを表示します。
 
@@ -47,15 +47,15 @@ Intlayer は「ローカル辞書」と「遠隔辞書」を区別します。
 
 ### Next.js との統合
 
-Next.js との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)を参照してください。
+Next.js との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)を参照してください。
 
 ### Create React App との統合
 
-Create React App との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)を参照してください。
+Create React App との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)を参照してください。
 
 ### Vite + React との統合
 
-Vite + React との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md)を参照してください。
+Vite + React との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)を参照してください。
 
 ## 設定
 
@@ -214,7 +214,7 @@ module.exports = config;
 
 > クライアント ID とクライアントシークレットをお持ちでない場合は、[Intlayer ダッシュボード - プロジェクト](https://intlayer.org/dashboard/projects)で新しいクライアントを作成することで取得できます。
 
-> 利用可能なすべてのパラメータについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)を参照してください。
+> 利用可能なすべてのパラメータについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
 ## CMS の使用
 

@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__t
 url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: t関数のドキュメント | next-intlayer
@@ -339,7 +339,7 @@ const text = t(translations);
 
 `next-intlayer` の `t` 関数は、Next.js アプリケーションでインライン翻訳を管理するための強力で便利なツールです。これを効果的に統合することで、アプリの国際化機能を強化し、世界中のユーザーにより良い体験を提供できます。
 
-詳細な使用方法や高度な機能については、[next-intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md) を参照してください。
+詳細な使用方法や高度な機能については、[next-intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を参照してください。
 
 ---
 

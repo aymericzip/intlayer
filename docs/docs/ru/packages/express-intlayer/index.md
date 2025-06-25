@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer
 url: https://intlayer.org/doc/packages/express-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/express-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Документация пакета | express-intlayer
@@ -105,7 +105,7 @@ const config = {
 module.exports = config;
 ```
 
-> Для полного списка доступных параметров обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md).
+> Для полного списка доступных параметров обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
 ## Пример использования
 
@@ -196,9 +196,9 @@ app.listen(3000, () => console.log(`Слушаем порт 3000`));
 
 `express-intlayer` полностью совместим с:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/react-intlayer/index.md) для React приложений
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/next-intlayer/index.md) для Next.js приложений
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/vite-intlayer/index.md) для Vite приложений
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md) для React приложений
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/index.md) для Next.js приложений
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/index.md) для Vite приложений
 
 Он также бесшовно работает с любым решением для интернационализации в различных средах, включая браузеры и API-запросы. Вы можете настроить middleware для определения языка через заголовки или cookies:
 
@@ -250,4 +250,4 @@ module.exports = config;
 
 ## Функции, предоставляемые пакетом `express-intlayer`
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ru-GB/packages/express-intlayer/t.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru-GB/packages/express-intlayer/t.md)

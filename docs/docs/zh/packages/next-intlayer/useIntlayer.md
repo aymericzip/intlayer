@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayer Hook 文档 | next-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 确保所有内容键都在内容声明文件中定义，以防止运行时错误并确保类型安全。这种方法还可以通过 TypeScript 集成实现编译时验证。
 
-有关设置内容声明文件的说明，请参阅[此处](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)。
+有关设置内容声明文件的说明，请参阅[此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
 
 ## 在 Next.js 中的示例用法
 
@@ -252,6 +252,6 @@ const ServerComponentExample = () => {
 
 ## 进一步信息
 
-- **Intlayer 可视化编辑器**：了解如何使用可视化编辑器更轻松地管理内容[此处](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)。
+- **Intlayer 可视化编辑器**：了解如何使用可视化编辑器更轻松地管理内容[此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 本篇文档专门介绍了在 Next.js 环境中使用 `useIntlayer` 钩子，为您的 Next.js 应用程序提供了管理本地化的强大解决方案。

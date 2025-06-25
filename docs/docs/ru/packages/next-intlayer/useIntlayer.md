@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Документация по хуку useIntlayer | next-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 Важно, чтобы все ключи контента были определены в файлах декларации контента, чтобы избежать ошибок во время выполнения и обеспечить безопасность типов. Этот подход также упрощает интеграцию с TypeScript для проверки на этапе компиляции.
 
-Инструкции по настройке файлов декларации контента доступны [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/dictionary/get_started.md).
+Инструкции по настройке файлов декларации контента доступны [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md).
 
 ## Пример использования в Next.js
 
@@ -252,6 +252,6 @@ const ServerComponentExample = () => {
 
 ## Дополнительная информация
 
-- **Визуальный редактор Intlayer**: Узнайте, как использовать визуальный редактор для упрощения управления контентом [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md).
+- **Визуальный редактор Intlayer**: Узнайте, как использовать визуальный редактор для упрощения управления контентом [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
 Эта документация описывает использование хука `useIntlayer` специально в среде Next.js, предоставляя надежное решение для управления локализацией в ваших приложениях Next.js.

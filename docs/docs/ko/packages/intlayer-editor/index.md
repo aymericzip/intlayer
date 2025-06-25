@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 
 > 클라이언트 ID와 클라이언트 비밀 키가 없는 경우, [Intlayer 대시보드 - 프로젝트](https://intlayer.org/dashboard/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
 
-> 사용 가능한 모든 매개변수를 보려면 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하십시오.
+> 사용 가능한 모든 매개변수를 보려면 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하십시오.
 
 `intlayer-editor` 패키지는 Intlayer를 기반으로 하며, React(Create React App), Vite + React, Next.js와 같은 JavaScript 애플리케이션에서 사용할 수 있습니다.
 
@@ -54,15 +54,15 @@ const config: IntlayerConfig = {
 
 ### Next.js와 통합
 
-Next.js와의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md)를 참조하십시오.
+Next.js와의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)를 참조하십시오.
 
 ### Create React App과 통합
 
-Create React App과의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_create_react_app.md)를 참조하십시오.
+Create React App과의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)를 참조하십시오.
 
 ### Vite + React와 통합
 
-Vite + React와의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_vite+react.md)를 참조하십시오.
+Vite + React와의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)를 참조하십시오.
 
 ### 통합 예제
 

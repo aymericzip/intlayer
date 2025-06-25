@@ -106,7 +106,7 @@ By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,j
 
 ### Declare your content
 
-`angular-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
+`angular-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
 
 Here’s an example of content declaration:
 
@@ -143,7 +143,7 @@ export default component1Content;
 
 Intlayer provides a lot of features to help you internationalize your Angular application.
 
-**To learn more about these features, refer to the [Angular Internationalization (i18n) with Intlayer and Vite and Angular](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md) guide for Vite and Angular Application, or the [Angular Internationalization (i18n) with Intlayer and Angular (CRA)](https://intlayer.org/doc/environment/create-react-app) guide for Angular Create App.**
+**To learn more about these features, refer to the [Angular Internationalization (i18n) with Intlayer and Vite and Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md) guide for Vite and Angular Application, or the [Angular Internationalization (i18n) with Intlayer and Angular (CRA)](https://intlayer.org/doc/environment/create-react-app) guide for Angular Create App.**
 
 ## Functions provided by `angular-intlayer` package
 

@@ -1,7 +1,7 @@
 ---
 docName: package__react-scripts-intlayer
 url: https://intlayer.org/doc/packages/react-scripts-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-scripts-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-scripts-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentação do pacote | react-scripts-intlayer
@@ -24,7 +24,7 @@ keywords:
 
 ## Configuração
 
-O pacote `react-scripts-intlayer` funciona perfeitamente com o [pacote `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/react-intlayer/index.md), e o [pacote `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/intlayer/index.md). Consulte a documentação relevante para mais informações.
+O pacote `react-scripts-intlayer` funciona perfeitamente com o [pacote `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/index.md), e o [pacote `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/index.md). Consulte a documentação relevante para mais informações.
 
 ## Instalação
 
@@ -72,4 +72,4 @@ Se você precisar personalizar a configuração do Webpack, também pode impleme
 ## Leia o guia completo do Intlayer para React Create App
 
 O Intlayer oferece muitos recursos para ajudá-lo a internacionalizar sua aplicação React.
-[Veja como usar o Intlayer com React Create App](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_create_react_app.md).
+[Veja como usar o Intlayer com React Create App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_create_react_app.md).

@@ -1,7 +1,7 @@
 ---
 blogName: react-i18next_vs_react-intl_vs_intlayer
 url: https://intlayer.org/blog/react-i18next-vs-react-intl-vs-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/react-i18next_vs_react-intl_vs_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02
 title: react-i18n vs react-intl vs Intlayer
@@ -188,7 +188,7 @@ Your choice largely depends on project requirements, desired developer experienc
 
 - [react-intl Documentation](https://formatjs.io/docs/react-intl/)
 - [react-i18next Documentation](https://react.i18next.com/)
-- [Intlayer + CRA Getting Started Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md)
-- [Intlayer + Vite & React Getting Started Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite%2Breact.md)
+- [Intlayer + CRA Getting Started Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)
+- [Intlayer + Vite & React Getting Started Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite%2Breact.md)
 
 Feel free to mix and match approaches to suit your requirements there is no “one-size-fits-all” solution, and each library continues to evolve to address new use cases in the React ecosystem.

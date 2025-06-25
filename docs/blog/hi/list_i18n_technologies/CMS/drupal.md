@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__drupal
 url: https://intlayer.org/blog/i18n-technologies/CMS/drupal
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/drupal.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/drupal.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Drupal के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण
@@ -26,7 +26,7 @@ keywords:
 
 अंतर्राष्ट्रीयकरण (i18n) आपकी वेबसाइट को इस तरह से डिज़ाइन करने की प्रक्रिया है ताकि इसे विभिन्न भाषाओं और सांस्कृतिक संदर्भों के लिए आसानी से अनुकूलित किया जा सके बिना इसके ढांचे को फिर से डिजाइन करने की आवश्यकता के। ड्रुपल में, इसमें एक ऐसा आधार बनाना शामिल है जहाँ सामग्री - जिसमें पृष्ठ, पोस्ट, मेनू, और कॉन्फ़игураशन सेटिंग्स - को विभिन्न दर्शकों के लिए कुशलतापूर्वक अनुवाद और स्थानीयकृत किया जा सकता है।
 
-i18n के बारे में अधिक जानें, हमारे व्यापक गाइड को पढ़ें: [अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/blog/hi/what_is_internationalization.md).
+i18n के बारे में अधिक जानें, हमारे व्यापक गाइड को पढ़ें: [अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/what_is_internationalization.md).
 
 ---
 

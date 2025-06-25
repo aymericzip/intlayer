@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer
 url: https://intlayer.org/doc/packages/react-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: وثائق حزمة | react-intlayer
@@ -54,7 +54,7 @@ pnpm add react-intlayer
 
 بشكل افتراضي، يقوم Intlayer بمسح الملفات ذات الامتداد `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-> يمكنك تعديل الامتداد الافتراضي عن طريق تعيين خاصية `contentDir` في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+> يمكنك تعديل الامتداد الافتراضي عن طريق تعيين خاصية `contentDir` في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ pnpm add react-intlayer
 
 ### تعريف المحتوى الخاص بك
 
-`react-intlayer` مصمم للعمل مع حزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). `intlayer` هي حزمة تتيح لك تعريف المحتوى الخاص بك في أي مكان في الكود الخاص بك. تقوم بتحويل تعريفات المحتوى متعدد اللغات إلى قواميس منظمة تتكامل بسلاسة مع تطبيقك.
+`react-intlayer` مصمم للعمل مع حزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md). `intlayer` هي حزمة تتيح لك تعريف المحتوى الخاص بك في أي مكان في الكود الخاص بك. تقوم بتحويل تعريفات المحتوى متعدد اللغات إلى قواميس منظمة تتكامل بسلاسة مع تطبيقك.
 
 إليك مثال على تعريف المحتوى:
 
@@ -266,14 +266,14 @@ const Component1Example = () => {
 
 يوفر Intlayer العديد من الميزات لمساعدتك في تدويل تطبيق React الخاص بك.
 
-**لتعلم المزيد عن هذه الميزات، راجع [دليل تدويل React (i18n) مع Intlayer و Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_vite+react.md) لتطبيق Vite و React، أو [دليل تدويل React (i18n) مع Intlayer و React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_create_react_app.md) لتطبيق React Create App.**
+**لتعلم المزيد عن هذه الميزات، راجع [دليل تدويل React (i18n) مع Intlayer و Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md) لتطبيق Vite و React، أو [دليل تدويل React (i18n) مع Intlayer و React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md) لتطبيق React Create App.**
 
 ## الوظائف التي توفرها حزمة `react-intlayer`
 
 توفر حزمة `react-intlayer` أيضًا بعض الوظائف لمساعدتك في تدويل تطبيقك.
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayerAsync.md)

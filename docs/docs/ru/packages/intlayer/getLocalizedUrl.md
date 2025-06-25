@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocalizedUrl
 url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getLocalizedUrl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Документация функции getLocalizedUrl | intlayer
@@ -42,18 +42,18 @@ keywords:
 
   - **Описание**: Необязательный массив поддерживаемых локалей. По умолчанию используются локали, настроенные в проекте.
   - **Тип**: `Locales[]`
-  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#middleware)
+  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
   - **Описание**: Локаль по умолчанию для приложения. По умолчанию используется локаль, настроенная в проекте.
   - **Тип**: `Locales`
-  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#middleware)
+  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
 
 - `prefixDefault: boolean`
   - **Описание**: Указывает, нужно ли добавлять префикс к URL для локали по умолчанию. По умолчанию используется значение, настроенное в проекте.
   - **Тип**: `boolean`
-  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md#middleware)
+  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
 
 ### Возвращаемое значение
 

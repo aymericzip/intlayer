@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-i18next
 url: https://intlayer.org/blog/intlayer-with-next-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-i18next.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11
 updatedAt: 2025-01-02
 title: Intlayer and next-i18next
@@ -25,8 +25,8 @@ Both solutions include three principal notions:
 
 1. **Dictionary**: The method for defining the translatable content of your application.
 
-   - Named `resource` in the case of `i18next`, the content declaration is a structured JSON object containing key-value pairs for translations in one or more languages. See [i18next documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/translation-function/essentials.md) for more information.
-   - Named `content declaration file` in the case of `Intlayer`, the content declaration can be a JSON, JS, or TS file exporting the structured data. See [Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/concept/content.md) for more information.
+   - Named `resource` in the case of `i18next`, the content declaration is a structured JSON object containing key-value pairs for translations in one or more languages. See [i18next documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/translation-function/essentials.md) for more information.
+   - Named `content declaration file` in the case of `Intlayer`, the content declaration can be a JSON, JS, or TS file exporting the structured data. See [Intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/concept/content.md) for more information.
 
 2. **Utilities**: Tools to build and interpret content declarations in the application, such as `getI18n()`, `useCurrentLocale()`, or `useChangeLocale()` for next-i18next, and `useIntlayer()` or `useLocale()` for Intlayer.
 
@@ -34,7 +34,7 @@ Both solutions include three principal notions:
 
 ## Intlayer vs. i18next: Key Differences
 
-To explore the differences between i18next and Intlayer, check out our [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/blog/en-GB/i18next_vs_next-intl_vs_intlayer.md) blog post.
+To explore the differences between i18next and Intlayer, check out our [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18next_vs_next-intl_vs_intlayer.md) blog post.
 
 ## How to Generate next-i18next Dictionaries with Intlayer
 

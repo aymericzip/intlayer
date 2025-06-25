@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useIntlayerAsync हुक दस्तावेज | next-intlayer
@@ -219,12 +219,12 @@ const AsyncClientComponentExample = () => {
 
 सभी सामग्री कुंजियाँ आपकी सामग्री घोषणा फ़ाइलों में परिभाषित होनी चाहिए ताकि प्रकार सुरक्षा सुनिश्चित हो सके और रनटाइम त्रुटियों को रोका जा सके। ये फ़ाइलें TypeScript सत्यापन को सक्षम करती हैं, यह सुनिश्चित करते हुए कि आप हमेशा मौजूदा कुंजियों और स्थानीयों का संदर्भ देते हैं।
 
-सामग्री घोषणा फ़ाइलों को सेट करने के लिए निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/get_started.md) उपलब्ध हैं।
+सामग्री घोषणा फ़ाइलों को सेट करने के लिए निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md) उपलब्ध हैं।
 
 ## अधिक जानकारी
 
 - **Intlayer विज़ुअल एडिटर:**  
-  UI से सीधे सामग्री प्रबंधित और संपादित करने के लिए Intlayer विज़ुअल एडिटर के साथ एकीकृत करें। अधिक विवरण [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_visual_editor.md)।
+  UI से सीधे सामग्री प्रबंधित और संपादित करने के लिए Intlayer विज़ुअल एडिटर के साथ एकीकृत करें। अधिक विवरण [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)।
 
 ---
 

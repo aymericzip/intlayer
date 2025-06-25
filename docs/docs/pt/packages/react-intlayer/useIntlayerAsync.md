@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentação do hook useIntlayerAsync | react-intlayer
@@ -234,12 +234,12 @@ Você também pode recuperar valores de atributos localizados para várias propr
 
 Todas as chaves de conteúdo devem ser definidas nos seus arquivos de declaração de conteúdo para segurança de tipo e para evitar erros em tempo de execução. Esses arquivos permitem validação no TypeScript, garantindo que você sempre faça referência a chaves e localidades existentes.
 
-Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/dictionary/get_started.md).
+Instruções para configurar arquivos de declaração de conteúdo estão disponíveis [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
 
 ## Mais Informações
 
 - **Editor Visual Intlayer:**  
-  Integre com o editor visual do Intlayer para gerenciar e editar conteúdo diretamente da interface. Mais detalhes [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_visual_editor.md).
+  Integre com o editor visual do Intlayer para gerenciar e editar conteúdo diretamente da interface. Mais detalhes [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md).
 
 ---
 

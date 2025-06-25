@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer
 url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 包文档 | next-intlayer
@@ -54,7 +54,7 @@ pnpm add next-intlayer
 
 默认情况下，Intlayer 会扫描扩展名为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` 的文件。
 
-> 您可以通过在[配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)中设置 `contentDir` 属性来修改默认扩展名。
+> 您可以通过在[配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中设置 `contentDir` 属性来修改默认扩展名。
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ pnpm add next-intlayer
 
 ### 声明您的内容
 
-`next-intlayer` 是为与 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/intlayer/index.md)一起使用而设计的。`intlayer` 是一个允许您在代码中的任何地方声明内容的包。它将多语言内容声明转换为结构化字典，并无缝集成到您的应用程序中。
+`next-intlayer` 是为与 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/index.md)一起使用而设计的。`intlayer` 是一个允许您在代码中的任何地方声明内容的包。它将多语言内容声明转换为结构化字典，并无缝集成到您的应用程序中。
 
 以下是内容声明的示例：
 
@@ -267,19 +267,19 @@ const ClientComponentExample = () => {
 Intlayer 提供了许多功能来帮助您国际化您的 Next.js 应用程序。以下是一些关键功能：
 
 - **服务器组件的国际化**：Intlayer 允许您以与客户端组件相同的方式国际化服务器组件。这意味着您可以为客户端和服务器组件使用相同的内容声明。
-- **语言环境检测中间件**：Intlayer 提供了用于检测用户首选语言环境的中间件。此中间件用于检测用户的首选语言环境，并将其重定向到[配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)中指定的适当 URL。
+- **语言环境检测中间件**：Intlayer 提供了用于检测用户首选语言环境的中间件。此中间件用于检测用户的首选语言环境，并将其重定向到[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中指定的适当 URL。
 - **元数据的国际化**：Intlayer 提供了一种国际化元数据（例如页面标题）的方法，使用 Next.js 提供的 `generateMetadata` 函数。您可以使用 `getTranslation` 函数翻译元数据。
 - **sitemap.xml 和 robots.txt 的国际化**：Intlayer 允许您国际化 sitemap.xml 和 robots.txt 文件。您可以使用 `getMultilingualUrls` 函数生成多语言 URL 以供 sitemap 使用。
 - **URL 的国际化**：Intlayer 允许您通过使用 `getMultilingualUrls` 函数国际化 URL。此函数为您的 sitemap 生成多语言 URL。
 
-**要了解更多关于这些功能的信息，请参阅 [Next.js 国际化 (i18n) 与 Intlayer 和 Next.js 15 应用路由器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_with_nextjs_15.md) 指南。**
+**要了解更多关于这些功能的信息，请参阅 [Next.js 国际化 (i18n) 与 Intlayer 和 Next.js 15 应用路由器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md) 指南。**
 
 ## `next-intlayer` 包提供的功能
 
 `next-intlayer` 包还提供了一些功能来帮助您国际化您的应用程序。
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/zh/packages/next-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayerAsync.md)

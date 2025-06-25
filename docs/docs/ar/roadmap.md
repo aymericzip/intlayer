@@ -1,7 +1,7 @@
 ---
 docName: roadmap
 url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/roadmap.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-03-01
 title: خريطة الطريق
@@ -34,7 +34,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md)
+> - [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)
 
 ### 2. التدويل
 
@@ -43,7 +43,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [التدويل](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/translation.md)
+> - [التدويل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)
 
 ### 3. دعم Markdown
 
@@ -52,7 +52,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/markdown.md)
+> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
 
 ### 4. العرض الشرطي
 
@@ -61,7 +61,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [العرض الشرطي](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/condition.md)
+> - [العرض الشرطي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md)
 
 ### 5. تنسيقات إعلان المحتوى
 
@@ -79,7 +79,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
   > الموارد:
   >
-  > - [تنسيقات إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/content_extention_customization.md)
+  > - [تنسيقات إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_extention_customization.md)
 
 ---
 
@@ -106,7 +106,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_nextjs_15.md)
+> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
 
@@ -114,7 +114,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_vite+react.md)
+> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
 
 ### 3. Express
 
@@ -123,7 +123,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_express.md)
+> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_express.md)
 
 ---
 
@@ -140,7 +140,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md)
+> - [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (بعيد)
 
@@ -150,7 +150,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ---
 
@@ -162,7 +162,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)
 
 ---
 
@@ -179,7 +179,7 @@ Intlayer هو حل لإدارة المحتوى والتدويل مصمم لتب�
 
 > الموارد:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ---
 

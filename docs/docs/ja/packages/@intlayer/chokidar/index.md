@@ -2,7 +2,7 @@
 
 **Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、React、Express.jsなどのフレームワークと互換性があります。
 
-**`@intlayer/chokidar`**パッケージは、[chokidar](https://github.com/paulmillr/chokidar)を使用して、[Intlayer設定](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)に従ってIntlayer宣言ファイルを辞書にスキャンして構築するために使用されます。
+**`@intlayer/chokidar`**パッケージは、[chokidar](https://github.com/paulmillr/chokidar)を使用して、[Intlayer設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)に従ってIntlayer宣言ファイルを辞書にスキャンして構築するために使用されます。
 
 ## 使用方法
 

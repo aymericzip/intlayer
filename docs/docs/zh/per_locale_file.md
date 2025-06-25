@@ -295,4 +295,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### 自动翻译生成
 
-使用 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_cli.md) 根据您首选的服务自动填充缺失的翻译。
+使用 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 根据您首选的服务自动填充缺失的翻译。

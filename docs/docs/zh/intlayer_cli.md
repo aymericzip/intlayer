@@ -1,7 +1,7 @@
 ---
 docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: CLI
@@ -39,7 +39,7 @@ pnpm add intlayer-cli -g
 
 ## intlayer-cli 包
 
-`intlayer-cli` 包旨在将您的 [intlayer 声明](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md) 转换为字典。
+`intlayer-cli` 包旨在将您的 [intlayer 声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md) 转换为字典。
 
 此包将转换所有的 intlayer 文件，例如 `src/**/*.content.{ts|js|mjs|cjs|json}`。[查看如何声明您的 Intlayer 声明文件](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
 
@@ -56,7 +56,7 @@ Intlayer 支持多种配置文件格式：
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-要了解如何配置可用的语言环境或其他参数，请参考[此处的配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md)。
+要了解如何配置可用的语言环境或其他参数，请参考[此处的配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ## 运行 intlayer 命令
 
@@ -82,7 +82,7 @@ npx intlayer dictionaries build --watch
 npx intlayer dictionary push
 ```
 
-如果安装了 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)，您还可以将字典推送到编辑器。此命令将使字典可用于[编辑器](https://intlayer.org/dashboard)。通过这种方式，您可以与团队共享字典并编辑内容，而无需编辑应用程序代码。
+如果安装了 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)，您还可以将字典推送到编辑器。此命令将使字典可用于[编辑器](https://intlayer.org/dashboard)。通过这种方式，您可以与团队共享字典并编辑内容，而无需编辑应用程序代码。
 
 ##### 参数：
 
@@ -109,7 +109,7 @@ npx intlayer dictionary push
 npx intlayer dictionary pull
 ```
 
-如果安装了 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/zh/intlayer_visual_editor.md)，您还可以从编辑器拉取字典。通过这种方式，您可以根据应用程序的需要覆盖字典的内容。
+如果安装了 [intlayer 编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)，您还可以从编辑器拉取字典。通过这种方式，您可以根据应用程序的需要覆盖字典的内容。
 
 ##### 参数：
 

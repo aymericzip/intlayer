@@ -1,7 +1,7 @@
 ---
 docName: how_works_intlayer
 url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2024-08-12
 title: كيف يعمل Intlayer
@@ -40,13 +40,13 @@ keywords:
 يمكن تنفيذ خطوة البناء بثلاث طرق:
 
 - باستخدام CLI مع `npx intlayer build`
-- باستخدام [إضافة VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/ar/vs_code_extension.md)
-- باستخدام إضافات التطبيقات مثل حزمة [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/vite-intlayer/index.md)، أو ما يعادلها لـ [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/next-intlayer/index.md). عند استخدامك لإحدى هذه الإضافات، سيقوم Intlayer تلقائيًا ببناء القواميس عند بدء (التطوير) أو بناء (الإنتاج) تطبيقك.
+- باستخدام [إضافة VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+- باستخدام إضافات التطبيقات مثل حزمة [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md)، أو ما يعادلها لـ [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md). عند استخدامك لإحدى هذه الإضافات، سيقوم Intlayer تلقائيًا ببناء القواميس عند بدء (التطوير) أو بناء (الإنتاج) تطبيقك.
 
 1. إعلان ملفات المحتوى
 
    - يمكن تعريف ملفات المحتوى بتنسيقات مختلفة، مثل TypeScript، ECMAScript، CommonJS، أو JSON.
-   - يمكن تعريف ملفات المحتوى في أي مكان في المشروع، مما يسمح بصيانة أفضل وقابلية للتوسع. من المهم احترام قواعد امتداد الملفات لملفات المحتوى. هذا الامتداد هو افتراضيًا `*.content.{js|cjs|mjs|ts|tsx|json}`، ولكن يمكن تعديله في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+   - يمكن تعريف ملفات المحتوى في أي مكان في المشروع، مما يسمح بصيانة أفضل وقابلية للتوسع. من المهم احترام قواعد امتداد الملفات لملفات المحتوى. هذا الامتداد هو افتراضيًا `*.content.{js|cjs|mjs|ts|tsx|json}`، ولكن يمكن تعديله في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 2. إنشاء `القواميس`
 
@@ -75,7 +75,7 @@ const MyComponent = () => {
 
 سيقوم هذا الخطاف بإدارة اكتشاف اللغة المحلية نيابة عنك وسيعيد المحتوى للغة المحلية الحالية. باستخدام هذا الخطاف، ستتمكن أيضًا من تفسير Markdown، إدارة الجمع، والمزيد.
 
-> لرؤية جميع ميزات Intlayer، يمكنك قراءة [وثائق القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md).
+> لرؤية جميع ميزات Intlayer، يمكنك قراءة [وثائق القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
 
 ## المحتوى البعيد
 
@@ -87,7 +87,7 @@ const MyComponent = () => {
 
 ## المحرر المرئي
 
-يوفر Intlayer أيضًا محررًا مرئيًا يتيح لك تعديل المحتوى الخاص بك بطريقة مرئية. هذا [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md) متاح في الحزمة الخارجية `intlayer-editor`.
+يوفر Intlayer أيضًا محررًا مرئيًا يتيح لك تعديل المحتوى الخاص بك بطريقة مرئية. هذا [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) متاح في الحزمة الخارجية `intlayer-editor`.
 
 ![المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -99,13 +99,13 @@ const MyComponent = () => {
 
 من خلال تحسين البناء، سيقوم Intlayer باستبدال جميع استدعاءات القواميس لتحسين تقسيم الحزم. بهذه الطريقة، ستستورد الحزمة النهائية فقط القواميس المستخدمة.
 
-بتفعيل الخيار `activateDynamicImport` في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md)، سيستخدم Intlayer الاستيراد الديناميكي لتحميل القواميس. هذا الخيار معطل افتراضيًا لتجنب المعالجة غير المتزامنة عند عرض التطبيق.
+بتفعيل الخيار `activateDynamicImport` في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)، سيستخدم Intlayer الاستيراد الديناميكي لتحميل القواميس. هذا الخيار معطل افتراضيًا لتجنب المعالجة غير المتزامنة عند عرض التطبيق.
 
 > `@intlayer/babel` متاح افتراضيًا في حزمة `vite-intlayer`,
 
 > `@intlayer/swc` غير مثبت افتراضيًا في حزمة `next-intlayer` حيث أن مكونات SWC لا تزال تجريبية في Next.js.
 
-لرؤية كيفية تكوين بناء تطبيقك، يمكنك قراءة [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+لرؤية كيفية تكوين بناء تطبيقك، يمكنك قراءة [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ## الحزم
 

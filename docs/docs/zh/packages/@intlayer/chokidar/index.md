@@ -2,7 +2,7 @@
 
 **Intlayer** 是专为 JavaScript 开发者设计的一套工具包。它兼容 React、React 和 Express.js 等框架。
 
-**`@intlayer/chokidar`** 包用于使用 [chokidar](https://github.com/paulmillr/chokidar) 根据 [Intlayer 配置](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md) 扫描和构建 Intlayer 声明文件到字典。
+**`@intlayer/chokidar`** 包用于使用 [chokidar](https://github.com/paulmillr/chokidar) 根据 [Intlayer 配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 扫描和构建 Intlayer 声明文件到字典。
 
 ## 用法
 

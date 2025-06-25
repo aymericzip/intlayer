@@ -107,7 +107,7 @@ module.exports = config;
 - **サポートするロケールのリスト**を設定します。
 - **デフォルトのロケール**を設定します。
 - 後で、より高度なオプション（例：ログ、カスタムコンテンツディレクトリなど）を追加できます。
-- 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md)をご覧ください。
+- 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
 
 ## ステップ3: Metroプラグインを追加する
 
@@ -298,7 +298,7 @@ module.exports = appContent;
 }
 ```
 
-> コンテンツ宣言の詳細については、[Intlayerのコンテンツドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/dictionary/get_started.md)をご覧ください。
+> コンテンツ宣言の詳細については、[Intlayerのコンテンツドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)をご覧ください。
 
 ---
 
@@ -495,7 +495,7 @@ const LocaleSwitcher = () => {
 
 これにより、Intlayerコンテンツを使用するすべてのコンポーネントが再レンダリングされ、新しいロケールの翻訳が表示されます。
 
-> 詳細については、[`useLocale`ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/packages/react-intlayer/useLocale.md)をご覧ください。
+> 詳細については、[`useLocale`ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)をご覧ください。
 
 ## TypeScriptの設定（TypeScriptを使用している場合）
 
@@ -533,8 +533,8 @@ Intlayerによって自動生成されたファイルをコミットしないよ
 
 ## さらに進む
 
-- **ビジュアルエディター**：[Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)を使用して翻訳を視覚的に管理します。
-- **CMS統合**：辞書コンテンツを外部化し、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)から取得することもできます。
-- **CLIコマンド**：[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)を使用して、翻訳の抽出や不足しているキーの確認などのタスクを実行します。
+- **ビジュアルエディター**：[Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を使用して翻訳を視覚的に管理します。
+- **CMS統合**：辞書コンテンツを外部化し、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)から取得することもできます。
+- **CLIコマンド**：[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を使用して、翻訳の抽出や不足しているキーの確認などのタスクを実行します。
 
 **Intlayer**を活用して、**React Native**アプリを完全なi18n対応で構築してください！

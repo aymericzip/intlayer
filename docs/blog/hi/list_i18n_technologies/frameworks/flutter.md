@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__flutter
 url: https://intlayer.org/blog/i18n-technologies/frameworks/flutter
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/flutter.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/flutter.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Flutter के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## अंतर्राष्ट्रीयकरण (i18n) क्या है?
 
 अंतर्राष्ट्रीयकरण, जिसे सामान्यतः i18n के नाम से जाना जाता है, एक ऐप को इस तरह से डिज़ाइन करने की प्रक्रिया है ताकि वह आसानी से कई भाषाओं और सांस्कृतिक प्रारूपों का समर्थन कर सके। Flutter में, इसमें आपके ऐप को स्थानीयकृत स्ट्रिंग्स, दिनांक/समय प्रारूप, और संख्या प्रारूप का प्रबंधन करने के लिए सेट करना शामिल है। i18n के लिए अपने Flutter ऐप को तैयार करके, आप अनुवादों को एकीकृत करने और क्षेत्रीय भिन्नताओं को न्यूनतम摩擦 के साथ संभालने के लिए एक ठोस आधार बनाते हैं।
 
-यदि आप इस अवधारणा के लिए नए हैं, तो हमारे लेख की जाँच करें: [अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/blog/hi/what_is_internationalization.md).
+यदि आप इस अवधारणा के लिए नए हैं, तो हमारे लेख की जाँच करें: [अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/what_is_internationalization.md).
 
 ---
 

@@ -38,4 +38,4 @@ Intlayer предоставляет инструмент CLI для:
 - создания словарей из ваших деклараций контента
 - загрузки и выгрузки удаленных словарей из вашей CMS в ваш локальный проект
 
-Обратитесь к [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_cli.md) для получения дополнительной информации.
+Обратитесь к [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md) для получения дополнительной информации.

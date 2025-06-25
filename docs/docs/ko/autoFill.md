@@ -1,7 +1,7 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: 자동 채우기
@@ -37,7 +37,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-다음은 `autoFill` 지시문을 사용하는 [언어별 콘텐츠 선언 파일](https://github.com/aymericzip/intlayer/blob/main/docs/ko/per_locale_file.md)입니다.
+다음은 `autoFill` 지시문을 사용하는 [언어별 콘텐츠 선언 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)입니다.
 
 그런 다음 다음 명령을 실행하면:
 

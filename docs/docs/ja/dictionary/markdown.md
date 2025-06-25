@@ -1,7 +1,7 @@
 ---
 docName: dictionary__markdown
 url: https://intlayer.org/doc/concept/content/markdown
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
 createdAt: 2025-02-7
 updatedAt: 2025-02-7
 title: Markdown
@@ -22,7 +22,7 @@ keywords:
 
 Intlayerは、マークダウン構文を使用して定義されたリッチテキストコンテンツをサポートします。これは、`md`関数を通じて実現され、マークダウン文字列をIntlayerで管理可能な形式に変換します。マークダウンを使用することで、ブログや記事などのリッチなフォーマットを簡単に作成および管理できます。
 
-[Intlayerビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_visual_editor.md)および[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md)は、どちらもマークダウンコンテンツ管理をサポートしています。
+[Intlayerビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)および[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)は、どちらもマークダウンコンテンツ管理をサポートしています。
 
 Reactアプリケーションと統合する際には、[`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)のようなマークダウンレンダリングプロバイダーを使用して、マークダウンコンテンツをHTMLにレンダリングできます。これにより、マークダウンでコンテンツを記述しつつ、アプリ内で適切に表示されるようにできます。
 
@@ -353,9 +353,9 @@ const IntlayerMarkdownProvider = ({ children }) => (
 
 ## 追加リソース
 
-- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_cli.md)
-- [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md)
-- [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md)
+- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
+- [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)
+- [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
 - [markdown-to-jsx on npm](https://www.npmjs.com/package/markdown-to-jsx)
 
 これらのリソースは、さまざまなコンテンツタイプやフレームワークで Intlayer を設定および使用する方法についてのさらなる洞察を提供します。

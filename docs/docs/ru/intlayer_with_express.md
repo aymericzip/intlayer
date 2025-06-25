@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Переведите свой Express бэкэнд (i18n)
@@ -204,9 +204,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` полностью совместим с:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/react-intlayer/index.md) для приложений React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/next-intlayer/index.md) для приложений Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ru/packages/vite-intlayer/index.md) для приложений Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md) для приложений React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/index.md) для приложений Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/index.md) для приложений Vite
 
 Он также беспрепятственно работает с любым решением для интернационализации в различных средах, включая браузеры и API-запросы. Вы можете настроить промежуточное ПО для определения локали через заголовки или cookies:
 
@@ -256,7 +256,7 @@ module.exports = config;
 
 По умолчанию `express-intlayer` будет интерпретировать заголовок `Accept-Language`, чтобы определить предпочтительный язык клиента.
 
-> Для получения дополнительной информации о конфигурации и расширенных темах посетите нашу [документацию](https://github.com/aymericzip/intlayer/blob/main/docs/ru/configuration.md).
+> Для получения дополнительной информации о конфигурации и расширенных темах посетите нашу [документацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
 ### Настройка TypeScript
 

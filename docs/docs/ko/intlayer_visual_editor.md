@@ -1,7 +1,7 @@
 ---
 docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Intlayer 비주얼 편집기 | 비주얼 편집기를 사용하여 콘텐츠를 편집합니다
@@ -30,7 +30,7 @@ Intlayer Visual Editor는 시각적 편집기를 사용하여 콘텐츠 선언 �
 
 Intlayer Visual Editor는 로컬 사전(dictionary)을 위한 시각적 편집기에서 콘텐츠를 관리할 수 있는 도구입니다. 변경 사항이 이루어지면 콘텐츠가 코드베이스에서 교체됩니다. 즉, 애플리케이션이 다시 빌드되고 페이지가 새 콘텐츠를 표시하기 위해 다시 로드됩니다.
 
-반면, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_CMS.md)는 원격 사전(dictionary)을 위한 시각적 편집기에서 콘텐츠를 관리할 수 있는 도구입니다. 변경 사항이 이루어지더라도 콘텐츠가 코드베이스에 영향을 미치지 않습니다. 그리고 웹사이트는 변경된 콘텐츠를 자동으로 표시합니다.
+반면, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)는 원격 사전(dictionary)을 위한 시각적 편집기에서 콘텐츠를 관리할 수 있는 도구입니다. 변경 사항이 이루어지더라도 콘텐츠가 코드베이스에 영향을 미치지 않습니다. 그리고 웹사이트는 변경된 콘텐츠를 자동으로 표시합니다.
 
 ## 애플리케이션에 Intlayer 통합
 
@@ -38,15 +38,15 @@ Intlayer를 통합하는 방법에 대한 자세한 내용은 아래 관련 섹�
 
 ### Next.js와 통합
 
-Next.js와 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md)를 참조하세요.
+Next.js와 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)를 참조하세요.
 
 ### Create React App과 통합
 
-Create React App과 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_create_react_app.md)를 참조하세요.
+Create React App과 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)를 참조하세요.
 
 ### Vite + React와 통합
 
-Vite + React와 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_vite+react.md)를 참조하세요.
+Vite + React와 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)를 참조하세요.
 
 ## Intlayer Editor 작동 방식
 
@@ -186,7 +186,7 @@ const config = {
 module.exports = config;
 ```
 
-> 사용 가능한 모든 매개변수를 보려면 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
+> 사용 가능한 모든 매개변수를 보려면 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
 ## 편집기 사용
 

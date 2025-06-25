@@ -1,7 +1,7 @@
 ---
 docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Dictionary | Get Started
@@ -36,7 +36,7 @@ By default, Intlayer watches all files with the following extensions for content
 
 The application will search for files that match the `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` glob pattern by default.
 
-These default extensions are suitable for most applications. However, if you have specific requirements, refer to the [content extension customization guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md#content-configuration) for instructions on how to manage them.
+These default extensions are suitable for most applications. However, if you have specific requirements, refer to the [content extension customization guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#content-configuration) for instructions on how to manage them.
 
 For a full list of configuration options, visit the configuration documentation.
 
@@ -511,12 +511,12 @@ module.exports = {
 
 For more details in Intlayer, refer to the following resources:
 
-- [Per-Locale Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/per_locale_file.md)
-- [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md)
-- [Enumeration Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md)
-- [Condition Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/condition.md)
-- [Insertion Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md)
-- [File Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md)
-- [Nesting Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md)
-- [Markdown Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md)
-- [Function Fetching Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md)
+- [Per-Locale Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/per_locale_file.md)
+- [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
+- [Enumeration Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
+- [Condition Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md)
+- [Insertion Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)
+- [File Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
+- [Nesting Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)
+- [Markdown Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
+- [Function Fetching Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)

@@ -1,7 +1,7 @@
 ---
 docName: package__nuxt-intlayer
 url: https://intlayer.org/doc/packages/nuxt-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/nuxt-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/nuxt-intlayer/index.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-18
 title: पैकेज के डॉक्यूमेंटेशन | nuxt-intlayer

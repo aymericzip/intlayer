@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__svelte
 url: https://intlayer.org/blog/i18n-technologies/frameworks/svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/svelte.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/svelte.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Melhores Ferramentas de Internacionalização (i18n) para Svelte
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## O que é Internacionalização (i18n)?
 
 Internacionalização, comumente abreviada como i18n, é o processo de projetar e construir sua aplicação para que possa se adaptar facilmente a várias línguas, regiões e convenções culturais. Em Svelte, isso normalmente significa configurar strings de tradução, localizando datas, horários e números, e garantindo que a interface do usuário possa alternar dinamicamente entre diferentes locais sem grandes reescritas de código.
 
-Para saber mais sobre os fundamentos de i18n, leia nosso artigo: [O que é Internacionalização (i18n)? Definição e Desafios](https://github.com/aymericzip/intlayer/blob/main/blog/pt/o_que_e_internacionalizacao.md).
+Para saber mais sobre os fundamentos de i18n, leia nosso artigo: [O que é Internacionalização (i18n)? Definição e Desafios](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/o_que_e_internacionalizacao.md).
 
 ---
 

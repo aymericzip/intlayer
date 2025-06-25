@@ -1,7 +1,7 @@
 ---
 blogName: index
 url: https://intlayer.org/blog/search/
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md
 createdAt: 2024-24-12
 updatedAt: 2024-24-12
 title: 블로그
@@ -60,7 +60,7 @@ JavaScript 애플리케이션의 모든 것에 전념하는 블로그에 오신 
 
 우리는 커뮤니티 주도의 지식 공유를 믿습니다. 국제화, **SEO**, 또는 기타 관련 주제에 대한 훌륭한 블로그 게시물 아이디어가 있다면 듣고 싶습니다. GitHub 리포지토리에 제안하는 블로그 게시물을 추가하여 Pull Request를 제출할 수 있습니다:
 
-[**여기에서 게시물을 제출하세요**](https://github.com/aymericzip/intlayer/blob/main/blog)
+[**여기에서 게시물을 제출하세요**](https://github.com/aymericzip/intlayer/blob/main/docs/blog)
 
 여러분의 기여는 저희 플랫폼을 풍요롭게 하고 전 세계 개발자에게 힘을 실어 줍니다. 글로벌 우선 애플리케이션의 커뮤니티를 함께 구축합시다.
 

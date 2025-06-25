@@ -1,7 +1,7 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Compilazione automatica
@@ -37,7 +37,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-Ecco un [file di dichiarazione dei contenuti per lingua](https://github.com/aymericzip/intlayer/blob/main/docs/it/per_locale_file.md) che utilizza l'istruzione `autoFill`.
+Ecco un [file di dichiarazione dei contenuti per lingua](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md) che utilizza l'istruzione `autoFill`.
 
 Quindi, quando esegui il seguente comando:
 

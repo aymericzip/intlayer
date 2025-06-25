@@ -1,7 +1,7 @@
 ---
 docName: introduction
 url: https://intlayer.org/doc/get-started
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/introduction.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/introduction.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Introduction
@@ -142,9 +142,9 @@ const MyComponent = () => {
 Intlayer offers a variety of features tailored to meet the needs of modern web development. Below are the key features, with links to detailed documentation for each:
 
 - **Internationalization Support**: Enhance your application's global reach with built-in support for internationalization.
-- **Visual Editor**: Improve your development workflow with editor plugins designed for Intlayer. Check out the [Visual Editor Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md).
-- **Configuration Flexibility**: Customize your setup with extensive configuration options detailed in the [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/en/configuration.md).
-- **Advanced CLI Tools**: Manage your projects efficiently using Intlayer's command line interface. Explore the capabilities in the [CLI Tools Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md).
+- **Visual Editor**: Improve your development workflow with editor plugins designed for Intlayer. Check out the [Visual Editor Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
+- **Configuration Flexibility**: Customize your setup with extensive configuration options detailed in the [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+- **Advanced CLI Tools**: Manage your projects efficiently using Intlayer's command line interface. Explore the capabilities in the [CLI Tools Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
 
 ## Core Concepts
 
@@ -152,50 +152,50 @@ Intlayer offers a variety of features tailored to meet the needs of modern web d
 
 Organize your multilingual content close to your code to keep everything consistent and maintainable.
 
-- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md)**  
+- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)**  
   Learn the basics of declaring your content in Intlayer.
 
-- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/translation.md)**  
+- **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)**  
   Understand how translations are generated, stored, and utilized in your application.
 
-- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/enumeration.md)**  
+- **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)**  
   Easily manage repeated or fixed sets of data across various languages.
 
-- **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/conditional.md)**  
+- **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/conditional.md)**  
   Learn how to use conditional logic in Intlayer to create dynamic content.
 
-- **[Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/insertion.md)**
+- **[Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)**
   Discover how to insert values in a string using insertion placeholders.
 
-- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/function_fetching.md)**  
+- **[Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)**  
   See how to dynamically fetch content with custom logic to match your project’s workflow.
 
-- **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/markdown.md)**  
+- **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)**  
   Learn how to use Markdown in Intlayer to create rich content.
 
-- **[File embeddings](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file_embeddings.md)**  
+- **[File embeddings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file_embeddings.md)**  
   Discover how to embed externals files in Intlayer to use them in the content editor.
 
-- **[Nesting](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/nesting.md)**  
+- **[Nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)**  
   Understand how to nest content in Intlayer to create complex structures.
 
 ### Environments & Integrations
 
 We’ve built Intlayer with flexibility in mind, offering seamless integration across popular frameworks and build tools:
 
-- **[Intlayer with Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_15.md)**
-- **[Intlayer with Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_14.md)**
-- **[Intlayer with Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer with React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_create_react_app.md)**
-- **[Intlayer with Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md)**
-- **[Intlayer with React Native and Expo](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_react_native+expo.md)**
-- **[Intlayer with Lynx and React](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_lynx+react.md)**
-- **[Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md)**
+- **[Intlayer with Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)**
+- **[Intlayer with Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md)**
+- **[Intlayer with Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md)**
+- **[Intlayer with React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)**
+- **[Intlayer with Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)**
+- **[Intlayer with React Native and Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_native+expo.md)**
+- **[Intlayer with Lynx and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md)**
+- **[Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md)**
 
 Each integration guide includes best practices for using Intlayer’s features, like **server-side rendering**, **dynamic routing**, or **client-side rendering**, so you can maintain a fast, SEO-friendly, and highly scalable application.
 
 ## Contributing & Feedback
 
-We value the power of open-source and community-driven development. If you’d like to propose improvements, add a new guide, or correct any issues in our docs, feel free to submit a Pull Request or open an issue on our [GitHub repository](https://github.com/aymericzip/intlayer/blob/main/docs).
+We value the power of open-source and community-driven development. If you’d like to propose improvements, add a new guide, or correct any issues in our docs, feel free to submit a Pull Request or open an issue on our [GitHub repository](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **Ready to translate your application faster and more efficiently?** Dive into our docs to start using Intlayer today. Experience a robust, streamlined approach to internationalization that keeps your content organized and your team more productive.

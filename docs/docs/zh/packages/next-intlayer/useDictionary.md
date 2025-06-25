@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useDictionary
 url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useDictionary.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: useDictionary钩子的文档 | next-intlayer
@@ -63,7 +63,7 @@ keywords:
 
 ## 字典
 
-所有字典对象应在结构化内容文件中声明，以确保类型安全并防止运行时错误。您可以在[此处](https://github.com/aymericzip/intlayer/blob/main/docs/zh/dictionary/get_started.md)找到设置说明。以下是内容声明的示例：
+所有字典对象应在结构化内容文件中声明，以确保类型安全并防止运行时错误。您可以在[此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)找到设置说明。以下是内容声明的示例：
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";

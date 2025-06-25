@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__t
 url: https://intlayer.org/doc/packages/react-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: t 함수 문서 | react-intlayer
@@ -289,7 +289,7 @@ const text = t(translations);
 
 `react-intlayer`의 `t` 함수는 React 애플리케이션에서 인라인 번역을 관리하기 위한 강력하고 편리한 도구입니다. 이를 효과적으로 통합함으로써 애플리케이션의 국제화 기능을 향상시키고 전 세계 사용자에게 더 나은 경험을 제공합니다.
 
-더 자세한 사용법과 고급 기능은 [react-intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)를 참조하세요.
+더 자세한 사용법과 고급 기능은 [react-intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 참조하세요.
 
 ---
 

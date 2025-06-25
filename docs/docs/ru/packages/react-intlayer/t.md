@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__t
 url: https://intlayer.org/doc/packages/react-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Документация функции t | react-intlayer
@@ -301,7 +301,7 @@ const text = t(translations);
 
 Функция `t` в `react-intlayer` , это мощный и удобный инструмент для управления встроенными переводами в ваших React-приложениях. Эффективная интеграция этой функции улучшает возможности интернационализации вашего приложения, предоставляя лучший опыт для пользователей по всему миру.
 
-Для более детального использования и продвинутых функций обратитесь к [документации react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ru/intlayer_visual_editor.md).
+Для более детального использования и продвинутых функций обратитесь к [документации react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
 ---
 

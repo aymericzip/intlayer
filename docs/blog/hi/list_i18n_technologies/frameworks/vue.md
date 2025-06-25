@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__vue
 url: https://intlayer.org/blog/i18n-technologies/frameworks/vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/vue.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/vue.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Vue के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## अंतर्राष्ट्रीयकरण (i18n) क्या है?
 
 अंतर्राष्ट्रीयकरण (i18n) एक सॉफ़्टवेयर अनुप्रयोग (या वेबसाइट) को कई भाषाओं और सांस्कृतियों के लिए तैयारी करने का अभ्यास है। Vue.js पारिस्थितिकी तंत्र के भीतर, इसमें यह स्थापित करना शामिल है कि पाठ, दिनांक, संख्या, मुद्रा और अन्य स्थानीयकरण योग्य तत्वों को विभिन्न स्थानीयताओं के लिए कैसे अनुकूलित किया जा सकता है। i18n को शुरू से स्थापित करके, आप नई भाषाओं को जोड़ने और भविष्य की स्थानीयकरण आवश्यकताओं को संभालने के लिए एक संगठित, स्केलेबल संरचना सुनिश्चित करते हैं।
 
-i18n के मूल सिद्धांतों के बारे में अधिक जानने के लिए, हमारे संदर्भ की जांच करें: [अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/docs/hi/what_is_internationalization.md).
+i18n के मूल सिद्धांतों के बारे में अधिक जानने के लिए, हमारे संदर्भ की जांच करें: [अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/what_is_internationalization.md).
 
 ---
 

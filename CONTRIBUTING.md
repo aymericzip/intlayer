@@ -2,7 +2,7 @@
 
 ## Understanding the project
 
-To understand the project, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md).
+To understand the project, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md).
 
 ## Development setup
 
@@ -59,7 +59,7 @@ pnpm install \
 
 ##### Packages List
 
-To understand the interest of all packages, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md).
+To understand the interest of all packages, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md).
 
 ###### Core repository
 

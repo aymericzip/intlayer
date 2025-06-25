@@ -2,7 +2,7 @@
 
 **Intlayer** जावास्क्रिप्ट डेवलपर्स के लिए विशेष रूप से डिज़ाइन किए गए पैकेजों का एक सूट है। यह React, React और Express.js जैसे फ्रेमवर्क के साथ संगत है।
 
-**`@intlayer/chokidar`** पैकेज का उपयोग [chokidar](https://github.com/paulmillr/chokidar) और [Intlayer कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) के अनुसार Intlayer घोषणा फ़ाइलों को स्कैन और डिक्शनरी में बनाने के लिए किया जाता है।
+**`@intlayer/chokidar`** पैकेज का उपयोग [chokidar](https://github.com/paulmillr/chokidar) और [Intlayer कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) के अनुसार Intlayer घोषणा फ़ाइलों को स्कैन और डिक्शनरी में बनाने के लिए किया जाता है।
 
 ## उपयोग
 

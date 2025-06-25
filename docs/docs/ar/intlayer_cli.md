@@ -1,7 +1,7 @@
 ---
 docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_cli.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: CLI
@@ -39,7 +39,7 @@ pnpm add intlayer-cli -g
 
 ## حزمة intlayer-cli
 
-تهدف حزمة `intlayer-cli` إلى تحويل [تصريحات intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/dictionary/get_started.md) إلى قواميس.
+تهدف حزمة `intlayer-cli` إلى تحويل [تصريحات intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md) إلى قواميس.
 
 ستقوم هذه الحزمة بتحويل جميع ملفات intlayer، مثل `src/**/*.content.{ts|js|mjs|cjs|json}`. [اطلع على كيفية إعلان ملفات تصريح Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
@@ -56,7 +56,7 @@ pnpm add intlayer-cli -g
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-لرؤية كيفية تكوين اللغات المتاحة أو معلمات أخرى، راجع [وثائق التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/ar/configuration.md).
+لرؤية كيفية تكوين اللغات المتاحة أو معلمات أخرى، راجع [وثائق التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ## تشغيل أوامر intlayer
 
@@ -82,7 +82,7 @@ npx intlayer dictionaries build --watch
 npx intlayer dictionary push
 ```
 
-إذا كان [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md) مثبتًا، يمكنك أيضًا دفع القواميس إلى المحرر. سيسمح هذا الأمر بجعل القواميس متاحة لـ [المحرر](https://intlayer.org/dashboard). بهذه الطريقة، يمكنك مشاركة القواميس مع فريقك وتحرير المحتوى الخاص بك دون تحرير كود التطبيق الخاص بك.
+إذا كان [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) مثبتًا، يمكنك أيضًا دفع القواميس إلى المحرر. سيسمح هذا الأمر بجعل القواميس متاحة لـ [المحرر](https://intlayer.org/dashboard). بهذه الطريقة، يمكنك مشاركة القواميس مع فريقك وتحرير المحتوى الخاص بك دون تحرير كود التطبيق الخاص بك.
 
 ##### الوسائط:
 
@@ -109,7 +109,7 @@ npx intlayer dictionary push
 npx intlayer dictionary pull
 ```
 
-إذا كان [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_visual_editor.md) مثبتًا، يمكنك أيضًا سحب القواميس من المحرر. بهذه الطريقة، يمكنك الكتابة فوق محتوى القواميس الخاصة بك لتلبية احتياجات تطبيقك.
+إذا كان [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) مثبتًا، يمكنك أيضًا سحب القواميس من المحرر. بهذه الطريقة، يمكنك الكتابة فوق محتوى القواميس الخاصة بك لتلبية احتياجات تطبيقك.
 
 ##### الوسائط:
 

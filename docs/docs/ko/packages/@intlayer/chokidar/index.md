@@ -2,7 +2,7 @@
 
 **Intlayer**는 JavaScript 개발자를 위해 특별히 설계된 패키지 모음입니다. React, React, Express.js와 같은 프레임워크와 호환됩니다.
 
-**`@intlayer/chokidar`** 패키지는 [chokidar](https://github.com/paulmillr/chokidar)를 사용하여 Intlayer 선언 파일을 사전으로 스캔하고 빌드하며, [Intlayer 구성](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)에 따라 작동합니다.
+**`@intlayer/chokidar`** 패키지는 [chokidar](https://github.com/paulmillr/chokidar)를 사용하여 Intlayer 선언 파일을 사전으로 스캔하고 빌드하며, [Intlayer 구성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에 따라 작동합니다.
 
 ## 사용법
 

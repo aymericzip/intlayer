@@ -1,7 +1,7 @@
 ---
 docName: package__react-native-intlayer
 url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/react-native-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: وثائق حزمة | react-native-intlayer
@@ -27,7 +27,7 @@ keywords:
 
 ## التكوين
 
-تعمل حزمة `react-native-intlayer` بسلاسة مع [حزمة `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/react-intlayer/index.md)، و[حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/ar/packages/intlayer/index.md). اطلع على الوثائق ذات الصلة لمزيد من المعلومات.
+تعمل حزمة `react-native-intlayer` بسلاسة مع [حزمة `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)، و[حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md). اطلع على الوثائق ذات الصلة لمزيد من المعلومات.
 
 ## التثبيت
 
@@ -65,7 +65,7 @@ module.exports = (async () => {
 
 يوفر Intlayer العديد من الميزات لمساعدتك في تعريب تطبيق Vite الخاص بك.
 
-**للتعرف على المزيد حول هذه الميزات، راجع دليل [تعريب React (i18n) باستخدام Intlayer وReact Native](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_with_react_native+expo.md) لتطبيق React Native.**
+**للتعرف على المزيد حول هذه الميزات، راجع دليل [تعريب React (i18n) باستخدام Intlayer وReact Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_native+expo.md) لتطبيق React Native.**
 
 ## اقرأ عن Intlayer
 

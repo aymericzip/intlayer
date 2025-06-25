@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-intl
 url: https://intlayer.org/blog/intlayer-with-next-intl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-intl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-intl.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02
 title: Intlayer وnext-intl
@@ -24,7 +24,7 @@ keywords:
 
 1. **إعلان المحتوى**: الطريقة لتحديد المحتوى القابل للترجمة في تطبيقك.
 
-   - يُسمى `ملف إعلان المحتوى` في Intlayer، والذي يمكن أن يكون ملف JSON أو JS أو TS يقوم بتصدير البيانات المنظمة. راجع [وثائق Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/ar/concept/content.md) لمزيد من المعلومات.
+   - يُسمى `ملف إعلان المحتوى` في Intlayer، والذي يمكن أن يكون ملف JSON أو JS أو TS يقوم بتصدير البيانات المنظمة. راجع [وثائق Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/concept/content.md) لمزيد من المعلومات.
    - يُسمى `الرسائل` أو `رسائل اللغة` في next-intl، عادةً في ملفات JSON. راجع [وثائق next-intl](https://github.com/amannn/next-intl) لمزيد من المعلومات.
 
 2. **الأدوات**: أدوات لبناء وتفسير إعلانات المحتوى في التطبيق، مثل `useIntlayer()` أو `useLocale()` لـ Intlayer، و `useTranslations()` لـ next-intl.
@@ -33,7 +33,7 @@ keywords:
 
 ## Intlayer مقابل next-intl: الاختلافات الرئيسية
 
-لتحليل أعمق حول كيفية مقارنة Intlayer بمكتبات i18n الأخرى لـ Next.js (مثل next-intl)، تحقق من [منشور المدونة next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/blog/ar/i18next_vs_next-intl_vs_intlayer.md).
+لتحليل أعمق حول كيفية مقارنة Intlayer بمكتبات i18n الأخرى لـ Next.js (مثل next-intl)، تحقق من [منشور المدونة next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_next-intl_vs_intlayer.md).
 
 ## كيفية إنشاء رسائل next-intl مع Intlayer
 

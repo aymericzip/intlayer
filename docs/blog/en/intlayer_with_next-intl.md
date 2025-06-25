@@ -1,7 +1,7 @@
 ---
 blogName: intlayer_with_next-intl
 url: https://intlayer.org/blog/intlayer-with-next-intl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/intlayer_with_next-intl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-intl.md
 createdAt: 2025-01-02
 updatedAt: 2025-01-02
 title: Intlayer and next-intl
@@ -33,7 +33,7 @@ They share three principal notions:
 
 ## Intlayer vs. next-intl: Key Differences
 
-For a deeper analysis of how Intlayer compares to other i18n libraries for Next.js (such as next-intl), check out the [next-i18next vs. next-intl vs. Intlayer blog post](https://github.com/aymericzip/intlayer/blob/main/blog/en/i18next_vs_next-intl_vs_intlayer.md).
+For a deeper analysis of how Intlayer compares to other i18n libraries for Next.js (such as next-intl), check out the [next-i18next vs. next-intl vs. Intlayer blog post](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18next_vs_next-intl_vs_intlayer.md).
 
 ## How to Generate next-intl Messages with Intlayer
 

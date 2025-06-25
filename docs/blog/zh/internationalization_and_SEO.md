@@ -1,7 +1,7 @@
 ---
 blogName: internationalization_and_SEO
 url: https://intlayer.org/blog/SEO-and-i18n
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/internationalization_and_SEO.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
 updatedAt: 2024-12-24
 title: SEO和国际化
@@ -99,7 +99,7 @@ keywords:
    - You should only translate the text, and titles of the file.
    - You should not alter the structure of the file.
    - You should not alter the code logic of code elements.
-   - You should transform urls as `https://github.com/aymericzip/intlayer/blob/main/docs/en/**/*.md` to `https://github.com/aymericzip/intlayer/blob/main/docs/zh/**/*.md`
+   - You should transform urls as `https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/**/*.md` to `https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/**/*.md`
    - You should not transform url as `https://github.com/aymericzip/intlayer/blob/main/docs/assets/**/*`
    - You should transform locale urls as `/**/*` to `/{{locale}}/**/*`
    - In the code elements, the naming of the variables should be made in English. But the comments should be in 中文.

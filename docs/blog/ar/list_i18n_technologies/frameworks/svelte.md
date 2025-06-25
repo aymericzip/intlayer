@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__svelte
 url: https://intlayer.org/blog/i18n-technologies/frameworks/svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/svelte.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/svelte.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: أفضل أدوات التدويل (i18n) للإنترات
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## ما هو العولمة (i18n)؟
 
 العولمة، التي اختصرت بشكل شائع كـ i18n، هي عملية تصميم وبناء التطبيق الخاص بك بحيث يمكنه التكيف بسهولة مع لغات، ومناطق، وتقاليد ثقافية مختلفة. في Svelte، يعني هذا عادةً إعداد سلاسل ترجمات، وتوطين التواريخ، والأوقات، والأرقام، وضمان أن واجهة المستخدم يمكنها التبديل ديناميكيًا بين مختلف المناطق دون الحاجة إلى إعادة كتابة الشيفرة بشكل كبير.
 
-لتعلم المزيد عن أساسيات i18n، اقرأ مقالتنا: [ما هي العولمة (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/blog/ar/what_is_internationalization.md).
+لتعلم المزيد عن أساسيات i18n، اقرأ مقالتنا: [ما هي العولمة (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/what_is_internationalization.md).
 
 ---
 

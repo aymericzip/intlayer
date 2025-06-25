@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getTranslation
 url: https://intlayer.org/doc/packages/intlayer/getTranslation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getTranslation.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Документация функции getTranslation | intlayer
@@ -194,4 +194,4 @@ console.log(customContent.greeting); // Вывод: "Bonjour"
 - **Применение TypeScript:**
   - Если локали в `languageContent` не соответствуют конфигурации проекта, TypeScript потребует определения всех необходимых локалей, обеспечивая полноту и безопасность типов.
 
-[Документация на GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/ru/getTranslationContent.md)
+[Документация на GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/getTranslationContent.md)

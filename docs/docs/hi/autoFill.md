@@ -1,7 +1,7 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: स्वतः भरण
@@ -37,7 +37,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-यह `autoFill` निर्देश का उपयोग करने वाली [प्रति-भाषा सामग्री घोषणा फ़ाइल](https://github.com/aymericzip/intlayer/blob/main/docs/hi/per_locale_file.md) है।
+यह `autoFill` निर्देश का उपयोग करने वाली [प्रति-भाषा सामग्री घोषणा फ़ाइल](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) है।
 
 फिर, जब आप निम्न कमांड चलाते हैं:
 

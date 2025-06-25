@@ -1,7 +1,7 @@
 ---
 docName: package__vite-intlayer
 url: https://intlayer.org/doc/packages/vite-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/vite-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentação do pacote | vite-intlayer
@@ -20,7 +20,7 @@ keywords:
 
 **Intlayer** é um conjunto de pacotes projetados especificamente para desenvolvedores JavaScript. É compatível com frameworks como React, React e Express.js.
 
-**O pacote `vite-intlayer`** permite que você internacionalize sua aplicação Vite. Ele inclui o plugin Vite para configurar através de variáveis de ambiente no [Vite bundler](https://vitejs.dev/guide/why.html#why-bundle-for-production). Também fornece middleware para detectar o idioma preferido do usuário e redirecioná-lo para a URL apropriada conforme especificado na [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/pt/configuration.md).
+**O pacote `vite-intlayer`** permite que você internacionalize sua aplicação Vite. Ele inclui o plugin Vite para configurar através de variáveis de ambiente no [Vite bundler](https://vitejs.dev/guide/why.html#why-bundle-for-production). Também fornece middleware para detectar o idioma preferido do usuário e redirecioná-lo para a URL apropriada conforme especificado na [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
 ## Por que Internacionalizar sua Aplicação Vite?
 
@@ -28,7 +28,7 @@ Internacionalizar sua aplicação Vite é essencial para atender efetivamente a 
 
 ## Configuração
 
-O pacote `vite-intlayer` funciona perfeitamente com o [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/react-intlayer/index.md) e o [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/pt/packages/intlayer/index.md). Consulte a documentação relevante para mais informações.
+O pacote `vite-intlayer` funciona perfeitamente com o [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/index.md) e o [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/index.md). Consulte a documentação relevante para mais informações.
 
 ## Instalação
 
@@ -68,4 +68,4 @@ export default defineConfig({
 
 O Intlayer oferece muitos recursos para ajudá-lo a internacionalizar sua aplicação Vite.
 
-**Para saber mais sobre esses recursos, consulte o guia [Internacionalização (i18n) com Intlayer e Vite e React](https://github.com/aymericzip/intlayer/blob/main/docs/pt/intlayer_with_vite+react.md) para Aplicações Vite e React.**
+**Para saber mais sobre esses recursos, consulte o guia [Internacionalização (i18n) com Intlayer e Vite e React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react.md) para Aplicações Vite e React.**

@@ -6,7 +6,7 @@ By using Intlayer, you agree to be bound by these terms of use. If you do not ac
 
 ## 2. License
 
-Intlayer is distributed under the **Apache 2.0 license** which allows the use, modification, and distribution of the code for both open-source and commercial projects. Users are allowed to modify the source code and submit contributions via pull requests in accordance with the guidelines established in our [contribution guide](https://github.com/aymericzip/intlayer/blob/main/docs/{{locale}}/CONTRIBUTING.md). Code theft for commercial use is strictly prohibited.
+Intlayer is distributed under the **Apache 2.0 license** which allows the use, modification, and distribution of the code for both open-source and commercial projects. Users are allowed to modify the source code and submit contributions via pull requests in accordance with the guidelines established in our [contribution guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/CONTRIBUTING.md). Code theft for commercial use is strictly prohibited.
 
 ## 3. Commercial Use
 

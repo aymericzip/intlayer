@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Dokumentation des useIntlayer-Hooks | next-intlayer
@@ -63,7 +63,7 @@ Je nachdem, ob Sie an clientseitigen oder serverseitigen Komponenten in einer Ne
 
 Es ist entscheidend, dass alle Inhalts-Schlüssel in Inhaltsdeklarationsdateien definiert sind, um Laufzeitfehler zu vermeiden und die Typsicherheit zu gewährleisten. Dieser Ansatz erleichtert auch die Integration von TypeScript für die Validierung zur Kompilierungszeit.
 
-Anleitungen zur Einrichtung von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/dictionary/get_started.md).
+Anleitungen zur Einrichtung von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
 
 ## Beispielverwendung in Next.js
 
@@ -252,6 +252,6 @@ Um Attribute wie `alt`, `title`, `href`, `aria-label` usw. zu lokalisieren, stel
 
 ## Weitere Informationen
 
-- **Intlayer Visual Editor**: Erfahren Sie, wie Sie den visuellen Editor für eine einfachere Inhaltsverwaltung nutzen können [hier](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_visual_editor.md).
+- **Intlayer Visual Editor**: Erfahren Sie, wie Sie den visuellen Editor für eine einfachere Inhaltsverwaltung nutzen können [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
 
 Diese Dokumentation beschreibt die Verwendung des `useIntlayer` Hooks speziell in Next.js-Umgebungen und bietet eine robuste Lösung für die Verwaltung der Lokalisierung in Ihren Next.js-Anwendungen.

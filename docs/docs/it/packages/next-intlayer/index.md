@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer
 url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/next-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Documentazione del pacchetto | next-intlayer
@@ -54,7 +54,7 @@ Con Intlayer, puoi dichiarare i tuoi contenuti in modo strutturato ovunque nel t
 
 Per impostazione predefinita, Intlayer esegue la scansione dei file con estensione `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-> Puoi modificare l'estensione predefinita impostando la proprietà `contentDir` nel [file di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+> Puoi modificare l'estensione predefinita impostando la proprietà `contentDir` nel [file di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ Per impostazione predefinita, Intlayer esegue la scansione dei file con estensio
 
 ### Dichiarare i tuoi contenuti
 
-`next-intlayer` è progettato per funzionare con il pacchetto [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/intlayer/index.md). `intlayer` è un pacchetto che consente di dichiarare i tuoi contenuti ovunque nel tuo codice. Converte le dichiarazioni di contenuti multilingue in dizionari strutturati che si integrano perfettamente nella tua applicazione.
+`next-intlayer` è progettato per funzionare con il pacchetto [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/index.md). `intlayer` è un pacchetto che consente di dichiarare i tuoi contenuti ovunque nel tuo codice. Converte le dichiarazioni di contenuti multilingue in dizionari strutturati che si integrano perfettamente nella tua applicazione.
 
 Ecco un esempio di dichiarazione di contenuti:
 
@@ -267,19 +267,19 @@ const ClientComponentExample = () => {
 Intlayer offre molte funzionalità per aiutarti a internazionalizzare la tua applicazione Next.js. Ecco alcune delle caratteristiche principali:
 
 - **Internazionalizzazione dei componenti server**: Intlayer consente di internazionalizzare i tuoi componenti server nello stesso modo dei componenti client. Ciò significa che puoi utilizzare le stesse dichiarazioni di contenuti per entrambi i componenti client e server.
-- **Middleware per il rilevamento della lingua**: Intlayer fornisce middleware per rilevare la lingua preferita dell'utente. Questo middleware viene utilizzato per rilevare la lingua preferita dell'utente e reindirizzarlo all'URL appropriato come specificato nella [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/it/configuration.md).
+- **Middleware per il rilevamento della lingua**: Intlayer fornisce middleware per rilevare la lingua preferita dell'utente. Questo middleware viene utilizzato per rilevare la lingua preferita dell'utente e reindirizzarlo all'URL appropriato come specificato nella [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 - **Internazionalizzazione dei metadati**: Intlayer fornisce un modo per internazionalizzare i tuoi metadati, come il titolo della tua pagina, utilizzando la funzione `generateMetadata` fornita da Next.js. Puoi utilizzare la funzione `getTranslation` per tradurre i tuoi metadati.
 - **Internazionalizzazione di sitemap.xml e robots.txt**: Intlayer consente di internazionalizzare i tuoi file sitemap.xml e robots.txt. Puoi utilizzare la funzione `getMultilingualUrls` per generare URL multilingue per la tua sitemap.
 - **Internazionalizzazione degli URL**: Intlayer consente di internazionalizzare i tuoi URL utilizzando la funzione `getMultilingualUrls`. Questa funzione genera URL multilingue per la tua sitemap.
 
-**Per saperne di più su queste funzionalità, consulta la guida [Internazionalizzazione (i18n) di Next.js con Intlayer e Next.js 15 App Router](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_with_nextjs_15.md).**
+**Per saperne di più su queste funzionalità, consulta la guida [Internazionalizzazione (i18n) di Next.js con Intlayer e Next.js 15 App Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_15.md).**
 
 ## Funzioni fornite dal pacchetto `next-intlayer`
 
 Il pacchetto `next-intlayer` fornisce anche alcune funzioni per aiutarti a internazionalizzare la tua applicazione.
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/next-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/next-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/next-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/next-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/it/packages/next-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/useIntlayerAsync.md)

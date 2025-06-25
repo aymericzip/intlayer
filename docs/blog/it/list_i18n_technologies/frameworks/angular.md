@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__angular
 url: https://intlayer.org/blog/i18n-technologies/frameworks/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/angular.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/angular.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Migliori strumenti di internazionalizzazione (i18n) per Angular
@@ -22,13 +22,13 @@ Nell'attuale mondo interconnesso, offrire il tuo sito web in più lingue può es
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## Cos'è l'internazionalizzazione (i18n)?
 
 L'internazionalizzazione, spesso riferita come i18n, è il processo di progettazione e preparazione della tua applicazione per supportare più lingue e contesti culturali. In Angular, comporta la configurazione della tua app in modo che testo, date, numeri e persino layout UI possano adattarsi senza soluzione di continuità a diverse località. Creare correttamente questa base assicura che l'integrazione di future traduzioni rimanga organizzata ed efficiente.
 
-Scopri di più sulle basi dell'i18n leggendo il nostro articolo: [Cos'è l'internazionalizzazione (i18n)? Definizione e Sfide](https://github.com/aymericzip/intlayer/blob/main/blog/it/what_is_internationalization.md).
+Scopri di più sulle basi dell'i18n leggendo il nostro articolo: [Cos'è l'internazionalizzazione (i18n)? Definizione e Sfide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/what_is_internationalization.md).
 
 ---
 

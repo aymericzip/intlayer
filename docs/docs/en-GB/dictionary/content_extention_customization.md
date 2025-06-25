@@ -80,4 +80,4 @@ When customising content file extensions, keep the following guidelines in mind:
 
 Customising content file extensions in Intlayer is a valuable feature for optimising performance and avoiding conflicts in large-scale applications. By following the guidelines outlined in this documentation, you can effectively manage your content declarations and ensure smooth integration with other parts of your project.
 
-[Learn more](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/**/*.md)
+[Learn more](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/**/*.md)

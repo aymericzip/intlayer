@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__react-native
 url: https://intlayer.org/blog/i18n-technologies/frameworks/react-native
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/react-native.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react-native.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: React Native的最佳国际化工具
@@ -22,14 +22,14 @@ keywords:
 
 ---
 
-![i18n 说明](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n 说明](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## 什么是国际化（i18n）？
 
 国际化或 i18n 涉及对应用程序的结构设计，以便它可以轻松适应不同的语言、区域格式和文化规范。在 React Native 中，i18n 包括处理按钮和标签的字符串，以及根据用户的区域格式来格式化日期、时间、货币等。适当准备的 React Native 应用程序使您能够无缝集成其他语言和特定于区域的行为，而无需进行大量重构。
 
 要深入了解国际化概念，请查看我们的文章：  
-[什么是国际化（i18n）？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/blog/zh/what_is_internationalization.md)。
+[什么是国际化（i18n）？定义和挑战](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/what_is_internationalization.md)。
 
 ---
 

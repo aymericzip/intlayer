@@ -1,7 +1,7 @@
 ---
 docName: mcp_server
 url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: توثيق خادم MCP
@@ -25,7 +25,7 @@ keywords:
 عند تمكين خادم Intlayer MCP في بيئة التطوير المتكاملة الخاصة بك، ستتمكن من:
 
 - **تكامل CLI ذكي**
-  الوصول إلى أوامر Intlayer CLI وتشغيلها مباشرة من واجهة بيئة التطوير المتكاملة الخاصة بك. عرض القائمة الكاملة للأوامر والخيارات في [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
+  الوصول إلى أوامر Intlayer CLI وتشغيلها مباشرة من واجهة بيئة التطوير المتكاملة الخاصة بك. عرض القائمة الكاملة للأوامر والخيارات في [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
 
 - **وثائق مدركة للسياق**
   يقوم خادم MCP بتحميل الوثائق التي تتوافق مع إصدار Intlayer الذي تستخدمه في مشروعك ويعرضها. يضمن ذلك أن تكون اقتراحات الكود وخيارات الأوامر والتفسيرات محدثة وذات صلة دائمًا.
@@ -164,5 +164,5 @@ npm test
 
 ## روابط مفيدة
 
-- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md)
+- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)
 - [مستودع Intlayer على GitHub](https://github.com/aymericzip/intlayer)

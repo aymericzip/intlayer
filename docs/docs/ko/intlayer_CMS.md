@@ -1,7 +1,7 @@
 ---
 docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_CMS.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Intlayer CMS | Intlayer CMS에 콘텐츠를 외부화합니다
@@ -37,7 +37,7 @@ Intlayer는 '로컬' 사전과 '원격' 사전을 구분합니다.
 
 ## 비주얼 에디터 vs CMS
 
-[Intlayer 비주얼](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md) 에디터는 로컬 사전을 위한 비주얼 에디터에서 콘텐츠를 관리할 수 있는 도구입니다. 변경이 이루어지면 콘텐츠는 코드베이스에서 대체됩니다. 이는 애플리케이션이 다시 빌드되고 페이지가 새 콘텐츠를 표시하기 위해 다시 로드된다는 것을 의미합니다.
+[Intlayer 비주얼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 에디터는 로컬 사전을 위한 비주얼 에디터에서 콘텐츠를 관리할 수 있는 도구입니다. 변경이 이루어지면 콘텐츠는 코드베이스에서 대체됩니다. 이는 애플리케이션이 다시 빌드되고 페이지가 새 콘텐츠를 표시하기 위해 다시 로드된다는 것을 의미합니다.
 
 반면, Intlayer CMS는 원격 사전을 위한 비주얼 에디터에서 콘텐츠를 관리할 수 있는 도구입니다. 변경이 이루어지면 콘텐츠는 **코드베이스에 영향을 미치지 않습니다.** 그리고 웹사이트는 변경된 콘텐츠를 자동으로 표시합니다.
 
@@ -47,15 +47,15 @@ Intlayer는 '로컬' 사전과 '원격' 사전을 구분합니다.
 
 ### Next.js와 통합
 
-Next.js와의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_nextjs_15.md)를 참조하세요.
+Next.js와의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)를 참조하세요.
 
 ### Create React App과 통합
 
-Create React App과의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_create_react_app.md)를 참조하세요.
+Create React App과의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)를 참조하세요.
 
 ### Vite + React와 통합
 
-Vite + React와의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_with_vite+react.md)를 참조하세요.
+Vite + React와의 통합에 대해서는 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)를 참조하세요.
 
 ## 설정
 
@@ -214,7 +214,7 @@ module.exports = config;
 
 > 클라이언트 ID와 클라이언트 비밀 키가 없는 경우, [Intlayer 대시보드 - 프로젝트](https://intlayer.org/dashboard/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
 
-> 사용 가능한 모든 매개변수를 보려면 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 참조하세요.
+> 사용 가능한 모든 매개변수를 보려면 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
 ## CMS 사용하기
 

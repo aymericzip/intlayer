@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> See [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/en-GB/configuration.md) for more details.
+> See [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md) for more details.
 
 2. Define the environment variables.
 

@@ -107,7 +107,7 @@ Dans cette configuration, vous pouvez :
 - Configurer votre **liste de langues prises en charge**.
 - Définir une langue **par défaut**.
 - Plus tard, vous pourrez ajouter des options avancées (par exemple, journaux, répertoires de contenu personnalisés, etc.).
-- Consultez la [documentation de configuration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/configuration.md) pour plus d'informations.
+- Consultez la [documentation de configuration Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) pour plus d'informations.
 
 ## Étape 3 : Ajouter le plugin Metro
 
@@ -296,7 +296,7 @@ module.exports = appContent;
 }
 ```
 
-> Pour plus de détails sur les déclarations de contenu, consultez [la documentation sur le contenu d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/dictionary/get_started.md).
+> Pour plus de détails sur les déclarations de contenu, consultez [la documentation sur le contenu d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md).
 
 ---
 
@@ -493,7 +493,7 @@ const LocaleSwitcher = () => {
 
 Cela déclenche un nouveau rendu de tous les composants utilisant le contenu d'Intlayer, affichant désormais les traductions pour la nouvelle langue.
 
-> Consultez la [documentation de `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/fr/packages/react-intlayer/useLocale.md) pour plus de détails.
+> Consultez la [documentation de `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useLocale.md) pour plus de détails.
 
 ## Configurer TypeScript (si vous utilisez TypeScript)
 
@@ -531,8 +531,8 @@ Pour éviter de commettre les fichiers générés automatiquement par Intlayer, 
 
 ## Aller plus loin
 
-- **Éditeur visuel** : Utilisez [l'Éditeur Visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_visual_editor.md) pour gérer les traductions visuellement.
-- **Intégration CMS** : Vous pouvez également externaliser et récupérer votre contenu de dictionnaire depuis un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_CMS.md).
-- **Commandes CLI** : Explorez le [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/fr/intlayer_cli.md) pour des tâches comme **extraire des traductions** ou **vérifier les clés manquantes**.
+- **Éditeur visuel** : Utilisez [l'Éditeur Visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) pour gérer les traductions visuellement.
+- **Intégration CMS** : Vous pouvez également externaliser et récupérer votre contenu de dictionnaire depuis un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
+- **Commandes CLI** : Explorez le [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md) pour des tâches comme **extraire des traductions** ou **vérifier les clés manquantes**.
 
 Amusez-vous à construire vos applications **React Native** avec une i18n pleinement optimisée grâce à **Intlayer** !

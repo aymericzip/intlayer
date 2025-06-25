@@ -1,7 +1,7 @@
 ---
 docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/file.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: फ़ाइल
@@ -218,10 +218,10 @@ const myMultilingualContent = {
 
 Intlayer में फ़ाइल एम्बेडिंग को कॉन्फ़िगर और उपयोग करने पर अधिक विवरण के लिए, निम्नलिखित संसाधनों का संदर्भ लें:
 
-- [Intlayer CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_cli.md)
-- [React Intlayer दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_create_react_app.md)
-- [Next Intlayer दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/intlayer_with_nextjs_15.md)
-- [Markdown सामग्री दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/markdown.md)
-- [अनुवाद सामग्री दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/hi/dictionary/translation.md)
+- [Intlayer CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md)
+- [React Intlayer दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_create_react_app.md)
+- [Next Intlayer दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)
+- [Markdown सामग्री दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
+- [अनुवाद सामग्री दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)
 
 ये संसाधन फ़ाइल एम्बेडिंग, सामग्री प्रबंधन, और विभिन्न फ्रेमवर्क के साथ Intlayer के एकीकरण में और अंतर्दृष्टि प्रदान करते हैं।

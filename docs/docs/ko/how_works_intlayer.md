@@ -1,7 +1,7 @@
 ---
 docName: how_works_intlayer
 url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/how_works_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2024-08-12
 title: Intlayer 작동 방식
@@ -40,13 +40,13 @@ Intlayer의 주요 아이디어는 컴포넌트별 콘텐츠 관리를 채택하
 빌드 단계는 세 가지 방법으로 수행할 수 있습니다:
 
 - CLI를 사용하여 `npx intlayer build` 실행
-- [vscode 확장](https://github.com/aymericzip/intlayer/blob/main/docs/ko/vs_code_extension.md) 사용
-- [`vite-intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/vite-intlayer/index.md)와 같은 앱 플러그인 사용 또는 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/ko/packages/next-intlayer/index.md)용 플러그인 사용. 이러한 플러그인 중 하나를 사용하면 Intlayer는 애플리케이션을 시작(개발)하거나 빌드(프로덕션)할 때 자동으로 사전을 빌드합니다.
+- [vscode 확장](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md) 사용
+- [`vite-intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md)와 같은 앱 플러그인 사용 또는 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md)용 플러그인 사용. 이러한 플러그인 중 하나를 사용하면 Intlayer는 애플리케이션을 시작(개발)하거나 빌드(프로덕션)할 때 자동으로 사전을 빌드합니다.
 
 1. 콘텐츠 파일 선언
 
    - 콘텐츠 파일은 TypeScript, ECMAScript, CommonJS 또는 JSON과 같은 다양한 형식으로 정의할 수 있습니다.
-   - 콘텐츠 파일은 프로젝트 어디에서나 정의할 수 있어 유지 관리와 확장성이 향상됩니다. 콘텐츠 파일의 파일 확장자 규칙을 준수하는 것이 중요합니다. 기본 확장자는 `*.content.{js|cjs|mjs|ts|tsx|json}`이지만, [설정 파일](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)에서 수정할 수 있습니다.
+   - 콘텐츠 파일은 프로젝트 어디에서나 정의할 수 있어 유지 관리와 확장성이 향상됩니다. 콘텐츠 파일의 파일 확장자 규칙을 준수하는 것이 중요합니다. 기본 확장자는 `*.content.{js|cjs|mjs|ts|tsx|json}`이지만, [설정 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에서 수정할 수 있습니다.
 
 2. `사전(dictionary)` 생성
 
@@ -74,7 +74,7 @@ const MyComponent = () => {
 
 이 훅은 로케일 감지를 관리하고 현재 로케일에 대한 콘텐츠를 반환합니다. 이 훅을 사용하면 마크다운 해석, 복수형 관리 등을 수행할 수 있습니다.
 
-> Intlayer의 모든 기능을 보려면 [사전 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/dictionary/get_started.md)를 읽어보세요.
+> Intlayer의 모든 기능을 보려면 [사전 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 읽어보세요.
 
 ## 원격 콘텐츠
 
@@ -86,7 +86,7 @@ Intlayer를 사용하면 콘텐츠를 로컬에서 선언한 후 CMS로 내보�
 
 ## 시각적 편집기
 
-Intlayer는 콘텐츠를 시각적으로 편집할 수 있는 시각적 편집기를 제공합니다. 이 [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/ko/intlayer_visual_editor.md)는 외부 `intlayer-editor` 패키지에서 사용할 수 있습니다.
+Intlayer는 콘텐츠를 시각적으로 편집할 수 있는 시각적 편집기를 제공합니다. 이 [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 외부 `intlayer-editor` 패키지에서 사용할 수 있습니다.
 
 ![시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -98,13 +98,13 @@ Intlayer는 콘텐츠를 시각적으로 편집할 수 있는 시각적 편집�
 
 빌드를 최적화하면 Intlayer는 사전 호출을 최적화하여 청킹(chunking)을 수행합니다. 이렇게 하면 최종 번들은 사용된 사전만 가져옵니다.
 
-[설정](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)에서 `activateDynamicImport` 옵션을 활성화하면 Intlayer는 동적 가져오기를 사용하여 사전을 로드합니다. 이 옵션은 애플리케이션 렌더링 시 비동기 처리를 방지하기 위해 기본적으로 비활성화되어 있습니다.
+[설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에서 `activateDynamicImport` 옵션을 활성화하면 Intlayer는 동적 가져오기를 사용하여 사전을 로드합니다. 이 옵션은 애플리케이션 렌더링 시 비동기 처리를 방지하기 위해 기본적으로 비활성화되어 있습니다.
 
 > `@intlayer/babel`은 기본적으로 `vite-intlayer` 패키지에 포함되어 있으며,
 
 > `@intlayer/swc`는 Next.js에서 SWC 플러그인이 아직 실험적이므로 `next-intlayer` 패키지에 기본적으로 설치되어 있지 않습니다.
 
-애플리케이션 빌드를 구성하는 방법을 보려면 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/ko/configuration.md)를 읽어보세요.
+애플리케이션 빌드를 구성하는 방법을 보려면 [설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 읽어보세요.
 
 ## 패키지
 

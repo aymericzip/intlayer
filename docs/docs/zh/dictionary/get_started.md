@@ -1,7 +1,7 @@
 ---
 docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: 内容声明 | 开始
@@ -36,7 +36,7 @@ keywords:
 
 应用程序将默认搜索与 `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` 全局模式匹配的文件。
 
-这些默认扩展名适用于大多数应用程序。然而，如果您有特定需求，请参阅 [内容扩展自定义指南](https://github.com/aymericzip/intlayer/blob/main/docs/zh/configuration.md#content-configuration) 以获取如何管理它们的说明。
+这些默认扩展名适用于大多数应用程序。然而，如果您有特定需求，请参阅 [内容扩展自定义指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#content-configuration) 以获取如何管理它们的说明。
 
 有关完整的配置选项列表，请访问配置文档。
 

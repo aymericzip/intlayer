@@ -43,7 +43,7 @@ The hook accepts two parameters:
 
 ## Dictionary
 
-All dictionary objects should be declared in structured content files to ensure type safety and prevent runtime errors. You can find the [setup instructions here](https://github.com/aymericzip/intlayer/blob/main/docs/en/dictionary/get_started.md). Here's an example of content declaration:
+All dictionary objects should be declared in structured content files to ensure type safety and prevent runtime errors. You can find the [setup instructions here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md). Here's an example of content declaration:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";

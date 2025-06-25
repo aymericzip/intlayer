@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 
 > Wenn Sie keine Client-ID und kein Client-Secret haben, können Sie diese durch das Erstellen eines neuen Clients im [Intlayer-Dashboard - Projekte](https://intlayer.org/dashboard/projects) erhalten.
 
-> Um alle verfügbaren Parameter zu sehen, lesen Sie die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/de/configuration.md)
+> Um alle verfügbaren Parameter zu sehen, lesen Sie die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
 
 Das `intlayer-editor`-Paket basiert auf Intlayer und ist für JavaScript-Anwendungen verfügbar, wie React (Create React App), Vite + React und Next.js.
 
@@ -54,15 +54,15 @@ Für weitere Details zur Installation des Pakets siehe den entsprechenden Abschn
 
 ### Integration mit Next.js
 
-Für die Integration mit Next.js lesen Sie den [Setup-Guide](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_nextjs_15.md).
+Für die Integration mit Next.js lesen Sie den [Setup-Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_15.md).
 
 ### Integration mit Create React App
 
-Für die Integration mit Create React App lesen Sie den [Setup-Guide](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_create_react_app.md)
+Für die Integration mit Create React App lesen Sie den [Setup-Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_create_react_app.md)
 
 ### Integration mit Vite + React
 
-Für die Integration mit Vite + React lesen Sie den [Setup-Guide](https://github.com/aymericzip/intlayer/blob/main/docs/de/intlayer_with_vite+react.md)
+Für die Integration mit Vite + React lesen Sie den [Setup-Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md)
 
 ### Beispiel für die Integration
 

@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getEnumeration
 url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/packages/intlayer/getEnumeration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: getEnumeration फ़ंक्शन प्रलेखन | intlayer

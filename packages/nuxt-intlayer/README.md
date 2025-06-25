@@ -113,7 +113,7 @@ to fill
 
 Intlayer provides a lot of features to help you internationalize your Vue application.
 
-**To learn more about these features, refer to the [Vue Internationalization (i18n) with Intlayer and Vite and Vue](https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_vite+react.md) guide for Vite and Vue Application, or the [Vue Internationalization (i18n) with Intlayer and Vue (CRA)](https://intlayer.org/doc/environment/create-react-app) guide for Vue Create App.**
+**To learn more about these features, refer to the [Vue Internationalization (i18n) with Intlayer and Vite and Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md) guide for Vite and Vue Application, or the [Vue Internationalization (i18n) with Intlayer and Vue (CRA)](https://intlayer.org/doc/environment/create-react-app) guide for Vue Create App.**
 
 ## Functions provided by `nuxt-intlayer` package
 

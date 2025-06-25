@@ -1,7 +1,7 @@
 ---
 docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-05-20
 title: تكامل CI/CD
@@ -51,7 +51,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-لمعرفة المزيد عن CMS، راجع [التوثيق الرسمي](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_CMS.md).
+لمعرفة المزيد عن CMS، راجع [التوثيق الرسمي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ## استخدام Husky
 
@@ -88,7 +88,7 @@ npx intlayer build                          # لضمان تحديث القوام
 npx intlayer fill --unpushed --mode fill    # ملء المحتوى المفقود فقط، لا يتم تحديث الموجود
 ```
 
-> لمزيد من المعلومات حول أوامر Intlayer CLI واستخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
+> لمزيد من المعلومات حول أوامر Intlayer CLI واستخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
 
 > إذا كان لديك تطبيقات متعددة في المستودع تستخدم مثيلات Intlayer منفصلة، يمكنك استخدام الوسيطة `--base-dir` كما يلي:
 
@@ -164,4 +164,4 @@ jobs:
 
 > بشكل افتراضي، تقوم الوسيطة `--git-diff` بتصفية القواميس التي تتضمن تغييرات من الفرع الأساسي (افتراضيًا `origin/main`) إلى الفرع الحالي (افتراضيًا: `HEAD`).
 
-> لمزيد من المعلومات حول أوامر Intlayer CLI واستخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/ar/intlayer_cli.md).
+> لمزيد من المعلومات حول أوامر Intlayer CLI واستخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).

@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__CMS__drupal
 url: https://intlayer.org/blog/i18n-technologies/CMS/drupal
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/CMS/drupal.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/drupal.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: Лучшие инструменты интернационализации (i18n) для Drupal
@@ -26,7 +26,7 @@ keywords:
 
 Международная адаптация (i18n) – это процесс проектирования вашего сайта, чтобы его можно было легко адаптировать для различных языков и культурных контекстов без необходимости перепроектировать его структуру. В Drupal это включает в себя создание основы, на которой контент – включая страницы, сообщения, меню и настройки конфигурации – может быть эффективно переведен и локализован для разнообразной аудитории.
 
-Узнайте больше об i18n, прочитав наше исчерпывающее руководство: [Что такое международная адаптация (i18n)? Определение и вызовы](https://github.com/aymericzip/intlayer/blob/main/docs/ru/what_is_internationalization.md).
+Узнайте больше об i18n, прочитав наше исчерпывающее руководство: [Что такое международная адаптация (i18n)? Определение и вызовы](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/what_is_internationalization.md).
 
 ---
 

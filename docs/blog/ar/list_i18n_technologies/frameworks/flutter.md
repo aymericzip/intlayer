@@ -1,7 +1,7 @@
 ---
 blogName: list_i18n_technologies__frameworks__flutter
 url: https://intlayer.org/blog/i18n-technologies/frameworks/flutter
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/list_i18n_technologies/frameworks/flutter.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/flutter.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: أفضل أدوات التدويل (i18n) للإنترات
@@ -22,13 +22,13 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## ما هي الدولية (i18n)؟
 
 الدولية، المعروفة عادةً باسم i18n، هي عملية تصميم تطبيق بحيث يمكنه بسهولة دعم عدة لغات وتنسيقات ثقافية. في Flutter، يتضمن ذلك إعداد تطبيقك لإدارة السلاسل المحلية، وتنسيقات التاريخ/الوقت، وتنسيقات الأرقام بسلاسة. من خلال إعداد تطبيق Flutter الخاص بك لـ i18n، تقوم ببناء أساس قوي لدمج الترجمات والتعامل مع الاختلافات الإقليمية بأقل احتكاك.
 
-إذا كنت جديداً على هذا المفهوم، تحقق من مقالتنا: [ما هي الدولية (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/blog/ar/what_is_internationalization.md).
+إذا كنت جديداً على هذا المفهوم، تحقق من مقالتنا: [ما هي الدولية (i18n)؟ التعريف والتحديات](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/what_is_internationalization.md).
 
 ---
 

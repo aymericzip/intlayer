@@ -1,7 +1,7 @@
 ---
 docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/CI_CD.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-05-20
 title: Integrazione CI/CD
@@ -51,7 +51,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Per saperne di più sul CMS, consulta la [documentazione ufficiale](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_CMS.md).
+Per saperne di più sul CMS, consulta la [documentazione ufficiale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
 
 ## Utilizzo di Husky
 
@@ -88,7 +88,7 @@ npx intlayer build                          # Per garantire che i dizionari sian
 npx intlayer fill --unpushed --mode fill    # Riempie solo i contenuti mancanti, non aggiorna quelli esistenti
 ```
 
-> Per ulteriori informazioni sui comandi CLI di Intlayer e sul loro utilizzo, consulta la [documentazione CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
+> Per ulteriori informazioni sui comandi CLI di Intlayer e sul loro utilizzo, consulta la [documentazione CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).
 
 > Se hai più applicazioni nel tuo repository che utilizzano istanze separate di Intlayer, puoi utilizzare l'argomento `--base-dir` come segue:
 
@@ -164,4 +164,4 @@ jobs:
 
 > Per impostazione predefinita, l'argomento `--git-diff` filtra i dizionari che includono modifiche dalla base (default `origin/main`) al branch corrente (default: `HEAD`).
 
-> Per ulteriori informazioni sui comandi CLI di Intlayer e sul loro utilizzo, consulta la [documentazione CLI](https://github.com/aymericzip/intlayer/blob/main/docs/it/intlayer_cli.md).
+> Per ulteriori informazioni sui comandi CLI di Intlayer e sul loro utilizzo, consulta la [documentazione CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).

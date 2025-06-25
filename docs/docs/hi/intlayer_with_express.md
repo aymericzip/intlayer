@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_with_express.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Express का बैकएंड को अनुवाद करें (i18n)
@@ -204,9 +204,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` पूरी तरह से संगत है:
 
-- [React अनुप्रयोगों के लिए `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/react-intlayer/index.md)
-- [Next.js अनुप्रयोगों के लिए `next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/next-intlayer/index.md)
-- [Vite अनुप्रयोगों के लिए `vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/hi/packages/vite-intlayer/index.md)
+- [React अनुप्रयोगों के लिए `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/index.md)
+- [Next.js अनुप्रयोगों के लिए `next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md)
+- [Vite अनुप्रयोगों के लिए `vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md)
 
 यह विभिन्न वातावरणों में किसी भी अंतरराष्ट्रीयकरण समाधान के साथ सहजता से काम करता है, जिसमें ब्राउज़र और एपीआई अनुरोध शामिल हैं। आप हेडर या कुकीज़ के माध्यम से लोकेल का पता लगाने के लिए मिडलवेयर को अनुकूलित कर सकते हैं:
 
@@ -256,7 +256,7 @@ module.exports = config;
 
 डिफ़ॉल्ट रूप से, `express-intlayer` क्लाइंट की पसंदीदा भाषा निर्धारित करने के लिए `Accept-Language` हेडर की व्याख्या करेगा।
 
-> कॉन्फ़िगरेशन और उन्नत विषयों पर अधिक जानकारी के लिए, हमारी [डॉक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/hi/configuration.md) देखें।
+> कॉन्फ़िगरेशन और उन्नत विषयों पर अधिक जानकारी के लिए, हमारी [डॉक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
 ### TypeScript कॉन्फ़िगर करें
 

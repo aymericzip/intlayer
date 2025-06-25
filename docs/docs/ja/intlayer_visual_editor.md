@@ -1,7 +1,7 @@
 ---
 docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/en/intlayer_visual_editor.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Intlayerビジュアルエディター | ビジュアルエディターを使用してコンテンツを編集します
@@ -30,7 +30,7 @@ Intlayer Visual Editor は、ビジュアルエディタを使用してコンテ
 
 Intlayer Visual Editor は、ローカル辞書のビジュアルエディタでコンテンツを管理できるツールです。変更が行われると、コンテンツはコードベース内で置き換えられます。つまり、アプリケーションが再構築され、ページがリロードされて新しいコンテンツが表示されます。
 
-対照的に、[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_CMS.md) は、遠隔辞書のビジュアルエディタでコンテンツを管理できるツールです。変更が行われても、コードベースには影響を与えません。そして、ウェブサイトは自動的に変更されたコンテンツを表示します。
+対照的に、[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) は、遠隔辞書のビジュアルエディタでコンテンツを管理できるツールです。変更が行われても、コードベースには影響を与えません。そして、ウェブサイトは自動的に変更されたコンテンツを表示します。
 
 ## アプリケーションへの Intlayer の統合
 
@@ -38,15 +38,15 @@ Intlayer の統合方法についての詳細は、以下の関連セクショ�
 
 ### Next.js との統合
 
-Next.js との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_nextjs_15.md) を参照してください。
+Next.js との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md) を参照してください。
 
 ### Create React App との統合
 
-Create React App との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_create_react_app.md) を参照してください。
+Create React App との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md) を参照してください。
 
 ### Vite + React との統合
 
-Vite + React との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/ja/intlayer_with_vite+react.md) を参照してください。
+Vite + React との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md) を参照してください。
 
 ## Intlayer Editor の仕組み
 
@@ -189,7 +189,7 @@ const config = {
 module.exports = config;
 ```
 
-> 利用可能なすべてのパラメータについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/ja/configuration.md) を参照してください。
+> 利用可能なすべてのパラメータについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md) を参照してください。
 
 ## エディタの使用方法
 

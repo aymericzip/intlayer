@@ -1,7 +1,7 @@
 ---
 blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/blog/en/what_is_internationalization.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
 updatedAt: 2025-01-16
 title: अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चेंजनी
@@ -19,7 +19,7 @@ keywords:
 
 # अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चुनौतियाँ
 
-![i18n चित्रण](https://github.com/aymericzip/intlayer/blob/main/blog/assets/i18n.webp)
+![i18n चित्रण](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
 
 ## अंतर्राष्ट्रीयकरण (i18n) को समझना
 
@@ -73,7 +73,7 @@ i18n का एक और महत्वपूर्ण लाभ उपयो�
 
 ## सामान्य i18n चुनौतियाँ
 
-![i18n दर्द चित्रण](https://github.com/aymericzip/intlayer/blob/main/blog/assets/pain_i18n.webp)
+![i18n दर्द चित्रण](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
 
 - **रखरखाव**  
   प्रत्येक वेबसाइट अपडेट को हर भाषा में सुसंगतता बनाए रखने के लिए दर्पण करना आवश्यक है, जिससे सभी संस्करणों में स्थिरता सुनिश्चित करने के लिए कुशल कार्यप्रवाह और सावधानीपूर्वक समन्वय की आवश्यकता होती है।
@@ -145,16 +145,16 @@ i18n का एक और महत्वपूर्ण लाभ उपयो�
 
 ### सामग्री प्रबंधन प्रणालियों (CMS) के लिए
 
-- वर्डप्रेस: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/CMS/wordpress.md)
-- ड्रुपल: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/CMS/drupal.md)
+- वर्डप्रेस: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/CMS/wordpress.md)
+- ड्रुपल: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/CMS/drupal.md)
 
 ### जावास्क्रिप्ट अनुप्रयोगों (फ्रंटेंड) के लिए
 
-- रिएक्ट: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/react.md)
-- एंगुलर: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/angular.md)
-- व्यू: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/vue.md)
-- स्वेल्ट: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/svelte.md)
-- रिएक्ट नेटिव: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/blog/hi/list_i18n_technologies/frameworks/react-native.md)
+- रिएक्ट: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/react.md)
+- एंगुलर: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/angular.md)
+- व्यू: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/vue.md)
+- स्वेल्ट: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/svelte.md)
+- रिएक्ट नेटिव: [i18n पुस्तकालयों और उपकरणों की सूची देखें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/react-native.md)
 
 ---
 
