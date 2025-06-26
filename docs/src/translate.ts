@@ -219,16 +219,18 @@ export const auditFile = async (filePath: string, locale: Locales) => {
     let translatedChunks: string[] = [];
 
     for (let i = 0; i < chunks.length; i++) {
-      const prevChunk = i > 0 ? translatedChunks[i - 1] : '';
+      const isFirstChunk = i === 0;
       // Build the chunk-specific prompt
-      const PrevChunkPrompt = `
-Below is **CHUNK ${i + 1} of ${chunks.length}** of the source text to translate. 
+      const PrevChunkPrompt = isFirstChunk
+        ? ''
+        : `
+Below is **CHUNK ${i} of ${chunks.length}** that has been translated. 
 
 ---chunkStart---
-${prevChunk}
+${translatedChunks[i - 1]}
 ---chunkEnd---
 
-The following message will be the chunk to translate:
+The following message will be the **CHUNK ${i + 1} of ${chunks.length}** to translate:
 `;
       const chunk = chunks[i];
 
