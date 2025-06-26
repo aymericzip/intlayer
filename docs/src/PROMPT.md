@@ -27,7 +27,3 @@ You are an expert in internationalization and content management. Your task is t
 
    - Base file locale: en: English (US)
    - Desired Final file language: {{locale}} ({{localeName}})
-
-**File to Translate:**
-
-{{fileContent}}

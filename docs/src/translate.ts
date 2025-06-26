@@ -2,46 +2,28 @@ import { Locales, logger } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import dotenv from 'dotenv';
 import fg from 'fast-glob';
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  statSync,
-  writeFileSync,
-} from 'fs';
+import { existsSync, mkdirSync, statSync, writeFileSync } from 'fs';
 import { OpenAI } from 'openai';
 import pLimit from 'p-limit';
-import { dirname, join, relative } from 'path';
+import { dirname, relative } from 'path';
+import { LOCALE_LIST, readFileContent } from './common';
 
 dotenv.config();
 
 const OPEN_AI_MODEL: OpenAI.Chat.ChatModel = 'gpt-4o-2024-11-20';
 const OPEN_AI_TEMPERATURE: number = 0.2;
 
-// Add your custom prompt here for specific use cases
-const CHAT_GPT_CUSTOM_PROMPT: string = '';
-
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_LIST: string[] = ['./en/mcp_server.md'];
-
-export const LOCALE_LIST: Locales[] = [
-  // Locales.ENGLISH,
-  Locales.FRENCH,
-  Locales.SPANISH,
-  Locales.ENGLISH_UNITED_KINGDOM,
-  Locales.GERMAN,
-  Locales.JAPANESE,
-  Locales.KOREAN,
-  Locales.CHINESE,
-  Locales.ITALIAN,
-  Locales.PORTUGUESE,
-  Locales.HINDI,
-  Locales.ARABIC,
-  Locales.RUSSIAN,
+const DOC_LIST: string[] = ['./docs/en/**/*.md', './blog/en/**/*.md'];
+const EXCLUDED_GLOB_PATTEN: string[] = [
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/src/**',
 ];
 
-const NB_SIMULTANEOUS_REQUESTS: number = 3;
+// Number of files to process simultaneously
+const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
 
 const SKIP_RANGE_OF_LAST_UPDATE_TIME: number = 0; //2 * 60 * 60 * 1000; // 2 hours
 
@@ -56,21 +38,11 @@ const CHECK_STRUCTURE_INCONSISTENCY: boolean = false;
  */
 const CHUNK_SIZE_IN_CHARS = 8000;
 
-/**
- * Utility to read file content as a string
- */
-const getFileContent = (filePath: string): string => {
-  return readFileSync(filePath, 'utf-8');
-};
-
-/**
- * Utility to write file content, creating directories if needed
- */
-const writeFileContent = (filePath: string, content: string) => {
-  const dir = dirname(filePath);
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(filePath, content);
-};
+const LOCALE_LIST_TO_TRANSLATE: Locales[] = LOCALE_LIST.filter(
+  // Include all locales except English
+  // Change it to include your specific locales if you want to translate only a subset of the locale(s)
+  (locale) => locale !== Locales.ENGLISH
+);
 
 /**
  * Simple structure check comparing the number of '#' characters
@@ -140,7 +112,9 @@ const chunkStringByCharacters = (text: string, chunkSize: number): string[] => {
  */
 const translateChunk = async (
   openai: OpenAI,
-  prompt: string
+  prompt: string,
+  chunksContext: string,
+  fileContent: string
 ): Promise<string> => {
   let retryCount = 0;
   let lastError: unknown;
@@ -150,7 +124,11 @@ const translateChunk = async (
       const chatCompletion = await openai.chat.completions.create({
         model: OPEN_AI_MODEL,
         temperature: OPEN_AI_TEMPERATURE,
-        messages: [{ role: 'system', content: prompt }],
+        messages: [
+          { role: 'system', content: prompt },
+          { role: 'system', content: chunksContext },
+          { role: 'user', content: fileContent },
+        ],
         max_tokens: 8192,
       });
 
@@ -163,9 +141,6 @@ const translateChunk = async (
       let newContent = chatCompletion.choices[0].message.content;
       if (newContent.startsWith('```')) {
         const codeBlock = newContent.split('\n').slice(1, -1).join('\n');
-        newContent = codeBlock;
-      } else if (newContent.startsWith('---')) {
-        const codeBlock = newContent.split('\n').slice(2, -1).join('\n');
         newContent = codeBlock;
       }
 
@@ -198,13 +173,13 @@ export const auditFile = async (filePath: string, locale: Locales) => {
     logger(`${locale}: Translating file: ${relativePath}`);
 
     // Determine the target locale file path
-    const localeFilePath = filePath.replace('en/', `${locale}/`);
-    const fileContent = getFileContent(filePath);
+    const localeFilePath = filePath.replace('/en/', `/${locale}/`);
+    const fileContent = await readFileContent(filePath);
 
     // Skipping conditions
     if (existsSync(localeFilePath)) {
       if (CHECK_STRUCTURE_INCONSISTENCY) {
-        const translatedFileContent = getFileContent(localeFilePath);
+        const translatedFileContent = await readFileContent(localeFilePath);
         const isSimilarStructure = getIsSimilarStructure(
           fileContent,
           translatedFileContent
@@ -229,12 +204,9 @@ export const auditFile = async (filePath: string, locale: Locales) => {
     }
 
     // Prepare the base prompt for ChatGPT
-    const basePrompt =
-      CHAT_GPT_CUSTOM_PROMPT !== ''
-        ? CHAT_GPT_CUSTOM_PROMPT
-        : getFileContent(join(__dirname, 'PROMPT.md'))
-            .replaceAll('{{locale}}', locale)
-            .replaceAll('{{localeName}}', getLocaleName(locale));
+    const basePrompt = (await readFileContent('./src/PROMPT.md'))
+      .replaceAll('{{locale}}', locale)
+      .replaceAll('{{localeName}}', getLocaleName(locale));
 
     const openai = new OpenAI({
       apiKey: process.env.OPEN_AI_API_KEY,
@@ -247,21 +219,26 @@ export const auditFile = async (filePath: string, locale: Locales) => {
     let translatedChunks: string[] = [];
 
     for (let i = 0; i < chunks.length; i++) {
+      const prevChunk = i > 0 ? translatedChunks[i - 1] : '';
+      // Build the chunk-specific prompt
+      const PrevChunkPrompt = `
+Below is **CHUNK ${i + 1} of ${chunks.length}** of the source text to translate. 
+
+---chunkStart---
+${prevChunk}
+---chunkEnd---
+
+The following message will be the chunk to translate:
+`;
       const chunk = chunks[i];
 
-      // Build the chunk-specific prompt
-      const chunkPrompt = `
-${basePrompt}
-
-Below is **CHUNK ${i + 1} of ${chunks.length}** of the source text to translate. 
-Translate it to {{localeName}} (locale code: {{locale}}) while preserving Markdown structure:
-
----
-${chunk}
----
-`;
       // Make the actual translation call
-      const chunkTranslation = await translateChunk(openai, chunkPrompt);
+      const chunkTranslation = await translateChunk(
+        openai,
+        basePrompt,
+        PrevChunkPrompt,
+        chunk
+      );
 
       // Collect the partial translation
       translatedChunks.push(chunkTranslation);
@@ -271,7 +248,11 @@ ${chunk}
     const finalTranslation = translatedChunks.join('\n\n');
 
     // 4. Write the final translation to the appropriate file path
-    writeFileContent(localeFilePath, finalTranslation);
+    const dir = dirname(localeFilePath);
+
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(localeFilePath, finalTranslation);
+
     logger(`    -> File ${localeFilePath} created/updated successfully.`);
   } catch (error) {
     console.error(error);
@@ -283,18 +264,23 @@ ${chunk}
  * then translates them to each locale in LOCALE_LIST.
  */
 export const audit = async () => {
-  const limit = pLimit(NB_SIMULTANEOUS_REQUESTS);
+  const limit = pLimit(NB_SIMULTANEOUS_FILE_PROCESSED);
 
-  const docList: string[] =
-    DOC_LIST.length > 0 ? DOC_LIST : fg.sync('en/**/*.md');
+  const docList: string[] = fg.sync(DOC_LIST, {
+    ignore: EXCLUDED_GLOB_PATTEN,
+  });
 
   if (!process.env.OPEN_AI_API_KEY) {
     throw new Error(
-      'No OpenAI API key provided. Please set the OPEN_AI_API_KEY variable.'
+      'No OpenAI API key provided. Please set the OPEN_AI_API_KEY variable in the .env file.'
     );
   }
 
-  const tasks = LOCALE_LIST.flatMap((locale) =>
+  logger(`   -> Translating ${LOCALE_LIST_TO_TRANSLATE.length} locales`);
+  logger(LOCALE_LIST_TO_TRANSLATE.map((locale) => `${locale}\n`));
+  logger(docList.map((path) => `${path}\n`));
+
+  const tasks = LOCALE_LIST_TO_TRANSLATE.flatMap((locale) =>
     docList.map((docPath) => limit(() => auditFile(docPath, locale as Locales)))
   );
 

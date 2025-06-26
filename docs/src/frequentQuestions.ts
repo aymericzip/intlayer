@@ -1,32 +1,32 @@
-import { readFileFunction } from './common';
+import { readFileContent } from './common';
 
 const fequentQuestions = {
-  build_dictionaries: readFileFunction(
+  build_dictionaries: readFileContent(
     '/frequent_questions/build_dictionaries.md'
   ),
-  esbuild_error: readFileFunction('/frequent_questions/esbuild_error.md'),
-  static_rendering: readFileFunction('/frequent_questions/static_rendering.md'),
-  domain_routing: readFileFunction('/frequent_questions/domain_routing.md'),
-  intlayer_command_undefined: readFileFunction(
+  esbuild_error: readFileContent('/frequent_questions/esbuild_error.md'),
+  static_rendering: readFileContent('/frequent_questions/static_rendering.md'),
+  domain_routing: readFileContent('/frequent_questions/domain_routing.md'),
+  intlayer_command_undefined: readFileContent(
     '/frequent_questions/intlayer_command_undefined.md'
   ),
-  unknown_command: readFileFunction('/frequent_questions/unknown_command.md'),
-  locale_incorect_in_url: readFileFunction(
+  unknown_command: readFileContent('/frequent_questions/unknown_command.md'),
+  locale_incorect_in_url: readFileContent(
     '/frequent_questions/locale_incorect_in_url.md'
   ),
-  get_locale_cookie: readFileFunction(
+  get_locale_cookie: readFileContent(
     '/frequent_questions/get_locale_cookie.md'
   ),
-  ssr_next_no_locale: readFileFunction(
+  ssr_next_no_locale: readFileContent(
     '/frequent_questions/SSR_Next_no_[locale].md'
   ),
-  array_as_content_declaration: readFileFunction(
+  array_as_content_declaration: readFileContent(
     '/frequent_questions/array_as_content_declaration.md'
   ),
-  translated_path_url: readFileFunction(
+  translated_path_url: readFileContent(
     '/frequent_questions/translated_path_url.md'
   ),
-  customized_locale_list: readFileFunction(
+  customized_locale_list: readFileContent(
     '/frequent_questions/customized_locale_list.md'
   ),
 };
