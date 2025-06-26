@@ -19,6 +19,8 @@ export const LOCALE_LIST: Locales[] = [
   Locales.CHINESE,
 ];
 
+export const BASE_LOCALE = Locales.ENGLISH;
+
 const isESModule = typeof import.meta.url === 'string';
 
 const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;

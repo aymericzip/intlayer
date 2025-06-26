@@ -57,6 +57,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
+    "review": "tsx src/review.ts",
     "serve": "webpack serve --config ./webpack.config.ts",
     "test": "",
     "translate": "tsx src/translate.ts",

@@ -2,17 +2,12 @@ import { Locales, logger } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import dotenv from 'dotenv';
 import fg from 'fast-glob';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { mkdirSync, writeFileSync } from 'fs';
 import { OpenAI } from 'openai';
 import pLimit from 'p-limit';
 import { dirname, relative } from 'path';
 import { BASE_LOCALE, LOCALE_LIST, readFileContent } from './common';
-import {
-  chunkInference,
-  chunkStringByCharacters,
-  getIsFileUpdatedRecently,
-  getIsSimilarStructure,
-} from './utils';
+import { chunkInference, chunkStringByCharacters } from './utils';
 
 dotenv.config();
 
@@ -38,14 +33,14 @@ const CHUNK_SIZE_IN_CHARS = 8000;
 
 const LOCALE_LIST_TO_TRANSLATE: Locales[] = LOCALE_LIST.filter(
   // Include all locales except English
-  // Change it to include your specific locales if you want to translate only a subset of the locale(s)
+  // Change it to include your specific locales if you want to audit only a subset of the locale(s)
   (locale) => locale !== Locales.ENGLISH
 );
 
 /**
  * Translate a single file for a given locale
  */
-export const translateFile = async (
+export const auditFile = async (
   filePath: string,
   locale: Locales,
   baseLocale: Locales
@@ -53,41 +48,15 @@ export const translateFile = async (
   try {
     const projectPath = process.cwd();
     const relativePath = relative(projectPath, filePath);
-    logger(`${locale}: Translating file: ${relativePath}`);
+    logger(`${locale}: Auditing file: ${relativePath}`);
 
     // Determine the target locale file path
     const localeFilePath = filePath.replace(`/${baseLocale}/`, `/${locale}/`);
-    const fileContent = await readFileContent(filePath);
-
-    // Skipping conditions
-    if (existsSync(localeFilePath)) {
-      if (CHECK_STRUCTURE_INCONSISTENCY) {
-        const translatedFileContent = await readFileContent(localeFilePath);
-        const isSimilarStructure = getIsSimilarStructure(
-          fileContent,
-          translatedFileContent
-        );
-
-        if (isSimilarStructure) {
-          logger(
-            `   -> Skipping file ${localeFilePath} as its structure is the same as the base file.`
-          );
-          return;
-        }
-      } else {
-        // If not checking structure, we skip if updated recently
-        const isFileUpdatedRecently = getIsFileUpdatedRecently(localeFilePath);
-        if (isFileUpdatedRecently) {
-          logger(
-            `   -> Skipping file ${localeFilePath} as it was updated within the last range of time.`
-          );
-          return;
-        }
-      }
-    }
+    const basedFileContent = await readFileContent(filePath);
+    const fileToReviewContent = await readFileContent(localeFilePath);
 
     // Prepare the base prompt for ChatGPT
-    const basePrompt = (await readFileContent('./src/TRANSLATE_PROMPT.md'))
+    const basePrompt = (await readFileContent('./src/REVIEW_PROMPT.md'))
       .replaceAll('{{locale}}', locale)
       .replaceAll('{{localeName}}', getLocaleName(locale));
 
@@ -96,43 +65,72 @@ export const translateFile = async (
     });
 
     // 1. Chunk the file if it is too large
-    const chunks = chunkStringByCharacters(fileContent, CHUNK_SIZE_IN_CHARS);
-    logger(`   -> File will be split into ${chunks.length} chunk(s)`);
+    const baseChunks = chunkStringByCharacters(
+      basedFileContent,
+      CHUNK_SIZE_IN_CHARS
+    );
+    const fileToReviewChunks = chunkStringByCharacters(
+      fileToReviewContent,
+      CHUNK_SIZE_IN_CHARS
+    );
+    logger(`   -> Base file will be split into ${baseChunks.length} chunk(s)`);
+    logger(
+      `   -> File to review will be split into ${fileToReviewChunks.length} chunk(s)`
+    );
 
-    let translatedChunks: string[] = [];
+    let auditedChunks: string[] = [];
 
-    for (let i = 0; i < chunks.length; i++) {
+    for (let i = 0; i < baseChunks.length; i++) {
       const isFirstChunk = i === 0;
-      // Build the chunk-specific prompt
-      const prevChunkPrompt = isFirstChunk
+
+      const prevBaseChunkPrompt = isFirstChunk
         ? ''
         : `
-Below is **CHUNK ${i} of ${chunks.length}** that has been translated. 
+Below is **CHUNK ${i} of ${baseChunks.length}** is the base chunk in ${baseLocale} as reference.
 
----chunkStart---${translatedChunks[i - 1]}---chunkEnd---
+---chunkStart---${fileToReviewChunks[i - 1]}---chunkEnd---`;
 
-The following message will be the **CHUNK ${i + 1} of ${chunks.length}** to translate:
+      const currentBaseChunkPrompt = isFirstChunk
+        ? ''
+        : `
+Below is **CHUNK ${i + 1} of ${baseChunks.length}** is the base chunk in ${baseLocale} as reference.
+
+---chunkStart---${fileToReviewChunks[i]}---chunkEnd---`;
+
+      // Build the chunk-specific prompt
+      const prevFileToReviewChunkPrompt = isFirstChunk
+        ? ''
+        : `
+Below is **CHUNK ${i} of ${fileToReviewChunks.length}** that has been reviewed in ${locale}. 
+
+---chunkStart---${fileToReviewChunks[i - 1]}---chunkEnd---
+
+The following message will be the **CHUNK ${i + 1} of ${fileToReviewChunks.length}** to review in ${locale}:
 `;
 
+      const chunk = baseChunks[i];
+
       // Make the actual translation call
-      const chunkTranslation = await chunkInference(openai, [
+      const chunkAudition = await chunkInference(openai, [
         { role: 'system', content: basePrompt },
-        { role: 'system', content: prevChunkPrompt },
-        { role: 'user', content: chunks[i] },
+        { role: 'system', content: prevBaseChunkPrompt },
+        { role: 'system', content: currentBaseChunkPrompt },
+        { role: 'system', content: prevFileToReviewChunkPrompt },
+        { role: 'user', content: fileToReviewChunks[i] },
       ]);
 
       // Collect the partial translation
-      translatedChunks.push(chunkTranslation);
+      auditedChunks.push(chunkAudition);
     }
 
-    // 2. Re-assemble all translated chunks
-    const finalTranslation = translatedChunks.join('\n\n');
+    // 2. Re-assemble all auditd chunks
+    const finalAudition = auditedChunks.join('\n\n');
 
     // 4. Write the final translation to the appropriate file path
     const dir = dirname(localeFilePath);
 
     mkdirSync(dir, { recursive: true });
-    writeFileSync(localeFilePath, finalTranslation);
+    writeFileSync(localeFilePath, finalAudition);
 
     logger(`    -> File ${localeFilePath} created/updated successfully.`);
   } catch (error) {
@@ -141,10 +139,10 @@ The following message will be the **CHUNK ${i + 1} of ${chunks.length}** to tran
 };
 
 /**
- * Main translate function: scans all .md files in "en/" (unless you specified DOC_LIST),
- * then translates them to each locale in LOCALE_LIST.
+ * Main audit function: scans all .md files in "en/" (unless you specified DOC_LIST),
+ * then audits them to each locale in LOCALE_LIST.
  */
-export const translateEntry = async () => {
+export const auditEntry = async () => {
   const limit = pLimit(NB_SIMULTANEOUS_FILE_PROCESSED);
 
   const docList: string[] = fg.sync(DOC_LIST, {
@@ -158,17 +156,17 @@ export const translateEntry = async () => {
   }
 
   logger(`   -> Base locale is ${BASE_LOCALE}`);
-  logger(`   -> Translating ${LOCALE_LIST_TO_TRANSLATE.length} locales`);
+  logger(`   -> Auditing ${LOCALE_LIST_TO_TRANSLATE.length} locales`);
   logger(LOCALE_LIST_TO_TRANSLATE);
-  logger(docList);
+  logger(docList.map((path) => `${path}\n`));
 
   const tasks = LOCALE_LIST_TO_TRANSLATE.flatMap((locale) =>
     docList.map((docPath) =>
-      limit(() => translateFile(docPath, locale as Locales, BASE_LOCALE))
+      limit(() => auditFile(docPath, locale as Locales, BASE_LOCALE))
     )
   );
 
   await Promise.all(tasks);
 };
 
-translateEntry().catch((err) => console.error('Translation failed:', err));
+auditEntry().catch((err) => console.error('Audition failed:', err));
