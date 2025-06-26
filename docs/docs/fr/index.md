@@ -23,6 +23,9 @@ Intlayer offre une approche flexible et moderne pour traduire votre application.
 - **[Éditeur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)**  
   Simplifiez la collaboration avec les non-développeurs et alimentez vos traductions avec l'IA, directement dans notre CMS gratuit et intuitif.
 
+- **[Déploiement](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/deployment.md)**  
+  Apprenez à déployer Intlayer en toute sécurité et à gérer les environnements de production, de préproduction et de développement.
+
 ---
 
 ## Concepts de Base

@@ -1,7 +1,7 @@
 ---
 docName: how_works_intlayer
 url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2024-08-12
 title: Comment Intlayer fonctionne
@@ -131,6 +131,8 @@ Le package `vue-intlayer` est utilisé pour interpréter les dictionnaires Intla
 
 ### svelte-intlayer (WIP)
 
+Le package `svelte-intlayer` est en cours de développement. Il vise à fournir une intégration native d'Intlayer dans les applications Svelte.
+
 Le package `svelte-intlayer` est utilisé pour interpréter les dictionnaires Intlayer et les rendre utilisables dans les applications Svelte.
 
 ### solid-intlayer (WIP)
@@ -162,6 +164,8 @@ Le package `lynx-intlayer` fournit des outils qui intègrent des plugins pour qu
 Inclut le plugin Vite pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), ainsi que le middleware pour détecter la locale préférée de l'utilisateur, gérer les cookies et gérer la redirection des URL.
 
 ### react-scripts-intlayer
+
+Le package `react-scripts-intlayer` est utilisé pour intégrer Intlayer dans les applications créées avec Create React App.
 
 ### intlayer-editor
 

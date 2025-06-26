@@ -1,7 +1,7 @@
 ---
 docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: CMS Intlayer | Externez votre contenu dans le CMS Intlayer
@@ -220,7 +220,7 @@ module.exports = config;
 
 ### Pousser votre configuration
 
-Pour configurer le CMS Intlayer, vous pouvez utiliser les commandes du [CLI Intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/fr/intlayer_cli.md).
+Pour configurer le CMS Intlayer, vous pouvez utiliser les commandes du [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
 
 ```bash
 npx intlayer config push
@@ -236,7 +236,7 @@ Cette commande télécharge votre configuration sur le CMS Intlayer.
 
 ### Pousser un dictionnaire
 
-Pour transformer vos dictionnaires locaux en dictionnaires distants, vous pouvez utiliser les commandes du [CLI Intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/fr/intlayer_cli.md).
+Pour transformer vos dictionnaires locaux en dictionnaires distants, vous pouvez utiliser les commandes du [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key

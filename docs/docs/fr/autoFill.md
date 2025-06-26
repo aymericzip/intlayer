@@ -1,7 +1,7 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-03-13
 title: Remplissage automatique
@@ -172,3 +172,37 @@ Cela générera :
 
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
+
+## Fusion des Traductions
+
+Lors du remplissage automatique, Intlayer fusionne les traductions existantes avec les nouvelles entrées. Cela signifie que si une traduction est déjà définie dans le fichier auto-rempli, elle ne sera pas écrasée.
+
+```json5 fileName="src/components/example/example.fr.content.json"
+{
+  "key": "example",
+  "content": {
+    "contentExample": {
+      "nodeType": "translation",
+      "translation": {
+        "fr": "Contenu personnalisé existant",
+      },
+    },
+  },
+}
+```
+
+Dans cet exemple, la valeur `"Contenu personnalisé existant"` sera conservée même si le fichier principal est mis à jour.
+
+## Utilisation avec `t()`
+
+Lorsque vous utilisez la fonction `t()` avec des objets de traduction, assurez-vous que la clé `fr` est placée **avant** les autres locales.
+
+```ts
+t({
+  fr: "Bonjour",
+  en: "Hello",
+  es: "Hola",
+});
+```
+
+Cela garantit une meilleure lisibilité et cohérence dans les fichiers de contenu.

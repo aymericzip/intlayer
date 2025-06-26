@@ -1,7 +1,7 @@
 ---
 docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2024-08-11
 title: Éditeur Visual Intlayer | Modifiez votre contenu en utilisant un éditeur visuel
@@ -196,15 +196,27 @@ module.exports = config;
    npx intlayer-editor start
    ```
 
-   ```bash packageManager="yarn"
-   yarn intlayer-editor start
+2. Ensuite, ouvrez l'éditeur dans votre navigateur à l'adresse suivante :
+
+   ```
+   http://localhost:8000
    ```
 
-   ```bash packageManager="pnpm"
-   pnpm intlayer-editor start
-   ```
+3. Entrez l'URL de votre application (par exemple `http://localhost:3000`) dans le champ prévu à cet effet.
 
-   > **Notez que vous devez exécuter votre application en parallèle.** L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
+4. Cliquez sur "Start editing" pour commencer à modifier le contenu de votre site web dans l'éditeur visuel.
+
+> Pour plus d'informations, consultez la [documentation complète de l'éditeur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md).
+
+yarn intlayer-editor start
+
+````
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start
+````
+
+> **Notez que vous devez exécuter votre application en parallèle.** L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
 
 2. Ensuite, ouvrez l'URL fournie. Par défaut `http://localhost:8000`.
 
