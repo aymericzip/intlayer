@@ -1,15 +1,14 @@
 import { PagesRoutes } from '@/Routes';
-import { getDictionary, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
-import { type LocalParams } from 'next-intlayer';
-import metadataContent from './metadata.content';
+import { type LocalPromiseParams } from 'next-intlayer';
 
 export const generateMetadata = async ({
   params,
-}: LocalParams): Promise<Metadata> => {
+}: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-  const { title, description, keywords } = getDictionary(
-    metadataContent,
+  const { title, description, keywords } = getIntlayer(
+    'privacy-notice-metadata',
     locale
   );
 

@@ -5,13 +5,13 @@ import {
 import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
-import type { LocalParams, NextLayoutIntlayer } from 'next-intlayer';
+import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 
 export type BlogProps = {
   blog: string[];
 };
 
-export type BlogPageProps = LocalParams<BlogProps>;
+export type BlogPageProps = LocalPromiseParams<BlogProps>;
 
 export const generateStaticParams = () =>
   getBlogPathsArray().map((path) => ({
