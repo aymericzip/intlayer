@@ -1,4 +1,4 @@
-import type { Locales } from '@intlayer/config';
+import type { LocalesValues } from '@intlayer/config';
 import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
 import type { FC } from 'react';
 import { cn } from '../../utils/cn';
@@ -11,8 +11,53 @@ import { Link } from '../Link';
 type MarkdownRendererProps = {
   children: string;
   isDarkMode?: boolean;
-  locale?: Locales;
+  locale?: LocalesValues;
   options?: MarkdownToJSX.Options;
+};
+
+/**
+ * Removes frontmatter from markdown content
+ * Frontmatter is the YAML metadata block at the beginning of markdown files
+ * delimited by --- at the start and end
+ */
+const stripFrontmatter = (markdown: string): string => {
+  const lines = markdown.split(/\r?\n/);
+
+  // Check if the very first non-empty line is the metadata start delimiter
+  const firstNonEmptyLine = lines.find((line) => line.trim() !== '');
+
+  if (!firstNonEmptyLine || firstNonEmptyLine.trim() !== '---') {
+    // No frontmatter, return original content
+    return markdown;
+  }
+
+  let inMetadataBlock = false;
+  let endOfMetadataIndex = -1;
+
+  for (let i = 0; i < lines.length; i++) {
+    const trimmedLine = lines[i].trim();
+
+    // Toggle metadata block on encountering the delimiter
+    if (trimmedLine === '---') {
+      if (!inMetadataBlock) {
+        // Begin metadata block
+        inMetadataBlock = true;
+        continue;
+      } else {
+        // End of metadata block
+        endOfMetadataIndex = i;
+        break;
+      }
+    }
+  }
+
+  if (endOfMetadataIndex > -1) {
+    // Return content after the frontmatter
+    return lines.slice(endOfMetadataIndex + 1).join('\n');
+  }
+
+  // If we couldn't find the end delimiter, return original content
+  return markdown;
 };
 
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
@@ -22,6 +67,10 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   options,
 }) => {
   const { overrides, ...restOptions } = options ?? {};
+
+  // Strip frontmatter from the markdown content before rendering
+  const cleanMarkdown = stripFrontmatter(children);
+
   return (
     <CodeProvider>
       <Markdown
@@ -133,7 +182,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
           ...restOptions,
         }}
       >
-        {children ?? ''}
+        {cleanMarkdown ?? ''}
       </Markdown>
     </CodeProvider>
   );

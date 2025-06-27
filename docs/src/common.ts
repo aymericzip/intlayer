@@ -3,7 +3,11 @@ import { localeRecord as localeRecordCore } from '@intlayer/core';
 
 export const LOCALE_LIST: Locales[] = [
   Locales.ENGLISH,
+  Locales.RUSSIAN,
+  Locales.JAPANESE,
   Locales.FRENCH,
+  Locales.KOREAN,
+  Locales.CHINESE,
   Locales.SPANISH,
   Locales.GERMAN,
   Locales.ARABIC,
@@ -11,9 +15,6 @@ export const LOCALE_LIST: Locales[] = [
   Locales.ENGLISH_UNITED_KINGDOM,
   Locales.PORTUGUESE,
   Locales.HINDI,
-  Locales.JAPANESE,
-  Locales.KOREAN,
-  Locales.CHINESE,
 ];
 
 export const BASE_LOCALE = Locales.ENGLISH;

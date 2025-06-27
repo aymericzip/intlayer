@@ -1,4 +1,4 @@
-import { readFileContent } from './common';
+import { readFileContent } from './utils/readFileContent';
 
 const fequentQuestions = {
   build_dictionaries: readFileContent(

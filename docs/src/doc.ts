@@ -1,5 +1,6 @@
 import { Locales } from '@intlayer/config';
-import { localeRecord, readFileContent } from './common';
+import { localeRecord } from './common';
+import { readFileContent } from './utils/readFileContent';
 
 const docs = {
   introduction: localeRecord(({ locale }) =>
@@ -281,4 +282,18 @@ export const getDocs = async (lang = Locales.ENGLISH) => {
 export const getDoc = async (
   docName: keyof typeof docs,
   lang = Locales.ENGLISH
-) => await docs[docName]?.[lang];
+) => {
+  const doc = await docs[docName][lang];
+
+  if (!doc) {
+    const englishDoc = await docs[docName][Locales.ENGLISH];
+
+    if (!englishDoc) {
+      throw new Error(`Doc ${docName} not found`);
+    }
+
+    return englishDoc;
+  }
+
+  return doc;
+};
