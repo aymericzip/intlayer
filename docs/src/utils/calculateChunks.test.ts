@@ -1,3 +1,5 @@
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { describe, expect, it } from 'vitest';
 import { chunkText } from './calculateChunks';
 import { getChunk } from './getChunk';
@@ -103,6 +105,24 @@ describe('calculateChunks', () => {
 
     const retrievedFirstChunk = getChunk(sampleText, firstChunk);
     const retrievedThirdChunk = getChunk(sampleText, thirdChunk);
+
+    expect(retrievedFirstChunk).toBe(firstChunk.content);
+    expect(retrievedThirdChunk).toBe(thirdChunk.content);
+  });
+
+  it('Validates chunking with real file content', () => {
+    const fileContent = readFileSync(
+      join(__dirname, './calculrateChunkTest.md'),
+      'utf-8'
+    );
+
+    const chunks = chunkText(fileContent, 200, 100);
+
+    const firstChunk = chunks[8];
+    const thirdChunk = chunks[25];
+
+    const retrievedFirstChunk = getChunk(fileContent, firstChunk);
+    const retrievedThirdChunk = getChunk(fileContent, thirdChunk);
 
     expect(retrievedFirstChunk).toBe(firstChunk.content);
     expect(retrievedThirdChunk).toBe(thirdChunk.content);

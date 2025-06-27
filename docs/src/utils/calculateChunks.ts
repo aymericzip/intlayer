@@ -14,7 +14,7 @@ export type ChunkResult = {
 }[];
 
 const DEFAULT_MAX_CHARS_PER_CHUNK = 800;
-const DEFAULT_OVERLAP_CHARS = 100;
+const DEFAULT_OVERLAP_CHARS = 0;
 
 export const chunkText = (
   text: string,
