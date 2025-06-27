@@ -6,19 +6,23 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { OpenAI } from 'openai';
 import pLimit from 'p-limit';
 import { dirname, relative } from 'path';
-import { BASE_LOCALE, LOCALE_LIST, readFileContent } from './common';
-import {
-  chunkInference,
-  chunkStringByCharacters,
-  getIsFileUpdatedRecently,
-  getIsSimilarStructure,
-} from './utils';
+import { BASE_LOCALE, LOCALE_LIST } from './common';
+import { chunkText } from './utils/calculateChunks';
+import { chunkInference } from './utils/chunkInference';
+import { getChunk } from './utils/getChunk';
+import { getIsFileUpdatedRecently } from './utils/getIsFileUpdatedRecently';
+import { getIsSimilarStructure } from './utils/getIsSimilarStructure';
+import { readFileContent } from './utils/readFileContent';
 
 dotenv.config();
 
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_LIST: string[] = ['./docs/en/**/*.md', './blog/en/**/*.md'];
+const DOC_LIST: string[] = [
+  // './docs/en/**/*.md',
+  // './blog/en/**/*.md',
+  './docs/en/**/configuration.md',
+];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/node_modules/**',
   '**/dist/**',
@@ -30,16 +34,10 @@ const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
 
 const CHECK_STRUCTURE_INCONSISTENCY: boolean = false;
 
-/**
- * You can tweak this to a smaller or larger size depending on how close you get to token limits.
- * If the content is significantly larger, you may need to reduce this chunk size.
- */
-const CHUNK_SIZE_IN_CHARS = 8000;
-
 const LOCALE_LIST_TO_TRANSLATE: Locales[] = LOCALE_LIST.filter(
   // Include all locales except English
   // Change it to include your specific locales if you want to translate only a subset of the locale(s)
-  (locale) => locale !== Locales.ENGLISH
+  (locale) => locale === Locales.FRENCH
 );
 
 /**
@@ -58,6 +56,7 @@ export const translateFile = async (
     // Determine the target locale file path
     const localeFilePath = filePath.replace(`/${baseLocale}/`, `/${locale}/`);
     const fileContent = await readFileContent(filePath);
+    let fileResultContent = fileContent;
 
     // Skipping conditions
     if (existsSync(localeFilePath)) {
@@ -95,44 +94,63 @@ export const translateFile = async (
       apiKey: process.env.OPEN_AI_API_KEY,
     });
 
-    // 1. Chunk the file if it is too large
-    const chunks = chunkStringByCharacters(fileContent, CHUNK_SIZE_IN_CHARS);
+    // 1. Chunk the file by number of lines instead of characters
+    const chunks = chunkText(fileContent);
     logger(`   -> File will be split into ${chunks.length} chunk(s)`);
-
-    let translatedChunks: string[] = [];
 
     for (let i = 0; i < chunks.length; i++) {
       const isFirstChunk = i === 0;
+      const isLastChunk = i === chunks.length - 1;
+
+      const getFileToTranslatePrevChunk = () =>
+        getChunk(fileResultContent, chunks[i - 1]);
+
       // Build the chunk-specific prompt
-      const prevChunkPrompt = isFirstChunk
-        ? ''
-        : `
-Below is **CHUNK ${i} of ${chunks.length}** that has been translated. 
+      const getPrevChunkPrompt = () =>
+        `**CHUNK ${i} of ${chunks.length}** that has been translated in ${getLocaleName(locale)} (${locale}):\n` +
+        `---chunkStart---` +
+        getFileToTranslatePrevChunk() +
+        `---chunkEnd---`;
 
----chunkStart---${translatedChunks[i - 1]}---chunkEnd---
+      const getCurrentChunkPrompt = () =>
+        `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale)} (${baseLocale}) to translate in ${getLocaleName(locale)} (${locale}):`;
 
-The following message will be the **CHUNK ${i + 1} of ${chunks.length}** to translate:
-`;
+      const getNextChunkPrompt = () =>
+        `**CHUNK ${i + 2} of ${chunks.length}** as context for formatting in ${getLocaleName(baseLocale)} (${baseLocale}):\n` +
+        `---chunkStart---` +
+        chunks[i + 1].content +
+        `---chunkEnd---`;
+
+      const fileToTranslateCurrentChunk = chunks[i].content;
 
       // Make the actual translation call
       const chunkTranslation = await chunkInference(openai, [
         { role: 'system', content: basePrompt },
-        { role: 'system', content: prevChunkPrompt },
-        { role: 'user', content: chunks[i] },
+        ...(isFirstChunk
+          ? []
+          : ([{ role: 'system', content: getPrevChunkPrompt() }] as const)),
+        ...(isLastChunk
+          ? []
+          : ([{ role: 'system', content: getNextChunkPrompt() }] as const)),
+        {
+          role: 'system',
+          content: getCurrentChunkPrompt(),
+        },
+        { role: 'user', content: fileToTranslateCurrentChunk },
       ]);
 
-      // Collect the partial translation
-      translatedChunks.push(chunkTranslation);
+      // Replace the chunk in the file content
+      fileResultContent = fileResultContent.replace(
+        fileToTranslateCurrentChunk,
+        chunkTranslation
+      );
     }
-
-    // 2. Re-assemble all translated chunks
-    const finalTranslation = translatedChunks.join('\n\n');
 
     // 4. Write the final translation to the appropriate file path
     const dir = dirname(localeFilePath);
 
     mkdirSync(dir, { recursive: true });
-    writeFileSync(localeFilePath, finalTranslation);
+    writeFileSync(localeFilePath, fileResultContent);
 
     logger(`    -> File ${localeFilePath} created/updated successfully.`);
   } catch (error) {

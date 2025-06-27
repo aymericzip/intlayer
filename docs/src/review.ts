@@ -6,14 +6,21 @@ import { mkdirSync, writeFileSync } from 'fs';
 import { OpenAI } from 'openai';
 import pLimit from 'p-limit';
 import { dirname, relative } from 'path';
-import { BASE_LOCALE, LOCALE_LIST, readFileContent } from './common';
-import { chunkInference, chunkStringByCharacters } from './utils';
+import { BASE_LOCALE, LOCALE_LIST } from './common';
+import { chunkText } from './utils/calculateChunks';
+import { chunkInference } from './utils/chunkInference';
+import { getChunk } from './utils/getChunk';
+import { readFileContent } from './utils/readFileContent';
 
 dotenv.config();
 
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_LIST: string[] = ['./docs/en/**/*.md', './blog/en/**/*.md'];
+const DOC_LIST: string[] = [
+  // './docs/en/**/*.md',
+  // './blog/en/**/*.md',
+  './docs/en/**/packages/express-intlayer/index.md',
+];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/node_modules/**',
   '**/dist/**',
@@ -23,18 +30,10 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
 // Number of files to process simultaneously
 const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
 
-const CHECK_STRUCTURE_INCONSISTENCY: boolean = false;
-
-/**
- * You can tweak this to a smaller or larger size depending on how close you get to token limits.
- * If the content is significantly larger, you may need to reduce this chunk size.
- */
-const CHUNK_SIZE_IN_CHARS = 8000;
-
 const LOCALE_LIST_TO_TRANSLATE: Locales[] = LOCALE_LIST.filter(
   // Include all locales except English
   // Change it to include your specific locales if you want to audit only a subset of the locale(s)
-  (locale) => locale !== Locales.ENGLISH
+  (locale) => locale === Locales.FRENCH
 );
 
 /**
@@ -54,6 +53,7 @@ export const auditFile = async (
     const localeFilePath = filePath.replace(`/${baseLocale}/`, `/${locale}/`);
     const basedFileContent = await readFileContent(filePath);
     const fileToReviewContent = await readFileContent(localeFilePath);
+    let fileResultContent = fileToReviewContent;
 
     // Prepare the base prompt for ChatGPT
     const basePrompt = (await readFileContent('./src/REVIEW_PROMPT.md'))
@@ -64,73 +64,95 @@ export const auditFile = async (
       apiKey: process.env.OPEN_AI_API_KEY,
     });
 
-    // 1. Chunk the file if it is too large
-    const baseChunks = chunkStringByCharacters(
-      basedFileContent,
-      CHUNK_SIZE_IN_CHARS
-    );
-    const fileToReviewChunks = chunkStringByCharacters(
-      fileToReviewContent,
-      CHUNK_SIZE_IN_CHARS
-    );
-    logger(`   -> Base file will be split into ${baseChunks.length} chunk(s)`);
-    logger(
-      `   -> File to review will be split into ${fileToReviewChunks.length} chunk(s)`
-    );
+    const baseChunks = chunkText(basedFileContent);
 
-    let auditedChunks: string[] = [];
+    logger(`   -> Base file will be split into ${baseChunks.length} chunk(s)`);
 
     for (let i = 0; i < baseChunks.length; i++) {
       const isFirstChunk = i === 0;
+      const isLastChunk = i === baseChunks.length - 1;
 
-      const prevBaseChunkPrompt = isFirstChunk
-        ? ''
-        : `
-Below is **CHUNK ${i} of ${baseChunks.length}** is the base chunk in ${baseLocale} as reference.
+      const getFileToReviewPrevChunk = () => {
+        console.log({
+          ch: getChunk(fileResultContent, baseChunks[i - 1]),
+          baseChunks: baseChunks[i - 1].content,
+        });
 
----chunkStart---${fileToReviewChunks[i - 1]}---chunkEnd---`;
+        return getChunk(fileResultContent, baseChunks[i - 1]);
+      };
 
-      const currentBaseChunkPrompt = isFirstChunk
-        ? ''
-        : `
-Below is **CHUNK ${i + 1} of ${baseChunks.length}** is the base chunk in ${baseLocale} as reference.
+      const getFileToReviewNextChunk = () =>
+        getChunk(fileResultContent, baseChunks[i + 1]);
 
----chunkStart---${fileToReviewChunks[i]}---chunkEnd---`;
+      const currentChunk = baseChunks[i];
 
-      // Build the chunk-specific prompt
-      const prevFileToReviewChunkPrompt = isFirstChunk
-        ? ''
-        : `
-Below is **CHUNK ${i} of ${fileToReviewChunks.length}** that has been reviewed in ${locale}. 
+      const fileToReviewCurrentChunk = getChunk(
+        fileToReviewContent,
+        currentChunk
+      );
 
----chunkStart---${fileToReviewChunks[i - 1]}---chunkEnd---
+      const getPrevBaseChunkPrompt = () =>
+        `**CHUNK ${i} of ${baseChunks.length}** is the base chunk in ${getLocaleName(baseLocale)} (${baseLocale}) as reference.\n` +
+        `---chunkStart---` +
+        baseChunks[i - 1].content +
+        `---chunkEnd---`;
 
-The following message will be the **CHUNK ${i + 1} of ${fileToReviewChunks.length}** to review in ${locale}:
-`;
+      const getCurrentBaseChunkPrompt = () =>
+        `**CHUNK ${i + 1} of ${baseChunks.length}** is the base chunk in ${getLocaleName(baseLocale)} (${baseLocale}) as reference.\n` +
+        `---chunkStart---` +
+        currentChunk.content +
+        `---chunkEnd---`;
 
-      const chunk = baseChunks[i];
+      const getPrevFileToReviewChunkPrompt = () =>
+        `**CHUNK ${i} of ${baseChunks.length}** that has been reviewed in ${getLocaleName(locale)} (${locale}).\n` +
+        `---chunkStart---` +
+        getFileToReviewPrevChunk() +
+        `---chunkEnd---`;
+
+      const getCurrentFileToReviewChunkPrompt = () =>
+        `The next user message will be the **CHUNK ${i + 1} of ${baseChunks.length}** that should be reviewed in ${getLocaleName(locale)} (${locale}).`;
+
+      const getNextFileToReviewChunkPrompt = () =>
+        `**CHUNK ${i + 2} of ${baseChunks.length}** as context for formatting in ${getLocaleName(baseLocale)} (${baseLocale}):\n` +
+        `---chunkStart---` +
+        getFileToReviewNextChunk() +
+        `---chunkEnd---`;
 
       // Make the actual translation call
       const chunkAudition = await chunkInference(openai, [
         { role: 'system', content: basePrompt },
-        { role: 'system', content: prevBaseChunkPrompt },
-        { role: 'system', content: currentBaseChunkPrompt },
-        { role: 'system', content: prevFileToReviewChunkPrompt },
-        { role: 'user', content: fileToReviewChunks[i] },
+        ...(isFirstChunk
+          ? []
+          : ([
+              { role: 'system', content: getPrevBaseChunkPrompt() },
+              { role: 'system', content: getCurrentBaseChunkPrompt() },
+              { role: 'system', content: getPrevFileToReviewChunkPrompt() },
+            ] as const)),
+        ...(isLastChunk
+          ? []
+          : ([
+              { role: 'system', content: getNextFileToReviewChunkPrompt() },
+            ] as const)),
+        {
+          role: 'system',
+          content: getCurrentFileToReviewChunkPrompt(),
+        },
+        { role: 'user', content: fileToReviewCurrentChunk },
       ]);
 
-      // Collect the partial translation
-      auditedChunks.push(chunkAudition);
+      fileResultContent =
+        fileResultContent.substring(0, currentChunk.charStart) +
+        chunkAudition +
+        fileResultContent.substring(
+          currentChunk.charStart + currentChunk.charLength
+        );
     }
-
-    // 2. Re-assemble all auditd chunks
-    const finalAudition = auditedChunks.join('\n\n');
 
     // 4. Write the final translation to the appropriate file path
     const dir = dirname(localeFilePath);
 
     mkdirSync(dir, { recursive: true });
-    writeFileSync(localeFilePath, finalAudition);
+    writeFileSync(localeFilePath, fileResultContent);
 
     logger(`    -> File ${localeFilePath} created/updated successfully.`);
   } catch (error) {
