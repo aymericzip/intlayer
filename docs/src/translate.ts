@@ -1,17 +1,16 @@
-import { Locales, logger } from '@intlayer/config';
+import { Locales, logger, retryManager } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import dotenv from 'dotenv';
 import fg from 'fast-glob';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { mkdirSync, writeFileSync } from 'fs';
 import { OpenAI } from 'openai';
 import pLimit from 'p-limit';
 import { dirname, relative } from 'path';
 import { BASE_LOCALE, LOCALE_LIST } from './common';
 import { chunkText } from './utils/calculateChunks';
 import { chunkInference } from './utils/chunkInference';
+import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getChunk } from './utils/getChunk';
-import { getIsFileUpdatedRecently } from './utils/getIsFileUpdatedRecently';
-import { getIsSimilarStructure } from './utils/getIsSimilarStructure';
 import { readFileContent } from './utils/readFileContent';
 
 dotenv.config();
@@ -31,8 +30,6 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
 
 // Number of files to process simultaneously
 const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
-
-const CHECK_STRUCTURE_INCONSISTENCY: boolean = false;
 
 const LOCALE_LIST_TO_TRANSLATE: Locales[] = LOCALE_LIST.filter(
   // Include all locales except English
@@ -58,37 +55,10 @@ export const translateFile = async (
     const fileContent = await readFileContent(filePath);
     let fileResultContent = fileContent;
 
-    // Skipping conditions
-    if (existsSync(localeFilePath)) {
-      if (CHECK_STRUCTURE_INCONSISTENCY) {
-        const translatedFileContent = await readFileContent(localeFilePath);
-        const isSimilarStructure = getIsSimilarStructure(
-          fileContent,
-          translatedFileContent
-        );
-
-        if (isSimilarStructure) {
-          logger(
-            `   -> Skipping file ${localeFilePath} as its structure is the same as the base file.`
-          );
-          return;
-        }
-      } else {
-        // If not checking structure, we skip if updated recently
-        const isFileUpdatedRecently = getIsFileUpdatedRecently(localeFilePath);
-        if (isFileUpdatedRecently) {
-          logger(
-            `   -> Skipping file ${localeFilePath} as it was updated within the last range of time.`
-          );
-          return;
-        }
-      }
-    }
-
     // Prepare the base prompt for ChatGPT
     const basePrompt = (await readFileContent('./src/TRANSLATE_PROMPT.md'))
       .replaceAll('{{locale}}', locale)
-      .replaceAll('{{localeName}}', getLocaleName(locale));
+      .replaceAll('{{localeName}}', getLocaleName(locale, baseLocale));
 
     const openai: OpenAI = new OpenAI({
       apiKey: process.env.OPEN_AI_API_KEY,
@@ -102,42 +72,45 @@ export const translateFile = async (
       const isFirstChunk = i === 0;
       const isLastChunk = i === chunks.length - 1;
 
-      const getFileToTranslatePrevChunk = () =>
-        getChunk(fileResultContent, chunks[i - 1]);
-
       // Build the chunk-specific prompt
       const getPrevChunkPrompt = () =>
-        `**CHUNK ${i} of ${chunks.length}** that has been translated in ${getLocaleName(locale)} (${locale}):\n` +
-        `---chunkStart---` +
-        getFileToTranslatePrevChunk() +
-        `---chunkEnd---`;
-
-      const getCurrentChunkPrompt = () =>
-        `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale)} (${baseLocale}) to translate in ${getLocaleName(locale)} (${locale}):`;
+        `**CHUNK ${i} of ${chunks.length}** that has been translated in ${getLocaleName(locale, baseLocale)} (${locale}):\n` +
+        `///chunkStart///` +
+        getChunk(fileResultContent, chunks[i - 1]) +
+        `///chunkEnd///`;
 
       const getNextChunkPrompt = () =>
-        `**CHUNK ${i + 2} of ${chunks.length}** as context for formatting in ${getLocaleName(baseLocale)} (${baseLocale}):\n` +
-        `---chunkStart---` +
+        `**CHUNK ${i + 2} of ${chunks.length}** as context for formatting in ${getLocaleName(baseLocale, baseLocale)} (${baseLocale}):\n` +
+        `///chunkStart///` +
         chunks[i + 1].content +
-        `---chunkEnd---`;
+        `///chunkEnd///`;
 
       const fileToTranslateCurrentChunk = chunks[i].content;
 
       // Make the actual translation call
-      const chunkTranslation = await chunkInference(openai, [
-        { role: 'system', content: basePrompt },
-        ...(isFirstChunk
-          ? []
-          : ([{ role: 'system', content: getPrevChunkPrompt() }] as const)),
-        ...(isLastChunk
-          ? []
-          : ([{ role: 'system', content: getNextChunkPrompt() }] as const)),
-        {
-          role: 'system',
-          content: getCurrentChunkPrompt(),
-        },
-        { role: 'user', content: fileToTranslateCurrentChunk },
-      ]);
+      let chunkTranslation = await retryManager(async () => {
+        const result = await chunkInference(openai, [
+          { role: 'system', content: basePrompt },
+          ...(isFirstChunk
+            ? []
+            : ([{ role: 'system', content: getPrevChunkPrompt() }] as const)),
+          ...(isLastChunk
+            ? []
+            : ([{ role: 'system', content: getNextChunkPrompt() }] as const)),
+          {
+            role: 'system',
+            content: `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale, baseLocale)} (${baseLocale}) to translate in ${getLocaleName(locale, baseLocale)} (${locale}):`,
+          },
+          { role: 'user', content: fileToTranslateCurrentChunk },
+        ]);
+
+        const fixedTranslatedChunkResult = fixChunkStartEndChars(
+          result,
+          fileToTranslateCurrentChunk
+        );
+
+        return fixedTranslatedChunkResult;
+      })();
 
       // Replace the chunk in the file content
       fileResultContent = fileResultContent.replace(

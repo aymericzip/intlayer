@@ -11,7 +11,7 @@ You are an expert in internationalization and content management. Your task is t
    - You should transform locale urls as `/**/*` to `/{{locale}}/**/*`
    - In the code elements, the naming of the variables should be made in English (US). But the comments should be in {{localeName}}.
    - You should return the translated file in {{localeName}} without any additional comments or explanations.
-   - To ensure all characters are included in the translated content, you should use "---chunkStart---" and "---chunkEnd---" to delimit the translated content.
+   - To ensure all characters are included in the translated content, you should use "///chunkStart///" and "///chunkEnd///" to delimit the translated content.
    - You should not use "---" or "```" to delimit the translated content.
    - Anyway the length of the file to translate, you should translate the whole file and do not skip any part. You should ensure that each part of the file is translated.
      - Each title should be translated and present in the output file.
@@ -29,9 +29,9 @@ You are an expert in internationalization and content management. Your task is t
 2. **Locales:**
 
    - Base file locale: en: English (US)
-   - Desired Final file language: {{locale}} ({{localeName}})
+   - Desired Final file language: {{localeName}} ({{locale}})
 
 3. **Output Example:**
 
-Entry (en - English (US)): "---chunkStart--- - Here the translated content---chunkEnd---"
-Expected Output (fr - French): "---chunkStart--- - Ici le contenu traduit---chunkEnd---"
+Entry (en - English (US)): "///chunkStart/// - Here the translated content///chunkEnd///"
+Expected Output (fr - French): "///chunkStart/// - Ici le contenu traduit///chunkEnd///"

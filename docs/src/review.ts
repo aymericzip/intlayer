@@ -1,4 +1,4 @@
-import { Locales, logger } from '@intlayer/config';
+import { Locales, logger, retryManager } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import dotenv from 'dotenv';
 import fg from 'fast-glob';
@@ -9,6 +9,7 @@ import { dirname, relative } from 'path';
 import { BASE_LOCALE, LOCALE_LIST } from './common';
 import { chunkText } from './utils/calculateChunks';
 import { chunkInference } from './utils/chunkInference';
+import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getChunk } from './utils/getChunk';
 import { readFileContent } from './utils/readFileContent';
 
@@ -53,99 +54,73 @@ export const auditFile = async (
     const localeFilePath = filePath.replace(`/${baseLocale}/`, `/${locale}/`);
     const basedFileContent = await readFileContent(filePath);
     const fileToReviewContent = await readFileContent(localeFilePath);
-    let fileResultContent = fileToReviewContent;
+
+    let updatedFileContent = fileToReviewContent;
+    let fileResultContent = '';
 
     // Prepare the base prompt for ChatGPT
     const basePrompt = (await readFileContent('./src/REVIEW_PROMPT.md'))
       .replaceAll('{{locale}}', locale)
-      .replaceAll('{{localeName}}', getLocaleName(locale));
+      .replaceAll('{{localeName}}', getLocaleName(locale, baseLocale));
 
     const openai: OpenAI = new OpenAI({
       apiKey: process.env.OPEN_AI_API_KEY,
     });
 
-    const baseChunks = chunkText(basedFileContent);
+    const baseChunks = chunkText(basedFileContent, 800, 0);
 
     logger(`   -> Base file will be split into ${baseChunks.length} chunk(s)`);
 
     for (let i = 0; i < baseChunks.length; i++) {
-      const isFirstChunk = i === 0;
-      const isLastChunk = i === baseChunks.length - 1;
+      const baseChunkContext = baseChunks[i];
 
-      const getFileToReviewPrevChunk = () => {
-        console.log({
-          ch: getChunk(fileResultContent, baseChunks[i - 1]),
-          baseChunks: baseChunks[i - 1].content,
-        });
+      const getBaseChunkContextPrompt = () =>
+        `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the base chunk in ${getLocaleName(baseLocale, baseLocale)} (${baseLocale}) as reference.\n` +
+        `///chunksStart///` +
+        (baseChunks[i - 1]?.content ?? '') +
+        baseChunkContext.content +
+        (baseChunks[i + 1]?.content ?? '') +
+        `///chunksEnd///`;
 
-        return getChunk(fileResultContent, baseChunks[i - 1]);
-      };
-
-      const getFileToReviewNextChunk = () =>
-        getChunk(fileResultContent, baseChunks[i + 1]);
-
-      const currentChunk = baseChunks[i];
-
-      const fileToReviewCurrentChunk = getChunk(
-        fileToReviewContent,
-        currentChunk
-      );
-
-      const getPrevBaseChunkPrompt = () =>
-        `**CHUNK ${i} of ${baseChunks.length}** is the base chunk in ${getLocaleName(baseLocale)} (${baseLocale}) as reference.\n` +
-        `---chunkStart---` +
-        baseChunks[i - 1].content +
-        `---chunkEnd---`;
-
-      const getCurrentBaseChunkPrompt = () =>
-        `**CHUNK ${i + 1} of ${baseChunks.length}** is the base chunk in ${getLocaleName(baseLocale)} (${baseLocale}) as reference.\n` +
-        `---chunkStart---` +
-        currentChunk.content +
-        `---chunkEnd---`;
-
-      const getPrevFileToReviewChunkPrompt = () =>
-        `**CHUNK ${i} of ${baseChunks.length}** that has been reviewed in ${getLocaleName(locale)} (${locale}).\n` +
-        `---chunkStart---` +
-        getFileToReviewPrevChunk() +
-        `---chunkEnd---`;
-
-      const getCurrentFileToReviewChunkPrompt = () =>
-        `The next user message will be the **CHUNK ${i + 1} of ${baseChunks.length}** that should be reviewed in ${getLocaleName(locale)} (${locale}).`;
-
-      const getNextFileToReviewChunkPrompt = () =>
-        `**CHUNK ${i + 2} of ${baseChunks.length}** as context for formatting in ${getLocaleName(baseLocale)} (${baseLocale}):\n` +
-        `---chunkStart---` +
-        getFileToReviewNextChunk() +
-        `---chunkEnd---`;
+      const getChunkToReviewPrompt = () =>
+        `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the current chunk to review in ${getLocaleName(locale, baseLocale)} (${locale}) as reference.\n` +
+        `///chunksStart///` +
+        getChunk(updatedFileContent, {
+          lineStart: baseChunks[i - 1]?.lineStart ?? 0,
+          lineLength:
+            (baseChunks[i - 1]?.lineLength ?? 0) +
+            baseChunkContext.lineLength +
+            (baseChunks[i + 1]?.lineLength ?? 0),
+        }) +
+        `///chunksEnd///`;
 
       // Make the actual translation call
-      const chunkAudition = await chunkInference(openai, [
-        { role: 'system', content: basePrompt },
-        ...(isFirstChunk
-          ? []
-          : ([
-              { role: 'system', content: getPrevBaseChunkPrompt() },
-              { role: 'system', content: getCurrentBaseChunkPrompt() },
-              { role: 'system', content: getPrevFileToReviewChunkPrompt() },
-            ] as const)),
-        ...(isLastChunk
-          ? []
-          : ([
-              { role: 'system', content: getNextFileToReviewChunkPrompt() },
-            ] as const)),
-        {
-          role: 'system',
-          content: getCurrentFileToReviewChunkPrompt(),
-        },
-        { role: 'user', content: fileToReviewCurrentChunk },
-      ]);
+      let reviewedChunkResult = await retryManager(async () => {
+        const result = await chunkInference(openai, [
+          { role: 'system', content: basePrompt },
+          { role: 'system', content: getBaseChunkContextPrompt() },
+          { role: 'system', content: getChunkToReviewPrompt() },
+          {
+            role: 'system',
+            content: `The next user message will be the **CHUNK ${i + 1} of ${baseChunks.length}** that should be translated in ${getLocaleName(locale, baseLocale)} (${locale}).`,
+          },
+          { role: 'user', content: baseChunkContext.content },
+        ]);
 
-      fileResultContent =
-        fileResultContent.substring(0, currentChunk.charStart) +
-        chunkAudition +
-        fileResultContent.substring(
-          currentChunk.charStart + currentChunk.charLength
+        const fixedReviewedChunkResult = fixChunkStartEndChars(
+          result,
+          baseChunkContext.content
         );
+
+        return fixedReviewedChunkResult;
+      })();
+
+      updatedFileContent = updatedFileContent.replace(
+        baseChunkContext.content,
+        reviewedChunkResult
+      );
+
+      fileResultContent += reviewedChunkResult;
     }
 
     // 4. Write the final translation to the appropriate file path

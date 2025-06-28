@@ -79,7 +79,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier --write src/**/*",
     "reset": "pnpm clean & pnpm build",
-    "test": "",
+    "test": "vitest",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -100,7 +100,8 @@
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.2"
   },
   "peerDependencies": {
     "intlayer": "workspace:*"

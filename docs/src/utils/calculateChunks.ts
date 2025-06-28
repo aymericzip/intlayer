@@ -1,17 +1,12 @@
 import { splitTextByLines } from './splitTextByLine';
 
-export type ChunkResult = {
-  /** First line index contained in this chunk (0-based)             */
+export type ChunkLineResult = {
   lineStart: number;
-  /** Length of the chunk in lines (0-based, inclusive)   */
   lineLength: number;
-  /** Start character index in the original text (0-based, inclusive)*/
   charStart: number;
-  /** Length of the chunk in characters (0-based, inclusive)  */
   charLength: number;
-  /** Content of the chunk */
   content: string;
-}[];
+};
 
 const DEFAULT_MAX_CHARS_PER_CHUNK = 800;
 const DEFAULT_OVERLAP_CHARS = 0;
@@ -20,7 +15,7 @@ export const chunkText = (
   text: string,
   maxCharsPerChunk: number = DEFAULT_MAX_CHARS_PER_CHUNK,
   overlapChars: number = DEFAULT_OVERLAP_CHARS
-): ChunkResult => {
+): ChunkLineResult[] => {
   if (maxCharsPerChunk <= 0) {
     throw new Error('maxCharsPerChunk must be greater than 0');
   }
@@ -28,7 +23,7 @@ export const chunkText = (
   const splittedText = splitTextByLines(text);
 
   // Split text into lines to faciliate the translation
-  const lines: ChunkResult = [];
+  const lines: ChunkLineResult[] = [];
   let charStartAcc = 0;
 
   splittedText.forEach((line, index) => {
@@ -46,48 +41,51 @@ export const chunkText = (
   // as long as the chunk length is less than maxCharsPerChunk
   // if a line longer than maxCharsPerChunk, keep it alone
   // if a line is not longer than maxCharsPerChunk, it is grouped
-  const groupedLines: ChunkResult = lines.reduce((acc: ChunkResult, line) => {
-    // If this line alone exceeds maxCharsPerChunk, keep it separate
-    if (line.content.length > maxCharsPerChunk) {
-      acc.push(line);
+  const groupedLines: ChunkLineResult[] = lines.reduce(
+    (acc: ChunkLineResult[], line) => {
+      // If this line alone exceeds maxCharsPerChunk, keep it separate
+      if (line.content.length > maxCharsPerChunk) {
+        acc.push(line);
+        return acc;
+      }
+
+      // If we have no chunks yet, start with this line
+      if (acc.length === 0) {
+        acc.push(line);
+        return acc;
+      }
+
+      // Get the last chunk
+      const lastChunk = acc[acc.length - 1];
+
+      // Calculate what the combined length would be (including newline character)
+      const combinedLength = lastChunk.content.length + line.content.length;
+
+      // If combining would exceed the limit, start a new chunk
+      if (combinedLength > maxCharsPerChunk) {
+        acc.push(line);
+        return acc;
+      }
+
+      // Otherwise, combine with the last chunk
+      const combinedContent = lastChunk.content + line.content;
+      const updatedChunk = {
+        content: combinedContent,
+        lineStart: lastChunk.lineStart,
+        lineLength: lastChunk.lineLength + line.lineLength,
+        charStart: lastChunk.charStart,
+        charLength: combinedContent.length,
+      };
+
+      acc[acc.length - 1] = updatedChunk;
       return acc;
-    }
-
-    // If we have no chunks yet, start with this line
-    if (acc.length === 0) {
-      acc.push(line);
-      return acc;
-    }
-
-    // Get the last chunk
-    const lastChunk = acc[acc.length - 1];
-
-    // Calculate what the combined length would be (including newline character)
-    const combinedLength = lastChunk.content.length + line.content.length;
-
-    // If combining would exceed the limit, start a new chunk
-    if (combinedLength > maxCharsPerChunk) {
-      acc.push(line);
-      return acc;
-    }
-
-    // Otherwise, combine with the last chunk
-    const combinedContent = lastChunk.content + line.content;
-    const updatedChunk = {
-      content: combinedContent,
-      lineStart: lastChunk.lineStart,
-      lineLength: lastChunk.lineLength + line.lineLength,
-      charStart: lastChunk.charStart,
-      charLength: combinedContent.length,
-    };
-
-    acc[acc.length - 1] = updatedChunk;
-    return acc;
-  }, []);
+    },
+    []
+  );
 
   // If one line is longer than maxCharsPerChunk, split it into multiple chunks
-  const splittedLines: ChunkResult = groupedLines.flatMap((line) => {
-    const chunk: ChunkResult = [];
+  const splittedLines: ChunkLineResult[] = groupedLines.flatMap((line) => {
+    const chunk: ChunkLineResult[] = [];
 
     if (line.content.length <= maxCharsPerChunk) {
       chunk.push(line);
@@ -109,7 +107,7 @@ export const chunkText = (
 
   if (overlapChars === 0) return splittedLines;
 
-  const overlapChunks: ChunkResult =
+  const overlapChunks: ChunkLineResult[] =
     splittedLines.length > 0 ? [splittedLines[0]] : [];
 
   for (let i = 1; i < splittedLines.length; i++) {

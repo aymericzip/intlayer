@@ -10,7 +10,7 @@ export type RetryManagerOptions = {
 };
 
 const DEFAULT_MAX_RETRY = 3;
-const DEFAULT_DELAY = 60_000; // 60 seconds
+const DEFAULT_DELAY = 0;
 
 /**
  * Wrap an async function `fn` so it’s retried on failure.
