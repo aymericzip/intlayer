@@ -1,7 +1,7 @@
 ---
 docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-05-20
 title: Интеграция CI/CD
@@ -92,15 +92,15 @@ npx intlayer fill --unpushed --mode fill    # Заполняет только о
 
 > Если у вас в репозитории несколько приложений, использующих отдельные экземпляры Intlayer, вы можете использовать аргумент `--base-dir`, например:
 
-    ```bash fileName=".husky/pre-push"
-    # Приложение 1
-    npx intlayer build --base-dir ./app1
-    npx intlayer fill --base-dir ./app1 --unpushed --mode fill
+```bash fileName=".husky/pre-push"
+# Приложение 1
+npx intlayer build --base-dir ./app1
+npx intlayer fill --base-dir ./app1 --unpushed --mode fill
 
-    # Приложение 2
-    npx intlayer build --base-dir ./app2
-    npx intlayer fill --base-dir ./app2 --unpushed --mode fill
-    ```
+# Приложение 2
+npx intlayer build --base-dir ./app2
+npx intlayer fill --base-dir ./app2 --unpushed --mode fill
+```
 
 ## Использование GitHub Actions
 
@@ -137,21 +137,21 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: 🟢 Set up Node.js
+      - name: 🟢 Установить Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      - name: 📦 Install dependencies
+      - name: 📦 Установить зависимости
         run: npm ci
 
-      - name: ⚙️ Build Intlayer project
+      - name: ⚙️ Сборка проекта Intlayer
         run: npx intlayer build
 
-      - name: 🤖 Auto-fill missing translations
+      - name: 🤖 Автозаполнение недостающих переводов
         run: npx intlayer fill --git-diff --mode fill
 
-      - name: 📤 Create or update translation PR
+      - name: 📤 Создать или обновить PR с переводами
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: chore: auto-fill missing translations [skip ci]

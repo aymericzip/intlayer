@@ -19,3 +19,7 @@ yarn add @intlayer/editor
 ```bash
 pnpm add @intlayer/editor
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

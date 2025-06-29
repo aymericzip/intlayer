@@ -243,3 +243,7 @@ When localizing attributes, access the content values appropriately:
 - **Intlayer Visual Editor**: For a more intuitive content management experience, refer to the visual editor documentation [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
 
 This section specifically targets the integration of the `useIntlayer` hook in React applications, simplifying the localization process and ensuring content consistency across different locales.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

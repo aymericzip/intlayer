@@ -138,3 +138,7 @@ console.log(cookieName); // Output: "INTLAYER_LOCALE"
 ## Usage in Applications
 
 The `getConfiguration` function is a cornerstone utility for initializing and managing the configuration of an `intlayer` application. By providing access to settings like locales, middleware, and content directories, it ensures consistency and scalability across multilingual and content-driven applications.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

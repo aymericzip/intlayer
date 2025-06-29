@@ -146,3 +146,7 @@ Found a bug or have a feature request? Open an issue on our **GitHub repository*
 ## License
 
 Intlayer is released under the **MIT License**.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

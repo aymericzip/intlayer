@@ -156,3 +156,7 @@ console.log(content); // Output: "You have less than four"
 ## Notes
 
 - The `findMatchingCondition` utility is used to determine the appropriate condition based on the given quantity.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

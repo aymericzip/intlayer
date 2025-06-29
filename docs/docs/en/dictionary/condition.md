@@ -229,3 +229,7 @@ For more detailed information on configuration and usage, refer to the following
 - [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 These resources offer further insights into the setup and usage of Intlayer across various environments and frameworks.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

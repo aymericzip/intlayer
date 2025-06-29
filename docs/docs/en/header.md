@@ -3,3 +3,7 @@
 **Internationalization Made Easy**
 
 Intlayer offers a more flexible and modern approach to internationalizing your website. The seamless integration with Next.js and React, customizable configuration, and support for various content declaration formats make it a powerful choice for internationalization.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

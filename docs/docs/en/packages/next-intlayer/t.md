@@ -344,3 +344,7 @@ For more detailed usage and advanced features, refer to the [next-intlayer docum
 ---
 
 **Note**: Remember to set up your `IntlayerClientProvider` and `IntlayerServerProvider` properly to ensure that the current locale is correctly passed down to your components. This is crucial for the `t` function to return the correct translations.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

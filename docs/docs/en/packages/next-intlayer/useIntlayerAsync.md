@@ -229,3 +229,7 @@ Instructions for setting up content declaration files are available [here](https
 ---
 
 **In summary**, `useIntlayerAsync` is a powerful client-side hook designed to enhance the user experience and maintain content freshness by marrying pre-rendered dictionaries with asynchronous dictionary updates. By leveraging `isLoading` and TypeScript-based content declarations, you can seamlessly integrate dynamic, localized content into your Next.js applications.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

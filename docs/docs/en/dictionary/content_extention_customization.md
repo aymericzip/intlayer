@@ -79,3 +79,7 @@ When customizing content file extensions, keep the following guidelines in mind:
 ## Conclusion
 
 Customizing content file extensions in Intlayer is a valuable feature for optimizing performance and avoiding conflicts in large-scale applications. By following the guidelines outlined in this documentation, you can effectively manage your content declarations and ensure smooth integration with other parts of your project.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

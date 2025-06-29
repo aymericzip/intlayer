@@ -273,3 +273,7 @@ The `react-intlayer` package also provides some functions to help you to interna
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
 - [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

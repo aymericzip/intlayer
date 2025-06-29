@@ -39,3 +39,7 @@ Intlayer provides a CLI tool to:
 - push and pull distant dictionaries from your CMS to your locale project
 
 Consult [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) for more information.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

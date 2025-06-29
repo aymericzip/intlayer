@@ -285,3 +285,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 Intlayer aims to be a one-stop solution for content management and internationalization. It focuses on flexibility (centralized or distributed files), broad language support, easy integration with modern frameworks and bundlers, and powerful AI-driven features. As new capabilities, such as A/B testing, versioning, and automated translations, become available, Intlayer will continue to simplify content workflows and elevate user experiences across different platforms.
 
 Stay tuned for upcoming releases, and feel free to explore the existing features to see how Intlayer can help centralize and optimize your content management processes today!
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

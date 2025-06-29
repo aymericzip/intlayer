@@ -68,3 +68,7 @@ console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output: "https://example.com/dashboard"
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

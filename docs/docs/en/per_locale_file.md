@@ -295,3 +295,7 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Automatic Translation Generation
 
 Use the [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) to auto-fill missing translations based on your preferred services.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

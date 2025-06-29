@@ -46,3 +46,7 @@ yarn add svelte-intlayer
 ```bash packageManager="pnpm"
 pnpm add svelte-intlayer
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

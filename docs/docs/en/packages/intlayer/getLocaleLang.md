@@ -75,3 +75,7 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
 
 - **Malformed Locale Strings:**
   - If the `locale` does not follow the `language-country` format (e.g., `Locales.ENGLISH-US`), the function safely returns the part before `'-'` or the entire string if no `'-'` is present.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

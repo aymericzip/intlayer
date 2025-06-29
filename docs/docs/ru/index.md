@@ -12,7 +12,7 @@ Intlayer предлагает гибкий, современный подход 
   Получите общее представление о работе Intlayer, его основных функциях и о том, почему это революционное решение для i18n.
 
 - **[Как работает Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/how_works_intlayer.md)**  
-  Погрузитесь в архитектурный дизайн и узнайте, как Intlayer обрабатывает все, от декларации контента до доставки перевода.
+  Погрузитесь в архитектурный дизайн и узнайте, как Intlayer обрабатывает все — от декларации контента до доставки перевода.
 
 - **[Конфигурация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)**  
   Настройте Intlayer под нужды вашего проекта. Изучите параметры middleware, структуру директорий и продвинутые настройки.
@@ -40,8 +40,23 @@ Intlayer предлагает гибкий, современный подход 
 - **[Перечисления](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md)**  
   Легко управляйте повторяющимися или фиксированными наборами данных на разных языках.
 
+- **[Условие](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/conditional.md)**  
+  Узнайте, как использовать условную логику в Intlayer для создания динамического контента.
+
+- **[Вставка](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)**  
+  Узнайте, как вставлять значения в строку с помощью плейсхолдеров вставки.
+
 - **[Функциональный запрос](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/function_fetching.md)**  
   Узнайте, как динамически запрашивать контент с помощью пользовательской логики, соответствующей рабочему процессу вашего проекта.
+
+- **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md)**  
+  Узнайте, как использовать Markdown в Intlayer для создания насыщенного контента.
+
+- **[Встраивание файлов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file_embeddings.md)**  
+  Узнайте, как встраивать внешние файлы в Intlayer для использования в редакторе контента.
+
+- **[Вложенность](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md)**  
+  Поймите, как создавать вложенный контент в Intlayer для построения сложных структур.
 
 ---
 
@@ -54,9 +69,11 @@ Intlayer предлагает гибкий, современный подход 
 - **[Intlayer с Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_page_router.md)**
 - **[Intlayer с React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_create_react_app.md)**
 - **[Intlayer с Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md)**
+- **[Intlayer с React Native и Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_react_native+expo.md)**
+- **[Intlayer с Lynx и React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_lynx+react.md)**
 - **[Intlayer с Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_express.md)**
 
-Каждое руководство по интеграции включает лучшие практики использования функций Intlayer, таких как **рендеринг на стороне сервера**, **динамическая маршрутизация** или **рендеринг на стороне клиента**, чтобы вы могли поддерживать быстрое, SEO-дружественное и высокомасштабируемое приложение.
+Каждое руководство по интеграции включает лучшие практики использования возможностей Intlayer, таких как **рендеринг на стороне сервера**, **динамическая маршрутизация** или **рендеринг на стороне клиента**, чтобы вы могли поддерживать быстрое, SEO-дружественное и масштабируемое приложение.
 
 ---
 
@@ -66,7 +83,7 @@ Intlayer предлагает гибкий, современный подход 
 
 ### `intlayer`
 
-Основные утилиты для настройки и управления вашей i18n конфигурацией.
+Основные утилиты для настройки и управления вашей i18n-конфигурацией.
 
 - **[getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getConfiguration.md)**
 - **[getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getHTMLTextDir.md)**
@@ -80,14 +97,14 @@ Intlayer предлагает гибкий, современный подход 
 
 ### `express-intlayer`
 
-Используйте Intlayer в приложениях на основе **Express**:
+Используйте Intlayer в приложениях на базе **Express**:
 
 - **[t](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/express-intlayer/t.md)**  
   Минимальный, простой помощник перевода для ваших серверных маршрутов и представлений.
 
 ### `react-intlayer`
 
-Улучшите ваши приложения на **React** с помощью мощных хуков:
+Расширьте возможности ваших приложений на **React** с помощью мощных хуков:
 
 - **[t](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/t.md)**
 - **[useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md)**
@@ -120,6 +137,3 @@ Intlayer предлагает гибкий, современный подход 
 Мы ценим силу open-source и разработки, управляемой сообществом. Если вы хотите предложить улучшения, добавить новое руководство или исправить какие-либо ошибки в нашей документации, не стесняйтесь отправить Pull Request или открыть issue в нашем [репозитории GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **Готовы переводить ваше приложение быстрее и эффективнее?** Погрузитесь в нашу документацию, чтобы начать использовать Intlayer уже сегодня. Испытайте надежный, упрощенный подход к интернационализации, который упорядочивает ваш контент и делает вашу команду более продуктивной.
-
-Удачного перевода!  
-, Команда Intlayer

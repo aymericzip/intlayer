@@ -244,3 +244,7 @@ Instructions for setting up content declaration files are available [here](https
 ---
 
 **In summary**, `useIntlayerAsync` is a powerful React hook designed to enhance the user experience and maintain content freshness by merging pre-rendered or pre-fetched dictionaries with asynchronous dictionary updates. By leveraging `isLoading` and TypeScript-based content declarations, you can seamlessly integrate dynamic, localized content into your React applications.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

@@ -69,3 +69,7 @@ export default defineConfig({
 Intlayer provides a lot of features to help you internationalize your Vite application.
 
 **To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application.**
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

@@ -123,3 +123,7 @@ When you invoke the `useLocale` hook, it returns an object containing the follow
 ## Conclusion
 
 The `useLocale` hook from `next-intlayer` is a crucial tool for managing locales in Next.js applications. It offers an integrated approach to adapt your application for multiple locales by handling locale storage, state management, and URL modifications seamlessly.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

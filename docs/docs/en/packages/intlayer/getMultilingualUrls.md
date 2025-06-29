@@ -216,3 +216,7 @@ getMultilingualUrls(
 ```
 
 By integrating `getMultilingualUrls`, developers can maintain consistent URL structures across multiple languages, enhancing both user experience and SEO.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

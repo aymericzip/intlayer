@@ -492,3 +492,7 @@ The `intlayer` package also provides some functions to help you to international
 - [`getMultilingualUrls()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md)
 - [`getLocalizedUrl()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)
 - [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

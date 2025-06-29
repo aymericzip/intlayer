@@ -161,3 +161,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 > - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_extention_customization.md)
 
 (Other sections remain unchanged.)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

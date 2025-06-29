@@ -285,6 +285,66 @@ npx intlayer configuration push
 
 By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.
 
+### Documentation Management
+
+The `doc` commands provide tools for managing and translating documentation files across multiple locales.
+
+#### Translate Documentation
+
+The `doc translate` command automatically translates documentation files from a base locale to target locales using AI translation services.
+
+```bash
+npx intlayer doc translate
+```
+
+##### Arguments:
+
+- **`--doc-pattern [docPattern...]`**: Glob patterns to match documentation files to translate.
+  > Example: `npx intlayer doc translate --doc-pattern "docs/**/*.md" "src/**/*.mdx"`
+- **`--excluded-glob-pattern [excludedGlobPattern...]`**: Glob patterns to exclude from translation.
+  > Example: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
+- **`--nb-simultaneous-file-processed [nbSimultaneousFileProcessed]`**: Number of files to process simultaneously for translation.
+  > Example: `npx intlayer doc translate --nb-simultaneous-file-processed 5`
+- **`--locales [locales...]`**: Target locales to translate documentation to.
+  > Example: `npx intlayer doc translate --locales fr es de`
+- **`--base-locale [baseLocale]`**: Source locale to translate from.
+  > Example: `npx intlayer doc translate --base-locale en`
+- **`--model [model]`**: The AI model to use for translation (e.g., `gpt-3.5-turbo`).
+- **`--provider [provider]`**: The AI provider to use for translation.
+- **`--temperature [temperature]`**: Temperature setting for the AI model.
+- **`--api-key [apiKey]`**: Provide your own API key for the AI service.
+- **`--custom-prompt [prompt]`**: Provide a custom prompt for translation instructions.
+- **`--application-context [applicationContext]`**: Provide additional context for the AI translation.
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file [envFile]`**: Provide a custom environment file to load variables from.
+- **`--base-dir`**: Specify the base directory for the project.
+- **`--verbose`**: Enable verbose logging for debugging.
+- **Git filtering options**: `--git-diff`, `--git-diff-base`, `--git-diff-current`, `--uncommitted`, `--unpushed`, `--untracked`
+
+##### Example:
+
+```bash
+npx intlayer doc translate --doc-pattern "docs/**/*.md" --base-locale en --locales fr es --model chatgpt-4o-latest
+```
+
+#### Review Documentation
+
+The `doc review` command analyzes documentation files for quality, consistency, and completeness across different locales.
+
+```bash
+npx intlayer doc review
+```
+
+##### Arguments:
+
+The `doc review` command accepts the same arguments as `doc translate`, allowing you to review specific documentation files and apply quality checks.
+
+##### Example:
+
+```bash
+npx intlayer doc review --doc-pattern "docs/**/*.md" --locales fr es de
+```
+
 ## Use intlayer commands in your `package.json`
 
 ```json fileName="package.json"
@@ -293,7 +353,9 @@ By pushing the configuration, your project is fully integrated with the Intlayer
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
-  "intlayer:fill": "npx intlayer fill"
+  "intlayer:fill": "npx intlayer fill",
+  "intlayer:doc:translate": "npx intlayer doc translate",
+  "intlayer:doc:review": "npx intlayer doc review"
 }
 ```
 
@@ -326,3 +388,7 @@ Sometimes a terminal restart is needed to recognize new commands.
 ```bash
 npx clear-npx-cache
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

@@ -247,3 +247,7 @@ The `@intlayer/backend` package exports backend types and will eventually offer 
 ## Chat with our smart documentation
 
 - [Ask your questions to our smart documentation](https://intlayer.org/doc/chat)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

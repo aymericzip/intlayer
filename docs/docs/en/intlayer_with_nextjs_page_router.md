@@ -1477,3 +1477,7 @@ By following this guide, you can effectively integrate Intlayer into your Next.j
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

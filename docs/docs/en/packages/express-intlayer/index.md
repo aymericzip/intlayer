@@ -245,3 +245,7 @@ By default, `express-intlayer` will interpret the `Accept-Language` header to de
 ## Functions provided by `express-intlayer` package
 
 - [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/express-intlayer/t.md)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

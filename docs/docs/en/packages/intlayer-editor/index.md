@@ -111,3 +111,7 @@ When the editor is installed, enabled, and started, you can view each field inde
 ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 If your content is outlined, you can long-press it to display the edit drawer.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

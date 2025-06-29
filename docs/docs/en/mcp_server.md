@@ -166,3 +166,9 @@ The server will expose Intlayer-specific tools and resources that can be consume
 
 - [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
 - [Intlayer GitHub Repository](https://github.com/aymericzip/intlayer)
+
+---
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

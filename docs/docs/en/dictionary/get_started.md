@@ -520,3 +520,7 @@ For more details in Intlayer, refer to the following resources:
 - [Nesting Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)
 - [Markdown Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
 - [Function Fetching Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

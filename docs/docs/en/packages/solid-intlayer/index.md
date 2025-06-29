@@ -47,3 +47,7 @@ yarn add solid-intlayer
 ```bash packageManager="pnpm"
 pnpm add solid-intlayer
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

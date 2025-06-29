@@ -631,3 +631,9 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 - **CLI Commands**: Explore the [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) for tasks like **extracting translations** or **checking missing keys**.
 
 Enjoy building your **React Native** apps with fully powered i18n through **Intlayer**!
+
+---
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

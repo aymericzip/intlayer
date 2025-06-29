@@ -172,3 +172,7 @@ This will generate:
 
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history
