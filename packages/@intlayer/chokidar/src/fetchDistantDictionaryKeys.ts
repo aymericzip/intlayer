@@ -21,7 +21,11 @@ export const fetchDistantDictionaryKeys = async (
   // Get the list of dictionary keys
   const getDictionariesKeysResult =
     await intlayerAPI.dictionary.getDictionariesKeys({
-      headers: { Authorization: `Bearer ${oAuth2AccessToken}` },
+      ...(oAuth2AccessToken && {
+        headers: {
+          Authorization: `Bearer ${oAuth2AccessToken}`,
+        },
+      }),
     });
 
   if (!getDictionariesKeysResult.data) {

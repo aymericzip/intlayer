@@ -68,7 +68,7 @@
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
     "serve": "webpack serve --config ./webpack.config.ts",
-    "test": "",
+    "test": "vitest",
     "transpile": "webpack --config ./webpack.config.ts",
     "typecheck": "tsup --project ./tsconfig.json --noEmit",
     "watch": "webpack --config ./webpack.config.ts --watch"
@@ -96,7 +96,8 @@
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.2"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",

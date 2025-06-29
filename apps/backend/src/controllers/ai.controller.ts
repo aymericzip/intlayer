@@ -6,25 +6,79 @@ import type { ResponseWithInformation } from '@middlewares/sessionAuth.middlewar
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
-import type { AIOptions, ChatCompletionRequestMessage } from '@utils/AI/aiSdk';
+import {
+  AIConfig,
+  getAIConfig,
+  type AIOptions,
+  type ChatCompletionRequestMessage,
+} from '@utils/AI/aiSdk';
 import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
 import * as auditContentDeclarationUtil from '@utils/AI/auditDictionary';
 import * as auditContentDeclarationFieldUtil from '@utils/AI/auditDictionaryField';
 import * as auditContentDeclarationMetadataUtil from '@utils/AI/auditDictionaryMetadata';
 import * as auditTagUtil from '@utils/AI/auditTag';
 import * as autocompleteUtil from '@utils/AI/autocomplete';
+import * as customQueryUtil from '@utils/AI/customQuery';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
-import { type AppError, ErrorHandler } from '@utils/errors';
+import { ErrorHandler, type AppError } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import type { Locales } from 'intlayer';
 
-export type TranslateJSONBody = Omit<
-  translateJSONUtil.TranslateJSONOptions,
-  'tags'
-> & {
-  tagsKeys?: string[];
+type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
+  aiOptions?: AIOptions;
 };
+
+export type CustomQueryBody =
+  ReplaceAIConfigByOptions<customQueryUtil.CustomQueryOptions>;
+export type CustomQueryResult =
+  ResponseData<customQueryUtil.CustomQueryResultData>;
+
+export const customQuery = async (
+  req: Request<AuditContentDeclarationBody>,
+  res: ResponseWithInformation<CustomQueryResult>,
+  _next: NextFunction
+): Promise<void> => {
+  const { aiOptions, tagsKeys, ...rest } = req.body;
+
+  let aiConfig: AIConfig;
+  try {
+    aiConfig = await getAIConfig(res, {
+      userOptions: aiOptions,
+      defaultOptions: customQueryUtil.aiDefaultOptions,
+      accessType: ['registered_user', 'apiKey'],
+    });
+  } catch (error) {
+    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    return;
+  }
+
+  try {
+    const auditResponse = await customQueryUtil.customQuery({
+      ...rest,
+      aiConfig,
+      applicationContext: aiOptions?.applicationContext,
+    });
+
+    if (!auditResponse) {
+      ErrorHandler.handleGenericErrorResponse(res, 'QUERY_FAILED');
+      return;
+    }
+
+    const responseData = formatResponse<customQueryUtil.CustomQueryResultData>({
+      data: auditResponse,
+    });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
+export type TranslateJSONBody =
+  ReplaceAIConfigByOptions<translateJSONUtil.TranslateJSONOptions>;
 export type TranslateJSONResult =
   ResponseData<translateJSONUtil.TranslateJSONResultData>;
 
@@ -33,17 +87,19 @@ export const translateJSON = async (
   res: ResponseWithInformation<TranslateJSONResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, organization } = res.locals;
+  const { project } = res.locals;
   const { aiOptions, tagsKeys, ...rest } = req.body;
 
-  // Check if any API key is present
-  const hasApiKey = Boolean(aiOptions?.apiKey);
-
-  if (!hasApiKey) {
-    if (!user || !project || !organization) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-      return;
-    }
+  let aiConfig: AIConfig;
+  try {
+    aiConfig = await getAIConfig(res, {
+      userOptions: aiOptions,
+      defaultOptions: translateJSONUtil.aiDefaultOptions,
+      accessType: ['registered_user', 'apiKey'],
+    });
+  } catch (error) {
+    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    return;
   }
 
   try {
@@ -55,7 +111,8 @@ export const translateJSON = async (
 
     const auditResponse = await translateJSONUtil.translateJSON({
       ...rest,
-      aiOptions,
+      aiConfig,
+      applicationContext: aiOptions?.applicationContext,
       tags,
     });
 
@@ -96,18 +153,20 @@ export const auditContentDeclaration = async (
   res: ResponseWithInformation<AuditContentDeclarationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, organization } = res.locals;
+  const { project } = res.locals;
   const { fileContent, filePath, aiOptions, locales, defaultLocale, tagsKeys } =
     req.body;
 
-  // Check if any API key is present
-  const hasApiKey = Boolean(aiOptions?.apiKey);
-
-  if (!hasApiKey) {
-    if (!user || !project || !organization) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-      return;
-    }
+  let aiConfig: AIConfig;
+  try {
+    aiConfig = await getAIConfig(res, {
+      userOptions: aiOptions,
+      defaultOptions: auditContentDeclarationUtil.aiDefaultOptions,
+      accessType: ['registered_user', 'apiKey'],
+    });
+  } catch (error) {
+    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    return;
   }
 
   try {
@@ -120,7 +179,8 @@ export const auditContentDeclaration = async (
     const auditResponse = await auditContentDeclarationUtil.auditDictionary({
       fileContent,
       filePath,
-      aiOptions,
+      aiConfig,
+      applicationContext: aiOptions?.applicationContext,
       locales,
       defaultLocale,
       tags,
@@ -163,17 +223,19 @@ export const auditContentDeclarationField = async (
   res: ResponseWithInformation<AuditContentDeclarationFieldResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, organization } = res.locals;
+  const { project } = res.locals;
   const { fileContent, aiOptions, locales, tagsKeys, keyPath } = req.body;
 
-  // Check if any API key is present
-  const hasApiKey = Boolean(aiOptions?.apiKey);
-
-  if (!hasApiKey) {
-    if (!user || !project || !organization) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-      return;
-    }
+  let aiConfig: AIConfig;
+  try {
+    aiConfig = await getAIConfig(res, {
+      userOptions: aiOptions,
+      defaultOptions: auditContentDeclarationFieldUtil.aiDefaultOptions,
+      accessType: ['registered_user', 'apiKey'],
+    });
+  } catch (error) {
+    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    return;
   }
 
   try {
@@ -186,7 +248,8 @@ export const auditContentDeclarationField = async (
     const auditResponse =
       await auditContentDeclarationFieldUtil.auditDictionaryField({
         fileContent,
-        aiOptions,
+        aiConfig,
+        applicationContext: aiOptions?.applicationContext,
         locales,
         tags,
         keyPath,
@@ -225,17 +288,19 @@ export const auditContentDeclarationMetadata = async (
   res: ResponseWithInformation<AuditContentDeclarationMetadataResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization, project } = res.locals;
+  const { organization } = res.locals;
   const { fileContent, aiOptions } = req.body;
 
-  // Check if any API key is present
-  const hasApiKey = Boolean(aiOptions?.apiKey);
-
-  if (!hasApiKey) {
-    if (!user || !project || !organization) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-      return;
-    }
+  let aiConfig: AIConfig;
+  try {
+    aiConfig = await getAIConfig(res, {
+      userOptions: aiOptions,
+      defaultOptions: auditContentDeclarationMetadataUtil.aiDefaultOptions,
+      accessType: ['registered_user', 'apiKey'],
+    });
+  } catch (error) {
+    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    return;
   }
 
   try {
@@ -250,7 +315,8 @@ export const auditContentDeclarationMetadata = async (
     const auditResponse =
       await auditContentDeclarationMetadataUtil.auditDictionaryMetadata({
         fileContent,
-        aiOptions,
+        aiConfig,
+        applicationContext: aiOptions?.applicationContext,
         tags,
       });
 
@@ -287,17 +353,19 @@ export const auditTag = async (
   res: ResponseWithInformation<AuditTagResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, organization } = res.locals;
+  const { project } = res.locals;
   const { aiOptions, tag } = req.body;
 
-  // Check if any API key is present
-  const hasApiKey = Boolean(aiOptions?.apiKey);
-
-  if (!hasApiKey) {
-    if (!user || !project || !organization) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-      return;
-    }
+  let aiConfig: AIConfig;
+  try {
+    aiConfig = await getAIConfig(res, {
+      userOptions: aiOptions,
+      defaultOptions: auditTagUtil.aiDefaultOptions,
+      accessType: ['registered_user', 'apiKey'],
+    });
+  } catch (error) {
+    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    return;
   }
 
   try {
@@ -307,9 +375,10 @@ export const auditTag = async (
     }
 
     const auditResponse = await auditTagUtil.auditTag({
-      aiOptions,
+      aiConfig,
       dictionaries,
       tag,
+      applicationContext: aiOptions?.applicationContext,
     });
 
     if (!auditResponse) {
@@ -344,6 +413,18 @@ export const askDocQuestion = async (
   const { messages, discutionId } = req.body;
   const { user, project, organization } = res.locals;
 
+  let aiConfig: AIConfig;
+  try {
+    aiConfig = await getAIConfig(res, {
+      userOptions: {},
+      defaultOptions: askDocQuestionUtil.aiDefaultOptions,
+      accessType: ['public'],
+    });
+  } catch (error) {
+    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+    return;
+  }
+
   // 1. Prepare SSE headers and flush them NOW
   res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
   res.setHeader('Cache-Control', 'no-cache, no-transform');
@@ -355,7 +436,7 @@ export const askDocQuestion = async (
 
   // 2. Kick off the upstream stream WITHOUT awaiting it
   askDocQuestionUtil
-    .askDocQuestion(messages, {
+    .askDocQuestion(messages, aiConfig, {
       onMessage: (chunk) => {
         res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
         res.flush?.();
@@ -430,21 +511,23 @@ export const autocomplete = async (
 ) => {
   try {
     const { text, aiOptions } = req.body;
-    const { user, project, organization } = res.locals;
 
-    // Check if any API key is present
-    const hasApiKey = Boolean(aiOptions?.apiKey);
-
-    if (!hasApiKey) {
-      if (!user || !project || !organization) {
-        ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-        return;
-      }
+    let aiConfig: AIConfig;
+    try {
+      aiConfig = await getAIConfig(res, {
+        userOptions: aiOptions,
+        defaultOptions: autocompleteUtil.aiDefaultOptions,
+        accessType: ['public'],
+      });
+    } catch (error) {
+      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+      return;
     }
 
     const response = (await autocompleteUtil.autocomplete({
       text,
-      aiOptions,
+      aiConfig,
+      applicationContext: aiOptions?.applicationContext,
     })) ?? {
       autocompletion: '',
       tokenUsed: 0,

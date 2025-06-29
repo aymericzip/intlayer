@@ -6,7 +6,7 @@ import { readFileSync } from 'fs';
 import type { Locales } from 'intlayer';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { AIOptions, AIProvider, getAIConfig } from '../aiSdk';
+import { AIConfig, AIOptions } from '../aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -20,7 +20,8 @@ export type AuditDictionaryFieldOptions = {
   locales: Locales[];
   keyPath: KeyPath[];
   tags: Tag[];
-  aiOptions?: AIOptions;
+  aiConfig: AIConfig;
+  applicationContext?: string;
 };
 
 export type AuditDictionaryFieldResultData = {
@@ -30,6 +31,10 @@ export type AuditDictionaryFieldResultData = {
 
 // The prompt template to send to the AI model
 const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
+
+export const aiDefaultOptions: AIOptions = {
+  // Keep default options
+};
 
 /**
  * Format a locale with its name.
@@ -64,51 +69,39 @@ ${tags.map(({ key, description }) => `- ${key}: ${description}`).join('\n\n')}`;
  */
 export const auditDictionaryField = async ({
   fileContent,
-  aiOptions,
+  applicationContext,
   locales,
   keyPath,
   tags,
+  aiConfig,
 }: AuditDictionaryFieldOptions): Promise<
   AuditDictionaryFieldResultData | undefined
 > => {
-  try {
-    // Prepare the prompt for AI by replacing placeholders with actual values.
-    const prompt = CHAT_GPT_PROMPT.replace(
-      '{{otherLocales}}',
-      `{${locales.map(formatLocaleWithName).join(', ')}}`
-    )
-      .replace('{{keyPath}}', JSON.stringify(keyPath))
-      .replace('{{fileContent}}', fileContent)
-      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '')
-      .replace('{{tagsInstructions}}', formatTagInstructions(tags));
+  // Prepare the prompt for AI by replacing placeholders with actual values.
+  const prompt = CHAT_GPT_PROMPT.replace(
+    '{{otherLocales}}',
+    `{${locales.map(formatLocaleWithName).join(', ')}}`
+  )
+    .replace('{{keyPath}}', JSON.stringify(keyPath))
+    .replace('{{fileContent}}', fileContent)
+    .replace('{{applicationContext}}', applicationContext ?? '')
+    .replace('{{tagsInstructions}}', formatTagInstructions(tags));
 
-    // Get the appropriate AI model configuration
-    const aiConfig = await getAIConfig({
-      provider: AIProvider.OPENAI,
-      model: 'gpt-4o-mini',
-      apiKey: process.env.OPENAI_API_KEY,
-      ...aiOptions,
-    });
-
-    if (!aiConfig) {
-      logger.error('Failed to configure AI model');
-      return undefined;
-    }
-
-    // Use the AI SDK to generate the completion
-    const { text: newContent, usage } = await generateText({
-      model: aiConfig.model,
-      temperature: aiConfig.temperature,
-      messages: [{ role: 'system', content: prompt }],
-    });
-
-    logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
-
-    return {
-      fileContent: newContent,
-      tokenUsed: usage?.totalTokens ?? 0,
-    };
-  } catch (error) {
-    console.error(error);
+  if (!aiConfig) {
+    logger.error('Failed to configure AI model');
+    return undefined;
   }
+
+  // Use the AI SDK to generate the completion
+  const { text: newContent, usage } = await generateText({
+    ...aiConfig,
+    messages: [{ role: 'system', content: prompt }],
+  });
+
+  logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
+
+  return {
+    fileContent: newContent,
+    tokenUsed: usage?.totalTokens ?? 0,
+  };
 };

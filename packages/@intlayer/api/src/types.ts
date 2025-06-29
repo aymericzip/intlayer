@@ -4,6 +4,8 @@
  * the backend and intlayer-editor are not built yet.
  */
 export type {
+  AIOptions,
+  AIProvider,
   AddDictionaryBody,
   AddDictionaryResult,
   AddNewAccessKeyBody,
@@ -35,6 +37,8 @@ export type {
   CreateSessionResult,
   CreateUserBody,
   CreateUserResult,
+  CustomQueryBody,
+  CustomQueryResult,
   DefinePasswordBody,
   DefinePasswordResult,
   DeleteAccessKeyBody,
@@ -79,6 +83,7 @@ export type {
   GoogleLoginQueryParams,
   LoginBody,
   LoginResult,
+  Messages,
   NewsletterSubscriptionBody,
   NewsletterSubscriptionResult,
   NewsletterUnsubscriptionBody,

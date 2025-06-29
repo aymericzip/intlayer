@@ -520,3 +520,41 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Use this to limit optimization to relevant code files and improve build performance.
   - _Note_: This option will be ignored if `optimize` is disabled.
   - _Note_: Use glob pattern.
+
+### Documentation CLI Operations
+
+Intlayer provides two dedicated CLI commands to streamline the localisation of your Markdown documentation.
+
+| Command                  | Purpose                                                                                 |
+| ------------------------ | --------------------------------------------------------------------------------------- |
+| `intlayer doc translate` | Machine-translate the documentation from the base locale to one or more target locales. |
+| `intlayer doc review`    | Audit existing translations and let the AI improve accuracy, tone, and consistency.     |
+
+#### Common options
+
+- **--doc-pattern [glob]**: Glob pattern describing the Markdown files to process. Default: `docs/docs/en/**/*.md`.
+- **--excluded-glob-pattern [glob]**: Additional glob pattern(s) to exclude from the search.
+- **--base-locale [locale]**: Source locale (default: `en`).
+- **--locales [locale…]**: One or more target locales, e.g. `fr es`.
+- **--nb-simultaneous-file-processed [number]**: Maximum number of files processed in parallel (default: `3`).
+
+All generic CLI options are also available:
+
+- AI: `--provider`, `--model`, `--temperature`, `--api-key`, `--application-context`
+- Configuration: `--env`, `--env-file`, `--base-dir`, `--verbose`, `--prefix`
+
+#### Examples
+
+```bash
+# Translate every English document to French and Spanish
+npx intlayer doc translate \
+  --doc-pattern docs/docs/en/**/*.md \
+  --locales fr es \
+  --base-locale en
+
+# Review the French documentation and update it in-place
+npx intlayer doc review \
+  --doc-pattern docs/docs/en/**/*.md \
+  --locales fr \
+  --base-locale en
+```

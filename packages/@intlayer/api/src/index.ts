@@ -11,6 +11,4 @@ export * from './getIntlayerAPI/stripe';
 export * from './getIntlayerAPI/tag';
 export * from './getIntlayerAPI/user';
 export * from './IntlayerEventListener';
-
-// @ts-ignore @intlayer/backend is not build yet
-export type { AIOptions } from '@intlayer/backend';
+export * from './types';

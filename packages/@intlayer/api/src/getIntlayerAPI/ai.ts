@@ -11,6 +11,8 @@ import type {
   AutocompleteBody,
   AutocompleteResponse,
   ChatCompletionRequestMessage,
+  CustomQueryBody,
+  CustomQueryResult,
   TranslateJSONBody,
   TranslateJSONResult,
 } from '../types';
@@ -43,6 +45,25 @@ export const getAiAPI = (
   }
 
   const AI_API_ROUTE = `${backendURL}/api/ai`;
+
+  /**
+   * Custom query
+   * @param body - Custom query parameters.
+   * @returns Custom query result.
+   */
+  const customQuery = async (
+    body?: CustomQueryBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<CustomQueryResult>(
+      AI_API_ROUTE,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: body,
+      }
+    );
 
   /**
    * Translate a JSON
@@ -238,6 +259,7 @@ export const getAiAPI = (
     );
 
   return {
+    customQuery,
     translateJSON,
     auditContentDeclaration,
     auditContentDeclarationField,

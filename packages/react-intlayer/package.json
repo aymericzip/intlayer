@@ -78,7 +78,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
-    "test": "",
+    "test": "vitest",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -108,7 +108,8 @@
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "vitest": "^3.2.2"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",

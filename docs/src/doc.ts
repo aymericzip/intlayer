@@ -1,6 +1,6 @@
 import { Locales } from '@intlayer/config';
-import { localeRecord } from './common';
-import { readFileContent } from './utils/readFileContent';
+import { localeRecord } from 'intlayer';
+import { readFileContent } from './readFileContent';
 
 const docs = {
   introduction: localeRecord(({ locale }) =>

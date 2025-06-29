@@ -4,7 +4,7 @@ import { generateText } from 'ai';
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { AIOptions, AIProvider, getAIConfig } from '../aiSdk';
+import { AIConfig, AIOptions } from '../aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -16,7 +16,8 @@ const getFileContent = (filePath: string) => {
 export type AuditOptions = {
   fileContent: string;
   tags: Tag[];
-  aiOptions?: AIOptions;
+  aiConfig: AIConfig;
+  applicationContext?: string;
 };
 
 export type AuditFileResultData = {
@@ -27,58 +28,50 @@ export type AuditFileResultData = {
 // The prompt template to send to AI models
 const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
 
+export const aiDefaultOptions: AIOptions = {
+  // Keep default options
+};
+
 /**
  * Audits a content declaration file by constructing a prompt for AI models.
  * The prompt includes details about the project's locales, file paths of content declarations,
  * and requests for identifying issues or inconsistencies.
  */
 export const auditDictionaryMetadata = async ({
-  aiOptions,
   tags,
   fileContent,
+  applicationContext,
+  aiConfig,
 }: AuditOptions): Promise<AuditFileResultData | undefined> => {
-  try {
-    // Prepare the prompt for AI by replacing placeholders with actual values.
-    const prompt = CHAT_GPT_PROMPT.replace(
-      '{{tags}}',
-      `${JSON.stringify(
-        tags
-          .map(({ key, description }) => `- ${key}: ${description}`)
-          .join('\n\n'),
-        null,
-        2
-      )}`
-    )
-      .replace('{{contentDeclaration}}', fileContent)
-      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '');
+  // Prepare the prompt for AI by replacing placeholders with actual values.
+  const prompt = CHAT_GPT_PROMPT.replace(
+    '{{tags}}',
+    `${JSON.stringify(
+      tags
+        .map(({ key, description }) => `- ${key}: ${description}`)
+        .join('\n\n'),
+      null,
+      2
+    )}`
+  )
+    .replace('{{contentDeclaration}}', fileContent)
+    .replace('{{applicationContext}}', applicationContext ?? '');
 
-    // Get the appropriate AI model configuration
-    const aiConfig = await getAIConfig({
-      provider: AIProvider.OPENAI,
-      model: 'gpt-4o-mini',
-      apiKey: process.env.OPENAI_API_KEY,
-      ...aiOptions,
-    });
-
-    if (!aiConfig) {
-      logger.error('Failed to configure AI model');
-      return undefined;
-    }
-
-    // Use the AI SDK to generate the completion
-    const { text: newContent, usage } = await generateText({
-      model: aiConfig.model,
-      temperature: aiConfig.temperature,
-      messages: [{ role: 'system', content: prompt }],
-    });
-
-    logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
-
-    return {
-      fileContent: newContent,
-      tokenUsed: usage?.totalTokens ?? 0,
-    };
-  } catch (error) {
-    console.error(error);
+  if (!aiConfig) {
+    logger.error('Failed to configure AI model');
+    return undefined;
   }
+
+  // Use the AI SDK to generate the completion
+  const { text: newContent, usage } = await generateText({
+    ...aiConfig,
+    messages: [{ role: 'system', content: prompt }],
+  });
+
+  logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
+
+  return {
+    fileContent: newContent,
+    tokenUsed: usage?.totalTokens ?? 0,
+  };
 };

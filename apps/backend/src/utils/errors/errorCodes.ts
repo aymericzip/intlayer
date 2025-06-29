@@ -1285,6 +1285,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
+  QUERY_FAILED: {
+    title: {
+      en: 'Query failed',
+      fr: 'Requête échouée',
+      es: 'Consulta fallida',
+    },
+    message: {
+      en: 'Query failed',
+      fr: 'Requête échouée',
+      es: 'Consulta fallida',
+    },
+    statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
+  },
   AUDIT_FAILED: {
     title: {
       en: 'Audit failed',

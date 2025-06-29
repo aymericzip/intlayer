@@ -66,8 +66,9 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
+    "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
@@ -75,11 +76,9 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
-    "dotenv": "^16.4.7",
     "eslint": "^9.28.0",
     "fast-glob": "^3.3.3",
     "openai": "^4.89.0",
-    "p-limit": "^3.1.0",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
@@ -89,8 +88,9 @@
     "vitest": "^3.2.2"
   },
   "peerDependencies": {
+    "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

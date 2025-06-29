@@ -7,9 +7,10 @@ import { OpenAI } from 'openai';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import {
+  AIConfig,
+  AIOptions,
   AIProvider,
   ChatCompletionRequestMessage,
-  getAIConfig,
 } from '../aiSdk';
 import embeddingsList from './embeddings.json' with { type: 'json' };
 
@@ -41,6 +42,12 @@ const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
 const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
 const MAX_RELEVANT_CHUNKS_NB = 20; // Maximum number of relevant chunks to attach to chatGPT context
 const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.25; // Minimum similarity required for a chunk to be considered relevant
+
+export const aiDefaultOptions: AIOptions = {
+  provider: AIProvider.OPENAI,
+  model: MODEL,
+  temperature: MODEL_TEMPERATURE,
+};
 
 /**
  * Splits a given text into chunks ensuring each chunk does not exceed MAX_CHARS.
@@ -314,6 +321,7 @@ export type AskDocQuestionOptions = {
  */
 export const askDocQuestion = async (
   messages: ChatCompletionRequestMessage[],
+  aiConfig: AIConfig,
   options?: AskDocQuestionOptions
 ): Promise<AskDocQuestionResult> => {
   // Format the user's question to keep only the relevant keywords
@@ -347,14 +355,6 @@ export const askDocQuestion = async (
     ...messages,
   ];
 
-  // Get AI configuration
-  const aiConfig = await getAIConfig({
-    provider: AIProvider.OPENAI,
-    model: MODEL,
-    temperature: MODEL_TEMPERATURE,
-    apiKey: process.env.OPENAI_API_KEY!,
-  });
-
   if (!aiConfig) {
     throw new Error('Failed to initialize AI configuration');
   }
@@ -362,8 +362,7 @@ export const askDocQuestion = async (
   // 3) Use the AI SDK to stream the response
   let fullResponse = '';
   const stream = streamText({
-    model: aiConfig.model,
-    temperature: aiConfig.temperature,
+    ...aiConfig,
     messages: aiMessages,
   });
 

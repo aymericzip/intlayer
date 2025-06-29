@@ -70,24 +70,24 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH],
   },
-  contenu: {
+  content: {
     contentDir: ["src", "../ui-library"],
   },
   middleware: {
     noPrefix: false,
   },
-  éditeur: {
+  editor: {
     applicationURL: "https://example.com",
   },
-  ia: {
+  ai: {
     apiKey: process.env.OPENAI_API_KEY,
-    applicationContext: "Ceci est une application de test",
+    applicationContext: "Ceci est une application de test", // Contexte de l'application
   },
   build: {
-    activateDynamicImport: true,
+    activateDynamicImport: true, // Active l'importation dynamique
   },
 };
 
@@ -96,10 +96,10 @@ module.exports = config;
 
 ```json5 fileName=".intlayerrc" codeFormat="json"
 {
-  "internationalisation": {
+  "internationalization": {
     "locales": ["en"],
   },
-  "contenu": {
+  "content": {
     "typesDir": "content/types",
   },
   "middleware": {
@@ -223,9 +223,9 @@ Définit les paramètres liés à l’éditeur intégré, y compris le port du s
 
   - _Type_ : `string` | `undefined`
   - _Valeur par défaut_ : `undefined`
-  - _Description_ : clientId et clientSecret permettent aux paquets intlayer de s'authentifier auprès du backend en utilisant l'authentification oAuth2. Un jeton d'accès est utilisé pour authentifier l'utilisateur lié au projet. Pour obtenir un jeton d'accès, rendez-vous sur https://intlayer.org/dashboard/project et créez un compte.
+  - _Description_ : clientId et clientSecret permettent aux paquets intlayer de s’authentifier auprès du backend en utilisant l’authentification oAuth2. Un jeton d’accès est utilisé pour authentifier l’utilisateur lié au projet. Pour obtenir un jeton d’accès, rendez-vous sur https://intlayer.org/dashboard/project et créez un compte.
   - _Exemple_ : `true`
-  - _Remarque_ : Important : le clientId et le clientSecret doivent rester secrets et ne pas être partagés publiquement. Veuillez vous assurer de les conserver dans un emplacement sécurisé, tel que des variables d'environnement.
+  - _Remarque_ : Important : le clientId et le clientSecret doivent rester secrets et ne pas être partagés publiquement. Veuillez vous assurer de les conserver dans un emplacement sécurisé, tel que des variables d’environnement.
 
 - **hotReload** :
 
@@ -343,58 +343,57 @@ Paramètres liés à la gestion du contenu dans l'application, y compris les nom
 
   - _Type_ : `string`
   - _Par défaut_ : `'.intlayer/dictionaries'`
-  - _Description_: Le chemin du répertoire pour stocker les résultats intermédiaires ou finaux.
+  - _Description_ : Le chemin du répertoire pour stocker les résultats intermédiaires ou finaux.
 
 - **moduleAugmentationDir** :
 
   - _Type_ : `string`
-  - _Default_ : `'.intlayer/types'`
+  - _Par défaut_ : `'.intlayer/types'`
   - _Description_ : Répertoire pour l'augmentation de module, permettant de meilleures suggestions dans l'IDE et une vérification des types.
-  - _Example_ : `'intlayer-types'`
-  - _Note_ : Assurez-vous d'inclure ce répertoire dans le fichier `tsconfig.json`.
+  - _Exemple_ : `'intlayer-types'`
+  - _Remarque_ : Assurez-vous d'inclure ce répertoire dans le fichier `tsconfig.json`.
 
 - **unmergedDictionariesDir** :
 
   - _Type_ : `string`
-  - _Default_ : `'.intlayer/unmerged_dictionary'`
+  - _Par défaut_ : `'.intlayer/unmerged_dictionary'`
   - _Description_ : Répertoire pour stocker les dictionnaires non fusionnés.
-  - _Example_ : `'translations'`
+  - _Exemple_ : `'translations'`
 
 - **dictionariesDir** :
 
   - _Type_ : `string`
-  - _Default_ : `'.intlayer/dictionary'`
+  - _Par défaut_ : `'.intlayer/dictionary'`
   - _Description_ : Répertoire pour stocker les dictionnaires de localisation.
-  - _Example_ : `'translations'`
+  - _Exemple_ : `'translations'`
 
 - **i18nextResourcesDir** :
 
-  - _Type_: `string`
-  - _Par Défaut_: `'i18next_dictionary'`
-  - _Description_: Le répertoire pour stocker les dictionnaires i18n.
-  - _Exemple_: `'translations'`
-  - _Remarque_: Assurez-vous que ce répertoire est configuré pour le type de sortie i18next.
+  - _Type_ : `string`
+  - _Par défaut_ : `'i18next_dictionary'`
+  - _Description_ : Le répertoire pour stocker les dictionnaires i18n.
+  - _Exemple_ : `'translations'`
+  - _Remarque_ : Assurez-vous que ce répertoire est configuré pour le type de sortie i18next.
 
-- **typesDir**:
+- **typesDir** :
 
-  - _Type_: `string`
-  - _Par Défaut_: `'types'`
-  - _Description_: Le répertoire pour stocker les types de dictionnaires.
-  - _Exemple_: `'intlayer-types'`
+  - _Type_ : `string`
+  - _Par défaut_ : `'types'`
+  - _Description_ : Le répertoire pour stocker les types de dictionnaires.
+  - _Exemple_ : `'intlayer-types'`
 
-- **mainDir**:
+- **mainDir** :
 
-  - _Type_: `string`
-  - _Par Défaut_: `'main'`
-  - _Description_: Le répertoire où sont stockés les fichiers principaux de l'application.
-  - _Exemple_: `'intlayer-main'`
+  - _Type_ : `string`
+  - _Par défaut_ : `'main'`
+  - _Description_ : Le répertoire où sont stockés les fichiers principaux de l'application.
+  - _Exemple_ : `'intlayer-main'`
 
-- **excludedPath**:
-  - _Type_: `string[]`
-  - _Par Défaut_: `['node_modules']`
-  - _Description_: Répertoires exclus de la recherche de contenu.
-  - _Remarque_: Ce paramètre n'est pas encore utilisé, mais prévu pour une future implémentation.
-    ///chunkStart###
+- **excludedPath** :
+  - _Type_ : `string[]`
+  - _Par défaut_ : `['node_modules']`
+  - _Description_ : Répertoires exclus de la recherche de contenu.
+  - _Remarque_ : Ce paramètre n'est pas encore utilisé, mais prévu pour une future implémentation.
 
 ### Configuration du Journaliseur
 
@@ -497,7 +496,7 @@ Les options de build s'appliquent aux plugins `@intlayer/babel` et `@intlayer/sw
   - _Exemple_ : `true`
   - _Remarque_ : Cela permettra d'importer uniquement les dictionnaires utilisés dans le bundle. Mais toutes les importations resteront des importations statiques afin d’éviter un traitement asynchrone lors du chargement des dictionnaires.
   - _Remarque_ : Lorsqu’il est activé, Intlayer optimisera le découpage des dictionnaires en remplaçant tous les appels à `useIntlayer` par `useDictionary` et `getIntlayer` par `getDictionary`.
-  - _Remarque_ : Assurez-vous que toutes les clés sont déclarées statiquement dans les appels à `useIntlayer`. Par exemple : `useIntlayer('navbar')`.
+  - _Remarque_ : Assurez-vous que toutes les clés soient déclarées statiquement dans les appels à `useIntlayer`. Par exemple : `useIntlayer('navbar')`.
 
 - **activateDynamicImport** :
 
@@ -519,3 +518,40 @@ Les options de build s'appliquent aux plugins `@intlayer/babel` et `@intlayer/sw
   - _Remarque_ : Utilisez ceci pour limiter l’optimisation aux fichiers de code pertinents et améliorer les performances de compilation.
   - _Remarque_ : Cette option sera ignorée si `optimize` est désactivé.
   - _Remarque_ : Utilisez un motif glob.
+
+### Opérations CLI de documentation
+
+Intlayer fournit deux commandes CLI dédiées pour simplifier la localisation de votre documentation Markdown.
+| Commande | Objectif |
+| ------------------------ | --------------------------------------------------------------------------------------------- |
+| `intlayer doc translate` | Traduire automatiquement la documentation depuis la langue source vers une ou plusieurs langues cibles. |
+| `intlayer doc review` | Auditer les traductions existantes et laisser l’IA améliorer la précision, le ton et la cohérence. |
+
+#### Options communes
+
+- **--doc-pattern [glob]** : Motif glob décrivant les fichiers Markdown à traiter. Par défaut : `docs/docs/fr/**/*.md`.
+- **--excluded-glob-pattern [glob]** : Motif(s) glob supplémentaire(s) à exclure de la recherche.
+- **--base-locale [locale]** : Langue source (par défaut : `en`).
+- **--locales [locale…]** : Une ou plusieurs locales cibles, par exemple `fr es`.
+- **--nb-simultaneous-file-processed [number]** : Nombre maximum de fichiers traités en parallèle (par défaut : `3`).
+
+Toutes les options génériques de la CLI sont également disponibles :
+
+- IA : `--provider`, `--model`, `--temperature`, `--api-key`, `--application-context`
+- Configuration : `--env`, `--env-file`, `--base-dir`, `--verbose`, `--prefix`
+
+#### Exemples
+
+```bash
+# Traduire tous les documents anglais en français et en espagnol
+npx intlayer doc translate \
+  --doc-pattern docs/docs/en/**/*.md \
+  --locales fr es \
+  --base-locale en
+
+# Revoir la documentation française et la mettre à jour sur place
+npx intlayer doc review \
+  --doc-pattern docs/docs/en/**/*.md \
+  --locales fr \
+  --base-locale en
+```

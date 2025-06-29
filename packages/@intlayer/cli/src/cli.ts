@@ -16,6 +16,8 @@ import { listContentDeclaration } from './listContentDeclaration';
 import { pull } from './pull';
 import { push } from './push';
 import { pushConfig } from './pushConfig';
+import { reviewDoc } from './reviewDoc';
+import { translateDoc } from './translateDoc';
 
 export const dirname = isESModule
   ? pathDirname(fileURLToPath(import.meta.url))
@@ -76,12 +78,12 @@ const applyConfigOptions = (command: Command) =>
 const applyAIOptions = (command: Command) => applyOptions(command, aiOptions);
 const applyGitOptions = (command: Command) => applyOptions(command, gitOptions);
 
-const extractAiOptions = (options: AIOptions) => {
+const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
   const { apiKey, provider, model, temperature, applicationContext } = options;
 
   return removeUndefined({
     apiKey: apiKey ?? configuration.ai?.apiKey,
-    provider: provider ?? configuration.ai?.provider,
+    provider: provider ?? (configuration.ai?.provider as AIOptions['provider']),
     model: model ?? configuration.ai?.model,
     temperature: temperature ?? configuration.ai?.temperature,
     applicationContext:
@@ -423,6 +425,66 @@ export const setAPI = (): Command => {
   );
 
   program.parse(process.argv);
+
+  /**
+   * DOCS
+   */
+
+  const docParams = [
+    ['--doc-pattern [docPattern...]', 'Documentation pattern'],
+    [
+      '--excluded-glob-pattern [excludedGlobPattern...]',
+      'Excluded glob pattern',
+    ],
+    [
+      '--nb-simultaneous-file-processed [nbSimultaneousFileProcessed]',
+      'Number of simultaneous file processed',
+    ],
+    ['--locales [locales...]', 'Locales'],
+    ['--base-locale [baseLocale]', 'Base locale'],
+  ];
+
+  const translateProgram = program
+    .command('doc translate')
+    .description('Translate the documentation');
+
+  applyConfigOptions(translateProgram);
+  applyAIOptions(translateProgram);
+  applyGitOptions(translateProgram);
+  applyOptions(translateProgram, docParams);
+
+  translateProgram.action((options) =>
+    translateDoc({
+      docPattern: options.docPattern,
+      excludedGlobPattern: options.excludedGlobPattern,
+      locales: options.locales,
+      baseLocale: options.baseLocale,
+      aiOptions: extractAiOptions(options),
+      nbSimultaneousFileProcessed: options.nbSimultaneousFileProcessed,
+      configOptions: extractConfigOptions(options),
+    })
+  );
+
+  const reviewProgram = program
+    .command('doc review')
+    .description('Review the documentation');
+
+  applyConfigOptions(reviewProgram);
+  applyAIOptions(reviewProgram);
+  applyGitOptions(reviewProgram);
+  applyOptions(reviewProgram, docParams);
+
+  reviewProgram.action((options) =>
+    reviewDoc({
+      docPattern: options.docPattern,
+      excludedGlobPattern: options.excludedGlobPattern,
+      locales: options.locales,
+      baseLocale: options.baseLocale,
+      aiOptions: extractAiOptions(options),
+      nbSimultaneousFileProcessed: options.nbSimultaneousFileProcessed,
+      configOptions: extractConfigOptions(options),
+    })
+  );
 
   return program;
 };

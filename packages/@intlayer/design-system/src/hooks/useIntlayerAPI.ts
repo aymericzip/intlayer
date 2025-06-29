@@ -12,17 +12,15 @@ export const useIntlayerAuth = (props?: UseIntlayerAuthProps) => {
   const configuration = useConfiguration();
   const { csrfToken, oAuth2AccessToken } = useAuth();
 
-  const headers = oAuth2AccessToken?.accessToken
-    ? {
-        Authorization: `Bearer ${oAuth2AccessToken.accessToken}`,
-      }
-    : undefined;
-
   const body = csrfToken ? { csrf_token: csrfToken } : undefined;
 
   return getIntlayerAPI(
     {
-      headers,
+      ...(oAuth2AccessToken && {
+        headers: {
+          Authorization: `Bearer ${oAuth2AccessToken}`,
+        },
+      }),
       body,
       ...(props?.options ?? {}),
     },

@@ -6,6 +6,7 @@ import {
   auditContentDeclarationMetadata,
   auditTag,
   autocomplete,
+  customQuery,
   translateJSON,
 } from '@controllers/ai.controller';
 import { Router } from 'express';
@@ -18,6 +19,11 @@ const baseURL = () => `${process.env.BACKEND_URL}${aiRoute}`;
 
 export const getAiRoutes = () =>
   ({
+    customQuery: {
+      urlModel: '/',
+      url: `${baseURL()}/`,
+      method: 'POST',
+    },
     translateJSON: {
       urlModel: '/translate/json',
       url: `${baseURL()}/translate/json`,
@@ -54,6 +60,8 @@ export const getAiRoutes = () =>
       method: 'POST',
     },
   }) satisfies Routes;
+
+aiRouter.post(getAiRoutes().customQuery.urlModel, customQuery);
 
 aiRouter.post(getAiRoutes().translateJSON.urlModel, translateJSON);
 

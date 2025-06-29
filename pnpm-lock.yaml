@@ -430,12 +430,15 @@ importers:
 
   docs:
     dependencies:
+      '@intlayer/cli':
+        specifier: workspace:*
+        version: link:../packages/@intlayer/cli
       '@intlayer/config':
         specifier: workspace:*
         version: link:../packages/@intlayer/config
-      '@intlayer/core':
+      intlayer:
         specifier: workspace:*
-        version: link:../packages/@intlayer/core
+        version: link:../packages/intlayer
     devDependencies:
       '@types/node':
         specifier: ^22.15.30
@@ -452,9 +455,6 @@ importers:
       concurrently:
         specifier: ^9.1.2
         version: 9.1.2
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.5.0
       eslint:
         specifier: ^9.28.0
         version: 9.29.0(jiti@2.4.2)
@@ -464,9 +464,6 @@ importers:
       openai:
         specifier: ^4.89.0
         version: 4.104.0(encoding@0.1.13)(ws@8.18.2)(zod@3.25.67)
-      p-limit:
-        specifier: ^3.1.0
-        version: 3.1.0
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -1267,6 +1264,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/babel:
     dependencies:
@@ -1349,6 +1349,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/chokidar:
     dependencies:
@@ -1464,6 +1467,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/cli:
     dependencies:
@@ -1534,6 +1540,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/config:
     dependencies:
@@ -1653,6 +1662,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/design-system:
     dependencies:
@@ -1907,6 +1919,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/dynamic-dictionaries-entry:
     dependencies:
@@ -1956,6 +1971,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/editor:
     devDependencies:
@@ -1998,6 +2016,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/editor-react:
     dependencies:
@@ -2065,6 +2086,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/mcp:
     dependencies:
@@ -2126,6 +2150,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/swc: {}
 
@@ -2177,6 +2204,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/@intlayer/webpack:
     dependencies:
@@ -2247,6 +2277,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/angular-intlayer:
     dependencies:
@@ -2329,6 +2362,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/express-intlayer:
     dependencies:
@@ -2402,6 +2438,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/intlayer:
     dependencies:
@@ -2460,6 +2499,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/intlayer-cli:
     dependencies:
@@ -2515,6 +2557,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/intlayer-editor:
     dependencies:
@@ -2727,6 +2772,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/next-intlayer:
     dependencies:
@@ -2812,6 +2860,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/nuxt-intlayer:
     dependencies:
@@ -2876,6 +2927,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/preact-intlayer:
     dependencies:
@@ -2946,6 +3000,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/react-intlayer:
     dependencies:
@@ -3034,6 +3091,9 @@ importers:
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/react-native-intlayer:
     dependencies:
@@ -3092,6 +3152,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/react-scripts-intlayer:
     dependencies:
@@ -3165,6 +3228,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/solid-intlayer:
     dependencies:
@@ -3232,6 +3298,9 @@ importers:
       vite-plugin-solid:
         specifier: ^2.11.6
         version: 2.11.6(@testing-library/jest-dom@6.6.3)(solid-js@1.9.7)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/svelte-intlayer:
     dependencies:
@@ -3299,6 +3368,9 @@ importers:
       vite-plugin-dts:
         specifier: ^4.5.3
         version: 4.5.4(@types/node@22.15.32)(rollup@4.43.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/vite-intlayer:
     dependencies:
@@ -3357,6 +3429,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   packages/vue-intlayer:
     dependencies:
@@ -3439,6 +3514,9 @@ importers:
       vite-plugin-dts:
         specifier: ^4.5.3
         version: 4.5.4(@types/node@22.15.32)(rollup@4.43.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.32)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0))
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@20.0.3)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   utils/eslint-config:
     devDependencies:

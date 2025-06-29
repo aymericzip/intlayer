@@ -1,15 +1,18 @@
-import { anthropic } from '@ai-sdk/anthropic';
-import { deepseek } from '@ai-sdk/deepseek';
-import { google } from '@ai-sdk/google';
-import { mistral } from '@ai-sdk/mistral';
-import { openai } from '@ai-sdk/openai';
-import { logger } from '@logger';
+import { anthropic, createAnthropic } from '@ai-sdk/anthropic';
+import { createDeepSeek, deepseek } from '@ai-sdk/deepseek';
+import { createGoogleGenerativeAI, google } from '@ai-sdk/google';
+import { createMistral, mistral } from '@ai-sdk/mistral';
+import { createOpenAI, openai } from '@ai-sdk/openai';
+import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import { CoreMessage, generateText } from 'ai';
 
 type AnthropicModel = Parameters<typeof anthropic>[0];
 type DeepSeekModel = Parameters<typeof deepseek>[0];
 type MistralModel = Parameters<typeof mistral>[0];
 type OpenAIModel = Parameters<typeof openai>[0];
 type GoogleModel = Parameters<typeof google>[0];
+
+export type Messages = CoreMessage[];
 
 /**
  * Supported AI models
@@ -41,16 +44,8 @@ export type AIOptions = {
   model?: Model;
   temperature?: number;
   apiKey?: string;
-  customPrompt?: string;
   applicationContext?: string;
-};
-
-/**
- * Configuration for AI model based on provider
- */
-export type AIModelConfig = {
-  model: any; // Using any to handle different provider model types
-  temperature?: number;
+  maxTokens?: number;
 };
 
 // Define the structure of messages used in chat completions
@@ -58,6 +53,87 @@ export type ChatCompletionRequestMessage = {
   role: 'system' | 'user' | 'assistant'; // The role of the message sender
   content: string; // The text content of the message
   timestamp?: Date; // The timestamp of the message
+};
+
+type AccessType = 'apiKey' | 'registered_user' | 'premium_user' | 'public';
+
+const getAPIKey = (
+  res: ResponseWithInformation,
+  accessType: AccessType[],
+  aiOptions?: AIOptions
+) => {
+  const defaultApiKey = process.env.OPENAI_API_KEY;
+
+  if (accessType.includes('public')) {
+    return aiOptions?.apiKey ?? defaultApiKey;
+  }
+
+  if (accessType.includes('apiKey') && aiOptions?.apiKey) {
+    return aiOptions?.apiKey;
+  }
+
+  if (accessType.includes('registered_user') && res.locals.user) {
+    return aiOptions?.apiKey ?? defaultApiKey;
+  }
+
+  // TODO: Implement premium user access
+  if (accessType.includes('premium_user') && res.locals.user) {
+    return aiOptions?.apiKey ?? defaultApiKey;
+  }
+
+  return undefined;
+};
+
+const getModel = (
+  provider: AIProvider,
+  userApiKey: string,
+  userModel?: Model,
+  defaultModel?: Model
+): Model => {
+  // Set default models based on provider
+  let fallBackModel: Model = defaultModel ?? 'chatgpt-4o-latest';
+
+  switch (provider) {
+    case AIProvider.OPENAI:
+      defaultModel = 'chatgpt-4o-latest';
+      break;
+    case AIProvider.ANTHROPIC:
+      defaultModel = 'claude-3-haiku-20240307';
+      break;
+    case AIProvider.MISTRAL:
+      defaultModel = 'mistral-large-latest';
+      break;
+    case AIProvider.DEEPSEEK:
+      defaultModel = 'deepseek-coder';
+      break;
+    case AIProvider.GEMINI:
+      defaultModel = 'gemini-1.5-pro';
+      break;
+  }
+
+  // If the user use his own API, let him use the model he wants
+  if (Boolean(userApiKey) && Boolean(userModel)) {
+    return userModel!;
+  }
+
+  if (Boolean(userModel)) {
+    throw new Error(
+      'The user should use his own API key to use a custom model'
+    );
+  }
+
+  return fallBackModel;
+};
+
+export type AIConfig = Parameters<typeof generateText>[0];
+
+const DEFAULT_PROVIDER: AIProvider = AIProvider.OPENAI as AIProvider;
+const DEFAULT_TEMPERATURE: number = 0.1;
+
+export type AIConfigOptions = {
+  userOptions?: AIOptions;
+  defaultOptions?: AIOptions;
+  accessType?: AccessType[];
 };
 
 /**
@@ -68,112 +144,88 @@ export type ChatCompletionRequestMessage = {
  * @returns Configured AI model ready to use with generateText
  */
 export const getAIConfig = async (
-  options?: AIOptions
-): Promise<AIModelConfig | undefined> => {
-  try {
-    const {
-      provider = AIProvider.OPENAI,
-      model,
-      temperature = 0.1,
-    } = options ?? {};
+  res: ResponseWithInformation,
+  options: AIConfigOptions
+): Promise<AIConfig> => {
+  const {
+    userOptions,
+    defaultOptions,
+    accessType = ['registered_user'],
+  } = options;
 
-    // Set default models based on provider
-    let defaultModel: string;
-    switch (provider) {
-      case AIProvider.OPENAI:
-        defaultModel = 'chatgpt-4o-latest';
-        break;
-      case AIProvider.ANTHROPIC:
-        defaultModel = 'claude-3-haiku-20240307';
-        break;
-      case AIProvider.MISTRAL:
-        defaultModel = 'mistral-large-latest';
-        break;
-      case AIProvider.DEEPSEEK:
-        defaultModel = 'deepseek-coder';
-        break;
-      case AIProvider.GEMINI:
-        defaultModel = 'gemini-1.5-pro';
-        break;
-      default:
-        defaultModel = 'chatgpt-4o-latest';
-    }
+  const aiOptions = {
+    provider: DEFAULT_PROVIDER,
+    temperature: DEFAULT_TEMPERATURE,
+    ...defaultOptions,
+    ...userOptions,
+  } satisfies AIOptions;
 
-    // Check if API key is provided
-    if (!options?.apiKey) {
-      logger.error(`API key for ${provider} is missing`);
-      return undefined;
-    }
+  const apiKey = getAPIKey(res, accessType, aiOptions);
 
-    // Handle each provider with appropriate model loading
-    if (provider === AIProvider.OPENAI) {
-      // OpenAI is imported statically at the top
-      return {
-        model: openai(model ?? defaultModel),
-        temperature,
-      };
-    } else {
-      // For other providers, attempt to load using require
-      try {
-        switch (provider) {
-          case AIProvider.ANTHROPIC:
-            try {
-              return {
-                model: anthropic(model ?? defaultModel),
-                temperature,
-              };
-            } catch (err) {
-              throw new Error(
-                'Failed to load @ai-sdk/anthropic. Please install it with: npm install @ai-sdk/anthropic'
-              );
-            }
-
-          case AIProvider.MISTRAL:
-            try {
-              return {
-                model: mistral(model ?? defaultModel),
-                temperature,
-              };
-            } catch (err) {
-              throw new Error(
-                'Failed to load @ai-sdk/mistral. Please install it with: npm install @ai-sdk/mistral'
-              );
-            }
-
-          case AIProvider.DEEPSEEK:
-            try {
-              return {
-                model: deepseek(model ?? defaultModel),
-                temperature,
-              };
-            } catch (err) {
-              throw new Error(
-                'Failed to load @ai-sdk/deepseek. Please install it with: npm install @ai-sdk/deepseek'
-              );
-            }
-
-          case AIProvider.GEMINI:
-            try {
-              return {
-                model: google(model ?? defaultModel),
-                temperature,
-              };
-            } catch (err) {
-              throw new Error(
-                'Failed to load @ai-sdk/google. Please install it with: npm install @ai-sdk/google'
-              );
-            }
-
-          default:
-            throw new Error(`Provider ${provider} not supported`);
-        }
-      } catch (error) {
-        logger.error(`Error loading SDK for provider ${provider}:`, error);
-        return undefined;
-      }
-    }
-  } catch (error) {
-    logger.error('Error configuring AI model:', error);
-    return undefined;
+  // Check if API key is provided
+  if (!apiKey) {
+    throw new Error(`API key for ${aiOptions.provider} is missing`);
   }
+
+  const selectedModel = getModel(
+    aiOptions.provider,
+    apiKey,
+    aiOptions.model,
+    defaultOptions?.model
+  );
+
+  const protectedOptions = {
+    ...aiOptions,
+    apiKey,
+    model: selectedModel,
+  } satisfies AIOptions;
+
+  let languageModel: AIConfig['model'];
+
+  switch (protectedOptions.provider) {
+    case AIProvider.OPENAI: {
+      languageModel = createOpenAI({
+        apiKey,
+      })(selectedModel);
+      break;
+    }
+
+    case AIProvider.ANTHROPIC: {
+      languageModel = createAnthropic({
+        apiKey,
+      })(selectedModel);
+      break;
+    }
+
+    case AIProvider.MISTRAL: {
+      languageModel = createMistral({
+        apiKey,
+      })(selectedModel);
+      break;
+    }
+
+    case AIProvider.DEEPSEEK: {
+      languageModel = createDeepSeek({
+        apiKey,
+      })(selectedModel);
+      break;
+    }
+
+    case AIProvider.GEMINI: {
+      languageModel = createGoogleGenerativeAI({
+        apiKey,
+      })(selectedModel);
+      break;
+    }
+
+    default: {
+      throw new Error(`Provider ${protectedOptions.provider} not supported`);
+    }
+  }
+
+  return {
+    model: languageModel,
+    maxTokens: protectedOptions.maxTokens,
+    temperature: protectedOptions.temperature,
+  };
 };

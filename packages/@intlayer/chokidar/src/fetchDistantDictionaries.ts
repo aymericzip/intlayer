@@ -56,7 +56,11 @@ export const fetchDistantDictionaries = async (
           dictionaryKey,
           undefined,
           {
-            headers: { Authorization: `Bearer ${oAuth2AccessToken}` },
+            ...(oAuth2AccessToken && {
+              headers: {
+                Authorization: `Bearer ${oAuth2AccessToken}`,
+              },
+            }),
           }
         );
 

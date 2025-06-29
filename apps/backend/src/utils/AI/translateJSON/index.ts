@@ -1,5 +1,4 @@
 import type { Tag } from '@/types/tag.types';
-import { retryManager } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import { logger } from '@logger';
 import { extractJson } from '@utils/extractJSON';
@@ -8,14 +7,13 @@ import { readFileSync } from 'fs';
 import type { Locales } from 'intlayer';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { AIOptions, AIProvider, getAIConfig } from '../aiSdk';
+import { AIConfig, AIOptions, AIProvider } from '../aiSdk';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Get the content of a file at the specified path
-const getFileContent = (filePath: string) => {
-  return readFileSync(join(__dirname, filePath), { encoding: 'utf-8' });
-};
+const getFileContent = (filePath: string) =>
+  readFileSync(join(__dirname, filePath), { encoding: 'utf-8' });
 
 export type TranslateJSONOptions = {
   entryFileContent: JSON;
@@ -24,8 +22,9 @@ export type TranslateJSONOptions = {
   entryLocale: Locales;
   outputLocale: Locales;
   tags: Tag[];
-  aiOptions?: AIOptions;
+  aiConfig: AIConfig;
   mode: 'complete' | 'review';
+  applicationContext?: string;
 };
 
 export type TranslateJSONResultData = {
@@ -35,6 +34,12 @@ export type TranslateJSONResultData = {
 
 // The prompt template to send to the AI model
 const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
+
+export const aiDefaultOptions: AIOptions = {
+  provider: AIProvider.OPENAI,
+  model: 'gpt-4o-mini',
+  temperature: 0.2,
+};
 
 /**
  * Format a locale with its name.
@@ -81,61 +86,36 @@ export const translateJSON = async ({
   entryFileContent,
   presetOutputContent,
   dictionaryDescription,
-  aiOptions,
+  aiConfig,
   entryLocale,
   outputLocale,
   tags,
   mode,
+  applicationContext,
 }: TranslateJSONOptions): Promise<TranslateJSONResultData | undefined> => {
-  try {
-    // Get the appropriate AI model configuration
-    const aiConfig = await getAIConfig({
-      provider: AIProvider.OPENAI,
-      model: 'gpt-4o-mini-2024-07-18',
-      ...aiOptions,
-    });
+  // Prepare the prompt for AI by replacing placeholders with actual values.
+  const prompt = CHAT_GPT_PROMPT.replace(
+    '{{entryLocale}}',
+    formatLocaleWithName(entryLocale)
+  )
+    .replace('{{outputLocale}}', formatLocaleWithName(outputLocale))
+    .replace('{{entryFileContent}}', JSON.stringify(entryFileContent))
+    .replace('{{presetOutputContent}}', JSON.stringify(presetOutputContent))
+    .replace('{{dictionaryDescription}}', dictionaryDescription)
+    .replace('{{applicationContext}}', applicationContext ?? '')
+    .replace('{{tagsInstructions}}', formatTagInstructions(tags))
+    .replace('{{modeInstructions}}', getModeInstructions(mode));
 
-    // Prepare the prompt for AI by replacing placeholders with actual values.
-    const prompt = CHAT_GPT_PROMPT.replace(
-      '{{entryLocale}}',
-      formatLocaleWithName(entryLocale)
-    )
-      .replace('{{outputLocale}}', formatLocaleWithName(outputLocale))
-      .replace('{{entryFileContent}}', JSON.stringify(entryFileContent))
-      .replace('{{presetOutputContent}}', JSON.stringify(presetOutputContent))
-      .replace('{{dictionaryDescription}}', dictionaryDescription)
-      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '')
-      .replace('{{tagsInstructions}}', formatTagInstructions(tags))
-      .replace('{{modeInstructions}}', getModeInstructions(mode));
+  // Use the AI SDK to generate the completion
+  const { text: newContent, usage } = await generateText({
+    ...aiConfig,
+    messages: [{ role: 'system', content: prompt }],
+  });
 
-    if (!aiConfig) {
-      logger.error('Failed to configure AI model');
-      return undefined;
-    }
+  logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
 
-    const result = await retryManager(async () => {
-      // Use the AI SDK to generate the completion
-      const { text: newContent, usage } = await generateText({
-        model: aiConfig.model,
-        temperature: aiConfig.temperature,
-        messages: [{ role: 'system', content: prompt }],
-      });
-
-      logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);
-
-      return {
-        fileContent: extractJson(newContent),
-        tokenUsed: usage?.totalTokens ?? 0,
-      };
-    })();
-
-    return {
-      fileContent: result.fileContent,
-      tokenUsed: result.tokenUsed,
-    };
-  } catch (error) {
-    logger.error('Error translating JSON:' + error, {
-      level: 'error',
-    });
-  }
+  return {
+    fileContent: extractJson(newContent),
+    tokenUsed: usage?.totalTokens ?? 0,
+  };
 };

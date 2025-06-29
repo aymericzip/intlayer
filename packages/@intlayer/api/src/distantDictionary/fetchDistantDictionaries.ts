@@ -29,7 +29,11 @@ export const fetchDistantDictionaries = async (
 
     // Fetch the dictionary
     const getDictionaryResult = await dictionaryAPI.getDictionaries(undefined, {
-      headers: { Authorization: `Bearer ${oAuth2AccessToken}` },
+      ...(oAuth2AccessToken && {
+        headers: {
+          Authorization: `Bearer ${oAuth2AccessToken}`,
+        },
+      }),
     });
 
     const distantDictionaries = getDictionaryResult.data;

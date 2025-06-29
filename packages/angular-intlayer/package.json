@@ -71,7 +71,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
-    "test": "",
+    "test": "vitest",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -99,7 +99,8 @@
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.2"
   },
   "peerDependencies": {
     "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",

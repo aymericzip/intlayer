@@ -24,6 +24,7 @@ import {
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
 import { dirname, extname, join } from 'path';
+import { checkAIAccess } from './utils/checkAIAccess';
 
 // Arguments for the fill function
 export type FillOptions = {
@@ -301,16 +302,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
   const mode = options.mode ?? 'review';
   const baseLocale = options.sourceLocale ?? defaultLocale;
 
-  if (!configuration.editor.clientId && !options.aiOptions?.apiKey) {
-    appLogger('AI options or API key not provided. Skipping AI translation.', {
-      level: 'error',
-    });
-    // Potentially handle this case differently, e.g., by using a different translation method or stopping.
-
-    throw new Error(
-      'AI options or API key not provided. Skipping AI translation.'
-    );
-  }
+  checkAIAccess(configuration, options.aiOptions);
 
   let oAuth2AccessToken: string | undefined;
   if (configuration.editor.clientId) {
@@ -420,13 +412,13 @@ export const fill = async (options: FillOptions): Promise<void> => {
             mode,
             aiOptions: options.aiOptions,
           },
-          oAuth2AccessToken
-            ? {
-                headers: {
-                  Authorization: `Bearer ${oAuth2AccessToken}`,
-                },
-              }
-            : undefined
+          {
+            ...(oAuth2AccessToken && {
+              headers: {
+                Authorization: `Bearer ${oAuth2AccessToken}`,
+              },
+            }),
+          }
         );
 
         if (!translationResult.data?.fileContent) {
