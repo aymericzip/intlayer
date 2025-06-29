@@ -77,8 +77,12 @@ export const customQuery = async (
   }
 };
 
-export type TranslateJSONBody =
-  ReplaceAIConfigByOptions<translateJSONUtil.TranslateJSONOptions>;
+export type TranslateJSONBody = Omit<
+  ReplaceAIConfigByOptions<translateJSONUtil.TranslateJSONOptions>,
+  'tags'
+> & {
+  tagsKeys?: string[];
+};
 export type TranslateJSONResult =
   ResponseData<translateJSONUtil.TranslateJSONResultData>;
 
