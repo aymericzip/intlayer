@@ -41,7 +41,7 @@ console.log(config);
 // }
 ```
 
-> This function uses `fs` packages and will only work on the server side.
+> This function use `fs` packages and will only work on the server side.
 
 ### Read the configuration of Intlayer using environment variables
 
@@ -91,7 +91,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> See [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md) for more details.
+> See [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) for more details.
 
 2. Define the environment variables.
 
@@ -114,3 +114,7 @@ import { getConfiguration } from "@intlayer/config/client";
 
 const intlayerConfig = getConfiguration();
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

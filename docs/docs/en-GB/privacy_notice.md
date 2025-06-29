@@ -10,7 +10,7 @@ If you have any questions or concerns about privacy, please contact us at the fo
 
 ## Use of Cookies and Tracking Technologies
 
-We use **Google Analytics** and the **Meta (Facebook) Pixel** to analyse the use of our website and improve our services. These tools generate statistics and other information about the website using cookies stored on users' devices.
+We use **Google Analytics** and the **Meta (Facebook) Pixel** to analyze the use of our website and improve our services. These tools generate statistics and other information about the website using cookies stored on users' devices.
 
 For more information:
 
@@ -55,3 +55,7 @@ For any request regarding your data, contact us at [contact@intlayer.org](mailto
 ## Changes to This Notice
 
 We may update this privacy notice from time to time. Users are advised to regularly check this page to stay informed of any changes.
+
+---
+
+Let me know if you'd like a more formal tone, add GDPR/CCPA mentions, or adapt it for a legal page on your site.

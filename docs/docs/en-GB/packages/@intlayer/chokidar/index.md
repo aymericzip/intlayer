@@ -2,7 +2,7 @@
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-The **`@intlayer/chokidar`** package is used to scan and build Intlayer declaration files into dictionaries using [chokidar](https://github.com/paulmillr/chokidar) and according to the [Intlayer configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/configuration.md).
+The **`@intlayer/chokidar`** package is used to scan and build Intlayer declaration files into dictionaries using [chokidar](https://github.com/paulmillr/chokidar) and according to the [Intlayer configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ## Usage
 
@@ -29,3 +29,7 @@ pnpm add @intlayer/chokidar
 ```bash packageManager="yarn"
 yarn add @intlayer/chokidar
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

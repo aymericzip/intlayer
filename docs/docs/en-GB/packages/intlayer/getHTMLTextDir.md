@@ -115,3 +115,7 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 In the example above, the `dir` attribute is dynamically set based on the locale.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

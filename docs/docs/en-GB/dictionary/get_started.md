@@ -5,7 +5,7 @@ githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/diction
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Dictionary | Get Started
-description: Discover how to declare and use content declaration in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+description: Discover how to declare and use dictionaries in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
   - Get Started
   - Internationalization
@@ -34,9 +34,9 @@ By default, Intlayer watches all files with the following extensions for content
 - `.content.cjs`
 - `.content.cjx`
 
-The application will search for files that match the `./src/**/*.content.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,json}` glob pattern by default.
+The application will search for files that match the `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` glob pattern by default.
 
-These default extensions are suitable for most applications. However, if you have specific requirements, refer to the [content extension customization guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#content-configuration) for instructions on how to manage them.
+These default extensions are suitable for most applications. However, if you have specific requirements, refer to the [content extension customization guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#content-configuration) for instructions on how to manage them.
 
 For a full list of configuration options, visit the configuration documentation.
 
@@ -45,7 +45,17 @@ For a full list of configuration options, visit the configuration documentation.
 Create and manage your dictionaries:
 
 ```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
-import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
+import { type ReactNode } from "react";
+import {
+  t,
+  enu,
+  cond,
+  nest,
+  md,
+  insert,
+  file,
+  type Dictionary,
+} from "intlayer";
 
 interface Content {
   imbricatedContent: {
@@ -59,12 +69,12 @@ interface Content {
   multilingualContent: string;
   quantityContent: string;
   conditionalContent: string;
+  markdownContent: never;
   externalContent: string;
   insertionContent: string;
+  nestedContent: string;
   fileContent: string;
-  nestedContent: any;
-  markdownContent: any;
-  jsxContent: any;
+  jsxContent: ReactNode;
 }
 
 export default {
@@ -96,11 +106,13 @@ export default {
       true: "Validation is enabled",
       false: "Validation is disabled",
     }),
+    insertionContent: insert("Hello {{name}}!"),
     nestedContent: nest(
       "navbar", // The key of the dictionary to nest
       "login.button" // [Optional] The path to the content to nest
     ),
-    externalContent: fetch("https://example.com").then((res) => res.json())
+    fileContent: file("./path/to/file.txt"),
+    externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Markdown Example"),
 
     /*
@@ -112,7 +124,7 @@ export default {
 ```
 
 ```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
+import { t, enu, cond, nest, md, insert, file } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 export default {
@@ -145,11 +157,13 @@ export default {
       true: "Validation is enabled",
       false: "Validation is disabled",
     }),
+    insertionContent: insert("Hello {{name}}!"),
     nestedContent: nest(
       "navbar", // The key of the dictionary to nest
       "login.button" // [Optional] The path to the content to nest
     ),
     markdownContent: md("# Markdown Example"),
+    fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Only available using `react-intlayer` or `next-intlayer`
@@ -159,7 +173,7 @@ export default {
 ```
 
 ```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
+const { t, enu, cond, nest, md, insert, file } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 module.exports = {
@@ -192,11 +206,13 @@ module.exports = {
       true: "Validation is enabled",
       false: "Validation is disabled",
     }),
+    insertionContent: insert("Hello {{name}}!"),
     nestedContent: nest(
       "navbar", // The key of the dictionary to nest
       "login.button" // [Optional] The path to the content to nest
     ),
     markdownContent: md("# Markdown Example"),
+    fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Only available using `react-intlayer` or `next-intlayer`
@@ -245,6 +261,10 @@ module.exports = {
         "false": "Validation is disabled",
       },
     },
+    "insertionContent": {
+      "nodeType": "insertion",
+      "insertion": "Hello {{name}}!",
+    },
     "nestedContent": {
       "nodeType": "nested",
       "nested": { "dictionaryKey": "app" },
@@ -252,6 +272,10 @@ module.exports = {
     "markdownContent": {
       "nodeType": "markdown",
       "markdown": "# Markdown Example",
+    },
+    "fileContent": {
+      "nodeType": "file",
+      "file": "./path/to/file.txt",
     },
     "jsxContent": {
       "type": "h1",
@@ -482,3 +506,21 @@ module.exports = {
   },
 }
 ```
+
+## Additional Resources
+
+For more details in Intlayer, refer to the following resources:
+
+- [Per-Locale Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/per_locale_file.md)
+- [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
+- [Enumeration Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
+- [Condition Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md)
+- [Insertion Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)
+- [File Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
+- [Nesting Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)
+- [Markdown Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
+- [Function Fetching Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

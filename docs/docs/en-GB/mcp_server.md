@@ -25,7 +25,7 @@ The **Intlayer MCP (Model Context Protocol) Server** provides AI-powered IDE ass
 By enabling the Intlayer MCP Server in your IDE, you unlock:
 
 - **Smart CLI Integration**
-  Access and run Intlayer CLI commands directly from your IDE interface. View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+  Access and run Intlayer CLI commands directly from your IDE interface. View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
 
 - **Context-Aware Documentation**
   The MCP server loads and exposes the documentation that corresponds to the version of Intlayer you're using in your project. This ensures that code suggestions, command options, and explanations are always up to date and relevant.
@@ -162,7 +162,13 @@ The server will expose Intlayer-specific tools and resources that can be consume
 
 ---
 
-## Useful Links
+##Useful Links
 
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md)
+- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
 - [Intlayer GitHub Repository](https://github.com/aymericzip/intlayer)
+
+---
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

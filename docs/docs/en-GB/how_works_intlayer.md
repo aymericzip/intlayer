@@ -18,7 +18,7 @@ keywords:
 
 ## Overview
 
-The main idea behind Intlayer is to adopt a per-component content management approach. The concept of Intlayer is to allow you to declare your content anywhere in your codebase, such as in the same directory as your component.
+The main idea behind Intlayer is to adopt a per-component content management. So the idea behind Intlayer is to allow you to declare your content anywhere in your codebase, as in the same directory as your component.
 
 ```bash
 .
@@ -28,30 +28,30 @@ The main idea behind Intlayer is to adopt a per-component content management app
         └── index.mjs
 ```
 
-To achieve this, Intlayer's role is to locate all your `content declaration files`, in all the different formats present in your project, and then generate the `dictionaries` from them.
+To do that, the role of Intlayer is to find all your `content declaration files`, in all different formats present in your project, and then it will generate the `dictionaries` from them.
 
-Thus, there are two main steps:
+So there are two main steps:
 
 - Build step
 - Interpretation step
 
 ### Build of dictionaries step
 
-The build step can be executed in three ways:
+The build step can be done in three ways:
 
 - using the CLI with `npx intlayer build`
-- using [vscode extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md)
-- using the app plugins such as [`vite-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vite-intlayer/index.md), or their equivalents for [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/next-intlayer/index.md). When you use one of these plugins, Intlayer will automatically build your dictionaries when you start (dev) or build (prod) your application.
+- using [vscode extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- using the app plugins such as [`vite-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md), or their equivalents for [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md). When you use one of those plugins, Intlayer will automatically build your dictionaries when you start (dev) or build (prod) your application.
 
 1. Declaration of content files
 
    - Content files can be defined in various formats, such as TypeScript, ECMAScript, CommonJS, or JSON.
-   - Content files can be defined anywhere in the project, which allows for better maintenance and scalability. It is important to adhere to the file extension conventions for content files. This extension is by default `*.content.{js|cjs|mjs|ts|tsx|json}`, but it can be modified in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+   - Content files can be defined everywhere in the project, which allows for better maintenance and scalability. It is important to respect the file extension conventions for content files. This extension is by default `*.content.{js|cjs|mjs|ts|tsx|json}`, but it can be modified in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 2. Generation of `dictionaries`
 
    - Dictionaries are generated from content files. By default, Intlayer dictionaries are generated in the `.intlayer/dictionaries` directory of the project.
-   - These dictionaries are generated in different formats to meet all needs and optimise the performance of the application.
+   - Those dictionaries are generated in different formats to match all needs and optimize the performance of the application.
 
 3. Generation of dictionary types
 
@@ -73,23 +73,21 @@ const MyComponent = () => {
 };
 ```
 
-This hook will manage the locale detection for you and will return the content for the current locale. Using this hook, you will also be able to interpret markdown, manage pluralisation, and more.
+This hook will manage the locale detection for you and will return the content for the current locale. Using this hook, you will also be able to interpret markdown, manage pluralization, and more.
 
-> To see all the features of Intlayer, you can read the [dictionary documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md).
+> To see all the features of Intlayer, you can read the [dictionary documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
 
 ## Distant content
 
-Intlayer allows you to declare content locally, and then export it to the CMS to make it editable by your non-technical team.
+Intlayer allows you to declare content locally, and then export them to the CMS to make it editable by your non-technical team.
 
-Thus, you will be able to push and pull content from the CMS to your application, in a similar way to what you do with Git for your code.
+So you will be able to push and pull content from the CMS to your application, in a similar way to what you do with Git for your code.
 
 For externalized dictionaries using the CMS, Intlayer performs a basic fetch operation to retrieve distant dictionaries and merges them with your local ones. If configured on your project, Intlayer will automatically manage the fetching of the content from the CMS when the application starts (dev) / builds (prod).
 
 ## Visual editor
 
-Intlayer also provides a visual editor to allow you to edit your content in a visual way. This [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) is available in the external `intlayer-editor` package.
-
-The visual editor is a standalone application that can be used to edit your content. It's composed on two parts: the server and the client.
+Intlayer also provides a visual editor to allow you to edit your content in a visual way. This [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is available in the external `intlayer-editor` package.
 
 ![visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -99,21 +97,21 @@ The visual editor is a standalone application that can be used to edit your cont
 When you call your content using `useIntlayer` and the editor is enabled, it automatically wraps your strings with an Proxy object named `IntlayerNode`. This node uses `window.sendMessage` to communicate with a wrapped iframe containing the visual editor interface.
 On the editor side, the editor listens to these messages and simulates real interaction with your content, allowing you to edit text directly in your application's context.
 
-## App build optimisation
+## App build optimization
 
-To optimise the bundle size of your application, Intlayer provides two plugins to optimise the build of your application: `@intlayer/babel` and `@intlayer/swc` plugins.
+To optimize the bundle size of your application, Intlayer provides two plugins to optimize the build of your application: `@intlayer/babel` and `@intlayer/swc` plugins.
 
 The Babel and SWC plugins work by analyzing your application's Abstract Syntax Tree (AST) to replace calls of Intlayer functions with optimized code. This process makes your final bundle lighter in production by ensuring that only the dictionaries that are actually used are imported, optimizing chunking and reducing bundle size.
 
-In development mode, Intlayer uses a centralised static import for dictionaries to simplify the development experience.
+In development mode, Intlayer uses a centralized static import for dictionaries to simplify the development experience.
 
-By activating the option `activateDynamicImport` in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md), Intlayer will use the dynamic import to load the dictionaries. This option is disabled by default to avoid asynchronous processing when rendering the application.
+By activating the option `activateDynamicImport` in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md), Intlayer will use the dynamic import to load the dictionaries. This option is disabled by default to avoid async processing when rendering the application.
 
 > `@intlayer/babel` is available by default on `vite-intlayer` package,
 
 > `@intlayer/swc` is not installed by default on `next-intlayer` package as SWC plugins are still experimental on Next.js.
 
-To see how to configure the build of your application, you can read the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+To see how to configure the build of your application, you can read the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ## Packages
 
@@ -136,6 +134,10 @@ The `next-intlayer` package is used as a layer on top of `react-intlayer` to mak
 ### vue-intlayer
 
 The `vue-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Vue applications.
+
+### nuxt-intlayer
+
+The `nuxt-intlayer` package is as Nuxt module to make Intlayer dictionaries usable in Nuxt applications. It integrates essential features to make Intlayer work in a Nuxt environment, such as translation middleware, routing, or the `nuxt.config.js` file configuration.
 
 ### svelte-intlayer (WIP)
 
@@ -171,9 +173,11 @@ Includes the Vite plugin for integrating Intlayer with the [Vite bundler](https:
 
 ### react-scripts-intlayer
 
+Includes the `react-scripts-intlayer` commands and plugins for integrating Intlayer with the Create React App based application. These plugins are based on [craco](https://craco.js.org/) and include additional configuration for the [Webpack](https://webpack.js.org/) bundler.
+
 ### intlayer-editor
 
-The `intlayer-editor` package is used to enable the use of the visual editor. This package, which is optional, can be installed in applications and will be used by the `react-intlayer` package.  
+The `intlayer-editor` package is used to allow the use of the visual editor. This package, optional, can be installed in applications and will be used by the `react-intlayer` package.
 It consists of two parts: the server and the client.
 
 The client contains UI elements that will be used by `react-intlayer`.
@@ -182,11 +186,11 @@ The server, based on Express, is used to receive the visual editor requests and 
 
 ### intlayer-cli
 
-The `intlayer-cli` package can be used to generate dictionaries using the `npx intlayer dictionaries build` command. If `intlayer` is already installed, the CLI is automatically installed, and this package is not necessary.
+The `intlayer-cli` package can be used to generate dictionaries using the `npx intlayer dictionaries build` command. If `intlayer` is already installed, the CLI is automatically installed and this package is not necessary.
 
 ### @intlayer/core
 
-The `@intlayer/core` package is the master Intlayer package. It contains translation and dictionary management functions. `@intlayer/core` is multi-platform and is used by other packages to perform interpretation of dictionaries.
+The `@intlayer/core` package is the master Intlayer package. It contains translation and dictionary management functions. `@intlayer/core` is multiplatform and is used by other packages to perform interpretation of dictionaries.
 
 ### @intlayer/config
 
@@ -198,7 +202,7 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 
 ### @intlayer/cli
 
-The `@intlayer/cli` package is an NPM package that is used to declare the scripts related to the Intlayer command line interfaces. It ensures the uniformity of all Intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/en-GB/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/en-GB/packages/intlayer/index.md) packages.
+The `@intlayer/cli` package is an NPM package that is used to declare the scripts related to the Intlayer command line interfaces. It ensures the uniformity of all Intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer/index.md) packages.
 
 ### @intlayer/mcp
 
@@ -206,7 +210,7 @@ The `@intlayer/mcp` package provides an MCP (Model Context Protocol) server that
 
 ### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
 
-The `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` and `@intlayer/dynamic-dictionaries-entry` packages return the entry path of the Intlayer dictionaries. Since searching the filesystem from the browser is impossible, using bundlers like Webpack or Rollup to retrieve the entry path of the dictionaries is not possible. These packages are designed to be aliased, allowing for bundling optimisation across various bundlers such as Vite, Webpack, and Turbopack.
+The `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` and `@intlayer/dynamic-dictionaries-entry` packages return the entry path of the Intlayer dictionaries. Since searching the filesystem from the browser is impossible, using bundlers like Webpack or Rollup to retrieve the entry path of the dictionaries is not possible. These packages are designed to be aliased, allowing for bundling optimization across various bundlers such as Vite, Webpack, and Turbopack.
 
 ### @intlayer/chokidar
 
@@ -222,11 +226,11 @@ The `@intlayer/editor-react` package provides states, contexts, hooks and compon
 
 ### @intlayer/babel
 
-The `@intlayer/babel` package provides tools that optimise bundling of dictionaries for Vite and Webpack-based applications.
+The `@intlayer/babel` package provides tools that optimize bundling of dictionaries for Vite and Webpack based applications.
 
-### @intlayer/swc
+### @intlayer/swc (WIP)
 
-The `@intlayer/swc` package provides tools that optimise bundling of dictionaries for Next.js applications.
+The `@intlayer/swc` package provides tools that optimize bundling of dictionaries for Next.js applications.
 
 ### @intlayer/api
 
@@ -242,4 +246,8 @@ The `@intlayer/backend` package exports backend types and will eventually offer 
 
 ## Chat with our smart documentation
 
-- [Ask your questions to our smart documentation](https://intlayer.org/en-GB/doc/chat)
+- [Ask your questions to our smart documentation](https://intlayer.org/doc/chat)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

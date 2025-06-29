@@ -30,7 +30,7 @@ With Intlayer, you can adopt a workflow where only a single locale is declared l
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.SPANISH, Locales.FRENCH],
     requiredLocales: [Locales.ENGLISH], // Optional locales will be managed remotely
     defaultLocale: Locales.ENGLISH,
@@ -51,7 +51,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-To learn more about the CMS, refer to the [official documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
+To learn more about the CMS, refer to the [official documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 ## Using Husky
 
@@ -63,7 +63,7 @@ You can integrate translation generation into your local Git workflow using [Hus
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.SPANISH, Locales.FRENCH],
     requiredLocales: [Locales.ENGLISH], // Optional locales are handled remotely
     defaultLocale: Locales.ENGLISH,
@@ -88,7 +88,7 @@ npx intlayer build                          # To ensure dictionaries are up to d
 npx intlayer fill --unpushed --mode fill    # Only fill missing content, does not update existing ones
 ```
 
-> For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+> For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
 
 > If you have multiple apps in your repo using separate intlayer instances, you can use the `--base-dir` argument like this:
 
@@ -164,4 +164,8 @@ jobs:
 
 > By default, the `--git-diff` argument filters dictionaries that include changes from base (default `origin/main`) to current branch (default: `HEAD`).
 
-> For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+> For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

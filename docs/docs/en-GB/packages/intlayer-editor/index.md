@@ -28,7 +28,7 @@ yarn add intlayer-editor
 
 ### Configuration
 
-In your Intlayer configuration file, you can customise the editor settings:
+In your Intlayer configuration file, you can customize the editor settings:
 
 ```typescript
 const config: IntlayerConfig = {
@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 
 > If you don't have a client ID and client secret, you can obtain them by creating a new client in the [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
 
-> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
+> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 The `intlayer-editor` package is based on Intlayer and is available for JavaScript applications, such as React (Create React App), Vite + React, and Next.js.
 
@@ -54,15 +54,15 @@ For more details on how to install the package, see the relevant section below:
 
 ### Integrating with Next.js
 
-For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md).
+For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md).
 
 ### Integrating with Create React App
 
-For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md)
+For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)
 
 ### Integrating with Vite + React
 
-For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md)
+For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 ### Example of integration
 
@@ -87,7 +87,7 @@ To integrate the Intlayer visual editor into your React project, follow these st
 
 - Import the Intlayer editor styles into your Next.js application:
 
-  ```tsx fileName="src/app/{{locale}}/layout.jsx"
+  ```tsx fileName="src/app/[locale]/layout.jsx"
   import { IntlayerEditorStyles } from "intlayer-editor";
 
   export default async function RootLayout({ children, params }) {
@@ -111,3 +111,7 @@ When the editor is installed, enabled, and started, you can view each field inde
 ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 If your content is outlined, you can long-press it to display the edit drawer.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

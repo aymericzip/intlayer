@@ -65,13 +65,13 @@ The `getMultilingualUrls` function generates a mapping of multilingual URLs by p
 import { getMultilingualUrls, Locales } from "intlayer";
 
 getMultilingualUrls(
-  "/{{locale}}/dashboard",
+  "/dashboard",
   [Locales.ENGLISH, Locales.FRENCH],
   Locales.ENGLISH,
   false
 );
 // Output: {
-//   en: "/en-GB/dashboard",
+//   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
@@ -80,13 +80,13 @@ getMultilingualUrls(
 import { getMultilingualUrls, Locales } from "intlayer";
 
 getMultilingualUrls(
-  "/{{locale}}/dashboard",
+  "/dashboard",
   [Locales.ENGLISH, Locales.FRENCH],
   Locales.ENGLISH,
   false
 );
 // Output: {
-//   en: "/en-GB/dashboard",
+//   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
@@ -95,13 +95,13 @@ getMultilingualUrls(
 const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
-  "/{{locale}}/dashboard",
+  "/dashboard",
   [Locales.ENGLISH, Locales.FRENCH],
   Locales.ENGLISH,
   false
 );
 // Output: {
-//   en: "/en-GB/dashboard",
+//   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
@@ -116,7 +116,7 @@ getMultilingualUrls(
   true
 );
 // Output: {
-//   en: "https://example.com/en-GB/dashboard",
+//   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
 // }
 ```
@@ -190,13 +190,13 @@ Using this configuration, the `getMultilingualUrls` function can dynamically gen
 
 ```typescript
 getMultilingualUrls(
-  "/{{locale}}/dashboard",
+  "/dashboard",
   [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   Locales.ENGLISH
 );
 // Output:
 // {
-//   en: "/en-GB/dashboard",
+//   en: "/dashboard",
 //   fr: "/fr/dashboard",
 //   es: "/es/dashboard"
 // }
@@ -209,10 +209,14 @@ getMultilingualUrls(
 );
 // Output:
 // {
-//   en: "https://example.com/en-GB/dashboard",
+//   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard",
 //   es: "https://example.com/es/dashboard"
 // }
 ```
 
 By integrating `getMultilingualUrls`, developers can maintain consistent URL structures across multiple languages, enhancing both user experience and SEO.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

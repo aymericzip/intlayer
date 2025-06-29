@@ -42,18 +42,18 @@ The `getLocalizedUrl` function generates a localized URL by prefixing the given 
 
   - **Description**: Optional array of supported locales. By defaults, the configured locales in the project are provided.
   - **Type**: `Locales[]`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/configuration.md#middleware)
+  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
   - **Description**: The default locale for the application. By defaults, the configured default locale in the project are provided.
   - **Type**: `Locales`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/configuration.md#middleware)
+  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
 - `prefixDefault: boolean`
   - **Description**: Whether to prefix the URL for the default locale. By defaults, the configured value in the project are provided.
   - **Type**: `boolean`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/configuration.md#middleware)
+  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
 ### Returns
 
@@ -239,3 +239,7 @@ getLocalizedUrl("/about", Locales.ENGLISH); // Output: "/about"
 ```
 
 By integrating `getLocalizedUrl`, developers can maintain consistent URL structures across multiple languages, enhancing both user experience and SEO.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

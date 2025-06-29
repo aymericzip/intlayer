@@ -16,15 +16,15 @@ keywords:
   - React
 ---
 
-# react-intlayer: NPM Package to internationalise (i18n) a React application
+# react-intlayer: NPM Package to internationalize (i18n) an React application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-**The `react-intlayer` package** allows you to internationalise your React application. It provides context providers and hooks for React internationalisation.
+**The `react-intlayer` package** allows you to internationalize your React application. It provides context providers and hooks for React internationalization.
 
-## Why Internationalise Your React Application?
+## Why Internationalize Your React Application?
 
-Internationalising your React application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
+Internationalizing your React application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
 
 ## Why to integrate Intlayer?
 
@@ -54,7 +54,7 @@ With Intlayer, you can declare your content in a structured way anywhere in your
 
 By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -97,7 +97,7 @@ By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,j
 
 ### Declare your content
 
-`react-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
+`react-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
 
 Here’s an example of content declaration:
 
@@ -205,7 +205,7 @@ module.exports = component1Content;
 }
 ```
 
-### Utilise Content in Your Code
+### Utilize Content in Your Code
 
 Once you have declared your content, you can use it in your code. Here's an example of how to use the content in a React component:
 
@@ -258,18 +258,22 @@ const Component1Example = () => {
 };
 ```
 
-## Mastering the internationalisation of your React application
+## Mastering the internationalization of your React application
 
-Intlayer provides a lot of features to help you internationalise your React application.
+Intlayer provides a lot of features to help you internationalize your React application.
 
-**To learn more about these features, refer to the [React Internationalisation (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md) guide for Vite and React Application, or the [React Internationalisation (i18n) with Intlayer and React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md) guide for React Create App.**
+**To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application, or the [React Internationalization (i18n) with Intlayer and React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md) guide for React Create App.**
 
 ## Functions provided by `react-intlayer` package
 
-The `react-intlayer` package also provides some functions to help you to internationalise your application.
+The `react-intlayer` package also provides some functions to help you to internationalize your application.
 
-- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/t.md)
-- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayer.md)
-- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useDictionary.md)
-- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayerAsync.md)
+- [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md)
+- [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
+- [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useDictionary.md)
+- [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
+- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

@@ -180,7 +180,7 @@ As second parameter, you can specify a path to a nested value within that conten
 
 To use nested content in a React component, leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified key. Here's an example of how to use it:
 
-```tsx fileName="/{{locale}}/**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -206,7 +206,7 @@ const NestComponent: FC = () => {
 export default NestComponent;
 ```
 
-```javascript fileName="/{{locale}}/**/*.mjx" codeFormat="esm"
+```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const NestComponent = () => {
@@ -231,7 +231,7 @@ const NestComponent = () => {
 export default NestComponent;
 ```
 
-```javascript fileName="/{{locale}}/**/*.cjx" codeFormat="commonjs"
+```javascript fileName="**/*.cjx" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
 const NestComponent = () => {
@@ -260,8 +260,12 @@ module.exports = NestComponent;
 
 For more detailed information on configuration and usage, refer to the following resources:
 
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md)
-- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md)
-- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md)
+- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
+- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)
+- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 These resources provide further insights into the setup and usage of Intlayer in different environments and with various frameworks.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

@@ -1,4 +1,6 @@
-# Intlayer supports two ways to declare multilingual content:
+# Declaration of `Per-Locale` Content Declaration in Intlayer
+
+Intlayer supports two ways to declare multilingual content:
 
 - Single file with all translations
 - One file per locale (per-locale format)
@@ -7,7 +9,7 @@ This flexibility enables:
 
 - Easy migration from other i18n tools
 - Support for automated translation workflows
-- Clear organisation of translations into separate, locale-specific files
+- Clear organization of translations into separate, locale-specific files
 
 ## Single File with Multiple Translations
 
@@ -16,7 +18,7 @@ This format is ideal for:
 - Quick iteration in code.
 - Seamless integration with the CMS.
 
-This is the recommended approach for most use cases. It centralises translations, making it easy to iterate and integrate with the CMS.
+This is the recommended approach for most use cases. It centralizes translations, making it easy to iterate and integrate with the CMS.
 
 ```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -25,7 +27,6 @@ const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      "en-GB": "Title of my component",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -43,7 +44,6 @@ const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      "en-GB": "Title of my component",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -61,7 +61,6 @@ const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      "en-GB": "Title of my component",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -79,7 +78,6 @@ module.exports = helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "en-GB": "Title of my component",
         "en": "Title of my component",
         "es": "Título de mi componente"
       }
@@ -99,7 +97,7 @@ This format is useful when:
 
 You can also split translations into individual locale files by specifying the locale field:
 
-```tsx fileName="hello-world.en-GB.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -118,10 +116,12 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // Important
   content: { multilingualContent: "Título de mi componente" },
-};
+} satisfies Dictionary;
+
+export default helloWorldContent;
 ```
 
-```js fileName="hello-world.en-GB.content.mjs" contentDeclarationFormat="esm"
+```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -134,20 +134,20 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.en-GB.content.mjs" contentDeclarationFormat="esm"
+```tsx fileName="hello-world.es.content.mjs" contentDeclarationFormat="esm"
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 const helloWorldContent = {
   key: "hello-world",
-  locale: Locales.ENGLISH, // Important
-  content: { multilingualContent: "Title of my component" },
+  locale: Locales.SPANISH, // Important
+  content: { multilingualContent: "Título de mi componente" },
 };
 
 export default helloWorldContent;
 ```
 
-```js fileName="hello-world.en-GB.content.cjs" contentDeclarationFormat="commonjs"
+```js fileName="hello-world.en.content.cjs" contentDeclarationFormat="commonjs"
 const { t, Locales } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -177,11 +177,11 @@ const helloWorldContent = {
 module.exports = helloWorldContent;
 ```
 
-```json5 fileName="hello-world.en-GB.content.json" contentDeclarationFormat="json"
+```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "hello-world",
-  "locale": "en-GB", // Important
+  "locale": "en", // Important
   "content": {
     "multilingualContent": "Title of my component",
   },
@@ -201,19 +201,19 @@ module.exports = helloWorldContent;
 
 > Important: Make sure the locale field is defined. It tells Intlayer which language the file represents.
 
-> Note: In both cases, the content declaration file must follow the naming pattern `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` to be recognised by Intlayer. The `.[locale]` suffix is optional and used only as a naming convention.
+> Note: In both cases, the content declaration file must follow the naming pattern `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` to be recognized by Intlayer. The `.[locale]` suffix is optional and used only as a naming convention.
 
 ## Mixing Formats
 
-You can mix both approaches for the same content key. For example:
+You can combine both declaration approaches for the same content key. For example:
 
-Declare default or base content statically (e.g., `index.content.ts`)
+- Declare your base content statically in a file like index.content.ts.
+- Add or override specific translations in separate files such as index.fr.content.ts or index.content.json.
 
-Add or override locale-specific content in `index.content.json`, `index.fr.content.ts`, etc.
+This setup is especially useful when:
 
-This is especially useful when:
-
-- You want to declare your base content statically in your codebase and fill automatically with translations in the CMS.
+- You want to define the initial content structure in code.
+- You plan to enrich or complete translations later using the CMS or automated tools.
 
 ```bash codeFormat="typescript"
 .
@@ -251,7 +251,6 @@ export default helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "en-GB": "Title of my component",
         "fr": "Titre de mon composant",
         "es": "Título de mi componente"
       }
@@ -295,4 +294,8 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### Automatic Translation Generation
 
-Use the [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md) to auto-fill missing translations based on your preferred services.
+Use the [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) to auto-fill missing translations based on your preferred services.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

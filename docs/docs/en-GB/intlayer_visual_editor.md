@@ -30,7 +30,7 @@ The `intlayer-editor` package is based on Intlayer and is available for JavaScri
 
 The Intlayer Visual editor is a tool that allows you to manage your content in a visual editor for local dictionaries. Once a change is made, the content will be replaced in the code-base. That means that the application will be rebuilt and the page will be reloaded to display the new content.
 
-In contrast, the [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) is a tool that allows you to manage your content in a visual editor for distant dictionaries. Once a change is made, the content will **not** impact your code-base. And the website will automatically display the changed content.
+In contrast, the [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) is a tool that allows you to manage your content in a visual editor for distant dictionaries. Once a change is made, the content will **not** impact your code-base. And the website will automatically display the changed content.
 
 ## Integrate Intlayer into your application
 
@@ -38,15 +38,15 @@ For more details on how to integrate intlayer, see the relevant section below:
 
 ### Integrating with Next.js
 
-For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md).
+For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md).
 
 ### Integrating with Create React App
 
-For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md).
+For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md).
 
 ### Integrating with Vite + React
 
-For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md).
+For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md).
 
 ## How Intlayer Editor Works
 
@@ -76,7 +76,7 @@ pnpm add intlayer-editor --save-dev
 
 ## Configuration
 
-In your Intlayer configuration file, you can customise the editor settings:
+In your Intlayer configuration file, you can customize the editor settings:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -186,7 +186,7 @@ const config = {
 module.exports = config;
 ```
 
-> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ## Using the Editor
 
@@ -214,15 +214,53 @@ module.exports = config;
 
 3. If your content is outlined, you can long-press it to display the edit drawer.
 
+## Environment configuration
+
+The editor can be configured to use a specific environment file. This is useful when you want to use the same configuration file for development and production.
+
+To use a specific environment file, you can use the `--env-file` or `-f` flag when starting the editor:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> Note that the environment file should be located in the root directory of your project.
+
+Or you can use the `--env` or `-e` flag to specify the environment:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
+
 ## Debug
 
 If you encounter any issues with the visual editor, check the following:
 
 - The visual editor and the application are running.
 
-- The [`editor`](/en-GB/doc/concept/configuration#editor-configuration) configuration are correctly set in your Intlayer configuration file.
+- The [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration are correctly set in your Intlayer configuration file.
 
   - Required fields:
     - The application URL should match the one you set in the editor configuration (`applicationURL`).
 
 - The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS url as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

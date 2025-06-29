@@ -21,9 +21,7 @@ keywords:
 
 ## Overview
 
-**Intlayer** is the official Visual Studio Code extension for **Intlayer**, designed to enhance the developer experience when working with localised content in **React, Next.js, and JavaScript** projects.
-
-With this extension, developers can **quickly navigate** to their content dictionaries, manage localisation files, and streamline their workflow with powerful automation commands.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) is the official Visual Studio Code extension for **Intlayer**, designed to improve the developer experience when working with localized content in your projects.
 
 ![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
@@ -35,7 +33,7 @@ Extension link: [https://marketplace.visualstudio.com/items?itemName=Intlayer.in
 
 **Go to Definition Support** – Use `Cmd+Click` (Mac) or `Ctrl+Click` (Windows/Linux) on a `useIntlayer` key to open the corresponding content file instantly.  
 **Seamless Integration** – Works effortlessly with **react-intlayer** and **next-intlayer** projects.  
-**Multi-language Support** – Supports localised content across different languages.  
+**Multi-language Support** – Supports localized content across different languages.  
 **VS Code Integration** – Smoothly integrates with VS Code’s navigation and command palette.
 
 ### Dictionary Management Commands
@@ -112,14 +110,6 @@ Sync the latest dictionary content:
 2. Search for **Pull Dictionaries**.
 3. Choose the dictionaries to pull.
 
-### Customising Dictionary File Paths
-
-By default, the extension follows the standard **Intlayer** project structure. However, you can configure custom paths:
-
-1. Open **Settings (`Cmd + ,` on macOS / `Ctrl + ,` on Windows/Linux)`**.
-2. Search for `Intlayer`.
-3. Adjust the content file path setting.
-
 ## Development & Contribution
 
 Want to contribute? We welcome community contributions!
@@ -156,3 +146,7 @@ Found a bug or have a feature request? Open an issue on our **GitHub repository*
 ## License
 
 Intlayer is released under the **MIT License**.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

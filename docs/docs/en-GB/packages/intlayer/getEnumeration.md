@@ -148,7 +148,7 @@ console.log(content); // Output: "You have less than four"
 
 - **Invalid Keys:**
 
-  - The function assumes that all keys in `enumerationContent` are valid and parsable as conditions. Invalid or improperly formatted keys may lead to unexpected behaviour.
+  - The function assumes that all keys in `enumerationContent` are valid and parsable as conditions. Invalid or improperly formatted keys may lead to unexpected behavior.
 
 - **TypeScript Enforcement:**
   - The function ensures that the `Content` type is consistent across all keys, allowing for type safety in the retrieved content.
@@ -157,4 +157,6 @@ console.log(content); // Output: "You have less than four"
 
 - The `findMatchingCondition` utility is used to determine the appropriate condition based on the given quantity.
 
-[Documentation in English (United Kingdom)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/getEnumeration.md)
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

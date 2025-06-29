@@ -32,7 +32,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/get_started.md)
+> - [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md)
 
 ### 2. Internationalization
 
@@ -41,7 +41,7 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/translation.md)
+> - [Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
 
 ### 3. Markdown Support
 
@@ -50,18 +50,64 @@ Intlayer is a content management and internationalization solution designed to s
 
 > Resources:
 >
-> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/markdown.md)
+> - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
 
-### 4. Conditional Rendering
+### 4. External file support
 
-- Define content that adapts based on specific conditions, such as user language, user login status, or any other context-related variable.
-- Helps tailor personalized experiences without duplicating content across multiple files.
+- Import content from external files as text format, such as TXT, HTML, JSON, YAML, or CSV.
+- Use the `file` function in Intlayer to embed external file content into a dictionary, ensuring seamless integration with the Intlayer Visual Editor and CMS.
+- Supports dynamic content updates, meaning that when the source file is modified, the content updates automatically within Intlayer.
+- Enables multilingual content management by linking language-specific Markdown files dynamically.
 
 > Resources:
 >
-> - [Conditional Rendering](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/condition.md)
+> - [File Content Embedding](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
 
-### 5. Content Declaration Formats
+### 5. Dynamic Content & Function Fetching
+
+Intlayer provides various methods to insert and manage dynamic content, ensuring flexibility and adaptability in content delivery. This includes functions for dynamic content insertion, conditional rendering, enumeration, nesting, and function fetching.
+
+1. Dynamic Content Insertion
+
+   Use the insert function to define content with placeholders ({{name}}, {{age}}, etc.).
+
+   Enables template-like content that adapts based on user input, API responses, or other dynamic data sources.
+
+   Works seamlessly with TypeScript, ESM, CommonJS, and JSON configurations.
+
+   Easily integrates with React Intlayer and Next Intlayer using useIntlayer.
+
+2. Conditional Rendering
+
+   Define content that adapts based on user-specific conditions, such as language or authentication status.
+
+   Tailor personalized experiences without duplicating content across multiple files.
+
+3. Enumeration & Pluralization
+
+   Use the enu function to define content variations based on numeric values, ranges, or custom keys.
+
+   Ensures automatic selection of the correct phrase based on a given value.
+
+   Supports ordering rules, ensuring predictable behavior.
+
+4. Nesting & Sub-Content Referencing
+
+   Use the nest function to reference and reuse content from another dictionary, reducing duplication.
+
+   Supports structured and hierarchical content management for better maintainability.
+
+5. Function Fetching
+
+   Intlayer allows content to be declared as functions, enabling both synchronous and asynchronous content retrieval.
+
+   Synchronous Functions: Content is generated dynamically at build time.
+
+   Asynchronous Functions: Fetch data from external sources (e.g., APIs, databases) dynamically.
+
+   Integration: Works with TypeScript, ESM, and CommonJS but is not supported in JSON or remote content files.
+
+### 6. Content Declaration Formats
 
 Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring content.
 
@@ -77,7 +123,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
   > Resources:
   >
-  > - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/content_extention_customization.md)
+  > - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_extention_customization.md)
 
 ---
 
@@ -104,7 +150,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_with_nextjs_15.md)
+> - [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 ### 2. Vite
 
@@ -112,7 +158,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_with_vite+react.md)
+> - [Vite](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
 
 ### 3. Express
 
@@ -121,7 +167,25 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_with_express.md)
+> - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md)
+
+### 4. React Native
+
+- Integrate Intlayer with React Native to manage content and internationalize your mobile applications.
+- Supports both iOS and Android platforms.
+
+> Resources:
+>
+> - [React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_native.md)
+
+### 5. Lynx
+
+- Integrate Intlayer with Lynx to manage content and internationalize your mobile applications.
+- Supports both iOS and Android platforms.
+
+> Resources:
+>
+> - [Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx.md)
 
 ---
 
@@ -138,7 +202,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_visual_editor.md)
+> - [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (Remote)
 
@@ -148,7 +212,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 ---
 
@@ -160,7 +224,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
 
 ---
 
@@ -177,7 +241,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 > Resources:
 >
-> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/intlayer_CMS.md)
+> - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
 ---
 
@@ -221,3 +285,7 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 Intlayer aims to be a one-stop solution for content management and internationalization. It focuses on flexibility (centralized or distributed files), broad language support, easy integration with modern frameworks and bundlers, and powerful AI-driven features. As new capabilities, such as A/B testing, versioning, and automated translations, become available, Intlayer will continue to simplify content workflows and elevate user experiences across different platforms.
 
 Stay tuned for upcoming releases, and feel free to explore the existing features to see how Intlayer can help centralize and optimize your content management processes today!
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

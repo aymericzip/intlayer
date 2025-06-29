@@ -35,7 +35,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en-GB: "Welcome to our application",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -50,7 +50,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en-GB: "Welcome to our application",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -65,7 +65,7 @@ module.exports = {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en-GB: "Welcome to our application",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -81,7 +81,7 @@ module.exports = {
     "welcomeMessage": {
       "nodeType": "translation",
       "translation": {
-        "en-GB": "Welcome to our application",
+        "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
         "es": "Bienvenido a nuestra aplicación"
       }
@@ -99,7 +99,7 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH_UK, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -112,7 +112,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH_UK, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -125,7 +125,7 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH_UK, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -203,7 +203,7 @@ const customContent = {
   key: "custom_content",
   content: {
     profileText: t<ICustomContent>({
-      en-GB: {
+      en: {
         title: "Page Title",
         content: "Page Content",
       },
@@ -232,7 +232,7 @@ export default {
       t <
       ICustomContent >
       {
-        en-GB: {
+        en: {
           title: "Page Title",
           content: "Page Content",
         },
@@ -259,7 +259,7 @@ module.exports = {
       t <
       ICustomContent >
       {
-        en-GB: {
+        en: {
           title: "Page Title",
           content: "Page Content",
         },
@@ -284,7 +284,7 @@ module.exports = {
     "profileText": {
       "nodeType": "translation",
       "translation": {
-        "en-GB": {
+        "en": {
           "title": "Page Title",
           "content": "Page Content"
         },
@@ -301,3 +301,7 @@ module.exports = {
   }
 }
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

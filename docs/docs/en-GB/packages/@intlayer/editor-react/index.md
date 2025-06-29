@@ -19,3 +19,7 @@ yarn add @intlayer/editor-react
 ```bash
 pnpm add @intlayer/editor-react
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

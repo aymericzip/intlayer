@@ -16,17 +16,19 @@ keywords:
   - React
 ---
 
+# lynx-intlayer: Internationalize (i18n) an Lynx application
+
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-**The `lynx-intlayer` package** allows you to internationalise your Vite application. It includes the Metro plugin to set the configuration through environment variables into the [Lynx bundler](https://lynxjs.org/index.html).
+**The `lynx-intlayer` package** allows you to internationalize your Vite application. It includes the Metro plugin to set the configuration through environment variables into the [Lynx bundler](https://lynxjs.org/index.html).
 
-## Why Internationalise Your Lynx Application?
+## Why Internationalize Your Lynx Application?
 
-Internationalising your Lynx application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
+Internationalizing your Lynx application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
 
 ## Configuration
 
-The `lynx-intlayer` package works seamlessly with the [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/index.md), and the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/index.md). Have a look at the relevant documentation for more information.
+The `lynx-intlayer` package works seamlessly with the [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md), and the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md). Have a look at the relevant documentation for more information.
 
 ## Installation
 
@@ -46,7 +48,7 @@ pnpm add lynx-intlayer
 
 ## Example of usage
 
-See an example of how to include the plugins into your Vite configuration.
+See an example of how to include the plugins into your vite configuration.
 
 ```ts
 // lynx.config.ts
@@ -61,11 +63,11 @@ export default defineConfig({
 });
 ```
 
-## Mastering the internationalisation of your Vite application
+## Mastering the internationalization of your Vite application
 
-Intlayer provides a lot of features to help you internationalise your Vite application.
+Intlayer provides a lot of features to help you internationalize your Vite application.
 
-**To learn more about these features, refer to the [React Internationalisation (i18n) with Intlayer and Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_lynx+react.md) guide for Lynx Application.**
+**To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md) guide for Lynx Application.**
 
 ## Read about Intlayer
 
@@ -73,4 +75,8 @@ Intlayer provides a lot of features to help you internationalise your Vite appli
 - [Intlayer Documentation](https://intlayer.org/doc)
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
-- [Ask your questions to our smart documentation](https://intlayer.org/docchat)
+- [Ask your questions to our smart documentation](https://intlayer.org/doc/chat)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

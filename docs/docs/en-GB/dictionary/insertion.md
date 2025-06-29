@@ -90,7 +90,7 @@ module.exports = myInsertionContent;
 
 ## Using Insertion Content with React Intlayer
 
-To utilise insertion content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the content for the specified key and allows you to pass in an object that maps each placeholder in your content to the value you wish to display.
+To utilize insertion content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the content for the specified key and allows you to pass in an object that maps each placeholder in your content to the value you wish to display.
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -178,8 +178,12 @@ module.exports = InsertionComponent;
 
 For more detailed information on configuration and usage, refer to the following resources:
 
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md)
-- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md)
-- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md)
+- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
+- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)
+- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 These resources offer further insights into the setup and usage of Intlayer across various environments and frameworks.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history
