@@ -2,7 +2,7 @@
 
 import { build, fill, pull, push } from '@intlayer/cli';
 import { isESModule, Locales, type LogConfig } from '@intlayer/config';
-import { getDoc, getDocs } from '@intlayer/docs';
+import { getDoc, getDocMetadataRecord } from '@intlayer/docs';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { readFileSync } from 'fs';
@@ -308,9 +308,15 @@ server.tool(
 );
 
 server.tool('get-doc-list', {}, async ({}) => {
-  const docList = Object.keys(await getDocs());
+  const docsMetadataRecord = await getDocMetadataRecord();
+
   return {
-    content: docList.map((doc) => ({ type: 'text', text: doc })),
+    content: [
+      {
+        type: 'text',
+        text: JSON.stringify(docsMetadataRecord, null, 2),
+      },
+    ],
   };
 });
 

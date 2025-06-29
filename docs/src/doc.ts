@@ -1,5 +1,6 @@
 import { Locales } from '@intlayer/config';
 import { localeRecord } from 'intlayer';
+import { getMarkdownMetadata } from '../../packages/@intlayer/core/dist/types/transpiler';
 import { readFileContent } from './readFileContent';
 
 const docs = {
@@ -296,4 +297,16 @@ export const getDoc = async (
   }
 
   return doc;
+};
+
+export const getDocMetadataRecord = async (lang = Locales.ENGLISH) => {
+  const docs = await getDocs(lang);
+  return Object.keys(docs).reduce(
+    (acc, docName) => {
+      const metadata = getMarkdownMetadata(docs[docName]);
+      acc[docName] = metadata;
+      return acc;
+    },
+    {} as Record<string, any>
+  );
 };

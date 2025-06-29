@@ -1,3 +1,4 @@
+import { getMarkdownMetadata } from '../../packages/@intlayer/core/dist/types/transpiler';
 import { readFileContent } from './readFileContent';
 
 const fequentQuestions = {
@@ -40,4 +41,19 @@ export const getFequentQuestions = async () => {
   );
 
   return Object.fromEntries(fequentQuestionsEntries);
+};
+
+export const getFrequentQuestionsMetadataRecord = async () => {
+  const frequentQuestions = await getFequentQuestions();
+
+  return Object.keys(frequentQuestions).reduce(
+    (acc, frequentQuestionName) => {
+      const metadata = getMarkdownMetadata(
+        frequentQuestions[frequentQuestionName]
+      );
+      acc[frequentQuestionName] = metadata;
+      return acc;
+    },
+    {} as Record<string, any>
+  );
 };
