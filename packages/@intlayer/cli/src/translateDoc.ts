@@ -174,8 +174,8 @@ export const translateDoc = async ({
   appLogger(`Translating ${docList.length} files:`);
   appLogger(docList.map((path) => ` - ${path}\n`));
 
-  const tasks = locales.flatMap((locale) =>
-    docList.map((docPath) =>
+  const tasks = docList.map((docPath) =>
+    locales.flatMap((locale) =>
       limit(() =>
         translateFile(
           docPath,

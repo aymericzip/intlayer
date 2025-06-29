@@ -177,8 +177,8 @@ export const reviewDoc = async ({
   appLogger(`Reviewing ${docList.length} files:`);
   appLogger(docList.map((path) => ` - ${path}\n`));
 
-  const tasks = locales.flatMap((locale) =>
-    docList.map((docPath) =>
+  const tasks = docList.map((docPath) =>
+    locales.flatMap((locale) =>
       limit(() =>
         reviewFile(
           docPath,
