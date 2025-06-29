@@ -3,7 +3,7 @@ docName: package__react-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useIntlayerAsync Hook Documentation | react-intlayer
 description: See how to use the useIntlayerAsync hook for react-intlayer package
 keywords:

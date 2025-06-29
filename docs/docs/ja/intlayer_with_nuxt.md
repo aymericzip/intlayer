@@ -3,7 +3,7 @@ docName: intlayer_with_nuxt
 url: https://intlayer.org/doc/environment/nuxt-and-vue
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md
 createdAt: 2025-06-18
-updatedAt: 2025-06-18
+updatedAt: 2025-06-29
 title: NuxtとVueのウェブサイトを翻訳する (i18n)
 description: NuxtとVueを使ったウェブサイトを多言語対応にする方法を学びましょう。国際化（i18n）と翻訳のためにドキュメントに従ってください。
 keywords:

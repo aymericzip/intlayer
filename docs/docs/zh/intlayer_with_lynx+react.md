@@ -3,7 +3,7 @@ docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
-updatedAt: 2025-03-09
+updatedAt: 2025-06-29
 title: 翻译你的Lynx和React移动应用 (i18n)
 description: 了解如何使您的使用 Lynx 和 React 的 Page Router 网站实现多语言。请遵循文档进行国际化（i18n）和翻译。
 keywords:

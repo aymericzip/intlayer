@@ -3,7 +3,7 @@ docName: configuration
 url: https://intlayer.org/doc/concept/configuration
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-06-29
 title: कॉन्फ़िगरेशन
 description: अपने अनुप्रयोग के लिए Intlayer को कैसे कॉन्फ़िगर करें, यह सीखें। Intlayer को आपकी आवश्यकताओं के अनुरूप अनुकूलित करने के लिए उपलब्ध विभिन्न सेटिंग्स और विकल्पों को समझें।
 keywords:

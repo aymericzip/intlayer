@@ -3,7 +3,7 @@ docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useIntlayerAsync Hook Documentation | next-intlayer
 description: See how to use the useIntlayerAsync hook for next-intlayer package
 keywords:

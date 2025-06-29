@@ -3,7 +3,7 @@ docName: configuration
 url: https://intlayer.org/doc/concept/configuration
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-06-29
 title: Configuração
 description: Aprenda como configurar o Intlayer para sua aplicação. Entenda as várias configurações e opções disponíveis para personalizar o Intlayer de acordo com suas necessidades.
 keywords:

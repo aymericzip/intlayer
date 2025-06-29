@@ -3,7 +3,7 @@ blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: ما هو التدويل (i18n)? التعريف والمعاملات
 description: تعرف على سبب التدويل المهم للويب الخاص بك. تعلم الأساسيات الرئيسية لتسريع SEO، تحسين تجربة المستخدم وتوسيع مجال الاستخدام العالمي.
 keywords:

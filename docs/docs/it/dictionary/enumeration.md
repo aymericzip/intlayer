@@ -3,7 +3,7 @@ docName: dictionary__enumeration
 url: https://intlayer.org/doc/concept/content/enumeration
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Enumerazione
 description: Scopri come dichiarare e utilizzare le enumerazioni nel tuo sito web multilingue. Segui i passaggi in questa documentazione online per impostare il tuo progetto in pochi minuti.
 keywords:

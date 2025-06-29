@@ -3,7 +3,7 @@ docName: package__react-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useIntlayerAsync钩子文档 | react-intlayer
 description: 查看如何为react-intlayer包使用useIntlayerAsync钩子
 keywords:

@@ -3,7 +3,7 @@ docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Declaración de Contenido | Empezar
 description: Descubra cómo declarar y usar la declaración de contenido en su sitio web multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.
 keywords:

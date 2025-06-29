@@ -3,7 +3,7 @@ docName: package__react-intlayer__t
 url: https://intlayer.org/doc/packages/react-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentação da função t | react-intlayer
 description: Veja como usar a função t para o pacote react-intlayer
 keywords:

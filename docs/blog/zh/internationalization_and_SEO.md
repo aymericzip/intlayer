@@ -3,7 +3,7 @@ blogName: internationalization_and_SEO
 url: https://intlayer.org/blog/SEO-and-i18n
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
-updatedAt: 2024-12-24
+updatedAt: 2025-06-29
 title: SEO和国际化
 description: 了解如何为搜索引擎优化您的多语言网站，并提升您的SEO。
 keywords:

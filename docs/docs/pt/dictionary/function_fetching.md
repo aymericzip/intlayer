@@ -3,7 +3,7 @@ docName: dictionary__function_fetching
 url: https://intlayer.org/doc/concept/content/function-fetching
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Recuperação de Função
 description: Descubra como declarar e usar a recuperação de função em seu site multilíngue. Siga as etapas desta documentação online para configurar seu projeto em poucos minutos.
 keywords:

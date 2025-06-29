@@ -3,7 +3,7 @@ docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Автозаполнение
 description: Узнайте, как использовать функцию автозаполнения в Intlayer для автоматического заполнения контента на основе предопределенных шаблонов. Следуйте этой документации, чтобы эффективно реализовать функции автозаполнения в вашем проекте.
 keywords:
@@ -171,3 +171,7 @@ const exampleContent = {
 
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
+
+## История документа
+
+- 5.5.10 - 2025-06-29: Инициализация истории

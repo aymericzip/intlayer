@@ -3,7 +3,7 @@ docName: dictionary__condition
 url: https://intlayer.org/doc/concept/content/condition
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: Условный контент
 description: Узнайте, как использовать условный контент в Intlayer для динамического отображения контента на основе определенных условий. Следуйте этой документации, чтобы эффективно реализовать условия в вашем проекте.
 keywords:

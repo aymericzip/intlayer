@@ -3,7 +3,7 @@ docName: package__react-scripts-intlayer
 url: https://intlayer.org/doc/packages/react-scripts-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-scripts-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: وثائق حزمة | react-scripts-intlayer
 description: انظر كيف تستخدم حزمة react-scripts-intlayer
 keywords:

@@ -3,7 +3,7 @@ docName: roadmap
 url: https://intlayer.org/doc/roadmap
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
-updatedAt: 2025-03-01
+updatedAt: 2025-06-29
 title: Tabella di marcia
 description: Scopri la roadmap di Intlayer. Vedi tutte le funzionalità che l'Intlayer ha implementato, e sta pianificando di implementarle.
 keywords:

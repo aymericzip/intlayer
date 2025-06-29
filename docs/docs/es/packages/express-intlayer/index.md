@@ -3,7 +3,7 @@ docName: package__express-intlayer
 url: https://intlayer.org/doc/packages/express-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentación del paquete | express-intlayer
 description: Descubre cómo usar el paquete express-intlayer
 keywords:

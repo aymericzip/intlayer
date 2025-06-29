@@ -3,7 +3,7 @@ blogName: intlayer_with_next-i18next
 url: https://intlayer.org/blog/intlayer-with-next-i18next
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11
-updatedAt: 2025-01-02
+updatedAt: 2025-06-29
 title: Intlayer와 next-i18next
 description: Next.js 앱을 위해 next-i18next와 Intlayer를 통합하다
 keywords:

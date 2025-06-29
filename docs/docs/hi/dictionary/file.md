@@ -3,7 +3,7 @@ docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: फ़ाइल
 description: जानें कि Intlayer के `file` फ़ंक्शन का उपयोग करके बाहरी फ़ाइलों को अपनी सामग्री शब्दकोश में कैसे एम्बेड करें। यह दस्तावेज़ बताता है कि Intlayer फ़ाइल सामग्री को गतिशील रूप से कैसे प्रबंधित करता है।
 keywords:

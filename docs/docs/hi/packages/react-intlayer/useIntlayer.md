@@ -3,7 +3,7 @@ docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useIntlayer हुक दस्तावेज | react-intlayer
 description: react-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें यह देखें
 keywords:

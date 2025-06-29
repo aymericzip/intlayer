@@ -3,7 +3,7 @@ docName: dictionary__translation
 url: https://intlayer.org/doc/concept/content/translation
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 翻訳
 description: あなたの多言語ウェブサイトで翻訳を宣言し、使用する方法を発見してください。このオンラインドキュメントの手順に従って、数分でプロジェクトを設定してください。
 keywords:

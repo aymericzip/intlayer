@@ -3,7 +3,7 @@ docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: 词典嵌套
 description: 了解如何在Intlayer中使用内容嵌套，以高效地重用和构造您的多语言内容。按照本文档的步骤无缝实施嵌套。
 keywords:

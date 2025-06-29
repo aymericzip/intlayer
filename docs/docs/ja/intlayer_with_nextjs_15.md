@@ -3,7 +3,7 @@ docName: intlayer_with_nextjs_15
 url: https://intlayer.org/doc/environment/nextjs
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md
 createdAt: 2024-12-06
-updatedAt: 2024-12-07
+updatedAt: 2025-06-29
 title: Next.js 15のウェブサイトを翻訳する (i18n)
 description: Next.js 15のウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
 keywords:

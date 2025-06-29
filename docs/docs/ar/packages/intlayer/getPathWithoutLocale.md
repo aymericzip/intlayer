@@ -3,7 +3,7 @@ docName: package__intlayer__getPathWithoutLocale
 url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: وثائق دالة getPathWithoutLocale | intlayer
 description: انظر كيف تستخدم دالة getPathWithoutLocale لحزمة intlayer
 keywords:

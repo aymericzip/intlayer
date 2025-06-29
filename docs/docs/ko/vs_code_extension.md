@@ -3,7 +3,7 @@ docName: vscode_extension
 url: https://intlayer.org/doc/vs-code-extension
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md
 createdAt: 2025-03-17
-updatedAt: 2025-03-17
+updatedAt: 2025-06-29
 title: 공식 VS Code 확장 프로그램
 description: VS Code에서 Intlayer 확장 기능을 사용하여 개발 워크플로우를 향상시키는 방법을 배웁니다. 지역화된 콘텐츠 간을 빠르게 탐색하고 사전을 효율적으로 관리하세요.
 keywords:

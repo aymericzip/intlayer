@@ -3,7 +3,7 @@ docName: package__intlayer__getConfiguration
 url: https://intlayer.org/doc/packages/intlayer/getConfiguration
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentazione della funzione getConfiguration | intlayer
 description: Scopri come utilizzare la funzione getConfiguration per il pacchetto intlayer
 keywords:

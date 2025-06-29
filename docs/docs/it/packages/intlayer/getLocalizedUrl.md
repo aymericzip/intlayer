@@ -3,7 +3,7 @@ docName: package__intlayer__getLocalizedUrl
 url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentazione della funzione getLocalizedUrl | intlayer
 description: Scopri come utilizzare la funzione getLocalizedUrl per il pacchetto intlayer
 keywords:

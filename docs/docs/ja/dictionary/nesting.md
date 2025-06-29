@@ -3,7 +3,7 @@ docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: 辞書のネスト
 description: Intlayerでコンテンツのネストを使用して、多言語コンテンツを効率的に再利用および構造化する方法を学びます。このドキュメントに従って、ネストを簡単に実装しましょう。
 keywords:

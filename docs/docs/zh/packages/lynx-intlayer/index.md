@@ -3,7 +3,7 @@ docName: package__lynx-intlayer
 url: https://intlayer.org/doc/packages/lynx-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: 包文档 | lynx-intlayer
 description: 查看如何使用 lynx-intlayer 软件包
 keywords:

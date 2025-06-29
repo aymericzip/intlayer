@@ -3,7 +3,7 @@ docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: CLI
 description: Scopri come utilizzare l'Intlayer CLI per gestire il tuo sito web multilingue. Segui i passi in questa documentazione online per configurare il tuo progetto in pochi minuti.
 keywords:

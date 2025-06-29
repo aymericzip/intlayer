@@ -3,7 +3,7 @@ docName: package__intlayer__getLocaleLang
 url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentação da função getLocaleLang | intlayer
 description: Veja como usar a função getLocaleLang para o pacote intlayer
 keywords:

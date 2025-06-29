@@ -3,7 +3,7 @@ docName: package__intlayer__getTranslation
 url: https://intlayer.org/doc/packages/intlayer/getTranslation
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: وثائق دالة getTranslation | intlayer
 description: انظر كيف تستخدم دالة getTranslation لحزمة intlayer
 keywords:

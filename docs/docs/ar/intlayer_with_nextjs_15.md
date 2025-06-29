@@ -3,7 +3,7 @@ docName: intlayer_with_nextjs_15
 url: https://intlayer.org/doc/environment/nextjs
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md
 createdAt: 2024-12-06
-updatedAt: 2024-12-07
+updatedAt: 2025-06-29
 title: ترجم موقعك الإلكتروني Next.js 15 (i18n)
 description: اكتشف كيفية جعل موقع Next.js 15 الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:

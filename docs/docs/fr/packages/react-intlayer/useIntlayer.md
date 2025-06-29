@@ -3,7 +3,7 @@ docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentation du hook useIntlayer | react-intlayer
 description: Découvrez comment utiliser le hook useIntlayer pour le package react-intlayer
 keywords:

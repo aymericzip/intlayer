@@ -3,7 +3,7 @@ docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: कंटेंट डिक्लेरेशन | प्रारंभ करें
 description: अपने बहुभाषी वेबसाइट में सामग्री घोषणाओं को कैसे घोषित और उपयोग करें, यह जानें। इस ऑनलाइन दस्तावेज़ में चरणों का पालन करें ताकि आप कुछ ही मिनटों में अपने प्रोजेक्ट को सेट अप कर सकें।
 keywords:

@@ -3,7 +3,7 @@ docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Inserção
 description: Aprenda a declarar e usar marcadores de inserção no seu conteúdo. Esta documentação o guiará pelos passos para inserir dinamicamente valores em estruturas de conteúdo predefinidas.
 keywords:

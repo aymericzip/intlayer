@@ -3,7 +3,7 @@ docName: package__next-intlayer__t
 url: https://intlayer.org/doc/packages/next-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: t 함수 문서 | next-intlayer
 description: next-intlayer 패키지의 t 함수 사용 방법을 확인하세요
 keywords:

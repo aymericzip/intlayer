@@ -3,7 +3,7 @@ docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: الملء التلقائي
 description: تعلم كيفية استخدام وظيفة الملء التلقائي في Intlayer لملء المحتوى تلقائيًا بناءً على الأنماط المحددة مسبقًا. اتبع هذه الوثيقة لتنفيذ ميزات الملء التلقائي بكفاءة في مشروعك.
 keywords:

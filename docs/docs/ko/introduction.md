@@ -3,7 +3,7 @@ docName: introduction
 url: https://intlayer.org/doc/get-started
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/introduction.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 소개
 description: Intlayer가 작동하는 방식을 알아보세요. 귀하의 애플리케이션에서 Intlayer가 사용하는 단계를 확인하세요. 다양한 패키지가 하는 일을 확인하세요.
 keywords:

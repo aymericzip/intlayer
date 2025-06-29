@@ -3,7 +3,7 @@ docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
-updatedAt: 2024-08-14
+updatedAt: 2025-06-29
 title: Intlayer的优势
 description: 发现使用Intlayer进行项目的好处和优点。了解为什么Intlayer在其他框架中脱颖而出。
 keywords:

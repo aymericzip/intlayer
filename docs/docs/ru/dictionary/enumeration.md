@@ -3,7 +3,7 @@ docName: dictionary__enumeration
 url: https://intlayer.org/doc/concept/content/enumeration
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Перечисление
 description: Узнайте, как объявлять и использовать перечисления на вашем многоязычном сайте. Следуйте шагам в этой онлайн-документации, чтобы настроить свой проект за несколько минут.
 keywords:

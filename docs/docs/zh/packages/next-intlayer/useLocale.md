@@ -3,7 +3,7 @@ docName: package__next-intlayer__useLocale
 url: https://intlayer.org/doc/packages/next-intlayer/useLocale
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useLocale钩子的文档 | next-intlayer
 description: 查看如何使用next-intlayer软件包的useLocale钩子
 keywords:

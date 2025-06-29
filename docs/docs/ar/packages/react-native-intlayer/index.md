@@ -3,7 +3,7 @@ docName: package__react-native-intlayer
 url: https://intlayer.org/doc/packages/react-native-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: وثائق حزمة | react-native-intlayer
 description: انظر كيف تستخدم حزمة react-native-intlayer
 keywords:

@@ -3,7 +3,7 @@ docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Express का बैकएंड को अनुवाद करें (i18n)
 description: जानें कि कैसे अपनी vite बैकएंड को बहुभाषी बनाया जाए। इसे अंतर्राष्ट्रीय बनाने (i18n) और अनुवाद करने के लिए दस्तावेज़ का पालन करें।
 keywords:

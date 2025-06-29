@@ -3,7 +3,7 @@ docName: intlayer_with_react_native_and_expo
 url: https://intlayer.org/doc/environment/react-native-and-expo
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md
 createdAt: 2025-03-07
-updatedAt: 2025-03-07
+updatedAt: 2025-06-29
 title: React NativeとExpoのモバイルアプリを翻訳する (i18n)
 description: React NativeとExpoを使用してPage Routerを利用したウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
 keywords:

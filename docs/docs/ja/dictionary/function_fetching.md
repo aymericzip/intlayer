@@ -3,7 +3,7 @@ docName: dictionary__function_fetching
 url: https://intlayer.org/doc/concept/content/function-fetching
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 関数フェッチング
 description: 多言語ウェブサイトで関数フェッチングを宣言および使用する方法を発見してください。このオンラインドキュメンテーションの手順に従って、数分でプロジェクトを設定できます。
 keywords:

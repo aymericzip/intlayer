@@ -3,7 +3,7 @@ docName: package__vite-intlayer
 url: https://intlayer.org/doc/packages/vite-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentazione del pacchetto | vite-intlayer
 description: Scopri come utilizzare il pacchetto vite-intlayer
 keywords:

@@ -3,7 +3,7 @@ docName: package__intlayer__getLocaleName
 url: https://intlayer.org/doc/packages/intlayer/getLocaleName
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentazione della funzione getLocaleName | intlayer
 description: Scopri come utilizzare la funzione getLocaleName per il pacchetto intlayer
 keywords:

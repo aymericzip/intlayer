@@ -3,7 +3,7 @@ docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
-updatedAt: 2024-08-14
+updatedAt: 2025-06-29
 title: Intlayer의 이점
 description: 프로젝트에서 Intlayer를 사용할 때의 이점과 장점을 알아보세요. Intlayer가 다른 프레임워크 중에서 두드러지는 이유를 이해하세요.
 keywords:

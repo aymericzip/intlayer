@@ -3,7 +3,7 @@ docName: introduction
 url: https://intlayer.org/doc/get-started
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/introduction.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: イントロダクション
 description: Intlayerの仕組みを発見してください。アプリケーションでIntlayerが使用する手順を確認してください。さまざまなパッケージの機能を確認してください。
 keywords:

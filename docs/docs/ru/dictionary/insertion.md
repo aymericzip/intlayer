@@ -3,7 +3,7 @@ docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Вставка
 description: Узнайте, как объявлять и использовать заполнители вставки в вашем контенте. В этой документации описаны шаги для динамической вставки значений в предопределенные структуры контента.
 keywords:

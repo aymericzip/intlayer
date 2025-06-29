@@ -3,7 +3,7 @@ docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayerビジュアルエディター | ビジュアルエディターを使用してコンテンツを編集します
 description: Intlayerエディターを使用して多言語ウェブサイトを管理する方法を発見してください。このオンラインドキュメントの手順に従って、数分でプロジェクトを設定することができます。
 keywords:

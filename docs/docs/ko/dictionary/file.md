@@ -3,7 +3,7 @@ docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: 파일
 description: Intlayer의 `file` 함수를 사용하여 외부 파일을 콘텐츠 사전에 삽입하는 방법을 학습합니다. 이 문서에서는 Intlayer가 파일 콘텐츠를 동적으로 관리하는 방법을 설명합니다.
 keywords:

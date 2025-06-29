@@ -3,7 +3,7 @@ blogName: react-i18next_vs_react-intl_vs_intlayer
 url: https://intlayer.org/blog/react-i18next-vs-react-intl-vs-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md
 createdAt: 2025-01-02
-updatedAt: 2025-01-02
+updatedAt: 2025-06-29
 title: react-i18n vs react-intl vs Intlayer
 description: Integrieren Sie react-i18next mit next-intl und Intlayer für die Internationalisierung (i18n) einer React-App
 keywords:

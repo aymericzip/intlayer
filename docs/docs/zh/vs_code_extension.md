@@ -3,7 +3,7 @@ docName: vscode_extension
 url: https://intlayer.org/doc/vs-code-extension
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md
 createdAt: 2025-03-17
-updatedAt: 2025-03-17
+updatedAt: 2025-06-29
 title: 官方 VS Code 扩展
 description: 了解如何在VS Code中使用Intlayer扩展，以增强您的开发工作流程。快速在本地化内容之间导航，并高效管理您的字典。
 keywords:

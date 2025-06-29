@@ -3,7 +3,7 @@ docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Remplissage automatique
 description: Découvrez comment utiliser la fonctionnalité de remplissage automatique dans Intlayer pour remplir automatiquement le contenu selon des modèles prédéfinis. Suivez cette documentation pour implémenter efficacement les fonctionnalités de remplissage automatique dans votre projet.
 keywords:

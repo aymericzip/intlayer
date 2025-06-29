@@ -3,7 +3,7 @@ docName: package__intlayer__getLocaleLang
 url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: t函数文档 | intlayer
 description: 查看如何使用 intlayer 软件包的 getLocaleLang 函数
 keywords:

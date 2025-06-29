@@ -3,7 +3,7 @@ blogName: list_i18n_technologies__CMS__wix
 url: https://intlayer.org/blog/i18n-technologies/CMS/wix
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wix.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Wixのための最適な国際化ツール
 description: 翻訳のチャレンジを解決するためのトップのWixのi18nソリューションを発見し、SEOを向上させ、グローバルなウェブエクスペリエンスを提供する。
 keywords:

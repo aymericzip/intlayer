@@ -3,7 +3,7 @@ docName: package__next-intlayer__t
 url: https://intlayer.org/doc/packages/next-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentação da função t | next-intlayer
 description: Veja como usar a função t para o pacote next-intlayer
 keywords:

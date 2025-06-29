@@ -3,7 +3,7 @@ docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: Вложенность словаря
 description: Узнайте, как использовать вложенность контента в Intlayer для эффективного повторного использования и структурирования многоязычного контента. Следуйте этой документации, чтобы без проблем реализовать вложенность в вашем проекте.
 keywords:

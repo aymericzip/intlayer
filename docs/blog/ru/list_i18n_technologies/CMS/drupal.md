@@ -3,7 +3,7 @@ blogName: list_i18n_technologies__CMS__drupal
 url: https://intlayer.org/blog/i18n-technologies/CMS/drupal
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/drupal.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Лучшие инструменты интернационализации (i18n) для Drupal
 description: Откройте высокие решения интернационализации (i18n) для Drupal для решения проблем с переводом, увеличения SEO и обеспечения глобального веб-опыта.
 keywords:

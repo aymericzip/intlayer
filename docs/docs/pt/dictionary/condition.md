@@ -3,7 +3,7 @@ docName: dictionary__condition
 url: https://intlayer.org/doc/concept/content/condition
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: Conteúdo Condicional
 description: Descubra como usar conteúdo condicional no Intlayer para exibir dinamicamente conteúdo baseado em condições específicas. Siga esta documentação para implementar condições de forma eficiente no seu projeto.
 keywords:

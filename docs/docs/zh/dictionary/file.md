@@ -3,7 +3,7 @@ docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: 文件
 description: 了解如何使用Intlayer的`file`函数将外部文件嵌入到内容字典中。本文件解释了Intlayer如何动态链接和管理文件内容。
 keywords:

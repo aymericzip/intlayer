@@ -3,7 +3,7 @@ docName: package__intlayer__getEnumeration
 url: https://intlayer.org/doc/packages/intlayer/getEnumeration
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentación de la función getEnumeration | intlayer
 description: Descubre cómo usar la función getEnumeration para el paquete intlayer
 keywords:

@@ -3,7 +3,7 @@ docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: コンテンツ宣言 | 始める
 description: 多言語ウェブサイトでコンテンツ宣言を宣言し、使用する方法を発見してください。このオンラインドキュメントの手順に従って、数分でプロジェクトを設定できます。
 keywords:

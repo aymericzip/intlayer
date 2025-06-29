@@ -3,7 +3,7 @@ docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useIntlayerAsync हुक दस्तावेज | next-intlayer
 description: next-intlayer पैकेज के लिए useIntlayerAsync हुक का उपयोग कैसे करें यह देखें
 keywords:

@@ -3,7 +3,7 @@ blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: अंतर्राष्ट्रीयकरण (i18n) क्या है? परिभाषा और चेंजनी
 description: जानें कि आपकी वेबसाइट का अंतर्राष्ट्रीयकरण क्यों अनिवार्य है। SEO को बढ़ावा देने, उपयोगकर्ता अनुभव को सुधारने और वैश्विक पहुंच बढ़ाने के प्रमुख सिद्धांतों को सीखें।
 keywords:

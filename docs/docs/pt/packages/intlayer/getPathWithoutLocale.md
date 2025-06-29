@@ -3,7 +3,7 @@ docName: package__intlayer__getPathWithoutLocale
 url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentação da função getPathWithoutLocale | intlayer
 description: Veja como usar a função getPathWithoutLocale para o pacote intlayer
 keywords:

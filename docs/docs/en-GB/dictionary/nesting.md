@@ -3,7 +3,7 @@ docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: Dictionary's nesting
 description: Learn how to use content nesting in Intlayer to reuse and structure your multilingual content efficiently. Follow this documentation to implement nesting seamlessly in your project.
 keywords:

@@ -3,7 +3,7 @@ docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Editor Visual Intlayer | Edite seu conteúdo usando um editor visual
 description: Descubra como usar o Editor Intlayer para gerenciar seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
 keywords:

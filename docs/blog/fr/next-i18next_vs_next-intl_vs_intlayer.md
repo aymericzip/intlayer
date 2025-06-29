@@ -3,7 +3,7 @@ blogName: next-i18next_vs_next-intl_vs_intlayer
 url: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md
 createdAt: 2024-08-11
-updatedAt: 2025-01-02
+updatedAt: 2025-06-29
 title: next-i18next vs next-intl vs Intlayer
 description: Comparer next-i18next avec next-intl et Intlayer pour l'internationalisation (i18n) d'une application Next.js
 keywords:

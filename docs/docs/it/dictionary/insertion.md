@@ -3,7 +3,7 @@ docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Inserzione
 description: Scopri come dichiarare e utilizzare i segnaposto per l'inserzione nei tuoi contenuti. Questa documentazione ti guida attraverso i passaggi per inserire dinamicamente i valori nelle strutture di contenuto predefinite.
 keywords:

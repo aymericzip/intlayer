@@ -3,7 +3,7 @@ docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: إدراج
 description: تعلم كيفية إعلان واستخدام عناصر نائبة للإدراج في المحتوى الخاص بك. يوجهك هذا الدليل عبر الخطوات لإدراج القيم ديناميكيًا داخل هياكل المحتوى المحددة مسبقًا.
 keywords:

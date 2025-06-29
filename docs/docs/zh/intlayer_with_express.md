@@ -3,7 +3,7 @@ docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 翻译你的Express后端 (i18n)
 description: 了解如何使您的 vite 后端实现多语言。请遵循文档进行国际化（i18n）和翻译。
 keywords:

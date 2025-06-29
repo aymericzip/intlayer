@@ -3,7 +3,7 @@ blogName: list_i18n_technologies__frameworks__flutter
 url: https://intlayer.org/blog/i18n-technologies/frameworks/flutter
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/flutter.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Migliori strumenti di internazionalizzazione (i18n) per Flutter
 description: Scopri i migliori strumenti di internazionalizzazione (i18n) per Flutter per affrontare i sfide di traduzione, migliorare la ricerca sul web e fornire un'esperienza web globale senza problemi.
 keywords:

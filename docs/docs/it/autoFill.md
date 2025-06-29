@@ -3,7 +3,7 @@ docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Compilazione automatica
 description: Scopri come utilizzare la funzionalità di compilazione automatica in Intlayer per popolare automaticamente i contenuti in base a modelli predefiniti. Segui questa documentazione per implementare le funzionalità di compilazione automatica in modo efficiente nel tuo progetto.
 keywords:

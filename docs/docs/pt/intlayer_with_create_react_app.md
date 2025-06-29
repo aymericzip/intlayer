@@ -3,7 +3,7 @@ docName: intlayer_with_create_react_app
 url: https://intlayer.org/doc/environment/create-react-app
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Traduza o seu site Create React App (CRA) (i18n)
 description: Descubra como tornar seu site Create React App (CRA) multilíngue. Siga a documentação para internacionalizar (i18n) e traduzi-lo.
 keywords:

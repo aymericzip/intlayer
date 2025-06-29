@@ -3,7 +3,7 @@ blogName: index
 url: https://intlayer.org/blog/search/
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md
 createdAt: 2024-24-12
-updatedAt: 2024-24-12
+updatedAt: 2025-06-29
 title: 블로그
 description: Intlayer, 국제화, 기타 관련된 모든 주제를 알아보세요
 keywords:

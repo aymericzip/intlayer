@@ -3,7 +3,7 @@ docName: package__intlayer__getHTMLTextDir
 url: https://intlayer.org/doc/packages/intlayer/getHTMLTextDir
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentação da função getHTMLTextDir | intlayer
 description: Veja como usar a função getHTMLTextDir para o pacote intlayer
 keywords:

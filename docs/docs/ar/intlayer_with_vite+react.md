@@ -3,7 +3,7 @@ docName: intlayer_with_react_native_and_expo
 url: https://intlayer.org/doc/environment/react-native-and-expo
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md
 createdAt: 2025-03-07
-updatedAt: 2025-03-07
+updatedAt: 2025-06-29
 title: ترجم تطبيق الجوال React Native و Expo (i18n)
 description: اكتشف كيفية جعل موقعك الذي يستخدم React Native و Expo مع Page Router متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:

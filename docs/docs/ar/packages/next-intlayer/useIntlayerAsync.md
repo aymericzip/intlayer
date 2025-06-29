@@ -3,7 +3,7 @@ docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: وثائق خطاف useIntlayerAsync | next-intlayer
 description: انظر كيف تستخدم خطاف useIntlayerAsync لحزمة next-intlayer
 keywords:

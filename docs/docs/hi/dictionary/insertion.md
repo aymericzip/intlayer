@@ -3,7 +3,7 @@ docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: प्रविष्टि
 description: अपने सामग्री में प्रविष्टि प्लेसहोल्डर को कैसे घोषित और उपयोग करें, यह जानें। यह दस्तावेज़ आपको पहले से परिभाषित सामग्री संरचनाओं में मानों को गतिशील रूप से सम्मिलित करने के चरणों के माध्यम से मार्गदर्शन करता है।
 keywords:

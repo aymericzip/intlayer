@@ -3,7 +3,7 @@ docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 内容声明 | 开始
 description: 了解如何在多语言网站中声明和使用内容声明。按照此在线文档中的步骤，在几分钟内设置您的项目。
 keywords:

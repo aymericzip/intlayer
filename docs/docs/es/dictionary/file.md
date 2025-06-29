@@ -3,7 +3,7 @@ docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Archivo
 description: Aprenda a incorporar archivos externos en su diccionario de contenido utilizando la función `file`. Esta documentación explica cómo Intlayer vincula y administra dinámicamente el contenido de los archivos.
 keywords:

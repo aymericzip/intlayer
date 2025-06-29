@@ -3,7 +3,7 @@ docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: 挿入
 description: コンテンツに挿入プレースホルダーを宣言し、使用する方法を学びます。このドキュメントでは、あらかじめ定義されたコンテンツ構造内に値を動的に挿入する手順を説明します。
 keywords:

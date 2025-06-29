@@ -3,7 +3,7 @@ docName: intlayer_with_nextjs_14
 url: https://intlayer.org/doc/environment/nextjs/14
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md
 createdAt: 2024-12-06
-updatedAt: 2024-12-07
+updatedAt: 2025-06-29
 title: Next.js 14와 App Router의 웹사이트를 번역하십시오 (i18n)
 description: Next.js 14 App Router 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
 keywords:

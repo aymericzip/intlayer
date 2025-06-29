@@ -3,7 +3,7 @@ docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useIntlayer Hook 文档 | next-intlayer
 description: 了解如何为 next-intlayer 包使用 useIntlayer Hook
 keywords:

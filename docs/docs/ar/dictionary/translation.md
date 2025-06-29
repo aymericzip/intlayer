@@ -3,7 +3,7 @@ docName: dictionary__translation
 url: https://intlayer.org/doc/concept/content/translation
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: ترجمة
 description: اكتشف كيفية إعلان واستخدام الترجمة في موقعك الإلكتروني متعدد اللغات. اتبع الخطوات في هذه الوثائق عبر الإنترنت لإعداد مشروعك في بضع دقائق.
 keywords:

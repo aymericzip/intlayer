@@ -3,7 +3,7 @@ docName: package__intlayer__getTranslation
 url: https://intlayer.org/doc/packages/intlayer/getTranslation
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentação da função getTranslation | intlayer
 description: Veja como usar a função getTranslation para o pacote intlayer
 keywords:

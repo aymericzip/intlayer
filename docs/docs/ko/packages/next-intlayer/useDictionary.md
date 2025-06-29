@@ -3,7 +3,7 @@ docName: package__next-intlayer__useDictionary
 url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useDictionary 훅 문서 | next-intlayer
 description: next-intlayer 패키지에서 useDictionary 훅을 사용하는 방법을 확인하세요
 keywords:

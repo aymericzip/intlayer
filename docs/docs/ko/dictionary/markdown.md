@@ -3,7 +3,7 @@ docName: dictionary__markdown
 url: https://intlayer.org/doc/concept/content/markdown
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: Markdown
 description: Intlayer를 사용하여 다국어 웹사이트에서 Markdown 콘텐츠를 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 프로젝트에 Markdown을 손쉽게 통합하세요.
 keywords:

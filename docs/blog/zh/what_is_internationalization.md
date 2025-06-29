@@ -3,7 +3,7 @@ blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: 什么是国际化？定义和挑战
 description: 了解为什么对你的网站进行国际化是必要的。了解如何加速搜索引擎，提高用户体验，并扩大你的全球影响力。
 keywords:

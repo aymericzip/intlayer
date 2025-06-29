@@ -3,7 +3,7 @@ docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/CI_CD.md
 createdAt: 2025-05-20
-updatedAt: 2025-05-20
+updatedAt: 2025-06-29
 title: Интеграция CI/CD
 description: Узнайте, как интегрировать Intlayer в ваш CI/CD-пайплайн для автоматического управления контентом и развертывания.
 keywords:
@@ -165,3 +165,7 @@ jobs:
 > По умолчанию аргумент `--git-diff` фильтрует словари, которые включают изменения от базовой ветки (по умолчанию `origin/main`) до текущей ветки (по умолчанию: `HEAD`).
 
 > Для получения дополнительной информации о командах Intlayer CLI и их использовании обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

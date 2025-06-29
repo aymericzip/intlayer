@@ -3,7 +3,7 @@ docName: package__solid-intlayer
 url: https://intlayer.org/doc/packages/solid-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentazione del pacchetto | solid-intlayer
 description: Scopri come utilizzare il pacchetto solid-intlayer
 keywords:

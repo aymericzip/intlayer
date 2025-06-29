@@ -3,7 +3,7 @@ blogName: intlayer_with_react-intl
 url: https://intlayer.org/blog/intlayer-with-react-intl
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_react-intl.md
 createdAt: 2025-01-02
-updatedAt: 2025-01-02
+updatedAt: 2025-06-29
 title: Intlayer e react-intl
 description: Integre Intlayer com react-intl para um aplicativo React
 keywords:

@@ -3,7 +3,7 @@ docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
-updatedAt: 2025-05-20
+updatedAt: 2025-06-29
 title: Integrazione CI/CD
 description: Scopri come integrare Intlayer nel tuo pipeline CI/CD per la gestione e il deployment automatizzato dei contenuti.
 keywords:

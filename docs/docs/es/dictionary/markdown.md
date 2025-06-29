@@ -3,7 +3,7 @@ docName: dictionary__markdown
 url: https://intlayer.org/doc/concept/content/markdown
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: Markdown
 description: Descubre cómo declarar y utilizar contenido Markdown en tu sitio web multilingüe con Intlayer. Sigue los pasos de esta documentación en línea para integrar Markdown sin problemas en tu proyecto.
 keywords:

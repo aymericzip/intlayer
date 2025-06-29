@@ -3,7 +3,7 @@ docName: intlayer_with_nextjs_14
 url: https://intlayer.org/doc/environment/nextjs/14
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md
 createdAt: 2024-12-06
-updatedAt: 2024-12-07
+updatedAt: 2025-06-29
 title: Переведите свой сайт Next.js 14 и App Router
 description: Узнайте, как сделать ваш сайт на Next.js 14 App Router многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:

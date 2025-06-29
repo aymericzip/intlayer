@@ -3,7 +3,7 @@ docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: Imbrication du dictionnaire
 description: Découvrez comment utiliser l’imbrication de contenu dans Intlayer pour réutiliser et structurer efficacement votre contenu multilingue. Suivez cette documentation pour implémenter l’imbrication facilement dans votre projet.
 keywords:

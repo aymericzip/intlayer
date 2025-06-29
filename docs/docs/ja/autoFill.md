@@ -3,7 +3,7 @@ docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: 自動入力
 description: Intlayerで自動入力機能を使用して、事前定義されたパターンに基づいてコンテンツを自動的に入力する方法を学びます。このドキュメントに従って、プロジェクトに自動入力機能を効率的に実装してください。
 keywords:

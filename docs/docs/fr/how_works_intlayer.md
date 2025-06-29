@@ -3,7 +3,7 @@ docName: how_works_intlayer
 url: https://intlayer.org/doc/concept/how-works-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/how_works_intlayer.md
 createdAt: 2024-08-12
-updatedAt: 2024-08-12
+updatedAt: 2025-06-29
 title: Comment Intlayer fonctionne
 description: Apprenez comment Intlayer fonctionne en interne. Comprenez l'architecture et les composants qui rendent Intlayer puissant.
 keywords:

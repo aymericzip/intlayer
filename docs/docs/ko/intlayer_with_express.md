@@ -3,7 +3,7 @@ docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Express 백엔드를 번역하십시오 (i18n)
 description: vite 백엔드를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
 keywords:

@@ -3,7 +3,7 @@ docName: roadmap
 url: https://intlayer.org/doc/roadmap
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
-updatedAt: 2025-03-01
+updatedAt: 2025-06-29
 title: Fahrplan
 description: Entdecken Sie die Roadmap von Intlayer. Sehen Sie alle Funktionen, die Intlayer implementiert hat, und ist dabei, diese zu implementieren.
 keywords:

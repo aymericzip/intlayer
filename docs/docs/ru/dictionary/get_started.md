@@ -3,7 +3,7 @@ docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Декларация контента | Начало
 description: Узнайте, как объявить и использовать декларацию контента на своем многоязычном сайте. Следуйте шагам в этой онлайн-документации, чтобы настроить ваш проект за несколько минут.
 keywords:

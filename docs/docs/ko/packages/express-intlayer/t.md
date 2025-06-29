@@ -3,7 +3,7 @@ docName: package__express-intlayer__t
 url: https://intlayer.org/doc/packages/express-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
-updatedAt: 2024-12-02
+updatedAt: 2025-06-29
 title: t 함수 문서 | express-intlayer
 description: express-intlayer 패키지에 대해 t 함수를 사용하는 방법을 확인하십시오
 keywords:

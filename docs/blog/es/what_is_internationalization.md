@@ -3,7 +3,7 @@ blogName: what_is_internationalization
 url: https://intlayer.org/blog/what-is-internationalization
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: ¿Qué es la internacionalización (i18n)? Definición y desafíos
 description: Descubre por qué la internacionalización de tu sitio web es esencial. Aprende los principios clave para mejorar tu SEO, mejorar la experiencia del usuario y ampliar tu alcance global.
 keywords:

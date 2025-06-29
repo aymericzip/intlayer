@@ -3,7 +3,7 @@ docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: 自动填充
 description: 了解如何在Intlayer中使用自动填充功能，根据预定义的模式自动填充内容。按照本文档在您的项目中高效实现自动填充功能。
 keywords:

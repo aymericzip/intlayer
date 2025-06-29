@@ -3,7 +3,7 @@ docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: 자동 채우기
 description: Intlayer에서 자동 채우기 기능을 사용하여 미리 정의된 패턴을 기반으로 콘텐츠를 자동으로 채우는 방법을 배우세요. 이 문서를 따라 프로젝트에 자동 채우기 기능을 효율적으로 구현하세요.
 keywords:

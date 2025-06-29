@@ -3,7 +3,7 @@ docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: ملف
 description: تعلم كيفية تضمين الملفات الخارجية في قاموس المحتوى الخاص بك باستخدام وظيفة `file`. توضح هذه الوثيقة كيفية قيام Intlayer بربط محتوى الملفات وإدارته ديناميكيًا.
 keywords:

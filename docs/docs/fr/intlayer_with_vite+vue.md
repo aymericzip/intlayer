@@ -3,7 +3,7 @@ docName: intlayer_with_vite_vue
 url: https://intlayer.org/doc/environment/vite-and-vue
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Traduire votre site web Vite et Vue (i18n)
 description: Découvrez comment rendre votre site web avec Vite et Vue multilingue. Suivez la documentation pour l’internationaliser (i18n) et le traduire.
 keywords:

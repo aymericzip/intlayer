@@ -3,7 +3,7 @@ docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useIntlayerAsync 훅 설명서 | next-intlayer
 description: next-intlayer 패키지에 대한 useIntlayerAsync 훅 사용 방법을 확인하세요
 keywords:

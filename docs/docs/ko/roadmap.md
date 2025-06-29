@@ -3,7 +3,7 @@ docName: roadmap
 url: https://intlayer.org/doc/roadmap
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
-updatedAt: 2025-03-01
+updatedAt: 2025-06-29
 title: 로드맵
 description: Intlayer의 로드맵을 발견하세요. 모든 기능을 알아보세요. Intlayer가 구현한 모든 기능을 검토하고 구현할 계획을 검토하세요.
 keywords:

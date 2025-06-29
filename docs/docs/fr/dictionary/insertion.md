@@ -3,7 +3,7 @@ docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Insertion
 description: Apprenez à déclarer et utiliser des espaces réservés pour l'insertion dans votre contenu. Cette documentation vous guide à travers les étapes pour insérer dynamiquement des valeurs dans des structures de contenu prédéfinies.
 keywords:

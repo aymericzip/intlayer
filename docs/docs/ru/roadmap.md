@@ -3,7 +3,7 @@ docName: roadmap
 url: https://intlayer.org/doc/roadmap
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
-updatedAt: 2025-03-01
+updatedAt: 2025-06-29
 title: Дорожная карта
 description: Откройте свой путь к Intlayer. Просмотрите все функции, которые были реализованы в Intlayer, и о том, как они будут реализованы.
 keywords:

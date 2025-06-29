@@ -3,7 +3,7 @@ docName: package__next-intlayer__t
 url: https://intlayer.org/doc/packages/next-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: t関数のドキュメント | next-intlayer
 description: next-intlayerパッケージのt関数の使用方法を確認してください
 keywords:

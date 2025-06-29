@@ -3,7 +3,7 @@ docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
-updatedAt: 2024-08-14
+updatedAt: 2025-06-29
 title: اهتمام لبرنامج Intlayer
 description: اكتشف مزايا وفوائد استخدام Intlayer في مشاريعك. افهم لماذا يتفوق Intlayer بين الأطر الأخرى.
 keywords:

@@ -3,7 +3,7 @@ docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: ファイル
 description: Intlayerの`file`関数を使用して、外部ファイルをコンテンツ辞書に埋め込む方法を学びます。このドキュメントでは、Intlayerがどのようにファイルコンテンツを動的に管理するかを説明します。
 keywords:

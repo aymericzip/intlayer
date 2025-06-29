@@ -3,7 +3,7 @@ docName: package__react-intlayer
 url: https://intlayer.org/doc/packages/react-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentação do pacote | react-intlayer
 description: Veja como usar o pacote react-intlayer
 keywords:

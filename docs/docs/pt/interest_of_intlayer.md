@@ -3,7 +3,7 @@ docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
-updatedAt: 2024-08-14
+updatedAt: 2025-06-29
 title: Interesse do Intlayer
 description: Descubra os benefícios e vantagens de usar o Intlayer em seus projetos. Entenda por que o Intlayer se destaca entre outros frameworks.
 keywords:

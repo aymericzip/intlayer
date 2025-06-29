@@ -3,7 +3,7 @@ blogName: intlayer_with_react-i18next
 url: https://intlayer.org/blog/intlayer-with-react-i18next
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_react-i18next.md
 createdAt: 2025-01-02
-updatedAt: 2025-01-02
+updatedAt: 2025-06-29
 title: Intlayer and react-i18next
 description: Compare Intlayer with react-i18next for a React app
 keywords:

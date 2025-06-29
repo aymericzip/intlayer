@@ -3,7 +3,7 @@ docName: package__next-intlayer__useDictionary
 url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentação do hook useDictionary | next-intlayer
 description: Veja como usar o hook useDictionary para o pacote next-intlayer
 keywords:

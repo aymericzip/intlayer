@@ -3,7 +3,7 @@ docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: إعلان المحتوى | ابدأ
 description: اكتشف كيفية إعلان واستخدام إعلان المحتوى في موقعك الإلكتروني متعدد اللغات. اتبع الخطوات في هذه الوثائق عبر الإنترنت لإعداد مشروعك في بضع دقائق.
 keywords:

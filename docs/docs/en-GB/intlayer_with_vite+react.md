@@ -3,7 +3,7 @@ docName: intlayer_with_react_native_and_expo
 url: https://intlayer.org/doc/environment/react-native-and-expo
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md
 createdAt: 2025-03-07
-updatedAt: 2025-03-07
+updatedAt: 2025-06-29
 title: Translate your React Native and Expo mobile app (i18n)
 description: Discover how to make your React Native and Expo mobile app multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:

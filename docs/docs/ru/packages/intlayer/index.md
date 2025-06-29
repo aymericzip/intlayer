@@ -3,7 +3,7 @@ docName: package__intlayer
 url: https://intlayer.org/doc/packages/intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Документация пакета | intlayer
 description: Узнайте, как использовать пакет intlayer
 keywords:

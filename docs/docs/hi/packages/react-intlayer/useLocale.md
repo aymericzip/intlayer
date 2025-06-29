@@ -3,7 +3,7 @@ docName: package__react-intlayer__useLocale
 url: https://intlayer.org/doc/packages/react-intlayer/useLocale
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useLocale हुक दस्तावेज़ | react-intlayer
 description: react-intlayer पैकेज के लिए useLocale हुक का उपयोग कैसे करें, देखें
 keywords:

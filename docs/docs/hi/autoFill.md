@@ -3,7 +3,7 @@ docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: स्वतः भरण
 description: Intlayer में स्वतः भरण कार्यक्षमता का उपयोग करके पूर्वनिर्धारित पैटर्न के आधार पर सामग्री को स्वचालित रूप से भरने का तरीका जानें। इस दस्तावेज़ का पालन करें और अपने प्रोजेक्ट में स्वतः भरण सुविधाओं को कुशलतापूर्वक लागू करें।
 keywords:

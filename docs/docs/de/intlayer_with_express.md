@@ -3,7 +3,7 @@ docName: intlayer_with_express
 url: https://intlayer.org/doc/environment/express
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Übersetzen Sie Ihren Express-Backend (i18n)
 description: Entdecken Sie, wie Sie Ihre vite-Backend mehrsprachig gestalten können. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:

@@ -3,7 +3,7 @@ docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer CMS | Внедрите свой контент в CMS Intlayer
 description: Внедрите свой контент в CMS Intlayer, чтобы делегировать управление своим контентом вашей команде.
 keywords:

@@ -3,7 +3,7 @@ docName: intlayer_with_vite_preact
 url: https://intlayer.org/doc/environment/vite-and-preact
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+preact.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: ترجم موقعك الإلكتروني Vite و Preact (i18n)
 description: اكتشف كيفية جعل موقعك الإلكتروني باستخدام Vite وPreact متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:

@@ -3,7 +3,7 @@ docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-7
-updatedAt: 2025-02-7
+updatedAt: 2025-06-29
 title: Aninhamento do dicionário
 description: Descubra como usar o aninhamento de conteúdo no Intlayer para reutilizar e estruturar seu conteúdo multilíngue de forma eficiente. Siga esta documentação para implementar o aninhamento sem problemas no seu projeto.
 keywords:

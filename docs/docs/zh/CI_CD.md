@@ -3,7 +3,7 @@ docName: ci_cd
 url: https://intlayer.org/doc/concept/ci-cd
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
-updatedAt: 2025-05-20
+updatedAt: 2025-06-29
 title: CI/CD集成
 description: 了解如何将Intlayer集成到您的CI/CD管道中，以实现自动化的内容管理和部署。
 keywords:

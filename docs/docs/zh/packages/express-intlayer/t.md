@@ -3,7 +3,7 @@ docName: package__express-intlayer__t
 url: https://intlayer.org/doc/packages/express-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
-updatedAt: 2024-12-02
+updatedAt: 2025-06-29
 title: t函数文档 | express-intlayer
 description: 请查看如何使用 express-intlayer 包的 t 函数
 keywords:

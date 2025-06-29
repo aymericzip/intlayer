@@ -3,7 +3,7 @@ docName: configuration
 url: https://intlayer.org/doc/concept/configuration
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-06-29
 title: 構成
 description: アプリケーションのためにIntlayerを設定する方法を学びます。Intlayerをニーズに合わせてカスタマイズするために利用可能なさまざまな設定とオプションを理解します。
 keywords:

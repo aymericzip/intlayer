@@ -3,7 +3,7 @@ docName: package__nuxt-intlayer
 url: https://intlayer.org/doc/packages/nuxt-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/nuxt-intlayer/index.md
 createdAt: 2025-06-18
-updatedAt: 2025-06-18
+updatedAt: 2025-06-29
 title: 包文档 | nuxt-intlayer
 description: 查看如何使用 nuxt-intlayer 软件包
 keywords:

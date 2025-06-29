@@ -3,7 +3,7 @@ docName: intlayer_with_angular
 url: https://intlayer.org/doc/environment/angular
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_angular.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Translate your Angular website (i18n)
 description: Discover how to make your Angular website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:

@@ -3,7 +3,7 @@ docName: package__express-intlayer__t
 url: https://intlayer.org/doc/packages/express-intlayer/t
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
-updatedAt: 2024-12-02
+updatedAt: 2025-06-29
 title: t फ़ंक्शन दस्तावेज़ | express-intlayer
 description: express-intlayer पैकेज के लिए t फ़ंक्शन का उपयोग कैसे करें देखें
 keywords:

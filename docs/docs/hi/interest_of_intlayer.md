@@ -3,7 +3,7 @@ docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
-updatedAt: 2024-08-14
+updatedAt: 2025-06-29
 title: Intlayer की रुचि
 description: अपने परियोजनाओं में Intlayer का उपयोग करने के लाभ और फायदे जानें। यह समझें कि Intlayer अन्य फ्रेमवर्क के बीच क्यों खड़ा है।
 keywords:

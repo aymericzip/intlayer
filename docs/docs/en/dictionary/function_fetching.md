@@ -3,7 +3,7 @@ docName: dictionary__function_fetching
 url: https://intlayer.org/doc/concept/content/function-fetching
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Function Fetching
 description: Discover how to declare and use function fetching in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:

@@ -3,7 +3,7 @@ docName: dictionary__function_fetching
 url: https://intlayer.org/doc/concept/content/function-fetching
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Получение функции
 description: Узнайте, как объявить и использовать получение функции на вашем многоязычном сайте. Следуйте шагам в этой онлайн-документации, чтобы настроить ваш проект всего за несколько минут.
 keywords:

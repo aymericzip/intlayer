@@ -3,7 +3,7 @@ docName: roadmap
 url: https://intlayer.org/doc/roadmap
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
-updatedAt: 2025-03-01
+updatedAt: 2025-06-29
 title: خريطة الطريق
 description: اكتشف الطريق التالي للرواد مايكروسفت. اطلع على جميع الميزات التي تم تنفيذها في التطبيق، والذي يقترح بتنفيذها.
 keywords:

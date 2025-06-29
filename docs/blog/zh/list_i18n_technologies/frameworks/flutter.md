@@ -3,7 +3,7 @@ blogName: list_i18n_technologies__frameworks__flutter
 url: https://intlayer.org/blog/i18n-technologies/frameworks/flutter
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/flutter.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Flutter的最佳国际化工具
 description: 发现最佳的Flutter i18n解决方案来解决翻译挑战、提高SEO，并提供无比的全球网络体验。
 keywords:

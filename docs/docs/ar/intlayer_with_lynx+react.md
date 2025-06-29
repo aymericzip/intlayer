@@ -3,7 +3,7 @@ docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
-updatedAt: 2025-03-09
+updatedAt: 2025-06-29
 title: ترجم تطبيق الجوال Lynx و React (i18n)
 description: اكتشف كيفية جعل موقعك الذي يستخدم Lynx و React مع Page Router متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:

@@ -3,7 +3,7 @@ docName: intlayer_with_vite_solid
 url: https://intlayer.org/doc/environment/vite-and-solid
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+solid.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: ViteとSolidのウェブサイトを翻訳する (i18n)
 description: ViteとSolidを使ったウェブサイトを多言語対応にする方法を学びましょう。国際化（i18n）と翻訳のためにドキュメントに従ってください。
 keywords:

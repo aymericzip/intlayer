@@ -3,7 +3,7 @@ docName: package__next-intlayer
 url: https://intlayer.org/doc/packages/next-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentazione del pacchetto | next-intlayer
 description: Scopri come utilizzare il pacchetto next-intlayer
 keywords:

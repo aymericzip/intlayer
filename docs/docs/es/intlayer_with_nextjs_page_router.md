@@ -3,7 +3,7 @@ docName: intlayer_with_nextjs_page_router
 url: https://intlayer.org/doc/environment/nextjs/next-with-Page-Router
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md
 createdAt: 2024-12-07
-updatedAt: 2024-12-07
+updatedAt: 2025-06-29
 title: Traduce su sitio web Next.js y Page Router (i18n)
 description: Descubre cómo hacer que tu sitio web de Next.js usando Page Router sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:

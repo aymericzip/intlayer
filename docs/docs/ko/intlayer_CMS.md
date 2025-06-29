@@ -3,7 +3,7 @@ docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer CMS | Intlayer CMS에 콘텐츠를 외부화합니다
 description: Intlayer CMS에 콘텐츠를 외부화하여 콘텐츠의 관리를 팀에게 위임합니다.
 keywords:

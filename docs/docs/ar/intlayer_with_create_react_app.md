@@ -3,7 +3,7 @@ docName: intlayer_with_create_react_app
 url: https://intlayer.org/doc/environment/create-react-app
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: ترجم موقعك الإلكتروني Create React App (CRA) (i18n)
 description: اكتشف كيفية جعل موقع Create React App (CRA) الخاص بك متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:

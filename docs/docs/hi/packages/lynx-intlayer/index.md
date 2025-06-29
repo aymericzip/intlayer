@@ -3,7 +3,7 @@ docName: package__lynx-intlayer
 url: https://intlayer.org/doc/packages/lynx-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: पैकेज के डॉक्यूमेंटेशन | lynx-intlayer
 description: lynx-intlayer पैकेज का उपयोग कैसे करें
 keywords:

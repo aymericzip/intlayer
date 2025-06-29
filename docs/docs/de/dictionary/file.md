@@ -3,7 +3,7 @@ docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Datei
 description: Erfahren Sie, wie Sie externe Dateien in Ihr Inhaltsverzeichnis einbetten können, indem Sie die `file`-Funktion verwenden. Diese Dokumentation erklärt, wie Intlayer Dateiinhalte dynamisch verknüpft und verwaltet.
 keywords:

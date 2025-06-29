@@ -3,7 +3,7 @@ docName: package__intlayer__getMultilingualUrls
 url: https://intlayer.org/doc/packages/intlayer/getMultilingualUrls
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentazione della funzione getMultilingualUrls | intlayer
 description: Scopri come utilizzare la funzione getMultilingualUrls per il pacchetto intlayer
 keywords:

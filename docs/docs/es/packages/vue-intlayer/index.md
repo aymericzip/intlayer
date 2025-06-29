@@ -3,7 +3,7 @@ docName: package__vue-intlayer
 url: https://intlayer.org/doc/packages/vue-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vue-intlayer/index.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Documentación del paquete | vue-intlayer
 description: Descubre cómo usar el paquete vue-intlayer
 keywords:

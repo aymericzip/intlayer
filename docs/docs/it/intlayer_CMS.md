@@ -3,7 +3,7 @@ docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: CMS Intlayer | Esterna il tuo contenuto nel CMS Intlayer
 description: Esterna il tuo contenuto nel CMS Intlayer per delegare la gestione del tuo contenuto al tuo team.
 keywords:

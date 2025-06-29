@@ -3,7 +3,7 @@ docName: package__next-intlayer
 url: https://intlayer.org/doc/packages/next-intlayer
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 包文档 | next-intlayer
 description: 查看如何使用 next-intlayer 软件包
 keywords:

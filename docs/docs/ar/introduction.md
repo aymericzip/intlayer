@@ -3,7 +3,7 @@ docName: introduction
 url: https://intlayer.org/doc/get-started
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/introduction.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: مقدمة
 description: اكتشف كيف يعمل Intlayer. اطلع على الخطوات المستخدمة من قبل Intlayer في تطبيقك. انظر ماذا تفعل الحزم المختلفة.
 keywords:
