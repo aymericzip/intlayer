@@ -1,9 +1,8 @@
-import type { AIOptions } from '@intlayer/api';
+import type { AIOptions as BaseAIOptions } from '@intlayer/api';
 import { GetConfigurationOptions, isESModule } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { Command } from 'commander';
-import { readFileSync } from 'fs';
-import { dirname as pathDirname, resolve } from 'path';
+import { dirname as pathDirname } from 'path';
 import { fileURLToPath } from 'url';
 import {
   DiffMode,
@@ -18,14 +17,18 @@ import { push } from './push';
 import { pushConfig } from './pushConfig';
 import { reviewDoc } from './reviewDoc';
 import { translateDoc } from './translateDoc';
+import { getParentPackageJSON } from './utils/getParentPackageJSON';
+
+// Extended AI options to include customPrompt
+type AIOptions = BaseAIOptions & {
+  customPrompt?: string;
+};
 
 export const dirname = isESModule
   ? pathDirname(fileURLToPath(import.meta.url))
   : __dirname;
 
-const packageJson = JSON.parse(
-  readFileSync(resolve(dirname, '../../package.json'), 'utf8')
-);
+const packageJson = getParentPackageJSON(dirname);
 
 const logOptions = [
   ['--verbose', 'Verbose'],
@@ -79,7 +82,14 @@ const applyAIOptions = (command: Command) => applyOptions(command, aiOptions);
 const applyGitOptions = (command: Command) => applyOptions(command, gitOptions);
 
 const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
-  const { apiKey, provider, model, temperature, applicationContext } = options;
+  const {
+    apiKey,
+    provider,
+    model,
+    temperature,
+    applicationContext,
+    customPrompt,
+  } = options;
 
   return removeUndefined({
     apiKey: apiKey ?? configuration.ai?.apiKey,
@@ -88,6 +98,7 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
     temperature: temperature ?? configuration.ai?.temperature,
     applicationContext:
       applicationContext ?? configuration.ai?.applicationContext,
+    customPrompt: customPrompt ?? (configuration.ai as any)?.customPrompt,
   });
 };
 
@@ -205,7 +216,7 @@ const extractConfigOptions = (
 export const setAPI = (): Command => {
   const program = new Command();
 
-  program.version(packageJson.version).description('Intlayer CLI');
+  program.version(packageJson.version!).description('Intlayer CLI');
 
   /**
    * DICTIONARIES
@@ -424,8 +435,6 @@ export const setAPI = (): Command => {
     } as FillOptions)
   );
 
-  program.parse(process.argv);
-
   /**
    * DOCS
    */
@@ -444,8 +453,12 @@ export const setAPI = (): Command => {
     ['--base-locale [baseLocale]', 'Base locale'],
   ];
 
-  const translateProgram = program
-    .command('doc translate')
+  const docProgram = program
+    .command('doc')
+    .description('Documentation operations');
+
+  const translateProgram = docProgram
+    .command('translate')
     .description('Translate the documentation');
 
   applyConfigOptions(translateProgram);
@@ -465,8 +478,8 @@ export const setAPI = (): Command => {
     })
   );
 
-  const reviewProgram = program
-    .command('doc review')
+  const reviewProgram = docProgram
+    .command('review')
     .description('Review the documentation');
 
   applyConfigOptions(reviewProgram);
@@ -485,6 +498,8 @@ export const setAPI = (): Command => {
       configOptions: extractConfigOptions(options),
     })
   );
+
+  program.parse(process.argv);
 
   return program;
 };

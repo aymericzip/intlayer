@@ -32,11 +32,11 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPEN_AI_API_KEY,
   },
 
-  editor: {
-    backendURL: process.env.BACKEND_URL,
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-  },
+  // editor: {
+  //   backendURL: process.env.BACKEND_URL,
+  //   clientId: process.env.INTLAYER_CLIENT_ID,
+  //   clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  // },
 };
 
 export default config;

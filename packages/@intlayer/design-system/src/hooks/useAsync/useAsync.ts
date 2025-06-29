@@ -368,7 +368,6 @@ export const useAsync = <
     if (!isEnabled || !enabled) return; // Hook is disabled
     if (!isRetryEnabled) return; // Retry is disabled
     if (isRetryLimitReached) return; // Retry limit has been reached
-    if (!(cacheEnabled || storeEnabled)) return; // Useless to retry if caching is disabled
     if (isLoading) return; // Fetch is already in progress
     if (isSuccess) return; // Hook has already fetched successfully
 
@@ -383,8 +382,6 @@ export const useAsync = <
     retryLimit,
     enabled,
     retryTime,
-    cacheEnabled,
-    storeEnabled,
     isSuccess,
     isLoading,
     fetch,
@@ -400,7 +397,6 @@ export const useAsync = <
     if (!isEnabled || !enabled) return; // Hook is disabled
     if (isLoading) return; // Fetch is already in progress
     if (!isSuccess || !fetchedDateTime) return; // Should retry either of revalidate
-    if (!(cacheEnabled || storeEnabled)) return; // Useless to revalidate if caching is disabled
 
     const timeout = setTimeout(() => {
       fetch(...storedArgsRef.current);
@@ -410,8 +406,6 @@ export const useAsync = <
   }, [
     revalidationEnabled,
     revalidateTime,
-    cacheEnabled,
-    storeEnabled,
     isSuccess,
     fetchedDateTime,
     isLoading,

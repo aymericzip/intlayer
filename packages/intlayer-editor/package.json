@@ -78,7 +78,10 @@
     "reset:server": "pnpm clean:server && pnpm build:server",
     "start": "node server/dist/esm/index.mjs",
     "start:client": "vite preview --config ./client/vite.config.ts",
-    "start:server": "node --watch ./server/dist/esm/index.mjs"
+    "start:server": "node --watch ./server/dist/esm/index.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --project ./server/tsconfig.types.json --noEmit"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",

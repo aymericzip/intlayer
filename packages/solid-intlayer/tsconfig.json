@@ -2,9 +2,9 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
   "compilerOptions": {
-    "types": ["node"],
-    "jsx": "react-jsx",
-    "jsxImportSource": "solid-js"
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "types": ["node", "vite/client", "@testing-library/jest-dom"]
   },
   "include": ["**/*"]
 }

@@ -68,7 +68,8 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier --write src/**/*",
     "reset": "pnpm clean & pnpm build",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@babel/core": "^7.27.4",

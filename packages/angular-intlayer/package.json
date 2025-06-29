@@ -71,7 +71,8 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {

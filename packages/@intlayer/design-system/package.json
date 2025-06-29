@@ -72,7 +72,7 @@
     "preview": "vite preview",
     "reset": "pnpm clean & pnpm build",
     "storybook": "storybook dev -p 6006",
-    "test": "vitest",
+    "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest --watch",
     "typecheck": "tsc --noEmit"

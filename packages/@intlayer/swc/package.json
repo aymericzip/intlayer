@@ -47,7 +47,8 @@
     "build": "",
     "clean": "",
     "prepublishOnly": "cargo build-wasip1 --release",
-    "reset": ""
+    "reset": "",
+    "test": ""
   },
   "engines": {
     "node": ">=14.18"

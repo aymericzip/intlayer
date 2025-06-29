@@ -70,7 +70,8 @@
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
     "serve": "webpack serve --config ./webpack.config.ts",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "transpile": "webpack --config ./webpack.config.ts",
     "typecheck": "tsup --project ./tsconfig.json --noEmit",
     "watch": "webpack --config ./webpack.config.ts --watch"

@@ -64,7 +64,8 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -75,6 +76,9 @@
     "js-cookie": "^3.0.5"
   },
   "devDependencies": {
+    "@solidjs/testing-library": "^0.8.10",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.6.1",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.15.30",
     "@typescript-eslint/parser": "^8.33.1",
@@ -84,8 +88,10 @@
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
     "eslint": "^9.28.0",
+    "jsdom": "^26.1.0",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
+    "solid-testing-library": "^0.5.1",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.3",
