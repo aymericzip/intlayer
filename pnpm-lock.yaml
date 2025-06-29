@@ -436,9 +436,6 @@ importers:
       '@intlayer/config':
         specifier: workspace:*
         version: link:../packages/@intlayer/config
-      intlayer:
-        specifier: workspace:*
-        version: link:../packages/intlayer
     devDependencies:
       '@types/node':
         specifier: ^22.15.30
@@ -461,6 +458,9 @@ importers:
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
+      intlayer:
+        specifier: workspace:*
+        version: link:../packages/intlayer
       openai:
         specifier: ^4.89.0
         version: 4.104.0(encoding@0.1.13)(ws@8.18.2)(zod@3.25.67)

@@ -67,8 +67,7 @@
   },
   "dependencies": {
     "@intlayer/cli": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "intlayer": "workspace:*"
+    "@intlayer/config": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
@@ -78,6 +77,7 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.28.0",
     "fast-glob": "^3.3.3",
+    "intlayer": "workspace:*",
     "openai": "^4.89.0",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
@@ -89,8 +89,7 @@
   },
   "peerDependencies": {
     "@intlayer/cli": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "intlayer": "workspace:*"
+    "@intlayer/config": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"
