@@ -451,6 +451,10 @@ export const setAPI = (): Command => {
     ],
     ['--locales [locales...]', 'Locales'],
     ['--base-locale [baseLocale]', 'Base locale'],
+    [
+      '--custom-instructions [customInstructions]',
+      'Custom instructions added to the prompt. Usefull to apply specific rules regarding formatting, urls translation, etc.',
+    ],
   ];
 
   const docProgram = program
@@ -475,6 +479,7 @@ export const setAPI = (): Command => {
       aiOptions: extractAiOptions(options),
       nbSimultaneousFileProcessed: options.nbSimultaneousFileProcessed,
       configOptions: extractConfigOptions(options),
+      customInstructions: options.customInstructions,
     })
   );
 
@@ -496,6 +501,7 @@ export const setAPI = (): Command => {
       aiOptions: extractAiOptions(options),
       nbSimultaneousFileProcessed: options.nbSimultaneousFileProcessed,
       configOptions: extractConfigOptions(options),
+      customInstructions: options.customInstructions,
     })
   );
 

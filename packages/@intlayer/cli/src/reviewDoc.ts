@@ -18,6 +18,7 @@ import { checkAIAccess } from './utils/checkAIAccess';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getChunk } from './utils/getChunk';
+import { getOutputFilePath } from './utils/getOutputFilePath';
 
 const isESModule = typeof import.meta.url === 'string';
 
@@ -32,7 +33,8 @@ export const reviewFile = async (
   baseLocale: Locales,
   aiOptions?: AIOptions,
   configOptions?: GetConfigurationOptions,
-  oAuth2AccessToken?: string
+  oAuth2AccessToken?: string,
+  customInstructions?: string
 ) => {
   try {
     const configuration = getConfiguration(configOptions);
@@ -40,9 +42,11 @@ export const reviewFile = async (
 
     const relativePath = join(configuration.content.baseDir, filePath);
 
-    appLogger(`${locale}: Auditing file: ${relativePath}`);
+    appLogger(
+      `Auditing file: ${relativePath} in ${getLocaleName(locale)} (${locale})`
+    );
 
-    const localeFilePath = filePath.replace(`/${baseLocale}/`, `/${locale}/`);
+    const localeFilePath = getOutputFilePath(filePath, locale, baseLocale);
     const basedFileContent = await readFile(relativePath, 'utf-8');
     const fileToReviewContent = await readFile(localeFilePath, 'utf-8');
 
@@ -54,7 +58,14 @@ export const reviewFile = async (
       await readFile(join(dir, './prompts/REVIEW_PROMPT.md'), 'utf-8')
     )
       .replaceAll('{{locale}}', locale)
-      .replaceAll('{{localeName}}', getLocaleName(locale, baseLocale));
+      .replaceAll('{{localeName}}', getLocaleName(locale))
+      .replaceAll('{{baseLocale}}', baseLocale)
+      .replaceAll('{{baseLocaleName}}', getLocaleName(baseLocale))
+      .replaceAll(
+        '{{applicationContext}}',
+        aiOptions?.applicationContext ?? '-'
+      )
+      .replaceAll('{{customInstructions}}', customInstructions ?? '-');
 
     const baseChunks = chunkText(basedFileContent, 800, 0);
 
@@ -64,7 +75,7 @@ export const reviewFile = async (
       const baseChunkContext = baseChunks[i];
 
       const getBaseChunkContextPrompt = () =>
-        `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the base chunk in ${getLocaleName(baseLocale, baseLocale)} (${baseLocale}) as reference.\n` +
+        `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the base chunk in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) as reference.\n` +
         `///chunksStart///` +
         (baseChunks[i - 1]?.content ?? '') +
         baseChunkContext.content +
@@ -72,7 +83,7 @@ export const reviewFile = async (
         `///chunksEnd///`;
 
       const getChunkToReviewPrompt = () =>
-        `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the current chunk to review in ${getLocaleName(locale, baseLocale)} (${locale}) as reference.\n` +
+        `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the current chunk to review in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}) as reference.\n` +
         `///chunksStart///` +
         getChunk(updatedFileContent, {
           lineStart: baseChunks[i - 1]?.lineStart ?? 0,
@@ -92,7 +103,7 @@ export const reviewFile = async (
             { role: 'system', content: getChunkToReviewPrompt() },
             {
               role: 'system',
-              content: `The next user message will be the **CHUNK ${i + 1} of ${baseChunks.length}** that should be translated in ${getLocaleName(locale, baseLocale)} (${locale}).`,
+              content: `The next user message will be the **CHUNK ${i + 1} of ${baseChunks.length}** that should be translated in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}).`,
             },
             { role: 'user', content: baseChunkContext.content },
           ],
@@ -134,6 +145,7 @@ type ReviewDocOptions = {
   aiOptions?: AIOptions;
   nbSimultaneousFileProcessed?: number;
   configOptions?: GetConfigurationOptions;
+  customInstructions?: string;
 };
 
 /**
@@ -148,6 +160,7 @@ export const reviewDoc = async ({
   aiOptions,
   nbSimultaneousFileProcessed,
   configOptions,
+  customInstructions,
 }: ReviewDocOptions) => {
   const configuration = getConfiguration(configOptions);
   const appLogger = getAppLogger(configuration);
@@ -168,10 +181,12 @@ export const reviewDoc = async ({
     oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
   }
 
-  appLogger(`Base locale is ${getLocaleName(baseLocale)} (${baseLocale})`);
+  appLogger(
+    `Base locale is ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale})`
+  );
   appLogger(
     `Reviewing ${locales.length} locales: [ ${locales
-      .map((locale) => `${getLocaleName(locale, baseLocale)} (${locale})`)
+      .map((locale) => `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`)
       .join(', ')} ]`
   );
   appLogger(`Reviewing ${docList.length} files:`);
@@ -186,7 +201,8 @@ export const reviewDoc = async ({
           baseLocale,
           aiOptions,
           configOptions,
-          oAuth2AccessToken
+          oAuth2AccessToken,
+          customInstructions
         )
       )
     )

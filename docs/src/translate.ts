@@ -1,13 +1,15 @@
 import { translateDoc } from '@intlayer/cli';
 import { getConfiguration, Locales } from '@intlayer/config';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { AIOptions } from '../../packages/@intlayer/api/dist/types/types';
 import { defaultLocale, locales } from '../intlayer.config';
 
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
-  './docs/en/**/*.md',
-  './blog/en/**/*.md',
+  // './docs/en/**/*.md',
+  // './blog/en/**/*.md',
   // './docs/en/**/express-intlayer/index.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
@@ -27,6 +29,11 @@ const LOCALE_LIST_TO_TRANSLATE: Locales[] = locales.filter(
 
 const configuration = getConfiguration();
 
+const customInstructions = readFileSync(
+  join(process.cwd(), './src/prompts/CUSTOM_INSTRUCTIONS.md'),
+  'utf-8'
+);
+
 translateDoc({
   excludedGlobPattern: EXCLUDED_GLOB_PATTEN,
   docPattern: DOC_PATTERN,
@@ -34,4 +41,5 @@ translateDoc({
   baseLocale: defaultLocale,
   aiOptions: configuration.ai as AIOptions,
   nbSimultaneousFileProcessed: NB_SIMULTANEOUS_FILE_PROCESSED,
+  customInstructions,
 });

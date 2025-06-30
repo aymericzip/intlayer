@@ -1,5 +1,7 @@
 import { reviewDoc } from '@intlayer/cli';
 import { Locales, getConfiguration } from '@intlayer/config';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { AIOptions } from '../../packages/@intlayer/api/dist/types/types';
 import { defaultLocale, locales } from '../intlayer.config';
 
@@ -27,6 +29,11 @@ const LOCALE_LIST_TO_TRANSLATE: Locales[] = locales.filter(
 
 const configuration = getConfiguration();
 
+const customInstructions = readFileSync(
+  join(process.cwd(), './src/prompts/CUSTOM_INSTRUCTIONS.md'),
+  'utf-8'
+);
+
 reviewDoc({
   excludedGlobPattern: EXCLUDED_GLOB_PATTEN,
   docPattern: DOC_PATTERN,
@@ -34,4 +41,5 @@ reviewDoc({
   baseLocale: defaultLocale,
   aiOptions: configuration.ai as AIOptions,
   nbSimultaneousFileProcessed: NB_SIMULTANEOUS_FILE_PROCESSED,
+  customInstructions,
 });

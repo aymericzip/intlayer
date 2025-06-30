@@ -18,6 +18,7 @@ import { checkAIAccess } from './utils/checkAIAccess';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getChunk } from './utils/getChunk';
+import { getOutputFilePath } from './utils/getOutputFilePath';
 
 const isESModule = typeof import.meta.url === 'string';
 
@@ -32,7 +33,8 @@ export const translateFile = async (
   baseLocale: Locales,
   aiOptions?: AIOptions,
   configOptions?: GetConfigurationOptions,
-  oAuth2AccessToken?: string
+  oAuth2AccessToken?: string,
+  customInstructions?: string
 ) => {
   try {
     const configuration = getConfiguration(configOptions);
@@ -40,10 +42,12 @@ export const translateFile = async (
 
     const relativePath = join(configuration.content.baseDir, filePath);
 
-    appLogger(`${locale}: Translating file: ${relativePath}`);
+    appLogger(
+      `Translating file: ${relativePath} to ${getLocaleName(locale)} (${locale})`
+    );
 
     // Determine the target locale file path
-    const localeFilePath = filePath.replace(`/${baseLocale}/`, `/${locale}/`);
+    const localeFilePath = getOutputFilePath(filePath, locale, baseLocale);
     const fileContent = await readFile(relativePath, 'utf-8');
     let fileResultContent = fileContent;
 
@@ -52,7 +56,17 @@ export const translateFile = async (
       await readFile(join(dir, './prompts/TRANSLATE_PROMPT.md'), 'utf-8')
     )
       .replaceAll('{{locale}}', locale)
-      .replaceAll('{{localeName}}', getLocaleName(locale, baseLocale));
+      .replaceAll('{{localeName}}', getLocaleName(locale, Locales.ENGLISH))
+      .replaceAll('{{baseLocale}}', baseLocale)
+      .replaceAll(
+        '{{baseLocaleName}}',
+        getLocaleName(baseLocale, Locales.ENGLISH)
+      )
+      .replaceAll(
+        '{{applicationContext}}',
+        aiOptions?.applicationContext ?? '-'
+      )
+      .replaceAll('{{customInstructions}}', customInstructions ?? '-');
 
     // 1. Chunk the file by number of lines instead of characters
     const chunks = chunkText(fileContent);
@@ -60,20 +74,21 @@ export const translateFile = async (
 
     for (let i = 0; i < chunks.length; i++) {
       const isFirstChunk = i === 0;
-      const isLastChunk = i === chunks.length - 1;
 
       // Build the chunk-specific prompt
       const getPrevChunkPrompt = () =>
-        `**CHUNK ${i} of ${chunks.length}** that has been translated in ${getLocaleName(locale, baseLocale)} (${locale}):\n` +
+        `**CHUNK ${i} of ${chunks.length}** that has been translated in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}):\n` +
         `///chunkStart///` +
         getChunk(fileResultContent, chunks[i - 1]) +
         `///chunkEnd///`;
 
-      const getNextChunkPrompt = () =>
-        `**CHUNK ${i + 2} of ${chunks.length}** as context for formatting in ${getLocaleName(baseLocale, baseLocale)} (${baseLocale}):\n` +
-        `///chunkStart///` +
-        chunks[i + 1].content +
-        `///chunkEnd///`;
+      const getBaseChunkContextPrompt = () =>
+        `**CHUNK ${i + 1} to ${Math.min(i + 3, chunks.length)} of ${chunks.length}** is the base chunk in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) as reference.\n` +
+        `///chunksStart///` +
+        (chunks[i - 1]?.content ?? '') +
+        chunks[i].content +
+        (chunks[i + 1]?.content ?? '') +
+        `///chunksEnd///`;
 
       const fileToTranslateCurrentChunk = chunks[i].content;
 
@@ -82,15 +97,14 @@ export const translateFile = async (
         const result = await chunkInference(
           [
             { role: 'system', content: basePrompt },
+
+            { role: 'system', content: getBaseChunkContextPrompt() },
             ...(isFirstChunk
               ? []
-              : ([{ role: 'system', content: getPrevChunkPrompt() }] as const)),
-            ...(isLastChunk
-              ? []
-              : ([{ role: 'system', content: getNextChunkPrompt() }] as const)),
+              : [{ role: 'system', content: getPrevChunkPrompt() } as const]),
             {
               role: 'system',
-              content: `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale, baseLocale)} (${baseLocale}) to translate in ${getLocaleName(locale, baseLocale)} (${locale}):`,
+              content: `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) to translate in ${getLocaleName(locale)} (${locale}):`,
             },
             { role: 'user', content: fileToTranslateCurrentChunk },
           ],
@@ -132,6 +146,7 @@ type TranslateDocOptions = {
   aiOptions?: AIOptions;
   nbSimultaneousFileProcessed?: number;
   configOptions?: GetConfigurationOptions;
+  customInstructions?: string;
 };
 
 /**
@@ -146,6 +161,7 @@ export const translateDoc = async ({
   aiOptions,
   nbSimultaneousFileProcessed,
   configOptions,
+  customInstructions,
 }: TranslateDocOptions) => {
   const configuration = getConfiguration(configOptions);
   const appLogger = getAppLogger(configuration);
@@ -183,7 +199,8 @@ export const translateDoc = async ({
           baseLocale,
           aiOptions,
           configOptions,
-          oAuth2AccessToken
+          oAuth2AccessToken,
+          customInstructions
         )
       )
     )
