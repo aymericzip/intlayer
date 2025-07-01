@@ -92,7 +92,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
   const { locale, slugs } = await params;
   const blogsData = await getBlogMetadataBySlug(slugs, locale);
 
-  if (!blogsData || blogsData.length !== 0) {
+  if (!blogsData || blogsData.length !== 1) {
     return redirect(PagesRoutes.Blog);
   }
 

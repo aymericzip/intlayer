@@ -13,9 +13,7 @@ export type DocPageProps = LocalPromiseParams<DocProps>;
 export const generateStaticParams = async () => {
   const docMetadata = await getDocMetadataBySlug([]);
 
-  const slugList = docMetadata.map((meta) =>
-    meta.slugs.filter((slug) => slug !== 'doc')
-  );
+  const slugList: string[][] = docMetadata.map((meta) => meta.slugs);
 
   return slugList;
 };
@@ -34,7 +32,7 @@ export const generateMetadata = async ({
   const docData = docsData[0];
 
   const absoluteUrl = docData.url;
-  const relativeUrl = docData.url.replace(`${process.env.NEXT_PUBLIC_URL}`, '');
+  const relativeUrl = docData.relativeUrl;
 
   return {
     title: `${docData.title} | Intlayer`,

@@ -13,9 +13,7 @@ export type BlogPageProps = LocalPromiseParams<BlogProps>;
 export const generateStaticParams = async () => {
   const blogMetadata = await getBlogMetadataBySlug([]);
 
-  const slugList: string[][] = blogMetadata.map((meta) =>
-    meta.slugs.filter((slug) => slug !== 'doc')
-  );
+  const slugList: string[][] = blogMetadata.map((meta) => meta.slugs);
 
   return slugList;
 };
@@ -34,10 +32,7 @@ export const generateMetadata = async ({
   const blogData = blogsData[0];
 
   const absoluteUrl = blogData.url;
-  const relativeUrl = blogData.url.replace(
-    `${process.env.NEXT_PUBLIC_URL}`,
-    ''
-  );
+  const relativeUrl = blogData.relativeUrl;
 
   return {
     title: `${blogData.title} | Intlayer`,

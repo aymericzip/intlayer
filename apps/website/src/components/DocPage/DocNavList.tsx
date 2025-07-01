@@ -19,7 +19,7 @@ import type { Section } from './types';
 
 type OptionalLinkProps = ComponentProps<typeof Link>;
 
-const OptionalLink: FC<OptionalLinkProps> = ({
+export const OptionalLink: FC<OptionalLinkProps> = ({
   href,
   isActive,
   className,
