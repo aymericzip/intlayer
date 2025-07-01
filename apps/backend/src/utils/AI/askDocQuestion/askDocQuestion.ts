@@ -1,5 +1,5 @@
 import { Locales } from '@intlayer/config';
-import { getBlogs, getDocs, getFequentQuestions } from '@intlayer/docs';
+import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
 import { readFileSync, writeFileSync } from 'fs';
@@ -140,7 +140,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   });
 
   // Retrieve documentation and blog posts in English locale
-  const frequentQuestions = getFequentQuestions();
+  const frequentQuestions = getFrequentQuestions();
   const docs = await getDocs(Locales.ENGLISH);
   const blogs = await getBlogs(Locales.ENGLISH);
 
@@ -152,7 +152,9 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   // Iterate over each file key (identifier) in the combined files
   for (const fileKey of Object.keys(files)) {
     // Split the document into chunks based on headings
-    const fileChunks = chunkText(files[fileKey as keyof typeof files]);
+    const fileChunks = chunkText(
+      files[fileKey as keyof typeof files] as string
+    );
 
     // Check if the number of chunks has changed for this file
     const existingChunksForFile = Object.keys(embeddingsList).filter((key) =>
