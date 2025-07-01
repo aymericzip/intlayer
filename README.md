@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/aymericzip-intlayer-badge.png)](https://mseep.ai/app/aymericzip-intlayer)
+
 <div align="center">
   <a href="https://intlayer.org">
     <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
