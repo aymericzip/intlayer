@@ -1,22 +1,12 @@
 import { SearchView } from '@components/DocPage/Search/SearchView';
 import { Container, H1, Loader } from '@intlayer/design-system';
-import {
-  DocMetadata,
-  getBlogMetadataBySlug,
-  getDocMetadataBySlug,
-} from '@intlayer/docs';
+import { getBlogMetadataBySlug, getDocMetadataBySlug } from '@intlayer/docs';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { FC, Suspense } from 'react';
 
-type BlogSearchPageContentProps = {
-  filesData: DocMetadata[];
-};
-
-const BlogSearchPageContent: FC<BlogSearchPageContentProps> = ({
-  filesData,
-}) => {
+const BlogSearchPageContent: FC = () => {
   const { title } = useIntlayer('blog-search-page');
   return (
     <>
@@ -24,7 +14,7 @@ const BlogSearchPageContent: FC<BlogSearchPageContentProps> = ({
       <div className="flex size-full flex-1 flex-col items-baseline gap-10 p-10 md:mt-[10vh]">
         <Container className="mx-auto w-full max-w-3xl p-10" roundedSize="2xl">
           <Suspense fallback={<Loader />}>
-            <SearchView filesData={filesData} />
+            <SearchView />
           </Suspense>
         </Container>
       </div>

@@ -8,8 +8,9 @@ import {
   Loader,
 } from '@intlayer/design-system';
 import { useSearchDoc } from '@intlayer/design-system/hooks';
-import { DocMetadata } from '@intlayer/docs';
+import { BlogMetadata, DocMetadata } from '@intlayer/docs';
 import Fuse, { type IFuseOptions } from 'fuse.js';
+import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -85,16 +86,19 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
 export const SearchView: FC<{
   onClickLink?: () => void;
   isOpen?: boolean;
-  filesData: DocMetadata[];
-}> = ({ onClickLink = () => {}, isOpen = false, filesData }) => {
+}> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { locale } = useLocale();
   const searchQuery = useSearchParams().get('search');
 
   const [results, setResults] = useState<DocMetadata[]>([]);
   const { searchDoc, isLoading, abort: abortSearch } = useSearchDoc();
 
   const { noContentText, searchInput } = useIntlayer('doc-search-view');
+
+  const { locale } = useLocale();
+  const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
+  const blogMetadata = getIntlayer('blog-metadata', locale) as BlogMetadata[];
+  const filesData = [...docMetadata, ...blogMetadata];
 
   // Create a new Fuse instance with the options and documentation data
   const fuse = new Fuse(filesData, fuseOptions);
