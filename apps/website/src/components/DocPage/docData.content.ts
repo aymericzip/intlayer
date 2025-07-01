@@ -1,8 +1,4 @@
-import {
-  DocKey,
-  getBlogMetadata,
-  getDocMetadata as getDocMetadataCore,
-} from '@intlayer/docs';
+import { DocKey, getDocMetadata as getDocMetadataCore } from '@intlayer/docs';
 import {
   configuration,
   localeRecord as localeRecordCore,
@@ -39,7 +35,6 @@ const docDataContent: any = {
         ar: 'ابدأ',
         ru: 'Начать',
       }),
-      test: localeRecord(({ locale }) => locale),
       default: getDocMetadata('./docs/en/introduction.md'),
     },
     roadmap: {
@@ -678,24 +673,6 @@ const docDataContent: any = {
         ru: 'Сервер MCP',
       }),
       default: getDocMetadata('./docs/en/mcp_server.md'),
-    },
-    blog: {
-      title: t({
-        en: 'Blog',
-        fr: 'Blog',
-        es: 'Blog',
-        'en-GB': 'Blog',
-        de: 'Blog',
-        ja: 'ブログ',
-        ko: '블로그',
-        zh: '博客',
-        it: 'Blog',
-        pt: 'Blog',
-        hi: 'ब्लॉग',
-        ar: 'مدونة',
-        ru: 'Блог',
-      }),
-      default: getBlogMetadata('./blog/en/index.md'),
     },
   },
 } satisfies Dictionary;
