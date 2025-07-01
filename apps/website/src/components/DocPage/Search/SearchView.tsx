@@ -1,6 +1,5 @@
 'use client';
 
-import {} from '@components/BlogPage/blogData';
 import {
   Breadcrumb,
   type BreadcrumbLink,

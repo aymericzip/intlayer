@@ -1,30 +1,28 @@
 import { PagesRoutes } from '@/Routes';
-import { getBlogDataArray } from '@components/BlogPage/blogData';
-import { getDocDataArray } from '@components/DocPage/docData';
-import { getLegalMetadataRecord } from '@intlayer/docs';
+import {
+  getBlogMetadataBySlug,
+  getDocMetadataBySlug,
+  getLegalMetadataBySlug,
+} from '@intlayer/docs';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
-  const docs = getDocDataArray();
-  const blob = getBlogDataArray();
-  const legal = await getLegalMetadataRecord();
+  const docs = await getDocMetadataBySlug([]);
+  const blob = await getBlogMetadataBySlug([]);
+  const legal = await getLegalMetadataBySlug([]);
 
-  const legalSitemap: MetadataRoute.Sitemap = Object.entries(legal).map(
-    ([key, value]) => ({
-      url: value.url,
-      lastModified: value.updatedAt,
-      changeFrequency: 'monthly',
-      priority: 0.1,
-      alternates: {
-        languages: {
-          ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes[key as keyof typeof PagesRoutes]}`
-          ),
-        },
+  const legalSitemap: MetadataRoute.Sitemap = legal.map((legal) => ({
+    url: legal.url,
+    lastModified: legal.updatedAt,
+    changeFrequency: 'monthly',
+    priority: 0.1,
+    alternates: {
+      languages: {
+        ...getMultilingualUrls(legal.url),
       },
-    })
-  );
+    },
+  }));
 
   const docSitemap: MetadataRoute.Sitemap = docs.map((doc) => ({
     url: doc.url,
@@ -33,7 +31,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     priority: 0.7,
     alternates: {
       languages: {
-        ...getMultilingualUrls(`${process.env.NEXT_PUBLIC_URL}${doc.url}`),
+        ...getMultilingualUrls(doc.url),
       },
     },
   }));
@@ -45,7 +43,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     priority: 0.5,
     alternates: {
       languages: {
-        ...getMultilingualUrls(`${process.env.NEXT_PUBLIC_URL}${blog.url}`),
+        ...getMultilingualUrls(blog.url),
       },
     },
   }));
