@@ -1,18 +1,8 @@
-import { getConfiguration } from '@intlayer/config';
 import {
   getBlogMetadata as getBlogMetadataCore,
   type BlogKey,
 } from '@intlayer/docs';
-import { localeRecord as localeRecordCore, t, type Dictionary } from 'intlayer';
-
-const configuration = getConfiguration();
-
-const localeRecord: typeof localeRecordCore = (callback) =>
-  localeRecordCore(
-    callback,
-    configuration.internationalization.locales,
-    configuration.internationalization.defaultLocale
-  );
+import { localeRecord, t, type Dictionary } from 'intlayer';
 
 const getBlogMetadata = (blog: BlogKey) =>
   t(
