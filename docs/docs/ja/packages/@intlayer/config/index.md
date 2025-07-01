@@ -1,12 +1,31 @@
+---
+docName: package__@intlayer_config
+url: https://intlayer.org/doc/package/@intlayer_config
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/@intlayer/config/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/config - Intlayerの設定管理
+description: Intlayerの設定を取得し、異なる環境間での国際化設定に関する環境変数を定義するためのNPMパッケージ。
+keywords:
+  - intlayer
+  - 設定
+  - 環境
+  - 設定項目
+  - i18n
+  - JavaScript
+  - NPM
+  - 変数
+---
+
 # @intlayer/config: Intlayerの設定を取得するためのNPMパッケージ
 
-**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージスイートです。React、React、Express.jsなどのフレームワークと互換性があります。
+**Intlayer** はJavaScript開発者向けに特別に設計されたパッケージ群です。ReactやExpress.jsなどのフレームワークと互換性があります。
 
 **`@intlayer/config`** パッケージは、Intlayerの設定を取得し、現在の環境に関連する環境変数を定義するためのNPMパッケージです。
 
 ## インストール
 
-お好みのパッケージマネージャーを使用して必要なパッケージをインストールします:
+お使いのパッケージマネージャーを使用して必要なパッケージをインストールしてください：
 
 ```bash packageManager="npm"
 npm install @intlayer/config
@@ -20,11 +39,11 @@ pnpm add @intlayer/config
 yarn add @intlayer/config
 ```
 
-## 使用方法
+## 使い方
 
-### ファイルシステムを使用してIntlayerの設定を読み取る
+### ファイルシステムを使ってIntlayerの設定を読み取る
 
-例:
+例：
 
 ```ts
 import { getConfiguration, type IntlayerConfig } from "@intlayer/config";
@@ -32,7 +51,7 @@ import { getConfiguration, type IntlayerConfig } from "@intlayer/config";
 const config: IntlayerConfig = getConfiguration();
 
 console.log(config);
-// 出力:
+// 出力例:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -41,11 +60,11 @@ console.log(config);
 // }
 ```
 
-> この関数は`fs`パッケージを使用しており、サーバーサイドでのみ動作します。
+> この関数は `fs` パッケージを使用しており、サーバーサイドでのみ動作します。
 
-### 環境変数を使用してIntlayerの設定を読み取る
+### 環境変数を使ってIntlayerの設定を読み取る
 
-例:
+例：
 
 ```ts
 import { getConfiguration, type IntlayerConfig } from "@intlayer/config/client";
@@ -55,7 +74,7 @@ const config: IntlayerConfig = getConfiguration({
 });
 
 console.log(config);
-// 出力:
+// 出力例:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -91,7 +110,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
+> 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
 2. 環境変数を定義します。
 
@@ -100,10 +119,10 @@ import { getConfiguration } from "@intlayer/config";
 
 const intlayerConfig = getConfiguration();
 
-// すべての設定値を環境変数としてフォーマット
+// すべての設定値を環境変数の形式に変換
 const env = formatEnvVariable();
 
-// フォーマットされた各環境変数をprocess.envに設定
+// 変換された各環境変数をprocess.envに設定
 Object.assign(process.env, env);
 ```
 
@@ -114,3 +133,7 @@ import { getConfiguration } from "@intlayer/config/client";
 
 const intlayerConfig = getConfiguration();
 ```
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴の初期化

@@ -1,11 +1,11 @@
 ---
 docName: package__react-scripts-intlayer
 url: https://intlayer.org/doc/packages/react-scripts-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-scripts-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-scripts-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentación del paquete | react-scripts-intlayer
-description: Descubre cómo usar el paquete react-scripts-intlayer
+title: Documentación del Paquete | react-scripts-intlayer
+description: Vea cómo usar el paquete react-scripts-intlayer
 keywords:
   - Intlayer
   - react-scripts-intlayer
@@ -16,19 +16,19 @@ keywords:
   - React
 ---
 
-# react-scripts-intlayer: Paquete NPM para usar Intlayer en una aplicación de React Create App
+# react-scripts-intlayer: Paquete NPM para usar Intlayer en una aplicación React Create App
 
-**Intlayer** es un conjunto de paquetes diseñados específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
+**Intlayer** es una suite de paquetes diseñada específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
 
-**El paquete `react-scripts-intlayer`** incluye los comandos y plugins de `react-scripts-intlayer` para integrar Intlayer con la aplicación basada en Create React App. Estos plugins están basados en [craco](https://craco.js.org/) e incluyen configuración adicional para el empaquetador [Webpack](https://webpack.js.org/).
+**El paquete `react-scripts-intlayer`** incluye los comandos y plugins de `react-scripts-intlayer` para integrar Intlayer con aplicaciones basadas en Create React App. Estos plugins están basados en [craco](https://craco.js.org/) e incluyen configuración adicional para el empaquetador [Webpack](https://webpack.js.org/).
 
 ## Configuración
 
-El paquete `react-scripts-intlayer` funciona perfectamente con el [paquete `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md), y el [paquete `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/index.md). Consulte la documentación relevante para obtener más información.
+El paquete `react-scripts-intlayer` funciona perfectamente con el paquete [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md) y el paquete [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/index.md). Consulte la documentación correspondiente para más información.
 
 ## Instalación
 
-Instale el paquete necesario utilizando su gestor de paquetes preferido:
+Instale el paquete necesario usando su gestor de paquetes preferido:
 
 ```bash packageManager="npm"
 npm install react-scripts-intlayer
@@ -53,7 +53,7 @@ El paquete `react-scripts-intlayer` proporciona los siguientes comandos CLI:
 
 ### Reemplazar scripts en package.json
 
-Para usar el paquete `react-scripts-intlayer`, necesita reemplazar los scripts de `package.json` con los siguientes comandos:
+Para usar el paquete `react-scripts-intlayer`, debe reemplazar los scripts en `package.json` con los siguientes comandos:
 
 ```json fileName="package.json"
 {
@@ -66,10 +66,14 @@ Para usar el paquete `react-scripts-intlayer`, necesita reemplazar los scripts d
 
 ## Usar configuración personalizada de Webpack
 
-`react-scripts-intlayer` está basado en [craco](https://craco.js.org/), lo que le permite personalizar la configuración de Webpack.
-Si necesita personalizar la configuración de Webpack, también puede implementar su propia configuración basada en el plugin craco de Intlayer. [Vea un ejemplo aquí](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
+`react-scripts-intlayer` está basado en [craco](https://craco.js.org/), que te permite personalizar la configuración de Webpack.
+Si necesitas personalizar la configuración de Webpack, también puedes implementar tu propia configuración basada en el plugin craco de intlayer. [Ver ejemplo aquí](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-## Lea la guía completa de Intlayer para React Create App
+## Lee la guía completa de Intlayer para React Create App
 
-Intlayer proporciona muchas características para ayudarle a internacionalizar su aplicación React.
-[Vea cómo usar Intlayer con React Create App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md).
+Intlayer ofrece muchas funcionalidades para ayudarte a internacionalizar tu aplicación React.
+[Ver cómo usar intlayer con React Create App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md).
+
+## Historial de la documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

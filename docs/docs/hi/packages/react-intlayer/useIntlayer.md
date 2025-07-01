@@ -1,73 +1,73 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: useIntlayer हुक दस्तावेज | react-intlayer
-description: react-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें यह देखें
+title: useIntlayer हुक दस्तावेज़ | react-intlayer
+description: react-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें देखें
 keywords:
   - useIntlayer
   - शब्दकोश
-  - चाबी
+  - कुंजी
   - Intlayer
-  - अंतर्राष्ट्रीयकरण
-  - दस्तावेज़
+  - अंतरराष्ट्रीयकरण
+  - दस्तावेज़ीकरण
   - Next.js
-  - JavaScript
-  - React
+  - जावास्क्रिप्ट
+  - रिएक्ट
 ---
 
-# React एकीकरण: `useIntlayer` हुक प्रलेखन
+# रिएक्ट एकीकरण: `useIntlayer` हुक दस्तावेज़ीकरण
 
-यह अनुभाग React अनुप्रयोगों में `useIntlayer` हुक का उपयोग करने के लिए विस्तृत मार्गदर्शन प्रदान करता है, जो सामग्री स्थानीयकरण को कुशल बनाता है।
+यह अनुभाग React अनुप्रयोगों के भीतर `useIntlayer` हुक का उपयोग करने के लिए विस्तृत मार्गदर्शन प्रदान करता है, जो कुशल सामग्री स्थानीयकरण की अनुमति देता है।
 
-## React में `useIntlayer` आयात करना
+## React में `useIntlayer` को इम्पोर्ट करना
 
-`useIntlayer` हुक को संदर्भ के आधार पर आयात करके React अनुप्रयोगों में एकीकृत किया जा सकता है:
+`useIntlayer` हुक को संदर्भ के आधार पर React अनुप्रयोगों में आयात करके एकीकृत किया जा सकता है:
 
-- **क्लाइंट घटक:**
+- **क्लाइंट कंपोनेंट:**
 
   ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // क्लाइंट-साइड React घटकों में उपयोग किया जाता है
+  import { useIntlayer } from "react-intlayer"; // क्लाइंट-साइड React कंपोनेंट्स में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // क्लाइंट-साइड React घटकों में उपयोग किया जाता है
+  import { useIntlayer } from "react-intlayer"; // क्लाइंट-साइड React कंपोनेंट्स में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // क्लाइंट-साइड React घटकों में उपयोग किया जाता है
+  const { useIntlayer } = require("react-intlayer"); // क्लाइंट-साइड React कंपोनेंट्स में उपयोग किया जाता है
   ```
 
-- **सर्वर घटक:**
+- **सर्वर कंपोनेंट:**
 
   ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // सर्वर-साइड React घटकों में उपयोग किया जाता है
+  import { useIntlayer } from "react-intlayer/server"; // सर्वर-साइड React कंपोनेंट्स में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // सर्वर-साइड React घटकों में उपयोग किया जाता है
+  import { useIntlayer } from "react-intlayer/server"; // सर्वर-साइड React कंपोनेंट्स में उपयोग किया जाता है
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // सर्वर-साइड React घटकों में उपयोग किया जाता है
+  const { useIntlayer } = require("react-intlayer/server"); // सर्वर-साइड React कंपोनेंट्स में उपयोग किया जाता है
   ```
 
 ## पैरामीटर
 
-हुक दो पैरामीटर स्वीकार करता है:
+यह हुक दो पैरामीटर स्वीकार करता है:
 
 1. **`key`**: स्थानीयकृत सामग्री प्राप्त करने के लिए शब्दकोश कुंजी।
-2. **`locale`** (वैकल्पिक): इच्छित लोकेल। यदि निर्दिष्ट नहीं किया गया है, तो संदर्भ के लोकेल का उपयोग डिफ़ॉल्ट रूप से किया जाएगा।
+2. **`locale`** (वैकल्पिक): इच्छित लोकल। यदि निर्दिष्ट नहीं किया गया है, तो यह संदर्भ के लोकल पर डिफ़ॉल्ट होता है।
 
 ## शब्दकोश
 
-सभी शब्दकोश कुंजियों को सामग्री घोषणा फ़ाइलों के भीतर घोषित किया जाना चाहिए ताकि प्रकार सुरक्षा बढ़ सके और त्रुटियों से बचा जा सके। सेटअप निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md) देखें।
+सभी शब्दकोश कुंजियाँ सामग्री घोषणा फ़ाइलों में घोषित होनी चाहिए ताकि टाइप सुरक्षा बढ़े और त्रुटियों से बचा जा सके। आप [सेटअप निर्देश यहाँ पा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md)।
 
-## React में उपयोग का उदाहरण
+## React में उदाहरण उपयोग
 
-React घटक के भीतर `useIntlayer` हुक का प्रदर्शन:
+React कंपोनेंट के भीतर `useIntlayer` हुक का प्रदर्शन:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -117,6 +117,10 @@ const App = ({ locale }) => {
 
 ```jsx fileName="src/app.csx" codeFormat="commonjs"
 const { IntlayerProvider } = require("react-intlayer");
+const {
+  IntlayerServerProvider,
+  useIntlayer,
+jsx fileName="src/app.csx" codeFormat="commonjs"
 const {
   IntlayerServerProvider,
   useIntlayer,
@@ -232,7 +236,7 @@ const ServerComponentExample = () => {
 
 ## गुणों को संभालना
 
-गुणों को स्थानीयकृत करते समय, सामग्री मानों तक उचित तरीके से पहुँचें:
+जब गुणों का स्थानीयकरण करें, तो सामग्री के मानों तक उचित रूप से पहुँचें:
 
 ```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
@@ -240,6 +244,10 @@ const ServerComponentExample = () => {
 
 ## अतिरिक्त संसाधन
 
-- **Intlayer विज़ुअल एडिटर**: अधिक सहज सामग्री प्रबंधन अनुभव के लिए, विज़ुअल एडिटर प्रलेखन [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) देखें।
+- **Intlayer विज़ुअल एडिटर**: एक अधिक सहज सामग्री प्रबंधन अनुभव के लिए, विज़ुअल एडिटर प्रलेखन को [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) देखें।
 
-यह अनुभाग विशेष रूप से React अनुप्रयोगों में `useIntlayer` हुक के एकीकरण को लक्षित करता है, स्थानीयकरण प्रक्रिया को सरल बनाता है और विभिन्न लोकेल्स में सामग्री स्थिरता सुनिश्चित करता है।
+यह अनुभाग विशेष रूप से React अनुप्रयोगों में `useIntlayer` हुक के एकीकरण को लक्षित करता है, स्थानीयकरण प्रक्रिया को सरल बनाता है और विभिन्न स्थानीय भाषाओं में सामग्री की संगति सुनिश्चित करता है।
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

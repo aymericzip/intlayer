@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocaleLang
 url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentazione della funzione getLocaleLang | intlayer
@@ -11,8 +11,8 @@ keywords:
   - traduzione
   - Intlayer
   - intlayer
-  - internazionalizzazione
-  - documentazione
+  - Internazionalizzazione
+  - Documentazione
   - Next.js
   - JavaScript
   - React
@@ -22,23 +22,23 @@ keywords:
 
 ## Descrizione
 
-La funzione `getLocaleLang` estrae il codice della lingua da una stringa locale. Supporta locali con o senza codici paese. Se non viene fornito alcun locale, restituisce una stringa vuota per impostazione predefinita.
+La funzione `getLocaleLang` estrae il codice della lingua da una stringa di localizzazione. Supporta localizzazioni con o senza codici paese. Se non viene fornita alcuna localizzazione, restituisce una stringa vuota.
 
 ## Parametri
 
 - `locale?: Locales`
 
-  - **Descrizione**: La stringa locale (ad esempio, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) da cui viene estratto il codice della lingua.
+  - **Descrizione**: La stringa di localizzazione (ad esempio, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) da cui viene estratto il codice della lingua.
   - **Tipo**: `Locales` (opzionale)
 
-## Restituisce
+## Ritorna
 
 - **Tipo**: `string`
-- **Descrizione**: Il codice della lingua estratto dal locale. Se il locale non è fornito, restituisce una stringa vuota (`''`).
+- **Descrizione**: Il codice della lingua estratto dalla localizzazione. Se la localizzazione non viene fornita, restituisce una stringa vuota (`''`).
 
-## Esempio di Utilizzo
+## Esempio di utilizzo
 
-### Estrazione dei Codici Lingua:
+### Estrazione dei codici lingua:
 
 ```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
@@ -61,17 +61,22 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
 ```javascript codeFormat="commonjs"
 const { getLocaleLang } = require("intlayer");
 
+// Nessuna localizzazione fornita:
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // Output: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
 getLocaleLang(Locales.FRENCH); // Output: "fr"
 ```
 
-## Casi Limite
+## Casi limite
 
-- **Nessun Locale Fornito:**
+- **Nessuna localizzazione fornita:**
 
   - La funzione restituisce una stringa vuota quando `locale` è `undefined`.
 
-- **Stringhe Locale Malformate:**
+- **Stringhe di localizzazione malformate:**
   - Se il `locale` non segue il formato `lingua-paese` (ad esempio, `Locales.ENGLISH-US`), la funzione restituisce in modo sicuro la parte prima di `'-'` o l'intera stringa se non è presente `'-'`.
+
+## Cronologia Documentazione
+
+- 5.5.10 - 2025-06-29: Storia iniziale

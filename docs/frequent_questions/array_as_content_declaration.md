@@ -1,3 +1,18 @@
+---
+docName: array_as_content_declaration
+url: https://intlayer.org/doc/faq/array-as-content-declaration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/array_as_content_declaration.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: Can I use an array as a content declaration?
+description: Learn how to use an array as a content declaration.
+keywords:
+  - array
+  - content
+  - declaration
+  - intlayer
+---
+
 # Can I use an array as a content declaration?
 
 Yes, you can use an array as a content declaration.

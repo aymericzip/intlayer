@@ -1,3 +1,24 @@
+---
+docName: static_rendering
+url: https://intlayer.org/doc/faq/static-rendering
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/static_rendering.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: Static vs Dynamic Rendering with i18n in Next.js
+description: Learn how to use static vs dynamic rendering with i18n in Next.js.
+keywords:
+  - static
+  - dynamic
+  - rendering
+  - i18n
+  - next.js
+  - next-intl
+  - intlayer
+  - framework
+  - middleware
+  - configuration
+---
+
 # Static vs Dynamic Rendering with i18n in Next.js
 
 ## The issue with **next-intl**

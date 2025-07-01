@@ -1,55 +1,39 @@
 ---
 docName: introduction
 url: https://intlayer.org/doc/get-started
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/introduction.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/introduction.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: مقدمة
-description: اكتشف كيف يعمل Intlayer. اطلع على الخطوات المستخدمة من قبل Intlayer في تطبيقك. انظر ماذا تفعل الحزم المختلفة.
+description: اكتشف كيف يعمل Intlayer. شاهد الخطوات التي يستخدمها Intlayer في تطبيقك. تعرف على ما تفعله الحزم المختلفة.
 keywords:
   - مقدمة
-  - ابدأ
+  - البدء
   - Intlayer
   - تطبيق
   - حزم
 ---
 
-# Intlayer وثائق
+# توثيق Intlayer
 
-مرحبًا بكم في الوثائق الرسمية لـ Intlayer! هنا، ستجد كل ما تحتاجه لتكامل، تكوين، وإتقان Intlayer لجميع احتياجاتك في التدويل (i18n)، سواء كنت تعمل مع Next.js، React، Vite، Express، أو بيئة JavaScript أخرى.
+مرحبًا بك في التوثيق الرسمي لـ Intlayer! هنا، ستجد كل ما تحتاجه لدمج وتكوين وإتقان Intlayer لجميع احتياجات التدويل (i18n) الخاصة بك، سواء كنت تعمل مع Next.js أو React أو Vite أو Express أو بيئة جافاسكريبت أخرى.
 
-## المقدمة
+## مقدمة
 
 ### ما هو Intlayer؟
 
-**Intlayer** هو مكتبة تدويل مصممة خصيصًا لمطوري JavaScript. يتيح لك إعلان المحتوى الخاص بك في أي مكان في الكود الخاص بك. يقوم بتحويل إعلان المحتوى متعدد اللغات إلى قواميس منظمة لتتكامل بسهولة في الكود الخاص بك. باستخدام TypeScript، يجعل **Intlayer** تطويرك أقوى وأكثر كفاءة.
+**Intlayer** هي مكتبة تدويل مصممة خصيصًا لمطوري جافاسكريبت. تتيح لك الإعلان عن المحتوى الخاص بك في أي مكان داخل الكود الخاص بك. تقوم بتحويل إعلان المحتوى متعدد اللغات إلى قواميس منظمة لتسهيل دمجها في كودك. باستخدام TypeScript، تجعل **Intlayer** تطويرك أقوى وأكثر كفاءة.
 
-يوفر Intlayer أيضًا محررًا بصريًا اختياريًا يتيح لك تحرير وإدارة المحتوى الخاص بك بسهولة. هذا المحرر مفيد بشكل خاص للمطورين الذين يفضلون واجهة بصرية لإدارة المحتوى، أو للفرق التي تنشئ المحتوى دون الحاجة إلى القلق بشأن الكود.
+كما توفر Intlayer محررًا بصريًا اختياريًا يتيح لك تحرير وإدارة المحتوى الخاص بك بسهولة. هذا المحرر مفيد بشكل خاص للمطورين الذين يفضلون واجهة بصرية لإدارة المحتوى، أو للفرق التي تقوم بإنشاء المحتوى دون الحاجة للقلق بشأن الكود.
 
 ### مثال على الاستخدام
 
-```bash codeFormat="typescript"
-.
-└── Components
-    └── MyComponent
-        ├── index.content.ts
-        └── index.tsx
-```
-
-```bash codeFormat="commonjs"
+```bash
 .
 └── Components
     └── MyComponent
         ├── index.content.cjs
         └── index.mjs
-```
-
-```bash codeFormat="esm"
-.
-└── Components
-    └── MyComponent
-        ├── index.content.mjs
-        └── index.js
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"
@@ -62,7 +46,6 @@ const componentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
-      ar: "مرحبًا بالعالم",
     }),
   },
 } satisfies Dictionary;
@@ -81,7 +64,6 @@ const componentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
-      ar: "مرحبًا بالعالم",
     }),
   },
 };
@@ -100,7 +82,6 @@ const componentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
-      ar: "مرحبًا بالعالم",
     }),
   },
 };
@@ -118,8 +99,7 @@ module.exports = componentContent;
       "translation": {
         "en": "Hello World",
         "fr": "Bonjour le monde",
-        "es": "Hola Mundo",
-        "ar": "مرحبًا بالعالم"
+        "es": "Hola Mundo"
       }
     }
   }
@@ -159,48 +139,69 @@ const MyComponent = () => {
 
 ## الميزات الرئيسية
 
-يقدم Intlayer مجموعة متنوعة من الميزات المصممة لتلبية احتياجات تطوير الويب الحديث. فيما يلي الميزات الرئيسية، مع روابط إلى وثائق مفصلة لكل منها:
+يقدم Intlayer مجموعة متنوعة من الميزات المصممة لتلبية احتياجات تطوير الويب الحديث. فيما يلي الميزات الرئيسية، مع روابط إلى الوثائق التفصيلية لكل منها:
 
-- **دعم التدويل**: عزز الوصول العالمي لتطبيقك مع دعم مدمج للتدويل.
-- **محرر بصري**: حسن سير العمل الخاص بك مع إضافات المحرر المصممة لـ Intlayer. تحقق من [دليل المحرر البصري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
-- **مرونة التكوين**: قم بتخصيص الإعداد الخاص بك مع خيارات التكوين الشاملة المفصلة في [دليل التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
-- **أدوات CLI المتقدمة**: قم بإدارة مشاريعك بكفاءة باستخدام واجهة سطر الأوامر الخاصة بـ Intlayer. استكشف الإمكانيات في [وثائق أدوات CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+- **دعم التدويل**: عزز الوصول العالمي لتطبيقك من خلال دعم مدمج للتدويل.
+- **المحرر المرئي**: حسّن سير عمل التطوير الخاص بك باستخدام إضافات المحرر المصممة لـ Intlayer. اطلع على [دليل المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
+- **مرونة التكوين**: قم بتخصيص إعداداتك باستخدام خيارات تكوين واسعة مفصلة في [دليل التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+- **أدوات CLI المتقدمة**: قم بإدارة مشاريعك بكفاءة باستخدام واجهة سطر الأوامر الخاصة بـ Intlayer. استكشف الإمكانيات في [توثيق أدوات CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
 
 ## المفاهيم الأساسية
 
 ### القاموس
 
-نظم المحتوى متعدد اللغات الخاص بك بالقرب من الكود الخاص بك للحفاظ على كل شيء متسقًا وقابلًا للصيانة.
+نظم محتواك متعدد اللغات بالقرب من الكود الخاص بك للحفاظ على كل شيء متسقًا وقابلًا للصيانة.
 
-- **[ابدأ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)**  
-  تعرف على أساسيات إعلان المحتوى في Intlayer.
+- **[البدء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)**  
+  تعلّم أساسيات إعلان المحتوى الخاص بك في Intlayer.
 
 - **[الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)**  
-  فهم كيفية إنشاء الترجمات وتخزينها واستخدامها في تطبيقك.
+  افهم كيف يتم إنشاء الترجمات وتخزينها واستخدامها في تطبيقك.
 
 - **[التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)**  
-  إدارة مجموعات البيانات المتكررة أو الثابتة بسهولة عبر لغات مختلفة.
+  قم بإدارة مجموعات البيانات المتكررة أو الثابتة بسهولة عبر لغات متعددة.
 
-- **[جلب الوظائف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/function_fetching.md)**  
+- **[الشرط](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/conditional.md)**  
+  تعلّم كيفية استخدام المنطق الشرطي في Intlayer لإنشاء محتوى ديناميكي.
+
+- **[الإدراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)**  
+  اكتشف كيفية إدراج القيم في سلسلة نصية باستخدام عناصر نائبة للإدراج.
+
+- **[جلب الدوال](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/function_fetching.md)**  
   تعرف على كيفية جلب المحتوى ديناميكيًا باستخدام منطق مخصص ليتناسب مع سير عمل مشروعك.
+
+- **[ماركداون](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)**  
+  تعلّم كيفية استخدام ماركداون في Intlayer لإنشاء محتوى غني.
+
+- **[تضمين الملفات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file_embeddings.md)**  
+  اكتشف كيفية تضمين ملفات خارجية في Intlayer لاستخدامها في محرر المحتوى.
+
+- **[التداخل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md)**  
+  فهم كيفية تداخل المحتوى في Intlayer لإنشاء هياكل معقدة.
 
 ### البيئات والتكاملات
 
-تم تصميم Intlayer مع مراعاة المرونة، مما يوفر تكاملًا سلسًا عبر الأطر الشائعة وأدوات البناء:
+لقد قمنا ببناء Intlayer مع وضع المرونة في الاعتبار، مقدمين تكاملًا سلسًا عبر الأُطُر وأدوات البناء الشائعة:
 
 - **[Intlayer مع Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)**
-- **[Intlayer مع Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_14.md)**
-- **[Intlayer مع Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_page_router.md)**
+- **[Intlayer مع Next.js 14 (موجه التطبيق)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_14.md)**
+- **[Intlayer مع Next.js موجه الصفحات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_page_router.md)**
 - **[Intlayer مع React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)**
 - **[Intlayer مع Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)**
+- **[Intlayer مع React Native و Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_native+expo.md)**
+- **[Intlayer مع Lynx و React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_lynx+react.md)**
 - **[Intlayer مع Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_express.md)**
 
-يتضمن كل دليل تكامل أفضل الممارسات لاستخدام ميزات Intlayer, مثل **التقديم من جانب الخادم**، **التوجيه الديناميكي**، أو **التقديم من جانب العميل**, لذلك يمكنك الحفاظ على تطبيق سريع، صديق لمحركات البحث، وقابل للتوسع بشكل كبير.
+تتضمن كل دليل تكامل أفضل الممارسات لاستخدام ميزات Intlayer، مثل **التصيير على جانب الخادم**، **التوجيه الديناميكي**، أو **التصيير على جانب العميل**، حتى تتمكن من الحفاظ على تطبيق سريع، صديق لمحركات البحث، وقابل للتوسع بشكل كبير.
 
-## المساهمة والتغذية الراجعة
+## المساهمة والتعليقات
 
-نحن نقدر قوة المصادر المفتوحة والتطوير القائم على المجتمع. إذا كنت ترغب في اقتراح تحسينات، إضافة دليل جديد، أو تصحيح أي مشكلات في وثائقنا، فلا تتردد في تقديم طلب سحب أو فتح مشكلة في [مستودع GitHub الخاص بنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
+نحن نقدر قوة البرمجيات مفتوحة المصدر والتطوير المدفوع من قبل المجتمع. إذا كنت ترغب في اقتراح تحسينات، إضافة دليل جديد، أو تصحيح أي مشاكل في وثائقنا، فلا تتردد في تقديم طلب سحب (Pull Request) أو فتح مشكلة في [مستودع GitHub الخاص بنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
-**هل أنت مستعد لترجمة تطبيقك بشكل أسرع وأكثر كفاءة؟** استعرض وثائقنا لبدء استخدام Intlayer اليوم. جرب نهجًا قويًا ومبسطًا للتدويل يحافظ على تنظيم المحتوى الخاص بك ويجعل فريقك أكثر إنتاجية.
+**هل أنت مستعد لترجمة تطبيقك بشكل أسرع وأكثر كفاءة؟** اغمر نفسك في وثائقنا لبدء استخدام Intlayer اليوم. اختبر نهجًا قويًا ومنظمًا للتدويل يحافظ على تنظيم محتواك ويجعل فريقك أكثر إنتاجية.
 
-ترجمة سعيدة!
+---
+
+## تاريخ الوثائق
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

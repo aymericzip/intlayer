@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: useIntlayer Hook Documentation | react-intlayer
@@ -11,7 +11,7 @@ keywords:
   - dictionary
   - key
   - Intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
@@ -20,7 +20,7 @@ keywords:
 
 # React Integration: `useIntlayer` Hook Documentation
 
-This section provides detailed guidance on using the `useIntlayer` hook within React applications, allowing for efficient content localization.
+This section provides detailed guidance on using the `useIntlayer` hook within React applications, allowing for efficient content localisation.
 
 ## Importing `useIntlayer` in React
 
@@ -58,7 +58,7 @@ The `useIntlayer` hook can be integrated into React applications by importing it
 
 The hook accepts two parameters:
 
-1. **`key`**: The dictionary key to retrieve localized content.
+1. **`key`**: The dictionary key to retrieve localised content.
 2. **`locale`** (optional): The desired locale. Defaults to the context's locale if not specified.
 
 ## Dictionary
@@ -116,6 +116,11 @@ const App = ({ locale }) => {
 ```
 
 ```jsx fileName="src/app.csx" codeFormat="commonjs"
+const { IntlayerProvider } = require("react-intlayer");
+const {
+  IntlayerServerProvider,
+  useIntlayer,
+jsx fileName="src/app.csx" codeFormat="commonjs"
 const { IntlayerProvider } = require("react-intlayer");
 const {
   IntlayerServerProvider,
@@ -232,7 +237,7 @@ const ServerComponentExample = () => {
 
 ## Handling Attributes
 
-When localizing attributes, access the content values appropriately:
+When localising attributes, access the content values appropriately:
 
 ```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
@@ -240,9 +245,9 @@ When localizing attributes, access the content values appropriately:
 
 ## Additional Resources
 
-- **Intlayer Visual Editor**: For a more intuitive content management experience, refer to the visual editor documentation [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
+- **Intlayer Visual Editor**: For a more intuitive content management experience, refer to the visual editor documentation [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md).
 
-This section specifically targets the integration of the `useIntlayer` hook in React applications, simplifying the localization process and ensuring content consistency across different locales.
+This section specifically targets the integration of the `useIntlayer` hook in React applications, simplifying the localisation process and ensuring content consistency across different locales.
 
 ## Doc History
 

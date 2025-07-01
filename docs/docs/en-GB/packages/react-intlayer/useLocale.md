@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__useLocale
 url: https://intlayer.org/doc/packages/react-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: useLocale Hook Documentation | react-intlayer
@@ -11,7 +11,7 @@ keywords:
   - dictionary
   - key
   - Intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
@@ -102,7 +102,6 @@ const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (
-    <div>
       <h1>Current Locale: {locale}</h1>
       <p>Default Locale: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
@@ -130,7 +129,7 @@ When you invoke the `useLocale` hook, it returns an object containing the follow
 
 ## Example
 
-This example shows a component that uses the `useLocale` hook to render a locale switcher, allowing users to dynamically change the locale of the application:
+This example demonstrates a component that uses the `useLocale` hook to render a locale switcher, allowing users to dynamically change the application's locale:
 
 ```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
 import type { FC } from "react";

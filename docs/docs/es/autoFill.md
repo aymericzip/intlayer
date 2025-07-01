@@ -1,43 +1,43 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
-title: Autocompletado
-description: Descubre cómo usar la funcionalidad de autocompletado en Intlayer para llenar automáticamente el contenido basado en patrones predefinidos. Sigue esta documentación para implementar características de autocompletado de manera eficiente en tu proyecto.
+title: Autocompletar
+description: Aprende cómo usar la funcionalidad de autocompletar en Intlayer para poblar automáticamente contenido basado en patrones predefinidos. Sigue esta documentación para implementar funciones de autocompletar de manera eficiente en tu proyecto.
 keywords:
-  - Autocompletado
-  - Automatización de contenido
-  - Contenido dinámico
+  - Autocompletar
+  - Automatización de Contenido
+  - Contenido Dinámico
   - Intlayer
   - Next.js
   - JavaScript
   - React
 ---
 
-# Archivos de Declaración de Contenido Autocompletados
+# Archivos de Declaración de Contenido con Autocompletar
 
-Los **archivos de declaración de contenido autocompletados** son una forma de acelerar tu flujo de trabajo de desarrollo.
-
-El mecanismo de autocompletado funciona a través de una relación _maestro-esclavo_ entre los archivos de declaración de contenido. Cuando el archivo principal (maestro) se actualiza, Intlayer aplicará automáticamente esos cambios a los archivos de declaración derivados (autocompletados).
+**Los archivos de declaración de contenido con autocompletar** son una forma de acelerar tu flujo de trabajo de desarrollo.
+El mecanismo de autocompletar funciona a través de una relación _maestro-esclavo_ entre los archivos de declaración de contenido. Cuando el archivo principal (maestro) se actualiza, Intlayer aplicará automáticamente esos cambios a los archivos de declaración derivados (autocompletados).
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
+// Contenido de ejemplo con autocompletar configurado
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
   autoFill: "./example.content.json",
   content: {
-    contentExample: "This is an example of content",
+    contentExample: "This is an example of content", // Este es un ejemplo de contenido
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-Aquí hay un [archivo de declaración de contenido por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md) usando la instrucción `autoFill`.
+Aquí tienes un [archivo de declaración de contenido por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md) que utiliza la instrucción `autoFill`.
 
 Luego, cuando ejecutes el siguiente comando:
 
@@ -45,7 +45,7 @@ Luego, cuando ejecutes el siguiente comando:
 npx intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer generará automáticamente el archivo de declaración derivado en `src/components/example/example.content.json`, completando todos los idiomas que aún no están declarados en el archivo principal.
+Intlayer generará automáticamente el archivo de declaración derivado en `src/components/example/example.content.json`, completando todos los locales que no estén ya declarados en el archivo principal.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -62,11 +62,11 @@ Intlayer generará automáticamente el archivo de declaración derivado en `src/
 }
 ```
 
-Posteriormente, ambos archivos de declaración se fusionarán en un solo diccionario, accesible usando el hook estándar `useIntlayer("example")` (react) / composable (vue).
+Después, ambos archivos de declaración se fusionarán en un solo diccionario, accesible usando el hook estándar `useIntlayer("example")` (react) / composable (vue).
 
-## Formato de Archivos Autocompletados
+## Formato del Archivo Autocompletado
 
-El formato recomendado para los archivos de declaración autocompletados es **JSON**, lo que ayuda a evitar restricciones de formato. Sin embargo, Intlayer también admite formatos `.ts`, `.js`, `.mjs`, `.cjs` y otros.
+El formato recomendado para los archivos de declaración autofillados es **JSON**, lo que ayuda a evitar restricciones de formato. Sin embargo, Intlayer también soporta formatos `.ts`, `.js`, `.mjs`, `.cjs` y otros.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -86,12 +86,12 @@ src/components/example/example.filled.content.ts
 
 > La generación de archivos `.js`, `.ts` y similares funciona de la siguiente manera:
 >
-> - Si el archivo ya existe, Intlayer lo analizará usando el AST (Árbol de Sintaxis Abstracta) para localizar cada campo e insertar las traducciones faltantes.
-> - Si el archivo no existe, Intlayer lo generará usando la plantilla predeterminada para archivos de declaración de contenido.
+> - Si el archivo ya existe, Intlayer lo analizará usando el AST (Árbol de Sintaxis Abstracta) para localizar cada campo e insertar las traducciones que falten.
+> - Si el archivo no existe, Intlayer lo generará usando la plantilla de archivo de declaración de contenido predeterminada.
 
 ## Rutas Absolutas
 
-El campo `autoFill` también admite rutas absolutas.
+El campo `autoFill` también soporta rutas absolutas.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -109,9 +109,9 @@ Esto generará el archivo en:
 /messages/example.content.json
 ```
 
-## Generación Automática de Archivos de Declaración de Contenido por Idioma
+## Generar Automáticamente Archivos de Declaración de Contenido Por Localización
 
-El campo `autoFill` también admite la generación de archivos de declaración de contenido **por idioma**.
+El campo `autoFill` también soporta la generación de archivos de declaración de contenido **por localización**.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -131,9 +131,9 @@ Esto generará dos archivos separados:
 - `src/components/example/example.fr.content.json`
 - `src/components/example/example.es.content.json`
 
-## Filtrar Autocompletado por Idioma Específico
+## Filtrar Auto-relleno por Localización Específica
 
-El uso de un objeto para el campo `autoFill` te permite aplicar filtros y generar solo archivos de idioma específicos.
+Usar un objeto para el campo `autoFill` te permite aplicar filtros y generar solo archivos para localizaciones específicas.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -147,16 +147,16 @@ const exampleContent = {
 };
 ```
 
-Esto solo generará el archivo de traducción francés.
+Esto solo generará el archivo de traducción en francés.
 
-## Variables de Ruta
+## Variables en la Ruta
 
-Puedes usar variables dentro de la ruta `autoFill` para resolver dinámicamente las rutas objetivo de los archivos generados.
+Puedes usar variables dentro de la ruta `autoFill` para resolver dinámicamente las rutas destino de los archivos generados.
 
 **Variables disponibles:**
 
-- `{{locale}}` – Código de idioma (ej. `fr`, `es`)
-- `{{key}}` – Clave del diccionario (ej. `example`)
+- `{{locale}}` – Código de localización (por ejemplo, `fr`, `es`)
+- `{{key}}` – Clave del diccionario (por ejemplo, `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -172,3 +172,7 @@ Esto generará:
 
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
+
+## Historial de Documentación
+
+- 5.5.10 - 2025-06-29: Inicio del historial

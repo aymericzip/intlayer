@@ -28,7 +28,7 @@ Le package `intlayer-editor` est basé sur Intlayer et est disponible pour les a
 
 ## Éditeur visuel vs CMS
 
-L'Éditeur Visuel Intlayer est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour des dictionnaires locaux. Une fois une modification effectuée, le contenu sera remplacé dans la base de code. Cela signifie que l'application sera reconstruite et la page sera rechargée pour afficher le nouveau contenu.
+L'Éditeur Visuel Intlayer est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour des dictionnaires locaux. Une fois une modification effectuée, le contenu sera remplacé dans la base de code. Cela signifie que l'application sera reconstruite et que la page sera rechargée pour afficher le nouveau contenu.
 
 En revanche, le [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour des dictionnaires distants. Une fois une modification effectuée, le contenu **n'affectera pas** votre base de code. Et le site web affichera automatiquement le contenu modifié.
 
@@ -142,7 +142,7 @@ const config = {
     /**
      * Optionnel
      * Par défaut à "http://localhost:8000"
-     * L'URL du serveur de l'éditeur pour accéder depuis l'application. Utilisé pour restreindre les origines pouvant interagir avec l'application pour des raisons de sécurité. Si défini à `'*'`, l'éditeur est accessible depuis n'importe quelle origine. Devrait être défini si le port est modifié ou si l'éditeur est hébergé sur un domaine différent.
+     * L'URL du serveur de l'éditeur pour accéder depuis l'application. Utilisé pour restreindre les origines pouvant interagir avec l'application pour des raisons de sécurité. Si défini à `'*'`, l'éditeur est accessible depuis n'importe quelle origine. Doit être défini si le port est modifié ou si l'éditeur est hébergé sur un domaine différent.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
   },
@@ -196,27 +196,15 @@ module.exports = config;
    npx intlayer-editor start
    ```
 
-2. Ensuite, ouvrez l'éditeur dans votre navigateur à l'adresse suivante :
-
-   ```
-   http://localhost:8000
+   ```bash packageManager="yarn"
+   yarn intlayer-editor start
    ```
 
-3. Entrez l'URL de votre application (par exemple `http://localhost:3000`) dans le champ prévu à cet effet.
+   ```bash packageManager="pnpm"
+   pnpm intlayer-editor start
+   ```
 
-4. Cliquez sur "Start editing" pour commencer à modifier le contenu de votre site web dans l'éditeur visuel.
-
-> Pour plus d'informations, consultez la [documentation complète de l'éditeur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md).
-
-yarn intlayer-editor start
-
-````
-
-```bash packageManager="pnpm"
-pnpm intlayer-editor start
-````
-
-> **Notez que vous devez exécuter votre application en parallèle.** L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
+   > **Notez que vous devez exécuter votre application en parallèle.** L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
 
 2. Ensuite, ouvrez l'URL fournie. Par défaut `http://localhost:8000`.
 
@@ -225,6 +213,40 @@ pnpm intlayer-editor start
    ![Survoler le contenu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 3. Si votre contenu est encadré, vous pouvez effectuer un appui long pour afficher le tiroir d'édition.
+
+## Configuration de l'environnement
+
+L'éditeur peut être configuré pour utiliser un fichier d'environnement spécifique. Cela est utile lorsque vous souhaitez utiliser le même fichier de configuration pour le développement et la production.
+
+Pour utiliser un fichier d'environnement spécifique, vous pouvez utiliser le flag `--env-file` ou `-f` lors du démarrage de l'éditeur :
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> Notez que le fichier d'environnement doit être situé à la racine de votre projet.
+
+Ou vous pouvez utiliser le flag `--env` ou `-e` pour spécifier l'environnement :
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
 
 ## Débogage
 
@@ -238,3 +260,7 @@ Si vous rencontrez des problèmes avec l'éditeur visuel, vérifiez les points s
     - L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
 
 - L'éditeur visuel utilise une iframe pour afficher votre site web. Assurez-vous que la politique de sécurité du contenu (CSP) de votre site web autorise l'URL du CMS en tant que `frame-ancestors` ('http://localhost:8000' par défaut). Vérifiez la console de l'éditeur pour toute erreur.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

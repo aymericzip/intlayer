@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer
 url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentation du package | next-intlayer
@@ -16,25 +16,25 @@ keywords:
   - React
 ---
 
-# next-intlayer : Paquet NPM pour internationaliser (i18n) une application Next.js
+# next-intlayer : Package NPM pour internationaliser (i18n) une application Next.js
 
-**Intlayer** est une suite de paquets conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, Next.js et Express.js.
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Il est compatible avec des frameworks comme React, Next.js et Express.js.
 
-**Le paquet `next-intlayer`** vous permet d'internationaliser votre application Next.js. Il fournit des fournisseurs de contexte et des hooks pour l'internationalisation de Next.js. De plus, il inclut le plugin Next.js pour intégrer Intlayer avec [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), ainsi qu'un middleware pour détecter la langue préférée de l'utilisateur, gérer les cookies et gérer la redirection des URL.
+**Le package `next-intlayer`** vous permet d'internationaliser votre application Next.js. Il fournit des fournisseurs de contexte et des hooks pour l'internationalisation dans Next.js. De plus, il inclut le plugin Next.js pour intégrer Intlayer avec [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), ainsi qu'un middleware pour détecter la langue préférée de l'utilisateur, gérer les cookies et gérer la redirection des URL.
 
 ## Pourquoi internationaliser votre application Next.js ?
 
-Internationaliser votre application Next.js est essentiel pour servir efficacement un public mondial. Cela permet à votre application de fournir du contenu et des messages dans la langue préférée de chaque utilisateur. Cette capacité améliore l'expérience utilisateur et élargit la portée de votre application en la rendant plus accessible et pertinente pour des personnes de différents horizons linguistiques.
+Internationaliser votre application Next.js est essentiel pour servir efficacement un public mondial. Cela permet à votre application de fournir du contenu et des messages dans la langue préférée de chaque utilisateur. Cette capacité améliore l'expérience utilisateur et élargit la portée de votre application en la rendant plus accessible et pertinente pour des personnes de différentes origines linguistiques.
 
 ## Pourquoi intégrer Intlayer ?
 
-- **Gestion de contenu propulsée par JavaScript** : Exploitez la flexibilité de JavaScript pour définir et gérer efficacement votre contenu.
-- **Environnement sûr pour les types** : Utilisez TypeScript pour garantir que toutes vos définitions de contenu sont précises et sans erreur.
+- **Gestion de contenu propulsée par JavaScript** : Exploitez la flexibilité de JavaScript pour définir et gérer votre contenu de manière efficace.
+- **Environnement typé sécurisé** : Utilisez TypeScript pour garantir que toutes vos définitions de contenu sont précises et sans erreur.
 - **Fichiers de contenu intégrés** : Gardez vos traductions proches de leurs composants respectifs, améliorant ainsi la maintenabilité et la clarté.
 
 ## Installation
 
-Installez le paquet nécessaire en utilisant votre gestionnaire de paquets préféré :
+Installez le package nécessaire en utilisant votre gestionnaire de paquets préféré :
 
 ```bash packageManager="npm"
 npm install next-intlayer
@@ -54,7 +54,7 @@ Avec Intlayer, vous pouvez déclarer votre contenu de manière structurée n'imp
 
 Par défaut, Intlayer recherche les fichiers avec l'extension `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-> Vous pouvez modifier l'extension par défaut en définissant la propriété `contentDir` dans le [fichier de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
+> Vous pouvez modifier l'extension par défaut en configurant la propriété `contentDir` dans le [fichier de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -97,14 +97,13 @@ Par défaut, Intlayer recherche les fichiers avec l'extension `.content.{json,ts
 
 ### Déclarez votre contenu
 
-`next-intlayer` est conçu pour fonctionner avec le [paquet `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/index.md). `intlayer` est un paquet qui vous permet de déclarer votre contenu n'importe où dans votre code. Il convertit les déclarations de contenu multilingues en dictionnaires structurés qui s'intègrent parfaitement dans votre application.
+`next-intlayer` est conçu pour fonctionner avec le [package `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/index.md). `intlayer` est un package qui vous permet de déclarer votre contenu n'importe où dans votre code. Il convertit les déclarations de contenu multilingue en dictionnaires structurés qui s'intègrent parfaitement dans votre application.
 
 Voici un exemple de déclaration de contenu :
 
 ```tsx fileName="src/ClientComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
-// Déclaration de contenu pour le composant client
 const clientComponentContent = {
   key: "client-component",
   content: {
@@ -114,7 +113,7 @@ const clientComponentContent = {
       es: "Hola Mundo",
     }),
     numberOfCar: enu({
-      "<-1": "Moins d'une voiture",
+      "<-1": "Less than minus one car",
       "-1": "Moins une voiture",
       "0": "Aucune voiture",
       "1": "Une voiture",
@@ -131,7 +130,6 @@ export default clientComponentContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-// Déclaration de contenu pour le composant client
 const clientComponentContent = {
   key: "client-component",
   content: {
@@ -141,7 +139,7 @@ const clientComponentContent = {
       es: "Hola Mundo",
     }),
     numberOfCar: enu({
-      "<-1": "Moins d'une voiture",
+      "<-1": "Moins qu'une voiture en moins",
       "-1": "Moins une voiture",
       "0": "Aucune voiture",
       "1": "Une voiture",
@@ -158,7 +156,6 @@ export default clientComponentContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
-// Déclaration de contenu pour le composant client
 const clientComponentContent = {
   key: "client-component",
   content: {
@@ -168,7 +165,7 @@ const clientComponentContent = {
       es: "Hola Mundo",
     }),
     numberOfCar: enu({
-      "<-1": "Moins d'une voiture",
+      "<-1": "Moins d'une voiture en moins",
       "-1": "Moins une voiture",
       "0": "Aucune voiture",
       "1": "Une voiture",
@@ -196,7 +193,7 @@ module.exports = clientComponentContent;
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Moins d'une voiture",
+        "<-1": "Moins d'une voiture moins un",
         "-1": "Moins une voiture",
         "0": "Aucune voiture",
         "1": "Une voiture",
@@ -208,9 +205,9 @@ module.exports = clientComponentContent;
 }
 ```
 
-### Utilisez le contenu dans votre code
+### Utiliser le contenu dans votre code
 
-Une fois que vous avez déclaré votre contenu, vous pouvez l'utiliser dans votre code. Voici un exemple d'utilisation du contenu dans un composant React :
+Une fois que vous avez déclaré votre contenu, vous pouvez l'utiliser dans votre code. Voici un exemple de comment utiliser le contenu dans un composant React :
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -219,7 +216,7 @@ import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
 export const ClientComponentExample: FC = () => {
-  const { myTranslatedContent } = useIntlayer("client-component"); // Créez une déclaration de contenu associée
+  const { myTranslatedContent } = useIntlayer("client-component"); // Créez la déclaration de contenu associée
 
   return (
     <div>
@@ -235,7 +232,7 @@ export const ClientComponentExample: FC = () => {
 import { useIntlayer } from "next-intlayer";
 
 const ClientComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("client-component"); // Créez une déclaration de contenu associée
+  const { myTranslatedContent } = useIntlayer("client-component"); // Créez la déclaration de contenu associée
 
   return (
     <div>
@@ -251,7 +248,7 @@ const ClientComponentExample = () => {
 const { useIntlayer } = require("next-intlayer");
 
 const ClientComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("client-component"); // Créez une déclaration de contenu associée
+  const { myTranslatedContent } = useIntlayer("client-component"); // Créez la déclaration de contenu associée
 
   return (
     <div>
@@ -263,22 +260,26 @@ const ClientComponentExample = () => {
 
 ## Maîtriser l'internationalisation de votre application Next.js
 
-Intlayer offre de nombreuses fonctionnalités pour vous aider à internationaliser votre application Next.js. Voici quelques-unes des principales fonctionnalités :
+Intlayer offre de nombreuses fonctionnalités pour vous aider à internationaliser votre application Next.js. Voici quelques-unes des fonctionnalités clés :
 
 - **Internationalisation des composants serveur** : Intlayer vous permet d'internationaliser vos composants serveur de la même manière que vos composants client. Cela signifie que vous pouvez utiliser les mêmes déclarations de contenu pour les composants client et serveur.
-- **Middleware pour la détection de la langue** : Intlayer fournit un middleware pour détecter la langue préférée de l'utilisateur. Ce middleware est utilisé pour détecter la langue préférée de l'utilisateur et les rediriger vers l'URL appropriée comme spécifié dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
-- **Internationalisation des métadonnées** : Intlayer fournit un moyen d'internationaliser vos métadonnées, comme le titre de votre page, en utilisant la fonction `generateMetadata` fournie par Next.js. Vous pouvez utiliser la fonction `getTranslation` pour traduire vos métadonnées.
-- **Internationalisation des fichiers sitemap.xml et robots.txt** : Intlayer vous permet d'internationaliser vos fichiers sitemap.xml et robots.txt. Vous pouvez utiliser la fonction `getMultilingualUrls` pour générer des URL multilingues pour votre sitemap.
-- **Internationalisation des URL** : Intlayer vous permet d'internationaliser vos URL en utilisant la fonction `getMultilingualUrls`. Cette fonction génère des URL multilingues pour votre sitemap.
+- **Middleware pour la détection de la langue** : Intlayer fournit un middleware pour détecter la langue préférée de l'utilisateur. Ce middleware est utilisé pour détecter la langue préférée de l'utilisateur et le rediriger vers l'URL appropriée comme spécifié dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
+- **Internationalisation des métadonnées** : Intlayer offre un moyen d'internationaliser vos métadonnées, telles que le titre de votre page, en utilisant la fonction `generateMetadata` fournie par Next.js. Vous pouvez utiliser la fonction `getTranslation` pour traduire vos métadonnées.
+- **Internationalisation de sitemap.xml et robots.txt** : Intlayer vous permet d'internationaliser vos fichiers sitemap.xml et robots.txt. Vous pouvez utiliser la fonction `getMultilingualUrls` pour générer des URLs multilingues pour votre sitemap.
+- **Internationalisation des URLs** : Intlayer vous permet d'internationaliser vos URLs en utilisant la fonction `getMultilingualUrls`. Cette fonction génère des URLs multilingues pour votre sitemap.
 
-**Pour en savoir plus sur ces fonctionnalités, consultez le guide [Internationalisation (i18n) de Next.js avec Intlayer et le routeur d'application Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_15.md).**
+**Pour en savoir plus sur ces fonctionnalités, consultez le guide [Internationalisation (i18n) avec Intlayer et Next.js 15 App Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_15.md).**
 
-## Fonctions fournies par le paquet `next-intlayer`
+## Fonctions fournies par le package `next-intlayer`
 
-Le paquet `next-intlayer` fournit également des fonctions pour vous aider à internationaliser votre application.
+Le package `next-intlayer` fournit également quelques fonctions pour vous aider à internationaliser votre application.
 
 - [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/t.md)
 - [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useIntlayer.md)
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useLocale.md)
 - [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useIntlayerAsync.md)
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

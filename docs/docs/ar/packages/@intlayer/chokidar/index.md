@@ -1,8 +1,27 @@
-# @intlayer/chokidar: حزمة NPM لمسح وبناء ملفات إعلان Intlayer إلى قواميس
+---
+docName: package__@intlayer_chokidar
+url: https://intlayer.org/doc/package/@intlayer_chokidar
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/@intlayer/chokidar/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/chokidar - مراقبة الملفات لترجمة Intlayer
+description: حزمة NPM توفر قدرات مراقبة الملفات لـ Intlayer، مما يتيح التحديثات التلقائية وإعادة التحميل السريع لمحتوى الترجمة.
+keywords:
+  - intlayer
+  - chokidar
+  - مراقبة الملفات
+  - إعادة تحميل سريع
+  - i18n
+  - جافاسكريبت
+  - NPM
+  - تطوير
+---
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وExpress.js.
+# @intlayer/chokidar: حزمة NPM لمسح وبناء ملفات تعريف Intlayer إلى قواميس
 
-تُستخدم حزمة **`@intlayer/chokidar`** لمسح وبناء ملفات إعلان Intlayer إلى قواميس باستخدام [chokidar](https://github.com/paulmillr/chokidar) ووفقًا لـ [تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافاسكريبت. وهي متوافقة مع أُطُر العمل مثل React وReact وExpress.js.
+
+تُستخدم حزمة **`@intlayer/chokidar`** لمسح وبناء ملفات تعريف Intlayer إلى قواميس باستخدام [chokidar](https://github.com/paulmillr/chokidar) ووفقًا لـ [تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ## الاستخدام
 
@@ -29,3 +48,7 @@ pnpm add @intlayer/chokidar
 ```bash packageManager="yarn"
 yarn add @intlayer/chokidar
 ```
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية السجل

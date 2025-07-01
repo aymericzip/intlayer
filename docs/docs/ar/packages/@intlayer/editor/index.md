@@ -1,8 +1,27 @@
-# @intlayer/editor: حزمة NPM توفر أدوات للتفاعل مع التطبيق باستخدام محرر Intlayer ومعالجة القواميس
+---
+docName: package__@intlayer_editor
+url: https://intlayer.org/doc/package/@intlayer_editor
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/@intlayer/editor/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/editor - حزمة واجهة محرر Intlayer
+description: حزمة NPM توفر أدوات لربط التطبيقات بمحرر Intlayer والتعامل مع القواميس عبر جميع أُطُر جافا سكريبت.
+keywords:
+  - intlayer
+  - محرر
+  - قاموس
+  - واجهة
+  - NPM
+  - جافا سكريبت
+  - أدوات
+  - متعددة المنصات
+---
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React و Next.js و Express.js.
+# @intlayer/editor: حزمة NPM توفر أدوات لربط التطبيق بمحرر Intlayer والتعامل مع القواميس
 
-حزمة **`intlayer-editor`** توفر أدوات للتفاعل مع التطبيق باستخدام محرر Intlayer. تتضمن واجهة برمجة التطبيقات للتفاعل مع المحرر، وأدوات لمعالجة القواميس. هذه الحزمة متعددة المنصات.
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافا سكريبت. وهي متوافقة مع أُطُر مثل React و Next.js و Express.js.
+
+توفر حزمة **`intlayer-editor`** أدوات لربط التطبيق بمحرر Intlayer. تتضمن واجهة برمجة التطبيقات (API) للتفاعل مع المحرر، وأدوات للتعامل مع القواميس. هذه الحزمة متعددة المنصات.
 
 ## التثبيت
 
@@ -19,3 +38,7 @@ yarn add @intlayer/editor
 ```bash
 pnpm add @intlayer/editor
 ```
+
+## تاريخ الوثائق
+
+- 5.5.10 - 2025-06-29: بداية السجل

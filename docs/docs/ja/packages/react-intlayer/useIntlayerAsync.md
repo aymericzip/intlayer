@@ -1,83 +1,83 @@
 ---
 docName: package__react-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: useIntlayerAsyncフックのドキュメント | react-intlayer
-description: react-intlayerパッケージのuseIntlayerAsyncフックの使用方法を確認してください
+title: useIntlayerAsync フック ドキュメント | react-intlayer
+description: react-intlayer パッケージの useIntlayerAsync フックの使い方を解説
 keywords:
   - useIntlayerAsync
   - 辞書
   - キー
   - Intlayer
   - 国際化
-  - ドキュメンテーション
+  - ドキュメント
   - Next.js
   - JavaScript
   - React
 ---
 
-# React統合: `useIntlayerAsync` フックドキュメント
+# React 統合: `useIntlayerAsync` フック ドキュメント
 
-`useIntlayerAsync` フックは、事前レンダリングされた辞書を返すだけでなく、非同期で更新を取得することで `useIntlayer` の機能を拡張します。これにより、初期レンダリング後にローカライズされたコンテンツを頻繁に更新するアプリケーションに最適です。
+`useIntlayerAsync` フックは、事前レンダリングされた辞書を返すだけでなく、更新を非同期に取得する機能を `useIntlayer` から拡張しており、初回レンダリング後にローカライズされたコンテンツを頻繁に更新するアプリケーションに最適です。
 
 ## 概要
 
 - **非同期辞書読み込み:**  
-  初回マウント時に、`useIntlayerAsync` は事前取得または静的にバンドルされたロケール辞書を最初に返し（`useIntlayer` と同様）、その後、非同期で新たに利用可能なリモート辞書を取得してマージします。
+  初回マウント時に、`useIntlayerAsync` はまず事前取得済みまたは静的にバンドルされたロケール辞書を返します（`useIntlayer` と同様）。その後、新たに利用可能なリモート辞書を非同期に取得してマージします。
 - **進行状態管理:**  
-  このフックは、リモート辞書が取得されている間を示す `isLoading` 状態も提供します。これにより、開発者はスムーズなユーザー体験のためにローディングインジケーターやスケルトン状態を表示できます。
+  フックはリモート辞書が取得中であることを示す `isLoading` 状態も提供します。これにより、開発者は読み込みインジケーターやスケルトン状態を表示して、よりスムーズなユーザー体験を実現できます。
 
 ## 環境設定
 
-Intlayerは、非開発者がアプリケーションコンテンツをシームレスに管理および更新できるヘッドレスコンテンツソース管理（CSM）システムを提供します。Intlayerの直感的なダッシュボードを使用することで、チームはコードを直接変更することなく、ローカライズされたテキスト、画像、その他のリソースを編集できます。これにより、コンテンツ管理プロセスが合理化され、コラボレーションが促進され、迅速かつ簡単に更新を行うことができます。
+Intlayerはヘッドレスのコンテンツソース管理（CSM）システムを提供しており、非開発者でもアプリケーションのコンテンツをシームレスに管理・更新できるようにします。Intlayerの直感的なダッシュボードを使用することで、チームはコードを直接変更することなく、ローカライズされたテキストや画像、その他のリソースを編集できます。これにより、コンテンツ管理のプロセスが効率化され、コラボレーションが促進され、迅速かつ容易に更新を行うことが可能になります。
 
-Intlayerを始めるには:
+Intlayerを始めるには：
 
-1. **登録してアクセストークンを取得する** [https://intlayer.org/dashboard](https://intlayer.org/dashboard)。
-2. **資格情報を設定ファイルに追加する:**  
-   Reactプロジェクトで、資格情報を使用してIntlayerクライアントを設定します:
+1. **[https://intlayer.org/dashboard](https://intlayer.org/dashboard) で登録し、アクセストークンを取得します。**
+2. **設定ファイルに認証情報を追加します：**  
+   Reactプロジェクト内で、認証情報を使ってIntlayerクライアントを設定します。
 
-   ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
-   import type { IntlayerConfig } from "intlayer";
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
 
-   export default {
-     // ...
-     editor: {
-       clientId: process.env.INTLAYER_CLIENT_ID,
-       clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     },
-   } satisfies IntlayerConfig;
-   ```
+export default {
+  // ...
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+} satisfies IntlayerConfig;
+```
 
-   ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-   import { type IntlayerConfig } from "intlayer";
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+import { type IntlayerConfig } from "intlayer";
 
-   /** @type {import('intlayer').IntlayerConfig} */
-   const config = {
-     // ...
-     editor: {
-       clientId: process.env.INTLAYER_CLIENT_ID,
-       clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     },
-   };
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ...
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
 
-   export default config;
-   ```
+export default config;
+```
 
-   ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-   /** @type {import('intlayer').IntlayerConfig} */
-   const config = {
-     // ...
-     editor: {
-       clientId: process.env.INTLAYER_CLIENT_ID,
-       clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     },
-   };
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ...
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+};
 
-   module.exports = config;
-   ```
+module.exports = config;
+```
 
 3. **新しいロケール辞書をIntlayerにプッシュする:**
 
@@ -85,11 +85,27 @@ Intlayerを始めるには:
    npx intlayer dictionary push -d my-first-dictionary-key
    ```
 
-   このコマンドは、初期コンテンツ辞書をアップロードし、非同期取得およびIntlayerプラットフォームを通じた編集が可能になります。
+   このコマンドは、初期のコンテンツ辞書をアップロードし、Intlayerプラットフォームを通じて非同期に取得および編集できるようにします。
 
 ## Reactでの`useIntlayerAsync`のインポート
 
-Reactコンポーネントで、`useIntlayerAsync` をインポートします:
+Reactコンポーネント内で、`useIntlayerAsync`をインポートします:
+
+```ts codeFormat="typescript"
+import { useIntlayerAsync } from "react-intlayer";
+```
+
+```js codeFormat="esm"
+import { useIntlayerAsync } from "react-intlayer";
+```
+
+```js codeFormat="commonjs"
+const { useIntlayerAsync } = require("react-intlayer");
+```
+
+## Reactでの`useIntlayerAsync`のインポート
+
+Reactコンポーネント内で、`useIntlayerAsync`をインポートします:
 
 ```ts codeFormat="typescript"
 import { useIntlayerAsync } from "react-intlayer";
@@ -106,20 +122,20 @@ const { useIntlayerAsync } = require("react-intlayer");
 ## パラメータ
 
 1. **`key`**:  
-   **型**: `DictionaryKeys`  
-   ローカライズされたコンテンツブロックを識別するために使用される辞書キー。このキーは、コンテンツ宣言ファイルで定義する必要があります。
+   **タイプ**: `DictionaryKeys`  
+   ローカライズされたコンテンツブロックを識別するために使用される辞書キーです。このキーはコンテンツ宣言ファイルで定義されている必要があります。
 
-2. **`locale`** (オプション):  
-   **型**: `Locales`  
-   ターゲットとする特定のロケール。省略された場合、フックは現在のIntlayerコンテキストからロケールを使用します。
+2. **`locale`**（オプション）:  
+   **タイプ**: `Locales`  
+   対象とする特定のロケールです。省略した場合、フックは現在のIntlayerコンテキストのロケールを使用します。
 
-3. **`isRenderEditor`** (オプション、デフォルトは `true`):  
-   **型**: `boolean`  
-   コンテンツがIntlayerエディターオーバーレイでレンダリング可能であるかどうかを決定します。`false` に設定すると、返される辞書データにはエディター固有の機能が含まれません。
+3. **`isRenderEditor`**（オプション、デフォルトは`true`）:  
+   **タイプ**: `boolean`  
+   コンテンツがIntlayerエディターのオーバーレイでレンダリング可能な状態にするかどうかを決定します。`false`に設定すると、返される辞書データにはエディター固有の機能が含まれません。
 
 ## 戻り値
 
-このフックは、`key` と `locale` によってキー付けされたローカライズされたコンテンツを含む辞書オブジェクトを返します。また、リモート辞書が現在取得中であるかどうかを示す `isLoading` ブール値も含まれます。
+フックは、`key` と `locale` をキーとしたローカライズされたコンテンツを含む辞書オブジェクトを返します。また、リモート辞書が現在取得中であるかを示す `isLoading` ブール値も含まれます。
 
 ## Reactコンポーネントでの使用例
 
@@ -163,7 +179,7 @@ const ComponentExample = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("コンテンツを読み込み中...");
+      console.log("コンテンツを読み込み中です...");
     }
   }, [isLoading]);
 
@@ -216,15 +232,15 @@ const ComponentExample = () => {
 };
 ```
 
-**主なポイント:**
+**重要なポイント：**
 
-- 初期レンダリング時、`title` と `description` は事前取得または静的に埋め込まれたロケール辞書から取得されます。
-- `isLoading` が `true` の間、バックグラウンドリクエストで更新された辞書を取得します。
+- 初回レンダリング時、`title` と `description` は事前に取得された、または静的に埋め込まれたロケール辞書から取得されます。
+- `isLoading` が `true` の間は、バックグラウンドで更新された辞書を取得するリクエストが行われます。
 - 取得が完了すると、`title` と `description` は最新のコンテンツに更新され、`isLoading` は `false` に戻ります。
 
-## 属性ローカライズの処理
+## 属性のローカライズ対応
 
-さまざまなHTMLプロパティ（例: `alt`, `title`, `aria-label`）のローカライズされた属性値を取得することもできます:
+`alt`、`title`、`aria-label` などの様々なHTML属性のローカライズされた値も取得できます：
 
 ```jsx
 <img src={title.image.src.value} alt={title.image.alt.value} />
@@ -232,15 +248,19 @@ const ComponentExample = () => {
 
 ## 辞書ファイル
 
-すべてのコンテンツキーは、型の安全性を確保し、ランタイムエラーを防ぐためにコンテンツ宣言ファイルで定義する必要があります。これらのファイルはTypeScript検証を可能にし、常に既存のキーとロケールを参照することを保証します。
+すべてのコンテンツキーは型安全性を確保し、実行時エラーを防ぐためにコンテンツ宣言ファイルで定義する必要があります。これらのファイルはTypeScriptの検証を可能にし、常に存在するキーとロケールを参照していることを保証します。
 
-コンテンツ宣言ファイルの設定手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)をご覧ください。
+コンテンツ宣言ファイルの設定手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)でご覧いただけます。
 
-## 詳細情報
+## さらに詳しく
 
-- **Intlayerビジュアルエディター:**  
-  Intlayerビジュアルエディターと統合して、UIから直接コンテンツを管理および編集します。詳細は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)。
+- **Intlayer ビジュアルエディター:**  
+  UIから直接コンテンツの管理や編集を行うために、Intlayerビジュアルエディターと統合できます。詳細は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
 ---
 
-**まとめとして**, `useIntlayerAsync` は、事前レンダリングまたは事前取得された辞書を非同期辞書更新と統合することで、ユーザー体験を向上させ、コンテンツの新鮮さを維持するために設計された強力なReactフックです。`isLoading` とTypeScriptベースのコンテンツ宣言を活用することで、動的でローカライズされたコンテンツをReactアプリケーションにシームレスに統合できます。
+**まとめ**、`useIntlayerAsync` は、プリレンダリングまたは事前取得された辞書と非同期の辞書更新を統合することで、ユーザー体験を向上させ、コンテンツの鮮度を維持するために設計された強力な React フックです。`isLoading` と TypeScript ベースのコンテンツ宣言を活用することで、動的でローカライズされたコンテンツを React アプリケーションにシームレスに統合できます。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴の初期化

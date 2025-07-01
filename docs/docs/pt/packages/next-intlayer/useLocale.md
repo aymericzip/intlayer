@@ -1,10 +1,10 @@
 ---
 docName: package__next-intlayer__useLocale
 url: https://intlayer.org/doc/packages/next-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentação do hook useLocale | next-intlayer
+title: Documentação do Hook useLocale | next-intlayer
 description: Veja como usar o hook useLocale para o pacote next-intlayer
 keywords:
   - useLocale
@@ -18,13 +18,13 @@ keywords:
   - React
 ---
 
-# Integração Next.js: Documentação do Hook `useLocale` para `next-intlayer`
+# Integração com Next.js: Documentação do Hook `useLocale` para `next-intlayer`
 
-Esta seção oferece documentação detalhada sobre o hook `useLocale` adaptado para aplicações Next.js dentro da biblioteca `next-intlayer`. Ele é projetado para lidar com mudanças de localidade e roteamento de forma eficiente.
+Esta seção oferece documentação detalhada sobre o hook `useLocale` adaptado para aplicações Next.js dentro da biblioteca `next-intlayer`. Ele é projetado para gerenciar mudanças de localidade e roteamento de forma eficiente.
 
 ## Importando `useLocale` no Next.js
 
-Para utilizar o hook `useLocale` na sua aplicação Next.js, importe-o conforme mostrado abaixo:
+Para utilizar o hook `useLocale` em sua aplicação Next.js, importe-o conforme mostrado abaixo:
 
 ```javascript
 import { useLocale } from "next-intlayer"; // Usado para gerenciar localidades e roteamento no Next.js
@@ -46,8 +46,8 @@ const LocaleSwitcher: FC = () => {
 
   return (
     <div>
-      <h1>Localidade Atual: {locale}</h1>
-      <p>Localidade Padrão: {defaultLocale}</p>
+      <h1>Local Atual: {locale}</h1>
+      <p>Local Padrão: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -71,8 +71,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Localidade Atual: {locale}</h1>
-      <p>Localidade Padrão: {defaultLocale}</p>
+      <h1>Local Atual: {locale}</h1>
+      <p>Local Padrão: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -96,8 +96,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Localidade Atual: {locale}</h1>
-      <p>Localidade Padrão: {defaultLocale}</p>
+      <h1>Local Atual: {locale}</h1>
+      <p>Local Padrão: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -110,16 +110,20 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## Parâmetros e Valores Retornados
+## Parâmetros e Valores de Retorno
 
 Quando você invoca o hook `useLocale`, ele retorna um objeto contendo as seguintes propriedades:
 
-- **`locale`**: A localidade atual definida no contexto do React.
-- **`defaultLocale`**: A localidade principal definida na configuração.
-- **`availableLocales`**: Uma lista de todas as localidades disponíveis conforme definido na configuração.
-- **`setLocale`**: Uma função para alterar a localidade da aplicação e atualizar a URL de forma correspondente. Ela cuida das regras de prefixo, seja para adicionar ou não a localidade ao caminho com base na configuração. Utiliza `useRouter` de `next/navigation` para funções de navegação como `push` e `refresh`.
-- **`pathWithoutLocale`**: Uma propriedade computada que retorna o caminho sem a localidade. É útil para comparar URLs. Por exemplo, se a localidade atual for `fr`, e a URL `fr/my_path`, o caminho sem localidade é `/my_path`. Utiliza `usePathname` de `next/navigation` para obter o caminho atual.
+- **`locale`**: O local atual definido no contexto do React.
+- **`defaultLocale`**: O local principal definido na configuração.
+- **`availableLocales`**: Uma lista de todos os locais disponíveis conforme definido na configuração.
+- **`setLocale`**: Uma função para alterar o local da aplicação e atualizar a URL de acordo. Ela cuida das regras de prefixo, se deve ou não adicionar o local ao caminho com base na configuração. Utiliza `useRouter` do `next/navigation` para funções de navegação como `push` e `refresh`.
+- **`pathWithoutLocale`**: Uma propriedade computada que retorna o caminho sem o local. É útil para comparar URLs. Por exemplo, se o local atual for `fr`, e a URL for `fr/my_path`, o caminho sem local é `/my_path`. Utiliza `usePathname` do `next/navigation` para obter o caminho atual.
 
 ## Conclusão
 
-O hook `useLocale` do `next-intlayer` é uma ferramenta crucial para gerenciar localidades em aplicações Next.js. Ele oferece uma abordagem integrada para adaptar sua aplicação para múltiplas localidades, lidando com armazenamento de localidade, gerenciamento de estado e modificações de URL de forma perfeita.
+O hook `useLocale` do `next-intlayer` é uma ferramenta crucial para gerenciar locais em aplicações Next.js. Ele oferece uma abordagem integrada para adaptar sua aplicação a múltiplos locais, lidando de forma fluida com o armazenamento do local, gerenciamento de estado e modificações na URL.
+
+## Histórico da Documentação
+
+- 5.5.10 - 2025-06-29: Histórico inicial

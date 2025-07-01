@@ -1,8 +1,8 @@
+import { AIOptions } from '@intlayer/api';
 import { translateDoc } from '@intlayer/cli';
 import { getConfiguration, Locales } from '@intlayer/config';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { AIOptions } from '../../packages/@intlayer/api/dist/types/types';
 import { defaultLocale, locales } from '../intlayer.config';
 
 // Fill the list of files to audit if you want to audit only a subset of the files
@@ -10,7 +10,6 @@ import { defaultLocale, locales } from '../intlayer.config';
 const DOC_PATTERN: string[] = [
   // './docs/en/**/*.md',
   // './blog/en/**/*.md',
-  // './docs/en/**/express-intlayer/index.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/node_modules/**',
@@ -19,13 +18,16 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
 ];
 
 // Number of files to process simultaneously
-const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
+const NB_SIMULTANEOUS_FILE_PROCESSED: number = 3;
 
 const LOCALE_LIST_TO_TRANSLATE: Locales[] = locales.filter(
   // Include all locales except English
   // Change it to include your specific locales if you want to translate only a subset of the locale(s)
   (locale) => locale !== Locales.ENGLISH
 );
+
+const SKIP_IF_MODIFIED_BEFORE: number | undefined = 1000 * 60 * 60; // 1 hour ago
+const SKIP_IF_MODIFIED_AFTER: number | undefined = undefined;
 
 const configuration = getConfiguration();
 
@@ -42,4 +44,6 @@ translateDoc({
   aiOptions: configuration.ai as AIOptions,
   nbSimultaneousFileProcessed: NB_SIMULTANEOUS_FILE_PROCESSED,
   customInstructions,
+  skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
+  skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
 });

@@ -2,7 +2,7 @@
 docName: dictionary__condition
 url: https://intlayer.org/doc/concept/content/condition
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md
-createdAt: 2025-02-7
+createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: Bedingte Inhalte
 description: Erfahren Sie, wie Sie bedingte Inhalte in Intlayer nutzen können, um Inhalte dynamisch basierend auf bestimmten Bedingungen anzuzeigen. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihr Projekt zu integrieren.

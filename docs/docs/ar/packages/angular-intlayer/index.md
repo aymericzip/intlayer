@@ -1,20 +1,52 @@
 ---
 docName: package__angular-intlayer
 url: https://intlayer.org/doc/packages/angular-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/angular-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/angular-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: وثائق حزمة | angular-intlayer
-description: انظر كيف تستخدم حزمة angular-intlayer
+title: توثيق الحزمة | angular-intlayer
+description: تعرف على كيفية استخدام حزمة angular-intlayer
 keywords:
   - Intlayer
   - angular-intlayer
-  - الدولية
-  - المستندات
-  - JavaScript
-  - Angular
+  - التدويل
+  - التوثيق
+  - جافا سكريبت
+  - أنجولار
 ---
 
-this doc will be automatically generated translated from the english doc
+# angular-intlayer: حزمة NPM لتدويل (i18n) تطبيق أنجولار
 
-see /docs/en/packages/angular-intlayer/index.md
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافا سكريبت. وهي متوافقة مع أُطُر العمل مثل أنجولار، وأنجولار، وExpress.js.
+
+**حزمة `angular-intlayer`** تتيح لك تدويل تطبيق أنجولار الخاص بك. فهي توفر مزودي السياق (context providers) وخطافات (hooks) لتدويل أنجولار.
+
+## لماذا تقوم بتدويل تطبيق أنجولار الخاص بك؟
+
+تدويل تطبيق أنجولار الخاص بك أمر ضروري لخدمة جمهور عالمي بشكل فعال. فهو يسمح لتطبيقك بتقديم المحتوى والرسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق تطبيقك من خلال جعله أكثر وصولاً وملاءمة للأشخاص من خلفيات لغوية مختلفة.
+
+## لماذا تدمج Intlayer؟
+
+- **إدارة المحتوى مدعومة بجافا سكريبت**: استغل مرونة جافا سكريبت لتعريف وإدارة المحتوى الخاص بك بكفاءة.
+- **بيئة آمنة من حيث النوع**: استفد من TypeScript لضمان أن جميع تعريفات المحتوى الخاصة بك دقيقة وخالية من الأخطاء.
+- **ملفات محتوى مدمجة**: احتفظ بترجماتك قريبة من مكوناتها الخاصة، مما يعزز سهولة الصيانة والوضوح.
+
+## التثبيت
+
+قم بتثبيت الحزمة اللازمة باستخدام مدير الحزم المفضل لديك:
+
+```bash packageManager="npm"
+npm install angular-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add angular-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add angular-intlayer
+```
+
+## تاريخ الوثائق
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

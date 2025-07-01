@@ -1,10 +1,29 @@
-# intlayer-cli: حزمة NPM لاستخدام Intlayer CLI
+---
+docName: package__intlayer-cli
+url: https://intlayer.org/doc/package/intlayer-cli
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer-cli/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: intlayer-cli - أداة سطر الأوامر للتدويل
+description: حزمة واجهة سطر الأوامر لـ Intlayer توفر أدوات لإدارة الترجمات، بناء القواميس، وأتمتة سير العمل في التدويل.
+keywords:
+  - intlayer
+  - CLI
+  - سطر الأوامر
+  - التدويل
+  - i18n
+  - أدوات
+  - NPM
+  - الأتمتة
+---
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وExpress.js.
+# intlayer-cli: حزمة NPM لاستخدام أداة سطر أوامر Intlayer
 
-حزمة **`intlayer-cli`** هي حزمة NPM تستهلك حزمة `@intlayer/cli` وتجعلها متاحة لواجهات سطر الأوامر الخاصة بـ `intlayer`.
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافاسكريبت. وهي متوافقة مع أُطُر العمل مثل React وExpress.js.
 
-> لاحظ أن هذه الحزمة ليست ضرورية إذا تم تثبيت حزمة [`intlayer`](https://github.com/aymericzip/intlayer/tree/main/docs/ar/packages/intlayer/index.md). بالمقارنة مع حزمة `intlayer`، فإن حزمة `intlayer-cli` هي حزمة أخف تحتوي فقط على أداة CLI، بدون تبعيات `@intlayer/core`.
+حزمة **`intlayer-cli`** هي حزمة NPM تستهلك حزمة `@intlayer/cli` وتجعلها متاحة لواجهات سطر أوامر `intlayer`.
+
+> لاحظ أن هذه الحزمة غير ضرورية إذا كانت حزمة [`intlayer`](https://github.com/aymericzip/intlayer/tree/main/docs/ar/packages/intlayer/index.md) مثبتة. بالمقارنة مع حزمة `intlayer`، فإن حزمة `intlayer-cli` هي حزمة أخف تحتوي فقط على أداة سطر الأوامر، بدون تبعيات `@intlayer/core`.
 
 ## التثبيت
 
@@ -24,18 +43,22 @@ yarn add intlayer-cli -g
 
 ## الاستخدام
 
-إليك مثال على كيفية استخدام حزمة `intlayer-cli`:
+هنا مثال على كيفية استخدام حزمة `intlayer-cli`:
 
 ```bash
 npx intlayer dictionaries build
 ```
 
-## أوامر CLI
+## أوامر سطر الأوامر
 
-يوفر Intlayer أداة CLI لـ:
+يوفر Intlayer أداة سطر أوامر لـ:
 
-- تدقيق إعلانات المحتوى الخاص بك واستكمال الترجمات المفقودة
-- إنشاء القواميس من إعلانات المحتوى الخاص بك
-- دفع وسحب القواميس البعيدة من CMS الخاص بك إلى مشروعك المحلي
+- تدقيق إعلانات المحتوى الخاصة بك وإكمال الترجمات المفقودة
+- بناء قواميس من إعلانات المحتوى الخاصة بك
+- دفع وسحب القواميس البعيدة من نظام إدارة المحتوى الخاص بك إلى مشروع اللغة الخاص بك
 
 راجع [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) لمزيد من المعلومات.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

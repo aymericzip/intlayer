@@ -1,11 +1,11 @@
 ---
 docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Intlayer वीजियो संपादक | वीजियो संपादक का उपयोग करके अपने कंटेंट को संपादित करें
-description: Intlayer संपादक का उपयोग करके अपने बहुभाषी वेबसाइट का प्रबंधन करने का तरीका जानें। अपने प्रोजेक्ट को कुछ ही मिनटों में सेट करने के लिए इस ऑनलाइन दस्तावेज़ में दिए गए चरणों का पालन करें।
+title: Intlayer वीज़ुअल एडिटर | विज़ुअल एडिटर का उपयोग करके अपनी सामग्री संपादित करें
+description: Intlayer एडिटर का उपयोग करके अपनी बहुभाषी वेबसाइट को प्रबंधित करने का तरीका जानें। इस ऑनलाइन दस्तावेज़ में दिए गए चरणों का पालन करके अपने प्रोजेक्ट को कुछ ही मिनटों में सेट करें।
 keywords:
   - संपादक
   - अंतर्राष्ट्रीयकरण
@@ -16,11 +16,11 @@ keywords:
   - React
 ---
 
-# Intlayer विजुअल एडिटर दस्तावेज़ीकरण
+# Intlayer विज़ुअल एडिटर दस्तावेज़ीकरण
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-Intlayer विजुअल एडिटर एक उपकरण है जो आपके वेबसाइट को विजुअल एडिटर का उपयोग करके आपके सामग्री घोषणा फ़ाइलों के साथ इंटरैक्ट करने के लिए रैप करेगा।
+Intlayer विजुअल एडिटर एक उपकरण है जो आपके वेबसाइट को विजुअल एडिटर का उपयोग करके आपकी सामग्री घोषणा फ़ाइलों के साथ इंटरैक्ट करने के लिए रैप करेगा।
 
 ![Intlayer विजुअल एडिटर इंटरफ़ेस](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -214,6 +214,40 @@ module.exports = config;
 
 3. यदि आपकी सामग्री को रेखांकित किया गया है, तो आप इसे संपादन ड्रॉअर प्रदर्शित करने के लिए लंबे समय तक दबा सकते हैं।
 
+## पर्यावरण कॉन्फ़िगरेशन
+
+एडिटर को एक विशिष्ट पर्यावरण फ़ाइल का उपयोग करने के लिए कॉन्फ़िगर किया जा सकता है। यह तब उपयोगी होता है जब आप विकास और उत्पादन दोनों के लिए एक ही कॉन्फ़िगरेशन फ़ाइल का उपयोग करना चाहते हैं।
+
+एक विशिष्ट पर्यावरण फ़ाइल का उपयोग करने के लिए, आप एडिटर शुरू करते समय `--env-file` या `-f` फ़्लैग का उपयोग कर सकते हैं:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> ध्यान दें कि पर्यावरण फ़ाइल आपके प्रोजेक्ट की रूट डायरेक्टरी में होनी चाहिए।
+
+या आप पर्यावरण निर्दिष्ट करने के लिए `--env` या `-e` फ़्लैग का उपयोग कर सकते हैं:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
+
 ## डिबग
 
 यदि आपको विजुअल एडिटर के साथ कोई समस्या हो रही है, तो निम्नलिखित की जांच करें:
@@ -225,4 +259,8 @@ module.exports = config;
   - आवश्यक फ़ील्ड:
     - एप्लिकेशन URL को एडिटर कॉन्फ़िगरेशन (`applicationURL`) में सेट किए गए URL से मेल खाना चाहिए।
 
-- विजुअल एडिटर आपके वेबसाइट को प्रदर्शित करने के लिए एक iframe का उपयोग करता है। सुनिश्चित करें कि आपके वेबसाइट की सामग्री सुरक्षा नीति (CSP) CMS URL को `frame-ancestors` के रूप में अनुमति देती है ('http://localhost:8000' डिफ़ॉल्ट रूप से)। एडिटर कंसोल में किसी भी त्रुटि की जांच करें।
+- विज़ुअल एडिटर आपके वेबसाइट को प्रदर्शित करने के लिए एक iframe का उपयोग करता है। सुनिश्चित करें कि आपकी वेबसाइट की कंटेंट सिक्योरिटी पॉलिसी (CSP) CMS URL को `frame-ancestors` के रूप में अनुमति देती है (डिफ़ॉल्ट रूप से 'http://localhost:8000')। किसी भी त्रुटि के लिए एडिटर कंसोल की जांच करें।
+
+## डॉक्स इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

@@ -5,7 +5,7 @@ import { BlogData } from '../types';
 const blogContent = {
   key: 'blog-what-is-i18n-metadata',
   content: {
-    blogName: 'what_is_internationalization',
+    docName: 'what_is_internationalization',
     url: PagesRoutes.Blog_What_is_i18n,
     githubUrl: GithubRoutes.WhatIsi18n,
     createdAt: '2025-01-16',

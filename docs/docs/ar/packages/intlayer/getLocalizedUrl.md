@@ -1,28 +1,28 @@
 ---
 docName: package__intlayer__getLocalizedUrl
 url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: وثائق دالة getLocalizedUrl | intlayer
-description: انظر كيف تستخدم دالة getLocalizedUrl لحزمة intlayer
+title: توثيق دالة getLocalizedUrl | intlayer
+description: تعرف على كيفية استخدام دالة getLocalizedUrl لحزمة intlayer
 keywords:
   - getLocalizedUrl
-  - ترجمة
+  - الترجمة
   - Intlayer
   - intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
 ---
 
-# توثيق: وظيفة `getLocalizedUrl` في `intlayer`
+# التوثيق: دالة `getLocalizedUrl` في `intlayer`
 
 ## الوصف
 
-وظيفة `getLocalizedUrl` تقوم بإنشاء رابط محلي عن طريق إضافة بادئة للرابط المعطى مع اللغة المحددة. تتعامل مع الروابط المطلقة والنسبية، مما يضمن تطبيق بادئة اللغة الصحيحة بناءً على الإعدادات.
+تقوم دالة `getLocalizedUrl` بإنشاء عنوان URL محلي عن طريق إضافة بادئة اللغة المحددة إلى عنوان URL المعطى. تتعامل مع عناوين URL المطلقة والنسبية على حد سواء، مما يضمن تطبيق بادئة اللغة الصحيحة بناءً على التكوين.
 
 ---
 
@@ -30,41 +30,41 @@ keywords:
 
 - `url: string`
 
-  - **الوصف**: سلسلة النص الأصلية التي سيتم إضافة بادئة اللغة إليها.
+  - **الوصف**: سلسلة عنوان URL الأصلية التي سيتم إضافة بادئة اللغة إليها.
   - **النوع**: `string`
 
 - `currentLocale: Locales`
 
-  - **الوصف**: اللغة الحالية التي يتم تخصيص الرابط لها.
+  - **الوصف**: اللغة الحالية التي يتم تعريب العنوان لها.
   - **النوع**: `Locales`
 
 - `locales: Locales[]`
 
   - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. بشكل افتراضي، يتم توفير اللغات المكونة في المشروع.
   - **النوع**: `Locales[]`
-  - **الافتراضي**: [`إعداد المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
+  - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
   - **الوصف**: اللغة الافتراضية للتطبيق. بشكل افتراضي، يتم توفير اللغة الافتراضية المكونة في المشروع.
   - **النوع**: `Locales`
-  - **الافتراضي**: [`إعداد المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
+  - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
 - `prefixDefault: boolean`
-  - **الوصف**: ما إذا كان يجب إضافة بادئة للرابط للغة الافتراضية. بشكل افتراضي، يتم توفير القيمة المكونة في المشروع.
+  - **الوصف**: ما إذا كان يجب إضافة بادئة للعنوان الافتراضي. بشكل افتراضي، يتم توفير القيمة المكونة في المشروع.
   - **النوع**: `boolean`
-  - **الافتراضي**: [`إعداد المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
+  - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
 ### الإرجاع
 
 - **النوع**: `string`
-- **الوصف**: الرابط المحلي للغة المحددة.
+- **الوصف**: عنوان URL المحلي للغة المحددة.
 
 ---
 
-## أمثلة الاستخدام
+## مثال على الاستخدام
 
-### الروابط النسبية
+### عناوين URL النسبية
 
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
@@ -77,8 +77,8 @@ getLocalizedUrl(
   false
 );
 
-// النتيجة: "/fr/about" للغة الفرنسية
-// النتيجة: "/about" للغة الافتراضية (الإنجليزية)
+// الناتج: "/fr/about" للغة الفرنسية
+// الناتج: "/about" للغة الافتراضية (الإنجليزية)
 ```
 
 ```javascript codeFormat="esm"
@@ -92,8 +92,8 @@ getLocalizedUrl(
   false
 );
 
-// النتيجة: "/fr/about" للغة الفرنسية
-// النتيجة: "/about" للغة الافتراضية (الإنجليزية)
+// الناتج: "/fr/about" للغة الفرنسية
+// الناتج: "/about" للغة الافتراضية (الإنجليزية)
 ```
 
 ```javascript codeFormat="esm"
@@ -107,8 +107,8 @@ getLocalizedUrl(
   false
 );
 
-// النتيجة: "/fr/about" للغة الفرنسية
-// النتيجة: "/about" للغة الافتراضية (الإنجليزية)
+// الناتج: "/fr/about" للغة الفرنسية
+// الناتج: "/about" للغة الافتراضية (الإنجليزية)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -122,11 +122,11 @@ getLocalizedUrl(
   false
 );
 
-// النتيجة: "/fr/about" للغة الفرنسية
-// النتيجة: "/about" للغة الافتراضية (الإنجليزية)
+// الناتج: "/fr/about" للغة الفرنسية
+// الناتج: "/about" للغة الافتراضية (الإنجليزية)
 ```
 
-### الروابط المطلقة
+### عناوين URL المطلقة
 
 ```typescript
 getLocalizedUrl(
@@ -134,24 +134,24 @@ getLocalizedUrl(
   Locales.FRENCH, // اللغة الحالية
   [Locales.ENGLISH, Locales.FRENCH], // اللغات المدعومة
   Locales.ENGLISH, // اللغة الافتراضية
-  false // إضافة بادئة للغة الافتراضية
-); // النتيجة: "https://example.com/fr/about" للفرنسية
+  false // بادئة اللغة الافتراضية
+); // الناتج: "https://example.com/fr/about" للغة الفرنسية
 
 getLocalizedUrl(
   "https://example.com/about",
   Locales.ENGLISH, // اللغة الحالية
   [Locales.ENGLISH, Locales.FRENCH], // اللغات المدعومة
   Locales.ENGLISH, // اللغة الافتراضية
-  false // إضافة بادئة للغة الافتراضية
-); // النتيجة: "https://example.com/about" للإنجليزية
+  false // بادئة اللغة الافتراضية
+); // الناتج: "https://example.com/about" للغة الإنجليزية
 
 getLocalizedUrl(
   "https://example.com/about",
   Locales.ENGLISH, // اللغة الحالية
   [Locales.ENGLISH, Locales.FRENCH], // اللغات المدعومة
   Locales.ENGLISH, // اللغة الافتراضية
-  true // إضافة بادئة للغة الافتراضية
-); // النتيجة: "https://example.com/en/about" للإنجليزية
+  true // بادئة اللغة الافتراضية
+); // الناتج: "https://example.com/en/about" للغة الإنجليزية
 ```
 
 ### لغة غير مدعومة
@@ -162,29 +162,29 @@ getLocalizedUrl(
   Locales.ITALIAN, // اللغة الحالية
   [Locales.ENGLISH, Locales.FRENCH], // اللغات المدعومة
   Locales.ENGLISH // اللغة الافتراضية
-); // النتيجة: "/about" (لم يتم تطبيق بادئة للغة غير مدعومة)
+); // الناتج: "/about" (لا يتم تطبيق بادئة للغة غير المدعومة)
 ```
 
 ---
 
 ## الحالات الخاصة
 
-- **عدم وجود مقطع لغة:**
+- **عدم وجود جزء اللغة:**
 
-  - إذا لم يحتوي الرابط على أي مقطع لغة، تقوم الوظيفة بإضافة بادئة اللغة المناسبة بأمان.
+  - إذا لم يحتوي عنوان URL على جزء اللغة، تقوم الدالة بإضافة بادئة اللغة المناسبة بأمان.
 
 - **اللغة الافتراضية:**
 
-  - عندما تكون `prefixDefault` تساوي `false`، لا تضيف الوظيفة بادئة للرابط للغة الافتراضية.
+  - عندما تكون قيمة `prefixDefault` هي `false`، لا تضيف الدالة بادئة للغة الافتراضية في عنوان URL.
 
 - **اللغات غير المدعومة:**
-  - بالنسبة للغات غير المدرجة في `locales`، لا تطبق الوظيفة أي بادئة.
+  - بالنسبة للغات غير المدرجة في `locales`، لا تطبق الدالة أي بادئة.
 
 ---
 
 ## الاستخدام في التطبيقات
 
-في تطبيق متعدد اللغات، يعد تكوين إعدادات التدويل باستخدام `locales` و `defaultLocale` أمرًا بالغ الأهمية لضمان عرض اللغة الصحيحة. فيما يلي مثال على كيفية استخدام `getLocalizedUrl` في إعداد التطبيق:
+في تطبيق متعدد اللغات، يعد تكوين إعدادات التدويل باستخدام `locales` و `defaultLocale` أمرًا حيويًا لضمان عرض اللغة الصحيحة. فيما يلي مثال على كيفية استخدام `getLocalizedUrl` في إعداد التطبيق:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -228,14 +228,18 @@ const config = {
 module.exports = config;
 ```
 
-يضمن التكوين أعلاه أن التطبيق يتعرف على `ENGLISH` و`FRENCH` و`SPANISH` كلغات مدعومة ويستخدم `ENGLISH` كلغة احتياطية.
+يضمن التكوين أعلاه أن يتعرف التطبيق على اللغات `ENGLISH` و `FRENCH` و `SPANISH` كلغات مدعومة ويستخدم `ENGLISH` كلغة احتياطية.
 
-باستخدام هذا التكوين، يمكن لوظيفة `getLocalizedUrl` إنشاء روابط محلية ديناميكيًا بناءً على تفضيل لغة المستخدم:
+باستخدام هذا التكوين، يمكن لدالة `getLocalizedUrl` إنشاء روابط URL محلية ديناميكيًا بناءً على تفضيل لغة المستخدم:
 
 ```typescript
-getLocalizedUrl("/about", Locales.FRENCH); // النتيجة: "/fr/about"
-getLocalizedUrl("/about", Locales.SPANISH); // النتيجة: "/es/about"
-getLocalizedUrl("/about", Locales.ENGLISH); // النتيجة: "/about"
+getLocalizedUrl("/about", Locales.FRENCH); // الناتج: "/fr/about"
+getLocalizedUrl("/about", Locales.SPANISH); // الناتج: "/es/about"
+getLocalizedUrl("/about", Locales.ENGLISH); // الناتج: "/about"
 ```
 
-من خلال دمج `getLocalizedUrl`، يمكن للمطورين الحفاظ على هياكل روابط متسقة عبر لغات متعددة، مما يعزز تجربة المستخدم وتحسين محركات البحث.
+من خلال دمج دالة `getLocalizedUrl`، يمكن للمطورين الحفاظ على هياكل روابط URL متسقة عبر لغات متعددة، مما يعزز تجربة المستخدم وتحسين محركات البحث (SEO).
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بدء التاريخ

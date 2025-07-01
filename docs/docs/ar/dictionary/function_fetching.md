@@ -1,30 +1,30 @@
 ---
 docName: dictionary__function_fetching
 url: https://intlayer.org/doc/concept/content/function-fetching
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/function_fetching.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: استرجاع الوظيفة
-description: اكتشف كيفية إعلان واستخدام استرجاع الوظيفة في موقعك متعدد اللغات. اتبع الخطوات في هذه الوثائق الإلكترونية لإعداد مشروعك في دقائق.
+title: جلب الدوال
+description: اكتشف كيفية إعلان واستخدام جلب الدوال في موقعك متعدد اللغات. اتبع الخطوات في هذا التوثيق عبر الإنترنت لإعداد مشروعك في دقائق قليلة.
 keywords:
-  - استرجاع الوظيفة
-  - دولي
+  - جلب الدوال
+  - التدويل
   - التوثيق
   - Intlayer
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
 ---
 
-# جلب الوظائف
+# جلب الدوال
 
-يسمح Intlayer لك بإعلان وظائف المحتوى في وحدات المحتوى الخاصة بك، والتي يمكن أن تكون متزامنة أو غير متزامنة. عند بناء التطبيق، يقوم Intlayer بتنفيذ هذه الوظائف للحصول على نتيجة الوظيفة. يجب أن تكون القيمة المرجعة كائن JSON أو قيمة بسيطة مثل سلسلة نصية أو رقم.
+تسمح Intlayer لك بإعلان دوال المحتوى في وحدات المحتوى الخاصة بك، والتي يمكن أن تكون متزامنة أو غير متزامنة. عند بناء التطبيق، تقوم Intlayer بتنفيذ هذه الدوال للحصول على نتيجة الدالة. يجب أن تكون القيمة المرجعة كائن JSON أو قيمة بسيطة مثل نص أو رقم.
 
-> تحذير: جلب الوظائف غير متاح حاليًا في إعلان محتوى JSON وملفات إعلانات المحتوى البعيدة.
+> تحذير: جلب الدوال غير متاح حالياً في إعلان محتوى JSON وملفات إعلانات المحتوى البعيدة.
 
-## إعلانات الوظائف
+## إعلانات الدوال
 
-إليك مثال على وظيفة متزامنة بسيطة لجلب المحتوى:
+إليك مثال على دالة متزامنة بسيطة تقوم بجلب المحتوى:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import type { Dictionary } from "intlayer";
@@ -32,7 +32,7 @@ import type { Dictionary } from "intlayer";
 const functionContent = {
   key: "function_content",
   content: {
-    text: () => "هذا هو المحتوى الذي يتم عرضه بواسطة وظيفة",
+    text: () => "This is the content rendered by a function",
   },
 } satisfies Dictionary;
 
@@ -41,10 +41,11 @@ export default functionContent;
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 /** @type {import('intlayer').Dictionary} */
+// تعريف محتوى الدالة
 const functionContent = {
   key: "function_content",
   content: {
-    text: () => "هذا هو المحتوى الذي يتم عرضه بواسطة وظيفة",
+    text: () => "هذا هو المحتوى الذي تم عرضه بواسطة دالة",
   },
 };
 
@@ -53,10 +54,11 @@ export default functionContent;
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 /** @type {import('intlayer').Dictionary} */
+// تعريف محتوى الدالة
 const functionContent = {
   key: "function_content",
   content: {
-    text: () => "هذا هو المحتوى الذي يتم عرضه بواسطة وظيفة",
+    text: () => "هذا هو المحتوى الذي تم عرضه بواسطة دالة",
   },
 };
 
@@ -68,25 +70,25 @@ module.exports = functionContent;
   "$schema": "https://intlayer.org/schema.json",
   "key": "function_content",
   "content": {
-    "text": "هذا هو المحتوى الذي يتم عرضه بواسطة وظيفة"
+    "text": "هذا هو المحتوى الذي تم عرضه بواسطة دالة"
   }
 }
 ```
 
-في هذا المثال، يحتوي المفتاح `text` على وظيفة تُرجع سلسلة نصية. يمكن عرض هذا المحتوى في مكونات React الخاصة بك باستخدام حزم المفسر الخاصة بـ Intlayer مثل `react-intlayer`.
+في هذا المثال، يحتوي المفتاح `text` على دالة تُرجع سلسلة نصية. يمكن عرض هذا المحتوى في مكونات React الخاصة بك باستخدام حزم المفسر الخاصة بـ Intlayer مثل `react-intlayer`.
 
-## جلب الوظائف غير المتزامنة
+## جلب الدالة غير المتزامنة
 
-بالإضافة إلى الوظائف المتزامنة، يدعم Intlayer الوظائف غير المتزامنة، مما يتيح لك جلب البيانات من مصادر خارجية أو محاكاة استرجاع البيانات باستخدام بيانات وهمية.
+بالإضافة إلى الدوال المتزامنة، يدعم Intlayer الدوال غير المتزامنة، مما يتيح لك جلب البيانات من مصادر خارجية أو محاكاة استرجاع البيانات باستخدام بيانات وهمية.
 
-فيما يلي مثال على وظيفة غير متزامنة تحاكي جلب البيانات من الخادم:
+فيما يلي مثال على دالة غير متزامنة تحاكي جلب بيانات من الخادم:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
-  // انتظر لمدة 200 مللي ثانية لمحاكاة الجلب من الخادم
+  // الانتظار لمدة 200 مللي ثانية لمحاكاة جلب البيانات من الخادم
   return await setTimeout(200).then(
     () => "هذا هو المحتوى الذي تم جلبه من الخادم"
   );
@@ -105,7 +107,7 @@ import { setTimeout } from "node:timers/promises";
 
 /** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
-  // انتظر لمدة 200 مللي ثانية لمحاكاة الجلب من الخادم
+  // الانتظار لمدة 200 مللي ثانية لمحاكاة جلب البيانات من الخادم
   await setTimeout(200);
   return "هذا هو المحتوى الذي تم جلبه من الخادم";
 };
@@ -123,7 +125,7 @@ const { setTimeout } = require("node:timers/promises");
 
 /** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
-  // انتظر لمدة 200 مللي ثانية لمحاكاة الجلب من الخادم
+  // الانتظار لمدة 200 مللي ثانية لمحاكاة جلب البيانات من الخادم
   await setTimeout(200);
   return "هذا هو المحتوى الذي تم جلبه من الخادم";
 };
@@ -137,14 +139,14 @@ module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
-لا يمكن جلب المحتوى من ملف JSON، استخدم ملف .ts أو .js بدلاً من ذلك
+لا توجد طريقة لجلب المحتوى من ملف JSON، استخدم ملف .ts أو .js بدلاً من ذلك
 ```
 
-في هذه الحالة، تحاكي وظيفة `fakeFetch` تأخيرًا لمحاكاة وقت استجابة الخادم. يقوم Intlayer بتنفيذ الوظيفة غير المتزامنة ويستخدم النتيجة كمحتوى للمفتاح `text`.
+في هذه الحالة، تقوم دالة `fakeFetch` بمحاكاة تأخير لتقليد وقت استجابة الخادم. يقوم Intlayer بتنفيذ الدالة غير المتزامنة ويستخدم النتيجة كمحتوى للمفتاح `text`.
 
-## استخدام المحتوى المستند إلى الوظائف في مكونات React
+## استخدام المحتوى المعتمد على الدوال في مكونات React
 
-لاستخدام المحتوى المستند إلى الوظائف في مكون React، تحتاج إلى استيراد `useIntlayer` من `react-intlayer` واستدعائها باستخدام معرف المحتوى لاسترداد المحتوى. إليك مثال:
+لاستخدام المحتوى المعتمد على الدوال في مكون React، تحتاج إلى استيراد `useIntlayer` من `react-intlayer` واستدعاؤه مع معرف المحتوى لاسترجاع المحتوى. إليك مثالاً:
 
 ```typescript fileName="**/*.jsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -157,9 +159,9 @@ const MyComponent: FC = () => {
   return (
     <div>
       <p>{functionContent.text}</p>
-      {/* الإخراج: هذا هو المحتوى الذي يتم عرضه بواسطة وظيفة */}
+      {/* المخرجات: هذا هو المحتوى الذي تم عرضه بواسطة دالة */}
       <p>{asyncFunctionContent.text}</p>
-      {/* الإخراج: هذا هو المحتوى الذي تم جلبه من الخادم */}
+      {/* المخرجات: هذا هو المحتوى الذي تم جلبه من الخادم */}
     </div>
   );
 };
@@ -177,9 +179,9 @@ const MyComponent = () => {
   return (
     <div>
       <p>{functionContent.text}</p>
-      {/* الإخراج: هذا هو المحتوى الذي يتم عرضه بواسطة وظيفة */}
+      {/* المخرجات: هذا هو المحتوى الذي تم عرضه بواسطة دالة */}
       <p>{asyncFunctionContent.text}</p>
-      {/* الإخراج: هذا هو المحتوى الذي تم جلبه من الخادم */}
+      {/* المخرجات: هذا هو المحتوى الذي تم جلبه من الخادم */}
     </div>
   );
 };
@@ -197,12 +199,16 @@ const MyComponent = () => {
   return (
     <div>
       <p>{functionContent.text}</p>
-      {/* الإخراج: هذا هو المحتوى الذي يتم عرضه بواسطة وظيفة */}
+      {/* المخرجات: هذا هو المحتوى الذي تم عرضه بواسطة دالة */}
       <p>{asyncFunctionContent.text}</p>
-      {/* الإخراج: هذا هو المحتوى الذي تم جلبه من الخادم */}
+      {/* المخرجات: هذا هو المحتوى الذي تم جلبه من الخادم */}
     </div>
   );
 };
 
 module.exports = MyComponent;
 ```
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية السجل

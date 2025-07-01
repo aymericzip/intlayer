@@ -4,23 +4,22 @@ url: https://intlayer.org/doc/concept/auto-fill
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
-title: Remplissage automatique
-description: Découvrez comment utiliser la fonctionnalité de remplissage automatique dans Intlayer pour remplir automatiquement le contenu selon des modèles prédéfinis. Suivez cette documentation pour implémenter efficacement les fonctionnalités de remplissage automatique dans votre projet.
+title: Remplissage Automatique
+description: Apprenez à utiliser la fonctionnalité de remplissage automatique dans Intlayer pour peupler automatiquement le contenu basé sur des modèles prédéfinis. Suivez cette documentation pour implémenter efficacement les fonctionnalités de remplissage automatique dans votre projet.
 keywords:
-  - Remplissage automatique
-  - Automatisation du contenu
-  - Contenu dynamique
+  - Remplissage Automatique
+  - Automatisation de Contenu
+  - Contenu Dynamique
   - Intlayer
   - Next.js
   - JavaScript
   - React
 ---
 
-# Fichiers de Déclaration de Contenu Auto-remplis
+# Traductions des Fichiers de Déclaration de Contenu avec Remplissage Automatique
 
-Les **fichiers de déclaration de contenu auto-remplis** sont un moyen d'accélérer votre flux de travail de développement.
-
-Le mécanisme d'auto-remplissage fonctionne selon une relation _maître-esclave_ entre les fichiers de déclaration de contenu. Lorsque le fichier principal (maître) est mis à jour, Intlayer appliquera automatiquement ces modifications aux fichiers de déclaration dérivés (auto-remplis).
+**Les fichiers de déclaration de contenu avec remplissage automatique** sont un moyen d'accélérer votre flux de développement.
+Le mécanisme de remplissage automatique fonctionne par une relation _maître-esclave_ entre les fichiers de déclaration de contenu. Lorsque le fichier principal (maître) est mis à jour, Intlayer applique automatiquement ces modifications aux fichiers de déclaration dérivés (remplis automatiquement).
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -30,7 +29,7 @@ const exampleContent = {
   locale: Locales.ENGLISH,
   autoFill: "./example.content.json",
   content: {
-    contentExample: "This is an example of content",
+    contentExample: "Ceci est un exemple de contenu",
   },
 } satisfies Dictionary;
 
@@ -45,7 +44,7 @@ Ensuite, lorsque vous exécutez la commande suivante :
 npx intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer générera automatiquement le fichier de déclaration dérivé à `src/components/example/example.content.json`, en remplissant toutes les locales non encore déclarées dans le fichier principal.
+Intlayer générera automatiquement le fichier de déclaration dérivé à `src/components/example/example.content.json`, remplissant toutes les locales non encore déclarées dans le fichier principal.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -62,11 +61,11 @@ Intlayer générera automatiquement le fichier de déclaration dérivé à `src/
 }
 ```
 
-Par la suite, les deux fichiers de déclaration seront fusionnés en un seul dictionnaire, accessible via le hook standard `useIntlayer("example")` (react) / composable (vue).
+Ensuite, les deux fichiers de déclaration seront fusionnés en un seul dictionnaire, accessible via le hook standard `useIntlayer("example")` (react) / composable (vue).
 
-## Format des Fichiers Auto-remplis
+## Format du fichier autofill
 
-Le format recommandé pour les fichiers de déclaration auto-remplis est le **JSON**, ce qui aide à éviter les contraintes de formatage. Cependant, Intlayer prend également en charge les formats `.ts`, `.js`, `.mjs`, `.cjs` et autres.
+Le format recommandé pour les fichiers de déclaration autofillés est **JSON**, ce qui permet d'éviter les contraintes de formatage. Cependant, Intlayer supporte également les formats `.ts`, `.js`, `.mjs`, `.cjs` et autres.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -78,7 +77,7 @@ const exampleContent = {
 };
 ```
 
-Cela générera le fichier à :
+Cela générera le fichier à l'emplacement :
 
 ```
 src/components/example/example.filled.content.ts
@@ -86,12 +85,12 @@ src/components/example/example.filled.content.ts
 
 > La génération des fichiers `.js`, `.ts` et similaires fonctionne comme suit :
 >
-> - Si le fichier existe déjà, Intlayer l'analysera en utilisant l'AST (Arbre de Syntaxe Abstraite) pour localiser chaque champ et insérer les traductions manquantes.
-> - Si le fichier n'existe pas, Intlayer le générera en utilisant le modèle par défaut de fichier de déclaration de contenu.
+> - Si le fichier existe déjà, Intlayer l'analysera en utilisant l'AST (Abstract Syntax Tree) pour localiser chaque champ et insérer les traductions manquantes.
+> - Si le fichier n'existe pas, Intlayer le générera en utilisant le modèle de fichier de déclaration de contenu par défaut.
 
 ## Chemins Absolus
 
-Le champ `autoFill` prend également en charge les chemins absolus.
+Le champ `autoFill` supporte également les chemins absolus.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -103,15 +102,15 @@ const exampleContent = {
 };
 ```
 
-Cela générera le fichier à :
+Cela générera le fichier à l'emplacement suivant :
 
 ```
 /messages/example.content.json
 ```
 
-## Génération Automatique des Fichiers de Déclaration de Contenu par Locale
+## Génération Automatique des Fichiers de Déclaration de Contenu Par Locale
 
-Le champ `autoFill` prend également en charge la génération de fichiers de déclaration de contenu **par locale**.
+Le champ `autoFill` supporte également la génération de fichiers de déclaration de contenu **par locale**.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -126,14 +125,14 @@ const exampleContent = {
 };
 ```
 
-Cela générera deux fichiers séparés :
+Cela générera deux fichiers distincts :
 
 - `src/components/example/example.fr.content.json`
 - `src/components/example/example.es.content.json`
 
-## Filtrer l'Auto-remplissage par Locale Spécifique
+## Filtrer l'auto-remplissage pour une locale spécifique
 
-L'utilisation d'un objet pour le champ `autoFill` vous permet d'appliquer des filtres et de générer uniquement des fichiers de locale spécifiques.
+Utiliser un objet pour le champ `autoFill` vous permet d'appliquer des filtres et de générer uniquement les fichiers pour des locales spécifiques.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -147,15 +146,15 @@ const exampleContent = {
 };
 ```
 
-Cela ne générera que le fichier de traduction français.
+Cela générera uniquement le fichier de traduction français.
 
-## Variables de Chemin
+## Variables de chemin
 
 Vous pouvez utiliser des variables dans le chemin `autoFill` pour résoudre dynamiquement les chemins cibles des fichiers générés.
 
 **Variables disponibles :**
 
-- `{{locale}}` – Code de locale (ex. `fr`, `es`)
+- `{{locale}}` – Code de la locale (ex. `fr`, `es`)
 - `{{key}}` – Clé du dictionnaire (ex. `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
@@ -173,36 +172,6 @@ Cela générera :
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
 
-## Fusion des Traductions
+## Historique de la documentation
 
-Lors du remplissage automatique, Intlayer fusionne les traductions existantes avec les nouvelles entrées. Cela signifie que si une traduction est déjà définie dans le fichier auto-rempli, elle ne sera pas écrasée.
-
-```json5 fileName="src/components/example/example.fr.content.json"
-{
-  "key": "example",
-  "content": {
-    "contentExample": {
-      "nodeType": "translation",
-      "translation": {
-        "fr": "Contenu personnalisé existant",
-      },
-    },
-  },
-}
-```
-
-Dans cet exemple, la valeur `"Contenu personnalisé existant"` sera conservée même si le fichier principal est mis à jour.
-
-## Utilisation avec `t()`
-
-Lorsque vous utilisez la fonction `t()` avec des objets de traduction, assurez-vous que la clé `fr` est placée **avant** les autres locales.
-
-```ts
-t({
-  fr: "Bonjour",
-  en: "Hello",
-  es: "Hola",
-});
-```
-
-Cela garantit une meilleure lisibilité et cohérence dans les fichiers de contenu.
+- 5.5.10 - 2025-06-29 : Historique initial

@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getPathWithoutLocale
 url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Документация функции getPathWithoutLocale | intlayer
@@ -11,18 +11,18 @@ keywords:
   - перевод
   - Intlayer
   - intlayer
-  - интернационализация
-  - документация
+  - Интернационализация
+  - Документация
   - Next.js
   - JavaScript
   - React
 ---
 
-# Документация: Функции `getPathWithoutLocale` в `intlayer`
+# Документация: функция `getPathWithoutLocale` в `intlayer`
 
 ## Описание
 
-Удаляет сегмент локали из указанного URL или пути, если он присутствует. Работает как с абсолютными URL, так и с относительными путями.
+Удаляет сегмент локали из заданного URL или пути, если он присутствует. Работает как с абсолютными URL, так и с относительными путями.
 
 ## Параметры
 
@@ -32,10 +32,10 @@ keywords:
   - **Тип**: `string`
 
 - `locales: Locales[]`
-  - **Описание**: Необязательный массив поддерживаемых локалей. По умолчанию используются настроенные локали в проекте.
+  - **Описание**: Необязательный массив поддерживаемых локалей. По умолчанию используется конфигурируемый список локалей в проекте.
   - **Тип**: `Locales[]`
 
-## Возвращает
+## Возвращаемое значение
 
 - **Тип**: `string`
 - **Описание**: Строка URL или путь без сегмента локали.
@@ -68,3 +68,7 @@ console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Вывод: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вывод: "https://example.com/dashboard"
 ```
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

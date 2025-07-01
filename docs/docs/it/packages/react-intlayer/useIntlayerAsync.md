@@ -1,11 +1,11 @@
 ---
 docName: package__react-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentazione del hook useIntlayerAsync | react-intlayer
-description: Scopri come utilizzare il hook useIntlayerAsync per il pacchetto react-intlayer
+title: Documentazione Hook useIntlayerAsync | react-intlayer
+description: Scopri come utilizzare l'hook useIntlayerAsync per il pacchetto react-intlayer
 keywords:
   - useIntlayerAsync
   - dizionario
@@ -18,20 +18,20 @@ keywords:
   - React
 ---
 
-# Integrazione React: Documentazione del Hook `useIntlayerAsync`
+# Integrazione React: Documentazione Hook `useIntlayerAsync`
 
-Il hook `useIntlayerAsync` estende la funzionalità di `useIntlayer` non solo restituendo dizionari pre-renderizzati, ma anche recuperando aggiornamenti in modo asincrono, rendendolo ideale per applicazioni che aggiornano frequentemente i loro contenuti localizzati dopo il rendering iniziale.
+L'hook `useIntlayerAsync` estende la funzionalità di `useIntlayer` non solo restituendo dizionari pre-renderizzati, ma anche recuperando aggiornamenti in modo asincrono, rendendolo ideale per applicazioni che aggiornano frequentemente il loro contenuto localizzato dopo il rendering iniziale.
 
 ## Panoramica
 
-- **Caricamento Asincrono dei Dizionari:**  
-  Al montaggio iniziale, `useIntlayerAsync` restituisce prima qualsiasi dizionario locale pre-recuperato o staticamente incluso (proprio come farebbe `useIntlayer`) e poi recupera e unisce asincronamente eventuali nuovi dizionari remoti disponibili.
-- **Gestione dello Stato di Avanzamento:**  
-  Il hook fornisce anche uno stato `isLoading`, che indica quando un dizionario remoto è in fase di recupero. Questo consente agli sviluppatori di mostrare indicatori di caricamento o stati scheletro per un'esperienza utente più fluida.
+- **Caricamento asincrono del dizionario:**  
+  Al montaggio iniziale, `useIntlayerAsync` restituisce prima qualsiasi dizionario locale pre-caricato o incluso staticamente (proprio come farebbe `useIntlayer`) e poi recupera e unisce in modo asincrono eventuali nuovi dizionari remoti disponibili.
+- **Gestione dello stato di progresso:**  
+  L'hook fornisce anche uno stato `isLoading`, che indica quando un dizionario remoto è in fase di recupero. Questo permette agli sviluppatori di mostrare indicatori di caricamento o stati scheletro per un'esperienza utente più fluida.
 
 ## Configurazione dell'Ambiente
 
-Intlayer fornisce un sistema di gestione delle sorgenti di contenuto (CSM) senza testa che consente ai non sviluppatori di gestire e aggiornare i contenuti dell'applicazione senza problemi. Utilizzando il dashboard intuitivo di Intlayer, il tuo team può modificare testi localizzati, immagini e altre risorse senza modificare direttamente il codice. Questo semplifica il processo di gestione dei contenuti, favorisce la collaborazione e garantisce che gli aggiornamenti possano essere effettuati rapidamente e facilmente.
+Intlayer fornisce un sistema headless di Content Source Management (CSM) che permette anche ai non sviluppatori di gestire e aggiornare i contenuti dell'applicazione in modo semplice e fluido. Utilizzando la dashboard intuitiva di Intlayer, il tuo team può modificare testi localizzati, immagini e altre risorse senza dover intervenire direttamente sul codice. Questo semplifica il processo di gestione dei contenuti, favorisce la collaborazione e garantisce che gli aggiornamenti possano essere effettuati rapidamente e facilmente.
 
 Per iniziare con Intlayer:
 
@@ -79,7 +79,7 @@ Per iniziare con Intlayer:
    module.exports = config;
    ```
 
-3. **Carica un nuovo dizionario locale su Intlayer:**
+3. **Inviare un nuovo dizionario di localizzazione a Intlayer:**
 
    ```bash
    npx intlayer dictionary push -d my-first-dictionary-key
@@ -87,7 +87,7 @@ Per iniziare con Intlayer:
 
    Questo comando carica i tuoi dizionari di contenuti iniziali, rendendoli disponibili per il recupero asincrono e la modifica tramite la piattaforma Intlayer.
 
-## Importazione di `useIntlayerAsync` in React
+## Importare `useIntlayerAsync` in React
 
 Nei tuoi componenti React, importa `useIntlayerAsync`:
 
@@ -111,17 +111,17 @@ const { useIntlayerAsync } = require("react-intlayer");
 
 2. **`locale`** (opzionale):  
    **Tipo**: `Locales`  
-   La specifica localizzazione che vuoi mirare. Se omesso, il hook utilizza la localizzazione dal contesto corrente di Intlayer.
+   La locale specifica che vuoi utilizzare. Se omessa, il hook utilizza la locale dal contesto Intlayer corrente.
 
-3. **`isRenderEditor`** (opzionale, predefinito `true`):  
+3. **`isRenderEditor`** (opzionale, predefinito a `true`):  
    **Tipo**: `boolean`  
-   Determina se il contenuto dovrebbe essere pronto per il rendering con la sovrapposizione dell'editor di Intlayer. Se impostato su `false`, i dati del dizionario restituiti escluderanno le funzionalità specifiche dell'editor.
+   Determina se il contenuto deve essere pronto per il rendering con la sovrapposizione dell'editor Intlayer. Se impostato su `false`, i dati del dizionario restituiti escluderanno le funzionalità specifiche dell'editor.
 
-## Valore Restituito
+## Valore di ritorno
 
-Il hook restituisce un oggetto dizionario contenente contenuti localizzati indicizzati da `key` e `locale`. Include anche un booleano `isLoading` che indica se un dizionario remoto è attualmente in fase di recupero.
+Il hook restituisce un oggetto dizionario contenente il contenuto localizzato indicizzato da `key` e `locale`. Include anche un booleano `isLoading` che indica se un dizionario remoto è attualmente in fase di recupero.
 
-## Esempio di Utilizzo in un Componente React
+## Esempio di utilizzo in un componente React
 
 ```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
 import { useEffect, type FC } from "react";
@@ -132,7 +132,7 @@ export const ComponentExample: FC = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("Il contenuto è in caricamento...");
+      console.log("Il contenuto si sta caricando...");
     }
   }, [isLoading]);
 
@@ -141,7 +141,7 @@ export const ComponentExample: FC = () => {
       {isLoading ? (
         <div>
           <h1>Caricamento…</h1>
-          <p>Attendere mentre i contenuti vengono aggiornati.</p>
+          <p>Attendere mentre il contenuto viene aggiornato.</p>
         </div>
       ) : (
         <div>
@@ -172,7 +172,7 @@ const ComponentExample = () => {
       {isLoading ? (
         <div>
           <h1>Caricamento…</h1>
-          <p>Attendere mentre i contenuti vengono aggiornati.</p>
+          <p>Attendere prego mentre il contenuto si aggiorna.</p>
         </div>
       ) : (
         <div>
@@ -194,7 +194,7 @@ const ComponentExample = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("Il contenuto è in caricamento...");
+      console.log("Il contenuto si sta caricando...");
     }
   }, [isLoading]);
 
@@ -203,7 +203,7 @@ const ComponentExample = () => {
       {isLoading ? (
         <div>
           <h1>Caricamento…</h1>
-          <p>Attendere mentre i contenuti vengono aggiornati.</p>
+          <p>Attendere prego mentre il contenuto si aggiorna.</p>
         </div>
       ) : (
         <div>
@@ -218,29 +218,33 @@ const ComponentExample = () => {
 
 **Punti Chiave:**
 
-- Al rendering iniziale, `title` e `description` provengono dal dizionario locale pre-recuperato o staticamente incluso.
+- Al primo rendering, `title` e `description` provengono dal dizionario locale pre-caricato o incorporato staticamente.
 - Mentre `isLoading` è `true`, una richiesta in background recupera un dizionario aggiornato.
-- Una volta completato il recupero, `title` e `description` vengono aggiornati con i contenuti più recenti e `isLoading` torna a `false`.
+- Una volta completato il recupero, `title` e `description` vengono aggiornati con il contenuto più recente, e `isLoading` torna a `false`.
 
 ## Gestione della Localizzazione degli Attributi
 
-Puoi anche recuperare valori di attributi localizzati per varie proprietà HTML (es. `alt`, `title`, `aria-label`):
+Puoi anche recuperare valori localizzati per vari attributi HTML (ad esempio, `alt`, `title`, `aria-label`):
 
 ```jsx
 <img src={title.image.src.value} alt={title.image.alt.value} />
 ```
 
-## File dei Dizionari
+## File del Dizionario
 
-Tutte le chiavi di contenuto devono essere definite nei tuoi file di dichiarazione dei contenuti per garantire la sicurezza dei tipi e prevenire errori a runtime. Questi file abilitano la validazione TypeScript, assicurandoti di fare sempre riferimento a chiavi e localizzazioni esistenti.
+Tutte le chiavi di contenuto devono essere definite nei tuoi file di dichiarazione del contenuto per garantire la sicurezza dei tipi e prevenire errori a runtime. Questi file abilitano la validazione TypeScript, assicurando che tu faccia sempre riferimento a chiavi e localizzazioni esistenti.
 
-Le istruzioni per configurare i file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md).
+Istruzioni per la configurazione dei file di dichiarazione dei contenuti sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md).
 
 ## Ulteriori Informazioni
 
-- **Editor Visivo di Intlayer:**  
-  Integra con l'editor visivo di Intlayer per gestire e modificare i contenuti direttamente dall'interfaccia utente. Maggiori dettagli [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md).
+- **Editor Visuale Intlayer:**  
+  Integra l'editor visuale Intlayer per gestire e modificare i contenuti direttamente dall'interfaccia utente. Maggiori dettagli [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md).
 
 ---
 
-**In sintesi**, `useIntlayerAsync` è un potente hook React progettato per migliorare l'esperienza utente e mantenere i contenuti aggiornati unendo dizionari pre-renderizzati o pre-recuperati con aggiornamenti asincroni. Sfruttando `isLoading` e le dichiarazioni di contenuto basate su TypeScript, puoi integrare senza problemi contenuti dinamici e localizzati nelle tue applicazioni React.
+**In sintesi**, `useIntlayerAsync` è un potente hook di React progettato per migliorare l'esperienza utente e mantenere la freschezza dei contenuti unendo dizionari pre-renderizzati o pre-caricati con aggiornamenti asincroni dei dizionari. Sfruttando `isLoading` e le dichiarazioni di contenuto basate su TypeScript, puoi integrare senza soluzione di continuità contenuti dinamici e localizzati nelle tue applicazioni React.
+
+## Cronologia del documento
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

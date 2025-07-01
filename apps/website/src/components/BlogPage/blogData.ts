@@ -271,7 +271,7 @@ export const getPreviousNextBlogData = (
   const { blog, paths, title } = getBlogSection(docData);
 
   const blogIndex = blog.findIndex(
-    (blog) => blog.blogName === docElement?.blogName
+    (blog) => blog.docName === docElement?.docName
   );
   const nextBlogIndex = blogIndex + 1;
   const prevBlogIndex = blogIndex - 1;

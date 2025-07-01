@@ -1,14 +1,14 @@
 ---
 docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: CLI
-description: Узнайте, как использовать Intlayer CLI для управления вашим многоязычным сайтом. Следуйте шагам в этой онлайн-документации, чтобы настроить свой проект за несколько минут.
+description: Узнайте, как использовать Intlayer CLI для управления вашим многоязычным сайтом. Следуйте шагам в этой онлайн-документации, чтобы настроить проект за несколько минут.
 keywords:
   - CLI
-  - Интерфейс командной строки
+  - Командная строка
   - Интернационализация
   - Документация
   - Intlayer
@@ -35,13 +35,13 @@ yarn add intlayer-cli -g
 pnpm add intlayer-cli -g
 ```
 
-> Если пакет `intlayer` уже установлен, CLI устанавливается автоматически. Этот шаг можно пропустить.
+> Если пакет `intlayer` уже установлен, CLI устанавливается автоматически. Вы можете пропустить этот шаг.
 
 ## Пакет intlayer-cli
 
 Пакет `intlayer-cli` предназначен для транспиляции ваших [объявлений intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md) в словари.
 
-Этот пакет транспилирует все файлы intlayer, такие как `src/**/*.content.{ts|js|mjs|cjs|json}`. [Смотрите, как объявлять файлы деклараций Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Этот пакет транспилирует все файлы intlayer, такие как `src/**/*.content.{ts|js|mjs|cjs|json}`. [Смотрите, как объявлять ваши файлы объявлений Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Для интерпретации словарей intlayer вы можете использовать интерпретаторы, такие как [react-intlayer](https://www.npmjs.com/package/react-intlayer) или [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 
@@ -58,23 +58,71 @@ Intlayer поддерживает несколько форматов конфи
 
 Чтобы узнать, как настроить доступные локали или другие параметры, обратитесь к [документации по конфигурации здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
-## Запуск команд intlayer
+## CLI SDK
+
+CLI SDK — это библиотека, которая позволяет использовать Intlayer CLI в вашем собственном коде.
+
+```bash packageManager="npm"
+npm install @intlayer/cli -D
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/cli -D
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/cli -D
+```
+
+Пример использования:
+
+```ts
+import {
+  push,
+  pull,
+  fill,
+  build,
+  docTranslate,
+  docReview,
+} from "@intlayer/cli";
+
+push();
+// ...
+pull();
+// ...
+fill();
+// ...
+build();
+// ...
+docTranslate();
+// ...
+docReview();
+// ...
+```
+
+## Выполнение команд intlayer
 
 ### Сборка словарей
 
 Для сборки ваших словарей вы можете выполнить команды:
 
 ```bash
-npx intlayer dictionaries build
+npx intlayer build
 ```
 
 или в режиме наблюдения
 
 ```bash
-npx intlayer dictionaries build --watch
+npx intlayer build --watch
 ```
 
-Эта команда найдет ваши файлы деклараций контента по умолчанию как `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` и соберет словари в директорию `.intlayer`.
+Эта команда по умолчанию найдет ваши файлы с декларациями контента по пути `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` и соберет словари в директории `.intlayer`.
+
+##### Псевдонимы:
+
+- `npx intlayer dictionaries build`
+- `npx intlayer dictionary build`
+- `npx intlayer dic build`
 
 ### Отправка словарей
 
@@ -82,44 +130,56 @@ npx intlayer dictionaries build --watch
 npx intlayer dictionary push
 ```
 
-Если установлен [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), вы также можете отправить словари в редактор. Эта команда позволит сделать словари доступными для [редактора](https://intlayer.org/dashboard). Таким образом, вы можете делиться своими словарями с командой и редактировать контент без изменения кода вашего приложения.
+Если установлен [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), вы также можете отправлять словари в редактор. Эта команда позволит сделать словари доступными в [редакторе](https://intlayer.org/dashboard). Таким образом, вы можете делиться своими словарями с командой и редактировать контент без изменения кода вашего приложения.
+
+##### Псевдонимы:
+
+- `npx intlayer dictionaries push`
+- `npx intlayer dictionary push`
+- `npx intlayer dic push`
 
 ##### Аргументы:
 
-- `-d`, `--dictionaries`: ID словарей для отправки. Если не указано, будут отправлены все словари.
+- `-d`, `--dictionaries`: идентификаторы словарей для отправки. Если не указано, будут отправлены все словари.
   > Пример: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Пропускает вопрос об удалении директории локали после отправки словаря и удаляет. По умолчанию, если словарь определен локально, он перезаписывает содержимое удаленного словаря.
+- `-r`, `--deleteLocaleDictionary`: Пропустить вопрос об удалении каталогов локалей после отправки словарей и удалить их. По умолчанию, если словарь определён локально, он перезапишет содержимое удалённых словарей.
   > Пример: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: Пропускает вопрос об удалении директории локали после отправки словаря и сохраняет. По умолчанию, если словарь определен локально, он перезаписывает содержимое удаленного словаря.
+- `-k`, `--keepLocaleDictionary`: Пропустить вопрос об удалении каталогов локалей после отправки словарей и сохранить их. По умолчанию, если словарь определён локально, он перезапишет содержимое удалённых словарей.
   > Пример: `npx intlayer dictionary push -k`
-- `--env`: Указывает окружение (например, `development`, `production`).
-- `--env-file`: Предоставляет пользовательский файл окружения для загрузки переменных.
-- `--base-dir`: Указывает базовую директорию проекта.
-- `--verbose`: Включает подробное логирование для отладки.
-- `--git-diff`: Выполняет только словари с неотправленными изменениями в git-репозитории.
-- `--git-diff-base`: Указывает базовую ссылку для git diff.
-- `--git-diff-current`: Указывает текущую ссылку для git diff.
-- `--uncommitted`: Включает незакоммиченные изменения.
-- `--unpushed`: Включает неотправленные изменения.
-- `--untracked`: Включает неотслеживаемые файлы.
+- `--env`: Указать окружение (например, `development`, `production`).
+- `--env-file`: Указать пользовательский файл окружения для загрузки переменных.
+- `--base-dir`: Указать базовый каталог проекта.
+- `--verbose`: Включить подробное логирование для отладки.
+- `--git-diff`: Запускать только для словарей, которые содержат изменения от базы (по умолчанию `origin/main`) до текущей ветки (по умолчанию: `HEAD`).
+- `--git-diff-base`: Указать базовую ссылку для git diff (по умолчанию `origin/main`).
+- `--git-diff-current`: Указать текущую ссылку для git diff (по умолчанию `HEAD`).
+- `--uncommitted`: Включить незафиксированные изменения.
+- `--unpushed`: Включить неотправленные изменения.
+- `--untracked`: Включить неотслеживаемые файлы.
 
-### Получение удаленных словарей
+### Получение удалённых словарей
 
 ```bash
-npx intlayer dictionary pull
+npx intlayer pull
 ```
 
-Если у вас установлен [Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), вы также можете получить словари из редактора. Это позволяет перезаписать содержимое словарей в соответствии с потребностями вашего приложения.
+Если установлен [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), вы также можете загружать словари из редактора. Таким образом, вы можете перезаписать содержимое ваших словарей в соответствии с потребностями вашего приложения.
+
+##### Псевдонимы:
+
+- `npx intlayer dictionaries pull`
+- `npx intlayer dictionary pull`
+- `npx intlayer dic pull`
 
 ##### Аргументы:
 
-- `-d, --dictionaries`: ID словарей для получения. Если не указано, будут получены все словари.
+- `-d, --dictionaries`: Идентификаторы словарей для загрузки. Если не указано, будут загружены все словари.
   > Пример: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath`: Путь к директории, где будут храниться новые словари. Если не указано, новые словари будут храниться в директории `./intlayer-dictionaries` проекта. Если в содержимом словаря указано поле `filePath`, словарь будет храниться в указанной директории `filePath`, игнорируя этот аргумент.
-- `--env`: Указывает окружение (например, `development`, `production`).
-- `--env-file`: Предоставляет пользовательский файл окружения для загрузки переменных.
-- `--base-dir`: Указывает базовую директорию проекта.
-- `--verbose`: Включает подробное логирование для отладки.
+- `--newDictionariesPath` : Путь к директории, в которую будут сохранены новые словари. Если не указано, новые словари будут сохранены в директории `./intlayer-dictionaries` проекта. Если в содержимом вашего словаря указано поле `filePath`, словари не будут учитывать этот аргумент и будут сохранены в указанной директории `filePath`.
+- `--env`: Указать окружение (например, `development`, `production`).
+- `--env-file`: Указать пользовательский файл окружения для загрузки переменных.
+- `--base-dir`: Указать базовую директорию проекта.
+- `--verbose`: Включить подробное логирование для отладки.
 
 ##### Пример:
 
@@ -127,86 +187,92 @@ npx intlayer dictionary pull
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
-### Аудит словарей
+### Заполнить / проверить / перевести словари
 
 ```bash
-npx intlayer audit
+npx intlayer fill
 ```
 
-Эта команда анализирует файлы объявления контента для поиска потенциальных проблем, таких как отсутствующие переводы, структурные несоответствия или несовместимости типов. Если проблемы найдены, **intlayer audit** предлагает или применяет обновления для поддержания словарей согласованными и полными.
+Эта команда анализирует ваши файлы декларации контента на предмет возможных проблем, таких как отсутствующие переводы, структурные несоответствия или несоответствия типов. Если будут обнаружены какие-либо проблемы, **intlayer fill** предложит или применит обновления для поддержания ваших словарей в согласованном и полном состоянии.
+
+##### Псевдонимы:
+
+- `npx intlayer dictionaries fill`
+- `npx intlayer dictionary fill`
+- `npx intlayer dic fill`
 
 ##### Аргументы:
 
-- **`-f, --files [files...]`**  
-  Список конкретных файлов объявления контента для аудита. Если не указано, будут проверены все найденные файлы `*.content.{ts,js,mjs,cjs,tsx,jsx,json}`.
+- `-f, --file [files...]`
+  Список конкретных файлов декларации контента для проверки. Если не указано, будут проверены все обнаруженные файлы с расширениями `*.content.{ts,js,mjs,cjs,tsx,jsx,json}`.
 
-- **`--exclude [excludedGlobs...]`**  
-  Шаблоны glob для исключения из аудита (например, `--exclude "src/test/**"`).
+- `--exclude [excludedGlobs...]`
+  Шаблоны glob для исключения из проверки (например, `--exclude "src/test/**"`).
 
-- **`--source-locale [sourceLocale]`**  
-  Исходная локаль для перевода. Если не указано, будет использована локаль по умолчанию из конфигурации.
+- `--source-locale [sourceLocale]`
+  Исходная локаль для перевода. Если не указано, будет использована локаль по умолчанию из вашей конфигурации.
 
-- **`--output-locales [outputLocales...]`**  
-  Целевые локали для перевода. Если не указано, будут использованы все локали из конфигурации, кроме исходной локали.
+- `--output-locales [outputLocales...]`
+  Целевые локали для перевода. Если не указано, будут использованы все локали из вашей конфигурации, кроме исходной локали.
 
-- **`--mode [mode]`**  
-  Режим перевода: 'complete', 'review' или 'missing-only'. По умолчанию 'missing-only'.
+- `--mode [mode]`
+  Режим перевода: 'complete' (полный), 'review' (проверка) или 'missing-only' (только отсутствующие). По умолчанию — 'missing-only'.
 
-- **`--git-diff`**  
-  Выполняет только словари с неотправленными изменениями в git-репозитории.
+- `--git-diff`
+  Фильтрует словари, которые содержат изменения от базы (по умолчанию `origin/main`) до текущей ветки (по умолчанию: `HEAD`).
 
-- **`--git-diff-base`**  
-  Указывает базовую ссылку для git diff.
+- `--git-diff-base`
+  Указывает базовую ссылку для git diff (по умолчанию `origin/main`).
 
-- **`--git-diff-current`**  
-  Указывает текущую ссылку для git diff.
+- `--git-diff-current`
+  Указывает текущую ссылку для git diff (по умолчанию `HEAD`).
 
-- **`--uncommitted`**  
-  Включает незакоммиченные изменения.
+- `--uncommitted`
+  Фильтрует словари, которые содержат неподтверждённые изменения.
 
-- **`--unpushed`**  
-  Включает неотправленные изменения.
+- `--unpushed`
 
-- **`--untracked`**  
-  Включает неотслеживаемые файлы.
+Фильтрует словари, которые содержат непушенные изменения.
 
-- **`--keys [keys...]`**  
+- `--untracked`
+  Фильтрует словари, которые содержат неотслеживаемые файлы.
+
+- `--keys [keys...]`
   Фильтрует словари на основе указанных ключей.
 
-- **`--excluded-keys [excludedKeys...]`**  
+- `--excluded-keys [excludedKeys...]`
   Исключает словари на основе указанных ключей.
 
-- **`--path-filter [pathFilters...]`**  
-  Фильтрует словари на основе шаблонов glob пути к файлу.
+- `--path-filter [pathFilters...]`
+  Фильтрует словари на основе глобального шаблона для путей файлов.
 
-- **`--model [model]`**  
-  Модель ИИ для использования при переводе (например, `gpt-3.5-turbo`).
+- `--model [model]`
+  Модель ИИ, используемая для перевода (например, `gpt-3.5-turbo`).
 
-- **`--provider [provider]`**  
-  Провайдер ИИ для использования при переводе.
+- `--provider [provider]`
+  Провайдер ИИ, используемый для перевода.
 
-- **`--temperature [temperature]`**  
+- `--temperature [temperature]`
   Настройка температуры для модели ИИ.
 
-- **`--api-key [apiKey]`**  
-  Предоставляет собственный API-ключ для сервиса ИИ.
+- `--api-key [apiKey]`
+  Предоставьте собственный API-ключ для сервиса ИИ.
 
-- **`--custom-prompt [prompt]`**  
-  Предоставляет пользовательский промпт для инструкций по переводу.
-
-- **`--application-context [applicationContext]`**  
+- `--custom-prompt [prompt]`
+  Предоставьте пользовательский запрос для инструкций по переводу.
+- `--application-context [applicationContext]`
   Предоставляет дополнительный контекст для перевода ИИ.
 
-- **`--env`**  
+- `--env`
   Указывает окружение (например, `development`, `production`).
 
-- **`--env-file [envFile]`**  
-  Предоставляет пользовательский файл окружения для загрузки переменных.
+- `--env-file [envFile]`
+  Указывает пользовательский файл окружения для загрузки переменных.
 
-- **`--base-dir`**  
+- `--base-dir`
   Указывает базовую директорию проекта.
 
-- **`--verbose`**  
+- `--verbose`
   Включает подробное логирование для отладки.
 
 ##### Пример:
@@ -215,51 +281,142 @@ npx intlayer audit
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
-Эта команда переводит содержимое всех файлов объявления контента в директории `src/home/` с английского на французский и испанский языки, используя модель GPT-3.5 Turbo.
+Эта команда переведет содержимое с английского на французский и испанский для всех файлов деклараций контента в директории `src/home/` с использованием модели GPT-3.5 Turbo.
 
 ### Управление конфигурацией
 
-#### Получение конфигурации
+#### Получить конфигурацию
 
-Команда `get configuration` получает текущую конфигурацию Intlayer, особенно настройки локали. Это полезно для проверки конфигурации.
+Команда `configuration get` получает текущую конфигурацию для Intlayer, в частности настройки локалей. Это полезно для проверки вашей настройки.
 
 ```bash
-npx intlayer config get
+npx intlayer configuration get
 ```
+
+##### Псевдонимы:
+
+- `npx intlayer config get`
+- `npx intlayer conf get`
 
 ##### Аргументы:
 
-- **`--env`**: Указывает окружение (например, `development`, `production`).
-- **`--env-file`**: Предоставляет пользовательский файл окружения для загрузки переменных.
-- **`--base-dir`**: Указывает базовую директорию проекта.
-- **`--verbose`**: Включает подробное логирование для отладки.
+- **`--env`**: Укажите окружение (например, `development`, `production`).
+- **`--env-file`**: Укажите пользовательский файл окружения для загрузки переменных.
+- **`--base-dir`**: Укажите базовую директорию проекта.
+- **`--verbose`**: Включите подробное логирование для отладки.
 
 #### Отправка конфигурации
 
-Команда `push configuration` загружает конфигурацию в CMS и редактор Intlayer. Этот шаг необходим для использования удаленных словарей в Визуальном редакторе Intlayer.
+Команда `configuration push` загружает вашу конфигурацию в Intlayer CMS и редактор. Этот шаг необходим для использования удалённых словарей в Intlayer Visual Editor.
 
 ```bash
-npx intlayer config push
+bash
+npx intlayer configuration push
+```
+
+##### Псевдонимы:
+
+- `npx intlayer config push`
+- `npx intlayer conf push`
+
+##### Аргументы:
+
+- **`--env`**: Укажите окружение (например, `development`, `production`).
+- **`--env-file`**: Укажите пользовательский файл окружения для загрузки переменных.
+- **`--base-dir`**: Укажите базовую директорию проекта.
+- **`--verbose`**: Включите подробное логирование для отладки.
+
+При отправке конфигурации ваш проект полностью интегрируется с Intlayer CMS, что обеспечивает бесшовное управление словарями в командах.
+
+### Управление документацией
+
+Команды `doc` предоставляют инструменты для управления и перевода файлов документации на несколько локалей.
+
+#### Перевод документации
+
+Команда `doc translate` автоматически переводит файлы документации с базового языка на целевые языки с использованием сервисов AI-перевода.
+
+```bash
+npx intlayer doc translate
 ```
 
 ##### Аргументы:
 
-- **`--env`**: Указывает окружение (например, `development`, `production`).
-- **`--env-file`**: Предоставляет пользовательский файл окружения для загрузки переменных.
-- **`--base-dir`**: Указывает базовую директорию проекта.
-- **`--verbose`**: Включает подробное логирование для отладки.
+- **`--doc-pattern [docPattern...]`**: Глобальные шаблоны для выбора файлов документации для перевода.
+  > Пример: `npx intlayer doc translate --doc-pattern "docs/**/*.md" "src/**/*.mdx"`
+- **`--excluded-glob-pattern [excludedGlobPattern...]`**: Глобальные шаблоны для исключения файлов из перевода.
+  > Пример: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
+- **`--nb-simultaneous-file-processed [nbSimultaneousFileProcessed]`**: Количество файлов, обрабатываемых одновременно для перевода.
+  > Пример: `npx intlayer doc translate --nb-simultaneous-file-processed 5`
+- **`--locales [locales...]`**: Целевые языки для перевода документации.
+  > Пример: `npx intlayer doc translate --locales fr es de`
+- **`--base-locale [baseLocale]`**: Исходный язык для перевода.
+  > Пример: `npx intlayer doc translate --base-locale en`
+- **`--model [model]`**: Модель ИИ, используемая для перевода (например, `gpt-3.5-turbo`).
+- **`--provider [provider]`**: Провайдер ИИ, используемый для перевода.
+- **`--temperature [temperature]`**: Параметр температуры для модели ИИ.
+- **`--api-key [apiKey]`**: Предоставьте свой собственный API-ключ для сервиса ИИ.
+- **`--custom-prompt [prompt]`**: Предоставьте пользовательский запрос для инструкций по переводу.
+- **`--application-context [applicationContext]`**: Предоставьте дополнительный контекст для перевода ИИ.
+- **`--env`**: Укажите окружение (например, `development`, `production`).
+- **`--env-file [envFile]`**: Укажите пользовательский файл окружения для загрузки переменных.
+- **`--base-dir`**: Укажите базовый каталог проекта.
+- **`--verbose`**: Включите подробное логирование для отладки.
+- **`--custom-instructions [customInstructions]`**: Пользовательские инструкции, добавляемые в подсказку. Полезно для применения специфических правил форматирования, перевода URL и т.д.
 
-При отправке конфигурации ваш проект полностью интегрируется с CMS Intlayer, обеспечивая безупречное управление словарями между командами.
+##### Пример:
 
-## Использование команд intlayer в `package.json`
+```bash
+npx intlayer doc translate
+  --doc-pattern "docs/ru/**/*.md"
+  --base-locale en --locales fr es
+  --model chatgpt-4o-latest
+  --custom-instructions "$(cat ./instructions.md)"
+```
+
+> Обратите внимание, что путь к выходному файлу будет определяться заменой следующих шаблонов
+>
+> - `/{{baseLocale}}/` на `/{{locale}}/` (Unix)
+> - `\{{baseLocale}}\` на `\{{locale}}\` (Windows)
+> - `_{{baseLocale}}.` на `_{{locale}}.`
+> - `{{baseLocale}}_` на `{{locale}}_`
+> - `.{{baseLocaleName}}.` на `.{{localeName}}.`
+>
+> Если шаблон не найден, в имени выходного файла будет добавлено `.{{locale}}` перед расширением. Например, `./my/file.md` будет переведён в `./my/file.ru.md` для русского языка.
+
+#### Проверка документации
+
+Команда `doc review` анализирует файлы документации на качество, согласованность и полноту для разных локалей.
+
+```bash
+npx intlayer doc review
+```
+
+##### Аргументы:
+
+Команда `doc review` принимает те же аргументы, что и `doc translate`, позволяя проверять конкретные файлы документации и применять проверки качества.
+
+##### Пример:
+
+```bash
+npx intlayer doc review
+ --doc-pattern "docs/ru/**/*.md"
+ --locales fr es de
+ --model chatgpt-4o-latest
+ --custom-instructions "$(cat ./instructions.md)"
+```
+
+## Использование команд intlayer в вашем `package.json`
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer dictionaries build",
-  "intlayer:watch": "npx intlayer dictionaries build --watch",
-  "intlayer:push": "npx intlayer dictionary push",
-  "intlayer:pull": "npx intlayer dictionary pull",
-  "intlayer:audit": "npx intlayer audit"
+  "intlayer:build": "npx intlayer build",
+  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:push": "npx intlayer push",
+  "intlayer:pull": "npx intlayer pull",
+  "intlayer:fill": "npx intlayer fill",
+  "intlayer:doc:translate": "npx intlayer doc translate",
+  "intlayer:doc:review": "npx intlayer doc review"
 }
 ```
 
@@ -270,8 +427,8 @@ npx intlayer config push
 Выполните:
 
 ```bash
-npx intlayer --version                  # текущая локальная версия intlayer
-npx intlayer@latest --version          # последняя версия intlayer
+npx intlayer --version                  # текущая версия intlayer для локали
+npx intlayer@latest --version           # последняя доступная версия intlayer
 ```
 
 ### 2. **Проверьте, зарегистрирована ли команда**
@@ -279,15 +436,20 @@ npx intlayer@latest --version          # последняя версия intlaye
 Вы можете проверить с помощью:
 
 ```bash
-npx intlayer --help      # Показывает список доступных команд и информацию об использовании
+npx intlayer --help                     # Показывает список доступных команд и информацию по использованию
+npx intlayer dictionary build --help    # Показывает список доступных опций для команды
 ```
 
 ### 3. **Перезапустите терминал**
 
-Иногда требуется перезапуск терминала для распознавания новых команд.
+Иногда для распознавания новых команд требуется перезапуск терминала.
 
-### 4. **Очистите кэш npx (если застряли на старой версии)**
+### 4. **Очистите кэш npx (если вы застряли на старой версии)**
 
 ```bash
 npx clear-npx-cache
 ```
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

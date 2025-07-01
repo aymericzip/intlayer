@@ -1,11 +1,11 @@
 ---
 docName: package__nuxt-intlayer
 url: https://intlayer.org/doc/packages/nuxt-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/nuxt-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/nuxt-intlayer/index.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: パッケージドキュメント | nuxt-intlayer
-description: nuxt-intlayerパッケージの使用方法を確認してください
+description: nuxt-intlayerパッケージの使い方を見る
 keywords:
   - Intlayer
   - nuxt-intlayer
@@ -15,19 +15,21 @@ keywords:
   - Nuxt
 ---
 
-**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージスイートです。Vue、Vue、Express.jsなどのフレームワークと互換性があります。
+# nuxt-intlayer: Vueアプリケーションを国際化（i18n）するためのNPMパッケージ
 
-**`nuxt-intlayer`パッケージ**は、Vueアプリケーションを国際化するためのものです。Vueの国際化のためのコンテキストプロバイダーとフックを提供します。
+**Intlayer**はJavaScript開発者向けに特別に設計されたパッケージ群です。VueやExpress.jsなどのフレームワークと互換性があります。
+
+**`nuxt-intlayer`パッケージ**は、Vueアプリケーションを国際化することを可能にします。Vueの国際化のためのコンテキストプロバイダーとフックを提供します。
 
 ## なぜVueアプリケーションを国際化するのか？
 
-Vueアプリケーションを国際化することは、グローバルなオーディエンスに効果的に対応するために不可欠です。これにより、アプリケーションは各ユーザーの好みの言語でコンテンツやメッセージを提供できます。この機能はユーザーエクスペリエンスを向上させ、異なる言語背景を持つ人々にとってよりアクセスしやすく、関連性のあるものにすることで、アプリケーションのリーチを広げます。
+Vueアプリケーションを国際化することは、グローバルなユーザーに効果的に対応するために不可欠です。これにより、各ユーザーの好みの言語でコンテンツやメッセージを提供できるようになります。この機能はユーザー体験を向上させ、異なる言語背景を持つ人々にとってよりアクセスしやすく、関連性の高いものにすることで、アプリケーションのリーチを拡大します。
 
 ## なぜIntlayerを統合するのか？
 
-- **JavaScript駆動のコンテンツ管理**: JavaScriptの柔軟性を活用して、コンテンツを効率的に定義および管理。
-- **型安全な環境**: TypeScriptを活用して、すべてのコンテンツ定義を正確かつエラーのないものに。
-- **統合されたコンテンツファイル**: 翻訳をそれぞれのコンポーネントに近い場所に保持し、保守性と明確さを向上。
+- **JavaScriptによるコンテンツ管理**：JavaScriptの柔軟性を活用して、コンテンツを効率的に定義および管理します。
+- **型安全な環境**：TypeScriptを活用して、すべてのコンテンツ定義が正確でエラーのないものになるようにします。
+- **統合されたコンテンツファイル**：翻訳をそれぞれのコンポーネントに近い場所に保持し、保守性と明確さを向上させます。
 
 ## インストール
 
@@ -44,3 +46,7 @@ yarn add nuxt-intlayer
 ```bash packageManager="pnpm"
 pnpm add nuxt-intlayer
 ```
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 初期履歴

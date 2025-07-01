@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getConfiguration
 url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentación de la función getConfiguration | intlayer
-description: Descubre cómo usar la función getConfiguration para el paquete intlayer
+description: Vea cómo usar la función getConfiguration para el paquete intlayer
 keywords:
   - getConfiguration
   - traducción
@@ -28,15 +28,15 @@ La función `getConfiguration` recupera toda la configuración para la aplicaci�
 
 ## Parámetros
 
-La función no toma ningún parámetro. En su lugar, utiliza variables de entorno para la configuración.
+La función no recibe ningún parámetro. En su lugar, utiliza variables de entorno para la configuración.
 
 ### Retorna
 
 - **Tipo**: `IntlayerConfig`
 - **Descripción**: Un objeto que contiene la configuración completa para `intlayer`. La configuración incluye las siguientes secciones:
 
-  - `internationalization`: Configuraciones relacionadas con locales y modo estricto.
-  - `middleware`: Configuraciones relacionadas con la gestión de URL y cookies.
+  - `internationalization`: Configuraciones relacionadas con los locales y el modo estricto.
+  - `middleware`: Configuraciones relacionadas con la gestión de URLs y cookies.
   - `content`: Configuraciones relacionadas con archivos de contenido, directorios y patrones.
   - `editor`: Configuraciones específicas del editor.
 
@@ -46,7 +46,7 @@ Consulta la [documentación de configuración de Intlayer](https://github.com/ay
 
 ## Ejemplo de Uso
 
-### Recuperando la Configuración Completa
+### Recuperar la Configuración Completa
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
@@ -92,7 +92,7 @@ console.log(config);
 
 ### Extrayendo `availableLocales` y `defaultLocale`
 
-La sección `internationalization` de la configuración proporciona configuraciones relacionadas con locales como `locales` (locales disponibles) y `defaultLocale` (idioma de respaldo).
+La sección `internationalization` de la configuración proporciona ajustes relacionados con las locales, tales como `locales` (locales disponibles) y `defaultLocale` (idioma predeterminado).
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
@@ -132,9 +132,13 @@ console.log(cookieName); // Salida: "INTLAYER_LOCALE"
 
 ## Notas
 
-- Asegúrate de que todas las variables de entorno requeridas estén configuradas correctamente antes de llamar a esta función. Las variables faltantes causarán errores durante la inicialización.
-- Esta función puede ser utilizada tanto en el lado del cliente como en el servidor, lo que la convierte en una herramienta versátil para gestionar configuraciones de manera unificada.
+- Asegúrese de que todas las variables de entorno requeridas estén configuradas correctamente antes de llamar a esta función. La falta de variables causará errores durante la inicialización.
+- Esta función puede usarse tanto en el lado del cliente como en el servidor, lo que la convierte en una herramienta versátil para gestionar configuraciones de manera unificada.
 
 ## Uso en Aplicaciones
 
-La función `getConfiguration` es una utilidad fundamental para inicializar y gestionar la configuración de una aplicación `intlayer`. Al proporcionar acceso a configuraciones como locales, middleware y directorios de contenido, asegura consistencia y escalabilidad en aplicaciones multilingües y orientadas al contenido.
+La función `getConfiguration` es una utilidad fundamental para inicializar y gestionar la configuración de una aplicación `intlayer`. Al proporcionar acceso a configuraciones como locales, middleware y directorios de contenido, garantiza consistencia y escalabilidad en aplicaciones multilingües y orientadas a contenido.
+
+## Historial de Documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

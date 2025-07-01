@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getTranslation
-url: https://intlayer.org/doc/packages/intlayer/getTranslation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
+url: https://intlayer.org/en-GB/doc/packages/intlayer/getTranslation
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getTranslation Function Documentation | intlayer
@@ -22,7 +22,9 @@ keywords:
 
 ## Description
 
-The `getTranslationContent` function retrieves the content corresponding to a specific locale from a set of customizable language content. If the specified locale is not found, it defaults to returning the content for the default locale configured in the project.
+The `getTranslationContent` function retrieves the content corresponding to a specific locale from a set of customisable language content. If the specified locale is not found, it defaults to returning the content for the default locale configured in the project.
+
+The `getTranslationContent` function retrieves the content corresponding to a specific locale from a set of customisable language content. If the specified locale is not found, it defaults to returning the content for the default locale configured in the project.
 
 ## Parameters
 
@@ -154,6 +156,41 @@ import { getTranslationContent, Locales } from "intlayer";
 const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
+const { getTranslationContent, Locales } = require("intlayer");
+
+const content = getTranslationContent(
+  {
+    en: "Hello",
+    fr: "Bonjour",
+  },
+  Locales.SPANISH
+);
+
+console.log(content); // Output: "Hello" (default locale content)
+```
+
+### Using Custom Content Types:
+
+```typescript codeFormat="typescript"
+import { getTranslationContent, Locales } from "intlayer";
+
+const customContent = getTranslationContent<Record<string, string>>(
+  {
+    en: { greeting: "Hello" },
+    fr: { greeting: "Bonjour" },
+  },
+  Locales.FRENCH
+);
+
+console.log(customContent.greeting); // Output: "Bonjour"
+```
+
+```javascript codeFormat="esm"
+import { getTranslationContent, Locales } from "intlayer";
+
+const customContent = getTranslationContent<Record<string, string>>(
+  {
+    en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
   },
   Locales.FRENCH
@@ -187,4 +224,4 @@ console.log(customContent.greeting); // Output: "Bonjour"
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 29-06-2025: Initial history

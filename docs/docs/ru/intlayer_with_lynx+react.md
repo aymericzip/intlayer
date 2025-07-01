@@ -1,14 +1,14 @@
 ---
 docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-06-29
-title: Переведите свой мобильный приложение Lynx и React (i18n)
-description: Узнайте, как сделать ваш сайт, использующий Lynx и React, многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
+title: Переведите своё мобильное приложение Lynx и React (i18n)
+description: Узнайте, как сделать ваше мобильное приложение Lynx и React многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - интернационализация
-  - Документация
+  - документация
   - Intlayer
   - Vite
   - React
@@ -22,7 +22,7 @@ keywords:
 
 ## Что такое Intlayer?
 
-**Intlayer** , это **инновационная, открытая библиотека интернационализации (i18n)**, которая упрощает поддержку нескольких языков в современных приложениях. Она работает во многих средах JavaScript/TypeScript, **включая Lynx** (через пакет `react-intlayer`).
+**Intlayer** — это **инновационная, открытая библиотека интернационализации (i18n)**, которая упрощает поддержку нескольких языков в современных приложениях. Она работает во многих средах JavaScript/TypeScript, **включая Lynx** (через пакет `react-intlayer`).
 
 С помощью Intlayer вы можете:
 
@@ -52,10 +52,10 @@ yarn add intlayer react-intlayer lynx-intlayer
 ### Пакеты
 
 - **intlayer**  
-  Основной инструмент i18n для конфигурации, содержания словарей, генерации типов и CLI-команд.
+  Основной набор инструментов i18n для конфигурации, содержания словарей, генерации типов и CLI-команд.
 
 - **react-intlayer**  
-  Интеграция с React, предоставляющая провайдеры контекста и хуки React, которые вы будете использовать в Lynx для получения и переключения локалей.
+  Интеграция с React, предоставляющая провайдеры контекста и React-хуки, которые вы будете использовать в Lynx для получения и переключения локалей.
 
 - **lynx-intlayer**  
   Интеграция с Lynx, предоставляющая плагин для интеграции Intlayer с бандлером Lynx.
@@ -181,9 +181,9 @@ if (import.meta.webpackHot) {
 - `.content.cjx`
 - и т.д.
 
-Пример (TypeScript с узлами TSX для Lynx):
+Пример:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -191,6 +191,8 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
+      ru: "на Lynx",
+      en: "on Lynx",
       ru: "на Lynx",
       en: "on Lynx",
       fr: "sur Lynx",
@@ -318,38 +320,38 @@ module.exports = appContent;
         "fr": "sur Lynx",
         "es": "en Lynx"
       }
-    },
-    "description": {
+    }
+  },
+  "description": {
+    "nodeType": "translation",
+    "translation": {
+      "ru": "Нажмите на логотип и повеселитесь!",
+      "en": "Tap the logo and have fun!",
+      "fr": "Appuyez sur le logo et amusez-vous!",
+      "es": "¡Toca el logo y diviértete!"
+    }
+  },
+  "hint": [
+    {
       "nodeType": "translation",
       "translation": {
-        "ru": "Нажмите на логотип и повеселитесь!",
-        "en": "Tap the logo and have fun!",
-        "fr": "Appuyez sur le logo et amusez-vous!",
-        "es": "¡Toca el logo y diviértete!"
+        "ru": "Редактировать",
+        "en": "Edit",
+        "fr": "Modifier",
+        "es": "Editar"
       }
     },
-    "hint": [
-      {
-        "nodeType": "translation",
-        "translation": {
-          "ru": "Редактировать",
-          "en": "Edit",
-          "fr": "Modifier",
-          "es": "Editar"
-        }
-      },
-      " src/App.tsx ",
-      {
-        "nodeType": "translation",
-        "translation": {
-          "en": "to see updates!",
-          "fr": "pour voir les mises à jour!",
-          "es": "para ver actualizaciones!",
-          "ru": "чтобы увидеть обновления!"
-        }
+    " src/App.tsx ",
+    {
+      "nodeType": "translation",
+      "translation": {
+        "ru": "чтобы увидеть обновления!",
+        "en": "to see updates!",
+        "fr": "pour voir les mises à jour!",
+        "es": "para ver actualizaciones!"
       }
-    ]
-  }
+    }
+  ]
 }
 ```
 
@@ -374,7 +376,6 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
     // только фон
     setAlterLogo(!alterLogo);
@@ -423,7 +424,7 @@ export const App = () => {
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 import { type FC } from "react";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales, locale } = useLocale();
@@ -493,8 +494,30 @@ Intlayer генерирует определения типов в скрыто�
 
 ---
 
+### Расширение VS Code
+
+Для улучшения вашего опыта разработки с Intlayer вы можете установить официальное **расширение Intlayer для VS Code**.
+
+[Установить из Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Это расширение предоставляет:
+
+- **Автозаполнение** для ключей перевода.
+- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
+- **Встроенный просмотр** переведённого контента.
+- **Быстрые действия** для лёгкого создания и обновления переводов.
+  Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации по расширению Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ## Узнайте больше
 
-- **Визуальный редактор**: Используйте [визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) для управления переводами визуально.
+- **Визуальный редактор**: Используйте [визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) для визуального управления переводами.
 - **Интеграция с CMS**: Вы также можете вынести и получить содержимое вашего словаря из [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
 - **CLI команды**: Изучите [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md) для выполнения задач, таких как **извлечение переводов** или **проверка отсутствующих ключей**.
+
+---
+
+## История документа
+
+- 5.5.10 - 2025-06-29: Инициализация истории

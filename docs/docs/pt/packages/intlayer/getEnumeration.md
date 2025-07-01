@@ -1,18 +1,18 @@
 ---
 docName: package__intlayer__getEnumeration
 url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentação da função getEnumeration | intlayer
+title: Documentação da Função getEnumeration | intlayer
 description: Veja como usar a função getEnumeration para o pacote intlayer
 keywords:
   - getEnumeration
   - tradução
   - Intlayer
   - intlayer
-  - internacionalização
-  - documentação
+  - Internacionalização
+  - Documentação
   - Next.js
   - JavaScript
   - React
@@ -30,17 +30,17 @@ A função `getEnumeration` recupera o conteúdo correspondente a uma quantidade
 
   - **Descrição**: Um objeto onde as chaves representam condições (por exemplo, `<=`, `<`, `>=`, `=`) e os valores representam o conteúdo correspondente. A ordem das chaves define a prioridade de correspondência.
   - **Tipo**: `QuantityContent<Content>`
-    - `Content` pode ser de qualquer tipo.
+    - `Content` pode ser qualquer tipo.
 
 - `quantity: number`
 
   - **Descrição**: O valor numérico usado para corresponder às condições em `enumerationContent`.
   - **Tipo**: `number`
 
-## Retornos
+## Retorno
 
 - **Tipo**: `Content`
-- **Descrição**: O conteúdo correspondente à primeira condição correspondente em `enumerationContent`. Se nenhuma correspondência for encontrada, ele retorna para o tratamento com base na implementação (por exemplo, erro ou conteúdo de fallback).
+- **Descrição**: O conteúdo correspondente à primeira condição que coincidir em `enumerationContent`. Se nenhuma correspondência for encontrada, o comportamento padrão dependerá da implementação (por exemplo, erro ou conteúdo alternativo).
 
 ## Exemplo de Uso
 
@@ -51,8 +51,8 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<=-2.3": "Você tem menos de -2.3",
-    "<1": "Você tem menos de um",
+    "<=-2.3": "Você tem menos que -2.3",
+    "<1": "Você tem menos que um",
     "2": "Você tem dois",
     ">=3": "Você tem três ou mais",
   },
@@ -67,7 +67,7 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<1": "Você tem menos de um",
+    "<1": "Você tem menos que um",
     "2": "Você tem dois",
     ">=3": "Você tem três ou mais",
   },
@@ -82,7 +82,7 @@ const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {
-    "<1": "Você tem menos de um",
+    "<1": "Você tem menos que um",
     "2": "Você tem dois",
     ">=3": "Você tem três ou mais",
   },
@@ -99,13 +99,13 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<4": "Você tem menos de quatro",
+    "<4": "Você tem menos que quatro",
     "2": "Você tem dois",
   },
   2
 );
 
-console.log(content); // Saída: "Você tem menos de quatro"
+console.log(content); // Saída: "Você tem menos que quatro"
 ```
 
 ```javascript codeFormat="esm"
@@ -113,13 +113,13 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<4": "Você tem menos de quatro",
+    "<4": "Você tem menos que quatro",
     "2": "Você tem dois",
   },
   2
 );
 
-console.log(content); // Saída: "Você tem menos de quatro"
+console.log(content); // Saída: "Você tem menos que quatro"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -127,16 +127,16 @@ const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {
-    "<4": "Você tem menos de quatro",
+    "<4": "Você tem menos que quatro",
     "2": "Você tem dois",
   },
   2
 );
 
-console.log(content); // Saída: "Você tem menos de quatro"
+console.log(content); // Saída: "Você tem menos que quatro"
 ```
 
-## Casos de Borda
+## Casos Especiais
 
 - **Nenhuma Condição Correspondente:**
 
@@ -148,7 +148,7 @@ console.log(content); // Saída: "Você tem menos de quatro"
 
 - **Chaves Inválidas:**
 
-  - A função assume que todas as chaves em `enumerationContent` são válidas e analisáveis como condições. Chaves inválidas ou formatadas incorretamente podem levar a comportamentos inesperados.
+  - A função assume que todas as chaves em `enumerationContent` são válidas e podem ser interpretadas como condições. Chaves inválidas ou com formato incorreto podem levar a comportamentos inesperados.
 
 - **Aplicação do TypeScript:**
   - A função garante que o tipo `Content` seja consistente em todas as chaves, permitindo segurança de tipo no conteúdo recuperado.
@@ -156,3 +156,7 @@ console.log(content); // Saída: "Você tem menos de quatro"
 ## Notas
 
 - A utilidade `findMatchingCondition` é usada para determinar a condição apropriada com base na quantidade fornecida.
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

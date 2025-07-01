@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getLocaleLang
 url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: t関数のドキュメント | intlayer
-description: intlayerパッケージのt関数の使用方法を確認してください
+title: getLocaleLang 関数ドキュメント | intlayer
+description: intlayer パッケージの getLocaleLang 関数の使い方を説明します
 keywords:
   - getLocaleLang
   - 翻訳
@@ -18,23 +18,23 @@ keywords:
   - React
 ---
 
-# ドキュメント: `getLocaleLang` 関数 in `intlayer`
+# ドキュメント: `intlayer` の `getLocaleLang` 関数
 
 ## 説明
 
-`getLocaleLang` 関数は、ロケール文字列から言語コードを抽出します。国コードの有無にかかわらずロケールをサポートします。ロケールが指定されていない場合は、デフォルトで空の文字列を返します。
+`getLocaleLang` 関数は、ロケール文字列から言語コードを抽出します。国コードの有無にかかわらずロケールをサポートしています。ロケールが指定されていない場合は、デフォルトで空文字列を返します。
 
-## パラメータ
+## パラメーター
 
 - `locale?: Locales`
 
-  - **説明**: 言語コードが抽出されるロケール文字列（例: `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`）。
+  - **説明**: 言語コードを抽出するためのロケール文字列（例：`Locales.ENGLISH_UNITED_STATES`、`Locales.FRENCH_CANADA`）。
   - **型**: `Locales`（オプション）
 
 ## 戻り値
 
 - **型**: `string`
-- **説明**: ロケールから抽出された言語コード。ロケールが指定されていない場合は、空の文字列（`''`）を返します。
+- **説明**: ロケールから抽出された言語コード。ロケールが指定されていない場合は空文字列（`''`）を返します。
 
 ## 使用例
 
@@ -69,11 +69,13 @@ getLocaleLang(Locales.FRENCH); // 出力: "fr"
 
 ## エッジケース
 
-- **ロケールが指定されていない場合:**
+- **ロケールが提供されていない場合:**
 
-  - `locale` が `undefined` の場合、関数は空の文字列を返します。
+  - `locale` が `undefined` の場合、関数は空文字列を返します。
 
 - **不正なロケール文字列:**
-  - `locale` が `language-country` フォーマット（例: `Locales.ENGLISH-US`）に従わない場合、関数は安全に `'-'` の前の部分、または `'-'` が存在しない場合は文字列全体を返します。
+  - `locale` が `language-country` 形式に従っていない場合（例: `Locales.ENGLISH-US`）、関数は安全に `'-'` の前の部分を返すか、`'-'` が存在しない場合は文字列全体を返します。
 
-[詳細はこちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/getLocaleLang.md)
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

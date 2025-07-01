@@ -1,3 +1,20 @@
+---
+docName: dictionary__per_locale_file
+url: https://intlayer.org/doc/concept/per-locale-file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md
+createdAt: 2025-04-18
+updatedAt: 2025-06-29
+title: Declaration of `Per-Locale` Content Declaration in Intlayer
+description: Discover how to declare content per locale in Intlayer. Follow the documentation to understand the different formats and use cases.
+keywords:
+  - Internationalisation
+  - Documentation
+  - Intlayer
+  - Per-Locale
+  - TypeScript
+  - JavaScript
+---
+
 # Declaration of `Per-Locale` Content Declaration in Intlayer
 
 Intlayer supports two ways to declare multilingual content:
@@ -9,7 +26,7 @@ This flexibility enables:
 
 - Easy migration from other i18n tools
 - Support for automated translation workflows
-- Clear organization of translations into separate, locale-specific files
+- Clear organisation of translations into separate, locale-specific files
 
 ## Single File with Multiple Translations
 
@@ -18,7 +35,7 @@ This format is ideal for:
 - Quick iteration in code.
 - Seamless integration with the CMS.
 
-This is the recommended approach for most use cases. It centralizes translations, making it easy to iterate and integrate with the CMS.
+This is the recommended approach for most use cases. It centralises translations, making it easy to iterate and integrate with the CMS.
 
 ```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -199,9 +216,9 @@ module.exports = helloWorldContent;
 }
 ```
 
-> Important: Make sure the locale field is defined. It tells Intlayer which language the file represents.
+> Important: Ensure the locale field is defined. It indicates to Intlayer which language the file represents.
 
-> Note: In both cases, the content declaration file must follow the naming pattern `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` to be recognized by Intlayer. The `.[locale]` suffix is optional and used only as a naming convention.
+> Note: In both instances, the content declaration file must adhere to the naming pattern `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` to be recognised by Intlayer. The `.[locale]` suffix is optional and used solely as a naming convention.
 
 ## Mixing Formats
 
@@ -226,7 +243,7 @@ This setup is especially useful when:
 
 ### Example
 
-Here a multilingual content declaration file:
+Here is a multilingual content declaration file:
 
 ```tsx fileName="Components/MyComponent/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -294,8 +311,8 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### Automatic Translation Generation
 
-Use the [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) to auto-fill missing translations based on your preferred services.
+Use the [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md) to auto-fill missing translations based on your preferred services.
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

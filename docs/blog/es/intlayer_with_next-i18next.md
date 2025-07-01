@@ -1,5 +1,5 @@
 ---
-blogName: intlayer_with_next-i18next
+docName: intlayer_with_next-i18next
 url: https://intlayer.org/blog/intlayer-with-next-i18next
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11

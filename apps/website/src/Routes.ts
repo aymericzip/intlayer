@@ -231,8 +231,8 @@ export enum GithubRoutes {
   'i18n-technologies__CMS__drupal' = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/blog/en/list_i18n_technologies/CMS/drupal.md',
   'i18n-technologies__CMS__wix' = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/blog/en/list_i18n_technologies/CMS/wix.md',
 
-  PrivacyPolicy = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/privacy_notice.md',
-  TermsOfService = 'https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/terms_of_service.md',
+  PrivacyPolicy = 'https://github.com/aymericzip/intlayer/blob/main/docs/legal/en/privacy_notice.md',
+  TermsOfService = 'https://github.com/aymericzip/intlayer/blob/main/docs/legal/en/terms_of_service.md',
 }
 
 export const urlMapper: Partial<Record<GithubRoutes, PagesRoutes>> = {

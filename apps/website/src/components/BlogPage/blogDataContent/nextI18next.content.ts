@@ -5,7 +5,7 @@ import { BlogData } from '../types';
 const blogContent = {
   key: 'blog-intlayer-with-next-i18next-metadata',
   content: {
-    blogName: 'intlayer_with_next-i18next',
+    docName: 'intlayer_with_next-i18next',
     url: PagesRoutes['Blog_Intlayer_with_Next-i18next'],
     githubUrl: GithubRoutes.IntlayerWithNextI18next,
     createdAt: '2024-08-11',

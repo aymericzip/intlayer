@@ -1,32 +1,30 @@
 ---
 docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: ファイル
-description: Intlayerの`file`関数を使用して、外部ファイルをコンテンツ辞書に埋め込む方法を学びます。このドキュメントでは、Intlayerがどのようにファイルコンテンツを動的に管理するかを説明します。
+description: `file` 関数を使用して外部ファイルをコンテンツ辞書に埋め込む方法を学びます。このドキュメントでは、Intlayerがファイルコンテンツを動的にリンクおよび管理する方法を説明します。
 keywords:
   - ファイル
   - 国際化
-  - 文書
+  - ドキュメント
   - Intlayer
   - Next.js
   - JavaScript
   - React
 ---
 
-# ファイル内容 / Intlayerでのファイル埋め込み
+# ファイルコンテンツ / Intlayerでのファイル埋め込み
 
 ## ファイル埋め込みの仕組み
 
-Intlayerでは、`file` 関数を使用して外部ファイルの内容を辞書に埋め込むことができます。このアプローチにより、Intlayerがソースファイルを認識し、Intlayer Visual EditorやCMSとのシームレスな統合を可能にします。直接的な `import`、`require`、または `fs` ファイル読み込み方法とは異なり、`file` を使用することで、ファイルが辞書に関連付けられ、ファイルが編集されるときにIntlayerが動的に内容を追跡し更新することができます。
+Intlayerでは、`file` 関数を使用して外部ファイルの内容を辞書に埋め込むことができます。この方法により、Intlayerはソースファイルを認識し、IntlayerビジュアルエディターやCMSとのシームレスな統合を可能にします。直接的な `import`、`require`、または `fs` によるファイル読み込み方法とは異なり、`file` を使用するとファイルが辞書に関連付けられ、ファイルが編集されるとIntlayerがコンテンツを動的に追跡および更新できるようになります。
 
-## ファイル内容の設定
+## ファイルコンテンツの設定
 
-Intlayerプロジェクトでファイル内容を埋め込むには、コンテンツモジュール内で `file` 関数を使用します。以下は、さまざまな実装例を示しています。
-
-### TypeScript実装
+Intlayerプロジェクトにファイルコンテンツを埋め込むには、コンテンツモジュール内で `file` 関数を使用します。以下に異なる実装例を示します。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { file, type Dictionary } from "intlayer";
@@ -40,8 +38,6 @@ const myFileContent = {
 
 export default myFileContent;
 ```
-
-### ECMAScriptモジュール（ESM）実装
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { file } from "intlayer";
@@ -57,8 +53,6 @@ const myFileContent = {
 export default myFileContent;
 ```
 
-### CommonJS実装
-
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { file } = require("intlayer");
 
@@ -73,8 +67,6 @@ const myFileContent = {
 module.exports = myFileContent;
 ```
 
-### JSON設定
-
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -88,9 +80,9 @@ module.exports = myFileContent;
 }
 ```
 
-## React Intlayerでのファイル内容の使用
+## React Intlayerでのファイルコンテンツの使用
 
-埋め込まれたファイル内容をReactコンポーネントで使用するには、`react-intlayer` パッケージから `useIntlayer` フックをインポートして使用します。これにより、指定されたキーから内容を取得し、動的に表示することができます。
+Reactコンポーネント内で埋め込まれたファイルコンテンツを使用するには、`react-intlayer`パッケージから`useIntlayer`フックをインポートして使用します。これにより、指定されたキーからコンテンツを取得し、動的に表示することができます。
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -141,9 +133,9 @@ const FileComponent = () => {
 module.exports = FileComponent;
 ```
 
-## 多言語Markdownの例
+## 多言語対応Markdownの例
 
-多言語対応の編集可能なMarkdownファイルをサポートするには、`file` を `t()` および `md()` と組み合わせて使用し、Markdownコンテンツファイルの異なる言語バージョンを定義します。
+多言語対応の編集可能なMarkdownファイルをサポートするために、`file`を`t()`および`md()`と組み合わせて使用し、Markdownコンテンツファイルの異なる言語バージョンを定義できます。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { file, t, md, type Dictionary } from "intlayer";
@@ -153,7 +145,6 @@ const myMultilingualContent = {
   content: {
     myContent: md(
       t({
-        ja: file("src/components/test.ja.md"),
         en: file("src/components/test.en.md"),
         fr: file("src/components/test.fr.md"),
         es: file("src/components/test.es.md"),
@@ -174,7 +165,6 @@ const myMultilingualContent = {
   content: {
     myContent: md(
       t({
-        ja: file("src/components/test.ja.md"),
         en: file("src/components/test.en.md"),
         fr: file("src/components/test.fr.md"),
         es: file("src/components/test.es.md"),
@@ -194,7 +184,6 @@ const myMultilingualContent = {
   content: {
     myContent: md(
       t({
-        ja: file("src/components/test.ja.md"),
         en: file("src/components/test.en.md"),
         fr: file("src/components/test.fr.md"),
         es: file("src/components/test.es.md"),
@@ -204,19 +193,29 @@ const myMultilingualContent = {
 };
 ```
 
-この設定により、ユーザーの言語設定に基づいてコンテンツを動的に取得できます。Intlayer Visual EditorやCMSで使用する場合、システムはコンテンツが指定されたMarkdownファイルから来ていることを認識し、それらが編集可能であることを保証します。
+この設定により、ユーザーの言語設定に基づいてコンテンツを動的に取得することが可能になります。IntlayerのビジュアルエディターやCMSで使用される場合、システムはコンテンツが指定されたMarkdownファイルから来ていることを認識し、それらが編集可能なままであることを保証します。
 
-## Intlayerがファイル内容を処理する方法
+## Intlayerがファイルコンテンツを処理する方法
 
-`file` 関数はNode.jsの `fs` モジュールに基づいており、指定されたファイルの内容を読み取り、辞書に挿入します。Intlayer Visual EditorやCMSと組み合わせて使用する場合、Intlayerは辞書とファイルの関係を追跡できます。これにより、以下が可能になります：
+`file`関数はNode.jsの`fs`モジュールに基づいており、指定されたファイルの内容を読み取り、辞書に挿入します。IntlayerのビジュアルエディターやCMSと組み合わせて使用される場合、Intlayerは辞書とファイルの関係を追跡できます。これによりIntlayerは以下を可能にします：
 
-- コンテンツが特定のファイルから来ていることを認識。
-- リンクされたファイルが編集されたときに辞書の内容を自動的に更新。
-- ファイルと辞書の同期を確保し、コンテンツの整合性を維持。
+- コンテンツが特定のファイルから来ていることを認識する。
+- リンクされたファイルが編集されたときに辞書のコンテンツを自動的に更新する。
+- ファイルと辞書の同期を確保し、コンテンツの整合性を維持します。
 
 ## 追加リソース
 
-ファイル埋め込みの設定と使用に関する詳細は、以下のリソースを参照してください：
+Intlayerでのファイル埋め込みの設定および使用方法の詳細については、以下のリソースを参照してください：
+
+- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
+- [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)
+- [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
+- [Markdown コンテンツ ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
+- ファイルと辞書の同期を確保し、コンテンツの整合性を保持します。
+
+## 追加リソース
+
+Intlayerでのファイル埋め込みの設定および使用方法の詳細については、以下のリソースを参照してください：
 
 - [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
 - [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)
@@ -224,4 +223,8 @@ const myMultilingualContent = {
 - [Markdown コンテンツ ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)
 - [翻訳コンテンツ ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)
 
-これらのリソースは、ファイル埋め込み、コンテンツ管理、およびさまざまなフレームワークとのIntlayerの統合に関するさらなる洞察を提供します。
+これらのリソースは、ファイル埋め込み、コンテンツ管理、およびIntlayerのさまざまなフレームワークとの統合に関するさらなる洞察を提供します。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴の初期化

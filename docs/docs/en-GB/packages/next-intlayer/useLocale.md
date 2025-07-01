@@ -1,7 +1,7 @@
 ---
 docName: package__next-intlayer__useLocale
 url: https://intlayer.org/doc/packages/next-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: useLocale Hook Documentation | next-intlayer
@@ -11,7 +11,7 @@ keywords:
   - dictionary
   - key
   - Intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
@@ -24,7 +24,7 @@ This section offers detailed documentation on the `useLocale` hook tailored for 
 
 ## Importing `useLocale` in Next.js
 
-To utilize the `useLocale` hook in your Next.js application, import it as shown below:
+To utilise the `useLocale` hook in your Next.js application, import it as shown below:
 
 ```javascript
 import { useLocale } from "next-intlayer"; // Used for managing locales and routing in Next.js
@@ -117,12 +117,12 @@ When you invoke the `useLocale` hook, it returns an object containing the follow
 - **`locale`**: The current locale as set in the React context.
 - **`defaultLocale`**: The primary locale defined in the configuration.
 - **`availableLocales`**: A list of all locales available as defined in the configuration.
-- **`setLocale`**: A function to change the application's locale and update the URL accordingly. It takes care of prefix rules, whether to add the locale to the path or not based on configuration. Utilizes `useRouter` from `next/navigation` for navigation functions like `push` and `refresh`.
-- **`pathWithoutLocale`**: A computed property that returns the path without the locale. It is useful for comparing URLs. For example, if the current locale is `fr`, and the url `fr/my_path`, the path without locale is `/my_path`. Utilizes `usePathname` from `next/navigation` to get the current path.
+- **`setLocale`**: A function to change the application's locale and update the URL accordingly. It manages prefix rules, deciding whether to add the locale to the path or not based on the configuration. Utilises `useRouter` from `next/navigation` for navigation functions such as `push` and `refresh`.
+- **`pathWithoutLocale`**: A computed property that returns the path without the locale. It is useful for comparing URLs. For example, if the current locale is `fr`, and the URL is `fr/my_path`, the path without the locale is `/my_path`. Utilises `usePathname` from `next/navigation` to obtain the current path.
 
 ## Conclusion
 
-The `useLocale` hook from `next-intlayer` is a crucial tool for managing locales in Next.js applications. It offers an integrated approach to adapt your application for multiple locales by handling locale storage, state management, and URL modifications seamlessly.
+The `useLocale` hook from `next-intlayer` is an essential tool for managing locales in Next.js applications. It provides an integrated approach to adapting your application for multiple locales by seamlessly handling locale storage, state management, and URL modifications.
 
 ## Doc History
 

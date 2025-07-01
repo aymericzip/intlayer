@@ -1,13 +1,13 @@
 ---
 docName: dictionary__function_fetching
 url: https://intlayer.org/doc/concept/content/function-fetching
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/function_fetching.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Función Fetching
-description: Descubra cómo declarar y usar la recuperación de función en su sitio web multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.
+title: Obtención de Funciones
+description: Descubre cómo declarar y usar la obtención de funciones en tu sitio web multilingüe. Sigue los pasos en esta documentación en línea para configurar tu proyecto en pocos minutos.
 keywords:
-  - Recuperación de Función
+  - Obtención de Funciones
   - Internacionalización
   - Documentación
   - Intlayer
@@ -16,15 +16,15 @@ keywords:
   - React
 ---
 
-# Función de Obtención
+# Obtención de Funciones
 
-Intlayer te permite declarar funciones de contenido en tus módulos de contenido, las cuales pueden ser sincrónicas o asincrónicas. Cuando la aplicación se construye, Intlayer ejecuta estas funciones para obtener el resultado de la función. El valor de retorno debe ser un objeto JSON o un valor simple como una cadena o un número.
+Intlayer te permite declarar funciones de contenido en tus módulos de contenido, las cuales pueden ser síncronas o asíncronas. Cuando la aplicación se construye, Intlayer ejecuta estas funciones para obtener el resultado de la función. El valor de retorno debe ser un objeto JSON o un valor simple como una cadena o un número.
 
-> Advertencia: la obtención de funciones actualmente no está disponible en la declaración de contenido JSON y en los archivos de declaraciones de contenido remoto.
+> Advertencia: la obtención de funciones actualmente no está disponible en la declaración de contenido JSON ni en archivos de declaraciones de contenido remoto.
 
 ## Declaraciones de Funciones
 
-Aquí hay un ejemplo de una función sincrónica simple que obtiene contenido:
+Aquí tienes un ejemplo de una función síncrona simple que obtiene contenido:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import type { Dictionary } from "intlayer";
@@ -32,7 +32,7 @@ import type { Dictionary } from "intlayer";
 const functionContent = {
   key: "function_content",
   content: {
-    text: () => "Este es el contenido renderizado por una función",
+    text: () => "This is the content rendered by a function",
   },
 } satisfies Dictionary;
 
@@ -73,22 +73,22 @@ module.exports = functionContent;
 }
 ```
 
-En este ejemplo, la clave `text` contiene una función que devuelve una cadena. Este contenido puede ser renderizado en tus componentes React utilizando los paquetes de intérprete de Intlayer como `react-intlayer`.
+En este ejemplo, la clave `text` contiene una función que devuelve una cadena. Este contenido puede ser renderizado en tus componentes React utilizando los paquetes intérpretes de Intlayer como `react-intlayer`.
 
-## Obtención de Funciones Asincrónicas
+## Obtención de Funciones Asíncronas
 
-Además de las funciones sincrónicas, Intlayer soporta funciones asincrónicas, permitiéndote obtener datos de fuentes externas o simular la recuperación de datos con datos simulados.
+Además de las funciones síncronas, Intlayer soporta funciones asíncronas, lo que te permite obtener datos de fuentes externas o simular la recuperación de datos con datos simulados (mock).
 
-A continuación, un ejemplo de una función asincrónica que simula una obtención del servidor:
+A continuación, se muestra un ejemplo de una función asíncrona que simula una obtención desde un servidor:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
-  // Espera 200ms para simular una obtención del servidor
+  // Espera 200ms para simular una obtención desde el servidor
   return await setTimeout(200).then(
-    () => "Este es el contenido obtenido del servidor"
+    () => "Este es el contenido obtenido desde el servidor"
   );
 };
 
@@ -105,9 +105,9 @@ import { setTimeout } from "node:timers/promises";
 
 /** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
-  // Espera 200ms para simular una obtención del servidor
+  // Espera 200ms para simular una obtención desde el servidor
   await setTimeout(200);
-  return "Este es el contenido obtenido del servidor";
+  return "Este es el contenido obtenido desde el servidor";
 };
 
 const asyncFunctionContent = {
@@ -123,9 +123,9 @@ const { setTimeout } = require("node:timers/promises");
 
 /** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
-  // Espera 200ms para simular una obtención del servidor
+  // Espera 200ms para simular una obtención desde el servidor
   await setTimeout(200);
-  return "Este es el contenido obtenido del servidor";
+  return "Este es el contenido obtenido desde el servidor";
 };
 
 const asyncFunctionContent = {
@@ -137,14 +137,14 @@ module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
-No hay forma de obtener contenido desde un archivo JSON, utiliza un archivo .ts o .js en su lugar
+No es posible obtener contenido desde un archivo JSON, usa un archivo .ts o .js en su lugar
 ```
 
-En este caso, la función `fakeFetch` imita un retraso para simular el tiempo de respuesta del servidor. Intlayer ejecuta la función asincrónica y utiliza el resultado como el contenido para la clave `text`.
+En este caso, la función `fakeFetch` simula un retraso para imitar el tiempo de respuesta del servidor. Intlayer ejecuta la función asíncrona y utiliza el resultado como contenido para la clave `text`.
 
-## Uso de Contenido Basado en Funciones en Componentes React
+## Uso de contenido basado en funciones en componentes React
 
-Para usar contenido basado en funciones en un componente React, necesitas importar `useIntlayer` desde `react-intlayer` y llamarlo con el ID del contenido para recuperar el contenido. Aquí hay un ejemplo:
+Para usar contenido basado en funciones en un componente React, necesitas importar `useIntlayer` desde `react-intlayer` y llamarlo con el ID del contenido para obtenerlo. Aquí tienes un ejemplo:
 
 ```typescript fileName="**/*.jsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -206,3 +206,7 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
+
+## Historial de Documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

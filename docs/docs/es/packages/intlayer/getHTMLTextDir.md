@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getHTMLTextDir
 url: https://intlayer.org/doc/packages/intlayer/getHTMLTextDir
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getHTMLTextDir.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentación de la función getHTMLTextDir | intlayer
-description: Descubre cómo usar la función getHTMLTextDir para el paquete intlayer
+description: Vea cómo usar la función getHTMLTextDir para el paquete intlayer
 keywords:
   - getHTMLTextDir
   - traducción
@@ -22,7 +22,7 @@ keywords:
 
 ## Descripción
 
-La función `getHTMLTextDir` determina la dirección del texto (`ltr`, `rtl` o `auto`) basada en la configuración regional proporcionada. Está diseñada para ayudar a los desarrolladores a establecer el atributo `dir` en HTML para un renderizado adecuado del texto.
+La función `getHTMLTextDir` determina la dirección del texto (`ltr`, `rtl` o `auto`) según la configuración regional proporcionada. Está diseñada para ayudar a los desarrolladores a establecer el atributo `dir` en HTML para una correcta representación del texto.
 
 ## Parámetros
 
@@ -31,7 +31,7 @@ La función `getHTMLTextDir` determina la dirección del texto (`ltr`, `rtl` o `
   - **Descripción**: La cadena de configuración regional (por ejemplo, `Locales.ENGLISH`, `Locales.ARABIC`) utilizada para determinar la dirección del texto.
   - **Tipo**: `Locales` (opcional)
 
-## Retornos
+## Retorna
 
 - **Tipo**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
 - **Descripción**: La dirección del texto correspondiente a la configuración regional:
@@ -39,9 +39,9 @@ La función `getHTMLTextDir` determina la dirección del texto (`ltr`, `rtl` o `
   - `'rtl'` para idiomas de derecha a izquierda.
   - `'auto'` si la configuración regional no es reconocida.
 
-## Ejemplo de Uso
+## Ejemplo de uso
 
-### Determinando la Dirección del Texto
+### Determinando la dirección del texto
 
 ```typescript codeFormat="typescript"
 import { getHTMLTextDir } from "intlayer";
@@ -71,14 +71,14 @@ getHTMLTextDir(Locales.ARABIC); // Salida: "rtl"
 
 - **No se Proporciona Configuración Regional:**
 
-  - La función retorna `'auto'` cuando `locale` es `undefined`.
+  - La función devuelve `'auto'` cuando `locale` es `undefined`.
 
 - **Configuración Regional No Reconocida:**
-  - Para configuraciones regionales no reconocidas, la función por defecto retorna `'auto'`.
+  - Para locales no reconocidos, la función utiliza `'auto'` por defecto.
 
 ## Uso en Componentes:
 
-La función `getHTMLTextDir` puede ser utilizada para establecer dinámicamente el atributo `dir` en un documento HTML para un renderizado adecuado del texto basado en la configuración regional.
+La función `getHTMLTextDir` puede usarse para establecer dinámicamente el atributo `dir` en un documento HTML para un renderizado correcto del texto basado en la configuración regional.
 
 ```tsx codeFormat="typescript"
 import type { FC } from "react";
@@ -114,4 +114,8 @@ const HTMLLayout = ({ children, locale }) => (
 );
 ```
 
-En el ejemplo anterior, el atributo `dir` se establece dinámicamente basado en la configuración regional.
+En el ejemplo anterior, el atributo `dir` se establece dinámicamente según la configuración regional.
+
+## Historial de Documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

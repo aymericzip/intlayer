@@ -1,6 +1,6 @@
 import { Locales } from '@intlayer/config';
+import { getMarkdownMetadata } from '@intlayer/core';
 import { localeRecord } from 'intlayer';
-import { getMarkdownMetadata } from '../../packages/@intlayer/core/dist/types/transpiler';
 import { readFileContent } from './readFileContent';
 
 const docs = {
@@ -106,12 +106,7 @@ const docs = {
   dictionary__per_locale_file: localeRecord(({ locale }) =>
     readFileContent(`/docs/${locale}/per_locale_file.md`)
   ),
-  terms_of_service: localeRecord(({ locale }) =>
-    readFileContent(`/docs/${locale}/terms_of_service.md`)
-  ),
-  privacy_notice: localeRecord(({ locale }) =>
-    readFileContent(`/docs/${locale}/privacy_notice.md`)
-  ),
+
   package__intlayer: localeRecord(({ locale }) =>
     readFileContent(`/docs/${locale}/packages/intlayer/index.md`)
   ),
@@ -268,10 +263,10 @@ const docs = {
   ),
 };
 
-export const getDocs = async (lang = Locales.ENGLISH) => {
+export const getDocs = async (locale = Locales.ENGLISH) => {
   const docsEntries = await Promise.all(
     Object.entries(docs)
-      .map(([key, value]) => [key, value[lang]])
+      .map(([key, value]) => [key, value[locale]])
       .map(async ([key, value]) => [key, await value])
   );
 
@@ -282,9 +277,9 @@ export const getDocs = async (lang = Locales.ENGLISH) => {
 
 export const getDoc = async (
   docName: keyof typeof docs,
-  lang = Locales.ENGLISH
+  locale = Locales.ENGLISH
 ) => {
-  const doc = await docs[docName][lang];
+  const doc = await docs[docName][locale];
 
   if (!doc) {
     const englishDoc = await docs[docName][Locales.ENGLISH];
@@ -299,8 +294,10 @@ export const getDoc = async (
   return doc;
 };
 
-export const getDocMetadataRecord = async (lang = Locales.ENGLISH) => {
-  const docs = await getDocs(lang);
+export const getDocMetadataRecord = async (
+  locale = Locales.ENGLISH
+): Promise<Record<string, DocMetadata>> => {
+  const docs = await getDocs(locale);
   return Object.keys(docs).reduce(
     (acc, docName) => {
       const metadata = getMarkdownMetadata(docs[docName]);
@@ -309,4 +306,23 @@ export const getDocMetadataRecord = async (lang = Locales.ENGLISH) => {
     },
     {} as Record<string, any>
   );
+};
+
+type DocMetadata = {
+  docName: string;
+  url: string;
+  githubUrl: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  updatedAt: string;
+  createdAt: string;
+};
+
+export const getDocMetadata = async <T extends DocMetadata>(
+  docName: keyof typeof docs,
+  locale = Locales.ENGLISH
+) => {
+  const doc = await getDoc(docName, locale);
+  return getMarkdownMetadata<T>(doc);
 };

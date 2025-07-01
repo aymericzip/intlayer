@@ -1,3 +1,24 @@
+---
+docName: intlayer_command_undefined
+url: https://intlayer.org/doc/faq/intlayer-command-undefined
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/intlayer_command_undefined.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: Intlayer command undefined
+description: Learn how to fix the intlayer command undefined error.
+keywords:
+  - intlayer
+  - command
+  - undefined
+  - error
+  - vscode
+  - extension
+  - plugin
+  - framework
+  - next.js
+  - vite
+---
+
 # Intlayer command undefined
 
 ## Overview

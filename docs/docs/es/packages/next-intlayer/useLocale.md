@@ -1,11 +1,11 @@
 ---
 docName: package__next-intlayer__useLocale
 url: https://intlayer.org/doc/packages/next-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentación del hook useLocale | next-intlayer
-description: Descubre cómo usar el hook useLocale para el paquete next-intlayer
+title: Documentación del Hook useLocale | next-intlayer
+description: Vea cómo usar el hook useLocale para el paquete next-intlayer
 keywords:
   - useLocale
   - diccionario
@@ -20,19 +20,19 @@ keywords:
 
 # Integración con Next.js: Documentación del Hook `useLocale` para `next-intlayer`
 
-Esta sección ofrece documentación detallada sobre el hook `useLocale` diseñado para aplicaciones Next.js dentro de la biblioteca `next-intlayer`. Está diseñado para manejar cambios de localización y enrutamiento de manera eficiente.
+Esta sección ofrece documentación detallada sobre el hook `useLocale` diseñado para aplicaciones Next.js dentro de la biblioteca `next-intlayer`. Está pensado para manejar cambios de idioma y enrutamiento de manera eficiente.
 
 ## Importando `useLocale` en Next.js
 
 Para utilizar el hook `useLocale` en tu aplicación Next.js, impórtalo como se muestra a continuación:
 
 ```javascript
-import { useLocale } from "next-intlayer"; // Usado para gestionar localizaciones y enrutamiento en Next.js
+import { useLocale } from "next-intlayer"; // Usado para gestionar locales y enrutamiento en Next.js
 ```
 
 ## Uso
 
-A continuación, se muestra cómo implementar el hook `useLocale` dentro de un componente de Next.js:
+Aquí se muestra cómo implementar el hook `useLocale` dentro de un componente Next.js:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -46,8 +46,8 @@ const LocaleSwitcher: FC = () => {
 
   return (
     <div>
-      <h1>Localización Actual: {locale}</h1>
-      <p>Localización Predeterminada: {defaultLocale}</p>
+      <h1>Idioma Actual: {locale}</h1>
+      <p>Idioma Predeterminado: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -71,8 +71,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Localización Actual: {locale}</h1>
-      <p>Localización Predeterminada: {defaultLocale}</p>
+      <h1>Idioma Actual: {locale}</h1>
+      <p>Idioma Predeterminado: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -96,8 +96,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Localización Actual: {locale}</h1>
-      <p>Localización Predeterminada: {defaultLocale}</p>
+      <h1>Idioma Actual: {locale}</h1>
+      <p>Idioma Predeterminado: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -112,14 +112,18 @@ const LocaleSwitcher = () => {
 
 ## Parámetros y Valores de Retorno
 
-Cuando invocas el hook `useLocale`, devuelve un objeto que contiene las siguientes propiedades:
+Cuando invocas el hook `useLocale`, este retorna un objeto que contiene las siguientes propiedades:
 
-- **`locale`**: La localización actual establecida en el contexto de React.
-- **`defaultLocale`**: La localización principal definida en la configuración.
-- **`availableLocales`**: Una lista de todas las localizaciones disponibles según lo definido en la configuración.
-- **`setLocale`**: Una función para cambiar la localización de la aplicación y actualizar la URL en consecuencia. Se encarga de las reglas de prefijo, ya sea para agregar la localización al camino o no, según la configuración. Utiliza `useRouter` de `next/navigation` para funciones de navegación como `push` y `refresh`.
-- **`pathWithoutLocale`**: Una propiedad calculada que devuelve el camino sin la localización. Es útil para comparar URLs. Por ejemplo, si la localización actual es `fr`, y la URL es `fr/my_path`, el camino sin localización es `/my_path`. Utiliza `usePathname` de `next/navigation` para obtener el camino actual.
+- **`locale`**: La configuración regional actual establecida en el contexto de React.
+- **`defaultLocale`**: La configuración regional principal definida en la configuración.
+- **`availableLocales`**: Una lista de todas las configuraciones regionales disponibles según lo definido en la configuración.
+- **`setLocale`**: Una función para cambiar la configuración regional de la aplicación y actualizar la URL en consecuencia. Se encarga de las reglas de prefijo, ya sea para añadir o no la configuración regional en la ruta según la configuración. Utiliza `useRouter` de `next/navigation` para funciones de navegación como `push` y `refresh`.
+- **`pathWithoutLocale`**: Una propiedad calculada que devuelve la ruta sin la configuración regional. Es útil para comparar URLs. Por ejemplo, si la configuración regional actual es `fr`, y la URL es `fr/my_path`, la ruta sin configuración regional es `/my_path`. Utiliza `usePathname` de `next/navigation` para obtener la ruta actual.
 
 ## Conclusión
 
-El hook `useLocale` de `next-intlayer` es una herramienta crucial para gestionar localizaciones en aplicaciones Next.js. Ofrece un enfoque integrado para adaptar tu aplicación a múltiples localizaciones manejando el almacenamiento de localización, la gestión del estado y las modificaciones de URL de manera fluida.
+El hook `useLocale` de `next-intlayer` es una herramienta crucial para gestionar configuraciones regionales en aplicaciones Next.js. Ofrece un enfoque integrado para adaptar tu aplicación a múltiples configuraciones regionales manejando de manera fluida el almacenamiento de la configuración regional, la gestión del estado y las modificaciones de la URL.
+
+## Historial de Documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

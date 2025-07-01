@@ -1,7 +1,7 @@
 ---
 docName: package__react-native-intlayer
 url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: Package Documentation | react-native-intlayer
@@ -10,26 +10,26 @@ keywords:
   - Intlayer
   - React Native
   - react-native-intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
 ---
 
-# react-native-intlayer: Internationalize (i18n) an React Native application
+# react-native-intlayer: Internationalise (i18n) a React Native application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-**The `react-native-intlayer` package** allows you to internationalize your Vite application. It includes the Metro plugin to set the configuration through environment variables into the [Metro bundler](https://docs.expo.dev/guides/customizing-metro/).
+**The `react-native-intlayer` package** allows you to internationalise your Vite application. It includes the Metro plugin to set the configuration through environment variables into the [Metro bundler](https://docs.expo.dev/guides/customizing-metro/).
 
-## Why Internationalize Your React Native Application?
+## Why Internationalise Your React Native Application?
 
-Internationalizing your React Native application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
+Internationalising your React Native application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
 
 ## Configuration
 
-The `react-native-intlayer` package works seamlessly with the [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md), and the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md). Have a look at the relevant documentation for more information.
+The `react-native-intlayer` package works seamlessly with the [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/index.md), and the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/index.md). Have a look at the relevant documentation for more information.
 
 ## Installation
 
@@ -63,11 +63,11 @@ module.exports = (async () => {
 })();
 ```
 
-## Mastering the internationalization of your Vite application
+## Mastering the internationalisation of your Vite application
 
-Intlayer provides a lot of features to help you internationalize your Vite application.
+Intlayer provides a lot of features to help you internationalise your Vite application.
 
-**To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_native+expo.md) guide for React Native Application.**
+**To learn more about these features, refer to the [React Internationalisation (i18n) with Intlayer and React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_react_native+expo.md) guide for React Native Application.**
 
 ## Read about Intlayer
 
@@ -79,4 +79,4 @@ Intlayer provides a lot of features to help you internationalize your Vite appli
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

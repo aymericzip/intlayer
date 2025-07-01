@@ -20,11 +20,11 @@ keywords:
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-محرر Intlayer البصري هو أداة تتيح لك التفاعل مع ملفات إعلان المحتوى الخاصة بموقعك باستخدام محرر بصري.
+محرر Intlayer البصري هو أداة تقوم بتغليف موقعك الإلكتروني للتفاعل مع ملفات إعلان المحتوى الخاصة بك باستخدام محرر بصري.
 
 ![واجهة محرر Intlayer البصري](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
-حزمة `intlayer-editor` تعتمد على Intlayer ومتاحة لتطبيقات JavaScript، مثل React (Create React App)، Vite + React، و Next.js.
+حزمة `intlayer-editor` مبنية على Intlayer ومتاحة لتطبيقات JavaScript، مثل React (Create React App)، Vite + React، و Next.js.
 
 ## المحرر البصري مقابل CMS
 
@@ -136,13 +136,13 @@ const config = {
     /**
      * اختياري
      * الافتراضي هو `8000`.
-     * منفذ خادم المحرر.
+     * المنفذ المستخدم من قبل خادم المحرر البصري.
      */
     port: process.env.INTLAYER_PORT,
     /**
      * اختياري
      * الافتراضي هو "http://localhost:8000"
-     * عنوان URL لخادم المحرر.
+     * عنوان URL لخادم المحرر الذي يمكن الوصول إليه من التطبيق. يُستخدم لتقييد المصادر التي يمكنها التفاعل مع التطبيق لأسباب أمنية. إذا تم تعيينه إلى `'*'`، يكون المحرر متاحًا من أي مصدر. يجب تعيينه إذا تم تغيير المنفذ، أو إذا كان المحرر مستضافًا على نطاق مختلف.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
   },
@@ -190,7 +190,7 @@ module.exports = config;
 
 ## استخدام المحرر
 
-1. عند تثبيت المحرر، يمكنك بدء تشغيله باستخدام الأمر التالي:
+1. عند تثبيت المحرر، يمكنك بدء تشغيل المحرر باستخدام الأمر التالي:
 
    ```bash packageManager="npm"
    npx intlayer-editor start
@@ -212,7 +212,41 @@ module.exports = config;
 
    ![التمرير فوق المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-3. إذا تم تحديد محتواك، يمكنك الضغط عليه مطولاً لعرض درج التعديل.
+3. إذا كان محتواك محددًا، يمكنك الضغط عليه مطولاً لعرض درج التعديل.
+
+## تكوين البيئة
+
+يمكن تكوين المحرر لاستخدام ملف بيئة محدد. هذا مفيد عندما تريد استخدام نفس ملف التكوين للتطوير والإنتاج.
+
+لاستخدام ملف بيئة محدد، يمكنك استخدام العلامة `--env-file` أو `-f` عند بدء تشغيل المحرر:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> لاحظ أن ملف البيئة يجب أن يكون موجودًا في الدليل الجذر لمشروعك.
+
+أو يمكنك استخدام العلامة `--env` أو `-e` لتحديد البيئة:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
 
 ## التصحيح
 
@@ -225,4 +259,8 @@ module.exports = config;
   - الحقول المطلوبة:
     - يجب أن يتطابق عنوان URL للتطبيق مع الذي قمت بتعيينه في تكوين المحرر (`applicationURL`).
 
-- يستخدم المحرر البصري iframe لعرض موقعك. تأكد من أن سياسة أمان المحتوى (CSP) لموقعك تسمح بعنوان URL الخاص بـ CMS كـ `frame-ancestors` ('http://localhost:8000' افتراضيًا). تحقق من وحدة تحكم المحرر لأي خطأ.
+- يستخدم المحرر المرئي iframe لعرض موقعك الإلكتروني. تأكد من أن سياسة أمان المحتوى (CSP) لموقعك تسمح بعنوان URL الخاص بنظام إدارة المحتوى (CMS) كـ `frame-ancestors` ('http://localhost:8000' بشكل افتراضي). تحقق من وحدة تحكم المحرر لأي أخطاء.
+
+## سجل الوثائق
+
+- 5.5.10 - 2025-06-29: بدء السجل

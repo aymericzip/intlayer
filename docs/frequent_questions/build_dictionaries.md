@@ -1,3 +1,24 @@
+---
+docName: build_dictionaries
+url: https://intlayer.org/doc/faq/build-dictionaries
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/build_dictionaries.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: How to build dictionaries?
+description: Learn how to build dictionaries.
+keywords:
+  - build
+  - dictionaries
+  - intlayer
+  - command
+  - watch
+  - vscode
+  - plugin
+  - framework
+  - next.js
+  - vite
+---
+
 # Build Dictionaries
 
 ## How to Build Dictionaries

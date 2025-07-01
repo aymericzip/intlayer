@@ -5,7 +5,7 @@ import { t, type Dictionary } from 'intlayer';
 const blogContent = {
   key: 'blog-i18n_technologies_frameworks_svelte-metadata',
   content: {
-    blogName: 'list_i18n_technologies__frameworks__svelte',
+    docName: 'list_i18n_technologies__frameworks__svelte',
     url: PagesRoutes['Blog_i18n-technologies__frameworks__svelte'],
     githubUrl: GithubRoutes['i18n-technologies__frameworks__svelte'],
     createdAt: '2025-01-16',

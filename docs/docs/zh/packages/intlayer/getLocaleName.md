@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getLocaleName
 url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: t函数文档 | intlayer
-description: 查看如何使用 intlayer 软件包的 getLocaleName 函数
+title: getLocaleName 函数文档 | intlayer
+description: 查看如何使用 intlayer 包中的 getLocaleName 函数
 keywords:
   - getLocaleName
   - 翻译
@@ -18,27 +18,27 @@ keywords:
   - React
 ---
 
-# 文档: `getLocaleName` 函数在 `intlayer` 中
+# 文档：`intlayer` 中的 `getLocaleName` 函数
 
 ## 描述
 
-`getLocaleName` 函数返回在显示语言环境 (`displayLocale`) 中给定语言环境 (`targetLocale`) 的本地化名称。如果未提供 `targetLocale`，则返回 `displayLocale` 在其自身语言中的名称。
+`getLocaleName` 函数返回给定语言环境（`targetLocale`）在显示语言环境（`displayLocale`）中的本地化名称。如果未提供 `targetLocale`，则返回 `displayLocale` 自身语言的名称。
 
 ## 参数
 
 - `displayLocale: Locales`
 
-  - **描述**: 显示目标语言环境名称的语言环境。
-  - **类型**: 表示有效语言环境的枚举或字符串。
+  - **描述**：用于显示目标语言环境名称的语言环境。
+  - **类型**：表示有效语言环境的枚举或字符串。
 
 - `targetLocale?: Locales`
-  - **描述**: 要本地化其名称的语言环境。
-  - **类型**: 可选。表示有效语言环境的枚举或字符串。
+  - **描述**：需要本地化名称的语言环境。
+  - **类型**：可选。表示有效语言环境的枚举或字符串。
 
 ## 返回值
 
-- **类型**: `string`
-- **描述**: 在 `displayLocale` 中本地化的 `targetLocale` 名称，或者如果未提供 `targetLocale`，则返回 `displayLocale` 的自身名称。如果未找到翻译，则返回 `"Unknown locale"`。
+- **类型**：`string`
+- **描述**：`targetLocale` 在 `displayLocale` 中的本地化名称，如果未提供 `targetLocale`，则返回 `displayLocale` 自身的名称。如果未找到翻译，则返回 `"Unknown locale"`。
 
 ## 示例用法
 
@@ -60,7 +60,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // 输出: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 输出: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 输出: "Chinese"
 
-getLocaleName("unknown-locale"); // 输出: "Unknown locale"
+getLocaleName("unknown-locale"); // 输出: "未知语言"
 ```
 
 ```javascript codeFormat="esm"
@@ -81,7 +81,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // 输出: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 输出: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 输出: "Chinese"
 
-getLocaleName("unknown-locale"); // 输出: "Unknown locale"
+getLocaleName("unknown-locale"); // 输出: "未知语言"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -107,7 +107,11 @@ getLocaleName("unknown-locale"); // 输出: "Unknown locale"
 
 ## 边界情况
 
-- **未提供 `targetLocale`:**
-  - 函数默认为返回 `displayLocale` 的自身名称。
-- **缺少翻译:**
-  - 如果 `localeNameTranslations` 不包含 `targetLocale` 或特定 `displayLocale` 的条目，函数将回退到 `ownLocalesName` 或返回 `"Unknown locale"`。
+- **未提供 `targetLocale`：**
+  - 该函数默认返回 `displayLocale` 自身的名称。
+- **缺少翻译：**
+  - 如果 `localeNameTranslations` 中不包含 `targetLocale` 或特定 `displayLocale` 的条目，函数将回退到 `ownLocalesName`，或者返回 `"Unknown locale"`。
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史

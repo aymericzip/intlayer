@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getPathWithoutLocale
 url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getPathWithoutLocale Function Documentation | intlayer
@@ -11,7 +11,7 @@ keywords:
   - translation
   - Intlayer
   - intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
@@ -71,4 +71,4 @@ console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

@@ -1,7 +1,7 @@
 ---
 docName: package__svelte-intlayer
 url: https://intlayer.org/doc/packages/svelte-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/svelte-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/svelte-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Документация пакета | svelte-intlayer
@@ -9,12 +9,44 @@ description: Узнайте, как использовать пакет svelte-i
 keywords:
   - Intlayer
   - svelte-intlayer
-  - интернационализация
-  - документация
+  - Интернационализация
+  - Документация
   - JavaScript
   - Svelte
 ---
 
-this doc will be automatically generated translated from the english doc
+# svelte-intlayer: NPM пакет для интернационализации (i18n) приложения Solid
 
-see /docs/en/packages/svelte-intlayer/index.md
+**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как Solid, Solid и Express.js.
+
+**Пакет `svelte-intlayer`** позволяет интернационализировать ваше приложение Solid. Он предоставляет провайдеры контекста и хуки для интернационализации в Solid.
+
+## Почему стоит интернационализировать ваше приложение Solid?
+
+Интернационализация вашего приложения Solid необходима для эффективного обслуживания глобальной аудитории. Она позволяет вашему приложению предоставлять контент и сообщения на предпочитаемом языке каждого пользователя. Эта возможность улучшает пользовательский опыт и расширяет охват вашего приложения, делая его более доступным и релевантным для людей с разным языковым происхождением.
+
+## Почему стоит интегрировать Intlayer?
+
+- **Управление контентом на базе JavaScript**: Используйте гибкость JavaScript для эффективного определения и управления вашим контентом.
+- **Типобезопасная среда**: Используйте TypeScript, чтобы все определения контента были точными и безошибочными.
+- **Интегрированные файлы контента**: Держите переводы рядом с соответствующими компонентами, что повышает удобство сопровождения и ясность.
+
+## Установка
+
+Установите необходимый пакет с помощью предпочитаемого менеджера пакетов:
+
+```bash packageManager="npm"
+npm install svelte-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add svelte-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add svelte-intlayer
+```
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

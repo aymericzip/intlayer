@@ -1,38 +1,55 @@
+---
+docName: index
+url: https://intlayer.org/doc/index
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: Documentation Intlayer - Guide complet i18n pour JavaScript
+description: Documentation complète pour Intlayer, la bibliothèque moderne d'internationalisation pour JavaScript, React, Next.js, Express, et plus de frameworks.
+keywords:
+  - intlayer
+  - internationalisation
+  - i18n
+  - JavaScript
+  - React
+  - Next.js
+  - documentation
+  - traduction
+  - multilingue
+---
+
 # Documentation Intlayer
 
-Bienvenue dans la documentation officielle **Intlayer** ! Ici, vous trouverez tout ce dont vous avez besoin pour intégrer, configurer et maîtriser Intlayer pour tous vos besoins en matière d'internationalisation (i18n), que vous travailliez avec **Next.js**, **React**, **Vite**, **Express** ou un autre environnement JavaScript.
+Bienvenue dans la documentation officielle d'**Intlayer** ! Ici, vous trouverez tout ce dont vous avez besoin pour intégrer, configurer et maîtriser Intlayer pour tous vos besoins en internationalisation (i18n), que vous travailliez avec **Next.js**, **React**, **Vite**, **Express** ou un autre environnement JavaScript.
 
-Intlayer offre une approche flexible et moderne pour traduire votre application. Nos documents vous guideront de l'installation et de la configuration aux fonctionnalités avancées telles que la **traduction assistée par IA**, les définitions **TypeScript** et la prise en charge des **composants serveur**, vous permettant de créer une expérience multilingue fluide.
+Intlayer propose une approche flexible et moderne pour traduire votre application. Nos documents vous guideront depuis l'installation et la configuration jusqu'aux fonctionnalités avancées telles que la **traduction assistée par IA**, les définitions **TypeScript**, et le support des **composants serveur**, vous permettant de créer une expérience multilingue fluide.
 
 ---
 
-## Premiers Pas
+## Pour commencer
 
 - **[Introduction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/introduction.md)**  
-  Obtenez une vue d'ensemble du fonctionnement d'Intlayer, de ses fonctionnalités principales et découvrez pourquoi c'est une révolution pour l'i18n.
+  Obtenez un aperçu du fonctionnement d'Intlayer, de ses fonctionnalités principales et de pourquoi c'est une révolution pour l'i18n.
 
 - **[Comment fonctionne Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/how_works_intlayer.md)**  
-  Plongez dans la conception architecturale et découvrez comment Intlayer gère tout, de la déclaration de contenu à la livraison des traductions.
+  Plongez dans la conception architecturale et découvrez comment Intlayer gère tout, de la déclaration du contenu à la livraison des traductions.
 
 - **[Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)**  
-  Personnalisez Intlayer pour répondre aux besoins de votre projet. Explorez les options de middleware, les structures de répertoires et les paramètres avancés.
+  Personnalisez Intlayer selon les besoins de votre projet. Explorez les options de middleware, les structures de répertoires et les paramètres avancés.
 
-- **[CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md)**  
-  Gérez le contenu et les traductions à l'aide de notre outil en ligne de commande. Découvrez comment pousser et récupérer du contenu, automatiser les traductions, et plus encore.
+- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md)**  
+  Gérez le contenu et les traductions à l’aide de notre outil en ligne de commande. Découvrez comment pousser et récupérer du contenu, automatiser les traductions, et plus encore.
 
 - **[Éditeur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)**  
-  Simplifiez la collaboration avec les non-développeurs et alimentez vos traductions avec l'IA, directement dans notre CMS gratuit et intuitif.
-
-- **[Déploiement](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/deployment.md)**  
-  Apprenez à déployer Intlayer en toute sécurité et à gérer les environnements de production, de préproduction et de développement.
+  Simplifiez la collaboration avec les non-développeurs et dynamisez vos traductions grâce à l’IA, directement dans notre CMS gratuit et intuitif.
 
 ---
 
-## Concepts de Base
+## Concepts Clés
 
 ### Dictionnaire
 
-Organisez votre contenu multilingue près de votre code pour tout garder cohérent et facile à maintenir.
+Organisez votre contenu multilingue proche de votre code pour garder tout cohérent et facile à maintenir.
 
 - **[Commencer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md)**  
   Apprenez les bases de la déclaration de votre contenu dans Intlayer.
@@ -41,31 +58,48 @@ Organisez votre contenu multilingue près de votre code pour tout garder cohére
   Comprenez comment les traductions sont générées, stockées et utilisées dans votre application.
 
 - **[Énumération](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/enumeration.md)**  
-  Gérez facilement des ensembles de données répétés ou fixes dans diverses langues.
+  Gérez facilement des ensembles de données répétées ou fixes dans plusieurs langues.
 
-- **[Récupération par Fonction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/function_fetching.md)**  
-  Découvrez comment récupérer dynamiquement du contenu avec une logique personnalisée adaptée au flux de travail de votre projet.
+- **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/conditional.md)**  
+  Apprenez à utiliser la logique conditionnelle dans Intlayer pour créer du contenu dynamique.
+
+- **[Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion.md)**  
+  Découvrez comment insérer des valeurs dans une chaîne à l’aide de marqueurs d’insertion.
+
+- **[Récupération par fonction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/function_fetching.md)**  
+  Découvrez comment récupérer dynamiquement du contenu avec une logique personnalisée pour correspondre au flux de travail de votre projet.
+
+- **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/markdown.md)**  
+  Apprenez à utiliser Markdown dans Intlayer pour créer du contenu enrichi.
+
+- **[Inclusions de fichiers](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/file_embeddings.md)**  
+  Découvrez comment intégrer des fichiers externes dans Intlayer pour les utiliser dans l’éditeur de contenu.
+
+- **[Imbrication](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/nesting.md)**  
+  Comprenez comment imbriquer du contenu dans Intlayer pour créer des structures complexes.
 
 ---
 
-## Environnements et Intégrations
+## Environnements & Intégrations
 
-Nous avons conçu Intlayer avec flexibilité à l'esprit, offrant une intégration fluide avec les frameworks et outils de construction populaires :
+Nous avons conçu Intlayer avec la flexibilité à l’esprit, offrant une intégration transparente avec les frameworks et outils de build populaires :
 
 - **[Intlayer avec Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_15.md)**
 - **[Intlayer avec Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_14.md)**
 - **[Intlayer avec Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_page_router.md)**
 - **[Intlayer avec React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_create_react_app.md)**
 - **[Intlayer avec Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md)**
+- **[Intlayer avec React Native et Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_native+expo.md)**
+- **[Intlayer avec Lynx et React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_lynx+react.md)**
 - **[Intlayer avec Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_express.md)**
 
-Chaque guide d'intégration inclut les meilleures pratiques pour utiliser les fonctionnalités d'Intlayer, comme le **rendu côté serveur**, le **routage dynamique** ou le **rendu côté client**, afin que vous puissiez maintenir une application rapide, optimisée pour le SEO et hautement évolutive.
+Chaque guide d’intégration inclut les meilleures pratiques pour utiliser les fonctionnalités d’Intlayer, telles que le **rendu côté serveur**, le **routing dynamique** ou le **rendu côté client**, afin que vous puissiez maintenir une application rapide, optimisée pour le SEO et hautement scalable.
 
 ---
 
 ## Packages
 
-Le design modulaire d'Intlayer propose des packages dédiés pour des environnements et besoins spécifiques :
+La conception modulaire d’Intlayer propose des packages dédiés pour des environnements et besoins spécifiques :
 
 ### `intlayer`
 
@@ -99,7 +133,7 @@ Améliorez vos applications **React** avec des hooks puissants :
 
 ### `next-intlayer`
 
-Intégrez facilement avec **Next.js** :
+Intégrez parfaitement avec **Next.js** :
 
 - **[t](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/t.md)**
 - **[useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useIntlayer.md)**
@@ -108,18 +142,22 @@ Intégrez facilement avec **Next.js** :
 
 ---
 
-## Ressources Supplémentaires
+## Ressources supplémentaires
 
 - **[Blog : Intlayer et i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_i18next.md)**  
-  Découvrez comment Intlayer complète et se compare à la bibliothèque populaire **i18next**.
+  Découvrez comment Intlayer complète et se compare à la populaire bibliothèque **i18next**.
 
 - **[Tutoriel en direct sur YouTube](https://youtu.be/W2G7KxuSD4c?si=GyU_KpVhr61razRw)**  
   Regardez une démonstration complète et apprenez à intégrer Intlayer en temps réel.
 
 ---
 
-## Contribution et Retours
+## Contribution & Retour d'expérience
 
-Nous valorisons la puissance de l'open-source et du développement communautaire. Si vous souhaitez proposer des améliorations, ajouter un nouveau guide ou corriger des problèmes dans nos documents, n'hésitez pas à soumettre une Pull Request ou à ouvrir une issue sur notre [dépôt GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
+Nous valorisons la puissance de l'open-source et du développement communautaire. Si vous souhaitez proposer des améliorations, ajouter un nouveau guide, ou corriger des problèmes dans notre documentation, n'hésitez pas à soumettre une Pull Request ou à ouvrir une issue sur notre [dépôt GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
-**Prêt à traduire votre application plus rapidement et efficacement ?** Plongez dans nos documents pour commencer à utiliser Intlayer dès aujourd'hui. Découvrez une approche robuste et simplifiée de l'internationalisation qui garde votre contenu organisé et votre équipe plus productive.
+**Prêt à traduire votre application plus rapidement et plus efficacement ?** Plongez dans notre documentation pour commencer à utiliser Intlayer dès aujourd'hui. Découvrez une approche robuste et simplifiée de l'internationalisation qui garde votre contenu organisé et votre équipe plus productive.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

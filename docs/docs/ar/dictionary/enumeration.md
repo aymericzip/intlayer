@@ -1,18 +1,18 @@
 ---
 docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md
+url: https://intlayer.org/doc/concept/content/ar/enumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: التعداد
-description: اكتشف كيفية إعلان واستخدام التعدادات في موقعك الإلكتروني متعدد اللغات. اتبع الخطوات في هذه الوثيقة الإلكترونية لإعداد مشروعك في بضع دقائق.
+description: اكتشف كيفية إعلان واستخدام التعدادات في موقعك متعدد اللغات. اتبع الخطوات في هذا التوثيق عبر الإنترنت لإعداد مشروعك في دقائق قليلة.
 keywords:
   - التعداد
   - التدويل
   - التوثيق
   - Intlayer
   - Next.js
-  - JavaScript
+  - جافا سكريبت
   - React
 ---
 
@@ -20,11 +20,11 @@ keywords:
 
 ## كيف يعمل التعداد
 
-في Intlayer، يتم تحقيق التعداد من خلال وظيفة `enu`، التي تربط المفاتيح المحددة بمحتواها المقابل. يمكن أن تمثل هذه المفاتيح قيمًا رقمية، أو نطاقات، أو معرفات مخصصة. عند استخدامها مع React Intlayer أو Next Intlayer، يتم اختيار المحتوى المناسب تلقائيًا بناءً على لغة التطبيق والقواعد المحددة.
+في Intlayer، يتم تحقيق التعداد من خلال دالة `enu`، التي تربط مفاتيح محددة بالمحتوى المقابل لها. يمكن أن تمثل هذه المفاتيح قيمًا رقمية، أو نطاقات، أو معرفات مخصصة. عند استخدامها مع React Intlayer أو Next Intlayer، يتم اختيار المحتوى المناسب تلقائيًا بناءً على لغة التطبيق والقواعد المعرفة.
 
 ## إعداد التعداد
 
-لإعداد التعداد في مشروع Intlayer الخاص بك، تحتاج إلى إنشاء وحدة محتوى تتضمن تعريفات التعداد. إليك مثال على تعداد بسيط لعدد السيارات:
+لإعداد التعداد في مشروع Intlayer الخاص بك، تحتاج إلى إنشاء وحدة محتوى تتضمن تعريفات التعداد. فيما يلي مثال على تعداد بسيط لعدد السيارات:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type Dictionary } from "intlayer";
@@ -35,11 +35,11 @@ const carEnumeration = {
     numberOfCar: enu({
       "<-1": "أقل من ناقص سيارة واحدة",
       "-1": "ناقص سيارة واحدة",
-      "0": "لا توجد سيارات",
+      "0": "لا سيارات",
       "1": "سيارة واحدة",
       ">5": "بعض السيارات",
       ">19": "العديد من السيارات",
-      "fallback": "قيمة افتراضية", // اختياري
+      "fallback": "قيمة بديلة", // اختياري
     }),
   },
 } satisfies Dictionary;
@@ -57,11 +57,11 @@ const carEnumeration = {
     numberOfCar: enu({
       "<-1": "أقل من ناقص سيارة واحدة",
       "-1": "ناقص سيارة واحدة",
-      "0": "لا توجد سيارات",
+      "0": "لا سيارات",
       "1": "سيارة واحدة",
       ">5": "بعض السيارات",
       ">19": "العديد من السيارات",
-      "fallback": "قيمة افتراضية", // اختياري
+      "fallback": "قيمة بديلة", // اختياري
     }),
   },
 };
@@ -79,11 +79,11 @@ const carEnumeration = {
     numberOfCar: enu({
       "<-1": "أقل من ناقص سيارة واحدة",
       "-1": "ناقص سيارة واحدة",
-      "0": "لا توجد سيارات",
+      "0": "لا سيارات",
       "1": "سيارة واحدة",
       ">5": "بعض السيارات",
       ">19": "العديد من السيارات",
-      "fallback": "قيمة افتراضية", // اختياري
+      "fallback": "قيمة بديلة", // اختياري
     }),
   },
 };
@@ -101,26 +101,26 @@ module.exports = carEnumeration;
       "enumeration": {
         "<-1": "أقل من ناقص سيارة واحدة",
         "-1": "ناقص سيارة واحدة",
-        "0": "لا توجد سيارات",
+        "0": "لا سيارات",
         "1": "سيارة واحدة",
         ">5": "بعض السيارات",
         ">19": "العديد من السيارات",
-        "fallback": "قيمة افتراضية" // اختياري
+        "fallback": "قيمة بديلة" // اختياري
       }
     }
   }
 }
 ```
 
-في هذا المثال، تقوم `enu` بربط الشروط المختلفة بمحتوى محدد. عند استخدامها في مكون React، يمكن لـ Intlayer اختيار المحتوى المناسب تلقائيًا بناءً على المتغير المعطى.
+في هذا المثال، تقوم الدالة `enu` بربط شروط مختلفة بمحتوى محدد. عند استخدامها في مكون React، يمكن لـ Intlayer اختيار المحتوى المناسب تلقائيًا بناءً على المتغير المعطى.
 
-> ترتيب التصريحات مهم في تعدادات Intlayer. أول تصريح صالح هو الذي سيتم اختياره. إذا كانت هناك شروط متعددة تنطبق، تأكد من ترتيبها بشكل صحيح لتجنب سلوك غير متوقع.
+> ترتيب التصريحات مهم في تعداد Intlayer. أول تصريح صالح هو الذي سيتم اختياره. إذا كانت هناك شروط متعددة تنطبق، تأكد من ترتيبها بشكل صحيح لتجنب سلوك غير متوقع.
 
-> إذا لم يتم تحديد قيمة افتراضية، فستعيد الوظيفة `undefined` إذا لم تتطابق أي مفاتيح.
+> إذا لم يتم إعلان قيمة بديلة (fallback)، ستُعيد الدالة `undefined` إذا لم تتطابق أي من المفاتيح.
 
 ## استخدام التعداد مع React Intlayer
 
-لاستخدام التعداد في مكون React، يمكنك الاستفادة من الخطاف `useIntlayer` من حزمة `react-intlayer`. يقوم هذا الخطاف باسترجاع المحتوى الصحيح بناءً على المعرف المحدد. إليك مثال على كيفية استخدامه:
+لاستخدام التعداد في مكون React، يمكنك الاستفادة من الخطاف `useIntlayer` من حزمة `react-intlayer`. يقوم هذا الخطاف باسترجاع المحتوى الصحيح بناءً على المعرف المحدد. إليك مثالًا على كيفية استخدامه:
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -148,7 +148,7 @@ const CarComponent: FC = () => {
       </p>
       <p>
         {
-          numberOfCar(0.01) // الناتج: قيمة افتراضية
+          numberOfCar(0.01) // الناتج: قيمة بديلة
         }
       </p>
     </div>
@@ -181,7 +181,7 @@ const CarComponent = () => {
       </p>
       <p>
         {
-          numberOfCar(0.01) // الناتج: قيمة افتراضية
+          numberOfCar(0.01) // الناتج: قيمة بديلة
         }
       </p>
     </div>
@@ -216,7 +216,7 @@ const CarComponent = () => {
       </p>
       <p>
         {
-          numberOfCar(0.01) // الناتج: قيمة افتراضية
+          numberOfCar(0.01) // الناتج: قيمة بديلة
         }
       </p>
     </div>
@@ -230,10 +230,14 @@ module.exports = CarComponent;
 
 ## موارد إضافية
 
-لمزيد من المعلومات التفصيلية حول الإعداد والاستخدام، راجع الموارد التالية:
+لمزيد من المعلومات التفصيلية حول التكوين والاستخدام، يرجى الرجوع إلى الموارد التالية:
 
-- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)
-- [وثائق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)
-- [وثائق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
+- [توثيق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)
+- [توثيق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)
+- [توثيق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
 
-توفر هذه الموارد مزيدًا من الأفكار حول الإعداد والاستخدام لـ Intlayer في بيئات مختلفة ومع أطر عمل متنوعة.
+توفر هذه الموارد رؤى إضافية حول إعداد واستخدام Intlayer في بيئات مختلفة ومع أُطُر عمل متنوعة.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

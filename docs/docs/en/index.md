@@ -1,3 +1,23 @@
+---
+docName: index
+url: https://intlayer.org/doc/index
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: Intlayer Documentation - Complete i18n Guide for JavaScript
+description: Complete documentation for Intlayer, the modern internationalization library for JavaScript, React, Next.js, Express, and more frameworks.
+keywords:
+  - intlayer
+  - internationalization
+  - i18n
+  - JavaScript
+  - React
+  - Next.js
+  - documentation
+  - translation
+  - multilingual
+---
+
 # Intlayer Documentation
 
 Welcome to the official **Intlayer** documentation! Here, you'll find everything you need to integrate, configure, and master Intlayer for all your internationalization (i18n) needs, whether you’re working with **Next.js**, **React**, **Vite**, **Express**, or another JavaScript environment.

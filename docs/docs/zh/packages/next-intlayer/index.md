@@ -1,11 +1,11 @@
 ---
 docName: package__next-intlayer
 url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 包文档 | next-intlayer
-description: 查看如何使用 next-intlayer 软件包
+description: 查看如何使用 next-intlayer 包
 keywords:
   - Intlayer
   - next-intlayer
@@ -16,21 +16,21 @@ keywords:
   - React
 ---
 
-# next-intlayer: 用于国际化 (i18n) Next.js 应用程序的 NPM 包
+# next-intlayer：用于国际化（i18n）Next.js 应用的 NPM 包
 
-**Intlayer** 是专为 JavaScript 开发人员设计的一套包。它兼容 React、Next.js 和 Express.js 等框架。
+**Intlayer** 是一套专为 JavaScript 开发者设计的包。它兼容 React、Next.js 和 Express.js 等框架。
 
-**`next-intlayer` 包** 允许您国际化您的 Next.js 应用程序。它为 Next.js 国际化提供了上下文提供者和钩子。此外，它还包括用于将 Intlayer 与 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 集成的 Next.js 插件，以及用于检测用户首选语言环境、管理 Cookie 和处理 URL 重定向的中间件。
+**`next-intlayer` 包** 允许您对 Next.js 应用进行国际化。它提供了用于 Next.js 国际化的上下文提供者和钩子。此外，它还包含用于将 Intlayer 集成到 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 的 Next.js 插件，以及用于检测用户首选语言环境、管理 Cookie 和处理 URL 重定向的中间件。
 
-## 为什么要国际化您的 Next.js 应用程序？
+## 为什么要对您的 Next.js 应用进行国际化？
 
-国际化您的 Next.js 应用程序对于有效服务全球受众至关重要。它使您的应用程序能够以每个用户的首选语言传递内容和消息。这种能力增强了用户体验，并通过使您的应用程序对不同语言背景的人更具可访问性和相关性，从而扩大了应用程序的覆盖范围。
+国际化您的 Next.js 应用对于有效服务全球用户至关重要。它使您的应用能够以每个用户偏好的语言传递内容和信息。这种能力提升了用户体验，扩大了应用的覆盖范围，使其对来自不同语言背景的人们更具可访问性和相关性。
 
 ## 为什么要集成 Intlayer？
 
-- **JavaScript 驱动的内容管理**：利用 JavaScript 的灵活性高效地定义和管理您的内容。
-- **类型安全环境**：利用 TypeScript 确保您的所有内容定义精确且无错误。
-- **集成的内容文件**：将翻译与其各自的组件紧密结合，增强可维护性和清晰性。
+- **基于 JavaScript 的内容管理**：利用 JavaScript 的灵活性高效定义和管理您的内容。
+- **类型安全环境**：借助 TypeScript 确保所有内容定义准确无误。
+- **集成内容文件**：将翻译内容与各自组件紧密结合，提升可维护性和清晰度。
 
 ## 安装
 
@@ -95,9 +95,9 @@ pnpm add next-intlayer
             └── index.cjx
 ```
 
-### 声明您的内容
+### 声明你的内容
 
-`next-intlayer` 是为与 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/index.md)一起使用而设计的。`intlayer` 是一个允许您在代码中的任何地方声明内容的包。它将多语言内容声明转换为结构化字典，并无缝集成到您的应用程序中。
+`next-intlayer` 设计用于配合 [`intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/index.md) 使用。`intlayer` 是一个允许你在代码中的任何位置声明内容的包。它将多语言内容声明转换为结构化的字典，能够无缝集成到你的应用程序中。
 
 以下是内容声明的示例：
 
@@ -111,15 +111,14 @@ const clientComponentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
-      zh: "你好，世界",
     }),
     numberOfCar: enu({
-      "<-1": "少于负一辆车",
+      "<-1": "Less than minus one car",
       "-1": "负一辆车",
       "0": "没有车",
       "1": "一辆车",
-      ">5": "一些车",
-      ">19": "很多车",
+      ">5": "几辆车",
+      ">19": "许多车",
     }),
   },
 } satisfies Dictionary;
@@ -138,15 +137,14 @@ const clientComponentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
-      zh: "你好，世界",
     }),
     numberOfCar: enu({
       "<-1": "少于负一辆车",
       "-1": "负一辆车",
       "0": "没有车",
       "1": "一辆车",
-      ">5": "一些车",
-      ">19": "很多车",
+      ">5": "几辆车",
+      ">19": "许多车",
     }),
   },
 };
@@ -165,7 +163,6 @@ const clientComponentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
-      zh: "你好，世界",
     }),
     numberOfCar: enu({
       "<-1": "少于负一辆车",
@@ -173,7 +170,7 @@ const clientComponentContent = {
       "0": "没有车",
       "1": "一辆车",
       ">5": "一些车",
-      ">19": "很多车",
+      ">19": "许多车",
     }),
   },
 };
@@ -190,8 +187,7 @@ module.exports = clientComponentContent;
       "translation": {
         "en": "Hello World",
         "fr": "Bonjour le monde",
-        "es": "Hola Mundo",
-        "zh": "你好，世界"
+        "es": "Hola Mundo"
       }
     },
     "numberOfCar": {
@@ -202,7 +198,7 @@ module.exports = clientComponentContent;
         "0": "没有车",
         "1": "一辆车",
         ">5": "一些车",
-        ">19": "很多车"
+        ">19": "许多车"
       }
     }
   }
@@ -211,7 +207,7 @@ module.exports = clientComponentContent;
 
 ### 在代码中使用内容
 
-声明内容后，您可以在代码中使用它。以下是如何在 React 组件中使用内容的示例：
+一旦声明了内容，就可以在代码中使用它。以下是如何在 React 组件中使用内容的示例：
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -262,24 +258,28 @@ const ClientComponentExample = () => {
 };
 ```
 
-## 掌握 Next.js 应用程序的国际化
+## 精通您的 Next.js 应用程序的国际化
 
-Intlayer 提供了许多功能来帮助您国际化您的 Next.js 应用程序。以下是一些关键功能：
+Intlayer 提供了许多功能，帮助您实现 Next.js 应用程序的国际化。以下是一些关键功能：
 
-- **服务器组件的国际化**：Intlayer 允许您以与客户端组件相同的方式国际化服务器组件。这意味着您可以为客户端和服务器组件使用相同的内容声明。
-- **语言环境检测中间件**：Intlayer 提供了用于检测用户首选语言环境的中间件。此中间件用于检测用户的首选语言环境，并将其重定向到[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中指定的适当 URL。
-- **元数据的国际化**：Intlayer 提供了一种国际化元数据（例如页面标题）的方法，使用 Next.js 提供的 `generateMetadata` 函数。您可以使用 `getTranslation` 函数翻译元数据。
-- **sitemap.xml 和 robots.txt 的国际化**：Intlayer 允许您国际化 sitemap.xml 和 robots.txt 文件。您可以使用 `getMultilingualUrls` 函数生成多语言 URL 以供 sitemap 使用。
-- **URL 的国际化**：Intlayer 允许您通过使用 `getMultilingualUrls` 函数国际化 URL。此函数为您的 sitemap 生成多语言 URL。
+- **服务器组件的国际化**：Intlayer 允许您以与客户端组件相同的方式对服务器组件进行国际化。这意味着您可以为客户端和服务器组件使用相同的内容声明。
+- **用于语言环境检测的中间件**：Intlayer 提供了用于检测用户首选语言环境的中间件。该中间件用于检测用户的首选语言环境，并根据[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)将用户重定向到相应的 URL。
+- **元数据的国际化**：Intlayer 提供了一种国际化元数据的方法，例如页面标题，使用 Next.js 提供的 `generateMetadata` 函数。您可以使用 `getTranslation` 函数来翻译您的元数据。
+- **sitemap.xml 和 robots.txt 的国际化**：Intlayer 允许您对 sitemap.xml 和 robots.txt 文件进行国际化。您可以使用 `getMultilingualUrls` 函数为您的 sitemap 生成多语言 URL。
+- **URL 的国际化**：Intlayer 允许您通过使用 `getMultilingualUrls` 函数来实现 URL 的国际化。该函数为您的 sitemap 生成多语言 URL。
 
-**要了解更多关于这些功能的信息，请参阅 [Next.js 国际化 (i18n) 与 Intlayer 和 Next.js 15 应用路由器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md) 指南。**
+**要了解有关这些功能的更多信息，请参阅 [Next.js 与 Intlayer 及 Next.js 15 App Router 的国际化 (i18n)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md) 指南。**
 
-## `next-intlayer` 包提供的功能
+## `next-intlayer` 包提供的函数
 
-`next-intlayer` 包还提供了一些功能来帮助您国际化您的应用程序。
+`next-intlayer` 包还提供了一些函数，帮助您实现应用程序的国际化。
 
 - [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/t.md)
 - [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayer.md)
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useLocale.md)
 - [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayerAsync.md)
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史

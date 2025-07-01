@@ -1,30 +1,30 @@
 ---
 docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: Insertion
-description: Apprenez à déclarer et utiliser des espaces réservés pour l'insertion dans votre contenu. Cette documentation vous guide à travers les étapes pour insérer dynamiquement des valeurs dans des structures de contenu prédéfinies.
+description: Apprenez à déclarer et utiliser des espaces réservés d'insertion dans votre contenu. Cette documentation vous guide à travers les étapes pour insérer dynamiquement des valeurs dans des structures de contenu prédéfinies.
 keywords:
   - Insertion
-  - Contenu dynamique
-  - Espaces réservés
+  - Contenu Dynamique
+  - Espaces Réservés
   - Intlayer
   - Next.js
   - JavaScript
   - React
 ---
 
-# Contenu d'insertion / Insertion in Intlayer
+# Contenu d'Insertion / Insertion dans Intlayer
 
 ## Comment fonctionne l'insertion
 
-Dans Intlayer, le contenu d'insertion est réalisé via la fonction `insertion`, qui identifie les champs de type placeholder dans une chaîne (comme `{{name}}` ou `{{age}}`) pouvant être remplacés dynamiquement à l'exécution. Cette approche vous permet de créer des chaînes flexibles, semblables à des modèles, où des parties spécifiques du contenu sont déterminées par des données passées depuis votre application.
+Dans Intlayer, le contenu d'insertion est réalisé grâce à la fonction `insertion`, qui identifie les champs d'espaces réservés dans une chaîne (comme `{{name}}` ou `{{age}}`) pouvant être remplacés dynamiquement à l'exécution. Cette approche vous permet de créer des chaînes flexibles, semblables à des modèles, où des parties spécifiques du contenu sont déterminées par des données fournies par votre application.
 
-Lorsqu'il est intégré avec React Intlayer ou Next Intlayer, vous pouvez simplement fournir l'objet de données contenant les valeurs pour chaque placeholder, et Intlayer rendra automatiquement le contenu avec les placeholders remplacés.
+Lorsqu'elle est intégrée avec React Intlayer ou Next Intlayer, il vous suffit de fournir l'objet de données contenant les valeurs pour chaque espace réservé, et Intlayer rendra automatiquement le contenu avec les espaces réservés remplacés.
 
-## Configuration du contenu d'insertion
+## Configuration du Contenu d'Insertion
 
 Pour configurer le contenu d'insertion dans votre projet Intlayer, créez un module de contenu qui inclut vos définitions d'insertion. Voici des exemples dans différents formats.
 
@@ -84,7 +84,7 @@ module.exports = myInsertionContent;
 
 ## Utilisation du contenu d'insertion avec React Intlayer
 
-Pour utiliser le contenu d'insertion dans un composant React, importez et utilisez le hook `useIntlayer` du package `react-intlayer`. Ce hook récupère le contenu pour la clé spécifiée et vous permet de passer un objet qui associe chaque placeholder dans votre contenu à la valeur que vous souhaitez afficher.
+Pour utiliser un contenu d'insertion dans un composant React, importez et utilisez le hook `useIntlayer` depuis le paquet `react-intlayer`. Ce hook récupère le contenu pour la clé spécifiée et vous permet de passer un objet qui associe chaque espace réservé dans votre contenu à la valeur que vous souhaitez afficher.
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -97,7 +97,7 @@ const InsertionComponent: FC = () => {
     <div>
       <p>
         {
-          /* Résultat : "Bonjour, je m'appelle John et j'ai 30 ans !" */
+          /* Résultat : "Hello, my name is John and I am 30 years old!" */
           myInsertion({ name: "John", age: "30" })
         }
       </p>
@@ -124,7 +124,7 @@ const InsertionComponent = () => {
     <div>
       <p>
         {
-          /* Résultat : "Bonjour, je m'appelle John et j'ai 30 ans !" */
+          /* Résultat : "Hello, my name is John and I am 30 years old!" */
           myInsertion({ name: "John", age: "30" })
         }
       </p>
@@ -151,7 +151,7 @@ const InsertionComponent = () => {
     <div>
       <p>
         {
-          /* Résultat : "Bonjour, je m'appelle John et j'ai 30 ans !" */
+          /* Résultat : "Hello, my name is John and I am 30 years old!" */
           myInsertion({ name: "John", age: "30" })
         }
       </p>
@@ -170,10 +170,14 @@ module.exports = InsertionComponent;
 
 ## Ressources supplémentaires
 
-Pour plus d'informations détaillées sur la configuration et l'utilisation, consultez les ressources suivantes :
+Pour des informations plus détaillées sur la configuration et l'utilisation, consultez les ressources suivantes :
 
 - [Documentation CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md)
 - [Documentation React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_create_react_app.md)
 - [Documentation Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_15.md)
 
-Ces ressources offrent des informations supplémentaires sur la configuration et l'utilisation d'Intlayer dans divers environnements et frameworks.
+Ces ressources offrent des informations complémentaires sur la configuration et l'utilisation d'Intlayer dans divers environnements et frameworks.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

@@ -1,3 +1,20 @@
+---
+docName: dictionary__per_locale_file
+url: https://intlayer.org/doc/concept/per-locale-file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md
+createdAt: 2025-04-18
+updatedAt: 2025-06-29
+title: Declaration of `Per-Locale` Content Declaration in Intlayer
+description: Discover how to declare content per locale in Intlayer. Follow the documentation to understand the different formats and use cases.
+keywords:
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Per-Locale
+  - TypeScript
+  - JavaScript
+---
+
 # Declaration of `Per-Locale` Content Declaration in Intlayer
 
 Intlayer supports two ways to declare multilingual content:

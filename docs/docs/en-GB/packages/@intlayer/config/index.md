@@ -1,8 +1,27 @@
+---
+docName: package__@intlayer_config
+url: https://intlayer.org/doc/package/@intlayer_config
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/@intlayer/config/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/config - Configuration Management for Intlayer
+description: NPM package to retrieve Intlayer configuration and define environment variables for internationalisation settings across different environments.
+keywords:
+  - intlayer
+  - configuration
+  - environment
+  - settings
+  - i18n
+  - JavaScript
+  - NPM
+  - variables
+---
+
 # @intlayer/config: NPM Package to retrieve Intlayer configuration
 
-**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
+**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks such as React, React, and Express.js.
 
-The **`@intlayer/config`** package is a NPM package that allows you to retrieve the configuration of Intlayer and define the environment variables related to the current environment.
+The **`@intlayer/config`** package is an NPM package that allows you to retrieve the configuration of Intlayer and define the environment variables related to the current environment.
 
 ## Installation
 
@@ -22,7 +41,7 @@ yarn add @intlayer/config
 
 ## Usage
 
-### Read the configuration of Intlayer using file system
+### Read the configuration of Intlayer using the file system
 
 Example:
 
@@ -34,14 +53,14 @@ const config: IntlayerConfig = getConfiguration();
 console.log(config);
 // Output:
 // {
-//   internationalization: { ... },
+//   internationalisation: { ... },
 //   middleware: { ... },
 //   content: { ... },
 //   editor: { ... }
 // }
 ```
 
-> This function use `fs` packages and will only work on the server side.
+> This function uses the `fs` package and will only work on the server side.
 
 ### Read the configuration of Intlayer using environment variables
 
@@ -57,7 +76,7 @@ const config: IntlayerConfig = getConfiguration({
 console.log(config);
 // Output:
 // {
-//   internationalization: { ... },
+//   internationalisation: { ... },
 //   middleware: { ... },
 //   content: { ... },
 //   editor: { ... }
@@ -74,7 +93,7 @@ console.log(config);
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalization: {
+  internationalisation: {
     /* ... */
   },
   middleware: {
@@ -91,7 +110,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> See [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) for more details.
+> See [Intlayer configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md) for more details.
 
 2. Define the environment variables.
 
@@ -117,4 +136,4 @@ const intlayerConfig = getConfiguration();
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

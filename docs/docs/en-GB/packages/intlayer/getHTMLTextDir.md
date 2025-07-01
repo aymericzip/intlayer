@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getHTMLTextDir
 url: https://intlayer.org/doc/packages/intlayer/getHTMLTextDir
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getHTMLTextDir.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getHTMLTextDir Function Documentation | intlayer
@@ -11,7 +11,7 @@ keywords:
   - translation
   - Intlayer
   - intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
@@ -37,7 +37,7 @@ The `getHTMLTextDir` function determines the text direction (`ltr`, `rtl`, or `a
 - **Description**: The text direction corresponding to the locale:
   - `'ltr'` for left-to-right languages.
   - `'rtl'` for right-to-left languages.
-  - `'auto'` if the locale is not recognized.
+  - `'auto'` if the locale is not recognised.
 
 ## Example Usage
 
@@ -73,8 +73,8 @@ getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
 
   - The function returns `'auto'` when `locale` is `undefined`.
 
-- **Unrecognized Locale:**
-  - For unrecognized locales, the function defaults to `'auto'`.
+- **Unrecognised Locale:**
+  - For unrecognised locales, the function defaults to `'auto'`.
 
 ## Usage in Components:
 
@@ -118,4 +118,4 @@ In the example above, the `dir` attribute is dynamically set based on the locale
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

@@ -5,7 +5,7 @@ import { t, type Dictionary } from 'intlayer';
 const blogContent = {
   key: 'blog-metadata',
   content: {
-    blogName: 'index',
+    docName: 'index',
     url: PagesRoutes.Blog,
     githubUrl: GithubRoutes.BlogIndex,
     createdAt: '2024-24-12',

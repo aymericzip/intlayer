@@ -5,7 +5,7 @@ import { t, type Dictionary } from 'intlayer';
 const blogContent = {
   key: 'blog-i18n_technologies_frameworks_react-native-metadata',
   content: {
-    blogName: 'list_i18n_technologies__frameworks__react-native',
+    docName: 'list_i18n_technologies__frameworks__react-native',
     url: PagesRoutes['Blog_i18n-technologies__frameworks__react-native'],
     githubUrl: GithubRoutes['i18n-technologies__frameworks__react-native'],
     createdAt: '2025-01-16',

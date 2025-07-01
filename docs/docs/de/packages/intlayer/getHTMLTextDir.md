@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getHTMLTextDir
 url: https://intlayer.org/doc/packages/intlayer/getHTMLTextDir
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getHTMLTextDir.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Dokumentation der t-Funktion | intlayer
-description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetHTMLTextDir verwenden
+title: getHTMLTextDir Funktionsdokumentation | intlayer
+description: So verwenden Sie die Funktion getHTMLTextDir im intlayer-Paket
 keywords:
   - getHTMLTextDir
   - Übersetzung
@@ -22,26 +22,26 @@ keywords:
 
 ## Beschreibung
 
-Die Funktion `getHTMLTextDir` bestimmt die Textausrichtung (`ltr`, `rtl` oder `auto`) basierend auf der angegebenen Spracheinstellung. Sie wurde entwickelt, um Entwicklern zu helfen, das `dir`-Attribut in HTML für eine korrekte Textrendering einzustellen.
+Die Funktion `getHTMLTextDir` bestimmt die Schreibrichtung (`ltr`, `rtl` oder `auto`) basierend auf der angegebenen Locale. Sie ist dafür gedacht, Entwicklern zu helfen, das `dir`-Attribut im HTML für eine korrekte Textdarstellung zu setzen.
 
 ## Parameter
 
 - `locale?: Locales`
 
-  - **Beschreibung**: Der Sprachcode (z. B. `Locales.ENGLISH`, `Locales.ARABIC`), der verwendet wird, um die Textausrichtung zu bestimmen.
+  - **Beschreibung**: Der Locale-String (z.B. `Locales.ENGLISH`, `Locales.ARABIC`), der zur Bestimmung der Schreibrichtung verwendet wird.
   - **Typ**: `Locales` (optional)
 
-## Rückgabewerte
+## Rückgabewert
 
 - **Typ**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
-- **Beschreibung**: Die Textausrichtung, die der Spracheinstellung entspricht:
-  - `'ltr'` für Sprachen mit Links-nach-Rechts-Ausrichtung.
-  - `'rtl'` für Sprachen mit Rechts-nach-Links-Ausrichtung.
-  - `'auto'`, wenn die Spracheinstellung nicht erkannt wird.
+- **Beschreibung**: Die Schreibrichtung, die der Locale entspricht:
+  - `'ltr'` für Sprachen von links nach rechts.
+  - `'rtl'` für Sprachen von rechts nach links.
+  - `'auto'` wenn die Locale nicht erkannt wird.
 
-## Beispielverwendung
+## Beispielanwendung
 
-### Bestimmung der Textausrichtung
+### Bestimmung der Schreibrichtung
 
 ```typescript codeFormat="typescript"
 import { getHTMLTextDir } from "intlayer";
@@ -69,16 +69,16 @@ getHTMLTextDir(Locales.ARABIC); // Ausgabe: "rtl"
 
 ## Randfälle
 
-- **Keine Spracheinstellung angegeben:**
+- **Keine Locale angegeben:**
 
   - Die Funktion gibt `'auto'` zurück, wenn `locale` `undefined` ist.
 
-- **Nicht erkannte Spracheinstellung:**
-  - Für nicht erkannte Spracheinstellungen gibt die Funktion standardmäßig `'auto'` zurück.
+- **Nicht erkannte Locale:**
+  - Für nicht erkannte Locales verwendet die Funktion standardmäßig `'auto'`.
 
 ## Verwendung in Komponenten:
 
-Die Funktion `getHTMLTextDir` kann verwendet werden, um das `dir`-Attribut in einem HTML-Dokument dynamisch basierend auf der Spracheinstellung für eine korrekte Textrendering einzustellen.
+Die Funktion `getHTMLTextDir` kann verwendet werden, um das `dir`-Attribut in einem HTML-Dokument dynamisch zu setzen, damit der Text basierend auf der Locale korrekt dargestellt wird.
 
 ```tsx codeFormat="typescript"
 import type { FC } from "react";
@@ -114,4 +114,8 @@ const HTMLLayout = ({ children, locale }) => (
 );
 ```
 
-Im obigen Beispiel wird das `dir`-Attribut dynamisch basierend auf der Spracheinstellung gesetzt.
+Im obigen Beispiel wird das `dir`-Attribut dynamisch basierend auf der Locale gesetzt.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

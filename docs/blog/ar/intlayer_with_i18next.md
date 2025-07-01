@@ -1,3 +1,24 @@
+---
+docName: intlayer_with_i18next
+url: https://intlayer.org/blog/intlayer_with_i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_i18next.md
+createdAt: 2024-12-24
+updatedAt: 2025-06-29
+title: التدويل باستخدام Intlayer و i18next
+description: تعرّف على كيفية دمج Intlayer مع i18next لتحقيق أفضل تدويل. قارن بين الإطارين وتعلم كيفية تكوينهما معًا.
+keywords:
+  - Intlayer
+  - i18next
+  - التدويل
+  - i18n
+  - التوطين
+  - ترجمة
+  - React
+  - Next.js
+  - JavaScript
+  - TypeScript
+---
+
 # التدويل باستخدام Intlayer و i18next
 
 i18next هو إطار عمل مفتوح المصدر للتدويل (i18n) مصمم لتطبيقات JavaScript. ويستخدم على نطاق واسع لإدارة الترجمات، والتوطين، وتبديل اللغة في مشاريع البرمجيات. ومع ذلك، لديه بعض القيود التي يمكن أن تعقد القابلية للتوسع والتنمية.

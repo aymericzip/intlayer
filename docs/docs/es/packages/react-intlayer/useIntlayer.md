@@ -1,11 +1,11 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentación del hook useIntlayer | react-intlayer
-description: Descubre cómo usar el hook useIntlayer para el paquete react-intlayer
+title: Documentación del Hook useIntlayer | react-intlayer
+description: Vea cómo usar el hook useIntlayer para el paquete react-intlayer
 keywords:
   - useIntlayer
   - diccionario
@@ -20,7 +20,7 @@ keywords:
 
 # Integración con React: Documentación del Hook `useIntlayer`
 
-Esta sección proporciona una guía detallada sobre cómo usar el hook `useIntlayer` dentro de aplicaciones React, permitiendo una localización de contenido eficiente.
+Esta sección proporciona una guía detallada sobre cómo usar el hook `useIntlayer` dentro de aplicaciones React, permitiendo una localización eficiente del contenido.
 
 ## Importando `useIntlayer` en React
 
@@ -58,16 +58,16 @@ El hook `useIntlayer` puede integrarse en aplicaciones React importándolo segú
 
 El hook acepta dos parámetros:
 
-1. **`key`**: La clave del diccionario para recuperar contenido localizado.
-2. **`locale`** (opcional): La localización deseada. Por defecto, utiliza la localización del contexto si no se especifica.
+1. **`key`**: La clave del diccionario para obtener contenido localizado.
+2. **`locale`** (opcional): La configuración regional deseada. Por defecto, usa la configuración regional del contexto si no se especifica.
 
 ## Diccionario
 
-Todas las claves del diccionario deben declararse dentro de los archivos de declaración de contenido para mejorar la seguridad de tipos y evitar errores. Puedes encontrar las instrucciones de configuración [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
+Todas las claves del diccionario deben declararse dentro de archivos de declaración de contenido para mejorar la seguridad de tipos y evitar errores. Puedes encontrar las [instrucciones de configuración aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
 
-## Ejemplo de Uso en React
+## Ejemplo de uso en React
 
-Demostración del uso del hook `useIntlayer` dentro de un componente React:
+Demostración del hook `useIntlayer` dentro de un componente React:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -163,8 +163,8 @@ const ComponentExample = () => {
 
   return (
     <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
+      <h1>{content.title}</h1> {/* Título del componente */}
+      <p>{content.description}</p> {/* Descripción del componente */}
     </div>
   );
 };
@@ -178,8 +178,8 @@ const ComponentExample = () => {
 
   return (
     <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
+      <h1>{content.title}</h1> {/* Título del componente */}
+      <p>{content.description}</p> {/* Descripción del componente */}
     </div>
   );
 };
@@ -193,8 +193,9 @@ const ServerComponentExample = () => {
 
   return (
     <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
+      <h1>{content.title}</h1> {/* Título del componente del servidor */}
+      <p>{content.description}</p>{" "}
+      {/* Descripción del componente del servidor */}
     </div>
   );
 };
@@ -208,8 +209,9 @@ const ServerComponentExample = () => {
 
   return (
     <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
+      <h1>{content.title}</h1> {/* Título del componente del servidor */}
+      <p>{content.description}</p>{" "}
+      {/* Descripción del componente del servidor */}
     </div>
   );
 };
@@ -232,7 +234,7 @@ const ServerComponentExample = () => {
 
 ## Manejo de Atributos
 
-Al localizar atributos, accede a los valores de contenido de manera adecuada:
+Al localizar atributos, accede a los valores del contenido de manera adecuada:
 
 ```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
@@ -242,4 +244,8 @@ Al localizar atributos, accede a los valores de contenido de manera adecuada:
 
 - **Editor Visual de Intlayer**: Para una experiencia de gestión de contenido más intuitiva, consulta la documentación del editor visual [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md).
 
-Esta sección se centra específicamente en la integración del hook `useIntlayer` en aplicaciones React, simplificando el proceso de localización y asegurando la consistencia del contenido en diferentes localizaciones.
+Esta sección se enfoca específicamente en la integración del hook `useIntlayer` en aplicaciones React, simplificando el proceso de localización y asegurando la consistencia del contenido en diferentes locales.
+
+## Historial del Documento
+
+- 5.5.10 - 2025-06-29: Historial inicial

@@ -60,6 +60,7 @@
     "review": "tsx src/review.ts",
     "serve": "webpack serve --config ./webpack.config.ts",
     "test": "vitest run",
+    "test:markdown": "tsx src/markdownFormatting.ts",
     "test:watch": "vitest",
     "translate": "tsx src/translate.ts",
     "transpile": "webpack --config ./webpack.config.ts",

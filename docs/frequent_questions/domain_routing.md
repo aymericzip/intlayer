@@ -1,3 +1,24 @@
+---
+docName: domain_routing
+url: https://intlayer.org/doc/faq/domain-routing
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/domain_routing.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: How to configure domain-based routing?
+description: Learn how to configure domain-based routing.
+keywords:
+  - domain
+  - routing
+  - intlayer
+  - configuration
+  - middleware
+  - react-router
+  - vue-router
+  - next.js
+  - vite
+  - framework
+---
+
 # How do I configure **domain‑based routing** with Intlayer instead of `/[locale]/` paths?
 
 ## Short answer

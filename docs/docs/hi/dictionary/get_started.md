@@ -1,15 +1,15 @@
 ---
 docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: कंटेंट डिक्लेरेशन | प्रारंभ करें
-description: अपने बहुभाषी वेबसाइट में सामग्री घोषणाओं को कैसे घोषित और उपयोग करें, यह जानें। इस ऑनलाइन दस्तावेज़ में चरणों का पालन करें ताकि आप कुछ ही मिनटों में अपने प्रोजेक्ट को सेट अप कर सकें।
+title: शब्दकोश | शुरू करें
+description: अपने बहुभाषी वेबसाइट में शब्दकोशों को घोषित करने और उपयोग करने का तरीका जानें। इस ऑनलाइन दस्तावेज़ में दिए गए चरणों का पालन करके कुछ ही मिनटों में अपने प्रोजेक्ट को सेटअप करें।
 keywords:
-  - शुरुआत करें
-  - अंतर्राष्ट्रीयकरण
-  - प्रलेखन
+  - शुरू करें
+  - अंतरराष्ट्रीयकरण
+  - दस्तावेज़ीकरण
   - Intlayer
   - Next.js
   - JavaScript
@@ -18,11 +18,11 @@ keywords:
 
 # अपनी सामग्री की घोषणा शुरू करना
 
-<iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="i18n, Markdown, JSON… इसे प्रबंधित करने के लिए एकल समाधान | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-## फ़ाइल एक्सटेंशन
+## फ़ाइल एक्सटेंशन्स
 
-डिफ़ॉल्ट रूप से, Intlayer सामग्री घोषणाओं के लिए निम्नलिखित एक्सटेंशनों वाली सभी फ़ाइलों को देखता है:
+डिफ़ॉल्ट रूप से, Intlayer सामग्री घोषणाओं के लिए निम्नलिखित एक्सटेंशन्स वाली सभी फ़ाइलों पर नज़र रखता है:
 
 - `.content.json`
 - `.content.ts`
@@ -36,16 +36,26 @@ keywords:
 
 एप्लिकेशन डिफ़ॉल्ट रूप से `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` ग्लोब पैटर्न से मेल खाने वाली फ़ाइलों की खोज करेगा।
 
-ये डिफ़ॉल्ट एक्सटेंशन अधिकांश एप्लिकेशन के लिए उपयुक्त हैं। हालांकि, यदि आपके पास विशिष्ट आवश्यकताएँ हैं, तो उन्हें प्रबंधित करने के निर्देशों के लिए [सामग्री एक्सटेंशन अनुकूलन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#content-configuration) देखें।
+ये डिफ़ॉल्ट एक्सटेंशन्स अधिकांश अनुप्रयोगों के लिए उपयुक्त हैं। हालांकि, यदि आपकी विशिष्ट आवश्यकताएँ हैं, तो उन्हें प्रबंधित करने के निर्देशों के लिए [content extension customization guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#content-configuration) देखें।
 
 कॉन्फ़िगरेशन विकल्पों की पूरी सूची के लिए, कॉन्फ़िगरेशन दस्तावेज़ देखें।
 
 ## अपनी सामग्री घोषित करें
 
-अपनी डिक्शनरी बनाएं और प्रबंधित करें:
+अपने शब्दकोश बनाएँ और प्रबंधित करें:
 
 ```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
-import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
+import { type ReactNode } from "react";
+import {
+  t,
+  enu,
+  cond,
+  nest,
+  md,
+  insert,
+  file,
+  type Dictionary,
+} from "intlayer";
 
 interface Content {
   imbricatedContent: {
@@ -59,12 +69,12 @@ interface Content {
   multilingualContent: string;
   quantityContent: string;
   conditionalContent: string;
+  markdownContent: never;
   externalContent: string;
   insertionContent: string;
+  nestedContent: string;
   fileContent: string;
-  nestedContent: any;
-  markdownContent: any;
-  jsxContent: any;
+  jsxContent: ReactNode;
 }
 
 export default {
@@ -72,10 +82,10 @@ export default {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "नमस्ते दुनिया",
+        stringContent: "हैलो वर्ल्ड",
         numberContent: 123,
         booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
+        javaScriptContent: `${process.env.NODE_ENV}`, // पर्यावरण चर का उपयोग करता है
       },
     },
     multilingualContent: t({
@@ -83,7 +93,6 @@ export default {
       "en-GB": "English content (UK)",
       fr: "French content",
       es: "Spanish content",
-      hi: "हिंदी सामग्री",
     }),
     quantityContent: enu({
       "<-1": "माइनस एक से कम कार",
@@ -97,23 +106,25 @@ export default {
       true: "सत्यापन सक्षम है",
       false: "सत्यापन अक्षम है",
     }),
+    insertionContent: insert("नमस्ते {{name}}!"),
     nestedContent: nest(
-      "navbar", // नेस्ट करने के लिए डिक्शनरी की कुंजी
+      "navbar", // नेस्ट करने के लिए शब्दकोश की कुंजी
       "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
     ),
-    externalContent: fetch("https://example.com").then((res) => res.json())
+    fileContent: file("./path/to/file.txt"),
+    externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# मार्कडाउन उदाहरण"),
 
     /*
-     * केवल `react-intlayer` या `next-intlayer` का उपयोग करके उपलब्ध
+     * केवल `react-intlayer` या `next-intlayer` का उपयोग करते समय उपलब्ध
      */
     jsxContent: <h1>मेरा शीर्षक</h1>,
   },
-} satisfies Dictionary<Content>; // [वैकल्पिक] डिक्शनरी जेनेरिक है और आपकी डिक्शनरी के स्वरूपण को मजबूत करने की अनुमति देती है
+} satisfies Dictionary<Content>; // [वैकल्पिक] Dictionary सामान्य है और यह आपको अपने शब्दकोश के स्वरूपण को मजबूत करने की अनुमति देता है
 ```
 
 ```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
+import { t, enu, cond, nest, md, insert, file } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 export default {
@@ -124,7 +135,7 @@ export default {
         stringContent: "नमस्ते दुनिया",
         numberContent: 123,
         booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
+        javaScriptContent: `${process.env.NODE_ENV}`, // जावास्क्रिप्ट पर्यावरण चर
       },
       imbricatedArray: [1, 2, 3],
     },
@@ -133,7 +144,6 @@ export default {
       "en-GB": "English content (UK)",
       fr: "French content",
       es: "Spanish content",
-      hi: "हिंदी सामग्री",
     }),
     quantityContent: enu({
       "<-1": "माइनस एक से कम कार",
@@ -147,21 +157,23 @@ export default {
       true: "सत्यापन सक्षम है",
       false: "सत्यापन अक्षम है",
     }),
+    insertionContent: insert("नमस्ते {{name}}!"),
     nestedContent: nest(
-      "navbar", // नेस्ट करने के लिए डिक्शनरी की कुंजी
+      "navbar", // नेस्ट करने के लिए शब्दकोश की कुंजी
       "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
     ),
     markdownContent: md("# मार्कडाउन उदाहरण"),
+    fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
-    // केवल `react-intlayer` या `next-intlayer` का उपयोग करके उपलब्ध
+    // केवल `react-intlayer` या `next-intlayer` का उपयोग करते समय उपलब्ध
     jsxContent: <h1>मेरा शीर्षक</h1>,
   },
 };
 ```
 
 ```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
+const { t, enu, cond, nest, md, insert, file } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 module.exports = {
@@ -171,17 +183,16 @@ module.exports = {
       imbricatedContent2: {
         stringContent: "नमस्ते दुनिया",
         numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
+        booleanContent: true, // बूलियन मान
+        javaScriptContent: `${process.env.NODE_ENV}`, // जावास्क्रिप्ट एनवायरनमेंट वैरिएबल
       },
-      imbricatedArray: [1, 2, 3],
+      imbricatedArray: [1, 2, 3], // नेस्टेड एरे
     },
     multilingualContent: t({
       en: "English content",
       "en-GB": "English content (UK)",
       fr: "French content",
       es: "Spanish content",
-      hi: "हिंदी सामग्री",
     }),
     quantityContent: enu({
       "<-1": "माइनस एक से कम कार",
@@ -192,17 +203,19 @@ module.exports = {
       ">19": "कई कारें",
     }),
     conditionalContent: cond({
-      true: "सत्यापन सक्षम है",
-      false: "सत्यापन अक्षम है",
+      true: "मान्यता सक्षम है",
+      false: "मान्यता अक्षम है",
     }),
+    insertionContent: insert("नमस्ते {{name}}!"),
     nestedContent: nest(
-      "navbar", // नेस्ट करने के लिए डिक्शनरी की कुंजी
+      "navbar", // नेस्ट करने के लिए शब्दकोश की कुंजी
       "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
     ),
     markdownContent: md("# मार्कडाउन उदाहरण"),
+    fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
-    // केवल `react-intlayer` या `next-intlayer` का उपयोग करके उपलब्ध
+    // केवल `react-intlayer` या `next-intlayer` का उपयोग करते समय उपलब्ध
     jsxContent: <h1>मेरा शीर्षक</h1>,
   },
 };
@@ -228,7 +241,6 @@ module.exports = {
         "en-GB": "English content (UK)",
         "fr": "French content",
         "es": "Spanish content",
-        "hi": "हिंदी सामग्री",
       },
     },
     "quantityContent": {
@@ -236,7 +248,7 @@ module.exports = {
       "enumeration": {
         "0": "कोई कार नहीं",
         "1": "एक कार",
-        "<-1": "माइनस एक से कम कार",
+        "<-1": "माइनस एक कार से कम",
         "-1": "माइनस एक कार",
         ">5": "कुछ कारें",
         ">19": "कई कारें",
@@ -249,6 +261,10 @@ module.exports = {
         "false": "सत्यापन अक्षम है",
       },
     },
+    "insertionContent": {
+      "nodeType": "insertion",
+      "insertion": "नमस्ते {{name}}!",
+    },
     "nestedContent": {
       "nodeType": "nested",
       "nested": { "dictionaryKey": "app" },
@@ -256,6 +272,10 @@ module.exports = {
     "markdownContent": {
       "nodeType": "markdown",
       "markdown": "# मार्कडाउन उदाहरण",
+    },
+    "fileContent": {
+      "nodeType": "file",
+      "file": "./path/to/file.txt",
     },
     "jsxContent": {
       "type": "h1",
@@ -271,57 +291,52 @@ module.exports = {
 
 ## फ़ंक्शन इम्ब्रिकेशन
 
-आप बिना किसी समस्या के एक फ़ंक्शन को दूसरे में इम्ब्रिकेट कर सकते हैं।
+आप बिना किसी समस्या के एक फ़ंक्शन को दूसरे फ़ंक्शन के अंदर इम्ब्रिकेट कर सकते हैं।
 
 उदाहरण:
 
 ```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
-const getName = async () => "जॉन डो";
+const getName = async () => "John Doe";
 
 export default {
   key: "page",
   content: {
-    // `getIntlayer('page','hi').hiMessage` `['नमस्ते', ' ', 'जॉन डो']` लौटाता है
+    // `getIntlayer('page','en').hiMessage` लौटाता है `['Hi', ' ', 'John Doe']`
     hiMessage: [
       t({
         en: "Hi",
         fr: "Salut",
         es: "Hola",
-        hi: "नमस्ते",
       }),
       " ",
       getName(),
     ],
-    // Composite content imbricating condition, enumeration, and multilingual content
-    // `getIntlayer('page','hi').advancedContent(true)(10) 'कई वस्तुएं मिलीं' लौटाता है
+    // संयोजित सामग्री जिसमें condition, enumeration, और बहुभाषी सामग्री शामिल है
+    // `getIntlayer('page','en').advancedContent(true)(10)` लौटाता है 'Multiple items found'
     advancedContent: cond({
       true: enu({
         "0": t({
           en: "No items found",
           fr: "Aucun article trouvé",
           es: "No se encontraron artículos",
-          hi: "कोई वस्तु नहीं मिली",
         }),
         "1": t({
-          en: "One item found",
+          en: "एक आइटम मिला",
           fr: "Un article trouvé",
           es: "Se encontró un artículo",
-          hi: "एक वस्तु मिली",
         }),
         ">1": t({
-          en: "Multiple items found",
+          en: "कई आइटम मिले",
           fr: "Plusieurs articles trouvés",
           es: "Se encontraron múltiples artículos",
-          hi: "कई वस्तुएं मिलीं",
         }),
       }),
       false: t({
-        en: "No valid data available",
+        en: "कोई मान्य डेटा उपलब्ध नहीं है",
         fr: "Aucune donnée valide disponible",
         es: "No hay datos válidos disponibles",
-        hi: "कोई मान्य डेटा उपलब्ध नहीं है",
       }),
     }),
   },
@@ -331,51 +346,46 @@ export default {
 ```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
 import { t, enu, cond, nest, md } from "intlayer";
 
-const getName = async () => "जॉन डो";
+const getName = async () => "John Doe";
 
 /** @type {import('intlayer').Dictionary} */
 export default {
   key: "page",
   content: {
-    // `getIntlayer('page','hi').hiMessage` `['नमस्ते', ' ', 'जॉन डो']` लौटाता है
+    // `getIntlayer('page','en').hiMessage` लौटाता है `['Hi', ' ', 'John Doe']`
     hiMessage: [
       t({
         en: "Hi",
         fr: "Salut",
         es: "Hola",
-        hi: "नमस्ते",
       }),
       " ",
       getName(),
     ],
-    // Composite content imbricating condition, enumeration, and multilingual content
-    // `getIntlayer('page','hi').advancedContent(true)(10) 'कई वस्तुएं मिलीं' लौटाता है
+    // संयोजित सामग्री जिसमें शर्त, गणना, और बहुभाषी सामग्री शामिल है
+    // `getIntlayer('page','en').advancedContent(true)(10)` लौटाता है 'कई आइटम मिले'
     advancedContent: cond({
       true: enu({
         "0": t({
-          en: "No items found",
+          en: "कोई आइटम नहीं मिला",
           fr: "Aucun article trouvé",
           es: "No se encontraron artículos",
-          hi: "कोई वस्तु नहीं मिली",
         }),
         "1": t({
-          en: "One item found",
+          en: "एक आइटम मिला",
           fr: "Un article trouvé",
           es: "Se encontró un artículo",
-          hi: "एक वस्तु मिली",
         }),
         ">1": t({
-          en: "Multiple items found",
+          en: "कई आइटम मिले",
           fr: "Plusieurs articles trouvés",
           es: "Se encontraron múltiples artículos",
-          hi: "कई वस्तुएं मिलीं",
         }),
       }),
       false: t({
-        en: "No valid data available",
+        en: "कोई मान्य डेटा उपलब्ध नहीं है",
         fr: "Aucune donnée valide disponible",
         es: "No hay datos válidos disponibles",
-        hi: "कोई मान्य डेटा उपलब्ध नहीं है",
       }),
     }),
   },
@@ -385,51 +395,46 @@ export default {
 ```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
 const { t, enu, cond, nest, md } = require("intlayer");
 
-const getName = async () => "जॉन डो";
+const getName = async () => "John Doe";
 
 /** @type {import('intlayer').Dictionary} */
 module.exports = {
   key: "page",
   content: {
-    // `getIntlayer('page','hi').hiMessage` `['नमस्ते', ' ', 'जॉन डो']` लौटाता है
+    // `getIntlayer('page','en').hiMessage` लौटाता है `['Hi', ' ', 'John Doe']`
     hiMessage: [
       t({
         en: "Hi",
         fr: "Salut",
         es: "Hola",
-        hi: "नमस्ते",
       }),
       " ",
       getName(),
     ],
-    // Composite content imbricating condition, enumeration, and multilingual content
-    // `getIntlayer('page','hi').advancedContent(true)(10) 'कई वस्तुएं मिलीं' लौटाता है
+    // संयोजित सामग्री जिसमें स्थिति, गणना, और बहुभाषी सामग्री शामिल है
+    // `getIntlayer('page','en').advancedContent(true)(10)` लौटाता है 'कई आइटम मिले'
     advancedContent: cond({
       true: enu({
         "0": t({
-          en: "No items found",
+          en: "कोई आइटम नहीं मिला",
           fr: "Aucun article trouvé",
           es: "No se encontraron artículos",
-          hi: "कोई वस्तु नहीं मिली",
         }),
         "1": t({
-          en: "One item found",
+          en: "एक आइटम मिला",
           fr: "Un article trouvé",
           es: "Se encontró un artículo",
-          hi: "एक वस्तु मिली",
         }),
         ">1": t({
-          en: "Multiple items found",
+          en: "कई आइटम मिले",
           fr: "Plusieurs articles trouvés",
           es: "Se encontraron múltiples artículos",
-          hi: "कई वस्तुएं मिलीं",
         }),
       }),
       false: t({
-        en: "No valid data available",
+        en: "कोई मान्य डेटा उपलब्ध नहीं है",
         fr: "Aucune donnée valide disponible",
         es: "No hay datos válidos disponibles",
-        hi: "कोई मान्य डेटा उपलब्ध नहीं है",
       }),
     }),
   },
@@ -447,14 +452,13 @@ module.exports = {
         {
           "nodeType": "translation",
           "translation": {
-            "en": "Hi",
+            "en": "नमस्ते",
             "fr": "Salut",
             "es": "Hola",
-            "hi": "नमस्ते",
           },
         },
         " ",
-        "जॉन डो",
+        "John Doe",
       ],
     },
     "advancedContent": {
@@ -466,28 +470,25 @@ module.exports = {
             "0": {
               "nodeType": "translation",
               "translation": {
-                "en": "No items found",
+                "en": "कोई आइटम नहीं मिला",
                 "fr": "Aucun article trouvé",
                 "es": "No se encontraron artículos",
-                "hi": "कोई वस्तु नहीं मिली",
               },
             },
             "1": {
               "nodeType": "translation",
               "translation": {
-                "en": "One item found",
+                "en": "एक आइटम मिला",
                 "fr": "Un article trouvé",
                 "es": "Se encontró un artículo",
-                "hi": "एक वस्तु मिली",
               },
             },
             ">1": {
               "nodeType": "translation",
               "translation": {
-                "en": "Multiple items found",
+                "en": "कई आइटम मिले",
                 "fr": "Plusieurs articles trouvés",
                 "es": "Se encontraron múltiples artículos",
-                "hi": "कई वस्तुएं मिलीं",
               },
             },
           },
@@ -495,10 +496,9 @@ module.exports = {
         "false": {
           "nodeType": "translation",
           "translation": {
-            "en": "No valid data available",
+            "en": "कोई मान्य डेटा उपलब्ध नहीं है",
             "fr": "Aucune donnée valide disponible",
             "es": "No hay datos válidos disponibles",
-            "hi": "कोई मान्य डेटा उपलब्ध नहीं है",
           },
         },
       },
@@ -506,3 +506,21 @@ module.exports = {
   },
 }
 ```
+
+## अतिरिक्त संसाधन
+
+Intlayer में अधिक विवरण के लिए, निम्नलिखित संसाधनों को देखें:
+
+- [प्रति-स्थान सामग्री घोषणा प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/per_locale_file.md)
+- [अनुवाद सामग्री प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)
+- [सूचीकरण सामग्री प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)
+- [शर्त सामग्री प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md)
+- [सम्मिलन सामग्री प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+- [फ़ाइल सामग्री प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md)
+- [नेस्टिंग सामग्री प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md)
+- [मार्कडाउन सामग्री प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)
+- [फ़ंक्शन फ़ेचिंग सामग्री प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/function_fetching.md)
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

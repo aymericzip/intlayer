@@ -1,3 +1,24 @@
+---
+docName: unknown_command
+url: https://intlayer.org/doc/faq/unknown-command
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/unknown_command.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: Unknown command
+description: Learn how to fix the unknown command error.
+keywords:
+  - unknown
+  - command
+  - error
+  - intlayer
+  - fill
+  - build
+  - verbose
+  - terminal
+  - restart
+  - local
+---
+
 # error: unknown command fill / build / etc
 
 If `npx intlayer fill --verbose` gives:

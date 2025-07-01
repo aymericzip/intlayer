@@ -1,14 +1,14 @@
 ---
 docName: dictionary__translation
 url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Translation
 description: Discover how to declare and use translation in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
   - Translation
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Next.js
@@ -22,7 +22,7 @@ keywords:
 
 The `t` function in `intlayer` allows you to declare content in multiple languages. This function ensures type safety, raising an error if any translations are missing, which is particularly useful in TypeScript environments.
 
-Here's an example of how to declare content with translations.
+Here is an example of how to declare content with translations.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -134,7 +134,7 @@ module.exports = config;
 
 ## Using Translations in React Components
 
-With `react-intlayer`, you can use translations in React components. Here's an example:
+With `react-intlayer`, you can use translations in React components. Here is an example:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -259,7 +259,7 @@ module.exports = {
       t <
       ICustomContent >
       {
-        en: {
+        "en-GB": {
           title: "Page Title",
           content: "Page Content",
         },
@@ -284,7 +284,7 @@ module.exports = {
     "profileText": {
       "nodeType": "translation",
       "translation": {
-        "en": {
+        "en-GB": {
           "title": "Page Title",
           "content": "Page Content"
         },

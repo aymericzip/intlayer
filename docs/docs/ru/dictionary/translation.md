@@ -1,11 +1,11 @@
 ---
 docName: dictionary__translation
 url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Перевод
-description: Узнайте, как объявить и использовать перевод на вашем многоязычном сайте. Следуйте инструкциям в этой онлайн-документации, чтобы настроить свой проект за несколько минут.
+description: Узнайте, как объявлять и использовать перевод на вашем многоязычном сайте. Следуйте шагам в этой онлайн-документации, чтобы настроить ваш проект за несколько минут.
 keywords:
   - Перевод
   - Интернационализация
@@ -20,11 +20,9 @@ keywords:
 
 ## Определение переводов
 
-Функция `t` в `intlayer` позволяет объявлять контент на нескольких языках. Эта функция обеспечивает типобезопасность, выдавая ошибку, если какой-либо перевод отсутствует, что особенно полезно в среде TypeScript.
+Функция `t` в `intlayer` позволяет объявлять контент на нескольких языках. Эта функция обеспечивает типовую безопасность, выдавая ошибку, если какие-либо переводы отсутствуют, что особенно полезно в средах TypeScript.
 
-### Использование TypeScript
-
-Пример объявления контента с переводами.
+Вот пример того, как объявить контент с переводами.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -40,7 +38,6 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ru: "Добро пожаловать в наше приложение",
     }),
   },
 } satisfies Dictionary<Content>;
@@ -56,7 +53,6 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ru: "Добро пожаловать в наше приложение",
     }),
   },
 };
@@ -65,6 +61,7 @@ export default {
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
+// Экспорт модуля с многоязычным контентом
 module.exports = {
   key: "multi_lang",
   content: {
@@ -72,7 +69,6 @@ module.exports = {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ru: "Добро пожаловать в наше приложение",
     }),
   },
 };
@@ -88,8 +84,7 @@ module.exports = {
       "translation": {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
-        "es": "Bienvenido a nuestra aplicación",
-        "ru": "Добро пожаловать в наше приложение"
+        "es": "Bienvenido a nuestra aplicación"
       }
     }
   }
@@ -98,19 +93,14 @@ module.exports = {
 
 ## Конфигурация локалей
 
-Для обеспечения правильной обработки переводов вы можете настроить поддерживаемые локали в `intlayer.config.ts`. Эта конфигурация позволяет определить языки, которые поддерживает ваше приложение:
+Для обеспечения правильной обработки переводов вы можете настроить поддерживаемые локали в файле `intlayer.config.ts`. Эта конфигурация позволяет определить языки, которые поддерживает ваше приложение:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.RUSSIAN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -123,12 +113,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.RUSSIAN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -141,12 +126,7 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.RUSSIAN,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -155,7 +135,7 @@ module.exports = config;
 
 ## Использование переводов в React-компонентах
 
-С помощью `react-intlayer` вы можете использовать переводы в React-компонентах. Пример:
+С помощью `react-intlayer` вы можете использовать переводы в React-компонентах. Вот пример:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -210,7 +190,7 @@ module.exports = MyComponent;
 
 ## Пользовательские объекты контента
 
-`intlayer` поддерживает пользовательские объекты контента для перевода, позволяя определять более сложные структуры при обеспечении типобезопасности. Пример с пользовательским объектом:
+`intlayer` поддерживает пользовательские объекты контента для перевода, позволяя определять более сложные структуры при обеспечении типовой безопасности. Вот пример с пользовательским объектом:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -236,10 +216,6 @@ const customContent = {
         title: "Título de la Página",
         content: "Contenido de la Página",
       },
-      ru: {
-        title: "Заголовок страницы",
-        content: "Содержимое страницы",
-      },
     }),
   },
 } satisfies Dictionary;
@@ -258,8 +234,8 @@ export default {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "Заголовок страницы",
+          content: "Содержимое страницы",
         },
         fr: {
           title: "Titre de la Page",
@@ -268,10 +244,6 @@ export default {
         es: {
           title: "Título de la Página",
           content: "Contenido de la Página",
-        },
-        ru: {
-          title: "Заголовок страницы",
-          content: "Содержимое страницы",
         },
       },
   },
@@ -289,8 +261,8 @@ module.exports = {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "Заголовок страницы",
+          content: "Содержимое страницы",
         },
         fr: {
           title: "Titre de la Page",
@@ -299,10 +271,6 @@ module.exports = {
         es: {
           title: "Título de la Página",
           content: "Contenido de la Página",
-        },
-        ru: {
-          title: "Заголовок страницы",
-          content: "Содержимое страницы",
         },
       },
   },
@@ -318,8 +286,8 @@ module.exports = {
       "nodeType": "translation",
       "translation": {
         "en": {
-          "title": "Page Title",
-          "content": "Page Content"
+          "title": "Заголовок страницы",
+          "content": "Содержимое страницы"
         },
         "fr": {
           "title": "Titre de la Page",
@@ -328,13 +296,13 @@ module.exports = {
         "es": {
           "title": "Título de la Página",
           "content": "Contenido de la Página"
-        },
-        "ru": {
-          "title": "Заголовок страницы",
-          "content": "Содержимое страницы"
         }
       }
     }
   }
 }
 ```
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

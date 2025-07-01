@@ -1,11 +1,11 @@
 ---
 docName: package__next-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Dokumentation des useIntlayerAsync Hooks | next-intlayer
-description: Erfahren Sie, wie Sie den useIntlayerAsync-Hook für das next-intlayer-Paket verwenden
+title: useIntlayerAsync Hook Dokumentation | next-intlayer
+description: Siehe, wie der useIntlayerAsync Hook für das next-intlayer Paket verwendet wird
 keywords:
   - useIntlayerAsync
   - Wörterbuch
@@ -20,20 +20,20 @@ keywords:
 
 # Next.js Integration: `useIntlayerAsync` Hook Dokumentation
 
-Der `useIntlayerAsync` Hook erweitert die Funktionalität von `useIntlayer`, indem er nicht nur vorgerenderte Wörterbücher zurückgibt, sondern auch Updates asynchron abruft. Dies macht ihn ideal für Anwendungen, die häufig aktualisierte lokalisierte Inhalte nach dem ersten Rendern benötigen.
+Der `useIntlayerAsync` Hook erweitert die Funktionalität von `useIntlayer`, indem er nicht nur vorgerenderte Wörterbücher zurückgibt, sondern auch Aktualisierungen asynchron abruft. Dadurch ist er ideal für Anwendungen, die ihre lokalisierten Inhalte nach dem ersten Rendern häufig aktualisieren.
 
 ## Überblick
 
 - **Asynchrones Laden von Wörterbüchern:**  
-  Auf der Client-Seite gibt `useIntlayerAsync` zunächst das vorgerenderte Sprachwörterbuch zurück (genau wie `useIntlayer`) und ruft dann asynchron alle neu verfügbaren entfernten Wörterbücher ab und fügt sie zusammen.
-- **Verwaltung des Fortschrittsstatus:**  
-  Der Hook bietet auch einen `isLoading`-Status, der anzeigt, wann ein entferntes Wörterbuch abgerufen wird. Dies ermöglicht es Entwicklern, Ladeindikatoren oder Skeleton-Zustände für eine reibungslosere Benutzererfahrung anzuzeigen.
+  Auf der Client-Seite gibt `useIntlayerAsync` zunächst das vorgerenderte Lokalisierungswörterbuch zurück (genau wie `useIntlayer`) und ruft anschließend asynchron alle neu verfügbaren entfernten Wörterbücher ab und fügt sie zusammen.
+- **Verwaltung des Ladezustands:**  
+  Der Hook stellt außerdem einen `isLoading` Zustand bereit, der anzeigt, wann ein entferntes Wörterbuch abgerufen wird. Dies ermöglicht es Entwicklern, Ladeanzeigen oder Skeleton-Zustände für eine flüssigere Benutzererfahrung anzuzeigen.
 
 ## Einrichtung der Umgebung
 
-Intlayer bietet ein Headless Content Source Management (CSM)-System, das es Nicht-Entwicklern ermöglicht, Anwendungsinhalte nahtlos zu verwalten und zu aktualisieren. Mit dem intuitiven Dashboard von Intlayer kann Ihr Team lokalisierte Texte, Bilder und andere Ressourcen bearbeiten, ohne den Code direkt zu ändern. Dies rationalisiert den Content-Management-Prozess, fördert die Zusammenarbeit und stellt sicher, dass Updates schnell und einfach vorgenommen werden können.
+Intlayer bietet ein kopfloses Content Source Management (CSM)-System, das es Nicht-Entwicklern ermöglicht, Anwendungsinhalte nahtlos zu verwalten und zu aktualisieren. Durch die Nutzung des intuitiven Dashboards von Intlayer kann Ihr Team lokalisierten Text, Bilder und andere Ressourcen bearbeiten, ohne den Code direkt ändern zu müssen. Dies vereinfacht den Content-Management-Prozess, fördert die Zusammenarbeit und stellt sicher, dass Aktualisierungen schnell und einfach vorgenommen werden können.
 
-Um mit Intlayer zu beginnen, müssen Sie sich zunächst registrieren und ein Zugriffstoken unter [https://intlayer.org/dashboard](https://intlayer.org/dashboard) erhalten. Sobald Sie Ihre Anmeldedaten haben, fügen Sie diese wie unten gezeigt zu Ihrer Konfigurationsdatei hinzu:
+Um mit Intlayer zu beginnen, müssen Sie sich zunächst registrieren und einen Zugriffstoken im [Dashboard](https://intlayer.org/dashboard) erhalten. Sobald Sie Ihre Zugangsdaten haben, fügen Sie diese wie unten gezeigt in Ihre Konfigurationsdatei ein:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -51,6 +51,7 @@ export default {
 import { type IntlayerConfig } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
+// Konfiguration für den Editor mit Client-ID und Client-Secret aus Umgebungsvariablen
 const config = {
   // ...
   editor: {
@@ -64,6 +65,7 @@ export default config;
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 /** @type {import('intlayer').IntlayerConfig} */
+// Konfiguration für den Editor mit Client-ID und Client-Secret aus Umgebungsvariablen
 const config = {
   // ...
   editor: {
@@ -75,17 +77,17 @@ const config = {
 module.exports = config;
 ```
 
-Nach der Konfiguration Ihrer Anmeldedaten können Sie ein neues Sprachwörterbuch zu Intlayer hochladen, indem Sie den folgenden Befehl ausführen:
+Nach der Konfiguration Ihrer Zugangsdaten können Sie ein neues Sprachwörterbuch zu Intlayer hochladen, indem Sie folgenden Befehl ausführen:
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
-Dieser Befehl lädt Ihre anfänglichen Inhaltswörterbücher hoch und macht sie für asynchrones Abrufen und Bearbeiten über die Intlayer-Plattform verfügbar.
+Dieser Befehl lädt Ihre initialen Inhaltswörterbücher hoch und macht sie für asynchrones Abrufen und Bearbeiten über die Intlayer-Plattform verfügbar.
 
 ## Importieren von `useIntlayerAsync` in Next.js
 
-Da `useIntlayerAsync` für **Client-seitige** Komponenten gedacht ist, importieren Sie es aus dem gleichen Client-Einstiegspunkt wie `useIntlayer`:
+Da `useIntlayerAsync` für **Client-seitige** Komponenten vorgesehen ist, importieren Sie es vom gleichen Client-Einstiegspunkt wie `useIntlayer`:
 
 ```tsx codeFormat="typescript"
 "use client";
@@ -115,15 +117,15 @@ Stellen Sie sicher, dass die importierende Datei oben mit `"use client"` annotie
 
 2. **`locale`** (optional):  
    **Typ**: `Locales`  
-   Die spezifische Sprache, die Sie anvisieren möchten. Wenn sie weggelassen wird, verwendet der Hook die Sprache aus dem Client-Kontext.
+   Die spezifische Locale, die Sie ansprechen möchten. Wenn ausgelassen, verwendet der Hook die Locale aus dem Client-Kontext.
 
-3. **`isRenderEditor`** (optional, Standardwert ist `true`):  
-   **Typ**: `boolean`  
-   Bestimmt, ob der Inhalt für das Rendern mit der Intlayer-Editor-Überlagerung bereit sein soll. Wenn auf `false` gesetzt, werden die zurückgegebenen Wörterbuchdaten editor-spezifische Funktionen ausschließen.
+3. **`isRenderEditor`** (optional, Standardwert `true`):  
+    **Typ**: `boolean`  
+   Bestimmt, ob der Inhalt für die Darstellung mit der Intlayer-Editor-Overlay bereit sein soll. Wenn auf `false` gesetzt, enthält das zurückgegebene Wörterbuch keine editor-spezifischen Funktionen.
 
 ## Rückgabewert
 
-Der Hook gibt ein Wörterbuchobjekt zurück, das lokalisierte Inhalte enthält, die nach `key` und `locale` geordnet sind. Es enthält auch ein `isLoading`-Boolean, das anzeigt, ob derzeit ein entferntes Wörterbuch abgerufen wird.
+Der Hook gibt ein Wörterbuchobjekt zurück, das lokalisierten Inhalt enthält, der durch `key` und `locale` indiziert ist. Es enthält außerdem ein `isLoading`-Boolean, das angibt, ob gerade ein entferntes Wörterbuch geladen wird.
 
 ## Beispielverwendung in Next.js
 
@@ -203,11 +205,26 @@ const AsyncClientComponentExample = () => {
 
 **Wichtige Punkte:**
 
-- Beim ersten Rendern stammen `title` und `description` aus dem vorgerenderten Sprachwörterbuch.
-- Während `isLoading` `true` ist, wird im Hintergrund eine entfernte Anfrage gestellt, um ein aktualisiertes Wörterbuch abzurufen.
-- Sobald der Abruf abgeschlossen ist, werden `title` und `description` mit den neuesten Inhalten aktualisiert, und `isLoading` kehrt zu `false` zurück.
+- Beim ersten Rendern stammen `title` und `description` aus dem vorgerenderten Lokalisierungswörterbuch.
+- Während `isLoading` auf `true` gesetzt ist, wird im Hintergrund eine Remote-Anfrage ausgeführt, um ein aktualisiertes Wörterbuch abzurufen.
+- Sobald der Abruf abgeschlossen ist, werden `title` und `description` mit dem neuesten Inhalt aktualisiert, und `isLoading` wird wieder auf `false` gesetzt.
 
-## Umgang mit Attribut-Lokalisierung
+## Umgang mit der Attribut-Lokalisierung
+
+Wie bei `useIntlayer` können Sie lokalisierte Attributwerte für verschiedene HTML-Eigenschaften abrufen (z. B. `alt`, `title`, `aria-label`):
+
+```tsx
+<img src={title.image.src.value} alt={title.image.alt.value} />
+```
+
+## Wörterbuchdateien
+
+Alle Inhalts-Schlüssel müssen in Ihren Inhaltsdeklarationsdateien definiert sein, um Typensicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Diese Dateien ermöglichen die TypeScript-Validierung, sodass Sie immer auf vorhandene Schlüssel und Sprachen verweisen.
+
+- Während `isLoading` auf `true` gesetzt ist, wird im Hintergrund eine Remote-Anfrage ausgeführt, um ein aktualisiertes Wörterbuch abzurufen.
+- Sobald der Abruf abgeschlossen ist, werden `title` und `description` mit dem neuesten Inhalt aktualisiert, und `isLoading` wird wieder auf `false` gesetzt.
+
+## Umgang mit der Attribut-Lokalisierung
 
 Wie bei `useIntlayer` können Sie lokalisierte Attributwerte für verschiedene HTML-Eigenschaften (z. B. `alt`, `title`, `aria-label`) abrufen:
 
@@ -217,15 +234,27 @@ Wie bei `useIntlayer` können Sie lokalisierte Attributwerte für verschiedene H
 
 ## Wörterbuchdateien
 
-Alle Inhaltschlüssel müssen in Ihren Inhaltsdeklarationsdateien definiert sein, um Typsicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Diese Dateien ermöglichen die TypeScript-Validierung und stellen sicher, dass Sie immer auf vorhandene Schlüssel und Sprachen verweisen.
+Alle Inhaltsschlüssel müssen in Ihren Inhaltsdeklarationsdateien definiert sein, um Typsicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Diese Dateien ermöglichen die TypeScript-Validierung, sodass Sie immer auf vorhandene Schlüssel und Sprachen verweisen.
 
-Anleitungen zur Einrichtung von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
+Anleitungen zum Einrichten von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
 
 ## Weitere Informationen
 
 - **Intlayer Visual Editor:**  
-  Integrieren Sie den Intlayer Visual Editor, um Inhalte direkt über die Benutzeroberfläche zu verwalten und zu bearbeiten. Weitere Details [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
+  Integration mit dem Intlayer Visual Editor zur Verwaltung und Bearbeitung von Inhalten direkt über die Benutzeroberfläche. Weitere Details [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
 
 ---
 
-**Zusammenfassend** ist `useIntlayerAsync` ein leistungsstarker Client-seitiger Hook, der die Benutzererfahrung verbessert und die Aktualität der Inhalte durch die Kombination von vorgerenderten Wörterbüchern mit asynchronen Wörterbuch-Updates sicherstellt. Durch die Nutzung von `isLoading` und TypeScript-basierten Inhaltsdeklarationen können Sie dynamische, lokalisierte Inhalte nahtlos in Ihre Next.js-Anwendungen integrieren.
+**Zusammenfassend** ist `useIntlayerAsync` ein leistungsstarker Client-seitiger Hook, der darauf ausgelegt ist, die Benutzererfahrung zu verbessern und die Aktualität der Inhalte zu gewährleisten, indem vorgerenderte Wörterbücher mit asynchronen Wörterbuchaktualisierungen kombiniert werden. Durch die Nutzung von `isLoading` und TypeScript-basierten Inhaltsdeklarationen können Sie dynamische, lokalisierte Inhalte nahtlos in Ihre Next.js-Anwendungen integrieren.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie
+
+---
+
+**Zusammenfassung**, `useIntlayerAsync` ist ein leistungsstarker Client-seitiger Hook, der entwickelt wurde, um die Benutzererfahrung zu verbessern und die Aktualität der Inhalte zu gewährleisten, indem vorgerenderte Wörterbücher mit asynchronen Wörterbuch-Updates kombiniert werden. Durch die Nutzung von `isLoading` und TypeScript-basierten Inhaltsdeklarationen können Sie dynamische, lokalisierte Inhalte nahtlos in Ihre Next.js-Anwendungen integrieren.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Historie initialisiert

@@ -1,7 +1,7 @@
 ---
 docName: intlayer_with_create_react_app
 url: https://intlayer.org/doc/environment/create-react-app
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Create React App (CRA)のウェブサイトを翻訳する (i18n)
@@ -22,7 +22,7 @@ keywords:
 
 ## Intlayerとは？
 
-**Intlayer**は、モダンなWebアプリケーションにおける多言語対応を簡素化するために設計された革新的なオープンソースの国際化(i18n)ライブラリです。
+**Intlayer**は、モダンなWebアプリケーションにおける多言語対応を簡素化するために設計された革新的なオープンソースの国際化（i18n）ライブラリです。
 
 Intlayerを使用すると、以下が可能です：
 
@@ -59,7 +59,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **react-scripts-intlayer**
 
-  Create React AppベースのアプリケーションにIntlayerを統合するための`react-scripts-intlayer`コマンドとプラグインを含む。これらのプラグインは[craco](https://craco.js.org/)に基づいており、[Webpack](https://webpack.js.org/)バンドラーの追加設定を含む。
+Create React AppベースのアプリケーションにIntlayerを統合するための`react-scripts-intlayer`コマンドとプラグインを含みます。これらのプラグインは[craco](https://craco.js.org/)に基づいており、[Webpack](https://webpack.js.org/)バンドラーの追加設定を含みます。
 
 ### ステップ2: プロジェクトの設定
 
@@ -168,6 +168,7 @@ const appContent = {
     reactLink: {
       href: "https://reactjs.org",
       content: t({
+        ja: "Reactを学ぶ",
         en: "Learn React",
         fr: "Apprendre React",
         es: "Aprender React",
@@ -187,6 +188,7 @@ const appContent = {
   key: "app",
   content: {
     getStarted: t({
+      ja: "編集を始めましょう",
       en: "Get started by editing",
       fr: "Commencez par éditer",
       es: "Comience por editar",
@@ -194,6 +196,7 @@ const appContent = {
     reactLink: {
       href: "https://reactjs.org",
       content: t({
+        ja: "Reactを学ぶ",
         en: "Learn React",
         fr: "Apprendre React",
         es: "Aprender React",
@@ -213,6 +216,7 @@ const appContent = {
   key: "app",
   content: {
     getStarted: t({
+      ja: "編集を始めましょう",
       en: "Get started by editing",
       fr: "Commencez par éditer",
       es: "Comience por editar",
@@ -220,6 +224,7 @@ const appContent = {
     reactLink: {
       href: "https://reactjs.org",
       content: t({
+        ja: "Reactを学ぶ",
         en: "Learn React",
         fr: "Apprendre React",
         es: "Aprender React",
@@ -345,12 +350,12 @@ const App = () => (
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
-
+>
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
 
-### (オプション) ステップ6: コンテンツの言語を変更
+### (オプション) ステップ6: コンテンツの言語を変更する
 
-コンテンツの言語を変更するには、`useLocale`フックが提供する`setLocale`関数を使用します。この関数を使用すると、アプリケーションのロケールを設定し、コンテンツを更新できます。
+コンテンツの言語を変更するには、`useLocale`フックが提供する`setLocale`関数を使用します。この関数を使うことで、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { Locales } from "intlayer";
@@ -360,7 +365,9 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.English)}>言語を英語に変更</button>
+    <button onClick={() => setLocale(Locales.English)}>
+      Change Language to English
+    </button>
   );
 };
 ```
@@ -410,6 +417,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // 必要な依存関係と関数をインポート
+// 必要な依存関係と関数をインポート
 import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'からのユーティリティ関数と型
 import type { FC, PropsWithChildren } from "react"; // Reactの型
 import { IntlayerProvider } from "react-intlayer"; // 国際化コンテキスト用プロバイダー
@@ -427,7 +435,7 @@ const { locales, defaultLocale } = internationalization;
 
 /**
  * ローカライズを処理し、適切なロケールコンテキストで子要素をラップするコンポーネント。
- * URLベースのロケール検出と検証を管理。
+ * URLベースのロケール検出と検証を管理します。
  */
 const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
@@ -444,7 +452,7 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
   );
 
   /**
-   * middleware.prefixDefaultがtrueの場合、デフォルトロケールは常にプレフィックスされるべき。
+   * middleware.prefixDefaultがtrueの場合、デフォルトロケールは常にプレフィックスされるべきです。
    */
   if (middleware.prefixDefault) {
     // ロケールを検証
@@ -522,9 +530,10 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 );
 ```
 
-```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
+```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // 必要な依存関係と関数をインポート
 import { configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'からのユーティリティ関数と型
+// 'intlayer'からのユーティリティ関数と型
 import { IntlayerProvider } from "react-intlayer"; // 国際化コンテキスト用プロバイダー
 import {
   BrowserRouter,
@@ -540,7 +549,7 @@ const { locales, defaultLocale } = internationalization;
 
 /**
  * ローカライズを処理し、適切なロケールコンテキストで子要素をラップするコンポーネント。
- * URLベースのロケール検出と検証を管理。
+ * URLベースのロケール検出と検証を管理します。
  */
 const AppLocalized = ({ children, locale }) => {
   const { pathname, search } = useLocation(); // 現在のURLパスを取得
@@ -554,7 +563,7 @@ const AppLocalized = ({ children, locale }) => {
   );
 
   /**
-   * middleware.prefixDefaultがtrueの場合、デフォルトロケールは常にプレフィックスされるべき。
+   * middleware.prefixDefaultがtrueの場合、デフォルトロケールは常にプレフィックスされるべきです。
    */
   if (middleware.prefixDefault) {
     // ロケールを検証
@@ -989,15 +998,17 @@ const LocaleSwitcher = () => {
 > - [`dir`属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current`属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (オプション) ステップ9: HTMLの言語と方向属性を切り替え
+### （オプション）ステップ9：HTMLの言語と言語方向属性を切り替える
 
-アプリケーションが複数の言語をサポートしている場合、現在のロケールに一致するように`<html>`タグの`lang`および`dir`属性を更新することが重要です。これにより、以下が保証されます：
+アプリケーションが複数の言語をサポートしている場合、`<html>`タグの`lang`属性と`dir`属性を現在のロケールに合わせて更新することが非常に重要です。これにより、以下のことが保証されます：
 
 - **アクセシビリティ**：スクリーンリーダーや支援技術は、正しい`lang`属性に依存してコンテンツを正確に発音および解釈します。
-- **テキストレンダリング**：`dir`（方向）属性は、テキストが適切な順序でレンダリングされることを保証します（例：英語の場合は左から右、アラビア語やヘブライ語の場合は右から左）。
+- **テキストレンダリング**：`dir`（方向）属性は、テキストが適切な順序でレンダリングされることを保証します（例：英語の場合は左から右、アラビア語やヘブライ語の場合は右から左）。これは読みやすさに不可欠です。
 - **SEO**：検索エンジンは`lang`属性を使用してページの言語を判断し、検索結果で適切なローカライズされたコンテンツを提供します。
 
 ロケールが変更されるたびにこれらの属性を動的に更新することで、すべてのサポート言語で一貫性があり、アクセス可能なエクスペリエンスをユーザーに提供します。
+
+#### フックの実装
 
 #### フックの実装
 
@@ -1019,16 +1030,6 @@ export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // 現在のロケールに言語属性を更新
-    document.documentElement.lang = locale;
-
-    // 現在のロケールに基づいてテキスト方向を設定
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
 import { useEffect } from "react";
 import { useLocale } from "react-intlayer";
 import { getHTMLTextDir } from "intlayer";
@@ -1051,6 +1052,17 @@ export const useI18nHTMLAttributes = () => {
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
+export const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // 現在のロケールに言語属性を更新
+    document.documentElement.lang = locale;
+
+    // 現在のロケールに基づいてテキスト方向を設定
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
 ```
 
 ```jsx fileName="src/hooks/useI18nHTMLAttributes.csx" codeFormat="commonjs"
@@ -1060,10 +1072,10 @@ const { getHTMLTextDir } = require("intlayer");
 
 /**
  * 現在のロケールに基づいてHTML <html>要素の`lang`および`dir`属性を更新します。
- * - `lang`: ページの言語をブラウザや検索エンジンに通知。
- * - `dir`: 正しい読み順を保証（例：英語の場合は'ltr'、アラビア語の場合は'rtl'）。
+ * - `lang`: ページの言語をブラウザや検索エンジンに通知します。
+ * - `dir`: 正しい読み順を保証します（例：英語の場合は 'ltr'、アラビア語の場合は 'rtl'）。
  *
- * この動的更新は、適切なテキストレンダリング、アクセシビリティ、SEOに不可欠です。
+ * この動的な更新は、適切なテキストレンダリング、アクセシビリティ、およびSEOに不可欠です。
  */
 const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1147,6 +1159,7 @@ const App = () => (
 );
 
 module.exports = App;
+module.exports = App;
 ```
 
 これらの変更を適用することで、アプリケーションは次のことを保証します：
@@ -1162,8 +1175,7 @@ Intlayerはモジュール拡張を使用してTypeScriptの利点を活用し�
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
-自動生成された型を含めるようにTypeScript構成を確認してください。
+自動生成された型を含めるようにTypeScriptの設定を確認してください。
 
 ```json5 fileName="tsconfig.json"
 {
@@ -1186,6 +1198,38 @@ Intlayerによって生成されたファイルを無視することをお勧め
 .intlayer
 ```
 
+### VS Code拡張機能
+
+Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
+[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+この拡張機能は以下を提供します：
+
+- 翻訳キーの**オートコンプリート**。
+- 欠落している翻訳の**リアルタイムエラー検出**。
+- 翻訳されたコンテンツの**インラインプレビュー**。
+- 翻訳を簡単に作成・更新できる**クイックアクション**。
+
+拡張機能の使い方の詳細については、[Intlayer VS Code拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+
 ### さらに進む
 
 さらに進むために、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
+[VS Code Marketplaceからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+この拡張機能は以下を提供します：
+
+- 翻訳キーの**オートコンプリート**。
+- 欠落している翻訳の**リアルタイムエラー検出**。
+- 翻訳内容の**インラインプレビュー**。
+- 翻訳を簡単に作成・更新できる**クイックアクション**。
+
+拡張機能の使い方の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+
+### さらに進むには
+
+さらに進みたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使ってコンテンツを外部化することができます。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

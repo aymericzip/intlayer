@@ -1,5 +1,5 @@
 ---
-blogName: index
+docName: index
 url: https://intlayer.org/blog/search/
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md
 createdAt: 2024-24-12

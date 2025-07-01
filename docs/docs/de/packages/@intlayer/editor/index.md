@@ -1,12 +1,31 @@
-# @intlayer/editor: NPM-Paket, das Dienstprogramme zur Schnittstelle der Anwendung mit dem Intlayer-Editor und zur Manipulation von Wörterbüchern bereitstellt
+---
+docName: package__@intlayer_editor
+url: https://intlayer.org/doc/package/@intlayer_editor
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/@intlayer/editor/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/editor - Intlayer Editor Schnittstellen-Paket
+description: NPM-Paket, das Dienstprogramme bereitstellt, um Anwendungen mit dem Intlayer-Editor zu verbinden und Wörterbücher in allen JavaScript-Frameworks zu bearbeiten.
+keywords:
+  - intlayer
+  - editor
+  - wörterbuch
+  - schnittstelle
+  - NPM
+  - JavaScript
+  - dienstprogramme
+  - plattformübergreifend
+---
 
-**Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurde. Es ist kompatibel mit Frameworks wie React, Next.js und Express.js.
+# @intlayer/editor: NPM-Paket, das Dienstprogramme bereitstellt, um die Anwendung mit dem Intlayer-Editor zu verbinden und Wörterbücher zu bearbeiten
 
-Das **`intlayer-editor`**-Paket bietet Dienstprogramme, um die Anwendung mit dem Intlayer-Editor zu verbinden. Es enthält die API zur Interaktion mit dem Editor und Dienstprogramme zur Manipulation von Wörterbüchern. Dieses Paket ist plattformübergreifend.
+**Intlayer** ist eine Sammlung von Paketen, die speziell für JavaScript-Entwickler entwickelt wurden. Es ist kompatibel mit Frameworks wie React, Next.js und Express.js.
+
+Das **`intlayer-editor`**-Paket stellt Dienstprogramme bereit, um die Anwendung mit dem Intlayer-Editor zu verbinden. Es enthält die API zur Interaktion mit dem Editor sowie Dienstprogramme zur Bearbeitung von Wörterbüchern. Dieses Paket ist plattformübergreifend.
 
 ## Installation
 
-Installieren Sie das notwendige Paket mit Ihrem bevorzugten Paketmanager:
+Installieren Sie das erforderliche Paket mit Ihrem bevorzugten Paketmanager:
 
 ```bash
 npm install @intlayer/editor
@@ -19,3 +38,7 @@ yarn add @intlayer/editor
 ```bash
 pnpm add @intlayer/editor
 ```
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

@@ -1,15 +1,15 @@
 ---
 docName: configuration
 url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md
 createdAt: 2024-08-13
 updatedAt: 2025-06-29
 title: Configuration
-description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
+description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customise Intlayer to your needs.
 keywords:
   - Configuration
   - Settings
-  - Customization
+  - Customisation
   - Intlayer
   - Options
 ---
@@ -18,7 +18,7 @@ keywords:
 
 ## Overview
 
-Intlayer configuration files allow customization of various aspects of the plugin, such as internationalization, middleware, and content handling. This document provides a detailed description of each property in the configuration.
+Intlayer configuration files allow customisation of various aspects of the plugin, such as internationalisation, middleware, and content handling. This document provides a detailed description of each property in the configuration.
 
 ---
 
@@ -116,9 +116,9 @@ The following sections describe the various configuration settings available for
 
 ---
 
-### Internationalization Configuration
+### Internationalisation Configuration
 
-Defines settings related to internationalization, including available locales and the default locale for the application.
+Defines settings related to internationalisation, including available locales and the default locale for the application.
 
 #### Properties
 
@@ -140,9 +140,9 @@ Defines settings related to internationalization, including available locales an
 
   - _Type_: `string`
   - _Default_: `inclusive`
-  - _Description_: Ensure strong implementations of internationalized content using typescript.
-  - _Note_: If set to "strict", the translation `t` function will require each declared locales to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
-  - _Note_: If set to "inclusive", the translation `t` function will require each declared locales to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exists.
+  - _Description_: Ensure strong implementations of internationalised content using TypeScript.
+  - _Note_: If set to "strict", the translation `t` function will require each declared locale to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
+  - _Note_: If set to "inclusive", the translation `t` function will require each declared locale to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exists.
   - _Note_: If set to "loose", the translation `t` function will accept any existing locale.
 
 - **defaultLocale**:
@@ -207,9 +207,9 @@ Defines settings related to the integrated editor, including server port and act
 
   - _Type_: `boolean`
   - _Default_: `true`
-  - _Description_: Indicates if the application interact with the visual editor.
+  - _Description_: Indicates if the application interacts with the visual editor.
   - _Example_: `process.env.NODE_ENV !== 'production'`
-  - _Note_: If true, the editor will be able to interact with the application. If false, the editor will not be able to interact with the application. In any case, the editor can only be enabled by the visual editor. Disabling the editor for specific environments is a way to enforce the security.
+  - _Note_: If true, the editor will be able to interact with the application. If false, the editor will not be able to interact with the application. In any case, the editor can only be enabled by the visual editor. Disabling the editor for specific environments is a way to enforce security.
 
 - **clientId**:
 
@@ -233,18 +233,18 @@ Defines settings related to the integrated editor, including server port and act
   - _Default_: `false`
   - _Description_: Indicates if the application should hot reload the locale configurations when a change is detected.
   - _Example_: `true`
-  - _Note_: For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
-  - _Note_: Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan.
+  - _Note_: For example, when a new dictionary is added or updated, the application will update the content to display on the page.
+  - _Note_: Because hot reloading requires a continuous connection to the server, it is only available for clients of the `enterprise` plan.
 
 - **dictionaryPriorityStrategy**:
   - _Type_: `string`
   - _Default_: `'local_first'`
-  - _Description_: The strategy to prioritize dictionaries in the case of both local and distant dictionaries being present. If set to `'distant_first'`, the application will prioritize distant dictionaries over local dictionaries. If set to `'local_first'`, the application will prioritize local dictionaries over distant dictionaries.
+  - _Description_: The strategy to prioritise dictionaries in the case of both local and distant dictionaries being present. If set to `'distant_first'`, the application will prioritise distant dictionaries over local dictionaries. If set to `'local_first'`, the application will prioritise local dictionaries over distant dictionaries.
   - _Example_: `'distant_first'`
 
 ### Middleware Configuration
 
-Settings that control middleware behavior, including how the application handles cookies, headers, and URL prefixes for locale management.
+Settings that control middleware behaviour, including how the application handles cookies, headers, and URL prefixes for locale management.
 
 #### Properties
 
@@ -316,7 +316,7 @@ Settings related to content handling within the application, including directory
   - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
   - _Description_: File extensions to look for when building dictionaries.
   - _Example_: `['.data.ts', '.data.js', '.data.json']`
-  - _Note_: Customizing file extensions can help avoid conflicts.
+  - _Note_: Customising file extensions can help avoid conflicts.
 
 - **baseDir**:
 
@@ -364,7 +364,7 @@ Settings related to content handling within the application, including directory
 
   - _Type_: `string`
   - _Default_: `'.intlayer/dictionary'`
-  - _Description_: The directory for storing localization dictionaries.
+  - _Description_: The directory for storing localisation dictionaries.
   - _Example_: `'translations'`
 
 - **i18nextResourcesDir**:
@@ -393,7 +393,7 @@ Settings related to content handling within the application, including directory
   - _Type_: `string[]`
   - _Default_: `['node_modules']`
   - _Description_: Directories excluded from content search.
-  - _Note_: This setting is not yet used, but planned for future implementation.
+  - _Note_: This setting is not yet used, but is planned for future implementation.
 
 ### Logger Configuration
 
@@ -421,12 +421,10 @@ Settings that control the logger, including the prefix to use.
 ### AI Configuration
 
 Settings that control the AI features of Intlayer, including the provider, model, and API key.
-
 This configuration is optional if you're registered on the [Intlayer Dashboard](https://intlayer.org/dashboard/project) using an access key. Intlayer will automatically manage the most efficient and cost-effective AI solution for your needs. Using the default options ensures better long-term maintainability as Intlayer continuously updates to use the most relevant models.
 
-If you prefer to use your own API key or specific model, you can define your custom AI configuration.
-This AI configuration will be used globally across your Intlayer environment. CLI commands will use these settings as defaults for the commands (e.g. `fill`), as well as the SDK, Visual Editor, and CMS. You can override these default values for specific use cases using command parameters.
-
+If you prefer to use your own API key or specific model, you can define your custom AI configuration.  
+This AI configuration will be used globally across your Intlayer environment. CLI commands will use these settings as defaults for the commands (e.g. `fill`), as well as the SDK, Visual Editor, and CMS. You can override these default values for specific use cases using command parameters.  
 Intlayer supports multiple AI providers for enhanced flexibility and choice. Currently supported providers are:
 
 - **OpenAI** (default)
@@ -478,13 +476,13 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
 
 ### Build Configuration
 
-Settings that control how Intlayer optimizes and builds your application's internationalization.
+Settings that control how Intlayer optimises and builds your application's internationalisation.
 
 Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
-> In development mode, Intlayer use a centralized static import for dictionaries to simplify the development experience.
+> In development mode, Intlayer uses a centralised static import for dictionaries to simplify the development experience.
 
-> By optimizing the build, Intlayer will replace all calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used.
+> By optimising the build, Intlayer will replace all calls of dictionaries to optimise chunking. That way the final bundle will import only the dictionaries that are used.
 
 - **Note**: `@intlayer/babel` is available by default on `vite-intlayer` package, but `@intlayer/swc` is not installed by default on `next-intlayer` package as SWC plugins are still experimental on Next.js.
 
@@ -494,10 +492,10 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
   - _Type_: `boolean`
   - _Default_: `process.env.NODE_ENV === 'production'`
-  - _Description_: Controls whether the build should be optimized.
+  - _Description_: Controls whether the build should be optimised.
   - _Example_: `true`
-  - _Note_: It will allows to import only the dictionaries that are used into the bundle. But all imports will stay as static import to avoid async processing when loading the dictionaries.
-  - _Note_: When enabled, Intlayer will optimize dictionary chunking by replacing all calls of `useIntlayer` with `useDictionary` and `getIntlayer` with `getDictionary`.
+  - _Note_: It will allow importing only the dictionaries that are used into the bundle. But all imports will remain as static imports to avoid async processing when loading the dictionaries.
+  - _Note_: When enabled, Intlayer will optimise dictionary chunking by replacing all calls of `useIntlayer` with `useDictionary` and `getIntlayer` with `getDictionary`.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
 
 - **activateDynamicImport**:
@@ -506,19 +504,19 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Default_: `false`
   - _Description_: Controls whether dictionary content should be dynamically imported per locale.
   - _Example_: `true`
-  - _Note_: It will allows to import dynamically the dictionary content for the current locale only.
-  - _Note_: Dynamic imports rely on React Suspense and may slightly impact rendering performance. But if desabled all locales will be loaded at once, even if they are not used.
-  - _Note_: When enabled, Intlayer will optimize dictionary chunking by replacing all calls of `useIntlayer` calls with `useDynamicDictionary`.
+  - _Note_: It will allow importing dynamically the dictionary content for the current locale only.
+  - _Note_: Dynamic imports rely on React Suspense and may slightly impact rendering performance. But if disabled all locales will be loaded at once, even if they are not used.
+  - _Note_: When enabled, Intlayer will optimise dictionary chunking by replacing all calls of `useIntlayer` with `useDynamicDictionary`.
   - _Note_: This option will be ignored if `optimize` is disabled.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
 
 - **traversePattern**:
   - _Type_: `string[]`
   - _Default_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']`
-  - _Description_: Patterns that define which files should be traversed during optimization.
+  - _Description_: Patterns that define which files should be traversed during optimisation.
     - _Example_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
-  - _Note_: Use this to limit optimization to relevant code files and improve build performance.
-  - _Note_: This option will be ignored if `optimize` is disabled.
+  - _Note_: Use this to limit optimisation to relevant code files and improve build performance.
+  - _Note_: This option will be ignored if `optimise` is disabled.
   - _Note_: Use glob pattern.
 
 ## Doc History

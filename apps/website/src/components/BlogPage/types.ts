@@ -2,7 +2,7 @@ import { type GithubRoutes, type PagesRoutes } from '@/Routes';
 import { type BlogsKeys } from '@intlayer/docs';
 
 export type BlogData = {
-  blogName: BlogsKeys;
+  docName: BlogsKeys;
   url: `${PagesRoutes}`;
   githubUrl: `${GithubRoutes}`;
   title: string;

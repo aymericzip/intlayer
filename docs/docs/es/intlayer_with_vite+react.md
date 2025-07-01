@@ -1,11 +1,11 @@
 ---
 docName: intlayer_with_react_native_and_expo
 url: https://intlayer.org/doc/environment/react-native-and-expo
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md
 createdAt: 2025-03-07
 updatedAt: 2025-06-29
-title: Traduce su aplicación móvil React Native y Expo (i18n)
-description: Descubre cómo hacer que tu aplicación móvil React Native y Expo sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
+title: Traduce tu aplicación móvil React Native y Expo (i18n)
+description: Descubre cómo hacer que tu aplicación móvil React Native y Expo sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirla.
 keywords:
   - Internacionalización
   - Documentación
@@ -16,11 +16,9 @@ keywords:
   - JavaScript
 ---
 
-# Comenzando con la Internacionalización (i18n) con Intlayer, Vite y React
+# Comenzando con la internacionalización (i18n) usando Intlayer, Vite y React
 
-<iframe title="Vite + React: Build a Multilingual App from Scratch using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
-
-Vea [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) en GitHub.
+Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-vite-react-template) en GitHub.
 
 ## ¿Qué es Intlayer?
 
@@ -28,16 +26,18 @@ Vea [Application Template](https://github.com/aymericzip/intlayer-vite-react-tem
 
 Con Intlayer, puedes:
 
-- **Gestionar fácilmente las traducciones** utilizando diccionarios declarativos a nivel de componente.
+- **Gestionar traducciones fácilmente** usando diccionarios declarativos a nivel de componente.
 - **Localizar dinámicamente metadatos**, rutas y contenido.
 - **Garantizar soporte para TypeScript** con tipos autogenerados, mejorando la autocompletación y la detección de errores.
-- **Beneficiarte de características avanzadas**, como la detección dinámica de locales y el cambio entre ellos.
+- **Beneficiarte de funciones avanzadas**, como la detección y el cambio dinámico de locales.
+
+---
 
 ## Guía paso a paso para configurar Intlayer en una aplicación Vite y React
 
 ### Paso 1: Instalar dependencias
 
-Instala los paquetes necesarios utilizando npm:
+Instala los paquetes necesarios usando npm:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -56,13 +56,13 @@ yarn add --save-dev vite-intlayer
 
 - **intlayer**
 
-  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuración, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
+  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuración, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md), transpiliación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
 
 - **react-intlayer**
   El paquete que integra Intlayer con aplicaciones React. Proporciona proveedores de contexto y hooks para la internacionalización en React.
 
 - **vite-intlayer**
-  Incluye el plugin de Vite para integrar Intlayer con el [empaquetador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como middleware para detectar el idioma preferido del usuario, gestionar cookies y manejar redirecciones de URL.
+  Incluye el plugin de Vite para integrar Intlayer con el [empaquetador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como middleware para detectar la configuración regional preferida del usuario, gestionar cookies y manejar la redirección de URL.
 
 ### Paso 2: Configuración de tu proyecto
 
@@ -90,13 +90,14 @@ export default config;
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
+// Configuración de Intlayer para internacionalización
 const config = {
   internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Tus otros idiomas
+      // Tus otros locales
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -109,13 +110,14 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
+// Configuración de Intlayer para internacionalización
 const config = {
   internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Tus otros idiomas
+      // Tus otros locales
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -124,11 +126,11 @@ const config = {
 module.exports = config;
 ```
 
-> A través de este archivo de configuración, puedes configurar URLs localizadas, redirección mediante middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los logs de Intlayer en la consola y más. Para una lista completa de parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+> A través de este archivo de configuración, puedes configurar URLs localizadas, redirección de middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, deshabilitar los logs de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
-### Paso 3: Integrar Intlayer en tu configuración de Vite
+### Paso 3: Integra Intlayer en tu configuración de Vite
 
-Añade el plugin de Intlayer en tu configuración.
+Agrega el plugin de intlayer en tu configuración.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -163,11 +165,11 @@ module.exports = defineConfig({
 });
 ```
 
-> El plugin `intlayerPlugin()` de Vite se utiliza para integrar Intlayer con Vite. Garantiza la construcción de archivos de declaración de contenido y los monitorea en modo de desarrollo. Define variables de entorno de Intlayer dentro de la aplicación Vite. Además, proporciona alias para optimizar el rendimiento.
+> El plugin `intlayerPlugin()` para Vite se utiliza para integrar Intlayer con Vite. Asegura la construcción de archivos de declaración de contenido y los supervisa en modo de desarrollo. Define variables de entorno de Intlayer dentro de la aplicación Vite. Además, proporciona alias para optimizar el rendimiento.
 
-### Paso 4: Declarar tu contenido
+### Paso 4: Declara Tu Contenido
 
-Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
+Crea y administra tus declaraciones de contenido para almacenar traducciones:
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -198,7 +200,7 @@ const appContent = {
     edit: t<ReactNode>({
       en: (
         <>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Edita <code>src/App.tsx</code> y guarda para probar HMR
         </>
       ),
       fr: (
@@ -214,9 +216,9 @@ const appContent = {
     }),
 
     readTheDocs: t({
-      en: "Click on the Vite and React logos to learn more",
+      en: "Haz clic en los logotipos de Vite y React para obtener más información",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y React para obtener más información",
+      es: "Haz clic en los logotipos de Vite y React para obtener más información",
     }),
   },
 } satisfies Dictionary;
@@ -254,10 +256,10 @@ const appContent = {
       t <
       ReactNode >
       {
-        // No olvides importar React si utilizas un nodo React en tu contenido
+        // No olvides importar React si usas un nodo React en tu contenido
         en: (
           <>
-            Edit <code>src/App.tsx</code> and save to test HMR
+            Edita <code>src/App.tsx</code> y guarda para probar HMR
           </>
         ),
         fr: (
@@ -306,7 +308,6 @@ const appContent = {
     count: t({
       en: "count is ",
       fr: "le compte est ",
-
       es: "el recuento es ",
     }),
 
@@ -314,7 +315,7 @@ const appContent = {
       t <
       ReactNode >
       {
-        // No olvides importar React si utilizas un nodo React en tu contenido
+        // No olvides importar React si usas un nodo React en tu contenido
         en: (
           <>
             Edit <code>src/App.tsx</code> and save to test HMR
@@ -391,7 +392,7 @@ module.exports = appContent;
     "readTheDocs": {
       "nodeType": "translation",
       "translation": {
-        "en": "Click on the Vite and React logos to learn more",
+        "en": "Haga clic en los logotipos de Vite y React para obtener más información",
         "fr": "Cliquez sur les logos Vite et React pour en savoir plus",
         "es": "Haga clic en los logotipos de Vite y React para obtener más información"
       }
@@ -400,15 +401,15 @@ module.exports = appContent;
 }
 ```
 
-> Tus declaraciones de contenido pueden definirse en cualquier parte de tu aplicación siempre que estén incluidas en el directorio `contentDir` (por defecto, `./src`). Y coincidan con la extensión del archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Sus declaraciones de contenido pueden definirse en cualquier parte de su aplicación tan pronto como se incluyan en el directorio `contentDir` (por defecto, `./src`). Y coincidan con la extensión del archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
+> Para más detalles, consulte la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
 
-> Si tu archivo de contenido incluye código TSX, deberías considerar importar `import React from "react";` en tu archivo de contenido.
+> Si su archivo de contenido incluye código TSX, debería considerar importar `import React from "react";` en su archivo de contenido.
 
-### Paso 5: Utiliza Intlayer en tu Código
+### Paso 5: Utilice Intlayer en su Código
 
-Accede a tus diccionarios de contenido en toda tu aplicación:
+Acceda a sus diccionarios de contenido en toda su aplicación:
 
 ```tsx {5,9} fileName="src/App.tsx" codeFormat="typescript"
 import { useState, type FC } from "react";
@@ -448,7 +449,7 @@ const AppContent: FC = () => {
   );
 };
 
-const App: FC = () => (
+const App = () => (
   <IntlayerProvider>
     <AppContent />
   </IntlayerProvider>
@@ -551,7 +552,7 @@ const App = () => (
 module.exports = App;
 ```
 
-> Si deseas usar tu contenido en un atributo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debes llamar al valor de la función, como:
+> Si quieres usar tu contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debes llamar al valor de la función, así:
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
@@ -596,7 +597,6 @@ const LocaleSwitcher = () => {
 
 ```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
 const { Locales } = require("intlayer");
-
 const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
@@ -604,7 +604,7 @@ const LocaleSwitcher = () => {
 
   return (
     <button onClick={() => setLocale(Locales.English)}>
-      Cambiar idioma a Inglés
+      Cambiar idioma a inglés
     </button>
   );
 };
@@ -612,7 +612,7 @@ const LocaleSwitcher = () => {
 
 > Para aprender más sobre el hook `useLocale`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md).
 
-### (Opcional) Paso 7: Agregar enrutamiento localizado a tu aplicación
+### (Opcional) Paso 7: Añadir enrutamiento localizado a tu aplicación
 
 El propósito de este paso es crear rutas únicas para cada idioma. Esto es útil para SEO y URLs amigables con SEO.
 Ejemplo:
@@ -623,9 +623,9 @@ Ejemplo:
 - https://example.com/fr/about
 ```
 
-> Por defecto, las rutas no están prefijadas para el idioma predeterminado. Si deseas prefijar el idioma predeterminado, puedes configurar la opción `middleware.prefixDefault` como `true` en tu configuración. Consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para más información.
+> Por defecto, las rutas no tienen prefijo para la configuración regional predeterminada. Si deseas agregar un prefijo para la configuración regional predeterminada, puedes establecer la opción `middleware.prefixDefault` en `true` en tu configuración. Consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para más información.
 
-Para agregar enrutamiento localizado a tu aplicación, puedes crear un componente `LocaleRouter` que envuelva las rutas de tu aplicación y maneje el enrutamiento basado en el idioma. Aquí tienes un ejemplo usando [React Router](https://reactrouter.com/home):
+Para agregar enrutamiento localizado a tu aplicación, puedes crear un componente `LocaleRouter` que envuelva las rutas de tu aplicación y gestione el enrutamiento basado en la configuración regional. Aquí tienes un ejemplo usando [React Router](https://reactrouter.com/home):
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Importando las dependencias y funciones necesarias
@@ -638,37 +638,37 @@ import {
   Route,
   Navigate,
   useLocation,
-} from "react-router-dom"; // Componentes de enrutador para gestionar la navegación
+} from "react-router-dom"; // Componentes del router para gestionar la navegación
 
-// Desestructuración de la configuración desde Intlayer
+// Desestructurando la configuración de Intlayer
 const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
- * Un componente que maneja la localización y envuelve los hijos con el contexto de idioma apropiado.
- * Gestiona la detección y validación de idiomas basada en la URL.
+ * Un componente que maneja la localización y envuelve a los hijos con el contexto de configuración regional apropiado.
+ * Gestiona la detección y validación de la configuración regional basada en la URL.
  */
 const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => {
-  const { pathname, search } = useLocation(); // Obtiene la ruta actual de la URL
+  const { pathname, search } = useLocation(); // Obtener la ruta URL actual
 
-  // Determina el idioma actual, utilizando el predeterminado si no se proporciona
+  // Determinar la configuración regional actual, usando la predeterminada si no se proporciona
   const currentLocale = locale ?? defaultLocale;
 
-  // Elimina el prefijo del idioma de la ruta para construir una ruta base
+  // Eliminar el prefijo de la configuración regional de la ruta para construir una ruta base
   const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Ruta actual de la URL
+    pathname // Ruta URL actual
   );
 
   /**
-   * Si middleware.prefixDefault es verdadero, el idioma predeterminado siempre debe estar prefijado.
+   * Si middleware.prefixDefault es verdadero, la configuración regional predeterminada siempre debe tener prefijo.
    */
   if (middleware.prefixDefault) {
-    // Valida el idioma
+    // Validar la configuración regional
     if (!locale || !locales.includes(locale)) {
-      // Redirige al idioma predeterminado con la ruta actualizada
+      // Redirigir a la configuración regional predeterminada con la ruta actualizada
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
@@ -677,28 +677,28 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
       );
     }
 
-    // Envuelve los hijos con el IntlayerProvider y establece el idioma actual
+    // Envuelve los hijos con IntlayerProvider y establece la configuración regional actual
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
   } else {
     /**
-     * Cuando middleware.prefixDefault es falso, el idioma predeterminado no está prefijado.
-     * Asegúrate de que el idioma actual sea válido y no sea el idioma predeterminado.
+     * Cuando middleware.prefixDefault es falso, la configuración regional predeterminada no se antepone.
+     * Asegúrate de que la configuración regional actual sea válida y no la predeterminada.
      */
     if (
       currentLocale.toString() !== defaultLocale.toString() &&
       !locales
         .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Excluye el idioma predeterminado
+          (locale) => locale.toString() !== defaultLocale.toString() // Excluir la configuración regional predeterminada
         )
-        .includes(currentLocale) // Verifica si el idioma actual está en la lista de idiomas válidos
+        .includes(currentLocale) // Verifica si la localidad actual está en la lista de localidades válidas
     ) {
-      // Redirige a la ruta sin el prefijo del idioma
+      // Redirige a la ruta sin el prefijo de localidad
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
     }
 
-    // Envuelve los hijos con el IntlayerProvider y establece el idioma actual
+    // Envuelve los hijos con IntlayerProvider y establece la localidad actual
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -706,7 +706,7 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 };
 
 /**
- * Un componente de enrutador que configura rutas específicas por idioma.
+ * Un componente de enrutador que configura rutas específicas por localidad.
  * Utiliza React Router para gestionar la navegación y renderizar componentes localizados.
  */
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
@@ -718,21 +718,21 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
         )
         .map((locale) => (
           <Route
-            // Patrón de ruta para capturar el idioma (por ejemplo, /en/, /fr/) y coincidir con todas las rutas subsecuentes
+            // Patrón de ruta para capturar la localidad (por ejemplo, /en/, /fr/) y coincidir con todas las rutas posteriores
             path={`/${locale}/*`}
             key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envuelve los hijos con la gestión de idioma
+            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envuelve los hijos con la gestión de la localidad
           />
         ))}
 
       {
-        // Si el prefijo del idioma predeterminado está deshabilitado, renderiza los hijos directamente en la ruta raíz
+        // Si la prefijación de la localidad por defecto está deshabilitada, renderiza los hijos directamente en la ruta raíz
         !middleware.prefixDefault && (
           <Route
             path="*"
             element={
               <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Envuelve los hijos con la gestión de idioma
+            } // Envuelve los hijos con la gestión de la localidad
           />
         )
       }
@@ -743,7 +743,8 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Importando las dependencias y funciones necesarias
-import { configuration, getPathWithoutLocale } from "intlayer"; // Funciones y tipos utilitarios de 'intlayer'
+import { configuration, getPathWithoutLocale } from "intlayer"; // Funciones utilitarias y tipos de 'intlayer'
+// Funciones utilitarias y tipos de 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // Proveedor para el contexto de internacionalización
 import {
   BrowserRouter,
@@ -751,34 +752,35 @@ import {
   Route,
   Navigate,
   useLocation,
-} from "react-router-dom"; // Componentes de enrutador para gestionar la navegación
+} from "react-router-dom"; // Componentes del enrutador para gestionar la navegación
 
-// Desestructuración de la configuración desde Intlayer
+// Desestructurando la configuración de Intlayer
 const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
- * Un componente que maneja la localización y envuelve los hijos con el contexto de idioma apropiado.
- * Gestiona la detección y validación de idiomas basada en la URL.
+ * Un componente que maneja la localización y envuelve a los hijos con el contexto de idioma apropiado.
+/**
+ * Gestiona la detección y validación de la localización basada en la URL.
  */
 const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Obtiene la ruta actual de la URL
+  const { pathname, search } = useLocation(); // Obtener la ruta actual de la URL
 
-  // Determina el idioma actual, utilizando el predeterminado si no se proporciona
+  // Determinar la localización actual, usando la localización por defecto si no se proporciona
   const currentLocale = locale ?? defaultLocale;
 
-  // Elimina el prefijo del idioma de la ruta para construir una ruta base
+  // Eliminar el prefijo de localización de la ruta para construir una ruta base
   const pathWithoutLocale = getPathWithoutLocale(
     pathname // Ruta actual de la URL
   );
 
   /**
-   * Si middleware.prefixDefault es verdadero, el idioma predeterminado siempre debe estar prefijado.
+   * Si middleware.prefixDefault es verdadero, la localización por defecto siempre debe tener prefijo.
    */
   if (middleware.prefixDefault) {
-    // Valida el idioma
+    // Validar la localización
     if (!locale || !locales.includes(locale)) {
-      // Redirige al idioma predeterminado con la ruta actualizada
+      // Redirigir a la localización por defecto con la ruta actualizada
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
@@ -787,28 +789,28 @@ const AppLocalized = ({ children, locale }) => {
       );
     }
 
-    // Envuelve los hijos con el IntlayerProvider y establece el idioma actual
+    // Envuelve los hijos con IntlayerProvider y establece la localidad actual
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
   } else {
     /**
-     * Cuando middleware.prefixDefault es falso, el idioma predeterminado no está prefijado.
-     * Asegúrate de que el idioma actual sea válido y no sea el idioma predeterminado.
+     * Cuando middleware.prefixDefault es falso, la localidad por defecto no se antepone.
+     * Asegura que la localidad actual sea válida y no la localidad por defecto.
      */
     if (
       currentLocale.toString() !== defaultLocale.toString() &&
       !locales
         .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Excluye el idioma predeterminado
+          (locale) => locale.toString() !== defaultLocale.toString() // Excluir la localidad por defecto
         )
-        .includes(currentLocale) // Verifica si el idioma actual está en la lista de idiomas válidos
+        .includes(currentLocale) // Verifica si la configuración regional actual está en la lista de configuraciones regionales válidas
     ) {
-      // Redirige a la ruta sin el prefijo del idioma
+      // Redirige a la ruta sin el prefijo de configuración regional
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
     }
 
-    // Envuelve los hijos con el IntlayerProvider y establece el idioma actual
+    // Envuelve los hijos con IntlayerProvider y establece la configuración regional actual
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -816,7 +818,7 @@ const AppLocalized = ({ children, locale }) => {
 };
 
 /**
- * Un componente de enrutador que configura rutas específicas para cada idioma.
+ * Un componente de enrutador que configura rutas específicas por configuración regional.
  * Utiliza React Router para gestionar la navegación y renderizar componentes localizados.
  */
 export const LocaleRouter = ({ children }) => (
@@ -828,21 +830,21 @@ export const LocaleRouter = ({ children }) => (
         )
         .map((locale) => (
           <Route
-            // Patrón de ruta para capturar el idioma (por ejemplo, /en/, /fr/) y coincidir con todas las rutas subsecuentes
+            // Patrón de ruta para capturar la localidad (por ejemplo, /en/, /fr/) y coincidir con todas las rutas subsecuentes
             path={`/${locale}/*`}
             key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envuelve los hijos con la gestión de idioma
+            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envuelve los hijos con la gestión de la localidad
           />
         ))}
 
       {
-        // Si el prefijo del idioma predeterminado está deshabilitado, renderiza los hijos directamente en la ruta raíz
+        // Si la prefijación de la localidad por defecto está deshabilitada, renderiza los hijos directamente en la ruta raíz
         !middleware.prefixDefault && (
           <Route
             path="*"
             element={
               <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Envuelve los hijos con la gestión de idioma
+            } // Envuelve los hijos con la gestión de la localidad
           />
         )
       }
@@ -853,7 +855,7 @@ export const LocaleRouter = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
 // Importando las dependencias y funciones necesarias
-const { configuration, getPathWithoutLocale } = require("intlayer"); // Funciones y tipos utilitarios de 'intlayer'
+const { configuration, getPathWithoutLocale } = require("intlayer"); // Funciones utilitarias y tipos de 'intlayer'
 const { IntlayerProvider, useLocale } = require("react-intlayer"); // Proveedor para el contexto de internacionalización
 const {
   BrowserRouter,
@@ -861,34 +863,34 @@ const {
   Route,
   Navigate,
   useLocation,
-} = require("react-router-dom"); // Componentes de enrutador para gestionar la navegación
+} = require("react-router-dom"); // Componentes del enrutador para gestionar la navegación
 
-// Desestructuración de la configuración desde Intlayer
+// Desestructurando la configuración de Intlayer
 const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
- * Un componente que gestiona la localización y envuelve los hijos con el contexto de idioma apropiado.
+ * Un componente que maneja la localización y envuelve a los hijos con el contexto de idioma apropiado.
  * Gestiona la detección y validación del idioma basado en la URL.
  */
 const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Obtiene la ruta actual de la URL
+  const { pathname, search } = useLocation(); // Obtener la ruta URL actual
 
-  // Determina el idioma actual, usando el predeterminado si no se proporciona
+  // Determinar la configuración regional actual, usando la predeterminada si no se proporciona
   const currentLocale = locale ?? defaultLocale;
 
-  // Elimina el prefijo del idioma de la ruta para construir una ruta base
+  // Eliminar el prefijo de la configuración regional de la ruta para construir una ruta base
   const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Ruta actual de la URL
+    pathname // Ruta URL actual
   );
 
   /**
-   * Si middleware.prefixDefault es verdadero, el idioma predeterminado siempre debe tener prefijo.
+   * Si middleware.prefixDefault es true, la configuración regional predeterminada siempre debe tener prefijo.
    */
   if (middleware.prefixDefault) {
-    // Valida el idioma
+    // Validar la configuración regional
     if (!locale || !locales.includes(locale)) {
-      // Redirige al idioma predeterminado con la ruta actualizada
+      // Redirigir a la configuración regional predeterminada con la ruta actualizada
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
@@ -897,28 +899,28 @@ const AppLocalized = ({ children, locale }) => {
       );
     }
 
-    // Envuelve los hijos con el IntlayerProvider y establece el idioma actual
+    // Envuelve los hijos con IntlayerProvider y establece la configuración regional actual
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
   } else {
     /**
-     * Cuando middleware.prefixDefault es falso, el idioma predeterminado no tiene prefijo.
-     * Asegúrate de que el idioma actual sea válido y no sea el predeterminado.
+     * Cuando middleware.prefixDefault es falso, la configuración regional predeterminada no se antepone.
+     * Asegúrate de que la configuración regional actual sea válida y no la predeterminada.
      */
     if (
       currentLocale.toString() !== defaultLocale.toString() &&
       !locales
         .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Excluye el idioma predeterminado
+          (locale) => locale.toString() !== defaultLocale.toString() // Excluir la configuración regional predeterminada
         )
-        .includes(currentLocale) // Verifica si el idioma actual está en la lista de idiomas válidos
+        .includes(currentLocale) // Verificar si la configuración regional actual está en la lista de configuraciones regionales válidas
     ) {
-      // Redirige a la ruta sin prefijo de idioma
+      // Redirigir a la ruta sin el prefijo de la localidad
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
     }
 
-    // Envuelve los hijos con el IntlayerProvider y establece el idioma actual
+    // Envolver los hijos con IntlayerProvider y establecer la localidad actual
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -926,7 +928,7 @@ const AppLocalized = ({ children, locale }) => {
 };
 
 /**
- * Un componente de enrutador que configura rutas específicas para cada idioma.
+ * Un componente de enrutador que configura rutas específicas por localidad.
  * Utiliza React Router para gestionar la navegación y renderizar componentes localizados.
  */
 const LocaleRouter = ({ children }) => (
@@ -938,21 +940,21 @@ const LocaleRouter = ({ children }) => (
         )
         .map((locale) => (
           <Route
-            // Patrón de ruta para capturar el idioma (por ejemplo, /en/, /fr/) y coincidir con todas las rutas subsecuentes
+            // Patrón de ruta para capturar la localidad (por ejemplo, /en/, /fr/) y coincidir con todas las rutas subsecuentes
             path={`/${locale}/*`}
             key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envuelve los hijos con la gestión de idioma
+            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Envuelve los hijos con la gestión de la localización
           />
         ))}
 
       {
-        // Si el prefijo del idioma predeterminado está deshabilitado, renderiza los hijos directamente en la ruta raíz
+        // Si la prefijación de la localización por defecto está deshabilitada, renderiza los hijos directamente en la ruta raíz
         !middleware.prefixDefault && (
           <Route
             path="*"
             element={
               <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Envuelve los hijos con la gestión de idioma
+            } // Envuelve los hijos con la gestión de la localización
           />
         )
       }
@@ -1000,7 +1002,7 @@ const App = () => (
 );
 ```
 
-En paralelo, también puedes usar el `intLayerMiddlewarePlugin` para agregar enrutamiento del lado del servidor a tu aplicación. Este plugin detectará automáticamente el idioma actual basado en la URL y establecerá la cookie de idioma apropiada. Si no se especifica un idioma, el plugin determinará el idioma más apropiado basado en las preferencias de idioma del navegador del usuario. Si no se detecta un idioma, redirigirá al idioma predeterminado.
+Paralelamente, también puedes usar el `intLayerMiddlewarePlugin` para agregar enrutamiento del lado del servidor a tu aplicación. Este plugin detectará automáticamente la configuración regional actual basada en la URL y establecerá la cookie de configuración regional apropiada. Si no se especifica ninguna configuración regional, el plugin determinará la configuración regional más adecuada según las preferencias de idioma del navegador del usuario. Si no se detecta ninguna configuración regional, redirigirá a la configuración regional predeterminada.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1024,7 +1026,7 @@ export default defineConfig({
 });
 ```
 
-```javascript {5,10} fileName="vite.config.cjs" codeFormat="commonjs"
+```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
 const { intlayerPlugin, intLayerMiddlewarePlugin } = require("vite-intlayer");
@@ -1035,9 +1037,9 @@ module.exports = defineConfig({
 });
 ```
 
-### (Opcional) Paso 8: Cambiar la URL cuando cambia el idioma
+### (Opcional) Paso 8: Cambiar la URL cuando cambia la configuración regional
 
-Para cambiar la URL cuando cambia el idioma, puedes usar la propiedad `onLocaleChange` proporcionada por el hook `useLocale`. En paralelo, puedes usar los hooks `useLocation` y `useNavigate` de `react-router-dom` para actualizar la ruta de la URL.
+Para cambiar la URL cuando cambia la configuración regional, puedes usar la propiedad `onLocaleChange` proporcionada por el hook `useLocale`. Paralelamente, puedes usar los hooks `useLocation` y `useNavigate` de `react-router-dom` para actualizar la ruta de la URL.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { useLocation, useNavigate } from "react-router-dom";
@@ -1051,12 +1053,12 @@ import { useLocale } from "react-intlayer";
 import { type FC } from "react";
 
 const LocaleSwitcher: FC = () => {
-  const { pathname, search } = useLocation(); // Obtiene la ruta actual de la URL. Ejemplo: /fr/about?foo=bar
+  const { pathname, search } = useLocation(); // Obtener la ruta actual de la URL. Ejemplo: /fr/about?foo=bar
   const navigate = useNavigate();
 
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
-      // Construir la URL con el locale actualizado
+      // Construir la URL con la configuración regional actualizada
       // Ejemplo: /es/about?foo=bar
       const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
 
@@ -1081,19 +1083,19 @@ const LocaleSwitcher: FC = () => {
             key={localeItem}
           >
             <span>
-              {/* Locale - por ejemplo, FR */}
+              {/* Localización - p.ej. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Idioma en su propio Locale - por ejemplo, Français */}
+              {/* Idioma en su propia localización - p.ej. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Idioma en el Locale actual - por ejemplo, Francés con el locale actual configurado en Locales.SPANISH */}
+              {/* Idioma en la localización actual - p.ej. Francés con la localización actual configurada a Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Idioma en Inglés - por ejemplo, French */}
+              {/* Idioma en inglés - p.ej. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1115,16 +1117,16 @@ import {
 import { useLocale } from "react-intlayer";
 
 const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // Obtener la ruta actual de la URL. Ejemplo: /fr/about?foo=bar
+  const { pathname, search } = useLocation(); // Obtener la ruta URL actual. Ejemplo: /fr/about?foo=bar
   const navigate = useNavigate();
 
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
-      // Construir la URL con el locale actualizado
+      // Construir la URL con la configuración regional actualizada
       // Ejemplo: /es/about?foo=bar
       const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
 
-      // Actualizar la ruta de la URL
+      // Actualizar la ruta URL
       navigate(pathWithLocale);
     },
   });
@@ -1145,19 +1147,19 @@ const LocaleSwitcher = () => {
             key={localeItem}
           >
             <span>
-              {/* Locale - por ejemplo, FR */}
+              {/* Localidad - p.ej. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Idioma en su propio Locale - por ejemplo, Français */}
+              {/* Idioma en su propia Localidad - p.ej. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Idioma en el Locale actual - por ejemplo, Francés con el locale actual configurado en Locales.SPANISH */}
+              {/* Idioma en la configuración regional actual - p.ej. Francés con la configuración regional actual establecida en Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Idioma en Inglés - por ejemplo, French */}
+              {/* Idioma en inglés - p.ej. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1179,16 +1181,16 @@ const {
 const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // Obtener la ruta actual de la URL. Ejemplo: /fr/about?foo=bar
+  const { pathname, search } = useLocation(); // Obtener la ruta URL actual. Ejemplo: /fr/about?foo=bar
   const navigate = useNavigate();
 
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
-      // Construir la URL con el locale actualizado
+      // Construir la URL con la configuración regional actualizada
       // Ejemplo: /es/about?foo=bar
       const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
 
-      // Actualizar la ruta de la URL
+      // Actualizar la ruta URL
       navigate(pathWithLocale);
     },
   });
@@ -1209,19 +1211,19 @@ const LocaleSwitcher = () => {
             key={localeItem}
           >
             <span>
-              {/* Locale - por ejemplo, FR */}
+              {/* Localización - p.ej. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Idioma en su propio Locale - por ejemplo, Français */}
+              {/* Idioma en su propia localización - p.ej. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Idioma en el Locale actual - por ejemplo, Francés con el locale actual configurado en Locales.SPANISH */}
+              {/* Idioma en la localización actual - p.ej. Francés con la localización actual configurada a Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Idioma en Inglés - por ejemplo, French */}
+              {/* Idioma en inglés - por ejemplo, French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1232,32 +1234,34 @@ const LocaleSwitcher = () => {
 };
 ```
 
-> Referencias de documentación:
+> Referencias de la documentación:
 >
 > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md)
 > - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocaleName.md)
 > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedUrl.md)
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> - [`lang` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
-> - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`lang` attribute](https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` attribute](https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` attribute](https://developer.mozilla.org/es/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-A continuación, el **Paso 9** actualizado con explicaciones añadidas y ejemplos de código refinados:
+A continuación se muestra el **Paso 9** actualizado con explicaciones añadidas y ejemplos de código refinados:
 
-### (Opcional) Paso 9: Cambiar los Atributos de Idioma y Dirección en HTML
+---
 
-Cuando tu aplicación soporta múltiples idiomas, es crucial actualizar los atributos `lang` y `dir` de la etiqueta `<html>` para que coincidan con el locale actual. Hacer esto asegura:
+### (Opcional) Paso 9: Cambiar los atributos de idioma y dirección del HTML
 
-- **Accesibilidad**: Los lectores de pantalla y tecnologías de asistencia dependen del atributo `lang` correcto para pronunciar e interpretar el contenido con precisión.
-- **Renderizado de Texto**: El atributo `dir` (dirección) asegura que el texto se renderice en el orden adecuado (por ejemplo, de izquierda a derecha para inglés, de derecha a izquierda para árabe o hebreo), lo cual es esencial para la legibilidad.
-- **SEO**: Los motores de búsqueda utilizan el atributo `lang` para determinar el idioma de tu página, ayudando a servir el contenido localizado correcto en los resultados de búsqueda.
+Cuando tu aplicación soporta múltiples idiomas, es crucial actualizar los atributos `lang` y `dir` de la etiqueta `<html>` para que coincidan con la configuración regional actual. Hacer esto garantiza:
 
-Al actualizar estos atributos dinámicamente cuando cambia el locale, garantizas una experiencia consistente y accesible para los usuarios en todos los idiomas soportados.
+- **Accesibilidad**: Los lectores de pantalla y las tecnologías de asistencia dependen del atributo `lang` correcto para pronunciar e interpretar el contenido con precisión.
+- **Renderizado de texto**: El atributo `dir` (dirección) asegura que el texto se muestre en el orden adecuado (por ejemplo, de izquierda a derecha para inglés, de derecha a izquierda para árabe o hebreo), lo cual es esencial para la legibilidad.
+- **SEO**: Los motores de búsqueda utilizan el atributo `lang` para determinar el idioma de tu página, ayudando a mostrar el contenido localizado correcto en los resultados de búsqueda.
+
+Al actualizar estos atributos dinámicamente cuando cambia la configuración regional, garantizas una experiencia coherente y accesible para los usuarios en todos los idiomas compatibles.
 
 #### Implementación del Hook
 
-Crea un hook personalizado para gestionar los atributos HTML. El hook escucha los cambios de locale y actualiza los atributos en consecuencia:
+Crea un hook personalizado para gestionar los atributos HTML. El hook escucha los cambios de configuración regional y actualiza los atributos en consecuencia:
 
 ```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
 import { useEffect } from "react";
@@ -1265,22 +1269,20 @@ import { useLocale } from "react-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
-
-
-* Actualiza los atributos `lang` y `dir` del elemento HTML <html> basado en la configuración regional actual.
+ * Actualiza los atributos `lang` y `dir` del elemento HTML <html> según la configuración regional actual.
  * - `lang`: Informa a los navegadores y motores de búsqueda sobre el idioma de la página.
- * - `dir`: Asegura el orden de lectura correcto (por ejemplo, 'ltr' para inglés, 'rtl' para árabe).
+ * - `dir`: Garantiza el orden correcto de lectura (por ejemplo, 'ltr' para inglés, 'rtl' para árabe).
  *
- * Esta actualización dinámica es esencial para el renderizado adecuado del texto, accesibilidad y SEO.
+ * Esta actualización dinámica es esencial para el renderizado correcto del texto, accesibilidad y SEO.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // Actualiza el atributo de idioma al idioma actual.
+    // Actualiza el atributo de idioma al locale actual.
     document.documentElement.lang = locale;
 
-    // Establece la dirección del texto basada en la configuración regional actual.
+    // Establece la dirección del texto según el locale actual.
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
@@ -1292,20 +1294,20 @@ import { useLocale } from "react-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
- * Actualiza los atributos `lang` y `dir` del elemento HTML <html> basado en la configuración regional actual.
+ * Actualiza los atributos `lang` y `dir` del elemento HTML <html> según el locale actual.
  * - `lang`: Informa a los navegadores y motores de búsqueda sobre el idioma de la página.
  * - `dir`: Asegura el orden de lectura correcto (por ejemplo, 'ltr' para inglés, 'rtl' para árabe).
  *
- * Esta actualización dinámica es esencial para el renderizado adecuado del texto, accesibilidad y SEO.
+ * Esta actualización dinámica es esencial para una correcta representación del texto, accesibilidad y SEO.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // Actualiza el atributo de idioma al idioma actual.
+    // Actualiza el atributo de idioma al locale actual.
     document.documentElement.lang = locale;
 
-    // Establece la dirección del texto basada en la configuración regional actual.
+    // Establece la dirección del texto según el locale actual.
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
@@ -1317,20 +1319,20 @@ const { useLocale } = require("react-intlayer");
 const { getHTMLTextDir } = require("intlayer");
 
 /**
- * Actualiza los atributos `lang` y `dir` del elemento HTML <html> basado en la configuración regional actual.
+ * Actualiza los atributos `lang` y `dir` del elemento HTML <html> según la configuración regional actual.
  * - `lang`: Informa a los navegadores y motores de búsqueda sobre el idioma de la página.
- * - `dir`: Asegura el orden de lectura correcto (por ejemplo, 'ltr' para inglés, 'rtl' para árabe).
+ * - `dir`: Asegura el orden correcto de lectura (por ejemplo, 'ltr' para inglés, 'rtl' para árabe).
  *
- * Esta actualización dinámica es esencial para el renderizado adecuado del texto, accesibilidad y SEO.
+ * Esta actualización dinámica es esencial para una correcta renderización del texto, accesibilidad y SEO.
  */
 const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // Actualiza el atributo de idioma al idioma actual.
+    // Actualiza el atributo de idioma al locale actual.
     document.documentElement.lang = locale;
 
-    // Establece la dirección del texto basada en la configuración regional actual.
+    // Establece la dirección del texto según el locale actual.
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
@@ -1338,7 +1340,7 @@ const useI18nHTMLAttributes = () => {
 module.exports = { useI18nHTMLAttributes };
 ```
 
-#### Usando el Hook en Tu Aplicación
+#### Uso del Hook en Tu Aplicación
 
 Integra el hook en tu componente principal para que los atributos HTML se actualicen cada vez que cambie la configuración regional:
 
@@ -1349,7 +1351,7 @@ import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
 
 const AppContent: FC = () => {
-  // Aplica el hook para actualizar los atributos lang y dir de la etiqueta <html> basado en la configuración regional.
+  // Aplica el hook para actualizar los atributos lang y dir de la etiqueta <html> según la configuración regional.
   useI18nHTMLAttributes();
 
   // ... Resto de tu componente
@@ -1370,7 +1372,7 @@ import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
 
 const AppContent = () => {
-  // Aplica el hook para actualizar los atributos lang y dir de la etiqueta <html> basado en la configuración regional.
+  // Aplica el hook para actualizar los atributos lang y dir de la etiqueta <html> según la configuración regional.
   useI18nHTMLAttributes();
 
   // ... Resto de tu componente
@@ -1392,7 +1394,7 @@ const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
 require("./App.css");
 
 const AppContent = () => {
-  // Aplica el hook para actualizar los atributos lang y dir de la etiqueta <html> basado en la configuración regional.
+  // Aplicar el hook para actualizar los atributos lang y dir de la etiqueta <html> según la configuración regional.
   useI18nHTMLAttributes();
 
   // ... Resto de tu componente
@@ -1409,21 +1411,21 @@ module.exports = App;
 
 Al aplicar estos cambios, tu aplicación:
 
-- Asegurará que el atributo **idioma** (`lang`) refleje correctamente la configuración regional actual, lo cual es importante para SEO y el comportamiento del navegador.
+- Asegurará que el atributo de **idioma** (`lang`) refleje correctamente la configuración regional actual, lo cual es importante para el SEO y el comportamiento del navegador.
 - Ajustará la **dirección del texto** (`dir`) según la configuración regional, mejorando la legibilidad y usabilidad para idiomas con diferentes órdenes de lectura.
 - Proporcionará una experiencia más **accesible**, ya que las tecnologías de asistencia dependen de estos atributos para funcionar de manera óptima.
 
-### (Opcional) Paso 10: Creando un Componente de Enlace Localizado
+### (Opcional) Paso 10: Creación de un Componente de Enlace Localizado
 
-Para garantizar que la navegación de tu aplicación respete la configuración regional actual, puedes crear un componente personalizado `Link`. Este componente automáticamente añade un prefijo a las URLs internas con el idioma actual. Por ejemplo, cuando un usuario que habla francés hace clic en un enlace a la página "Acerca de", será redirigido a `/fr/about` en lugar de `/about`.
+Para garantizar que la navegación de su aplicación respete la configuración regional actual, puede crear un componente personalizado `Link`. Este componente antepone automáticamente a las URL internas el idioma actual. Por ejemplo, cuando un usuario francófono hace clic en un enlace a la página "Acerca de", es redirigido a `/fr/about` en lugar de `/about`.
 
 Este comportamiento es útil por varias razones:
 
-- **SEO y Experiencia de Usuario**: Las URLs localizadas ayudan a los motores de búsqueda a indexar correctamente las páginas específicas de cada idioma y proporcionan a los usuarios contenido en su idioma preferido.
-- **Consistencia**: Al usar un enlace localizado en toda tu aplicación, garantizas que la navegación se mantenga dentro de la configuración regional actual, evitando cambios inesperados de idioma.
-- **Mantenibilidad**: Centralizar la lógica de localización en un único componente simplifica la gestión de URLs, haciendo que tu base de código sea más fácil de mantener y extender a medida que tu aplicación crece.
+- **SEO y experiencia del usuario**: Las URL localizadas ayudan a los motores de búsqueda a indexar correctamente las páginas específicas de cada idioma y proporcionan a los usuarios contenido en su idioma preferido.
+- **Consistencia**: Al usar un enlace localizado en toda su aplicación, garantiza que la navegación se mantenga dentro de la configuración regional actual, evitando cambios inesperados de idioma.
+- **Mantenibilidad**: Centralizar la lógica de localización en un solo componente simplifica la gestión de URLs, haciendo que tu base de código sea más fácil de mantener y ampliar a medida que tu aplicación crece.
 
-A continuación, se muestra la implementación de un componente `Link` localizado en TypeScript:
+A continuación se muestra la implementación de un componente `Link` localizado en TypeScript:
 
 ```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
 import { getLocalizedUrl } from "intlayer";
@@ -1441,15 +1443,15 @@ export interface LinkProps
   > {}
 
 /**
- * Función de utilidad para verificar si una URL dada es externa.
+ * Función utilitaria para verificar si una URL dada es externa.
  * Si la URL comienza con http:// o https://, se considera externa.
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
 
 /**
- * Un componente personalizado Link que adapta el atributo href basado en la configuración regional actual.
- * Para enlaces internos, utiliza `getLocalizedUrl` para añadir un prefijo a la URL con la configuración regional (por ejemplo, /fr/about).
+ * Un componente Link personalizado que adapta el atributo href según la configuración regional actual.
+ * Para enlaces internos, utiliza `getLocalizedUrl` para anteponer la configuración regional a la URL (por ejemplo, /fr/about).
  * Esto asegura que la navegación se mantenga dentro del mismo contexto regional.
  */
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -1457,7 +1459,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     const { locale } = useLocale();
     const isExternalLink = checkIsExternalLink(href);
 
-    // Si el enlace es interno y se proporciona un href válido, obtiene la URL localizada.
+    // Si el enlace es interno y se proporciona un href válido, obtener la URL localizada.
     const hrefI18n =
       href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
@@ -1478,25 +1480,22 @@ import { useLocale } from "react-intlayer";
 import { forwardRef } from "react";
 
 /**
- * Función de utilidad para verificar si una URL dada es externa.
+ * Función utilitaria para verificar si una URL dada es externa.
  * Si la URL comienza con http:// o https://, se considera externa.
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
 
 /**
- * Un componente personalizado Link que adapta el atributo href basado en la configuración regional actual.
- * Para enlaces internos, utiliza `getLocalizedUrl` para añadir un prefijo a la URL con la configuración regional (por ejemplo, /fr/about).
+ * Un componente Link personalizado que adapta el atributo href según la configuración regional actual.
+ * Para enlaces internos, utiliza `getLocalizedUrl` para anteponer la configuración regional a la URL (por ejemplo, /fr/about).
  * Esto asegura que la navegación se mantenga dentro del mismo contexto regional.
  */
 export const Link = forwardRef(({ href, children, ...props }, ref) => {
-
-
-
-const { locale } = useLocale();
+  const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href);
 
-  // Si el enlace es interno y se proporciona un href válido, obtiene la URL localizada.
+  // Si el enlace es interno y se proporciona un href válido, obtener la URL localizada.
   const hrefI18n =
     href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
@@ -1516,15 +1515,15 @@ const { useLocale } = require("react-intlayer");
 const { forwardRef } = require("react");
 
 /**
- * Función de utilidad para verificar si una URL dada es externa.
+ * Función utilitaria para verificar si una URL dada es externa.
  * Si la URL comienza con http:// o https://, se considera externa.
  */
 const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
 /**
- * Un componente Link personalizado que adapta el atributo href según el idioma actual.
- * Para enlaces internos, utiliza `getLocalizedUrl` para prefijar la URL con el idioma (por ejemplo, /es/about).
- * Esto asegura que la navegación permanezca dentro del mismo contexto de idioma.
+ * Un componente Link personalizado que adapta el atributo href según la configuración regional actual.
+ * Para enlaces internos, utiliza `getLocalizedUrl` para anteponer la configuración regional a la URL (por ejemplo, /fr/about).
+ * Esto asegura que la navegación se mantenga dentro del mismo contexto de configuración regional.
  */
 const Link = forwardRef(({ href, children, ...props }, ref) => {
   const { locale } = useLocale();
@@ -1550,33 +1549,33 @@ Link.displayName = "Link";
 
 #### Cómo Funciona
 
-- **Detectar Enlaces Externos**:  
-  La función auxiliar `checkIsExternalLink` determina si una URL es externa. Los enlaces externos no se modifican porque no necesitan localización.
+- **Detección de Enlaces Externos**:  
+  La función auxiliar `checkIsExternalLink` determina si una URL es externa. Los enlaces externos se dejan sin cambios porque no necesitan localización.
 
-- **Obtener el Idioma Actual**:  
-  El hook `useLocale` proporciona el idioma actual (por ejemplo, `es` para Español).
+- **Obtención del Locale Actual**:  
+  El hook `useLocale` proporciona el locale actual (por ejemplo, `fr` para francés).
 
-- **Localizar la URL**:  
-  Para enlaces internos (es decir, no externos), se utiliza `getLocalizedUrl` para prefijar automáticamente la URL con el idioma actual. Esto significa que si tu usuario está en Español, pasar `/about` como `href` lo transformará en `/es/about`.
+- **Localización de la URL**:  
+  Para enlaces internos (es decir, no externos), se utiliza `getLocalizedUrl` para anteponer automáticamente el locale actual a la URL. Esto significa que si tu usuario está en francés, pasar `/about` como `href` se transformará en `/fr/about`.
 
-- **Devolver el Enlace**:  
-  El componente devuelve un elemento `<a>` con la URL localizada, asegurando que la navegación sea consistente con el idioma.
+- **Retorno del Enlace**:  
+  El componente devuelve un elemento `<a>` con la URL localizada, asegurando que la navegación sea coherente con la configuración regional.
 
-Al integrar este componente `Link` en toda tu aplicación, mantienes una experiencia de usuario coherente y consciente del idioma, además de beneficiarte de un SEO y usabilidad mejorados.
+Al integrar este componente `Link` en toda su aplicación, mantiene una experiencia de usuario coherente y consciente del idioma, además de beneficiarse de una mejor SEO y usabilidad.
 
 ### Configurar TypeScript
 
-Intlayer utiliza la ampliación de módulos para aprovechar los beneficios de TypeScript y fortalecer tu base de código.
+Intlayer utiliza la ampliación de módulos para aprovechar las ventajas de TypeScript y fortalecer su base de código.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
-Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
+Asegúrese de que su configuración de TypeScript incluya los tipos autogenerados.
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... Tus configuraciones existentes de TypeScript
+  // ... Sus configuraciones existentes de TypeScript
   "include": [
     // ... Tus configuraciones existentes de TypeScript
     ".intlayer/**/*.ts", // Incluir los tipos autogenerados
@@ -1586,7 +1585,7 @@ Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerado
 
 ### Configuración de Git
 
-Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar comprometerlos en tu repositorio de Git.
+Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar comprometerlos en tu repositorio Git.
 
 Para hacerlo, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
 
@@ -1595,6 +1594,29 @@ Para hacerlo, puedes agregar las siguientes instrucciones a tu archivo `.gitigno
 .intlayer
 ```
 
-### Ir Más Allá
+### Extensión para VS Code
+
+Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la extensión oficial **Intlayer VS Code Extension**.
+
+[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensión proporciona:
+
+- **Autocompletado** para las claves de traducción.
+- **Detección de errores en tiempo real** para traducciones faltantes.
+- **Previsualizaciones en línea** del contenido traducido.
+- **Acciones rápidas** para crear y actualizar traducciones fácilmente.
+
+Para más detalles sobre cómo usar la extensión, consulta la [documentación de la extensión Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+
+---
+
+## Historial del documento
+
+- 5.5.10 - 2025-06-29: Inicio del historial

@@ -1,7 +1,7 @@
 ---
 docName: package__react-intlayer__t
 url: https://intlayer.org/doc/packages/react-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: t Function Documentation | react-intlayer
@@ -10,7 +10,7 @@ keywords:
   - t
   - translation
   - Intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
@@ -19,7 +19,7 @@ keywords:
 
 # Documentation: `t` Function in `react-intlayer`
 
-The `t` function in the `react-intlayer` package is a fundamental tool for inline internationalization within your React application. It allows you to define translations directly within your components, making it simple to display localized content based on the current locale.
+The `t` function in the `react-intlayer` package is a fundamental tool for inline internationalisation within your React application. It allows you to define translations directly within your components, making it simple to display localised content based on the current locale.
 
 ---
 
@@ -98,6 +98,7 @@ const ComponentExample = () => {
 ```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
 const { t } = require("react-intlayer");
 
+// ComponentExample demonstrates usage of the translation function `t` in a CommonJS module.
 const ComponentExample = () => {
   return (
     <div>
@@ -115,7 +116,7 @@ const ComponentExample = () => {
 
 ### Inline Translations in Attributes
 
-The `t` function is particularly useful for inline translations in JSX attributes. When localizing attributes like `alt`, `title`, `href`, or `aria-label`, you can use `t` directly within the attribute.
+The `t` function is especially useful for inline translations within JSX attributes. When localising attributes such as `alt`, `title`, `href`, or `aria-label`, you can use `t` directly inside the attribute.
 
 ```jsx
 <button
@@ -168,7 +169,7 @@ import { t, type IConfigLocales } from "react-intlayer";
 const translations = {
   en: "Welcome",
   fr: "Bienvenue",
-  es: "Bienvenido",
+  es: "Welcome",
 };
 
 const greeting = t(translations);
@@ -181,7 +182,7 @@ const { t, type IConfigLocales } = require("react-intlayer");
 const translations = {
   en: "Welcome",
   fr: "Bienvenue",
-  es: "Bienvenido",
+  es: "Welcome",
 };
 
 const greeting = t(translations);
@@ -238,7 +239,7 @@ const App = ({ locale }) => (
 
 ### Missing Translations in TypeScript
 
-- **Cause**: Translations object doesn't satisfy the required locales, leading to TypeScript errors.
+- **Cause**: Translations object does not satisfy the required locales, leading to TypeScript errors.
 - **Solution**: Use the `IConfigLocales` type to enforce completeness of your translations.
 
 ```typescript codeFormat="typescript"
@@ -287,9 +288,9 @@ const text = t(translations);
 
 ## Conclusion
 
-The `t` function in `react-intlayer` is a powerful and convenient tool for managing inline translations in your React applications. By integrating it effectively, you enhance the internationalization capabilities of your app, providing a better experience for users worldwide.
+The `t` function in `react-intlayer` is a powerful and convenient tool for managing inline translations in your React applications. By integrating it effectively, you enhance the internationalisation capabilities of your app, providing a better experience for users worldwide.
 
-For more detailed usage and advanced features, refer to the [react-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
+For more detailed usage and advanced features, refer to the [react-intlayer documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md).
 
 ---
 
@@ -297,4 +298,4 @@ For more detailed usage and advanced features, refer to the [react-intlayer docu
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 29-06-2025: Init history

@@ -1,14 +1,14 @@
 ---
 docName: dictionary__file
 url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: File
 description: Learn how to embed external files into your content dictionary using the `file` function. This documentation explains how Intlayer links and manages file content dynamically.
 keywords:
   - File
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Next.js
@@ -20,7 +20,7 @@ keywords:
 
 ## How File Embedding Works
 
-In Intlayer, the `file` function allows embedding external file content into a dictionary. This approach ensures that Intlayer recognizes the source file, enabling seamless integration with the Intlayer Visual Editor and CMS. Unlike direct `import`, `require`, or `fs` file reading methods, using `file` associates the file with the dictionary, allowing Intlayer to track and update the content dynamically when the file is edited.
+In Intlayer, the `file` function allows embedding external file content into a dictionary. This approach ensures that Intlayer recognises the source file, enabling seamless integration with the Intlayer Visual Editor and CMS. Unlike direct `import`, `require`, or `fs` file reading methods, using `file` associates the file with the dictionary, allowing Intlayer to track and update the content dynamically when the file is edited.
 
 ## Setting Up File Content
 
@@ -145,7 +145,7 @@ const myMultilingualContent = {
   content: {
     myContent: md(
       t({
-        en: file("src/components/test.en.md"),
+        "en-GB": file("src/components/test.en.md"),
         fr: file("src/components/test.fr.md"),
         es: file("src/components/test.es.md"),
       })
@@ -165,7 +165,7 @@ const myMultilingualContent = {
   content: {
     myContent: md(
       t({
-        en: file("src/components/test.en.md"),
+        "en-GB": file("src/components/test.en.md"),
         fr: file("src/components/test.fr.md"),
         es: file("src/components/test.es.md"),
       })
@@ -184,7 +184,7 @@ const myMultilingualContent = {
   content: {
     myContent: md(
       t({
-        en: file("src/components/test.en.md"),
+        "en-GB": file("src/components/test.en.md"),
         fr: file("src/components/test.fr.md"),
         es: file("src/components/test.es.md"),
       })
@@ -193,28 +193,28 @@ const myMultilingualContent = {
 };
 ```
 
-This setup allows the content to be dynamically retrieved based on the user's language preference. When used in the Intlayer Visual Editor or CMS, the system will recognize that the content comes from the specified Markdown files and ensure they remain editable.
+This setup allows the content to be dynamically retrieved based on the user's language preference. When used in the Intlayer Visual Editor or CMS, the system will recognise that the content comes from the specified Markdown files and ensure they remain editable.
 
 ## How Intlayer Handles File Content
 
 The `file` function is based on Node.js' `fs` module to read the content of the specified file and insert it into the dictionary. When used in conjunction with the Intlayer Visual Editor or CMS, Intlayer can track the relationship between the dictionary and the file. This allows Intlayer to:
 
-- Recognize that the content originates from a specific file.
+- Recognise that the content originates from a specific file.
 - Automatically update the dictionary content when the linked file is edited.
-- Ensure synchronization between the file and the dictionary, preserving the integrity of the content.
+- Ensure synchronisation between the file and the dictionary, preserving the integrity of the content.
 
 ## Additional Resources
 
 For more details on configuring and using file embedding in Intlayer, refer to the following resources:
 
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
-- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)
-- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
-- [Markdown Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
-- [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
+- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md)
+- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md)
+- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md)
+- [Markdown Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/markdown.md)
+- [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md)
 
 These resources provide further insights into file embedding, content management, and Intlayer’s integration with various frameworks.
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

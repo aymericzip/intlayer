@@ -1,11 +1,11 @@
 ---
 docName: dictionary__enumeration
 url: https://intlayer.org/doc/concept/content/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Enumeration
-description: Entdecken Sie, wie Sie Enumerationen in Ihrer mehrsprachigen Website deklarieren und verwenden. Befolgen Sie die Schritte in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
+description: Erfahren Sie, wie Sie Enumerationen in Ihrer mehrsprachigen Website deklarieren und verwenden. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
 keywords:
   - Enumeration
   - Internationalisierung
@@ -20,11 +20,11 @@ keywords:
 
 ## Wie Enumeration funktioniert
 
-In Intlayer wird die Enumeration durch die `enu`-Funktion erreicht, die spezifische Schlüssel ihren entsprechenden Inhalten zuordnet. Diese Schlüssel können numerische Werte, Bereiche oder benutzerdefinierte Bezeichner darstellen. Bei Verwendung mit React Intlayer oder Next Intlayer wird der passende Inhalt automatisch basierend auf der Anwendungslokalisierung und definierten Regeln ausgewählt.
+In Intlayer wird die Enumeration durch die Funktion `enu` realisiert, die bestimmte Schlüssel ihren entsprechenden Inhalten zuordnet. Diese Schlüssel können numerische Werte, Bereiche oder benutzerdefinierte Bezeichner darstellen. Bei Verwendung mit React Intlayer oder Next Intlayer wird der passende Inhalt automatisch basierend auf der Anwendungslokalisierung und den definierten Regeln ausgewählt.
 
 ## Einrichtung der Enumeration
 
-Um die Enumeration in Ihrem Intlayer-Projekt einzurichten, müssen Sie ein Inhaltsmodul erstellen, das Enumerationsdefinitionen enthält. Hier ist ein Beispiel für eine einfache Enumeration für die Anzahl der Autos:
+Um eine Enumeration in Ihrem Intlayer-Projekt einzurichten, müssen Sie ein Inhaltsmodul erstellen, das Enumeration-Definitionen enthält. Hier ist ein Beispiel für eine einfache Enumeration der Anzahl von Autos:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type Dictionary } from "intlayer";
@@ -112,13 +112,13 @@ module.exports = carEnumeration;
 }
 ```
 
-In diesem Beispiel ordnet `enu` verschiedene Bedingungen spezifischen Inhalten zu. Bei Verwendung in einer React-Komponente kann Intlayer automatisch den passenden Inhalt basierend auf der angegebenen Variablen auswählen.
+In diesem Beispiel ordnet `enu` verschiedene Bedingungen spezifischen Inhalten zu. Wenn es in einer React-Komponente verwendet wird, kann Intlayer automatisch den passenden Inhalt basierend auf der übergebenen Variable auswählen.
 
-> Die Reihenfolge der Deklaration ist wichtig bei Intlayer-Enumerationen. Die erste gültige Deklaration wird übernommen. Wenn mehrere Bedingungen zutreffen, stellen Sie sicher, dass sie korrekt geordnet sind, um unerwartetes Verhalten zu vermeiden.
+> Die Reihenfolge der Deklaration ist in Intlayer-Enumerationen wichtig. Die erste gültige Deklaration wird verwendet. Wenn mehrere Bedingungen zutreffen, stellen Sie sicher, dass sie korrekt sortiert sind, um unerwartetes Verhalten zu vermeiden.
 
-> Wenn kein Fallback deklariert ist, gibt die Funktion `undefined` zurück, wenn keine Schlüssel übereinstimmen.
+> Wenn kein Fallback deklariert ist, gibt die Funktion `undefined` zurück, falls keine Schlüssel übereinstimmen.
 
-## Verwendung der Enumeration mit React Intlayer
+## Verwendung von Enumeration mit React Intlayer
 
 Um Enumeration in einer React-Komponente zu verwenden, können Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket nutzen. Dieser Hook ruft den korrekten Inhalt basierend auf der angegebenen ID ab. Hier ist ein Beispiel, wie man ihn verwendet:
 
@@ -216,7 +216,7 @@ const CarComponent = () => {
       </p>
       <p>
         {
-          numberOfCar(0.01) // Ausgabe: Fallback-Wert
+          numberOfCar(0.01) // Ausgabe: Rückfallwert
         }
       </p>
     </div>
@@ -226,14 +226,18 @@ const CarComponent = () => {
 module.exports = CarComponent;
 ```
 
-In diesem Beispiel passt die Komponente ihre Ausgabe dynamisch basierend auf der Anzahl der Autos an. Der korrekte Inhalt wird automatisch abhängig vom angegebenen Bereich ausgewählt.
+In diesem Beispiel passt die Komponente ihre Ausgabe dynamisch basierend auf der Anzahl der Autos an. Der korrekte Inhalt wird automatisch ausgewählt, abhängig vom angegebenen Bereich.
 
 ## Zusätzliche Ressourcen
 
-Für detailliertere Informationen zur Konfiguration und Nutzung lesen Sie die folgenden Ressourcen:
+Für detailliertere Informationen zur Konfiguration und Nutzung verweisen wir auf die folgenden Ressourcen:
 
 - [Intlayer CLI Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md)
 - [React Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_create_react_app.md)
 - [Next Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_15.md)
 
-Diese Ressourcen bieten weitere Einblicke in die Einrichtung und Nutzung von Intlayer in verschiedenen Umgebungen und mit verschiedenen Frameworks.
+Diese Ressourcen bieten weitere Einblicke in die Einrichtung und Nutzung von Intlayer in verschiedenen Umgebungen und mit unterschiedlichen Frameworks.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

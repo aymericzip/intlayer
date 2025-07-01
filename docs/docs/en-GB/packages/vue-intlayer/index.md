@@ -1,7 +1,7 @@
 ---
 docName: package__vue-intlayer
 url: https://intlayer.org/doc/packages/vue-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vue-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vue-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Package Documentation | vue-intlayer
@@ -9,31 +9,31 @@ description: See how to use the vue-intlayer package
 keywords:
   - Intlayer
   - vue-intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - JavaScript
   - Vue
 ---
 
-# vue-intlayer: NPM Package to internationalize (i18n) an Vue application
+# vue-intlayer: NPM Package to internationalise (i18n) a Vue application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like Vue, Vue, and Express.js.
 
-**The `vue-intlayer` package** allows you to internationalize your Vue application. It provides context providers and hooks for Vue internationalization.
+**The `vue-intlayer` package** allows you to internationalise your Vue application. It provides context providers and hooks for Vue internationalisation.
 
-## Why Internationalize Your Vue Application?
+## Why Internationalise Your Vue Application?
 
-Internationalizing your Vue application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
+Internationalising your Vue application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
 
-## Why to integrate Intlayer?
+## Why integrate Intlayer?
 
 - **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
-- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
+- **Type-Safe Environment**: Utilise TypeScript to ensure all your content definitions are accurate and free from errors.
+- **Integrated Content Files**: Keep your translations close to their respective components, improving maintainability and clarity.
 
 ## Installation
 
-Install the necessary package using your preferred package manager:
+Install the required package using your preferred package manager:
 
 ```bash packageManager="npm"
 npm install vue-intlayer
@@ -49,4 +49,4 @@ pnpm add vue-intlayer
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

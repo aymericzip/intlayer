@@ -1,42 +1,42 @@
 ---
 docName: package__intlayer__getConfiguration
 url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: وثائق دالة getConfiguration | intlayer
-description: انظر كيف تستخدم دالة getConfiguration لحزمة intlayer
+title: توثيق دالة getConfiguration | intlayer
+description: تعرف على كيفية استخدام دالة getConfiguration لحزمة intlayer
 keywords:
   - getConfiguration
-  - ترجمة
+  - الترجمة
   - Intlayer
   - intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
 ---
 
-# التوثيق: وظيفة `getConfiguration` في `intlayer`
+# التوثيق: دالة `getConfiguration` في `intlayer`
 
 ## الوصف
 
-وظيفة `getConfiguration` تسترجع التكوين الكامل لتطبيق `intlayer` عن طريق استخراج متغيرات البيئة. توفر هذه الوظيفة المرونة لاستخدام نفس التكوين على جانبي العميل والخادم، مما يضمن التناسق عبر التطبيق.
+تقوم دالة `getConfiguration` باسترجاع التكوين الكامل لتطبيق `intlayer` عن طريق استخراج متغيرات البيئة. توفر هذه الدالة المرونة لاستخدام نفس التكوين على كل من جانب العميل والخادم، مما يضمن الاتساق عبر التطبيق.
 
 ---
 
-## المعلمات
+## المعاملات
 
-لا تأخذ الوظيفة أي معلمات. بدلاً من ذلك، تستخدم متغيرات البيئة للتكوين.
+لا تأخذ الدالة أي معاملات. بدلاً من ذلك، تستخدم متغيرات البيئة للتكوين.
 
-### الإرجاع
+### القيم المرجعة
 
 - **النوع**: `IntlayerConfig`
 - **الوصف**: كائن يحتوي على التكوين الكامل لـ `intlayer`. يشمل التكوين الأقسام التالية:
 
-  - `internationalization`: الإعدادات المتعلقة باللغات ووضع الصرامة.
-  - `middleware`: الإعدادات المتعلقة بإدارة الروابط وملفات تعريف الارتباط.
+  - `internationalization`: الإعدادات المتعلقة باللغات والوضع الصارم.
+  - `middleware`: الإعدادات المتعلقة بإدارة عناوين URL وملفات تعريف الارتباط.
   - `content`: الإعدادات المتعلقة بملفات المحتوى، الأدلة، والأنماط.
   - `editor`: التكوينات الخاصة بالمحرر.
 
@@ -53,7 +53,7 @@ import { getConfiguration } from "intlayer";
 
 const config = getConfiguration();
 console.log(config);
-// الإخراج:
+// المخرجات:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -67,7 +67,7 @@ import { getConfiguration } from "intlayer";
 
 const config = getConfiguration();
 console.log(config);
-// الإخراج:
+// المخرجات:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -81,7 +81,7 @@ const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
-// الإخراج:
+// المخرجات:
 // {
 //   internationalization: { ... },
 //   middleware: { ... },
@@ -92,7 +92,7 @@ console.log(config);
 
 ### استخراج `availableLocales` و `defaultLocale`
 
-يوفر قسم `internationalization` من التكوين إعدادات متعلقة باللغات مثل `locales` (اللغات المتاحة) و `defaultLocale` (اللغة الافتراضية).
+يوفر قسم `internationalization` في التكوين إعدادات متعلقة باللغات مثل `locales` (اللغات المتاحة) و `defaultLocale` (اللغة الافتراضية).
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
@@ -101,9 +101,9 @@ const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
-console.log(availableLocales); // مثال على الإخراج: ["en", "fr", "es"]
-console.log(defaultLocale); // مثال على الإخراج: "en"
-console.log(cookieName); // الإخراج: "INTLAYER_LOCALE"
+console.log(availableLocales); // مثال على المخرجات: ["en", "fr", "es"]
+console.log(defaultLocale); // مثال على المخرجات: "en"
+console.log(cookieName); // المخرجات: "INTLAYER_LOCALE"
 ```
 
 ```javascript codeFormat="esm"
@@ -113,9 +113,9 @@ const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
-console.log(availableLocales); // مثال على الإخراج: ["en", "fr", "es"]
-console.log(defaultLocale); // مثال على الإخراج: "en"
-console.log(cookieName); // الإخراج: "INTLAYER_LOCALE"
+console.log(availableLocales); // مثال على المخرجات: ["en", "fr", "es"]
+console.log(defaultLocale); // مثال على المخرجات: "en"
+console.log(cookieName); // المخرجات: "INTLAYER_LOCALE"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -125,16 +125,20 @@ const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
-console.log(availableLocales); // مثال على الإخراج: ["en", "fr", "es"]
-console.log(defaultLocale); // مثال على الإخراج: "en"
-console.log(cookieName); // الإخراج: "INTLAYER_LOCALE"
+console.log(availableLocales); // مثال على المخرجات: ["en", "fr", "es"]
+console.log(defaultLocale); // مثال على المخرجات: "en"
+console.log(cookieName); // المخرجات: "INTLAYER_LOCALE"
 ```
 
 ## ملاحظات
 
-- تأكد من تعيين جميع متغيرات البيئة المطلوبة بشكل صحيح قبل استدعاء هذه الوظيفة. ستتسبب المتغيرات المفقودة في حدوث أخطاء أثناء التهيئة.
-- يمكن استخدام هذه الوظيفة على جانبي العميل والخادم، مما يجعلها أداة متعددة الاستخدامات لإدارة التكوينات بطريقة موحدة.
+- تأكد من تعيين جميع متغيرات البيئة المطلوبة بشكل صحيح قبل استدعاء هذه الدالة. المتغيرات المفقودة ستؤدي إلى حدوث أخطاء أثناء التهيئة.
+- يمكن استخدام هذه الدالة على جانب العميل والخادم على حد سواء، مما يجعلها أداة متعددة الاستخدامات لإدارة التكوينات بطريقة موحدة.
 
 ## الاستخدام في التطبيقات
 
-وظيفة `getConfiguration` هي أداة أساسية لتهيئة وإدارة تكوين تطبيق `intlayer`. من خلال توفير الوصول إلى إعدادات مثل اللغات، الوسيط، وأدلة المحتوى، تضمن التناسق والقابلية للتوسع عبر التطبيقات متعددة اللغات والمحتوى.
+تُعد دالة `getConfiguration` أداة أساسية لتهيئة وإدارة تكوين تطبيق `intlayer`. من خلال توفير الوصول إلى إعدادات مثل اللغات، والوسائط الوسيطة، ودلائل المحتوى، تضمن هذه الدالة الاتساق وقابلية التوسع عبر التطبيقات متعددة اللغات والمعتمدة على المحتوى.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بدء التاريخ

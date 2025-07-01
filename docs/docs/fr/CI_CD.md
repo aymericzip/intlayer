@@ -5,7 +5,7 @@ githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/CI_CD.m
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
 title: Intégration CI/CD
-description: Découvrez comment intégrer Intlayer dans votre pipeline CI/CD pour une gestion et un déploiement automatisés du contenu.
+description: Apprenez comment intégrer Intlayer dans votre pipeline CI/CD pour la gestion et le déploiement automatisés du contenu.
 keywords:
   - CI/CD
   - Intégration Continue
@@ -16,13 +16,13 @@ keywords:
   - Intlayer
 ---
 
-# Génération Automatique de Traductions dans un Pipeline CI/CD
+# Génération Automatique des Traductions dans un Pipeline CI/CD
 
-Intlayer permet la génération automatique de traductions pour vos fichiers de déclaration de contenu. Il existe plusieurs façons d'y parvenir en fonction de votre flux de travail.
+Intlayer permet la génération automatique des traductions pour vos fichiers de déclaration de contenu. Plusieurs méthodes existent selon votre flux de travail.
 
 ## Utilisation du CMS
 
-Avec Intlayer, vous pouvez adopter un flux de travail où une seule locale est déclarée localement, tandis que toutes les traductions sont gérées à distance via le CMS. Cela permet de détacher complètement le contenu et les traductions de la base de code, offrant plus de flexibilité aux éditeurs de contenu et permettant un rechargement à chaud du contenu (pas besoin de reconstruire l'application pour appliquer les modifications).
+Avec Intlayer, vous pouvez adopter un flux de travail où une seule locale est déclarée localement, tandis que toutes les traductions sont gérées à distance via le CMS. Cela permet de détacher complètement le contenu et les traductions de la base de code, offrant plus de flexibilité aux éditeurs de contenu et permettant le rechargement dynamique du contenu (pas besoin de reconstruire l'application pour appliquer les modifications).
 
 ### Exemple de Configuration
 
@@ -30,7 +30,7 @@ Avec Intlayer, vous pouvez adopter un flux de travail où une seule locale est d
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.SPANISH, Locales.FRENCH],
     requiredLocales: [Locales.ENGLISH], // Les locales optionnelles seront gérées à distance
     defaultLocale: Locales.ENGLISH,
@@ -44,7 +44,7 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   ai: {
-    applicationContext: "Ceci est une application de test", // Aide à garantir une génération cohérente des traductions
+    applicationContext: "This is a test application", // Aide à garantir une génération cohérente des traductions
   },
 };
 
@@ -63,7 +63,7 @@ Vous pouvez intégrer la génération de traductions dans votre flux de travail 
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.SPANISH, Locales.FRENCH],
     requiredLocales: [Locales.ENGLISH], // Les locales optionnelles sont gérées à distance
     defaultLocale: Locales.ENGLISH,
@@ -76,7 +76,7 @@ const config: IntlayerConfig = {
     provider: "openai",
     apiKey: process.env.OPENAI_API_KEY, // Utilisez votre propre clé API
 
-    applicationContext: "Ceci est une application de test", // Aide à garantir une génération cohérente des traductions
+    applicationContext: "This is a test application", // Aide à garantir une génération cohérente des traductions
   },
 };
 
@@ -85,12 +85,12 @@ export default config;
 
 ```bash fileName=".husky/pre-push"
 npx intlayer build                          # Pour s'assurer que les dictionnaires sont à jour
-npx intlayer fill --unpushed --mode fill    # Remplit uniquement le contenu manquant, sans mettre à jour les existants
+npx intlayer fill --unpushed --mode fill    # Remplit uniquement le contenu manquant, ne met pas à jour les contenus existants
 ```
 
 > Pour plus d'informations sur les commandes CLI d'Intlayer et leur utilisation, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
 
-> Si vous avez plusieurs applications dans votre dépôt utilisant des instances Intlayer distinctes, vous pouvez utiliser l'argument `--base-dir` comme ceci :
+> Si vous avez plusieurs applications dans votre dépôt utilisant des instances intlayer séparées, vous pouvez utiliser l'argument `--base-dir` comme ceci :
 
 ```bash fileName=".husky/pre-push"
 # Application 1
@@ -104,10 +104,10 @@ npx intlayer fill --base-dir ./app2 --unpushed --mode fill
 
 ## Utilisation de GitHub Actions
 
-Intlayer fournit une commande CLI pour remplir automatiquement et réviser le contenu des dictionnaires. Cela peut être intégré dans votre flux de travail CI/CD en utilisant GitHub Actions.
+Intlayer fournit une commande CLI pour remplir automatiquement et réviser le contenu du dictionnaire. Cela peut être intégré dans votre workflow CI/CD en utilisant GitHub Actions.
 
 ```yaml fileName=".github/workflows/intlayer-translate.yml"
-name: Intlayer Auto-Fill
+name: Remplissage automatique Intlayer
 on:
   push:
     branches: [ main ]
@@ -132,7 +132,7 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
-      - name: ⬇️ Cloner le dépôt
+      - name: ⬇️ Récupérer le dépôt
         uses: actions/checkout@v3
         with:
           persist-credentials: true
@@ -145,23 +145,27 @@ jobs:
       - name: 📦 Installer les dépendances
         run: npm ci
 
-      - name: ⚙️ Construire le projet Intlayer
+      - name: ⚙️ Compiler le projet Intlayer
         run: npx intlayer build
 
       - name: 🤖 Remplir automatiquement les traductions manquantes
         run: npx intlayer fill --git-diff --mode fill
 
-      - name: 📤 Créer ou mettre à jour une PR de traduction
+      - name: 📤 Créer ou mettre à jour la PR de traduction
         uses: peter-evans/create-pull-request@v4
         with:
-          commit-message: chore: auto-fill missing translations [skip ci]
+          commit-message: chore: remplissage automatique des traductions manquantes [skip ci]
           branch: auto-translations
-          title: chore: update missing translations
+          title: chore: mise à jour des traductions manquantes
           labels: translation, automated
 ```
 
-> Comme pour Husky, dans le cas d'un monorepo, vous pouvez utiliser l'argument `--base-dir` pour traiter chaque application séquentiellement.
+> Comme pour Husky, dans le cas d'un monorepo, vous pouvez utiliser l'argument `--base-dir` pour traiter séquentiellement chaque application.
 
-> Par défaut, l'argument `--git-diff` filtre les dictionnaires qui incluent des modifications entre la base (par défaut `origin/main`) et la branche actuelle (par défaut : `HEAD`).
+> Par défaut, l'argument `--git-diff` filtre les dictionnaires qui incluent les modifications de la base (par défaut `origin/main`) vers la branche courante (par défaut : `HEAD`).
 
-> Pour plus d'informations sur les commandes CLI d'Intlayer et leur utilisation, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+> Pour plus d'informations sur les commandes Intlayer CLI et leur utilisation, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

@@ -2,7 +2,7 @@
 docName: dictionary__markdown
 url: https://intlayer.org/doc/concept/content/markdown
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
-createdAt: 2025-02-7
+createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: Markdown
 description: تعرف على كيفية إعلان واستخدام محتوى Markdown في موقعك متعدد اللغات باستخدام Intlayer. اتبع الخطوات في هذه الوثيقة الإلكترونية لدمج Markdown بسلاسة في مشروعك.
@@ -284,12 +284,6 @@ AppProvider = () => (
 );
 ```
 
-module.exports = {
-AppProvider,
-};
-
-````
-
 في هذا التنفيذ:
 
 - يقوم `MarkdownProvider` بتغليف التطبيق (أو الجزء ذي الصلة منه) ويقبل دالة `renderMarkdown`. تُستخدم هذه الدالة لتحويل النصوص المكتوبة بـ Markdown إلى JSX باستخدام حزمة `markdown-to-jsx`.
@@ -317,7 +311,7 @@ export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
     {children}
   </MarkdownProvider>
 );
-````
+```
 
 ```jsx title="src/providers/IntlayerMarkdownProvider.msx" codeFormat="esm"
 "use client";

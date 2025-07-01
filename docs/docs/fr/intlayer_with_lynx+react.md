@@ -166,7 +166,7 @@ if (import.meta.webpackHot) {
 }
 ```
 
-## Étape 5 : Déclarer votre contenu
+## Étape 5 : Déclarez votre contenu
 
 Créez des fichiers de **déclaration de contenu** n'importe où dans votre projet (généralement dans `src/`), en utilisant l'un des formats d'extension pris en charge par Intlayer :
 
@@ -181,9 +181,9 @@ Créez des fichiers de **déclaration de contenu** n'importe où dans votre proj
 - `.content.cjx`
 - etc.
 
-Exemple (TypeScript avec des nœuds TSX pour Lynx) :
+Exemple :
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -193,23 +193,24 @@ const appContent = {
     subtitle: t({
       fr: "sur Lynx",
       en: "on Lynx",
+      fr: "sur Lynx",
       es: "en Lynx",
     }),
     description: t({
-      fr: "Appuyez sur le logo et amusez-vous!",
       en: "Tap the logo and have fun!",
+      fr: "Appuyez sur le logo et amusez-vous !",
       es: "¡Toca el logo y diviértete!",
     }),
     hint: [
       t({
-        fr: "Modifier",
         en: "Edit",
+        fr: "Modifier",
         es: "Editar",
       }),
       " src/App.tsx ",
       t({
-        fr: "pour voir les mises à jour!",
         en: "to see updates!",
+        fr: "pour voir les mises à jour !",
         es: "para ver actualizaciones!",
       }),
     ],
@@ -227,25 +228,25 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      fr: "sur Lynx",
       en: "on Lynx",
+      fr: "sur Lynx",
       es: "en Lynx",
     }),
     description: t({
-      fr: "Appuyez sur le logo et amusez-vous!",
       en: "Tap the logo and have fun!",
+      fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
     }),
     hint: [
       t({
-        fr: "Modifier",
         en: "Edit",
+        fr: "Modifier",
         es: "Editar",
       }),
       " src/App.tsx ",
       t({
-        fr: "pour voir les mises à jour!",
         en: "to see updates!",
+        fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",
       }),
     ],
@@ -264,25 +265,25 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      fr: "sur Lynx",
       en: "on Lynx",
+      fr: "sur Lynx",
       es: "en Lynx",
     }),
     description: t({
-      fr: "Appuyez sur le logo et amusez-vous!",
       en: "Tap the logo and have fun!",
+      fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
     }),
     hint: [
       t({
-        fr: "Modifier",
         en: "Edit",
+        fr: "Modifier",
         es: "Editar",
       }),
       " src/App.tsx ",
       t({
-        fr: "pour voir les mises à jour!",
         en: "to see updates!",
+        fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",
       }),
     ],
@@ -301,8 +302,8 @@ module.exports = appContent;
     "subtitle": {
       "nodeType": "translation",
       "translation": {
-        "fr": "sur Lynx",
         "en": "on Lynx",
+        "fr": "sur Lynx",
         "es": "en Lynx"
       }
     },
@@ -327,8 +328,8 @@ module.exports = appContent;
       {
         "nodeType": "translation",
         "translation": {
-          "en": "to see updates!",
           "fr": "pour voir les mises à jour!",
+          "en": "to see updates!",
           "es": "para ver actualizaciones!"
         }
       }
@@ -358,9 +359,8 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
-    // changer uniquement l'arrière-plan
+    // arrière-plan uniquement
     setAlterLogo(!alterLogo);
   }, [alterLogo]);
 
@@ -402,7 +402,7 @@ export const App = () => {
 
 ## (Optionnel) Étape 5 : Changer la langue de l'application
 
-Pour changer les langues directement depuis vos composants, vous pouvez utiliser la méthode `setLocale` du hook `useLocale` :
+Pour changer la langue directement depuis vos composants, vous pouvez utiliser la méthode `setLocale` du hook `useLocale` :
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 import { type FC } from "react";
@@ -477,8 +477,30 @@ Pour éviter de commettre les fichiers générés automatiquement par Intlayer, 
 
 ---
 
+### Extension VS Code
+
+Pour améliorer votre expérience de développement avec Intlayer, vous pouvez installer l’extension officielle **Intlayer VS Code Extension**.
+
+[Installer depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Cette extension offre :
+
+- **Autocomplétion** pour les clés de traduction.
+- **Détection d’erreurs en temps réel** pour les traductions manquantes.
+- **Aperçus en ligne** du contenu traduit.
+- **Actions rapides** pour créer et mettre à jour facilement les traductions.
+  Pour plus de détails sur l'utilisation de l'extension, consultez la [documentation de l'extension Intlayer pour VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ## Aller plus loin
 
 - **Éditeur visuel** : Utilisez l'[éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) pour gérer les traductions visuellement.
 - **Intégration CMS** : Vous pouvez également externaliser et récupérer le contenu de votre dictionnaire depuis un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
 - **Commandes CLI** : Explorez le [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md) pour des tâches comme **extraire des traductions** ou **vérifier les clés manquantes**.
+
+---
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

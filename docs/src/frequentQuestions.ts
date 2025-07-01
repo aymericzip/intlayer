@@ -1,4 +1,4 @@
-import { getMarkdownMetadata } from '../../packages/@intlayer/core/dist/types/transpiler';
+import { getMarkdownMetadata } from '@intlayer/core';
 import { readFileContent } from './readFileContent';
 
 const fequentQuestions = {
@@ -32,6 +32,18 @@ const fequentQuestions = {
   ),
 };
 
+export const getFequentQuestion = async (
+  docName: keyof typeof fequentQuestions
+) => {
+  const doc = await fequentQuestions[docName];
+
+  if (!doc) {
+    throw new Error(`Frequent question ${docName} not found`);
+  }
+
+  return doc;
+};
+
 export const getFequentQuestions = async () => {
   const fequentQuestionsEntries = await Promise.all(
     Object.entries(fequentQuestions).map(async ([key, value]) => [
@@ -43,7 +55,9 @@ export const getFequentQuestions = async () => {
   return Object.fromEntries(fequentQuestionsEntries);
 };
 
-export const getFrequentQuestionsMetadataRecord = async () => {
+export const getFrequentQuestionsMetadataRecord = async (): Promise<
+  Record<string, any>
+> => {
   const frequentQuestions = await getFequentQuestions();
 
   return Object.keys(frequentQuestions).reduce(
@@ -56,4 +70,13 @@ export const getFrequentQuestionsMetadataRecord = async () => {
     },
     {} as Record<string, any>
   );
+};
+
+export const getFrequentQuestionMetadata = async <
+  T extends Record<string, any>,
+>(
+  frequentQuestionName: keyof typeof fequentQuestions
+) => {
+  const frequentQuestion = await getFequentQuestion(frequentQuestionName);
+  return getMarkdownMetadata<T>(frequentQuestion);
 };

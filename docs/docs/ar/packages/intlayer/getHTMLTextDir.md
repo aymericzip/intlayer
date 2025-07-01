@@ -1,42 +1,42 @@
 ---
 docName: package__intlayer__getHTMLTextDir
 url: https://intlayer.org/doc/packages/intlayer/getHTMLTextDir
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getHTMLTextDir.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: وثائق دالة getHTMLTextDir | intlayer
-description: انظر كيف تستخدم دالة getHTMLTextDir لحزمة intlayer
+title: توثيق دالة getHTMLTextDir | intlayer
+description: تعرف على كيفية استخدام دالة getHTMLTextDir لحزمة intlayer
 keywords:
   - getHTMLTextDir
-  - ترجمة
+  - الترجمة
   - Intlayer
   - intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
 ---
 
-# التوثيق: وظيفة `getHTMLTextDir` في `intlayer`
+# التوثيق: دالة `getHTMLTextDir` في `intlayer`
 
 ## الوصف
 
-تحدد وظيفة `getHTMLTextDir` اتجاه النص (`ltr`, `rtl`, أو `auto`) بناءً على اللغة المحددة. تم تصميمها لمساعدة المطورين على تعيين خاصية `dir` في HTML لعرض النصوص بشكل صحيح.
+تحدد دالة `getHTMLTextDir` اتجاه النص (`ltr`، `rtl`، أو `auto`) بناءً على اللغة المقدمة. تم تصميمها لمساعدة المطورين في تعيين خاصية `dir` في HTML لضمان عرض النص بشكل صحيح.
 
 ## المعاملات
 
 - `locale?: Locales`
 
-  - **الوصف**: سلسلة اللغة (مثلًا، `Locales.ENGLISH`, `Locales.ARABIC`) المستخدمة لتحديد اتجاه النص.
+  - **الوصف**: سلسلة اللغة (مثل `Locales.ENGLISH`، `Locales.ARABIC`) المستخدمة لتحديد اتجاه النص.
   - **النوع**: `Locales` (اختياري)
 
-## القيم المعادة
+## القيم المرجعة
 
 - **النوع**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
-- **الوصف**: اتجاه النص الذي يتوافق مع اللغة:
-  - `'ltr'` للغات التي تكتب من اليسار إلى اليمين.
-  - `'rtl'` للغات التي تكتب من اليمين إلى اليسار.
+- **الوصف**: اتجاه النص المقابل للغة:
+  - `'ltr'` للغات التي تُكتب من اليسار إلى اليمين.
+  - `'rtl'` للغات التي تُكتب من اليمين إلى اليسار.
   - `'auto'` إذا لم يتم التعرف على اللغة.
 
 ## مثال على الاستخدام
@@ -69,16 +69,16 @@ getHTMLTextDir(Locales.ARABIC); // الناتج: "rtl"
 
 ## الحالات الخاصة
 
-- **عدم توفير لغة:**
+- **عدم توفير اللغة:**
 
-  - تعيد الوظيفة `'auto'` عندما تكون `locale` غير معرفة.
+  - تُعيد الدالة `'auto'` عندما تكون قيمة `locale` غير معرفة.
 
-- **لغة غير معروفة:**
-  - بالنسبة للغات غير المعروفة، تقوم الوظيفة بالافتراض إلى `'auto'`.
+- **اللغة غير المعروفة:**
+  - بالنسبة للغات غير المعروفة، تقوم الدالة بافتراض القيمة `'auto'`.
 
 ## الاستخدام في المكونات:
 
-يمكن استخدام وظيفة `getHTMLTextDir` لتعيين خاصية `dir` بشكل ديناميكي في مستند HTML لعرض النصوص بشكل صحيح بناءً على اللغة.
+يمكن استخدام دالة `getHTMLTextDir` لتعيين خاصية `dir` بشكل ديناميكي في مستند HTML لضمان عرض النص بشكل صحيح بناءً على اللغة.
 
 ```tsx codeFormat="typescript"
 import type { FC } from "react";
@@ -115,3 +115,7 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 في المثال أعلاه، يتم تعيين خاصية `dir` بشكل ديناميكي بناءً على اللغة.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بدء التاريخ

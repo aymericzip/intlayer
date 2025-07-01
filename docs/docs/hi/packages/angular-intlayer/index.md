@@ -1,20 +1,52 @@
 ---
 docName: package__angular-intlayer
 url: https://intlayer.org/doc/packages/angular-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/angular-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/angular-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: पैकेज के डॉक्यूमेंटेशन | angular-intlayer
-description: angular-intlayer पैकेज का उपयोग कैसे करें
+title: पैकेज दस्तावेज़ | angular-intlayer
+description: angular-intlayer पैकेज का उपयोग कैसे करें देखें
 keywords:
   - Intlayer
   - angular-intlayer
-  - अंतर्राष्ट्रीयकरण
-  - प्रलेखन
-  - JavaScript
-  - Angular
+  - अंतरराष्ट्रीयकरण
+  - दस्तावेज़
+  - जावास्क्रिप्ट
+  - एंगुलर
 ---
 
-this doc will be automatically generated translated from the english doc
+# angular-intlayer: एक Angular एप्लिकेशन को अंतरराष्ट्रीयकृत (i18n) करने के लिए NPM पैकेज
 
-see /docs/en/packages/angular-intlayer/index.md
+**Intlayer** जावास्क्रिप्ट डेवलपर्स के लिए विशेष रूप से डिज़ाइन किए गए पैकेजों का एक समूह है। यह Angular, Angular, और Express.js जैसे फ्रेमवर्क के साथ संगत है।
+
+**`angular-intlayer` पैकेज** आपको अपने Angular एप्लिकेशन को अंतरराष्ट्रीयकृत करने की अनुमति देता है। यह Angular अंतरराष्ट्रीयकरण के लिए संदर्भ प्रदाता और हुक प्रदान करता है।
+
+## अपने Angular एप्लिकेशन को अंतरराष्ट्रीयकृत क्यों करें?
+
+अपने Angular एप्लिकेशन को अंतरराष्ट्रीयकृत करना एक वैश्विक दर्शकों को प्रभावी ढंग से सेवा देने के लिए आवश्यक है। यह आपके एप्लिकेशन को प्रत्येक उपयोगकर्ता की पसंदीदा भाषा में सामग्री और संदेश प्रदान करने की अनुमति देता है। यह क्षमता उपयोगकर्ता अनुभव को बढ़ाती है और आपके एप्लिकेशन की पहुंच को व्यापक बनाती है, जिससे यह विभिन्न भाषाई पृष्ठभूमि वाले लोगों के लिए अधिक सुलभ और प्रासंगिक हो जाता है।
+
+## Intlayer को एकीकृत क्यों करें?
+
+- **जावास्क्रिप्ट-संचालित सामग्री प्रबंधन**: अपनी सामग्री को कुशलतापूर्वक परिभाषित और प्रबंधित करने के लिए जावास्क्रिप्ट की लचीलापन का उपयोग करें।
+- **टाइप-सेफ वातावरण**: टाइपस्क्रिप्ट का उपयोग करें ताकि आपकी सभी सामग्री परिभाषाएँ सटीक और त्रुटि-मुक्त हों।
+- **एकीकृत सामग्री फ़ाइलें**: अपनी अनुवादों को उनके संबंधित घटकों के करीब रखें, जिससे रखरखाव और स्पष्टता में सुधार होता है।
+
+## स्थापना
+
+अपनी पसंदीदा पैकेज मैनेजर का उपयोग करके आवश्यक पैकेज स्थापित करें:
+
+```bash packageManager="npm"
+npm install angular-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add angular-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add angular-intlayer
+```
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

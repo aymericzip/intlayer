@@ -1,27 +1,27 @@
 ---
 docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: CLI
-description: اكتشف كيفية استخدام Intlayer CLI لإدارة موقع الويب متعدد اللغات الخاص بك. اتبع الخطوات في هذه الوثيقة عبر الإنترنت لإعداد مشروعك في بضع دقائق.
+title: واجهة سطر الأوامر (CLI)
+description: اكتشف كيفية استخدام واجهة سطر أوامر Intlayer لإدارة موقعك متعدد اللغات. اتبع الخطوات في هذا التوثيق عبر الإنترنت لإعداد مشروعك في دقائق معدودة.
 keywords:
   - CLI
-  - واجهة الأوامر
-  - التحويل الدولي
-  - وثائق
+  - واجهة سطر الأوامر
+  - التدويل
+  - التوثيق
   - Intlayer
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
 ---
 
-# Intlayer CLI
+# واجهة سطر أوامر Intlayer
 
 ## تثبيت الحزمة
 
-قم بتثبيت الحزم الضرورية باستخدام npm:
+قم بتثبيت الحزم اللازمة باستخدام npm:
 
 ```bash packageManager="npm"
 npm install intlayer-cli -g
@@ -35,19 +35,19 @@ yarn add intlayer-cli -g
 pnpm add intlayer-cli -g
 ```
 
-> إذا كانت حزمة `intlayer` مثبتة بالفعل، فسيتم تثبيت CLI تلقائيًا. يمكنك تخطي هذه الخطوة.
+> إذا كانت حزمة `intlayer` مثبتة بالفعل، يتم تثبيت واجهة سطر الأوامر تلقائيًا. يمكنك تخطي هذه الخطوة.
 
 ## حزمة intlayer-cli
 
-تهدف حزمة `intlayer-cli` إلى تحويل [تصريحات intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md) إلى قواميس.
+تهدف حزمة `intlayer-cli` إلى تحويل [تصريحات intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md) الخاصة بك إلى قواميس.
 
-ستقوم هذه الحزمة بتحويل جميع ملفات intlayer، مثل `src/**/*.content.{ts|js|mjs|cjs|json}`. [اطلع على كيفية إعلان ملفات تصريح Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+ستقوم هذه الحزمة بتحويل جميع ملفات intlayer، مثل `src/**/*.content.{ts|js|mjs|cjs|json}`. [انظر كيفية إعلان ملفات تصريحات Intlayer الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-لتفسير قواميس intlayer يمكنك استخدام المفسرين، مثل [react-intlayer](https://www.npmjs.com/package/react-intlayer)، أو [next-intlayer](https://www.npmjs.com/package/next-intlayer).
+لتفسير قواميس intlayer يمكنك استخدام مفسرات، مثل [react-intlayer](https://www.npmjs.com/package/react-intlayer)، أو [next-intlayer](https://www.npmjs.com/package/next-intlayer)
 
 ## دعم ملف التكوين
 
-يدعم Intlayer تنسيقات ملفات التكوين المتعددة:
+يقبل Intlayer عدة صيغ لملفات التكوين:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -56,25 +56,73 @@ pnpm add intlayer-cli -g
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-لرؤية كيفية تكوين اللغات المتاحة أو معلمات أخرى، راجع [وثائق التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+لمعرفة كيفية تكوين اللغات المتاحة أو معلمات أخرى، راجع [توثيق التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+
+## SDK سطر الأوامر (CLI)
+
+SDK سطر الأوامر هو مكتبة تتيح لك استخدام CLI الخاص بـ Intlayer في كودك الخاص.
+
+```bash packageManager="npm"
+npm install @intlayer/cli -D
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/cli -D
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/cli -D
+```
+
+مثال على الاستخدام:
+
+```ts
+import {
+  push,
+  pull,
+  fill,
+  build,
+  docTranslate,
+  docReview,
+} from "@intlayer/cli";
+
+push();
+// ...
+pull();
+// ...
+fill();
+// ...
+build();
+// ...
+docTranslate();
+// ...
+docReview();
+// ...
+```
 
 ## تشغيل أوامر intlayer
 
 ### بناء القواميس
 
-لبناء القواميس الخاصة بك، يمكنك تشغيل الأوامر:
+لبناء القواميس الخاصة بك، يمكنك تشغيل الأوامر التالية:
 
 ```bash
-npx intlayer dictionaries build
+npx intlayer build
 ```
 
 أو في وضع المراقبة
 
 ```bash
-npx intlayer dictionaries build --watch
+npx intlayer build --watch
 ```
 
-سيقوم هذا الأمر بالعثور على ملفات محتوى التصريح الخاصة بك افتراضيًا كـ `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. وبناء القواميس في دليل `.intlayer`.
+سيقوم هذا الأمر بالبحث عن ملفات محتوى التصريحات الخاصة بك بشكل افتراضي في `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. وبناء القواميس في مجلد `.intlayer`.
+
+##### الأسماء المستعارة:
+
+- `npx intlayer dictionaries build`
+- `npx intlayer dictionary build`
+- `npx intlayer dic build`
 
 ### دفع القواميس
 
@@ -82,196 +130,328 @@ npx intlayer dictionaries build --watch
 npx intlayer dictionary push
 ```
 
-إذا كان [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) مثبتًا، يمكنك أيضًا دفع القواميس إلى المحرر. سيسمح هذا الأمر بجعل القواميس متاحة لـ [المحرر](https://intlayer.org/dashboard). بهذه الطريقة، يمكنك مشاركة القواميس مع فريقك وتحرير المحتوى الخاص بك دون تحرير كود التطبيق الخاص بك.
+إذا تم تثبيت [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، يمكنك أيضًا دفع القواميس إلى المحرر. سيسمح هذا الأمر بجعل القواميس متاحة لـ [المحرر](https://intlayer.org/dashboard). بهذه الطريقة، يمكنك مشاركة القواميس مع فريقك وتحرير المحتوى الخاص بك دون الحاجة إلى تعديل كود التطبيق الخاص بك.
+
+##### الأسماء المستعارة:
+
+- `npx intlayer dictionaries push`
+- `npx intlayer dictionary push`
+- `npx intlayer dic push`
 
 ##### الوسائط:
 
-- `-d`, `--dictionaries`: معرفات القواميس المراد دفعها. إذا لم يتم تحديدها، سيتم دفع جميع القواميس.
+- `-d`, `--dictionaries`: معرفات القواميس التي سيتم دفعها. إذا لم يتم تحديدها، فسيتم دفع جميع القواميس.
   > مثال: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: تخطي السؤال الذي يطلب حذف مجلدات اللغات بعد دفع القواميس، وحذفها. افتراضياً، إذا كان القاموس معرفاً محلياً، فسيقوم بكتابة محتوى القواميس البعيدة.
+- `-r`, `--deleteLocaleDictionary`: تخطي السؤال الذي يطلب حذف مجلدات اللغات بمجرد دفع القواميس، وحذفها. بشكل افتراضي، إذا تم تعريف القاموس محليًا، فسيتم الكتابة فوق محتوى القواميس البعيدة.
   > مثال: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: تخطي السؤال الذي يطلب حذف مجلدات اللغات بعد دفع القواميس، والاحتفاظ بها. افتراضياً، إذا كان القاموس معرفاً محلياً، فسيقوم بكتابة محتوى القواميس البعيدة.
+- `-k`, `--keepLocaleDictionary`: تخطي السؤال الذي يطلب حذف مجلدات اللغات بمجرد دفع القواميس، والاحتفاظ بها. بشكل افتراضي، إذا تم تعريف القاموس محليًا، فسيتم الكتابة فوق محتوى القواميس البعيدة.
   > مثال: `npx intlayer dictionary push -k`
 - `--env`: تحديد البيئة (مثل `development`، `production`).
 - `--env-file`: توفير ملف بيئة مخصص لتحميل المتغيرات منه.
-- `--base-dir`: تحديد المجلد الأساسي للمشروع.
-- `--verbose`: تفعيل التسجيل المفصل للتصحيح.
-- `--git-diff`: تشغيل فقط على القواميس التي بها تغييرات غير مدفوعة.
-- `--git-diff-base`: تحديد المرجع الأساسي لمقارنة git.
-- `--git-diff-current`: تحديد المرجع الحالي لمقارنة git.
+- `--base-dir`: تحديد الدليل الأساسي للمشروع.
+
+- `--verbose`: تمكين تسجيل مفصل لأغراض التصحيح.
+- `--git-diff`: التشغيل فقط على القواميس التي تتضمن تغييرات من الأساس (الافتراضي `origin/main`) إلى الفرع الحالي (الافتراضي: `HEAD`).
+- `--git-diff-base`: تحديد المرجع الأساسي لمقارنة git diff (الافتراضي `origin/main`).
+- `--git-diff-current`: تحديد المرجع الحالي لمقارنة git diff (الافتراضي `HEAD`).
 - `--uncommitted`: تضمين التغييرات غير الملتزمة.
 - `--unpushed`: تضمين التغييرات غير المدفوعة.
-- `--untracked`: تضمين الملفات غير المتعقبة.
+- `--untracked`: تضمين الملفات غير المتتبعة.
 
 ### سحب القواميس البعيدة
 
 ```bash
-npx intlayer dictionary pull
+npx intlayer pull
 ```
 
-إذا كان [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) مثبتًا، يمكنك أيضًا سحب القواميس من المحرر. بهذه الطريقة، يمكنك الكتابة فوق محتوى القواميس الخاصة بك لتلبية احتياجات تطبيقك.
+إذا تم تثبيت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، يمكنك أيضًا سحب القواميس من المحرر. بهذه الطريقة، يمكنك استبدال محتوى قواميسك حسب حاجة تطبيقك.
+
+##### الأسماء المستعارة:
+
+- `npx intlayer dictionaries pull`
+- `npx intlayer dictionary pull`
+- `npx intlayer dic pull`
 
 ##### الوسائط:
 
-- `-d, --dictionaries`: معرفات القواميس المراد سحبها. إذا لم يتم تحديدها، سيتم سحب جميع القواميس.
+- `-d, --dictionaries`: معرفات القواميس التي سيتم سحبها. إذا لم يتم تحديدها، سيتم سحب جميع القواميس.
   > مثال: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath`: المسار إلى المجلد حيث سيتم حفظ القواميس الجديدة. إذا لم يتم تحديده، سيتم حفظ القواميس الجديدة في مجلد `./intlayer-dictionaries` للمشروع. إذا تم تحديد حقل `filePath` في محتوى القاموس الخاص بك، فلن تأخذ القواميس هذا الوسيط بعين الاعتبار وسيتم حفظها في مجلد `filePath` المحدد.
-- `--env`: تحديد البيئة (مثل `development`، `production`).
+- `--newDictionariesPath` : مسار الدليل حيث سيتم حفظ القواميس الجديدة. إذا لم يتم تحديده، سيتم حفظ القواميس الجديدة في دليل `./intlayer-dictionaries` الخاص بالمشروع. إذا تم تحديد حقل `filePath` في محتوى القاموس الخاص بك، فلن تأخذ القواميس هذا الوسيط في الاعتبار وسيتم حفظها في الدليل المحدد في `filePath`.
+- `--env`: تحديد البيئة (مثلًا، `development`، `production`).
 - `--env-file`: توفير ملف بيئة مخصص لتحميل المتغيرات منه.
-- `--base-dir`: تحديد المجلد الأساسي للمشروع.
-- `--verbose`: تفعيل التسجيل المفصل للتصحيح.
+- `--base-dir`: تحديد الدليل الأساسي للمشروع.
+- `--verbose`: تفعيل تسجيل الدخول التفصيلي لأغراض التصحيح.
 
-### تدقيق القواميس
+##### مثال:
 
 ```bash
-npx intlayer audit
+npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```
 
-يقوم هذا الأمر بتحليل ملفات تصريح المحتوى الخاصة بك للبحث عن مشكلات محتملة مثل الترجمات المفقودة أو التناقضات الهيكلية أو عدم تطابق الأنواع. إذا وجد أي مشاكل، سيقترح أو يطبق تحديثات للحفاظ على تناسق القواميس واكتمالها.
+### تعبئة / تدقيق / ترجمة القواميس
+
+```bash
+npx intlayer fill
+```
+
+يقوم هذا الأمر بتحليل ملفات إعلان المحتوى الخاصة بك للبحث عن مشكلات محتملة مثل الترجمات المفقودة، أو التناقضات الهيكلية، أو عدم تطابق الأنواع. إذا وجد أي مشاكل، فإن **intlayer fill** سيقترح أو يطبق تحديثات للحفاظ على اتساق وكمال قواميسك.
+
+##### الأسماء المستعارة:
+
+- `npx intlayer dictionaries fill`
+- `npx intlayer dictionary fill`
+- `npx intlayer dic fill`
 
 ##### الوسائط:
 
-- **`-f, --files [files...]`**  
-  قائمة بملفات إعلان المحتوى المحددة للتدقيق. إذا لم يتم توفيرها، سيتم تدقيق جميع ملفات `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` المكتشفة.
+- `-f, --file [files...]`
+  قائمة بملفات إعلان المحتوى المحددة التي سيتم تدقيقها. إذا لم يتم توفيرها، سيتم تدقيق جميع الملفات المكتشفة التي تطابق النمط `*.content.{ts,js,mjs,cjs,tsx,jsx,json}`.
 
-- **`--exclude [excludedGlobs...]`**  
-  نمط globs لاستثناء من التدقيق (مثل `--exclude "src/test/**"`).
+- `--exclude [excludedGlobs...]`
+  نمط globs لاستبعاد ملفات من التدقيق (مثلاً `--exclude "src/test/**"`).
 
-- **`--source-locale [sourceLocale]`**  
-  اللغة المصدر للترجمة منها. إذا لم يتم تحديدها، سيتم استخدام اللغة الافتراضية من التكوين الخاص بك.
+- `--source-locale [sourceLocale]`
 
-- **`--output-locales [outputLocales...]`**  
-  اللغات المستهدفة للترجمة إليها. إذا لم يتم تحديدها، سيتم استخدام جميع اللغات من التكوين الخاص بك باستثناء اللغة المصدر.
+  لغة المصدر للترجمة منها. إذا لم يتم تحديدها، سيتم استخدام اللغة الافتراضية من تكوينك.
 
-- **`--mode [mode]`**  
-  وضع الترجمة: 'complete'، 'review'، أو 'missing-only'. الافتراضي هو 'missing-only'.
+- `--output-locales [outputLocales...]`
+  اللغات المستهدفة للترجمة إليها. إذا لم يتم تحديدها، سيتم استخدام جميع اللغات من تكوينك باستثناء لغة المصدر.
 
-- **`--git-diff`**  
-  تشغيل فقط على القواميس التي بها تغييرات غير مدفوعة في مستودع git.
+- `--mode [mode]`
+  وضع الترجمة: 'complete' (كامل)، 'review' (مراجعة)، أو 'missing-only' (الناقص فقط). الافتراضي هو 'missing-only'.
 
-- **`--git-diff-base`**  
-  تحديد المرجع الأساسي لمقارنة git.
+- `--git-diff`
+  يقوم بتصفية القواميس التي تحتوي على تغييرات من الأساس (الافتراضي `origin/main`) إلى الفرع الحالي (الافتراضي: `HEAD`).
 
-- **`--git-diff-current`**  
-  تحديد المرجع الحالي لمقارنة git.
+- `--git-diff-base`
+  تحديد المرجع الأساسي لـ git diff (الافتراضي `origin/main`).
 
-- **`--uncommitted`**  
-  تضمين التغييرات غير الملتزمة.
+- `--git-diff-current`
+  تحديد المرجع الحالي لـ git diff (الافتراضي: `HEAD`).
 
-- **`--unpushed`**  
-  تضمين التغييرات غير المدفوعة.
+- `--uncommitted`
+  يقوم بتصفية القواميس التي تحتوي على تغييرات غير ملتزمة.
 
-- **`--untracked`**  
-  تضمين الملفات غير المتعقبة.
+- `--unpushed`
+- `--unpushed`
+  يقوم بتصفية القواميس التي تحتوي على تغييرات غير مدفوعة.
 
-- **`--keys [keys...]`**  
+- `--untracked`
+  يقوم بتصفية القواميس التي تحتوي على ملفات غير متتبعة.
+
+- `--keys [keys...]`
   تصفية القواميس بناءً على المفاتيح المحددة.
 
-- **`--excluded-keys [excludedKeys...]`**  
+- `--excluded-keys [excludedKeys...]`
   استبعاد القواميس بناءً على المفاتيح المحددة.
 
-- **`--path-filter [pathFilters...]`**  
+- `--path-filter [pathFilters...]`
   تصفية القواميس بناءً على نمط glob لمسارات الملفات.
 
-- **`--model [model]`**  
+- `--model [model]`
   نموذج الذكاء الاصطناعي المستخدم للترجمة (مثل `gpt-3.5-turbo`).
 
-- **`--provider [provider]`**  
+- `--provider [provider]`
   مزود الذكاء الاصطناعي المستخدم للترجمة.
 
-- **`--temperature [temperature]`**  
+- `--temperature [temperature]`
   إعداد درجة الحرارة لنموذج الذكاء الاصطناعي.
 
-- **`--api-key [apiKey]`**  
-  توفير مفتاح API الخاص بك لخدمة الذكاء الاصطناعي.
+- `--api-key [apiKey]`
+  تقديم مفتاح API خاص بك لخدمة الذكاء الاصطناعي.
 
-- **`--custom-prompt [prompt]`**  
-  توفير توجيه مخصص لتعليمات الترجمة الخاصة بك.
+- `--custom-prompt [prompt]`
+  تقديم موجه مخصص لتعليمات الترجمة الخاصة بك.
+- `--application-context [applicationContext]`
+  تقديم سياق إضافي لترجمة الذكاء الاصطناعي.
 
-- **`--application-context [applicationContext]`**  
-  توفير سياق إضافي لترجمة الذكاء الاصطناعي.
-
-- **`--env`**  
+- `--env`
   تحديد البيئة (مثل `development`، `production`).
 
-- **`--env-file [envFile]`**  
-  توفير ملف بيئة مخصص لتحميل المتغيرات منه.
+- `--env-file [envFile]`
+  تقديم ملف بيئة مخصص لتحميل المتغيرات منه.
 
-- **`--base-dir`**  
-  تحديد المجلد الأساسي للمشروع.
+- `--base-dir`
+  تحديد الدليل الأساسي للمشروع.
 
-- **`--verbose`**  
-  تفعيل التسجيل المفصل للتصحيح.
+- `--verbose`
+  تفعيل تسجيل مفصل لأغراض التصحيح.
+
+##### مثال:
+
+```bash
+npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+سيقوم هذا الأمر بترجمة المحتوى من الإنجليزية إلى الفرنسية والإسبانية لجميع ملفات إعلان المحتوى في دليل `src/home/` باستخدام نموذج GPT-3.5 Turbo.
 
 ### إدارة التكوين
 
 #### الحصول على التكوين
 
-يقوم أمر `get configuration` باسترداد التكوين الحالي لـ Intlayer، خاصة إعدادات اللغة. هذا مفيد للتحقق من الإعداد الخاص بك.
+يسترجع أمر `configuration get` التكوين الحالي لـ Intlayer، وخاصة إعدادات اللغة. هذا مفيد للتحقق من إعداداتك.
 
 ```bash
-npx intlayer config get
+npx intlayer configuration get
 ```
+
+##### الأسماء المستعارة:
+
+- `npx intlayer config get`
+- `npx intlayer conf get`
 
 ##### الوسائط:
 
-- **`--env`**: تحديد البيئة (مثلًا، `development`, `production`).
+- **`--env`**: تحديد البيئة (مثل `development`، `production`).
 - **`--env-file`**: توفير ملف بيئة مخصص لتحميل المتغيرات منه.
-- **`--verbose`**: تمكين تسجيل مفصل لتصحيح الأخطاء.
+- **`--base-dir`**: تحديد الدليل الأساسي للمشروع.
+- **`--verbose`**: تفعيل تسجيل مفصل لأغراض التصحيح.
 
 #### دفع التكوين
 
-يقوم أمر `push configuration` بتحميل التكوين الخاص بك إلى CMS ومحرر Intlayer. هذه الخطوة ضرورية لتمكين استخدام القواميس البعيدة في محرر Intlayer المرئي.
+يقوم أمر `configuration push` برفع التكوين الخاص بك إلى نظام إدارة المحتوى Intlayer والمحرر. هذه الخطوة ضرورية لتمكين استخدام القواميس البعيدة في محرر Intlayer المرئي.
 
 ```bash
-npx intlayer config push
+bash
+npx intlayer configuration push
+```
+
+##### الأسماء المستعارة:
+
+- `npx intlayer config push`
+- `npx intlayer conf push`
+
+##### الوسائط:
+
+- **`--env`**: تحديد البيئة (مثل `development`، `production`).
+- **`--env-file`**: توفير ملف بيئة مخصص لتحميل المتغيرات منه.
+- **`--base-dir`**: تحديد الدليل الأساسي للمشروع.
+- **`--verbose`**: تفعيل تسجيل مفصل للأخطاء لأغراض التصحيح.
+
+عن طريق دفع التكوين، يتم دمج مشروعك بالكامل مع نظام إدارة المحتوى Intlayer، مما يتيح إدارة القواميس بسلاسة عبر الفرق.
+
+### إدارة الوثائق
+
+توفر أوامر `doc` أدوات لإدارة وترجمة ملفات الوثائق عبر عدة لغات.
+
+#### ترجمة الوثائق
+
+يقوم أمر `doc translate` بترجمة ملفات التوثيق تلقائيًا من لغة أساسية إلى لغات مستهدفة باستخدام خدمات الترجمة بالذكاء الاصطناعي.
+
+```bash
+npx intlayer doc translate
 ```
 
 ##### الوسائط:
 
-- **`--env`**: تحديد البيئة (مثلًا، `development`, `production`).
-- **`--env-file`**: توفير ملف بيئة مخصص لتحميل المتغيرات منه.
-- **`--verbose`**: تمكين تسجيل مفصل لتصحيح الأخطاء.
+- **`--doc-pattern [docPattern...]`**: أنماط Glob لمطابقة ملفات التوثيق التي سيتم ترجمتها.
+  > مثال: `npx intlayer doc translate --doc-pattern "docs/**/*.md" "src/**/*.mdx"`
+- **`--excluded-glob-pattern [excludedGlobPattern...]`**: أنماط Glob لاستبعادها من الترجمة.
+  > مثال: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
+- **`--nb-simultaneous-file-processed [nbSimultaneousFileProcessed]`**: عدد الملفات التي تتم معالجتها في نفس الوقت للترجمة.
+  > مثال: `npx intlayer doc translate --nb-simultaneous-file-processed 5`
+- **`--locales [locales...]`**: اللغات المستهدفة لترجمة الوثائق إليها.
+  > مثال: `npx intlayer doc translate --locales fr es de`
+- **`--base-locale [baseLocale]`**: لغة المصدر التي سيتم الترجمة منها.
+  > مثال: `npx intlayer doc translate --base-locale en`
+- **`--model [model]`**: نموذج الذكاء الاصطناعي المستخدم للترجمة (مثل `gpt-3.5-turbo`).
+- **`--provider [provider]`**: مزود خدمة الذكاء الاصطناعي المستخدم للترجمة.
+- **`--temperature [temperature]`**: إعداد درجة الحرارة لنموذج الذكاء الاصطناعي.
+- **`--api-key [apiKey]`**: توفير مفتاح API الخاص بك لخدمة الذكاء الاصطناعي.
+- **`--custom-prompt [prompt]`**: توفير موجه مخصص لتعليمات الترجمة.
+- **`--application-context [applicationContext]`**: توفير سياق إضافي لترجمة الذكاء الاصطناعي.
+- **`--env`**: تحديد البيئة (مثل `development`، `production`).
+- **`--env-file [envFile]`**: توفير ملف بيئة مخصص لتحميل المتغيرات منه.
+- **`--base-dir`**: تحديد الدليل الأساسي للمشروع.
+- **`--verbose`**: تفعيل تسجيل مفصل لأغراض التصحيح.
+- **`--custom-instructions [customInstructions]`**: تعليمات مخصصة تضاف إلى الموجه. مفيدة لتطبيق قواعد محددة بخصوص التنسيق، ترجمة الروابط، إلخ.
 
-من خلال دفع التكوين، يتم دمج مشروعك بالكامل مع CMS الخاص بـ Intlayer، مما يتيح إدارة سلسة للقواميس عبر الفرق.
+##### مثال:
 
-## استخدام أوامر intlayer في `package.json`
+```bash
+npx intlayer doc translate
+  --doc-pattern "docs/en/**/*.md"
+  --base-locale en --locales fr es
+  --model chatgpt-4o-latest
+  --custom-instructions "$(cat ./instructions.md)"
+```
+
+> لاحظ أن مسار ملف الإخراج سيتم تحديده عن طريق استبدال الأنماط التالية
+>
+> - `/{{baseLocale}}/` بـ `/{{locale}}/` (Unix)
+> - `\{{baseLocale}}\` بواسطة `\{{locale}}\` (ويندوز)
+> - `_{{baseLocale}}.` بواسطة `_{{locale}}.`
+> - `{{baseLocale}}_` بواسطة `{{locale}}_`
+> - `.{{baseLocaleName}}.` بواسطة `.{{localeName}}.`
+>
+> إذا لم يتم العثور على النمط، ستضيف ملف الإخراج `.{{locale}}` في امتدادات الملف. على سبيل المثال، `./my/file.md` سيتم ترجمته إلى `./my/file.fr.md` للغة الفرنسية.
+
+#### مراجعة الوثائق
+
+يقوم أمر `doc review` بتحليل ملفات الوثائق من حيث الجودة، والاتساق، والكمال عبر اللغات المختلفة.
+
+```bash
+npx intlayer doc review
+```
+
+##### الوسائط:
+
+يقبل أمر `doc review` نفس الوسائط التي يقبلها `doc translate`، مما يتيح لك مراجعة ملفات الوثائق المحددة وتطبيق فحوصات الجودة.
+
+##### مثال:
+
+```bash
+npx intlayer doc review
+ --doc-pattern "docs/ar/**/*.md"
+ --locales fr es de
+ --model chatgpt-4o-latest
+ --custom-instructions "$(cat ./instructions.md)"
+```
+
+## استخدم أوامر intlayer في ملف `package.json` الخاص بك
 
 ```json fileName="package.json"
 "scripts": {
-  "intlayer:build": "npx intlayer dictionaries build",
-  "intlayer:watch": "npx intlayer dictionaries build --watch",
-  "intlayer:push": "npx intlayer dictionary push",
-  "intlayer:pull": "npx intlayer dictionary pull",
-  "intlayer:audit": "npx intlayer audit"
+  "intlayer:build": "npx intlayer build",
+  "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:push": "npx intlayer push",
+  "intlayer:pull": "npx intlayer pull",
+  "intlayer:fill": "npx intlayer fill",
+  "intlayer:doc:translate": "npx intlayer doc translate",
+  "intlayer:doc:review": "npx intlayer doc review"
 }
 ```
 
 ## تصحيح أمر intlayer
 
-### 1. **تأكد من استخدام أحدث إصدار**
+### 1. **تأكد من أنك تستخدم أحدث إصدار**
 
-قم بتنفيذ:
+شغل:
 
 ```bash
-npx intlayer --version                  # إصدار intlayer المحلي الحالي
-npx intlayer@latest --version          # أحدث إصدار من intlayer
+npx intlayer --version                  # إصدار intlayer الحالي للغة المحلية
+npx intlayer@latest --version           # أحدث إصدار متوفر من intlayer
 ```
 
-### 2. **تحقق مما إذا كان الأمر مسجلاً**
+### 2. **التحقق مما إذا كان الأمر مسجلاً**
 
 يمكنك التحقق باستخدام:
 
 ```bash
-npx intlayer --help      # يعرض قائمة بالأوامر المتاحة ومعلومات الاستخدام
+npx intlayer --help                     # يعرض قائمة الأوامر المتاحة ومعلومات الاستخدام
+npx intlayer dictionary build --help    # يعرض قائمة الخيارات المتاحة لأمر معين
 ```
 
-### 3. **أعد تشغيل الطرفية**
+### 3. **إعادة تشغيل الطرفية**
 
-أحياناً يكون من الضروري إعادة تشغيل الطرفية للتعرف على الأوامر الجديدة.
+في بعض الأحيان، يلزم إعادة تشغيل الطرفية للتعرف على الأوامر الجديدة.
 
-### 4. **امسح ذاكرة التخزين المؤقت لـ npx (إذا كنت عالقاً في إصدار قديم)**
+### 4. **مسح ذاكرة التخزين المؤقت لـ npx (إذا كنت عالقًا مع إصدار قديم)**
 
 ```bash
 npx clear-npx-cache
 ```
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

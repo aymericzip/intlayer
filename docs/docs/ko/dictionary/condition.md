@@ -2,7 +2,7 @@
 docName: dictionary__condition
 url: https://intlayer.org/doc/concept/content/condition
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md
-createdAt: 2025-02-7
+createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: 조건 콘텐츠
 description: Intlayer에서 조건부 콘텐츠를 사용하여 특정 조건에 따라 동적으로 콘텐츠를 표시하는 방법을 알아보세요. 이 문서를 따라 조건을 효율적으로 구현하세요.

@@ -1,3 +1,22 @@
+---
+docName: package__intlayer__getTranslationContent
+url: https://intlayer.org/doc/package/intlayer/getTranslationContent
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslationContent.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: getTranslation Function - Intlayer JavaScript Documentation
+description: Documentation for the getTranslation function in Intlayer, which retrieves localized content for specific locales with fallback to default locale.
+keywords:
+  - getTranslation
+  - intlayer
+  - function
+  - localization
+  - i18n
+  - JavaScript
+  - translation
+  - locale
+---
+
 # Documentation: `getTranslation` Function in `intlayer`
 
 ## Description

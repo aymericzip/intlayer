@@ -1,7 +1,7 @@
 ---
 docName: package__nuxt-intlayer
 url: https://intlayer.org/doc/packages/nuxt-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/nuxt-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/nuxt-intlayer/index.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: Documentation du package | nuxt-intlayer
@@ -15,23 +15,25 @@ keywords:
   - Nuxt
 ---
 
-**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme Vue, Vue et Express.js.
+# nuxt-intlayer : Package NPM pour internationaliser (i18n) une application Vue
 
-**Le package `nuxt-intlayer`** vous permet d'internationaliser votre application Vue. Il fournit des fournisseurs de contexte et des hooks pour l'internationalisation avec Vue.
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Il est compatible avec des frameworks comme Vue, Vue, et Express.js.
+
+**Le package `nuxt-intlayer`** vous permet d'internationaliser votre application Vue. Il fournit des fournisseurs de contexte et des hooks pour l'internationalisation dans Vue.
 
 ## Pourquoi internationaliser votre application Vue ?
 
-Internationaliser votre application Vue est essentiel pour servir efficacement un public mondial. Cela permet à votre application de fournir du contenu et des messages dans la langue préférée de chaque utilisateur. Cette capacité améliore l'expérience utilisateur et élargit la portée de votre application en la rendant plus accessible et pertinente pour des personnes de différents horizons linguistiques.
+Internationaliser votre application Vue est essentiel pour servir efficacement un public mondial. Cela permet à votre application de délivrer du contenu et des messages dans la langue préférée de chaque utilisateur. Cette capacité améliore l'expérience utilisateur et élargit la portée de votre application en la rendant plus accessible et pertinente pour des personnes issues de différents horizons linguistiques.
 
 ## Pourquoi intégrer Intlayer ?
 
-- **Gestion de contenu propulsée par JavaScript** : Exploitez la flexibilité de JavaScript pour définir et gérer votre contenu efficacement.
-- **Environnement sûr avec TypeScript** : Profitez de TypeScript pour garantir que toutes vos définitions de contenu soient précises et exemptes d'erreurs.
+- **Gestion de contenu propulsée par JavaScript** : Exploitez la flexibilité de JavaScript pour définir et gérer votre contenu de manière efficace.
+- **Environnement typé** : Profitez de TypeScript pour garantir que toutes vos définitions de contenu soient précises et sans erreur.
 - **Fichiers de contenu intégrés** : Gardez vos traductions proches de leurs composants respectifs, améliorant ainsi la maintenabilité et la clarté.
 
 ## Installation
 
-Installez le package nécessaire en utilisant votre gestionnaire de packages préféré :
+Installez le package nécessaire en utilisant votre gestionnaire de paquets préféré :
 
 ```bash packageManager="npm"
 npm install nuxt-intlayer
@@ -44,3 +46,7 @@ yarn add nuxt-intlayer
 ```bash packageManager="pnpm"
 pnpm add nuxt-intlayer
 ```
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

@@ -30,7 +30,7 @@ The `intlayer-editor` package is based on Intlayer and is available for JavaScri
 
 The Intlayer Visual editor is a tool that allows you to manage your content in a visual editor for local dictionaries. Once a change is made, the content will be replaced in the code-base. That means that the application will be rebuilt and the page will be reloaded to display the new content.
 
-In contrast, the [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) is a tool that allows you to manage your content in a visual editor for distant dictionaries. Once a change is made, the content will **not** impact your code-base. And the website will automatically display the changed content.
+In contrast, the [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) is a tool that allows you to manage your content in a visual editor for distant dictionaries. Once a change is made, the content will **not** impact your code-base. And the website will automatically display the changed content.
 
 ## Integrate Intlayer into your application
 
@@ -38,23 +38,23 @@ For more details on how to integrate intlayer, see the relevant section below:
 
 ### Integrating with Next.js
 
-For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md).
+For integration with Next.js, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md).
 
 ### Integrating with Create React App
 
-For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md).
+For integration with Create React App, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md).
 
 ### Integrating with Vite + React
 
-For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md).
+For integration with Vite + React, refer to the [setup guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_vite+react.md).
 
 ## How Intlayer Editor Works
 
 The visual editor in an application that includes two things:
 
-- A frontend application that will display your website into a iframe. If your website uses Intlayer, the visual editor will automatically detect your content, and will allow you to interact with it. Once a modification is made, you will be able to download your changes.
+- A frontend application that will display your website into an iframe. If your website uses Intlayer, the visual editor will automatically detect your content, and will allow you to interact with it. Once a modification is made, you will be able to download your changes.
 
-- Once you clicked the download button, the visual editor will send a request to the server to replace your content declaration files with the new content (wherever these files are declared in your project).
+- Once you have clicked the download button, the visual editor will send a request to the server to replace your content declaration files with the new content (wherever these files are declared in your project).
 
 > Note that for now, Intlayer Editor will write your content declaration files as JSON files.
 
@@ -76,7 +76,7 @@ pnpm add intlayer-editor --save-dev
 
 ## Configuration
 
-In your Intlayer configuration file, you can customize the editor settings:
+In your Intlayer configuration file, you can customise the editor settings:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -94,7 +94,7 @@ const config: IntlayerConfig = {
     /**
      * Optional
      * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
+     * Can be used to disable the editor for specific environments for security reasons, such as production.
      */
     enabled: process.env.INTLAYER_ENABLED,
     /**
@@ -130,7 +130,7 @@ const config = {
     /**
      * Optional
      * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
+     * Can be used to disable the editor for specific environments for security reasons, such as production.
      */
     enabled: process.env.INTLAYER_ENABLED,
     /**
@@ -142,7 +142,7 @@ const config = {
     /**
      * Optional
      * Default as "http://localhost:8000"
-     * The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if port is changed, or if the editor is hosted on a different domain.
+     * The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if the port is changed, or if the editor is hosted on a different domain.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
   },
@@ -177,7 +177,7 @@ const config = {
     /**
      * Optional
      * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
+     * Can be used to disable the editor for specific environments for security reasons, such as production.
      */
     enabled: process.env.INTLAYER_ENABLED,
   },
@@ -186,7 +186,7 @@ const config = {
 module.exports = config;
 ```
 
-> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+> To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
 ## Using the Editor
 
@@ -254,12 +254,12 @@ If you encounter any issues with the visual editor, check the following:
 
 - The visual editor and the application are running.
 
-- The [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration are correctly set in your Intlayer configuration file.
+- The [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration is correctly set in your Intlayer configuration file.
 
   - Required fields:
     - The application URL should match the one you set in the editor configuration (`applicationURL`).
 
-- The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS url as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.
+- The visual editor uses an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS URL as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.
 
 ## Doc History
 

@@ -1,15 +1,15 @@
 ---
 docName: vscode_extension
 url: https://intlayer.org/doc/vs-code-extension
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md
 createdAt: 2025-03-17
 updatedAt: 2025-06-29
 title: Official VS Code Extension
-description: Learn how to use the Intlayer extension in VS Code to enhance your development workflow. Quickly navigate between localized content and manage your dictionaries efficiently.
+description: Learn how to use the Intlayer extension in VS Code to enhance your development workflow. Quickly navigate between localised content and manage your dictionaries efficiently.
 keywords:
   - VS Code Extension
   - Intlayer
-  - Localization
+  - Localisation
   - Development Tools
   - React
   - Next.js
@@ -21,7 +21,7 @@ keywords:
 
 ## Overview
 
-[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) is the official Visual Studio Code extension for **Intlayer**, designed to improve the developer experience when working with localized content in your projects.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) is the official Visual Studio Code extension for **Intlayer**, designed to enhance the developer experience when working with localised content in your projects.
 
 ![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
@@ -33,7 +33,7 @@ Extension link: [https://marketplace.visualstudio.com/items?itemName=Intlayer.in
 
 **Go to Definition Support** – Use `Cmd+Click` (Mac) or `Ctrl+Click` (Windows/Linux) on a `useIntlayer` key to open the corresponding content file instantly.  
 **Seamless Integration** – Works effortlessly with **react-intlayer** and **next-intlayer** projects.  
-**Multi-language Support** – Supports localized content across different languages.  
+**Multi-language Support** – Supports localised content across different languages.  
 **VS Code Integration** – Smoothly integrates with VS Code’s navigation and command palette.
 
 ### Dictionary Management Commands
@@ -126,7 +126,7 @@ cd intlayer-vs-code-extension
 npm install
 ```
 
-> Use `npm` package manager for compatibility with `vsce` package to build and publish the extension.
+> Use the `npm` package manager for compatibility with the `vsce` package to build and publish the extension.
 
 ### Run in Development Mode
 
@@ -143,9 +143,9 @@ Found a bug or have a feature request? Open an issue on our **GitHub repository*
 
 [GitHub Issues](https://github.com/aymericzip/intlayer-vs-code-extension/issues)
 
-## License
+## Licence
 
-Intlayer is released under the **MIT License**.
+Intlayer is released under the **MIT Licence**.
 
 ## Doc History
 

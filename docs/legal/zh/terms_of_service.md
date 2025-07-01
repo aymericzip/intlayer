@@ -1,0 +1,56 @@
+---
+docName: terms_of_service
+url: https://intlayer.org/terms-of-service
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/legal/zh/terms_of_service.md
+createdAt: 2025-04-18
+updatedAt: 2025-06-29
+title: Intlayer 服务条款
+description: 了解 Intlayer 如何处理通过我们的网站和 CMS 收集的信息。请参阅文档以了解不同的格式和使用案例。
+keywords:
+  - 国际化
+  - 文档
+  - Intlayer
+  - 服务条款
+  - 服务
+  - 使用
+  - 许可
+  - 责任
+  - 隐私
+  - 贡献
+  - 归属
+  - 条款修改
+---
+
+# Intlayer 使用条款
+
+## 1. 条款接受
+
+通过使用 Intlayer，您同意受这些使用条款的约束。如果您不接受这些条款，请不要使用该工具。
+
+## 2. 许可
+
+Intlayer 采用 **Apache 2.0 许可证** 进行分发，该许可证允许在开源和商业项目中使用、修改和分发代码。用户被允许根据我们[贡献指南](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md)中制定的规则修改源代码并通过拉取请求提交贡献。严禁为商业用途盗用代码。
+
+## 3. 商业使用
+
+您被允许将 Intlayer 用于商业项目。然而，禁止在未进行重大改造或实质性增值的情况下，直接复用代码以创建基于 Intlayer 的竞争工具。
+
+## 4. 责任
+
+Intlayer 的维护者致力于在发现漏洞和安全问题后尽快修复。但对于因这些问题对用户基础设施造成的任何损害，维护者不承担任何责任。我们鼓励用户通过我们的[问题跟踪系统](https://github.com/aymericzip/intlayer/issues)报告问题。
+
+## 5. 隐私
+
+Intlayer 不会收集或存储任何用户的个人数据。
+
+## 6. 贡献
+
+鼓励用户按照我们的贡献指南中的指引为 Intlayer 做出贡献。任何提交的代码必须符合既定的质量标准，并将在集成前由维护者进行审核。
+
+## 7. 归属
+
+任何为扩展或利用 Intlayer 代码而开发的工具，必须明确标注 Intlayer 作为代码的基础。此归属必须在源代码中以及任何用户或宣传文档中可见。
+
+## 8. 条款修改
+
+本使用条款可随时修改。用户将被告知使用条款的任何重大变更，并且必须接受这些变更才能继续使用 Intlayer。

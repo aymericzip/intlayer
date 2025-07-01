@@ -1,11 +1,11 @@
 ---
 docName: package__next-intlayer__useLocale
 url: https://intlayer.org/doc/packages/next-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentazione del hook useLocale | next-intlayer
-description: Scopri come utilizzare il hook useLocale per il pacchetto next-intlayer
+title: Documentazione Hook useLocale | next-intlayer
+description: Scopri come utilizzare l'hook useLocale per il pacchetto next-intlayer
 keywords:
   - useLocale
   - dizionario
@@ -18,21 +18,21 @@ keywords:
   - React
 ---
 
-# Integrazione Next.js: Documentazione del hook `useLocale` per `next-intlayer`
+# Integrazione Next.js: Documentazione dell'hook `useLocale` per `next-intlayer`
 
-Questa sezione offre una documentazione dettagliata sul hook `useLocale` progettato per applicazioni Next.js all'interno della libreria `next-intlayer`. È progettato per gestire i cambiamenti di lingua e il routing in modo efficiente.
+Questa sezione offre una documentazione dettagliata sull'hook `useLocale` pensato per applicazioni Next.js all'interno della libreria `next-intlayer`. È progettato per gestire in modo efficiente i cambiamenti di locale e il routing.
 
 ## Importare `useLocale` in Next.js
 
-Per utilizzare il hook `useLocale` nella tua applicazione Next.js, importalo come mostrato di seguito:
+Per utilizzare l'hook `useLocale` nella tua applicazione Next.js, importalo come mostrato di seguito:
 
 ```javascript
-import { useLocale } from "next-intlayer"; // Utilizzato per gestire le lingue e il routing in Next.js
+import { useLocale } from "next-intlayer"; // Usato per gestire i locali e il routing in Next.js
 ```
 
 ## Utilizzo
 
-Ecco come implementare il hook `useLocale` all'interno di un componente Next.js:
+Ecco come implementare l'hook `useLocale` all'interno di un componente Next.js:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -46,8 +46,8 @@ const LocaleSwitcher: FC = () => {
 
   return (
     <div>
-      <h1>Lingua corrente: {locale}</h1>
-      <p>Lingua predefinita: {defaultLocale}</p>
+      <h1>Locale Corrente: {locale}</h1>
+      <p>Locale Predefinito: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -71,8 +71,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Lingua corrente: {locale}</h1>
-      <p>Lingua predefinita: {defaultLocale}</p>
+      <h1>Locale Corrente: {locale}</h1>
+      <p>Locale Predefinito: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -96,8 +96,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Lingua corrente: {locale}</h1>
-      <p>Lingua predefinita: {defaultLocale}</p>
+      <h1>Locale Corrente: {locale}</h1>
+      <p>Locale Predefinito: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -110,16 +110,20 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## Parametri e Valori Restituiti
+## Parametri e Valori di Ritorno
 
-Quando invochi il hook `useLocale`, restituisce un oggetto contenente le seguenti proprietà:
+Quando si invoca l'hook `useLocale`, restituisce un oggetto contenente le seguenti proprietà:
 
-- **`locale`**: La lingua corrente impostata nel contesto React.
-- **`defaultLocale`**: La lingua principale definita nella configurazione.
-- **`availableLocales`**: Un elenco di tutte le lingue disponibili come definito nella configurazione.
-- **`setLocale`**: Una funzione per cambiare la lingua dell'applicazione e aggiornare l'URL di conseguenza. Si occupa delle regole di prefisso, se aggiungere o meno la lingua al percorso in base alla configurazione. Utilizza `useRouter` da `next/navigation` per funzioni di navigazione come `push` e `refresh`.
-- **`pathWithoutLocale`**: Una proprietà calcolata che restituisce il percorso senza la lingua. È utile per confrontare gli URL. Ad esempio, se la lingua corrente è `fr`, e l'url `fr/my_path`, il percorso senza lingua è `/my_path`. Utilizza `usePathname` da `next/navigation` per ottenere il percorso corrente.
+- **`locale`**: La locale corrente come impostata nel contesto React.
+- **`defaultLocale`**: La locale primaria definita nella configurazione.
+- **`availableLocales`**: Una lista di tutte le localizzazioni disponibili come definite nella configurazione.
+- **`setLocale`**: Una funzione per cambiare la locale dell'applicazione e aggiornare di conseguenza l'URL. Gestisce le regole del prefisso, decidendo se aggiungere o meno la locale al percorso in base alla configurazione. Utilizza `useRouter` da `next/navigation` per le funzioni di navigazione come `push` e `refresh`.
+- **`pathWithoutLocale`**: Una proprietà calcolata che restituisce il percorso senza la locale. È utile per confrontare gli URL. Ad esempio, se la locale corrente è `fr` e l'URL è `fr/my_path`, il percorso senza locale è `/my_path`. Utilizza `usePathname` da `next/navigation` per ottenere il percorso corrente.
 
 ## Conclusione
 
-Il hook `useLocale` di `next-intlayer` è uno strumento cruciale per gestire le lingue nelle applicazioni Next.js. Offre un approccio integrato per adattare la tua applicazione a più lingue gestendo lo storage delle lingue, la gestione dello stato e le modifiche agli URL in modo fluido.
+L'hook `useLocale` di `next-intlayer` è uno strumento fondamentale per la gestione delle localizzazioni nelle applicazioni Next.js. Offre un approccio integrato per adattare la tua applicazione a più localizzazioni gestendo senza soluzione di continuità l'archiviazione della locale, la gestione dello stato e le modifiche degli URL.
+
+## Cronologia della documentazione
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

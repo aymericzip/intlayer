@@ -1,10 +1,10 @@
 ---
 docName: package__react-intlayer__useLocale
 url: https://intlayer.org/doc/packages/react-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentazione dell'hook useLocale | react-intlayer
+title: Documentazione Hook useLocale | react-intlayer
 description: Scopri come utilizzare l'hook useLocale per il pacchetto react-intlayer
 keywords:
   - useLocale
@@ -18,33 +18,33 @@ keywords:
   - React
 ---
 
-# Integrazione React: Documentazione del Hook `useLocale`
+# Integrazione React: Documentazione Hook `useLocale`
 
-Questa sezione fornisce dettagli completi sull'hook `useLocale` della libreria `react-intlayer`, progettata per gestire la gestione delle impostazioni locali nelle applicazioni React.
+Questa sezione fornisce dettagli completi sull'hook `useLocale` della libreria `react-intlayer`, progettato per gestire la gestione delle localizzazioni nelle applicazioni React.
 
 ## Importare `useLocale` in React
 
-Per integrare l'hook `useLocale` nella tua applicazione React, importalo dal relativo pacchetto:
+Per integrare l'hook `useLocale` nella tua applicazione React, importalo dal rispettivo pacchetto:
 
 ```typescript codeFormat="typescript"
-import { useLocale } from "react-intlayer"; // Utilizzato nei componenti React per la gestione delle impostazioni locali
+import { useLocale } from "react-intlayer"; // Usato nei componenti React per la gestione della localizzazione
 ```
 
 ```javascript codeFormat="esm"
-import { useLocale } from "react-intlayer"; // Utilizzato nei componenti React per la gestione delle impostazioni locali
+import { useLocale } from "react-intlayer"; // Usato nei componenti React per la gestione della localizzazione
 ```
 
 ```javascript codeFormat="commonjs"
-const { useLocale } = require("react-intlayer"); // Utilizzato nei componenti React per la gestione delle impostazioni locali
+const { useLocale } = require("react-intlayer"); // Usato nei componenti React per la gestione della localizzazione
 ```
 
 ## Panoramica
 
-L'hook `useLocale` offre un modo semplice per accedere e manipolare le impostazioni locali all'interno dei componenti React. Fornisce accesso alla lingua corrente, alla lingua predefinita, a tutte le lingue disponibili e a funzioni per aggiornare le impostazioni locali.
+L'hook `useLocale` offre un modo semplice per accedere e manipolare le impostazioni della localizzazione all'interno dei componenti React. Fornisce accesso alla localizzazione corrente, alla localizzazione predefinita, a tutte le localizzazioni disponibili e alle funzioni per aggiornare le impostazioni della localizzazione.
 
 ## Utilizzo
 
-Ecco come puoi utilizzare l'hook `useLocale` all'interno di un componente React:
+Ecco come puoi usare l'hook `useLocale` all'interno di un componente React:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -55,8 +55,8 @@ const LocaleSwitcher: FC = () => {
 
   return (
     <div>
-      <h1>Lingua corrente: {locale}</h1>
-      <p>Lingua predefinita: {defaultLocale}</p>
+      <h1>Localizzazione corrente: {locale}</h1>
+      <p>Localizzazione predefinita: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -79,8 +79,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Lingua corrente: {locale}</h1>
-      <p>Lingua predefinita: {defaultLocale}</p>
+      <h1>Localizzazione corrente: {locale}</h1>
+      <p>Localizzazione predefinita: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -103,8 +103,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Lingua corrente: {locale}</h1>
-      <p>Lingua predefinita: {defaultLocale}</p>
+      <h1>Localizzazione corrente: {locale}</h1>
+      <p>Localizzazione predefinita: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -119,18 +119,18 @@ const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-## Parametri e Valori Restituiti
+## Parametri e Valori di Ritorno
 
-Quando invochi l'hook `useLocale`, restituisce un oggetto contenente le seguenti proprietà:
+Quando si invoca l'hook `useLocale`, restituisce un oggetto contenente le seguenti proprietà:
 
-- **`locale`**: La lingua corrente impostata nel contesto React.
-- **`defaultLocale`**: La lingua principale definita nella configurazione.
-- **`availableLocales`**: Un elenco di tutte le lingue disponibili come definite nella configurazione.
-- **`setLocale`**: Una funzione per aggiornare la lingua corrente all'interno del contesto dell'applicazione.
+- **`locale`**: La localizzazione corrente impostata nel contesto React.
+- **`defaultLocale`**: La localizzazione primaria definita nella configurazione.
+- **`availableLocales`**: Una lista di tutte le localizzazioni disponibili come definite nella configurazione.
+- **`setLocale`**: Una funzione per aggiornare la localizzazione corrente all'interno del contesto dell'applicazione.
 
 ## Esempio
 
-Questo esempio mostra un componente che utilizza l'hook `useLocale` per rendere un selettore di lingua, consentendo agli utenti di cambiare dinamicamente la lingua dell'applicazione:
+Questo esempio mostra un componente che utilizza l'hook `useLocale` per rendere un selettore di localizzazione, permettendo agli utenti di cambiare dinamicamente la localizzazione dell'applicazione:
 
 ```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -201,4 +201,8 @@ const LocaleSelector = () => {
 
 ## Conclusione
 
-L'hook `useLocale` di `react-intlayer` è uno strumento essenziale per gestire le lingue nelle tue applicazioni React, fornendo la funzionalità necessaria per adattare efficacemente la tua applicazione a diversi pubblici internazionali.
+Il hook `useLocale` di `react-intlayer` è uno strumento essenziale per gestire le localizzazioni nelle tue applicazioni React, fornendo le funzionalità necessarie per adattare efficacemente la tua applicazione a diversi pubblici internazionali.
+
+## Cronologia del Documento
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

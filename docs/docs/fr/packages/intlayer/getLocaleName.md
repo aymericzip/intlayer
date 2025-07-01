@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getLocaleName
 url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentation de la fonction getLocaleName | intlayer
-description: Découvrez commengetLocaleName utiliser la fonction getLocaleName pour le package intlayer
+description: Découvrez comment utiliser la fonction getLocaleName pour le package intlayer
 keywords:
   - getLocaleName
   - traduction
@@ -18,27 +18,27 @@ keywords:
   - React
 ---
 
-# Documentation: `getLocaleName` Fonction dans `intlayer`
+# Documentation : Fonction `getLocaleName` dans `intlayer`
 
 ## Description
 
-La fonction `getLocaleName` retourne le nom localisé d'une locale donnée (`targetLocale`) dans la locale d'affichage (`displayLocale`). Si aucune `targetLocale` n'est fournie, elle retourne le nom de la `displayLocale` dans sa propre langue.
+La fonction `getLocaleName` renvoie le nom localisé d'une locale donnée (`targetLocale`) dans la locale d'affichage (`displayLocale`). Si aucune `targetLocale` n'est fournie, elle renvoie le nom de la `displayLocale` dans sa propre langue.
 
 ## Paramètres
 
 - `displayLocale: Locales`
 
   - **Description** : La locale dans laquelle le nom de la locale cible sera affiché.
-  - **Type** : Enum ou chaîne représentant des locales valides.
+  - **Type** : Enum ou chaîne de caractères représentant des locales valides.
 
 - `targetLocale?: Locales`
   - **Description** : La locale dont le nom doit être localisé.
-  - **Type** : Optionnel. Enum ou chaîne représentant des locales valides.
+  - **Type** : Optionnel. Enum ou chaîne de caractères représentant des locales valides.
 
-## Retours
+## Retour
 
 - **Type** : `string`
-- **Description** : Le nom localisé de la `targetLocale` dans la `displayLocale`, ou le propre nom de la `displayLocale` si `targetLocale` n'est pas fourni. Si aucune traduction n'est trouvée, elle retourne `"Unknown locale"`.
+- **Description** : Le nom localisé de la `targetLocale` dans la `displayLocale`, ou le nom propre de la `displayLocale` si `targetLocale` n'est pas fourni. Si aucune traduction n'est trouvée, elle renvoie `"Locale inconnue"`.
 
 ## Exemple d'utilisation
 
@@ -60,7 +60,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // Résultat : "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Résultat : "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Résultat : "Chinese"
 
-getLocaleName("unknown-locale"); // Résultat : "Unknown locale"
+getLocaleName("unknown-locale"); // Résultat : "Locale inconnue"
 ```
 
 ```javascript codeFormat="esm"
@@ -81,7 +81,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // Résultat : "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Résultat : "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Résultat : "Chinese"
 
-getLocaleName("unknown-locale"); // Résultat : "Unknown locale"
+getLocaleName("unknown-locale"); // Résultat : "Locale inconnue"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -102,12 +102,16 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // Résultat : "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Résultat : "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Résultat : "Chinese"
 
-getLocaleName("unknown-locale"); // Résultat : "Unknown locale"
+getLocaleName("unknown-locale"); // Résultat : "Locale inconnue"
 ```
 
 ## Cas particuliers
 
-- **Aucune `targetLocale` fournie :**
-  - La fonction retourne par défaut le propre nom de la `displayLocale`.
+- **Pas de `targetLocale` fourni :**
+  - La fonction retourne par défaut le nom propre du `displayLocale`.
 - **Traductions manquantes :**
-  - Si `localeNameTranslations` ne contient pas d'entrée pour la `targetLocale` ou la `displayLocale` spécifique, la fonction revient au `ownLocalesName` ou retourne `"Unknown locale"`.
+  - Si `localeNameTranslations` ne contient pas d'entrée pour le `targetLocale` ou le `displayLocale` spécifique, la fonction revient au `ownLocalesName` ou retourne `"Unknown locale"`.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

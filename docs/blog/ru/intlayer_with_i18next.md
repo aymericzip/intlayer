@@ -1,3 +1,24 @@
+---
+docName: intlayer_with_i18next
+url: https://intlayer.org/blog/intlayer-with-i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_i18next.md
+createdAt: 2024-12-24
+updatedAt: 2025-06-29
+title: Intlayer и i18next
+description: Интегрируйте Intlayer с i18next для оптимальной интернационализации. Сравните два фреймворка и узнайте, как настроить их вместе.
+keywords:
+  - Intlayer
+  - i18next
+  - Интернационализация
+  - i18n
+  - Локализация
+  - Перевод
+  - React
+  - Next.js
+  - JavaScript
+  - TypeScript
+---
+
 # Интернационализация с Intlayer и i18next
 
 i18next - это open-source фреймворк интернационализации (i18n), разработанный для JavaScript-приложений. Он широко используется для управления переводами, локализацией и переключением языков в программных проектах. Однако у него есть некоторые ограничения, которые могут усложнить масштабируемость и разработку.

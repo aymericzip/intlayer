@@ -1,26 +1,45 @@
+---
+docName: package__intlayer__getTranslationContent
+url: https://intlayer.org/doc/package/intlayer/getTranslationContent
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getTranslationContent.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: Función getTranslation - Documentación de Intlayer JavaScript
+description: Documentación para la función getTranslation en Intlayer, que recupera contenido localizado para locales específicos con respaldo al local predeterminado.
+keywords:
+  - getTranslation
+  - intlayer
+  - función
+  - localización
+  - i18n
+  - JavaScript
+  - traducción
+  - locale
+---
+
 # Documentación: Función `getTranslation` en `intlayer`
 
 ## Descripción
 
-La función `getTranslation` recupera el contenido correspondiente a un locale específico de un conjunto de contenido de idioma personalizable. Si no se encuentra el locale especificado, por defecto devuelve el contenido del locale predeterminado configurado en el proyecto.
+La función `getTranslation` recupera el contenido correspondiente a un locale específico de un conjunto de contenido de idioma personalizable. Si el locale especificado no se encuentra, devuelve por defecto el contenido del locale predeterminado configurado en el proyecto.
 
 ## Parámetros
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Descripción**: Un objeto que contiene traducciones para varios locales. Cada clave representa un locale y su valor es el contenido correspondiente.
+  - **Descripción**: Un objeto que contiene traducciones para varios locales. Cada clave representa un locale, y su valor es el contenido correspondiente.
   - **Tipo**: `CustomizableLanguageContent<Content>`
-    - `Content` puede ser de cualquier tipo, por defecto es `string`.
+    - `Content` puede ser de cualquier tipo, por defecto `string`.
 
 - `locale: Locales`
 
-  - **Descripción**: El locale para el cual se debe recuperar el contenido.
+  - **Descripción**: El locale para el cual se desea obtener el contenido.
   - **Tipo**: `Locales`
 
 ## Retorna
 
 - **Tipo**: `Content`
-- **Descripción**: El contenido correspondiente al locale especificado. Si no se encuentra el locale, se devuelve el contenido del locale predeterminado.
+- **Descripción**: El contenido correspondiente al locale especificado. Si el locale no se encuentra, se devuelve el contenido del locale predeterminado.
 
 ## Ejemplo de Uso
 
@@ -68,7 +87,7 @@ const content = getTranslation(
 console.log(content); // Salida: "Bonjour"
 ```
 
-### Locale Faltante:
+### Locale Ausente:
 
 ```typescript codeFormat="typescript"
 import { getTranslation, Locales } from "intlayer";
@@ -112,7 +131,7 @@ const content = getTranslation(
 console.log(content); // Salida: "Hello" (contenido del locale predeterminado)
 ```
 
-### Usando Tipos de Contenido Personalizados:
+### Uso de Tipos de Contenido Personalizados:
 
 ```typescript codeFormat="typescript"
 import { getTranslation, Locales } from "intlayer";
@@ -161,6 +180,10 @@ console.log(customContent.greeting); // Salida: "Bonjour"
 - **Locale No Encontrado:**
   - Cuando el `locale` no se encuentra en el `languageContent`, la función devuelve el contenido del locale predeterminado.
 - **Contenido de Idioma Incompleto:**
-  - Si un locale está definido parcialmente, la función no combina contenidos. Recupera estrictamente el valor del locale especificado o recurre al predeterminado.
+  - Si un locale está parcialmente definido, la función no fusiona contenidos. Recupera estrictamente el valor del locale especificado o vuelve al predeterminado.
 - **Aplicación de TypeScript:**
-  - Si los locales en `languageContent` no coinciden con la configuración del proyecto, TypeScript aplicará la definición de todos los locales requeridos, asegurando que el contenido sea completo y seguro en cuanto a tipos.
+  - Si los locales en `languageContent` no coinciden con la configuración del proyecto, TypeScript exigirá que todos los locales requeridos estén definidos, asegurando que el contenido sea completo y seguro en cuanto a tipos.
+
+## Historial del Documento
+
+- 5.5.10 - 2025-06-29: Historial inicial

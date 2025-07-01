@@ -1,11 +1,11 @@
 ---
 docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-06-29
-title: Traduce su aplicación móvil Lynx y React (i18n)
-description: Descubre cómo hacer que tu aplicación móvil Lynx y React sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
+title: Traduce tu aplicación móvil Lynx y React (i18n)
+description: Descubre cómo hacer que tu aplicación móvil Lynx y React sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirla.
 keywords:
   - Internacionalización
   - Documentación
@@ -16,24 +16,24 @@ keywords:
   - JavaScript
 ---
 
-# Comenzando con la Internacionalización (i18n) usando Intlayer, Lynx y React
+# Comenzando con la internacionalización (i18n) usando Intlayer, Lynx y React
 
 Consulta [Application Template](https://github.com/aymericzip/intlayer-lynx-template) en GitHub.
 
 ## ¿Qué es Intlayer?
 
-**Intlayer** es una **librería de internacionalización (i18n) de código abierto e innovadora** que simplifica el soporte multilingüe en aplicaciones modernas. Funciona en muchos entornos JavaScript/TypeScript, **incluido Lynx** (mediante el paquete `react-intlayer`).
+**Intlayer** es una **librería innovadora y de código abierto para la internacionalización (i18n)** que simplifica el soporte multilingüe en aplicaciones modernas. Funciona en muchos entornos JavaScript/TypeScript, **incluido Lynx** (a través del paquete `react-intlayer`).
 
 Con Intlayer, puedes:
 
 - **Gestionar fácilmente las traducciones** usando diccionarios declarativos a nivel de componente.
-- **Tener soporte con TypeScript** gracias a la generación automática de tipos.
-- **Localizar contenido de forma dinámica**, incluyendo **cadenas de la interfaz de usuario** (y en React para web, también metadatos en HTML, etc.).
-- **Aprovechar funciones avanzadas**, como la detección y conmutación dinámica de local.
+- **Garantizar soporte para TypeScript** con tipos generados automáticamente.
+- **Localizar contenido dinámicamente**, incluyendo **cadenas de la interfaz de usuario** (y en React para web, también puede localizar metadatos HTML, etc.).
+- **Aprovechar funciones avanzadas**, como la detección y cambio dinámico de local.
 
 ---
 
-## Paso 1: Instala las dependencias
+## Paso 1: Instalar dependencias
 
 Desde tu proyecto Lynx, instala los siguientes paquetes:
 
@@ -119,16 +119,14 @@ module.exports = config;
 
 En esta configuración puedes:
 
-- Definir tu **lista de locales soportados**.
-- Fijar un local **por defecto**.
-- Más adelante, podrías añadir opciones avanzadas (p. ej., logs, directorios de contenido personalizados, etc.).
-- Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) para más información.
-
----
+- Configurar tu **lista de locales soportados**.
+- Establecer un local **por defecto**.
+- Más adelante, puedes añadir opciones más avanzadas (p. ej., logs, directorios de contenido personalizados, etc.).
+- Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para más información.
 
 ## Paso 3: Agrega el plugin de Intlayer al bundler de Lynx
 
-Para usar Intlayer en Lynx, debes añadir el plugin en tu archivo `lynx.config.ts`:
+Para usar Intlayer con Lynx, debes añadir el plugin en tu archivo `lynx.config.ts`:
 
 ```ts fileName="lynx.config.ts"
 import { defineConfig } from "@lynx-js/rspeedy";
@@ -142,13 +140,11 @@ export default defineConfig({
 });
 ```
 
----
-
 ## Paso 4: Agrega el proveedor de Intlayer
 
-Para mantener sincronizado el idioma del usuario en toda tu aplicación, debes envolver tu componente raíz con `IntlayerProvider` de `react-intlayer`.
+Para mantener sincronizado el idioma del usuario en toda tu aplicación, debes envolver tu componente raíz con el componente `IntlayerProvider` de `react-intlayer`.
 
-Además, necesitas invocar la función `intlayerPolyfill` para asegurar que Intlayer funcione correctamente en Lynx.
+Además, necesitas añadir la función `intlayerPolyfill` para asegurar que Intlayer funcione correctamente.
 
 ```tsx fileName="src/index.tsx"
 import { root } from "@lynx-js/react";
@@ -170,8 +166,6 @@ if (import.meta.webpackHot) {
 }
 ```
 
----
-
 ## Paso 5: Declara tu contenido
 
 Crea archivos de **declaración de contenido** en cualquier lugar de tu proyecto (generalmente dentro de `src/`), usando cualquiera de las extensiones que soporta Intlayer:
@@ -187,9 +181,9 @@ Crea archivos de **declaración de contenido** en cualquier lugar de tu proyecto
 - `.content.cjx`
 - etc.
 
-Ejemplo (TypeScript con nodos TSX para Lynx):
+Ejemplo:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -324,19 +318,18 @@ module.exports = appContent;
       {
         "nodeType": "translation",
         "translation": {
+          "es": "Editar",
           "en": "Edit",
-          "fr": "Modifier",
-          "es": "Editar"
+          "fr": "Modifier"
         }
       },
       " src/App.tsx ",
-
       {
         "nodeType": "translation",
         "translation": {
+          "es": "para ver actualizaciones!",
           "en": "to see updates!",
-          "fr": "pour voir les mises à jour!",
-          "es": "para ver actualizaciones!"
+          "fr": "pour voir les mises à jour!"
         }
       }
     ]
@@ -344,13 +337,13 @@ module.exports = appContent;
 }
 ```
 
-> Para más información sobre la declaración de contenido, visita la [documentación de contenido de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
+> Para más información sobre la declaración de contenido, consulta la [documentación de contenido de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
 
 ---
 
-## Paso 4 (corregido en numeración): Usa Intlayer en tus componentes
+## Paso 4: Usa Intlayer en tus componentes
 
-Utiliza el hook `useIntlayer` en los componentes hijos para obtener contenido localizado:
+Utiliza el hook `useIntlayer` en los componentes hijos para obtener contenido localizado.
 
 ```tsx fileName="src/App.tsx"
 import { useCallback, useState } from "@lynx-js/react";
@@ -365,7 +358,6 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
     "background only";
     setAlterLogo(!alterLogo);
@@ -407,9 +399,9 @@ export const App = () => {
 
 ---
 
-## (Opcional) Paso 5 (corregido en numeración): Cambiar el local de la aplicación
+## (Opcional) Paso 5: Cambiar el local de la aplicación
 
-Para conmutar entre locales desde tus componentes, puedes usar el método `setLocale` del hook `useLocale`:
+Para cambiar de local desde tus componentes, puedes usar el método `setLocale` del hook `useLocale`:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 import { type FC } from "react";
@@ -448,9 +440,7 @@ export const LocaleSwitcher: FC = () => {
 
 Esto provoca que se vuelvan a renderizar todos los componentes que usan contenido de Intlayer, mostrándose ahora las traducciones para el nuevo local.
 
-> Consulta la [documentación de `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) para más detalles.
-
----
+> Consulta la [documentación de `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md) para más detalles.
 
 ## Configurar TypeScript (si usas TypeScript)
 
@@ -486,8 +476,30 @@ Para evitar subir a tu repositorio los archivos generados automáticamente por I
 
 ---
 
+### Extensión para VS Code
+
+Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la extensión oficial **Intlayer VS Code Extension**.
+
+[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensión ofrece:
+
+- **Autocompletado** para las claves de traducción.
+- **Detección de errores en tiempo real** para traducciones faltantes.
+- **Previsualizaciones en línea** del contenido traducido.
+- **Acciones rápidas** para crear y actualizar traducciones fácilmente.
+  Para más detalles sobre cómo usar la extensión, consulta la [documentación de la extensión Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ## Para profundizar
 
-- **Editor visual**: Usa el [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) para administrar traducciones de forma visual.
-- **Integración con CMS**: También puedes externalizar y obtener el contenido de tus diccionarios desde un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-- **Comandos CLI**: Explora el [CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) para tareas como **extraer traducciones** o **comprobar claves faltantes**.
+- **Editor visual**: Usa el [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) para administrar traducciones de forma visual.
+- **Integración con CMS**: También puedes externalizar y obtener el contenido de tus diccionarios desde un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+- **Comandos CLI**: Explora el [CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md) para tareas como **extraer traducciones** o **comprobar claves faltantes**.
+
+---
+
+## Historial del documento
+
+- 5.5.10 - 2025-06-29: Historial inicial

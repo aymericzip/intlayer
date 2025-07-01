@@ -1,11 +1,11 @@
 ---
 docName: package__react-intlayer__useIntlayerAsync
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Dokumentation des useIntlayerAsync Hooks | react-intlayer
-description: Erfahren Sie, wie Sie den useIntlayerAsync-Hook für das react-intlayer-Paket verwenden
+title: useIntlayerAsync Hook Dokumentation | react-intlayer
+description: Siehe, wie der useIntlayerAsync Hook für das react-intlayer Paket verwendet wird
 keywords:
   - useIntlayerAsync
   - Wörterbuch
@@ -20,24 +20,24 @@ keywords:
 
 # React-Integration: `useIntlayerAsync` Hook Dokumentation
 
-Der `useIntlayerAsync` Hook erweitert die Funktionalität von `useIntlayer`, indem er nicht nur vorgerenderte Wörterbücher zurückgibt, sondern auch Updates asynchron abruft. Dies macht ihn ideal für Anwendungen, die ihren lokalisierten Inhalt nach dem ersten Rendern häufig aktualisieren.
+Der `useIntlayerAsync` Hook erweitert die Funktionalität von `useIntlayer`, indem er nicht nur vorgerenderte Wörterbücher zurückgibt, sondern auch Updates asynchron abruft. Dadurch ist er ideal für Anwendungen, die ihren lokalisierten Inhalt nach dem ersten Rendern häufig aktualisieren.
 
-## Übersicht
+## Überblick
 
 - **Asynchrones Laden von Wörterbüchern:**  
-  Beim ersten Mount gibt `useIntlayerAsync` zunächst vorab abgerufene oder statisch gebündelte Wörterbücher zurück (ähnlich wie `useIntlayer`) und ruft dann asynchron neue verfügbare Wörterbücher ab und integriert diese.
-- **Verwaltung des Ladezustands:**  
-  Der Hook bietet auch einen `isLoading`-Status, der anzeigt, wann ein Wörterbuch abgerufen wird. Dies ermöglicht es Entwicklern, Ladeindikatoren oder Skeleton-Zustände für eine reibungslosere Benutzererfahrung anzuzeigen.
+  Beim ersten Mount gibt `useIntlayerAsync` zunächst ein vorab geladenes oder statisch eingebundenes lokales Wörterbuch zurück (genau wie `useIntlayer`) und lädt dann asynchron alle neu verfügbaren entfernten Wörterbücher nach und fügt sie zusammen.
+- **Statusverwaltung des Ladevorgangs:**  
+  Der Hook stellt außerdem einen `isLoading`-Status bereit, der anzeigt, wann ein entferntes Wörterbuch geladen wird. Dies ermöglicht es Entwicklern, Ladeanzeigen oder Skeleton-Zustände für eine flüssigere Benutzererfahrung anzuzeigen.
 
 ## Einrichtung der Umgebung
 
-Intlayer bietet ein Headless Content Source Management (CSM)-System, das es Nicht-Entwicklern ermöglicht, Anwendungsinhalte nahtlos zu verwalten und zu aktualisieren. Mit dem intuitiven Dashboard von Intlayer kann Ihr Team lokalisierten Text, Bilder und andere Ressourcen bearbeiten, ohne den Code direkt zu ändern. Dies optimiert den Content-Management-Prozess, fördert die Zusammenarbeit und stellt sicher, dass Updates schnell und einfach durchgeführt werden können.
+Intlayer bietet ein kopfloses Content Source Management (CSM)-System, das es Nicht-Entwicklern ermöglicht, Anwendungsinhalte nahtlos zu verwalten und zu aktualisieren. Durch die Verwendung des intuitiven Dashboards von Intlayer kann Ihr Team lokalisierten Text, Bilder und andere Ressourcen bearbeiten, ohne direkt den Code ändern zu müssen. Dies vereinfacht den Content-Management-Prozess, fördert die Zusammenarbeit und stellt sicher, dass Aktualisierungen schnell und einfach vorgenommen werden können.
 
-So starten Sie mit Intlayer:
+Um mit Intlayer zu starten:
 
-1. **Registrieren Sie sich und erhalten Sie ein Zugriffstoken** unter [https://intlayer.org/dashboard](https://intlayer.org/dashboard).
-2. **Fügen Sie Anmeldeinformationen zu Ihrer Konfigurationsdatei hinzu:**  
-   Konfigurieren Sie in Ihrem React-Projekt den Intlayer-Client mit Ihren Anmeldeinformationen:
+1. **Registrieren Sie sich und erhalten Sie einen Zugriffstoken** unter [https://intlayer.org/dashboard](https://intlayer.org/dashboard).
+2. **Fügen Sie die Zugangsdaten zu Ihrer Konfigurationsdatei hinzu:**  
+   Konfigurieren Sie in Ihrem React-Projekt den Intlayer-Client mit Ihren Zugangsdaten:
 
    ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
    import type { IntlayerConfig } from "intlayer";
@@ -79,17 +79,17 @@ So starten Sie mit Intlayer:
    module.exports = config;
    ```
 
-3. **Laden Sie ein neues Wörterbuch zu Intlayer hoch:**
+3. **Schieben Sie ein neues Sprachwörterbuch zu Intlayer:**
 
    ```bash
    npx intlayer dictionary push -d my-first-dictionary-key
    ```
 
-   Dieser Befehl lädt Ihre anfänglichen Inhaltswörterbücher hoch, sodass sie für asynchrones Abrufen und Bearbeiten über die Intlayer-Plattform verfügbar sind.
+   Dieser Befehl lädt Ihre anfänglichen Inhaltswörterbücher hoch und macht sie für asynchrones Abrufen und Bearbeiten über die Intlayer-Plattform verfügbar.
 
 ## Importieren von `useIntlayerAsync` in React
 
-Importieren Sie `useIntlayerAsync` in Ihren React-Komponenten:
+Importieren Sie in Ihren React-Komponenten `useIntlayerAsync`:
 
 ```ts codeFormat="typescript"
 import { useIntlayerAsync } from "react-intlayer";
@@ -105,23 +105,23 @@ const { useIntlayerAsync } = require("react-intlayer");
 
 ## Parameter
 
-1. **`key`**:  
-   **Typ**: `DictionaryKeys`  
-   Der Schlüssel des Wörterbuchs, der verwendet wird, um den lokalisierten Inhaltsblock zu identifizieren. Dieser Schlüssel sollte in Ihren Inhaltsdeklarationsdateien definiert sein.
+1. **`key`**:
+   **Typ**: `DictionaryKeys`
+   Der Wörterbuchschlüssel, der verwendet wird, um den lokalisierten Inhaltsblock zu identifizieren. Dieser Schlüssel sollte in Ihren Inhaltsdeklarationsdateien definiert sein.
 
-2. **`locale`** (optional):  
-   **Typ**: `Locales`  
-   Die spezifische Sprache, die Sie anvisieren möchten. Wenn nicht angegeben, verwendet der Hook die Sprache aus dem aktuellen Intlayer-Kontext.
+2. **`locale`** (optional):
+   **Typ**: `Locales`
+   Die spezifische Locale, auf die Sie abzielen möchten. Wenn ausgelassen, verwendet der Hook die Locale aus dem aktuellen Intlayer-Kontext.
 
-3. **`isRenderEditor`** (optional, Standardwert ist `true`):  
-   **Typ**: `boolean`  
-   Bestimmt, ob der Inhalt für die Darstellung mit der Intlayer-Editor-Overlay bereit sein soll. Wenn auf `false` gesetzt, werden editor-spezifische Funktionen aus den zurückgegebenen Wörterbuchdaten ausgeschlossen.
+3. **`isRenderEditor`** (optional, Standardwert `true`):
+   **Typ**: `boolean`
+   Bestimmt, ob der Inhalt für die Darstellung mit der Intlayer-Editor-Overlay bereit sein soll. Wenn auf `false` gesetzt, schließen die zurückgegebenen Wörterbuchdaten editor-spezifische Funktionen aus.
 
 ## Rückgabewert
 
-Der Hook gibt ein Wörterbuchobjekt zurück, das lokalisierten Inhalt enthält, der nach `key` und `locale` geordnet ist. Es enthält auch ein `isLoading`-Boolean, das anzeigt, ob ein Wörterbuch gerade abgerufen wird.
+Der Hook gibt ein Wörterbuchobjekt zurück, das lokalisierten Inhalt enthält, der durch `key` und `locale` indiziert ist. Es enthält außerdem ein `isLoading`-Boolean, das angibt, ob gerade ein entferntes Wörterbuch geladen wird.
 
-## Beispielverwendung in einer React-Komponente
+## Beispielhafte Verwendung in einer React-Komponente
 
 ```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
 import { useEffect, type FC } from "react";
@@ -140,7 +140,7 @@ export const ComponentExample: FC = () => {
     <div>
       {isLoading ? (
         <div>
-          <h1>Laden…</h1>
+          <h1>Lädt…</h1>
           <p>Bitte warten Sie, während der Inhalt aktualisiert wird.</p>
         </div>
       ) : (
@@ -171,7 +171,7 @@ const ComponentExample = () => {
     <div>
       {isLoading ? (
         <div>
-          <h1>Laden…</h1>
+          <h1>Lädt…</h1>
           <p>Bitte warten Sie, während der Inhalt aktualisiert wird.</p>
         </div>
       ) : (
@@ -202,7 +202,7 @@ const ComponentExample = () => {
     <div>
       {isLoading ? (
         <div>
-          <h1>Laden…</h1>
+          <h1>Lädt…</h1>
           <p>Bitte warten Sie, während der Inhalt aktualisiert wird.</p>
         </div>
       ) : (
@@ -218,11 +218,11 @@ const ComponentExample = () => {
 
 **Wichtige Punkte:**
 
-- Beim ersten Rendern stammen `title` und `description` aus dem vorab abgerufenen oder statisch eingebetteten Wörterbuch.
-- Während `isLoading` `true` ist, wird im Hintergrund ein aktualisiertes Wörterbuch abgerufen.
-- Sobald der Abruf abgeschlossen ist, werden `title` und `description` mit dem neuesten Inhalt aktualisiert, und `isLoading` kehrt zu `false` zurück.
+- Beim ersten Rendern stammen `title` und `description` aus dem vorab geladenen oder statisch eingebetteten Lokalisierungswörterbuch.
+- Solange `isLoading` auf `true` gesetzt ist, wird im Hintergrund eine Anfrage ausgeführt, um ein aktualisiertes Wörterbuch abzurufen.
+- Sobald der Abruf abgeschlossen ist, werden `title` und `description` mit dem neuesten Inhalt aktualisiert, und `isLoading` wird wieder auf `false` gesetzt.
 
-## Umgang mit Attribut-Lokalisierung
+## Umgang mit der Attribut-Lokalisierung
 
 Sie können auch lokalisierte Attributwerte für verschiedene HTML-Eigenschaften abrufen (z. B. `alt`, `title`, `aria-label`):
 
@@ -232,15 +232,23 @@ Sie können auch lokalisierte Attributwerte für verschiedene HTML-Eigenschaften
 
 ## Wörterbuchdateien
 
-Alle Inhalts-Schlüssel müssen in Ihren Inhaltsdeklarationsdateien definiert sein, um Typsicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Diese Dateien ermöglichen die TypeScript-Validierung und stellen sicher, dass Sie immer auf vorhandene Schlüssel und Sprachen verweisen.
+Alle Inhalts-Schlüssel müssen in Ihren Inhaltsdeklarationsdateien definiert sein, um Typensicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Diese Dateien ermöglichen die TypeScript-Validierung, sodass Sie immer auf vorhandene Schlüssel und Sprachen verweisen.
 
-Anleitungen zur Einrichtung von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
+Anleitungen zum Einrichten von Inhaltsdeklarationsdateien sind [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md) verfügbar.
 
 ## Weitere Informationen
 
-- **Intlayer Visual Editor:**  
-  Integrieren Sie den Intlayer Visual Editor, um Inhalte direkt über die Benutzeroberfläche zu verwalten und zu bearbeiten. Weitere Details [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
+- **Intlayer Visual Editor:**
+  Integration mit dem Intlayer Visual Editor zur Verwaltung und Bearbeitung von Inhalten direkt über die Benutzeroberfläche. Weitere Details [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
 
 ---
 
-**Zusammenfassend** ist `useIntlayerAsync` ein leistungsstarker React-Hook, der die Benutzererfahrung verbessert und die Aktualität der Inhalte durch die Kombination von vorgerenderten oder vorab abgerufenen Wörterbüchern mit asynchronen Wörterbuch-Updates sicherstellt. Durch die Nutzung von `isLoading` und auf TypeScript basierenden Inhaltsdeklarationen können Sie dynamische, lokalisierte Inhalte nahtlos in Ihre React-Anwendungen integrieren.
+**Zusammenfassung**, `useIntlayerAsync` ist ein leistungsstarker React-Hook, der entwickelt wurde, um die Benutzererfahrung zu verbessern und die Aktualität der Inhalte zu gewährleisten, indem vorgerenderte oder vorab geladene Wörterbücher mit asynchronen Wörterbuchaktualisierungen zusammengeführt werden. Durch die Nutzung von `isLoading` und TypeScript-basierten Inhaltsdeklarationen können Sie dynamische, lokalisierte Inhalte nahtlos in Ihre React-Anwendungen integrieren.
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Historie initialisiert
+
+```
+
+```

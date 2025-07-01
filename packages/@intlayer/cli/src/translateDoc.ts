@@ -8,13 +8,14 @@ import {
 } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import fg from 'fast-glob';
-import { mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import pLimit from 'p-limit';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAIAccess';
+import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getChunk } from './utils/getChunk';
@@ -28,7 +29,8 @@ const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
  * Translate a single file for a given locale
  */
 export const translateFile = async (
-  filePath: string,
+  baseFilePath: string,
+  outputFilePath: string,
   locale: Locales,
   baseLocale: Locales,
   aiOptions?: AIOptions,
@@ -40,33 +42,24 @@ export const translateFile = async (
     const configuration = getConfiguration(configOptions);
     const appLogger = getAppLogger(configuration);
 
-    const relativePath = join(configuration.content.baseDir, filePath);
-
-    appLogger(
-      `Translating file: ${relativePath} to ${getLocaleName(locale)} (${locale})`
-    );
-
     // Determine the target locale file path
-    const localeFilePath = getOutputFilePath(filePath, locale, baseLocale);
-    const fileContent = await readFile(relativePath, 'utf-8');
+    const fileContent = await readFile(baseFilePath, 'utf-8');
     let fileResultContent = fileContent;
 
     // Prepare the base prompt for ChatGPT
     const basePrompt = (
       await readFile(join(dir, './prompts/TRANSLATE_PROMPT.md'), 'utf-8')
     )
-      .replaceAll('{{locale}}', locale)
-      .replaceAll('{{localeName}}', getLocaleName(locale, Locales.ENGLISH))
-      .replaceAll('{{baseLocale}}', baseLocale)
+      .replaceAll(
+        '{{localeName}}',
+        `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`
+      )
       .replaceAll(
         '{{baseLocaleName}}',
-        getLocaleName(baseLocale, Locales.ENGLISH)
+        `${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale})`
       )
-      .replaceAll(
-        '{{applicationContext}}',
-        aiOptions?.applicationContext ?? '-'
-      )
-      .replaceAll('{{customInstructions}}', customInstructions ?? '-');
+      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
+      .replace('{{customInstructions}}', customInstructions ?? '-');
 
     // 1. Chunk the file by number of lines instead of characters
     const chunks = chunkText(fileContent);
@@ -104,17 +97,20 @@ export const translateFile = async (
               : [{ role: 'system', content: getPrevChunkPrompt() } as const]),
             {
               role: 'system',
-              content: `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) to translate in ${getLocaleName(locale)} (${locale}):`,
+              content: `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) to translate in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}):`,
             },
             { role: 'user', content: fileToTranslateCurrentChunk },
           ],
           aiOptions,
-          configOptions,
           oAuth2AccessToken
         );
 
+        appLogger(
+          ` -> ${result.tokenUsed} tokens used - CHUNK ${i + 1} of ${chunks.length}`
+        );
+
         const fixedTranslatedChunkResult = fixChunkStartEndChars(
-          result,
+          result?.fileContent,
           fileToTranslateCurrentChunk
         );
 
@@ -129,10 +125,10 @@ export const translateFile = async (
     }
 
     // 4. Write the final translation to the appropriate file path
-    mkdirSync(dirname(localeFilePath), { recursive: true });
-    writeFileSync(localeFilePath, fileResultContent);
+    mkdirSync(dirname(outputFilePath), { recursive: true });
+    writeFileSync(outputFilePath, fileResultContent);
 
-    appLogger(`File ${localeFilePath} created/updated successfully.`);
+    appLogger(`File ${outputFilePath} created/updated successfully.`);
   } catch (error) {
     console.error(error);
   }
@@ -147,6 +143,8 @@ type TranslateDocOptions = {
   nbSimultaneousFileProcessed?: number;
   configOptions?: GetConfigurationOptions;
   customInstructions?: string;
+  skipIfModifiedBefore?: number | string | Date;
+  skipIfModifiedAfter?: number | string | Date;
 };
 
 /**
@@ -162,9 +160,19 @@ export const translateDoc = async ({
   nbSimultaneousFileProcessed,
   configOptions,
   customInstructions,
+  skipIfModifiedBefore,
+  skipIfModifiedAfter,
 }: TranslateDocOptions) => {
   const configuration = getConfiguration(configOptions);
   const appLogger = getAppLogger(configuration);
+
+  if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
+    appLogger(
+      `Warning: nbSimultaneousFileProcessed is set to ${nbSimultaneousFileProcessed}, which is greater than 10. Setting it to 10.`
+    );
+    nbSimultaneousFileProcessed = 10; // Limit the number of simultaneous file processed to 10
+  }
+
   const limit = pLimit(nbSimultaneousFileProcessed ?? 3);
 
   const docList: string[] = fg.sync(docPattern, {
@@ -187,22 +195,58 @@ export const translateDoc = async ({
       .map((locale) => `${getLocaleName(locale, baseLocale)} (${locale})`)
       .join(', ')} ]`
   );
+
   appLogger(`Translating ${docList.length} files:`);
   appLogger(docList.map((path) => ` - ${path}\n`));
 
   const tasks = docList.map((docPath) =>
     locales.flatMap((locale) =>
-      limit(() =>
-        translateFile(
-          docPath,
+      limit(async () => {
+        appLogger(
+          `Translating file: ${docPath} to ${getLocaleName(
+            locale,
+            Locales.ENGLISH
+          )} (${locale})`
+        );
+
+        const absoluteBaseFilePath = join(
+          configuration.content.baseDir,
+          docPath
+        );
+        const outputFilePath = getOutputFilePath(
+          absoluteBaseFilePath,
+          locale,
+          baseLocale
+        );
+
+        // check if the file exist, otherwise create it
+        if (!existsSync(outputFilePath)) {
+          appLogger(`File ${outputFilePath} does not exist, creating it...`);
+          mkdirSync(dirname(outputFilePath), { recursive: true });
+          writeFileSync(outputFilePath, '');
+        }
+
+        const fileModificationData = checkFileModifiedRange(outputFilePath, {
+          skipIfModifiedBefore,
+          skipIfModifiedAfter,
+        });
+
+        if (fileModificationData.isSkipped) {
+          appLogger(fileModificationData.message);
+          return;
+        }
+
+        await translateFile(
+          absoluteBaseFilePath,
+          outputFilePath,
           locale as Locales,
           baseLocale,
           aiOptions,
           configOptions,
           oAuth2AccessToken,
           customInstructions
-        )
-      )
+        );
+      })
     )
   );
 

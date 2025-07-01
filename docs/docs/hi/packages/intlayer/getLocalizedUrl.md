@@ -1,28 +1,28 @@
 ---
 docName: package__intlayer__getLocalizedUrl
 url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getLocalizedUrl फ़ंक्शन प्रलेखन | intlayer
-description: intlayer पैकेज के लिए getLocalizedUrl फ़ंक्शन का उपयोग कैसे करें, यह जानें
+description: intlayer पैकेज के लिए getLocalizedUrl फ़ंक्शन का उपयोग कैसे करें देखें
 keywords:
   - getLocalizedUrl
   - अनुवाद
   - Intlayer
   - intlayer
-  - अंतर्राष्ट्रीयकरण
+  - अंतरराष्ट्रीयकरण
   - प्रलेखन
   - Next.js
   - JavaScript
   - React
 ---
 
-# दस्तावेज़: `getLocalizedUrl` फ़ंक्शन `intlayer` में
+# प्रलेखन: `intlayer` में `getLocalizedUrl` फ़ंक्शन
 
 ## विवरण
 
-`getLocalizedUrl` फ़ंक्शन एक स्थानीयकृत URL उत्पन्न करता है जो दिए गए URL को निर्दिष्ट लोकेल के साथ प्रीफिक्स करता है। यह पूर्ण और सापेक्ष दोनों URL को संभालता है, यह सुनिश्चित करते हुए कि कॉन्फ़िगरेशन के आधार पर सही लोकेल प्रीफिक्स लागू किया गया है।
+`getLocalizedUrl` फ़ंक्शन निर्दिष्ट लोकल के साथ दिए गए URL के आगे लोकलाइज़्ड URL उत्पन्न करता है। यह पूर्ण (absolute) और सापेक्ष (relative) दोनों प्रकार के URL को संभालता है, यह सुनिश्चित करते हुए कि कॉन्फ़िगरेशन के आधार पर सही लोकल उपसर्ग लागू किया गया है।
 
 ---
 
@@ -30,35 +30,35 @@ keywords:
 
 - `url: string`
 
-  - **विवरण**: मूल URL स्ट्रिंग जिसे लोकेल के साथ प्रीफिक्स किया जाना है।
+  - **विवरण**: मूल URL स्ट्रिंग जिसे लोकल के साथ उपसर्गित किया जाना है।
   - **प्रकार**: `string`
 
 - `currentLocale: Locales`
 
-  - **विवरण**: वर्तमान लोकेल जिसके लिए URL को स्थानीयकृत किया जा रहा है।
+  - **विवरण**: वर्तमान लोकल जिसके लिए URL लोकलाइज़ किया जा रहा है।
   - **प्रकार**: `Locales`
 
 - `locales: Locales[]`
 
-  - **विवरण**: समर्थित लोकेल की वैकल्पिक सूची। डिफ़ॉल्ट रूप से, प्रोजेक्ट में कॉन्फ़िगर किए गए लोकेल प्रदान किए जाते हैं।
+  - **विवरण**: समर्थित लोकल की वैकल्पिक सूची। डिफ़ॉल्ट रूप से, परियोजना में कॉन्फ़िगर किए गए लोकल प्रदान किए जाते हैं।
   - **प्रकार**: `Locales[]`
-  - **डिफ़ॉल्ट**: [`प्रोजेक्ट कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
+  - **डिफ़ॉल्ट**: [`परियोजना कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
 
 - `defaultLocale: Locales`
 
-  - **विवरण**: एप्लिकेशन के लिए डिफ़ॉल्ट लोकेल। डिफ़ॉल्ट रूप से, प्रोजेक्ट में कॉन्फ़िगर किया गया डिफ़ॉल्ट लोकेल प्रदान किया जाता है।
+  - **विवरण**: एप्लिकेशन के लिए डिफ़ॉल्ट लोकल। डिफ़ॉल्ट रूप से, परियोजना में कॉन्फ़िगर किया गया डिफ़ॉल्ट लोकल प्रदान किया जाता है।
   - **प्रकार**: `Locales`
-  - **डिफ़ॉल्ट**: [`प्रोजेक्ट कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
+  - **डिफ़ॉल्ट**: [`परियोजना कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
 
 - `prefixDefault: boolean`
-  - **विवरण**: डिफ़ॉल्ट लोकेल के लिए URL को प्रीफिक्स करना है या नहीं। डिफ़ॉल्ट रूप से, प्रोजेक्ट में कॉन्फ़िगर किया गया मान प्रदान किया जाता है।
+  - **विवरण**: क्या डिफ़ॉल्ट लोकल के लिए URL के आगे उपसर्ग जोड़ा जाए। डिफ़ॉल्ट रूप से, परियोजना में कॉन्फ़िगर किया गया मान प्रदान किया जाता है।
   - **प्रकार**: `boolean`
-  - **डिफ़ॉल्ट**: [`प्रोजेक्ट कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
+  - **डिफ़ॉल्ट**: [`परियोजना कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
 
-### रिटर्न
+### रिटर्न्स
 
 - **प्रकार**: `string`
-- **विवरण**: निर्दिष्ट लोकेल के लिए स्थानीयकृत URL।
+- **विवरण**: निर्दिष्ट लोकल के लिए स्थानीयकृत URL।
 
 ---
 
@@ -77,8 +77,8 @@ getLocalizedUrl(
   false
 );
 
-// आउटपुट: "/fr/about" फ्रेंच लोकेल के लिए
-// आउटपुट: "/about" डिफ़ॉल्ट (अंग्रेज़ी) लोकेल के लिए
+// आउटपुट: फ्रेंच लोकल के लिए "/fr/about"
+// आउटपुट: डिफ़ॉल्ट (अंग्रेज़ी) लोकल के लिए "/about"
 ```
 
 ```javascript codeFormat="esm"
@@ -92,8 +92,8 @@ getLocalizedUrl(
   false
 );
 
-// आउटपुट: "/fr/about" फ्रेंच लोकेल के लिए
-// आउटपुट: "/about" डिफ़ॉल्ट (अंग्रेज़ी) लोकेल के लिए
+// आउटपुट: फ्रेंच लोकल के लिए "/fr/about"
+// आउटपुट: डिफ़ॉल्ट (अंग्रेज़ी) लोकल के लिए "/about"
 ```
 
 ```javascript codeFormat="esm"
@@ -107,8 +107,8 @@ getLocalizedUrl(
   false
 );
 
-// आउटपुट: "/fr/about" फ्रेंच लोकेल के लिए
-// आउटपुट: "/about" डिफ़ॉल्ट (अंग्रेज़ी) लोकेल के लिए
+// आउटपुट: फ्रेंच लोकल के लिए "/fr/about"
+// आउटपुट: डिफ़ॉल्ट (अंग्रेज़ी) लोकल के लिए "/about"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -122,8 +122,8 @@ getLocalizedUrl(
   false
 );
 
-// आउटपुट: "/fr/about" फ्रेंच लोकेल के लिए
-// आउटपुट: "/about" डिफ़ॉल्ट (अंग्रेज़ी) लोकेल के लिए
+// आउटपुट: फ्रेंच लोकल के लिए "/fr/about"
+// आउटपुट: डिफ़ॉल्ट (अंग्रेज़ी) लोकल के लिए "/about"
 ```
 
 ### पूर्ण URL
@@ -131,65 +131,65 @@ getLocalizedUrl(
 ```typescript
 getLocalizedUrl(
   "https://example.com/about",
-  Locales.FRENCH, // वर्तमान लोकेल
-  [Locales.ENGLISH, Locales.FRENCH], // समर्थित लोकेल
-  Locales.ENGLISH, // डिफ़ॉल्ट लोकेल
-  false // डिफ़ॉल्ट लोकेल को प्रीफिक्स करें
-); // आउटपुट: "https://example.com/fr/about" फ्रेंच के लिए
+  Locales.FRENCH, // वर्तमान लोकल
+  [Locales.ENGLISH, Locales.FRENCH], // समर्थित लोकल
+  Locales.ENGLISH, // डिफ़ॉल्ट लोकल
+  false // डिफ़ॉल्ट लोकल के लिए प्रीफिक्स
+); // आउटपुट: फ्रेंच के लिए "https://example.com/fr/about"
 
 getLocalizedUrl(
   "https://example.com/about",
-  Locales.ENGLISH, // वर्तमान लोकेल
-  [Locales.ENGLISH, Locales.FRENCH], // समर्थित लोकेल
-  Locales.ENGLISH, // डिफ़ॉल्ट लोकेल
-  false // डिफ़ॉल्ट लोकेल को प्रीफिक्स करें
-); // आउटपुट: "https://example.com/about" अंग्रेज़ी के लिए
+  Locales.ENGLISH, // वर्तमान लोकल
+  [Locales.ENGLISH, Locales.FRENCH], // समर्थित लोकल
+  Locales.ENGLISH, // डिफ़ॉल्ट लोकल
+  false // डिफ़ॉल्ट लोकल के लिए प्रीफिक्स
+); // आउटपुट: अंग्रेज़ी के लिए "https://example.com/about"
 
 getLocalizedUrl(
   "https://example.com/about",
-  Locales.ENGLISH, // वर्तमान लोकेल
-  [Locales.ENGLISH, Locales.FRENCH], // समर्थित लोकेल
-  Locales.ENGLISH, // डिफ़ॉल्ट लोकेल
-  true // डिफ़ॉल्ट लोकेल को प्रीफिक्स करें
-); // आउटपुट: "https://example.com/en/about" अंग्रेज़ी के लिए
+  Locales.ENGLISH, // वर्तमान लोकल
+  [Locales.ENGLISH, Locales.FRENCH], // समर्थित लोकल
+  Locales.ENGLISH, // डिफ़ॉल्ट लोकल
+  true // डिफ़ॉल्ट लोकल के लिए प्रीफिक्स
+); // आउटपुट: अंग्रेज़ी के लिए "https://example.com/en/about"
 ```
 
-### असमर्थित लोकेल
+### असमर्थित लोकल
 
 ```typescript
 getLocalizedUrl(
   "/about",
-  Locales.ITALIAN, // वर्तमान लोकेल
-  [Locales.ENGLISH, Locales.FRENCH], // समर्थित लोकेल
-  Locales.ENGLISH // डिफ़ॉल्ट लोकेल
-); // आउटपुट: "/about" (असमर्थित लोकेल के लिए कोई प्रीफिक्स लागू नहीं किया गया)
+  Locales.ITALIAN, // वर्तमान लोकल
+  [Locales.ENGLISH, Locales.FRENCH], // समर्थित लोकल
+  Locales.ENGLISH // डिफ़ॉल्ट लोकल
+); // आउटपुट: "/about" (असमर्थित लोकल के लिए कोई प्रीफिक्स लागू नहीं किया गया)
 ```
 
 ---
 
 ## किनारे के मामले
 
-- **कोई लोकेल खंड नहीं:**
+- **कोई लोकल सेगमेंट नहीं:**
 
-  - यदि URL में कोई लोकेल खंड नहीं है, तो फ़ंक्शन उपयुक्त लोकेल को सुरक्षित रूप से प्रीफिक्स करता है।
+  - यदि URL में कोई लोकल सेगमेंट नहीं है, तो फ़ंक्शन सुरक्षित रूप से उपयुक्त लोकल को प्रीफिक्स करता है।
 
-- **डिफ़ॉल्ट लोकेल:**
+- **डिफ़ॉल्ट लोकल:**
 
-  - जब `prefixDefault` `false` है, तो फ़ंक्शन डिफ़ॉल्ट लोकेल के लिए URL को प्रीफिक्स नहीं करता है।
+  - जब `prefixDefault` `false` होता है, तो फ़ंक्शन डिफ़ॉल्ट लोकल के लिए URL को प्रीफिक्स नहीं करता।
 
-- **असमर्थित लोकेल:**
-  - `locales` में सूचीबद्ध नहीं लोकेल के लिए, फ़ंक्शन कोई प्रीफिक्स लागू नहीं करता है।
+- **असमर्थित लोकल:**
+  - `locales` में सूचीबद्ध नहीं किए गए लोकल के लिए, फ़ंक्शन कोई प्रीफिक्स लागू नहीं करता।
 
 ---
 
-## एप्लिकेशन में उपयोग
+## अनुप्रयोगों में उपयोग
 
-एक बहुभाषी एप्लिकेशन में, `locales` और `defaultLocale` के साथ अंतर्राष्ट्रीयकरण सेटिंग्स को कॉन्फ़िगर करना यह सुनिश्चित करने के लिए महत्वपूर्ण है कि सही भाषा प्रदर्शित हो। नीचे दिखाया गया है कि `getLocalizedUrl` को एप्लिकेशन सेटअप में कैसे उपयोग किया जा सकता है:
+एक बहुभाषी अनुप्रयोग में, सही भाषा प्रदर्शित करने के लिए `locales` और `defaultLocale` के साथ अंतरराष्ट्रीयकरण सेटिंग्स को कॉन्फ़िगर करना महत्वपूर्ण है। नीचे एक उदाहरण दिया गया है कि कैसे `getLocalizedUrl` को एक अनुप्रयोग सेटअप में उपयोग किया जा सकता है:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// समर्थित लोकेल और डिफ़ॉल्ट लोकेल के लिए कॉन्फ़िगरेशन
+// समर्थित लोकल और डिफ़ॉल्ट लोकल के लिए कॉन्फ़िगरेशन
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -228,9 +228,9 @@ const config = {
 module.exports = config;
 ```
 
-उपरोक्त कॉन्फ़िगरेशन यह सुनिश्चित करता है कि एप्लिकेशन `ENGLISH`, `FRENCH`, और `SPANISH` को समर्थित भाषाओं के रूप में पहचानता है और `ENGLISH` को बैकअप भाषा के रूप में उपयोग करता है।
+उपरोक्त कॉन्फ़िगरेशन यह सुनिश्चित करता है कि एप्लिकेशन `ENGLISH`, `FRENCH`, और `SPANISH` को समर्थित भाषाओं के रूप में पहचानता है और `ENGLISH` को फॉलबैक भाषा के रूप में उपयोग करता है।
 
-इस कॉन्फ़िगरेशन का उपयोग करके, `getLocalizedUrl` फ़ंक्शन उपयोगकर्ता की भाषा प्राथमिकता के आधार पर स्थानीयकृत URL को गतिशील रूप से उत्पन्न कर सकता है:
+इस कॉन्फ़िगरेशन का उपयोग करके, `getLocalizedUrl` फ़ंक्शन उपयोगकर्ता की भाषा प्राथमिकता के आधार पर गतिशील रूप से स्थानीयकृत URL उत्पन्न कर सकता है:
 
 ```typescript
 getLocalizedUrl("/about", Locales.FRENCH); // आउटपुट: "/fr/about"
@@ -239,3 +239,7 @@ getLocalizedUrl("/about", Locales.ENGLISH); // आउटपुट: "/about"
 ```
 
 `getLocalizedUrl` को एकीकृत करके, डेवलपर्स कई भाषाओं में सुसंगत URL संरचनाओं को बनाए रख सकते हैं, जिससे उपयोगकर्ता अनुभव और SEO दोनों में सुधार होता है।
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

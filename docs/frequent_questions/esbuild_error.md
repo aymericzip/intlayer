@@ -1,3 +1,23 @@
+---
+docName: esbuild_error
+url: https://intlayer.org/doc/faq/esbuild-error
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/esbuild_error.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: ESBuild Error
+description: Learn how to fix ESBuild errors.
+keywords:
+  - esbuild
+  - error
+  - intlayer
+  - plugin
+  - framework
+  - next.js
+  - vite
+  - react-native
+  - lynx
+---
+
 # ESBuild Error
 
 If you encounter an ESBuild error during the build process, it's likely that the Intlayer plugin has not been configured correctly.

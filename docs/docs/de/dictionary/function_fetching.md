@@ -1,11 +1,11 @@
 ---
 docName: dictionary__function_fetching
 url: https://intlayer.org/doc/concept/content/function-fetching
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/function_fetching.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Funktion Abrufen
-description: Erfahren Sie, wie Sie das Abrufen von Funktionen in Ihrer mehrsprachigen Website erklären und verwenden. Folgen Sie der Anleitung in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
+title: Funktionsabruf
+description: Entdecken Sie, wie Sie Funktionsabrufe in Ihrer mehrsprachigen Website deklarieren und verwenden. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
 keywords:
   - Funktionsabruf
   - Internationalisierung
@@ -18,9 +18,9 @@ keywords:
 
 # Funktionsabruf
 
-Intlayer ermöglicht es Ihnen, Inhaltsfunktionen in Ihren Inhaltsmodulen zu deklarieren, die entweder synchron oder asynchron sein können. Wenn die Anwendung erstellt wird, führt Intlayer diese Funktionen aus, um das Ergebnis der Funktion zu erhalten. Der Rückgabewert muss ein JSON-Objekt oder ein einfacher Wert wie ein String oder eine Zahl sein.
+Intlayer ermöglicht es Ihnen, Inhaltsfunktionen in Ihren Inhaltsmodulen zu deklarieren, die entweder synchron oder asynchron sein können. Wenn die Anwendung gebaut wird, führt Intlayer diese Funktionen aus, um das Ergebnis der Funktion zu erhalten. Der Rückgabewert muss ein JSON-Objekt oder ein einfacher Wert wie ein String oder eine Zahl sein.
 
-> Warnung: Der Funktionsabruf ist derzeit nicht in der JSON-Inhaltsdeklaration und in Dateien mit entfernten Inhaltsdeklarationen verfügbar.
+> Warnung: Funktionsabruf ist derzeit in JSON-Inhaltsdeklarationen und entfernten Inhaltsdeklarationsdateien nicht verfügbar.
 
 ## Funktionsdeklarationen
 
@@ -73,22 +73,22 @@ module.exports = functionContent;
 }
 ```
 
-In diesem Beispiel enthält der `text`-Schlüssel eine Funktion, die einen String zurückgibt. Dieser Inhalt kann in Ihren React-Komponenten mit den Interpreter-Paketen von Intlayer wie `react-intlayer` gerendert werden.
+In diesem Beispiel enthält der Schlüssel `text` eine Funktion, die einen String zurückgibt. Dieser Inhalt kann in Ihren React-Komponenten mit den Interpreter-Paketen von Intlayer wie `react-intlayer` gerendert werden.
 
-## Asynchroner Funktionsabruf
+## Asynchrone Funktionsabfrage
 
-Zusätzlich zu synchronen Funktionen unterstützt Intlayer auch asynchrone Funktionen, mit denen Sie Daten aus externen Quellen abrufen oder die Datenabfrage mit Mock-Daten simulieren können.
+Neben synchronen Funktionen unterstützt Intlayer auch asynchrone Funktionen, die es ermöglichen, Daten aus externen Quellen abzurufen oder die Datenabfrage mit Mock-Daten zu simulieren.
 
-Unten ist ein Beispiel für eine asynchrone Funktion, die einen Serverabruf simuliert:
+Nachfolgend ein Beispiel für eine asynchrone Funktion, die einen Serverabruf simuliert:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
 const fakeFetch = async (): Promise<string> => {
-  // Warten Sie 200 ms, um einen Abruf vom Server zu simulieren
+  // Warte 200ms, um einen Abruf vom Server zu simulieren
   return await setTimeout(200).then(
-    () => "Dies ist der Inhalt, der vom Server abgerufen wurde"
+    () => "Dies ist der vom Server abgerufene Inhalt"
   );
 };
 
@@ -105,9 +105,9 @@ import { setTimeout } from "node:timers/promises";
 
 /** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
-  // Warten Sie 200 ms, um einen Abruf vom Server zu simulieren
+  // Warte 200ms, um einen Abruf vom Server zu simulieren
   await setTimeout(200);
-  return "Dies ist der Inhalt, der vom Server abgerufen wurde";
+  return "Dies ist der vom Server abgerufene Inhalt";
 };
 
 const asyncFunctionContent = {
@@ -123,9 +123,9 @@ const { setTimeout } = require("node:timers/promises");
 
 /** @type {import('intlayer').Dictionary} */
 const fakeFetch = async () => {
-  // Warten Sie 200 ms, um einen Abruf vom Server zu simulieren
+  // Warte 200ms, um einen Abruf vom Server zu simulieren
   await setTimeout(200);
-  return "Dies ist der Inhalt, der vom Server abgerufen wurde";
+  return "Dies ist der vom Server abgerufene Inhalt";
 };
 
 const asyncFunctionContent = {
@@ -137,14 +137,14 @@ module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
-Keine Möglichkeit, Inhalte aus einer JSON-Datei abzurufen, verwenden Sie stattdessen eine .ts- oder .js-Datei
+Es ist nicht möglich, Inhalte aus einer JSON-Datei abzurufen, verwenden Sie stattdessen eine .ts- oder .js-Datei
 ```
 
-In diesem Fall simuliert die Funktion `fakeFetch` eine Verzögerung, um die Serverantwortzeit nachzuahmen. Intlayer führt die asynchrone Funktion aus und verwendet das Ergebnis als Inhalt für den `text`-Schlüssel.
+In diesem Fall simuliert die Funktion `fakeFetch` eine Verzögerung, um die Serverantwortzeit nachzuahmen. Intlayer führt die asynchrone Funktion aus und verwendet das Ergebnis als Inhalt für den Schlüssel `text`.
 
 ## Verwendung von funktionsbasierten Inhalten in React-Komponenten
 
-Um funktionsbasierte Inhalte in einer React-Komponente zu verwenden, müssen Sie `useIntlayer` aus `react-intlayer` importieren und es mit der Inhalts-ID aufrufen, um den Inhalt abzurufen. Hier ist ein Beispiel:
+Um funktionsbasierte Inhalte in einer React-Komponente zu verwenden, müssen Sie `useIntlayer` aus `react-intlayer` importieren und mit der Inhalts-ID aufrufen, um den Inhalt abzurufen. Hier ist ein Beispiel:
 
 ```typescript fileName="**/*.jsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -206,3 +206,7 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Initialer Verlauf

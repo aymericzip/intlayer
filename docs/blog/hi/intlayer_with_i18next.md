@@ -1,3 +1,24 @@
+---
+docName: intlayer_with_i18next
+url: https://intlayer.org/blog/intlayer-with-i18next
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/intlayer_with_i18next.md
+createdAt: 2024-12-24
+updatedAt: 2025-06-29
+title: Intlayer और i18next
+description: इष्टतम अंतर्राष्ट्रीयकरण के लिए Intlayer को i18next के साथ एकीकृत करें। दोनों फ्रेमवर्क की तुलना करें और उन्हें एक साथ कैसे कॉन्फ़िगर करें यह जानें।
+keywords:
+  - Intlayer
+  - i18next
+  - अंतर्राष्ट्रीयकरण
+  - i18n
+  - स्थानीयकरण
+  - अनुवाद
+  - React
+  - Next.js
+  - JavaScript
+  - TypeScript
+---
+
 # अंतर्राष्ट्रीयकरण Intlayer और i18next के साथ
 
 i18next एक ओपन-सोर्स अंतर्राष्ट्रीयकरण (i18n) ढांचा है जो जावास्क्रिप्ट अनुप्रयोगों के लिए डिज़ाइन किया गया है। इसका व्यापक रूप से सॉफ़्टवेयर परियोजनाओं में अनुवाद, स्थानीयकरण और भाषा स्विचिंग को प्रबंधित करने के लिए उपयोग किया जाता है। हालाँकि, इसमें कुछ सीमाएँ हैं जो बढ़ने और विकास को जटिल बना सकती हैं।

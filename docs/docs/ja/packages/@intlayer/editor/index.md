@@ -1,12 +1,31 @@
-# @intlayer/editor: NPMパッケージで、アプリケーションをIntlayerエディターと接続し、辞書を操作するためのユーティリティを提供します
+---
+docName: package__@intlayer_editor
+url: https://intlayer.org/doc/package/@intlayer_editor
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/@intlayer/editor/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/editor - Intlayer エディターインターフェースパッケージ
+description: Intlayer エディターとアプリケーションを連携し、すべてのJavaScriptフレームワークで辞書を操作するためのユーティリティを提供するNPMパッケージ。
+keywords:
+  - intlayer
+  - editor
+  - dictionary
+  - interface
+  - NPM
+  - JavaScript
+  - utilities
+  - cross-platform
+---
 
-**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、Next.js、Express.jsのようなフレームワークと互換性があります。
+# @intlayer/editor: アプリケーションとIntlayerエディターを連携し、辞書を操作するためのユーティリティを提供するNPMパッケージ
 
-**`intlayer-editor`**パッケージは、アプリケーションをIntlayerエディターと接続するためのユーティリティを提供します。このパッケージには、エディターとやり取りするためのAPIや、辞書を操作するためのユーティリティが含まれています。このパッケージはクロスプラットフォーム対応です。
+**Intlayer** は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、Next.js、Express.jsなどのフレームワークと互換性があります。
+
+**`intlayer-editor`** パッケージは、アプリケーションとIntlayerエディターを連携するためのユーティリティを提供します。エディターと対話するためのAPIや、辞書を操作するためのユーティリティが含まれています。このパッケージはクロスプラットフォーム対応です。
 
 ## インストール
 
-お好みのパッケージマネージャーを使用して、必要なパッケージをインストールしてください:
+お好みのパッケージマネージャーを使用して、必要なパッケージをインストールしてください：
 
 ```bash
 npm install @intlayer/editor
@@ -19,3 +38,7 @@ yarn add @intlayer/editor
 ```bash
 pnpm add @intlayer/editor
 ```
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

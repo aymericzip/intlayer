@@ -1,11 +1,11 @@
 ---
 docName: package__lynx-intlayer
 url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: Paketdokumentation | lynx-intlayer
-description: Erfahren Sie, wie Sie das lynx-intlayer-Paket verwenden
+description: Sehen Sie, wie das lynx-intlayer-Paket verwendet wird
 keywords:
   - Intlayer
   - lynx-intlayer
@@ -16,17 +16,19 @@ keywords:
   - React
 ---
 
-**Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurde. Es ist kompatibel mit Frameworks wie React, React und Express.js.
+# lynx-intlayer: Internationalisierung (i18n) einer Lynx-Anwendung
 
-**Das `lynx-intlayer`-Paket** ermöglicht es Ihnen, Ihre Vite-Anwendung zu internationalisieren. Es enthält das Metro-Plugin, um die Konfiguration über Umgebungsvariablen im [Lynx-Bundler](https://lynxjs.org/index.html) festzulegen.
+**Intlayer** ist eine Sammlung von Paketen, die speziell für JavaScript-Entwickler entwickelt wurden. Es ist kompatibel mit Frameworks wie React, React und Express.js.
 
-## Warum Ihre Lynx-Anwendung internationalisieren?
+**Das `lynx-intlayer`-Paket** ermöglicht es Ihnen, Ihre Vite-Anwendung zu internationalisieren. Es enthält das Metro-Plugin, um die Konfiguration über Umgebungsvariablen in den [Lynx-Bundler](https://lynxjs.org/index.html) einzubinden.
 
-Die Internationalisierung Ihrer Lynx-Anwendung ist entscheidend, um ein globales Publikum effektiv zu erreichen. Sie ermöglicht es Ihrer Anwendung, Inhalte und Nachrichten in der bevorzugten Sprache jedes Benutzers bereitzustellen. Diese Fähigkeit verbessert die Benutzererfahrung und erweitert die Reichweite Ihrer Anwendung, indem sie für Menschen aus verschiedenen sprachlichen Hintergründen zugänglicher und relevanter wird.
+## Warum sollten Sie Ihre Lynx-Anwendung internationalisieren?
+
+Die Internationalisierung Ihrer Lynx-Anwendung ist entscheidend, um ein globales Publikum effektiv zu bedienen. Sie ermöglicht es Ihrer Anwendung, Inhalte und Nachrichten in der bevorzugten Sprache jedes Benutzers bereitzustellen. Diese Fähigkeit verbessert die Benutzererfahrung und erweitert die Reichweite Ihrer Anwendung, indem sie für Menschen aus verschiedenen sprachlichen Hintergründen zugänglicher und relevanter wird.
 
 ## Konfiguration
 
-Das `lynx-intlayer`-Paket arbeitet nahtlos mit dem [`react-intlayer`-Paket](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md) und dem [`intlayer`-Paket](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/index.md) zusammen. Schauen Sie sich die entsprechende Dokumentation für weitere Informationen an.
+Das `lynx-intlayer`-Paket arbeitet nahtlos mit dem [`react-intlayer`-Paket](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md) und dem [`intlayer`-Paket](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/index.md) zusammen. Werfen Sie einen Blick in die entsprechende Dokumentation für weitere Informationen.
 
 ## Installation
 
@@ -44,9 +46,9 @@ yarn add lynx-intlayer
 pnpm add lynx-intlayer
 ```
 
-## Beispiel für die Nutzung
+## Anwendungsbeispiel
 
-Sehen Sie ein Beispiel, wie die Plugins in Ihre Vite-Konfiguration eingebunden werden können.
+Sehen Sie ein Beispiel, wie Sie die Plugins in Ihre Vite-Konfiguration einbinden.
 
 ```ts
 // lynx.config.ts
@@ -61,16 +63,20 @@ export default defineConfig({
 });
 ```
 
-## Beherrschen der Internationalisierung Ihrer Vite-Anwendung
+## Die Internationalisierung Ihrer Vite-Anwendung meistern
 
-Intlayer bietet viele Funktionen, um Ihnen bei der Internationalisierung Ihrer Vite-Anwendung zu helfen.
+Intlayer bietet viele Funktionen, die Ihnen helfen, Ihre Vite-Anwendung zu internationalisieren.
 
-**Um mehr über diese Funktionen zu erfahren, lesen Sie den [React-Internationalisierung (i18n) mit Intlayer und Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_lynx+react.md)-Leitfaden für Lynx-Anwendungen.**
+**Um mehr über diese Funktionen zu erfahren, lesen Sie den Leitfaden [React Internationalisierung (i18n) mit Intlayer und Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_lynx+react.md) für Lynx-Anwendungen.**
 
 ## Lesen Sie mehr über Intlayer
 
-- [Intlayer Website](https://intlayer.org)
+- [Intlayer Webseite](https://intlayer.org)
 - [Intlayer Dokumentation](https://intlayer.org/doc)
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
-- [Stellen Sie Ihre Fragen an unsere intelligente Dokumentation](https://intlayer.org/docchat)
+- [Stellen Sie Ihre Fragen an unsere intelligente Dokumentation](https://intlayer.org/doc/chat)
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 29.06.2025: Historie initialisiert

@@ -1,7 +1,7 @@
 ---
 docName: configuration
 url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md
 createdAt: 2024-08-13
 updatedAt: 2025-06-29
 title: Configuração
@@ -258,6 +258,8 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Exemplo_: `'x-custom-locale'`
   - _Nota_: Isso é útil para determinação de idioma baseada em API.
 
+- **cookieName**:
+
   - _Tipo_: `string`
   - _Padrão_: `'intlayer-locale'`
   - _Descrição_: O nome do cookie usado para armazenar o idioma.
@@ -295,6 +297,8 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Descrição_: Indica se o prefixo de idioma deve ser omitido das URLs.
   - _Exemplo_: `true`
   - _Nota_: Se `true`, as URLs não conterão informações de idioma.
+
+---
 
 ### Configuração de Conteúdo
 
@@ -334,6 +338,7 @@ Configurações relacionadas ao gerenciamento de conteúdo dentro da aplicação
 
   - _Tipo_: `string[]`
   - _Padrão_: `['src']`
+  - _Exemplo_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Descrição_: O caminho do diretório onde o conteúdo é armazenado.
 
 - **dictionariesDir**:
@@ -418,11 +423,9 @@ Configurações que controlam o logger, incluindo o prefixo a ser usado.
 ### Configuração de IA
 
 Configurações que controlam os recursos de IA do Intlayer, incluindo o provedor, modelo e chave de API.
-
 Esta configuração é opcional se você estiver registrado no [Painel do Intlayer](https://intlayer.org/dashboard/project) usando uma chave de acesso. O Intlayer gerenciará automaticamente a solução de IA mais eficiente e econômica para suas necessidades. Usar as opções padrão garante melhor manutenção a longo prazo, pois o Intlayer atualiza continuamente para usar os modelos mais relevantes.
 
 Se preferir usar sua própria chave de API ou modelo específico, você pode definir sua configuração personalizada de IA. Esta configuração de IA será usada globalmente em todo o ambiente do Intlayer. Comandos CLI usarão essas configurações como padrão para os comandos (por exemplo, `fill`), bem como o SDK, Editor Visual e CMS. Você pode substituir esses valores padrão para casos de uso específicos usando parâmetros de comando.
-
 O Intlayer suporta vários provedores de IA para maior flexibilidade e escolha. Os provedores atualmente suportados são:
 
 - **OpenAI** (padrão)
@@ -468,7 +471,6 @@ O Intlayer suporta vários provedores de IA para maior flexibilidade e escolha. 
   - _Nota_: Importante: As chaves de API devem ser mantidas em segredo e não compartilhadas publicamente. Certifique-se de mantê-las em um local seguro, como variáveis de ambiente.
 
 - **applicationContext**:
-
   - _Tipo_: `string`
   - _Padrão_: Nenhum
   - _Descrição_: Fornece contexto adicional sobre sua aplicação ao modelo de IA, ajudando-o a gerar traduções mais precisas e contextualmente apropriadas. Isso pode incluir informações sobre o domínio do seu aplicativo, público-alvo, tom ou terminologia específica.
@@ -483,7 +485,7 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
 
 > Ao otimizar o build, o Intlayer substituirá todas as chamadas de dicionários para otimizar o chunking. Dessa forma, o bundle final importará apenas os dicionários que são utilizados.
 
-- **Nota**: `@intlayer/babel` está disponível por padrão no pacote `vite-intlayer`, mas `@intlayer/swc` não está instalado por padrão no pacote `next-intlayer` pois os plugins SWC ainda são experimentais no Next.js.
+- **Nota**: `@intlayer/babel` está disponível por padrão no pacote `vite-intlayer`, mas `@intlayer/swc` não está instalado por padrão no pacote `next-intlayer`, pois os plugins SWC ainda são experimentais no Next.js.
 
 #### Propriedades
 
@@ -511,9 +513,13 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
 
 - **traversePattern**:
   - _Tipo_: `string[]`
-  - _Padrão_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
+  - _Padrão_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
   - _Descrição_: Padrões que definem quais arquivos devem ser percorridos durante a otimização.
-  - _Exemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+    - _Exemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
   - _Nota_: Use isso para limitar a otimização a arquivos de código relevantes e melhorar o desempenho do build.
   - _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
   - _Nota_: Use padrão glob.
+
+## Histórico da Documentação
+
+- 5.5.11 - 2025-06-29: Adicionado comandos `docs`

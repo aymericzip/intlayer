@@ -1,3 +1,22 @@
+---
+docName: package__@intlayer_dictionary-entry
+url: https://intlayer.org/doc/package/@intlayer_dictionary-entry
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/@intlayer/dictionary-entry/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/dictionary-entry - Dictionary Management for Intlayer
+description: NPM package for managing dictionary entries in Intlayer, providing utilities for creating, updating, and organizing translation dictionaries.
+keywords:
+  - intlayer
+  - dictionary
+  - entries
+  - management
+  - translation
+  - i18n
+  - JavaScript
+  - NPM
+---
+
 # @intlayer/dictionary-entry: NPM Package to retrieve Intlayer dictionaries
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.

@@ -1,6 +1,6 @@
 import { getBlogDataArray } from '@components/BlogPage/blogData';
 import { getDocDataArray } from '@components/DocPage/docData';
-import { Tag, Link } from '@intlayer/design-system';
+import { Link, Tag } from '@intlayer/design-system';
 import type { Locales } from 'intlayer';
 import { File } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
@@ -41,7 +41,7 @@ export const FileReference: FC<{ relatedFiles: string[] }> = ({
         {relatedFiles.map((fileKey) => {
           const fileData =
             docArray.find((docEl) => docEl.docName === fileKey) ??
-            blogArray.find((blogEl) => blogEl.blogName === fileKey);
+            blogArray.find((blogEl) => blogEl.docName === fileKey);
 
           if (!fileData) return <></>;
 

@@ -1,46 +1,46 @@
 ---
 docName: package__intlayer__getLocaleName
 url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: وثائق دالة getLocaleName | intlayer
-description: انظر كيف تستخدم دالة getLocaleName لحزمة intlayer
+title: توثيق دالة getLocaleName | intlayer
+description: تعرف على كيفية استخدام دالة getLocaleName لحزمة intlayer
 keywords:
   - getLocaleName
-  - ترجمة
+  - الترجمة
   - Intlayer
   - intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
 ---
 
-# وثائق: وظيفة `getLocaleName` في `intlayer`
+# التوثيق: دالة `getLocaleName` في `intlayer`
 
 ## الوصف
 
-وظيفة `getLocaleName` تُرجع الاسم المحلي للغة معينة (`targetLocale`) في لغة العرض (`displayLocale`). إذا لم يتم توفير `targetLocale`، فإنها تُرجع اسم `displayLocale` بلغته الخاصة.
+تعيد دالة `getLocaleName` الاسم المحلي للغة معينة (`targetLocale`) في لغة العرض (`displayLocale`). إذا لم يتم توفير `targetLocale`، فإنها تعيد اسم `displayLocale` بلغتها الخاصة.
 
 ## المعاملات
 
 - `displayLocale: Locales`
 
-  - **الوصف**: اللغة التي سيتم عرض اسم اللغة المستهدفة بها.
-  - **النوع**: Enum أو سلسلة نصية تمثل لغات صالحة.
+  - **الوصف**: اللغة التي سيتم عرض اسم اللغة الهدف بها.
+  - **النوع**: تعداد أو سلسلة تمثل اللغات الصالحة.
 
 - `targetLocale?: Locales`
-  - **الوصف**: اللغة التي سيتم توطين اسمها.
-  - **النوع**: اختياري. Enum أو سلسلة نصية تمثل لغات صالحة.
+  - **الوصف**: اللغة التي سيتم تعريب اسمها.
+  - **النوع**: اختياري. تعداد أو سلسلة تمثل اللغات الصالحة.
 
-## القيم المُعادة
+## القيم المرجعة
 
 - **النوع**: `string`
-- **الوصف**: الاسم المحلي لـ `targetLocale` في `displayLocale`، أو اسم `displayLocale` الخاص إذا لم يتم توفير `targetLocale`. إذا لم يتم العثور على ترجمة، فإنها تُرجع `"لغة غير معروفة"`.
+- **الوصف**: الاسم المعرب لـ `targetLocale` في `displayLocale`، أو اسم `displayLocale` نفسه إذا لم يتم توفير `targetLocale`. إذا لم يتم العثور على ترجمة، فإنه يعيد `"Unknown locale"`.
 
-## أمثلة الاستخدام
+## مثال على الاستخدام
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -60,7 +60,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // الناتج: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // الناتج: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // الناتج: "Chinese"
 
-getLocaleName("unknown-locale"); // الناتج: "لغة غير معروفة"
+getLocaleName("unknown-locale"); // الناتج: "Unknown locale"
 ```
 
 ```javascript codeFormat="esm"
@@ -81,7 +81,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // الناتج: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // الناتج: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // الناتج: "Chinese"
 
-getLocaleName("unknown-locale"); // الناتج: "لغة غير معروفة"
+getLocaleName("unknown-locale"); // الناتج: "Unknown locale"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -102,12 +102,16 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // الناتج: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // الناتج: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // الناتج: "Chinese"
 
-getLocaleName("unknown-locale"); // الناتج: "لغة غير معروفة"
+getLocaleName("unknown-locale"); // الناتج: "Unknown locale"
 ```
 
 ## الحالات الخاصة
 
 - **عدم توفير `targetLocale`:**
-  - تقوم الوظيفة افتراضيًا بإرجاع اسم `displayLocale` الخاص.
+- تقوم الدالة بشكل افتراضي بإرجاع اسم `displayLocale` الخاص به.
 - **الترجمات المفقودة:**
-  - إذا لم يحتوي `localeNameTranslations` على إدخال لـ `targetLocale` أو `displayLocale` المحدد، فإن الوظيفة تعود إلى `ownLocalesName` أو تُرجع `"لغة غير معروفة"`.
+  - إذا لم يحتوي `localeNameTranslations` على إدخال لـ `targetLocale` أو لـ `displayLocale` المحدد، فإن الدالة تعود إلى `ownLocalesName` أو تُرجع `"Unknown locale"`.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

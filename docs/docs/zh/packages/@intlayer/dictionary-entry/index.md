@@ -1,12 +1,31 @@
-# @intlayer/dictionary-entry: NPM 包，用于检索 Intlayer 字典
+---
+docName: package__@intlayer_dictionary-entry
+url: https://intlayer.org/doc/package/@intlayer_dictionary-entry
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/@intlayer/dictionary-entry/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/dictionary-entry - Intlayer 的词典管理
+description: 用于管理 Intlayer 中词典条目的 NPM 包，提供创建、更新和组织翻译词典的工具。
+keywords:
+  - intlayer
+  - dictionary
+  - entries
+  - management
+  - translation
+  - i18n
+  - JavaScript
+  - NPM
+---
 
-**Intlayer** 是专为 JavaScript 开发人员设计的一套工具包。它兼容 React、React 和 Express.js 等框架。
+# @intlayer/dictionary-entry：用于获取 Intlayer 词典的 NPM 包
 
-**`@intlayer/dictionary-entry`** 包是一个 NPM 包，仅返回 intlayer 字典的入口路径。由于从浏览器中进行文件系统搜索是不可能的，因此使用 Webpack 或 Rollup 等打包工具来检索字典的入口路径也是不可行的。此包旨在被别名化。
+**Intlayer** 是一套专为 JavaScript 开发者设计的包集合。它兼容 React、React 和 Express.js 等框架。
+
+**`@intlayer/dictionary-entry`** 包是一个只返回 intlayer 词典入口路径的 NPM 包。由于浏览器中无法进行文件系统搜索，使用像 Webpack 或 Rollup 这样的打包工具来获取词典入口路径是不可能的。该包旨在被别名化使用。
 
 ## 安装
 
-使用您喜欢的包管理器安装必要的包：
+使用您喜欢的包管理器安装所需的包：
 
 ```bash packageManager="npm"
 npm install @intlayer/dictionary-entry
@@ -19,3 +38,7 @@ pnpm add @intlayer/dictionary-entry
 ```bash packageManager="yarn"
 yarn add @intlayer/dictionary-entry
 ```
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史记录

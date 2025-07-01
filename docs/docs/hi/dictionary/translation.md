@@ -1,18 +1,18 @@
 ---
 docName: dictionary__translation
 url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: अनुवाद
-description: जानें कि अपने बहुभाषी वेबसाइट पर अनुवाद को कैसे घोषणा और उपयोग करें। अपने प्रोजेक्ट को कुछ मिनटों में सेट करने के लिए इस ऑनलाइन दस्तावेज में चरणों का पालन करें।
+description: अपनी बहुभाषी वेबसाइट में अनुवाद कैसे घोषित करें और उपयोग करें यह जानें। इस ऑनलाइन दस्तावेज़ में दिए गए चरणों का पालन करके कुछ ही मिनटों में अपने प्रोजेक्ट को सेटअप करें।
 keywords:
   - अनुवाद
-  - अंतर्राष्ट्रीयकरण
-  - प्रलेखन
+  - अंतरराष्ट्रीयकरण
+  - दस्तावेज़ीकरण
   - Intlayer
   - Next.js
-  - जावास्क्रिप्ट
+  - JavaScript
   - React
 ---
 
@@ -20,11 +20,9 @@ keywords:
 
 ## अनुवाद परिभाषित करना
 
-`intlayer` में `t` फ़ंक्शन आपको कई भाषाओं में सामग्री घोषित करने की अनुमति देता है। यह फ़ंक्शन प्रकार सुरक्षा सुनिश्चित करता है, और यदि कोई अनुवाद गायब है तो त्रुटि उत्पन्न करता है, जो विशेष रूप से TypeScript वातावरण में उपयोगी है।
+`intlayer` में `t` फ़ंक्शन आपको कई भाषाओं में सामग्री घोषित करने की अनुमति देता है। यह फ़ंक्शन टाइप सुरक्षा सुनिश्चित करता है, यदि कोई अनुवाद गायब हो तो त्रुटि उत्पन्न करता है, जो विशेष रूप से TypeScript वातावरण में उपयोगी होता है।
 
-### TypeScript का उपयोग करना
-
-यहां दिखाया गया है कि अनुवादों के साथ सामग्री कैसे घोषित करें।
+यहाँ अनुवादों के साथ सामग्री घोषित करने का एक उदाहरण दिया गया है।
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -40,7 +38,6 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      hi: "हमारे एप्लिकेशन में आपका स्वागत है",
     }),
   },
 } satisfies Dictionary<Content>;
@@ -56,7 +53,6 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      hi: "हमारे एप्लिकेशन में आपका स्वागत है",
     }),
   },
 };
@@ -65,6 +61,7 @@ export default {
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
+// मॉड्यूल निर्यात करता है जिसमें बहुभाषी स्वागत संदेश होता है
 module.exports = {
   key: "multi_lang",
   content: {
@@ -72,7 +69,6 @@ module.exports = {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      hi: "हमारे एप्लिकेशन में आपका स्वागत है",
     }),
   },
 };
@@ -88,24 +84,23 @@ module.exports = {
       "translation": {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
-        "es": "Bienvenido a nuestra aplicación",
-        "hi": "हमारे एप्लिकेशन में आपका स्वागत है"
+        "es": "Bienvenido a nuestra aplicación"
       }
     }
   }
 }
 ```
 
-## स्थानीय भाषाओं के लिए कॉन्फ़िगरेशन
+## स्थानीय सेटिंग्स के लिए कॉन्फ़िगरेशन
 
-सुनिश्चित करने के लिए कि अनुवाद सही तरीके से संभाले गए हैं, आप `intlayer.config.ts` में स्वीकृत भाषाओं को कॉन्फ़िगर कर सकते हैं। यह कॉन्फ़िगरेशन आपको उन भाषाओं को परिभाषित करने की अनुमति देता है जो आपका एप्लिकेशन समर्थन करता है:
+सही अनुवाद प्रबंधन सुनिश्चित करने के लिए, आप `intlayer.config.ts` में स्वीकार किए गए स्थानीय सेटिंग्स को कॉन्फ़िगर कर सकते हैं। यह कॉन्फ़िगरेशन आपको उन भाषाओं को परिभाषित करने की अनुमति देता है जिन्हें आपका एप्लिकेशन सपोर्ट करता है:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.HINDI],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -118,7 +113,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.HINDI],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -131,18 +126,22 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.HINDI],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
 module.exports = config;
 ```
 
-## React घटकों में अनुवाद का उपयोग करना
+## React कंपोनेंट्स में अनुवाद का उपयोग करना
 
-`react-intlayer` के साथ, आप React घटकों में अनुवाद का उपयोग कर सकते हैं। यहां एक उदाहरण है:
+`react-intlayer` के साथ, आप React कंपोनेंट्स में अनुवादों का उपयोग कर सकते हैं। यहाँ एक उदाहरण है:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+javascript fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -151,7 +150,7 @@ const MyComponent: FC = () => {
 
   return (
     <div>
-      <p>{content.welcomeMessage}</p>
+      <p>{content.welcomeMessage}</p> {/* वर्तमान भाषा के अनुसार स्वागत संदेश दिखाता है */}
     </div>
   );
 };
@@ -167,7 +166,8 @@ const MyComponent = () => {
 
   return (
     <div>
-      <p>{content.welcomeMessage}</p>
+      <p>{content.welcomeMessage}</p>{" "}
+      {/* वर्तमान भाषा के अनुसार स्वागत संदेश दिखाता है */}
     </div>
   );
 };
@@ -183,7 +183,8 @@ const MyComponent = () => {
 
   return (
     <div>
-      <p>{content.welcomeMessage}</p>
+      <p>{content.welcomeMessage}</p>{" "}
+      {/* वर्तमान भाषा के अनुसार स्वागत संदेश दिखाता है */}
     </div>
   );
 };
@@ -191,11 +192,11 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-यह घटक आपके एप्लिकेशन में सेट वर्तमान भाषा के आधार पर संबंधित अनुवाद प्राप्त करता है।
+यह कॉम्पोनेंट आपके एप्लिकेशन में सेट वर्तमान लोकल के आधार पर संबंधित अनुवाद प्राप्त करता है।
 
-## कस्टम सामग्री ऑब्जेक्ट्स
+## कस्टम कंटेंट ऑब्जेक्ट्स
 
-`intlayer` अनुवाद के लिए कस्टम सामग्री ऑब्जेक्ट्स का समर्थन करता है, जिससे आप अधिक जटिल संरचनाओं को परिभाषित कर सकते हैं और प्रकार सुरक्षा सुनिश्चित कर सकते हैं। यहां एक कस्टम ऑब्जेक्ट के साथ एक उदाहरण है:
+`intlayer` अनुवाद के लिए कस्टम कंटेंट ऑब्जेक्ट्स का समर्थन करता है, जिससे आप अधिक जटिल संरचनाओं को परिभाषित कर सकते हैं और टाइप सुरक्षा सुनिश्चित कर सकते हैं। यहाँ एक कस्टम ऑब्जेक्ट के साथ उदाहरण दिया गया है:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -221,10 +222,6 @@ const customContent = {
         title: "Título de la Página",
         content: "Contenido de la Página",
       },
-      hi: {
-        title: "पृष्ठ शीर्षक",
-        content: "पृष्ठ सामग्री",
-      },
     }),
   },
 } satisfies Dictionary;
@@ -243,8 +240,8 @@ export default {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "पृष्ठ शीर्षक",
+          content: "पृष्ठ सामग्री",
         },
         fr: {
           title: "Titre de la Page",
@@ -253,10 +250,6 @@ export default {
         es: {
           title: "Título de la Página",
           content: "Contenido de la Página",
-        },
-        hi: {
-          title: "पृष्ठ शीर्षक",
-          content: "पृष्ठ सामग्री",
         },
       },
   },
@@ -285,10 +278,6 @@ module.exports = {
           title: "Título de la Página",
           content: "Contenido de la Página",
         },
-        hi: {
-          title: "पृष्ठ शीर्षक",
-          content: "पृष्ठ सामग्री",
-        },
       },
   },
 };
@@ -304,22 +293,22 @@ module.exports = {
       "translation": {
         "en": {
           "title": "Page Title",
-          "content": "Page Content"
+          "content": "पृष्ठ सामग्री"
         },
         "fr": {
-          "title": "Titre de la Page",
-          "content": "Contenu de la Page"
+          "title": "पृष्ठ का शीर्षक",
+          "content": "पृष्ठ की सामग्री"
         },
         "es": {
-          "title": "Título de la Página",
-          "content": "Contenido de la Página"
-        },
-        "hi": {
-          "title": "पृष्ठ शीर्षक",
-          "content": "पृष्ठ सामग्री"
+          "title": "पृष्ठ का शीर्षक",
+          "content": "पृष्ठ की सामग्री"
         }
       }
     }
   }
 }
 ```
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

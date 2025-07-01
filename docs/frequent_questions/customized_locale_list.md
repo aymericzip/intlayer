@@ -1,3 +1,24 @@
+---
+docName: customized_locale_list
+url: https://intlayer.org/doc/faq/customized-locale-list
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/customized_locale_list.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: How to customize the locale list?
+description: Learn how to customize the locale list.
+keywords:
+  - locales
+  - list
+  - intlayer
+  - configuration
+  - availableLocales
+  - defaultLocale
+  - useLocale
+  - hook
+  - locale
+  - list
+---
+
 # Is it possible to block a language type, like English? I am adding english in my dictionares but i dont want english available in the web site just yet
 
 Yes, you can block a language type, like English, by using the `availableLocales` option in the Intlayer configuration.

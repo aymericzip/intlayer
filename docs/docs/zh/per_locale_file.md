@@ -1,22 +1,41 @@
-# Intlayer 支持两种方式声明多语言内容：
+---
+docName: dictionary__per_locale_file
+url: https://intlayer.org/doc/concept/per-locale-file
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md
+createdAt: 2025-04-18
+updatedAt: 2025-06-29
+title: Intlayer 中的“每语言”内容声明
+description: 了解如何在 Intlayer 中按语言声明内容。遵循文档以理解不同格式和使用场景。
+keywords:
+  - 国际化
+  - 文档
+  - Intlayer
+  - 每语言
+  - TypeScript
+  - JavaScript
+---
+
+# Intlayer 中的“每语言”内容声明
+
+Intlayer 支持两种声明多语言内容的方式：
 
 - 单文件包含所有翻译
-- 每种语言一个文件（每语言格式）
+- 每个语言一个文件（每语言格式）
 
 这种灵活性使得：
 
-- 从其他 i18n 工具轻松迁移
-- 支持自动化翻译工作流
+- 轻松迁移自其他国际化工具
+- 支持自动化翻译工作流程
 - 将翻译清晰地组织到独立的、特定语言的文件中
 
-## 单文件包含多种翻译
+## 单文件多语言翻译
 
-这种格式适合：
+这种格式适用于：
 
-- 在代码中快速迭代。
-- 与 CMS 无缝集成。
+- 代码中的快速迭代。
+- 与内容管理系统（CMS）的无缝集成。
 
-这是大多数使用场景的推荐方法。它集中管理翻译，使得迭代和与 CMS 集成变得容易。
+这是大多数使用场景推荐的方法。它将翻译集中管理，便于迭代和与 CMS 集成。
 
 ```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -25,7 +44,6 @@ const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      zh: "我的组件标题",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -39,11 +57,11 @@ export default helloWorldContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// 定义包含多语言内容的字典对象
 const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      zh: "我的组件标题",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -57,11 +75,11 @@ export default helloWorldContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// 定义包含多语言内容的字典对象
 const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      zh: "我的组件标题",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -79,7 +97,6 @@ module.exports = helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "zh": "我的组件标题",
         "en": "Title of my component",
         "es": "Título de mi componente"
       }
@@ -88,16 +105,16 @@ module.exports = helloWorldContent;
 }
 ```
 
-> 推荐：当使用 Intlayer 的可视化编辑器或直接在代码中管理翻译时，这种格式是最佳选择。
+> 推荐：当使用 Intlayer 的可视化编辑器或直接在代码中管理翻译时，此格式最佳。
 
-## 每语言格式
+## 按语言区域格式
 
-这种格式适用于以下情况：
+此格式适用于：
 
-- 您希望独立版本化或覆盖翻译。
+- 您希望独立版本控制或覆盖翻译。
 - 您正在集成机器或人工翻译工作流。
 
-您还可以通过指定 locale 字段将翻译拆分为单独的语言文件：
+您还可以通过指定 locale 字段，将翻译拆分到单独的语言区域文件中：
 
 ```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
 import { t, Locales, type Dictionary } from "intlayer";
@@ -105,7 +122,7 @@ import { t, Locales, type Dictionary } from "intlayer";
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // 重要
-  content: { multilingualContent: "Title of my component" },
+  content: { multilingualContent: "我的组件标题" },
 } satisfies Dictionary;
 
 export default helloWorldContent;
@@ -118,17 +135,20 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // 重要
   content: { multilingualContent: "Título de mi componente" },
-};
+} satisfies Dictionary;
+
+export default helloWorldContent;
 ```
 
 ```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// 定义一个字典类型的内容对象
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // 重要
-  content: { multilingualContent: "Title of my component" },
+  content: { multilingualContent: "我的组件标题" },
 };
 
 export default helloWorldContent;
@@ -138,6 +158,7 @@ export default helloWorldContent;
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// 定义一个字典类型的内容对象
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // 重要
@@ -155,7 +176,7 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // 重要
   content: {
-    multilingualContent: "Title of my component",
+    multilingualContent: "我的组件标题",
   },
 };
 
@@ -170,7 +191,7 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // 重要
   content: {
-    multilingualContent: "Título de mi componente",
+    multilingualContent: "我的组件标题",
   },
 };
 
@@ -183,7 +204,7 @@ module.exports = helloWorldContent;
   "key": "hello-world",
   "locale": "en", // 重要
   "content": {
-    "multilingualContent": "Title of my component",
+    "multilingualContent": "我的组件标题",
   },
 }
 ```
@@ -199,21 +220,21 @@ module.exports = helloWorldContent;
 }
 ```
 
-> 重要：确保定义了 locale 字段。它告诉 Intlayer 文件代表的语言。
+> 重要提示：确保定义了 locale 字段。它告诉 Intlayer 该文件代表哪种语言。
 
-> 注意：在这两种情况下，内容声明文件必须遵循命名模式 `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` 才能被 Intlayer 识别。`.[locale]` 后缀是可选的，仅用作命名约定。
+> 注意：在这两种情况下，内容声明文件必须遵循命名模式 `*.content.{ts,tsx,js,jsx,mjs,cjs,json}`，以便被 Intlayer 识别。`.[locale]` 后缀是可选的，仅作为命名约定使用。
 
 ## 混合格式
 
-您可以为同一内容键混合使用这两种方法。例如：
+您可以将两种声明方法结合使用于同一个内容键。例如：
 
-静态声明默认或基础内容（例如 `index.content.ts`）
+- 在像 index.content.ts 这样的文件中静态声明您的基础内容。
+- 在单独的文件中添加或覆盖特定的翻译，例如 index.fr.content.ts 或 index.content.json。
 
-在 `index.content.json`、`index.fr.content.ts` 等中添加或覆盖特定语言的内容。
+这种设置特别适用于：
 
-这在以下情况下特别有用：
-
-- 您希望在代码库中静态声明基础内容，并通过 CMS 自动填充翻译。
+- 您想在代码中定义初始内容结构。
+- 您计划稍后使用 CMS 或自动化工具丰富或完善翻译。
 
 ```bash codeFormat="typescript"
 .
@@ -226,7 +247,7 @@ module.exports = helloWorldContent;
 
 ### 示例
 
-以下是一个多语言内容声明文件：
+这是一个多语言内容声明文件：
 
 ```tsx fileName="Components/MyComponent/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -235,8 +256,8 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH,
   content: {
-    multilingualContent: "Title of my component",
-    projectName: "My project",
+    multilingualContent: "我的组件标题",
+    projectName: "我的项目",
   },
 } satisfies Dictionary;
 
@@ -251,7 +272,6 @@ export default helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "zh": "我的组件标题",
         "fr": "Titre de mon composant",
         "es": "Título de mi componente"
       }
@@ -260,39 +280,43 @@ export default helloWorldContent;
 }
 ```
 
-Intlayer 会自动合并多语言和每语言文件。
+Intlayer 会自动合并多语言和每个语言环境的文件。
 
 ```tsx fileName="Components/MyComponent/index.ts"
 import { getIntlayer, Locales } from "intlayer";
 
-const intlayer = getIntlayer("hello-world"); // 默认语言是 ENGLISH，因此它将返回 ENGLISH 内容
+const intlayer = getIntlayer("hello-world"); // 默认语言是英语，因此它将返回英语内容
 
 console.log(JSON.stringify(intlayer, null, 2));
-// 结果：
+// 结果:
 // {
-//  "multilingualContent": "Title of my component",
-//  "projectName": "My project"
+//  "multilingualContent": "我的组件标题",
+//  "projectName": "我的项目"
 // }
 
 const intlayer = getIntlayer("hello-world", Locales.SPANISH);
 
 console.log(JSON.stringify(intlayer, null, 2));
-// 结果：
+// 结果:
 // {
 //  "multilingualContent": "Título de mi componente",
-//  "projectName": "My project"
+//  "projectName": "我的项目"
 // }
 
 const intlayer = getIntlayer("hello-world", Locales.FRENCH);
 
 console.log(JSON.stringify(intlayer, null, 2));
-// 结果：
+// 结果:
 // {
 //  "multilingualContent": "Titre de mon composant",
-//  "projectName": "My project"
+//  "projectName": "我的项目"
 // }
 ```
 
 ### 自动翻译生成
 
-使用 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 根据您首选的服务自动填充缺失的翻译。
+使用 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 根据您偏好的服务自动填充缺失的翻译。
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史

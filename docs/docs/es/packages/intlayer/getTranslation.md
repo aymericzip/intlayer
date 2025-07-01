@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getTranslation
 url: https://intlayer.org/doc/packages/intlayer/getTranslation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentación de la función getTranslation | intlayer
-description: Descubre cómo usar la función getTranslation para el paquete intlayer
+description: Vea cómo usar la función getTranslation para el paquete intlayer
 keywords:
   - getTranslation
   - traducción
@@ -22,29 +22,29 @@ keywords:
 
 ## Descripción
 
-La función `getTranslationContent` recupera el contenido correspondiente a un locale específico de un conjunto de contenido de idioma personalizable. Si no se encuentra el locale especificado, por defecto devuelve el contenido del locale predeterminado configurado en el proyecto.
+La función `getTranslationContent` recupera el contenido correspondiente a una localidad específica de un conjunto de contenido de idioma personalizable. Si no se encuentra la localidad especificada, devuelve por defecto el contenido de la localidad predeterminada configurada en el proyecto.
 
 ## Parámetros
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Descripción**: Un objeto que contiene traducciones para varios locales. Cada clave representa un locale y su valor es el contenido correspondiente.
+  - **Descripción**: Un objeto que contiene traducciones para varias localidades. Cada clave representa una localidad y su valor es el contenido correspondiente.
   - **Tipo**: `CustomizableLanguageContent<Content>`
-    - `Content` puede ser de cualquier tipo, por defecto es `string`.
+    - `Content` puede ser de cualquier tipo, por defecto `string`.
 
 - `locale: Locales`
 
-  - **Descripción**: El locale para el cual se debe recuperar el contenido.
+  - **Descripción**: La localidad para la cual se desea obtener el contenido.
   - **Tipo**: `Locales`
 
-## Retornos
+## Retorna
 
 - **Tipo**: `Content`
-- **Descripción**: El contenido correspondiente al locale especificado. Si no se encuentra el locale, se devuelve el contenido del locale predeterminado.
+- **Descripción**: El contenido correspondiente a la localidad especificada. Si no se encuentra la localidad, se devuelve el contenido de la localidad predeterminada.
 
-## Ejemplo de Uso
+## Ejemplo de uso
 
-### Uso Básico
+### Uso básico
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -88,7 +88,7 @@ const content = getTranslationContent(
 console.log(content); // Salida: "Bonjour"
 ```
 
-### Locale Faltante:
+### Localidad faltante:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -101,7 +101,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Salida: "Hello" (contenido del locale predeterminado)
+console.log(content); // Salida: "Hello" (contenido de la localidad predeterminada)
 ```
 
 ```javascript codeFormat="esm"
@@ -115,7 +115,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Salida: "Hello" (contenido del locale predeterminado)
+console.log(content); // Salida: "Hello" (contenido de la localidad predeterminada)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -129,10 +129,10 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Salida: "Hello" (contenido del locale predeterminado)
+console.log(content); // Salida: "Hello" (contenido de la localidad predeterminada)
 ```
 
-### Usando Tipos de Contenido Personalizados:
+### Uso de Tipos de Contenido Personalizados:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -178,9 +178,13 @@ console.log(customContent.greeting); // Salida: "Bonjour"
 
 ## Casos Especiales
 
-- **Locale No Encontrado:**
-  - Cuando el `locale` no se encuentra en el `languageContent`, la función devuelve el contenido del locale predeterminado.
+- **Localidad No Encontrada:**
+  - Cuando la `locale` no se encuentra en el `languageContent`, la función devuelve el contenido para la localidad predeterminada.
 - **Contenido de Idioma Incompleto:**
-  - Si un locale está definido parcialmente, la función no combina contenidos. Recupera estrictamente el valor del locale especificado o recurre al predeterminado.
+  - Si una localidad está parcialmente definida, la función no fusiona los contenidos. Recupera estrictamente el valor de la localidad especificada o recurre a la predeterminada.
 - **Aplicación de TypeScript:**
-  - Si los locales en `languageContent` no coinciden con la configuración del proyecto, TypeScript aplicará que todos los locales requeridos estén definidos, asegurando que el contenido sea completo y seguro en cuanto a tipos.
+  - Si las localidades en `languageContent` no coinciden con la configuración del proyecto, TypeScript exigirá que todas las localidades requeridas estén definidas, asegurando que el contenido sea completo y seguro en cuanto a tipos.
+
+## Historial del Documento
+
+- 5.5.10 - 2025-06-29: Inicio del historial

@@ -1,6 +1,20 @@
-# Inhaltsanpassung der Erweiterung
+---
+docName: dictionary__content_extention_customization
+url: https://intlayer.org/doc/concept/content
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_extention_customization.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: Anpassung der Inhaltserweiterungen
+description: Erfahren Sie, wie Sie die Erweiterungen für Ihre Inhaltsdeklarationsdateien anpassen können. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihrem Projekt umzusetzen.
+keywords:
+  - Anpassung der Inhaltserweiterungen
+  - Dokumentation
+  - Intlayer
+---
 
-## Inhaltsdateierweiterungen
+# Anpassung der Inhaltserweiterungen
+
+## Erweiterungen von Inhaltsdateien
 
 Intlayer ermöglicht es Ihnen, die Erweiterungen für Ihre Inhaltsdeklarationsdateien anzupassen. Diese Anpassung bietet Flexibilität bei der Verwaltung von Großprojekten und hilft, Konflikte mit anderen Modulen zu vermeiden.
 
@@ -18,7 +32,7 @@ Standardmäßig überwacht Intlayer alle Dateien mit den folgenden Erweiterungen
 - `.content.cjs`
 - `.content.cjx`
 
-Diese Standarderweiterungen sind für die meisten Anwendungen geeignet. Wenn Sie jedoch spezifische Anforderungen haben, können Sie benutzerdefinierte Erweiterungen definieren, um den Build-Prozess zu optimieren und das Risiko von Konflikten mit anderen Komponenten zu minimieren.
+Diese Standarderweiterungen sind für die meisten Anwendungen geeignet. Wenn Sie jedoch spezielle Anforderungen haben, können Sie benutzerdefinierte Erweiterungen definieren, um den Build-Prozess zu optimieren und das Risiko von Konflikten mit anderen Komponenten zu verringern.
 
 ### Anpassung der Inhaltserweiterungen
 
@@ -64,18 +78,22 @@ In diesem Beispiel gibt die Konfiguration zwei benutzerdefinierte Erweiterungen 
 
 ### Vorteile benutzerdefinierter Erweiterungen
 
-- **Build-Leistung**: Die Einschränkung des Überwachungsbereichs kann die Build-Leistung in großen Projekten erheblich verbessern.
+- **Build-Leistung**: Die Reduzierung des Überwachungsbereichs kann die Build-Leistung in großen Projekten erheblich verbessern.
 - **Konfliktvermeidung**: Benutzerdefinierte Erweiterungen helfen, Konflikte mit anderen JavaScript- oder TypeScript-Dateien in Ihrem Projekt zu vermeiden.
-- **Organisation**: Benutzerdefinierte Erweiterungen ermöglichen es Ihnen, Ihre Inhaltsdeklarationsdateien entsprechend den Anforderungen Ihres Projekts zu organisieren.
+- **Organisation**: Benutzerdefinierte Erweiterungen ermöglichen es Ihnen, Ihre Content-Deklarationsdateien entsprechend den Anforderungen Ihres Projekts zu organisieren.
 
 ### Richtlinien für benutzerdefinierte Erweiterungen
 
-Bei der Anpassung von Inhaltsdateierweiterungen sollten Sie die folgenden Richtlinien beachten:
+Beim Anpassen von Content-Dateierweiterungen sollten Sie die folgenden Richtlinien beachten:
 
 - **Einzigartigkeit**: Wählen Sie Erweiterungen, die innerhalb Ihres Projekts einzigartig sind, um Konflikte zu vermeiden.
-- **Konsistente Benennung**: Verwenden Sie konsistente Benennungskonventionen für eine bessere Lesbarkeit und Wartung des Codes.
-- **Vermeidung gängiger Erweiterungen**: Verzichten Sie auf die Verwendung gängiger Erweiterungen wie `.ts` oder `.js`, um Konflikte mit anderen Modulen oder Bibliotheken zu vermeiden.
+- **Konsistente Benennung**: Verwenden Sie konsistente Benennungskonventionen für bessere Lesbarkeit und Wartbarkeit des Codes.
+- **Vermeidung gängiger Erweiterungen**: Vermeiden Sie die Verwendung gängiger Erweiterungen wie `.ts` oder `.js`, um Konflikte mit anderen Modulen oder Bibliotheken zu verhindern.
 
 ## Fazit
 
-Die Anpassung von Inhaltsdateierweiterungen in Intlayer ist eine wertvolle Funktion zur Optimierung der Leistung und Vermeidung von Konflikten in groß angelegten Anwendungen. Durch die Befolgung der in dieser Dokumentation beschriebenen Richtlinien können Sie Ihre Inhaltsdeklarationen effektiv verwalten und eine reibungslose Integration mit anderen Teilen Ihres Projekts sicherstellen.
+Beim Anpassen von Content-Dateierweiterungen in Intlayer handelt es sich um eine wertvolle Funktion zur Optimierung der Leistung und zur Vermeidung von Konflikten in groß angelegten Anwendungen. Wenn Sie die in dieser Dokumentation beschriebenen Richtlinien befolgen, können Sie Ihre Content-Deklarationen effektiv verwalten und eine reibungslose Integration mit anderen Teilen Ihres Projekts sicherstellen.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getMultilingualUrls
 url: https://intlayer.org/doc/packages/intlayer/getMultilingualUrls
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getMultilingualUrls.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: t函数文档 | intlayer
-description: 查看如何使用 intlayer 软件包的 getMultilingualUrls 函数
+title: getMultilingualUrls 函数文档 | intlayer
+description: 查看如何使用 intlayer 包中的 getMultilingualUrls 函数
 keywords:
   - getMultilingualUrls
   - 翻译
@@ -18,11 +18,11 @@ keywords:
   - React
 ---
 
-# 文档: `getMultilingualUrls` 函数在 `intlayer` 中
+# 文档：`intlayer` 中的 `getMultilingualUrls` 函数
 
 ## 描述
 
-`getMultilingualUrls` 函数通过为给定的 URL 添加每个支持的语言环境前缀来生成多语言 URL 的映射。它可以处理绝对和相对 URL，根据提供的配置或默认值应用适当的语言环境前缀。
+`getMultilingualUrls` 函数通过在给定的 URL 前添加每个支持的语言环境前缀来生成多语言 URL 的映射。它可以处理绝对和相对 URL，根据提供的配置或默认值应用适当的语言环境前缀。
 
 ---
 
@@ -30,30 +30,30 @@ keywords:
 
 - `url: string`
 
-  - **描述**: 要添加语言环境前缀的原始 URL 字符串。
-  - **类型**: `string`
+  - **描述**：需要添加语言环境前缀的原始 URL 字符串。
+  - **类型**：`string`
 
 - `locales: Locales[]`
 
-  - **描述**: 可选的支持语言环境数组。默认为项目中配置的语言环境。
-  - **类型**: `Locales[]`
-  - **默认值**: `localesDefault`
+  - **描述**：可选的支持语言环境数组。默认为项目中配置的语言环境。
+  - **类型**：`Locales[]`
+  - **默认值**：`localesDefault`
 
 - `defaultLocale: Locales`
 
-  - **描述**: 应用程序的默认语言环境。默认为项目中配置的默认语言环境。
-  - **类型**: `Locales`
-  - **默认值**: `defaultLocaleDefault`
+  - **描述**：应用的默认语言环境。默认为项目中配置的默认语言环境。
+  - **类型**：`Locales`
+  - **默认值**：`defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **描述**: 是否为默认语言环境添加前缀。默认为项目中配置的值。
-  - **类型**: `boolean`
-  - **默认值**: `prefixDefaultDefault`
+  - **描述**：是否为默认语言环境添加前缀。默认为项目中配置的值。
+  - **类型**：`boolean`
+  - **默认值**：`prefixDefaultDefault`
 
 ### 返回值
 
-- **类型**: `IConfigLocales<string>`
-- **描述**: 一个将每个语言环境映射到其对应的多语言 URL 的对象。
+- **类型**：`IConfigLocales<string>`
+- **描述**：一个对象，将每个语言环境映射到其对应的多语言 URL。
 
 ---
 
@@ -125,27 +125,27 @@ getMultilingualUrls(
 
 ## 边界情况
 
-- **没有语言环境段:**
+- **无语言段：**
 
-  - 函数在生成多语言映射之前，会从 URL 中移除任何现有的语言环境段。
+  - 该函数在生成多语言映射之前，会移除 URL 中任何已存在的语言段。
 
-- **默认语言环境:**
+- **默认语言：**
 
-  - 当 `prefixDefault` 为 `false` 时，函数不会为默认语言环境添加前缀。
+  - 当 `prefixDefault` 为 `false` 时，函数不会为默认语言的 URL 添加前缀。
 
-- **不支持的语言环境:**
-  - 仅考虑 `locales` 数组中提供的语言环境来生成 URL。
+- **不支持的语言：**
+  - 仅考虑 `locales` 数组中提供的语言来生成 URL。
 
 ---
 
-## 在应用程序中的使用
+## 在应用中的使用
 
-在多语言应用程序中，使用 `locales` 和 `defaultLocale` 配置国际化设置对于确保显示正确的语言至关重要。以下是如何在应用程序设置中使用 `getMultilingualUrls` 的示例:
+在多语言应用中，配置国际化设置（包括 `locales` 和 `defaultLocale`）对于确保显示正确的语言至关重要。下面是一个如何在应用设置中使用 `getMultilingualUrls` 的示例：
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// 支持的语言环境和默认语言环境的配置
+// 支持的语言和默认语言的配置
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -160,6 +160,7 @@ export default config;
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
+// 配置支持的语言环境和默认语言环境
 const config = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -174,6 +175,7 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
+// 配置支持的语言环境和默认语言环境
 const config = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -182,11 +184,13 @@ const config = {
 };
 
 module.exports = config;
+
+module.exports = config;
 ```
 
 上述配置确保应用程序识别 `ENGLISH`、`FRENCH` 和 `SPANISH` 作为支持的语言，并使用 `ENGLISH` 作为回退语言。
 
-使用此配置，`getMultilingualUrls` 函数可以根据应用程序支持的语言环境动态生成多语言 URL 映射:
+使用此配置，`getMultilingualUrls` 函数可以根据应用程序支持的语言动态生成多语言 URL 映射：
 
 ```typescript
 getMultilingualUrls(
@@ -194,7 +198,7 @@ getMultilingualUrls(
   [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   Locales.ENGLISH
 );
-// 输出:
+// 输出：
 // {
 //   en: "/dashboard",
 //   fr: "/fr/dashboard",
@@ -207,7 +211,7 @@ getMultilingualUrls(
   Locales.ENGLISH,
   true
 );
-// 输出:
+// 输出：
 // {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard",
@@ -215,4 +219,8 @@ getMultilingualUrls(
 // }
 ```
 
-通过集成 `getMultilingualUrls`，开发人员可以在多种语言中保持一致的 URL 结构，从而增强用户体验和 SEO。
+通过集成 `getMultilingualUrls`，开发者可以在多语言环境中保持一致的 URL 结构，从而提升用户体验和搜索引擎优化（SEO）。
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29: 初始化历史

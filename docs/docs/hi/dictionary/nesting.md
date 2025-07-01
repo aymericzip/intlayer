@@ -2,7 +2,7 @@
 docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
-createdAt: 2025-02-7
+createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: शब्दकोश नेस्टिंग
 description: Intlayer में सामग्री नेस्टिंग का उपयोग करके अपने बहुभाषी सामग्री को कुशलतापूर्वक पुनः उपयोग और संरचित करने का तरीका जानें। इस दस्तावेज़ का पालन करें और नेस्टिंग को अपने प्रोजेक्ट में सहजता से लागू करें।

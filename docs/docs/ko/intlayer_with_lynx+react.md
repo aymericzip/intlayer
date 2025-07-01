@@ -18,7 +18,7 @@ keywords:
 
 # Intlayer와 Lynx 및 React를 사용한 국제화(i18n) 시작하기
 
-[애플리케이션 템플릿](https://github.com/aymericzip/intlayer-lynx-template)를 GitHub에서 보십시오.
+[애플리케이션 템플릿](https://github.com/aymericzip/intlayer-lynx-template)을 GitHub에서 확인하세요.
 
 ## Intlayer란 무엇인가요?
 
@@ -122,7 +122,7 @@ module.exports = config;
 - **지원되는 로케일 목록**을 구성합니다.
 - **기본 로케일**을 설정합니다.
 - 나중에 더 고급 옵션(예: 로그, 사용자 지정 콘텐츠 디렉토리 등)을 추가할 수 있습니다.
-- [Intlayer 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+- 자세한 내용은 [Intlayer 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
 ## 3단계: Lynx 번들러에 Intlayer 플러그인 추가
 
@@ -181,9 +181,9 @@ if (import.meta.webpackHot) {
 - `.content.cjx`
 - 등등.
 
-예시 (Lynx용 TSX 노드를 사용하는 TypeScript):
+예시:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -191,7 +191,6 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      ko: "Lynx에서",
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
@@ -318,38 +317,38 @@ module.exports = appContent;
         "fr": "sur Lynx",
         "es": "en Lynx"
       }
-    },
-    "description": {
+    }
+  },
+  "description": {
+    "nodeType": "translation",
+    "translation": {
+      "ko": "로고를 누르고 즐기세요!",
+      "en": "Tap the logo and have fun!",
+      "fr": "Appuyez sur le logo et amusez-vous!",
+      "es": "¡Toca el logo y diviértete!"
+    }
+  },
+  "hint": [
+    {
       "nodeType": "translation",
       "translation": {
-        "ko": "로고를 누르고 즐기세요!",
-        "en": "Tap the logo and have fun!",
-        "fr": "Appuyez sur le logo et amusez-vous!",
-        "es": "¡Toca el logo y diviértete!"
+        "ko": "편집",
+        "en": "Edit",
+        "fr": "Modifier",
+        "es": "Editar"
       }
     },
-    "hint": [
-      {
-        "nodeType": "translation",
-        "translation": {
-          "ko": "편집",
-          "en": "Edit",
-          "fr": "Modifier",
-          "es": "Editar"
-        }
-      },
-      " src/App.tsx ",
-      {
-        "nodeType": "translation",
-        "translation": {
-          "en": "to see updates!",
-          "fr": "pour voir les mises à jour!",
-          "es": "para ver actualizaciones!",
-          "ko": "업데이트를 확인하세요!"
-        }
+    " src/App.tsx ",
+    {
+      "nodeType": "translation",
+      "translation": {
+        "ko": "업데이트를 확인하세요!",
+        "en": "to see updates!",
+        "fr": "pour voir les mises à jour!",
+        "es": "para ver actualizaciones!"
       }
-    ]
-  }
+    }
+  ]
 }
 ```
 
@@ -374,7 +373,6 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
     // 배경만 변경
     setAlterLogo(!alterLogo);
@@ -423,7 +421,7 @@ export const App = () => {
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 import { type FC } from "react";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales, locale } = useLocale();
@@ -493,8 +491,34 @@ Intlayer에 의해 자동 생성된 파일을 커밋하지 않으려면 `.gitign
 
 ---
 
+### VS Code 확장
+
+Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code 확장**을 설치할 수 있습니다.
+
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+이 확장은 다음 기능을 제공합니다:
+
+- 번역 키에 대한 **자동 완성**.
+- 누락된 번역에 대한 **실시간 오류 감지**.
+- 번역된 콘텐츠의 **인라인 미리보기**.
+- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
+  확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+
+---
+
 ## 더 알아보기
 
 - **시각적 편집기**: [Intlayer 시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 사용하여 번역을 시각적으로 관리하세요.
 - **CMS 통합**: 사전 콘텐츠를 외부화하고 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)에서 가져올 수도 있습니다.
 - **CLI 명령어**: **번역 추출** 또는 **누락된 키 확인**과 같은 작업을 위한 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 탐색하세요.
+
+---
+
+## 문서 이력
+
+- 5.5.10 - 2025-06-29: 초기 이력
+
+```
+
+```

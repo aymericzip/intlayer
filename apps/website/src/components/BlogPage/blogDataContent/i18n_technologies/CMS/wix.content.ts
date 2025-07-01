@@ -5,7 +5,7 @@ import { t, type Dictionary } from 'intlayer';
 const blogContent = {
   key: 'blog-i18n_technologies_CMS_wix-metadata',
   content: {
-    blogName: 'list_i18n_technologies__CMS__wix',
+    docName: 'list_i18n_technologies__CMS__wix',
     url: PagesRoutes['Blog_i18n-technologies__CMS__wix'],
     githubUrl: GithubRoutes['i18n-technologies__CMS__wix'],
     createdAt: '2025-01-16',

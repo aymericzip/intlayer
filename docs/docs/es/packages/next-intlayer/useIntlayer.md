@@ -1,11 +1,11 @@
 ---
 docName: package__next-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentación del hook useIntlayer | next-intlayer
-description: Descubre cómo usar el hook useIntlayer para el paquete next-intlayer
+title: Documentación del Hook useIntlayer | next-intlayer
+description: Vea cómo usar el hook useIntlayer para el paquete next-intlayer
 keywords:
   - useIntlayer
   - diccionario
@@ -24,9 +24,9 @@ El hook `useIntlayer` está diseñado para aplicaciones Next.js para obtener y g
 
 ## Importando `useIntlayer` en Next.js
 
-Dependiendo de si estás trabajando en componentes del lado del cliente o del servidor en una aplicación Next.js, puedes importar el hook `useIntlayer` de la siguiente manera:
+Dependiendo de si estás trabajando en componentes del lado del cliente o del lado del servidor en una aplicación Next.js, puedes importar el hook `useIntlayer` de la siguiente manera:
 
-- **Componente Cliente:**
+- **Componente del Cliente:**
 
   ```typescript codeFormat="typescript"
   import { useIntlayer } from "next-intlayer"; // Usado en componentes del lado del cliente
@@ -40,7 +40,7 @@ Dependiendo de si estás trabajando en componentes del lado del cliente o del se
   const { useIntlayer } = require("next-intlayer"); // Usado en componentes del lado del cliente
   ```
 
-- **Componente Servidor:**
+- **Componente del Servidor:**
 
   ```tsx codeFormat="typescript"
   import { useIntlayer } from "next-intlayer/server"; // Usado en componentes del lado del servidor
@@ -56,18 +56,18 @@ Dependiendo de si estás trabajando en componentes del lado del cliente o del se
 
 ## Parámetros
 
-1. **`key`**: Un identificador de cadena para la clave del diccionario de la que deseas recuperar contenido.
-2. **`locale`** (opcional): Una localización específica a usar. Si se omite, el hook utiliza por defecto la localización establecida en el contexto del cliente o servidor.
+1. **`key`**: Un identificador de cadena para la clave del diccionario desde la cual deseas obtener contenido.
+2. **`locale`** (opcional): Un locale específico para usar. Si se omite, el hook usará por defecto el locale establecido en el contexto del cliente o servidor.
 
 ## Archivos de Diccionario
 
-Es crucial que todas las claves de contenido estén definidas dentro de los archivos de declaración de contenido para evitar errores en tiempo de ejecución y garantizar la seguridad de tipos. Este enfoque también facilita la integración con TypeScript para la validación en tiempo de compilación.
+Es crucial que todas las claves de contenido estén definidas dentro de archivos de declaración de contenido para evitar errores en tiempo de ejecución y garantizar la seguridad de tipos. Este enfoque también facilita la integración con TypeScript para la validación en tiempo de compilación.
 
-Las instrucciones para configurar los archivos de declaración de contenido están disponibles [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
+Las instrucciones para configurar archivos de declaración de contenido están disponibles [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
 
-## Ejemplo de Uso en Next.js
+## Ejemplo de uso en Next.js
 
-Aquí se muestra cómo puedes implementar el hook `useIntlayer` dentro de una página Next.js para cargar dinámicamente contenido localizado basado en la localización actual de la aplicación:
+Aquí se muestra cómo puedes implementar el hook `useIntlayer` dentro de una página de Next.js para cargar dinámicamente contenido localizado según la configuración regional actual de la aplicación:
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -225,6 +225,8 @@ const ServerComponentExample = () => {
     </div>
   );
 };
+  );
+};
 ```
 
 ```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
@@ -242,9 +244,9 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Manejo de Localización de Atributos
+## Manejo de la Localización de Atributos
 
-Para localizar atributos como `alt`, `title`, `href`, `aria-label`, etc., asegúrate de referenciar el contenido correctamente:
+Para localizar atributos como `alt`, `title`, `href`, `aria-label`, etc., asegúrese de referenciar el contenido correctamente:
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
@@ -252,6 +254,10 @@ Para localizar atributos como `alt`, `title`, `href`, `aria-label`, etc., asegú
 
 ## Más Información
 
-- **Editor Visual de Intlayer**: Aprende cómo usar el editor visual para una gestión más sencilla del contenido [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md).
+- **Editor Visual de Intlayer**: Aprende a usar el editor visual para una gestión de contenido más sencilla [aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md).
 
-Esta documentación describe el uso del hook `useIntlayer` específicamente dentro de entornos Next.js, proporcionando una solución robusta para gestionar la localización en tus aplicaciones Next.js.
+Esta documentación describe el uso del hook `useIntlayer` específicamente en entornos Next.js, proporcionando una solución robusta para gestionar la localización en tus aplicaciones Next.js.
+
+## Historial de la Documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

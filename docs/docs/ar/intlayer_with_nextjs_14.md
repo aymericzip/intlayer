@@ -228,6 +228,7 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 );
 ```
 
+```typescript fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
@@ -242,7 +243,7 @@ const LocaleLayout = ({ children, params: { locale } }) => (
 
 export default LocaleLayout;
 
-````
+```
 
 ```jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
 const { Inter } = require("next/font/google");
@@ -257,7 +258,7 @@ const LocaleLayout = ({ children, params: { locale } }) => (
 );
 
 module.exports = LocaleLayout;
-````
+```
 
 > يتم استخدام جزء المسار `[locale]` لتحديد اللغة المحلية. على سبيل المثال: `/ar/about` يشير إلى `ar` و `/fr/about` يشير إلى `fr`.
 

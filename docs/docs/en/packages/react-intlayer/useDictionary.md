@@ -1,3 +1,22 @@
+---
+docName: package__react-intlayer__useDictionary
+url: https://intlayer.org/doc/package/react-intlayer/useDictionary
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useDictionary.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: useDictionary Hook - React Intlayer Documentation
+description: Complete guide for using the useDictionary hook in React applications with Intlayer for efficient handling of localized content without visual editor.
+keywords:
+  - useDictionary
+  - React
+  - hook
+  - intlayer
+  - localization
+  - i18n
+  - dictionary
+  - translation
+---
+
 # React Integration: `useDictionary` Hook Documentation
 
 This section provides detailed guidance on using the `useDictionary` hook within React applications, enabling efficient handling of localized content without a visual editor.

@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getHTMLTextDir
 url: https://intlayer.org/doc/packages/intlayer/getHTMLTextDir
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getHTMLTextDir.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getHTMLTextDir 함수 문서 | intlayer
-description: intlayer 패키지의 getHTMLTextDir 함수 사용 방법을 확인하세요
+description: intlayer 패키지의 getHTMLTextDir 함수 사용법을 확인하세요
 keywords:
   - getHTMLTextDir
   - 번역
@@ -18,28 +18,28 @@ keywords:
   - React
 ---
 
-# Documentation: `getHTMLTextDir` 함수 in `intlayer`
+# 문서: `intlayer`의 `getHTMLTextDir` 함수
 
 ## 설명
 
-`getHTMLTextDir` 함수는 제공된 로케일에 따라 텍스트 방향(`ltr`, `rtl`, 또는 `auto`)을 결정합니다. 이 함수는 개발자가 HTML에서 텍스트 렌더링을 위해 `dir` 속성을 설정할 수 있도록 설계되었습니다.
+`getHTMLTextDir` 함수는 제공된 로케일을 기반으로 텍스트 방향(`ltr`, `rtl`, 또는 `auto`)을 결정합니다. 이 함수는 개발자가 올바른 텍스트 렌더링을 위해 HTML의 `dir` 속성을 설정하는 데 도움을 주도록 설계되었습니다.
 
 ## 매개변수
 
 - `locale?: Locales`
 
-  - **설명**: 텍스트 방향을 결정하기 위해 사용되는 로케일 문자열 (예: `Locales.ENGLISH`, `Locales.ARABIC`).
-  - **유형**: `Locales` (선택 사항)
+  - **설명**: 텍스트 방향을 결정하는 데 사용되는 로케일 문자열(예: `Locales.ENGLISH`, `Locales.ARABIC`).
+  - **타입**: `Locales` (선택 사항)
 
 ## 반환값
 
-- **유형**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
+- **타입**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
 - **설명**: 로케일에 해당하는 텍스트 방향:
-  - `'ltr'`: 왼쪽에서 오른쪽으로 쓰는 언어.
-  - `'rtl'`: 오른쪽에서 왼쪽으로 쓰는 언어.
-  - `'auto'`: 로케일이 인식되지 않을 경우.
+  - 왼쪽에서 오른쪽으로 읽는 언어는 `'ltr'`.
+  - 오른쪽에서 왼쪽으로 읽는 언어는 `'rtl'`.
+  - 인식되지 않는 로케일의 경우 `'auto'`.
 
-## 사용 예제
+## 사용 예시
 
 ### 텍스트 방향 결정
 
@@ -67,18 +67,18 @@ getHTMLTextDir(Locales.FRENCH); // 출력: "ltr"
 getHTMLTextDir(Locales.ARABIC); // 출력: "rtl"
 ```
 
-## 엣지 케이스
+## 예외 상황
 
 - **로케일이 제공되지 않은 경우:**
 
   - `locale`이 `undefined`일 때 함수는 `'auto'`를 반환합니다.
 
 - **인식되지 않는 로케일:**
-  - 인식되지 않는 로케일의 경우 함수는 기본값으로 `'auto'`를 반환합니다.
+  - 인식되지 않는 로케일의 경우, 함수는 기본값으로 `'auto'`를 반환합니다.
 
-## 컴포넌트에서의 사용:
+## 컴포넌트에서의 사용법:
 
-`getHTMLTextDir` 함수는 로케일에 따라 HTML 문서에서 텍스트 렌더링을 위해 `dir` 속성을 동적으로 설정하는 데 사용할 수 있습니다.
+`getHTMLTextDir` 함수는 로케일에 따라 올바른 텍스트 렌더링을 위해 HTML 문서의 `dir` 속성을 동적으로 설정하는 데 사용할 수 있습니다.
 
 ```tsx codeFormat="typescript"
 import type { FC } from "react";
@@ -115,3 +115,7 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 위 예제에서 `dir` 속성은 로케일에 따라 동적으로 설정됩니다.
+
+## 문서 이력
+
+- 5.5.10 - 2025-06-29: 초기 이력

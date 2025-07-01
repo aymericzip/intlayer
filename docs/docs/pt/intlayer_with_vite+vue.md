@@ -1,11 +1,11 @@
 ---
 docName: intlayer_with_vite_vue
 url: https://intlayer.org/doc/environment/vite-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+vue.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Traduza o seu site Vite e Vue (i18n)
-description: Descubra como tornar seu site com Vite e Vue multilíngue. Siga a documentação para internacionalizá-lo (i18n) e traduzi-lo.
+title: Traduza seu site Vite e Vue (i18n)
+description: Descubra como tornar seu site Vite e Vue multilíngue. Siga a documentação para internacionalizar (i18n) e traduzir.
 keywords:
   - Internacionalização
   - Documentação
@@ -15,21 +15,19 @@ keywords:
   - JavaScript
 ---
 
-# Começando com a Internacionalização (i18n) com Intlayer, Vite e Vue
+# Começando a Internacionalizar (i18n) com Intlayer, Vite e Vue
 
-> Este pacote está em desenvolvimento. Veja o [problema](https://github.com/aymericzip/intlayer/issues/113) para mais informações. Mostre seu interesse no Intlayer para Vue curtindo o problema.
+Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-vue-template) no GitHub.
 
-<!-- Veja [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vue-template) no GitHub. -->
+## O que é Intlayer?
 
-## O que é o Intlayer?
-
-**Intlayer** é uma biblioteca de internacionalização (i18n) inovadora e de código aberto, projetada para simplificar o suporte multilíngue em aplicações web modernas.
+**Intlayer** é uma biblioteca inovadora e de código aberto para internacionalização (i18n) projetada para simplificar o suporte multilíngue em aplicações web modernas.
 
 Com o Intlayer, você pode:
 
 - **Gerenciar traduções facilmente** usando dicionários declarativos no nível do componente.
 - **Localizar dinamicamente metadados**, rotas e conteúdo.
-- **Garantir suporte ao TypeScript** com tipos autogerados, melhorando a autocompletação e a detecção de erros.
+- **Garantir suporte ao TypeScript** com tipos gerados automaticamente, melhorando o autocompletar e a detecção de erros.
 - **Aproveitar recursos avançados**, como detecção e troca dinâmica de localidade.
 
 ---
@@ -57,13 +55,13 @@ yarn add --save-dev vite-intlayer
 
 - **intlayer**
 
-  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md), transpilação e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md).
+  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md), transpiração e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md).
 
 - **vue-intlayer**
-  O pacote que integra o Intlayer com a aplicação Vue. Ele fornece provedores de contexto e composables para internacionalização no Vue.
+  O pacote que integra o Intlayer com a aplicação Vue. Ele fornece provedores de contexto e composables para internacionalização em Vue.
 
 - **vite-intlayer**
-  Inclui o plugin Vite para integrar o Intlayer com o [empacotador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), bem como middleware para detectar a localidade preferida do usuário, gerenciar cookies e lidar com redirecionamento de URLs.
+  Inclui o plugin Vite para integrar o Intlayer com o [empacotador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), assim como middleware para detectar o idioma preferido do usuário, gerenciar cookies e lidar com redirecionamento de URL.
 
 ### Passo 2: Configuração do seu projeto
 
@@ -91,6 +89,7 @@ export default config;
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
+// Configuração para internacionalização
 const config = {
   internationalization: {
     locales: [
@@ -110,6 +109,7 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
+// Configuração para internacionalização
 const config = {
   internationalization: {
     locales: [
@@ -125,9 +125,9 @@ const config = {
 module.exports = config;
 ```
 
-> Através deste arquivo de configuração, você pode configurar URLs localizados, redirecionamento de middleware, nomes de cookies, a localização e extensão de suas declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
+> Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desabilitar logs do Intlayer no console, e muito mais. Para uma lista completa dos parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
-### Passo 3: Integrar o Intlayer na Configuração do Vite
+### Passo 3: Integre o Intlayer na Sua Configuração do Vite
 
 Adicione o plugin intlayer na sua configuração.
 
@@ -164,9 +164,9 @@ module.exports = defineConfig({
 });
 ```
 
-> O plugin `intlayerPlugin()` do Vite é usado para integrar o Intlayer com o Vite. Ele garante a construção de arquivos de declaração de conteúdo e os monitora no modo de desenvolvimento. Ele define variáveis de ambiente do Intlayer dentro da aplicação Vite. Além disso, fornece aliases para otimizar o desempenho.
+> O plugin Vite `intlayerPlugin()` é usado para integrar o Intlayer com o Vite. Ele garante a construção dos arquivos de declaração de conteúdo e os monitora no modo de desenvolvimento. Define variáveis de ambiente do Intlayer dentro da aplicação Vite. Além disso, fornece aliases para otimizar o desempenho.
 
-### Passo 4: Declarar Seu Conteúdo
+### Passo 4: Declare Seu Conteúdo
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
@@ -176,47 +176,33 @@ import { t, type Dictionary } from "intlayer";
 const helloWorldContent = {
   key: "helloworld",
   content: {
-    count: t({
-      pt: "a contagem é ",
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
+    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
     edit: t({
-      pt: "Edite <code>components/HelloWorld.vue</code> e salve para testar o HMR",
       en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+      fr: "Éditez <code>components/HelloWorld.vue</code> e salve para testar HMR",
       es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
     }),
-    checkOut: t({
-      pt: "Confira ",
-      en: "Check out ",
-      fr: "Vérifiez ",
-      es: "Compruebe ",
-    }),
+    checkOut: t({ en: "Confira ", fr: "Vérifiez ", es: "Compruebe " }),
     officialStarter: t({
-      pt: ", o starter oficial Vue + Vite",
-      en: ", the official Vue + Vite starter",
+      en: ", o starter oficial Vue + Vite",
       fr: ", le starter officiel Vue + Vite",
       es: ", el starter oficial Vue + Vite",
     }),
     learnMore: t({
-      pt: "Saiba mais sobre o suporte IDE para Vue no ",
-      en: "Learn more about IDE Support for Vue in the ",
+      en: "Saiba mais sobre o Suporte IDE para Vue em ",
       fr: "En savoir plus sur le support IDE pour Vue dans le ",
       es: "Aprenda más sobre el soporte IDE para Vue en el ",
     }),
     vueDocs: t({
-      pt: "Guia de Escalabilidade dos Documentos Vue",
-      en: "Vue Docs Scaling up Guide",
+      en: "Guia de Escalonamento da Documentação Vue",
       fr: "Vue Docs Scaling up Guide",
       es: "Vue Docs Scaling up Guide",
     }),
     readTheDocs: t({
-      pt: "Clique nos logotipos do Vite e Vue para saber mais",
       en: "Click on the Vite and Vue logos to learn more",
       fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+      pt: "Clique nos logos do Vite e Vue para saber mais",
     }),
   },
 } satisfies Dictionary;
@@ -231,47 +217,39 @@ import { t } from "intlayer";
 const helloWorldContent = {
   key: "helloworld",
   content: {
-    count: t({
-      pt: "a contagem é ",
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
+    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es ", pt: "a contagem é " }),
     edit: t({
-      pt: "Edite <code>components/HelloWorld.vue</code> e salve para testar o HMR",
       en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
       fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
       es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+      pt: "Edite <code>components/HelloWorld.vue</code> e salve para testar HMR",
     }),
-    checkOut: t({
-      pt: "Confira ",
-      en: "Check out ",
-      fr: "Vérifiez ",
-      es: "Compruebe ",
+      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
     }),
+    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe ", pt: "Confira " }),
     officialStarter: t({
-      pt: "o starter oficial Vue + Vite",
       en: "the official Vue + Vite starter",
       fr: "le starter officiel Vue + Vite",
       es: "el starter oficial Vue + Vite",
+      pt: "o starter oficial Vue + Vite",
     }),
     learnMore: t({
-      pt: "Saiba mais sobre o suporte IDE para Vue no ",
       en: "Learn more about IDE Support for Vue in the ",
       fr: "En savoir plus sur le support IDE pour Vue dans le ",
       es: "Aprenda más sobre el soporte IDE para Vue en el ",
+      pt: "Saiba mais sobre o Suporte IDE para Vue em ",
     }),
     vueDocs: t({
-      pt: "Guia de Escalabilidade dos Documentos Vue",
       en: "Vue Docs Scaling up Guide",
       fr: "Vue Docs Scaling up Guide",
       es: "Vue Docs Scaling up Guide",
+      pt: "Guia de Escalonamento da Documentação Vue",
     }),
     readTheDocs: t({
-      pt: "Clique nos logotipos do Vite e Vue para saber mais",
       en: "Click on the Vite and Vue logos to learn more",
       fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+      pt: "Clique nos logotipos do Vite e Vue para saber mais",
     }),
   },
 };
@@ -282,27 +260,18 @@ export default helloWorldContent;
 ```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
 
-/* @type {import('intlayer').Dictionary} */ const appContent = {
+/** @type {import('intlayer').Dictionary} */
+const appContent = {
   key: "helloworld",
   content: {
-    count: t({
-      pt: "o contador é ",
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
+    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es ", pt: "a contagem é " }),
     edit: t({
-      pt: "Edite <code>components/HelloWorld.vue</code> e salve para testar o HMR",
       en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
       fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
       es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+      pt: "Edite <code>components/HelloWorld.vue</code> e salve para testar HMR",
     }),
-    checkOut: t({
-      pt: "Confira ",
-      en: "Check out ",
-      fr: "Vérifiez ",
-      es: "Compruebe ",
-    }),
+    checkOut: t({ pt: "Confira ", en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
     officialStarter: t({
       pt: "o starter oficial Vue + Vite",
       en: "the official Vue + Vite starter",
@@ -310,13 +279,13 @@ const { t } = require("intlayer");
       es: "el starter oficial Vue + Vite",
     }),
     learnMore: t({
-      pt: "Saiba mais sobre o suporte IDE para Vue no ",
+      pt: "Saiba mais sobre o Suporte IDE para Vue em ",
       en: "Learn more about IDE Support for Vue in the ",
       fr: "En savoir plus sur le support IDE pour Vue dans le ",
       es: "Aprenda más sobre el soporte IDE para Vue en el ",
     }),
     vueDocs: t({
-      pt: "Guia de Escalabilidade do Vue Docs",
+      pt: "Guia de Escalonamento da Documentação Vue",
       en: "Vue Docs Scaling up Guide",
       fr: "Vue Docs Scaling up Guide",
       es: "Vue Docs Scaling up Guide",
@@ -325,9 +294,10 @@ const { t } = require("intlayer");
       pt: "Clique nos logos do Vite e Vue para saber mais",
       en: "Click on the Vite and Vue logos to learn more",
       fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-    }),
-  },
+/      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
+    pt: "Clique nos logotipos do Vite e Vue para saber mais",
+  }),
+},
 };
 
 module.exports = appContent;
@@ -341,18 +311,21 @@ module.exports = appContent;
     "count": {
       "nodeType": "translation",
       "translation": {
-        "pt": "o contador é ",
         "en": "count is ",
         "fr": "le compte est ",
-        "es": "el recuento es "
+        "es": "el recuento es ",
+        "pt": "a contagem é "
       }
     },
     "edit": {
       "nodeType": "translation",
       "translation": {
-        "pt": "Edite <code>components/HelloWorld.vue</code> e salve para testar o HMR",
         "en": "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
         "fr": "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
+        "es": "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
+        "pt": "Edite <code>components/HelloWorld.vue</code> e salve para testar HMR"
+      }
+    },
         "es": "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR"
       }
     },
@@ -377,7 +350,7 @@ module.exports = appContent;
     "learnMore": {
       "nodeType": "translation",
       "translation": {
-        "pt": "Saiba mais sobre o suporte IDE para Vue no ",
+        "pt": "Saiba mais sobre o Suporte IDE para Vue em ",
         "en": "Learn more about IDE Support for Vue in the ",
         "fr": "En savoir plus sur le support IDE pour Vue dans le ",
         "es": "Aprenda más sobre el soporte IDE para Vue en el "
@@ -386,32 +359,32 @@ module.exports = appContent;
     "vueDocs": {
       "nodeType": "translation",
       "translation": {
-        "pt": "Guia de Escalabilidade do Vue Docs",
         "en": "Vue Docs Scaling up Guide",
         "fr": "Vue Docs Scaling up Guide",
-        "es": "Vue Docs Scaling up Guide"
+        "es": "Vue Docs Scaling up Guide",
+        "pt": "Guia de Escalonamento da Documentação do Vue"
       }
     },
     "readTheDocs": {
       "nodeType": "translation",
       "translation": {
-        "pt": "Clique nos logos do Vite e Vue para saber mais",
         "en": "Click on the Vite and Vue logos to learn more",
         "fr": "Cliquez sur les logos Vite et Vue pour en savoir plus",
-        "es": "Haga clic en los logotipos de Vite y Vue para obtener más información"
+        "es": "Haga clic en los logotipos de Vite y Vue para obtener más información",
+        "pt": "Clique nos logotipos do Vite e Vue para saber mais"
       }
     }
   }
 }
 ```
 
-> Suas declarações de conteúdo podem ser definidas em qualquer lugar em sua aplicação, desde que estejam incluídas no diretório `contentDir` (por padrão, `./src`). E correspondam à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Suas declarações de conteúdo podem ser definidas em qualquer lugar da sua aplicação, desde que estejam incluídas no diretório `contentDir` (por padrão, `./src`). E correspondam à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
 > Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
 
 ### Passo 5: Utilize o Intlayer no Seu Código
 
-Para utilizar os recursos de internacionalização do Intlayer em toda a sua aplicação Vue, primeiro você precisa registrar a instância singleton do Intlayer no seu arquivo principal. Este passo é crucial, pois fornece o contexto de internacionalização para todos os componentes da sua aplicação, tornando as traduções acessíveis em qualquer lugar na árvore de componentes.
+Para utilizar os recursos de internacionalização do Intlayer em toda a sua aplicação Vue, você primeiro precisa registrar a instância singleton do Intlayer no seu arquivo principal. Esta etapa é crucial, pois fornece o contexto de internacionalização para todos os componentes da sua aplicação, tornando as traduções acessíveis em qualquer lugar da sua árvore de componentes.
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
@@ -421,14 +394,14 @@ import "./style.css";
 
 const app = createApp(App);
 
-// Injete o provedor no nível superior
+// Injeta o provedor no nível superior
 installIntlayer(app);
 
-// Monte o aplicativo
+// Monta a aplicação
 app.mount("#app");
 ```
 
-Acesse seus dicionários de conteúdo em toda a aplicação criando um componente Vue principal e utilizando os composables `useIntlayer`:
+Acesse seus dicionários de conteúdo em toda a sua aplicação criando um componente Vue principal e utilizando os composables `useIntlayer`:
 
 ```vue fileName="src/HelloWord.vue"
 <script setup lang="ts">
@@ -439,59 +412,71 @@ defineProps({
   msg: String,
 });
 
-const content = useIntlayer("helloworld");
-const count = ref(0);
+const {
+  count,
+  edit,
+  checkOut,
+  officialStarter,
+  learnMore,
+  vueDocs,
+  readTheDocs,
+} = useIntlayer("helloworld");
+const countRef = ref(0);
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="count++">
-      {{ content.count }}{{ count }}
+    <button type="button" @click="countRef++">
+      <count />
+      {{ countRef }}
     </button>
-    <p v-html="content.edit.value"></p>
+    <p v-html="edit"></p>
   </div>
 
   <p>
-    {{ content.checkOut }}
+    <checkOut />
     <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
       >create-vue</a
-    >, {{ content.officialStarter }}
+    >, <officialStarter />
   </p>
   <p>
-    {{ content.learnMore }}
+    <learnMore />
     <a
       href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
       target="_blank"
-      >{{ content.vueDocs }}</a
+      ><vueDocs /></a
     >.
   </p>
-  <p class="read-the-docs">{{ content.readTheDocs }}</p>
+  <p class="read-the-docs"><readTheDocs /></p>
+  <p class="read-the-docs">{{ readTheDocs }}</p>
 </template>
 ```
 
-#### Acessando o Conteúdo no Intlayer O Intlayer oferece diferentes APIs para
+#### Acessando Conteúdo no Intlayer
 
-acessar seu conteúdo:
+O Intlayer oferece diferentes APIs para acessar seu conteúdo:
 
-- **Sintaxe baseada em componentes** (recomendado): Use a
-  sintaxe `<meuConteudo />`, ou `<Component :is="meuConteudo" />` para renderizar o conteúdo como um Nó do Intlayer. Isso se integra
-  perfeitamente com o [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) e o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
-- **Sintaxe baseada em strings**: Use `{{ meuConteudo }}` para renderizar o
-  conteúdo como texto simples, sem suporte do Editor Visual. - **Sintaxe de HTML
-  bruto**: Use `<div v-html="meuConteudo" />` para renderizar o conteúdo como HTML bruto, sem suporte do Editor Visual.
-- **Sintaxe de desestruturação**: O composable `useIntlayer` retorna um Proxy com
-  o conteúdo. Este proxy pode ser desestruturado para acessar o conteúdo, mantendo
-  a reatividade. - Use `const content = useIntlayer("meuConteudo");` e `{{ content.meuConteudo }}` / `<content.meuConteudo />`.
-- Ou use `const { meuConteudo } = useIntlayer("meuConteudo");` e `{{ meuConteudo }}` / `<meuConteudo />` para desestruturar o conteúdo.
+- **Sintaxe baseada em componentes** (recomendada):
+  Use a sintaxe `<myContent />` ou `<Component :is="myContent" />` para renderizar o conteúdo como um Nó do Intlayer. Isso integra-se perfeitamente com o [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) e o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+
+- **Sintaxe baseada em string**:
+  Use `{{ myContent }}` para renderizar o conteúdo como texto simples, sem suporte ao Editor Visual.
+
+- **Sintaxe HTML bruta**:
+  Use `<div v-html="myContent" />` para renderizar o conteúdo como HTML bruto, sem suporte ao Editor Visual.
+
+- **Sintaxe de desestruturação**:
+  O composable `useIntlayer` retorna um Proxy com o conteúdo. Esse proxy pode ser desestruturado para acessar o conteúdo mantendo a reatividade.
+  - Use `const content = useIntlayer("myContent");` e `{{ content.myContent }}` / `<content.myContent />`.
+  - Ou use `const { myContent } = useIntlayer("myContent");` e `{{ myContent }}` / `<myContent/>` para desestruturar o conteúdo.
 
 ### (Opcional) Passo 6: Alterar o idioma do seu conteúdo
 
-Para alterar o idioma do seu conteúdo, você pode usar a função
-`setLocale` fornecida pelo composable `useLocale`. Esta função permite que você
-defina a localidade do aplicativo e atualize o conteúdo de acordo. Crie um
-componente para alternar entre idiomas:
+Para alterar o idioma do seu conteúdo, você pode usar a função `setLocale` fornecida pelo composable `useLocale`. Essa função permite definir o locale da aplicação e atualizar o conteúdo de acordo.
+
+Crie um componente para alternar entre idiomas:
 
 ```vue fileName="src/components/LocaleSwitcher.vue"
 <template>
@@ -509,16 +494,16 @@ import { ref, watch } from "vue";
 import { getLocaleName } from "intlayer";
 import { useLocale } from "vue-intlayer";
 
-// Obtenha informações de localidade e a função setLocale
+// Obter informações de localidade e função setLocale
 const { locale, availableLocales, setLocale } = useLocale();
 
-// Acompanhe a localidade selecionada com um ref
+// Rastrear a localidade selecionada com um ref
 const selectedLocale = ref(locale.value);
 
-// Atualize a localidade quando a seleção mudar
+// Atualizar a localidade quando a seleção mudar
 const changeLocale = () => setLocale(selectedLocale.value);
 
-// Mantenha o selectedLocale sincronizado com a localidade global
+// Manter selectedLocale sincronizado com o locale global
 watch(
   () => locale.value,
   (newLocale) => {
@@ -528,7 +513,7 @@ watch(
 </script>
 ```
 
-Em seguida, use este componente no seu App.vue:
+Então, use este componente no seu App.vue:
 
 ```vue fileName="src/App.vue"
 <script setup lang="ts">
@@ -537,7 +522,7 @@ import HelloWorld from "@components/HelloWorld.vue";
 import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 import { ref, watch } from "vue";
 
-const content = useIntlayer("app"); // Crie o arquivo de declaração intlayer relacionado
+const content = useIntlayer("app"); // Criar arquivo de declaração intlayer relacionado
 </script>
 
 <template>
@@ -554,15 +539,15 @@ const content = useIntlayer("app"); // Crie o arquivo de declaração intlayer r
 </template>
 ```
 
-### (Opcional) Passo 7: Adicione Roteamento Localizado à sua Aplicação
+### (Opcional) Passo 7: Adicione roteamento localizado à sua aplicação
 
-Adicionar roteamento localizado em uma aplicação Vue geralmente envolve o uso do Vue Router com prefixos de localidade. Isso cria rotas únicas para cada idioma, o que é útil para SEO e URLs amigáveis para SEO.
+Adicionar roteamento localizado em uma aplicação Vue normalmente envolve o uso do Vue Router com prefixos de localidade. Isso cria rotas únicas para cada idioma, o que é útil para SEO e URLs amigáveis para SEO.
 
 Exemplo:
 
 ```plaintext
 - https://example.com/about
-- https://example.com/pt/about
+- https://example.com/es/about
 - https://example.com/fr/about
 ```
 
@@ -580,7 +565,7 @@ pnpm add intlayer vue-router
 yarn add intlayer vue-router
 ```
 
-Em seguida, crie uma configuração de roteador que lide com rotas baseadas em localidade:
+Então, crie uma configuração de roteador que lide com o roteamento baseado em localidade:
 
 ```js fileName="src/router/index.ts"
 import {
@@ -594,12 +579,12 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
 
-// Obter configuração de internacionalização
+// Obter a configuração de internacionalização
 const { internationalization, middleware } = configuration;
 const { defaultLocale } = internationalization;
 
 /**
- * Declarar as rotas com caminhos e metadados específicos de localidade.
+ * Declarar as rotas com caminhos e metadados específicos para cada localidade.
  */
 const routes = localeFlatMap((localizedData) => [
   {
@@ -626,19 +611,19 @@ export const router = createRouter({
   routes,
 });
 
-// Adicionar guarda de navegação para lidar com a localidade
+// Adicionar guarda de navegação para tratamento de localidade
 router.beforeEach((to, _from, next) => {
   const client = createIntlayerClient();
 
   const metaLocale = to.meta.locale as Locales | undefined;
 
   if (metaLocale) {
-    // Reutilizar a localidade definida nos metadados da rota
+    // Reutilizar a localidade definida no meta da rota
     client.setLocale(metaLocale);
     next();
   } else {
-    // Alternativa: sem localidade nos metadados, possivelmente rota não correspondida
-    // Opcional: lidar com 404 ou redirecionar para a localidade padrão
+    // Fallback: sem localidade no meta, possivelmente rota não encontrada
+    // Opcional: tratar 404 ou redirecionar para o locale padrão
     client.setLocale(defaultLocale);
 
     if (middleware.prefixDefault) {
@@ -650,7 +635,7 @@ router.beforeEach((to, _from, next) => {
 });
 ```
 
-> O nome é usado para identificar a rota no roteador. Ele deve ser único em todas as rotas para evitar conflitos e garantir navegação e vinculação adequadas.
+> O nome é usado para identificar a rota no roteador. Deve ser único entre todas as rotas para evitar conflitos e garantir a navegação e o link corretos.
 
 Em seguida, registre o roteador no seu arquivo main.js:
 
@@ -662,10 +647,10 @@ import "./style.css";
 
 const app = createApp(App);
 
-// Adicionar o roteador ao aplicativo
+// Adicione o roteador ao app
 app.use(router);
 
-// Montar o aplicativo
+// Monte o app
 app.mount("#app");
 ```
 
@@ -684,7 +669,7 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </template>
 ```
 
-Paralelamente, você também pode usar o `intLayerMiddlewarePlugin` para adicionar roteamento no lado do servidor à sua aplicação. Este plugin detectará automaticamente a localidade atual com base na URL e definirá o cookie de localidade apropriado. Se nenhuma localidade for especificada, o plugin determinará a localidade mais apropriada com base nas preferências de idioma do navegador do usuário. Se nenhuma localidade for detectada, ele redirecionará para a localidade padrão.
+Paralelamente, você também pode usar o `intLayerMiddlewarePlugin` para adicionar roteamento no lado do servidor à sua aplicação. Este plugin detectará automaticamente o idioma atual com base na URL e definirá o cookie de idioma apropriado. Se nenhum idioma for especificado, o plugin determinará o idioma mais adequado com base nas preferências de idioma do navegador do usuário. Se nenhum idioma for detectado, ele redirecionará para o idioma padrão.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -717,9 +702,17 @@ const { intlayerPlugin, intLayerMiddlewarePlugin } = require("vite-intlayer");
 module.exports = defineConfig({
   plugins: [vue(), intlayerPlugin(), intLayerMiddlewarePlugin()],
 });
+const { defineConfig } = require("vite");
+const vue = require("@vitejs/plugin-vue");
+const { intlayerPlugin, intLayerMiddlewarePlugin } = require("vite-intlayer");
+
+// https://vitejs.dev/config/
+module.exports = defineConfig({
+  plugins: [vue(), intlayerPlugin(), intLayerMiddlewarePlugin()],
+});
 ```
 
-### (Opcional) Passo 8: Alterar a URL quando a localidade mudar
+### (Opcional) Passo 8: Alterar a URL quando o idioma mudar
 
 Para atualizar automaticamente a URL quando o usuário mudar o idioma, você pode modificar o componente `LocaleSwitcher` para usar o Vue Router:
 
@@ -735,35 +728,39 @@ Para atualizar automaticamente a URL quando o usuário mudar o idioma, você pod
 </template>
 
 <script setup lang="ts">
+// Importa ref e watch do Vue
 import { ref, watch } from "vue";
+// Importa useRouter do Vue Router
 import { useRouter } from "vue-router";
+// Importa Locales, getLocaleName e getLocalizedUrl do intlayer
 import { Locales, getLocaleName, getLocalizedUrl } from "intlayer";
+// Importa useLocale do vue-intlayer
 import { useLocale } from "vue-intlayer";
 
-// Obter Vue Router
+// Obtém o Vue Router
 const router = useRouter();
 
-// Obter informações de localidade e função setLocale
+// Obtém informações de locale e a função setLocale
 const { locale, availableLocales, setLocale } = useLocale({
   onLocaleChange: (newLocale) => {
-    // Obter rota atual e criar uma URL localizada
+    // Obtém a rota atual e cria uma URL localizada
     const currentPath = router.currentRoute.value.fullPath;
     const localizedPath = getLocalizedUrl(currentPath, newLocale);
 
-    // Navegar para a rota localizada sem recarregar a página
+    // Navega para a rota localizada sem recarregar a página
     router.push(localizedPath);
   },
 });
 
-// Acompanhar a localidade selecionada com um ref
+// Acompanha o locale selecionado com um ref
 const selectedLocale = ref(locale.value);
 
-// Atualizar a localidade quando a seleção mudar
+// Atualize o locale quando a seleção mudar
 const changeLocale = () => {
   setLocale(selectedLocale.value);
 };
 
-// Manter o selectedLocale sincronizado com a localidade global
+// Mantenha o selectedLocale sincronizado com o locale global
 watch(
   () => locale.value,
   (newLocale) => {
@@ -773,7 +770,7 @@ watch(
 </script>
 ```
 
-Dica: Para melhor SEO e acessibilidade, use tags como `<a href="/fr/home" hreflang="fr">` para vincular a páginas localizadas, conforme mostrado no Passo 10. Isso permite que os mecanismos de busca descubram e indexem URLs específicas de idioma corretamente. Para preservar o comportamento SPA, você pode evitar a navegação padrão com @click.prevent, alterar a localidade usando useLocale e navegar programaticamente usando o Vue Router.
+Dica: Para melhor SEO e acessibilidade, use tags como `<a href="/fr/home" hreflang="fr">` para vincular às páginas localizadas, como mostrado no Passo 10. Isso permite que os motores de busca descubram e indexem corretamente URLs específicas de idioma. Para preservar o comportamento SPA, você pode impedir a navegação padrão com @click.prevent, alterar o locale usando useLocale e navegar programaticamente usando o Vue Router.
 
 ```html
 <ol class="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
@@ -783,10 +780,11 @@ Dica: Para melhor SEO e acessibilidade, use tags como `<a href="/fr/home" hrefla
       aria-label="Mudar para Inglês"
       target="_self"
       aria-current="page"
-      href="/pt/doc/get-started"
+      href="/doc/get-started"
     >
       <div>
-        <div><span dir="ltr" lang="en">English</span><span>Inglês</span></div>
+        <span dir="ltr" lang="en">English</span>
+        <span>Inglês</span>
         <span>EN</span>
       </div>
     </a>
@@ -799,7 +797,8 @@ Dica: Para melhor SEO e acessibilidade, use tags como `<a href="/fr/home" hrefla
       href="/es/doc/get-started"
     >
       <div>
-        <span dir="ltr" lang="es">Español</span><span>Espanhol</span>
+        <span dir="ltr" lang="es">Español</span>
+        <span>Espanhol</span>
         <span>ES</span>
       </div>
     </a>
@@ -807,15 +806,15 @@ Dica: Para melhor SEO e acessibilidade, use tags como `<a href="/fr/home" hrefla
 </ol>
 ```
 
-### (Opcional) Passo 9: Alterar os Atributos de Idioma e Direção do HTML
+### (Opcional) Passo 9: Alterar os atributos de idioma e direção do HTML
 
-Quando sua aplicação suporta vários idiomas, é crucial atualizar os atributos `lang` e `dir` da tag `<html>` para corresponder à localidade atual. Fazer isso garante:
+Quando sua aplicação suporta múltiplos idiomas, é crucial atualizar os atributos `lang` e `dir` da tag `<html>` para corresponder ao locale atual. Fazer isso garante:
 
 - **Acessibilidade**: Leitores de tela e tecnologias assistivas dependem do atributo `lang` correto para pronunciar e interpretar o conteúdo com precisão.
-- **Renderização de Texto**: O atributo `dir` (direção) garante que o texto seja renderizado na ordem correta (por exemplo, da esquerda para a direita para inglês, da direita para a esquerda para árabe ou hebraico), o que é essencial para a legibilidade.
-- **SEO**: Os mecanismos de busca usam o atributo `lang` para determinar o idioma da sua página, ajudando a fornecer o conteúdo localizado correto nos resultados de busca.
+- **Renderização de Texto**: O atributo `dir` (direção) garante que o texto seja exibido na ordem correta (por exemplo, da esquerda para a direita para inglês, da direita para a esquerda para árabe ou hebraico), o que é essencial para a legibilidade.
+- **SEO**: Motores de busca usam o atributo `lang` para determinar o idioma da sua página, ajudando a exibir o conteúdo localizado correto nos resultados de pesquisa.
 
-Ao atualizar esses atributos dinamicamente quando a localidade muda, você garante uma experiência consistente e acessível para os usuários em todos os idiomas suportados.
+Ao atualizar esses atributos dinamicamente quando o locale muda, você garante uma experiência consistente e acessível para usuários em todos os idiomas suportados.
 
 ```js fileName="src/composables/useI18nHTMLAttributes.ts"
 import { watch } from "vue";
@@ -824,7 +823,7 @@ import { getHTMLTextDir } from "intlayer";
 
 /**
  * Composable que atualiza os atributos `lang` e `dir` do elemento HTML <html>
- * com base no idioma atual.
+ * com base na localidade atual.
  *
  * @example
  * // No seu App.vue ou em um componente global
@@ -832,10 +831,10 @@ import { getHTMLTextDir } from "intlayer";
  *
  * useI18nHTMLAttributes()
  */
-export function useI18nHTMLAttributes() {
+export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
-  // Atualiza os atributos HTML sempre que o idioma mudar
+  // Atualiza os atributos HTML sempre que a localidade mudar
   watch(
     () => locale.value,
     (newLocale) => {
@@ -849,7 +848,7 @@ export function useI18nHTMLAttributes() {
     },
     { immediate: true }
   );
-}
+};
 ```
 
 Use este composable no seu `App.vue` ou em um componente global:
@@ -858,24 +857,24 @@ Use este composable no seu `App.vue` ou em um componente global:
 <script setup lang="ts">
 import { useI18nHTMLAttributes } from "@composables/useI18nHTMLAttributes";
 
-// Aplica os atributos HTML com base no idioma atual
+// Aplicar os atributos HTML com base na localidade atual
 useI18nHTMLAttributes();
 </script>
 
 <template>
-  <!-- Seu template de app -->
+  <!-- Template da sua aplicação -->
 </template>
 ```
 
 ### (Opcional) Passo 10: Criando um Componente de Link Localizado
 
-Para garantir que a navegação da sua aplicação respeite o idioma atual, você pode criar um componente personalizado `Link`. Este componente automaticamente adiciona o prefixo do idioma atual às URLs internas. Por exemplo, quando um usuário que fala francês clica em um link para a página "Sobre", ele é redirecionado para `/fr/about` em vez de `/about`.
+Para garantir que a navegação da sua aplicação respeite o idioma atual, você pode criar um componente personalizado `Link`. Este componente adiciona automaticamente o prefixo do idioma atual às URLs internas. Por exemplo, quando um usuário que fala francês clica em um link para a página "Sobre", ele é redirecionado para `/fr/about` em vez de `/about`.
 
-Este comportamento é útil por várias razões:
+Esse comportamento é útil por várias razões:
 
-- **SEO e Experiência do Usuário**: URLs localizadas ajudam os motores de busca a indexar corretamente as páginas específicas de idioma e fornecem conteúdo no idioma preferido do usuário.
-- **Consistência**: Usando um link localizado em toda a aplicação, você garante que a navegação permaneça no idioma atual, evitando mudanças inesperadas de idioma.
-- **Manutenção**: Centralizar a lógica de localização em um único componente simplifica a gestão de URLs, tornando seu código mais fácil de manter e expandir à medida que sua aplicação cresce.
+- **SEO e Experiência do Usuário**: URLs localizadas ajudam os motores de busca a indexar corretamente páginas específicas por idioma e fornecem aos usuários conteúdo no idioma de sua preferência.
+- **Consistência**: Ao usar um link localizado em toda a sua aplicação, você garante que a navegação permaneça dentro do idioma atual, evitando mudanças inesperadas de idioma.
+- **Manutenção**: Centralizar a lógica de localização em um único componente simplifica o gerenciamento das URLs, tornando sua base de código mais fácil de manter e expandir conforme sua aplicação cresce.
 
 ```vue fileName="src/components/Link.vue"
 <template>
@@ -931,12 +930,12 @@ const props = defineProps({
 
 const { locale } = useLocale();
 
-// Cria a propriedade 'to' localizada para o router-link
+// Cria a propriedade 'to' localizada para router-link
 const localizedTo = computed(() => {
   if (typeof props.to === "string") {
     return getLocalizedUrl(props.to, locale.value);
   } else {
-    // Se 'to' for um objeto, localiza a propriedade path
+    // Se 'to' for um objeto, localize a propriedade path
     return {
       ...props.to,
       path: getLocalizedUrl(props.to.path ?? "/", locale.value),
@@ -951,12 +950,12 @@ Use esses componentes na sua aplicação:
 ```vue fileName="src/App.vue"
 <template>
   <div>
-    <!-- Vue router -->
-    <RouterLink to="/">Root</RouterLink>
-    <RouterLink to="/home">Home</RouterLink>
+    <!-- Vue router  -->
+    <RouterLink to="/">Raiz</RouterLink>
+    <RouterLink to="/home">Início</RouterLink>
     <!-- Outros -->
-    <Link href="/">Root</Link>
-    <Link href="/home">Home</Link>
+    <Link href="/">Raiz</Link>
+    <Link href="/home">Início</Link>
   </div>
 </template>
 
@@ -966,13 +965,61 @@ import RouterLink from "@components/RouterLink.vue";
 </script>
 ```
 
+### (Opcional) Passo 11: Renderizar Markdown
+
+Intlayer suporta a renderização de conteúdo Markdown diretamente na sua aplicação Vue. Por padrão, o Markdown é tratado como texto simples. Para converter Markdown em HTML enriquecido, você pode integrar o [markdown-it](https://github.com/markdown-it/markdown-it), um parser de Markdown.
+
+Isto é particularmente útil quando suas traduções incluem conteúdo formatado como listas, links ou ênfases.
+
+Por padrão, o Intlayer renderiza markdown como string. Mas o Intlayer também fornece uma forma de renderizar markdown em HTML usando a função `installIntlayerMarkdown`.
+
+> Para ver como declarar conteúdo markdown usando o pacote `intlayer`, consulte a [documentação de markdown](https://github.com/aymericzip/intlayer/tree/main/docs/pt/dictionary/markdown.md).
+
+```ts filename="main.ts"
+import MarkdownIt from "markdown-it";
+import { createApp, h } from "vue";
+import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+
+const app = createApp(App);
+
+installIntlayer(app);
+
+const md = new MarkdownIt({
+  html: true, // permitir tags HTML
+  linkify: true, // auto-linkar URLs
+  typographer: true, // ativar aspas inteligentes, travessões, etc.
+});
+
+// Diga ao Intlayer para usar md.render() sempre que precisar transformar markdown em HTML
+installIntlayerMarkdown(app, (markdown) => {
+  const html = md.render(markdown);
+  return h("div", { innerHTML: html });
+});
+```
+
+Uma vez registrado, você pode usar a sintaxe baseada em componentes para exibir o conteúdo Markdown diretamente:
+
+```vue
+<template>
+  <div>
+    <myMarkdownContent />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { myMarkdownContent } = useIntlayer("my-component");
+</script>
+```
+
 ### Configurar TypeScript
 
-O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e tornar seu código mais robusto.
+O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e tornar sua base de código mais robusta.
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
 Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente.
 
@@ -981,14 +1028,14 @@ Certifique-se de que sua configuração do TypeScript inclua os tipos gerados au
   // ... Suas configurações existentes do TypeScript
   "include": [
     // ... Suas configurações existentes do TypeScript
-    ".intlayer/**/*.ts", // Inclui os tipos gerados automaticamente
+    ".intlayer/**/*.ts", // Inclua os tipos gerados automaticamente
   ],
 }
 ```
 
 ### Configuração do Git
 
-Recomenda-se ignorar os arquivos gerados pelo Intlayer. Isso evita que eles sejam adicionados ao seu repositório Git.
+É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite que você evite comitá-los no seu repositório Git.
 
 Para isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitignore`:
 
@@ -997,23 +1044,29 @@ Para isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitig
 .intlayer
 ```
 
-### Extensão do VS Code
+### Extensão VS Code
 
-Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão Oficial do Intlayer para VS Code**.
+Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial do Intlayer para VS Code**.
 
-[Instale no VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Instalar no VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-Esta extensão fornece:
+Esta extensão oferece:
 
 - **Autocompletar** para chaves de tradução.
 - **Detecção de erros em tempo real** para traduções ausentes.
-- **Pré-visualizações inline** de conteúdo traduzido.
+- **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão do Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
-### Vá Além
+### Ir Além
 
-## Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+
+---
+
+## Histórico da Documentação
+
+- 5.5.10 - 2025-06-29: Histórico inicial

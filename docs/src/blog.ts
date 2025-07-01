@@ -1,6 +1,6 @@
 import { Locales } from '@intlayer/config';
+import { getMarkdownMetadata } from '@intlayer/core';
 import { localeRecord } from 'intlayer';
-import { getMarkdownMetadata } from '../../packages/@intlayer/core/dist/types/transpiler';
 import { readFileContent } from './readFileContent';
 
 const blogs = {
@@ -85,9 +85,9 @@ export const getBlogs = async (lang = Locales.ENGLISH) => {
 
 export const getBlog = async (
   docName: keyof typeof blogs,
-  lang = Locales.ENGLISH
+  locale = Locales.ENGLISH
 ) => {
-  const blog = await blogs[docName]?.[lang];
+  const blog = await blogs[docName]?.[locale];
 
   if (!blog) {
     const englishBlog = await blogs[docName][Locales.ENGLISH];
@@ -102,14 +102,35 @@ export const getBlog = async (
   return blog;
 };
 
-export const getBlogMetadataRecord = async (lang = Locales.ENGLISH) => {
-  const blogs = await getBlogs(lang);
+export const getBlogMetadataRecord = async (
+  locale = Locales.ENGLISH
+): Promise<Record<string, BlogMetadata>> => {
+  const blogs = await getBlogs(locale);
   return Object.keys(blogs).reduce(
-    (acc, blogName) => {
-      const metadata = getMarkdownMetadata(blogs[blogName]);
-      acc[blogName] = metadata;
+    (acc, docName) => {
+      const metadata = getMarkdownMetadata(blogs[docName]);
+      acc[docName] = metadata;
       return acc;
     },
     {} as Record<string, any>
   );
+};
+
+type BlogMetadata = {
+  docName: string;
+  url: string;
+  githubUrl: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  updatedAt: string;
+  createdAt: string;
+};
+
+export const getBlogMetadata = async <T extends BlogMetadata>(
+  docName: keyof typeof blogs,
+  locale = Locales.ENGLISH
+) => {
+  const blog = await getBlog(docName, locale);
+  return getMarkdownMetadata<T>(blog);
 };

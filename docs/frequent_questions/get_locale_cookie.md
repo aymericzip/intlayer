@@ -1,3 +1,24 @@
+---
+docName: get_locale_cookie
+url: https://intlayer.org/doc/faq/get-locale-cookie
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/get_locale_cookie.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: How to retrieve the locale from the cookies / headers?
+description: Learn how to retrieve the locale from the cookies / headers.
+keywords:
+  - cookie
+  - headers
+  - intlayer
+  - locale
+  - hook
+  - useLocale
+  - useLocaleCookie
+  - next.js
+  - react-intlayer
+  - vue-intlayer
+---
+
 # How to retrieve the locale from the cookies / headers
 
 ## Using Hooks (Recommended)

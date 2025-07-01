@@ -1,73 +1,73 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: useIntlayerフックのドキュメント | react-intlayer
-description: react-intlayerパッケージのuseIntlayerフックの使用方法を確認してください
+title: useIntlayer フック ドキュメント | react-intlayer
+description: react-intlayer パッケージの useIntlayer フックの使い方を見る
 keywords:
   - useIntlayer
   - 辞書
   - キー
   - Intlayer
   - 国際化
-  - ドキュメンテーション
+  - ドキュメント
   - Next.js
   - JavaScript
   - React
 ---
 
-# React統合: `useIntlayer`フックドキュメント
+# React 統合: `useIntlayer` フック ドキュメント
 
-このセクションでは、Reactアプリケーション内で`useIntlayer`フックを使用するための詳細なガイダンスを提供し、効率的なコンテンツのローカライズを可能にします。
+このセクションでは、React アプリケーション内で `useIntlayer` フックを使用する方法について詳しく説明し、効率的なコンテンツのローカライズを可能にします。
 
-## Reactでの`useIntlayer`のインポート
+## React での `useIntlayer` のインポート
 
-`useIntlayer`フックは、コンテキストに基づいてインポートすることでReactアプリケーションに統合できます。
+`useIntlayer` フックは、コンテキストに応じてインポートすることで React アプリケーションに統合できます。
 
 - **クライアントコンポーネント:**
 
   ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // クライアントサイドのReactコンポーネントで使用
+  import { useIntlayer } from "react-intlayer"; // クライアントサイドの React コンポーネントで使用
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // クライアントサイドのReactコンポーネントで使用
+  import { useIntlayer } from "react-intlayer"; // クライアントサイドの React コンポーネントで使用
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // クライアントサイドのReactコンポーネントで使用
+  const { useIntlayer } = require("react-intlayer"); // クライアントサイドの React コンポーネントで使用
   ```
 
 - **サーバーコンポーネント:**
 
   ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // サーバーサイドのReactコンポーネントで使用
+  import { useIntlayer } from "react-intlayer/server"; // サーバーサイドの React コンポーネントで使用
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // サーバーサイドのReactコンポーネントで使用
+  import { useIntlayer } from "react-intlayer/server"; // サーバーサイドの React コンポーネントで使用
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // サーバーサイドのReactコンポーネントで使用
+  const { useIntlayer } = require("react-intlayer/server"); // サーバーサイドの React コンポーネントで使用
   ```
 
-## パラメータ
+## パラメーター
 
-このフックは2つのパラメータを受け取ります:
+このフックは2つのパラメーターを受け取ります：
 
 1. **`key`**: ローカライズされたコンテンツを取得するための辞書キー。
-2. **`locale`** (オプション): 希望するロケール。指定されていない場合はコンテキストのロケールがデフォルトになります。
+2. **`locale`**（オプション）: 希望するロケール。指定しない場合はコンテキストのロケールがデフォルトで使用されます。
 
 ## 辞書
 
-すべての辞書キーは、型の安全性を高め、エラーを防ぐためにコンテンツ宣言ファイル内で宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)をご覧ください。
+すべての辞書キーは型安全性を高め、エラーを防ぐためにコンテンツ宣言ファイル内で宣言されている必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)で確認できます。
 
 ## Reactでの使用例
 
-Reactコンポーネント内での`useIntlayer`フックの使用例を示します:
+Reactコンポーネント内での`useIntlayer`フックの使用例：
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -77,7 +77,7 @@ import { useIntlayer, IntlayerServerProvider } from "react-intlayer/server";
 import { Locales } from "intlayer";
 
 const App: FC<{ locale: Locales }> = ({ locale }) => {
-  const content = useIntlayer("homepage", locale); // ホームページのコンテンツを取得
+  const content = useIntlayer("homepage", locale);
 
   return (
     <>
@@ -99,7 +99,7 @@ import { IntlayerProvider } from "react-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "react-intlayer/server";
 
 const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale); // ホームページのコンテンツを取得
+  const content = useIntlayer("homepage", locale);
 
   return (
     <>
@@ -123,7 +123,24 @@ const {
 } = require("react-intlayer/server");
 
 const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale); // ホームページのコンテンツを取得
+  const content = useIntlayer("homepage", locale);
+
+  return (
+    <>
+      <p>{content.introduction}</p>
+      <IntlayerProvider locale={locale}>
+        <ClientComponentExample />
+      </IntlayerProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ServerComponentExample />
+      </IntlayerServerProvider>
+    </>
+  );
+};
+} = require("react-intlayer/server");
+
+const App = ({ locale }) => {
+  const content = useIntlayer("homepage", locale);
 
   return (
     <>
@@ -144,7 +161,7 @@ import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 const ComponentExample: FC = () => {
-  const content = useIntlayer("component-example"); // コンポーネント例のコンテンツを取得
+  const content = useIntlayer("component-example");
 
   return (
     <div>
@@ -159,7 +176,7 @@ const ComponentExample: FC = () => {
 import { useIntlayer } from "react-intlayer";
 
 const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // コンポーネント例のコンテンツを取得
+  const content = useIntlayer("component-example");
 
   return (
     <div>
@@ -174,7 +191,7 @@ const ComponentExample = () => {
 const { useIntlayer } = require("react-intlayer");
 
 const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // コンポーネント例のコンテンツを取得
+  const content = useIntlayer("component-example");
 
   return (
     <div>
@@ -188,38 +205,11 @@ const ComponentExample = () => {
 ```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer/server";
 
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component"); // サーバーコンポーネントのコンテンツを取得
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer/server";
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component"); // サーバーコンポーネントのコンテンツを取得
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
+jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer/server");
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("server-component"); // サーバーコンポーネントのコンテンツを取得
+  const content = useIntlayer("server-component");
 
   return (
     <div>
@@ -230,9 +220,9 @@ const ServerComponentExample = () => {
 };
 ```
 
-## 属性の処理
+## 属性の取り扱い
 
-属性をローカライズする際には、適切にコンテンツ値にアクセスします:
+属性をローカライズする際は、コンテンツの値に適切にアクセスしてください：
 
 ```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
@@ -240,6 +230,24 @@ const ServerComponentExample = () => {
 
 ## 追加リソース
 
-- **Intlayerビジュアルエディター**: より直感的なコンテンツ管理体験のために、ビジュアルエディターのドキュメントは[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
+- **Intlayer ビジュアルエディター**: より直感的なコンテンツ管理体験のために、ビジュアルエディターのドキュメントは[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を参照してください。
 
-このセクションは、Reactアプリケーションでの`useIntlayer`フックの統合に特化しており、ローカライズプロセスを簡素化し、異なるロケール間でのコンテンツの一貫性を確保します。
+このセクションは、Reactアプリケーションにおける `useIntlayer` フックの統合に特化しており、ローカリゼーションプロセスを簡素化し、異なるロケール間でのコンテンツの一貫性を確保します。
+
+## 属性の取り扱い
+
+属性をローカライズする際は、コンテンツの値に適切にアクセスしてください：
+
+```jsx
+<button title={content.buttonTitle.value}>{content.buttonText}</button>
+```
+
+## 追加リソース
+
+- **Intlayer ビジュアルエディター**: より直感的なコンテンツ管理体験のために、ビジュアルエディターのドキュメントは[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご参照ください。
+
+このセクションは特に、Reactアプリケーションにおける `useIntlayer` フックの統合に焦点を当てており、ローカライズプロセスを簡素化し、異なるロケール間でのコンテンツの一貫性を確保します。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

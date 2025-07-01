@@ -1,7 +1,7 @@
 ---
 docName: package__solid-intlayer
 url: https://intlayer.org/doc/packages/solid-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Документация пакета | solid-intlayer
@@ -9,13 +9,45 @@ description: Узнайте, как использовать пакет solid-in
 keywords:
   - Intlayer
   - solid-intlayer
-  - интернационализация
-  - документация
+  - Интернационализация
+  - Документация
   - Next.js
   - JavaScript
   - React
 ---
 
-this doc will be automatically generated translated from the english doc
+# solid-intlayer: NPM-пакет для интернационализации (i18n) приложения на Solid
 
-see /docs/en/packages/solid-intlayer/index.md
+**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как Solid, Solid и Express.js.
+
+**Пакет `solid-intlayer`** позволяет интернационализировать ваше приложение на Solid. Он предоставляет провайдеры контекста и хуки для интернационализации в Solid.
+
+## Зачем интернационализировать ваше приложение на Solid?
+
+Интернационализация вашего приложения на Solid необходима для эффективного обслуживания глобальной аудитории. Она позволяет вашему приложению предоставлять контент и сообщения на предпочитаемом языке каждого пользователя. Эта возможность улучшает пользовательский опыт и расширяет охват вашего приложения, делая его более доступным и релевантным для людей с разным языковым фоном.
+
+## Почему стоит интегрировать Intlayer?
+
+- **Управление контентом на базе JavaScript**: Используйте гибкость JavaScript для эффективного определения и управления вашим контентом.
+- **Типобезопасная среда**: Используйте TypeScript, чтобы все определения вашего контента были точными и безошибочными.
+- **Интегрированные файлы контента**: Держите ваши переводы рядом с соответствующими компонентами, что повышает удобство поддержки и ясность.
+
+## Установка
+
+Установите необходимый пакет с помощью предпочитаемого менеджера пакетов:
+
+```bash packageManager="npm"
+npm install solid-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add solid-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add solid-intlayer
+```
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

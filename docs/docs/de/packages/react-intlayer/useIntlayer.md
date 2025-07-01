@@ -1,11 +1,11 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Dokumentation des useIntlayer Hooks | react-intlayer
-description: Erfahren Sie, wie Sie den useIntlayer-Hook für das react-intlayer-Paket verwenden
+title: useIntlayer Hook Dokumentation | react-intlayer
+description: Siehe, wie der useIntlayer Hook für das react-intlayer Paket verwendet wird
 keywords:
   - useIntlayer
   - Wörterbuch
@@ -58,16 +58,16 @@ Der `useIntlayer` Hook kann in React-Anwendungen integriert werden, indem er je 
 
 Der Hook akzeptiert zwei Parameter:
 
-1. **`key`**: Der Wörterbuchschlüssel, um lokalisierte Inhalte abzurufen.
-2. **`locale`** (optional): Die gewünschte Sprache. Standardmäßig wird die Sprache des Kontexts verwendet, wenn nicht angegeben.
+1. **`key`**: Der Wörterbuchschlüssel, um lokalisierten Inhalt abzurufen.
+2. **`locale`** (optional): Die gewünschte Locale. Standardmäßig wird die Locale des Kontexts verwendet, falls nicht angegeben.
 
 ## Wörterbuch
 
-Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien deklariert werden, um die Typsicherheit zu erhöhen und Fehler zu vermeiden. Die Einrichtungsanweisungen finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
+Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien deklariert werden, um die Typsicherheit zu erhöhen und Fehler zu vermeiden. Die [Setup-Anleitung finden Sie hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
 
-## Beispielverwendung in React
+## Beispielhafte Verwendung in React
 
-Demonstration des `useIntlayer` Hooks in einer React-Komponente:
+Demonstration des `useIntlayer` Hooks innerhalb einer React-Komponente:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -116,6 +116,11 @@ const App = ({ locale }) => {
 ```
 
 ```jsx fileName="src/app.csx" codeFormat="commonjs"
+const { IntlayerProvider } = require("react-intlayer");
+const {
+  IntlayerServerProvider,
+  useIntlayer,
+jsx fileName="src/app.csx" codeFormat="commonjs"
 const { IntlayerProvider } = require("react-intlayer");
 const {
   IntlayerServerProvider,
@@ -198,6 +203,17 @@ const ServerComponentExample = () => {
     </div>
   );
 };
+
+const ServerComponentExample = () => {
+  const content = useIntlayer("server-component");
+
+  return (
+    <div>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
+    </div>
+  );
+};
 ```
 
 ```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
@@ -240,6 +256,10 @@ Beim Lokalisieren von Attributen greifen Sie entsprechend auf die Inhaltswerte z
 
 ## Zusätzliche Ressourcen
 
-- **Intlayer Visual Editor**: Für eine intuitivere Inhaltsverwaltung finden Sie die Dokumentation zum visuellen Editor [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
+- **Intlayer Visual Editor**: Für eine intuitivere Verwaltung von Inhalten finden Sie die Dokumentation zum visuellen Editor [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
 
-Dieser Abschnitt richtet sich speziell an die Integration des `useIntlayer` Hooks in React-Anwendungen, um den Lokalisierungsprozess zu vereinfachen und die Konsistenz der Inhalte über verschiedene Sprachen hinweg sicherzustellen.
+Dieser Abschnitt richtet sich speziell an die Integration des `useIntlayer` Hooks in React-Anwendungen, um den Lokalisierungsprozess zu vereinfachen und die Konsistenz der Inhalte über verschiedene Sprachversionen hinweg sicherzustellen.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

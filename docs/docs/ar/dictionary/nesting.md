@@ -2,7 +2,7 @@
 docName: dictionary__nesting
 url: https://intlayer.org/doc/concept/content/nesting
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
-createdAt: 2025-02-7
+createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: تداخل القاموس
 description: تعلم كيفية استخدام تداخل المحتوى في Intlayer لإعادة استخدام وتنظيم المحتوى متعدد اللغات بكفاءة. اتبع هذه الوثيقة لتنفيذ التداخل بسلاسة في مشروعك.

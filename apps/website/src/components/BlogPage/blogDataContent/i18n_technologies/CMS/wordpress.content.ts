@@ -5,7 +5,7 @@ import { t, type Dictionary } from 'intlayer';
 const blogContent = {
   key: 'blog-i18n_technologies_CMS_wordpress-metadata',
   content: {
-    blogName: 'list_i18n_technologies__CMS__wordpress',
+    docName: 'list_i18n_technologies__CMS__wordpress',
     url: PagesRoutes['Blog_i18n-technologies__CMS__wordpress'],
     githubUrl: GithubRoutes['i18n-technologies__CMS__wordpress'],
     createdAt: '2025-01-16',

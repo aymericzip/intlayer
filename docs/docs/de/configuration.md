@@ -1,7 +1,7 @@
 ---
 docName: configuration
 url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md
 createdAt: 2024-08-13
 updatedAt: 2025-06-29
 title: Konfiguration
@@ -112,7 +112,7 @@ module.exports = config;
 
 ## Konfigurationsreferenz
 
-Die folgenden Abschnitte beschreiben die verschiedenen Konfigurationseinstellungen, die für Intlayer verfügbar sind.
+Die folgenden Abschnitte beschreiben die verschiedenen für Intlayer verfügbaren Konfigurationseinstellungen.
 
 ---
 
@@ -182,7 +182,7 @@ Definiert Einstellungen im Zusammenhang mit dem integrierten Editor, einschließ
 
   - _Typ_: `string`
   - _Standard_: `'http://localhost:8000'`
-  - _Beschreibung_: Die URL des Editor-Servers. Wird verwendet, um die Ursprünge einzuschränken, die mit der Anwendung interagieren können.
+  - _Beschreibung_: Die URL des Editor-Servers. Wird verwendet, um den Ursprung des Editors aus Sicherheitsgründen einzuschränken.
     - `'http://localhost:3000'`
     - `'https://example.com'`
     - `process.env.INTLAYER_EDITOR_URL`
@@ -234,7 +234,7 @@ Definiert Einstellungen im Zusammenhang mit dem integrierten Editor, einschließ
   - _Beschreibung_: Gibt an, ob die Anwendung die Sprachkonfigurationen bei einer Änderung automatisch neu laden soll.
   - _Beispiel_: `true`
   - _Hinweis_: Wenn beispielsweise ein neues Wörterbuch hinzugefügt oder aktualisiert wird, aktualisiert die Anwendung den Inhalt, der auf der Seite angezeigt wird.
-  - _Hinweis_: Da das Hot-Reloading eine kontinuierliche Verbindung zum Server erfordert, ist es nur für Kunden des `Enterprise`-Plans verfügbar.
+  - _Hinweis_: Da das Hot-Reloading eine kontinuierliche Verbindung zum Server erfordert, ist es nur für Kunden des `enterprise`-Plans verfügbar.
 
 - **dictionaryPriorityStrategy**:
   - _Typ_: `string`
@@ -255,6 +255,8 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
   - _Beschreibung_: Der Name des HTTP-Headers, der zur Bestimmung der Sprache verwendet wird.
   - _Beispiel_: `'x-custom-locale'`
   - _Hinweis_: Dies ist nützlich für die API-basierte Sprachbestimmung.
+
+- **cookieName**:
 
   - _Typ_: `string`
   - _Standard_: `'intlayer-locale'`
@@ -294,50 +296,7 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
   - _Beispiel_: `true`
   - _Hinweis_: Wenn `true`, enthalten URLs keine Sprachinformationen.
 
-### Build-Konfiguration
-
-Einstellungen, die steuern, wie Intlayer die Internationalisierung Ihrer Anwendung optimiert und erstellt.
-
-Build-Optionen gelten für die `@intlayer/babel` und `@intlayer/swc` Plugins.
-
-> Im Entwicklungsmodus verwendet Intlayer einen zentralisierten statischen Import für Wörterbücher, um die Entwicklungserfahrung zu vereinfachen.
-
-> Durch die Build-Optimierung ersetzt Intlayer alle Wörterbuchaufrufe, um das Chunking zu optimieren. Auf diese Weise importiert der finale Build nur die tatsächlich verwendeten Wörterbücher.
-
-- **Hinweis**: `@intlayer/babel` ist standardmäßig im `vite-intlayer` Paket verfügbar, aber `@intlayer/swc` ist standardmäßig nicht im `next-intlayer` Paket installiert, da SWC-Plugins in Next.js noch experimentell sind.
-
-#### Eigenschaften
-
-- **optimize**:
-
-  - _Typ_: `boolean`
-  - _Standard_: `process.env.NODE_ENV === 'production'`
-  - _Beschreibung_: Steuert, ob der Build optimiert werden soll.
-  - _Beispiel_: `true`
-  - _Hinweis_: Ermöglicht es, nur die verwendeten Wörterbücher in das Bundle zu importieren. Alle Importe bleiben jedoch statische Importe, um asynchrone Verarbeitung beim Laden der Wörterbücher zu vermeiden.
-  - _Hinweis_: Wenn aktiviert, optimiert Intlayer das Wörterbuch-Chunking, indem alle `useIntlayer` Aufrufe durch `useDictionary` und `getIntlayer` durch `getDictionary` ersetzt werden.
-  - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel in den `useIntlayer` Aufrufen statisch deklariert sind. z.B. `useIntlayer('navbar')`.
-
-- **activateDynamicImport**:
-
-  - _Typ_: `boolean`
-  - _Standard_: `false`
-  - _Beschreibung_: Steuert, ob Wörterbuchinhalte pro Sprache dynamisch importiert werden sollen.
-  - _Beispiel_: `true`
-  - _Hinweis_: Ermöglicht den dynamischen Import von Wörterbuchinhalten nur für die aktuelle Sprache.
-  - _Hinweis_: Dynamische Importe basieren auf React Suspense und können die Rendering-Leistung leicht beeinträchtigen. Wenn deaktiviert, werden alle Sprachen auf einmal geladen, auch wenn sie nicht verwendet werden.
-  - _Hinweis_: Wenn aktiviert, optimiert Intlayer das Wörterbuch-Chunking, indem alle `useIntlayer` Aufrufe durch `useDynamicDictionary` ersetzt werden.
-  - _Hinweis_: Diese Option wird ignoriert, wenn `optimize` deaktiviert ist.
-  - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel in den `useIntlayer` Aufrufen statisch deklariert sind. z.B. `useIntlayer('navbar')`.
-
-- **traversePattern**:
-  - _Typ_: `string[]`
-  - _Standard_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
-  - _Beschreibung_: Muster, die festlegen, welche Dateien während der Optimierung durchlaufen werden sollen.
-  - _Beispiel_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _Hinweis_: Verwenden Sie dies, um die Optimierung auf relevante Code-Dateien zu beschränken und die Build-Leistung zu verbessern.
-  - _Hinweis_: Diese Option wird ignoriert, wenn `optimize` deaktiviert ist.
-  - _Hinweis_: Verwenden Sie Glob-Muster.
+---
 
 ### Inhaltskonfiguration
 
@@ -371,19 +330,20 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
 
   - _Typ_: `string[]`
   - _Standard_: `['intlayer']`
-  - _Beschreibung_: Der Typ der Wörterbuchausgabe, z. B. `'intlayer'` oder `'i18next'`.
+  - _Beschreibung_: Der Typ der Wörterbuchausgabe, z.B. `'intlayer'` oder `'i18next'`.
 
 - **contentDir**:
 
   - _Typ_: `string[]`
   - _Standard_: `['src']`
-  - _Beschreibung_: Der Verzeichnispfad, in dem Inhalte gespeichert werden.
+  - _Beispiel_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
+  - _Beschreibung_: Der Verzeichnispfad, in dem Inhalte gespeichert sind.
 
 - **dictionariesDir**:
 
   - _Typ_: `string`
   - _Standard_: `'.intlayer/dictionaries'`
-  - _Beschreibung_: Der Verzeichnispfad für die Speicherung von Zwischen- oder Ausgabedaten.
+  - _Beschreibung_: Der Verzeichnispfad zur Speicherung von Zwischen- oder Ausgabedaten.
 
 - **moduleAugmentationDir**:
 
@@ -397,7 +357,7 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
 
   - _Typ_: `string`
   - _Standard_: `'.intlayer/unmerged_dictionary'`
-  - _Beschreibung_: Das Verzeichnis zur Speicherung nicht zusammengeführter Wörterbücher.
+  - _Beschreibung_: Das Verzeichnis zur Speicherung von nicht zusammengeführten Wörterbüchern.
   - _Beispiel_: `'translations'`
 
 - **dictionariesDir**:
@@ -426,14 +386,14 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
 
   - _Typ_: `string`
   - _Standard_: `'main'`
-  - _Beschreibung_: Das Verzeichnis, in dem die Hauptanwendungsdateien gespeichert sind.
+  - _Beschreibung_: Das Verzeichnis, in dem die Hauptanwendungsdateien gespeichert werden.
   - _Beispiel_: `'intlayer-main'`
 
 - **excludedPath**:
   - _Typ_: `string[]`
   - _Standard_: `['node_modules']`
   - _Beschreibung_: Verzeichnisse, die von der Inhaltssuche ausgeschlossen sind.
-  - _Hinweis_: Diese Einstellung wird derzeit nicht verwendet, ist jedoch für zukünftige Implementierungen geplant.
+  - _Hinweis_: Diese Einstellung wird derzeit noch nicht verwendet, ist aber für eine zukünftige Implementierung geplant.
 
 ### Logger-Konfiguration
 
@@ -448,7 +408,7 @@ Einstellungen, die den Logger steuern, einschließlich des zu verwendenden Präf
   - _Beschreibung_: Gibt den Modus des Loggers an.
   - _Optionen_: `default`, `verbose`, `disabled`
   - _Beispiel_: `default`
-  - _Hinweis_: Der Modus des Loggers. Der Modus "verbose" protokolliert mehr Informationen und kann für Debugging-Zwecke verwendet werden. Der Modus "disabled" deaktiviert den Logger.
+  - _Hinweis_: Der Modus des Loggers. Der verbose-Modus protokolliert mehr Informationen und kann zu Debugging-Zwecken verwendet werden. Der disabled-Modus deaktiviert den Logger.
 
 - **prefix**:
 
@@ -461,11 +421,10 @@ Einstellungen, die den Logger steuern, einschließlich des zu verwendenden Präf
 ### KI-Konfiguration
 
 Einstellungen, die die KI-Funktionen von Intlayer steuern, einschließlich Anbieter, Modell und API-Schlüssel.
+Diese Konfiguration ist optional, wenn Sie im [Intlayer Dashboard](https://intlayer.org/dashboard/project) mit einem Zugriffsschlüssel registriert sind. Intlayer verwaltet automatisch die effizienteste und kostengünstigste KI-Lösung für Ihre Bedürfnisse. Die Verwendung der Standardoptionen gewährleistet eine bessere langfristige Wartbarkeit, da Intlayer kontinuierlich aktualisiert wird, um die relevantesten Modelle zu verwenden.
 
-Diese Konfiguration ist optional, wenn Sie sich mit einem Zugriffsschlüssel im [Intlayer Dashboard](https://intlayer.org/dashboard/project) registriert haben. Intlayer verwaltet automatisch die effizienteste und kostengünstigste KI-Lösung für Ihre Anforderungen. Die Verwendung der Standardoptionen gewährleistet eine bessere langfristige Wartbarkeit, da Intlayer kontinuierlich aktualisiert wird, um die relevantesten Modelle zu verwenden.
-
-Wenn Sie Ihren eigenen API-Schlüssel oder ein bestimmtes Modell verwenden möchten, können Sie Ihre benutzerdefinierte KI-Konfiguration definieren. Diese KI-Konfiguration wird global in Ihrer Intlayer-Umgebung verwendet. CLI-Befehle verwenden diese Einstellungen als Standardwerte für die Befehle (z. B. `fill`) sowie das SDK, den visuellen Editor und das CMS. Sie können diese Standardwerte für spezifische Anwendungsfälle mit Befehlsparametern überschreiben.
-
+Wenn Sie Ihren eigenen API-Schlüssel oder ein bestimmtes Modell verwenden möchten, können Sie Ihre benutzerdefinierte KI-Konfiguration definieren.
+Diese KI-Konfiguration wird global in Ihrer Intlayer-Umgebung verwendet. CLI-Befehle verwenden diese Einstellungen als Standardwerte für die Befehle (z. B. `fill`), ebenso wie das SDK, den Visual Editor und das CMS. Sie können diese Standardwerte für spezifische Anwendungsfälle mit Befehlsparametern überschreiben.
 Intlayer unterstützt mehrere KI-Anbieter für mehr Flexibilität und Auswahl. Derzeit unterstützte Anbieter sind:
 
 - **OpenAI** (Standard)
@@ -484,7 +443,7 @@ Intlayer unterstützt mehrere KI-Anbieter für mehr Flexibilität und Auswahl. D
   - _Beschreibung_: Der Anbieter, der für die KI-Funktionen von Intlayer verwendet wird.
   - _Optionen_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
   - _Beispiel_: `'anthropic'`
-  - _Hinweis_: Unterschiedliche Anbieter erfordern möglicherweise unterschiedliche API-Schlüssel und haben unterschiedliche Preismodelle.
+  - _Hinweis_: Verschiedene Anbieter können unterschiedliche API-Schlüssel und Preismodelle erfordern.
 
 - **model**:
 
@@ -511,7 +470,55 @@ Intlayer unterstützt mehrere KI-Anbieter für mehr Flexibilität und Auswahl. D
   - _Hinweis_: Wichtig: API-Schlüssel sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte bewahren Sie sie an einem sicheren Ort auf, z. B. in Umgebungsvariablen.
 
 - **applicationContext**:
-
   - _Typ_: `string`
   - _Standard_: Keine
-  - _Beschreibung_: Stellt dem KI-Modell zusätzlichen Kontext über Ihre Anwendung zur Verfügung, um genauere und kontextbezogenere Übersetzungen zu generieren. Dies kann Informationen über den Bereich Ihrer Anwendung, die Zielgruppe, den Ton oder spezifische Terminologie umfassen.
+  - _Beschreibung_: Bietet dem KI-Modell zusätzlichen Kontext zu Ihrer Anwendung, um genauere und kontextuell passendere Übersetzungen zu erzeugen. Dies kann Informationen über die Domäne Ihrer App, die Zielgruppe, den Tonfall oder spezifische Terminologie umfassen.
+
+### Build-Konfiguration
+
+Einstellungen, die steuern, wie Intlayer die Internationalisierung Ihrer Anwendung optimiert und baut.
+
+Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
+
+> Im Entwicklungsmodus verwendet Intlayer einen zentralisierten statischen Import für Wörterbücher, um die Entwicklungserfahrung zu vereinfachen.
+
+> Durch die Optimierung des Builds ersetzt Intlayer alle Aufrufe von Wörterbüchern, um das Chunking zu optimieren. So importiert das finale Bundle nur die tatsächlich verwendeten Wörterbücher.
+
+- **Hinweis**: `@intlayer/babel` ist standardmäßig im `vite-intlayer`-Paket verfügbar, aber `@intlayer/swc` ist im `next-intlayer`-Paket nicht standardmäßig installiert, da SWC-Plugins in Next.js noch experimentell sind.
+
+#### Eigenschaften
+
+- **optimize**:
+
+  - _Typ_: `boolean`
+  - _Standard_: `process.env.NODE_ENV === 'production'`
+  - _Beschreibung_: Steuert, ob der Build optimiert werden soll.
+  - _Beispiel_: `true`
+  - _Hinweis_: Ermöglicht es, nur die tatsächlich verwendeten Wörterbücher in das Bundle zu importieren. Alle Importe bleiben jedoch statisch, um asynchrone Verarbeitung beim Laden der Wörterbücher zu vermeiden.
+  - _Hinweis_: Wenn aktiviert, optimiert Intlayer das Chunking der Wörterbücher, indem alle Aufrufe von `useIntlayer` durch `useDictionary` und `getIntlayer` durch `getDictionary` ersetzt werden.
+  - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel statisch in den `useIntlayer`-Aufrufen deklariert sind, z. B. `useIntlayer('navbar')`.
+
+- **activateDynamicImport**:
+
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Steuert, ob der Wörterbuchinhalt pro Locale dynamisch importiert werden soll.
+  - _Beispiel_: `true`
+  - _Hinweis_: Ermöglicht den dynamischen Import des Wörterbuchinhalts nur für die aktuelle Locale.
+  - _Hinweis_: Dynamische Importe basieren auf React Suspense und können die Rendering-Leistung leicht beeinträchtigen. Wenn deaktiviert, werden alle Locales auf einmal geladen, auch wenn sie nicht verwendet werden.
+  - _Hinweis_: Wenn aktiviert, optimiert Intlayer die Wörterbuch-Aufteilung, indem alle Aufrufe von `useIntlayer` durch `useDynamicDictionary` ersetzt werden.
+  - _Hinweis_: Diese Option wird ignoriert, wenn `optimize` deaktiviert ist.
+  - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel statisch in den `useIntlayer`-Aufrufen deklariert sind, z. B. `useIntlayer('navbar')`.
+
+- **traversePattern**:
+  - _Typ_: `string[]`
+  - _Standard_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Beschreibung_: Muster, die definieren, welche Dateien während der Optimierung durchsucht werden sollen.
+    - _Beispiel_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Hinweis_: Verwenden Sie dies, um die Optimierung auf relevante Code-Dateien zu beschränken und die Build-Leistung zu verbessern.
+  - _Hinweis_: Diese Option wird ignoriert, wenn `optimize` deaktiviert ist.
+  - _Hinweis_: Verwenden Sie Glob-Muster.
+
+## Dokumentationshistorie
+
+- 5.5.11 - 2025-06-29: `docs`-Befehle hinzugefügt

@@ -1,8 +1,27 @@
-# @intlayer/webpack : Package NPM pour utiliser le plugin Intlayer Webpack dans votre application
+---
+docName: package__@intlayer_webpack
+url: https://intlayer.org/doc/package/@intlayer_webpack
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/@intlayer/webpack/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/webpack - Plugin Webpack pour Intlayer i18n
+description: Package NPM fournissant une configuration Webpack et un plugin pour une intégration transparente de l'internationalisation Intlayer avec les applications basées sur Webpack.
+keywords:
+  - intlayer
+  - webpack
+  - plugin
+  - configuration
+  - i18n
+  - JavaScript
+  - NPM
+  - bundler
+---
 
-**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React et Express.js.
+# @intlayer/webpack : Package NPM pour utiliser le plugin Webpack Intlayer dans votre application
 
-Le package **`@intlayer/webpack`** est utilisé pour fournir une configuration Webpack afin de faciliter le travail avec une application basée sur Webpack avec Intlayer. Le package fournit également un plugin à ajouter dans une application Webpack existante.
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React, et Express.js.
+
+Le package **`@intlayer/webpack`** est utilisé pour fournir une configuration Webpack afin de faciliter le travail avec une application basée sur Webpack utilisant Intlayer. Le package fournit également un plugin à intégrer dans une application Webpack existante.
 
 ## Utilisation
 
@@ -20,7 +39,7 @@ export default {
 
 ## Installation
 
-Installez le package nécessaire en utilisant votre gestionnaire de packages préféré :
+Installez le package nécessaire en utilisant votre gestionnaire de paquets préféré :
 
 ```bash packageManager="npm"
 npm install @intlayer/webpack
@@ -33,3 +52,7 @@ pnpm add @intlayer/webpack
 ```bash packageManager="yarn"
 yarn add @intlayer/webpack
 ```
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

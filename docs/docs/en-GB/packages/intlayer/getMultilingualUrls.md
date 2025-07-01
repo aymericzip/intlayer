@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getMultilingualUrls
 url: https://intlayer.org/doc/packages/intlayer/getMultilingualUrls
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getMultilingualUrls.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getMultilingualUrls Function Documentation | intlayer
@@ -11,7 +11,7 @@ keywords:
   - translation
   - Intlayer
   - intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
@@ -127,6 +127,55 @@ getMultilingualUrls(
 
 - **No Locale Segment:**
 
+```typescript
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// Output: {
+// en: "/dashboard",
+// fr: "/fr/dashboard"
+// }
+```
+
+```javascript codeFormat="commonjs"
+const { getMultilingualUrls, Locales } = require("intlayer");
+
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// Output: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
+
+### Absolute URLs
+
+```typescript
+getMultilingualUrls(
+  "https://example.com/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  true
+);
+// Output: {
+//   en: "https://example.com/en/dashboard",
+//   fr: "https://example.com/fr/dashboard"
+// }
+```
+
+---
+
+## Edge Cases
+
+- **No Locale Segment:**
+
   - The function removes any existing locale segment from the URL before generating the multilingual mappings.
 
 - **Default Locale:**
@@ -140,7 +189,7 @@ getMultilingualUrls(
 
 ## Usage in Applications
 
-In a multilingual application, configuring the internationalization settings with `locales` and `defaultLocale` is critical for ensuring the correct language is displayed. Below is an example of how `getMultilingualUrls` can be used in an application setup:
+In a multilingual application, configuring the internationalisation settings with `locales` and `defaultLocale` is critical for ensuring the correct language is displayed. Below is an example of how `getMultilingualUrls` can be used in an application setup:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -182,9 +231,11 @@ const config = {
 };
 
 module.exports = config;
+
+module.exports = config;
 ```
 
-The above configuration ensures that the application recognizes `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.
+The above configuration ensures that the application recognises `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.
 
 Using this configuration, the `getMultilingualUrls` function can dynamically generate multilingual URL mappings based on the application's supported locales:
 
@@ -219,4 +270,4 @@ By integrating `getMultilingualUrls`, developers can maintain consistent URL str
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

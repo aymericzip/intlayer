@@ -1,11 +1,11 @@
 ---
 docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Intlayer 可视编辑器 | 使用可视编辑器编辑您的内容
-description: 发现如何使用Intlayer编辑器来管理您的多语言网站。遵循本在线文档中的步骤，在几分钟内设置您的项目。
+description: 发现如何使用 Intlayer 编辑器来管理您的多语言网站。按照本在线文档中的步骤，在几分钟内设置您的项目。
 keywords:
   - 编辑器
   - 国际化
@@ -214,6 +214,40 @@ module.exports = config;
 
 3. 如果您的内容被标出，您可以长按它以显示编辑抽屉。
 
+## 环境配置
+
+编辑器可以配置为使用特定的环境文件。当您希望在开发和生产环境中使用相同的配置文件时，这非常有用。
+
+要使用特定的环境文件，您可以在启动编辑器时使用 `--env-file` 或 `-f` 标志：
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> 请注意，环境文件应位于项目的根目录中。
+
+或者，您可以使用 `--env` 或 `-e` 标志来指定环境：
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
+
 ## 调试
 
 如果您在使用可视化编辑器时遇到任何问题，请检查以下内容：
@@ -225,4 +259,8 @@ module.exports = config;
   - 必需字段：
     - 应用程序 URL 应与您在编辑器配置中设置的 URL (`applicationURL`) 匹配。
 
-- 可视化编辑器使用 iframe 显示您的网站。确保您的网站的内容安全策略 (CSP) 允许 CMS URL 作为 `frame-ancestors`（默认值为 'http://localhost:8000'）。检查编辑器控制台是否有任何错误。
+- 可视化编辑器使用 iframe 来显示您的网站。请确保您网站的内容安全策略（CSP）允许将 CMS URL 作为 `frame-ancestors`（默认值为 'http://localhost:8000'）。如有错误，请检查编辑器控制台。
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史

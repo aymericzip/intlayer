@@ -1,11 +1,11 @@
 ---
 docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md
+url: https://intlayer.org/doc/concept/content/it/enumeration
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Enumerazione
-description: Scopri come dichiarare e utilizzare le enumerazioni nel tuo sito web multilingue. Segui i passaggi in questa documentazione online per impostare il tuo progetto in pochi minuti.
+description: Scopri come dichiarare e utilizzare le enumerazioni nel tuo sito web multilingue. Segui i passaggi in questa documentazione online per configurare il tuo progetto in pochi minuti.
 keywords:
   - Enumerazione
   - Internazionalizzazione
@@ -20,11 +20,11 @@ keywords:
 
 ## Come Funziona l'Enumerazione
 
-In Intlayer, l'enumerazione viene realizzata tramite la funzione `enu`, che mappa chiavi specifiche ai loro contenuti corrispondenti. Queste chiavi possono rappresentare valori numerici, intervalli o identificatori personalizzati. Quando utilizzata con React Intlayer o Next Intlayer, il contenuto appropriato viene selezionato automaticamente in base alla lingua dell'applicazione e alle regole definite.
+In Intlayer, l'enumerazione viene realizzata tramite la funzione `enu`, che associa chiavi specifiche ai loro contenuti corrispondenti. Queste chiavi possono rappresentare valori numerici, intervalli o identificatori personalizzati. Quando utilizzata con React Intlayer o Next Intlayer, il contenuto appropriato viene selezionato automaticamente in base alla localizzazione dell'applicazione e alle regole definite.
 
-## Configurazione dell'Enumerazione
+## Configurare l'Enumerazione
 
-Per configurare l'enumerazione nel tuo progetto Intlayer, devi creare un modulo di contenuto che includa le definizioni di enumerazione. Ecco un esempio di una semplice enumerazione per il numero di auto:
+Per configurare l'enumerazione nel tuo progetto Intlayer, devi creare un modulo di contenuto che includa le definizioni di enumerazione. Ecco un esempio di una semplice enumerazione per il numero di automobili:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type Dictionary } from "intlayer";
@@ -39,7 +39,7 @@ const carEnumeration = {
       "1": "Una macchina",
       ">5": "Alcune macchine",
       ">19": "Molte macchine",
-      "fallback": "Valore di fallback", // Opzionale
+      "fallback": "Valore di riserva", // Opzionale
     }),
   },
 } satisfies Dictionary;
@@ -61,7 +61,7 @@ const carEnumeration = {
       "1": "Una macchina",
       ">5": "Alcune macchine",
       ">19": "Molte macchine",
-      "fallback": "Valore di fallback", // Opzionale
+      "fallback": "Valore di riserva", // Opzionale
     }),
   },
 };
@@ -83,7 +83,7 @@ const carEnumeration = {
       "1": "Una macchina",
       ">5": "Alcune macchine",
       ">19": "Molte macchine",
-      "fallback": "Valore di fallback", // Opzionale
+      "fallback": "Valore di riserva", // Opzionale
     }),
   },
 };
@@ -105,22 +105,22 @@ module.exports = carEnumeration;
         "1": "Una macchina",
         ">5": "Alcune macchine",
         ">19": "Molte macchine",
-        "fallback": "Valore di fallback" // Opzionale
+        "fallback": "Valore di riserva" // Opzionale
       }
     }
   }
 }
 ```
 
-In questo esempio, `enu` mappa varie condizioni a contenuti specifici. Quando utilizzato in un componente React, Intlayer può scegliere automaticamente il contenuto appropriato in base alla variabile fornita.
+In questo esempio, `enu` associa varie condizioni a contenuti specifici. Quando utilizzato in un componente React, Intlayer può scegliere automaticamente il contenuto appropriato in base alla variabile fornita.
 
-> L'ordine di dichiarazione è importante nelle enumerazioni di Intlayer. La prima dichiarazione valida è quella che verrà selezionata. Se si applicano più condizioni, assicurati che siano ordinate correttamente per evitare comportamenti inaspettati.
+> L'ordine di dichiarazione è importante nelle enumerazioni di Intlayer. La prima dichiarazione valida è quella che verrà utilizzata. Se si applicano più condizioni, assicurarsi che siano ordinate correttamente per evitare comportamenti imprevisti.
 
-> Se non viene dichiarato un valore di fallback, la funzione restituirà `undefined` se nessuna chiave corrisponde.
+> Se non viene dichiarato un valore di riserva (fallback), la funzione restituirà `undefined` se nessuna chiave corrisponde.
 
-## Utilizzo dell'Enumerazione con React Intlayer
+## Utilizzo delle Enumerazioni con React Intlayer
 
-Per utilizzare l'enumerazione in un componente React, puoi sfruttare il hook `useIntlayer` del pacchetto `react-intlayer`. Questo hook recupera il contenuto corretto in base all'ID specificato. Ecco un esempio di come usarlo:
+Per utilizzare l'enumerazione in un componente React, puoi sfruttare il hook `useIntlayer` dal pacchetto `react-intlayer`. Questo hook recupera il contenuto corretto basato sull'ID specificato. Ecco un esempio di come usarlo:
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -148,7 +148,7 @@ const CarComponent: FC = () => {
       </p>
       <p>
         {
-          numberOfCar(0.01) // Output: Valore di fallback
+          numberOfCar(0.01) // Output: Valore di riserva
         }
       </p>
     </div>
@@ -166,22 +166,22 @@ const CarComponent = () => {
     <div>
       <p>
         {
-          numberOfCar(0) // Output: Nessuna macchina
+          numberOfCar(0) // Output: Nessuna auto
         }
       </p>
       <p>
         {
-          numberOfCar(6) // Output: Alcune macchine
+          numberOfCar(6) // Output: Alcune auto
         }
       </p>
       <p>
         {
-          numberOfCar(20) // Output: Molte macchine
+          numberOfCar(20) // Output: Molte auto
         }
       </p>
       <p>
         {
-          numberOfCar(0.01) // Output: Valore di fallback
+          numberOfCar(0.01) // Output: Valore di riserva
         }
       </p>
     </div>
@@ -201,22 +201,22 @@ const CarComponent = () => {
     <div>
       <p>
         {
-          numberOfCar(0) // Output: Nessuna macchina
+          numberOfCar(0) // Output: Nessuna auto
         }
       </p>
       <p>
         {
-          numberOfCar(6) // Output: Alcune macchine
+          numberOfCar(6) // Output: Alcune auto
         }
       </p>
       <p>
         {
-          numberOfCar(20) // Output: Molte macchine
+          numberOfCar(20) // Output: Molte auto
         }
       </p>
       <p>
         {
-          numberOfCar(0.01) // Output: Valore di fallback
+          numberOfCar(0.01) // Output: Valore di riserva
         }
       </p>
     </div>
@@ -226,14 +226,24 @@ const CarComponent = () => {
 module.exports = CarComponent;
 ```
 
-In questo esempio, il componente regola dinamicamente il suo output in base al numero di macchine. Il contenuto corretto viene scelto automaticamente, a seconda dell'intervallo specificato.
+In questo esempio, il componente adatta dinamicamente il suo output in base al numero di auto. Il contenuto corretto viene scelto automaticamente, a seconda dell'intervallo specificato.
 
 ## Risorse Aggiuntive
 
-Per informazioni più dettagliate sulla configurazione e sull'utilizzo, consulta le seguenti risorse:
+Per informazioni più dettagliate sulla configurazione e sull'uso, fare riferimento alle seguenti risorse:
+
+In questo esempio, il componente si adatta dinamicamente in base al numero di auto. Il contenuto corretto viene scelto automaticamente, a seconda dell'intervallo specificato.
+
+## Risorse Aggiuntive
+
+Per informazioni più dettagliate sulla configurazione e l'uso, fare riferimento alle seguenti risorse:
 
 - [Documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md)
 - [Documentazione React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_create_react_app.md)
 - [Documentazione Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_15.md)
 
-Queste risorse forniscono ulteriori approfondimenti sulla configurazione e sull'utilizzo di Intlayer in diversi ambienti e con vari framework.
+Queste risorse forniscono ulteriori approfondimenti sull'installazione e l'uso di Intlayer in diversi ambienti e con vari framework.
+
+## Cronologia del Documento
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

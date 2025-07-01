@@ -1,8 +1,27 @@
+---
+docName: package__@intlayer_cli
+url: https://intlayer.org/doc/package/@intlayer_cli
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/@intlayer/cli/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/cli - Command Line Interface Package for Intlayer
+description: NPM package providing scripts for Intlayer CLI commands, ensuring uniformity across all command line interfaces for internationalisation management.
+keywords:
+  - intlayer
+  - CLI
+  - command line
+  - scripts
+  - i18n
+  - JavaScript
+  - NPM
+  - tools
+---
+
 # @intlayer/cli: NPM Package to use the scripts provided by the intlayer CLI
 
-**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
+**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks such as React, React, and Express.js.
 
-The **`@intlayer/cli`** package is a NPM package that is used to declare the script related to the intlayer commands line interfaces. It ensure the uniformity of all intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer/index.md) packages.
+The **`@intlayer/cli`** package is an NPM package used to declare the scripts related to the Intlayer command line interfaces. It ensures the uniformity of all Intlayer CLI commands. This package is notably consumed by the [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/docs/en-GB/packages/intlayer-cli/index.md), and the [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/docs/en-GB/packages/intlayer/index.md) packages.
 
 ## Installation
 
@@ -22,4 +41,4 @@ yarn add @intlayer/cli
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getLocaleLang
 url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Dokumentation der t-Funktion | intlayer
-description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetLocaleLang verwenden
+title: getLocaleLang Funktionsdokumentation | intlayer
+description: Siehe, wie die Funktion getLocaleLang für das intlayer-Paket verwendet wird
 keywords:
   - getLocaleLang
   - Übersetzung
@@ -31,14 +31,14 @@ Die Funktion `getLocaleLang` extrahiert den Sprachcode aus einem Locale-String. 
   - **Beschreibung**: Der Locale-String (z. B. `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`), aus dem der Sprachcode extrahiert wird.
   - **Typ**: `Locales` (optional)
 
-## Rückgabewerte
+## Rückgabewert
 
 - **Typ**: `string`
-- **Beschreibung**: Der aus dem Locale extrahierte Sprachcode. Wenn kein Locale angegeben wird, gibt die Funktion einen leeren String (`''`) zurück.
+- **Beschreibung**: Der aus dem Locale extrahierte Sprachcode. Wenn kein Locale angegeben wird, wird ein leerer String (`''`) zurückgegeben.
 
-## Beispielverwendung
+## Beispielhafte Verwendung
 
-### Extrahieren von Sprachcodes:
+### Sprachcodes extrahieren:
 
 ```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
@@ -67,11 +67,15 @@ getLocaleLang(Locales.FRENCH_CANADA); // Ausgabe: "fr"
 getLocaleLang(Locales.FRENCH); // Ausgabe: "fr"
 ```
 
-## Sonderfälle
+## Randfälle
 
 - **Kein Locale angegeben:**
 
   - Die Funktion gibt einen leeren String zurück, wenn `locale` `undefined` ist.
 
 - **Fehlerhafte Locale-Strings:**
-  - Wenn das `locale` nicht dem Format `language-country` entspricht (z. B. `Locales.ENGLISH-US`), gibt die Funktion sicher den Teil vor `'-'` oder den gesamten String zurück, wenn kein `'-'` vorhanden ist.
+  - Wenn die `locale` nicht dem Format `Sprache-Land` entspricht (z. B. `Locales.ENGLISH-US`), gibt die Funktion sicher den Teil vor dem `'-'` zurück oder den gesamten String, falls kein `'-'` vorhanden ist.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

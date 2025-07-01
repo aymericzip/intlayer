@@ -1,11 +1,11 @@
 ---
 docName: intlayer_visual_editor
 url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Editor Visual Intlayer | Edita tu contenido utilizando un editor visual
-description: Descubra cómo usar el Editor Intlayer para gestionar su sitio web multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.
+description: Descubre cómo usar el Editor Intlayer para gestionar tu sitio web multilingüe. Sigue los pasos en esta documentación en línea para configurar tu proyecto en pocos minutos.
 keywords:
   - Editor
   - Internacionalización
@@ -18,7 +18,7 @@ keywords:
 
 # Documentación del Editor Visual de Intlayer
 
-<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Editor Visual + CMS para tu aplicación web: Intlayer explicado" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 El Editor Visual de Intlayer es una herramienta que envolverá tu sitio web para interactuar con tus archivos de declaración de contenido utilizando un editor visual.
 
@@ -94,7 +94,7 @@ const config: IntlayerConfig = {
     /**
      * Opcional
      * Por defecto es `true`. Si es `false`, el editor está inactivo y no se puede acceder.
-     * Puede ser usado para deshabilitar el editor en entornos específicos por razones de seguridad, como producción.
+     * Puede usarse para deshabilitar el editor en entornos específicos por razones de seguridad, como producción.
      */
     enabled: process.env.INTLAYER_ENABLED,
     /**
@@ -177,7 +177,7 @@ const config = {
     /**
      * Opcional
      * Por defecto es `true`. Si es `false`, el editor está inactivo y no se puede acceder.
-     * Puede ser usado para deshabilitar el editor en entornos específicos por razones de seguridad, como producción.
+     * Puede usarse para deshabilitar el editor en entornos específicos por razones de seguridad, como producción.
      */
     enabled: process.env.INTLAYER_ENABLED,
   },
@@ -214,6 +214,40 @@ module.exports = config;
 
 3. Si tu contenido está delineado, puedes mantenerlo presionado para mostrar el cajón de edición.
 
+## Configuración del entorno
+
+El editor puede configurarse para usar un archivo de entorno específico. Esto es útil cuando quieres usar el mismo archivo de configuración para desarrollo y producción.
+
+Para usar un archivo de entorno específico, puedes usar la bandera `--env-file` o `-f` al iniciar el editor:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> Ten en cuenta que el archivo de entorno debe estar ubicado en el directorio raíz de tu proyecto.
+
+O puedes usar la bandera `--env` o `-e` para especificar el entorno:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
+
 ## Depuración
 
 Si encuentras algún problema con el editor visual, verifica lo siguiente:
@@ -222,7 +256,35 @@ Si encuentras algún problema con el editor visual, verifica lo siguiente:
 
 - La configuración del [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) está correctamente establecida en tu archivo de configuración de Intlayer.
 
+  - Campos requeridos: - La URL de la aplicación debe coincidir con la que configuraste en la configuración del editor (`applicationURL`).
+    bash packageManager="npm"
+    npx intlayer-editor start -e development
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
+
+## Depuración
+
+Si encuentras algún problema con el editor visual, verifica lo siguiente:
+
+- Que el editor visual y la aplicación estén en ejecución.
+
+- Que la configuración del [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) esté correctamente establecida en tu archivo de configuración de Intlayer.
+
   - Campos requeridos:
     - La URL de la aplicación debe coincidir con la que configuraste en la configuración del editor (`applicationURL`).
 
-- El editor visual utiliza un iframe para mostrar tu sitio web. Asegúrate de que la Política de Seguridad de Contenido (CSP) de tu sitio web permita la URL del CMS como `frame-ancestors` ('http://localhost:8000' por defecto). Revisa la consola del editor para cualquier error.
+- El editor visual utiliza un iframe para mostrar tu sitio web. Asegúrate de que la Política de Seguridad de Contenidos (CSP) de tu sitio web permita la URL del CMS como `frame-ancestors` ('http://localhost:8000' por defecto). Revisa la consola del editor para detectar cualquier error.
+
+## Historial de la documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

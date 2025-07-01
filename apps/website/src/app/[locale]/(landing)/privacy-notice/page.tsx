@@ -1,5 +1,5 @@
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
-import { getDoc } from '@intlayer/docs';
+import { getLegal } from '@intlayer/docs';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 import { generateMetadata } from './metadata';
@@ -8,7 +8,7 @@ export { generateMetadata };
 
 const PrivacyNoticePage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
-  const file = await getDoc('privacy_notice', locale);
+  const file = await getLegal('privacy_notice', locale);
 
   return (
     <IntlayerServerProvider locale={locale}>

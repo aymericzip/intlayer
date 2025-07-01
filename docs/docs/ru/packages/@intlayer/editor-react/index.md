@@ -1,8 +1,27 @@
-# @intlayer/editor-react: Пакет NPM, предоставляющий состояния, контексты, хуки и компоненты для взаимодействия с редактором Intlayer
+---
+docName: package__@intlayer_editor-react
+url: https://intlayer.org/doc/package/@intlayer_editor-react
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/@intlayer/editor-react/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/editor-react - React-компоненты для редактора Intlayer
+description: Пакет NPM, предоставляющий React-компоненты и хуки для интеграции визуального редактора Intlayer в React-приложения для интернационализации.
+keywords:
+  - intlayer
+  - редактор
+  - React
+  - компоненты
+  - хуки
+  - i18n
+  - JavaScript
+  - NPM
+---
 
-**Intlayer** , это набор пакетов, разработанных специально для разработчиков на JavaScript. Он совместим с такими фреймворками, как React, Next.js и Express.js.
+# @intlayer/editor-react: пакет NPM, предоставляющий состояния, контексты, хуки и компоненты React для взаимодействия с редактором Intlayer
 
-Пакет **`@intlayer/editor-react`** предоставляет состояния, контексты, хуки и компоненты для взаимодействия с редактором Intlayer в приложении React.
+**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, Next.js и Express.js.
+
+Пакет **`@intlayer/editor-react`** предоставляет состояния, контексты, хуки и компоненты для взаимодействия с редактором Intlayer в React-приложении.
 
 ## Установка
 
@@ -19,3 +38,7 @@ yarn add @intlayer/editor-react
 ```bash
 pnpm add @intlayer/editor-react
 ```
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

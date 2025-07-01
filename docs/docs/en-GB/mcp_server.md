@@ -1,15 +1,15 @@
 ---
 docName: mcp_server
 url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: MCP Server Documentation
-description: Explore the features and setup of the MCP Server to optimize your server management and operations.
+description: Explore the features and setup of the MCP Server to optimise your server management and operations.
 keywords:
   - MCP Server
   - Server Management
-  - Optimization
+  - Optimisation
   - Intlayer
   - Documentation
   - Setup
@@ -18,23 +18,23 @@ keywords:
 
 # Intlayer MCP Server
 
-The **Intlayer MCP (Model Context Protocol) Server** provides AI-powered IDE assistance tailored for the Intlayer ecosystem. Designed for modern developer environments like **Cursor**, **GitHub Copilot workspace**, and any IDE supporting the MCP protocol, this server gives you contextual, real-time support based on your project's setup.
+The **Intlayer MCP (Model Context Protocol) Server** provides AI-powered IDE assistance tailored for the Intlayer ecosystem. Designed for modern developer environments such as **Cursor**, **GitHub Copilot workspace**, and any IDE supporting the MCP protocol, this server offers you contextual, real-time support based on your project's setup.
 
 ## Why Use the Intlayer MCP Server?
 
 By enabling the Intlayer MCP Server in your IDE, you unlock:
 
-- **Smart CLI Integration**
-  Access and run Intlayer CLI commands directly from your IDE interface. View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
+- **Smart CLI Integration**  
+  Access and run Intlayer CLI commands directly from your IDE interface. View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
 
-- **Context-Aware Documentation**
+- **Context-Aware Documentation**  
   The MCP server loads and exposes the documentation that corresponds to the version of Intlayer you're using in your project. This ensures that code suggestions, command options, and explanations are always up to date and relevant.
 
-- **AI-Assisted Development**
+- **AI-Assisted Development**  
   With project-aware suggestions and autocomplete, the AI assistant can explain your code, recommend CLI usage, or suggest how to use specific features of Intlayer based on your current files.
 
-- **Lightweight & Instant Setup**
-  No server maintenance or heavy install required. Just configure your `.cursor/mcp.json` or equivalent MCP config and you're ready to go.
+- **Lightweight & Instant Setup**  
+  No server maintenance or heavy installation required. Just configure your `.cursor/mcp.json` or equivalent MCP config and you're ready to go.
 
 ---
 
@@ -53,7 +53,7 @@ In your project root, add the following `.cursor/mcp.json` configuration file:
 }
 ```
 
-This tells your IDE to launch the Intlayer MCP server using `npx`, ensuring it always uses the latest available version unless you pin it.
+This instructs your IDE to launch the Intlayer MCP server using `npx`, ensuring it always uses the latest available version unless you choose to pin it.
 
 ---
 
@@ -81,11 +81,11 @@ Create a `.vscode/mcp.json` file in your project root:
 
 1. **Enable Agent Mode**: Open the Chat view (⌃⌘I on Mac, Ctrl+Alt+I on Windows/Linux) and select **Agent** mode from the dropdown.
 
-2. **Access Tools**: Click the **Tools** button to view available Intlayer tools. You can select/deselect specific tools as needed.
+2. **Access Tools**: Click the **Tools** button to view available Intlayer tools. You can select or deselect specific tools as required.
 
-3. **Direct Tool Reference**: Reference tools directly in your prompts by typing `#` followed by the tool name.
+3. **Direct Tool Reference**: Refer to tools directly in your prompts by typing `#` followed by the tool name.
 
-4. **Tool Confirmation**: By default, VS Code will ask for confirmation before running tools. Use the **Continue** button options to automatically confirm tools for the current session, workspace, or all future invocations.
+4. **Tool Confirmation**: By default, VS Code will request confirmation before running tools. Use the **Continue** button options to automatically confirm tools for the current session, workspace, or all future invocations.
 
 ### Managing the Server
 
@@ -162,9 +162,9 @@ The server will expose Intlayer-specific tools and resources that can be consume
 
 ---
 
-##Useful Links
+## Useful Links
 
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
+- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md)
 - [Intlayer GitHub Repository](https://github.com/aymericzip/intlayer)
 
 ---

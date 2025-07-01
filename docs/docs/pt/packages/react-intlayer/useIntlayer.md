@@ -1,10 +1,10 @@
 ---
 docName: package__react-intlayer__useIntlayer
 url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentação do hook useIntlayer | react-intlayer
+title: Documentação do Hook useIntlayer | react-intlayer
 description: Veja como usar o hook useIntlayer para o pacote react-intlayer
 keywords:
   - useIntlayer
@@ -20,11 +20,11 @@ keywords:
 
 # Integração com React: Documentação do Hook `useIntlayer`
 
-Esta seção fornece orientações detalhadas sobre como usar o hook `useIntlayer` em aplicações React, permitindo uma localização de conteúdo eficiente.
+Esta seção fornece orientações detalhadas sobre o uso do hook `useIntlayer` em aplicações React, permitindo uma localização eficiente de conteúdo.
 
 ## Importando `useIntlayer` no React
 
-O hook `useIntlayer` pode ser integrado em aplicações React importando-o com base no contexto:
+O hook `useIntlayer` pode ser integrado em aplicações React importando-o conforme o contexto:
 
 - **Componente Cliente:**
 
@@ -59,15 +59,15 @@ O hook `useIntlayer` pode ser integrado em aplicações React importando-o com b
 O hook aceita dois parâmetros:
 
 1. **`key`**: A chave do dicionário para recuperar o conteúdo localizado.
-2. **`locale`** (opcional): O idioma desejado. Por padrão, usa o idioma do contexto se não especificado.
+2. **`locale`** (opcional): A localidade desejada. Por padrão, utiliza a localidade do contexto se não especificada.
 
 ## Dicionário
 
-Todas as chaves do dicionário devem ser declaradas em arquivos de declaração de conteúdo para melhorar a segurança de tipos e evitar erros. Você pode encontrar as instruções de configuração [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
+Todas as chaves do dicionário devem ser declaradas dentro dos arquivos de declaração de conteúdo para aumentar a segurança de tipos e evitar erros. Você pode encontrar as [instruções de configuração aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
 
-## Exemplo de Uso no React
+## Exemplo de Uso em React
 
-Demonstração do hook `useIntlayer` em um componente React:
+Demonstrando o hook `useIntlayer` dentro de um componente React:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -116,6 +116,11 @@ const App = ({ locale }) => {
 ```
 
 ```jsx fileName="src/app.csx" codeFormat="commonjs"
+const { IntlayerProvider } = require("react-intlayer");
+const {
+  IntlayerServerProvider,
+  useIntlayer,
+jsx fileName="src/app.csx" codeFormat="commonjs"
 const { IntlayerProvider } = require("react-intlayer");
 const {
   IntlayerServerProvider,
@@ -230,9 +235,9 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Manipulando Atributos
+## Manipulação de Atributos
 
-Ao localizar atributos, acesse os valores de conteúdo adequadamente:
+Ao localizar atributos, acesse os valores do conteúdo de forma apropriada:
 
 ```jsx
 <button title={content.buttonTitle.value}>{content.buttonText}</button>
@@ -240,6 +245,10 @@ Ao localizar atributos, acesse os valores de conteúdo adequadamente:
 
 ## Recursos Adicionais
 
-- **Editor Visual do Intlayer**: Para uma experiência de gerenciamento de conteúdo mais intuitiva, consulte a documentação do editor visual [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md).
+- **Editor Visual Intlayer**: Para uma experiência de gerenciamento de conteúdo mais intuitiva, consulte a documentação do editor visual [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md).
 
-Esta seção foca especificamente na integração do hook `useIntlayer` em aplicações React, simplificando o processo de localização e garantindo a consistência do conteúdo entre diferentes idiomas.
+Esta seção é direcionada especificamente para a integração do hook `useIntlayer` em aplicações React, simplificando o processo de localização e garantindo a consistência do conteúdo entre diferentes locais.
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

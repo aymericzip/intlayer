@@ -57,10 +57,11 @@ L'étape de construction peut être réalisée de trois manières :
 
 Basé sur vos `dictionnaires`, Intlayer générera des types pour les rendre utilisables dans votre application.
 
-- Les types de dictionnaires sont générés à partir des `dictionnaires` Intlayer. Par défaut, les types de dictionnaires Intlayer sont générés dans le répertoire `.intlayer/types` du projet.
+- Les types de dictionnaires sont générés à partir des `fichiers de déclaration de contenu` d'Intlayer. Par défaut, les types de dictionnaires Intlayer sont générés dans le répertoire `.intlayer/types` du projet.
 
 - L'[augmentation de module](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) d'Intlayer est une fonctionnalité TypeScript qui vous permet de définir des types supplémentaires pour Intlayer. Cela rend l'expérience de développement plus facile en suggérant les arguments disponibles ou requis.
-  Parmi les types générés, les types de dictionnaires Intlayer ou même les types de configuration de langue sont ajoutés au fichier `types/intlayer.d.ts` et utilisés par d'autres packages. Pour cela, il est nécessaire que le fichier `tsconfig.json` soit configuré pour inclure le répertoire `types` du projet.
+
+Parmi les types générés, les types de dictionnaires Intlayer ou même les types de configuration de langue sont ajoutés au fichier `types/intlayer.d.ts` et utilisés par d'autres packages. Pour cela, il est nécessaire que le fichier `tsconfig.json` soit configuré pour inclure le répertoire `types` du projet.
 
 ### Étape d'interprétation des dictionnaires
 
@@ -83,7 +84,7 @@ Intlayer vous permet de déclarer du contenu localement, puis de l'exporter vers
 
 Ainsi, vous pourrez pousser et tirer du contenu depuis le CMS vers votre application, de manière similaire à ce que vous faites avec Git pour votre code.
 
-Si configuré sur votre projet, Intlayer gérera automatiquement pour vous la récupération du contenu depuis le CMS lorsque l'application démarre (dev) / se construit (prod).
+Pour les dictionnaires externalisés utilisant le CMS, Intlayer effectue une opération de récupération basique pour obtenir les dictionnaires distants et les fusionne avec vos dictionnaires locaux. Si configuré sur votre projet, Intlayer gérera automatiquement la récupération du contenu depuis le CMS au démarrage de l'application (dev) ou lors de la construction (prod).
 
 ## Éditeur visuel
 
@@ -91,13 +92,17 @@ Intlayer fournit également un éditeur visuel pour vous permettre d'éditer vot
 
 ![éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
+- Le serveur est une simple application Express qui écoute les requêtes du client et récupère le contenu de votre application, tels que les `dictionaries` et la configuration pour le rendre accessible côté client.
+- D'autre part, le client est une application React utilisée pour interagir avec votre contenu via une interface visuelle.
+  Lorsque vous appelez votre contenu en utilisant `useIntlayer` et que l'éditeur est activé, il enveloppe automatiquement vos chaînes avec un objet Proxy nommé `IntlayerNode`. Ce nœud utilise `window.sendMessage` pour communiquer avec un iframe encapsulé contenant l'interface de l'éditeur visuel.  
+  Du côté de l'éditeur, celui-ci écoute ces messages et simule une interaction réelle avec votre contenu, vous permettant d'éditer le texte directement dans le contexte de votre application.
+
 ## Optimisation de la construction de l'application
 
 Pour optimiser la taille du bundle de votre application, Intlayer fournit deux plugins pour optimiser la construction de votre application : les plugins `@intlayer/babel` et `@intlayer/swc`.
+Les plugins Babel et SWC fonctionnent en analysant l'arbre de syntaxe abstraite (AST) de votre application pour remplacer les appels aux fonctions Intlayer par du code optimisé. Ce processus rend votre bundle final plus léger en production en s'assurant que seuls les dictionnaires réellement utilisés sont importés, optimisant ainsi le découpage des chunks et réduisant la taille du bundle.
 
 En mode développement, Intlayer utilise une importation statique centralisée pour les dictionnaires afin de simplifier l'expérience de développement.
-
-En optimisant la construction, Intlayer remplacera tous les appels des dictionnaires pour optimiser le découpage. Ainsi, le bundle final n'importera que les dictionnaires utilisés.
 
 En activant l'option `activateDynamicImport` dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md), Intlayer utilisera l'importation dynamique pour charger les dictionnaires. Cette option est désactivée par défaut pour éviter le traitement asynchrone lors du rendu de l'application.
 
@@ -129,9 +134,11 @@ Le package `next-intlayer` est utilisé comme une couche au-dessus de `react-int
 
 Le package `vue-intlayer` est utilisé pour interpréter les dictionnaires Intlayer et les rendre utilisables dans les applications Vue.
 
-### svelte-intlayer (WIP)
+### nuxt-intlayer
 
-Le package `svelte-intlayer` est en cours de développement. Il vise à fournir une intégration native d'Intlayer dans les applications Svelte.
+Le package `nuxt-intlayer` est un module Nuxt permettant de rendre les dictionnaires Intlayer utilisables dans les applications Nuxt. Il intègre des fonctionnalités essentielles pour faire fonctionner Intlayer dans un environnement Nuxt, telles que le middleware de traduction, le routage ou la configuration du fichier `nuxt.config.js`.
+
+### svelte-intlayer (WIP)
 
 Le package `svelte-intlayer` est utilisé pour interpréter les dictionnaires Intlayer et les rendre utilisables dans les applications Svelte.
 
@@ -165,7 +172,7 @@ Inclut le plugin Vite pour intégrer Intlayer avec le [bundler Vite](https://vit
 
 ### react-scripts-intlayer
 
-Le package `react-scripts-intlayer` est utilisé pour intégrer Intlayer dans les applications créées avec Create React App.
+Inclut les commandes et plugins `react-scripts-intlayer` pour intégrer Intlayer dans les applications basées sur Create React App. Ces plugins sont basés sur [craco](https://craco.js.org/) et incluent une configuration supplémentaire pour le bundler [Webpack](https://webpack.js.org/).
 
 ### intlayer-editor
 
@@ -196,9 +203,13 @@ Le package `@intlayer/webpack` est utilisé pour fournir une configuration Webpa
 
 Le package `@intlayer/cli` est un package NPM utilisé pour déclarer les scripts liés aux interfaces en ligne de commande d'Intlayer. Il garantit l'uniformité de toutes les commandes CLI d'Intlayer. Ce package est notamment consommé par les packages [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer-cli/index.md) et [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer/index.md).
 
+### @intlayer/mcp
+
+Le package `@intlayer/mcp` fournit un serveur MCP (Model Context Protocol) qui offre une assistance IDE alimentée par l'IA, adaptée à l'écosystème Intlayer. Il charge automatiquement la documentation et s'intègre avec la CLI Intlayer.
+
 ### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
 
-Les packages `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` et `@intlayer/dynamic-dictionaries-entry` renvoient le chemin d'entrée des dictionnaires Intlayer. Comme il est impossible de rechercher dans le système de fichiers depuis le navigateur, l'utilisation de bundlers comme Webpack ou Rollup pour récupérer le chemin d'entrée des dictionnaires n'est pas possible. Ces packages sont conçus pour être aliasés, permettant une optimisation du bundling à travers divers bundlers tels que Vite, Webpack et Turbopack.
+Les packages `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` et `@intlayer/dynamic-dictionaries-entry` renvoient le chemin d'entrée des dictionnaires Intlayer. Comme il est impossible de rechercher dans le système de fichiers depuis le navigateur, l'utilisation de bundlers tels que Webpack ou Rollup pour récupérer le chemin d'entrée des dictionnaires n'est pas possible. Ces packages sont conçus pour être aliasés, permettant une optimisation du bundling avec différents bundlers comme Vite, Webpack et Turbopack.
 
 ### @intlayer/chokidar
 
@@ -235,3 +246,7 @@ Le package `@intlayer/backend` exporte des types backend et proposera éventuell
 ## Discutez avec notre documentation intelligente
 
 - [Posez vos questions à notre documentation intelligente](https://intlayer.org/doc/chat)
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

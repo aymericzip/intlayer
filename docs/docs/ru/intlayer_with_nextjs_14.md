@@ -228,21 +228,20 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 );
 ```
 
+```jsx fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const LocaleLayout = ({ children, params: { locale } }) => (
-
   <html lang={locale} dir={getHTMLTextDir(locale)}>
     <body className={inter.className}>{children}</body>
   </html>
 );
 
 export default LocaleLayout;
-
-````
+```
 
 ```jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
 const { Inter } = require("next/font/google");
@@ -257,7 +256,7 @@ const LocaleLayout = ({ children, params: { locale } }) => (
 );
 
 module.exports = LocaleLayout;
-````
+```
 
 > Сегмент пути `[locale]` используется для определения локали. Пример: `/en-US/about` будет относиться к `en-US`, а `/fr/about` к `fr`.
 

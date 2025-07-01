@@ -15,6 +15,7 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAIAccess';
+import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getChunk } from './utils/getChunk';
@@ -28,7 +29,8 @@ const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
  * Translate a single file for a given locale
  */
 export const reviewFile = async (
-  filePath: string,
+  baseFilePath: string,
+  outputFilePath: string,
   locale: Locales,
   baseLocale: Locales,
   aiOptions?: AIOptions,
@@ -40,15 +42,8 @@ export const reviewFile = async (
     const configuration = getConfiguration(configOptions);
     const appLogger = getAppLogger(configuration);
 
-    const relativePath = join(configuration.content.baseDir, filePath);
-
-    appLogger(
-      `Auditing file: ${relativePath} in ${getLocaleName(locale)} (${locale})`
-    );
-
-    const localeFilePath = getOutputFilePath(filePath, locale, baseLocale);
-    const basedFileContent = await readFile(relativePath, 'utf-8');
-    const fileToReviewContent = await readFile(localeFilePath, 'utf-8');
+    const basedFileContent = await readFile(baseFilePath, 'utf-8');
+    const fileToReviewContent = await readFile(outputFilePath, 'utf-8');
 
     let updatedFileContent = fileToReviewContent;
     let fileResultContent = '';
@@ -57,15 +52,16 @@ export const reviewFile = async (
     const basePrompt = (
       await readFile(join(dir, './prompts/REVIEW_PROMPT.md'), 'utf-8')
     )
-      .replaceAll('{{locale}}', locale)
-      .replaceAll('{{localeName}}', getLocaleName(locale))
-      .replaceAll('{{baseLocale}}', baseLocale)
-      .replaceAll('{{baseLocaleName}}', getLocaleName(baseLocale))
       .replaceAll(
-        '{{applicationContext}}',
-        aiOptions?.applicationContext ?? '-'
+        '{{localeName}}',
+        `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`
       )
-      .replaceAll('{{customInstructions}}', customInstructions ?? '-');
+      .replaceAll(
+        '{{baseLocaleName}}',
+        `${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale})`
+      )
+      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
+      .replace('{{customInstructions}}', customInstructions ?? '-');
 
     const baseChunks = chunkText(basedFileContent, 800, 0);
 
@@ -108,12 +104,15 @@ export const reviewFile = async (
             { role: 'user', content: baseChunkContext.content },
           ],
           aiOptions,
-          configOptions,
           oAuth2AccessToken
         );
 
+        appLogger(
+          ` -> ${result.tokenUsed} tokens used - CHUNK ${i + 1} of ${baseChunks.length}`
+        );
+
         const fixedReviewedChunkResult = fixChunkStartEndChars(
-          result,
+          result?.fileContent,
           baseChunkContext.content
         );
 
@@ -128,10 +127,10 @@ export const reviewFile = async (
       fileResultContent += reviewedChunkResult;
     }
 
-    mkdirSync(dirname(localeFilePath), { recursive: true });
-    writeFileSync(localeFilePath, fileResultContent);
+    mkdirSync(dirname(outputFilePath), { recursive: true });
+    writeFileSync(outputFilePath, fileResultContent);
 
-    appLogger(` File ${localeFilePath} created/updated successfully.`);
+    appLogger(` File ${outputFilePath} created/updated successfully.`);
   } catch (error) {
     console.error(error);
   }
@@ -146,6 +145,8 @@ type ReviewDocOptions = {
   nbSimultaneousFileProcessed?: number;
   configOptions?: GetConfigurationOptions;
   customInstructions?: string;
+  skipIfModifiedBefore?: number | string | Date;
+  skipIfModifiedAfter?: number | string | Date;
 };
 
 /**
@@ -161,9 +162,18 @@ export const reviewDoc = async ({
   nbSimultaneousFileProcessed,
   configOptions,
   customInstructions,
+  skipIfModifiedBefore,
+  skipIfModifiedAfter,
 }: ReviewDocOptions) => {
   const configuration = getConfiguration(configOptions);
   const appLogger = getAppLogger(configuration);
+
+  if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
+    appLogger(
+      `Warning: nbSimultaneousFileProcessed is set to ${nbSimultaneousFileProcessed}, which is greater than 10. Setting it to 10.`
+    );
+    nbSimultaneousFileProcessed = 10; // Limit the number of simultaneous file processed to 10
+  }
 
   const limit = pLimit(nbSimultaneousFileProcessed ?? 3);
 
@@ -189,22 +199,51 @@ export const reviewDoc = async ({
       .map((locale) => `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`)
       .join(', ')} ]`
   );
+
   appLogger(`Reviewing ${docList.length} files:`);
   appLogger(docList.map((path) => ` - ${path}\n`));
 
   const tasks = docList.map((docPath) =>
     locales.flatMap((locale) =>
-      limit(() =>
-        reviewFile(
-          docPath,
+      limit(async () => {
+        appLogger(
+          `Reviewing file: ${docPath} to ${getLocaleName(
+            locale,
+            Locales.ENGLISH
+          )} (${locale})`
+        );
+
+        const absoluteBaseFilePath = join(
+          configuration.content.baseDir,
+          docPath
+        );
+        const outputFilePath = getOutputFilePath(
+          absoluteBaseFilePath,
+          locale,
+          baseLocale
+        );
+
+        const fileModificationData = checkFileModifiedRange(outputFilePath, {
+          skipIfModifiedBefore,
+          skipIfModifiedAfter,
+        });
+
+        if (fileModificationData.isSkipped) {
+          appLogger(fileModificationData.message);
+          return;
+        }
+
+        await reviewFile(
+          absoluteBaseFilePath,
+          outputFilePath,
           locale as Locales,
           baseLocale,
           aiOptions,
           configOptions,
           oAuth2AccessToken,
           customInstructions
-        )
-      )
+        );
+      })
     )
   );
 

@@ -1,21 +1,53 @@
 ---
 docName: package__solid-intlayer
 url: https://intlayer.org/doc/packages/solid-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: पैकेज के डॉक्यूमेंटेशन | solid-intlayer
-description: solid-intlayer पैकेज का उपयोग कैसे करें
+title: पैकेज दस्तावेज़ीकरण | solid-intlayer
+description: देखें कि solid-intlayer पैकेज का उपयोग कैसे करें
 keywords:
   - Intlayer
   - solid-intlayer
-  - अंतर्राष्ट्रीयकरण
-  - प्रलेखन
+  - अंतरराष्ट्रीयकरण
+  - दस्तावेज़ीकरण
   - Next.js
   - JavaScript
   - React
 ---
 
-this doc will be automatically generated translated from the english doc
+# solid-intlayer: एक Solid एप्लिकेशन को अंतरराष्ट्रीयकृत (i18n) करने के लिए NPM पैकेज
 
-see /docs/en/packages/solid-intlayer/index.md
+**Intlayer** पैकेजों का एक समूह है जो विशेष रूप से JavaScript डेवलपर्स के लिए डिज़ाइन किया गया है। यह Solid, Solid, और Express.js जैसे फ्रेमवर्क के साथ संगत है।
+
+**`solid-intlayer` पैकेज** आपको अपने Solid एप्लिकेशन को अंतरराष्ट्रीयकृत करने की अनुमति देता है। यह Solid अंतरराष्ट्रीयकरण के लिए संदर्भ प्रदाता और हुक प्रदान करता है।
+
+## अपने Solid एप्लिकेशन को अंतरराष्ट्रीयकृत क्यों करें?
+
+अपने Solid एप्लिकेशन को अंतरराष्ट्रीयकृत करना एक वैश्विक दर्शकों को प्रभावी ढंग से सेवा देने के लिए आवश्यक है। यह आपके एप्लिकेशन को प्रत्येक उपयोगकर्ता की पसंदीदा भाषा में सामग्री और संदेश प्रदान करने की अनुमति देता है। यह क्षमता उपयोगकर्ता अनुभव को बढ़ाती है और आपके एप्लिकेशन की पहुंच को व्यापक बनाती है, जिससे यह विभिन्न भाषाई पृष्ठभूमि वाले लोगों के लिए अधिक सुलभ और प्रासंगिक बन जाता है।
+
+## Intlayer को एकीकृत क्यों करें?
+
+- **JavaScript-संचालित सामग्री प्रबंधन**: अपनी सामग्री को कुशलतापूर्वक परिभाषित और प्रबंधित करने के लिए JavaScript की लचीलापन का उपयोग करें।
+- **टाइप-सेफ वातावरण**: TypeScript का उपयोग करें ताकि आपकी सभी सामग्री परिभाषाएँ सटीक और त्रुटि-मुक्त हों।
+- **एकीकृत सामग्री फ़ाइलें**: अपनी अनुवादों को उनके संबंधित घटकों के करीब रखें, जिससे रखरखाव और स्पष्टता बढ़े।
+
+## स्थापना
+
+अपनी पसंदीदा पैकेज प्रबंधक का उपयोग करके आवश्यक पैकेज स्थापित करें:
+
+```bash packageManager="npm"
+npm install solid-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add solid-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add solid-intlayer
+```
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

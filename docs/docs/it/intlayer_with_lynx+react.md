@@ -28,7 +28,7 @@ Con Intlayer, puoi:
 
 - **Gestire facilmente le traduzioni** utilizzando dizionari dichiarativi a livello di componente.
 - **Garantire il supporto TypeScript** con tipi autogenerati.
-- **Localizzare dinamicamente** i contenuti, inclusi **stringhe dell'interfaccia utente** (e in React per il web, può anche localizzare i metadati HTML, ecc.).
+- **Localizzare dinamicamente** i contenuti, incluse le **stringhe dell'interfaccia utente** (e in React per il web, può anche localizzare i metadati HTML, ecc.).
 - **Beneficiare di funzionalità avanzate**, come il rilevamento dinamico della lingua e il cambio di lingua.
 
 ---
@@ -181,9 +181,9 @@ Crea file di **dichiarazione dei contenuti** ovunque nel tuo progetto (comunemen
 - `.content.cjx`
 - ecc.
 
-Esempio (TypeScript con nodi TSX per Lynx):
+Esempio:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -281,7 +281,7 @@ const appContent = {
       it: "Tocca il logo e divertiti!",
       en: "Tap the logo and have fun!",
       fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca il logo y diviértete!",
+      es: "¡Toca el logo y diviértete!",
     }),
     hint: [
       t({
@@ -325,7 +325,7 @@ module.exports = appContent;
         "it": "Tocca il logo e divertiti!",
         "en": "Tap the logo and have fun!",
         "fr": "Appuyez sur le logo et amusez-vous!",
-        "es": "¡Toca il logo y diviértete!"
+        "es": "¡Toca el logo y diviértete!"
       }
     },
     "hint": [
@@ -342,10 +342,10 @@ module.exports = appContent;
       {
         "nodeType": "translation",
         "translation": {
+          "it": "per vedere gli aggiornamenti!",
           "en": "to see updates!",
           "fr": "pour voir les mises à jour!",
-          "es": "para ver actualizaciones!",
-          "it": "per vedere gli aggiornamenti!"
+          "es": "para ver actualizaciones!"
         }
       }
     ]
@@ -374,7 +374,6 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
     // solo sfondo
     setAlterLogo(!alterLogo);
@@ -418,12 +417,12 @@ export const App = () => {
 
 ## (Opzionale) Passo 5: Cambia la Lingua dell'App
 
-Per cambiare le lingue direttamente dai tuoi componenti, puoi usare il metodo `setLocale` del hook `useLocale`:
+Per cambiare la lingua direttamente dai tuoi componenti, puoi usare il metodo `setLocale` del hook `useLocale`:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 import { type FC } from "react";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales, locale } = useLocale();
@@ -455,7 +454,7 @@ export const LocaleSwitcher: FC = () => {
 };
 ```
 
-Questo attiverà un nuovo rendering di tutti i componenti che utilizzano i contenuti di Intlayer, mostrando ora le traduzioni per la nuova lingua.
+Questo attiva un nuovo rendering di tutti i componenti che utilizzano i contenuti di Intlayer, mostrando ora le traduzioni per la nuova lingua.
 
 > Consulta la documentazione di [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useLocale.md) per maggiori dettagli.
 
@@ -482,8 +481,6 @@ Questo abilita funzionalità come:
 
 ---
 
-## Configurazione di Git
-
 Per evitare di commettere file generati automaticamente da Intlayer, aggiungi quanto segue al tuo `.gitignore`:
 
 ```plaintext
@@ -493,8 +490,30 @@ Per evitare di commettere file generati automaticamente da Intlayer, aggiungi qu
 
 ---
 
+### Estensione VS Code
+
+Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare la **Estensione ufficiale Intlayer per VS Code**.
+
+[Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Questa estensione offre:
+
+- **Autocompletamento** per le chiavi di traduzione.
+- **Rilevamento errori in tempo reale** per traduzioni mancanti.
+- **Anteprime inline** dei contenuti tradotti.
+- **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
+  Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazione dell'estensione Intlayer per VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ## Approfondisci
 
 - **Editor Visivo**: Usa l'[Editor Visivo di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) per gestire le traduzioni visivamente.
 - **Integrazione CMS**: Puoi anche esternalizzare e recuperare i contenuti del tuo dizionario da un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
 - **Comandi CLI**: Esplora la [CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md) per attività come **estrarre traduzioni** o **controllare chiavi mancanti**.
+
+---
+
+## Cronologia Documentazione
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

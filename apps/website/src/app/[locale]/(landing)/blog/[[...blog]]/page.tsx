@@ -104,7 +104,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
     locale
   );
 
-  const file = await getBlog(blogData?.blogName ?? '', locale);
+  const file = await getBlog(blogData?.docName ?? '', locale);
 
   const blogContent = urlRenamer(file);
 

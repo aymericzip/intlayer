@@ -84,7 +84,7 @@ const config = {
   },
   ai: {
     apiKey: process.env.OPENAI_API_KEY,
-    applicationContext: "Это тестовое приложение", // Это тестовое приложение
+    applicationContext: "Это тестовое приложение", // This is a test application
   },
   build: {
     activateDynamicImport: true,
@@ -215,7 +215,7 @@ module.exports = config;
 
   - _Тип_: `string` | `undefined`
   - _По умолчанию_: `undefined`
-  - _Описание_: clientId и clientSecret позволяют пакетам Intlayer аутентифицироваться с backend с использованием аутентификации oAuth2. Токен доступа используется для аутентификации пользователя, связанного с проектом. Чтобы получить токен доступа, перейдите на https://intlayer.org/dashboard/project и создайте учетную запись.
+  - _Описание_: clientId и clientSecret позволяют пакетам intlayer аутентифицироваться с backend с использованием аутентификации oAuth2. Токен доступа используется для аутентификации пользователя, связанного с проектом. Чтобы получить токен доступа, перейдите на https://intlayer.org/dashboard/project и создайте учетную запись.
   - _Пример_: `true`
   - _Примечание_: Важно: clientId и clientSecret должны храниться в секрете и не должны быть общедоступными. Убедитесь, что они хранятся в безопасном месте, например, в переменных окружения.
 

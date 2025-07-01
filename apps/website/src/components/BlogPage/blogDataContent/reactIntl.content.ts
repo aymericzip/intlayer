@@ -5,7 +5,7 @@ import { BlogData } from '../types';
 const blogContent = {
   key: 'blog-intlayer-with-react-intl-metadata',
   content: {
-    blogName: 'intlayer_with_react-intl',
+    docName: 'intlayer_with_react-intl',
     url: PagesRoutes['Blog_Intlayer_with_React-intl'],
     githubUrl: GithubRoutes.IntlayerWithReactIntl,
     createdAt: '2025-01-02',

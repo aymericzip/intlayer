@@ -1,3 +1,24 @@
+---
+docName: translated_path_url
+url: https://intlayer.org/doc/faq/translated-path-url
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/translated_path_url.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: Can I translate the url path?
+description: Learn how to translate the url path.
+keywords:
+  - array
+  - content
+  - declaration
+  - intlayer
+  - middleware
+  - proxy
+  - rewrite
+  - prefix
+  - locale
+  - url
+---
+
 # It it possible to translate url as following :
 
 ```bash

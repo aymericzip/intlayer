@@ -1,11 +1,11 @@
 ---
 docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: 挿入
-description: コンテンツに挿入プレースホルダーを宣言し、使用する方法を学びます。このドキュメントでは、あらかじめ定義されたコンテンツ構造内に値を動的に挿入する手順を説明します。
+description: コンテンツ内で挿入プレースホルダーを宣言し使用する方法を学びます。このドキュメントは、事前定義されたコンテンツ構造内に動的に値を挿入する手順を案内します。
 keywords:
   - 挿入
   - 動的コンテンツ
@@ -16,17 +16,17 @@ keywords:
   - React
 ---
 
-# 挿入コンテンツ / 挿入のIntlayer
+# 挿入コンテンツ / Intlayerにおける挿入
 
 ## 挿入の仕組み
 
-Intlayerでは、挿入コンテンツは`insertion`関数を使用して実現されます。この関数は、文字列内のプレースホルダー（例: `{{name}}`や`{{age}}`）を特定し、実行時に動的に置き換えることができます。このアプローチにより、アプリケーションから渡されるデータによって特定の部分が決定される柔軟なテンプレートのような文字列を作成できます。
+Intlayerでは、挿入コンテンツは`insertion`関数を通じて実現されます。この関数は文字列内のプレースホルダー（例えば`{{name}}`や`{{age}}`）を識別し、実行時に動的に置き換えることができます。この方法により、アプリケーションから渡されたデータによって特定の部分が決定される、柔軟でテンプレートのような文字列を作成できます。
 
-React IntlayerやNext Intlayerと統合することで、各プレースホルダーの値を含むデータオブジェクトを提供するだけで、Intlayerがプレースホルダーを置き換えたコンテンツを自動的にレンダリングします。
+React IntlayerやNext Intlayerと統合すると、各プレースホルダーの値を含むデータオブジェクトを単に提供するだけで、Intlayerが自動的にプレースホルダーを置き換えたコンテンツをレンダリングします。
 
 ## 挿入コンテンツの設定
 
-Intlayerプロジェクトで挿入コンテンツを設定するには、挿入定義を含むコンテンツモジュールを作成します。以下に、さまざまな形式の例を示します。
+Intlayerプロジェクトで挿入コンテンツを設定するには、挿入定義を含むコンテンツモジュールを作成します。以下に様々な形式の例を示します。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { insert, type Dictionary } from "intlayer";
@@ -34,7 +34,9 @@ import { insert, type Dictionary } from "intlayer";
 const myInsertionContent = {
   key: "my_key",
   content: {
-    myInsertion: insert("こんにちは、私の名前は{{name}}で、{{age}}歳です！"),
+    myInsertion: insert(
+      "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
+    ),
   },
 } satisfies Dictionary;
 
@@ -48,7 +50,9 @@ import { insert } from "intlayer";
 const myInsertionContent = {
   key: "my_key",
   content: {
-    myInsertion: insert("こんにちは、私の名前は{{name}}で、{{age}}歳です！"),
+    myInsertion: insert(
+      "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
+    ),
   },
 };
 
@@ -62,7 +66,9 @@ const { insert } = require("intlayer");
 const myInsertionContent = {
   key: "my_key",
   content: {
-    myInsertion: insert("こんにちは、私の名前は{{name}}で、{{age}}歳です！"),
+    myInsertion: insert(
+      "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
+    ),
   },
 };
 
@@ -76,7 +82,7 @@ module.exports = myInsertionContent;
   "content": {
     "myInsertion": {
       "nodeType": "insertion",
-      "insertion": "こんにちは、私の名前は{{name}}で、{{age}}歳です！",
+      "insertion": "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！",
     },
   },
 }
@@ -84,7 +90,7 @@ module.exports = myInsertionContent;
 
 ## React Intlayerでの挿入コンテンツの使用
 
-Reactコンポーネント内で挿入コンテンツを利用するには、`react-intlayer`パッケージから`useIntlayer`フックをインポートして使用します。このフックは指定されたキーのコンテンツを取得し、コンテンツ内の各プレースホルダーを表示したい値にマッピングするオブジェクトを渡すことができます。
+Reactコンポーネント内で挿入コンテンツを利用するには、`react-intlayer`パッケージから`useIntlayer`フックをインポートして使用します。このフックは指定したキーのコンテンツを取得し、コンテンツ内の各プレースホルダーに対応する値をマッピングしたオブジェクトを渡すことができます。
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -97,14 +103,14 @@ const InsertionComponent: FC = () => {
     <div>
       <p>
         {
-          /* 出力: "こんにちは、私の名前はJohnで、30歳です！" */
+          /* 出力例: "Hello, my name is John and I am 30 years old!" */
           myInsertion({ name: "John", age: "30" })
         }
       </p>
       <p>
         {
           /* 同じ挿入を異なる値で再利用できます */
-          myInsertion({ name: "Alice", age: "25" })
+          `myInsertion({ name: "Alice", age: "25" })`
         }
       </p>
     </div>
@@ -124,7 +130,7 @@ const InsertionComponent = () => {
     <div>
       <p>
         {
-          /* 出力: "こんにちは、私の名前はJohnで、30歳です！" */
+          /* 出力: "こんにちは、私の名前はジョンで、30歳です！" */
           myInsertion({ name: "John", age: "30" })
         }
       </p>
@@ -151,7 +157,7 @@ const InsertionComponent = () => {
     <div>
       <p>
         {
-          /* 出力: "こんにちは、私の名前はJohnで、30歳です！" */
+          /* 出力: "Hello, my name is John and I am 30 years old!" */
           myInsertion({ name: "John", age: "30" })
         }
       </p>
@@ -170,10 +176,14 @@ module.exports = InsertionComponent;
 
 ## 追加リソース
 
-設定や使用に関する詳細情報は、以下のリソースを参照してください：
+設定および使用方法の詳細については、以下のリソースを参照してください。
 
 - [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
 - [React Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)
 - [Next Intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)
 
-これらのリソースは、さまざまな環境やフレームワークでのIntlayerのセットアップと使用に関するさらなる洞察を提供します。
+これらのリソースは、さまざまな環境やフレームワークにおける Intlayer のセットアップと使用方法について、さらに詳しい情報を提供します。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴の初期化

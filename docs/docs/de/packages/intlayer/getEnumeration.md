@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getEnumeration
 url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Dokumentation der t-Funktion | intlayer
-description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetEnumeration verwenden
+title: Dokumentation der Funktion getEnumeration | intlayer
+description: Siehe, wie die Funktion getEnumeration für das intlayer-Paket verwendet wird
 keywords:
   - getEnumeration
   - Übersetzung
@@ -18,7 +18,7 @@ keywords:
   - React
 ---
 
-# Dokumentation: `getEnumeration` Funktion in `intlayer`
+# Dokumentation: Funktion `getEnumeration` in `intlayer`
 
 ## Beschreibung
 
@@ -28,21 +28,21 @@ Die Funktion `getEnumeration` ruft Inhalte ab, die einer bestimmten Menge entspr
 
 - `enumerationContent: QuantityContent<Content>`
 
-  - **Beschreibung**: Ein Objekt, bei dem die Schlüssel Bedingungen darstellen (z. B. `<=`, `<`, `>=`, `=`) und die Werte den entsprechenden Inhalt repräsentieren. Die Reihenfolge der Schlüssel definiert ihre Priorität beim Abgleich.
+  - **Beschreibung**: Ein Objekt, bei dem die Schlüssel Bedingungen darstellen (z. B. `<=`, `<`, `>=`, `=`) und die Werte den entsprechenden Inhalt repräsentieren. Die Reihenfolge der Schlüssel definiert die Priorität der Übereinstimmung.
   - **Typ**: `QuantityContent<Content>`
     - `Content` kann jeden Typ haben.
 
 - `quantity: number`
 
-  - **Beschreibung**: Der numerische Wert, der verwendet wird, um mit den Bedingungen in `enumerationContent` abzugleichen.
+  - **Beschreibung**: Der numerische Wert, der verwendet wird, um die Bedingungen in `enumerationContent` abzugleichen.
   - **Typ**: `number`
 
-## Rückgabewerte
+## Rückgabewert
 
 - **Typ**: `Content`
-- **Beschreibung**: Der Inhalt, der der ersten übereinstimmenden Bedingung in `enumerationContent` entspricht. Wenn keine Übereinstimmung gefunden wird, erfolgt die Handhabung basierend auf der Implementierung (z. B. Fehler oder Fallback-Inhalt).
+- **Beschreibung**: Der Inhalt, der der ersten passenden Bedingung im `enumerationContent` entspricht. Wenn keine Übereinstimmung gefunden wird, erfolgt die Behandlung entsprechend der Implementierung (z. B. Fehler oder Ersatzinhalt).
 
-## Beispielverwendung
+## Beispielhafte Verwendung
 
 ### Grundlegende Verwendung
 
@@ -51,15 +51,15 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<=-2.3": "Sie haben weniger als -2.3",
-    "<1": "Sie haben weniger als eins",
-    "2": "Sie haben zwei",
-    ">=3": "Sie haben drei oder mehr",
+    "<=-2.3": "Du hast weniger als -2.3",
+    "<1": "Du hast weniger als eins",
+    "2": "Du hast zwei",
+    ">=3": "Du hast drei oder mehr",
   },
   2
 );
 
-console.log(content); // Ausgabe: "Sie haben zwei"
+console.log(content); // Ausgabe: "Du hast zwei"
 ```
 
 ```javascript codeFormat="esm"
@@ -67,14 +67,14 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<1": "Sie haben weniger als eins",
-    "2": "Sie haben zwei",
-    ">=3": "Sie haben drei oder mehr",
+    "<1": "Du hast weniger als eins",
+    "2": "Du hast zwei",
+    ">=3": "Du hast drei oder mehr",
   },
   2
 );
 
-console.log(content); // Ausgabe: "Sie haben zwei"
+console.log(content); // Ausgabe: "Du hast zwei"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -82,14 +82,14 @@ const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {
-    "<1": "Sie haben weniger als eins",
-    "2": "Sie haben zwei",
-    ">=3": "Sie haben drei oder mehr",
+    "<1": "Du hast weniger als eins",
+    "2": "Du hast zwei",
+    ">=3": "Du hast drei oder mehr",
   },
   2
 );
 
-console.log(content); // Ausgabe: "Sie haben zwei"
+console.log(content); // Ausgabe: "Du hast zwei"
 ```
 
 ### Priorität der Bedingungen
@@ -99,13 +99,13 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<4": "Sie haben weniger als vier",
-    "2": "Sie haben zwei",
+    "<4": "Du hast weniger als vier",
+    "2": "Du hast zwei",
   },
   2
 );
 
-console.log(content); // Ausgabe: "Sie haben weniger als vier"
+console.log(content); // Ausgabe: "Du hast weniger als vier"
 ```
 
 ```javascript codeFormat="esm"
@@ -113,13 +113,13 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<4": "Sie haben weniger als vier",
-    "2": "Sie haben zwei",
+    "<4": "Du hast weniger als vier",
+    "2": "Du hast zwei",
   },
   2
 );
 
-console.log(content); // Ausgabe: "Sie haben weniger als vier"
+console.log(content); // Ausgabe: "Du hast weniger als vier"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -127,34 +127,36 @@ const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {
-    "<4": "Sie haben weniger als vier",
-    "2": "Sie haben zwei",
+    "<4": "Du hast weniger als vier",
+    "2": "Du hast zwei",
   },
   2
 );
 
-console.log(content); // Ausgabe: "Sie haben weniger als vier"
+console.log(content); // Ausgabe: "Du hast weniger als vier"
 ```
 
 ## Randfälle
 
-- **Keine übereinstimmende Bedingung:**
+- **Keine passende Bedingung:**
 
   - Wenn keine Bedingung mit der angegebenen Menge übereinstimmt, gibt die Funktion entweder `undefined` zurück oder behandelt das Standard-/Fallback-Szenario explizit.
 
 - **Mehrdeutige Bedingungen:**
 
-  - Wenn sich Bedingungen überschneiden, hat die erste übereinstimmende Bedingung (basierend auf der Objektreihenfolge) Vorrang.
+  - Wenn Bedingungen sich überschneiden, hat die erste passende Bedingung (basierend auf der Reihenfolge im Objekt) Vorrang.
 
 - **Ungültige Schlüssel:**
 
   - Die Funktion geht davon aus, dass alle Schlüssel in `enumerationContent` gültig und als Bedingungen interpretierbar sind. Ungültige oder falsch formatierte Schlüssel können zu unerwartetem Verhalten führen.
 
-- **TypeScript-Durchsetzung:**
-  - Die Funktion stellt sicher, dass der `Content`-Typ über alle Schlüssel hinweg konsistent ist, was Typsicherheit für den abgerufenen Inhalt ermöglicht.
+- **TypeScript-Überprüfung:**
+  - Die Funktion stellt sicher, dass der `Content`-Typ über alle Schlüssel hinweg konsistent ist, was die Typensicherheit beim Abrufen des Inhalts gewährleistet.
 
 ## Hinweise
 
-- Das Dienstprogramm `findMatchingCondition` wird verwendet, um die passende Bedingung basierend auf der angegebenen Menge zu bestimmen.
+- Das Hilfsprogramm `findMatchingCondition` wird verwendet, um die passende Bedingung basierend auf der angegebenen Menge zu ermitteln.
 
-[Zurück zur Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/**/*.md)
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

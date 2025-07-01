@@ -1,8 +1,22 @@
-# Personalização de Extensões de Conteúdo
+---
+docName: dictionary__content_extention_customization
+url: https://intlayer.org/doc/concept/content
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_extention_customization.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: Personalização de Extensão de Conteúdo
+description: Aprenda como personalizar as extensões para seus arquivos de declaração de conteúdo. Siga esta documentação para implementar condições de forma eficiente em seu projeto.
+keywords:
+  - Personalização de Extensão de Conteúdo
+  - Documentação
+  - Intlayer
+---
+
+# Personalização de Extensão de Conteúdo
 
 ## Extensões de Arquivos de Conteúdo
 
-O Intlayer permite que você personalize as extensões para os arquivos de declaração de conteúdo. Essa personalização oferece flexibilidade no gerenciamento de projetos em larga escala e ajuda a evitar conflitos com outros módulos.
+O Intlayer permite que você personalize as extensões para seus arquivos de declaração de conteúdo. Essa personalização oferece flexibilidade no gerenciamento de projetos em grande escala e ajuda a evitar conflitos com outros módulos.
 
 ### Extensões Padrão
 
@@ -18,11 +32,11 @@ Por padrão, o Intlayer monitora todos os arquivos com as seguintes extensões p
 - `.content.cjs`
 - `.content.cjx`
 
-Essas extensões padrão são adequadas para a maioria das aplicações. No entanto, quando você tem necessidades específicas, pode definir extensões personalizadas para otimizar o processo de construção e reduzir o risco de conflitos com outros componentes.
+Essas extensões padrão são adequadas para a maioria das aplicações. No entanto, quando você tem necessidades específicas, pode definir extensões personalizadas para otimizar o processo de build e reduzir o risco de conflitos com outros componentes.
 
 ### Personalizando Extensões de Conteúdo
 
-Para personalizar as extensões de arquivos que o Intlayer usa para identificar arquivos de declaração de conteúdo, você pode especificá-las no arquivo de configuração do Intlayer. Essa abordagem é benéfica para projetos em larga escala, onde limitar o escopo do processo de monitoramento melhora o desempenho da construção.
+Para personalizar as extensões de arquivo que o Intlayer usa para identificar arquivos de declaração de conteúdo, você pode especificá-las no arquivo de configuração do Intlayer. Essa abordagem é benéfica para projetos em grande escala, onde limitar o escopo do processo de monitoramento melhora o desempenho da compilação.
 
 Aqui está um exemplo de como definir extensões de conteúdo personalizadas na sua configuração:
 
@@ -60,22 +74,26 @@ const config = {
 module.exports = config;
 ```
 
-Neste exemplo, a configuração especifica duas extensões personalizadas: `.my_content.ts` e `.my_content.tsx`. O Intlayer monitorará apenas arquivos com essas extensões para construir dicionários.
+Neste exemplo, a configuração especifica duas extensões personalizadas: `.my_content.ts` e `.my_content.tsx`. O Intlayer irá monitorar apenas arquivos com essas extensões para construir os dicionários.
 
 ### Benefícios das Extensões Personalizadas
 
-- **Desempenho de Construção**: Reduzir o escopo dos arquivos monitorados pode melhorar significativamente o desempenho da construção em projetos grandes.
-- **Evitar Conflitos**: Extensões personalizadas ajudam a evitar conflitos com outros arquivos JavaScript ou TypeScript no seu projeto.
-- **Organização**: Extensões personalizadas permitem organizar seus arquivos de declaração de conteúdo de acordo com as necessidades do seu projeto.
+- **Desempenho da Compilação**: Reduzir o escopo dos arquivos monitorados pode melhorar significativamente o desempenho da compilação em projetos grandes.
+- **Evitar Conflitos**: Extensões personalizadas ajudam a prevenir conflitos com outros arquivos JavaScript ou TypeScript no seu projeto.
+- **Organização**: Extensões personalizadas permitem organizar seus arquivos de declaração de conteúdo conforme as necessidades do seu projeto.
 
 ### Diretrizes para Extensões Personalizadas
 
-Ao personalizar extensões de arquivos de conteúdo, mantenha as seguintes diretrizes em mente:
+Ao personalizar as extensões dos arquivos de conteúdo, mantenha as seguintes diretrizes em mente:
 
 - **Unicidade**: Escolha extensões que sejam únicas dentro do seu projeto para evitar conflitos.
-- **Nomenclatura Consistente**: Use convenções de nomenclatura consistentes para melhor legibilidade e manutenção do código.
+- **Nomeação Consistente**: Use convenções de nomenclatura consistentes para melhor legibilidade e manutenção do código.
 - **Evitar Extensões Comuns**: Evite usar extensões comuns como `.ts` ou `.js` para prevenir conflitos com outros módulos ou bibliotecas.
 
 ## Conclusão
 
-Personalizar extensões de arquivos de conteúdo no Intlayer é um recurso valioso para otimizar o desempenho e evitar conflitos em aplicações de grande escala. Seguindo as diretrizes descritas nesta documentação, você pode gerenciar efetivamente suas declarações de conteúdo e garantir uma integração tranquila com outras partes do seu projeto.
+Personalizar as extensões dos arquivos de conteúdo no Intlayer é um recurso valioso para otimizar o desempenho e evitar conflitos em aplicações de grande escala. Seguindo as diretrizes descritas nesta documentação, você pode gerenciar efetivamente suas declarações de conteúdo e garantir uma integração suave com outras partes do seu projeto.
+
+## Histórico da Documentação
+
+- 5.5.10 - 2025-06-29: Histórico inicial

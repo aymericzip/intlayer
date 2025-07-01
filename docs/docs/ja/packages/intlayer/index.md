@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer
 url: https://intlayer.org/doc/packages/intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: パッケージドキュメント | intlayer
-description: intlayerパッケージの使用方法を確認してください
+description: intlayerパッケージの使い方を見る
 keywords:
   - Intlayer
   - intlayer
@@ -16,21 +16,21 @@ keywords:
   - React
 ---
 
-# intlayer: 多言語辞書を管理するためのNPMパッケージ (i18n)
+# intlayer: 多言語辞書（i18n）管理のためのNPMパッケージ
 
-**Intlayer**は、JavaScript開発者向けに特化して設計されたパッケージ群です。React、Next.js、Express.jsなどのフレームワークと互換性があります。
+**Intlayer**はJavaScript開発者向けに特別に設計されたパッケージ群です。React、Next.js、Express.jsなどのフレームワークと互換性があります。
 
-**`intlayer`パッケージ**を使用すると、コード内のどこにでもコンテンツを宣言できます。多言語コンテンツの宣言を構造化された辞書に変換し、アプリケーションにシームレスに統合します。TypeScriptを使用することで、**Intlayer**はより強力で効率的なツールを提供し、開発を強化します。
+**`intlayer`パッケージ**は、コードのどこでもコンテンツを宣言できるようにします。多言語コンテンツの宣言を構造化された辞書に変換し、アプリケーションにシームレスに統合します。TypeScriptを使うことで、**Intlayer**はより強力で効率的な開発ツールを提供し、開発を向上させます。
 
-## Intlayerを統合する理由
+## なぜIntlayerを統合するのか？
 
-- **JavaScript駆動のコンテンツ管理**: JavaScriptの柔軟性を活用して、効率的にコンテンツを定義および管理します。
-- **型安全な環境**: TypeScriptを活用して、すべてのコンテンツ定義が正確でエラーのないものになるようにします。
-- **統合されたコンテンツファイル**: 翻訳をそれぞれのコンポーネントに近い場所に保ち、保守性と明確性を向上させます。
+- **JavaScript駆動のコンテンツ管理**：JavaScriptの柔軟性を活かして、効率的にコンテンツを定義・管理します。
+- **型安全な環境**：TypeScriptを活用し、すべてのコンテンツ定義が正確でエラーのないものになるようにします。
+- **統合されたコンテンツファイル**：翻訳をそれぞれのコンポーネントに近い場所に保持し、保守性と明確さを向上させます。
 
 ## インストール
 
-お好みのパッケージマネージャーを使用して必要なパッケージをインストールします:
+必要なパッケージをお好みのパッケージマネージャーでインストールしてください：
 
 ```bash packageManager="npm"
 npm install intlayer
@@ -46,7 +46,7 @@ yarn add intlayer
 
 ### Intlayerの設定
 
-Intlayerは、プロジェクトを設定するための設定ファイルを提供します。このファイルをプロジェクトのルートに配置してください。
+Intlayerはプロジェクトを設定するための設定ファイルを提供します。このファイルをプロジェクトのルートに配置してください。
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -93,11 +93,11 @@ module.exports = config;
 
 ## 使用例
 
-Intlayerを使用すると、コードベースのどこにでも構造化された方法でコンテンツを宣言できます。
+Intlayerを使用すると、コードベースのどこでも構造化された方法でコンテンツを宣言できます。
 
-デフォルトでは、Intlayerは拡張子が`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`のファイルをスキャンします。
+デフォルトでは、Intlayerは拡張子が `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` のファイルをスキャンします。
 
-> デフォルトの拡張子は、[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で`contentDir`プロパティを設定することで変更できます。
+> デフォルトの拡張子は、[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)の `contentDir` プロパティを設定することで変更できます。
 
 ```bash codeFormat="typescript"
 .
@@ -135,14 +135,13 @@ Intlayerを使用すると、コードベースのどこにでも構造化され
         └── index.cjx
 ```
 
-### コンテンツを宣言する
+### コンテンツの宣言
 
-以下はコンテンツ宣言の例です:
+以下はコンテンツ宣言の例です：
 
 ```tsx fileName="src/ClientComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
-// クライアントコンポーネントのコンテンツを定義
 const clientComponentContent = {
   key: "client-component",
   content: {
@@ -156,8 +155,7 @@ const clientComponentContent = {
       "-1": "Minus one car",
       "0": "No cars",
       "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      ">19": "多くの車",
     }),
   },
 } satisfies Dictionary;
@@ -169,7 +167,6 @@ export default clientComponentContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-// クライアントコンポーネントのコンテンツを定義
 const clientComponentContent = {
   key: "client-component",
   content: {
@@ -179,12 +176,12 @@ const clientComponentContent = {
       es: "Hola Mundo",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "マイナス1台未満の車",
+      "-1": "マイナス1台の車",
+      "0": "車はありません",
+      "1": "1台の車",
+      ">5": "いくつかの車",
+      ">19": "多くの車",
     }),
   },
 };
@@ -196,7 +193,6 @@ export default clientComponentContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
-// クライアントコンポーネントのコンテンツを定義
 const clientComponentContent = {
   key: "client-component",
   content: {
@@ -204,14 +200,15 @@ const clientComponentContent = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
+      ja: "こんにちは世界",
     }),
     numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
+      "<-1": "マイナス1台未満の車",
+      "-1": "マイナス1台の車",
+      "0": "車はありません",
+      "1": "1台の車",
+      ">5": "いくつかの車",
+      ">19": "多くの車",
     }),
   },
 };
@@ -228,18 +225,22 @@ module.exports = clientComponentContent;
       "translation": {
         "en": "Hello World",
         "fr": "Bonjour le monde",
+        "es": "Hola Mundo",
+        "ja": "こんにちは世界"
+      }
+    },
         "es": "Hola Mundo"
       }
     },
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Less than minus one car",
-        "-1": "Minus one car",
-        "0": "No cars",
-        "1": "One car",
-        ">5": "Some cars",
-        ">19": "Many cars"
+        "<-1": "マイナス1台未満の車",
+        "-1": "マイナス1台の車",
+        "0": "車はありません",
+        "1": "1台の車",
+        ">5": "いくつかの車",
+        ">19": "多くの車"
       }
     }
   }
@@ -248,7 +249,7 @@ module.exports = clientComponentContent;
 
 ### 辞書をビルドする
 
-[intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer-cli/readme.md)を使用して辞書をビルドできます。
+[intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer-cli/readme.md) を使用して辞書をビルドできます。
 
 ```bash packageManager="npm"
 npx intlayer dictionaries build
@@ -262,28 +263,28 @@ yarn intlayer build
 pnpm intlayer build
 ```
 
-このコマンドはすべての`*.content.*`ファイルをスキャンし、それらをコンパイルして、**`intlayer.config.ts`**で指定されたディレクトリ（デフォルトでは`./.intlayer`）に結果を書き込みます。
+このコマンドはすべての `*.content.*` ファイルをスキャンし、コンパイルして、**`intlayer.config.ts`** で指定されたディレクトリ（デフォルトは `./.intlayer`）に結果を書き込みます。
 
-出力例:
+典型的な出力例は以下のようになります：
 
 ```bash
 .
 └── .intlayer
-    ├── dictionary  # コンテンツの辞書を含む
+    ├── dictionary  # コンテンツの辞書を含むディレクトリ
     │   ├── client-component.json
     │   └── server-component.json
-    ├── main  # アプリケーションで使用する辞書のエントリポイントを含む
+    ├── main  # アプリケーションで使用する辞書のエントリーポイントを含むディレクトリ
     │   ├── dictionary.cjs
     │   └── dictionary.mjs
-    └── types  # 辞書の自動生成された型定義を含む
-        ├── intlayer.d.ts  # Intlayerの自動生成された型定義を含む
+    └── types  # 辞書の自動生成された型定義を含むディレクトリ
+        ├── intlayer.d.ts  # Intlayerの自動生成型定義を含むファイル
         ├── client-component.d.ts
         └── server-component.d.ts
 ```
 
-### i18nextリソースをビルドする
+### i18next リソースのビルド
 
-Intlayerは[i18next](https://www.i18next.com/)用の辞書をビルドするように設定できます。そのためには、次の設定を`intlayer.config.ts`ファイルに追加する必要があります:
+Intlayerは[i18next](https://www.i18next.com/)用の辞書を生成するように設定できます。そのためには、`intlayer.config.ts`ファイルに以下の設定を追加する必要があります。
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -291,7 +292,7 @@ import { Locales, type IntlayerConfig } from "intlayer";
 const config: IntlayerConfig = {
   /* ... */
   content: {
-    // Intlayerにi18next用のメッセージファイルを生成させる
+    // Intlayerにi18next用のメッセージファイルを生成するよう指示します
     dictionaryOutput: ["i18next"],
 
     // IntlayerがメッセージJSONファイルを書き込むディレクトリ
@@ -307,7 +308,7 @@ import { Locales } from "intlayer";
 const config = {
   /* ... */
   content: {
-    // Intlayerにi18next用のメッセージファイルを生成させる
+    // Intlayerにi18next用のメッセージファイルを生成するよう指示します
     dictionaryOutput: ["i18next"],
 
     // IntlayerがメッセージJSONファイルを書き込むディレクトリ
@@ -325,7 +326,7 @@ const { Locales } = require("intlayer");
 const config = {
   /* ... */
   content: {
-    // Intlayerにi18next用のメッセージファイルを生成させる
+    // Intlayerにi18next用のメッセージファイルを生成するよう指示します
     dictionaryOutput: ["i18next"],
 
     // IntlayerがメッセージJSONファイルを書き込むディレクトリ
@@ -338,7 +339,7 @@ module.exports = config;
 
 > 利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-出力:
+出力例:
 
 ```bash
 .
@@ -355,7 +356,7 @@ module.exports = config;
             └── server-component.json
 ```
 
-例えば、**en/client-component.json**は次のようになります:
+例えば、**en/client-component.json** は以下のようになっているかもしれません:
 
 ```json fileName="intlayer/dictionary/en/client-component.json"
 {
@@ -363,13 +364,13 @@ module.exports = config;
   "zero_numberOfCar": "No cars",
   "one_numberOfCar": "One car",
   "two_numberOfCar": "Two cars",
-  "other_numberOfCar": "Some cars"
+  "other_numberOfCar": "いくつかの車"
 }
 ```
 
-### next-intl辞書をビルドする
+### next-intl 辞書のビルド
 
-Intlayerは[i18next](https://www.i18next.com/)または[next-intl](https://github.com/formatjs/react-intl/tree/main/packages/next-intl)用の辞書をビルドするように設定できます。そのためには、次の設定を`intlayer.config.ts`ファイルに追加する必要があります:
+Intlayer は [i18next](https://www.i18next.com/) または [next-intl](https://github.com/formatjs/react-intl/tree/main/packages/next-intl) 用の辞書をビルドするように設定できます。そのためには、`intlayer.config.ts` ファイルに以下の設定を追加する必要があります。
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -377,10 +378,10 @@ import { Locales, type IntlayerConfig } from "intlayer";
 const config: IntlayerConfig = {
   /* ... */
   content: {
-    // Intlayerにnext-intl用のメッセージファイルを生成させる
+    // Intlayer に next-intl 用のメッセージファイルを生成させる設定
     dictionaryOutput: ["next-intl"],
 
-    // IntlayerがメッセージJSONファイルを書き込むディレクトリ
+    // Intlayer がメッセージ JSON ファイルを書き出すディレクトリ
     nextIntlMessagesDir: "./i18next/messages",
   },
 };
@@ -393,7 +394,7 @@ import { Locales } from "intlayer";
 const config = {
   /* ... */
   content: {
-    // Intlayerにnext-intl用のメッセージファイルを生成させる
+    // Intlayerにnext-intl用のメッセージファイルを生成するよう指示します
     dictionaryOutput: ["next-intl"],
 
     // IntlayerがメッセージJSONファイルを書き込むディレクトリ
@@ -411,7 +412,7 @@ const { Locales } = require("intlayer");
 const config = {
   /* ... */
   content: {
-    // Intlayerにnext-intl用のメッセージファイルを生成させる
+    // Intlayerにnext-intl用のメッセージファイルを生成するよう指示します
     dictionaryOutput: ["next-intl"],
 
     // IntlayerがメッセージJSONファイルを書き込むディレクトリ
@@ -424,7 +425,7 @@ module.exports = config;
 
 > 利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-出力:
+出力例:
 
 ```bash
 .
@@ -441,31 +442,31 @@ module.exports = config;
             └── server-component.json
 ```
 
-例えば、**en/client-component.json**は次のようになります:
+例えば、**en/client-component.json** は次のようになります:
 
 ```json fileName="intlayer/dictionary/en/client-component.json"
 {
-  "myTranslatedContent": "Hello World",
-  "zero_numberOfCar": "No cars",
-  "one_numberOfCar": "One car",
-  "two_numberOfCar": "Two cars",
-  "other_numberOfCar": "Some cars"
+  "myTranslatedContent": "こんにちは世界",
+  "zero_numberOfCar": "車はありません",
+  "one_numberOfCar": "車が1台",
+  "two_numberOfCar": "車が2台",
+  "other_numberOfCar": "いくつかの車"
 }
 ```
 
 ## CLIツール
 
-IntlayerはCLIツールを提供します:
+IntlayerはCLIツールを提供しています。これにより：
 
-- コンテンツ宣言を監査し、欠落している翻訳を補完します
-- コンテンツ宣言から辞書をビルドします
-- CMSからローカルプロジェクトへの辞書のプッシュおよびプルを行います
+- コンテンツ宣言を監査し、欠落している翻訳を補完する
+- コンテンツ宣言から辞書を構築する
+- CMSからローカルプロジェクトへ遠隔辞書をプッシュおよびプルする
 
-詳細については、[intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。
+詳細は[intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。
 
 ## アプリケーションでIntlayerを使用する
 
-コンテンツを宣言した後、アプリケーション内でIntlayer辞書を利用できます。
+コンテンツを宣言したら、アプリケーション内でIntlayerの辞書を利用できます。
 
 Intlayerはアプリケーション用のパッケージとして利用可能です。
 
@@ -483,7 +484,7 @@ ExpressアプリケーションでIntlayerを使用するには、[express-intla
 
 ## `intlayer`パッケージが提供する関数
 
-`intlayer`パッケージは、アプリケーションを国際化するためのいくつかの関数も提供します。
+`intlayer`パッケージは、アプリケーションの国際化を支援するいくつかの関数も提供しています。
 
 - [`getConfiguration()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getConfiguration.md)
 - [`getTranslation()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getTranslation.md)
@@ -495,3 +496,7 @@ ExpressアプリケーションでIntlayerを使用するには、[express-intla
 - [`getMultilingualUrls()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getMultilingualUrls.md)
 - [`getLocalizedUrl()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
 - [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md)
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

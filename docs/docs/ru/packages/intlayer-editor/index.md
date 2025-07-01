@@ -1,12 +1,31 @@
-# intlayer-editor: NPM Пакет для использования визуального редактора Intlayer
+---
+docName: package__intlayer-editor
+url: https://intlayer.org/doc/package/intlayer-editor
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer-editor/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: intlayer-editor - Пакет визуального редактора переводов
+description: Пакет визуального редактора для Intlayer, предоставляющий интуитивно понятный интерфейс для управления переводами и совместного редактирования контента с помощью ИИ.
+keywords:
+  - intlayer
+  - редактор
+  - визуальный
+  - перевод
+  - совместный
+  - ИИ
+  - NPM
+  - интерфейс
+---
 
-**Intlayer** , это набор пакетов, специально разработанных для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+# intlayer-editor: NPM пакет для использования визуального редактора Intlayer
 
-Пакет **`intlayer-editor`** , это NPM пакет, который интегрирует визуальный редактор Intlayer в ваш проект на React.
+**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+
+Пакет **`intlayer-editor`** — это NPM-пакет, который интегрирует визуальный редактор Intlayer в ваш проект на React.
 
 ## Как работает редактор Intlayer
 
-Редактор Intlayer позволяет взаимодействовать с удаленным словарем Intlayer. Он может быть установлен на стороне клиента и преобразовать ваше приложение в редактор, похожий на CMS, для управления содержимым вашего сайта на всех настроенных языках.
+Редактор Intlayer позволяет взаимодействовать с удалённым словарём Intlayer. Его можно установить на стороне клиента, превратив ваше приложение в редактор, похожий на CMS, для управления содержимым сайта на всех настроенных языках.
 
 ![Интерфейс редактора Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
@@ -28,15 +47,15 @@ yarn add intlayer-editor
 
 ### Конфигурация
 
-В вашем файле конфигурации Intlayer вы можете настроить параметры редактора:
+В вашем конфигурационном файле Intlayer вы можете настроить параметры редактора:
 
 ```typescript
 const config: IntlayerConfig = {
   // ... другие настройки конфигурации
   editor: {
-    enabled: process.env.INTLAYER_ENABLED === "true", // Если false, редактор неактивен и недоступен.
-    // Client ID и client secret необходимы для включения редактора.
-    // Они позволяют идентифицировать пользователя, редактирующего содержимое.
+    enabled: process.env.INTLAYER_ENABLED === "true", // Если false, редактор неактивен и к нему нельзя получить доступ.
+    // Для активации редактора требуются client ID и client secret.
+    // Они позволяют идентифицировать пользователя, который редактирует содержимое.
     // Их можно получить, создав нового клиента в Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
@@ -44,13 +63,13 @@ const config: IntlayerConfig = {
 };
 ```
 
-> Если у вас нет Client ID и client secret, вы можете получить их, создав нового клиента в [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
+> Если у вас нет client ID и client secret, вы можете получить их, создав нового клиента в [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
 
-> Чтобы увидеть все доступные параметры, обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
+> Чтобы увидеть все доступные параметры, обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
-Пакет `intlayer-editor` основан на Intlayer и доступен для JavaScript приложений, таких как React (Create React App), Vite + React и Next.js.
+Пакет `intlayer-editor` основан на Intlayer и доступен для JavaScript-приложений, таких как React (Create React App), Vite + React и Next.js.
 
-Для получения более подробной информации о том, как установить пакет, смотрите соответствующий раздел ниже:
+Для получения дополнительной информации о том, как установить пакет, смотрите соответствующий раздел ниже:
 
 ### Интеграция с Next.js
 
@@ -66,7 +85,7 @@ const config: IntlayerConfig = {
 
 ### Пример интеграции
 
-Чтобы интегрировать визуальный редактор Intlayer в ваш проект на React, выполните следующие шаги:
+Чтобы интегрировать визуальный редактор Intlayer в ваш React-проект, выполните следующие шаги:
 
 - Импортируйте компонент редактора Intlayer в ваше React-приложение:
 
@@ -108,8 +127,12 @@ const config: IntlayerConfig = {
 
 ## Использование редактора
 
-Когда редактор установлен, включен и запущен, вы можете просматривать каждое поле, индексированное Intlayer, наводя курсор на ваше содержимое.
+Когда редактор установлен, включен и запущен, вы можете просматривать каждое поле, индексируемое Intlayer, наведя курсор на ваш контент.
 
-![Наведение на содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+![Наведение курсора на контент](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-Если ваше содержимое выделено, вы можете долго нажимать на него, чтобы отобразить панель редактирования.
+Если ваш контент выделен контуром, вы можете долго нажать на него, чтобы открыть панель редактирования.
+
+## История документа
+
+- 5.5.10 - 2025-06-29: Инициализация истории

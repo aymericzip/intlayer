@@ -1,11 +1,11 @@
 ---
 docName: intlayer_with_lynx_react
 url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-06-29
 title: Traduza o seu aplicativo móvel Lynx e React (i18n)
-description: Descubra como tornar seu site que utiliza Lynx e React com Page Router multilíngue. Siga a documentação para internacionalizar (i18n) e traduzi-lo.
+description: Descubra como tornar seu aplicativo móvel Lynx e React multilíngue. Siga a documentação para internacionalizar (i18n) e traduzi-lo.
 keywords:
   - Internacionalização
   - Documentação
@@ -18,17 +18,17 @@ keywords:
 
 # Introdução à Internacionalização (i18n) com Intlayer, Lynx e React
 
-[एप्लीकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-lynx-template) पर देखें.
+Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-lynx-template) no GitHub.
 
 ## O que é o Intlayer?
 
-**Intlayer** é uma **biblioteca de internacionalização (i18n) inovadora e de código aberto** que simplifica o suporte a vários idiomas em aplicações modernas. Ela funciona em diversos ambientes JavaScript/TypeScript, **incluindo Lynx** (por meio do pacote `react-intlayer`).
+**Intlayer** é uma **biblioteca inovadora e de código aberto para internacionalização (i18n)** que simplifica o suporte multilíngue em aplicações modernas. Ela funciona em diversos ambientes JavaScript/TypeScript, **incluindo Lynx** (por meio do pacote `react-intlayer`).
 
 Com o Intlayer, você pode:
 
 - **Gerenciar traduções facilmente** utilizando dicionários declarativos no nível de componente.
-- **Contar com suporte a TypeScript** com tipos gerados automaticamente.
-- **Localizar conteúdo dinamicamente**, incluindo **strings de interface** (e, no React para web, também metadados de HTML, etc.).
+- **Garantir suporte a TypeScript** com tipos gerados automaticamente.
+- **Localizar conteúdo dinamicamente**, incluindo **strings de interface** (e, no React para web, também pode localizar metadados HTML, etc.).
 - **Aproveitar recursos avançados**, como detecção e troca dinâmica de localidade (locale).
 
 ---
@@ -120,13 +120,13 @@ module.exports = config;
 Dentro desta configuração, você pode:
 
 - Configurar sua **lista de locais (locales) suportados**.
-- Definir o localidade padrão (**defaultLocale**).
-- Posteriormente, pode adicionar opções mais avançadas (por exemplo, logs, diretórios de conteúdo personalizados etc.).
-- Consulte a [documentação de configuração do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) para mais detalhes.
+- Definir uma localidade **padrão**.
+- Posteriormente, pode adicionar opções mais avançadas (por exemplo, logs, diretórios de conteúdo personalizados, etc.).
+- Consulte a [documentação de configuração do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md) para mais detalhes.
 
 ## Passo 3: Adicione o plugin do Intlayer ao bundler do Lynx
 
-Para usar o Intlayer com Lynx, você precisa adicionar o plugin ao arquivo `lynx.config.ts`:
+Para usar o Intlayer com Lynx, você precisa adicionar o plugin ao seu arquivo `lynx.config.ts`:
 
 ```ts fileName="lynx.config.ts"
 import { defineConfig } from "@lynx-js/rspeedy";
@@ -142,9 +142,9 @@ export default defineConfig({
 
 ## Passo 4: Adicione o provider do Intlayer
 
-Para manter a linguagem do usuário sincronizada em todo o aplicativo, você precisa envolver seu componente raiz com o componente `IntlayerProvider` do `react-intlayer`.
+Para manter a linguagem do usuário sincronizada em todo o seu aplicativo, você precisa envolver seu componente raiz com o componente `IntlayerProvider` do `react-intlayer`.
 
-Além disso, você deve chamar a função `intlayerPolyfill` para garantir que o Intlayer funcione corretamente.
+Além disso, você precisa adicionar a função `intlayerPolyfill` para garantir que o Intlayer funcione corretamente.
 
 ```tsx fileName="src/index.tsx"
 import { root } from "@lynx-js/react";
@@ -181,9 +181,9 @@ Crie arquivos de **declaração de conteúdo** em qualquer lugar do seu projeto 
 - `.content.cjx`
 - etc.
 
-Exemplo (TypeScript com nós TSX para Lynx):
+Exemplo:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -194,23 +194,27 @@ const appContent = {
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
+      pt: "no Lynx",
     }),
     description: t({
       en: "Tap the logo and have fun!",
       fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
+      pt: "Toque o logo e divirta-se!",
     }),
     hint: [
       t({
         en: "Edit",
         fr: "Modifier",
         es: "Editar",
+        pt: "Editar",
       }),
       " src/App.tsx ",
       t({
         en: "to see updates!",
         fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",
+        pt: "para ver atualizações!",
       }),
     ],
   },
@@ -230,23 +234,27 @@ const appContent = {
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
+      pt: "no Lynx",
     }),
     description: t({
       en: "Tap the logo and have fun!",
       fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
+      pt: "Toque o logo e divirta-se!",
     }),
     hint: [
       t({
         en: "Edit",
         fr: "Modifier",
         es: "Editar",
+        pt: "Editar",
       }),
       " src/App.tsx ",
       t({
         en: "to see updates!",
         fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",
+        pt: "para ver atualizações!",
       }),
     ],
   },
@@ -267,23 +275,27 @@ const appContent = {
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
+      pt: "no Lynx",
     }),
     description: t({
       en: "Tap the logo and have fun!",
       fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
+      pt: "Toque o logo e divirta-se!",
     }),
     hint: [
       t({
         en: "Edit",
         fr: "Modifier",
         es: "Editar",
+        pt: "Editar",
       }),
       " src/App.tsx ",
       t({
         en: "to see updates!",
         fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",
+        pt: "para ver atualizações!",
       }),
     ],
   },
@@ -303,7 +315,8 @@ module.exports = appContent;
       "translation": {
         "en": "on Lynx",
         "fr": "sur Lynx",
-        "es": "en Lynx"
+        "es": "en Lynx",
+        "pt": "no Lynx"
       }
     },
     "description": {
@@ -311,7 +324,8 @@ module.exports = appContent;
       "translation": {
         "en": "Tap the logo and have fun!",
         "fr": "Appuyez sur le logo et amusez-vous!",
-        "es": "¡Toca el logo y diviértete!"
+        "es": "¡Toca el logo y diviértete!",
+        "pt": "Toque o logo e divirta-se!"
       }
     },
     "hint": [
@@ -320,17 +334,18 @@ module.exports = appContent;
         "translation": {
           "en": "Edit",
           "fr": "Modifier",
-          "es": "Editar"
+          "es": "Editar",
+          "pt": "Editar"
         }
       },
       " src/App.tsx ",
-
       {
         "nodeType": "translation",
         "translation": {
           "en": "to see updates!",
           "fr": "pour voir les mises à jour!",
-          "es": "para ver actualizaciones!"
+          "es": "para ver actualizaciones!",
+          "pt": "para ver atualizações!"
         }
       }
     ]
@@ -338,7 +353,7 @@ module.exports = appContent;
 }
 ```
 
-> Para mais detalhes sobre declarações de conteúdo, consulte a [documentação de conteúdo do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md).
+> Para mais detalhes sobre declarações de conteúdo, consulte a [documentação de conteúdo do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
 
 ---
 
@@ -359,7 +374,6 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
     "background only";
     setAlterLogo(!alterLogo);
@@ -403,7 +417,7 @@ export const App = () => {
 
 ## (Opcional) Passo 5: Alterar o locale do aplicativo
 
-Para trocar o locale de dentro de seus componentes, você pode usar o método `setLocale` do hook `useLocale`:
+Para trocar o locale dentro dos seus componentes, você pode usar o método `setLocale` do hook `useLocale`:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 import { type FC } from "react";
@@ -440,9 +454,9 @@ export const LocaleSwitcher: FC = () => {
 };
 ```
 
-Isso dispara um re-render de todos os componentes que usam conteúdo do Intlayer, agora exibindo as traduções para a nova localidade.
+Isso dispara uma nova renderização de todos os componentes que usam conteúdo do Intlayer, mostrando agora as traduções para o novo locale.
 
-> Consulte a [documentação do `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) para mais detalhes.
+> Consulte a [documentação do `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md) para mais detalhes.
 
 ## Configure o TypeScript (se você usa TypeScript)
 
@@ -453,21 +467,19 @@ O Intlayer gera definições de tipos em uma pasta oculta (por padrão `.intlaye
 {
   // ... sua configuração TS existente
   "include": [
-    "src", // seu código-fonte
-    ".intlayer/types/**/*.ts", // <-- certifique-se de incluir os tipos gerados automaticamente
+    "src", // seu código fonte
+    ".intlayer/types/**/*.ts", // <-- garanta que os tipos auto-gerados estejam incluídos
     // ... qualquer outra coisa que você já inclua
   ],
 }
 ```
 
-É isso que permite recursos como:
+Isso possibilita recursos como:
 
 - **Auto-completação** para as chaves do seu dicionário.
-- **Verificação de tipo** que avisa se você acessa uma chave inexistente ou se há inconsistência de tipo.
+- **Verificação de tipos** que avisa se você acessar uma chave inexistente ou incompatível com o tipo.
 
 ---
-
-## Configuração de Git
 
 Para evitar o commit de arquivos gerados automaticamente pelo Intlayer, adicione o seguinte ao seu `.gitignore`:
 
@@ -478,8 +490,30 @@ Para evitar o commit de arquivos gerados automaticamente pelo Intlayer, adicione
 
 ---
 
+### Extensão para VS Code
+
+Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial do Intlayer para VS Code**.
+
+[Instale a partir do Marketplace do VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensão oferece:
+
+- **Auto-completação** para as chaves de tradução.
+- **Detecção de erros em tempo real** para traduções ausentes.
+- **Pré-visualizações inline** do conteúdo traduzido.
+- **Ações rápidas** para criar e atualizar traduções facilmente.
+  Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ## Vá Além
 
-- **Editor Visual**: Use o [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) para gerenciar traduções de forma visual.
-- **Integração com CMS**: Você também pode externalizar e buscar o conteúdo do seu dicionário a partir de um [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-- **Comandos de CLI**: Explore o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) para tarefas como **extrair traduções** ou **verificar chaves faltantes**.
+- **Editor Visual**: Use o [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) para gerenciar traduções visualmente.
+- **Integração com CMS**: Você também pode externalizar e buscar o conteúdo do seu dicionário a partir de um [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+- **Comandos CLI**: Explore o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md) para tarefas como **extrair traduções** ou **verificar chaves faltantes**.
+
+---
+
+## Histórico da Documentação
+
+- 5.5.10 - 2025-06-29: Histórico inicial

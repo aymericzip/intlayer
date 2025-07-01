@@ -1,11 +1,11 @@
 ---
 docName: interest_of_intlayer
 url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2025-06-29
-title: Intlayer的优势
-description: 发现使用Intlayer进行项目的好处和优点。了解为什么Intlayer在其他框架中脱颖而出。
+title: Intlayer 的优势
+description: 发现使用 Intlayer 在您的项目中的好处和优势。了解为什么 Intlayer 在众多框架中脱颖而出。
 keywords:
   - 好处
   - 优势
@@ -14,9 +14,9 @@ keywords:
   - 比较
 ---
 
-# Intlayer: 一种定制化的网站翻译方式
+# Intlayer：为您的网站量身定制的翻译方式
 
-**Intlayer** 是一个专门为 JavaScript 开发者设计的国际化库。它允许你在代码的任何地方声明你的内容。它将多语言内容的声明转换为结构化字典，以便轻松集成到你的代码中。使用 TypeScript，**Intlayer** 使你的开发更加健壮和高效。
+**Intlayer** 是一个专为 JavaScript 开发者设计的国际化库。它允许您在代码中的任何地方声明内容。它将多语言内容的声明转换为结构化的字典，便于轻松集成到您的代码中。通过使用 TypeScript，**Intlayer** 使您的开发更加强大且高效。
 
 ## 使用示例
 
@@ -65,6 +65,7 @@ export default componentExampleContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// 组件示例内容
 const componentExampleContent = {
   key: "component-example",
   content: {
@@ -83,6 +84,7 @@ export default componentExampleContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// 组件示例内容
 const componentExampleContent = {
   key: "component-example",
   content: {
@@ -100,6 +102,7 @@ module.exports = componentExampleContent;
 ```tsx fileName="./Components/MyComponent/index.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer";
 
+// 组件示例
 export const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
@@ -110,6 +113,7 @@ export const ComponentExample = () => {
 ```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
+// 组件示例
 const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
@@ -120,6 +124,7 @@ const ComponentExample = () => {
 ```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
+// 组件示例
 const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
@@ -129,20 +134,26 @@ const ComponentExample = () => {
 
 ## 为什么选择 Intlayer？
 
-- **基于 JavaScript 的内容管理**：利用 JavaScript 的灵活性来高效地定义和管理你的内容。
-- **类型安全环境**：使用 TypeScript 确保所有内容定义都准确无误。
-- **集成的内容文件**：将翻译内容保存在其相应组件附近，提高可维护性和清晰度。
-- **简化配置**：以最少的配置快速开始，特别针对 Next.js 项目进行了优化。
-- **服务器组件支持**：完美适合 Next.js 服务器组件，确保流畅的服务器端渲染。
-- **改进的路由**：完全支持 Next.js 应用程序路由，完美适应复杂的应用程序结构。
-- **组织良好的代码库**：保持代码库更有组织性：1 个组件 = 1 个字典在同一文件夹中。
-- **自动 TypeScript 类型**：TypeScript 类型自动实现，防止因重命名或删除键而导致的代码破坏。
-- **CI 自动翻译**：使用您自己的 OpenAI API 密钥在 CI 中自动填充您的翻译，消除对 L10n 平台的需求。
-- **MCP 服务器集成**：为 IDE 自动化提供 MCP（Model Context Protocol）服务器，直接在您的开发环境中实现无缝的内容管理和 i18n 工作流。[了解更多](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)。
-- **Markdown 支持**：导入和解释 markdown 文件以处理多语言内容，如隐私政策。
-- **免费可视化编辑器和 CMS**：如果你需要与内容作者合作进行翻译，可以使用免费的可视化编辑器和 CMS，再次消除对本地化平台的需求，并允许从代码库中外部化内容。
-- **简化的内容检索**：无需为每个内容片段调用 `t` 函数；使用单个钩子直接检索所有内容。
-- **一致的实现**：客户端和服务器组件使用相同的实现，无需通过每个服务器组件传递 `t` 函数。
-- **Tree-shakable 内容**：内容是 tree-shakable 的，使最终包更轻量。
-- **非阻塞静态渲染**：Intlayer 不会像 `next-intl` 那样阻塞静态渲染。
-- **互操作性**：允许与 [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md) 和 [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-intl.md) 进行互操作。
+| 功能                               | 描述                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **基于JavaScript的内容管理**       | 利用JavaScript的灵活性，高效地定义和管理您的内容。                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **类型安全环境**                   | 利用 TypeScript 确保所有内容定义准确无误且无错误。                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **集成内容文件**                   | 将您的翻译内容与各自的组件紧密结合，提升可维护性和清晰度。                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **简化设置**                       | 通过最少的配置快速启动，特别针对 Next.js 项目进行了优化。                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **服务器组件支持**                 | 完美适配 Next.js 服务器组件，确保流畅的服务器端渲染。                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **增强的路由功能**                 | 完全支持 Next.js 应用路由，能够无缝适应复杂的应用结构。                                                                                                                                                                                                                                                                                                                                                                                                      |
+| **有序的代码库**                   | 保持代码库更加有序：1 个组件 = 同一文件夹中的 1 个字典。                                                                                                                                                                                                                                                                                                                                                                                                     |
+| **CI 自动翻译**                    | 使用您自己的 OpenAI API 密钥在持续集成（CI）中自动填充您的翻译，消除对本地化平台的需求。                                                                                                                                                                                                                                                                                                                                                                     |
+| **MCP 服务器集成**                 | 提供 MCP（模型上下文协议）服务器以实现 IDE 自动化，使您能够在开发环境中直接无缝管理内容和国际化工作流程。[了解更多](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)。                                                                                                                                                                                                                                                           |
+| **Markdown 支持**                  | 导入并解析多语言内容的 Markdown 文件，例如隐私政策。                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **免费可视化编辑器和内容管理系统** | 如果您需要与内容撰写者合作进行翻译，我们提供免费的可视化编辑器和内容管理系统，这同样消除了对本地化平台的需求，并允许将内容从代码库中外部化。                                                                                                                                                                                                                                                                                                                 |
+| **简化内容获取**                   | 无需为每一条内容调用 `t` 函数；可以使用单个钩子直接获取所有内容。                                                                                                                                                                                                                                                                                                                                                                                            |
+| **一致的实现**                     | 客户端和服务器组件使用相同的实现，无需在每个服务器组件之间传递你的 `t` 函数。                                                                                                                                                                                                                                                                                                                                                                                |
+| **可进行 Tree-shaking 的内容**     | 内容支持 Tree-shaking，这减轻了最终包的体积。                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **非阻塞静态渲染**                 | Intlayer 不会像 `next-intl` 那样阻塞静态渲染。                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **非阻塞静态渲染**                 | Intlayer 不会像 `next-intl` 那样阻塞静态渲染。                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **互操作性**                       | 允许与 [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_next-i18next.md)、[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_next-intl.md) 和 [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react-intl.md) 互操作。 |
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史

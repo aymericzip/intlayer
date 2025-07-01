@@ -17,25 +17,23 @@ keywords:
 
 # Comenzando con la internacionalización (i18n) con Intlayer y Express
 
-`express-intlayer` es un middleware de internacionalización (i18n) potente para aplicaciones Express, diseñado para hacer que tus servicios backend sean accesibles globalmente al proporcionar respuestas localizadas basadas en las preferencias del cliente.
+`express-intlayer` es un middleware potente de internacionalización (i18n) para aplicaciones Express, diseñado para hacer que tus servicios backend sean accesibles globalmente al proporcionar respuestas localizadas basadas en las preferencias del cliente.
 
-## ¿Por qué Internacionalizar tu Backend?
+## ¿Por qué internacionalizar tu backend?
 
 Internacionalizar tu backend es esencial para atender eficazmente a una audiencia global. Permite que tu aplicación entregue contenido y mensajes en el idioma preferido de cada usuario. Esta capacidad mejora la experiencia del usuario y amplía el alcance de tu aplicación al hacerla más accesible y relevante para personas de diferentes contextos lingüísticos.
 
-### Casos Prácticos
+### Casos prácticos
 
-- **Mostrar Errores del Backend en el Idioma del Usuario**: Cuando ocurre un error, mostrar mensajes en el idioma nativo del usuario mejora la comprensión y reduce la frustración. Esto es especialmente útil para mensajes de error dinámicos que podrían mostrarse en componentes del frontend como toasts o modales.
+- **Mostrar errores del backend en el idioma del usuario**: Cuando ocurre un error, mostrar mensajes en el idioma nativo del usuario mejora la comprensión y reduce la frustración. Esto es especialmente útil para mensajes de error dinámicos que podrían mostrarse en componentes del frontend como toasts o modales.
 
-- **Recuperar Contenido Multilingüe**: Para aplicaciones que obtienen contenido de una base de datos, la internacionalización asegura que puedas servir este contenido en múltiples idiomas. Esto es crucial para plataformas como sitios de comercio electrónico o sistemas de gestión de contenido que necesitan mostrar descripciones de productos, artículos y otros contenidos en el idioma preferido por el usuario.
-
+- **Recuperar contenido multilingüe**: Para aplicaciones que obtienen contenido de una base de datos, la internacionalización asegura que puedas servir este contenido en múltiples idiomas. Esto es crucial para plataformas como sitios de comercio electrónico o sistemas de gestión de contenido que necesitan mostrar descripciones de productos, artículos y otros contenidos en el idioma preferido por el usuario.
 - **Enviar Correos Electrónicos Multilingües**: Ya sean correos transaccionales, campañas de marketing o notificaciones, enviar correos en el idioma del destinatario puede aumentar significativamente el compromiso y la efectividad.
 
 - **Notificaciones Push Multilingües**: Para aplicaciones móviles, enviar notificaciones push en el idioma preferido del usuario puede mejorar la interacción y la retención. Este toque personal puede hacer que las notificaciones se sientan más relevantes y accionables.
 
 - **Otras Comunicaciones**: Cualquier forma de comunicación desde el backend, como mensajes SMS, alertas del sistema o actualizaciones de la interfaz de usuario, se beneficia de estar en el idioma del usuario, asegurando claridad y mejorando la experiencia general del usuario.
-
-Al internacionalizar el backend, tu aplicación no solo respeta las diferencias culturales, sino que también se alinea mejor con las necesidades del mercado global, convirtiéndose en un paso clave para escalar tus servicios a nivel mundial.
+  Al internacionalizar el backend, tu aplicación no solo respeta las diferencias culturales, sino que también se alinea mejor con las necesidades del mercado global, convirtiéndose en un paso clave para escalar tus servicios a nivel mundial.
 
 ## Comenzando
 
@@ -60,7 +58,6 @@ yarn add intlayer express-intlayer
 Configura los ajustes de internacionalización creando un archivo `intlayer.config.ts` en la raíz de tu proyecto:
 
 ```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
-// Configuración de internacionalización
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -79,7 +76,6 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-// Configuración de internacionalización
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
@@ -99,7 +95,6 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-// Configuración de internacionalización
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
@@ -118,22 +113,134 @@ const config = {
 module.exports = config;
 ```
 
-### Configuración de la Aplicación Express
+### Declara Tu Contenido
+
+Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
+
+```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+import { t, type Dictionary } from "intlayer";
+
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+} satisfies Dictionary;
+
+export default indexContent;
+```
+
+```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
+import { t } from "intlayer";
+
+/** @type {import('intlayer').Dictionary} */
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+};
+
+export default indexContent;
+```
+
+```javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+};
+
+module.exports = indexContent;
+```
+
+```json fileName="src/index.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "index",
+  "content": {
+    "exampleOfContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Example of returned content in English",
+        "fr": "Exemple de contenu renvoyé en français",
+        "es-ES": "Ejemplo de contenido devuelto en español (España)",
+        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+      }
+    }
+  }
+}
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      es: "Ejemplo de contenido devuelto en español",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+};
+
+module.exports = indexContent;
+```
+
+```json fileName="src/index.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "index",
+  "content": {
+    "exampleOfContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Example of returned content in English",
+        "fr": "Exemple de contenu renvoyé en français",
+        "es": "Ejemplo de contenido devuelto en español",
+        "es-ES": "Ejemplo de contenido devuelto en español (España)",
+        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+      }
+    }
+  }
+}
+```
+
+> Tus declaraciones de contenido pueden definirse en cualquier lugar de tu aplicación siempre que se incluyan en el directorio `contentDir` (por defecto, `./src`). Y coincidan con la extensión de archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+
+> Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
+
+### Configuración de la aplicación Express
 
 Configura tu aplicación Express para usar `express-intlayer`:
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
-// Configuración de Express con internacionalización
 import express, { type Express } from "express";
-import { intlayer, t } from "express-intlayer";
+import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
+import dictionaryExample from "./index.content";
 
 const app: Express = express();
 
-// Cargar el manejador de solicitudes de internacionalización
+// Cargar el manejador de internacionalización
 app.use(intlayer());
 
 // Rutas
-app.get("/", (_req, res) => {
+app.get("/t_example", (_req, res) => {
   res.send(
     t({
       en: "Example of returned content in English",
@@ -142,6 +249,14 @@ app.get("/", (_req, res) => {
       "es-MX": "Ejemplo de contenido devuelto en español (México)",
     })
   );
+});
+
+app.get("/getIntlayer_example", (_req, res) => {
+  res.send(getIntlayer("index").exampleOfContent);
+});
+
+app.get("/getDictionary_example", (_req, res) => {
+  res.send(getDictionary(dictionaryExample).exampleOfContent);
 });
 
 // Iniciar servidor
@@ -149,9 +264,9 @@ app.listen(3000, () => console.log(`Escuchando en el puerto 3000`));
 ```
 
 ```javascript fileName="src/index.mjs" codeFormat="esm"
-// Configuración de Express con internacionalización
 import express from "express";
-import { intlayer, t } from "express-intlayer";
+import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
+import dictionaryExample from "./index.content";
 
 const app = express();
 
@@ -159,15 +274,23 @@ const app = express();
 app.use(intlayer());
 
 // Rutas
-app.get("/", (_req, res) => {
+app.get("/t_example", (_req, res) => {
   res.send(
     t({
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
     })
   );
+});
+
+app.get("/getIntlayer_example", (_req, res) => {
+  res.send(getIntlayer("index").exampleOfContent);
+});
+
+app.get("/getDictionary_example", (_req, res) => {
+  res.send(getDictionary(dictionaryExample).exampleOfContent);
 });
 
 // Iniciar servidor
@@ -175,29 +298,37 @@ app.listen(3000, () => console.log(`Escuchando en el puerto 3000`));
 ```
 
 ```javascript fileName="src/index.cjs" codeFormat="commonjs"
-// Configuración de Express con internacionalización
 const express = require("express");
-const { intlayer, t } = require("express-intlayer");
+const { intlayer, t, getDictionary, getIntlayer } = require("express-intlayer");
+const dictionaryExample = require("./index.content");
 
 const app = express();
 
-// Cargar el manejador de solicitudes de internacionalización
+// Cargar el manejador de internacionalización
 app.use(intlayer());
 
 // Rutas
-app.get("/", (_req, res) => {
+app.get("/t_example", (_req, res) => {
   res.send(
     t({
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
     })
   );
 });
 
+app.get("/getIntlayer_example", (_req, res) => {
+  res.send(getIntlayer("index").exampleOfContent);
+});
+
+app.get("/getDictionary_example", (_req, res) => {
+  res.send(getDictionary(dictionaryExample).exampleOfContent);
+});
+
 // Iniciar servidor
-app.listen(3000, () => console.log(`Escuchando en el puerto 3000`));
+app.listen(3000, () => console.log(`Listening on port 3000`));
 ```
 
 ### Compatibilidad
@@ -207,11 +338,9 @@ app.listen(3000, () => console.log(`Escuchando en el puerto 3000`));
 - [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md) para aplicaciones React
 - [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md) para aplicaciones Next.js
 - [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md) para aplicaciones Vite
-
-También funciona perfectamente con cualquier solución de internacionalización en diversos entornos, incluidos navegadores y solicitudes API. Puedes personalizar el middleware para detectar el idioma a través de encabezados o cookies:
+  También funciona perfectamente con cualquier solución de internacionalización en diversos entornos, incluidos navegadores y solicitudes API. Puedes personalizar el middleware para detectar la configuración regional a través de encabezados o cookies:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
-// Configuración personalizada del middleware
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -226,7 +355,6 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-// Configuración personalizada del middleware
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
@@ -242,7 +370,6 @@ export default config;
 ```
 
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-// Configuración personalizada del middleware
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
@@ -257,13 +384,13 @@ const config = {
 module.exports = config;
 ```
 
-Por defecto, `express-intlayer` interpretará el encabezado `Accept-Language` para determinar el idioma preferido del cliente.
+Por defecto, `express-intlayer` interpretará la cabecera `Accept-Language` para determinar el idioma preferido del cliente.
 
 > Para más información sobre configuración y temas avanzados, visita nuestra [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 ### Configurar TypeScript
 
-`express-intlayer` aprovecha las capacidades robustas de TypeScript para mejorar el proceso de internacionalización. El tipado estático de TypeScript asegura que cada clave de traducción esté contabilizada, reduciendo el riesgo de traducciones faltantes y mejorando el mantenimiento.
+`express-intlayer` aprovecha las robustas capacidades de TypeScript para mejorar el proceso de internacionalización. El tipado estático de TypeScript garantiza que cada clave de traducción esté contemplada, reduciendo el riesgo de traducciones faltantes y mejorando el mantenimiento.
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
@@ -273,21 +400,40 @@ Asegúrate de que los tipos autogenerados (por defecto en ./types/intlayer.d.ts)
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... Tu configuración existente de TypeScript
+  // ... Tus configuraciones existentes de TypeScript
   "include": [
-    // ... Tu configuración existente de TypeScript
+    // ... Tus configuraciones existentes de TypeScript
     ".intlayer/**/*.ts", // Incluir los tipos autogenerados
   ],
 }
 ```
 
+### Extensión para VS Code
+
+Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la **Extensión oficial de Intlayer para VS Code**.
+
+[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensión ofrece:
+
+- **Autocompletado** para las claves de traducción.
+- **Detección de errores en tiempo real** para traducciones faltantes.
+- **Previsualizaciones en línea** del contenido traducido.
+- **Acciones rápidas** para crear y actualizar traducciones fácilmente.
+
+Para más detalles sobre cómo usar la extensión, consulta la [documentación de la Extensión Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+
 ### Configuración de Git
 
-Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar que se incluyan en tu repositorio Git.
+Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar comprometerlos en tu repositorio Git.
 
-Para hacerlo, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
+Para ello, puedes añadir las siguientes instrucciones a tu archivo `.gitignore`:
 
 ```plaintext fileName=".gitignore"
 # Ignorar los archivos generados por Intlayer
 .intlayer
 ```
+
+## Historial del documento
+
+- 5.5.10 - 2025-06-29: Historial inicial

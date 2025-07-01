@@ -1,5 +1,5 @@
 ---
-blogName: internationalization_and_SEO
+docName: internationalization_and_SEO
 url: https://intlayer.org/blog/SEO-and-i18n
 githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24

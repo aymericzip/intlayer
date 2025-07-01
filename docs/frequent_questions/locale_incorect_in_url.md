@@ -1,3 +1,24 @@
+---
+docName: locale_incorect_in_url
+url: https://intlayer.org/doc/faq/locale-incorect-in-url
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/locale_incorect_in_url.md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: Incorrect Locale Retrieved from URL
+description: Learn how to fix the incorrect locale retrieved from the URL.
+keywords:
+  - locale
+  - url
+  - intlayer
+  - next.js
+  - vite
+  - framework
+  - middleware
+  - configuration
+  - prefixDefault
+  - noPrefix
+---
+
 # Incorrect Locale Retrieved from URL
 
 ## Problem Description

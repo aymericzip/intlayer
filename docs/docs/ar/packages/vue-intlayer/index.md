@@ -1,20 +1,52 @@
 ---
 docName: package__vue-intlayer
 url: https://intlayer.org/doc/packages/vue-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vue-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vue-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: وثائق حزمة | vue-intlayer
-description: انظر كيف تستخدم حزمة vue-intlayer
+title: توثيق الحزمة | vue-intlayer
+description: تعرف على كيفية استخدام حزمة vue-intlayer
 keywords:
   - Intlayer
   - vue-intlayer
-  - الدولية
-  - المستندات
-  - JavaScript
+  - التدويل
+  - التوثيق
+  - جافا سكريبت
   - Vue
 ---
 
-this doc will be automatically generated translated from the english doc
+# vue-intlayer: حزمة NPM لتدويل (i18n) تطبيق Vue
 
-see /docs/en/packages/vue-intlayer/index.md
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافا سكريبت. وهي متوافقة مع أُطُر العمل مثل Vue وExpress.js.
+
+**حزمة `vue-intlayer`** تتيح لك تدويل تطبيق Vue الخاص بك. فهي توفر موفري السياق (context providers) وخطافات (hooks) لتدويل Vue.
+
+## لماذا تقوم بتدويل تطبيق Vue الخاص بك؟
+
+تدويل تطبيق Vue الخاص بك أمر ضروري لخدمة جمهور عالمي بفعالية. فهو يسمح لتطبيقك بتقديم المحتوى والرسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق تطبيقك بجعله أكثر وصولًا وملاءمة للأشخاص من خلفيات لغوية مختلفة.
+
+## لماذا تدمج Intlayer؟
+
+- **إدارة المحتوى مدعومة بجافا سكريبت**: استغل مرونة جافا سكريبت لتعريف وإدارة المحتوى الخاص بك بكفاءة.
+- **بيئة آمنة من حيث النوع**: استفد من TypeScript لضمان أن جميع تعريفات المحتوى الخاصة بك دقيقة وخالية من الأخطاء.
+- **ملفات المحتوى المتكاملة**: احتفظ بترجماتك قريبة من مكوناتها الخاصة، مما يعزز سهولة الصيانة والوضوح.
+
+## التثبيت
+
+قم بتثبيت الحزمة اللازمة باستخدام مدير الحزم المفضل لديك:
+
+```bash packageManager="npm"
+npm install vue-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add vue-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add vue-intlayer
+```
+
+## تاريخ الوثائق
+
+- 5.5.10 - 2025-06-29: بدء التاريخ

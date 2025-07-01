@@ -1,7 +1,7 @@
 ---
 docName: autoFill
 url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: Auto Fill
@@ -19,7 +19,6 @@ keywords:
 # Autofill Content Declaration File Translations
 
 **Autofill content declaration files** are a way to speed up your development workflow.
-
 The autofill mechanism works through a _master-slave_ relationship between content declaration files. When the main (master) file is updated, Intlayer will automatically apply those changes to the derived (autofilled) declaration files.
 
 ```ts fileName="src/components/example/example.content.ts"
@@ -37,7 +36,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-Here is a [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md) using the `autoFill` instruction.
+Here is a [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md) using the `autoFill` instruction.
 
 Then, when you run the following command:
 
@@ -62,7 +61,7 @@ Intlayer will automatically generate the derived declaration file at `src/compon
 }
 ```
 
-Afterward, both declaration files will be merged into a single dictionary, accessible using the standard `useIntlayer("example")` hook (react) / composable (vue).
+Afterwards, both declaration files will be merged into a single dictionary, accessible using the standard `useIntlayer("example")` hook (React) / composable (Vue).
 
 ## Autofilled File Format
 

@@ -125,6 +125,15 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
   >
   > - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_extention_customization.md)
 
+### 7. Purging, bundle optimization and dynamic imports
+
+- Intlayer integrates `Babel` and `SWC` plugins to optimize your bundle and improve performance. It replace imports, to allows importing only the dictionaries that are used into the bundle.
+- By activating the option, Intlayer also allows to import dynamically the dictionary content for the current locale only.
+
+> Resources:
+>
+> - [Build Configuration](https://intlayer.org/doc/concept/configuration#build-configuration)
+
 ---
 
 ## Integration with Frameworks & Environments
@@ -187,6 +196,32 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 >
 > - [Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx.md)
 
+### 6. Vue
+
+- Integrate Intlayer with Vue to manage content and internationalize your Vite / Vue.js applications.
+
+> Resources:
+>
+> - [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vue.md)
+
+### 7. Nuxt
+
+- Integrate Intlayer with Nuxt to manage content and internationalize your Nuxt / Vue.js applications.
+- Supports both server and client components.
+- Integrates routing and middleware to redirect users to content based on their preferred language.
+
+> Resources:
+>
+> - [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md)
+
+### 8. Preact
+
+- Integrate Intlayer with Preact to manage content and internationalize your Preact applications.
+
+> Resources:
+>
+> - [Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_preact.md)
+
 ---
 
 ## Visual Editors and CMS
@@ -216,11 +251,24 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 ---
 
+## IDE Extensions
+
+- Extensions for major IDEs to provide a **graphical interface** for managing local and remote translations.
+- Features could include auto-generating content declaration files for components, direct integration with the Intlayer CMS, and real-time validation.
+
+---
+
+## MCP Server
+
+- A **MCP server** that allows you to manage your content and translations using an integrated tool in your IDE.
+
+---
+
 ## Intlayer CLI
 
-- **Audit and Translation Generation**: Run audits on your content files to generate missing translations or identify unused ones.
-- **Remote Interaction**: Publish your local content to the remote CMS or fetch remote content to integrate into your local application.
-- Useful for **CI/CD pipelines**, ensuring your content is always synchronized with your code.
+- **Translation and file generation**: Run audits on your content files to generate missing translations and review inconsistencies.
+- **Remote Interaction**: Push your local content to the remote CMS or pull remote content to integrate into your local application.
+- **Doc translation and review**: Translate and review your documentation / files etc.
 
 > Resources:
 >
@@ -270,13 +318,8 @@ Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring co
 
 ### 5. Compatibility with More Frameworks
 
-- Efforts are underway to support **Vue, Solid, Svelte, Angular**, and more.
+- Efforts are underway to support **Solid, Svelte, Angular**, and more.
 - Aim to make Intlayer compatible with **any JavaScript-powered application**.
-
-### 6. IDE Extensions
-
-- Extensions for major IDEs to provide a **graphical interface** for managing local and remote translations.
-- Features could include auto-generating content declaration files for components, direct integration with the Intlayer CMS, and real-time validation.
 
 ---
 
@@ -286,6 +329,9 @@ Intlayer aims to be a one-stop solution for content management and international
 
 Stay tuned for upcoming releases, and feel free to explore the existing features to see how Intlayer can help centralize and optimize your content management processes today!
 
+---
+
 ## Doc History
 
+- 5.5.10 - 2025-06-30: Add Preact and Nuxt support, MCP Server, update CLI
 - 5.5.10 - 2025-06-29: Init history

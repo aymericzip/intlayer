@@ -1,11 +1,11 @@
 ---
 docName: dictionary__translation
 url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/translation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Tradução
-description: Descubra como declarar e usar traduções em seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
+description: Descubra como declarar e usar tradução no seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
 keywords:
   - Tradução
   - Internacionalização
@@ -20,9 +20,7 @@ keywords:
 
 ## Definindo Traduções
 
-A função `t` no `intlayer` permite declarar conteúdo em vários idiomas. Esta função garante segurança de tipo, gerando um erro se alguma tradução estiver ausente, o que é particularmente útil em ambientes TypeScript.
-
-### Usando TypeScript
+A função `t` em `intlayer` permite que você declare conteúdo em múltiplos idiomas. Essa função garante segurança de tipos, gerando um erro caso alguma tradução esteja faltando, o que é particularmente útil em ambientes TypeScript.
 
 Aqui está um exemplo de como declarar conteúdo com traduções.
 
@@ -40,7 +38,6 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      pt: "Bem-vindo ao nosso aplicativo",
     }),
   },
 } satisfies Dictionary<Content>;
@@ -55,8 +52,7 @@ export default {
     welcomeMessage: t({
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
-      es: "Bienvenido a nuestra aplicação",
-      pt: "Bem-vindo ao nosso aplicativo",
+      es: "Bienvenido a nuestra aplicación",
     }),
   },
 };
@@ -71,8 +67,7 @@ module.exports = {
     welcomeMessage: t({
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
-      es: "Bienvenido a nossa aplicação",
-      pt: "Bem-vindo ao nosso aplicativo",
+      es: "Bienvenido a nuestra aplicación",
     }),
   },
 };
@@ -88,8 +83,7 @@ module.exports = {
       "translation": {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
-        "es": "Bienvenido a nossa aplicação",
-        "pt": "Bem-vindo ao nosso aplicativo"
+        "es": "Bienvenido a nuestra aplicación"
       }
     }
   }
@@ -98,19 +92,14 @@ module.exports = {
 
 ## Configuração para Locales
 
-Para garantir o manuseio adequado das traduções, você pode configurar os locais aceitos no `intlayer.config.ts`. Esta configuração permite definir os idiomas que sua aplicação suporta:
+Para garantir o manuseio adequado das traduções, você pode configurar os locales aceitos em `intlayer.config.ts`. Essa configuração permite definir os idiomas que sua aplicação suporta:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.PORTUGUESE,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -123,12 +112,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.PORTUGUESE,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -141,12 +125,7 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.PORTUGUESE,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -155,7 +134,7 @@ module.exports = config;
 
 ## Usando Traduções em Componentes React
 
-Com o `react-intlayer`, você pode usar traduções em componentes React. Aqui está um exemplo:
+Com `react-intlayer`, você pode usar traduções em componentes React. Aqui está um exemplo:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -206,11 +185,11 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-Este componente busca a tradução correspondente com base no local atual definido em sua aplicação.
+Este componente busca a tradução correspondente com base no idioma atual definido em sua aplicação.
 
 ## Objetos de Conteúdo Personalizados
 
-O `intlayer` suporta objetos de conteúdo personalizados para tradução, permitindo definir estruturas mais complexas enquanto garante a segurança de tipo. Aqui está um exemplo com um objeto personalizado:
+`intlayer` suporta objetos de conteúdo personalizados para tradução, permitindo que você defina estruturas mais complexas enquanto garante a segurança de tipos. Aqui está um exemplo com um objeto personalizado:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -233,10 +212,6 @@ const customContent = {
         content: "Contenu de la Page",
       },
       es: {
-        title: "Título de la Página",
-        content: "Contenido de la Página",
-      },
-      pt: {
         title: "Título da Página",
         content: "Conteúdo da Página",
       },
@@ -258,18 +233,14 @@ export default {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "Título da Página",
+          content: "Conteúdo da Página",
         },
         fr: {
           title: "Titre de la Page",
           content: "Contenu de la Page",
         },
         es: {
-          title: "Título de la Página",
-          content: "Contenido de la Página",
-        },
-        pt: {
           title: "Título da Página",
           content: "Conteúdo da Página",
         },
@@ -289,18 +260,14 @@ module.exports = {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "Título da Página",
+          content: "Conteúdo da Página",
         },
         fr: {
           title: "Titre de la Page",
           content: "Contenu de la Page",
         },
         es: {
-          title: "Título de la Página",
-          content: "Contenido de la Página",
-        },
-        pt: {
           title: "Título da Página",
           content: "Conteúdo da Página",
         },
@@ -318,8 +285,8 @@ module.exports = {
       "nodeType": "translation",
       "translation": {
         "en": {
-          "title": "Page Title",
-          "content": "Page Content"
+          "title": "Título da Página",
+          "content": "Conteúdo da Página"
         },
         "fr": {
           "title": "Titre de la Page",
@@ -328,13 +295,13 @@ module.exports = {
         "es": {
           "title": "Título de la Página",
           "content": "Contenido de la Página"
-        },
-        "pt": {
-          "title": "Título da Página",
-          "content": "Conteúdo da Página"
         }
       }
     }
   }
 }
 ```
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

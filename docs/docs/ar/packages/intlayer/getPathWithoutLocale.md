@@ -1,44 +1,44 @@
 ---
 docName: package__intlayer__getPathWithoutLocale
 url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: وثائق دالة getPathWithoutLocale | intlayer
-description: انظر كيف تستخدم دالة getPathWithoutLocale لحزمة intlayer
+title: توثيق دالة getPathWithoutLocale | intlayer
+description: تعرف على كيفية استخدام دالة getPathWithoutLocale لحزمة intlayer
 keywords:
   - getPathWithoutLocale
-  - ترجمة
+  - الترجمة
   - Intlayer
   - intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافا سكريبت
   - React
 ---
 
-# Documentation: `getPathWithoutLocale` وظائف في `intlayer`
+# التوثيق: دالة `getPathWithoutLocale` في `intlayer`
 
 ## الوصف
 
-يزيل الجزء الخاص باللغة من عنوان URL أو المسار المحدد إذا كان موجودًا. يعمل مع عناوين URL المطلقة والمسارات النسبية.
+تقوم بإزالة جزء اللغة من عنوان URL أو مسار الصفحة إذا كان موجودًا. تعمل مع كل من عناوين URL المطلقة والمسارات النسبية.
 
-## المعلمات
+## المعاملات
 
 - `inputUrl: string`
 
-  - **الوصف**: سلسلة عنوان URL الكاملة أو المسار لمعالجتها.
+  - **الوصف**: سلسلة عنوان URL كاملة أو مسار الصفحة لمعالجتها.
   - **النوع**: `string`
 
 - `locales: Locales[]`
-  - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. الافتراضي هو اللغات المكونة في المشروع.
+  - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. القيمة الافتراضية هي اللغات المكونة في المشروع.
   - **النوع**: `Locales[]`
 
-## الإرجاع
+## القيم المرجعة
 
 - **النوع**: `string`
-- **الوصف**: سلسلة عنوان URL أو المسار بدون الجزء الخاص باللغة.
+- **الوصف**: سلسلة عنوان URL أو مسار الصفحة بدون جزء اللغة.
 
 ## مثال على الاستخدام
 
@@ -68,3 +68,7 @@ console.log(getPathWithoutLocale("/en/dashboard")); // الناتج: "/dashboard
 console.log(getPathWithoutLocale("/fr/dashboard")); // الناتج: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // الناتج: "https://example.com/dashboard"
 ```
+
+## تاريخ التوثيق
+
+- 5.5.10 - 2025-06-29: بداية السجل

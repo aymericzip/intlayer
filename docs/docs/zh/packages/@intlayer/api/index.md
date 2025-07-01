@@ -1,8 +1,27 @@
-# @intlayer/api: 用于与 Intlayer API 交互的 NPM 包
+---
+docName: packages__intlayer__api
+url: https://intlayer.org/doc/packages/intlayer/api
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/@intlayer/api/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/api - Intlayer API 集成的 SDK
+description: 提供与 Intlayer API 交互的软件开发工具包（SDK）的 NPM 包，用于内容审核、组织、项目和用户管理。
+keywords:
+  - intlayer
+  - API
+  - SDK
+  - 集成
+  - 内容审核
+  - 组织
+  - 项目
+  - JavaScript
+---
 
-**Intlayer** 是专为 JavaScript 开发人员设计的一套软件包。它兼容 React、React 和 Express.js 等框架。
+# @intlayer/api：与 Intlayer API 交互的 NPM 包
 
-**`@intlayer/api`** 包是一个 SDK（软件开发工具包），用于与 Intlayer API 交互。它提供了一组函数，用于审核内容声明，与组织、项目和用户等交互。
+**Intlayer** 是一套专为 JavaScript 开发者设计的包集合。它兼容 React、React 和 Express.js 等框架。
+
+**`@intlayer/api`** 包是一个用于与 Intlayer API 交互的软件开发工具包（SDK）。它提供了一组函数，用于审核内容声明、与组织、项目和用户进行交互等。
 
 ## 使用方法
 
@@ -16,7 +35,7 @@ intlayerAPI.user.getUser({
 
 ## 安装
 
-使用您喜欢的包管理器安装必要的软件包：
+使用您喜欢的包管理器安装所需的包：
 
 ```bash packageManager="npm"
 npm install @intlayer/api
@@ -29,3 +48,7 @@ pnpm add @intlayer/api
 ```bash packageManager="yarn"
 yarn add @intlayer/api
 ```
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29: 初始化历史

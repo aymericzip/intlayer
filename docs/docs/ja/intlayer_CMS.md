@@ -1,7 +1,7 @@
 ---
 docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Intlayer CMS | Intlayer CMSにコンテンツを外部化します
@@ -23,17 +23,17 @@ keywords:
 
 Intlayer CMS は、Intlayer プロジェクトのコンテンツを外部化することを可能にするアプリケーションです。
 
-このために、Intlayer は「遠隔辞書」の概念を導入します。
+そのために、Intlayer は「遠隔辞書」という概念を導入しています。
 
 ![Intlayer CMS インターフェース](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
 ## 遠隔辞書の理解
 
-Intlayer は「ローカル辞書」と「遠隔辞書」を区別します。
+Intlayer は「ローカル辞書」と「遠隔辞書」を区別しています。
 
-- 「ローカル辞書」は、Intlayer プロジェクト内で宣言される辞書です。ボタンやナビゲーションバーの宣言ファイルなどが該当します。この場合、コンテンツを外部化する意味はあまりありません。なぜなら、このコンテンツは頻繁に変更されることが想定されていないからです。
+- 「ローカル辞書」は、Intlayer プロジェクト内で宣言される辞書です。ボタンの宣言ファイルやナビゲーションバーなどが該当します。この場合、コンテンツは頻繁に変更されることが想定されていないため、外部化する意味はあまりありません。
 
-- 「遠隔辞書」は、Intlayer CMS を通じて管理される辞書です。これにより、チームがウェブサイト上で直接コンテンツを管理できるようになり、A/B テスト機能や SEO 自動最適化を使用することも目的としています。
+- 「遠隔辞書」は、Intlayer CMS を通じて管理される辞書です。これにより、チームがウェブサイト上で直接コンテンツを管理できるようになり、A/B テスト機能や SEO 自動最適化の利用も目的としています。
 
 ## ビジュアルエディタ vs CMS
 
@@ -194,15 +194,14 @@ const config = {
      *
      * Intlayer CMS の URL。
      * デフォルトでは https://intlayer.org に設定されています。
-     */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
      * 任意
      *
-     * Intlayer CMS をセルフホストする場合、バックエンドの URL を設定できます。
+     * Intlayer CMS をセルフホストしている場合、バックエンドの URL を設定できます。
      *
-     * Intlayer CMS の URL。
+     * Intlayer CMS のバックエンドの URL。
      * デフォルトでは https://back.intlayer.org に設定されています。
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -220,7 +219,7 @@ module.exports = config;
 
 ### 設定をプッシュする
 
-Intlayer CMS を設定するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md) コマンドを使用します。
+Intlayer CMS を設定するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md) コマンドを使用できます。
 
 ```bash
 npx intlayer config push
@@ -232,11 +231,11 @@ npx intlayer config push
 npx intlayer config push --env production
 ```
 
-このコマンドは、設定を Intlayer CMS にアップロードします。
+このコマンドは設定を Intlayer CMS にアップロードします。
 
 ### 辞書をプッシュする
 
-ローカル辞書を遠隔辞書に変換するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md) コマンドを使用します。
+ローカル辞書を遠隔辞書に変換するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md) コマンドを使用できます。
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
@@ -259,7 +258,6 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 Intlayer CMS は、変更が検出された場合に辞書をホットリロードすることができます。
 
 ホットリロードがない場合、新しいコンテンツを表示するにはアプリケーションの新しいビルドが必要です。
-
 [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) 設定を有効にすると、変更が検出された際にアプリケーションは自動的に更新されたコンテンツを置き換えます。
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -349,5 +347,8 @@ CMS に問題が発生した場合、以下を確認してください。
     - CMS URL
 
 - プロジェクト設定が Intlayer CMS にプッシュされていることを確認してください。
-
 - ビジュアルエディタは iframe を使用してウェブサイトを表示します。ウェブサイトのコンテンツセキュリティポリシー (CSP) が `frame-ancestors` として CMS URL ('https://intlayer.org' がデフォルト) を許可していることを確認してください。エディタコンソールでエラーを確認してください。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴を初期化

@@ -1,10 +1,27 @@
-To translate the file into Russian (Русский):
+---
+docName: package__@intlayer_cli
+url: https://intlayer.org/doc/package/@intlayer_cli
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/@intlayer/cli/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/cli - Пакет командной строки для Intlayer
+description: NPM пакет, предоставляющий скрипты для команд Intlayer CLI, обеспечивающий единообразие всех интерфейсов командной строки для управления интернационализацией.
+keywords:
+  - intlayer
+  - CLI
+  - командная строка
+  - скрипты
+  - i18n
+  - JavaScript
+  - NPM
+  - инструменты
+---
 
-# @intlayer/cli: Пакет NPM для использования скриптов, предоставляемых CLI intlayer
+# @intlayer/cli: NPM пакет для использования скриптов, предоставляемых intlayer CLI
 
-**Intlayer** , это набор пакетов, специально разработанных для разработчиков на JavaScript. Он совместим с такими фреймворками, как React, Vue и Express.js.
+**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
 
-Пакет **`@intlayer/cli`** , это пакет NPM, который используется для объявления скриптов, связанных с интерфейсами командной строки intlayer. Он обеспечивает единообразие всех команд CLI intlayer. Этот пакет особенно используется в [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/ru/packages/intlayer-cli/index.md) и [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ru/packages/intlayer/index.md) пакетах.
+Пакет **`@intlayer/cli`** — это NPM-пакет, который используется для объявления скриптов, связанных с интерфейсами командной строки intlayer. Он обеспечивает единообразие всех команд CLI intlayer. Этот пакет особенно используется в пакетах [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/docs/ru/packages/intlayer-cli/index.md) и [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/docs/ru/packages/intlayer/index.md).
 
 ## Установка
 
@@ -21,3 +38,7 @@ pnpm add @intlayer/cli
 ```bash packageManager="yarn"
 yarn add @intlayer/cli
 ```
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

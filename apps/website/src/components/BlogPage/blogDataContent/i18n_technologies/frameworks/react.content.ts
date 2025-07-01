@@ -5,7 +5,7 @@ import { t, type Dictionary } from 'intlayer';
 const blogContent = {
   key: 'blog-i18n_technologies_frameworks_react-metadata',
   content: {
-    blogName: 'list_i18n_technologies__frameworks__react',
+    docName: 'list_i18n_technologies__frameworks__react',
     url: PagesRoutes['Blog_i18n-technologies__frameworks__react'],
     githubUrl: GithubRoutes['i18n-technologies__frameworks__react'],
     createdAt: '2025-01-16',

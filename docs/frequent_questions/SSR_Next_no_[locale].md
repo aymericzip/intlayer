@@ -1,3 +1,24 @@
+---
+docName: ssr_next_no_[locale]
+url: https://intlayer.org/doc/faq/ssr-next-no-[locale]
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/frequent_questions/ssr_next_no_[locale].md
+createdAt: 2025-05-20
+updatedAt: 2025-06-29
+title: Is it possible to use Intlayer with Next.js without `[locale]` in the page path?
+description: Learn how to use Intlayer with Next.js without `[locale]` in the page path.
+keywords:
+  - locale
+  - path
+  - intlayer
+  - next.js
+  - vite
+  - framework
+  - middleware
+  - configuration
+  - prefixDefault
+  - noPrefix
+---
+
 # Is it possible to use Intlayer with Next.js without `[locale]` in the page path?
 
 Yes, it's possible to use Intlayer with Next.js without `[locale]` in the page path. However, it is not recommended to do, because splitting you page page allows to trigger more keyswords on search engines. Your SSR may also be impacted.

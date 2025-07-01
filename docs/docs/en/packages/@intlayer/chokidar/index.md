@@ -1,3 +1,22 @@
+---
+docName: package__@intlayer_chokidar
+url: https://intlayer.org/doc/package/@intlayer_chokidar
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/@intlayer/chokidar/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/chokidar - File Watching for Intlayer i18n
+description: NPM package providing file watching capabilities for Intlayer, enabling automatic updates and hot reloading for internationalization content.
+keywords:
+  - intlayer
+  - chokidar
+  - file watching
+  - hot reload
+  - i18n
+  - JavaScript
+  - NPM
+  - development
+---
+
 # @intlayer/chokidar: NPM Package to Scan and build Intlayer declaration files into dictionaries
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.

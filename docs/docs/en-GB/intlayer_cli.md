@@ -1,7 +1,7 @@
 ---
 docName: intlayer_cli
 url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: CLI
@@ -9,7 +9,7 @@ description: Discover how to use the Intlayer CLI to manage your multilingual we
 keywords:
   - CLI
   - Command Line Interface
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Next.js
@@ -35,15 +35,15 @@ yarn add intlayer-cli -g
 pnpm add intlayer-cli -g
 ```
 
-> If `intlayer` package is already installed, the cli is automatically installed. You can skip this step.
+> If the `intlayer` package is already installed, the CLI is installed automatically. You can skip this step.
 
 ## intlayer-cli package
 
-`intlayer-cli` package intend to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md) into dictionaries.
+The `intlayer-cli` package is intended to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md) into dictionaries.
 
 This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-To interpret intlayer dictionaries you can interpreters, such as [react-intlayer](https://www.npmjs.com/package/react-intlayer), or [next-intlayer](https://www.npmjs.com/package/next-intlayer)
+To interpret intlayer dictionaries, you can use interpreters such as [react-intlayer](https://www.npmjs.com/package/react-intlayer), or [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 
 ## Configuration File Support
 
@@ -56,7 +56,49 @@ Intlayer accepts multiple configuration file formats:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+
+## CLI SDK
+
+The CLI SDK is a library that allows you to use the Intlayer CLI in your own code.
+
+```bash packageManager="npm"
+npm install @intlayer/cli -D
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/cli -D
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/cli -D
+```
+
+Example of usage:
+
+```ts
+import {
+  push,
+  pull,
+  fill,
+  build,
+  docTranslate,
+  docReview,
+} from "@intlayer/cli";
+
+push();
+// ...
+pull();
+// ...
+fill();
+// ...
+build();
+// ...
+docTranslate();
+// ...
+docReview();
+// ...
+```
 
 ## Run intlayer commands
 
@@ -74,7 +116,7 @@ or in watch mode
 npx intlayer build --watch
 ```
 
-This command will find your declaration content files as default as `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. And build the dictionaries in the `.intlayer` directory.
+This command will find your declaration content files by default as `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` and build the dictionaries in the `.intlayer` directory.
 
 ##### Aliases:
 
@@ -88,7 +130,7 @@ This command will find your declaration content files as default as `./src/**/*.
 npx intlayer dictionary push
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) is installed, you can also push dictionaries to the editor. This command will allow you to make the dictionaries available to [the editor](https://intlayer.org/dashboard). In this way, you can share your dictionaries with your team and edit your content without modifying the code of your application.
 
 ##### Aliases:
 
@@ -98,30 +140,30 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 ##### Arguments:
 
-- `-d`, `--dictionaries`: ids of the dictionaries to pull. If not specified, all dictionaries will be pushed.
+- `-d`, `--dictionaries`: IDs of the dictionaries to push. If not specified, all dictionaries will be pushed.
   > Example: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
+- `-r`, `--deleteLocaleDictionary`: Skip the prompt asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, if the dictionary is defined locally, it will overwrite distant dictionaries content.
   > Example: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
+- `-k`, `--keepLocaleDictionary`: Skip the prompt asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, if the dictionary is defined locally, it will overwrite distant dictionaries content.
   > Example: `npx intlayer dictionary push -k`
 - `--env`: Specify the environment (e.g., `development`, `production`).
 - `--env-file`: Provide a custom environment file to load variables from.
 - `--base-dir`: Specify the base directory for the project.
 - `--verbose`: Enable verbose logging for debugging.
-- `--git-diff`: Only run on dictionaries that includes changes from base (default `origin/main`) to current branch (default: `HEAD`).
+- `--git-diff`: Only run on dictionaries that include changes from base (default `origin/main`) to current branch (default: `HEAD`).
 - `--git-diff-base`: Specify the base reference for git diff (default `origin/main`).
 - `--git-diff-current`: Specify the current reference for git diff (default: `HEAD`).
 - `--uncommitted`: Include uncommitted changes.
 - `--unpushed`: Include unpushed changes.
 - `--untracked`: Include untracked files.
 
-### Pull distant dictionaries
+### Pull remote dictionaries
 
 ```bash
 npx intlayer pull
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is installed, you can also pull dictionaries from the editor. By this way, you can overwrite the content of your dictionaries for the need of your application.
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) is installed, you can also pull dictionaries from the editor. In this way, you can overwrite the content of your dictionaries to suit the needs of your application.
 
 ##### Aliases:
 
@@ -131,9 +173,9 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 ##### Arguments:
 
-- `-d, --dictionaries`: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
+- `-d, --dictionaries`: IDs of the dictionaries to pull. If not specified, all dictionaries will be pulled.
   > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
+- `--newDictionariesPath`: Path to the directory where the new dictionaries will be saved. If not specified, the new dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` field is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
 - `--env`: Specify the environment (e.g., `development`, `production`).
 - `--env-file`: Provide a custom environment file to load variables from.
 - `--base-dir`: Specify the base directory for the project.
@@ -151,7 +193,7 @@ npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 npx intlayer fill
 ```
 
-This command analyzes your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer fill** will propose or apply updates to keep your dictionaries consistent and complete.
+This command analyses your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer fill** will propose or apply updates to keep your dictionaries consistent and complete.
 
 ##### Aliases:
 
@@ -177,7 +219,7 @@ This command analyzes your content declaration files for potential issues such a
   Translation mode: 'complete', 'review', or 'missing-only'. Default is 'missing-only'.
 
 - `--git-diff`
-  Filters dictionaries that includes changes from base (default `origin/main`) to current branch (default: `HEAD`).
+  Filters dictionaries that include changes from base (default `origin/main`) to current branch (default: `HEAD`).
 
 - `--git-diff-base`
   Specify the base reference for git diff (default `origin/main`).
@@ -186,13 +228,14 @@ This command analyzes your content declaration files for potential issues such a
   Specify the current reference for git diff (default: `HEAD`).
 
 - `--uncommitted`
-  Filters dictionaries that includes uncommitted changes.
+  Filters dictionaries that include uncommitted changes.
 
 - `--unpushed`
-  Filters dictionaries that includes unpushed changes.
+- `--unpushed`
+  Filters dictionaries that include unpushed changes.
 
 - `--untracked`
-  Filters dictionaries that includes untracked files.
+  Filters dictionaries that include untracked files.
 
 - `--keys [keys...]`
   Filter dictionaries based on specified keys.
@@ -217,7 +260,6 @@ This command analyzes your content declaration files for potential issues such a
 
 - `--custom-prompt [prompt]`
   Provide a custom prompt for your translation instructions.
-
 - `--application-context [applicationContext]`
   Provide additional context for the AI translation.
 
@@ -265,7 +307,7 @@ npx intlayer configuration get
 
 #### Push Configuration
 
-The `configuration push` command uploads your configuration to the Intlayer CMS and editor. This step is necessary to enable the use of distant dictionaries in the Intlayer Visual Editor.
+The `configuration push` command uploads your configuration to the Intlayer CMS and editor. This step is necessary to enable the use of remote dictionaries in the Intlayer Visual Editor.
 
 ```bash
 npx intlayer configuration push
@@ -305,7 +347,7 @@ npx intlayer doc translate
   > Example: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 - **`--nb-simultaneous-file-processed [nbSimultaneousFileProcessed]`**: Number of files to process simultaneously for translation.
   > Example: `npx intlayer doc translate --nb-simultaneous-file-processed 5`
-- **`--locales [locales...]`**: Target locales to translate documentation to.
+- **`--locales [locales...]`**: Target locales to translate documentation into.
   > Example: `npx intlayer doc translate --locales fr es de`
 - **`--base-locale [baseLocale]`**: Source locale to translate from.
   > Example: `npx intlayer doc translate --base-locale en`
@@ -319,17 +361,31 @@ npx intlayer doc translate
 - **`--env-file [envFile]`**: Provide a custom environment file to load variables from.
 - **`--base-dir`**: Specify the base directory for the project.
 - **`--verbose`**: Enable verbose logging for debugging.
-- **Git filtering options**: `--git-diff`, `--git-diff-base`, `--git-diff-current`, `--uncommitted`, `--unpushed`, `--untracked`
+- **`--custom-instructions [customInstructions]`**: Custom instructions added to the prompt. Useful to apply specific rules regarding formatting, URLs translation, etc.
 
 ##### Example:
 
 ```bash
-npx intlayer doc translate --doc-pattern "docs/**/*.md" --base-locale en --locales fr es --model chatgpt-4o-latest
+npx intlayer doc translate
+  --doc-pattern "docs/en-GB/**/*.md"
+  --base-locale en --locales fr es
+  --model chatgpt-4o-latest
+  --custom-instructions "$(cat ./instructions.md)"
 ```
+
+> Note that the output file path will be determined by replacing the following patterns
+>
+> - `/{{baseLocale}}/` by `/{{locale}}/` (Unix)
+> - `\{{baseLocale}}\` by `\{{locale}}\` (Windows)
+> - `_{{baseLocale}}.` by `_{{locale}}.`
+> - `{{baseLocale}}_` by `{{locale}}_`
+> - `.{{baseLocaleName}}.` by `.{{localeName}}.`
+>
+> If the pattern is not found, the output file will add the `.{{locale}}` at the extensions of the file. `./my/file.md` will be translated to `./my/file.fr.md` for the French locale.
 
 #### Review Documentation
 
-The `doc review` command analyzes documentation files for quality, consistency, and completeness across different locales.
+The `doc review` command analyses documentation files for quality, consistency, and completeness across different locales.
 
 ```bash
 npx intlayer doc review
@@ -342,7 +398,11 @@ The `doc review` command accepts the same arguments as `doc translate`, allowing
 ##### Example:
 
 ```bash
-npx intlayer doc review --doc-pattern "docs/**/*.md" --locales fr es de
+npx intlayer doc review
+ --doc-pattern "docs/en-GB/**/*.md"
+ --locales fr es de
+ --model chatgpt-4o-latest
+ --custom-instructions "$(cat ./instructions.md)"
 ```
 
 ## Use intlayer commands in your `package.json`
@@ -381,7 +441,7 @@ npx intlayer dictionary build --help    # Shows the list of available options fo
 
 ### 3. **Restart your terminal**
 
-Sometimes a terminal restart is needed to recognize new commands.
+Sometimes a terminal restart is needed to recognise new commands.
 
 ### 4. **Clear npx cache (if you're stuck with an older version)**
 

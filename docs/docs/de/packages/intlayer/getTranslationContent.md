@@ -1,28 +1,47 @@
+---
+docName: package__intlayer__getTranslationContent
+url: https://intlayer.org/doc/package/intlayer/getTranslationContent
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getTranslationContent.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: getTranslation Funktion - Intlayer JavaScript Dokumentation
+description: Dokumentation für die Funktion getTranslation in Intlayer, die lokalisierte Inhalte für bestimmte Sprachen mit Fallback zur Standardsprache abruft.
+keywords:
+  - getTranslation
+  - intlayer
+  - funktion
+  - lokalisierung
+  - i18n
+  - JavaScript
+  - übersetzung
+  - sprache
+---
+
 # Dokumentation: `getTranslation` Funktion in `intlayer`
 
 ## Beschreibung
 
-Die Funktion `getTranslation` ruft den Inhalt ab, der einer bestimmten Sprache aus einem Satz anpassbarer Sprachinhalte entspricht. Wenn die angegebene Sprache nicht gefunden wird, wird standardmäßig der Inhalt für die im Projekt konfigurierte Standardsprache zurückgegeben.
+Die Funktion `getTranslation` ruft den Inhalt ab, der einer bestimmten Sprache aus einem Satz anpassbarer Sprachinhalte entspricht. Wenn die angegebene Sprache nicht gefunden wird, wird standardmäßig der Inhalt der im Projekt konfigurierten Standardsprache zurückgegeben.
 
 ## Parameter
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Beschreibung**: Ein Objekt, das Übersetzungen für verschiedene Sprachen enthält. Jeder Schlüssel repräsentiert eine Sprache, und sein Wert ist der entsprechende Inhalt.
+  - **Beschreibung**: Ein Objekt, das Übersetzungen für verschiedene Sprachen enthält. Jeder Schlüssel repräsentiert eine Sprache, und dessen Wert ist der entsprechende Inhalt.
   - **Typ**: `CustomizableLanguageContent<Content>`
-    - `Content` kann jeder Typ sein, standardmäßig `string`.
+    - `Content` kann ein beliebiger Typ sein, standardmäßig `string`.
 
 - `locale: Locales`
 
   - **Beschreibung**: Die Sprache, für die der Inhalt abgerufen werden soll.
   - **Typ**: `Locales`
 
-## Rückgabewerte
+## Rückgabewert
 
 - **Typ**: `Content`
 - **Beschreibung**: Der Inhalt, der der angegebenen Sprache entspricht. Wenn die Sprache nicht gefunden wird, wird der Inhalt der Standardsprache zurückgegeben.
 
-## Beispielverwendung
+## Beispielhafte Verwendung
 
 ### Grundlegende Verwendung
 
@@ -158,9 +177,13 @@ console.log(customContent.greeting); // Ausgabe: "Bonjour"
 
 ## Randfälle
 
-- **Sprache nicht gefunden:**
-  - Wenn die `locale` nicht in `languageContent` gefunden wird, gibt die Funktion den Inhalt der Standardsprache zurück.
+- **Locale nicht gefunden:**
+  - Wenn die `locale` im `languageContent` nicht gefunden wird, gibt die Funktion den Inhalt der Standardsprache zurück.
 - **Unvollständiger Sprachinhalt:**
-  - Wenn eine Sprache nur teilweise definiert ist, führt die Funktion keine Zusammenführung der Inhalte durch. Sie ruft strikt den Wert der angegebenen Sprache ab oder fällt auf die Standardsprache zurück.
+  - Wenn eine Locale nur teilweise definiert ist, werden die Inhalte nicht zusammengeführt. Es wird strikt der Wert der angegebenen Locale abgerufen oder auf die Standardsprache zurückgegriffen.
 - **TypeScript-Durchsetzung:**
-  - Wenn die Sprachen in `languageContent` nicht mit der Projektkonfiguration übereinstimmen, erzwingt TypeScript, dass alle erforderlichen Sprachen definiert sind, um sicherzustellen, dass der Inhalt vollständig und typensicher ist.
+  - Wenn die Locales in `languageContent` nicht mit der Projektkonfiguration übereinstimmen, erzwingt TypeScript, dass alle erforderlichen Locales definiert sind, um sicherzustellen, dass der Inhalt vollständig und typensicher ist.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

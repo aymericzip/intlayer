@@ -1,7 +1,7 @@
 ---
 docName: package__angular-intlayer
 url: https://intlayer.org/doc/packages/angular-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/angular-intlayer/index.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/angular-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Документация пакета | angular-intlayer
@@ -9,12 +9,44 @@ description: Узнайте, как использовать пакет angular-
 keywords:
   - Intlayer
   - angular-intlayer
-  - интернационализация
-  - документация
+  - Интернационализация
+  - Документация
   - JavaScript
   - Angular
 ---
 
-this doc will be automatically generated translated from the english doc
+# angular-intlayer: NPM-пакет для интернационализации (i18n) Angular-приложения
 
-see /docs/en/packages/angular-intlayer/index.md
+**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как Angular, Angular и Express.js.
+
+**Пакет `angular-intlayer`** позволяет интернационализировать ваше Angular-приложение. Он предоставляет провайдеры контекста и хуки для интернационализации в Angular.
+
+## Зачем интернационализировать ваше Angular-приложение?
+
+Интернационализация вашего Angular-приложения необходима для эффективного обслуживания глобальной аудитории. Она позволяет вашему приложению предоставлять контент и сообщения на предпочитаемом языке каждого пользователя. Эта возможность улучшает пользовательский опыт и расширяет охват вашего приложения, делая его более доступным и релевантным для людей с разным языковым фоном.
+
+## Почему стоит интегрировать Intlayer?
+
+- **Управление контентом на базе JavaScript**: Используйте гибкость JavaScript для эффективного определения и управления вашим контентом.
+- **Типобезопасная среда**: Используйте TypeScript, чтобы все определения контента были точными и безошибочными.
+- **Интегрированные файлы контента**: Держите переводы рядом с соответствующими компонентами, что повышает удобство сопровождения и ясность.
+
+## Установка
+
+Установите необходимый пакет с помощью предпочитаемого менеджера пакетов:
+
+```bash packageManager="npm"
+npm install angular-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add angular-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add angular-intlayer
+```
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

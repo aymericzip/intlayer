@@ -1,18 +1,18 @@
 ---
 docName: dictionary__translation
 url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: ترجمة
-description: اكتشف كيفية إعلان واستخدام الترجمة في موقعك الإلكتروني متعدد اللغات. اتبع الخطوات في هذه الوثائق عبر الإنترنت لإعداد مشروعك في بضع دقائق.
+title: الترجمة
+description: اكتشف كيفية إعلان واستخدام الترجمة في موقعك متعدد اللغات. اتبع الخطوات في هذا التوثيق عبر الإنترنت لإعداد مشروعك في دقائق قليلة.
 keywords:
-  - ترجمة
-  - دوليّة
-  - وثائق
+  - الترجمة
+  - التدويل
+  - التوثيق
   - Intlayer
   - Next.js
-  - JavaScript
+  - جافا سكريبت
   - React
 ---
 
@@ -20,11 +20,9 @@ keywords:
 
 ## تعريف الترجمات
 
-تتيح لك وظيفة `t` في `intlayer` إعلان المحتوى بلغات متعددة. تضمن هذه الوظيفة سلامة النوع، مما يؤدي إلى ظهور خطأ إذا كانت هناك ترجمات مفقودة، وهو أمر مفيد بشكل خاص في بيئات TypeScript.
+تسمح لك دالة `t` في `intlayer` بإعلان المحتوى بعدة لغات. تضمن هذه الدالة سلامة النوع، حيث ترفع خطأً إذا كانت هناك ترجمات مفقودة، وهو أمر مفيد بشكل خاص في بيئات TypeScript.
 
-### استخدام TypeScript
-
-إليك مثال على كيفية إعلان المحتوى مع الترجمات.
+إليك مثالًا على كيفية إعلان المحتوى مع الترجمات.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -40,7 +38,6 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ar: "مرحبًا بك في تطبيقنا",
     }),
   },
 } satisfies Dictionary<Content>;
@@ -56,7 +53,6 @@ export default {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ar: "مرحبًا بك في تطبيقنا",
     }),
   },
 };
@@ -72,7 +68,6 @@ module.exports = {
       en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
-      ar: "مرحبًا بك في تطبيقنا",
     }),
   },
 };
@@ -88,15 +83,23 @@ module.exports = {
       "translation": {
         "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
-        "es": "Bienvenido a nuestra aplicación",
-        "ar": "مرحبًا بك في تطبيقنا"
+        "es": "Bienvenido a nuestra aplicación"
+      }
+    }
+  }
+}
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación"
       }
     }
   }
 }
 ```
 
-## إعداد التكوين للغات
+## التهيئة للغات
 
 لضمان التعامل الصحيح مع الترجمات، يمكنك تكوين اللغات المقبولة في `intlayer.config.ts`. يتيح لك هذا التكوين تحديد اللغات التي يدعمها تطبيقك:
 
@@ -105,7 +108,7 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.ARABIC],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -118,7 +121,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.ARABIC],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -131,7 +134,7 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH, Locales.ARABIC],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -140,7 +143,7 @@ module.exports = config;
 
 ## استخدام الترجمات في مكونات React
 
-مع `react-intlayer`، يمكنك استخدام الترجمات في مكونات React. إليك مثال:
+مع `react-intlayer`، يمكنك استخدام الترجمات في مكونات React. إليك مثالاً:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -195,7 +198,7 @@ module.exports = MyComponent;
 
 ## كائنات المحتوى المخصصة
 
-يدعم `intlayer` كائنات المحتوى المخصصة للترجمة، مما يتيح لك تعريف هياكل أكثر تعقيدًا مع ضمان سلامة النوع. إليك مثالًا مع كائن مخصص:
+يدعم `intlayer` كائنات المحتوى المخصصة للترجمة، مما يتيح لك تعريف هياكل أكثر تعقيدًا مع ضمان سلامة الأنواع. إليك مثالًا مع كائن مخصص:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -218,10 +221,6 @@ const customContent = {
         content: "Contenu de la Page",
       },
       es: {
-        title: "Título de la Página",
-        content: "Contenido de la Página",
-      },
-      ar: {
         title: "عنوان الصفحة",
         content: "محتوى الصفحة",
       },
@@ -243,18 +242,14 @@ export default {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "عنوان الصفحة",
+          content: "محتوى الصفحة",
         },
         fr: {
-          title: "Titre de la Page",
-          content: "Contenu de la Page",
+          title: "عنوان الصفحة",
+          content: "محتوى الصفحة",
         },
         es: {
-          title: "Título de la Página",
-          content: "Contenido de la Página",
-        },
-        ar: {
           title: "عنوان الصفحة",
           content: "محتوى الصفحة",
         },
@@ -274,18 +269,14 @@ module.exports = {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "عنوان الصفحة",
+          content: "محتوى الصفحة",
         },
         fr: {
-          title: "Titre de la Page",
-          content: "Contenu de la Page",
+          title: "عنوان الصفحة",
+          content: "محتوى الصفحة",
         },
         es: {
-          title: "Título de la Página",
-          content: "Contenido de la Página",
-        },
-        ar: {
           title: "عنوان الصفحة",
           content: "محتوى الصفحة",
         },
@@ -303,18 +294,14 @@ module.exports = {
       "nodeType": "translation",
       "translation": {
         "en": {
-          "title": "Page Title",
-          "content": "Page Content"
+          "title": "عنوان الصفحة",
+          "content": "محتوى الصفحة"
         },
         "fr": {
-          "title": "Titre de la Page",
-          "content": "Contenu de la Page"
+          "title": "عنوان الصفحة",
+          "content": "محتوى الصفحة"
         },
         "es": {
-          "title": "Título de la Página",
-          "content": "Contenido de la Página"
-        },
-        "ar": {
           "title": "عنوان الصفحة",
           "content": "محتوى الصفحة"
         }
@@ -323,3 +310,7 @@ module.exports = {
   }
 }
 ```
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية السجل

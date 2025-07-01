@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getLocaleName
 url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentazione della funzione getLocaleName | intlayer
@@ -11,8 +11,8 @@ keywords:
   - traduzione
   - Intlayer
   - intlayer
-  - internazionalizzazione
-  - documentazione
+  - Internazionalizzazione
+  - Documentazione
   - Next.js
   - JavaScript
   - React
@@ -22,23 +22,23 @@ keywords:
 
 ## Descrizione
 
-La funzione `getLocaleName` restituisce il nome localizzato di una determinata lingua (`targetLocale`) nella lingua di visualizzazione (`displayLocale`). Se non viene fornito un `targetLocale`, restituisce il nome del `displayLocale` nella sua lingua.
+La funzione `getLocaleName` restituisce il nome localizzato di una determinata località (`targetLocale`) nella località di visualizzazione (`displayLocale`). Se non viene fornito alcun `targetLocale`, restituisce il nome della `displayLocale` nella sua stessa lingua.
 
 ## Parametri
 
 - `displayLocale: Locales`
 
-  - **Descrizione**: La lingua in cui verrà visualizzato il nome della lingua di destinazione.
-  - **Tipo**: Enum o stringa che rappresenta lingue valide.
+  - **Descrizione**: La località in cui verrà visualizzato il nome della località target.
+  - **Tipo**: Enum o stringa che rappresenta località valide.
 
 - `targetLocale?: Locales`
-  - **Descrizione**: La lingua di cui si desidera localizzare il nome.
-  - **Tipo**: Opzionale. Enum o stringa che rappresenta lingue valide.
+  - **Descrizione**: La località di cui si desidera localizzare il nome.
+  - **Tipo**: Opzionale. Enum o stringa che rappresenta località valide.
 
-## Restituisce
+## Ritorna
 
 - **Tipo**: `string`
-- **Descrizione**: Il nome localizzato del `targetLocale` nel `displayLocale`, o il nome del `displayLocale` se `targetLocale` non è fornito. Se non viene trovata alcuna traduzione, restituisce `"Unknown locale"`.
+- **Descrizione**: Il nome localizzato della `targetLocale` nella `displayLocale`, o il nome della `displayLocale` stessa se `targetLocale` non è fornito. Se non viene trovata alcuna traduzione, restituisce `"Unknown locale"`.
 
 ## Esempio di utilizzo
 
@@ -108,6 +108,10 @@ getLocaleName("unknown-locale"); // Output: "Unknown locale"
 ## Casi limite
 
 - **Nessun `targetLocale` fornito:**
-  - La funzione restituisce di default il nome del `displayLocale`.
+  - La funzione restituisce per default il nome proprio del `displayLocale`.
 - **Traduzioni mancanti:**
-  - Se `localeNameTranslations` non contiene una voce per il `targetLocale` o il `displayLocale` specifico, la funzione utilizza il `ownLocalesName` o restituisce `"Unknown locale"`.
+  - Se `localeNameTranslations` non contiene una voce per il `targetLocale` o per il `displayLocale` specifico, la funzione ricorre a `ownLocalesName` oppure restituisce `"Unknown locale"`.
+
+## Cronologia Documentazione
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

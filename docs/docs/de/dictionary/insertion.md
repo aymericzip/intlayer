@@ -1,11 +1,11 @@
 ---
 docName: dictionary__insertion
 url: https://intlayer.org/doc/concept/content/insertion
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: Einfügung
-description: Erfahren Sie, wie Sie Platzhalter für Einfügungen in Ihrem Inhalt deklarieren und verwenden. Diese Dokumentation führt Sie durch die Schritte zur dynamischen Einfügung von Werten in vordefinierte Inhaltsstrukturen.
+description: Erfahren Sie, wie Sie Einfügeplatzhalter in Ihren Inhalten deklarieren und verwenden. Diese Dokumentation führt Sie durch die Schritte, um Werte dynamisch innerhalb vordefinierter Inhaltsstrukturen einzufügen.
 keywords:
   - Einfügung
   - Dynamischer Inhalt
@@ -16,17 +16,17 @@ keywords:
   - React
 ---
 
-# Einfügeinhalte
+# Einfügeinhalt / Einfügung in Intlayer
 
-## Wie das Einfügen funktioniert
+## Wie Einfügung funktioniert
 
-In Intlayer wird das Einfügen von Inhalten durch die Funktion `insertion` erreicht, die Platzhalterfelder in einem String (wie `{{name}}` oder `{{age}}`) identifiziert, die zur Laufzeit dynamisch ersetzt werden können. Dieser Ansatz ermöglicht es Ihnen, flexible, vorlagenähnliche Strings zu erstellen, bei denen spezifische Teile des Inhalts durch Daten aus Ihrer Anwendung bestimmt werden.
+In Intlayer wird Einfügeinhalt durch die Funktion `insertion` realisiert, die Platzhalterfelder in einem String erkennt (wie `{{name}}` oder `{{age}}`), welche zur Laufzeit dynamisch ersetzt werden können. Dieser Ansatz ermöglicht es Ihnen, flexible, vorlagenähnliche Strings zu erstellen, bei denen bestimmte Teile des Inhalts durch Daten bestimmt werden, die aus Ihrer Anwendung übergeben werden.
 
-Wenn Sie React Intlayer oder Next Intlayer integrieren, können Sie einfach das Datenobjekt bereitstellen, das die Werte für jeden Platzhalter enthält, und Intlayer rendert den Inhalt automatisch mit den ersetzten Platzhaltern.
+Wenn Intlayer mit React Intlayer oder Next Intlayer integriert ist, können Sie einfach das Datenobjekt bereitstellen, das die Werte für jeden Platzhalter enthält, und Intlayer rendert den Inhalt automatisch mit den ersetzten Platzhaltern.
 
-## Einrichtung von Einfügeinhalten
+## Einfügeinhalt einrichten
 
-Um Einfügeinhalte in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inhaltsmodul, das Ihre Einfügedefinitionen enthält. Nachfolgend finden Sie Beispiele in verschiedenen Formaten.
+Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inhaltsmodul, das Ihre Einfügedefinitionen enthält. Nachfolgend finden Sie Beispiele in verschiedenen Formaten.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { insert, type Dictionary } from "intlayer";
@@ -60,6 +60,7 @@ export default myInsertionContent;
 ```
 
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { insert } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -88,9 +89,13 @@ module.exports = myInsertionContent;
 }
 ```
 
+## Verwendung von Insertion Content mit React Intlayer
+
+markdown
+
 ## Verwendung von Einfügeinhalten mit React Intlayer
 
-Um Einfügeinhalte in einer React-Komponente zu verwenden, importieren und verwenden Sie den `useIntlayer`-Hook aus dem Paket `react-intlayer`. Dieser Hook ruft den Inhalt für den angegebenen Schlüssel ab und ermöglicht es Ihnen, ein Objekt zu übergeben, das jeden Platzhalter in Ihrem Inhalt mit dem Wert abbildet, den Sie anzeigen möchten.
+Um Einfügeinhalte innerhalb einer React-Komponente zu verwenden, importieren Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket und verwenden ihn. Dieser Hook ruft den Inhalt für den angegebenen Schlüssel ab und ermöglicht es Ihnen, ein Objekt zu übergeben, das jeden Platzhalter in Ihrem Inhalt auf den Wert abbildet, den Sie anzeigen möchten.
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -109,7 +114,7 @@ const InsertionComponent: FC = () => {
       </p>
       <p>
         {
-          /* Sie können dieselbe Einfügung mit unterschiedlichen Werten wiederverwenden */
+          /* Sie können denselben Einfügeinhalt mit unterschiedlichen Werten wiederverwenden */
           myInsertion({ name: "Alice", age: "25" })
         }
       </p>
@@ -163,7 +168,7 @@ const InsertionComponent = () => {
       </p>
       <p>
         {
-          /* Sie können dieselbe Einfügung mit unterschiedlichen Werten wiederverwenden */
+          /* Sie können denselben Einfügeinhalt mit unterschiedlichen Werten wiederverwenden */
           myInsertion({ name: "Alice", age: "25" })
         }
       </p>
@@ -176,10 +181,14 @@ module.exports = InsertionComponent;
 
 ## Zusätzliche Ressourcen
 
-Für detailliertere Informationen zur Konfiguration und Nutzung finden Sie in den folgenden Ressourcen:
+Für detailliertere Informationen zur Konfiguration und Nutzung verweisen wir auf die folgenden Ressourcen:
 
 - [Intlayer CLI Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md)
 - [React Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_create_react_app.md)
 - [Next Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_15.md)
 
 Diese Ressourcen bieten weitere Einblicke in die Einrichtung und Nutzung von Intlayer in verschiedenen Umgebungen und Frameworks.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

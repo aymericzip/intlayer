@@ -1,3 +1,22 @@
+---
+docName: package__intlayer-cli
+url: https://intlayer.org/doc/package/intlayer-cli
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer-cli/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: intlayer-cli - Command Line Tool for Internationalization
+description: Command line interface package for Intlayer providing tools to manage translations, build dictionaries, and automate internationalization workflows.
+keywords:
+  - intlayer
+  - CLI
+  - command line
+  - internationalization
+  - i18n
+  - tools
+  - NPM
+  - automation
+---
+
 # intlayer-cli: NPM Package to use the Intlayer CLI
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.

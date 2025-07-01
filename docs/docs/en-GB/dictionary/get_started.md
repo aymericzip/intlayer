@@ -1,14 +1,14 @@
 ---
 docName: dictionary__get_started
 url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Dictionary | Get Started
 description: Discover how to declare and use dictionaries in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
   - Get Started
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Next.js
@@ -16,13 +16,13 @@ keywords:
   - React
 ---
 
-# Getting Started the declaration of your content
+# Getting Started with the declaration of your content
 
 <iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-## Files extensions
+## File extensions
 
-By default, Intlayer watches all files with the following extensions for content declarations:
+By default, Intlayer monitors all files with the following extensions for content declarations:
 
 - `.content.json`
 - `.content.ts`
@@ -36,7 +36,7 @@ By default, Intlayer watches all files with the following extensions for content
 
 The application will search for files that match the `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` glob pattern by default.
 
-These default extensions are suitable for most applications. However, if you have specific requirements, refer to the [content extension customization guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#content-configuration) for instructions on how to manage them.
+These default extensions are suitable for most applications. However, if you have specific requirements, refer to the [content extension customisation guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#content-configuration) for instructions on how to manage them.
 
 For a full list of configuration options, visit the configuration documentation.
 
@@ -120,7 +120,7 @@ export default {
      */
     jsxContent: <h1>My title</h1>,
   },
-} satisfies Dictionary<Content>; // [optional] Dictionary is generic and allow you to strengthen the formatting of your dictionary
+} satisfies Dictionary<Content>; // [optional] Dictionary is generic and allows you to strengthen the formatting of your dictionary
 ```
 
 ```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
@@ -291,6 +291,61 @@ module.exports = {
 
 ## Function imbrication
 
+You can without problem nest functions within other ones.
+
+Example:
+
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
+
+const getName = async () => "John Doe";
+
+export default {
+  key: "page",
+  content: {
+    // `getIntlayer('page','en').hiMessage` returns `['Hi', ' ', 'John Doe']`
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Composite content imbricating condition, enumeration, and multilingual content
+    // `getIntlayer('page','en').advancedContent(true)(10) returns 'Multiple items found'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          'en-GB': "One item found",
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+        }),
+        ">1": t({
+          'en-GB': "Multiple items found",
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        'en-GB': "No valid data available",
+         en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+} satisfies Dictionary;
+```
+
 You can without problem imbricate functions into other ones.
 
 Example :
@@ -323,17 +378,20 @@ export default {
           es: "No se encontraron artículos",
         }),
         "1": t({
+          'en-GB': "One item found",
           en: "One item found",
           fr: "Un article trouvé",
           es: "Se encontró un artículo",
         }),
         ">1": t({
+          'en-GB': "Multiple items found",
           en: "Multiple items found",
           fr: "Plusieurs articles trouvés",
           es: "Se encontraron múltiples artículos",
         }),
       }),
       false: t({
+        'en-GB': "No valid data available",
         en: "No valid data available",
         fr: "Aucune donnée valide disponible",
         es: "No hay datos válidos disponibles",
@@ -355,6 +413,7 @@ export default {
     // `getIntlayer('page','en').hiMessage` returns `['Hi', ' ', 'John Doe']`
     hiMessage: [
       t({
+        "en-GB": "Hi",
         en: "Hi",
         fr: "Salut",
         es: "Hola",
@@ -367,22 +426,26 @@ export default {
     advancedContent: cond({
       true: enu({
         "0": t({
+          "en-GB": "No items found",
           en: "No items found",
           fr: "Aucun article trouvé",
           es: "No se encontraron artículos",
         }),
         "1": t({
+          "en-GB": "One item found",
           en: "One item found",
           fr: "Un article trouvé",
           es: "Se encontró un artículo",
         }),
         ">1": t({
+          "en-GB": "Multiple items found",
           en: "Multiple items found",
           fr: "Plusieurs articles trouvés",
           es: "Se encontraron múltiples artículos",
         }),
       }),
       false: t({
+        "en-GB": "No valid data available",
         en: "No valid data available",
         fr: "Aucune donnée valide disponible",
         es: "No hay datos válidos disponibles",
@@ -404,41 +467,37 @@ module.exports = {
     // `getIntlayer('page','en').hiMessage` returns `['Hi', ' ', 'John Doe']`
     hiMessage: [
       t({
+        'en-GB': "Hi",
         en: "Hi",
         fr: "Salut",
-        es: "Hola",
+        'en-GB': "No items found",
+        en: "No items found",
+        fr: "Aucun article trouvé",
+        es: "No se encontraron artículos",
       }),
-      " ",
-      getName(),
+      "1": t({
+        'en-GB': "One item found",
+        en: "One item found",
+        fr: "Un article trouvé",
+         es: "Se encontró un artículo",
+      }),
+      ">1": t({
+        'en-GB': "Multiple items found",
+        en: "Multiple items found",
+        fr: "Plusieurs articles trouvés",
+        es: "Se encontraron múltiples artículos",
+      }),
     ],
-    // Composite content imbricating condition, enumeration, and multilingual content
-    // `getIntlayer('page','en').advancedContent(true)(10) returns 'Multiple items found'`
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
+
+    false: t({
+      'en-GB': "No valid data available",
+      en: "No valid data available",
+      fr: "Aucune donnée valide disponible",
+      es: "No hay datos válidos disponibles",
     }),
   },
-};
+},
+
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -452,9 +511,10 @@ module.exports = {
         {
           "nodeType": "translation",
           "translation": {
-            "en": "Hi",
-            "fr": "Salut",
-            "es": "Hola",
+            "en-GB": "Hi",
+            en: "Hi",
+            fr: "Salut",
+            es: "Hola",
           },
         },
         " ",
@@ -470,6 +530,7 @@ module.exports = {
             "0": {
               "nodeType": "translation",
               "translation": {
+                "en-GB": "No items found",
                 "en": "No items found",
                 "fr": "Aucun article trouvé",
                 "es": "No se encontraron artículos",
@@ -478,6 +539,7 @@ module.exports = {
             "1": {
               "nodeType": "translation",
               "translation": {
+                "en-GB": "One item found",
                 "en": "One item found",
                 "fr": "Un article trouvé",
                 "es": "Se encontró un artículo",
@@ -486,6 +548,7 @@ module.exports = {
             ">1": {
               "nodeType": "translation",
               "translation": {
+                "en-GB": "Multiple items found",
                 "en": "Multiple items found",
                 "fr": "Plusieurs articles trouvés",
                 "es": "Se encontraron múltiples artículos",
@@ -496,9 +559,10 @@ module.exports = {
         "false": {
           "nodeType": "translation",
           "translation": {
-            "en": "No valid data available",
-            "fr": "Aucune donnée valide disponible",
-            "es": "No hay datos válidos disponibles",
+            "en-GB": "No valid data available",
+            en: "No valid data available",
+            fr: "Aucune donnée valide disponible",
+            es: "No hay datos válidos disponibles",
           },
         },
       },
@@ -511,16 +575,16 @@ module.exports = {
 
 For more details in Intlayer, refer to the following resources:
 
-- [Per-Locale Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/per_locale_file.md)
-- [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
-- [Enumeration Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)
-- [Condition Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md)
-- [Insertion Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)
-- [File Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)
-- [Nesting Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)
-- [Markdown Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
-- [Function Fetching Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)
+- [Per-Locale Content Declaration Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/per_locale_file.md)
+- [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md)
+- [Enumeration Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/enumeration.md)
+- [Condition Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/condition.md)
+- [Insertion Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/insertion.md)
+- [File Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/file.md)
+- [Nesting Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/nesting.md)
+- [Markdown Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/markdown.md)
+- [Function Fetching Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/function_fetching.md)
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+- 5.5.10 - 2025-06-29: Initial history

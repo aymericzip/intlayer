@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getEnumeration
 url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentation de la fonction getEnumeration | intlayer
-description: Découvrez commengetEnumeration utiliser la fonction getEnumeration pour le package intlayer
+description: Découvrez comment utiliser la fonction getEnumeration pour le package intlayer
 keywords:
   - getEnumeration
   - traduction
@@ -18,11 +18,11 @@ keywords:
   - React
 ---
 
-# Documentation: `getEnumeration` Fonction dans `intlayer`
+# Documentation : Fonction `getEnumeration` dans `intlayer`
 
 ## Description
 
-La fonction `getEnumeration` récupère le contenu correspondant à une quantité spécifique en fonction des conditions prédéfinies dans un objet d'énumération. Les conditions sont définies comme des clés, et leur priorité est déterminée par leur ordre dans l'objet.
+La fonction `getEnumeration` récupère le contenu correspondant à une quantité spécifique en fonction de conditions prédéfinies dans un objet d'énumération. Les conditions sont définies comme des clés, et leur priorité est déterminée par leur ordre dans l'objet.
 
 ## Paramètres
 
@@ -34,17 +34,17 @@ La fonction `getEnumeration` récupère le contenu correspondant à une quantit�
 
 - `quantity: number`
 
-  - **Description** : La valeur numérique utilisée pour correspondre aux conditions dans `enumerationContent`.
+  - **Description** : La valeur numérique utilisée pour faire correspondre les conditions dans `enumerationContent`.
   - **Type** : `number`
 
-## Retours
+## Retour
 
 - **Type** : `Content`
-- **Description** : Le contenu correspondant à la première condition correspondante dans `enumerationContent`. Si aucune correspondance n'est trouvée, il revient à la gestion basée sur l'implémentation (par exemple, erreur ou contenu de secours).
+- **Description** : Le contenu correspondant à la première condition correspondante dans `enumerationContent`. Si aucune correspondance n'est trouvée, le comportement par défaut dépend de l'implémentation (par exemple, une erreur ou un contenu de secours).
 
 ## Exemple d'utilisation
 
-### Utilisation de base
+### Utilisation basique
 
 ```typescript codeFormat="typescript"
 import { getEnumeration } from "intlayer";
@@ -136,7 +136,7 @@ const content = getEnumeration(
 console.log(content); // Sortie : "Vous avez moins de quatre"
 ```
 
-## Cas limites
+## Cas particuliers
 
 - **Aucune condition correspondante :**
 
@@ -144,15 +144,19 @@ console.log(content); // Sortie : "Vous avez moins de quatre"
 
 - **Conditions ambiguës :**
 
-  - Si les conditions se chevauchent, la première condition correspondante (basée sur l'ordre de l'objet) a la priorité.
+  - Si les conditions se chevauchent, la première condition correspondante (selon l'ordre de l'objet) a la priorité.
 
 - **Clés invalides :**
 
-  - La fonction suppose que toutes les clés dans `enumerationContent` sont valides et analysables comme conditions. Les clés invalides ou mal formatées peuvent entraîner un comportement inattendu.
+  - La fonction suppose que toutes les clés dans `enumerationContent` sont valides et analysables en tant que conditions. Des clés invalides ou mal formatées peuvent entraîner un comportement inattendu.
 
 - **Application stricte de TypeScript :**
-  - La fonction garantit que le type `Content` est cohérent pour toutes les clés, permettant ainsi une sécurité de type dans le contenu récupéré.
+  - La fonction garantit que le type `Content` est cohérent pour toutes les clés, permettant ainsi une sécurité de type lors de la récupération du contenu.
 
 ## Notes
 
 - L'utilitaire `findMatchingCondition` est utilisé pour déterminer la condition appropriée en fonction de la quantité donnée.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

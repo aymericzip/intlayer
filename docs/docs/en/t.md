@@ -1,3 +1,22 @@
+---
+docName: t
+url: https://intlayer.org/doc/t
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/t.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: t Function - Intlayer Translation Function Documentation
+description: Complete documentation for the t function in Intlayer, the core translation function for handling internationalization and localization in JavaScript applications.
+keywords:
+  - t function
+  - translation
+  - intlayer
+  - i18n
+  - localization
+  - JavaScript
+  - internationalization
+  - documentation
+---
+
 # Intlayer: Feature Overview & Roadmap
 
 Intlayer is a content management and internationalization solution designed to streamline how you declare, manage, and update content across your applications. It offers powerful features such as centralized or distributed content declaration, extensive internationalization options, Markdown support, conditional rendering, TypeScript/JavaScript/JSON integration, and more. Below is a comprehensive overview of what Intlayer currently provides, followed by upcoming roadmap features.

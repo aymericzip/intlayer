@@ -1,11 +1,11 @@
 ---
 docName: intlayer_CMS
 url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Intlayer CMS | Externieren Sie Ihren Inhalt in das Intlayer CMS
-description: Externieren Sie Ihren Inhalt in das Intlayer CMS, um die Verwaltung Ihres Inhalts an Ihr Team zu delegieren.
+title: Intlayer CMS | Externalisieren Sie Ihren Inhalt im Intlayer CMS
+description: Externalisieren Sie Ihren Inhalt im Intlayer CMS, um die Verwaltung Ihres Inhalts an Ihr Team zu delegieren.
 keywords:
   - CMS
   - Visual Editor
@@ -31,15 +31,15 @@ Dafür führt Intlayer das Konzept der 'entfernten Wörterbücher' ein.
 
 Intlayer unterscheidet zwischen 'lokalen' und 'entfernten' Wörterbüchern.
 
-- Ein 'lokales' Wörterbuch ist ein Wörterbuch, das in Ihrem Intlayer-Projekt deklariert ist. Zum Beispiel die Deklarationsdatei eines Buttons oder Ihrer Navigationsleiste. Die Auslagerung dieses Inhalts macht in diesem Fall keinen Sinn, da dieser Inhalt nicht häufig geändert werden soll.
+- Ein 'lokales' Wörterbuch ist ein Wörterbuch, das in Ihrem Intlayer-Projekt deklariert ist. Zum Beispiel die Deklarationsdatei eines Buttons oder Ihrer Navigationsleiste. Die Auslagerung Ihres Inhalts macht in diesem Fall keinen Sinn, da dieser Inhalt nicht häufig geändert werden soll.
 
 - Ein 'entferntes' Wörterbuch ist ein Wörterbuch, das über das Intlayer CMS verwaltet wird. Es kann nützlich sein, Ihrem Team zu ermöglichen, Inhalte direkt auf Ihrer Website zu verwalten, und zielt auch darauf ab, A/B-Testfunktionen und automatische SEO-Optimierung zu nutzen.
 
 ## Visueller Editor vs CMS
 
-Der [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) Editor ist ein Tool, das es Ihnen ermöglicht, Inhalte in einem visuellen Editor für lokale Wörterbücher zu verwalten. Sobald eine Änderung vorgenommen wurde, wird der Inhalt in der Code-Basis ersetzt. Das bedeutet, dass die Anwendung neu gebaut und die Seite neu geladen wird, um den neuen Inhalt anzuzeigen.
+Der [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) Editor ist ein Tool, das es Ihnen ermöglicht, Ihre Inhalte in einem visuellen Editor für lokale Wörterbücher zu verwalten. Sobald eine Änderung vorgenommen wird, wird der Inhalt in der Code-Basis ersetzt. Das bedeutet, dass die Anwendung neu gebaut wird und die Seite neu geladen wird, um den neuen Inhalt anzuzeigen.
 
-Im Gegensatz dazu ist das Intlayer CMS ein Tool, das es Ihnen ermöglicht, Inhalte in einem visuellen Editor für entfernte Wörterbücher zu verwalten. Sobald eine Änderung vorgenommen wurde, wird der Inhalt **nicht** Ihre Code-Basis beeinflussen. Und die Website wird den geänderten Inhalt automatisch anzeigen.
+Im Gegensatz dazu ist das Intlayer CMS ein Tool, das es Ihnen ermöglicht, Ihre Inhalte in einem visuellen Editor für entfernte Wörterbücher zu verwalten. Sobald eine Änderung vorgenommen wird, wirkt sich der Inhalt **nicht** auf Ihre Code-Basis aus. Und die Website zeigt automatisch den geänderten Inhalt an.
 
 ## Integration
 
@@ -47,15 +47,15 @@ Für weitere Details zur Installation des Pakets siehe den entsprechenden Abschn
 
 ### Integration mit Next.js
 
-Für die Integration mit Next.js, siehe die [Einrichtungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_15.md).
+Für die Integration mit Next.js siehe die [Einrichtungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_15.md).
 
 ### Integration mit Create React App
 
-Für die Integration mit Create React App, siehe die [Einrichtungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_create_react_app.md).
+Für die Integration mit Create React App siehe die [Einrichtungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_create_react_app.md).
 
 ### Integration mit Vite + React
 
-Für die Integration mit Vite + React, siehe die [Einrichtungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md).
+Für die Integration mit Vite + React siehe die [Einrichtungsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+react.md).
 
 ## Konfiguration
 
@@ -71,7 +71,7 @@ const config: IntlayerConfig = {
      * Erforderlich
      *
      * Die URL der Anwendung.
-     * Dies ist die URL, die vom visuellen Editor anvisiert wird.
+     * Dies ist die URL, die vom visuellen Editor angesteuert wird.
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
 
@@ -121,7 +121,7 @@ const config = {
      * Erforderlich
      *
      * Die URL der Anwendung.
-     * Dies ist die URL, die vom visuellen Editor anvisiert wird.
+     * Dies ist die URL, die vom visuellen Editor angesteuert wird.
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
 
@@ -152,7 +152,7 @@ const config = {
      *
      * Falls Sie das Intlayer CMS selbst hosten, können Sie die URL des Backends festlegen.
      *
-     * Die URL des Intlayer CMS.
+     * Die URL des Intlayer Backends.
      * Standardmäßig ist sie auf https://back.intlayer.org gesetzt.
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -194,7 +194,6 @@ const config = {
      *
      * Die URL des Intlayer CMS.
      * Standardmäßig ist sie auf https://intlayer.org gesetzt.
-     */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
@@ -259,7 +258,6 @@ Dann können Sie Ihr Wörterbuch im [Intlayer CMS](https://intlayer.org/dashboar
 Das Intlayer CMS kann die Wörterbücher automatisch neu laden, wenn eine Änderung erkannt wird.
 
 Ohne das Hot Reloading wird ein neuer Build der Anwendung benötigt, um den neuen Inhalt anzuzeigen.
-
 Durch Aktivieren der [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) Konfiguration wird die Anwendung den aktualisierten Inhalt automatisch ersetzen, sobald er erkannt wird.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -332,11 +330,10 @@ module.exports = config;
 Das Hot Reloading ersetzt den Inhalt sowohl auf der Server- als auch auf der Client-Seite.
 
 - Auf der Server-Seite sollten Sie sicherstellen, dass der Anwendungsprozess Schreibzugriff auf das Verzeichnis `.intlayer/dictionaries` hat.
-- Auf der Client-Seite ermöglicht das Hot Reloading der Anwendung, den Inhalt im Browser ohne Neuladen der Seite automatisch zu aktualisieren. Diese Funktion ist jedoch nur für Client-Komponenten verfügbar.
+- Auf der Client-Seite ermöglicht das Hot Reloading der Anwendung, den Inhalt im Browser automatisch neu zu laden, ohne die Seite neu laden zu müssen. Diese Funktion ist jedoch nur für Client-Komponenten verfügbar.
+  > Da das Hot Reloading eine kontinuierliche Verbindung zum Server über einen `EventListener` benötigt, ist es nur für Kunden des `Enterprise`-Plans verfügbar.
 
-> Da das Hot Reloading eine kontinuierliche Verbindung zum Server über einen `EventListener` benötigt, ist es nur für Kunden des `Enterprise`-Plans verfügbar.
-
-## Debugging
+## Debug
 
 Falls Sie Probleme mit dem CMS haben, überprüfen Sie Folgendes:
 
@@ -349,5 +346,8 @@ Falls Sie Probleme mit dem CMS haben, überprüfen Sie Folgendes:
     - Die CMS-URL
 
 - Stellen Sie sicher, dass die Projektkonfiguration in das Intlayer CMS hochgeladen wurde.
-
 - Der visuelle Editor verwendet ein iframe, um Ihre Website anzuzeigen. Stellen Sie sicher, dass die Content Security Policy (CSP) Ihrer Website die CMS-URL als `frame-ancestors` erlaubt ('https://intlayer.org' standardmäßig). Überprüfen Sie die Editor-Konsole auf Fehler.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

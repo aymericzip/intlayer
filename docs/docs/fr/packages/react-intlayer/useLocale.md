@@ -1,10 +1,10 @@
 ---
 docName: package__react-intlayer__useLocale
 url: https://intlayer.org/doc/packages/react-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: Documentation du hook useLocale | react-intlayer
+title: Documentation du Hook useLocale | react-intlayer
 description: Découvrez comment utiliser le hook useLocale pour le package react-intlayer
 keywords:
   - useLocale
@@ -20,31 +20,31 @@ keywords:
 
 # Intégration React : Documentation du Hook `useLocale`
 
-Cette section fournit des détails complets sur le hook `useLocale` de la bibliothèque `react-intlayer`, conçu pour gérer la gestion des paramètres régionaux dans les applications React.
+Cette section fournit des détails complets sur le hook `useLocale` de la bibliothèque `react-intlayer`, conçu pour gérer la gestion des locales dans les applications React.
 
-## Importation de `useLocale` dans React
+## Importer `useLocale` dans React
 
 Pour intégrer le hook `useLocale` dans votre application React, importez-le depuis son package respectif :
 
 ```typescript codeFormat="typescript"
-import { useLocale } from "react-intlayer"; // Utilisé dans les composants React pour la gestion des paramètres régionaux
+import { useLocale } from "react-intlayer"; // Utilisé dans les composants React pour la gestion des locales
 ```
 
 ```javascript codeFormat="esm"
-import { useLocale } from "react-intlayer"; // Utilisé dans les composants React pour la gestion des paramètres régionaux
+import { useLocale } from "react-intlayer"; // Utilisé dans les composants React pour la gestion des locales
 ```
 
 ```javascript codeFormat="commonjs"
-const { useLocale } = require("react-intlayer"); // Utilisé dans les composants React pour la gestion des paramètres régionaux
+const { useLocale } = require("react-intlayer"); // Utilisé dans les composants React pour la gestion des locales
 ```
 
 ## Vue d'ensemble
 
-Le hook `useLocale` offre un moyen simple d'accéder et de manipuler les paramètres régionaux au sein des composants React. Il permet d'accéder à la langue actuelle, à la langue par défaut, à toutes les langues disponibles, ainsi qu'à des fonctions pour mettre à jour les paramètres régionaux.
+Le hook `useLocale` offre un moyen simple d'accéder et de manipuler les paramètres de locale au sein des composants React. Il permet d'accéder à la locale courante, à la locale par défaut, à toutes les locales disponibles, ainsi qu'aux fonctions pour mettre à jour les paramètres de locale.
 
 ## Utilisation
 
-Voici comment utiliser le hook `useLocale` dans un composant React :
+Voici comment vous pouvez utiliser le hook `useLocale` dans un composant React :
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -55,8 +55,8 @@ const LocaleSwitcher: FC = () => {
 
   return (
     <div>
-      <h1>Langue actuelle : {locale}</h1>
-      <p>Langue par défaut : {defaultLocale}</p>
+      <h1>Locale actuelle : {locale}</h1>
+      <p>Locale par défaut : {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -79,8 +79,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Langue actuelle : {locale}</h1>
-      <p>Langue par défaut : {defaultLocale}</p>
+      <h1>Locale actuelle : {locale}</h1>
+      <p>Locale par défaut : {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -103,8 +103,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>Langue actuelle : {locale}</h1>
-      <p>Langue par défaut : {defaultLocale}</p>
+      <h1>Locale actuelle : {locale}</h1>
+      <p>Locale par défaut : {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -123,14 +123,14 @@ export default LocaleSwitcher;
 
 Lorsque vous invoquez le hook `useLocale`, il retourne un objet contenant les propriétés suivantes :
 
-- **`locale`** : La langue actuelle définie dans le contexte React.
-- **`defaultLocale`** : La langue principale définie dans la configuration.
-- **`availableLocales`** : Une liste de toutes les langues disponibles définies dans la configuration.
-- **`setLocale`** : Une fonction pour mettre à jour la langue actuelle dans le contexte de l'application.
+- **`locale`** : La locale actuelle telle que définie dans le contexte React.
+- **`defaultLocale`** : La locale principale définie dans la configuration.
+- **`availableLocales`** : Une liste de toutes les locales disponibles telles que définies dans la configuration.
+- **`setLocale`** : Une fonction pour mettre à jour la locale actuelle dans le contexte de l'application.
 
 ## Exemple
 
-Cet exemple montre un composant qui utilise le hook `useLocale` pour afficher un sélecteur de langue, permettant aux utilisateurs de changer dynamiquement la langue de l'application :
+Cet exemple montre un composant qui utilise le hook `useLocale` pour afficher un sélecteur de locale, permettant aux utilisateurs de changer dynamiquement la locale de l'application :
 
 ```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -201,4 +201,8 @@ const LocaleSelector = () => {
 
 ## Conclusion
 
-Le hook `useLocale` de `react-intlayer` est un outil essentiel pour gérer les paramètres régionaux dans vos applications React, offrant les fonctionnalités nécessaires pour adapter efficacement votre application à divers publics internationaux.
+Le hook `useLocale` de `react-intlayer` est un outil essentiel pour gérer les locales dans vos applications React, fournissant la fonctionnalité nécessaire pour adapter efficacement votre application à divers publics internationaux.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

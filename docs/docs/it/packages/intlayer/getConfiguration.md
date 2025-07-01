@@ -1,7 +1,7 @@
 ---
 docName: package__intlayer__getConfiguration
 url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentazione della funzione getConfiguration | intlayer
@@ -11,8 +11,8 @@ keywords:
   - traduzione
   - Intlayer
   - intlayer
-  - internazionalizzazione
-  - documentazione
+  - Internazionalizzazione
+  - Documentazione
   - Next.js
   - JavaScript
   - React
@@ -22,31 +22,31 @@ keywords:
 
 ## Descrizione
 
-La funzione `getConfiguration` recupera l'intera configurazione per l'applicazione `intlayer` estraendo le variabili di ambiente. Questa funzione offre la flessibilità di utilizzare la stessa configurazione sia sul lato client che sul lato server, garantendo coerenza in tutta l'applicazione.
+La funzione `getConfiguration` recupera l'intera configurazione per l'applicazione `intlayer` estraendo le variabili d'ambiente. Questa funzione offre la flessibilità di utilizzare la stessa configurazione sia sul lato client che sul lato server, garantendo coerenza in tutta l'applicazione.
 
 ---
 
 ## Parametri
 
-La funzione non accetta parametri. Invece, utilizza le variabili di ambiente per la configurazione.
+La funzione non accetta parametri. Utilizza invece le variabili d'ambiente per la configurazione.
 
-### Restituisce
+### Ritorna
 
 - **Tipo**: `IntlayerConfig`
 - **Descrizione**: Un oggetto contenente la configurazione completa per `intlayer`. La configurazione include le seguenti sezioni:
 
-  - `internationalization`: Impostazioni relative ai locali e alla modalità rigorosa.
+  - `internationalization`: Impostazioni relative alle localizzazioni e alla modalità rigorosa.
   - `middleware`: Impostazioni relative alla gestione degli URL e dei cookie.
   - `content`: Impostazioni relative ai file di contenuto, directory e pattern.
   - `editor`: Configurazioni specifiche per l'editor.
 
-Consulta la [documentazione della configurazione di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md) per maggiori dettagli.
+Consulta la [documentazione sulla configurazione di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md) per maggiori dettagli.
 
 ---
 
 ## Esempio di utilizzo
 
-### Recupero della configurazione completa
+### Recuperare la configurazione completa
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
@@ -92,7 +92,7 @@ console.log(config);
 
 ### Estrazione di `availableLocales` e `defaultLocale`
 
-La sezione `internationalization` della configurazione fornisce impostazioni relative ai locali come `locales` (locali disponibili) e `defaultLocale` (lingua di fallback).
+La sezione `internationalization` della configurazione fornisce impostazioni relative alle localizzazioni come `locales` (localizzazioni disponibili) e `defaultLocale` (lingua di fallback).
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
@@ -132,9 +132,13 @@ console.log(cookieName); // Output: "INTLAYER_LOCALE"
 
 ## Note
 
-- Assicurati che tutte le variabili di ambiente richieste siano correttamente impostate prima di chiamare questa funzione. Le variabili mancanti causeranno errori durante l'inizializzazione.
-- Questa funzione può essere utilizzata sia sul lato client che sul lato server, rendendola uno strumento versatile per gestire le configurazioni in modo unificato.
+- Assicurarsi che tutte le variabili d'ambiente richieste siano correttamente impostate prima di chiamare questa funzione. Variabili mancanti causeranno errori durante l'inizializzazione.
+- Questa funzione può essere utilizzata sia sul lato client che sul lato server, rendendola uno strumento versatile per la gestione delle configurazioni in modo unificato.
 
-## Utilizzo nelle applicazioni
+## Utilizzo nelle Applicazioni
 
-La funzione `getConfiguration` è un'utilità fondamentale per inizializzare e gestire la configurazione di un'applicazione `intlayer`. Fornendo accesso a impostazioni come locali, middleware e directory di contenuto, garantisce coerenza e scalabilità nelle applicazioni multilingue e basate sui contenuti.
+La funzione `getConfiguration` è un'utilità fondamentale per inizializzare e gestire la configurazione di un'applicazione `intlayer`. Fornendo l'accesso a impostazioni come le localizzazioni, il middleware e le directory dei contenuti, garantisce coerenza e scalabilità nelle applicazioni multilingue e basate sui contenuti.
+
+## Cronologia della Documentazione
+
+- 5.5.10 - 2025-06-29: Inizializzazione della cronologia

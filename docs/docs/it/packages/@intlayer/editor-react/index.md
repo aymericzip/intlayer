@@ -1,3 +1,22 @@
+---
+docName: package__@intlayer_editor-react
+url: https://intlayer.org/doc/package/@intlayer_editor-react
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/@intlayer/editor-react/index.md
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/editor-react - Componenti React per Intlayer Editor
+description: Pacchetto NPM che fornisce componenti e hook React per integrare l'editor visuale Intlayer nelle applicazioni React per l'internazionalizzazione.
+keywords:
+  - intlayer
+  - editor
+  - React
+  - componenti
+  - hook
+  - i18n
+  - JavaScript
+  - NPM
+---
+
 # @intlayer/editor-react: Pacchetto NPM che fornisce Stati, Contesti, Hook e Componenti React per interagire con l'editor Intlayer
 
 **Intlayer** è una suite di pacchetti progettata specificamente per sviluppatori JavaScript. È compatibile con framework come React, Next.js e Express.js.
@@ -19,3 +38,7 @@ yarn add @intlayer/editor-react
 ```bash
 pnpm add @intlayer/editor-react
 ```
+
+## Cronologia della documentazione
+
+- 5.5.10 - 2025-06-29: Storia iniziale

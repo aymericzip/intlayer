@@ -1,11 +1,11 @@
 ---
 docName: package__intlayer__getMultilingualUrls
 url: https://intlayer.org/doc/packages/intlayer/getMultilingualUrls
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getMultilingualUrls.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
-title: t関数のドキュメント | intlayer
-description: intlayerパッケージのt関数の使用方法を確認してください
+title: getMultilingualUrls 関数ドキュメント | intlayer
+description: intlayer パッケージの getMultilingualUrls 関数の使い方をご覧ください
 keywords:
   - getMultilingualUrls
   - 翻訳
@@ -18,11 +18,11 @@ keywords:
   - React
 ---
 
-# ドキュメント: `getMultilingualUrls` 関数 in `intlayer`
+# ドキュメント: `intlayer` の `getMultilingualUrls` 関数
 
 ## 説明
 
-`getMultilingualUrls` 関数は、指定された URL に各サポートされているロケールをプレフィックスとして付加することで、多言語 URL のマッピングを生成します。この関数は絶対 URL と相対 URL の両方を処理でき、提供された設定またはデフォルトに基づいて適切なロケールプレフィックスを適用します。
+`getMultilingualUrls` 関数は、指定された URL に各サポートされているロケールをプレフィックスとして付加することで、多言語対応の URL マッピングを生成します。絶対 URL と相対 URL の両方に対応しており、提供された設定またはデフォルトに基づいて適切なロケールプレフィックスを適用します。
 
 ---
 
@@ -30,30 +30,30 @@ keywords:
 
 - `url: string`
 
-  - **説明**: ロケールをプレフィックスとして付加する元の URL 文字列。
+  - **説明**: ロケールを付加する元の URL 文字列。
   - **型**: `string`
 
 - `locales: Locales[]`
 
-  - **説明**: サポートされているロケールのオプション配列。プロジェクトで設定されたロケールがデフォルトです。
+  - **説明**: オプションのサポートされているロケールの配列。プロジェクトで設定されたロケールがデフォルト。
   - **型**: `Locales[]`
   - **デフォルト**: `localesDefault`
 
 - `defaultLocale: Locales`
 
-  - **説明**: アプリケーションのデフォルトロケール。プロジェクトで設定されたデフォルトロケールがデフォルトです。
+  - **説明**: アプリケーションのデフォルトロケール。プロジェクトで設定されたデフォルトロケールがデフォルト。
   - **型**: `Locales`
   - **デフォルト**: `defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **説明**: デフォルトロケールをプレフィックスするかどうか。プロジェクトで設定された値がデフォルトです。
+  - **説明**: デフォルトロケールにプレフィックスを付けるかどうか。プロジェクトで設定された値がデフォルト。
   - **型**: `boolean`
   - **デフォルト**: `prefixDefaultDefault`
 
 ### 戻り値
 
 - **型**: `IConfigLocales<string>`
-- **説明**: 各ロケールを対応する多言語 URL にマッピングするオブジェクト。
+- **説明**: 各ロケールを対応する多言語 URL にマッピングしたオブジェクト。
 
 ---
 
@@ -106,7 +106,7 @@ getMultilingualUrls(
 // }
 ```
 
-### 絶対 URL
+### 絶対URL
 
 ```typescript
 getMultilingualUrls(
@@ -127,25 +127,25 @@ getMultilingualUrls(
 
 - **ロケールセグメントなし:**
 
-  - 関数は URL から既存のロケールセグメントを削除してから多言語マッピングを生成します。
+  - 関数は多言語マッピングを生成する前に、URLから既存のロケールセグメントを削除します。
 
 - **デフォルトロケール:**
 
-  - `prefixDefault` が `false` の場合、デフォルトロケールの URL にプレフィックスを付加しません。
+  - `prefixDefault` が `false` の場合、デフォルトロケールのURLにはプレフィックスを付けません。
 
 - **サポートされていないロケール:**
-  - `locales` 配列に提供されたロケールのみが URL の生成に考慮されます。
+  - URL生成には、`locales` 配列に指定されたロケールのみが考慮されます。
 
 ---
 
-## アプリケーションでの使用
+## アプリケーションでの使用方法
 
-多言語アプリケーションでは、`locales` と `defaultLocale` を使用して国際化設定を構成することが、正しい言語を表示するために重要です。以下は、アプリケーション設定で `getMultilingualUrls` を使用する例です:
+多言語対応アプリケーションでは、`locales` と `defaultLocale` を使って国際化設定を行うことが、正しい言語表示を保証するために重要です。以下は、`getMultilingualUrls` をアプリケーション設定で使用する例です:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// サポートされているロケールとデフォルトロケールの設定
+// 対応ロケールとデフォルトロケールの設定
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -160,10 +160,11 @@ export default config;
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
+// 国際化設定のためのコンフィグオブジェクト
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // サポートするロケール一覧
+    defaultLocale: Locales.ENGLISH, // デフォルトロケール
   },
 };
 
@@ -174,10 +175,11 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
+// 国際化設定のためのコンフィグオブジェクト
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // サポートするロケール一覧
+    defaultLocale: Locales.ENGLISH, // デフォルトロケール
   },
 };
 
@@ -186,7 +188,7 @@ module.exports = config;
 
 上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。
 
-この設定を使用して、`getMultilingualUrls` 関数はアプリケーションのサポートされているロケールに基づいて動的に多言語 URL マッピングを生成できます:
+この設定を使用すると、`getMultilingualUrls` 関数はアプリケーションのサポートロケールに基づいて多言語URLマッピングを動的に生成できます。
 
 ```typescript
 getMultilingualUrls(
@@ -194,7 +196,7 @@ getMultilingualUrls(
   [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   Locales.ENGLISH
 );
-// 出力:
+// 出力例:
 // {
 //   en: "/dashboard",
 //   fr: "/fr/dashboard",
@@ -207,7 +209,55 @@ getMultilingualUrls(
   Locales.ENGLISH,
   true
 );
-// 出力:
+// 出力例:
+// {
+//   en: "https://example.com/en/dashboard",
+
+module.exports = config;
+```
+
+上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、および `SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。
+
+この設定を使用すると、`getMultilingualUrls` 関数はアプリケーションのサポートされているロケールに基づいて、多言語のURLマッピングを動的に生成できます。
+
+```typescript
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  Locales.ENGLISH
+);
+// 出力例:
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+```
+
+上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。
+
+この設定を使用すると、`getMultilingualUrls` 関数はアプリケーションのサポートされているロケールに基づいて多言語URLマッピングを動的に生成できます：
+
+```typescript
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  Locales.ENGLISH
+);
+// 出力例:
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+getMultilingualUrls(
+  "https://example.com/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  Locales.ENGLISH,
+  true
+);
+// 出力例:
 // {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard",
@@ -215,4 +265,8 @@ getMultilingualUrls(
 // }
 ```
 
-`getMultilingualUrls` を統合することで、開発者は複数の言語にわたる一貫した URL 構造を維持し、ユーザーエクスペリエンスと SEO を向上させることができます。
+`getMultilingualUrls` を統合することで、開発者は複数言語にわたって一貫したURL構造を維持でき、ユーザー体験とSEOの両方を向上させることができます。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

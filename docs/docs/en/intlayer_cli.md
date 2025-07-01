@@ -58,6 +58,48 @@ Intlayer accepts multiple configuration file formats:
 
 To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
+## CLI SDK
+
+The CLI SDK is a library that allows you to use the Intlayer CLI in your own code.
+
+```bash packageManager="npm"
+npm install @intlayer/cli -D
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/cli -D
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/cli -D
+```
+
+Example of usage:
+
+```ts
+import {
+  push,
+  pull,
+  fill,
+  build,
+  docTranslate,
+  docReview,
+} from "@intlayer/cli";
+
+push();
+// ...
+pull();
+// ...
+fill();
+// ...
+build();
+// ...
+docTranslate();
+// ...
+docReview();
+// ...
+```
+
 ## Run intlayer commands
 
 ### Build dictionaries
@@ -319,13 +361,35 @@ npx intlayer doc translate
 - **`--env-file [envFile]`**: Provide a custom environment file to load variables from.
 - **`--base-dir`**: Specify the base directory for the project.
 - **`--verbose`**: Enable verbose logging for debugging.
-- **Git filtering options**: `--git-diff`, `--git-diff-base`, `--git-diff-current`, `--uncommitted`, `--unpushed`, `--untracked`
+- **`--custom-instructions [customInstructions]`**: Custom instructions added to the prompt. Usefull to apply specific rules regarding formatting, urls translation, etc.
+- **`--skip-if-modified-before [skipIfModifiedBefore]`**: Skip the file if it has been modified before the given time.
+  - Can be an absolute time as "2025-12-05" (string or Date)
+  - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
+  - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
+- **`--skip-if-modified-after [skipIfModifiedAfter]`**: Skip the file if it has been modified within the given time.
+  - Can be an absolute time as "2025-12-05" (string or Date)
+  - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
+  - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
 
 ##### Example:
 
 ```bash
-npx intlayer doc translate --doc-pattern "docs/**/*.md" --base-locale en --locales fr es --model chatgpt-4o-latest
+npx intlayer doc translate
+  --doc-pattern "docs/en/**/*.md"
+  --base-locale en --locales fr es
+  --model chatgpt-4o-latest
+  --custom-instructions "$(cat ./instructions.md)"
 ```
+
+> Note that the output file path will be determined by replacing the following patterns
+>
+> - `/{{baseLocale}}/` by `/{{locale}}/` (Unix)
+> - `\{{baseLocale}}\` by `\{{locale}}\` (Windows)
+> - `_{{baseLocale}}.` by `_{{locale}}.`
+> - `{{baseLocale}}_` by `{{locale}}_`
+> - `.{{baseLocaleName}}.` by `.{{localeName}}.`
+>
+> If the pattern is not found, the output file will add the `.{{locale}}` at the extentions of the file. `./my/file.md` will be translated to `./my/file.fr.md` for the French locale.
 
 #### Review Documentation
 
@@ -342,7 +406,11 @@ The `doc review` command accepts the same arguments as `doc translate`, allowing
 ##### Example:
 
 ```bash
-npx intlayer doc review --doc-pattern "docs/**/*.md" --locales fr es de
+npx intlayer doc review
+ --doc-pattern "docs/en/**/*.md"
+ --locales fr es de
+ --model chatgpt-4o-latest
+ --custom-instructions "$(cat ./instructions.md)"
 ```
 
 ## Use intlayer commands in your `package.json`

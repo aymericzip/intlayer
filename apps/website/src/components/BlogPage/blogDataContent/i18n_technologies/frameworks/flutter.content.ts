@@ -5,7 +5,7 @@ import { t, type Dictionary } from 'intlayer';
 const blogContent = {
   key: 'blog-i18n_technologies_frameworks_flutter-metadata',
   content: {
-    blogName: 'list_i18n_technologies__frameworks__flutter',
+    docName: 'list_i18n_technologies__frameworks__flutter',
     url: PagesRoutes['Blog_i18n-technologies__frameworks__flutter'],
     githubUrl: GithubRoutes['i18n-technologies__frameworks__flutter'],
     createdAt: '2025-01-16',

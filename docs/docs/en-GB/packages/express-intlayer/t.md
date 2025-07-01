@@ -1,7 +1,7 @@
 ---
 docName: package__express-intlayer__t
 url: https://intlayer.org/doc/packages/express-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
+githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/express-intlayer/t.md
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
 title: t Function Documentation | express-intlayer
@@ -10,7 +10,7 @@ keywords:
   - t
   - translation
   - Intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Express
   - JavaScript
@@ -19,7 +19,7 @@ keywords:
 
 # Documentation: `t` Function in `express-intlayer`
 
-The `t` function in the `express-intlayer` package is the core utility for providing localized responses in your Express application. It simplifies internationalization (i18n) by dynamically selecting content based on the user's preferred language.
+The `t` function in the `express-intlayer` package is the core utility for providing localised responses in your Express application. It simplifies internationalisation (i18n) by dynamically selecting content based on the user's preferred language.
 
 ---
 
@@ -31,10 +31,10 @@ The `t` function is used to define and retrieve translations for a given set of 
 
 ## Key Features
 
-- **Dynamic Localization**: Automatically selects the most appropriate translation for the client.
+- **Dynamic Localisation**: Automatically selects the most appropriate translation for the client.
 - **Fallback to Default Locale**: Falls back to a default locale if the client's preferred language isn't available, ensuring continuity in user experience.
 - **Lightweight and Fast**: Designed for high-performance applications, ensuring minimal overhead.
-- **Strict Mode Support**: Enforce strict adherence to declared locales for reliable behavior.
+- **Strict Mode Support**: Enforces strict adherence to declared locales for reliable behaviour.
 
 ---
 
@@ -54,11 +54,11 @@ t(translations: Record<string, string>): string;
 
 ---
 
-## Loading the Internationalization Request Handler
+## Loading the Internationalisation Request Handler
 
-To ensure that the internationalization functionality provided by `express-intlayer` works correctly, you **must** load the internationalization middleware at the beginning of your Express application. This enables the `t` function and ensures proper handling of locale detection and translation.
+To ensure that the internationalisation functionality provided by `express-intlayer` works correctly, you **must** load the internationalisation middleware at the beginning of your Express application. This enables the `t` function and ensures proper handling of locale detection and translation.
 
-Place the `app.use(intlayer())` middleware **before any routes** in your application to ensure that all routes benefit from internationalization:
+Place the `app.use(intlayer())` middleware **before any routes** in your application to ensure that all routes benefit from internationalisation:
 
 ```typescript {7} fileName="src/index.ts" codeFormat="typescript"
 import express, { type Express } from "express";
@@ -66,7 +66,7 @@ import { intlayer } from "express-intlayer";
 
 const app: Express = express();
 
-// Load internationalization request handler
+// Load internationalisation request handler
 app.use(intlayer());
 
 // Define your routes after loading the middleware
@@ -87,7 +87,7 @@ import { intlayer } from "express-intlayer";
 
 const app = express();
 
-// Load internationalization request handler
+// Load internationalisation request handler
 app.use(intlayer());
 
 // Define your routes after loading the middleware
@@ -108,7 +108,7 @@ const { intlayer } = require("express-intlayer");
 
 const app = express();
 
-// Load internationalization request handler
+// Load internationalisation request handler
 app.use(intlayer());
 
 // Define your routes after loading the middleware
@@ -135,7 +135,7 @@ app.get("/", (_req, res) => {
 
 ### Basic Example
 
-Serve localized content in different languages:
+Serve localised content in different languages:
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
 app.get("/", (_req, res) => {
@@ -319,7 +319,7 @@ module.exports = config;
 For example:
 
 - If `defaultLocale` is `Locales.CHINESE` and a client requests `Locales.DUTCH`, the returned translation will default to the `Locales.CHINESE` value.
-- If `defaultLocale` is not defined, the `t` function will fallback to the `Locales.ENGLISH` value.
+- If `defaultLocale` is not defined, the `t` function will fall back to the `Locales.ENGLISH` value.
 
 ---
 
@@ -327,7 +327,7 @@ For example:
 
 Configure the `t` function to enforce strict adherence to declared locales:
 
-| Mode        | Behavior                                                                                    |
+| Mode        | Behaviour                                                                                   |
 | ----------- | ------------------------------------------------------------------------------------------- |
 | `strict`    | All declared locales must have translations provided. Missing locales will throw errors.    |
 | `inclusive` | Declared locales must have translations. Missing locales trigger warnings but are accepted. |
@@ -340,8 +340,8 @@ import { type IntlayerConfig } from "intlayer";
 
 const config = {
   // ... Your existing configuration
-  internationalization: {
-    // ... Your existing internationalization configuration
+  internationalisation: {
+    // ... Your existing internationalisation configuration
     strictMode: "strict", // Enforce strict mode
   },
 } satisfies IntlayerConfig;
@@ -354,8 +354,8 @@ import { type IntlayerConfig } from "intlayer";
 
 const config = {
   // ... Your existing configuration
-  internationalization: {
-    // ... Your existing internationalization configuration
+  internationalisation: {
+    // ... Your existing internationalisation configuration
     strictMode: "strict", // Enforce strict mode
   },
 };
@@ -367,8 +367,8 @@ export default config;
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   // ... Your existing configuration
-  internationalization: {
-    // ... Your existing internationalization configuration
+  internationalisation: {
+    // ... Your existing internationalisation configuration
     strictMode: "strict", // Enforce strict mode
   },
 };
@@ -439,16 +439,16 @@ app.get("/morning", (_req, res) => {
 
 ## Tips for Effective Usage
 
-1. **Centralize Translations**: Use a centralized module or JSON files for managing translations to improve maintainability.
+1. **Centralise Translations**: Use a centralised module or JSON files for managing translations to improve maintainability.
 2. **Validate Translations**: Ensure every language variant has a corresponding translation to prevent falling back unnecessarily.
-3. **Combine with Frontend i18n**: Synchronize with frontend internationalization for a seamless user experience across the app.
+3. **Combine with Frontend i18n**: Synchronise with frontend internationalisation for a seamless user experience across the app.
 4. **Benchmark Performance**: Test your app's response times when adding translations to ensure minimal impact.
 
 ---
 
 ## Conclusion
 
-The `t` function is a powerful tool for backend internationalization. By using it effectively, you can create a more inclusive and user-friendly application for a global audience. For advanced usage and detailed configuration options, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+The `t` function is a powerful tool for backend internationalisation. By using it effectively, you can create a more inclusive and user-friendly application for a global audience. For advanced usage and detailed configuration options, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
 ## Doc History
 
