@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_svelte
-url: https://intlayer.org/doc/environment/vite-and-svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+svelte.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: ترجمة موقعك باستخدام Vite و Svelte (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Svelte
   - جافا سكريبت
+slugs:
+  - doc
+  - environment
+  - vite-and-svelte
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Vite و Svelte

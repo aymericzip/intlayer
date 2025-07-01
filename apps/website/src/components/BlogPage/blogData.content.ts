@@ -1,6 +1,25 @@
-import { t, type Dictionary } from 'intlayer';
+import { getConfiguration } from '@intlayer/config';
+import {
+  getBlogMetadata as getBlogMetadataCore,
+  type BlogKey,
+} from '@intlayer/docs';
+import { localeRecord as localeRecordCore, t, type Dictionary } from 'intlayer';
 
-const blogDataContent = {
+const configuration = getConfiguration();
+
+const localeRecord: typeof localeRecordCore = (callback) =>
+  localeRecordCore(
+    callback,
+    configuration.internationalization.locales,
+    configuration.internationalization.defaultLocale
+  );
+
+const getBlogMetadata = (blog: BlogKey) =>
+  t(
+    localeRecord(async ({ locale }) => await getBlogMetadataCore(blog, locale))
+  );
+
+const blogDataContent: any = {
   key: 'blog-data',
   content: {
     default: {
@@ -36,6 +55,7 @@ const blogDataContent = {
             ar: 'ما هو التدويل (i18n)?',
             ru: 'Что такое интернационализация (i18n)?',
           }),
+          default: getBlogMetadata('./blog/en/what_is_internationalization.md'),
         },
         SEO: {
           title: t({
@@ -53,6 +73,7 @@ const blogDataContent = {
             ar: 'SEO و التدويل',
             ru: 'SEO и Интернационализация',
           }),
+          default: getBlogMetadata('./blog/en/internationalization_and_SEO.md'),
         },
         'intlayer-with-next-i18next': {
           title: t({
@@ -70,6 +91,7 @@ const blogDataContent = {
             ar: 'Intlayer و i18next',
             ru: 'Intlayer и i18next',
           }),
+          default: getBlogMetadata('./blog/en/intlayer_with_next-i18next.md'),
         },
         'intlayer-with-react-i18next': {
           title: t({
@@ -87,6 +109,7 @@ const blogDataContent = {
             ar: 'Intlayer و react-i18next',
             ru: 'Intlayer и react-i18next',
           }),
+          default: getBlogMetadata('./blog/en/intlayer_with_i18next.md'),
         },
         'intlayer-with-next-intl': {
           title: t({
@@ -104,6 +127,7 @@ const blogDataContent = {
             ar: 'Intlayer و next-intl',
             ru: 'Intlayer и next-intl',
           }),
+          default: getBlogMetadata('./blog/en/intlayer_with_next-intl.md'),
         },
         'intlayer-with-react-intl': {
           title: t({
@@ -121,12 +145,19 @@ const blogDataContent = {
             ar: 'Intlayer و react-intl',
             ru: 'Intlayer и react-intl',
           }),
+          default: getBlogMetadata('./blog/en/intlayer_with_react-intl.md'),
         },
         'next-i18next_vs_next-intl_vs_intlayer': {
           title: 'next-i18next vs next-intl vs Intlayer',
+          default: getBlogMetadata(
+            './blog/en/next-i18next_vs_next-intl_vs_intlayer.md'
+          ),
         },
         'react-i18n-vs-react-intl-vs-intlayer': {
           title: 'react-i18next vs react-intl vs Intlayer',
+          default: getBlogMetadata(
+            './blog/en/react-i18next_vs_react-intl_vs_intlayer.md'
+          ),
         },
         'i18n-technologies': {
           title: t({
@@ -164,20 +195,63 @@ const blogDataContent = {
               subSections: {
                 angular: {
                   title: 'Angular',
+                  default: getBlogMetadata(
+                    './blog/en/list_i18n_technologies/frameworks/angular.md'
+                  ),
                 },
-                react: { title: 'React' },
-                vue: { title: 'Vue' },
-                svelte: { title: 'Svelte' },
-                flutter: { title: 'Flutter' },
-                'react-native': { title: 'React Native' },
+                react: {
+                  title: 'React',
+                  default: getBlogMetadata(
+                    './blog/en/list_i18n_technologies/frameworks/react.md'
+                  ),
+                },
+                vue: {
+                  title: 'Vue',
+                  default: getBlogMetadata(
+                    './blog/en/list_i18n_technologies/frameworks/vue.md'
+                  ),
+                },
+                svelte: {
+                  title: 'Svelte',
+                  default: getBlogMetadata(
+                    './blog/en/list_i18n_technologies/frameworks/svelte.md'
+                  ),
+                },
+                flutter: {
+                  title: 'Flutter',
+                  default: getBlogMetadata(
+                    './blog/en/list_i18n_technologies/frameworks/flutter.md'
+                  ),
+                },
+                'react-native': {
+                  title: 'React Native',
+                  default: getBlogMetadata(
+                    './blog/en/list_i18n_technologies/frameworks/react-native.md'
+                  ),
+                },
               },
             },
             CMS: {
               title: 'CMS',
               subSections: {
-                wordpress: { title: 'Wordpress' },
-                drupal: { title: 'Drupal' },
-                wix: { title: 'Wix' },
+                wordpress: {
+                  title: 'Wordpress',
+                  default: getBlogMetadata(
+                    './blog/en/list_i18n_technologies/CMS/wordpress.md'
+                  ),
+                },
+                drupal: {
+                  title: 'Drupal',
+                  default: getBlogMetadata(
+                    './blog/en/list_i18n_technologies/CMS/drupal.md'
+                  ),
+                },
+                wix: {
+                  title: 'Wix',
+                  default: getBlogMetadata(
+                    './blog/en/list_i18n_technologies/CMS/wix.md'
+                  ),
+                },
               },
             },
           },

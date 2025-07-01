@@ -1,9 +1,6 @@
-import { getBlogDataArray } from '@components/BlogPage/blogData';
-import { getDocDataArray } from '@components/DocPage/docData';
 import { Link, Tag } from '@intlayer/design-system';
-import type { Locales } from 'intlayer';
 import { File } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
 const FileReferenceTag: FC<{ fileTitle: string; fileUrl: string }> = ({
@@ -24,13 +21,12 @@ const FileReferenceTag: FC<{ fileTitle: string; fileUrl: string }> = ({
   </Tag>
 );
 
-export const FileReference: FC<{ relatedFiles: string[] }> = ({
-  relatedFiles,
-}) => {
+export const FileReference: FC<{
+  relatedFiles: string[];
+}> = ({ relatedFiles }) => {
   const { relatedFilesLabel } = useIntlayer('chat-form-related-files');
-  const { locale } = useLocale();
-  const docArray = getDocDataArray(locale as Locales);
-  const blogArray = getBlogDataArray(locale as Locales);
+  const docData = useIntlayer('doc-metadata');
+  const blogData = useIntlayer('blog-metadata');
 
   if (relatedFiles.length === 0) return <></>;
 
@@ -39,9 +35,9 @@ export const FileReference: FC<{ relatedFiles: string[] }> = ({
       <span className="text-neutral text-sm">{relatedFilesLabel}</span>
       <div className="flex min-w-full flex-row gap-2 overflow-x-auto pb-1">
         {relatedFiles.map((fileKey) => {
-          const fileData =
-            docArray.find((docEl) => docEl.docName === fileKey) ??
-            blogArray.find((blogEl) => blogEl.docName === fileKey);
+          const fileData = [...docData, ...blogData]?.find(
+            (docEl) => docEl.docKey === fileKey
+          );
 
           if (!fileData) return <></>;
 

@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_create_react_app
-url: https://intlayer.org/doc/environment/create-react-app
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 翻译你的Create React App (CRA)网站 (i18n)
@@ -14,6 +11,10 @@ keywords:
   - CRA
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - create-react-app
 ---
 
 # 开始使用 Intlayer 和 React Create App 进行国际化 (i18n)

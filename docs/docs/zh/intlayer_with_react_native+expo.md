@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_react_native_and_expo
-url: https://intlayer.org/doc/environment/react-native-and-expo
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_native+expo.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: 翻译你的 React Native 和 Expo 网站（i18n）
@@ -13,6 +10,10 @@ keywords:
   - React Native
   - Expo
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - react-native-and-expo
 ---
 
 # 使用 Intlayer 和 React Native 开始国际化（i18n）

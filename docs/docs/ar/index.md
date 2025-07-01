@@ -1,7 +1,4 @@
 ---
-docName: index
-url: https://intlayer.org/doc/index
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: توثيق Intlayer - الدليل الكامل للتدويل (i18n) لجافاسكريبت
@@ -16,6 +13,9 @@ keywords:
   - توثيق
   - ترجمة
   - متعدد اللغات
+slugs:
+  - doc
+  - index
 ---
 
 # توثيق Intlayer

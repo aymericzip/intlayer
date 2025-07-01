@@ -1,7 +1,4 @@
 ---
-docName: dictionary__nesting
-url: https://intlayer.org/doc/concept/content/nesting
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: शब्दकोश नेस्टिंग
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - nesting
 ---
 
 # नेस्टिंग / उप सामग्री संदर्भ

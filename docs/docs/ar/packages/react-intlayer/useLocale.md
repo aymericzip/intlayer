@@ -1,7 +1,4 @@
 ---
-docName: package__react-intlayer__useLocale
-url: https://intlayer.org/doc/packages/react-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: توثيق هوك useLocale | react-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - جافاسكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - useLocale
 ---
 
 # تكامل React: توثيق هوك `useLocale`

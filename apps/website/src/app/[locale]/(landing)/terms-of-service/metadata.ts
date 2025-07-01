@@ -10,7 +10,7 @@ export const generateMetadata = async ({
   const { locale } = await params;
 
   const { title, description, keywords } = await getLegalMetadata(
-    'terms_of_service',
+    './legal/en/terms_of_service.md',
     locale
   );
 

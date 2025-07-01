@@ -1,7 +1,4 @@
 ---
-docName: package__express-intlayer__t
-url: https://intlayer.org/doc/packages/express-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/express-intlayer/t.md
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
 title: t 함수 문서 | express-intlayer
@@ -15,6 +12,11 @@ keywords:
   - Express
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - express-intlayer
+  - t
 ---
 
 # 문서: `express-intlayer`의 `t` 함수

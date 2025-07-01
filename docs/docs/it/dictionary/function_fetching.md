@@ -1,7 +1,4 @@
 ---
-docName: dictionary__function_fetching
-url: https://intlayer.org/doc/concept/content/function-fetching
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/function_fetching.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Recupero Funzioni
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - function-fetching
 ---
 
 # Recupero Funzioni

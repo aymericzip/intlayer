@@ -1,7 +1,4 @@
 ---
-docName: package__preact-intlayer
-url: https://intlayer.org/doc/packages/preact-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/preact-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: 包文档 | preact-intlayer
@@ -13,6 +10,10 @@ keywords:
   - 文档
   - JavaScript
   - Preact
+slugs:
+  - doc
+  - packages
+  - preact-intlayer
 ---
 
 # preact-intlayer：用于国际化（i18n）Preact 应用的 NPM 包

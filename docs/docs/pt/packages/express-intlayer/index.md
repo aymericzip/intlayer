@@ -1,7 +1,4 @@
 ---
-docName: package__express-intlayer
-url: https://intlayer.org/doc/packages/express-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/express-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentação do Pacote | express-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - express-intlayer
 ---
 
 # express-intlayer: Pacote JavaScript para internacionalizar (i18n) uma aplicação Express.js

@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_design-system
-url: https://intlayer.org/doc/package/@intlayer_design-system
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/@intlayer/design-system/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/design-system - UI-Komponenten für Intlayer
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - NPM
   - Styling
+slugs:
+  - doc
+  - package
+  - @intlayer_design-system
 ---
 
 # @intlayer/design-system: NPM-Paket mit der UI-Bibliothek von Intlayer

@@ -1,7 +1,4 @@
 ---
-docName: intlayer_visual_editor
-url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Éditeur Visual Intlayer | Modifiez votre contenu en utilisant un éditeur visuel
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - editor
 ---
 
 # Documentation de l'Éditeur Visuel Intlayer

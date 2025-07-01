@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__useDictionary
-url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentazione Hook useDictionary | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useDictionary
 ---
 
 # Integrazione React: Documentazione Hook `useDictionary`

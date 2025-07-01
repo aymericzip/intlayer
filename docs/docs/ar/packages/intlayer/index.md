@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer
-url: https://intlayer.org/doc/packages/intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: توثيق الحزمة | intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - جافاسكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
 ---
 
 # intlayer: حزمة NPM لإدارة القاموس متعدد اللغات (i18n)

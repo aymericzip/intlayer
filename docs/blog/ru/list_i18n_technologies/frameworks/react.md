@@ -1,7 +1,4 @@
 ---
-docName: list_i18n_technologies__frameworks__react
-url: https://intlayer.org/blog/i18n-technologies/frameworks/react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react.md
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
 title: Лучшие инструменты интернационализации (i18n) для React
@@ -14,6 +11,11 @@ keywords:
   - интернационализация
   - блог
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - react
 ---
 
 # Исследование решений по международной локализации для перевода вашего React-сайта

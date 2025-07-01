@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_chokidar
-url: https://intlayer.org/doc/package/@intlayer_chokidar
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/@intlayer/chokidar/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/chokidar - مراقبة الملفات لترجمة Intlayer
@@ -15,6 +12,10 @@ keywords:
   - جافاسكريبت
   - NPM
   - تطوير
+slugs:
+  - doc
+  - package
+  - @intlayer_chokidar
 ---
 
 # @intlayer/chokidar: حزمة NPM لمسح وبناء ملفات تعريف Intlayer إلى قواميس

@@ -1,7 +1,4 @@
 ---
-docName: introduction
-url: https://intlayer.org/doc/get-started
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/introduction.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 介绍
@@ -12,6 +9,9 @@ keywords:
   - Intlayer
   - 应用程序
   - 包
+slugs:
+  - doc
+  - get-started
 ---
 
 # Intlayer 文档

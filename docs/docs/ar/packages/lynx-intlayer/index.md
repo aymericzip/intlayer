@@ -1,7 +1,4 @@
 ---
-docName: package__lynx-intlayer
-url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: توثيق الحزمة | lynx-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - lynx-intlayer
 ---
 
 # lynx-intlayer: تدويل (i18n) تطبيق Lynx

@@ -1,78 +1,65 @@
-import { Locales } from '@intlayer/config';
-import { getMarkdownMetadata } from '@intlayer/core';
+import { LocalesValues } from '@intlayer/config';
+import fg from 'fast-glob';
 import { localeRecord } from 'intlayer';
-import { readFileContent } from './readFileContent';
+import {
+  defaultLocale,
+  FileMetadata,
+  getFile,
+  getFileBySlug,
+  getFileMetadata,
+  getFileMetadataBySlug,
+  getFileMetadataRecord,
+  getFiles,
+} from './common';
+import { LegalData } from './legal.types';
+import { findDocPackageJsonDir, readFileContent } from './readFileContent';
 
-const legals = {
-  terms_of_service: localeRecord(({ locale }) =>
-    readFileContent(`/legal/${locale}/terms_of_service.md`)
-  ),
-  privacy_notice: localeRecord(({ locale }) =>
-    readFileContent(`/legal/${locale}/privacy_notice.md`)
-  ),
-};
+const docRoot = findDocPackageJsonDir();
 
-export const getLegals = async (lang = Locales.ENGLISH) => {
-  const docsEntries = await Promise.all(
-    Object.entries(legals)
-      .map(([key, value]) => [key, value[lang]])
-      .map(async ([key, value]) => [key, await value])
+const legalFiles = fg.sync('./legal/en/**/*.md', {
+  cwd: docRoot,
+});
+
+export type LegalKey = keyof LegalData;
+export type Legals = Record<LegalKey, Record<LocalesValues, Promise<string>>>;
+export type LegalMetadata = FileMetadata;
+
+const legal: Legals = legalFiles.reduce((acc, filePath) => {
+  acc[filePath as LegalKey] = localeRecord(({ locale }) =>
+    readFileContent(filePath.replace('/en/', `/${locale}/`))
   );
 
-  const docsResult = Object.fromEntries(docsEntries);
+  return acc;
+}, {} as Legals);
 
-  return docsResult;
-};
+export const getLegals = async <L extends LocalesValues>(
+  locale: L = defaultLocale as L
+): Promise<Record<LegalKey, string>> => getFiles(legal, locale);
 
-export const getLegal = async (
-  docName: keyof typeof legals,
-  lang = Locales.ENGLISH
-): Promise<string> => {
-  const doc = await legals[docName][lang];
+export const getLegal = async <L extends LocalesValues>(
+  docName: keyof typeof legal,
+  locale: L = defaultLocale as L
+): Promise<string> => getFile(legal, docName, locale);
 
-  if (!doc) {
-    const englishLegal = await legals[docName][Locales.ENGLISH];
+export const getLegalMetadataRecord = async <L extends LocalesValues>(
+  locale: L = defaultLocale as L
+): Promise<Record<LegalKey, FileMetadata>> =>
+  getFileMetadataRecord(legal, locale);
 
-    if (!englishLegal) {
-      throw new Error(`Legal ${docName} not found`);
-    }
+export const getLegalMetadata = async <
+  D extends LegalKey,
+  L extends LocalesValues,
+>(
+  docName: D,
+  locale: L = defaultLocale as L
+): Promise<FileMetadata> => getFileMetadata(legal, docName, locale);
 
-    return englishLegal;
-  }
+export const getLegalMetadataBySlug = async <L extends LocalesValues>(
+  slugs: string | string[],
+  locale: L = defaultLocale as L
+): Promise<FileMetadata[]> => await getFileMetadataBySlug(legal, slugs, locale);
 
-  return doc;
-};
-
-export const getLegalMetadataRecord = async (
-  locale = Locales.ENGLISH
-): Promise<Record<string, LegalMetadata>> => {
-  const docs = await getLegals(locale);
-  return Object.keys(docs).reduce(
-    (acc, docName) => {
-      const metadata = getMarkdownMetadata(docs[docName]);
-      acc[docName] = metadata;
-      return acc;
-    },
-    {} as Record<string, any>
-  );
-};
-
-type LegalMetadata = {
-  docName: string;
-  url: string;
-  githubUrl: string;
-  title: string;
-  description: string;
-  keywords: string[];
-  updatedAt: string;
-  createdAt: string;
-};
-
-export const getLegalMetadata = async <T extends LegalMetadata>(
-  docName: keyof typeof legals,
-  locale = Locales.ENGLISH
-): Promise<T> => {
-  const doc = await getLegal(docName, locale);
-
-  return getMarkdownMetadata<T>(doc);
-};
+export const getLegalBySlug = async <L extends LocalesValues>(
+  slugs: string | string[],
+  locale: L = defaultLocale as L
+): Promise<string[]> => await getFileBySlug(legal, slugs, locale);

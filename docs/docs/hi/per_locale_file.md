@@ -1,7 +1,4 @@
 ---
-docName: dictionary__per_locale_file
-url: https://intlayer.org/doc/concept/per-locale-file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Intlayer में `प्रति-स्थान` सामग्री घोषणा की घोषणा
@@ -13,6 +10,10 @@ keywords:
   - प्रति-स्थान
   - TypeScript
   - JavaScript
+slugs:
+  - doc
+  - concept
+  - per-locale-file
 ---
 
 # Intlayer में `प्रति-स्थान` सामग्री घोषणा की घोषणा

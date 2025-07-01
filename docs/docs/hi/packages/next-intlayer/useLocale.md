@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__useLocale
-url: https://intlayer.org/doc/packages/next-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: useLocale हुक दस्तावेज़ | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - जावास्क्रिप्ट
   - रिएक्ट
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useLocale
 ---
 
 # Next.js एकीकरण: `next-intlayer` के लिए `useLocale` हुक दस्तावेज़ीकरण

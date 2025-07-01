@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getTranslationContent
-url: https://intlayer.org/doc/package/intlayer/getTranslationContent
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getTranslationContent.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: Función getTranslation - Documentación de Intlayer JavaScript
@@ -15,6 +12,11 @@ keywords:
   - JavaScript
   - traducción
   - locale
+slugs:
+  - doc
+  - package
+  - intlayer
+  - getTranslationContent
 ---
 
 # Documentación: Función `getTranslation` en `intlayer`

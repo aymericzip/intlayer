@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_design-system
-url: https://intlayer.org/doc/package/@intlayer_design-system
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/@intlayer/design-system/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/design-system - Intlayer용 UI 컴포넌트
@@ -15,6 +12,10 @@ keywords:
   - 자바스크립트
   - NPM
   - 스타일링
+slugs:
+  - doc
+  - package
+  - @intlayer_design-system
 ---
 
 # @intlayer/design-system: Intlayer의 UI 라이브러리를 포함하는 NPM 패키지

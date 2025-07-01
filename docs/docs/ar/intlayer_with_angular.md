@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_angular
-url: https://intlayer.org/doc/environment/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_angular.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: ترجم موقعك الإلكتروني Angular (i18n)
@@ -12,6 +9,10 @@ keywords:
   - Intlayer
   - Angular
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - angular
 ---
 
 # البدء مع التدويل (i18n) في Angular باستخدام Intlayer

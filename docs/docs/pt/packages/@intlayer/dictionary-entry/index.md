@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_dictionary-entry
-url: https://intlayer.org/doc/package/@intlayer_dictionary-entry
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/@intlayer/dictionary-entry/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/dictionary-entry - Gestão de Dicionários para Intlayer
@@ -15,6 +12,10 @@ keywords:
   - i18n
   - JavaScript
   - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_dictionary-entry
 ---
 
 # @intlayer/dictionary-entry: Pacote NPM para recuperar dicionários do Intlayer

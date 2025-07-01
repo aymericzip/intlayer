@@ -1,7 +1,4 @@
 ---
-docName: package__svelte-intlayer
-url: https://intlayer.org/doc/packages/svelte-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/svelte-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Paketdokumentation | svelte-intlayer
@@ -13,6 +10,10 @@ keywords:
   - Dokumentation
   - JavaScript
   - Svelte
+slugs:
+  - doc
+  - packages
+  - svelte-intlayer
 ---
 
 # svelte-intlayer: NPM-Paket zur Internationalisierung (i18n) einer Solid-Anwendung

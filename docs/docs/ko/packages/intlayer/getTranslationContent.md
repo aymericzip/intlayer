@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getTranslationContent
-url: https://intlayer.org/doc/package/intlayer/getTranslationContent
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getTranslationContent.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: getTranslation 함수 - Intlayer 자바스크립트 문서
@@ -15,6 +12,11 @@ keywords:
   - 자바스크립트
   - 번역
   - 로케일
+slugs:
+  - doc
+  - package
+  - intlayer
+  - getTranslationContent
 ---
 
 # 문서: `intlayer`의 `getTranslation` 함수

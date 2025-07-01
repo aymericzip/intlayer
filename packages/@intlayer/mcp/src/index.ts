@@ -2,7 +2,7 @@
 
 import { build, fill, pull, push } from '@intlayer/cli';
 import { isESModule, Locales, type LogConfig } from '@intlayer/config';
-import { getDoc, getDocMetadataRecord } from '@intlayer/docs';
+import { getDoc, getDocBySlug, getDocMetadataRecord } from '@intlayer/docs';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { readFileSync } from 'fs';
@@ -307,26 +307,53 @@ server.tool(
   }
 );
 
-server.tool('get-doc-list', {}, async ({}) => {
-  const docsMetadataRecord = await getDocMetadataRecord();
+server.tool(
+  'get-doc-list',
+  {
+    lang: z.nativeEnum(Locales),
+    description:
+      'Get the list of docs and their metadata to get more details about what doc to',
+  },
+  async ({}) => {
+    const docsMetadataRecord = await getDocMetadataRecord();
 
-  return {
-    content: [
-      {
-        type: 'text',
-        text: JSON.stringify(docsMetadataRecord, null, 2),
-      },
-    ],
-  };
-});
+    return {
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(docsMetadataRecord, null, 2),
+        },
+      ],
+    };
+  }
+);
 
 server.tool(
   'get-doc',
-  { docName: z.string(), lang: z.nativeEnum(Locales) },
-  async ({ docName, lang }) => {
-    const doc = await getDoc(docName as any, lang);
+  {
+    docKey: z.string(),
+    lang: z.nativeEnum(Locales),
+    description: 'Get a doc by his key',
+  },
+  async ({ docKey, lang }) => {
+    const doc = await getDoc(docKey as any, lang);
     return {
       content: [{ type: 'text', text: doc }],
+    };
+  }
+);
+
+server.tool(
+  'get-doc-by-slug',
+  {
+    slug: z.union([z.string(), z.array(z.string())]),
+    lang: z.nativeEnum(Locales),
+    description: 'Get an array of docs by their slugs',
+  },
+  async ({ slug, lang }) => {
+    const doc = await getDocBySlug(slug, lang);
+    return {
+      content: doc.map((d) => ({ type: 'text', text: d })),
     };
   }
 );

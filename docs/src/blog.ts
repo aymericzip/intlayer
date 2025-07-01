@@ -1,136 +1,64 @@
-import { Locales } from '@intlayer/config';
-import { getMarkdownMetadata } from '@intlayer/core';
-import { localeRecord } from 'intlayer';
-import { readFileContent } from './readFileContent';
+import fg from 'fast-glob';
+import { localeRecord, LocalesValues } from 'intlayer';
+import { BlogData } from './blog.types';
+import {
+  defaultLocale,
+  FileMetadata,
+  getFile,
+  getFileBySlug,
+  getFileMetadata,
+  getFileMetadataBySlug,
+  getFileMetadataRecord,
+  getFiles,
+} from './common';
+import { findDocPackageJsonDir, readFileContent } from './readFileContent';
 
-const blogs = {
-  index: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/index.md`)
-  ),
-  what_is_internationalization: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/what_is_internationalization.md`)
-  ),
-  internationalization_and_SEO: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/internationalization_and_SEO.md`)
-  ),
-  'intlayer_with_next-i18next': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/intlayer_with_next-i18next.md`)
-  ),
-  'intlayer_with_next-intl': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/intlayer_with_next-intl.md`)
-  ),
-  'intlayer_with_react-i18next': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/intlayer_with_react-i18next.md`)
-  ),
-  'intlayer_with_react-intl': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/intlayer_with_react-intl.md`)
-  ),
-  'next-i18next_vs_next-intl_vs_intlayer': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/next-i18next_vs_next-intl_vs_intlayer.md`)
-  ),
-  'react-i18next_vs_react-intl_vs_intlayer': localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/react-i18next_vs_react-intl_vs_intlayer.md`
-    )
-  ),
-  list_i18n_technologies__frameworks__angular: localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/list_i18n_technologies/frameworks/angular.md`
-    )
-  ),
-  list_i18n_technologies__frameworks__react: localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/list_i18n_technologies/frameworks/react.md`
-    )
-  ),
-  list_i18n_technologies__frameworks__vue: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/list_i18n_technologies/frameworks/vue.md`)
-  ),
-  list_i18n_technologies__frameworks__svelte: localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/list_i18n_technologies/frameworks/svelte.md`
-    )
-  ),
-  list_i18n_technologies__frameworks__flutter: localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/list_i18n_technologies/frameworks/flutter.md`
-    )
-  ),
-  'list_i18n_technologies__frameworks__react-native': localeRecord(
-    ({ locale }) =>
-      readFileContent(
-        `/blog/${locale}/list_i18n_technologies/frameworks/react-native.md`
-      )
-  ),
-  list_i18n_technologies__CMS__wordpress: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/list_i18n_technologies/CMS/wordpress.md`)
-  ),
-  list_i18n_technologies__CMS__drupal: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/list_i18n_technologies/CMS/drupal.md`)
-  ),
-  list_i18n_technologies__CMS__wix: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/list_i18n_technologies/CMS/wix.md`)
-  ),
-};
+const docRoot = findDocPackageJsonDir();
 
-export const getBlogs = async (lang = Locales.ENGLISH) => {
-  const blogsEntries = await Promise.all(
-    Object.entries(blogs)
-      .map(([key, value]) => [key, value[lang]])
-      .map(async ([key, value]) => [key, await value])
+const blogFiles = fg.sync('./blog/en/**/*.md', {
+  cwd: docRoot,
+});
+
+export type BlogKey = keyof BlogData;
+export type Blogs = Record<BlogKey, Record<LocalesValues, Promise<string>>>;
+export type BlogMetadata = FileMetadata;
+
+const blogs: Blogs = blogFiles.reduce((acc, filePath) => {
+  acc[filePath as BlogKey] = localeRecord(({ locale }) =>
+    readFileContent(filePath.replace('/en/', `/${locale}/`))
   );
-  const blogsResult = Object.fromEntries(blogsEntries);
-  return blogsResult;
-};
 
-export const getBlog = async (
+  return acc;
+}, {} as Blogs);
+
+export const getBlogs = async <L extends LocalesValues>(
+  locale: L = defaultLocale as L
+): Promise<Record<BlogKey, string>> => await getFiles(blogs, locale);
+
+export const getBlog = async <L extends LocalesValues>(
   docName: keyof typeof blogs,
-  locale = Locales.ENGLISH
-) => {
-  const blog = await blogs[docName]?.[locale];
+  locale: L = defaultLocale as L
+): Promise<string> => await getFile(blogs, docName, locale);
 
-  if (!blog) {
-    const englishBlog = await blogs[docName][Locales.ENGLISH];
+export const getBlogMetadataRecord = async <L extends LocalesValues>(
+  locale: L = defaultLocale as L
+): Promise<Record<BlogKey, FileMetadata>> =>
+  await getFileMetadataRecord(blogs, locale);
 
-    if (!englishBlog) {
-      throw new Error(`Blog ${docName} not found`);
-    }
+export const getBlogMetadata = async <
+  D extends BlogKey,
+  L extends LocalesValues,
+>(
+  docName: D,
+  locale: L = defaultLocale as L
+): Promise<FileMetadata> => await getFileMetadata(blogs, docName, locale);
 
-    return englishBlog;
-  }
+export const getBlogMetadataBySlug = async <L extends LocalesValues>(
+  slugs: string | string[],
+  locale: L = defaultLocale as L
+): Promise<FileMetadata[]> => await getFileMetadataBySlug(blogs, slugs, locale);
 
-  return blog;
-};
-
-export const getBlogMetadataRecord = async (
-  locale = Locales.ENGLISH
-): Promise<Record<string, BlogMetadata>> => {
-  const blogs = await getBlogs(locale);
-  return Object.keys(blogs).reduce(
-    (acc, docName) => {
-      const metadata = getMarkdownMetadata(blogs[docName]);
-      acc[docName] = metadata;
-      return acc;
-    },
-    {} as Record<string, any>
-  );
-};
-
-type BlogMetadata = {
-  docName: string;
-  url: string;
-  githubUrl: string;
-  title: string;
-  description: string;
-  keywords: string[];
-  updatedAt: string;
-  createdAt: string;
-};
-
-export const getBlogMetadata = async <T extends BlogMetadata>(
-  docName: keyof typeof blogs,
-  locale = Locales.ENGLISH
-) => {
-  const blog = await getBlog(docName, locale);
-  return getMarkdownMetadata<T>(blog);
-};
+export const getBlogBySlug = async <L extends LocalesValues>(
+  slugs: string | string[],
+  locale: L = defaultLocale as L
+): Promise<string[]> => await getFileBySlug(blogs, slugs, locale);

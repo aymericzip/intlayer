@@ -1,7 +1,4 @@
 ---
-docName: interest_of_intlayer
-url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2025-06-29
 title: Interesse an Intlayer
@@ -12,6 +9,10 @@ keywords:
   - Intlayer
   - Framework
   - Vergleich
+slugs:
+  - doc
+  - concept
+  - interest
 ---
 
 # Intlayer: Ein maßgeschneiderter Weg, Ihre Website zu übersetzen

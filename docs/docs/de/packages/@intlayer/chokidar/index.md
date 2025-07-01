@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_chokidar
-url: https://intlayer.org/doc/package/@intlayer_chokidar
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/@intlayer/chokidar/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/chokidar - Dateiüberwachung für Intlayer i18n
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - NPM
   - Entwicklung
+slugs:
+  - doc
+  - package
+  - @intlayer_chokidar
 ---
 
 # @intlayer/chokidar: NPM-Paket zum Scannen und Erstellen von Intlayer-Deklarationsdateien in Wörterbücher

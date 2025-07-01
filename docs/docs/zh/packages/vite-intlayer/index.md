@@ -1,7 +1,4 @@
 ---
-docName: package__vite-intlayer
-url: https://intlayer.org/doc/packages/vite-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 包文档 | vite-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - vite-intlayer
 ---
 
 # vite-intlayer：用于 Vite 应用程序国际化（i18n）的 NPM 包

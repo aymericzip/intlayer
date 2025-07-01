@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_editor-react
-url: https://intlayer.org/doc/package/@intlayer_editor-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/@intlayer/editor-react/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/editor-react - Intlayer 编辑器的 React 组件
@@ -15,6 +12,10 @@ keywords:
   - i18n
   - JavaScript
   - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_editor-react
 ---
 
 # @intlayer/editor-react：提供 React 状态、上下文、钩子和组件以与 Intlayer 编辑器交互的 NPM 包

@@ -1,7 +1,4 @@
 ---
-docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/hi/dictionary/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: एनेमरेशन
@@ -14,6 +11,13 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - hi
+  - dictionary
+  - enumeration
 ---
 
 # एनेमरेशन / बहुवचन रूप

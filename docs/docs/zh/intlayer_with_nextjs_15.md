@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nextjs_15
-url: https://intlayer.org/doc/environment/nextjs
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
 title: 翻译您的 Next.js 15 网站（国际化 i18n）
@@ -13,6 +10,10 @@ keywords:
   - Next.js 15
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
 ---
 
 # 使用 Intlayer 和 Next.js 15 应用路由器开始国际化（i18n）

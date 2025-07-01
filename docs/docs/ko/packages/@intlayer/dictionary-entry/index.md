@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_dictionary-entry
-url: https://intlayer.org/doc/package/@intlayer_dictionary-entry
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/@intlayer/dictionary-entry/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/dictionary-entry - Intlayer용 사전 관리
@@ -15,6 +12,10 @@ keywords:
   - i18n
   - JavaScript
   - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_dictionary-entry
 ---
 
 # @intlayer/dictionary-entry: Intlayer 사전을 가져오기 위한 NPM 패키지

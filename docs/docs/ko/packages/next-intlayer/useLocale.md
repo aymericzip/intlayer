@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__useLocale
-url: https://intlayer.org/doc/packages/next-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: useLocale 훅 문서 | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - 자바스크립트
   - 리액트
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useLocale
 ---
 
 # Next.js 통합: `next-intlayer`용 `useLocale` 훅 문서

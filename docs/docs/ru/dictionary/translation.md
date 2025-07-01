@@ -1,7 +1,4 @@
 ---
-docName: dictionary__translation
-url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Перевод
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - translation
 ---
 
 # Перевод

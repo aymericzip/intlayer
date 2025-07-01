@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__useIntlayerAsync
-url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: توثيق هوك useIntlayerAsync | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useIntlayerAsync
 ---
 
 # تكامل Next.js: توثيق هوك `useIntlayerAsync`

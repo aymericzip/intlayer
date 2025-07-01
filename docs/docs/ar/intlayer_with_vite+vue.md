@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_vue
-url: https://intlayer.org/doc/environment/vite-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: ترجمة موقعك باستخدام Vite و Vue (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Vue
   - جافا سكريبت
+slugs:
+  - doc
+  - environment
+  - vite-and-vue
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Vite و Vue

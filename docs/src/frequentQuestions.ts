@@ -1,82 +1,73 @@
-import { getMarkdownMetadata } from '@intlayer/core';
-import { readFileContent } from './readFileContent';
+import { Locales, LocalesValues } from '@intlayer/config';
+import fg from 'fast-glob';
+import { localeRecord } from 'intlayer';
+import {
+  defaultLocale,
+  FileMetadata,
+  getFile,
+  getFileBySlug,
+  getFileMetadata,
+  getFileMetadataBySlug,
+  getFileMetadataRecord,
+  getFiles,
+} from './common';
+import { FrequentQuestionsData } from './frequentQuestions.types';
+import { findDocPackageJsonDir, readFileContent } from './readFileContent';
 
-const fequentQuestions = {
-  build_dictionaries: readFileContent(
-    '/frequent_questions/build_dictionaries.md'
-  ),
-  esbuild_error: readFileContent('/frequent_questions/esbuild_error.md'),
-  static_rendering: readFileContent('/frequent_questions/static_rendering.md'),
-  domain_routing: readFileContent('/frequent_questions/domain_routing.md'),
-  intlayer_command_undefined: readFileContent(
-    '/frequent_questions/intlayer_command_undefined.md'
-  ),
-  unknown_command: readFileContent('/frequent_questions/unknown_command.md'),
-  locale_incorect_in_url: readFileContent(
-    '/frequent_questions/locale_incorect_in_url.md'
-  ),
-  get_locale_cookie: readFileContent(
-    '/frequent_questions/get_locale_cookie.md'
-  ),
-  ssr_next_no_locale: readFileContent(
-    '/frequent_questions/SSR_Next_no_[locale].md'
-  ),
-  array_as_content_declaration: readFileContent(
-    '/frequent_questions/array_as_content_declaration.md'
-  ),
-  translated_path_url: readFileContent(
-    '/frequent_questions/translated_path_url.md'
-  ),
-  customized_locale_list: readFileContent(
-    '/frequent_questions/customized_locale_list.md'
-  ),
-};
+const docRoot = findDocPackageJsonDir();
 
-export const getFequentQuestion = async (
-  docName: keyof typeof fequentQuestions
-) => {
-  const doc = await fequentQuestions[docName];
+const frequentQuestionsFiles = fg.sync('./frequentQuestions/en/**/*.md', {
+  cwd: docRoot,
+});
 
-  if (!doc) {
-    throw new Error(`Frequent question ${docName} not found`);
-  }
+export type FrequentQuestionKey = keyof FrequentQuestionsData;
+export type FrequentQuestions = Record<
+  FrequentQuestionKey,
+  Record<LocalesValues, Promise<string>>
+>;
+export type FrequentQuestionMetadata = FileMetadata;
 
-  return doc;
-};
+const frequentQuestions: FrequentQuestions = frequentQuestionsFiles.reduce(
+  (acc, filePath) => {
+    acc[filePath as FrequentQuestionKey] = localeRecord(({ locale }) =>
+      readFileContent(filePath.replace('/en/', `/${locale}/`))
+    );
 
-export const getFequentQuestions = async () => {
-  const fequentQuestionsEntries = await Promise.all(
-    Object.entries(fequentQuestions).map(async ([key, value]) => [
-      key,
-      await value,
-    ])
-  );
+    return acc;
+  },
+  {} as FrequentQuestions
+);
 
-  return Object.fromEntries(fequentQuestionsEntries);
-};
+export const getFrequentQuestions = async <L extends Locales>(
+  locale: L = defaultLocale as L
+): Promise<Record<FrequentQuestionKey, string>> =>
+  getFiles(frequentQuestions, locale);
 
-export const getFrequentQuestionsMetadataRecord = async (): Promise<
-  Record<string, any>
-> => {
-  const frequentQuestions = await getFequentQuestions();
+export const getFrequentQuestion = async <L extends Locales>(
+  docName: keyof typeof frequentQuestions,
+  locale: L = defaultLocale as L
+): Promise<string> => getFile(frequentQuestions, docName, locale);
 
-  return Object.keys(frequentQuestions).reduce(
-    (acc, frequentQuestionName) => {
-      const metadata = getMarkdownMetadata(
-        frequentQuestions[frequentQuestionName]
-      );
-      acc[frequentQuestionName] = metadata;
-      return acc;
-    },
-    {} as Record<string, any>
-  );
-};
+export const getFrequentQuestionMetadataRecord = async <L extends Locales>(
+  locale: L = defaultLocale as L
+): Promise<Record<FrequentQuestionKey, FileMetadata>> =>
+  getFileMetadataRecord(frequentQuestions, locale);
 
 export const getFrequentQuestionMetadata = async <
-  T extends Record<string, any>,
+  D extends FrequentQuestionKey,
+  L extends Locales,
 >(
-  frequentQuestionName: keyof typeof fequentQuestions
-) => {
-  const frequentQuestion = await getFequentQuestion(frequentQuestionName);
-  return getMarkdownMetadata<T>(frequentQuestion);
-};
+  docName: D,
+  locale: L = defaultLocale as L
+): Promise<FileMetadata> => getFileMetadata(frequentQuestions, docName, locale);
+
+export const getFrequentQuestionMetadataBySlug = async <L extends Locales>(
+  slugs: string | string[],
+  locale: L = defaultLocale as L
+): Promise<FileMetadata[]> =>
+  await getFileMetadataBySlug(frequentQuestions, slugs, locale);
+
+export const getFrequentQuestionBySlug = async <L extends Locales>(
+  slugs: string | string[],
+  locale: L = defaultLocale as L
+): Promise<string[]> => await getFileBySlug(frequentQuestions, slugs, locale);

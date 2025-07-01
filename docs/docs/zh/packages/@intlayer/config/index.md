@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_config
-url: https://intlayer.org/doc/package/@intlayer_config
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/@intlayer/config/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/config - Intlayer 的配置管理
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - NPM
   - 变量
+slugs:
+  - doc
+  - package
+  - @intlayer_config
 ---
 
 # @intlayer/config：用于检索 Intlayer 配置的 NPM 包

@@ -1,7 +1,4 @@
 ---
-docName: package__lynx-intlayer
-url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: Documentação do Pacote | lynx-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - lynx-intlayer
 ---
 
 # lynx-intlayer: Internacionalize (i18n) uma aplicação Lynx

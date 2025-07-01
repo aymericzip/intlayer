@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_preact
-url: https://intlayer.org/doc/environment/vite-and-preact
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+preact.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Traduisez votre site Vite et Preact (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Preact
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - vite-and-preact
 ---
 
 # Commencer l'internationalisation (i18n) avec Intlayer, Vite et Preact

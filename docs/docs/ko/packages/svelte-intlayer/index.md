@@ -1,7 +1,4 @@
 ---
-docName: package__svelte-intlayer
-url: https://intlayer.org/doc/packages/svelte-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/svelte-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: 패키지 문서 | svelte-intlayer
@@ -13,6 +10,10 @@ keywords:
   - 문서
   - 자바스크립트
   - 스벨트
+slugs:
+  - doc
+  - packages
+  - svelte-intlayer
 ---
 
 # svelte-intlayer: Solid 애플리케이션 국제화(i18n)를 위한 NPM 패키지

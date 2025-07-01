@@ -1,7 +1,4 @@
 ---
-docName: list_i18n_technologies__frameworks__vue
-url: https://intlayer.org/blog/i18n-technologies/frameworks/vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/vue.md
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
 title: Vue용 최상의 국제화 도구
@@ -14,6 +11,11 @@ keywords:
   - 국제화
   - 블로그
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - vue
 ---
 
 # i18n 솔루션을 탐색하여 Vue.js 웹사이트 번역하기

@@ -1,7 +1,4 @@
 ---
-docName: roadmap
-url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-06-29
 title: ロードマップ
@@ -13,6 +10,9 @@ keywords:
   - CMS
   - コンテンツ管理システム
   - ビジュアルエディター
+slugs:
+  - doc
+  - roadmap
 ---
 
 # Intlayer: 機能概要とロードマップ

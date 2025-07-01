@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer
-url: https://intlayer.org/doc/packages/intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Paketdokumentation | intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
 ---
 
 # intlayer: NPM-Paket zur Verwaltung mehrsprachiger Wörterbücher (i18n)

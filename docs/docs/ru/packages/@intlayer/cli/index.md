@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_cli
-url: https://intlayer.org/doc/package/@intlayer_cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/@intlayer/cli/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/cli - Пакет командной строки для Intlayer
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - NPM
   - инструменты
+slugs:
+  - doc
+  - package
+  - @intlayer_cli
 ---
 
 # @intlayer/cli: NPM пакет для использования скриптов, предоставляемых intlayer CLI

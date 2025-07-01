@@ -1,7 +1,4 @@
 ---
-docName: ci_cd
-url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
 title: CI/CD 통합
@@ -14,6 +11,10 @@ keywords:
   - 국제화
   - 문서화
   - Intlayer
+slugs:
+  - doc
+  - concept
+  - ci-cd
 ---
 
 # CI/CD 파이프라인에서 번역 자동 생성

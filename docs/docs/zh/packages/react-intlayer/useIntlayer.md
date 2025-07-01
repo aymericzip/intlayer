@@ -1,7 +1,4 @@
 ---
-docName: package__react-intlayer__useIntlayer
-url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: useIntlayer Hook 文档 | react-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - useIntlayer
 ---
 
 # React 集成：`useIntlayer` 钩子文档

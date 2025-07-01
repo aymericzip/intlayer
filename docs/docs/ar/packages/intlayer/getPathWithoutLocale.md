@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getPathWithoutLocale
-url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: توثيق دالة getPathWithoutLocale | intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getPathWithoutLocale
 ---
 
 # التوثيق: دالة `getPathWithoutLocale` في `intlayer`

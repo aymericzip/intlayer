@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__useLocale
-url: https://intlayer.org/doc/packages/next-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentación del Hook useLocale | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useLocale
 ---
 
 # Integración con Next.js: Documentación del Hook `useLocale` para `next-intlayer`

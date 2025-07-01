@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nextjs_15
-url: https://intlayer.org/doc/environment/fr/nextjs
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_15.md
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
 title: Traduisez votre site Next.js 15 (i18n)
@@ -13,6 +10,11 @@ keywords:
   - Next.js 15
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - fr
+  - nextjs
 ---
 
 # Premiers pas pour internationaliser (i18n) avec Intlayer et Next.js 15 App Router

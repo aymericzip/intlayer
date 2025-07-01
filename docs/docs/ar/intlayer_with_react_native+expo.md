@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_react_native_and_expo
-url: https://intlayer.org/doc/environment/react-native-and-expo
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_native+expo.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: ترجمة موقع React Native و Expo الخاص بك (i18n)
@@ -13,6 +10,10 @@ keywords:
   - React Native
   - Expo
   - جافا سكريبت
+slugs:
+  - doc
+  - environment
+  - react-native-and-expo
 ---
 
 # البدء في التدويل (i18n) مع Intlayer و React Native

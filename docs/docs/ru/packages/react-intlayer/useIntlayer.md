@@ -1,7 +1,4 @@
 ---
-docName: package__react-intlayer__useIntlayer
-url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Документация по хуку useIntlayer | react-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - useIntlayer
 ---
 
 # Интеграция с React: Документация по хуку `useIntlayer`

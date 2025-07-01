@@ -1,7 +1,4 @@
 ---
-docName: dictionary__get_started
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: القاموس | البدء
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
 # البدء في إعلان المحتوى الخاص بك

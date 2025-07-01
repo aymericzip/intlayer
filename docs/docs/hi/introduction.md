@@ -1,7 +1,4 @@
 ---
-docName: introduction
-url: https://intlayer.org/doc/get-started
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/introduction.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: परिचय
@@ -12,6 +9,9 @@ keywords:
   - Intlayer
   - एप्लिकेशन
   - पैकेज
+slugs:
+  - doc
+  - get-started
 ---
 
 # Intlayer प्रलेखन

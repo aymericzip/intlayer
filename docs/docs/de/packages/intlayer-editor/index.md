@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer-editor
-url: https://intlayer.org/doc/package/intlayer-editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer-editor/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: intlayer-editor - Visuelles Übersetzungseditor-Paket
@@ -15,6 +12,10 @@ keywords:
   - KI
   - NPM
   - schnittstelle
+slugs:
+  - doc
+  - package
+  - intlayer-editor
 ---
 
 # intlayer-editor: NPM-Paket zur Nutzung des Intlayer visuellen Editors

@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_editor
-url: https://intlayer.org/doc/package/@intlayer_editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/@intlayer/editor/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/editor - حزمة واجهة محرر Intlayer
@@ -15,6 +12,10 @@ keywords:
   - جافا سكريبت
   - أدوات
   - متعددة المنصات
+slugs:
+  - doc
+  - package
+  - @intlayer_editor
 ---
 
 # @intlayer/editor: حزمة NPM توفر أدوات لربط التطبيق بمحرر Intlayer والتعامل مع القواميس

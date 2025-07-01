@@ -1,7 +1,4 @@
 ---
-docName: package__express-intlayer__t
-url: https://intlayer.org/doc/packages/express-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/express-intlayer/t.md
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
 title: Documentazione della funzione t | express-intlayer
@@ -15,6 +12,11 @@ keywords:
   - Express
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - express-intlayer
+  - t
 ---
 
 # Documentazione: funzione `t` in `express-intlayer`

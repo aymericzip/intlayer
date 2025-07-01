@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer
-url: https://intlayer.org/doc/packages/intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 패키지 문서 | intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
 ---
 
 # intlayer: 다국어 사전(i18n) 관리를 위한 NPM 패키지

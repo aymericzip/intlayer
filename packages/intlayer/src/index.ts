@@ -36,6 +36,7 @@ export {
   getLocaleLang,
   getLocaleName,
   getLocalizedUrl,
+  getMarkdownMetadata,
   getMultilingualUrls,
   getNesting,
   getPathWithoutLocale,

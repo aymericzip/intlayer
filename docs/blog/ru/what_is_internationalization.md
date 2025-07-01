@@ -1,7 +1,4 @@
 ---
-docName: what_is_internationalization
-url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
 title: Что такое интернационализация (i18n)? Определение и представления
@@ -15,6 +12,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - what-is-internationalization
 ---
 
 # Что такое Интернационализация (i18n)? Определение и вызовы

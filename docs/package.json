@@ -52,26 +52,29 @@
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
     "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
+    "generate:types": "tsx tools/generateTypes.ts",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
-    "review": "tsx src/review.ts",
+    "review": "tsx tools/review.ts",
     "serve": "webpack serve --config ./webpack.config.ts",
     "test": "vitest run",
-    "test:markdown": "tsx src/markdownFormatting.ts",
+    "test:markdown": "tsx tools/markdownFormatting.ts",
     "test:watch": "vitest",
-    "translate": "tsx src/translate.ts",
+    "translate": "tsx tools/translate.ts",
     "transpile": "webpack --config ./webpack.config.ts",
     "typecheck": "tsup --project ./tsconfig.json --noEmit",
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@intlayer/cli": "workspace:*",
-    "@intlayer/config": "workspace:*"
+    "@intlayer/config": "workspace:*",
+    "intlayer": "workspace:*"
   },
   "devDependencies": {
+    "@intlayer/api": "workspace:*",
+    "@intlayer/cli": "workspace:*",
     "@types/node": "^22.15.30",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -79,7 +82,6 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.28.0",
     "fast-glob": "^3.3.3",
-    "intlayer": "workspace:*",
     "openai": "^4.89.0",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
@@ -90,6 +92,7 @@
     "vitest": "^3.2.2"
   },
   "peerDependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*"
   },

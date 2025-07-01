@@ -1,7 +1,4 @@
 ---
-docName: package__nuxt-intlayer
-url: https://intlayer.org/doc/packages/nuxt-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/nuxt-intlayer/index.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: Documentation du package | nuxt-intlayer
@@ -13,6 +10,10 @@ keywords:
   - Documentation
   - JavaScript
   - Nuxt
+slugs:
+  - doc
+  - packages
+  - nuxt-intlayer
 ---
 
 # nuxt-intlayer : Package NPM pour internationaliser (i18n) une application Vue

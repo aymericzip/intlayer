@@ -1,7 +1,4 @@
 ---
-docName: package__react-intlayer
-url: https://intlayer.org/doc/packages/react-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 包文档 | react-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
 ---
 
 # react-intlayer：用于国际化（i18n）React 应用的 NPM 包

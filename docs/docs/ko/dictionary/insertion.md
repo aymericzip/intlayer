@@ -1,7 +1,4 @@
 ---
-docName: dictionary__insertion
-url: https://intlayer.org/doc/concept/content/insertion
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: 삽입
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - insertion
 ---
 
 # 삽입 콘텐츠 / Intlayer에서의 삽입

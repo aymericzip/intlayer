@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer-editor
-url: https://intlayer.org/doc/package/intlayer-editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer-editor/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: intlayer-editor - حزمة محرر الترجمة المرئية
@@ -15,6 +12,10 @@ keywords:
   - ذكاء اصطناعي
   - NPM
   - واجهة
+slugs:
+  - doc
+  - package
+  - intlayer-editor
 ---
 
 # intlayer-editor: حزمة NPM لاستخدام محرر Intlayer المرئي

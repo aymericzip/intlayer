@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getHTMLTextDir
-url: https://intlayer.org/doc/packages/intlayer/getHTMLTextDir
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getHTMLTextDir.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getHTMLTextDir 함수 문서 | intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getHTMLTextDir
 ---
 
 # 문서: `intlayer`의 `getHTMLTextDir` 함수

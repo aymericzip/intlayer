@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_angular
-url: https://intlayer.org/doc/environment/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_angular.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Перевод вашего сайта на Angular (i18n)
@@ -12,6 +9,10 @@ keywords:
   - Intlayer
   - Angular
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - angular
 ---
 
 # Начало работы с интернационализацией (i18n) в Angular с использованием Intlayer

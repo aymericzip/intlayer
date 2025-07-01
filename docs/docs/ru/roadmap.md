@@ -1,7 +1,4 @@
 ---
-docName: roadmap
-url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-06-29
 title: Дорожная карта
@@ -13,6 +10,9 @@ keywords:
   - CMS
   - Система управления контентом
   - Визуальный редактор
+slugs:
+  - doc
+  - roadmap
 ---
 
 # Intlayer: Обзор функций и дорожная карта

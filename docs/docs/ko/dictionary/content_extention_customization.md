@@ -1,7 +1,4 @@
 ---
-docName: dictionary__content_extention_customization
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_extention_customization.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: 콘텐츠 확장자 사용자 정의
@@ -10,6 +7,10 @@ keywords:
   - 콘텐츠 확장자 사용자 정의
   - 문서
   - Intlayer
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
 # 콘텐츠 확장자 사용자 정의

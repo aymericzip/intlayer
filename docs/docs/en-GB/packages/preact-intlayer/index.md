@@ -1,7 +1,4 @@
 ---
-docName: package__preact-intlayer
-url: https://intlayer.org/doc/packages/preact-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/preact-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Package Documentation | preact-intlayer
@@ -13,6 +10,10 @@ keywords:
   - Documentation
   - JavaScript
   - Preact
+slugs:
+  - doc
+  - packages
+  - preact-intlayer
 ---
 
 # preact-intlayer: NPM Package to internationalise (i18n) a Preact application

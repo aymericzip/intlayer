@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getTranslation
-url: https://intlayer.org/doc/packages/intlayer/getTranslation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getTranslation 関数ドキュメント | intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getTranslation
 ---
 
 # ドキュメント: `intlayer` の `getTranslationContent` 関数

@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_config
-url: https://intlayer.org/doc/package/@intlayer_config
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/@intlayer/config/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/config - إدارة التهيئة لـ Intlayer
@@ -15,6 +12,10 @@ keywords:
   - جافا سكريبت
   - NPM
   - المتغيرات
+slugs:
+  - doc
+  - package
+  - @intlayer_config
 ---
 
 # @intlayer/config: حزمة NPM لاسترجاع تهيئة Intlayer

@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getMultilingualUrls
-url: https://intlayer.org/doc/packages/intlayer/getMultilingualUrls
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getMultilingualUrls.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentação da Função getMultilingualUrls | intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getMultilingualUrls
 ---
 
 # Documentação: Função `getMultilingualUrls` em `intlayer`

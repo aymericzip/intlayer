@@ -1,7 +1,4 @@
 ---
-docName: package__angular-intlayer
-url: https://intlayer.org/doc/packages/angular-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/angular-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: पैकेज दस्तावेज़ | angular-intlayer
@@ -13,6 +10,10 @@ keywords:
   - दस्तावेज़
   - जावास्क्रिप्ट
   - एंगुलर
+slugs:
+  - doc
+  - packages
+  - angular-intlayer
 ---
 
 # angular-intlayer: एक Angular एप्लिकेशन को अंतरराष्ट्रीयकृत (i18n) करने के लिए NPM पैकेज

@@ -1,7 +1,4 @@
 ---
-docName: terms_of_service
-url: https://intlayer.org/terms-of-service
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/legal/ar/terms_of_service.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: شروط خدمة Intlayer
@@ -19,6 +16,8 @@ keywords:
   - المساهمات
   - النسبة
   - تعديل الشروط
+slugs:
+  - terms-of-service
 ---
 
 # شروط استخدام Intlayer

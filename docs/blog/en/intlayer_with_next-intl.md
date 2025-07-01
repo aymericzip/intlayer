@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_next-intl
-url: https://intlayer.org/blog/intlayer-with-next-intl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-intl.md
 createdAt: 2025-01-02
 updatedAt: 2025-06-29
 title: Intlayer and next-intl
@@ -14,6 +11,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - intlayer-with-next-intl
 ---
 
 # Next.js Internationalization (i18n) with next-intl and Intlayer

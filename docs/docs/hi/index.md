@@ -1,7 +1,4 @@
 ---
-docName: index
-url: https://intlayer.org/doc/index
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: Intlayer दस्तावेज़ीकरण - जावास्क्रिप्ट के लिए पूर्ण i18n गाइड
@@ -16,6 +13,9 @@ keywords:
   - दस्तावेज़ीकरण
   - अनुवाद
   - बहुभाषी
+slugs:
+  - doc
+  - index
 ---
 
 # Intlayer दस्तावेज़ीकरण

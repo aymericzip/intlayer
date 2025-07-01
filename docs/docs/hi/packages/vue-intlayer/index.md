@@ -1,7 +1,4 @@
 ---
-docName: package__vue-intlayer
-url: https://intlayer.org/doc/packages/vue-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vue-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: पैकेज दस्तावेज़ीकरण | vue-intlayer
@@ -13,6 +10,10 @@ keywords:
   - दस्तावेज़ीकरण
   - जावास्क्रिप्ट
   - Vue
+slugs:
+  - doc
+  - packages
+  - vue-intlayer
 ---
 
 # vue-intlayer: एक Vue एप्लिकेशन को अंतर्राष्ट्रीयकृत (i18n) करने के लिए NPM पैकेज

@@ -1,7 +1,4 @@
 ---
-docName: dictionary__translation
-url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: الترجمة
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - translation
 ---
 
 # الترجمة

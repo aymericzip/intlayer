@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_svelte
-url: https://intlayer.org/doc/environment/vite-and-svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+svelte.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Traduce tu sitio web con Vite y Svelte (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Svelte
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - vite-and-svelte
 ---
 
 # Comenzando con la internacionalización (i18n) usando Intlayer, Vite y Svelte

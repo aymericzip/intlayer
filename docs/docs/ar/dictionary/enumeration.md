@@ -1,7 +1,4 @@
 ---
-docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/ar/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: التعداد
@@ -14,6 +11,12 @@ keywords:
   - Next.js
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - ar
+  - enumeration
 ---
 
 # التعداد / الجمع

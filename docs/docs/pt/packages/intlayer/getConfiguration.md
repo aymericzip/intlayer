@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getConfiguration
-url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentação da Função getConfiguration | intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getConfiguration
 ---
 
 # Documentação: Função `getConfiguration` em `intlayer`

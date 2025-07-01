@@ -1,7 +1,4 @@
 ---
-docName: package__angular-intlayer
-url: https://intlayer.org/doc/packages/angular-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/angular-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: 패키지 문서 | angular-intlayer
@@ -13,6 +10,10 @@ keywords:
   - 문서
   - 자바스크립트
   - 앵귤러
+slugs:
+  - doc
+  - packages
+  - angular-intlayer
 ---
 
 # angular-intlayer: 앵귤러 애플리케이션 국제화(i18n)를 위한 NPM 패키지

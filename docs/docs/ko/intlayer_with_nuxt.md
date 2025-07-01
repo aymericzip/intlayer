@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nuxt
-url: https://intlayer.org/doc/environment/nuxt-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: Nuxt 및 Vue 웹사이트 번역하기 (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Nuxt
   - Vue
   - 자바스크립트
+slugs:
+  - doc
+  - environment
+  - nuxt-and-vue
 ---
 
 # Intlayer와 Nuxt로 국제화(i18n) 시작하기

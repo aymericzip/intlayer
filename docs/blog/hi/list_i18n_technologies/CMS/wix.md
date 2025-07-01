@@ -1,7 +1,4 @@
 ---
-docName: list_i18n_technologies__CMS__wix
-url: https://intlayer.org/blog/i18n-technologies/CMS/wix
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wix.md
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
 title: Wix के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण
@@ -14,6 +11,11 @@ keywords:
   - अंतर्राष्ट्रीयकरण
   - ब्लॉग
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - CMS
+  - wix
 ---
 
 # Wix वेबसाइट के लिए i18n समाधान का अन्वेषण

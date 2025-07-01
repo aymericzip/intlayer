@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_core
-url: https://intlayer.org/doc/package/@intlayer_core
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/@intlayer/core/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/core - Fonctions principales pour l'i18n Intlayer
@@ -15,6 +12,10 @@ keywords:
   - i18n
   - JavaScript
   - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_core
 ---
 
 # @intlayer/core : Package NPM contenant les fonctions principales d'Intlayer

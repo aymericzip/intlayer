@@ -1,7 +1,4 @@
 ---
-docName: package__react-intlayer__useDictionary
-url: https://intlayer.org/doc/package/react-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useDictionary.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: useDictionary フック - React Intlayer ドキュメント
@@ -15,6 +12,11 @@ keywords:
   - i18n
   - 辞書
   - 翻訳
+slugs:
+  - doc
+  - package
+  - react-intlayer
+  - useDictionary
 ---
 
 # React統合: `useDictionary` フック ドキュメント

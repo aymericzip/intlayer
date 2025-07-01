@@ -1,7 +1,4 @@
 ---
-docName: privacy_notice
-url: https://intlayer.org/privacy-notice
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/legal/zh/privacy_notice.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Intlayer 隐私声明
@@ -19,6 +16,8 @@ keywords:
   - Meta（Facebook）Pixel
   - 认证
   - 用户数据
+slugs:
+  - privacy-notice
 ---
 
 # Intlayer 隐私声明

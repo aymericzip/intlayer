@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nuxt
-url: https://intlayer.org/doc/environment/nuxt-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: अपने Nuxt और Vue वेबसाइट का अनुवाद करें (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Nuxt
   - Vue
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - nuxt-and-vue
 ---
 
 # Intlayer और Nuxt के साथ अंतरराष्ट्रीयकरण (i18n) शुरू करना

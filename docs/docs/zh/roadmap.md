@@ -1,7 +1,4 @@
 ---
-docName: roadmap
-url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-06-29
 title: 路线图
@@ -13,6 +10,9 @@ keywords:
   - CMS
   - 内容管理系统
   - 可视化编辑器
+slugs:
+  - doc
+  - roadmap
 ---
 
 # Intlayer：功能概览与路线图

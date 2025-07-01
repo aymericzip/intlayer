@@ -1,7 +1,4 @@
 ---
-docName: roadmap
-url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-06-29
 title: Feuille de route
@@ -13,6 +10,9 @@ keywords:
   - CMS
   - Système de gestion de contenu
   - Éditeur visuel
+slugs:
+  - doc
+  - roadmap
 ---
 
 # Intlayer : Aperçu des fonctionnalités & Feuille de route

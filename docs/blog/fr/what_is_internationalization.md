@@ -1,7 +1,4 @@
 ---
-docName: what_is_internationalization
-url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
 title: Qu'est-ce que l'internationalisation (i18n) ? Définition et défis
@@ -15,6 +12,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - what-is-internationalization
 ---
 
 # Qu'est-ce que l'internationalisation (i18n) ? Définition et défis

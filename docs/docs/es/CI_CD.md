@@ -1,7 +1,4 @@
 ---
-docName: ci_cd
-url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
 title: Integración CI/CD
@@ -14,6 +11,10 @@ keywords:
   - Internacionalización
   - Documentación
   - Intlayer
+slugs:
+  - doc
+  - concept
+  - ci-cd
 ---
 
 # Generación Automática de Traducciones en un Pipeline CI/CD

@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_vue
-url: https://intlayer.org/doc/environment/vite-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Translate your Vite and Vue website (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Vue
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - vite-and-vue
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and Vue

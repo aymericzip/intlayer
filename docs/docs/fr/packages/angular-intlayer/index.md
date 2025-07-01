@@ -1,7 +1,4 @@
 ---
-docName: package__angular-intlayer
-url: https://intlayer.org/doc/packages/angular-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/angular-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Documentation du package | angular-intlayer
@@ -13,6 +10,10 @@ keywords:
   - Documentation
   - JavaScript
   - Angular
+slugs:
+  - doc
+  - packages
+  - angular-intlayer
 ---
 
 # angular-intlayer : Package NPM pour internationaliser (i18n) une application Angular

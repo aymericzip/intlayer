@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_vue
-url: https://intlayer.org/doc/environment/vite-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Vite와 Vue 웹사이트 번역하기 (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Vue
   - 자바스크립트
+slugs:
+  - doc
+  - environment
+  - vite-and-vue
 ---
 
 # Intlayer와 Vite, Vue로 국제화(i18n) 시작하기

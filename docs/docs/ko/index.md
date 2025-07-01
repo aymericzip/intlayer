@@ -1,7 +1,4 @@
 ---
-docName: index
-url: https://intlayer.org/doc/index
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: Intlayer 문서 - JavaScript를 위한 완벽한 i18n 가이드
@@ -16,6 +13,9 @@ keywords:
   - 문서
   - 번역
   - 다국어
+slugs:
+  - doc
+  - index
 ---
 
 # Intlayer 문서

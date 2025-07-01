@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_cli
-url: https://intlayer.org/doc/package/@intlayer_cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/@intlayer/cli/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/cli - Intlayer के लिए कमांड लाइन इंटरफेस पैकेज
@@ -15,6 +12,10 @@ keywords:
   - जावास्क्रिप्ट
   - NPM
   - उपकरण
+slugs:
+  - doc
+  - package
+  - @intlayer_cli
 ---
 
 # @intlayer/cli: intlayer CLI द्वारा प्रदान किए गए स्क्रिप्ट्स का उपयोग करने के लिए NPM पैकेज

@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nextjs_14
-url: https://intlayer.org/doc/environment/nextjs/14
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
 title: Next.js 14 और App Router के वेबसाइट को अनुवाद करें (i18n)
@@ -13,6 +10,11 @@ keywords:
   - Next.js 14
   - जावास्क्रिप्ट
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
+  - 14
 ---
 
 # Intlayer और Next.js 14 के साथ अंतर्राष्ट्रीयकरण (i18n) शुरू करना

@@ -1,34 +1,116 @@
-import { urlMapper } from '@/Routes';
-import { Locales } from 'intlayer';
-import { locales } from '../../intlayer.config';
+import { DocMetadata } from '@intlayer/docs';
+import { getIntlayer, getLocalizedUrl, Locales } from 'intlayer';
+import { defaultLocale, locales } from '../../intlayer.config';
 
-const getDocLocale = (url: string, locale: Locales): string =>
-  url.replace('/en/', `/${locale}/`);
+/**
+ * Escapes special characters in a string for use in a regular expression.
+ * @param string - The string to escape.
+ * @returns The escaped string.
+ */
+const escapeRegExp = (string: string): string =>
+  string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 
-const urlRenamerMultiLocale: Record<string, string> = locales.reduce(
-  (acc, locale) =>
-    Object.entries(urlMapper).reduce((acc, [githubRoute, pagesRoute]) => {
-      const githubUrl = getDocLocale(githubRoute, locale);
+/**
+ * Remove the domain (protocol + host) part of a URL, returning only its pathname.
+ * If the provided string is already a relative path, it is returned unchanged.
+ */
+const stripDomain = (url: string): string =>
+  url.replace(/^https?:\/\/[^/]+/, '');
 
-      if (locale === Locales.ENGLISH) {
-        acc[githubUrl] = pagesRoute;
-      } else {
-        acc[githubUrl] = `/${locale}${pagesRoute}`;
-      }
-      return acc;
-    }, acc),
+/**
+ * This map converts *any* URL (GitHub or in-site) that targets a **non default**
+ * locale to the equivalent default-locale route (usually English).
+ * The same mapping is stored twice, once with the full absolute URL and once
+ * without the domain so that links written as absolute or relative both match.
+ */
+const toDefaultLocaleUrlRenamer: Record<string, string> = locales.reduce(
+  (acc, locale) => {
+    const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
+    const blogMetadata = getIntlayer('blog-metadata', locale) as DocMetadata[];
+
+    const aggregate = (data: DocMetadata[]) => {
+      data.forEach((meta) => {
+        const expectedPath = getLocalizedUrl(meta.relativeUrl, defaultLocale);
+
+        // 1. GitHub URLs ------------------------------------------------------------------
+        const githubDefault = meta.githubUrl;
+        const githubEnglish = githubDefault.replace(
+          `/${locale}/`,
+          `/${defaultLocale}/`
+        );
+
+        // Add both domain and domain-less variants
+        [githubDefault, githubEnglish].forEach((url) => {
+          acc[url] = expectedPath;
+          acc[stripDomain(url)] = expectedPath;
+        });
+
+        // 2. In-site localized URLs -------------------------------------------------------
+        const localizedDomain = getLocalizedUrl(meta.url, locale); // contains domain
+        const localizedPath = getLocalizedUrl(meta.relativeUrl, locale); // path only
+
+        [localizedDomain, localizedPath].forEach((url) => {
+          acc[url] = expectedPath;
+        });
+      });
+    };
+
+    aggregate(docMetadata);
+    aggregate(blogMetadata);
+
+    return acc;
+  },
   {} as Record<string, string>
 );
 
 /**
- * Escapes special characters in a string for use in a regular expression.
- *
- * @param string - The string to escape.
- * @returns The escaped string.
+ * For *each* locale we keep its own map that converts a default-locale route
+ * to the equivalent localized route. As with the default map, each key is
+ * stored in both absolute and relative variants so that any authoring style is
+ * supported.
  */
-const escapeRegExp = (string: string): string => {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-};
+const toFinalLocaleUrlRenamerByLocale: Record<
+  Locales,
+  Record<string, string>
+> = locales.reduce(
+  (outerAcc, locale) => {
+    const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
+    const blogMetadata = getIntlayer('blog-metadata', locale) as DocMetadata[];
+
+    const innerAcc: Record<string, string> = {};
+
+    const aggregate = (data: DocMetadata[]) => {
+      data.forEach((meta) => {
+        const defaultDomain = getLocalizedUrl(meta.url, defaultLocale);
+        const defaultPath = getLocalizedUrl(meta.relativeUrl, defaultLocale);
+
+        const localizedPath = getLocalizedUrl(meta.relativeUrl, locale);
+
+        [defaultDomain, defaultPath].forEach((key) => {
+          innerAcc[key] = localizedPath;
+        });
+      });
+    };
+
+    aggregate(docMetadata);
+    aggregate(blogMetadata);
+
+    outerAcc[locale] = innerAcc;
+    return outerAcc;
+  },
+  {} as Record<Locales, Record<string, string>>
+);
+
+// Because every locale shares the same *keys* (default-locale URLs), we can
+// build a single regular expression out of any of the locale maps. The choice
+// of the first one is arbitrary.
+const finalUrlPattern = new RegExp(
+  Object.keys(toFinalLocaleUrlRenamerByLocale[defaultLocale])
+    .sort((a, b) => b.length - a.length)
+    .map(escapeRegExp)
+    .join('|'),
+  'g'
+);
 
 /**
  * Replaces URLs in the input text that match the application's domain
@@ -64,26 +146,41 @@ const removeURLDomain = (text: string): string => {
   });
 };
 
+// Pre-compute regex pattern for the default-locale replacements as well.
+const defaultUrlPattern = new RegExp(
+  Object.keys(toDefaultLocaleUrlRenamer)
+    .sort((a, b) => b.length - a.length)
+    .map(escapeRegExp)
+    .join('|'),
+  'g'
+);
+
 /**
- * Replaces GitHub URLs in the content with corresponding PagesRoutes.
+ * Replaces GitHub or localized URLs in the provided content with their target
+ * pages routes. The replacements are performed in a single pass thanks to
+ * pre-computed regular expressions for optimal performance.
  *
- * @param content - The input string content containing GitHub URLs.
- * @returns The updated content with URLs replaced.
+ * @param content - Raw markdown or HTML content.
+ * @returns Content with URLs rewritten to the correct locale-aware routes
+ *          and stripped of the base domain.
  */
-export const urlRenamer = (content: string): string => {
-  let updatedContent = content ?? '';
+export const urlRenamer = (content: string, locale: Locales): string => {
+  if (!content) return '';
 
-  // Sort the entries by URL length in descending order to prevent partial replacements
-  const sortedEntries = Object.entries(urlRenamerMultiLocale);
-
-  sortedEntries.forEach(([githubUrl, pagesRoute]) => {
-    const regex = new RegExp(escapeRegExp(githubUrl), 'g');
-
-    updatedContent = updatedContent.replace(regex, pagesRoute);
+  // First: convert any localized URLs (or GitHub links) to their default-locale
+  // counterpart so that we have a consistent baseline.
+  let rewritten = content.replace(defaultUrlPattern, (match) => {
+    return toDefaultLocaleUrlRenamer[match] ?? match;
   });
 
-  // Remove the base domain from URLs
-  updatedContent = removeURLDomain(updatedContent);
+  // Second: if the requested locale is **not** the default one, convert the
+  // default-locale links to their localized equivalent.
+  if (locale !== defaultLocale) {
+    const renamer = toFinalLocaleUrlRenamerByLocale[locale] ?? {};
+    rewritten = rewritten.replace(finalUrlPattern, (match) => {
+      return renamer[match] ?? match;
+    });
+  }
 
-  return updatedContent;
+  return removeURLDomain(rewritten);
 };

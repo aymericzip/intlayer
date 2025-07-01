@@ -1,7 +1,4 @@
 ---
-docName: package__react-native-intlayer
-url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: 包文档 | react-native-intlayer
@@ -15,6 +12,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-native-intlayer
 ---
 
 # react-native-intlayer：为 React Native 应用程序实现国际化（i18n）

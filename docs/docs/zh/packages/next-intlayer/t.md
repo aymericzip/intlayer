@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__t
-url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: t 函数文档 | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - t
 ---
 
 # 文档：`next-intlayer` 中的 `t` 函数

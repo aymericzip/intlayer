@@ -1,7 +1,4 @@
 ---
-docName: dictionary__file
-url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: ملف
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - file
 ---
 
 # محتوى الملف / تضمين الملفات في Intlayer

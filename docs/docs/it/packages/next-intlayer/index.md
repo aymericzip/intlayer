@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer
-url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentazione del pacchetto | next-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
 ---
 
 # next-intlayer: Pacchetto NPM per internazionalizzare (i18n) un'applicazione Next.js

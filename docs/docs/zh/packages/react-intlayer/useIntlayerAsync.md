@@ -1,7 +1,4 @@
 ---
-docName: package__react-intlayer__useIntlayerAsync
-url: https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: useIntlayerAsync 钩子文档 | react-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - useIntlayerAsync
 ---
 
 # React 集成：`useIntlayerAsync` 钩子文档

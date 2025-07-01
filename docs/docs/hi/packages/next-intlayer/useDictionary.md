@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__useDictionary
-url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: useDictionary हुक दस्तावेज़ | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - जावास्क्रिप्ट
   - रिएक्ट
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useDictionary
 ---
 
 # रिएक्ट एकीकरण: `useDictionary` हुक दस्तावेज़

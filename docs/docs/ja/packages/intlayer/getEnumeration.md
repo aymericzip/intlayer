@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getEnumeration
-url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getEnumeration 関数ドキュメント | intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getEnumeration
 ---
 
 # ドキュメント: `intlayer` の `getEnumeration` 関数

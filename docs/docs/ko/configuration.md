@@ -1,7 +1,4 @@
 ---
-docName: configuration
-url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md
 createdAt: 2024-08-13
 updatedAt: 2025-06-29
 title: 구성
@@ -12,6 +9,10 @@ keywords:
   - 사용자화
   - Intlayer
   - 옵션
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Intlayer 구성 문서

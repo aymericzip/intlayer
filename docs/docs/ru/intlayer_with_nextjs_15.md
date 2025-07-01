@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nextjs_15
-url: https://intlayer.org/doc/environment/nextjs
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_15.md
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
 title: Перевод вашего сайта на Next.js 15 (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Next.js 15
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
 ---
 
 # Начало работы с интернационализацией (i18n) с Intlayer и Next.js 15 App Router

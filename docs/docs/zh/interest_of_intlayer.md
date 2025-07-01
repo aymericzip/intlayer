@@ -1,7 +1,4 @@
 ---
-docName: interest_of_intlayer
-url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2025-06-29
 title: Intlayer 的优势
@@ -12,6 +9,10 @@ keywords:
   - Intlayer
   - 框架
   - 比较
+slugs:
+  - doc
+  - concept
+  - interest
 ---
 
 # Intlayer：为您的网站量身定制的翻译方式

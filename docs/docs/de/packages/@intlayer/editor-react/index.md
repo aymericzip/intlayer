@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_editor-react
-url: https://intlayer.org/doc/package/@intlayer_editor-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/@intlayer/editor-react/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/editor-react - React-Komponenten für den Intlayer Editor
@@ -15,6 +12,10 @@ keywords:
   - i18n
   - JavaScript
   - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_editor-react
 ---
 
 # @intlayer/editor-react: NPM-Paket, das React-States, Contexts, Hooks und Komponenten zur Interaktion mit dem Intlayer Editor bereitstellt

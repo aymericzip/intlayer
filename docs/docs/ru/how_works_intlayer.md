@@ -1,7 +1,4 @@
 ---
-docName: how_works_intlayer
-url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2025-06-29
 title: Как работает Intlayer
@@ -12,6 +9,10 @@ keywords:
   - Архитектура
   - Компоненты
   - Внутренние процессы
+slugs:
+  - doc
+  - concept
+  - how-works-intlayer
 ---
 
 # Как работает Intlayer

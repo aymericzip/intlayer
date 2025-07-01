@@ -1,7 +1,4 @@
 ---
-docName: configuration
-url: https://intlayer.org/fr/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md
 createdAt: 2024-08-13
 updatedAt: 2025-06-29
 title: Configuration
@@ -12,6 +9,10 @@ keywords:
   - Personnalisation
   - Intlayer
   - Options
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Documentation de Configuration d'Intlayer

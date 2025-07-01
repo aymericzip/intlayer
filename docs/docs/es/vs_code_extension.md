@@ -1,7 +1,4 @@
 ---
-docName: vscode_extension
-url: https://intlayer.org/doc/vs-code-extension
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md
 createdAt: 2025-03-17
 updatedAt: 2025-06-29
 title: Extensión Oficial de VS Code
@@ -15,6 +12,9 @@ keywords:
   - Next.js
   - JavaScript
   - TypeScript
+slugs:
+  - doc
+  - vs-code-extension
 ---
 
 # Extensión Oficial de VS Code

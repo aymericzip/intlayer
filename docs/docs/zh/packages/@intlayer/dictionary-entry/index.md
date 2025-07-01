@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_dictionary-entry
-url: https://intlayer.org/doc/package/@intlayer_dictionary-entry
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/@intlayer/dictionary-entry/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/dictionary-entry - Intlayer 的词典管理
@@ -15,6 +12,10 @@ keywords:
   - i18n
   - JavaScript
   - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_dictionary-entry
 ---
 
 # @intlayer/dictionary-entry：用于获取 Intlayer 词典的 NPM 包

@@ -1,7 +1,4 @@
 ---
-docName: packages__intlayer__api
-url: https://intlayer.org/doc/packages/intlayer/api
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/@intlayer/api/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/api - Intlayer API 集成的 SDK
@@ -15,6 +12,11 @@ keywords:
   - 组织
   - 项目
   - JavaScript
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - api
 ---
 
 # @intlayer/api：与 Intlayer API 交互的 NPM 包

@@ -1,7 +1,4 @@
 ---
-docName: package__svelte-intlayer
-url: https://intlayer.org/doc/packages/svelte-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: 包文档 | svelte-intlayer
@@ -13,6 +10,10 @@ keywords:
   - 文档
   - JavaScript
   - Svelte
+slugs:
+  - doc
+  - packages
+  - svelte-intlayer
 ---
 
 # svelte-intlayer：用于国际化（i18n）Solid 应用的 NPM 包

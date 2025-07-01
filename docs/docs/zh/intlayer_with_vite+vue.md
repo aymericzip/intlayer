@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_vue
-url: https://intlayer.org/doc/environment/vite-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vue.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: 翻译您的 Vite 和 Vue 网站（国际化）
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Vue
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - vite-and-vue
 ---
 
 # 使用 Intlayer 和 Vite 及 Vue 开始国际化（i18n）

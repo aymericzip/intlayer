@@ -1,7 +1,4 @@
 ---
-docName: package__solid-intlayer
-url: https://intlayer.org/doc/packages/solid-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Документация пакета | solid-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - solid-intlayer
 ---
 
 # solid-intlayer: NPM-пакет для интернационализации (i18n) приложения на Solid

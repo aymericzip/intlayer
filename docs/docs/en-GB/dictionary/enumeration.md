@@ -1,7 +1,4 @@
 ---
-docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/enumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Enumeration
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - enumeration
 ---
 
 # Enumeration / Pluralisation

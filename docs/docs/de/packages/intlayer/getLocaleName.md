@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getLocaleName
-url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: getLocaleName Funktionsdokumentation | intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleName
 ---
 
 # Dokumentation: `getLocaleName` Funktion in `intlayer`

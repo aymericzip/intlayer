@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer-editor
-url: https://intlayer.org/doc/package/intlayer-editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer-editor/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: intlayer-editor - 可视化翻译编辑器包
@@ -15,6 +12,10 @@ keywords:
   - AI
   - NPM
   - 界面
+slugs:
+  - doc
+  - package
+  - intlayer-editor
 ---
 
 # intlayer-editor：用于使用 Intlayer 可视化编辑器的 NPM 包

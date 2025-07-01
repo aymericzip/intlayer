@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__useIntlayer
-url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: توثيق هوك useIntlayer | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - جافاسكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useIntlayer
 ---
 
 # تكامل Next.js: توثيق هوك `useIntlayer`

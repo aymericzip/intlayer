@@ -1,7 +1,4 @@
 ---
-docName: autoFill
-url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: 自動入力
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - auto-fill
 ---
 
 # 自動入力コンテンツ宣言ファイルの翻訳

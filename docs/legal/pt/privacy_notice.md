@@ -1,7 +1,4 @@
 ---
-docName: privacy_notice
-url: https://intlayer.org/pt/privacy-notice
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/legal/pt/privacy_notice.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Aviso de Privacidade do Intlayer
@@ -19,6 +16,8 @@ keywords:
   - Meta (Facebook) Pixel
   - Autenticação
   - Dados do Usuário
+slugs:
+  - privacy-notice
 ---
 
 # Aviso de Privacidade do Intlayer

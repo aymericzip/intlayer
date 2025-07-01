@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_webpack
-url: https://intlayer.org/doc/package/@intlayer_webpack
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/@intlayer/webpack/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/webpack - Plugin Webpack para Intlayer i18n
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - NPM
   - bundler
+slugs:
+  - doc
+  - package
+  - @intlayer_webpack
 ---
 
 # @intlayer/webpack: Pacote NPM para usar o Plugin Webpack do Intlayer na sua aplicação

@@ -1,7 +1,4 @@
 ---
-docName: interest_of_intlayer
-url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2025-06-29
 title: Intlayer का महत्व
@@ -12,6 +9,10 @@ keywords:
   - Intlayer
   - फ्रेमवर्क
   - तुलना
+slugs:
+  - doc
+  - concept
+  - interest
 ---
 
 # Intlayer: आपकी वेबसाइट का अनुवाद करने का एक अनुकूलित तरीका

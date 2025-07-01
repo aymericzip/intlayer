@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_react_native_and_expo
-url: https://intlayer.org/doc/environment/react-native-and-expo
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_react_native+expo.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: Übersetzen Sie Ihre React Native und Expo Website (i18n)
@@ -13,6 +10,10 @@ keywords:
   - React Native
   - Expo
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - react-native-and-expo
 ---
 
 # Erste Schritte zur Internationalisierung (i18n) mit Intlayer und React Native

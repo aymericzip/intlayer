@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getLocaleName
-url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: توثيق دالة getLocaleName | intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - جافاسكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleName
 ---
 
 # التوثيق: دالة `getLocaleName` في `intlayer`

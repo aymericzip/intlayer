@@ -1,7 +1,4 @@
 ---
-docName: package__lynx-intlayer
-url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: 패키지 문서 | lynx-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - lynx-intlayer
 ---
 
 # lynx-intlayer: Lynx 애플리케이션 국제화(i18n)

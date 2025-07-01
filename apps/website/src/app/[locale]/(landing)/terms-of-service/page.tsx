@@ -8,7 +8,7 @@ export { generateMetadata };
 
 const Page: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
-  const file = await getLegal('privacy_notice', locale);
+  const file = await getLegal('./legal/en/terms_of_service.md', locale);
 
   return (
     <IntlayerServerProvider locale={locale}>

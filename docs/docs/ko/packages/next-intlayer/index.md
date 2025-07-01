@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer
-url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 패키지 문서 | next-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
 ---
 
 # next-intlayer: Next.js 애플리케이션 국제화(i18n)를 위한 NPM 패키지

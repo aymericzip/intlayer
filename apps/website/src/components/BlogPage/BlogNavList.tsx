@@ -55,7 +55,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         return (
           <div key={key1}>
             <OptionalLink
-              href={sectionDefault?.url ?? ''}
+              href={sectionDefault?.relativeUrl ?? ''}
               className={cn([
                 'text-neutral hover:text-text h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors',
               ])}
@@ -83,7 +83,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           header={
                             <OptionalLink
                               label={key2}
-                              href={sectionDefault?.url ?? ''}
+                              href={sectionDefault?.relativeUrl ?? ''}
                               className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap pl-2 text-left text-sm transition-colors"
                               isActive={isActive}
                             >
@@ -117,7 +117,9 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                         header={
                                           <OptionalLink
                                             label={key3}
-                                            href={sectionDefault?.url ?? ''}
+                                            href={
+                                              sectionDefault?.relativeUrl ?? ''
+                                            }
                                             className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap pl-2 text-left text-xs transition-colors"
                                             isActive={isActive}
                                           >
@@ -154,7 +156,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                                         label={key4}
                                                         href={
                                                           section4Data.default
-                                                            ?.url ?? ''
+                                                            ?.relativeUrl ?? ''
                                                         }
                                                         className="text-neutral hover:text-text block w-full text-nowrap p-2 text-left text-xs transition-colors"
                                                         isActive={isActive}
@@ -172,7 +174,10 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                       <OptionalLink
                                         key={key3}
                                         label={key3}
-                                        href={section3Data.default?.url ?? ''}
+                                        href={
+                                          section3Data.default?.relativeUrl ??
+                                          ''
+                                        }
                                         className="text-neutral hover:text-text block w-full text-nowrap p-2 text-left text-xs transition-colors"
                                         isActive={isActive}
                                       >
@@ -186,7 +191,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                         </Accordion>
                       ) : (
                         <OptionalLink
-                          href={sectionDefault?.url ?? ''}
+                          href={sectionDefault?.relativeUrl ?? ''}
                           className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors"
                           label={key2}
                           isActive={isActive}

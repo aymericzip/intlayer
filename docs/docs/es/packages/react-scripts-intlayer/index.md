@@ -1,7 +1,4 @@
 ---
-docName: package__react-scripts-intlayer
-url: https://intlayer.org/doc/packages/react-scripts-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-scripts-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentación del Paquete | react-scripts-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-scripts-intlayer
 ---
 
 # react-scripts-intlayer: Paquete NPM para usar Intlayer en una aplicación React Create App

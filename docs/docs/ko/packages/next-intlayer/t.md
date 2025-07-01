@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__t
-url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: t 함수 문서 | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - 자바스크립트
   - 리액트
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - t
 ---
 
 # 문서: `next-intlayer`의 `t` 함수

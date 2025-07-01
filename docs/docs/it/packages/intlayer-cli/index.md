@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer-cli
-url: https://intlayer.org/doc/package/intlayer-cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer-cli/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: intlayer-cli - Strumento da Linea di Comando per l'Internazionalizzazione
@@ -15,6 +12,10 @@ keywords:
   - strumenti
   - NPM
   - automazione
+slugs:
+  - doc
+  - package
+  - intlayer-cli
 ---
 
 # intlayer-cli: Pacchetto NPM per usare la CLI di Intlayer

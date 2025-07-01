@@ -1,7 +1,4 @@
 ---
-docName: package__react-native-intlayer
-url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: पैकेज दस्तावेज़ीकरण | react-native-intlayer
@@ -15,6 +12,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-native-intlayer
 ---
 
 # react-native-intlayer: एक React Native एप्लिकेशन का अंतरराष्ट्रीयकरण (i18n)

@@ -1,7 +1,4 @@
 ---
-docName: introduction
-url: https://intlayer.org/doc/get-started
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/introduction.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 소개
@@ -12,6 +9,9 @@ keywords:
   - Intlayer
   - 애플리케이션
   - 패키지
+slugs:
+  - doc
+  - get-started
 ---
 
 # Intlayer 문서

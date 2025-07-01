@@ -1,7 +1,4 @@
 ---
-docName: dictionary__content_extention_customization
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_extention_customization.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: 内容扩展自定义
@@ -10,6 +7,10 @@ keywords:
   - 内容扩展自定义
   - 文档
   - Intlayer
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
 # 内容扩展自定义

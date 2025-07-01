@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_react_native_and_expo
-url: https://intlayer.org/doc/environment/react-native-and-expo
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md
 createdAt: 2025-03-07
 updatedAt: 2025-06-29
 title: ترجمة تطبيق React Native و Expo المحمول الخاص بك (i18n)
@@ -14,6 +11,10 @@ keywords:
   - React
   - React Native
   - جافا سكريبت
+slugs:
+  - doc
+  - environment
+  - react-native-and-expo
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Vite و React

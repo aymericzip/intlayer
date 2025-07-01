@@ -1,7 +1,4 @@
 ---
-docName: dictionary__insertion
-url: https://intlayer.org/doc/concept/content/insertion
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: सम्मिलन
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - insertion
 ---
 
 # सम्मिलन कंटेंट / Intlayer में सम्मिलन

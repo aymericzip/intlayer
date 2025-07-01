@@ -1,7 +1,4 @@
 ---
-docName: dictionary__get_started
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 辞書 | はじめに
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
 # コンテンツの宣言を始める

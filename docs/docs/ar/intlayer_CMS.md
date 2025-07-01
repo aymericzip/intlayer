@@ -1,7 +1,4 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: نظام إدارة المحتوى Intlayer | استخرج محتواك إلى نظام إدارة المحتوى Intlayer
@@ -15,6 +12,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
 ---
 
 # توثيق نظام إدارة المحتوى (CMS) الخاص بـ Intlayer

@@ -1,7 +1,4 @@
 ---
-docName: autoFill
-url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/autoFill.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: Preenchimento Automático
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - auto-fill
 ---
 
 # Traduções de Arquivos de Declaração de Conteúdo com Preenchimento Automático

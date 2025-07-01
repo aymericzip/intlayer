@@ -1,7 +1,4 @@
 ---
-docName: package__vue-intlayer
-url: https://intlayer.org/doc/packages/vue-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vue-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Документация пакета | vue-intlayer
@@ -13,6 +10,10 @@ keywords:
   - Документация
   - JavaScript
   - Vue
+slugs:
+  - doc
+  - packages
+  - vue-intlayer
 ---
 
 # vue-intlayer: NPM-пакет для интернационализации (i18n) приложения на Vue

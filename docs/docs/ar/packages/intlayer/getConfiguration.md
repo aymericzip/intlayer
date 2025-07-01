@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer__getConfiguration
-url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: توثيق دالة getConfiguration | intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - جافاسكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getConfiguration
 ---
 
 # التوثيق: دالة `getConfiguration` في `intlayer`

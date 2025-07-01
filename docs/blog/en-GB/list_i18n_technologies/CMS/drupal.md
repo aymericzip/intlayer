@@ -1,7 +1,4 @@
 ---
-docName: list_i18n_technologies__CMS__drupal
-url: https://intlayer.org/blog/i18n-technologies/CMS/drupal
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/drupal.md
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
 title: Best Internationalization (i18n) Tools for Drupal
@@ -14,6 +11,11 @@ keywords:
   - Internationalisation
   - Blog
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - CMS
+  - drupal
 ---
 
 # Exploring i18n Solutions to Translate Your Drupal Site

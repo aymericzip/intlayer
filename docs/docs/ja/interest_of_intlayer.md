@@ -1,7 +1,4 @@
 ---
-docName: interest_of_intlayer
-url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2025-06-29
 title: Intlayerの利点
@@ -12,6 +9,10 @@ keywords:
   - Intlayer
   - フレームワーク
   - 比較
+slugs:
+  - doc
+  - concept
+  - interest
 ---
 
 # Intlayer: あなたのウェブサイトを翻訳するためのカスタマイズされた方法

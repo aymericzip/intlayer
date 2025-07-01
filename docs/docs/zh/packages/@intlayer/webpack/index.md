@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_webpack
-url: https://intlayer.org/doc/package/@intlayer_webpack
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/@intlayer/webpack/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/webpack - Intlayer 国际化的 Webpack 插件
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - NPM
   - 打包工具
+slugs:
+  - doc
+  - package
+  - @intlayer_webpack
 ---
 
 # @intlayer/webpack：在您的应用中使用 Intlayer Webpack 插件的 NPM 包

@@ -1,7 +1,4 @@
 ---
-docName: ci_cd
-url: https://intlayer.org/doc/concept/ar/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
 title: تكامل CI/CD
@@ -14,6 +11,11 @@ keywords:
   - التدويل
   - التوثيق
   - Intlayer
+slugs:
+  - doc
+  - concept
+  - ar
+  - ci-cd
 ---
 
 # التوليد التلقائي للترجمات في خط أنابيب CI/CD

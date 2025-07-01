@@ -1,7 +1,4 @@
 ---
-docName: dictionary__content_extention_customization
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_extention_customization.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: コンテンツ拡張子のカスタマイズ
@@ -10,6 +7,10 @@ keywords:
   - コンテンツ拡張子のカスタマイズ
   - ドキュメント
   - Intlayer
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
 # コンテンツ拡張子のカスタマイズ

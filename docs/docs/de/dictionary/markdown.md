@@ -1,7 +1,4 @@
 ---
-docName: dictionary__markdown
-url: https://intlayer.org/doc/concept/content/markdown
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: Markdown
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - markdown
 ---
 
 # Markdown / Rich Text Inhalt

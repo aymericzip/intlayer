@@ -1,7 +1,4 @@
 ---
-docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/ja/dictionary/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 列挙型
@@ -14,6 +11,13 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - ja
+  - dictionary
+  - enumeration
 ---
 
 # 列挙型 / 複数形処理

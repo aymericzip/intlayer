@@ -1,7 +1,4 @@
 ---
-docName: mcp_server
-url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: MCP 服务器文档
@@ -14,6 +11,9 @@ keywords:
   - 文档
   - 设置
   - 功能
+slugs:
+  - doc
+  - mcp-server
 ---
 
 # Intlayer MCP 服务器

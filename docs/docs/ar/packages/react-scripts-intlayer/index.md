@@ -1,7 +1,4 @@
 ---
-docName: package__react-scripts-intlayer
-url: https://intlayer.org/doc/packages/react-scripts-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-scripts-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: توثيق الحزمة | react-scripts-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - react-scripts-intlayer
 ---
 
 # react-scripts-intlayer: حزمة NPM لاستخدام Intlayer في تطبيق React Create App

@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer
-url: https://intlayer.org/doc/packages/next-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: توثيق الحزمة | next-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
 ---
 
 # next-intlayer: حزمة NPM لتدويل تطبيق Next.js

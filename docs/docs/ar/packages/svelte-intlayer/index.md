@@ -1,7 +1,4 @@
 ---
-docName: package__svelte-intlayer
-url: https://intlayer.org/doc/packages/svelte-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/svelte-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: توثيق الحزمة | svelte-intlayer
@@ -13,6 +10,10 @@ keywords:
   - التوثيق
   - جافاسكريبت
   - سفيليت
+slugs:
+  - doc
+  - packages
+  - svelte-intlayer
 ---
 
 # svelte-intlayer: حزمة NPM لتدويل تطبيق Solid

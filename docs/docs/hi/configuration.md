@@ -1,7 +1,4 @@
 ---
-docName: configuration
-url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md
 createdAt: 2024-08-13
 updatedAt: 2025-06-29
 title: कॉन्फ़िगरेशन
@@ -12,6 +9,10 @@ keywords:
   - अनुकूलन
   - Intlayer
   - विकल्प
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Intlayer कॉन्फ़िगरेशन दस्तावेज़

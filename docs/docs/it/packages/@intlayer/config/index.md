@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_config
-url: https://intlayer.org/doc/package/@intlayer_config
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/@intlayer/config/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/config - Gestione della Configurazione per Intlayer
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - NPM
   - variabili
+slugs:
+  - doc
+  - package
+  - @intlayer_config
 ---
 
 # @intlayer/config: Pacchetto NPM per recuperare la configurazione di Intlayer

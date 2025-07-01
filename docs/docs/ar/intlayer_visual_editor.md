@@ -1,7 +1,4 @@
 ---
-docName: intlayer_visual_editor
-url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: محرر المرئي لِانتلاير | تحرير محتوىك باستخدام محرر المرئي
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - editor
 ---
 
 # وثائق محرر Intlayer البصري

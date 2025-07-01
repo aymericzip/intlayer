@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nuxt
-url: https://intlayer.org/doc/environment/nuxt-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: ترجمة موقعك على Nuxt و Vue (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Nuxt
   - Vue
   - جافا سكريبت
+slugs:
+  - doc
+  - environment
+  - nuxt-and-vue
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Nuxt

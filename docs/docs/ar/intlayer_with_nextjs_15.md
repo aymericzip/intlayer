@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nextjs_15
-url: https://intlayer.org/doc/environment/nextjs
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
 title: ترجمة موقعك الإلكتروني Next.js 15 (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Next.js 15
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Next.js 15 App Router

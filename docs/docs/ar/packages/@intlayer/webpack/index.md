@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_webpack
-url: https://intlayer.org/doc/package/@intlayer_webpack
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/@intlayer/webpack/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/webpack - إضافة Webpack لـ Intlayer i18n
@@ -15,6 +12,10 @@ keywords:
   - جافاسكريبت
   - NPM
   - مجمع
+slugs:
+  - doc
+  - package
+  - @intlayer_webpack
 ---
 
 # @intlayer/webpack: حزمة NPM لاستخدام إضافة Intlayer Webpack في تطبيقك

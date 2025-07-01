@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nextjs_page_router
-url: https://intlayer.org/doc/environment/nextjs/next-with-Page-Router
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_page_router.md
 createdAt: 2024-12-07
 updatedAt: 2025-06-29
 title: Next.js 및 Page Router 웹사이트 번역하기 (i18n)
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - 자바스크립트
   - 리액트
+slugs:
+  - doc
+  - environment
+  - nextjs
+  - next-with-Page-Router
 ---
 
 # Intlayer와 Next.js의 Page Router를 사용한 국제화(i18n) 시작하기

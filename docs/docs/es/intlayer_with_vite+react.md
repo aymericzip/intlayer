@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_react_native_and_expo
-url: https://intlayer.org/doc/environment/react-native-and-expo
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md
 createdAt: 2025-03-07
 updatedAt: 2025-06-29
 title: Traduce tu aplicación móvil React Native y Expo (i18n)
@@ -14,6 +11,10 @@ keywords:
   - React
   - React Native
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - react-native-and-expo
 ---
 
 # Comenzando con la internacionalización (i18n) usando Intlayer, Vite y React

@@ -1,7 +1,4 @@
 ---
-docName: dictionary__file
-url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: Archivo
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - file
 ---
 
 # Contenido de Archivo / Incrustar Archivos en Intlayer

@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_design-system
-url: https://intlayer.org/doc/package/@intlayer_design-system
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/@intlayer/design-system/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/design-system - Intlayer 的 UI 组件
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - NPM
   - 样式
+slugs:
+  - doc
+  - package
+  - @intlayer_design-system
 ---
 
 # @intlayer/design-system：包含 Intlayer UI 库的 NPM 包

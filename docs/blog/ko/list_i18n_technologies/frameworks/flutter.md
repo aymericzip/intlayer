@@ -1,7 +1,4 @@
 ---
-docName: list_i18n_technologies__frameworks__flutter
-url: https://intlayer.org/blog/i18n-technologies/frameworks/flutter
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/flutter.md
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
 title: Flutter용 최상의 국제화 도구
@@ -14,6 +11,11 @@ keywords:
   - 국제화
   - 블로그
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - flutter
 ---
 
 # Flutter 앱 번역을 위한 i18n 솔루션 탐색

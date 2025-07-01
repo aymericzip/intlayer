@@ -1,7 +1,4 @@
 ---
-docName: dictionary__get_started
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 사전 | 시작하기
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
 # 콘텐츠 선언 시작하기

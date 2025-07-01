@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_angular
-url: https://intlayer.org/doc/environment/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_angular.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Angular के वेबसाइट को अनुवाद करें (i18n)
@@ -12,6 +9,10 @@ keywords:
   - Intlayer
   - Angular
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - angular
 ---
 
 # Intlayer का उपयोग करके Angular में अंतर्राष्ट्रीयकरण (i18n) शुरू करना

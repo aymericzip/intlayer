@@ -1,7 +1,4 @@
 ---
-docName: dictionary__per_locale_file
-url: https://intlayer.org/doc/concept/per-locale-file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Intlayer에서 `지역별` 콘텐츠 선언 방법
@@ -13,6 +10,10 @@ keywords:
   - 지역별
   - TypeScript
   - JavaScript
+slugs:
+  - doc
+  - concept
+  - per-locale-file
 ---
 
 # Intlayer에서 `지역별` 콘텐츠 선언 방법

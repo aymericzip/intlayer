@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_i18next
-url: https://intlayer.org/blog/intlayer-with-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/intlayer_with_i18next.md
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
 title: Intlayer e i18next
@@ -17,6 +14,9 @@ keywords:
   - Next.js
   - JavaScript
   - TypeScript
+slugs:
+  - blog
+  - intlayer-with-i18next
 ---
 
 # Internacionalização com Intlayer e i18next

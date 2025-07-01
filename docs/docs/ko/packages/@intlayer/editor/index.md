@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_editor
-url: https://intlayer.org/doc/package/@intlayer_editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/@intlayer/editor/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/editor - Intlayer 에디터 인터페이스 패키지
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - utilities
   - cross-platform
+slugs:
+  - doc
+  - package
+  - @intlayer_editor
 ---
 
 # @intlayer/editor: 애플리케이션과 Intlayer 에디터를 인터페이스하고 사전을 조작하는 유틸리티를 제공하는 NPM 패키지

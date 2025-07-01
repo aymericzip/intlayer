@@ -1,7 +1,4 @@
 ---
-docName: roadmap
-url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-06-29
 title: Fahrplan
@@ -13,6 +10,9 @@ keywords:
   - CMS
   - Content-Management-System
   - Visueller Editor
+slugs:
+  - doc
+  - roadmap
 ---
 
 # Intlayer: Funktionsübersicht & Fahrplan

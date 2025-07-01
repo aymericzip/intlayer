@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_create_react_app
-url: https://intlayer.org/doc/environment/create-react-app
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Create React App (CRA) के वेबसाइट को अनुवाद करें (i18n)
@@ -14,6 +11,10 @@ keywords:
   - CRA
   - जावास्क्रिप्ट
   - React
+slugs:
+  - doc
+  - environment
+  - create-react-app
 ---
 
 # इंटलेयर और रिएक्ट क्रिएट ऐप के साथ अंतर्राष्ट्रीयकरण (i18n) शुरू करना

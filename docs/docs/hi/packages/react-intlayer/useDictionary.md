@@ -1,7 +1,4 @@
 ---
-docName: package__react-intlayer__useDictionary
-url: https://intlayer.org/doc/package/react-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useDictionary.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: useDictionary हुक - React Intlayer दस्तावेज़ीकरण
@@ -15,6 +12,11 @@ keywords:
   - i18n
   - शब्दकोश
   - अनुवाद
+slugs:
+  - doc
+  - package
+  - react-intlayer
+  - useDictionary
 ---
 
 # React एकीकरण: `useDictionary` हुक दस्तावेज़ीकरण

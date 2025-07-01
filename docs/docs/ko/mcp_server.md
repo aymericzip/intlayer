@@ -1,7 +1,4 @@
 ---
-docName: mcp_server
-url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: MCP 서버 문서
@@ -14,6 +11,9 @@ keywords:
   - 문서
   - 설정
   - 기능
+slugs:
+  - doc
+  - mcp-server
 ---
 
 # Intlayer MCP 서버

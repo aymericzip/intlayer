@@ -1,7 +1,4 @@
 ---
-docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/ko/dictionary/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: 열거형
@@ -14,6 +11,13 @@ keywords:
   - Next.js
   - 자바스크립트
   - 리액트
+slugs:
+  - doc
+  - concept
+  - content
+  - ko
+  - dictionary
+  - enumeration
 ---
 
 # 열거형 / 복수형 처리

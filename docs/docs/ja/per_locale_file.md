@@ -1,7 +1,4 @@
 ---
-docName: dictionary__per_locale_file
-url: https://intlayer.org/doc/concept/per-locale-file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Intlayerにおける「ロケール別」コンテンツ宣言
@@ -13,6 +10,10 @@ keywords:
   - ロケール別
   - TypeScript
   - JavaScript
+slugs:
+  - doc
+  - concept
+  - per-locale-file
 ---
 
 # Intlayerにおける「ロケール別」コンテンツ宣言

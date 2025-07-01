@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__t
-url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/t.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Documentazione della funzione t | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - t
 ---
 
 # Documentazione: Funzione `t` in `next-intlayer`

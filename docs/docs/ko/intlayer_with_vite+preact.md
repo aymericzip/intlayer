@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_preact
-url: https://intlayer.org/doc/environment/vite-and-preact
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+preact.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Vite와 Preact 웹사이트 번역하기 (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Preact
   - 자바스크립트
+slugs:
+  - doc
+  - environment
+  - vite-and-preact
 ---
 
 # Intlayer와 Vite, Preact로 국제화(i18n) 시작하기

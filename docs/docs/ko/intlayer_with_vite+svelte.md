@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_svelte
-url: https://intlayer.org/doc/environment/vite-and-svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+svelte.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Vite 및 Svelte 웹사이트 번역하기 (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Svelte
   - 자바스크립트
+slugs:
+  - doc
+  - environment
+  - vite-and-svelte
 ---
 
 # Intlayer와 Vite, Svelte로 국제화(i18n) 시작하기

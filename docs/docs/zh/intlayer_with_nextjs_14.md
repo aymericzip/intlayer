@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nextjs_14
-url: https://intlayer.org/doc/environment/nextjs/14
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
 title: 翻译你的 Next.js 14 和 App Router 网站（i18n）
@@ -13,6 +10,11 @@ keywords:
   - Next.js 14
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
+  - 14
 ---
 
 # 使用 Intlayer 和 Next.js 14 的 App Router 开始国际化（i18n）

@@ -1,7 +1,4 @@
 ---
-docName: package__nuxt-intlayer
-url: https://intlayer.org/doc/packages/nuxt-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/nuxt-intlayer/index.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: توثيق الحزمة | nuxt-intlayer
@@ -13,6 +10,10 @@ keywords:
   - التوثيق
   - جافا سكريبت
   - Nuxt
+slugs:
+  - doc
+  - packages
+  - nuxt-intlayer
 ---
 
 # nuxt-intlayer: حزمة NPM لتدويل (i18n) تطبيق Vue

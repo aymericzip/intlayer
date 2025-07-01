@@ -1,7 +1,4 @@
 ---
-docName: internationalization_and_SEO
-url: https://intlayer.org/blog/SEO-and-i18n
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
 title: SEO y Internacionalización
@@ -14,6 +11,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - SEO-and-i18n
 ---
 
 # SEO & I18n: La Guía Definitiva para Hacer que Tu Sitio Web Sea Multilingüe

@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_editor-react
-url: https://intlayer.org/doc/package/@intlayer_editor-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/@intlayer/editor-react/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/editor-react - مكونات React لمحرر Intlayer
@@ -15,6 +12,10 @@ keywords:
   - i18n
   - جافا سكريبت
   - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_editor-react
 ---
 
 # @intlayer/editor-react: حزمة NPM توفر حالات React، وسياقات، وخطافات، ومكونات للتفاعل مع محرر Intlayer

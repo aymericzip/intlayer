@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_webpack
-url: https://intlayer.org/doc/package/@intlayer_webpack
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/@intlayer/webpack/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/webpack - Intlayer i18n용 Webpack 플러그인
@@ -15,6 +12,10 @@ keywords:
   - 자바스크립트
   - NPM
   - 번들러
+slugs:
+  - doc
+  - package
+  - @intlayer_webpack
 ---
 
 # @intlayer/webpack: Intlayer Webpack 플러그인을 애플리케이션에 사용하기 위한 NPM 패키지

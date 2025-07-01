@@ -1,7 +1,4 @@
 ---
-docName: terms_of_service
-url: https://intlayer.org/terms-of-service
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/legal/ko/terms_of_service.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Intlayer 서비스 약관
@@ -19,6 +16,8 @@ keywords:
   - 기여
   - 저작권 표시
   - 약관 변경
+slugs:
+  - terms-of-service
 ---
 
 # Intlayer 이용 약관

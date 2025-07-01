@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_preact
-url: https://intlayer.org/doc/environment/vite-and-preact
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+preact.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: ترجمة موقعك باستخدام Vite و Preact (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Preact
   - جافا سكريبت
+slugs:
+  - doc
+  - environment
+  - vite-and-preact
 ---
 
 # البدء بالتدويل (i18n) باستخدام Intlayer و Vite و Preact

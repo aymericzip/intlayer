@@ -1,7 +1,4 @@
 ---
-docName: index
-url: https://intlayer.org/doc/index
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: Intlayer 文档 - JavaScript 完整国际化指南
@@ -16,6 +13,9 @@ keywords:
   - 文档
   - 翻译
   - 多语言
+slugs:
+  - doc
+  - index
 ---
 
 # Intlayer 文档

@@ -1,7 +1,4 @@
 ---
-docName: privacy_notice
-url: https://intlayer.org/privacy-notice
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/legal/ar/privacy_notice.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: إشعار الخصوصية في Intlayer
@@ -19,6 +16,8 @@ keywords:
   - بكسل ميتا (فيسبوك)
   - المصادقة
   - بيانات المستخدم
+slugs:
+  - privacy-notice
 ---
 
 # إشعار الخصوصية في Intlayer

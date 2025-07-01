@@ -1,7 +1,4 @@
 ---
-docName: dictionary__get_started
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: शब्दकोश | शुरू करें
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
 # अपनी सामग्री की घोषणा शुरू करना

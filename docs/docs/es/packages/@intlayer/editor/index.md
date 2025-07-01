@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_editor
-url: https://intlayer.org/doc/package/@intlayer_editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/@intlayer/editor/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/editor - Paquete de Interfaz del Editor Intlayer
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - utilidades
   - multiplataforma
+slugs:
+  - doc
+  - package
+  - @intlayer_editor
 ---
 
 # @intlayer/editor: Paquete NPM que proporciona utilidades para conectar la aplicación con el editor Intlayer y manipular diccionarios

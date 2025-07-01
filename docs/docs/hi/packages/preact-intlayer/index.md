@@ -1,7 +1,4 @@
 ---
-docName: package__preact-intlayer
-url: https://intlayer.org/doc/packages/preact-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/preact-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: पैकेज दस्तावेज़ीकरण | preact-intlayer
@@ -13,6 +10,10 @@ keywords:
   - दस्तावेज़ीकरण
   - जावास्क्रिप्ट
   - प्रीएक्ट
+slugs:
+  - doc
+  - packages
+  - preact-intlayer
 ---
 
 # preact-intlayer: Preact एप्लिकेशन को अंतरराष्ट्रीयकृत (i18n) करने के लिए NPM पैकेज

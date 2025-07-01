@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_express
-url: https://intlayer.org/doc/environment/express
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Traduza o seu backend Express (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Express
   - JavaScript
   - Backend
+slugs:
+  - doc
+  - environment
+  - express
 ---
 
 # Introdução à Internacionalização (i18n) com Intlayer e Express

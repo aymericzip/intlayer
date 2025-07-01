@@ -1,7 +1,4 @@
 ---
-docName: dictionary__per_locale_file
-url: https://intlayer.org/doc/concept/per-locale-file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/per_locale_file.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Dichiarazione di Contenuto `Per-Locale` in Intlayer
@@ -13,6 +10,10 @@ keywords:
   - Per-Locale
   - TypeScript
   - JavaScript
+slugs:
+  - doc
+  - concept
+  - per-locale-file
 ---
 
 # Dichiarazione di Contenuto `Per-Locale` in Intlayer

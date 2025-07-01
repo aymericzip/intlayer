@@ -1,7 +1,4 @@
 ---
-docName: package__vite-intlayer
-url: https://intlayer.org/doc/packages/vite-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: Package Documentation | vite-intlayer
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - vite-intlayer
 ---
 
 # vite-intlayer: NPM Package to internationalise (i18n) a Vite application

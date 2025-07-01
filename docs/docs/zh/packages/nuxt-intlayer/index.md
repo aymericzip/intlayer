@@ -1,7 +1,4 @@
 ---
-docName: package__nuxt-intlayer
-url: https://intlayer.org/doc/packages/nuxt-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/nuxt-intlayer/index.md
 createdAt: 2025-06-18
 updatedAt: 2025-06-29
 title: 包文档 | nuxt-intlayer
@@ -13,6 +10,10 @@ keywords:
   - 文档
   - JavaScript
   - Nuxt
+slugs:
+  - doc
+  - packages
+  - nuxt-intlayer
 ---
 
 # nuxt-intlayer：用于国际化（i18n）Vue 应用的 NPM 包

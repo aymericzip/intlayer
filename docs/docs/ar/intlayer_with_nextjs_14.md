@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_nextjs_14
-url: https://intlayer.org/doc/environment/nextjs/14
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
 title: ترجم موقعك الإلكتروني Next.js 14 و App Router (i18n)
@@ -13,6 +10,11 @@ keywords:
   - Next.js 14
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
+  - 14
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Next.js 14 مع App Router

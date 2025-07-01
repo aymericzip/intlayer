@@ -1,7 +1,4 @@
 ---
-docName: index
-url: https://intlayer.org/doc/index
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: Documentation Intlayer - Guide complet i18n pour JavaScript
@@ -16,6 +13,9 @@ keywords:
   - documentation
   - traduction
   - multilingue
+slugs:
+  - doc
+  - index
 ---
 
 # Documentation Intlayer

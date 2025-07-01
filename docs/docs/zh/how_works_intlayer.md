@@ -1,7 +1,4 @@
 ---
-docName: how_works_intlayer
-url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2025-06-29
 title: Intlayer 的工作原理
@@ -12,6 +9,10 @@ keywords:
   - 架构
   - 组成部分
   - 内部运作
+slugs:
+  - doc
+  - concept
+  - how-works-intlayer
 ---
 
 # Intlayer 的工作原理

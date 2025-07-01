@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_chokidar
-url: https://intlayer.org/doc/package/@intlayer_chokidar
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/@intlayer/chokidar/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/chokidar - Intlayer i18n के लिए फ़ाइल वॉचिंग
@@ -15,6 +12,10 @@ keywords:
   - JavaScript
   - NPM
   - विकास
+slugs:
+  - doc
+  - package
+  - @intlayer_chokidar
 ---
 
 # @intlayer/chokidar: Intlayer घोषणा फ़ाइलों को शब्दकोशों में स्कैन और बनाने के लिए NPM पैकेज

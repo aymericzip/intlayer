@@ -1,7 +1,4 @@
 ---
-docName: dictionary__file
-url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: फ़ाइल
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - file
 ---
 
 # फ़ाइल सामग्री / Intlayer में फ़ाइलें एम्बेड करना

@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer-editor
-url: https://intlayer.org/doc/package/intlayer-editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer-editor/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: intlayer-editor - Paquete de Editor Visual de Traducción
@@ -15,6 +12,10 @@ keywords:
   - IA
   - NPM
   - interfaz
+slugs:
+  - doc
+  - package
+  - intlayer-editor
 ---
 
 # intlayer-editor: Paquete NPM para usar el editor visual de Intlayer

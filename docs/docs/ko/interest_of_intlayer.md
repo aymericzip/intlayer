@@ -1,7 +1,4 @@
 ---
-docName: interest_of_intlayer
-url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md
 createdAt: 2024-08-14
 updatedAt: 2025-06-29
 title: Intlayer의 장점
@@ -12,6 +9,10 @@ keywords:
   - Intlayer
   - 프레임워크
   - 비교
+slugs:
+  - doc
+  - concept
+  - interest
 ---
 
 # Intlayer: 웹사이트 번역을 위한 맞춤형 방법

@@ -1,7 +1,4 @@
 ---
-docName: privacy_notice
-url: https://intlayer.org/privacy-notice
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/legal/ko/privacy_notice.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Intlayer 개인정보 보호 고지
@@ -19,6 +16,8 @@ keywords:
   - 메타 (페이스북) 픽셀
   - 인증
   - 사용자 데이터
+slugs:
+  - privacy-notice
 ---
 
 # Intlayer 개인정보 보호 고지

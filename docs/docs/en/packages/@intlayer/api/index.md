@@ -1,7 +1,4 @@
 ---
-docName: packages__intlayer__api
-url: https://intlayer.org/doc/packages/intlayer/api
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/@intlayer/api/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/api - SDK for Intlayer API Integration
@@ -15,6 +12,11 @@ keywords:
   - organizations
   - projects
   - JavaScript
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - api
 ---
 
 # @intlayer/api: NPM Package to interact with Intlayer API

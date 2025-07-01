@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_lynx_react
-url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
 updatedAt: 2025-06-29
 title: 翻译你的Lynx和React移动应用 (i18n)
@@ -14,6 +11,10 @@ keywords:
   - React
   - Lynx
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - lynx-and-react
 ---
 
 # 开始使用 Intlayer 和 Lynx 以及 React 进行国际化 (i18n)

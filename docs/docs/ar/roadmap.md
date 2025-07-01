@@ -1,7 +1,4 @@
 ---
-docName: roadmap
-url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/roadmap.md
 createdAt: 2025-03-01
 updatedAt: 2025-06-29
 title: خارطة الطريق
@@ -12,6 +9,9 @@ keywords:
   - التدويل
   - نظام إدارة المحتوى
   - محرر بصري
+slugs:
+  - doc
+  - roadmap
 ---
 
 # Intlayer: نظرة عامة على الميزات وخارطة الطريق

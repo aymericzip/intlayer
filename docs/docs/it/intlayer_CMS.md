@@ -1,7 +1,4 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: CMS Intlayer | Esterna il tuo contenuto nel CMS Intlayer
@@ -15,6 +12,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
 ---
 
 # Documentazione del Content Management System (CMS) di Intlayer

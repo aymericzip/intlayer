@@ -1,7 +1,4 @@
 ---
-docName: intlayer_with_vite_solid
-url: https://intlayer.org/doc/environment/vite-and-solid
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+solid.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Translate your Vite and Solid website (i18n)
@@ -13,6 +10,10 @@ keywords:
   - Vite
   - Solid
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - vite-and-solid
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and Solid

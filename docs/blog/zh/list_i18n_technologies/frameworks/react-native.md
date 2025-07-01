@@ -1,7 +1,4 @@
 ---
-docName: list_i18n_technologies__frameworks__react-native
-url: https://intlayer.org/blog/i18n-technologies/frameworks/react-native
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react-native.md
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
 title: React Native的最佳国际化工具
@@ -14,6 +11,11 @@ keywords:
   - 国際化
   - 博客
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - react-native
 ---
 
 # 探索 i18n 解决方案以翻译您的 React Native 应用

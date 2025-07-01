@@ -1,7 +1,4 @@
 ---
-docName: how_works_intlayer
-url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/how_works_intlayer.md
 createdAt: 2024-08-12
 updatedAt: 2025-06-29
 title: Intlayer 작동 방식
@@ -12,6 +9,10 @@ keywords:
   - 아키텍처
   - 구성 요소
   - 내부 작동
+slugs:
+  - doc
+  - concept
+  - how-works-intlayer
 ---
 
 # Intlayer 작동 방식

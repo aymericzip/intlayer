@@ -1,7 +1,4 @@
 ---
-docName: package__preact-intlayer
-url: https://intlayer.org/doc/packages/preact-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/preact-intlayer/index.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: 패키지 문서 | preact-intlayer
@@ -13,6 +10,10 @@ keywords:
   - 문서
   - 자바스크립트
   - Preact
+slugs:
+  - doc
+  - packages
+  - preact-intlayer
 ---
 
 # preact-intlayer: Preact 애플리케이션을 국제화(i18n)하기 위한 NPM 패키지

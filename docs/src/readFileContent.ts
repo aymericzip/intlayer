@@ -9,7 +9,7 @@ const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
 
 let rootLocation: string | undefined;
 
-const findPackageJsonDir = (startDir: string): string => {
+export const findDocPackageJsonDir = (startDir: string = dir): string => {
   let currentDir = startDir;
 
   if (rootLocation) {
@@ -31,7 +31,7 @@ const findPackageJsonDir = (startDir: string): string => {
 
 export const readFileContent = async (filePath: string): Promise<string> => {
   // Find the nearest parent directory containing package.json
-  const packageDir = findPackageJsonDir(dir);
+  const packageDir = findDocPackageJsonDir();
   // Read the file content relative to the package.json directory
   const fileContent = await readFile(join(packageDir, filePath), 'utf-8');
   return fileContent;

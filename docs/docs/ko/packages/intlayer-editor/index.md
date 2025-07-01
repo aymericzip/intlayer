@@ -1,7 +1,4 @@
 ---
-docName: package__intlayer-editor
-url: https://intlayer.org/doc/package/intlayer-editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer-editor/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: intlayer-editor - 시각적 번역 편집기 패키지
@@ -15,6 +12,10 @@ keywords:
   - AI
   - NPM
   - 인터페이스
+slugs:
+  - doc
+  - package
+  - intlayer-editor
 ---
 
 # intlayer-editor: Intlayer 시각적 편집기를 사용하기 위한 NPM 패키지

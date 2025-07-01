@@ -1,7 +1,4 @@
 ---
-docName: dictionary__file
-url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
 title: 文件
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - file
 ---
 
 # 文件内容 / 在 Intlayer 中嵌入文件

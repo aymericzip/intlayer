@@ -1,7 +1,4 @@
 ---
-docName: package__next-intlayer__useIntlayerAsync
-url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 title: useIntlayerAsync Hook Documentation | next-intlayer
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useIntlayerAsync
 ---
 
 # Next.js Integration: `useIntlayerAsync` Hook Documentation

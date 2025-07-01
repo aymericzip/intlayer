@@ -1,7 +1,4 @@
 ---
-docName: mcp_server
-url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md
 createdAt: 2025-06-07
 updatedAt: 2025-06-07
 title: Documentation du serveur MCP
@@ -14,6 +11,9 @@ keywords:
   - Documentation
   - Configuration
   - Fonctionnalités
+slugs:
+  - doc
+  - mcp-server
 ---
 
 # Serveur MCP Intlayer

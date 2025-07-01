@@ -1,7 +1,4 @@
 ---
-docName: package__@intlayer_cli
-url: https://intlayer.org/doc/package/@intlayer_cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/@intlayer/cli/index.md
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
 title: @intlayer/cli - حزمة واجهة سطر الأوامر لـ Intlayer
@@ -15,6 +12,10 @@ keywords:
   - جافاسكريبت
   - NPM
   - أدوات
+slugs:
+  - doc
+  - package
+  - @intlayer_cli
 ---
 
 # @intlayer/cli: حزمة NPM لاستخدام السكريبتات المقدمة من واجهة سطر أوامر intlayer

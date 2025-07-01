@@ -1,7 +1,4 @@
 ---
-docName: terms_of_service
-url: https://intlayer.org/terms-of-service
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/legal/pt/terms_of_service.md
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
 title: Termos de Serviço do Intlayer
@@ -19,6 +16,8 @@ keywords:
   - Contribuições
   - Atribuição
   - Modificação dos Termos
+slugs:
+  - terms-of-service
 ---
 
 # Termos de Uso do Intlayer
