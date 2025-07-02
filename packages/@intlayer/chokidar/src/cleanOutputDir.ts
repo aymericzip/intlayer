@@ -5,6 +5,7 @@ export const cleanOutputDir = (configuration = getConfiguration()) => {
   const {
     dictionariesDir,
     unmergedDictionariesDir,
+    dynamicDictionariesDir,
     mainDir,
     typesDir,
     configDir,
@@ -20,6 +21,11 @@ export const cleanOutputDir = (configuration = getConfiguration()) => {
   if (existsSync(unmergedDictionariesDir)) {
     // Delete the unmerged dictionaries directory
     rmSync(unmergedDictionariesDir, { recursive: true });
+  }
+
+  if (existsSync(dynamicDictionariesDir)) {
+    // Delete the dynamic dictionaries directory
+    rmSync(dynamicDictionariesDir, { recursive: true });
   }
 
   // Delete the main directory
