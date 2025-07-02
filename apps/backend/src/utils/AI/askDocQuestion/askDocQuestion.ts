@@ -1,4 +1,3 @@
-import { Locales } from '@intlayer/config';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
@@ -140,9 +139,9 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   });
 
   // Retrieve documentation and blog posts in English locale
-  const frequentQuestions = getFrequentQuestions();
-  const docs = await getDocs(Locales.ENGLISH);
-  const blogs = await getBlogs(Locales.ENGLISH);
+  const frequentQuestions = await getFrequentQuestions();
+  const docs = await getDocs();
+  const blogs = await getBlogs();
 
   let result: Record<string, number[]> = {}; // Object to hold updated embeddings
   const currentChunkKeys = new Set<string>(); // Track which chunks should exist
@@ -150,7 +149,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   const files = { ...docs, ...blogs, ...frequentQuestions }; // Combine docs and blogs into a single object
 
   // Iterate over each file key (identifier) in the combined files
-  for (const fileKey of Object.keys(files)) {
+  for await (const fileKey of Object.keys(files)) {
     // Split the document into chunks based on headings
     const fileChunks = chunkText(
       files[fileKey as keyof typeof files] as string
@@ -174,7 +173,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     }
 
     // Iterate over each chunk within the current file
-    for (const chunkIndex of Object.keys(fileChunks)) {
+    for await (const chunkIndex of Object.keys(fileChunks)) {
       const chunkNumber = Number(chunkIndex) + 1; // Chunk number starts at 1
       const chunksNumber = fileChunks.length;
 
@@ -220,7 +219,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     if (currentChunkKeys.has(key)) {
       // Only keep embeddings for chunks that still exist
       if (!result[key]) {
-        filteredEmbeddings[key] = embedding;
+        filteredEmbeddings[key] = embedding as number[];
       }
     }
   }
