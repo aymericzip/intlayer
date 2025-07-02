@@ -3301,9 +3301,6 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
-      solid-testing-library:
-        specifier: ^0.5.1
-        version: 0.5.1(solid-js@1.9.7)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -29459,16 +29456,6 @@ packages:
     peerDependencies:
       solid-js: ^1.3
 
-  solid-testing-library@0.5.1:
-    resolution:
-      {
-        integrity: sha512-CfcCWsI5zIJz2zcyZQz2weq+6cCS5QrcmWeEmUEy03fElJ/BV5Ly4MMTsmwdOK803zY3wJP5pPf026C40VrE1Q==,
-      }
-    engines: { node: '>= 14' }
-    deprecated: This package is now available at @solidjs/testing-library
-    peerDependencies:
-      solid-js: '>=1.0.0'
-
   sort-object-keys@1.1.3:
     resolution:
       {
@@ -53797,11 +53784,6 @@ snapshots:
     dependencies:
       '@babel/generator': 7.27.5
       '@babel/types': 7.27.6
-      solid-js: 1.9.7
-
-  solid-testing-library@0.5.1(solid-js@1.9.7):
-    dependencies:
-      '@testing-library/dom': 8.20.1
       solid-js: 1.9.7
 
   sort-object-keys@1.1.3: {}
