@@ -73,7 +73,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
     "minimist": "^1.2.8",
-    "next": "^ 15.3.4",
+    "next": "^15.3.4",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "rollup-plugin-visualizer": "^5.14.0",
