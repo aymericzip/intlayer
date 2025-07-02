@@ -52,11 +52,6 @@ export default defineConfig({
       '.vue', // enable resolving imports like './UI/ContentSelector.vue' :contentReference[oaicite:1]{index=1}:contentReference[oaicite:2]{index=2}
     ],
   },
-  test: {
-    deps: {
-      inline: [/solid-testing-library/],
-    },
-  },
 
   plugins: [
     solidPlugin(),
