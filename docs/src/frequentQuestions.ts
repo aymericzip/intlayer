@@ -16,7 +16,7 @@ import { findDocPackageJsonDir, readFileContent } from './readFileContent';
 
 const docRoot = findDocPackageJsonDir();
 
-const frequentQuestionsFiles = fg.sync('./frequentQuestions/en/**/*.md', {
+const frequentQuestionsFiles = fg.sync('./frequent_questions/en/**/*.md', {
   cwd: docRoot,
 });
 
