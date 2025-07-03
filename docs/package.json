@@ -56,7 +56,6 @@
     "generateEntry": "tsx tools/generateEntry.ts",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
-    "prepare": "pnpm generateEntry",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",
