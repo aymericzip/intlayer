@@ -1,4 +1,4 @@
-import { type BlogMetadata } from '@intlayer/docs';
+import type { BlogMetadata } from '@intlayer/docs';
 
 export type Section = Record<string, CategorizedBlogData>;
 

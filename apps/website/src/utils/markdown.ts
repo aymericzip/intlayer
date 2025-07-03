@@ -14,8 +14,9 @@ const escapeRegExp = (string: string): string =>
  * Remove the domain (protocol + host) part of a URL, returning only its pathname.
  * If the provided string is already a relative path, it is returned unchanged.
  */
-const stripDomain = (url: string): string =>
-  url.replace(/^https?:\/\/[^/]+/, '');
+const stripDomain = (url: string): string => {
+  return url.replace(/^https?:\/\/[^/]+/, '');
+};
 
 /**
  * This map converts *any* URL (GitHub or in-site) that targets a **non default**

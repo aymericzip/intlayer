@@ -15,4 +15,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withIntlayer(RETURN_BUNDLE_ANALYZER ? (nextConfig as any) : {});
+const config = withIntlayer(RETURN_BUNDLE_ANALYZER ? (nextConfig as any) : {});
+
+export default config;

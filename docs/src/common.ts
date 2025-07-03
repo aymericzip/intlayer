@@ -9,19 +9,18 @@ import { join } from 'path';
 export const defaultLocale = Locales.ENGLISH;
 
 export const GITHUB_URL_PREFIX =
-  'https://github.com/intlayer/intlayer/blob/main/docs';
+  'https://github.com/aymericzip/intlayer/blob/main/docs';
 export const URL_PREFIX = 'https://intlayer.org/';
 
 export const getFiles = async <
-  L extends LocalesValues,
-  F extends Record<string, Record<L, Promise<string>>>,
+  F extends Record<`./${string}`, Record<LocalesValues, Promise<string>>>,
 >(
   files: F,
-  lang: L = defaultLocale as L
-) => {
+  lang: LocalesValues = defaultLocale as LocalesValues
+): Promise<Record<string, string>> => {
   const filesEntries = await Promise.all(
     Object.entries(files)
-      .map(([key, value]) => [key, value[lang as L]])
+      .map(([key, value]) => [key, value[lang as LocalesValues]])
       .map(async ([key, value]) => [key, await value])
   );
   const filesResult = Object.fromEntries(filesEntries);
@@ -29,12 +28,11 @@ export const getFiles = async <
 };
 
 export const getFile = async <
-  L extends LocalesValues,
-  F extends Record<string, Record<L, Promise<string>>>,
+  F extends Record<string, Record<LocalesValues, Promise<string>>>,
 >(
   files: F,
   docKey: keyof F,
-  locale: L = defaultLocale as L
+  locale: LocalesValues = defaultLocale as LocalesValues
 ): Promise<string> => {
   const fileRecord = files[docKey];
 
@@ -45,7 +43,7 @@ export const getFile = async <
   const file = await files[docKey]?.[locale];
 
   if (!file) {
-    const englishFile = await files[docKey][defaultLocale as L];
+    const englishFile = await files[docKey][defaultLocale as LocalesValues];
 
     if (!englishFile) {
       throw new Error(`File ${docKey as string} not found`);
@@ -70,10 +68,10 @@ export type FileMetadata = {
   createdAt: string;
 };
 
-export const formatMetadata = <L extends LocalesValues, R extends FileMetadata>(
+export const formatMetadata = (
   docKey: string,
   file: string,
-  locale: L = defaultLocale as L
+  locale: LocalesValues = defaultLocale as LocalesValues
 ): FileMetadata => {
   const metadata = getMarkdownMetadata(file);
   const relativeUrl = join('/', ...(metadata.slugs ?? []));
@@ -91,13 +89,12 @@ export const formatMetadata = <L extends LocalesValues, R extends FileMetadata>(
 };
 
 export const getFileMetadata = async <
-  L extends LocalesValues,
-  D extends Record<string, Record<L, Promise<string>>>,
+  F extends Record<string, Record<LocalesValues, Promise<string>>>,
   R extends FileMetadata,
 >(
-  files: D,
-  docKey: keyof D,
-  locale: L = defaultLocale as L
+  files: F,
+  docKey: keyof F,
+  locale: LocalesValues = defaultLocale as LocalesValues
 ): Promise<R> => {
   try {
     const file = await getFile(files, docKey, locale);
@@ -110,16 +107,15 @@ export const getFileMetadata = async <
 };
 
 export const getFileMetadataRecord = async <
-  L extends LocalesValues,
-  D extends Record<string, Record<L, Promise<string>>>,
+  F extends Record<string, Record<LocalesValues, Promise<string>>>,
 >(
-  files: D,
-  locale: L = defaultLocale as L
-): Promise<Record<keyof D, FileMetadata>> => {
+  files: F,
+  locale: LocalesValues = defaultLocale as LocalesValues
+): Promise<Record<keyof F, FileMetadata>> => {
   const filesEntries = await Promise.all(
     Object.entries(files).map(async ([key]) => [
       key,
-      await getFileMetadata<L, D, FileMetadata>(files, key as keyof D, locale),
+      await getFileMetadata(files, key as keyof F, locale),
     ])
   );
   const filesResult = Object.fromEntries(filesEntries);
@@ -127,15 +123,17 @@ export const getFileMetadataRecord = async <
 };
 
 export const getFileMetadataBySlug = async <
-  L extends LocalesValues,
-  D extends Record<string, Record<L, Promise<string>>>,
+  F extends Record<string, Record<LocalesValues, Promise<string>>>,
 >(
-  files: D,
+  files: F,
   slugs: string | string[],
-  locale: L = defaultLocale as L
+  locale: LocalesValues = defaultLocale as LocalesValues
 ) => {
   const slugsArray = Array.isArray(slugs) ? slugs : [slugs];
-  const filesMetadata = await getFileMetadataRecord(files, defaultLocale as L);
+  const filesMetadata = await getFileMetadataRecord(
+    files,
+    defaultLocale as LocalesValues
+  );
 
   const fileMetadataArray: FileMetadata[] = Object.values(filesMetadata).filter(
     (fileMetadata) =>
@@ -157,15 +155,17 @@ export const getFileMetadataBySlug = async <
 };
 
 export const getFileBySlug = async <
-  L extends LocalesValues,
-  D extends Record<string, Record<L, Promise<string>>>,
+  F extends Record<string, Record<LocalesValues, Promise<string>>>,
 >(
-  files: D,
+  files: F,
   slugs: string | string[],
-  locale: L = defaultLocale as L
+  locale: LocalesValues = defaultLocale as LocalesValues
 ) => {
   const slugsArray = Array.isArray(slugs) ? slugs : [slugs];
-  const filesMetadata = await getFileMetadataRecord(files, defaultLocale as L);
+  const filesMetadata = await getFileMetadataRecord(
+    files,
+    defaultLocale as LocalesValues
+  );
 
   const fileMetadataArray = Object.values(filesMetadata).filter(
     (fileMetadata) =>

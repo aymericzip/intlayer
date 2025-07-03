@@ -42,6 +42,7 @@
   "module": "./dist/esm/index.mjs",
   "files": [
     "docs",
+    "src",
     "dist",
     "frequent_questions",
     "blog"
@@ -52,9 +53,10 @@
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
     "dev": "concurrently --prefix none \"tsup --watch\" \"tsc --project ./tsconfig.types.json --watch\" \"tsc-alias --project ./tsconfig.types.json --watch\"",
-    "generate:types": "tsx tools/generateTypes.ts",
+    "generateEntry": "tsx tools/generateEntry.ts",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
+    "prepare": "pnpm generateEntry",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "reset": "pnpm clean & pnpm build",

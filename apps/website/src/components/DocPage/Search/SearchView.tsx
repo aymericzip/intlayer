@@ -8,7 +8,7 @@ import {
   Loader,
 } from '@intlayer/design-system';
 import { useSearchDoc } from '@intlayer/design-system/hooks';
-import { BlogMetadata, DocMetadata } from '@intlayer/docs';
+import type { BlogMetadata, DocMetadata } from '@intlayer/docs';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';

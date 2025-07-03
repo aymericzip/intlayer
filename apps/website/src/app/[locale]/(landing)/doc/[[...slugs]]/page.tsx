@@ -1,6 +1,5 @@
-import { ContributionMessage } from '@components/DocPage/ContributionMessage';
-
 import { PagesRoutes } from '@/Routes';
+import { ContributionMessage } from '@components/DocPage/ContributionMessage';
 import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { TranslatedContentMessage } from '@components/DocPage/TranslatedContentMessage';
@@ -114,4 +113,5 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
     </IntlayerServerProvider>
   );
 };
+
 export default DocumentationPage;

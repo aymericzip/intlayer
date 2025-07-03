@@ -1,22 +1,11 @@
 import { ChatBot } from '@components/ChatBot';
 import { Container, H1 } from '@intlayer/design-system';
-import {
-  DocMetadata,
-  getBlogMetadataBySlug,
-  getDocMetadataBySlug,
-} from '@intlayer/docs';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
-type DocumentationSearchPageProps = {
-  filesData: DocMetadata[];
-};
-
-const DocumentationSearchPageContent: FC<DocumentationSearchPageProps> = ({
-  filesData,
-}) => {
+const DocumentationSearchPageContent: FC = () => {
   const { title } = useIntlayer('doc-chat-page');
 
   return (
@@ -30,7 +19,7 @@ const DocumentationSearchPageContent: FC<DocumentationSearchPageProps> = ({
           padding="lg"
           className="relative m-auto h-[calc(100vh-100px)] w-full max-w-2xl overflow-hidden"
         >
-          <ChatBot filesData={filesData} />
+          <ChatBot />
         </Container>
       </div>
     </>
@@ -39,12 +28,10 @@ const DocumentationSearchPageContent: FC<DocumentationSearchPageProps> = ({
 
 const DocumentationSearchPage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
-  const docData = await getDocMetadataBySlug([], locale);
-  const blogData = await getBlogMetadataBySlug([], locale);
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <DocumentationSearchPageContent filesData={[...docData, ...blogData]} />
+      <DocumentationSearchPageContent />
     </IntlayerServerProvider>
   );
 };

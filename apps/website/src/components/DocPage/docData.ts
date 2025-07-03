@@ -1,4 +1,4 @@
-import { DocKey, DocMetadata } from '@intlayer/docs';
+import type { DocKey, DocMetadata } from '@intlayer/docs';
 import { Locales, LocalesValues, getIntlayer } from 'intlayer';
 import type { CategorizedDocMetadata, Section } from './types';
 

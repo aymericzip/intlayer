@@ -1,6 +1,4 @@
 import { LocalesValues } from '@intlayer/config';
-import fg from 'fast-glob';
-import { localeRecord } from 'intlayer';
 import {
   defaultLocale,
   FileMetadata,
@@ -11,40 +9,25 @@ import {
   getFileMetadataRecord,
   getFiles,
 } from './common';
-import { LegalData } from './legal.types';
-import { findDocPackageJsonDir, readFileContent } from './readFileContent';
+import { legalEntry } from './generated/legal.entry';
 
-const docRoot = findDocPackageJsonDir();
-
-const legalFiles = fg.sync('./legal/en/**/*.md', {
-  cwd: docRoot,
-});
-
-export type LegalKey = keyof LegalData;
+export type LegalKey = keyof typeof legalEntry;
 export type Legals = Record<LegalKey, Record<LocalesValues, Promise<string>>>;
 export type LegalMetadata = FileMetadata;
 
-const legal: Legals = legalFiles.reduce((acc, filePath) => {
-  acc[filePath as LegalKey] = localeRecord(({ locale }) =>
-    readFileContent(filePath.replace('/en/', `/${locale}/`))
-  );
-
-  return acc;
-}, {} as Legals);
-
 export const getLegals = async <L extends LocalesValues>(
   locale: L = defaultLocale as L
-): Promise<Record<LegalKey, string>> => getFiles(legal, locale);
+): Promise<Record<LegalKey, string>> => getFiles(legalEntry, locale);
 
 export const getLegal = async <L extends LocalesValues>(
-  docName: keyof typeof legal,
+  docName: keyof typeof legalEntry,
   locale: L = defaultLocale as L
-): Promise<string> => getFile(legal, docName, locale);
+): Promise<string> => getFile(legalEntry, docName, locale);
 
 export const getLegalMetadataRecord = async <L extends LocalesValues>(
   locale: L = defaultLocale as L
 ): Promise<Record<LegalKey, FileMetadata>> =>
-  getFileMetadataRecord(legal, locale);
+  getFileMetadataRecord(legalEntry, locale);
 
 export const getLegalMetadata = async <
   D extends LegalKey,
@@ -52,14 +35,15 @@ export const getLegalMetadata = async <
 >(
   docName: D,
   locale: L = defaultLocale as L
-): Promise<FileMetadata> => getFileMetadata(legal, docName, locale);
+): Promise<FileMetadata> => getFileMetadata(legalEntry, docName, locale);
 
 export const getLegalMetadataBySlug = async <L extends LocalesValues>(
   slugs: string | string[],
   locale: L = defaultLocale as L
-): Promise<FileMetadata[]> => await getFileMetadataBySlug(legal, slugs, locale);
+): Promise<FileMetadata[]> =>
+  await getFileMetadataBySlug(legalEntry, slugs, locale);
 
 export const getLegalBySlug = async <L extends LocalesValues>(
   slugs: string | string[],
   locale: L = defaultLocale as L
-): Promise<string[]> => await getFileBySlug(legal, slugs, locale);
+): Promise<string[]> => await getFileBySlug(legalEntry, slugs, locale);

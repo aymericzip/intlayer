@@ -1,4 +1,4 @@
-import { BlogKey, BlogMetadata } from '@intlayer/docs';
+import type { BlogKey, BlogMetadata } from '@intlayer/docs';
 import { Locales, getIntlayer } from 'intlayer';
 import type { CategorizedBlogData, Section } from './types';
 
