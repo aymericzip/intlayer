@@ -16,6 +16,7 @@
 
 import fg from 'fast-glob';
 import { mkdir, writeFile } from 'fs/promises';
+import { localeMap } from 'intlayer';
 import { dirname } from 'path';
 import prettier from 'prettier';
 
@@ -71,8 +72,6 @@ const categories: CategoryConfig[] = [
 /*                      HELPERS – ENTRY FILES GENERATION                      */
 /* -------------------------------------------------------------------------- */
 
-const escapePlaceholder = (name: string) => `\${${name}}`;
-
 const buildEntryContent = (
   { constName, dir }: CategoryConfig,
   englishFiles: string[]
@@ -80,12 +79,17 @@ const buildEntryContent = (
   const header = [
     `/* AUTO-GENERATED – DO NOT EDIT */`,
     `/* REGENERATE USING \`pnpm prepare\` */`,
-    `import { readFile } from 'fs/promises';`,
-    `import { localeRecord } from 'intlayer';`,
-    `import { dirname } from 'path';`,
-    `import { fileURLToPath } from 'url';`,
-    `const isESModule = typeof import.meta.url === 'string';`,
-    `const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;`,
+    `import { LocalesValues } from 'intlayer';`,
+
+    `/**`,
+    ` * This condition is a hack to import markdown files either in node or in the browser`,
+    ` */`,
+    `if (require.extensions) {`,
+    `  require.extensions['.md'] = (module, filename) => {`,
+    `    module.exports = require('fs').readFileSync(filename, 'utf8');`,
+    `  };`,
+    `}`,
+
     `\nexport const ${constName} = {\n`,
   ].join('\n');
 
@@ -93,9 +97,12 @@ const buildEntryContent = (
     .sort()
     .map((file) => {
       const relativeAfterLocale = file.replace(`./${dir}/en/`, '');
-      const localePh = escapePlaceholder('locale');
-      return `  '${file}': localeRecord(({ locale }) => readFile(\`\${dir\}/../../../${dir}/${localePh}/${relativeAfterLocale}\`, 'utf-8')),
-`;
+
+      const localeList = localeMap(
+        ({ locale }) =>
+          `'${locale}': Promise.resolve(require("../../../${dir}/${locale}/${relativeAfterLocale}") as string)`
+      );
+      return `  '${file}': {${localeList.join(',')}} as Record<LocalesValues, Promise<string>>,`;
     })
     .join('');
 
