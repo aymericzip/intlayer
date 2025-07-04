@@ -6,6 +6,8 @@ import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
+export const dynamic = 'force-dynamic';
+
 const OnboardPageContent: FC<{ locale: Locales; details: string[] }> = ({
   locale,
   details,
