@@ -35,7 +35,7 @@ export type LocaleData = {
  * @param mapper - The mapper function that returns an object
  * @returns An array of objects
  */
-export const localeMap = <T extends object>(
+export const localeMap = <T>(
   mapper: (locale: LocaleData) => T,
   locales: LocalesValues[] = configuration.internationalization.locales,
   defaultLocale: LocalesValues = configuration.internationalization
