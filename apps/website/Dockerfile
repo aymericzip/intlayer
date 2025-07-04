@@ -25,6 +25,9 @@ RUN addgroup -S app && adduser -S app -G app
 # Set the working directory to the built website
 WORKDIR /workspace/apps/website
 
+# Ensure non-root user owns the application files
+RUN chown -R app:app /workspace
+
 USER app
 
 # Expose the Next.js port (defaults to 3000)

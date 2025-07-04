@@ -27,10 +27,13 @@
   "scripts": {
     "build": "node ./scripts/script-package-command.mjs --command build",
     "build:backend": "pnpm build && pnpm --filter './apps/backend' build",
+    "build:backend:docker": "pnpm build:packages:docker && docker build -t intlayer-backend ./apps/backend",
     "build:changed": "node ./scripts/script-changed-package-command.mjs --command build",
     "build:examples": "pnpm --filter './examples/**' build",
+    "build:packages:docker": "docker build -t intlayer-build .",
     "build:pick": "node ./scripts/script-pick.mjs --command build",
     "build:website": "pnpm build && pnpm --filter './apps/website' build",
+    "build:website:docker": "pnpm build:packages:docker && docker build -t intlayer-website ./apps/website",
     "changeset": "changeset",
     "changeset:publish": "changeset publish",
     "changeset:version": "changeset version",
@@ -50,6 +53,8 @@
     "prettier:fix": "prettier . --write",
     "reset": "node ./scripts/script-package-command.mjs --command reset",
     "reset:pick": "node ./scripts/script-pick.mjs --command reset",
+    "start:backend:docker": "docker run -p 3100:3100 --name intlayer-backend-app intlayer-backend",
+    "start:website:docker": "docker run -p 3000:3000 --name intlayer-website-app intlayer-website",
     "test": "node ./scripts/script-package-command.mjs --command test",
     "test:pick": "node ./scripts/script-pick.mjs --command test",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"

@@ -43,6 +43,9 @@ LICENSE
 # Examples (not needed for core package build)
 examples/
 
+# Apps (not needed for core package build)
+apps/website
+
 # Linting and formatting configs (already copied via package manifests)
 .prettierrc.*
 .prettierignore
@@ -54,5 +57,7 @@ commitlint.config.*
 tsconfig.json
 vitest.config.ts
 
-# Apps (if you only want to build packages, not apps)
-# apps/ 
+# Rust Cargo build artifacts (can be multiple hundreds of MB and are not needed in Docker)
+**/target/
+# Keep the plugin binary that is needed at runtime
+!**/target/wasm32-wasip1/release/intlayer_swc_plugin.wasm 

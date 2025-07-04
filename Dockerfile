@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 ############################
 # 1️⃣ Builder stage        #
 ############################
@@ -14,7 +12,10 @@ WORKDIR /workspace
 COPY . .
 
 # Install workspace dependencies (frozen for reproducible builds)
-RUN pnpm install --frozen-lockfile --filter '!./examples/**'
+RUN pnpm install --frozen-lockfile --filter '!./examples/**'  --filter '!./apps/website/**'
+
+# Remove all .ts and .tsx and .map files by ignoring node_modules
+RUN find . -type f -name "*.ts" -o -name "*.tsx" -o -name "*.map" -not -path "*/node_modules/*" -delete 
 
 # Build every package in the workspace (uses the root "build" script)
 RUN pnpm run build
