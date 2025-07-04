@@ -80,6 +80,7 @@ const buildEntryContent = (
     `/* AUTO-GENERATED – DO NOT EDIT */`,
     `/* REGENERATE USING \`pnpm prepare\` */`,
     `import { LocalesValues } from 'intlayer';`,
+    `import { ESMxCJSRequire } from '@intlayer/config';`,
 
     `/**`,
     ` * This condition is a hack to import markdown files either in node or in the browser`,
@@ -100,7 +101,7 @@ const buildEntryContent = (
 
       const localeList = localeMap(
         ({ locale }) =>
-          `'${locale}': Promise.resolve(require("../../../${dir}/${locale}/${relativeAfterLocale}") as string)`
+          `'${locale}': Promise.resolve(ESMxCJSRequire("../../../${dir}/${locale}/${relativeAfterLocale}") as string)`
       );
       return `  '${file}': {${localeList.join(',')}} as Record<LocalesValues, Promise<string>>,`;
     })

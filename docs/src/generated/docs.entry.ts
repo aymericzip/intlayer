@@ -1,5 +1,6 @@
 /* AUTO-GENERATED – DO NOT EDIT */
 /* REGENERATE USING `pnpm prepare` */
+import { ESMxCJSRequire } from '@intlayer/config';
 import { LocalesValues } from 'intlayer';
 /**
  * This condition is a hack to import markdown files either in node or in the browser
@@ -12,7 +13,7 @@ if (require.extensions) {
 
 export const docsEntry = {
   './docs/en/CI_CD.md': {
-    en: Promise.resolve(require('../../../docs/en/CI_CD.md') as string),
+    en: Promise.resolve(ESMxCJSRequire('../../../docs/en/CI_CD.md') as string),
     fr: Promise.resolve(require('../../../docs/fr/CI_CD.md') as string),
     ru: Promise.resolve(require('../../../docs/ru/CI_CD.md') as string),
     ja: Promise.resolve(require('../../../docs/ja/CI_CD.md') as string),
