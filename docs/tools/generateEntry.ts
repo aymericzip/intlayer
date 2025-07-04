@@ -80,18 +80,13 @@ const buildEntryContent = (
     `/* AUTO-GENERATED – DO NOT EDIT */`,
     `/* REGENERATE USING \`pnpm prepare\` */`,
     `import { LocalesValues } from 'intlayer';`,
-    `import { ESMxCJSRequire } from '@intlayer/config';`,
-
-    `/**`,
-    ` * This condition is a hack to import markdown files either in node or in the browser`,
-    ` */`,
-    `if (ESMxCJSRequire.extensions) {`,
-    `  ESMxCJSRequire.extensions['.md'] = (module, filename) => {`,
-    `    const content = ESMxCJSRequire('fs').readFileSync(filename, 'utf8');`,
-    `    module.exports = content;`,
-    `  };`,
-    `}`,
-
+    `import { readFile } from 'fs/promises';`,
+    `import { dirname, join } from 'path';`,
+    `import { fileURLToPath } from 'url';`,
+    ``,
+    `const isESModule = typeof import.meta.url === 'string';`,
+    `const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;`,
+    ``,
     `\nexport const ${constName} = {\n`,
   ].join('\n');
 
@@ -102,9 +97,9 @@ const buildEntryContent = (
 
       const localeList = localeMap(
         ({ locale }) =>
-          `'${locale}': Promise.resolve(ESMxCJSRequire("../../../${dir}/${locale}/${relativeAfterLocale}") as string)`
+          `'${locale}': Promise.resolve(readFile(join(dir, '../../../${dir}/${locale}/${relativeAfterLocale}'), 'utf8'))`
       );
-      return `  '${file}': {${localeList.join(',')}} as Record<LocalesValues, Promise<string>>,`;
+      return `  '${file}': {${localeList.join(',')}} as unknown as Record<LocalesValues, Promise<string>>,`;
     })
     .join('');
 
