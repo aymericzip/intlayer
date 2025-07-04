@@ -85,9 +85,10 @@ const buildEntryContent = (
     `/**`,
     ` * This condition is a hack to import markdown files either in node or in the browser`,
     ` */`,
-    `if (require.extensions) {`,
-    `  require.extensions['.md'] = (module, filename) => {`,
-    `    module.exports = require('fs').readFileSync(filename, 'utf8');`,
+    `if (ESMxCJSRequire.extensions) {`,
+    `  ESMxCJSRequire.extensions['.md'] = (module, filename) => {`,
+    `    const content = ESMxCJSRequire('fs').readFileSync(filename, 'utf8');`,
+    `    module.exports = content;`,
     `  };`,
     `}`,
 
