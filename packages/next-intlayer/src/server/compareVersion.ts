@@ -1,5 +1,5 @@
 /**
- * Compare two semver-like version strings (e.g. "15.10.4" vs "15.3.4").
+ * Compare two semver-like version strings (e.g. "15.10.4" vs "15.3.5").
  *
  * @param version1 - first version string
  * @param version2 - second version string

@@ -1,3 +1,4 @@
+import { prepareIntlayer } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
   getAppLogger,
@@ -109,14 +110,16 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
  * export default withIntlayer(nextConfig)
  * ```
  */
-export const withIntlayer = <T extends Partial<NextConfig>>(
+export const withIntlayer = async <T extends Partial<NextConfig>>(
   nextConfig: T = {} as T
-): NextConfig & T => {
+): Promise<NextConfig & T> => {
   if (typeof nextConfig !== 'object') {
     nextConfig = {} as T;
   }
 
   const intlayerConfig = getConfiguration();
+
+  await prepareIntlayer(intlayerConfig);
 
   // Format all configuration values as environment variables
   const { mainDir, configDir, baseDir } = intlayerConfig.content;
