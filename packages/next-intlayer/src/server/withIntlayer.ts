@@ -39,6 +39,8 @@ const getPruneConfig = (
   const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
     intlayerConfig.content;
 
+  console.log('intlayerConfig.build', intlayerConfig.build);
+
   if (!optimize) return {};
 
   if (!isGteNext13) return {};
