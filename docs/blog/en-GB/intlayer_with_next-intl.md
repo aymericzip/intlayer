@@ -290,7 +290,6 @@ Each file includes compiled messages from all Intlayer content declarations. The
    import { notFound } from 'next/navigation';
    import React, { ReactNode } from 'react';
 
-   export const dynamic = 'force-dynamic';
 
    export default async function RootLayout({
      children,

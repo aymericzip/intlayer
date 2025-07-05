@@ -290,7 +290,6 @@ Jede Datei enthält kompilierte Nachrichten aus allen Intlayer-Inhaltsdeklaratio
    import { notFound } from 'next/navigation';
    import React, { ReactNode } from 'react';
 
-   export const dynamic = 'force-dynamic';
 
    export default async function RootLayout({
      children,

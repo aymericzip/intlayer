@@ -7,7 +7,6 @@ import { NextLayoutIntlayer } from 'next-intlayer';
 // Required to revalidate session after user login/logout
 export const revalidate = 0;
 export const fetchCache = 'force-no-store';
-export const dynamic = 'force-dynamic';
 
 const AuthLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
