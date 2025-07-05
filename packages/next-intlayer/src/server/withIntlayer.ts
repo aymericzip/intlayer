@@ -49,7 +49,14 @@ const getPruneConfig = (
 
   const logger = getAppLogger(intlayerConfig);
 
-  logger('Intlayer prune plugin is enabled');
+  // Display this message only during the build phase (e.g., `next build`).
+  const isBuildTime =
+    process.env.npm_lifecycle_event === 'build' ||
+    process.argv.some((arg) => arg === 'build');
+
+  if (isBuildTime) {
+    logger('Intlayer prune plugin is enabled');
+  }
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
 
