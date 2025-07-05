@@ -3,9 +3,9 @@ node_modules/
 **/node_modules/
 
 # Build output
+dist/
 **/dist/
-**/build/
-**/dist/
+build/
 **/build/
 
 # Git history and cache files
@@ -30,8 +30,10 @@ node_modules/
 .turbo/
 
 # Intlayer
-.intlayer/
 **/.intlayer/
+
+# Next
+**/.next/
 
 # Development and testing files (not needed for build)
 coverage/

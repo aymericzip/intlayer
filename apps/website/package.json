@@ -35,7 +35,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "prebuild": "intlayer dictionaries build",
+    "prebuild": "pnpm intlayer dictionaries build",
     "build": "next build",
     "dev": "next dev",
     "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
@@ -47,12 +47,11 @@
     "prepare": "husky",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "serve": "npx intlayer serve",
+    "serve": "pnpm intlayer serve",
     "start": "next start",
-    "start:editor": "npx intlayer-editor start",
+    "start:editor": "pnpm intlayer-editor start",
     "test": "vitest run",
-    "transpile": "npx intlayer dictionaries build",
-    "watch": "npx intlayer dictionaries build --watch"
+    "watch": "pnpm intlayer dictionaries build --watch"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
