@@ -45,8 +45,8 @@ RUN pnpm build
 
 WORKDIR /workspace
 
-# Remove all .ts and .tsx and .map files by ignoring node_modules
-RUN find . -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete 
+# Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
+RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
 
 # Remove all dev dependencies
 RUN pnpm prune --prod
