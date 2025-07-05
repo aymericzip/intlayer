@@ -40,7 +40,7 @@ const config: IntlayerConfig = {
   },
   build: {
     optimize: false,
-    activateDynamicImport: true,
+    activateDynamicImport: false,
   },
 };
 
