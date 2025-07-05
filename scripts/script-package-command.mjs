@@ -12,8 +12,9 @@
  */
 
 import { spawnSync } from 'child_process';
-import process from 'process';
+import { existsSync } from 'fs';
 import minimist from 'minimist';
+import process from 'process';
 import { packageBuildOrder } from './package-build-order.mjs';
 
 const args = minimist(process.argv.slice(2));
@@ -36,6 +37,12 @@ export const executeCommandOnPackages = (
   );
 
   for (const packagePath of packages) {
+    if (!existsSync(packagePath)) {
+      console.warn(
+        `\n[SKIPPED] Directory "${packagePath}" does not exist. Skipping.\n`
+      );
+      continue;
+    }
     console.info(`\n--- Running "${command}" in ${packagePath} ---\n`);
     const result = spawnSync('npm', ['run', command], {
       cwd: packagePath,

@@ -43,9 +43,6 @@ LICENSE
 # Examples (not needed for core package build)
 examples/
 
-# Apps (not needed for core package build)
-apps/website
-
 # Linting and formatting configs (already copied via package manifests)
 .prettierrc.*
 .prettierignore
@@ -61,3 +58,8 @@ vitest.config.ts
 **/target/
 # Keep the plugin binary that is needed at runtime
 !**/target/wasm32-wasip1/release/intlayer_swc_plugin.wasm 
+
+# Environment variables
+.env
+.env.*
+!.env.template

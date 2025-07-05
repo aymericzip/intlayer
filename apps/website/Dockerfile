@@ -1,36 +1,65 @@
-FROM intlayer-build AS builder
+# syntax=docker/dockerfile:1.7-labs
+
+FROM node:24-alpine AS builder
+
+RUN npm install -g pnpm@10.12.1
 
 # Create app directory
 WORKDIR /workspace
 
-RUN npm install -g pnpm@10.12.1
+# Copy the rest of the source code
+# Remove directories to keep the image slim
+COPY \
+    --exclude=packages/@intlayer/babel \
+    --exclude=packages/@intlayer/mcp \
+    --exclude=packages/intlayer-cli \
+    --exclude=packages/react-scripts-intlayer \
+    --exclude=packages/vue-intlayer \
+    --exclude=packages/solid-intlayer \
+    --exclude=packages/svelte-intlayer \
+    --exclude=packages/preact-intlayer \
+    --exclude=packages/angular-intlayer \
+    --exclude=packages/vite-intlayer \
+    --exclude=packages/nuxt-intlayer \
+    --exclude=packages/react-native-intlayer \
+    --exclude=packages/lynx-intlayer \
+    --exclude=packages/intlayer-editor \
+    --exclude=docs/assets \
+    --exclude=docs/tools \
+    --exclude=examples \
+    . .
 
-# Copy all content from
-COPY . ./apps/website
+# Installer toutes les dépendances (dev + prod) (frozen for reproducible builds)
+RUN pnpm install --frozen-lockfile
 
-# Install workspace dependencies for the website package only
-RUN pnpm install --frozen-lockfile --filter "./apps/website"
+# Build every package in the workspace (uses the root "build" script)
+RUN pnpm run build
 
-# Build the website package
-RUN pnpm --filter "./apps/website" run build
-
-# Remove all .ts and .tsx and .map files by ignoring node_modules
-RUN find . -type f -name "*.ts" -o -name "*.tsx" -o -name "*.map" -not -path "*/node_modules/*" -delete 
+# Set working directory to the website package and build it
+WORKDIR /workspace/apps/website
 
 ENV NODE_ENV=production
 
-# Create non-root user for security
-RUN addgroup -S app && adduser -S app -G app
+RUN pnpm build
 
-# Set the working directory to the built website
-WORKDIR /workspace/apps/website
 
-# Ensure non-root user owns the application files
-RUN chown -R app:app /workspace
+WORKDIR /workspace
+
+# Remove all .ts and .tsx and .map files by ignoring node_modules
+RUN find . -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete 
+
+# Remove all dev dependencies
+RUN pnpm prune --prod
+
+
+# Create and use a non-root user for security
+RUN addgroup -S app && adduser -S app -G app && chown -R app:app /workspace/apps/website/.next
 
 USER app
 
-# Expose the Next.js port (defaults to 3000)
-EXPOSE 3000
+WORKDIR /workspace/apps/website
 
-CMD ["pnpm", "start"] 
+# Expose the API port (defaults to 3100 via .env, can be overridden)
+EXPOSE 3100
+
+CMD ["npm", "start"] 

@@ -24,7 +24,6 @@ dictionaries
 .env
 .env.*
 !.env.template
-.vercel
 
 # eslint
 .eslintcache
