@@ -120,9 +120,9 @@ export const localeFlatMap = <T>(
  */
 export const localeRecord = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: Locales[] = configuration.internationalization.locales,
-  defaultLocale: Locales = configuration.internationalization.defaultLocale,
-  prefixDefault: boolean = configuration.middleware.prefixDefault
+  locales: Locales[] = configuration?.internationalization.locales,
+  defaultLocale: Locales = configuration?.internationalization.defaultLocale,
+  prefixDefault: boolean = configuration?.middleware.prefixDefault
 ): Record<Locales, T> =>
   locales.reduce(
     (acc, locale) => {
