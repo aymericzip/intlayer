@@ -1,3 +1,4 @@
+import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
 import type {
   Dictionary,
@@ -24,7 +25,12 @@ export const useDictionaryDynamic = <
 ) => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
-  const localeTarget = computed(() => locale ?? intlayer?.locale?.value);
+  const localeTarget = computed(
+    () =>
+      locale ??
+      intlayer?.locale?.value ??
+      configuration?.internationalization.defaultLocale
+  );
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget.value}`,
