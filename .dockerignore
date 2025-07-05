@@ -29,6 +29,10 @@ node_modules/
 .cache/
 .turbo/
 
+# Intlayer
+.intlayer/
+**/.intlayer/
+
 # Development and testing files (not needed for build)
 coverage/
 .nyc_output/
@@ -39,6 +43,7 @@ tests/
 README.md
 CONTRIBUTING.md
 LICENSE
+**/README.md
 
 # Examples (not needed for core package build)
 examples/
@@ -61,5 +66,8 @@ vitest.config.ts
 
 # Environment variables
 .env
+**/.env
 .env.*
+**/.env.*
 !.env.template
+**/!.env.template

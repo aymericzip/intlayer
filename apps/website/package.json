@@ -35,6 +35,7 @@
   ],
   "sideEffects": false,
   "scripts": {
+    "prebuild": "intlayer dictionaries build",
     "build": "next build",
     "dev": "next dev",
     "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
