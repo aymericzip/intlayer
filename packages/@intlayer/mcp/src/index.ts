@@ -310,12 +310,12 @@ server.tool(
 server.tool(
   'get-doc-list',
   {
-    lang: z.nativeEnum(Locales),
+    lang: z.nativeEnum(Locales).optional().describe('Language of the docs'),
     description:
       'Get the list of docs and their metadata to get more details about what doc to',
   },
-  async ({}) => {
-    const docsMetadataRecord = await getDocMetadataRecord();
+  async ({ lang }) => {
+    const docsMetadataRecord = await getDocMetadataRecord(lang);
 
     return {
       content: [
@@ -332,7 +332,7 @@ server.tool(
   'get-doc',
   {
     docKey: z.string(),
-    lang: z.nativeEnum(Locales),
+    lang: z.nativeEnum(Locales).optional().describe('Language of the docs'),
     description: 'Get a doc by his key',
   },
   async ({ docKey, lang }) => {
@@ -346,12 +346,23 @@ server.tool(
 server.tool(
   'get-doc-by-slug',
   {
-    slug: z.union([z.string(), z.array(z.string())]),
-    lang: z.nativeEnum(Locales),
+    slug: z
+      .union([z.string(), z.array(z.string())])
+      .optional()
+      .describe(
+        'Slug of the docs. If not provided, return all docs. If not provided, return all docs.'
+      ),
+    lang: z.nativeEnum(Locales).optional().describe('Language of the docs'),
+    strict: z
+      .boolean()
+      .optional()
+      .describe(
+        'Strict mode - only return docs that match all slugs, by excluding additional slugs'
+      ),
     description: 'Get an array of docs by their slugs',
   },
-  async ({ slug, lang }) => {
-    const doc = await getDocBySlug(slug, lang);
+  async ({ slug, lang, strict }) => {
+    const doc = await getDocBySlug(slug, lang, strict);
     return {
       content: doc.map((d) => ({ type: 'text', text: d })),
     };
