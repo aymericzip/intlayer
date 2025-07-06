@@ -86,21 +86,41 @@ vi.mock('intlayer', () => {
     return `/${currentLocale}${url}`;
   };
 
+  const localeMap = (
+    mapper: (locale: { locale: string }) => string
+  ): string[] =>
+    Object.values(Locales).map((locale) =>
+      mapper({
+        locale,
+      })
+    );
+
   return {
     __esModule: true,
     Locales,
     getIntlayer,
     getLocalizedUrl,
+    localeMap,
   };
 });
 
 // `urlRenamer` must be imported **after** the mock is registered so that it
 // uses the mocked implementation of `intlayer`.
-import { urlRenamer } from './markdown';
+import { formatRegExp, urlRenamer } from './markdown';
 
 // -----------------------------------------------------------------------------
 // No external fixtures are required – the test strings are defined in-file.
 // -----------------------------------------------------------------------------
+
+describe('formatRegExp', () => {
+  const entry =
+    'https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_native+expo.md';
+
+  const result =
+    'https:\/\/github.com\/aymericzip\/intlayer\/blob\/main\/docs\/docs\/fr\/intlayer_with_react_native\+expo\.md';
+
+  expect(formatRegExp(entry).exec(result)?.length).toEqual(1);
+});
 
 describe('urlRenamer', () => {
   beforeAll(() => {

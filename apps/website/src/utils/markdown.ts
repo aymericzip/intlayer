@@ -6,8 +6,11 @@ import { getIntlayer, getLocalizedUrl, localeMap, Locales } from 'intlayer';
 // that the transformation can be executed in a single pass afterwards.
 // ---------------------------------------------------------------------------
 
-const escapeRegExp = (str: string): string =>
-  str.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&'); // Escapes characters with special meaning in RegExp.
+export const escapeRegExp = (str: string): string =>
+  str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escapes characters with special meaning in RegExp.
+
+export const formatRegExp = (str: string): RegExp =>
+  new RegExp(escapeRegExp(str), 'g'); // Escapes characters with special meaning in RegExp.
 
 type URLMap = {
   urlRegexToReplace: RegExp;
@@ -37,10 +40,7 @@ export const urlRenamer = (content: string, pageLocale: Locales): string => {
   const localePattern = localeMap(({ locale }) => locale).join('|');
 
   const getGithubUrlRegex = (githubUrl: string) =>
-    new RegExp(
-      escapeRegExp(githubUrl.replace('/en/', `/(${localePattern})/`)),
-      'g'
-    );
+    formatRegExp(githubUrl.replace('/en/', `/(${localePattern})/`));
 
   for (const meta of [...docMetadata, ...blogMetadata]) {
     const docGithubUrlMap: URLMap = {
