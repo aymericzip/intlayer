@@ -19,7 +19,7 @@ slugs:
 
 # 国際化（i18n）とは？ 定義と課題
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## 国際化（i18n）の理解
 
@@ -73,7 +73,7 @@ i18nのもう一つの重要な利点は、ユーザーエクスペリエンス�
 
 ## 一般的なi18nの課題
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/pain_i18n.webp)
 
 - **メンテナンス性**  
   各ウェブサイトの更新はすべての言語で反映される必要があり、効率的なワークフローと注意深い調整が求められ、一貫性を確保する必要があります。

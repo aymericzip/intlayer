@@ -24,7 +24,7 @@ A medida que la web sigue conectando a las personas de todo el mundo, proporcion
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## ¿Qué es la Internacionalización (i18n)?
 

@@ -19,7 +19,7 @@ slugs:
 
 # 什么是国际化 (i18n)? 定义与挑战
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## 理解国际化 (i18n)
 
@@ -73,7 +73,7 @@ slugs:
 
 ## 常见的国际化挑战
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/pain_i18n.webp)
 
 - **可维护性**  
   每个网站更新都必须在每种语言中反映，要求高效的工作流程和仔细的协调，以确保所有版本的一致性。

@@ -22,7 +22,7 @@ slugs:
 
 ウェブが世界中の人々をつなげ続ける中で、複数言語でコンテンツを提供することはますます重要になっています。**Svelte**で作業している開発者にとって、i18nの実装は翻訳を効率的に管理し、クリーンなコードを維持し、良好なSEOプラクティスを保つために不可欠です。本記事では、Svelte向けのさまざまなi18nソリューションとワークフローを掘り下げ、プロジェクトのニーズに最適なものを選ぶ手助けをします。
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## 国際化 (i18n) とは？
 

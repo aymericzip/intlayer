@@ -24,7 +24,7 @@ En un mundo cada vez más conectado, ofrecer tu aplicación Flutter en varios id
 
 ---
 
-![ilustración de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![ilustración de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## ¿Qué es la Internacionalización (i18n)?
 

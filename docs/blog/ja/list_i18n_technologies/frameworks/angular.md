@@ -22,7 +22,7 @@ slugs:
 
 今日の相互接続された世界では、ウェブサイトを複数の言語で提供することで、リーチを大幅に拡大し、ユーザーエクスペリエンスを向上させることができます。Angularを使用している開発者にとって、国際化（i18n）の実装は、アプリケーションの構造、SEO、およびパフォーマンスを維持しながら翻訳を効率的に管理するために重要です。この記事では、Angularの組み込みソリューションから人気のサードパーティライブラリに至るまで、さまざまなi18nアプローチを探り、プロジェクトに最適な選択肢を判断できるようにします。
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## 国際化（i18n）とは何ですか？
 

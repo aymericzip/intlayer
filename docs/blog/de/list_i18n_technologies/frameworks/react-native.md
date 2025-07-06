@@ -24,7 +24,7 @@ In einem zunehmend globalen Markt kann die Bereitstellung Ihrer React Native-App
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Was ist Internationalisierung (i18n)?
 

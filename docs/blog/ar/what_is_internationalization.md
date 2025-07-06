@@ -19,7 +19,7 @@ slugs:
 
 # ما هو التدويل (i18n)؟ التعريف والتحديات
 
-![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## فهم التدويل (i18n)
 
@@ -73,7 +73,7 @@ slugs:
 
 ## التحديات الشائعة في i18n
 
-![توضيح ألم i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
+![توضيح ألم i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/pain_i18n.webp)
 
 - **قابلية الصيانة**  
   يجب أن تتزامن كل تحديثات الموقع مع جميع اللغات، مما يتطلب سير عمل فعال وتنسيق دقيق لضمان الاتساق عبر جميع النسخ.

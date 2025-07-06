@@ -24,7 +24,7 @@ Dans le paysage numérique d'aujourd'hui, étendre la portée de votre site web 
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Qu'est-ce que l'Internationalisation (i18n) ?
 

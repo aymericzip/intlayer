@@ -22,7 +22,7 @@ slugs:
 
 在当今互联的世界中，提供多种语言的网站可以显著扩大您的覆盖面并改善用户体验。对于使用 Angular 的开发人员来说，实现国际化 (i18n) 对于有效管理翻译，同时保持应用程序结构、SEO 和性能至关重要。在本文中，我们将探讨各种 i18n 方法, , 从 Angular 的内置解决方案到流行的第三方库, , 帮助您确定最适合您项目的方案。
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## 什么是国际化 (i18n)？
 

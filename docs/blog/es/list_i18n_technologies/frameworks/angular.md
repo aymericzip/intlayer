@@ -22,7 +22,7 @@ slugs:
 
 En el mundo interconectado de hoy, ofrecer tu sitio web en múltiples idiomas puede expandir significativamente tu alcance y mejorar la experiencia del usuario. Para los desarrolladores que trabajan con Angular, implementar la internacionalización (i18n) es crucial para gestionar eficientemente las traducciones mientras se preserva la estructura de la aplicación, el SEO y el rendimiento. En este artículo, exploraremos varios enfoques de i18n, desde las soluciones integradas de Angular hasta las populares bibliotecas de terceros, para ayudarte a determinar la mejor opción para tu proyecto.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## ¿Qué es la Internacionalización (i18n)?
 

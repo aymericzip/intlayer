@@ -24,7 +24,7 @@ No mundo interconectado de hoje, oferecer seu site em várias línguas pode expa
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## O que é Internacionalização (i18n)?
 

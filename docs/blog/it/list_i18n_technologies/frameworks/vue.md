@@ -24,7 +24,7 @@ In un panorama digitale sempre più globalizzato, estendere la portata del tuo s
 
 ---
 
-![illustrazione i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![illustrazione i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Cos'è l'Internazionalizzazione (i18n)?
 

@@ -19,7 +19,7 @@ slugs:
 
 # Что такое Интернационализация (i18n)? Определение и вызовы
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Понимание Интернационализации (i18n)
 
@@ -73,7 +73,7 @@ slugs:
 
 ## Общие вызовы i18n
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/pain_i18n.webp)
 
 - **поддерживаемость**  
   Каждое обновление веб-сайта должно быть отражено на всех языках, требуя эффективных рабочих процессов и тщательной координации для обеспечения согласованности во всех версиях.

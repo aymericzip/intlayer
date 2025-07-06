@@ -24,7 +24,7 @@ Nell'attuale mondo interconnesso, offrire il tuo sito web in più lingue può es
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Cos'è l'internazionalizzazione (i18n)?
 

@@ -24,7 +24,7 @@ slugs:
 
 ---
 
-![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## ما هو التدويل (i18n)؟
 

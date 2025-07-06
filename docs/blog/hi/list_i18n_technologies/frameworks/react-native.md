@@ -24,7 +24,7 @@ slugs:
 
 ---
 
-![i18n चित्रण](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n चित्रण](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## अंतर्राष्ट्रीयकरण (i18n) क्या है?
 

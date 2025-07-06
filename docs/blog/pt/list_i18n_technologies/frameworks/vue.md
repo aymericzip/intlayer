@@ -24,7 +24,7 @@ Em um cenário digital cada vez mais globalizado, expandir o alcance do seu site
 
 ---
 
-![ilustração i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![ilustração i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## O Que é Internacionalização (i18n)?
 

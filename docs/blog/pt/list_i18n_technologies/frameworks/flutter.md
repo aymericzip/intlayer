@@ -22,7 +22,7 @@ slugs:
 
 Em um mundo cada vez mais conectado, oferecer seu aplicativo Flutter em vários idiomas pode expandir seu alcance e melhorar a usabilidade para falantes de outras línguas. Implementar a internacionalização (i18n) no Flutter garante que texto, datas e outras informações culturalmente sensíveis sejam localizadas corretamente. Neste artigo, exploraremos diferentes abordagens para i18n no Flutter - desde frameworks oficiais até bibliotecas desenvolvidas pela comunidade - para que você possa selecionar a melhor opção para seu projeto.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## O que é Internacionalização (i18n)?
 

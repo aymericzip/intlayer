@@ -24,7 +24,7 @@ Au fur et à mesure que le web continue de connecter les gens à travers le mond
 
 ---
 
-![illustration i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![illustration i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Qu'est-ce que l'internationalisation (i18n)?
 

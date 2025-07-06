@@ -24,7 +24,7 @@ Em um mercado cada vez mais global, entregar seu app React Native em múltiplas 
 
 ---
 
-![ilustração i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![ilustração i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## O que é Internacionalização (i18n)?
 

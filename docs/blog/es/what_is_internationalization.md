@@ -19,7 +19,7 @@ slugs:
 
 # ¿Qué es la Internacionalización (i18n)? Definición y desafíos
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Entendiendo la Internacionalización (i18n)
 
@@ -73,7 +73,7 @@ Este resumen conciso cubre los elementos principales que deberían ser internaci
 
 ## Desafíos Comunes de la i18n
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/pain_i18n.webp)
 
 - **mantenibilidad**  
   Cada actualización del sitio web debe ser reflejada en cada idioma, exigiendo flujos de trabajo eficientes y coordinación cuidadosa para asegurar consistencia en todas las versiones.
