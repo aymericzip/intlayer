@@ -76,10 +76,12 @@ export const formatMetadata = (
   const metadata = getMarkdownMetadata(file);
   const relativeUrl = join('/', ...(metadata.slugs ?? []));
 
+  const slicedDocKey = docKey.slice(1);
+
   return {
     ...metadata,
     docKey,
-    githubUrl: join(GITHUB_URL_PREFIX, docKey as string).replace(
+    githubUrl: `${GITHUB_URL_PREFIX}${slicedDocKey}`.replace(
       '/en/',
       `/${locale}/`
     ),
