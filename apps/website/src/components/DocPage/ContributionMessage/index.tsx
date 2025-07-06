@@ -24,8 +24,6 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
         <Link
           href={githubUrl}
           label={contribution.buttonLabel.value}
-          target="_blank"
-          rel="noreferrer"
           color="text"
         >
           {contribution.button}
