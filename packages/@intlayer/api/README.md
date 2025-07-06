@@ -33,7 +33,7 @@
       <a href="https://www.facebook.com/intlayer" target="blank"><img align="center"
          src="https://img.shields.io/badge/facebook-4267B2.svg?style=for-the-badge&logo=facebook&logoColor=white"
          alt="Intlayer Facebook" height="30"/></a>
-      <a href="https://www.instagram.com/intlayer_org/" target="blank"><img align="center"
+      <a href="https://www.instagram.com/intlayer/" target="blank"><img align="center"
          src="https://img.shields.io/badge/instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white"
          alt="Intlayer Instagram" height="30"/></a>
       <a href="https://x.com/Intlayer183096" target="blank"><img align="center"

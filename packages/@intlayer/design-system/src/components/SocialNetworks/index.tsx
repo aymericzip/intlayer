@@ -34,7 +34,7 @@ const socialNetworks = [
     label: 'TikTok',
   },
   {
-    href: 'https://www.instagram.com/intlayer_org/',
+    href: 'https://www.instagram.com/intlayer/',
     component: <InstagramLogo className="max-w-full max-h-full h-auto" />,
     label: 'Instagram',
   },
