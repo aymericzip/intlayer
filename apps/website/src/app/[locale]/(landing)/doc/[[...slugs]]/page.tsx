@@ -63,13 +63,17 @@ const DocPageNavigation: FC<DocPageNavigationProps> = ({
 const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
   const { locale, slugs } = await params;
 
-  const docsData = await getDocMetadataBySlug(slugs, locale, true);
+  const docsData = await getDocMetadataBySlug(slugs, locale);
 
-  if (!docsData || docsData.length !== 1) {
+  const filteredDocsData = docsData.filter(
+    (doc) => doc.slugs.length === slugs.length + 1
+  );
+
+  if (!filteredDocsData || filteredDocsData.length !== 1) {
     return redirect(PagesRoutes.Doc);
   }
 
-  const docData = docsData[0];
+  const docData = filteredDocsData[0];
 
   const { prevDocData, nextDocData } = getPreviousNextDocMetadata(
     docData.docKey as DocKey,

@@ -25,11 +25,15 @@ export const generateMetadata = async ({
 
   const docsData = await getDocMetadataBySlug(slugs, locale, true);
 
-  if (!docsData || docsData.length !== 1) {
+  const filteredDocsData = docsData.filter(
+    (doc) => doc.slugs.length === slugs.length + 1
+  );
+
+  if (!filteredDocsData || filteredDocsData.length !== 1) {
     return {};
   }
 
-  const docData = docsData[0];
+  const docData = filteredDocsData[0];
 
   const absoluteUrl = docData.url;
   const relativeUrl = docData.relativeUrl;

@@ -90,13 +90,17 @@ const BlogPageNavigation: FC<BlogPageNavigationProps> = ({
 
 const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
   const { locale, slugs } = await params;
-  const blogsData = await getBlogMetadataBySlug(slugs, locale, true);
+  const blogsData = await getBlogMetadataBySlug(slugs, locale);
 
-  if (!blogsData || blogsData.length !== 1) {
+  const filteredBlogsData = blogsData.filter(
+    (blog) => blog.slugs.length === slugs.length + 1
+  );
+
+  if (!filteredBlogsData || filteredBlogsData.length !== 1) {
     return redirect(PagesRoutes.Blog);
   }
 
-  const blogData = blogsData[0];
+  const blogData = filteredBlogsData[0];
 
   const { prevBlogData, nextBlogData } = getPreviousNextBlogData(
     blogData.docKey as BlogKey,
