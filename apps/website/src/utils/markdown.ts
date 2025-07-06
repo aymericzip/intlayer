@@ -7,7 +7,7 @@ import { getIntlayer, getLocalizedUrl, localeMap, Locales } from 'intlayer';
 // ---------------------------------------------------------------------------
 
 export const escapeRegExp = (str: string): string =>
-  str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escapes characters with special meaning in RegExp.
+  str.replace(/[.*+?^${}[\]\\]/g, '\\$&'); // Escapes characters with special meaning in RegExp.
 
 export const formatRegExp = (str: string): RegExp =>
   new RegExp(escapeRegExp(str), 'g'); // Escapes characters with special meaning in RegExp.
