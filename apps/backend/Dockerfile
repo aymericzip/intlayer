@@ -65,4 +65,4 @@ USER app
 EXPOSE 3100
 
 
-CMD ["npm", "start"] 
+CMD ["pnpm", "start"] 

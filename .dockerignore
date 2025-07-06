@@ -72,4 +72,4 @@ vitest.config.ts
 .env.*
 **/.env.*
 !.env.template
-**/!.env.template
+!**/.env.template
