@@ -10,8 +10,8 @@ import { defaultLocale, locales } from '../intlayer.config';
 const DOC_PATTERN: string[] = [
   // './docs/en/**/*.md',
   // './blog/en/**/*.md',
-  '**/frequent_questions/**',
-  // '**/legal/**',
+  // './frequent_questions/en/**/*.md',
+  // './legal/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/node_modules/**',
@@ -34,7 +34,7 @@ const SKIP_IF_MODIFIED_AFTER: number | undefined = undefined;
 const configuration = getConfiguration();
 
 const customInstructions = readFileSync(
-  join(process.cwd(), './src/prompts/CUSTOM_INSTRUCTIONS.md'),
+  join(process.cwd(), './tools/prompts/CUSTOM_INSTRUCTIONS.md'),
   'utf-8'
 );
 

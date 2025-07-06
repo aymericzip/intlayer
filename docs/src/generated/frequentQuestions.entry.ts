@@ -288,6 +288,86 @@ export const frequentQuestionsEntry = {
       )
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
+  './frequent_questions/en/build_error_CI_CD.md': {
+    en: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/en/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    fr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/fr/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    ru: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/ru/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    ja: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/ja/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    ko: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/ko/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    zh: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/zh/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    es: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/es/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    de: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/de/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    ar: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/ar/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    pt: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/pt/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    'en-GB': Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/en-GB/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    it: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/it/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    hi: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/hi/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+  } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/customized_locale_list.md': {
     en: Promise.resolve(
       readFile(
