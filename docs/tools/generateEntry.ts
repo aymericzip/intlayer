@@ -15,7 +15,7 @@
  * ------------------------------------------------------------------------- */
 
 import fg from 'fast-glob';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir, readFile, writeFile } from 'fs/promises';
 import { localeMap } from 'intlayer';
 import { dirname } from 'path';
 import prettier from 'prettier';
@@ -121,16 +121,28 @@ const generate = async () => {
 
     const entryContent = buildEntryContent(cfg, englishFiles);
     await mkdir(dirname(cfg.entryFilePath), { recursive: true });
-    await writeFile(cfg.entryFilePath, entryContent, 'utf-8');
 
     /* --------------------------- format with prettier -------------------------- */
     try {
+      // Resolve Prettier configuration for the target file to ensure the
+      // generated artefacts follow the workspace formatting rules.
+      const resolvedPrettierConfig = await prettier.resolveConfig(
+        cfg.entryFilePath
+      );
+
       const formatted = await prettier.format(entryContent, {
+        ...resolvedPrettierConfig,
         parser: 'typescript',
         filepath: cfg.entryFilePath,
       });
-      await writeFile(cfg.entryFilePath, formatted, 'utf-8');
-      console.log(`✨ Formatted ${cfg.entryFilePath}`);
+
+      const currentContent = await readFile(cfg.entryFilePath, 'utf-8');
+
+      // If the file is different from the formatted version, write the formatted version
+      if (formatted !== currentContent) {
+        await writeFile(cfg.entryFilePath, formatted, 'utf-8');
+        console.log(`✨ Formatted ${cfg.entryFilePath}`);
+      }
     } catch (error) {
       console.warn(`⚠️ Failed to format ${cfg.entryFilePath}:`, error);
     }

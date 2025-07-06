@@ -1,7 +1,7 @@
 /* AUTO-GENERATED – DO NOT EDIT */
 /* REGENERATE USING `pnpm prepare` */
-import { readFile } from 'fs/promises';
 import { LocalesValues } from 'intlayer';
+import { readFile } from 'fs/promises';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 

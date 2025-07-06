@@ -63,7 +63,6 @@ COPY \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/intlayer-editor \
     --exclude=docs/assets \
-    --exclude=docs/tools \
     --exclude=examples \
     . .
 
