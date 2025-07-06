@@ -39,7 +39,7 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   build: {
-    activateDynamicImport: true,
+    activateDynamicImport: false,
   },
 };
 
