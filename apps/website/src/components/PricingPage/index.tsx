@@ -3,7 +3,7 @@
 import { GetPricingResult } from '@intlayer/backend';
 import { H1, SwitchSelector } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useState } from 'react';
+import { type FC, Suspense, useState } from 'react';
 import { Period } from './data.content';
 import { PricingCarousel } from './PricingCarousel';
 
@@ -33,11 +33,13 @@ export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
         value={focusedPeriod}
       />
       {pricings ? (
-        <PricingCarousel
-          focusedPeriod={focusedPeriod}
-          setFocusedPeriod={setFocusedPeriod}
-          pricings={pricings}
-        />
+        <Suspense>
+          <PricingCarousel
+            focusedPeriod={focusedPeriod}
+            setFocusedPeriod={setFocusedPeriod}
+            pricings={pricings}
+          />
+        </Suspense>
       ) : (
         <div className="m-auto flex h-full w-full items-center justify-center">
           <p className="text-neutral text-sm">
