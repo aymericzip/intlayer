@@ -119,7 +119,14 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const intlayerConfig = getConfiguration();
 
-  await prepareIntlayer(intlayerConfig);
+  // Skip preparation when running next start (production mode)
+  const isBuildCommand =
+    process.env.npm_lifecycle_event === 'build' ||
+    process.argv.some((arg) => arg === 'build');
+
+  if (isBuildCommand) {
+    await prepareIntlayer(intlayerConfig);
+  }
 
   // Format all configuration values as environment variables
   const { mainDir, configDir, baseDir } = intlayerConfig.content;
@@ -222,7 +229,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
       // Only add Intlayer plugin on server side (node runtime)
       const { isServer, nextRuntime } = options;
 
-      if (isServer && nextRuntime === 'nodejs') {
+      if (!isBuildCommand && isServer && nextRuntime === 'nodejs') {
         config.plugins.push(new IntlayerPlugin());
       }
 
