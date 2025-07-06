@@ -129,7 +129,8 @@ export const getFileMetadataBySlug = async <
 >(
   files: F,
   slugs: string | string[],
-  locale: LocalesValues = defaultLocale as LocalesValues
+  locale: LocalesValues = defaultLocale as LocalesValues,
+  strict = false
 ) => {
   const slugsArray = Array.isArray(slugs) ? slugs : [slugs];
   const filesMetadata = await getFileMetadataRecord(
@@ -137,10 +138,16 @@ export const getFileMetadataBySlug = async <
     defaultLocale as LocalesValues
   );
 
-  const fileMetadataArray: FileMetadata[] = Object.values(filesMetadata).filter(
+  let fileMetadataArray: FileMetadata[] = Object.values(filesMetadata).filter(
     (fileMetadata) =>
       slugsArray.every((slug) => fileMetadata.slugs?.includes(slug))
   );
+
+  if (strict) {
+    fileMetadataArray = fileMetadataArray.filter(
+      (fileMetadata) => fileMetadata.slugs.length === slugsArray.length
+    );
+  }
 
   if (locale !== defaultLocale) {
     const localizedFileMetadata = await Promise.all(
@@ -161,7 +168,8 @@ export const getFileBySlug = async <
 >(
   files: F,
   slugs: string | string[],
-  locale: LocalesValues = defaultLocale as LocalesValues
+  locale: LocalesValues = defaultLocale as LocalesValues,
+  strict = false
 ) => {
   const slugsArray = Array.isArray(slugs) ? slugs : [slugs];
   const filesMetadata = await getFileMetadataRecord(
@@ -169,10 +177,15 @@ export const getFileBySlug = async <
     defaultLocale as LocalesValues
   );
 
-  const fileMetadataArray = Object.values(filesMetadata).filter(
-    (fileMetadata) =>
-      fileMetadata.slugs.every((slug) => slugsArray.includes(slug))
+  let fileMetadataArray = Object.values(filesMetadata).filter((fileMetadata) =>
+    slugsArray.every((slug) => fileMetadata.slugs?.includes(slug))
   );
+
+  if (strict) {
+    fileMetadataArray = fileMetadataArray.filter(
+      (fileMetadata) => fileMetadata.slugs.length === slugsArray.length
+    );
+  }
 
   const fileList = await Promise.all(
     fileMetadataArray.map(async (fileMetadata) => {

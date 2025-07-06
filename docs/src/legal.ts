@@ -39,11 +39,13 @@ export const getLegalMetadata = async <
 
 export const getLegalMetadataBySlug = async <L extends LocalesValues>(
   slugs: string | string[],
-  locale: L = defaultLocale as L
+  locale: L = defaultLocale as L,
+  strict = false
 ): Promise<FileMetadata[]> =>
-  await getFileMetadataBySlug(legalEntry, slugs, locale);
+  await getFileMetadataBySlug(legalEntry, slugs, locale, strict);
 
 export const getLegalBySlug = async <L extends LocalesValues>(
   slugs: string | string[],
-  locale: L = defaultLocale as L
-): Promise<string[]> => await getFileBySlug(legalEntry, slugs, locale);
+  locale: L = defaultLocale as L,
+  strict = false
+): Promise<string[]> => await getFileBySlug(legalEntry, slugs, locale, strict);

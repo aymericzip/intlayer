@@ -44,12 +44,14 @@ export const getFrequentQuestionMetadata = async <
 
 export const getFrequentQuestionMetadataBySlug = async <L extends Locales>(
   slugs: string | string[],
-  locale: L = defaultLocale as L
+  locale: L = defaultLocale as L,
+  strict = false
 ): Promise<FileMetadata[]> =>
-  await getFileMetadataBySlug(frequentQuestionsEntry, slugs, locale);
+  await getFileMetadataBySlug(frequentQuestionsEntry, slugs, locale, strict);
 
 export const getFrequentQuestionBySlug = async <L extends Locales>(
   slugs: string | string[],
-  locale: L = defaultLocale as L
+  locale: L = defaultLocale as L,
+  strict = false
 ): Promise<string[]> =>
-  await getFileBySlug(frequentQuestionsEntry, slugs, locale);
+  await getFileBySlug(frequentQuestionsEntry, slugs, locale, strict);

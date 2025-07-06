@@ -23,7 +23,7 @@ export const generateMetadata = async ({
 }: BlogPageProps): Promise<Metadata> => {
   const { locale, slugs } = await params;
 
-  const blogsData = await getBlogMetadataBySlug(slugs, locale);
+  const blogsData = await getBlogMetadataBySlug(slugs, locale, true);
 
   if (!blogsData || blogsData.length !== 1) {
     return {};

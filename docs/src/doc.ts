@@ -36,11 +36,13 @@ export const getDocMetadata = async <D extends DocKey, L extends LocalesValues>(
 
 export const getDocMetadataBySlug = async <L extends LocalesValues>(
   slugs: string | string[],
-  locale: L = defaultLocale as L
+  locale: L = defaultLocale as L,
+  strict = false
 ): Promise<FileMetadata[]> =>
-  await getFileMetadataBySlug(docsEntry, slugs, locale);
+  await getFileMetadataBySlug(docsEntry, slugs, locale, strict);
 
 export const getDocBySlug = async <L extends LocalesValues>(
   slugs: string | string[],
-  locale: L = defaultLocale as L
-): Promise<string[]> => await getFileBySlug(docsEntry, slugs, locale);
+  locale: L = defaultLocale as L,
+  strict = false
+): Promise<string[]> => await getFileBySlug(docsEntry, slugs, locale, strict);

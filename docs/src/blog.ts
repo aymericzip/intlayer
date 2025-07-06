@@ -39,11 +39,13 @@ export const getBlogMetadata = async <
 
 export const getBlogMetadataBySlug = async <L extends LocalesValues>(
   slugs: string | string[],
-  locale: L = defaultLocale as L
+  locale: L = defaultLocale as L,
+  strict = false
 ): Promise<FileMetadata[]> =>
-  await getFileMetadataBySlug(blogEntry, slugs, locale);
+  await getFileMetadataBySlug(blogEntry, slugs, locale, strict);
 
 export const getBlogBySlug = async <L extends LocalesValues>(
   slugs: string | string[],
-  locale: L = defaultLocale as L
-): Promise<string[]> => await getFileBySlug(blogEntry, slugs, locale);
+  locale: L = defaultLocale as L,
+  strict = false
+): Promise<string[]> => await getFileBySlug(blogEntry, slugs, locale, strict);

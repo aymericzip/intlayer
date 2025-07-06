@@ -63,7 +63,7 @@ const DocPageNavigation: FC<DocPageNavigationProps> = ({
 const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
   const { locale, slugs } = await params;
 
-  const docsData = await getDocMetadataBySlug(slugs, locale);
+  const docsData = await getDocMetadataBySlug(slugs, locale, true);
 
   if (!docsData || docsData.length !== 1) {
     return redirect(PagesRoutes.Doc);
