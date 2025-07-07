@@ -32,7 +32,6 @@ COPY \
     --exclude=packages/@intlayer/design-system \
     --exclude=packages/intlayer-editor \
     --exclude=docs/assets \
-    --exclude=docs/tools \
     --exclude=examples \
     --exclude=apps/website \
     . .
