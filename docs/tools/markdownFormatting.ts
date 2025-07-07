@@ -4,6 +4,12 @@ import { join } from 'path';
 
 // Import the same DOC_PATTERN from translate.ts for consistency
 const DOC_PATTERN: string[] = ['./**/*.md'];
+const EXCLUDED_GLOB_PATTEN: string[] = [
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/src/**',
+  '**/tools/**',
+];
 
 interface MarkdownValidationResult {
   filePath: string;
@@ -263,7 +269,7 @@ export const runMarkdownFormattingTest = () => {
   let filesWithErrors = 0;
 
   const docList = fg.sync(DOC_PATTERN, {
-    ignore: ['**/node_modules/**', '**/dist/**', '**/src/**'],
+    ignore: EXCLUDED_GLOB_PATTEN,
   });
 
   console.info(`Found ${docList.length} files to test`);

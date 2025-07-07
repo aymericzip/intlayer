@@ -186,28 +186,6 @@ getLocalizedUrl(
 
 ## 애플리케이션에서의 사용
 
-다국어 애플리케이션에서 `locales`와 `defaultLocale`로 국제화 설정을 구성하는 것은 올바른 언어가 표시되도록 하는 데 매우 중요합니다. 아래는 `getLocalizedUrl`을 애플리케이션 설정에서 사용하는 예시입니다:
-
-```tsx codeFormat="typescript"
-import { Locales, type IntlayerConfig } from "intlayer";
-
-// 지원되는 로케일과 기본 로케일 설정
-export default {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-} satisfies IntlayerConfig;
-
-export default config;
-```
-
-````javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
 다국어 애플리케이션에서 `locales`와 `defaultLocale`로 국제화 설정을 구성하는 것은 올바른 언어가 표시되도록 하는 데 매우 중요합니다. 아래는 애플리케이션 설정에서 `getLocalizedUrl`을 사용하는 예시입니다:
 
 ```tsx codeFormat="typescript"
@@ -222,7 +200,7 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-````
+```
 
 ```javascript codeFormat="esm"
 import { Locales } from "intlayer";

@@ -144,7 +144,7 @@ npm --version
 11. **권한 문제 확인하기**  
     권한 오류가 발생하는 경우:
 
-````bash
+```bash
 # 유닉스 기반 시스템용
 sudo npm install -g intlayer
 
@@ -152,5 +152,5 @@ sudo npm install -g intlayer
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
 # ~/.profile 또는 ~/.bashrc에 다음을 추가하세요:
-export PATH=~/.npm-global/bin:$PATH```
-````
+export PATH=~/.npm-global/bin:$PATH
+```

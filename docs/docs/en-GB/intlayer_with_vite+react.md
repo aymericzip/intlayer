@@ -1,20 +1,20 @@
 ---
-createdAt: 2025-03-07
-updatedAt: 2025-06-29
-title: Translate your React Native and Expo mobile app (i18n)
-description: Discover how to make your React Native and Expo mobile app multilingual. Follow the documentation to internationalise (i18n) and translate it.
+createdAt: 2024-03-07
+updatedAt: 2024-03-07
+title: Getting Started with Intlayer in Vite + React
+description: Learn how to add internationalisation (i18n) to your Vite and React application using Intlayer. Follow this guide to make your app multilingual.
 keywords:
   - Internationalisation
   - Documentation
   - Intlayer
   - Vite
   - React
-  - React Native
+  - i18n
   - JavaScript
 slugs:
   - doc
   - environment
-  - react-native-and-expo
+  - vite-and-react
 ---
 
 # Getting Started Internationalising (i18n) with Intlayer and Vite and React
@@ -242,6 +242,74 @@ const appContent = {
   key: "app",
   content: {
     viteLogo: t({
+      'en-GB': "Vite logo",
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    reactLogo: t({
+      'en-GB': "React logo",
+      en: "React logo",
+      fr: "Logo React",
+      es: "Logo React",
+    }),
+
+    title: "Vite + React",
+
+    count: t({
+      'en-GB': "count is ",
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+
+    edit: t<ReactNode>({
+      // Remember to import React if you use a React node in your content
+      'en-GB': (
+        <>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </>
+      ),
+      en: (
+        <>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </>
+      ),
+            Edit <code>src/App.tsx</code> and save to test HMR
+          </>
+        ),
+        fr: (
+          <>
+            Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
+          </>
+        ),
+        es: (
+          <>
+            Edita <code>src/App.tsx</code> y guarda para probar HMR
+          </>
+        ),
+      },
+
+    readTheDocs: t({
+      'en-GB': "Click on the Vite and React logos to learn more",
+      en: "Click on the Vite and React logos to learn more",
+      fr: "Cliquez sur les logos Vite et React pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y React para obtener más información",
+    }),
+  },
+};
+
+export default appContent;
+```
+
+```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const appContent = {
+  key: "app",
+  content: {
+    viteLogo: t({
       "en-GB": "Vite logo",
       en: "Vite logo",
       fr: "Logo Vite",
@@ -273,6 +341,11 @@ const appContent = {
             Edit <code>src/App.tsx</code> and save to test HMR
           </>
         ),
+        en: (
+          <>
+            Edit <code>src/App.tsx</code> and save to test HMR
+          </>
+        ),
         fr: (
           <>
             Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
@@ -280,7 +353,7 @@ const appContent = {
         ),
         es: (
           <>
-            Edita <code>src/App.tsx</code> y guarda para probar HMR
+            Edit <code>src/App.tsx</code> and save to test HMR
           </>
         ),
       },
@@ -288,65 +361,6 @@ const appContent = {
     readTheDocs: t({
       "en-GB": "Click on the Vite and React logos to learn more",
       en: "Click on the Vite and React logos to learn more",
-      fr: "Cliquez sur les logos Vite et React pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y React para obtener más información",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      "en-GB": "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    reactLogo: t({
-      "en-GB": "React logo",
-      fr: "Logo React",
-      es: "Logo React",
-    }),
-
-    title: "Vite + React",
-
-    count: t({
-      "en-GB": "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
-    edit:
-      t <
-      ReactNode >
-      {
-        // Remember to import React if you use a React node in your content
-        "en-GB": (
-          <>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </>
-        ),
-        fr: (
-          <>
-            Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
-          </>
-        ),
-        es: (
-          <>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </>
-        ),
-      },
-
-    readTheDocs: t({
-      "en-GB": "Click on the Vite and React logos to learn more",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
     }),
@@ -365,6 +379,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en-GB": "Vite logo",
+        "en": "Vite logo",
         "fr": "Logo Vite",
         "es": "Logo Vite"
       }
@@ -373,6 +388,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en-GB": "React logo",
+        "en": "React logo",
         "fr": "Logo React",
         "es": "Logo React"
       }
@@ -381,6 +397,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en-GB": "Vite + React",
+        "en": "Vite + React",
         "fr": "Vite + React",
         "es": "Vite + React"
       }
@@ -389,6 +406,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en-GB": "count is ",
+        "en": "count is ",
         "fr": "le compte est ",
         "es": "el recuento es "
       }
@@ -397,6 +415,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en-GB": "Edit src/App.tsx and save to test HMR",
+        "en": "Edit src/App.tsx and save to test HMR",
         "fr": "Éditez src/App.tsx et enregistrez pour tester HMR",
         "es": "Edita src/App.tsx y guarda para probar HMR"
       }
@@ -405,6 +424,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en-GB": "Click on the Vite and React logos to learn more",
+        "en": "Click on the Vite and React logos to learn more",
         "fr": "Cliquez sur les logos Vite et React pour en savoir plus",
         "es": "Haga clic en los logotipos de Vite y React para obtener más información"
       }
@@ -413,7 +433,7 @@ module.exports = appContent;
 }
 ```
 
-> Your content declarations can be defined anywhere in your application as soon as they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Your content declarations can be defined anywhere in your application as soon as they are included in the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md).
 
@@ -635,9 +655,9 @@ Example:
 - https://example.com/fr/about
 ```
 
-> By default, the routes are not prefixed for the default locale. If you wish to prefix the default locale, you can set the `middleware.prefixDefault` option to `true` in your configuration. See the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md) for more information.
+> By default, the routes are not prefixed for the default locale. If you want to prefix the default locale, you can set the `middleware.prefixDefault` option to `true` in your configuration. See the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md) for more information.
 
-To add localised routing to your application, you can create a `LocaleRouter` component that wraps your application's routes and manages locale-based routing. Here is an example using [React Router](https://reactrouter.com/home):
+To add localised routing to your application, you can create a `LocaleRouter` component that wraps your application's routes and handles locale-based routing. Here is an example using [React Router](https://reactrouter.com/home):
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Importing necessary dependencies and functions
@@ -772,6 +792,7 @@ const { locales, defaultLocale } = internationalization;
 
 /**
  * A component that handles localisation and wraps children with the appropriate locale context.
+/**
  * It manages URL-based locale detection and validation.
  */
 const AppLocalized = ({ children, locale }) => {
@@ -807,7 +828,7 @@ const AppLocalized = ({ children, locale }) => {
   } else {
     /**
      * When middleware.prefixDefault is false, the default locale is not prefixed.
-     * Ensure that the current locale is valid and is not the default locale.
+     * Ensure that the current locale is valid and not the default locale.
      */
     if (
       currentLocale.toString() !== defaultLocale.toString() &&
@@ -877,25 +898,6 @@ const {
 } = require("react-router-dom"); // Router components for managing navigation
 
 // Destructuring configuration from Intlayer
-const { internationalisation, middleware } = configuration;
-const { locales, defaultLocale } = internationalisation;
-
-/**
- * A component that handles localisation and wraps children with the appropriate locale context.
- * It manages URL-based locale detection and validation.
- */
-// Importing necessary dependencies and functions
-const { configuration, getPathWithoutLocale } = require("intlayer"); // Utility functions and types from 'intlayer'
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // Provider for internationalisation context
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // Router components for managing navigation
-
-// Destructuring configuration from Intlayer
 const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
@@ -936,7 +938,7 @@ const AppLocalized = ({ children, locale }) => {
   } else {
     /**
      * When middleware.prefixDefault is false, the default locale is not prefixed.
-     * Ensure that the current locale is valid and is not the default locale.
+     * Ensure that the current locale is valid and not the default locale.
      */
     if (
       currentLocale.toString() !== defaultLocale.toString() &&
@@ -1271,9 +1273,9 @@ const LocaleSwitcher = () => {
 > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/packages/intlayer/getLocalizedUrl.md)
 > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> - [`lang` attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
-> - [`dir` attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current` attribute`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`lang` attribute`](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` attribute`](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` attribute`](https://developer.mozilla.org/en-GB/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 Below is the updated **Step 9** with added explanations and refined code examples:
 
@@ -1285,7 +1287,7 @@ When your application supports multiple languages, it is crucial to update the `
 
 - **Accessibility**: Screen readers and assistive technologies depend on the correct `lang` attribute to pronounce and interpret content accurately.
 - **Text Rendering**: The `dir` (direction) attribute guarantees that text is rendered in the correct order (e.g., left-to-right for English, right-to-left for Arabic or Hebrew), which is essential for readability.
-- **SEO**: Search engines use the `lang` attribute to identify the language of your page, aiding in delivering the appropriate localised content in search results.
+- **SEO**: Search engines use the `lang` attribute to identify the language of your page, helping to deliver the appropriate localised content in search results.
 
 By updating these attributes dynamically when the locale changes, you guarantee a consistent and accessible experience for users across all supported languages.
 
@@ -1396,33 +1398,6 @@ const App: FC = () => (
 export default App;
 ```
 
-````jsx fileName="src/App.msx" codeFormat="esm"
-#### Using the Hook in Your Application
-
-Integrate the hook into your main component so that the HTML attributes update whenever the locale changes:
-
-```tsx fileName="src/App.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent: FC = () => {
-  // Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
-  useI18nHTMLAttributes();
-
-  // ... Rest of your component
-};
-
-const App: FC = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
-````
-
 ```jsx fileName="src/App.msx" codeFormat="esm"
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
@@ -1474,21 +1449,27 @@ By applying these changes, your application will:
 
 ### (Optional) Step 10: Creating a Localised Link Component
 
-// Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
-useI18nHTMLAttributes();
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
+import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
+import "./App.css";
 
-// ... Rest of your component
+const AppContent: FC = () => {
+  // Apply the hook to update the <html> tag's lang and dir attributes based on the locale.
+  useI18nHTMLAttributes();
+
+  // ... Rest of your component
 };
 
 const App = () => (
-<IntlayerProvider>
-<AppContent />
-</IntlayerProvider>
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
 );
 
 module.exports = App;
-
-````
+```
 
 By applying these changes, your application will:
 
@@ -1553,7 +1534,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 );
 
 Link.displayName = "Link";
-````
+```
 
 ```jsx fileName="src/components/Link.mjx" codeFormat="esm"
 import { getLocalizedUrl } from "intlayer";
@@ -1604,7 +1585,7 @@ const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 /**
  * A custom Link component that adapts the href attribute based on the current locale.
  * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
- * This ensures that navigation remains within the same locale context.
+ * This ensures that navigation stays within the same locale context.
  */
 const Link = forwardRef(({ href, children, ...props }, ref) => {
   const { locale } = useLocale();
@@ -1642,7 +1623,7 @@ Link.displayName = "Link";
 - **Returning the Link**:  
   The component returns an `<a>` element with the localised URL, ensuring that navigation is consistent with the locale.
 
-By integrating this `Link` component across your application, you maintain a coherent and language-aware user experience whilst also benefitting from improved SEO and usability.
+By integrating this `Link` component across your application, you maintain a coherent and language-aware user experience while also benefiting from improved SEO and usability.
 
 ### Configure TypeScript
 

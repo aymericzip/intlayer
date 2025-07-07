@@ -144,7 +144,7 @@ npm --version
 11. **检查权限问题**  
     如果遇到权限错误：
 
-````bash
+```bash
 # 对于基于 Unix 的系统
 sudo npm install -g intlayer
 
@@ -152,5 +152,5 @@ sudo npm install -g intlayer
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
 # 添加到你的 ~/.profile 或 ~/.bashrc 文件中：
-export PATH=~/.npm-global/bin:$PATH```
-````
+export PATH=~/.npm-global/bin:$PATH
+```

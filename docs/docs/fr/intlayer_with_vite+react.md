@@ -1,36 +1,36 @@
 ---
-createdAt: 2025-03-07
-updatedAt: 2025-06-29
-title: Traduisez votre application mobile React Native et Expo (i18n)
-description: Découvrez comment rendre votre application mobile React Native et Expo multilingue. Suivez la documentation pour internationaliser (i18n) et traduire votre application.
+createdAt: 2024-03-07
+updatedAt: 2024-03-07
+title: Prise en main d'Intlayer avec Vite + React
+description: Apprenez à ajouter l'internationalisation (i18n) à votre application Vite et React en utilisant Intlayer. Suivez ce guide pour rendre votre application multilingue.
 keywords:
   - Internationalisation
   - Documentation
   - Intlayer
   - Vite
   - React
-  - React Native
+  - i18n
   - JavaScript
 slugs:
   - doc
   - environment
-  - react-native-and-expo
+  - vite-and-react
 ---
 
-# Commencer l'internationalisation (i18n) avec Intlayer, Vite et React
+# Prise en main de l'internationalisation (i18n) avec Intlayer, Vite et React
 
-Voir le [Modèle d'Application](https://github.com/aymericzip/intlayer-vite-react-template) sur GitHub.
+Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-vite-react-template) sur GitHub.
 
-## Qu'est-ce que Intlayer ?
+## Qu'est-ce qu'Intlayer ?
 
 **Intlayer** est une bibliothèque d'internationalisation (i18n) innovante et open-source conçue pour simplifier la prise en charge multilingue dans les applications web modernes.
 
 Avec Intlayer, vous pouvez :
 
-- **Gérer facilement les traductions** en utilisant des dictionnaires déclaratifs au niveau des composants.
-- **Localiser dynamiquement les métadonnées**, les routes et le contenu.
-- **Assurer la prise en charge de TypeScript** avec des types générés automatiquement, améliorant l'autocomplétion et la détection des erreurs.
-- **Bénéficier de fonctionnalités avancées**, telles que la détection et le changement dynamique de la langue.
+- **Gérez facilement les traductions** en utilisant des dictionnaires déclaratifs au niveau des composants.
+- **Localisez dynamiquement les métadonnées**, les routes et le contenu.
+- **Assurez la prise en charge de TypeScript** avec des types générés automatiquement, améliorant l'autocomplétion et la détection des erreurs.
+- **Bénéficiez de fonctionnalités avancées**, comme la détection dynamique de la langue et le changement de locale.
 
 ---
 
@@ -38,7 +38,7 @@ Avec Intlayer, vous pouvez :
 
 ### Étape 1 : Installer les dépendances
 
-Installez les paquets nécessaires avec npm :
+Installez les paquets nécessaires en utilisant npm :
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -57,13 +57,13 @@ yarn add --save-dev vite-intlayer
 
 - **intlayer**
 
-  Le package principal qui fournit des outils d'internationalisation pour la gestion de la configuration, la traduction, la [déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md), la transpilation, et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+  Le paquet principal qui fournit des outils d'internationalisation pour la gestion de la configuration, la traduction, la [déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md), la transpilation, et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
 
 - **react-intlayer**
-  Le package qui intègre Intlayer avec une application React. Il fournit des fournisseurs de contexte et des hooks pour l'internationalisation dans React.
+  Le paquet qui intègre Intlayer avec une application React. Il fournit des fournisseurs de contexte et des hooks pour l'internationalisation dans React.
 
 - **vite-intlayer**
-  Inclut le plugin Vite pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), ainsi que le middleware pour détecter la locale préférée de l'utilisateur, gérer les cookies et gérer la redirection des URL.
+  Inclut le plugin Vite pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), ainsi que des middlewares pour détecter la locale préférée de l'utilisateur, gérer les cookies, et gérer la redirection des URL.
 
 ### Étape 2 : Configuration de votre projet
 
@@ -78,7 +78,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Vos autres locales
+      // Vos autres langues
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -91,14 +91,13 @@ export default config;
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
-// Configuration de l'internationalisation
 const config = {
   internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Vos autres locales
+      // Vos autres langues
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -111,14 +110,13 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
-// Configuration de l'internationalisation
 const config = {
   internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Vos autres locales
+      // Vos autres langues
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -127,7 +125,7 @@ const config = {
 module.exports = config;
 ```
 
-> Grâce à ce fichier de configuration, vous pouvez configurer des URL localisées, la redirection via middleware, les noms de cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et bien plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
+> Grâce à ce fichier de configuration, vous pouvez configurer des URLs localisées, la redirection via middleware, les noms des cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et bien plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
 ### Étape 3 : Intégrer Intlayer dans votre configuration Vite
 
@@ -329,7 +327,7 @@ const appContent = {
         ),
         es: (
           <>
-            Edita <code>src/App.tsx</code> y guarda para probar HMR
+            Editez <code>src/App.tsx</code> et enregistrez pour tester HMR
           </>
         ),
       },
@@ -345,7 +343,7 @@ const appContent = {
 module.exports = appContent;
 ```
 
-````json fileName="src/app.content.json" contentDeclarationFormat="json"
+```json fileName="src/app.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "app",
@@ -361,7 +359,7 @@ module.exports = appContent;
     "reactLogo": {
       "nodeType": "translation",
       "translation": {
-        "en": "Logo React",
+        "en": "React logo",
         "fr": "Logo React",
         "es": "Logo React"
       }
@@ -393,6 +391,15 @@ module.exports = appContent;
     "readTheDocs": {
       "nodeType": "translation",
       "translation": {
+        "en": "Click on the Vite and React logos to learn more",
+        "fr": "Cliquez sur les logos Vite et React pour en savoir plus",
+        "es": "Haga clic en los logotipos de Vite y React para obtener más información"
+      }
+    }
+  }
+}
+```
+
 > Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
 > Pour plus de détails, consultez la [documentation sur la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md).
@@ -448,7 +455,7 @@ const App: FC = () => (
 );
 
 export default App;
-````
+```
 
 ```tsx {5,9} fileName="src/App.msx" codeFormat="esm"
 import { useState } from "react";
@@ -606,7 +613,7 @@ const LocaleSwitcher = () => {
 
 ### (Optionnel) Étape 7 : Ajouter un routage localisé à votre application
 
-Le but de cette étape est de créer des routes uniques pour chaque langue. Cela est utile pour le SEO et pour des URLs optimisées pour le référencement.
+L'objectif de cette étape est de créer des routes uniques pour chaque langue. Cela est utile pour le SEO et pour des URLs optimisées pour le référencement.
 Exemple :
 
 ```plaintext
@@ -664,7 +671,7 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Remplacer l'entrée actuelle de l'historique par la nouvelle
+          replace // Remplace l'entrée actuelle de l'historique par la nouvelle
         />
       );
     }
@@ -698,7 +705,7 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 };
 
 /**
- * Un composant de routeur qui configure les routes spécifiques à une locale.
+ * Un composant de routeur qui configure les routes spécifiques à chaque locale.
  * Il utilise React Router pour gérer la navigation et rendre les composants localisés.
  */
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
@@ -809,7 +816,7 @@ const AppLocalized = ({ children, locale }) => {
 };
 
 /**
- * Un composant de routeur qui configure des routes spécifiques à chaque locale.
+ * Un composant routeur qui configure les routes spécifiques à chaque locale.
  * Il utilise React Router pour gérer la navigation et rendre les composants localisés.
  */
 export const LocaleRouter = ({ children }) => (
@@ -890,14 +897,14 @@ const AppLocalized = ({ children, locale }) => {
       );
     }
 
-    // Envelopper les enfants avec IntlayerProvider et définir la locale courante
+    // Envelopper les enfants avec IntlayerProvider et définir la locale actuelle
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
   } else {
     /**
      * Lorsque middleware.prefixDefault est faux, la locale par défaut n'est pas préfixée.
-     * Assurez-vous que la locale courante est valide et n'est pas la locale par défaut.
+     * Assurez-vous que la locale actuelle est valide et n'est pas la locale par défaut.
      */
     if (
       currentLocale.toString() !== defaultLocale.toString() &&
@@ -905,7 +912,7 @@ const AppLocalized = ({ children, locale }) => {
         .filter(
           (locale) => locale.toString() !== defaultLocale.toString() // Exclure la locale par défaut
         )
-        .includes(currentLocale) // Vérifier si la locale courante est dans la liste des locales valides
+        .includes(currentLocale) // Vérifier si la locale actuelle est dans la liste des locales valides
     ) {
       // Rediriger vers le chemin sans préfixe de locale
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
@@ -920,7 +927,7 @@ const AppLocalized = ({ children, locale }) => {
 
 /**
  * Un composant de routeur qui configure des routes spécifiques à la locale.
- * Il utilise React Router pour gérer la navigation et rendre les composants localisés.
+ * Il utilise React Router pour gérer la navigation et rendre des composants localisés.
  */
 const LocaleRouter = ({ children }) => (
   <BrowserRouter>
@@ -931,7 +938,7 @@ const LocaleRouter = ({ children }) => (
         )
         .map((locale) => (
           <Route
-            // Modèle de route pour capturer la locale (ex. /en/, /fr/) et correspondre à tous les chemins suivants
+            // Modèle de route pour capturer la locale (ex. : /en/, /fr/) et correspondre à tous les chemins suivants
             path={`/${locale}/*`}
             key={locale}
             element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Enveloppe les enfants avec la gestion de la locale
@@ -939,7 +946,7 @@ const LocaleRouter = ({ children }) => (
         ))}
 
       {
-        // Si le préfixe de la locale par défaut est désactivé, rendre les enfants directement à la racine
+        // Si le préfixe pour la locale par défaut est désactivé, rendre les enfants directement à la racine
         !middleware.prefixDefault && (
           <Route
             path="*"
@@ -1028,9 +1035,9 @@ module.exports = defineConfig({
 });
 ```
 
-### (Optionnel) Étape 8 : Modifier l’URL lorsque la langue change
+### (Optionnel) Étape 8 : Modifier l'URL lorsque la langue change
 
-Pour modifier l’URL lorsque la langue change, vous pouvez utiliser la propriété `onLocaleChange` fournie par le hook `useLocale`. Parallèlement, vous pouvez utiliser les hooks `useLocation` et `useNavigate` de `react-router-dom` pour mettre à jour le chemin de l’URL.
+Pour modifier l'URL lorsque la langue change, vous pouvez utiliser la propriété `onLocaleChange` fournie par le hook `useLocale`. Parallèlement, vous pouvez utiliser les hooks `useLocation` et `useNavigate` de `react-router-dom` pour mettre à jour le chemin de l'URL.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { useLocation, useNavigate } from "react-router-dom";
@@ -1044,7 +1051,7 @@ import { useLocale } from "react-intlayer";
 import { type FC } from "react";
 
 const LocaleSwitcher: FC = () => {
-  const { pathname, search } = useLocation(); // Obtenir le chemin actuel de l’URL. Exemple : /fr/about?foo=bar
+  const { pathname, search } = useLocation(); // Récupère le chemin URL actuel. Exemple : /fr/about?foo=bar
   const navigate = useNavigate();
 
   const { locale, availableLocales, setLocale } = useLocale({
@@ -1138,7 +1145,7 @@ const LocaleSwitcher = () => {
             key={localeItem}
           >
             <span>
-              {/* Langue locale - ex. FR */}
+              {/* Locale - ex. FR */}
               {localeItem}
             </span>
             <span>
@@ -1146,7 +1153,7 @@ const LocaleSwitcher = () => {
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Langue dans la locale courante - ex. Francés avec la locale courante réglée sur Locales.SPANISH */}
+              {/* Langue dans la locale actuelle - ex. Francés avec la locale actuelle définie sur Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
@@ -1214,7 +1221,7 @@ const LocaleSwitcher = () => {
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Langue en anglais - par exemple French */}
+              {/* Langue en anglais - par exemple Français */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1240,15 +1247,15 @@ Voici la **Étape 9** mise à jour avec des explications supplémentaires et des
 
 ---
 
-### (Optionnel) Étape 9 : Modifier les attributs Lang et Dir de la balise HTML
+### (Optionnel) Étape 9 : Modifier les attributs de langue et de direction du HTML
 
-Lorsque votre application prend en charge plusieurs langues, il est crucial de mettre à jour les attributs `lang` et `dir` de la balise `<html>` pour correspondre à la locale actuelle. Cela garantit :
+Lorsque votre application prend en charge plusieurs langues, il est crucial de mettre à jour les attributs `lang` et `dir` de la balise `<html>` pour qu'ils correspondent à la locale actuelle. Cela garantit :
 
 - **Accessibilité** : Les lecteurs d'écran et les technologies d'assistance s'appuient sur l'attribut `lang` correct pour prononcer et interpréter le contenu avec précision.
 - **Rendu du texte** : L'attribut `dir` (direction) assure que le texte est affiché dans le bon ordre (par exemple, de gauche à droite pour l'anglais, de droite à gauche pour l'arabe ou l'hébreu), ce qui est essentiel pour la lisibilité.
 - **SEO** : Les moteurs de recherche utilisent l'attribut `lang` pour déterminer la langue de votre page, aidant ainsi à diffuser le contenu localisé approprié dans les résultats de recherche.
 
-En mettant à jour ces attributs dynamiquement lorsque la locale change, vous garantissez une expérience cohérente et accessible pour les utilisateurs dans toutes les langues prises en charge.
+En mettant à jour ces attributs de manière dynamique lorsque la locale change, vous garantissez une expérience cohérente et accessible pour les utilisateurs dans toutes les langues prises en charge.
 
 #### Implémentation du Hook
 
@@ -1289,7 +1296,7 @@ import { getHTMLTextDir } from "intlayer";
  * - `lang` : Informe les navigateurs et les moteurs de recherche de la langue de la page.
  * - `dir` : Assure l'ordre de lecture correct (par exemple, 'ltr' pour l'anglais, 'rtl' pour l'arabe).
  *
- * Cette mise à jour dynamique est essentielle pour un rendu correct du texte, l'accessibilité et le SEO.
+ * Cette mise à jour dynamique est essentielle pour un rendu correct du texte, l'accessibilité et le référencement SEO.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1311,7 +1318,7 @@ const { getHTMLTextDir } = require("intlayer");
 
 /**
  * Met à jour les attributs `lang` et `dir` de l'élément HTML <html> en fonction de la locale courante.
- * - `lang` : Informe les navigateurs et moteurs de recherche de la langue de la page.
+ * - `lang` : Informe les navigateurs et les moteurs de recherche de la langue de la page.
  * - `dir` : Assure l'ordre de lecture correct (par exemple, 'ltr' pour l'anglais, 'rtl' pour l'arabe).
  *
  * Cette mise à jour dynamique est essentielle pour un rendu correct du texte, l'accessibilité et le SEO.
@@ -1342,7 +1349,7 @@ import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
 
 const AppContent: FC = () => {
-  // Appliquez le hook pour mettre à jour les attributs lang et dir de la balise <html> selon la locale.
+  // Appliquez le hook pour mettre à jour les attributs lang et dir de la balise <html> en fonction de la locale.
   useI18nHTMLAttributes();
 
   // ... Le reste de votre composant
@@ -1402,12 +1409,13 @@ module.exports = App;
 
 En appliquant ces modifications, votre application va :
 
-- Assurer que l'attribut **lang** reflète correctement la locale actuelle, ce qui est important pour le SEO et le comportement du navigateur.
+- Assurer que l'attribut **langue** (`lang`) reflète correctement la locale actuelle, ce qui est important pour le SEO et le comportement du navigateur.
 - Ajuster la **direction du texte** (`dir`) selon la locale, améliorant la lisibilité et l'utilisabilité pour les langues avec des ordres de lecture différents.
 - Fournir une expérience plus **accessible**, car les technologies d'assistance dépendent de ces attributs pour fonctionner de manière optimale.
 
-### (Optionnel) Étape 10 : Création d'un composant de lien localisé
+### (Optionnel) Étape 10 : Créer un composant de lien localisé
 
+```tsx fileName="src/App.tsx" codeFormat="typescript"
 // Appliquer le hook pour mettre à jour les attributs lang et dir de la balise <html> en fonction de la locale.
 useI18nHTMLAttributes();
 
@@ -1422,23 +1430,23 @@ const App = () => (
 
 module.exports = App;
 
-````
+```
 
 En appliquant ces modifications, votre application va :
 
-- S'assurer que l'attribut **langue** (`lang`) reflète correctement la locale actuelle, ce qui est important pour le référencement SEO et le comportement des navigateurs.
-- Ajuster la **direction du texte** (`dir`) selon la locale, améliorant ainsi la lisibilité et l'utilisabilité pour les langues avec des ordres de lecture différents.
+- S'assurer que l'attribut **lang** reflète correctement la locale actuelle, ce qui est important pour le SEO et le comportement des navigateurs.
+- Ajuster la **direction du texte** (`dir`) selon la locale, améliorant la lisibilité et l'utilisabilité pour les langues avec des ordres de lecture différents.
 - Offrir une expérience plus **accessible**, car les technologies d'assistance dépendent de ces attributs pour fonctionner de manière optimale.
 
 ### (Optionnel) Étape 10 : Créer un composant Link localisé
 
-Pour garantir que la navigation de votre application respecte la langue actuelle, vous pouvez créer un composant `Link` personnalisé. Ce composant préfixe automatiquement les URL internes avec la langue courante. Par exemple, lorsqu’un utilisateur francophone clique sur un lien vers la page « À propos », il est redirigé vers `/fr/about` au lieu de `/about`.
+Pour garantir que la navigation de votre application respecte la locale actuelle, vous pouvez créer un composant `Link` personnalisé. Ce composant préfixe automatiquement les URL internes avec la langue courante. Par exemple, lorsqu’un utilisateur francophone clique sur un lien vers la page "À propos", il est redirigé vers `/fr/about` au lieu de `/about`.
 
 Ce comportement est utile pour plusieurs raisons :
 
-- **SEO et expérience utilisateur** : Les URL localisées aident les moteurs de recherche à indexer correctement les pages spécifiques à une langue et fournissent aux utilisateurs un contenu dans leur langue préférée.
-- **Cohérence** : En utilisant un lien localisé dans toute votre application, vous garantissez que la navigation reste dans la langue actuelle, évitant ainsi des changements de langue inattendus.
-- **Maintenabilité** : Centraliser la logique de localisation dans un seul composant simplifie la gestion des URLs, rendant votre base de code plus facile à maintenir et à étendre au fur et à mesure que votre application grandit.
+- **SEO et expérience utilisateur** : Les URL localisées aident les moteurs de recherche à indexer correctement les pages spécifiques à une langue et fournissent aux utilisateurs du contenu dans leur langue préférée.
+- **Cohérence** : En utilisant un lien localisé dans toute votre application, vous garantissez que la navigation reste dans la locale actuelle, évitant ainsi des changements de langue inattendus.
+- **Maintenabilité** : Centraliser la logique de localisation dans un seul composant simplifie la gestion des URL, rendant votre base de code plus facile à maintenir et à étendre à mesure que votre application grandit.
 
 Voici l'implémentation d'un composant `Link` localisé en TypeScript :
 
@@ -1487,7 +1495,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 );
 
 Link.displayName = "Link";
-````
+```
 
 ```jsx fileName="src/components/Link.mjx" codeFormat="esm"
 import { getLocalizedUrl } from "intlayer";
@@ -1503,7 +1511,7 @@ export const checkIsExternalLink = (href?: string): boolean =>
 
 /**
  * Composant Link personnalisé qui adapte l'attribut href en fonction de la locale actuelle.
- * Pour les liens internes, il utilise `getLocalizedUrl` pour préfixer l'URL avec la locale (par exemple, /fr/about).
+ * Pour les liens internes, il utilise `getLocalizedUrl` pour préfixer l'URL avec la locale (ex. : /fr/about).
  * Cela garantit que la navigation reste dans le même contexte de locale.
  */
 export const Link = forwardRef(({ href, children, ...props }, ref) => {
@@ -1571,12 +1579,12 @@ Link.displayName = "Link";
   Le hook `useLocale` fournit la locale actuelle (par exemple, `fr` pour le français).
 
 - **Localisation de l'URL** :  
-  Pour les liens internes (c'est-à-dire non externes), `getLocalizedUrl` est utilisé pour préfixer automatiquement l'URL avec la locale courante. Cela signifie que si votre utilisateur est en français, passer `/about` comme `href` le transformera en `/fr/about`.
+  Pour les liens internes (c’est-à-dire non externes), `getLocalizedUrl` est utilisé pour préfixer automatiquement l'URL avec la locale courante. Cela signifie que si votre utilisateur est en français, passer `/about` comme `href` le transformera en `/fr/about`.
 
 - **Retour du lien** :  
   Le composant retourne un élément `<a>` avec l’URL localisée, garantissant que la navigation est cohérente avec la locale.
 
-En intégrant ce composant `Link` dans toute votre application, vous maintenez une expérience utilisateur cohérente et adaptée à la langue tout en bénéficiant d’un meilleur référencement SEO et d’une meilleure ergonomie.
+En intégrant ce composant `Link` dans toute votre application, vous maintenez une expérience utilisateur cohérente et adaptée à la langue tout en bénéficiant d’une meilleure SEO et d’une meilleure utilisabilité.
 
 ### Configurer TypeScript
 
@@ -1602,7 +1610,7 @@ Assurez-vous que votre configuration TypeScript inclut les types générés auto
 
 Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous permet d'éviter de les commettre dans votre dépôt Git.
 
-Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `.gitignore` :
+Pour ce faire, vous pouvez ajouter les instructions suivantes dans votre fichier `.gitignore` :
 
 ```plaintext
 # Ignorer les fichiers générés par Intlayer
@@ -1615,7 +1623,7 @@ Pour améliorer votre expérience de développement avec Intlayer, vous pouvez i
 
 [Installer depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-Cette extension fournit :
+Cette extension offre :
 
 - **Autocomplétion** pour les clés de traduction.
 - **Détection d'erreurs en temps réel** pour les traductions manquantes.
@@ -1632,6 +1640,6 @@ Pour aller plus loin, vous pouvez implémenter l’[éditeur visuel](https://git
 
 ---
 
-## Historique de la documentation
+## Historique du document
 
 - 5.5.10 - 2025-06-29 : Historique initial

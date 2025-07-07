@@ -144,7 +144,7 @@ npm --version
 11. **権限の問題を確認する**  
     権限エラーが発生している場合は、以下を試してください：
 
-````bash
+```bash
 # Unix系システムの場合
 sudo npm install -g intlayer
 
@@ -152,5 +152,5 @@ sudo npm install -g intlayer
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
 # ~/.profile または ~/.bashrc に以下を追加：
-export PATH=~/.npm-global/bin:$PATH```
-````
+export PATH=~/.npm-global/bin:$PATH
+```
