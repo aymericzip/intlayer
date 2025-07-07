@@ -124,13 +124,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         );
       })}
       <div>
-        <OptionalLink
-          href={PagesRoutes.Doc}
-          className={cn([
-            'text-neutral hover:text-text h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors',
-          ])}
-          label={docButton.label.value}
-        >
+        <OptionalLink href={PagesRoutes.Doc} label={docButton.label.value}>
           {docButton?.text}
         </OptionalLink>
       </div>

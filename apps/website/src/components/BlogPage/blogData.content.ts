@@ -30,7 +30,7 @@ const blogDataContent: any = {
       }),
       default: getBlogMetadata('./blog/en/what_is_internationalization.md'),
     },
-    SEO: {
+    'SEO-and-i18n': {
       title: t({
         en: 'SEO and i18n',
         'en-GB': 'SEO and i18n',
@@ -50,19 +50,19 @@ const blogDataContent: any = {
     },
     'intlayer-with-next-i18next': {
       title: t({
-        en: 'Intlayer and i18next',
-        fr: 'Intlayer et i18next',
-        es: 'Intlayer y i18next',
-        'en-GB': 'Intlayer and i18next',
-        de: 'Intlayer und i18next',
-        ja: 'Intlayerとi18next',
-        ko: 'Intlayer와 i18next',
-        zh: 'Intlayer和i18next',
-        it: 'Intlayer e i18next',
-        pt: 'Intlayer e i18next',
-        hi: 'Intlayer और i18next',
-        ar: 'Intlayer و i18next',
-        ru: 'Intlayer и i18next',
+        en: 'Intlayer and next-i18next',
+        fr: 'Intlayer et next-i18next',
+        es: 'Intlayer y next-i18next',
+        'en-GB': 'Intlayer and next-i18next',
+        de: 'Intlayer und next-i18next',
+        ja: 'Intlayerとnext-i18next',
+        ko: 'Intlayer와 next-i18next',
+        zh: 'Intlayer和next-i18next',
+        it: 'Intlayer e next-i18next',
+        pt: 'Intlayer e next-i18next',
+        hi: 'Intlayer और next-i18next',
+        ar: 'Intlayer و next-i18next',
+        ru: 'Intlayer и next-i18next',
       }),
       default: getBlogMetadata('./blog/en/intlayer_with_next-i18next.md'),
     },
@@ -120,13 +120,13 @@ const blogDataContent: any = {
       }),
       default: getBlogMetadata('./blog/en/intlayer_with_react-intl.md'),
     },
-    'next-i18next_vs_next-intl_vs_intlayer': {
+    'next-i18next-vs-next-intl-vs-intlayer': {
       title: 'next-i18next vs next-intl vs Intlayer',
       default: getBlogMetadata(
         './blog/en/next-i18next_vs_next-intl_vs_intlayer.md'
       ),
     },
-    'react-i18n-vs-react-intl-vs-intlayer': {
+    'react-i18next-vs-react-intl-vs-intlayer': {
       title: 'react-i18next vs react-intl vs Intlayer',
       default: getBlogMetadata(
         './blog/en/react-i18next_vs_react-intl_vs_intlayer.md'

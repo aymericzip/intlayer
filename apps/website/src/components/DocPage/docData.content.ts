@@ -644,7 +644,7 @@ const docDataContent: any = {
       }),
       default: getDocMetadata('./docs/en/vs_code_extension.md'),
     },
-    mcp_server: {
+    'mcp-server': {
       title: t({
         en: 'MCP Server',
         fr: 'Serveur MCP',
