@@ -21,12 +21,6 @@ export const useDictionaryDynamic = <T extends Dictionary>(
     getServerContext<LocalesValues>(IntlayerServerContext) ??
     configuration?.internationalization.defaultLocale;
 
-  if (typeof dictionaryPromise?.[localeTarget]?.() !== 'function') {
-    throw new Error(
-      `useDictionaryDynamic (server): Dictionary promise for key ${key} and locale ${localeTarget} is not a function ${JSON.stringify(dictionaryPromise)}`
-    );
-  }
-
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget}`,
     dictionaryPromise[localeTarget]!()
