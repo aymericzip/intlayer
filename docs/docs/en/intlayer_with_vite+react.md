@@ -1,20 +1,20 @@
 ---
-createdAt: 2025-03-07
-updatedAt: 2025-06-29
-title: Translate your React Native and Expo mobile app (i18n)
-description: Discover how to make your React Native and Expo mobile app multilingual. Follow the documentation to internationalize (i18n) and translate it.
+createdAt: 2024-03-07
+updatedAt: 2024-03-07
+title: Getting Started with Intlayer in Vite + React
+description: Learn how to add internationalization (i18n) to your Vite and React application using Intlayer. Follow this guide to make your app multilingual.
 keywords:
   - Internationalization
   - Documentation
   - Intlayer
   - Vite
   - React
-  - React Native
+  - i18n
   - JavaScript
 slugs:
   - doc
   - environment
-  - react-native-and-expo
+  - vite-and-react
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and React

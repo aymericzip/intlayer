@@ -96,7 +96,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
     (blog) => blog.slugs.length === slugs.length + 1
   );
 
-  if (!filteredBlogsData || filteredBlogsData.length !== 1) {
+  if (!filteredBlogsData || filteredBlogsData.length === 0) {
     return redirect(PagesRoutes.Blog);
   }
 

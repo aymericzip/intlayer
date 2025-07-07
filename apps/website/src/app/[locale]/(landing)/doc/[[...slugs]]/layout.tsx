@@ -29,7 +29,7 @@ export const generateMetadata = async ({
     (doc) => doc.slugs.length === slugs.length + 1
   );
 
-  if (!filteredDocsData || filteredDocsData.length !== 1) {
+  if (!filteredDocsData || filteredDocsData.length === 0) {
     return {};
   }
 

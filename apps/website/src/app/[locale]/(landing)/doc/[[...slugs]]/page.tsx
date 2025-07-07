@@ -69,7 +69,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
     (doc) => doc.slugs.length === slugs.length + 1
   );
 
-  if (!filteredDocsData || filteredDocsData.length !== 1) {
+  if (!filteredDocsData || filteredDocsData.length === 0) {
     return redirect(PagesRoutes.Doc);
   }
 
