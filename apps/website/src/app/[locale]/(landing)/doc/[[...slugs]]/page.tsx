@@ -87,13 +87,13 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
   const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
     ? {
         title: nextDocData.title,
-        url: getLocalizedUrl(nextDocData.docs.url, locale),
+        url: getLocalizedUrl(nextDocData.docs.relativeUrl, locale),
       }
     : undefined;
   const prevDoc: DocPageNavigationProps['prevDoc'] = prevDocData?.docs
     ? {
         title: prevDocData.title,
-        url: getLocalizedUrl(prevDocData.docs.url, locale),
+        url: getLocalizedUrl(prevDocData.docs.relativeUrl, locale),
       }
     : undefined;
 

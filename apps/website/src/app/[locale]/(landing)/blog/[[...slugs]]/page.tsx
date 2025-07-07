@@ -114,13 +114,13 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
   const nextBlog: BlogPageNavigationProps['nextBlog'] = nextBlogData?.blogs
     ? {
         title: nextBlogData.title,
-        url: getLocalizedUrl(nextBlogData.blogs.url, locale),
+        url: getLocalizedUrl(nextBlogData.blogs.relativeUrl, locale),
       }
     : undefined;
   const prevBlog: BlogPageNavigationProps['prevBlog'] = prevBlogData?.blogs
     ? {
         title: prevBlogData.title,
-        url: getLocalizedUrl(prevBlogData.blogs.url, locale),
+        url: getLocalizedUrl(prevBlogData.blogs.relativeUrl, locale),
       }
     : undefined;
 
