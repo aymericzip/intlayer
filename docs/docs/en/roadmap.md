@@ -333,5 +333,8 @@ Stay tuned for upcoming releases, and feel free to explore the existing features
 
 ## Doc History
 
-- 5.5.10 - 2025-06-30: Add Preact and Nuxt support, MCP Server, update CLI
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes                                             |
+| ------- | ---------- | --------------------------------------------------- |
+| 5.5.10  | 2025-06-30 | Add Preact and Nuxt support, MCP Server, update CLI |
+| 5.5.11  | 2025-06-29 | Add `docs` commands                                 |
+| 5.5.10  | 2025-06-29 | Init history                                        |

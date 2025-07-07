@@ -316,4 +316,6 @@ Use the [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

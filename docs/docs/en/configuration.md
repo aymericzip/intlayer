@@ -524,4 +524,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 ## Doc History
 
-- 5.5.11 - 2025-06-29: Add `docs` commands
+| Version | Date       | Changes             |
+| ------- | ---------- | ------------------- |
+| 5.5.11  | 2025-06-29 | Add `docs` commands |
+| 5.5.10  | 2025-06-29 | Init history        |

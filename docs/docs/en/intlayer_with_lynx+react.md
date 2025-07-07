@@ -505,4 +505,6 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

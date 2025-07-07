@@ -189,4 +189,6 @@ console.log(customContent.greeting); // Output: "Bonjour"
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

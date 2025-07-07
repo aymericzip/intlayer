@@ -249,4 +249,6 @@ By default, `express-intlayer` will interpret the `Accept-Language` header to de
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

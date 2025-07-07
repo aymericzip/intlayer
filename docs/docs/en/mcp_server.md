@@ -171,4 +171,6 @@ The server will expose Intlayer-specific tools and resources that can be consume
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

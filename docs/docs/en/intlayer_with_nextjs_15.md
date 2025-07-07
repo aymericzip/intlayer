@@ -1500,5 +1500,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 ## Doc History
 
-- 5.6.0 - 2025-07-06: Transform `withIntlayer()` function to a promise based function.
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes                                                         |
+| ------- | ---------- | --------------------------------------------------------------- |
+| 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
+| 5.5.10  | 2025-06-29 | Init history                                                    |

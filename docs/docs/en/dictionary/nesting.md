@@ -270,4 +270,6 @@ These resources provide further insights into the setup and usage of Intlayer in
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

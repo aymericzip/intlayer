@@ -454,4 +454,6 @@ The `t` function is a powerful tool for backend internationalization. By using i
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |
