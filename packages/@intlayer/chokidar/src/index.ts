@@ -14,8 +14,10 @@ export { getFilteredLocalesContent } from './getFilteredLocalesContent';
 export { listDictionaries } from './listDictionariesPath';
 export {
   listGitFiles,
+  listGitLines,
   type DiffMode,
   type ListGitFilesOptions,
+  type ListGitLinesOptions,
 } from './listGitFiles';
 export {
   loadDictionaries,

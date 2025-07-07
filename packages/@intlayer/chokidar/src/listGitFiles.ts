@@ -1,5 +1,6 @@
 import { getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 import simpleGit from 'simple-git';
 
@@ -86,4 +87,92 @@ export const listGitFiles = async ({
   } catch (error) {
     console.warn('Failed to get changes list:', error);
   }
+};
+
+export type ListGitLinesOptions = {
+  mode: DiffMode[];
+  baseRef?: string;
+  currentRef?: string;
+};
+
+export const listGitLines = async (
+  filePath: string,
+  {
+    mode,
+    baseRef = 'origin/main',
+    currentRef = 'HEAD', // HEAD points to the current branch's latest commit
+  }: ListGitLinesOptions
+): Promise<number[]> => {
+  const git = simpleGit();
+  // We collect **line numbers** (1-based) that were modified/added by the diff.
+  // Using a Set ensures uniqueness when the same line is reported by several modes.
+  const changedLines: Set<number> = new Set();
+
+  /**
+   * Extracts line numbers from a diff generated with `--unified=0`.
+   * Each hunk header looks like: @@ -<oldStart>,<oldCount> +<newStart>,<newCount> @@
+   * We only consider the "+" (new) side of the hunk so that returned numbers
+   * correspond to the current version of the file. For deletions (newCount=0)
+   * there is no corresponding line in the new file, so we skip them.
+   */
+  const collectLinesFromDiff = (diffOutput: string) => {
+    const hunkRegex = /@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/g;
+    let match: RegExpExecArray | null;
+
+    while ((match = hunkRegex.exec(diffOutput)) !== null) {
+      const start = Number(match[1]);
+      // If count is omitted, it represents a single-line change
+      const count = match[2] ? Number(match[2]) : 1;
+
+      for (let i = 0; i < count; i++) {
+        changedLines.add(start + i);
+      }
+    }
+  };
+
+  // 1. Handle untracked files – when a file is untracked its entire content is new.
+  if (mode.includes('untracked')) {
+    const status = await git.status();
+    const isUntracked = status.not_added.includes(filePath);
+    if (isUntracked) {
+      try {
+        const content = readFileSync(filePath, 'utf-8');
+        content.split('\n').forEach((_, idx) => changedLines.add(idx + 1));
+      } catch {
+        // ignore read errors – file may have been deleted, etc.
+      }
+    }
+  }
+
+  // 2. Uncommitted changes (working tree vs HEAD)
+  if (mode.includes('uncommitted')) {
+    const diffOutput = await git.diff(['--unified=0', 'HEAD', '--', filePath]);
+    collectLinesFromDiff(diffOutput);
+  }
+
+  // 3. Unpushed commits – compare local branch to its upstream
+  if (mode.includes('unpushed')) {
+    const diffOutput = await git.diff([
+      '--unified=0',
+      '@{push}...HEAD',
+      '--',
+      filePath,
+    ]);
+    collectLinesFromDiff(diffOutput);
+  }
+
+  // 4. Regular git diff between baseRef and currentRef (e.g., CI pull-request diff)
+  if (mode.includes('gitDiff')) {
+    await git.fetch(baseRef);
+    const diffOutput = await git.diff([
+      '--unified=0',
+      `${baseRef}...${currentRef}`,
+      '--',
+      filePath,
+    ]);
+    collectLinesFromDiff(diffOutput);
+  }
+
+  // Return the list sorted for convenience
+  return Array.from(changedLines).sort((a, b) => a - b);
 };

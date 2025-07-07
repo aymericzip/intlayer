@@ -1,5 +1,10 @@
 import { AIOptions, getAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
+  listGitFiles,
+  ListGitFilesOptions,
+  listGitLines,
+} from '@intlayer/chokidar';
+import {
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
@@ -36,7 +41,8 @@ export const reviewFile = async (
   aiOptions?: AIOptions,
   configOptions?: GetConfigurationOptions,
   oAuth2AccessToken?: string,
-  customInstructions?: string
+  customInstructions?: string,
+  changedLines?: number[]
 ) => {
   try {
     const configuration = getConfiguration(configOptions);
@@ -67,8 +73,28 @@ export const reviewFile = async (
 
     appLogger(` Base file splitted into ${baseChunks.length} chunks`);
 
-    for (let i = 0; i < baseChunks.length; i++) {
-      const baseChunkContext = baseChunks[i];
+    for await (const [i, baseChunk] of baseChunks.entries()) {
+      const baseChunkContext = baseChunk;
+
+      if (changedLines) {
+        const hasChangedLinesInChunk = changedLines.some((line) => {
+          return (
+            line > baseChunkContext.lineStart &&
+            line < baseChunkContext.lineStart + baseChunkContext.lineLength
+          );
+        });
+
+        if (i !== baseChunks.length - 1) {
+          appLogger(`No git changed lines found for chunk ${i + 1}`);
+
+          fileResultContent += getChunk(updatedFileContent, {
+            lineStart: baseChunkContext.lineStart,
+            lineLength: baseChunkContext.lineLength,
+          });
+
+          continue;
+        }
+      }
 
       const getBaseChunkContextPrompt = () =>
         `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the base chunk in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) as reference.\n` +
@@ -92,6 +118,13 @@ export const reviewFile = async (
 
       // Make the actual translation call
       let reviewedChunkResult = await retryManager(async () => {
+        console.log('baseChunkContext', [
+          { role: 'system', content: getBaseChunkContextPrompt() },
+          { role: 'system', content: getChunkToReviewPrompt() },
+
+          { role: 'user', content: baseChunkContext.content },
+        ]);
+
         const result = await chunkInference(
           [
             { role: 'system', content: basePrompt },
@@ -147,6 +180,7 @@ type ReviewDocOptions = {
   customInstructions?: string;
   skipIfModifiedBefore?: number | string | Date;
   skipIfModifiedAfter?: number | string | Date;
+  gitOptions?: ListGitFilesOptions;
 };
 
 /**
@@ -164,6 +198,7 @@ export const reviewDoc = async ({
   customInstructions,
   skipIfModifiedBefore,
   skipIfModifiedAfter,
+  gitOptions,
 }: ReviewDocOptions) => {
   const configuration = getConfiguration(configOptions);
   const appLogger = getAppLogger(configuration);
@@ -177,9 +212,22 @@ export const reviewDoc = async ({
 
   const limit = pLimit(nbSimultaneousFileProcessed ?? 3);
 
-  const docList: string[] = fg.sync(docPattern, {
+  let docList: string[] = fg.sync(docPattern, {
     ignore: excludedGlobPattern,
   });
+
+  if (gitOptions) {
+    const gitChangedFiles = await listGitFiles(gitOptions);
+
+    if (gitChangedFiles) {
+      // Convert dictionary file paths to be relative to git root for comparison
+
+      // Filter dictionaries based on git changed files
+      docList = docList.filter((path) =>
+        gitChangedFiles.some((gitFile) => join(process.cwd(), path) === gitFile)
+      );
+    }
+  }
 
   checkAIAccess(configuration, aiOptions);
 
@@ -233,6 +281,18 @@ export const reviewDoc = async ({
           return;
         }
 
+        let changedLines: number[] | undefined = undefined;
+        if (gitOptions) {
+          const gitChangedLines = await listGitLines(
+            absoluteBaseFilePath,
+            gitOptions
+          );
+
+          appLogger(`Git changed lines: ${gitChangedLines.join(', ')}`);
+
+          changedLines = gitChangedLines;
+        }
+
         await reviewFile(
           absoluteBaseFilePath,
           outputFilePath,
@@ -241,7 +301,8 @@ export const reviewDoc = async ({
           aiOptions,
           configOptions,
           oAuth2AccessToken,
-          customInstructions
+          customInstructions,
+          changedLines
         );
       })
     )

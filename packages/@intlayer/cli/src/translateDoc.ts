@@ -1,4 +1,5 @@
 import { AIOptions, getAuthAPI } from '@intlayer/api';
+import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
   getAppLogger,
   getConfiguration,
@@ -65,7 +66,7 @@ export const translateFile = async (
     const chunks = chunkText(fileContent);
     appLogger(`Base file splitted into ${chunks.length} chunks`);
 
-    for (let i = 0; i < chunks.length; i++) {
+    for await (const [i, chunk] of chunks.entries()) {
       const isFirstChunk = i === 0;
 
       // Build the chunk-specific prompt
@@ -83,7 +84,7 @@ export const translateFile = async (
         (chunks[i + 1]?.content ?? '') +
         `///chunksEnd///`;
 
-      const fileToTranslateCurrentChunk = chunks[i].content;
+      const fileToTranslateCurrentChunk = chunk.content;
 
       // Make the actual translation call
       let chunkTranslation = await retryManager(async () => {
@@ -145,6 +146,7 @@ type TranslateDocOptions = {
   customInstructions?: string;
   skipIfModifiedBefore?: number | string | Date;
   skipIfModifiedAfter?: number | string | Date;
+  gitOptions?: ListGitFilesOptions;
 };
 
 /**
@@ -162,6 +164,7 @@ export const translateDoc = async ({
   customInstructions,
   skipIfModifiedBefore,
   skipIfModifiedAfter,
+  gitOptions,
 }: TranslateDocOptions) => {
   const configuration = getConfiguration(configOptions);
   const appLogger = getAppLogger(configuration);
@@ -175,11 +178,24 @@ export const translateDoc = async ({
 
   const limit = pLimit(nbSimultaneousFileProcessed ?? 3);
 
-  const docList: string[] = fg.sync(docPattern, {
+  let docList: string[] = fg.sync(docPattern, {
     ignore: excludedGlobPattern,
   });
 
   checkAIAccess(configuration, aiOptions);
+
+  if (gitOptions) {
+    const gitChangedFiles = await listGitFiles(gitOptions);
+
+    if (gitChangedFiles) {
+      // Convert dictionary file paths to be relative to git root for comparison
+
+      // Filter dictionaries based on git changed files
+      docList = docList.filter((path) =>
+        gitChangedFiles.some((gitFile) => join(process.cwd(), path) === gitFile)
+      );
+    }
+  }
 
   let oAuth2AccessToken: string | undefined;
   if (configuration.editor.clientId) {

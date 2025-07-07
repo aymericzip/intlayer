@@ -1,5 +1,5 @@
 import { AIOptions } from '@intlayer/api';
-import { reviewDoc } from '@intlayer/cli';
+import { ListGitFilesOptions, reviewDoc } from '@intlayer/cli';
 import { Locales, getConfiguration } from '@intlayer/config';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -8,9 +8,9 @@ import { defaultLocale, locales } from '../intlayer.config';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
-  // './docs/en/**/*.md',
-  // './blog/en/**/*.md',
-  // './docs/en/**/configuration.md',
+  './docs/en/**/*.md',
+  './blog/en/**/*.md',
+  './docs/en/**/configuration.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/node_modules/**',
@@ -27,13 +27,17 @@ const LOCALE_LIST_TO_TRANSLATE: Locales[] = locales.filter(
   (locale) => locale !== Locales.ENGLISH
 );
 
-const SKIP_IF_MODIFIED_BEFORE: number | undefined = 1000 * 60 * 60 * 24; // 1 day ago
+const SKIP_IF_MODIFIED_BEFORE: number | undefined = undefined; //1000 * 60 * 60 * 24; // 1 day ago
 const SKIP_IF_MODIFIED_AFTER: number | undefined = undefined;
+
+const GIT_OPTIONS: ListGitFilesOptions | undefined = {
+  mode: ['uncommitted', 'unpushed'],
+};
 
 const configuration = getConfiguration();
 
 const customInstructions = readFileSync(
-  join(process.cwd(), './src/prompts/CUSTOM_INSTRUCTIONS.md'),
+  join(process.cwd(), './tools/prompts/CUSTOM_INSTRUCTIONS.md'),
   'utf-8'
 );
 
@@ -47,4 +51,5 @@ reviewDoc({
   customInstructions,
   skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
   skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
+  gitOptions: GIT_OPTIONS,
 });
