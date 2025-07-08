@@ -12,7 +12,7 @@ export const SoftwareApplicationHeader: FC = () => {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Intlayer',
-    url: 'https://www.votresite.com',
+    url: 'https://intlayer.org',
     description: description.value,
     softwareVersion: packageJson.version,
     license:
@@ -20,15 +20,15 @@ export const SoftwareApplicationHeader: FC = () => {
     author: {
       '@type': 'Organization',
       name: 'Intlayer',
-      url: 'https://www.votresite.com',
-      logo: 'https://www.votresite.com/assets/logo.png',
+      url: 'https://intlayer.org',
+      logo: 'https://intlayer.org/assets/logo.png',
       sameAs: ['https://github.com/aymericzip'],
     },
     publisher: {
       '@type': 'Organization',
       name: 'Intlayer',
-      url: 'https://www.votresite.com',
-      logo: 'https://www.votresite.com/assets/logo.png',
+      url: 'https://intlayer.org',
+      logo: 'https://intlayer.org/assets/logo.png',
     },
     keywords: keywords.map((keyword) => keyword.value),
     creator: {
