@@ -2,6 +2,7 @@ import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
 import { readFileSync, writeFileSync } from 'fs';
+import { getMarkdownMetadata } from 'intlayer';
 import { OpenAI } from 'openai';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -18,6 +19,8 @@ type VectorStoreEl = {
   chunkNumber: number;
   content: string;
   embedding: number[];
+  docUrl: string;
+  docName: string;
 };
 
 /**
@@ -150,6 +153,11 @@ export const indexMarkdownFiles = async (): Promise<void> => {
 
   // Iterate over each file key (identifier) in the combined files
   for await (const fileKey of Object.keys(files)) {
+    // Get the metadata of the file
+    const fileMetadata = getMarkdownMetadata(
+      files[fileKey as keyof typeof files] as string
+    );
+
     // Split the document into chunks based on headings
     const fileChunks = chunkText(
       files[fileKey as keyof typeof files] as string
@@ -207,6 +215,8 @@ export const indexMarkdownFiles = async (): Promise<void> => {
         chunkNumber,
         embedding,
         content: fileChunk,
+        docUrl: fileMetadata.url,
+        docName: fileMetadata.title,
       });
 
       console.info(`- Indexed: ${embeddingKeyName}/${chunksNumber}`);
@@ -340,9 +350,18 @@ export const askDocQuestion = async (
     relevantFilesReferences.length === 0
       ? 'Not relevant file found related to the question.'
       : relevantFilesReferences
-          .map(
-            (doc, idx) =>
-              `-----\n\n[Chunk ${idx}] doc name = "${doc.fileKey}" (chunk ${doc.chunkNumber}/${doc.fileKey.length})):\n${doc.content}`
+          .map((doc, idx) =>
+            [
+              '-----',
+              '---',
+              `chunkId: ${idx}`,
+              `docChunk: "${doc.chunkNumber}/${doc.fileKey.length}"`,
+              `docName: "${doc.docName}"`,
+              `docUrl: "${doc.docUrl}"`,
+              `---`,
+              doc.content,
+              `-----`,
+            ].join('\n')
           )
           .join('\n\n') // Insert relevant docs into the prompt
   );
