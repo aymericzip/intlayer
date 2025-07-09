@@ -15,7 +15,17 @@ This project uses **[Conventional Commits](https://www.conventionalcommits.org/)
 - `<scope>` _(optional)_: a package, app, or general scope (lower-case, no spaces)
 - `<subject>`: short description in the imperative mood, **no trailing period**
 
-## 2. Allowed Types
+## 2. Length Restrictions
+
+| Component                      | Max Length     | Rule Level |
+| ------------------------------ | -------------- | ---------- |
+| **Header** (entire first line) | 100 characters | Error      |
+| **Body** (each line)           | 100 characters | Error      |
+| **Footer** (each line)         | 100 characters | Error      |
+
+> Exceeding these limits will cause commit validation to fail.
+
+## 3. Allowed Types
 
 | Type         | When to use it                                                                |
 | ------------ | ----------------------------------------------------------------------------- |
@@ -32,40 +42,58 @@ This project uses **[Conventional Commits](https://www.conventionalcommits.org/)
 
 > Any other type will be rejected by commitlint.
 
-## 3. Subject Rules
+## 4. Subject Rules
 
-- Use the **imperative mood**: “add”, “fix”, “remove”, **not** “added” or “adding”.
-- Keep it concise (max 100 characters; enforced by commitlint).
-- Don’t capitalize the first letter beyond what’s required for acronyms.
-- Don’t end with a period.
+- Use the **imperative mood**: "add", "fix", "remove", **not** "added" or "adding".
+- Must be **lower-case** (no sentence-case, start-case, pascal-case, or upper-case).
+- Don't capitalize the first letter beyond what's required for acronyms.
+- Don't end with a period.
+- Cannot be empty (required).
 
-## 4. Scope Rules
+## 5. Scope Rules
 
 - Optional but recommended for clarity.
-- Lower-case, hyphen-separated if multi-word.
+- **Must be lower-case** (enforced by commitlint).
+- Hyphen-separated if multi-word.
 - Examples: `react-intlayer`, `backend`, `website`, `scripts`.
 
-## 5. Body (Optional)
+## 6. Body (Optional)
 
-Provide context, motivation and contrast with previous behavior. Wrap lines at 100 characters.
+Provide context, motivation and contrast with previous behavior.
+
+**Requirements:**
+
+- Must have a **blank line** before the body content (warning level).
+- Each line must not exceed **100 characters** (error level).
 
 ```
+<type>(<scope>): <subject>
 <BLANK LINE>
 Detailed explanation of **what** and **why**.
+Each line in the body must be 100 characters or less.
 <BLANK LINE>
 ```
 
-## 6. Footer (Optional)
+## 7. Footer (Optional)
 
 Used for metadata such as breaking changes or issue references.
 
+**Requirements:**
+
+- Must have a **blank line** before the footer content (warning level).
+- Each line must not exceed **100 characters** (error level).
+
 ```
+<type>(<scope>): <subject>
+
+[optional body]
+<BLANK LINE>
 BREAKING CHANGE: describe the breaking change here
 
 Closes #123
 ```
 
-## 7. Examples
+## 8. Examples
 
 ```txt
 feat(core): add version comparison utility
@@ -74,15 +102,15 @@ chore: update lockfile
 style(backend): run eslint --fix on src directory
 ```
 
-## 8. Quick Checklist
+## 9. Quick Checklist
 
-1. Correct **type** from the list above
+1. Correct **type** from the list above (lower-case)
 2. (Optional) concise **scope** in lower-case
-3. Imperative **subject** ≤ 100 chars, no period
-4. Descriptive **body** if needed (blank line before)
-5. **Footer** for breaking changes / issue refs
+3. **Subject** in lower-case, imperative mood, ≤ 100 chars total header, no period
+4. **Body** with blank line before, each line ≤ 100 chars
+5. **Footer** with blank line before, each line ≤ 100 chars, for breaking changes/issue refs
 
-## 9. Validation & Automation
+## 10. Validation & Automation
 
 - The `.husky/commit-msg` hook runs `pnpm exec commitlint --edit "$1"`.
 - Any deviation from the rules aborts the commit **with guidance**.
