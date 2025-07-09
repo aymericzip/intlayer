@@ -66,6 +66,7 @@ export type FileMetadata = {
   keywords: string[];
   updatedAt: string;
   createdAt: string;
+  author?: string;
 };
 
 export const formatMetadata = (
