@@ -1,10 +1,10 @@
 'use client';
 
 import { type OnChange, type OnMount, Editor } from '@monaco-editor/react';
-import { type FC, useState, useRef, useMemo } from 'react';
+import { type FC, useMemo, useRef, useState } from 'react';
 import { cn } from '../../utils/cn';
+import { CopyButton } from '../CopyButton';
 import { Loader } from '../Loader';
-import { CopyButton } from './CopyButton';
 
 type CodeCompProps = {
   children: string;

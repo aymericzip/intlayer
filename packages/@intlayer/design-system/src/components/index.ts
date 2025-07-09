@@ -8,6 +8,7 @@ export * from './ClickOutsideDiv';
 export * from './Command';
 export * from './Container';
 export * from './ContentSelector';
+export * from './CopyButton';
 export * from './CopyToClipboard';
 export * from './DictionaryEditor';
 export * from './DictionaryFieldEditor';

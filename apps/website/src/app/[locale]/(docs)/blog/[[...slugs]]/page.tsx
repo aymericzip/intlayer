@@ -1,7 +1,7 @@
 import { PagesRoutes } from '@/Routes';
 import { getPreviousNextBlogData } from '@components/BlogPage/blogData';
 import { BlogRender } from '@components/BlogPage/BlogRender';
-import { ContributionMessage } from '@components/DocPage/ContributionMessage';
+import { DocHeader } from '@components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
   DocPageNavigationProps,
@@ -62,10 +62,10 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
         datePublished={new Date(blogData.createdAt)}
         url={blogData.url}
       />
+      <DocHeader {...blogData} markdownContent={blogContent} locale={locale} />
+
       <BlogRender>{blogContent}</BlogRender>
-      <ContributionMessage
-        githubUrl={blogData.githubUrl.replace('/en/', `/${locale}/`)}
-      />
+
       <DocPageNavigation nextDoc={nextBlog} prevDoc={prevBlog} />
     </IntlayerServerProvider>
   );

@@ -2,16 +2,16 @@ import { type FC, type HTMLAttributes } from 'react';
 import type { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
+import { CopyButton } from '../CopyButton';
 import { CodeBlock } from './CodeBlockClient';
 import { CodeConditionalRender } from './CodeConditionalRenderer';
 import type {
-  PackageManager,
   CodeFormat,
   ContentDeclarationFormat,
+  PackageManager,
 } from './CodeContext';
 import { CodeFormatSelector } from './CodeFormatSelector';
 import { ContentDeclarationFormatSelector } from './ContentDeclarationFormatSelector';
-import { CopyButton } from './CopyButton';
 import { PackageManagerSelector } from './PackageManagerSelector';
 
 export type CodeCompAttributes = {
@@ -76,7 +76,7 @@ export const Code: FC<CodeCompProps> = ({
                 )}
               </div>
             </div>
-            <div className="sticky top-28">
+            <div className="sticky top-48">
               <div
                 className={cn(
                   'absolute bottom-0 right-2 flex h-7 items-center',

@@ -1,6 +1,6 @@
 import { PagesRoutes } from '@/Routes';
-import { ContributionMessage } from '@components/DocPage/ContributionMessage';
 import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
+import { DocHeader } from '@components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
   DocPageNavigationProps,
@@ -63,10 +63,9 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
         datePublished={new Date(docData.createdAt)}
         url={docData.url}
       />
+      <DocHeader {...docData} markdownContent={docContent} locale={locale} />
       <DocumentationRender>{docContent}</DocumentationRender>
-      <ContributionMessage
-        githubUrl={docData.githubUrl.replace('/en/', `/${locale}/`)}
-      />
+
       <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
     </IntlayerServerProvider>
   );

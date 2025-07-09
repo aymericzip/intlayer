@@ -28,13 +28,15 @@ export const FileReference: FC<{
   const docData = useIntlayer('doc-metadata');
   const blogData = useIntlayer('blog-metadata');
 
+  const uniqFiles = [...new Set(relatedFiles)];
+
   if (relatedFiles.length === 0) return <></>;
 
   return (
     <div className="pl-4">
       <span className="text-neutral text-sm">{relatedFilesLabel}</span>
       <div className="flex min-w-full flex-row gap-2 overflow-x-auto pb-1">
-        {relatedFiles.map((fileKey) => {
+        {uniqFiles.map((fileKey) => {
           const fileData = [...docData, ...blogData]?.find(
             (docEl) => docEl.docKey === fileKey
           );
@@ -44,8 +46,8 @@ export const FileReference: FC<{
           return (
             <FileReferenceTag
               key={fileKey}
-              fileTitle={fileData.title}
-              fileUrl={fileData.url}
+              fileTitle={fileData.title.value}
+              fileUrl={fileData.url.value}
             />
           );
         })}

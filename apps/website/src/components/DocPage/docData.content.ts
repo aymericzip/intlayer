@@ -417,7 +417,9 @@ const docDataContent: any = {
                 ar: 'Next.js وموجه الصفحة',
                 ru: 'Next.js и Page Router',
               }),
-              default: getDocMetadata('./docs/en/intlayer_with_nextjs_14.md'),
+              default: getDocMetadata(
+                './docs/en/intlayer_with_nextjs_page_router.md'
+              ),
             },
           },
         },

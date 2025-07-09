@@ -1,0 +1,72 @@
+import { t, type Dictionary } from 'intlayer';
+
+const mCPMessageContent = {
+  key: 'mcp-message',
+  content: {
+    title: t({
+      en: 'Add MCP to your AI Assistant',
+      fr: 'Ajouter MCP à votre assistant AI',
+      ar: 'أضف MCP إلى مساعدك الذكي',
+      de: 'MCP zu Ihrem AI-Assistenten hinzufügen',
+      es: 'Añadir MCP a tu asistente de IA',
+      it: 'Aggiungi MCP al tuo assistente AI',
+      ja: 'AIアシスタントにMCPを追加',
+      ko: 'MCP를 AI 어시스턴트에 추가',
+      pt: 'Adicionar MCP ao seu assistente de IA',
+      ru: 'Добавить MCP в ваш AI-ассистент',
+      'en-GB': 'Add MCP to your AI Assistant',
+      hi: 'Add MCP to your AI Assistant',
+      zh: 'Add MCP to your AI Assistant',
+    }),
+    description: t({
+      en: 'By integrating the Intlayer MCP Server to your favourite AI assistant can retrieve all the doc directly from ChatGPT, DeepSeek, Cursor, VSCode, etc.',
+      fr: 'En intégrant le serveur MCP Intlayer à votre assistant AI, vous pouvez récupérer tous les documents directement depuis ChatGPT, DeepSeek, Cursor, VSCode, etc.',
+      ar: 'بدءاً من الدمج مع خادم MCP Intlayer ، يمكن لمساعدك الذكي الاسترجاع من جميع المستندات مباشرة من ChatGPT ، DeepSeek ، Cursor ، VSCode ، إلخ.',
+      de: 'Durch die Integration des Intlayer MCP-Servers in Ihren bevorzugten AI-Assistenten können Sie alle Dokumente direkt von ChatGPT, DeepSeek, Cursor, VSCode usw. abrufen.',
+      es: 'Al integrar el servidor MCP Intlayer a tu asistente de IA, puedes recuperar todos los documentos directamente desde ChatGPT, DeepSeek, Cursor, VSCode, etc.',
+      it: 'Integrando il server MCP Intlayer al tuo assistente AI, puoi recuperare tutti i documenti direttamente da ChatGPT, DeepSeek, Cursor, VSCode, ecc.',
+      ja: 'Intlayer MCPサーバーを統合することで、ChatGPT、DeepSeek、Cursor、VSCodeなどから直接ドキュメントを取得できます。',
+      ko: 'Intlayer MCP 서버를 통해 ChatGPT, DeepSeek, Cursor, VSCode 등에서 직접 문서를 검색할 수 있습니다.',
+      pt: 'Ao integrar o servidor MCP Intlayer ao seu assistente de IA, você pode recuperar todos os documentos diretamente de ChatGPT, DeepSeek, Cursor, VSCode, etc.',
+      ru: 'Интеграция сервера MCP Intlayer в ваш любимый AI-ассистент позволяет получать все документы непосредственно из ChatGPT, DeepSeek, Cursor, VSCode и т.д.',
+      'en-GB':
+        'By integrating the Intlayer MCP Server to your favourite AI assistant can retrieve all the doc directly from ChatGPT, DeepSeek, Cursor, VSCode, etc.',
+      hi: 'अपने पसंदीदा AI एसिस्टेंट में Intlayer MCP सर्वर को एकीकृत करके आप सभी दस्तावेज़ को सीधे ChatGPT, DeepSeek, Cursor, VSCode से प्राप्त कर सकते हैं।',
+      zh: '通过将 Intlayer MCP 服务器集成到您的 AI 助手，您可以直接从 ChatGPT、DeepSeek、Cursor、VSCode 等获取所有文档。',
+    }),
+    link: {
+      test: t({
+        en: 'See MCP Server doc',
+        fr: 'Voir la documentation du serveur MCP',
+        ar: 'عرض الوثائق الخاصة بالخادم MCP',
+        de: 'Dokumentation des MCP-Servers ansehen',
+        es: 'Ver la documentación del servidor MCP',
+        it: 'Vedi la documentazione del server MCP',
+        ja: 'MCPサーバーのドキュメントを表示',
+        ko: 'MCP 서버 문서 보기',
+        pt: 'Ver a documentação do servidor MCP',
+        ru: 'Просмотр документации сервера MCP',
+        'en-GB': 'See MCP Server doc',
+        hi: 'MCP सर्वर दस्तावेज़ देखें',
+        zh: '查看 MCP 服务器文档',
+      }),
+      label: t({
+        en: 'See MCP Server doc',
+        fr: 'Voir la documentation du serveur MCP',
+        ar: 'عرض الوثائق الخاصة بالخادم MCP',
+        de: 'Dokumentation des MCP-Servers ansehen',
+        es: 'Ver la documentación del servidor MCP',
+        it: 'Vedi la documentazione del server MCP',
+        ja: 'MCPサーバーのドキュメントを表示',
+        ko: 'MCP 서버 문서 보기',
+        pt: 'Ver a documentação do servidor MCP',
+        ru: 'Просмотр документации сервера MCP',
+        'en-GB': 'See MCP Server doc',
+        hi: 'MCP सर्वर दस्तावेज़ देखें',
+        zh: '查看 MCP 服务器文档',
+      }),
+    },
+  },
+} satisfies Dictionary;
+
+export default mCPMessageContent;

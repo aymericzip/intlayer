@@ -3,14 +3,14 @@
 import { CopyCheckIcon, CopyIcon } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { Button } from '../Button';
-import { copyContentContent } from './CopyButton.content';
+import { Button, ButtonProps } from '../Button';
+import { copyContentContent } from '../IDE/CopyButton.content';
 
 type CopyButtonProps = {
   content: string;
-};
+} & Partial<ButtonProps>;
 
-export const CopyButton: FC<CopyButtonProps> = ({ content }) => {
+export const CopyButton: FC<CopyButtonProps> = ({ content, ...props }) => {
   const [copied, setCopied] = useState(false);
   const { label } = useDictionary(copyContentContent);
 
@@ -36,8 +36,9 @@ export const CopyButton: FC<CopyButtonProps> = ({ content }) => {
       onClick={handleCopy}
       variant="hoverable"
       color="text"
-      label={label.value}
       size="icon-sm"
+      {...props}
+      label={props.label ?? label.value}
     />
   );
 };
