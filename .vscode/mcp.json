@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "intlayer": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}

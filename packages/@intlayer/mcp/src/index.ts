@@ -129,10 +129,8 @@ const server = new McpServer({
 
 server.tool(
   'intlayer-build',
-  {
-    description: 'Build the dictionaries',
-    ...buildToolSchema,
-  },
+  'Build the dictionaries. List all content declarations files `.content.{ts,tsx,js,json,...}` to update the content callable using the `useIntlayer` hook.',
+  buildToolSchema,
   async ({ watch, baseDir, env, envFile, verbose, prefix }: BuildToolProps) => {
     try {
       const log: Partial<LogConfig> = {};
@@ -180,10 +178,8 @@ server.tool(
 
 server.tool(
   'intlayer-fill',
-  {
-    description: 'Fill the dictionaries with missing translations',
-    ...fillToolSchema,
-  },
+  'Fill the dictionaries with missing translations / review translations using Intlayer servers',
+  fillToolSchema,
   async (props: FillToolProps) => {
     try {
       const { gitOptions, ...rest } = props;
@@ -228,10 +224,8 @@ server.tool(
 
 server.tool(
   'intlayer-push',
-  {
-    description: 'Push dictionaries to the server',
-    ...pushToolSchema,
-  },
+  'Push locale dictionaries to the server',
+  pushToolSchema,
   async (props: PushToolProps) => {
     try {
       const { gitOptions, ...rest } = props;
@@ -276,10 +270,8 @@ server.tool(
 
 server.tool(
   'intlayer-pull',
-  {
-    description: 'Pull dictionaries from the server',
-    ...pullToolSchema,
-  },
+  'Pull dictionaries from the CMS',
+  pullToolSchema,
   async (props: PullToolProps) => {
     try {
       await pull(props);
@@ -309,10 +301,9 @@ server.tool(
 
 server.tool(
   'get-doc-list',
+  'Get the list of docs names and their metadata to get more details about what doc to retrieve',
   {
     lang: z.nativeEnum(Locales).optional().describe('Language of the docs'),
-    description:
-      'Get the list of docs and their metadata to get more details about what doc to',
   },
   async ({ lang }) => {
     const docsMetadataRecord = await getDocMetadataRecord(lang);
@@ -330,10 +321,10 @@ server.tool(
 
 server.tool(
   'get-doc',
+  'Get a doc by his key. Example: `./docs/en/getting-started.md`. List all docs metadata first to get more details about what doc key to retrieve.',
   {
     docKey: z.string(),
     lang: z.nativeEnum(Locales).optional().describe('Language of the docs'),
-    description: 'Get a doc by his key',
   },
   async ({ docKey, lang }) => {
     const doc = await getDoc(docKey as any, lang);
@@ -345,6 +336,7 @@ server.tool(
 
 server.tool(
   'get-doc-by-slug',
+  'Get an array of docs by their slugs. If not slug is provided, return all docs (1.2Mb). List all docs metadata first to get more details about what doc to retrieve.',
   {
     slug: z
       .union([z.string(), z.array(z.string())])
