@@ -6,6 +6,7 @@ const RETURN_BUNDLE_ANALYZER = true;
 
 const nextConfig: NextConfig = {
   /* config options here */
+  transpilePackages: ['@intlayer/design-system'],
 
   webpack: (config, { isServer }) => {
     if (!isServer) {
