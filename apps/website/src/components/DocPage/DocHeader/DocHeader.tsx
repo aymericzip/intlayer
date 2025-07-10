@@ -32,8 +32,8 @@ export const DocHeader: FC<DocHeaderProps> = ({
     useIntlayer('doc-header');
 
   return (
-    <header>
-      <div className=" mt-5 z-10 flex flex-col gap-2 px-4 py-2 max-w-[95%] mx-auto text-xs">
+    <>
+      <header className=" mt-5 z-10 flex flex-col gap-2 px-4 py-2 max-w-[95%] mx-auto text-xs">
         {author && (
           <span className="block">
             {authorLabel}: <span className="text-neutral ml-2">{author}</span>
@@ -53,7 +53,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
             </span>
           )}
         </div>
-      </div>
+      </header>
       <Container className="sticky top-20 mt-5 z-5 flex flex-col gap-2 px-4 py-2 max-w-[95%] mx-auto">
         <div className="flex flex-row gap-4 w-full justify-between">
           <div className="flex flex-row gap-4 w-full justify-start items-center">
@@ -79,6 +79,6 @@ export const DocHeader: FC<DocHeaderProps> = ({
           </div>
         </div>
       </Container>
-    </header>
+    </>
   );
 };
