@@ -2,7 +2,6 @@ import { type FC, type HTMLAttributes } from 'react';
 import type { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
-import { CopyButton } from '../CopyButton';
 import { CodeBlock } from './CodeBlockClient';
 import { CodeConditionalRender } from './CodeConditionalRenderer';
 import type {
@@ -12,6 +11,7 @@ import type {
 } from './CodeContext';
 import { CodeFormatSelector } from './CodeFormatSelector';
 import { ContentDeclarationFormatSelector } from './ContentDeclarationFormatSelector';
+import { CopyCode } from './CopyCode';
 import { PackageManagerSelector } from './PackageManagerSelector';
 
 export type CodeCompAttributes = {
@@ -83,7 +83,7 @@ export const Code: FC<CodeCompProps> = ({
                   hadSelectInHeader && 'h-11'
                 )}
               >
-                <CopyButton content={code} />
+                <CopyCode code={code} />
               </div>
             </div>
           </>
