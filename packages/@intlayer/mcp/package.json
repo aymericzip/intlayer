@@ -1,13 +1,15 @@
 {
   "name": "@intlayer/mcp",
-  "version": "5.5.11",
+  "version": "5.5.12",
   "private": false,
   "description": "Intlayer MCP server. Handle MCP to help IDE to use Intlayer. It build, fill, pull, push, dictionaries",
   "keywords": [
     "intlayer",
-    "alias",
-    "dictionaries",
-    "entry"
+    "mcp",
+    "mcp-server",
+    "mcp-proxy",
+    "documentation",
+    "cli"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {

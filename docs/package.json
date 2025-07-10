@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/docs",
-  "version": "5.5.11",
+  "version": "5.5.12",
   "private": false,
   "description": "Intlayer documentation",
   "keywords": [
@@ -45,7 +45,8 @@
     "src",
     "dist",
     "frequent_questions",
-    "blog"
+    "blog",
+    "legal"
   ],
   "scripts": {
     "prebuild": "tsx tools/generateEntry.ts",
