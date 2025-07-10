@@ -21,6 +21,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
   updatedAt,
   createdAt,
   url,
+  relativeUrl,
   markdownContent,
   githubUrl,
   locale,
@@ -59,7 +60,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
             <ContributionMessage
               githubUrl={githubUrl.replace('/en/', `/${locale}/`)}
             />
-            <TranslatedContentMessage pageUrl={url} />
+            <TranslatedContentMessage pageUrl={relativeUrl} />
             {applicationTemplate && (
               <ApplicationTemplateMessage
                 applicationTemplateUrl={applicationTemplate}
