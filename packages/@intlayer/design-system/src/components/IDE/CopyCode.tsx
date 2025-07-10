@@ -1,5 +1,7 @@
+'use client';
+
 import { type FC } from 'react';
-import { useDictionary } from 'react-intlayer/server';
+import { useDictionary } from 'react-intlayer';
 import { CopyButton } from '../CopyButton';
 import { Popover } from '../Popover';
 import copyContentContent from './copyCode.content';
