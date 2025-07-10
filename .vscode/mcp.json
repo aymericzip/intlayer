@@ -4,6 +4,10 @@
       "type": "stdio",
       "command": "npx",
       "args": ["-y", "@intlayer/mcp"]
+    },
+    "intlayer-sse": {
+      "type": "sse",
+      "url": "http://mcp.intlayer.com"
     }
   }
 }

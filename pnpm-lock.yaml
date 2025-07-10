@@ -2107,6 +2107,9 @@ importers:
       '@modelcontextprotocol/sdk':
         specifier: ^1.15.0
         version: 1.15.0
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.5.0
       express:
         specifier: ^5.1.0
         version: 5.1.0
@@ -44093,7 +44096,7 @@ snapshots:
 
   dotenv-expand@11.0.7:
     dependencies:
-      dotenv: 16.4.7
+      dotenv: 16.5.0
 
   dotenv-expand@5.1.0: {}
 
