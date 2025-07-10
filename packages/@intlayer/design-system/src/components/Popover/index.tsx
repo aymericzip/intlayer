@@ -70,7 +70,7 @@ const Detail: FC<DetailProps> = ({
   children,
   isHidden = undefined,
   isOverable = true,
-  isFocusable = true,
+  isFocusable = false,
   xAlign = 'start',
   yAlign = 'bellow',
   identifier,
