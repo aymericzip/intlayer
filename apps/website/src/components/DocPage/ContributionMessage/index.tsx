@@ -27,7 +27,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
         <strong>Edit this doc</strong>
         <p className="text-neutral">{contribution.text}</p>
         <Link
-          href={githubUrl.replace('/blob/', `/edit/`)}
+          href={githubUrl}
           label={contribution.buttonLabel.value}
           color="text"
         >
