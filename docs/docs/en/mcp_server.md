@@ -97,6 +97,44 @@ For more detailed information about VS Code MCP integration, see the [official V
 
 ---
 
+## Setup with Remote Server (SSE)
+
+For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), you can configure your MCP client to connect to the hosted service.
+
+### Cursor Configuration
+
+Add the following to your `.cursor/mcp.json` configuration file:
+
+```json
+{
+  "mcpServers": {
+    "intlayer-sse": {
+      "url": "http://mcp.intlayer.com",
+      "transport": "sse"
+    }
+  }
+}
+```
+
+### VS Code Configuration
+
+Add the following to your `.vscode/mcp.json` configuration file:
+
+```json
+{
+  "servers": {
+    "intlayer-sse": {
+      "type": "sse",
+      "url": "http://mcp.intlayer.com"
+    }
+  }
+}
+```
+
+This configuration allows you to connect to a remote Intlayer MCP server without needing to run the server locally. The remote server provides the same functionality as the local version but is hosted and maintained externally.
+
+---
+
 ## Using the MCP Server via CLI
 
 You can also run the Intlayer MCP server directly from the command line for testing, debugging, or integration with other tools.
@@ -171,6 +209,7 @@ The server will expose Intlayer-specific tools and resources that can be consume
 
 ## Doc History
 
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |
+| Version | Date       | Changes                              |
+| ------- | ---------- | ------------------------------------ |
+| 5.5.11  | 2025-07-10 | Add SSE transport and distant server |
+| 5.5.10  | 2025-06-29 | Init history                         |

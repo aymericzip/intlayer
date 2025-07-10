@@ -366,8 +366,8 @@ server.tool(
 const main = async () => {
   const args = process.argv.slice(2);
   const useHttp =
-    args.includes('--http') || process.env.MCP_TRANSPORT === 'http';
-  const port = parseInt(process.env.MCP_PORT || '6274');
+    args.includes('--http') ?? process.env.MCP_TRANSPORT === 'http';
+  const port = parseInt(process.env.MCP_PORT ?? '6274');
 
   if (useHttp) {
     // HTTP/SSE transport for Docker/remote usage
