@@ -2110,9 +2110,6 @@ importers:
       express:
         specifier: ^5.1.0
         version: 5.1.0
-      mcp-proxy:
-        specifier: ^5.3.0
-        version: 5.3.0
       zod:
         specifier: ^3.25.56
         version: 3.25.67
@@ -15710,13 +15707,6 @@ packages:
       }
     engines: { node: '>=12' }
 
-  cliui@9.0.1:
-    resolution:
-      {
-        integrity: sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w==,
-      }
-    engines: { node: '>=20' }
-
   clone-deep@4.0.1:
     resolution:
       {
@@ -18621,13 +18611,6 @@ packages:
         integrity: sha512-CRT1WTyuQoD771GW56XEZFQ/ZoSfWid1alKGDYMmkt2yl8UXrVR4pspqWNEcqKvVIzg6PAltWjxcSSPrboA4iA==,
       }
     engines: { node: '>=18.0.0' }
-
-  eventsource@4.0.0:
-    resolution:
-      {
-        integrity: sha512-fvIkb9qZzdMxgZrEQDyll+9oJsyaVvY92I2Re+qK0qEJ+w5s0X3dtz+M0VAPOjP1gtU3iqWyjQ0G3nvd5CLZ2g==,
-      }
-    engines: { node: '>=20.0.0' }
 
   exec-async@2.2.0:
     resolution:
@@ -23219,13 +23202,6 @@ packages:
         integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==,
       }
     engines: { node: '>= 0.4' }
-
-  mcp-proxy@5.3.0:
-    resolution:
-      {
-        integrity: sha512-dknV3cAOdxJXampGqeG56G1UWFWf+2Msmh+r7WbTBqrZXaOFiZh6TSmd3Eig2+QQ5eCkLjrdpVKyjnisUSkizA==,
-      }
-    hasBin: true
 
   md-to-react-email@5.0.5:
     resolution:
@@ -32994,13 +32970,6 @@ packages:
       }
     engines: { node: '>=12' }
 
-  yargs-parser@22.0.0:
-    resolution:
-      {
-        integrity: sha512-rwu/ClNdSMpkSrUb+d6BRsSkLUq1fmfsY6TOpYzTwvwkg1/NRG85KBy3kq++A8LKQwX6lsu+aWad+2khvuXrqw==,
-      }
-    engines: { node: ^20.19.0 || ^22.12.0 || >=23 }
-
   yargs@16.2.0:
     resolution:
       {
@@ -33014,13 +32983,6 @@ packages:
         integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==,
       }
     engines: { node: '>=12' }
-
-  yargs@18.0.0:
-    resolution:
-      {
-        integrity: sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg==,
-      }
-    engines: { node: ^20.19.0 || ^22.12.0 || >=23 }
 
   yauzl@2.10.0:
     resolution:
@@ -42970,12 +42932,6 @@ snapshots:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
 
-  cliui@9.0.1:
-    dependencies:
-      string-width: 7.2.0
-      strip-ansi: 7.1.0
-      wrap-ansi: 9.0.0
-
   clone-deep@4.0.1:
     dependencies:
       is-plain-object: 2.0.4
@@ -45307,10 +45263,6 @@ snapshots:
   eventsource-parser@3.0.2: {}
 
   eventsource@3.0.7:
-    dependencies:
-      eventsource-parser: 3.0.2
-
-  eventsource@4.0.0:
     dependencies:
       eventsource-parser: 3.0.2
 
@@ -48911,14 +48863,6 @@ snapshots:
   marky@1.3.0: {}
 
   math-intrinsics@1.1.0: {}
-
-  mcp-proxy@5.3.0:
-    dependencies:
-      '@modelcontextprotocol/sdk': 1.15.0
-      eventsource: 4.0.0
-      yargs: 18.0.0
-    transitivePeerDependencies:
-      - supports-color
 
   md-to-react-email@5.0.5(react@19.0.0):
     dependencies:
@@ -56411,8 +56355,6 @@ snapshots:
 
   yargs-parser@21.1.1: {}
 
-  yargs-parser@22.0.0: {}
-
   yargs@16.2.0:
     dependencies:
       cliui: 7.0.4
@@ -56432,15 +56374,6 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
-
-  yargs@18.0.0:
-    dependencies:
-      cliui: 9.0.1
-      escalade: 3.2.0
-      get-caller-file: 2.0.5
-      string-width: 7.2.0
-      y18n: 5.0.8
-      yargs-parser: 22.0.0
 
   yauzl@2.10.0:
     dependencies:
