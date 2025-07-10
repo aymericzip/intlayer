@@ -21,7 +21,7 @@
     "@angular/router": "^19.2.0",
     "@angular/ssr": "^19.2.15",
     "angular-intlayer": "workspace:*",
-    "express": "^4.18.2",
+    "express": "^5.1.0",
     "intlayer": "workspace:*",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

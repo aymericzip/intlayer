@@ -4,7 +4,9 @@ import { build, fill, pull, push } from '@intlayer/cli';
 import { isESModule, Locales, type LogConfig } from '@intlayer/config';
 import { getDoc, getDocBySlug, getDocMetadataRecord } from '@intlayer/docs';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import express, { Request, Response } from 'express';
 import { readFileSync } from 'fs';
 import { dirname as pathDirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
@@ -362,9 +364,60 @@ server.tool(
 );
 
 const main = async () => {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error('Intlayer MCP Server running on stdio');
+  const args = process.argv.slice(2);
+  const useHttp =
+    args.includes('--http') || process.env.MCP_TRANSPORT === 'http';
+  const port = parseInt(process.env.MCP_PORT || '6274');
+
+  if (useHttp) {
+    // HTTP/SSE transport for Docker/remote usage
+    const app = express();
+    app.use(express.json());
+
+    const transports: { [sessionId: string]: SSEServerTransport } = {};
+
+    // SSE connection endpoint
+    app.get('/mcp', async (req: Request, res: Response) => {
+      console.error('SSE connection request received');
+
+      const transport = new SSEServerTransport('/messages', res);
+      transports[transport.sessionId] = transport;
+
+      res.on('close', () => {
+        console.error('SSE connection closed');
+        delete transports[transport.sessionId];
+      });
+
+      await server.connect(transport);
+    });
+
+    // Message handling endpoint
+    app.post('/messages', async (req: Request, res: Response) => {
+      const sessionId = req.query.sessionId as string;
+
+      if (!sessionId || !transports[sessionId]) {
+        res.status(400).json({ error: 'Invalid session ID' });
+        return;
+      }
+
+      const transport = transports[sessionId];
+      await transport.handlePostMessage(req, res, req.body);
+    });
+
+    // Health check endpoint
+    app.get('/health', (req: Request, res: Response) => {
+      res.json({ status: 'ok', transport: 'http' });
+    });
+
+    app.listen(port, () => {
+      console.error(`Intlayer MCP Server running on HTTP port ${port}`);
+    });
+  } else {
+    // Original stdio transport for local usage
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    console.error('Intlayer MCP Server running on stdio');
+  }
 };
 
 main().catch((error) => {

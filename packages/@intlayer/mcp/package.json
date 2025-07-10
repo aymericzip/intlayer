@@ -69,6 +69,8 @@
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "reset": "pnpm clean & pnpm build",
     "start": "npx node dist/cjs/index.cjs",
+    "start:http": "npx mcp-proxy --port 6274 --shell node dist/cjs/index.cjs",
+    "start:http-native": "MCP_TRANSPORT=http MCP_PORT=6274 node dist/cjs/index.cjs",
     "start:inspector": "npx @modelcontextprotocol/inspector node dist/cjs/index.cjs",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -79,10 +81,13 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/docs": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.15.0",
+    "express": "^5.1.0",
+    "mcp-proxy": "^5.3.0",
     "zod": "^3.25.56"
   },
   "devDependencies": {
     "@modelcontextprotocol/inspector": "^0.16.0",
+    "@types/express": "^5.0.2",
     "@types/node": "^22.15.30",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
