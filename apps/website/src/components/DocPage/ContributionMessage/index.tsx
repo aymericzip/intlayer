@@ -12,7 +12,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
   return (
     <Popover identifier="contribute">
       <Link
-        href={githubUrl}
+        href={githubUrl.replace('/blob/', `/edit/`)}
         label={contribution.buttonLabel.value}
         color="text"
         className="flex p-2"
