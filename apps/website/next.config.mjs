@@ -97,6 +97,7 @@ const secureHeaders = createSecureHeaders({
 const nextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
+  transpilePackages: ['@intlayer/design-system'],
   productionBrowserSourceMaps: true,
   webpack: (config) => {
     config.module.rules.push({
