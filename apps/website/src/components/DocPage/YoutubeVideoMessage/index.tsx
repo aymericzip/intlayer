@@ -29,14 +29,6 @@ export const YoutubeVideoMessage: FC<YoutubeVideoMessageProps> = ({
       >
         <strong>{title}</strong>
         <p className="text-neutral">{description}</p>
-        <Link
-          href={youtubeVideoUrl}
-          label={link.label.value}
-          color="text"
-          className="flex flex-row gap-2 items-center p-3"
-        >
-          {link.content}
-        </Link>
       </Popover.Detail>
     </Popover>
   );

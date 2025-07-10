@@ -37,14 +37,6 @@ export const ApplicationTemplateMessage: FC<
       >
         <strong>{title}</strong>
         <p className="text-neutral">{description}</p>
-        <Link
-          href={codeSandboxUrl}
-          label={link.label.value}
-          color="text"
-          className="flex flex-row gap-2 items-center p-3"
-        >
-          {link.content}
-        </Link>
       </Popover.Detail>
     </Popover>
   );
