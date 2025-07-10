@@ -31,7 +31,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
     useIntlayer('doc-header');
 
   return (
-    <>
+    <header>
       <div className=" mt-5 z-10 flex flex-col gap-2 px-4 py-2 max-w-[95%] mx-auto text-xs">
         {author && (
           <span className="block">
@@ -78,6 +78,6 @@ export const DocHeader: FC<DocHeaderProps> = ({
           </div>
         </div>
       </Container>
-    </>
+    </header>
   );
 };
