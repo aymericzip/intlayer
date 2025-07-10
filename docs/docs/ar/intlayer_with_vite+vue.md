@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-vue
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Vite و Vue

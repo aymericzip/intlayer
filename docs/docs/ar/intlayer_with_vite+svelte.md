@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-svelte
+# applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Vite و Svelte

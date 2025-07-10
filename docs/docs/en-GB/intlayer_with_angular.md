@@ -13,6 +13,7 @@ slugs:
   - doc
   - environment
   - angular
+# applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
 # Getting Started with Internationalisation (i18n) in Angular using Intlayer

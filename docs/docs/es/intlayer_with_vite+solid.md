@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-solid
+# applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 ---
 
 # Comenzando con la internacionalización (i18n) usando Intlayer, Vite y Solid

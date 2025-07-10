@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-svelte
+# applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 ---
 
 # Iniziare con l'internazionalizzazione (i18n) con Intlayer, Vite e Svelte

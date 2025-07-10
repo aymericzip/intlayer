@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - react-native-and-expo
+applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 ---
 
 # Commencer l'internationalisation (i18n) avec Intlayer et React Native

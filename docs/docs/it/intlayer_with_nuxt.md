@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - nuxt-and-vue
+applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
 ---
 
 # Iniziare con l'internazionalizzazione (i18n) usando Intlayer e Nuxt

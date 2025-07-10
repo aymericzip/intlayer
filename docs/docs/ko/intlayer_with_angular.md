@@ -13,6 +13,7 @@ slugs:
   - doc
   - environment
   - angular
+# applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
 # Intlayer를 사용한 Angular 국제화(i18n) 시작하기

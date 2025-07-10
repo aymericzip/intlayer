@@ -15,6 +15,7 @@ slugs:
   - doc
   - environment
   - create-react-app
+applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 ---
 
 # Intlayer와 React Create App으로 국제화(i18n) 시작하기

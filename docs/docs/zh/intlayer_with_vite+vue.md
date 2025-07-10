@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-vue
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 ---
 
 # 使用 Intlayer 和 Vite 及 Vue 开始国际化（i18n）

@@ -13,6 +13,7 @@ slugs:
   - doc
   - environment
   - angular
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
 # البدء مع التدويل (i18n) في Angular باستخدام Intlayer

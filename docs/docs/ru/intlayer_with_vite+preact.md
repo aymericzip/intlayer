@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-preact
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 
 # Начало работы с интернационализацией (i18n) с Intlayer, Vite и Preact

@@ -14,6 +14,8 @@ slugs:
   - doc
   - environment
   - nextjs
+applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
+youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 ---
 
 # Comenzando con la internacionalización (i18n) usando Intlayer y Next.js 15 App Router

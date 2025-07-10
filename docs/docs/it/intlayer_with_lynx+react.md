@@ -15,6 +15,7 @@ slugs:
   - doc
   - environment
   - lynx-and-react
+applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
 # Iniziare con l'Internazionalizzazione (i18n) con Intlayer, Lynx e React

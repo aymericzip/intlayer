@@ -15,6 +15,7 @@ slugs:
   - environment
   - nextjs
   - 14
+applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 ---
 
 # Comenzando con la internacionalización (i18n) usando Intlayer y Next.js 14 con App Router

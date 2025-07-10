@@ -15,6 +15,7 @@ keywords:
 slugs:
   - doc
   - vs-code-extension
+applicationTemplate: https://github.com/aymericzip/intlayer-vs-code-extension
 ---
 
 # Extensión Oficial de VS Code

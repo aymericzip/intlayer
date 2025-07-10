@@ -13,7 +13,8 @@ keywords:
 slugs:
   - doc
   - environment
-  - vite-and-preact
+  - vite-and-
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 
 # Commencer l'internationalisation (i18n) avec Intlayer, Vite et Preact

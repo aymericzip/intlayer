@@ -15,7 +15,8 @@ slugs:
   - doc
   - environment
   - vite-and-react
----
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Vite و React
 

@@ -15,6 +15,7 @@ slugs:
   - environment
   - nextjs
   - 14
+applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 ---
 
 # Intlayer और Next.js 14 के साथ अंतर्राष्ट्रीयकरण (i18n) शुरू करना

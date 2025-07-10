@@ -14,6 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-vue
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 ---
 
 # Erste Schritte zur Internationalisierung (i18n) mit Intlayer, Vite und Vue
