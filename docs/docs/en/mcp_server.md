@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-06-07
+updatedAt: 2025-07-10
 title: MCP Server Documentation
 description: Explore the features and setup of the MCP Server to optimize your server management and operations.
 keywords:
@@ -18,31 +18,37 @@ slugs:
 
 # Intlayer MCP Server
 
-The **Intlayer MCP (Model Context Protocol) Server** provides AI-powered IDE assistance tailored for the Intlayer ecosystem. Designed for modern developer environments like **Cursor**, **GitHub Copilot workspace**, and any IDE supporting the MCP protocol, this server gives you contextual, real-time support based on your project's setup.
+The **Intlayer MCP (Model Context Protocol) Server** provides AI-powered IDE assistance tailored for the Intlayer ecosystem.
+
+## Where can I use it?
+
+- On modern developer environments like **Cursor**, **VS Code**, and any IDE supporting the MCP protocol.
+- On your favorite AI assistant like **Claude Desktop**, **Gemini**, **ChatGPT**, etc.
 
 ## Why Use the Intlayer MCP Server?
 
 By enabling the Intlayer MCP Server in your IDE, you unlock:
 
-- **Smart CLI Integration**
-  Access and run Intlayer CLI commands directly from your IDE interface. View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
-
 - **Context-Aware Documentation**
-  The MCP server loads and exposes the documentation that corresponds to the version of Intlayer you're using in your project. This ensures that code suggestions, command options, and explanations are always up to date and relevant.
+  The MCP server loads and exposes the documentation of Intlayer. To speed up your set up, your migrations, etc.
+  This ensures that code suggestions, command options, and explanations are always up to date and relevant.
 
-- **AI-Assisted Development**
-  With project-aware suggestions and autocomplete, the AI assistant can explain your code, recommend CLI usage, or suggest how to use specific features of Intlayer based on your current files.
+- **Smart CLI Integration**
+  Access and run Intlayer CLI commands directly from your IDE interface. Using the MCP server, you can let your AI assistant run commands like `intlayer dictionaries build` to update your dictionaries, or `intlayer dictionaries fill` to fill your missing translations.
 
-- **Lightweight & Instant Setup**
-  No server maintenance or heavy install required. Just configure your `.cursor/mcp.json` or equivalent MCP config and you're ready to go.
+  > View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md).
 
 ---
 
-## Setup Cursor
+## Setup in Cursor
+
+Follow the [official documentation](https://docs.cursor.com/context/mcp) to configure the MCP server in Cursor.
 
 In your project root, add the following `.cursor/mcp.json` configuration file:
 
-```json
+### Local server (stdio) (recommended)
+
+```json filename=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -53,19 +59,36 @@ In your project root, add the following `.cursor/mcp.json` configuration file:
 }
 ```
 
+### Remote server (SSE)
+
+For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), you can configure your MCP client to connect to the hosted service.
+
+```json filename=".cursor/mcp.json"
+{
+  "mcpServers": {
+    "intlayer": {
+      "url": "http://mcp.intlayer.com",
+      "transport": "sse"
+    }
+  }
+}
+```
+
 This tells your IDE to launch the Intlayer MCP server using `npx`, ensuring it always uses the latest available version unless you pin it.
 
 ---
 
-## Setup VS Code
+## Setup in VS Code
+
+Follow the [official documentation](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) to configure the MCP server in VS Code.
 
 To use the Intlayer MCP Server with VS Code, you need to configure it in your workspace or user settings.
 
-### Workspace Configuration
+### Local server (stdio) (recommended)
 
 Create a `.vscode/mcp.json` file in your project root:
 
-```json
+```json filename=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -77,71 +100,48 @@ Create a `.vscode/mcp.json` file in your project root:
 }
 ```
 
-### Using the MCP Server in VS Code
-
-1. **Enable Agent Mode**: Open the Chat view (⌃⌘I on Mac, Ctrl+Alt+I on Windows/Linux) and select **Agent** mode from the dropdown.
-
-2. **Access Tools**: Click the **Tools** button to view available Intlayer tools. You can select/deselect specific tools as needed.
-
-3. **Direct Tool Reference**: Reference tools directly in your prompts by typing `#` followed by the tool name.
-
-4. **Tool Confirmation**: By default, VS Code will ask for confirmation before running tools. Use the **Continue** button options to automatically confirm tools for the current session, workspace, or all future invocations.
-
-### Managing the Server
-
-- Run **MCP: List Servers** from the Command Palette to view configured servers
-- Start, stop, or restart the Intlayer MCP server as needed
-- View server logs for troubleshooting by selecting the server and choosing **Show Output**
-
-For more detailed information about VS Code MCP integration, see the [official VS Code MCP documentation](https://code.visualstudio.com/docs/copilot/chat/mcp-servers).
-
----
-
-## Setup with Remote Server (SSE)
+### Remote server (SSE)
 
 For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), you can configure your MCP client to connect to the hosted service.
 
-### Cursor Configuration
-
-Add the following to your `.cursor/mcp.json` configuration file:
-
-```json
-{
-  "mcpServers": {
-    "intlayer-sse": {
-      "url": "http://mcp.intlayer.com",
-      "transport": "sse"
-    }
-  }
-}
-```
-
-### VS Code Configuration
-
-Add the following to your `.vscode/mcp.json` configuration file:
-
-```json
+```json filename=".vscode/mcp.json"
 {
   "servers": {
-    "intlayer-sse": {
-      "type": "sse",
-      "url": "http://mcp.intlayer.com"
+    "intlayer": {
+      "url": "http://mcp.intlayer.com",
+      "type": "sse"
     }
   }
 }
 ```
 
-This configuration allows you to connect to a remote Intlayer MCP server without needing to run the server locally. The remote server provides the same functionality as the local version but is hosted and maintained externally.
+---
+
+### Set Up in Claude Desktop
+
+Follow the [official documentation](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server) to configure the MCP server in Claude Desktop.
+
+Path of the config file:
+
+- macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json filename="claude_desktop_config.json"
+{
+  "mcpServers": {
+    "intlayer": {
+      "command": "npx",
+      "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}
+```
 
 ---
 
 ## Using the MCP Server via CLI
 
 You can also run the Intlayer MCP server directly from the command line for testing, debugging, or integration with other tools.
-
-### Install the MCP Server
-
-First, install the MCP server package globally or use it via npx:
 
 ```bash
 # Install globally
@@ -151,65 +151,12 @@ npm install -g @intlayer/mcp
 npx @intlayer/mcp
 ```
 
-### Start the Server
-
-To start the MCP server with the inspector for debugging and testing:
-
-```bash
-# Using the built-in start command
-npm run start
-
-# Or directly with npx
-npx @modelcontextprotocol/inspector npx @intlayer/mcp
-```
-
-This will launch the MCP server with an inspector interface that allows you to:
-
-- Test MCP protocol communications
-- Debug server responses
-- Validate tool and resource implementations
-- Monitor server performance
-
-### Development Usage
-
-For development and testing purposes, you can run the server in various modes:
-
-```bash
-# Build and start in development mode
-npm run dev
-
-# Run with custom configuration
-node dist/cjs/index.cjs
-
-# Test the server functionality
-npm test
-```
-
-The server will expose Intlayer-specific tools and resources that can be consumed by any MCP-compatible client, not just Cursor or other IDEs.
-
----
-
-## Features Overview
-
-| Feature        | Description                                                                  |
-| -------------- | ---------------------------------------------------------------------------- |
-| CLI Support    | Run `intlayer` commands, get usage hints and arguments inline                |
-| Versioned Docs | Auto-detect and load documentation matching your current version of Intlayer |
-| Autocompletion | Intelligent command and config suggestions as you type                       |
-| Plugin-Ready   | Compatible with IDEs and tools that support the MCP standard                 |
-
----
-
-##Useful Links
-
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
-- [Intlayer GitHub Repository](https://github.com/aymericzip/intlayer)
-
 ---
 
 ## Doc History
 
 | Version | Date       | Changes                              |
 | ------- | ---------- | ------------------------------------ |
-| 5.5.11  | 2025-07-10 | Add SSE transport and distant server |
+| 5.5.12  | 2025-07-10 | Add set up of Claude Desktop         |
+| 5.5.12  | 2025-07-10 | Add SSE transport and distant server |
 | 5.5.10  | 2025-06-29 | Init history                         |
