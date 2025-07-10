@@ -3,11 +3,13 @@ import { DocMetadata } from '@intlayer/docs';
 import { Locales } from 'intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import { FC } from 'react';
+import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
 import { CopyMarkdownMessage } from '../CopyMarkdownMessage';
 import { MCPMessage } from '../MCPMessage';
 import { SummarizeAI } from '../SummarizeAI/SummarizeAI';
 import { TranslatedContentMessage } from '../TranslatedContentMessage';
+import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
 
 type DocHeaderProps = DocMetadata & {
   locale: Locales;
@@ -22,6 +24,8 @@ export const DocHeader: FC<DocHeaderProps> = ({
   markdownContent,
   githubUrl,
   locale,
+  youtubeVideo,
+  applicationTemplate,
 }) => {
   const { authorLabel, creationLabel, lastUpdateLabel } =
     useIntlayer('doc-header');
@@ -56,6 +60,14 @@ export const DocHeader: FC<DocHeaderProps> = ({
               githubUrl={githubUrl.replace('/en/', `/${locale}/`)}
             />
             <TranslatedContentMessage pageUrl={url} />
+            {applicationTemplate && (
+              <ApplicationTemplateMessage
+                applicationTemplateUrl={applicationTemplate}
+              />
+            )}
+            {youtubeVideo && (
+              <YoutubeVideoMessage youtubeVideoUrl={youtubeVideo} />
+            )}
           </div>
           <div className="flex flex-row gap-4 w-full justify-end items-center">
             <SummarizeAI url={url} />
