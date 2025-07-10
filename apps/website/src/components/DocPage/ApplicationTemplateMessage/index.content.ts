@@ -33,6 +33,21 @@ const applicationTemplateMessageContent = {
       'en-GB': 'This page has an application template available.',
       it: 'Questa pagina ha un modello di applicazione disponibile.',
     }),
+    label: t({
+      en: 'See the application template',
+      fr: "Voir le modèle d'application",
+      ar: 'عرض قالب التطبيق',
+      de: 'Anwendungsvorlage ansehen',
+      es: 'Ver la plantilla de aplicación',
+      hi: 'एप्लिकेशन टेम्पलेट देखें',
+      ru: 'Посмотреть шаблон приложения',
+      'en-GB': 'See the application template',
+      it: 'Visualizza il modello di applicazione',
+      ja: 'アプリケーションテンプレートを見る',
+      ko: '애플리케이션 템플릿 보기',
+      pt: 'Ver o modelo de aplicação',
+      zh: '查看应用程序模板',
+    }),
   },
 } satisfies Dictionary;
 

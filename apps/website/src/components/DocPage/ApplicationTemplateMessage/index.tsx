@@ -11,7 +11,7 @@ type ApplicationTemplateMessageProps = {
 export const ApplicationTemplateMessage: FC<
   ApplicationTemplateMessageProps
 > = ({ applicationTemplateUrl }) => {
-  const { title, description, link } = useIntlayer(
+  const { title, description, label } = useIntlayer(
     'application-template-message'
   );
 
@@ -24,7 +24,7 @@ export const ApplicationTemplateMessage: FC<
     <Popover identifier="mcp">
       <Link
         href={codeSandboxUrl}
-        label={link.label.value}
+        label={label.value}
         color="text"
         className="flex p-2"
         variant="hoverable"

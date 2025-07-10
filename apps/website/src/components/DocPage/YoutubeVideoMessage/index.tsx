@@ -10,13 +10,13 @@ type YoutubeVideoMessageProps = {
 export const YoutubeVideoMessage: FC<YoutubeVideoMessageProps> = ({
   youtubeVideoUrl,
 }) => {
-  const { title, description, link } = useIntlayer('youtube-video-message');
+  const { title, description, label } = useIntlayer('youtube-video-message');
 
   return (
     <Popover identifier="mcp">
       <Link
         href={youtubeVideoUrl}
-        label={link.label.value}
+        label={label.value}
         color="text"
         className="flex p-2"
         variant="hoverable"

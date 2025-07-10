@@ -33,6 +33,21 @@ const youtubeVideoMessageContent = {
       'en-GB': 'This page has a video tutorial available.',
       it: 'Questa pagina ha un video tutorial disponibile.',
     }),
+    label: t({
+      en: 'Watch the video tutorial',
+      fr: 'Regarder le tutoriel vidéo',
+      ar: 'شاهد الفيديو التعليمي',
+      de: 'Video-Tutorial ansehen',
+      es: 'Ver el video tutorial',
+      hi: 'वीडियो ट्यूटोरियल देखें',
+      ru: 'Посмотреть видео урок',
+      'en-GB': 'Watch the video tutorial',
+      it: 'Guarda il video tutorial',
+      ja: 'ビデオチュートリアルを見る',
+      ko: '비디오 튜토리얼 보기',
+      pt: 'Assistir ao vídeo tutorial',
+      zh: '观看视频教程',
+    }),
   },
 } satisfies Dictionary;
 
