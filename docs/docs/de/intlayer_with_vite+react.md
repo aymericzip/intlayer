@@ -21,6 +21,8 @@ slugs:
 
 Siehe [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) auf GitHub.
 
+<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/watch?v=dS9L7uJeak4&t=6s"/>
+
 ## Was ist Intlayer?
 
 **Intlayer** ist eine innovative, Open-Source Internationalisierungsbibliothek (i18n), die entwickelt wurde, um die mehrsprachige Unterstützung in modernen Webanwendungen zu vereinfachen.

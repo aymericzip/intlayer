@@ -21,6 +21,8 @@ slugs:
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-vite-react-template)을 참조하세요.
 
+<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/watch?v=dS9L7uJeak4&t=6s"/>
+
 ## Intlayer란?
 
 **Intlayer**는 최신 웹 애플리케이션에서 다국어 지원을 간소화하기 위해 설계된 혁신적이고 오픈 소스인 국제화(i18n) 라이브러리입니다.
