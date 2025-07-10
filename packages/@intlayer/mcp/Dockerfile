@@ -59,8 +59,8 @@ WORKDIR /workspace/packages/@intlayer/mcp
 
 USER app
 
-# Expose the API port (defaults to 3100 via .env, can be overridden)
-EXPOSE 3100
+# Expose the API port 
+EXPOSE 6274
 
 
 CMD ["npm", "run", "start"] 

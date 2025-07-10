@@ -60,7 +60,7 @@ WORKDIR /workspace/apps/backend
 
 USER app
 
-# Expose the API port (defaults to 3100 via .env, can be overridden)
+# Expose the API port
 EXPOSE 3100
 
 
