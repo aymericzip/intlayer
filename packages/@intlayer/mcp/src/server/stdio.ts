@@ -3,7 +3,7 @@
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { loadServer } from './server';
 
-const server = loadServer();
+const server = loadServer(true);
 
 const main = async () => {
   const transport = new StdioServerTransport();

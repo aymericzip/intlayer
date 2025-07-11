@@ -1,30 +1,30 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+import { SSEClientTransport } from '@modelcontextprotocol/sdk/client/sse.js';
+import { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { URL } from 'url';
+import { loadClient } from './client';
 
-// Protocol client that maintain 1:1 connection with servers
-class MCPClient {
+class SSEClient {
   private client: Client;
-  private transport: StreamableHTTPClientTransport | null = null;
+  private transport: Transport | null = null;
   private isCompleted = false;
 
-  constructor(serverName: string) {
-    this.client = new Client({
-      name: `mcp-client-for-${serverName}`,
-      version: '1.0.0',
-    });
+  constructor() {
+    this.client = loadClient();
   }
 
-  async connectToServer(serverUrl: string) {
-    const url = new URL(serverUrl);
+  async connectToServer() {
+    const mcpServerURL = process.env.MCP_SERVER_URL ?? 'http://localhost:3000';
+
+    const url = new URL(mcpServerURL);
     try {
-      this.transport = new StreamableHTTPClientTransport(url);
+      this.transport = new SSEClientTransport(url);
       await this.client.connect(this.transport);
-      console.log('Connected to SSE server at:', serverUrl);
+      console.log('Connected to server');
 
       this.setUpTransport();
     } catch (e) {
-      console.log('Failed to connect to MCP SSE server: ', e);
+      console.log('Failed to connect to MCP server: ', e);
       throw e;
     }
   }
@@ -59,15 +59,15 @@ class MCPClient {
   }
 }
 
-async function main() {
-  const client = new MCPClient('intlayer-sse-server');
+const main = async () => {
+  const client = new SSEClient();
 
   try {
-    await client.connectToServer('http://localhost:3000/sse');
+    await client.connectToServer();
     await client.waitForCompletion();
   } finally {
     await client.cleanup();
   }
-}
+};
 
 main();
