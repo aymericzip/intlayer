@@ -63,7 +63,7 @@ USER app
 EXPOSE 6274
 
 # Option 1: Use mcp-proxy (recommended - simpler)
-CMD ["npm", "run", "start:http"]
+CMD ["npm", "run", "start:sse"]
 
-# Option 2: Use native HTTP transport (alternative)
-# CMD ["npm", "run", "start:http-native"] 
+# Option 2: Use stdio transport (alternative)
+# CMD ["npm", "run", "start:stdio"]
