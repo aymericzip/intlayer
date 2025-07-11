@@ -54,7 +54,7 @@
     "reset": "node ./scripts/script-package-command.mjs --command reset",
     "reset:pick": "node ./scripts/script-pick.mjs --command reset",
     "start:docker:backend": "docker run --rm -p 3100:3100 --name intlayer-backend-app intlayer-backend",
-    "start:docker:mcp": "docker run --rm -p 6274:6274 --name intlayer-mcp-app intlayer-mcp",
+    "start:docker:mcp": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",
     "start:docker:website": "docker run --rm -p 3000:3000 --name intlayer-website-app intlayer-website",
     "test": "node ./scripts/script-package-command.mjs --command test",
     "test:pick": "node ./scripts/script-pick.mjs --command test",
