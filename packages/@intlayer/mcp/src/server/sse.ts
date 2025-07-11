@@ -97,7 +97,7 @@ router.get('/', async (_req: Request, res: Response) => {
   return;
 });
 
-async function sendMessages(transport: SSEServerTransport) {
+const sendMessages = async (transport: SSEServerTransport) => {
   try {
     // some messages will proabaly not be able to observed on the client side
     // becasue an open SSE Stream is not yet established
@@ -141,7 +141,7 @@ async function sendMessages(transport: SSEServerTransport) {
   } catch (error) {
     console.error('Error in startSending:', error);
   }
-}
+};
 
 app.use('/', router);
 
@@ -150,6 +150,7 @@ app.use('/health', (_req: Request, res: Response) => {
 });
 
 const PORT = process.env.PORT ?? 3000;
+
 app.listen(PORT, () => {
   console.log(`MCP Streamable HTTP Server listening on port ${PORT}`);
 });
