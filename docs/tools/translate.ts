@@ -31,10 +31,9 @@ const LOCALE_LIST_TO_TRANSLATE: Locales[] = locales.filter(
 const SKIP_IF_MODIFIED_BEFORE: number | undefined = undefined; // 1000 * 60 * 60; // 1 hour ago
 const SKIP_IF_MODIFIED_AFTER: number | undefined = undefined;
 
-const GIT_OPTIONS: ListGitFilesOptions | undefined = undefined;
-// {
-//   mode: ['uncommitted', 'unpushed'],
-// };
+const GIT_OPTIONS: ListGitFilesOptions | undefined = {
+  mode: ['uncommitted', 'unpushed'],
+};
 
 const configuration = getConfiguration();
 

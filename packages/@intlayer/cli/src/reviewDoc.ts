@@ -77,20 +77,21 @@ export const reviewFile = async (
       const baseChunkContext = baseChunk;
 
       if (changedLines) {
-        const hasChangedLinesInChunk = changedLines.some((line) => {
-          return (
+        const hasChangedLinesInChunk = changedLines.some(
+          (line) =>
             line > baseChunkContext.lineStart &&
             line < baseChunkContext.lineStart + baseChunkContext.lineLength
-          );
-        });
+        );
 
-        if (i !== baseChunks.length - 1) {
+        if (!hasChangedLinesInChunk) {
           appLogger(`No git changed lines found for chunk ${i + 1}`);
 
-          fileResultContent += getChunk(updatedFileContent, {
+          const chunkWithNoChange = getChunk(updatedFileContent, {
             lineStart: baseChunkContext.lineStart,
             lineLength: baseChunkContext.lineLength,
           });
+
+          fileResultContent += chunkWithNoChange;
 
           continue;
         }
@@ -118,13 +119,6 @@ export const reviewFile = async (
 
       // Make the actual translation call
       let reviewedChunkResult = await retryManager(async () => {
-        console.log('baseChunkContext', [
-          { role: 'system', content: getBaseChunkContextPrompt() },
-          { role: 'system', content: getChunkToReviewPrompt() },
-
-          { role: 'user', content: baseChunkContext.content },
-        ]);
-
         const result = await chunkInference(
           [
             { role: 'system', content: basePrompt },

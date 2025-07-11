@@ -42,7 +42,19 @@ export const chunkInference = async (
       .replaceAll('///chunksStart///', '')
       .replaceAll('///chunkStart///', '')
       .replaceAll('///chunksEnd///', '')
-      .replaceAll('///chunkEnd///', '');
+      .replaceAll('///chunkEnd///', '')
+      .replaceAll('///chunksStart///', '')
+      .replaceAll('chunkStart///', '')
+      .replaceAll('chunksEnd///', '')
+      .replaceAll('chunkEnd///', '')
+      .replaceAll('///chunksStart', '')
+      .replaceAll('///chunkStart', '')
+      .replaceAll('///chunksEnd', '')
+      .replaceAll('///chunkEnd', '')
+      .replaceAll('chunksStart', '')
+      .replaceAll('chunkStart', '')
+      .replaceAll('chunksEnd', '')
+      .replaceAll('chunkEnd', '');
 
     lastResult = {
       fileContent: newContent,

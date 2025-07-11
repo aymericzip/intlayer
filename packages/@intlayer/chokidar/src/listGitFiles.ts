@@ -111,21 +111,33 @@ export const listGitLines = async (
   /**
    * Extracts line numbers from a diff generated with `--unified=0`.
    * Each hunk header looks like: @@ -<oldStart>,<oldCount> +<newStart>,<newCount> @@
-   * We only consider the "+" (new) side of the hunk so that returned numbers
-   * correspond to the current version of the file. For deletions (newCount=0)
-   * there is no corresponding line in the new file, so we skip them.
+   * We consider both the "+" (new) side for additions and the "-" (old) side for deletions.
+   * For deletions, we add the line before and after the deletion point in the current file.
    */
   const collectLinesFromDiff = (diffOutput: string) => {
-    const hunkRegex = /@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/g;
+    const hunkRegex = /@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/g;
     let match: RegExpExecArray | null;
 
     while ((match = hunkRegex.exec(diffOutput)) !== null) {
-      const start = Number(match[1]);
-      // If count is omitted, it represents a single-line change
-      const count = match[2] ? Number(match[2]) : 1;
+      const oldCount = match[2] ? Number(match[2]) : 1;
+      const newStart = Number(match[3]);
+      const newCount = match[4] ? Number(match[4]) : 1;
 
-      for (let i = 0; i < count; i++) {
-        changedLines.add(start + i);
+      // Handle additions/modifications (+ side)
+      if (newCount > 0) {
+        for (let i = 0; i < newCount; i++) {
+          changedLines.add(newStart + i);
+        }
+      }
+
+      // Handle deletions (- side)
+      if (oldCount > 0 && newCount === 0) {
+        // For deletions, add the line before and after the deletion point
+        // The deletion point in the new file is at newStart
+        if (newStart > 1) {
+          changedLines.add(newStart - 1); // Line before deletion
+        }
+        changedLines.add(newStart); // Line after deletion (if it exists)
       }
     }
   };

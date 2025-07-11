@@ -267,7 +267,7 @@ export const setAPI = (): Command => {
     description: 'Pull dictionaries from the server',
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to pull'],
-      ['--newDictionariesPath [path]', 'Path to save the new dictionaries'],
+      ['--new-dictionaries-path [path]', 'Path to save the new dictionaries'],
     ],
   };
 
@@ -309,11 +309,11 @@ export const setAPI = (): Command => {
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to push'],
       [
-        '-r, --deleteLocaleDictionary',
+        '-r, --delete-locale-dictionary',
         'Delete the local dictionaries after pushing',
       ],
       [
-        '-k, --keepLocaleDictionary',
+        '-k, --keep-locale-dictionary',
         'Keep the local dictionaries after pushing',
       ],
     ],
