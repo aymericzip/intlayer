@@ -1,10 +1,10 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-07-10
-title: Documentazione MCP Server
-description: Esplora le funzionalità e la configurazione del MCP Server per ottimizzare la gestione e le operazioni del tuo server.
+updatedAt: 2025-07-11
+title: Documentazione del Server MCP
+description: Esplora le funzionalità e la configurazione del Server MCP per ottimizzare la gestione e le operazioni del tuo server.
 keywords:
-  - MCP Server
+  - Server MCP
   - Gestione Server
   - Ottimizzazione
   - Intlayer
@@ -16,27 +16,48 @@ slugs:
   - mcp-server
 ---
 
-# Intlayer MCP Server
+# Server MCP di Intlayer
 
-Il **Intlayer MCP (Model Context Protocol) Server** fornisce assistenza IDE potenziata dall'IA, personalizzata per l'ecosistema Intlayer.
+Il **Server MCP (Model Context Protocol) di Intlayer** fornisce assistenza IDE potenziata dall'IA, su misura per l'ecosistema Intlayer.
 
 ## Dove posso usarlo?
 
 - Su ambienti di sviluppo moderni come **Cursor**, **VS Code** e qualsiasi IDE che supporti il protocollo MCP.
 - Sul tuo assistente AI preferito come **Claude Desktop**, **Gemini**, **ChatGPT**, ecc.
 
-## Perché usare l'Intlayer MCP Server?
+## Perché usare il Server MCP di Intlayer?
 
-Abilitando l'Intlayer MCP Server nel tuo IDE, sblocchi:
+Abilitando il Server MCP di Intlayer nel tuo IDE, sblocchi:
 
 - **Documentazione Contestuale**
   Il server MCP carica ed espone la documentazione di Intlayer. Per velocizzare la tua configurazione, le tue migrazioni, ecc.
   Questo garantisce che i suggerimenti di codice, le opzioni dei comandi e le spiegazioni siano sempre aggiornati e pertinenti.
 
 - **Integrazione Intelligente della CLI**
-  Accedi ed esegui i comandi CLI di Intlayer direttamente dall'interfaccia del tuo IDE. Usando il server MCP, puoi permettere al tuo assistente AI di eseguire comandi come `intlayer dictionaries build` per aggiornare i tuoi dizionari, o `intlayer dictionaries fill` per completare le traduzioni mancanti.
+  Accedi ed esegui i comandi CLI di Intlayer direttamente dall'interfaccia del tuo IDE. Utilizzando il server MCP, puoi permettere al tuo assistente AI di eseguire comandi come `intlayer dictionaries build` per aggiornare i tuoi dizionari, o `intlayer dictionaries fill` per completare le traduzioni mancanti.
 
   > Visualizza l'elenco completo dei comandi e delle opzioni nella [documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).
+
+## Server locale (stdio) vs Server remoto (SSE)
+
+Il server MCP può essere utilizzato in due modi:
+
+- Server locale (stdio)
+- Server remoto (SSE)
+
+### Server locale (stdio) (consigliato)
+
+Intlayer fornisce un pacchetto NPM che può essere installato localmente sulla tua macchina. Può essere installato nel tuo IDE preferito, come VS Code, Cursor, così come nella tua applicazione assistente locale, come ChatGPT, Claude Desktop, ecc.
+
+Questo server è il modo consigliato per utilizzare il server MCP, in quanto integra tutte le funzionalità del server MCP, inclusi gli strumenti CLI.
+
+### Server remoto (SSE)
+
+Il server MCP può essere utilizzato anche da remoto, utilizzando il metodo di trasporto SSE. Questo server è ospitato da Intlayer ed è disponibile all'indirizzo https://mcp.intlayer.org. Questo server è accessibile pubblicamente, senza alcuna autenticazione, ed è gratuito.
+
+Nota che il server remoto non integra strumenti CLI, completamento automatico AI, ecc. Il server remoto è solo per l'interazione con la documentazione per aiutare il tuo assistente AI con l'ecosistema Intlayer.
+
+> A causa dei costi di hosting del server, la disponibilità del server remoto non può essere garantita. Limitiamo il numero di connessioni simultanee. Raccomandiamo di utilizzare il metodo di trasporto del server locale (stdio) per un'esperienza più affidabile.
 
 ---
 
@@ -44,7 +65,7 @@ Abilitando l'Intlayer MCP Server nel tuo IDE, sblocchi:
 
 Segui la [documentazione ufficiale](https://docs.cursor.com/context/mcp) per configurare il server MCP in Cursor.
 
-Nella root del tuo progetto, aggiungi il seguente file di configurazione `.cursor/mcp.json`:
+Nella radice del tuo progetto, aggiungi il seguente file di configurazione `.cursor/mcp.json`:
 
 ### Server locale (stdio) (consigliato)
 
@@ -61,11 +82,7 @@ Nella root del tuo progetto, aggiungi il seguente file di configurazione `.curso
 
 ### Server remoto (SSE)
 
-Per connetterti a un server Intlayer MCP remoto utilizzando Server-Sent Events (SSE), puoi configurare il tuo client MCP per connettersi al servizio ospitato.
-
-> **Nota:** Il server remoto non integra gli strumenti CLI. Il server distante è solo per documentazione e contesto.
-
-> **Nota:** A causa dei costi di hosting del server, la disponibilità del server remoto non può essere garantita. Si consiglia di utilizzare il metodo di trasporto del server locale (stdio) per un'esperienza più affidabile.
+Per connettersi a un server MCP Intlayer remoto utilizzando Server-Sent Events (SSE), puoi configurare il tuo client MCP per connettersi al servizio ospitato.
 
 ```json filename=".cursor/mcp.json"
 {
@@ -78,7 +95,7 @@ Per connetterti a un server Intlayer MCP remoto utilizzando Server-Sent Events (
 }
 ```
 
-Questo indica al tuo IDE di avviare il server Intlayer MCP utilizzando `npx`, assicurandosi che venga sempre utilizzata la versione più recente disponibile a meno che non venga bloccata.
+Questo indica al tuo IDE di avviare il server MCP Intlayer usando `npx`, assicurandosi che utilizzi sempre l'ultima versione disponibile a meno che non venga bloccata.
 
 ---
 
@@ -86,7 +103,7 @@ Questo indica al tuo IDE di avviare il server Intlayer MCP utilizzando `npx`, as
 
 Segui la [documentazione ufficiale](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) per configurare il server MCP in VS Code.
 
-Per utilizzare il server Intlayer MCP con VS Code, è necessario configurarlo nelle impostazioni del workspace o dell'utente.
+Per utilizzare il server MCP Intlayer con VS Code, devi configurarlo nelle impostazioni del tuo workspace o utente.
 
 ### Server locale (stdio) (consigliato)
 
@@ -106,11 +123,7 @@ Crea un file `.vscode/mcp.json` nella radice del tuo progetto:
 
 ### Server remoto (SSE)
 
-Per connettersi a un server Intlayer MCP remoto utilizzando Server-Sent Events (SSE), puoi configurare il tuo client MCP per connettersi al servizio ospitato.
-
-> **Nota:** Il server remoto non integra strumenti CLI. Il server distante è solo per documentazione e contesto.
-
-> **Nota:** A causa dei costi di hosting del server, la disponibilità del server remoto non può essere garantita. Si consiglia di utilizzare il metodo di trasporto del server locale (stdio) per un'esperienza più affidabile.
+Per connettersi a un server MCP Intlayer remoto utilizzando Server-Sent Events (SSE), puoi configurare il tuo client MCP per connettersi al servizio ospitato.
 
 ```json filename=".vscode/mcp.json"
 {
@@ -131,23 +144,19 @@ Per connettersi a un server Intlayer MCP remoto utilizzando Server-Sent Events (
 
 Segui la [documentazione ufficiale](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) per configurare il server MCP in ChatGPT.
 
-1 - Vai alla [dashboard dei prompt](https://platform.openai.com/prompts)  
-2 - Clicca su "+ Create"  
-3 - Clicca su "Tools (Create or +)"  
-4 - Seleziona "MCP Server"  
-5 - Clicca su "Add new"  
+1 - Vai al [cruscotto dei prompt](https://platform.openai.com/prompts)  
+2 - Clicca su "+ Crea"  
+3 - Clicca su "Strumenti (Crea o +)"  
+4 - Seleziona "Server MCP"  
+5 - Clicca su "Aggiungi nuovo"  
 6 - Compila i seguenti campi:
 
 - URL: https://mcp.intlayer.org
-- Label: Intlayer MCP Server
-- Name: intlayer-mcp-server
-- Authentication: None
+- Etichetta: Server MCP Intlayer
+- Nome: intlayer-mcp-server
+- Autenticazione: Nessuna
 
-7 - Clicca su "Save"
-
-> **Nota:** Il server remoto non integra strumenti CLI. Il server distante è solo per documentazione e contesto.
-
-> **Nota:** A causa dei costi di hosting del server, la disponibilità del server remoto non può essere garantita. Si consiglia di utilizzare il metodo di trasporto del server locale (stdio) per un'esperienza più affidabile.
+7 - Clicca su "Salva"
 
 ---
 
@@ -175,9 +184,9 @@ Percorso del file di configurazione:
 
 ---
 
-## Utilizzo del server MCP tramite CLI
+## Utilizzo del Server MCP tramite CLI
 
-Puoi anche eseguire il server MCP di Intlayer direttamente dalla riga di comando per test, debug o integrazione con altri strumenti.
+Puoi anche eseguire direttamente il server MCP di Intlayer dalla riga di comando per test, debug o integrazione con altri strumenti.
 
 ```bash
 # Installa globalmente
@@ -189,7 +198,7 @@ npx @intlayer/mcp
 
 ---
 
-## Cronologia della documentazione
+## Cronologia del Documento
 
 | Versione | Data       | Modifiche                                 |
 | -------- | ---------- | ----------------------------------------- |

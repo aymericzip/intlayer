@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-07-10
+updatedAt: 2025-07-11
 title: MCP Server Dokumentation
-description: Entdecken Sie die Funktionen und die Einrichtung des MCP Servers, um Ihr Servermanagement und Ihre Abläufe zu optimieren.
+description: Entdecken Sie die Funktionen und die Einrichtung des MCP Servers, um Ihre Serververwaltung und -betrieb zu optimieren.
 keywords:
   - MCP Server
   - Serververwaltung
@@ -30,13 +30,34 @@ Der **Intlayer MCP (Model Context Protocol) Server** bietet KI-gestützte IDE-Un
 Durch die Aktivierung des Intlayer MCP Servers in Ihrer IDE erhalten Sie:
 
 - **Kontextbezogene Dokumentation**
-  Der MCP-Server lädt und stellt die Dokumentation von Intlayer bereit, um Ihre Einrichtung, Ihre Migrationen usw. zu beschleunigen.
-  Dies stellt sicher, dass Codevorschläge, Befehlsoptionen und Erklärungen stets aktuell und relevant sind.
+  Der MCP-Server lädt und stellt die Dokumentation von Intlayer bereit. Dies beschleunigt Ihre Einrichtung, Ihre Migrationen usw.
+  So wird sichergestellt, dass Codevorschläge, Befehlsoptionen und Erklärungen stets aktuell und relevant sind.
 
 - **Intelligente CLI-Integration**
-  Greifen Sie direkt über Ihre IDE-Oberfläche auf Intlayer CLI-Befehle zu und führen Sie diese aus. Mit dem MCP-Server können Sie Ihren KI-Assistenten Befehle wie `intlayer dictionaries build` ausführen lassen, um Ihre Wörterbücher zu aktualisieren, oder `intlayer dictionaries fill`, um fehlende Übersetzungen zu ergänzen.
+  Greifen Sie direkt über die Benutzeroberfläche Ihrer IDE auf Intlayer CLI-Befehle zu und führen Sie diese aus. Mithilfe des MCP-Servers kann Ihr KI-Assistent Befehle wie `intlayer dictionaries build` ausführen, um Ihre Wörterbücher zu aktualisieren, oder `intlayer dictionaries fill`, um fehlende Übersetzungen zu ergänzen.
 
   > Die vollständige Liste der Befehle und Optionen finden Sie in der [Intlayer CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+
+## Lokaler Server (stdio) vs. Remote-Server (SSE)
+
+Der MCP-Server kann auf zwei Arten verwendet werden:
+
+- Lokaler Server (stdio)
+- Remote-Server (SSE)
+
+### Lokaler Server (stdio) (empfohlen)
+
+Intlayer stellt ein NPM-Paket bereit, das lokal auf Ihrem Rechner installiert werden kann. Es kann in Ihrer bevorzugten IDE wie VS Code, Cursor sowie in Ihrer lokalen Assistenten-Anwendung wie ChatGPT, Claude Desktop usw. installiert werden.
+
+Dieser Server ist die empfohlene Methode zur Nutzung des MCP-Servers, da er alle Funktionen des MCP-Servers integriert, einschließlich der CLI-Tools.
+
+### Remote-Server (SSE)
+
+Der MCP-Server kann auch remote über die SSE-Transportmethode verwendet werden. Dieser Server wird von Intlayer gehostet und ist unter https://mcp.intlayer.org verfügbar. Auf diesen Server kann öffentlich, ohne Authentifizierung zuzugreifen, und die Nutzung ist kostenlos.
+
+Beachten Sie, dass der Remote-Server keine CLI-Tools, keine KI-Autovervollständigung usw. integriert. Der entfernte Server dient nur zur Interaktion mit der Dokumentation, um Ihrem KI-Assistenten im Intlayer-Ökosystem zu helfen.
+
+> Aufgrund der Hosting-Kosten für den Server kann die Verfügbarkeit des Remote-Servers nicht garantiert werden. Wir begrenzen die Anzahl gleichzeitiger Verbindungen. Für die zuverlässigste Erfahrung empfehlen wir die Verwendung der lokalen Server-Transportmethode (stdio).
 
 ---
 
@@ -63,10 +84,6 @@ Fügen Sie im Stammverzeichnis Ihres Projekts die folgende Konfigurationsdatei `
 
 Um eine Verbindung zu einem entfernten Intlayer MCP-Server über Server-Sent Events (SSE) herzustellen, können Sie Ihren MCP-Client so konfigurieren, dass er sich mit dem gehosteten Dienst verbindet.
 
-> **Hinweis:** Der Remote-Server integriert keine CLI-Tools. Der entfernte Server dient nur zur Dokumentation und Kontext.
-
-> **Hinweis:** Aufgrund der Hosting-Kosten für Server kann die Verfügbarkeit des Remote-Servers nicht garantiert werden. Wir empfehlen die Verwendung der lokalen Server-Transportmethode (stdio) für die zuverlässigste Erfahrung.
-
 ```json filename=".cursor/mcp.json"
 {
   "mcpServers": {
@@ -90,7 +107,7 @@ Um den Intlayer MCP-Server mit VS Code zu verwenden, müssen Sie ihn in Ihren Ar
 
 ### Lokaler Server (stdio) (empfohlen)
 
-Erstellen Sie eine `.vscode/mcp.json`-Datei im Stammverzeichnis Ihres Projekts:
+Erstellen Sie eine Datei `.vscode/mcp.json` im Stammverzeichnis Ihres Projekts:
 
 ```json filename=".vscode/mcp.json"
 {
@@ -107,10 +124,6 @@ Erstellen Sie eine `.vscode/mcp.json`-Datei im Stammverzeichnis Ihres Projekts:
 ### Remote-Server (SSE)
 
 Um eine Verbindung zu einem entfernten Intlayer MCP-Server über Server-Sent Events (SSE) herzustellen, können Sie Ihren MCP-Client so konfigurieren, dass er sich mit dem gehosteten Dienst verbindet.
-
-> **Hinweis:** Der Remote-Server integriert keine CLI-Tools. Der entfernte Server dient nur zur Dokumentation und zum Kontext.
-
-> **Hinweis:** Aufgrund der Hosting-Kosten für Server kann die Verfügbarkeit des Remote-Servers nicht garantiert werden. Wir empfehlen die Verwendung der lokalen Server-Transportmethode (stdio) für die zuverlässigste Erfahrung.
 
 ```json filename=".vscode/mcp.json"
 {
@@ -145,10 +158,6 @@ Folgen Sie der [offiziellen Dokumentation](https://platform.openai.com/docs/mcp#
 
 7 - Klicken Sie auf "Save"
 
-> **Hinweis:** Der Remote-Server integriert keine CLI-Tools. Der entfernte Server dient nur zur Dokumentation und Kontext.
-
-> **Hinweis:** Aufgrund der Hosting-Kosten für den Server kann die Verfügbarkeit des Remote-Servers nicht garantiert werden. Für die zuverlässigste Erfahrung empfehlen wir die Verwendung der lokalen Server-Transportmethode (stdio).
-
 ---
 
 ## Einrichtung in Claude Desktop
@@ -164,11 +173,10 @@ Pfad der Konfigurationsdatei:
 
 ```json filename="claude_desktop_config.json"
 {
-  "mcpServers": {
-    "intlayer": {
-      "command": "npx",
-      "args": ["-y", "@intlayer/mcp"]
-    }
+"mcpServers": {
+  "intlayer": {
+    "command": "npx",
+    "args": ["-y", "@intlayer/mcp"]
   }
 }
 ```
@@ -177,7 +185,7 @@ Pfad der Konfigurationsdatei:
 
 ## Verwendung des MCP-Servers über die CLI
 
-Sie können den Intlayer MCP-Server auch direkt über die Befehlszeile ausführen, um Tests, Debugging oder die Integration mit anderen Tools durchzuführen.
+Sie können den Intlayer MCP-Server auch direkt über die Kommandozeile ausführen, um Tests, Debugging oder die Integration mit anderen Tools durchzuführen.
 
 ```bash
 # Global installieren
@@ -196,4 +204,4 @@ npx @intlayer/mcp
 | 5.5.12  | 2025-07-11 | Einrichtung von ChatGPT hinzugefügt             |
 | 5.5.12  | 2025-07-10 | Einrichtung von Claude Desktop hinzugefügt      |
 | 5.5.12  | 2025-07-10 | SSE-Transport und entfernten Server hinzugefügt |
-| 5.5.10  | 2025-06-29 | Historie initialisiert                          |
+| 5.5.10  | 2025-06-29 | Historie initialisieren                         |

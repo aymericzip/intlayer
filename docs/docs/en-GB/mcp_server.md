@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-07-10
+updatedAt: 2025-07-11
 title: MCP Server Documentation
 description: Explore the features and setup of the MCP Server to optimise your server management and operations.
 keywords:
@@ -30,13 +30,34 @@ The **Intlayer MCP (Model Context Protocol) Server** provides AI-powered IDE ass
 By enabling the Intlayer MCP Server in your IDE, you unlock:
 
 - **Context-Aware Documentation**
-  The MCP server loads and exposes the documentation of Intlayer. To speed up your setup, your migrations, etc.
+  The MCP server loads and exposes the documentation of Intlayer. To speed up your set-up, your migrations, etc.
   This ensures that code suggestions, command options, and explanations are always up to date and relevant.
 
 - **Smart CLI Integration**
   Access and run Intlayer CLI commands directly from your IDE interface. Using the MCP server, you can let your AI assistant run commands like `intlayer dictionaries build` to update your dictionaries, or `intlayer dictionaries fill` to fill your missing translations.
 
   > View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+
+## Local server (stdio) vs Remote server (SSE)
+
+The MCP server can be used in two ways:
+
+- Local server (stdio)
+- Remote server (SSE)
+
+### Local server (stdio) (recommended)
+
+Intlayer provides an NPM package that can be installed locally on your machine. It can be installed in your favourite IDE, such as VS Code, Cursor, as well as your local assistant application, such as ChatGPT, Claude Desktop, etc.
+
+This server is the recommended way to use the MCP server, as it integrates all the features of the MCP server, including the CLI tools.
+
+### Remote server (SSE)
+
+The MCP server can also be used remotely, using the SSE transport method. This server is hosted by Intlayer and is available at https://mcp.intlayer.org. This server can be accessed publicly, without any authentication, and is free to use.
+
+Note that the remote server does not integrate CLI tools, AI autocompletion, etc. The remote server is only for interaction with the documentation to assist your AI assistant with the Intlayer ecosystem.
+
+> Due to server hosting costs, the availability of the remote server cannot be guaranteed. We limit the number of simultaneous connections. We recommend using the local server (stdio) transport method for the most reliable experience.
 
 ---
 
@@ -62,10 +83,6 @@ In your project root, add the following `.cursor/mcp.json` configuration file:
 ### Remote server (SSE)
 
 For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), you can configure your MCP client to connect to the hosted service.
-
-> **Note:** The remote server does not integrate CLI tools. The remote server is only for documentation and context.
-
-> **Note:** Due to server hosting costs, the availability of the remote server cannot be guaranteed. We recommend using the local server (stdio) transport method for the most reliable experience.
 
 ```json filename=".cursor/mcp.json"
 {
@@ -108,10 +125,6 @@ Create a `.vscode/mcp.json` file in your project root:
 
 For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), you can configure your MCP client to connect to the hosted service.
 
-> **Note:** The remote server does not integrate CLI tools. The remote server is only for documentation and context.
-
-> **Note:** Due to server hosting costs, the availability of the remote server cannot be guaranteed. We recommend using the local server (stdio) transport method for the most reliable experience.
-
 ```json filename=".vscode/mcp.json"
 {
   "servers": {
@@ -144,10 +157,6 @@ Follow the [official documentation](https://platform.openai.com/docs/mcp#test-an
 - Authentication: None
 
 7 - Click on "Save"
-
-> **Note:** The remote server does not integrate CLI tools. The remote server is only for documentation and context.
-
-> **Note:** Due to server hosting costs, the availability of the remote server cannot be guaranteed. We recommend using the local server (stdio) transport method for the most reliable experience.
 
 ---
 
@@ -196,4 +205,4 @@ npx @intlayer/mcp
 | 5.5.12  | 2025-07-11 | Add set up of ChatGPT                |
 | 5.5.12  | 2025-07-10 | Add set up of Claude Desktop         |
 | 5.5.12  | 2025-07-10 | Add SSE transport and distant server |
-| 5.5.10  | 2025-06-29 | Init history                         |
+| 5.5.10  | 2025-06-29 | Initialise history                   |

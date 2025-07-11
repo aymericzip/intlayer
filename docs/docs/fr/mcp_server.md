@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-07-10
+updatedAt: 2025-07-11
 title: Documentation du serveur MCP
 description: Explorez les fonctionnalités et la configuration du serveur MCP pour optimiser la gestion et les opérations de votre serveur.
 keywords:
@@ -18,7 +18,7 @@ slugs:
 
 # Serveur MCP Intlayer
 
-Le **serveur MCP (Model Context Protocol) Intlayer** fournit une assistance IDE alimentée par l'IA, adaptée à l'écosystème Intlayer.
+Le **serveur MCP (Model Context Protocol) Intlayer** fournit une assistance IDE alimentée par l'IA, spécialement conçue pour l'écosystème Intlayer.
 
 ## Où puis-je l'utiliser ?
 
@@ -34,9 +34,30 @@ En activant le serveur MCP Intlayer dans votre IDE, vous débloquez :
   Cela garantit que les suggestions de code, les options de commande et les explications sont toujours à jour et pertinentes.
 
 - **Intégration intelligente de la CLI**
-  Accédez et exécutez les commandes CLI d'Intlayer directement depuis l'interface de votre IDE. En utilisant le serveur MCP, vous pouvez laisser votre assistant IA exécuter des commandes comme `intlayer dictionaries build` pour mettre à jour vos dictionnaires, ou `intlayer dictionaries fill` pour compléter vos traductions manquantes.
+  Accédez et exécutez les commandes CLI d'Intlayer directement depuis l'interface de votre IDE. Grâce au serveur MCP, vous pouvez laisser votre assistant IA exécuter des commandes comme `intlayer dictionaries build` pour mettre à jour vos dictionnaires, ou `intlayer dictionaries fill` pour compléter vos traductions manquantes.
 
   > Consultez la liste complète des commandes et options dans la [documentation CLI d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+
+## Serveur local (stdio) vs Serveur distant (SSE)
+
+Le serveur MCP peut être utilisé de deux manières :
+
+- Serveur local (stdio)
+- Serveur distant (SSE)
+
+### Serveur local (stdio) (recommandé)
+
+Intlayer fournit un package NPM qui peut être installé localement sur votre machine. Il peut être installé dans votre IDE préféré, comme VS Code, Cursor, ainsi que dans votre application d'assistant local, comme ChatGPT, Claude Desktop, etc.
+
+Ce serveur est la méthode recommandée pour utiliser le serveur MCP. Car il intègre toutes les fonctionnalités du serveur MCP, y compris les outils CLI.
+
+### Serveur distant (SSE)
+
+Le serveur MCP peut également être utilisé à distance, en utilisant la méthode de transport SSE. Ce serveur est hébergé par Intlayer, et est disponible à l'adresse https://mcp.intlayer.org. Ce serveur est accessible publiquement, sans aucune authentification, et est gratuit à utiliser.
+
+Notez que le serveur distant n'intègre pas les outils CLI, l'autocomplétion IA, etc. Le serveur distant est uniquement destiné à l'interaction avec la documentation pour aider votre assistant IA avec l'écosystème Intlayer.
+
+> En raison des coûts d'hébergement du serveur, la disponibilité du serveur distant ne peut être garantie. Nous limitons le nombre de connexions simultanées. Nous recommandons d'utiliser la méthode de transport du serveur local (stdio) pour une expérience la plus fiable.
 
 ---
 
@@ -61,11 +82,7 @@ Suivez la [documentation officielle](https://docs.cursor.com/context/mcp) pour c
 
 ### Serveur distant (SSE)
 
-Pour vous connecter à un serveur MCP Intlayer distant utilisant les Server-Sent Events (SSE), vous pouvez configurer votre client MCP pour se connecter au service hébergé.
-
-> **Note :** Le serveur distant n’intègre pas les outils CLI. Le serveur distant est uniquement destiné à la documentation et au contexte.
-
-> **Note :** En raison des coûts d'hébergement du serveur, la disponibilité du serveur distant ne peut être garantie. Nous recommandons d'utiliser la méthode de transport du serveur local (stdio) pour une expérience la plus fiable.
+Pour se connecter à un serveur MCP Intlayer distant utilisant les Server-Sent Events (SSE), vous pouvez configurer votre client MCP pour se connecter au service hébergé.
 
 ```json filename=".cursor/mcp.json"
 {
@@ -78,7 +95,7 @@ Pour vous connecter à un serveur MCP Intlayer distant utilisant les Server-Sent
 }
 ```
 
-Cela indique à votre IDE de lancer le serveur MCP Intlayer en utilisant `npx`, garantissant qu'il utilise toujours la dernière version disponible à moins que vous ne la fixiez.
+Cela indique à votre IDE de lancer le serveur MCP Intlayer en utilisant `npx`, garantissant qu'il utilise toujours la dernière version disponible sauf si vous la fixez.
 
 ---
 
@@ -108,10 +125,6 @@ Créez un fichier `.vscode/mcp.json` à la racine de votre projet :
 
 Pour se connecter à un serveur MCP Intlayer distant utilisant les Server-Sent Events (SSE), vous pouvez configurer votre client MCP pour se connecter au service hébergé.
 
-> **Note :** Le serveur distant n'intègre pas les outils CLI. Le serveur distant est uniquement destiné à la documentation et au contexte.
-
-> **Note :** En raison des coûts d'hébergement du serveur, la disponibilité du serveur distant ne peut être garantie. Nous recommandons d'utiliser la méthode de transport du serveur local (stdio) pour une expérience la plus fiable.
-
 ```json filename=".vscode/mcp.json"
 {
   "servers": {
@@ -132,22 +145,18 @@ Pour se connecter à un serveur MCP Intlayer distant utilisant les Server-Sent E
 Suivez la [documentation officielle](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) pour configurer le serveur MCP dans ChatGPT.
 
 1 - Allez sur le [tableau de bord des prompts](https://platform.openai.com/prompts)  
-2 - Cliquez sur "+ Create"  
-3 - Cliquez sur "Tools (Create or +)"  
-4 - Sélectionnez "MCP Server"  
-5 - Cliquez sur "Add new"  
+2 - Cliquez sur "+ Créer"  
+3 - Cliquez sur "Outils (Créer ou +)"  
+4 - Sélectionnez "Serveur MCP"  
+5 - Cliquez sur "Ajouter nouveau"  
 6 - Remplissez les champs suivants :
 
 - URL : https://mcp.intlayer.org
-- Label : Serveur MCP Intlayer
-- Name : intlayer-mcp-server
-- Authentication : None
+- Étiquette : Serveur MCP Intlayer
+- Nom : intlayer-mcp-server
+- Authentification : Aucune
 
-7 - Cliquez sur "Save"
-
-> **Note :** Le serveur distant n’intègre pas les outils CLI. Le serveur distant est uniquement destiné à la documentation et au contexte.
-
-> **Note :** En raison des coûts d'hébergement du serveur, la disponibilité du serveur distant ne peut être garantie. Nous recommandons d'utiliser la méthode de transport du serveur local (stdio) pour une expérience la plus fiable.
+7 - Cliquez sur "Enregistrer"
 
 ---
 
@@ -175,9 +184,9 @@ Chemin du fichier de configuration :
 
 ---
 
-## Utilisation du serveur MCP via CLI
+## Utilisation du serveur MCP via la CLI
 
-Vous pouvez également exécuter le serveur MCP Intlayer directement depuis la ligne de commande pour les tests, le débogage ou l'intégration avec d'autres outils.
+Vous pouvez également exécuter le serveur MCP Intlayer directement depuis la ligne de commande pour des tests, du débogage ou une intégration avec d'autres outils.
 
 ```bash
 # Installer globalement
