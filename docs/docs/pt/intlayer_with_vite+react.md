@@ -20,9 +20,9 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
 
 # Começando a Internacionalizar (i18n) com Intlayer, Vite e React
 
-Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-react-template) no GitHub.
-
 <iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-react-template) no GitHub.
 
 ## O que é Intlayer?
 

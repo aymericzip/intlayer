@@ -15,6 +15,7 @@ slugs:
   - doc
   - concept
   - editor
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer Visual Editor Documentation

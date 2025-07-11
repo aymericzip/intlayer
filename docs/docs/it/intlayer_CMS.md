@@ -16,6 +16,7 @@ slugs:
   - doc
   - concept
   - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Documentazione del Content Management System (CMS) di Intlayer

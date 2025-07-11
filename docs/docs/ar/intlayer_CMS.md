@@ -16,6 +16,7 @@ slugs:
   - doc
   - concept
   - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # توثيق نظام إدارة المحتوى (CMS) الخاص بـ Intlayer

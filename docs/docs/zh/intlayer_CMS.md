@@ -16,6 +16,7 @@ slugs:
   - doc
   - concept
   - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer 内容管理系统 (CMS) 文档

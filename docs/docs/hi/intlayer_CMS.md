@@ -16,6 +16,7 @@ slugs:
   - doc
   - concept
   - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer सामग्री प्रबंधन प्रणाली (CMS) दस्तावेज़ीकरण
