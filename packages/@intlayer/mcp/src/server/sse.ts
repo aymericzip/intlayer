@@ -145,6 +145,10 @@ async function sendMessages(transport: SSEServerTransport) {
 
 app.use('/', router);
 
+app.use('/health', (_req: Request, res: Response) => {
+  res.send('OK');
+});
+
 const PORT = process.env.PORT ?? 3000;
 app.listen(PORT, () => {
   console.log(`MCP Streamable HTTP Server listening on port ${PORT}`);
