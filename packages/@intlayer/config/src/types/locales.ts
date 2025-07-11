@@ -462,6 +462,13 @@ export enum Locales {
   ZULU = 'zu',
   /** Zulu language as used in South Africa */
   ZULU_SOUTH_AFRICA = 'zu-ZA',
+  /** Bengali / Bangla */
+  BENGALI = 'bn',
+  /** Bengali / Bangla as used in Bangladesh */
+  BENGALI_BANGLADESH = 'bn-BD',
+  /** Bengali / Bangla as used in India */
+  BENGALI_INDIA = 'bn-IN',
+  /** Bengali / Bangla as used in Myanmar */
 }
 
 /** Define MyType using the ValueOf utility type on Locales */
