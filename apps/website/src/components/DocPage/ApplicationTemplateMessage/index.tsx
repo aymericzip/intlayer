@@ -15,15 +15,10 @@ export const ApplicationTemplateMessage: FC<
     'application-template-message'
   );
 
-  const codeSandboxUrl = applicationTemplateUrl.replace(
-    'github.com',
-    'github.dev'
-  );
-
   return (
     <Popover identifier="mcp">
       <Link
-        href={codeSandboxUrl}
+        href={applicationTemplateUrl}
         label={label.value}
         color="text"
         className="flex p-2"
