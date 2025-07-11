@@ -117,6 +117,7 @@ Se o [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 - **`--env-file`**: Fornece um arquivo de ambiente personalizado para carregar variáveis. Útil no caso de você usar variáveis de ambiente no arquivo de configuração do intlayer.
 
   > Exemplo: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Exemplo: `npx intlayer dictionary push --env production`
 
 **Opções de saída:**
@@ -124,11 +125,13 @@ Se o [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 - **`-r`, `--delete-locale-dictionary`**: Pula a pergunta que solicita a exclusão dos diretórios de locais após os dicionários serem enviados, e os remove. Por padrão, se o dicionário estiver definido localmente, ele sobrescreverá o conteúdo dos dicionários remotos.
 
   > Exemplo: `npx intlayer dictionary push -r`
+
   > Exemplo: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`, `--keep-locale-dictionary`**: Pula a pergunta que solicita a exclusão dos diretórios de locais após os dicionários serem enviados, e os mantém. Por padrão, se o dicionário estiver definido localmente, ele sobrescreverá o conteúdo dos dicionários remotos.
 
   > Exemplo: `npx intlayer dictionary push -k`
+
   > Exemplo: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **Opções de log:**
@@ -145,6 +148,7 @@ Se o [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 - **`--untracked`**: Inclui arquivos não rastreados.
 
   > Exemplo: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Exemplo: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### Puxar dicionários remotos
@@ -166,6 +170,7 @@ Se o [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 **Opções de dicionário:**
 
 - **`-d, --dictionaries`**: IDs dos dicionários para puxar. Se não especificado, todos os dicionários serão puxados.
+
   > Exemplo: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **Opções de configuração:**
@@ -181,6 +186,7 @@ Se o [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 - **`--base-dir`**: Especifica o diretório base do projeto. Para recuperar a configuração do intlayer, o comando irá procurar pelo arquivo `intlayer.config.{ts,js,json,cjs,mjs}` no diretório base.
 
   > Exemplo: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Exemplo: `npx intlayer dictionary push --env production`
 
 **Opções de saída:**
@@ -249,6 +255,7 @@ Este comando analisa seus arquivos de declaração de conteúdo em busca de poss
 - **`--untracked`**: Incluir arquivos não rastreados.
 
   > Exemplo: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Exemplo: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 **Opções de IA:**
@@ -268,6 +275,7 @@ Este comando analisa seus arquivos de declaração de conteúdo em busca de poss
 - **`--env-file [envFile]`**: Fornecer um arquivo de ambiente personalizado para carregar variáveis.
 
   > Exemplo: `npx intlayer fill --env-file .env.production.local`
+
   > Exemplo: `npx intlayer fill --env production`
 
 **Opções de configuração:**
@@ -423,6 +431,7 @@ npx intlayer doc translate
   - Esta opção verifica o tempo de atualização do arquivo usando o método `fs.stat`. Portanto, pode ser impactada pelo Git ou outras ferramentas que modificam o arquivo.
 
   > Exemplo: `npx intlayer doc translate --custom-instructions "Evite traduzir URLs e mantenha o formato markdown"`
+
   > Exemplo: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **Opções Git:**
@@ -435,6 +444,7 @@ npx intlayer doc translate
 - **`--untracked`**: Inclui arquivos não rastreados.
 
   > Exemplo: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Exemplo: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > Note que o caminho do arquivo de saída será determinado substituindo os seguintes padrões

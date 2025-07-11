@@ -118,6 +118,7 @@ npx intlayer dictionary push
 - **`--env-file`**: 変数を読み込むためのカスタム環境ファイルを指定します。intlayerの設定ファイルで環境変数を使用している場合に便利です。
 
   > 例: `npx intlayer dictionary push --env-file .env.production.local`
+
   > 例: `npx intlayer dictionary push --env production`
 
 **出力オプション:**
@@ -125,11 +126,13 @@ npx intlayer dictionary push
 - **`-r`, `--delete-locale-dictionary`**: 辞書がプッシュされた後にロケールディレクトリを削除するか尋ねる質問をスキップし、ディレクトリを削除します。デフォルトでは、辞書がローカルに定義されている場合、遠隔の辞書内容を上書きします。
 
   > 例: `npx intlayer dictionary push -r`
+
   > 例: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`, `--keep-locale-dictionary`**: 辞書がプッシュされた後にロケールディレクトリを削除するか尋ねる質問をスキップし、ディレクトリを保持します。デフォルトでは、辞書がローカルに定義されている場合、遠隔の辞書内容を上書きします。
 
   > 例: `npx intlayer dictionary push -k`
+
   > 例: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **ログオプション:**
@@ -146,6 +149,7 @@ npx intlayer dictionary push
 - **`--untracked`**: トラッキングされていないファイルを含めます。
 
   > 例: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > 例: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### 遠隔辞書のプル
@@ -167,6 +171,7 @@ npx intlayer pull
 **辞書オプション:**
 
 - **`-d, --dictionaries`**: プルする辞書のID。指定しない場合はすべての辞書がプルされます。
+
   > 例: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **設定オプション:**
@@ -182,6 +187,7 @@ npx intlayer pull
 - **`--base-dir`**: プロジェクトのベースディレクトリを指定します。intlayerの設定を取得するために、コマンドはベースディレクトリ内の `intlayer.config.{ts,js,json,cjs,mjs}` ファイルを探します。
 
   > 例: `npx intlayer dictionary push --env-file .env.production.local`
+
   > 例: `npx intlayer dictionary push --env production`
 
 **出力オプション:**
@@ -250,6 +256,7 @@ npx intlayer fill
 - **`--untracked`**: トラッキングされていないファイルを含めます。
 
   > 例: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > 例: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 **AIオプション:**
@@ -269,6 +276,7 @@ npx intlayer fill
 - **`--env-file [envFile]`**: 変数を読み込むためのカスタム環境ファイルを指定します。
 
   > 例: `npx intlayer fill --env-file .env.production.local`
+
   > 例: `npx intlayer fill --env production`
 
 **設定オプション:**
@@ -424,6 +432,7 @@ npx intlayer doc translate
   - このオプションは `fs.stat` メソッドを使ってファイルの更新時間をチェックします。そのため、Gitやその他のツールによるファイルの変更に影響を受ける可能性があります。
 
   > 例: `npx intlayer doc translate --custom-instructions "Avoid translating urls, and keep the markdown format"`
+
   > 例: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **Gitオプション:**
@@ -436,6 +445,7 @@ npx intlayer doc translate
 - **`--untracked`**: トラッキングされていないファイルを含めます。
 
   > 例: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > 例: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > 出力ファイルのパスは以下のパターンを置換することで決定されることに注意してください

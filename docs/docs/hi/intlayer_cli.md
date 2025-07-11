@@ -118,6 +118,7 @@ npx intlayer dictionary push
 - **`--env-file`**: चर लोड करने के लिए एक कस्टम पर्यावरण फ़ाइल प्रदान करें। यह उपयोगी होता है जब आप अपनी intlayer कॉन्फ़िगरेशन फ़ाइल में पर्यावरण चर का उपयोग करते हैं।
 
   > उदाहरण: `npx intlayer dictionary push --env-file .env.production.local`
+
   > उदाहरण: `npx intlayer dictionary push --env production`
 
 **आउटपुट विकल्प:**
@@ -125,11 +126,13 @@ npx intlayer dictionary push
 - **`-r`, `--delete-locale-dictionary`**: जब डिक्शनरी पुश हो जाएं, तो लोकल डायरेक्टरीज़ को हटाने के लिए पूछे जाने वाले प्रश्न को छोड़ दें, और उन्हें हटा दें। डिफ़ॉल्ट रूप से, यदि डिक्शनरी स्थानीय रूप से परिभाषित है, तो यह दूरस्थ डिक्शनरी की सामग्री को ओवरराइट कर देगा।
 
   > उदाहरण: `npx intlayer dictionary push -r`
+
   > उदाहरण: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`, `--keep-locale-dictionary`**: जब डिक्शनरी पुश हो जाएं, तो लोकल डायरेक्टरीज़ को हटाने के लिए पूछे जाने वाले प्रश्न को छोड़ दें, और उन्हें बनाए रखें। डिफ़ॉल्ट रूप से, यदि डिक्शनरी स्थानीय रूप से परिभाषित है, तो यह दूरस्थ डिक्शनरी की सामग्री को ओवरराइट कर देगा।
 
   > उदाहरण: `npx intlayer dictionary push -k`
+
   > उदाहरण: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **लॉग विकल्प:**
@@ -146,6 +149,7 @@ npx intlayer dictionary push
 - **`--untracked`**: बिना ट्रैक किए गए फाइलों को शामिल करें।
 
   > उदाहरण: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > उदाहरण: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### दूरस्थ डिक्शनरी खींचें
@@ -167,6 +171,7 @@ npx intlayer pull
 **डिक्शनरी विकल्प:**
 
 - **`-d, --dictionaries`**: खींचने के लिए डिक्शनरी के आईडी। यदि निर्दिष्ट नहीं किया गया है, तो सभी डिक्शनरी खींची जाएंगी।
+
   > उदाहरण: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **कॉन्फ़िगरेशन विकल्प:**
@@ -182,6 +187,7 @@ npx intlayer pull
 - **`--base-dir`**: परियोजना के लिए बेस निर्देशिका निर्दिष्ट करें। intlayer कॉन्फ़िगरेशन प्राप्त करने के लिए, कमांड बेस निर्देशिका में `intlayer.config.{ts,js,json,cjs,mjs}` फ़ाइल खोजेगा।
 
   > उदाहरण: `npx intlayer dictionary push --env-file .env.production.local`
+
   > उदाहरण: `npx intlayer dictionary push --env production`
 
 **आउटपुट विकल्प:**
@@ -250,6 +256,7 @@ npx intlayer fill
 - **`--untracked`**: बिना ट्रैक किए गए फ़ाइलों को शामिल करें।
 
   > उदाहरण: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > उदाहरण: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 **AI विकल्प:**
@@ -269,6 +276,7 @@ npx intlayer fill
 - **`--env-file [envFile]`**: चर लोड करने के लिए एक कस्टम पर्यावरण फ़ाइल प्रदान करें।
 
   > उदाहरण: `npx intlayer fill --env-file .env.production.local`
+
   > उदाहरण: `npx intlayer fill --env production`
 
 **कॉन्फ़िगरेशन विकल्प:**
@@ -424,6 +432,7 @@ npx intlayer doc translate
   - यह विकल्प `fs.stat` मेथड का उपयोग करके फ़ाइल के अपडेट समय की जांच करता है। इसलिए यह Git या अन्य टूल्स से प्रभावित हो सकता है जो फ़ाइल को संशोधित करते हैं।
 
   > उदाहरण: `npx intlayer doc translate --custom-instructions "URLs का अनुवाद न करें, और मार्कडाउन फॉर्मेट बनाए रखें"`
+
   > उदाहरण: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **गिट विकल्प:**
@@ -436,6 +445,7 @@ npx intlayer doc translate
 - **`--untracked`**: बिना ट्रैक किए गए फाइलों को शामिल करें।
 
   > उदाहरण: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > उदाहरण: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > ध्यान दें कि आउटपुट फ़ाइल पथ निम्नलिखित पैटर्न को बदलकर निर्धारित किया जाएगा

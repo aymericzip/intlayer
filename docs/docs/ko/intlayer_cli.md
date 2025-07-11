@@ -118,6 +118,7 @@ npx intlayer dictionary push
 - **`--env-file`**: 변수들을 불러올 사용자 지정 환경 파일을 제공합니다. intlayer 설정 파일에서 환경 변수를 사용하는 경우에 유용합니다.
 
   > 예시: `npx intlayer dictionary push --env-file .env.production.local`
+
   > 예시: `npx intlayer dictionary push --env production`
 
 **출력 옵션:**
@@ -125,11 +126,13 @@ npx intlayer dictionary push
 - **`-r`, `--delete-locale-dictionary`**: 사전이 푸시된 후 로케일 디렉토리를 삭제할지 묻는 질문을 건너뛰고, 해당 디렉토리를 삭제합니다. 기본적으로 사전이 로컬에 정의되어 있으면 원격 사전 내용을 덮어씁니다.
 
   > 예시: `npx intlayer dictionary push -r`
+
   > 예시: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`, `--keep-locale-dictionary`**: 사전이 푸시된 후 로케일 디렉토리를 삭제할지 묻는 질문을 건너뛰고, 해당 디렉토리를 유지합니다. 기본적으로 사전이 로컬에 정의되어 있으면 원격 사전 내용을 덮어씁니다.
 
   > 예시: `npx intlayer dictionary push -k`
+
   > 예시: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **로그 옵션:**
@@ -167,6 +170,7 @@ npx intlayer pull
 **사전 옵션:**
 
 - **`-d, --dictionaries`**: 가져올 사전의 ID들입니다. 지정하지 않으면 모든 사전을 가져옵니다.
+
   > 예시: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **구성 옵션:**
@@ -182,6 +186,7 @@ npx intlayer pull
 - **`--base-dir`**: 프로젝트의 기본 디렉터리를 지정합니다. intlayer 구성을 가져오기 위해, 명령어는 기본 디렉터리에서 `intlayer.config.{ts,js,json,cjs,mjs}` 파일을 찾습니다.
 
   > 예시: `npx intlayer dictionary push --env-file .env.production.local`
+
   > 예시: `npx intlayer dictionary push --env production`
 
 **출력 옵션:**
@@ -250,6 +255,7 @@ npx intlayer fill
 - **`--untracked`**: 추적되지 않은 파일을 포함합니다.
 
   > 예시: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > 예시: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 **AI 옵션:**
@@ -269,6 +275,7 @@ npx intlayer fill
 - **`--env-file [envFile]`**: 변수들을 로드할 커스텀 환경 파일을 제공합니다.
 
   > 예시: `npx intlayer fill --env-file .env.production.local`
+
   > 예시: `npx intlayer fill --env production`
 
 **설정 옵션:**
@@ -423,6 +430,7 @@ npx intlayer doc translate
   - 이 옵션은 `fs.stat` 메서드를 사용하여 파일의 수정 시간을 확인합니다. 따라서 Git이나 파일을 수정하는 다른 도구의 영향 받을 수 있습니다.
 
   > 예시: `npx intlayer doc translate --custom-instructions "URL 번역을 피하고, 마크다운 형식을 유지하세요"`
+
   > 예시: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **Git 옵션:**
@@ -435,6 +443,7 @@ npx intlayer doc translate
 - **`--untracked`**: 추적되지 않은 파일을 포함합니다.
 
   > 예시: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > 예시: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > 출력 파일 경로는 다음 패턴을 대체하여 결정됩니다

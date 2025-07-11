@@ -117,6 +117,7 @@ npx intlayer dictionary push
 - **`--env-file`**：提供自定义环境文件以加载变量。当你在 intlayer 配置文件中使用环境变量时非常有用。
 
   > 示例：`npx intlayer dictionary push --env-file .env.production.local`
+
   > 示例：`npx intlayer dictionary push --env production`
 
 **输出选项：**
@@ -124,11 +125,13 @@ npx intlayer dictionary push
 - **`-r`，`--delete-locale-dictionary`**：跳过推送字典后询问是否删除本地语言目录的问题，并删除这些目录。默认情况下，如果字典在本地定义，它将覆盖远程字典内容。
 
   > 示例：`npx intlayer dictionary push -r`
+
   > 示例：`npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`，`--keep-locale-dictionary`**：跳过推送字典后询问是否删除本地语言目录的问题，并保留这些目录。默认情况下，如果字典在本地定义，它将覆盖远程字典内容。
 
   > 示例：`npx intlayer dictionary push -k`
+
   > 示例: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **日志选项:**
@@ -166,6 +169,7 @@ npx intlayer pull
 **词典选项：**
 
 - **`-d, --dictionaries`**：要拉取的词典 ID。如果未指定，将拉取所有词典。
+
   > 示例：`npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **配置选项：**
@@ -181,6 +185,7 @@ npx intlayer pull
 - **`--base-dir`**：指定项目的基础目录。为了获取 intlayer 配置，命令将在基础目录中查找 `intlayer.config.{ts,js,json,cjs,mjs}` 文件。
 
   > 示例：`npx intlayer dictionary push --env-file .env.production.local`
+
   > 示例：`npx intlayer dictionary push --env production`
 
 **输出选项：**
@@ -268,6 +273,7 @@ npx intlayer fill
 - **`--env-file [envFile]`**: 提供自定义环境文件以加载变量。
 
   > 示例: `npx intlayer fill --env-file .env.production.local`
+
   > 示例: `npx intlayer fill --env production`
 
 **配置选项:**
@@ -423,6 +429,7 @@ npx intlayer doc translate
   - 此选项通过 `fs.stat` 方法检查文件的更新时间，因此可能会受到 Git 或其他修改文件工具的影响。
 
   > 示例：`npx intlayer doc translate --custom-instructions "避免翻译 URL，保持 Markdown 格式"`
+
   > 示例：`npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **Git 选项：**
@@ -435,6 +442,7 @@ npx intlayer doc translate
 - **`--untracked`**：包含未跟踪的文件。
 
   > 示例：`npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > 示例：`npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > 注意，输出文件路径将通过替换以下模式确定

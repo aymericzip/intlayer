@@ -117,6 +117,7 @@ Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 - **`--env-file`**: Fornisce un file di ambiente personalizzato da cui caricare le variabili. Utile nel caso in cui si utilizzino variabili d'ambiente nel file di configurazione di intlayer.
 
   > Esempio: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Esempio: `npx intlayer dictionary push --env production`
 
 **Opzioni di output:**
@@ -124,11 +125,13 @@ Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 - **`-r`, `--delete-locale-dictionary`**: Salta la domanda che chiede di eliminare le directory delle localizzazioni una volta che i dizionari sono stati inviati, e le rimuove. Per impostazione predefinita, se il dizionario è definito localmente, sovrascriverà il contenuto dei dizionari remoti.
 
   > Esempio: `npx intlayer dictionary push -r`
+
   > Esempio: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`, `--keep-locale-dictionary`**: Salta la domanda che chiede di eliminare le directory delle localizzazioni una volta che i dizionari sono stati inviati, e le mantiene. Per impostazione predefinita, se il dizionario è definito localmente, sovrascriverà il contenuto dei dizionari remoti.
 
   > Esempio: `npx intlayer dictionary push -k`
+
   > Esempio: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **Opzioni di log:**
@@ -145,6 +148,7 @@ Se [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 - **`--untracked`**: Includi i file non tracciati.
 
   > Esempio: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Esempio: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### Scaricare dizionari remoti
@@ -166,6 +170,7 @@ Se l'[editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 **Opzioni dizionario:**
 
 - **`-d, --dictionaries`**: Id dei dizionari da scaricare. Se non specificato, verranno scaricati tutti i dizionari.
+
   > Esempio: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **Opzioni di configurazione:**
@@ -181,6 +186,7 @@ Se l'[editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 - **`--base-dir`**: Specifica la directory base per il progetto. Per recuperare la configurazione di intlayer, il comando cercherà il file `intlayer.config.{ts,js,json,cjs,mjs}` nella directory base.
 
   > Esempio: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Esempio: `npx intlayer dictionary push --env production`
 
 **Opzioni di output:**
@@ -249,6 +255,7 @@ Questo comando analizza i tuoi file di dichiarazione dei contenuti per individua
 - **`--untracked`**: Includi i file non tracciati.
 
   > Esempio: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Esempio: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 **Opzioni AI:**
@@ -268,6 +275,7 @@ Questo comando analizza i tuoi file di dichiarazione dei contenuti per individua
 - **`--env-file [envFile]`**: Fornisce un file di ambiente personalizzato da cui caricare le variabili.
 
   > Esempio: `npx intlayer fill --env-file .env.production.local`
+
   > Esempio: `npx intlayer fill --env production`
 
 **Opzioni di configurazione:**
@@ -282,7 +290,6 @@ Questo comando analizza i tuoi file di dichiarazione dei contenuti per individua
 
 ##### Esempio:
 
-````bash
 Questo comando tradurrà il contenuto dall'inglese al francese e allo spagnolo per tutti i file di dichiarazione del contenuto nella directory `src/home/` utilizzando il modello GPT-3.5 Turbo.
 
 ### Gestire la Configurazione
@@ -293,7 +300,7 @@ Il comando `configuration get` recupera la configurazione corrente per Intlayer,
 
 ```bash
 npx intlayer configuration get
-````
+```
 
 ##### Alias:
 
@@ -419,6 +426,7 @@ npx intlayer doc translate
   - Questa opzione controlla il tempo di aggiornamento del file usando il metodo `fs.stat`. Quindi potrebbe essere influenzata da Git o altri strumenti che modificano il file.
 
   > Esempio: `npx intlayer doc translate --custom-instructions "Evita di tradurre gli URL e mantieni il formato markdown"`
+
   > Esempio: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **Opzioni Git:**
@@ -431,6 +439,7 @@ npx intlayer doc translate
 - **`--untracked`**: Includi i file non tracciati.
 
   > Esempio: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Esempio: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > Nota che il percorso del file di output sarà determinato sostituendo i seguenti pattern

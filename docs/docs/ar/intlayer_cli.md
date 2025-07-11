@@ -118,6 +118,7 @@ npx intlayer dictionary push
 - **`--env-file`**: توفير ملف بيئة مخصص لتحميل المتغيرات منه. مفيد في حالة استخدام متغيرات البيئة في ملف تكوين intlayer الخاص بك.
 
   > مثال: `npx intlayer dictionary push --env-file .env.production.local`
+
   > مثال: `npx intlayer dictionary push --env production`
 
 **خيارات الإخراج:**
@@ -125,11 +126,13 @@ npx intlayer dictionary push
 - **`-r`، `--delete-locale-dictionary`**: تخطي السؤال الذي يطلب حذف مجلدات اللغات بمجرد دفع القواميس، وحذفها. بشكل افتراضي، إذا تم تعريف القاموس محليًا، فسوف يستبدل محتوى القواميس البعيدة.
 
   > مثال: `npx intlayer dictionary push -r`
+
   > مثال: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`، `--keep-locale-dictionary`**: تخطي السؤال الذي يطلب حذف مجلدات اللغات بمجرد دفع القواميس، والاحتفاظ بها. بشكل افتراضي، إذا تم تعريف القاموس محليًا، فسوف يستبدل محتوى القواميس البعيدة.
 
   > مثال: `npx intlayer dictionary push -k`
+
   > مثال: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **خيارات السجل:**
@@ -146,6 +149,7 @@ npx intlayer dictionary push
 - **`--untracked`**: تضمين الملفات غير المتتبعة.
 
   > مثال: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > مثال: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### سحب القواميس البعيدة
@@ -167,6 +171,7 @@ npx intlayer pull
 **خيارات القاموس:**
 
 - **`-d, --dictionaries`**: معرفات القواميس التي تريد سحبها. إذا لم يتم تحديدها، سيتم سحب جميع القواميس.
+
   > مثال: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **خيارات التكوين:**
@@ -182,6 +187,7 @@ npx intlayer pull
 - **`--base-dir`**: تحديد الدليل الأساسي للمشروع. لاسترجاع تكوين intlayer، سيبحث الأمر عن ملف `intlayer.config.{ts,js,json,cjs,mjs}` في الدليل الأساسي.
 
   > مثال: `npx intlayer dictionary push --env-file .env.production.local`
+
   > مثال: `npx intlayer dictionary push --env production`
 
 **خيارات الإخراج:**
@@ -269,6 +275,7 @@ npx intlayer fill
 - **`--env-file [envFile]`**: توفير ملف بيئة مخصص لتحميل المتغيرات منه.
 
   > مثال: `npx intlayer fill --env-file .env.production.local`
+
   > مثال: `npx intlayer fill --env production`
 
 **خيارات التكوين:**
@@ -423,6 +430,7 @@ npx intlayer doc translate
   - تقوم هذه الخيار بفحص وقت تحديث الملف باستخدام طريقة `fs.stat`. لذلك قد يتأثر بأدوات مثل Git أو أدوات أخرى تعدل الملف.
 
   > مثال: `npx intlayer doc translate --custom-instructions "تجنب ترجمة الروابط، واحتفظ بتنسيق الماركداون"`
+
   > مثال: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **خيارات Git:**
@@ -435,6 +443,7 @@ npx intlayer doc translate
 - **`--untracked`**: تضمين الملفات غير المتتبعة.
 
   > مثال: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > مثال: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > لاحظ أن مسار ملف الإخراج سيتم تحديده عن طريق استبدال الأنماط التالية

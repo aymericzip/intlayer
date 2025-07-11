@@ -118,6 +118,7 @@ Wenn der [intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 - **`--env-file`**: Gibt eine benutzerdefinierte Umgebungsdatei an, aus der Variablen geladen werden sollen. Nützlich, wenn Sie Umgebungsvariablen in Ihrer intlayer-Konfigurationsdatei verwenden.
 
   > Beispiel: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Beispiel: `npx intlayer dictionary push --env production`
 
 **Ausgabeoptionen:**
@@ -125,11 +126,13 @@ Wenn der [intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 - **`-r`, `--delete-locale-dictionary`**: Überspringt die Frage, ob die Verzeichnisse der Sprachen gelöscht werden sollen, nachdem die Wörterbücher hochgeladen wurden, und entfernt diese. Standardmäßig wird, wenn das Wörterbuch lokal definiert ist, der Inhalt der entfernten Wörterbücher überschrieben.
 
   > Beispiel: `npx intlayer dictionary push -r`
+
   > Beispiel: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`, `--keep-locale-dictionary`**: Überspringt die Frage, ob die Verzeichnisse der Sprachen gelöscht werden sollen, nachdem die Wörterbücher hochgeladen wurden, und behält diese bei. Standardmäßig wird, wenn das Wörterbuch lokal definiert ist, der Inhalt der entfernten Wörterbücher überschrieben.
 
   > Beispiel: `npx intlayer dictionary push -k`
+
   > Beispiel: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **Protokolloptionen:**
@@ -146,6 +149,7 @@ Wenn der [intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs
 - **`--untracked`**: Bezieht nicht verfolgte Dateien mit ein.
 
   > Beispiel: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Beispiel: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### Entfernte Wörterbücher abrufen
@@ -167,6 +171,7 @@ Wenn der [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs
 **Wörterbuch-Optionen:**
 
 - **`-d, --dictionaries`**: IDs der Wörterbücher, die abgerufen werden sollen. Wenn nicht angegeben, werden alle Wörterbücher abgerufen.
+
   > Beispiel: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **Konfigurationsoptionen:**
@@ -182,6 +187,7 @@ Wenn der [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs
 - **`--base-dir`**: Gibt das Basisverzeichnis für das Projekt an. Um die Intlayer-Konfiguration abzurufen, sucht der Befehl im Basisverzeichnis nach der Datei `intlayer.config.{ts,js,json,cjs,mjs}`.
 
   > Beispiel: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Beispiel: `npx intlayer dictionary push --env production`
 
 **Ausgabeoptionen:**
@@ -250,6 +256,7 @@ Dieser Befehl analysiert Ihre Content-Deklarationsdateien auf potenzielle Proble
 - **`--untracked`**: Nicht verfolgte Dateien einbeziehen.
 
   > Beispiel: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Beispiel: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 **KI-Optionen:**
@@ -269,6 +276,7 @@ Dieser Befehl analysiert Ihre Content-Deklarationsdateien auf potenzielle Proble
 - **`--env-file [envFile]`**: Gibt eine benutzerdefinierte Umgebungsdatei an, aus der Variablen geladen werden.
 
   > Beispiel: `npx intlayer fill --env-file .env.production.local`
+
   > Beispiel: `npx intlayer fill --env production`
 
 **Konfigurationsoptionen:**
@@ -423,6 +431,7 @@ npx intlayer doc translate
   - Diese Option überprüft die Aktualisierungszeit der Datei mit der Methode `fs.stat`. Daher kann sie von Git oder anderen Tools beeinflusst werden, die die Datei ändern.
 
   > Beispiel: `npx intlayer doc translate --custom-instructions "Vermeide die Übersetzung von URLs und behalte das Markdown-Format bei"`
+
   > Beispiel: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **Git-Optionen:**
@@ -435,6 +444,7 @@ npx intlayer doc translate
 - **`--untracked`**: Nicht verfolgte Dateien einbeziehen.
 
   > Beispiel: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Beispiel: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > Beachten Sie, dass der Ausgabedateipfad durch Ersetzen der folgenden Muster bestimmt wird

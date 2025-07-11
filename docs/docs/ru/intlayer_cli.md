@@ -117,6 +117,7 @@ npx intlayer dictionary push
 - **`--env-file`**: Укажите пользовательский файл окружения для загрузки переменных. Полезно, если вы используете переменные окружения в вашем конфигурационном файле intlayer.
 
   > Пример: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Пример: `npx intlayer dictionary push --env production`
 
 **Опции вывода:**
@@ -124,11 +125,13 @@ npx intlayer dictionary push
 - **`-r`, `--delete-locale-dictionary`**: Пропустить вопрос о удалении каталогов локалей после загрузки словарей и удалить их. По умолчанию, если словарь определён локально, он перезапишет содержимое удалённых словарей.
 
   > Пример: `npx intlayer dictionary push -r`
+
   > Пример: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`, `--keep-locale-dictionary`**: Пропустить вопрос о удалении каталогов локалей после загрузки словарей и сохранить их. По умолчанию, если словарь определён локально, он перезапишет содержимое удалённых словарей.
 
   > Пример: `npx intlayer dictionary push -k`
+
   > Пример: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **Опции логирования:**
@@ -145,6 +148,7 @@ npx intlayer dictionary push
 - **`--untracked`**: Включить неотслеживаемые файлы.
 
   > Пример: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Пример: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### Загрузка удалённых словарей
@@ -166,6 +170,7 @@ npx intlayer pull
 **Опции словаря:**
 
 - **`-d, --dictionaries`**: Идентификаторы словарей для загрузки. Если не указано, будут загружены все словари.
+
   > Пример: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **Опции конфигурации:**
@@ -181,6 +186,7 @@ npx intlayer pull
 - **`--base-dir`**: Укажите базовый каталог для проекта. Для получения конфигурации intlayer команда будет искать файл `intlayer.config.{ts,js,json,cjs,mjs}` в базовом каталоге.
 
   > Пример: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Пример: `npx intlayer dictionary push --env production`
 
 **Опции вывода:**
@@ -249,6 +255,7 @@ npx intlayer fill
 - **`--untracked`**: Включать неотслеживаемые файлы.
 
   > Пример: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Пример: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 **Опции ИИ:**
@@ -268,6 +275,7 @@ npx intlayer fill
 - **`--env-file [envFile]`**: Указать пользовательский файл окружения для загрузки переменных.
 
   > Пример: `npx intlayer fill --env-file .env.production.local`
+
   > Пример: `npx intlayer fill --env production`
 
 **Опции конфигурации:**
@@ -282,11 +290,9 @@ npx intlayer fill
 
 ##### Пример:
 
-````bash
-
 ```bash
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
-````
+```
 
 Эта команда переведёт содержимое с английского на французский и испанский для всех файлов декларации контента в директории `src/home/`, используя модель GPT-3.5 Turbo.
 
@@ -424,6 +430,7 @@ npx intlayer doc translate
   - Эта опция проверяет время обновления файла с помощью метода `fs.stat`. Поэтому она может быть затронута Git или другими инструментами, которые изменяют файл.
 
   > Пример: `npx intlayer doc translate --custom-instructions "Избегайте перевода URL и сохраняйте формат markdown"`
+
   > Пример: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **Опции Git:**
@@ -436,6 +443,7 @@ npx intlayer doc translate
 - **`--untracked`**: Включать неотслеживаемые файлы.
 
   > Пример: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Пример: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > Обратите внимание, что путь выходного файла будет определяться заменой следующих шаблонов

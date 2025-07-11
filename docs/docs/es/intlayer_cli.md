@@ -117,6 +117,7 @@ Si tienes instalado el [editor de intlayer](https://github.com/aymericzip/intlay
 - **`--env-file`**: Proporciona un archivo de entorno personalizado desde el cual cargar variables. Útil en caso de que uses variables de entorno en tu archivo de configuración de intlayer.
 
   > Ejemplo: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Ejemplo: `npx intlayer dictionary push --env production`
 
 **Opciones de salida:**
@@ -124,11 +125,13 @@ Si tienes instalado el [editor de intlayer](https://github.com/aymericzip/intlay
 - **`-r`, `--delete-locale-dictionary`**: Omitir la pregunta que solicita eliminar los directorios de locales una vez que los diccionarios se han enviado, y eliminarlos. Por defecto, si el diccionario está definido localmente, sobrescribirá el contenido de los diccionarios remotos.
 
   > Ejemplo: `npx intlayer dictionary push -r`
+
   > Ejemplo: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`, `--keep-locale-dictionary`**: Omitir la pregunta que solicita eliminar los directorios de locales una vez que los diccionarios se han enviado, y mantenerlos. Por defecto, si el diccionario está definido localmente, sobrescribirá el contenido de los diccionarios remotos.
 
   > Ejemplo: `npx intlayer dictionary push -k`
+
   > Ejemplo: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **Opciones de registro:**
@@ -145,6 +148,7 @@ Si tienes instalado el [editor de intlayer](https://github.com/aymericzip/intlay
 - **`--untracked`**: Incluir archivos no rastreados.
 
   > Ejemplo: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Ejemplo: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### Descargar diccionarios remotos
@@ -166,6 +170,7 @@ Si el [editor de intlayer](https://github.com/aymericzip/intlayer/blob/main/docs
 **Opciones de diccionario:**
 
 - **`-d, --dictionaries`**: IDs de los diccionarios a descargar. Si no se especifica, se descargarán todos los diccionarios.
+
   > Ejemplo: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **Opciones de configuración:**
@@ -181,6 +186,7 @@ Si el [editor de intlayer](https://github.com/aymericzip/intlayer/blob/main/docs
 - **`--base-dir`**: Especifica el directorio base para el proyecto. Para obtener la configuración de intlayer, el comando buscará el archivo `intlayer.config.{ts,js,json,cjs,mjs}` en el directorio base.
 
   > Ejemplo: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Ejemplo: `npx intlayer dictionary push --env production`
 
 **Opciones de salida:**
@@ -249,6 +255,7 @@ Este comando analiza tus archivos de declaración de contenido en busca de posib
 - **`--untracked`**: Incluir archivos no rastreados.
 
   > Ejemplo: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Ejemplo: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 **Opciones de IA:**
@@ -268,6 +275,7 @@ Este comando analiza tus archivos de declaración de contenido en busca de posib
 - **`--env-file [envFile]`**: Proporcionar un archivo de entorno personalizado para cargar variables.
 
   > Ejemplo: `npx intlayer fill --env-file .env.production.local`
+
   > Ejemplo: `npx intlayer fill --env production`
 
 **Opciones de configuración:**
@@ -422,6 +430,7 @@ npx intlayer doc translate
   - Esta opción verifica la hora de actualización del archivo usando el método `fs.stat`. Por lo tanto, podría verse afectada por Git u otras herramientas que modifiquen el archivo.
 
   > Ejemplo: `npx intlayer doc translate --custom-instructions "Evitar traducir URLs y mantener el formato markdown"`
+
   > Ejemplo: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **Opciones de Git:**
@@ -434,6 +443,7 @@ npx intlayer doc translate
 - **`--untracked`**: Incluir archivos no rastreados.
 
   > Ejemplo: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Ejemplo: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > Ten en cuenta que la ruta del archivo de salida se determinará reemplazando los siguientes patrones

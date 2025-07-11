@@ -118,6 +118,7 @@ If the [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/d
 - **`--env-file`**: Provide a custom environment file to load variables from. Useful if you use environment variables in your intlayer configuration file.
 
   > Example: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Example: `npx intlayer dictionary push --env production`
 
 **Output options:**
@@ -125,11 +126,13 @@ If the [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/d
 - **`-r`, `--delete-locale-dictionary`**: Skip the question asking whether to delete the locales directories once the dictionaries are pushed, and remove them. By default, if the dictionary is defined locally, it will overwrite remote dictionaries' content.
 
   > Example: `npx intlayer dictionary push -r`
+
   > Example: `npx intlayer dictionary push --delete-locale-dictionary`
 
 - **`-k`, `--keep-locale-dictionary`**: Skip the question asking whether to delete the locales directories once the dictionaries are pushed, and keep them. By default, if the dictionary is defined locally, it will overwrite remote dictionaries' content.
 
   > Example: `npx intlayer dictionary push -k`
+
   > Example: `npx intlayer dictionary push --keep-locale-dictionary`
 
 **Log options:**
@@ -146,6 +149,7 @@ If the [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/d
 - **`--untracked`**: Include untracked files.
 
   > Example: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Example: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### Pull remote dictionaries
@@ -167,6 +171,7 @@ If the [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/d
 **Dictionary options:**
 
 - **`-d, --dictionaries`**: IDs of the dictionaries to pull. If not specified, all dictionaries will be pulled.
+
   > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
 
 **Configuration options:**
@@ -182,6 +187,7 @@ If the [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/d
 - **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
 
   > Example: `npx intlayer dictionary push --env-file .env.production.local`
+
   > Example: `npx intlayer dictionary push --env production`
 
 **Output options:**
@@ -250,6 +256,7 @@ This command analyses your content declaration files for potential issues such a
 - **`--untracked`**: Include untracked files.
 
   > Example: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Example: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 **AI options:**
@@ -269,6 +276,7 @@ This command analyses your content declaration files for potential issues such a
 - **`--env-file [envFile]`**: Provide a custom environment file to load variables from.
 
   > Example: `npx intlayer fill --env-file .env.production.local`
+
   > Example: `npx intlayer fill --env production`
 
 **Configuration options:**
@@ -423,6 +431,7 @@ npx intlayer doc translate
   - This option checks the update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
 
   > Example: `npx intlayer doc translate --custom-instructions "Avoid translating URLs, and keep the markdown format"`
+
   > Example: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
 
 **Git options:**
@@ -435,6 +444,7 @@ npx intlayer doc translate
 - **`--untracked`**: Include untracked files.
 
   > Example: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
   > Example: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
 > Note that the output file path will be determined by replacing the following patterns
