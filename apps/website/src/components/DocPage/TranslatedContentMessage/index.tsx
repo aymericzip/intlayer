@@ -29,6 +29,7 @@ export const TranslatedContentMessage: FC<TranslatedContentMessageProps> = ({
       <Popover.Detail
         identifier="language"
         className="flex flex-1 flex-col gap-2 min-w-64 p-3 text-sm text-neutral"
+        xAlign="end"
       >
         <p>{message}</p>
         <Link

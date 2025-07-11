@@ -57,8 +57,6 @@ export const DocHeader: FC<DocHeaderProps> = ({
       <Container className="sticky top-20 mt-5 z-5 flex flex-col gap-2 px-4 py-2 max-w-[95%] mx-auto">
         <div className="flex flex-row gap-4 w-full justify-between">
           <div className="flex flex-row gap-4 w-full justify-start items-center">
-            <TranslatedContentMessage pageUrl={relativeUrl} />
-
             {applicationTemplate && (
               <ApplicationTemplateMessage
                 applicationTemplateUrl={applicationTemplate.replace(
@@ -77,6 +75,8 @@ export const DocHeader: FC<DocHeaderProps> = ({
             <MCPMessage />
           </div>
           <div className="flex flex-row gap-4 w-full justify-end items-center">
+            <TranslatedContentMessage pageUrl={relativeUrl} />
+
             <ContributionMessage
               githubUrl={githubUrl.replace('/en/', `/${locale}/`)}
             />
