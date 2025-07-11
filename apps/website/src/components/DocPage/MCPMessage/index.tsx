@@ -22,7 +22,6 @@ export const MCPMessage: FC = () => {
       <Popover.Detail
         identifier="mcp"
         className="flex flex-col gap-3 p-3 min-w-64 text-sm"
-        xAlign="end"
       >
         <strong>{title}</strong>
         <p className="text-neutral">{description}</p>

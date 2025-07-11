@@ -23,6 +23,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
       <Popover.Detail
         identifier="contribute"
         className="flex flex-1 flex-col gap-2 min-w-64 p-3 text-sm"
+        xAlign="end"
       >
         <strong>Edit this doc</strong>
         <p className="text-neutral">{contribution.text}</p>

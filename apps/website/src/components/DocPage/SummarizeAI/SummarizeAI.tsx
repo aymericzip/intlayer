@@ -101,7 +101,6 @@ export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
       <Popover.Detail
         identifier="summarize"
         className="flex flex-col gap-3 p-3 min-w-50 text-sm"
-        xAlign="end"
       >
         <strong>{title}</strong>
 
