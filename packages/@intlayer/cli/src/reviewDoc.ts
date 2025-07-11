@@ -1,9 +1,5 @@
 import { AIOptions, getAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
-import {
-  listGitFiles,
-  ListGitFilesOptions,
-  listGitLines,
-} from '@intlayer/chokidar';
+import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
   getAppLogger,
   getConfiguration,
@@ -276,16 +272,17 @@ export const reviewDoc = async ({
         }
 
         let changedLines: number[] | undefined = undefined;
-        if (gitOptions) {
-          const gitChangedLines = await listGitLines(
-            absoluteBaseFilePath,
-            gitOptions
-          );
+        // Disabled for now because it's leading to file format issues
+        // if (gitOptions) {
+        //   const gitChangedLines = await listGitLines(
+        //     absoluteBaseFilePath,
+        //     gitOptions
+        //   );
 
-          appLogger(`Git changed lines: ${gitChangedLines.join(', ')}`);
+        //   appLogger(`Git changed lines: ${gitChangedLines.join(', ')}`);
 
-          changedLines = gitChangedLines;
-        }
+        //   changedLines = gitChangedLines;
+        // }
 
         await reviewFile(
           absoluteBaseFilePath,
