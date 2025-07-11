@@ -63,11 +63,15 @@ In your project root, add the following `.cursor/mcp.json` configuration file:
 
 For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), you can configure your MCP client to connect to the hosted service.
 
+> **Note:** Remote server does not integrate CLI tools. The distant server is only for documentation and context.
+
+> **Note:** Due to server hosting costs, the availability of the remote server cannot be guaranteed. We recommend using the local server (stdio) transport method for the most reliable experience.
+
 ```json filename=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
-      "url": "http://mcp.intlayer.com",
+      "url": "https://mcp.intlayer.org",
       "transport": "sse"
     }
   }
@@ -104,11 +108,15 @@ Create a `.vscode/mcp.json` file in your project root:
 
 For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), you can configure your MCP client to connect to the hosted service.
 
+> **Note:** Remote server does not integrate CLI tools. The distant server is only for documentation and context.
+
+> **Note:** Due to server hosting costs, the availability of the remote server cannot be guaranteed. We recommend using the local server (stdio) transport method for the most reliable experience.
+
 ```json filename=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
-      "url": "http://mcp.intlayer.com",
+      "url": "https://mcp.intlayer.org",
       "type": "sse"
     }
   }
@@ -117,7 +125,33 @@ For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), y
 
 ---
 
-### Set Up in Claude Desktop
+## Set Up in ChatGPT
+
+### Remote server (SSE)
+
+Follow the [official documentation](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) to configure the MCP server in ChatGPT.
+
+1 - Go to the [promt dashboard](https://platform.openai.com/prompts)
+2 - Click on "+ Create"
+3 - Click on "Tools (Create or +)"
+4 - Select "MCP Server"
+5 - Click on "Add new"
+6 - Fill the following fields:
+
+- URL: https://mcp.intlayer.org
+- Label: Intlayer MCP Server
+- Name: intlayer-mcp-server
+- Authentication: None
+
+7 - Click on "Save"
+
+> **Note:** Remote server does not integrate CLI tools. The distant server is only for documentation and context.
+
+> **Note:** Due to server hosting costs, the availability of the remote server cannot be guaranteed. We recommend using the local server (stdio) transport method for the most reliable experience.
+
+---
+
+## Set Up in Claude Desktop
 
 Follow the [official documentation](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server) to configure the MCP server in Claude Desktop.
 
@@ -125,6 +159,8 @@ Path of the config file:
 
 - macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+### Local server (stdio) (recommended)
 
 ```json filename="claude_desktop_config.json"
 {
@@ -157,6 +193,7 @@ npx @intlayer/mcp
 
 | Version | Date       | Changes                              |
 | ------- | ---------- | ------------------------------------ |
+| 5.5.12  | 2025-07-11 | Add set up of ChatGPT                |
 | 5.5.12  | 2025-07-10 | Add set up of Claude Desktop         |
 | 5.5.12  | 2025-07-10 | Add SSE transport and distant server |
 | 5.5.10  | 2025-06-29 | Init history                         |

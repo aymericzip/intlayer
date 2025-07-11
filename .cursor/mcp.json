@@ -2,11 +2,11 @@
   "mcpServers": {
     "intlayer": {
       "command": "npx",
-      "args": ["-y", "@intlayer/mcp@"]
+      "args": ["-y", "@intlayer/mcp"]
     },
     "intlayer-sse": {
       "transport": "sse",
-      "url": "http://mcp.intlayer.com"
+      "url": "https://mcp.intlayer.org"
     }
   }
 }

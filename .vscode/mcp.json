@@ -7,7 +7,7 @@
     },
     "intlayer-sse": {
       "type": "sse",
-      "url": "http://mcp.intlayer.com"
+      "url": "https://mcp.intlayer.org"
     }
   }
 }
