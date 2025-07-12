@@ -63,5 +63,9 @@ USER app
 # Expose the API port
 EXPOSE 3100
 
+# Traefik labels to make SSE work with multiple simulatenous connections
+LABEL traefik.http.services.backend.loadbalancer.server.scheme=h2c
+LABEL traefik.http.services.backend.loadbalancer.server.port=3100
+
 
 CMD ["pnpm", "start"] 

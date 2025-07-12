@@ -2,6 +2,7 @@
 
 FROM node:24-alpine AS builder
 
+
 RUN npm install -g pnpm@10.12.1
 
 # Create app directory
@@ -60,7 +61,11 @@ WORKDIR /workspace/packages/@intlayer/mcp
 USER app
 
 # Expose the API port 
-EXPOSE 6274
+EXPOSE 3000
+
+# Traefik labels to make SSE work with multiple simulatenous connections
+LABEL traefik.http.services.mcp.loadbalancer.server.scheme=h2c
+LABEL traefik.http.services.mcp.loadbalancer.server.port=3000
 
 # Option 1: Use mcp-proxy (recommended - simpler)
 CMD ["npm", "run", "start:sse"]
