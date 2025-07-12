@@ -970,7 +970,7 @@ Intlayer 支持在您的 Vue 应用中直接渲染 Markdown 内容。默认情�
 
 > 要了解如何使用 `intlayer` 包声明 Markdown 内容，请参见 [markdown 文档](https://github.com/aymericzip/intlayer/tree/main/docs/zh/dictionary/markdown.md)。
 
-```ts filename="main.ts"
+```ts fileName="main.ts"
 import MarkdownIt from "markdown-it";
 import { createApp, h } from "vue";
 import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";

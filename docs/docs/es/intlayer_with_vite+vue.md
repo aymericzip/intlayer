@@ -1003,7 +1003,7 @@ Por defecto, Intlayer renderiza markdown como cadena. Pero Intlayer también pro
 
 > Para ver cómo declarar contenido markdown usando el paquete `intlayer`, consulta la [documentación de markdown](https://github.com/aymericzip/intlayer/tree/main/docs/es/dictionary/markdown.md).
 
-```ts filename="main.ts"
+```ts fileName="main.ts"
 import MarkdownIt from "markdown-it";
 import { createApp, h } from "vue";
 import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";

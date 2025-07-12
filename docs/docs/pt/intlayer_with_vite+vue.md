@@ -976,7 +976,7 @@ Por padrão, o Intlayer renderiza markdown como string. Mas o Intlayer também f
 
 > Para ver como declarar conteúdo markdown usando o pacote `intlayer`, consulte a [documentação de markdown](https://github.com/aymericzip/intlayer/tree/main/docs/pt/dictionary/markdown.md).
 
-```ts filename="main.ts"
+```ts fileName="main.ts"
 import MarkdownIt from "markdown-it";
 import { createApp, h } from "vue";
 import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";

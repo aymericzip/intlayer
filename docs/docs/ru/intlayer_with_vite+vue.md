@@ -977,7 +977,7 @@ Intlayer поддерживает рендеринг Markdown-контента �
 
 > Чтобы узнать, как объявлять markdown-контент с использованием пакета `intlayer`, смотрите [документацию по markdown](https://github.com/aymericzip/intlayer/tree/main/docs/ru/dictionary/markdown.md).
 
-```ts filename="main.ts"
+```ts fileName="main.ts"
 import MarkdownIt from "markdown-it";
 import { createApp, h } from "vue";
 import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";

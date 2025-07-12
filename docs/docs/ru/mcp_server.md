@@ -69,7 +69,7 @@ MCP сервер также можно использовать удалённо
 
 ### Локальный сервер (stdio) (рекомендуется)
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -84,7 +84,7 @@ MCP сервер также можно использовать удалённо
 
 Для подключения к удалённому MCP серверу Intlayer с использованием Server-Sent Events (SSE) вы можете настроить ваш MCP клиент для подключения к размещённому сервису.
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -109,7 +109,7 @@ MCP сервер также можно использовать удалённо
 
 Создайте файл `.vscode/mcp.json` в корне вашего проекта:
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -125,7 +125,7 @@ MCP сервер также можно использовать удалённо
 
 Для подключения к удалённому MCP серверу Intlayer с использованием Server-Sent Events (SSE) вы можете настроить ваш MCP клиент для подключения к размещённому сервису.
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -171,7 +171,7 @@ MCP сервер также можно использовать удалённо
 
 ### Локальный сервер (stdio) (рекомендуется)
 
-```json filename="claude_desktop_config.json"
+```json fileName="claude_desktop_config.json"
 {
   "mcpServers": {
     "intlayer": {

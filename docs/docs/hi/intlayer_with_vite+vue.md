@@ -957,7 +957,7 @@ Intlayer आपके Vue एप्लिकेशन में Markdown सा�
 
 > `intlayer` पैकेज का उपयोग करके Markdown सामग्री को कैसे घोषित करें, यह देखने के लिए [markdown doc](https://github.com/aymericzip/intlayer/tree/main/docs/en/dictionary/markdown.md) देखें।
 
-```ts filename="main.ts"
+```ts fileName="main.ts"
 import MarkdownIt from "markdown-it";
 import { createApp, h } from "vue";
 import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";

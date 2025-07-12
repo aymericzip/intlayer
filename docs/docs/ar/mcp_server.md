@@ -69,7 +69,7 @@ slugs:
 
 ### الخادم المحلي (stdio) (موصى به)
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -84,7 +84,7 @@ slugs:
 
 للاتصال بخادم Intlayer MCP البعيد باستخدام أحداث الخادم المرسلة (SSE)، يمكنك تكوين عميل MCP الخاص بك للاتصال بالخدمة المستضافة.
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -109,7 +109,7 @@ slugs:
 
 قم بإنشاء ملف `.vscode/mcp.json` في جذر مشروعك:
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -125,7 +125,7 @@ slugs:
 
 للاتصال بخادم Intlayer MCP البعيد باستخدام أحداث الخادم المرسلة (SSE)، يمكنك تكوين عميل MCP الخاص بك للاتصال بالخدمة المستضافة.
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -171,7 +171,7 @@ slugs:
 
 ### الخادم المحلي (stdio) (موصى به)
 
-```json filename="claude_desktop_config.json"
+```json fileName="claude_desktop_config.json"
 {
   "mcpServers": {
     "intlayer": {

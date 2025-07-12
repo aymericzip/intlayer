@@ -986,7 +986,7 @@ Intlayer는 Vue 애플리케이션에서 Markdown 콘텐츠를 직접 렌더링�
 
 > `intlayer` 패키지를 사용하여 Markdown 콘텐츠를 선언하는 방법은 [markdown 문서](https://github.com/aymericzip/intlayer/tree/main/docs/ko/dictionary/markdown.md)를 참조하세요.
 
-```ts filename="main.ts"
+```ts fileName="main.ts"
 import MarkdownIt from "markdown-it";
 import { createApp, h } from "vue";
 import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";

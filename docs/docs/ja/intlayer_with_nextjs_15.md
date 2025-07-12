@@ -132,7 +132,7 @@ module.exports = config;
 
 Next.jsのセットアップをIntlayerを使うように設定します:
 
-```typescript filename="next.config.ts" codeFormat="typescript"
+```typescript fileName="next.config.ts" codeFormat="typescript"
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 

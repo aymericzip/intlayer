@@ -69,7 +69,7 @@ CursorでMCPサーバーを設定するには、[公式ドキュメント](https
 
 ### ローカルサーバー（stdio）（推奨）
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -84,7 +84,7 @@ CursorでMCPサーバーを設定するには、[公式ドキュメント](https
 
 Server-Sent Events（SSE）を使用してリモートのIntlayer MCPサーバーに接続するには、ホストされているサービスに接続するようにMCPクライアントを設定できます。
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -109,7 +109,7 @@ VS CodeでIntlayer MCPサーバーを使用するには、ワークスペース�
 
 プロジェクトのルートに `.vscode/mcp.json` ファイルを作成します：
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -125,7 +125,7 @@ VS CodeでIntlayer MCPサーバーを使用するには、ワークスペース�
 
 Server-Sent Events（SSE）を使用してリモートの Intlayer MCP サーバーに接続する場合、MCP クライアントをホストされているサービスに接続するように設定できます。
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -171,9 +171,9 @@ ChatGPT で MCP サーバーを設定するには、[公式ドキュメント](h
 
 ### ローカルサーバー（stdio）（推奨）
 
-```json filename="claude_desktop_config.json"
+```json fileName="claude_desktop_config.json"
 {
-json filename="claude_desktop_config.json"
+json fileName="claude_desktop_config.json"
 {
   "mcpServers": {
     "intlayer": {

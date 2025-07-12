@@ -69,7 +69,7 @@ MCP 服务器也可以通过 SSE 传输方式远程使用。该服务器由 Intl
 
 ### 本地服务器（stdio）（推荐）
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -84,7 +84,7 @@ MCP 服务器也可以通过 SSE 传输方式远程使用。该服务器由 Intl
 
 要通过服务器发送事件（SSE）连接到远程 Intlayer MCP 服务器，您可以配置 MCP 客户端以连接到托管服务。
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -109,7 +109,7 @@ MCP 服务器也可以通过 SSE 传输方式远程使用。该服务器由 Intl
 
 在你的项目根目录下创建一个 `.vscode/mcp.json` 文件：
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -125,7 +125,7 @@ MCP 服务器也可以通过 SSE 传输方式远程使用。该服务器由 Intl
 
 要连接到使用服务器发送事件（SSE）的远程 Intlayer MCP 服务器，你可以配置你的 MCP 客户端以连接到托管服务。
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -171,7 +171,7 @@ MCP 服务器也可以通过 SSE 传输方式远程使用。该服务器由 Intl
 
 ### 本地服务器（stdio）（推荐）
 
-```json filename="claude_desktop_config.json"
+```json fileName="claude_desktop_config.json"
 {
   "mcpServers": {
     "intlayer": {

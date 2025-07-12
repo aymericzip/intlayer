@@ -955,7 +955,7 @@ import RouterLink from "@components/RouterLink.vue";
 
 > لرؤية كيفية إعلان محتوى Markdown باستخدام حزمة `intlayer`، راجع [توثيق markdown](https://github.com/aymericzip/intlayer/tree/main/docs/ar/dictionary/markdown.md).
 
-```ts filename="main.ts"
+```ts fileName="main.ts"
 import MarkdownIt from "markdown-it";
 import { createApp, h } from "vue";
 import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";

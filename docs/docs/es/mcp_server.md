@@ -69,7 +69,7 @@ En la raíz de tu proyecto, agrega el siguiente archivo de configuración `.curs
 
 ### Servidor local (stdio) (recomendado)
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -84,7 +84,7 @@ En la raíz de tu proyecto, agrega el siguiente archivo de configuración `.curs
 
 Para conectarte a un servidor Intlayer MCP remoto usando Server-Sent Events (SSE), puedes configurar tu cliente MCP para conectarse al servicio alojado.
 
-```json filename=".cursor/mcp.json"
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -109,7 +109,7 @@ Para usar el servidor Intlayer MCP con VS Code, necesitas configurarlo en los aj
 
 Crea un archivo `.vscode/mcp.json` en la raíz de tu proyecto:
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -125,7 +125,7 @@ Crea un archivo `.vscode/mcp.json` en la raíz de tu proyecto:
 
 Para conectarte a un servidor Intlayer MCP remoto usando Server-Sent Events (SSE), puedes configurar tu cliente MCP para conectarse al servicio alojado.
 
-```json filename=".vscode/mcp.json"
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -171,7 +171,7 @@ Ruta del archivo de configuración:
 
 ### Servidor local (stdio) (recomendado)
 
-```json filename="claude_desktop_config.json"
+```json fileName="claude_desktop_config.json"
 {
   "mcpServers": {
     "intlayer": {
