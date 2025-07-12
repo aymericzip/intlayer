@@ -144,19 +144,19 @@ slugs:
 
 اتبع [الوثائق الرسمية](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) لتكوين خادم MCP في ChatGPT.
 
-1 - اذهب إلى [لوحة التحكم الخاصة بالموجه](https://platform.openai.com/prompts)
-2 - انقر على "+ إنشاء"
-3 - انقر على "الأدوات (إنشاء أو +)"
-4 - اختر "خادم MCP"
-5 - انقر على "إضافة جديد"
-6 - املأ الحقول التالية:
+1. انتقل إلى [لوحة التحكم](https://platform.openai.com/prompts)
+2. انقر على `+ إنشاء`
+3. انقر على `الأدوات (إنشاء أو +)`
+4. حدد `خادم MCP`
+5. انقر على `إضافة جديد`
+6. املأ الحقول التالية:
 
-- URL: https://mcp.intlayer.org
-- التسمية: خادم Intlayer MCP
-- الاسم: intlayer-mcp-server
-- المصادقة: لا شيء
+   - الرابط: `https://mcp.intlayer.org`
+   - التسمية: `خادم Intlayer MCP`
+   - الاسم: `intlayer-mcp-server`
+   - المصادقة: `بدون`
 
-7 - انقر على "حفظ"
+7. انقر على "حفظ"
 
 ---
 

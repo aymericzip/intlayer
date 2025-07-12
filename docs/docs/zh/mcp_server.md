@@ -144,19 +144,19 @@ MCP 服务器也可以通过 SSE 传输方式远程使用。该服务器由 Intl
 
 请按照[官方文档](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server)配置 ChatGPT 中的 MCP 服务器。
 
-1 - 访问 [promt dashboard](https://platform.openai.com/prompts)  
-2 - 点击 “+ Create”  
-3 - 点击 “Tools (Create or +)”  
-4 - 选择 “MCP Server”  
-5 - 点击 “Add new”  
-6 - 填写以下字段：
+1. 访问 [promt dashboard](https://platform.openai.com/prompts)
+2. 点击 “+ Create”
+3. 点击 “Tools (Create or +)”
+4. 选择 “MCP Server”
+5. 点击 “Add new”
+6. 填写以下字段：
 
-- URL: https://mcp.intlayer.org
-- Label: Intlayer MCP 服务器
-- Name: intlayer-mcp-server
-- Authentication: 无
+   - URL: https://mcp.intlayer.org
+   - Label: Intlayer MCP 服务器
+   - Name: intlayer-mcp-server
+   - Authentication: 无
 
-7 - 点击 “Save”
+7. 点击 “Save”
 
 ---
 

@@ -144,19 +144,19 @@ Para conectarte a un servidor Intlayer MCP remoto usando Server-Sent Events (SSE
 
 Sigue la [documentación oficial](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) para configurar el servidor MCP en ChatGPT.
 
-1 - Ve al [panel de prompts](https://platform.openai.com/prompts)  
-2 - Haz clic en "+ Crear"  
-3 - Haz clic en "Herramientas (Crear o +)"  
-4 - Selecciona "Servidor MCP"  
-5 - Haz clic en "Agregar nuevo"  
-6 - Completa los siguientes campos:
+1. Ve al [panel de prompts](https://platform.openai.com/prompts)
+2. Haz clic en `+ Create`
+3. Haz clic en `Tools (Create or +)`
+4. Selecciona `MCP Server`
+5. Haz clic en `Add new`
+6. Rellena los siguientes campos:
 
-- URL: https://mcp.intlayer.org
-- Etiqueta: Servidor MCP de Intlayer
-- Nombre: intlayer-mcp-server
-- Autenticación: Ninguna
+   - URL: `https://mcp.intlayer.org`
+   - Label: `Intlayer MCP Server`
+   - Name: `intlayer-mcp-server`
+   - Authentication: `None`
 
-7 - Haz clic en "Guardar"
+7. Haz clic en `Save`
 
 ---
 

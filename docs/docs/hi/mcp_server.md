@@ -144,19 +144,19 @@ VS Code के साथ Intlayer MCP सर्वर का उपयोग क
 
 ChatGPT में MCP सर्वर को कॉन्फ़िगर करने के लिए [आधिकारिक दस्तावेज़](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) का पालन करें।
 
-1 - [प्रॉम्प्ट डैशबोर्ड](https://platform.openai.com/prompts) पर जाएं  
-2 - "+ Create" पर क्लिक करें  
-3 - "Tools (Create or +)" पर क्लिक करें  
-4 - "MCP Server" चुनें  
-5 - "Add new" पर क्लिक करें  
-6 - निम्नलिखित फ़ील्ड भरें:
+1. Go to the [prompt dashboard](https://platform.openai.com/prompts)
+2. Click on `+ Create`
+3. Click on `Tools (Create or +)`
+4. Select `MCP Server`
+5. Click on `Add new`
+6. Fill in the following fields:
 
-- URL: https://mcp.intlayer.org
-- Label: Intlayer MCP Server
-- Name: intlayer-mcp-server
-- Authentication: None
+   - URL: `https://mcp.intlayer.org`
+   - Label: `Intlayer MCP Server`
+   - Name: `intlayer-mcp-server`
+   - Authentication: `None`
 
-7 - "Save" पर क्लिक करें
+7. Click on "Save"
 
 ---
 

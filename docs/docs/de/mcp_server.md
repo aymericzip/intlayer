@@ -144,19 +144,19 @@ Um eine Verbindung zu einem entfernten Intlayer MCP-Server über Server-Sent Eve
 
 Folgen Sie der [offiziellen Dokumentation](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server), um den MCP-Server in ChatGPT zu konfigurieren.
 
-1 - Gehen Sie zum [Prompt-Dashboard](https://platform.openai.com/prompts)  
-2 - Klicken Sie auf "+ Create"  
-3 - Klicken Sie auf "Tools (Create or +)"  
-4 - Wählen Sie "MCP Server"  
-5 - Klicken Sie auf "Add new"  
-6 - Füllen Sie die folgenden Felder aus:
+1. Gehen Sie zum [Prompt-Dashboard](https://platform.openai.com/prompts)
+2. Klicken Sie auf `+ Erstellen`
+3. Klicken Sie auf `Tools (Erstellen oder +)`
+4. Wählen Sie `MCP-Server`
+5. Klicken Sie auf `Neu hinzufügen`
+6. Füllen Sie die folgenden Felder aus:
 
-- URL: https://mcp.intlayer.org
-- Label: Intlayer MCP Server
-- Name: intlayer-mcp-server
-- Authentication: None
+   - URL: `https://mcp.intlayer.org`
+   - Bezeichnung: `Intlayer MCP-Server`
+   - Name: `intlayer-mcp-server`
+   - Authentifizierung: `Keine`
 
-7 - Klicken Sie auf "Save"
+7. Klicken Sie auf "Speichern"
 
 ---
 

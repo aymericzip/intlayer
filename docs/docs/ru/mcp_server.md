@@ -144,19 +144,19 @@ MCP сервер также можно использовать удалённо
 
 Следуйте [официальной документации](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) для настройки MCP сервера в ChatGPT.
 
-1 - Перейдите на [панель управления промтами](https://platform.openai.com/prompts)  
-2 - Нажмите на "+ Создать"  
-3 - Нажмите на "Инструменты (Создать или +)"  
-4 - Выберите "MCP Server"  
-5 - Нажмите на "Добавить новый"  
-6 - Заполните следующие поля:
+1. Перейдите в [панель промптов](https://platform.openai.com/prompts)
+2. Нажмите `+ Create`
+3. Нажмите `Tools (Create or +)`
+4. Выберите `MCP Server`
+5. Нажмите `Add new`
+6. Заполните следующие поля:
 
-- URL: https://mcp.intlayer.org
-- Метка: Intlayer MCP Server
-- Имя: intlayer-mcp-server
-- Аутентификация: Нет
+   - URL: `https://mcp.intlayer.org`
+   - Label: `Intlayer MCP Server`
+   - Name: `intlayer-mcp-server`
+   - Authentication: `None`
 
-7 - Нажмите на "Сохранить"
+7. Нажмите `Save`
 
 ---
 
