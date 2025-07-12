@@ -14,13 +14,15 @@ class SSEClient {
   }
 
   async connectToServer() {
-    const mcpServerURL = process.env.MCP_SERVER_URL ?? 'http://localhost:3000';
+    const mcpServerURL =
+      process.env.MCP_SERVER_URL ?? 'https://mcp.intlayer.org';
 
     const url = new URL(mcpServerURL);
     try {
+      console.info(`Connecting to server - ${mcpServerURL}`);
       this.transport = new SSEClientTransport(url);
       await this.client.connect(this.transport);
-      console.info('Connected to server');
+      console.info('Connected to MCP server');
 
       this.setUpTransport();
     } catch (e) {

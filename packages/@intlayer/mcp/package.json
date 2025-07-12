@@ -62,6 +62,7 @@
   ],
   "scripts": {
     "build": "pnpm build:package && pnpm build:types && pnpm manange:permissions",
+    "build:docker": "docker build -t intlayer-mcp -f Dockerfile .",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
@@ -77,6 +78,7 @@
     "reset": "pnpm clean & pnpm build",
     "start": "pnpm start:stdio",
     "start:client": "npx node dist/cjs/client/sse.cjs",
+    "start:docker": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",
     "start:inspector": "npx @modelcontextprotocol/inspector node dist/cjs/server/stdio.cjs",
     "start:inspector:sse": "npx @modelcontextprotocol/inspector node dist/cjs/server/sse.cjs",
     "start:sse": "npx node dist/cjs/server/sse.cjs",

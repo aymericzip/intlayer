@@ -36,6 +36,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "next build",
+    "build:docker": "docker build -t intlayer-website -f Dockerfile .",
     "dev": "next dev",
     "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
     "dev:turbo": "next dev --turbopack",
@@ -48,6 +49,7 @@
     "prettier:fix": "prettier . --write",
     "serve": "npx intlayer serve",
     "start": "next start",
+    "start:docker": "docker run --rm -p 3000:3000 --name intlayer-website-app intlayer-website",
     "start:editor": "npx intlayer-editor start",
     "test": "vitest run",
     "transpile": "npx intlayer dictionaries build",
