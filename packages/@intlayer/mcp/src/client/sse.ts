@@ -20,11 +20,11 @@ class SSEClient {
     try {
       this.transport = new SSEClientTransport(url);
       await this.client.connect(this.transport);
-      console.log('Connected to server');
+      console.info('Connected to server');
 
       this.setUpTransport();
     } catch (e) {
-      console.log('Failed to connect to MCP server: ', e);
+      console.info('Failed to connect to MCP server: ', e);
       throw e;
     }
   }
@@ -34,17 +34,17 @@ class SSEClient {
       return;
     }
     this.transport.onclose = () => {
-      console.log('SSE transport closed.');
+      console.info('SSE transport closed.');
       this.isCompleted = true;
     };
 
     this.transport.onerror = async (error) => {
-      console.log('SSE transport error: ', error);
+      console.info('SSE transport error: ', error);
       await this.cleanup();
     };
 
     this.transport.onmessage = (message) => {
-      console.log('message received: ', message);
+      console.info('message received: ', message);
     };
   }
 

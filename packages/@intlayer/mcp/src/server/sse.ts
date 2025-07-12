@@ -49,7 +49,7 @@ const transports: { [sessionId: string]: SSEServerTransport } = {};
 const POST_ENDPOINT = '/messages';
 
 router.post(POST_ENDPOINT, async (req: Request, res: Response) => {
-  console.log('message request received: ', req.body);
+  console.info('message request received: ', req.body);
   // when client sends messages with `SSEClientTransport`,
   // the sessionId will be atomically set as query parameter.
   const sessionId = req.query.sessionId;
@@ -77,15 +77,17 @@ router.post(POST_ENDPOINT, async (req: Request, res: Response) => {
 // create a new transport to connect and
 // send an endpoint event containing a URI for the client to use for sending messages
 router.get('/', async (_req: Request, res: Response) => {
-  console.log('connection request received');
+  console.info('connection request received');
   // tells the client to send messages to the `POST_ENDPOINT`
   const transport = new SSEServerTransport(POST_ENDPOINT, res);
-  console.log('new transport created with session id: ', transport.sessionId);
+  console.info('new transport created with session id: ', transport.sessionId);
 
   transports[transport.sessionId] = transport;
 
+  console.info(`${Object.keys(transports).length} sessions active`);
+
   res.on('close', () => {
-    console.log('SSE connection closed');
+    console.info('SSE connection closed');
     delete transports[transport.sessionId];
   });
 
@@ -107,7 +109,7 @@ const sendMessages = async (transport: SSEServerTransport) => {
       method: 'sse/connection',
       params: { message: 'Stream started' },
     });
-    console.log('Stream started');
+    console.info('Stream started');
 
     let messageCount = 0;
     const interval = setInterval(async () => {
@@ -122,7 +124,7 @@ const sendMessages = async (transport: SSEServerTransport) => {
           params: { data: message },
         });
 
-        console.log(`Sent: ${message}`);
+        console.info(`Sent: ${message}`);
 
         if (messageCount === 2) {
           clearInterval(interval);
@@ -131,7 +133,7 @@ const sendMessages = async (transport: SSEServerTransport) => {
             method: 'sse/complete',
             params: { message: 'Stream completed' },
           });
-          console.log('Stream completed');
+          console.info('Stream completed');
         }
       } catch (error) {
         console.error('Error sending message:', error);
@@ -152,5 +154,5 @@ app.use('/health', (_req: Request, res: Response) => {
 const PORT = process.env.PORT ?? 3000;
 
 app.listen(PORT, () => {
-  console.log(`MCP Streamable HTTP Server listening on port ${PORT}`);
+  console.info(`MCP Streamable HTTP Server listening on port ${PORT}`);
 });
