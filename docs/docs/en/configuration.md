@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-06-29
+updatedAt: 2025-07-13
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -336,7 +336,7 @@ Settings related to content handling within the application, including directory
 - **contentDir**:
 
   - _Type_: `string[]`
-  - _Default_: `['src']`
+  - _Default_: `['.']`
   - _Example_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Description_: The directory path where content is stored.
 
@@ -524,7 +524,8 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 ## Doc History
 
-| Version | Date       | Changes             |
-| ------- | ---------- | ------------------- |
-| 5.5.11  | 2025-06-29 | Add `docs` commands |
-| 5.5.10  | 2025-06-29 | Init history        |
+| Version | Date       | Changes                              |
+| ------- | ---------- | ------------------------------------ |
+| 5.6.0   | 2025-07-13 | Change default contentDir to `['.']` |
+| 5.5.11  | 2025-06-29 | Add `docs` commands                  |
+| 5.5.10  | 2025-06-29 | Init history                         |
