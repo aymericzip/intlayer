@@ -440,7 +440,7 @@ export type BaseContentConfig = {
   /**
    * Directories to be excluded from content processing
    *
-   * Default: ['node_modules']
+   * Default: ['node_modules', '.intlayer']
    *
    * A list of directories to exclude from content processing.
    */
@@ -463,7 +463,7 @@ export type BaseDerivedConfig = {
   /**
    * Directory where the content is stored, relative to the base directory
    *
-   * Default: ['src']
+   * Default: ['.']
    *
    * Derived content directory based on the base configuration.
    */
