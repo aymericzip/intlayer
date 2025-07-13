@@ -1,12 +1,12 @@
 import { Link, Tag } from '@intlayer/design-system';
 import { File } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
+import { IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
-const FileReferenceTag: FC<{ fileTitle: string; fileUrl: string }> = ({
-  fileTitle,
-  fileUrl,
-}) => (
+const FileReferenceTag: FC<{
+  fileTitle: IntlayerNode | string;
+  fileUrl: string;
+}> = ({ fileTitle, fileUrl }) => (
   <Tag size="sm">
     <Link
       label="See the documentation"
@@ -38,15 +38,20 @@ export const FileReference: FC<{
       <div className="flex min-w-full flex-row gap-2 overflow-x-auto pb-1">
         {uniqFiles.map((fileKey) => {
           const fileData = [...docData, ...blogData]?.find(
-            (docEl) => docEl.docKey === fileKey
+            (docEl) => docEl.docKey.value === fileKey
           );
+
+          console.log({
+            fileData: [...docData, ...blogData].map((el) => el.docKey),
+            fileKey,
+          });
 
           if (!fileData) return <></>;
 
           return (
             <FileReferenceTag
               key={fileKey}
-              fileTitle={fileData.title.value}
+              fileTitle={fileData.title}
               fileUrl={fileData.url.value}
             />
           );
