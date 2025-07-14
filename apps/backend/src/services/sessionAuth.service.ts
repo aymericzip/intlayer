@@ -83,7 +83,7 @@ export const setUserAuth = async (res: Response, user: User) => {
 
   const userSessionToken = userWithSession.session?.sessionToken;
 
-  res.cookie(Cookies.JWT_AUTH, userSessionToken, cookieOptions);
+  res.cookie(Cookies.AUTH_SESSION_TOKEN, userSessionToken, cookieOptions);
 
   res.locals.user = user;
   logger.info(
@@ -103,7 +103,7 @@ export const clearUserAuth = async (res: ResponseWithInformation) => {
     await removeSession(user);
   }
 
-  res.cookie(Cookies.JWT_AUTH, '', cookiesOptions);
+  res.cookie(Cookies.AUTH_SESSION_TOKEN, '', cookiesOptions);
   res.cookie(Cookies.JWT_USER, '', cookiesOptions);
 
   res.locals.user = null;

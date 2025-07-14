@@ -1,3 +1,9 @@
+import type {
+  Organization,
+  OrganizationDocument,
+} from '@/types/organization.types';
+import type { Project, ProjectDocument, Rights } from '@/types/project.types';
+import type { User } from '@/types/user.types';
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import {
@@ -6,14 +12,8 @@ import {
 } from '@services/sessionAuth.service';
 import { getUserBySession as getUserBySessionService } from '@services/user.service';
 import { Cookies } from '@utils/cookies';
-import type { Request, Response, NextFunction } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import type {
-  Organization,
-  OrganizationDocument,
-} from '@/types/organization.types';
-import type { Project, ProjectDocument, Rights } from '@/types/project.types';
-import type { User } from '@/types/user.types';
 
 export type ResponseWithInformation<ResBody = any> = Response<
   ResBody,
@@ -38,7 +38,7 @@ export const checkUser = async (
   res: ResponseWithInformation,
   next: NextFunction
 ): Promise<void> => {
-  const { [Cookies.JWT_AUTH]: sessionToken } = req.cookies;
+  const { [Cookies.AUTH_SESSION_TOKEN]: sessionToken } = req.cookies;
 
   res.locals.user = null;
   res.locals.authType = null;
