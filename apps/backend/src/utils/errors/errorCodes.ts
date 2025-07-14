@@ -1416,6 +1416,32 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
+  RATE_LIMIT_EXCEEDED: {
+    title: {
+      en: 'Rate Limit Exceeded',
+      fr: 'Limite de taux dépassée',
+      es: 'Límite de tasa excedido',
+    },
+    message: {
+      en: 'Rate limit exceeded. Please try again later.',
+      fr: 'Limite de taux dépassée. Veuillez réessayer plus tard.',
+      es: 'Límite de tasa excedido. Por favor, inténtelo de nuevo más tarde.',
+    },
+    statusCode: HttpStatusCodes.TOO_MANY_REQUESTS_429,
+  },
+  RATE_LIMIT_EXCEEDED_UNAUTHENTICATED: {
+    title: {
+      en: 'Rate Limit Exceeded',
+      fr: 'Limite de taux dépassée',
+      es: 'Límite de tasa excedido',
+    },
+    message: {
+      en: 'The number of requests is limited for unauthenticated users. Please try again later, or sign in at https://intlayer.org/login to increase your limit.',
+      fr: 'Le nombre de requêtes est limité pour les utilisateurs non authentifiés. Veuillez réessayer plus tard, ou connectez-vous à https://intlayer.org/login pour augmenter votre limite.',
+      es: 'El número de solicitudes está limitado para usuarios no autenticados. Por favor, inténtelo de nuevo más tarde, o inicie sesión en https://intlayer.org/login para aumentar su límite.',
+    },
+    statusCode: HttpStatusCodes.TOO_MANY_REQUESTS_429,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

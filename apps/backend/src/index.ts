@@ -56,6 +56,7 @@ import { doubleCsrfProtection } from '@utils/CSRF';
 import { connectDB } from '@utils/mongoDB/connectDB';
 
 // Logger
+import { ipLimiter } from '@utils/rateLimiter';
 import { logger } from './logger/index';
 
 const app: Express = express();
@@ -74,6 +75,8 @@ dotenv.config({
 
 // Parse incoming requests with cookies
 app.use(cookieParser());
+
+app.use(ipLimiter);
 
 // Load internationalization request handler
 app.use(intlayer());
