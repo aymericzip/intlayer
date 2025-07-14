@@ -41,11 +41,6 @@ export const FileReference: FC<{
             (docEl) => docEl.docKey.value === fileKey
           );
 
-          console.log({
-            fileData: [...docData, ...blogData].map((el) => el.docKey),
-            fileKey,
-          });
-
           if (!fileData) return <></>;
 
           return (
