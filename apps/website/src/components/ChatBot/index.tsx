@@ -63,8 +63,37 @@ export const ChatBot: FC<ChatBotProps> = ({
   displayRelatedFiles = true,
   stateReloaderTrigger,
 }) => {
-  const { isLoading, askDocQuestion } = useAskDocQuestion();
-  const { firstMessageContent } = useIntlayer('chat');
+  const [hasReachedRateLimit, setHasReachedRateLimit] = useState(false);
+  const { isLoading, askDocQuestion } = useAskDocQuestion({
+    onSuccess: () => {
+      setHasReachedRateLimit(false);
+    },
+    onError: (errorMessage) => {
+      let error;
+
+      // If json is valid, parse it
+      try {
+        if (typeof errorMessage === 'undefined') return;
+
+        error = JSON.parse(errorMessage);
+      } catch (e) {
+        // If json is not valid, set error to the original errorMessage
+
+        error = errorMessage;
+      }
+
+      // render toast for each error if there is more than one
+      // otherwise render the toast with the error message
+      [error]
+        .flatMap((error) => error)
+        .forEach((error) => {
+          if (error.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
+            setHasReachedRateLimit(true);
+          }
+        });
+    },
+  });
+  const { firstMessageContent, rateLimitExceededMessage } = useIntlayer('chat');
   const isFirstRender = useRef(true);
   const [currentResponse, setCurrentResponse] = useState('');
 
@@ -191,6 +220,11 @@ export const ChatBot: FC<ChatBotProps> = ({
       <div className="w-full flex-1">
         {displayRelatedFiles && (
           <FileReference relatedFiles={discution?.relatedFiles ?? []} />
+        )}
+        {hasReachedRateLimit && (
+          <div className="text-center text-sm text-red-500">
+            {rateLimitExceededMessage}
+          </div>
         )}
 
         <FormSection
