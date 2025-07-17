@@ -76,7 +76,7 @@ dotenv.config({
 // Parse incoming requests with cookies
 app.use(cookieParser());
 
-app.use(ipLimiter);
+app.use(/(.*)/, ipLimiter);
 
 // Load internationalization request handler
 app.use(intlayer());

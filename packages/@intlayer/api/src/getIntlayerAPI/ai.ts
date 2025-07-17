@@ -201,9 +201,27 @@ export const getAiAPI = (
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        // Align error handling with generic `fetcher` utility so that callers receive
+        // meaningful messages (e.g. for 429 "Too Many Requests" responses).
+        let errorMessage: string = 'An error occurred';
 
-        throw new Error(errorData.message || 'Failed to fetch response');
+        try {
+          // Attempt to parse JSON error payload produced by backend
+          const errorData = await response.json();
+          errorMessage = JSON.stringify(errorData.error) ?? 'An error occurred';
+        } catch {
+          // Fallback to plain-text body or HTTP status text
+          try {
+            const errorText = await response.text();
+            if (errorText) {
+              errorMessage = errorText;
+            }
+          } catch {
+            // ignore – we already have a default message
+          }
+        }
+
+        throw new Error(errorMessage);
       }
 
       const reader = response.body?.getReader();

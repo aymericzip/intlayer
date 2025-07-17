@@ -1,5 +1,8 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
+import { Link } from '@components/Link/Link';
+import { Container } from '@intlayer/design-system';
 import {
   useAskDocQuestion,
   usePersistedStore,
@@ -93,7 +96,8 @@ export const ChatBot: FC<ChatBotProps> = ({
         });
     },
   });
-  const { firstMessageContent, rateLimitExceededMessage } = useIntlayer('chat');
+  const { firstMessageContent, rateLimitExceededMessage, signInButton } =
+    useIntlayer('chat');
   const isFirstRender = useRef(true);
   const [currentResponse, setCurrentResponse] = useState('');
 
@@ -222,9 +226,23 @@ export const ChatBot: FC<ChatBotProps> = ({
           <FileReference relatedFiles={discution?.relatedFiles ?? []} />
         )}
         {hasReachedRateLimit && (
-          <div className="text-center text-sm text-red-500">
-            {rateLimitExceededMessage}
-          </div>
+          <Container
+            className="text-center text-sm max-w-md mt-3 gap-4 flex flex-col mx-auto"
+            borderColor="neutral"
+            border
+            roundedSize="xl"
+            padding="md"
+          >
+            <span>{rateLimitExceededMessage}</span>
+            <Link
+              href={PagesRoutes.Auth_SignIn}
+              label={signInButton.label.value}
+              color="text"
+              variant="button-outlined"
+            >
+              {signInButton.text}
+            </Link>
+          </Container>
         )}
 
         <FormSection

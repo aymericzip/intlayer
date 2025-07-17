@@ -86,5 +86,5 @@ aiRouter.post(getAiRoutes().autocomplete.urlModel, autocomplete);
 /**
  * This route number of requests is limited for unauthenticated users
  */
-aiRouter.use(unauthenticatedChatBotLimiter);
+aiRouter.use(/(.*)/, unauthenticatedChatBotLimiter);
 aiRouter.post(getAiRoutes().ask.urlModel, askDocQuestion);

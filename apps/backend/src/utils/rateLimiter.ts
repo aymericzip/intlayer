@@ -1,11 +1,21 @@
+import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { NextFunction, Request, Response } from 'express';
 import rateLimit from 'express-rate-limit';
 import { ErrorHandler } from './errors';
 
-export const ipLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 min window
+// -------------------------------------------------------------
+// Create the rate-limiter instances once at module load-time so
+// that the hit counters are shared across every incoming request.
+// -------------------------------------------------------------
+
+export const ipLimiter: (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => void | Promise<void> = rateLimit({
+  windowMs: 60 * 1000, // 1-minute window
   limit: 100, // 100 requests / IP / window
-  standardHeaders: 'draft-8', // `RateLimit:` response header
-  // keyGenerator: (req) => req.ip, // ← default
+  standardHeaders: 'draft-8',
   legacyHeaders: false,
   handler: (req, res, _next) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
@@ -18,14 +28,17 @@ export const ipLimiter = rateLimit({
   },
 });
 
-export const unauthenticatedChatBotLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour window
+export const unauthenticatedChatBotLimiter: (
+  req: Request,
+  res: ResponseWithInformation,
+  next: NextFunction
+) => any = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1-hour window
   limit: 3, // 3 requests / IP / window
-  standardHeaders: 'draft-8', // `RateLimit:` response header
-  // keyGenerator: (req) => req.ip, // ← default
-  skip: (_req, res) => Boolean(res.locals.user), // ← authenticated? do **not** count/limit
+  standardHeaders: 'draft-8',
+  skip: (_req, res) => Boolean(res.locals.user), // authenticated? then skip
   legacyHeaders: false,
-  handler: (req, res, _next) => {
+  handler: (req, res) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
     ErrorHandler.handleGenericErrorResponse(

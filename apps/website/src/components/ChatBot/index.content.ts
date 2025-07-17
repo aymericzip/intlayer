@@ -1,4 +1,4 @@
-import { md, t, type Dictionary } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
 
 const chatFormSectionContent = {
   key: 'chat',
@@ -22,46 +22,53 @@ const chatFormSectionContent = {
       }),
     },
     rateLimitExceededMessage: t({
-      en: md(
-        'The number of requests is limited for unauthenticated users. Please try again later, or [sign in](https://intlayer.org/login) to increase your limit.'
-      ),
-      'en-GB': md(
-        'The number of requests is limited for unauthenticated users. Please try again later, or [sign in](https://intlayer.org/login) to increase your limit.'
-      ),
-      fr: md(
-        'Le nombre de requêtes est limité pour les utilisateurs non authentifiés. Veuillez réessayer plus tard, ou [connectez-vous](https://intlayer.org/login) pour augmenter votre limite.'
-      ),
-      es: md(
-        'El número de solicitudes está limitado para usuarios no autenticados. Por favor, inténtelo de nuevo más tarde, o [inicie sesión](https://intlayer.org/login) para aumentar su límite.'
-      ),
-      de: md(
-        'Die Anzahl der Anfragen ist für nicht authentifizierte Benutzer begrenzt. Bitte versuchen Sie es später erneut, oder [melden Sie sich](https://intlayer.org/login) an, um Ihre Begrenzung zu erhöhen.'
-      ),
-      ja: md(
-        '非認証ユーザーのリクエスト数は制限されています。後でもう一度お試しください、または[ログイン](https://intlayer.org/login)して制限を増やしてください。'
-      ),
-      ko: md(
-        '인증되지 않은 사용자의 요청 수는 제한되어 있습니다. 나중에 다시 시도하거나 [로그인](https://intlayer.org/login)하여 제한을 늘리세요.'
-      ),
-      zh: md(
-        '未认证用户的请求数有限。请稍后再试，或[登录](https://intlayer.org/login)以增加您的限制。'
-      ),
-      it: md(
-        'Il numero di richieste è limitato per gli utenti non autenticati. Per favore, riprova più tardi, o [accedi](https://intlayer.org/login) per aumentare il limite.'
-      ),
-      pt: md(
-        'O número de solicitações é limitado para usuários não autenticados. Por favor, tente novamente mais tarde, ou [faça login](https://intlayer.org/login) para aumentar seu limite.'
-      ),
-      hi: md(
-        'अनुमोदित उपयोगकर्ताओं के लिए अनुरोधों की संख्या सीमित है। कृपया बाद में पुनः प्रयास करें, या [लॉग इन](https://intlayer.org/login) करके सीमा बढ़ाएं।'
-      ),
-      ar: md(
-        'عدد الطلبات محدود للمستخدمين غير المصرح لهم. يرجى المحاولة مرة أخرى لاحقًا، أو [تسجيل الدخول](https://intlayer.org/login) لزيادة الحد.'
-      ),
-      ru: md(
-        'Количество запросов ограничено для неавторизованных пользователей. Пожалуйста, попробуйте снова позже, или [войдите](https://intlayer.org/login) для увеличения лимита.'
-      ),
+      en: 'The number of requests is limited for unauthenticated users. Please try again later, or sign in to increase your limit and unlock better models.',
+      'en-GB':
+        'The number of requests is limited for unauthenticated users. Please try again later, or sign in to increase your limit and unlock better models.',
+      fr: 'Le nombre de requêtes est limité pour les utilisateurs non authentifiés. Veuillez réessayer plus tard, ou connectez-vous pour augmenter votre limite et débloquer de meilleurs modèles.',
+      es: 'El número de solicitudes está limitado para usuarios no autenticados. Por favor, inténtelo de nuevo más tarde, o inicie sesión para aumentar su límite y desbloquear mejores modelos.',
+      de: 'Die Anzahl der Anfragen ist für nicht authentifizierte Benutzer begrenzt. Bitte versuchen Sie es später erneut, oder melden Sie sich an, um Ihre Begrenzung zu erhöhen und bessere Modelle zu entsperren.',
+      ja: '非認証ユーザーのリクエスト数は制限されています。後でもう一度お試しください、またはログインして制限を増やしてください。',
+      ko: '인증되지 않은 사용자의 요청 수는 제한되어 있습니다. 나중에 다시 시도하거나 로그인하여 제한을 늘리세요.',
+      zh: '未认证用户的请求数有限。请稍后再试，或登录以增加您的限制。',
+      it: 'Il numero di richieste è limitato per gli utenti non autenticati. Per favore, riprova più tardi, o accedi per aumentare il limite e sbloccare modelli migliori.',
+      pt: 'O número de solicitações é limitado para usuários não autenticados. Por favor, tente novamente mais tarde, ou faça login para aumentar seu limite e desbloquear modelos melhores.',
+      hi: 'अनुमोदित उपयोगकर्ताओं के लिए अनुरोधों की संख्या सीमित है। कृपया बाद में पुनः प्रयास करें, या लॉग इन करके सीमा बढ़ाएं और बेहतर मॉडल खोलें।',
+      ar: 'عدد الطلبات محدود للمستخدمين غير المصرح لهم. يرجى المحاولة مرة أخرى لاحقًا، أو تسجيل الدخول لزيادة الحد وفتح المزيد من المودلات.',
+      ru: 'Количество запросов ограничено для неавторизованных пользователей. Пожалуйста, попробуйте снова позже, или войдите для увеличения лимита и открытия лучших моделей.',
     }),
+    signInButton: {
+      text: t({
+        en: 'Sign in',
+        'en-GB': 'Sign in',
+        fr: 'Se connecter',
+        es: 'Iniciar sesión',
+        de: 'Anmelden',
+        ja: 'ログイン',
+        ko: '로그인',
+        zh: '登录',
+        it: 'Accedi',
+        pt: 'Fazer login',
+        hi: 'लॉग इन',
+        ar: 'تسجيل الدخول',
+        ru: 'Войти',
+      }),
+      label: t({
+        en: 'Go to login page',
+        'en-GB': 'Go to login page',
+        fr: 'Aller à la page de connexion',
+        es: 'Ir a la página de inicio de sesión',
+        de: 'Zur Anmeldeseite gehen',
+        ja: 'ログインページに移動',
+        ko: '로그인 페이지로 이동',
+        zh: '前往登录页面',
+        it: 'Vai alla pagina di login',
+        pt: 'Ir para a página de login',
+        hi: 'लॉग इन पेज पर जाएं',
+        ar: 'الذهاب إلى صفحة التسجيل',
+        ru: 'Перейти на страницу входа',
+      }),
+    },
   },
 } satisfies Dictionary;
 

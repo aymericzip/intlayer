@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Modal } from '@intlayer/design-system';
+import { Button, Loader, Modal } from '@intlayer/design-system';
 import { Bot } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { lazy, Suspense, useState, type FC } from 'react';
@@ -26,13 +26,7 @@ export const ChatBotModal: FC = () => {
         hasCloseButton
       >
         {isModalOpen && (
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center h-full">
-                Loading...
-              </div>
-            }
-          >
+          <Suspense fallback={<Loader />}>
             <ChatBot />
           </Suspense>
         )}
