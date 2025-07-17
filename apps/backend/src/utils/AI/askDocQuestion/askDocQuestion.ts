@@ -34,7 +34,7 @@ type VectorStoreEl = {
 const vectorStore: VectorStoreEl[] = [];
 
 // Constants defining model and settings
-const MODEL = 'gpt-4o-mini'; // Model to use for chat completions
+const MODEL = 'gpt-4o-latest'; // Model to use for chat completions
 const MODEL_TEMPERATURE = 0.1; // Temperature to use for chat completions
 const EMBEDDING_MODEL = 'text-embedding-3-large'; // Model to use for embedding generation
 const OVERLAP_TOKENS = 200; // Number of tokens to overlap between chunks
