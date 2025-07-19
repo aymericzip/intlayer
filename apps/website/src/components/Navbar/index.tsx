@@ -119,7 +119,7 @@ export const Navbar: FC = () => {
               color="text"
               label={logoutContent.label.value}
               onClick={handleLogOut}
-              className="!rounded-2xl leading-6"
+              className="!rounded-2xl leading-6 flex"
               size="md"
             >
               {logoutContent.title}
@@ -130,7 +130,7 @@ export const Navbar: FC = () => {
               href={login.url.value}
               variant="button"
               color="text"
-              className="!rounded-2xl leading-6"
+              className="!rounded-2xl leading-6 text-center font-medium"
             >
               {login.title}
             </Link>
