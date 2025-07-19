@@ -37,6 +37,7 @@
   "scripts": {
     "build": "next build",
     "build:docker": "docker build -t intlayer-website -f Dockerfile .",
+    "build:turbo": "next build --turbopack",
     "dev": "next dev",
     "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
     "dev:turbo": "next dev --turbopack",
@@ -77,7 +78,7 @@
     "intlayer-editor": "workspace:*",
     "lucide-react": "^0.513.0",
     "markdown-to-jsx": "^7.7.6",
-    "next": "^15.3.5",
+    "next": "^15.4.2",
     "next-intlayer": "workspace:*",
     "next-secure-headers": "^2.2.0",
     "next-themes": "^0.4.6",
