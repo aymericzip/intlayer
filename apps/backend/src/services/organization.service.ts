@@ -1,3 +1,9 @@
+import type {
+  Organization,
+  OrganizationCreationData,
+  OrganizationDocument,
+} from '@/types/organization.types';
+import type { Plan, PlanDocument } from '@/types/plan.types';
 import { OrganizationModel } from '@models/organization.model';
 import { GenericError } from '@utils/errors';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
@@ -6,12 +12,6 @@ import {
   validateOrganization,
 } from '@utils/validation/validateOrganization';
 import type { ObjectId } from 'mongoose';
-import type {
-  Organization,
-  OrganizationCreationData,
-  OrganizationDocument,
-} from '@/types/organization.types';
-import type { Plan, PlanDocument } from '@/types/plan.types';
 
 /**
  * Finds organizations based on filters and pagination options.
@@ -41,21 +41,6 @@ export const getOrganizationById = async (
   if (!organization) {
     throw new GenericError('ORGANIZATION_NOT_FOUND', { organizationId });
   }
-
-  return organization;
-};
-
-/**
- * Retrieves an organization by its owner.
- * @param userId - The ID of the user to find the organization.
- * @returns The organizations matching the user ID.
- */
-export const getOrganizationsByOwner = async (
-  userId: string | ObjectId
-): Promise<OrganizationDocument[] | null> => {
-  const organization = await OrganizationModel.find({
-    creatorId: userId,
-  });
 
   return organization;
 };

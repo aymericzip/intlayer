@@ -1,3 +1,8 @@
+import type {
+  User,
+  UserDocument,
+  UserWithPasswordNotHashed,
+} from '@/types/user.types';
 import { UserModel } from '@models/user.model';
 import { GenericError } from '@utils/errors';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -7,13 +12,6 @@ import {
   validateUser,
 } from '@utils/validation/validateUser';
 import type { ObjectId } from 'mongoose';
-import { hashUserPassword } from './sessionAuth.service';
-import type { SessionProviders } from '@/types/session.types';
-import type {
-  User,
-  UserDocument,
-  UserWithPasswordNotHashed,
-} from '@/types/user.types';
 
 /**
  * Creates a new user with password in the database and hashes the password.
@@ -34,15 +32,7 @@ export const createUser = async (
     });
   }
 
-  let newUser: UserDocument;
-
-  if (user.password) {
-    const userWithHashedPassword = await hashUserPassword(user);
-
-    newUser = await UserModel.create(userWithHashedPassword);
-  } else {
-    newUser = await UserModel.create(user);
-  }
+  const newUser: UserDocument = await UserModel.create(user);
 
   if (!newUser) {
     throw new GenericError('USER_CREATION_FAILED', { userEmail: user.email });
@@ -101,57 +91,6 @@ export const getUsersByIds = async (
   userIds: (string | ObjectId)[]
 ): Promise<UserDocument[] | null> => {
   return await UserModel.find({ _id: { $in: userIds } });
-};
-
-/**
- * Retrieves a user by session token.
- * @param sessionToken - The session token.
- * @returns User object or null if no user was found.
- */
-export const getUserBySession = async (
-  sessionToken: string
-): Promise<UserDocument> => {
-  // Get an user by session token and check if it expired
-  const user = await UserModel.findOne({
-    'session.sessionToken': sessionToken,
-  });
-
-  if (!user) {
-    throw new GenericError('USER_NOT_FOUND', { sessionToken });
-  }
-
-  if (user.session?.expires && user.session.expires < new Date()) {
-    throw new GenericError('USER_SESSION_EXPIRED', {
-      sessionToken,
-      userId: user.id,
-    });
-  }
-
-  return user;
-};
-
-/**
- * Retrieves a user by account.
- * @param provider - The provider of the account.
- * @param providerAccountId - The provider account ID.
- * @returns User object or null if no user was found.
- */
-export const getUserByAccount = async (
-  provider: SessionProviders['provider'],
-  providerAccountId: string
-): Promise<UserDocument> => {
-  const user = await UserModel.findOne({
-    provider: [{ provider, providerAccountId }],
-  });
-
-  if (!user) {
-    throw new GenericError('USER_NOT_FOUND', {
-      provider,
-      providerAccountId,
-    });
-  }
-
-  return user;
 };
 
 /**

@@ -1,5 +1,19 @@
 import { Schema } from 'mongoose';
-import type { Token as TokenType, Client, User } from 'oauth2-server';
+
+type Client = {
+  id: string;
+};
+
+type User = {
+  _id: string;
+};
+
+type TokenType = {
+  accessToken: string;
+  accessTokenExpiresAt: Date;
+  client: Client;
+  user: User;
+};
 
 export type Token = Omit<TokenType, 'client' | 'user'> & {
   clientId: Client['id'];
@@ -17,12 +31,10 @@ export const accessTokenSchema = new Schema<Token>(
     },
     clientId: {
       type: String,
-      ref: 'Project',
       required: true,
     },
     userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: true,
     },
   },

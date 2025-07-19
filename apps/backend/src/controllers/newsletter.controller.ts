@@ -1,7 +1,7 @@
 import type { EmailsList, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as userService from '@services/user.service';
+import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { formatResponse, type ResponseData } from '@utils/responseData';

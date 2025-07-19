@@ -1,4 +1,4 @@
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import type { NextFunction, Request, Response } from 'express';
 import rateLimit from 'express-rate-limit';
 import { ErrorHandler } from './errors';

@@ -1,6 +1,7 @@
+import type { Tag, TagAPI, TagCreationData, TagData } from '@/types/tag.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as tagService from '@services/tag.service';
+import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
@@ -11,13 +12,12 @@ import {
 import { mapTagsToAPI, mapTagToAPI } from '@utils/mapper/tag';
 import {
   formatPaginatedResponse,
-  type ResponseData,
-  type PaginatedResponse,
   formatResponse,
+  type PaginatedResponse,
+  type ResponseData,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { Tag, TagAPI, TagCreationData, TagData } from '@/types/tag.types';
 
 export type GetTagsParams = FiltersAndPagination<TagFiltersParams>;
 export type GetTagsResult = PaginatedResponse<TagAPI>;

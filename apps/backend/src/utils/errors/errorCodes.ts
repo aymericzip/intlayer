@@ -1442,6 +1442,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.TOO_MANY_REQUESTS_429,
   },
+  SESSION_NOT_DEFINED: {
+    title: {
+      en: 'Session not defined',
+      fr: 'Session non définie',
+      es: 'Sesión no definida',
+    },
+    message: {
+      en: 'The session is not defined.',
+      fr: "La session n'est pas définie.",
+      es: 'La sesión no está definida.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

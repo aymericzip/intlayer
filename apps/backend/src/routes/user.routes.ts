@@ -1,7 +1,6 @@
 import type { Routes } from '@/types/Routes';
 import {
   createUser,
-  getUserByAccount,
   getUserByEmail,
   getUserById,
   getUsers,
@@ -42,17 +41,6 @@ export const getUserRoutes = () =>
       url: ({ email }: { email: string }) => `${baseURL}/email/${email}`,
       method: 'GET',
     },
-    getUserByAccount: {
-      urlModel: '/account/:provider/:providerAccountId',
-      url: ({
-        provider,
-        providerAccountId,
-      }: {
-        provider: string;
-        providerAccountId: string;
-      }) => `${baseURL}/account/${provider}/${providerAccountId}`,
-      method: 'GET',
-    },
   }) satisfies Routes;
 
 userRouter.get(getUserRoutes().getUsers.urlModel, getUsers);
@@ -60,4 +48,3 @@ userRouter.put(getUserRoutes().updateUser.urlModel, updateUser);
 userRouter.post(getUserRoutes().createUser.urlModel, createUser);
 userRouter.get(getUserRoutes().getUserById.urlModel, getUserById);
 userRouter.get(getUserRoutes().getUserByEmail.urlModel, getUserByEmail);
-userRouter.get(getUserRoutes().getUserByAccount.urlModel, getUserByAccount);

@@ -1,8 +1,12 @@
+import type {
+  User,
+  UserAPI,
+  UserWithPasswordNotHashed,
+} from '@/types/user.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail } from '@services/email.service';
 import * as userService from '@services/user.service';
+import { type ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
@@ -16,12 +20,6 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { SessionProviders } from '@/types/session.types';
-import type {
-  User,
-  UserAPI,
-  UserWithPasswordNotHashed,
-} from '@/types/user.types';
 
 export type CreateUserBody = { email: string; password?: string };
 export type CreateUserResult = ResponseData<UserAPI>;
@@ -48,7 +46,7 @@ export const createUser = async (
       type: 'welcome',
       to: newUser.email,
       username: newUser.name,
-      loginLink: getSessionAuthRoutes().loginEmailPassword.url,
+      loginLink: `${process.env.CLIENT_URL}/auth/login`,
     });
 
     const formattedUser = mapUserToAPI(newUser);
@@ -172,37 +170,6 @@ export const getUserByEmail = async (
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
-  }
-};
-
-export type GetUserByAccountParams = {
-  providerAccountId: string;
-  provider: SessionProviders['provider'];
-};
-export type GetUserByAccountResult = ResponseData<UserAPI>;
-
-/**
- * Retrieves a user by account.
- */
-export const getUserByAccount = async (
-  req: Request<GetUserByAccountParams>,
-  res: ResponseWithInformation<GetUserByAccountResult>,
-  _next: NextFunction
-): Promise<void> => {
-  const { providerAccountId, provider } = req.params;
-
-  try {
-    const user = await userService.getUserByAccount(
-      provider,
-      providerAccountId
-    );
-
-    const formattedUser = mapUserToAPI(user);
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
-
-    res.json(responseData);
-  } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
   }
 };
 

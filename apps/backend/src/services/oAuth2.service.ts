@@ -1,15 +1,3 @@
-import { randomBytes } from 'crypto';
-import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
-import { ProjectModel } from '@models/project.model';
-import { GenericError } from '@utils/errors';
-import { mapOrganizationToAPI } from '@utils/mapper/organization';
-import { mapProjectToAPI } from '@utils/mapper/project';
-import { mapUserToAPI } from '@utils/mapper/user';
-import { getTokenExpireAt } from '@utils/oAuth2';
-import type { Client, Callback } from 'oauth2-server';
-import type { Token } from '../schemas/oAuth2.schema';
-import { getOrganizationById } from './organization.service';
-import { getUserById } from './user.service';
 import type { OAuth2Token } from '@/types/oAuth2.types';
 import type { Organization } from '@/types/organization.types';
 import type {
@@ -18,6 +6,16 @@ import type {
   ProjectDocument,
 } from '@/types/project.types';
 import type { User, UserDocument } from '@/types/user.types';
+import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
+import { ProjectModel } from '@models/project.model';
+import { GenericError } from '@utils/errors';
+import { mapOrganizationToAPI } from '@utils/mapper/organization';
+import { mapProjectToAPI } from '@utils/mapper/project';
+import { mapUserToAPI } from '@utils/mapper/user';
+import { randomBytes } from 'crypto';
+import type { Token } from '../schemas/oAuth2.schema';
+import { getOrganizationById } from './organization.service';
+import { getUserById } from './user.service';
 
 /**
  * Function to generate client credentials
@@ -291,20 +289,4 @@ export const getUserFromClient = async (
   const user = await getUserById(userId);
 
   return user ?? false;
-};
-
-/**
- * Method to verify the permissions (grants)
- *
- * @param token - The token
- * @param scope - The scope
- * @returns True if the token has the required scope, false otherwise
- */
-export const verifyScope = async (
-  _token: OAuth2Token,
-  _scope: string,
-  _callback?: Callback<boolean> | undefined
-): Promise<boolean> => {
-  // Implement the verification of scopes if necessary
-  return true;
 };

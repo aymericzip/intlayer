@@ -1,10 +1,8 @@
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import type { Token } from '@schemas/oAuth2.schema';
-import * as oAuth2Service from '@services/oAuth2.service';
-import { ErrorHandler } from '@utils/errors';
-import type { Response, Request } from 'express';
 import type { DictionaryAPI } from '@/types/dictionary.types';
 import { logger } from '@logger';
+import type { ResponseWithInformation } from '@utils/auth/getAuth';
+import { ErrorHandler } from '@utils/errors';
+import type { Request, Response } from 'express';
 
 export type Object = 'DICTIONARY';
 export type Status = 'ADDED' | 'UPDATED' | 'DELETED' | 'CREATED';
@@ -60,13 +58,6 @@ export const listenChangeSSE = async (
     return;
   }
 
-  const tokenInformation = await oAuth2Service.getAccessToken(accessToken);
-
-  if (!tokenInformation) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AUTH_ERROR');
-    return;
-  }
-
   if (clients.length >= MAX_SSE_CONNECTIONS) {
     ErrorHandler.handleGenericErrorResponse(res, 'TOO_MANY_CONNECTIONS');
     return;
@@ -87,7 +78,7 @@ export const listenChangeSSE = async (
   // Add client to the list
   const newClient = {
     id: clientId,
-    projectId: String((tokenInformation as unknown as Token).project._id),
+    projectId: String((res.locals.session as any).session.activeProjectId),
     res,
   };
   clients.push(newClient);

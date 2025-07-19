@@ -5,11 +5,12 @@ import type {
   ProjectCreationData,
   ProjectData,
 } from '@/types/project.types';
+import type { User } from '@/types/user.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import { SessionModel } from '@models/session.model';
 import * as projectService from '@services/project.service';
-import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
+import { ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
@@ -28,7 +29,6 @@ import {
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 import type { ObjectId } from 'mongoose';
-import type { User } from 'oauth2-server';
 
 export type GetProjectsParams = FiltersAndPagination<ProjectFiltersParams>;
 export type GetProjectsResult = PaginatedResponse<ProjectAPI>;
@@ -473,8 +473,14 @@ export const deleteProject = async (
   res: ResponseWithInformation<DeleteProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization, project, projectRights, isProjectAdmin } =
-    res.locals;
+  const {
+    user,
+    organization,
+    project,
+    projectRights,
+    isProjectAdmin,
+    session,
+  } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -493,6 +499,11 @@ export const deleteProject = async (
 
   if (!projectRights?.admin) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
+    return;
+  }
+
+  if (!session) {
+    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
     return;
   }
 
@@ -539,7 +550,10 @@ export const deleteProject = async (
       data: formattedProject,
     });
 
-    sessionAuthService.clearProjectAuth(res);
+    await SessionModel.updateOne(
+      { _id: session.session.id },
+      { $set: { activeProjectId: null } }
+    );
 
     res.json(responseData);
     return;
@@ -561,16 +575,25 @@ export const selectProject = async (
   _next: NextFunction
 ) => {
   const { projectId } = req.params;
+  const { session } = res.locals;
 
   if (!projectId) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_NOT_FOUND');
     return;
   }
 
+  if (!session) {
+    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+    return;
+  }
+
   try {
     const project = await projectService.getProjectById(projectId);
 
-    sessionAuthService.setProjectAuth(res, project);
+    await SessionModel.updateOne(
+      { _id: session.session.id },
+      { $set: { activeProjectId: String(projectId) } }
+    );
 
     const responseData = formatResponse<Project>({
       message: t({
@@ -599,13 +622,23 @@ export type UnselectProjectResult = ResponseData<null>;
 /**
  * Unselect a project.
  */
-export const unselectProject = (
+export const unselectProject = async (
   _req: Request,
   res: ResponseWithInformation<UnselectProjectResult>,
   _next: NextFunction
 ) => {
+  const { session } = res.locals;
+
+  if (!session) {
+    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+    return;
+  }
+
   try {
-    sessionAuthService.clearProjectAuth(res);
+    await SessionModel.updateOne(
+      { _id: session.session.id },
+      { $set: { activeProjectId: null } }
+    );
 
     const responseData = formatResponse<null>({
       message: t({
