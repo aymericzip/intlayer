@@ -1,5 +1,4 @@
 import { GridPattern } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
 import { type FC, type PropsWithChildren } from 'react';
 
 export const BackgroundLayout: FC<
@@ -14,9 +13,7 @@ export const BackgroundLayout: FC<
             height={50}
             x={-1}
             y={-1}
-            className={cn(
-              'h-[200vw] [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]'
-            )}
+            className="h-[200vw] [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]"
           />
         </div>
       </div>
