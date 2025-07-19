@@ -143,7 +143,7 @@ export const ChatBot: FC<ChatBotProps> = ({
       onDone: (response: AskDocQuestionResult) => {
         const responseData = 'data' in response ? response.data : response;
 
-        if (!responseData?.response) {
+        if (!responseData) {
           console.error('Invalid response format:', response);
           return;
         }

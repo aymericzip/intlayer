@@ -196,8 +196,13 @@ export const getAiAPI = (
           ...authAPIOptions.headers,
           ...otherOptions.headers,
         },
-        body: JSON.stringify(rest),
+        body: JSON.stringify({
+          ...rest,
+          ...authAPIOptions.body,
+          ...otherOptions.body,
+        }),
         signal: abortController.signal,
+        credentials: 'include',
       });
 
       if (!response.ok) {

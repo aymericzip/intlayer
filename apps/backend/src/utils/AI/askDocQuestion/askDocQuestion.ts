@@ -33,23 +33,29 @@ type VectorStoreEl = {
  */
 const vectorStore: VectorStoreEl[] = [];
 
-// Constants defining model and settings
-const MODEL = 'gpt-4o-latest'; // Model to use for chat completions
-const MODEL_TEMPERATURE = 0.1; // Temperature to use for chat completions
-const EMBEDDING_MODEL = 'text-embedding-3-large'; // Model to use for embedding generation
-const OVERLAP_TOKENS = 200; // Number of tokens to overlap between chunks
-const MAX_CHUNK_TOKENS = 800; // Maximum number of tokens per chunk
-const CHAR_BY_TOKEN = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
-const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
-const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
-const MAX_RELEVANT_CHUNKS_NB = 20; // Maximum number of relevant chunks to attach to chatGPT context
-const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.25; // Minimum similarity required for a chunk to be considered relevant
+/*
+ * Ask question AI configuration
+ */
+const MODEL: AIOptions['model'] = 'chatgpt-4o-latest'; // Model to use for chat completions
+const MODEL_TEMPERATURE: AIOptions['temperature'] = 0.1; // Temperature to use for chat completions
+const MAX_RELEVANT_CHUNKS_NB: number = 20; // Maximum number of relevant chunks to attach to chatGPT context
+const MIN_RELEVANT_CHUNKS_SIMILARITY: number = 0.42; // Minimum similarity required for a chunk to be considered relevant
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
   model: MODEL,
   temperature: MODEL_TEMPERATURE,
 };
+
+/*
+ * Embedding model configuration
+ */
+const EMBEDDING_MODEL: OpenAI.EmbeddingModel = 'text-embedding-3-large'; // Model to use for embedding generation
+const OVERLAP_TOKENS: number = 200; // Number of tokens to overlap between chunks
+const MAX_CHUNK_TOKENS: number = 800; // Maximum number of tokens per chunk
+const CHAR_BY_TOKEN: number = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
+const MAX_CHARS: number = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
+const OVERLAP_CHARS: number = OVERLAP_TOKENS * CHAR_BY_TOKEN;
 
 /**
  * Splits a given text into chunks ensuring each chunk does not exceed MAX_CHARS.
@@ -282,11 +288,19 @@ export const searchChunkReference = async (
     .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
     .slice(0, maxResults); // Select the top 6 most similar documents
 
-  const results = vectorStore.filter((chunk) =>
+  const orderedDocKeys = new Set(selection.map((chunk) => chunk.fileKey));
+
+  const orderedVectorStore = vectorStore.sort((a, b) =>
+    orderedDocKeys.has(a.fileKey) ? -1 : 1
+  );
+
+  const results = orderedVectorStore.filter((chunk) =>
     selection.some(
       (v) => v.fileKey === chunk.fileKey && v.chunkNumber === chunk.chunkNumber
     )
   );
+
+  console.log({ orderedDocKeys });
 
   // Return the content of the top matching documents
   return results;
