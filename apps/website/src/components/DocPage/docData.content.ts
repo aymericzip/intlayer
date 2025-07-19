@@ -175,7 +175,7 @@ const docDataContent: any = {
             ru: 'Объявление контента',
           }),
           default: getDocMetadata('./docs/en/dictionary/get_started.md'),
-          subsections: {
+          subSections: {
             translation: {
               title: t({
                 en: 'Translation',
