@@ -18,7 +18,9 @@ export const getCookieOptions = (
   domain: `.${process.env.DOMAIN}`,
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production', // Enable for HTTPS in production
-  sameSite: 'none',
+  // In production, use 'lax' SameSite policy which allows the cookie to be sent when users navigate to our site from external links
+  // In development, use 'none' to allow cross-site cookie access which is needed for local development across different ports/domains
+  sameSite: process.env.NODE_ENV === 'production' ? 'lax' : 'none',
   priority: 'high',
   ...overwriteOption,
 });
