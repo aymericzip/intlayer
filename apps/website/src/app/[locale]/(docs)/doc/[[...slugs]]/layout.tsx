@@ -23,7 +23,7 @@ export const generateMetadata = async ({
 }: DocPageProps): Promise<Metadata> => {
   const { locale, slugs } = await params;
 
-  const docsData = await getDocMetadataBySlug(slugs, locale, true);
+  const docsData = await getDocMetadataBySlug(['doc', ...slugs], locale, true);
 
   const filteredDocsData = docsData.filter(
     (doc) => doc.slugs.length === slugs.length + 1
