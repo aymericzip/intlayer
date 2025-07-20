@@ -1,16 +1,22 @@
+import type {
+  Organization,
+  OrganizationCreationData,
+} from '@/types/organization.types';
+import type { User } from '@/types/user.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
+import { SessionModel } from '@models/session.model';
 import { sendEmail } from '@services/email.service';
+import * as organizationService from '@services/organization.service';
 import * as projectService from '@services/project.service';
-import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
+
+import { type ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
-  type OrganizationFiltersParams,
   type OrganizationFilters,
+  type OrganizationFiltersParams,
 } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import { getPLanDetails } from '@utils/plan';
 import {
@@ -22,13 +28,7 @@ import {
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 import type { ObjectId } from 'mongoose';
-import type { User } from 'oauth2-server';
 import { Stripe } from 'stripe';
-import * as organizationService from '@/services/organization.service';
-import type {
-  Organization,
-  OrganizationCreationData,
-} from '@/types/organization.types';
 
 export type GetOrganizationsParams =
   FiltersAndPagination<OrganizationFiltersParams>;
@@ -342,7 +342,7 @@ export const addOrganizationMember = async (
       invitedByUsername: user.name,
       invitedByEmail: user.email,
       organizationName: organization.name,
-      inviteLink: getSessionAuthRoutes().loginEmailPassword.url,
+      inviteLink: `${process.env.FRONTEND_URL}/login?email=${newMember.email}`,
       inviteFromIp: req.ip ?? '',
       inviteFromLocation: req.hostname,
     });
@@ -565,8 +565,7 @@ export const deleteOrganization = async (
       data: deletedOrganization,
     });
 
-    sessionAuthService.clearOrganizationAuth(res);
-
+    // No need to update session here, as it's a delete operation
     res.json(responseData);
     return;
   } catch (error) {
@@ -587,9 +586,15 @@ export const selectOrganization = async (
   _next: NextFunction
 ): Promise<void> => {
   const { organizationId } = req.params as Partial<SelectOrganizationParam>;
+  const { session } = res.locals;
 
   if (!organizationId) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_ID_NOT_FOUND');
+    return;
+  }
+
+  if (!session) {
+    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
     return;
   }
 
@@ -597,8 +602,24 @@ export const selectOrganization = async (
     const organization =
       await organizationService.getOrganizationById(organizationId);
 
-    sessionAuthService.setOrganizationAuth(res, organization);
+    // Update session to set activeOrganizationId
+    await SessionModel.updateOne(
+      { _id: session.session.id },
+      {
+        $set: {
+          activeOrganizationId: String(organization._id),
+          activeProjectId: null,
+        },
+      }
+    ).catch((error: unknown) => {
+      // Log the error but don't fail the response
+      logger.warn(
+        'Failed to update session after organization selection:',
+        error
+      );
+    });
 
+    // No need to update session here, as it's a select operation
     const responseData = formatResponse<Organization>({
       message: t({
         en: 'Organization retrieved successfully',
@@ -626,14 +647,35 @@ export type UnselectOrganizationResult = ResponseData<null>;
 /**
  * Unselect an organization.
  */
-export const unselectOrganization = (
+export const unselectOrganization = async (
   _req: Request,
   res: ResponseWithInformation<UnselectOrganizationResult>,
   _next: NextFunction
-): void => {
+): Promise<void> => {
+  const { session } = res.locals;
   try {
-    sessionAuthService.clearOrganizationAuth(res);
-    sessionAuthService.clearProjectAuth(res);
+    // Update session to clear activeOrganizationId and activeProjectId
+
+    if (!session) {
+      ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+      return;
+    }
+
+    await SessionModel.updateOne(
+      { _id: session.session.id },
+      {
+        $set: {
+          activeOrganizationId: null,
+          activeProjectId: null,
+        },
+      }
+    ).catch((error: unknown) => {
+      // Log the error but don't fail the response
+      logger.warn(
+        'Failed to update session after organization unselection:',
+        error
+      );
+    });
 
     const responseData = formatResponse<null>({
       message: t({

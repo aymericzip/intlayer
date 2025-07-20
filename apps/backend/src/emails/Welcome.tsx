@@ -7,11 +7,11 @@ import {
   Hr,
   Html,
   Img,
+  Link,
   Preview,
   Section,
-  Text,
   Tailwind,
-  Link,
+  Text,
 } from '@react-email/components';
 
 export type WelcomeEmailProps = {
@@ -58,11 +58,14 @@ export const WelcomeEmailEN = ({ username, loginLink }: WelcomeEmailProps) => {
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              or copy and paste this URL into your browser:{' '}
-              <Link href={loginLink} className="text-[#E879BA] no-underline">
-                {loginLink}
-              </Link>
+              or copy and paste this URL into your browser:
             </Text>
+            <Link
+              href={loginLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {loginLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               If you have any questions or need help getting started, feel free
@@ -113,11 +116,14 @@ export const WelcomeEmailFR = ({ username, loginLink }: WelcomeEmailProps) => {
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              ou copiez et collez cette URL dans votre navigateur :{' '}
-              <Link href={loginLink} className="text-[#E879BA] no-underline">
-                {loginLink}
-              </Link>
+              ou copiez et collez cette URL dans votre navigateur :
             </Text>
+            <Link
+              href={loginLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {loginLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               Si vous avez des questions ou besoin d'aide pour commencer,
@@ -169,11 +175,14 @@ export const WelcomeEmailES = ({ username, loginLink }: WelcomeEmailProps) => {
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              o copia y pega esta URL en tu navegador:{' '}
-              <Link href={loginLink} className="text-[#E879BA] no-underline">
-                {loginLink}
-              </Link>
+              o copia y pega esta URL en tu navegador:
             </Text>
+            <Link
+              href={loginLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {loginLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               Si tienes preguntas o necesitas ayuda para comenzar, no dudes en

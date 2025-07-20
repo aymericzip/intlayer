@@ -1,5 +1,6 @@
 'use client';
 
+import { getAuthAPI } from '@intlayer/api';
 import { useEffect, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { Button } from '../../Button';
@@ -7,19 +8,19 @@ import { useUser } from '../useUser';
 import { GithubLogo } from './assets/GithubLogo';
 import { GoogleLogo } from './assets/GoogleLogo';
 import { externalsLoginButtonsContent } from './externalsLoginButtons.content';
-import { getIntlayerAPI } from '@intlayer/api';
 
 export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
   onLogin,
 }) => {
   const { user } = useUser();
   const externalsLoginButtons = useDictionary(externalsLoginButtonsContent);
-  const loginWithGitHub = () => {
+  const loginWithGitHub = async () => {
     const origin = window.location.href;
 
-    const authURL = getIntlayerAPI().auth.getLoginWithGitHubURL({ origin });
-
-    window.location.href = authURL;
+    await getAuthAPI().signInSocial({
+      provider: 'github',
+      callbackURL: origin,
+    });
   };
 
   useEffect(() => {
@@ -44,12 +45,13 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
 }) => {
   const { user } = useUser();
   const externalsLoginButtons = useDictionary(externalsLoginButtonsContent);
-  const loginWithGoogle = () => {
+  const loginWithGoogle = async () => {
     const origin = window.location.href;
 
-    const authURL = getIntlayerAPI().auth.getLoginWithGoogleURL({ origin });
-
-    window.location.href = authURL;
+    await getAuthAPI().signInSocial({
+      provider: 'google',
+      callbackURL: origin,
+    });
   };
 
   useEffect(() => {

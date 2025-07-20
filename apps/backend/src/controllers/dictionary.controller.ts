@@ -11,8 +11,8 @@ import type {
   Dictionary as LocalDictionary,
 } from '@intlayer/core';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as dictionaryService from '@services/dictionary.service';
+import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import {

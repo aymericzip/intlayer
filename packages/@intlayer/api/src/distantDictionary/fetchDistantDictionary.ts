@@ -22,20 +22,18 @@ export const fetchDistantDictionary = async (
     }
 
     const dictionaryAPI = getDictionaryAPI(undefined, intlayerConfig);
-    const authAPI = getAuthAPI(undefined, intlayerConfig);
+    const authAPI = getAuthAPI(intlayerConfig);
 
-    const oAuth2TokenResult = await authAPI.getOAuth2AccessToken();
-
-    const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
+    const accessToken = await authAPI.getOAuth2AccessToken();
 
     // Fetch the dictionary
     const getDictionaryResult = await dictionaryAPI.getDictionary(
       dictionaryKey,
       undefined,
       {
-        ...(oAuth2AccessToken && {
+        ...(accessToken && {
           headers: {
-            Authorization: `Bearer ${oAuth2AccessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }),
       }

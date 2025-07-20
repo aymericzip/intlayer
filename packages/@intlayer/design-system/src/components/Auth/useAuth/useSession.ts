@@ -1,8 +1,8 @@
 'use client';
 
 import { getIntlayerAPI } from '@intlayer/api';
-import type { IntlayerConfig } from '@intlayer/config/client';
 import defaultConfiguration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/config/client';
 
 import { useConfiguration } from '@intlayer/editor-react';
 import { useMemo } from 'react';
@@ -30,17 +30,14 @@ export const useSession = (
         const result = await intlayerAPI.auth.getSession();
 
         if (result.data) {
-          const { user, organization, project } = result.data;
+          const user = result.data.user as unknown as Session['user'];
+          const organization = null;
+          const project = null;
 
           const formattedSession: Session = {
             user,
             organization,
-            isOrganizationAdmin:
-              (user && (organization?.adminsIds ?? []).includes(user._id!)) ??
-              false,
             project,
-            isProjectAdmin:
-              (user && (project?.adminsIds ?? []).includes(user._id!)) ?? false,
           };
 
           return formattedSession;

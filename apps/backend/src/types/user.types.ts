@@ -1,5 +1,4 @@
 import type { Document, Model, ObjectId } from 'mongoose';
-import type { Session, SessionProviders } from './session.types';
 
 export interface UserData {
   email: string;
@@ -14,20 +13,18 @@ export enum EmailsList {
 
 export interface User extends UserData {
   _id: ObjectId;
-  provider?: SessionProviders[];
-  customerId?: string;
-  session?: Session;
   emailsList?: {
     [key in EmailsList]: boolean;
   };
-  createdAt: number;
-  updatedAt: number;
+  customerId?: string;
+  emailVerified?: boolean;
+  role?: string;
+  lang?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export interface UserAPI
-  extends Omit<User, 'provider' | 'session' | 'createdAt'> {
-  role: string;
-}
+export type UserAPI = Omit<User, 'provider' | 'session' | 'createdAt'>;
 
 export type UserDocument = Document<unknown, {}, User> & User;
 

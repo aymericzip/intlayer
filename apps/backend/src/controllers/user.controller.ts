@@ -1,8 +1,12 @@
+import type {
+  User,
+  UserAPI,
+  UserWithPasswordNotHashed,
+} from '@/types/user.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
 import { sendEmail } from '@services/email.service';
 import * as userService from '@services/user.service';
+import { type ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
@@ -14,14 +18,8 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
-import type { SessionProviders } from '@/types/session.types';
-import type {
-  User,
-  UserAPI,
-  UserWithPasswordNotHashed,
-} from '@/types/user.types';
 
 export type CreateUserBody = { email: string; password?: string };
 export type CreateUserResult = ResponseData<UserAPI>;
@@ -48,7 +46,7 @@ export const createUser = async (
       type: 'welcome',
       to: newUser.email,
       username: newUser.name,
-      loginLink: getSessionAuthRoutes().loginEmailPassword.url,
+      loginLink: `${process.env.CLIENT_URL}/auth/login`,
     });
 
     const formattedUser = mapUserToAPI(newUser);
@@ -175,37 +173,6 @@ export const getUserByEmail = async (
   }
 };
 
-export type GetUserByAccountParams = {
-  providerAccountId: string;
-  provider: SessionProviders['provider'];
-};
-export type GetUserByAccountResult = ResponseData<UserAPI>;
-
-/**
- * Retrieves a user by account.
- */
-export const getUserByAccount = async (
-  req: Request<GetUserByAccountParams>,
-  res: ResponseWithInformation<GetUserByAccountResult>,
-  _next: NextFunction
-): Promise<void> => {
-  const { providerAccountId, provider } = req.params;
-
-  try {
-    const user = await userService.getUserByAccount(
-      provider,
-      providerAccountId
-    );
-
-    const formattedUser = mapUserToAPI(user);
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
-
-    res.json(responseData);
-  } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-  }
-};
-
 export type UpdateUserBody = Partial<User>;
 export type UpdateUserResult = ResponseData<UserAPI>;
 
@@ -296,4 +263,61 @@ export const deleteUser = async (
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
+};
+
+let clients: Array<{ id: number; userId: string; res: Response }> = [];
+
+export const sendVerificationUpdate = (user: User) => {
+  const filteredClients = clients.filter(
+    (client) => String(client.userId) === String(user._id)
+  );
+
+  for (const client of filteredClients) {
+    client.res.write(
+      `data: ${JSON.stringify({ userId: user._id, status: 'verified' })}\n\n`
+    );
+  }
+};
+
+export type VerifyEmailStatusSSEParams = { userId: string };
+
+/**
+ * SSE to check the email verification status
+ */
+export const verifyEmailStatusSSE = async (
+  req: Request<VerifyEmailStatusSSEParams, any, any>,
+  res: ResponseWithInformation
+) => {
+  // Set headers for SSE
+  res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no'); // For Nginx buffering
+
+  // Send initial data to ensure the connection is open
+  res.write(':\n\n'); // Comment to keep connection alive
+  res.flushHeaders();
+
+  const { userId } = req.params; // Get user ID from query parameters
+  const clientId = Date.now();
+
+  const user = await userService.getUserById(userId);
+
+  if (!user) {
+    logger.error(`User not found - User ID: ${userId}`);
+    res.write(`data: ${JSON.stringify({ userId, status: 'error' })}\n\n`);
+    res.end();
+    return;
+  }
+
+  // Add client to the list
+  const newClient = { id: clientId, userId, res };
+  clients.push(newClient);
+
+  sendVerificationUpdate(user);
+
+  // Remove client on connection close
+  req.on('close', () => {
+    clients = clients.filter((client) => client.id !== clientId);
+  });
 };

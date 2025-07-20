@@ -26,57 +26,58 @@ export const getProjectRoutes = () =>
   ({
     getProjects: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'GET',
     },
     addProject: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'POST',
     },
     updateProject: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'PUT',
     },
     updateProjectMembers: {
       urlModel: '/members',
-      url: `${process.env.CLIENT_URL}/api/members`,
+      url: `${baseURL()}/members`,
       method: 'PUT',
     },
     pushProjectConfiguration: {
       urlModel: '/configuration',
-      url: `${process.env.CLIENT_URL}/api/configuration`,
+      url: `${baseURL()}/configuration`,
       method: 'PUT',
     },
     deleteProject: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'DELETE',
     },
     selectProject: {
       urlModel: '/:projectId',
-      url: ({ projectId }: { projectId: string }) => `${baseURL}/${projectId}`,
+      url: ({ projectId }: { projectId: string }) =>
+        `${baseURL()}/${projectId}`,
       method: 'PUT',
     },
     unselectProject: {
       urlModel: '/logout',
-      url: `${baseURL}/logout`,
+      url: `${baseURL()}/logout`,
       method: 'POST',
     },
     addNewAccessKey: {
       urlModel: '/access_key',
-      url: `${baseURL}/access_key`,
+      url: `${baseURL()}/access_key`,
       method: 'POST',
     },
     refreshAccessKey: {
       urlModel: '/access_key',
-      url: `${baseURL}/access_key`,
+      url: `${baseURL()}/access_key`,
       method: 'PATCH',
     },
     deleteAccessKey: {
       urlModel: '/access_key',
-      url: `${baseURL}/access_key`,
+      url: `${baseURL()}/access_key`,
       method: 'DELETE',
     },
   }) satisfies Routes;

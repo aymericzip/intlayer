@@ -63,10 +63,6 @@ export const userSchema = new Schema<User>(
       type: String,
       maxlength: 20,
     },
-    session: {
-      type: SessionSchema,
-      required: false,
-    },
 
     customerId: {
       type: String,
@@ -80,12 +76,6 @@ export const userSchema = new Schema<User>(
           default: false,
         },
       },
-      required: false,
-    },
-
-    provider: {
-      type: [ProviderSchema],
-      default: undefined,
       required: false,
     },
   },

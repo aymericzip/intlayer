@@ -21,7 +21,7 @@ export const fetchDistantDictionaries = async (
   const appLogger = getAppLogger(config);
   try {
     const { clientId, clientSecret } = config.editor;
-    const authAPI = getAuthAPI(undefined, config);
+    const authAPI = getAuthAPI(config);
     const dictionaryAPI = getDictionaryAPI(undefined, config);
 
     if (!clientId || !clientSecret) {

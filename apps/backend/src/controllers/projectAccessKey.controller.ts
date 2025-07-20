@@ -1,10 +1,10 @@
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
+import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { type ResponseData, formatResponse } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 
 export type AddNewAccessKeyBody = AccessKeyData;
 export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;

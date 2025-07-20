@@ -1,7 +1,7 @@
 'use client';
 
 import type { UserAPI } from '@intlayer/backend';
-import { useState, type FC } from 'react';
+import { type FC, useState } from 'react';
 import {
   useAskResetPassword,
   useChangePassword,
@@ -51,8 +51,8 @@ export const AuthModal: FC<AuthModalProps> = ({
       email,
       password,
     }).then(async (response) => {
-      if (response?.data) {
-        await onSignInSuccess?.(response.data);
+      if (response?.data?.user) {
+        await onSignInSuccess?.(response.data as unknown as UserAPI);
       }
     });
 
@@ -60,16 +60,17 @@ export const AuthModal: FC<AuthModalProps> = ({
     await register({
       email,
       password,
+      name: email.split('@')[0],
     }).then(async (response) => {
       if (response?.data) {
-        await onSignUpSuccess?.(response.data);
+        await onSignUpSuccess?.(response.data as unknown as UserAPI);
       }
     });
 
   const onSubmitResetPasswordSuccess = async ({ email }: ResetPassword) =>
-    await askResetPassword(email).then(async (response) => {
+    await askResetPassword({ email }).then(async (response) => {
       if (response?.data) {
-        await onResetPasswordSuccess?.(response.data);
+        await onResetPasswordSuccess?.(response.data as unknown as UserAPI);
       }
     });
 
@@ -78,11 +79,11 @@ export const AuthModal: FC<AuthModalProps> = ({
     newPassword,
   }: ChangePassword) =>
     await changePassword({
-      oldPassword: currentPassword,
+      currentPassword,
       newPassword,
     }).then(async (response) => {
       if (response?.data) {
-        await onChangePasswordSuccess?.(response.data);
+        await onChangePasswordSuccess?.(response.data as unknown as UserAPI);
       }
     });
 

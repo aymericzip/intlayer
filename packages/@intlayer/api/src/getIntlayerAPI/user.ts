@@ -13,6 +13,7 @@ import type {
   GetUsersResult,
   UpdateUserBody,
   UpdateUserResult,
+  UserAPI,
 } from '../types';
 
 import { fetcher, type FetcherOptions } from '../fetcher';
@@ -152,6 +153,14 @@ export const getUserAPI = (
       }
     );
 
+  /**
+   * Gets the verify email status URL to use in the SSE.
+   * @param userId - User ID.
+   * @returns The verify email status URL.
+   */
+  const getVerifyEmailStatusURL = (userId: string | UserAPI['_id']) =>
+    `${USER_API_ROUTE}/verify-email-status/${String(userId)}`;
+
   return {
     createUser,
     getUsers,
@@ -160,5 +169,6 @@ export const getUserAPI = (
     getUserByEmail,
     updateUser,
     deleteUser,
+    getVerifyEmailStatusURL,
   };
 };

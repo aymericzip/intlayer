@@ -2,13 +2,13 @@ import { logger } from '@logger';
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import { UserModel } from '@models/user.model';
-import { getAuthModel, authenticateOptions } from '@utils/oAuth2';
+import { ResponseWithInformation } from '@utils/auth/getAuth';
+import { authenticateOptions, getAuthModel } from '@utils/oAuth2';
 import type { NextFunction, Request, Response } from 'express';
 import OAuth2Server, {
   Request as OAuthRequest,
   Response as OAuthResponse,
 } from 'oauth2-server';
-import type { ResponseWithInformation } from './sessionAuth.middleware';
 
 // Configuration of the OAuth server
 const oauth = new OAuth2Server({

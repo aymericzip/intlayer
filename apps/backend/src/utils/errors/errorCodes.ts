@@ -1442,6 +1442,45 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.TOO_MANY_REQUESTS_429,
   },
+  SESSION_NOT_DEFINED: {
+    title: {
+      en: 'Session not defined',
+      fr: 'Session non définie',
+      es: 'Sesión no definida',
+    },
+    message: {
+      en: 'The session is not defined.',
+      fr: "La session n'est pas définie.",
+      es: 'La sesión no está definida.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  INVALID_OAUTH_GRANT_TYPE: {
+    title: {
+      en: 'Invalid OAuth grant type',
+      fr: 'Type de grant OAuth invalide',
+      es: 'Tipo de grant OAuth inválido',
+    },
+    message: {
+      en: 'The grant type is invalid.',
+      fr: 'Le type de grant est invalide.',
+      es: 'El tipo de grant es inválido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  INVALID_OAUTH_CLIENT: {
+    title: {
+      en: 'Invalid OAuth client',
+      fr: 'Client OAuth invalide',
+      es: 'Cliente OAuth inválido',
+    },
+    message: {
+      en: 'The client is invalid.',
+      fr: 'Le client est invalide.',
+      es: 'El cliente es inválido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

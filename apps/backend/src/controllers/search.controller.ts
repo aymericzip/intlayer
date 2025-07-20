@@ -1,5 +1,5 @@
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
+import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { Request } from 'express';
 

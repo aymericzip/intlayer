@@ -1,8 +1,3 @@
-import { ProjectModel } from '@models/project.model';
-import { GenericError } from '@utils/errors';
-import type { ObjectId } from 'mongoose';
-import { generateClientCredentials } from './oAuth2.service';
-import { getProjectById } from './project.service';
 import type {
   AccessKeyData,
   OAuth2Access,
@@ -12,6 +7,17 @@ import type {
   TokenRights,
 } from '@/types/project.types';
 import type { User } from '@/types/user.types';
+import { ProjectModel } from '@models/project.model';
+import { GenericError } from '@utils/errors';
+import type { ObjectId } from 'mongoose';
+import { getProjectById } from './project.service';
+
+const generateClientCredentials = () => {
+  return {
+    clientId: crypto.randomUUID(),
+    clientSecret: crypto.randomUUID(),
+  };
+};
 
 /**
  * Adds a new access key to a project.

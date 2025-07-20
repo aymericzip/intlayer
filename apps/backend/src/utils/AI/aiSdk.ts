@@ -3,7 +3,7 @@ import { createDeepSeek, deepseek } from '@ai-sdk/deepseek';
 import { createGoogleGenerativeAI, google } from '@ai-sdk/google';
 import { createMistral, mistral } from '@ai-sdk/mistral';
 import { createOpenAI, openai } from '@ai-sdk/openai';
-import { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import { ResponseWithInformation } from '@utils/auth/getAuth';
 import { CoreMessage, generateText } from 'ai';
 
 type AnthropicModel = Parameters<typeof anthropic>[0];

@@ -306,7 +306,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
   let oAuth2AccessToken: string | undefined;
   if (configuration.editor.clientId) {
-    const intlayerAuthAPI = getAuthAPI(undefined, configuration);
+    const intlayerAuthAPI = getAuthAPI(configuration);
     const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
 
     oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;

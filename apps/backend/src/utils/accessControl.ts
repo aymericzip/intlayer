@@ -1,5 +1,5 @@
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import type { NextFunction, Request } from 'express';
 import { HttpStatusCodes } from './httpStatusCodes';
 

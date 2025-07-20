@@ -21,11 +21,8 @@ export const fetchDistantDictionaries = async (
     }
 
     const dictionaryAPI = getDictionaryAPI(undefined, intlayerConfig);
-    const authAPI = getAuthAPI(undefined, intlayerConfig);
-
-    const oAuth2TokenResult = await authAPI.getOAuth2AccessToken();
-
-    const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
+    const authAPI = getAuthAPI(intlayerConfig);
+    const oAuth2AccessToken = await authAPI.getOAuth2AccessToken();
 
     // Fetch the dictionary
     const getDictionaryResult = await dictionaryAPI.getDictionaries(undefined, {

@@ -21,7 +21,8 @@ export const connectDB = async () => {
     await TagModel.createIndexes();
     await DictionaryModel.createIndexes();
 
-    return client;
+    // Return the underlying MongoDB client for better-auth
+    return client.connection.getClient();
   } catch (error) {
     const errorMessage = `MongoDB connection error - ${(error as Error).message}`;
 

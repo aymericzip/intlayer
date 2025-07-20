@@ -14,7 +14,10 @@ export const getServerSession = async () => {
     const { data } = await getAuthAPI().getSession(session_token.value);
 
     const session: Session = {
-      user: data?.user ?? null,
+      user: {
+        _id: data?.user?.id,
+        ...data?.user,
+      } as unknown as Session['user'],
       organization: null,
       project: null,
       isOrganizationAdmin: false,
