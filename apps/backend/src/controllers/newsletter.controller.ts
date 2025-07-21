@@ -51,7 +51,7 @@ export const subscribeToNewsletter = async (
       logger.info(`New user created and subscribed to newsletter: ${email}`);
     } else {
       // Update existing user's newsletter subscription
-      user = await userService.updateUserById(user._id, {
+      user = await userService.updateUserById(user.id, {
         emailsList: { ...user.emailsList, ...emailsListObject },
       });
 
@@ -120,7 +120,7 @@ export const unsubscribeFromNewsletter = async (
     ) as Record<EmailsList, boolean>;
 
     // Update user's newsletter subscription to false
-    const updatedUser = await userService.updateUserById(user._id, {
+    const updatedUser = await userService.updateUserById(user.id, {
       emailsList: { ...user.emailsList, ...emailsListObject },
     });
 

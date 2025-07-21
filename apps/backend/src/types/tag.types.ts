@@ -1,4 +1,4 @@
-import type { ObjectId, Document, Model } from 'mongoose';
+import type { Document, Model, Schema } from 'mongoose';
 import type { Organization } from './organization.types';
 import type { User } from './user.types';
 
@@ -14,12 +14,12 @@ export type TagData = {
   name?: string;
   description?: string;
   instructions?: string;
-  creatorId: User['_id'];
-  organizationId: Organization['_id'];
+  creatorId: User['id'];
+  organizationId: Organization['id'];
 };
 
 export type Tag = TagData & {
-  _id: ObjectId;
+  id: Schema.Types.ObjectId;
   createdAt: number;
   updatedAt: number;
 };

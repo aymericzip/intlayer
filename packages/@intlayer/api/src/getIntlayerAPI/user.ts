@@ -158,7 +158,7 @@ export const getUserAPI = (
    * @param userId - User ID.
    * @returns The verify email status URL.
    */
-  const getVerifyEmailStatusURL = (userId: string | UserAPI['_id']) =>
+  const getVerifyEmailStatusURL = (userId: string | UserAPI['id']) =>
     `${USER_API_ROUTE}/verify-email-status/${String(userId)}`;
 
   return {

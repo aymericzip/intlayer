@@ -46,7 +46,7 @@ export const getTags = async (
 
   const restrictedFilter: TagFilters = {
     ...filters,
-    organizationId: String(organization._id),
+    organizationId: String(organization.id),
   };
 
   try {
@@ -107,8 +107,8 @@ export const addTag = async (
   }
 
   const tag: TagData = {
-    creatorId: user._id,
-    organizationId: organization._id,
+    creatorId: user.id,
+    organizationId: organization.id,
     ...tagData,
   };
 
@@ -139,7 +139,7 @@ export const addTag = async (
   }
 };
 
-export type UpdateTagParams = { tagId: string | Tag['_id'] };
+export type UpdateTagParams = { tagId: string | Tag['id'] };
 export type UpdateTagBody = Partial<TagData>;
 export type UpdateTagResult = ResponseData<TagAPI>;
 
@@ -166,7 +166,7 @@ export const updateTag = async (
 
   try {
     const tag = {
-      _id: tagId as TagAPI['_id'],
+      id: tagId as TagAPI['id'],
       name: req.body.name,
       key: req.body.key,
       description: req.body.description,
@@ -175,12 +175,12 @@ export const updateTag = async (
 
     const tagToDelete = await tagService.getTagById(tagId);
 
-    if (String(tagToDelete.organizationId) !== String(organization._id)) {
+    if (String(tagToDelete.organizationId) !== String(organization.id)) {
       ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
       return;
     }
 
-    const updatedTag = await tagService.updateTagById(tag._id, tag);
+    const updatedTag = await tagService.updateTagById(tag.id, tag);
 
     const formattedTag = mapTagToAPI(updatedTag);
 
@@ -206,7 +206,7 @@ export const updateTag = async (
   }
 };
 
-export type DeleteTagParams = { tagId: string | Tag['_id'] };
+export type DeleteTagParams = { tagId: string | Tag['id'] };
 export type DeleteTagResult = ResponseData<TagAPI>;
 
 /**
@@ -241,7 +241,7 @@ export const deleteTag = async (
   try {
     const tagToDelete = await tagService.getTagById(tagId);
 
-    if (String(tagToDelete.organizationId) !== String(organization._id)) {
+    if (String(tagToDelete.organizationId) !== String(organization.id)) {
       ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
       return;
     }
@@ -256,7 +256,7 @@ export const deleteTag = async (
       return;
     }
 
-    logger.info(`Tag deleted: ${String(deletedTag._id)}`);
+    logger.info(`Tag deleted: ${String(deletedTag.id)}`);
 
     const formattedTag = mapTagToAPI(deletedTag);
 

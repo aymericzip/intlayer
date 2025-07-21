@@ -1,5 +1,6 @@
+import type { Tag } from '@/types/tag.types';
 import { tagSchema } from '@schemas/tag.schema';
-import { model } from 'mongoose';
-import type { Tag, TagModelType } from '@/types/tag.types';
+import { RenameId } from '@schemas/user.schema';
+import { Model, model } from 'mongoose';
 
-export const TagModel = model<Tag, TagModelType>('tag', tagSchema);
+export const TagModel = model<RenameId<Tag>, Model<Tag>>('tag', tagSchema);

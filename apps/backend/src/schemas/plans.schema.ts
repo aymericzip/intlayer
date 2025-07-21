@@ -1,8 +1,13 @@
-import { Schema } from 'mongoose';
 import type { Plan } from '@/types/plan.types';
+import { Schema } from 'mongoose';
+import { RenameId } from './user.schema';
 
-export const planSchema = new Schema<Plan>(
+export const planSchema = new Schema<RenameId<Plan>>(
   {
+    _id: {
+      type: Schema.Types.ObjectId,
+      alias: 'id',
+    },
     type: {
       type: String,
       required: true,
@@ -48,5 +53,21 @@ export const planSchema = new Schema<Plan>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret.id.toString(); // or rely on the virtual
+        delete ret.id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret.id.toString();
+        delete ret.id;
+      },
+    },
   }
 );

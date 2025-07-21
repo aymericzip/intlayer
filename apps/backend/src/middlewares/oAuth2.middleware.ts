@@ -75,7 +75,7 @@ export const authenticateOAuth2 = async (
     res.locals.isProjectAdmin = projectRights?.admin ?? false;
     res.locals.dictionaryRights = dictionaryRights;
 
-    const user = await UserModel.findById(oAuthToken.user._id);
+    const user = await UserModel.findById(oAuthToken.user.id);
 
     if (user) {
       res.locals.user = user;
@@ -83,13 +83,13 @@ export const authenticateOAuth2 = async (
     }
 
     const organization = await OrganizationModel.findById(
-      oAuthToken.organization._id
+      oAuthToken.organization.id
     );
 
     if (organization) {
       res.locals.organization = organization;
     }
-    const project = await ProjectModel.findById(oAuthToken.project._id);
+    const project = await ProjectModel.findById(oAuthToken.project.id);
 
     if (project) {
       res.locals.project = project;

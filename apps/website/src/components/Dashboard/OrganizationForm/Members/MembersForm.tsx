@@ -6,17 +6,17 @@ import type {
   UserAPI,
 } from '@intlayer/backend';
 import {
-  useForm,
   Form,
-  useAuth,
-  MultiSelect,
   H3,
   Loader,
+  MultiSelect,
+  useAuth,
+  useForm,
 } from '@intlayer/design-system';
 import {
-  useUpdateOrganizationMembers,
-  useGetUsers,
   useAddOrganizationMember,
+  useGetUsers,
+  useUpdateOrganizationMembers,
 } from '@intlayer/design-system/hooks';
 import { X } from 'lucide-react';
 import type { ObjectId } from 'mongoose';
@@ -24,8 +24,8 @@ import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import { RemoveMemberModal } from './RemoveMemberModal';
 import {
-  type OrganizationMembersFormData,
   useOrganizationMembersSchema,
+  type OrganizationMembersFormData,
 } from './useMembersFormSchema';
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
 
@@ -90,9 +90,9 @@ export const MembersForm: FC = () => {
     }
   }, [getUsers, organization]);
 
-  const getUserName = (memberId: UserAPI['_id'] | string) => {
+  const getUserName = (memberId: UserAPI['id'] | string) => {
     const user = usersResponse?.data?.find(
-      (user) => String(user._id) === String(memberId)
+      (user) => String(user.id) === String(memberId)
     );
     return user?.name ?? user?.email ?? String(memberId);
   };

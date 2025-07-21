@@ -1,13 +1,10 @@
 'use client';
 
 import { PagesRoutes } from '@/Routes';
-import {
-  SignInForm as SignInFormUI,
-  type SignIn,
-} from '@intlayer/design-system';
 import { useLogin } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { type FC } from 'react';
+import { SignInForm as SignInFormUI, type SignIn } from './SignInForm/index';
 
 export const SignInForm: FC<{
   callbackUrl?: number;
@@ -15,13 +12,12 @@ export const SignInForm: FC<{
   const router = useRouter();
   const { login } = useLogin();
 
-  const onSubmitSuccess = async ({ email, password }: SignIn) => {
+  const onSubmitSuccess = async ({ email, password, rememberMe }: SignIn) => {
     await login({
-      body: {
-        email,
-        password,
-        resizeTo: callbackUrl ?? window.innerWidth,
-      },
+      email,
+      password,
+      rememberMe,
+      resizeTo: callbackUrl ?? window.innerWidth,
     });
   };
 

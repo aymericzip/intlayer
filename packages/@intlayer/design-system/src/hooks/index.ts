@@ -1,5 +1,6 @@
 export * from './intlayerAPIHooks';
 export * from './useAsync';
+export * from './useAuth';
 export * from './useDevice';
 export * from './useGetAllDictionaries';
 export * from './useGetElementOrWindow';
@@ -11,3 +12,4 @@ export * from './usePersistedStore';
 export * from './useScreenWidth';
 export * from './useScrollBlockage';
 export * from './useScrollDetection';
+export * from './useUser';

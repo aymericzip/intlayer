@@ -6,46 +6,19 @@ import {
 import { Schema } from 'mongoose';
 import validator from 'validator';
 
-const SessionSchema = new Schema(
-  {
-    sessionToken: {
-      type: String,
-      required: true,
-    },
-    expires: {
-      type: Date,
-      required: true,
-    },
-  },
-  { _id: false } // This prevents Mongoose from creating an _id field for the session subdocument
-);
+export type RenameId<T extends { id: Schema.Types.ObjectId }> = Omit<
+  T,
+  'id'
+> & {
+  _id: T['id'];
+};
 
-const ProviderSchema = new Schema(
+export const userSchema = new Schema<RenameId<User>>(
   {
-    provider: {
-      type: String,
-      required: true,
+    _id: {
+      type: Schema.Types.ObjectId,
+      alias: 'id',
     },
-    providerAccountId: {
-      type: String,
-    },
-    secret: {
-      type: String,
-      maxlength: 1024,
-      minlength: 6,
-    },
-    emailValidated: {
-      type: String,
-    },
-    passwordHash: {
-      type: String,
-    },
-  },
-  { _id: false } // This prevents Mongoose from creating an _id field for the session subdocument
-);
-
-export const userSchema = new Schema<User>(
-  {
     email: {
       type: String,
       required: true,
@@ -81,5 +54,21 @@ export const userSchema = new Schema<User>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret.id.toString(); // or rely on the virtual
+        delete ret.id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret.id.toString();
+        delete ret.id;
+      },
+    },
   }
 );

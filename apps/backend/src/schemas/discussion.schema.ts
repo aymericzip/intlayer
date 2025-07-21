@@ -1,7 +1,8 @@
 import type { Discussion } from '@/types/discussion.types';
 import { Schema } from 'mongoose';
+import { RenameId } from './user.schema';
 
-export const discussionSchema = new Schema<Discussion>(
+export const discussionSchema = new Schema<RenameId<Discussion>>(
   {
     discutionId: {
       type: String,
@@ -51,5 +52,21 @@ export const discussionSchema = new Schema<Discussion>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret.id.toString(); // or rely on the virtual
+        delete ret.id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret.id.toString();
+        delete ret.id;
+      },
+    },
   }
 );

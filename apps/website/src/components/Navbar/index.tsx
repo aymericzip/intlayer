@@ -1,16 +1,16 @@
 'use client';
 
-import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
 import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
+import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import {
   Avatar,
   Button,
   LogoWithText,
   Navbar as UINavBar,
-  useUser,
 } from '@intlayer/design-system';
+import { useUser } from '@intlayer/design-system/hooks';
 import { StarIcon } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import dynamic from 'next/dynamic';

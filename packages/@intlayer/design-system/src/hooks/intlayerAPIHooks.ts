@@ -2,14 +2,12 @@
 
 import type { IntlayerAPI } from '@intlayer/api';
 import { useConfiguration } from '@intlayer/editor-react';
-import { useAuth } from '../components/Auth/useAuth/index';
 import { useToast } from '../components/Toaster';
 import { type UseAsyncOptions, useAsync } from './useAsync/useAsync';
+import { useAuth } from './useAuth';
 import { useIntlayerAuth } from './useIntlayerAPI';
 
-const formatErrorCode = (errorCode: string) => {
-  return errorCode.split('_').join(' ');
-};
+const formatErrorCode = (errorCode: string) => errorCode.split('_').join(' ');
 
 /**
  *  Hook to handle error logging and toast notifications
@@ -148,7 +146,7 @@ const useEditorAsync = <
 export const useLogin = (
   args?: UseAsyncOptions<IntlayerAPI['auth']['signInEmail']>
 ) =>
-  useAppAsync('login', useIntlayerAuth().auth.signInEmail, {
+  useAppAsync('login', useIntlayerAuth().auth.signInEmail(), {
     invalidateQueries: ['getSession'],
     ...args,
   });
@@ -188,11 +186,11 @@ export const useAskResetPassword = (
   );
 
 export const useDefineNewPassword = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['resetPasswordSession']>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['changePasswordSession']>
 ) =>
   useAppAsync(
     'defineNewPassword',
-    useIntlayerAuth().auth.resetPasswordSession,
+    useIntlayerAuth().auth.changePasswordSession,
     args
   );
 

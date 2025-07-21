@@ -1,5 +1,5 @@
-import { userSchema } from '@schemas/user.schema';
-import { model } from 'mongoose';
-import type { User, UserModelType } from '@/types/user.types';
+import type { User } from '@/types/user.types';
+import { RenameId, userSchema } from '@schemas/user.schema';
+import { Model, model } from 'mongoose';
 
-export const UserModel = model<User, UserModelType>('user', userSchema);
+export const UserModel = model<RenameId<User>, Model<User>>('user', userSchema);

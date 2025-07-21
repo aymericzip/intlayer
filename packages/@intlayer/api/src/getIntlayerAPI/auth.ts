@@ -4,7 +4,7 @@ import { createAuthClient } from 'better-auth/client';
 import { FetcherOptions, fetcher } from '../fetcher';
 import { GetOAuth2TokenBody, GetOAuth2TokenResult } from '../types';
 
-export const getAuthAPI = (intlayerConfig?: IntlayerConfig): any => {
+export const getAuthAPI = (intlayerConfig?: IntlayerConfig) => {
   const backendURL =
     intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
   const { clientId, clientSecret } = intlayerConfig?.editor ?? {};

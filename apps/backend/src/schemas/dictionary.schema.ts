@@ -1,5 +1,6 @@
-import { Schema } from 'mongoose';
 import type { Dictionary, VersionedContentEl } from '@/types/dictionary.types';
+import { Schema } from 'mongoose';
+import { RenameId } from './user.schema';
 
 const versionedContentElSchema = new Schema<VersionedContentEl>(
   {
@@ -19,8 +20,12 @@ const versionedContentElSchema = new Schema<VersionedContentEl>(
   }
 );
 
-export const dictionarySchema = new Schema<Dictionary>(
+export const dictionarySchema = new Schema<RenameId<Dictionary>, Dictionary>(
   {
+    _id: {
+      type: Schema.Types.ObjectId,
+      alias: 'id',
+    },
     projectIds: {
       type: [Schema.Types.ObjectId],
       ref: 'Project',
@@ -61,5 +66,21 @@ export const dictionarySchema = new Schema<Dictionary>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret.id.toString(); // or rely on the virtual
+        delete ret.id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret.id.toString();
+        delete ret.id;
+      },
+    },
   }
 );

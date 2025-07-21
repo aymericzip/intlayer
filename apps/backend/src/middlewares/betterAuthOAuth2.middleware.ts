@@ -98,10 +98,7 @@ export const handleOAuth2Token = async (
     }
 
     // Create access token
-    const tokenData = await createOAuth2AccessToken(
-      client_id,
-      String(user._id)
-    );
+    const tokenData = await createOAuth2AccessToken(client_id, String(user.id));
 
     if (!tokenData) {
       throw new GenericError('AUTH_ERROR');

@@ -134,6 +134,7 @@ const startServer = async () => {
   // Auth
   const auth = getAuth(dbClient);
   app.all('/api/auth/{*any}', toNodeHandler(auth));
+
   app.use(/(.*)/, async (req, res, next) => {
     const session = await auth.api.getSession({
       headers: fromNodeHeaders(req.headers),
@@ -141,17 +142,7 @@ const startServer = async () => {
 
     res.locals.session = session;
 
-    console.log(session);
-
     next();
-  });
-
-  app.get('/api/me', async (req, res) => {
-    const session = await auth.api.getSession({
-      headers: fromNodeHeaders(req.headers),
-    });
-
-    res.json(session);
   });
 
   // Routes

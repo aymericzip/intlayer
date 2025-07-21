@@ -198,10 +198,10 @@ export const updateUser = async (
   }
 
   try {
-    const updatedUser = await userService.updateUserById(user._id, userData);
+    const updatedUser = await userService.updateUserById(user.id, userData);
 
     logger.info(
-      `User updated: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
+      `User updated: Name: ${updatedUser.name}, id: ${String(updatedUser.id)}`
     );
 
     const formattedUser = mapUserToAPI(updatedUser);
@@ -269,13 +269,15 @@ let clients: Array<{ id: number; userId: string; res: Response }> = [];
 
 export const sendVerificationUpdate = (user: User) => {
   const filteredClients = clients.filter(
-    (client) => String(client.userId) === String(user._id)
+    (client) => String(client.userId) === String(user.id)
   );
 
   for (const client of filteredClients) {
-    client.res.write(
-      `data: ${JSON.stringify({ userId: user._id, status: 'verified' })}\n\n`
-    );
+    if (user.emailVerified) {
+      client.res.write(
+        `data: ${JSON.stringify({ userId: user.id, status: 'verified' })}\n\n`
+      );
+    }
   }
 };
 

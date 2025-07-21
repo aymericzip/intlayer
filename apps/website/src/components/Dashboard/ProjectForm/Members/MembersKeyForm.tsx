@@ -2,12 +2,12 @@
 
 import type { UpdateProjectMembersBody, UserAPI } from '@intlayer/backend';
 import {
-  useForm,
   Form,
-  useAuth,
-  MultiSelect,
   H3,
   Loader,
+  MultiSelect,
+  useAuth,
+  useForm,
 } from '@intlayer/design-system';
 import {
   useGetUsers,
@@ -16,15 +16,12 @@ import {
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import {
-  type ProjectMembersFormData,
   useProjectMembersSchema,
+  type ProjectMembersFormData,
 } from './useMembersFormSchema';
 
-const getUserNames = (
-  users: UserAPI[],
-  id: UserAPI['_id'] | string
-): string => {
-  const user = users.find((user) => String(user._id) === String(id));
+const getUserNames = (users: UserAPI[], id: UserAPI['id'] | string): string => {
+  const user = users.find((user) => String(user.id) === String(id));
   return user?.name ?? user?.email ?? String(id);
 };
 

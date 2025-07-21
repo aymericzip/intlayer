@@ -1,4 +1,4 @@
-import type { User, UserAPI } from '@/types/user.types';
+import type { UserAPI, UserModel } from '@/types/user.types';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 
 /**
@@ -6,7 +6,7 @@ import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject'
  * @param user - The user object to format.
  * @returns The formatted user object.
  */
-export const mapUserToAPI = (user: User | UserAPI): UserAPI => {
+export const mapUserToAPI = (user: UserModel | UserAPI): UserAPI => {
   const userObject = ensureMongoDocumentToObject(user);
 
   const { provider, session, createdAt, ...userAPI } = userObject as any;
@@ -19,5 +19,5 @@ export const mapUserToAPI = (user: User | UserAPI): UserAPI => {
  * @param users - The array of user objects to format.
  * @returns The formatted array of user objects.
  */
-export const mapUsersToAPI = (users: User[]): UserAPI[] =>
+export const mapUsersToAPI = (users: (UserModel | UserAPI)[]): UserAPI[] =>
   users.map(mapUserToAPI);

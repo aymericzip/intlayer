@@ -1,15 +1,3 @@
-import { randomBytes } from 'crypto';
-import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
-import { ProjectModel } from '@models/project.model';
-import { GenericError } from '@utils/errors';
-import { mapOrganizationToAPI } from '@utils/mapper/organization';
-import { mapProjectToAPI } from '@utils/mapper/project';
-import { mapUserToAPI } from '@utils/mapper/user';
-import { getTokenExpireAt } from '@utils/oAuth2';
-import type { Client, Callback } from 'oauth2-server';
-import type { Token } from '../schemas/oAuth2.schema';
-import { getOrganizationById } from './organization.service';
-import { getUserById } from './user.service';
 import type { OAuth2Token } from '@/types/oAuth2.types';
 import type { Organization } from '@/types/organization.types';
 import type {
@@ -18,6 +6,18 @@ import type {
   ProjectDocument,
 } from '@/types/project.types';
 import type { User, UserDocument } from '@/types/user.types';
+import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
+import { ProjectModel } from '@models/project.model';
+import { GenericError } from '@utils/errors';
+import { mapOrganizationToAPI } from '@utils/mapper/organization';
+import { mapProjectToAPI } from '@utils/mapper/project';
+import { mapUserToAPI } from '@utils/mapper/user';
+import { getTokenExpireAt } from '@utils/oAuth2';
+import { randomBytes } from 'crypto';
+import type { Callback, Client } from 'oauth2-server';
+import type { Token } from '../schemas/oAuth2.schema';
+import { getOrganizationById } from './organization.service';
+import { getUserById } from './user.service';
 
 /**
  * Function to generate client credentials
@@ -129,7 +129,7 @@ export const formatOAuth2Token = (
 ): OAuth2Token => {
   const { clientId, userId, ...restToken } = token;
 
-  if (String(userId) !== String(user._id)) {
+  if (String(userId) !== String(user.id)) {
     throw new GenericError('USER_ID_MISMATCH');
   }
 
@@ -158,9 +158,10 @@ export const formatOAuth2Token = (
 export const formatDBToken = (
   token: OAuth2Token,
   clientId: Client['id'],
-  userId: User['_id']
+  userId: User['id']
 ): Token => {
   const formattedToken: Token = {
+    id: token.id,
     clientId: clientId,
     userId: userId,
     accessToken: token.accessToken,
@@ -183,7 +184,7 @@ export const saveToken = async (
   client: Client,
   user: User
 ): Promise<OAuth2Token | false> => {
-  const formattedAccessToken: Token = formatDBToken(token, client.id, user._id);
+  const formattedAccessToken: Token = formatDBToken(token, client.id, user.id);
 
   const result = await OAuth2AccessTokenModel.create(formattedAccessToken);
 

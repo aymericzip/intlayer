@@ -15,13 +15,11 @@ export const getServerSession = async () => {
 
     const session: Session = {
       user: {
-        _id: data?.user?.id,
+        id: data?.user?.id,
         ...data?.user,
       } as unknown as Session['user'],
       organization: null,
       project: null,
-      isOrganizationAdmin: false,
-      isProjectAdmin: false,
     };
 
     return session;

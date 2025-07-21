@@ -1,11 +1,17 @@
+import type {
+  OAuth2Access,
+  Project,
+  Rights,
+  TokenRights,
+} from '@/types/project.types';
 import { Locales } from '@intlayer/config';
 import {
-  NAME_MIN_LENGTH,
-  NAME_MAX_LENGTH,
   MEMBERS_MIN_LENGTH,
+  NAME_MAX_LENGTH,
+  NAME_MIN_LENGTH,
 } from '@utils/validation/validateProject';
 import { Schema } from 'mongoose';
-import type { Project, Rights, TokenRights } from '@/types/project.types';
+import { RenameId } from './user.schema';
 
 const RightsSchema = new Schema<Rights>({
   read: { type: Boolean, required: true },
@@ -20,8 +26,12 @@ export const TokenRightsSchema = new Schema<TokenRights>({
 });
 
 // Define the oAuth2Access subdocument schema with timestamps
-const oAuth2AccessSchema = new Schema(
+const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
   {
+    _id: {
+      type: Schema.Types.ObjectId,
+      alias: 'id',
+    },
     clientId: { type: String, required: true },
     clientSecret: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -62,8 +72,12 @@ const projectConfigSchema = new Schema<Project['configuration']>(
   }
 );
 
-export const projectSchema = new Schema<Project>(
+export const projectSchema = new Schema<RenameId<Project>>(
   {
+    _id: {
+      type: Schema.Types.ObjectId,
+      alias: 'id',
+    },
     organizationId: {
       type: Schema.Types.ObjectId,
       ref: 'Organization',
@@ -97,5 +111,21 @@ export const projectSchema = new Schema<Project>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret.id.toString(); // or rely on the virtual
+        delete ret.id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret.id.toString();
+        delete ret.id;
+      },
+    },
   }
 );

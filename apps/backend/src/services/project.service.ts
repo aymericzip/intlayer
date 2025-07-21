@@ -1,3 +1,8 @@
+import type {
+  Project,
+  ProjectData,
+  ProjectDocument,
+} from '@/types/project.types';
 import { ProjectModel } from '@models/project.model';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
@@ -8,11 +13,6 @@ import {
   validateProject,
 } from '@utils/validation/validateProject';
 import type { ObjectId } from 'mongoose';
-import type {
-  Project,
-  ProjectData,
-  ProjectDocument,
-} from '@/types/project.types';
 
 /**
  * Finds projects based on filters and pagination options.
@@ -95,7 +95,7 @@ export const updateProjectById = async (
 ): Promise<ProjectDocument> => {
   const projectObject = ensureMongoDocumentToObject(project);
   const projectToUpdate = removeObjectKeys(projectObject, [
-    '_id',
+    'id',
     'oAuth2Access',
     'organizationId',
   ]);

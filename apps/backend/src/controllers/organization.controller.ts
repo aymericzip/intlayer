@@ -62,7 +62,7 @@ export const getOrganizations = async (
   const restrictedFilter: OrganizationFilters = {
     ...filters,
 
-    membersIds: { $in: [...(filters.membersIds ?? []), String(user._id)] },
+    membersIds: { $in: [...(filters.membersIds ?? []), String(user.id)] },
   };
 
   try {
@@ -156,7 +156,7 @@ export const addOrganization = async (
   try {
     const newOrganization = await organizationService.createOrganization(
       organization,
-      user._id
+      user.id
     );
 
     const responseData = formatResponse<Organization>({
@@ -224,7 +224,7 @@ export const updateOrganization = async (
   try {
     const updatedOrganization =
       await organizationService.updateOrganizationById(
-        organization._id,
+        organization.id,
         organizationFields
       );
 
@@ -302,7 +302,7 @@ export const addOrganizationMember = async (
 
   if (!organization.plan) {
     ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
     return;
   }
@@ -314,7 +314,7 @@ export const addOrganizationMember = async (
     organization.membersIds.length >= planType.numberOfOrganizationUsers
   ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PLAN_USER_LIMIT_REACHED', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
     return;
   }
@@ -348,9 +348,9 @@ export const addOrganizationMember = async (
     });
 
     const updatedOrganization =
-      await organizationService.updateOrganizationById(organization._id, {
+      await organizationService.updateOrganizationById(organization.id, {
         ...organization,
-        membersIds: [...organization.membersIds, newMember._id],
+        membersIds: [...organization.membersIds, newMember.id],
       });
 
     const responseData = formatResponse<Organization>({
@@ -439,7 +439,7 @@ export const updateOrganizationMembers = async (
         const userMap: UserAndAdmin[] = users.map((user) => {
           const isAdmin =
             membersIds.find(
-              (member) => String(member.userId) === String(user._id)
+              (member) => String(member.userId) === String(user.id)
             )?.isAdmin ?? false;
 
           return {
@@ -453,14 +453,14 @@ export const updateOrganizationMembers = async (
     }
 
     const formattedMembers: ObjectId[] = existingUsers.map(
-      (user) => user.user._id
+      (user) => user.user.id
     );
     const formattedAdmin: ObjectId[] = existingUsers
       .filter((el) => el.isAdmin)
-      .map((user) => user.user._id);
+      .map((user) => user.user.id);
 
     const updatedOrganization =
-      await organizationService.updateOrganizationById(organization._id, {
+      await organizationService.updateOrganizationById(organization.id, {
         ...organization,
         membersIds: formattedMembers,
         adminsIds: formattedAdmin,
@@ -523,12 +523,12 @@ export const deleteOrganization = async (
   }
 
   const projects = await projectService.findProjects({
-    organizationId: organization._id,
+    organizationId: organization.id,
   });
 
   if (projects.length > 0) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECTS_EXIST', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
     return;
   }
@@ -540,16 +540,16 @@ export const deleteOrganization = async (
     }
 
     const deletedOrganization =
-      await organizationService.deleteOrganizationById(organization._id);
+      await organizationService.deleteOrganizationById(organization.id);
 
     if (!deletedOrganization) {
       ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND', {
-        organizationId: organization._id,
+        organizationId: organization.id,
       });
       return;
     }
 
-    logger.info(`Organization deleted: ${String(deletedOrganization._id)}`);
+    logger.info(`Organization deleted: ${String(deletedOrganization.id)}`);
 
     const responseData = formatResponse<Organization>({
       message: t({
@@ -607,7 +607,7 @@ export const selectOrganization = async (
       { _id: session.session.id },
       {
         $set: {
-          activeOrganizationId: String(organization._id),
+          activeOrganizationId: String(organization.id),
           activeProjectId: null,
         },
       }

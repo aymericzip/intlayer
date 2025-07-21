@@ -1,10 +1,10 @@
+import type { Organization } from '@/export';
+import type { Tag, TagData, TagDocument } from '@/types/tag.types';
 import { TagModel } from '@models/tag.model';
 import { GenericError } from '@utils/errors';
 import type { TagFilters } from '@utils/filtersAndPagination/getTagFiltersAndPagination';
 import { type TagFields, validateTag } from '@utils/validation/validateTag';
 import type { ObjectId } from 'mongoose';
-import type { Organization } from '@/export';
-import type { Tag, TagData, TagDocument } from '@/types/tag.types';
 
 /**
  * Finds tags based on filters and pagination options.
@@ -39,7 +39,7 @@ export const getTagById = async (
 
 export const getTagsByKeys = async (
   keys: string[],
-  organizationId: string | Organization['_id']
+  organizationId: string | Organization['id']
 ): Promise<TagDocument[]> => {
   const tags = await TagModel.find({ key: { $in: keys }, organizationId });
 

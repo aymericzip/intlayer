@@ -1,6 +1,6 @@
 import type { Organization } from '@/types/organization.types';
 import type { Project, Rights } from '@/types/project.types';
-import type { User, UserAPI } from '@/types/user.types';
+import type { User } from '@/types/user.types';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
@@ -37,7 +37,7 @@ export const getAuth = (
      * User model
      */
     user: {
-      id: '_id',
+      id: 'id',
       modelName: 'users',
     },
 
@@ -47,7 +47,7 @@ export const getAuth = (
 
         const newUser = context.newSession?.user;
         const existingUser = context.session?.user;
-        const user = newUser ?? existingUser;
+        let user = newUser ?? existingUser;
 
         if (!user) return;
 
@@ -63,24 +63,21 @@ export const getAuth = (
             email: user.email,
             path,
           });
-        }
 
-        if (path === '/verify-email') {
-          sendVerificationUpdate({
-            _id: user.id as unknown as UserAPI['_id'],
-            ...user,
-          });
-          logger.info('SSE verification update sent', {
-            email: user.email,
-            userId: user._id,
-          });
+          if (path === '/verify-email') {
+            sendVerificationUpdate(user as unknown as User);
+            logger.info('SSE verification update sent', {
+              email: user.email,
+              userId: user.id,
+            });
+          }
         }
       }),
     },
 
     session: {
       modelName: 'sessions',
-      id: '_id',
+      id: 'id',
       // additionalFields: {
       //   activeOrganizationId: { type: 'string', nullable: true },
       //   activeProjectId: { type: 'string', nullable: true },
@@ -92,7 +89,16 @@ export const getAuth = (
       admin(),
       anonymous(),
       bearer({ requireSignature: true }),
-      customSession(async ({ session, user }) => ({ user, session })),
+      customSession(async ({ session, user }) => {
+        // Transform user object to use _id instead of id
+        const transformedUser = {
+          ...user,
+          id: user.id,
+        };
+        delete (transformedUser as any).id;
+
+        return { user: transformedUser, session };
+      }),
     ],
 
     emailAndPassword: {

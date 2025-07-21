@@ -51,7 +51,7 @@ export const addNewAccessKey = async (
   try {
     const newAccessKey = await projectAccessKeyService.addNewAccessKey(
       req.body,
-      project._id,
+      project.id,
       user,
       organizationRights,
       projectRights,
@@ -113,7 +113,7 @@ export const deleteAccessKey = async (
     const deletedAccessKey = await projectAccessKeyService.deleteAccessKey(
       clientId,
       project,
-      user._id
+      user.id
     );
 
     if (!deletedAccessKey) {
@@ -174,8 +174,8 @@ export const refreshAccessKey = async (
   try {
     const newAccessKey = await projectAccessKeyService.refreshAccessKey(
       clientId,
-      project!._id,
-      user!._id
+      project!.id,
+      user!.id
     );
 
     const responseData = formatResponse<OAuth2Access>({

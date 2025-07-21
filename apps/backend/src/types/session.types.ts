@@ -1,4 +1,7 @@
+import type { Schema } from 'mongoose';
+
 export type Session = {
+  id: Schema.Types.ObjectId;
   /** A randomly generated value that is used to get hold of the session. */
   token: string;
   /** Used to connect the session to a particular user */

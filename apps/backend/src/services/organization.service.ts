@@ -158,18 +158,18 @@ export const updatePlan = async (
   }
 
   const updateOrganizationResult = await OrganizationModel.updateOne(
-    { _id: organization._id },
+    { _id: organization.id },
     { $set: { plan: { ...prevPlan, ...plan } } },
     { new: true }
   );
 
   if (updateOrganizationResult.matchedCount === 0) {
     throw new GenericError('ORGANIZATION_UPDATE_FAILED', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
   }
 
-  const updatedOrganization = await getOrganizationById(organization._id);
+  const updatedOrganization = await getOrganizationById(organization.id);
 
   return updatedOrganization;
 };

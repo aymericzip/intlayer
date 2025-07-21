@@ -1,9 +1,10 @@
 'use client';
 
-import { Button, useUser } from '@intlayer/design-system';
+import { PagesRoutes } from '@/Routes';
+import { Button } from '@intlayer/design-system';
+import { useUser } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export const ProfilePanel: FC = () => {
   const { isUnauthenticated, user, logout } = useUser();

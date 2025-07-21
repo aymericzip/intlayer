@@ -310,7 +310,7 @@ export const auditContentDeclarationMetadata = async (
   try {
     const tags: Tag[] = await tagService.findTags(
       {
-        organizationId: organization?._id,
+        organizationId: organization?.id,
       },
       0,
       1000
@@ -375,7 +375,7 @@ export const auditTag = async (
   try {
     let dictionaries: Dictionary[] = [];
     if (project?.organizationId) {
-      dictionaries = await getDictionariesByTags([tag.key], project._id);
+      dictionaries = await getDictionariesByTags([tag.key], project.id);
     }
 
     const auditResponse = await auditTagUtil.auditTag({
@@ -463,9 +463,9 @@ export const askDocQuestion = async (
           {
             $set: {
               discutionId,
-              userId: user?._id,
-              projectId: project?._id,
-              organizationId: organization?._id,
+              userId: user?.id,
+              projectId: project?.id,
+              organizationId: organization?.id,
               messages: [
                 ...messages.map((msg) => ({
                   role: msg.role,

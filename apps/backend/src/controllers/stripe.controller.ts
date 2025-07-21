@@ -81,7 +81,7 @@ export const getSubscription = async (
     }
 
     // Ensure the user is a member of the organization
-    if (!organization.membersIds.map(String).includes(String(user._id))) {
+    if (!organization.membersIds.map(String).includes(String(user.id))) {
       ErrorHandler.handleGenericErrorResponse(
         res,
         'USER_NOT_ORGANIZATION_MEMBER'
@@ -90,7 +90,7 @@ export const getSubscription = async (
     }
 
     // Ensure the user is an admin of the organization
-    if (!organization.adminsIds.map(String).includes(String(user._id))) {
+    if (!organization.adminsIds.map(String).includes(String(user.id))) {
       ErrorHandler.handleGenericErrorResponse(
         res,
         'USER_NOT_ORGANIZATION_ADMIN'
@@ -107,7 +107,7 @@ export const getSubscription = async (
       organization.plan?.status === 'active'
     ) {
       ErrorHandler.handleGenericErrorResponse(res, 'ALREADY_SUBSCRIBED', {
-        organizationId: organization._id,
+        organizationId: organization.id,
       });
       return;
     }
@@ -119,8 +119,8 @@ export const getSubscription = async (
       // If no customer ID exists, create a new Stripe customer for the organization
       const customer = await stripe.customers.create({
         metadata: {
-          organizationId: String(organization._id),
-          userId: String(user._id),
+          organizationId: String(organization.id),
+          userId: String(user.id),
           // Include the locale for potential localization
           locale: (res.locals as unknown as { locale: Locales }).locale,
         },
@@ -212,7 +212,7 @@ export const cancelSubscription = async (
     }
 
     // Check if the user is an admin of the organization
-    if (!organization.adminsIds.map(String).includes(String(user._id))) {
+    if (!organization.adminsIds.map(String).includes(String(user.id))) {
       ErrorHandler.handleGenericErrorResponse(
         res,
         'USER_NOT_ORGANIZATION_ADMIN'
@@ -235,7 +235,7 @@ export const cancelSubscription = async (
     // Update the organization's plan in the database to reflect the cancellation
     const plan = await subscriptionService.cancelSubscription(
       organization.plan.subscriptionId,
-      String(organization._id)
+      String(organization.id)
     );
 
     // If the plan could not be updated in the database, handle the error

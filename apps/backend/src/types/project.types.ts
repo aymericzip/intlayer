@@ -1,5 +1,5 @@
 import type { IntlayerConfig } from '@intlayer/config';
-import type { Model, ObjectId, Document } from 'mongoose';
+import type { Document, Model, Schema } from 'mongoose';
 import type { Organization } from './organization.types';
 import type { User } from './user.types';
 
@@ -23,11 +23,11 @@ export type ProjectConfiguration = {
 };
 
 export type ProjectData = {
-  organizationId: Organization['_id'];
+  organizationId: Organization['id'];
   name: string;
-  membersIds: User['_id'][];
-  adminsIds: User['_id'][];
-  creatorId: User['_id'];
+  membersIds: User['id'][];
+  adminsIds: User['id'][];
+  creatorId: User['id'];
   configuration?: ProjectConfiguration;
 };
 
@@ -53,24 +53,24 @@ export type OAuth2AccessData = AccessKeyData & {
   clientId: string;
   clientSecret: string;
   accessToken: string[];
-  userId: User['_id'];
+  userId: User['id'];
 };
 
 export type OAuth2Access = OAuth2AccessData & {
-  _id: ObjectId;
+  id: Schema.Types.ObjectId;
   createdAt: number;
   updatedAt: number;
 };
 
 export type Project = ProjectData & {
-  _id: ObjectId;
+  id: Schema.Types.ObjectId;
   createdAt: number;
   updatedAt: number;
   oAuth2Access: OAuth2Access[];
 };
 
 export type ProjectAPI = Omit<Project, 'adminsIds'> & {
-  adminsIds?: User['_id'][];
+  adminsIds?: User['id'][];
 };
 
 export type ProjectDocument = Document<unknown, {}, Project> & Project;

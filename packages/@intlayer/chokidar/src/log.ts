@@ -1,5 +1,5 @@
-import readline from 'readline';
 import { type IntlayerConfig, getConfiguration } from '@intlayer/config';
+import readline from 'readline';
 import { sortAlphabetically } from './utils';
 
 export type State = {

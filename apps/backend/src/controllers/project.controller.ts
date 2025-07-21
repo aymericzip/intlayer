@@ -62,8 +62,8 @@ export const getProjects = async (
 
   const restrictedFilter: ProjectFilters = {
     ...filters,
-    membersIds: { $in: [...(filters.membersIds ?? []), String(user._id)] },
-    organizationId: String(organization._id),
+    membersIds: { $in: [...(filters.membersIds ?? []), String(user.id)] },
+    organizationId: String(organization.id),
   };
 
   try {
@@ -137,7 +137,7 @@ export const addProject = async (
 
   if (planType.numberOfProjects) {
     const projectCount = await projectService.countProjects({
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
 
     if (projectCount >= planType.numberOfProjects) {
@@ -145,7 +145,7 @@ export const addProject = async (
         res,
         'PLAN_PROJECT_LIMIT_REACHED',
         {
-          organizationId: organization._id,
+          organizationId: organization.id,
         }
       );
       return;
@@ -153,10 +153,10 @@ export const addProject = async (
   }
 
   const project: ProjectData = {
-    membersIds: [user._id],
-    adminsIds: [user._id],
-    creatorId: user._id,
-    organizationId: organization._id,
+    membersIds: [user.id],
+    adminsIds: [user.id],
+    creatorId: user.id,
+    organizationId: organization.id,
     ...projectData,
   };
 
@@ -227,14 +227,14 @@ export const updateProject = async (
     return;
   }
 
-  if (String(project.organizationId) !== String(organization._id)) {
+  if (String(project.organizationId) !== String(organization.id)) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_IN_ORGANIZATION');
     return;
   }
 
   try {
     const updatedProject = await projectService.updateProjectById(
-      project._id,
+      project.id,
       projectData
     );
 
@@ -346,7 +346,7 @@ export const updateProjectMembers = async (
           user,
           isAdmin:
             membersIds.find(
-              (member) => String(member.userId) === String(user._id)
+              (member) => String(member.userId) === String(user.id)
             )?.isAdmin ?? false,
         }));
 
@@ -355,14 +355,14 @@ export const updateProjectMembers = async (
     }
 
     const formattedMembers: ObjectId[] = existingUsers.map(
-      (user) => user.user._id
+      (user) => user.user.id
     );
     const formattedAdmin: ObjectId[] = existingUsers
       .filter((el) => el.isAdmin)
-      .map((user) => user.user._id);
+      .map((user) => user.user.id);
 
     const updatedOrganization = await projectService.updateProjectById(
-      project._id,
+      project.id,
       {
         ...project,
         membersIds: formattedMembers,
@@ -426,14 +426,14 @@ export const pushProjectConfiguration = async (
   }
 
   try {
-    const projectObject = await projectService.getProjectById(project._id);
+    const projectObject = await projectService.getProjectById(project.id);
     projectObject.configuration = projectConfiguration;
 
     projectObject.save();
 
     if (!projectObject.configuration) {
       ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_UPDATE_FAILED', {
-        projectId: project._id,
+        projectId: project.id,
       });
       return;
     }
@@ -508,9 +508,9 @@ export const deleteProject = async (
   }
 
   try {
-    const projectToDelete = await projectService.getProjectById(project._id);
+    const projectToDelete = await projectService.getProjectById(project.id);
 
-    if (String(projectToDelete.organizationId) !== String(organization._id)) {
+    if (String(projectToDelete.organizationId) !== String(organization.id)) {
       ErrorHandler.handleGenericErrorResponse(
         res,
         'PROJECT_NOT_IN_ORGANIZATION'
@@ -518,17 +518,17 @@ export const deleteProject = async (
       return;
     }
 
-    const deletedProject = await projectService.deleteProjectById(project._id);
+    const deletedProject = await projectService.deleteProjectById(project.id);
 
     if (!deletedProject) {
       ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED', {
-        projectId: project._id,
+        projectId: project.id,
       });
 
       return;
     }
 
-    logger.info(`Project deleted: ${String(deletedProject._id)}`);
+    logger.info(`Project deleted: ${String(deletedProject.id)}`);
 
     const formattedProject = mapProjectToAPI(
       deletedProject,

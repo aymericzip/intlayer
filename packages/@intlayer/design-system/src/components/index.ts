@@ -1,5 +1,4 @@
 export * from './Accordion';
-export * from './Auth';
 export * from './Avatar';
 export * from './Badge';
 export * from './Breadcrumb';
@@ -37,7 +36,6 @@ export * from './Navbar';
 export * from './Pattern';
 export * from './Popover';
 export * from './PressableSpan';
-export * from './ProfileDropDown';
 export * from './RightDrawer';
 export * from './Select';
 export * from './SocialNetworks';

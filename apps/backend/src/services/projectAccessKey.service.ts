@@ -42,7 +42,7 @@ export const addNewAccessKey = async (
     ...accessKeyData,
     clientId,
     clientSecret,
-    userId: user._id,
+    userId: user.id,
     accessToken: [],
     rights: restrictAccessKeyRights(
       accessKeyData,
@@ -61,7 +61,7 @@ export const addNewAccessKey = async (
     throw new GenericError('ACCESS_KEY_CREATION_FAILED', {
       accessKeyData,
       projectId,
-      userId: user._id,
+      userId: user.id,
     });
   }
 
@@ -75,7 +75,7 @@ export const addNewAccessKey = async (
     throw new GenericError('ACCESS_KEY_CREATION_FAILED', {
       accessKeyData,
       projectId,
-      userId: user._id,
+      userId: user.id,
     });
   }
 
@@ -95,7 +95,7 @@ export const deleteAccessKey = async (
   if (!projectAccess) {
     throw new GenericError('ACCESS_KEY_NOT_FOUND', {
       clientId,
-      projectId: project._id,
+      projectId: project.id,
     });
   }
 
@@ -110,7 +110,7 @@ export const deleteAccessKey = async (
   if (result.modifiedCount === 0) {
     throw new GenericError('ACCESS_KEY_DELETION_FAILED', {
       clientId,
-      projectId: project._id,
+      projectId: project.id,
     });
   }
 
@@ -143,7 +143,7 @@ export const refreshAccessKey = async (
   if (!projectAccess) {
     throw new GenericError('ACCESS_KEY_NOT_FOUND', {
       clientId,
-      projectId: project._id,
+      projectId: project.id,
     });
   }
 

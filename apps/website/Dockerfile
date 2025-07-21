@@ -55,7 +55,7 @@ COPY \
     --exclude=packages/vue-intlayer \
     --exclude=packages/solid-intlayer \
     --exclude=packages/svelte-intlayer \
-    --exclude=packages/preact-intlayer \
+    --exclude=packages/pnext-intlayer \
     --exclude=packages/angular-intlayer \
     --exclude=packages/vite-intlayer \
     --exclude=packages/nuxt-intlayer \

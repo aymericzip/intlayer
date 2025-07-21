@@ -1,6 +1,6 @@
-import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import type { Project, ProjectAPI } from '@/types/project.types';
 import type { User } from '@/types/user.types';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 
 /**
  * Maps a project to an API response.
@@ -18,7 +18,7 @@ export const mapProjectToAPI = (
   projectObject = {
     ...projectObject,
     oAuth2Access: projectObject.oAuth2Access
-      .filter((token) => token.userId !== user?._id)
+      .filter((token) => token.userId !== user?.id)
       .map((token) => {
         const isJustUpdated =
           new Date().getTime() - new Date(token.updatedAt).getTime() <

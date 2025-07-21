@@ -1,3 +1,5 @@
+import type { Organization } from '@/types/organization.types';
+import type { Plan } from '@/types/plan.types';
 import { logger } from '@logger';
 import { GenericError } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
@@ -5,8 +7,6 @@ import Stripe from 'stripe';
 import { sendEmail } from './email.service';
 import { getOrganizationById, updatePlan } from './organization.service';
 import { getUserById } from './user.service';
-import type { Organization } from '@/types/organization.types';
-import type { Plan } from '@/types/plan.types';
 
 export const addOrUpdateSubscription = async (
   subscriptionId: string,
@@ -25,8 +25,8 @@ export const addOrUpdateSubscription = async (
     });
   }
 
-  if (user.customerId !== customerId) {
-    user.customerId = customerId;
+  if (String(user.customerId) !== customerId) {
+    (user.customerId as unknown as string) = customerId;
     await user.save();
   }
 
@@ -50,7 +50,7 @@ export const addOrUpdateSubscription = async (
   }
 
   const updatedOrganization = await updatePlan(organization, {
-    creatorId: user._id,
+    creatorId: user.id,
     priceId,
     customerId,
     subscriptionId,
@@ -61,20 +61,20 @@ export const addOrUpdateSubscription = async (
 
   if (!updatedOrganization) {
     throw new GenericError('ORGANIZATION_UPDATE_FAILED', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
   }
 
   logger.info(
-    `Plan updated for organization ${organization._id} - ${planInfo.type} - ${planInfo.period}`
+    `Plan updated for organization ${organization.id} - ${planInfo.type} - ${planInfo.period}`
   );
 
   return updatedOrganization.plan ?? null;
 };
 
 export const cancelSubscription = async (
-  subscriptionId: string | Organization['_id'],
-  organizationId: Organization['_id'] | string
+  subscriptionId: string | Organization['id'],
+  organizationId: Organization['id'] | string
 ): Promise<Plan | null> => {
   const organization = await getOrganizationById(organizationId);
 
@@ -91,7 +91,7 @@ export const cancelSubscription = async (
   if (!organization.plan) {
     throw new GenericError('ORGANIZATION_PLAN_NOT_FOUND', {
       subscriptionId,
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
   }
 
@@ -101,12 +101,12 @@ export const cancelSubscription = async (
 
   if (!updatedOrganization) {
     throw new GenericError('ORGANIZATION_UPDATE_FAILED', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
   }
 
   logger.info(
-    `Cancelled plan for organization ${updatedOrganization._id} - ${updatedOrganization.plan?.type} - ${updatedOrganization.plan?.period}`
+    `Cancelled plan for organization ${updatedOrganization.id} - ${updatedOrganization.plan?.type} - ${updatedOrganization.plan?.period}`
   );
 
   return updatedOrganization.plan ?? null;
@@ -131,7 +131,7 @@ export const changeSubscriptionStatus = async (
     throw new GenericError('ORGANIZATION_PLAN_NOT_FOUND', {
       userId,
       subscriptionId,
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
   }
 
@@ -142,7 +142,7 @@ export const changeSubscriptionStatus = async (
 
   if (!updatedOrganization) {
     throw new GenericError('ORGANIZATION_UPDATE_FAILED', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
   }
 
@@ -156,7 +156,7 @@ export const changeSubscriptionStatus = async (
   }
 
   logger.info(
-    `Updated plan status for organization ${organization._id} - Status: ${status}`
+    `Updated plan status for organization ${organization.id} - Status: ${status}`
   );
 
   const emailData = {

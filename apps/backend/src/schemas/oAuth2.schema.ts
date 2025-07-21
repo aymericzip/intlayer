@@ -1,13 +1,17 @@
 import { Schema } from 'mongoose';
-import type { Token as TokenType, Client, User } from 'oauth2-server';
+import type { Client, Token as TokenType, User } from 'oauth2-server';
 
 export type Token = Omit<TokenType, 'client' | 'user'> & {
   clientId: Client['id'];
-  userId: User['_id'];
+  userId: User['id'];
 };
 
 export const accessTokenSchema = new Schema<Token>(
   {
+    _id: {
+      type: Schema.Types.ObjectId,
+      alias: 'id',
+    },
     accessToken: {
       type: String,
       required: true,
@@ -28,6 +32,22 @@ export const accessTokenSchema = new Schema<Token>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret.id.toString(); // or rely on the virtual
+        delete ret.id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret.id.toString();
+        delete ret.id;
+      },
+    },
   }
 );
 

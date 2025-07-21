@@ -1,3 +1,4 @@
+import type { Tag } from '@/types/tag.types';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
@@ -5,7 +6,6 @@ import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
 } from './getFiltersAndPaginationFromBody';
-import type { Tag } from '@/types/tag.types';
 
 export type TagFiltersParams = {
   ids?: string | string[];
@@ -34,7 +34,7 @@ export const getTagFiltersAndPagination = (
     filters = {};
 
     if (ids) {
-      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
+      filters = { ...filters, id: { $in: ensureArrayQueryFilter(ids) } };
     }
 
     if (keys) {

@@ -1,12 +1,12 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
+import { useRouter } from 'next/navigation';
+import { type FC } from 'react';
 import {
   AuthenticationBarrierClient as AuthenticationBarrierClientUI,
   type AuthenticationBarrierProps as AuthenticationBarrierPropsUI,
-} from '@intlayer/design-system';
-import { useRouter } from 'next/navigation';
-import { type FC } from 'react';
-import { PagesRoutes } from '@/Routes';
+} from './AuthenticationBarrier/index';
 
 type AuthenticationBarrierProps = Omit<
   AuthenticationBarrierPropsUI,

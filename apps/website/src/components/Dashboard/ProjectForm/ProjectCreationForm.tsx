@@ -1,7 +1,7 @@
 'use client';
 
 import type { ProjectAPI } from '@intlayer/backend';
-import { useForm, Form } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system';
 import { useAddProject, useSelectProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -24,7 +24,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
     data
   ) => {
     await addProject(data).then(async (result) => {
-      const projectId = String(result.data?._id);
+      const projectId = String(result.data?.id);
 
       await selectProject(projectId);
 

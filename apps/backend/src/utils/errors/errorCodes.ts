@@ -893,18 +893,18 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
-  EMAIL_ALREADY_REGISTERED: {
+  USER_ALREADY_EXISTS: {
     title: {
-      en: 'Email Already registered',
-      fr: 'Email déjà enregistré',
-      es: 'Email ya registrado',
+      en: 'User Already Exists',
+      fr: 'Utilisateur existe déjà',
+      es: 'Usuario ya existe',
     },
     message: {
-      en: 'The email has already been registered.',
-      fr: "L'email a déjà été enregistré.",
-      es: 'El correo electrónico ya ha sido registrado.',
+      en: 'A user with this email already exists in our system.',
+      fr: 'Un utilisateur avec cet email existe déjà dans notre système.',
+      es: 'Un usuario con este correo electrónico ya existe en nuestro sistema.',
     },
-    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+    statusCode: HttpStatusCodes.CONFLICT_409,
   },
   SECRET_NOT_PROVIDED: {
     title: {

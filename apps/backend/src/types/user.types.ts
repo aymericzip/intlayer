@@ -1,4 +1,4 @@
-import type { Document, Model, ObjectId } from 'mongoose';
+import type { Document, Model, ObjectId, Schema } from 'mongoose';
 
 export interface UserData {
   email: string;
@@ -12,11 +12,11 @@ export enum EmailsList {
 }
 
 export interface User extends UserData {
-  _id: ObjectId;
+  id: Schema.Types.ObjectId;
   emailsList?: {
     [key in EmailsList]: boolean;
   };
-  customerId?: string;
+  customerId?: Schema.Types.ObjectId;
   emailVerified?: boolean;
   role?: string;
   lang?: string;
@@ -26,7 +26,8 @@ export interface User extends UserData {
 
 export type UserAPI = Omit<User, 'provider' | 'session' | 'createdAt'>;
 
-export type UserDocument = Document<unknown, {}, User> & User;
+export type UserModel = User;
+export type UserDocument = Document<unknown, {}, UserModel> & UserModel;
 
 export type UserWithPasswordNotHashed = Partial<User> &
   Pick<User, 'email'> & {
@@ -40,5 +41,5 @@ export type UserModelType = Model<User> & {
     oldPassword: string,
     newPassword: string
   ) => Promise<User>;
-  resetPassword: (userId: User['_id'], password: string) => Promise<User>;
+  resetPassword: (userId: User['id'], password: string) => Promise<User>;
 };

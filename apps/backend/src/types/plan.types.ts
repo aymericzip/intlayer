@@ -1,11 +1,12 @@
-import type { Document, ObjectId } from 'mongoose';
+import { RenameId } from '@schemas/user.schema';
+import type { Document, Schema } from 'mongoose';
 import type { User } from './user.types';
 
 export type PlanType = 'FREE' | 'PREMIUM' | 'ENTERPRISE';
 
 export type PlanData = {
   type: PlanType;
-  creatorId?: User['_id'];
+  creatorId?: User['id'];
   subscriptionId?: string;
   customerId?: string;
   priceId?: string;
@@ -22,9 +23,10 @@ export type PlanData = {
 };
 
 export type Plan = PlanData & {
-  _id: ObjectId;
+  id: Schema.Types.ObjectId;
   createdAt: number;
   updatedAt: number;
 };
 
-export type PlanDocument = Document<unknown, {}, Plan> & Plan;
+export type PlanModel = RenameId<Plan>;
+export type PlanDocument = Document<unknown, {}, PlanModel> & PlanModel;

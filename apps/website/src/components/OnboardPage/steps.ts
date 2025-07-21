@@ -33,7 +33,7 @@ export const getSessionStorageDynamicsContent = <T extends OnboardingStepIds>(
 export const isRegistrationStepValid = (): boolean => {
   const state = getSessionStorageDynamicsContent(Steps.Registration)?.state;
 
-  return Boolean(state?.user?._id);
+  return Boolean(state?.user?.id);
 };
 
 export const isVerifyEmailStepValid = (): boolean => {

@@ -6,7 +6,7 @@ import {
   useAddDictionary,
   useGetProjects,
 } from '../../../hooks/intlayerAPIHooks';
-import { useAuth } from '../../Auth';
+import { useAuth } from '../../../hooks/useAuth';
 import { Form, useForm } from '../../Form';
 import { MultiSelect } from '../../Select';
 import { dictionaryFormContent } from './dictionaryCreationForm.content';
@@ -26,7 +26,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
   const { project } = session ?? {};
   const { addDictionary } = useAddDictionary();
   const { data: projects } = useGetProjects();
-  const DictionarySchema = useDictionarySchema(String(project?._id));
+  const DictionarySchema = useDictionarySchema(String(project?.id));
   const { form, isSubmitting } = useForm(DictionarySchema);
   const { keyInput, createDictionaryButton, projectInput } = useDictionary(
     dictionaryFormContent
@@ -55,7 +55,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
       <Form.MultiSelect name="projectIds" label={projectInput.label.value}>
         <MultiSelect.Trigger
           getBadgeValue={(value) =>
-            projects?.data?.find((project) => String(project._id) === value)
+            projects?.data?.find((project) => String(project.id) === value)
               ?.name ?? value
           }
         >
@@ -65,8 +65,8 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
           <MultiSelect.List>
             {projects?.data?.map((project) => (
               <MultiSelect.Item
-                key={String(project._id)}
-                value={String(project._id)}
+                key={String(project.id)}
+                value={String(project.id)}
               >
                 {project.name}
               </MultiSelect.Item>

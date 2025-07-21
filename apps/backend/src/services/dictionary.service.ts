@@ -85,8 +85,6 @@ export const getDictionaryById = async (
     },
   ]);
 
-  console.log('dictionaries', dictionaries);
-
   if (!dictionaries.length) {
     throw new GenericError('DICTIONARY_NOT_FOUND', { dictionaryId });
   }
@@ -156,7 +154,7 @@ export const getDictionariesKeys = async (
 
 export const getDictionariesByTags = async (
   tags: string[],
-  projectId: string | Project['_id']
+  projectId: string | Project['id']
 ): Promise<DictionaryDocument[]> => {
   const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
     // Stage 1: Match the document by tags
@@ -275,7 +273,7 @@ export const updateDictionaryById = async (
   dictionary: Partial<Dictionary>
 ): Promise<DictionaryDocument> => {
   const dictionaryObject = ensureMongoDocumentToObject(dictionary);
-  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, ['_id']);
+  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, ['id']);
 
   const updatedKeys = Object.keys(dictionaryToUpdate) as DictionaryFields;
   const errors = await validateDictionary(dictionaryToUpdate, updatedKeys);
@@ -313,7 +311,7 @@ export const updateDictionaryByKey = async (
   projectId: string | ObjectId
 ): Promise<DictionaryDocument> => {
   const dictionaryObject = ensureMongoDocumentToObject(dictionary);
-  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, ['_id']);
+  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, ['id']);
 
   const updatedKeys = Object.keys(dictionaryToUpdate) as DictionaryFields;
   const errors = await validateDictionary(dictionaryToUpdate, updatedKeys);
@@ -348,11 +346,7 @@ export const updateDictionaryByKey = async (
 export const deleteDictionaryById = async (
   dictionaryId: string
 ): Promise<DictionaryDocument> => {
-  console.log('dictionaryId', dictionaryId);
-
   const dictionary = await DictionaryModel.findByIdAndDelete(dictionaryId);
-
-  console.log('dictionary', dictionary);
 
   if (!dictionary) {
     throw new GenericError('DICTIONARY_NOT_FOUND', { dictionaryId });
