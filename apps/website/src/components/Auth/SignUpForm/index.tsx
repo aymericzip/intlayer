@@ -21,13 +21,13 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const { register } = useRegister();
 
   const handleRegistration = async ({ email, password }: SignUp) => {
-    const response = await register({
+    const { data } = await register({
       email,
       password,
     });
 
-    if (response?.data.user) {
-      setUser(response.data.user);
+    if (data?.user) {
+      setUser(data.user);
     }
   };
 

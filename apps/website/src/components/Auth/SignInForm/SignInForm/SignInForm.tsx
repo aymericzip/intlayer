@@ -57,28 +57,6 @@ export const SignInForm: FC<SignInFormProps> = ({
             placeholder={passwordInput.placeholder.value}
             isRequired
           />
-
-          <div className="p-3 flex flex-col gap-y-2">
-            <Form.Label>{rememberMeCheckbox.label}</Form.Label>
-
-            <Form.Label
-              htmlFor="rememberMe"
-              className="flex items-center gap-x-2 font-medium"
-            >
-              <span>
-                <Form.Checkbox
-                  name="rememberMe"
-                  size="sm"
-                  color="text"
-                  id="rememberMe"
-                  aria-labelledby="rememberMe-label"
-                />
-              </span>
-              <span className="text-sm text-neutral w-full pb-2">
-                {rememberMeCheckbox.description}
-              </span>
-            </Form.Label>
-          </div>
         </div>
 
         <Form.Button
@@ -91,6 +69,24 @@ export const SignInForm: FC<SignInFormProps> = ({
         >
           {forgotPasswordLink.text}
         </Form.Button>
+
+        <Form.Label
+          htmlFor="rememberMe"
+          className="flex items-center gap-x-2 font-medium"
+        >
+          <span>
+            <Form.Checkbox
+              name="rememberMe"
+              size="sm"
+              color="text"
+              id="rememberMe"
+              aria-labelledby="rememberMe-label"
+            />
+          </span>
+          <span className="text-sm w-full pb-2">
+            {rememberMeCheckbox.description}
+          </span>
+        </Form.Label>
 
         <Form.Button
           className="mt-12 w-full"

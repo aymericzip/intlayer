@@ -106,7 +106,7 @@ export const getOrganization = async (
   if (!organizationRights?.read) {
     ErrorHandler.handleGenericErrorResponse(
       res,
-      'ORGANIZATION_RIGHTS_NOT_READ'
+      'ORGANIZATION_RIGHTS_READ_MISSING'
     );
     return;
   }
@@ -208,7 +208,7 @@ export const updateOrganization = async (
   if (!organizationRights?.write) {
     ErrorHandler.handleGenericErrorResponse(
       res,
-      'ORGANIZATION_RIGHTS_NOT_WRITE'
+      'ORGANIZATION_RIGHTS_WRITE_MISSING'
     );
     return;
   }
@@ -295,7 +295,7 @@ export const addOrganizationMember = async (
   if (!organizationRights?.admin) {
     ErrorHandler.handleGenericErrorResponse(
       res,
-      'ORGANIZATION_RIGHTS_NOT_ADMIN'
+      'ORGANIZATION_RIGHTS_ADMIN_MISSING'
     );
     return;
   }
@@ -407,7 +407,7 @@ export const updateOrganizationMembers = async (
   if (!organizationRights?.write) {
     ErrorHandler.handleGenericErrorResponse(
       res,
-      'ORGANIZATION_RIGHTS_NOT_WRITE'
+      'ORGANIZATION_RIGHTS_WRITE_MISSING'
     );
     return;
   }
@@ -517,7 +517,7 @@ export const deleteOrganization = async (
   if (!organizationRights?.admin) {
     ErrorHandler.handleGenericErrorResponse(
       res,
-      'ORGANIZATION_RIGHTS_NOT_ADMIN'
+      'ORGANIZATION_RIGHTS_ADMIN_MISSING'
     );
     return;
   }

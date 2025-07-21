@@ -1,13 +1,7 @@
 'use client';
 
-import {
-  Button,
-  Container,
-  Loader,
-  Modal,
-  useAuth,
-} from '@intlayer/design-system';
-import { useGetOrganizations } from '@intlayer/design-system/hooks';
+import { Button, Container, Loader, Modal } from '@intlayer/design-system';
+import { useAuth, useGetOrganizations } from '@intlayer/design-system/hooks';
 import { Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { Suspense, useState, type FC } from 'react';

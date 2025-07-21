@@ -10,11 +10,11 @@ import {
   H3,
   Loader,
   MultiSelect,
-  useAuth,
   useForm,
 } from '@intlayer/design-system';
 import {
   useAddOrganizationMember,
+  useAuth,
   useGetUsers,
   useUpdateOrganizationMembers,
 } from '@intlayer/design-system/hooks';
@@ -30,7 +30,7 @@ import {
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
 
 export const MembersForm: FC = () => {
-  const { session, isOrganizationAdmin } = useAuth();
+  const { session } = useAuth();
   const { organization } = session ?? {};
   const MembersFormSchema = useOrganizationMembersSchema();
   const NewMembersFormSchema = useOrganizationNewMembersSchema();
@@ -61,6 +61,7 @@ export const MembersForm: FC = () => {
     isWaitingData: isLoadingUsers,
   } = useGetUsers();
   const [memberIdToRemove, setMemberIdToRemove] = useState<ObjectId>();
+  const isOrganizationAdmin = false;
 
   const onSubmitSuccess = async (data: OrganizationMembersFormData) => {
     const formattedData: UpdateOrganizationMembersBody = {

@@ -243,7 +243,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
-  USER_NOT_ORGANIZATION_MEMBER: {
+  USER_ORGANIZATION_MEMBER_MISSING: {
     title: {
       en: 'User Not Organization Member',
       fr: "Utilisateur non membre de l'organisation",
@@ -256,7 +256,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
-  USER_NOT_ORGANIZATION_ADMIN: {
+  USER_ORGANIZATION_ADMIN_MISSING: {
     title: {
       en: 'User Not Organization Admin',
       fr: "Utilisateur non administrateur de l'organisation",
@@ -1075,7 +1075,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
-  ORGANIZATION_RIGHTS_NOT_READ: {
+  ORGANIZATION_RIGHTS_READ_MISSING: {
     title: {
       en: 'Organization Rights Not Read',
       fr: "Droits d'organisation non lus",
@@ -1088,7 +1088,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
-  ORGANIZATION_RIGHTS_NOT_WRITE: {
+  ORGANIZATION_RIGHTS_WRITE_MISSING: {
     title: {
       en: 'Organization Rights Not Write',
       fr: "Droits d'organisation non écrits",
@@ -1101,7 +1101,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
-  ORGANIZATION_RIGHTS_NOT_ADMIN: {
+  ORGANIZATION_RIGHTS_ADMIN_MISSING: {
     title: {
       en: 'Organization Rights Not Admin',
       fr: "Droits d'organisation non admin",

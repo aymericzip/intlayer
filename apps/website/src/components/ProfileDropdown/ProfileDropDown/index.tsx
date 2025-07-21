@@ -24,7 +24,13 @@ export const ProfileDropDown: FC<ProfileDropDownProps> = ({
       isOverable
       align="end"
     >
-      <Container className="min-w-[100px] p-6">{children}</Container>
+      <Container
+        className="min-w-[100px] p-6 shadow-lg border-1"
+        transparency="sm"
+        roundedSize="lg"
+      >
+        {children}
+      </Container>
     </DropDown.Panel>
   </DropDown>
 );

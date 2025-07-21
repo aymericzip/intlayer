@@ -42,9 +42,8 @@ export const useSignUpSchema = () => {
       termsAndConditions: z
         .boolean()
         .default(false)
-        .refine((value) => value, {
+        .refine((value) => Boolean(value), {
           message: termsAndConditionsError.value,
-          path: ['termsAndConditions'],
         }),
     })
     .refine((data) => data.password === data.passwordConfirmation, {

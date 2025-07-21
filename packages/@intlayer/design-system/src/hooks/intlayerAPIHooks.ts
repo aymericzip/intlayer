@@ -49,6 +49,17 @@ const useErrorHandling = <T extends UseAsyncOptions<any>>(options: T): T => {
       options.onError?.(errorMessage);
     },
     onSuccess: (data) => {
+      if (data?.error) {
+        toast({
+          title: formatErrorCode(
+            data.error.title ?? data.error.code ?? 'Error'
+          ),
+          description:
+            data.error.message ?? data.error.code ?? 'An error occurred',
+          variant: 'error',
+        });
+      }
+
       if (data?.message)
         toast({
           title: data.message,

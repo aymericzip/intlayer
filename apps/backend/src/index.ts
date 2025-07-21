@@ -140,7 +140,8 @@ const startServer = async () => {
       headers: fromNodeHeaders(req.headers),
     });
 
-    res.locals.session = session;
+    res.locals.session = session?.session;
+    res.locals.user = session?.user;
 
     next();
   });

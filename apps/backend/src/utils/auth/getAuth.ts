@@ -41,17 +41,45 @@ export const getAuth = (
       modelName: 'users',
     },
 
+    databaseHooks: {
+      user: {
+        create: {
+          // Runs once, immediately after the INSERT
+          after: async (user) => {
+            if (!user?.emailVerified) return;
+
+            await sendEmail({
+              type: 'welcome',
+              to: user.email,
+              username: user.name ?? user.email.split('@')[0],
+              loginLink: `${process.env.CLIENT_URL}/auth/login`,
+              locale: (user as any).lang,
+            });
+            logger.info('Welcome e‑mail delivered', {
+              email: user.email,
+            });
+          },
+        },
+      },
+    },
+
     hooks: {
       after: createAuthMiddleware(async (ctx) => {
         const { path, context } = ctx;
 
         const newUser = context.newSession?.user;
         const existingUser = context.session?.user;
-        let user = newUser ?? existingUser;
+        const user = newUser ?? existingUser;
 
         if (!user) return;
 
-        if (['/verify-email', '/sign-in/social', '/callback/'].includes(path)) {
+        if (['/verify-email'].includes(path)) {
+          sendVerificationUpdate(user as unknown as User);
+          logger.info('SSE verification update sent', {
+            email: user.email,
+            userId: user.id,
+          });
+
           await sendEmail({
             type: 'welcome',
             to: user.email,
@@ -61,16 +89,7 @@ export const getAuth = (
           });
           logger.info('Welcome e‑mail delivered', {
             email: user.email,
-            path,
           });
-
-          if (path === '/verify-email') {
-            sendVerificationUpdate(user as unknown as User);
-            logger.info('SSE verification update sent', {
-              email: user.email,
-              userId: user.id,
-            });
-          }
         }
       }),
     },

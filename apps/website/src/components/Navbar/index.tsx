@@ -119,7 +119,7 @@ export const Navbar: FC = () => {
               color="text"
               label={logoutContent.label.value}
               onClick={handleLogOut}
-              className="!rounded-2xl leading-6 flex"
+              className="!rounded-2xl leading-6 text-center font-medium"
               size="md"
             >
               {logoutContent.title}

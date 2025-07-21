@@ -1,13 +1,13 @@
-import { type AuthenticationBarrierProps as AuthenticationBarrierPropsUI } from '@intlayer/design-system';
+import { PagesRoutes } from '@/Routes';
 import { getQueryParams } from '@utils/queryMiddleware';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import { type FC } from 'react';
 import { AuthenticationBarrierClient } from './AuthenticationBarrierClient';
 import { AuthenticationBarrierServer } from './AuthenticationBarrierServer';
-import { PagesRoutes } from '@/Routes';
+import { AuthenticationBarrierProps as AuthenticationBarrierPropsBoth } from './accessValidation';
 
 type AuthenticationBarrierProps = Omit<
-  AuthenticationBarrierPropsUI,
+  AuthenticationBarrierPropsBoth,
   'sessionToken' | 'redirectionFunction'
 > & {
   redirectionRoute?: PagesRoutes | string;
@@ -18,6 +18,7 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
   children,
   redirectionRoute,
   locale,
+
   ...props
 }) => {
   const redirectionURLQuery = await getQueryParams();

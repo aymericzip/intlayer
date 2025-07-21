@@ -100,21 +100,6 @@ const signInContent = {
       }),
     },
     rememberMeCheckbox: {
-      label: t({
-        en: 'Remember me',
-        'en-GB': 'Remember me',
-        fr: 'Se souvenir de moi',
-        es: 'Recordarme',
-        de: 'Mich merken',
-        ja: 'ログイン状態を保持する',
-        ko: '기억하기',
-        zh: '记住我',
-        it: 'Ricordami',
-        pt: 'Lembrar-me',
-        hi: 'मुझे याद रखें',
-        ar: 'تذكرني',
-        ru: 'Запомнить меня',
-      }),
       description: t({
         en: 'Remember me on this device',
         'en-GB': 'Remember me on this device',

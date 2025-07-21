@@ -63,27 +63,23 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           isRequired
         />
 
-        <div className="p-3 flex flex-col gap-y-2">
-          <Form.Label>{termsAndConditionsCheckbox.label}</Form.Label>
-
-          <Form.Label
-            htmlFor="termsAndConditions"
-            className="flex items-center gap-x-2 font-medium"
-          >
-            <span>
-              <Form.Checkbox
-                name="termsAndConditions"
-                size="sm"
-                color="text"
-                id="termsAndConditions"
-                aria-labelledby="termsAndConditions-label"
-              />
-            </span>
-            <span className="text-sm text-neutral w-full pb-2">
-              {termsAndConditionsCheckbox.description}
-            </span>
-          </Form.Label>
-        </div>
+        <Form.Label
+          htmlFor="termsAndConditions"
+          className="flex items-center gap-x-2 font-medium"
+        >
+          <span>
+            <Form.Checkbox
+              name="termsAndConditions"
+              size="sm"
+              color="text"
+              id="termsAndConditions"
+              aria-labelledby="termsAndConditions-label"
+            />
+          </span>
+          <span className="text-sm w-full pb-2">
+            {termsAndConditionsCheckbox.description}
+          </span>
+        </Form.Label>
       </div>
 
       <Form.Button
