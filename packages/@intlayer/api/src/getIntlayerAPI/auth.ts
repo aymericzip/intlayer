@@ -4,7 +4,7 @@ import { createAuthClient } from 'better-auth/client';
 import { FetcherOptions, fetcher } from '../fetcher';
 import { GetOAuth2TokenBody, GetOAuth2TokenResult } from '../types';
 
-export const getAuthAPI = (intlayerConfig?: IntlayerConfig) => {
+export const getAuthAPI = (intlayerConfig?: IntlayerConfig): any => {
   const backendURL =
     intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
   const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
@@ -19,67 +19,82 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig) => {
     baseURL: backendURL,
   });
 
-  const signInEmail = (...args: Parameters<typeof authClient.signIn.email>) =>
-    authClient.signIn.email(...args);
-  const signInSocial = (...args: Parameters<typeof authClient.signIn.social>) =>
-    authClient.signIn.social(...args);
-  const signUpEmail = (...args: Parameters<typeof authClient.signUp.email>) =>
-    authClient.signUp.email(...args);
-  const signOut = (...args: Parameters<typeof authClient.signOut>) =>
-    authClient.signOut(...args);
-  const changePasswordSession = (
-    ...args: Parameters<typeof authClient.changePassword>
-  ) => authClient.changePassword(...args);
-  const requestPasswordResetSession = (
-    ...args: Parameters<typeof authClient.requestPasswordReset>
-  ) => authClient.requestPasswordReset(...args);
-  const resetPasswordSession = (
-    ...args: Parameters<typeof authClient.resetPassword>
-  ) => authClient.resetPassword(...args);
-  const verifyEmailSession = (
-    ...args: Parameters<typeof authClient.verifyEmail>
-  ) => authClient.verifyEmail(...args);
-  const getSession = (...args: Parameters<typeof authClient.getSession>) =>
-    authClient.getSession(...args);
-  const forgetPassword = (
-    ...args: Parameters<typeof authClient.forgetPassword>
-  ) => authClient.forgetPassword(...args);
-  const sendVerificationEmail = (
-    ...args: Parameters<typeof authClient.sendVerificationEmail>
-  ) => authClient.sendVerificationEmail(...args);
-  const changeEmail = (...args: Parameters<typeof authClient.changeEmail>) =>
-    authClient.changeEmail(...args);
-  const deleteUser = (...args: Parameters<typeof authClient.deleteUser>) =>
-    authClient.deleteUser(...args);
-  const revokeSession = (
-    ...args: Parameters<typeof authClient.revokeSession>
-  ) => authClient.revokeSession(...args);
-  const revokeSessions = (
-    ...args: Parameters<typeof authClient.revokeSessions>
-  ) => authClient.revokeSessions(...args);
-  const revokeOtherSessions = (
-    ...args: Parameters<typeof authClient.revokeOtherSessions>
-  ) => authClient.revokeOtherSessions(...args);
-  const linkSocial = (...args: Parameters<typeof authClient.linkSocial>) =>
-    authClient.linkSocial(...args);
-  const listAccounts = (...args: Parameters<typeof authClient.listAccounts>) =>
-    authClient.listAccounts(...args);
-  const unlinkAccount = (
-    ...args: Parameters<typeof authClient.unlinkAccount>
-  ) => authClient.unlinkAccount(...args);
-  const refreshToken = (...args: Parameters<typeof authClient.refreshToken>) =>
-    authClient.refreshToken(...args);
-  const getAccessToken = (
-    ...args: Parameters<typeof authClient.getAccessToken>
-  ) => authClient.getAccessToken(...args);
-  const accountInfo = (...args: Parameters<typeof authClient.accountInfo>) =>
-    authClient.accountInfo(...args);
-  const updateUser = (...args: Parameters<typeof authClient.updateUser>) =>
-    authClient.updateUser(...args);
-  const listSessions = (...args: Parameters<typeof authClient.listSessions>) =>
-    authClient.listSessions(...args);
+  /*
+   * Extract each method to avoid type inference issues at build time.
+   */
+  type AuthClient = ReturnType<typeof createAuthClient>;
 
-  const AUTH_API_ROUTE = `${backendURL}/api/auth`;
+  const signInEmail: AuthClient['signIn']['email'] = async (...args) =>
+    await authClient.signIn.email(...args);
+
+  const signInSocial: AuthClient['signIn']['social'] = async (...args) =>
+    await authClient.signIn.social(...args);
+
+  const signUpEmail: AuthClient['signUp']['email'] = async (...args) =>
+    await authClient.signUp.email(...args);
+
+  const signOut: AuthClient['signOut'] = async (...args) =>
+    await authClient.signOut(...args);
+
+  const changePasswordSession: AuthClient['changePassword'] = async (...args) =>
+    await authClient.changePassword(...args);
+
+  const requestPasswordResetSession: AuthClient['requestPasswordReset'] =
+    async (...args) => await authClient.requestPasswordReset(...args);
+
+  const resetPassword = authClient.resetPassword;
+
+  const verifyEmailSession: AuthClient['verifyEmail'] = async (...args) =>
+    await authClient.verifyEmail(...args);
+
+  const getSession: AuthClient['getSession'] = async (...args) =>
+    await authClient.getSession(...args);
+
+  const forgetPassword: AuthClient['forgetPassword'] = async (...args) =>
+    await authClient.forgetPassword(...args);
+
+  const sendVerificationEmail: AuthClient['sendVerificationEmail'] = async (
+    ...args
+  ) => await authClient.sendVerificationEmail(...args);
+
+  const changeEmail: AuthClient['changeEmail'] = async (...args) =>
+    await authClient.changeEmail(...args);
+
+  const deleteUser = authClient.deleteUser;
+
+  const revokeSession: AuthClient['revokeSession'] = async (...args) =>
+    await authClient.revokeSession(...args);
+
+  const revokeSessions: AuthClient['revokeSessions'] = async (...args) =>
+    await authClient.revokeSessions(...args);
+
+  const revokeOtherSessions: AuthClient['revokeOtherSessions'] = async (
+    ...args
+  ) => await authClient.revokeOtherSessions(...args);
+
+  const linkSocial: AuthClient['linkSocial'] = async (...args) =>
+    await authClient.linkSocial(...args);
+
+  const listAccounts: AuthClient['listAccounts'] = async (...args) =>
+    await authClient.listAccounts(...args);
+
+  const unlinkAccount: AuthClient['unlinkAccount'] = async (...args) =>
+    await authClient.unlinkAccount(...args);
+
+  const refreshToken: AuthClient['refreshToken'] = async (...args) =>
+    await authClient.refreshToken(...args);
+
+  const getAccessToken: AuthClient['getAccessToken'] = async (...args) =>
+    await authClient.getAccessToken(...args);
+
+  const accountInfo: AuthClient['accountInfo'] = async (...args) =>
+    await authClient.accountInfo(...args);
+
+  const updateUser: AuthClient['updateUser'] = async (...args) =>
+    await authClient.updateUser(...args);
+
+  const listSessions: AuthClient['listSessions'] = async (...args) =>
+    await authClient.listSessions(...args);
 
   /**
    * Gets an oAuth2 accessToken
@@ -111,7 +126,7 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig) => {
     linkSocial,
     changePasswordSession,
     requestPasswordResetSession,
-    resetPasswordSession,
+    resetPassword,
     verifyEmailSession,
     getSession,
     getOAuth2AccessToken,
