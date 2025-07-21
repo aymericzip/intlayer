@@ -108,16 +108,7 @@ export const getAuth = (
       admin(),
       anonymous(),
       bearer({ requireSignature: true }),
-      customSession(async ({ session, user }) => {
-        // Transform user object to use _id instead of id
-        const transformedUser = {
-          ...user,
-          id: user.id,
-        };
-        delete (transformedUser as any).id;
-
-        return { user: transformedUser, session };
-      }),
+      customSession(async (session) => session),
     ],
 
     emailAndPassword: {

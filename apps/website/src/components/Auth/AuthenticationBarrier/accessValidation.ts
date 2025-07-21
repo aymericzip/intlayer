@@ -12,12 +12,12 @@ export const accessValidation = (
     (accessRule === 'authenticated' || accessRule === 'admin')
   ) {
     console.log('redirecting to login because user is not authenticated');
-    // redirectionFunction(redirectionRoute);
+    redirectionFunction(redirectionRoute);
   }
 
   if (session?.user && accessRule === 'none-authenticated') {
     console.log('redirecting to home because user is authenticated');
-    // redirectionFunction(redirectionRoute);
+    redirectionFunction(redirectionRoute);
   }
 
   if (
@@ -26,7 +26,7 @@ export const accessValidation = (
     !session.user?.role?.includes('admin')
   ) {
     console.log('redirecting to home because user is authenticated');
-    //redirectionFunction(redirectionRoute);
+    redirectionFunction(redirectionRoute);
   }
 };
 

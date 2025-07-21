@@ -36,7 +36,13 @@ import { stripeWebhook } from '@webhooks/stripe.webhook';
 import { connectDB } from '@utils/mongoDB/connectDB';
 
 // Logger
-import { getAuth } from '@utils/auth/getAuth';
+import { getOAuth2AccessToken } from '@controllers/oAuth2.controller';
+import {
+  attachOAuthInstance,
+  authenticateOAuth2,
+  RequestWithOAuth2Information,
+} from '@middlewares/oAuth2.middleware';
+import { getAuth, ResponseWithInformation } from '@utils/auth/getAuth';
 import { ipLimiter } from '@utils/rateLimiter';
 import { logger } from './logger/index';
 
@@ -143,6 +149,21 @@ const startServer = async () => {
     res.locals.session = session?.session;
     res.locals.user = session?.user;
 
+    next();
+  });
+
+  // oAuth2
+  app.use(/(.*)/, attachOAuthInstance);
+  app.post('/oauth2/token', getOAuth2AccessToken); // Route to get the token
+  app.use(/(.*)/, (req, res, next) => {
+    // If the request is not already authenticated check the oAuth2 token
+    if (!res.locals.authType) {
+      return authenticateOAuth2(
+        req as RequestWithOAuth2Information,
+        res as ResponseWithInformation,
+        next
+      );
+    }
     next();
   });
 

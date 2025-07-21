@@ -42,7 +42,7 @@ export const getOrganizations = async (
   res: ResponseWithInformation<GetOrganizationsResult>,
   _next: NextFunction
 ) => {
-  const { user, organizationRights } = res.locals;
+  const { user } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
 
@@ -51,18 +51,11 @@ export const getOrganizations = async (
     return;
   }
 
-  if (!organizationRights?.read) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_NOT_READ'
-    );
-    return;
-  }
+  console.log({ filters, user });
 
   const restrictedFilter: OrganizationFilters = {
     ...filters,
-
-    membersIds: { $in: [...(filters.membersIds ?? []), String(user.id)] },
+    membersIds: { $in: [...(filters?.membersIds ?? []), String(user.id)] },
   };
 
   try {
@@ -100,16 +93,8 @@ export const getOrganization = async (
   res: ResponseWithInformation<GetOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organizationRights } = res.locals;
+  const {} = res.locals;
   const { organizationId } = req.params as Partial<GetOrganizationParam>;
-
-  if (!organizationRights?.read) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_READ_MISSING'
-    );
-    return;
-  }
 
   if (!organizationId) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_ID_NOT_FOUND');
