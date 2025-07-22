@@ -124,9 +124,23 @@ export const t = <Content = string>(
   locale?: Locales
 ): Content => appNamespace.get('t')(content, locale);
 
-export const getIntlayer: typeof getIntlayerFunction = (...args) =>
-  appNamespace.get('getIntlayer')(...args);
-export const getDictionary: typeof getDictionaryFunction = (...args) =>
-  appNamespace.get('getDictionary')(...args);
+export const getIntlayer: typeof getIntlayerFunction = (...args) => {
+  if (typeof appNamespace === 'undefined') {
+    throw new Error(
+      'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function'
+    );
+  }
+
+  return appNamespace.get('getIntlayer')(...args);
+};
+
+export const getDictionary: typeof getDictionaryFunction = (...args) => {
+  if (typeof appNamespace === 'undefined') {
+    throw new Error(
+      'Intlayer is not initialized. Add the `app.use(intlayer());` middleware before using this function'
+    );
+  }
+  return appNamespace.get('getDictionary')(...args);
+};
 
 export { LanguageContent };
