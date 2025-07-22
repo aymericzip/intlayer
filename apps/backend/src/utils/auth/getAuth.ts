@@ -1,10 +1,17 @@
-import type { Organization } from '@/types/organization.types';
-import type { Project, Rights } from '@/types/project.types';
-import type { User } from '@/types/user.types';
+import type { Organization, OrganizationAPI } from '@/types/organization.types';
+import type { Project, ProjectAPI, Rights } from '@/types/project.types';
+import type { Session, SessionAPI } from '@/types/session.types';
+import type { User, UserAPI } from '@/types/user.types';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
-import { betterAuth } from 'better-auth';
+import { getOrganizationById } from '@services/organization.service';
+import { getProjectById } from '@services/project.service';
+import { getUserById } from '@services/user.service';
+import { mapOrganizationToAPI } from '@utils/mapper/organization';
+import { mapProjectToAPI } from '@utils/mapper/project';
+import { mapUserToAPI } from '@utils/mapper/user';
+import { betterAuth, OmitId } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
 import { customSession } from 'better-auth/plugins';
@@ -108,10 +115,10 @@ export const getAuth = (
       modelName: 'sessions',
       id: 'id',
 
-      // additionalFields: {
-      //   activeOrganizationId: { type: 'string', nullable: true },
-      //   activeProjectId: { type: 'string', nullable: true },
-      // },
+      additionalFields: {
+        activeOrganizationId: { type: 'string', nullable: true, input: false },
+        activeProjectId: { type: 'string', nullable: true, input: false },
+      },
     },
 
     plugins: [
@@ -119,7 +126,48 @@ export const getAuth = (
       // admin(),
       // anonymous(),
       // bearer({ requireSignature: true }),
-      customSession(async (session) => session),
+
+      customSession(async ({ session }) => {
+        const typedSession = session as unknown as SessionAPI;
+
+        let userAPI: UserAPI | null = null;
+        let organizationAPI: OrganizationAPI | null = null;
+        let projectAPI: ProjectAPI | null = null;
+
+        if (typedSession.userId) {
+          const userData = await getUserById(typedSession.userId);
+
+          if (userData) {
+            userAPI = mapUserToAPI(userData);
+          }
+        }
+
+        if (typedSession.activeOrganizationId) {
+          const orgData = await getOrganizationById(
+            typedSession.activeOrganizationId
+          );
+
+          if (orgData) {
+            organizationAPI = mapOrganizationToAPI(orgData);
+          }
+        }
+        if (typedSession.activeProjectId) {
+          const projectData = await getProjectById(
+            typedSession.activeProjectId
+          );
+
+          if (projectData) {
+            projectAPI = mapProjectToAPI(projectData);
+          }
+        }
+
+        return {
+          session: typedSession,
+          user: userAPI!,
+          organization: organizationAPI ?? null,
+          project: projectAPI ?? null,
+        } satisfies OmitId<Session>;
+      }),
     ],
 
     emailAndPassword: {

@@ -11,7 +11,7 @@ import {
   type OrganizationFields,
   validateOrganization,
 } from '@utils/validation/validateOrganization';
-import type { ObjectId } from 'mongoose';
+import type { Types } from 'mongoose';
 
 /**
  * Finds organizations based on filters and pagination options.
@@ -24,9 +24,8 @@ export const findOrganizations = async (
   filters: OrganizationFilters,
   skip: number,
   limit: number
-): Promise<OrganizationDocument[]> => {
-  return await OrganizationModel.find(filters).skip(skip).limit(limit);
-};
+): Promise<OrganizationDocument[]> =>
+  await OrganizationModel.find(filters).skip(skip).limit(limit);
 
 /**
  * Finds an organization by its ID.
@@ -34,7 +33,7 @@ export const findOrganizations = async (
  * @returns The organization matching the ID.
  */
 export const getOrganizationById = async (
-  organizationId: ObjectId | string
+  organizationId: string | Types.ObjectId
 ): Promise<OrganizationDocument> => {
   const organization = await OrganizationModel.findById(organizationId);
 
@@ -69,7 +68,7 @@ export const countOrganizations = async (
  */
 export const createOrganization = async (
   organization: OrganizationCreationData,
-  userId: string | ObjectId
+  userId: string | Types.ObjectId
 ): Promise<OrganizationDocument> => {
   const errors = validateOrganization(organization, ['name']);
 
@@ -98,7 +97,7 @@ export const createOrganization = async (
  * @returns The updated organization.
  */
 export const updateOrganizationById = async (
-  organizationId: ObjectId | string,
+  organizationId: string | Types.ObjectId,
   organization: Partial<Organization>
 ): Promise<OrganizationDocument> => {
   const updatedKeys = Object.keys(organization) as OrganizationFields;
@@ -129,7 +128,7 @@ export const updateOrganizationById = async (
  * @returns The result of the deletion operation.
  */
 export const deleteOrganizationById = async (
-  organizationId: ObjectId | string
+  organizationId: string | Types.ObjectId
 ): Promise<OrganizationDocument> => {
   const organization =
     await OrganizationModel.findByIdAndDelete(organizationId);

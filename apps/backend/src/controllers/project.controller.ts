@@ -28,7 +28,7 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { ObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 
 export type GetProjectsParams = FiltersAndPagination<ProjectFiltersParams>;
 export type GetProjectsResult = PaginatedResponse<ProjectAPI>;
@@ -74,11 +74,7 @@ export const getProjects = async (
     );
     const totalItems = await projectService.countProjects(filters);
 
-    const formattedProjects = mapProjectsToAPI(
-      projects,
-      user,
-      res.locals.isProjectAdmin
-    );
+    const formattedProjects = mapProjectsToAPI(projects);
 
     const responseData = formatPaginatedResponse<ProjectAPI>({
       data: formattedProjects,
@@ -163,7 +159,7 @@ export const addProject = async (
   try {
     const newProject = await projectService.createProject(project);
 
-    const formattedProject = mapProjectToAPI(newProject, user, true);
+    const formattedProject = mapProjectToAPI(newProject);
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -238,11 +234,7 @@ export const updateProject = async (
       projectData
     );
 
-    const formattedProject = mapProjectToAPI(
-      updatedProject,
-      user,
-      isProjectAdmin
-    );
+    const formattedProject = mapProjectToAPI(updatedProject);
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -268,7 +260,7 @@ export const updateProject = async (
 
 type UserAndAdmin = { user: User; isAdmin: boolean };
 export type ProjectMemberByIdOption = {
-  userId: string | ObjectId;
+  userId: string | Types.ObjectId;
   isAdmin?: boolean;
 };
 
@@ -335,7 +327,7 @@ export const updateProjectMembers = async (
         ?.filter(
           (member) =>
             // Remove members that are not in the organization
-            !organization?.membersIds.includes(member.userId as ObjectId)
+            !organization?.membersIds.includes(member.userId as Types.ObjectId)
         )
         .map((member) => member.userId);
 
@@ -354,10 +346,10 @@ export const updateProjectMembers = async (
       }
     }
 
-    const formattedMembers: ObjectId[] = existingUsers.map(
+    const formattedMembers: Types.ObjectId[] = existingUsers.map(
       (user) => user.user.id
     );
-    const formattedAdmin: ObjectId[] = existingUsers
+    const formattedAdmin: Types.ObjectId[] = existingUsers
       .filter((el) => el.isAdmin)
       .map((user) => user.user.id);
 
@@ -370,11 +362,7 @@ export const updateProjectMembers = async (
       }
     );
 
-    const formattedProject = mapProjectToAPI(
-      updatedOrganization,
-      user,
-      isProjectAdmin
-    );
+    const formattedProject = mapProjectToAPI(updatedOrganization);
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -530,11 +518,7 @@ export const deleteProject = async (
 
     logger.info(`Project deleted: ${String(deletedProject.id)}`);
 
-    const formattedProject = mapProjectToAPI(
-      deletedProject,
-      user,
-      isProjectAdmin
-    );
+    const formattedProject = mapProjectToAPI(deletedProject);
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -563,7 +547,7 @@ export const deleteProject = async (
   }
 };
 
-export type SelectProjectParam = { projectId: ObjectId | string };
+export type SelectProjectParam = { projectId: string | Types.ObjectId };
 export type SelectProjectResult = ResponseData<Project>;
 
 /**

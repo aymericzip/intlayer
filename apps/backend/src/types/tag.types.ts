@@ -1,4 +1,5 @@
-import type { Document, Model, Schema } from 'mongoose';
+import { RenameId } from '@utils/mongoDB/types';
+import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Organization } from './organization.types';
 import type { User } from './user.types';
 
@@ -19,13 +20,13 @@ export type TagData = {
 };
 
 export type Tag = TagData & {
-  id: Schema.Types.ObjectId;
+  id: Types.ObjectId;
   createdAt: number;
   updatedAt: number;
 };
 
-export type TagAPI = Tag;
+export type TagAPI = ObjectIdToString<Tag>;
 
-export type TagDocument = Document<unknown, {}, Tag> & Tag;
-
+export type TagSchema = RenameId<Tag>;
 export type TagModelType = Model<Tag>;
+export type TagDocument = Document<unknown, {}, Tag> & Tag;

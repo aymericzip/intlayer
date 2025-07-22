@@ -1,9 +1,11 @@
-import type { Organization } from '@/types/organization.types';
+import type {
+  OrganizationModelType,
+  OrganizationSchema,
+} from '@/types/organization.types';
 import { organizationSchema } from '@schemas/organization.schema';
-import { RenameId } from '@schemas/user.schema';
-import { Model, model } from 'mongoose';
+import { model } from 'mongoose';
 
 export const OrganizationModel = model<
-  RenameId<Organization>,
-  Model<Organization>
+  OrganizationSchema,
+  OrganizationModelType
 >('organization', organizationSchema);

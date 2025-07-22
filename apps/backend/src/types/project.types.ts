@@ -1,5 +1,6 @@
 import type { IntlayerConfig } from '@intlayer/config';
-import type { Document, Model, Schema } from 'mongoose';
+import { RenameId } from '@utils/mongoDB/types';
+import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Organization } from './organization.types';
 import type { User } from './user.types';
 
@@ -57,22 +58,24 @@ export type OAuth2AccessData = AccessKeyData & {
 };
 
 export type OAuth2Access = OAuth2AccessData & {
-  id: Schema.Types.ObjectId;
+  id: Types.ObjectId;
   createdAt: number;
   updatedAt: number;
 };
 
 export type Project = ProjectData & {
-  id: Schema.Types.ObjectId;
+  id: Types.ObjectId;
   createdAt: number;
   updatedAt: number;
   oAuth2Access: OAuth2Access[];
 };
 
-export type ProjectAPI = Omit<Project, 'adminsIds'> & {
-  adminsIds?: User['id'][];
-};
+export type ProjectAPI = ObjectIdToString<
+  Omit<Project, 'adminsIds'> & {
+    adminsIds?: User['id'][];
+  }
+>;
 
-export type ProjectDocument = Document<unknown, {}, Project> & Project;
-
+export type ProjectSchema = RenameId<Project>;
 export type ProjectModelType = Model<Project>;
+export type ProjectDocument = Document<unknown, {}, Project> & Project;

@@ -1,17 +1,18 @@
 import type {
   OAuth2Access,
   Project,
+  ProjectSchema,
   Rights,
   TokenRights,
 } from '@/types/project.types';
 import { Locales } from '@intlayer/config';
+import type { RenameId } from '@utils/mongoDB/types';
 import {
   MEMBERS_MIN_LENGTH,
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateProject';
 import { Schema } from 'mongoose';
-import { RenameId } from './user.schema';
 
 const RightsSchema = new Schema<Rights>({
   read: { type: Boolean, required: true },
@@ -72,7 +73,7 @@ const projectConfigSchema = new Schema<Project['configuration']>(
   }
 );
 
-export const projectSchema = new Schema<RenameId<Project>>(
+export const projectSchema = new Schema<ProjectSchema>(
   {
     _id: {
       type: Schema.Types.ObjectId,

@@ -4,7 +4,7 @@ import { TagModel } from '@models/tag.model';
 import { GenericError } from '@utils/errors';
 import type { TagFilters } from '@utils/filtersAndPagination/getTagFiltersAndPagination';
 import { type TagFields, validateTag } from '@utils/validation/validateTag';
-import type { ObjectId } from 'mongoose';
+import type { Types } from 'mongoose';
 
 /**
  * Finds tags based on filters and pagination options.
@@ -26,7 +26,7 @@ export const findTags = async (
  * @returns The tag matching the ID.
  */
 export const getTagById = async (
-  tagId: string | ObjectId
+  tagId: string | Types.ObjectId
 ): Promise<TagDocument> => {
   const tag = await TagModel.findById(tagId);
 
@@ -83,7 +83,7 @@ export const createTag = async (tag: TagData): Promise<TagDocument> => {
  * @returns The updated tag.
  */
 export const updateTagById = async (
-  tagId: string | ObjectId,
+  tagId: string | Types.ObjectId,
   tag: Partial<Tag>
 ): Promise<TagDocument> => {
   const updatedKeys = Object.keys(tag) as TagFields;
@@ -112,7 +112,7 @@ export const updateTagById = async (
  * @returns The result of the deletion operation.
  */
 export const deleteTagById = async (
-  tagId: string | ObjectId
+  tagId: string | Types.ObjectId
 ): Promise<TagDocument> => {
   const tag = await TagModel.findByIdAndDelete(tagId);
 

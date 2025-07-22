@@ -33,5 +33,5 @@ export const mapDictionaryToAPI = (
     ...dictionaryObject,
     content,
     filePath: dictionaryObject.filePath?.[String(projectId)],
-  };
+  } as unknown as DictionaryAPI;
 };

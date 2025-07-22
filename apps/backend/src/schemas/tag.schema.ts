@@ -1,4 +1,4 @@
-import type { Tag } from '@/types/tag.types';
+import type { TagSchema } from '@/types/tag.types';
 import {
   KEY_MAX_LENGTH,
   KEY_MIN_LENGTH,
@@ -6,9 +6,8 @@ import {
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateTag';
 import { Schema } from 'mongoose';
-import { RenameId } from './user.schema';
 
-export const tagSchema = new Schema<RenameId<Tag>>(
+export const tagSchema = new Schema<TagSchema>(
   {
     _id: {
       type: Schema.Types.ObjectId,

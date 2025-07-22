@@ -1,8 +1,7 @@
-import type { Plan } from '@/types/plan.types';
+import type { PlanSchema } from '@/types/plan.types';
 import { Schema } from 'mongoose';
-import { RenameId } from './user.schema';
 
-export const planSchema = new Schema<RenameId<Plan>>(
+export const planSchema = new Schema<PlanSchema>(
   {
     _id: {
       type: Schema.Types.ObjectId,

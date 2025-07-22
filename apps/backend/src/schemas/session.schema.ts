@@ -1,35 +1,20 @@
-import type { Session } from '@/types/session.types';
+import { SessionSchema } from '@/export';
 import { Schema } from 'mongoose';
-import { RenameId } from './user.schema';
 
-export const sessionSchema = new Schema<RenameId<Session>>(
+export const sessionSchema = new Schema<SessionSchema>(
   {
     _id: {
       type: Schema.Types.ObjectId,
       alias: 'id',
     },
-    token: {
-      type: String,
-      required: true,
-      unique: true,
-      index: true,
-    },
-    expires: {
-      type: Date,
-      required: true,
-      index: true,
-    },
-    userId: {
-      type: String,
-      required: true,
-      index: true,
-    },
-    organizationId: {
-      type: String,
+    activeOrganizationId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Organization',
       required: false,
     },
-    projectId: {
-      type: String,
+    activeProjectId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Project',
       required: false,
     },
   },

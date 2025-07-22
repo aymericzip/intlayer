@@ -1,4 +1,4 @@
-import type { User } from '@/types/user.types';
+import type { UserSchema } from '@/types/user.types';
 import {
   NAMES_MAX_LENGTH,
   NAMES_MIN_LENGTH,
@@ -6,14 +6,7 @@ import {
 import { Schema } from 'mongoose';
 import validator from 'validator';
 
-export type RenameId<T extends { id: Schema.Types.ObjectId }> = Omit<
-  T,
-  'id'
-> & {
-  _id: T['id'];
-};
-
-export const userSchema = new Schema<RenameId<User>>(
+export const userSchema = new Schema<UserSchema>(
   {
     _id: {
       type: Schema.Types.ObjectId,

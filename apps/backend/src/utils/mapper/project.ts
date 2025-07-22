@@ -1,5 +1,4 @@
 import type { Project, ProjectAPI } from '@/types/project.types';
-import type { User } from '@/types/user.types';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 
 /**
@@ -8,39 +7,11 @@ import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject'
  * @param isProjectAdmin - Whether the user is an admin of the project.
  * @returns The project mapped to an API response.
  */
-export const mapProjectToAPI = (
-  project: Project,
-  user: User | null,
-  isProjectAdmin: boolean | null
-): ProjectAPI => {
+export const mapProjectToAPI = (project: Project): ProjectAPI => {
   let projectObject = ensureMongoDocumentToObject<Project>(project);
 
-  projectObject = {
-    ...projectObject,
-    oAuth2Access: projectObject.oAuth2Access
-      .filter((token) => token.userId !== user?.id)
-      .map((token) => {
-        const isJustUpdated =
-          new Date().getTime() - new Date(token.updatedAt).getTime() <
-          1000 * 60 * 5; // 5 min
-
-        if (isJustUpdated) {
-          return token;
-        }
-
-        return {
-          ...token,
-          clientSecret: `${token.clientSecret.substring(0, 10)}${'*'.repeat(token.clientSecret.length - 10)}`,
-        };
-      }),
-  };
-
-  if (isProjectAdmin) {
-    return projectObject;
-  }
-
   const { adminsIds, ...projectAPI } = projectObject;
-  return projectAPI;
+  return projectAPI as ProjectAPI;
 };
 
 /**
@@ -50,9 +21,5 @@ export const mapProjectToAPI = (
  * @param isProjectAdmin - Whether the user is an admin of the project.
  * @returns The formatted array of user objects.
  */
-export const mapProjectsToAPI = (
-  projects: Project[],
-  user: User,
-  isProjectAdmin: boolean | null
-): ProjectAPI[] =>
-  projects.map((project) => mapProjectToAPI(project, user, isProjectAdmin));
+export const mapProjectsToAPI = (projects: Project[]): ProjectAPI[] =>
+  projects.map((project) => mapProjectToAPI(project));

@@ -1,5 +1,5 @@
-import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import type { Organization, OrganizationAPI } from '@/types/organization.types';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 
 /**
  * Maps an organization to an API response.
@@ -8,16 +8,12 @@ import type { Organization, OrganizationAPI } from '@/types/organization.types';
  * @returns The organization mapped to an API response.
  */
 export const mapOrganizationToAPI = (
-  organization: Organization,
-  isOrganizationAdmin: boolean | null
+  organization: Organization
 ): OrganizationAPI => {
   const organizationObject =
     ensureMongoDocumentToObject<Organization>(organization);
 
-  if (isOrganizationAdmin) {
-    return organizationObject;
-  }
-
   const { adminsIds, ...organizationAPI } = organizationObject;
-  return organizationAPI;
+
+  return organizationAPI as unknown as OrganizationAPI;
 };

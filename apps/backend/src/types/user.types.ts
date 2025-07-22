@@ -1,4 +1,6 @@
-import type { Document, Model, ObjectId, Schema } from 'mongoose';
+import { RenameId } from '@utils/mongoDB/types';
+import type { User as BetterAuthUser, OmitId } from 'better-auth';
+import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 
 export interface UserData {
   email: string;
@@ -11,35 +13,20 @@ export enum EmailsList {
   NEWS_LETTER = 'newsLetter',
 }
 
-export interface User extends UserData {
-  id: Schema.Types.ObjectId;
+export type User = OmitId<UserData & BetterAuthUser> & {
+  id: Types.ObjectId;
   emailsList?: {
     [key in EmailsList]: boolean;
   };
-  customerId?: Schema.Types.ObjectId;
-  emailVerified?: boolean;
+  customerId?: string; // Stripe customer ID
   role?: string;
   lang?: string;
   createdAt: Date;
   updatedAt: Date;
-}
-
-export type UserAPI = Omit<User, 'provider' | 'session' | 'createdAt'>;
-
-export type UserModel = User;
-export type UserDocument = Document<unknown, {}, UserModel> & UserModel;
-
-export type UserWithPasswordNotHashed = Partial<User> &
-  Pick<User, 'email'> & {
-    password?: string;
-  };
-
-export type UserModelType = Model<User> & {
-  login: (email: string, password: string) => Promise<User>;
-  changePassword: (
-    userId: ObjectId | string,
-    oldPassword: string,
-    newPassword: string
-  ) => Promise<User>;
-  resetPassword: (userId: User['id'], password: string) => Promise<User>;
 };
+
+export type UserAPI = ObjectIdToString<Omit<User, 'provider' | 'session'>>;
+
+export type UserSchema = RenameId<User>;
+export type UserModelType = Model<User>;
+export type UserDocument = Document<unknown, {}, User> & User;

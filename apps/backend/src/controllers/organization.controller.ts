@@ -9,7 +9,6 @@ import { sendEmail } from '@services/email.service';
 import * as organizationService from '@services/organization.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
-
 import { type ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
@@ -27,7 +26,7 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { ObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 import { Stripe } from 'stripe';
 
 export type GetOrganizationsParams =
@@ -238,7 +237,7 @@ export const updateOrganization = async (
 type UserAndAdmin = { user: User; isAdmin: boolean };
 
 export type OrganizationMemberByIdOption = {
-  userId: string | ObjectId;
+  userId: string | Types.ObjectId;
   isAdmin?: boolean;
 };
 
@@ -437,10 +436,10 @@ export const updateOrganizationMembers = async (
       }
     }
 
-    const formattedMembers: ObjectId[] = existingUsers.map(
+    const formattedMembers: Types.ObjectId[] = existingUsers.map(
       (user) => user.user.id
     );
-    const formattedAdmin: ObjectId[] = existingUsers
+    const formattedAdmin: Types.ObjectId[] = existingUsers
       .filter((el) => el.isAdmin)
       .map((user) => user.user.id);
 
@@ -559,7 +558,9 @@ export const deleteOrganization = async (
   }
 };
 
-export type SelectOrganizationParam = { organizationId: ObjectId | string };
+export type SelectOrganizationParam = {
+  organizationId: string | Types.ObjectId;
+};
 export type SelectOrganizationResult = ResponseData<Organization>;
 
 /**

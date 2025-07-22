@@ -12,7 +12,7 @@ import {
   type ProjectFields,
   validateProject,
 } from '@utils/validation/validateProject';
-import type { ObjectId } from 'mongoose';
+import type { Types } from 'mongoose';
 
 /**
  * Finds projects based on filters and pagination options.
@@ -34,7 +34,7 @@ export const findProjects = async (
  * @returns The project matching the ID.
  */
 export const getProjectById = async (
-  projectId: string | ObjectId
+  projectId: string | Types.ObjectId
 ): Promise<ProjectDocument> => {
   const project = await ProjectModel.findById(projectId);
 
@@ -90,7 +90,7 @@ export const createProject = async (
  * @returns The updated project.
  */
 export const updateProjectById = async (
-  projectId: string | ObjectId,
+  projectId: string | Types.ObjectId,
   project: Partial<Project>
 ): Promise<ProjectDocument> => {
   const projectObject = ensureMongoDocumentToObject(project);
@@ -129,7 +129,7 @@ export const updateProjectById = async (
  * @returns The result of the deletion operation.
  */
 export const deleteProjectById = async (
-  projectId: string | ObjectId
+  projectId: string | Types.ObjectId
 ): Promise<ProjectDocument> => {
   const project = await ProjectModel.findByIdAndDelete(projectId);
 

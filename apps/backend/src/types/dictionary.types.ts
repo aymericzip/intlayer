@@ -2,7 +2,8 @@ import {
   type ContentNode,
   type Dictionary as DictionaryCore,
 } from '@intlayer/core';
-import type { Document, Model, Schema } from 'mongoose';
+import { RenameId } from '@utils/mongoDB/types';
+import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Project } from './project.types';
 import type { User } from './user.types';
 
@@ -37,14 +38,17 @@ export type DictionaryData = {
 };
 
 export type Dictionary = DictionaryData & {
-  id: Schema.Types.ObjectId;
+  id: Types.ObjectId;
   createdAt: number;
   updatedAt: number;
 };
 
-export type DictionaryAPI = DictionaryCore & {
-  projectIds: (Project['id'] | string)[];
-};
+export type DictionaryAPI = ObjectIdToString<
+  DictionaryCore & {
+    projectIds: (Project['id'] | string)[];
+  }
+>;
 
-export type DictionaryDocument = Document<unknown, {}, Dictionary> & Dictionary;
+export type DictionarySchema = RenameId<Dictionary>;
 export type DictionaryModelType = Model<Dictionary>;
+export type DictionaryDocument = Document<unknown, {}, Dictionary> & Dictionary;

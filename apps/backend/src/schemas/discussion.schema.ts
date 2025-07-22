@@ -1,8 +1,7 @@
-import type { Discussion } from '@/types/discussion.types';
+import type { DiscussionSchema } from '@/types/discussion.types';
 import { Schema } from 'mongoose';
-import { RenameId } from './user.schema';
 
-export const discussionSchema = new Schema<RenameId<Discussion>>(
+export const discussionSchema = new Schema<DiscussionSchema>(
   {
     discutionId: {
       type: String,

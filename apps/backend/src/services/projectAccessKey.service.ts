@@ -9,7 +9,7 @@ import type {
 import type { User } from '@/types/user.types';
 import { ProjectModel } from '@models/project.model';
 import { GenericError } from '@utils/errors';
-import type { ObjectId } from 'mongoose';
+import type { Types } from 'mongoose';
 import { getProjectById } from './project.service';
 
 const generateClientCredentials = () => {
@@ -30,7 +30,7 @@ const generateClientCredentials = () => {
  */
 export const addNewAccessKey = async (
   accessKeyData: AccessKeyData,
-  projectId: string | ObjectId,
+  projectId: string | Types.ObjectId,
   user: User,
   organizationRights: Rights,
   projectRights: Rights,
@@ -83,9 +83,9 @@ export const addNewAccessKey = async (
 };
 
 export const deleteAccessKey = async (
-  clientId: string | ObjectId,
+  clientId: string | Types.ObjectId,
   project: Project,
-  userId: string | ObjectId
+  userId: string | Types.ObjectId
 ) => {
   const projectAccess = project.oAuth2Access.find(
     (access) =>
@@ -118,9 +118,9 @@ export const deleteAccessKey = async (
 };
 
 export const refreshAccessKey = async (
-  clientId: string | ObjectId,
-  projectId: string | ObjectId,
-  userId: string | ObjectId
+  clientId: string | Types.ObjectId,
+  projectId: string | Types.ObjectId,
+  userId: string | Types.ObjectId
 ): Promise<OAuth2Access> => {
   const project = await ProjectModel.findOne({
     _id: projectId,

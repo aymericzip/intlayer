@@ -1,4 +1,10 @@
-import type { Tag, TagAPI, TagCreationData, TagData } from '@/types/tag.types';
+import type {
+  Tag,
+  TagAPI,
+  TagCreationData,
+  TagData,
+  TagSchema,
+} from '@/types/tag.types';
 import { logger } from '@logger';
 import * as tagService from '@services/tag.service';
 import type { ResponseWithInformation } from '@utils/auth/getAuth';
@@ -166,12 +172,12 @@ export const updateTag = async (
 
   try {
     const tag = {
-      id: tagId as TagAPI['id'],
+      _id: tagId,
       name: req.body.name,
       key: req.body.key,
       description: req.body.description,
       instructions: req.body.instructions,
-    };
+    } as Partial<TagSchema> & { _id: Tag['id'] };
 
     const tagToDelete = await tagService.getTagById(tagId);
 
@@ -180,7 +186,7 @@ export const updateTag = async (
       return;
     }
 
-    const updatedTag = await tagService.updateTagById(tag.id, tag);
+    const updatedTag = await tagService.updateTagById(tag._id, tag);
 
     const formattedTag = mapTagToAPI(updatedTag);
 

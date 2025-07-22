@@ -84,7 +84,7 @@ export const getSubscription = async (
     if (!organization.membersIds.map(String).includes(String(user.id))) {
       ErrorHandler.handleGenericErrorResponse(
         res,
-        'USER_NOT_ORGANIZATION_MEMBER'
+        'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
       );
       return;
     }
@@ -93,7 +93,7 @@ export const getSubscription = async (
     if (!organization.adminsIds.map(String).includes(String(user.id))) {
       ErrorHandler.handleGenericErrorResponse(
         res,
-        'USER_NOT_ORGANIZATION_ADMIN'
+        'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
       );
       return;
     }
@@ -215,7 +215,7 @@ export const cancelSubscription = async (
     if (!organization.adminsIds.map(String).includes(String(user.id))) {
       ErrorHandler.handleGenericErrorResponse(
         res,
-        'USER_NOT_ORGANIZATION_ADMIN'
+        'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
       );
       return;
     }

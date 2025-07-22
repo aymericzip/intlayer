@@ -1,4 +1,4 @@
-import type { Organization } from '@/types/organization.types';
+import { OrganizationSchema } from '@/export';
 import {
   MEMBERS_MIN_LENGTH,
   NAME_MAX_LENGTH,
@@ -6,9 +6,8 @@ import {
 } from '@utils/validation/validateOrganization';
 import { Schema } from 'mongoose';
 import { planSchema } from './plans.schema';
-import { RenameId } from './user.schema';
 
-export const organizationSchema = new Schema<RenameId<Organization>>(
+export const organizationSchema = new Schema<OrganizationSchema>(
   {
     _id: {
       type: Schema.Types.ObjectId,

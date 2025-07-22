@@ -10,7 +10,7 @@ import { ProjectModel } from '@models/project.model';
 import { GenericError } from '@utils/errors';
 import { getTokenExpireAt } from '@utils/oAuth2';
 import { randomBytes } from 'crypto';
-import { ObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 import type { Token } from '../schemas/oAuth2.schema';
 import { getOrganizationById } from './organization.service';
 import { getUserById } from './user.service';
@@ -109,7 +109,7 @@ export const validateOAuth2Client = async (
  */
 export const createOAuth2AccessToken = async (
   clientId: string,
-  userId: string | ObjectId
+  userId: string | Types.ObjectId
 ): Promise<{
   accessToken: string;
   expiresAt: Date;
@@ -131,7 +131,7 @@ export const createOAuth2AccessToken = async (
     // Save token to database
     const tokenData: Token = {
       clientId,
-      userId: userId as ObjectId,
+      userId: userId as Types.ObjectId,
       accessToken,
       expiresIn: expiresAt,
     };

@@ -1,8 +1,4 @@
-import type {
-  User,
-  UserAPI,
-  UserWithPasswordNotHashed,
-} from '@/types/user.types';
+import type { User, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
 import * as userService from '@services/user.service';
@@ -28,11 +24,11 @@ export type CreateUserResult = ResponseData<UserAPI>;
  * Creates a new user.
  */
 export const createUser = async (
-  req: Request<any, any, UserWithPasswordNotHashed>,
+  req: Request<any, any, User>,
   res: ResponseWithInformation<CreateUserResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const user: UserWithPasswordNotHashed | undefined = req.body;
+  const user: User | undefined = req.body;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');

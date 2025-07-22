@@ -1,6 +1,8 @@
-import type { Dictionary, VersionedContentEl } from '@/types/dictionary.types';
+import type {
+  DictionarySchema,
+  VersionedContentEl,
+} from '@/types/dictionary.types';
 import { Schema } from 'mongoose';
-import { RenameId } from './user.schema';
 
 const versionedContentElSchema = new Schema<VersionedContentEl>(
   {
@@ -20,7 +22,7 @@ const versionedContentElSchema = new Schema<VersionedContentEl>(
   }
 );
 
-export const dictionarySchema = new Schema<RenameId<Dictionary>, Dictionary>(
+export const dictionarySchema = new Schema<DictionarySchema>(
   {
     _id: {
       type: Schema.Types.ObjectId,

@@ -1,9 +1,8 @@
-import type { Project } from '@/types/project.types';
+import type { ProjectModelType, ProjectSchema } from '@/types/project.types';
 import { projectSchema } from '@schemas/project.schema';
-import { RenameId } from '@schemas/user.schema';
-import { Model, model } from 'mongoose';
+import { model } from 'mongoose';
 
-export const ProjectModel = model<RenameId<Project>, Model<Project>>(
+export const ProjectModel = model<ProjectSchema, ProjectModelType>(
   'project',
   projectSchema
 );

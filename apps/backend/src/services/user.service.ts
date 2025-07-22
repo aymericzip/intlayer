@@ -1,8 +1,4 @@
-import type {
-  User,
-  UserDocument,
-  UserWithPasswordNotHashed,
-} from '@/types/user.types';
+import type { User, UserDocument } from '@/types/user.types';
 import { UserModel } from '@models/user.model';
 import { GenericError } from '@utils/errors';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -11,7 +7,7 @@ import {
   type UserFields,
   validateUser,
 } from '@utils/validation/validateUser';
-import type { ObjectId } from 'mongoose';
+import type { Types } from 'mongoose';
 
 /**
  * Creates a new user with password in the database and hashes the password.
@@ -19,7 +15,7 @@ import type { ObjectId } from 'mongoose';
  * @returns Created user object.
  */
 export const createUser = async (
-  user: UserWithPasswordNotHashed
+  user: Partial<User>
 ): Promise<UserDocument> => {
   const fieldsToCheck: FieldsToCheck[] = ['email'];
 
@@ -79,7 +75,7 @@ export const checkUserExists = async (email: string): Promise<boolean> => {
  * @returns User object or null if no user was found.
  */
 export const getUserById = async (
-  userId: string | ObjectId
+  userId: string | Types.ObjectId
 ): Promise<UserDocument | null> => await UserModel.findById(userId);
 
 /**
@@ -88,7 +84,7 @@ export const getUserById = async (
  * @returns User object or null if no user was found.
  */
 export const getUsersByIds = async (
-  userIds: (string | ObjectId)[]
+  userIds: (string | Types.ObjectId)[]
 ): Promise<UserDocument[] | null> =>
   await UserModel.find({ id: { $in: userIds } });
 
@@ -129,7 +125,7 @@ export const countUsers = async (filters: UserFilters): Promise<number> => {
  * @returns The updated user.
  */
 export const updateUserById = async (
-  userId: string | ObjectId,
+  userId: string | Types.ObjectId,
   updates: Partial<User>
 ): Promise<UserDocument> => {
   const keyToValidate = Object.keys(updates) as UserFields;
@@ -163,7 +159,7 @@ export const updateUserById = async (
  * @returns
  */
 export const deleteUser = async (
-  userId: string | ObjectId
+  userId: string | Types.ObjectId
 ): Promise<UserDocument> => {
   await getUserById(userId);
 
