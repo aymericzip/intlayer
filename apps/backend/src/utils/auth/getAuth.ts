@@ -7,13 +7,7 @@ import { sendEmail } from '@services/email.service';
 import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
-import {
-  admin,
-  anonymous,
-  bearer,
-  customSession,
-  genericOAuth,
-} from 'better-auth/plugins';
+import { customSession } from 'better-auth/plugins';
 import type { GenericOAuthConfig } from 'better-auth/plugins/generic-oauth';
 import type { Response } from 'express';
 import type { MongoClient } from 'mongodb';
@@ -37,7 +31,6 @@ export const getAuth = (
      * User model
      */
     user: {
-      id: 'id',
       modelName: 'users',
     },
 
@@ -94,9 +87,27 @@ export const getAuth = (
       }),
     },
 
+    advanced: {
+      // 1️⃣  Change or drop the global prefix
+      // cookiePrefix: "intlayer",          // =>  intlayer.session_token
+      cookiePrefix: 'intlayer', // =>  session_token  (no prefix)
+
+      // 2️⃣  Override just the session‑token cookie
+      cookies: {
+        session_token: {
+          // name: 'intlayer_session_token', // final name depends on the prefix above
+          // attributes: { sameSite: "lax", maxAge: 60 * 60 * 24 } // optional
+        },
+      },
+
+      // 3️⃣  (optional) turn off the automatic __Secure‑ prefix in non‑prod
+      // useSecureCookies: false,
+    },
+
     session: {
       modelName: 'sessions',
       id: 'id',
+
       // additionalFields: {
       //   activeOrganizationId: { type: 'string', nullable: true },
       //   activeProjectId: { type: 'string', nullable: true },
@@ -104,10 +115,10 @@ export const getAuth = (
     },
 
     plugins: [
-      genericOAuth({ config: oauthConfig }),
-      admin(),
-      anonymous(),
-      bearer({ requireSignature: true }),
+      // genericOAuth({ config: oauthConfig }),
+      // admin(),
+      // anonymous(),
+      // bearer({ requireSignature: true }),
       customSession(async (session) => session),
     ],
 

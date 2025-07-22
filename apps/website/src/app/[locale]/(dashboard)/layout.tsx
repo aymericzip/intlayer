@@ -13,8 +13,6 @@ import type { FC, PropsWithChildren } from 'react';
 export { generateMetadata } from './metadata';
 
 // Required to revalidate session after user login/logout
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
 
 const DashboardLayoutContent: FC<
   PropsWithChildren<{ locale: Locales; session: Session | null }>

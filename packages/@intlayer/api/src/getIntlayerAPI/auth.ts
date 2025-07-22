@@ -4,7 +4,39 @@ import { createAuthClient } from 'better-auth/client';
 import { FetcherOptions, fetcher } from '../fetcher';
 import { GetOAuth2TokenBody, GetOAuth2TokenResult } from '../types';
 
-export const getAuthAPI = (intlayerConfig?: IntlayerConfig) => {
+type AuthClient = ReturnType<typeof createAuthClient>;
+
+export interface AuthAPI {
+  signInEmail: AuthClient['signIn']['email'];
+  signUpEmail: AuthClient['signUp']['email'];
+  signOut: AuthClient['signOut'];
+  signInSocial: AuthClient['signIn']['social'];
+  linkSocial: AuthClient['linkSocial'];
+  changePasswordSession: AuthClient['changePassword'];
+  requestPasswordResetSession: AuthClient['requestPasswordReset'];
+  resetPassword: AuthClient['resetPassword'];
+  verifyEmailSession: AuthClient['verifyEmail'];
+  getSession: AuthClient['getSession'];
+  forgetPassword: AuthClient['forgetPassword'];
+  sendVerificationEmail: AuthClient['sendVerificationEmail'];
+  changeEmail: AuthClient['changeEmail'];
+  deleteUser: AuthClient['deleteUser'];
+  revokeSession: AuthClient['revokeSession'];
+  revokeSessions: AuthClient['revokeSessions'];
+  revokeOtherSessions: AuthClient['revokeOtherSessions'];
+  listAccounts: AuthClient['listAccounts'];
+  unlinkAccount: AuthClient['unlinkAccount'];
+  refreshToken: AuthClient['refreshToken'];
+  getAccessToken: AuthClient['getAccessToken'];
+  accountInfo: AuthClient['accountInfo'];
+  updateUser: AuthClient['updateUser'];
+  listSessions: AuthClient['listSessions'];
+  getOAuth2AccessToken: (
+    otherOptions?: FetcherOptions
+  ) => Promise<GetOAuth2TokenResult>;
+}
+
+export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
   const backendURL =
     intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
   const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
@@ -14,15 +46,13 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig) => {
       'Backend URL is not defined in the Intlayer configuration.'
     );
   }
-
-  const authClient = createAuthClient({
-    baseURL: backendURL,
-  });
-
   /*
    * Extract each method to avoid type inference issues at build time.
    */
-  type AuthClient = ReturnType<typeof createAuthClient>;
+  const authClient: AuthClient = createAuthClient({
+    baseURL: backendURL,
+    withCredentials: true, // makes fetch forward cookies
+  });
 
   const signInEmail: AuthClient['signIn']['email'] = async (...args) =>
     await authClient.signIn.email(...args);

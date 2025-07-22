@@ -18,7 +18,6 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
   children,
   redirectionRoute,
   locale,
-
   ...props
 }) => {
   const redirectionURLQuery = await getQueryParams();

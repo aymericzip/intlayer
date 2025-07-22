@@ -30,14 +30,6 @@ export const addNewAccessKey = async (
     return;
   }
 
-  if (!organizationRights) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_NOT_READ'
-    );
-    return;
-  }
-
   if (!projectRights) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_READ');
     return;
