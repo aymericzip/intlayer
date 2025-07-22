@@ -4,11 +4,11 @@ import { logger } from '@logger';
 import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
 import type { Response } from 'express';
 // @ts-ignore express-intlayer not build yet
+import { type UserAPI, HttpStatusCodes } from '@/export';
 import type { LanguageContent } from 'express-intlayer';
 import { t } from 'express-intlayer';
 import { type ErrorCodes, errorData } from './errorCodes';
 import type { AppError } from './ErrorsClass';
-import { type UserAPI, HttpStatusCodes } from '@/export';
 
 // Define a class named 'ErrorHandler' to encapsulate error handling logic.
 export class ErrorHandler {
@@ -72,7 +72,7 @@ export class ErrorHandler {
       res,
       error.errorKey,
       isMultilingual ? error.multilingualTitle : error.title,
-      isMultilingual ? error.multilingualMessage : error.multilingualMessage,
+      isMultilingual ? error.multilingualMessage : error.message,
       error.messageDetails ?? messageDetails,
       error.httpStatusCode,
       isPaginatedResponse

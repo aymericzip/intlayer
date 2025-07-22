@@ -1,6 +1,7 @@
 import { logger } from '@logger';
 import { DictionaryModel } from '@models/dictionary.model';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
+import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
 import { TagModel } from '@models/tag.model';
 import { UserModel } from '@models/user.model';
@@ -20,6 +21,7 @@ export const connectDB = async () => {
     await OAuth2AccessTokenModel.createIndexes();
     await TagModel.createIndexes();
     await DictionaryModel.createIndexes();
+    await OrganizationModel.createIndexes();
 
     // Return the underlying MongoDB client for better-auth
     return client.connection.getClient();

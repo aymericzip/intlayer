@@ -8,10 +8,6 @@ import validator from 'validator';
 
 export const userSchema = new Schema<UserSchema>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      alias: 'id',
-    },
     email: {
       type: String,
       required: true,

@@ -41,7 +41,7 @@ export const getProjects = async (
   res: ResponseWithInformation<GetProjectsResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization, projectRights } = res.locals;
+  const { user, organization } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
 
@@ -52,11 +52,6 @@ export const getProjects = async (
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
-  }
-
-  if (!projectRights?.read) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_READ');
     return;
   }
 
@@ -103,7 +98,7 @@ export const addProject = async (
   res: ResponseWithInformation<AddProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user, isOrganizationAdmin } = res.locals;
+  const { organization, user } = res.locals;
   const projectData = req.body;
 
   if (!user) {
@@ -114,13 +109,6 @@ export const addProject = async (
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
-  }
-
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
   }
 
   if (!projectData) {
@@ -194,8 +182,7 @@ export const updateProject = async (
   res: ResponseWithInformation<UpdateProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, projectRights, project, user, isProjectAdmin } =
-    res.locals;
+  const { organization, project, user } = res.locals;
   const projectData = req.body;
 
   if (!user) {
@@ -210,16 +197,6 @@ export const updateProject = async (
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
-  }
-
-  if (!isProjectAdmin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
-    return;
-  }
-
-  if (!projectRights?.write) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_WRITE');
     return;
   }
 
@@ -277,8 +254,7 @@ export const updateProjectMembers = async (
   res: ResponseWithInformation<UpdateProjectMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, isProjectAdmin, organization, projectRights } =
-    res.locals;
+  const { user, project, organization } = res.locals;
   const { membersIds } = req.body;
 
   if (!user) {
@@ -288,19 +264,6 @@ export const updateProjectMembers = async (
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
-    return;
-  }
-
-  if (!isProjectAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_PROJECT'
-    );
-    return;
-  }
-
-  if (!projectRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
     return;
   }
 
@@ -461,14 +424,7 @@ export const deleteProject = async (
   res: ResponseWithInformation<DeleteProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const {
-    user,
-    organization,
-    project,
-    projectRights,
-    isProjectAdmin,
-    session,
-  } = res.locals;
+  const { user, organization, project, session } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -482,11 +438,6 @@ export const deleteProject = async (
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
-    return;
-  }
-
-  if (!projectRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
     return;
   }
 
@@ -518,8 +469,6 @@ export const deleteProject = async (
 
     logger.info(`Project deleted: ${String(deletedProject.id)}`);
 
-    const formattedProject = mapProjectToAPI(deletedProject);
-
     const responseData = formatResponse<ProjectAPI>({
       message: t({
         en: 'Project deleted successfully',
@@ -531,11 +480,11 @@ export const deleteProject = async (
         fr: 'Votre projet a été supprimé avec succès',
         es: 'Su proyecto ha sido eliminado con éxito',
       }),
-      data: formattedProject,
+      data: mapProjectToAPI(deletedProject),
     });
 
     await SessionModel.updateOne(
-      { _id: session.session.id },
+      { _id: session.id },
       { $set: { activeProjectId: null } }
     );
 
@@ -548,7 +497,7 @@ export const deleteProject = async (
 };
 
 export type SelectProjectParam = { projectId: string | Types.ObjectId };
-export type SelectProjectResult = ResponseData<Project>;
+export type SelectProjectResult = ResponseData<ProjectAPI>;
 
 /**
  * Select a project.
@@ -575,11 +524,11 @@ export const selectProject = async (
     const project = await projectService.getProjectById(projectId);
 
     await SessionModel.updateOne(
-      { _id: session.session.id },
+      { _id: session.id },
       { $set: { activeProjectId: String(projectId) } }
     );
 
-    const responseData = formatResponse<Project>({
+    const responseData = formatResponse<ProjectAPI>({
       message: t({
         en: 'Project selected successfully',
         fr: 'Projet sélectionné avec succès',
@@ -590,7 +539,7 @@ export const selectProject = async (
         fr: 'Votre projet a été sélectionné avec succès',
         es: 'Su proyecto ha sido seleccionado con éxito',
       }),
-      data: project,
+      data: mapProjectToAPI(project),
     });
 
     res.json(responseData);
@@ -620,7 +569,7 @@ export const unselectProject = async (
 
   try {
     await SessionModel.updateOne(
-      { _id: session.session.id },
+      { _id: session.id },
       { $set: { activeProjectId: null } }
     );
 

@@ -29,10 +29,6 @@ export const TokenRightsSchema = new Schema<TokenRights>({
 // Define the oAuth2Access subdocument schema with timestamps
 const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      alias: 'id',
-    },
     clientId: { type: String, required: true },
     clientSecret: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -75,10 +71,6 @@ const projectConfigSchema = new Schema<Project['configuration']>(
 
 export const projectSchema = new Schema<ProjectSchema>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      alias: 'id',
-    },
     organizationId: {
       type: Schema.Types.ObjectId,
       ref: 'Organization',

@@ -4,7 +4,7 @@ import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject'
 /**
  * Maps an organization to an API response.
  * @param organization - The organization to map.
- * @param isOrganizationAdmin - Whether the user is an admin of the organization.
+ * @param  - Whether the user is an admin of the organization.
  * @returns The organization mapped to an API response.
  */
 export const mapOrganizationToAPI = (
@@ -17,3 +17,7 @@ export const mapOrganizationToAPI = (
 
   return organizationAPI as unknown as OrganizationAPI;
 };
+
+export const mapOrganizationsToAPI = (
+  organizations: Organization[]
+): OrganizationAPI[] => organizations.map(mapOrganizationToAPI);

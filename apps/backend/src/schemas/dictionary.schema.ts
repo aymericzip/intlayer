@@ -24,10 +24,6 @@ const versionedContentElSchema = new Schema<VersionedContentEl>(
 
 export const dictionarySchema = new Schema<DictionarySchema>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      alias: 'id',
-    },
     projectIds: {
       type: [Schema.Types.ObjectId],
       ref: 'Project',

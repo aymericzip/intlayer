@@ -15,6 +15,7 @@ export const DashboardPageContent: FC<{ sessionServer?: Session }> = ({
   const session = sessionServer ?? sessionClient;
 
   useEffect(() => {
+    console.log({ session, sessionClient, sessionServer });
     if (session?.organization && session?.project) {
       router.push(PagesRoutes.Dashboard_Content);
     } else if (session?.organization) {
@@ -22,7 +23,7 @@ export const DashboardPageContent: FC<{ sessionServer?: Session }> = ({
     } else {
       router.push(PagesRoutes.Dashboard_Organization);
     }
-  }, [router, session]);
+  }, []);
 
   return <Loader />;
 };

@@ -6,10 +6,10 @@ import {
   Form,
   H3,
   Modal,
-  useAuth,
   useForm,
 } from '@intlayer/design-system';
 import {
+  useAuth,
   useDeleteAccessKey,
   useRefreshAccessKey,
 } from '@intlayer/design-system/hooks';

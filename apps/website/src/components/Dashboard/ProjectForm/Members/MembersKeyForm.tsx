@@ -6,10 +6,10 @@ import {
   H3,
   Loader,
   MultiSelect,
-  useAuth,
   useForm,
 } from '@intlayer/design-system';
 import {
+  useAuth,
   useGetUsers,
   useUpdateProjectMembers,
 } from '@intlayer/design-system/hooks';

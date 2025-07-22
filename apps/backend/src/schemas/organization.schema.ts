@@ -9,10 +9,6 @@ import { planSchema } from './plans.schema';
 
 export const organizationSchema = new Schema<OrganizationSchema>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      alias: 'id',
-    },
     name: {
       type: String,
       required: true,
@@ -60,3 +56,8 @@ export const organizationSchema = new Schema<OrganizationSchema>(
     },
   }
 );
+
+// Add virtual field for id
+organizationSchema.virtual('id').get(function () {
+  return this._id.toString();
+});

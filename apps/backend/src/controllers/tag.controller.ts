@@ -88,7 +88,7 @@ export const addTag = async (
   res: ResponseWithInformation<AddTagResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user, isOrganizationAdmin } = res.locals;
+  const { organization, user } = res.locals;
   const tagData = req.body;
 
   if (!user) {
@@ -99,13 +99,6 @@ export const addTag = async (
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
-  }
-
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
   }
 
   if (!tagData) {

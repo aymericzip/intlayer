@@ -137,14 +137,11 @@ const startServer = async () => {
     );
   });
 
-  // debug
-  if (isDev) {
-    app.use(logAPIRequestURL);
-  }
-
   // Auth
   const auth = getAuth(dbClient);
   app.all('/api/auth/{*any}', toNodeHandler(auth));
+
+  app.use(express.json()); // Should be placed after auth. Attach body to next routes
 
   app.use(/(.*)/, async (req, res, next) => {
     const session = (await auth.api.getSession({
@@ -158,6 +155,11 @@ const startServer = async () => {
 
     next();
   });
+
+  // debug
+  if (isDev) {
+    app.use(logAPIRequestURL);
+  }
 
   // oAuth2
   app.use(/(.*)/, attachOAuthInstance);

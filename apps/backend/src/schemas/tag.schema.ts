@@ -9,10 +9,6 @@ import { Schema } from 'mongoose';
 
 export const tagSchema = new Schema<TagSchema>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      alias: 'id',
-    },
     organizationId: {
       type: Schema.Types.ObjectId,
       ref: 'Organization',

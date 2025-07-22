@@ -174,7 +174,6 @@ export const useLogout = (
   args?: UseAsyncOptions<IntlayerAPI['auth']['signOut']>
 ) =>
   useAppAsync('logout', useIntlayerAuth().auth.signOut, {
-    invalidateQueries: ['getSession'],
     ...args,
   });
 

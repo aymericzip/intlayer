@@ -3,10 +3,6 @@ import { Schema } from 'mongoose';
 
 export const planSchema = new Schema<PlanSchema>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      alias: 'id',
-    },
     type: {
       type: String,
       required: true,

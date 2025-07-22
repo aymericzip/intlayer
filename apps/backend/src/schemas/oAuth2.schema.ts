@@ -9,10 +9,6 @@ export type Token = Omit<TokenType, 'client' | 'user'> & {
 
 export const accessTokenSchema = new Schema<Token>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      alias: 'id',
-    },
     accessToken: {
       type: String,
       required: true,

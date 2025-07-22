@@ -3,10 +3,6 @@ import { Schema } from 'mongoose';
 
 export const sessionSchema = new Schema<SessionSchema>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      alias: 'id',
-    },
     activeOrganizationId: {
       type: Schema.Types.ObjectId,
       ref: 'Organization',

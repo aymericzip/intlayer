@@ -1,6 +1,6 @@
 import type { Organization, OrganizationAPI } from '@/types/organization.types';
-import type { Project, ProjectAPI, Rights } from '@/types/project.types';
-import type { Session, SessionAPI } from '@/types/session.types';
+import type { Project, ProjectAPI } from '@/types/project.types';
+import type { Session, SessionAPI, SessionData } from '@/types/session.types';
 import type { User, UserAPI } from '@/types/user.types';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
@@ -161,12 +161,12 @@ export const getAuth = (
           }
         }
 
-        const resultSession: OmitId<Session> = {
+        const resultSession = {
           session: typedSession,
           user: userAPI!,
           organization: organizationAPI ?? null,
           project: projectAPI ?? null,
-        };
+        } satisfies OmitId<Session>;
 
         return resultSession;
       }),
@@ -244,15 +244,10 @@ export const getAuth = (
 export type ResponseWithInformation<ResBody = any> = Response<
   ResBody,
   {
+    session: SessionData | null;
     user: User | null;
     organization: Organization | null;
     project: Project | null;
     authType: 'session' | 'oauth2' | null;
-    organizationRights: Rights | null;
-    projectRights: Rights | null;
-    dictionaryRights: Rights | null;
-    isOrganizationAdmin: boolean | null;
-    isProjectAdmin: boolean | null;
-    session: any | null;
   }
 >;

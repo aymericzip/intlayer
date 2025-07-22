@@ -144,7 +144,7 @@ export const createOAuth2AccessToken = async (
       rights,
     };
   } catch (error) {
-    throw new GenericError('AUTH_ERROR');
+    throw new GenericError('AUTH_ERROR', { error: (error as Error).message });
   }
 };
 

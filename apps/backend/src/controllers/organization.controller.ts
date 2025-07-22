@@ -1,5 +1,6 @@
 import type {
   Organization,
+  OrganizationAPI,
   OrganizationCreationData,
 } from '@/types/organization.types';
 import type { User } from '@/types/user.types';
@@ -10,13 +11,17 @@ import * as organizationService from '@services/organization.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
 import { type ResponseWithInformation } from '@utils/auth/getAuth';
-import { type AppError, ErrorHandler } from '@utils/errors';
+import { ErrorHandler, type AppError } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
   type OrganizationFilters,
   type OrganizationFiltersParams,
 } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
+import {
+  mapOrganizationToAPI,
+  mapOrganizationsToAPI,
+} from '@utils/mapper/organization';
 import { getPLanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
@@ -31,7 +36,7 @@ import { Stripe } from 'stripe';
 
 export type GetOrganizationsParams =
   FiltersAndPagination<OrganizationFiltersParams>;
-export type GetOrganizationsResult = PaginatedResponse<Organization>;
+export type GetOrganizationsResult = PaginatedResponse<OrganizationAPI>;
 
 /**
  * Retrieves a list of organizations based on filters and pagination.
@@ -50,14 +55,10 @@ export const getOrganizations = async (
     return;
   }
 
-  console.log({ user: JSON.stringify(user) });
-
   const restrictedFilter: OrganizationFilters = {
     ...filters,
     membersIds: { $in: [...(filters?.membersIds ?? []), String(user.id)] },
   };
-
-  console.log({ restrictedFilter: JSON.stringify(restrictedFilter) });
 
   try {
     const organizations = await organizationService.findOrganizations(
@@ -65,12 +66,11 @@ export const getOrganizations = async (
       skip,
       pageSize
     );
-    console.log({ organizations });
+
     const totalItems = await organizationService.countOrganizations(filters);
 
-    console.log({ totalItems });
-    const responseData = formatPaginatedResponse<Organization>({
-      data: organizations,
+    const responseData = formatPaginatedResponse<OrganizationAPI>({
+      data: mapOrganizationsToAPI(organizations),
       page,
       pageSize,
       totalPages: getNumberOfPages(totalItems),
@@ -86,7 +86,7 @@ export const getOrganizations = async (
 };
 
 export type GetOrganizationParam = { organizationId: string };
-export type GetOrganizationResult = ResponseData<Organization>;
+export type GetOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Retrieves an organization by its ID.
@@ -108,7 +108,9 @@ export const getOrganization = async (
     const organization =
       await organizationService.getOrganizationById(organizationId);
 
-    const responseData = formatResponse<Organization>({ data: organization });
+    const responseData = formatResponse<OrganizationAPI>({
+      data: mapOrganizationToAPI(organization),
+    });
 
     res.json(responseData);
     return;
@@ -119,7 +121,7 @@ export const getOrganization = async (
 };
 
 export type AddOrganizationBody = OrganizationCreationData;
-export type AddOrganizationResult = ResponseData<Organization>;
+export type AddOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Adds a new organization to the database.
@@ -134,6 +136,7 @@ export const addOrganization = async (
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_DATA_NOT_FOUND');
+    return;
   }
 
   if (!user) {
@@ -147,7 +150,7 @@ export const addOrganization = async (
       user.id
     );
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization created successfully',
         fr: 'Organisation créée avec succès',
@@ -158,7 +161,7 @@ export const addOrganization = async (
         fr: 'Votre organisation a été créée avec succès',
         es: 'Su organización ha sido creada con éxito',
       }),
-      data: newOrganization,
+      data: mapOrganizationToAPI(newOrganization),
     });
 
     res.json(responseData);
@@ -170,7 +173,7 @@ export const addOrganization = async (
 };
 
 export type UpdateOrganizationBody = Partial<Organization>;
-export type UpdateOrganizationResult = ResponseData<Organization>;
+export type UpdateOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Updates an existing organization in the database.
@@ -180,7 +183,7 @@ export const updateOrganization = async (
   res: ResponseWithInformation<UpdateOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { isOrganizationAdmin, organization, organizationRights } = res.locals;
+  const { organization } = res.locals;
   const organizationFields = req.body;
 
   if (!organizationFields) {
@@ -193,22 +196,6 @@ export const updateOrganization = async (
     return;
   }
 
-  if (!organizationRights?.write) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_WRITE_MISSING'
-    );
-    return;
-  }
-
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
-    return;
-  }
-
   try {
     const updatedOrganization =
       await organizationService.updateOrganizationById(
@@ -216,7 +203,7 @@ export const updateOrganization = async (
         organizationFields
       );
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization updated successfully',
         fr: 'Organisation mise à jour avec succès',
@@ -227,7 +214,7 @@ export const updateOrganization = async (
         fr: 'Votre organisation a été mise à jour avec succès',
         es: 'Su organización ha sido actualizada con éxito',
       }),
-      data: updatedOrganization,
+      data: mapOrganizationToAPI(updatedOrganization),
     });
 
     res.json(responseData);
@@ -248,7 +235,7 @@ export type OrganizationMemberByIdOption = {
 export type AddOrganizationMemberBody = {
   userEmail: string;
 };
-export type AddOrganizationMemberResult = ResponseData<Organization>;
+export type AddOrganizationMemberResult = ResponseData<OrganizationAPI>;
 
 /**
  * Add member to the organization in the database.
@@ -258,8 +245,7 @@ export const addOrganizationMember = async (
   res: ResponseWithInformation<AddOrganizationMemberResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, isOrganizationAdmin, user, organizationRights } =
-    res.locals;
+  const { organization, user } = res.locals;
   const { userEmail } = req.body;
 
   if (!organization) {
@@ -269,22 +255,6 @@ export const addOrganizationMember = async (
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
-  }
-
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
-    return;
-  }
-
-  if (!organizationRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_ADMIN_MISSING'
-    );
     return;
   }
 
@@ -341,7 +311,7 @@ export const addOrganizationMember = async (
         membersIds: [...organization.membersIds, newMember.id],
       });
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization updated successfully',
         fr: 'Organisation mise à jour avec succès',
@@ -352,7 +322,7 @@ export const addOrganizationMember = async (
         fr: 'Votre organisation a été mise à jour avec succès',
         es: 'Su organización ha sido actualizada con éxito',
       }),
-      data: updatedOrganization,
+      data: mapOrganizationToAPI(updatedOrganization),
     });
 
     res.json(responseData);
@@ -366,7 +336,7 @@ export const addOrganizationMember = async (
 export type UpdateOrganizationMembersBody = Partial<{
   membersIds: OrganizationMemberByIdOption[];
 }>;
-export type UpdateOrganizationMembersResult = ResponseData<Organization>;
+export type UpdateOrganizationMembersResult = ResponseData<OrganizationAPI>;
 
 /**
  * Update members to the organization in the database.
@@ -376,27 +346,11 @@ export const updateOrganizationMembers = async (
   res: ResponseWithInformation<UpdateOrganizationMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, organizationRights, isOrganizationAdmin } = res.locals;
+  const { organization } = res.locals;
   const { membersIds } = req.body;
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
-  }
-
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
-    return;
-  }
-
-  if (!organizationRights?.write) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_WRITE_MISSING'
-    );
     return;
   }
 
@@ -454,7 +408,7 @@ export const updateOrganizationMembers = async (
         adminsIds: formattedAdmin,
       });
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization updated successfully',
         fr: 'Organisation mise à jour avec succès',
@@ -465,7 +419,7 @@ export const updateOrganizationMembers = async (
         fr: 'Votre organisation a été mise à jour avec succès',
         es: 'Su organización ha sido actualizada con éxito',
       }),
-      data: updatedOrganization,
+      data: mapOrganizationToAPI(updatedOrganization),
     });
 
     res.json(responseData);
@@ -476,7 +430,7 @@ export const updateOrganizationMembers = async (
   }
 };
 
-export type DeleteOrganizationResult = ResponseData<Organization>;
+export type DeleteOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Deletes an organization from the database by its ID.
@@ -487,26 +441,10 @@ export const deleteOrganization = async (
   _next: NextFunction
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const { isOrganizationAdmin, organization, organizationRights } = res.locals;
+  const { organization } = res.locals;
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
-  }
-
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
-    return;
-  }
-
-  if (!organizationRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_ADMIN_MISSING'
-    );
     return;
   }
 
@@ -539,7 +477,7 @@ export const deleteOrganization = async (
 
     logger.info(`Organization deleted: ${String(deletedOrganization.id)}`);
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization deleted successfully',
         fr: 'Organisation supprimée avec succès',
@@ -550,7 +488,7 @@ export const deleteOrganization = async (
         fr: 'Votre organisation a été supprimée avec succès',
         es: 'Su organización ha sido eliminada con éxito',
       }),
-      data: deletedOrganization,
+      data: mapOrganizationToAPI(deletedOrganization),
     });
 
     // No need to update session here, as it's a delete operation
@@ -565,7 +503,7 @@ export const deleteOrganization = async (
 export type SelectOrganizationParam = {
   organizationId: string | Types.ObjectId;
 };
-export type SelectOrganizationResult = ResponseData<Organization>;
+export type SelectOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Select an organization.
@@ -594,23 +532,17 @@ export const selectOrganization = async (
 
     // Update session to set activeOrganizationId
     await SessionModel.updateOne(
-      { _id: session.session.id },
+      { _id: session.id },
       {
         $set: {
           activeOrganizationId: String(organization.id),
           activeProjectId: null,
         },
       }
-    ).catch((error: unknown) => {
-      // Log the error but don't fail the response
-      logger.warn(
-        'Failed to update session after organization selection:',
-        error
-      );
-    });
+    );
 
     // No need to update session here, as it's a select operation
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization retrieved successfully',
         fr: 'Organisation récupérée avec succès',
@@ -621,7 +553,7 @@ export const selectOrganization = async (
         fr: 'Votre organisation a été récupérée avec succès',
         es: 'Su organización ha sido recuperada con éxito',
       }),
-      data: organization,
+      data: mapOrganizationToAPI(organization),
     });
 
     res.json(responseData);
@@ -652,20 +584,14 @@ export const unselectOrganization = async (
     }
 
     await SessionModel.updateOne(
-      { _id: session.session.id },
+      { _id: session.id },
       {
         $set: {
           activeOrganizationId: null,
           activeProjectId: null,
         },
       }
-    ).catch((error: unknown) => {
-      // Log the error but don't fail the response
-      logger.warn(
-        'Failed to update session after organization unselection:',
-        error
-      );
-    });
+    );
 
     const responseData = formatResponse<null>({
       message: t({
