@@ -52,6 +52,10 @@ const startServer = async () => {
   app.disable('x-powered-by'); // Disabled to prevent attackers from knowing that the app is running Express
   app.use(helmet());
 
+  // Configure trust proxy more securely
+  // Only trust the first proxy hop to prevent rate limit bypass
+  app.set('trust proxy', 1);
+
   // Environment variables
   const env = app.get('env');
 

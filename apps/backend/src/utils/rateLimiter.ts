@@ -17,6 +17,11 @@ export const ipLimiter: (
   limit: 500, // 500 requests / IP / window
   standardHeaders: 'draft-8',
   legacyHeaders: false,
+  // Use a custom key generator that handles proxy headers securely
+  keyGenerator: (req) => {
+    // Use the real IP address, falling back to socket remote address
+    return req.ip ?? req.socket?.remoteAddress ?? 'unknown';
+  },
   handler: (req, res, _next) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
@@ -38,6 +43,11 @@ export const unauthenticatedChatBotLimiter: (
   standardHeaders: 'draft-8',
   skip: (_req, res) => Boolean(res.locals.user), // authenticated? then skip
   legacyHeaders: false,
+  // Use a custom key generator that handles proxy headers securely
+  keyGenerator: (req) => {
+    // Use the real IP address, falling back to socket remote address
+    return req.ip ?? req.socket?.remoteAddress ?? 'unknown';
+  },
   handler: (req, res) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
