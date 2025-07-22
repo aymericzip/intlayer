@@ -5,7 +5,7 @@ import type {
   Project,
   ProjectDocument,
 } from '@/types/project.types';
-import type { User, UserDocument } from '@/types/user.types';
+import type { User, UserAPI, UserDocument } from '@/types/user.types';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
 import { GenericError } from '@utils/errors';
@@ -14,6 +14,7 @@ import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { getTokenExpireAt } from '@utils/oAuth2';
 import { randomBytes } from 'crypto';
+import { Types } from 'mongoose';
 import type { Callback, Client } from 'oauth2-server';
 import type { Token } from '../schemas/oAuth2.schema';
 import { getOrganizationById } from './organization.service';
@@ -122,7 +123,7 @@ export const getClient = async (
 export const formatOAuth2Token = (
   token: Token,
   client: Client,
-  user: User,
+  user: UserAPI,
   project: Project,
   organization: Organization,
   rights: Token['rights']
@@ -158,12 +159,12 @@ export const formatOAuth2Token = (
 export const formatDBToken = (
   token: OAuth2Token,
   clientId: Client['id'],
-  userId: User['id']
+  userId: User['id'] | string
 ): Token => {
   const formattedToken: Token = {
     id: token.id,
     clientId: clientId,
-    userId: userId,
+    userId: userId as Types.ObjectId,
     accessToken: token.accessToken,
     expiresIn: token.accessTokenExpiresAt ?? getTokenExpireAt(),
   };
@@ -182,7 +183,7 @@ export const formatDBToken = (
 export const saveToken = async (
   token: OAuth2Token,
   client: Client,
-  user: User
+  user: UserAPI
 ): Promise<OAuth2Token | false> => {
   const formattedAccessToken: Token = formatDBToken(token, client.id, user.id);
 
@@ -308,4 +309,59 @@ export const verifyScope = async (
 ): Promise<boolean> => {
   // Implement the verification of scopes if necessary
   return true;
+};
+
+/**
+ * Validate OAuth2 access token and return user context
+ */
+export const validateOAuth2AccessToken = async (
+  accessToken: string
+): Promise<{
+  user: User;
+  project: Project;
+  organization: Organization;
+  rights: Token['rights'];
+} | null> => {
+  try {
+    const token = await OAuth2AccessTokenModel.findOne({
+      accessToken,
+    });
+
+    if (!token) {
+      return null;
+    }
+
+    // Check if token is expired
+    if (new Date() > new Date(token.expiresIn)) {
+      return null;
+    }
+
+    const { userId, clientId } = token;
+
+    const user = await getUserById(String(userId));
+    if (!user) {
+      return null;
+    }
+
+    const result = await getClientAndProjectByClientId(clientId);
+    if (!result) {
+      return null;
+    }
+
+    const { project, rights } = result;
+
+    const organization = await getOrganizationById(project.organizationId);
+    if (!organization) {
+      return null;
+    }
+
+    return {
+      user,
+      project,
+      organization,
+      rights,
+    };
+  } catch (error) {
+    return null;
+  }
 };

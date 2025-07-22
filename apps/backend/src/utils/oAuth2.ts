@@ -1,9 +1,9 @@
 import {
-  getClient,
-  saveToken,
   getAccessToken,
-  verifyScope,
+  getClient,
   getUserFromClient,
+  saveToken,
+  verifyScope,
 } from '@services/oAuth2.service';
 import OAuth2Server, { AuthenticateOptions } from 'oauth2-server';
 

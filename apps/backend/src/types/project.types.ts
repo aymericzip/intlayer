@@ -38,15 +38,9 @@ export type Rights = {
   admin: boolean;
 };
 
-export type TokenRights = {
-  dictionary: Rights;
-  project: Rights;
-  organization: Rights;
-};
-
 export type AccessKeyData = {
   name: string;
-  rights: TokenRights;
+  rights: string[];
   expiresAt?: Date;
 };
 

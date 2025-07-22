@@ -10,7 +10,12 @@ import { intlayer, t } from 'express-intlayer';
 import helmet from 'helmet';
 
 // Middlewares
+import { getOAuth2AccessToken } from '@controllers/oAuth2.controller';
+import { attachOAuthInstance } from '@middlewares/oAuth2.middleware';
 import { logAPIRequestURL } from '@middlewares/request.middleware';
+
+// Services
+import { validateOAuth2AccessToken } from '@services/oAuth2.service';
 
 // Routes
 import { aiRoute, aiRouter } from '@routes/ai.routes';
@@ -34,17 +39,11 @@ import { userRoute, userRouter } from '@routes/user.routes';
 import { stripeWebhook } from '@webhooks/stripe.webhook';
 
 // Utils
+import { getAuth } from '@utils/auth/getAuth';
 import { connectDB } from '@utils/mongoDB/connectDB';
+import { ipLimiter } from '@utils/rateLimiter';
 
 // Logger
-import { getOAuth2AccessToken } from '@controllers/oAuth2.controller';
-import {
-  attachOAuthInstance,
-  authenticateOAuth2,
-  RequestWithOAuth2Information,
-} from '@middlewares/oAuth2.middleware';
-import { getAuth, ResponseWithInformation } from '@utils/auth/getAuth';
-import { ipLimiter } from '@utils/rateLimiter';
 import { logger } from './logger/index';
 
 const startServer = async () => {
@@ -148,10 +147,42 @@ const startServer = async () => {
       headers: fromNodeHeaders(req.headers),
     })) as Session;
 
-    res.locals.session = session?.session;
-    res.locals.user = session?.user;
-    res.locals.organization = session?.organization;
-    res.locals.project = session?.project;
+    if (session) {
+      res.locals.session = session?.session;
+      res.locals.user = session?.user;
+      res.locals.organization = session?.organization;
+      res.locals.project = session?.project;
+      res.locals.authType = 'session';
+
+      return next();
+    }
+
+    // Check if this is a bearer token authentication
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      try {
+        const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+
+        const result = await validateOAuth2AccessToken(token);
+
+        if (result) {
+          const { user, project, organization, rights } = result;
+
+          res.locals.user = user;
+          res.locals.organization = organization;
+          res.locals.project = project;
+          res.locals.authType = 'oauth2';
+
+          logger.info('OAuth2 bearer token authenticated', {
+            userId: user.id,
+            projectId: project.id,
+            organizationId: organization.id,
+          });
+        }
+      } catch (error) {
+        logger.error('Bearer token validation failed:', error);
+      }
+    }
 
     next();
   });
@@ -164,17 +195,6 @@ const startServer = async () => {
   // oAuth2
   app.use(/(.*)/, attachOAuthInstance);
   app.post('/oauth2/token', getOAuth2AccessToken); // Route to get the token
-  app.use(/(.*)/, (req, res, next) => {
-    // If the request is not already authenticated check the oAuth2 token
-    if (!res.locals.authType) {
-      return authenticateOAuth2(
-        req as RequestWithOAuth2Information,
-        res as ResponseWithInformation,
-        next
-      );
-    }
-    next();
-  });
 
   // Routes
   app.use(userRoute, userRouter);

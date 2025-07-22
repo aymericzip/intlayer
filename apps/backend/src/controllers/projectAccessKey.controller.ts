@@ -17,8 +17,7 @@ export const addNewAccessKey = async (
   res: ResponseWithInformation<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, organizationRights, projectRights, dictionaryRights } =
-    res.locals;
+  const { user, project } = res.locals;
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
@@ -30,24 +29,11 @@ export const addNewAccessKey = async (
     return;
   }
 
-  if (!projectRights) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_READ');
-    return;
-  }
-
-  if (!dictionaryRights) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_READ');
-    return;
-  }
-
   try {
     const newAccessKey = await projectAccessKeyService.addNewAccessKey(
       req.body,
       project.id,
-      user,
-      organizationRights,
-      projectRights,
-      dictionaryRights
+      user
     );
 
     const responseData = formatResponse<OAuth2Access>({

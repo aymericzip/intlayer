@@ -15,7 +15,6 @@ import { betterAuth, OmitId } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
 import { customSession } from 'better-auth/plugins';
-import type { GenericOAuthConfig } from 'better-auth/plugins/generic-oauth';
 import type { Response } from 'express';
 import type { MongoClient } from 'mongodb';
 
@@ -25,9 +24,6 @@ export const getAuth = (
   if (!dbClient) {
     throw new Error('MongoDB connection not established');
   }
-
-  // OAuth2 providers configuration (extend later if needed)
-  const oauthConfig: GenericOAuthConfig[] = [];
 
   const auth = betterAuth({
     appName: 'Intlayer',
@@ -122,11 +118,6 @@ export const getAuth = (
     },
 
     plugins: [
-      // genericOAuth({ config: oauthConfig }),
-      // admin(),
-      // anonymous(),
-      // bearer({ requireSignature: true }),
-
       customSession(async ({ session }) => {
         const typedSession = session as unknown as SessionAPI;
 

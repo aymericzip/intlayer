@@ -11,6 +11,7 @@ export enum AccessRule {
   hasOrganization = 'has-organization',
   hasProject = 'has-project',
   hasBearer = 'has-bearer',
+  oauth2 = 'oauth2',
 }
 
 export const accessControl = <R extends AccessRule | AccessRule[]>(
@@ -73,6 +74,14 @@ export const accessControl = <R extends AccessRule | AccessRule[]>(
     if (!project) {
       success = false;
       messages.push('Project is not set');
+    }
+  }
+
+  // Check for 'oauth2' access rule
+  if (accessRuleArray.includes(AccessRule.oauth2)) {
+    if (authType !== 'oauth2') {
+      success = false;
+      messages.push('OAuth2 authentication is required');
     }
   }
 
