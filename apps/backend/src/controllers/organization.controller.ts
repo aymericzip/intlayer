@@ -50,12 +50,14 @@ export const getOrganizations = async (
     return;
   }
 
-  console.log({ filters, user });
+  console.log({ user: JSON.stringify(user) });
 
   const restrictedFilter: OrganizationFilters = {
     ...filters,
     membersIds: { $in: [...(filters?.membersIds ?? []), String(user.id)] },
   };
+
+  console.log({ restrictedFilter: JSON.stringify(restrictedFilter) });
 
   try {
     const organizations = await organizationService.findOrganizations(
@@ -63,8 +65,10 @@ export const getOrganizations = async (
       skip,
       pageSize
     );
+    console.log({ organizations });
     const totalItems = await organizationService.countOrganizations(filters);
 
+    console.log({ totalItems });
     const responseData = formatPaginatedResponse<Organization>({
       data: organizations,
       page,

@@ -1,4 +1,5 @@
 // Libraries
+import { Session } from '@/types/session.types';
 import { fromNodeHeaders, toNodeHandler } from 'better-auth/node';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -146,12 +147,14 @@ const startServer = async () => {
   app.all('/api/auth/{*any}', toNodeHandler(auth));
 
   app.use(/(.*)/, async (req, res, next) => {
-    const session = await auth.api.getSession({
+    const session = (await auth.api.getSession({
       headers: fromNodeHeaders(req.headers),
-    });
+    })) as Session;
 
     res.locals.session = session?.session;
     res.locals.user = session?.user;
+    res.locals.organization = session?.organization;
+    res.locals.project = session?.project;
 
     next();
   });

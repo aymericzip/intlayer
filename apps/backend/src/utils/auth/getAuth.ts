@@ -161,12 +161,14 @@ export const getAuth = (
           }
         }
 
-        return {
+        const resultSession: OmitId<Session> = {
           session: typedSession,
           user: userAPI!,
           organization: organizationAPI ?? null,
           project: projectAPI ?? null,
-        } satisfies OmitId<Session>;
+        };
+
+        return resultSession;
       }),
     ],
 

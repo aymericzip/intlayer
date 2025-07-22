@@ -57,15 +57,15 @@ export const planSchema = new Schema<PlanSchema>(
       virtuals: true, // keep the automatic `id` getter
       versionKey: false, // drop __v
       transform(doc, ret) {
-        ret.id = ret.id.toString(); // or rely on the virtual
-        delete ret.id; // remove _id
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
       },
     },
     toObject: {
       virtuals: true,
       transform(doc, ret) {
-        ret.id = ret.id.toString();
-        delete ret.id;
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
       },
     },
   }
