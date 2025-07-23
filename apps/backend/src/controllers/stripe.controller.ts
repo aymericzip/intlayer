@@ -1,7 +1,6 @@
 import type { Organization } from '@/types/organization.types';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
-
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
 import { type ResponseData, formatResponse } from '@utils/responseData';

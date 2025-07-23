@@ -21,8 +21,7 @@ import * as customQueryUtil from '@utils/AI/customQuery';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
 import { ErrorHandler, type AppError } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import type { Locales } from 'intlayer';
 
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {

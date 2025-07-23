@@ -1,7 +1,6 @@
 import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
-
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { hasPermission } from '@utils/permissions';
 import { type ResponseData, formatResponse } from '@utils/responseData';

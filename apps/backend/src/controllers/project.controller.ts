@@ -26,8 +26,7 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
 import { Types } from 'mongoose';
 

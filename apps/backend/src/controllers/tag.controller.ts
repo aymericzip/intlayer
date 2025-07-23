@@ -7,7 +7,6 @@ import type {
 } from '@/types/tag.types';
 import { logger } from '@logger';
 import * as tagService from '@services/tag.service';
-
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {

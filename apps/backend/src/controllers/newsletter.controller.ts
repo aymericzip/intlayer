@@ -1,7 +1,6 @@
 import type { EmailsList, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
 import * as userService from '@services/user.service';
-
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { hasPermission } from '@utils/permissions';
