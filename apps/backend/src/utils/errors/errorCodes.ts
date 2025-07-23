@@ -1364,6 +1364,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
+  PERMISSION_DENIED: {
+    title: {
+      en: 'Permission Denied',
+      fr: 'Permission refusée',
+      es: 'Permiso denegado',
+    },
+    message: {
+      en: 'You do not have permission to access this resource.',
+      fr: "Vous n'avez pas les permissions nécessaires pour accéder à cette ressource.",
+      es: 'No tienes permisos para acceder a este recurso.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

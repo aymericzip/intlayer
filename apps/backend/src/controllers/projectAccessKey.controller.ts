@@ -3,6 +3,7 @@ import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 
 import { type AppError, ErrorHandler } from '@utils/errors';
+import { hasPermission } from '@utils/permissions';
 import { type ResponseData, formatResponse } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
@@ -18,7 +19,7 @@ export const addNewAccessKey = async (
   res: Response<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, roles } = res.locals;
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
@@ -27,6 +28,11 @@ export const addNewAccessKey = async (
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'project:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -82,7 +88,7 @@ export const deleteAccessKey = async (
   res: Response<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, roles } = res.locals;
   const { clientId } = req.body;
 
   if (!project) {
@@ -97,6 +103,11 @@ export const deleteAccessKey = async (
 
   if (!clientId) {
     ErrorHandler.handleGenericErrorResponse(res, 'CLIENT_ID_NOT_FOUND');
+    return;
+  }
+
+  if (!hasPermission(roles, 'project:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -147,7 +158,7 @@ export const refreshAccessKey = async (
   res: Response<RefreshAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, roles } = res.locals;
   const { clientId } = req.body;
 
   if (!project) {
@@ -160,6 +171,11 @@ export const refreshAccessKey = async (
 
   if (!clientId) {
     ErrorHandler.handleGenericErrorResponse(res, 'CLIENT_ID_NOT_FOUND');
+  }
+
+  if (!hasPermission(roles, 'project:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
   }
 
   try {

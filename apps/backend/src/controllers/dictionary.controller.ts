@@ -21,6 +21,7 @@ import {
 } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
+import { hasPermission } from '@utils/permissions';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -42,7 +43,7 @@ export const getDictionaries = async (
   res: Response<GetDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getDictionaryFiltersAndPagination(req);
 
@@ -52,6 +53,11 @@ export const getDictionaries = async (
   }
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'dictionary:read')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -96,10 +102,15 @@ export const getDictionariesKeys = async (
   res: Response<GetDictionariesKeysResult>,
   _next: NextFunction
 ) => {
-  const { project } = res.locals;
+  const { project, roles } = res.locals;
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'dictionary:read')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -132,7 +143,7 @@ export const getDictionaryByKey = async (
   res: Response<GetDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, user } = res.locals;
+  const { project, user, roles } = res.locals;
   const { dictionaryKey } = req.params;
   const version = req.query.version;
 
@@ -142,6 +153,11 @@ export const getDictionaryByKey = async (
   }
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'dictionary:read')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -184,7 +200,7 @@ export const addDictionary = async (
   res: Response<AddDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, user } = res.locals;
+  const { project, user, roles } = res.locals;
   const dictionaryData = req.body.dictionary;
 
   if (!dictionaryData) {
@@ -204,6 +220,11 @@ export const addDictionary = async (
 
   if (!dictionaryData.projectIds?.includes(String(project.id))) {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_PROJECT_MISMATCH');
+    return;
+  }
+
+  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -276,7 +297,7 @@ export const pushDictionaries = async (
   res: Response<PushDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, user } = res.locals;
+  const { project, user, roles } = res.locals;
   const dictionaryData = req.body.dictionaries;
   const dictionariesKeys = dictionaryData.map((dictionary) => dictionary.key);
 
@@ -299,6 +320,11 @@ export const pushDictionaries = async (
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -474,7 +500,7 @@ export const updateDictionary = async (
   _next: NextFunction
 ): Promise<void> => {
   const { dictionaryId } = req.params;
-  const { project } = res.locals;
+  const { project, roles } = res.locals;
   const dictionaryData = req.body;
 
   if (!dictionaryData) {
@@ -494,6 +520,11 @@ export const updateDictionary = async (
 
   if (typeof dictionaryId === 'undefined') {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_ID_NOT_FOUND');
+    return;
+  }
+
+  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -545,7 +576,7 @@ export const deleteDictionary = async (
   res: Response<DeleteDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project } = res.locals;
+  const { project, roles } = res.locals;
   const { dictionaryId } = req.params as Partial<DeleteDictionaryParam>;
 
   if (!dictionaryId) {
@@ -555,6 +586,11 @@ export const deleteDictionary = async (
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'dictionary:admin')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 

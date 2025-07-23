@@ -31,8 +31,8 @@ export type Auth = ReturnType<typeof betterAuth>;
 
 export const formatSession = (session: SessionContext): OmitId<SessionAPI> => {
   const roles = getSessionRoles(session);
-  const policy = computeEffectivePrivileges(roles);
-  let sesssionPermissions = formatPermissions(policy);
+  const privileges = computeEffectivePrivileges(roles);
+  let sesssionPermissions = formatPermissions(privileges);
 
   // Intersect in the case a Access Token try to override the permissions
   if (session.permissions) {

@@ -1,3 +1,4 @@
+import { Dictionary, Organization, Project, Tag, User } from '@/export';
 import { SessionContext } from '@/types/session.types';
 
 /**
@@ -26,69 +27,93 @@ export type Action = 'read' | 'write' | 'admin';
  * @description
  * A first‑class entity in your domain model that you want to protect.
  */
-export type Resource = 'organization' | 'project' | 'dictionary' | 'tag';
+export type Resource = {
+  organization: Organization;
+  project: Project;
+  dictionary: Dictionary;
+  tag: Tag;
+  user: User;
+};
 
 /**
  * @description
  * A literal string combining a Resource and an Action, e.g. `"project:write"`.
  * This is the *unit* checked at runtime in your middleware.
  */
-export type Permission = `${Resource}:${Action}`;
+export type Permission = `${keyof Resource}:${Action}`;
 
-/**
- * @description
- * A map from each Action to a boolean indicating whether it’s allowed.
- * For example:
- * ```js
- * {
- *   read: true,
- *   write: false,
- *   admin: false
- * }
- * ```
- */
-type PrivilegeSet = Record<Action, boolean | undefined>;
+type CheckPrivilege = (
+  args: any
+) => boolean | undefined | Promise<boolean> | Promise<undefined>;
 
-/**
- * @description
- * A map of Resources → PrivilegeSet.
- * Represents “what you can do on each resource.”
- * Wildcards (`'*'`) should be expanded to `{read: true, write: true, admin: true}`.
- */
-type PrivilegeMap = Record<Resource, Partial<PrivilegeSet> | '*'>;
+type RolePolicy = Record<Roles, Partial<Record<Permission, CheckPrivilege>>>;
 
-type RolePolicy = Record<Roles, Partial<PrivilegeMap> | '*'>;
-
-export const ROLE_POLICY: RolePolicy = {
-  admin: '*',
+export const ROLE_POLICY = {
+  admin: {
+    'organization:read': () => true,
+    'organization:write': () => true,
+    'organization:admin': () => true,
+    'project:read': () => true,
+    'project:write': () => true,
+    'project:admin': () => true,
+    'dictionary:read': () => true,
+    'dictionary:write': () => true,
+    'dictionary:admin': () => true,
+    'tag:read': () => true,
+    'tag:write': () => true,
+    'tag:admin': () => true,
+    'user:read': () => true,
+    'user:write': () => true,
+    'user:admin': () => true,
+  },
   org_admin: {
-    organization: '*',
-    project: '*',
-    dictionary: '*',
-    tag: '*',
+    'project:read': () => true,
+    'project:write': () => true,
+    'project:admin': () => true,
+    'dictionary:read': () => true,
+    'dictionary:write': () => true,
+    'dictionary:admin': () => true,
+    'tag:read': () => true,
+    'tag:write': () => true,
+    'tag:admin': () => true,
   },
   org_user: {
-    organization: {
-      read: true,
-    },
+    'project:read': ({ user, project }: SessionContext) =>
+      project?.membersIds?.map(String).includes(String(user?.id)),
+
+    'organization:read': () => true,
   },
   project_admin: {
-    project: {
-      read: true,
-    },
-    dictionary: '*',
-    tag: '*',
+    'project:read': () => true,
+    'project:write': () => true,
+    'project:admin': () => true,
+    'tag:read': () => true,
+    'tag:write': () => true,
+    'tag:admin': () => true,
   },
   project_user: {
-    project: {
-      read: true,
-    },
-    dictionary: '*',
+    'project:read': ({ user, project }: SessionContext) =>
+      project?.membersIds?.map(String).includes(String(user?.id)),
+
+    'dictionary:read': ({ user, project }: SessionContext) =>
+      project?.membersIds?.map(String).includes(String(user?.id)),
+    'dictionary:write': ({ user, project }: SessionContext) =>
+      project?.membersIds?.map(String).includes(String(user?.id)),
+
+    'tag:read': () => true,
+    'tag:write': () => true,
+    'tag:admin': ({ user, organization }: SessionContext) =>
+      organization?.adminsIds?.map(String).includes(String(user?.id)),
   },
   project_reviewer: {
-    dictionary: '*',
+    'dictionary:read': ({ user, project }: SessionContext) =>
+      project?.membersIds?.map(String).includes(String(user?.id)),
+    'dictionary:write': ({ user, project }: SessionContext) =>
+      project?.membersIds?.map(String).includes(String(user?.id)),
+
+    'tag:read': () => true,
   },
-};
+} as const satisfies RolePolicy;
 
 export const getSessionRoles = ({
   user,
@@ -157,105 +182,6 @@ export const getSessionRoles = ({
   return roles;
 };
 
-const expandPolicyWildcard = (
-  policy: '*' | Partial<PrivilegeMap>
-): Partial<PrivilegeMap> => {
-  if (policy === '*') {
-    return {
-      organization: '*',
-      project: '*',
-      dictionary: '*',
-      tag: '*',
-    };
-  }
-  return policy;
-};
-
-const expandResourceWildcard = (
-  privilegeList: '*' | Partial<PrivilegeSet>
-): Partial<PrivilegeSet> => {
-  if (privilegeList === '*') {
-    return {
-      read: true,
-      write: true,
-      admin: true,
-    };
-  }
-  return privilegeList;
-};
-
-type FullPrivilegeList = Record<Resource, Partial<PrivilegeSet>>;
-
-export const computeEffectivePrivileges = (
-  roles: Roles[]
-): FullPrivilegeList => {
-  // If admin role is present, it takes full precedence
-  if (roles.includes('admin')) {
-    const adminPolicy = expandPolicyWildcard(ROLE_POLICY.admin);
-    const result: FullPrivilegeList = {} as FullPrivilegeList;
-
-    Object.entries(adminPolicy).forEach(([resource, privileges]) => {
-      const resourceKey = resource as Resource;
-      result[resourceKey] = expandResourceWildcard(
-        privileges as Partial<PrivilegeSet>
-      );
-    });
-
-    return result;
-  }
-
-  // First convert roles to policy objects, handling any '*' values
-  const policiesForRoles = roles.reduce<RolePolicy>((acc, role) => {
-    acc[role] = expandPolicyWildcard(ROLE_POLICY[role]);
-    return acc;
-  }, {} as RolePolicy);
-
-  // Then merge all role policies into a single privilege list
-  const mergedPrivileges: FullPrivilegeList = Object.values(
-    policiesForRoles
-  ).reduce<FullPrivilegeList>((acc, rolePolicy) => {
-    // For each resource in the role's policy
-    Object.entries(rolePolicy).forEach(([resource, privileges]) => {
-      const resourceKey = resource as Resource;
-      const currentPrivileges = acc[resourceKey] || {};
-      const newPrivileges = expandResourceWildcard(
-        privileges as Partial<PrivilegeSet>
-      );
-
-      // Merge privileges, taking the union of all allowed actions
-      acc[resourceKey] = {
-        ...currentPrivileges,
-        ...newPrivileges,
-      };
-    });
-    return acc;
-  }, {} as FullPrivilegeList);
-
-  return mergedPrivileges;
-};
-
-/**
- * Format object as
- * ```
- * {
- *   dictionary: {
- *     read: true,
- *     write: true,
- *     admin: true,
- *   },
- * }
- * ```
- * to array list as `["dictionary:read", "dictionary:write", "dictionary:admin"]`
- */
-export const formatPermissions = (
-  permissions: Partial<FullPrivilegeList>
-): Permission[] =>
-  Object.entries(permissions).flatMap(([resource, privileges]) =>
-    Object.entries(privileges)
-      .filter(([_, isAllowed]) => isAllowed)
-      .map(([action]) => `${resource}:${action}`)
-  ) as Permission[];
-
 /**
  * Intersect two permission lists
  * @param permissionList1 - The first permission list
@@ -267,3 +193,30 @@ export const intersectPermissions = (
   permissions2: Permission[]
 ): Permission[] =>
   permissions1.filter((permission) => permissions2.includes(permission));
+
+type PermissionResult<
+  R extends Roles,
+  P extends Permission,
+> = (typeof ROLE_POLICY)[R] extends infer RolePerms
+  ? RolePerms extends Record<string, (args: any) => any>
+    ? P extends keyof RolePerms
+      ? RolePerms[P] extends undefined
+        ? never
+        : RolePerms[P]
+      : never
+    : never
+  : never;
+
+export const hasPermission = <P extends Permission>(
+  roles: Roles[],
+  permission: P
+): PermissionResult<Roles, P> => {
+  const rolesCheck: any = roles.map(
+    (role) =>
+      ROLE_POLICY[role]?.[
+        permission as keyof (typeof ROLE_POLICY)[typeof role]
+      ] ?? (() => false)
+  ) as unknown as PermissionResult<Roles, P>[];
+
+  return ((args: any) => rolesCheck.every((check: any) => check(args))) as any;
+};

@@ -4,6 +4,7 @@ import * as userService from '@services/user.service';
 
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
+import { hasPermission } from '@utils/permissions';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
@@ -24,10 +25,16 @@ export const subscribeToNewsletter = async (
   res: Response<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
+  const { roles } = res.locals;
   const { email, emailList } = req.body;
 
   if (!email) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
+    return;
+  }
+
+  if (!hasPermission(roles, 'user:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -97,9 +104,15 @@ export const unsubscribeFromNewsletter = async (
   _next: NextFunction
 ): Promise<void> => {
   const { userId, emailList } = req.body;
+  const { roles } = res.locals;
 
   if (!userId) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
+    return;
+  }
+
+  if (!hasPermission(roles, 'user:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -154,14 +167,20 @@ export const unsubscribeFromNewsletter = async (
  * Gets the newsletter subscription status for a user.
  */
 export const getNewsletterStatus = async (
-  req: Request<{ email: string }>,
+  _req: Request<{ email: string }>,
   res: Response<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
   const email = res.locals.user?.email;
+  const { roles } = res.locals;
 
   if (!email) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
+    return;
+  }
+
+  if (!hasPermission(roles, 'user:read')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 

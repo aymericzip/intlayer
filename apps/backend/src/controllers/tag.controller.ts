@@ -16,6 +16,7 @@ import {
   type TagFiltersParams,
 } from '@utils/filtersAndPagination/getTagFiltersAndPagination';
 import { mapTagsToAPI, mapTagToAPI } from '@utils/mapper/tag';
+import { hasPermission } from '@utils/permissions';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -36,7 +37,7 @@ export const getTags = async (
   res: Response<GetTagsResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization } = res.locals;
+  const { user, organization, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getTagFiltersAndPagination(req);
 
@@ -47,6 +48,11 @@ export const getTags = async (
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'tag:read')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -88,7 +94,7 @@ export const addTag = async (
   res: Response<AddTagResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user } = res.locals;
+  const { organization, user, roles } = res.locals;
   const tagData = req.body;
 
   if (!user) {
@@ -103,6 +109,11 @@ export const addTag = async (
 
   if (!tagData) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
+  }
+
+  if (!hasPermission(roles, 'tag:admin')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
   }
 
   const tag: TagData = {
@@ -151,7 +162,7 @@ export const updateTag = async (
   _next: NextFunction
 ): Promise<void> => {
   const { tagId } = req.params;
-  const { organization, user } = res.locals;
+  const { organization, user, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -160,6 +171,11 @@ export const updateTag = async (
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'tag:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -219,7 +235,7 @@ export const deleteTag = async (
   res: Response<DeleteTagResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization } = res.locals;
+  const { user, organization, roles } = res.locals;
   const { tagId } = req.params;
 
   if (!user) {
@@ -234,6 +250,11 @@ export const deleteTag = async (
 
   if (!tagId) {
     ErrorHandler.handleGenericErrorResponse(res, 'TAG_ID_NOT_FOUND');
+    return;
+  }
+
+  if (!hasPermission(roles, 'tag:admin')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 

@@ -21,6 +21,7 @@ import {
   mapOrganizationToAPI,
   mapOrganizationsToAPI,
 } from '@utils/mapper/organization';
+import { hasPermission } from '@utils/permissions';
 import { getPLanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
@@ -46,12 +47,17 @@ export const getOrganizations = async (
   res: Response<GetOrganizationsResult>,
   _next: NextFunction
 ) => {
-  const { user } = res.locals;
+  const { user, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'organization:read')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -96,11 +102,16 @@ export const getOrganization = async (
   res: Response<GetOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const {} = res.locals;
+  const { roles } = res.locals;
   const { organizationId } = req.params as Partial<GetOrganizationParam>;
 
   if (!organizationId) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_ID_NOT_FOUND');
+    return;
+  }
+
+  if (!hasPermission(roles, 'organization:read')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -131,7 +142,7 @@ export const addOrganization = async (
   res: Response<AddOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user } = res.locals;
+  const { user, roles } = res.locals;
   const organization = req.body;
 
   if (!organization) {
@@ -141,6 +152,11 @@ export const addOrganization = async (
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'organization:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -183,7 +199,7 @@ export const updateOrganization = async (
   res: Response<UpdateOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization } = res.locals;
+  const { organization, roles } = res.locals;
   const organizationFields = req.body;
 
   if (!organizationFields) {
@@ -193,6 +209,11 @@ export const updateOrganization = async (
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'organization:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -245,7 +266,7 @@ export const addOrganizationMember = async (
   res: Response<AddOrganizationMemberResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user } = res.locals;
+  const { organization, user, roles } = res.locals;
   const { userEmail } = req.body;
 
   if (!organization) {
@@ -262,6 +283,11 @@ export const addOrganizationMember = async (
     ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {
       organizationId: organization.id,
     });
+    return;
+  }
+
+  if (!hasPermission(roles, 'organization:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -346,7 +372,7 @@ export const updateOrganizationMembers = async (
   res: Response<UpdateOrganizationMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization } = res.locals;
+  const { organization, roles } = res.locals;
   const { membersIds } = req.body;
 
   if (!organization) {
@@ -367,6 +393,11 @@ export const updateOrganizationMembers = async (
       res,
       'ORGANIZATION_MUST_HAVE_ADMIN'
     );
+    return;
+  }
+
+  if (!hasPermission(roles, 'organization:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -441,7 +472,7 @@ export const deleteOrganization = async (
   _next: NextFunction
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const { organization } = res.locals;
+  const { organization, roles } = res.locals;
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
@@ -456,6 +487,11 @@ export const deleteOrganization = async (
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECTS_EXIST', {
       organizationId: organization.id,
     });
+    return;
+  }
+
+  if (!hasPermission(roles, 'organization:admin')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -574,7 +610,7 @@ export const unselectOrganization = async (
   res: Response<UnselectOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { session } = res.locals;
+  const { session, roles } = res.locals;
   try {
     // Update session to clear activeOrganizationId and activeProjectId
 

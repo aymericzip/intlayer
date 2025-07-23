@@ -18,6 +18,7 @@ import {
   type ProjectFiltersParams,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import { mapProjectsToAPI, mapProjectToAPI } from '@utils/mapper/project';
+import { hasPermission } from '@utils/permissions';
 import { getPLanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
@@ -41,7 +42,7 @@ export const getProjects = async (
   res: Response<GetProjectsResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization } = res.locals;
+  const { user, organization, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
 
@@ -52,6 +53,11 @@ export const getProjects = async (
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'project:read')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -98,7 +104,7 @@ export const addProject = async (
   res: Response<AddProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user } = res.locals;
+  const { organization, user, roles } = res.locals;
   const projectData = req.body;
 
   if (!user) {
@@ -113,6 +119,11 @@ export const addProject = async (
 
   if (!projectData) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
+  }
+
+  if (!hasPermission(roles, 'project:admin')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
   }
 
   const { plan } = organization;
@@ -182,7 +193,7 @@ export const updateProject = async (
   res: Response<UpdateProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, project, user } = res.locals;
+  const { organization, project, user, roles } = res.locals;
   const projectData = req.body;
 
   if (!user) {
@@ -202,6 +213,11 @@ export const updateProject = async (
 
   if (String(project.organizationId) !== String(organization.id)) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_IN_ORGANIZATION');
+    return;
+  }
+
+  if (!hasPermission(roles, 'project:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -254,7 +270,7 @@ export const updateProjectMembers = async (
   res: Response<UpdateProjectMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, organization } = res.locals;
+  const { user, project, organization, roles } = res.locals;
   const { membersIds } = req.body;
 
   if (!user) {
@@ -279,6 +295,11 @@ export const updateProjectMembers = async (
 
   if (membersIds?.map((el) => el.isAdmin)?.length === 0) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_MUST_HAVE_ADMIN');
+    return;
+  }
+
+  if (!hasPermission(roles, 'project:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -363,7 +384,7 @@ export const pushProjectConfiguration = async (
   res: Response<PushProjectConfigurationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, roles } = res.locals;
   const projectConfiguration = req.body;
 
   if (!user) {
@@ -373,6 +394,11 @@ export const pushProjectConfiguration = async (
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'project:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -424,7 +450,7 @@ export const deleteProject = async (
   res: Response<DeleteProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization, project, session } = res.locals;
+  const { user, organization, project, session, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -443,6 +469,11 @@ export const deleteProject = async (
 
   if (!session) {
     ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'project:admin')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -508,7 +539,7 @@ export const selectProject = async (
   _next: NextFunction
 ) => {
   const { projectId } = req.params;
-  const { session } = res.locals;
+  const { session, roles } = res.locals;
 
   if (!projectId) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_NOT_FOUND');

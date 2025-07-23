@@ -7,14 +7,14 @@ import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFilter
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import type { UserFiltersParam } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import { mapUsersToAPI, mapUserToAPI } from '@utils/mapper/user';
+import { hasPermission } from '@utils/permissions';
 import {
   formatPaginatedResponse,
   formatResponse,
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { type Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
 
 export type CreateUserBody = { email: string; password?: string };
@@ -28,6 +28,7 @@ export const createUser = async (
   res: Response<CreateUserResult>,
   _next: NextFunction
 ): Promise<void> => {
+  const { roles } = res.locals;
   const user: User | undefined = req.body;
 
   if (!user) {
@@ -80,10 +81,15 @@ export const getUsers = async (
   res: Response<GetUsersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user } = res.locals;
+  const { user, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (!hasPermission(roles, 'user:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -150,6 +156,12 @@ export const getUserByEmail = async (
   _next: NextFunction
 ): Promise<void> => {
   const { email } = req.params;
+  const { roles } = res.locals;
+
+  if (!hasPermission(roles, 'user:read')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
 
   try {
     const user = await userService.getUserByEmail(email);
@@ -181,7 +193,7 @@ export const updateUser = async (
   _next: NextFunction
 ): Promise<void> => {
   const userData = req.body;
-  const { user } = res.locals;
+  const { user, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -190,6 +202,11 @@ export const updateUser = async (
 
   if (typeof userData !== 'object') {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
+    return;
+  }
+
+  if (!hasPermission(roles, 'user:write')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -235,6 +252,12 @@ export const deleteUser = async (
   _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
+  const { roles } = res.locals;
+
+  if (!hasPermission(roles, 'user:admin')()) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
 
   try {
     const user = await userService.deleteUser(userId);
