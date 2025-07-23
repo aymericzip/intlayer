@@ -16,8 +16,7 @@ import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
 import {
-  computeEffectivePrivileges,
-  formatPermissions,
+  computeEffectivePermission,
   getSessionRoles,
   intersectPermissions,
 } from '@utils/permissions';
@@ -31,15 +30,11 @@ export type Auth = ReturnType<typeof betterAuth>;
 
 export const formatSession = (session: SessionContext): OmitId<SessionAPI> => {
   const roles = getSessionRoles(session);
-  const privileges = computeEffectivePrivileges(roles);
-  let sesssionPermissions = formatPermissions(privileges);
+  let permissions = computeEffectivePermission(roles);
 
   // Intersect in the case a Access Token try to override the permissions
   if (session.permissions) {
-    sesssionPermissions = intersectPermissions(
-      sesssionPermissions,
-      session.permissions
-    );
+    permissions = intersectPermissions(permissions, session.permissions);
   }
 
   const resultSession = {
@@ -47,7 +42,7 @@ export const formatSession = (session: SessionContext): OmitId<SessionAPI> => {
     organization: mapOrganizationToAPI(session.organization),
     project: mapProjectToAPI(session.project),
     authType: 'session',
-    permissions: sesssionPermissions,
+    permissions,
     roles,
   } as OmitId<SessionAPI>;
 

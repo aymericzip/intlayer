@@ -182,6 +182,13 @@ export const getSessionRoles = ({
   return roles;
 };
 
+export const computeEffectivePermission = (roles: Roles[]): Permission[] =>
+  Array.from(
+    new Set(
+      roles.flatMap((role) => Object.keys(ROLE_POLICY[role]) as Permission[])
+    )
+  );
+
 /**
  * Intersect two permission lists
  * @param permissionList1 - The first permission list
