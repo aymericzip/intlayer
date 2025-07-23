@@ -1,8 +1,10 @@
 import { logger } from '@logger';
-import { OrganizationModel } from '@models/organization.model';
-import { ProjectModel } from '@models/project.model';
-import { UserModel } from '@models/user.model';
-import { ResponseWithInformation } from '@utils/auth/getAuth';
+import {
+  getOAuth2AccessTokenContext,
+  validateOAuth2AccessToken,
+} from '@services/oAuth2.service';
+import { formatSession } from '@utils/auth/getAuth';
+import { AppError, ErrorHandler } from '@utils/errors';
 import { authenticateOptions, getAuthModel } from '@utils/oAuth2';
 import type { NextFunction, Request, Response } from 'express';
 import OAuth2Server, {
@@ -38,11 +40,16 @@ export const attachOAuthInstance = async (
 };
 
 // Middleware to authenticate requests
-export const authenticateOAuth2 = async (
-  req: RequestWithOAuth2Information,
-  res: ResponseWithInformation,
+export const oAuth2Middleware = async (
+  req: Request,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
+  if (typeof res.locals.authType !== 'undefined') {
+    // Skip if user is already authenticated (ex: session)
+    return next();
+  }
+
   try {
     const hasToken = !!req.headers.authorization;
 
@@ -57,33 +64,33 @@ export const authenticateOAuth2 = async (
 
     const oauthResponse = new OAuthResponse(res);
 
-    const oAuthToken = await req.oauth.authenticate(
-      oauthRequest,
-      oauthResponse,
-      authenticateOptions
+    const oAuthToken = await (
+      req as RequestWithOAuth2Information
+    ).oauth.authenticate(oauthRequest, oauthResponse, authenticateOptions);
+
+    const validatedToken = await validateOAuth2AccessToken(
+      oAuthToken.accessToken
     );
 
-    const user = await UserModel.findById(oAuthToken.user.id);
+    const result = await getOAuth2AccessTokenContext(validatedToken);
 
-    if (user) {
-      res.locals.user = user;
-      res.locals.authType = 'oauth2';
-    }
+    const formattedSession = formatSession(result);
+    res.locals.authType = 'session';
 
-    const organization = await OrganizationModel.findById(
-      oAuthToken.organization.id
+    // Attach the session to the response locals
+    Object.entries(formattedSession).forEach(([key, value]) => {
+      (res.locals as any)[key] = value;
+    });
+
+    logger.info(
+      'OAuth2 bearer token authenticated',
+      formattedSession.user.email
     );
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
 
-    if (organization) {
-      res.locals.organization = organization;
-    }
-    const project = await ProjectModel.findById(oAuthToken.project.id);
-
-    if (project) {
-      res.locals.project = project;
-    }
-  } catch (err) {
-    logger.info(err);
+    return;
   }
+
   next();
 };

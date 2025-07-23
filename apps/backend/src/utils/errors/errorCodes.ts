@@ -1338,6 +1338,32 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
+  INVALID_ACCESS_TOKEN: {
+    title: {
+      en: 'Invalid access token',
+      fr: "Jeton d'accès invalide",
+      es: 'Token de acceso inválido',
+    },
+    message: {
+      en: 'The access token is invalid.',
+      fr: "Le jeton d'accès est invalide.",
+      es: 'El token de acceso es inválido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  EXPIRED_ACCESS_TOKEN: {
+    title: {
+      en: 'Expired access token',
+      fr: "Jeton d'accès expiré",
+      es: 'Token de acceso expirado',
+    },
+    message: {
+      en: 'The access token has expired.',
+      fr: "Le jeton d'accès a expiré.",
+      es: 'El token de acceso ha expirado.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

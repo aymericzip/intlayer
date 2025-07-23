@@ -2,12 +2,14 @@ import type { OAuth2Token } from '@/types/oAuth2.types';
 import type { Organization } from '@/types/organization.types';
 import type {
   OAuth2Access,
+  OAuth2AccessContext,
   Project,
   ProjectDocument,
 } from '@/types/project.types';
 import type { User, UserAPI, UserDocument } from '@/types/user.types';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
@@ -49,7 +51,7 @@ export const getClientAndProjectByClientId = async (
       client: Client;
       oAuth2Access: OAuth2Access;
       project: ProjectDocument;
-      rights: Token['rights'];
+      grants: Token['grants'];
     }
   | false
 > => {
@@ -79,7 +81,7 @@ export const getClientAndProjectByClientId = async (
   return {
     client: formattedClient,
     oAuth2Access,
-    rights: oAuth2Access.rights,
+    grants: oAuth2Access.grants,
     project,
   };
 };
@@ -113,12 +115,13 @@ export const getClient = async (
 /**
  * Format an OAuth2Token
  *
- * @param token
- * @param client
- * @param user
- * @param project
- * @param organization
- * @returns
+ * @param token - The token to format
+ * @param client - The client
+ * @param user - The user
+ * @param project - The project
+ * @param organization - The organization
+ * @param grants - The grants
+ * @returns The formatted token
  */
 export const formatOAuth2Token = (
   token: Token,
@@ -126,7 +129,7 @@ export const formatOAuth2Token = (
   user: UserAPI,
   project: Project,
   organization: Organization,
-  rights: Token['rights']
+  grants: Token['grants']
 ): OAuth2Token => {
   const { clientId, userId, ...restToken } = token;
 
@@ -142,7 +145,7 @@ export const formatOAuth2Token = (
     project: mapProjectToAPI(project),
     accessToken: token.accessToken,
     accessTokenExpiresAt: token.accessTokenExpiresAt ?? new Date('999-99-99'),
-    rights,
+    grants,
   };
 
   return formattedToken;
@@ -249,7 +252,7 @@ export const getAccessToken = async (
     return false;
   }
 
-  const { client, project, rights } = result;
+  const { client, project, grants } = result;
 
   const organization = await getOrganizationById(project.organizationId);
 
@@ -263,7 +266,7 @@ export const getAccessToken = async (
     user,
     project,
     organization,
-    rights
+    grants
   );
 
   return formattedAccessToken;
@@ -316,52 +319,52 @@ export const verifyScope = async (
  */
 export const validateOAuth2AccessToken = async (
   accessToken: string
-): Promise<{
-  user: User;
-  project: Project;
-  organization: Organization;
-  rights: Token['rights'];
-} | null> => {
+): Promise<Token> => {
   try {
     const token = await OAuth2AccessTokenModel.findOne({
       accessToken,
     });
 
     if (!token) {
-      return null;
+      throw new GenericError('INVALID_ACCESS_TOKEN');
     }
 
     // Check if token is expired
     if (new Date() > new Date(token.expiresIn)) {
-      return null;
+      throw new GenericError('EXPIRED_ACCESS_TOKEN');
     }
 
-    const { userId, clientId } = token;
-
-    const user = await getUserById(String(userId));
-    if (!user) {
-      return null;
-    }
-
-    const result = await getClientAndProjectByClientId(clientId);
-    if (!result) {
-      return null;
-    }
-
-    const { project, rights } = result;
-
-    const organization = await getOrganizationById(project.organizationId);
-    if (!organization) {
-      return null;
-    }
-
-    return {
-      user,
-      project,
-      organization,
-      rights,
-    };
+    return ensureMongoDocumentToObject(token);
   } catch (error) {
-    return null;
+    throw new GenericError('INVALID_ACCESS_TOKEN');
   }
+};
+
+/**
+ * Validate OAuth2 access token and return user context
+ */
+export const getOAuth2AccessTokenContext = async (
+  token: Token
+): Promise<OAuth2AccessContext> => {
+  const { userId, clientId } = token;
+
+  const user = await getUserById(String(userId));
+
+  const result = await getClientAndProjectByClientId(clientId);
+
+  if (!result) {
+    throw new GenericError('INVALID_ACCESS_TOKEN');
+  }
+
+  const { project, grants } = result;
+
+  let organization = await getOrganizationById(project.organizationId);
+
+  return {
+    accessToken: token.accessToken,
+    user: user ? mapUserToAPI(user) : undefined,
+    project: project ? mapProjectToAPI(project) : undefined,
+    organization: organization ? mapOrganizationToAPI(organization) : undefined,
+    grants,
+  };
 };

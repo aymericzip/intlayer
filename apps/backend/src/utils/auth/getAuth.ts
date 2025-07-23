@@ -1,6 +1,10 @@
-import type { Organization, OrganizationAPI } from '@/types/organization.types';
-import type { Project, ProjectAPI } from '@/types/project.types';
-import type { Session, SessionAPI, SessionData } from '@/types/session.types';
+import type { OrganizationAPI } from '@/types/organization.types';
+import type { ProjectAPI } from '@/types/project.types';
+import type {
+  SessionAPI,
+  SessionContext,
+  SessionDataApi,
+} from '@/types/session.types';
 import type { User, UserAPI } from '@/types/user.types';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
@@ -11,16 +15,46 @@ import { getUserById } from '@services/user.service';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
+import {
+  computeEffectivePrivileges,
+  formatPermissions,
+  getSessionRoles,
+  intersectPermissions,
+} from '@utils/permissions';
 import { betterAuth, OmitId } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
 import { customSession } from 'better-auth/plugins';
-import type { Response } from 'express';
 import type { MongoClient } from 'mongodb';
 
-export const getAuth = (
-  dbClient: MongoClient
-): ReturnType<typeof betterAuth> => {
+export type Auth = ReturnType<typeof betterAuth>;
+
+export const formatSession = (session: SessionContext): OmitId<SessionAPI> => {
+  const roles = getSessionRoles(session);
+  const policy = computeEffectivePrivileges(roles);
+  let sesssionPermissions = formatPermissions(policy);
+
+  // Intersect in the case a Access Token try to override the permissions
+  if (session.permissions) {
+    sesssionPermissions = intersectPermissions(
+      sesssionPermissions,
+      session.permissions
+    );
+  }
+
+  const resultSession = {
+    user: mapUserToAPI(session.user),
+    organization: mapOrganizationToAPI(session.organization),
+    project: mapProjectToAPI(session.project),
+    authType: 'session',
+    permissions: sesssionPermissions,
+    roles,
+  } as OmitId<SessionAPI>;
+
+  return resultSession;
+};
+
+export const getAuth = (dbClient: MongoClient): Auth => {
   if (!dbClient) {
     throw new Error('MongoDB connection not established');
   }
@@ -119,7 +153,7 @@ export const getAuth = (
 
     plugins: [
       customSession(async ({ session }) => {
-        const typedSession = session as unknown as SessionAPI;
+        const typedSession = session as unknown as SessionDataApi;
 
         let userAPI: UserAPI | null = null;
         let organizationAPI: OrganizationAPI | null = null;
@@ -152,14 +186,15 @@ export const getAuth = (
           }
         }
 
-        const resultSession = {
+        const sessionWithNoPermission: SessionContext = {
           session: typedSession,
           user: userAPI!,
           organization: organizationAPI ?? null,
           project: projectAPI ?? null,
-        } satisfies OmitId<Session>;
+          authType: 'session',
+        };
 
-        return resultSession;
+        return formatSession(sessionWithNoPermission);
       }),
     ],
 
@@ -231,14 +266,3 @@ export const getAuth = (
 
   return auth;
 };
-
-export type ResponseWithInformation<ResBody = any> = Response<
-  ResBody,
-  {
-    session: SessionData | null;
-    user: User | null;
-    organization: Organization | null;
-    project: Project | null;
-    authType: 'session' | 'oauth2' | null;
-  }
->;

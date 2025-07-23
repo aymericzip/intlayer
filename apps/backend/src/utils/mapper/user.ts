@@ -6,12 +6,18 @@ import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject'
  * @param user - The user object to format.
  * @returns The formatted user object.
  */
-export const mapUserToAPI = (user: User | UserAPI): UserAPI => {
+export const mapUserToAPI = <T extends User | UserAPI | null>(
+  user?: T
+): T extends null ? null : UserAPI => {
+  if (!user) {
+    return null as any;
+  }
+
   const userObject = ensureMongoDocumentToObject(user);
 
   const { provider, session, ...userAPI } = userObject as any;
 
-  return userAPI as unknown as UserAPI;
+  return userAPI as any;
 };
 
 /**
@@ -20,4 +26,4 @@ export const mapUserToAPI = (user: User | UserAPI): UserAPI => {
  * @returns The formatted array of user objects.
  */
 export const mapUsersToAPI = (users: (User | UserAPI)[]): UserAPI[] =>
-  users.map(mapUserToAPI);
+  users.map(mapUserToAPI).filter(Boolean) as UserAPI[];

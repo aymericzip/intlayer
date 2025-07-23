@@ -1,11 +1,11 @@
 import type { EmailsList, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
 import * as userService from '@services/user.service';
-import type { ResponseWithInformation } from '@utils/auth/getAuth';
+
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
 
 export type NewsletterSubscriptionBody = {
@@ -21,7 +21,7 @@ export type NewsletterSubscriptionResult = ResponseData<UserAPI>;
  */
 export const subscribeToNewsletter = async (
   req: Request<any, any, NewsletterSubscriptionBody>,
-  res: ResponseWithInformation<NewsletterSubscriptionResult>,
+  res: Response<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { email, emailList } = req.body;
@@ -93,7 +93,7 @@ export type NewsletterUnsubscriptionBody = {
  */
 export const unsubscribeFromNewsletter = async (
   req: Request<any, any, NewsletterUnsubscriptionBody>,
-  res: ResponseWithInformation<NewsletterSubscriptionResult>,
+  res: Response<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId, emailList } = req.body;
@@ -155,7 +155,7 @@ export const unsubscribeFromNewsletter = async (
  */
 export const getNewsletterStatus = async (
   req: Request<{ email: string }>,
-  res: ResponseWithInformation<NewsletterSubscriptionResult>,
+  res: Response<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
   const email = res.locals.user?.email;

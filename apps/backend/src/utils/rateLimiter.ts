@@ -1,4 +1,3 @@
-import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import type { NextFunction, Request, Response } from 'express';
 import rateLimit from 'express-rate-limit';
 import { ErrorHandler } from './errors';
@@ -35,7 +34,7 @@ export const ipLimiter: (
 
 export const unauthenticatedChatBotLimiter: (
   req: Request,
-  res: ResponseWithInformation,
+  res: Response,
   next: NextFunction
 ) => any = rateLimit({
   windowMs: 60 * 60 * 1000, // 1-hour window

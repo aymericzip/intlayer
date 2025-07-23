@@ -3,8 +3,8 @@ import { createDeepSeek, deepseek } from '@ai-sdk/deepseek';
 import { createGoogleGenerativeAI, google } from '@ai-sdk/google';
 import { createMistral, mistral } from '@ai-sdk/mistral';
 import { createOpenAI, openai } from '@ai-sdk/openai';
-import { ResponseWithInformation } from '@utils/auth/getAuth';
 import { CoreMessage, generateText } from 'ai';
+import { Response } from 'express';
 
 type AnthropicModel = Parameters<typeof anthropic>[0];
 type DeepSeekModel = Parameters<typeof deepseek>[0];
@@ -58,7 +58,7 @@ export type ChatCompletionRequestMessage = {
 type AccessType = 'apiKey' | 'registered_user' | 'premium_user' | 'public';
 
 const getAPIKey = (
-  res: ResponseWithInformation,
+  res: Response,
   accessType: AccessType[],
   aiOptions?: AIOptions
 ) => {
@@ -144,7 +144,7 @@ export type AIConfigOptions = {
  * @returns Configured AI model ready to use with generateText
  */
 export const getAIConfig = async (
-  res: ResponseWithInformation,
+  res: Response,
   options: AIConfigOptions
 ): Promise<AIConfig> => {
   const {

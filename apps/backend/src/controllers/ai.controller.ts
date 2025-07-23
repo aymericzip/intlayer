@@ -19,10 +19,10 @@ import * as auditTagUtil from '@utils/AI/auditTag';
 import * as autocompleteUtil from '@utils/AI/autocomplete';
 import * as customQueryUtil from '@utils/AI/customQuery';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
-import { ResponseWithInformation } from '@utils/auth/getAuth';
 import { ErrorHandler, type AppError } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
+import { Response } from 'express';
 import type { Locales } from 'intlayer';
 
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
@@ -36,7 +36,7 @@ export type CustomQueryResult =
 
 export const customQuery = async (
   req: Request<AuditContentDeclarationBody>,
-  res: ResponseWithInformation<CustomQueryResult>,
+  res: Response<CustomQueryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { aiOptions, tagsKeys, ...rest } = req.body;
@@ -88,7 +88,7 @@ export type TranslateJSONResult =
 
 export const translateJSON = async (
   req: Request<AuditContentDeclarationBody>,
-  res: ResponseWithInformation<TranslateJSONResult>,
+  res: Response<TranslateJSONResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -154,7 +154,7 @@ export type AuditContentDeclarationResult =
  */
 export const auditContentDeclaration = async (
   req: Request<AuditContentDeclarationBody>,
-  res: ResponseWithInformation<AuditContentDeclarationResult>,
+  res: Response<AuditContentDeclarationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -224,7 +224,7 @@ export type AuditContentDeclarationFieldResult =
  */
 export const auditContentDeclarationField = async (
   req: Request<AuditContentDeclarationFieldBody>,
-  res: ResponseWithInformation<AuditContentDeclarationFieldResult>,
+  res: Response<AuditContentDeclarationFieldResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -289,7 +289,7 @@ export type AuditContentDeclarationMetadataResult =
  */
 export const auditContentDeclarationMetadata = async (
   req: Request<AuditContentDeclarationMetadataBody>,
-  res: ResponseWithInformation<AuditContentDeclarationMetadataResult>,
+  res: Response<AuditContentDeclarationMetadataResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization } = res.locals;
@@ -354,7 +354,7 @@ export type AuditTagResult =
  */
 export const auditTag = async (
   req: Request<undefined, undefined, AuditTagBody>,
-  res: ResponseWithInformation<AuditTagResult>,
+  res: Response<AuditTagResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -412,7 +412,7 @@ export type AskDocQuestionResult =
 
 export const askDocQuestion = async (
   req: Request<undefined, undefined, AskDocQuestionBody>,
-  res: ResponseWithInformation<AskDocQuestionResult>
+  res: Response<AskDocQuestionResult>
 ) => {
   const { messages, discutionId } = req.body;
   const { user, project, organization } = res.locals;
@@ -511,7 +511,7 @@ export type AutocompleteResponse = ResponseData<{
 
 export const autocomplete = async (
   req: Request<undefined, undefined, AutocompleteBody>,
-  res: ResponseWithInformation<AutocompleteResponse>
+  res: Response<AutocompleteResponse>
 ) => {
   try {
     const { text, aiOptions } = req.body;

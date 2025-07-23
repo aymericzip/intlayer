@@ -1,6 +1,5 @@
 import type { DictionaryAPI } from '@/types/dictionary.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import { ErrorHandler } from '@utils/errors';
 import type { Request, Response } from 'express';
 
@@ -49,7 +48,7 @@ export type CheckDictionaryChangeSSEParams = { accessToken: string };
  */
 export const listenChangeSSE = async (
   req: Request<CheckDictionaryChangeSSEParams, any, any>,
-  res: ResponseWithInformation
+  res: Response
 ) => {
   const { accessToken } = req.params;
 

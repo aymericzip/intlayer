@@ -1,10 +1,10 @@
 import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
-import type { ResponseWithInformation } from '@utils/auth/getAuth';
+
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { type ResponseData, formatResponse } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
 
 export type AddNewAccessKeyBody = AccessKeyData;
@@ -15,7 +15,7 @@ export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;
  */
 export const addNewAccessKey = async (
   req: Request<AddNewAccessKeyBody>,
-  res: ResponseWithInformation<AddNewAccessKeyResponse>,
+  res: Response<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, project } = res.locals;
@@ -79,7 +79,7 @@ export type DeleteAccessKeyResponse = ResponseData<null>;
  */
 export const deleteAccessKey = async (
   req: Request,
-  res: ResponseWithInformation<AddNewAccessKeyResponse>,
+  res: Response<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, project } = res.locals;
@@ -144,7 +144,7 @@ export type RefreshAccessKeyResponse = ResponseData<OAuth2Access>;
  */
 export const refreshAccessKey = async (
   req: Request<RefreshAccessKeyBody>,
-  res: ResponseWithInformation<RefreshAccessKeyResponse>,
+  res: Response<RefreshAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, project } = res.locals;

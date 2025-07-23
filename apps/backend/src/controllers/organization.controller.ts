@@ -10,7 +10,6 @@ import { sendEmail } from '@services/email.service';
 import * as organizationService from '@services/organization.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
-import { type ResponseWithInformation } from '@utils/auth/getAuth';
 import { ErrorHandler, type AppError } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
@@ -30,6 +29,7 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
+import { type Response } from 'express';
 import { t } from 'express-intlayer';
 import { Types } from 'mongoose';
 import { Stripe } from 'stripe';
@@ -43,7 +43,7 @@ export type GetOrganizationsResult = PaginatedResponse<OrganizationAPI>;
  */
 export const getOrganizations = async (
   req: Request<GetOrganizationsParams>,
-  res: ResponseWithInformation<GetOrganizationsResult>,
+  res: Response<GetOrganizationsResult>,
   _next: NextFunction
 ) => {
   const { user } = res.locals;
@@ -93,7 +93,7 @@ export type GetOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const getOrganization = async (
   req: Request<GetOrganizationParam, any, any>,
-  res: ResponseWithInformation<GetOrganizationResult>,
+  res: Response<GetOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const {} = res.locals;
@@ -128,7 +128,7 @@ export type AddOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const addOrganization = async (
   req: Request<any, any, AddOrganizationBody>,
-  res: ResponseWithInformation<AddOrganizationResult>,
+  res: Response<AddOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user } = res.locals;
@@ -180,7 +180,7 @@ export type UpdateOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const updateOrganization = async (
   req: Request<undefined, undefined, UpdateOrganizationBody>,
-  res: ResponseWithInformation<UpdateOrganizationResult>,
+  res: Response<UpdateOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization } = res.locals;
@@ -242,7 +242,7 @@ export type AddOrganizationMemberResult = ResponseData<OrganizationAPI>;
  */
 export const addOrganizationMember = async (
   req: Request<any, any, AddOrganizationMemberBody>,
-  res: ResponseWithInformation<AddOrganizationMemberResult>,
+  res: Response<AddOrganizationMemberResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization, user } = res.locals;
@@ -343,7 +343,7 @@ export type UpdateOrganizationMembersResult = ResponseData<OrganizationAPI>;
  */
 export const updateOrganizationMembers = async (
   req: Request<any, any, UpdateOrganizationMembersBody>,
-  res: ResponseWithInformation<UpdateOrganizationMembersResult>,
+  res: Response<UpdateOrganizationMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization } = res.locals;
@@ -437,7 +437,7 @@ export type DeleteOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const deleteOrganization = async (
   _req: Request,
-  res: ResponseWithInformation,
+  res: Response,
   _next: NextFunction
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -510,7 +510,7 @@ export type SelectOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const selectOrganization = async (
   req: Request<SelectOrganizationParam>,
-  res: ResponseWithInformation<SelectOrganizationResult>,
+  res: Response<SelectOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organizationId } = req.params as Partial<SelectOrganizationParam>;
@@ -571,7 +571,7 @@ export type UnselectOrganizationResult = ResponseData<null>;
  */
 export const unselectOrganization = async (
   _req: Request,
-  res: ResponseWithInformation<UnselectOrganizationResult>,
+  res: Response<UnselectOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { session } = res.locals;

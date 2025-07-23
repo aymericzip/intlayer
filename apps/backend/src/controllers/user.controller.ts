@@ -2,7 +2,6 @@ import type { User, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
 import * as userService from '@services/user.service';
-import { type ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
@@ -14,7 +13,8 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request } from 'express';
+import { type Response } from 'express';
 import { t } from 'express-intlayer';
 
 export type CreateUserBody = { email: string; password?: string };
@@ -25,7 +25,7 @@ export type CreateUserResult = ResponseData<UserAPI>;
  */
 export const createUser = async (
   req: Request<any, any, User>,
-  res: ResponseWithInformation<CreateUserResult>,
+  res: Response<CreateUserResult>,
   _next: NextFunction
 ): Promise<void> => {
   const user: User | undefined = req.body;
@@ -77,7 +77,7 @@ export type GetUsersResult = PaginatedResponse<UserAPI>;
  */
 export const getUsers = async (
   req: Request<GetUsersParams>,
-  res: ResponseWithInformation<GetUsersResult>,
+  res: Response<GetUsersResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user } = res.locals;
@@ -117,7 +117,7 @@ export type GetUserByIdResult = ResponseData<UserAPI>;
 
 export const getUserById = async (
   req: Request<GetUserByIdParams>,
-  res: ResponseWithInformation<GetUserByIdResult>,
+  res: Response<GetUserByIdResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
@@ -146,7 +146,7 @@ export type GetUserByEmailResult = ResponseData<UserAPI>;
 
 export const getUserByEmail = async (
   req: Request<GetUserByEmailParams>,
-  res: ResponseWithInformation<GetUserByEmailResult>,
+  res: Response<GetUserByEmailResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { email } = req.params;
@@ -177,7 +177,7 @@ export type UpdateUserResult = ResponseData<UserAPI>;
  */
 export const updateUser = async (
   req: Request<any, any, UpdateUserBody | undefined>,
-  res: ResponseWithInformation<UpdateUserResult>,
+  res: Response<UpdateUserResult>,
   _next: NextFunction
 ): Promise<void> => {
   const userData = req.body;
@@ -231,7 +231,7 @@ export type DeleteUserResult = ResponseData<UserAPI>;
  */
 export const deleteUser = async (
   req: Request<any, any, DeleteUserParams>,
-  res: ResponseWithInformation<DeleteUserResult>,
+  res: Response<DeleteUserResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
@@ -284,7 +284,7 @@ export type VerifyEmailStatusSSEParams = { userId: string };
  */
 export const verifyEmailStatusSSE = async (
   req: Request<VerifyEmailStatusSSEParams, any, any>,
-  res: ResponseWithInformation
+  res: Response
 ) => {
   // Set headers for SSE
   res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');

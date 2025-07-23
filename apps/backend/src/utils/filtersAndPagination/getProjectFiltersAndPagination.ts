@@ -1,3 +1,4 @@
+import type { Project } from '@/types/project.types';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
 import type { Request } from 'express';
 import type { RootFilterQuery } from 'mongoose';
@@ -5,7 +6,6 @@ import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
 } from './getFiltersAndPaginationFromBody';
-import type { Project } from '@/types/project.types';
 
 export type ProjectFiltersParams = {
   ids?: string | string[];

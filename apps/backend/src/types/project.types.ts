@@ -1,8 +1,9 @@
 import type { IntlayerConfig } from '@intlayer/config';
 import { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
-import type { Organization } from './organization.types';
-import type { User } from './user.types';
+import { Token } from 'oauth2-server';
+import type { Organization, OrganizationAPI } from './organization.types';
+import type { User, UserAPI } from './user.types';
 
 export type ProjectCreationData = {
   name: Project['name'];
@@ -32,12 +33,6 @@ export type ProjectData = {
   configuration?: ProjectConfiguration;
 };
 
-export type Rights = {
-  read: boolean;
-  write: boolean;
-  admin: boolean;
-};
-
 export type AccessKeyData = {
   name: string;
   grants: string[];
@@ -49,6 +44,14 @@ export type OAuth2AccessData = AccessKeyData & {
   clientSecret: string;
   accessToken: string[];
   userId: User['id'];
+};
+
+export type OAuth2AccessContext = {
+  accessToken: Token;
+  user?: UserAPI;
+  project?: ProjectAPI;
+  organization?: OrganizationAPI;
+  grants: Token['grants'];
 };
 
 export type OAuth2Access = OAuth2AccessData & {

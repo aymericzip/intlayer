@@ -6,10 +6,16 @@ import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject'
  * @param tag - The tag to map.
  * @returns The tag mapped to an API response.
  */
-export const mapTagToAPI = (tag: Tag): TagAPI => {
+export const mapTagToAPI = <T extends Tag | TagAPI | null>(
+  tag: T
+): T extends null ? null : TagAPI => {
+  if (!tag) {
+    return null as any;
+  }
+
   const tagObject = ensureMongoDocumentToObject(tag);
 
-  return tagObject as unknown as TagAPI;
+  return tagObject as any;
 };
 
 /**

@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
-  POLICY,
-  formatPrivilegeList,
-  mergeRolesPolicy,
+  ROLE_POLICY,
+  computeEffectivePrivileges,
+  formatPermissions,
   type Roles,
-} from './policy';
+} from './permissions';
 
 describe('Policy Module', () => {
   describe('POLICY constant', () => {
@@ -19,16 +19,16 @@ describe('Policy Module', () => {
       ];
 
       expectedRoles.forEach((role) => {
-        expect(POLICY[role]).toBeDefined();
+        expect(ROLE_POLICY[role]).toBeDefined();
       });
     });
 
     it('should have admin role with full privileges (*)', () => {
-      expect(POLICY.admin).toBe('*');
+      expect(ROLE_POLICY.admin).toBe('*');
     });
 
     it('should have org_admin with full privileges for all resources', () => {
-      const orgAdminPolicy = POLICY.org_admin;
+      const orgAdminPolicy = ROLE_POLICY.org_admin;
       expect(orgAdminPolicy).toEqual({
         organization: '*',
         project: '*',
@@ -38,7 +38,7 @@ describe('Policy Module', () => {
     });
 
     it('should have org_user with limited privileges', () => {
-      const orgUserPolicy = POLICY.org_user;
+      const orgUserPolicy = ROLE_POLICY.org_user;
       expect(orgUserPolicy).toEqual({
         organization: {
           read: true,
@@ -47,7 +47,7 @@ describe('Policy Module', () => {
     });
 
     it('should have project_admin with project read and full dictionary/tag access', () => {
-      const projectAdminPolicy = POLICY.project_admin;
+      const projectAdminPolicy = ROLE_POLICY.project_admin;
       expect(projectAdminPolicy).toEqual({
         project: {
           read: true,
@@ -58,7 +58,7 @@ describe('Policy Module', () => {
     });
 
     it('should have project_user with project read and full dictionary access', () => {
-      const projectUserPolicy = POLICY.project_user;
+      const projectUserPolicy = ROLE_POLICY.project_user;
       expect(projectUserPolicy).toEqual({
         project: {
           read: true,
@@ -68,7 +68,7 @@ describe('Policy Module', () => {
     });
 
     it('should have project_reviewer with only dictionary access', () => {
-      const projectReviewerPolicy = POLICY.project_reviewer;
+      const projectReviewerPolicy = ROLE_POLICY.project_reviewer;
       expect(projectReviewerPolicy).toEqual({
         dictionary: '*',
       });
@@ -86,7 +86,7 @@ describe('Policy Module', () => {
           user: null,
           organization: null,
           project: null,
-        }) || [];
+        }) ?? [];
       expect(roles).toEqual([]);
     });
 
@@ -98,7 +98,7 @@ describe('Policy Module', () => {
         },
         organization: null,
         project: null,
-      }) || ['admin'];
+      }) ?? ['admin'];
       expect(roles).toEqual(['admin']);
     });
 
@@ -115,7 +115,7 @@ describe('Policy Module', () => {
           adminsIds: ['user1'],
         },
         project: null,
-      }) || ['org_admin', 'org_user'];
+      }) ?? ['org_admin', 'org_user'];
       expect(roles).toEqual(['org_admin', 'org_user']);
     });
 
@@ -132,7 +132,7 @@ describe('Policy Module', () => {
           adminsIds: ['user1'],
         },
         project: null,
-      }) || ['org_user'];
+      }) ?? ['org_user'];
       expect(roles).toEqual(['org_user']);
     });
 
@@ -154,7 +154,7 @@ describe('Policy Module', () => {
           membersIds: ['user1', 'user2'],
           adminsIds: ['user1'],
         },
-      }) || ['org_admin', 'org_user', 'project_admin', 'project_user'];
+      }) ?? ['org_admin', 'org_user', 'project_admin', 'project_user'];
       expect(roles).toEqual([
         'org_admin',
         'org_user',
@@ -181,7 +181,7 @@ describe('Policy Module', () => {
           membersIds: ['user1', 'user2'],
           adminsIds: ['user1'],
         },
-      }) || ['org_user', 'project_user'];
+      }) ?? ['org_user', 'project_user'];
       expect(roles).toEqual(['org_user', 'project_user']);
     });
 
@@ -203,7 +203,7 @@ describe('Policy Module', () => {
           membersIds: ['user1'],
           adminsIds: ['user1'],
         },
-      }) || ['admin', 'org_admin', 'org_user', 'project_admin', 'project_user'];
+      }) ?? ['admin', 'org_admin', 'org_user', 'project_admin', 'project_user'];
       expect(roles).toEqual([
         'admin',
         'org_admin',
@@ -231,7 +231,7 @@ describe('Policy Module', () => {
           membersIds: ['user1'],
           adminsIds: undefined,
         },
-      }) || ['org_user', 'project_user'];
+      }) ?? ['org_user', 'project_user'];
       expect(roles).toEqual(['org_user', 'project_user']);
     });
   });
@@ -239,7 +239,7 @@ describe('Policy Module', () => {
   describe('mergeRolesPolicy', () => {
     it('should merge admin role correctly', () => {
       const roles: Roles[] = ['admin'];
-      const result = mergeRolesPolicy(roles);
+      const result = computeEffectivePrivileges(roles);
 
       expect(result).toEqual({
         organization: {
@@ -267,7 +267,7 @@ describe('Policy Module', () => {
 
     it('should merge org_admin role correctly', () => {
       const roles: Roles[] = ['org_admin'];
-      const result = mergeRolesPolicy(roles);
+      const result = computeEffectivePrivileges(roles);
 
       expect(result).toEqual({
         organization: {
@@ -295,7 +295,7 @@ describe('Policy Module', () => {
 
     it('should merge org_user role correctly', () => {
       const roles: Roles[] = ['org_user'];
-      const result = mergeRolesPolicy(roles);
+      const result = computeEffectivePrivileges(roles);
 
       expect(result).toEqual({
         organization: {
@@ -306,7 +306,7 @@ describe('Policy Module', () => {
 
     it('should merge project_admin role correctly', () => {
       const roles: Roles[] = ['project_admin'];
-      const result = mergeRolesPolicy(roles);
+      const result = computeEffectivePrivileges(roles);
 
       expect(result).toEqual({
         project: {
@@ -327,7 +327,7 @@ describe('Policy Module', () => {
 
     it('should merge project_user role correctly', () => {
       const roles: Roles[] = ['project_user'];
-      const result = mergeRolesPolicy(roles);
+      const result = computeEffectivePrivileges(roles);
 
       expect(result).toEqual({
         project: {
@@ -343,7 +343,7 @@ describe('Policy Module', () => {
 
     it('should merge project_reviewer role correctly', () => {
       const roles: Roles[] = ['project_reviewer'];
-      const result = mergeRolesPolicy(roles);
+      const result = computeEffectivePrivileges(roles);
 
       expect(result).toEqual({
         dictionary: {
@@ -356,7 +356,7 @@ describe('Policy Module', () => {
 
     it('should merge multiple roles correctly', () => {
       const roles: Roles[] = ['org_user', 'project_user'];
-      const result = mergeRolesPolicy(roles);
+      const result = computeEffectivePrivileges(roles);
 
       expect(result).toEqual({
         organization: {
@@ -375,14 +375,14 @@ describe('Policy Module', () => {
 
     it('should handle empty roles array', () => {
       const roles: Roles[] = [];
-      const result = mergeRolesPolicy(roles);
+      const result = computeEffectivePrivileges(roles);
 
       expect(result).toEqual({});
     });
 
     it('should merge admin with other roles (admin should take precedence)', () => {
       const roles: Roles[] = ['admin', 'org_user'];
-      const result = mergeRolesPolicy(roles);
+      const result = computeEffectivePrivileges(roles);
 
       expect(result).toEqual({
         organization: {
@@ -424,7 +424,7 @@ describe('Policy Module', () => {
         },
       };
 
-      const result = formatPrivilegeList(privilegeList);
+      const result = formatPermissions(privilegeList);
       expect(result).toEqual([
         'organization:read',
         'organization:admin',
@@ -435,7 +435,7 @@ describe('Policy Module', () => {
 
     it('should handle empty privilege list', () => {
       const privilegeList = {};
-      const result = formatPrivilegeList(privilegeList);
+      const result = formatPermissions(privilegeList);
       expect(result).toEqual([]);
     });
 
@@ -448,7 +448,7 @@ describe('Policy Module', () => {
         },
       };
 
-      const result = formatPrivilegeList(privilegeList);
+      const result = formatPermissions(privilegeList);
       expect(result).toEqual([]);
     });
 
@@ -466,7 +466,7 @@ describe('Policy Module', () => {
         },
       };
 
-      const result = formatPrivilegeList(privilegeList);
+      const result = formatPermissions(privilegeList);
       expect(result).toEqual([
         'organization:read',
         'organization:write',
@@ -491,7 +491,7 @@ describe('Policy Module', () => {
         },
       };
 
-      const result = formatPrivilegeList(privilegeList);
+      const result = formatPermissions(privilegeList);
       expect(result).toEqual([
         'dictionary:read',
         'dictionary:admin',
@@ -509,7 +509,7 @@ describe('Policy Module', () => {
         'project_user',
       ];
 
-      const policy = mergeRolesPolicy(roles);
+      const policy = computeEffectivePrivileges(roles);
       expect(policy).toEqual({
         organization: {
           read: true,
@@ -533,7 +533,7 @@ describe('Policy Module', () => {
         },
       });
 
-      const privileges = formatPrivilegeList(policy);
+      const privileges = formatPermissions(policy);
       expect(privileges).toEqual([
         'organization:read',
         'organization:write',
@@ -553,7 +553,7 @@ describe('Policy Module', () => {
     it('should handle admin user end-to-end', () => {
       const roles: Roles[] = ['admin'];
 
-      const policy = mergeRolesPolicy(roles);
+      const policy = computeEffectivePrivileges(roles);
       expect(policy).toEqual({
         organization: {
           read: true,
@@ -577,7 +577,7 @@ describe('Policy Module', () => {
         },
       });
 
-      const privileges = formatPrivilegeList(policy);
+      const privileges = formatPermissions(policy);
       expect(privileges).toEqual([
         'organization:read',
         'organization:write',

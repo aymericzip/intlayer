@@ -7,7 +7,7 @@ import type {
 } from '@/types/tag.types';
 import { logger } from '@logger';
 import * as tagService from '@services/tag.service';
-import type { ResponseWithInformation } from '@utils/auth/getAuth';
+
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
@@ -22,7 +22,7 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
 
 export type GetTagsParams = FiltersAndPagination<TagFiltersParams>;
@@ -33,7 +33,7 @@ export type GetTagsResult = PaginatedResponse<TagAPI>;
  */
 export const getTags = async (
   req: Request<GetTagsParams>,
-  res: ResponseWithInformation<GetTagsResult>,
+  res: Response<GetTagsResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, organization } = res.locals;
@@ -85,7 +85,7 @@ export type AddTagResult = ResponseData<TagAPI>;
  */
 export const addTag = async (
   req: Request<any, any, AddTagBody>,
-  res: ResponseWithInformation<AddTagResult>,
+  res: Response<AddTagResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization, user } = res.locals;
@@ -147,7 +147,7 @@ export type UpdateTagResult = ResponseData<TagAPI>;
  */
 export const updateTag = async (
   req: Request<UpdateTagParams, any, UpdateTagBody>,
-  res: ResponseWithInformation<UpdateTagResult>,
+  res: Response<UpdateTagResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { tagId } = req.params;
@@ -216,7 +216,7 @@ export type DeleteTagResult = ResponseData<TagAPI>;
  */
 export const deleteTag = async (
   req: Request<DeleteTagParams>,
-  res: ResponseWithInformation<DeleteTagResult>,
+  res: Response<DeleteTagResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, organization } = res.locals;

@@ -49,7 +49,7 @@ export const addNewAccessKey = async (
     clientSecret,
     userId: user.id,
     accessToken: [],
-    rights: accessKeyData.rights,
+    grants: accessKeyData.grants,
   };
 
   const result = await ProjectModel.updateOne(

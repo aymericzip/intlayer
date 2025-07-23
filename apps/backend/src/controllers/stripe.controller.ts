@@ -1,11 +1,11 @@
 import type { Organization } from '@/types/organization.types';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
-import type { ResponseWithInformation } from '@utils/auth/getAuth';
+
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
 import { type ResponseData, formatResponse } from '@utils/responseData';
-import type { Request } from 'express';
+import type { Request, Response } from 'express';
 import { t } from 'express-intlayer';
 import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
@@ -25,7 +25,7 @@ export type GetPricingResult = ResponseData<subscriptionService.PricingResult>;
  */
 export const getPricing = async (
   req: Request<undefined, undefined, GetPricingBody>,
-  res: ResponseWithInformation<GetPricingResult>
+  res: Response<GetPricingResult>
 ) => {
   const { priceIds, promoCode } = req.body;
 
@@ -58,7 +58,7 @@ export type GetCheckoutSessionResult = ResponseData<
  */
 export const getSubscription = async (
   req: Request<undefined, undefined, GetCheckoutSessionBody>,
-  res: ResponseWithInformation<GetCheckoutSessionResult>
+  res: Response<GetCheckoutSessionResult>
 ): Promise<void> => {
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -77,24 +77,6 @@ export const getSubscription = async (
     // Validate that the user exists
     if (!user) {
       ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
-      return;
-    }
-
-    // Ensure the user is a member of the organization
-    if (!organization.membersIds.map(String).includes(String(user.id))) {
-      ErrorHandler.handleGenericErrorResponse(
-        res,
-        'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-      );
-      return;
-    }
-
-    // Ensure the user is an admin of the organization
-    if (!organization.adminsIds.map(String).includes(String(user.id))) {
-      ErrorHandler.handleGenericErrorResponse(
-        res,
-        'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-      );
       return;
     }
 
@@ -190,7 +172,7 @@ type CancelSubscriptionResult = ResponseData<CancelSubscriptionData>;
  */
 export const cancelSubscription = async (
   _req: Request,
-  res: ResponseWithInformation<CancelSubscriptionResult>
+  res: Response<CancelSubscriptionResult>
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -208,15 +190,6 @@ export const cancelSubscription = async (
     // Validate that the user exists
     if (!user) {
       ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
-      return;
-    }
-
-    // Check if the user is an admin of the organization
-    if (!organization.adminsIds.map(String).includes(String(user.id))) {
-      ErrorHandler.handleGenericErrorResponse(
-        res,
-        'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-      );
       return;
     }
 

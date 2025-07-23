@@ -1,6 +1,6 @@
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@utils/auth/getAuth';
-import type { NextFunction, Request } from 'express';
+
+import type { NextFunction, Request, Response } from 'express';
 import { HttpStatusCodes } from './httpStatusCodes';
 
 export enum AccessRule {
@@ -15,7 +15,7 @@ export enum AccessRule {
 }
 
 export const accessControl = <R extends AccessRule | AccessRule[]>(
-  res: ResponseWithInformation,
+  res: Response,
   accessRule: R
 ) => {
   const accessRuleArray: AccessRule[] = Array.isArray(accessRule)
@@ -139,11 +139,7 @@ export const accessControl = <R extends AccessRule | AccessRule[]>(
  */
 export const accessControlMiddleWare =
   (...accessRules: (AccessRule | AccessRule[])[]) =>
-  (
-    _req: Request<unknown>,
-    res: ResponseWithInformation,
-    next: NextFunction
-  ): void => {
+  (_req: Request<unknown>, res: Response, next: NextFunction): void => {
     let hasAccess = false;
 
     // Iterate over each access rule group (either single AccessRule or an array of AccessRules)

@@ -7,11 +7,17 @@ import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject'
  * @param  - Whether the user is an admin of the project.
  * @returns The project mapped to an API response.
  */
-export const mapProjectToAPI = (project: Project): ProjectAPI => {
-  let projectObject = ensureMongoDocumentToObject<Project>(project);
+export const mapProjectToAPI = <T extends Project | ProjectAPI | null>(
+  project?: T
+): T extends null ? null : ProjectAPI => {
+  if (!project) {
+    return null as any;
+  }
+
+  const projectObject = ensureMongoDocumentToObject(project);
 
   const { adminsIds, ...projectAPI } = projectObject;
-  return projectAPI as ProjectAPI;
+  return projectAPI as any;
 };
 
 /**
@@ -21,5 +27,7 @@ export const mapProjectToAPI = (project: Project): ProjectAPI => {
  * @param  - Whether the user is an admin of the project.
  * @returns The formatted array of user objects.
  */
-export const mapProjectsToAPI = (projects: Project[]): ProjectAPI[] =>
-  projects.map((project) => mapProjectToAPI(project));
+export const mapProjectsToAPI = (
+  projects: (Project | ProjectAPI)[]
+): ProjectAPI[] =>
+  projects.map(mapProjectToAPI).filter(Boolean) as ProjectAPI[];
