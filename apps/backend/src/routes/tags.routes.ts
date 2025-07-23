@@ -37,7 +37,7 @@ export const getTagRoutes = () =>
     },
   }) satisfies Routes;
 
-tagRouter.get(getTagRoutes().getTags.urlModel, getTags);
-tagRouter.post(getTagRoutes().addTag.urlModel, addTag);
-tagRouter.put(getTagRoutes().updateTag.urlModel, updateTag);
-tagRouter.delete(getTagRoutes().deleteTag.urlModel, deleteTag);
+tagRouter.get(getTagRoutes().getTags.urlModel, getTags as any);
+tagRouter.post(getTagRoutes().addTag.urlModel, addTag as any);
+tagRouter.put(getTagRoutes().updateTag.urlModel, updateTag as any);
+tagRouter.delete(getTagRoutes().deleteTag.urlModel, deleteTag as any);

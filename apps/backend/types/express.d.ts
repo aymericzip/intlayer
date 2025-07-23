@@ -1,6 +1,6 @@
+import { Session } from '@/types/session.types';
 import 'express';
 import OAuth2Server from 'oauth2-server';
-import { Session } from '../src/types/session.types';
 
 declare module 'express' {
   interface Request {

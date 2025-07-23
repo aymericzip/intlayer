@@ -65,35 +65,35 @@ export const getOrganizationRoutes = () =>
 
 organizationRouter.get(
   getOrganizationRoutes().getOrganizations.urlModel,
-  getOrganizations
+  getOrganizations as any
 );
 
 organizationRouter.post(
   getOrganizationRoutes().addOrganization.urlModel,
-  addOrganization
+  addOrganization as any
 );
 organizationRouter.put(
   getOrganizationRoutes().updateOrganization.urlModel,
-  updateOrganization
+  updateOrganization as any
 );
 organizationRouter.put(
   getOrganizationRoutes().updateOrganizationMembers.urlModel,
-  updateOrganizationMembers
+  updateOrganizationMembers as any
 );
 organizationRouter.post(
   getOrganizationRoutes().addOrganizationMember.urlModel,
-  addOrganizationMember
+  addOrganizationMember as any
 );
 organizationRouter.delete(
   getOrganizationRoutes().deleteOrganization.urlModel,
-  deleteOrganization
+  deleteOrganization as any
 );
 organizationRouter.put(
   getOrganizationRoutes().selectOrganization.urlModel,
-  selectOrganization
+  selectOrganization as any
 );
 
 organizationRouter.post(
   getOrganizationRoutes().unselectOrganization.urlModel,
-  unselectOrganization
+  unselectOrganization as any
 );

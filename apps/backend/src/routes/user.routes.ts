@@ -50,12 +50,12 @@ export const getUserRoutes = () =>
     },
   }) satisfies Routes;
 
-userRouter.get(getUserRoutes().getUsers.urlModel, getUsers);
-userRouter.put(getUserRoutes().updateUser.urlModel, updateUser);
-userRouter.post(getUserRoutes().createUser.urlModel, createUser);
-userRouter.get(getUserRoutes().getUserById.urlModel, getUserById);
-userRouter.get(getUserRoutes().getUserByEmail.urlModel, getUserByEmail);
+userRouter.get(getUserRoutes().getUsers.urlModel, getUsers as any);
+userRouter.put(getUserRoutes().updateUser.urlModel, updateUser as any);
+userRouter.post(getUserRoutes().createUser.urlModel, createUser as any);
+userRouter.get(getUserRoutes().getUserById.urlModel, getUserById as any);
+userRouter.get(getUserRoutes().getUserByEmail.urlModel, getUserByEmail as any);
 userRouter.get(
   getUserRoutes().verifyEmailStatusSSE.urlModel,
-  verifyEmailStatusSSE
+  verifyEmailStatusSSE as any
 );

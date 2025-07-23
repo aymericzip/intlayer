@@ -31,14 +31,14 @@ export const getStripeRoutes = () =>
     },
   }) satisfies Routes;
 
-stripeRouter.post(getStripeRoutes().getPricing.urlModel, getPricing);
+stripeRouter.post(getStripeRoutes().getPricing.urlModel, getPricing as any);
 
 stripeRouter.post(
   getStripeRoutes().createSubscription.urlModel,
-  getSubscription
+  getSubscription as any
 );
 
 stripeRouter.post(
   getStripeRoutes().cancelSubscription.urlModel,
-  cancelSubscription
+  cancelSubscription as any
 );

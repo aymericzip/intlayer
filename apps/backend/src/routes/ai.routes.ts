@@ -62,29 +62,29 @@ export const getAiRoutes = () =>
     },
   }) satisfies Routes;
 
-aiRouter.post(getAiRoutes().customQuery.urlModel, customQuery);
+aiRouter.post(getAiRoutes().customQuery.urlModel, customQuery as any);
 
-aiRouter.post(getAiRoutes().translateJSON.urlModel, translateJSON);
+aiRouter.post(getAiRoutes().translateJSON.urlModel, translateJSON as any);
 
 aiRouter.post(
   getAiRoutes().auditContentDeclaration.urlModel,
-  auditContentDeclaration
+  auditContentDeclaration as any
 );
 aiRouter.post(
   getAiRoutes().auditContentDeclarationField.urlModel,
-  auditContentDeclarationField
+  auditContentDeclarationField as any
 );
 aiRouter.post(
   getAiRoutes().auditContentDeclarationMetadata.urlModel,
-  auditContentDeclarationMetadata
+  auditContentDeclarationMetadata as any
 );
 
-aiRouter.post(getAiRoutes().auditTag.urlModel, auditTag);
+aiRouter.post(getAiRoutes().auditTag.urlModel, auditTag as any);
 
-aiRouter.post(getAiRoutes().autocomplete.urlModel, autocomplete);
+aiRouter.post(getAiRoutes().autocomplete.urlModel, autocomplete as any);
 
 /**
  * This route number of requests is limited for unauthenticated users
  */
-aiRouter.use(/(.*)/, unauthenticatedChatBotLimiter);
-aiRouter.post(getAiRoutes().ask.urlModel, askDocQuestion);
+aiRouter.use(/(.*)/, unauthenticatedChatBotLimiter as any);
+aiRouter.post(getAiRoutes().ask.urlModel, askDocQuestion as any);
