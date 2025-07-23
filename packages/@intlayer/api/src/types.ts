@@ -134,3 +134,11 @@ export type {
   WriteContentDeclarationBody,
   WriteContentDeclarationResult,
 } from 'intlayer-editor';
+
+export type AutocompleteBody = {
+  text: string;
+  aiOptions?: AIOptions;
+  contextBefore?: string;
+  currentLine?: string;
+  contextAfter?: string;
+};
