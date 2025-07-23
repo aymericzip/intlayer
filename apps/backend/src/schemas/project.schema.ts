@@ -2,8 +2,6 @@ import type {
   OAuth2Access,
   Project,
   ProjectSchema,
-  Rights,
-  TokenRights,
 } from '@/types/project.types';
 import { Locales } from '@intlayer/config';
 import type { RenameId } from '@utils/mongoDB/types';
@@ -14,18 +12,6 @@ import {
 } from '@utils/validation/validateProject';
 import { Schema } from 'mongoose';
 
-const RightsSchema = new Schema<Rights>({
-  read: { type: Boolean, required: true },
-  write: { type: Boolean, required: true },
-  admin: { type: Boolean, required: true },
-});
-
-export const TokenRightsSchema = new Schema<TokenRights>({
-  dictionary: { type: RightsSchema, required: true },
-  project: { type: RightsSchema, required: true },
-  organization: { type: RightsSchema, required: true },
-});
-
 // Define the oAuth2Access subdocument schema with timestamps
 const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
   {
@@ -35,7 +21,7 @@ const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
     name: { type: String, required: true },
     expiresAt: { type: Date },
     accessToken: { type: [String], required: true, default: [] },
-    rights: { type: TokenRightsSchema, required: true },
+    grants: { type: [String], required: true, default: [] },
   },
   {
     timestamps: true,

@@ -1,43 +1,48 @@
 import {
   InviteUserEmailEN,
-  InviteUserEmailFR,
   InviteUserEmailES,
+  InviteUserEmailFR,
 } from '@emails/InviteUserEmail';
 import {
+  OAuthTokenCreatedEmailEN,
+  OAuthTokenCreatedEmailES,
+  OAuthTokenCreatedEmailFR,
+} from '@emails/OAuthTokenCreatedEmail';
+import {
   PasswordChangeConfirmationEmailEN,
-  PasswordChangeConfirmationEmailFR,
   PasswordChangeConfirmationEmailES,
+  PasswordChangeConfirmationEmailFR,
 } from '@emails/PasswordChangeConfirmation';
 import {
   ResetPasswordEmailEN,
-  ResetPasswordEmailFR,
   ResetPasswordEmailES,
+  ResetPasswordEmailFR,
 } from '@emails/ResetUserPassword';
 
 import {
   SubscriptionPaymentCancellationEN,
-  SubscriptionPaymentCancellationFR,
   SubscriptionPaymentCancellationES,
+  SubscriptionPaymentCancellationFR,
 } from '@emails/SubscriptionPaymentCancellation';
 import {
   SubscriptionPaymentErrorEN,
-  SubscriptionPaymentErrorFR,
   SubscriptionPaymentErrorES,
+  SubscriptionPaymentErrorFR,
 } from '@emails/SubscriptionPaymentError';
 import {
   SubscriptionPaymentSuccessEN,
-  SubscriptionPaymentSuccessFR,
   SubscriptionPaymentSuccessES,
+  SubscriptionPaymentSuccessFR,
 } from '@emails/SubscriptionPaymentSuccess';
 import {
   ValidateUserEmailEN,
-  ValidateUserEmailFR,
   ValidateUserEmailES,
+  ValidateUserEmailFR,
 } from '@emails/ValidateUserEmail';
 import {
   WelcomeEmailEN,
-  WelcomeEmailFR,
   WelcomeEmailES,
+  WelcomeEmailFR,
 } from '@emails/Welcome';
 
 import { logger } from '@logger';
@@ -180,6 +185,18 @@ const getEmailComponents = (locale?: Locales) =>
         en: 'There was an issue with your Intlayer subscription payment',
         fr: "Un problème est survenu avec votre paiement pour l'abonnement Intlayer",
         es: 'Hubo un problema con el pago de tu suscripción de Intlayer',
+      }),
+    },
+    oAuthTokenCreated: {
+      template: t({
+        en: OAuthTokenCreatedEmailEN,
+        fr: OAuthTokenCreatedEmailFR,
+        es: OAuthTokenCreatedEmailES,
+      }),
+      subject: t({
+        en: 'A third-party OAuth application has been added to your Intlayer account',
+        fr: 'Une application OAuth tierce a été ajoutée à votre compte Intlayer',
+        es: 'Una aplicación OAuth de terceros ha sido añadida a tu cuenta de Intlayer',
       }),
     },
   }) satisfies EmailComponents;

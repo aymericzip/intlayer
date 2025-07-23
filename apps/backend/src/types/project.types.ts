@@ -40,7 +40,7 @@ export type Rights = {
 
 export type AccessKeyData = {
   name: string;
-  rights: string[];
+  grants: string[];
   expiresAt?: Date;
 };
 

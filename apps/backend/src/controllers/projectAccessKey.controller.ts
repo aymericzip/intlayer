@@ -1,4 +1,5 @@
 import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
+import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import type { ResponseWithInformation } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -51,6 +52,18 @@ export const addNewAccessKey = async (
     });
 
     res.json(responseData);
+
+    sendEmail({
+      type: 'oAuthTokenCreated',
+      to: user.email,
+      username: user.name,
+      applicationName: newAccessKey.clientId,
+      scopes: newAccessKey.grants,
+      tokenDetailsUrl: `${process.env.CLIENT_URL}/oauth2/token`,
+      securityLogUrl: `${process.env.CLIENT_URL}/security-log`,
+      supportUrl: `${process.env.CLIENT_URL}/support`,
+    });
+
     return;
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
