@@ -211,7 +211,10 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       },
       resetPasswordTokenExpiresIn: 3600,
     },
-
+    accountLinking: {
+      enabled: true, // allow linking in general
+      trustedProviders: ['google', 'github'], // optional: auto‑link when Google verifies the e‑mail
+    },
     emailVerification: {
       autoSignInAfterVerification: true,
       sendVerificationEmail: async ({ user, url }) => {
