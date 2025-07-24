@@ -2,7 +2,6 @@ import { DiscussionModel } from '@/models/discussion.model';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { Tag } from '@/types/tag.types';
 import { type KeyPath } from '@intlayer/core';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
@@ -22,7 +21,7 @@ import * as customQueryUtil from '@utils/AI/customQuery';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
 import { ErrorHandler, type AppError } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import type { Locales } from 'intlayer';
 
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
@@ -36,7 +35,7 @@ export type CustomQueryResult =
 
 export const customQuery = async (
   req: Request<AuditContentDeclarationBody>,
-  res: ResponseWithInformation<CustomQueryResult>,
+  res: Response<CustomQueryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { aiOptions, tagsKeys, ...rest } = req.body;
@@ -88,7 +87,7 @@ export type TranslateJSONResult =
 
 export const translateJSON = async (
   req: Request<AuditContentDeclarationBody>,
-  res: ResponseWithInformation<TranslateJSONResult>,
+  res: Response<TranslateJSONResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -154,7 +153,7 @@ export type AuditContentDeclarationResult =
  */
 export const auditContentDeclaration = async (
   req: Request<AuditContentDeclarationBody>,
-  res: ResponseWithInformation<AuditContentDeclarationResult>,
+  res: Response<AuditContentDeclarationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -224,7 +223,7 @@ export type AuditContentDeclarationFieldResult =
  */
 export const auditContentDeclarationField = async (
   req: Request<AuditContentDeclarationFieldBody>,
-  res: ResponseWithInformation<AuditContentDeclarationFieldResult>,
+  res: Response<AuditContentDeclarationFieldResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -289,7 +288,7 @@ export type AuditContentDeclarationMetadataResult =
  */
 export const auditContentDeclarationMetadata = async (
   req: Request<AuditContentDeclarationMetadataBody>,
-  res: ResponseWithInformation<AuditContentDeclarationMetadataResult>,
+  res: Response<AuditContentDeclarationMetadataResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization } = res.locals;
@@ -310,7 +309,7 @@ export const auditContentDeclarationMetadata = async (
   try {
     const tags: Tag[] = await tagService.findTags(
       {
-        organizationId: organization?._id,
+        organizationId: organization?.id,
       },
       0,
       1000
@@ -354,7 +353,7 @@ export type AuditTagResult =
  */
 export const auditTag = async (
   req: Request<undefined, undefined, AuditTagBody>,
-  res: ResponseWithInformation<AuditTagResult>,
+  res: Response<AuditTagResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -375,7 +374,7 @@ export const auditTag = async (
   try {
     let dictionaries: Dictionary[] = [];
     if (project?.organizationId) {
-      dictionaries = await getDictionariesByTags([tag.key], project._id);
+      dictionaries = await getDictionariesByTags([tag.key], project.id);
     }
 
     const auditResponse = await auditTagUtil.auditTag({
@@ -412,7 +411,7 @@ export type AskDocQuestionResult =
 
 export const askDocQuestion = async (
   req: Request<undefined, undefined, AskDocQuestionBody>,
-  res: ResponseWithInformation<AskDocQuestionResult>
+  res: Response<AskDocQuestionResult>
 ) => {
   const { messages, discutionId } = req.body;
   const { user, project, organization } = res.locals;
@@ -463,9 +462,9 @@ export const askDocQuestion = async (
           {
             $set: {
               discutionId,
-              userId: user?._id,
-              projectId: project?._id,
-              organizationId: organization?._id,
+              userId: user?.id,
+              projectId: project?.id,
+              organizationId: organization?.id,
               messages: [
                 ...messages.map((msg) => ({
                   role: msg.role,
@@ -514,7 +513,7 @@ export type AutocompleteResponse = ResponseData<{
 
 export const autocomplete = async (
   req: Request<undefined, undefined, AutocompleteBody>,
-  res: ResponseWithInformation<AutocompleteResponse>
+  res: Response<AutocompleteResponse>
 ) => {
   try {
     const { text, aiOptions, contextBefore, currentLine, contextAfter } =

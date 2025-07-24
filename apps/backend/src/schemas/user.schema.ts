@@ -1,4 +1,4 @@
-import type { User } from '@/types/user.types';
+import type { UserSchema } from '@/types/user.types';
 import {
   NAMES_MAX_LENGTH,
   NAMES_MIN_LENGTH,
@@ -6,45 +6,7 @@ import {
 import { Schema } from 'mongoose';
 import validator from 'validator';
 
-const SessionSchema = new Schema(
-  {
-    sessionToken: {
-      type: String,
-      required: true,
-    },
-    expires: {
-      type: Date,
-      required: true,
-    },
-  },
-  { _id: false } // This prevents Mongoose from creating an _id field for the session subdocument
-);
-
-const ProviderSchema = new Schema(
-  {
-    provider: {
-      type: String,
-      required: true,
-    },
-    providerAccountId: {
-      type: String,
-    },
-    secret: {
-      type: String,
-      maxlength: 1024,
-      minlength: 6,
-    },
-    emailValidated: {
-      type: String,
-    },
-    passwordHash: {
-      type: String,
-    },
-  },
-  { _id: false } // This prevents Mongoose from creating an _id field for the session subdocument
-);
-
-export const userSchema = new Schema<User>(
+export const userSchema = new Schema<UserSchema>(
   {
     email: {
       type: String,
@@ -63,10 +25,6 @@ export const userSchema = new Schema<User>(
       type: String,
       maxlength: 20,
     },
-    session: {
-      type: SessionSchema,
-      required: false,
-    },
 
     customerId: {
       type: String,
@@ -82,14 +40,24 @@ export const userSchema = new Schema<User>(
       },
       required: false,
     },
-
-    provider: {
-      type: [ProviderSchema],
-      default: undefined,
-      required: false,
-    },
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
   }
 );

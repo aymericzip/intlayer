@@ -1,38 +1,42 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
-import type {
-  AskResetPasswordBody,
-  AskResetPasswordResult,
-  CheckIfUserHasPasswordResult,
-  CreateSessionBody,
-  CreateSessionResult,
-  DefinePasswordBody,
-  DefinePasswordResult,
-  GetOAuth2TokenBody,
-  GetOAuth2TokenResult,
-  GetSessionInformationQuery,
-  GetSessionInformationResult,
-  GithubLoginQueryParams,
-  GoogleLoginQueryParams,
-  LoginBody,
-  LoginResult,
-  RegisterBody,
-  RegisterQuery,
-  RegisterResult,
-  SetCSRFTokenResult,
-  UpdatePasswordBody,
-  UpdatePasswordResult,
-  UserAPI,
-  ValidEmailParams,
-  ValidEmailResult,
-} from '../types';
+import { createAuthClient } from 'better-auth/client';
+import { FetcherOptions, fetcher } from '../fetcher';
+import { GetOAuth2TokenBody, GetOAuth2TokenResult } from '../types';
 
-import { fetcher, type FetcherOptions } from '../fetcher';
+type AuthClient = ReturnType<typeof createAuthClient>;
 
-export const getAuthAPI = (
-  authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
-) => {
+export interface AuthAPI {
+  signInEmail: AuthClient['signIn']['email'];
+  signUpEmail: AuthClient['signUp']['email'];
+  signOut: AuthClient['signOut'];
+  signInSocial: AuthClient['signIn']['social'];
+  linkSocial: AuthClient['linkSocial'];
+  changePasswordSession: AuthClient['changePassword'];
+  requestPasswordResetSession: AuthClient['requestPasswordReset'];
+  resetPassword: AuthClient['resetPassword'];
+  verifyEmailSession: AuthClient['verifyEmail'];
+  getSession: AuthClient['getSession'];
+  forgetPassword: AuthClient['forgetPassword'];
+  sendVerificationEmail: AuthClient['sendVerificationEmail'];
+  changeEmail: AuthClient['changeEmail'];
+  deleteUser: AuthClient['deleteUser'];
+  revokeSession: AuthClient['revokeSession'];
+  revokeSessions: AuthClient['revokeSessions'];
+  revokeOtherSessions: AuthClient['revokeOtherSessions'];
+  listAccounts: AuthClient['listAccounts'];
+  unlinkAccount: AuthClient['unlinkAccount'];
+  refreshToken: AuthClient['refreshToken'];
+  getAccessToken: AuthClient['getAccessToken'];
+  accountInfo: AuthClient['accountInfo'];
+  updateUser: AuthClient['updateUser'];
+  listSessions: AuthClient['listSessions'];
+  getOAuth2AccessToken: (
+    otherOptions?: FetcherOptions
+  ) => Promise<GetOAuth2TokenResult>;
+}
+
+export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
   const backendURL =
     intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
   const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
@@ -42,226 +46,85 @@ export const getAuthAPI = (
       'Backend URL is not defined in the Intlayer configuration.'
     );
   }
-
-  const AUTH_API_ROUTE = `${backendURL}/api/auth`;
-
-  /**
-   * Logs in a user with the provided credentials.
-   * @param user - User credentials.
+  /*
+   * Extract each method to avoid type inference issues at build time.
    */
-  const login = async (user: LoginBody, otherOptions: FetcherOptions = {}) =>
-    await fetcher<LoginResult>(
-      `${AUTH_API_ROUTE}/login`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'POST',
-        body: user,
-      }
-    );
+  const authClient: AuthClient = createAuthClient({
+    baseURL: backendURL,
+    withCredentials: true, // makes fetch forward cookies
+  });
 
-  /**
-   * Gets the login with GitHub URL.
-   * @param params - The parameters for the login with GitHub URL.
-   * @returns The login with GitHub URL.
-   */
-  const getLoginWithGitHubURL = (params: GithubLoginQueryParams): string => {
-    const searchParams = new URLSearchParams(params);
+  const signInEmail: AuthClient['signIn']['email'] = async (...args) =>
+    await authClient.signIn.email(...args);
 
-    return `${AUTH_API_ROUTE}/login/github?${searchParams.toString()}`;
-  };
+  const signInSocial: AuthClient['signIn']['social'] = async (...args) =>
+    await authClient.signIn.social(...args);
 
-  /**
-   * Gets the login with Google URL.
-   * @param params - The parameters for the login with Google URL.
-   * @returns The login with Google URL.
-   */
-  const getLoginWithGoogleURL = (params: GoogleLoginQueryParams): string => {
-    const searchParams = new URLSearchParams(params);
+  const signUpEmail: AuthClient['signUp']['email'] = async (...args) =>
+    await authClient.signUp.email(...args);
 
-    return `${AUTH_API_ROUTE}/login/google?${searchParams.toString()}`;
-  };
+  const signOut: AuthClient['signOut'] = async (...args) =>
+    await authClient.signOut(...args);
 
-  /**
-   * Registers a new user with the provided credentials.
-   * @param user - User credentials.
-   * @returns User object.
-   */
-  const register = async (
-    user: RegisterBody,
-    query: RegisterQuery = {},
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<RegisterResult>(
-      `${AUTH_API_ROUTE}/register`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'POST',
-        body: user,
-        params: query,
-      }
-    );
+  const changePasswordSession: AuthClient['changePassword'] = async (...args) =>
+    await authClient.changePassword(...args);
 
-  /**
-   * Signs out the user.
-   * @returns User object.
-   */
-  const logout = async (otherOptions: FetcherOptions = {}) =>
-    await fetcher<void>(
-      `${AUTH_API_ROUTE}/logout`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'POST',
-      }
-    );
+  const requestPasswordResetSession: AuthClient['requestPasswordReset'] =
+    async (...args) => await authClient.requestPasswordReset(...args);
 
-  /**
-   * Ask to resets the password of a user with the provided email address.
-   * @param email - Email address of the user.
-   * @returns User object.
-   */
-  const askResetPassword = async (
-    email: AskResetPasswordBody['email'],
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<AskResetPasswordResult>(
-      `${AUTH_API_ROUTE}/password/reset`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'POST',
-        body: { email },
-      }
-    );
+  const resetPassword = authClient.resetPassword;
 
-  /**
-   * Changes the password of a user with the provided data.
-   * @param data - New password and confirmation.
-   * @returns User object.
-   */
-  const defineNewPassword = async (
-    data: DefinePasswordBody,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<DefinePasswordResult>(
-      `${AUTH_API_ROUTE}/password/define`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'POST',
-        body: data,
-      }
-    );
+  const verifyEmailSession: AuthClient['verifyEmail'] = async (...args) =>
+    await authClient.verifyEmail(...args);
 
-  /**
-   * Changes the password of a user with the provided data.
-   * @param data - New password and confirmation.
-   * @returns User object.
-   */
-  const changePassword = async (
-    data: UpdatePasswordBody,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<UpdatePasswordResult>(
-      `${AUTH_API_ROUTE}/password`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'PUT',
-        body: data,
-      }
-    );
+  const getSession: AuthClient['getSession'] = async (...args) =>
+    await authClient.getSession(...args);
 
-  /**
-   * Checks if a user has a password.
-   * @param params - User ID.
-   * @returns User object.
-   */
-  const checkIfUserHasPassword = async (otherOptions: FetcherOptions = {}) =>
-    await fetcher<CheckIfUserHasPasswordResult>(
-      `${AUTH_API_ROUTE}/password/has`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'GET',
-      }
-    );
+  const forgetPassword: AuthClient['forgetPassword'] = async (...args) =>
+    await authClient.forgetPassword(...args);
 
-  /**
-   * Verifies the email address of a user with the provided token.
-   * @param params - User ID and secret key.
-   * @returns User object.
-   */
-  const verifyEmail = async (
-    { userId, secret }: ValidEmailParams,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<ValidEmailResult>(
-      `${AUTH_API_ROUTE}/active/${userId}/${secret}`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'PUT',
-      }
-    );
+  const sendVerificationEmail: AuthClient['sendVerificationEmail'] = async (
+    ...args
+  ) => await authClient.sendVerificationEmail(...args);
 
-  /**
-   * Gets the verify email status URL to use in the SSE.
-   * @param userId - User ID.
-   * @returns The verify email status URL.
-   */
-  const getVerifyEmailStatusURL = (userId: string | UserAPI['_id']) =>
-    `${AUTH_API_ROUTE}/verify-email-status/${String(userId)}`;
+  const changeEmail: AuthClient['changeEmail'] = async (...args) =>
+    await authClient.changeEmail(...args);
 
-  /**
-   * Creates a session for a user.
-   * @param params - User ID and secret key.
-   * @returns User object.
-   */
-  const createSession = async (
-    data: CreateSessionBody,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<CreateSessionResult>(
-      `${AUTH_API_ROUTE}/session`,
-      authAPIOptions,
-      otherOptions,
-      {
-        method: 'POST',
-        body: data,
-      }
-    );
+  const deleteUser = authClient.deleteUser;
 
-  /**
-   * Gets a session and user.
-   * @param sessionToken - Session token.
-   * @param otherOptions - Fetcher options.
-   * @returns Session and user information.
-   */
-  const getSession = async (
-    sessionToken?: GetSessionInformationQuery['session_token'],
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<GetSessionInformationResult>(
-      `${backendURL}/session`,
-      authAPIOptions,
-      otherOptions,
-      { params: { session_token: sessionToken } }
-    );
+  const revokeSession: AuthClient['revokeSession'] = async (...args) =>
+    await authClient.revokeSession(...args);
 
-  /**
-   * Gets the CSRF token.
-   * @param otherOptions - Fetcher options.
-   * @returns The CSRF token.
-   */
-  const getCSRFToken = async (otherOptions: FetcherOptions = {}) =>
-    await fetcher<SetCSRFTokenResult>(
-      `${backendURL}/csrf-token`,
-      authAPIOptions,
-      otherOptions
-    );
+  const revokeSessions: AuthClient['revokeSessions'] = async (...args) =>
+    await authClient.revokeSessions(...args);
+
+  const revokeOtherSessions: AuthClient['revokeOtherSessions'] = async (
+    ...args
+  ) => await authClient.revokeOtherSessions(...args);
+
+  const linkSocial: AuthClient['linkSocial'] = async (...args) =>
+    await authClient.linkSocial(...args);
+
+  const listAccounts: AuthClient['listAccounts'] = async (...args) =>
+    await authClient.listAccounts(...args);
+
+  const unlinkAccount: AuthClient['unlinkAccount'] = async (...args) =>
+    await authClient.unlinkAccount(...args);
+
+  const refreshToken: AuthClient['refreshToken'] = async (...args) =>
+    await authClient.refreshToken(...args);
+
+  const getAccessToken: AuthClient['getAccessToken'] = async (...args) =>
+    await authClient.getAccessToken(...args);
+
+  const accountInfo: AuthClient['accountInfo'] = async (...args) =>
+    await authClient.accountInfo(...args);
+
+  const updateUser: AuthClient['updateUser'] = async (...args) =>
+    await authClient.updateUser(...args);
+
+  const listSessions: AuthClient['listSessions'] = async (...args) =>
+    await authClient.listSessions(...args);
 
   /**
    * Gets an oAuth2 accessToken
@@ -270,7 +133,7 @@ export const getAuthAPI = (
   const getOAuth2AccessToken = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetOAuth2TokenResult>(
       `${backendURL}/oauth2/token`,
-      authAPIOptions,
+      {},
       otherOptions,
       {
         method: 'POST',
@@ -286,20 +149,30 @@ export const getAuthAPI = (
     );
 
   return {
-    login,
-    getLoginWithGitHubURL,
-    getLoginWithGoogleURL,
-    register,
-    logout,
-    defineNewPassword,
-    askResetPassword,
-    checkIfUserHasPassword,
-    verifyEmail,
-    getVerifyEmailStatusURL,
-    changePassword,
-    createSession,
+    signInEmail,
+    signUpEmail,
+    signOut,
+    signInSocial,
+    linkSocial,
+    changePasswordSession,
+    requestPasswordResetSession,
+    resetPassword,
+    verifyEmailSession,
     getSession,
-    getCSRFToken,
     getOAuth2AccessToken,
+    forgetPassword,
+    sendVerificationEmail,
+    changeEmail,
+    deleteUser,
+    revokeSession,
+    revokeSessions,
+    revokeOtherSessions,
+    listAccounts,
+    unlinkAccount,
+    refreshToken,
+    getAccessToken,
+    accountInfo,
+    updateUser,
+    listSessions,
   };
 };

@@ -1,4 +1,4 @@
-import type { Document } from 'mongoose';
+import type { Document, ObjectIdToString } from 'mongoose';
 
 /**
  * If the dictionary is a mongoose document, convert it to an object
@@ -7,7 +7,7 @@ import type { Document } from 'mongoose';
  */
 export const ensureMongoDocumentToObject = <T extends object | Document>(
   potentialDocument: T
-): T => {
+): ObjectIdToString<T> => {
   let potentialObject: T = potentialDocument as T;
 
   // If the user is a mongoose document, convert it to an object
@@ -15,5 +15,5 @@ export const ensureMongoDocumentToObject = <T extends object | Document>(
     potentialObject = (potentialDocument as Document).toObject();
   }
 
-  return potentialObject as T;
+  return potentialObject as ObjectIdToString<T>;
 };

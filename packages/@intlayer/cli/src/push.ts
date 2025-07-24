@@ -53,7 +53,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
       );
     }
 
-    const intlayerAuthAPI = getAuthAPI(undefined, config);
+    const intlayerAuthAPI = getAuthAPI(config);
     const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
 
     const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;

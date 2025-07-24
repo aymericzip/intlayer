@@ -1,13 +1,13 @@
 'use client';
 
-import {
-  ResetPasswordForm as ResetPasswordFormUI,
-  type ResetPassword,
-} from '@intlayer/design-system';
+import { PagesRoutes } from '@/Routes';
 import { useAskResetPassword } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
+import {
+  ResetPasswordForm as ResetPasswordFormUI,
+  type ResetPassword,
+} from './ResetPasswordForm';
 
 type ForgotPasswordFormProps = {
   email?: string;

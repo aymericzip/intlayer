@@ -2,15 +2,15 @@
 
 import { Check, X } from 'lucide-react';
 import {
-  type ReactNode,
-  useState,
-  type FC,
   type ChangeEventHandler,
+  type FC,
+  type ReactNode,
   useEffect,
+  useState,
 } from 'react';
+import { useUser } from '../../hooks/useUser';
 import { Button } from '../Button';
 import { type AutoSizedTextAreaProps, AutoCompleteTextarea } from '../TextArea';
-import { useUser } from '../Auth';
 
 export type ContentEditorTextAreaProps = {
   children: string;

@@ -15,7 +15,7 @@ import { useEffect, type FC } from 'react';
 
 type RemoveMemberModalProps = {
   organization: OrganizationAPI | undefined | null;
-  memberId: UserAPI['_id'] | null | undefined;
+  memberId: UserAPI['id'] | null | undefined;
   isOpen: boolean;
   onClose?: () => void;
   onRemove?: () => void;
@@ -40,7 +40,7 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
   } = useGetUsers();
 
   const user = usersResponse?.data?.find(
-    (user) => String(user._id) === String(memberId)
+    (user) => String(user.id) === String(memberId)
   );
 
   useEffect(() => {

@@ -2,14 +2,14 @@
 
 import type { OAuth2Access } from '@intlayer/backend';
 import {
-  useForm,
-  Form,
-  useAuth,
-  Modal,
   CopyToClipboard,
+  Form,
   H3,
+  Modal,
+  useForm,
 } from '@intlayer/design-system';
 import {
+  useAuth,
   useDeleteAccessKey,
   useRefreshAccessKey,
 } from '@intlayer/design-system/hooks';
@@ -87,7 +87,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
         </Form.Button>
       </Modal>
       <div
-        key={String(accessKey._id)}
+        key={String(accessKey.id)}
         className="border-text flex rounded-lg border-2 p-3"
       >
         <div className="flex items-center justify-center p-5">
@@ -247,7 +247,7 @@ export const AccessKeyForm: FC = () => {
         <span className="text-neutral text-sm">{description}</span>
         <Form.Label>{title}</Form.Label>
         {project?.oAuth2Access.map((accessKey) => (
-          <AccessKeyItem key={String(accessKey._id)} value={accessKey} />
+          <AccessKeyItem key={String(accessKey.id)} value={accessKey} />
         ))}
         {nbAccessKeys === 0 && (
           <span className="mt-6 text-center text-sm">{noAccessKeys}</span>

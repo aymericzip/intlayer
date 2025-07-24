@@ -85,28 +85,31 @@ importers:
     dependencies:
       '@ai-sdk/anthropic':
         specifier: ^1.2.11
-        version: 1.2.12(zod@3.25.67)
+        version: 1.2.12(zod@4.0.5)
       '@ai-sdk/deepseek':
         specifier: ^0.2.14
-        version: 0.2.14(zod@3.25.67)
+        version: 0.2.14(zod@4.0.5)
       '@ai-sdk/google':
         specifier: ^1.2.17
-        version: 1.2.19(zod@3.25.67)
+        version: 1.2.19(zod@4.0.5)
       '@ai-sdk/mistral':
         specifier: ^1.2.8
-        version: 1.2.8(zod@3.25.67)
+        version: 1.2.8(zod@4.0.5)
       '@ai-sdk/openai':
         specifier: ^1.0.0
-        version: 1.3.22(zod@3.25.67)
+        version: 1.3.22(zod@4.0.5)
       '@react-email/components':
         specifier: ^0.1.0
         version: 0.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       ai:
         specifier: ^4.2.0
-        version: 4.3.16(react@19.0.0)(zod@3.25.67)
+        version: 4.3.16(react@19.0.0)(zod@4.0.5)
       bcryptjs:
         specifier: ^3.0.2
         version: 3.0.2
+      better-auth:
+        specifier: ^1.3.2
+        version: 1.3.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       compression:
         specifier: ^1.8.0
         version: 1.8.0
@@ -116,15 +119,9 @@ importers:
       cors:
         specifier: ^2.8.5
         version: 2.8.5
-      crypto-js:
-        specifier: ^4.2.0
-        version: 4.2.0
-      csrf:
-        specifier: ^3.1.0
-        version: 3.1.0
-      csrf-csrf:
-        specifier: ^4.0.3
-        version: 4.0.3
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       dotenv:
         specifier: ^16.4.7
         version: 16.5.0
@@ -154,7 +151,7 @@ importers:
         version: 3.1.1
       openai:
         specifier: ^5.5.1
-        version: 5.5.1(ws@8.18.3)(zod@3.25.67)
+        version: 5.5.1(ws@8.18.3)(zod@4.0.5)
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -167,9 +164,6 @@ importers:
       stripe:
         specifier: ^18.2.1
         version: 18.2.1(@types/node@22.15.32)
-      uuid:
-        specifier: ^11.1.0
-        version: 11.1.0
       validator:
         specifier: ^13.12.0
         version: 13.15.15
@@ -219,9 +213,6 @@ importers:
       '@types/react':
         specifier: ^19.1.6
         version: 19.1.8
-      '@types/uuid':
-        specifier: ^10.0.0
-        version: 10.0.0
       '@types/validator':
         specifier: ^13.12.2
         version: 13.15.2
@@ -264,6 +255,9 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.3(@types/debug@4.1.12)(@types/node@22.15.32)(jiti@2.4.2)(jsdom@26.1.0)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.43.0)(tsx@4.20.3)(yaml@2.8.0)
 
   apps/website:
     dependencies:
@@ -1243,6 +1237,9 @@ importers:
       '@utils/tsup-config':
         specifier: workspace:*
         version: link:../../../utils/tsup-config
+      better-auth:
+        specifier: ^1.3.2
+        version: 1.3.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       concurrently:
         specifier: ^9.1.2
         version: 9.1.2
@@ -5408,6 +5405,18 @@ packages:
         integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==,
       }
 
+  '@better-auth/utils@0.2.5':
+    resolution:
+      {
+        integrity: sha512-uI2+/8h/zVsH8RrYdG8eUErbuGBk16rZKQfz8CjxQOyCE6v7BqFYEbFwvOkvl1KbUdxhqOnXp78+uE5h8qVEgQ==,
+      }
+
+  '@better-fetch/fetch@1.1.18':
+    resolution:
+      {
+        integrity: sha512-rEFOE1MYIsBmoMJtQbl32PGHHXuG2hDxvEd7rUHE0vCBoFQVSDqaVs9hkZEtHCxRoY+CljXKFCOuJ8uxqw1LcA==,
+      }
+
   '@changesets/apply-release-plan@7.0.12':
     resolution:
       {
@@ -7279,6 +7288,12 @@ packages:
         integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==,
       }
 
+  '@hexagon/base64@1.1.28':
+    resolution:
+      {
+        integrity: sha512-lhqDEAvWixy3bZ+UOYbPwUbBkwBq5C1LAJ/xPC8Oi+lL54oyakv/npbA0aU2hgCsx/1NUd4IBvV03+aUBWxerw==,
+      }
+
   '@hookform/resolvers@5.1.1':
     resolution:
       {
@@ -8271,6 +8286,12 @@ packages:
     resolution:
       {
         integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==,
+      }
+
+  '@levischuck/tiny-cbor@0.2.11':
+    resolution:
+      {
+        integrity: sha512-llBRm4dT4Z89aRsm6u2oEZ8tfwL/2l6BwpZ7JcyieouniDECM5AqNgr/y08zalEIvW3RSK4upYyybDcmjXqAow==,
       }
 
   '@listr2/prompt-adapter-inquirer@2.0.18':
@@ -9284,6 +9305,19 @@ packages:
         integrity: sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==,
       }
 
+  '@noble/ciphers@0.6.0':
+    resolution:
+      {
+        integrity: sha512-mIbq/R9QXk5/cTfESb1OKtyFnk7oc1Om/8onA1158K9/OZUQFDEVy55jVTato+xmp3XX6F6Qh0zz0Nc1AxAlRQ==,
+      }
+
+  '@noble/hashes@1.8.0':
+    resolution:
+      {
+        integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==,
+      }
+    engines: { node: ^14.21.3 || >=16 }
+
   '@nodelib/fs.scandir@2.1.5':
     resolution:
       {
@@ -9793,6 +9827,36 @@ packages:
         integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==,
       }
     engines: { node: '>= 10.0.0' }
+
+  '@peculiar/asn1-android@2.4.0':
+    resolution:
+      {
+        integrity: sha512-YFueREq97CLslZZBI8dKzis7jMfEHSLxM+nr0Zdx1POiXFLjqqwoY5s0F1UimdBiEw/iKlHey2m56MRDv7Jtyg==,
+      }
+
+  '@peculiar/asn1-ecc@2.4.0':
+    resolution:
+      {
+        integrity: sha512-fJiYUBCJBDkjh347zZe5H81BdJ0+OGIg0X9z06v8xXUoql3MFeENUX0JsjCaVaU9A0L85PefLPGYkIoGpTnXLQ==,
+      }
+
+  '@peculiar/asn1-rsa@2.4.0':
+    resolution:
+      {
+        integrity: sha512-6PP75voaEnOSlWR9sD25iCQyLgFZHXbmxvUfnnDcfL6Zh5h2iHW38+bve4LfH7a60x7fkhZZNmiYqAlAff9Img==,
+      }
+
+  '@peculiar/asn1-schema@2.4.0':
+    resolution:
+      {
+        integrity: sha512-umbembjIWOrPSOzEGG5vxFLkeM8kzIhLkgigtsOrfLKnuzxWxejAcUX+q/SoZCdemlODOcr5WiYa7+dIEzBXZQ==,
+      }
+
+  '@peculiar/asn1-x509@2.4.0':
+    resolution:
+      {
+        integrity: sha512-F7mIZY2Eao2TaoVqigGMLv+NDdpwuBKU1fucHPONfzaBS4JXXCNCmfO0Z3dsy7JzKGqtDcYC1mr9JjaZQZNiuw==,
+      }
 
   '@pkgjs/parseargs@0.11.0':
     resolution:
@@ -12032,6 +12096,19 @@ packages:
         integrity: sha512-hVJD77oT67aowHxwT4+M6PGOp+E2LtLdTK3+FC0lBO9T7sYwItDMXZ7Z07IDCvR1M717a4axbIWckrW67KMP/w==,
       }
     engines: { node: ^18.17.0 || >=20.5.0 }
+
+  '@simplewebauthn/browser@13.1.2':
+    resolution:
+      {
+        integrity: sha512-aZnW0KawAM83fSBUgglP5WofbrLbLyr7CoPqYr66Eppm7zO86YX6rrCjRB3hQKPrL7ATvY4FVXlykZ6w6FwYYw==,
+      }
+
+  '@simplewebauthn/server@13.1.2':
+    resolution:
+      {
+        integrity: sha512-VwoDfvLXSCaRiD+xCIuyslU0HLxVggeE5BL06+GbsP2l1fGf5op8e0c3ZtKoi+vSg1q4ikjtAghC23ze2Q3H9g==,
+      }
+    engines: { node: '>=20.0.0' }
 
   '@sinclair/typebox@0.24.51':
     resolution:
@@ -15243,6 +15320,13 @@ packages:
         integrity: sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==,
       }
 
+  asn1js@3.0.6:
+    resolution:
+      {
+        integrity: sha512-UOCGPYbl0tv8+006qks/dTgV9ajs97X2p0FAbyS2iyCRrmLSRolDaHdp+v/CLgnzHc3fVB+CwYiUmei7ndFcgA==,
+      }
+    engines: { node: '>=12.0.0' }
+
   assertion-error@2.0.1:
     resolution:
       {
@@ -15705,6 +15789,26 @@ packages:
         integrity: sha512-p4AF8uYzm9Fwu8m/hSVTCPXrRBPmB34hQpHsec2KOaR9CZmgoU8IOv4Cvwq4hgz2p4hLMNbsdNl5XeA6XbAQwA==,
       }
     engines: { node: '>=14.0.0' }
+
+  better-auth@1.3.2:
+    resolution:
+      {
+        integrity: sha512-510kOtFBTdp4z51hWtTEqk9yqSinXzyg7PkDFnXYMq1K0KvdXRY1A9t9J998i0CSf/tJA0wNoN3S8exkOgBvTw==,
+      }
+    peerDependencies:
+      react: 19.0.0
+      react-dom: 19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
+  better-call@1.0.12:
+    resolution:
+      {
+        integrity: sha512-ssq5OfB9Ungv2M1WVrRnMBomB0qz1VKuhkY2WxjHaLtlsHoSe9EPolj1xf7xf8LY9o3vfk3Rx6rCWI4oVHeBRg==,
+      }
 
   better-opn@3.0.2:
     resolution:
@@ -17181,19 +17285,6 @@ packages:
         integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==,
       }
     engines: { node: '>=8' }
-
-  csrf-csrf@4.0.3:
-    resolution:
-      {
-        integrity: sha512-DaygOzelL4Qo1pHwI9LPyZL+X2456/OzpT596kNeZGiTSqKVDOk/9PPJ+FjzZacjMUEusOHw3WJKe1RW4iUhrw==,
-      }
-
-  csrf@3.1.0:
-    resolution:
-      {
-        integrity: sha512-uTqEnCvWRk042asU6JtapDTcJeeailFy4ydOQS28bj1hcLnYRiqi8SsD2jS412AY1I/4qdOwWZun774iqywf9w==,
-      }
-    engines: { node: '>= 0.8' }
 
   css-blank-pseudo@3.0.3:
     resolution:
@@ -22717,6 +22808,12 @@ packages:
         integrity: sha512-bF7vcQxbODoGK1imE2P9GS9aw4zD0Sd+Hni68IMZLj7zRnquH7dXUmMw9hDI5S/Jzt7q+IyTXN0rSg2GI0IKhQ==,
       }
 
+  jose@5.10.0:
+    resolution:
+      {
+        integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==,
+      }
+
   joycon@3.1.1:
     resolution:
       {
@@ -23145,6 +23242,13 @@ packages:
       {
         integrity: sha512-Xq9nH7KlWZmXAtodXDDRE7vs6DU1gTU8zYDHDiWLSip45Egwq3plLHzPn27NgvzL2r1LMPC1vdqh98sQxtqj4A==,
       }
+
+  kysely@0.28.3:
+    resolution:
+      {
+        integrity: sha512-svKnkSH72APRdjfVCCOknxaC9Eb3nA2StHG9d5/sKOqRvHRp2Dtf1XwDvc92b4B5v6LV+EAGWXQbZ5jMOvHaDw==,
+      }
+    engines: { node: '>=20.0.0' }
 
   lambda-local@2.2.0:
     resolution:
@@ -25002,6 +25106,13 @@ packages:
       }
     engines: { node: ^18 || >=20 }
     hasBin: true
+
+  nanostores@0.11.4:
+    resolution:
+      {
+        integrity: sha512-k1oiVNN4hDK8NcNERSZLQiMfRzEGtfnvZvdBvey3SQbgn8Dcrk0h1I6vpxApjb10PFUflZrgJ2WEZyJQ+5v7YQ==,
+      }
+    engines: { node: ^18.0.0 || >=20.0.0 }
 
   nanotar@0.2.0:
     resolution:
@@ -28349,6 +28460,19 @@ packages:
         integrity: sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==,
       }
 
+  pvtsutils@1.3.6:
+    resolution:
+      {
+        integrity: sha512-PLgQXQ6H2FWCaeRak8vvk1GW462lMxB5s3Jm673N82zI4vqtVUPuZdffdZbPDFRoU8kAhItWFtPCWiPpp4/EDg==,
+      }
+
+  pvutils@1.1.3:
+    resolution:
+      {
+        integrity: sha512-pMpnA0qRdFp32b1sJl1wOJNxZLQ2cbQx+k6tjNtZ8CpvVhNqEPRgivZ2WOUev2YMajecdH7ctUPDvEe87nariQ==,
+      }
+    engines: { node: '>=6.0.0' }
+
   pwa-asset-generator@8.0.5:
     resolution:
       {
@@ -28458,13 +28582,6 @@ packages:
         integrity: sha512-U+5l2KrcMNOUPYvazA3h5ekF80FHTUG+87SEAmHZmolh1M+i/WyTCxVzmi+tidIa1tM4BSe8g2Y/D3loWDjj+w==,
       }
     engines: { node: '>=4' }
-
-  random-bytes@1.0.0:
-    resolution:
-      {
-        integrity: sha512-iv7LhNVO047HzYR3InF6pUcUsPQiHTM1Qal51DcGSuZFBil1aBBWG5eHPNek7bvILMaYJ/8RU1e8w1AMdHmLQQ==,
-      }
-    engines: { node: '>= 0.8' }
 
   randombytes@2.1.0:
     resolution:
@@ -29457,12 +29574,6 @@ packages:
     engines: { node: 20 || >=22 }
     hasBin: true
 
-  rndm@1.2.0:
-    resolution:
-      {
-        integrity: sha512-fJhQQI5tLrQvYIYFpOnFinzv9dwmR7hRnUz1XqP3OJ1jIweTNOd6aTO4jwQSgcBSFUB+/KHJxuGneime+FdzOw==,
-      }
-
   rollup-plugin-terser@7.0.2:
     resolution:
       {
@@ -29543,6 +29654,12 @@ packages:
       }
     engines: { node: '>=18.0.0', npm: '>=8.0.0' }
     hasBin: true
+
+  rou3@0.5.1:
+    resolution:
+      {
+        integrity: sha512-OXMmJ3zRk2xeXFGfA3K+EOPHC5u7RDFG7lIOx0X1pdnhUkI8MdVrbV+sNsD80ElpUZ+MRHdyxPnFthq9VHs8uQ==,
+      }
 
   router@2.2.0:
     resolution:
@@ -31770,13 +31887,6 @@ packages:
         integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==,
       }
 
-  tsscmp@1.0.6:
-    resolution:
-      {
-        integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==,
-      }
-    engines: { node: '>=0.6.x' }
-
   tsup@8.5.0:
     resolution:
       {
@@ -32041,13 +32151,6 @@ packages:
       {
         integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==,
       }
-
-  uid-safe@2.1.5:
-    resolution:
-      {
-        integrity: sha512-KPHm4VL5dDXKz01UuEd88Df+KzynaohSL9fBh096KWAxSKZQDI2uBrVqtvRM4rwrIrRRKsdLNML/lnaaVSRioA==,
-      }
-    engines: { node: '>= 0.8' }
 
   ultrahtml@1.6.0:
     resolution:
@@ -34051,6 +34154,12 @@ packages:
         integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==,
       }
 
+  zod@4.0.5:
+    resolution:
+      {
+        integrity: sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA==,
+      }
+
   zone.js@0.15.1:
     resolution:
       {
@@ -34107,70 +34216,70 @@ snapshots:
 
   '@adobe/css-tools@4.4.3': {}
 
-  '@ai-sdk/anthropic@1.2.12(zod@3.25.67)':
+  '@ai-sdk/anthropic@1.2.12(zod@4.0.5)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.67)
-      zod: 3.25.67
+      '@ai-sdk/provider-utils': 2.2.8(zod@4.0.5)
+      zod: 4.0.5
 
-  '@ai-sdk/deepseek@0.2.14(zod@3.25.67)':
+  '@ai-sdk/deepseek@0.2.14(zod@4.0.5)':
     dependencies:
-      '@ai-sdk/openai-compatible': 0.2.14(zod@3.25.67)
+      '@ai-sdk/openai-compatible': 0.2.14(zod@4.0.5)
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.67)
-      zod: 3.25.67
+      '@ai-sdk/provider-utils': 2.2.8(zod@4.0.5)
+      zod: 4.0.5
 
-  '@ai-sdk/google@1.2.19(zod@3.25.67)':
-    dependencies:
-      '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.67)
-      zod: 3.25.67
-
-  '@ai-sdk/mistral@1.2.8(zod@3.25.67)':
+  '@ai-sdk/google@1.2.19(zod@4.0.5)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.67)
-      zod: 3.25.67
+      '@ai-sdk/provider-utils': 2.2.8(zod@4.0.5)
+      zod: 4.0.5
 
-  '@ai-sdk/openai-compatible@0.2.14(zod@3.25.67)':
+  '@ai-sdk/mistral@1.2.8(zod@4.0.5)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.67)
-      zod: 3.25.67
+      '@ai-sdk/provider-utils': 2.2.8(zod@4.0.5)
+      zod: 4.0.5
 
-  '@ai-sdk/openai@1.3.22(zod@3.25.67)':
+  '@ai-sdk/openai-compatible@0.2.14(zod@4.0.5)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.67)
-      zod: 3.25.67
+      '@ai-sdk/provider-utils': 2.2.8(zod@4.0.5)
+      zod: 4.0.5
 
-  '@ai-sdk/provider-utils@2.2.8(zod@3.25.67)':
+  '@ai-sdk/openai@1.3.22(zod@4.0.5)':
+    dependencies:
+      '@ai-sdk/provider': 1.1.3
+      '@ai-sdk/provider-utils': 2.2.8(zod@4.0.5)
+      zod: 4.0.5
+
+  '@ai-sdk/provider-utils@2.2.8(zod@4.0.5)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
       nanoid: 3.3.11
       secure-json-parse: 2.7.0
-      zod: 3.25.67
+      zod: 4.0.5
 
   '@ai-sdk/provider@1.1.3':
     dependencies:
       json-schema: 0.4.0
 
-  '@ai-sdk/react@1.2.12(react@19.0.0)(zod@3.25.67)':
+  '@ai-sdk/react@1.2.12(react@19.0.0)(zod@4.0.5)':
     dependencies:
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.67)
-      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.67)
+      '@ai-sdk/provider-utils': 2.2.8(zod@4.0.5)
+      '@ai-sdk/ui-utils': 1.2.11(zod@4.0.5)
       react: 19.0.0
       swr: 2.3.3(react@19.0.0)
       throttleit: 2.1.0
     optionalDependencies:
-      zod: 3.25.67
+      zod: 4.0.5
 
-  '@ai-sdk/ui-utils@1.2.11(zod@3.25.67)':
+  '@ai-sdk/ui-utils@1.2.11(zod@4.0.5)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.67)
-      zod: 3.25.67
-      zod-to-json-schema: 3.24.5(zod@3.25.67)
+      '@ai-sdk/provider-utils': 2.2.8(zod@4.0.5)
+      zod: 4.0.5
+      zod-to-json-schema: 3.24.5(zod@4.0.5)
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -36093,6 +36202,13 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
+  '@better-auth/utils@0.2.5':
+    dependencies:
+      typescript: 5.8.3
+      uncrypto: 0.1.3
+
+  '@better-fetch/fetch@1.1.18': {}
+
   '@changesets/apply-release-plan@7.0.12':
     dependencies:
       '@changesets/config': 3.1.1
@@ -37449,6 +37565,8 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
+  '@hexagon/base64@1.1.28': {}
+
   '@hookform/resolvers@5.1.1(react-hook-form@7.58.1(react@19.0.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
@@ -38245,6 +38363,8 @@ snapshots:
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 
+  '@levischuck/tiny-cbor@0.2.11': {}
+
   '@listr2/prompt-adapter-inquirer@2.0.18(@inquirer/prompts@7.3.2(@types/node@22.15.32))':
     dependencies:
       '@inquirer/prompts': 7.3.2(@types/node@22.15.32)
@@ -38913,6 +39033,10 @@ snapshots:
     dependencies:
       eslint-scope: 5.1.1
 
+  '@noble/ciphers@0.6.0': {}
+
+  '@noble/hashes@1.8.0': {}
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -39397,6 +39521,39 @@ snapshots:
       '@parcel/watcher-win32-arm64': 2.5.1
       '@parcel/watcher-win32-ia32': 2.5.1
       '@parcel/watcher-win32-x64': 2.5.1
+
+  '@peculiar/asn1-android@2.4.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.4.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-ecc@2.4.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.4.0
+      '@peculiar/asn1-x509': 2.4.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-rsa@2.4.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.4.0
+      '@peculiar/asn1-x509': 2.4.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-schema@2.4.0':
+    dependencies:
+      asn1js: 3.0.6
+      pvtsutils: 1.3.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-x509@2.4.0':
+    dependencies:
+      '@peculiar/asn1-schema': 2.4.0
+      asn1js: 3.0.6
+      pvtsutils: 1.3.6
+      tslib: 2.8.1
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -41085,6 +41242,18 @@ snapshots:
       '@sigstore/bundle': 3.1.0
       '@sigstore/core': 2.0.0
       '@sigstore/protobuf-specs': 0.4.3
+
+  '@simplewebauthn/browser@13.1.2': {}
+
+  '@simplewebauthn/server@13.1.2':
+    dependencies:
+      '@hexagon/base64': 1.1.28
+      '@levischuck/tiny-cbor': 0.2.11
+      '@peculiar/asn1-android': 2.4.0
+      '@peculiar/asn1-ecc': 2.4.0
+      '@peculiar/asn1-rsa': 2.4.0
+      '@peculiar/asn1-schema': 2.4.0
+      '@peculiar/asn1-x509': 2.4.0
 
   '@sinclair/typebox@0.24.51': {}
 
@@ -43157,15 +43326,15 @@ snapshots:
       clean-stack: 2.2.0
       indent-string: 4.0.0
 
-  ai@4.3.16(react@19.0.0)(zod@3.25.67):
+  ai@4.3.16(react@19.0.0)(zod@4.0.5):
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.67)
-      '@ai-sdk/react': 1.2.12(react@19.0.0)(zod@3.25.67)
-      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.67)
+      '@ai-sdk/provider-utils': 2.2.8(zod@4.0.5)
+      '@ai-sdk/react': 1.2.12(react@19.0.0)(zod@4.0.5)
+      '@ai-sdk/ui-utils': 1.2.11(zod@4.0.5)
       '@opentelemetry/api': 1.9.0
       jsondiffpatch: 0.6.0
-      zod: 3.25.67
+      zod: 4.0.5
     optionalDependencies:
       react: 19.0.0
 
@@ -43408,6 +43577,12 @@ snapshots:
       is-array-buffer: 3.0.5
 
   asap@2.0.6: {}
+
+  asn1js@3.0.6:
+    dependencies:
+      pvtsutils: 1.3.6
+      pvutils: 1.1.3
+      tslib: 2.8.1
 
   assertion-error@2.0.1: {}
 
@@ -43788,6 +43963,31 @@ snapshots:
       picocolors: 1.1.1
       postcss: 8.5.6
       postcss-media-query-parser: 0.2.3
+
+  better-auth@1.3.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      '@better-auth/utils': 0.2.5
+      '@better-fetch/fetch': 1.1.18
+      '@noble/ciphers': 0.6.0
+      '@noble/hashes': 1.8.0
+      '@simplewebauthn/browser': 13.1.2
+      '@simplewebauthn/server': 13.1.2
+      better-call: 1.0.12
+      defu: 6.1.4
+      jose: 5.10.0
+      kysely: 0.28.3
+      nanostores: 0.11.4
+      zod: 4.0.5
+    optionalDependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
+  better-call@1.0.12:
+    dependencies:
+      '@better-fetch/fetch': 1.1.18
+      rou3: 0.5.1
+      set-cookie-parser: 2.7.1
+      uncrypto: 0.1.3
 
   better-opn@3.0.2:
     dependencies:
@@ -44722,16 +44922,6 @@ snapshots:
   crypto-js@4.2.0: {}
 
   crypto-random-string@2.0.0: {}
-
-  csrf-csrf@4.0.3:
-    dependencies:
-      http-errors: 2.0.0
-
-  csrf@3.1.0:
-    dependencies:
-      rndm: 1.2.0
-      tsscmp: 1.0.6
-      uid-safe: 2.1.5
 
   css-blank-pseudo@3.0.3(postcss@8.5.6):
     dependencies:
@@ -49403,6 +49593,8 @@ snapshots:
 
   join-component@1.1.0: {}
 
+  jose@5.10.0: {}
+
   joycon@3.1.1: {}
 
   js-beautify@1.15.4:
@@ -49743,6 +49935,8 @@ snapshots:
   konva@9.3.20: {}
 
   kuler@2.0.0: {}
+
+  kysely@0.28.3: {}
 
   lambda-local@2.2.0:
     dependencies:
@@ -51075,6 +51269,8 @@ snapshots:
 
   nanoid@5.1.5: {}
 
+  nanostores@0.11.4: {}
+
   nanotar@0.2.0: {}
 
   napi-postinstall@0.2.4: {}
@@ -51854,10 +52050,10 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  openai@5.5.1(ws@8.18.3)(zod@3.25.67):
+  openai@5.5.1(ws@8.18.3)(zod@4.0.5):
     optionalDependencies:
       ws: 8.18.3
-      zod: 3.25.67
+      zod: 4.0.5
 
   opener@1.5.2: {}
 
@@ -53483,6 +53679,12 @@ snapshots:
 
   pure-rand@6.1.0: {}
 
+  pvtsutils@1.3.6:
+    dependencies:
+      tslib: 2.8.1
+
+  pvutils@1.1.3: {}
+
   pwa-asset-generator@8.0.5:
     dependencies:
       chalk: 5.4.1
@@ -53546,8 +53748,6 @@ snapshots:
     dependencies:
       drange: 1.1.1
       ret: 0.2.2
-
-  random-bytes@1.0.0: {}
 
   randombytes@2.1.0:
     dependencies:
@@ -54575,8 +54775,6 @@ snapshots:
       glob: 11.0.3
       package-json-from-dist: 1.0.1
 
-  rndm@1.2.0: {}
-
   rollup-plugin-terser@7.0.2(rollup@2.79.2):
     dependencies:
       '@babel/code-frame': 7.27.1
@@ -54688,6 +54886,8 @@ snapshots:
       '@rollup/rollup-win32-ia32-msvc': 4.45.1
       '@rollup/rollup-win32-x64-msvc': 4.45.1
       fsevents: 2.3.3
+
+  rou3@0.5.1: {}
 
   router@2.2.0:
     dependencies:
@@ -56222,8 +56422,6 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tsscmp@1.0.6: {}
-
   tsup@8.5.0(@microsoft/api-extractor@7.52.8(@types/node@22.15.32))(@swc/core@1.12.1(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.6)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0):
     dependencies:
       bundle-require: 5.1.0(esbuild@0.25.5)
@@ -56389,10 +56587,6 @@ snapshots:
   uc.micro@2.1.0: {}
 
   ufo@1.6.1: {}
-
-  uid-safe@2.1.5:
-    dependencies:
-      random-bytes: 1.0.0
 
   ultrahtml@1.6.0: {}
 
@@ -57979,7 +58173,13 @@ snapshots:
     dependencies:
       zod: 3.25.67
 
+  zod-to-json-schema@3.24.5(zod@4.0.5):
+    dependencies:
+      zod: 4.0.5
+
   zod@3.25.67: {}
+
+  zod@4.0.5: {}
 
   zone.js@0.15.1: {}
 

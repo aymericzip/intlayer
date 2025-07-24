@@ -1,16 +1,16 @@
 'use client';
 
 import { PagesRoutes } from '@/Routes';
-import {
-  Button,
-  DefineNewPasswordForm as DefineNewPasswordFormUI,
-  type DefineNewPassword,
-} from '@intlayer/design-system';
 import { useDefineNewPassword } from '@intlayer/design-system/hooks';
 import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
+import {
+  Button,
+  DefineNewPasswordForm as DefineNewPasswordFormUI,
+  type DefineNewPassword,
+} from './DefineNewPasswordForm';
 
 type ForgotPasswordFormProps = {
   userId: string;

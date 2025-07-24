@@ -1,13 +1,13 @@
 'use client';
 
-import { useForm, Form, useAuth, H3 } from '@intlayer/design-system';
-import { useUpdateProject } from '@intlayer/design-system/hooks';
+import { Form, H3, useForm } from '@intlayer/design-system';
+import { useAuth, useUpdateProject } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, type FC } from 'react';
 import { useProjectSchema, type ProjectFormData } from './useProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {
-  const { session, isProjectAdmin } = useAuth();
+  const { session } = useAuth();
   const { project } = session ?? {};
   const ProjectSchema = useProjectSchema();
   const { updateProject } = useUpdateProject();
@@ -17,7 +17,7 @@ export const ProjectEditionForm: FC = () => {
   const { title, nameInput, editButton } = useIntlayer('project-form');
 
   const onSubmitSuccess = async (data: ProjectFormData) => {
-    await updateProject({ ...data, _id: project?._id });
+    await updateProject({ ...data, id: project?.id });
   };
 
   useEffect(() => {
@@ -25,6 +25,8 @@ export const ProjectEditionForm: FC = () => {
       form.reset(project);
     }
   }, [form.reset, project]);
+
+  const isProjectAdmin = false;
 
   return (
     <>

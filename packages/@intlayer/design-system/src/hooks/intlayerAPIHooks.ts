@@ -2,14 +2,12 @@
 
 import type { IntlayerAPI } from '@intlayer/api';
 import { useConfiguration } from '@intlayer/editor-react';
-import { useAuth } from '../components/Auth/useAuth/index';
 import { useToast } from '../components/Toaster';
 import { type UseAsyncOptions, useAsync } from './useAsync/useAsync';
+import { useAuth } from './useAuth';
 import { useIntlayerAuth } from './useIntlayerAPI';
 
-const formatErrorCode = (errorCode: string) => {
-  return errorCode.split('_').join(' ');
-};
+const formatErrorCode = (errorCode: string) => errorCode.split('_').join(' ');
 
 /**
  *  Hook to handle error logging and toast notifications
@@ -51,6 +49,17 @@ const useErrorHandling = <T extends UseAsyncOptions<any>>(options: T): T => {
       options.onError?.(errorMessage);
     },
     onSuccess: (data) => {
+      if (data?.error) {
+        toast({
+          title: formatErrorCode(
+            data.error.title ?? data.error.code ?? 'Error'
+          ),
+          description:
+            data.error.message ?? data.error.code ?? 'An error occurred',
+          variant: 'error',
+        });
+      }
+
       if (data?.message)
         toast({
           title: data.message,
@@ -76,7 +85,7 @@ const useAuthEnable = <T extends UseAsyncOptions<any>>(
   { requireUser, requireProject, requireOrganization }: AuthEnableOptions = {}
 ): T => {
   const configuration = useConfiguration();
-  const { csrfToken, oAuth2AccessToken, session } = useAuth({
+  const { oAuth2AccessToken, session } = useAuth({
     intlayerConfiguration: configuration,
   });
 
@@ -97,17 +106,11 @@ const useAuthEnable = <T extends UseAsyncOptions<any>>(
     ? Boolean(organization)
     : true;
 
-  const isCSRFEnabled =
-    Boolean(csrfToken) ||
-    // If auth using session, csrf token is not required
-    (!session && Boolean(oAuth2AccessToken));
-
   const isEnabled =
     isEnabledOption &&
     isUserEnabled &&
     isProjectEnabled &&
-    isOrganizationEnabled &&
-    isCSRFEnabled;
+    isOrganizationEnabled;
 
   return {
     ...options,
@@ -152,75 +155,63 @@ const useEditorAsync = <
  */
 
 export const useLogin = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['login']>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['signInEmail']>
 ) =>
-  useAppAsync('login', useIntlayerAuth().auth.login, {
+  useAppAsync('login', useIntlayerAuth().auth.signInEmail, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 
 export const useRegister = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['register']>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['signUpEmail']>
 ) =>
-  useAppAsync('register', useIntlayerAuth().auth.register, {
+  useAppAsync('register', useIntlayerAuth().auth.signUpEmail, {
     invalidateQueries: ['getSession'],
     ...args,
   });
 
 export const useLogout = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['logout']>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['signOut']>
 ) =>
-  useAppAsync('logout', useIntlayerAuth().auth.logout, {
-    invalidateQueries: ['getSession'],
+  useAppAsync('logout', useIntlayerAuth().auth.signOut, {
     ...args,
   });
 
 export const useChangePassword = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['changePassword']>
-) => useAppAsync('changePassword', useIntlayerAuth().auth.changePassword, args);
+  args?: UseAsyncOptions<IntlayerAPI['auth']['changePasswordSession']>
+) =>
+  useAppAsync(
+    'changePassword',
+    useIntlayerAuth().auth.changePasswordSession,
+    args
+  );
 
 export const useAskResetPassword = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['askResetPassword']>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['requestPasswordResetSession']>
 ) =>
   useAppAsync(
     'askResetPassword',
-    useIntlayerAuth().auth.askResetPassword,
+    useIntlayerAuth().auth.requestPasswordResetSession,
     args
   );
 
 export const useDefineNewPassword = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['defineNewPassword']>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['changePasswordSession']>
 ) =>
   useAppAsync(
     'defineNewPassword',
-    useIntlayerAuth().auth.defineNewPassword,
+    useIntlayerAuth().auth.changePasswordSession,
     args
-  );
-
-export const useCheckIfUserHasPassword = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['checkIfUserHasPassword']>
-) =>
-  useAppAsync(
-    'checkIfUserHasPassword',
-    useIntlayerAuth().auth.checkIfUserHasPassword,
-    args,
-    {
-      requireUser: true,
-    }
   );
 
 export const useVerifyEmail = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['verifyEmail']>
-) => useAppAsync('verifyEmail', useIntlayerAuth().auth.verifyEmail, args);
+  args?: UseAsyncOptions<IntlayerAPI['auth']['verifyEmailSession']>
+) =>
+  useAppAsync('verifyEmail', useIntlayerAuth().auth.verifyEmailSession, args);
 
 export const useGetUserByAccount = (
-  args?: UseAsyncOptions<IntlayerAPI['user']['getUserByAccount']>
-) =>
-  useAppAsync(
-    'getUserByAccount',
-    useIntlayerAuth().user.getUserByAccount,
-    args
-  );
+  args?: UseAsyncOptions<IntlayerAPI['auth']['accountInfo']>
+) => useAppAsync('getUserByAccount', useIntlayerAuth().auth.accountInfo, args);
 
 /**
  * User
@@ -246,9 +237,9 @@ export const useGetUsers = (
   );
 
 export const useCreateUser = (
-  args?: UseAsyncOptions<IntlayerAPI['user']['createUser']>
+  args?: UseAsyncOptions<IntlayerAPI['auth']['updateUser']>
 ) =>
-  useAppAsync('createUser', useIntlayerAuth().user.createUser, {
+  useAppAsync('createUser', useIntlayerAuth().auth.updateUser, {
     invalidateQueries: ['getUsers'],
     ...args,
   });

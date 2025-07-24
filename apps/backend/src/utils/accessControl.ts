@@ -1,6 +1,6 @@
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import type { NextFunction, Request } from 'express';
+
+import type { NextFunction, Request, Response } from 'express';
 import { HttpStatusCodes } from './httpStatusCodes';
 
 export enum AccessRule {
@@ -11,10 +11,11 @@ export enum AccessRule {
   hasOrganization = 'has-organization',
   hasProject = 'has-project',
   hasBearer = 'has-bearer',
+  oauth2 = 'oauth2',
 }
 
 export const accessControl = <R extends AccessRule | AccessRule[]>(
-  res: ResponseWithInformation,
+  res: Response,
   accessRule: R
 ) => {
   const accessRuleArray: AccessRule[] = Array.isArray(accessRule)
@@ -76,6 +77,14 @@ export const accessControl = <R extends AccessRule | AccessRule[]>(
     }
   }
 
+  // Check for 'oauth2' access rule
+  if (accessRuleArray.includes(AccessRule.oauth2)) {
+    if (authType !== 'oauth2') {
+      success = false;
+      messages.push('OAuth2 authentication is required');
+    }
+  }
+
   // Handle unknown access rules
   const knownRules = Object.values(AccessRule);
   const unknownRules = accessRuleArray.filter(
@@ -130,11 +139,7 @@ export const accessControl = <R extends AccessRule | AccessRule[]>(
  */
 export const accessControlMiddleWare =
   (...accessRules: (AccessRule | AccessRule[])[]) =>
-  (
-    _req: Request<unknown>,
-    res: ResponseWithInformation,
-    next: NextFunction
-  ): void => {
+  (_req: Request<unknown>, res: Response, next: NextFunction): void => {
     let hasAccess = false;
 
     // Iterate over each access rule group (either single AccessRule or an array of AccessRules)

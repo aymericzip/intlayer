@@ -1,16 +1,16 @@
+import { PagesRoutes } from '@/Routes';
 import type { OrganizationAPI } from '@intlayer/backend';
 import { Button, Modal } from '@intlayer/design-system';
 import { useSelectOrganization } from '@intlayer/design-system/hooks';
 import { Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
+import { useRouter } from 'next/navigation';
 import { useState, type FC } from 'react';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
-import { PagesRoutes } from '@/Routes';
 
 type OrganizationListProps = {
   organizations: OrganizationAPI[];
-  selectedOrganizationId?: OrganizationAPI['_id'] | string;
+  selectedOrganizationId?: OrganizationAPI['id'] | string;
   onSelectOrganization?: (organization: OrganizationAPI) => void;
 };
 
@@ -25,10 +25,10 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const router = useRouter();
 
-  const handleSelectOrganization = (organizationId: OrganizationAPI['_id']) => {
+  const handleSelectOrganization = (organizationId: OrganizationAPI['id']) => {
     if (onSelectOrganization) {
       const organization = organizations.find(
-        (organization) => organization._id === organizationId
+        (organization) => organization.id === organizationId
       );
 
       if (!organization) {
@@ -50,16 +50,16 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         {organizations.map((organization) => (
           <li
             className="border-neutral flex w-full flex-col gap-3 rounded-lg border p-6"
-            key={String(organization._id)}
+            key={String(organization.id)}
           >
             <h2 className="font-bold">{organization.name}</h2>
             <Button
-              onClick={() => handleSelectOrganization(organization._id)}
+              onClick={() => handleSelectOrganization(organization.id)}
               label={selectButton.ariaLabel.value}
               color="text"
               className="mt-auto"
             >
-              {String(selectedOrganizationId) === String(organization._id)
+              {String(selectedOrganizationId) === String(organization.id)
                 ? selectButton.selected.value
                 : selectButton.unselected.value}
             </Button>

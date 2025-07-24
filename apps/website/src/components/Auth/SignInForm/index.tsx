@@ -1,26 +1,23 @@
 'use client';
 
-import {
-  SignInForm as SignInFormUI,
-  type SignIn,
-} from '@intlayer/design-system';
+import { PagesRoutes } from '@/Routes';
 import { useLogin } from '@intlayer/design-system/hooks';
 import { useRouter } from 'next/navigation';
 import { type FC } from 'react';
-import { PagesRoutes } from '@/Routes';
+import { SignInForm as SignInFormUI, type SignIn } from './SignInForm/index';
 
-export const SignInForm: FC = () => {
+export const SignInForm: FC<{
+  callbackUrl?: number;
+}> = ({ callbackUrl }) => {
   const router = useRouter();
   const { login } = useLogin();
 
-  const onSubmitSuccess = async ({ email, password }: SignIn) => {
+  const onSubmitSuccess = async ({ email, password, rememberMe }: SignIn) => {
     await login({
       email,
       password,
-    }).then((res) => {
-      if (res.data?.email) {
-        router.refresh();
-      }
+      rememberMe,
+      resizeTo: callbackUrl ?? window.innerWidth,
     });
   };
 

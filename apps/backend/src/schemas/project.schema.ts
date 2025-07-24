@@ -1,26 +1,19 @@
+import type {
+  OAuth2Access,
+  Project,
+  ProjectSchema,
+} from '@/types/project.types';
 import { Locales } from '@intlayer/config';
+import type { RenameId } from '@utils/mongoDB/types';
 import {
-  NAME_MIN_LENGTH,
-  NAME_MAX_LENGTH,
   MEMBERS_MIN_LENGTH,
+  NAME_MAX_LENGTH,
+  NAME_MIN_LENGTH,
 } from '@utils/validation/validateProject';
 import { Schema } from 'mongoose';
-import type { Project, Rights, TokenRights } from '@/types/project.types';
-
-const RightsSchema = new Schema<Rights>({
-  read: { type: Boolean, required: true },
-  write: { type: Boolean, required: true },
-  admin: { type: Boolean, required: true },
-});
-
-export const TokenRightsSchema = new Schema<TokenRights>({
-  dictionary: { type: RightsSchema, required: true },
-  project: { type: RightsSchema, required: true },
-  organization: { type: RightsSchema, required: true },
-});
 
 // Define the oAuth2Access subdocument schema with timestamps
-const oAuth2AccessSchema = new Schema(
+const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
   {
     clientId: { type: String, required: true },
     clientSecret: { type: String, required: true },
@@ -28,7 +21,7 @@ const oAuth2AccessSchema = new Schema(
     name: { type: String, required: true },
     expiresAt: { type: Date },
     accessToken: { type: [String], required: true, default: [] },
-    rights: { type: TokenRightsSchema, required: true },
+    grants: { type: [String], required: true, default: [] },
   },
   {
     timestamps: true,
@@ -62,7 +55,7 @@ const projectConfigSchema = new Schema<Project['configuration']>(
   }
 );
 
-export const projectSchema = new Schema<Project>(
+export const projectSchema = new Schema<ProjectSchema>(
   {
     organizationId: {
       type: Schema.Types.ObjectId,
@@ -97,5 +90,21 @@ export const projectSchema = new Schema<Project>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
   }
 );

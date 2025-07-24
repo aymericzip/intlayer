@@ -26,93 +26,103 @@ export const getProjectRoutes = () =>
   ({
     getProjects: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'GET',
     },
     addProject: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'POST',
     },
     updateProject: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'PUT',
     },
     updateProjectMembers: {
       urlModel: '/members',
-      url: `${process.env.CLIENT_URL}/api/members`,
+      url: `${baseURL()}/members`,
       method: 'PUT',
     },
     pushProjectConfiguration: {
       urlModel: '/configuration',
-      url: `${process.env.CLIENT_URL}/api/configuration`,
+      url: `${baseURL()}/configuration`,
       method: 'PUT',
     },
     deleteProject: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'DELETE',
     },
     selectProject: {
       urlModel: '/:projectId',
-      url: ({ projectId }: { projectId: string }) => `${baseURL}/${projectId}`,
+      url: ({ projectId }: { projectId: string }) =>
+        `${baseURL()}/${projectId}`,
       method: 'PUT',
     },
     unselectProject: {
       urlModel: '/logout',
-      url: `${baseURL}/logout`,
+      url: `${baseURL()}/logout`,
       method: 'POST',
     },
     addNewAccessKey: {
       urlModel: '/access_key',
-      url: `${baseURL}/access_key`,
+      url: `${baseURL()}/access_key`,
       method: 'POST',
     },
     refreshAccessKey: {
       urlModel: '/access_key',
-      url: `${baseURL}/access_key`,
+      url: `${baseURL()}/access_key`,
       method: 'PATCH',
     },
     deleteAccessKey: {
       urlModel: '/access_key',
-      url: `${baseURL}/access_key`,
+      url: `${baseURL()}/access_key`,
       method: 'DELETE',
     },
   }) satisfies Routes;
 
-projectRouter.get(getProjectRoutes().getProjects.urlModel, getProjects);
+projectRouter.get(getProjectRoutes().getProjects.urlModel, getProjects as any);
 
-projectRouter.post(getProjectRoutes().addProject.urlModel, addProject);
-projectRouter.put(getProjectRoutes().updateProject.urlModel, updateProject);
+projectRouter.post(getProjectRoutes().addProject.urlModel, addProject as any);
+projectRouter.put(
+  getProjectRoutes().updateProject.urlModel,
+  updateProject as any
+);
 projectRouter.put(
   getProjectRoutes().updateProjectMembers.urlModel,
-  updateProjectMembers
+  updateProjectMembers as any
 );
 projectRouter.put(
   getProjectRoutes().pushProjectConfiguration.urlModel,
-  pushProjectConfiguration
+  pushProjectConfiguration as any
 );
-projectRouter.delete(getProjectRoutes().deleteProject.urlModel, deleteProject);
+projectRouter.delete(
+  getProjectRoutes().deleteProject.urlModel,
+  deleteProject as any
+);
 
 projectRouter.post(
   getProjectRoutes().addNewAccessKey.urlModel,
-  addNewAccessKey
+  addNewAccessKey as any
 );
 
 projectRouter.patch(
   getProjectRoutes().refreshAccessKey.urlModel,
-  refreshAccessKey
+  refreshAccessKey as any
 );
 
 projectRouter.delete(
   getProjectRoutes().deleteAccessKey.urlModel,
-  deleteAccessKey
+  deleteAccessKey as any
 );
 
 projectRouter.post(
   getProjectRoutes().unselectProject.urlModel,
-  unselectProject
+  unselectProject as any
 );
 
-projectRouter.put(getProjectRoutes().selectProject.urlModel, selectProject);
+projectRouter.put(
+  getProjectRoutes().selectProject.urlModel,
+  selectProject as any
+);

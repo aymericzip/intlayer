@@ -1,17 +1,16 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
+import { Button } from '@intlayer/design-system';
+import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
+import { Check } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
+import { useRouter } from 'next/navigation';
+import type { FC } from 'react';
 import {
   ChangePasswordForm as ChangePasswordFormUI,
   type ChangePassword,
-  useUser,
-  Button,
-} from '@intlayer/design-system';
-import { useChangePassword } from '@intlayer/design-system/hooks';
-import { Check } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
-import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
+} from './ChangePasswordForm';
 
 type ChangePasswordFormProps = {
   callbackUrl?: string;

@@ -1,4 +1,3 @@
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import type { NextFunction, Request, Response } from 'express';
 import rateLimit from 'express-rate-limit';
 import { ErrorHandler } from './errors';
@@ -14,9 +13,14 @@ export const ipLimiter: (
   next: NextFunction
 ) => void | Promise<void> = rateLimit({
   windowMs: 60 * 1000, // 1-minute window
-  limit: 100, // 100 requests / IP / window
+  limit: 500, // 500 requests / IP / window
   standardHeaders: 'draft-8',
   legacyHeaders: false,
+  // Use a custom key generator that handles proxy headers securely
+  keyGenerator: (req) => {
+    // Use the real IP address, falling back to socket remote address
+    return req.ip ?? req.socket?.remoteAddress ?? 'unknown';
+  },
   handler: (req, res, _next) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 
@@ -30,7 +34,7 @@ export const ipLimiter: (
 
 export const unauthenticatedChatBotLimiter: (
   req: Request,
-  res: ResponseWithInformation,
+  res: Response,
   next: NextFunction
 ) => any = rateLimit({
   windowMs: 60 * 60 * 1000, // 1-hour window
@@ -38,6 +42,11 @@ export const unauthenticatedChatBotLimiter: (
   standardHeaders: 'draft-8',
   skip: (_req, res) => Boolean(res.locals.user), // authenticated? then skip
   legacyHeaders: false,
+  // Use a custom key generator that handles proxy headers securely
+  keyGenerator: (req) => {
+    // Use the real IP address, falling back to socket remote address
+    return req.ip ?? req.socket?.remoteAddress ?? 'unknown';
+  },
   handler: (req, res) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
 

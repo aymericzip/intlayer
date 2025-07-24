@@ -1,6 +1,6 @@
-import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import type { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
 import type { Project } from '@/types/project.types';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 
 /**
  * Maps a dictionary to an API response.
@@ -12,7 +12,7 @@ import type { Project } from '@/types/project.types';
  */
 export const mapDictionaryToAPI = (
   dictionary: Dictionary,
-  projectId: string | Project['_id'],
+  projectId: string | Project['id'],
   version?: string
 ): DictionaryAPI => {
   const dictionaryObject = ensureMongoDocumentToObject<Dictionary>(dictionary);
@@ -33,5 +33,5 @@ export const mapDictionaryToAPI = (
     ...dictionaryObject,
     content,
     filePath: dictionaryObject.filePath?.[String(projectId)],
-  };
+  } as unknown as DictionaryAPI;
 };

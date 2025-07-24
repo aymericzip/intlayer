@@ -13,12 +13,12 @@ export const eventListenerRoutes = () =>
     checkDictionaryChangeSSE: {
       urlModel: '/:accessToken',
       url: ({ accessToken }: { accessToken: string }) =>
-        `${baseURL}/${accessToken}`,
+        `${baseURL()}/${accessToken}`,
       method: 'GET',
     },
   }) satisfies Routes;
 
 eventListenerRouter.get(
   eventListenerRoutes().checkDictionaryChangeSSE.urlModel,
-  listenChangeSSE
+  listenChangeSSE as any
 );

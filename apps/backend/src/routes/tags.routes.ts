@@ -17,28 +17,27 @@ export const getTagRoutes = () =>
   ({
     getTags: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'GET',
     },
     addTag: {
       urlModel: '/',
-      url: baseURL,
+      url: baseURL(),
       method: 'POST',
     },
     updateTag: {
       urlModel: '/:tagId',
-      url: ({ tagId }: { tagId: string }) => `${baseURL}/${tagId}`,
+      url: ({ tagId }: { tagId: string }) => `${baseURL()}/${tagId}`,
       method: 'PUT',
     },
     deleteTag: {
       urlModel: '/:tagId',
-      url: ({ tagId }: { tagId: string }) => `${baseURL}/${tagId}`,
+      url: ({ tagId }: { tagId: string }) => `${baseURL()}/${tagId}`,
       method: 'DELETE',
     },
   }) satisfies Routes;
 
-tagRouter.get(getTagRoutes().getTags.urlModel, getTags);
-
-tagRouter.post(getTagRoutes().addTag.urlModel, addTag);
-tagRouter.put(getTagRoutes().updateTag.urlModel, updateTag);
-tagRouter.delete(getTagRoutes().deleteTag.urlModel, deleteTag);
+tagRouter.get(getTagRoutes().getTags.urlModel, getTags as any);
+tagRouter.post(getTagRoutes().addTag.urlModel, addTag as any);
+tagRouter.put(getTagRoutes().updateTag.urlModel, updateTag as any);
+tagRouter.delete(getTagRoutes().deleteTag.urlModel, deleteTag as any);

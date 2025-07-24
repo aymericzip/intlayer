@@ -1,18 +1,23 @@
+import type { User, UserAPI } from '@/types/user.types';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
-import type { User, UserAPI, UserDocument } from '@/types/user.types';
 
 /**
  * Formats a user for API response. Removes sensitive information and adds role.
  * @param user - The user object to format.
  * @returns The formatted user object.
  */
-export const mapUserToAPI = (user: User | UserAPI): UserAPI => {
+export const mapUserToAPI = <T extends User | UserAPI | null>(
+  user?: T
+): T extends null ? null : UserAPI => {
+  if (!user) {
+    return null as any;
+  }
+
   const userObject = ensureMongoDocumentToObject(user);
 
-  const { provider, session, createdAt, ...userAPI } =
-    userObject as UserDocument;
+  const { provider, session, ...userAPI } = userObject as any;
 
-  return { ...userAPI, role: 'user' };
+  return userAPI as any;
 };
 
 /**
@@ -20,5 +25,5 @@ export const mapUserToAPI = (user: User | UserAPI): UserAPI => {
  * @param users - The array of user objects to format.
  * @returns The formatted array of user objects.
  */
-export const mapUsersToAPI = (users: User[]): UserAPI[] =>
-  users.map(mapUserToAPI);
+export const mapUsersToAPI = (users: (User | UserAPI)[]): UserAPI[] =>
+  users.map(mapUserToAPI).filter(Boolean) as UserAPI[];

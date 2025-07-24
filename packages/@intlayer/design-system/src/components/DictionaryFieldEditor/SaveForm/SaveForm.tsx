@@ -22,12 +22,12 @@ import {
 import { useDictionary } from 'react-intlayer';
 import { Modal } from '../../../components/Modal';
 import {
+  useAuth,
   useDeleteDictionary,
   usePushDictionaries,
   useWriteDictionary,
 } from '../../../hooks';
 import { cn } from '../../../utils/cn';
-import { useAuth } from '../../Auth';
 import { Form } from '../../Form';
 import { saveDictionaryContent } from './saveForm.content';
 
@@ -71,7 +71,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
     JSON.stringify(editedDictionary) !== JSON.stringify(dictionary);
 
   const isDistantDictionary =
-    typeof (dictionary as DistantDictionary)?._id !== 'undefined';
+    typeof (dictionary as DistantDictionary)?.id !== 'undefined';
 
   const handleSaveDictionaryConfirmation = async () => {
     if (!editedContent?.[dictionary.key]) return;
@@ -104,10 +104,10 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   };
 
   const handleDeleteDictionary = async () => {
-    if (!(dictionary as DistantDictionary)._id) return;
+    if (!(dictionary as DistantDictionary).id) return;
 
     await deleteDictionary(
-      (dictionary as DistantDictionary)._id.toString()
+      (dictionary as DistantDictionary).id.toString()
     ).then((res) => {
       if (res) {
         onDelete?.();

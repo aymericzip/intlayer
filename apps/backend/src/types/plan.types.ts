@@ -1,11 +1,12 @@
-import type { Document, ObjectId } from 'mongoose';
+import type { RenameId } from '@utils/mongoDB/types';
+import type { Document, Model, Types } from 'mongoose';
 import type { User } from './user.types';
 
 export type PlanType = 'FREE' | 'PREMIUM' | 'ENTERPRISE';
 
 export type PlanData = {
   type: PlanType;
-  creatorId?: User['_id'];
+  creatorId?: User['id'];
   subscriptionId?: string;
   customerId?: string;
   priceId?: string;
@@ -22,9 +23,11 @@ export type PlanData = {
 };
 
 export type Plan = PlanData & {
-  _id: ObjectId;
+  id: Types.ObjectId;
   createdAt: number;
   updatedAt: number;
 };
 
+export type PlanSchema = RenameId<Plan>;
+export type PlanModelType = Model<Plan>;
 export type PlanDocument = Document<unknown, {}, Plan> & Plan;

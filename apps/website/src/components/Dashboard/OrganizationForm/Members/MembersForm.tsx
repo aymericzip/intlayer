@@ -6,38 +6,37 @@ import type {
   UserAPI,
 } from '@intlayer/backend';
 import {
-  useForm,
   Form,
-  useAuth,
-  MultiSelect,
   H3,
   Loader,
+  MultiSelect,
+  useForm,
 } from '@intlayer/design-system';
 import {
-  useUpdateOrganizationMembers,
-  useGetUsers,
   useAddOrganizationMember,
+  useAuth,
+  useGetUsers,
+  useUpdateOrganizationMembers,
 } from '@intlayer/design-system/hooks';
 import { X } from 'lucide-react';
-import type { ObjectId } from 'mongoose';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import { RemoveMemberModal } from './RemoveMemberModal';
 import {
-  type OrganizationMembersFormData,
   useOrganizationMembersSchema,
+  type OrganizationMembersFormData,
 } from './useMembersFormSchema';
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
 
 export const MembersForm: FC = () => {
-  const { session, isOrganizationAdmin } = useAuth();
+  const { session } = useAuth();
   const { organization } = session ?? {};
   const MembersFormSchema = useOrganizationMembersSchema();
   const NewMembersFormSchema = useOrganizationNewMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {
     defaultValues: {
-      membersIds: organization?.membersIds.map((el) => String(el)) ?? [],
-      adminsIds: (organization?.adminsIds ?? []).map((el) => String(el)) ?? [],
+      membersIds: organization?.membersIds ?? [],
+      adminsIds: organization?.adminsIds ?? [],
     },
   });
 
@@ -60,7 +59,8 @@ export const MembersForm: FC = () => {
     getUsers,
     isWaitingData: isLoadingUsers,
   } = useGetUsers();
-  const [memberIdToRemove, setMemberIdToRemove] = useState<ObjectId>();
+  const [memberIdToRemove, setMemberIdToRemove] = useState<string>();
+  const isOrganizationAdmin = session?.roles.includes('org_admin');
 
   const onSubmitSuccess = async (data: OrganizationMembersFormData) => {
     const formattedData: UpdateOrganizationMembersBody = {
@@ -84,15 +84,15 @@ export const MembersForm: FC = () => {
 
   useEffect(() => {
     if (organization?.membersIds) {
-      const membersIds = organization.membersIds.map((el) => String(el));
+      const membersIds = organization.membersIds;
 
       getUsers({ ids: membersIds });
     }
   }, [getUsers, organization]);
 
-  const getUserName = (memberId: UserAPI['_id'] | string) => {
+  const getUserName = (memberId: UserAPI['id'] | string) => {
     const user = usersResponse?.data?.find(
-      (user) => String(user._id) === String(memberId)
+      (user) => String(user.id) === String(memberId)
     );
     return user?.name ?? user?.email ?? String(memberId);
   };

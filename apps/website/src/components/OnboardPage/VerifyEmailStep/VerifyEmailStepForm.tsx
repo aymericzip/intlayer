@@ -1,9 +1,9 @@
-import { getAuthAPI } from '@intlayer/api';
+import { getUserAPI } from '@intlayer/api';
 import { Form, H2, Loader, useForm, useUser } from '@intlayer/design-system';
 import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -22,10 +22,7 @@ export const VerifyEmailStepForm: FC = () => {
     defaultValues: formData,
   });
 
-  const targetedUserId = useMemo(
-    () => userId ?? registrationState?.user?._id ?? user?._id,
-    [userId, registrationState?.user?._id, user?._id]
-  );
+  const targetedUserId = userId ?? registrationState?.user?.id ?? user?.id;
 
   const onSubmitSuccess = async (data: VerifyEmail) => {
     setState({
@@ -36,13 +33,15 @@ export const VerifyEmailStepForm: FC = () => {
   };
 
   useEffect(() => {
+    console.log({ targetedUserId, isEmailVerified, userId, user });
+
     if (!targetedUserId) return;
     if (isEmailVerified) return;
 
     // EventSource alow to receive server-sent events from the server
     // In this case, we are listening to the email verification status
     const eventSource = new EventSource(
-      getAuthAPI().getVerifyEmailStatusURL(targetedUserId!)
+      getUserAPI().getVerifyEmailStatusURL(targetedUserId!)
     );
 
     eventSource.onmessage = async (event) => {
@@ -65,13 +64,13 @@ export const VerifyEmailStepForm: FC = () => {
       eventSource.close();
     };
 
-    return () => eventSource.close(); // Clean up on component unmount
+    return eventSource.close; // Clean up on component unmount
   }, [
-    registrationState?.user?._id,
+    registrationState?.user?.id,
     revalidateSession,
     targetedUserId,
     userId,
-    user?._id,
+    user?.id,
     isEmailVerified,
   ]);
 

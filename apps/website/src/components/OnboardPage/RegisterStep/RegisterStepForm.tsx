@@ -1,21 +1,21 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
 import {
-  useForm,
-  Form,
   ExternalsLoginButtons,
+  Form,
   H2,
+  useForm,
   useUser,
 } from '@intlayer/design-system';
 import { useRegister } from '@intlayer/design-system/hooks';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { useMemo, type FC } from 'react';
+import { useRouter } from 'next/navigation';
+import { type FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
 import { useRegisterSchema, type Register } from './useRegisterSchema';
-import { PagesRoutes } from '@/Routes';
 
 export const RegisterStepForm: FC = () => {
   const { user } = useUser();
@@ -31,10 +31,7 @@ export const RegisterStepForm: FC = () => {
   } = useStep(Steps.Registration);
   const { goNextStep: goToNextStep2 } = useStep(Steps.Password);
 
-  const defaultValues = useMemo(
-    () => ({ ...formData, email: user?.email ?? formData?.email }),
-    [formData, user]
-  );
+  const defaultValues = { ...formData, email: user?.email ?? formData?.email };
 
   const { form, isSubmitting } = useForm(RegisterSchema, {
     defaultValues,
@@ -51,12 +48,13 @@ export const RegisterStepForm: FC = () => {
   const onSubmitSuccess = async (data: Register) => {
     setFormData(data);
 
-    await register(data, {
-      callBack_url: `${window.location.origin}${nextUrl}`,
+    await register({
+      email: data.email,
+      callbackURL: `${window.location.origin}${nextUrl}`,
     }).then((response) => {
-      if (response?.data) {
+      if (response?.data?.user) {
         setState({
-          user: response.data,
+          user: response.data.user,
         });
 
         goNextStep();

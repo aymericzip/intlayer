@@ -1,12 +1,13 @@
 import type { EmailsList, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
+import { hasPermission } from '@utils/permissions';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
+import { ObjectId } from 'mongodb';
 
 export type NewsletterSubscriptionBody = {
   email: string;
@@ -21,9 +22,10 @@ export type NewsletterSubscriptionResult = ResponseData<UserAPI>;
  */
 export const subscribeToNewsletter = async (
   req: Request<any, any, NewsletterSubscriptionBody>,
-  res: ResponseWithInformation<NewsletterSubscriptionResult>,
+  res: Response<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
+  const { roles } = res.locals;
   const { email, emailList } = req.body;
 
   if (!email) {
@@ -50,8 +52,21 @@ export const subscribeToNewsletter = async (
 
       logger.info(`New user created and subscribed to newsletter: ${email}`);
     } else {
+      if (
+        !hasPermission(
+          roles,
+          'user:write'
+        )({
+          ...res.locals,
+          targetUserIds: [user.id],
+        })
+      ) {
+        ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+        return;
+      }
+
       // Update existing user's newsletter subscription
-      user = await userService.updateUserById(user._id, {
+      user = await userService.updateUserById(user.id, {
         emailsList: { ...user.emailsList, ...emailsListObject },
       });
 
@@ -93,13 +108,27 @@ export type NewsletterUnsubscriptionBody = {
  */
 export const unsubscribeFromNewsletter = async (
   req: Request<any, any, NewsletterUnsubscriptionBody>,
-  res: ResponseWithInformation<NewsletterSubscriptionResult>,
+  res: Response<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId, emailList } = req.body;
+  const { roles } = res.locals;
 
   if (!userId) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
+    return;
+  }
+
+  if (
+    !hasPermission(
+      roles,
+      'user:write'
+    )({
+      ...res.locals,
+      targetUserIds: [new ObjectId(userId)],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -120,7 +149,7 @@ export const unsubscribeFromNewsletter = async (
     ) as Record<EmailsList, boolean>;
 
     // Update user's newsletter subscription to false
-    const updatedUser = await userService.updateUserById(user._id, {
+    const updatedUser = await userService.updateUserById(user.id, {
       emailsList: { ...user.emailsList, ...emailsListObject },
     });
 
@@ -154,11 +183,12 @@ export const unsubscribeFromNewsletter = async (
  * Gets the newsletter subscription status for a user.
  */
 export const getNewsletterStatus = async (
-  req: Request<{ email: string }>,
-  res: ResponseWithInformation<NewsletterSubscriptionResult>,
+  _req: Request<{ email: string }>,
+  res: Response<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
   const email = res.locals.user?.email;
+  const { roles } = res.locals;
 
   if (!email) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_DATA_NOT_FOUND');
@@ -170,6 +200,19 @@ export const getNewsletterStatus = async (
 
     if (!user) {
       ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
+
+    if (
+      !hasPermission(
+        roles,
+        'user:read'
+      )({
+        ...res.locals,
+        targetUserIds: [user.id],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
       return;
     }
 

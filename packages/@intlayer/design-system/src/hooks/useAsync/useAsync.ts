@@ -234,7 +234,6 @@ export const useAsync = <
           localStorage.setItem(keyWithArgs, JSON.stringify(result));
         }
       } catch (error) {
-        console.error({ error });
         const msg = error instanceof Error ? error.message : String(error);
 
         makeQueryInError(keyWithArgs, msg);

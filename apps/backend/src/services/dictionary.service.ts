@@ -13,7 +13,7 @@ import {
   validateDictionary,
   type DictionaryFields,
 } from '@utils/validation/validateDictionary';
-import { Types, type ObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 
 /**
  * Finds dictionaries based on filters and pagination options.
@@ -61,7 +61,7 @@ export const findDictionaries = async (
  * @returns The dictionary matching the ID with available versions.
  */
 export const getDictionaryById = async (
-  dictionaryId: string | ObjectId
+  dictionaryId: string | Types.ObjectId
 ): Promise<DictionaryDocument> => {
   const id = Types.ObjectId.isValid(dictionaryId as string)
     ? new Types.ObjectId(dictionaryId as string)
@@ -85,8 +85,6 @@ export const getDictionaryById = async (
     },
   ]);
 
-  console.log('dictionaries', dictionaries);
-
   if (!dictionaries.length) {
     throw new GenericError('DICTIONARY_NOT_FOUND', { dictionaryId });
   }
@@ -101,7 +99,7 @@ export const getDictionaryById = async (
  */
 export const getDictionaryByKey = async (
   dictionaryKey: string,
-  projectId: string | ObjectId
+  projectId: string | Types.ObjectId
 ): Promise<DictionaryDocument> => {
   const dictionaries = await getDictionariesByKeys([dictionaryKey], projectId);
 
@@ -110,7 +108,7 @@ export const getDictionaryByKey = async (
 
 export const getDictionariesByKeys = async (
   dictionaryKeys: string[],
-  projectId: string | ObjectId
+  projectId: string | Types.ObjectId
 ): Promise<DictionaryDocument[]> => {
   const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
     // Stage 1: Match the document by key
@@ -145,7 +143,7 @@ export const getDictionariesByKeys = async (
 };
 
 export const getDictionariesKeys = async (
-  projectId: string | ObjectId
+  projectId: string | Types.ObjectId
 ): Promise<string[]> => {
   const dictionaries = await DictionaryModel.find({
     projectIds: projectId,
@@ -156,7 +154,7 @@ export const getDictionariesKeys = async (
 
 export const getDictionariesByTags = async (
   tags: string[],
-  projectId: string | Project['_id']
+  projectId: string | Project['id']
 ): Promise<DictionaryDocument[]> => {
   const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
     // Stage 1: Match the document by tags
@@ -237,7 +235,7 @@ type GetExistingDictionaryResult = {
  */
 export const getExistingDictionaryKey = async (
   dictionariesKeys: string[],
-  projectId: string | ObjectId
+  projectId: string | Types.ObjectId
 ): Promise<GetExistingDictionaryResult> => {
   // Fetch dictionaries from the database where the key is in the provided list
   const existingDictionaries = await DictionaryModel.find({
@@ -271,11 +269,13 @@ export const getExistingDictionaryKey = async (
  * @returns The updated dictionary.
  */
 export const updateDictionaryById = async (
-  dictionaryId: string | ObjectId,
+  dictionaryId: string | Types.ObjectId,
   dictionary: Partial<Dictionary>
 ): Promise<DictionaryDocument> => {
   const dictionaryObject = ensureMongoDocumentToObject(dictionary);
-  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, ['_id']);
+  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, [
+    'id',
+  ]) as unknown as Partial<Dictionary>;
 
   const updatedKeys = Object.keys(dictionaryToUpdate) as DictionaryFields;
   const errors = await validateDictionary(dictionaryToUpdate, updatedKeys);
@@ -310,10 +310,12 @@ export const updateDictionaryById = async (
 export const updateDictionaryByKey = async (
   dictionaryKey: string,
   dictionary: Partial<Dictionary>,
-  projectId: string | ObjectId
+  projectId: string | Types.ObjectId
 ): Promise<DictionaryDocument> => {
   const dictionaryObject = ensureMongoDocumentToObject(dictionary);
-  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, ['_id']);
+  const dictionaryToUpdate = removeObjectKeys(dictionaryObject, [
+    'id',
+  ]) as unknown as Partial<Dictionary>;
 
   const updatedKeys = Object.keys(dictionaryToUpdate) as DictionaryFields;
   const errors = await validateDictionary(dictionaryToUpdate, updatedKeys);
@@ -348,11 +350,7 @@ export const updateDictionaryByKey = async (
 export const deleteDictionaryById = async (
   dictionaryId: string
 ): Promise<DictionaryDocument> => {
-  console.log('dictionaryId', dictionaryId);
-
   const dictionary = await DictionaryModel.findByIdAndDelete(dictionaryId);
-
-  console.log('dictionary', dictionary);
 
   if (!dictionary) {
     throw new GenericError('DICTIONARY_NOT_FOUND', { dictionaryId });

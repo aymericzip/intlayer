@@ -1,3 +1,4 @@
+import type { User, UserDocument } from '@/types/user.types';
 import { UserModel } from '@models/user.model';
 import { GenericError } from '@utils/errors';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -6,14 +7,7 @@ import {
   type UserFields,
   validateUser,
 } from '@utils/validation/validateUser';
-import type { ObjectId } from 'mongoose';
-import { hashUserPassword } from './sessionAuth.service';
-import type { SessionProviders } from '@/types/session.types';
-import type {
-  User,
-  UserDocument,
-  UserWithPasswordNotHashed,
-} from '@/types/user.types';
+import type { Types } from 'mongoose';
 
 /**
  * Creates a new user with password in the database and hashes the password.
@@ -21,7 +15,7 @@ import type {
  * @returns Created user object.
  */
 export const createUser = async (
-  user: UserWithPasswordNotHashed
+  user: Partial<User>
 ): Promise<UserDocument> => {
   const fieldsToCheck: FieldsToCheck[] = ['email'];
 
@@ -34,15 +28,7 @@ export const createUser = async (
     });
   }
 
-  let newUser: UserDocument;
-
-  if (user.password) {
-    const userWithHashedPassword = await hashUserPassword(user);
-
-    newUser = await UserModel.create(userWithHashedPassword);
-  } else {
-    newUser = await UserModel.create(user);
-  }
+  const newUser: UserDocument = await UserModel.create(user);
 
   if (!newUser) {
     throw new GenericError('USER_CREATION_FAILED', { userEmail: user.email });
@@ -89,7 +75,7 @@ export const checkUserExists = async (email: string): Promise<boolean> => {
  * @returns User object or null if no user was found.
  */
 export const getUserById = async (
-  userId: string | ObjectId
+  userId: string | Types.ObjectId
 ): Promise<UserDocument | null> => await UserModel.findById(userId);
 
 /**
@@ -98,61 +84,9 @@ export const getUserById = async (
  * @returns User object or null if no user was found.
  */
 export const getUsersByIds = async (
-  userIds: (string | ObjectId)[]
-): Promise<UserDocument[] | null> => {
-  return await UserModel.find({ _id: { $in: userIds } });
-};
-
-/**
- * Retrieves a user by session token.
- * @param sessionToken - The session token.
- * @returns User object or null if no user was found.
- */
-export const getUserBySession = async (
-  sessionToken: string
-): Promise<UserDocument> => {
-  // Get an user by session token and check if it expired
-  const user = await UserModel.findOne({
-    'session.sessionToken': sessionToken,
-  });
-
-  if (!user) {
-    throw new GenericError('USER_NOT_FOUND', { sessionToken });
-  }
-
-  if (user.session?.expires && user.session.expires < new Date()) {
-    throw new GenericError('USER_SESSION_EXPIRED', {
-      sessionToken,
-      userId: user.id,
-    });
-  }
-
-  return user;
-};
-
-/**
- * Retrieves a user by account.
- * @param provider - The provider of the account.
- * @param providerAccountId - The provider account ID.
- * @returns User object or null if no user was found.
- */
-export const getUserByAccount = async (
-  provider: SessionProviders['provider'],
-  providerAccountId: string
-): Promise<UserDocument> => {
-  const user = await UserModel.findOne({
-    provider: [{ provider, providerAccountId }],
-  });
-
-  if (!user) {
-    throw new GenericError('USER_NOT_FOUND', {
-      provider,
-      providerAccountId,
-    });
-  }
-
-  return user;
-};
+  userIds: (string | Types.ObjectId)[]
+): Promise<UserDocument[] | null> =>
+  await UserModel.find({ _id: { $in: userIds } });
 
 /**
  * Finds users based on filters and pagination options.
@@ -191,7 +125,7 @@ export const countUsers = async (filters: UserFilters): Promise<number> => {
  * @returns The updated user.
  */
 export const updateUserById = async (
-  userId: string | ObjectId,
+  userId: string | Types.ObjectId,
   updates: Partial<User>
 ): Promise<UserDocument> => {
   const keyToValidate = Object.keys(updates) as UserFields;
@@ -225,7 +159,7 @@ export const updateUserById = async (
  * @returns
  */
 export const deleteUser = async (
-  userId: string | ObjectId
+  userId: string | Types.ObjectId
 ): Promise<UserDocument> => {
   await getUserById(userId);
 

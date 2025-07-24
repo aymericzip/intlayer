@@ -1,6 +1,6 @@
 import 'oauth2-server';
 import type { OrganizationAPI } from '../src/types/organization.types';
-import type { ProjectAPI, TokenRights } from '../src/types/project.types';
+import type { ProjectAPI } from '../src/types/project.types';
 import type { UserAPI } from '../src/types/user.types';
 
 declare module 'oauth2-server' {
@@ -10,6 +10,6 @@ declare module 'oauth2-server' {
     organization: OrganizationAPI;
     project: ProjectAPI;
     user: User;
-    rights: TokenRights;
+    grants: string[];
   }
 }

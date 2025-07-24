@@ -1,7 +1,7 @@
 'use client';
 
-import { useForm, Form, useAuth, Container, H3 } from '@intlayer/design-system';
-import { useUpdateUser } from '@intlayer/design-system/hooks';
+import { Container, Form, H3, useForm } from '@intlayer/design-system';
+import { useAuth, useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {

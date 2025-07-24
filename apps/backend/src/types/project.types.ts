@@ -1,7 +1,9 @@
 import type { IntlayerConfig } from '@intlayer/config';
-import type { Model, ObjectId, Document } from 'mongoose';
-import type { Organization } from './organization.types';
-import type { User } from './user.types';
+import { RenameId } from '@utils/mongoDB/types';
+import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
+import { Token } from 'oauth2-server';
+import type { Organization, OrganizationAPI } from './organization.types';
+import type { User, UserAPI } from './user.types';
 
 export type ProjectCreationData = {
   name: Project['name'];
@@ -23,29 +25,17 @@ export type ProjectConfiguration = {
 };
 
 export type ProjectData = {
-  organizationId: Organization['_id'];
+  organizationId: Organization['id'];
   name: string;
-  membersIds: User['_id'][];
-  adminsIds: User['_id'][];
-  creatorId: User['_id'];
+  membersIds: User['id'][];
+  adminsIds: User['id'][];
+  creatorId: User['id'];
   configuration?: ProjectConfiguration;
-};
-
-export type Rights = {
-  read: boolean;
-  write: boolean;
-  admin: boolean;
-};
-
-export type TokenRights = {
-  dictionary: Rights;
-  project: Rights;
-  organization: Rights;
 };
 
 export type AccessKeyData = {
   name: string;
-  rights: TokenRights;
+  grants: string[];
   expiresAt?: Date;
 };
 
@@ -53,26 +43,36 @@ export type OAuth2AccessData = AccessKeyData & {
   clientId: string;
   clientSecret: string;
   accessToken: string[];
-  userId: User['_id'];
+  userId: User['id'];
+};
+
+export type OAuth2AccessContext = {
+  accessToken: Token;
+  user?: UserAPI;
+  project?: ProjectAPI;
+  organization?: OrganizationAPI;
+  grants: Token['grants'];
 };
 
 export type OAuth2Access = OAuth2AccessData & {
-  _id: ObjectId;
+  id: Types.ObjectId;
   createdAt: number;
   updatedAt: number;
 };
 
 export type Project = ProjectData & {
-  _id: ObjectId;
+  id: Types.ObjectId;
   createdAt: number;
   updatedAt: number;
   oAuth2Access: OAuth2Access[];
 };
 
-export type ProjectAPI = Omit<Project, 'adminsIds'> & {
-  adminsIds?: User['_id'][];
-};
+export type ProjectAPI = ObjectIdToString<
+  Omit<Project, 'adminsIds'> & {
+    adminsIds?: User['id'][];
+  }
+>;
 
-export type ProjectDocument = Document<unknown, {}, Project> & Project;
-
+export type ProjectSchema = RenameId<Project>;
 export type ProjectModelType = Model<Project>;
+export type ProjectDocument = Document<unknown, {}, Project> & Project;

@@ -1,3 +1,4 @@
+import { OrganizationSchema } from '@/export';
 import {
   MEMBERS_MIN_LENGTH,
   NAME_MAX_LENGTH,
@@ -5,9 +6,8 @@ import {
 } from '@utils/validation/validateOrganization';
 import { Schema } from 'mongoose';
 import { planSchema } from './plans.schema';
-import type { Organization } from '@/types/organization.types';
 
-export const organizationSchema = new Schema<Organization>(
+export const organizationSchema = new Schema<OrganizationSchema>(
   {
     name: {
       type: String,
@@ -38,5 +38,26 @@ export const organizationSchema = new Schema<Organization>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
   }
 );
+
+// Add virtual field for id
+organizationSchema.virtual('id').get(function () {
+  return this._id.toString();
+});

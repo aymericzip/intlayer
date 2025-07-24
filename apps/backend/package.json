@@ -65,7 +65,8 @@
     "start": "NODE_ENV=production node dist/esm/index.mjs",
     "start:docker": "docker run --rm -p 3100:3100 --name intlayer-backend-app intlayer-backend",
     "start:stripe": "stripe listen --forward-to localhost:3100/webhook/stripe",
-    "test": ""
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.2.11",
@@ -76,12 +77,11 @@
     "@react-email/components": "^0.1.0",
     "ai": "^4.2.0",
     "bcryptjs": "^3.0.2",
+    "better-auth": "^1.3.2",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "crypto-js": "^4.2.0",
-    "csrf": "^3.1.0",
-    "csrf-csrf": "^4.0.3",
+    "deepmerge": "^4.3.1",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "express-intlayer": "workspace:*",
@@ -96,7 +96,6 @@
     "react-email": "^4.0.16",
     "resend": "^4.1.2",
     "stripe": "^18.2.1",
-    "uuid": "^11.1.0",
     "validator": "^13.12.0",
     "winston": "^3.17.0"
   },
@@ -115,7 +114,6 @@
     "@types/node": "^22.15.30",
     "@types/oauth2-server": "^3.0.18",
     "@types/react": "^19.1.6",
-    "@types/uuid": "^10.0.0",
     "@types/validator": "^13.12.2",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
@@ -129,6 +127,7 @@
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
     "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.2"
   }
 }

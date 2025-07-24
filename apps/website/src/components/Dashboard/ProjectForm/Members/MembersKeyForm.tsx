@@ -2,34 +2,31 @@
 
 import type { UpdateProjectMembersBody, UserAPI } from '@intlayer/backend';
 import {
-  useForm,
   Form,
-  useAuth,
-  MultiSelect,
   H3,
   Loader,
+  MultiSelect,
+  useForm,
 } from '@intlayer/design-system';
 import {
+  useAuth,
   useGetUsers,
   useUpdateProjectMembers,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import {
-  type ProjectMembersFormData,
   useProjectMembersSchema,
+  type ProjectMembersFormData,
 } from './useMembersFormSchema';
 
-const getUserNames = (
-  users: UserAPI[],
-  id: UserAPI['_id'] | string
-): string => {
-  const user = users.find((user) => String(user._id) === String(id));
+const getUserNames = (users: UserAPI[], id: UserAPI['id'] | string): string => {
+  const user = users.find((user) => String(user.id) === String(id));
   return user?.name ?? user?.email ?? String(id);
 };
 
 export const MembersForm: FC = () => {
-  const { session, isProjectAdmin } = useAuth();
+  const { session } = useAuth();
   const { organization, project } = session ?? {};
   const MembersFormSchema = useProjectMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {
@@ -44,6 +41,7 @@ export const MembersForm: FC = () => {
   const { updateProjectMembers } = useUpdateProjectMembers();
   const { getUsers, isWaitingData: isLoadingUsers } = useGetUsers();
   const [users, setUsers] = useState<UserAPI[]>([]);
+  const isProjectAdmin = session?.roles.includes('project_admin');
 
   const onSubmitSuccess = async (data: ProjectMembersFormData) => {
     const formattedData: UpdateProjectMembersBody = {
