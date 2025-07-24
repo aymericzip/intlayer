@@ -503,6 +503,9 @@ export const askDocQuestion = async (
 export type AutocompleteBody = {
   text: string;
   aiOptions?: AIOptions;
+  contextBefore?: string;
+  currentLine?: string;
+  contextAfter?: string;
 };
 
 export type AutocompleteResponse = ResponseData<{
@@ -514,7 +517,8 @@ export const autocomplete = async (
   res: ResponseWithInformation<AutocompleteResponse>
 ) => {
   try {
-    const { text, aiOptions } = req.body;
+    const { text, aiOptions, contextBefore, currentLine, contextAfter } =
+      req.body;
 
     let aiConfig: AIConfig;
     try {
@@ -532,6 +536,9 @@ export const autocomplete = async (
       text,
       aiConfig,
       applicationContext: aiOptions?.applicationContext,
+      contextBefore,
+      currentLine,
+      contextAfter,
     })) ?? {
       autocompletion: '',
       tokenUsed: 0,
