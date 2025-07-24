@@ -7,6 +7,7 @@ import { hasPermission } from '@utils/permissions';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
+import { ObjectId } from 'mongodb';
 
 export type NewsletterSubscriptionBody = {
   email: string;
@@ -32,11 +33,6 @@ export const subscribeToNewsletter = async (
     return;
   }
 
-  if (!hasPermission(roles, 'user:write')()) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   const emailLists = Array.isArray(emailList) ? emailList : [emailList];
 
   // Create new user with newsletter subscription enabled
@@ -56,6 +52,19 @@ export const subscribeToNewsletter = async (
 
       logger.info(`New user created and subscribed to newsletter: ${email}`);
     } else {
+      if (
+        !hasPermission(
+          roles,
+          'user:write'
+        )({
+          ...res.locals,
+          targetUserIds: [user.id],
+        })
+      ) {
+        ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+        return;
+      }
+
       // Update existing user's newsletter subscription
       user = await userService.updateUserById(user.id, {
         emailsList: { ...user.emailsList, ...emailsListObject },
@@ -110,7 +119,15 @@ export const unsubscribeFromNewsletter = async (
     return;
   }
 
-  if (!hasPermission(roles, 'user:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'user:write'
+    )({
+      ...res.locals,
+      targetUserIds: [new ObjectId(userId)],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -178,16 +195,24 @@ export const getNewsletterStatus = async (
     return;
   }
 
-  if (!hasPermission(roles, 'user:read')()) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
     const user = await userService.getUserByEmail(email);
 
     if (!user) {
       ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
+
+    if (
+      !hasPermission(
+        roles,
+        'user:read'
+      )({
+        ...res.locals,
+        targetUserIds: [user.id],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
       return;
     }
 
