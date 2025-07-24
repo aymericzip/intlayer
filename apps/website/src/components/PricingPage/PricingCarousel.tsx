@@ -3,8 +3,7 @@
 import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
 import { Steps } from '@components/OnboardPage/steps';
 import { GetPricingResult } from '@intlayer/backend';
-import { useUser } from '@intlayer/design-system';
-import { useGetPricing } from '@intlayer/design-system/hooks';
+import { useGetPricing, useUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { useSearchParams } from 'next/navigation';
 import React, {

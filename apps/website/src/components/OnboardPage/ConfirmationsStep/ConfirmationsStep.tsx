@@ -1,12 +1,13 @@
-import { Button, H2, useUser } from '@intlayer/design-system';
+import { PagesRoutes } from '@/Routes';
+import { Button, H2 } from '@intlayer/design-system';
+import { useUser } from '@intlayer/design-system/hooks';
 import { Check } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
+import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
-import { PagesRoutes } from '@/Routes';
 
 export const ConfirmationsStep: FC = () => {
   const { user } = useUser();

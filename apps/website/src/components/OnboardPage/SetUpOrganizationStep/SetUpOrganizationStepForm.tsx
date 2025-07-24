@@ -5,15 +5,9 @@ import { NoOrganizationView } from '@components/Dashboard/OrganizationForm/NoOrg
 import { OrganizationCreationForm } from '@components/Dashboard/OrganizationForm/OrganizationCreationForm';
 import { OrganizationList } from '@components/Dashboard/OrganizationForm/OrganizationList';
 import type { OrganizationAPI } from '@intlayer/backend';
+import { Form, H2, Loader, Modal, useForm } from '@intlayer/design-system';
 import {
-  Form,
-  H2,
-  Loader,
-  Modal,
   useAuth,
-  useForm,
-} from '@intlayer/design-system';
-import {
   useGetOrganizations,
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';

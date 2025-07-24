@@ -1,14 +1,9 @@
 'use client';
 
 import { PagesRoutes } from '@/Routes';
-import {
-  ExternalsLoginButtons,
-  Form,
-  H2,
-  useForm,
-  useUser,
-} from '@intlayer/design-system';
-import { useRegister } from '@intlayer/design-system/hooks';
+import { ExternalsLoginButtons } from '@components/Auth/ExternalsLoginButtons';
+import { Form, H2, useForm } from '@intlayer/design-system';
+import { useRegister, useUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
 import { type FC } from 'react';

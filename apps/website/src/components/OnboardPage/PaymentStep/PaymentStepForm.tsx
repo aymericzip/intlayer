@@ -1,3 +1,4 @@
+import { PagesRoutes } from '@/Routes';
 import type { Period, Plans } from '@components/PricingPage/data.content';
 import {
   Button,
@@ -6,9 +7,8 @@ import {
   H3,
   Label,
   Loader,
-  useAuth,
 } from '@intlayer/design-system';
-import { useGetSubscription } from '@intlayer/design-system/hooks';
+import { useAuth, useGetSubscription } from '@intlayer/design-system/hooks';
 import {
   Elements,
   PaymentElement,
@@ -17,16 +17,15 @@ import {
 } from '@stripe/react-stripe-js';
 import { type Appearance, loadStripe } from '@stripe/stripe-js';
 import { Check, ShoppingCart } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
-import { type FormEvent, useState, type FC } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { type FC, type FormEvent, useState } from 'react';
+import type Stripe from 'stripe';
 import { retrievePriceId } from '../retrievePriceId';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
-import { PagesRoutes } from '@/Routes';
-import type Stripe from 'stripe';
 
 type PaymentStepContentProps = {
   plan: Plans;
