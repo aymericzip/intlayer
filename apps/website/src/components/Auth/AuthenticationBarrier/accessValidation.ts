@@ -1,12 +1,17 @@
-import type { Session } from '@intlayer/design-system/hooks';
+import { type Session } from '@intlayer/backend';
 import { ReactNode } from 'react';
 
 export const accessValidation = (
   accessRule: AuthenticationBarrierProps['accessRule'],
   session: Session | null,
   redirectionFunction: (redirectionRoute: string) => void,
-  redirectionRoute: string
+  redirectionRoute: string,
+  isEnabled?: boolean
 ) => {
+  if (!isEnabled) {
+    return;
+  }
+
   if (
     !session?.user &&
     (accessRule === 'authenticated' || accessRule === 'admin')
@@ -47,4 +52,5 @@ export type AuthenticationBarrierProps = {
    * ```
    */
   redirectionFunction: (redirectionRoute: string) => void;
+  isEnabled?: boolean;
 };

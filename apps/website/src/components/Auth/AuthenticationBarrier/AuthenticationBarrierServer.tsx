@@ -20,9 +20,16 @@ export const AuthenticationBarrierServer: FC<
   redirectionRoute = PagesRoutes.Home,
   session,
   accessRule,
+  isEnabled,
 }) => {
   if (typeof session !== 'undefined') {
-    accessValidation(accessRule, session, redirect, redirectionRoute);
+    accessValidation(
+      accessRule,
+      session,
+      redirect,
+      redirectionRoute,
+      isEnabled
+    );
   }
 
   return children;

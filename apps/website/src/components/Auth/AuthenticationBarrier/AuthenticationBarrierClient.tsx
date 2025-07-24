@@ -24,6 +24,7 @@ export const AuthenticationBarrierClient: FC<
   redirectionRoute = PagesRoutes.Home,
   session: sessionProp,
   accessRule,
+  isEnabled,
 }) => {
   const router = useRouter();
   const { session: sessionClient, setSession } = useSession(sessionProp);
@@ -41,10 +42,11 @@ export const AuthenticationBarrierClient: FC<
         accessRule,
         sessionClient,
         router.push,
-        redirectionRoute
+        redirectionRoute,
+        isEnabled
       );
     }
-  }, [accessRule, redirectionRoute, sessionClient]);
+  }, [accessRule, redirectionRoute, sessionClient, isEnabled]);
 
   return <Loader isLoading={isLoading}>{children}</Loader>;
 };
