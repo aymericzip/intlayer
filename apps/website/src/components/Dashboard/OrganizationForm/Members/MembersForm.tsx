@@ -19,7 +19,6 @@ import {
   useUpdateOrganizationMembers,
 } from '@intlayer/design-system/hooks';
 import { X } from 'lucide-react';
-import type { ObjectId } from 'mongoose';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import { RemoveMemberModal } from './RemoveMemberModal';
@@ -36,8 +35,8 @@ export const MembersForm: FC = () => {
   const NewMembersFormSchema = useOrganizationNewMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {
     defaultValues: {
-      membersIds: organization?.membersIds.map((el) => String(el)) ?? [],
-      adminsIds: (organization?.adminsIds ?? []).map((el) => String(el)) ?? [],
+      membersIds: organization?.membersIds ?? [],
+      adminsIds: organization?.adminsIds ?? [],
     },
   });
 
@@ -60,8 +59,8 @@ export const MembersForm: FC = () => {
     getUsers,
     isWaitingData: isLoadingUsers,
   } = useGetUsers();
-  const [memberIdToRemove, setMemberIdToRemove] = useState<ObjectId>();
-  const isOrganizationAdmin = false;
+  const [memberIdToRemove, setMemberIdToRemove] = useState<string>();
+  const isOrganizationAdmin = session?.roles.includes('org_admin');
 
   const onSubmitSuccess = async (data: OrganizationMembersFormData) => {
     const formattedData: UpdateOrganizationMembersBody = {
@@ -85,7 +84,7 @@ export const MembersForm: FC = () => {
 
   useEffect(() => {
     if (organization?.membersIds) {
-      const membersIds = organization.membersIds.map((el) => String(el));
+      const membersIds = organization.membersIds;
 
       getUsers({ ids: membersIds });
     }

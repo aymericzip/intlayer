@@ -67,6 +67,10 @@ export const ROLE_POLICY = {
     'user:admin': () => true,
   },
   org_admin: {
+    'organization:read': () => true,
+    'organization:write': () => true,
+    'organization:admin': () => true,
+
     'project:read': () => true,
     'project:write': () => true,
     'project:admin': () => true,
@@ -76,12 +80,25 @@ export const ROLE_POLICY = {
     'tag:read': () => true,
     'tag:write': () => true,
     'tag:admin': () => true,
+
+    'user:write': ({
+      organization,
+      targetUserIds,
+    }: SessionContext & { targetUserIds: User['id'][] }) =>
+      targetUserIds.every((targetUserId) =>
+        organization?.membersIds?.map(String).includes(String(targetUserId))
+      ),
   },
   org_user: {
-    'project:read': ({ user, project }: SessionContext) =>
-      project?.membersIds?.map(String).includes(String(user?.id)),
-
     'organization:read': () => true,
+
+    'user:read': ({
+      organization,
+      targetUserIds,
+    }: SessionContext & { targetUserIds: User['id'][] }) =>
+      targetUserIds.every((targetUserId) =>
+        organization?.membersIds?.map(String).includes(String(targetUserId))
+      ),
   },
   project_admin: {
     'project:read': () => true,
@@ -90,6 +107,14 @@ export const ROLE_POLICY = {
     'tag:read': () => true,
     'tag:write': () => true,
     'tag:admin': () => true,
+
+    'user:write': ({
+      project,
+      targetUserIds,
+    }: SessionContext & { targetUserIds: User['id'][] }) =>
+      targetUserIds.every((targetUserId) =>
+        project?.membersIds?.map(String).includes(String(targetUserId))
+      ),
   },
   project_user: {
     'project:read': ({ user, project }: SessionContext) =>
@@ -104,6 +129,14 @@ export const ROLE_POLICY = {
     'tag:write': () => true,
     'tag:admin': ({ user, organization }: SessionContext) =>
       organization?.adminsIds?.map(String).includes(String(user?.id)),
+
+    'user:read': ({
+      project,
+      targetUserIds,
+    }: SessionContext & { targetUserIds: User['id'][] }) =>
+      targetUserIds.every((targetUserId) =>
+        project?.membersIds?.map(String).includes(String(targetUserId))
+      ),
   },
   project_reviewer: {
     'dictionary:read': ({ user, project }: SessionContext) =>
@@ -144,7 +177,7 @@ export const getSessionRoles = ({
     roles.push('org_admin');
   }
 
-  const isOrganizationMember = organization!.membersIds
+  const isOrganizationMember = organization.membersIds
     ?.map(String)
     .includes(String(user!.id));
 
@@ -225,5 +258,5 @@ export const hasPermission = <P extends Permission>(
       ] ?? (() => false)
   ) as unknown as PermissionResult<Roles, P>[];
 
-  return ((args: any) => rolesCheck.every((check: any) => check(args))) as any;
+  return ((args: any) => rolesCheck.some((check: any) => check(args))) as any;
 };

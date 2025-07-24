@@ -32,7 +32,7 @@ export const getUserFiltersAndPagination = (
     filters = {};
 
     if (ids) {
-      filters = { ...filters, id: { $in: ensureArrayQueryFilter(ids) } };
+      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
     }
 
     if (firstName) {

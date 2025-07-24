@@ -157,7 +157,7 @@ const useEditorAsync = <
 export const useLogin = (
   args?: UseAsyncOptions<IntlayerAPI['auth']['signInEmail']>
 ) =>
-  useAppAsync('login', useIntlayerAuth().auth.signInEmail(), {
+  useAppAsync('login', useIntlayerAuth().auth.signInEmail, {
     invalidateQueries: ['getSession'],
     ...args,
   });
@@ -218,11 +218,11 @@ export const useGetUserByAccount = (
  */
 
 export const useGetUsers = (
-  args?: UseAsyncOptions<IntlayerAPI['auth']['listAccounts']>
+  args?: UseAsyncOptions<IntlayerAPI['user']['getUsers']>
 ) =>
   useAppAsync(
     'getUsers',
-    useIntlayerAuth().auth.listAccounts,
+    useIntlayerAuth().user.getUsers,
     {
       cache: true,
       store: true,

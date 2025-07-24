@@ -34,7 +34,7 @@ export const getTagFiltersAndPagination = (
     filters = {};
 
     if (ids) {
-      filters = { ...filters, id: { $in: ensureArrayQueryFilter(ids) } };
+      filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
     }
 
     if (keys) {

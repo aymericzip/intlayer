@@ -28,7 +28,6 @@ export const createUser = async (
   res: Response<CreateUserResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { roles } = res.locals;
   const user: User | undefined = req.body;
 
   if (!user) {
@@ -88,16 +87,25 @@ export const getUsers = async (
     return;
   }
 
-  if (!hasPermission(roles, 'user:write')()) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
 
   try {
     const users = await userService.findUsers(filters, skip, pageSize);
+
+    if (
+      !hasPermission(
+        roles,
+        'user:read'
+      )({
+        ...res.locals,
+        targetUserIds: users.map((user) => user.id),
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
     const totalItems = await userService.countUsers(filters);
 
     const formattedUsers = mapUsersToAPI(users);
@@ -158,16 +166,24 @@ export const getUserByEmail = async (
   const { email } = req.params;
   const { roles } = res.locals;
 
-  if (!hasPermission(roles, 'user:read')()) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
     const user = await userService.getUserByEmail(email);
 
     if (!user) {
       ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+      return;
+    }
+
+    if (
+      !hasPermission(
+        roles,
+        'user:read'
+      )({
+        ...res.locals,
+        targetUserIds: [user.id],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
       return;
     }
 
@@ -205,7 +221,15 @@ export const updateUser = async (
     return;
   }
 
-  if (!hasPermission(roles, 'user:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'user:write'
+    )({
+      ...res.locals,
+      targetUserIds: [user.id],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }

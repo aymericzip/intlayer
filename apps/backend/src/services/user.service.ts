@@ -86,7 +86,7 @@ export const getUserById = async (
 export const getUsersByIds = async (
   userIds: (string | Types.ObjectId)[]
 ): Promise<UserDocument[] | null> =>
-  await UserModel.find({ id: { $in: userIds } });
+  await UserModel.find({ _id: { $in: userIds } });
 
 /**
  * Finds users based on filters and pagination options.

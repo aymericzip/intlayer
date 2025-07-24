@@ -18,9 +18,7 @@ export const mapOrganizationToAPI = <
 
   const organizationObject = ensureMongoDocumentToObject(organization);
 
-  const { adminsIds, ...organizationAPI } = organizationObject;
-
-  return organizationAPI as any;
+  return organizationObject as any;
 };
 
 export const mapOrganizationsToAPI = (

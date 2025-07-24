@@ -26,7 +26,7 @@ const getUserNames = (users: UserAPI[], id: UserAPI['id'] | string): string => {
 };
 
 export const MembersForm: FC = () => {
-  const { session, isProjectAdmin } = useAuth();
+  const { session } = useAuth();
   const { organization, project } = session ?? {};
   const MembersFormSchema = useProjectMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {
@@ -41,6 +41,7 @@ export const MembersForm: FC = () => {
   const { updateProjectMembers } = useUpdateProjectMembers();
   const { getUsers, isWaitingData: isLoadingUsers } = useGetUsers();
   const [users, setUsers] = useState<UserAPI[]>([]);
+  const isProjectAdmin = session?.roles.includes('project_admin');
 
   const onSubmitSuccess = async (data: ProjectMembersFormData) => {
     const formattedData: UpdateProjectMembersBody = {
