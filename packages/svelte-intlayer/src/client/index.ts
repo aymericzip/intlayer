@@ -2,6 +2,7 @@
 
 // Core hooks
 export { useDictionary } from './useDictionary';
+export { useDictionaryAsync } from './useDictionaryAsync';
 export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useIntlayer } from './useIntlayer';
 export { useIntlayerAsync } from './useIntlayerAsync';
