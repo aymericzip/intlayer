@@ -2,7 +2,8 @@ import { Locales, getConfiguration, normalizePath } from '@intlayer/config';
 import fg from 'fast-glob';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { basename, extname, join, relative } from 'path';
-import { getFileHash, kebabCaseToCamelCase } from '../../utils';
+import { getFileHash } from '../../utils/getFileHash';
+import { kebabCaseToCamelCase } from '../../utils/kebabCaseToCamelCase';
 
 export const getTypeName = (key: string): string =>
   `${kebabCaseToCamelCase(key)}Content`;

@@ -1,14 +1,3 @@
-import crypto from 'crypto-js';
-
-export const getFileHash = (filePath: string) => {
-  const hash = crypto.SHA3(filePath);
-
-  return hash
-    .toString(crypto.enc.Base64)
-    .replace(/[^A-Z\d]/gi, '')
-    .substring(0, 20);
-};
-
 export const kebabCaseToCamelCase = (name: string): string => {
   return name
     .split(/[^a-zA-Z0-9]+/) // Split on any non-alphanumeric character
@@ -30,5 +19,3 @@ export const kebabCaseToCamelCase = (name: string): string => {
     })
     .join(''); // Concatenate all parts into a single string
 };
-
-export const sortAlphabetically = (a: string, b: string) => a.localeCompare(b);

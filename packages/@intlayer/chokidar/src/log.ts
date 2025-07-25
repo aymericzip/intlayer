@@ -1,6 +1,6 @@
 import { type IntlayerConfig, getConfiguration } from '@intlayer/config';
 import readline from 'readline';
-import { sortAlphabetically } from './utils';
+import { sortAlphabetically } from './utils/sortAlphabetically';
 
 export type State = {
   type: 'local' | 'distant';

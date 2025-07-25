@@ -35,7 +35,11 @@ export {
   generateDictionaryListContent,
 } from './transpiler/dictionary_to_main';
 export { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
-export { getFileHash } from './utils';
+export { getFileHash } from './utils/getFileHash';
+export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
+export { resolveObjectPromises } from './utils/resolveObjectPromises';
+export { runOnce } from './utils/runOnce';
+export { sortAlphabetically } from './utils/sortAlphabetically';
 export {
   writeContentDeclaration,
   type DictionaryStatus,

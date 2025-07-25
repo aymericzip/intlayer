@@ -8,7 +8,7 @@ import {
 import type { Dictionary } from '@intlayer/core';
 import { fetchDistantDictionaryKeys } from '../fetchDistantDictionaryKeys';
 import { logger } from '../log';
-import { sortAlphabetically } from '../utils';
+import { sortAlphabetically } from '../utils/sortAlphabetically';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadDistantDictionaries } from './loadDistantDictionaries';
 
