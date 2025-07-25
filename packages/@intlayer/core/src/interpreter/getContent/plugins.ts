@@ -3,6 +3,8 @@ import type {
   ConditionContent,
   EnumerationContent,
   FileContent,
+  Gender,
+  GenderContent,
   InsertionContent,
   NestedContent,
   TranslationContent,
@@ -10,6 +12,7 @@ import type {
 import { type DictionaryKeys, type KeyPath, NodeType } from '../../types/index';
 import { getCondition } from '../getCondition';
 import { getEnumeration } from '../getEnumeration';
+import { getGender } from '../getGender';
 import { getInsertion } from '../getInsertion';
 import { type GetNestingResult, getNesting } from '../getNesting';
 import { getTranslation } from '../getTranslation';
@@ -163,6 +166,44 @@ export const conditionPlugin: Plugins = {
     }
 
     return (value: boolean) => getCondition(result, value);
+  },
+};
+
+/** ---------------------------------------------
+ *  GENDER PLUGIN
+ *  --------------------------------------------- */
+
+export type GenderCond<T, S> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.Gender]: object;
+}
+  ? (
+      value: Gender
+    ) => DeepTransformContent<T[NodeType.Gender][keyof T[NodeType.Gender]], S>
+  : never;
+
+/** Gender plugin. Replaces node with a function that takes gender => string. */
+export const genderPlugin: Plugins = {
+  id: 'gender-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Gender,
+  transform: (node: GenderContent, props, deepTransformNode) => {
+    const result = structuredClone(node[NodeType.Gender]);
+
+    for (const key in result) {
+      const child = result[key as keyof typeof result];
+      const childProps = {
+        ...props,
+        children: child,
+        keyPath: [...props.keyPath, { type: NodeType.Gender, key } as KeyPath],
+      };
+      result[key as unknown as keyof typeof result] = deepTransformNode(
+        child,
+        childProps
+      );
+    }
+
+    return (value: Gender) => getGender(result, value);
   },
 };
 

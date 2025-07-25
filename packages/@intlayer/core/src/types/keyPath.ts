@@ -25,6 +25,11 @@ export type ConditionNode = {
   key: string;
 };
 
+export type GenderNode = {
+  type: NodeType.Gender;
+  key: string;
+};
+
 export type InsertionNode = {
   type: NodeType.Insertion;
   key?: undefined;
@@ -56,6 +61,7 @@ export type KeyPath =
   | TranslationNode
   | EnumerationNode
   | InsertionNode
+  | GenderNode
   | MarkdownNode
   | ReactNode
   | ConditionNode

@@ -23,6 +23,7 @@ export { configuration, getConfiguration, IntlayerConfig };
 export {
   cond,
   enu,
+  gender,
   getDictionary,
   getEnumeration,
   /**
