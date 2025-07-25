@@ -13,6 +13,7 @@ import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import { join, relative, resolve } from 'path';
 import { compareVersions } from './compareVersion';
 import { getNextVersion } from './getNextVertion';
+import { runOnce } from './runOnce';
 
 // Extract from the start script if --turbo or --turbopack flag is used
 const isTurbopackEnabled =
@@ -50,14 +51,11 @@ const getPruneConfig = (
 
   const logger = getAppLogger(intlayerConfig);
 
-  // Display this message only during the build phase (e.g., `next build`).
-  const isBuildTime =
-    process.env.npm_lifecycle_event === 'build' ||
-    process.argv.some((arg) => arg === 'build');
-
-  if (isBuildTime) {
-    logger('Intlayer prune plugin is enabled');
-  }
+  runOnce(
+    join(baseDir, '.next', 'cache', 'intlayer-prune-plugin-enabled.lock'),
+    () => logger('Intlayer prune plugin is enabled'),
+    1000 * 10 // 10 seconds
+  );
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
 
@@ -119,14 +117,15 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const intlayerConfig = getConfiguration();
 
-  // Skip preparation when running next start (production mode)
-  const isBuildCommand =
-    process.env.npm_lifecycle_event === 'build' ||
-    process.argv.some((arg) => arg === 'build');
+  const sentinelPath = join(
+    intlayerConfig.content.baseDir,
+    '.next',
+    'cache',
+    'intlayer-prepared.lock'
+  );
 
-  if (isBuildCommand) {
-    await prepareIntlayer(intlayerConfig);
-  }
+  // Only call prepareIntlayer once per server startup
+  await runOnce(sentinelPath, () => prepareIntlayer(intlayerConfig));
 
   // Format all configuration values as environment variables
   const { mainDir, configDir, baseDir } = intlayerConfig.content;
@@ -229,6 +228,11 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
       // Only add Intlayer plugin on server side (node runtime)
       const { isServer, nextRuntime } = options;
 
+      // Skip preparation when running next start (production mode)
+      const isBuildCommand =
+        process.env.npm_lifecycle_event === 'build' ||
+        process.argv.some((arg) => arg === 'build');
+
       if (!isBuildCommand && isServer && nextRuntime === 'nodejs') {
         config.plugins.push(new IntlayerPlugin());
       }
@@ -242,5 +246,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   const intlayerNextConfig: Partial<NextConfig> = merge(pruneConfig, newConfig);
 
   // Merge the new config with the user's config
-  return merge(nextConfig, intlayerNextConfig) as NextConfig & T;
+  const result = merge(nextConfig, intlayerNextConfig) as NextConfig & T;
+
+  return result;
 };
