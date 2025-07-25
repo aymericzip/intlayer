@@ -14,6 +14,7 @@ export const locales = [
   Locales.ENGLISH_UNITED_KINGDOM,
   Locales.PORTUGUESE,
   Locales.HINDI,
+  Locales.YORUBA,
 ];
 export const defaultLocale = Locales.ENGLISH;
 

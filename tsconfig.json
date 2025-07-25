@@ -2,5 +2,26 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
   "include": ["**/*"],
-  "exclude": ["utils"]
+  "exclude": ["utils"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": [
+      // "vite/client",
+      "vitest/globals",
+      "intlayer",
+      "react",
+      "react/jsx-runtime",
+      "react-dom"
+    ],
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@utils/*": ["utils/*"]
+    }
+  }
 }

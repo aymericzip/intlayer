@@ -1,6 +1,8 @@
+// import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
 import withPWA from 'next-pwa';
 import { createSecureHeaders } from 'next-secure-headers';
+import type { NextConfig } from 'next/dist/server/config-shared';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -94,7 +96,7 @@ const secureHeaders = createSecureHeaders({
 });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
   transpilePackages: ['@intlayer/design-system'],
@@ -173,7 +175,7 @@ const nextConfigPWA = withPWA({
   dest: 'public',
   register: true,
   skipWaiting: true,
-})(nextConfig);
+})(nextConfig as any);
 
 /** @type {import('next').NextConfig} */
 const config = withIntlayer(nextConfigPWA);
