@@ -59,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -88,7 +88,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -480,11 +480,9 @@ Impostazioni che controllano come Intlayer ottimizza e compila l'internazionaliz
 
 Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
 
-> In modalità sviluppo, Intlayer utilizza un'importazione statica centralizzata per i dizionari per semplificare l'esperienza di sviluppo.
+> In modalità sviluppo, Intlayer utilizza importazioni statiche per i dizionari per semplificare l'esperienza di sviluppo.
 
-> Ottimizzando il build, Intlayer sostituirà tutte le chiamate dei dizionari per ottimizzare il chunking. In questo modo il bundle finale importerà solo i dizionari che vengono utilizzati.
-
-- **Nota**: `@intlayer/babel` è disponibile per impostazione predefinita nel pacchetto `vite-intlayer`, ma `@intlayer/swc` non è installato per impostazione predefinita nel pacchetto `next-intlayer` poiché i plugin SWC sono ancora sperimentali su Next.js.
+> Durante l'ottimizzazione, Intlayer sostituirà le chiamate ai dizionari per ottimizzare il chunking, in modo che il bundle finale importi solo i dizionari che vengono effettivamente utilizzati.
 
 #### Proprietà
 
@@ -494,21 +492,28 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Predefinito_: `process.env.NODE_ENV === 'production'`
   - _Descrizione_: Controlla se il build deve essere ottimizzato.
   - _Esempio_: `true`
-  - _Nota_: Permetterà di importare solo i dizionari utilizzati nel bundle. Ma tutte le importazioni rimarranno come importazione statica per evitare l'elaborazione asincrona durante il caricamento dei dizionari.
-  - _Nota_: Quando abilitato, Intlayer ottimizzerà il chunking del dizionario sostituendo tutte le chiamate di `useIntlayer` con `useDictionary` e `getIntlayer` con `getDictionary`.
+  - _Nota_: Quando abilitato, Intlayer sostituirà tutte le chiamate dei dizionari per ottimizzare il chunking. In questo modo il bundle finale importerà solo i dizionari utilizzati. Tutte le importazioni rimarranno come importazioni statiche per evitare l'elaborazione asincrona durante il caricamento dei dizionari.
+  - _Nota_: Intlayer sostituirà tutte le chiamate di `useIntlayer` con la modalità definita dall'opzione `importMode` e `getIntlayer` con `getDictionary`.
+  - _Nota_: Questa opzione si basa sui plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Assicurati che tutte le chiavi siano dichiarate staticamente nelle chiamate `useIntlayer`. ad esempio: `useIntlayer('navbar')`.
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _Tipo_: `boolean`
-  - _Predefinito_: `false`
-  - _Descrizione_: Controlla se il contenuto del dizionario deve essere importato dinamicamente per lingua.
-  - _Esempio_: `true`
-  - _Nota_: Permetterà di importare dinamicamente il contenuto del dizionario solo per la lingua corrente.
-  - _Nota_: Le importazioni dinamiche si basano su React Suspense e possono influire leggermente sulle prestazioni di rendering. Ma se disabilitato tutte le lingue verranno caricate contemporaneamente, anche se non vengono utilizzate.
-  - _Nota_: Quando abilitato, Intlayer ottimizzerà il chunking del dizionario sostituendo tutte le chiamate di `useIntlayer` con `useDynamicDictionary`.
+  - _Tipo_: `'static' | 'dynamic' | 'async'`
+  - _Predefinito_: `'static'`
+  - _Descrizione_: Controlla come vengono importati i dizionari.
+  - _Esempio_: `'dynamic'`
+  - _Nota_: Modalità disponibili:
+    - "static": I dizionari vengono importati staticamente. Sostituisce `useIntlayer` con `useDictionary`.
+    - "dynamic": I dizionari vengono importati dinamicamente utilizzando Suspense. Sostituisce `useIntlayer` con `useDictionaryDynamic`.
+    - "async": I dizionari vengono importati dinamicamente in modo asincrono. Sostituisce `useIntlayer` con `await useDictionaryAsync`.
+  - _Nota_: Le importazioni dinamiche si basano su Suspense e possono influire leggermente sulle prestazioni di rendering.
+  - _Nota_: Se disabilitato, tutte le lingue verranno caricate contemporaneamente, anche se non vengono utilizzate.
+  - _Nota_: Questa opzione si basa sui plugin `@intlayer/babel` e `@intlayer/swc`.
+  - _Nota_: Assicurati che tutte le chiavi siano dichiarate staticamente nelle chiamate `useIntlayer`. ad esempio: `useIntlayer('navbar')`.
   - _Nota_: Questa opzione verrà ignorata se `optimize` è disabilitato.
-  - _Nota_: Assicurati che tutte le chiavi siano dichiarate staticamente nelle chiamate `useIntlayer`. ad esempio: `useIntlayer('navbar')`.
+  - _Nota_: Nella maggior parte dei casi, `"dynamic"` verrà utilizzato per le applicazioni React, `"async"` per le applicazioni Vue.js.
+  - _Nota_: Questa opzione non influenzerà le funzioni `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` e `useDictionaryDynamic`.
 
 - **traversePattern**:
   - _Tipo_: `string[]`

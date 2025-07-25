@@ -91,8 +91,7 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
 
   const build: ReplaceValue<BuildConfig> = {
     optimize: import.meta.env.VITE_INTLAYER_BUILD_OPTIMIZE,
-    activateDynamicImport: import.meta.env
-      .VITE_INTLAYER_BUILD_ACTIVATE_DYNAMIC_IMPORT,
+    importMode: import.meta.env.VITE_INTLAYER_BUILD_IMPORT_MODE,
     traversePattern: import.meta.env.VITE_INTLAYER_BUILD_TRAVERSE_PATTERN,
   };
 

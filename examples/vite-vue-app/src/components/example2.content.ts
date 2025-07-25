@@ -6,7 +6,6 @@ const exampleContent = {
     es: '/messages/{{locale}}/{{key}}.content.cjs',
   },
   content: {
-    test: fetchedContent,
     new: t({
       en: 'This is an example of a new field--',
       fr: 'Voici un exemple de nouveau champ--',

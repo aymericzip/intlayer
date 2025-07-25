@@ -82,8 +82,7 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
 
   const build: ReplaceValue<BuildConfig> = {
     optimize: process.env.NEXT_PUBLIC_INTLAYER_BUILD_OPTIMIZE,
-    activateDynamicImport:
-      process.env.NEXT_PUBLIC_INTLAYER_BUILD_ACTIVATE_DYNAMIC_IMPORT,
+    importMode: process.env.NEXT_PUBLIC_INTLAYER_BUILD_IMPORT_MODE,
     traversePattern: process.env.NEXT_PUBLIC_INTLAYER_BUILD_TRAVERSE_PATTERN,
   };
 

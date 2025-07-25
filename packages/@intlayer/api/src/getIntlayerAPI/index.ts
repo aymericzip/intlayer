@@ -1,7 +1,6 @@
 import type { IntlayerConfig } from '@intlayer/config/client';
 import type { FetcherOptions } from '../fetcher';
 import { getAiAPI } from './ai';
-import { getAuthAPI, type AuthAPI } from './auth';
 import { getDictionaryAPI } from './dictionary';
 import { getEditorAPI } from './editor';
 import { getNewsletterAPI } from './newsletter';
@@ -16,7 +15,7 @@ interface IntlayerAPIReturn {
   organization: ReturnType<typeof getOrganizationAPI>;
   project: ReturnType<typeof getProjectAPI>;
   user: ReturnType<typeof getUserAPI>;
-  auth: AuthAPI;
+  // auth: AuthAPI;
   dictionary: ReturnType<typeof getDictionaryAPI>;
   stripe: ReturnType<typeof getStripeAPI>;
   ai: ReturnType<typeof getAiAPI>;
@@ -33,7 +32,7 @@ export const getIntlayerAPI = (
   organization: getOrganizationAPI(authAPIOptions, intlayerConfig),
   project: getProjectAPI(authAPIOptions, intlayerConfig),
   user: getUserAPI(authAPIOptions, intlayerConfig),
-  auth: getAuthAPI(intlayerConfig),
+  // auth: getAuthAPI(intlayerConfig),
   dictionary: getDictionaryAPI(authAPIOptions, intlayerConfig),
   stripe: getStripeAPI(authAPIOptions, intlayerConfig),
   ai: getAiAPI(authAPIOptions, intlayerConfig),

@@ -59,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -88,7 +88,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -480,11 +480,9 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
 
 빌드 옵션은 `@intlayer/babel` 및 `@intlayer/swc` 플러그인에 적용됩니다.
 
-> 개발 모드에서 Intlayer는 개발 경험을 단순화하기 위해 사전에 대해 중앙 집중식 정적 가져오기를 사용합니다.
+> 개발 모드에서 Intlayer는 개발 경험을 단순화하기 위해 사전에 대해 정적 가져오기를 사용합니다.
 
-> 빌드를 최적화함으로써 Intlayer는 청킹을 최적화하기 위해 모든 사전 호출을 대체합니다. 이렇게 하면 최종 번들은 사용되는 사전만 가져옵니다.
-
-- **참고**: `@intlayer/babel`은 `vite-intlayer` 패키지에서 기본적으로 사용할 수 있지만, `@intlayer/swc`는 SWC 플러그인이 Next.js에서 아직 실험적이기 때문에 `next-intlayer` 패키지에서 기본적으로 설치되지 않습니다.
+> 최적화 시 Intlayer는 청킹을 최적화하기 위해 사전 호출을 대체하여 최종 번들이 실제로 사용되는 사전만 가져오도록 합니다.
 
 #### 속성
 
@@ -494,21 +492,28 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
   - _기본값_: `process.env.NODE_ENV === 'production'`
   - _설명_: 빌드를 최적화해야 하는지 여부를 제어합니다.
   - _예시_: `true`
-  - _참고_: 번들에 사용되는 사전만 가져올 수 있습니다. 하지만 모든 가져오기는 사전을 로드할 때 비동기 처리를 피하기 위해 정적 가져오기로 유지됩니다.
-  - _참고_: 활성화되면 Intlayer는 모든 `useIntlayer` 호출을 `useDictionary`로, `getIntlayer`를 `getDictionary`로 대체하여 사전 청킹을 최적화합니다.
+  - _참고_: 활성화되면 Intlayer는 청킹을 최적화하기 위해 모든 사전 호출을 대체합니다. 이렇게 하면 최종 번들이 사용되는 사전만 가져옵니다. 모든 가져오기는 사전을 로드할 때 비동기 처리를 피하기 위해 정적 가져오기로 유지됩니다.
+  - _참고_: Intlayer는 `importMode` 옵션에 의해 정의된 모드로 모든 `useIntlayer` 호출을 대체하고 `getIntlayer`를 `getDictionary`로 대체합니다.
+  - _참고_: 이 옵션은 `@intlayer/babel` 및 `@intlayer/swc` 플러그인에 의존합니다.
   - _참고_: 모든 키가 `useIntlayer` 호출에서 정적으로 선언되어 있는지 확인하세요. 예: `useIntlayer('navbar')`.
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _유형_: `boolean`
-  - _기본값_: `false`
-  - _설명_: 사전 콘텐츠를 로케일별로 동적으로 가져와야 하는지 여부를 제어합니다.
-  - _예시_: `true`
-  - _참고_: 현재 로케일의 사전 콘텐츠만 동적으로 가져올 수 있습니다.
-  - _참고_: 동적 가져오기는 React Suspense에 의존하며 렌더링 성능에 약간의 영향을 미칠 수 있습니다. 하지만 비활성화되면 사용되지 않더라도 모든 로케일이 한 번에 로드됩니다.
-  - _참고_: 활성화되면 Intlayer는 모든 `useIntlayer` 호출을 `useDynamicDictionary`로 대체하여 사전 청킹을 최적화합니다.
+  - _유형_: `'static' | 'dynamic' | 'async'`
+  - _기본값_: `'static'`
+  - _설명_: 사전이 어떻게 가져오는지 제어합니다.
+  - _예시_: `'dynamic'`
+  - _참고_: 사용 가능한 모드:
+    - "static": 사전이 정적으로 가져옵니다. `useIntlayer`를 `useDictionary`로 대체합니다.
+    - "dynamic": 사전이 Suspense를 사용하여 동적으로 가져옵니다. `useIntlayer`를 `useDictionaryDynamic`으로 대체합니다.
+    - "async": 사전이 비동기적으로 동적으로 가져옵니다. `useIntlayer`를 `await useDictionaryAsync`로 대체합니다.
+  - _참고_: 동적 가져오기는 Suspense에 의존하며 렌더링 성능에 약간의 영향을 미칠 수 있습니다.
+  - _참고_: 비활성화되면 사용되지 않더라도 모든 로케일이 한 번에 로드됩니다.
+  - _참고_: 이 옵션은 `@intlayer/babel` 및 `@intlayer/swc` 플러그인에 의존합니다.
+  - _참고_: 모든 키가 `useIntlayer` 호출에서 정적으로 선언되어 있는지 확인하세요. 예: `useIntlayer('navbar')`.
   - _참고_: 이 옵션은 `optimize`가 비활성화된 경우 무시됩니다.
-  - _참고_: 모든 키가 `useIntlayer` 호출에서 정적으로 선언되어 있는지 확인하세요. 예: `useIntlayer('navbar')`.
+  - _참고_: 대부분의 경우 React 애플리케이션에는 `"dynamic"`이, Vue.js 애플리케이션에는 `"async"`가 사용됩니다.
+  - _참고_: 이 옵션은 `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` 및 `useDictionaryDynamic` 함수에 영향을 미치지 않습니다.
 
 - **traversePattern**:
   - _유형_: `string[]`

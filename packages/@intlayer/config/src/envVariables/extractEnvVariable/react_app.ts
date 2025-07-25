@@ -82,8 +82,7 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
 
   const build: ReplaceValue<BuildConfig> = {
     optimize: process.env.REACT_APP_INTLAYER_BUILD_OPTIMIZE,
-    activateDynamicImport:
-      process.env.REACT_APP_INTLAYER_BUILD_ACTIVATE_DYNAMIC_IMPORT,
+    importMode: process.env.REACT_APP_INTLAYER_BUILD_IMPORT_MODE,
     traversePattern: process.env.REACT_APP_INTLAYER_BUILD_TRAVERSE_PATTERN,
   };
 

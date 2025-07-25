@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-07-13
+updatedAt: 2025-07-25
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -59,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -88,7 +88,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -101,10 +101,20 @@ module.exports = config;
     "locales": ["en"],
   },
   "content": {
-    "typesDir": "content/types",
+    "contentDir": ["src", "../ui-library"],
   },
   "middleware": {
     "noPrefix": false,
+  },
+  "editor": {
+    "applicationURL": "https://example.com",
+  },
+  "ai": {
+    "apiKey": "XXXX",
+    "applicationContext": "This is a test application",
+  },
+  "build": {
+    "importMode": "dynamic",
   },
 }
 ```
@@ -483,11 +493,9 @@ Settings that control how Intlayer optimizes and builds your application's inter
 
 Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
-> In development mode, Intlayer use a centralized static import for dictionaries to simplify the development experience.
+> In development mode, Intlayer uses static imports for dictionaries to simplify the development experience.
 
-> By optimizing the build, Intlayer will replace all calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used.
-
-- **Note**: `@intlayer/babel` is available by default on `vite-intlayer` package, but `@intlayer/swc` is not installed by default on `next-intlayer` package as SWC plugins are still experimental on Next.js.
+> When optimized, Intlayer will replace dictionary calls to optimize chunking, so the final bundle only imports dictionaries that are actually used.
 
 #### Properties
 
@@ -497,21 +505,28 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Default_: `process.env.NODE_ENV === 'production'`
   - _Description_: Controls whether the build should be optimized.
   - _Example_: `true`
-  - _Note_: It will allows to import only the dictionaries that are used into the bundle. But all imports will stay as static import to avoid async processing when loading the dictionaries.
-  - _Note_: When enabled, Intlayer will optimize dictionary chunking by replacing all calls of `useIntlayer` with `useDictionary` and `getIntlayer` with `getDictionary`.
+  - _Note_: When enabled, Intlayer will replace all calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used. All imports will stay as static import to avoid async processing when loading the dictionaries.
+  - _Note_: Intlayer will replace all calls of `useIntlayer` with the defined mode by the `importMode` option and `getIntlayer` with `getDictionary`.
+  - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Controls whether dictionary content should be dynamically imported per locale.
-  - _Example_: `true`
-  - _Note_: It will allows to import dynamically the dictionary content for the current locale only.
-  - _Note_: Dynamic imports rely on React Suspense and may slightly impact rendering performance. But if desabled all locales will be loaded at once, even if they are not used.
-  - _Note_: When enabled, Intlayer will optimize dictionary chunking by replacing all calls of `useIntlayer` calls with `useDynamicDictionary`.
+  - _Type_: `'static' | 'dynamic' | 'async'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
+  - _Note_: Available modes:
+    - "static": Dictionaries are imported statically. Replaces `useIntlayer` with `useDictionary`.
+    - "dynamic": Dictionaries are imported dynamically using Suspense. Replaces `useIntlayer` with `useDictionaryDynamic`.
+    - "async": Dictionaries are imported dynamically asynchronously. Replaces `useIntlayer` with `await useDictionaryAsync`.
+  - _Note_: Dynamic imports rely on Suspense and may slightly impact rendering performance.
+  - _Note_: If disabled all locales will be loaded at once, even if they are not used.
+  - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+  - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
   - _Note_: This option will be ignored if `optimize` is disabled.
-  - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+  - _Note_: In most cases, `"dynamic"` will be used for React applications, `"async"` for Vue.js applications.
+  - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
 
 - **traversePattern**:
   - _Type_: `string[]`
@@ -524,8 +539,8 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 ## Doc History
 
-| Version | Date       | Changes                              |
-| ------- | ---------- | ------------------------------------ |
-| 5.6.0   | 2025-07-13 | Change default contentDir to `['.']` |
-| 5.5.11  | 2025-06-29 | Add `docs` commands                  |
-| 5.5.10  | 2025-06-29 | Init history                         |
+| Version | Date       | Changes                                                  |
+| ------- | ---------- | -------------------------------------------------------- |
+| 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option |
+| 5.6.0   | 2025-07-13 | Change default contentDir to `['.']`                     |
+| 5.5.11  | 2025-06-29 | Add `docs` commands                                      |

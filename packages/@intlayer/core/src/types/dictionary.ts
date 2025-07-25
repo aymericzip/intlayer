@@ -5,7 +5,6 @@ import type {
   LanguageContent,
   // @ts-ignore intlayer declared for module augmentation
   LocalesValues,
-  // @ts-ignore intlayer declared for module augmentation
 } from 'intlayer';
 import type { ConditionContent } from '../transpiler/condition';
 import type { EnumerationContent } from '../transpiler/enumeration';
@@ -87,7 +86,7 @@ type ReplaceContentValue<
         | ReplaceContentValueObject<NodeType, FetchableNode>
   : ContentNode<NodeType, FetchableNode>;
 
-export type AutoFill = true | string | LanguageContent<string>;
+export type AutoFill = true | string | Partial<LanguageContent<string>>;
 
 export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   $schema?: string;

@@ -24,10 +24,10 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
   write: false,
   bundle: true,
   banner: {
-    js: `
-    globalThis.intlayer_file_path = ${JSON.stringify(filePath)};
-    globalThis.intlayer_file_dir = ${JSON.stringify(dirname(filePath))};
-    `,
+    js: [
+      `globalThis.intlayer_file_path = ${JSON.stringify(filePath)};`,
+      `globalThis.intlayer_file_dir = ${JSON.stringify(dirname(filePath))};`,
+    ].join('\n'),
   },
 });
 

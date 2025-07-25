@@ -78,7 +78,7 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
 
   const build: ReplaceValue<BuildConfig> = {
     optimize: process.env.INTLAYER_BUILD_OPTIMIZE,
-    activateDynamicImport: process.env.INTLAYER_BUILD_ACTIVATE_DYNAMIC_IMPORT,
+    importMode: process.env.INTLAYER_BUILD_IMPORT_MODE,
     traversePattern: process.env.INTLAYER_BUILD_TRAVERSE_PATTERN,
   };
 

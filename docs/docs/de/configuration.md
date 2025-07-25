@@ -59,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -88,7 +88,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -481,11 +481,9 @@ Einstellungen, die steuern, wie Intlayer die Internationalisierung Ihrer Anwendu
 
 Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
 
-> Im Entwicklungsmodus verwendet Intlayer einen zentralisierten statischen Import für Wörterbücher, um die Entwicklungserfahrung zu vereinfachen.
+> Im Entwicklungsmodus verwendet Intlayer statische Importe für Wörterbücher, um die Entwicklungserfahrung zu vereinfachen.
 
-> Durch die Optimierung des Builds ersetzt Intlayer alle Aufrufe von Wörterbüchern, um das Chunking zu optimieren. So importiert das finale Bundle nur die tatsächlich verwendeten Wörterbücher.
-
-- **Hinweis**: `@intlayer/babel` ist standardmäßig im `vite-intlayer`-Paket verfügbar, aber `@intlayer/swc` ist im `next-intlayer`-Paket nicht standardmäßig installiert, da SWC-Plugins in Next.js noch experimentell sind.
+> Bei der Optimierung ersetzt Intlayer Wörterbuchaufrufe, um das Chunking zu optimieren, sodass das finale Bundle nur die tatsächlich verwendeten Wörterbücher importiert.
 
 #### Eigenschaften
 
@@ -495,21 +493,28 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Standard_: `process.env.NODE_ENV === 'production'`
   - _Beschreibung_: Steuert, ob der Build optimiert werden soll.
   - _Beispiel_: `true`
-  - _Hinweis_: Ermöglicht es, nur die tatsächlich verwendeten Wörterbücher in das Bundle zu importieren. Alle Importe bleiben jedoch statisch, um asynchrone Verarbeitung beim Laden der Wörterbücher zu vermeiden.
-  - _Hinweis_: Wenn aktiviert, optimiert Intlayer das Chunking der Wörterbücher, indem alle Aufrufe von `useIntlayer` durch `useDictionary` und `getIntlayer` durch `getDictionary` ersetzt werden.
+  - _Hinweis_: Wenn aktiviert, ersetzt Intlayer alle Aufrufe von Wörterbüchern, um das Chunking zu optimieren. So importiert das finale Bundle nur die verwendeten Wörterbücher. Alle Importe bleiben als statische Importe, um asynchrone Verarbeitung beim Laden der Wörterbücher zu vermeiden.
+  - _Hinweis_: Intlayer ersetzt alle Aufrufe von `useIntlayer` mit dem durch die `importMode`-Option definierten Modus und `getIntlayer` mit `getDictionary`.
+  - _Hinweis_: Diese Option basiert auf den Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel statisch in den `useIntlayer`-Aufrufen deklariert sind, z. B. `useIntlayer('navbar')`.
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _Typ_: `boolean`
-  - _Standard_: `false`
-  - _Beschreibung_: Steuert, ob der Wörterbuchinhalt pro Locale dynamisch importiert werden soll.
-  - _Beispiel_: `true`
-  - _Hinweis_: Ermöglicht den dynamischen Import des Wörterbuchinhalts nur für die aktuelle Locale.
-  - _Hinweis_: Dynamische Importe basieren auf React Suspense und können die Rendering-Leistung leicht beeinträchtigen. Wenn deaktiviert, werden alle Locales auf einmal geladen, auch wenn sie nicht verwendet werden.
-  - _Hinweis_: Wenn aktiviert, optimiert Intlayer die Wörterbuch-Aufteilung, indem alle Aufrufe von `useIntlayer` durch `useDynamicDictionary` ersetzt werden.
+  - _Typ_: `'static' | 'dynamic' | 'async'`
+  - _Standard_: `'static'`
+  - _Beschreibung_: Steuert, wie Wörterbücher importiert werden.
+  - _Beispiel_: `'dynamic'`
+  - _Hinweis_: Verfügbare Modi:
+    - "static": Wörterbücher werden statisch importiert. Ersetzt `useIntlayer` durch `useDictionary`.
+    - "dynamic": Wörterbücher werden dynamisch mit Suspense importiert. Ersetzt `useIntlayer` durch `useDictionaryDynamic`.
+    - "async": Wörterbücher werden asynchron dynamisch importiert. Ersetzt `useIntlayer` durch `await useDictionaryAsync`.
+  - _Hinweis_: Dynamische Importe basieren auf Suspense und können die Rendering-Leistung leicht beeinträchtigen.
+  - _Hinweis_: Wenn deaktiviert, werden alle Locales auf einmal geladen, auch wenn sie nicht verwendet werden.
+  - _Hinweis_: Diese Option basiert auf den Plugins `@intlayer/babel` und `@intlayer/swc`.
+  - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel statisch in den `useIntlayer`-Aufrufen deklariert sind, z. B. `useIntlayer('navbar')`.
   - _Hinweis_: Diese Option wird ignoriert, wenn `optimize` deaktiviert ist.
-  - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel statisch in den `useIntlayer`-Aufrufen deklariert sind, z. B. `useIntlayer('navbar')`.
+  - _Hinweis_: In den meisten Fällen wird `"dynamic"` für React-Anwendungen und `"async"` für Vue.js-Anwendungen verwendet.
+  - _Hinweis_: Diese Option beeinträchtigt nicht die Funktionen `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` und `useDictionaryDynamic`.
 
 - **traversePattern**:
   - _Typ_: `string[]`

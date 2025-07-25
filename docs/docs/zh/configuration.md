@@ -59,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -88,7 +88,7 @@ const config = {
     applicationContext: "This is a test application", // 应用程序上下文
   },
   build: {
-    activateDynamicImport: true, // 启用动态导入
+    importMode: "dynamic", // 启用动态导入
   },
 };
 
@@ -482,11 +482,9 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择性。目前支�
 
 构建选项适用于 `@intlayer/babel` 和 `@intlayer/swc` 插件。
 
-> 在开发模式下，Intlayer 使用集中式静态导入字典以简化开发体验。
+> 在开发模式下，Intlayer 使用静态导入字典以简化开发体验。
 
-> 通过优化构建，Intlayer 将替换所有字典调用以优化分块。这样，最终的包只会导入使用到的字典。
-
-- **注意**：`@intlayer/babel` 在 `vite-intlayer` 包中默认可用，但由于 SWC 插件在 Next.js 中仍处于实验阶段，`@intlayer/swc` 在 `next-intlayer` 包中默认未安装。
+> 优化时，Intlayer 将替换字典调用以优化分块，以便最终包只导入实际使用的字典。
 
 #### 属性
 
@@ -496,21 +494,28 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择性。目前支�
   - _默认值_：`process.env.NODE_ENV === 'production'`
   - _描述_：控制构建是否应被优化。
   - _示例_：`true`
-  - _注意_：这将允许只导入包中使用的字典。但所有导入都将保持为静态导入，以避免加载字典时的异步处理。
-  - _注意_：启用时，Intlayer 将通过将所有 `useIntlayer` 调用替换为 `useDictionary` 和 `getIntlayer` 替换为 `getDictionary` 来优化字典分块。
+  - _注意_：启用时，Intlayer 将替换所有字典调用以优化分块。这样，最终包将只导入使用的字典。所有导入都将保持为静态导入，以避免加载字典时的异步处理。
+  - _注意_：Intlayer 将用 `importMode` 选项定义的模式替换所有 `useIntlayer` 调用，并将 `getIntlayer` 替换为 `getDictionary`。
+  - _注意_：此选项依赖于 `@intlayer/babel` 和 `@intlayer/swc` 插件。
   - _注意_：确保所有键都在 `useIntlayer` 调用中静态声明。例如：`useIntlayer('navbar')`。
 
-- **activateDynamicImport**：
+- **importMode**：
 
-  - _类型_：`boolean`
-  - _默认值_：`false`
-  - _描述_：控制是否应按语言环境动态导入字典内容。
-  - _示例_：`true`
-  - _注意_：它允许仅动态导入当前语言环境的字典内容。
-  - _注意_：动态导入依赖于 React Suspense，可能会略微影响渲染性能。但如果禁用，所有语言环境将一次性加载，即使未被使用。
-  - _注意_：启用时，Intlayer 将通过将所有 `useIntlayer` 调用替换为 `useDynamicDictionary` 来优化字典分块。
+  - _类型_：`'static' | 'dynamic' | 'async'`
+  - _默认值_：`'static'`
+  - _描述_：控制字典的导入方式。
+  - _示例_：`'dynamic'`
+  - _注意_：可用模式：
+    - "static"：字典静态导入。将 `useIntlayer` 替换为 `useDictionary`。
+    - "dynamic"：字典使用 Suspense 动态导入。将 `useIntlayer` 替换为 `useDictionaryDynamic`。
+    - "async"：字典异步动态导入。将 `useIntlayer` 替换为 `await useDictionaryAsync`。
+  - _注意_：动态导入依赖于 Suspense，可能会略微影响渲染性能。
+  - _注意_：如果禁用，所有语言环境将一次性加载，即使未被使用。
+  - _注意_：此选项依赖于 `@intlayer/babel` 和 `@intlayer/swc` 插件。
+  - _注意_：确保所有键在 `useIntlayer` 调用中静态声明。例如：`useIntlayer('navbar')`。
   - _注意_：如果 `optimize` 被禁用，此选项将被忽略。
-  - _注意_：确保所有键在 `useIntlayer` 调用中静态声明。例如 `useIntlayer('navbar')`。
+  - _注意_：在大多数情况下，React 应用程序将使用 `"dynamic"`，Vue.js 应用程序将使用 `"async"`。
+  - _注意_：此选项不会影响 `getIntlayer`、`getDictionary`、`useDictionary`、`useDictionaryAsync` 和 `useDictionaryDynamic` 函数。
 
 - **traversePattern**：
   - _类型_：`string[]`

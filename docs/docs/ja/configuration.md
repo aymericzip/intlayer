@@ -59,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -88,7 +88,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -481,11 +481,9 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
 
 ビルドオプションは`@intlayer/babel`および`@intlayer/swc`プラグインに適用されます。
 
-> 開発モードでは、Intlayerは開発体験を簡素化するために辞書の一元化された静的インポートを使用します。
+> 開発モードでは、Intlayerは開発体験を簡素化するために辞書の静的インポートを使用します。
 
-> ビルドを最適化することで、Intlayerはチャンキングを最適化するためにすべての辞書の呼び出しを置き換えます。これにより、最終的なバンドルは使用される辞書のみをインポートします。
-
-- **注意**: `@intlayer/babel`は`vite-intlayer`パッケージでデフォルトで利用可能ですが、`@intlayer/swc`はNext.jsでのSWCプラグインがまだ実験的であるため、`next-intlayer`パッケージではデフォルトでインストールされていません。
+> 最適化時、Intlayerはチャンキングを最適化するために辞書の呼び出しを置き換え、最終的なバンドルが実際に使用される辞書のみをインポートするようにします。
 
 #### プロパティ
 
@@ -495,21 +493,28 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _デフォルト_: `process.env.NODE_ENV === 'production'`
   - _説明_: ビルドを最適化するかどうかを制御します。
   - _例_: `true`
-  - _注意_: 使用される辞書のみをバンドルにインポートすることを可能にします。ただし、すべてのインポートは辞書の読み込み時の非同期処理を避けるために静的インポートのままとなります。
-  - _注意_: 有効にすると、Intlayerはすべての`useIntlayer`呼び出しを`useDictionary`に、`getIntlayer`を`getDictionary`に置き換えることで辞書のチャンキングを最適化します。
+  - _注意_: 有効にすると、Intlayerはチャンキングを最適化するためにすべての辞書の呼び出しを置き換えます。これにより、最終的なバンドルは使用される辞書のみをインポートします。すべてのインポートは辞書の読み込み時の非同期処理を避けるために静的インポートのままとなります。
+  - _注意_: Intlayerは`importMode`オプションによって定義されたモードですべての`useIntlayer`呼び出しを置き換え、`getIntlayer`を`getDictionary`に置き換えます。
+  - _注意_: このオプションは`@intlayer/babel`および`@intlayer/swc`プラグインに依存します。
   - _注意_: すべてのキーが`useIntlayer`呼び出しで静的に宣言されていることを確認してください。例：`useIntlayer('navbar')`。
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _型_: `boolean`
-  - _デフォルト_: `false`
-  - _説明_: 辞書コンテンツをロケールごとに動的にインポートするかどうかを制御します。
-  - _例_: `true`
-  - _注意_: 現在のロケールの辞書コンテンツのみを動的にインポートすることを可能にします。
-  - _注意_: 動的インポートはReact Suspenseに依存し、レンダリングパフォーマンスに若干の影響を与える可能性があります。ただし、無効にすると、使用されていない場合でもすべてのロケールが一度に読み込まれます。
-  - _注意_: 有効にすると、Intlayerはすべての`useIntlayer`呼び出しを`useDynamicDictionary`に置き換えることで辞書のチャンキングを最適化します。
+  - _型_: `'static' | 'dynamic' | 'async'`
+  - _デフォルト_: `'static'`
+  - _説明_: 辞書がどのようにインポートされるかを制御します。
+  - _例_: `'dynamic'`
+  - _注意_: 利用可能なモード：
+    - "static": 辞書が静的にインポートされます。`useIntlayer`を`useDictionary`に置き換えます。
+    - "dynamic": 辞書がSuspenseを使用して動的にインポートされます。`useIntlayer`を`useDictionaryDynamic`に置き換えます。
+    - "async": 辞書が非同期で動的にインポートされます。`useIntlayer`を`await useDictionaryAsync`に置き換えます。
+  - _注意_: 動的インポートはSuspenseに依存し、レンダリングパフォーマンスに若干の影響を与える可能性があります。
+  - _注意_: 無効にすると、使用されていない場合でもすべてのロケールが一度に読み込まれます。
+  - _注意_: このオプションは`@intlayer/babel`および`@intlayer/swc`プラグインに依存します。
+  - _注意_: すべてのキーが`useIntlayer`呼び出しで静的に宣言されていることを確認してください。例：`useIntlayer('navbar')`。
   - _注意_: このオプションは`optimize`が無効の場合は無視されます。
-  - _注意_: すべてのキーが`useIntlayer`呼び出しで静的に宣言されていることを確認してください。例：`useIntlayer('navbar')`。
+  - _注意_: ほとんどの場合、Reactアプリケーションには`"dynamic"`が、Vue.jsアプリケーションには`"async"`が使用されます。
+  - _注意_: このオプションは`getIntlayer`、`getDictionary`、`useDictionary`、`useDictionaryAsync`、`useDictionaryDynamic`関数に影響しません。
 
 - **traversePattern**:
   - _型_: `string[]`

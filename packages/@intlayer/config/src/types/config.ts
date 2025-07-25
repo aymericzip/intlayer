@@ -294,29 +294,38 @@ export type BuildConfig = {
    * All imports will stay as static import to avoid async processing when loading the dictionaries.
    *
    * Note:
-   * - Intlayer will replace all call of `useIntlayer` with `useDictionary`, `getIntlayer` with `getDictionary`.
+   * - Intlayer will replace all call of `useIntlayer` with the defined mode by the `importMode` option.
+   * - Intlayer will replace all call of `getIntlayer` with `getDictionary`.
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    */
   optimize: boolean;
 
   /**
-   * Indicates if the dynamic import should be activated
+   * Indicates the mode of import to use for the dictionaries.
    *
-   * Default: false
+   * Available modes:
+   * - "static": The dictionaries are imported statically.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
+   * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   * - "async": The dictionaries are imported dynamically in an asynchronous component.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `await useDictionaryAsync`.
+   *
+   * Default: "static"
    *
    * By default, when a dictionary is loaded, it imports content for all locales as it's imported statically.
-   * If this option is set to true, only the current locale’s dictionary content
-   * will be fetched via dynamic import. In that case, Intlayer will replace all
-   * calls to `useIntlayer` with `useDynamicDictionary`.
    *
    * Note:
-   * - Dynamic imports rely on React Suspense and may slightly impact rendering performance. But if desabled all locales will be loaded at once, even if they are not used.
+   * - Dynamic imports rely on Suspense and may slightly impact rendering performance.
+   * - If desabled all locales will be loaded at once, even if they are not used.
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
+   * - In most cases, "dynamic" will be used for React applications, "async" for Vue.js applications.
+   * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
    */
-  activateDynamicImport: boolean;
+  importMode: 'static' | 'dynamic' | 'async';
 
   /**
    * Pattern to traverse the code to optimize.

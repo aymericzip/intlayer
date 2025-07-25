@@ -59,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "Ceci est une application de test", // Contexte de l'application
   },
   build: {
-    activateDynamicImport: true, // Active l'importation dynamique
+    importMode: "dynamic",
   },
 };
 
@@ -88,7 +88,7 @@ const config = {
     applicationContext: "Ceci est une application de test", // Contexte de l'application
   },
   build: {
-    activateDynamicImport: true, // Active l'importation dynamique
+    importMode: "dynamic",
   },
 };
 
@@ -499,17 +499,23 @@ Les options de build s'appliquent aux plugins `@intlayer/babel` et `@intlayer/sw
   - _Remarque_ : Lorsqu’il est activé, Intlayer optimisera le découpage des dictionnaires en remplaçant tous les appels à `useIntlayer` par `useDictionary` et `getIntlayer` par `getDictionary`.
   - _Remarque_ : Assurez-vous que toutes les clés soient déclarées statiquement dans les appels à `useIntlayer`. Par exemple : `useIntlayer('navbar')`.
 
-- **activateDynamicImport** :
+- **importMode** :
 
-  - _Type_ : `boolean`
-  - _Par défaut_ : `false`
-  - _Description_ : Contrôle si le contenu du dictionnaire doit être importé dynamiquement par locale.
-  - _Exemple_ : `true`
-  - _Remarque_ : Cela permettra d'importer dynamiquement le contenu du dictionnaire uniquement pour la locale actuelle.
-  - _Remarque_ : Les imports dynamiques reposent sur React Suspense et peuvent légèrement impacter les performances de rendu. Mais si cette option est désactivée, toutes les locales seront chargées en même temps, même si elles ne sont pas utilisées.
-  - _Remarque_ : Lorsqu'elle est activée, Intlayer optimisera le découpage des dictionnaires en remplaçant tous les appels à `useIntlayer` par `useDynamicDictionary`.
-  - _Remarque_ : Cette option sera ignorée si `optimize` est désactivé.
+  - _Type_ : `'static' | 'dynamic' | 'async'`
+  - _Par défaut_ : `'static'`
+  - _Description_ : Contrôle comment les dictionnaires sont importés.
+  - _Exemple_ : `'dynamic'`
+  - _Remarque_ : Modes disponibles :
+    - "static" : Les dictionnaires sont importés statiquement. Remplace `useIntlayer` par `useDictionary`.
+    - "dynamic" : Les dictionnaires sont importés dynamiquement en utilisant Suspense. Remplace `useIntlayer` par `useDictionaryDynamic`.
+    - "async" : Les dictionnaires sont importés dynamiquement de manière asynchrone. Remplace `useIntlayer` par `await useDictionaryAsync`.
+  - _Remarque_ : Les imports dynamiques reposent sur Suspense et peuvent légèrement impacter les performances de rendu.
+  - _Remarque_ : Si désactivé, toutes les locales seront chargées en même temps, même si elles ne sont pas utilisées.
+  - _Remarque_ : Cette option s'appuie sur les plugins `@intlayer/babel` et `@intlayer/swc`.
   - _Remarque_ : Assurez-vous que toutes les clés soient déclarées statiquement dans les appels à `useIntlayer`. Par exemple : `useIntlayer('navbar')`.
+  - _Remarque_ : Cette option sera ignorée si `optimize` est désactivé.
+  - _Remarque_ : Dans la plupart des cas, `"dynamic"` sera utilisé pour les applications React, `"async"` pour les applications Vue.js.
+  - _Remarque_ : Cette option n'impactera pas les fonctions `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` et `useDictionaryDynamic`.
 
 - **traversePattern** :
   - _Type_ : `string[]`
@@ -522,4 +528,8 @@ Les options de build s'appliquent aux plugins `@intlayer/babel` et `@intlayer/sw
 
 ## Historique de la documentation
 
-- 5.5.11 - 2025-06-29 : Ajout des commandes `docs`
+| Version | Date       | Changements                                                       |
+| ------- | ---------- | ----------------------------------------------------------------- |
+| 5.6.1   | 2025-07-25 | Remplacement de `activateDynamicImport` par l'option `importMode` |
+| 5.6.0   | 2025-07-13 | Changement du contentDir par défaut vers `['.']`                  |
+| 5.5.11  | 2025-06-29 | Ajout des commandes `docs`                                        |
