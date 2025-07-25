@@ -16,7 +16,7 @@ import { stat, unlink, writeFile } from 'fs/promises';
  *     // Your initialization logic here
  *     await prepareIntlayer();
  *   },
- *   30000 // 30 second cache
+ *   30 * 1000 // 30 seconds cache
  * );
  * ```
  *
