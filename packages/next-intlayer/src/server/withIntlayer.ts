@@ -1,4 +1,4 @@
-import { prepareIntlayer } from '@intlayer/chokidar';
+import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
   getAppLogger,
@@ -13,7 +13,6 @@ import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import { join, relative, resolve } from 'path';
 import { compareVersions } from './compareVersion';
 import { getNextVersion } from './getNextVertion';
-import { runOnce } from './runOnce';
 
 // Extract from the start script if --turbo or --turbopack flag is used
 const isTurbopackEnabled =
