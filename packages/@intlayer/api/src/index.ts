@@ -5,6 +5,7 @@ export * from './getIntlayerAPI/ai';
 export * from './getIntlayerAPI/auth';
 export * from './getIntlayerAPI/dictionary';
 export * from './getIntlayerAPI/editor';
+export * from './getIntlayerAPI/oAuth';
 export * from './getIntlayerAPI/organization';
 export * from './getIntlayerAPI/project';
 export * from './getIntlayerAPI/stripe';

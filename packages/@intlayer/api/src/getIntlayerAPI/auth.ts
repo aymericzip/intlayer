@@ -1,8 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
 import { createAuthClient } from 'better-auth/client';
-import { FetcherOptions, fetcher } from '../fetcher';
-import { GetOAuth2TokenBody, GetOAuth2TokenResult } from '../types';
 
 type AuthClient = ReturnType<typeof createAuthClient>;
 
@@ -31,9 +29,6 @@ export interface AuthAPI {
   accountInfo: AuthClient['accountInfo'];
   updateUser: AuthClient['updateUser'];
   listSessions: AuthClient['listSessions'];
-  getOAuth2AccessToken: (
-    otherOptions?: FetcherOptions
-  ) => Promise<GetOAuth2TokenResult>;
 }
 
 export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
@@ -126,28 +121,6 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
   const listSessions: AuthClient['listSessions'] = async (...args) =>
     await authClient.listSessions(...args);
 
-  /**
-   * Gets an oAuth2 accessToken
-   * @return The token information
-   */
-  const getOAuth2AccessToken = async (otherOptions: FetcherOptions = {}) =>
-    await fetcher<GetOAuth2TokenResult>(
-      `${backendURL}/oauth2/token`,
-      {},
-      otherOptions,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: {
-          grant_type: 'client_credentials',
-          client_id: clientId!,
-          client_secret: clientSecret!,
-        } satisfies GetOAuth2TokenBody,
-      }
-    );
-
   return {
     signInEmail,
     signUpEmail,
@@ -159,7 +132,6 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     resetPassword,
     verifyEmailSession,
     getSession,
-    getOAuth2AccessToken,
     forgetPassword,
     sendVerificationEmail,
     changeEmail,

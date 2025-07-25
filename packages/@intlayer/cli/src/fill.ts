@@ -1,4 +1,4 @@
-import { AIOptions, getAiAPI, getAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
+import { AIOptions, getAiAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
   getFilteredLocalesContent,
   listGitFiles,
@@ -24,6 +24,7 @@ import {
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
 import { dirname, extname, join } from 'path';
+import { getOAuthAPI } from '../../api/dist/types/getIntlayerAPI/oAuth';
 import { checkAIAccess } from './utils/checkAIAccess';
 
 // Arguments for the fill function
@@ -306,7 +307,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
   let oAuth2AccessToken: string | undefined;
   if (configuration.editor.clientId) {
-    const intlayerAuthAPI = getAuthAPI(configuration);
+    const intlayerAuthAPI = getOAuthAPI(configuration);
     const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
 
     oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;

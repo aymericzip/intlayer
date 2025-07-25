@@ -1,4 +1,4 @@
-import { getAuthAPI, getDictionaryAPI } from '@intlayer/api';
+import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
@@ -21,7 +21,7 @@ export const fetchDistantDictionaries = async (
   const appLogger = getAppLogger(config);
   try {
     const { clientId, clientSecret } = config.editor;
-    const authAPI = getAuthAPI(config);
+    const authAPI = getOAuthAPI(config);
     const dictionaryAPI = getDictionaryAPI(undefined, config);
 
     if (!clientId || !clientSecret) {

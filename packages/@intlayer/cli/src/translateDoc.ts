@@ -1,4 +1,4 @@
-import { AIOptions, getAuthAPI } from '@intlayer/api';
+import { AIOptions } from '@intlayer/api';
 import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
   getAppLogger,
@@ -14,6 +14,7 @@ import { readFile } from 'fs/promises';
 import pLimit from 'p-limit';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { getOAuthAPI } from '../../api/dist/types/getIntlayerAPI/oAuth';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAIAccess';
 import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
@@ -199,7 +200,7 @@ export const translateDoc = async ({
 
   let oAuth2AccessToken: string | undefined;
   if (configuration.editor.clientId) {
-    const intlayerAuthAPI = getAuthAPI(configuration);
+    const intlayerAuthAPI = getOAuthAPI(configuration);
     const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
 
     oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
