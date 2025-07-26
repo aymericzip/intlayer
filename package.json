@@ -94,6 +94,8 @@
   },
   "pnpm": {
     "overrides": {
+      "@intlayer/backend>nanostores": "npm:nanostores@1.0.1",
+      "nanostores": "npm:nanostores-cjs@0.7.1",
       "react": "19.0.0",
       "react-dom": "19.0.0"
     }
