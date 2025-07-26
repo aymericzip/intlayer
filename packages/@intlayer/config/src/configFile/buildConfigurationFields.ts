@@ -86,7 +86,10 @@ const buildInternationalizationFields = (
    *
    * Ensure required locales are also defined in the `locales` field.
    */
-  requiredLocales: customConfiguration?.requiredLocales ?? REQUIRED_LOCALES,
+  requiredLocales:
+    customConfiguration?.requiredLocales ??
+    customConfiguration?.locales ??
+    REQUIRED_LOCALES,
 
   /**
    * Ensure strong implementations of internationalized content using typescript.
