@@ -1,4 +1,5 @@
-import { stat, unlink, writeFile } from 'fs/promises';
+import { mkdir, stat, unlink, writeFile } from 'fs/promises';
+import { dirname } from 'path';
 
 /**
  * Ensures a callback function runs only once within a specified time window across multiple processes.
@@ -52,6 +53,9 @@ export const runOnce = async (
   }
 
   try {
+    // Ensure the directory exists before writing the file
+    await mkdir(dirname(sentinelFilePath), { recursive: true });
+
     // O_EXCL ensures only the *first* process can create the file
     await writeFile(sentinelFilePath, String(currentTimestamp), { flag: 'wx' });
   } catch (err: any) {

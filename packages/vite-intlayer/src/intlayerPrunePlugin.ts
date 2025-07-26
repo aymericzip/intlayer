@@ -10,6 +10,8 @@ export const IntlayerPrunePlugin = (
 ): PluginOption => {
   const { optimize, importMode, traversePattern } = intlayerConfig.build;
 
+  console.log('intlayerConfig', intlayerConfig);
+
   const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
     intlayerConfig.content;
 
@@ -86,6 +88,7 @@ export const IntlayerPrunePlugin = (
         });
 
         if (result?.code) {
+          console.log('result.code', result.code);
           return {
             code: result.code,
             map: result.map,

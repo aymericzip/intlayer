@@ -35,8 +35,7 @@ const getIsSwcPluginAvailable = () => {
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig
 ): Partial<NextConfig> => {
-  const { optimize, traversePattern, activateDynamicImport } =
-    intlayerConfig.build;
+  const { optimize, traversePattern, importMode } = intlayerConfig.build;
   const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
     intlayerConfig.content;
 
@@ -84,7 +83,7 @@ const getPruneConfig = (
             dictionariesEntryPath,
             dynamicDictionariesDir,
             dynamicDictionariesEntryPath,
-            activateDynamicImport,
+            importMode,
             filesList,
             replaceDictionaryEntry: false,
           } as any,

@@ -424,6 +424,10 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
 
           // Async helper: first argument is the dictionary promise.
           path.node.arguments[0] = t.identifier(ident.name);
+
+          // Wrap the call with await for async helpers
+          const awaitExpression = t.awaitExpression(path.node);
+          path.replaceWith(awaitExpression);
         } else if (shouldUseDynamicForThisCall) {
           // Use dynamic imports for useIntlayer when dynamic helpers are enabled
           let dynamicIdent = state._newDynamicImports!.get(key);
