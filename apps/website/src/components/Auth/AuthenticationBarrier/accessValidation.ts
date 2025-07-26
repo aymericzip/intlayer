@@ -8,7 +8,7 @@ export const accessValidation = (
   redirectionRoute: string,
   isEnabled?: boolean
 ) => {
-  if (!isEnabled) {
+  if (isEnabled === false) {
     return;
   }
 
