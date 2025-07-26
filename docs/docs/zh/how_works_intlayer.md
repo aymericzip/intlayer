@@ -104,7 +104,7 @@ Babel 和 SWC 插件通过分析应用程序的抽象语法树（AST）来替换
 
 在开发模式下，Intlayer 使用集中式静态导入字典以简化开发体验。
 
-通过在[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中激活选项 `activateDynamicImport`，Intlayer 将使用动态导入来加载字典。此选项默认禁用，以避免在渲染应用时进行异步处理。
+通过在[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中激活选项 `importMode = "dynamic"`，Intlayer 将使用动态导入来加载字典。此选项默认禁用，以避免在渲染应用时进行异步处理。
 
 > `@intlayer/babel` 默认包含在 `vite-intlayer` 包中，
 

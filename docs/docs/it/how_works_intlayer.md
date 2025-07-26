@@ -103,7 +103,7 @@ I plugin Babel e SWC funzionano analizzando l'Abstract Syntax Tree (AST) della t
 
 In modalità sviluppo, Intlayer utilizza un'importazione statica centralizzata per i dizionari per semplificare l'esperienza di sviluppo.
 
-Attivando l'opzione `activateDynamicImport` nella [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md), Intlayer utilizzerà l'importazione dinamica per caricare i dizionari. Questa opzione è disattivata di default per evitare processi asincroni durante il rendering dell'applicazione.
+Attivando l'opzione `importMode = "dynamic"` nella [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md), Intlayer utilizzerà l'importazione dinamica per caricare i dizionari. Questa opzione è disattivata di default per evitare processi asincroni durante il rendering dell'applicazione.
 
 > `@intlayer/babel` è disponibile di default nel pacchetto `vite-intlayer`,
 

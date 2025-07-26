@@ -20,7 +20,7 @@ const config: IntlayerConfig = {
   },
   build: {
     // optimize: process.env.NODE_ENV === 'production',
-    activateDynamicImport: true,
+    importMode: 'dynamic',
   },
 };
 

@@ -103,7 +103,7 @@ BabelおよびSWCプラグインは、アプリケーションの抽象構文木
 
 開発モードでは、Intlayerは辞書の集中型静的インポートを使用して開発体験を簡素化します。
 
-[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で`activateDynamicImport`オプションを有効にすると、Intlayerは動的インポートを使用して辞書をロードします。このオプションは、アプリケーションのレンダリング時に非同期処理を回避するためにデフォルトで無効になっています。
+[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で`importMode = "dynamic"`オプションを有効にすると、Intlayerは動的インポートを使用して辞書をロードします。このオプションは、アプリケーションのレンダリング時に非同期処理を回避するためにデフォルトで無効になっています。
 
 > `@intlayer/babel`は`vite-intlayer`パッケージでデフォルトで利用可能です。
 

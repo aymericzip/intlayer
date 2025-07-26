@@ -103,7 +103,7 @@ Babel 및 SWC 플러그인은 애플리케이션의 추상 구문 트리(Abstrac
 
 개발 모드에서는 Intlayer가 사전을 중앙 집중식 정적 가져오기로 사용하여 개발 경험을 단순화합니다.
 
-[설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에서 `activateDynamicImport` 옵션을 활성화하면 Intlayer는 동적 가져오기를 사용하여 사전을 로드합니다. 이 옵션은 애플리케이션 렌더링 시 비동기 처리를 방지하기 위해 기본적으로 비활성화되어 있습니다.
+[설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에서 `importMode = "dynamic"` 옵션을 활성화하면 Intlayer는 동적 가져오기를 사용하여 사전을 로드합니다. 이 옵션은 애플리케이션 렌더링 시 비동기 처리를 방지하기 위해 기본적으로 비활성화되어 있습니다.
 
 > `@intlayer/babel`는 `vite-intlayer` 패키지에 기본으로 포함되어 있습니다.
 

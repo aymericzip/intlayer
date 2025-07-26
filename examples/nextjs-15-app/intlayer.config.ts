@@ -16,7 +16,7 @@ const config: IntlayerConfig = {
     applicationURL: 'http://localhost:3000',
   },
   build: {
-    activateDynamicImport: true,
+    importMode: 'dynamic',
   },
 };
 

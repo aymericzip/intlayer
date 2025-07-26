@@ -103,7 +103,7 @@ Die Babel- und SWC-Plugins funktionieren, indem sie den Abstract Syntax Tree (AS
 
 Im Entwicklungsmodus verwendet Intlayer einen zentralisierten statischen Import für Wörterbücher, um die Entwicklungserfahrung zu vereinfachen.
 
-Durch Aktivieren der Option `activateDynamicImport` in der [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) verwendet Intlayer den dynamischen Import, um die Wörterbücher zu laden. Diese Option ist standardmäßig deaktiviert, um asynchrone Verarbeitung beim Rendern der Anwendung zu vermeiden.
+Durch Aktivieren der Option `importMode = "dynamic"` in der [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) verwendet Intlayer den dynamischen Import, um die Wörterbücher zu laden. Diese Option ist standardmäßig deaktiviert, um asynchrone Verarbeitung beim Rendern der Anwendung zu vermeiden.
 
 > `@intlayer/babel` ist standardmäßig im `vite-intlayer`-Paket enthalten,
 
