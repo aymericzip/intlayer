@@ -5,6 +5,7 @@ import type {
   LanguageContent,
   // @ts-ignore intlayer declared for module augmentation
   LocalesValues,
+  // @ts-ignore intlayer declared for module augmentation
 } from 'intlayer';
 import type { ConditionContent } from '../transpiler/condition';
 import type { EnumerationContent } from '../transpiler/enumeration';
