@@ -56,7 +56,7 @@ localeMap<T>(
 **Beispiel: Erstellen von Routenobjekten**
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 const routes = localeMap((localizedData) => ({
   path: localizedData.urlPrefix,
@@ -90,7 +90,7 @@ localeFlatMap<T>(
 **Beispiel: Erstellen mehrerer Routen pro Locale**
 
 ```typescript
-import { localeFlatMap } from "@intlayer/core";
+import { localeFlatMap } from "intlayer";
 
 const routes = localeFlatMap((localizedData) => [
   {
@@ -132,7 +132,7 @@ localeRecord<T>(
 **Beispiel: Laden von Übersetzungsdateien**
 
 ```typescript
-import { localeRecord } from "@intlayer/core";
+import { localeRecord } from "intlayer";
 
 const translations = localeRecord(({ locale }) =>
   require(`./translations/${locale}.json`)
@@ -153,7 +153,7 @@ Der Locale Mapper verwendet automatisch Ihre Intlayer-Konfiguration, aber Sie k�
 ### Verwendung der Standardkonfiguration
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 // Verwendet die Konfiguration aus intlayer.config.ts
 const routes = localeMap((data) => ({
@@ -165,7 +165,7 @@ const routes = localeMap((data) => ({
 ### Überschreiben der Konfiguration
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 // Überschreibt Locales und Standard-Locale
 const customRoutes = localeMap(
@@ -181,7 +181,7 @@ const customRoutes = localeMap(
 ### Erstellen von Navigationsmenüs
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 const navigationItems = localeMap((data) => ({
   label: data.locale.toUpperCase(),
@@ -194,7 +194,7 @@ const navigationItems = localeMap((data) => ({
 ### Generieren von Sitemap-Daten
 
 ```typescript
-import { localeFlatMap } from "@intlayer/core";
+import { localeFlatMap } from "intlayer";
 
 const sitemapUrls = localeFlatMap((data) => [
   {
@@ -215,7 +215,7 @@ const sitemapUrls = localeFlatMap((data) => [
 ### Dynamisches Laden von Übersetzungen
 
 ```typescript
-import { localeRecord } from "@intlayer/core";
+import { localeRecord } from "intlayer";
 
 const translationModules = localeRecord(({ locale }) => ({
   messages: import(`./locales/${locale}/messages.json`),

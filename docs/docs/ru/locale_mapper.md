@@ -56,7 +56,7 @@ localeMap<T>(
 **Пример: Создание объектов маршрутов**
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 const routes = localeMap((localizedData) => ({
   path: localizedData.urlPrefix,
@@ -90,7 +90,7 @@ localeFlatMap<T>(
 **Пример: Создание нескольких маршрутов для каждой локали**
 
 ```typescript
-import { localeFlatMap } from "@intlayer/core";
+import { localeFlatMap } from "intlayer";
 
 const routes = localeFlatMap((localizedData) => [
   {
@@ -132,7 +132,7 @@ localeRecord<T>(
 **Пример: Загрузка файлов переводов**
 
 ```typescript
-import { localeRecord } from "@intlayer/core";
+import { localeRecord } from "intlayer";
 
 const translations = localeRecord(({ locale }) =>
   require(`./translations/${locale}.json`)
@@ -153,7 +153,7 @@ Locale Mapper автоматически использует вашу конф�
 ### Использование конфигурации по умолчанию
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 // Использует конфигурацию из intlayer.config.ts
 const routes = localeMap((data) => ({
@@ -165,7 +165,7 @@ const routes = localeMap((data) => ({
 ### Переопределение конфигурации
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 // Переопределение локалей и локали по умолчанию
 const customRoutes = localeMap(
@@ -181,7 +181,7 @@ const customRoutes = localeMap(
 ### Создание навигационных меню
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 const navigationItems = localeMap((data) => ({
   label: data.locale.toUpperCase(),
@@ -194,7 +194,7 @@ const navigationItems = localeMap((data) => ({
 ### Генерация данных для Sitemap
 
 ```typescript
-import { localeFlatMap } from "@intlayer/core";
+import { localeFlatMap } from "intlayer";
 
 const sitemapUrls = localeFlatMap((data) => [
   {
@@ -215,7 +215,7 @@ const sitemapUrls = localeFlatMap((data) => [
 ### Динамическая загрузка переводов
 
 ```typescript
-import { localeRecord } from "@intlayer/core";
+import { localeRecord } from "intlayer";
 
 const translationModules = localeRecord(({ locale }) => ({
   messages: import(`./locales/${locale}/messages.json`), // импорт сообщений перевода

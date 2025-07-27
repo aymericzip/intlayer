@@ -56,7 +56,7 @@ localeMap<T>(
 **예제: 라우트 객체 생성하기**
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 const routes = localeMap((localizedData) => ({
   path: localizedData.urlPrefix,
@@ -90,7 +90,7 @@ localeFlatMap<T>(
 **예제: 로케일별로 여러 경로 생성하기**
 
 ```typescript
-import { localeFlatMap } from "@intlayer/core";
+import { localeFlatMap } from "intlayer";
 
 const routes = localeFlatMap((localizedData) => [
   {
@@ -132,7 +132,7 @@ localeRecord<T>(
 **예제: 번역 파일 로딩하기**
 
 ```typescript
-import { localeRecord } from "@intlayer/core";
+import { localeRecord } from "intlayer";
 
 const translations = localeRecord(({ locale }) =>
   require(`./translations/${locale}.json`)
@@ -153,7 +153,7 @@ const translations = localeRecord(({ locale }) =>
 ### 기본 설정 사용하기
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 // intlayer.config.ts의 설정을 사용합니다
 const routes = localeMap((data) => ({
@@ -165,7 +165,7 @@ const routes = localeMap((data) => ({
 ### 설정 재정의하기
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 // 로케일과 기본 로케일을 재정의합니다
 const customRoutes = localeMap(
@@ -181,7 +181,7 @@ const customRoutes = localeMap(
 ### 내비게이션 메뉴 생성
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 const navigationItems = localeMap((data) => ({
   label: data.locale.toUpperCase(), // 로케일을 대문자로 표시
@@ -194,7 +194,7 @@ const navigationItems = localeMap((data) => ({
 ### 사이트맵 데이터 생성
 
 ```typescript
-import { localeFlatMap } from "@intlayer/core";
+import { localeFlatMap } from "intlayer";
 
 const sitemapUrls = localeFlatMap((data) => [
   {
@@ -215,7 +215,7 @@ const sitemapUrls = localeFlatMap((data) => [
 ### 동적 번역 로딩
 
 ```typescript
-import { localeRecord } from "@intlayer/core";
+import { localeRecord } from "intlayer";
 
 const translationModules = localeRecord(({ locale }) => ({
   messages: import(`./locales/${locale}/messages.json`),

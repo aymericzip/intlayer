@@ -56,7 +56,7 @@ localeMap<T>(
 **示例：创建路由对象**
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 const routes = localeMap((localizedData) => ({
   path: localizedData.urlPrefix,
@@ -90,7 +90,7 @@ localeFlatMap<T>(
 **示例：为每个语言创建多个路由**
 
 ```typescript
-import { localeFlatMap } from "@intlayer/core";
+import { localeFlatMap } from "intlayer";
 
 const routes = localeFlatMap((localizedData) => [
   {
@@ -132,7 +132,7 @@ localeRecord<T>(
 **示例：加载翻译文件**
 
 ```typescript
-import { localeRecord } from "@intlayer/core";
+import { localeRecord } from "intlayer";
 
 const translations = localeRecord(({ locale }) =>
   require(`./translations/${locale}.json`)
@@ -153,7 +153,7 @@ Locale Mapper 会自动使用你的 Intlayer 配置，但你可以通过传递�
 ### 使用默认配置
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 // 使用 intlayer.config.ts 中的配置
 const routes = localeMap((data) => ({
@@ -165,7 +165,7 @@ const routes = localeMap((data) => ({
 ### 覆盖配置
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 // 覆盖 locales 和默认 locale
 const customRoutes = localeMap(
@@ -181,7 +181,7 @@ const customRoutes = localeMap(
 ### 创建导航菜单
 
 ```typescript
-import { localeMap } from "@intlayer/core";
+import { localeMap } from "intlayer";
 
 const navigationItems = localeMap((data) => ({
   label: data.locale.toUpperCase(), // 标签显示为大写的语言代码
@@ -194,7 +194,7 @@ const navigationItems = localeMap((data) => ({
 ### 生成网站地图数据
 
 ```typescript
-import { localeFlatMap } from "@intlayer/core";
+import { localeFlatMap } from "intlayer";
 
 const sitemapUrls = localeFlatMap((data) => [
   {
@@ -215,7 +215,7 @@ const sitemapUrls = localeFlatMap((data) => [
 ### 动态加载翻译
 
 ```typescript
-import { localeRecord } from "@intlayer/core";
+import { localeRecord } from "intlayer";
 
 const translationModules = localeRecord(({ locale }) => ({
   messages: import(`./locales/${locale}/messages.json`),
