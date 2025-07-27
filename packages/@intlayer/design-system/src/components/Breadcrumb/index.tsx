@@ -2,7 +2,7 @@
 
 import type { Locales } from '@intlayer/config/client';
 import { ChevronRightIcon } from 'lucide-react';
-import { type HTMLAttributes, Fragment, type FC } from 'react';
+import { Fragment, type FC, type HTMLAttributes } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { Button, type ButtonProps } from '../Button';
@@ -35,6 +35,7 @@ const LinkLink: FC<LinkLinkProps> = ({
         color={color}
         onClick={onClick}
         itemProp="item"
+        isExternalLink={false}
         itemScope
         itemType="https://schema.org/WebPage"
         {...props}
