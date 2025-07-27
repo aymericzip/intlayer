@@ -1,5 +1,13 @@
 import type { Gender, GenderContentStates } from '../transpiler/gender/gender';
 
+type GederEntry = Gender | 'm' | 'f';
+
+const getGenderEntry = (gender: GederEntry): Gender => {
+  if (gender === 'm' || gender === 'male') return 'male';
+  if (gender === 'f' || gender === 'female') return 'female';
+  return 'fallback';
+};
+
 /**
  * Allow to pick a content based on a gender.
  *
@@ -24,16 +32,19 @@ import type { Gender, GenderContentStates } from '../transpiler/gender/gender';
  */
 export const getGender = <Content>(
   genderContent: GenderContentStates<Content>,
-  gender?: Gender
+  gender: GederEntry
 ): Content => {
   const stateList = Object.keys(genderContent);
+
   const fallbackState = stateList[
     stateList.length - 1
   ] as keyof typeof genderContent;
 
+  const genderEntry = getGenderEntry(gender);
+
   // Default or error handling if no keys match
   return (
-    genderContent[gender as keyof typeof genderContent] ??
+    genderContent[genderEntry as keyof typeof genderContent] ??
     genderContent['fallback'] ??
     (genderContent[fallbackState] as Content)
   );
