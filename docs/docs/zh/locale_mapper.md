@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-07-27
+updatedAt: 2025-07-27
 title: 本地化映射器
 description: 了解本地化映射器的工作原理。查看本地化映射器在您的应用程序中使用的步骤。了解不同包的功能。
 keywords:

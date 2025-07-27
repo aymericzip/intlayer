@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-07-27
+updatedAt: 2025-07-27
 title: Locale Mapper
 description: Découvrez comment fonctionne Locale Mapper. Voyez les étapes utilisées par Locale Mapper dans votre application. Découvrez ce que font les différents packages.
 keywords:

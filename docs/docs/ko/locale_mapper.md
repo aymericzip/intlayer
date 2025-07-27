@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-07-27
+updatedAt: 2025-07-27
 title: 로케일 매퍼
 description: 로케일 매퍼가 어떻게 작동하는지 알아보세요. 애플리케이션에서 로케일 매퍼가 사용하는 단계를 확인하세요. 다양한 패키지가 하는 역할을 확인하세요.
 keywords:
