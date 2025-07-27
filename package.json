@@ -1,6 +1,6 @@
 {
   "name": "intlayer-monorepo",
-  "version": "5.7.2",
+  "version": "5.7.3",
   "private": false,
   "description": "Intlayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "homepage": "https://intlayer.org",
@@ -94,6 +94,7 @@
   },
   "pnpm": {
     "overrides": {
+      "nanostores": "npm:nanostores-cjs@0.7.1",
       "react": "19.0.0",
       "react-dom": "19.0.0"
     }

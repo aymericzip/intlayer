@@ -1,10 +1,10 @@
 'use client';
 
-import { getAuthAPI } from '@intlayer/api';
 import type { Session } from '@intlayer/backend';
 import defaultConfiguration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
 import { useConfiguration } from '@intlayer/editor-react';
+import { getAuthAPI } from '../auth';
 import { useAsync } from '../useAsync';
 
 export const useSession = (

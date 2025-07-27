@@ -1,5 +1,5 @@
-import { getAuthAPI } from '@intlayer/api';
-import { Session } from '@intlayer/design-system/hooks';
+import type { Session } from '@intlayer/backend';
+import { getAuthAPI } from '@intlayer/design-system/hooks';
 import { headers } from 'next/headers';
 
 export const getServerSession = async (): Promise<Session | null> => {

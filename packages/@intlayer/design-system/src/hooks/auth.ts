@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
-import type { createAuthClient } from 'better-auth/client';
+import { createAuthClient } from 'better-auth/client';
 
 type AuthClient = ReturnType<typeof createAuthClient>;
 
@@ -41,155 +41,140 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     );
   }
 
-  const getAuthClient: () => Promise<AuthClient> = async () => {
-    try {
-      /*
-       * Extract each method to avoid type inference issues at build time.
-       */
-      const { createAuthClient } = await import('better-auth/client');
-
-      const authClient = createAuthClient({
-        baseURL: backendURL,
-        withCredentials: true, // makes fetch forward cookies
-      });
-
-      console.log('authClient', authClient);
-      return authClient;
-    } catch (error) {
-      console.error('Failed to create auth client:', error);
-      throw new Error(
-        `Failed to create auth client: ${error instanceof Error ? error.message : 'Unknown error'}`
-      );
-    }
+  const getAuthClient = (): AuthClient => {
+    return createAuthClient({
+      baseURL: backendURL,
+      withCredentials: true, // makes fetch forward cookies
+    });
   };
 
   const signInEmail: AuthClient['signIn']['email'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.signIn.email(...args);
+    const client = getAuthClient();
+    return client.signIn.email(...args);
   };
 
   const signInSocial: AuthClient['signIn']['social'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.signIn.social(...args);
+    const client = getAuthClient();
+    return client.signIn.social(...args);
   };
 
   const signUpEmail: AuthClient['signUp']['email'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.signUp.email(...args);
+    const client = getAuthClient();
+    return client.signUp.email(...args);
   };
 
   const signOut: AuthClient['signOut'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.signOut(...args);
+    const client = getAuthClient();
+    return client.signOut(...args);
   };
 
   const changePasswordSession: AuthClient['changePassword'] = async (
     ...args
   ) => {
-    const client = await getAuthClient();
-    return await client.changePassword(...args);
+    const client = getAuthClient();
+    return client.changePassword(...args);
   };
 
   const requestPasswordResetSession: AuthClient['requestPasswordReset'] =
     async (...args) => {
-      const client = await getAuthClient();
-      return await client.requestPasswordReset(...args);
+      const client = getAuthClient();
+      return client.requestPasswordReset(...args);
     };
 
   // @ts-expect-error - resetPassword is not typed
   const resetPassword: AuthClient['resetPassword'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.resetPassword(...args);
+    const client = getAuthClient();
+    return client.resetPassword(...args);
   };
 
   const verifyEmailSession: AuthClient['verifyEmail'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.verifyEmail(...args);
+    const client = getAuthClient();
+    return client.verifyEmail(...args);
   };
 
   const getSession: AuthClient['getSession'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.getSession(...args);
+    const client = getAuthClient();
+    return client.getSession(...args);
   };
 
   const forgetPassword: AuthClient['forgetPassword'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.forgetPassword(...args);
+    const client = getAuthClient();
+    return client.forgetPassword(...args);
   };
 
   const sendVerificationEmail: AuthClient['sendVerificationEmail'] = async (
     ...args
   ) => {
-    const client = await getAuthClient();
-    return await client.sendVerificationEmail(...args);
+    const client = getAuthClient();
+    return client.sendVerificationEmail(...args);
   };
 
   const changeEmail: AuthClient['changeEmail'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.changeEmail(...args);
+    const client = getAuthClient();
+    return client.changeEmail(...args);
   };
 
   // @ts-expect-error - deleteUser is not typed
   const deleteUser: AuthClient['deleteUser'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.deleteUser(...args);
+    const client = getAuthClient();
+    return client.deleteUser(...args);
   };
 
   const revokeSession: AuthClient['revokeSession'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.revokeSession(...args);
+    const client = getAuthClient();
+    return client.revokeSession(...args);
   };
 
   const revokeSessions: AuthClient['revokeSessions'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.revokeSessions(...args);
+    const client = getAuthClient();
+    return client.revokeSessions(...args);
   };
 
   const revokeOtherSessions: AuthClient['revokeOtherSessions'] = async (
     ...args
   ) => {
-    const client = await getAuthClient();
-    return await client.revokeOtherSessions(...args);
+    const client = getAuthClient();
+    return client.revokeOtherSessions(...args);
   };
 
   const linkSocial: AuthClient['linkSocial'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.linkSocial(...args);
+    const client = getAuthClient();
+    return client.linkSocial(...args);
   };
 
   const listAccounts: AuthClient['listAccounts'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.listAccounts(...args);
+    const client = getAuthClient();
+    return client.listAccounts(...args);
   };
 
   const unlinkAccount: AuthClient['unlinkAccount'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.unlinkAccount(...args);
+    const client = getAuthClient();
+    return client.unlinkAccount(...args);
   };
 
   const refreshToken: AuthClient['refreshToken'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.refreshToken(...args);
+    const client = getAuthClient();
+    return client.refreshToken(...args);
   };
 
   const getAccessToken: AuthClient['getAccessToken'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.getAccessToken(...args);
+    const client = getAuthClient();
+    return client.getAccessToken(...args);
   };
 
   const accountInfo: AuthClient['accountInfo'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.accountInfo(...args);
+    const client = getAuthClient();
+    return client.accountInfo(...args);
   };
 
   const updateUser: AuthClient['updateUser'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.updateUser(...args);
+    const client = getAuthClient();
+    return client.updateUser(...args);
   };
 
   const listSessions: AuthClient['listSessions'] = async (...args) => {
-    const client = await getAuthClient();
-    return await client.listSessions(...args);
+    const client = getAuthClient();
+    return client.listSessions(...args);
   };
 
   return {

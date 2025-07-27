@@ -1,6 +1,7 @@
 import { getIntlayerAPI, type FetcherOptions } from '@intlayer/api';
 import { type IntlayerConfig } from '@intlayer/config/client';
 import { useConfiguration } from '@intlayer/editor-react';
+import { getAuthAPI } from './auth';
 import { useAuth } from './useAuth';
 
 type UseIntlayerAuthProps = {
@@ -8,7 +9,7 @@ type UseIntlayerAuthProps = {
   intlayerConfiguration?: IntlayerConfig;
 };
 
-export const useIntlayerAuth = (props?: UseIntlayerAuthProps) => {
+export const useIntlayerOAuth = (props?: UseIntlayerAuthProps) => {
   const configuration = useConfiguration();
   const { oAuth2AccessToken } = useAuth();
 
@@ -23,4 +24,10 @@ export const useIntlayerAuth = (props?: UseIntlayerAuthProps) => {
     },
     props?.intlayerConfiguration ?? configuration
   );
+};
+
+export const useIntlayerAuth = (props?: UseIntlayerAuthProps) => {
+  const configuration = useConfiguration();
+
+  return getAuthAPI(props?.intlayerConfiguration ?? configuration);
 };

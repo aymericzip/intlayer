@@ -1,3 +1,4 @@
+export * from './auth';
 export * from './intlayerAPIHooks';
 export * from './useAsync';
 export * from './useAuth';
