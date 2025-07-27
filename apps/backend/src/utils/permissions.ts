@@ -1,4 +1,4 @@
-import { Dictionary } from '@/types/dictionary.types';
+import { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
 import { Organization, OrganizationAPI } from '@/types/organization.types';
 import { Project, ProjectAPI } from '@/types/project.types';
 import { SessionContext } from '@/types/session.types';
@@ -133,13 +133,6 @@ export const ROLE_POLICY = {
     'project:admin': ({ organization, project }: SessionContext) =>
       String(project?.organizationId) === String(organization?.id),
 
-    'dictionary:read': ({ organization, project }: SessionContext) =>
-      String(project?.organizationId) === String(organization?.id),
-    'dictionary:write': ({ organization, project }: SessionContext) =>
-      String(project?.organizationId) === String(organization?.id),
-    'dictionary:admin': ({ organization, project }: SessionContext) =>
-      String(project?.organizationId) === String(organization?.id),
-
     'tag:read': ({ organization, project }: SessionContext) =>
       String(project?.organizationId) === String(organization?.id),
     'tag:write': ({ organization, project }: SessionContext) =>
@@ -234,6 +227,13 @@ export const ROLE_POLICY = {
       targetUserIds.every((targetUserId) =>
         project?.membersIds?.map(String).includes(String(targetUserId))
       ),
+
+    'dictionary:read': ({ project, user }: SessionContext) =>
+      project?.adminsIds?.map(String).includes(String(user?.id)),
+    'dictionary:write': ({ project, user }: SessionContext) =>
+      project?.adminsIds?.map(String).includes(String(user?.id)),
+    'dictionary:admin': ({ project, user }: SessionContext) =>
+      project?.adminsIds?.map(String).includes(String(user?.id)),
   },
   project_user: {
     'project:read': ({ user, organization, project }: SessionContext) =>
@@ -241,10 +241,19 @@ export const ROLE_POLICY = {
       organization?.membersIds?.map(String).includes(String(user?.id)) &&
       project?.membersIds?.map(String).includes(String(user?.id)),
 
-    'dictionary:read': ({ user, project }: SessionContext) =>
-      project?.membersIds?.map(String).includes(String(user?.id)),
+    'dictionary:read': ({
+      user,
+      project,
+      targetDictionaries,
+    }: SessionContext & {
+      targetDictionaries: (Dictionary | DictionaryAPI)[];
+    }) =>
+      project?.membersIds?.map(String).includes(String(user?.id)) &&
+      targetDictionaries.every((dictionary) =>
+        dictionary?.projectIds?.map(String).includes(String(project?.id))
+      ),
     'dictionary:write': ({ user, project }: SessionContext) =>
-      project?.membersIds?.map(String).includes(String(user?.id)),
+      project?.adminsIds?.map(String).includes(String(user?.id)),
 
     'tag:read': () => true,
     'tag:write': () => true,

@@ -56,11 +56,6 @@ export const getDictionaries = async (
     return;
   }
 
-  if (!hasPermission(roles, 'dictionary:read')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
     const dictionaries = await dictionaryService.findDictionaries(
       {
@@ -70,6 +65,20 @@ export const getDictionaries = async (
       skip,
       pageSize
     );
+
+    if (
+      !hasPermission(
+        roles,
+        'dictionary:read'
+      )({
+        ...res.locals,
+        targetDictionaries: dictionaries,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
     const totalItems = await dictionaryService.countDictionaries(filters);
 
     const dictionariesAPI = dictionaries.map((el) =>
@@ -109,15 +118,25 @@ export const getDictionariesKeys = async (
     return;
   }
 
-  if (!hasPermission(roles, 'dictionary:read')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
-    const dictionariesKeys = await dictionaryService.getDictionariesKeys(
-      project.id
-    );
+    const dictionaries = await dictionaryService.findDictionaries({
+      projectIds: project.id,
+    });
+
+    if (
+      !hasPermission(
+        roles,
+        'dictionary:read'
+      )({
+        ...res.locals,
+        targetDictionaries: dictionaries,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    const dictionariesKeys = dictionaries.map((dictionary) => dictionary.key);
 
     const responseData = formatResponse<string[]>({
       data: dictionariesKeys,
@@ -156,16 +175,24 @@ export const getDictionaryByKey = async (
     return;
   }
 
-  if (!hasPermission(roles, 'dictionary:read')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
     const dictionary = await dictionaryService.getDictionaryByKey(
       dictionaryKey,
       project.id
     );
+
+    if (
+      !hasPermission(
+        roles,
+        'dictionary:read'
+      )({
+        ...res.locals,
+        targetDictionaries: [dictionary],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
 
     if (!dictionary.projectIds.map(String).includes(String(project.id))) {
       ErrorHandler.handleGenericErrorResponse(
@@ -223,11 +250,6 @@ export const addDictionary = async (
     return;
   }
 
-  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   const dictionary: DictionaryData = {
     key: dictionaryData.key,
     title: dictionaryData.title,
@@ -241,6 +263,11 @@ export const addDictionary = async (
     },
     projectIds: dictionaryData.projectIds ?? [String(project.id)],
   };
+
+  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
 
   try {
     const newDictionary = await dictionaryService.createDictionary(dictionary);
@@ -589,7 +616,7 @@ export const deleteDictionary = async (
     return;
   }
 
-  if (!hasPermission(roles, 'dictionary:admin')()) {
+  if (!hasPermission(roles, 'dictionary:admin')(res.locals)) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }

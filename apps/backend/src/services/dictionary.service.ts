@@ -142,16 +142,6 @@ export const getDictionariesByKeys = async (
   return formattedResults;
 };
 
-export const getDictionariesKeys = async (
-  projectId: string | Types.ObjectId
-): Promise<string[]> => {
-  const dictionaries = await DictionaryModel.find({
-    projectIds: projectId,
-  }).select('key');
-
-  return dictionaries.map((dictionary) => dictionary.key);
-};
-
 export const getDictionariesByTags = async (
   tags: string[],
   projectId: string | Project['id']
