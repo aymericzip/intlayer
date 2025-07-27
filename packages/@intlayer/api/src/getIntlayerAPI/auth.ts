@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
-import { createAuthClient } from 'better-auth/client';
+import type { createAuthClient } from 'better-auth/client';
 
 type AuthClient = ReturnType<typeof createAuthClient>;
 
@@ -31,16 +31,19 @@ export interface AuthAPI {
   listSessions: AuthClient['listSessions'];
 }
 
-export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
+export const getAuthAPI = async (
+  intlayerConfig?: IntlayerConfig
+): Promise<AuthAPI> => {
   const backendURL =
     intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
-  const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
 
   if (!backendURL) {
     throw new Error(
       'Backend URL is not defined in the Intlayer configuration.'
     );
   }
+
+  const { createAuthClient } = await import('better-auth/client');
   /*
    * Extract each method to avoid type inference issues at build time.
    */

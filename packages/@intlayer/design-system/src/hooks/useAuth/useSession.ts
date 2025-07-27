@@ -13,7 +13,6 @@ export const useSession = (
 ) => {
   const configuration = useConfiguration();
   const config = intlayerConfiguration ?? configuration ?? defaultConfiguration;
-  const intlayerAPI = getAuthAPI(config);
 
   const {
     getSession,
@@ -24,6 +23,7 @@ export const useSession = (
   } = useAsync(
     'getSession',
     async () => {
+      const intlayerAPI = await getAuthAPI(config);
       const result = await intlayerAPI.getSession();
       return result.data as unknown as Session;
     },

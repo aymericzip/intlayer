@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/dynamic-dictionaries-entry",
-  "version": "5.7.2-canary.1",
+  "version": "5.7.2",
   "private": false,
   "description": "Provides the entry path for Intlayer dynamic dictionaries, solving filesystem retrieval issues for bundlers like Webpack and Rollup.",
   "keywords": [
