@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/backend",
-  "version": "5.7.2-canary.0",
+  "version": "5.7.2-canary.1",
   "private": false,
   "description": "Intlayer Backend is a an application that allow you to manage your Intlayer content and interact with the intlayer editor.",
   "keywords": [
@@ -67,6 +67,9 @@
     "start:stripe": "stripe listen --forward-to localhost:3100/webhook/stripe",
     "test": "vitest run",
     "test:watch": "vitest"
+  },
+  "overrides": {
+    "nanostores": "npm:nanostores-cjs@0.7.1"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.2.11",
