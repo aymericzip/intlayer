@@ -31,7 +31,15 @@ export const addNewAccessKey = async (
     return;
   }
 
-  if (!hasPermission(roles, 'project:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [project.id],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -106,7 +114,15 @@ export const deleteAccessKey = async (
     return;
   }
 
-  if (!hasPermission(roles, 'project:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [project.id],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -173,7 +189,15 @@ export const refreshAccessKey = async (
     ErrorHandler.handleGenericErrorResponse(res, 'CLIENT_ID_NOT_FOUND');
   }
 
-  if (!hasPermission(roles, 'project:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [project!.id],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
