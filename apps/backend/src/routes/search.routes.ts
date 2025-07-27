@@ -17,4 +17,4 @@ export const getSearchRoutes = () =>
     },
   }) satisfies Routes;
 
-searchRouter.get(getSearchRoutes().doc.urlModel, searchDocUtil as any);
+searchRouter.get(getSearchRoutes().doc.urlModel, searchDocUtil);

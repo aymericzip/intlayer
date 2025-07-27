@@ -2,6 +2,7 @@ import { DiscussionModel } from '@/models/discussion.model';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { Tag } from '@/types/tag.types';
 import { type KeyPath } from '@intlayer/core';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
@@ -21,7 +22,7 @@ import * as customQueryUtil from '@utils/AI/customQuery';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
 import { ErrorHandler, type AppError } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request } from 'express';
 import type { Locales } from 'intlayer';
 
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
@@ -35,7 +36,7 @@ export type CustomQueryResult =
 
 export const customQuery = async (
   req: Request<AuditContentDeclarationBody>,
-  res: Response<CustomQueryResult>,
+  res: ResponseWithSession<CustomQueryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { aiOptions, tagsKeys, ...rest } = req.body;
@@ -87,7 +88,7 @@ export type TranslateJSONResult =
 
 export const translateJSON = async (
   req: Request<AuditContentDeclarationBody>,
-  res: Response<TranslateJSONResult>,
+  res: ResponseWithSession<TranslateJSONResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -153,7 +154,7 @@ export type AuditContentDeclarationResult =
  */
 export const auditContentDeclaration = async (
   req: Request<AuditContentDeclarationBody>,
-  res: Response<AuditContentDeclarationResult>,
+  res: ResponseWithSession<AuditContentDeclarationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -223,7 +224,7 @@ export type AuditContentDeclarationFieldResult =
  */
 export const auditContentDeclarationField = async (
   req: Request<AuditContentDeclarationFieldBody>,
-  res: Response<AuditContentDeclarationFieldResult>,
+  res: ResponseWithSession<AuditContentDeclarationFieldResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -288,7 +289,7 @@ export type AuditContentDeclarationMetadataResult =
  */
 export const auditContentDeclarationMetadata = async (
   req: Request<AuditContentDeclarationMetadataBody>,
-  res: Response<AuditContentDeclarationMetadataResult>,
+  res: ResponseWithSession<AuditContentDeclarationMetadataResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization } = res.locals;
@@ -353,7 +354,7 @@ export type AuditTagResult =
  */
 export const auditTag = async (
   req: Request<undefined, undefined, AuditTagBody>,
-  res: Response<AuditTagResult>,
+  res: ResponseWithSession<AuditTagResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project } = res.locals;
@@ -411,7 +412,7 @@ export type AskDocQuestionResult =
 
 export const askDocQuestion = async (
   req: Request<undefined, undefined, AskDocQuestionBody>,
-  res: Response<AskDocQuestionResult>
+  res: ResponseWithSession<AskDocQuestionResult>
 ) => {
   const { messages, discutionId } = req.body;
   const { user, project, organization } = res.locals;
@@ -513,7 +514,7 @@ export type AutocompleteResponse = ResponseData<{
 
 export const autocomplete = async (
   req: Request<undefined, undefined, AutocompleteBody>,
-  res: Response<AutocompleteResponse>
+  res: ResponseWithSession<AutocompleteResponse>
 ) => {
   try {
     const { text, aiOptions, contextBefore, currentLine, contextAfter } =

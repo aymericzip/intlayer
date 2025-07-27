@@ -1,10 +1,11 @@
 import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { hasPermission } from '@utils/permissions';
 import { type ResponseData, formatResponse } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 
 export type AddNewAccessKeyBody = AccessKeyData;
@@ -15,7 +16,7 @@ export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;
  */
 export const addNewAccessKey = async (
   req: Request<AddNewAccessKeyBody>,
-  res: Response<AddNewAccessKeyResponse>,
+  res: ResponseWithSession<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, project, roles } = res.locals;
@@ -84,7 +85,7 @@ export type DeleteAccessKeyResponse = ResponseData<null>;
  */
 export const deleteAccessKey = async (
   req: Request,
-  res: Response<AddNewAccessKeyResponse>,
+  res: ResponseWithSession<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, project, roles } = res.locals;
@@ -154,7 +155,7 @@ export type RefreshAccessKeyResponse = ResponseData<OAuth2Access>;
  */
 export const refreshAccessKey = async (
   req: Request<RefreshAccessKeyBody>,
-  res: Response<RefreshAccessKeyResponse>,
+  res: ResponseWithSession<RefreshAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, project, roles } = res.locals;

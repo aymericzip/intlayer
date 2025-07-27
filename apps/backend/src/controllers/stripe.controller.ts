@@ -1,10 +1,11 @@
 import type { Organization } from '@/types/organization.types';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
 import { type ResponseData, formatResponse } from '@utils/responseData';
-import type { Request, Response } from 'express';
+import type { Request } from 'express';
 import { t } from 'express-intlayer';
 import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
@@ -24,7 +25,7 @@ export type GetPricingResult = ResponseData<subscriptionService.PricingResult>;
  */
 export const getPricing = async (
   req: Request<undefined, undefined, GetPricingBody>,
-  res: Response<GetPricingResult>
+  res: ResponseWithSession<GetPricingResult>
 ) => {
   const { priceIds, promoCode } = req.body;
 
@@ -57,7 +58,7 @@ export type GetCheckoutSessionResult = ResponseData<
  */
 export const getSubscription = async (
   req: Request<undefined, undefined, GetCheckoutSessionBody>,
-  res: Response<GetCheckoutSessionResult>
+  res: ResponseWithSession<GetCheckoutSessionResult>
 ): Promise<void> => {
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -171,7 +172,7 @@ type CancelSubscriptionResult = ResponseData<CancelSubscriptionData>;
  */
 export const cancelSubscription = async (
   _req: Request,
-  res: Response<CancelSubscriptionResult>
+  res: ResponseWithSession<CancelSubscriptionResult>
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 

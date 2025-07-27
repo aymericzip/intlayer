@@ -33,13 +33,13 @@ export const getNewsletterRoutes = () =>
 
 newsletterRouter.post(
   getNewsletterRoutes().subscribeToNewsletter.urlModel,
-  subscribeToNewsletter as any
+  subscribeToNewsletter
 );
 newsletterRouter.post(
   getNewsletterRoutes().unsubscribeFromNewsletter.urlModel,
-  unsubscribeFromNewsletter as any
+  unsubscribeFromNewsletter
 );
 newsletterRouter.get(
   getNewsletterRoutes().getNewsletterStatus.urlModel,
-  getNewsletterStatus as any
+  getNewsletterStatus
 );

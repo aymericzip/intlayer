@@ -5,6 +5,7 @@ import type {
 } from '@/types/organization.types';
 import type { User } from '@/types/user.types';
 import { logger } from '@logger';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { SessionModel } from '@models/session.model';
 import { sendEmail } from '@services/email.service';
 import * as organizationService from '@services/organization.service';
@@ -29,7 +30,7 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 import { Types } from 'mongoose';
 import { Stripe } from 'stripe';
@@ -43,7 +44,7 @@ export type GetOrganizationsResult = PaginatedResponse<OrganizationAPI>;
  */
 export const getOrganizations = async (
   req: Request<GetOrganizationsParams>,
-  res: Response<GetOrganizationsResult>,
+  res: ResponseWithSession<GetOrganizationsResult>,
   _next: NextFunction
 ) => {
   const { user, roles } = res.locals;
@@ -98,7 +99,7 @@ export type GetOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const getOrganization = async (
   req: Request<GetOrganizationParam, any, any>,
-  res: Response<GetOrganizationResult>,
+  res: ResponseWithSession<GetOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { roles } = res.locals;
@@ -138,7 +139,7 @@ export type AddOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const addOrganization = async (
   req: Request<any, any, AddOrganizationBody>,
-  res: Response<AddOrganizationResult>,
+  res: ResponseWithSession<AddOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, roles } = res.locals;
@@ -195,7 +196,7 @@ export type UpdateOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const updateOrganization = async (
   req: Request<undefined, undefined, UpdateOrganizationBody>,
-  res: Response<UpdateOrganizationResult>,
+  res: ResponseWithSession<UpdateOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization, roles } = res.locals;
@@ -262,7 +263,7 @@ export type AddOrganizationMemberResult = ResponseData<OrganizationAPI>;
  */
 export const addOrganizationMember = async (
   req: Request<any, any, AddOrganizationMemberBody>,
-  res: Response<AddOrganizationMemberResult>,
+  res: ResponseWithSession<AddOrganizationMemberResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization, user, roles } = res.locals;
@@ -368,7 +369,7 @@ export type UpdateOrganizationMembersResult = ResponseData<OrganizationAPI>;
  */
 export const updateOrganizationMembers = async (
   req: Request<any, any, UpdateOrganizationMembersBody>,
-  res: Response<UpdateOrganizationMembersResult>,
+  res: ResponseWithSession<UpdateOrganizationMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization, roles } = res.locals;
@@ -467,7 +468,7 @@ export type DeleteOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const deleteOrganization = async (
   _req: Request,
-  res: Response,
+  res: ResponseWithSession,
   _next: NextFunction
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -545,7 +546,7 @@ export type SelectOrganizationResult = ResponseData<OrganizationAPI>;
  */
 export const selectOrganization = async (
   req: Request<SelectOrganizationParam>,
-  res: Response<SelectOrganizationResult>,
+  res: ResponseWithSession<SelectOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organizationId } = req.params as Partial<SelectOrganizationParam>;
@@ -606,7 +607,7 @@ export type UnselectOrganizationResult = ResponseData<null>;
  */
 export const unselectOrganization = async (
   _req: Request,
-  res: Response<UnselectOrganizationResult>,
+  res: ResponseWithSession<UnselectOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { session, roles } = res.locals;

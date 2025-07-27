@@ -7,6 +7,7 @@ import type {
 } from '@/types/project.types';
 import type { User } from '@/types/user.types';
 import { logger } from '@logger';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { SessionModel } from '@models/session.model';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
@@ -26,7 +27,7 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 import { Types } from 'mongoose';
 
@@ -38,7 +39,7 @@ export type GetProjectsResult = PaginatedResponse<ProjectAPI>;
  */
 export const getProjects = async (
   req: Request<GetProjectsParams>,
-  res: Response<GetProjectsResult>,
+  res: ResponseWithSession<GetProjectsResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, organization, roles } = res.locals;
@@ -100,7 +101,7 @@ export type AddProjectResult = ResponseData<ProjectAPI>;
  */
 export const addProject = async (
   req: Request<any, any, AddProjectBody>,
-  res: Response<AddProjectResult>,
+  res: ResponseWithSession<AddProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization, user, roles } = res.locals;
@@ -189,7 +190,7 @@ export type UpdateProjectResult = ResponseData<ProjectAPI>;
  */
 export const updateProject = async (
   req: Request<any, any, UpdateProjectBody>,
-  res: Response<UpdateProjectResult>,
+  res: ResponseWithSession<UpdateProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organization, project, user, roles } = res.locals;
@@ -266,7 +267,7 @@ export type UpdateProjectMembersResult = ResponseData<ProjectAPI>;
  */
 export const updateProjectMembers = async (
   req: Request<any, any, UpdateProjectMembersBody>,
-  res: Response<UpdateProjectMembersResult>,
+  res: ResponseWithSession<UpdateProjectMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, project, organization, roles } = res.locals;
@@ -380,7 +381,7 @@ export type PushProjectConfigurationResult = ResponseData<ProjectConfiguration>;
  */
 export const pushProjectConfiguration = async (
   req: Request<any, any, PushProjectConfigurationBody>,
-  res: Response<PushProjectConfigurationResult>,
+  res: ResponseWithSession<PushProjectConfigurationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, project, roles } = res.locals;
@@ -446,7 +447,7 @@ export type DeleteProjectResult = ResponseData<ProjectAPI>;
  */
 export const deleteProject = async (
   _req: Request,
-  res: Response<DeleteProjectResult>,
+  res: ResponseWithSession<DeleteProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, organization, project, session, roles } = res.locals;
@@ -534,7 +535,7 @@ export type SelectProjectResult = ResponseData<ProjectAPI>;
  */
 export const selectProject = async (
   req: Request<SelectProjectParam>,
-  res: Response<SelectProjectResult>,
+  res: ResponseWithSession<SelectProjectResult>,
   _next: NextFunction
 ) => {
   const { projectId } = req.params;
@@ -587,7 +588,7 @@ export type UnselectProjectResult = ResponseData<null>;
  */
 export const unselectProject = async (
   _req: Request,
-  res: Response<UnselectProjectResult>,
+  res: ResponseWithSession<UnselectProjectResult>,
   _next: NextFunction
 ) => {
   const { session } = res.locals;

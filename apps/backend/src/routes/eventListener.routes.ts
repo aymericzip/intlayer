@@ -20,5 +20,5 @@ export const eventListenerRoutes = () =>
 
 eventListenerRouter.get(
   eventListenerRoutes().checkDictionaryChangeSSE.urlModel,
-  listenChangeSSE as any
+  listenChangeSSE
 );

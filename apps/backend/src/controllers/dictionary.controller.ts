@@ -11,6 +11,7 @@ import type {
   Dictionary as LocalDictionary,
 } from '@intlayer/core';
 import { logger } from '@logger';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as dictionaryService from '@services/dictionary.service';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -27,7 +28,7 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 
 export type GetDictionariesParams =
@@ -39,7 +40,7 @@ export type GetDictionariesResult = PaginatedResponse<DictionaryAPI>;
  */
 export const getDictionaries = async (
   req: Request<GetDictionariesParams>,
-  res: Response<GetDictionariesResult>,
+  res: ResponseWithSession<GetDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, project, roles } = res.locals;
@@ -98,7 +99,7 @@ export type GetDictionariesKeysResult = ResponseData<string[]>;
  */
 export const getDictionariesKeys = async (
   _req: Request,
-  res: Response<GetDictionariesKeysResult>,
+  res: ResponseWithSession<GetDictionariesKeysResult>,
   _next: NextFunction
 ) => {
   const { project, roles } = res.locals;
@@ -139,7 +140,7 @@ export type GetDictionaryResult = ResponseData<DictionaryAPI>;
  */
 export const getDictionaryByKey = async (
   req: Request<GetDictionaryParams, any, any, GetDictionaryQuery>,
-  res: Response<GetDictionaryResult>,
+  res: ResponseWithSession<GetDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project, user, roles } = res.locals;
@@ -196,7 +197,7 @@ export type AddDictionaryResult = ResponseData<DictionaryAPI>;
  */
 export const addDictionary = async (
   req: Request<any, any, AddDictionaryBody>,
-  res: Response<AddDictionaryResult>,
+  res: ResponseWithSession<AddDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project, user, roles } = res.locals;
@@ -293,7 +294,7 @@ export type PushDictionariesResult = ResponseData<PushDictionariesResultData>;
  */
 export const pushDictionaries = async (
   req: Request<any, any, PushDictionariesBody>,
-  res: Response<PushDictionariesResult>,
+  res: ResponseWithSession<PushDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project, user, roles } = res.locals;
@@ -495,7 +496,7 @@ export type UpdateDictionaryResult = ResponseData<DictionaryAPI>;
  */
 export const updateDictionary = async (
   req: Request<UpdateDictionaryParam, any, UpdateDictionaryBody>,
-  res: Response<UpdateDictionaryResult>,
+  res: ResponseWithSession<UpdateDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { dictionaryId } = req.params;
@@ -572,7 +573,7 @@ export type DeleteDictionaryResult = ResponseData<DictionaryAPI>;
  */
 export const deleteDictionary = async (
   req: Request<DeleteDictionaryParam>,
-  res: Response<DeleteDictionaryResult>,
+  res: ResponseWithSession<DeleteDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { project, roles } = res.locals;

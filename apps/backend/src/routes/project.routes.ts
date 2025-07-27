@@ -82,47 +82,38 @@ export const getProjectRoutes = () =>
     },
   }) satisfies Routes;
 
-projectRouter.get(getProjectRoutes().getProjects.urlModel, getProjects as any);
+projectRouter.get(getProjectRoutes().getProjects.urlModel, getProjects);
 
-projectRouter.post(getProjectRoutes().addProject.urlModel, addProject as any);
-projectRouter.put(
-  getProjectRoutes().updateProject.urlModel,
-  updateProject as any
-);
+projectRouter.post(getProjectRoutes().addProject.urlModel, addProject);
+projectRouter.put(getProjectRoutes().updateProject.urlModel, updateProject);
 projectRouter.put(
   getProjectRoutes().updateProjectMembers.urlModel,
-  updateProjectMembers as any
+  updateProjectMembers
 );
 projectRouter.put(
   getProjectRoutes().pushProjectConfiguration.urlModel,
-  pushProjectConfiguration as any
+  pushProjectConfiguration
 );
-projectRouter.delete(
-  getProjectRoutes().deleteProject.urlModel,
-  deleteProject as any
-);
+projectRouter.delete(getProjectRoutes().deleteProject.urlModel, deleteProject);
 
 projectRouter.post(
   getProjectRoutes().addNewAccessKey.urlModel,
-  addNewAccessKey as any
+  addNewAccessKey
 );
 
 projectRouter.patch(
   getProjectRoutes().refreshAccessKey.urlModel,
-  refreshAccessKey as any
+  refreshAccessKey
 );
 
 projectRouter.delete(
   getProjectRoutes().deleteAccessKey.urlModel,
-  deleteAccessKey as any
+  deleteAccessKey
 );
 
 projectRouter.post(
   getProjectRoutes().unselectProject.urlModel,
-  unselectProject as any
+  unselectProject
 );
 
-projectRouter.put(
-  getProjectRoutes().selectProject.urlModel,
-  selectProject as any
-);
+projectRouter.put(getProjectRoutes().selectProject.urlModel, selectProject);

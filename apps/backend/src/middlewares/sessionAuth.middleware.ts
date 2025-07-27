@@ -1,6 +1,12 @@
+import { Session } from '@/types/session.types';
 import { formatSession, type Auth } from '@utils/auth/getAuth';
 import { fromNodeHeaders } from 'better-auth/node';
 import type { NextFunction, Request, Response } from 'express';
+
+export type ResponseWithSession<
+  ResBody = any,
+  Locals extends Record<string, any> = Record<string, any> & Session,
+> = Response<ResBody, Locals>;
 
 export const authMiddleware =
   (auth: Auth) => async (req: Request, res: Response, next: NextFunction) => {

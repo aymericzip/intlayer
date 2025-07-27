@@ -1,5 +1,6 @@
 import type { User, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -14,7 +15,7 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 
 export type CreateUserBody = { email: string; password?: string };
@@ -25,7 +26,7 @@ export type CreateUserResult = ResponseData<UserAPI>;
  */
 export const createUser = async (
   req: Request<any, any, User>,
-  res: Response<CreateUserResult>,
+  res: ResponseWithSession<CreateUserResult>,
   _next: NextFunction
 ): Promise<void> => {
   const user: User | undefined = req.body;
@@ -77,7 +78,7 @@ export type GetUsersResult = PaginatedResponse<UserAPI>;
  */
 export const getUsers = async (
   req: Request<GetUsersParams>,
-  res: Response<GetUsersResult>,
+  res: ResponseWithSession<GetUsersResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { user, roles } = res.locals;
@@ -131,7 +132,7 @@ export type GetUserByIdResult = ResponseData<UserAPI>;
 
 export const getUserById = async (
   req: Request<GetUserByIdParams>,
-  res: Response<GetUserByIdResult>,
+  res: ResponseWithSession<GetUserByIdResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
@@ -160,7 +161,7 @@ export type GetUserByEmailResult = ResponseData<UserAPI>;
 
 export const getUserByEmail = async (
   req: Request<GetUserByEmailParams>,
-  res: Response<GetUserByEmailResult>,
+  res: ResponseWithSession<GetUserByEmailResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { email } = req.params;
@@ -205,7 +206,7 @@ export type UpdateUserResult = ResponseData<UserAPI>;
  */
 export const updateUser = async (
   req: Request<any, any, UpdateUserBody | undefined>,
-  res: Response<UpdateUserResult>,
+  res: ResponseWithSession<UpdateUserResult>,
   _next: NextFunction
 ): Promise<void> => {
   const userData = req.body;
@@ -272,7 +273,7 @@ export type DeleteUserResult = ResponseData<UserAPI>;
  */
 export const deleteUser = async (
   req: Request<any, any, DeleteUserParams>,
-  res: Response<DeleteUserResult>,
+  res: ResponseWithSession<DeleteUserResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
@@ -308,7 +309,8 @@ export const deleteUser = async (
   }
 };
 
-let clients: Array<{ id: number; userId: string; res: Response }> = [];
+let clients: Array<{ id: number; userId: string; res: ResponseWithSession }> =
+  [];
 
 export const sendVerificationUpdate = (user: User) => {
   const filteredClients = clients.filter(
@@ -331,7 +333,7 @@ export type VerifyEmailStatusSSEParams = { userId: string };
  */
 export const verifyEmailStatusSSE = async (
   req: Request<VerifyEmailStatusSSEParams, any, any>,
-  res: Response
+  res: ResponseWithSession
 ) => {
   // Set headers for SSE
   res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');

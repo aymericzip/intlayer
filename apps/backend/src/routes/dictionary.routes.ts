@@ -60,32 +60,32 @@ export const getDictionaryRoutes = () =>
 
 dictionaryRouter.get(
   getDictionaryRoutes().getDictionaries.urlModel,
-  getDictionaries as any
+  getDictionaries
 );
 
 dictionaryRouter.get(
   getDictionaryRoutes().getDictionariesKeys.urlModel,
-  getDictionariesKeys as any
+  getDictionariesKeys
 );
 
 dictionaryRouter.get(
   getDictionaryRoutes().getDictionary.urlModel,
-  getDictionaryByKey as any
+  getDictionaryByKey
 );
 
 dictionaryRouter.post(
   getDictionaryRoutes().addDictionary.urlModel,
-  addDictionary as any
+  addDictionary
 );
 dictionaryRouter.patch(
   getDictionaryRoutes().pushDictionaries.urlModel,
-  pushDictionaries as any
+  pushDictionaries
 );
 dictionaryRouter.put(
   getDictionaryRoutes().updateDictionary.urlModel,
-  updateDictionary as any
+  updateDictionary
 );
 dictionaryRouter.delete(
   getDictionaryRoutes().deleteDictionary.urlModel,
-  deleteDictionary as any
+  deleteDictionary
 );

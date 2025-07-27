@@ -1,5 +1,4 @@
 import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
-
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { Request, Response } from 'express';
 

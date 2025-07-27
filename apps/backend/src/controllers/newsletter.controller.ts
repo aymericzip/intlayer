@@ -1,11 +1,12 @@
 import type { EmailsList, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { hasPermission } from '@utils/permissions';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
 import { ObjectId } from 'mongodb';
 
@@ -22,7 +23,7 @@ export type NewsletterSubscriptionResult = ResponseData<UserAPI>;
  */
 export const subscribeToNewsletter = async (
   req: Request<any, any, NewsletterSubscriptionBody>,
-  res: Response<NewsletterSubscriptionResult>,
+  res: ResponseWithSession<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { roles } = res.locals;
@@ -108,7 +109,7 @@ export type NewsletterUnsubscriptionBody = {
  */
 export const unsubscribeFromNewsletter = async (
   req: Request<any, any, NewsletterUnsubscriptionBody>,
-  res: Response<NewsletterSubscriptionResult>,
+  res: ResponseWithSession<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId, emailList } = req.body;
@@ -184,7 +185,7 @@ export const unsubscribeFromNewsletter = async (
  */
 export const getNewsletterStatus = async (
   _req: Request<{ email: string }>,
-  res: Response<NewsletterSubscriptionResult>,
+  res: ResponseWithSession<NewsletterSubscriptionResult>,
   _next: NextFunction
 ): Promise<void> => {
   const email = res.locals.user?.email;
