@@ -1,5 +1,9 @@
-import { Dictionary, Organization, Project, Tag, User } from '@/export';
+import { Dictionary } from '@/types/dictionary.types';
+import { Organization, OrganizationAPI } from '@/types/organization.types';
+import { Project, ProjectAPI } from '@/types/project.types';
 import { SessionContext } from '@/types/session.types';
+import { Tag, TagAPI } from '@/types/tag.types';
+import { User, UserAPI } from '@/types/user.types';
 
 /**
  * @description
@@ -7,6 +11,7 @@ import { SessionContext } from '@/types/session.types';
  * Users are *granted* one or more Roles.
  */
 export type Roles =
+  | 'user'
   | 'admin'
   | 'org_admin'
   | 'org_user'
@@ -66,25 +71,86 @@ export const ROLE_POLICY = {
     'user:write': () => true,
     'user:admin': () => true,
   },
+  user: {
+    'user:read': ({
+      user,
+      targetUserIds,
+    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
+      targetUserIds.map(String).includes(String(user?.id)),
+    'user:write': ({
+      user,
+      targetUserIds,
+    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
+      targetUserIds.map(String).includes(String(user?.id)),
+    'user:admin': ({
+      user,
+      targetUserIds,
+    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
+      targetUserIds.map(String).includes(String(user?.id)),
+    'organization:read': ({
+      user,
+      targetOrganizations,
+    }: SessionContext & {
+      targetOrganizations: (Organization | OrganizationAPI)[];
+    }) =>
+      targetOrganizations.every((organization) =>
+        organization?.membersIds?.map(String).includes(String(user?.id))
+      ),
+  },
   org_admin: {
-    'organization:read': () => true,
-    'organization:write': () => true,
-    'organization:admin': () => true,
+    'organization:read': ({
+      organization,
+      targetOrganizations,
+    }: SessionContext & {
+      targetOrganizations: (Organization | OrganizationAPI)[];
+    }) =>
+      targetOrganizations.every(
+        (targetOrg) => String(targetOrg.id) === String(organization?.id)
+      ),
+    'organization:write': ({
+      organization,
+      targetOrganizations,
+    }: SessionContext & {
+      targetOrganizations: (Organization | OrganizationAPI)[];
+    }) =>
+      targetOrganizations.every(
+        (targetOrg) => String(targetOrg.id) === String(organization?.id)
+      ),
+    'organization:admin': ({
+      organization,
+      targetOrganizations,
+    }: SessionContext & {
+      targetOrganizations: (Organization | OrganizationAPI)[];
+    }) =>
+      targetOrganizations.every(
+        (targetOrg) => String(targetOrg.id) === String(organization?.id)
+      ),
 
-    'project:read': () => true,
-    'project:write': () => true,
-    'project:admin': () => true,
-    'dictionary:read': () => true,
-    'dictionary:write': () => true,
-    'dictionary:admin': () => true,
-    'tag:read': () => true,
-    'tag:write': () => true,
-    'tag:admin': () => true,
+    'project:read': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
+    'project:write': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
+    'project:admin': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
+
+    'dictionary:read': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
+    'dictionary:write': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
+    'dictionary:admin': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
+
+    'tag:read': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
+    'tag:write': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
+    'tag:admin': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
 
     'user:write': ({
       organization,
       targetUserIds,
-    }: SessionContext & { targetUserIds: User['id'][] }) =>
+    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
       targetUserIds.every((targetUserId) =>
         organization?.membersIds?.map(String).includes(String(targetUserId))
       ),
@@ -92,32 +158,87 @@ export const ROLE_POLICY = {
   org_user: {
     'organization:read': () => true,
 
+    'project:read': ({
+      user,
+      targetProjects,
+    }: SessionContext & {
+      targetProjects: (Project | ProjectAPI)[];
+    }) =>
+      targetProjects?.every((project) =>
+        project?.membersIds?.map(String).includes(String(user?.id))
+      ),
+
     'user:read': ({
       organization,
       targetUserIds,
-    }: SessionContext & { targetUserIds: User['id'][] }) =>
+    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
       targetUserIds.every((targetUserId) =>
         organization?.membersIds?.map(String).includes(String(targetUserId))
       ),
   },
   project_admin: {
-    'project:read': () => true,
-    'project:write': () => true,
-    'project:admin': () => true,
-    'tag:read': () => true,
-    'tag:write': () => true,
-    'tag:admin': () => true,
+    'project:read': ({
+      project,
+      targetProjectIds,
+    }: SessionContext & {
+      targetProjectIds?: (Project | ProjectAPI)['id'][];
+    }) =>
+      targetProjectIds?.every(
+        (projectId) => String(project?.id) === String(projectId)
+      ),
+    'project:write': ({
+      project,
+      targetProjectIds,
+    }: SessionContext & {
+      targetProjectIds?: (Project | ProjectAPI)['id'][];
+    }) =>
+      targetProjectIds?.every(
+        (projectId) => String(project?.id) === String(projectId)
+      ),
+    'project:admin': ({
+      project,
+      targetProjectIds,
+    }: SessionContext & {
+      targetProjectIds?: (Project | ProjectAPI)['id'][];
+    }) =>
+      targetProjectIds?.every(
+        (projectId) => String(project?.id) === String(projectId)
+      ),
+
+    'tag:read': ({
+      project,
+      targetTagProjectIds,
+    }: SessionContext & { targetTagProjectIds: (Tag | TagAPI)['id'][] }) =>
+      targetTagProjectIds.every(
+        (projectId) => String(project?.id) === String(projectId)
+      ),
+    'tag:write': ({
+      project,
+      targetTagProjectIds,
+    }: SessionContext & { targetTagProjectIds: (Tag | TagAPI)['id'][] }) =>
+      targetTagProjectIds.every(
+        (projectId) => String(project?.id) === String(projectId)
+      ),
+    'tag:admin': ({
+      project,
+      targetTagProjectIds,
+    }: SessionContext & { targetTagProjectIds: (Tag | TagAPI)['id'][] }) =>
+      targetTagProjectIds.every(
+        (projectId) => String(project?.id) === String(projectId)
+      ),
 
     'user:write': ({
       project,
       targetUserIds,
-    }: SessionContext & { targetUserIds: User['id'][] }) =>
+    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
       targetUserIds.every((targetUserId) =>
         project?.membersIds?.map(String).includes(String(targetUserId))
       ),
   },
   project_user: {
-    'project:read': ({ user, project }: SessionContext) =>
+    'project:read': ({ user, organization, project }: SessionContext) =>
+      String(organization?.id) === String(project?.organizationId) &&
+      organization?.membersIds?.map(String).includes(String(user?.id)) &&
       project?.membersIds?.map(String).includes(String(user?.id)),
 
     'dictionary:read': ({ user, project }: SessionContext) =>
@@ -133,7 +254,7 @@ export const ROLE_POLICY = {
     'user:read': ({
       project,
       targetUserIds,
-    }: SessionContext & { targetUserIds: User['id'][] }) =>
+    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
       targetUserIds.every((targetUserId) =>
         project?.membersIds?.map(String).includes(String(targetUserId))
       ),
@@ -158,6 +279,8 @@ export const getSessionRoles = ({
   if (!user) {
     return roles;
   }
+
+  roles.push('user');
 
   const isUserAdmin = user.role === 'admin';
 

@@ -56,11 +56,6 @@ export const getOrganizations = async (
     return;
   }
 
-  if (!hasPermission(roles, 'organization:read')()) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   const restrictedFilter: OrganizationFilters = {
     ...filters,
     membersIds: { $in: [...(filters?.membersIds ?? []), String(user.id)] },
@@ -72,6 +67,19 @@ export const getOrganizations = async (
       skip,
       pageSize
     );
+
+    if (
+      !hasPermission(
+        roles,
+        'organization:read'
+      )({
+        ...res.locals,
+        targetOrganizations: organizations,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
 
     const totalItems = await organizationService.countOrganizations(filters);
 
@@ -110,14 +118,22 @@ export const getOrganization = async (
     return;
   }
 
-  if (!hasPermission(roles, 'organization:read')()) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
     const organization =
       await organizationService.getOrganizationById(organizationId);
+
+    if (
+      !hasPermission(
+        roles,
+        'organization:read'
+      )({
+        ...res.locals,
+        targetOrganizations: [organization],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
 
     const responseData = formatResponse<OrganizationAPI>({
       data: mapOrganizationToAPI(organization),
@@ -152,11 +168,6 @@ export const addOrganization = async (
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
-  }
-
-  if (!hasPermission(roles, 'organization:write')()) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -212,7 +223,15 @@ export const updateOrganization = async (
     return;
   }
 
-  if (!hasPermission(roles, 'organization:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'organization:write'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -286,7 +305,15 @@ export const addOrganizationMember = async (
     return;
   }
 
-  if (!hasPermission(roles, 'organization:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'organization:admin'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -396,7 +423,15 @@ export const updateOrganizationMembers = async (
     return;
   }
 
-  if (!hasPermission(roles, 'organization:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'organization:admin'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -490,7 +525,15 @@ export const deleteOrganization = async (
     return;
   }
 
-  if (!hasPermission(roles, 'organization:admin')()) {
+  if (
+    !hasPermission(
+      roles,
+      'organization:admin'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -557,7 +600,7 @@ export const selectOrganization = async (
     return;
   }
 
-  if (!session) {
+  if (typeof session === 'undefined') {
     ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
     return;
   }
@@ -610,11 +653,11 @@ export const unselectOrganization = async (
   res: ResponseWithSession<UnselectOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { session, roles } = res.locals;
+  const { session } = res.locals;
   try {
     // Update session to clear activeOrganizationId and activeProjectId
 
-    if (!session) {
+    if (typeof session === 'undefined') {
       ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
       return;
     }

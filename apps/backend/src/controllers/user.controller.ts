@@ -272,14 +272,22 @@ export type DeleteUserResult = ResponseData<UserAPI>;
  * Deletes a user based on the provided ID.
  */
 export const deleteUser = async (
-  req: Request<any, any, DeleteUserParams>,
+  req: Request<DeleteUserParams>,
   res: ResponseWithSession<DeleteUserResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
   const { roles } = res.locals;
 
-  if (!hasPermission(roles, 'user:admin')()) {
+  if (
+    !hasPermission(
+      roles,
+      'user:admin'
+    )({
+      ...res.locals,
+      targetUserIds: [userId],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }

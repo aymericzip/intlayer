@@ -14,6 +14,11 @@ export const tagSchema = new Schema<TagSchema>(
       ref: 'Organization',
       required: true,
     },
+    projectId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Project',
+      required: true,
+    },
     key: {
       type: String,
       required: true,

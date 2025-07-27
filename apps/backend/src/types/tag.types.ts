@@ -1,6 +1,7 @@
 import { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Organization } from './organization.types';
+import { Project } from './project.types';
 import type { User } from './user.types';
 
 export type TagCreationData = {
@@ -16,6 +17,7 @@ export type TagData = {
   description?: string;
   instructions?: string;
   creatorId: User['id'];
+  projectId: Project['id'];
   organizationId: Organization['id'];
 };
 

@@ -51,11 +51,6 @@ export const getTags = async (
     return;
   }
 
-  if (!hasPermission(roles, 'tag:read')()) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   const restrictedFilter: TagFilters = {
     ...filters,
     organizationId: String(organization.id),
@@ -63,6 +58,22 @@ export const getTags = async (
 
   try {
     const tags = await tagService.findTags(restrictedFilter, skip, pageSize);
+
+    if (
+      !hasPermission(
+        roles,
+        'tag:read'
+      )({
+        ...res.locals,
+        targetTagProjectIds: [
+          ...new Set(tags.map((tag) => String(tag.projectId))),
+        ],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
     const totalItems = await tagService.countTags(filters);
 
     const formattedTags = mapTagsToAPI(tags);
@@ -94,7 +105,7 @@ export const addTag = async (
   res: ResponseWithSession<AddTagResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user, roles } = res.locals;
+  const { organization, project, user, roles } = res.locals;
   const tagData = req.body;
 
   if (!user) {
@@ -107,20 +118,34 @@ export const addTag = async (
     return;
   }
 
-  if (!tagData) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
+  if (!project) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    return;
   }
 
-  if (!hasPermission(roles, 'tag:admin')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
+  if (!tagData) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
   }
 
   const tag: TagData = {
     creatorId: user.id,
     organizationId: organization.id,
+    projectId: project.id,
     ...tagData,
   };
+
+  if (
+    !hasPermission(
+      roles,
+      'tag:admin'
+    )({
+      ...res.locals,
+      targetTagProjectIds: [String(tag.projectId)],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
 
   try {
     const newTag = await tagService.createTag(tag);
@@ -174,11 +199,6 @@ export const updateTag = async (
     return;
   }
 
-  if (!hasPermission(roles, 'tag:write')()) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
     const tag = {
       _id: tagId,
@@ -189,6 +209,19 @@ export const updateTag = async (
     } as Partial<TagSchema> & { _id: Tag['id'] };
 
     const tagToDelete = await tagService.getTagById(tagId);
+
+    if (
+      !hasPermission(
+        roles,
+        'tag:write'
+      )({
+        ...res.locals,
+        targetTagProjectIds: [String(tagToDelete.projectId)],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
 
     if (String(tagToDelete.organizationId) !== String(organization.id)) {
       ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
@@ -253,13 +286,21 @@ export const deleteTag = async (
     return;
   }
 
-  if (!hasPermission(roles, 'tag:admin')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
     const tagToDelete = await tagService.getTagById(tagId);
+
+    if (
+      !hasPermission(
+        roles,
+        'tag:admin'
+      )({
+        ...res.locals,
+        targetTagProjectIds: [String(tagToDelete.projectId)],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
 
     if (String(tagToDelete.organizationId) !== String(organization.id)) {
       ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');

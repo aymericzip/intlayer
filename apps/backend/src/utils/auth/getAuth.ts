@@ -38,6 +38,7 @@ export const formatSession = (session: SessionContext): OmitId<SessionAPI> => {
   }
 
   const resultSession = {
+    session: session.session,
     user: mapUserToAPI(session.user),
     organization: mapOrganizationToAPI(session.organization),
     project: mapProjectToAPI(session.project),

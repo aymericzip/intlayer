@@ -56,11 +56,6 @@ export const getProjects = async (
     return;
   }
 
-  if (!hasPermission(roles, 'project:read')(res.locals)) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   const restrictedFilter: ProjectFilters = {
     ...filters,
     membersIds: { $in: [...(filters.membersIds ?? []), String(user.id)] },
@@ -73,6 +68,20 @@ export const getProjects = async (
       skip,
       pageSize
     );
+
+    if (
+      !hasPermission(
+        roles,
+        'project:read'
+      )({
+        ...res.locals,
+        targetProjects: projects,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
     const totalItems = await projectService.countProjects(filters);
 
     const formattedProjects = mapProjectsToAPI(projects);
@@ -121,7 +130,7 @@ export const addProject = async (
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
   }
 
-  if (!hasPermission(roles, 'project:admin')()) {
+  if (!hasPermission(roles, 'project:admin')(res.locals)) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -216,7 +225,15 @@ export const updateProject = async (
     return;
   }
 
-  if (!hasPermission(roles, 'project:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -298,7 +315,15 @@ export const updateProjectMembers = async (
     return;
   }
 
-  if (!hasPermission(roles, 'project:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -397,7 +422,15 @@ export const pushProjectConfiguration = async (
     return;
   }
 
-  if (!hasPermission(roles, 'project:write')()) {
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -467,12 +500,20 @@ export const deleteProject = async (
     return;
   }
 
-  if (!session) {
+  if (typeof session === 'undefined') {
     ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
     return;
   }
 
-  if (!hasPermission(roles, 'project:admin')()) {
+  if (
+    !hasPermission(
+      roles,
+      'project:admin'
+    )({
+      ...res.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
@@ -546,7 +587,7 @@ export const selectProject = async (
     return;
   }
 
-  if (!session) {
+  if (typeof session === 'undefined') {
     ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
     return;
   }
@@ -593,7 +634,7 @@ export const unselectProject = async (
 ) => {
   const { session } = res.locals;
 
-  if (!session) {
+  if (typeof session === 'undefined') {
     ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
     return;
   }
