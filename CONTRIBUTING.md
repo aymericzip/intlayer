@@ -137,18 +137,18 @@ To understand the interest of all packages, you can read the [documentation name
 > If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
 ```sh
-# Build all packages
+# Build all packages (clean dist folders, and build packages)
 pnpm build
 ```
 
 ```sh
-# Select a package and build it
-pnpm build:pick
+# Build all packages (only build packages, without cleaning dist folders)
+pnpm build:ci
 ```
 
 ```sh
-# Detect all packages that include changes using git, and build them
-pnpm build:changes
+# Select a package and build it (clean dist folder, and build package)
+pnpm build:pick
 ```
 
 ### Development mode
@@ -165,27 +165,6 @@ pnpm dev
 # Start development mode for selected packages or apps
 # This command allow to pick the packages to execute in watch-mode, avoid conflicts, and optimize performances during development
 pnpm dev:pick
-```
-
-### Reset
-
-If you meet problems with the build, you can use the command `pnpm clean` to remove the dist folders of the packages.
-
-The following commands clean the packages output folders for then build them again.
-
-```sh
-# Reset all packages
-pnpm reset
-```
-
-```sh
-# Select a package and reset it
-pnpm reset:pick
-```
-
-```sh
-# Detect all packages that include changes using git, and reset them
-pnpm reset:changes
 ```
 
 ### Includes a new package
