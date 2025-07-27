@@ -1,11 +1,11 @@
 import type { IntlayerConfig } from '@intlayer/config/client';
 import type { FetcherOptions } from '../fetcher';
 import { getAiAPI } from './ai';
-import { AuthAPI, getAuthAPI } from './auth';
+import { getAuthAPI } from './auth';
 import { getDictionaryAPI } from './dictionary';
 import { getEditorAPI } from './editor';
 import { getNewsletterAPI } from './newsletter';
-import { getOAuthAPI, oAuthAPI } from './oAuth';
+import { getOAuthAPI } from './oAuth';
 import { getOrganizationAPI } from './organization';
 import { getProjectAPI } from './project';
 import { getSearchAPI } from './search';
@@ -17,8 +17,8 @@ interface IntlayerAPIReturn {
   organization: ReturnType<typeof getOrganizationAPI>;
   project: ReturnType<typeof getProjectAPI>;
   user: ReturnType<typeof getUserAPI>;
-  auth: AuthAPI;
-  oAuth: oAuthAPI;
+  auth: ReturnType<typeof getAuthAPI>;
+  oAuth: ReturnType<typeof getOAuthAPI>;
   dictionary: ReturnType<typeof getDictionaryAPI>;
   stripe: ReturnType<typeof getStripeAPI>;
   ai: ReturnType<typeof getAiAPI>;

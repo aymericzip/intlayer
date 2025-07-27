@@ -74,8 +74,7 @@
   },
   "dependencies": {
     "@intlayer/config": "workspace:*",
-    "better-auth": "^1.3.4",
-    "nanostores": "npm:nanostores-cjs@0.7.1"
+    "better-auth": "^1.3.4"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.1",

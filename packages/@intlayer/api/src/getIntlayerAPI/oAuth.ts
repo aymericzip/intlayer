@@ -3,13 +3,7 @@ import type { IntlayerConfig } from '@intlayer/config/client';
 import { FetcherOptions, fetcher } from '../fetcher';
 import { GetOAuth2TokenBody, GetOAuth2TokenResult } from '../types';
 
-export interface oAuthAPI {
-  getOAuth2AccessToken: (
-    otherOptions?: FetcherOptions
-  ) => Promise<GetOAuth2TokenResult>;
-}
-
-export const getOAuthAPI = (intlayerConfig?: IntlayerConfig): oAuthAPI => {
+export const getOAuthAPI = (intlayerConfig?: IntlayerConfig) => {
   const backendURL =
     intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
   const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
