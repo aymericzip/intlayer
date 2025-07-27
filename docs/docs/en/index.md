@@ -63,6 +63,9 @@ Organize your multilingual content close to your code to keep everything consist
 - **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/conditional.md)**  
   Learn how to use conditional logic in Intlayer to create dynamic content.
 
+- **[Gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md)**  
+  Learn how to use gender logic in Intlayer to create dynamic content.
+
 - **[Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)**
   Discover how to insert values in a string using insertion placeholders.
 
