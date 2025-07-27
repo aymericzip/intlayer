@@ -1,4 +1,4 @@
-import { AIOptions, getAiAPI } from '@intlayer/api'; // Importing only getAiAPI for now
+import { AIOptions, getAiAPI, getOAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
   getFilteredLocalesContent,
   listGitFiles,
@@ -24,7 +24,6 @@ import {
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
 import { dirname, extname, join } from 'path';
-import { getOAuthAPI } from '../../api/dist/types/getIntlayerAPI/oAuth';
 import { checkAIAccess } from './utils/checkAIAccess';
 
 // Arguments for the fill function

@@ -1,4 +1,4 @@
-import { getDictionaryAPI } from '@intlayer/api';
+import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
 import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
   getAppLogger,
@@ -11,7 +11,6 @@ import * as fsPromises from 'fs/promises';
 import pLimit from 'p-limit';
 import { relative } from 'path';
 import * as readline from 'readline';
-import { getOAuthAPI } from '../../api/dist/types/getIntlayerAPI/oAuth';
 
 type PushOptions = {
   deleteLocaleDictionary?: boolean;

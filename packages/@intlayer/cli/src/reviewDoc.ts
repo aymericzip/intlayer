@@ -1,4 +1,4 @@
-import { AIOptions } from '@intlayer/api'; // Importing only getAiAPI for now
+import { AIOptions, getOAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
   getAppLogger,
@@ -14,7 +14,6 @@ import { readFile } from 'fs/promises';
 import pLimit from 'p-limit';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { getOAuthAPI } from '../../api/dist/types/getIntlayerAPI/oAuth';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAIAccess';
 import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
