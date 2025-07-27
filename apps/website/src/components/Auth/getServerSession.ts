@@ -4,9 +4,7 @@ import { headers } from 'next/headers';
 
 export const getServerSession = async (): Promise<Session | null> => {
   try {
-    const { data } = await (
-      await getAuthAPI()
-    ).getSession({
+    const { data } = await getAuthAPI().getSession({
       fetchOptions: {
         headers: await headers(),
       },

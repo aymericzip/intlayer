@@ -23,7 +23,7 @@ export const useSession = (
   } = useAsync(
     'getSession',
     async () => {
-      const intlayerAPI = await getAuthAPI(config);
+      const intlayerAPI = getAuthAPI(config);
       const result = await intlayerAPI.getSession();
       return result.data as unknown as Session;
     },

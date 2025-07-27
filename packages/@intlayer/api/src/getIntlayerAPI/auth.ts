@@ -31,9 +31,7 @@ export interface AuthAPI {
   listSessions: AuthClient['listSessions'];
 }
 
-export const getAuthAPI = async (
-  intlayerConfig?: IntlayerConfig
-): Promise<AuthAPI> => {
+export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
   const backendURL =
     intlayerConfig?.editor?.backendURL ?? configuration.editor?.backendURL;
 
@@ -43,86 +41,93 @@ export const getAuthAPI = async (
     );
   }
 
-  const { createAuthClient } = await import('better-auth/client');
-  /*
-   * Extract each method to avoid type inference issues at build time.
-   */
-  const authClient: AuthClient = createAuthClient({
-    baseURL: backendURL,
-    withCredentials: true, // makes fetch forward cookies
-  });
+  const getAuthClient: () => Promise<AuthClient> = async () => {
+    /*
+     * Extract each method to avoid type inference issues at build time.
+     */
+    const { createAuthClient } = await import('better-auth/client');
+
+    return createAuthClient({
+      baseURL: backendURL,
+      withCredentials: true, // makes fetch forward cookies
+    });
+  };
 
   const signInEmail: AuthClient['signIn']['email'] = async (...args) =>
-    await authClient.signIn.email(...args);
+    (await getAuthClient()).signIn.email(...args);
 
   const signInSocial: AuthClient['signIn']['social'] = async (...args) =>
-    await authClient.signIn.social(...args);
+    (await getAuthClient()).signIn.social(...args);
 
   const signUpEmail: AuthClient['signUp']['email'] = async (...args) =>
-    await authClient.signUp.email(...args);
+    (await getAuthClient()).signUp.email(...args);
 
   const signOut: AuthClient['signOut'] = async (...args) =>
-    await authClient.signOut(...args);
+    (await getAuthClient()).signOut(...args);
 
   const changePasswordSession: AuthClient['changePassword'] = async (...args) =>
-    await authClient.changePassword(...args);
+    (await getAuthClient()).changePassword(...args);
 
   const requestPasswordResetSession: AuthClient['requestPasswordReset'] =
-    async (...args) => await authClient.requestPasswordReset(...args);
+    async (...args) => (await getAuthClient()).requestPasswordReset(...args);
 
-  const resetPassword = authClient.resetPassword;
+  // @ts-expect-error - resetPassword is not typed
+  const resetPassword: AuthClient['resetPassword'] = async (...args) =>
+    (await getAuthClient()).resetPassword(...args);
 
   const verifyEmailSession: AuthClient['verifyEmail'] = async (...args) =>
-    await authClient.verifyEmail(...args);
+    (await getAuthClient()).verifyEmail(...args);
 
   const getSession: AuthClient['getSession'] = async (...args) =>
-    await authClient.getSession(...args);
+    (await getAuthClient()).getSession(...args);
 
   const forgetPassword: AuthClient['forgetPassword'] = async (...args) =>
-    await authClient.forgetPassword(...args);
+    (await getAuthClient()).forgetPassword(...args);
 
   const sendVerificationEmail: AuthClient['sendVerificationEmail'] = async (
     ...args
-  ) => await authClient.sendVerificationEmail(...args);
+  ) => (await getAuthClient()).sendVerificationEmail(...args);
 
   const changeEmail: AuthClient['changeEmail'] = async (...args) =>
-    await authClient.changeEmail(...args);
+    (await getAuthClient()).changeEmail(...args);
 
-  const deleteUser = authClient.deleteUser;
+  // @ts-expect-error - deleteUser is not typed
+  const deleteUser: AuthClient['deleteUser'] = async (...args) =>
+    (await getAuthClient()).deleteUser(...args);
 
   const revokeSession: AuthClient['revokeSession'] = async (...args) =>
-    await authClient.revokeSession(...args);
+    (await getAuthClient()).revokeSession(...args);
 
   const revokeSessions: AuthClient['revokeSessions'] = async (...args) =>
-    await authClient.revokeSessions(...args);
+    (await getAuthClient()).revokeSessions(...args);
 
   const revokeOtherSessions: AuthClient['revokeOtherSessions'] = async (
     ...args
-  ) => await authClient.revokeOtherSessions(...args);
+  ) => (await getAuthClient()).revokeOtherSessions(...args);
 
   const linkSocial: AuthClient['linkSocial'] = async (...args) =>
-    await authClient.linkSocial(...args);
+    (await getAuthClient()).linkSocial(...args);
 
   const listAccounts: AuthClient['listAccounts'] = async (...args) =>
-    await authClient.listAccounts(...args);
+    (await getAuthClient()).listAccounts(...args);
 
   const unlinkAccount: AuthClient['unlinkAccount'] = async (...args) =>
-    await authClient.unlinkAccount(...args);
+    (await getAuthClient()).unlinkAccount(...args);
 
   const refreshToken: AuthClient['refreshToken'] = async (...args) =>
-    await authClient.refreshToken(...args);
+    (await getAuthClient()).refreshToken(...args);
 
   const getAccessToken: AuthClient['getAccessToken'] = async (...args) =>
-    await authClient.getAccessToken(...args);
+    (await getAuthClient()).getAccessToken(...args);
 
   const accountInfo: AuthClient['accountInfo'] = async (...args) =>
-    await authClient.accountInfo(...args);
+    (await getAuthClient()).accountInfo(...args);
 
   const updateUser: AuthClient['updateUser'] = async (...args) =>
-    await authClient.updateUser(...args);
+    (await getAuthClient()).updateUser(...args);
 
   const listSessions: AuthClient['listSessions'] = async (...args) =>
-    await authClient.listSessions(...args);
+    (await getAuthClient()).listSessions(...args);
 
   return {
     signInEmail,

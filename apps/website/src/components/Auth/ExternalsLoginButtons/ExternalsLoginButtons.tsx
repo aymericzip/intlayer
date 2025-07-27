@@ -16,7 +16,7 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
   const loginWithGitHub = async () => {
     const origin = window.location.href;
 
-    const authAPI = await getAuthAPI();
+    const authAPI = getAuthAPI();
 
     await authAPI.signInSocial({
       provider: 'github',
@@ -49,7 +49,7 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
   const loginWithGoogle = async () => {
     const origin = window.location.href;
 
-    const authAPI = await getAuthAPI();
+    const authAPI = getAuthAPI();
 
     await authAPI.signInSocial({
       provider: 'google',

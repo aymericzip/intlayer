@@ -17,7 +17,7 @@ interface IntlayerAPIReturn {
   organization: ReturnType<typeof getOrganizationAPI>;
   project: ReturnType<typeof getProjectAPI>;
   user: ReturnType<typeof getUserAPI>;
-  auth: Promise<AuthAPI>;
+  auth: AuthAPI;
   oAuth: oAuthAPI;
   dictionary: ReturnType<typeof getDictionaryAPI>;
   stripe: ReturnType<typeof getStripeAPI>;
