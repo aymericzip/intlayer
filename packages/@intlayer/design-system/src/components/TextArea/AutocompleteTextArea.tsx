@@ -83,9 +83,9 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
           currentLine,
           contextAfter,
           aiOptions: {
-            apiKey: configuration.editor.openAiApiKey,
-            model: configuration.editor.openAiApiModel,
-            temperature: configuration.editor.openAiApiTemperature,
+            apiKey: configuration.ai?.apiKey,
+            model: configuration.ai?.model,
+            temperature: configuration.ai?.temperature,
           },
         });
         const autocompletion = response?.data?.autocompletion ?? '';

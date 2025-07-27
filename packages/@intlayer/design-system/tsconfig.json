@@ -24,9 +24,6 @@
     "noFallthroughCasesInSwitch": true
   },
 
-  "include": [
-    "**/*",
-    "../../../apps/website/src/components/ProfileDropdown/ProfileDropDown"
-  ],
+  "include": ["**/*"],
   "exclude": ["node_modules", "dist", "storybook-static"]
 }

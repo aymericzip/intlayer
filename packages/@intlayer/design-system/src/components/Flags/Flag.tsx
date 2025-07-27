@@ -20,7 +20,7 @@ import australia from './au.svg';
 import azerbaijan from './az.svg';
 import bosniaAndHerzegovina from './ba.svg';
 // import barbados from './bb.svg';
-// import bangladesh from './bd.svg';
+import bangladesh from './bd.svg';
 import belgium from './be.svg';
 // import burkinaFaso from './bf.svg';
 import bulgaria from './bg.svg';
@@ -34,7 +34,6 @@ import bolivia from './bo.svg';
 // import bonaireSintEustatiusAndSaba from './bq.svg';
 import brazil from './br.svg';
 // import bahamas from './bs.svg';
-// import bhutan from './bt.svg';
 // import bouvetIsland from './bv.svg';
 // import botswana from './bw.svg';
 import belarus from './by.svg';
@@ -118,12 +117,11 @@ import iran from './ir.svg';
 import iceland from './is.svg';
 import italy from './it.svg';
 import jamaica from './jm.svg';
-// import cambodia from './kh.svg';
-// import comoros from './km.svg';
 import jordan from './jo.svg';
 import japan from './jp.svg';
 import kenya from './ke.svg';
 import kyrgyzstan from './kg.svg';
+import cambodia from './kh.svg';
 import southKorea from './kr.svg';
 import kuwait from './kw.svg';
 // import caymanIslands from './ky.svg';
@@ -152,7 +150,7 @@ import kuwait from './kw.svg';
 // import jersey from './je.svg';
 import kazakhstan from './kz.svg';
 // import kiribati from './ki.svg';
-// import laos from './la.svg';
+import laos from './la.svg';
 import lebanon from './lb.svg';
 // import lesotho from './ls.svg';
 // import liberia from './lr.svg';
@@ -182,67 +180,40 @@ import libya from './ly.svg';
 import morocco from './ma.svg';
 import monaco from './mc.svg';
 // import mozambique from './mz.svg';
-// import myanmar from './mm.svg';
-// import namibia from './na.svg';
-// import nauru from './nr.svg';
-// import nepal from './np.svg';
-// import newCaledonia from './nc.svg';
-// import niger from './ne.svg';
-// import nigeria from './ng.svg';
-// import niue from './nu.svg';
-// import norfolkIsland from './nf.svg';
-// import northKorea from './kp.svg';
+// import ascensionIsland from './sh-ac.svg';
+// import canaryIslands from './ic.svg';
+// import pacificCommunity from './pc.svg';
+// import saintHelena from './sh-hl.svg';
+// import tristanDaCunha from './sh-ta.svg';
+import ethiopia from './et.svg';
 import northMacedonia from './mk.svg';
+import myanmar from './mm.svg';
 import mongolia from './mn.svg';
 import macau from './mo.svg';
 import malta from './mt.svg';
 import maldives from './mv.svg';
 import mexico from './mx.svg';
 import malaysia from './my.svg';
+import nigeria from './ng.svg';
 import nicaragua from './ni.svg';
 import netherlands from './nl.svg';
-// import northernMarianaIslands from './mp.svg';
 import norway from './no.svg';
+import nepal from './np.svg';
 import newZealand from './nz.svg';
 import oman from './om.svg';
-// import palau from './pw.svg';
 import panama from './pa.svg';
-// import papuaNewGuinea from './pg.svg';
 import peru from './pe.svg';
 import philippines from './ph.svg';
 import pakistan from './pk.svg';
-// import pitcairn from './pn.svg';
 import poland from './pl.svg';
 import puertoRico from './pr.svg';
 import portugal from './pt.svg';
 import paraguay from './py.svg';
 import qatar from './qa.svg';
 import romania from './ro.svg';
-// import rwanda from './rw.svg';
-// import réunion from './re.svg';
-// import saintHelenaAscensionAndTristanDaCunha from './sh.svg';
-// import saintKittsAndNevis from './kn.svg';
-// import saintLucia from './lc.svg';
-// import saintMartin from './mf.svg';
-// import saintPierreAndMiquelon from './pm.svg';
-// import sanMarino from './sm.svg';
-// import saoTomeAndPrincipe from './st.svg';
-// import senegal from './sn.svg';
 import serbia from './rs.svg';
 import russia from './ru.svg';
 import saudiArabia from './sa.svg';
-// import seychelles from './sc.svg';
-// import sierraLeone from './sl.svg';
-// import sintMaarten from './sx.svg';
-// import solomonIslands from './sb.svg';
-// import somalia from './so.svg';
-// import southGeorgiaAndTheSouthSandwichIslands from './gs.svg';
-// import southSudan from './ss.svg';
-// import sriLanka from './lk.svg';
-// import stateOfPalestine from './ps.svg';
-// import sudan from './sd.svg';
-// import suriname from './sr.svg';
-// import svalbardAndJanMayen from './sj.svg';
 import sweden from './se.svg';
 import singapore from './sg.svg';
 import slovenia from './si.svg';
@@ -263,14 +234,7 @@ import vietnam from './vn.svg';
 import unknown from './xx.svg';
 import yemen from './ye.svg';
 import southAfrica from './za.svg';
-// import turksAndCaicosIslands from './tc.svg';
-// import zambia from './zm.svg';
 import zimbabwe from './zw.svg';
-// import ascensionIsland from './sh-ac.svg';
-// import canaryIslands from './ic.svg';
-// import pacificCommunity from './pc.svg';
-// import saintHelena from './sh-hl.svg';
-// import tristanDaCunha from './sh-ta.svg';
 
 type FlagProps = ImgHTMLAttributes<HTMLImageElement> & {
   locale: Locales;
@@ -508,6 +472,21 @@ const flagRecord: Record<Locales, typeof unknown> = {
   [Locales.CHINESE_MACAU]: macau,
   [Locales.CHINESE_SINGAPORE]: singapore,
   [Locales.ZULU_SOUTH_AFRICA]: southAfrica,
+  [Locales.BENGALI]: india,
+  [Locales.BENGALI_BANGLADESH]: bangladesh,
+  [Locales.BENGALI_INDIA]: india,
+  [Locales.BENGALI_MYANMAR]: myanmar,
+  [Locales.BURMESE]: myanmar,
+  [Locales.BURMESE_MYANMAR]: myanmar,
+  [Locales.KHMER]: cambodia,
+  [Locales.KHMER_CAMBODIA]: cambodia,
+  [Locales.LAO]: laos,
+  [Locales.LAO_LAOS]: laos,
+  [Locales.YORUBA]: nigeria,
+  [Locales.YORUBA_NIGERIA]: nigeria,
+  [Locales.AMHARIC]: ethiopia,
+  [Locales.AMHARIC_ETHIOPIA]: ethiopia,
+  [Locales.NEPALI]: nepal,
 };
 
 export const Flag: FC<FlagProps> = ({ locale, ...props }): JSX.Element => (

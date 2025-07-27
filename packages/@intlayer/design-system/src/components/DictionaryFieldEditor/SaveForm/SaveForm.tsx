@@ -81,7 +81,9 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       ...editedContent?.[dictionary.key],
     };
 
-    await writeDictionary(updatedDictionary).then(() => {
+    await writeDictionary({
+      dictionary: updatedDictionary,
+    }).then(() => {
       setLocaleDictionary(editedContent?.[dictionary.key]);
       restoreEditedContent(dictionary.key);
     });

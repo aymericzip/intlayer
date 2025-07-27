@@ -88,7 +88,6 @@ export const IntlayerPrunePlugin = (
         });
 
         if (result?.code) {
-          console.log('result.code', result.code);
           return {
             code: result.code,
             map: result.map,

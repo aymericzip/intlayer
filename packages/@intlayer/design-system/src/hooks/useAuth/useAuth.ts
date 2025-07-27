@@ -1,8 +1,7 @@
 'use client';
 
-import { OAuth2Token } from '@intlayer/backend';
+import type { OAuth2Token, Session } from '@intlayer/backend';
 import type { IntlayerConfig } from '@intlayer/config/client';
-import { Session } from './index';
 import { useOAuth2 } from './useOAuth2';
 import { useSession } from './useSession';
 
