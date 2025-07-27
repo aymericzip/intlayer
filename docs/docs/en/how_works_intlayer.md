@@ -95,7 +95,7 @@ Intlayer also provides a visual editor to allow you to edit your content in a vi
 - The server is a simple Express application that listens to requests from the client and retreives the content of your application, such as the `dictionaries` and the configuration to make it accessible on the client side.
 - On the other hand, the client is a React application that is used to interact with your content using a visual interface.
 
-When you call your content using `useIntlayer` and the editor is enabled, it automatically wraps your strings with an Proxy object named `IntlayerNode`. This node uses `window.sendMessage` to communicate with a wrapped iframe containing the visual editor interface.
+When you call your content using `useIntlayer` and the editor is enabled, it automatically wraps your strings with an Proxy object named `IntlayerNode`. This node uses `window.postMessage` to communicate with a wrapped iframe containing the visual editor interface.
 On the editor side, the editor listens to these messages and simulates real interaction with your content, allowing you to edit text directly in your application's context.
 
 ## App build optimization

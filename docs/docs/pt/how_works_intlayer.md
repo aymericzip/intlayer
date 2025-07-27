@@ -94,7 +94,7 @@ O Intlayer também fornece um editor visual para permitir que você edite seu co
 
 - O servidor é uma aplicação simples em Express que escuta requisições do cliente e recupera o conteúdo da sua aplicação, como os `dictionaries` e a configuração para torná-los acessíveis no lado do cliente.
 - Por outro lado, o cliente é uma aplicação React que é usada para interagir com seu conteúdo usando uma interface visual.
-  Quando você chama seu conteúdo usando `useIntlayer` e o editor está ativado, ele automaticamente envolve suas strings com um objeto Proxy chamado `IntlayerNode`. Esse nó usa `window.sendMessage` para se comunicar com um iframe encapsulado que contém a interface do editor visual.  
+  Quando você chama seu conteúdo usando `useIntlayer` e o editor está ativado, ele automaticamente envolve suas strings com um objeto Proxy chamado `IntlayerNode`. Esse nó usa `window.postMessage` para se comunicar com um iframe encapsulado que contém a interface do editor visual.  
   No lado do editor, ele escuta essas mensagens e simula uma interação real com seu conteúdo, permitindo que você edite o texto diretamente no contexto da sua aplicação.
 
 ## Otimização da construção do aplicativo
