@@ -72,9 +72,6 @@
     "test:watch": "vitest",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
-  "overrides": {
-    "nanostores": "npm:nanostores-cjs@0.7.1"
-  },
   "dependencies": {
     "@intlayer/config": "workspace:*",
     "better-auth": "^1.3.4",
