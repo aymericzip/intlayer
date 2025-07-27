@@ -1,7 +1,7 @@
 /* AUTO-GENERATED – DO NOT EDIT */
 /* REGENERATE USING `pnpm prepare` */
-import { LocalesValues } from 'intlayer';
 import { readFile } from 'fs/promises';
+import { LocalesValues } from 'intlayer';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -455,6 +455,47 @@ export const docsEntry = {
         join(dir, '../../../docs/hi/dictionary/function_fetching.md'),
         'utf8'
       )
+    ),
+  } as unknown as Record<LocalesValues, Promise<string>>,
+  './docs/en/dictionary/gender.md': {
+    en: Promise.resolve(
+      readFile(join(dir, '../../../docs/en/dictionary/gender.md'), 'utf8')
+    ),
+    fr: Promise.resolve(
+      readFile(join(dir, '../../../docs/fr/dictionary/gender.md'), 'utf8')
+    ),
+    ru: Promise.resolve(
+      readFile(join(dir, '../../../docs/ru/dictionary/gender.md'), 'utf8')
+    ),
+    ja: Promise.resolve(
+      readFile(join(dir, '../../../docs/ja/dictionary/gender.md'), 'utf8')
+    ),
+    ko: Promise.resolve(
+      readFile(join(dir, '../../../docs/ko/dictionary/gender.md'), 'utf8')
+    ),
+    zh: Promise.resolve(
+      readFile(join(dir, '../../../docs/zh/dictionary/gender.md'), 'utf8')
+    ),
+    es: Promise.resolve(
+      readFile(join(dir, '../../../docs/es/dictionary/gender.md'), 'utf8')
+    ),
+    de: Promise.resolve(
+      readFile(join(dir, '../../../docs/de/dictionary/gender.md'), 'utf8')
+    ),
+    ar: Promise.resolve(
+      readFile(join(dir, '../../../docs/ar/dictionary/gender.md'), 'utf8')
+    ),
+    pt: Promise.resolve(
+      readFile(join(dir, '../../../docs/pt/dictionary/gender.md'), 'utf8')
+    ),
+    'en-GB': Promise.resolve(
+      readFile(join(dir, '../../../docs/en-GB/dictionary/gender.md'), 'utf8')
+    ),
+    it: Promise.resolve(
+      readFile(join(dir, '../../../docs/it/dictionary/gender.md'), 'utf8')
+    ),
+    hi: Promise.resolve(
+      readFile(join(dir, '../../../docs/hi/dictionary/gender.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/get_started.md': {
@@ -1857,6 +1898,47 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/introduction.md'), 'utf8')
+    ),
+  } as unknown as Record<LocalesValues, Promise<string>>,
+  './docs/en/locale_mapper.md': {
+    en: Promise.resolve(
+      readFile(join(dir, '../../../docs/en/locale_mapper.md'), 'utf8')
+    ),
+    fr: Promise.resolve(
+      readFile(join(dir, '../../../docs/fr/locale_mapper.md'), 'utf8')
+    ),
+    ru: Promise.resolve(
+      readFile(join(dir, '../../../docs/ru/locale_mapper.md'), 'utf8')
+    ),
+    ja: Promise.resolve(
+      readFile(join(dir, '../../../docs/ja/locale_mapper.md'), 'utf8')
+    ),
+    ko: Promise.resolve(
+      readFile(join(dir, '../../../docs/ko/locale_mapper.md'), 'utf8')
+    ),
+    zh: Promise.resolve(
+      readFile(join(dir, '../../../docs/zh/locale_mapper.md'), 'utf8')
+    ),
+    es: Promise.resolve(
+      readFile(join(dir, '../../../docs/es/locale_mapper.md'), 'utf8')
+    ),
+    de: Promise.resolve(
+      readFile(join(dir, '../../../docs/de/locale_mapper.md'), 'utf8')
+    ),
+    ar: Promise.resolve(
+      readFile(join(dir, '../../../docs/ar/locale_mapper.md'), 'utf8')
+    ),
+    pt: Promise.resolve(
+      readFile(join(dir, '../../../docs/pt/locale_mapper.md'), 'utf8')
+    ),
+    'en-GB': Promise.resolve(
+      readFile(join(dir, '../../../docs/en-GB/locale_mapper.md'), 'utf8')
+    ),
+    it: Promise.resolve(
+      readFile(join(dir, '../../../docs/it/locale_mapper.md'), 'utf8')
+    ),
+    hi: Promise.resolve(
+      readFile(join(dir, '../../../docs/hi/locale_mapper.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/mcp_server.md': {

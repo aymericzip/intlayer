@@ -230,6 +230,24 @@ const docDataContent: any = {
               }),
               default: getDocMetadata('./docs/en/dictionary/condition.md'),
             },
+            gender: {
+              title: t({
+                en: 'Gender',
+                'en-GB': 'Gender',
+                fr: 'Genre',
+                es: 'Género',
+                de: 'Geschlecht',
+                it: 'Genere',
+                ja: '性別',
+                ko: '성별',
+                zh: '性别',
+                pt: 'Gênero',
+                hi: 'लिंग',
+                ar: 'جنس',
+                ru: 'Пол',
+              }),
+              default: getDocMetadata('./docs/en/dictionary/gender.md'),
+            },
             insertion: {
               title: t({
                 en: 'Insertion',
