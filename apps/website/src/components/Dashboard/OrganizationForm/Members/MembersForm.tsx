@@ -18,7 +18,7 @@ import {
   useGetUsers,
   useUpdateOrganizationMembers,
 } from '@intlayer/design-system/hooks';
-import { X } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import { RemoveMemberModal } from './RemoveMemberModal';
@@ -126,15 +126,14 @@ export const MembersForm: FC = () => {
                 placeholder={newMemberEmailInput.placeholder.value}
               />
               <Form.Button
-                className="w-auto"
+                className="mb-2"
                 type="submit"
                 color="text"
-                variant="outline"
+                size="icon-lg"
                 isLoading={IsSubmittingNewUser}
                 label={newMemberSubmitButton.label.value}
-              >
-                {newMemberSubmitButton.label}
-              </Form.Button>
+                Icon={Plus}
+              />
             </Form>
           )}
 
