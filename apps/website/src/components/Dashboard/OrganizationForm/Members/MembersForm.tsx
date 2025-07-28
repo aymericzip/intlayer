@@ -143,34 +143,36 @@ export const MembersForm: FC = () => {
             onSubmitSuccess={onSubmitSuccess}
             {...form}
           >
-            <Form.Label>{title}</Form.Label>
-            <Form.Description>{description}</Form.Description>
+            <div className="flex flex-col gap-2 px-3">
+              <Form.Label>{title}</Form.Label>
+              <Form.Description>{description}</Form.Description>
 
-            {!organization?.membersIds.length && (
-              <span className="text-neutral flex size-full justify-center text-sm">
-                {noMembers}
-              </span>
-            )}
-            <div className="border-text flex max-h-48 flex-col gap-2 overflow-auto rounded-xl border-2 p-2">
-              {organization?.membersIds.map((memberId) => (
-                <div
-                  key={String(memberId)}
-                  className="bg-text/10 flex items-center justify-between rounded-lg px-2 py-1"
-                >
-                  <span>{getUserName(memberId)}</span>
-                  {isOrganizationAdmin && (
-                    <Form.Button
-                      color="text"
-                      label={deleteMemberButton.label.value}
-                      variant="hoverable"
-                      size="icon-md"
-                      onClick={() => setMemberIdToRemove(memberId)}
-                    >
-                      <X size={16} />
-                    </Form.Button>
-                  )}
-                </div>
-              ))}
+              {!organization?.membersIds.length && (
+                <span className="text-neutral flex size-full justify-center text-sm">
+                  {noMembers}
+                </span>
+              )}
+              <div className="border-text flex max-h-48 flex-col gap-2 overflow-auto rounded-xl border-2 p-2">
+                {organization?.membersIds.map((memberId) => (
+                  <div
+                    key={String(memberId)}
+                    className="bg-text/10 flex items-center justify-between rounded-lg px-2 py-1"
+                  >
+                    <span>{getUserName(memberId)}</span>
+                    {isOrganizationAdmin && (
+                      <Form.Button
+                        color="text"
+                        label={deleteMemberButton.label.value}
+                        variant="hoverable"
+                        size="icon-md"
+                        onClick={() => setMemberIdToRemove(memberId)}
+                      >
+                        <X size={16} />
+                      </Form.Button>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
 
             <Form.MultiSelect
