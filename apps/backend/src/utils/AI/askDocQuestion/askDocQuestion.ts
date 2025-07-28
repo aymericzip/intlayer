@@ -147,6 +147,10 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
   });
 
+  if (process.env.SKIP_DOC_EMBEDDINGS_INDEX === 'true') {
+    return;
+  }
+
   // Retrieve documentation and blog posts in English locale
   const frequentQuestions = await getFrequentQuestions();
   const docs = await getDocs();
