@@ -4,6 +4,7 @@ import {
   getAppLogger,
   getConfiguration,
   IntlayerConfig,
+  normalizePath,
 } from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import merge from 'deepmerge';
@@ -144,9 +145,13 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   const turboConfig = {
     resolveAlias: {
       // "prefix by './' to consider the path as relative to the project root. This is necessary for turbo to work correctly."
-      '@intlayer/dictionaries-entry': `./${relativeDictionariesPath}`,
-      '@intlayer/unmerged-dictionaries-entry': `./${relativeUnmergedDictionariesPath}`,
-      '@intlayer/config/built': `./${relativeConfigurationPath}`,
+      '@intlayer/dictionaries-entry': normalizePath(
+        `./${relativeDictionariesPath}`
+      ),
+      '@intlayer/unmerged-dictionaries-entry': normalizePath(
+        `./${relativeUnmergedDictionariesPath}`
+      ),
+      '@intlayer/config/built': normalizePath(`./${relativeConfigurationPath}`),
     },
     rules: {
       '*.node': {
@@ -155,6 +160,10 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
       },
     },
   };
+
+  console.log({
+    turboConfig,
+  });
 
   const serverExternalPackages = [
     'esbuild',
