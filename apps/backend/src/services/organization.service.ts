@@ -77,15 +77,6 @@ export const createOrganization = async (
   }
 
   try {
-    console.log({
-      organization: {
-        creatorId: userId,
-        membersIds: [userId],
-        adminsIds: [userId],
-        ...organization,
-      },
-    });
-
     const result = await OrganizationModel.create({
       creatorId: userId,
       membersIds: [userId],
@@ -95,7 +86,6 @@ export const createOrganization = async (
 
     return result;
   } catch (error) {
-    console.error('Organization creation failed:', error);
     throw new GenericError('ORGANIZATION_CREATION_FAILED', {
       error: (error as Error).message,
     });
