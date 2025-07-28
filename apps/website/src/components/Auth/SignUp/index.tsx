@@ -5,7 +5,7 @@ import type { UserAPI } from '@intlayer/backend';
 import { useRegister } from '@intlayer/design-system/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, type FC } from 'react';
-import { VerifyEmailForm as VerifyEmailFormUI } from '../VerifyEmailForm';
+import { VerifyEmailForm as VerifyEmailFormUI } from '../VerifyEmail';
 import { SignUp } from './SignUpForm';
 import { SignUpForm as SignUpFormUI } from './SignUpForm/SignUpForm';
 

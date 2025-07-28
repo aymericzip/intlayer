@@ -7,7 +7,7 @@ import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { FC } from 'react';
-import { ChangePassword } from '../ChangePasswordForm/ChangePasswordForm';
+import { ChangePassword } from '../ChangePassword/ChangePasswordForm';
 
 type DefinePasswordFormProps = {
   callbackUrl?: string;

@@ -1,8 +1,8 @@
+import { SignUpForm } from '@components/Auth/SignUp';
 import { Container } from '@intlayer/design-system';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
-import { SignUpForm } from '@/components/Auth/SignUpForm';
 export { generateMetadata } from './metadata';
 
 const SignUpPageContent: FC = () => {

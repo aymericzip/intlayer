@@ -1,8 +1,8 @@
+import { ResetPasswordForm } from '@components/Auth/ResetPassword';
 import { Container } from '@intlayer/design-system';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
-import { ResetPasswordForm } from '@/components/Auth/ResetPasswordForm';
 export { generateMetadata } from './metadata';
 
 const ResetPasswordPageContent: FC = () => {
