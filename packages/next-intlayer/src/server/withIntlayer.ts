@@ -161,10 +161,6 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
     },
   };
 
-  console.log({
-    turboConfig,
-  });
-
   const serverExternalPackages = [
     'esbuild',
     'module',
