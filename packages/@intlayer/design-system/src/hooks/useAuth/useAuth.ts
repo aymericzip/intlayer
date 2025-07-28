@@ -1,15 +1,15 @@
 'use client';
 
-import type { OAuth2Token, Session } from '@intlayer/backend';
+import type { OAuth2Token, SessionAPI } from '@intlayer/backend';
 import type { IntlayerConfig } from '@intlayer/config/client';
 import { useOAuth2 } from './useOAuth2';
 import { useSession } from './useSession';
 
 type SessionContextProps = {
-  session: Session | null | undefined;
-  setSession: (session: Session | null) => void;
-  fetchSession: () => Promise<Session | null | undefined>;
-  revalidateSession: () => Promise<Session | null | undefined>;
+  session: SessionAPI | null | undefined;
+  setSession: (session: SessionAPI | null) => void;
+  fetchSession: () => Promise<SessionAPI | null | undefined>;
+  revalidateSession: () => Promise<SessionAPI | null | undefined>;
   isAuthenticated: boolean;
   oAuth2AccessToken: OAuth2Token | null | undefined;
 };
@@ -18,7 +18,7 @@ export const useAuth = ({
   session: sessionProp,
   intlayerConfiguration,
 }: {
-  session?: Session | null;
+  session?: SessionAPI | null;
   intlayerConfiguration?: IntlayerConfig;
 } = {}): SessionContextProps => {
   const { session, fetchSession, revalidateSession, setSession } = useSession(

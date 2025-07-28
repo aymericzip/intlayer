@@ -10,7 +10,11 @@ export const ProfileDropDown: FC = () => {
 
   return (
     isAuthenticated && (
-      <ProfileDropDownUI fullname={userName} isLoggedIn={isAuthenticated}>
+      <ProfileDropDownUI
+        fullname={userName}
+        isLoggedIn={isAuthenticated}
+        src={user?.image ?? undefined}
+      >
         <ProfilePanel />
       </ProfileDropDownUI>
     )

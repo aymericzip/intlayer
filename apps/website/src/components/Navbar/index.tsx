@@ -142,7 +142,11 @@ export const Navbar: FC = () => {
           <LocaleSwitcher panelProps={{ className: '-left-16' }} />
           <SwitchThemeSwitcher />
           {isAuthenticated && (
-            <Avatar isLoggedIn={isAuthenticated} fullname={user?.name} />
+            <Avatar
+              isLoggedIn={isAuthenticated}
+              fullname={user?.name}
+              src={user?.image ?? undefined}
+            />
           )}
         </div>
       }
