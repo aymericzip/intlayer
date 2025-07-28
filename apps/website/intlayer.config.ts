@@ -30,7 +30,7 @@ const config: IntlayerConfig = {
   editor: {
     enabled: true,
     hotReload: false,
-    dictionaryPriorityStrategy: 'local_first',
+    dictionaryPriorityStrategy: 'distant_first',
     applicationURL: process.env.NEXT_PUBLIC_URL,
     editorURL: process.env.NEXT_PUBLIC_EDITOR_URL,
     cmsURL: process.env.NEXT_PUBLIC_CMS_URL,
@@ -40,6 +40,9 @@ const config: IntlayerConfig = {
   },
   build: {
     importMode: 'dynamic',
+  },
+  log: {
+    mode: 'verbose',
   },
 };
 
