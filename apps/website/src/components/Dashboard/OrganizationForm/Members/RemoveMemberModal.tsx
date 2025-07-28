@@ -45,7 +45,7 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
 
   useEffect(() => {
     if (organization?.membersIds) {
-      const membersIds = organization.membersIds.map((el) => String(el));
+      const membersIds = organization.membersIds;
 
       getUsers({ ids: membersIds });
     }
@@ -56,12 +56,12 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
     if (!memberId) return;
 
     const formattedData: UpdateOrganizationMembersBody = {
-      membersIds: organization.membersIds
-        .filter((id) => String(id) !== String(memberId))
-        .map((id) => ({
-          userId: id,
-          isAdmin: organization.adminsIds?.includes(id) ?? false,
-        })),
+      membersIds: organization.membersIds.filter(
+        (id) => String(id) !== String(memberId)
+      ),
+      adminsIds: organization.adminsIds?.filter(
+        (id) => String(id) !== String(memberId)
+      ),
     };
 
     await updateOrganizationMembers(formattedData);

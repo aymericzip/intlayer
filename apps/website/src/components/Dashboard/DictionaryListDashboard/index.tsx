@@ -1,20 +1,20 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
 import {
   Button,
+  Container,
+  DictionaryCreationForm,
+  H2,
   Loader,
   Modal,
-  Container,
-  H2,
-  DictionaryCreationForm,
 } from '@intlayer/design-system';
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionaryActions } from '@intlayer/editor-react';
 import { ChevronRight, Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
+import { useRouter } from 'next/navigation';
 import { Suspense, useState, type FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export const DictionaryListDashboardContent: FC = () => {
   const { setFocusedContent } = useFocusDictionaryActions();
@@ -36,7 +36,9 @@ export const DictionaryListDashboardContent: FC = () => {
       <H2 className="mb-6">{dictionaryList.title}</H2>
 
       {dictionaries.length === 0 && (
-        <span className="text-neutral text-sm">{noDictionaryView.title}</span>
+        <span className="text-neutral text-sm m-auto">
+          {noDictionaryView.title}
+        </span>
       )}
       {dictionaries.map((dictionary) => (
         <Button

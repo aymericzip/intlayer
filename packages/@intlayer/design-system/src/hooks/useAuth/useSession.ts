@@ -1,6 +1,6 @@
 'use client';
 
-import type { Session } from '@intlayer/backend';
+import type { SessionAPI } from '@intlayer/backend';
 import defaultConfiguration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
 import { useConfiguration } from '@intlayer/editor-react';
@@ -8,7 +8,7 @@ import { getAuthAPI } from '../auth';
 import { useAsync } from '../useAsync';
 
 export const useSession = (
-  sessionProp?: Session | null,
+  sessionProp?: SessionAPI | null,
   intlayerConfiguration?: IntlayerConfig
 ) => {
   const configuration = useConfiguration();
@@ -25,7 +25,7 @@ export const useSession = (
     async () => {
       const intlayerAPI = getAuthAPI(config);
       const result = await intlayerAPI.getSession();
-      return result.data as unknown as Session;
+      return result.data as unknown as SessionAPI;
     },
     {
       cache: true,

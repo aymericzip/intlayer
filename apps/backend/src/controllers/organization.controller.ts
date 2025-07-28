@@ -3,7 +3,7 @@ import type {
   OrganizationAPI,
   OrganizationCreationData,
 } from '@/types/organization.types';
-import type { User } from '@/types/user.types';
+import type { User, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
 import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { SessionModel } from '@models/session.model';
@@ -265,13 +265,6 @@ export const updateOrganization = async (
   }
 };
 
-type UserAndAdmin = { user: User; isAdmin: boolean };
-
-export type OrganizationMemberByIdOption = {
-  userId: string | Types.ObjectId;
-  isAdmin?: boolean;
-};
-
 export type AddOrganizationMemberBody = {
   userEmail: string;
 };
@@ -380,7 +373,8 @@ export const addOrganizationMember = async (
 };
 
 export type UpdateOrganizationMembersBody = Partial<{
-  membersIds: OrganizationMemberByIdOption[];
+  membersIds: (User | UserAPI)['id'][];
+  adminsIds: (User | UserAPI)['id'][];
 }>;
 export type UpdateOrganizationMembersResult = ResponseData<OrganizationAPI>;
 
@@ -393,26 +387,10 @@ export const updateOrganizationMembers = async (
   _next: NextFunction
 ): Promise<void> => {
   const { organization, roles } = res.locals;
-  const { membersIds } = req.body;
+  const { membersIds, adminsIds } = req.body;
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
-  }
-
-  if (membersIds?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_MUST_HAVE_MEMBER'
-    );
-    return;
-  }
-
-  if (membersIds?.map((el) => el.isAdmin)?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_MUST_HAVE_ADMIN'
-    );
     return;
   }
 
@@ -429,42 +407,47 @@ export const updateOrganizationMembers = async (
     return;
   }
 
+  if (!membersIds) {
+    ErrorHandler.handleGenericErrorResponse(res, 'INVALID_REQUEST_BODY');
+    return;
+  }
+
+  if (membersIds?.length === 0) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_MUST_HAVE_MEMBER'
+    );
+    return;
+  }
+
+  if (adminsIds?.filter((id) => membersIds?.includes(id)).length === 0) {
+    ErrorHandler.handleGenericErrorResponse(
+      res,
+      'ORGANIZATION_MUST_HAVE_ADMIN'
+    );
+    return;
+  }
+
   try {
-    let existingUsers: UserAndAdmin[] = [];
+    const existingUsers = await userService.getUsersByIds(membersIds);
 
-    if (membersIds) {
-      const userIdList = membersIds?.map((member) => member.userId);
-      const users = await userService.getUsersByIds(userIdList);
-
-      if (users) {
-        const userMap: UserAndAdmin[] = users.map((user) => {
-          const isAdmin =
-            membersIds.find(
-              (member) => String(member.userId) === String(user.id)
-            )?.isAdmin ?? false;
-
-          return {
-            user,
-            isAdmin,
-          };
-        });
-
-        existingUsers = userMap;
-      }
+    if (!existingUsers) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
     }
 
-    const formattedMembers: Types.ObjectId[] = existingUsers.map(
-      (user) => user.user.id
-    );
-    const formattedAdmin: Types.ObjectId[] = existingUsers
-      .filter((el) => el.isAdmin)
-      .map((user) => user.user.id);
+    const existingAdmins = await userService.getUsersByIds(adminsIds!);
+
+    if (!existingAdmins) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
 
     const updatedOrganization =
       await organizationService.updateOrganizationById(organization.id, {
         ...organization,
-        membersIds: formattedMembers,
-        adminsIds: formattedAdmin,
+        membersIds: existingUsers.map((user) => user.id),
+        adminsIds: existingAdmins.map((user) => user.id),
       });
 
     const responseData = formatResponse<OrganizationAPI>({

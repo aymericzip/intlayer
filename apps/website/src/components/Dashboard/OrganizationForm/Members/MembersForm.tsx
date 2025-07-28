@@ -1,10 +1,6 @@
 'use client';
 
-import type {
-  AddOrganizationMemberBody,
-  UpdateOrganizationMembersBody,
-  UserAPI,
-} from '@intlayer/backend';
+import type { AddOrganizationMemberBody, UserAPI } from '@intlayer/backend';
 import {
   Form,
   H3,
@@ -14,8 +10,8 @@ import {
 } from '@intlayer/design-system';
 import {
   useAddOrganizationMember,
-  useAuth,
   useGetUsers,
+  useSession,
   useUpdateOrganizationMembers,
 } from '@intlayer/design-system/hooks';
 import { Plus, X } from 'lucide-react';
@@ -29,7 +25,7 @@ import {
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
 
 export const MembersForm: FC = () => {
-  const { session } = useAuth();
+  const { session } = useSession();
   const { organization } = session ?? {};
   const MembersFormSchema = useOrganizationMembersSchema();
   const NewMembersFormSchema = useOrganizationNewMembersSchema();
@@ -63,14 +59,7 @@ export const MembersForm: FC = () => {
   const isOrganizationAdmin = session?.roles.includes('org_admin');
 
   const onSubmitSuccess = async (data: OrganizationMembersFormData) => {
-    const formattedData: UpdateOrganizationMembersBody = {
-      membersIds: data.membersIds.map((el) => ({
-        userId: el,
-        isAdmin: data.adminsIds.includes(el),
-      })),
-    };
-
-    await updateOrganizationMembers(formattedData);
+    await updateOrganizationMembers(data);
   };
 
   const onSubmitSuccessAddMember = async () => {

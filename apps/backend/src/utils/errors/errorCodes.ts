@@ -1377,6 +1377,19 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
+  INVALID_REQUEST_BODY: {
+    title: {
+      en: 'Invalid Request Body',
+      fr: 'Corps de requête invalide',
+      es: 'Cuerpo de solicitud inválido',
+    },
+    message: {
+      en: 'The request body is invalid.',
+      fr: 'Le corps de la requête est invalide.',
+      es: 'El cuerpo de la solicitud es inválido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

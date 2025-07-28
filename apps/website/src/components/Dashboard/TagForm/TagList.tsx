@@ -1,13 +1,13 @@
 'use client';
 
-import { Button, Loader, Modal, Container, H2 } from '@intlayer/design-system';
+import { PagesRoutes } from '@/Routes';
+import { Button, Container, H2, Loader, Modal } from '@intlayer/design-system';
 import { useGetTags } from '@intlayer/design-system/hooks';
 import { ChevronRight, Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
+import { useRouter } from 'next/navigation';
 import { Suspense, useState, type FC } from 'react';
 import { TagCreationForm } from './TagCreationForm';
-import { PagesRoutes } from '@/Routes';
 
 export const TagList: FC = () => {
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -26,7 +26,7 @@ export const TagList: FC = () => {
         <H2 className="mb-6">{tagList.title}</H2>
 
         {tags.length === 0 && (
-          <span className="text-neutral text-sm">{noTagView.title}</span>
+          <span className="text-neutral text-sm m-auto">{noTagView.title}</span>
         )}
         {tags.map((tag) => (
           <Button
