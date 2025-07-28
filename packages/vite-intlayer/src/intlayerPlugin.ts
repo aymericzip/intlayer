@@ -18,7 +18,7 @@ cleanOutputDir();
  * });
  * ```
  *  */
-export const intlayerPlugin = (pluginOptions = {}): PluginOption => {
+export const intlayerPlugin = (): PluginOption => {
   const {
     mainDir,
     configDir,
