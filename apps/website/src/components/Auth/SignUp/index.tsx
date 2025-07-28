@@ -4,7 +4,7 @@ import { PagesRoutes } from '@/Routes';
 import type { UserAPI } from '@intlayer/backend';
 import { useRegister } from '@intlayer/design-system/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, type FC } from 'react';
+import { useRef, useState, type FC } from 'react';
 import { VerifyEmailForm as VerifyEmailFormUI } from '../VerifyEmail';
 import { SignUp } from './SignUpForm';
 import { SignUpForm as SignUpFormUI } from './SignUpForm/SignUpForm';
@@ -17,11 +17,15 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const router = useRouter();
   const userId = useSearchParams().get('') as string | undefined;
   const [user, setUser] = useState<UserAPI | null>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email') ?? undefined;
 
   const { register } = useRegister();
 
   const handleRegistration = async ({ email, password }: SignUp) => {
     const { data } = await register({
+      name: email.split('@')[0],
       email,
       password,
     });
@@ -31,12 +35,28 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
     }
   };
 
-  const handleEmailValidated = async () => {
-    router.push(callbackUrl ?? PagesRoutes.Dashboard);
+  const getEmailContext = () => {
+    const email = searchParams.get('email');
+    if (email) {
+      return email;
+    } else {
+      const emailFromInput = emailInputRef.current;
+      return emailFromInput?.value;
+    }
   };
 
   const onClickBackToSignIn = () => {
-    router.push(PagesRoutes.Auth_SignIn);
+    const email = getEmailContext();
+
+    if (email) {
+      router.push(`${PagesRoutes.Auth_SignIn}?email=${email}`);
+    } else {
+      router.push(PagesRoutes.Auth_SignIn);
+    }
+  };
+
+  const handleEmailValidated = async () => {
+    onClickBackToSignIn();
   };
 
   return user ? (
@@ -48,6 +68,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
     <SignUpFormUI
       onSubmitSuccess={handleRegistration}
       onClickBackToSignIn={onClickBackToSignIn}
+      emailInputRef={emailInputRef}
+      defaultEmail={email}
     />
   );
 };

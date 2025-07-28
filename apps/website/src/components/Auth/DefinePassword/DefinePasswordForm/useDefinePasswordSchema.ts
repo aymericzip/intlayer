@@ -3,8 +3,6 @@ import { z } from 'zod/v4';
 
 export const useDefinePasswordSchema = () => {
   const {
-    requiredErrorPassword,
-    invalidTypeErrorPassword,
     invalidPasswordLengthError,
     requiredErrorNewPassword,
     invalidTypeErrorNewPassword,
@@ -15,14 +13,6 @@ export const useDefinePasswordSchema = () => {
 
   return z
     .object({
-      currentPassword: z
-        .string({
-          error: (issue) =>
-            issue.input === undefined
-              ? requiredErrorPassword.value
-              : invalidTypeErrorPassword.value,
-        })
-        .min(8, { error: invalidPasswordLengthError.value }),
       newPassword: z
         .string({
           error: (issue) =>

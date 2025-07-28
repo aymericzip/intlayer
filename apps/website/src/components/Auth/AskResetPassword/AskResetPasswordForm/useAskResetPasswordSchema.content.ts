@@ -1,7 +1,7 @@
 import { type Dictionary, t } from 'intlayer';
 
-export const useResetPasswordSchemaContent = {
-  key: 'reset-password-schema',
+export const useAskResetPasswordSchemaContent = {
+  key: 'ask-reset-password-schema',
   content: {
     requiredErrorEmail: t({
       en: 'Please enter your email address',
@@ -53,4 +53,4 @@ export const useResetPasswordSchemaContent = {
   },
 } satisfies Dictionary;
 
-export default useResetPasswordSchemaContent;
+export default useAskResetPasswordSchemaContent;

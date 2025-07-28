@@ -1,15 +1,11 @@
-import { DefineNewPasswordForm } from '@components/Auth/DefineNewPassword';
+import { AskResetPasswordForm } from '@components/Auth/AskResetPassword';
 import { Container } from '@intlayer/design-system';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
+export { generateMetadata } from './metadata';
 
-type ResetPasswordPageProps = {
-  userId: string;
-  secret: string;
-};
-
-const ResetPasswordPageContent: FC<ResetPasswordPageProps> = (props) => {
+const ResetPasswordPageContent: FC = () => {
   const { title, title2, description } = useIntlayer('reset-password-page');
 
   return (
@@ -27,24 +23,19 @@ const ResetPasswordPageContent: FC<ResetPasswordPageProps> = (props) => {
             <span className="text-neutral text-xs">{description}</span>
           </div>
 
-          <DefineNewPasswordForm {...props} />
+          <AskResetPasswordForm />
         </Container>
       </div>
     </>
   );
 };
 
-type PageParams = {
-  userId: string;
-  secret: string;
-};
-
-const ResetPasswordPage: NextPageIntlayer<PageParams> = async ({ params }) => {
-  const { locale, userId, secret } = await params;
+const ResetPasswordPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <ResetPasswordPageContent userId={userId} secret={secret} />
+      <ResetPasswordPageContent />
     </IntlayerServerProvider>
   );
 };

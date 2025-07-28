@@ -1,7 +1,7 @@
 import { t, type Dictionary } from 'intlayer';
 
-const resetPasswordContent = {
-  key: 'reset-password',
+const askResetPasswordContent = {
+  key: 'ask-reset-password',
   content: {
     emailInput: {
       label: t({
@@ -119,4 +119,4 @@ const resetPasswordContent = {
   },
 } satisfies Dictionary;
 
-export default resetPasswordContent;
+export default askResetPasswordContent;

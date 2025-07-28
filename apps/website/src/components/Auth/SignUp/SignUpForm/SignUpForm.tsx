@@ -2,19 +2,23 @@
 
 import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { type FC } from 'react';
+import { RefObject, type FC } from 'react';
 import { useSignUpSchema, type SignUp } from './useSignUpSchema';
 
 type SignUpFormProps = {
   onSubmitSuccess: (data: SignUp) => Promise<void>;
   onClickBackToSignIn: () => void;
   onSubmitError?: (error: Error) => void;
+  defaultEmail?: string;
+  emailInputRef?: RefObject<HTMLInputElement | null>;
 };
 
 export const SignUpForm: FC<SignUpFormProps> = ({
   onSubmitSuccess,
   onSubmitError,
   onClickBackToSignIn,
+  defaultEmail,
+  emailInputRef,
 }) => {
   const {
     emailInput,
@@ -25,7 +29,11 @@ export const SignUpForm: FC<SignUpFormProps> = ({
     termsAndConditionsCheckbox,
   } = useIntlayer('sign-up-form');
   const SignUpSchema = useSignUpSchema();
-  const { form, isSubmitting } = useForm(SignUpSchema);
+  const { form, isSubmitting } = useForm(SignUpSchema, {
+    defaultValues: {
+      email: defaultEmail,
+    },
+  });
 
   return (
     <Form
@@ -45,6 +53,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           autoComplete="email"
           minLength={5}
           maxLength={50}
+          ref={emailInputRef}
         />
 
         <Form.InputPassword

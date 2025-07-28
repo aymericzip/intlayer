@@ -346,7 +346,7 @@ export const addOrganizationMember = async (
       invitedByUsername: user.name,
       invitedByEmail: user.email,
       organizationName: organization.name,
-      inviteLink: `${process.env.FRONTEND_URL}/login?email=${newMember.email}`,
+      inviteLink: `${process.env.CLIENT_URL}/auth/login?email=${newMember.email}`,
       inviteFromIp: req.ip ?? '',
       inviteFromLocation: req.hostname,
     });

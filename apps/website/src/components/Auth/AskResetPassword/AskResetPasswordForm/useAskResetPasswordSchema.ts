@@ -1,9 +1,9 @@
 import { useIntlayer } from 'next-intlayer';
 import { z } from 'zod/v4';
 
-export const useResetPasswordSchema = () => {
+export const useAskResetPasswordSchema = () => {
   const { requiredErrorEmail, invalidTypeErrorEmail, invalidLengthErrorEmail } =
-    useIntlayer('reset-password-schema');
+    useIntlayer('ask-reset-password-schema');
 
   return z.object({
     email: z
@@ -17,4 +17,6 @@ export const useResetPasswordSchema = () => {
   });
 };
 
-export type ResetPassword = z.infer<ReturnType<typeof useResetPasswordSchema>>;
+export type AskResetPassword = z.infer<
+  ReturnType<typeof useAskResetPasswordSchema>
+>;

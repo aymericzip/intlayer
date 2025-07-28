@@ -194,14 +194,9 @@ export const useAskResetPassword = (
     args
   );
 
-export const useDefineNewPassword = (
-  args?: UseAsyncOptions<ReturnType<typeof getAuthAPI>['changePasswordSession']>
-) =>
-  useAppAsync(
-    'defineNewPassword',
-    useIntlayerAuth().changePasswordSession,
-    args
-  );
+export const useResetPassword = (
+  args?: UseAsyncOptions<ReturnType<typeof getAuthAPI>['resetPassword']>
+) => useAppAsync('resetPassword', useIntlayerAuth().resetPassword, args);
 
 export const useVerifyEmail = (
   args?: UseAsyncOptions<ReturnType<typeof getAuthAPI>['verifyEmailSession']>

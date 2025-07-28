@@ -2,12 +2,13 @@
 
 import { PagesRoutes } from '@/Routes';
 import { Button, useToast } from '@intlayer/design-system';
-import { useDefineNewPassword, useUser } from '@intlayer/design-system/hooks';
+import { useResetPassword } from '@intlayer/design-system/hooks';
 import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { FC } from 'react';
-import { ChangePassword } from '../ChangePassword/ChangePasswordForm';
+import { DefinePasswordForm as DefinePasswordFormUI } from './DefinePasswordForm';
+import { type DefinePassword } from './DefinePasswordForm/useDefinePasswordSchema';
 
 type DefinePasswordFormProps = {
   callbackUrl?: string;
@@ -17,17 +18,13 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
   callbackUrl = PagesRoutes.Home,
 }) => {
   const router = useRouter();
-  const { user } = useUser();
   const { toast } = useToast();
-  const { defineNewPassword, isSuccess } = useDefineNewPassword();
+  const { resetPassword, isSuccess } = useResetPassword();
   const { goToLoginButton } = useIntlayer('define-password-form');
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
-  const onSubmitSuccess = async ({
-    currentPassword,
-    newPassword,
-  }: ChangePassword) => {
+  const onSubmitSuccess = async ({ newPassword }: DefinePassword) => {
     if (!token) {
       toast({
         title: 'Error',
@@ -37,13 +34,11 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
       return;
     }
 
-    await defineNewPassword({
+    await resetPassword({
       newPassword,
       token: token,
     });
   };
-
-  if (!user) return null;
 
   if (isSuccess) {
     return (
@@ -64,5 +59,5 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
     );
   }
 
-  return <ChangePasswordFormUI onSubmitSuccess={onSubmitSuccess} />;
+  return <DefinePasswordFormUI onSubmitSuccess={onSubmitSuccess} />;
 };

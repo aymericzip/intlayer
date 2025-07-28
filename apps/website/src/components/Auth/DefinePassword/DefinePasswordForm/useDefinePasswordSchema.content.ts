@@ -3,38 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 export const definePasswordSchemaContent = {
   key: 'define-password-form-schema',
   content: {
-    requiredErrorPassword: t({
-      en: 'Please enter your current password',
-      'en-GB': 'Please enter your current password',
-      fr: 'Veuillez saisir votre mot de passe actuel',
-      es: 'Por favor, ingrese su contraseña actual',
-      de: 'Bitte geben Sie Ihr aktuelles Passwort ein',
-      ja: '現在のパスワードを入力してください',
-      ko: '현재 비밀번호를 입력하십시오',
-      zh: '请输入您的当前密码',
-      it: 'Si prega di inserire la propria password attuale',
-      pt: 'Por favor, insira sua senha atual',
-      hi: 'कृपया अपना वर्तमान पासवर्ड दर्ज करें',
-      ar: 'يرجى إدخال كلمة المرور الحالية',
-      ru: 'Пожалуйста, введите ваш текущий пароль',
-    }),
-
-    invalidTypeErrorPassword: t({
-      en: 'Please enter a valid password',
-      'en-GB': 'Please enter a valid password',
-      fr: 'Veuillez saisir un mot de passe valide',
-      es: 'Por favor, ingrese una contraseña válida',
-      de: 'Bitte geben Sie ein gültiges Passwort ein',
-      ja: '有効なパスワードを入力してください',
-      ko: '유효한 비밀번호를 입력하십시오',
-      zh: '请输入有效的密码',
-      it: 'Si prega di inserire una password valida',
-      pt: 'Por favor, insira uma senha válida',
-      hi: 'कृपया एक मान्य पासवर्ड दर्ज करें',
-      ar: 'يرجى إدخال كلمة مرور صالحة',
-      ru: 'Пожалуйста, введите действительный пароль',
-    }),
-
     invalidPasswordLengthError: t({
       en: 'Your password must be at least 8 characters',
       'en-GB': 'Your password must be at least 8 characters',

@@ -2,35 +2,37 @@
 
 import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, useState, type FC, type ReactNode } from 'react';
+import { RefObject, useEffect, useState, type FC, type ReactNode } from 'react';
 import {
-  useResetPasswordSchema,
-  type ResetPassword,
-} from './useResetPasswordSchema';
+  useAskResetPasswordSchema,
+  type AskResetPassword,
+} from './useAskResetPasswordSchema';
 
-type ForgotPasswordFormProps = {
+type AskResetPasswordFormProps = {
   email?: string;
-  onSubmitSuccess: (data: ResetPassword) => Promise<void>;
+  onSubmitSuccess: (data: AskResetPassword) => Promise<void>;
   onClickBackToLogin: () => void;
   onSubmitError?: (error: Error) => void;
+  emailInputRef?: RefObject<HTMLInputElement | null>;
 };
 
-export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
+export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   email,
   onSubmitSuccess,
   onSubmitError,
   onClickBackToLogin,
+  emailInputRef,
 }) => {
-  const ResetPasswordSchema = useResetPasswordSchema();
+  const AskResetPasswordSchema = useAskResetPasswordSchema();
   const {
     emailInput,
     sendRecoveryEmailButton,
     resendRecoveryEmailButton,
     resendInText,
     backToLoginButton,
-  } = useIntlayer('reset-password');
+  } = useIntlayer('ask-reset-password');
   const { form, isSubmitting, isSubmitted, isValid } = useForm(
-    ResetPasswordSchema,
+    AskResetPasswordSchema,
     {
       defaultValues: { email },
     }
@@ -82,7 +84,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
 
   return (
     <Form
-      schema={ResetPasswordSchema}
+      schema={AskResetPasswordSchema}
       onSubmitSuccess={onSubmitSuccess}
       onSubmitError={onSubmitError}
       className="gap-y-0"
@@ -97,6 +99,7 @@ export const ResetPasswordForm: FC<ForgotPasswordFormProps> = ({
           autoComplete="email"
           minLength={5}
           maxLength={50}
+          ref={emailInputRef}
         />
       </div>
 

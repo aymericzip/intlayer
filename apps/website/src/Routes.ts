@@ -50,6 +50,7 @@ export enum PagesRoutes {
 
   Auth_SignIn = '/auth/login',
   Auth_SignUp = '/auth/register',
+  Auth_AskResetPassword = '/auth/password/ask-reset',
   Auth_ResetPassword = '/auth/password/reset',
   Auth_ChangePassword = '/auth/password/change',
 }

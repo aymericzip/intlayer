@@ -2,25 +2,33 @@
 
 import { Form, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import type { FC } from 'react';
+import { RefObject, type FC } from 'react';
 import { ExternalsLoginButtons } from '../../ExternalsLoginButtons';
 import { useSignInSchema, type SignIn } from './useSignInSchema';
 
 type SignInFormProps = {
+  defaultEmail?: string;
   onSubmitSuccess: (data: SignIn) => Promise<void>;
   onClickForgotPassword: () => void;
   onClickSignUp: () => void;
   onSubmitError?: (error: Error) => void;
+  emailInputRef?: RefObject<HTMLInputElement | null>;
 };
 
 export const SignInForm: FC<SignInFormProps> = ({
+  defaultEmail,
   onSubmitSuccess,
   onSubmitError,
   onClickForgotPassword,
   onClickSignUp,
+  emailInputRef,
 }) => {
   const SignInSchema = useSignInSchema();
-  const { form, isSubmitting } = useForm(SignInSchema);
+  const { form, isSubmitting } = useForm(SignInSchema, {
+    defaultValues: {
+      email: defaultEmail,
+    },
+  });
   const {
     emailInput,
     passwordInput,
@@ -48,6 +56,7 @@ export const SignInForm: FC<SignInFormProps> = ({
             label={emailInput.label.value}
             placeholder={emailInput.placeholder.value}
             isRequired
+            ref={emailInputRef}
           />
 
           <Form.InputPassword
