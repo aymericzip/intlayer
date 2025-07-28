@@ -55,7 +55,12 @@ export const OrganizationDropdown: FC = () => {
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
       >
-        <OrganizationCreationForm />
+        <OrganizationCreationForm
+          onOrganizationCreated={(organization) => {
+            setIsCreationModalOpen(false);
+            handleSelectOrganization(String(organization.id));
+          }}
+        />
       </Modal>
       <DropDown identifier="organization-dropdown">
         <Button
