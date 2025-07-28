@@ -1,36 +1,45 @@
 'use client';
 
 import { PagesRoutes } from '@/Routes';
-import { Button } from '@intlayer/design-system';
-import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
+import { Button, useToast } from '@intlayer/design-system';
+import { useDefineNewPassword, useUser } from '@intlayer/design-system/hooks';
 import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { FC } from 'react';
-import {
-  ChangePasswordForm as ChangePasswordFormUI,
-  type ChangePassword,
-} from './ChangePasswordForm';
+import { ChangePassword } from '../ChangePasswordForm/ChangePasswordForm';
 
-type ChangePasswordFormProps = {
+type DefinePasswordFormProps = {
   callbackUrl?: string;
 };
 
-export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
+export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
   callbackUrl = PagesRoutes.Home,
 }) => {
   const router = useRouter();
   const { user } = useUser();
-  const { changePassword, isSuccess } = useChangePassword();
-  const { goToLoginButton } = useIntlayer('change-password-form');
+  const { toast } = useToast();
+  const { defineNewPassword, isSuccess } = useDefineNewPassword();
+  const { goToLoginButton } = useIntlayer('define-password-form');
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
 
   const onSubmitSuccess = async ({
     currentPassword,
     newPassword,
   }: ChangePassword) => {
-    await changePassword({
-      currentPassword,
+    if (!token) {
+      toast({
+        title: 'Error',
+        description: 'Token is required',
+        variant: 'error',
+      });
+      return;
+    }
+
+    await defineNewPassword({
       newPassword,
+      token: token,
     });
   };
 
