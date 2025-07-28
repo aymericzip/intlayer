@@ -8,6 +8,7 @@ import { useProjectSchema, type ProjectFormData } from './useProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {
   const { session } = useAuth();
+  const isProjectAdmin = session?.roles?.includes('project_admin');
   const { project } = session ?? {};
   const ProjectSchema = useProjectSchema();
   const { updateProject } = useUpdateProject();
@@ -25,8 +26,6 @@ export const ProjectEditionForm: FC = () => {
       form.reset(project);
     }
   }, [form.reset, project]);
-
-  const isProjectAdmin = false;
 
   return (
     <>

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Container, Loader, Modal } from '@intlayer/design-system';
-import { useAuth, useGetProjects } from '@intlayer/design-system/hooks';
+import { useGetProjects, useSession } from '@intlayer/design-system/hooks';
 import { Plus, Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { Suspense, useState, type FC } from 'react';
@@ -15,7 +15,9 @@ import { ProjectEditionForm } from './ProjectEditionForm';
 import { ProjectList } from './ProjectList';
 
 export const ProjectFormContent: FC = () => {
-  const { session, isProjectAdmin } = useAuth();
+  const { session } = useSession();
+  const isProjectAdmin = session?.roles?.includes('project_admin');
+
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);

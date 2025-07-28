@@ -321,6 +321,13 @@ export const getSessionRoles = ({
     return roles;
   }
 
+  console.log({
+    project,
+    adminsIds: project.adminsIds,
+    userid: user!.id,
+    isProjectAdmin: project.adminsIds?.map(String).includes(String(user!.id)),
+  });
+
   const isProjectAdmin = project.adminsIds
     ?.map(String)
     .includes(String(user!.id));
