@@ -3,7 +3,7 @@ import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
-import { hasPermission } from '@utils/permissions';
+import { hasPermission, intersectPermissions } from '@utils/permissions';
 import { type ResponseData, formatResponse } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
@@ -19,7 +19,8 @@ export const addNewAccessKey = async (
   res: ResponseWithSession<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, roles } = res.locals;
+  const { user, project, roles, permissions } = res.locals;
+  const { grants, name, expiresAt } = req.body;
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
@@ -44,9 +45,15 @@ export const addNewAccessKey = async (
     return;
   }
 
+  const filteredPermisions = intersectPermissions(permissions, grants);
+
   try {
     const newAccessKey = await projectAccessKeyService.addNewAccessKey(
-      req.body,
+      {
+        name,
+        expiresAt,
+        grants: filteredPermisions,
+      },
       project.id,
       user
     );
@@ -71,7 +78,7 @@ export const addNewAccessKey = async (
       type: 'oAuthTokenCreated',
       to: user.email,
       username: user.name,
-      applicationName: newAccessKey.clientId,
+      applicationName: newAccessKey.name ?? newAccessKey.clientId,
       scopes: newAccessKey.grants,
       tokenDetailsUrl: `${process.env.CLIENT_URL}/oauth2/token`,
       securityLogUrl: `${process.env.CLIENT_URL}/security-log`,

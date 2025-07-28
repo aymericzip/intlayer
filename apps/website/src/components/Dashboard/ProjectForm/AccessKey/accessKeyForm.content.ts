@@ -83,10 +83,10 @@ const accessKeyFormContent = {
     },
     rights: {
       title: t({
-        en: 'Rights',
+        en: 'Grants',
         fr: 'Droits',
         es: 'Derechos',
-        'en-GB': 'Rights',
+        'en-GB': 'Grants',
         de: 'Rechte',
         ja: '権限',
         ko: '권한',
@@ -94,7 +94,7 @@ const accessKeyFormContent = {
         it: 'Diritti',
         pt: 'Direitos',
         hi: 'अधिकार',
-        ar: 'الحقوق',
+        ar: 'الصلاحيات',
         ru: 'Права',
       }),
       read: t({

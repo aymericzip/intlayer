@@ -33,7 +33,7 @@ export const DictionaryListDashboardContent: FC = () => {
       roundedSize="xl"
       className="flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
     >
-      <H2 className="mb-6">{dictionaryList.title}</H2>
+      <H2 className="mb-6 mt-2">{dictionaryList.title}</H2>
 
       {dictionaries.length === 0 && (
         <span className="text-neutral text-sm m-auto">

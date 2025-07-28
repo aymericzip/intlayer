@@ -31,7 +31,7 @@ export const OAuthTokenCreatedEmailEN = ({
   securityLogUrl,
   supportUrl,
 }: OAuthTokenCreatedEmailProps) => {
-  const previewText = `A third-party OAuth application has been added to your Intlayer account`;
+  const previewText = `A third-party OAuth access key has been added to your Intlayer account`;
 
   return (
     <Html>
@@ -50,15 +50,20 @@ export const OAuthTokenCreatedEmailEN = ({
               />
             </Section>
             <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
-              A third-party OAuth application has been added to your account
+              A third-party OAuth access key has been added to your account
             </Heading>
             <Text className="text-[14px] leading-[24px] text-black">
               Hey {username}!
             </Text>
             <Text className="text-[14px] leading-[24px] text-black">
-              A third-party OAuth application (
-              <strong>{applicationName}</strong>) with {scopes.join(', ')}{' '}
-              scopes was recently authorized to access your account.
+              A third-party OAuth access key (<strong>{applicationName}</strong>
+              ) with the following permissions was recently authorized to access
+              your account:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
             </Text>
             <Section className="my-[32px] text-center">
               <Button

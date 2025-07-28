@@ -23,7 +23,7 @@ export const TagList: FC = () => {
         roundedSize="xl"
         className="flex w-full max-w-[400px] flex-col justify-center gap-2 p-6"
       >
-        <H2 className="mb-6">{tagList.title}</H2>
+        <H2 className="mb-6 mt-2">{tagList.title}</H2>
 
         {tags.length === 0 && (
           <span className="text-neutral text-sm m-auto">{noTagView.title}</span>
