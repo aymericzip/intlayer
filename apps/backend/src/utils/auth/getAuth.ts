@@ -91,7 +91,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
     hooks: {
       after: createAuthMiddleware(async (ctx) => {
-        const { path, context } = ctx;
+        const { path, context, error } = ctx;
 
         const newUser = context.newSession?.user;
         const existingUser = context.session?.user;
@@ -218,6 +218,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     },
     emailVerification: {
       autoSignInAfterVerification: true,
+      sendOnSignIn: true,
       sendVerificationEmail: async ({ user, url }) => {
         logger.info('sending verification email', { email: user.email });
         await sendEmail({

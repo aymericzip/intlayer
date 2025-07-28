@@ -163,6 +163,15 @@ export const useLogin = (
     ...args,
   });
 
+export const useGetVerifyEmailStatus = (
+  args?: UseAsyncOptions<ReturnType<typeof getAuthAPI>['verifyEmailSession']>
+) =>
+  useAppAsync(
+    'getVerifyEmailStatus',
+    useIntlayerAuth().verifyEmailSession,
+    args
+  );
+
 export const useRegister = (
   args?: UseAsyncOptions<ReturnType<typeof getAuthAPI>['signUpEmail']>
 ) =>

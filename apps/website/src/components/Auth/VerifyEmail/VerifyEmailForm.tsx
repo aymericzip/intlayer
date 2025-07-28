@@ -32,7 +32,7 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
     if (isEmailVerified) return;
 
     const verifyEmailStatusURL = getIntlayerAPI().user.getVerifyEmailStatusURL(
-      targetedUserId!
+      String(targetedUserId)
     );
 
     // EventSource alow to receive server-sent events from the server
