@@ -1,7 +1,6 @@
 'use client';
 
 import type { IntlayerConfig } from '@intlayer/config/client';
-import { Container } from '@intlayer/design-system';
 import { useAuth } from '@intlayer/design-system/hooks';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
 import { useIntlayer } from 'next-intlayer';
@@ -67,11 +66,7 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   }, [applicationURL, intlayerConfig]);
 
   if (!intlayerConfig) {
-    return (
-      <Container className="flex max-w-xl flex-col gap-4 p-6">
-        <NoApplicationURLView />
-      </Container>
-    );
+    return <NoApplicationURLView />;
   }
 
   // Show loading state while checking application health

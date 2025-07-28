@@ -10,7 +10,7 @@ export const ApplicationNotRunningView: FC = () => {
   );
 
   return (
-    <Container className="flex flex-col text-sm gap-2 px-6 pt-2 pb-4 rounded-2xl">
+    <Container className="flex flex-col text-sm gap-2 px-8 pt-2 pb-4 rounded-2xl max-w-xl">
       <H3 className="mb-4 text-lg">{title}</H3>
       <p className="text-neutral block mb-4">{description}</p>
 
@@ -29,6 +29,7 @@ export const ApplicationNotRunningView: FC = () => {
         label={documentationLink.label.value}
         href={`${PagesRoutes.Doc_IntlayerCMS}#configuration`}
         color="text"
+        className="ml-auto underline"
       >
         {documentationLink.text}
       </Link>
