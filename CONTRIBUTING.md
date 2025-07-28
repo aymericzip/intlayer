@@ -136,6 +136,9 @@ To understand the interest of all packages, you can read the [documentation name
 
 > If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
+> ⏱️ On Github Actions, building packages usualy take around 2 to 4 minutes.
+> ⏱️ On old environment, building packages can be really slow and can take more than 10 minutes.
+
 ```sh
 # Build all packages (clean dist folders, and build packages)
 pnpm build
@@ -167,15 +170,28 @@ pnpm dev
 pnpm dev:pick
 ```
 
-### Includes a new package
-
-> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
-
 ### Setup environment variables
 
 For each project necessitating environment variables, like `@intlayer/backend`, you can find a `.env.template` file in the root of the project. Copy the file and rename it to `.env`. Then, fill the variables with the correct values.
 
 For specific environment, use `.env.local`, `.env.[environment]` or `.env.[environment].local` files.
+
+## Starting an application
+
+For applications locates in `apps/` folder, as well as example applications locates in `examples/` folder, you can start them with the following command:
+
+```sh
+cd ./apps/backend # or ./apps/website, ./examples/nextjs-15-app, etc.
+pnpm dev # or pnpm dev:turbo, etc.
+```
+
+> Adapt the path to the application you want to start.
+> See the application `package.json` to check the command to start it. Example for nextjs-15-app: `pnpm dev:turbo` is the most efficient command to start the dev server.
+> If you filtered some applications during the installation, do not forget to add the related dependencies using the install command (Example: `pnpm install --filter './examples/nextjs-15-app'`).
+
+## Includes a new package
+
+> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
 ## Commit formatting
 
