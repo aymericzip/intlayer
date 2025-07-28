@@ -16,8 +16,7 @@ export const mapProjectToAPI = <T extends Project | ProjectAPI | null>(
 
   const projectObject = ensureMongoDocumentToObject(project);
 
-  const { adminsIds, ...projectAPI } = projectObject;
-  return projectAPI as any;
+  return projectObject as any;
 };
 
 /**
