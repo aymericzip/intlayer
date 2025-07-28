@@ -1,10 +1,11 @@
 'use client';
 
 import type { IntlayerConfig } from '@intlayer/config/client';
-import { Loader } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system';
 import { useAuth } from '@intlayer/design-system/hooks';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
 import { type FC, type PropsWithChildren, type RefObject } from 'react';
+import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 
 type EditorProviderProps = {
   iframeRef: RefObject<HTMLIFrameElement | null>;
@@ -24,7 +25,13 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
     configuration ?? (session?.project?.configuration as IntlayerConfig);
   const applicationURL = intlayerConfig?.editor.applicationURL ?? '*';
 
-  if (!intlayerConfig) return <Loader />;
+  if (!intlayerConfig) {
+    return (
+      <Container className="flex max-w-xl flex-col gap-4 p-6">
+        <NoApplicationURLView />
+      </Container>
+    );
+  }
 
   return (
     <EditorProviderComponent

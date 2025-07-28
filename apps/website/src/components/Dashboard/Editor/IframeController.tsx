@@ -36,6 +36,7 @@ export const IframeController: FC<{
 
   return (
     <div className="contents size-full flex-1">
+      {loading ? 'loading' : 'not loading'}
       <Loader isLoading={loading} />
       <iframe
         src={editor.applicationURL}
