@@ -59,7 +59,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm build:package && pnpm build:css",
+    "build": "pnpm clean & pnpm build:ci",
+    "build:ci": "pnpm build:package",
     "build:css": "npx tailwindcss --minify -i ./src/tailwind.css -o ./dist/tailwind.css",
     "build:package": "vite build",
     "build:storybook": "storybook build",
@@ -70,7 +71,6 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "preview": "vite preview",
-    "reset": "pnpm clean & pnpm build",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

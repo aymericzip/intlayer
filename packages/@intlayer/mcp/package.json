@@ -61,7 +61,8 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm build:package && pnpm build:types && pnpm manange:permissions",
+    "build": "pnpm clean & pnpm build:ci",
+    "build:ci": "pnpm build:package & pnpm build:types",
     "build:docker": "docker build -t intlayer-mcp -f Dockerfile .",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
@@ -75,7 +76,6 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
-    "reset": "pnpm clean & pnpm build",
     "start": "pnpm start:stdio",
     "start:client": "npx node dist/cjs/client/sse.cjs",
     "start:docker": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",

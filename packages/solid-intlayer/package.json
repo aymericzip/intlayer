@@ -56,14 +56,14 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "pnpm clean & pnpm build:ci",
+    "build:ci": "vite build",
     "clean": "rimraf ./dist",
     "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "reset": "pnpm clean & pnpm build",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
