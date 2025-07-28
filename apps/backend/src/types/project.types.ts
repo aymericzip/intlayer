@@ -67,11 +67,7 @@ export type Project = ProjectData & {
   oAuth2Access: OAuth2Access[];
 };
 
-export type ProjectAPI = ObjectIdToString<
-  Omit<Project, 'adminsIds'> & {
-    adminsIds?: User['id'][];
-  }
->;
+export type ProjectAPI = ObjectIdToString<Project>;
 
 export type ProjectSchema = RenameId<Project>;
 export type ProjectModelType = Model<Project>;

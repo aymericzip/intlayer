@@ -76,7 +76,7 @@ export const dictionarySchema = new Schema<DictionarySchema>(
     toObject: {
       virtuals: true,
       transform(doc, ret) {
-        ret.id = ret._id.toString(); // convert _id to id
+        ret.id = ret._id; // convert _id to id
         delete ret._id; // remove _id
       },
     },

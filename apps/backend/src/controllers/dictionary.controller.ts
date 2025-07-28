@@ -51,6 +51,7 @@ export const getDictionaries = async (
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
+
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;

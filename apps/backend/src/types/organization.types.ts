@@ -21,11 +21,7 @@ export type Organization = OrganizationData & {
   updatedAt: number;
 };
 
-export type OrganizationAPI = ObjectIdToString<
-  Omit<Organization, 'adminsIds'> & {
-    adminsIds?: User['id'][];
-  }
->;
+export type OrganizationAPI = ObjectIdToString<Organization>;
 
 export type OrganizationSchema = RenameId<Organization>;
 export type OrganizationModelType = Model<Organization>;

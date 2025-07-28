@@ -1,7 +1,7 @@
 import type { OrganizationAPI } from '@/types/organization.types';
 import type { ProjectAPI } from '@/types/project.types';
 import type {
-  SessionAPI,
+  Session,
   SessionContext,
   SessionDataApi,
 } from '@/types/session.types';
@@ -14,6 +14,7 @@ import { getProjectById } from '@services/project.service';
 import { getUserById } from '@services/user.service';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
+import { mapSessionToAPI } from '@utils/mapper/session';
 import { mapUserToAPI } from '@utils/mapper/user';
 import {
   computeEffectivePermission,
@@ -28,7 +29,7 @@ import type { MongoClient } from 'mongodb';
 
 export type Auth = ReturnType<typeof betterAuth>;
 
-export const formatSession = (session: SessionContext): OmitId<SessionAPI> => {
+export const formatSession = (session: SessionContext): OmitId<Session> => {
   const roles = getSessionRoles(session);
   let permissions = computeEffectivePermission(roles);
 
@@ -39,13 +40,13 @@ export const formatSession = (session: SessionContext): OmitId<SessionAPI> => {
 
   const resultSession = {
     session: session.session,
-    user: mapUserToAPI(session.user),
-    organization: mapOrganizationToAPI(session.organization),
-    project: mapProjectToAPI(session.project),
+    user: session.user,
+    organization: session.organization,
+    project: session.project,
     authType: 'session',
     permissions,
     roles,
-  } as OmitId<SessionAPI>;
+  } as OmitId<Session>;
 
   return resultSession;
 };
@@ -190,7 +191,9 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           authType: 'session',
         };
 
-        return formatSession(sessionWithNoPermission);
+        const formattedSession = formatSession(sessionWithNoPermission);
+
+        return mapSessionToAPI(formattedSession);
       }),
     ],
 
