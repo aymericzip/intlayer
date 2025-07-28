@@ -240,10 +240,10 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
     ],
   });
 
-  const subscription = data?.data;
-  const invoice = subscription?.latest_invoice as Stripe.Invoice;
-  const paymentIntent = invoice?.payment_intent as Stripe.PaymentIntent;
-  const clientSecret = paymentIntent?.client_secret;
+  const invoice = data?.data?.subscription?.latest_invoice as Stripe.Invoice & {
+    confirmation_secret?: { client_secret: string };
+  };
+  const clientSecret = invoice?.confirmation_secret?.client_secret;
 
   const isDarkMode = theme === 'dark';
 
@@ -251,14 +251,14 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
 
   return (
     <>
-      <H2 className="mb-4">{title}</H2>
+      <H2 className="mb-4 mt-0">{title}</H2>
       {!priceId && <span>{incorrectProductMessage}</span>}
       <Loader isLoading={isLoading}>
         {clientSecret ? (
           <Elements
             stripe={stripePromise}
             options={{
-              clientSecret: clientSecret,
+              clientSecret,
               appearance,
             }}
           >

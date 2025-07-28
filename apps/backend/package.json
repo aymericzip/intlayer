@@ -95,7 +95,7 @@
     "react": "^19.1.0",
     "react-email": "^4.0.16",
     "resend": "^4.1.2",
-    "stripe": "^18.2.1",
+    "stripe": "^18.3.0",
     "validator": "^13.12.0",
     "winston": "^3.17.0"
   },

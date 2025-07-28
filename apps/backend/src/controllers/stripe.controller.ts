@@ -47,9 +47,10 @@ export type GetCheckoutSessionBody = {
   promoCode?: string;
 };
 
-export type GetCheckoutSessionResult = ResponseData<
-  Stripe.Response<Stripe.Subscription>
->;
+export type GetCheckoutSessionResult = ResponseData<{
+  subscription: Stripe.Response<Stripe.Subscription>;
+  clientSecret: string;
+}>;
 
 /**
  * Handles subscription creation or update with Stripe and returns a ClientSecret.
@@ -122,12 +123,12 @@ export const getSubscription = async (
     const subscription = await stripe.subscriptions.create({
       customer: customerId, // Associate the subscription with the customer
       items: [{ price: priceId }], // Set the price ID for the subscription
-      expand: ['latest_invoice.payment_intent'], // Expand to get payment intent details
+      expand: ['latest_invoice.confirmation_secret'],
       payment_settings: {
         payment_method_types: ['card'], // Specify payment method types
       },
       payment_behavior: 'default_incomplete', // Create the subscription in an incomplete state until payment is confirmed
-      discounts: discounts,
+      discounts,
     });
 
     // Handle subscription creation failure
@@ -144,9 +145,29 @@ export const getSubscription = async (
       return;
     }
 
+    const clientSecret = (
+      subscription.latest_invoice as Stripe.Invoice & {
+        confirmation_secret?: { client_secret: string };
+      }
+    )?.confirmation_secret?.client_secret;
+
+    // Handle subscription creation failure
+    if (!clientSecret) {
+      ErrorHandler.handleGenericErrorResponse(
+        res,
+        'SUBSCRIPTION_CREATION_FAILED',
+        {
+          user,
+          organization,
+          priceId,
+        }
+      );
+      return;
+    }
+
     // Prepare the response data with subscription details
-    const responseData = formatResponse<Stripe.Response<Stripe.Subscription>>({
-      data: subscription,
+    const responseData = formatResponse<GetCheckoutSessionResult['data']>({
+      data: { subscription, clientSecret },
     });
 
     // Send the response back to the client
