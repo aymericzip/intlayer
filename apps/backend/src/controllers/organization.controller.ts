@@ -298,13 +298,6 @@ export const addOrganizationMember = async (
     return;
   }
 
-  if (!organization.plan) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {
-      organizationId: organization.id,
-    });
-    return;
-  }
-
   if (
     !hasPermission(
       roles,

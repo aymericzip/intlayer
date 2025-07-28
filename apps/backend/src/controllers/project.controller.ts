@@ -130,7 +130,15 @@ export const addProject = async (
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
   }
 
-  if (!hasPermission(roles, 'project:admin')(res.locals)) {
+  if (
+    !hasPermission(
+      roles,
+      'organization:admin'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }

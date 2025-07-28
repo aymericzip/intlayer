@@ -90,7 +90,8 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             </Tag>
           )}
         </div>
-        {plan?.type !== 'ENTERPRISE' && plan?.status === 'active' && (
+        {(!plan ||
+          (plan?.type !== 'ENTERPRISE' && plan?.status === 'active')) && (
           <Button
             label={upgradeButton.label.value}
             color="text"
@@ -100,7 +101,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             {upgradeButton.text}
           </Button>
         )}
-        {plan?.status !== 'active' && (
+        {plan && plan?.status !== 'active' && (
           <Button
             label={renewButton.label.value}
             color="text"
