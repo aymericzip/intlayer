@@ -70,23 +70,12 @@ export const SignInForm: FC<SignInFormProps> = ({
           {forgotPasswordLink.text}
         </Form.Button>
 
-        <Form.Label
-          htmlFor="rememberMe"
-          className="flex items-center gap-x-2 font-medium"
-        >
-          <span>
-            <Form.Checkbox
-              name="rememberMe"
-              size="sm"
-              color="text"
-              id="rememberMe"
-              aria-labelledby="rememberMe-label"
-            />
-          </span>
-          <span className="text-sm w-full pb-2">
-            {rememberMeCheckbox.description}
-          </span>
-        </Form.Label>
+        <Form.Checkbox
+          name="rememberMe"
+          size="sm"
+          color="text"
+          inputLabel={rememberMeCheckbox.description}
+        />
 
         <Form.Button
           className="mt-12 w-full"

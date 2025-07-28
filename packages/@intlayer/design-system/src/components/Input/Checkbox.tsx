@@ -1,8 +1,8 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
-  type FC,
-  useId,
+  ReactNode,
   type DetailedHTMLProps,
+  type FC,
   type InputHTMLAttributes,
 } from 'react';
 
@@ -50,37 +50,46 @@ export type CheckboxProps = Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   'size'
 > & {
+  name: string;
   validationStyleEnabled?: boolean;
-  label?: string;
+  label?: ReactNode;
 } & Omit<VariantProps<typeof checkboxVariants>, 'validationStyleEnabled'>;
 
-export const Checkbox: FC<CheckboxProps> = ({
+const Input: FC<CheckboxProps> = ({
   validationStyleEnabled = false,
   label,
   size,
   color,
+  name,
   variant,
   className,
   ...props
-}) => {
-  const id = useId();
-  return (
-    <>
-      <input
-        type="checkbox"
-        className={checkboxVariants({
-          variant,
-          size,
-          color,
-          validationStyleEnabled: validationStyleEnabled
-            ? 'enabled'
-            : 'disabled',
-          className,
-        })}
-        id={id}
-        {...props}
-      />
-      <label htmlFor={id}>{label}</label>
-    </>
+}) => (
+  <input
+    type="checkbox"
+    className={checkboxVariants({
+      variant,
+      size,
+      color,
+      validationStyleEnabled: validationStyleEnabled ? 'enabled' : 'disabled',
+      className,
+    })}
+    {...props}
+  />
+);
+
+export const Checkbox: FC<CheckboxProps> = (props) => {
+  const { label, name, id } = props;
+
+  return label ? (
+    <label
+      htmlFor={id ?? name}
+      className="flex items-center gap-x-4 font-medium text-sm cursor-pointer"
+    >
+      <Input id={id ?? name} {...props} />
+      {label}
+    </label>
+  ) : (
+    <Input id={id ?? name} {...props} />
   );
 };

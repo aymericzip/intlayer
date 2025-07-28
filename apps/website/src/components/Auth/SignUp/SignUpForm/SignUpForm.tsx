@@ -63,23 +63,12 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           isRequired
         />
 
-        <Form.Label
-          htmlFor="termsAndConditions"
-          className="flex items-center gap-x-2 font-medium"
-        >
-          <span>
-            <Form.Checkbox
-              name="termsAndConditions"
-              size="sm"
-              color="text"
-              id="termsAndConditions"
-              aria-labelledby="termsAndConditions-label"
-            />
-          </span>
-          <span className="text-sm w-full pb-2">
-            {termsAndConditionsCheckbox.description}
-          </span>
-        </Form.Label>
+        <Form.Checkbox
+          name="termsAndConditions"
+          size="sm"
+          color="text"
+          inputLabel={termsAndConditionsCheckbox.description}
+        />
       </div>
 
       <Form.Button
