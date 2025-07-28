@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, type FC } from 'react';
 import {
   AskResetPasswordForm as ResetPasswordFormUI,
-  type ResetPassword,
+  type AskResetPassword,
 } from './AskResetPasswordForm';
 
 type AskResetPasswordFormProps = {
@@ -16,7 +16,7 @@ type AskResetPasswordFormProps = {
 
 export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   email,
-  callbackUrl = PagesRoutes.Auth_ResetPassword,
+  callbackUrl = PagesRoutes.Auth_SignIn,
 }) => {
   const router = useRouter();
   const { askResetPassword } = useAskResetPassword();
@@ -24,7 +24,7 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   const emailFromParams = searchParams.get('email');
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  const onSubmitSuccess = async ({ email }: ResetPassword) => {
+  const onSubmitSuccess = async ({ email }: AskResetPassword) => {
     await askResetPassword({
       email,
       redirectTo: `${process.env.NEXT_PUBLIC_URL}/${callbackUrl}`,
