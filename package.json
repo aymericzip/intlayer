@@ -36,7 +36,7 @@
     "clean:dist": "rimraf node_modules ./**/dist",
     "clean:examples": "node ./scripts/script-package-command.mjs --command clean",
     "clean:node_modules": "rimraf node_modules ./**/node_modules",
-    "dev": "node ./scripts/script-dev-package-command.mjs --command reset",
+    "dev": "node ./scripts/script-dev-package-command.mjs --command build",
     "dev:pick": "node ./scripts/script-pick.mjs --command dev",
     "lint": "eslint . --cache",
     "lint-staged": "lint-staged --allow-empty",
