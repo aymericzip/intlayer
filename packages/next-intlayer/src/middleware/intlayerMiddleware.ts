@@ -77,7 +77,17 @@ export const intlayerMiddleware = (
 ): NextResponse => {
   const pathname = request.nextUrl.pathname;
   const isPrefetch = isPrefetchRequest(request);
-  const cookieLocale = isPrefetch ? undefined : getCookieLocale(request);
+
+  // If the request is only a prefetch, we skip all locale redirection logic.
+  // Returning `NextResponse.next()` lets Next.js serve the page as-is without
+  // rewriting or redirecting. This avoids unnecessary redirects when the
+  // browser (or Next.js router) silently prefetches a route like "/" while the
+  // user is already on a locale-specific page (e.g. "/fr").
+  if (isPrefetch) {
+    return NextResponse.next();
+  }
+
+  const cookieLocale = getCookieLocale(request);
   const basePathTrailingSlash = basePath.endsWith('/');
 
   if (
