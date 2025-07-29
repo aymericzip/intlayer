@@ -216,25 +216,19 @@ export const ROLE_POLICY = {
 
     'tag:read': ({
       project,
-      targetTagProjectIds,
-    }: SessionContext & { targetTagProjectIds: (Tag | TagAPI)['id'][] }) =>
-      targetTagProjectIds.every(
-        (projectId) => String(project?.id) === String(projectId)
-      ),
+      targetTags,
+    }: SessionContext & { targetTags: (Tag | TagAPI)[] }) =>
+      targetTags.every((tag) => String(project?.id) === String(tag?.projectId)),
     'tag:write': ({
       project,
-      targetTagProjectIds,
-    }: SessionContext & { targetTagProjectIds: (Tag | TagAPI)['id'][] }) =>
-      targetTagProjectIds.every(
-        (projectId) => String(project?.id) === String(projectId)
-      ),
+      targetTags,
+    }: SessionContext & { targetTags: (Tag | TagAPI)[] }) =>
+      targetTags.every((tag) => String(project?.id) === String(tag?.projectId)),
     'tag:admin': ({
       project,
-      targetTagProjectIds,
-    }: SessionContext & { targetTagProjectIds: (Tag | TagAPI)['id'][] }) =>
-      targetTagProjectIds.every(
-        (projectId) => String(project?.id) === String(projectId)
-      ),
+      targetTags,
+    }: SessionContext & { targetTags: (Tag | TagAPI)[] }) =>
+      targetTags.every((tag) => String(project?.id) === String(tag?.projectId)),
 
     'user:write': ({
       project,

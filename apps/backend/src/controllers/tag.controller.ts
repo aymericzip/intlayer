@@ -65,9 +65,7 @@ export const getTags = async (
         'tag:read'
       )({
         ...res.locals,
-        targetTagProjectIds: [
-          ...new Set(tags.map((tag) => String(tag.projectId))),
-        ],
+        targetTags: tags,
       })
     ) {
       ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
@@ -140,7 +138,7 @@ export const addTag = async (
       'tag:admin'
     )({
       ...res.locals,
-      targetTagProjectIds: [String(tag.projectId)],
+      targetTags: [tag as Tag],
     })
   ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
@@ -216,7 +214,7 @@ export const updateTag = async (
         'tag:write'
       )({
         ...res.locals,
-        targetTagProjectIds: [String(tagToDelete.projectId)],
+        targetTags: [tagToDelete],
       })
     ) {
       ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
@@ -295,7 +293,7 @@ export const deleteTag = async (
         'tag:admin'
       )({
         ...res.locals,
-        targetTagProjectIds: [String(tagToDelete.projectId)],
+        targetTags: [tagToDelete],
       })
     ) {
       ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
