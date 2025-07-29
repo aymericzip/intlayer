@@ -8,7 +8,6 @@ import { hasPermission } from '@utils/permissions';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import { ObjectId } from 'mongodb';
 
 export type NewsletterSubscriptionBody = {
   email: string;
@@ -59,7 +58,7 @@ export const subscribeToNewsletter = async (
           'user:write'
         )({
           ...res.locals,
-          targetUserIds: [user.id],
+          targetUsers: [user],
         })
       ) {
         ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
@@ -120,25 +119,25 @@ export const unsubscribeFromNewsletter = async (
     return;
   }
 
-  if (
-    !hasPermission(
-      roles,
-      'user:write'
-    )({
-      ...res.locals,
-      targetUserIds: [new ObjectId(userId)],
-    })
-  ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
     // Check if user exists
     const user = await userService.getUserById(userId);
 
     if (!user) {
       ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
+
+    if (
+      !hasPermission(
+        roles,
+        'user:write'
+      )({
+        ...res.locals,
+        targetUsers: [user],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
       return;
     }
 
@@ -210,7 +209,7 @@ export const getNewsletterStatus = async (
         'user:read'
       )({
         ...res.locals,
-        targetUserIds: [user.id],
+        targetUsers: [user],
       })
     ) {
       ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');

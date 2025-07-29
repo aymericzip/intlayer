@@ -6,7 +6,6 @@ import { Tag, TagAPI } from '@/types/tag.types';
 import { User, UserAPI } from '@/types/user.types';
 
 /**
- * @description
  * A named grouping of privileges (e.g. `"org_admin"`).
  * Users are *granted* one or more Roles.
  */
@@ -20,7 +19,6 @@ export type Roles =
   | 'project_reviewer';
 
 /**
- * @description
  * An atomic operation that can be performed on a resource.
  * - **read**: view or list
  * - **write**: create or update
@@ -29,7 +27,6 @@ export type Roles =
 export type Action = 'read' | 'write' | 'admin';
 
 /**
- * @description
  * A first‑class entity in your domain model that you want to protect.
  */
 export type Resource = {
@@ -41,7 +38,6 @@ export type Resource = {
 };
 
 /**
- * @description
  * A literal string combining a Resource and an Action, e.g. `"project:write"`.
  * This is the *unit* checked at runtime in your middleware.
  */
@@ -74,19 +70,31 @@ export const ROLE_POLICY = {
   user: {
     'user:read': ({
       user,
-      targetUserIds,
-    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
-      targetUserIds.map(String).includes(String(user?.id)),
+      targetUsers,
+    }: SessionContext & { targetUsers: (User | UserAPI)[] }) =>
+      targetUsers.every(
+        (targetUser) =>
+          String(targetUser.id) === String(user?.id) &&
+          targetUser.email === user?.email
+      ),
     'user:write': ({
       user,
-      targetUserIds,
-    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
-      targetUserIds.map(String).includes(String(user?.id)),
+      targetUsers,
+    }: SessionContext & { targetUsers: (User | UserAPI)[] }) =>
+      targetUsers.every(
+        (targetUser) =>
+          String(targetUser.id) === String(user?.id) &&
+          targetUser.email === user?.email
+      ),
     'user:admin': ({
       user,
-      targetUserIds,
-    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
-      targetUserIds.map(String).includes(String(user?.id)),
+      targetUsers,
+    }: SessionContext & { targetUsers: (User | UserAPI)[] }) =>
+      targetUsers.every(
+        (targetUser) =>
+          String(targetUser.id) === String(user?.id) &&
+          targetUser.email === user?.email
+      ),
     'organization:read': ({
       user,
       targetOrganizations,
@@ -142,10 +150,10 @@ export const ROLE_POLICY = {
 
     'user:write': ({
       organization,
-      targetUserIds,
-    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
-      targetUserIds.every((targetUserId) =>
-        organization?.membersIds?.map(String).includes(String(targetUserId))
+      targetUsers,
+    }: SessionContext & { targetUsers: (User | UserAPI)[] }) =>
+      targetUsers.every((targetUser) =>
+        organization?.membersIds?.map(String).includes(String(targetUser?.id))
       ),
   },
   org_user: {
@@ -163,10 +171,10 @@ export const ROLE_POLICY = {
 
     'user:read': ({
       organization,
-      targetUserIds,
-    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
-      targetUserIds.every((targetUserId) =>
-        organization?.membersIds?.map(String).includes(String(targetUserId))
+      targetUsers,
+    }: SessionContext & { targetUsers: (User | UserAPI)[] }) =>
+      targetUsers.every((targetUser) =>
+        organization?.membersIds?.map(String).includes(String(targetUser?.id))
       ),
   },
   project_admin: {
@@ -222,10 +230,10 @@ export const ROLE_POLICY = {
 
     'user:write': ({
       project,
-      targetUserIds,
-    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
-      targetUserIds.every((targetUserId) =>
-        project?.membersIds?.map(String).includes(String(targetUserId))
+      targetUsers,
+    }: SessionContext & { targetUsers: (User | UserAPI)[] }) =>
+      targetUsers.every((targetUser) =>
+        project?.membersIds?.map(String).includes(String(targetUser?.id))
       ),
 
     'dictionary:read': ({ project, user }: SessionContext) =>
@@ -262,10 +270,10 @@ export const ROLE_POLICY = {
 
     'user:read': ({
       project,
-      targetUserIds,
-    }: SessionContext & { targetUserIds: (User | UserAPI)['id'][] }) =>
-      targetUserIds.every((targetUserId) =>
-        project?.membersIds?.map(String).includes(String(targetUserId))
+      targetUsers,
+    }: SessionContext & { targetUsers: (User | UserAPI)[] }) =>
+      targetUsers.every((targetUser) =>
+        project?.membersIds?.map(String).includes(String(targetUser?.id))
       ),
   },
   project_reviewer: {

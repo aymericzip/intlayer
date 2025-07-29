@@ -100,7 +100,7 @@ export const getUsers = async (
         'user:read'
       )({
         ...res.locals,
-        targetUserIds: users.map((user) => user.id),
+        targetUsers: users,
       })
     ) {
       ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
@@ -181,7 +181,7 @@ export const getUserByEmail = async (
         'user:read'
       )({
         ...res.locals,
-        targetUserIds: [user.id],
+        targetUsers: [user],
       })
     ) {
       ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
@@ -228,7 +228,7 @@ export const updateUser = async (
       'user:write'
     )({
       ...res.locals,
-      targetUserIds: [user.id],
+      targetUsers: [userData as User],
     })
   ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
@@ -279,21 +279,28 @@ export const deleteUser = async (
   const { userId } = req.params;
   const { roles } = res.locals;
 
-  if (
-    !hasPermission(
-      roles,
-      'user:admin'
-    )({
-      ...res.locals,
-      targetUserIds: [userId],
-    })
-  ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
-  }
-
   try {
-    const user = await userService.deleteUser(userId);
+    const user = await userService.getUserById(userId);
+
+    if (!user) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
+
+    if (
+      !hasPermission(
+        roles,
+        'user:admin'
+      )({
+        ...res.locals,
+        targetUsers: [user],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    await userService.deleteUser(userId);
 
     const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({
