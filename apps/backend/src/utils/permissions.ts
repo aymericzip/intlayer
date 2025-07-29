@@ -157,7 +157,15 @@ export const ROLE_POLICY = {
       ),
   },
   org_user: {
-    'organization:read': () => true,
+    'organization:read': ({
+      organization,
+      targetOrganizations,
+    }: SessionContext & {
+      targetOrganizations: (Organization | OrganizationAPI)[];
+    }) =>
+      targetOrganizations.every(
+        (targetOrg) => String(targetOrg.id) === String(organization?.id)
+      ),
 
     'project:read': ({
       user,
@@ -263,10 +271,33 @@ export const ROLE_POLICY = {
     'dictionary:write': ({ user, project }: SessionContext) =>
       project?.adminsIds?.map(String).includes(String(user?.id)),
 
-    'tag:read': () => true,
-    'tag:write': () => true,
-    'tag:admin': ({ user, organization }: SessionContext) =>
-      organization?.adminsIds?.map(String).includes(String(user?.id)),
+    'tag:read': ({
+      project,
+      targetTags,
+      user,
+    }: SessionContext & {
+      targetTags: (Tag | TagAPI)[];
+    }) =>
+      project?.membersIds?.map(String).includes(String(user?.id)) &&
+      targetTags.every((tag) => String(project?.id) === String(tag?.projectId)),
+    'tag:write': ({
+      project,
+      targetTags,
+      user,
+    }: SessionContext & {
+      targetTags: (Tag | TagAPI)[];
+    }) =>
+      project?.membersIds?.map(String).includes(String(user?.id)) &&
+      targetTags.every((tag) => String(project?.id) === String(tag?.projectId)),
+    'tag:admin': ({
+      user,
+      project,
+      targetTags,
+    }: SessionContext & {
+      targetTags: (Tag | TagAPI)[];
+    }) =>
+      project?.adminsIds?.map(String).includes(String(user?.id)) &&
+      targetTags.every((tag) => String(project?.id) === String(tag?.projectId)),
 
     'user:read': ({
       project,
@@ -328,13 +359,6 @@ export const getSessionRoles = ({
   if (!project) {
     return roles;
   }
-
-  console.log({
-    project,
-    adminsIds: project.adminsIds,
-    userid: user!.id,
-    isProjectAdmin: project.adminsIds?.map(String).includes(String(user!.id)),
-  });
 
   const isProjectAdmin = project.adminsIds
     ?.map(String)
