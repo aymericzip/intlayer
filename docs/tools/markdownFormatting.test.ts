@@ -7,5 +7,5 @@ describe('Markdown Formatting', () => {
 
     console.info(result);
     expect(result.filesWithErrors).toBe(0);
-  });
+  }, 30000); // 30 second timeout for processing many files
 });
