@@ -53,6 +53,10 @@ export const getConfiguration = (
       'string'
     )!,
     noPrefix: getEnvValue(env.middleware.noPrefix, 'boolean')!,
+    detectLocaleOnPrefetchNoPrefix: getEnvValue(
+      env.middleware.detectLocaleOnPrefetchNoPrefix,
+      'boolean'
+    )!,
   };
 
   const intlayerContentConfiguration: ContentConfig = {

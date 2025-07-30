@@ -33,6 +33,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     basePath: import.meta.env.VITE_INTLAYER_BASE_PATH,
     serverSetCookie: import.meta.env.VITE_INTLAYER_SERVER_SET_COOKIE,
     noPrefix: import.meta.env.VITE_INTLAYER_NO_PREFIX,
+    detectLocaleOnPrefetchNoPrefix: import.meta.env
+      .VITE_INTLAYER_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
   };
 
   const content: ReplaceValue<ContentConfig> = {

@@ -24,6 +24,8 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     basePath: process.env.NEXT_PUBLIC_INTLAYER_BASE_PATH,
     serverSetCookie: process.env.NEXT_PUBLIC_INTLAYER_SERVER_SET_COOKIE,
     noPrefix: process.env.NEXT_PUBLIC_INTLAYER_NO_PREFIX,
+    detectLocaleOnPrefetchNoPrefix:
+      process.env.NEXT_PUBLIC_INTLAYER_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
   };
 
   const content: ReplaceValue<ContentConfig> = {

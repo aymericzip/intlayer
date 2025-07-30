@@ -144,7 +144,8 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {
     resolveAlias: {
-      // "prefix by './' to consider the path as relative to the project root. This is necessary for turbo to work correctly."
+      // prefix by './' to consider the path as relative to the project root. This is necessary for turbopack to work correctly.
+      // Normalize the path to avoid issues with the path separator on Windows
       '@intlayer/dictionaries-entry': normalizePath(
         `./${relativeDictionariesPath}`
       ),

@@ -40,6 +40,7 @@ import { MODE, PREFIX } from '../defaultValues/log';
 import {
   BASE_PATH,
   COOKIE_NAME,
+  DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
   HEADER_NAME,
   NO_PREFIX,
   PREFIX_DEFAULT,
@@ -176,6 +177,41 @@ const buildMiddlewareFields = (
    * Default: false
    */
   noPrefix: customConfiguration?.noPrefix ?? NO_PREFIX,
+
+  /**
+   * Controls whether locale detection occurs during Next.js prefetch requests
+   * - true: Detect and apply locale during prefetch
+   * - false: Use default locale during prefetch (recommended)
+   *
+   * This setting affects how Next.js handles locale prefetching:
+   *
+   * Example scenario:
+   * - User's browser language is 'fr'
+   * - Current page is /fr/about
+   * - Link prefetches /about
+   *
+   * With `detectLocaleOnPrefetchNoPrefix:true`
+   * - Prefetch detects 'fr' locale from browser
+   * - Redirects prefetch to /fr/about
+   *
+   * With `detectLocaleOnPrefetchNoPrefix:false` (default)
+   * - Prefetch uses default locale
+   * - Redirects prefetch to /en/about (assuming 'en' is default)
+   *
+   * When to use true:
+   * - Your app uses non-localized internal links (e.g. <a href="/about">)
+   * - You want consistent locale detection behavior between regular and prefetch requests
+   *
+   * When to use false (default):
+   * - Your app uses locale-prefixed links (e.g. <a href="/fr/about">)
+   * - You want to optimize prefetching performance
+   * - You want to avoid potential redirect loops
+   *
+   * Default: false
+   */
+  detectLocaleOnPrefetchNoPrefix:
+    customConfiguration?.detectLocaleOnPrefetchNoPrefix ??
+    DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
 });
 
 const buildContentFields = (
