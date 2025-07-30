@@ -3,7 +3,6 @@
 import type { IntlayerConfig } from '@intlayer/config/client';
 import { useAuth } from '@intlayer/design-system/hooks';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
-import { useIntlayer } from 'next-intlayer';
 import {
   type FC,
   type PropsWithChildren,
@@ -29,7 +28,6 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   configuration,
 }) => {
   const { session } = useAuth();
-  const { checkingApplicationStatus } = useIntlayer('editor-provider');
   const intlayerConfig =
     configuration ?? (session?.project?.configuration as IntlayerConfig);
   const applicationURL = intlayerConfig?.editor.applicationURL ?? '*';
