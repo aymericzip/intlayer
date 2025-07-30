@@ -268,10 +268,12 @@ Settings that control middleware behaviour, including how the application handle
 - **prefixDefault**:
 
   - _Type_: `boolean`
-  - _Default_: `true`
+  - _Default_: `false`
   - _Description_: Whether to include the default locale in the URL.
-  - _Example_: `false`
-  - _Note_: If `false`, URLs for the default locale will not have a locale prefix.
+  - _Example_: `true`
+  - _Note_:
+    - If `true` and `defaultLocale = 'en'`: path = `/en/dashboard` or `/fr/dashboard`
+    - If `false` and `defaultLocale = 'en'`: path = `/dashboard` or `/fr/dashboard`
 
 - **basePath**:
 
@@ -279,7 +281,11 @@ Settings that control middleware behaviour, including how the application handle
   - _Default_: `''`
   - _Description_: The base path for the application URLs.
   - _Example_: `'/my-app'`
-  - _Note_: This affects how URLs are constructed for the application.
+  - _Note_:
+    - If the application is hosted at `https://example.com/my-app`
+    - The base path is `'/my-app'`
+    - The URL will be `https://example.com/my-app/en`
+    - If the base path is not set, the URL will be `https://example.com/en`
 
 - **serverSetCookie**:
 
@@ -291,11 +297,42 @@ Settings that control middleware behaviour, including how the application handle
   - _Note_: Controls whether the locale cookie is set on every request or never.
 
 - **noPrefix**:
+
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Whether to omit the locale prefix from URLs.
   - _Example_: `true`
-  - _Note_: If `true`, URLs will not contain locale information.
+  - _Note_:
+    - If `true`: No prefix in the URL
+    - If `false`: Prefix in the URL
+    - Example with `basePath = '/my-app'`:
+      - If `noPrefix = false`: URL will be `https://example.com/my-app/en`
+      - If `noPrefix = true`: URL will be `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Controls whether locale detection occurs during Next.js prefetch requests.
+  - _Example_: `true`
+  - _Note_: This setting affects how Next.js handles locale prefetching:
+    - **Example scenario:**
+      - User's browser language is `'fr'`
+      - Current page is `/fr/about`
+      - Link prefetches `/about`
+    - **With `detectLocaleOnPrefetchNoPrefix: true`:**
+      - Prefetch detects `'fr'` locale from browser
+      - Redirects prefetch to `/fr/about`
+    - **With `detectLocaleOnPrefetchNoPrefix: false` (default):**
+      - Prefetch uses default locale
+      - Redirects prefetch to `/en/about` (assuming `'en'` is default)
+    - **When to use `true`:**
+      - Your app uses non-localised internal links (e.g. `<a href="/about">`)
+      - You want consistent locale detection behaviour between regular and prefetch requests
+    - **When to use `false` (default):**
+      - Your app uses locale-prefixed links (e.g. `<a href="/fr/about">`)
+      - You want to optimise prefetching performance
+      - You want to avoid potential redirect loops
 
 ---
 

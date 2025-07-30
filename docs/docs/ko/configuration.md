@@ -268,10 +268,12 @@ module.exports = config;
 - **prefixDefault**:
 
   - _유형_: `boolean`
-  - _기본값_: `true`
+  - _기본값_: `false`
   - _설명_: 기본 로케일을 URL에 포함할지 여부입니다.
-  - _예시_: `false`
-  - _참고_: `false`로 설정하면 기본 로케일의 URL에는 로케일 접두사가 포함되지 않습니다.
+  - _예시_: `true`
+  - _참고_:
+    - `true`이고 `defaultLocale = 'en'`인 경우: path = `/en/dashboard` 또는 `/fr/dashboard`
+    - `false`이고 `defaultLocale = 'en'`인 경우: path = `/dashboard` 또는 `/fr/dashboard`
 
 - **basePath**:
 
@@ -279,7 +281,11 @@ module.exports = config;
   - _기본값_: `''`
   - _설명_: 애플리케이션 URL의 기본 경로입니다.
   - _예시_: `'/my-app'`
-  - _참고_: 이 설정은 애플리케이션의 URL 구성 방식에 영향을 미칩니다.
+  - _참고_:
+    - 애플리케이션이 `https://example.com/my-app`에서 호스팅되는 경우
+    - 기본 경로는 `'/my-app'`
+    - URL은 `https://example.com/my-app/en`이 됩니다
+    - 기본 경로가 설정되지 않은 경우 URL은 `https://example.com/en`이 됩니다
 
 - **serverSetCookie**:
 
@@ -291,11 +297,42 @@ module.exports = config;
   - _참고_: 로케일 쿠키를 모든 요청에서 설정할지 또는 설정하지 않을지를 제어합니다.
 
 - **noPrefix**:
+
   - _유형_: `boolean`
   - _기본값_: `false`
   - _설명_: URL에서 로케일 접두사를 생략할지 여부를 나타냅니다.
   - _예시_: `true`
-  - _참고_: `true`로 설정하면 URL에 로케일 정보가 포함되지 않습니다.
+  - _참고_:
+    - `true`인 경우: URL에 접두사 없음
+    - `false`인 경우: URL에 접두사 있음
+    - `basePath = '/my-app'` 예시:
+      - `noPrefix = false`인 경우: URL은 `https://example.com/my-app/en`이 됩니다
+      - `noPrefix = true`인 경우: URL은 `https://example.com`이 됩니다
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _유형_: `boolean`
+  - _기본값_: `false`
+  - _설명_: Next.js 프리페치 요청 중 로케일 감지가 발생하는지 제어합니다.
+  - _예시_: `true`
+  - _참고_: 이 설정은 Next.js가 로케일 프리페치를 처리하는 방식에 영향을 미칩니다:
+    - **예시 시나리오:**
+      - 사용자의 브라우저 언어는 `'fr'`
+      - 현재 페이지는 `/fr/about`
+      - 링크가 `/about`을 프리페치
+    - **`detectLocaleOnPrefetchNoPrefix: true`인 경우:**
+      - 프리페치가 브라우저에서 `'fr'` 로케일을 감지
+      - 프리페치를 `/fr/about`으로 리다이렉트
+    - **`detectLocaleOnPrefetchNoPrefix: false`(기본값)인 경우:**
+      - 프리페치가 기본 로케일을 사용
+      - 프리페치를 `/en/about`으로 리다이렉트(`'en'`이 기본값이라고 가정)
+    - **`true`를 사용하는 경우:**
+      - 앱이 비로컬라이즈된 내부 링크를 사용하는 경우(예: `<a href="/about">`)
+      - 일반 요청과 프리페치 요청 간에 일관된 로케일 감지 동작을 원하는 경우
+    - **`false`(기본값)를 사용하는 경우:**
+      - 앱이 로케일 접두사가 있는 링크를 사용하는 경우(예: `<a href="/fr/about">`)
+      - 프리페치 성능을 최적화하고 싶은 경우
+      - 잠재적인 리다이렉트 루프를 피하고 싶은 경우
 
 ---
 

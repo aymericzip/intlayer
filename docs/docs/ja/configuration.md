@@ -268,10 +268,12 @@ module.exports = config;
 - **prefixDefault**:
 
   - _型_: `boolean`
-  - _デフォルト_: `true`
+  - _デフォルト_: `false`
   - _説明_: デフォルトのロケールをURLに含めるかどうか。
-  - _例_: `false`
-  - _注意_: `false`の場合、デフォルトロケールのURLにはロケールプレフィックスが付きません。
+  - _例_: `true`
+  - _注意_:
+    - `true`で`defaultLocale = 'en'`の場合: path = `/en/dashboard`または`/fr/dashboard`
+    - `false`で`defaultLocale = 'en'`の場合: path = `/dashboard`または`/fr/dashboard`
 
 - **basePath**:
 
@@ -279,7 +281,11 @@ module.exports = config;
   - _デフォルト_: `''`
   - _説明_: アプリケーションURLのベースパス。
   - _例_: `'/my-app'`
-  - _注意_: これはアプリケーションのURL構築に影響します。
+  - _注意_:
+    - アプリケーションが`https://example.com/my-app`でホストされている場合
+    - ベースパスは`'/my-app'`
+    - URLは`https://example.com/my-app/en`になります
+    - ベースパスが設定されていない場合、URLは`https://example.com/en`になります
 
 - **serverSetCookie**:
 
@@ -291,11 +297,42 @@ module.exports = config;
   - _注意_: ロケールクッキーをすべてのリクエストで設定するか、まったく設定しないかを制御します。
 
 - **noPrefix**:
+
   - _型_: `boolean`
   - _デフォルト_: `false`
   - _説明_: URLからロケールプレフィックスを省略するかどうか。
   - _例_: `true`
-  - _注意_: `true`の場合、URLにはロケール情報が含まれません。
+  - _注意_:
+    - `true`の場合: URLにプレフィックスなし
+    - `false`の場合: URLにプレフィックスあり
+    - `basePath = '/my-app'`の例:
+      - `noPrefix = false`の場合: URLは`https://example.com/my-app/en`になります
+      - `noPrefix = true`の場合: URLは`https://example.com`になります
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _型_: `boolean`
+  - _デフォルト_: `false`
+  - _説明_: Next.jsのプリフェッチリクエスト中にロケール検出が行われるかどうかを制御します。
+  - _例_: `true`
+  - _注意_: この設定はNext.jsがロケールプリフェッチを処理する方法に影響します:
+    - **例のシナリオ:**
+      - ユーザーのブラウザ言語は`'fr'`
+      - 現在のページは`/fr/about`
+      - リンクが`/about`をプリフェッチ
+    - **`detectLocaleOnPrefetchNoPrefix: true`の場合:**
+      - プリフェッチがブラウザから`'fr'`ロケールを検出
+      - プリフェッチを`/fr/about`にリダイレクト
+    - **`detectLocaleOnPrefetchNoPrefix: false`（デフォルト）の場合:**
+      - プリフェッチがデフォルトロケールを使用
+      - プリフェッチを`/en/about`にリダイレクト（`'en'`がデフォルトと仮定）
+    - **`true`を使用する場合:**
+      - アプリが非ローカライズされた内部リンクを使用する場合（例: `<a href="/about">`）
+      - 通常のリクエストとプリフェッチリクエスト間で一貫したロケール検出動作を望む場合
+    - **`false`（デフォルト）を使用する場合:**
+      - アプリがロケールプレフィックス付きリンクを使用する場合（例: `<a href="/fr/about">`）
+      - プリフェッチパフォーマンスを最適化したい場合
+      - 潜在的なリダイレクトループを避けたい場合
 
 ---
 
@@ -505,26 +542,4 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _説明_: 辞書がどのようにインポートされるかを制御します。
   - _例_: `'dynamic'`
   - _注意_: 利用可能なモード：
-    - "static": 辞書が静的にインポートされます。`useIntlayer`を`useDictionary`に置き換えます。
-    - "dynamic": 辞書がSuspenseを使用して動的にインポートされます。`useIntlayer`を`useDictionaryDynamic`に置き換えます。
-    - "async": 辞書が非同期で動的にインポートされます。`useIntlayer`を`await useDictionaryAsync`に置き換えます。
-  - _注意_: 動的インポートはSuspenseに依存し、レンダリングパフォーマンスに若干の影響を与える可能性があります。
-  - _注意_: 無効にすると、使用されていない場合でもすべてのロケールが一度に読み込まれます。
-  - _注意_: このオプションは`@intlayer/babel`および`@intlayer/swc`プラグインに依存します。
-  - _注意_: すべてのキーが`useIntlayer`呼び出しで静的に宣言されていることを確認してください。例：`useIntlayer('navbar')`。
-  - _注意_: このオプションは`optimize`が無効の場合は無視されます。
-  - _注意_: ほとんどの場合、Reactアプリケーションには`"dynamic"`が、Vue.jsアプリケーションには`"async"`が使用されます。
-  - _注意_: このオプションは`getIntlayer`、`getDictionary`、`useDictionary`、`useDictionaryAsync`、`useDictionaryDynamic`関数に影響しません。
-
-- **traversePattern**:
-  - _型_: `string[]`
-  - _デフォルト_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
-  - _説明_: 最適化中にトラバースするファイルを定義するパターン。
-    - _例_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _注意_: 関連するコードファイルに最適化を制限し、ビルドパフォーマンスを向上させるために使用します。
-  - _注意_: このオプションは`optimize`が無効の場合は無視されます。
-  - _注意_: globパターンを使用します。
-
-## ドキュメント履歴
-
-- 5.5.11 - 2025-06-29: `docs`コマンドを追加
+    - "static": 辞書が静的にインポートされます。`useIntlayer`を`useDictionary`

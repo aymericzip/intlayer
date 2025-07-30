@@ -268,10 +268,12 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
 - **prefixDefault**:
 
   - _Tipo_: `boolean`
-  - _Por defecto_: `true`
+  - _Por defecto_: `false`
   - _Descripción_: Indica si se debe incluir la configuración regional predeterminada en la URL.
-  - _Ejemplo_: `false`
-  - _Nota_: Si es `false`, las URLs para la configuración regional predeterminada no tendrán un prefijo de configuración regional.
+  - _Ejemplo_: `true`
+  - _Nota_:
+    - Si `true` y `defaultLocale = 'en'`: path = `/en/dashboard` o `/fr/dashboard`
+    - Si `false` y `defaultLocale = 'en'`: path = `/dashboard` o `/fr/dashboard`
 
 - **basePath**:
 
@@ -279,7 +281,11 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
   - _Por defecto_: `''`
   - _Descripción_: La ruta base para las URLs de la aplicación.
   - _Ejemplo_: `'/my-app'`
-  - _Nota_: Esto afecta cómo se construyen las URLs para la aplicación.
+  - _Nota_:
+    - Si la aplicación está alojada en `https://example.com/my-app`
+    - La ruta base es `'/my-app'`
+    - La URL será `https://example.com/my-app/en`
+    - Si la ruta base no está configurada, la URL será `https://example.com/en`
 
 - **serverSetCookie**:
 
@@ -291,11 +297,42 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
   - _Nota_: Controla si la cookie de configuración regional se establece en cada solicitud o nunca.
 
 - **noPrefix**:
+
   - _Tipo_: `boolean`
   - _Por defecto_: `false`
   - _Descripción_: Indica si se debe omitir el prefijo de configuración regional en las URLs.
   - _Ejemplo_: `true`
-  - _Nota_: Si es `true`, las URLs no contendrán información de configuración regional.
+  - _Nota_:
+    - Si `true`: Sin prefijo en la URL
+    - Si `false`: Prefijo en la URL
+    - Ejemplo con `basePath = '/my-app'`:
+      - Si `noPrefix = false`: La URL será `https://example.com/my-app/en`
+      - Si `noPrefix = true`: La URL será `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _Tipo_: `boolean`
+  - _Por defecto_: `false`
+  - _Descripción_: Controla si la detección de configuración regional ocurre durante las solicitudes de precarga de Next.js.
+  - _Ejemplo_: `true`
+  - _Nota_: Esta configuración afecta cómo Next.js maneja la precarga de configuración regional:
+    - **Escenario de ejemplo:**
+      - El idioma del navegador del usuario es `'fr'`
+      - La página actual es `/fr/about`
+      - El enlace precarga `/about`
+    - **Con `detectLocaleOnPrefetchNoPrefix: true`:**
+      - La precarga detecta la configuración regional `'fr'` desde el navegador
+      - Redirige la precarga a `/fr/about`
+    - **Con `detectLocaleOnPrefetchNoPrefix: false` (por defecto):**
+      - La precarga usa la configuración regional predeterminada
+      - Redirige la precarga a `/en/about` (asumiendo que `'en'` es la predeterminada)
+    - **Cuándo usar `true`:**
+      - Tu aplicación usa enlaces internos no localizados (ej. `<a href="/about">`)
+      - Quieres comportamiento consistente de detección de configuración regional entre solicitudes normales y de precarga
+    - **Cuándo usar `false` (por defecto):**
+      - Tu aplicación usa enlaces con prefijo de configuración regional (ej. `<a href="/fr/about">`)
+      - Quieres optimizar el rendimiento de precarga
+      - Quieres evitar bucles de redirección potenciales
 
 ---
 

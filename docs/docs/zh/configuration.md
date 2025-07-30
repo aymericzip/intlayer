@@ -268,10 +268,12 @@ module.exports = config;
 - **prefixDefault**:
 
   - _类型_: `boolean`
-  - _默认值_: `true`
+  - _默认值_: `false`
   - _描述_: 是否在 URL 中包含默认语言环境。
-  - _示例_: `false`
-  - _注意_: 如果为 `false`，默认语言环境的 URL 将不会有语言环境前缀。
+  - _示例_: `true`
+  - _注意_:
+    - 如果 `true` 且 `defaultLocale = 'en'`: path = `/en/dashboard` 或 `/fr/dashboard`
+    - 如果 `false` 且 `defaultLocale = 'en'`: path = `/dashboard` 或 `/fr/dashboard`
 
 - **basePath**:
 
@@ -279,7 +281,11 @@ module.exports = config;
   - _默认值_: `''`
   - _描述_: 应用程序 URL 的基础路径。
   - _示例_: `'/my-app'`
-  - _注意_: 这会影响应用程序 URL 的构建方式。
+  - _注意_:
+    - 如果应用程序托管在 `https://example.com/my-app`
+    - 基础路径是 `'/my-app'`
+    - URL 将是 `https://example.com/my-app/en`
+    - 如果基础路径未设置，URL 将是 `https://example.com/en`
 
 - **serverSetCookie**:
 
@@ -291,11 +297,42 @@ module.exports = config;
   - _注意_: 控制是否在每个请求上设置语言环境 Cookie 或从不设置。
 
 - **noPrefix**:
+
   - _类型_: `boolean`
   - _默认值_: `false`
   - _描述_: 是否从 URL 中省略语言环境前缀。
   - _示例_: `true`
-  - _注意_: 如果为 `true`，URL 将不包含语言环境信息。
+  - _注意_:
+    - 如果 `true`: URL 中没有前缀
+    - 如果 `false`: URL 中有前缀
+    - 使用 `basePath = '/my-app'` 的示例:
+      - 如果 `noPrefix = false`: URL 将是 `https://example.com/my-app/en`
+      - 如果 `noPrefix = true`: URL 将是 `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _类型_: `boolean`
+  - _默认值_: `false`
+  - _描述_: 控制是否在 Next.js 预取请求期间进行语言环境检测。
+  - _示例_: `true`
+  - _注意_: 此设置影响 Next.js 处理语言环境预取的方式:
+    - **示例场景:**
+      - 用户的浏览器语言是 `'fr'`
+      - 当前页面是 `/fr/about`
+      - 链接预取 `/about`
+    - **使用 `detectLocaleOnPrefetchNoPrefix: true`:**
+      - 预取从浏览器检测到 `'fr'` 语言环境
+      - 将预取重定向到 `/fr/about`
+    - **使用 `detectLocaleOnPrefetchNoPrefix: false` (默认):**
+      - 预取使用默认语言环境
+      - 将预取重定向到 `/en/about` (假设 `'en'` 是默认值)
+    - **何时使用 `true`:**
+      - 您的应用程序使用非本地化的内部链接 (例如 `<a href="/about">`)
+      - 您希望在常规请求和预取请求之间保持一致的语言环境检测行为
+    - **何时使用 `false` (默认):**
+      - 您的应用程序使用带语言环境前缀的链接 (例如 `<a href="/fr/about">`)
+      - 您希望优化预取性能
+      - 您希望避免潜在的重定向循环
 
 ---
 

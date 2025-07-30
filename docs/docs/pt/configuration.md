@@ -270,10 +270,12 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
 - **prefixDefault**:
 
   - _Tipo_: `boolean`
-  - _Padrão_: `true`
+  - _Padrão_: `false`
   - _Descrição_: Indica se o idioma padrão deve ser incluído na URL.
-  - _Exemplo_: `false`
-  - _Nota_: Se `false`, as URLs para o idioma padrão não terão um prefixo de idioma.
+  - _Exemplo_: `true`
+  - _Nota_:
+    - Se `true` e `defaultLocale = 'en'`: path = `/en/dashboard` ou `/fr/dashboard`
+    - Se `false` e `defaultLocale = 'en'`: path = `/dashboard` ou `/fr/dashboard`
 
 - **basePath**:
 
@@ -281,7 +283,11 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Padrão_: `''`
   - _Descrição_: O caminho base para as URLs da aplicação.
   - _Exemplo_: `'/my-app'`
-  - _Nota_: Isso afeta como as URLs são construídas para a aplicação.
+  - _Nota_:
+    - Se a aplicação está hospedada em `https://example.com/my-app`
+    - O caminho base é `'/my-app'`
+    - A URL será `https://example.com/my-app/en`
+    - Se o caminho base não estiver definido, a URL será `https://example.com/en`
 
 - **serverSetCookie**:
 
@@ -293,11 +299,42 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Nota_: Controla se o cookie de idioma é definido em todas as requisições ou nunca.
 
 - **noPrefix**:
+
   - _Tipo_: `boolean`
   - _Padrão_: `false`
   - _Descrição_: Indica se o prefixo de idioma deve ser omitido das URLs.
   - _Exemplo_: `true`
-  - _Nota_: Se `true`, as URLs não conterão informações de idioma.
+  - _Nota_:
+    - Se `true`: Sem prefixo na URL
+    - Se `false`: Prefixo na URL
+    - Exemplo com `basePath = '/my-app'`:
+      - Se `noPrefix = false`: A URL será `https://example.com/my-app/en`
+      - Se `noPrefix = true`: A URL será `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _Tipo_: `boolean`
+  - _Padrão_: `false`
+  - _Descrição_: Controla se a detecção de idioma ocorre durante as requisições de prefetch do Next.js.
+  - _Exemplo_: `true`
+  - _Nota_: Esta configuração afeta como o Next.js gerencia o prefetch de idioma:
+    - **Cenário de exemplo:**
+      - O idioma do navegador do usuário é `'fr'`
+      - A página atual é `/fr/about`
+      - O link faz prefetch de `/about`
+    - **Com `detectLocaleOnPrefetchNoPrefix: true`:**
+      - O prefetch detecta o idioma `'fr'` do navegador
+      - Redireciona o prefetch para `/fr/about`
+    - **Com `detectLocaleOnPrefetchNoPrefix: false` (padrão):**
+      - O prefetch usa o idioma padrão
+      - Redireciona o prefetch para `/en/about` (assumindo que `'en'` é o padrão)
+    - **Quando usar `true`:**
+      - Sua aplicação usa links internos não localizados (ex. `<a href="/about">`)
+      - Você quer comportamento consistente de detecção de idioma entre requisições normais e de prefetch
+    - **Quando usar `false` (padrão):**
+      - Sua aplicação usa links com prefixo de idioma (ex. `<a href="/fr/about">`)
+      - Você quer otimizar a performance do prefetch
+      - Você quer evitar loops de redirecionamento potenciais
 
 ---
 

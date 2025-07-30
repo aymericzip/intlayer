@@ -268,10 +268,12 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
 - **prefixDefault**:
 
   - _Typ_: `boolean`
-  - _Standard_: `true`
+  - _Standard_: `false`
   - _Beschreibung_: Ob die Standardsprache in der URL enthalten sein soll.
-  - _Beispiel_: `false`
-  - _Hinweis_: Wenn `false`, enthalten URLs für die Standardsprache kein Sprachpräfix.
+  - _Beispiel_: `true`
+  - _Hinweis_:
+    - Wenn `true` und `defaultLocale = 'en'`: path = `/en/dashboard` oder `/fr/dashboard`
+    - Wenn `false` und `defaultLocale = 'en'`: path = `/dashboard` oder `/fr/dashboard`
 
 - **basePath**:
 
@@ -279,7 +281,11 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
   - _Standard_: `''`
   - _Beschreibung_: Der Basis-Pfad für die Anwendungs-URLs.
   - _Beispiel_: `'/my-app'`
-  - _Hinweis_: Dies beeinflusst, wie URLs für die Anwendung erstellt werden.
+  - _Hinweis_:
+    - Wenn die Anwendung auf `https://example.com/my-app` gehostet wird
+    - Der Basis-Pfad ist `'/my-app'`
+    - Die URL wird `https://example.com/my-app/en` sein
+    - Wenn der Basis-Pfad nicht gesetzt ist, wird die URL `https://example.com/en` sein
 
 - **serverSetCookie**:
 
@@ -291,11 +297,42 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
   - _Hinweis_: Steuert, ob das Sprach-Cookie bei jeder Anfrage oder nie gesetzt wird.
 
 - **noPrefix**:
+
   - _Typ_: `boolean`
   - _Standard_: `false`
   - _Beschreibung_: Ob das Sprachpräfix in URLs weggelassen werden soll.
   - _Beispiel_: `true`
-  - _Hinweis_: Wenn `true`, enthalten URLs keine Sprachinformationen.
+  - _Hinweis_:
+    - Wenn `true`: Kein Präfix in der URL
+    - Wenn `false`: Präfix in der URL
+    - Beispiel mit `basePath = '/my-app'`:
+      - Wenn `noPrefix = false`: URL wird `https://example.com/my-app/en` sein
+      - Wenn `noPrefix = true`: URL wird `https://example.com` sein
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Steuert, ob die Spracherkennung während Next.js Prefetch-Anfragen stattfindet.
+  - _Beispiel_: `true`
+  - _Hinweis_: Diese Einstellung beeinflusst, wie Next.js mit Sprach-Prefetching umgeht:
+    - **Beispielszenario:**
+      - Die Browsersprache des Benutzers ist `'fr'`
+      - Die aktuelle Seite ist `/fr/about`
+      - Link prefetcht `/about`
+    - **Mit `detectLocaleOnPrefetchNoPrefix: true`:**
+      - Prefetch erkennt `'fr'` Sprache vom Browser
+      - Leitet Prefetch zu `/fr/about` weiter
+    - **Mit `detectLocaleOnPrefetchNoPrefix: false` (Standard):**
+      - Prefetch verwendet Standardsprache
+      - Leitet Prefetch zu `/en/about` weiter (angenommen `'en'` ist Standard)
+    - **Wann `true` verwenden:**
+      - Ihre App verwendet nicht-lokalisierte interne Links (z.B. `<a href="/about">`)
+      - Sie möchten konsistentes Spracherkennungsverhalten zwischen normalen und Prefetch-Anfragen
+    - **Wann `false` verwenden (Standard):**
+      - Ihre App verwendet sprachpräfixierte Links (z.B. `<a href="/fr/about">`)
+      - Sie möchten Prefetching-Performance optimieren
+      - Sie möchten potenzielle Weiterleitungsschleifen vermeiden
 
 ---
 

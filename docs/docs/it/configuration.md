@@ -268,10 +268,12 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
 - **prefixDefault**:
 
   - _Tipo_: `boolean`
-  - _Predefinito_: `true`
+  - _Predefinito_: `false`
   - _Descrizione_: Indica se includere il locale predefinito nell'URL.
-  - _Esempio_: `false`
-  - _Nota_: Se `false`, gli URL per la lingua predefinita non avranno un prefisso di lingua.
+  - _Esempio_: `true`
+  - _Nota_:
+    - Se `true` e `defaultLocale = 'en'`: path = `/en/dashboard` o `/fr/dashboard`
+    - Se `false` e `defaultLocale = 'en'`: path = `/dashboard` o `/fr/dashboard`
 
 - **basePath**:
 
@@ -279,7 +281,11 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
   - _Predefinito_: `''`
   - _Descrizione_: Il percorso base per gli URL dell'applicazione.
   - _Esempio_: `'/my-app'`
-  - _Nota_: Questo influisce su come vengono costruiti gli URL per l'applicazione.
+  - _Nota_:
+    - Se l'applicazione è ospitata su `https://example.com/my-app`
+    - Il percorso base è `'/my-app'`
+    - L'URL sarà `https://example.com/my-app/en`
+    - Se il percorso base non è impostato, l'URL sarà `https://example.com/en`
 
 - **serverSetCookie**:
 
@@ -291,11 +297,42 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
   - _Nota_: Controlla se il cookie della lingua viene impostato su ogni richiesta o mai.
 
 - **noPrefix**:
+
   - _Tipo_: `boolean`
   - _Predefinito_: `false`
   - _Descrizione_: Indica se omettere il prefisso della lingua dagli URL.
   - _Esempio_: `true`
-  - _Nota_: Se `true`, gli URL non conterranno informazioni sulla lingua.
+  - _Nota_:
+    - Se `true`: Nessun prefisso nell'URL
+    - Se `false`: Prefisso nell'URL
+    - Esempio con `basePath = '/my-app'`:
+      - Se `noPrefix = false`: L'URL sarà `https://example.com/my-app/en`
+      - Se `noPrefix = true`: L'URL sarà `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _Tipo_: `boolean`
+  - _Predefinito_: `false`
+  - _Descrizione_: Controlla se la rilevazione del locale avviene durante le richieste di prefetch di Next.js.
+  - _Esempio_: `true`
+  - _Nota_: Questa impostazione influisce su come Next.js gestisce il prefetch del locale:
+    - **Scenario di esempio:**
+      - La lingua del browser dell'utente è `'fr'`
+      - La pagina corrente è `/fr/about`
+      - Il link fa prefetch di `/about`
+    - **Con `detectLocaleOnPrefetchNoPrefix: true`:**
+      - Il prefetch rileva il locale `'fr'` dal browser
+      - Reindirizza il prefetch a `/fr/about`
+    - **Con `detectLocaleOnPrefetchNoPrefix: false` (predefinito):**
+      - Il prefetch usa il locale predefinito
+      - Reindirizza il prefetch a `/en/about` (assumendo che `'en'` sia il predefinito)
+    - **Quando usare `true`:**
+      - La tua app usa link interni non localizzati (es. `<a href="/about">`)
+      - Vuoi un comportamento di rilevazione del locale coerente tra richieste normali e di prefetch
+    - **Quando usare `false` (predefinito):**
+      - La tua app usa link con prefisso del locale (es. `<a href="/fr/about">`)
+      - Vuoi ottimizzare le prestazioni del prefetch
+      - Vuoi evitare potenziali loop di reindirizzamento
 
 ---
 

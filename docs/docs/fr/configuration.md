@@ -268,10 +268,12 @@ Paramètres qui contrôlent le comportement du middleware, y compris la gestion 
 - **prefixDefault** :
 
   - _Type_ : `boolean`
-  - _Par défaut_ : `true`
-  - _Description_ : Indique s’il faut inclure la langue par défaut dans l’URL.
-  - _Exemple_ : `false`
-  - _Remarque_ : Si `false`, les URL pour la langue par défaut n'auront pas de préfixe de langue.
+  - _Par défaut_ : `false`
+  - _Description_ : Indique s'il faut inclure la langue par défaut dans l'URL.
+  - _Exemple_ : `true`
+  - _Remarque_ :
+    - Si `true` et `defaultLocale = 'en'` : path = `/en/dashboard` ou `/fr/dashboard`
+    - Si `false` et `defaultLocale = 'en'` : path = `/dashboard` ou `/fr/dashboard`
 
 - **basePath** :
 
@@ -279,7 +281,11 @@ Paramètres qui contrôlent le comportement du middleware, y compris la gestion 
   - _Par défaut_ : `''`
   - _Description_ : Le chemin de base pour les URL de l'application.
   - _Exemple_ : `'/my-app'`
-  - _Remarque_ : Cela affecte la manière dont les URL sont construites pour l'application.
+  - _Remarque_ :
+    - Si l'application est hébergée sur `https://example.com/my-app`
+    - Le chemin de base est `'/my-app'`
+    - L'URL sera `https://example.com/my-app/en`
+    - Si le chemin de base n'est pas défini, l'URL sera `https://example.com/en`
 
 - **serverSetCookie** :
 
@@ -291,11 +297,42 @@ Paramètres qui contrôlent le comportement du middleware, y compris la gestion 
   - _Remarque_ : Contrôle si le cookie de langue est défini à chaque requête ou jamais.
 
 - **noPrefix** :
+
   - _Type_ : `boolean`
   - _Par défaut_ : `false`
-  - _Description_ : Indique s’il faut omettre le préfixe de langue dans les URL.
+  - _Description_ : Indique s'il faut omettre le préfixe de langue dans les URL.
   - _Exemple_ : `true`
-  - _Remarque_ : Si `true`, les URLs ne contiendront pas d'information de langue.
+  - _Remarque_ :
+    - Si `true` : Pas de préfixe dans l'URL
+    - Si `false` : Préfixe dans l'URL
+    - Exemple avec `basePath = '/my-app'` :
+      - Si `noPrefix = false` : L'URL sera `https://example.com/my-app/en`
+      - Si `noPrefix = true` : L'URL sera `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix** :
+
+  - _Type_ : `boolean`
+  - _Par défaut_ : `false`
+  - _Description_ : Contrôle si la détection de langue se produit lors des requêtes de préchargement Next.js.
+  - _Exemple_ : `true`
+  - _Remarque_ : Ce paramètre affecte la façon dont Next.js gère le préchargement de langue :
+    - **Scénario d'exemple :**
+      - La langue du navigateur de l'utilisateur est `'fr'`
+      - La page actuelle est `/fr/about`
+      - Le lien précharge `/about`
+    - **Avec `detectLocaleOnPrefetchNoPrefix: true` :**
+      - Le préchargement détecte la langue `'fr'` depuis le navigateur
+      - Redirige le préchargement vers `/fr/about`
+    - **Avec `detectLocaleOnPrefetchNoPrefix: false` (par défaut) :**
+      - Le préchargement utilise la langue par défaut
+      - Redirige le préchargement vers `/en/about` (en supposant que `'en'` est la langue par défaut)
+    - **Quand utiliser `true` :**
+      - Votre application utilise des liens internes non localisés (ex. `<a href="/about">`)
+      - Vous voulez un comportement de détection de langue cohérent entre les requêtes normales et de préchargement
+    - **Quand utiliser `false` (par défaut) :**
+      - Votre application utilise des liens avec préfixe de langue (ex. `<a href="/fr/about">`)
+      - Vous voulez optimiser les performances de préchargement
+      - Vous voulez éviter les boucles de redirection potentielles
 
 ---
 
