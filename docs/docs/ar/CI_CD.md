@@ -14,7 +14,6 @@ keywords:
 slugs:
   - doc
   - concept
-  - ar
   - ci-cd
 ---
 

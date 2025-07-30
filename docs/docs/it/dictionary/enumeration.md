@@ -15,7 +15,6 @@ slugs:
   - doc
   - concept
   - content
-  - it
   - enumeration
 ---
 

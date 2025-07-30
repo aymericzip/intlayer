@@ -14,7 +14,6 @@ keywords:
   - TypeScript
 slugs:
   - doc
-  - ru
   - vs-code-extension
 ---
 

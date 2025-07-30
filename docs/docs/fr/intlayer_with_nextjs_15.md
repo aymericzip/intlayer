@@ -13,7 +13,6 @@ keywords:
 slugs:
   - doc
   - environment
-  - fr
   - nextjs
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU

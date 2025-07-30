@@ -15,7 +15,6 @@ slugs:
   - doc
   - concept
   - content
-  - ko
   - dictionary
   - enumeration
 ---
