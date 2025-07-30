@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - commande-inconnue
+  - unknown-command
 ---
 
 # erreur : commande inconnue fill / build / etc

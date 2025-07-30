@@ -16,7 +16,7 @@ keywords:
   - TypeScript
 slugs:
   - blog
-  - intlayer_with_i18next
+  - intlayer-with-i18next
 ---
 
 # التدويل باستخدام Intlayer و i18next

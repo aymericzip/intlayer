@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - roteamento-por-dominio
+  - domain-routing
 ---
 
 # Como configurar **roteamento baseado em domínio** com Intlayer em vez de caminhos `/[locale]/`?

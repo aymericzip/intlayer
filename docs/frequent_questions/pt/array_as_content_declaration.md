@@ -11,7 +11,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - array-como-declaracao-de-conteudo
+  - array-as-content-declaration
 ---
 
 # Posso usar um array como declaração de conteúdo?

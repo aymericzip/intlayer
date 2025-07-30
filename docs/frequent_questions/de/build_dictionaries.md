@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - wörterbücher-erstellen
+  - build-dictionaries
 ---
 
 # Wörterbücher erstellen

@@ -16,7 +16,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - erro-esbuild
+  - esbuild-error
 ---
 
 # Erro ESBuild

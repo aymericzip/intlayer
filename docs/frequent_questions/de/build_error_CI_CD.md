@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - build-fehler-ci-cd
+  - build-error-ci-cd
 ---
 
 # Fehler beim Build in CI/CD

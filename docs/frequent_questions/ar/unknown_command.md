@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - أمر-غير-معروف
+  - unknown-command
 ---
 
 # خطأ: أمر غير معروف fill / build / إلخ

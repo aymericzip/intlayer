@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - comando-desconhecido
+  - unknown-command
 ---
 
 # erro: comando desconhecido fill / build / etc

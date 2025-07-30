@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - übersetzter-pfad-url
+  - translated-path-url
 ---
 
 # Ist es möglich, URLs wie folgt zu übersetzen:

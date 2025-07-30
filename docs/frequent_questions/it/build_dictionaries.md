@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - costruire-dizionari
+  - build-dictionaries
 ---
 
 # Costruire Dizionari

@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - comando-intlayer-non-definito
+  - intlayer-command-undefined
 ---
 
 # Comando Intlayer non definito

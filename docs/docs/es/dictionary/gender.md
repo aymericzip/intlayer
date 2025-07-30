@@ -13,9 +13,9 @@ keywords:
   - React
 slugs:
   - doc
-  - concepto
-  - contenido
-  - genero
+  - concept
+  - content
+  - gender
 ---
 
 # Contenido Basado en Género / Género en Intlayer

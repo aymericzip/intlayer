@@ -11,7 +11,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - tableau-comme-declaration-de-contenu
+  - array-as-content-declaration
 ---
 
 # Puis-je utiliser un tableau comme déclaration de contenu ?

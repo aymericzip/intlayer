@@ -15,7 +15,7 @@ slugs:
   - doc
   - concept
   - content
-  - enumaration
+  - enumeration
 ---
 
 # Enumeración / Plurialización

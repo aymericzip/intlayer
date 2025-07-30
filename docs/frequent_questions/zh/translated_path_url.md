@@ -15,9 +15,9 @@ keywords:
   - 语言环境
   - url
 slugs:
-  - 文档
-  - 常见问题
-  - 翻译路径-url
+  - doc
+  - faq
+  - translated-path-url
 ---
 
 # 是否可以按以下方式翻译 URL：

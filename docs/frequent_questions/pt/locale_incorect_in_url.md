@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - locale-incoreto-na-url
+  - locale-incorect-in-url
 ---
 
 # Locale Incorreto Recuperado da URL

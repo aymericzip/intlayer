@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - liste-langues-personnalisee
+  - customized-locale-list
 ---
 
 # Est-il possible de bloquer un type de langue, comme l'anglais ? J'ajoute l'anglais dans mes dictionnaires mais je ne veux pas que l'anglais soit encore disponible sur le site web

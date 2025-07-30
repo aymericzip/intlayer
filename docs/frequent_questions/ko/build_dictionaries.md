@@ -15,9 +15,9 @@ keywords:
   - next.js
   - vite
 slugs:
-  - 문서
+  - doc
   - faq
-  - 사전-빌드
+  - build-dictionaries
 ---
 
 # 사전 빌드

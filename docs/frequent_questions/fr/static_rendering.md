@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - rendu-statique
+  - static-rendering
 ---
 
 # Rendu statique vs dynamique avec i18n dans Next.js

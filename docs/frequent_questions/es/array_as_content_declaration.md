@@ -11,7 +11,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - arreglo-como-declaracion-de-contenido
+  - array-as-content-declaration
 ---
 
 # ¿Puedo usar un arreglo como declaración de contenido?

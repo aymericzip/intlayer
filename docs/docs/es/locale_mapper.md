@@ -11,7 +11,7 @@ keywords:
   - Paquetes
 slugs:
   - doc
-  - mapeador-locales
+  - locale-mapper
 ---
 
 # Mapeador de Locales

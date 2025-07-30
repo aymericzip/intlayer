@@ -13,7 +13,7 @@ keywords:
 slugs:
   - doc
   - environment
-  - vite-and-
+  - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 

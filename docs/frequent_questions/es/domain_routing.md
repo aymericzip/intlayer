@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - enrutamiento-por-dominio
+  - domain-routing
 ---
 
 # ¿Cómo configuro el **enrutamiento basado en dominios** con Intlayer en lugar de rutas `/[locale]/`?

@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - obtener-configuracion-regional-cookie
+  - get-locale-cookie
 ---
 
 # Cómo recuperar la configuración regional desde las cookies / encabezados

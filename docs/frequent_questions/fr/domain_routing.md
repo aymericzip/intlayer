@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - routage-domaine
+  - domain-routing
 ---
 
 # Comment configurer le **routage basé sur le domaine** avec Intlayer au lieu des chemins `/[locale]/` ?

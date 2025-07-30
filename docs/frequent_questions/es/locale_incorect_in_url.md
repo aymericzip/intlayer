@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - localizacion-incorrecta-en-url
+  - locale-incorect-in-url
 ---
 
 # Localización incorrecta obtenida desde la URL

@@ -15,9 +15,9 @@ keywords:
   - next.js
   - vite
 slugs:
-  - 文档
-  - 常见问题
-  - intlayer-命令-未定义
+  - doc
+  - faq
+  - intlayer-command-undefined
 ---
 
 # Intlayer 命令未定义

@@ -15,9 +15,9 @@ keywords:
   - next.js
   - vite
 slugs:
-  - 문서
-  - FAQ
-  - intlayer-명령어-정의되지-않음
+  - doc
+  - faq
+  - intlayer-command-undefined
 ---
 
 # Intlayer 명령어 정의되지 않음

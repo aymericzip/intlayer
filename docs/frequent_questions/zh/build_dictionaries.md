@@ -15,9 +15,9 @@ keywords:
   - next.js
   - vite
 slugs:
-  - 文档
-  - 常见问题
-  - 构建字典
+  - doc
+  - faq
+  - build-dictionaries
 ---
 
 # 构建字典

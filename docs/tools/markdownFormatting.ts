@@ -4,7 +4,7 @@ import { join } from 'path';
 
 // Import the same DOC_PATTERN from translate.ts for consistency
 const DOC_PATTERN: string[] = ['./**/*.md'];
-const EXCLUDED_GLOB_PATTEN: string[] = [
+export const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/node_modules/**',
   '**/dist/**',
   '**/src/**',
@@ -276,7 +276,6 @@ export const runMarkdownFormattingTest = () => {
 
   // Process each file in DOC_PATTERN
   docList.forEach((filePath: string) => {
-    console.info(`Testing ${filePath}`);
     const result = validateMarkdownFile(filePath);
     results.push(result);
     totalFiles++;

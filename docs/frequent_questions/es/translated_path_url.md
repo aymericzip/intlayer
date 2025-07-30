@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - ruta-url-traducida
+  - translated-path-url
 ---
 
 # ¿Es posible traducir la URL como sigue?

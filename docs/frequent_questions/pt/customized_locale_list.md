@@ -17,7 +17,7 @@ keywords:
 slugs:
   - doc
   - faq
-  - lista-de-idiomas-personalizada
+  - customized-locale-list
 ---
 
 # É possível bloquear um tipo de idioma, como o inglês? Estou adicionando inglês nos meus dicionários, mas ainda não quero que o inglês esteja disponível no site
