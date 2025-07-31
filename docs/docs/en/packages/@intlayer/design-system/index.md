@@ -1,3 +1,23 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/design-system - UI Components for Intlayer
+description: NPM package containing design system components and UI elements for building consistent user interfaces with Intlayer internationalization.
+keywords:
+  - intlayer
+  - design system
+  - UI components
+  - interface
+  - i18n
+  - JavaScript
+  - NPM
+  - styling
+slugs:
+  - doc
+  - package
+  - @intlayer_design-system
+---
+
 # @intlayer/design-system: NPM Package containing the UI library of Intlayer
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
@@ -19,3 +39,9 @@ pnpm add @intlayer/design-system
 ```bash packageManager="yarn"
 yarn add @intlayer/design-system
 ```
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

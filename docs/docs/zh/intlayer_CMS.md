@@ -1,9 +1,6 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer CMS | 将您的内容外部化到Intlayer CMS
 description: 将您的内容外部化到Intlayer CMS，以代表您的团队管理您的内容。
 keywords:
@@ -15,6 +12,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer 内容管理系统 (CMS) 文档
@@ -152,7 +154,7 @@ const config = {
      *
      * 如果您自行托管 Intlayer CMS，可以设置后端的 URL。
      *
-     * Intlayer CMS 的 URL。
+     * Intlayer 后端的 URL。
      * 默认设置为 https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -333,8 +335,7 @@ module.exports = config;
 
 - 在服务器端，您需要确保应用程序进程对 `.intlayer/dictionaries` 目录具有写入权限。
 - 在客户端，热加载允许应用程序在浏览器中热加载内容，而无需重新加载页面。然而，此功能仅适用于客户端组件。
-
-> 因为热加载需要使用 `EventListener` 与服务器保持持续连接，所以仅适用于 `enterprise` 计划的客户。
+  > 因为热加载需要使用 `EventListener` 与服务器保持持续连接，所以仅适用于 `enterprise` 计划的客户。
 
 ## 调试
 
@@ -349,5 +350,8 @@ module.exports = config;
     - CMS URL
 
 - 确保项目配置已推送到 Intlayer CMS。
-
 - 可视化编辑器使用 iframe 显示您的网站。确保您的网站的内容安全策略 (CSP) 允许 CMS URL 作为 `frame-ancestors`（默认值为 'https://intlayer.org'）。检查编辑器控制台是否有任何错误。
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史记录

@@ -1,11 +1,8 @@
 ---
-docName: dictionary__translation
-url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Übersetzung
-description: Entdecken Sie, wie Sie Übersetzungen in Ihrer mehrsprachigen Website deklarieren und verwenden. Befolgen Sie die Schritte in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
+description: Entdecken Sie, wie Sie Übersetzungen in Ihrer mehrsprachigen Website deklarieren und verwenden können. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
 keywords:
   - Übersetzung
   - Internationalisierung
@@ -14,17 +11,20 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - translation
 ---
 
 # Übersetzung
 
-## Definition von Übersetzungen
+## Übersetzungen definieren
 
-Die `t`-Funktion in `intlayer` ermöglicht es Ihnen, Inhalte in mehreren Sprachen zu deklarieren. Diese Funktion stellt die Typsicherheit sicher und gibt einen Fehler aus, wenn Übersetzungen fehlen, was besonders in TypeScript-Umgebungen nützlich ist.
+Die Funktion `t` in `intlayer` ermöglicht es Ihnen, Inhalte in mehreren Sprachen zu deklarieren. Diese Funktion gewährleistet Typsicherheit und löst einen Fehler aus, wenn Übersetzungen fehlen, was besonders in TypeScript-Umgebungen nützlich ist.
 
-### Verwendung von TypeScript
-
-Hier ist ein Beispiel, wie Inhalte mit Übersetzungen deklariert werden können.
+Hier ist ein Beispiel, wie man Inhalte mit Übersetzungen deklariert.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -92,9 +92,9 @@ module.exports = {
 }
 ```
 
-## Konfiguration für Sprachen
+## Konfiguration der Sprachen
 
-Um eine ordnungsgemäße Übersetzungsverwaltung sicherzustellen, können Sie die akzeptierten Sprachen in `intlayer.config.ts` konfigurieren. Diese Konfiguration ermöglicht es Ihnen, die Sprachen zu definieren, die Ihre Anwendung unterstützt:
+Um eine korrekte Übersetzungsverarbeitung sicherzustellen, können Sie die akzeptierten Sprachen in `intlayer.config.ts` konfigurieren. Diese Konfiguration ermöglicht es Ihnen, die Sprachen zu definieren, die Ihre Anwendung unterstützt:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -187,11 +187,11 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-Diese Komponente ruft die entsprechende Übersetzung basierend auf der aktuellen Spracheinstellung Ihrer Anwendung ab.
+Diese Komponente ruft die entsprechende Übersetzung basierend auf der aktuell in Ihrer Anwendung eingestellten Sprache ab.
 
 ## Benutzerdefinierte Inhaltsobjekte
 
-`intlayer` unterstützt benutzerdefinierte Inhaltsobjekte für Übersetzungen, sodass Sie komplexere Strukturen definieren können, während die Typsicherheit gewährleistet bleibt. Hier ist ein Beispiel mit einem benutzerdefinierten Objekt:
+`intlayer` unterstützt benutzerdefinierte Inhaltsobjekte für Übersetzungen, die es Ihnen ermöglichen, komplexere Strukturen zu definieren und dabei die Typensicherheit zu gewährleisten. Hier ist ein Beispiel mit einem benutzerdefinierten Objekt:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -206,8 +206,8 @@ const customContent = {
   content: {
     profileText: t<ICustomContent>({
       en: {
-        title: "Page Title",
-        content: "Page Content",
+        title: "Seitentitel",
+        content: "Seiteninhalt",
       },
       fr: {
         title: "Titre de la Page",
@@ -235,16 +235,16 @@ export default {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "Seitentitel",
+          content: "Seiteninhalt",
         },
         fr: {
-          title: "Titre de la Page",
-          content: "Contenu de la Page",
+          title: "Seitentitel",
+          content: "Seiteninhalt",
         },
         es: {
-          title: "Título de la Página",
-          content: "Contenido de la Página",
+          title: "Seitentitel",
+          content: "Seiteninhalt",
         },
       },
   },
@@ -262,16 +262,16 @@ module.exports = {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "Seitentitel",
+          content: "Seiteninhalt",
         },
         fr: {
-          title: "Titre de la Page",
-          content: "Contenu de la Page",
+          title: "Seitentitel",
+          content: "Seiteninhalt",
         },
         es: {
-          title: "Título de la Página",
-          content: "Contenido de la Página",
+          title: "Seitentitel",
+          content: "Seiteninhalt",
         },
       },
   },
@@ -287,19 +287,23 @@ module.exports = {
       "nodeType": "translation",
       "translation": {
         "en": {
-          "title": "Page Title",
-          "content": "Page Content"
+          "title": "Seitentitel",
+          "content": "Seiteninhalt"
         },
         "fr": {
-          "title": "Titre de la Page",
-          "content": "Contenu de la Page"
+          "title": "Seitentitel",
+          "content": "Seiteninhalt"
         },
         "es": {
-          "title": "Título de la Página",
-          "content": "Contenido de la Página"
+          "title": "Seitentitel",
+          "content": "Seiteninhalt"
         }
       }
     }
   }
 }
 ```
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Initialer Verlauf

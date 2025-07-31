@@ -1,9 +1,6 @@
 ---
-blogName: index
-url: https://intlayer.org/blog/search/
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md
 createdAt: 2024-24-12
-updatedAt: 2024-24-12
+updatedAt: 2025-06-29
 title: ब्लॉग
 description: सभी विषय के साथ Intlayer, अंतर्राष्ट्रीयकरण और अन्य के साथ हैं
 keywords:
@@ -13,6 +10,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - search
 ---
 
 # अंतरराष्ट्रीयकरण को अपनाना जावास्क्रिप्ट में: वैश्विक पहुंच और SEO को बढ़ाना

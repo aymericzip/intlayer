@@ -1,30 +1,32 @@
 ---
-docName: dictionary__insertion
-url: https://intlayer.org/doc/concept/content/insertion
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
-title: Inserzione
-description: Scopri come dichiarare e utilizzare i segnaposto per l'inserzione nei tuoi contenuti. Questa documentazione ti guida attraverso i passaggi per inserire dinamicamente i valori nelle strutture di contenuto predefinite.
+updatedAt: 2025-06-29
+title: Inserimento
+description: Scopri come dichiarare e utilizzare segnaposto di inserimento nel tuo contenuto. Questa documentazione ti guida attraverso i passaggi per inserire dinamicamente valori all'interno di strutture di contenuto predefinite.
 keywords:
-  - Inserzione
-  - Contenuto dinamico
+  - Inserimento
+  - Contenuto Dinamico
   - Segnaposto
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - insertion
 ---
 
-# Contenuto di Inserimento / Insertion in Intlayer
+# Contenuto di Inserimento / Inserimento in Intlayer
 
 ## Come Funziona l'Inserimento
 
-In Intlayer, il contenuto di inserimento viene realizzato attraverso la funzione `insertion`, che identifica i campi segnaposto in una stringa (come `{{name}}` o `{{age}}`) che possono essere sostituiti dinamicamente durante l'esecuzione. Questo approccio consente di creare stringhe flessibili, simili a modelli, in cui parti specifiche del contenuto sono determinate dai dati passati dalla tua applicazione.
+In Intlayer, il contenuto di inserimento viene realizzato tramite la funzione `insertion`, che identifica i campi segnaposto in una stringa (come `{{name}}` o `{{age}}`) che possono essere sostituiti dinamicamente a runtime. Questo approccio ti permette di creare stringhe flessibili, simili a template, dove parti specifiche del contenuto sono determinate dai dati forniti dalla tua applicazione.
 
-Quando integrato con React Intlayer o Next Intlayer, puoi semplicemente fornire l'oggetto dati contenente i valori per ciascun segnaposto, e Intlayer renderizzerà automaticamente il contenuto con i segnaposto sostituiti.
+Quando integrato con React Intlayer o Next Intlayer, puoi semplicemente fornire l'oggetto dati contenente i valori per ogni segnaposto, e Intlayer renderizzerà automaticamente il contenuto con i segnaposto sostituiti.
 
-## Configurazione del Contenuto di Inserimento
+## Configurare il Contenuto di Inserimento
 
 Per configurare il contenuto di inserimento nel tuo progetto Intlayer, crea un modulo di contenuto che includa le tue definizioni di inserimento. Di seguito sono riportati esempi in vari formati.
 
@@ -82,9 +84,9 @@ module.exports = myInsertionContent;
 }
 ```
 
-## Utilizzo del Contenuto di Inserimento con React Intlayer
+## Utilizzo del contenuto di inserimento con React Intlayer
 
-Per utilizzare il contenuto di inserimento all'interno di un componente React, importa e utilizza il hook `useIntlayer` dal pacchetto `react-intlayer`. Questo hook recupera il contenuto per la chiave specificata e ti consente di passare un oggetto che mappa ciascun segnaposto nel tuo contenuto al valore che desideri visualizzare.
+Per utilizzare il contenuto di inserimento all'interno di un componente React, importa e usa l'hook `useIntlayer` dal pacchetto `react-intlayer`. Questo hook recupera il contenuto per la chiave specificata e ti permette di passare un oggetto che mappa ogni segnaposto nel tuo contenuto al valore che desideri visualizzare.
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -170,10 +172,14 @@ module.exports = InsertionComponent;
 
 ## Risorse Aggiuntive
 
-Per informazioni più dettagliate sulla configurazione e sull'uso, consulta le seguenti risorse:
+Per informazioni più dettagliate sulla configurazione e l'uso, consulta le seguenti risorse:
 
 - [Documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md)
 - [Documentazione React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_create_react_app.md)
 - [Documentazione Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_15.md)
 
-Queste risorse offrono ulteriori approfondimenti sulla configurazione e sull'uso di Intlayer in vari ambienti e framework.
+Queste risorse offrono ulteriori approfondimenti sulla configurazione e l'uso di Intlayer in diversi ambienti e framework.
+
+## Cronologia del Documento
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

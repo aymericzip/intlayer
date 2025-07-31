@@ -1,7 +1,7 @@
 import { useIntlayer } from 'next-intlayer';
 import { z } from 'zod/v4';
 
-export const useAccessKeyCreationSchema = () => {
+export const useAccessKeyCreationSchema = (permissions: string[] = []) => {
   const { requiredErrorName, invalidTypeErrorName, invalidDateErrorName } =
     useIntlayer('access-key-creation-form-schema');
 
@@ -25,23 +25,14 @@ export const useAccessKeyCreationSchema = () => {
         invalidDateErrorName.value
       )
       .optional(),
-    rights: z.object({
-      organization: z.object({
-        read: z.boolean().default(true),
-        write: z.boolean().default(false),
-        admin: z.boolean().default(false),
-      }),
-      project: z.object({
-        read: z.boolean().default(true),
-        write: z.boolean().default(false),
-        admin: z.boolean().default(false),
-      }),
-      dictionary: z.object({
-        read: z.boolean().default(true),
-        write: z.boolean().default(false),
-        admin: z.boolean().default(false),
-      }),
-    }),
+    grants: z.object(
+      Object.fromEntries(
+        permissions.map((permission) => [
+          permission,
+          z.boolean().default(false),
+        ])
+      )
+    ),
   });
 };
 

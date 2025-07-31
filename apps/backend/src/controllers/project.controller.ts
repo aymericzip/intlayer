@@ -5,10 +5,11 @@ import type {
   ProjectCreationData,
   ProjectData,
 } from '@/types/project.types';
+import type { User } from '@/types/user.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
+import { SessionModel } from '@models/session.model';
 import * as projectService from '@services/project.service';
-import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
@@ -18,6 +19,7 @@ import {
   type ProjectFiltersParams,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import { mapProjectsToAPI, mapProjectToAPI } from '@utils/mapper/project';
+import { hasPermission } from '@utils/permissions';
 import { getPLanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
@@ -27,8 +29,7 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { ObjectId } from 'mongoose';
-import type { User } from 'oauth2-server';
+import { Types } from 'mongoose';
 
 export type GetProjectsParams = FiltersAndPagination<ProjectFiltersParams>;
 export type GetProjectsResult = PaginatedResponse<ProjectAPI>;
@@ -38,10 +39,10 @@ export type GetProjectsResult = PaginatedResponse<ProjectAPI>;
  */
 export const getProjects = async (
   req: Request<GetProjectsParams>,
-  res: ResponseWithInformation<GetProjectsResult>,
+  res: ResponseWithSession<GetProjectsResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization, projectRights } = res.locals;
+  const { user, organization, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(req);
 
@@ -55,15 +56,10 @@ export const getProjects = async (
     return;
   }
 
-  if (!projectRights?.read) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_READ');
-    return;
-  }
-
   const restrictedFilter: ProjectFilters = {
     ...filters,
-    membersIds: { $in: [...(filters.membersIds ?? []), String(user._id)] },
-    organizationId: String(organization._id),
+    membersIds: { $in: [...(filters.membersIds ?? []), String(user.id)] },
+    organizationId: String(organization.id),
   };
 
   try {
@@ -72,13 +68,23 @@ export const getProjects = async (
       skip,
       pageSize
     );
+
+    if (
+      !hasPermission(
+        roles,
+        'project:read'
+      )({
+        ...res.locals,
+        targetProjects: projects,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
     const totalItems = await projectService.countProjects(filters);
 
-    const formattedProjects = mapProjectsToAPI(
-      projects,
-      user,
-      res.locals.isProjectAdmin
-    );
+    const formattedProjects = mapProjectsToAPI(projects);
 
     const responseData = formatPaginatedResponse<ProjectAPI>({
       data: formattedProjects,
@@ -104,10 +110,10 @@ export type AddProjectResult = ResponseData<ProjectAPI>;
  */
 export const addProject = async (
   req: Request<any, any, AddProjectBody>,
-  res: ResponseWithInformation<AddProjectResult>,
+  res: ResponseWithSession<AddProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user, isOrganizationAdmin } = res.locals;
+  const { organization, user, roles } = res.locals;
   const projectData = req.body;
 
   if (!user) {
@@ -120,15 +126,21 @@ export const addProject = async (
     return;
   }
 
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
-  }
-
   if (!projectData) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
+  }
+
+  if (
+    !hasPermission(
+      roles,
+      'organization:admin'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
   }
 
   const { plan } = organization;
@@ -137,7 +149,7 @@ export const addProject = async (
 
   if (planType.numberOfProjects) {
     const projectCount = await projectService.countProjects({
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
 
     if (projectCount >= planType.numberOfProjects) {
@@ -145,7 +157,7 @@ export const addProject = async (
         res,
         'PLAN_PROJECT_LIMIT_REACHED',
         {
-          organizationId: organization._id,
+          organizationId: organization.id,
         }
       );
       return;
@@ -153,17 +165,17 @@ export const addProject = async (
   }
 
   const project: ProjectData = {
-    membersIds: [user._id],
-    adminsIds: [user._id],
-    creatorId: user._id,
-    organizationId: organization._id,
+    membersIds: [user.id],
+    adminsIds: [user.id],
+    creatorId: user.id,
+    organizationId: organization.id,
     ...projectData,
   };
 
   try {
     const newProject = await projectService.createProject(project);
 
-    const formattedProject = mapProjectToAPI(newProject, user, true);
+    const formattedProject = mapProjectToAPI(newProject);
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -195,11 +207,10 @@ export type UpdateProjectResult = ResponseData<ProjectAPI>;
  */
 export const updateProject = async (
   req: Request<any, any, UpdateProjectBody>,
-  res: ResponseWithInformation<UpdateProjectResult>,
+  res: ResponseWithSession<UpdateProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, projectRights, project, user, isProjectAdmin } =
-    res.locals;
+  const { organization, project, user, roles } = res.locals;
   const projectData = req.body;
 
   if (!user) {
@@ -217,32 +228,31 @@ export const updateProject = async (
     return;
   }
 
-  if (!isProjectAdmin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
-    return;
-  }
-
-  if (!projectRights?.write) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_WRITE');
-    return;
-  }
-
-  if (String(project.organizationId) !== String(organization._id)) {
+  if (String(project.organizationId) !== String(organization.id)) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_IN_ORGANIZATION');
+    return;
+  }
+
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
   try {
     const updatedProject = await projectService.updateProjectById(
-      project._id,
+      project.id,
       projectData
     );
 
-    const formattedProject = mapProjectToAPI(
-      updatedProject,
-      user,
-      isProjectAdmin
-    );
+    const formattedProject = mapProjectToAPI(updatedProject);
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -268,7 +278,7 @@ export const updateProject = async (
 
 type UserAndAdmin = { user: User; isAdmin: boolean };
 export type ProjectMemberByIdOption = {
-  userId: string | ObjectId;
+  userId: string | Types.ObjectId;
   isAdmin?: boolean;
 };
 
@@ -282,11 +292,10 @@ export type UpdateProjectMembersResult = ResponseData<ProjectAPI>;
  */
 export const updateProjectMembers = async (
   req: Request<any, any, UpdateProjectMembersBody>,
-  res: ResponseWithInformation<UpdateProjectMembersResult>,
+  res: ResponseWithSession<UpdateProjectMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, isProjectAdmin, organization, projectRights } =
-    res.locals;
+  const { user, project, organization, roles } = res.locals;
   const { membersIds } = req.body;
 
   if (!user) {
@@ -296,19 +305,6 @@ export const updateProjectMembers = async (
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
-    return;
-  }
-
-  if (!isProjectAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_PROJECT'
-    );
-    return;
-  }
-
-  if (!projectRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
     return;
   }
 
@@ -327,6 +323,19 @@ export const updateProjectMembers = async (
     return;
   }
 
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
+
   try {
     const existingUsers: UserAndAdmin[] = [];
 
@@ -335,7 +344,7 @@ export const updateProjectMembers = async (
         ?.filter(
           (member) =>
             // Remove members that are not in the organization
-            !organization?.membersIds.includes(member.userId as ObjectId)
+            !organization?.membersIds.includes(member.userId as Types.ObjectId)
         )
         .map((member) => member.userId);
 
@@ -346,7 +355,7 @@ export const updateProjectMembers = async (
           user,
           isAdmin:
             membersIds.find(
-              (member) => String(member.userId) === String(user._id)
+              (member) => String(member.userId) === String(user.id)
             )?.isAdmin ?? false,
         }));
 
@@ -354,15 +363,15 @@ export const updateProjectMembers = async (
       }
     }
 
-    const formattedMembers: ObjectId[] = existingUsers.map(
-      (user) => user.user._id
+    const formattedMembers: Types.ObjectId[] = existingUsers.map(
+      (user) => user.user.id
     );
-    const formattedAdmin: ObjectId[] = existingUsers
+    const formattedAdmin: Types.ObjectId[] = existingUsers
       .filter((el) => el.isAdmin)
-      .map((user) => user.user._id);
+      .map((user) => user.user.id);
 
     const updatedOrganization = await projectService.updateProjectById(
-      project._id,
+      project.id,
       {
         ...project,
         membersIds: formattedMembers,
@@ -370,11 +379,7 @@ export const updateProjectMembers = async (
       }
     );
 
-    const formattedProject = mapProjectToAPI(
-      updatedOrganization,
-      user,
-      isProjectAdmin
-    );
+    const formattedProject = mapProjectToAPI(updatedOrganization);
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -409,10 +414,10 @@ export type PushProjectConfigurationResult = ResponseData<ProjectConfiguration>;
  */
 export const pushProjectConfiguration = async (
   req: Request<any, any, PushProjectConfigurationBody>,
-  res: ResponseWithInformation<PushProjectConfigurationResult>,
+  res: ResponseWithSession<PushProjectConfigurationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, roles } = res.locals;
   const projectConfiguration = req.body;
 
   if (!user) {
@@ -425,15 +430,28 @@ export const pushProjectConfiguration = async (
     return;
   }
 
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
+
   try {
-    const projectObject = await projectService.getProjectById(project._id);
+    const projectObject = await projectService.getProjectById(project.id);
     projectObject.configuration = projectConfiguration;
 
     projectObject.save();
 
     if (!projectObject.configuration) {
       ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_UPDATE_FAILED', {
-        projectId: project._id,
+        projectId: project.id,
       });
       return;
     }
@@ -470,11 +488,10 @@ export type DeleteProjectResult = ResponseData<ProjectAPI>;
  */
 export const deleteProject = async (
   _req: Request,
-  res: ResponseWithInformation<DeleteProjectResult>,
+  res: ResponseWithSession<DeleteProjectResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization, project, projectRights, isProjectAdmin } =
-    res.locals;
+  const { user, organization, project, session, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -491,15 +508,28 @@ export const deleteProject = async (
     return;
   }
 
-  if (!projectRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_ADMIN');
+  if (typeof session === 'undefined') {
+    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+    return;
+  }
+
+  if (
+    !hasPermission(
+      roles,
+      'project:admin'
+    )({
+      ...res.locals,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
   try {
-    const projectToDelete = await projectService.getProjectById(project._id);
+    const projectToDelete = await projectService.getProjectById(project.id);
 
-    if (String(projectToDelete.organizationId) !== String(organization._id)) {
+    if (String(projectToDelete.organizationId) !== String(organization.id)) {
       ErrorHandler.handleGenericErrorResponse(
         res,
         'PROJECT_NOT_IN_ORGANIZATION'
@@ -507,23 +537,17 @@ export const deleteProject = async (
       return;
     }
 
-    const deletedProject = await projectService.deleteProjectById(project._id);
+    const deletedProject = await projectService.deleteProjectById(project.id);
 
     if (!deletedProject) {
       ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED', {
-        projectId: project._id,
+        projectId: project.id,
       });
 
       return;
     }
 
-    logger.info(`Project deleted: ${String(deletedProject._id)}`);
-
-    const formattedProject = mapProjectToAPI(
-      deletedProject,
-      user,
-      isProjectAdmin
-    );
+    logger.info(`Project deleted: ${String(deletedProject.id)}`);
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -536,10 +560,13 @@ export const deleteProject = async (
         fr: 'Votre projet a été supprimé avec succès',
         es: 'Su proyecto ha sido eliminado con éxito',
       }),
-      data: formattedProject,
+      data: mapProjectToAPI(deletedProject),
     });
 
-    sessionAuthService.clearProjectAuth(res);
+    await SessionModel.updateOne(
+      { _id: session.id },
+      { $set: { activeProjectId: null } }
+    );
 
     res.json(responseData);
     return;
@@ -549,30 +576,39 @@ export const deleteProject = async (
   }
 };
 
-export type SelectProjectParam = { projectId: ObjectId | string };
-export type SelectProjectResult = ResponseData<Project>;
+export type SelectProjectParam = { projectId: string | Types.ObjectId };
+export type SelectProjectResult = ResponseData<ProjectAPI>;
 
 /**
  * Select a project.
  */
 export const selectProject = async (
   req: Request<SelectProjectParam>,
-  res: ResponseWithInformation<SelectProjectResult>,
+  res: ResponseWithSession<SelectProjectResult>,
   _next: NextFunction
 ) => {
   const { projectId } = req.params;
+  const { session, roles } = res.locals;
 
   if (!projectId) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_ID_NOT_FOUND');
     return;
   }
 
+  if (typeof session === 'undefined') {
+    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+    return;
+  }
+
   try {
     const project = await projectService.getProjectById(projectId);
 
-    sessionAuthService.setProjectAuth(res, project);
+    await SessionModel.updateOne(
+      { _id: session.id },
+      { $set: { activeProjectId: String(projectId) } }
+    );
 
-    const responseData = formatResponse<Project>({
+    const responseData = formatResponse<ProjectAPI>({
       message: t({
         en: 'Project selected successfully',
         fr: 'Projet sélectionné avec succès',
@@ -583,7 +619,7 @@ export const selectProject = async (
         fr: 'Votre projet a été sélectionné avec succès',
         es: 'Su proyecto ha sido seleccionado con éxito',
       }),
-      data: project,
+      data: mapProjectToAPI(project),
     });
 
     res.json(responseData);
@@ -599,13 +635,23 @@ export type UnselectProjectResult = ResponseData<null>;
 /**
  * Unselect a project.
  */
-export const unselectProject = (
+export const unselectProject = async (
   _req: Request,
-  res: ResponseWithInformation<UnselectProjectResult>,
+  res: ResponseWithSession<UnselectProjectResult>,
   _next: NextFunction
 ) => {
+  const { session } = res.locals;
+
+  if (typeof session === 'undefined') {
+    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+    return;
+  }
+
   try {
-    sessionAuthService.clearProjectAuth(res);
+    await SessionModel.updateOne(
+      { _id: session.id },
+      { $set: { activeProjectId: null } }
+    );
 
     const responseData = formatResponse<null>({
       message: t({

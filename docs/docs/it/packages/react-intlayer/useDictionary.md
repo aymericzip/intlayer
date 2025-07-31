@@ -1,49 +1,70 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: Hook useDictionary - Documentazione React Intlayer
+description: Guida completa all'uso del hook useDictionary nelle applicazioni React con Intlayer per una gestione efficiente dei contenuti localizzati senza editor visuale.
+keywords:
+  - useDictionary
+  - React
+  - hook
+  - intlayer
+  - localizzazione
+  - i18n
+  - dizionario
+  - traduzione
+slugs:
+  - doc
+  - package
+  - react-intlayer
+  - useDictionary
+---
+
 # Integrazione React: Documentazione del Hook `useDictionary`
 
-Questa sezione fornisce una guida dettagliata sull'utilizzo dell'hook `useDictionary` all'interno delle applicazioni React, consentendo una gestione efficiente dei contenuti localizzati senza un editor visivo.
+Questa sezione fornisce una guida dettagliata sull'uso del hook `useDictionary` nelle applicazioni React, consentendo una gestione efficiente dei contenuti localizzati senza un editor visuale.
 
-## Importare `useDictionary` in React
+## Importazione di `useDictionary` in React
 
-L'hook `useDictionary` può essere integrato nelle applicazioni React importandolo in base al contesto:
+Il hook `useDictionary` può essere integrato nelle applicazioni React importandolo in base al contesto:
 
 - **Componente Client:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // Utilizzato nei componenti React lato client
+  import { useDictionary } from "react-intlayer"; // Usato nei componenti React lato client
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // Utilizzato nei componenti React lato client
+  import { useDictionary } from "react-intlayer"; // Usato nei componenti React lato client
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // Utilizzato nei componenti React lato client
+  const { useDictionary } = require("react-intlayer"); // Usato nei componenti React lato client
   ```
 
 - **Componente Server:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Utilizzato nei componenti React lato server
+  import { useDictionary } from "react-intlayer/server"; // Usato nei componenti React lato server
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Utilizzato nei componenti React lato server
+  import { useDictionary } from "react-intlayer/server"; // Usato nei componenti React lato server
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // Utilizzato nei componenti React lato server
+  const { useDictionary } = require("react-intlayer/server"); // Usato nei componenti React lato server
   ```
 
 ## Parametri
 
-L'hook accetta due parametri:
+Il hook accetta due parametri:
 
 1. **`dictionary`**: Un oggetto dizionario dichiarato contenente contenuti localizzati per chiavi specifiche.
-2. **`locale`** (opzionale): La lingua desiderata. Se non specificato, utilizza il contesto corrente.
+2. **`locale`** (opzionale): La locale desiderata. Per default è quella del contesto corrente se non specificata.
 
 ## Dizionario
 
-Tutti gli oggetti dizionario devono essere dichiarati in file di contenuti strutturati per garantire la sicurezza dei tipi e prevenire errori a runtime. Puoi trovare le istruzioni di configurazione [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md). Ecco un esempio di dichiarazione di contenuto:
+Tutti gli oggetti dizionario devono essere dichiarati in file di contenuti strutturati per garantire la sicurezza dei tipi e prevenire errori a runtime. Puoi trovare le [istruzioni di configurazione qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md). Ecco un esempio di dichiarazione del contenuto:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -71,6 +92,7 @@ export default componentContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Dichiarazione del contenuto del componente
 const componentContent = {
   key: "component-example",
   content: {
@@ -94,6 +116,7 @@ export default componentContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// Contenuto del componente
 const componentContent = {
   key: "component-example",
   content: {
@@ -123,7 +146,8 @@ module.exports = componentContent;
       "translation": {
         "en": "Client Component Example",
         "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente"
+        "es": "Ejemplo de componente cliente",
+        "it": "Esempio di componente client"
       }
     },
     "content": {
@@ -131,16 +155,17 @@ module.exports = componentContent;
       "translation": {
         "en": "This is the content of a client component example",
         "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente"
+        "es": "Este es el contenido de un ejemplo de componente cliente",
+        "it": "Questo è il contenuto di un esempio di componente client"
       }
     }
   }
 }
 ```
 
-## Esempio di Utilizzo in React
+## Esempio di utilizzo in React
 
-Di seguito un esempio di utilizzo dell'hook `useDictionary` in un componente React:
+Di seguito un esempio di come utilizzare l'hook `useDictionary` in un componente React:
 
 ```tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -191,9 +216,9 @@ const ComponentExample = () => {
 };
 ```
 
-## Integrazione Server
+## Integrazione lato server
 
-Se utilizzi l'hook `useDictionary` al di fuori di `IntlayerProvider`, la lingua deve essere fornita esplicitamente come parametro durante il rendering del componente:
+Se si utilizza l'hook `useDictionary` al di fuori di `IntlayerProvider`, la localizzazione deve essere fornita esplicitamente come parametro durante il rendering del componente:
 
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -246,7 +271,7 @@ const ServerComponentExample = ({ locale }) => {
 
 ## Note sugli Attributi
 
-A differenza delle integrazioni che utilizzano editor visivi, attributi come `buttonTitle.value` non si applicano qui. Accedi direttamente alle stringhe localizzate come dichiarato nel tuo contenuto.
+A differenza delle integrazioni che utilizzano editor visuali, attributi come `buttonTitle.value` non si applicano qui. Invece, accedi direttamente alle stringhe localizzate come dichiarato nel tuo contenuto.
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -254,7 +279,11 @@ A differenza delle integrazioni che utilizzano editor visivi, attributi come `bu
 
 ## Suggerimenti Aggiuntivi
 
-- **Sicurezza dei Tipi**: Utilizza sempre `Dictionary` per definire i tuoi dizionari per garantire la sicurezza dei tipi.
-- **Aggiornamenti di Localizzazione**: Quando aggiorni i contenuti, assicurati che tutte le lingue siano coerenti per evitare traduzioni mancanti.
+- **Sicurezza del Tipo**: Usa sempre `Dictionary` per definire i tuoi dizionari per garantire la sicurezza del tipo.
+- **Aggiornamenti di Localizzazione**: Quando aggiorni il contenuto, assicurati che tutte le localizzazioni siano coerenti per evitare traduzioni mancanti.
 
-Questa documentazione si concentra sull'integrazione dell'hook `useDictionary`, fornendo un approccio semplificato alla gestione dei contenuti localizzati senza fare affidamento sulle funzionalità di editor visivi.
+Questa documentazione si concentra sull'integrazione del hook `useDictionary`, fornendo un approccio semplificato per gestire contenuti localizzati senza fare affidamento sulle funzionalità degli editor visuali.
+
+## Cronologia Documentazione
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

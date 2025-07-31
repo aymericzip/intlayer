@@ -1,9 +1,6 @@
 ---
-blogName: list_i18n_technologies__frameworks__angular
-url: https://intlayer.org/blog/i18n-technologies/frameworks/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/angular.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Migliori strumenti di internazionalizzazione (i18n) per Angular
 description: Scopri i migliori strumenti di internazionalizzazione (i18n) per Angular per affrontare i sfide di traduzione, migliorare la ricerca sul web e fornire un'esperienza web globale senza problemi.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Internazionalizzazione
   - Blog
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - angular
 ---
 
 # Esplorare le soluzioni i18n per tradurre il tuo sito web Angular
@@ -22,7 +24,7 @@ Nell'attuale mondo interconnesso, offrire il tuo sito web in più lingue può es
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Cos'è l'internazionalizzazione (i18n)?
 

@@ -1,4 +1,5 @@
 import { Form, useForm } from '@intlayer/design-system';
+import { cn } from '@utils/cn';
 import { ArrowUp, Eraser } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useCallback, type FC, type ReactNode } from 'react';
@@ -40,6 +41,8 @@ export const FormSection: FC<FormSectionProps> = ({
     form.reset({ question: '' });
   }, [clear, form.reset]);
 
+  const hasClearButton = nbMessages >= 1;
+
   return (
     <Form
       className="item-end flex h-auto flex-col items-end justify-center gap-3 px-4 py-3"
@@ -66,18 +69,19 @@ export const FormSection: FC<FormSectionProps> = ({
       />
       <div className="ml-auto flex items-center gap-2 max-md:w-full justify-between">
         {additionalButtons}
-        {nbMessages > 1 && (
-          <Form.Button
-            label={clearButton.label.value}
-            type="button"
-            color="text"
-            variant="outline"
-            size="icon-md"
-            disabled={isSubmitting}
-            Icon={Eraser}
-            onClick={handleClear}
-          />
-        )}
+
+        <Form.Button
+          label={clearButton.label.value}
+          type="button"
+          color="text"
+          variant="outline"
+          size="icon-md"
+          disabled={isSubmitting || !hasClearButton}
+          Icon={Eraser}
+          onClick={handleClear}
+          className={cn(!hasClearButton && 'opacity-0')}
+        />
+
         <Form.Button
           label={sendQuestionButton.label.value}
           type="submit"

@@ -1,9 +1,6 @@
 ---
-blogName: list_i18n_technologies__frameworks__svelte
-url: https://intlayer.org/blog/i18n-technologies/frameworks/svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/svelte.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Best Internationalization (i18n) Tools for Svelte
 description: Discover top Svelte i18n solutions to tackle translation challenges, boost SEO, and deliver a seamless global web experience.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Internationalization
   - Blog
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - svelte
 ---
 
 # Exploring i18n Solutions to Translate Your Svelte Website
@@ -22,7 +24,7 @@ As the web continues to connect people across the globe, providing content in mu
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## What is Internationalization (i18n)?
 

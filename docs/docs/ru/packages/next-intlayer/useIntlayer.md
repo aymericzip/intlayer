@@ -1,9 +1,6 @@
 ---
-docName: package__next-intlayer__useIntlayer
-url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Документация по хуку useIntlayer | next-intlayer
 description: Узнайте, как использовать хук useIntlayer для пакета next-intlayer
 keywords:
@@ -16,11 +13,16 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useIntlayer
 ---
 
-# Интеграция Next.js: Документация по хуку `useIntlayer`
+# Интеграция с Next.js: Документация по хуку `useIntlayer`
 
-Хук `useIntlayer` разработан для приложений Next.js, чтобы эффективно получать и управлять локализованным контентом. Эта документация сосредоточена на том, как использовать хук в проектах Next.js, обеспечивая правильные практики локализации.
+Хук `useIntlayer` разработан специально для приложений Next.js, чтобы эффективно получать и управлять локализованным контентом. В этой документации будет рассмотрено, как использовать этот хук в проектах Next.js, обеспечивая правильные практики локализации.
 
 ## Импорт `useIntlayer` в Next.js
 
@@ -56,18 +58,18 @@ keywords:
 
 ## Параметры
 
-1. **`key`**: Строковый идентификатор для ключа словаря, из которого вы хотите получить контент.
-2. **`locale`** (опционально): Конкретная локаль для использования. Если не указано, хук по умолчанию использует локаль, установленную в клиентском или серверном контексте.
+1. **`key`**: Строковый идентификатор ключа словаря, из которого вы хотите получить контент.
+2. **`locale`** (необязательно): Конкретная локаль для использования. Если не указана, хук использует локаль, установленную в клиентском или серверном контексте.
 
-## Файлы словаря
+## Файлы словарей
 
-Важно, чтобы все ключи контента были определены в файлах декларации контента, чтобы избежать ошибок во время выполнения и обеспечить безопасность типов. Этот подход также упрощает интеграцию с TypeScript для проверки на этапе компиляции.
+Крайне важно, чтобы все ключи контента были определены в файлах декларации контента, чтобы избежать ошибок во время выполнения и обеспечить типовую безопасность. Такой подход также облегчает интеграцию с TypeScript для проверки во время компиляции.
 
 Инструкции по настройке файлов декларации контента доступны [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md).
 
 ## Пример использования в Next.js
 
-Вот как вы можете реализовать хук `useIntlayer` на странице Next.js для динамической загрузки локализованного контента на основе текущей локали приложения:
+Ниже показано, как можно использовать хук `useIntlayer` на странице Next.js для динамической загрузки локализованного контента в зависимости от текущей локали приложения:
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -184,6 +186,7 @@ const ServerComponentExample = () => {
 
 const { useIntlayer } = require("next-intlayer");
 
+// Компонент сервера, использующий хук useIntlayer для получения контента
 const ServerComponentExample = () => {
   const content = useIntlayer("component-content");
 
@@ -225,6 +228,8 @@ const ServerComponentExample = () => {
     </div>
   );
 };
+  );
+};
 ```
 
 ```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
@@ -244,7 +249,7 @@ const ServerComponentExample = () => {
 
 ## Обработка локализации атрибутов
 
-Чтобы локализовать атрибуты, такие как `alt`, `title`, `href`, `aria-label` и т.д., убедитесь, что вы правильно ссылаетесь на контент:
+Для локализации таких атрибутов, как `alt`, `title`, `href`, `aria-label` и других, убедитесь, что вы правильно ссылаетесь на содержимое:
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
@@ -252,6 +257,10 @@ const ServerComponentExample = () => {
 
 ## Дополнительная информация
 
-- **Визуальный редактор Intlayer**: Узнайте, как использовать визуальный редактор для упрощения управления контентом [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
+- **Визуальный редактор Intlayer**: Узнайте, как использовать визуальный редактор для более удобного управления контентом [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
-Эта документация описывает использование хука `useIntlayer` специально в среде Next.js, предоставляя надежное решение для управления локализацией в ваших приложениях Next.js.
+В этой документации описывается использование хука `useIntlayer` специально в средах Next.js, предоставляя надежное решение для управления локализацией в ваших приложениях Next.js.
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

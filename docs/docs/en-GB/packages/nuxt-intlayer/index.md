@@ -1,18 +1,19 @@
 ---
-docName: package__nuxt-intlayer
-url: https://intlayer.org/doc/packages/nuxt-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/nuxt-intlayer/index.md
 createdAt: 2025-06-18
-updatedAt: 2025-06-18
+updatedAt: 2025-06-29
 title: Package Documentation | nuxt-intlayer
 description: See how to use the nuxt-intlayer package
 keywords:
   - Intlayer
   - nuxt-intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - JavaScript
   - Nuxt
+slugs:
+  - doc
+  - packages
+  - nuxt-intlayer
 ---
 
 # nuxt-intlayer: NPM Package to internationalise (i18n) a Vue application
@@ -25,15 +26,15 @@ keywords:
 
 Internationalising your Vue application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
 
-## Why to integrate Intlayer?
+## Why integrate Intlayer?
 
 - **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
-- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
+- **Type-Safe Environment**: Utilise TypeScript to ensure all your content definitions are accurate and free from errors.
+- **Integrated Content Files**: Keep your translations close to their respective components, improving maintainability and clarity.
 
 ## Installation
 
-Install the necessary package using your preferred package manager:
+Install the required package using your preferred package manager:
 
 ```bash packageManager="npm"
 npm install nuxt-intlayer
@@ -46,3 +47,7 @@ yarn add nuxt-intlayer
 ```bash packageManager="pnpm"
 pnpm add nuxt-intlayer
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

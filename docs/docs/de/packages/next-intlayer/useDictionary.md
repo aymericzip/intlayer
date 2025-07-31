@@ -1,11 +1,8 @@
 ---
-docName: package__next-intlayer__useDictionary
-url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Dokumentation des useDictionary-Hooks | next-intlayer
-description: Erfahren Sie, wie Sie den useDictionary-Hook für das next-intlayer-Paket verwenden
+updatedAt: 2025-06-29
+title: useDictionary Hook Dokumentation | next-intlayer
+description: Siehe, wie der useDictionary Hook für das next-intlayer Paket verwendet wird
 keywords:
   - useDictionary
   - Wörterbuch
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useDictionary
 ---
 
 # React-Integration: `useDictionary` Hook Dokumentation
@@ -58,12 +60,12 @@ Der `useDictionary` Hook kann in React-Anwendungen integriert werden, indem er j
 
 Der Hook akzeptiert zwei Parameter:
 
-1. **`dictionary`**: Ein deklariertes Wörterbuchobjekt, das lokalisierte Inhalte für spezifische Schlüssel enthält.
-2. **`locale`** (optional): Die gewünschte Sprache. Standardmäßig wird die aktuelle Sprache des Kontexts verwendet, falls nicht angegeben.
+1. **`dictionary`**: Ein deklariertes Wörterbuchobjekt, das lokalisierte Inhalte für bestimmte Schlüssel enthält.
+2. **`locale`** (optional): Die gewünschte Locale. Standardmäßig wird die Locale des aktuellen Kontexts verwendet, wenn keine angegeben ist.
 
 ## Wörterbuch
 
-Alle Wörterbuchobjekte sollten in strukturierten Inhaltsdateien deklariert werden, um Typsicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Die Einrichtungsanweisungen finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md). Hier ist ein Beispiel für die Inhaltsdeklaration:
+Alle Wörterbuchobjekte sollten in strukturierten Inhaltsdateien deklariert werden, um Typensicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Die [Einrichtungsanleitung finden Sie hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md). Hier ist ein Beispiel für die Inhaltsdeklaration:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -133,7 +135,7 @@ const exampleContent = {
 module.exports = exampleContent;
 ```
 
-## Beispielverwendung in einer React-Client-Komponente
+## Beispiel für die Verwendung in einer React-Client-Komponente
 
 Nachfolgend ein Beispiel, wie der `useDictionary` Hook in einer React-Komponente verwendet wird:
 
@@ -193,9 +195,9 @@ const ClientComponentExample = () => {
 };
 ```
 
-## Beispielverwendung in einer React-Server-Komponente
+## Beispielhafte Verwendung in einer React Server-Komponente
 
-Wenn Sie den `useDictionary` Hook außerhalb des `IntlayerServerProvider` verwenden, muss die Sprache explizit als Parameter angegeben werden, wenn die Komponente gerendert wird:
+Wenn Sie den `useDictionary` Hook außerhalb des `IntlayerServerProvider` verwenden, muss die Locale beim Rendern der Komponente explizit als Parameter angegeben werden:
 
 ```tsx fileName="ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -248,7 +250,7 @@ const ServerComponentExample = () => {
 
 ## Hinweise zu Attributen
 
-Im Gegensatz zu Integrationen mit visuellen Editoren gelten Attribute wie `buttonTitle.value` hier nicht. Stattdessen greifen Sie direkt auf die lokalisierten Zeichenfolgen zu, wie in Ihrem Inhalt deklariert.
+Im Gegensatz zu Integrationen mit visuellen Editoren gelten hier keine Attribute wie `buttonTitle.value`. Stattdessen greifen Sie direkt auf die lokalisierten Strings zu, wie sie in Ihrem Inhalt deklariert sind.
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -256,7 +258,11 @@ Im Gegensatz zu Integrationen mit visuellen Editoren gelten Attribute wie `butto
 
 ## Zusätzliche Tipps
 
-- **Typsicherheit**: Verwenden Sie immer `Dictionary`, um Ihre Wörterbücher zu definieren, um Typsicherheit zu gewährleisten.
-- **Lokalisierungsaktualisierungen**: Stellen Sie bei der Aktualisierung von Inhalten sicher, dass alle Sprachen konsistent sind, um fehlende Übersetzungen zu vermeiden.
+- **Typensicherheit**: Verwenden Sie stets `Dictionary`, um Ihre Wörterbücher zu definieren und so Typensicherheit zu gewährleisten.
+- **Lokalisierungsaktualisierungen**: Stellen Sie beim Aktualisieren von Inhalten sicher, dass alle Sprachversionen konsistent sind, um fehlende Übersetzungen zu vermeiden.
 
-Diese Dokumentation konzentriert sich auf die Integration des `useDictionary` Hooks und bietet einen optimierten Ansatz zur Verwaltung lokalisierter Inhalte ohne die Verwendung von visuellen Editor-Funktionen.
+Diese Dokumentation konzentriert sich auf die Integration des `useDictionary` Hooks und bietet einen optimierten Ansatz zur Verwaltung lokalisierter Inhalte, ohne auf Funktionen visueller Editoren angewiesen zu sein.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

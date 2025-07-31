@@ -19,7 +19,7 @@ export const useDictionaryDynamic = <T extends Dictionary>(
   const localeTarget =
     locale ??
     getServerContext<LocalesValues>(IntlayerServerContext) ??
-    configuration.internationalization.defaultLocale;
+    configuration?.internationalization.defaultLocale;
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget}`,

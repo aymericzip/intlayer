@@ -44,7 +44,7 @@ export const module: NuxtModule = defineNuxtModule({
       }
       if (optimize) {
         // viteConfig.plugins can be undefined at this stage
-        viteConfig.plugins?.push(IntlayerPrunePlugin());
+        viteConfig.plugins?.push(IntlayerPrunePlugin(configuration));
       }
     });
 

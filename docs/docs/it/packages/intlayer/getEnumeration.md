@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getEnumeration
-url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentazione della funzione getEnumeration | intlayer
 description: Scopri come utilizzare la funzione getEnumeration per il pacchetto intlayer
 keywords:
@@ -11,40 +8,45 @@ keywords:
   - traduzione
   - Intlayer
   - intlayer
-  - internazionalizzazione
-  - documentazione
+  - Internazionalizzazione
+  - Documentazione
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getEnumeration
 ---
 
 # Documentazione: Funzione `getEnumeration` in `intlayer`
 
 ## Descrizione
 
-La funzione `getEnumeration` recupera il contenuto corrispondente a una quantità specifica basandosi su condizioni predefinite in un oggetto enumerazione. Le condizioni sono definite come chiavi, e la loro priorità è determinata dall'ordine nell'oggetto.
+La funzione `getEnumeration` recupera il contenuto corrispondente a una quantità specifica basata su condizioni predefinite in un oggetto di enumerazione. Le condizioni sono definite come chiavi e la loro priorità è determinata dall'ordine nell'oggetto.
 
 ## Parametri
 
 - `enumerationContent: QuantityContent<Content>`
 
-  - **Descrizione**: Un oggetto in cui le chiavi rappresentano condizioni (ad esempio, `<=`, `<`, `>=`, `=`) e i valori rappresentano il contenuto corrispondente. L'ordine delle chiavi definisce la priorità di corrispondenza.
+  - **Descrizione**: Un oggetto in cui le chiavi rappresentano condizioni (es. `<=`, `<`, `>=`, `=`) e i valori rappresentano il contenuto corrispondente. L'ordine delle chiavi definisce la priorità di corrispondenza.
   - **Tipo**: `QuantityContent<Content>`
     - `Content` può essere di qualsiasi tipo.
 
 - `quantity: number`
 
-  - **Descrizione**: Il valore numerico utilizzato per confrontarsi con le condizioni in `enumerationContent`.
+  - **Descrizione**: Il valore numerico usato per confrontarsi con le condizioni in `enumerationContent`.
   - **Tipo**: `number`
 
-## Restituisce
+## Ritorna
 
 - **Tipo**: `Content`
-- **Descrizione**: Il contenuto corrispondente alla prima condizione che corrisponde in `enumerationContent`. Se non viene trovata alcuna corrispondenza, si prevede un comportamento predefinito basato sull'implementazione (ad esempio, errore o contenuto di fallback).
+- **Descrizione**: Il contenuto corrispondente alla prima condizione corrispondente in `enumerationContent`. Se non viene trovata alcuna corrispondenza, il comportamento predefinito dipende dall'implementazione (ad esempio, errore o contenuto di fallback).
 
-## Esempio di Utilizzo
+## Esempio di utilizzo
 
-### Utilizzo Base
+### Utilizzo base
 
 ```typescript codeFormat="typescript"
 import { getEnumeration } from "intlayer";
@@ -92,7 +94,7 @@ const content = getEnumeration(
 console.log(content); // Output: "Hai due"
 ```
 
-### Priorità delle Condizioni
+### Priorità delle condizioni
 
 ```typescript codeFormat="typescript"
 import { getEnumeration } from "intlayer";
@@ -136,23 +138,27 @@ const content = getEnumeration(
 console.log(content); // Output: "Hai meno di quattro"
 ```
 
-## Casi Limite
+## Casi limite
 
-- **Nessuna Condizione Corrispondente:**
+- **Nessuna condizione corrispondente:**
 
-  - Se nessuna condizione corrisponde alla quantità fornita, la funzione restituirà `undefined` o gestirà esplicitamente lo scenario predefinito/fallback.
+  - Se nessuna condizione corrisponde alla quantità fornita, la funzione restituirà `undefined` oppure gestirà esplicitamente lo scenario predefinito/di fallback.
 
-- **Condizioni Ambigue:**
+- **Condizioni ambigue:**
 
-  - Se le condizioni si sovrappongono, la prima condizione corrispondente (basata sull'ordine dell'oggetto) ha la precedenza.
+  - Se le condizioni si sovrappongono, la prima condizione corrispondente (in base all'ordine dell'oggetto) ha la precedenza.
 
-- **Chiavi Non Valide:**
+- **Chiavi non valide:**
 
-  - La funzione presume che tutte le chiavi in `enumerationContent` siano valide e analizzabili come condizioni. Chiavi non valide o formattate in modo errato possono portare a comportamenti inaspettati.
+  - La funzione presume che tutte le chiavi in `enumerationContent` siano valide e analizzabili come condizioni. Chiavi non valide o formattate in modo errato possono portare a comportamenti imprevisti.
 
-- **Enforcement di TypeScript:**
-  - La funzione garantisce che il tipo `Content` sia coerente su tutte le chiavi, permettendo la sicurezza del tipo nel contenuto recuperato.
+- **Applicazione di TypeScript:**
+  - La funzione garantisce che il tipo `Content` sia coerente tra tutte le chiavi, permettendo la sicurezza del tipo nel contenuto recuperato.
 
 ## Note
 
-- L'utilità `findMatchingCondition` è utilizzata per determinare la condizione appropriata basandosi sulla quantità fornita.
+- L'utility `findMatchingCondition` viene utilizzata per determinare la condizione appropriata in base alla quantità fornita.
+
+## Cronologia del Documento
+
+- 5.5.10 - 2025-06-29: Storia iniziale

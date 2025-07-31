@@ -1,12 +1,32 @@
-# @intlayer/design-system: Package NPM contenant la bibliothèque UI d'Intlayer
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/design-system - Composants UI pour Intlayer
+description: Package NPM contenant des composants du système de design et des éléments UI pour construire des interfaces utilisateur cohérentes avec l'internationalisation Intlayer.
+keywords:
+  - intlayer
+  - système de design
+  - composants UI
+  - interface
+  - i18n
+  - JavaScript
+  - NPM
+  - stylisation
+slugs:
+  - doc
+  - package
+  - @intlayer_design-system
+---
 
-**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React et Express.js.
+# @intlayer/design-system : Package NPM contenant la bibliothèque UI d'Intlayer
 
-Le package **`@intlayer/design-system`** est un package NPM incluant le système de design d'Intlayer. Ce package est notamment utilisé par l'[éditeur Intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer-editor/index.md), dans le [Site Web](https://intlayer.org) et l'[Éditeur Visuel / CMS](https://intlayer.org/dashboard).
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React, et Express.js.
+
+Le package **`@intlayer/design-system`** est un package NPM incluant le système de design d'Intlayer. Ce package est notamment utilisé par l’[éditeur Intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/fr/packages/intlayer-editor/index.md), sur le [site web](https://intlayer.org) et dans l’[éditeur visuel / CMS](https://intlayer.org/dashboard).
 
 ## Installation
 
-Installez le package nécessaire en utilisant votre gestionnaire de packages préféré :
+Installez le package nécessaire en utilisant votre gestionnaire de paquets préféré :
 
 ```bash packageManager="npm"
 npm install @intlayer/design-system
@@ -19,3 +39,7 @@ pnpm add @intlayer/design-system
 ```bash packageManager="yarn"
 yarn add @intlayer/design-system
 ```
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

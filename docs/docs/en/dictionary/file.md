@@ -1,9 +1,6 @@
 ---
-docName: dictionary__file
-url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: File
 description: Learn how to embed external files into your content dictionary using the `file` function. This documentation explains how Intlayer links and manages file content dynamically.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - file
 ---
 
 # File Content / Embedding Files in Intlayer
@@ -214,3 +216,9 @@ For more details on configuring and using file embedding in Intlayer, refer to t
 - [Translation Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md)
 
 These resources provide further insights into file embedding, content management, and Intlayer’s integration with various frameworks.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

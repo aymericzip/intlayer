@@ -1,9 +1,6 @@
 ---
-docName: package__next-intlayer__t
-url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: t Function Documentation | next-intlayer
 description: See how to use the t function for next-intlayer package
 keywords:
@@ -11,11 +8,16 @@ keywords:
   - translation
   - Intlayer
   - next-intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - t
 ---
 
 # Documentation: `t` Function in `next-intlayer`
@@ -100,7 +102,7 @@ const ClientComponentExample = () => (
     {t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es le contenido d un exemple de composant client",
+      es: "Este es le contenido d un ejemplo de componente cliente",
     })}
   </p>
 );
@@ -129,6 +131,7 @@ import { t } from "next-intlayer/server";
 const ServerComponentExample = () => (
   <p>
     {t({
+      en-GB: "This is the content of a server component example",
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
@@ -143,9 +146,10 @@ const { t } = require("next-intlayer/server");
 const ServerComponentExample = () => (
   <p>
     {t({
+      en-GB: "This is the content of a server component example",
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un exemple de composant serveur",
+      es: "Este es el contenido de un ejemplo de componente servidor",
     })}
   </p>
 );
@@ -159,12 +163,14 @@ When localising attributes like `alt`, `title`, `href`, or `aria-label`, you can
 ```jsx
 <button
   aria-label={t({
+    "en-GB": "Submit",
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
   })}
 >
   {t({
+    "en-GB": "Submit",
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
@@ -172,6 +178,7 @@ When localising attributes like `alt`, `title`, `href`, or `aria-label`, you can
   <img
     src="/path/to/image"
     alt={t({
+      "en-GB": "A beautiful scenery",
       en: "A beautiful scenery",
       fr: "Un beau paysage",
       es: "Un hermoso paisaje",
@@ -193,6 +200,7 @@ import type { IConfigLocales } from "intlayer";
 import { t } from "next-intlayer";
 
 const translations: IConfigLocales<string> = {
+  "en-GB": "Welcome",
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
@@ -207,6 +215,7 @@ import { t } from "next-intlayer";
 
 /** @type {import('next-intlayer').IConfigLocales<string>} */
 const translations = {
+  'en-GB': "Welcome",
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
@@ -220,6 +229,7 @@ const { t } = require("next-intlayer");
 
 /** @type {import('next-intlayer').IConfigLocales<string>} */
 const translations = {
+  "en-GB": "Welcome",
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
@@ -230,7 +240,7 @@ const greeting = t(translations);
 
 ### Locale Detection and Context
 
-In `next-intlayer`, the current locale is managed through context providers: `IntlayerClientProvider` and `IntlayerServerProvider`. Ensure these providers wrap your components and the `locale` prop is correctly passed.
+In `next-intlayer`, the current locale is managed through context providers: `IntlayerClientProvider` and `IntlayerServerProvider`. Ensure these providers wrap your components and that the `locale` prop is correctly passed.
 
 #### Example:
 
@@ -281,15 +291,15 @@ const Page = ({ locale }) => (
 
 ### `t` Returns Undefined or Incorrect Translation
 
-- **Cause**: The current locale is not properly set, or the translation for the current locale is missing.
+- **Cause**: The current locale is not correctly set, or the translation for the current locale is missing.
 - **Solution**:
-  - Verify that the `IntlayerClientProvider` or `IntlayerServerProvider` is correctly set up with the appropriate `locale`.
-  - Ensure that your translations object includes all the necessary locales.
+  - Verify that the `IntlayerClientProvider` or `IntlayerServerProvider` is properly configured with the appropriate `locale`.
+  - Ensure that your translations object contains all the necessary locales.
 
 ### Missing Translations in TypeScript
 
-- **Cause**: Translations object doesn't satisfy the required locales, leading to TypeScript errors.
-- **Solution**: Use the `IConfigLocales` type to enforce completeness of your translations.
+- **Cause**: The translations object does not satisfy the required locales, resulting in TypeScript errors.
+- **Solution**: Use the `IConfigLocales` type to enforce the completeness of your translations.
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
@@ -344,3 +354,7 @@ For more detailed usage and advanced features, refer to the [next-intlayer docum
 ---
 
 **Note**: Remember to set up your `IntlayerClientProvider` and `IntlayerServerProvider` properly to ensure that the current locale is correctly passed down to your components. This is crucial for the `t` function to return the correct translations.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

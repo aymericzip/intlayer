@@ -1,16 +1,16 @@
 'use client';
 
-import { ProfileDropDown } from '@components/Auth/ProfileDropdown';
 import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
+import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import {
   Avatar,
   Button,
   LogoWithText,
   Navbar as UINavBar,
-  useUser,
 } from '@intlayer/design-system';
+import { useUser } from '@intlayer/design-system/hooks';
 import { StarIcon } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import dynamic from 'next/dynamic';
@@ -119,7 +119,7 @@ export const Navbar: FC = () => {
               color="text"
               label={logoutContent.label.value}
               onClick={handleLogOut}
-              className="!rounded-2xl leading-6"
+              className="!rounded-2xl leading-6 text-center font-medium"
               size="md"
             >
               {logoutContent.title}
@@ -130,7 +130,7 @@ export const Navbar: FC = () => {
               href={login.url.value}
               variant="button"
               color="text"
-              className="!rounded-2xl leading-6"
+              className="!rounded-2xl leading-6 text-center font-medium"
             >
               {login.title}
             </Link>
@@ -142,7 +142,11 @@ export const Navbar: FC = () => {
           <LocaleSwitcher panelProps={{ className: '-left-16' }} />
           <SwitchThemeSwitcher />
           {isAuthenticated && (
-            <Avatar isLoggedIn={isAuthenticated} fullname={user?.name} />
+            <Avatar
+              isLoggedIn={isAuthenticated}
+              fullname={user?.name}
+              src={user?.image ?? undefined}
+            />
           )}
         </div>
       }

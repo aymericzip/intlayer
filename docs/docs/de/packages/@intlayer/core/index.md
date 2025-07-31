@@ -1,12 +1,32 @@
-# @intlayer/core: NPM-Paket mit den Kernfunktionen von Intlayer
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/core - Kernfunktionen für Intlayer i18n
+description: NPM-Paket mit Kernfunktionen für Intlayer, einschließlich Übersetzungsfunktionen, Wörterbuchfunktionen und Dienstprogrammen für die Internationalisierung.
+keywords:
+  - intlayer
+  - core
+  - übersetzung
+  - wörterbuch
+  - dienstprogramme
+  - i18n
+  - JavaScript
+  - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_core
+---
 
-**Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurde. Es ist kompatibel mit Frameworks wie React, React und Express.js.
+# @intlayer/core: NPM-Paket mit Kernfunktionen von Intlayer
 
-Das **`@intlayer/core`**-Paket ist ein NPM-Paket, das die Kernfunktionen von Intlayer enthält, die von mehreren Paketen gemeinsam genutzt werden. Es umfasst insbesondere:
+**Intlayer** ist eine Sammlung von Paketen, die speziell für JavaScript-Entwickler entwickelt wurden. Es ist kompatibel mit Frameworks wie React, React und Express.js.
+
+Das **`@intlayer/core`**-Paket ist ein NPM-Paket, das Kernfunktionen von Intlayer enthält, die von mehreren Paketen gemeinsam genutzt werden. Es umfasst insbesondere:
 
 - Übersetzungsfunktionen
 - Wörterbuchfunktionen
-- Hilfsfunktionen
+- Dienstprogramme
 
 ## Installation
 
@@ -23,3 +43,7 @@ pnpm add @intlayer/core
 ```bash packageManager="yarn"
 yarn add @intlayer/core
 ```
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

@@ -22,7 +22,7 @@ export const getLocalisedContent = <
   L extends LocalesValues = Locales,
 >(
   node: T,
-  locale: L = configuration.internationalization.defaultLocale as L,
+  locale: L = configuration?.internationalization.defaultLocale as L,
   nodeProps: NodeProps,
   fallback: boolean = false // fallback mean that if field is not translated, it will use the default locale
 ) => {

@@ -1,7 +1,5 @@
 'use client';
 
-import { getBlogDataArray } from '@components/BlogPage/blogData';
-import { getDocDataArray } from '@components/DocPage/docData';
 import {
   Breadcrumb,
   type BreadcrumbLink,
@@ -10,16 +8,17 @@ import {
   Loader,
 } from '@intlayer/design-system';
 import { useSearchDoc } from '@intlayer/design-system/hooks';
+import type { BlogMetadata, DocMetadata } from '@intlayer/docs';
 import Fuse, { type IFuseOptions } from 'fuse.js';
+import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { type FC, useEffect, useRef, useState } from 'react';
-import type { DocData } from '../types';
 
 // Convert the documentation into an array of objects for Fuse.js
 // Fuse.js options
-const fuseOptions: IFuseOptions<DocData> = {
+const fuseOptions: IFuseOptions<DocMetadata> = {
   keys: [
     { name: 'title', weight: 0.8 },
     { name: 'description', weight: 0.1 },
@@ -46,7 +45,7 @@ const debounce = <T extends (...args: any[]) => void>(
   };
 };
 
-const SearchResultItem: FC<{ doc: DocData; onClickLink: () => void }> = ({
+const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
   doc,
   onClickLink,
 }) => {
@@ -89,23 +88,24 @@ export const SearchView: FC<{
   isOpen?: boolean;
 }> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { locale } = useLocale();
   const searchQuery = useSearchParams().get('search');
-  const documentationArray: DocData[] = [
-    ...getDocDataArray(locale),
-    ...(getBlogDataArray(locale) as unknown as DocData[]),
-  ];
-  const [results, setResults] = useState<DocData[]>([]);
+
+  const [results, setResults] = useState<DocMetadata[]>([]);
   const { searchDoc, isLoading, abort: abortSearch } = useSearchDoc();
 
   const { noContentText, searchInput } = useIntlayer('doc-search-view');
 
+  const { locale } = useLocale();
+  const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
+  const blogMetadata = getIntlayer('blog-metadata', locale) as BlogMetadata[];
+  const filesData = [...docMetadata, ...blogMetadata];
+
   // Create a new Fuse instance with the options and documentation data
-  const fuse = new Fuse(documentationArray, fuseOptions);
+  const fuse = new Fuse(filesData, fuseOptions);
 
   const handleSearch = async (searchQuery: string) => {
     if (searchQuery) {
-      let backendResults: DocData[] = [];
+      let backendResults: DocMetadata[] = [];
       // Prioritize backend search for longer queries, but always include Fuse results
       if (searchQuery.length > 2) {
         // Adjusted threshold for calling backend search
@@ -114,10 +114,12 @@ export const SearchView: FC<{
         });
         if (backendFilePaths && backendFilePaths.data) {
           backendResults = backendFilePaths.data
-            .map((docName: string) =>
-              documentationArray.find((doc) => doc.docName === docName)
+            .map((docKey: string) =>
+              filesData.find((doc) => doc.docKey === docKey)
             )
-            .filter((doc: DocData | undefined): doc is DocData => Boolean(doc));
+            .filter((doc: DocMetadata | undefined): doc is DocMetadata =>
+              Boolean(doc)
+            );
         }
       }
 
@@ -129,11 +131,11 @@ export const SearchView: FC<{
       // Merge results: backend results first, then Fuse results, avoiding duplicates
       const combinedResults = [...backendResults];
       const backendResultUrls = new Set(
-        backendResults.map((doc) => doc.docName)
+        backendResults.map((doc) => doc.docKey)
       );
 
       fuseSearchResults.forEach((fuseDoc) => {
-        if (!backendResultUrls.has(fuseDoc.docName)) {
+        if (!backendResultUrls.has(fuseDoc.docKey)) {
           combinedResults.push(fuseDoc);
         }
       });

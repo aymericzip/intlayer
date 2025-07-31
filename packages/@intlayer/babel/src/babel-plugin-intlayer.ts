@@ -34,11 +34,19 @@ const PACKAGE_LIST_DYNAMIC = [
   'next-intlayer/client',
   'next-intlayer/server',
   'preact-intlayer',
+  'vue-intlayer',
+  'solid-intlayer',
+  'svelte-intlayer',
+  'angular-intlayer',
 ] as const;
 
 const STATIC_IMPORT_FUNCTION = {
   getIntlayer: 'getDictionary',
   useIntlayer: 'useDictionary',
+} as const;
+
+const ASYNC_IMPORT_FUNCTION = {
+  useIntlayer: 'useDictionaryAsync',
 } as const;
 
 const DYNAMIC_IMPORT_FUNCTION = {
@@ -70,9 +78,9 @@ type State = PluginPass & {
      */
     replaceDictionaryEntry?: boolean;
     /**
-     * If true, the plugin will activate the dynamic import of the dictionaries.
+     * If true, the plugin will activate the dynamic import of the dictionaries. It will rely on Suspense to load the dictionaries.
      */
-    activateDynamicImport?: boolean;
+    importMode?: 'static' | 'dynamic' | 'async';
     /**
      * Files list to traverse.
      */
@@ -88,6 +96,8 @@ type State = PluginPass & {
   _isDictEntry?: boolean;
   /** whether dynamic helpers are active for this file */
   _useDynamicHelpers?: boolean;
+  /** whether async helpers are active for this file */
+  _useAsyncHelpers?: boolean;
 };
 
 /* ────────────────────────────────────────── helpers ─────────────────────── */
@@ -150,7 +160,7 @@ const computeRelativeImport = (
  * const content2 = useIntlayer(_dicHash)
  * ```
  *
- * Or if the `activateDynamicImport` option is enabled:
+ * If the `importMode = "dynamic"` option:
  *
  * ```ts
  * import _dicHash from '../../.intlayer/dynamic_dictionaries/app.mjs';
@@ -164,6 +174,18 @@ const computeRelativeImport = (
  * const content1 = getIntlayer(_dicHash);
  * const content2 = useIntlayer(_dicHash_dyn, 'app');
  * ```
+ *
+ * Or if the `importMode = "async"` option:
+ *
+ * ```ts
+ * import _dicHash from '../../.intlayer/dictionaries/app.mjs';
+ * import { useDictionaryAsync as useIntlayer } from 'react-intlayer';
+ *
+ * // ...
+ *
+ * const content1 = getIntlayer(_dicHash);
+ * const content2 = await useIntlayer(_dicHash_dyn);
+ * ```
  */
 export const intlayerBabelPlugin = (): PluginObj<State> => {
   return {
@@ -176,6 +198,7 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
       this._hasValidImport = false;
       this._isDictEntry = false;
       this._useDynamicHelpers = false;
+      this._useAsyncHelpers = false;
 
       // If filesList is provided, check if current file is included
       const filename = this.file.opts.filename;
@@ -300,25 +323,50 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
             ? spec.imported.name
             : (spec.imported as t.StringLiteral).value;
 
-          const activateDynamicImport = state.opts.activateDynamicImport;
+          const importMode = state.opts.importMode;
           // Determine whether this import should use the dynamic helpers. We
           // only switch to the dynamic helpers when (1) the option is turned
           // on AND (2) the package we are importing from supports the dynamic
           // helpers.
           const shouldUseDynamicHelpers =
-            activateDynamicImport && PACKAGE_LIST_DYNAMIC.includes(src as any);
+            importMode === 'dynamic' &&
+            PACKAGE_LIST_DYNAMIC.includes(src as any);
+
+          // Determine whether this import should use the async helpers. We
+          // only switch to the async helpers when (1) the option is turned
+          // on AND (2) the package we are importing from supports the async
+          // helpers.
+          const shouldUseAsyncHelpers =
+            importMode === 'async' && PACKAGE_LIST_DYNAMIC.includes(src as any);
 
           // Remember for later (CallExpression) whether we are using the dynamic helpers
           if (shouldUseDynamicHelpers) {
             state._useDynamicHelpers = true;
           }
 
-          const helperMap = shouldUseDynamicHelpers
-            ? ({
-                ...STATIC_IMPORT_FUNCTION,
-                ...DYNAMIC_IMPORT_FUNCTION,
-              } as Record<string, string>)
-            : (STATIC_IMPORT_FUNCTION as Record<string, string>);
+          // Remember for later (CallExpression) whether we are using the async helpers
+          if (shouldUseAsyncHelpers) {
+            state._useAsyncHelpers = true;
+          }
+
+          let helperMap: Record<string, string>;
+
+          if (shouldUseAsyncHelpers) {
+            // Use async helpers for useIntlayer when async mode is enabled
+            helperMap = {
+              ...STATIC_IMPORT_FUNCTION,
+              ...ASYNC_IMPORT_FUNCTION,
+            } as Record<string, string>;
+          } else if (shouldUseDynamicHelpers) {
+            // Use dynamic helpers for useIntlayer when dynamic mode is enabled
+            helperMap = {
+              ...STATIC_IMPORT_FUNCTION,
+              ...DYNAMIC_IMPORT_FUNCTION,
+            } as Record<string, string>;
+          } else {
+            // Use static helpers by default
+            helperMap = STATIC_IMPORT_FUNCTION as Record<string, string>;
+          }
 
           const newIdentifier = helperMap[importedName];
 
@@ -351,14 +399,36 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
 
         const key = arg.value;
         const useDynamic = Boolean(state._useDynamicHelpers);
+        const useAsync = Boolean(state._useAsyncHelpers);
 
         // Determine if this specific call should use dynamic imports
         const shouldUseDynamicForThisCall =
           callee.name === 'useIntlayer' && useDynamic;
 
+        // Determine if this specific call should use async imports
+        const shouldUseAsyncForThisCall =
+          callee.name === 'useIntlayer' && useAsync;
+
         let ident: t.Identifier;
 
-        if (shouldUseDynamicForThisCall) {
+        if (shouldUseAsyncForThisCall) {
+          // Use dynamic imports for useIntlayer when async helpers are enabled
+          let dynamicIdent = state._newDynamicImports!.get(key);
+          if (!dynamicIdent) {
+            // Create a unique identifier for dynamic imports by appending a suffix
+            const hash = getFileHash(key);
+            dynamicIdent = t.identifier(`_${hash}_dyn`);
+            state._newDynamicImports!.set(key, dynamicIdent);
+          }
+          ident = dynamicIdent;
+
+          // Async helper: first argument is the dictionary promise.
+          path.node.arguments[0] = t.identifier(ident.name);
+
+          // Wrap the call with await for async helpers
+          const awaitExpression = t.awaitExpression(path.node);
+          path.replaceWith(awaitExpression);
+        } else if (shouldUseDynamicForThisCall) {
           // Use dynamic imports for useIntlayer when dynamic helpers are enabled
           let dynamicIdent = state._newDynamicImports!.get(key);
           if (!dynamicIdent) {

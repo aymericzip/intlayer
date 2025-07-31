@@ -1,9 +1,6 @@
 ---
-blogName: list_i18n_technologies__frameworks__react-native
-url: https://intlayer.org/blog/i18n-technologies/frameworks/react-native
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react-native.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Лучшие инструменты интернационализации (i18n) для React Native
 description: Откройте высокие решения интернационализации (i18n) для React Native для решения проблем с переводом, увеличения SEO и обеспечения глобального веб-опыта.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - интернационализация
   - блог
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - react-native
 ---
 
 # Исследование решений i18n для перевода вашего React Native приложения
@@ -22,7 +24,7 @@ keywords:
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Что такое интернационализация (i18n)?
 

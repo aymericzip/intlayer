@@ -1,7 +1,7 @@
 'use client';
 
 import type { TagAPI } from '@intlayer/backend';
-import { useForm, Form } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system';
 import { useAuditTag, useUpdateTag } from '@intlayer/design-system/hooks';
 import { Save, WandSparkles, XCircle } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -32,7 +32,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
   } = useIntlayer('tag-form');
 
   const onSubmitSuccess = async (data: TagFormData) => {
-    await updateTag(tag._id, data);
+    await updateTag(tag.id, data);
   };
 
   const handleOnAuditFile = async () => {

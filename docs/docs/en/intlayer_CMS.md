@@ -1,9 +1,6 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer CMS | Externalize your content into the Intlayer CMS
 description: Externalize your content into the Intlayer CMS to delegate the management of your content to your team.
 keywords:
@@ -15,6 +12,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer Content Management System (CMS) Documentation
@@ -351,3 +353,9 @@ If you encounter any issues with the CMS, check the following:
 - Ensure that the project configuration was pushed to the Intlayer CMS.
 
 - The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS url as `frame-ancestors` ('https://intlayer.org' by default). Check the editor console for any error.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

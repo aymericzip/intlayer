@@ -1,11 +1,8 @@
 ---
-docName: package__intlayer__getHTMLTextDir
-url: https://intlayer.org/doc/packages/intlayer/getHTMLTextDir
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: t関数のドキュメント | intlayer
-description: intlayerパッケージのt関数の使用方法を確認してください
+updatedAt: 2025-06-29
+title: getHTMLTextDir 関数ドキュメント | intlayer
+description: intlayer パッケージの getHTMLTextDir 関数の使い方を確認する
 keywords:
   - getHTMLTextDir
   - 翻訳
@@ -16,32 +13,37 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getHTMLTextDir
 ---
 
-# ドキュメント: `getHTMLTextDir` 関数 in `intlayer`
+# ドキュメント: `intlayer` の `getHTMLTextDir` 関数
 
 ## 説明
 
-`getHTMLTextDir` 関数は、指定されたロケールに基づいてテキストの方向 (`ltr`, `rtl`, または `auto`) を決定します。この関数は、HTML内で適切なテキストレンダリングのために `dir` 属性を設定する際に役立ちます。
+`getHTMLTextDir` 関数は、指定されたロケールに基づいてテキストの方向（`ltr`、`rtl`、または `auto`）を決定します。これは、開発者がHTMLの `dir` 属性を適切に設定してテキストを正しく表示できるように設計されています。
 
-## パラメータ
+## パラメーター
 
 - `locale?: Locales`
 
-  - **説明**: テキスト方向を決定するために使用されるロケール文字列 (例: `Locales.ENGLISH`, `Locales.ARABIC`)。
-  - **型**: `Locales` (オプション)
+  - **説明**: テキスト方向を決定するために使用されるロケール文字列（例：`Locales.ENGLISH`、`Locales.ARABIC`）。
+  - **型**: `Locales`（オプション）
 
 ## 戻り値
 
-- **型**: `Dir` (`'ltr' | 'rtl' | 'auto'`)
-- **説明**: ロケールに対応するテキスト方向:
-  - `'ltr'`: 左から右に読む言語。
-  - `'rtl'`: 右から左に読む言語。
-  - `'auto'`: ロケールが認識されない場合。
+- **型**: `Dir`（`'ltr' | 'rtl' | 'auto'`）
+- **説明**: ロケールに対応するテキスト方向：
+  - 左から右への言語の場合は `'ltr'`。
+  - 右から左への言語の場合は `'rtl'`。
+  - ロケールが認識されない場合は `'auto'`。
 
 ## 使用例
 
-### テキスト方向の決定
+### テキスト方向の判定
 
 ```typescript codeFormat="typescript"
 import { getHTMLTextDir } from "intlayer";
@@ -73,12 +75,12 @@ getHTMLTextDir(Locales.ARABIC); // 出力: "rtl"
 
   - `locale` が `undefined` の場合、関数は `'auto'` を返します。
 
-- **認識されないロケール:**
+- **認識されないロケールの場合:**
   - 認識されないロケールの場合、関数はデフォルトで `'auto'` を返します。
 
-## コンポーネントでの使用:
+## コンポーネントでの使用方法:
 
-`getHTMLTextDir` 関数は、ロケールに基づいてHTMLドキュメント内の `dir` 属性を動的に設定するために使用できます。
+`getHTMLTextDir` 関数は、ロケールに基づいて適切なテキストレンダリングのために HTML ドキュメントの `dir` 属性を動的に設定するために使用できます。
 
 ```tsx codeFormat="typescript"
 import type { FC } from "react";
@@ -107,6 +109,7 @@ const HTMLLayout = ({ children, locale }) => (
 ```jsx codeFormat="commonjs"
 const { getHTMLTextDir } = require("intlayer");
 
+// localeに基づいてdir属性を動的に設定するHTMLレイアウトコンポーネント
 const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
@@ -114,4 +117,8 @@ const HTMLLayout = ({ children, locale }) => (
 );
 ```
 
-上記の例では、`dir` 属性がロケールに基づいて動的に設定されます。
+上記の例では、`dir`属性がlocaleに基づいて動的に設定されています。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴の初期化

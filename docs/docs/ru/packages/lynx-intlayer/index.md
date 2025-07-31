@@ -1,36 +1,39 @@
 ---
-docName: package__lynx-intlayer
-url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Документация пакета | lynx-intlayer
 description: Узнайте, как использовать пакет lynx-intlayer
 keywords:
   - Intlayer
   - lynx-intlayer
-  - интернационализация
-  - документация
+  - Интернационализация
+  - Документация
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - lynx-intlayer
 ---
 
-**Intlayer** , это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+# lynx-intlayer: Интернационализация (i18n) приложения Lynx
 
-**Пакет `lynx-intlayer`** позволяет интернационализировать ваше приложение Vite. Он включает плагин Metro для настройки конфигурации через переменные окружения в [Lynx bundler](https://lynxjs.org/index.html).
+**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+
+**Пакет `lynx-intlayer`** позволяет интернационализировать ваше приложение на Vite. В него включён плагин Metro, который настраивает конфигурацию через переменные окружения для [сборщика Lynx](https://lynxjs.org/index.html).
 
 ## Зачем интернационализировать ваше приложение Lynx?
 
-Интернационализация вашего приложения Lynx необходима для эффективного обслуживания глобальной аудитории. Она позволяет вашему приложению предоставлять контент и сообщения на предпочтительном языке каждого пользователя. Эта возможность улучшает пользовательский опыт и расширяет охват вашего приложения, делая его более доступным и актуальным для людей из разных языковых сообществ.
+Интернационализация вашего приложения Lynx необходима для эффективного обслуживания глобальной аудитории. Она позволяет вашему приложению предоставлять контент и сообщения на предпочитаемом языке каждого пользователя. Эта возможность улучшает пользовательский опыт и расширяет охват вашего приложения, делая его более доступным и релевантным для людей с разным языковым фоном.
 
 ## Конфигурация
 
-Пакет `lynx-intlayer` работает без проблем с [`react-intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md) и [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/index.md). Ознакомьтесь с соответствующей документацией для получения дополнительной информации.
+Пакет `lynx-intlayer` отлично работает вместе с пакетом [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md) и пакетом [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/index.md). Ознакомьтесь с соответствующей документацией для получения дополнительной информации.
 
 ## Установка
 
-Установите необходимый пакет с помощью вашего предпочтительного менеджера пакетов:
+Установите необходимый пакет, используя предпочитаемый менеджер пакетов:
 
 ```bash packageManager="npm"
 npm install lynx-intlayer
@@ -46,7 +49,7 @@ pnpm add lynx-intlayer
 
 ## Пример использования
 
-Посмотрите пример того, как включить плагины в вашу конфигурацию vite.
+Пример того, как включить плагины в вашу конфигурацию vite.
 
 ```ts
 // lynx.config.ts
@@ -61,16 +64,20 @@ export default defineConfig({
 });
 ```
 
-## Освоение интернационализации вашего приложения Vite
+## Освоение интернационализации вашего приложения на Vite
 
-Intlayer предоставляет множество функций, которые помогут вам интернационализировать ваше приложение Vite.
+Intlayer предоставляет множество функций, которые помогут вам интернационализировать ваше приложение на Vite.
 
 **Чтобы узнать больше об этих функциях, обратитесь к руководству [React Internationalization (i18n) с Intlayer и Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_lynx+react.md) для приложения Lynx.**
 
-## Узнайте больше о Intlayer
+## Узнайте больше об Intlayer
 
-- [Сайт Intlayer](https://intlayer.org)
+- [Веб-сайт Intlayer](https://intlayer.org)
 - [Документация Intlayer](https://intlayer.org/doc)
-- [Intlayer на GitHub](https://github.com/aymericzip/intlayer)
+- [GitHub Intlayer](https://github.com/aymericzip/intlayer)
 
-- [Задайте свои вопросы нашей умной документации](https://intlayer.org/docchat)
+- [Задайте свои вопросы нашей умной документации](https://intlayer.org/doc/chat)
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

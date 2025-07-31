@@ -1,11 +1,8 @@
 ---
-docName: package__intlayer__getPathWithoutLocale
-url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Dokumentation der t-Funktion | intlayer
-description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetPathWithoutLocale verwenden
+updatedAt: 2025-06-29
+title: getPathWithoutLocale Funktionsdokumentation | intlayer
+description: Sehen Sie, wie die Funktion getPathWithoutLocale für das intlayer-Paket verwendet wird
 keywords:
   - getPathWithoutLocale
   - Übersetzung
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getPathWithoutLocale
 ---
 
 # Dokumentation: `getPathWithoutLocale` Funktionen in `intlayer`
@@ -28,43 +30,47 @@ Entfernt das Locale-Segment aus der angegebenen URL oder dem Pfadnamen, falls vo
 
 - `inputUrl: string`
 
-  - **Beschreibung**: Die vollständige URL-Zeichenkette oder der zu verarbeitende Pfadname.
+  - **Beschreibung**: Der vollständige URL-String oder Pfadname, der verarbeitet werden soll.
   - **Typ**: `string`
 
 - `locales: Locales[]`
-  - **Beschreibung**: Optionale Liste der unterstützten Locales. Standardmäßig werden die im Projekt konfigurierten Locales verwendet.
+  - **Beschreibung**: Optionale Liste der unterstützten Sprachen. Standardmäßig die im Projekt konfigurierten Sprachen.
   - **Typ**: `Locales[]`
 
-## Rückgabewerte
+## Rückgabewert
 
 - **Typ**: `string`
-- **Beschreibung**: Die URL-Zeichenkette oder der Pfadname ohne das Locale-Segment.
+- **Beschreibung**: Der URL-String oder Pfadname ohne das Locale-Segment.
 
-## Beispielverwendung
+## Beispielhafte Verwendung
 
 ```typescript codeFormat="typescript"
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("/de/dashboard")); // Ausgabe: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Ausgabe: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/de/dashboard")); // Ausgabe: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Ausgabe: "https://example.com/dashboard"
 ```
 
 ```javascript codeFormat="esm"
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("/de/dashboard")); // Ausgabe: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Ausgabe: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/de/dashboard")); // Ausgabe: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Ausgabe: "https://example.com/dashboard"
 ```
 
 ```javascript codeFormat="commonjs"
 const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("/de/dashboard")); // Ausgabe: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Ausgabe: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/de/dashboard")); // Ausgabe: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Ausgabe: "https://example.com/dashboard"
 ```
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

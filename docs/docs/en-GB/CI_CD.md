@@ -1,9 +1,6 @@
 ---
-docName: ci_cd
-url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
-updatedAt: 2025-05-20
+updatedAt: 2025-06-29
 title: CI/CD Integration
 description: Learn how to integrate Intlayer into your CI/CD pipeline for automated content management and deployment.
 keywords:
@@ -14,6 +11,10 @@ keywords:
   - Internationalization
   - Documentation
   - Intlayer
+slugs:
+  - doc
+  - concept
+  - ci-cd
 ---
 
 # Auto-Generate Translations in a CI/CD Pipeline
@@ -30,7 +31,7 @@ With Intlayer, you can adopt a workflow where only a single locale is declared l
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.SPANISH, Locales.FRENCH],
     requiredLocales: [Locales.ENGLISH], // Optional locales will be managed remotely
     defaultLocale: Locales.ENGLISH,
@@ -63,7 +64,7 @@ You can integrate translation generation into your local Git workflow using [Hus
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.SPANISH, Locales.FRENCH],
     requiredLocales: [Locales.ENGLISH], // Optional locales are handled remotely
     defaultLocale: Locales.ENGLISH,
@@ -165,3 +166,7 @@ jobs:
 > By default, the `--git-diff` argument filters dictionaries that include changes from base (default `origin/main`) to current branch (default: `HEAD`).
 
 > For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

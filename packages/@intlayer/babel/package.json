@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/babel",
-  "version": "5.5.10",
+  "version": "5.7.5",
   "private": false,
   "description": "A Babel plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
@@ -58,7 +58,8 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "pnpm build:package & pnpm build:types",
+    "build": "pnpm clean & pnpm build:ci",
+    "build:ci": "pnpm build:package & pnpm build:types",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
@@ -67,8 +68,8 @@
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier --write src/**/*",
-    "reset": "pnpm clean & pnpm build",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@babel/core": "^7.27.4",

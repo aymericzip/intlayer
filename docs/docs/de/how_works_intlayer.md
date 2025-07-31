@@ -1,9 +1,6 @@
 ---
-docName: how_works_intlayer
-url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
-updatedAt: 2024-08-12
+updatedAt: 2025-06-29
 title: Wie Intlayer funktioniert
 description: Erfahren Sie, wie Intlayer intern funktioniert. Verstehen Sie die Architektur und die Komponenten, die Intlayer leistungsstark machen.
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - Architektur
   - Komponenten
   - Interne Abläufe
+slugs:
+  - doc
+  - concept
+  - how-works-intlayer
 ---
 
 # Wie Intlayer funktioniert
@@ -54,12 +55,12 @@ Der Build-Schritt kann auf drei Arten durchgeführt werden:
    - Diese Wörterbücher werden in verschiedenen Formaten generiert, um alle Anforderungen zu erfüllen und die Leistung der Anwendung zu optimieren.
 
 3. Generierung von Wörterbuchtypen
+   Basierend auf Ihren `Wörterbüchern` generiert Intlayer Typen, um sie in Ihrer Anwendung nutzbar zu machen.
 
-Basierend auf Ihren `Wörterbüchern` generiert Intlayer Typen, um sie in Ihrer Anwendung nutzbar zu machen.
+- Wörterbuchtypen werden aus Intlayer-`Content-Deklarationsdateien` generiert. Standardmäßig werden Intlayer-Wörterbuchtypen im Verzeichnis `.intlayer/types` des Projekts generiert.
 
-- Wörterbuchtypen werden aus Intlayer-`Wörterbüchern` generiert. Standardmäßig werden Intlayer-Wörterbuchtypen im Verzeichnis `.intlayer/types` des Projekts generiert.
-
-- Intlayer [Modulerweiterung](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) ist eine TypeScript-Funktion, die es Ihnen ermöglicht, zusätzliche Typen für Intlayer zu definieren. Dies erleichtert die Entwicklungserfahrung, indem verfügbare oder erforderliche Argumente vorgeschlagen werden. Unter den generierten Typen werden Intlayer-Wörterbuchtypen oder sogar Sprachkonfigurationstypen zur Datei `types/intlayer.d.ts` hinzugefügt und von anderen Paketen verwendet. Dazu muss die Datei `tsconfig.json` so konfiguriert sein, dass sie das `types`-Verzeichnis des Projekts einbezieht.
+- Intlayer [Modulerweiterung](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) ist eine TypeScript-Funktion, die es Ihnen ermöglicht, zusätzliche Typen für Intlayer zu definieren. Dies erleichtert die Entwicklungserfahrung, indem verfügbare oder erforderliche Argumente vorgeschlagen werden.
+  Unter den generierten Typen werden Intlayer-Wörterbuchtypen oder sogar Sprachkonfigurationstypen zur Datei `types/intlayer.d.ts` hinzugefügt und von anderen Paketen verwendet. Dazu muss die Datei `tsconfig.json` so konfiguriert sein, dass sie das `types`-Verzeichnis des Projekts einbezieht.
 
 ### Interpretationsschritt der Wörterbücher
 
@@ -82,7 +83,7 @@ Intlayer ermöglicht es Ihnen, Inhalte lokal zu deklarieren und sie dann in das 
 
 So können Sie Inhalte ähnlich wie bei Git für Ihren Code vom CMS in Ihre Anwendung pushen und pullen.
 
-Wenn es in Ihrem Projekt konfiguriert ist, verwaltet Intlayer automatisch das Abrufen der Inhalte aus dem CMS, wenn die Anwendung startet (dev) / gebaut wird (prod).
+Für externalisierte Wörterbücher, die das CMS verwenden, führt Intlayer eine einfache Abrufoperation durch, um entfernte Wörterbücher abzurufen und mit Ihren lokalen zu verschmelzen. Wenn in Ihrem Projekt konfiguriert, verwaltet Intlayer automatisch das Abrufen der Inhalte aus dem CMS, wenn die Anwendung startet (dev) oder gebaut wird (prod).
 
 ## Visueller Editor
 
@@ -90,17 +91,21 @@ Intlayer bietet auch einen visuellen Editor, mit dem Sie Ihre Inhalte visuell be
 
 ![visueller Editor](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
+- Der Server ist eine einfache Express-Anwendung, die Anfragen vom Client entgegennimmt und den Inhalt Ihrer Anwendung, wie die `dictionaries` und die Konfiguration, abruft, um sie auf der Client-Seite zugänglich zu machen.
+- Der Client hingegen ist eine React-Anwendung, die verwendet wird, um mit Ihren Inhalten über eine visuelle Oberfläche zu interagieren.
+  Wenn Sie Ihre Inhalte mit `useIntlayer` aufrufen und der Editor aktiviert ist, werden Ihre Strings automatisch mit einem Proxy-Objekt namens `IntlayerNode` umschlossen. Dieses Node verwendet `window.postMessage`, um mit einem eingebetteten iframe zu kommunizieren, das die Oberfläche des visuellen Editors enthält.  
+  Auf der Editor-Seite hört der Editor auf diese Nachrichten und simuliert eine echte Interaktion mit Ihren Inhalten, sodass Sie den Text direkt im Kontext Ihrer Anwendung bearbeiten können.
+
 ## Optimierung des App-Builds
 
 Um die Bundle-Größe Ihrer Anwendung zu optimieren, bietet Intlayer zwei Plugins zur Optimierung des Builds Ihrer Anwendung: `@intlayer/babel` und `@intlayer/swc` Plugins.
+Die Babel- und SWC-Plugins funktionieren, indem sie den Abstract Syntax Tree (AST) Ihrer Anwendung analysieren, um Aufrufe von Intlayer-Funktionen durch optimierten Code zu ersetzen. Dieser Prozess macht Ihr endgültiges Bundle in der Produktion leichter, indem sichergestellt wird, dass nur die tatsächlich verwendeten Wörterbücher importiert werden, das Chunking optimiert und die Bundle-Größe reduziert wird.
 
 Im Entwicklungsmodus verwendet Intlayer einen zentralisierten statischen Import für Wörterbücher, um die Entwicklungserfahrung zu vereinfachen.
 
-Durch die Optimierung des Builds ersetzt Intlayer alle Wörterbuchaufrufe, um das Chunking zu optimieren. So importiert das endgültige Bundle nur die Wörterbücher, die verwendet werden.
+Durch Aktivieren der Option `importMode = "dynamic"` in der [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) verwendet Intlayer den dynamischen Import, um die Wörterbücher zu laden. Diese Option ist standardmäßig deaktiviert, um asynchrone Verarbeitung beim Rendern der Anwendung zu vermeiden.
 
-Durch Aktivieren der Option `activateDynamicImport` in der [Konfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) verwendet Intlayer den dynamischen Import, um die Wörterbücher zu laden. Diese Option ist standardmäßig deaktiviert, um asynchrone Verarbeitung beim Rendern der Anwendung zu vermeiden.
-
-> `@intlayer/babel` ist standardmäßig im `vite-intlayer`-Paket verfügbar,
+> `@intlayer/babel` ist standardmäßig im `vite-intlayer`-Paket enthalten,
 
 > `@intlayer/swc` ist standardmäßig nicht im `next-intlayer`-Paket installiert, da SWC-Plugins in Next.js noch experimentell sind.
 
@@ -127,6 +132,10 @@ Das `next-intlayer`-Paket wird als Schicht über `react-intlayer` verwendet, um 
 ### vue-intlayer
 
 Das `vue-intlayer`-Paket wird verwendet, um Intlayer-Wörterbücher zu interpretieren und in Vue-Anwendungen nutzbar zu machen.
+
+### nuxt-intlayer
+
+Das `nuxt-intlayer`-Paket ist ein Nuxt-Modul, um Intlayer-Wörterbücher in Nuxt-Anwendungen nutzbar zu machen. Es integriert wesentliche Funktionen, damit Intlayer in einer Nuxt-Umgebung funktioniert, wie z. B. Übersetzungs-Middleware, Routing oder die Konfiguration der `nuxt.config.js`-Datei.
 
 ### svelte-intlayer (WIP)
 
@@ -162,6 +171,8 @@ Beinhaltet das Vite-Plugin zur Integration von Intlayer mit dem [Vite-Bundler](h
 
 ### react-scripts-intlayer
 
+Beinhaltet die `react-scripts-intlayer` Befehle und Plugins zur Integration von Intlayer in Anwendungen, die auf Create React App basieren. Diese Plugins basieren auf [craco](https://craco.js.org/) und enthalten zusätzliche Konfigurationen für den [Webpack](https://webpack.js.org/) Bundler.
+
 ### intlayer-editor
 
 Das `intlayer-editor` Paket wird verwendet, um die Nutzung des visuellen Editors zu ermöglichen. Dieses optionale Paket kann in Anwendungen installiert werden und wird vom `react-intlayer` Paket verwendet.  
@@ -185,15 +196,19 @@ Das `@intlayer/config` Paket wird verwendet, um Intlayer-Einstellungen zu konfig
 
 ### @intlayer/webpack
 
-Das `@intlayer/webpack` Paket wird verwendet, um eine Webpack-Konfiguration bereitzustellen, damit eine auf Webpack basierende Anwendung mit Intlayer funktioniert. Das Paket bietet auch ein Plugin, das zu einer bestehenden Webpack-Anwendung hinzugefügt werden kann.
+Das `@intlayer/webpack` Paket wird verwendet, um eine Webpack-Konfiguration bereitzustellen, die eine auf Webpack basierende Anwendung mit Intlayer kompatibel macht. Das Paket stellt außerdem ein Plugin bereit, das zu einer bestehenden Webpack-Anwendung hinzugefügt werden kann.
 
 ### @intlayer/cli
 
 Das `@intlayer/cli` Paket ist ein NPM-Paket, das verwendet wird, um Skripte im Zusammenhang mit den Intlayer-Befehlszeilenschnittstellen zu deklarieren. Es stellt die Einheitlichkeit aller Intlayer-CLI-Befehle sicher. Dieses Paket wird insbesondere von den Paketen [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/de/packages/intlayer-cli/index.md) und [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/de/packages/intlayer/index.md) verwendet.
 
+### @intlayer/mcp
+
+Das `@intlayer/mcp` Paket stellt einen MCP (Model Context Protocol) Server bereit, der KI-gestützte IDE-Unterstützung speziell für das Intlayer-Ökosystem liefert. Es lädt automatisch die Dokumentation und integriert sich in die Intlayer CLI.
+
 ### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
 
-Die Pakete `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` und `@intlayer/dynamic-dictionaries-entry` geben den Einstiegspfad der Intlayer-Wörterbücher zurück. Da das Durchsuchen des Dateisystems vom Browser aus unmöglich ist, ist es nicht möglich, mit Bundlern wie Webpack oder Rollup den Einstiegspfad der Wörterbücher abzurufen. Diese Pakete sind so konzipiert, dass sie aliasiert werden können, was eine Optimierung des Bundlings über verschiedene Bundler wie Vite, Webpack und Turbopack ermöglicht.
+Die Pakete `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` und `@intlayer/dynamic-dictionaries-entry` geben den Einstiegspfad der Intlayer-Wörterbücher zurück. Da eine Suche im Dateisystem vom Browser aus nicht möglich ist, kann der Einstiegspfad der Wörterbücher mit Bundlern wie Webpack oder Rollup nicht ermittelt werden. Diese Pakete sind so konzipiert, dass sie als Aliase verwendet werden können, um eine Optimierung des Bundlings über verschiedene Bundler wie Vite, Webpack und Turbopack zu ermöglichen.
 
 ### @intlayer/chokidar
 
@@ -201,19 +216,19 @@ Das `@intlayer/chokidar` Paket wird verwendet, um Inhaltsdateien zu überwachen 
 
 ### @intlayer/editor
 
-Das `@intlayer/editor` Paket stellt die Dienstprogramme bereit, die mit dem Wörterbuch-Editor zusammenhängen. Es enthält insbesondere die API, um eine Anwendung mit dem Intlayer-Editor zu verbinden, sowie Dienstprogramme zur Manipulation von Wörterbüchern. Dieses Paket ist plattformübergreifend.
+Das `@intlayer/editor` Paket stellt die Dienstprogramme im Zusammenhang mit dem Wörterbuch-Editor bereit. Es enthält insbesondere die API, um eine Anwendung mit dem Intlayer-Editor zu verbinden, sowie Dienstprogramme zur Manipulation von Wörterbüchern. Dieses Paket ist plattformübergreifend.
 
 ### @intlayer/editor-react
 
-Das `@intlayer/editor-react` Paket bietet Zustände, Kontexte, Hooks und Komponenten, um eine React-Anwendung mit dem Intlayer-Editor zu verbinden.
+Das `@intlayer/editor-react` Paket stellt Zustände, Kontexte, Hooks und Komponenten bereit, um eine React-Anwendung mit dem Intlayer-Editor zu verbinden.
 
 ### @intlayer/babel
 
-Das `@intlayer/babel` Paket stellt Tools bereit, die das Bundling von Wörterbüchern für Vite- und Webpack-basierte Anwendungen optimieren.
+Das `@intlayer/babel` Paket stellt Werkzeuge bereit, die das Bundling von Wörterbüchern für Vite- und Webpack-basierte Anwendungen optimieren.
 
 ### @intlayer/swc
 
-Das `@intlayer/swc` Paket stellt Tools bereit, die das Bundling von Wörterbüchern für Next.js-Anwendungen optimieren.
+Das `@intlayer/swc` Paket stellt Werkzeuge bereit, die das Bundling von Wörterbüchern für Next.js-Anwendungen optimieren.
 
 ### @intlayer/api
 
@@ -230,3 +245,7 @@ Das `@intlayer/backend` Paket exportiert Backend-Typen und wird in Zukunft das B
 ## Chat mit unserer intelligenten Dokumentation
 
 - [Stellen Sie Ihre Fragen an unsere intelligente Dokumentation](https://intlayer.org/de/doc/chat)
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Initialer Verlauf

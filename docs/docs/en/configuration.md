@@ -1,9 +1,6 @@
 ---
-docName: configuration
-url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-07-25
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - Customization
   - Intlayer
   - Options
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Intlayer Configuration Documentation
@@ -58,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -87,7 +88,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -100,10 +101,20 @@ module.exports = config;
     "locales": ["en"],
   },
   "content": {
-    "typesDir": "content/types",
+    "contentDir": ["src", "../ui-library"],
   },
   "middleware": {
     "noPrefix": false,
+  },
+  "editor": {
+    "applicationURL": "https://example.com",
+  },
+  "ai": {
+    "apiKey": "XXXX",
+    "applicationContext": "This is a test application",
+  },
+  "build": {
+    "importMode": "dynamic",
   },
 }
 ```
@@ -267,10 +278,12 @@ Settings that control middleware behavior, including how the application handles
 - **prefixDefault**:
 
   - _Type_: `boolean`
-  - _Default_: `true`
+  - _Default_: `false`
   - _Description_: Whether to include the default locale in the URL.
-  - _Example_: `false`
-  - _Note_: If `false`, URLs for the default locale will not have a locale prefix.
+  - _Example_: `true`
+  - _Note_:
+    - If `true` and `defaultLocale = 'en'`: path = `/en/dashboard` or `/fr/dashboard`
+    - If `false` and `defaultLocale = 'en'`: path = `/dashboard` or `/fr/dashboard`
 
 - **basePath**:
 
@@ -278,7 +291,11 @@ Settings that control middleware behavior, including how the application handles
   - _Default_: `''`
   - _Description_: The base path for the application URLs.
   - _Example_: `'/my-app'`
-  - _Note_: This affects how URLs are constructed for the application.
+  - _Note_:
+    - If the application is hosted at `https://example.com/my-app`
+    - The base path is `'/my-app'`
+    - The URL will be `https://example.com/my-app/en`
+    - If the base path is not set, the URL will be `https://example.com/en`
 
 - **serverSetCookie**:
 
@@ -290,11 +307,42 @@ Settings that control middleware behavior, including how the application handles
   - _Note_: Controls whether the locale cookie is set on every request or never.
 
 - **noPrefix**:
+
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Whether to omit the locale prefix from URLs.
   - _Example_: `true`
-  - _Note_: If `true`, URLs will not contain locale information.
+  - _Note_:
+    - If `true`: No prefix in the URL
+    - If `false`: Prefix in the URL
+    - Example with `basePath = '/my-app'`:
+      - If `noPrefix = false`: URL will be `https://example.com/my-app/en`
+      - If `noPrefix = true`: URL will be `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Controls whether locale detection occurs during Next.js prefetch requests.
+  - _Example_: `true`
+  - _Note_: This setting affects how Next.js handles locale prefetching:
+    - **Example scenario:**
+      - User's browser language is `'fr'`
+      - Current page is `/fr/about`
+      - Link prefetches `/about`
+    - **With `detectLocaleOnPrefetchNoPrefix: true`:**
+      - Prefetch detects `'fr'` locale from browser
+      - Redirects prefetch to `/fr/about`
+    - **With `detectLocaleOnPrefetchNoPrefix: false` (default):**
+      - Prefetch uses default locale
+      - Redirects prefetch to `/en/about` (assuming `'en'` is default)
+    - **When to use `true`:**
+      - Your app uses non-localized internal links (e.g. `<a href="/about">`)
+      - You want consistent locale detection behavior between regular and prefetch requests
+    - **When to use `false` (default):**
+      - Your app uses locale-prefixed links (e.g. `<a href="/fr/about">`)
+      - You want to optimize prefetching performance
+      - You want to avoid potential redirect loops
 
 ---
 
@@ -335,7 +383,7 @@ Settings related to content handling within the application, including directory
 - **contentDir**:
 
   - _Type_: `string[]`
-  - _Default_: `['src']`
+  - _Default_: `['.']`
   - _Example_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Description_: The directory path where content is stored.
 
@@ -482,11 +530,9 @@ Settings that control how Intlayer optimizes and builds your application's inter
 
 Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
-> In development mode, Intlayer use a centralized static import for dictionaries to simplify the development experience.
+> In development mode, Intlayer uses static imports for dictionaries to simplify the development experience.
 
-> By optimizing the build, Intlayer will replace all calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used.
-
-- **Note**: `@intlayer/babel` is available by default on `vite-intlayer` package, but `@intlayer/swc` is not installed by default on `next-intlayer` package as SWC plugins are still experimental on Next.js.
+> When optimized, Intlayer will replace dictionary calls to optimize chunking, so the final bundle only imports dictionaries that are actually used.
 
 #### Properties
 
@@ -496,21 +542,28 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Default_: `process.env.NODE_ENV === 'production'`
   - _Description_: Controls whether the build should be optimized.
   - _Example_: `true`
-  - _Note_: It will allows to import only the dictionaries that are used into the bundle. But all imports will stay as static import to avoid async processing when loading the dictionaries.
-  - _Note_: When enabled, Intlayer will optimize dictionary chunking by replacing all calls of `useIntlayer` with `useDictionary` and `getIntlayer` with `getDictionary`.
+  - _Note_: When enabled, Intlayer will replace all calls of dictionaries to optimize chunking. That way the final bundle will import only the dictionaries that are used. All imports will stay as static import to avoid async processing when loading the dictionaries.
+  - _Note_: Intlayer will replace all calls of `useIntlayer` with the defined mode by the `importMode` option and `getIntlayer` with `getDictionary`.
+  - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Controls whether dictionary content should be dynamically imported per locale.
-  - _Example_: `true`
-  - _Note_: It will allows to import dynamically the dictionary content for the current locale only.
-  - _Note_: Dynamic imports rely on React Suspense and may slightly impact rendering performance. But if desabled all locales will be loaded at once, even if they are not used.
-  - _Note_: When enabled, Intlayer will optimize dictionary chunking by replacing all calls of `useIntlayer` calls with `useDynamicDictionary`.
+  - _Type_: `'static' | 'dynamic' | 'async'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
+  - _Note_: Available modes:
+    - "static": Dictionaries are imported statically. Replaces `useIntlayer` with `useDictionary`.
+    - "dynamic": Dictionaries are imported dynamically using Suspense. Replaces `useIntlayer` with `useDictionaryDynamic`.
+    - "async": Dictionaries are imported dynamically asynchronously. Replaces `useIntlayer` with `await useDictionaryAsync`.
+  - _Note_: Dynamic imports rely on Suspense and may slightly impact rendering performance.
+  - _Note_: If disabled all locales will be loaded at once, even if they are not used.
+  - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+  - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
   - _Note_: This option will be ignored if `optimize` is disabled.
-  - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+  - _Note_: In most cases, `"dynamic"` will be used for React applications, `"async"` for Vue.js applications.
+  - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
 
 - **traversePattern**:
   - _Type_: `string[]`
@@ -521,40 +574,10 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: This option will be ignored if `optimize` is disabled.
   - _Note_: Use glob pattern.
 
-### Documentation CLI Operations
+## Doc History
 
-Intlayer provides two dedicated CLI commands to streamline the localisation of your Markdown documentation.
-
-| Command                  | Purpose                                                                                 |
-| ------------------------ | --------------------------------------------------------------------------------------- |
-| `intlayer doc translate` | Machine-translate the documentation from the base locale to one or more target locales. |
-| `intlayer doc review`    | Audit existing translations and let the AI improve accuracy, tone, and consistency.     |
-
-#### Common options
-
-- **--doc-pattern [glob]**: Glob pattern describing the Markdown files to process. Default: `docs/docs/en/**/*.md`.
-- **--excluded-glob-pattern [glob]**: Additional glob pattern(s) to exclude from the search.
-- **--base-locale [locale]**: Source locale (default: `en`).
-- **--locales [locale…]**: One or more target locales, e.g. `fr es`.
-- **--nb-simultaneous-file-processed [number]**: Maximum number of files processed in parallel (default: `3`).
-
-All generic CLI options are also available:
-
-- AI: `--provider`, `--model`, `--temperature`, `--api-key`, `--application-context`
-- Configuration: `--env`, `--env-file`, `--base-dir`, `--verbose`, `--prefix`
-
-#### Examples
-
-```bash
-# Translate every English document to French and Spanish
-npx intlayer doc translate \
-  --doc-pattern docs/docs/en/**/*.md \
-  --locales fr es \
-  --base-locale en
-
-# Review the French documentation and update it in-place
-npx intlayer doc review \
-  --doc-pattern docs/docs/en/**/*.md \
-  --locales fr \
-  --base-locale en
-```
+| Version | Date       | Changes                                                  |
+| ------- | ---------- | -------------------------------------------------------- |
+| 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option |
+| 5.6.0   | 2025-07-13 | Change default contentDir from `['src']` to `['.']`      |
+| 5.5.11  | 2025-06-29 | Add `docs` commands                                      |

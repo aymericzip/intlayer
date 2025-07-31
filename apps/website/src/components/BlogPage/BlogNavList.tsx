@@ -1,8 +1,8 @@
 'use client';
 
 import { PagesRoutes } from '@/Routes';
+import { OptionalLink } from '@components/DocPage/DocNavList';
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
-import { Link } from '@components/Link/Link';
 import {
   Accordion,
   Button,
@@ -14,24 +14,8 @@ import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { ArrowLeftToLine } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { useState, type ComponentProps, type FC } from 'react';
+import { useState, type FC } from 'react';
 import type { Section } from './types';
-
-type OptionalLinkProps = ComponentProps<typeof Link>;
-
-const OptionalLink: FC<OptionalLinkProps> = ({ href, isActive, ...props }) => {
-  if (!href) return <span {...props} />;
-  return (
-    <Link
-      href={href}
-      variant="hoverable"
-      color="text"
-      isActive={isActive}
-      onClick={(e) => e.stopPropagation()}
-      {...props}
-    />
-  );
-};
 
 type BlogNavListProps = {
   blogData: Section;
@@ -55,10 +39,8 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         return (
           <div key={key1}>
             <OptionalLink
-              href={sectionDefault?.url ?? ''}
-              className={cn([
-                'text-neutral hover:text-text h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors',
-              ])}
+              href={sectionDefault?.relativeUrl ?? ''}
+              className="p-0 pl-3"
               label={key1}
               isActive={isActive}
             >
@@ -83,8 +65,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           header={
                             <OptionalLink
                               label={key2}
-                              href={sectionDefault?.url ?? ''}
-                              className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap pl-2 text-left text-sm transition-colors"
+                              href={sectionDefault?.relativeUrl ?? ''}
                               isActive={isActive}
                             >
                               {section2Data?.title}
@@ -94,86 +75,26 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           isOpen={isActive}
                           className="!py-0 !pl-0"
                         >
-                          <div className="pl-3">
+                          <div className="pl-3 text-sm">
                             {subSections2 &&
                               Object.keys(subSections2).length > 0 && (
                                 <div className="text-neutral hover:text-text flex flex-col items-start gap-2 p-1 transition-colors">
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
-                                    const sectionDefault = section3Data.default;
-                                    const subSections3 =
-                                      section3Data.subSections;
-                                    const hasSubsections =
-                                      subSections2 &&
-                                      Object.keys(subSections2).length > 0;
 
                                     const isActive =
                                       key1 === activeSections[0] &&
                                       key2 === activeSections[1] &&
                                       key3 === activeSections[2];
 
-                                    return hasSubsections ? (
-                                      <Accordion
-                                        header={
-                                          <OptionalLink
-                                            label={key3}
-                                            href={sectionDefault?.url ?? ''}
-                                            className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap pl-2 text-left text-xs transition-colors"
-                                            isActive={isActive}
-                                          >
-                                            {section3Data?.title}
-                                          </OptionalLink>
-                                        }
-                                        label={key3}
-                                        isOpen={isActive}
-                                        className="!py-0 !pl-0"
-                                      >
-                                        <div className="pl-3">
-                                          {subSections3 &&
-                                            Object.keys(subSections3).length >
-                                              0 && (
-                                              <div className="text-neutral hover:text-text flex flex-col items-start gap-2 p-1 transition-colors">
-                                                {Object.keys(subSections3).map(
-                                                  (key4) => {
-                                                    const section4Data =
-                                                      subSections3[key4];
-
-                                                    const isActive =
-                                                      key1 ===
-                                                        activeSections[0] &&
-                                                      key2 ===
-                                                        activeSections[1] &&
-                                                      key3 ===
-                                                        activeSections[2] &&
-                                                      key4 ===
-                                                        activeSections[3];
-
-                                                    return (
-                                                      <OptionalLink
-                                                        key={key4}
-                                                        label={key4}
-                                                        href={
-                                                          section4Data.default
-                                                            ?.url ?? ''
-                                                        }
-                                                        className="text-neutral hover:text-text block w-full text-nowrap p-2 text-left text-xs transition-colors"
-                                                        isActive={isActive}
-                                                      >
-                                                        {section4Data.title}
-                                                      </OptionalLink>
-                                                    );
-                                                  }
-                                                )}
-                                              </div>
-                                            )}
-                                        </div>
-                                      </Accordion>
-                                    ) : (
+                                    return (
                                       <OptionalLink
                                         key={key3}
                                         label={key3}
-                                        href={section3Data.default?.url ?? ''}
-                                        className="text-neutral hover:text-text block w-full text-nowrap p-2 text-left text-xs transition-colors"
+                                        href={
+                                          section3Data.default?.relativeUrl ??
+                                          ''
+                                        }
                                         isActive={isActive}
                                       >
                                         {section3Data.title}
@@ -186,8 +107,8 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                         </Accordion>
                       ) : (
                         <OptionalLink
-                          href={sectionDefault?.url ?? ''}
-                          className="text-neutral hover:text-text block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors"
+                          href={sectionDefault?.relativeUrl ?? ''}
+                          className="hover:text-text block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors"
                           label={key2}
                           isActive={isActive}
                         >
@@ -203,13 +124,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         );
       })}
       <div>
-        <OptionalLink
-          href={PagesRoutes.Doc}
-          className={cn([
-            'text-neutral hover:text-text h-full max-h-full text-nowrap pl-3 text-left font-semibold transition-colors',
-          ])}
-          label={docButton.label.value}
-        >
+        <OptionalLink href={PagesRoutes.Doc} label={docButton.label.value}>
           {docButton?.text}
         </OptionalLink>
       </div>

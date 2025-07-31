@@ -1,9 +1,6 @@
 ---
-blogName: list_i18n_technologies__frameworks__vue
-url: https://intlayer.org/blog/i18n-technologies/frameworks/vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/vue.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Best Internationalization (i18n) Tools for Vue
 description: Discover top Vue i18n solutions to tackle translation challenges, boost SEO, and deliver a seamless global web experience.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Internationalisation
   - Blog
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - vue
 ---
 
 # Exploring i18n Solutions to Translate Your Vue.js Website
@@ -22,7 +24,7 @@ In an increasingly globalized digital landscape, extending your Vue.js websiteâ€
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## What is Internationalization (i18n)?
 

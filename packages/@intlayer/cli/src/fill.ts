@@ -1,4 +1,4 @@
-import { AIOptions, getAiAPI, getAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
+import { AIOptions, getAiAPI, getOAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
   getFilteredLocalesContent,
   listGitFiles,
@@ -306,7 +306,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
   let oAuth2AccessToken: string | undefined;
   if (configuration.editor.clientId) {
-    const intlayerAuthAPI = getAuthAPI(undefined, configuration);
+    const intlayerAuthAPI = getOAuthAPI(configuration);
     const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
 
     oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;

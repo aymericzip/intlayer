@@ -1,21 +1,54 @@
 ---
-docName: package__solid-intlayer
-url: https://intlayer.org/doc/packages/solid-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: وثائق حزمة | solid-intlayer
-description: انظر كيف تستخدم حزمة solid-intlayer
+updatedAt: 2025-06-29
+title: توثيق الحزمة | solid-intlayer
+description: تعرف على كيفية استخدام حزمة solid-intlayer
 keywords:
   - Intlayer
   - solid-intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - solid-intlayer
 ---
 
-this doc will be automatically generated translated from the english doc
+# solid-intlayer: حزمة NPM لتدويل (i18n) تطبيق Solid
 
-see /docs/en/packages/solid-intlayer/index.md
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافاسكريبت. وهي متوافقة مع أُطُر العمل مثل Solid وSolid وExpress.js.
+
+**حزمة `solid-intlayer`** تتيح لك تدويل تطبيق Solid الخاص بك. فهي توفر موفري السياق (context providers) وخطافات (hooks) لتدويل Solid.
+
+## لماذا تقوم بتدويل تطبيق Solid الخاص بك؟
+
+تدويل تطبيق Solid الخاص بك أمر ضروري لخدمة جمهور عالمي بفعالية. فهو يسمح لتطبيقك بتقديم المحتوى والرسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق تطبيقك بجعله أكثر سهولة وملاءمة للأشخاص من خلفيات لغوية مختلفة.
+
+## لماذا تدمج Intlayer؟
+
+- **إدارة المحتوى مدعومة بجافاسكريبت**: استغل مرونة جافاسكريبت لتعريف وإدارة المحتوى الخاص بك بكفاءة.
+- **بيئة آمنة من حيث النوع**: استفد من TypeScript لضمان أن جميع تعريفات المحتوى الخاصة بك دقيقة وخالية من الأخطاء.
+- **ملفات محتوى مدمجة**: احتفظ بترجماتك قريبة من مكوناتها الخاصة، مما يعزز سهولة الصيانة والوضوح.
+
+## التثبيت
+
+قم بتثبيت الحزمة اللازمة باستخدام مدير الحزم المفضل لديك:
+
+```bash packageManager="npm"
+npm install solid-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add solid-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add solid-intlayer
+```
+
+## تاريخ الوثائق
+
+- 5.5.10 - 2025-06-29: بدء التاريخ

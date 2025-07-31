@@ -1,24 +1,25 @@
 ---
-docName: dictionary__get_started
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Dichiarazione dei contenuti | Inizia
-description: Scopri come dichiarare e utilizzare le dichiarazioni di contenuto nel tuo sito web multilingue. Segui i passaggi in questa documentazione online per configurare il tuo progetto in pochi minuti.
+updatedAt: 2025-06-29
+title: Dizionario | Iniziare
+description: Scopri come dichiarare e utilizzare dizionari nel tuo sito web multilingue. Segui i passaggi in questa documentazione online per configurare il tuo progetto in pochi minuti.
 keywords:
-  - Inizia
+  - Iniziare
   - Internazionalizzazione
   - Documentazione
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
 # Iniziare la dichiarazione del tuo contenuto
 
-<iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="i18n, Markdown, JSON… una soluzione unica per gestire tutto | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Estensioni dei file
 
@@ -34,18 +35,28 @@ Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti est
 - `.content.cjs`
 - `.content.cjx`
 
-L'applicazione cercherà i file che corrispondono al pattern glob `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` per impostazione predefinita.
+L'applicazione cercherà per impostazione predefinita i file che corrispondono al pattern glob `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-Queste estensioni predefinite sono adatte per la maggior parte delle applicazioni. Tuttavia, se hai requisiti specifici, consulta la [guida alla personalizzazione delle estensioni di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#content-configuration) per istruzioni su come gestirle.
+Queste estensioni predefinite sono adatte alla maggior parte delle applicazioni. Tuttavia, se hai requisiti specifici, consulta la [guida alla personalizzazione delle estensioni di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#content-configuration) per le istruzioni su come gestirle.
 
-Per un elenco completo delle opzioni di configurazione, visita la documentazione di configurazione.
+Per un elenco completo delle opzioni di configurazione, visita la documentazione sulla configurazione.
 
-## Dichiarare il tuo contenuto
+## Dichiara il tuo contenuto
 
 Crea e gestisci i tuoi dizionari:
 
 ```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
-import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
+import { type ReactNode } from "react";
+import {
+  t,
+  enu,
+  cond,
+  nest,
+  md,
+  insert,
+  file,
+  type Dictionary,
+} from "intlayer";
 
 interface Content {
   imbricatedContent: {
@@ -59,12 +70,12 @@ interface Content {
   multilingualContent: string;
   quantityContent: string;
   conditionalContent: string;
+  markdownContent: never;
   externalContent: string;
   insertionContent: string;
+  nestedContent: string;
   fileContent: string;
-  nestedContent: any;
-  markdownContent: any;
-  jsxContent: any;
+  jsxContent: ReactNode;
 }
 
 export default {
@@ -72,47 +83,49 @@ export default {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Ciao Mondo",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
+        stringContent: "Ciao Mondo", // Contenuto stringa
+        numberContent: 123, // Contenuto numero
+        booleanContent: true, // Contenuto booleano
+        javaScriptContent: `${process.env.NODE_ENV}`, // Contenuto JavaScript
       },
     },
     multilingualContent: t({
-      en: "Contenuto in inglese",
-      "en-GB": "Contenuto in inglese (UK)",
-      fr: "Contenuto in francese",
-      es: "Contenuto in spagnolo",
+      en: "English content",
+      "en-GB": "English content (UK)",
+      fr: "French content",
+      es: "Spanish content",
     }),
     quantityContent: enu({
-      "<-1": "Meno di meno una macchina",
-      "-1": "Meno una macchina",
-      "0": "Nessuna macchina",
-      "1": "Una macchina",
-      ">5": "Alcune macchine",
-      ">19": "Molte macchine",
+      "<-1": "Meno di meno uno auto",
+      "-1": "Meno uno auto",
+      "0": "Nessuna auto",
+      "1": "Una auto",
+      ">5": "Alcune auto",
+      ">19": "Molte auto",
     }),
     conditionalContent: cond({
       true: "La validazione è abilitata",
       false: "La validazione è disabilitata",
     }),
+    insertionContent: insert("Ciao {{name}}!"),
     nestedContent: nest(
       "navbar", // La chiave del dizionario da annidare
-      "login.button" // [Opzionale] Il percorso del contenuto da annidare
+      "login.button" // [Opzionale] Il percorso al contenuto da annidare
     ),
-    externalContent: fetch("https://example.com").then((res) => res.json())
+    fileContent: file("./path/to/file.txt"),
+    externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Esempio di Markdown"),
 
     /*
-     * Disponibile solo utilizzando `react-intlayer` o `next-intlayer`
+     * Disponibile solo usando `react-intlayer` o `next-intlayer`
      */
     jsxContent: <h1>Il mio titolo</h1>,
   },
-} satisfies Dictionary<Content>; // [opzionale] Dictionary è generico e ti permette di rafforzare la formattazione del tuo dizionario
+} satisfies Dictionary<Content>; // [opzionale] Dictionary è generico e ti permette di rafforzare il formato del tuo dizionario
 ```
 
 ```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
+import { t, enu, cond, nest, md, insert, file } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 export default {
@@ -123,43 +136,45 @@ export default {
         stringContent: "Ciao Mondo",
         numberContent: 123,
         booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
+        javaScriptContent: `${process.env.NODE_ENV}`, // Contenuto JavaScript dinamico
       },
       imbricatedArray: [1, 2, 3],
     },
     multilingualContent: t({
-      en: "Contenuto in inglese",
-      "en-GB": "Contenuto in inglese (UK)",
-      fr: "Contenuto in francese",
-      es: "Contenuto in spagnolo",
+      en: "English content",
+      "en-GB": "English content (UK)",
+      fr: "French content",
+      es: "Spanish content",
     }),
     quantityContent: enu({
-      "<-1": "Meno di meno una macchina",
-      "-1": "Meno una macchina",
-      "0": "Nessuna macchina",
-      "1": "Una macchina",
-      ">5": "Alcune macchine",
-      ">19": "Molte macchine",
+      "<-1": "Meno di meno uno auto",
+      "-1": "Meno uno auto",
+      "0": "Nessuna auto",
+      "1": "Una auto",
+      ">5": "Alcune auto",
+      ">19": "Molte auto",
     }),
     conditionalContent: cond({
       true: "La validazione è abilitata",
       false: "La validazione è disabilitata",
     }),
+    insertionContent: insert("Ciao {{name}}!"),
     nestedContent: nest(
       "navbar", // La chiave del dizionario da annidare
-      "login.button" // [Opzionale] Il percorso del contenuto da annidare
+      "login.button" // [Opzionale] Il percorso al contenuto da annidare
     ),
     markdownContent: md("# Esempio di Markdown"),
+    fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
-    // Disponibile solo utilizzando `react-intlayer` o `next-intlayer`
+    // Disponibile solo usando `react-intlayer` o `next-intlayer`
     jsxContent: <h1>Il mio titolo</h1>,
   },
 };
 ```
 
 ```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
+const { t, enu, cond, nest, md, insert, file } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 module.exports = {
@@ -170,20 +185,20 @@ module.exports = {
         stringContent: "Ciao Mondo",
         numberContent: 123,
         booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
+        javaScriptContent: `${process.env.NODE_ENV}`, // Contenuto JavaScript dinamico
       },
-      imbricatedArray: [1, 2, 3],
+      imbricatedArray: [1, 2, 3], // Array annidato
     },
     multilingualContent: t({
-      en: "Contenuto in inglese",
-      "en-GB": "Contenuto in inglese (UK)",
-      fr: "Contenuto in francese",
-      es: "Contenuto in spagnolo",
+      en: "English content",
+      "en-GB": "English content (UK)",
+      fr: "Contenuto francese",
+      es: "Contenuto spagnolo",
     }),
     quantityContent: enu({
-      "<-1": "Meno di meno una macchina",
-      "-1": "Meno una macchina",
-      "0": "Nessuna macchina",
+      "<-1": "Meno di meno uno auto",
+      "-1": "Meno uno auto",
+      "0": "Nessuna auto",
       "1": "Una macchina",
       ">5": "Alcune macchine",
       ">19": "Molte macchine",
@@ -192,14 +207,16 @@ module.exports = {
       true: "La validazione è abilitata",
       false: "La validazione è disabilitata",
     }),
+    insertionContent: insert("Ciao {{name}}!"),
     nestedContent: nest(
-      "navbar", // La chiave del dizionario da annidare
-      "login.button" // [Opzionale] Il percorso del contenuto da annidare
+      "navbar", // La chiave del dizionario da nidificare
+      "login.button" // [Opzionale] Il percorso al contenuto da nidificare
     ),
     markdownContent: md("# Esempio di Markdown"),
+    fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
-    // Disponibile solo utilizzando `react-intlayer` o `next-intlayer`
+    // Disponibile solo usando `react-intlayer` o `next-intlayer`
     jsxContent: <h1>Il mio titolo</h1>,
   },
 };
@@ -245,6 +262,10 @@ module.exports = {
         "false": "La validazione è disabilitata",
       },
     },
+    "insertionContent": {
+      "nodeType": "insertion",
+      "insertion": "Ciao {{name}}!",
+    },
     "nestedContent": {
       "nodeType": "nested",
       "nested": { "dictionaryKey": "app" },
@@ -252,6 +273,10 @@ module.exports = {
     "markdownContent": {
       "nodeType": "markdown",
       "markdown": "# Esempio di Markdown",
+    },
+    "fileContent": {
+      "nodeType": "file",
+      "file": "./path/to/file.txt",
     },
     "jsxContent": {
       "type": "h1",
@@ -265,11 +290,11 @@ module.exports = {
 }
 ```
 
-## Imbricazione delle funzioni
+## Imbricazione di funzioni
 
-Puoi senza problemi imbricare funzioni in altre.
+Puoi senza problemi imbricare funzioni dentro altre funzioni.
 
-Esempio:
+Esempio :
 
 ```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
@@ -279,10 +304,10 @@ const getName = async () => "John Doe";
 export default {
   key: "page",
   content: {
-    // `getIntlayer('page','en').hiMessage` restituisce `['Ciao', ' ', 'John Doe']`
+    // `getIntlayer('page','en').hiMessage` restituisce `['Hi', ' ', 'John Doe']`
     hiMessage: [
       t({
-        en: "Ciao",
+        en: "Hi",
         fr: "Salut",
         es: "Hola",
       }),
@@ -290,27 +315,27 @@ export default {
       getName(),
     ],
     // Contenuto composito che imbrica condizione, enumerazione e contenuto multilingue
-    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Trovati più elementi'`
+    // `getIntlayer('page','en').advancedContent(true)(10)` restituisce 'Multiple items found'
     advancedContent: cond({
       true: enu({
         "0": t({
-          en: "Nessun elemento trovato",
-          fr: "Aucun élément trouvé",
-          es: "Ningún elemento encontrado",
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
         }),
         "1": t({
-          en: "Un elemento trovato",
-          fr: "Un élément trouvé",
-          es: "Un elemento encontrado",
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
         }),
         ">1": t({
-          en: "Trovati più elementi",
-          fr: "Plusieurs éléments trouvés",
-          es: "Se encontraron múltiples elementos",
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
         }),
       }),
       false: t({
-        en: "Nessun dato valido disponibile",
+        en: "No valid data available",
         fr: "Aucune donnée valide disponible",
         es: "No hay datos válidos disponibles",
       }),
@@ -328,10 +353,10 @@ const getName = async () => "John Doe";
 export default {
   key: "page",
   content: {
-    // `getIntlayer('page','en').hiMessage` restituisce `['Ciao', ' ', 'John Doe']`
+    // `getIntlayer('page','en').hiMessage` restituisce `['Hi', ' ', 'John Doe']`
     hiMessage: [
       t({
-        en: "Ciao",
+        en: "Hi",
         fr: "Salut",
         es: "Hola",
       }),
@@ -339,23 +364,66 @@ export default {
       getName(),
     ],
     // Contenuto composito che imbrica condizione, enumerazione e contenuto multilingue
-    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Trovati più elementi'`
+    // `getIntlayer('page','en').advancedContent(true)(10)` restituisce 'Multiple items found'
     advancedContent: cond({
       true: enu({
         "0": t({
-          en: "Nessun elemento trovato",
-          fr: "Aucun élément trouvé",
-          es: "Ningún elemento encontrado",
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
         }),
         "1": t({
-          en: "Un elemento trovato",
-          fr: "Un élément trouvé",
-          es: "Un elemento encontrado",
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
         }),
         ">1": t({
-          en: "Trovati più elementi",
-          fr: "Plusieurs éléments trouvés",
-          es: "Se encontraron múltiples elementos",
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
+        }),
+      }),
+      false: t({
+        en: "No valid data available",
+        fr: "Aucune donnée valide disponible",
+        es: "No hay datos válidos disponibles",
+      }),
+    }),
+  },
+};
+
+/** @type {import('intlayer').Dictionary} */
+export default {
+  key: "page",
+  content: {
+    // `getIntlayer('page','en').hiMessage` restituisce `['Ciao', ' ', 'John Doe']`
+    hiMessage: [
+      t({
+        en: "Hi",
+        fr: "Salut",
+        es: "Hola",
+      }),
+      " ",
+      getName(),
+    ],
+    // Contenuto composito che combina condizione, enumerazione e contenuto multilingue
+    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Più elementi trovati'`
+    advancedContent: cond({
+      true: enu({
+        "0": t({
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
+        }),
+        "1": t({
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
+/        }),
+        ">1": t({
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
         }),
       }),
       false: t({
@@ -377,38 +445,38 @@ const getName = async () => "John Doe";
 module.exports = {
   key: "page",
   content: {
-    // `getIntlayer('page','en').hiMessage` restituisce `['Ciao', ' ', 'John Doe']`
+    // `getIntlayer('page','en').hiMessage` restituisce `['Hi', ' ', 'John Doe']`
     hiMessage: [
       t({
-        en: "Ciao",
+        en: "Hi",
         fr: "Salut",
         es: "Hola",
       }),
       " ",
       getName(),
     ],
-    // Contenuto composito che imbrica condizione, enumerazione e contenuto multilingue
-    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Trovati più elementi'`
+    // Contenuto composito che combina condizione, enumerazione e contenuto multilingue
+    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Multiple items found'`
     advancedContent: cond({
       true: enu({
         "0": t({
-          en: "Nessun elemento trovato",
-          fr: "Aucun élément trouvé",
-          es: "Ningún elemento encontrado",
+          en: "No items found",
+          fr: "Aucun article trouvé",
+          es: "No se encontraron artículos",
         }),
         "1": t({
-          en: "Un elemento trovato",
-          fr: "Un élément trouvé",
-          es: "Un elemento encontrado",
+          en: "One item found",
+          fr: "Un article trouvé",
+          es: "Se encontró un artículo",
         }),
         ">1": t({
-          en: "Trovati più elementi",
-          fr: "Plusieurs éléments trouvés",
-          es: "Se encontraron múltiples elementos",
+          en: "Multiple items found",
+          fr: "Plusieurs articles trouvés",
+          es: "Se encontraron múltiples artículos",
         }),
       }),
       false: t({
-        en: "Nessun dato valido disponibile",
+        en: "No valid data available",
         fr: "Aucune donnée valide disponible",
         es: "No hay datos válidos disponibles",
       }),
@@ -428,9 +496,9 @@ module.exports = {
         {
           "nodeType": "translation",
           "translation": {
-            "en": "Ciao",
-            "fr": "Salut",
-            "es": "Hola",
+            en: "Hi",
+            fr: "Salut",
+            es: "Hola",
           },
         },
         " ",
@@ -446,25 +514,28 @@ module.exports = {
             "0": {
               "nodeType": "translation",
               "translation": {
-                "en": "Nessun elemento trovato",
-                "fr": "Aucun élément trouvé",
-                "es": "Ningún elemento encontrado",
+                "en": "No items found",
+                "it": "Nessun elemento trovato",
+                "fr": "Aucun article trouvé",
+                "es": "No se encontraron artículos",
               },
             },
             "1": {
               "nodeType": "translation",
               "translation": {
-                "en": "Un elemento trovato",
-                "fr": "Un élément trouvé",
-                "es": "Un elemento encontrado",
+                "en": "One item found",
+                "it": "Un elemento trovato",
+                "fr": "Un article trouvé",
+                "es": "Se encontró un artículo",
               },
             },
             ">1": {
               "nodeType": "translation",
               "translation": {
-                "en": "Trovati più elementi",
-                "fr": "Plusieurs éléments trouvés",
-                "es": "Se encontraron múltiples elementos",
+                "en": "Multiple items found",
+                "it": "Più elementi trovati",
+                "fr": "Plusieurs articles trouvés",
+                "es": "Se encontraron múltiples artículos",
               },
             },
           },
@@ -472,7 +543,7 @@ module.exports = {
         "false": {
           "nodeType": "translation",
           "translation": {
-            "en": "Nessun dato valido disponibile",
+            "en": "No valid data available",
             "fr": "Aucune donnée valide disponible",
             "es": "No hay datos válidos disponibles",
           },
@@ -482,3 +553,21 @@ module.exports = {
   },
 }
 ```
+
+## Risorse Aggiuntive
+
+Per maggiori dettagli su Intlayer, fare riferimento alle seguenti risorse:
+
+- [Documentazione sulla Dichiarazione di Contenuti per Locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/per_locale_file.md)
+- [Documentazione sul Contenuto di Traduzione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/translation.md)
+- [Documentazione sul Contenuto di Enumerazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration.md)
+- [Documentazione del Contenuto Condizionale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/condition.md)
+- [Documentazione del Contenuto di Inserimento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md)
+- [Documentazione del Contenuto File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file.md)
+- [Documentazione del Contenuto Annidato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/nesting.md)
+- [Documentazione del Contenuto Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md)
+- [Documentazione del Contenuto di Recupero Funzioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/function_fetching.md)
+
+## Cronologia del Documento
+
+- 5.5.10 - 2025-06-29: Storia iniziale

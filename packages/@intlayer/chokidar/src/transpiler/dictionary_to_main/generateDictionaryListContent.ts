@@ -1,6 +1,6 @@
 import { getConfiguration, normalizePath } from '@intlayer/config';
 import { basename, extname, relative } from 'path';
-import { getFileHash } from '../../utils';
+import { getFileHash } from '../../utils/getFileHash';
 
 /**
  * This function generates the content of the dictionary list file

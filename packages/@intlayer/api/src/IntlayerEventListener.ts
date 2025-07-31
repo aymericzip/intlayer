@@ -2,7 +2,7 @@
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
-import { getAuthAPI } from './getIntlayerAPI/auth';
+import { getOAuthAPI } from './getIntlayerAPI/oAuth';
 
 export type IntlayerMessageEvent = MessageEvent;
 
@@ -58,20 +58,12 @@ export class IntlayerEventListener {
     const backendURL = this.intlayerConfig.editor.backendURL;
 
     // Retrieve the access token
-    const oAuth2TokenResult = await getAuthAPI(
-      {},
+    const accessToken = await getOAuthAPI(
       this.intlayerConfig
     ).getOAuth2AccessToken();
-    const accessToken = oAuth2TokenResult.data?.accessToken;
 
     if (!accessToken) {
       throw new Error('Failed to retrieve access token');
-    }
-
-    if (oAuth2TokenResult.data?.organization.plan?.type !== 'ENTERPRISE') {
-      throw new Error(
-        'Hot reload is enabled, but is only available for enterprise plans'
-      );
     }
 
     const API_ROUTE = `${backendURL}/api/event-listener`;

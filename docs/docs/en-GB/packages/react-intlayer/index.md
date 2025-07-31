@@ -1,19 +1,20 @@
 ---
-docName: package__react-intlayer
-url: https://intlayer.org/doc/packages/react-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Package Documentation | react-intlayer
 description: See how to use the react-intlayer package
 keywords:
   - Intlayer
   - react-intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
 ---
 
 # react-intlayer: NPM Package to internationalise (i18n) a React application
@@ -26,11 +27,11 @@ keywords:
 
 Internationalising your React application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
 
-## Why to integrate Intlayer?
+## Why integrate Intlayer?
 
 - **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
-- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
+- **Type-Safe Environment**: Utilise TypeScript to ensure all your content definitions are precise and free from errors.
+- **Integrated Content Files**: Keep your translations close to their respective components, improving maintainability and clarity.
 
 ## Installation
 
@@ -50,7 +51,7 @@ pnpm add react-intlayer
 
 ## Example of usage
 
-With Intlayer, you can declare your content in a structured way anywhere in your codebase.
+With Intlayer, you can declare your content in a structured manner anywhere in your codebase.
 
 By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
@@ -97,9 +98,9 @@ By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,j
 
 ### Declare your content
 
-`react-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
+`react-intlayer` is designed to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/index.md). `intlayer` is a package that allows you to declare your content anywhere within your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
 
-Here’s an example of content declaration:
+Here is an example of content declaration:
 
 ```tsx fileName="src/Component1/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -185,7 +186,7 @@ module.exports = component1Content;
     "myTranslatedContent": {
       "nodeType": "translation",
       "translation": {
-        "en": "Hello World",
+        "en-GB": "Hello World",
         "fr": "Bonjour le monde",
         "es": "Hola Mundo"
       }
@@ -273,3 +274,7 @@ The `react-intlayer` package also provides some functions to help you to interna
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md)
 - [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayerAsync.md)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

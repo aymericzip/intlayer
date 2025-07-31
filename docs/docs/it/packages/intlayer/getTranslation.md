@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getTranslation
-url: https://intlayer.org/doc/packages/intlayer/getTranslation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentazione della funzione getTranslation | intlayer
 description: Scopri come utilizzare la funzione getTranslation per il pacchetto intlayer
 keywords:
@@ -11,36 +8,41 @@ keywords:
   - traduzione
   - Intlayer
   - intlayer
-  - internazionalizzazione
-  - documentazione
+  - Internazionalizzazione
+  - Documentazione
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getTranslation
 ---
 
 # Documentazione: Funzione `getTranslationContent` in `intlayer`
 
 ## Descrizione
 
-La funzione `getTranslationContent` recupera il contenuto corrispondente a una specifica lingua da un set di contenuti linguistici personalizzabili. Se la lingua specificata non viene trovata, restituisce il contenuto della lingua predefinita configurata nel progetto.
+La funzione `getTranslationContent` recupera il contenuto corrispondente a una specifica localizzazione da un insieme di contenuti linguistici personalizzabili. Se la localizzazione specificata non viene trovata, restituisce per impostazione predefinita il contenuto della localizzazione predefinita configurata nel progetto.
 
 ## Parametri
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Descrizione**: Un oggetto contenente traduzioni per varie lingue. Ogni chiave rappresenta una lingua e il suo valore è il contenuto corrispondente.
+  - **Descrizione**: Un oggetto contenente traduzioni per varie localizzazioni. Ogni chiave rappresenta una localizzazione e il suo valore è il contenuto corrispondente.
   - **Tipo**: `CustomizableLanguageContent<Content>`
-    - `Content` può essere di qualsiasi tipo, predefinito a `string`.
+    - `Content` può essere di qualsiasi tipo, con valore predefinito `string`.
 
 - `locale: Locales`
 
-  - **Descrizione**: La lingua per cui recuperare il contenuto.
+  - **Descrizione**: La localizzazione per cui si desidera recuperare il contenuto.
   - **Tipo**: `Locales`
 
-## Ritorni
+## Valore restituito
 
 - **Tipo**: `Content`
-- **Descrizione**: Il contenuto corrispondente alla lingua specificata. Se la lingua non viene trovata, viene restituito il contenuto della lingua predefinita.
+- **Descrizione**: Il contenuto corrispondente alla localizzazione specificata. Se la localizzazione non viene trovata, viene restituito il contenuto della localizzazione predefinita.
 
 ## Esempio di utilizzo
 
@@ -77,7 +79,6 @@ console.log(content); // Output: "Bonjour"
 ```javascript codeFormat="commonjs"
 const { getTranslationContent, Locales } = require("intlayer");
 
-const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
@@ -88,7 +89,7 @@ const content = getTranslationContent(
 console.log(content); // Output: "Bonjour"
 ```
 
-### Lingua mancante:
+### Localizzazione Mancante:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -101,7 +102,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (contenuto della lingua predefinita)
+console.log(content); // Output: "Hello" (contenuto della localizzazione predefinita)
 ```
 
 ```javascript codeFormat="esm"
@@ -115,7 +116,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (contenuto della lingua predefinita)
+console.log(content); // Output: "Hello" (contenuto della localizzazione predefinita)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -129,10 +130,10 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (contenuto della lingua predefinita)
+console.log(content); // Output: "Hello" (contenuto della localizzazione predefinita)
 ```
 
-### Utilizzo di tipi di contenuto personalizzati:
+### Uso di Tipi di Contenuto Personalizzati:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -176,11 +177,15 @@ const customContent = getTranslationContent<Record<string, string>>(
 console.log(customContent.greeting); // Output: "Bonjour"
 ```
 
-## Casi limite
+## Casi Limite
 
-- **Lingua non trovata:**
-  - Quando la `locale` non viene trovata in `languageContent`, la funzione restituisce il contenuto della lingua predefinita.
-- **Contenuto linguistico incompleto:**
-  - Se una lingua è definita parzialmente, la funzione non unisce i contenuti. Recupera rigorosamente il valore della lingua specificata o torna alla lingua predefinita.
+- **Localizzazione Non Trovata:**
+  - Quando la `locale` non è trovata in `languageContent`, la funzione restituisce il contenuto per la localizzazione predefinita.
+- **Contenuto Linguistico Incompleto:**
+  - Se una localizzazione è definita parzialmente, la funzione non unisce i contenuti. Recupera strettamente il valore della localizzazione specificata o ricade su quella predefinita.
 - **Applicazione di TypeScript:**
-  - Se le lingue in `languageContent` non corrispondono alla configurazione del progetto, TypeScript imporrà che tutte le lingue richieste siano definite, garantendo che il contenuto sia completo e sicuro per il tipo.
+  - Se le localizzazioni in `languageContent` non corrispondono alla configurazione del progetto, TypeScript imporrà che tutte le localizzazioni richieste siano definite, garantendo che il contenuto sia completo e sicuro dal punto di vista del tipo.
+
+## Cronologia del Documento
+
+- 5.5.10 - 2025-06-29: Inizializzazione della cronologia

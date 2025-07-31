@@ -1,10 +1,30 @@
-# intlayer-cli: NPM Пакет для использования Intlayer CLI
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: intlayer-cli - Инструмент командной строки для интернационализации
+description: Пакет интерфейса командной строки для Intlayer, предоставляющий инструменты для управления переводами, создания словарей и автоматизации процессов интернационализации.
+keywords:
+  - intlayer
+  - CLI
+  - командная строка
+  - интернационализация
+  - i18n
+  - инструменты
+  - NPM
+  - автоматизация
+slugs:
+  - doc
+  - package
+  - intlayer-cli
+---
 
-**Intlayer** , это набор пакетов, специально разработанных для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+# intlayer-cli: NPM пакет для использования Intlayer CLI
 
-Пакет **`intlayer-cli`** , это NPM пакет, который использует пакет `@intlayer/cli` и делает его доступным для интерфейсов командной строки `intlayer`.
+**Intlayer** — это набор пакетов, разработанных специально для разработчиков на JavaScript. Он совместим с такими фреймворками, как React, React и Express.js.
 
-> Обратите внимание, что этот пакет не требуется, если установлен пакет [`intlayer`](https://github.com/aymericzip/intlayer/tree/main/docs/ru/packages/intlayer/index.md). В отличие от пакета `intlayer`, пакет `intlayer-cli` является более легким пакетом, который содержит только инструмент CLI, без зависимостей `@intlayer/core`.
+Пакет **`intlayer-cli`** является NPM-пакетом, который использует пакет `@intlayer/cli` и делает его доступным для интерфейсов командной строки `intlayer`.
+
+> Обратите внимание, что этот пакет не требуется, если установлен пакет [`intlayer`](https://github.com/aymericzip/intlayer/tree/main/docs/ru/packages/intlayer/index.md). По сравнению с пакетом `intlayer`, пакет `intlayer-cli` является более легким и содержит только инструмент CLI, без зависимостей `@intlayer/core`.
 
 ## Установка
 
@@ -24,7 +44,7 @@ yarn add intlayer-cli -g
 
 ## Использование
 
-Пример использования пакета `intlayer-cli`:
+Вот пример использования пакета `intlayer-cli`:
 
 ```bash
 npx intlayer dictionaries build
@@ -34,8 +54,12 @@ npx intlayer dictionaries build
 
 Intlayer предоставляет инструмент CLI для:
 
-- аудита ваших деклараций контента и заполнения отсутствующих переводов
+- аудита ваших деклараций контента и дополнения отсутствующих переводов
 - создания словарей из ваших деклараций контента
-- загрузки и выгрузки удаленных словарей из вашей CMS в ваш локальный проект
+- отправки и получения удалённых словарей из вашей CMS в локальный проект
 
-Обратитесь к [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md) для получения дополнительной информации.
+Для получения дополнительной информации обратитесь к [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

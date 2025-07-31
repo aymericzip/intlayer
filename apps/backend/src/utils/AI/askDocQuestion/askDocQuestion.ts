@@ -1,8 +1,8 @@
-import { Locales } from '@intlayer/config';
-import { getBlogs, getDocs, getFequentQuestions } from '@intlayer/docs';
+import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
 import { readFileSync, writeFileSync } from 'fs';
+import { getMarkdownMetadata } from 'intlayer';
 import { OpenAI } from 'openai';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -19,6 +19,8 @@ type VectorStoreEl = {
   chunkNumber: number;
   content: string;
   embedding: number[];
+  docUrl: string;
+  docName: string;
 };
 
 /**
@@ -31,23 +33,29 @@ type VectorStoreEl = {
  */
 const vectorStore: VectorStoreEl[] = [];
 
-// Constants defining model and settings
-const MODEL = 'chatgpt-4o-latest'; // Model to use for chat completions
-const MODEL_TEMPERATURE = 0.1; // Temperature to use for chat completions
-const EMBEDDING_MODEL = 'text-embedding-3-large'; // Model to use for embedding generation
-const OVERLAP_TOKENS = 200; // Number of tokens to overlap between chunks
-const MAX_CHUNK_TOKENS = 800; // Maximum number of tokens per chunk
-const CHAR_BY_TOKEN = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
-const MAX_CHARS = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
-const OVERLAP_CHARS = OVERLAP_TOKENS * CHAR_BY_TOKEN;
-const MAX_RELEVANT_CHUNKS_NB = 20; // Maximum number of relevant chunks to attach to chatGPT context
-const MIN_RELEVANT_CHUNKS_SIMILARITY = 0.25; // Minimum similarity required for a chunk to be considered relevant
+/*
+ * Ask question AI configuration
+ */
+const MODEL: AIOptions['model'] = 'chatgpt-4o-latest'; // Model to use for chat completions
+const MODEL_TEMPERATURE: AIOptions['temperature'] = 0.1; // Temperature to use for chat completions
+const MAX_RELEVANT_CHUNKS_NB: number = 20; // Maximum number of relevant chunks to attach to chatGPT context
+const MIN_RELEVANT_CHUNKS_SIMILARITY: number = 0.42; // Minimum similarity required for a chunk to be considered relevant
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
   model: MODEL,
   temperature: MODEL_TEMPERATURE,
 };
+
+/*
+ * Embedding model configuration
+ */
+const EMBEDDING_MODEL: OpenAI.EmbeddingModel = 'text-embedding-3-large'; // Model to use for embedding generation
+const OVERLAP_TOKENS: number = 200; // Number of tokens to overlap between chunks
+const MAX_CHUNK_TOKENS: number = 800; // Maximum number of tokens per chunk
+const CHAR_BY_TOKEN: number = 4.15; // Approximate pessimistically the number of characters per token // Can use `tiktoken` or other tokenizers to calculate it more precisely
+const MAX_CHARS: number = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
+const OVERLAP_CHARS: number = OVERLAP_TOKENS * CHAR_BY_TOKEN;
 
 /**
  * Splits a given text into chunks ensuring each chunk does not exceed MAX_CHARS.
@@ -139,10 +147,14 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
   });
 
+  if (process.env.SKIP_DOC_EMBEDDINGS_INDEX === 'true') {
+    return;
+  }
+
   // Retrieve documentation and blog posts in English locale
-  const frequentQuestions = getFequentQuestions();
-  const docs = await getDocs(Locales.ENGLISH);
-  const blogs = await getBlogs(Locales.ENGLISH);
+  const frequentQuestions = await getFrequentQuestions();
+  const docs = await getDocs();
+  const blogs = await getBlogs();
 
   let result: Record<string, number[]> = {}; // Object to hold updated embeddings
   const currentChunkKeys = new Set<string>(); // Track which chunks should exist
@@ -150,9 +162,16 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   const files = { ...docs, ...blogs, ...frequentQuestions }; // Combine docs and blogs into a single object
 
   // Iterate over each file key (identifier) in the combined files
-  for (const fileKey of Object.keys(files)) {
+  for await (const fileKey of Object.keys(files)) {
+    // Get the metadata of the file
+    const fileMetadata = getMarkdownMetadata(
+      files[fileKey as keyof typeof files] as string
+    );
+
     // Split the document into chunks based on headings
-    const fileChunks = chunkText(files[fileKey as keyof typeof files]);
+    const fileChunks = chunkText(
+      files[fileKey as keyof typeof files] as string
+    );
 
     // Check if the number of chunks has changed for this file
     const existingChunksForFile = Object.keys(embeddingsList).filter((key) =>
@@ -172,7 +191,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     }
 
     // Iterate over each chunk within the current file
-    for (const chunkIndex of Object.keys(fileChunks)) {
+    for await (const chunkIndex of Object.keys(fileChunks)) {
       const chunkNumber = Number(chunkIndex) + 1; // Chunk number starts at 1
       const chunksNumber = fileChunks.length;
 
@@ -206,6 +225,8 @@ export const indexMarkdownFiles = async (): Promise<void> => {
         chunkNumber,
         embedding,
         content: fileChunk,
+        docUrl: fileMetadata.url,
+        docName: fileMetadata.title,
       });
 
       console.info(`- Indexed: ${embeddingKeyName}/${chunksNumber}`);
@@ -218,7 +239,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     if (currentChunkKeys.has(key)) {
       // Only keep embeddings for chunks that still exist
       if (!result[key]) {
-        filteredEmbeddings[key] = embedding;
+        filteredEmbeddings[key] = embedding as number[];
       }
     }
   }
@@ -271,11 +292,19 @@ export const searchChunkReference = async (
     .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
     .slice(0, maxResults); // Select the top 6 most similar documents
 
-  const results = vectorStore.filter((chunk) =>
+  const orderedDocKeys = new Set(selection.map((chunk) => chunk.fileKey));
+
+  const orderedVectorStore = vectorStore.sort((a, b) =>
+    orderedDocKeys.has(a.fileKey) ? -1 : 1
+  );
+
+  const results = orderedVectorStore.filter((chunk) =>
     selection.some(
       (v) => v.fileKey === chunk.fileKey && v.chunkNumber === chunk.chunkNumber
     )
   );
+
+  console.log({ orderedDocKeys });
 
   // Return the content of the top matching documents
   return results;
@@ -339,9 +368,18 @@ export const askDocQuestion = async (
     relevantFilesReferences.length === 0
       ? 'Not relevant file found related to the question.'
       : relevantFilesReferences
-          .map(
-            (doc, idx) =>
-              `-----\n\n[Chunk ${idx}] doc name = "${doc.fileKey}" (chunk ${doc.chunkNumber}/${doc.fileKey.length})):\n${doc.content}`
+          .map((doc, idx) =>
+            [
+              '-----',
+              '---',
+              `chunkId: ${idx}`,
+              `docChunk: "${doc.chunkNumber}/${doc.fileKey.length}"`,
+              `docName: "${doc.docName}"`,
+              `docUrl: "${doc.docUrl}"`,
+              `---`,
+              doc.content,
+              `-----`,
+            ].join('\n')
           )
           .join('\n\n') // Insert relevant docs into the prompt
   );
@@ -352,7 +390,7 @@ export const askDocQuestion = async (
       role: 'system' as const,
       content: systemPrompt,
     },
-    ...messages,
+    ...messages.slice(-8),
   ];
 
   if (!aiConfig) {

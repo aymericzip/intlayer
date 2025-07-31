@@ -15,6 +15,9 @@ export type AutocompleteOptions = {
   text: string;
   aiConfig: AIConfig;
   applicationContext?: string;
+  contextBefore?: string;
+  currentLine?: string;
+  contextAfter?: string;
 };
 
 export type AutocompleteFileResultData = {
@@ -29,7 +32,7 @@ export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
   model: 'gpt-4o-mini',
   temperature: 0.7,
-  maxTokens: 6,
+  maxTokens: 128,
 };
 
 /**
@@ -41,12 +44,18 @@ export const autocomplete = async ({
   text,
   aiConfig,
   applicationContext,
+  contextBefore,
+  currentLine,
+  contextAfter,
 }: AutocompleteOptions): Promise<AutocompleteFileResultData | undefined> => {
   // Prepare the prompt for AI by replacing placeholders with actual values.
   const prompt = CHAT_GPT_PROMPT.replace(
     '{{applicationContext}}',
     applicationContext ?? ''
-  );
+  )
+    .replace('{{contextBefore}}', contextBefore ?? '')
+    .replace('{{currentLine}}', currentLine ?? '')
+    .replace('{{contextAfter}}', contextAfter ?? '');
 
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
@@ -55,7 +64,7 @@ export const autocomplete = async ({
       { role: 'system', content: prompt },
       { role: 'assistant', content: text },
     ],
-    maxTokens: 6, // Generate next 6 tokens
+    maxTokens: aiConfig.maxTokens ?? 128, // Generate next tokens
   });
 
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);

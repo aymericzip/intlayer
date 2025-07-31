@@ -1,12 +1,32 @@
-# @intlayer/config: Paquet NPM pour récupérer la configuration d'Intlayer
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/config - Gestion de la configuration pour Intlayer
+description: Package NPM pour récupérer la configuration d'Intlayer et définir les variables d'environnement pour les paramètres d'internationalisation à travers différents environnements.
+keywords:
+  - intlayer
+  - configuration
+  - environnement
+  - paramètres
+  - i18n
+  - JavaScript
+  - NPM
+  - variables
+slugs:
+  - doc
+  - package
+  - @intlayer_config
+---
 
-**Intlayer** est une suite de paquets conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React et Express.js.
+# @intlayer/config : Package NPM pour récupérer la configuration d'Intlayer
 
-Le paquet **`@intlayer/config`** est un paquet NPM qui vous permet de récupérer la configuration d'Intlayer et de définir les variables d'environnement liées à l'environnement actuel.
+**Intlayer** est une suite de packages conçue spécifiquement pour les développeurs JavaScript. Elle est compatible avec des frameworks comme React, React Native, et Express.js.
+
+Le package **`@intlayer/config`** est un package NPM qui vous permet de récupérer la configuration d'Intlayer et de définir les variables d'environnement liées à l'environnement actuel.
 
 ## Installation
 
-Installez le paquet nécessaire en utilisant votre gestionnaire de paquets préféré :
+Installez le package nécessaire en utilisant votre gestionnaire de paquets préféré :
 
 ```bash packageManager="npm"
 npm install @intlayer/config
@@ -41,7 +61,7 @@ console.log(config);
 // }
 ```
 
-> Cette fonction utilise les paquets `fs` et ne fonctionnera que côté serveur.
+> Cette fonction utilise les packages `fs` et ne fonctionnera que côté serveur.
 
 ### Lire la configuration d'Intlayer en utilisant les variables d'environnement
 
@@ -91,7 +111,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Voir [Documentation de configuration d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) pour plus de détails.
+> Voir la [documentation de configuration d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) pour plus de détails.
 
 2. Définissez les variables d'environnement.
 
@@ -100,10 +120,10 @@ import { getConfiguration } from "@intlayer/config";
 
 const intlayerConfig = getConfiguration();
 
-// Formater toutes les valeurs de configuration en tant que variables d'environnement
+// Formate toutes les valeurs de configuration en variables d'environnement
 const env = formatEnvVariable();
 
-// Définir chaque variable d'environnement formatée dans process.env
+// Définit chaque variable d'environnement formatée dans process.env
 Object.assign(process.env, env);
 ```
 
@@ -114,3 +134,7 @@ import { getConfiguration } from "@intlayer/config/client";
 
 const intlayerConfig = getConfiguration();
 ```
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

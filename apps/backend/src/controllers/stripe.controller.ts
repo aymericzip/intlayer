@@ -1,4 +1,5 @@
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { Organization } from '@/types/organization.types';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -8,7 +9,6 @@ import type { Request } from 'express';
 import { t } from 'express-intlayer';
 import type { Locales } from 'intlayer';
 import { Stripe } from 'stripe';
-import type { Organization } from '@/types/organization.types';
 
 export type GetPricingBody = {
   priceIds: string[];
@@ -25,7 +25,7 @@ export type GetPricingResult = ResponseData<subscriptionService.PricingResult>;
  */
 export const getPricing = async (
   req: Request<undefined, undefined, GetPricingBody>,
-  res: ResponseWithInformation<GetPricingResult>
+  res: ResponseWithSession<GetPricingResult>
 ) => {
   const { priceIds, promoCode } = req.body;
 
@@ -47,9 +47,10 @@ export type GetCheckoutSessionBody = {
   promoCode?: string;
 };
 
-export type GetCheckoutSessionResult = ResponseData<
-  Stripe.Response<Stripe.Subscription>
->;
+export type GetCheckoutSessionResult = ResponseData<{
+  subscription: Stripe.Response<Stripe.Subscription>;
+  clientSecret: string;
+}>;
 
 /**
  * Handles subscription creation or update with Stripe and returns a ClientSecret.
@@ -58,7 +59,7 @@ export type GetCheckoutSessionResult = ResponseData<
  */
 export const getSubscription = async (
   req: Request<undefined, undefined, GetCheckoutSessionBody>,
-  res: ResponseWithInformation<GetCheckoutSessionResult>
+  res: ResponseWithSession<GetCheckoutSessionResult>
 ): Promise<void> => {
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -80,24 +81,6 @@ export const getSubscription = async (
       return;
     }
 
-    // Ensure the user is a member of the organization
-    if (!organization.membersIds.map(String).includes(String(user._id))) {
-      ErrorHandler.handleGenericErrorResponse(
-        res,
-        'USER_NOT_ORGANIZATION_MEMBER'
-      );
-      return;
-    }
-
-    // Ensure the user is an admin of the organization
-    if (!organization.adminsIds.map(String).includes(String(user._id))) {
-      ErrorHandler.handleGenericErrorResponse(
-        res,
-        'USER_NOT_ORGANIZATION_ADMIN'
-      );
-      return;
-    }
-
     const { period, type } = retrievePlanInformation(priceId);
 
     if (
@@ -107,7 +90,7 @@ export const getSubscription = async (
       organization.plan?.status === 'active'
     ) {
       ErrorHandler.handleGenericErrorResponse(res, 'ALREADY_SUBSCRIBED', {
-        organizationId: organization._id,
+        organizationId: organization.id,
       });
       return;
     }
@@ -119,8 +102,8 @@ export const getSubscription = async (
       // If no customer ID exists, create a new Stripe customer for the organization
       const customer = await stripe.customers.create({
         metadata: {
-          organizationId: String(organization._id),
-          userId: String(user._id),
+          organizationId: String(organization.id),
+          userId: String(user.id),
           // Include the locale for potential localization
           locale: (res.locals as unknown as { locale: Locales }).locale,
         },
@@ -140,12 +123,12 @@ export const getSubscription = async (
     const subscription = await stripe.subscriptions.create({
       customer: customerId, // Associate the subscription with the customer
       items: [{ price: priceId }], // Set the price ID for the subscription
-      expand: ['latest_invoice.payment_intent'], // Expand to get payment intent details
+      expand: ['latest_invoice.confirmation_secret'],
       payment_settings: {
         payment_method_types: ['card'], // Specify payment method types
       },
       payment_behavior: 'default_incomplete', // Create the subscription in an incomplete state until payment is confirmed
-      discounts: discounts,
+      discounts,
     });
 
     // Handle subscription creation failure
@@ -162,9 +145,29 @@ export const getSubscription = async (
       return;
     }
 
+    const clientSecret = (
+      subscription.latest_invoice as Stripe.Invoice & {
+        confirmation_secret?: { client_secret: string };
+      }
+    )?.confirmation_secret?.client_secret;
+
+    // Handle subscription creation failure
+    if (!clientSecret) {
+      ErrorHandler.handleGenericErrorResponse(
+        res,
+        'SUBSCRIPTION_CREATION_FAILED',
+        {
+          user,
+          organization,
+          priceId,
+        }
+      );
+      return;
+    }
+
     // Prepare the response data with subscription details
-    const responseData = formatResponse<Stripe.Response<Stripe.Subscription>>({
-      data: subscription,
+    const responseData = formatResponse<GetCheckoutSessionResult['data']>({
+      data: { subscription, clientSecret },
     });
 
     // Send the response back to the client
@@ -190,7 +193,7 @@ type CancelSubscriptionResult = ResponseData<CancelSubscriptionData>;
  */
 export const cancelSubscription = async (
   _req: Request,
-  res: ResponseWithInformation<CancelSubscriptionResult>
+  res: ResponseWithSession<CancelSubscriptionResult>
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -211,15 +214,6 @@ export const cancelSubscription = async (
       return;
     }
 
-    // Check if the user is an admin of the organization
-    if (!organization.adminsIds.map(String).includes(String(user._id))) {
-      ErrorHandler.handleGenericErrorResponse(
-        res,
-        'USER_NOT_ORGANIZATION_ADMIN'
-      );
-      return;
-    }
-
     // Check if the organization has an active subscription to cancel
     if (!organization.plan?.subscriptionId) {
       ErrorHandler.handleGenericErrorResponse(
@@ -235,7 +229,7 @@ export const cancelSubscription = async (
     // Update the organization's plan in the database to reflect the cancellation
     const plan = await subscriptionService.cancelSubscription(
       organization.plan.subscriptionId,
-      String(organization._id)
+      String(organization.id)
     );
 
     // If the plan could not be updated in the database, handle the error

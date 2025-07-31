@@ -24,6 +24,8 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     basePath: process.env.NEXT_PUBLIC_INTLAYER_BASE_PATH,
     serverSetCookie: process.env.NEXT_PUBLIC_INTLAYER_SERVER_SET_COOKIE,
     noPrefix: process.env.NEXT_PUBLIC_INTLAYER_NO_PREFIX,
+    detectLocaleOnPrefetchNoPrefix:
+      process.env.NEXT_PUBLIC_INTLAYER_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
   };
 
   const content: ReplaceValue<ContentConfig> = {
@@ -82,8 +84,7 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
 
   const build: ReplaceValue<BuildConfig> = {
     optimize: process.env.NEXT_PUBLIC_INTLAYER_BUILD_OPTIMIZE,
-    activateDynamicImport:
-      process.env.NEXT_PUBLIC_INTLAYER_BUILD_ACTIVATE_DYNAMIC_IMPORT,
+    importMode: process.env.NEXT_PUBLIC_INTLAYER_BUILD_IMPORT_MODE,
     traversePattern: process.env.NEXT_PUBLIC_INTLAYER_BUILD_TRAVERSE_PATTERN,
   };
 

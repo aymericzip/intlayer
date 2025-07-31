@@ -1,9 +1,6 @@
 ---
-blogName: next-i18next_vs_next-intl_vs_intlayer
-url: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md
 createdAt: 2024-08-11
-updatedAt: 2025-01-02
+updatedAt: 2025-06-29
 title: next-i18next vs next-intl vs Intlayer
 description: Compare next-i18next with next-intl and Intlayer for the internationalization (i18n) of a Next.js app
 keywords:
@@ -15,6 +12,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - next-i18next-vs-next-intl-vs-intlayer
 ---
 
 # next-i18next VS next-intl VS Intlayer | Next.js Internationalization (i18n)

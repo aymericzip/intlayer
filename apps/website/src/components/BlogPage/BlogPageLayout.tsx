@@ -25,10 +25,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
     <div className="max-w-screen flex flex-1 border-b-[0.5px] max-md:flex-col">
       <BackgroundLayout>
         <aside className="flex-none">
-          <BlogNavList
-            blogData={blogData}
-            activeSections={['blog', ...activeSections]}
-          />
+          <BlogNavList blogData={blogData} activeSections={activeSections} />
         </aside>
         <div className="flex flex-1 flex-row">
           <article

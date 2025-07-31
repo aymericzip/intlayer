@@ -1,3 +1,23 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: intlayer-editor - Pacote Visual de Editor de Tradução
+description: Pacote de editor visual para Intlayer que fornece uma interface intuitiva para gerenciar traduções e edição colaborativa de conteúdo com assistência de IA.
+keywords:
+  - intlayer
+  - editor
+  - visual
+  - tradução
+  - colaborativo
+  - IA
+  - NPM
+  - interface
+slugs:
+  - doc
+  - package
+  - intlayer-editor
+---
+
 # intlayer-editor: Pacote NPM para usar o editor visual Intlayer
 
 **Intlayer** é um conjunto de pacotes projetados especificamente para desenvolvedores JavaScript. É compatível com frameworks como React, React e Express.js.
@@ -12,7 +32,7 @@ O editor Intlayer permite interagir com o dicionário remoto do Intlayer. Ele po
 
 ## Instalação
 
-Instale o pacote necessário usando o gerenciador de pacotes de sua preferência:
+Instale o pacote necessário usando seu gerenciador de pacotes preferido:
 
 ```bash packageManager="npm"
 npm install intlayer-editor
@@ -28,7 +48,7 @@ yarn add intlayer-editor
 
 ### Configuração
 
-No arquivo de configuração do Intlayer, você pode personalizar as configurações do editor:
+No seu arquivo de configuração do Intlayer, você pode personalizar as configurações do editor:
 
 ```typescript
 const config: IntlayerConfig = {
@@ -37,14 +57,14 @@ const config: IntlayerConfig = {
     enabled: process.env.INTLAYER_ENABLED === "true", // Se falso, o editor está inativo e não pode ser acessado.
     // Client ID e client secret são necessários para habilitar o editor.
     // Eles permitem identificar o usuário que está editando o conteúdo.
-    // Eles podem ser obtidos criando um novo cliente no Intlayer Dashboard - Projetos (https://intlayer.org/dashboard/projects).
+    // Podem ser obtidos criando um novo cliente no Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 ```
 
-> Se você não tiver um client ID e um client secret, pode obtê-los criando um novo cliente no [Intlayer Dashboard - Projetos](https://intlayer.org/dashboard/projects).
+> Se você não possui um client ID e client secret, pode obtê-los criando um novo cliente no [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
 
 > Para ver todos os parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
 
@@ -66,9 +86,9 @@ Para integração com Vite + React, consulte o [guia de configuração](https://
 
 ### Exemplo de integração
 
-Para integrar o editor visual Intlayer ao seu projeto React, siga estas etapas:
+Para integrar o editor visual Intlayer no seu projeto React, siga estes passos:
 
-- Importe o componente do editor Intlayer para sua aplicação React:
+- Importe o componente do editor Intlayer na sua aplicação React:
 
   ```tsx fileName="src/App.jsx"
   import { IntlayerEditorProvider } from "intlayer-editor";
@@ -78,14 +98,16 @@ Para integrar o editor visual Intlayer ao seu projeto React, siga estas etapas:
     return (
       <IntlayerProvider>
         <IntlayerEditorProvider>
-          <IntlayerEditor>{/* Seu conteúdo do App aqui */}</IntlayerEditor>
+          <IntlayerEditor>
+            {/* O conteúdo da sua aplicação aqui */}
+          </IntlayerEditor>
         </IntlayerEditorProvider>
       </IntlayerProvider>
     );
   }
   ```
 
-- Importe os estilos do editor Intlayer para sua aplicação Next.js:
+- Importe os estilos do editor Intlayer na sua aplicação Next.js:
 
   ```tsx fileName="src/app/[locale]/layout.jsx"
   import { IntlayerEditorStyles } from "intlayer-editor";
@@ -106,8 +128,12 @@ Para integrar o editor visual Intlayer ao seu projeto React, siga estas etapas:
 
 ## Usando o Editor
 
-Quando o editor está instalado, habilitado e iniciado, você pode visualizar cada campo indexado pelo Intlayer passando o cursor sobre o conteúdo.
+Quando o editor está instalado, ativado e iniciado, você pode visualizar cada campo indexado pelo Intlayer passando o cursor sobre o seu conteúdo.
 
 ![Passando o cursor sobre o conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-Se o seu conteúdo estiver destacado, você pode pressioná-lo por um longo tempo para exibir a gaveta de edição.
+Se o seu conteúdo estiver contornado, você pode pressioná-lo por um tempo para exibir a gaveta de edição.
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

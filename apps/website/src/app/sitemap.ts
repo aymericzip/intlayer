@@ -1,33 +1,49 @@
-import { getBlogDataArray } from '@components/BlogPage/blogData';
-import { getDocDataArray } from '@components/DocPage/docData';
+import { PagesRoutes } from '@/Routes';
+import {
+  getBlogMetadataBySlug,
+  getDocMetadataBySlug,
+  getLegalMetadataBySlug,
+} from '@intlayer/docs';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
-import { PagesRoutes } from '@/Routes';
 
-const sitemap = (): MetadataRoute.Sitemap => {
-  const docs = getDocDataArray();
-  const blob = getBlogDataArray();
+const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
+  const docs = await getDocMetadataBySlug([]);
+  const blob = await getBlogMetadataBySlug([]);
+  const legal = await getLegalMetadataBySlug([]);
+
+  const legalSitemap: MetadataRoute.Sitemap = legal.map((legal) => ({
+    url: legal.url,
+    lastModified: legal.updatedAt,
+    changeFrequency: 'monthly',
+    priority: 0.1,
+    alternates: {
+      languages: {
+        ...getMultilingualUrls(legal.url),
+      },
+    },
+  }));
 
   const docSitemap: MetadataRoute.Sitemap = docs.map((doc) => ({
-    url: `${process.env.NEXT_PUBLIC_URL}${doc.url}`,
+    url: doc.url,
     lastModified: doc.updatedAt,
     changeFrequency: 'monthly',
     priority: 0.7,
     alternates: {
       languages: {
-        ...getMultilingualUrls(`${process.env.NEXT_PUBLIC_URL}${doc.url}`),
+        ...getMultilingualUrls(doc.url),
       },
     },
   }));
 
   const blogSitemap: MetadataRoute.Sitemap = blob.map((blog) => ({
-    url: `${process.env.NEXT_PUBLIC_URL}${blog.url}`,
+    url: blog.url,
     lastModified: blog.updatedAt,
     changeFrequency: 'monthly',
     priority: 0.5,
     alternates: {
       languages: {
-        ...getMultilingualUrls(`${process.env.NEXT_PUBLIC_URL}${blog.url}`),
+        ...getMultilingualUrls(blog.url),
       },
     },
   }));
@@ -215,6 +231,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
         },
       },
     },
+    ...legalSitemap,
     ...docSitemap,
     ...blogSitemap,
   ];

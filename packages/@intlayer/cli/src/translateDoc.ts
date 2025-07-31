@@ -1,4 +1,5 @@
-import { AIOptions, getAuthAPI } from '@intlayer/api';
+import { AIOptions, getOAuthAPI } from '@intlayer/api';
+import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
   getAppLogger,
   getConfiguration,
@@ -8,16 +9,18 @@ import {
 } from '@intlayer/config';
 import { getLocaleName } from '@intlayer/core';
 import fg from 'fast-glob';
-import { mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import pLimit from 'p-limit';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAIAccess';
+import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getChunk } from './utils/getChunk';
+import { getOutputFilePath } from './utils/getOutputFilePath';
 
 const isESModule = typeof import.meta.url === 'string';
 
@@ -27,80 +30,88 @@ const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
  * Translate a single file for a given locale
  */
 export const translateFile = async (
-  filePath: string,
+  baseFilePath: string,
+  outputFilePath: string,
   locale: Locales,
   baseLocale: Locales,
   aiOptions?: AIOptions,
   configOptions?: GetConfigurationOptions,
-  oAuth2AccessToken?: string
+  oAuth2AccessToken?: string,
+  customInstructions?: string
 ) => {
   try {
     const configuration = getConfiguration(configOptions);
     const appLogger = getAppLogger(configuration);
 
-    const relativePath = join(configuration.content.baseDir, filePath);
-
-    appLogger(`${locale}: Translating file: ${relativePath}`);
-
     // Determine the target locale file path
-    const localeFilePath = filePath.replace(`/${baseLocale}/`, `/${locale}/`);
-    const fileContent = await readFile(relativePath, 'utf-8');
+    const fileContent = await readFile(baseFilePath, 'utf-8');
     let fileResultContent = fileContent;
 
     // Prepare the base prompt for ChatGPT
     const basePrompt = (
       await readFile(join(dir, './prompts/TRANSLATE_PROMPT.md'), 'utf-8')
     )
-      .replaceAll('{{locale}}', locale)
-      .replaceAll('{{localeName}}', getLocaleName(locale, baseLocale));
+      .replaceAll(
+        '{{localeName}}',
+        `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`
+      )
+      .replaceAll(
+        '{{baseLocaleName}}',
+        `${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale})`
+      )
+      .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
+      .replace('{{customInstructions}}', customInstructions ?? '-');
 
     // 1. Chunk the file by number of lines instead of characters
     const chunks = chunkText(fileContent);
     appLogger(`Base file splitted into ${chunks.length} chunks`);
 
-    for (let i = 0; i < chunks.length; i++) {
+    for await (const [i, chunk] of chunks.entries()) {
       const isFirstChunk = i === 0;
-      const isLastChunk = i === chunks.length - 1;
 
       // Build the chunk-specific prompt
       const getPrevChunkPrompt = () =>
-        `**CHUNK ${i} of ${chunks.length}** that has been translated in ${getLocaleName(locale, baseLocale)} (${locale}):\n` +
+        `**CHUNK ${i} of ${chunks.length}** that has been translated in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}):\n` +
         `///chunkStart///` +
         getChunk(fileResultContent, chunks[i - 1]) +
         `///chunkEnd///`;
 
-      const getNextChunkPrompt = () =>
-        `**CHUNK ${i + 2} of ${chunks.length}** as context for formatting in ${getLocaleName(baseLocale, baseLocale)} (${baseLocale}):\n` +
-        `///chunkStart///` +
-        chunks[i + 1].content +
-        `///chunkEnd///`;
+      const getBaseChunkContextPrompt = () =>
+        `**CHUNK ${i + 1} to ${Math.min(i + 3, chunks.length)} of ${chunks.length}** is the base chunk in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) as reference.\n` +
+        `///chunksStart///` +
+        (chunks[i - 1]?.content ?? '') +
+        chunks[i].content +
+        (chunks[i + 1]?.content ?? '') +
+        `///chunksEnd///`;
 
-      const fileToTranslateCurrentChunk = chunks[i].content;
+      const fileToTranslateCurrentChunk = chunk.content;
 
       // Make the actual translation call
       let chunkTranslation = await retryManager(async () => {
         const result = await chunkInference(
           [
             { role: 'system', content: basePrompt },
+
+            { role: 'system', content: getBaseChunkContextPrompt() },
             ...(isFirstChunk
               ? []
-              : ([{ role: 'system', content: getPrevChunkPrompt() }] as const)),
-            ...(isLastChunk
-              ? []
-              : ([{ role: 'system', content: getNextChunkPrompt() }] as const)),
+              : [{ role: 'system', content: getPrevChunkPrompt() } as const]),
             {
               role: 'system',
-              content: `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale, baseLocale)} (${baseLocale}) to translate in ${getLocaleName(locale, baseLocale)} (${locale}):`,
+              content: `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) to translate in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}):`,
             },
             { role: 'user', content: fileToTranslateCurrentChunk },
           ],
           aiOptions,
-          configOptions,
           oAuth2AccessToken
         );
 
+        appLogger(
+          ` -> ${result.tokenUsed} tokens used - CHUNK ${i + 1} of ${chunks.length}`
+        );
+
         const fixedTranslatedChunkResult = fixChunkStartEndChars(
-          result,
+          result?.fileContent,
           fileToTranslateCurrentChunk
         );
 
@@ -115,10 +126,10 @@ export const translateFile = async (
     }
 
     // 4. Write the final translation to the appropriate file path
-    mkdirSync(dirname(localeFilePath), { recursive: true });
-    writeFileSync(localeFilePath, fileResultContent);
+    mkdirSync(dirname(outputFilePath), { recursive: true });
+    writeFileSync(outputFilePath, fileResultContent);
 
-    appLogger(`File ${localeFilePath} created/updated successfully.`);
+    appLogger(`File ${outputFilePath} created/updated successfully.`);
   } catch (error) {
     console.error(error);
   }
@@ -132,6 +143,10 @@ type TranslateDocOptions = {
   aiOptions?: AIOptions;
   nbSimultaneousFileProcessed?: number;
   configOptions?: GetConfigurationOptions;
+  customInstructions?: string;
+  skipIfModifiedBefore?: number | string | Date;
+  skipIfModifiedAfter?: number | string | Date;
+  gitOptions?: ListGitFilesOptions;
 };
 
 /**
@@ -146,20 +161,45 @@ export const translateDoc = async ({
   aiOptions,
   nbSimultaneousFileProcessed,
   configOptions,
+  customInstructions,
+  skipIfModifiedBefore,
+  skipIfModifiedAfter,
+  gitOptions,
 }: TranslateDocOptions) => {
   const configuration = getConfiguration(configOptions);
   const appLogger = getAppLogger(configuration);
+
+  if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
+    appLogger(
+      `Warning: nbSimultaneousFileProcessed is set to ${nbSimultaneousFileProcessed}, which is greater than 10. Setting it to 10.`
+    );
+    nbSimultaneousFileProcessed = 10; // Limit the number of simultaneous file processed to 10
+  }
+
   const limit = pLimit(nbSimultaneousFileProcessed ?? 3);
 
-  const docList: string[] = fg.sync(docPattern, {
+  let docList: string[] = fg.sync(docPattern, {
     ignore: excludedGlobPattern,
   });
 
   checkAIAccess(configuration, aiOptions);
 
+  if (gitOptions) {
+    const gitChangedFiles = await listGitFiles(gitOptions);
+
+    if (gitChangedFiles) {
+      // Convert dictionary file paths to be relative to git root for comparison
+
+      // Filter dictionaries based on git changed files
+      docList = docList.filter((path) =>
+        gitChangedFiles.some((gitFile) => join(process.cwd(), path) === gitFile)
+      );
+    }
+  }
+
   let oAuth2AccessToken: string | undefined;
   if (configuration.editor.clientId) {
-    const intlayerAuthAPI = getAuthAPI(undefined, configuration);
+    const intlayerAuthAPI = getOAuthAPI(configuration);
     const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
 
     oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
@@ -171,21 +211,58 @@ export const translateDoc = async ({
       .map((locale) => `${getLocaleName(locale, baseLocale)} (${locale})`)
       .join(', ')} ]`
   );
+
   appLogger(`Translating ${docList.length} files:`);
   appLogger(docList.map((path) => ` - ${path}\n`));
 
-  const tasks = locales.flatMap((locale) =>
-    docList.map((docPath) =>
-      limit(() =>
-        translateFile(
-          docPath,
+  const tasks = docList.map((docPath) =>
+    locales.flatMap((locale) =>
+      limit(async () => {
+        appLogger(
+          `Translating file: ${docPath} to ${getLocaleName(
+            locale,
+            Locales.ENGLISH
+          )} (${locale})`
+        );
+
+        const absoluteBaseFilePath = join(
+          configuration.content.baseDir,
+          docPath
+        );
+        const outputFilePath = getOutputFilePath(
+          absoluteBaseFilePath,
+          locale,
+          baseLocale
+        );
+
+        // check if the file exist, otherwise create it
+        if (!existsSync(outputFilePath)) {
+          appLogger(`File ${outputFilePath} does not exist, creating it...`);
+          mkdirSync(dirname(outputFilePath), { recursive: true });
+          writeFileSync(outputFilePath, '');
+        }
+
+        const fileModificationData = checkFileModifiedRange(outputFilePath, {
+          skipIfModifiedBefore,
+          skipIfModifiedAfter,
+        });
+
+        if (fileModificationData.isSkipped) {
+          appLogger(fileModificationData.message);
+          return;
+        }
+
+        await translateFile(
+          absoluteBaseFilePath,
+          outputFilePath,
           locale as Locales,
           baseLocale,
           aiOptions,
           configOptions,
-          oAuth2AccessToken
-        )
-      )
+          oAuth2AccessToken,
+          customInstructions
+        );
+      })
     )
   );
 

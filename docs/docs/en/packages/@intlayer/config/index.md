@@ -1,3 +1,23 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/config - Configuration Management for Intlayer
+description: NPM package to retrieve Intlayer configuration and define environment variables for internationalization settings across different environments.
+keywords:
+  - intlayer
+  - configuration
+  - environment
+  - settings
+  - i18n
+  - JavaScript
+  - NPM
+  - variables
+slugs:
+  - doc
+  - package
+  - @intlayer_config
+---
+
 # @intlayer/config: NPM Package to retrieve Intlayer configuration
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
@@ -114,3 +134,9 @@ import { getConfiguration } from "@intlayer/config/client";
 
 const intlayerConfig = getConfiguration();
 ```
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

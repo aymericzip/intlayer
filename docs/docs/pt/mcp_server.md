@@ -1,48 +1,75 @@
 ---
-docName: mcp_server
-url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md
 createdAt: 2025-06-07
-updatedAt: 2025-06-07
-title: Documentação do servidor MCP
-description: Explore os recursos e a configuração do servidor MCP para otimizar o gerenciamento e as operações do seu servidor.
+updatedAt: 2025-07-11
+title: Documentação do Servidor MCP
+description: Explore os recursos e a configuração do Servidor MCP para otimizar o gerenciamento e as operações do seu servidor.
 keywords:
   - Servidor MCP
-  - Gerenciamento de servidor
+  - Gerenciamento de Servidor
   - Otimização
   - Intlayer
   - Documentação
   - Configuração
   - Recursos
+slugs:
+  - doc
+  - mcp-server
 ---
 
-# Documentação do Servidor Intlayer MCP
+# Servidor MCP Intlayer
 
-O **Servidor Intlayer MCP (Model Context Protocol)** fornece assistência IDE com inteligência artificial personalizada para o ecossistema Intlayer. Projetado para ambientes de desenvolvimento modernos como **Cursor**, **GitHub Copilot workspace** e qualquer IDE que suporte o protocolo MCP, este servidor oferece suporte contextual e em tempo real com base na configuração do seu projeto.
+O **Servidor MCP (Model Context Protocol) Intlayer** oferece assistência para IDEs com inteligência artificial, personalizada para o ecossistema Intlayer.
 
-## Por que usar o Servidor Intlayer MCP?
+## Onde posso usá-lo?
 
-Ao habilitar o Servidor Intlayer MCP no seu IDE, você desbloqueia:
+- Em ambientes modernos de desenvolvimento como **Cursor**, **VS Code** e qualquer IDE que suporte o protocolo MCP.
+- No seu assistente de IA favorito como **Claude Desktop**, **Gemini**, **ChatGPT**, etc.
+
+## Por que usar o Servidor MCP Intlayer?
+
+Ao ativar o Servidor MCP Intlayer na sua IDE, você desbloqueia:
+
+- **Documentação Contextualizada**
+  O servidor MCP carrega e expõe a documentação do Intlayer. Para acelerar sua configuração, suas migrações, etc.
+  Isso garante que sugestões de código, opções de comando e explicações estejam sempre atualizadas e relevantes.
 
 - **Integração Inteligente com CLI**
-  Acesse e execute comandos CLI do Intlayer diretamente da interface do seu IDE. Veja a lista completa de comandos e opções na [documentação do Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md).
+  Acesse e execute comandos do Intlayer CLI diretamente da interface da sua IDE. Usando o servidor MCP, você pode permitir que seu assistente de IA execute comandos como `intlayer dictionaries build` para atualizar seus dicionários, ou `intlayer dictionaries fill` para preencher suas traduções faltantes.
 
-- **Documentação Contextual**
-  O servidor MCP carrega e expõe a documentação correspondente à versão do Intlayer que você está usando no seu projeto. Isso garante que sugestões de código, opções de comando e explicações estejam sempre atualizadas e relevantes.
+  > Veja a lista completa de comandos e opções na [documentação do Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md).
 
-- **Desenvolvimento Assistido por IA**
-  Com sugestões e autocompletar baseados no projeto, o assistente de IA pode explicar seu código, recomendar o uso do CLI ou sugerir como usar recursos específicos do Intlayer com base nos seus arquivos atuais.
+## Servidor local (stdio) vs Servidor remoto (SSE)
 
-- **Configuração Leve e Instantânea**
-  Sem necessidade de manutenção de servidor ou instalação pesada. Basta configurar seu arquivo `.cursor/mcp.json` ou equivalente e você estará pronto para começar.
+O servidor MCP pode ser usado de duas maneiras:
+
+- Servidor local (stdio)
+- Servidor remoto (SSE)
+
+### Servidor local (stdio) (recomendado)
+
+O Intlayer fornece um pacote NPM que pode ser instalado localmente na sua máquina. Ele pode ser instalado na sua IDE favorita, como VS Code, Cursor, assim como no seu aplicativo assistente local, como ChatGPT, Claude Desktop, etc.
+
+Este servidor é a forma recomendada de usar o servidor MCP, pois integra todos os recursos do servidor MCP, incluindo as ferramentas CLI.
+
+### Servidor remoto (SSE)
+
+O servidor MCP também pode ser usado remotamente, utilizando o método de transporte SSE. Este servidor é hospedado pelo Intlayer e está disponível em https://mcp.intlayer.org. Este servidor pode ser acessado publicamente, sem qualquer autenticação, e é gratuito para uso.
+
+Observe que o servidor remoto não integra ferramentas CLI, autocompletar de IA, etc. O servidor remoto é apenas para interação com a documentação para ajudar seu assistente de IA com o ecossistema Intlayer.
+
+> Devido aos custos de hospedagem do servidor, a disponibilidade do servidor remoto não pode ser garantida. Limitamos o número de conexões simultâneas. Recomendamos usar o método de transporte do servidor local (stdio) para uma experiência mais confiável.
 
 ---
 
-## Configurar Cursor
+## Configuração no Cursor
 
-No diretório raiz do seu projeto, adicione o seguinte arquivo de configuração `.cursor/mcp.json`:
+Siga a [documentação oficial](https://docs.cursor.com/context/mcp) para configurar o servidor MCP no Cursor.
 
-```json
+Na raiz do seu projeto, adicione o seguinte arquivo de configuração `.cursor/mcp.json`:
+
+### Servidor local (stdio) (recomendado)
+
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -53,19 +80,36 @@ No diretório raiz do seu projeto, adicione o seguinte arquivo de configuração
 }
 ```
 
-Isso informa ao seu IDE para iniciar o servidor Intlayer MCP usando `npx`, garantindo que ele sempre use a versão mais recente disponível, a menos que você a fixe.
+### Servidor remoto (SSE)
+
+Para conectar a um servidor Intlayer MCP remoto usando Server-Sent Events (SSE), você pode configurar seu cliente MCP para se conectar ao serviço hospedado.
+
+```json fileName=".cursor/mcp.json"
+{
+  "mcpServers": {
+    "intlayer": {
+      "url": "https://mcp.intlayer.org",
+      "transport": "sse"
+    }
+  }
+}
+```
+
+Isso instrui seu IDE a iniciar o servidor Intlayer MCP usando `npx`, garantindo que ele sempre use a versão mais recente disponível, a menos que você a fixe.
 
 ---
 
-## Configurar VS Code
+## Configuração no VS Code
 
-Para usar o Servidor Intlayer MCP com o VS Code, você precisa configurá-lo nas configurações do seu workspace ou do usuário.
+Siga a [documentação oficial](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) para configurar o servidor MCP no VS Code.
 
-### Configuração do Workspace
+Para usar o Intlayer MCP Server com o VS Code, você precisa configurá-lo nas configurações do seu espaço de trabalho ou do usuário.
 
-Crie um arquivo `.vscode/mcp.json` no diretório raiz do seu projeto:
+### Servidor local (stdio) (recomendado)
 
-```json
+Crie um arquivo `.vscode/mcp.json` na raiz do seu projeto:
+
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -77,33 +121,72 @@ Crie um arquivo `.vscode/mcp.json` no diretório raiz do seu projeto:
 }
 ```
 
-### Usando o Servidor MCP no VS Code
+### Servidor remoto (SSE)
 
-1. **Habilitar o Modo Agente**: Abra a visualização de Chat (⌃⌘I no Mac, Ctrl+Alt+I no Windows/Linux) e selecione o modo **Agente** no menu suspenso.
+Para conectar a um servidor Intlayer MCP remoto usando Server-Sent Events (SSE), você pode configurar seu cliente MCP para se conectar ao serviço hospedado.
 
-2. **Acessar Ferramentas**: Clique no botão **Ferramentas** para visualizar as ferramentas disponíveis do Intlayer. Você pode selecionar/deselecionar ferramentas específicas conforme necessário.
+```json fileName=".vscode/mcp.json"
+{
+  "servers": {
+    "intlayer": {
+      "url": "https://mcp.intlayer.org",
+      "type": "sse"
+    }
+  }
+}
+```
 
-3. **Referência Direta de Ferramentas**: Faça referência às ferramentas diretamente nos seus prompts digitando `#` seguido do nome da ferramenta.
+---
 
-4. **Confirmação de Ferramentas**: Por padrão, o VS Code pedirá confirmação antes de executar ferramentas. Use as opções do botão **Continuar** para confirmar automaticamente ferramentas para a sessão atual, workspace ou todas as futuras invocações.
+## Configuração no ChatGPT
 
-### Gerenciando o Servidor
+### Servidor remoto (SSE)
 
-- Execute **MCP: List Servers** no Command Palette para visualizar os servidores configurados
-- Inicie, pare ou reinicie o servidor Intlayer MCP conforme necessário
-- Visualize os logs do servidor para solução de problemas selecionando o servidor e escolhendo **Show Output**
+Siga a [documentação oficial](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) para configurar o servidor MCP no ChatGPT.
 
-Para mais informações detalhadas sobre a integração do MCP no VS Code, veja a [documentação oficial do VS Code MCP](https://code.visualstudio.com/docs/copilot/chat/mcp-servers).
+1. Vá para o [painel de prompts](https://platform.openai.com/prompts)
+2. Clique em `+ Create`
+3. Clique em `Tools (Create or +)`
+4. Selecione `MCP Server`
+5. Clique em `Add new`
+6. Preencha os seguintes campos:
+
+   - URL: `https://mcp.intlayer.org`
+   - Label: `Intlayer MCP Server`
+   - Name: `intlayer-mcp-server`
+   - Authentication: `None`
+
+7. Clique em `Save`
+
+---
+
+## Configuração no Claude Desktop
+
+Siga a [documentação oficial](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server) para configurar o servidor MCP no Claude Desktop.
+
+Caminho do arquivo de configuração:
+
+- macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+### Servidor local (stdio) (recomendado)
+
+```json fileName="claude_desktop_config.json"
+{
+  "mcpServers": {
+    "intlayer": {
+      "command": "npx",
+      "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}
+```
 
 ---
 
 ## Usando o Servidor MCP via CLI
 
-Você também pode executar o servidor Intlayer MCP diretamente da linha de comando para testes, depuração ou integração com outras ferramentas.
-
-### Instalar o Servidor MCP
-
-Primeiro, instale o pacote do servidor MCP globalmente ou use-o via npx:
+Você também pode executar o servidor MCP Intlayer diretamente pela linha de comando para testes, depuração ou integração com outras ferramentas.
 
 ```bash
 # Instalar globalmente
@@ -113,56 +196,13 @@ npm install -g @intlayer/mcp
 npx @intlayer/mcp
 ```
 
-### Iniciar o Servidor
-
-Para iniciar o servidor MCP com o inspetor para depuração e testes:
-
-```bash
-# Usando o comando start embutido
-npm run start
-
-# Ou diretamente com npx
-npx @modelcontextprotocol/inspector npx @intlayer/mcp
-```
-
-Isso iniciará o servidor MCP com uma interface de inspetor que permite:
-
-- Testar comunicações do protocolo MCP
-- Depurar respostas do servidor
-- Validar implementações de ferramentas e recursos
-- Monitorar o desempenho do servidor
-
-### Uso para Desenvolvimento
-
-Para fins de desenvolvimento e teste, você pode executar o servidor em vários modos:
-
-```bash
-# Construir e iniciar em modo de desenvolvimento
-npm run dev
-
-# Executar com configuração personalizada
-node dist/cjs/index.cjs
-
-# Testar a funcionalidade do servidor
-npm test
-```
-
-O servidor exporá ferramentas e recursos específicos do Intlayer que podem ser consumidos por qualquer cliente compatível com MCP, não apenas Cursor ou outros IDEs.
-
 ---
 
-## Visão Geral dos Recursos
+## Histórico do Documento
 
-| Recurso                 | Descrição                                                                                      |
-| ----------------------- | ---------------------------------------------------------------------------------------------- |
-| Suporte CLI             | Execute comandos `intlayer`, obtenha dicas de uso e argumentos inline                          |
-| Documentação Versionada | Detecta automaticamente e carrega a documentação correspondente à sua versão atual do Intlayer |
-| Autocompletar           | Sugestões inteligentes de comandos e configurações enquanto você digita                        |
-| Pronto para Plugins     | Compatível com IDEs e ferramentas que suportam o padrão MCP                                    |
-
----
-
-## Links Úteis
-
-- [Documentação do Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md)
-- [Repositório do Intlayer no GitHub](https://github.com/aymericzip/intlayer)
+| Versão | Data       | Alterações                                  |
+| ------ | ---------- | ------------------------------------------- |
+| 5.5.12 | 2025-07-11 | Adicionado configuração do ChatGPT          |
+| 5.5.12 | 2025-07-10 | Adicionado configuração do Claude Desktop   |
+| 5.5.12 | 2025-07-10 | Adicionado transporte SSE e servidor remoto |
+| 5.5.10 | 2025-06-29 | Histórico inicial                           |

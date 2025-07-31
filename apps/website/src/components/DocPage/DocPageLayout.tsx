@@ -1,11 +1,11 @@
 import { AsideNavigation } from '@components/AsideNavigation/AsideNavigation';
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
-import { type Locales } from 'intlayer';
+import { getIntlayer, type Locales } from 'intlayer';
 import { type FC, type ReactNode } from 'react';
 import { DocBreadCrumb } from './DocBreadCrumb';
-import { getDocData } from './docData';
 import { DocNavList } from './DocNavList';
+import { Section } from './types';
 
 type DocPageLayoutProps = {
   children?: ReactNode;
@@ -22,7 +22,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   displayAsideNavigation = true,
   displayBreadCrumb = true,
 }) => {
-  const docData = getDocData(locale);
+  const docData: Section = getIntlayer('doc-data', locale);
 
   return (
     <div className="max-w-screen flex flex-1 border-b-[0.5px] max-md:flex-col">

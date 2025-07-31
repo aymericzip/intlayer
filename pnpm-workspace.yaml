@@ -1,5 +1,4 @@
 packages:
-  - './blog'
   - './docs'
   - './apps/*'
   - './packages/**/*'

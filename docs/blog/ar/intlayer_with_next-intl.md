@@ -1,9 +1,6 @@
 ---
-blogName: intlayer_with_next-intl
-url: https://intlayer.org/blog/intlayer-with-next-intl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-intl.md
 createdAt: 2025-01-02
-updatedAt: 2025-01-02
+updatedAt: 2025-06-29
 title: Intlayer وnext-intl
 description: قم بدمج Intlayer مع next-intl للتدويل (i18n) لتطبيق React
 keywords:
@@ -14,6 +11,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - intlayer-with-next-intl
 ---
 
 # Next.js Internationalization (i18n) with next-intl و Intlayer
@@ -290,7 +290,6 @@ pnpm intlayer build
    import { notFound } from 'next/navigation';
    import React, { ReactNode } from 'react';
 
-   export const dynamic = 'force-dynamic';
 
    export default async function RootLayout({
      children,

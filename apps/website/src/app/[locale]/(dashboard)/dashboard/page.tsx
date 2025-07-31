@@ -1,4 +1,4 @@
-import type { Session } from '@intlayer/design-system';
+import type { Session } from '@intlayer/design-system/hooks';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { DashboardPageContent } from './pageContent';
 

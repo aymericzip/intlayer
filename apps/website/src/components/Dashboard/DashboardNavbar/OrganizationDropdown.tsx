@@ -1,23 +1,18 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
+import { Button, Container, DropDown, Modal } from '@intlayer/design-system';
 import {
-  Button,
-  Container,
-  DropDown,
-  Modal,
   useAuth,
-} from '@intlayer/design-system';
-import {
   useGetOrganizations,
   useSelectOrganization,
   useUnselectOrganization,
 } from '@intlayer/design-system/hooks';
 import { ChevronsUpDown } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
+import { useRouter } from 'next/navigation';
 import { useState, type FC } from 'react';
 import { OrganizationCreationForm } from '../OrganizationForm/OrganizationCreationForm';
-import { PagesRoutes } from '@/Routes';
 
 export const OrganizationDropdown: FC = () => {
   const { session } = useAuth();
@@ -51,7 +46,7 @@ export const OrganizationDropdown: FC = () => {
   };
 
   const otherOrganizations = (organizations?.data ?? []).filter(
-    (organizationEl) => String(organizationEl._id) !== String(organization?._id)
+    (organizationEl) => String(organizationEl.id) !== String(organization?.id)
   );
 
   return organization ? (
@@ -60,7 +55,12 @@ export const OrganizationDropdown: FC = () => {
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
       >
-        <OrganizationCreationForm />
+        <OrganizationCreationForm
+          onOrganizationCreated={(organization) => {
+            setIsCreationModalOpen(false);
+            handleSelectOrganization(String(organization.id));
+          }}
+        />
       </Modal>
       <DropDown identifier="organization-dropdown">
         <Button
@@ -84,12 +84,12 @@ export const OrganizationDropdown: FC = () => {
               {otherOrganizations.length ? (
                 otherOrganizations.map((organization) => (
                   <Button
-                    key={String(organization._id)}
+                    key={String(organization.id)}
                     variant="outline"
                     color="text"
                     label={organization.name}
                     onClick={() =>
-                      handleSelectOrganization(String(organization._id))
+                      handleSelectOrganization(String(organization.id))
                     }
                     isLoading={isSelectOrganizationLoading}
                   >

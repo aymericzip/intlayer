@@ -1,9 +1,6 @@
 ---
-docName: package__next-intlayer__useIntlayerAsync
-url: https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayerAsync.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useIntlayerAsync Hook Documentation | next-intlayer
 description: See how to use the useIntlayerAsync hook for next-intlayer package
 keywords:
@@ -11,16 +8,21 @@ keywords:
   - dictionary
   - key
   - Intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useIntlayerAsync
 ---
 
 # Next.js Integration: `useIntlayerAsync` Hook Documentation
 
-The `useIntlayerAsync` hook extends the functionality of `useIntlayer` by not only returning pre-rendered dictionaries but also fetching updates asynchronously, making it ideal for applications that frequently update their localised content after initial render.
+The `useIntlayerAsync` hook extends the functionality of `useIntlayer` by not only returning pre-rendered dictionaries but also fetching updates asynchronously, making it ideal for applications that frequently update their localised content after the initial render.
 
 ## Overview
 
@@ -109,21 +111,21 @@ Make sure that the importing file is annotated with `"use client"` at the top, i
 
 ## Parameters
 
-1. **`key`**:  
-   **Type**: `DictionaryKeys`  
+1. **`key`**:
+   **Type**: `DictionaryKeys`
    The dictionary key used to identify the localised content block. This key should be defined in your content declaration files.
 
-2. **`locale`** (optional):  
-   **Type**: `Locales`  
+2. **`locale`** (optional):
+   **Type**: `Locales`
    The specific locale you want to target. If omitted, the hook uses the locale from the client context.
 
-3. **`isRenderEditor`** (optional, defaults to `true`):  
-   **Type**: `boolean`  
+3. **`isRenderEditor`** (optional, defaults to `true`):
+   **Type**: `boolean`
    Determines whether the content should be ready for rendering with the Intlayer editor overlay. If set to `false`, the returned dictionary data will exclude editor-specific features.
 
 ## Return Value
 
-The hook returns a dictionary object containing localised content keyed by `key` and `locale`. It also includes an `isLoading` boolean indicating whether a distant dictionary is currently being fetched.
+The hook returns a dictionary object containing localised content keyed by `key` and `locale`. It also includes an `isLoading` boolean indicating whether a remote dictionary is currently being fetched.
 
 ## Example Usage in Next.js
 
@@ -228,4 +230,8 @@ Instructions for setting up content declaration files are available [here](https
 
 ---
 
-**In summary**, `useIntlayerAsync` is a powerful client-side hook designed to enhance the user experience and maintain content freshness by marrying pre-rendered dictionaries with asynchronous dictionary updates. By leveraging `isLoading` and TypeScript-based content declarations, you can seamlessly integrate dynamic, localised content into your Next.js applications.
+**In summary**, `useIntlayerAsync` is a powerful client-side hook designed to enhance the user experience and maintain content freshness by combining pre-rendered dictionaries with asynchronous dictionary updates. By leveraging `isLoading` and TypeScript-based content declarations, you can seamlessly integrate dynamic, localised content into your Next.js applications.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

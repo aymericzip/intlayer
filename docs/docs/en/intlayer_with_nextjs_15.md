@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_nextjs_15
-url: https://intlayer.org/doc/environment/nextjs
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md
 createdAt: 2024-12-06
-updatedAt: 2024-12-07
+updatedAt: 2025-06-29
 title: Translate your Next.js 15 website (i18n)
 description: Discover how to make your Next.js 15 website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -13,6 +10,12 @@ keywords:
   - Next.js 15
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
+applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
+youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 ---
 
 # Getting Started internationalizing (i18n) with Intlayer and Next.js 15 App Router
@@ -129,7 +132,7 @@ module.exports = config;
 
 Configure your Next.js setup to use Intlayer:
 
-```typescript filename="next.config.ts" codeFormat="typescript"
+```typescript fileName="next.config.ts" codeFormat="typescript"
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
@@ -163,6 +166,7 @@ module.exports = withIntlayer(nextConfig);
 ```
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimize performance and ensures compatibility with server components.
+> The `withIntlayer()` function is a promise based function.
 
 ### Step 4: Define Dynamic Locale Routes
 
@@ -1495,3 +1499,10 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+## Doc History
+
+| Version | Date       | Changes                                                         |
+| ------- | ---------- | --------------------------------------------------------------- |
+| 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
+| 5.5.10  | 2025-06-29 | Init history                                                    |

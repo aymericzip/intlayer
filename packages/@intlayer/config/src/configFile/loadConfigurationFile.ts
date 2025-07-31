@@ -1,7 +1,7 @@
 import { type LoadEnvFileOptions } from '../envVariables/loadEnvFile';
+import { loadExternalFile } from '../loadExternalFile';
 import { logger } from '../logger';
 import type { CustomIntlayerConfig } from '../types/config';
-import { loadExternalFile } from '../loadExternalFile';
 
 const filterValidConfiguration = (
   configuration: CustomIntlayerConfig

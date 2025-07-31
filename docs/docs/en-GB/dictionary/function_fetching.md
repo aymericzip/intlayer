@@ -1,26 +1,28 @@
 ---
-docName: dictionary__function_fetching
-url: https://intlayer.org/doc/concept/content/function-fetching
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Function Fetching
 description: Discover how to declare and use function fetching in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
   - Function Fetching
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - function-fetching
 ---
 
 # Function Fetching
 
 Intlayer allows you to declare content functions in your content modules, which can be either synchronous or asynchronous. When the application builds, Intlayer executes these functions to obtain the function's result. The return value must be a JSON object or a simple value like a string or number.
 
-> Warning: function fetching is currently not available in JSON content declaration and distant content declarations files.
+> Warning: function fetching is currently not available in JSON content declaration and remote content declaration files.
 
 ## Function Declarations
 
@@ -73,7 +75,7 @@ module.exports = functionContent;
 }
 ```
 
-In this example, the `text` key contains a function that returns a string. This content can be rendered in your React components using Intlayer's interpreter packages like `react-intlayer`.
+In this example, the `text` key contains a function that returns a string. This content can be rendered in your React components using Intlayer's interpreter packages such as `react-intlayer`.
 
 ## Asynchronous Function Fetching
 
@@ -206,3 +208,7 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
+
+## Doc History
+
+- 5.5.10 - 29 June 2025: Init history

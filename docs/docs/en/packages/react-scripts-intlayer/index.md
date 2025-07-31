@@ -1,9 +1,6 @@
 ---
-docName: package__react-scripts-intlayer
-url: https://intlayer.org/doc/packages/react-scripts-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-scripts-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Package Documentation | react-scripts-intlayer
 description: See how to use the react-scripts-intlayer package
 keywords:
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-scripts-intlayer
 ---
 
 # react-scripts-intlayer: NPM Package to use Intlayer in a React Create App application
@@ -73,3 +74,9 @@ If you need to customize the Webpack configuration, you can also implement your 
 
 Intlayer provides a lot of features to help you internationalize your React application.
 [See how to use intlayer with React Create App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md).
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

@@ -10,8 +10,8 @@ import {
   Link,
   Preview,
   Section,
-  Text,
   Tailwind,
+  Text,
 } from '@react-email/components';
 
 export type ResetPasswordEmailProps = {
@@ -61,11 +61,14 @@ export const ResetPasswordEmailEN = ({
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              or copy and paste this URL into your browser:{' '}
-              <Link href={resetLink} className="text-[#E879BA] no-underline">
-                {resetLink}
-              </Link>
+              or copy and paste this URL into your browser:
             </Text>
+            <Link
+              href={resetLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {resetLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               This password reset request was intended for{' '}
@@ -122,11 +125,14 @@ export const ResetPasswordEmailFR = ({
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              ou copiez et collez cette URL dans votre navigateur :{' '}
-              <Link href={resetLink} className="text-[#E879BA] no-underline">
-                {resetLink}
-              </Link>
+              ou copiez et collez cette URL dans votre navigateur :
             </Text>
+            <Link
+              href={resetLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {resetLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               Cette demande de réinitialisation de mot de passe était destinée à{' '}
@@ -183,11 +189,14 @@ export const ResetPasswordEmailES = ({
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              o copia y pega esta URL en tu navegador:{' '}
-              <Link href={resetLink} className="text-[#E879BA] no-underline">
-                {resetLink}
-              </Link>
+              o copia y pega esta URL en tu navegador:
             </Text>
+            <Link
+              href={resetLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {resetLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               Esta solicitud de restablecimiento de contraseña estaba destinada

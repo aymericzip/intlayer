@@ -1,9 +1,6 @@
 ---
-docName: intlayer_visual_editor
-url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer Visual Editor | Bearbeiten Sie Ihren Inhalt mit einem visuellen Editor
 description: Erfahren Sie, wie Sie den Intlayer-Editor zur Verwaltung Ihrer mehrsprachigen Website nutzen können. Befolgen Sie die Schritte in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - editor
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer Visual Editor Dokumentation
@@ -28,13 +30,13 @@ Das `intlayer-editor`-Paket basiert auf Intlayer und ist für JavaScript-Anwendu
 
 ## Visueller Editor vs CMS
 
-Der Intlayer Visual Editor ist ein Tool, mit dem Sie Ihre Inhalte in einem visuellen Editor für lokale Wörterbücher verwalten können. Sobald eine Änderung vorgenommen wird, wird der Inhalt im Code-Basis ersetzt. Das bedeutet, dass die Anwendung neu aufgebaut wird und die Seite neu geladen wird, um den neuen Inhalt anzuzeigen.
+Der Intlayer Visual Editor ist ein Tool, mit dem Sie Ihre Inhalte in einem visuellen Editor für lokale Wörterbücher verwalten können. Sobald eine Änderung vorgenommen wird, wird der Inhalt in der Code-Basis ersetzt. Das bedeutet, dass die Anwendung neu gebaut wird und die Seite neu geladen wird, um den neuen Inhalt anzuzeigen.
 
-Im Gegensatz dazu ist das [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) ein Tool, mit dem Sie Ihre Inhalte in einem visuellen Editor für entfernte Wörterbücher verwalten können. Sobald eine Änderung vorgenommen wird, wird der Inhalt **nicht** Ihre Code-Basis beeinflussen. Und die Website zeigt automatisch den geänderten Inhalt an.
+Im Gegensatz dazu ist das [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) ein Tool, mit dem Sie Ihre Inhalte in einem visuellen Editor für entfernte Wörterbücher verwalten können. Sobald eine Änderung vorgenommen wird, wirkt sich der Inhalt **nicht** auf Ihre Code-Basis aus. Und die Website zeigt automatisch den geänderten Inhalt an.
 
 ## Intlayer in Ihre Anwendung integrieren
 
-Für weitere Details zur Integration von Intlayer, siehe den entsprechenden Abschnitt unten:
+Für weitere Details zur Integration von Intlayer siehe den entsprechenden Abschnitt unten:
 
 ### Integration mit Next.js
 
@@ -214,7 +216,41 @@ module.exports = config;
 
 3. Wenn Ihr Inhalt umrissen ist, können Sie ihn lange drücken, um die Bearbeitungsleiste anzuzeigen.
 
-## Debuggen
+## Umgebungs-Konfiguration
+
+Der Editor kann so konfiguriert werden, dass er eine bestimmte Umgebungsdatei verwendet. Dies ist nützlich, wenn Sie dieselbe Konfigurationsdatei für Entwicklung und Produktion verwenden möchten.
+
+Um eine bestimmte Umgebungsdatei zu verwenden, können Sie beim Starten des Editors die Option `--env-file` oder `-f` verwenden:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> Beachten Sie, dass sich die Umgebungsdatei im Stammverzeichnis Ihres Projekts befinden sollte.
+
+Oder Sie können die Option `--env` oder `-e` verwenden, um die Umgebung anzugeben:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
+
+## Debug
 
 Wenn Sie Probleme mit dem visuellen Editor haben, überprüfen Sie Folgendes:
 
@@ -225,4 +261,8 @@ Wenn Sie Probleme mit dem visuellen Editor haben, überprüfen Sie Folgendes:
   - Erforderliche Felder:
     - Die Anwendungs-URL sollte mit der übereinstimmen, die Sie in der Editor-Konfiguration (`applicationURL`) festgelegt haben.
 
-- Der visuelle Editor verwendet ein iframe, um Ihre Website anzuzeigen. Stellen Sie sicher, dass die Content Security Policy (CSP) Ihrer Website die CMS-URL als `frame-ancestors` ('http://localhost:8000' standardmäßig) erlaubt. Überprüfen Sie die Editor-Konsole auf Fehler.
+- Der visuelle Editor verwendet ein iframe, um Ihre Website anzuzeigen. Stellen Sie sicher, dass die Content Security Policy (CSP) Ihrer Website die CMS-URL als `frame-ancestors` erlaubt (standardmäßig 'http://localhost:8000'). Überprüfen Sie die Konsole des Editors auf Fehler.
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Historie initialisiert

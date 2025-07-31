@@ -1,6 +1,10 @@
-import { t, type Dictionary } from 'intlayer';
+import { DocKey, getDocMetadata as getDocMetadataCore } from '@intlayer/docs';
+import { localeRecord, t, type Dictionary } from 'intlayer';
 
-const docDataContent = {
+const getDocMetadata = (doc: DocKey) =>
+  t(localeRecord(async ({ locale }) => await getDocMetadataCore(doc, locale)));
+
+const docDataContent: any = {
   key: 'doc-data',
   content: {
     'get-started': {
@@ -19,6 +23,7 @@ const docDataContent = {
         ar: 'ابدأ',
         ru: 'Начать',
       }),
+      default: getDocMetadata('./docs/en/introduction.md'),
     },
     roadmap: {
       title: t({
@@ -36,6 +41,7 @@ const docDataContent = {
         ar: 'خريطة الطريق',
         ru: 'Дорожная карта',
       }),
+      default: getDocMetadata('./docs/en/roadmap.md'),
     },
     concept: {
       title: t({
@@ -70,6 +76,7 @@ const docDataContent = {
             ar: 'كيف يعمل Intlayer',
             ru: 'Как работает Intlayer',
           }),
+          default: getDocMetadata('./docs/en/how_works_intlayer.md'),
         },
         configuration: {
           title: t({
@@ -87,6 +94,7 @@ const docDataContent = {
             ar: 'التكوين',
             ru: 'Конфигурация',
           }),
+          default: getDocMetadata('./docs/en/configuration.md'),
         },
         interest: {
           title: t({
@@ -104,9 +112,11 @@ const docDataContent = {
             ar: 'مزايا Intlayer',
             ru: 'Преимущества Intlayer',
           }),
+          default: getDocMetadata('./docs/en/interest_of_intlayer.md'),
         },
         cli: {
           title: 'CLI',
+          default: getDocMetadata('./docs/en/intlayer_cli.md'),
         },
         editor: {
           title: t({
@@ -124,9 +134,11 @@ const docDataContent = {
             ar: 'المحرر المرئي',
             ru: 'Визуальный редактор',
           }),
+          default: getDocMetadata('./docs/en/intlayer_visual_editor.md'),
         },
         cms: {
           title: 'CMS',
+          default: getDocMetadata('./docs/en/intlayer_CMS.md'),
         },
         'ci-cd': {
           title: t({
@@ -144,6 +156,7 @@ const docDataContent = {
             ar: 'تكامل CI/CD',
             ru: 'Интеграция CI/CD',
           }),
+          default: getDocMetadata('./docs/en/CI_CD.md'),
         },
         content: {
           title: t({
@@ -161,7 +174,8 @@ const docDataContent = {
             ar: 'إعلان المحتوى',
             ru: 'Объявление контента',
           }),
-          subsections: {
+          default: getDocMetadata('./docs/en/dictionary/get_started.md'),
+          subSections: {
             translation: {
               title: t({
                 en: 'Translation',
@@ -178,6 +192,7 @@ const docDataContent = {
                 ar: 'ترجمة',
                 ru: 'Перевод',
               }),
+              default: getDocMetadata('./docs/en/dictionary/translation.md'),
             },
             enumeration: {
               title: t({
@@ -195,6 +210,7 @@ const docDataContent = {
                 ar: 'تعداد',
                 ru: 'Перечисление',
               }),
+              default: getDocMetadata('./docs/en/dictionary/enumeration.md'),
             },
             condition: {
               title: t({
@@ -212,6 +228,25 @@ const docDataContent = {
                 ar: 'شرط',
                 ru: 'Условие',
               }),
+              default: getDocMetadata('./docs/en/dictionary/condition.md'),
+            },
+            gender: {
+              title: t({
+                en: 'Gender',
+                'en-GB': 'Gender',
+                fr: 'Genre',
+                es: 'Género',
+                de: 'Geschlecht',
+                it: 'Genere',
+                ja: '性別',
+                ko: '성별',
+                zh: '性别',
+                pt: 'Gênero',
+                hi: 'लिंग',
+                ar: 'جنس',
+                ru: 'Пол',
+              }),
+              default: getDocMetadata('./docs/en/dictionary/gender.md'),
             },
             insertion: {
               title: t({
@@ -229,6 +264,7 @@ const docDataContent = {
                 ar: 'إدراج',
                 ru: 'Вставка',
               }),
+              default: getDocMetadata('./docs/en/dictionary/insertion.md'),
             },
             file: {
               title: t({
@@ -246,6 +282,7 @@ const docDataContent = {
                 ar: 'ملف',
                 ru: 'Файл',
               }),
+              default: getDocMetadata('./docs/en/dictionary/file.md'),
             },
             nesting: {
               title: t({
@@ -263,9 +300,11 @@ const docDataContent = {
                 ar: 'تداخل',
                 ru: 'Вложенность',
               }),
+              default: getDocMetadata('./docs/en/dictionary/nesting.md'),
             },
             markdown: {
               title: 'Markdown',
+              default: getDocMetadata('./docs/en/dictionary/markdown.md'),
             },
             'function-fetching': {
               title: t({
@@ -283,6 +322,9 @@ const docDataContent = {
                 ar: 'جلب الوظيفة',
                 ru: 'Получение функции',
               }),
+              default: getDocMetadata(
+                './docs/en/dictionary/function_fetching.md'
+              ),
             },
           },
         },
@@ -302,6 +344,7 @@ const docDataContent = {
             ar: 'ملف لكل لغة',
             ru: 'Файл для каждой локали',
           }),
+          default: getDocMetadata('./docs/en/per_locale_file.md'),
         },
         'auto-fill': {
           title: t({
@@ -319,6 +362,7 @@ const docDataContent = {
             ar: 'الملء التلقائي',
             ru: 'Автозаполнение',
           }),
+          default: getDocMetadata('./docs/en/autoFill.md'),
         },
       },
     },
@@ -355,6 +399,7 @@ const docDataContent = {
             ar: 'Intlayer مع Next.js',
             ru: 'Intlayer с Next.js',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_nextjs_15.md'),
           subSections: {
             14: {
               title: t({
@@ -372,6 +417,7 @@ const docDataContent = {
                 ar: 'Next.js 14 وموجه التطبيق',
                 ru: 'Next.js 14 и App Router',
               }),
+              default: getDocMetadata('./docs/en/intlayer_with_nextjs_14.md'),
             },
             'next-with-Page-Router': {
               title: t({
@@ -389,6 +435,9 @@ const docDataContent = {
                 ar: 'Next.js وموجه الصفحة',
                 ru: 'Next.js и Page Router',
               }),
+              default: getDocMetadata(
+                './docs/en/intlayer_with_nextjs_page_router.md'
+              ),
             },
           },
         },
@@ -408,6 +457,9 @@ const docDataContent = {
             ar: 'Intlayer مع React CRA',
             ru: 'Intlayer с React CRA',
           }),
+          default: getDocMetadata(
+            './docs/en/intlayer_with_create_react_app.md'
+          ),
         },
         'vite-and-react': {
           title: t({
@@ -425,6 +477,7 @@ const docDataContent = {
             ar: 'Intlayer مع Vite و React',
             ru: 'Intlayer с Vite и React',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_vite+react.md'),
         },
         'vite-and-vue': {
           title: t({
@@ -442,6 +495,7 @@ const docDataContent = {
             ar: 'Intlayer مع Vite و Vue',
             ru: 'Intlayer с Vite и Vue',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_vite+vue.md'),
         },
         'nuxt-and-vue': {
           title: t({
@@ -459,6 +513,7 @@ const docDataContent = {
             ar: 'Intlayer مع Nuxt و Vue',
             ru: 'Intlayer с Nuxt и Vue',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_nuxt.md'),
         },
         'vite-and-solid': {
           title: t({
@@ -476,6 +531,7 @@ const docDataContent = {
             ar: 'Intlayer مع Vite و Solid',
             ru: 'Intlayer с Vite и Solid',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_vite+solid.md'),
         },
         'vite-and-svelte': {
           title: t({
@@ -493,6 +549,7 @@ const docDataContent = {
             ar: 'Intlayer مع Vite و Svelte',
             ru: 'Intlayer с Vite и Svelte',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_vite+svelte.md'),
         },
         'vite-and-preact': {
           title: t({
@@ -510,6 +567,7 @@ const docDataContent = {
             ar: 'Intlayer مع Vite و Preact',
             ru: 'Intlayer с Vite и Preact',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_vite+preact.md'),
         },
         angular: {
           title: t({
@@ -527,6 +585,7 @@ const docDataContent = {
             ar: 'Intlayer مع Angular',
             ru: 'Intlayer с Angular',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_angular.md'),
         },
         'react-native-and-expo': {
           title: t({
@@ -544,6 +603,9 @@ const docDataContent = {
             ar: 'Intlayer مع React Native و Expo',
             ru: 'Intlayer с React Native и Expo',
           }),
+          default: getDocMetadata(
+            './docs/en/intlayer_with_react_native+expo.md'
+          ),
         },
         'lynx-and-react': {
           title: t({
@@ -561,6 +623,7 @@ const docDataContent = {
             ar: 'Intlayer مع Lynx و React',
             ru: 'Intlayer с Lynx и React',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_lynx+react.md'),
         },
         express: {
           title: t({
@@ -578,6 +641,7 @@ const docDataContent = {
             ar: 'Intlayer مع Express',
             ru: 'Intlayer с Express',
           }),
+          default: getDocMetadata('./docs/en/intlayer_with_express.md'),
         },
       },
     },
@@ -598,8 +662,9 @@ const docDataContent = {
         ar: 'امتداد VS Code',
         hi: 'VS Code एक्सटेंशन',
       }),
+      default: getDocMetadata('./docs/en/vs_code_extension.md'),
     },
-    mcp_server: {
+    'mcp-server': {
       title: t({
         en: 'MCP Server',
         fr: 'Serveur MCP',
@@ -615,42 +680,7 @@ const docDataContent = {
         ar: 'خادم MCP',
         ru: 'Сервер MCP',
       }),
-    },
-    blog: {
-      title: t({
-        en: 'Blog',
-        fr: 'Blog',
-        es: 'Blog',
-        'en-GB': 'Blog',
-        de: 'Blog',
-        ja: 'ブログ',
-        ko: '블로그',
-        zh: '博客',
-        it: 'Blog',
-        pt: 'Blog',
-        hi: 'ब्लॉग',
-        ar: 'مدونة',
-        ru: 'Блог',
-      }),
-      subSections: {
-        i18next: {
-          title: t({
-            en: 'Intlayer and i18next',
-            fr: 'Intlayer et i18next',
-            es: 'Intlayer y i18next',
-            'en-GB': 'Intlayer and i18next',
-            de: 'Intlayer und i18next',
-            ja: 'Intlayerとi18next',
-            ko: 'Intlayer와 i18next',
-            zh: 'Intlayer和i18next',
-            it: 'Intlayer e i18next',
-            pt: 'Intlayer e i18next',
-            hi: 'Intlayer और i18next',
-            ar: 'Intlayer و i18next',
-            ru: 'Intlayer и i18next',
-          }),
-        },
-      },
+      default: getDocMetadata('./docs/en/mcp_server.md'),
     },
   },
 } satisfies Dictionary;

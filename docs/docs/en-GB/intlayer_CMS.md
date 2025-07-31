@@ -1,9 +1,6 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer CMS | Externalize your content into the Intlayer CMS
 description: Externalize your content into the Intlayer CMS to delegate the management of your content to your team.
 keywords:
@@ -15,13 +12,30 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer Content Management System (CMS) Documentation
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-The Intlayer CMS is an Application that allows you to externalise your content of an Intlayer project.
+The Intlayer CMS is an application that allows you to externalise your content from an Intlayer project.
+
+For that, Intlayer introduces the concept of 'distant dictionaries'.
+
+![Intlayer CMS Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+
+## Understanding distant dictionaries
+
+Intlayer makes a difference between 'local' and 'distant' dictionaries.
+
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+The Intlayer CMS is an application that allows you to externalise your content from an Intlayer project.
 
 For that, Intlayer introduces the concept of 'distant dictionaries'.
 
@@ -102,7 +116,7 @@ const config: IntlayerConfig = {
      *
      * In the case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
      *
-     * The URL of the Intlayer CMS.
+     * The URL of the Intlayer backend.
      * By default, it is set to https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -150,9 +164,9 @@ const config = {
     /**
      * Optional
      *
-     * In the case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
+     * In case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
      *
-     * The URL of the Intlayer CMS.
+     * The URL of the Intlayer backend.
      * By default, it is set to https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -194,13 +208,12 @@ const config = {
      *
      * The URL of the Intlayer CMS.
      * By default, it is set to https://intlayer.org
-     */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
      * Optional
      *
-     * In the case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
+     * In case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
      *
      * The URL of the Intlayer CMS.
      * By default, it is set to https://back.intlayer.org
@@ -236,7 +249,7 @@ This command uploads your configuration to the Intlayer CMS.
 
 ### Push a dictionary
 
-To transform your locale dictionaries into a distant dictionary, you can use the [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/en-GB/intlayer_cli.md) commands.
+To transform your locale dictionaries into a remote dictionary, you can use the [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/en-GB/intlayer_cli.md) commands.
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
@@ -259,7 +272,6 @@ Then you will be able to see and manage your dictionary in the [Intlayer CMS](ht
 The Intlayer CMS is able to hot reload the dictionaries when a change is detected.
 
 Without the hot reloading, a new build of the application will be needed to display the new content.
-
 By activating the [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration, the application will automatically replace the updated content when it is detected.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -333,8 +345,7 @@ The hot reloading replaces the content on both server and client sides.
 
 - On the server side, you should ensure that the application process has write access to the `.intlayer/dictionaries` directory.
 - On the client side, the hot reloading allows the application to hot reload the content in the browser, without needing to reload the page. However, this feature is only available for client components.
-
-> Because the hot reloading needs a continuous connection to the server using an `EventListener`, it is only available for clients of the `enterprise` plan.
+  > Because the hot reloading needs a continuous connection to the server using an `EventListener`, it is only available for clients of the `enterprise` plan.
 
 ## Debug
 
@@ -349,5 +360,8 @@ If you encounter any issues with the CMS, check the following:
     - The CMS URL
 
 - Ensure that the project configuration was pushed to the Intlayer CMS.
-
 - The visual editor uses an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS URL as `frame-ancestors` ('https://intlayer.org' by default). Check the editor console for any errors.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

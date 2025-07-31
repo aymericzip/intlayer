@@ -1,7 +1,7 @@
+import type { PlanSchema } from '@/types/plan.types';
 import { Schema } from 'mongoose';
-import type { Plan } from '@/types/plan.types';
 
-export const planSchema = new Schema<Plan>(
+export const planSchema = new Schema<PlanSchema>(
   {
     type: {
       type: String,
@@ -48,5 +48,21 @@ export const planSchema = new Schema<Plan>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret._id; // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
   }
 );

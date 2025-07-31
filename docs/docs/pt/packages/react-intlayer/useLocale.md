@@ -1,10 +1,7 @@
 ---
-docName: package__react-intlayer__useLocale
-url: https://intlayer.org/doc/packages/react-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Documentação do hook useLocale | react-intlayer
+updatedAt: 2025-06-29
+title: Documentação do Hook useLocale | react-intlayer
 description: Veja como usar o hook useLocale para o pacote react-intlayer
 keywords:
   - useLocale
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - useLocale
 ---
 
 # Integração com React: Documentação do Hook `useLocale`
@@ -24,7 +26,7 @@ Esta seção fornece detalhes abrangentes sobre o hook `useLocale` da biblioteca
 
 ## Importando `useLocale` no React
 
-Para integrar o hook `useLocale` em sua aplicação React, importe-o do pacote correspondente:
+Para integrar o hook `useLocale` na sua aplicação React, importe-o do respectivo pacote:
 
 ```typescript codeFormat="typescript"
 import { useLocale } from "react-intlayer"; // Usado em componentes React para gerenciamento de localidade
@@ -40,11 +42,11 @@ const { useLocale } = require("react-intlayer"); // Usado em componentes React p
 
 ## Visão Geral
 
-O hook `useLocale` oferece uma maneira fácil de acessar e manipular as configurações de localidade dentro de componentes React. Ele fornece acesso à localidade atual, à localidade padrão, a todas as localidades disponíveis e funções para atualizar as configurações de localidade.
+O hook `useLocale` oferece uma maneira fácil de acessar e manipular as configurações de localidade dentro dos componentes React. Ele fornece acesso à localidade atual, à localidade padrão, a todas as localidades disponíveis e funções para atualizar as configurações de localidade.
 
 ## Uso
 
-Veja como você pode usar o hook `useLocale` dentro de um componente React:
+Aqui está como você pode usar o hook `useLocale` dentro de um componente React:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -72,7 +74,7 @@ export default LocaleSwitcher;
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-import { useLocale } from "react-intlayer";
+import { useLocale } from "react.intlayer";
 
 const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
@@ -119,18 +121,18 @@ const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-## Parâmetros e Valores Retornados
+## Parâmetros e Valores de Retorno
 
-Ao invocar o hook `useLocale`, ele retorna um objeto contendo as seguintes propriedades:
+Quando você invoca o hook `useLocale`, ele retorna um objeto contendo as seguintes propriedades:
 
-- **`locale`**: A localidade atual definida no contexto do React.
+- **`locale`**: A localidade atual definida no contexto React.
 - **`defaultLocale`**: A localidade principal definida na configuração.
 - **`availableLocales`**: Uma lista de todas as localidades disponíveis conforme definido na configuração.
-- **`setLocale`**: Uma função para atualizar a localidade atual no contexto da aplicação.
+- **`setLocale`**: Uma função para atualizar a localidade atual dentro do contexto da aplicação.
 
 ## Exemplo
 
-Este exemplo mostra um componente que usa o hook `useLocale` para renderizar um seletor de localidade, permitindo que os usuários alterem dinamicamente a localidade da aplicação:
+Este exemplo mostra um componente que utiliza o hook `useLocale` para renderizar um seletor de localidade, permitindo que os usuários alterem dinamicamente a localidade da aplicação:
 
 ```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -202,3 +204,7 @@ const LocaleSelector = () => {
 ## Conclusão
 
 O hook `useLocale` do `react-intlayer` é uma ferramenta essencial para gerenciar localidades em suas aplicações React, fornecendo a funcionalidade necessária para adaptar sua aplicação a diversos públicos internacionais de forma eficaz.
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

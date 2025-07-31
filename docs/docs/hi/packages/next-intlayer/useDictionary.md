@@ -1,9 +1,6 @@
 ---
-docName: package__next-intlayer__useDictionary
-url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useDictionary हुक दस्तावेज़ | next-intlayer
 description: next-intlayer पैकेज के लिए useDictionary हुक का उपयोग कैसे करें देखें
 keywords:
@@ -11,20 +8,25 @@ keywords:
   - शब्दकोश
   - कुंजी
   - Intlayer
-  - अंतर्राष्ट्रीयकरण
-  - दस्तावेज
+  - अंतरराष्ट्रीयकरण
+  - दस्तावेज़ीकरण
   - Next.js
-  - JavaScript
-  - React
+  - जावास्क्रिप्ट
+  - रिएक्ट
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useDictionary
 ---
 
-# React इंटीग्रेशन: `useDictionary` हुक दस्तावेज़ीकरण
+# रिएक्ट एकीकरण: `useDictionary` हुक दस्तावेज़
 
-यह अनुभाग React एप्लिकेशन में `useDictionary` हुक का उपयोग करने के लिए विस्तृत मार्गदर्शन प्रदान करता है, जो बिना विज़ुअल एडिटर के स्थानीयकृत सामग्री को कुशलतापूर्वक संभालने में सक्षम बनाता है।
+यह अनुभाग React अनुप्रयोगों में `useDictionary` हुक का उपयोग करने के लिए विस्तृत मार्गदर्शन प्रदान करता है, जो बिना विज़ुअल एडिटर के स्थानीयकृत सामग्री को कुशलतापूर्वक संभालने में सक्षम बनाता है।
 
-## React में `useDictionary` इम्पोर्ट करना
+## React में `useDictionary` को इम्पोर्ट करना
 
-React एप्लिकेशन में `useDictionary` हुक को संदर्भ के आधार पर इम्पोर्ट करके एकीकृत किया जा सकता है:
+`useDictionary` हुक को React अनुप्रयोगों में संदर्भ के आधार पर इम्पोर्ट करके एकीकृत किया जा सकता है:
 
 - **क्लाइंट कंपोनेंट:**
 
@@ -54,16 +56,16 @@ React एप्लिकेशन में `useDictionary` हुक को स
   const { useDictionary } = require("next-intlayer/server"); // सर्वर-साइड React कंपोनेंट्स में उपयोग किया जाता है
   ```
 
-## पैरामीटर्स
+## पैरामीटर
 
-हुक दो पैरामीटर्स स्वीकार करता है:
+यह हुक दो पैरामीटर स्वीकार करता है:
 
-1. **`dictionary`**: एक घोषित डिक्शनरी ऑब्जेक्ट जिसमें विशिष्ट कुंजियों के लिए स्थानीयकृत सामग्री होती है।
-2. **`locale`** (वैकल्पिक): इच्छित लोकेल। यदि निर्दिष्ट नहीं किया गया है, तो यह वर्तमान संदर्भ के लोकेल पर डिफ़ॉल्ट होता है।
+1. **`dictionary`**: एक घोषित शब्दकोश ऑब्जेक्ट जिसमें विशिष्ट कुंजियों के लिए स्थानीयकृत सामग्री होती है।
+2. **`locale`** (वैकल्पिक): इच्छित लोकल। यदि निर्दिष्ट नहीं किया गया है, तो वर्तमान संदर्भ के लोकल का उपयोग किया जाता है।
 
-## डिक्शनरी
+## शब्दकोश
 
-सभी डिक्शनरी ऑब्जेक्ट्स को संरचित सामग्री फ़ाइलों में घोषित किया जाना चाहिए ताकि टाइप सेफ्टी सुनिश्चित हो और रनटाइम त्रुटियों को रोका जा सके। सेटअप निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md) पाए जा सकते हैं। सामग्री घोषणा का एक उदाहरण यहाँ दिया गया है:
+सभी शब्दकोश ऑब्जेक्ट्स को संरचित सामग्री फ़ाइलों में घोषित किया जाना चाहिए ताकि टाइप सुरक्षा सुनिश्चित हो सके और रनटाइम त्रुटियों को रोका जा सके। आप [सेटअप निर्देश यहाँ पा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md)। यहाँ सामग्री घोषणा का एक उदाहरण है:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -75,13 +77,11 @@ const exampleContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      hi: "क्लाइंट कंपोनेंट का उदाहरण",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
-      hi: "यह क्लाइंट कंपोनेंट उदाहरण की सामग्री है",
     }),
   },
 } satisfies Dictionary;
@@ -100,13 +100,11 @@ const exampleContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      hi: "क्लाइंट कंपोनेंट का उदाहरण",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
-      hi: "यह क्लाइंट कंपोनेंट उदाहरण की सामग्री है",
     }),
   },
 };
@@ -125,13 +123,11 @@ const exampleContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      hi: "क्लाइंट कंपोनेंट का उदाहरण",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
-      hi: "यह क्लाइंट कंपोनेंट उदाहरण की सामग्री है",
     }),
   },
 };
@@ -139,9 +135,9 @@ const exampleContent = {
 module.exports = exampleContent;
 ```
 
-## React क्लाइंट कंपोनेंट में उपयोग का उदाहरण
+## React क्लाइंट कंपोनेंट में उदाहरण उपयोग
 
-नीचे `useDictionary` हुक का उपयोग करने का एक उदाहरण दिया गया है:
+नीचे एक उदाहरण दिया गया है कि `useDictionary` हुक को React कंपोनेंट में कैसे उपयोग किया जाए:
 
 ```tsx fileName="ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -199,9 +195,9 @@ const ClientComponentExample = () => {
 };
 ```
 
-## React सर्वर कंपोनेंट में उपयोग का उदाहरण
+## React सर्वर कंपोनेंट में उदाहरण उपयोग
 
-यदि आप `IntlayerServerProvider` के बाहर `useDictionary` हुक का उपयोग कर रहे हैं, तो कंपोनेंट को रेंडर करते समय लोकेल को स्पष्ट रूप से पैरामीटर के रूप में प्रदान करना होगा:
+यदि आप `IntlayerServerProvider` के बाहर `useDictionary` हुक का उपयोग कर रहे हैं, तो कंपोनेंट को रेंडर करते समय स्थानीय भाषा को स्पष्ट रूप से पैरामीटर के रूप में प्रदान करना आवश्यक है:
 
 ```tsx fileName="ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -252,9 +248,9 @@ const ServerComponentExample = () => {
 };
 ```
 
-## विशेषताओं पर नोट्स
+## गुणों पर नोट्स
 
-विज़ुअल एडिटर का उपयोग करने वाले इंटीग्रेशन के विपरीत, `buttonTitle.value` जैसे विशेषताएँ यहाँ लागू नहीं होती हैं। इसके बजाय, अपनी सामग्री में घोषित स्थानीयकृत स्ट्रिंग्स को सीधे एक्सेस करें।
+विज़ुअल एडिटर्स का उपयोग करने वाले इंटीग्रेशन के विपरीत, `buttonTitle.value` जैसे गुण यहाँ लागू नहीं होते। इसके बजाय, सीधे अपने कंटेंट में घोषित स्थानीयकृत स्ट्रिंग्स तक पहुँचें।
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -262,7 +258,11 @@ const ServerComponentExample = () => {
 
 ## अतिरिक्त सुझाव
 
-- **टाइप सेफ्टी**: अपनी डिक्शनरी को परिभाषित करने के लिए हमेशा `Dictionary` का उपयोग करें ताकि टाइप सेफ्टी सुनिश्चित हो सके।
-- **स्थानीयकरण अपडेट्स**: सामग्री को अपडेट करते समय, सुनिश्चित करें कि सभी लोकेल्स सुसंगत हैं ताकि अनुवाद छूट न जाए।
+- **टाइप सुरक्षा**: टाइप सुरक्षा सुनिश्चित करने के लिए हमेशा अपने शब्दकोशों को परिभाषित करने के लिए `Dictionary` का उपयोग करें।
+- **स्थानीयकरण अपडेट्स**: जब कंटेंट अपडेट करें, तो सभी लोकल्स को सुसंगत बनाए रखें ताकि अनुवाद गायब न हों।
 
-यह दस्तावेज़ीकरण `useDictionary` हुक के इंटीग्रेशन पर केंद्रित है, जो विज़ुअल एडिटर कार्यक्षमताओं पर निर्भर किए बिना स्थानीयकृत सामग्री को प्रबंधित करने के लिए एक सुव्यवस्थित दृष्टिकोण प्रदान करता है।
+यह दस्तावेज़ `useDictionary` हुक के एकीकरण पर केंद्रित है, जो स्थानीयकृत कंटेंट को प्रबंधित करने के लिए एक सरल तरीका प्रदान करता है बिना विज़ुअल एडिटर की कार्यक्षमताओं पर निर्भर हुए।
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_lynx_react
-url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
-updatedAt: 2025-03-09
+updatedAt: 2025-06-29
 title: ترجم تطبيق الجوال Lynx و React (i18n)
 description: اكتشف كيفية جعل موقعك الذي يستخدم Lynx و React مع Page Router متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:
@@ -14,15 +11,20 @@ keywords:
   - React
   - Lynx
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - lynx-and-react
+applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Lynx و React
 
-انظر [Template Application](https://github.com/aymericzip/intlayer-lynx-template) على GitHub.
+انظر [قالب التطبيق](https://github.com/aymericzip/intlayer-lynx-template) على GitHub.
 
 ## ما هو Intlayer؟
 
-**Intlayer** هو **مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر** تُبسط دعم اللغات المتعددة في التطبيقات الحديثة. يعمل في العديد من بيئات JavaScript/TypeScript، **بما في ذلك Lynx** (عبر حزمة `react-intlayer`).
+**Intlayer** هي **مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر** تُبسط دعم اللغات المتعددة في التطبيقات الحديثة. تعمل في العديد من بيئات JavaScript/TypeScript، **بما في ذلك Lynx** (عبر حزمة `react-intlayer`).
 
 مع Intlayer، يمكنك:
 
@@ -181,9 +183,9 @@ if (import.meta.webpackHot) {
 - `.content.cjx`
 - إلخ.
 
-مثال (TypeScript مع عقد TSX لـ Lynx):
+مثال:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -191,7 +193,6 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      ar: "على Lynx",
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
@@ -318,38 +319,38 @@ module.exports = appContent;
         "fr": "sur Lynx",
         "es": "en Lynx"
       }
-    },
-    "description": {
+    }
+  },
+  "description": {
+    "nodeType": "translation",
+    "translation": {
+      "ar": "اضغط على الشعار واستمتع!",
+      "en": "Tap the logo and have fun!",
+      "fr": "Appuyez sur le logo et amusez-vous!",
+      "es": "¡Toca el logo y diviértete!"
+    }
+  },
+  "hint": [
+    {
       "nodeType": "translation",
       "translation": {
-        "ar": "اضغط على الشعار واستمتع!",
-        "en": "Tap the logo and have fun!",
-        "fr": "Appuyez sur le logo et amusez-vous!",
-        "es": "¡Toca el logo y diviértete!"
+        "ar": "تعديل",
+        "en": "Edit",
+        "fr": "Modifier",
+        "es": "Editar"
       }
     },
-    "hint": [
-      {
-        "nodeType": "translation",
-        "translation": {
-          "ar": "تعديل",
-          "en": "Edit",
-          "fr": "Modifier",
-          "es": "Editar"
-        }
-      },
-      " src/App.tsx ",
-      {
-        "nodeType": "translation",
-        "translation": {
-          "ar": "لرؤية التحديثات!",
-          "en": "to see updates!",
-          "fr": "pour voir les mises à jour!",
-          "es": "para ver actualizaciones!"
-        }
+    " src/App.tsx ",
+    {
+      "nodeType": "translation",
+      "translation": {
+        "ar": "لرؤية التحديثات!",
+        "en": "to see updates!",
+        "fr": "pour voir les mises à jour!",
+        "es": "para ver actualizaciones!"
       }
-    ]
-  }
+    }
+  ]
 }
 ```
 
@@ -374,7 +375,6 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
     // تغيير الخلفية فقط
     setAlterLogo(!alterLogo);
@@ -423,7 +423,7 @@ export const App = () => {
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 import { type FC } from "react";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales, locale } = useLocale();
@@ -493,8 +493,30 @@ export const LocaleSwitcher: FC = () => {
 
 ---
 
+### إضافة VS Code
+
+لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **إضافة Intlayer الرسمية لـ VS Code**.
+
+[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+تقدم هذه الإضافة:
+
+- **الإكمال التلقائي** لمفاتيح الترجمة.
+- **كشف الأخطاء في الوقت الحقيقي** للترجمات المفقودة.
+- **معاينات داخلية** للمحتوى المترجم.
+- **إجراءات سريعة** لإنشاء الترجمات وتحديثها بسهولة.
+  لمزيد من التفاصيل حول كيفية استخدام الإضافة، راجع [توثيق إضافة Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ## المزيد من الاستكشاف
 
 - **المحرر المرئي**: استخدم [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لإدارة الترجمات بشكل مرئي.
 - **تكامل CMS**: يمكنك أيضًا استخراج محتوى قاموسك وجلبه من [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 - **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
+
+---
+
+## سجل التوثيق
+
+- 5.5.10 - 2025-06-29: بدء السجل

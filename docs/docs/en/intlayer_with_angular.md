@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_angular
-url: https://intlayer.org/doc/environment/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_angular.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Translate your Angular website (i18n)
 description: Discover how to make your Angular website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -12,6 +9,11 @@ keywords:
   - Intlayer
   - Angular
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - angular
+# applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 ---
 
 # Getting Started with Internationalization (i18n) in Angular using Intlayer
@@ -682,3 +684,11 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+---
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

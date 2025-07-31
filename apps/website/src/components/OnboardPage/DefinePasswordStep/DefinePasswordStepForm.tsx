@@ -1,8 +1,5 @@
-import { Form, H2, useForm, useUser } from '@intlayer/design-system';
-import {
-  useChangePassword,
-  useCheckIfUserHasPassword,
-} from '@intlayer/design-system/hooks';
+import { Form, H2, useForm } from '@intlayer/design-system';
+import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { type FC } from 'react';
 import { StepLayout } from '../StepLayout';
@@ -25,12 +22,8 @@ export const DefinePasswordStepForm: FC = () => {
     useStep(Steps.Password);
   const { formData: registrationFormData } = useStep(Steps.Registration);
   const { changePassword, isLoading } = useChangePassword();
-  const { data } = useCheckIfUserHasPassword({
-    autoFetch: true,
-    cache: true,
-  });
 
-  const isPasswordDefined = Boolean(data?.data?.hasPassword);
+  const isPasswordDefined = Boolean(false);
 
   const DefinePasswordSchema = useDefinePasswordSchema(isPasswordDefined);
   const { form, isSubmitting } = useForm(DefinePasswordSchema, {

@@ -1,23 +1,44 @@
-# وثائق: وظيفة `getTranslation` في `intlayer`
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: دالة getTranslation - توثيق جافاسكريبت لـ Intlayer
+description: توثيق دالة getTranslation في Intlayer، التي تسترجع المحتوى المحلي للغات محددة مع الرجوع إلى اللغة الافتراضية.
+keywords:
+  - getTranslation
+  - intlayer
+  - دالة
+  - التوطين
+  - i18n
+  - جافاسكريبت
+  - الترجمة
+  - اللغة
+slugs:
+  - doc
+  - package
+  - intlayer
+  - getTranslationContent
+---
+
+# التوثيق: دالة `getTranslation` في `intlayer`
 
 ## الوصف
 
-تقوم وظيفة `getTranslation` باسترجاع المحتوى المقابل للغة معينة من مجموعة محتويات لغوية قابلة للتخصيص. إذا لم يتم العثور على اللغة المحددة، فإنها تعود افتراضيًا إلى إرجاع المحتوى الخاص باللغة الافتراضية المُعدة في المشروع.
+تسترجع دالة `getTranslation` المحتوى المقابل للغة معينة من مجموعة محتويات لغوية قابلة للتخصيص. إذا لم يتم العثور على اللغة المحددة، فإنها تعيد المحتوى الخاص باللغة الافتراضية المكونة في المشروع.
 
-## المعلمات
+## المعاملات
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **الوصف**: كائن يحتوي على الترجمات للغات مختلفة. يمثل كل مفتاح لغة معينة، وقيمته هي المحتوى المقابل.
+  - **الوصف**: كائن يحتوي على ترجمات لمختلف اللغات. كل مفتاح يمثل لغة، وقيمته هي المحتوى المقابل.
   - **النوع**: `CustomizableLanguageContent<Content>`
-    - يمكن أن يكون `Content` أي نوع، والافتراضي هو `string`.
+    - يمكن أن يكون `Content` أي نوع، مع الافتراضي كـ `string`.
 
 - `locale: Locales`
 
   - **الوصف**: اللغة التي سيتم استرجاع المحتوى الخاص بها.
   - **النوع**: `Locales`
 
-## العوائد
+## القيم المرجعة
 
 - **النوع**: `Content`
 - **الوصف**: المحتوى المقابل للغة المحددة. إذا لم يتم العثور على اللغة، يتم إرجاع محتوى اللغة الافتراضية.
@@ -33,12 +54,11 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبا",
   },
   Locales.ENGLISH
 );
 
-console.log(content); // Output: "Bonjour"
+console.log(content); // الناتج: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
@@ -48,12 +68,11 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبا",
   },
   Locales.ENGLISH
 );
 
-console.log(content); // Output: "Bonjour"
+console.log(content); // الناتج: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -63,15 +82,14 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبا",
   },
   Locales.ENGLISH
 );
 
-console.log(content); // Output: "Bonjour"
+console.log(content); // الناتج: "Bonjour"
 ```
 
-### لغة مفقودة:
+### اللغة غير موجودة:
 
 ```typescript codeFormat="typescript"
 import { getTranslation, Locales } from "intlayer";
@@ -80,12 +98,11 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبا",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (محتوى اللغة الافتراضية)
+console.log(content); // الناتج: "Hello" (محتوى اللغة الافتراضية)
 ```
 
 ```javascript codeFormat="esm"
@@ -95,12 +112,11 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبا",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (محتوى اللغة الافتراضية)
+console.log(content); // الناتج: "Hello" (محتوى اللغة الافتراضية)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -110,12 +126,11 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبا",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (محتوى اللغة الافتراضية)
+console.log(content); // الناتج: "Hello" (محتوى اللغة الافتراضية)
 ```
 
 ### استخدام أنواع محتوى مخصصة:
@@ -127,12 +142,11 @@ const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    ar: { greeting: "مرحبا" },
   },
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Output: "Bonjour"
+console.log(customContent.greeting); // الناتج: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
@@ -142,12 +156,11 @@ const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    ar: { greeting: "مرحبا" }
   },
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Output: "Bonjour"
+console.log(customContent.greeting); // الناتج: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -157,19 +170,22 @@ const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    ar: { greeting: "مرحبا" }
   },
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Output: "Bonjour"
+console.log(customContent.greeting); // الناتج: "Bonjour"
 ```
 
 ## الحالات الخاصة
 
 - **اللغة غير موجودة:**
-  - عندما لا يتم العثور على `locale` في `languageContent`، تقوم الوظيفة بإرجاع المحتوى الخاص باللغة الافتراضية.
-- **محتوى لغوي غير مكتمل:**
-  - إذا تم تعريف لغة بشكل جزئي، فإن الوظيفة لا تدمج المحتويات. تقوم فقط باسترجاع قيمة اللغة المحددة أو تعود إلى الافتراضية.
-- **فرض TypeScript:**
-  - إذا لم تتطابق اللغات في `languageContent` مع إعدادات المشروع، فإن TypeScript يفرض تعريف جميع اللغات المطلوبة، مما يضمن اكتمال المحتوى وسلامة النوع.
+  - عندما لا يتم العثور على `locale` في `languageContent`، تقوم الدالة بإرجاع المحتوى للغة الافتراضية.
+- **محتوى اللغة غير مكتمل:**
+  - إذا كانت اللغة معرفة جزئيًا، لا تقوم الدالة بدمج المحتويات. تسترجع فقط قيمة اللغة المحددة أو تعود إلى اللغة الافتراضية.
+- **تطبيق قواعد TypeScript:**
+  - إذا لم تتطابق اللغات في `languageContent` مع تكوين المشروع، فإن TypeScript ستفرض تعريف جميع اللغات المطلوبة، مما يضمن أن المحتوى كامل وآمن من حيث النوع.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

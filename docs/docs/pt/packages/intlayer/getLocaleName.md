@@ -1,21 +1,23 @@
 ---
-docName: package__intlayer__getLocaleName
-url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Documentação da função getLocaleName | intlayer
-description: Veja como usar a função getLocaleName para o pacote intlayer
+updatedAt: 2025-06-29
+title: Documentação da Função getLocaleName | intlayer
+description: Veja como usar a função getLocaleName do pacote intlayer
 keywords:
   - getLocaleName
   - tradução
   - Intlayer
   - intlayer
-  - internacionalização
-  - documentação
+  - Internacionalização
+  - Documentação
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleName
 ---
 
 # Documentação: Função `getLocaleName` em `intlayer`
@@ -32,7 +34,7 @@ A função `getLocaleName` retorna o nome localizado de um determinado locale (`
   - **Tipo**: Enum ou string representando locales válidos.
 
 - `targetLocale?: Locales`
-  - **Descrição**: O locale cujo nome será localizado.
+  - **Descrição**: O locale cujo nome deve ser localizado.
   - **Tipo**: Opcional. Enum ou string representando locales válidos.
 
 ## Retorno
@@ -105,9 +107,13 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Saída: "Chinese"
 getLocaleName("unknown-locale"); // Saída: "Unknown locale"
 ```
 
-## Casos de Borda
+## Casos Especiais
 
 - **Nenhum `targetLocale` fornecido:**
-  - A função retorna o próprio nome do `displayLocale`.
+  - A função retorna por padrão o próprio nome do `displayLocale`.
 - **Traduções ausentes:**
-  - Se `localeNameTranslations` não contiver uma entrada para o `targetLocale` ou o `displayLocale` específico, a função retorna o `ownLocalesName` ou `"Unknown locale"`.
+  - Se `localeNameTranslations` não contiver uma entrada para o `targetLocale` ou para o `displayLocale` específico, a função recorre ao `ownLocalesName` ou retorna `"Unknown locale"`.
+
+## Histórico da Documentação
+
+- 5.5.10 - 2025-06-29: Histórico inicial

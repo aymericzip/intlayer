@@ -1,9 +1,6 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: CMS Intlayer | Externe tu contenido en el CMS Intlayer
 description: Externe tu contenido en el CMS Intlayer para delegar la gestión de tu contenido a tu equipo.
 keywords:
@@ -15,6 +12,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Documentación del Sistema de Gestión de Contenidos (CMS) de Intlayer
@@ -194,7 +196,6 @@ const config = {
      *
      * La URL del CMS de Intlayer.
      * Por defecto, está configurada como https://intlayer.org
-     */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
@@ -259,7 +260,6 @@ Luego podrás ver y gestionar tu diccionario en el [CMS de Intlayer](https://int
 El CMS de Intlayer es capaz de recargar en caliente los diccionarios cuando se detecta un cambio.
 
 Sin la recarga en caliente, será necesario un nuevo build de la aplicación para mostrar el nuevo contenido.
-
 Al activar la configuración [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration), la aplicación reemplazará automáticamente el contenido actualizado cuando sea detectado.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -333,8 +333,7 @@ La recarga en caliente reemplaza el contenido tanto en el lado del servidor como
 
 - En el lado del servidor, debes asegurarte de que el proceso de la aplicación tenga acceso de escritura al directorio `.intlayer/dictionaries`.
 - En el lado del cliente, la recarga en caliente permite que la aplicación recargue el contenido en el navegador sin necesidad de recargar la página. Sin embargo, esta función solo está disponible para componentes de cliente.
-
-> Debido a que la recarga en caliente necesita una conexión continua con el servidor utilizando un `EventListener`, solo está disponible para clientes del plan `enterprise`.
+  > Debido a que la recarga en caliente necesita una conexión continua con el servidor utilizando un `EventListener`, solo está disponible para clientes del plan `enterprise`.
 
 ## Depuración
 
@@ -349,5 +348,8 @@ Si encuentras algún problema con el CMS, verifica lo siguiente:
     - La URL del CMS.
 
 - Asegúrate de que la configuración del proyecto fue subida al CMS de Intlayer.
-
 - El editor visual utiliza un iframe para mostrar tu sitio web. Asegúrate de que la Política de Seguridad de Contenidos (CSP) de tu sitio web permita la URL del CMS como `frame-ancestors` ('https://intlayer.org' por defecto). Revisa la consola del editor para detectar cualquier error.
+
+## Historial del documento
+
+- 5.5.10 - 2025-06-29: Historial inicial

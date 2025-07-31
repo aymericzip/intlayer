@@ -1,12 +1,32 @@
-# @intlayer/core: حزمة NPM تحتوي على وظائف Intlayer الأساسية
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/core - الوظائف الأساسية لـ Intlayer i18n
+description: حزمة NPM تحتوي على الوظائف الأساسية لـ Intlayer، بما في ذلك وظائف الترجمة، وظائف القاموس، والوظائف المساعدة للتدويل.
+keywords:
+  - intlayer
+  - core
+  - translation
+  - dictionary
+  - utilities
+  - i18n
+  - JavaScript
+  - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_core
+---
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وReact وExpress.js.
+# @intlayer/core: حزمة NPM تحتوي على الوظائف الأساسية لـ Intlayer
 
-حزمة **`@intlayer/core`** هي حزمة NPM تتضمن الوظائف الأساسية لـ Intlayer المشتركة بين عدة حزم. وتشمل بشكل خاص:
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافاسكريبت. وهي متوافقة مع أُطُر العمل مثل React وExpress.js.
+
+**حزمة `@intlayer/core`** هي حزمة NPM تتضمن الوظائف الأساسية لـ Intlayer المشتركة بين عدة حزم. وتشمل بشكل خاص:
 
 - وظائف الترجمة
 - وظائف القاموس
-- وظائف الأدوات
+- الوظائف المساعدة
 
 ## التثبيت
 
@@ -23,3 +43,7 @@ pnpm add @intlayer/core
 ```bash packageManager="yarn"
 yarn add @intlayer/core
 ```
+
+## تاريخ الوثائق
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

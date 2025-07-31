@@ -3,7 +3,7 @@ import { getLocaleName, type KeyPath } from '@intlayer/core';
 import { logger } from '@logger';
 import { generateText } from 'ai';
 import { readFileSync } from 'fs';
-import type { Locales } from 'intlayer';
+import { Locales } from 'intlayer';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { AIConfig, AIOptions } from '../aiSdk';
@@ -43,7 +43,7 @@ export const aiDefaultOptions: AIOptions = {
  * @returns A string in the format "locale: name", e.g. "en: English".
  */
 const formatLocaleWithName = (locale: Locales): string => {
-  return `${locale}: ${getLocaleName(locale)}`;
+  return `${locale}: ${getLocaleName(locale, Locales.ENGLISH)}`;
 };
 
 /**

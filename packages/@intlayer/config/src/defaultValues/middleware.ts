@@ -9,3 +9,5 @@ export const BASE_PATH = '';
 export const SERVER_SET_COOKIE = 'always';
 
 export const NO_PREFIX = false;
+
+export const DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;

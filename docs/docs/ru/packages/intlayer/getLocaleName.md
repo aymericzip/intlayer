@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getLocaleName
-url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Документация функции getLocaleName | intlayer
 description: Узнайте, как использовать функцию getLocaleName для пакета intlayer
 keywords:
@@ -11,18 +8,23 @@ keywords:
   - перевод
   - Intlayer
   - intlayer
-  - интернационализация
-  - документация
+  - Интернационализация
+  - Документация
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleName
 ---
 
-# Документация: Функция `getLocaleName` в `intlayer`
+# Документация: функция `getLocaleName` в `intlayer`
 
 ## Описание
 
-Функция `getLocaleName` возвращает локализованное название указанной локали (`targetLocale`) на языке отображаемой локали (`displayLocale`). Если `targetLocale` не указана, возвращается название `displayLocale` на её собственном языке.
+Функция `getLocaleName` возвращает локализованное название заданной локали (`targetLocale`) на языке отображения (`displayLocale`). Если `targetLocale` не указан, функция возвращает название `displayLocale` на его собственном языке.
 
 ## Параметры
 
@@ -33,12 +35,12 @@ keywords:
 
 - `targetLocale?: Locales`
   - **Описание**: Локаль, название которой нужно локализовать.
-  - **Тип**: Необязательный. Enum или строка, представляющая допустимые локали.
+  - **Тип**: Необязательный параметр. Enum или строка, представляющая допустимые локали.
 
 ## Возвращаемое значение
 
 - **Тип**: `string`
-- **Описание**: Локализованное название `targetLocale` на языке `displayLocale`, или собственное название `displayLocale`, если `targetLocale` не указана. Если перевод не найден, возвращается `"Unknown locale"`.
+- **Описание**: Локализованное название `targetLocale` на языке `displayLocale`, или собственное название `displayLocale`, если `targetLocale` не указан. Если перевод не найден, возвращается `"Unknown locale"`.
 
 ## Пример использования
 
@@ -105,9 +107,13 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Вывод: "Chinese"
 getLocaleName("unknown-locale"); // Вывод: "Unknown locale"
 ```
 
-## Граничные случаи
+## Крайние случаи
 
-- **`targetLocale` не указана:**
-  - Функция по умолчанию возвращает собственное название `displayLocale`.
+- **Если `targetLocale` не указан:**
+  - Функция по умолчанию возвращает собственное имя `displayLocale`.
 - **Отсутствие переводов:**
-  - Если в `localeNameTranslations` отсутствует запись для `targetLocale` или конкретной `displayLocale`, функция возвращает `ownLocalesName` или `"Unknown locale"`.
+  - Если `localeNameTranslations` не содержит записи для `targetLocale` или конкретного `displayLocale`, функция возвращает `ownLocalesName` или `"Unknown locale"`.
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

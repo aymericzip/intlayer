@@ -1,9 +1,6 @@
 ---
-docName: dictionary__get_started
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Dictionary | Get Started
 description: Discover how to declare and use dictionaries in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
 # Getting Started the declaration of your content
@@ -520,3 +521,9 @@ For more details in Intlayer, refer to the following resources:
 - [Nesting Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)
 - [Markdown Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)
 - [Function Fetching Content Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md)
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

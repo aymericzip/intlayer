@@ -1,9 +1,6 @@
 ---
-blogName: list_i18n_technologies__CMS__wordpress
-url: https://intlayer.org/blog/i18n-technologies/CMS/wordpress
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wordpress.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Meilleures outils d'internationalisation (i18n) pour Wordpress
 description: Découvrez les meilleures solutions d'internationalisation (i18n) pour résoudre les défis de traduction, accélérer la recherche sur le web et offrir une expérience web globale sans faille.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Internationalisation
   - Blog
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - CMS
+  - wordpress
 ---
 
 # Explorer les Solutions i18n pour Traduire Votre Site WordPress
@@ -22,7 +24,7 @@ Dans le paysage numérique d'aujourd'hui, élargir la portée de votre site Web 
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Qu'est-ce que l'Internationalisation (i18n) ?
 

@@ -1,12 +1,12 @@
+import type { OAuth2Token } from '@/types/oAuth2.types';
 import type { RequestWithOAuth2Information } from '@middlewares/oAuth2.middleware';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { type ResponseData, formatResponse } from '@utils/responseData';
-import type { Response, Request, NextFunction } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import {
   Request as OAuthRequest,
   Response as OAuthResponse,
 } from 'oauth2-server';
-import type { OAuth2Token } from '@/types/oAuth2.types';
 
 export type GetOAuth2TokenBody = {
   grant_type: 'client_credentials';
@@ -16,7 +16,7 @@ export type GetOAuth2TokenBody = {
 export type GetOAuth2TokenResult = ResponseData<OAuth2Token>;
 
 // Method to get the token
-export const getOAuth2Token = async (
+export const getOAuth2AccessToken = async (
   req: Request,
   res: Response<GetOAuth2TokenResult>,
   _next: NextFunction

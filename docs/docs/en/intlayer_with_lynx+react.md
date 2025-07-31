@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_lynx_react
-url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
-updatedAt: 2025-03-09
+updatedAt: 2025-06-29
 title: Translate your Lynx and React mobile app (i18n)
 description: Discover how to make your Lynx and React mobile app multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - React
   - Lynx
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - lynx-and-react
+applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and Lynx and React
@@ -499,3 +501,11 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 - **Visual Editor**: Use the [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) to manage translations visually.
 - **CMS Integration**: You can also externalize and fetch your dictionary content from a [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 - **CLI Commands**: Explore the [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) for tasks like **extracting translations** or **checking missing keys**.
+
+---
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

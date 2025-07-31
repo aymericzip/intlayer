@@ -1,9 +1,6 @@
 ---
-docName: dictionary__markdown
-url: https://intlayer.org/doc/concept/content/markdown
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
-createdAt: 2025-02-7
-updatedAt: 2025-02-7
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
 title: Markdown
 description: Learn how to declare and use Markdown content in your multilingual website with Intlayer. Follow the steps in this online documentation to integrate Markdown seamlessly into your project.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - markdown
 ---
 
 # Markdown / Rich Text Content
@@ -371,3 +373,9 @@ const IntlayerMarkdownProvider = ({ children }) => (
 - [markdown-to-jsx on npm](https://www.npmjs.com/package/markdown-to-jsx)
 
 These resources provide further insights into setting up and using Intlayer with various content types and frameworks.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

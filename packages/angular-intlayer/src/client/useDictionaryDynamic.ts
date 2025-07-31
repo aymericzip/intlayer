@@ -1,6 +1,7 @@
 'use client';
 
 import { computed, inject } from '@angular/core';
+import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
 import type {
   Dictionary,
@@ -26,7 +27,12 @@ export const useDictionaryDynamic = <
 ) => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
-  const localeTarget = computed(() => locale ?? intlayer?.locale());
+  const localeTarget = computed(
+    () =>
+      locale ??
+      intlayer?.locale() ??
+      configuration?.internationalization.defaultLocale
+  );
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget()}`,

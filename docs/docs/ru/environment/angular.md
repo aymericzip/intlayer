@@ -1,3 +1,0 @@
-# Переведите свой сайт Angular
-
-// ... existing code ...

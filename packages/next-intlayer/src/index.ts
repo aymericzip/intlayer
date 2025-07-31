@@ -3,6 +3,7 @@ export {
   MarkdownProvider,
   t,
   useDictionary,
+  useDictionaryAsync,
   useDictionaryDynamic,
   useIntlayer,
   useIntlayerAsync,

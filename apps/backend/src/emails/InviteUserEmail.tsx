@@ -10,8 +10,8 @@ import {
   Link,
   Preview,
   Section,
-  Text,
   Tailwind,
+  Text,
 } from '@react-email/components';
 
 export type InviteUserEmailProps = {
@@ -62,7 +62,7 @@ export const InviteUserEmailEN = ({
               <strong>{invitedByUsername}</strong> (
               <Link
                 href={`mailto:${invitedByEmail}`}
-                className="text-[#E879BA] no-underline"
+                className="text-[#8a8a8a] no-underline"
               >
                 {invitedByEmail}
               </Link>
@@ -79,11 +79,14 @@ export const InviteUserEmailEN = ({
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              or copy and paste this URL into your browser:{' '}
-              <Link href={inviteLink} className="text-[#E879BA] no-underline">
-                {inviteLink}
-              </Link>
+              or copy and paste this URL into your browser:
             </Text>
+            <Link
+              href={inviteLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {inviteLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               This invitation was intended for{' '}
@@ -144,7 +147,7 @@ export const InviteUserEmailFR = ({
               <strong>{invitedByUsername}</strong> (
               <Link
                 href={`mailto:${invitedByEmail}`}
-                className="text-[#E879BA] no-underline"
+                className="text-[#8a8a8a] no-underline"
               >
                 {invitedByEmail}
               </Link>
@@ -161,10 +164,13 @@ export const InviteUserEmailFR = ({
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
               ou copiez et collez cette URL dans votre navigateur :{' '}
-              <Link href={inviteLink} className="text-[#E879BA] no-underline">
-                {inviteLink}
-              </Link>
             </Text>
+            <Link
+              href={inviteLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {inviteLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               Cette invitation était destinée à{' '}
@@ -226,7 +232,7 @@ export const InviteUserEmailES = ({
               <strong>{invitedByUsername}</strong> (
               <Link
                 href={`mailto:${invitedByEmail}`}
-                className="text-[#E879BA] no-underline"
+                className="text-[#8a8a8a] no-underline"
               >
                 {invitedByEmail}
               </Link>
@@ -243,10 +249,13 @@ export const InviteUserEmailES = ({
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
               o copia y pega esta URL en tu navegador:{' '}
-              <Link href={inviteLink} className="text-[#E879BA] no-underline">
-                {inviteLink}
-              </Link>
             </Text>
+            <Link
+              href={inviteLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {inviteLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               Esta invitación estaba destinada para{' '}

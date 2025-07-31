@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_create_react_app
-url: https://intlayer.org/doc/environment/create-react-app
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Create React App (CRA)의 웹사이트를 번역하십시오 (i18n)
 description: Create React App (CRA) 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - CRA
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - create-react-app
+applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 ---
 
 # Intlayer와 React Create App으로 국제화(i18n) 시작하기
@@ -28,7 +30,7 @@ Intlayer를 사용하면:
 
 - **컴포넌트 수준에서 선언적 사전을 사용하여 번역을 쉽게 관리**할 수 있습니다.
 - **메타데이터, 라우트 및 콘텐츠를 동적으로 로컬라이즈**할 수 있습니다.
-- **TypeScript 지원**을 통해 자동 완성 및 오류 감지를 개선할 수 있습니다.
+- **자동 생성된 타입으로 TypeScript 지원을 보장**하여 자동 완성 및 오류 감지를 개선할 수 있습니다.
 - **동적 로케일 감지 및 전환**과 같은 고급 기능을 활용할 수 있습니다.
 
 ## React 애플리케이션에서 Intlayer 설정 단계별 가이드
@@ -59,7 +61,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **react-scripts-intlayer**
 
-  Create React App 기반 애플리케이션과 Intlayer를 통합하기 위한 `react-scripts-intlayer` 명령 및 플러그인을 포함합니다. 이 플러그인은 [craco](https://craco.js.org/)를 기반으로 하며 [Webpack](https://webpack.js.org/) 번들러에 대한 추가 구성을 포함합니다.
+Create React App 기반 애플리케이션과 Intlayer를 통합하기 위한 `react-scripts-intlayer` 명령 및 플러그인을 포함합니다. 이 플러그인들은 [craco](https://craco.js.org/)를 기반으로 하며, [Webpack](https://webpack.js.org/) 번들러에 대한 추가 구성을 포함합니다.
 
 ### 2단계: 프로젝트 구성
 
@@ -168,6 +170,7 @@ const appContent = {
     reactLink: {
       href: "https://reactjs.org",
       content: t({
+        ko: "React 배우기",
         en: "Learn React",
         fr: "Apprendre React",
         es: "Aprender React",
@@ -187,6 +190,7 @@ const appContent = {
   key: "app",
   content: {
     getStarted: t({
+      ko: "편집을 시작하세요",
       en: "Get started by editing",
       fr: "Commencez par éditer",
       es: "Comience por editar",
@@ -194,6 +198,7 @@ const appContent = {
     reactLink: {
       href: "https://reactjs.org",
       content: t({
+        ko: "React 배우기",
         en: "Learn React",
         fr: "Apprendre React",
         es: "Aprender React",
@@ -213,6 +218,7 @@ const appContent = {
   key: "app",
   content: {
     getStarted: t({
+      ko: "편집을 시작하세요",
       en: "Get started by editing",
       fr: "Commencez par éditer",
       es: "Comience por editar",
@@ -220,6 +226,7 @@ const appContent = {
     reactLink: {
       href: "https://reactjs.org",
       content: t({
+        ko: "React 배우기",
         en: "Learn React",
         fr: "Apprendre React",
         es: "Aprender React",
@@ -235,7 +242,7 @@ module.exports = appContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 참조하세요.
 
-> 콘텐츠 파일에 TSX 코드가 포함된 경우, `import React from "react";`를 콘텐츠 파일에 가져오는 것을 고려해야 합니다.
+> 콘텐츠 파일에 TSX 코드가 포함된 경우, 콘텐츠 파일에 `import React from "react";`를 가져오는 것을 고려해야 합니다.
 
 ### 5단계: 코드에서 Intlayer 사용
 
@@ -304,8 +311,11 @@ const AppContent = () => {
 const App = () => (
   <IntlayerProvider>
     <AppContent />
----
+  </IntlayerProvider>
+);
+```
 
+```jsx {3,6} fileName="src/App.csx" codeFormat="commonjs"
 require("./App.css");
 const logo = require("./logo.svg");
 const { IntlayerProvider, useIntlayer } = require("react-intlayer");
@@ -342,7 +352,7 @@ const App = () => (
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
-
+>
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
 
 ### (선택 사항) 단계 6: 콘텐츠 언어 변경
@@ -430,7 +440,7 @@ const { locales, defaultLocale } = internationalization;
 
 /**
  * 로컬화를 처리하고 적절한 로케일 컨텍스트로 자식을 감싸는 컴포넌트.
- * URL 기반 로케일 감지 및 유효성을 관리합니다.
+ * URL 기반 로케일 감지 및 유효성 검사를 관리합니다.
  */
 const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
@@ -438,7 +448,7 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 }) => {
   const { pathname, search } = useLocation(); // 현재 URL 경로 가져오기
 
-  // 현재 로케일 결정, 제공되지 않은 경우 기본값으로 대체
+  // 현재 로케일 결정, 제공되지 않은 경우 기본 로케일로 대체
   const currentLocale = locale ?? defaultLocale;
 
   // 경로에서 로케일 접두사를 제거하여 기본 경로 생성
@@ -490,7 +500,7 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 };
 
 /**
- * 로케일별 경로를 설정하는 라우터 컴포넌트.
+ * 로케일별 경로를 설정하는 라우터 컴포넌트입니다.
  * React Router를 사용하여 탐색을 관리하고 로컬화된 컴포넌트를 렌더링합니다.
  */
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
@@ -730,7 +740,7 @@ const LocaleRouter = ({ children }) => (
         ))}
 
       {
-        // 기본 로케일 접두사를 비활성화한 경우, 루트 경로에서 자식을 직접 렌더링
+        // 기본 로케일 접두사 사용이 비활성화된 경우, 루트 경로에서 자식을 직접 렌더링
         !middleware.prefixDefault && (
           <Route
             path="*"
@@ -785,6 +795,8 @@ const App = () => (
 ```
 
 ### (선택 사항) 단계 8: 로케일 변경 시 URL 변경
+
+로케일이 변경될 때 URL을 변경하려면 `useLocale` 훅에서 제공하는 `onLocaleChange` 속성을 사용할 수 있습니다. 동시에, `react-router-dom`의 `useLocation` 및 `useNavigate` 훅을 사용하여 URL 경로를 업데이트할 수 있습니다.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { useLocation, useNavigate } from "react-router-dom";
@@ -996,6 +1008,7 @@ const LocaleSwitcher = () => {
 
 - **접근성**: 스크린 리더 및 보조 기술은 올바른 `lang` 속성을 사용하여 콘텐츠를 정확히 발음하고 해석합니다.
 - **텍스트 렌더링**: `dir`(방향) 속성은 텍스트가 올바른 순서로 렌더링되도록 보장합니다(예: 영어는 왼쪽에서 오른쪽, 아랍어나 히브리어는 오른쪽에서 왼쪽). 이는 가독성에 필수적입니다.
+- **SEO**: 검색 엔진은 `lang` 속성을 사용하여 페이지의 언어를 판단하고, 검색 결과에서 적절한 현지화된 콘텐츠를 제공하는 데 도움을 줍니다.
 
 로케일이 변경될 때 이러한 속성을 동적으로 업데이트하면 지원되는 모든 언어에서 사용자에게 일관되고 접근 가능한 경험을 보장할 수 있습니다.
 
@@ -1061,9 +1074,9 @@ const { getHTMLTextDir } = require("intlayer");
 /**
  * 현재 로케일에 따라 HTML <html> 요소의 `lang` 및 `dir` 속성을 업데이트합니다.
  * - `lang`: 브라우저와 검색 엔진에 페이지의 언어를 알립니다.
- * - `dir`: 올바른 읽기 방향을 보장합니다 (예: 영어의 경우 'ltr', 아랍어의 경우 'rtl').
+ * - `dir`: 올바른 읽기 순서를 보장합니다 (예: 영어는 'ltr', 아랍어는 'rtl').
  *
- * 이 동적 업데이트는 올바른 텍스트 렌더링, 접근성 및 SEO를 위해 필수적입니다.
+ * 이 동적 업데이트는 올바른 텍스트 렌더링, 접근성 및 SEO에 필수적입니다.
  */
 const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1082,7 +1095,7 @@ module.exports = { useI18nHTMLAttributes };
 
 #### 애플리케이션에서 Hook 사용하기
 
-로케일 변경 시 HTML 속성이 업데이트되도록 메인 컴포넌트에 훅을 통합합니다:
+로케일이 변경될 때마다 HTML 속성이 업데이트되도록 훅을 메인 컴포넌트에 통합하세요:
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -1162,7 +1175,6 @@ Intlayer는 TypeScript의 모듈 확장을 사용하여 코드베이스를 더 �
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
 TypeScript 구성에 자동 생성된 타입을 포함해야 합니다.
 
 ```json5 fileName="tsconfig.json"
@@ -1186,6 +1198,38 @@ Intlayer에서 생성된 파일을 무시하는 것이 좋습니다. 이를 통�
 .intlayer
 ```
 
+### VS Code 확장
+
+Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code 확장**을 설치할 수 있습니다.
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+이 확장 기능은 다음을 제공합니다:
+
+- 번역 키에 대한 **자동 완성**.
+- 누락된 번역에 대한 **실시간 오류 감지**.
+- 번역된 콘텐츠의 **인라인 미리보기**.
+- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
+
+확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 기능 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+
 ### 추가 학습
 
 더 나아가려면 [시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+이 확장 기능은 다음을 제공합니다:
+
+- 번역 키에 대한 **자동 완성**.
+- 누락된 번역에 대한 **실시간 오류 감지**.
+- 번역된 내용을 보여주는 **인라인 미리보기**.
+- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
+
+확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+
+### 더 나아가기
+
+더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+
+## 문서 이력
+
+- 5.5.10 - 2025-06-29: 초기 이력

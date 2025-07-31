@@ -1,55 +1,39 @@
 ---
-docName: introduction
-url: https://intlayer.org/doc/get-started
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/introduction.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: イントロダクション
-description: Intlayerの仕組みを発見してください。アプリケーションでIntlayerが使用する手順を確認してください。さまざまなパッケージの機能を確認してください。
+updatedAt: 2025-06-29
+title: はじめに
+description: Intlayerの仕組みを紹介します。Intlayerがアプリケーションで使用する手順を確認します。各パッケージの役割を説明します。
 keywords:
-  - イントロダクション
-  - 始める
+  - はじめに
+  - 入門
   - Intlayer
   - アプリケーション
   - パッケージ
+slugs:
+  - doc
+  - get-started
 ---
 
 # Intlayer ドキュメント
 
-公式の Intlayer ドキュメントへようこそ！ここでは、Next.js、React、Vite、Express、またはその他の JavaScript 環境での国際化 (i18n) ニーズに対応するための Intlayer の統合、設定、および習得に必要なすべての情報を見つけることができます。
+公式Intlayerドキュメントへようこそ！ここでは、Next.js、React、Vite、Express、またはその他のJavaScript環境での国際化（i18n）ニーズに対応するために、Intlayerを統合、設定、習得するために必要なすべての情報を見つけることができます。
 
 ## はじめに
 
-### Intlayer とは？
+### Intlayerとは何ですか？
 
-**Intlayer** は、JavaScript 開発者向けに特別に設計された国際化ライブラリです。コード内のどこにでもコンテンツを宣言できるようにします。多言語コンテンツの宣言を構造化された辞書に変換し、コードに簡単に統合できるようにします。TypeScript を使用して、**Intlayer** は開発をより強力かつ効率的にします。
+**Intlayer**は、JavaScript開発者向けに特別に設計された国際化ライブラリです。コードのあらゆる場所でコンテンツを宣言することができます。多言語コンテンツの宣言を構造化された辞書に変換し、コードに簡単に統合できるようにします。TypeScriptを使用することで、**Intlayer**は開発をより強力かつ効率的にします。
 
-Intlayer は、コンテンツを簡単に編集および管理できるオプションのビジュアルエディターも提供します。このエディターは、コンテンツ管理のためのビジュアルインターフェースを好む開発者や、コードを気にせずにコンテンツを生成するチームに特に役立ちます。
+Intlayerは、コンテンツを簡単に編集・管理できるオプションのビジュアルエディタも提供しています。このエディタは、コンテンツ管理に視覚的なインターフェースを好む開発者や、コードを気にせずにコンテンツを生成するチームに特に役立ちます。
 
 ### 使用例
 
-```bash codeFormat="typescript"
-.
-└── Components
-    └── MyComponent
-        ├── index.content.ts
-        └── index.tsx
-```
-
-```bash codeFormat="commonjs"
+```bash
 .
 └── Components
     └── MyComponent
         ├── index.content.cjs
         └── index.mjs
-```
-
-```bash codeFormat="esm"
-.
-└── Components
-    └── MyComponent
-        ├── index.content.mjs
-        └── index.js
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"
@@ -73,6 +57,7 @@ export default componentContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// コンポーネントのコンテンツ定義
 const componentContent = {
   key: "component-key",
   content: {
@@ -155,48 +140,69 @@ const MyComponent = () => {
 
 ## 主な機能
 
-Intlayer は、現代のウェブ開発のニーズに応えるさまざまな機能を提供します。以下は主な機能と、それぞれの詳細なドキュメントへのリンクです：
+Intlayerは、現代のウェブ開発のニーズに応える多彩な機能を提供します。以下は主な機能で、それぞれの詳細なドキュメントへのリンクも記載しています：
 
-- **国際化サポート**: 組み込みの国際化サポートでアプリケーションのグローバル展開を強化します。
-- **ビジュアルエディター**: Intlayer 用に設計されたエディタープラグインで開発ワークフローを改善します。[ビジュアルエディターガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) をご覧ください。
-- **柔軟な設定**: [設定ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md) に詳述された広範な設定オプションでセットアップをカスタマイズします。
-- **高度な CLI ツール**: Intlayer のコマンドラインインターフェースを使用してプロジェクトを効率的に管理します。[CLI ツールドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md) で機能を探ってください。
+- **国際化サポート**：組み込みの国際化サポートで、アプリケーションのグローバル展開を強化します。
+- **ビジュアルエディター**：Intlayer専用のエディタープラグインで開発ワークフローを改善します。[ビジュアルエディターガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
+- **設定の柔軟性**: 詳細な設定オプションを使ってセットアップをカスタマイズしましょう。詳しくは[設定ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
+- **高度なCLIツール**: Intlayerのコマンドラインインターフェースを使ってプロジェクトを効率的に管理しましょう。機能の詳細は[CLIツールのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)で確認できます。
 
 ## コアコンセプト
 
-### 辞書
+### 辞書 (Dictionary)
 
-多言語コンテンツをコードの近くに整理して、一貫性と保守性を保ちます。
+コードの近くに多言語コンテンツを整理し、一貫性と保守性を保ちましょう。
 
 - **[はじめに](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)**  
-  Intlayer でコンテンツを宣言する基本を学びます。
+  Intlayerでコンテンツを宣言する基本を学びましょう。
 
 - **[翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)**  
-  翻訳がどのように生成、保存、およびアプリケーションで利用されるかを理解します。
+  翻訳がどのように生成され、保存され、アプリケーションで利用されるかを理解します。
 
 - **[列挙](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)**  
-  さまざまな言語で繰り返しまたは固定されたデータセットを簡単に管理します。
+  複数言語にわたる繰り返しや固定データセットを簡単に管理します。
 
-- **[関数フェッチ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/function_fetching.md)**  
+- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/conditional.md)**  
+  Intlayerで条件ロジックを使用して動的なコンテンツを作成する方法を学びます。
+
+- **[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)**  
+  挿入プレースホルダーを使って文字列に値を挿入する方法を発見します。
+
+- **[関数フェッチング](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/function_fetching.md)**  
   プロジェクトのワークフローに合わせてカスタムロジックでコンテンツを動的に取得する方法を確認します。
+
+- **[マークダウン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)**  
+  Intlayerでリッチコンテンツを作成するためのMarkdownの使い方を学びます。
+
+- **[ファイル埋め込み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file_embeddings.md)**  
+  Intlayerで外部ファイルを埋め込み、コンテンツエディターで使用する方法を発見します。
+
+- **[ネスティング](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md)**  
+  Intlayerでコンテンツをネストして複雑な構造を作成する方法を理解します。
 
 ### 環境と統合
 
-Intlayer は柔軟性を念頭に設計されており、人気のあるフレームワークやビルドツールとシームレスに統合できます：
+Intlayerは柔軟性を念頭に設計されており、人気のあるフレームワークやビルドツールとのシームレスな統合を提供します：
 
 - **[Next.js 15 と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)**
-- **[Next.js 14 (App Router) と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_14.md)**
-- **[Next.js ページルーターと Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_page_router.md)**
+- **[Next.js 14（App Router）と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_14.md)**
+- **[Next.js Page Router と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_page_router.md)**
 - **[React CRA と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)**
-- **[Vite + React と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)**
-- **[Express と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_express.md)**
+- **[Vite + ReactでのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)**
+- **[React NativeとExpoでのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_react_native+expo.md)**
+- **[LynxとReactでのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_lynx+react.md)**
+- **[ExpressでのIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_express.md)**
 
-各統合ガイドには、**サーバーサイドレンダリング**、**動的ルーティング**、または **クライアントサイドレンダリング** などの Intlayer の機能を使用するためのベストプラクティスが含まれています。これにより、高速で SEO に優れた、スケーラブルなアプリケーションを維持できます。
+各統合ガイドには、**サーバーサイドレンダリング**、**動的ルーティング**、**クライアントサイドレンダリング**など、Intlayerの機能を活用するためのベストプラクティスが含まれており、高速でSEOに優れた、非常にスケーラブルなアプリケーションを維持できます。
 
 ## 貢献とフィードバック
 
-私たちはオープンソースとコミュニティ主導の開発の力を重視しています。改善提案、新しいガイドの追加、またはドキュメントの問題の修正を希望する場合は、[GitHub リポジトリ](https://github.com/aymericzip/intlayer/blob/main/docs/docs) でプルリクエストを送信するか、問題を報告してください。
+私たちはオープンソースとコミュニティ主導の開発の力を重視しています。改善提案をしたい場合、新しいガイドを追加したい場合、またはドキュメントの問題を修正したい場合は、遠慮なくプルリクエストを提出するか、[GitHubリポジトリ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja)でイシューを開いてください。
 
-**アプリケーションをより速く、より効率的に翻訳する準備はできましたか？** ドキュメントを読み進めて、今日から Intlayer を使い始めましょう。コンテンツを整理し、チームの生産性を向上させる堅牢で効率的な国際化アプローチを体験してください。
+**アプリケーションの翻訳をより速く、より効率的に始める準備はできていますか？** ぜひドキュメントに飛び込んで、今日からIntlayerを使い始めましょう。コンテンツを整理し、チームの生産性を高める、堅牢で効率的な国際化アプローチを体験してください。
 
-翻訳を楽しんでください！
+---
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

@@ -1,11 +1,8 @@
 ---
-docName: mcp_server
-url: https://intlayer.org/doc/mcp-server
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md
 createdAt: 2025-06-07
-updatedAt: 2025-06-07
-title: MCPサーバーのドキュメント
-description: MCPサーバーの機能とセットアップを探索して、サーバー管理と運用を最適化します。
+updatedAt: 2025-07-11
+title: MCPサーバー ドキュメント
+description: MCPサーバーの機能とセットアップを探り、サーバー管理と運用を最適化します。
 keywords:
   - MCPサーバー
   - サーバー管理
@@ -14,35 +11,65 @@ keywords:
   - ドキュメント
   - セットアップ
   - 機能
+slugs:
+  - doc
+  - mcp-server
 ---
 
-# Intlayer MCP サーバー
+# Intlayer MCPサーバー
 
-**Intlayer MCP (Model Context Protocol) サーバー**は、Intlayer エコシステム向けに設計されたAI支援のIDEアシスタンスを提供します。**Cursor**、**GitHub Copilot ワークスペース**、およびMCPプロトコルをサポートする任意のIDEなど、現代の開発者環境向けに設計されており、プロジェクトのセットアップに基づいたコンテキスト対応のリアルタイムサポートを提供します。
+**Intlayer MCP（Model Context Protocol）サーバー**は、Intlayerエコシステムに特化したAI搭載のIDE支援を提供します。
 
-## Intlayer MCP サーバーを使用する理由
+## どこで使えますか？
 
-IDEでIntlayer MCP サーバーを有効にすることで、以下の利点を得られます：
+- **Cursor**、**VS Code**などの最新の開発環境や、MCPプロトコルをサポートする任意のIDEで。
+- **Claude Desktop**、**Gemini**、**ChatGPT**など、お気に入りのAIアシスタントで。
 
-- **スマートCLI統合**  
-  IDEインターフェースから直接Intlayer CLIコマンドにアクセスして実行できます。コマンドとオプションの完全なリストは、[Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)で確認できます。
+## なぜIntlayer MCPサーバーを使うのか？
 
-- **コンテキスト対応ドキュメント**  
-  MCPサーバーは、プロジェクトで使用しているIntlayerのバージョンに対応するドキュメントをロードして公開します。これにより、コードの提案、コマンドオプション、および説明が常に最新で関連性のあるものになります。
+Intlayer MCPサーバーをIDEで有効にすると、以下の機能が利用可能になります。
 
-- **AI支援開発**  
-  プロジェクトに対応した提案やオートコンプリート機能を備えたAIアシスタントが、コードの説明、CLIの使用方法の推奨、または現在のファイルに基づいたIntlayerの特定機能の使用方法を提案します。
+- **コンテキスト対応ドキュメント**
+  MCPサーバーはIntlayerのドキュメントを読み込み、公開します。セットアップやマイグレーションの高速化に役立ちます。
+  これにより、コードの提案、コマンドオプション、説明が常に最新かつ関連性の高いものになります。
 
-- **軽量で即時セットアップ**  
-  サーバーメンテナンスや大規模なインストールは不要です。`.cursor/mcp.json`または同等のMCP設定を構成するだけで準備完了です。
+- **スマートCLI統合**
+  IDEのインターフェースから直接Intlayer CLIコマンドにアクセスして実行できます。MCPサーバーを使うことで、AIアシスタントに`intlayer dictionaries build`コマンドを実行させて辞書を更新したり、`intlayer dictionaries fill`コマンドで不足している翻訳を補完させたりできます。
+
+  > コマンドとオプションの完全なリストは、[Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)でご覧ください。
+
+## ローカルサーバー（stdio）とリモートサーバー（SSE）
+
+MCPサーバーは以下の2つの方法で使用できます：
+
+- ローカルサーバー（stdio）
+- リモートサーバー（SSE）
+
+### ローカルサーバー（stdio）（推奨）
+
+Intlayerは、あなたのマシンにローカルインストールできるNPMパッケージを提供しています。これは、VS CodeやCursorなどのお気に入りのIDE、またChatGPTやClaude Desktopなどのローカルアシスタントアプリケーションにもインストール可能です。
+
+このサーバーはMCPサーバーを使用する推奨方法です。CLIツールを含むMCPサーバーのすべての機能が統合されています。
+
+### リモートサーバー（SSE）
+
+MCPサーバーはSSEトランスポート方式を使用してリモートでも利用可能です。このサーバーはIntlayerによってホストされており、https://mcp.intlayer.org で利用できます。このサーバーは認証不要で公開アクセス可能で、無料で使用できます。
+
+リモートサーバーはCLIツールやAIの自動補完などを統合していないことに注意してください。リモートサーバーは、IntlayerエコシステムのAIアシスタントを支援するためのドキュメントとのやり取り専用です。
+
+> サーバーのホスティングコストのため、リモートサーバーの可用性は保証できません。同時接続数を制限しています。最も信頼性の高い体験のために、ローカルサーバー（stdio）トランスポート方式の使用を推奨します。
 
 ---
 
-## Cursor のセットアップ
+## Cursorでのセットアップ
 
-プロジェクトのルートに以下の `.cursor/mcp.json` 設定ファイルを追加します：
+CursorでMCPサーバーを設定するには、[公式ドキュメント](https://docs.cursor.com/context/mcp)に従ってください。
 
-```json
+プロジェクトのルートに、以下の `.cursor/mcp.json` 設定ファイルを追加します。
+
+### ローカルサーバー（stdio）（推奨）
+
+```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
     "intlayer": {
@@ -53,19 +80,36 @@ IDEでIntlayer MCP サーバーを有効にすることで、以下の利点を�
 }
 ```
 
-これにより、`npx` を使用してIntlayer MCPサーバーを起動するようにIDEに指示します。これにより、特定のバージョンを固定しない限り、常に最新バージョンが使用されます。
+### リモートサーバー（SSE）
+
+Server-Sent Events（SSE）を使用してリモートのIntlayer MCPサーバーに接続するには、ホストされているサービスに接続するようにMCPクライアントを設定できます。
+
+```json fileName=".cursor/mcp.json"
+{
+  "mcpServers": {
+    "intlayer": {
+      "url": "https://mcp.intlayer.org",
+      "transport": "sse"
+    }
+  }
+}
+```
+
+これは、IDEに対して`npx`を使用してIntlayer MCPサーバーを起動するよう指示し、特定のバージョンを固定しない限り常に最新の利用可能なバージョンを使用することを保証します。
 
 ---
 
-## VS Code のセットアップ
+## VS Codeでのセットアップ
 
-VS CodeでIntlayer MCPサーバーを使用するには、ワークスペースまたはユーザー設定で構成する必要があります。
+[公式ドキュメント](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)に従って、VS CodeでMCPサーバーを設定してください。
 
-### ワークスペース設定
+VS CodeでIntlayer MCPサーバーを使用するには、ワークスペースまたはユーザー設定で設定する必要があります。
+
+### ローカルサーバー（stdio）（推奨）
 
 プロジェクトのルートに `.vscode/mcp.json` ファイルを作成します：
 
-```json
+```json fileName=".vscode/mcp.json"
 {
   "servers": {
     "intlayer": {
@@ -77,92 +121,90 @@ VS CodeでIntlayer MCPサーバーを使用するには、ワークスペース�
 }
 ```
 
-### VS CodeでのMCPサーバーの使用
+### リモートサーバー（SSE）
 
-1. **エージェントモードを有効化**：チャットビューを開き（Macでは⌃⌘I、Windows/LinuxではCtrl+Alt+I）、ドロップダウンから**エージェント**モードを選択します。
+Server-Sent Events（SSE）を使用してリモートの Intlayer MCP サーバーに接続する場合、MCP クライアントをホストされているサービスに接続するように設定できます。
 
-2. **ツールにアクセス**：**ツール**ボタンをクリックして、利用可能なIntlayerツールを表示します。必要に応じて特定のツールを選択/選択解除できます。
-
-3. **直接ツール参照**：プロンプトに `#` を入力し、その後にツール名を入力することでツールを直接参照できます。
-
-4. **ツールの確認**：デフォルトでは、VS Codeはツールを実行する前に確認を求めます。**続行**ボタンオプションを使用して、現在のセッション、ワークスペース、またはすべての将来の呼び出しに対してツールを自動的に確認することができます。
-
-### サーバーの管理
-
-- コマンドパレットから **MCP: List Servers** を実行して構成済みのサーバーを表示します。
-- 必要に応じてIntlayer MCPサーバーを開始、停止、または再起動します。
-- サーバーを選択して **Show Output** を選択することで、トラブルシューティングのためのサーバーログを表示します。
-
-VS Code MCP統合に関する詳細情報は、[公式VS Code MCPドキュメント](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)をご覧ください。
+```json fileName=".vscode/mcp.json"
+{
+  "servers": {
+    "intlayer": {
+      "url": "https://mcp.intlayer.org",
+      "type": "sse"
+    }
+  }
+}
+```
 
 ---
 
-## CLI経由でのMCPサーバーの使用
+## ChatGPT でのセットアップ
 
-Intlayer MCPサーバーは、テスト、デバッグ、または他のツールとの統合のためにコマンドラインから直接実行することもできます。
+### リモートサーバー（SSE）
 
-### MCPサーバーのインストール
+ChatGPT で MCP サーバーを設定するには、[公式ドキュメント](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server)に従ってください。
 
-まず、MCPサーバーパッケージをグローバルにインストールするか、npxを介して使用します：
+1. [プロンプトダッシュボード](https://platform.openai.com/prompts)に移動します
+2. `+ 作成`をクリックします
+3. `Tools (Create or +)`をクリックします
+4. `MCP Server`を選択します
+5. `新規追加`をクリックします
+6. 以下のフィールドを入力します：
+
+   - URL: `https://mcp.intlayer.org`
+   - Label: `Intlayer MCP Server`
+   - Name: `intlayer-mcp-server`
+   - Authentication: `None`
+
+7. `保存`をクリックします
+
+---
+
+## Claude Desktopでのセットアップ
+
+[公式ドキュメント](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server)に従って、Claude DesktopでMCPサーバーを設定してください。
+
+設定ファイルのパス：
+
+- macOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+### ローカルサーバー（stdio）（推奨）
+
+```json fileName="claude_desktop_config.json"
+{
+json fileName="claude_desktop_config.json"
+{
+  "mcpServers": {
+    "intlayer": {
+      "command": "npx",
+      "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}
+```
+
+---
+
+## CLIを使ったMCPサーバーの利用
+
+Intlayer MCPサーバーは、テスト、デバッグ、または他のツールとの統合のために、コマンドラインから直接実行することもできます。
 
 ```bash
-# グローバルインストール
+# グローバルにインストール
 npm install -g @intlayer/mcp
 
 # またはnpxで直接使用（推奨）
 npx @intlayer/mcp
 ```
 
-### サーバーの起動
-
-デバッグおよびテスト用にインスペクターを使用してMCPサーバーを起動します：
-
-```bash
-# 組み込みのスタートコマンドを使用
-npm run start
-
-# またはnpxで直接
-npx @modelcontextprotocol/inspector npx @intlayer/mcp
-```
-
-これにより、以下を可能にするインスペクターインターフェースを備えたMCPサーバーが起動します：
-
-- MCPプロトコル通信のテスト
-- サーバーレスポンスのデバッグ
-- ツールおよびリソースの実装の検証
-- サーバーパフォーマンスの監視
-
-### 開発用途
-
-開発およびテスト目的で、さまざまなモードでサーバーを実行できます：
-
-```bash
-# 開発モードでビルドして開始
-npm run dev
-
-# カスタム設定で実行
-node dist/cjs/index.cjs
-
-# サーバー機能をテスト
-npm test
-```
-
-サーバーは、Cursorや他のIDEだけでなく、MCP互換のクライアントが利用できるIntlayer固有のツールとリソースを公開します。
-
 ---
 
-## 機能概要
+## ドキュメント履歴
 
-| 機能                       | 説明                                                                           |
-| -------------------------- | ------------------------------------------------------------------------------ |
-| CLIサポート                | `intlayer` コマンドを実行し、使用ヒントや引数をインラインで取得                |
-| バージョン管理ドキュメント | 現在使用しているIntlayerのバージョンに一致するドキュメントを自動検出してロード |
-| オートコンプリート         | コマンドや設定の入力中にインテリジェントな提案を提供                           |
-| プラグイン対応             | MCP標準をサポートするIDEやツールと互換性あり                                   |
-
----
-
-## 便利なリンク
-
-- [Intlayer CLI ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
-- [Intlayer GitHub リポジトリ](https://github.com/aymericzip/intlayer)
+| バージョン | 日付       | 変更内容                              |
+| ---------- | ---------- | ------------------------------------- |
+| 5.5.12     | 2025-07-11 | ChatGPTのセットアップを追加           |
+| 5.5.12     | 2025-07-10 | Claude Desktopのセットアップを追加    |
+| 5.5.12     | 2025-07-10 | SSEトランスポートと遠隔サーバーを追加 |
+| 5.5.10     | 2025-06-29 | 履歴の初期化                          |

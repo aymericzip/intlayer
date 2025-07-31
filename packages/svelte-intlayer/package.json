@@ -1,6 +1,6 @@
 {
   "name": "svelte-intlayer",
-  "version": "5.5.10",
+  "version": "5.7.5",
   "private": false,
   "description": "Easily internationalize i18n your Svelte applications with type-safe multilingual content management.",
   "keywords": [
@@ -57,15 +57,16 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "pnpm clean & pnpm build:ci",
+    "build:ci": "vite build",
     "clean": "rimraf ./dist",
     "dev": "vite build --watch",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "reset": "pnpm clean & pnpm build",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {

@@ -1,9 +1,6 @@
 ---
-docName: intlayer_visual_editor
-url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer Visual Editor | Edit your content using a visual editor
 description: Discover how to use the Intlayer Editor to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - editor
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer Visual Editor Documentation
@@ -260,3 +262,9 @@ If you encounter any issues with the visual editor, check the following:
     - The application URL should match the one you set in the editor configuration (`applicationURL`).
 
 - The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS url as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

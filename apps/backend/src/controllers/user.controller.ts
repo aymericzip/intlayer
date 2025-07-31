@@ -1,6 +1,6 @@
+import type { User, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { sendEmail } from '@services/email.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -8,6 +8,7 @@ import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFilter
 import { getOrganizationFiltersAndPagination } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import type { UserFiltersParam } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import { mapUsersToAPI, mapUserToAPI } from '@utils/mapper/user';
+import { hasPermission } from '@utils/permissions';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -16,12 +17,6 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { SessionProviders } from '@/types/session.types';
-import type {
-  User,
-  UserAPI,
-  UserWithPasswordNotHashed,
-} from '@/types/user.types';
 
 export type CreateUserBody = { email: string; password?: string };
 export type CreateUserResult = ResponseData<UserAPI>;
@@ -30,11 +25,11 @@ export type CreateUserResult = ResponseData<UserAPI>;
  * Creates a new user.
  */
 export const createUser = async (
-  req: Request<any, any, UserWithPasswordNotHashed>,
-  res: ResponseWithInformation<CreateUserResult>,
+  req: Request<any, any, User>,
+  res: ResponseWithSession<CreateUserResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const user: UserWithPasswordNotHashed | undefined = req.body;
+  const user: User | undefined = req.body;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -48,7 +43,7 @@ export const createUser = async (
       type: 'welcome',
       to: newUser.email,
       username: newUser.name,
-      loginLink: getSessionAuthRoutes().loginEmailPassword.url,
+      loginLink: `${process.env.CLIENT_URL}/auth/login`,
     });
 
     const formattedUser = mapUserToAPI(newUser);
@@ -83,10 +78,10 @@ export type GetUsersResult = PaginatedResponse<UserAPI>;
  */
 export const getUsers = async (
   req: Request<GetUsersParams>,
-  res: ResponseWithInformation<GetUsersResult>,
+  res: ResponseWithSession<GetUsersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user } = res.locals;
+  const { user, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -98,6 +93,20 @@ export const getUsers = async (
 
   try {
     const users = await userService.findUsers(filters, skip, pageSize);
+
+    if (
+      !hasPermission(
+        roles,
+        'user:read'
+      )({
+        ...res.locals,
+        targetUsers: users,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
     const totalItems = await userService.countUsers(filters);
 
     const formattedUsers = mapUsersToAPI(users);
@@ -123,7 +132,7 @@ export type GetUserByIdResult = ResponseData<UserAPI>;
 
 export const getUserById = async (
   req: Request<GetUserByIdParams>,
-  res: ResponseWithInformation<GetUserByIdResult>,
+  res: ResponseWithSession<GetUserByIdResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
@@ -152,16 +161,30 @@ export type GetUserByEmailResult = ResponseData<UserAPI>;
 
 export const getUserByEmail = async (
   req: Request<GetUserByEmailParams>,
-  res: ResponseWithInformation<GetUserByEmailResult>,
+  res: ResponseWithSession<GetUserByEmailResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { email } = req.params;
+  const { roles } = res.locals;
 
   try {
     const user = await userService.getUserByEmail(email);
 
     if (!user) {
       ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+      return;
+    }
+
+    if (
+      !hasPermission(
+        roles,
+        'user:read'
+      )({
+        ...res.locals,
+        targetUsers: [user],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
       return;
     }
 
@@ -175,37 +198,6 @@ export const getUserByEmail = async (
   }
 };
 
-export type GetUserByAccountParams = {
-  providerAccountId: string;
-  provider: SessionProviders['provider'];
-};
-export type GetUserByAccountResult = ResponseData<UserAPI>;
-
-/**
- * Retrieves a user by account.
- */
-export const getUserByAccount = async (
-  req: Request<GetUserByAccountParams>,
-  res: ResponseWithInformation<GetUserByAccountResult>,
-  _next: NextFunction
-): Promise<void> => {
-  const { providerAccountId, provider } = req.params;
-
-  try {
-    const user = await userService.getUserByAccount(
-      provider,
-      providerAccountId
-    );
-
-    const formattedUser = mapUserToAPI(user);
-    const responseData = formatResponse<UserAPI>({ data: formattedUser });
-
-    res.json(responseData);
-  } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-  }
-};
-
 export type UpdateUserBody = Partial<User>;
 export type UpdateUserResult = ResponseData<UserAPI>;
 
@@ -214,11 +206,11 @@ export type UpdateUserResult = ResponseData<UserAPI>;
  */
 export const updateUser = async (
   req: Request<any, any, UpdateUserBody | undefined>,
-  res: ResponseWithInformation<UpdateUserResult>,
+  res: ResponseWithSession<UpdateUserResult>,
   _next: NextFunction
 ): Promise<void> => {
   const userData = req.body;
-  const { user } = res.locals;
+  const { user, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -230,11 +222,24 @@ export const updateUser = async (
     return;
   }
 
+  if (
+    !hasPermission(
+      roles,
+      'user:write'
+    )({
+      ...res.locals,
+      targetUsers: [userData as User],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
+
   try {
-    const updatedUser = await userService.updateUserById(user._id, userData);
+    const updatedUser = await userService.updateUserById(user.id, userData);
 
     logger.info(
-      `User updated: Name: ${updatedUser.name}, id: ${String(updatedUser._id)}`
+      `User updated: Name: ${updatedUser.name}, id: ${String(updatedUser.id)}`
     );
 
     const formattedUser = mapUserToAPI(updatedUser);
@@ -267,14 +272,35 @@ export type DeleteUserResult = ResponseData<UserAPI>;
  * Deletes a user based on the provided ID.
  */
 export const deleteUser = async (
-  req: Request<any, any, DeleteUserParams>,
-  res: ResponseWithInformation<DeleteUserResult>,
+  req: Request<DeleteUserParams>,
+  res: ResponseWithSession<DeleteUserResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { userId } = req.params;
+  const { roles } = res.locals;
 
   try {
-    const user = await userService.deleteUser(userId);
+    const user = await userService.getUserById(userId);
+
+    if (!user) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
+
+    if (
+      !hasPermission(
+        roles,
+        'user:admin'
+      )({
+        ...res.locals,
+        targetUsers: [user],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    await userService.deleteUser(userId);
 
     const formattedUser = mapUserToAPI(user);
     const responseData = formatResponse<UserAPI>({
@@ -296,4 +322,64 @@ export const deleteUser = async (
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
     return;
   }
+};
+
+let clients: Array<{ id: number; userId: string; res: ResponseWithSession }> =
+  [];
+
+export const sendVerificationUpdate = (user: User) => {
+  const filteredClients = clients.filter(
+    (client) => String(client.userId) === String(user.id)
+  );
+
+  for (const client of filteredClients) {
+    if (user.emailVerified) {
+      client.res.write(
+        `data: ${JSON.stringify({ userId: user.id, status: 'verified' })}\n\n`
+      );
+    }
+  }
+};
+
+export type VerifyEmailStatusSSEParams = { userId: string };
+
+/**
+ * SSE to check the email verification status
+ */
+export const verifyEmailStatusSSE = async (
+  req: Request<VerifyEmailStatusSSEParams, any, any>,
+  res: ResponseWithSession
+) => {
+  // Set headers for SSE
+  res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no'); // For Nginx buffering
+
+  // Send initial data to ensure the connection is open
+  res.write(':\n\n'); // Comment to keep connection alive
+  res.flushHeaders();
+
+  const { userId } = req.params; // Get user ID from query parameters
+  const clientId = Date.now();
+
+  const user = await userService.getUserById(userId);
+
+  if (!user) {
+    logger.error(`User not found - User ID: ${userId}`);
+    res.write(`data: ${JSON.stringify({ userId, status: 'error' })}\n\n`);
+    res.end();
+    return;
+  }
+
+  // Add client to the list
+  const newClient = { id: clientId, userId, res };
+  clients.push(newClient);
+
+  sendVerificationUpdate(user);
+
+  // Remove client on connection close
+  req.on('close', () => {
+    clients = clients.filter((client) => client.id !== clientId);
+  });
 };

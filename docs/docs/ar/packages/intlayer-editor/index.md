@@ -1,12 +1,32 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: intlayer-editor - حزمة محرر الترجمة المرئية
+description: حزمة محرر مرئي لـ Intlayer توفر واجهة بديهية لإدارة الترجمات وتحرير المحتوى التعاوني بمساعدة الذكاء الاصطناعي.
+keywords:
+  - intlayer
+  - محرر
+  - مرئي
+  - ترجمة
+  - تعاوني
+  - ذكاء اصطناعي
+  - NPM
+  - واجهة
+slugs:
+  - doc
+  - package
+  - intlayer-editor
+---
+
 # intlayer-editor: حزمة NPM لاستخدام محرر Intlayer المرئي
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وReact وExpress.js.
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافاسكريبت. وهي متوافقة مع أُطُر العمل مثل React وExpress.js.
 
 حزمة **`intlayer-editor`** هي حزمة NPM تدمج محرر Intlayer المرئي في مشروع React الخاص بك.
 
 ## كيف يعمل محرر Intlayer
 
-يسمح محرر Intlayer بالتفاعل مع قاموس Intlayer البعيد. يمكن تثبيته على جانب العميل وتحويل تطبيقك إلى محرر يشبه CMS لإدارة محتوى موقعك بجميع اللغات المُعدة.
+يسمح محرر intlayer بالتفاعل مع قاموس Intlayer البعيد. يمكن تثبيته على جانب العميل وتحويل تطبيقك إلى محرر يشبه نظام إدارة المحتوى (CMS) لإدارة محتوى موقعك بجميع اللغات المُعدة.
 
 ![واجهة محرر Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
@@ -26,29 +46,29 @@ pnpm add intlayer-editor
 yarn add intlayer-editor
 ```
 
-### التكوين
+### التهيئة
 
-في ملف تكوين Intlayer الخاص بك، يمكنك تخصيص إعدادات المحرر:
+في ملف تهيئة Intlayer الخاص بك، يمكنك تخصيص إعدادات المحرر:
 
 ```typescript
 const config: IntlayerConfig = {
-  // ... إعدادات التكوين الأخرى
+  // ... إعدادات التهيئة الأخرى
   editor: {
-    enabled: process.env.INTLAYER_ENABLED === "true", // إذا كانت القيمة false، فإن المحرر غير نشط ولا يمكن الوصول إليه.
-    // معرف العميل والسر الخاص بالعميل مطلوبان لتفعيل المحرر.
-    // يسمحان بتحديد هوية المستخدم الذي يقوم بتحرير المحتوى.
-    // يمكن الحصول عليهما عن طريق إنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://intlayer.org/dashboard/projects).
+    enabled: process.env.INTLAYER_ENABLED === "true", // إذا كانت القيمة false، يكون المحرر غير نشط ولا يمكن الوصول إليه.
+    // معرف العميل والسر السري للعميل مطلوبان لتمكين المحرر.
+    // يسمحان بتحديد المستخدم الذي يقوم بتحرير المحتوى.
+    // يمكن الحصول عليهما بإنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://intlayer.org/dashboard/projects).
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 ```
 
-> إذا لم يكن لديك معرف عميل وسر خاص بالعميل، يمكنك الحصول عليهما عن طريق إنشاء عميل جديد في [لوحة تحكم Intlayer - المشاريع](https://intlayer.org/dashboard/projects).
+> إذا لم يكن لديك معرف عميل وسر عميل، يمكنك الحصول عليهما بإنشاء عميل جديد في [لوحة تحكم Intlayer - المشاريع](https://intlayer.org/dashboard/projects).
 
-> لرؤية جميع المعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+> للاطلاع على جميع المعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
-حزمة `intlayer-editor` تعتمد على Intlayer ومتاحة لتطبيقات JavaScript، مثل React (Create React App)، Vite + React، وNext.js.
+حزمة `intlayer-editor` مبنية على Intlayer ومتاحة لتطبيقات جافا سكريبت، مثل React (Create React App)، Vite + React، وNext.js.
 
 لمزيد من التفاصيل حول كيفية تثبيت الحزمة، راجع القسم المناسب أدناه:
 
@@ -78,7 +98,7 @@ const config: IntlayerConfig = {
     return (
       <IntlayerProvider>
         <IntlayerEditorProvider>
-          <IntlayerEditor>{/* محتوى التطبيق الخاص بك هنا */}</IntlayerEditor>
+          <IntlayerEditor>{/* محتوى تطبيقك هنا */}</IntlayerEditor>
         </IntlayerEditorProvider>
       </IntlayerProvider>
     );
@@ -106,8 +126,12 @@ const config: IntlayerConfig = {
 
 ## استخدام المحرر
 
-عندما يتم تثبيت المحرر وتفعيله وتشغيله، يمكنك عرض كل حقل مفهرس بواسطة Intlayer عن طريق التمرير فوق المحتوى الخاص بك باستخدام المؤشر.
+عند تثبيت المحرر وتمكينه وتشغيله، يمكنك عرض كل حقل مفهرس بواسطة Intlayer عن طريق تحريك المؤشر فوق المحتوى الخاص بك.
 
-![التمرير فوق المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
+![التحويم فوق المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
-إذا كان المحتوى الخاص بك محددًا، يمكنك الضغط عليه مطولًا لعرض درج التحرير.
+إذا كان المحتوى الخاص بك محددًا بإطار، يمكنك الضغط المطول عليه لعرض درج التحرير.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بدء التاريخ

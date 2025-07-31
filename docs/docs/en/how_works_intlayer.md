@@ -1,9 +1,6 @@
 ---
-docName: how_works_intlayer
-url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
-updatedAt: 2024-08-12
+updatedAt: 2025-06-29
 title: How Intlayer Works
 description: Learn how Intlayer operates internally. Understand the architecture and components that make Intlayer powerful.
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - Architecture
   - Components
   - Internal workings
+slugs:
+  - doc
+  - concept
+  - how-works-intlayer
 ---
 
 # How Intlayer Works
@@ -94,7 +95,7 @@ Intlayer also provides a visual editor to allow you to edit your content in a vi
 - The server is a simple Express application that listens to requests from the client and retreives the content of your application, such as the `dictionaries` and the configuration to make it accessible on the client side.
 - On the other hand, the client is a React application that is used to interact with your content using a visual interface.
 
-When you call your content using `useIntlayer` and the editor is enabled, it automatically wraps your strings with an Proxy object named `IntlayerNode`. This node uses `window.sendMessage` to communicate with a wrapped iframe containing the visual editor interface.
+When you call your content using `useIntlayer` and the editor is enabled, it automatically wraps your strings with an Proxy object named `IntlayerNode`. This node uses `window.postMessage` to communicate with a wrapped iframe containing the visual editor interface.
 On the editor side, the editor listens to these messages and simulates real interaction with your content, allowing you to edit text directly in your application's context.
 
 ## App build optimization
@@ -105,7 +106,7 @@ The Babel and SWC plugins work by analyzing your application's Abstract Syntax T
 
 In development mode, Intlayer uses a centralized static import for dictionaries to simplify the development experience.
 
-By activating the option `activateDynamicImport` in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md), Intlayer will use the dynamic import to load the dictionaries. This option is disabled by default to avoid async processing when rendering the application.
+By activating the option `importMode = "dynamic"` in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md), Intlayer will use the dynamic import to load the dictionaries. This option is disabled by default to avoid async processing when rendering the application.
 
 > `@intlayer/babel` is available by default on `vite-intlayer` package,
 
@@ -228,7 +229,7 @@ The `@intlayer/editor-react` package provides states, contexts, hooks and compon
 
 The `@intlayer/babel` package provides tools that optimize bundling of dictionaries for Vite and Webpack based applications.
 
-### @intlayer/swc (WIP)
+### @intlayer/swc
 
 The `@intlayer/swc` package provides tools that optimize bundling of dictionaries for Next.js applications.
 
@@ -247,3 +248,9 @@ The `@intlayer/backend` package exports backend types and will eventually offer 
 ## Chat with our smart documentation
 
 - [Ask your questions to our smart documentation](https://intlayer.org/doc/chat)
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

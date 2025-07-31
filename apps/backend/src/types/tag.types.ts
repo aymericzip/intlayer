@@ -1,5 +1,7 @@
-import type { ObjectId, Document, Model } from 'mongoose';
+import { RenameId } from '@utils/mongoDB/types';
+import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Organization } from './organization.types';
+import { Project } from './project.types';
 import type { User } from './user.types';
 
 export type TagCreationData = {
@@ -14,18 +16,19 @@ export type TagData = {
   name?: string;
   description?: string;
   instructions?: string;
-  creatorId: User['_id'];
-  organizationId: Organization['_id'];
+  creatorId: User['id'];
+  projectId: Project['id'];
+  organizationId: Organization['id'];
 };
 
 export type Tag = TagData & {
-  _id: ObjectId;
+  id: Types.ObjectId;
   createdAt: number;
   updatedAt: number;
 };
 
-export type TagAPI = Tag;
+export type TagAPI = ObjectIdToString<Tag>;
 
-export type TagDocument = Document<unknown, {}, Tag> & Tag;
-
+export type TagSchema = RenameId<Tag>;
 export type TagModelType = Model<Tag>;
+export type TagDocument = Document<unknown, {}, Tag> & Tag;

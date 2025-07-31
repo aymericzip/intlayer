@@ -1,20 +1,22 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer CMS | अपने कंटेंट को Intlayer CMS में बाहर निकालें
-description: अपने कंटेंट को अपने टीम के लिए अनुरोध करने के लिए अपने कंटेंट को Intlayer CMS में बाहर निकालें।
+description: अपने कंटेंट को अपने टीम के लिए प्रबंधन सौंपने के लिए Intlayer CMS में बाहर निकालें।
 keywords:
   - CMS
-  - वीजियो संपादक
+  - विज़ुअल एडिटर
   - अंतर्राष्ट्रीयकरण
   - प्रलेखन
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer सामग्री प्रबंधन प्रणाली (CMS) दस्तावेज़ीकरण
@@ -194,7 +196,6 @@ const config = {
      *
      * Intlayer CMS का URL।
      * डिफ़ॉल्ट रूप से, यह https://intlayer.org पर सेट है।
-     */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
@@ -259,7 +260,6 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 Intlayer CMS तब शब्दकोशों को हॉट रीलोड कर सकता है जब कोई परिवर्तन पता चलता है।
 
 हॉट रीलोडिंग के बिना, नई सामग्री प्रदर्शित करने के लिए एप्लिकेशन का एक नया निर्माण आवश्यक होगा।
-
 [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) कॉन्फ़िगरेशन को सक्रिय करके, एप्लिकेशन स्वचालित रूप से अद्यतन सामग्री को प्रतिस्थापित करेगा जब इसे पता लगाया जाएगा।
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -333,8 +333,7 @@ module.exports = config;
 
 - सर्वर पक्ष पर, आपको यह सुनिश्चित करना चाहिए कि एप्लिकेशन प्रक्रिया को `.intlayer/dictionaries` निर्देशिका में लिखने की अनुमति है।
 - क्लाइंट पक्ष पर, हॉट रीलोडिंग एप्लिकेशन को ब्राउज़र में सामग्री को हॉट रीलोड करने की अनुमति देता है, बिना पृष्ठ को पुनः लोड करने की आवश्यकता के। हालांकि, यह सुविधा केवल क्लाइंट्स घटकों के लिए उपलब्ध है।
-
-> क्योंकि हॉट रीलोडिंग को सर्वर के साथ एक निरंतर कनेक्शन की आवश्यकता होती है, यह केवल `एंटरप्राइज़` योजना के ग्राहकों के लिए उपलब्ध है।
+  > क्योंकि हॉट रीलोडिंग को सर्वर के साथ `EventListener` का उपयोग करके एक निरंतर कनेक्शन की आवश्यकता होती है, यह केवल `एंटरप्राइज़` योजना के ग्राहकों के लिए उपलब्ध है।
 
 ## डिबग
 
@@ -349,5 +348,8 @@ module.exports = config;
     - CMS URL
 
 - सुनिश्चित करें कि प्रोजेक्ट कॉन्फ़िगरेशन को Intlayer CMS पर अपलोड किया गया है।
-
 - दृश्य संपादक आपकी वेबसाइट को प्रदर्शित करने के लिए एक iframe का उपयोग करता है। सुनिश्चित करें कि आपकी वेबसाइट की सामग्री सुरक्षा नीति (CSP) CMS URL को `frame-ancestors` के रूप में अनुमति देती है ('https://intlayer.org' डिफ़ॉल्ट रूप से)। किसी भी त्रुटि के लिए संपादक कंसोल की जांच करें।
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

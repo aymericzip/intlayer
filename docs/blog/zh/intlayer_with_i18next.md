@@ -1,3 +1,24 @@
+---
+createdAt: 2024-12-24
+updatedAt: 2025-06-29
+title: Intlayer 和 i18next
+description: 将 Intlayer 与 i18next 集成以实现最佳国际化。比较两个框架并了解如何配置它们。
+keywords:
+  - Intlayer
+  - i18next
+  - 国际化
+  - i18n
+  - 本地化
+  - 翻译
+  - React
+  - Next.js
+  - JavaScript
+  - TypeScript
+slugs:
+  - blog
+  - intlayer-with-i18next
+---
+
 # 国际化与 Intlayer 和 i18next
 
 i18next 是一个开源国际化 (i18n) 框架，旨在用于 JavaScript 应用程序。它广泛用于管理翻译、定位和软件项目中的语言切换。然而，它有一些限制，可能会使可扩展性和开发变得复杂。

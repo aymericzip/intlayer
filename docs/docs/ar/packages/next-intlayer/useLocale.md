@@ -1,38 +1,40 @@
 ---
-docName: package__next-intlayer__useLocale
-url: https://intlayer.org/doc/packages/next-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: وثائق hook useLocale | next-intlayer
-description: شاهد كيفية استخدام hook useLocale لحزمة next-intlayer
+updatedAt: 2025-06-29
+title: توثيق هوك useLocale | next-intlayer
+description: تعرف على كيفية استخدام هوك useLocale لحزمة next-intlayer
 keywords:
   - useLocale
-  - قاموس
-  - مفتاح
+  - القاموس
+  - المفتاح
   - Intlayer
-  - الترجمة الدولية
-  - الوثائق
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافا سكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useLocale
 ---
 
-# Next.js التكامل: توثيق `useLocale` Hook لـ `next-intlayer`
+# تكامل Next.js: توثيق هوك `useLocale` لحزمة `next-intlayer`
 
-يوفر هذا القسم توثيقًا مفصلًا حول `useLocale` hook المصمم لتطبيقات Next.js ضمن مكتبة `next-intlayer`. تم تصميمه للتعامل مع تغييرات اللغة والتوجيه بكفاءة.
+تقدم هذه القسم توثيقًا مفصلًا لهوك `useLocale` المصمم خصيصًا لتطبيقات Next.js ضمن مكتبة `next-intlayer`. تم تصميمه للتعامل مع تغييرات اللغة والتوجيه بكفاءة.
 
 ## استيراد `useLocale` في Next.js
 
-لاستخدام `useLocale` hook في تطبيق Next.js الخاص بك، قم باستيراده كما هو موضح أدناه:
+لاستخدام هوك `useLocale` في تطبيق Next.js الخاص بك، قم باستيراده كما هو موضح أدناه:
 
 ```javascript
-import { useLocale } from "next-intlayer"; // يُستخدم لإدارة اللغات والتوجيه في Next.js
+import { useLocale } from "next-intlayer"; // يستخدم لإدارة اللغات والتوجيه في Next.js
 ```
 
 ## الاستخدام
 
-إليك كيفية تنفيذ `useLocale` hook داخل مكون Next.js:
+إليك كيفية تنفيذ هوك `useLocale` داخل مكون Next.js:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -110,16 +112,20 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## المعلمات وقيم الإرجاع
+## المعاملات وقيم الإرجاع
 
-عند استدعاء `useLocale` hook، فإنه يُرجع كائنًا يحتوي على الخصائص التالية:
+عند استدعاء الـ `useLocale` هوك، فإنه يعيد كائن يحتوي على الخصائص التالية:
 
 - **`locale`**: اللغة الحالية كما تم تعيينها في سياق React.
-- **`defaultLocale`**: اللغة الأساسية المحددة في التكوين.
-- **`availableLocales`**: قائمة بجميع اللغات المتاحة كما تم تعريفها في التكوين.
-- **`setLocale`**: وظيفة لتغيير لغة التطبيق وتحديث عنوان URL وفقًا لذلك. تتعامل مع قواعد الإضافة، سواء لإضافة اللغة إلى المسار أم لا بناءً على التكوين. تستخدم `useRouter` من `next/navigation` لوظائف التوجيه مثل `push` و `refresh`.
-- **`pathWithoutLocale`**: خاصية محسوبة تُرجع المسار بدون اللغة. وهي مفيدة لمقارنة عناوين URL. على سبيل المثال، إذا كانت اللغة الحالية هي `fr`، والعنوان `fr/my_path`، فإن المسار بدون اللغة هو `/my_path`. تستخدم `usePathname` من `next/navigation` للحصول على المسار الحالي.
+- **`defaultLocale`**: اللغة الأساسية المعرفة في الإعدادات.
+- **`availableLocales`**: قائمة بجميع اللغات المتاحة كما هو معرف في الإعدادات.
+- **`setLocale`**: دالة لتغيير لغة التطبيق وتحديث عنوان URL وفقًا لذلك. تتولى قواعد البادئة، سواء بإضافة اللغة إلى المسار أو لا بناءً على الإعدادات. تستخدم `useRouter` من `next/navigation` لوظائف التنقل مثل `push` و `refresh`.
+- **`pathWithoutLocale`**: خاصية محسوبة تُرجع المسار بدون اللغة. وهي مفيدة لمقارنة عناوين URL. على سبيل المثال، إذا كانت اللغة الحالية هي `fr`، وكان عنوان URL هو `fr/my_path`، فإن المسار بدون اللغة هو `/my_path`. تستخدم `usePathname` من `next/navigation` للحصول على المسار الحالي.
 
 ## الخاتمة
 
-يُعد `useLocale` hook من `next-intlayer` أداة أساسية لإدارة اللغات في تطبيقات Next.js. يوفر نهجًا متكاملًا لتكييف تطبيقك مع لغات متعددة من خلال التعامل مع تخزين اللغة، وإدارة الحالة، وتعديلات عناوين URL بسلاسة.
+تُعد دالة `useLocale` من مكتبة `next-intlayer` أداةً أساسية لإدارة اللغات في تطبيقات Next.js. فهي تقدم نهجًا متكاملاً لتكييف تطبيقك مع لغات متعددة من خلال التعامل بسلاسة مع تخزين اللغة، وإدارة الحالة، وتعديلات عناوين URL.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

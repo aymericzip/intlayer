@@ -1,10 +1,11 @@
 'use client';
 
 import { type EmailsList } from '@intlayer/backend';
-import { Container, Form, useForm, useUser } from '@intlayer/design-system';
+import { Container, Form, useForm } from '@intlayer/design-system';
 import {
   usePersistedStore,
   useSubscribeToNewsletter,
+  useUser,
 } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import { Mail, X } from 'lucide-react';

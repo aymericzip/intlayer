@@ -1,33 +1,52 @@
 'use client';
 
-import {
-  AuthenticationBarrierClient as AuthenticationBarrierClientUI,
-  type AuthenticationBarrierProps as AuthenticationBarrierPropsUI,
-} from '@intlayer/design-system';
-import { useRouter } from 'next/navigation';
-import { type FC } from 'react';
 import { PagesRoutes } from '@/Routes';
+import { Loader } from '@intlayer/design-system';
+import { useSession } from '@intlayer/design-system/hooks';
+import { useRouter } from 'next/navigation';
+import { useEffect, type FC } from 'react';
+import {
+  accessValidation,
+  AuthenticationBarrierProps,
+} from './accessValidation';
 
-type AuthenticationBarrierProps = Omit<
-  AuthenticationBarrierPropsUI,
+type AuthenticationBarrierPropsCliet = Omit<
+  AuthenticationBarrierProps,
   'sessionToken' | 'redirectionFunction'
 > & {
   redirectionRoute?: PagesRoutes | string;
 };
 
-export const AuthenticationBarrierClient: FC<AuthenticationBarrierProps> = ({
+export const AuthenticationBarrierClient: FC<
+  AuthenticationBarrierPropsCliet
+> = ({
   children,
   redirectionRoute = PagesRoutes.Home,
-  ...props
+  session: sessionProp,
+  accessRule,
+  isEnabled,
 }) => {
   const router = useRouter();
-  return (
-    <AuthenticationBarrierClientUI
-      {...props}
-      redirectionRoute={redirectionRoute}
-      redirectionFunction={router.push}
-    >
-      {children}
-    </AuthenticationBarrierClientUI>
-  );
+  const { session: sessionClient, setSession } = useSession(sessionProp);
+  const isLoading = sessionClient === undefined && sessionProp === undefined;
+
+  useEffect(() => {
+    if (!sessionClient && sessionProp) {
+      setSession(sessionProp ?? null);
+    }
+  }, [sessionClient, sessionProp, setSession]);
+
+  useEffect(() => {
+    if (typeof sessionClient !== 'undefined') {
+      accessValidation(
+        accessRule,
+        sessionClient,
+        router.push,
+        redirectionRoute,
+        isEnabled
+      );
+    }
+  }, [accessRule, redirectionRoute, sessionClient, isEnabled]);
+
+  return <Loader isLoading={isLoading}>{children}</Loader>;
 };

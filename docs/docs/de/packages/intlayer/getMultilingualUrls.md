@@ -1,11 +1,8 @@
 ---
-docName: package__intlayer__getMultilingualUrls
-url: https://intlayer.org/doc/packages/intlayer/getMultilingualUrls
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Dokumentation der t-Funktion | intlayer
-description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetMultilingualUrls verwenden
+updatedAt: 2025-06-29
+title: getMultilingualUrls Funktionsdokumentation | intlayer
+description: Siehe, wie die Funktion getMultilingualUrls für das intlayer-Paket verwendet wird
 keywords:
   - getMultilingualUrls
   - Übersetzung
@@ -16,13 +13,18 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getMultilingualUrls
 ---
 
 # Dokumentation: `getMultilingualUrls` Funktion in `intlayer`
 
 ## Beschreibung
 
-Die Funktion `getMultilingualUrls` generiert eine Zuordnung von mehrsprachigen URLs, indem sie die gegebene URL mit jedem unterstützten Gebietsschema (Locale) präfixiert. Sie kann sowohl absolute als auch relative URLs verarbeiten und wendet das entsprechende Gebietsschema-Präfix basierend auf der bereitgestellten Konfiguration oder den Standardwerten an.
+Die Funktion `getMultilingualUrls` erzeugt eine Zuordnung mehrsprachiger URLs, indem sie die gegebene URL mit jedem unterstützten Gebietsschema (Locale) voranstellt. Sie kann sowohl absolute als auch relative URLs verarbeiten und wendet das entsprechende Gebietsschema-Präfix basierend auf der bereitgestellten Konfiguration oder den Standardwerten an.
 
 ---
 
@@ -30,34 +32,34 @@ Die Funktion `getMultilingualUrls` generiert eine Zuordnung von mehrsprachigen U
 
 - `url: string`
 
-  - **Beschreibung**: Die ursprüngliche URL-Zeichenkette, die mit Gebietsschemata präfixiert werden soll.
+  - **Beschreibung**: Der ursprüngliche URL-String, der mit Gebietsschemata vorangestellt werden soll.
   - **Typ**: `string`
 
 - `locales: Locales[]`
 
-  - **Beschreibung**: Optionale Liste der unterstützten Gebietsschemata. Standardmäßig werden die im Projekt konfigurierten Gebietsschemata verwendet.
+  - **Beschreibung**: Optionale Liste der unterstützten Gebietsschemata. Standardmäßig die im Projekt konfigurierten Gebietsschemata.
   - **Typ**: `Locales[]`
   - **Standard**: `localesDefault`
 
 - `defaultLocale: Locales`
 
-  - **Beschreibung**: Das Standard-Gebietsschema für die Anwendung. Standardmäßig wird das im Projekt konfigurierte Standard-Gebietsschema verwendet.
+  - **Beschreibung**: Das Standardgebietsschema für die Anwendung. Standardmäßig das im Projekt konfigurierte Standardgebietsschema.
   - **Typ**: `Locales`
   - **Standard**: `defaultLocaleDefault`
 
 - `prefixDefault: boolean`
-  - **Beschreibung**: Gibt an, ob das Standard-Gebietsschema präfixiert werden soll. Standardmäßig wird der im Projekt konfigurierte Wert verwendet.
+  - **Beschreibung**: Ob das Standard-Gebietsschema vorangestellt werden soll. Standardmäßig der im Projekt konfigurierte Wert.
   - **Typ**: `boolean`
   - **Standard**: `prefixDefaultDefault`
 
-### Rückgabewerte
+### Rückgabewert
 
 - **Typ**: `IConfigLocales<string>`
 - **Beschreibung**: Ein Objekt, das jedes Gebietsschema seiner entsprechenden mehrsprachigen URL zuordnet.
 
 ---
 
-## Beispielverwendung
+## Beispielhafte Verwendung
 
 ### Relative URLs
 
@@ -127,25 +129,25 @@ getMultilingualUrls(
 
 - **Kein Gebietsschema-Segment:**
 
-  - Die Funktion entfernt vorhandene Gebietsschema-Segmente aus der URL, bevor die mehrsprachigen Zuordnungen generiert werden.
+  - Die Funktion entfernt jeglichen vorhandenen Sprachabschnitt aus der URL, bevor die mehrsprachigen Zuordnungen generiert werden.
 
-- **Standard-Gebietsschema:**
+- **Standard-Sprache:**
 
-  - Wenn `prefixDefault` auf `false` gesetzt ist, wird die URL für das Standard-Gebietsschema nicht präfixiert.
+  - Wenn `prefixDefault` auf `false` gesetzt ist, wird die URL für die Standardsprache nicht mit einem Präfix versehen.
 
-- **Nicht unterstützte Gebietsschemata:**
-  - Es werden nur die Gebietsschemata berücksichtigt, die im Array `locales` bereitgestellt werden.
+- **Nicht unterstützte Sprachen:**
+  - Es werden nur die Sprachen berücksichtigt, die im `locales`-Array angegeben sind, um die URLs zu generieren.
 
 ---
 
 ## Verwendung in Anwendungen
 
-In einer mehrsprachigen Anwendung ist die Konfiguration der Internationalisierungseinstellungen mit `locales` und `defaultLocale` entscheidend, um sicherzustellen, dass die richtige Sprache angezeigt wird. Unten finden Sie ein Beispiel, wie `getMultilingualUrls` in einer Anwendungskonfiguration verwendet werden kann:
+In einer mehrsprachigen Anwendung ist die Konfiguration der Internationalisierungseinstellungen mit `locales` und `defaultLocale` entscheidend, um sicherzustellen, dass die richtige Sprache angezeigt wird. Nachfolgend ein Beispiel, wie `getMultilingualUrls` in einer Anwendungs-Konfiguration verwendet werden kann:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// Konfiguration für unterstützte Gebietsschemata und Standard-Gebietsschema
+// Konfiguration für unterstützte Sprachen und Standardsprache
 export default {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -184,9 +186,9 @@ const config = {
 module.exports = config;
 ```
 
-Die obige Konfiguration stellt sicher, dass die Anwendung `ENGLISH`, `FRENCH` und `SPANISH` als unterstützte Sprachen erkennt und `ENGLISH` als Fallback-Sprache verwendet.
+Die obige Konfiguration stellt sicher, dass die Anwendung `ENGLISCH`, `FRANZÖSISCH` und `SPANISCH` als unterstützte Sprachen erkennt und `ENGLISCH` als Fallback-Sprache verwendet.
 
-Mit dieser Konfiguration kann die Funktion `getMultilingualUrls` dynamisch mehrsprachige URL-Zuordnungen basierend auf den unterstützten Gebietsschemata der Anwendung generieren:
+Mit dieser Konfiguration kann die Funktion `getMultilingualUrls` dynamisch mehrsprachige URL-Zuordnungen basierend auf den unterstützten Sprachen der Anwendung generieren:
 
 ```typescript
 getMultilingualUrls(
@@ -216,3 +218,7 @@ getMultilingualUrls(
 ```
 
 Durch die Integration von `getMultilingualUrls` können Entwickler konsistente URL-Strukturen über mehrere Sprachen hinweg beibehalten, was sowohl die Benutzererfahrung als auch die SEO verbessert.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Historie initialisiert

@@ -1,23 +1,26 @@
-import { randomBytes } from 'crypto';
+import type { OAuth2Token } from '@/types/oAuth2.types';
+import type { Organization } from '@/types/organization.types';
+import type {
+  OAuth2Access,
+  OAuth2AccessContext,
+  Project,
+  ProjectDocument,
+} from '@/types/project.types';
+import type { User, UserAPI, UserDocument } from '@/types/user.types';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { getTokenExpireAt } from '@utils/oAuth2';
-import type { Client, Callback } from 'oauth2-server';
+import { randomBytes } from 'crypto';
+import { Types } from 'mongoose';
+import type { Callback, Client } from 'oauth2-server';
 import type { Token } from '../schemas/oAuth2.schema';
 import { getOrganizationById } from './organization.service';
 import { getUserById } from './user.service';
-import type { OAuth2Token } from '@/types/oAuth2.types';
-import type { Organization } from '@/types/organization.types';
-import type {
-  OAuth2Access,
-  Project,
-  ProjectDocument,
-} from '@/types/project.types';
-import type { User, UserDocument } from '@/types/user.types';
 
 /**
  * Function to generate client credentials
@@ -48,7 +51,7 @@ export const getClientAndProjectByClientId = async (
       client: Client;
       oAuth2Access: OAuth2Access;
       project: ProjectDocument;
-      rights: Token['rights'];
+      grants: Token['grants'];
     }
   | false
 > => {
@@ -78,7 +81,7 @@ export const getClientAndProjectByClientId = async (
   return {
     client: formattedClient,
     oAuth2Access,
-    rights: oAuth2Access.rights,
+    grants: oAuth2Access.grants,
     project,
   };
 };
@@ -112,24 +115,25 @@ export const getClient = async (
 /**
  * Format an OAuth2Token
  *
- * @param token
- * @param client
- * @param user
- * @param project
- * @param organization
- * @returns
+ * @param token - The token to format
+ * @param client - The client
+ * @param user - The user
+ * @param project - The project
+ * @param organization - The organization
+ * @param grants - The grants
+ * @returns The formatted token
  */
 export const formatOAuth2Token = (
   token: Token,
   client: Client,
-  user: User,
+  user: UserAPI,
   project: Project,
   organization: Organization,
-  rights: Token['rights']
+  grants: Token['grants']
 ): OAuth2Token => {
   const { clientId, userId, ...restToken } = token;
 
-  if (String(userId) !== String(user._id)) {
+  if (String(userId) !== String(user.id)) {
     throw new GenericError('USER_ID_MISMATCH');
   }
 
@@ -137,11 +141,11 @@ export const formatOAuth2Token = (
     ...restToken,
     client,
     user: mapUserToAPI(user),
-    organization: mapOrganizationToAPI(organization, false),
-    project: mapProjectToAPI(project, user, false),
+    organization: mapOrganizationToAPI(organization),
+    project: mapProjectToAPI(project),
     accessToken: token.accessToken,
     accessTokenExpiresAt: token.accessTokenExpiresAt ?? new Date('999-99-99'),
-    rights,
+    grants,
   };
 
   return formattedToken;
@@ -158,11 +162,12 @@ export const formatOAuth2Token = (
 export const formatDBToken = (
   token: OAuth2Token,
   clientId: Client['id'],
-  userId: User['_id']
+  userId: User['id'] | string
 ): Token => {
   const formattedToken: Token = {
+    id: token.id,
     clientId: clientId,
-    userId: userId,
+    userId: userId as Types.ObjectId,
     accessToken: token.accessToken,
     expiresIn: token.accessTokenExpiresAt ?? getTokenExpireAt(),
   };
@@ -181,9 +186,9 @@ export const formatDBToken = (
 export const saveToken = async (
   token: OAuth2Token,
   client: Client,
-  user: User
+  user: UserAPI
 ): Promise<OAuth2Token | false> => {
-  const formattedAccessToken: Token = formatDBToken(token, client.id, user._id);
+  const formattedAccessToken: Token = formatDBToken(token, client.id, user.id);
 
   const result = await OAuth2AccessTokenModel.create(formattedAccessToken);
 
@@ -247,7 +252,7 @@ export const getAccessToken = async (
     return false;
   }
 
-  const { client, project, rights } = result;
+  const { client, project, grants } = result;
 
   const organization = await getOrganizationById(project.organizationId);
 
@@ -261,7 +266,7 @@ export const getAccessToken = async (
     user,
     project,
     organization,
-    rights
+    grants
   );
 
   return formattedAccessToken;
@@ -307,4 +312,59 @@ export const verifyScope = async (
 ): Promise<boolean> => {
   // Implement the verification of scopes if necessary
   return true;
+};
+
+/**
+ * Validate OAuth2 access token and return user context
+ */
+export const validateOAuth2AccessToken = async (
+  accessToken: string
+): Promise<Token> => {
+  try {
+    const token = await OAuth2AccessTokenModel.findOne({
+      accessToken,
+    });
+
+    if (!token) {
+      throw new GenericError('INVALID_ACCESS_TOKEN');
+    }
+
+    // Check if token is expired
+    if (new Date() > new Date(token.expiresIn)) {
+      throw new GenericError('EXPIRED_ACCESS_TOKEN');
+    }
+
+    return ensureMongoDocumentToObject(token);
+  } catch (error) {
+    throw new GenericError('INVALID_ACCESS_TOKEN');
+  }
+};
+
+/**
+ * Validate OAuth2 access token and return user context
+ */
+export const getOAuth2AccessTokenContext = async (
+  token: Token
+): Promise<OAuth2AccessContext> => {
+  const { userId, clientId } = token;
+
+  const user = await getUserById(String(userId));
+
+  const result = await getClientAndProjectByClientId(clientId);
+
+  if (!result) {
+    throw new GenericError('INVALID_ACCESS_TOKEN');
+  }
+
+  const { project, grants } = result;
+
+  let organization = await getOrganizationById(project.organizationId);
+
+  return {
+    accessToken: token.accessToken,
+    user: user ? mapUserToAPI(user) : undefined,
+    project: project ? mapProjectToAPI(project) : undefined,
+    organization: organization ? mapOrganizationToAPI(organization) : undefined,
+    grants,
+  };
 };

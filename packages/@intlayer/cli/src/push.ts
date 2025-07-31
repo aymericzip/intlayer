@@ -1,4 +1,4 @@
-import { getAuthAPI, getDictionaryAPI } from '@intlayer/api';
+import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
 import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
   getAppLogger,
@@ -53,7 +53,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
       );
     }
 
-    const intlayerAuthAPI = getAuthAPI(undefined, config);
+    const intlayerAuthAPI = getOAuthAPI(config);
     const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
 
     const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;

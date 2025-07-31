@@ -1,9 +1,6 @@
 ---
-docName: how_works_intlayer
-url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
-updatedAt: 2024-08-12
+updatedAt: 2025-06-29
 title: Como o Intlayer funciona
 description: Aprenda como o Intlayer opera internamente. Compreenda a arquitetura e os componentes que tornam o Intlayer poderoso.
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - Arquitetura
   - Componentes
   - Funcionamento interno
+slugs:
+  - doc
+  - concept
+  - how-works-intlayer
 ---
 
 # Como Intlayer funciona
@@ -57,9 +58,10 @@ A etapa de construção pode ser feita de três maneiras:
 
 Com base nos seus `dicionários`, o Intlayer gerará tipos para torná-los utilizáveis em sua aplicação.
 
-- Os tipos de dicionários são gerados a partir dos `dicionários` do Intlayer. Por padrão, os tipos de dicionários do Intlayer são gerados no diretório `.intlayer/types` do projeto.
+- Os tipos de dicionários são gerados a partir dos `arquivos de declaração de conteúdo` do Intlayer. Por padrão, os tipos de dicionários do Intlayer são gerados no diretório `.intlayer/types` do projeto.
 
-- A [ampliação de módulo](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) do Intlayer é um recurso do TypeScript que permite definir tipos adicionais para o Intlayer. Isso torna a experiência de desenvolvimento mais fácil, sugerindo argumentos disponíveis ou argumentos necessários. Entre os tipos gerados, os tipos de dicionários do Intlayer ou até mesmo os tipos de configuração de idioma são adicionados ao arquivo `types/intlayer.d.ts` e usados por outros pacotes. Para isso, é necessário que o arquivo `tsconfig.json` esteja configurado para incluir o diretório `types` do projeto.
+- A [ampliação de módulo](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) do Intlayer é um recurso do TypeScript que permite definir tipos adicionais para o Intlayer. Isso torna a experiência de desenvolvimento mais fácil, sugerindo argumentos disponíveis ou argumentos necessários.
+  Entre os tipos gerados, os tipos de dicionários do Intlayer ou até mesmo os tipos de configuração de idioma são adicionados ao arquivo `types/intlayer.d.ts` e usados por outros pacotes. Para isso, é necessário que o arquivo `tsconfig.json` esteja configurado para incluir o diretório `types` do projeto.
 
 ### Etapa de interpretação dos dicionários
 
@@ -82,7 +84,7 @@ O Intlayer permite que você declare conteúdo localmente e, em seguida, exporte
 
 Assim, você poderá enviar e buscar conteúdo do CMS para sua aplicação, de maneira semelhante ao que você faz com o Git para seu código.
 
-Se configurado em seu projeto, o Intlayer gerenciará automaticamente para você a busca do conteúdo do CMS quando a aplicação iniciar (dev) / construir (prod).
+Para dicionários externalizados usando o CMS, o Intlayer realiza uma operação básica de busca para recuperar dicionários remotos e os mescla com os seus locais. Se configurado em seu projeto, o Intlayer gerenciará automaticamente a busca do conteúdo do CMS quando a aplicação iniciar (dev) / construir (prod).
 
 ## Editor visual
 
@@ -90,15 +92,19 @@ O Intlayer também fornece um editor visual para permitir que você edite seu co
 
 ![editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
+- O servidor é uma aplicação simples em Express que escuta requisições do cliente e recupera o conteúdo da sua aplicação, como os `dictionaries` e a configuração para torná-los acessíveis no lado do cliente.
+- Por outro lado, o cliente é uma aplicação React que é usada para interagir com seu conteúdo usando uma interface visual.
+  Quando você chama seu conteúdo usando `useIntlayer` e o editor está ativado, ele automaticamente envolve suas strings com um objeto Proxy chamado `IntlayerNode`. Esse nó usa `window.postMessage` para se comunicar com um iframe encapsulado que contém a interface do editor visual.  
+  No lado do editor, ele escuta essas mensagens e simula uma interação real com seu conteúdo, permitindo que você edite o texto diretamente no contexto da sua aplicação.
+
 ## Otimização da construção do aplicativo
 
-Para otimizar o tamanho do pacote de sua aplicação, o Intlayer fornece dois plugins para otimizar a construção de sua aplicação: os plugins `@intlayer/babel` e `@intlayer/swc`.
+Para otimizar o tamanho do pacote da sua aplicação, o Intlayer fornece dois plugins para otimizar a construção da sua aplicação: os plugins `@intlayer/babel` e `@intlayer/swc`.
+Os plugins Babel e SWC funcionam analisando a Árvore de Sintaxe Abstrata (AST) da sua aplicação para substituir chamadas das funções do Intlayer por código otimizado. Esse processo torna o pacote final mais leve em produção, garantindo que apenas os dicionários realmente usados sejam importados, otimizando o particionamento e reduzindo o tamanho do pacote.
 
 No modo de desenvolvimento, o Intlayer usa uma importação estática centralizada para os dicionários, simplificando a experiência de desenvolvimento.
 
-Ao otimizar a construção, o Intlayer substituirá todas as chamadas de dicionários para otimizar o particionamento. Dessa forma, o pacote final importará apenas os dicionários que são usados.
-
-Ao ativar a opção `activateDynamicImport` na [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md), o Intlayer usará a importação dinâmica para carregar os dicionários. Essa opção está desativada por padrão para evitar processamento assíncrono ao renderizar a aplicação.
+Ao ativar a opção `importMode = "dynamic"` na [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md), o Intlayer usará a importação dinâmica para carregar os dicionários. Essa opção está desativada por padrão para evitar processamento assíncrono ao renderizar a aplicação.
 
 > `@intlayer/babel` está disponível por padrão no pacote `vite-intlayer`,
 
@@ -127,6 +133,10 @@ O pacote `next-intlayer` é usado como uma camada sobre o `react-intlayer` para 
 ### vue-intlayer
 
 O pacote `vue-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Vue.
+
+### nuxt-intlayer
+
+O pacote `nuxt-intlayer` é um módulo Nuxt para tornar os dicionários do Intlayer utilizáveis em aplicações Nuxt. Ele integra recursos essenciais para fazer o Intlayer funcionar em um ambiente Nuxt, como middleware de tradução, roteamento e a configuração do arquivo `nuxt.config.js`.
 
 ### svelte-intlayer (WIP)
 
@@ -162,6 +172,8 @@ Inclui o plugin Vite para integrar o Intlayer com o [Vite bundler](https://vite.
 
 ### react-scripts-intlayer
 
+Inclui os comandos e plugins `react-scripts-intlayer` para integrar o Intlayer com aplicações baseadas no Create React App. Esses plugins são baseados no [craco](https://craco.js.org/) e incluem configurações adicionais para o empacotador [Webpack](https://webpack.js.org/).
+
 ### intlayer-editor
 
 O pacote `intlayer-editor` é usado para permitir o uso do editor visual. Este pacote, opcional, pode ser instalado em aplicações e será utilizado pelo pacote `react-intlayer`.
@@ -185,23 +197,27 @@ O pacote `@intlayer/config` é usado para configurar as definições do Intlayer
 
 ### @intlayer/webpack
 
-O pacote `@intlayer/webpack` é usado para fornecer uma configuração do Webpack para fazer uma aplicação baseada no Webpack funcionar com o Intlayer. O pacote também fornece um plugin para adicionar a uma aplicação Webpack existente.
+O pacote `@intlayer/webpack` é usado para fornecer uma configuração do Webpack que permite que uma aplicação baseada em Webpack funcione com o Intlayer. O pacote também fornece um plugin para adicionar a uma aplicação Webpack existente.
 
 ### @intlayer/cli
 
 O pacote `@intlayer/cli` é um pacote NPM usado para declarar os scripts relacionados às interfaces de linha de comando do Intlayer. Ele garante a uniformidade de todos os comandos CLI do Intlayer. Este pacote é notavelmente consumido pelos pacotes [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer-cli/index.md) e [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/index.md).
 
+### @intlayer/mcp
+
+O pacote `@intlayer/mcp` fornece um servidor MCP (Model Context Protocol) que oferece assistência para IDE com inteligência artificial, adaptada ao ecossistema Intlayer. Ele carrega automaticamente a documentação e integra-se com o Intlayer CLI.
+
 ### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
 
-Os pacotes `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` e `@intlayer/dynamic-dictionaries-entry` retornam o caminho de entrada dos dicionários do Intlayer. Como buscar o sistema de arquivos a partir do navegador é impossível, usar empacotadores como Webpack ou Rollup para recuperar o caminho de entrada dos dicionários não é viável. Esses pacotes são projetados para serem aliased, permitindo a otimização de empacotamento em vários empacotadores como Vite, Webpack e Turbopack.
+Os pacotes `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` e `@intlayer/dynamic-dictionaries-entry` retornam o caminho de entrada dos dicionários Intlayer. Como é impossível pesquisar o sistema de arquivos a partir do navegador, usar bundlers como Webpack ou Rollup para recuperar o caminho de entrada dos dicionários não é viável. Esses pacotes são projetados para serem aliasados, permitindo a otimização do empacotamento em vários bundlers, como Vite, Webpack e Turbopack.
 
 ### @intlayer/chokidar
 
-O pacote `@intlayer/chokidar` é usado para monitorar arquivos de conteúdo e regenerar o dicionário modificado a cada modificação.
+O pacote `@intlayer/chokidar` é usado para monitorar arquivos de conteúdo e regenerar o dicionário modificado a cada alteração.
 
 ### @intlayer/editor
 
-O pacote `@intlayer/editor` fornece as utilidades relacionadas ao editor de dicionários. Ele inclui, notavelmente, a API para interligar uma aplicação com o editor Intlayer e utilitários para manipular dicionários. Este pacote é multiplataforma.
+O pacote `@intlayer/editor` fornece as utilidades relacionadas ao editor de dicionários. Ele inclui notavelmente a API para interligar uma aplicação com o editor Intlayer, além de utilitários para manipular dicionários. Este pacote é multiplataforma.
 
 ### @intlayer/editor-react
 
@@ -230,3 +246,7 @@ O pacote `@intlayer/backend` exporta tipos de backend e eventualmente oferecerá
 ## Converse com nossa documentação inteligente
 
 - [Faça suas perguntas à nossa documentação inteligente](https://intlayer.org/doc/chat)
+
+## Histórico da documentação
+
+- 5.5.10 - 2025-06-29: Histórico inicial

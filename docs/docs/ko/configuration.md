@@ -1,9 +1,6 @@
 ---
-docName: configuration
-url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-06-29
 title: 구성
 description: 애플리케이션을 위해 Intlayer를 구성하는 방법을 알아보세요. Intlayer를 필요에 맞게 사용자 정의하는 데 사용할 수 있는 다양한 설정과 옵션을 이해합니다.
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - 사용자화
   - Intlayer
   - 옵션
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Intlayer 구성 문서
@@ -58,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -87,7 +88,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -112,13 +113,13 @@ module.exports = config;
 
 ## 구성 참조
 
-다음 섹션에서는 Intlayer에 사용할 수 있는 다양한 구성 설정을 설명합니다.
+다음 섹션에서는 Intlayer에서 사용할 수 있는 다양한 구성 설정을 설명합니다.
 
 ---
 
 ### 국제화 구성
 
-애플리케이션의 사용 가능한 로케일 및 기본 로케일을 포함한 국제화와 관련된 설정을 정의합니다.
+애플리케이션에서 사용 가능한 로케일과 기본 로케일을 포함한 국제화 관련 설정을 정의합니다.
 
 #### 속성
 
@@ -126,13 +127,13 @@ module.exports = config;
 
   - _유형_: `string[]`
   - _기본값_: `['en']`
-  - _설명_: 애플리케이션에서 지원되는 로케일 목록입니다.
+  - _설명_: 애플리케이션에서 지원하는 로케일 목록입니다.
   - _예제_: `['en', 'fr', 'es']`
 
 - **requiredLocales**:
   - _유형_: `string[]`
   - _기본값_: `[]`
-  - _설명_: 애플리케이션에서 필수 로케일 목록입니다.
+  - _설명_: 애플리케이션에서 필수로 요구되는 로케일 목록입니다.
   - _예제_: `[]`
   - _참고_: 비어 있으면 `strict` 모드에서 모든 로케일이 필수로 간주됩니다.
   - _참고_: 필수 로케일은 `locales` 필드에도 정의되어야 합니다.
@@ -149,7 +150,7 @@ module.exports = config;
 
   - _유형_: `string`
   - _기본값_: `'en'`
-  - _설명_: 요청된 로케일을 찾을 수 없는 경우 대체로 사용되는 기본 로케일입니다.
+  - _설명_: 요청된 로케일을 찾을 수 없을 때 대체로 사용되는 기본 로케일입니다.
   - _예제_: `'en'`
   - _참고_: URL, 쿠키 또는 헤더에 로케일이 지정되지 않은 경우 로케일을 결정하는 데 사용됩니다.
 
@@ -209,7 +210,7 @@ module.exports = config;
   - _기본값_: `true`
   - _설명_: 애플리케이션이 시각적 에디터와 상호작용할 수 있는지 여부를 나타냅니다.
   - _예제_: `process.env.NODE_ENV !== 'production'`
-  - _참고_: true로 설정하면 에디터가 애플리케이션과 상호작용할 수 있습니다. false로 설정하면 에디터는 애플리케이션과 상호작용할 수 없습니다. 어떤 경우에도 에디터는 시각적 에디터에 의해 활성화될 수 있습니다. 특정 환경에서 에디터를 비활성화하는 것은 보안을 강화하는 방법입니다.
+  - _참고_: true로 설정하면 에디터가 애플리케이션과 상호작용할 수 있습니다. false로 설정하면 에디터는 애플리케이션과 상호작용할 수 없습니다. 어떤 경우에도 에디터는 시각적 에디터에 의해서만 활성화될 수 있습니다. 특정 환경에서 에디터를 비활성화하는 것은 보안을 강화하는 방법입니다.
 
 - **clientId**:
 
@@ -244,7 +245,7 @@ module.exports = config;
 
 ### 미들웨어 구성
 
-애플리케이션이 쿠키, 헤더 및 로케일 관리를 위한 URL 접두사를 처리하는 방식을 제어하는 미들웨어 동작 설정입니다.
+미들웨어 동작을 제어하는 설정으로, 애플리케이션이 쿠키, 헤더 및 로케일 관리를 위한 URL 접두사를 처리하는 방식을 포함합니다.
 
 #### 속성
 
@@ -256,23 +257,23 @@ module.exports = config;
   - _예제_: `'x-custom-locale'`
   - _참고_: API 기반 로케일 결정에 유용합니다.
 
----
-
 - **cookieName**:
 
   - _유형_: `string`
   - _기본값_: `'intlayer-locale'`
   - _설명_: 로케일을 저장하는 데 사용되는 쿠키의 이름입니다.
-  - _예시_: `'custom-locale'`
+  - _예제_: `'custom-locale'`
   - _참고_: 세션 간 로케일을 유지하는 데 사용됩니다.
 
 - **prefixDefault**:
 
   - _유형_: `boolean`
-  - _기본값_: `true`
-  - _설명_: URL에 기본 로케일을 포함할지 여부를 나타냅니다.
-  - _예시_: `false`
-  - _참고_: `false`로 설정하면 기본 로케일의 URL에는 로케일 접두사가 포함되지 않습니다.
+  - _기본값_: `false`
+  - _설명_: 기본 로케일을 URL에 포함할지 여부입니다.
+  - _예시_: `true`
+  - _참고_:
+    - `true`이고 `defaultLocale = 'en'`인 경우: path = `/en/dashboard` 또는 `/fr/dashboard`
+    - `false`이고 `defaultLocale = 'en'`인 경우: path = `/dashboard` 또는 `/fr/dashboard`
 
 - **basePath**:
 
@@ -280,7 +281,11 @@ module.exports = config;
   - _기본값_: `''`
   - _설명_: 애플리케이션 URL의 기본 경로입니다.
   - _예시_: `'/my-app'`
-  - _참고_: 이 설정은 애플리케이션의 URL 구성 방식에 영향을 미칩니다.
+  - _참고_:
+    - 애플리케이션이 `https://example.com/my-app`에서 호스팅되는 경우
+    - 기본 경로는 `'/my-app'`
+    - URL은 `https://example.com/my-app/en`이 됩니다
+    - 기본 경로가 설정되지 않은 경우 URL은 `https://example.com/en`이 됩니다
 
 - **serverSetCookie**:
 
@@ -292,11 +297,42 @@ module.exports = config;
   - _참고_: 로케일 쿠키를 모든 요청에서 설정할지 또는 설정하지 않을지를 제어합니다.
 
 - **noPrefix**:
+
   - _유형_: `boolean`
   - _기본값_: `false`
   - _설명_: URL에서 로케일 접두사를 생략할지 여부를 나타냅니다.
   - _예시_: `true`
-  - _참고_: `true`로 설정하면 URL에 로케일 정보가 포함되지 않습니다.
+  - _참고_:
+    - `true`인 경우: URL에 접두사 없음
+    - `false`인 경우: URL에 접두사 있음
+    - `basePath = '/my-app'` 예시:
+      - `noPrefix = false`인 경우: URL은 `https://example.com/my-app/en`이 됩니다
+      - `noPrefix = true`인 경우: URL은 `https://example.com`이 됩니다
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _유형_: `boolean`
+  - _기본값_: `false`
+  - _설명_: Next.js 프리페치 요청 중 로케일 감지가 발생하는지 제어합니다.
+  - _예시_: `true`
+  - _참고_: 이 설정은 Next.js가 로케일 프리페치를 처리하는 방식에 영향을 미칩니다:
+    - **예시 시나리오:**
+      - 사용자의 브라우저 언어는 `'fr'`
+      - 현재 페이지는 `/fr/about`
+      - 링크가 `/about`을 프리페치
+    - **`detectLocaleOnPrefetchNoPrefix: true`인 경우:**
+      - 프리페치가 브라우저에서 `'fr'` 로케일을 감지
+      - 프리페치를 `/fr/about`으로 리다이렉트
+    - **`detectLocaleOnPrefetchNoPrefix: false`(기본값)인 경우:**
+      - 프리페치가 기본 로케일을 사용
+      - 프리페치를 `/en/about`으로 리다이렉트(`'en'`이 기본값이라고 가정)
+    - **`true`를 사용하는 경우:**
+      - 앱이 비로컬라이즈된 내부 링크를 사용하는 경우(예: `<a href="/about">`)
+      - 일반 요청과 프리페치 요청 간에 일관된 로케일 감지 동작을 원하는 경우
+    - **`false`(기본값)를 사용하는 경우:**
+      - 앱이 로케일 접두사가 있는 링크를 사용하는 경우(예: `<a href="/fr/about">`)
+      - 프리페치 성능을 최적화하고 싶은 경우
+      - 잠재적인 리다이렉트 루프를 피하고 싶은 경우
 
 ---
 
@@ -338,6 +374,7 @@ module.exports = config;
 
   - _유형_: `string[]`
   - _기본값_: `['src']`
+  - _예시_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _설명_: 콘텐츠가 저장된 디렉토리 경로입니다.
 
 - **dictionariesDir**:
@@ -352,7 +389,7 @@ module.exports = config;
   - _기본값_: `'.intlayer/types'`
   - _설명_: 모듈 보강을 위한 디렉토리로, IDE 제안 및 타입 검사를 개선합니다.
   - _예시_: `'intlayer-types'`
-  - _참고_: 이 디렉토리를 `tsconfig.json`에 포함해야 합니다.
+  - _참고_: 이 디렉토리를 `tsconfig.json`에 반드시 포함해야 합니다.
 
 - **unmergedDictionariesDir**:
 
@@ -422,12 +459,10 @@ module.exports = config;
 ### AI 설정
 
 Intlayer의 AI 기능을 제어하는 설정으로, 제공자, 모델 및 API 키를 포함합니다.
-
 이 설정은 [Intlayer 대시보드](https://intlayer.org/dashboard/project)에서 액세스 키를 사용하여 등록된 경우 선택 사항입니다. Intlayer는 귀하의 요구에 가장 효율적이고 비용 효율적인 AI 솔루션을 자동으로 관리합니다. 기본 옵션을 사용하면 Intlayer가 가장 관련성 높은 모델을 지속적으로 업데이트하므로 장기적인 유지 관리가 더 용이합니다.
 
 자체 API 키 또는 특정 모델을 사용하려면 사용자 정의 AI 구성을 정의할 수 있습니다. 이 AI 구성은 Intlayer 환경 전반에서 전역적으로 사용됩니다. CLI 명령은 이 설정을 명령의 기본값으로 사용하며(e.g. `fill`), SDK, 시각적 편집기 및 CMS에서도 사용됩니다. 특정 사용 사례에 대해 명령 매개변수를 사용하여 이러한 기본값을 재정의할 수 있습니다.
-
-Intlayer는 유연성과 선택을 강화하기 위해 여러 AI 제공자를 지원합니다. 현재 지원되는 제공자는 다음과 같습니다:
+Intlayer는 유연성과 선택의 폭을 넓히기 위해 여러 AI 제공자를 지원합니다. 현재 지원되는 제공자는 다음과 같습니다:
 
 - **OpenAI** (기본값)
 - **Anthropic Claude**
@@ -453,7 +488,7 @@ Intlayer는 유연성과 선택을 강화하기 위해 여러 AI 제공자를 �
   - _기본값_: 없음
   - _설명_: Intlayer의 AI 기능에 사용할 모델입니다.
   - _예시_: `'gpt-4o-2024-11-20'`
-  - _참고_: 제공자에 따라 사용할 특정 모델이 다릅니다.
+  - _참고_: 사용할 특정 모델은 제공자에 따라 다릅니다.
 
 - **temperature**:
 
@@ -461,7 +496,7 @@ Intlayer는 유연성과 선택을 강화하기 위해 여러 AI 제공자를 �
   - _기본값_: 없음
   - _설명_: 온도는 AI 응답의 무작위성을 제어합니다.
   - _예시_: `0.1`
-  - _참고_: 높은 온도는 AI를 더 창의적이고 예측 불가능하게 만듭니다.
+  - _참고_: 온도가 높을수록 AI가 더 창의적이고 예측 불가능해집니다.
 
 - **apiKey**:
 
@@ -469,10 +504,9 @@ Intlayer는 유연성과 선택을 강화하기 위해 여러 AI 제공자를 �
   - _기본값_: 없음
   - _설명_: 선택한 제공자의 API 키입니다.
   - _예시_: `process.env.OPENAI_API_KEY`
-  - _참고_: 중요: API 키는 비공개로 유지되어야 하며, 공개적으로 공유되지 않아야 합니다. 환경 변수와 같은 안전한 위치에 보관하십시오.
+  - _참고_: 중요: API 키는 비밀로 유지되어야 하며 공개적으로 공유해서는 안 됩니다. 환경 변수와 같은 안전한 위치에 보관하십시오.
 
 - **applicationContext**:
-
   - _유형_: `string`
   - _기본값_: 없음
   - _설명_: AI 모델에 애플리케이션에 대한 추가 컨텍스트를 제공하여 더 정확하고 상황에 맞는 번역을 생성하는 데 도움을 줍니다. 여기에는 앱의 도메인, 대상 사용자, 톤 또는 특정 용어에 대한 정보가 포함될 수 있습니다.
@@ -483,11 +517,9 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
 
 빌드 옵션은 `@intlayer/babel` 및 `@intlayer/swc` 플러그인에 적용됩니다.
 
-> 개발 모드에서 Intlayer는 개발 경험을 단순화하기 위해 사전에 대해 중앙 집중식 정적 가져오기를 사용합니다.
+> 개발 모드에서 Intlayer는 개발 경험을 단순화하기 위해 사전에 대해 정적 가져오기를 사용합니다.
 
-> 빌드를 최적화함으로써 Intlayer는 청킹을 최적화하기 위해 모든 사전 호출을 대체합니다. 이렇게 하면 최종 번들은 사용되는 사전만 가져옵니다.
-
-- **참고**: `@intlayer/babel`은 `vite-intlayer` 패키지에서 기본적으로 사용할 수 있지만, `@intlayer/swc`는 SWC 플러그인이 Next.js에서 아직 실험적이기 때문에 `next-intlayer` 패키지에서 기본적으로 설치되지 않습니다.
+> 최적화 시 Intlayer는 청킹을 최적화하기 위해 사전 호출을 대체하여 최종 번들이 실제로 사용되는 사전만 가져오도록 합니다.
 
 #### 속성
 
@@ -497,27 +529,38 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
   - _기본값_: `process.env.NODE_ENV === 'production'`
   - _설명_: 빌드를 최적화해야 하는지 여부를 제어합니다.
   - _예시_: `true`
-  - _참고_: 번들에 사용되는 사전만 가져올 수 있습니다. 하지만 모든 가져오기는 사전을 로드할 때 비동기 처리를 피하기 위해 정적 가져오기로 유지됩니다.
-  - _참고_: 활성화되면 Intlayer는 모든 `useIntlayer` 호출을 `useDictionary`로, `getIntlayer`를 `getDictionary`로 대체하여 사전 청킹을 최적화합니다.
+  - _참고_: 활성화되면 Intlayer는 청킹을 최적화하기 위해 모든 사전 호출을 대체합니다. 이렇게 하면 최종 번들이 사용되는 사전만 가져옵니다. 모든 가져오기는 사전을 로드할 때 비동기 처리를 피하기 위해 정적 가져오기로 유지됩니다.
+  - _참고_: Intlayer는 `importMode` 옵션에 의해 정의된 모드로 모든 `useIntlayer` 호출을 대체하고 `getIntlayer`를 `getDictionary`로 대체합니다.
+  - _참고_: 이 옵션은 `@intlayer/babel` 및 `@intlayer/swc` 플러그인에 의존합니다.
   - _참고_: 모든 키가 `useIntlayer` 호출에서 정적으로 선언되어 있는지 확인하세요. 예: `useIntlayer('navbar')`.
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _유형_: `boolean`
-  - _기본값_: `false`
-  - _설명_: 사전 콘텐츠를 로케일별로 동적으로 가져와야 하는지 여부를 제어합니다.
-  - _예시_: `true`
-  - _참고_: 현재 로케일의 사전 콘텐츠만 동적으로 가져올 수 있습니다.
-  - _참고_: 동적 가져오기는 React Suspense에 의존하며 렌더링 성능에 약간의 영향을 미칠 수 있습니다. 하지만 비활성화되면 사용되지 않더라도 모든 로케일이 한 번에 로드됩니다.
-  - _참고_: 활성화되면 Intlayer는 모든 `useIntlayer` 호출을 `useDynamicDictionary`로 대체하여 사전 청킹을 최적화합니다.
+  - _유형_: `'static' | 'dynamic' | 'async'`
+  - _기본값_: `'static'`
+  - _설명_: 사전이 어떻게 가져오는지 제어합니다.
+  - _예시_: `'dynamic'`
+  - _참고_: 사용 가능한 모드:
+    - "static": 사전이 정적으로 가져옵니다. `useIntlayer`를 `useDictionary`로 대체합니다.
+    - "dynamic": 사전이 Suspense를 사용하여 동적으로 가져옵니다. `useIntlayer`를 `useDictionaryDynamic`으로 대체합니다.
+    - "async": 사전이 비동기적으로 동적으로 가져옵니다. `useIntlayer`를 `await useDictionaryAsync`로 대체합니다.
+  - _참고_: 동적 가져오기는 Suspense에 의존하며 렌더링 성능에 약간의 영향을 미칠 수 있습니다.
+  - _참고_: 비활성화되면 사용되지 않더라도 모든 로케일이 한 번에 로드됩니다.
+  - _참고_: 이 옵션은 `@intlayer/babel` 및 `@intlayer/swc` 플러그인에 의존합니다.
+  - _참고_: 모든 키가 `useIntlayer` 호출에서 정적으로 선언되어 있는지 확인하세요. 예: `useIntlayer('navbar')`.
   - _참고_: 이 옵션은 `optimize`가 비활성화된 경우 무시됩니다.
-  - _참고_: 모든 키가 `useIntlayer` 호출에서 정적으로 선언되어 있는지 확인하세요. 예: `useIntlayer('navbar')`.
+  - _참고_: 대부분의 경우 React 애플리케이션에는 `"dynamic"`이, Vue.js 애플리케이션에는 `"async"`가 사용됩니다.
+  - _참고_: 이 옵션은 `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` 및 `useDictionaryDynamic` 함수에 영향을 미치지 않습니다.
 
 - **traversePattern**:
   - _유형_: `string[]`
-  - _기본값_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
+  - _기본값_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
   - _설명_: 최적화 중에 순회해야 하는 파일을 정의하는 패턴입니다.
-  - _예시_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+    - _예시_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
   - _참고_: 관련 코드 파일로 최적화를 제한하고 빌드 성능을 향상시키기 위해 사용하세요.
   - _참고_: 이 옵션은 `optimize`가 비활성화된 경우 무시됩니다.
   - _참고_: glob 패턴을 사용하세요.
+
+## 문서 이력
+
+- 5.5.11 - 2025-06-29: `docs` 명령어 추가

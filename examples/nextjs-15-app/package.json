@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build:turbo": "next build --turbopack",
     "dev": "next dev",
     "dev:turbo": "next dev --turbopack",
     "lint": "next lint",
@@ -15,7 +16,7 @@
     "fuse.js": "^7.1.0",
     "intlayer": "workspace:*",
     "markdown-to-jsx": "^7.7.6",
-    "next": "^15.3.3",
+    "next": "^15.4.3",
     "next-intlayer": "workspace:*",
     "react": "18.3.1",
     "react-dom": "18.3.1"

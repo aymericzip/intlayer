@@ -1,9 +1,6 @@
 ---
-blogName: internationalization_and_SEO
-url: https://intlayer.org/blog/SEO-and-i18n
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
-updatedAt: 2024-12-24
+updatedAt: 2025-06-29
 title: SEO और अंतर्राष्ट्रीयकरण
 description: जानें कि कैसे अपने बहुभाषी वेबसाइट को खोज इंजन के लिए अनुकूलित करें और अपना SEO सुधारें।
 keywords:
@@ -14,6 +11,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - SEO-and-i18n
 ---
 
 # SEO & I18n: आपकी वेबसाइट को बहुभाषी बनाने के लिए अंतिम गाइड

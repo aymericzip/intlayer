@@ -1,9 +1,6 @@
 ---
-blogName: index
-url: https://intlayer.org/blog/search/
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md
 createdAt: 2024-24-12
-updatedAt: 2024-24-12
+updatedAt: 2025-06-29
 title: ブログ
 description: Intlayer、国際化、その他に関連するすべてのトピックを発見します
 keywords:
@@ -13,6 +10,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - search
 ---
 
 # 国際化をJavaScriptで取り入れる：グローバルなリーチとSEOの向上

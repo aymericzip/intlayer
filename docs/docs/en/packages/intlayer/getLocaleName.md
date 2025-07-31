@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getLocaleName
-url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: getLocaleName Function Documentation | intlayer
 description: See how to use the getLocaleName function for intlayer package
 keywords:
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleName
 ---
 
 # Documentation: `getLocaleName` Function in `intlayer`
@@ -111,3 +113,9 @@ getLocaleName("unknown-locale"); // Output: "Unknown locale"
   - The function defaults to returning the `displayLocale`'s own name.
 - **Missing translations:**
   - If `localeNameTranslations` does not contain an entry for the `targetLocale` or the specific `displayLocale`, the function falls back to the `ownLocalesName` or returns `"Unknown locale"`.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

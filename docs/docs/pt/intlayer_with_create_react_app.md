@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_create_react_app
-url: https://intlayer.org/doc/environment/create-react-app
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Traduza o seu site Create React App (CRA) (i18n)
 description: Descubra como tornar seu site Create React App (CRA) multilíngue. Siga a documentação para internacionalizar (i18n) e traduzi-lo.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - CRA
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - create-react-app
+applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 ---
 
 # Introdução à Internacionalização (i18n) com Intlayer e React Create App
@@ -22,7 +24,7 @@ Consulte [Application Template](https://github.com/aymericzip/intlayer-react-cra
 
 ## O que é Intlayer?
 
-**Intlayer** é uma biblioteca de internacionalização (i18n) inovadora e de código aberto, projetada para simplificar o suporte multilíngue em aplicações web modernas.
+**Intlayer** é uma biblioteca inovadora e de código aberto para internacionalização (i18n), projetada para simplificar o suporte multilíngue em aplicações web modernas.
 
 Com o Intlayer, você pode:
 
@@ -59,7 +61,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **react-scripts-intlayer**
 
-  Inclui os comandos e plugins `react-scripts-intlayer` para integrar o Intlayer com a aplicação baseada no Create React App. Esses plugins são baseados no [craco](https://craco.js.org/) e incluem configuração adicional para o empacotador [Webpack](https://webpack.js.org/).
+Inclui os comandos e plugins `react-scripts-intlayer` para integrar o Intlayer com a aplicação baseada no Create React App. Esses plugins são baseados no [craco](https://craco.js.org/) e incluem configuração adicional para o empacotador [Webpack](https://webpack.js.org/).
 
 ### Passo 2: Configuração do seu projeto
 
@@ -121,7 +123,7 @@ const config = {
 module.exports = config;
 ```
 
-> Por meio deste arquivo de configuração, você pode configurar URLs localizados, redirecionamento de middleware, nomes de cookies, a localização e extensão de suas declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
+> Por meio deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão de suas declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
 ### Passo 3: Integrar o Intlayer na Configuração do CRA
 
@@ -134,6 +136,12 @@ Altere seus scripts para usar o react-intlayer
     "transpile": "intlayer build"
   },
 ```
+
+> Os scripts `react-scripts-intlayer` são baseados no [CRACO](https://craco.js.org/). Você também pode implementar sua própria configuração baseada no plugin craco do intlayer. [Veja o exemplo aqui](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
+
+### Passo 4: Declarar Seu Conteúdo
+
+Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
 > Os scripts `react-scripts-intlayer` são baseados no [CRACO](https://craco.js.org/). Você também pode implementar sua própria configuração baseada no plugin craco do intlayer. [Veja o exemplo aqui](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
@@ -164,11 +172,6 @@ const appContent = {
           Edita <code>src/App.tsx</code> y guarda para recargar
         </>
       ),
-      pt: (
-        <>
-          Edite <code>src/App.tsx</code> e salve para recarregar
-        </>
-      ),
     }),
     reactLink: {
       href: "https://reactjs.org",
@@ -176,7 +179,6 @@ const appContent = {
         en: "Learn React",
         fr: "Apprendre React",
         es: "Aprender React",
-        pt: "Aprenda React",
       }),
     },
   },
@@ -196,7 +198,6 @@ const appContent = {
       en: "Get started by editing",
       fr: "Commencez par éditer",
       es: "Comience por editar",
-      pt: "Comece editando",
     }),
     reactLink: {
       href: "https://reactjs.org",
@@ -247,7 +248,7 @@ module.exports = appContent;
 
 > Se o seu arquivo de conteúdo incluir código TSX, você deve considerar importar `import React from "react";` no seu arquivo de conteúdo.
 
-### Passo 5: Utilizar o Intlayer no Seu Código
+### Passo 5: Utilize o Intlayer no Seu Código
 
 Acesse seus dicionários de conteúdo em toda a sua aplicação:
 
@@ -290,7 +291,6 @@ export default App;
 import "./App.css";
 import logo from "./logo.svg";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
-
 const AppContent = () => {
   const content = useIntlayer("app");
 
@@ -355,7 +355,7 @@ const App = () => (
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
-
+>
 > Para saber mais sobre o hook `useIntlayer`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useIntlayer.md).
 
 ### (Opcional) Passo 6: Alterar o idioma do seu conteúdo
@@ -370,8 +370,8 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.Portuguese)}>
-      Alterar idioma para Português
+    <button onClick={() => setLocale(Locales.English)}>
+      Change Language to English
     </button>
   );
 };
@@ -385,8 +385,8 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.Portuguese)}>
-      Alterar idioma para Português
+    <button onClick={() => setLocale(Locales.English)}>
+      Alterar idioma para Inglês
     </button>
   );
 };
@@ -400,8 +400,8 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.Portuguese)}>
-      Alterar idioma para Português
+    <button onClick={() => setLocale(Locales.English)}>
+      Alterar idioma para Inglês
     </button>
   );
 };
@@ -426,8 +426,8 @@ Para adicionar rotas localizadas à sua aplicação, você pode criar um compone
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // Importação de dependências e funções necessárias
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
 // Funções utilitárias e tipos do 'intlayer'
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer";
 import type { FC, PropsWithChildren } from "react"; // Tipos React para componentes funcionais e props
 import { IntlayerProvider } from "react-intlayer"; // Provedor para contexto de internacionalização
 import {
@@ -444,7 +444,7 @@ const { locales, defaultLocale } = internationalization;
 
 /**
  * Um componente que gerencia a localização e encapsula os filhos com o contexto de idioma apropriado.
- * Ele gerencia a detecção e validação de idioma baseada em URL.
+ * Ele gerencia a detecção e validação do idioma baseada na URL.
  */
 const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
@@ -541,8 +541,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // Importação de dependências e funções necessárias
-// Funções utilitárias e tipos do 'intlayer'
-import { configuration, getPathWithoutLocale } from "intlayer";
+import { configuration, getPathWithoutLocale } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
 import { IntlayerProvider } from "react-intlayer"; // Provedor para contexto de internacionalização
 import {
   BrowserRouter,
@@ -558,7 +557,7 @@ const { locales, defaultLocale } = internationalization;
 
 /**
  * Um componente que gerencia a localização e encapsula os filhos com o contexto de idioma apropriado.
- * Ele gerencia a detecção e validação de idioma baseada em URL.
+ * Ele gerencia a detecção e validação de idioma baseada na URL.
  */
 const AppLocalized = ({ children, locale }) => {
   const { pathname, search } = useLocation(); // Obtém o caminho atual da URL
@@ -1022,35 +1021,6 @@ Ao atualizar esses atributos dinamicamente quando o idioma muda, você garante u
 Crie um hook personalizado para gerenciar os atributos HTML. O hook escuta as mudanças de idioma e atualiza os atributos de acordo:
 
 ```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-/**
- * Atualiza os atributos `lang` e `dir` do elemento HTML <html> com base no idioma atual.
- * - `lang`: Informa navegadores e motores de busca sobre o idioma da página.
- * - `dir`: Garante a ordem de leitura correta (por exemplo, 'ltr' para inglês, 'rtl' para árabe).
- *
- * Essa atualização dinâmica é essencial para renderização de texto adequada, acessibilidade e SEO.
- */
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // Atualiza o atributo de idioma para o idioma atual.
-    document.documentElement.lang = locale;
-
-    // Define a direção do texto com base no idioma atual.
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
 /**
  * Atualiza os atributos `lang` e `dir` do elemento HTML <html> com base no idioma atual.
  * - `lang`: Informa navegadores e motores de busca sobre o idioma da página.
@@ -1169,9 +1139,9 @@ module.exports = App;
 
 Ao aplicar essas alterações, sua aplicação irá:
 
-- Garantir que o **idioma** (`lang`) reflete corretamente o idioma atual, o que é importante para SEO e comportamento do navegador.
+- Garantir que o atributo **language** (`lang`) reflita corretamente o idioma atual, o que é importante para SEO e para o comportamento do navegador.
 - Ajustar a **direção do texto** (`dir`) de acordo com o idioma, melhorando a legibilidade e usabilidade para idiomas com diferentes ordens de leitura.
-- Fornecer uma experiência mais **acessível**, já que tecnologias assistivas dependem desses atributos para funcionar de forma otimizada.
+- Proporcionar uma experiência mais **acessível**, pois tecnologias assistivas dependem desses atributos para funcionar de forma otimizada.
 
 ### Configurar TypeScript
 
@@ -1180,7 +1150,6 @@ O Intlayer usa a ampliação de módulos para obter os benefícios do TypeScript
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
 Certifique-se de que sua configuração do TypeScript inclua os tipos autogerados.
 
 ```json5 fileName="tsconfig.json"
@@ -1204,6 +1173,38 @@ Para fazer isso, você pode adicionar as seguintes instruções ao seu arquivo `
 .intlayer
 ```
 
+### Extensão VS Code
+
+Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial do Intlayer para VS Code**.
+[Instale a partir do VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensão oferece:
+
+- **Autocompletar** para chaves de tradução.
+- **Detecção de erros em tempo real** para traduções ausentes.
+- **Visualizações inline** do conteúdo traduzido.
+- **Ações rápidas** para criar e atualizar traduções facilmente.
+
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+
 ### Avançar
 
 Para avançar, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+[Instalar a partir do VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensão oferece:
+
+- **Autocompletar** para chaves de tradução.
+- **Detecção de erros em tempo real** para traduções ausentes.
+- **Visualizações inline** do conteúdo traduzido.
+- **Ações rápidas** para criar e atualizar traduções facilmente.
+
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+
+### Avançar
+
+Para avançar, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

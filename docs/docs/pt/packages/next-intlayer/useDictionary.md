@@ -1,10 +1,7 @@
 ---
-docName: package__next-intlayer__useDictionary
-url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Documentação do hook useDictionary | next-intlayer
+updatedAt: 2025-06-29
+title: Documentação do Hook useDictionary | next-intlayer
 description: Veja como usar o hook useDictionary para o pacote next-intlayer
 keywords:
   - useDictionary
@@ -15,16 +12,21 @@ keywords:
   - Documentação
   - Next.js
   - JavaScript
-  - Reagir
+  - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useDictionary
 ---
 
 # Integração com React: Documentação do Hook `useDictionary`
 
-Esta seção fornece orientações detalhadas sobre como usar o hook `useDictionary` em aplicações React, permitindo o gerenciamento eficiente de conteúdo localizado sem um editor visual.
+Esta seção fornece orientações detalhadas sobre o uso do hook `useDictionary` em aplicações React, permitindo o manuseio eficiente de conteúdo localizado sem um editor visual.
 
 ## Importando `useDictionary` no React
 
-O hook `useDictionary` pode ser integrado em aplicações React importando-o com base no contexto:
+O hook `useDictionary` pode ser integrado em aplicações React importando-o conforme o contexto:
 
 - **Componente Cliente:**
 
@@ -59,11 +61,11 @@ O hook `useDictionary` pode ser integrado em aplicações React importando-o com
 O hook aceita dois parâmetros:
 
 1. **`dictionary`**: Um objeto de dicionário declarado contendo conteúdo localizado para chaves específicas.
-2. **`locale`** (opcional): O idioma desejado. Por padrão, utiliza o idioma do contexto atual se não especificado.
+2. **`locale`** (opcional): O locale desejado. Por padrão, usa o locale do contexto atual se não for especificado.
 
 ## Dicionário
 
-Todos os objetos de dicionário devem ser declarados em arquivos de conteúdo estruturados para garantir segurança de tipo e evitar erros em tempo de execução. Você pode encontrar as instruções de configuração [aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md). Aqui está um exemplo de declaração de conteúdo:
+Todos os objetos de dicionário devem ser declarados em arquivos de conteúdo estruturado para garantir a segurança de tipos e evitar erros em tempo de execução. Você pode encontrar as [instruções de configuração aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md). Aqui está um exemplo de declaração de conteúdo:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -75,13 +77,11 @@ const exampleContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      pt: "Exemplo de Componente Cliente",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un exemplo de componente cliente",
-      pt: "Este é o conteúdo de um exemplo de componente cliente",
+      es: "Este es el contenido de un ejemplo de componente cliente",
     }),
   },
 } satisfies Dictionary;
@@ -100,13 +100,11 @@ const exampleContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      pt: "Exemplo de Componente Cliente",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un exemplo de componente cliente",
-      pt: "Este é o conteúdo de um exemplo de componente cliente",
+      es: "Este es el contenido de un ejemplo de componente cliente",
     }),
   },
 };
@@ -125,13 +123,11 @@ const exampleContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      pt: "Exemplo de Componente Cliente",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el conteúdo de un exemplo de componente cliente",
-      pt: "Este é o conteúdo de um exemplo de componente cliente",
+      es: "Este es el contenido de un ejemplo de componente cliente",
     }),
   },
 };
@@ -199,9 +195,9 @@ const ClientComponentExample = () => {
 };
 ```
 
-## Exemplo de Uso em Componente Servidor React
+## Exemplo de Uso em Componente React Server
 
-Se você estiver usando o hook `useDictionary` fora do `IntlayerServerProvider`, o idioma deve ser explicitamente fornecido como parâmetro ao renderizar o componente:
+Se você estiver usando o hook `useDictionary` fora do `IntlayerServerProvider`, o locale deve ser explicitamente fornecido como parâmetro ao renderizar o componente:
 
 ```tsx fileName="ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -254,7 +250,7 @@ const ServerComponentExample = () => {
 
 ## Notas sobre Atributos
 
-Diferentemente de integrações que utilizam editores visuais, atributos como `buttonTitle.value` não se aplicam aqui. Em vez disso, acesse diretamente as strings localizadas conforme declarado no seu conteúdo.
+Ao contrário das integrações que utilizam editores visuais, atributos como `buttonTitle.value` não se aplicam aqui. Em vez disso, acesse diretamente as strings localizadas conforme declaradas no seu conteúdo.
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -262,7 +258,11 @@ Diferentemente de integrações que utilizam editores visuais, atributos como `b
 
 ## Dicas Adicionais
 
-- **Segurança de Tipo**: Sempre use `Dictionary` para definir seus dicionários e garantir segurança de tipo.
-- **Atualizações de Localização**: Ao atualizar o conteúdo, certifique-se de que todos os idiomas estejam consistentes para evitar traduções ausentes.
+- **Segurança de Tipo**: Sempre use `Dictionary` para definir seus dicionários para garantir segurança de tipo.
+- **Atualizações de Localização**: Ao atualizar o conteúdo, certifique-se de que todos os locais estejam consistentes para evitar traduções faltantes.
 
-Esta documentação foca na integração do hook `useDictionary`, fornecendo uma abordagem simplificada para gerenciar conteúdo localizado sem depender de funcionalidades de editores visuais.
+Esta documentação foca na integração do hook `useDictionary`, oferecendo uma abordagem simplificada para gerenciar conteúdo localizado sem depender das funcionalidades do editor visual.
+
+## Histórico da Documentação
+
+- 5.5.10 - 2025-06-29: Histórico inicial

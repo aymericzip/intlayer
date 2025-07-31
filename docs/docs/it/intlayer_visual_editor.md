@@ -1,9 +1,6 @@
 ---
-docName: intlayer_visual_editor
-url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Editor Visual Intlayer | Modifica il tuo contenuto utilizzando un editor visuale
 description: Scopri come utilizzare l’Editor Intlayer per gestire il tuo sito web multilingue. Segui i passi in questa documentazione online per configurare il tuo progetto in pochi minuti.
 keywords:
@@ -14,13 +11,18 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - editor
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Documentazione dell'Editor Visivo di Intlayer
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-L'Editor Visivo di Intlayer è uno strumento che avvolgerà il tuo sito web per interagire con i tuoi file di dichiarazione dei contenuti utilizzando un editor visivo.
+L'Editor Visivo di Intlayer è uno strumento che avvolge il tuo sito web per interagire con i tuoi file di dichiarazione dei contenuti utilizzando un editor visivo.
 
 ![Interfaccia dell'Editor Visivo di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
@@ -214,6 +216,40 @@ module.exports = config;
 
 3. Se il tuo contenuto è delineato, puoi tenerlo premuto a lungo per visualizzare il cassetto di modifica.
 
+## Configurazione dell'ambiente
+
+L'editor può essere configurato per utilizzare un file di ambiente specifico. Questo è utile quando vuoi usare lo stesso file di configurazione per sviluppo e produzione.
+
+Per utilizzare un file di ambiente specifico, puoi usare il flag `--env-file` o `-f` quando avvii l'editor:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> Nota che il file di ambiente dovrebbe trovarsi nella directory principale del tuo progetto.
+
+Oppure puoi usare il flag `--env` o `-e` per specificare l'ambiente:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
+
 ## Debug
 
 Se riscontri problemi con l'editor visivo, controlla quanto segue:
@@ -225,4 +261,8 @@ Se riscontri problemi con l'editor visivo, controlla quanto segue:
   - Campi obbligatori:
     - L'URL dell'applicazione dovrebbe corrispondere a quello impostato nella configurazione dell'editor (`applicationURL`).
 
-- L'editor visivo utilizza un iframe per visualizzare il tuo sito web. Assicurati che la Content Security Policy (CSP) del tuo sito web consenta l'URL del CMS come `frame-ancestors` ('http://localhost:8000' di default). Controlla la console dell'editor per eventuali errori.
+- L'editor visuale utilizza un iframe per visualizzare il tuo sito web. Assicurati che la Content Security Policy (CSP) del tuo sito consenta l'URL del CMS come `frame-ancestors` ('http://localhost:8000' per impostazione predefinita). Controlla la console dell'editor per eventuali errori.
+
+## Cronologia del documento
+
+- 5.5.10 - 2025-06-29: Cronologia iniziale

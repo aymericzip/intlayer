@@ -27,7 +27,12 @@ export const validateArray = <T = unknown>(
   } else if (maxLength && value.length > maxLength) {
     errors.push(`${entityName} must be at most ${maxLength} items long.`);
   } else if (elementType) {
-    const isValid = value.some((element) => typeof element !== elementType);
+    const isValid = value.every((element) => {
+      console.log('element', element, typeof element, elementType);
+      return typeof element === elementType;
+    });
+
+    console.log('isValid', isValid);
 
     if (!isValid) {
       errors.push(`${entityName} must contain only ${elementType} elements.`);

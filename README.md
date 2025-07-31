@@ -1,5 +1,3 @@
-[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/aymericzip-intlayer-badge.png)](https://mseep.ai/app/aymericzip-intlayer)
-
 <div align="center">
   <a href="https://intlayer.org">
     <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
@@ -35,7 +33,7 @@
       <a href="https://www.facebook.com/intlayer" target="blank"><img align="center"
          src="https://img.shields.io/badge/facebook-4267B2.svg?style=for-the-badge&logo=facebook&logoColor=white"
          alt="Intlayer Facebook" height="30"/></a>
-      <a href="https://www.instagram.com/intlayer_org/" target="blank"><img align="center"
+      <a href="https://www.instagram.com/intlayer/" target="blank"><img align="center"
          src="https://img.shields.io/badge/instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white"
          alt="Intlayer Instagram" height="30"/></a>
       <a href="https://x.com/Intlayer183096" target="blank"><img align="center"
@@ -61,7 +59,7 @@ Intlayer offers a more flexible and modern approach to **internationalization** 
 
 | Feature                                                                                                                   | Description                                                                                                                                                                                                                                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **Cross-Frameworks Support**<br><br>Intlayer is compatible with all major frameworks and libraries, including Next.js, React, Vite, Vue.js, Preact, Express, and more.                                                                                                                                                                                                                         |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **Cross-Frameworks Support**<br><br>Intlayer is compatible with all major frameworks and libraries, including Next.js, React, Vite, Vue.js, Nuxt, Preact, Express, and more.                                                                                                                                                                                                                   |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.png?raw=true)       | **JavaScript-Powered Content Management**<br><br>Harness the flexibility of JavaScript to define and manage your content efficiently. <br><br> - [Content declaration](https://intlayer.org/doc/concept/content)                                                                                                                                                                               |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **Per-Locale Content Declaration File**<br><br>Speed up your development by declaring your content once, before auto generation.<br><br> - [Per-Locale Content Declaration File](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                             |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)                      | **Type-Safe Environment**<br><br>Leverage TypeScript to ensure your content definitions and code are error-free, while also benefiting from IDE autocompletion.<br><br> - [TypeScript configuration](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                 |

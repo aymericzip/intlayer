@@ -1,9 +1,6 @@
 ---
-blogName: list_i18n_technologies__frameworks__svelte
-url: https://intlayer.org/blog/i18n-technologies/frameworks/svelte
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/svelte.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Migliori strumenti di internazionalizzazione (i18n) per Svelte
 description: Scopri i migliori strumenti di internazionalizzazione (i18n) per Svelte per affrontare i sfide di traduzione, migliorare la ricerca sul web e fornire un'esperienza web globale senza problemi.
 keywords:
@@ -14,13 +11,18 @@ keywords:
   - Internazionalizzazione
   - Blog
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - svelte
 ---
 
 # Esplorare le soluzioni i18n per tradurre il tuo sito Svelte
 
 Man mano che il web continua a connettere persone in tutto il mondo, fornire contenuti in più lingue diventa sempre più importante. Per gli sviluppatori che lavorano con **Svelte**, implementare l’i18n è essenziale per gestire efficacemente le traduzioni, mantenere un codice pulito e rispettare buone pratiche SEO. In questo articolo, esploreremo diverse soluzioni i18n e flussi di lavoro per Svelte, aiutandoti a scegliere quello che meglio si adatta alle esigenze del tuo progetto.
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Cos'è l'internazionalizzazione (i18n)?
 

@@ -1,11 +1,8 @@
 ---
-docName: package__nuxt-intlayer
-url: https://intlayer.org/doc/packages/nuxt-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/nuxt-intlayer/index.md
 createdAt: 2025-06-18
-updatedAt: 2025-06-18
-title: Documentación del paquete | nuxt-intlayer
-description: Descubre cómo usar el paquete nuxt-intlayer
+updatedAt: 2025-06-29
+title: Documentación del Paquete | nuxt-intlayer
+description: Vea cómo usar el paquete nuxt-intlayer
 keywords:
   - Intlayer
   - nuxt-intlayer
@@ -13,9 +10,15 @@ keywords:
   - Documentación
   - JavaScript
   - Nuxt
+slugs:
+  - doc
+  - packages
+  - nuxt-intlayer
 ---
 
-**Intlayer** es un conjunto de paquetes diseñados específicamente para desarrolladores de JavaScript. Es compatible con frameworks como Vue, Vue y Express.js.
+# nuxt-intlayer: Paquete NPM para internacionalizar (i18n) una aplicación Vue
+
+**Intlayer** es una suite de paquetes diseñada específicamente para desarrolladores de JavaScript. Es compatible con frameworks como Vue, Vue y Express.js.
 
 **El paquete `nuxt-intlayer`** te permite internacionalizar tu aplicación Vue. Proporciona proveedores de contexto y hooks para la internacionalización en Vue.
 
@@ -26,12 +29,12 @@ Internacionalizar tu aplicación Vue es esencial para atender eficazmente a una 
 ## ¿Por qué integrar Intlayer?
 
 - **Gestión de contenido impulsada por JavaScript**: Aprovecha la flexibilidad de JavaScript para definir y gestionar tu contenido de manera eficiente.
-- **Entorno seguro con TypeScript**: Utiliza TypeScript para garantizar que todas tus definiciones de contenido sean precisas y sin errores.
+- **Entorno con tipado seguro**: Aprovecha TypeScript para asegurar que todas tus definiciones de contenido sean precisas y sin errores.
 - **Archivos de contenido integrados**: Mantén tus traducciones cerca de sus respectivos componentes, mejorando la mantenibilidad y claridad.
 
 ## Instalación
 
-Instala el paquete necesario utilizando tu gestor de paquetes preferido:
+Instala el paquete necesario usando tu gestor de paquetes preferido:
 
 ```bash packageManager="npm"
 npm install nuxt-intlayer
@@ -44,3 +47,7 @@ yarn add nuxt-intlayer
 ```bash packageManager="pnpm"
 pnpm add nuxt-intlayer
 ```
+
+## Historial de la documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

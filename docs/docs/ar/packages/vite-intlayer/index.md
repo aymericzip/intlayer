@@ -1,34 +1,35 @@
 ---
-docName: package__vite-intlayer
-url: https://intlayer.org/doc/packages/vite-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: وثائق حزمة | vite-intlayer
-description: انظر كيف تستخدم حزمة vite-intlayer
+updatedAt: 2025-06-29
+title: توثيق الحزمة | vite-intlayer
+description: تعرف على كيفية استخدام حزمة vite-intlayer
 keywords:
   - Intlayer
   - vite-intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافا سكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - vite-intlayer
 ---
 
-# vite-intlayer: حزمة NPM لتدويل (i18n) تطبيق Vite
+# vite-intlayer: حزمة NPM لتدويل تطبيق Vite (i18n)
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React، React، و Express.js.
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافا سكريبت. وهي متوافقة مع أُطُر العمل مثل React وReact وExpress.js.
 
-**حزمة `vite-intlayer`** تتيح لك تدويل تطبيق Vite الخاص بك. تتضمن مكون Vite لإعداد التكوين من خلال متغيرات البيئة في [Vite bundler](https://vitejs.dev/guide/why.html#why-bundle-for-production). كما توفر وسيطًا لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيهه إلى عنوان URL المناسب كما هو محدد في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+**حزمة `vite-intlayer`** تتيح لك تدويل تطبيق Vite الخاص بك. تتضمن مكون Vite الإضافي (plugin) لضبط الإعدادات من خلال متغيرات البيئة في [أداة تجميع Vite](https://vitejs.dev/guide/why.html#why-bundle-for-production). كما توفر وسيطًا (middleware) لاكتشاف اللغة المفضلة للمستخدم، وإعادة توجيه المستخدم إلى عنوان URL المناسب كما هو محدد في [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-## لماذا تدويل تطبيق Vite الخاص بك؟
+## لماذا تقوم بتدويل تطبيق Vite الخاص بك؟
 
-تدويل تطبيق Vite الخاص بك أمر ضروري لخدمة جمهور عالمي بفعالية. يتيح لتطبيقك تقديم المحتوى والرسائل بلغة المستخدم المفضلة. هذه القدرة تعزز تجربة المستخدم وتوسع نطاق وصول تطبيقك من خلال جعله أكثر سهولة وملاءمة للأشخاص من خلفيات لغوية مختلفة.
+تدويل تطبيق Vite الخاص بك أمر ضروري لخدمة جمهور عالمي بفعالية. فهو يتيح لتطبيقك تقديم المحتوى والرسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق وصول تطبيقك من خلال جعله أكثر سهولة وملاءمة للأشخاص من خلفيات لغوية مختلفة.
 
-## التكوين
+## الإعداد
 
-تعمل حزمة `vite-intlayer` بسلاسة مع [حزمة `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)، و [حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md). ألقِ نظرة على الوثائق ذات الصلة لمزيد من المعلومات.
+تعمل حزمة `vite-intlayer` بسلاسة مع حزمة [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)، وحزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md). ألق نظرة على الوثائق ذات الصلة لمزيد من المعلومات.
 
 ## التثبيت
 
@@ -48,7 +49,7 @@ pnpm add vite-intlayer
 
 ## مثال على الاستخدام
 
-شاهد مثالًا على كيفية تضمين المكونات الإضافية في تكوين Vite الخاص بك.
+راجع مثالًا لكيفية تضمين الإضافات في تكوين vite الخاص بك.
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -60,12 +61,16 @@ export default defineConfig({
 });
 ```
 
-> يتم استخدام مكون Vite الإضافي `intlayerPlugin()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ومراقبتها في وضع التطوير. كما يحدد متغيرات البيئة الخاصة بـ Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
+> يستخدم مكون Vite الإضافي `intlayerPlugin()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يحدد متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
 
-> يضيف المكون الإضافي `intLayerMiddlewarePlugin()` التوجيه على جانب الخادم إلى تطبيقك. سيكتشف هذا المكون الإضافي تلقائيًا اللغة الحالية بناءً على عنوان URL ويضبط ملف تعريف الارتباط الخاص باللغة المناسبة. إذا لم يتم تحديد لغة، سيحدد المكون الإضافي اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. إذا لم يتم اكتشاف لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
+> يضيف مكون `intLayerMiddlewarePlugin()` التوجيه على جانب الخادم إلى تطبيقك. سيقوم هذا المكون تلقائيًا بالكشف عن اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط المناسب للغة. إذا لم يتم تحديد لغة، سيحدد المكون اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. وإذا لم يتم الكشف عن أي لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
 
-## إتقان تدويل تطبيق Vite الخاص بك
+## إتقان التدويل في تطبيق Vite الخاص بك
 
-يوفر Intlayer العديد من الميزات لمساعدتك في تدويل تطبيق Vite الخاص بك.
+توفر Intlayer العديد من الميزات لمساعدتك في تدويل تطبيق Vite الخاص بك.
 
-**لتعلم المزيد عن هذه الميزات، راجع دليل [التدويل (i18n) مع Intlayer و Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md) لتطبيقات Vite و React.**
+**لمعرفة المزيد عن هذه الميزات، راجع دليل [التدويل في React (i18n) مع Intlayer و Vite و React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md) لتطبيقات Vite و React.**
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية السجل

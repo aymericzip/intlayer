@@ -1,13 +1,13 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
-  type PropsWithChildren,
-  type HTMLAttributes,
-  type FC,
   type DetailedHTMLProps,
+  type FC,
+  type HTMLAttributes,
+  type PropsWithChildren,
 } from 'react';
 import { cn } from '../../utils/cn';
 
-const containerVariants = cva('flex text-text flex-col backdrop-blur', {
+export const containerVariants = cva('flex text-text flex-col backdrop-blur', {
   variants: {
     roundedSize: {
       none: 'rounded-none',
@@ -21,7 +21,7 @@ const containerVariants = cva('flex text-text flex-col backdrop-blur', {
     },
     transparency: {
       none: 'bg-card',
-      sm: 'bg-card/90',
+      sm: 'bg-card/95',
       md: 'bg-card/70',
       lg: 'bg-card/40',
       xl: 'bg-card/20',

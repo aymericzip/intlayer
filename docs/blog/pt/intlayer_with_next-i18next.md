@@ -1,9 +1,6 @@
 ---
-blogName: intlayer_with_next-i18next
-url: https://intlayer.org/blog/intlayer-with-next-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-i18next.md
 createdAt: 2024-08-11
-updatedAt: 2025-01-02
+updatedAt: 2025-06-29
 title: Intlayer e next-i18next
 description: Integre o Intlayer com o next-i18next para um aplicativo Next.js
 keywords:
@@ -15,6 +12,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - intlayer-with-next-i18next
 ---
 
 # Next.js Internacionalização (i18n) com next-i18next e Intlayer

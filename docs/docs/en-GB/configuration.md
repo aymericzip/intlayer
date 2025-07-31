@@ -1,17 +1,18 @@
 ---
-docName: configuration
-url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-06-29
 title: Configuration
-description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
+description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customise Intlayer to your needs.
 keywords:
   - Configuration
   - Settings
-  - Customization
+  - Customisation
   - Intlayer
   - Options
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Intlayer Configuration Documentation
@@ -41,14 +42,24 @@ Intlayer accepts JSON, JS, MJS, and TS configuration file formats:
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH],
   },
   content: {
-    typesDir: "content/types",
+    contentDir: ["src", "../ui-library"],
   },
   middleware: {
     noPrefix: false,
+  },
+  editor: {
+    applicationURL: "https://example.com",
+  },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: "This is a test application",
+  },
+  build: {
+    importMode: "dynamic",
   },
 };
 
@@ -60,14 +71,24 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH],
   },
   content: {
-    typesDir: "content/types",
+    contentDir: ["src", "../ui-library"],
   },
   middleware: {
     noPrefix: false,
+  },
+  editor: {
+    applicationURL: "https://example.com",
+  },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: "This is a test application",
+  },
+  build: {
+    importMode: "dynamic",
   },
 };
 
@@ -76,7 +97,7 @@ module.exports = config;
 
 ```json5 fileName=".intlayerrc" codeFormat="json"
 {
-  "internationalisation": {
+  "internationalization": {
     "locales": ["en"],
   },
   "content": {
@@ -122,7 +143,7 @@ Defines settings related to internationalisation, including available locales an
   - _Default_: `inclusive`
   - _Description_: Ensure strong implementations of internationalised content using TypeScript.
   - _Note_: If set to "strict", the translation `t` function will require each declared locale to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
-  - _Note_: If set to "inclusive", the translation `t` function will require each declared locale to be defined. If one locale is missing, it will throw a warning. But it will accept if a locale is not declared in your config, but exists.
+  - _Note_: If set to "inclusive", the translation `t` function will require each declared locale to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exists.
   - _Note_: If set to "loose", the translation `t` function will accept any existing locale.
 
 - **defaultLocale**:
@@ -195,7 +216,7 @@ Defines settings related to the integrated editor, including server port and act
 
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Description_: clientId and clientSecret allow the Intlayer packages to authenticate with the backend using OAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
+  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
@@ -203,7 +224,7 @@ Defines settings related to the integrated editor, including server port and act
 
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
-  - _Description_: clientId and clientSecret allow the Intlayer packages to authenticate with the backend using OAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
+  - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
@@ -214,7 +235,7 @@ Defines settings related to the integrated editor, including server port and act
   - _Description_: Indicates if the application should hot reload the locale configurations when a change is detected.
   - _Example_: `true`
   - _Note_: For example, when a new dictionary is added or updated, the application will update the content to display on the page.
-  - _Note_: Because the hot reloading needs a continuous connection to the server, it is only available for clients of the `enterprise` plan.
+  - _Note_: Because hot reloading requires a continuous connection to the server, it is only available for clients of the `enterprise` plan.
 
 - **dictionaryPriorityStrategy**:
   - _Type_: `string`
@@ -236,10 +257,6 @@ Settings that control middleware behaviour, including how the application handle
   - _Example_: `'x-custom-locale'`
   - _Note_: This is useful for API-based locale determination.
 
----
-
----
-
 - **cookieName**:
 
   - _Type_: `string`
@@ -251,10 +268,12 @@ Settings that control middleware behaviour, including how the application handle
 - **prefixDefault**:
 
   - _Type_: `boolean`
-  - _Default_: `true`
+  - _Default_: `false`
   - _Description_: Whether to include the default locale in the URL.
-  - _Example_: `false`
-  - _Note_: If `false`, URLs for the default locale will not have a locale prefix.
+  - _Example_: `true`
+  - _Note_:
+    - If `true` and `defaultLocale = 'en'`: path = `/en/dashboard` or `/fr/dashboard`
+    - If `false` and `defaultLocale = 'en'`: path = `/dashboard` or `/fr/dashboard`
 
 - **basePath**:
 
@@ -262,7 +281,11 @@ Settings that control middleware behaviour, including how the application handle
   - _Default_: `''`
   - _Description_: The base path for the application URLs.
   - _Example_: `'/my-app'`
-  - _Note_: This affects how URLs are constructed for the application.
+  - _Note_:
+    - If the application is hosted at `https://example.com/my-app`
+    - The base path is `'/my-app'`
+    - The URL will be `https://example.com/my-app/en`
+    - If the base path is not set, the URL will be `https://example.com/en`
 
 - **serverSetCookie**:
 
@@ -274,11 +297,42 @@ Settings that control middleware behaviour, including how the application handle
   - _Note_: Controls whether the locale cookie is set on every request or never.
 
 - **noPrefix**:
+
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Whether to omit the locale prefix from URLs.
   - _Example_: `true`
-  - _Note_: If `true`, URLs will not contain locale information.
+  - _Note_:
+    - If `true`: No prefix in the URL
+    - If `false`: Prefix in the URL
+    - Example with `basePath = '/my-app'`:
+      - If `noPrefix = false`: URL will be `https://example.com/my-app/en`
+      - If `noPrefix = true`: URL will be `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Controls whether locale detection occurs during Next.js prefetch requests.
+  - _Example_: `true`
+  - _Note_: This setting affects how Next.js handles locale prefetching:
+    - **Example scenario:**
+      - User's browser language is `'fr'`
+      - Current page is `/fr/about`
+      - Link prefetches `/about`
+    - **With `detectLocaleOnPrefetchNoPrefix: true`:**
+      - Prefetch detects `'fr'` locale from browser
+      - Redirects prefetch to `/fr/about`
+    - **With `detectLocaleOnPrefetchNoPrefix: false` (default):**
+      - Prefetch uses default locale
+      - Redirects prefetch to `/en/about` (assuming `'en'` is default)
+    - **When to use `true`:**
+      - Your app uses non-localised internal links (e.g. `<a href="/about">`)
+      - You want consistent locale detection behaviour between regular and prefetch requests
+    - **When to use `false` (default):**
+      - Your app uses locale-prefixed links (e.g. `<a href="/fr/about">`)
+      - You want to optimise prefetching performance
+      - You want to avoid potential redirect loops
 
 ---
 
@@ -320,6 +374,7 @@ Settings related to content handling within the application, including directory
 
   - _Type_: `string[]`
   - _Default_: `['src']`
+  - _Example_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Description_: The directory path where content is stored.
 
 - **dictionariesDir**:
@@ -376,7 +431,7 @@ Settings related to content handling within the application, including directory
   - _Type_: `string[]`
   - _Default_: `['node_modules']`
   - _Description_: Directories excluded from content search.
-  - _Note_: This setting is not yet used, but planned for future implementation.
+  - _Note_: This setting is not yet used, but is planned for future implementation.
 
 ### Logger Configuration
 
@@ -404,12 +459,10 @@ Settings that control the logger, including the prefix to use.
 ### AI Configuration
 
 Settings that control the AI features of Intlayer, including the provider, model, and API key.
-
 This configuration is optional if you're registered on the [Intlayer Dashboard](https://intlayer.org/dashboard/project) using an access key. Intlayer will automatically manage the most efficient and cost-effective AI solution for your needs. Using the default options ensures better long-term maintainability as Intlayer continuously updates to use the most relevant models.
 
-If you prefer to use your own API key or specific model, you can define your custom AI configuration.
-This AI configuration will be used globally across your Intlayer environment. CLI commands will use these settings as defaults for the commands (e.g. `fill`), as well as the SDK, Visual Editor, and CMS. You can override these default values for specific use cases using command parameters.
-
+If you prefer to use your own API key or specific model, you can define your custom AI configuration.  
+This AI configuration will be used globally across your Intlayer environment. CLI commands will use these settings as defaults for the commands (e.g. `fill`), as well as the SDK, Visual Editor, and CMS. You can override these default values for specific use cases using command parameters.  
 Intlayer supports multiple AI providers for enhanced flexibility and choice. Currently supported providers are:
 
 - **OpenAI** (default)
@@ -455,7 +508,6 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Note_: Important: API keys should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
 - **applicationContext**:
-
   - _Type_: `string`
   - _Default_: None
   - _Description_: Provides additional context about your application to the AI model, helping it generate more accurate and contextually appropriate translations. This can include information about your app's domain, target audience, tone, or specific terminology.
@@ -466,11 +518,9 @@ Settings that control how Intlayer optimises and builds your application's inter
 
 Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
-> In development mode, Intlayer use a centralised static import for dictionaries to simplify the development experience.
+> In development mode, Intlayer uses static imports for dictionaries to simplify the development experience.
 
-> By optimising the build, Intlayer will replace all calls of dictionaries to optimise chunking. That way the final bundle will import only the dictionaries that are used.
-
-- **Note**: `@intlayer/babel` is available by default on `vite-intlayer` package, but `@intlayer/swc` is not installed by default on `next-intlayer` package as SWC plugins are still experimental on Next.js.
+> When optimised, Intlayer will replace dictionary calls to optimise chunking, so the final bundle only imports dictionaries that are actually used.
 
 #### Properties
 
@@ -480,27 +530,38 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Default_: `process.env.NODE_ENV === 'production'`
   - _Description_: Controls whether the build should be optimised.
   - _Example_: `true`
-  - _Note_: It will allows to import only the dictionaries that are used into the bundle. But all imports will stay as static import to avoid async processing when loading the dictionaries.
-  - _Note_: When enabled, Intlayer will optimise dictionary chunking by replacing all calls of `useIntlayer` with `useDictionary` and `getIntlayer` with `getDictionary`.
+  - _Note_: When enabled, Intlayer will replace all calls of dictionaries to optimise chunking. That way the final bundle will import only the dictionaries that are used. All imports will stay as static import to avoid async processing when loading the dictionaries.
+  - _Note_: Intlayer will replace all calls of `useIntlayer` with the defined mode by the `importMode` option and `getIntlayer` with `getDictionary`.
+  - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Controls whether dictionary content should be dynamically imported per locale.
-  - _Example_: `true`
-  - _Note_: It will allows to import dynamically the dictionary content for the current locale only.
-  - _Note_: Dynamic imports rely on React Suspense and may slightly impact rendering performance. But if disabled all locales will be loaded at once, even if they are not used.
-  - _Note_: When enabled, Intlayer will optimise dictionary chunking by replacing all calls of `useIntlayer` calls with `useDynamicDictionary`.
+  - _Type_: `'static' | 'dynamic' | 'async'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
+  - _Note_: Available modes:
+    - "static": Dictionaries are imported statically. Replaces `useIntlayer` with `useDictionary`.
+    - "dynamic": Dictionaries are imported dynamically using Suspense. Replaces `useIntlayer` with `useDictionaryDynamic`.
+    - "async": Dictionaries are imported dynamically asynchronously. Replaces `useIntlayer` with `await useDictionaryAsync`.
+  - _Note_: Dynamic imports rely on Suspense and may slightly impact rendering performance.
+  - _Note_: If disabled all locales will be loaded at once, even if they are not used.
+  - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+  - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
   - _Note_: This option will be ignored if `optimize` is disabled.
-  - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+  - _Note_: In most cases, `"dynamic"` will be used for React applications, `"async"` for Vue.js applications.
+  - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
 
 - **traversePattern**:
   - _Type_: `string[]`
-  - _Default_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
+  - _Default_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']`
   - _Description_: Patterns that define which files should be traversed during optimisation.
-  - _Example_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+    - _Example_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
   - _Note_: Use this to limit optimisation to relevant code files and improve build performance.
-  - _Note_: This option will be ignored if `optimize` is disabled.
+  - _Note_: This option will be ignored if `optimise` is disabled.
   - _Note_: Use glob pattern.
+
+## Doc History
+
+- 5.5.11 - 2025-06-29: Add `docs` commands

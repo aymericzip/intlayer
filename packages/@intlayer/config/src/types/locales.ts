@@ -462,6 +462,36 @@ export enum Locales {
   ZULU = 'zu',
   /** Zulu language as used in South Africa */
   ZULU_SOUTH_AFRICA = 'zu-ZA',
+  /** Bengali / Bangla */
+  BENGALI = 'bn',
+  /** Bengali / Bangla as used in Bangladesh */
+  BENGALI_BANGLADESH = 'bn-BD',
+  /** Bengali / Bangla as used in India */
+  BENGALI_INDIA = 'bn-IN',
+  /** Bengali / Bangla as used in Myanmar */
+  BENGALI_MYANMAR = 'bn-MM',
+  /** Burmese language */
+  BURMESE = 'my',
+  /** Burmese language as used in Myanmar */
+  BURMESE_MYANMAR = 'my-MM',
+  /** Khmer language */
+  KHMER = 'km',
+  /** Khmer language as used in Cambodia */
+  KHMER_CAMBODIA = 'km-KH',
+  /** Lao language */
+  LAO = 'lo',
+  /** Lao language as used in Laos */
+  LAO_LAOS = 'lo-LA',
+  /** Yoruba language */
+  YORUBA = 'yo',
+  /** Yoruba language as used in Nigeria */
+  YORUBA_NIGERIA = 'yo-NG',
+  /** Amharic language */
+  AMHARIC = 'am',
+  /** Amharic language as used in Ethiopia */
+  AMHARIC_ETHIOPIA = 'am-ET',
+  /** Nepali language */
+  NEPALI = 'ne',
 }
 
 /** Define MyType using the ValueOf utility type on Locales */

@@ -1,10 +1,10 @@
 'use client';
 
+import { IntlayerConfig } from '@intlayer/config';
 import { type FC, useRef } from 'react';
 import { EditorLayout } from './EditorLayout';
 import { EditorProvider } from './EditorProvider';
 import { IframeController } from './IframeController';
-import { IntlayerConfig } from '@intlayer/config';
 
 type EditorProps = {
   configuration?: IntlayerConfig;

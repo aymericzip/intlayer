@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_nextjs_14
-url: https://intlayer.org/doc/environment/nextjs/14
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md
 createdAt: 2024-12-06
-updatedAt: 2024-12-07
+updatedAt: 2025-06-29
 title: ترجم موقعك الإلكتروني Next.js 14 و App Router (i18n)
 description: اكتشف كيفية جعل موقع Next.js 14 App Router الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
@@ -13,6 +10,12 @@ keywords:
   - Next.js 14
   - جافا سكريبت
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
+  - 14
+applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 ---
 
 # البدء في التدويل (i18n) باستخدام Intlayer و Next.js 14 مع App Router
@@ -228,6 +231,7 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 );
 ```
 
+```typescript fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
@@ -242,7 +246,7 @@ const LocaleLayout = ({ children, params: { locale } }) => (
 
 export default LocaleLayout;
 
-````
+```
 
 ```jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
 const { Inter } = require("next/font/google");
@@ -257,7 +261,7 @@ const LocaleLayout = ({ children, params: { locale } }) => (
 );
 
 module.exports = LocaleLayout;
-````
+```
 
 > يتم استخدام جزء المسار `[locale]` لتحديد اللغة المحلية. على سبيل المثال: `/ar/about` يشير إلى `ar` و `/fr/about` يشير إلى `fr`.
 

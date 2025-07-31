@@ -1,9 +1,6 @@
 ---
-docName: package__react-intlayer__t
-url: https://intlayer.org/doc/packages/react-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentation de la fonction t | react-intlayer
 description: Découvrez comment utiliser la fonction t pour le package react-intlayer
 keywords:
@@ -15,26 +12,31 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - t
 ---
 
-# Documentation: Fonction `t` dans `react-intlayer`
+# Documentation : Fonction `t` dans `react-intlayer`
 
-La fonction `t` dans le package `react-intlayer` est un outil fondamental pour l'internationalisation en ligne dans votre application React. Elle vous permet de définir des traductions directement dans vos composants, ce qui simplifie l'affichage de contenu localisé en fonction de la langue actuelle.
+La fonction `t` dans le package `react-intlayer` est un outil fondamental pour l'internationalisation en ligne dans votre application React. Elle vous permet de définir des traductions directement dans vos composants, facilitant ainsi l'affichage de contenu localisé en fonction de la locale actuelle.
 
 ---
 
 ## Vue d'ensemble
 
-La fonction `t` est utilisée pour fournir des traductions pour différentes langues directement dans vos composants. En passant un objet contenant les traductions pour chaque langue prise en charge, `t` retourne la traduction appropriée en fonction du contexte de langue actuel dans votre application React.
+La fonction `t` est utilisée pour fournir des traductions pour différentes locales directement dans vos composants. En passant un objet contenant les traductions pour chaque locale prise en charge, `t` renvoie la traduction appropriée en fonction du contexte de la locale actuelle dans votre application React.
 
 ---
 
 ## Fonctionnalités clés
 
-- **Traductions en ligne** : Idéal pour des textes rapides en ligne qui ne nécessitent pas de déclaration de contenu séparée.
-- **Sélection automatique de la langue** : Retourne automatiquement la traduction correspondant à la langue actuelle.
-- **Support TypeScript** : Offre une sécurité de type et une autocomplétion lorsqu'il est utilisé avec TypeScript.
-- **Intégration facile** : Fonctionne parfaitement dans les composants React.
+- **Traductions en ligne** : Idéal pour du texte rapide et en ligne qui ne nécessite pas une déclaration de contenu séparée.
+- **Sélection automatique de la locale** : Renvoie automatiquement la traduction correspondant à la locale actuelle.
+- **Support TypeScript** : Offre une sécurité de type et l'autocomplétion lorsqu'il est utilisé avec TypeScript.
+- **Intégration facile** : Fonctionne parfaitement au sein des composants React.
 
 ---
 
@@ -46,11 +48,11 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### Paramètres
 
-- `translations` : Un objet où les clés sont les codes de langue (par exemple, `en`, `fr`, `es`) et les valeurs sont les chaînes traduites correspondantes.
+- `translations` : Un objet où les clés sont des codes de locale (par exemple, `en`, `fr`, `es`) et les valeurs sont les chaînes traduites correspondantes.
 
 ### Retourne
 
-- Une chaîne représentant le contenu traduit pour la langue actuelle.
+- Une chaîne représentant le contenu traduit pour la locale actuelle.
 
 ---
 
@@ -105,7 +107,7 @@ const ComponentExample = () => {
         {t({
           en: "This is an example of a component",
           fr: "Ceci est un exemple de composant",
-          es: "Este es un exemple de componente",
+          es: "Este es un ejemplo de componente",
         })}
       </p>
     </div>
@@ -143,11 +145,11 @@ La fonction `t` est particulièrement utile pour les traductions en ligne dans l
 
 ---
 
-## Sujets avancés
+## Sujets Avancés
 
 ### Intégration TypeScript
 
-La fonction `t` est sécurisée par type lorsqu'elle est utilisée avec TypeScript, garantissant que toutes les langues requises sont fournies.
+La fonction `t` est typée de manière sécurisée lorsqu'elle est utilisée avec TypeScript, garantissant que toutes les locales requises sont fournies.
 
 ```typescript codeFormat="typescript"
 import { t, type IConfigLocales } from "react-intlayer";
@@ -187,9 +189,9 @@ const translations = {
 const greeting = t(translations);
 ```
 
-### Détection et contexte de langue
+### Détection de la locale et contexte
 
-Dans `react-intlayer`, la langue actuelle est gérée via le `IntlayerProvider`. Assurez-vous que ce fournisseur enveloppe vos composants et que la propriété `locale` est correctement passée.
+Dans `react-intlayer`, la locale courante est gérée via le `IntlayerProvider`. Assurez-vous que ce provider enveloppe vos composants et que la prop `locale` est correctement passée.
 
 #### Exemple :
 
@@ -229,23 +231,23 @@ const App = ({ locale }) => (
 
 ## Erreurs courantes et dépannage
 
-### `t` retourne une valeur indéfinie ou une traduction incorrecte
+### `t` retourne undefined ou une traduction incorrecte
 
-- **Cause** : La langue actuelle n'est pas correctement définie ou la traduction pour la langue actuelle est manquante.
+- **Cause** : La locale actuelle n'est pas correctement définie, ou la traduction pour la locale actuelle est manquante.
 - **Solution** :
-  - Vérifiez que le `IntlayerProvider` est correctement configuré avec la langue appropriée.
-  - Assurez-vous que votre objet de traductions inclut toutes les langues nécessaires.
+  - Vérifiez que le `IntlayerProvider` est correctement configuré avec la `locale` appropriée.
+  - Assurez-vous que votre objet de traductions inclut toutes les locales nécessaires.
 
-### Traductions manquantes dans TypeScript
+### Traductions manquantes en TypeScript
 
-- **Cause** : L'objet de traductions ne satisfait pas les langues requises, entraînant des erreurs TypeScript.
+- **Cause** : L'objet de traductions ne satisfait pas les locales requises, ce qui entraîne des erreurs TypeScript.
 - **Solution** : Utilisez le type `IConfigLocales` pour garantir l'exhaustivité de vos traductions.
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // L'absence de 'es' entraînera une erreur TypeScript
+  // es: 'Texto', // L'absence de 'es' provoquera une erreur TypeScript
 };
 
 const text = t(translations);
@@ -255,7 +257,7 @@ const text = t(translations);
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // L'absence de 'es' entraînera une erreur TypeScript
+  // es: 'Texto', // L'absence de 'es' provoquera une erreur TypeScript
 };
 
 const text = t(translations);
@@ -268,7 +270,7 @@ const { t, type IConfigLocales } = require("react-intlayer");
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // L'absence de 'es' entraînera une erreur TypeScript
+  // es: 'Texto', // L'absence de 'es' provoquera une erreur TypeScript
 };
 
 const text = t(translations);
@@ -279,8 +281,8 @@ const text = t(translations);
 ## Conseils pour une utilisation efficace
 
 1. **Utilisez `t` pour des traductions simples en ligne** : Idéal pour traduire de petits morceaux de texte directement dans vos composants.
-2. **Préférez `useIntlayer` pour un contenu structuré** : Pour des traductions plus complexes et une réutilisation du contenu, définissez le contenu dans des fichiers de déclaration et utilisez `useIntlayer`.
-3. **Fourniture cohérente de la langue** : Assurez-vous que votre langue est fournie de manière cohérente dans toute votre application via le `IntlayerProvider`.
+2. **Privilégiez `useIntlayer` pour un contenu structuré** : Pour des traductions plus complexes et la réutilisation de contenu, définissez le contenu dans des fichiers de déclaration et utilisez `useIntlayer`.
+3. **Fourniture cohérente de la locale** : Assurez-vous que votre locale est fournie de manière cohérente dans toute votre application via le `IntlayerProvider`.
 4. **Exploitez TypeScript** : Utilisez les types TypeScript pour détecter les traductions manquantes et garantir la sécurité des types.
 
 ---
@@ -289,8 +291,12 @@ const text = t(translations);
 
 La fonction `t` dans `react-intlayer` est un outil puissant et pratique pour gérer les traductions en ligne dans vos applications React. En l'intégrant efficacement, vous améliorez les capacités d'internationalisation de votre application, offrant une meilleure expérience aux utilisateurs du monde entier.
 
-Pour une utilisation plus détaillée et des fonctionnalités avancées, consultez la [documentation react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md).
+Pour une utilisation plus détaillée et des fonctionnalités avancées, référez-vous à la [documentation react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md).
 
 ---
 
-**Remarque** : N'oubliez pas de configurer correctement votre `IntlayerProvider` pour garantir que la langue actuelle est correctement transmise à vos composants. Cela est crucial pour que la fonction `t` retourne les traductions correctes.
+**Note** : N'oubliez pas de configurer correctement votre `IntlayerProvider` afin de garantir que la locale actuelle soit bien transmise à vos composants. Cela est crucial pour que la fonction `t` retourne les bonnes traductions.
+
+## Historique du document
+
+- 5.5.10 - 2025-06-29 : Historique initial

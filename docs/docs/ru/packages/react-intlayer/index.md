@@ -1,40 +1,41 @@
 ---
-docName: package__react-intlayer
-url: https://intlayer.org/doc/packages/react-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Документация пакета | react-intlayer
 description: Узнайте, как использовать пакет react-intlayer
 keywords:
   - Intlayer
   - react-intlayer
-  - интернационализация
-  - документация
+  - Интернационализация
+  - Документация
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
 ---
 
-# react-intlayer: Пакет NPM для интернационализации (i18n) React-приложения
+# react-intlayer: NPM пакет для интернационализации (i18n) React-приложения
 
-**Intlayer** , это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
 
 **Пакет `react-intlayer`** позволяет интернационализировать ваше React-приложение. Он предоставляет провайдеры контекста и хуки для интернационализации в React.
 
-## Почему важно интернационализировать ваше React-приложение?
+## Зачем интернационализировать ваше React-приложение?
 
-Интернационализация вашего React-приложения необходима для эффективного обслуживания глобальной аудитории. Это позволяет вашему приложению предоставлять контент и сообщения на предпочтительном языке каждого пользователя. Эта возможность улучшает пользовательский опыт и расширяет охват вашего приложения, делая его более доступным и актуальным для людей из разных языковых сообществ.
+Интернационализация вашего React-приложения необходима для эффективного обслуживания глобальной аудитории. Она позволяет вашему приложению предоставлять контент и сообщения на предпочтительном языке каждого пользователя. Эта возможность улучшает пользовательский опыт и расширяет охват вашего приложения, делая его более доступным и релевантным для людей с разным языковым фоном.
 
 ## Почему стоит интегрировать Intlayer?
 
-- **Управление контентом на основе JavaScript**: Используйте гибкость JavaScript для эффективного определения и управления вашим контентом.
-- **Безопасная типизация**: Используйте TypeScript, чтобы гарантировать точность и отсутствие ошибок в определении контента.
-- **Интегрированные файлы контента**: Держите переводы рядом с соответствующими компонентами, улучшая их поддержку и ясность.
+- **Управление контентом на базе JavaScript**: Используйте гибкость JavaScript для эффективного определения и управления вашим контентом.
+- **Типобезопасная среда**: Используйте TypeScript, чтобы все определения вашего контента были точными и безошибочными.
+- **Интегрированные файлы контента**: Держите ваши переводы рядом с соответствующими компонентами, что повышает удобство поддержки и ясность.
 
 ## Установка
 
-Установите необходимый пакет, используя предпочитаемый менеджер пакетов:
+Установите необходимый пакет с помощью предпочитаемого менеджера пакетов:
 
 ```bash packageManager="npm"
 npm install react-intlayer
@@ -50,7 +51,7 @@ pnpm add react-intlayer
 
 ## Пример использования
 
-С помощью Intlayer вы можете объявлять ваш контент структурированным образом в любом месте вашего кода.
+С Intlayer вы можете объявлять ваш контент в структурированном виде в любом месте вашего кода.
 
 По умолчанию Intlayer сканирует файлы с расширением `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
@@ -95,9 +96,9 @@ pnpm add react-intlayer
             └── index.cjx
 ```
 
-### Объявление контента
+### Объявление вашего контента
 
-`react-intlayer` предназначен для работы с пакетом [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/index.md). `intlayer` , это пакет, который позволяет вам объявлять контент в любом месте вашего кода. Он преобразует многоязычные объявления контента в структурированные словари, которые легко интегрируются в ваше приложение.
+`react-intlayer` создан для работы с пакетом [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/index.md). `intlayer` — это пакет, который позволяет объявлять ваш контент в любом месте вашего кода. Он преобразует многоязычные объявления контента в структурированные словари, которые бесшовно интегрируются в ваше приложение.
 
 Вот пример объявления контента:
 
@@ -111,10 +112,9 @@ const component1Content = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
-      ru: "Привет, мир",
     }),
     numberOfCar: enu({
-      "<-1": "Меньше минус одной машины",
+      "<-1": "Меньше чем минус одна машина",
       "-1": "Минус одна машина",
       "0": "Нет машин",
       "1": "Одна машина",
@@ -138,10 +138,9 @@ const component1Content = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
-      ru: "Привет, мир",
     }),
     numberOfCar: enu({
-      "<-1": "Меньше минус одной машины",
+      "<-1": "Меньше чем минус одна машина",
       "-1": "Минус одна машина",
       "0": "Нет машин",
       "1": "Одна машина",
@@ -165,10 +164,9 @@ const component1Content = {
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
-      ru: "Привет, мир",
     }),
     numberOfCar: enu({
-      "<-1": "Меньше минус одной машины",
+      "<-1": "Меньше чем минус одна машина",
       "-1": "Минус одна машина",
       "0": "Нет машин",
       "1": "Одна машина",
@@ -197,7 +195,7 @@ module.exports = component1Content;
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Меньше минус одной машины",
+        "<-1": "Меньше чем минус одна машина",
         "-1": "Минус одна машина",
         "0": "Нет машин",
         "1": "Одна машина",
@@ -209,9 +207,9 @@ module.exports = component1Content;
 }
 ```
 
-### Использование контента в коде
+### Использование контента в вашем коде
 
-После объявления контента вы можете использовать его в вашем коде. Вот пример использования контента в React-компоненте:
+После того, как вы объявили ваш контент, вы можете использовать его в вашем коде. Вот пример того, как использовать контент в React-компоненте:
 
 ```tsx {4,7} fileName="src/components/Component1Example.tsx" codeFormat="typescript"
 "use client";
@@ -264,16 +262,20 @@ const Component1Example = () => {
 
 ## Освоение интернационализации вашего React-приложения
 
-Intlayer предоставляет множество функций, чтобы помочь вам интернационализировать ваше React-приложение.
+Intlayer предоставляет множество функций, которые помогут вам интернационализировать ваше React-приложение.
 
-**Чтобы узнать больше об этих функциях, обратитесь к [руководству по интернационализации React (i18n) с Intlayer и Vite и React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md) для приложений на Vite и React или к [руководству по интернационализации React (i18n) с Intlayer и React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_create_react_app.md) для приложений на Create React App.**
+**Чтобы узнать больше об этих функциях, обратитесь к руководству [Интернационализация React (i18n) с Intlayer и Vite и React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md) для приложений на Vite и React, или к руководству [Интернационализация React (i18n) с Intlayer и React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_create_react_app.md) для React Create App.**
 
 ## Функции, предоставляемые пакетом `react-intlayer`
 
-Пакет `react-intlayer` также предоставляет несколько функций, чтобы помочь вам интернационализировать ваше приложение.
+Пакет `react-intlayer` также предоставляет некоторые функции, которые помогут вам интернационализировать ваше приложение.
 
 - [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/t.md)
 - [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md)
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md)
 - [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayerAsync.md)
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

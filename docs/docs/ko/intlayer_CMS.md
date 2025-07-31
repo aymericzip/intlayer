@@ -1,9 +1,6 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer CMS | Intlayer CMS에 콘텐츠를 외부화합니다
 description: Intlayer CMS에 콘텐츠를 외부화하여 콘텐츠의 관리를 팀에게 위임합니다.
 keywords:
@@ -15,6 +12,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer 콘텐츠 관리 시스템 (CMS) 문서
@@ -31,9 +33,9 @@ Intlayer CMS는 Intlayer 프로젝트의 콘텐츠를 외부화할 수 있는 �
 
 Intlayer는 '로컬' 사전과 '원격' 사전을 구분합니다.
 
-- '로컬' 사전은 Intlayer 프로젝트에서 선언된 사전입니다. 버튼 선언 파일이나 네비게이션 바와 같은 것들입니다. 이 경우 콘텐츠를 외부화하는 것은 큰 의미가 없는데, 이는 이 콘텐츠가 자주 변경되지 않을 것이기 때문입니다.
+- '로컬' 사전은 Intlayer 프로젝트 내에서 선언된 사전을 의미합니다. 예를 들어 버튼 선언 파일이나 네비게이션 바가 이에 해당합니다. 이 경우 콘텐츠가 자주 변경되지 않기 때문에 콘텐츠를 외부화하는 것은 큰 의미가 없습니다.
 
-- '원격' 사전은 Intlayer CMS를 통해 관리되는 사전입니다. 이는 팀이 웹사이트에서 직접 콘텐츠를 관리할 수 있도록 하거나, A/B 테스트 기능 및 SEO 자동 최적화를 사용하는 데 유용할 수 있습니다.
+- '원격' 사전은 Intlayer CMS를 통해 관리되는 사전입니다. 이는 팀이 웹사이트에서 직접 콘텐츠를 관리할 수 있도록 하며, A/B 테스트 기능과 SEO 자동 최적화 기능을 활용하는 데에도 유용합니다.
 
 ## 비주얼 에디터 vs CMS
 
@@ -44,6 +46,8 @@ Intlayer는 '로컬' 사전과 '원격' 사전을 구분합니다.
 ## 통합
 
 패키지 설치 방법에 대한 자세한 내용은 아래 관련 섹션을 참조하세요:
+
+### Next.js와 통합
 
 ### Next.js와 통합
 
@@ -102,7 +106,7 @@ const config: IntlayerConfig = {
      *
      * Intlayer CMS를 자체 호스팅하는 경우 백엔드의 URL을 설정할 수 있습니다.
      *
-     * Intlayer CMS의 URL입니다.
+     * Intlayer 백엔드의 URL입니다.
      * 기본값은 https://back.intlayer.org로 설정됩니다.
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -152,7 +156,7 @@ const config = {
      *
      * Intlayer CMS를 자체 호스팅하는 경우 백엔드의 URL을 설정할 수 있습니다.
      *
-     * Intlayer CMS의 URL입니다.
+     * Intlayer 백엔드의 URL입니다.
      * 기본값은 https://back.intlayer.org로 설정됩니다.
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -194,7 +198,6 @@ const config = {
      *
      * Intlayer CMS의 URL입니다.
      * 기본값은 https://intlayer.org로 설정됩니다.
-     */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
@@ -259,7 +262,6 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 Intlayer CMS는 변경 사항이 감지되면 사전을 핫 리로드할 수 있습니다.
 
 핫 리로딩 없이 새 콘텐츠를 표시하려면 애플리케이션을 다시 빌드해야 합니다.
-
 [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) 설정을 활성화하면 변경된 콘텐츠가 감지될 때 애플리케이션이 자동으로 업데이트된 콘텐츠를 대체합니다.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -329,12 +331,11 @@ const config = {
 module.exports = config;
 ```
 
-핫 리로딩은 서버 및 클라이언트 측 모두에서 콘텐츠를 대체합니다.
+핫 리로딩은 서버와 클라이언트 양쪽에서 콘텐츠를 교체합니다.
 
 - 서버 측에서는 애플리케이션 프로세스가 `.intlayer/dictionaries` 디렉토리에 쓰기 권한이 있는지 확인해야 합니다.
 - 클라이언트 측에서는 핫 리로딩을 통해 페이지를 다시 로드하지 않고도 브라우저에서 콘텐츠를 핫 리로드할 수 있습니다. 그러나 이 기능은 클라이언트 컴포넌트에서만 사용할 수 있습니다.
-
-> 핫 리로딩은 `EventListener`를 사용하여 서버와의 지속적인 연결이 필요하기 때문에 `enterprise` 플랜의 클라이언트만 사용할 수 있습니다.
+  > 핫 리로딩은 `EventListener`를 사용하여 서버와의 지속적인 연결이 필요하기 때문에 `enterprise` 플랜의 클라이언트만 사용할 수 있습니다.
 
 ## 디버그
 
@@ -349,5 +350,8 @@ CMS에서 문제가 발생한 경우 다음을 확인하세요:
     - CMS URL
 
 - 프로젝트 설정이 Intlayer CMS에 푸시되었는지 확인합니다.
-
 - 비주얼 에디터는 iframe을 사용하여 웹사이트를 표시합니다. 웹사이트의 콘텐츠 보안 정책(CSP)이 CMS URL을 `frame-ancestors`로 허용하는지 확인하세요(기본값: 'https://intlayer.org'). 에디터 콘솔에서 오류를 확인하세요.
+
+## 문서 이력
+
+- 5.5.10 - 2025-06-29: 초기 이력 작성

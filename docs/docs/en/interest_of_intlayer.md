@@ -1,9 +1,6 @@
 ---
-docName: interest_of_intlayer
-url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
-updatedAt: 2024-08-14
+updatedAt: 2025-06-29
 title: Interest of Intlayer
 description: Discover the benefits and advantages of using Intlayer in your projects. Understand why Intlayer stands out among other frameworks.
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - Intlayer
   - Framework
   - Comparison
+slugs:
+  - doc
+  - concept
+  - interest
 ---
 
 # Intlayer: A tailored way to translate your website
@@ -147,3 +148,9 @@ const ComponentExample = () => {
 | **Tree-shakable Content**                 | The content is tree-shakable, which lightens the final bundle.                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **Non-blocking Static Rendering**         | Intlayer doesn't block Static Rendering as `next-intl` does.                                                                                                                                                                                                                                                                                                                                                                                                                |
 | **Interoperability**                      | Allow interoperability with [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md), and [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-intl.md). |
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

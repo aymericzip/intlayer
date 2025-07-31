@@ -1,9 +1,6 @@
 ---
-docName: package__svelte-intlayer
-url: https://intlayer.org/doc/packages/svelte-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/svelte-intlayer/index.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Package Documentation | svelte-intlayer
 description: See how to use the svelte-intlayer package
 keywords:
@@ -13,6 +10,10 @@ keywords:
   - Documentation
   - JavaScript
   - Svelte
+slugs:
+  - doc
+  - packages
+  - svelte-intlayer
 ---
 
 # svelte-intlayer: NPM Package to internationalize (i18n) an Solid application
@@ -46,3 +47,9 @@ yarn add svelte-intlayer
 ```bash packageManager="pnpm"
 pnpm add svelte-intlayer
 ```
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

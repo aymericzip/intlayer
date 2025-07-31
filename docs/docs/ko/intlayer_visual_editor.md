@@ -1,19 +1,21 @@
 ---
-docName: intlayer_visual_editor
-url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer 비주얼 편집기 | 비주얼 편집기를 사용하여 콘텐츠를 편집합니다
 description: Intlayer 편집기를 사용하여 다국어 웹사이트를 관리하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정하세요.
 keywords:
-  - 편집자
+  - 편집기
   - 국제화
   - 문서
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - editor
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer Visual Editor Documentation
@@ -38,6 +40,8 @@ Intlayer를 통합하는 방법에 대한 자세한 내용은 아래 관련 섹�
 
 ### Next.js와 통합
 
+### Next.js와 통합
+
 Next.js와 통합하려면 [설치 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)를 참조하세요.
 
 ### Create React App과 통합
@@ -52,9 +56,9 @@ Vite + React와 통합하려면 [설치 가이드](https://github.com/aymericzip
 
 시각적 편집기는 두 가지 요소를 포함하는 애플리케이션입니다:
 
-- 웹사이트를 iframe에 표시하는 프론트엔드 애플리케이션. 웹사이트가 Intlayer를 사용하는 경우, 시각적 편집기는 콘텐츠를 자동으로 감지하고 상호작용할 수 있도록 합니다. 수정이 이루어지면 변경 사항을 다운로드할 수 있습니다.
+- 웹사이트를 iframe에 표시하는 프론트엔드 애플리케이션. 웹사이트가 Intlayer를 사용하는 경우, 시각적 편집기가 콘텐츠를 자동으로 감지하고 상호작용할 수 있도록 합니다. 수정이 이루어지면 변경 사항을 다운로드할 수 있습니다.
 
-- 다운로드 버튼을 클릭하면, 시각적 편집기가 서버에 요청을 보내 프로젝트 내에 선언된 콘텐츠 파일을 새 콘텐츠로 교체합니다.
+- 다운로드 버튼을 클릭하면, 시각적 편집기가 서버에 요청을 보내 프로젝트 내에 선언된 콘텐츠 선언 파일을 새 콘텐츠로 교체합니다.
 
 > 현재 Intlayer Editor는 콘텐츠 선언 파일을 JSON 파일로 작성합니다.
 
@@ -206,13 +210,47 @@ module.exports = config;
 
    > **애플리케이션을 병렬로 실행해야 합니다.** 애플리케이션 URL은 편집기 구성(`applicationURL`)에 설정한 URL과 일치해야 합니다.
 
-2. 제공된 URL을 엽니다. 기본값은 `http://localhost:8000`입니다.
+2. 그런 다음 제공된 URL을 엽니다. 기본값은 `http://localhost:8000`입니다.
 
    Intlayer에 의해 색인된 각 필드를 커서를 사용하여 콘텐츠 위로 이동하면 볼 수 있습니다.
 
    ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 3. 콘텐츠가 윤곽선으로 표시되면, 길게 눌러 편집 서랍을 표시할 수 있습니다.
+
+## 환경 구성
+
+편집기는 특정 환경 파일을 사용하도록 구성할 수 있습니다. 이는 개발과 프로덕션에서 동일한 구성 파일을 사용하려는 경우에 유용합니다.
+
+특정 환경 파일을 사용하려면 편집기를 시작할 때 `--env-file` 또는 `-f` 플래그를 사용할 수 있습니다:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> 환경 파일은 프로젝트의 루트 디렉터리에 위치해야 합니다.
+
+또는 `--env` 또는 `-e` 플래그를 사용하여 환경을 지정할 수 있습니다:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
 
 ## 디버그
 
@@ -225,4 +263,8 @@ module.exports = config;
   - 필수 필드:
     - 애플리케이션 URL은 편집기 구성(`applicationURL`)에 설정한 URL과 일치해야 합니다.
 
-- 시각적 편집기는 iframe을 사용하여 웹사이트를 표시합니다. 웹사이트의 콘텐츠 보안 정책(CSP)이 CMS URL을 `frame-ancestors`로 허용하는지 확인하세요(기본값은 'http://localhost:8000'). 편집기 콘솔에서 오류를 확인하세요.
+- 비주얼 에디터는 iframe을 사용하여 웹사이트를 표시합니다. 웹사이트의 콘텐츠 보안 정책(CSP)이 CMS URL을 `frame-ancestors`로 허용하는지 확인하세요(기본값은 'http://localhost:8000'입니다). 에디터 콘솔에서 오류가 있는지 확인하세요.
+
+## 문서 이력
+
+- 5.5.10 - 2025-06-29: 초기 이력

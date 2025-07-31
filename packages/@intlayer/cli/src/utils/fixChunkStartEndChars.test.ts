@@ -44,4 +44,75 @@ describe('fixChunkStartEndChars', () => {
     const fixed = fixChunkStartEndChars(reviewed, base);
     expect(fixed).toEqual(base);
   });
+
+  it('should not remove ```` when the base chunk starts with it', () => {
+    const base = '```test';
+    const reviewed = '```test';
+
+    const fixed = fixChunkStartEndChars(reviewed, base);
+    expect(fixed).toEqual(base);
+  });
+
+  it('should add ```` when the base chunk ends with it', () => {
+    const base = '```test';
+    const reviewed = 'test';
+
+    const fixed = fixChunkStartEndChars(reviewed, base);
+    expect(fixed).toEqual(base);
+  });
+
+  it('should remove ```` when the base chunk starts with it', () => {
+    const base = 'test';
+    const reviewed = '```test';
+
+    const fixed = fixChunkStartEndChars(reviewed, base);
+    expect(fixed).toEqual(base);
+  });
+
+  it('should not remove ```` when the base chunk finishes with it', () => {
+    const base = 'test```';
+    const reviewed = 'test```';
+
+    const fixed = fixChunkStartEndChars(reviewed, base);
+    expect(fixed).toEqual(base);
+  });
+
+  it('should add ```` when the base chunk finishes with it', () => {
+    const base = 'test```';
+    const reviewed = 'test';
+
+    const fixed = fixChunkStartEndChars(reviewed, base);
+    expect(fixed).toEqual(base);
+  });
+
+  it('should remove ```` when the base chunk finishes with it', () => {
+    const base = 'test';
+    const reviewed = 'test```';
+
+    const fixed = fixChunkStartEndChars(reviewed, base);
+    expect(fixed).toEqual(base);
+  });
+
+  it('should add the missing char is a char list that matching char list', () => {
+    // Here the base chunk as entry for the AI
+    const baseChunk =
+      '```\n' + '\n' + '### 2. **Check if the command is registered**\n';
+
+    // But the translation AI returned a content that is wrong, because the firsts chars are missing
+    const aiGeneratedResult =
+      '\n' + '\n' + '### 2. **Vérifiez si la commande est enregistrée**\n';
+
+    // The current result is this one, but it's wrong because the \n are missing
+    const fixedResultError =
+      '```### 2. **Vérifiez si la commande est enregistrée**\n';
+
+    // The correct result should be this one, with the \n at the beginning
+    const fixedResultSuccess =
+      '```\n' + '\n' + '### 2. **Vérifiez si la commande est enregistrée**\n';
+
+    const fixed = fixChunkStartEndChars(aiGeneratedResult, baseChunk);
+
+    // Check if it start by '```\n' + '\n' + '### 2.'
+    expect(fixed).toMatch(/^```\n\n### 2\./);
+  });
 });

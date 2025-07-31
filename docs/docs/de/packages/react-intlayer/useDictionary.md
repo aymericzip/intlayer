@@ -1,6 +1,27 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: useDictionary Hook - React Intlayer Dokumentation
+description: Vollständige Anleitung zur Verwendung des useDictionary Hooks in React-Anwendungen mit Intlayer für eine effiziente Handhabung lokalisierter Inhalte ohne visuellen Editor.
+keywords:
+  - useDictionary
+  - React
+  - hook
+  - intlayer
+  - lokalisierung
+  - i18n
+  - wörterbuch
+  - übersetzung
+slugs:
+  - doc
+  - package
+  - react-intlayer
+  - useDictionary
+---
+
 # React-Integration: `useDictionary` Hook Dokumentation
 
-Dieser Abschnitt bietet eine detaillierte Anleitung zur Verwendung des `useDictionary` Hooks in React-Anwendungen, um eine effiziente Handhabung von lokalisierten Inhalten ohne visuellen Editor zu ermöglichen.
+Dieser Abschnitt bietet eine detaillierte Anleitung zur Verwendung des `useDictionary` Hooks in React-Anwendungen, um eine effiziente Handhabung lokalisierter Inhalte ohne visuellen Editor zu ermöglichen.
 
 ## Importieren von `useDictionary` in React
 
@@ -38,12 +59,12 @@ Der `useDictionary` Hook kann in React-Anwendungen integriert werden, indem er j
 
 Der Hook akzeptiert zwei Parameter:
 
-1. **`dictionary`**: Ein deklariertes Wörterbuchobjekt, das lokalisierte Inhalte für spezifische Schlüssel enthält.
-2. **`locale`** (optional): Die gewünschte Sprache. Standardmäßig wird die aktuelle Sprache des Kontexts verwendet, wenn nicht angegeben.
+1. **`dictionary`**: Ein deklariertes Wörterbuchobjekt, das lokalisierte Inhalte für bestimmte Schlüssel enthält.
+2. **`locale`** (optional): Die gewünschte Locale. Standardmäßig wird die Locale des aktuellen Kontexts verwendet, wenn keine angegeben ist.
 
 ## Wörterbuch
 
-Alle Wörterbuchobjekte sollten in strukturierten Inhaltsdateien deklariert werden, um Typsicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Die Einrichtungsanweisungen finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md). Hier ist ein Beispiel für die Deklaration von Inhalten:
+Alle Wörterbuchobjekte sollten in strukturierten Inhaltsdateien deklariert werden, um Typsicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Die [Einrichtungsanweisungen finden Sie hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md). Hier ist ein Beispiel für die Inhaltsdeklaration:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -71,6 +92,7 @@ export default componentContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Wörterbuchobjekt für die Komponente
 const componentContent = {
   key: "component-example",
   content: {
@@ -94,6 +116,7 @@ export default componentContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// Wörterbuchobjekt für die Komponente
 const componentContent = {
   key: "component-example",
   content: {
@@ -138,11 +161,13 @@ module.exports = componentContent;
 }
 ```
 
-## Beispielverwendung in React
+## Beispiel für die Verwendung in React
 
 Nachfolgend ein Beispiel, wie der `useDictionary` Hook in einer React-Komponente verwendet wird:
 
 ```tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
+import type { FC } from "react";
+tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer";
 import componentContent from "./component.content";
@@ -189,11 +214,23 @@ const ComponentExample = () => {
     </div>
   );
 };
+const componentContent = require("./component.content");
+
+const ComponentExample = () => {
+  const { title, content } = useDictionary(componentContent);
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{content}</p>
+    </div>
+  );
+};
 ```
 
 ## Server-Integration
 
-Wenn Sie den `useDictionary` Hook außerhalb des `IntlayerProvider` verwenden, muss die Sprache explizit als Parameter angegeben werden, wenn die Komponente gerendert wird:
+Wenn Sie den `useDictionary` Hook außerhalb des `IntlayerProvider` verwenden, muss die Locale beim Rendern der Komponente explizit als Parameter übergeben werden:
 
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -246,7 +283,7 @@ const ServerComponentExample = ({ locale }) => {
 
 ## Hinweise zu Attributen
 
-Im Gegensatz zu Integrationen mit visuellen Editoren gelten Attribute wie `buttonTitle.value` hier nicht. Stattdessen greifen Sie direkt auf die lokalisierten Zeichenfolgen zu, wie in Ihrem Inhalt deklariert.
+Im Gegensatz zu Integrationen mit visuellen Editoren gelten hier keine Attribute wie `buttonTitle.value`. Stattdessen greifen Sie direkt auf die lokalisierten Strings zu, wie sie in Ihrem Inhalt deklariert sind.
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -254,7 +291,11 @@ Im Gegensatz zu Integrationen mit visuellen Editoren gelten Attribute wie `butto
 
 ## Zusätzliche Tipps
 
-- **Typsicherheit**: Verwenden Sie immer `Dictionary`, um Ihre Wörterbücher zu definieren und Typsicherheit zu gewährleisten.
-- **Lokalisierungsaktualisierungen**: Stellen Sie bei der Aktualisierung von Inhalten sicher, dass alle Sprachen konsistent sind, um fehlende Übersetzungen zu vermeiden.
+- **Typensicherheit**: Verwenden Sie stets `Dictionary`, um Ihre Wörterbücher zu definieren und so Typensicherheit zu gewährleisten.
+- **Aktualisierungen der Lokalisierung**: Stellen Sie bei Inhaltsaktualisierungen sicher, dass alle Sprachen konsistent sind, um fehlende Übersetzungen zu vermeiden.
 
-Diese Dokumentation konzentriert sich auf die Integration des `useDictionary` Hooks und bietet einen optimierten Ansatz zur Verwaltung lokalisierter Inhalte ohne die Nutzung von Funktionen visueller Editoren.
+Diese Dokumentation konzentriert sich auf die Integration des `useDictionary` Hooks und bietet einen optimierten Ansatz zur Verwaltung lokalisierter Inhalte, ohne auf Funktionen visueller Editoren angewiesen zu sein.
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Historie initialisiert

@@ -1,9 +1,6 @@
 ---
-blogName: what_is_internationalization
-url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Was ist Internationalisierung (i18n)? Definition und Herausforderungen
 description: Erfahren Sie, warum die Internationalisierung Ihrer Website wesentlich ist. Lernen Sie Schlüsselprinzipien, um Ihre SEO zu erhöhen, die Benutzererfahrung zu verbessern und Ihre globale Reichweite zu erweitern.
 keywords:
@@ -15,11 +12,14 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - what-is-internationalization
 ---
 
 # Was ist Internationalisierung (i18n)? Definition und Herausforderungen
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Verständnis von Internationalisierung (i18n)
 
@@ -73,7 +73,7 @@ Diese kurze Übersicht deckt die wichtigsten Elemente ab, die internationalisier
 
 ## Häufige i18n-Herausforderungen
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/pain_i18n.webp)
 
 - **Wartbarkeit**  
   Jedes Update der Website muss in jeder Sprache widergespiegelt werden, was effiziente Arbeitsabläufe und sorgfältige Koordination erfordert, um Konsistenz über alle Versionen hinweg zu gewährleisten.

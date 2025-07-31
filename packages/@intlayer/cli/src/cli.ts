@@ -1,9 +1,8 @@
-import type { AIOptions } from '@intlayer/api';
+import type { AIOptions as BaseAIOptions } from '@intlayer/api';
 import { GetConfigurationOptions, isESModule } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { Command } from 'commander';
-import { readFileSync } from 'fs';
-import { dirname as pathDirname, resolve } from 'path';
+import { dirname as pathDirname } from 'path';
 import { fileURLToPath } from 'url';
 import {
   DiffMode,
@@ -18,14 +17,18 @@ import { push } from './push';
 import { pushConfig } from './pushConfig';
 import { reviewDoc } from './reviewDoc';
 import { translateDoc } from './translateDoc';
+import { getParentPackageJSON } from './utils/getParentPackageJSON';
+
+// Extended AI options to include customPrompt
+type AIOptions = BaseAIOptions & {
+  customPrompt?: string;
+};
 
 export const dirname = isESModule
   ? pathDirname(fileURLToPath(import.meta.url))
   : __dirname;
 
-const packageJson = JSON.parse(
-  readFileSync(resolve(dirname, '../../package.json'), 'utf8')
-);
+const packageJson = getParentPackageJSON(dirname);
 
 const logOptions = [
   ['--verbose', 'Verbose'],
@@ -79,7 +82,14 @@ const applyAIOptions = (command: Command) => applyOptions(command, aiOptions);
 const applyGitOptions = (command: Command) => applyOptions(command, gitOptions);
 
 const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
-  const { apiKey, provider, model, temperature, applicationContext } = options;
+  const {
+    apiKey,
+    provider,
+    model,
+    temperature,
+    applicationContext,
+    customPrompt,
+  } = options;
 
   return removeUndefined({
     apiKey: apiKey ?? configuration.ai?.apiKey,
@@ -88,6 +98,7 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
     temperature: temperature ?? configuration.ai?.temperature,
     applicationContext:
       applicationContext ?? configuration.ai?.applicationContext,
+    customPrompt: customPrompt ?? (configuration.ai as any)?.customPrompt,
   });
 };
 
@@ -205,7 +216,7 @@ const extractConfigOptions = (
 export const setAPI = (): Command => {
   const program = new Command();
 
-  program.version(packageJson.version).description('Intlayer CLI');
+  program.version(packageJson.version!).description('Intlayer CLI');
 
   /**
    * DICTIONARIES
@@ -256,7 +267,7 @@ export const setAPI = (): Command => {
     description: 'Pull dictionaries from the server',
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to pull'],
-      ['--newDictionariesPath [path]', 'Path to save the new dictionaries'],
+      ['--new-dictionaries-path [path]', 'Path to save the new dictionaries'],
     ],
   };
 
@@ -298,11 +309,11 @@ export const setAPI = (): Command => {
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to push'],
       [
-        '-r, --deleteLocaleDictionary',
+        '-r, --delete-locale-dictionary',
         'Delete the local dictionaries after pushing',
       ],
       [
-        '-k, --keepLocaleDictionary',
+        '-k, --keep-locale-dictionary',
         'Keep the local dictionaries after pushing',
       ],
     ],
@@ -424,8 +435,6 @@ export const setAPI = (): Command => {
     } as FillOptions)
   );
 
-  program.parse(process.argv);
-
   /**
    * DOCS
    */
@@ -442,10 +451,26 @@ export const setAPI = (): Command => {
     ],
     ['--locales [locales...]', 'Locales'],
     ['--base-locale [baseLocale]', 'Base locale'],
+    [
+      '--custom-instructions [customInstructions]',
+      'Custom instructions added to the prompt. Usefull to apply specific rules regarding formatting, urls translation, etc.',
+    ],
+    [
+      '--skip-if-modified-before [skipIfModifiedBefore]',
+      'Skip the file if it has been modified before the given time. Can be an absolute time as "2025-12-05" (string or Date) or a relative time in ms `1 * 60 * 60 * 1000` (1 hour). This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.',
+    ],
+    [
+      '--skip-if-modified-after [skipIfModifiedAfter]',
+      'Skip the file if it has been modified within the given time. Can be an absolute time as "2025-12-05" (string or Date) or a relative time in ms `1 * 60 * 60 * 1000` (1 hour). This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.',
+    ],
   ];
 
-  const translateProgram = program
-    .command('doc translate')
+  const docProgram = program
+    .command('doc')
+    .description('Documentation operations');
+
+  const translateProgram = docProgram
+    .command('translate')
     .description('Translate the documentation');
 
   applyConfigOptions(translateProgram);
@@ -460,13 +485,17 @@ export const setAPI = (): Command => {
       locales: options.locales,
       baseLocale: options.baseLocale,
       aiOptions: extractAiOptions(options),
+      gitOptions: extractGitOptions(options),
       nbSimultaneousFileProcessed: options.nbSimultaneousFileProcessed,
       configOptions: extractConfigOptions(options),
+      customInstructions: options.customInstructions,
+      skipIfModifiedBefore: options.skipIfModifiedBefore,
+      skipIfModifiedAfter: options.skipIfModifiedAfter,
     })
   );
 
-  const reviewProgram = program
-    .command('doc review')
+  const reviewProgram = docProgram
+    .command('review')
     .description('Review the documentation');
 
   applyConfigOptions(reviewProgram);
@@ -481,10 +510,16 @@ export const setAPI = (): Command => {
       locales: options.locales,
       baseLocale: options.baseLocale,
       aiOptions: extractAiOptions(options),
+      gitOptions: extractGitOptions(options),
       nbSimultaneousFileProcessed: options.nbSimultaneousFileProcessed,
       configOptions: extractConfigOptions(options),
+      customInstructions: options.customInstructions,
+      skipIfModifiedBefore: options.skipIfModifiedBefore,
+      skipIfModifiedAfter: options.skipIfModifiedAfter,
     })
   );
+
+  program.parse(process.argv);
 
   return program;
 };

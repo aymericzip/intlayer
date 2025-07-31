@@ -1,29 +1,27 @@
 ---
-docName: vscode_extension
-url: https://intlayer.org/doc/vs-code-extension
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md
 createdAt: 2025-03-17
-updatedAt: 2025-03-17
+updatedAt: 2025-06-29
 title: Official VS Code Extension
-description: Learn how to use the Intlayer extension in VS Code to enhance your development workflow. Quickly navigate between localized content and manage your dictionaries efficiently.
+description: Learn how to use the Intlayer extension in VS Code to enhance your development workflow. Quickly navigate between localised content and manage your dictionaries efficiently.
 keywords:
   - VS Code Extension
   - Intlayer
-  - Localization
+  - Localisation
   - Development Tools
   - React
   - Next.js
   - JavaScript
   - TypeScript
+slugs:
+  - doc
+  - vs-code-extension
 ---
 
 # Official VS Code Extension
 
 ## Overview
 
-**Intlayer** is the official Visual Studio Code extension for **Intlayer**, designed to enhance the developer experience when working with localised content in **React, Next.js, and JavaScript** projects.
-
-With this extension, developers can **quickly navigate** to their content dictionaries, manage localisation files, and streamline their workflow with powerful automation commands.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) is the official Visual Studio Code extension for **Intlayer**, designed to enhance the developer experience when working with localised content in your projects.
 
 ![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
@@ -112,14 +110,6 @@ Sync the latest dictionary content:
 2. Search for **Pull Dictionaries**.
 3. Choose the dictionaries to pull.
 
-### Customising Dictionary File Paths
-
-By default, the extension follows the standard **Intlayer** project structure. However, you can configure custom paths:
-
-1. Open **Settings (`Cmd + ,` on macOS / `Ctrl + ,` on Windows/Linux)`**.
-2. Search for `Intlayer`.
-3. Adjust the content file path setting.
-
 ## Development & Contribution
 
 Want to contribute? We welcome community contributions!
@@ -136,7 +126,7 @@ cd intlayer-vs-code-extension
 npm install
 ```
 
-> Use `npm` package manager for compatibility with `vsce` package to build and publish the extension.
+> Use the `npm` package manager for compatibility with the `vsce` package to build and publish the extension.
 
 ### Run in Development Mode
 
@@ -153,6 +143,10 @@ Found a bug or have a feature request? Open an issue on our **GitHub repository*
 
 [GitHub Issues](https://github.com/aymericzip/intlayer-vs-code-extension/issues)
 
-## License
+## Licence
 
-Intlayer is released under the **MIT License**.
+Intlayer is released under the **MIT Licence**.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

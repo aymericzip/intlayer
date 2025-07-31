@@ -1,24 +1,25 @@
 ---
-docName: interest_of_intlayer
-url: https://intlayer.org/doc/concept/interest
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md
 createdAt: 2024-08-14
-updatedAt: 2024-08-14
-title: Interesse von Intlayer
-description: Entdecken Sie die Vorteile und Merkmale von Intlayer in Ihren Projekten. Verstehen Sie, warum Intlayer sich von anderen Frameworks abhebt.
+updatedAt: 2025-06-29
+title: Interesse an Intlayer
+description: Entdecken Sie die Vorteile und Nutzen der Verwendung von Intlayer in Ihren Projekten. Verstehen Sie, warum Intlayer sich von anderen Frameworks abhebt.
 keywords:
   - Vorteile
-  - Nachteile
+  - Nutzen
   - Intlayer
   - Framework
   - Vergleich
+slugs:
+  - doc
+  - concept
+  - interest
 ---
 
-# Intlayer: Eine maßgeschneiderte Möglichkeit, Ihre Website zu übersetzen
+# Intlayer: Ein maßgeschneiderter Weg, Ihre Website zu übersetzen
 
-**Intlayer** ist eine Internationalisierungsbibliothek, die speziell für JavaScript-Entwickler entwickelt wurde. Sie ermöglicht die Deklaration Ihrer Inhalte überall in Ihrem Code. Sie wandelt die Deklaration mehrsprachiger Inhalte in strukturierte Wörterbücher um, die sich leicht in Ihren Code integrieren lassen. Mit TypeScript macht **Intlayer** Ihre Entwicklung robuster und effizienter.
+**Intlayer** ist eine Internationalisierungsbibliothek, die speziell für JavaScript-Entwickler entwickelt wurde. Sie ermöglicht die Deklaration Ihres Inhalts überall in Ihrem Code. Sie wandelt die Deklaration von mehrsprachigem Inhalt in strukturierte Wörterbücher um, um eine einfache Integration in Ihren Code zu gewährleisten. Durch die Verwendung von TypeScript macht **Intlayer** Ihre Entwicklung robuster und effizienter.
 
-## Verwendungsbeispiel
+## Anwendungsbeispiel
 
 ```bash codeFormat="typescript"
 .
@@ -65,6 +66,7 @@ export default componentExampleContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Beispielinhalt für die Komponente mit mehrsprachigem Text
 const componentExampleContent = {
   key: "component-example",
   content: {
@@ -108,6 +110,7 @@ export const ComponentExample = () => {
 ```
 
 ```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
+jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const ComponentExample = () => {
@@ -129,20 +132,25 @@ const ComponentExample = () => {
 
 ## Warum Intlayer wählen?
 
-- **JavaScript-basierte Inhaltsverwaltung**: Nutzen Sie die Flexibilität von JavaScript, um Ihre Inhalte effizient zu definieren und zu verwalten.
-- **Typsichere Umgebung**: Nutzen Sie TypeScript, um sicherzustellen, dass alle Ihre Inhaltsdefinitionen präzise und fehlerfrei sind.
-- **Integrierte Inhaltsdateien**: Halten Sie Ihre Übersetzungen nahe an ihren jeweiligen Komponenten, was die Wartbarkeit und Klarheit verbessert.
-- **Vereinfachte Einrichtung**: Starten Sie schnell mit minimaler Konfiguration, besonders optimiert für Next.js-Projekte.
-- **Server-Komponenten-Unterstützung**: Perfekt geeignet für Next.js-Server-Komponenten, was ein reibungsloses Server-Side-Rendering gewährleistet.
-- **Verbessertes Routing**: Vollständige Unterstützung für Next.js-App-Routing, das sich nahtlos an komplexe Anwendungsstrukturen anpasst.
-- **Organisierte Codebasis**: Halten Sie Ihre Codebasis besser organisiert: 1 Komponente = 1 Wörterbuch im gleichen Ordner.
-- **Automatische TypeScript-Typen**: TypeScript-Typen werden automatisch implementiert, was Code-Brüche durch umbenannte oder gelöschte Schlüssel verhindert.
-- **CI-Automatische Übersetzung**: Füllen Sie Ihre Übersetzungen automatisch in Ihrem CI mit Ihrem eigenen OpenAI API-Schlüssel aus, was die Notwendigkeit einer L10n-Plattform eliminiert.
-- **MCP-Server-Integration**: Bietet einen MCP (Model Context Protocol) Server für IDE-Automatisierung, der nahtlose Inhaltsverwaltung und i18n-Workflows direkt in Ihrer Entwicklungsumgebung ermöglicht. [Mehr erfahren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md).
-- **Markdown-Unterstützung**: Importieren und interpretieren Sie Markdown-Dateien für mehrsprachige Inhalte wie Datenschutzrichtlinien.
-- **Kostenloser visueller Editor & CMS**: Ein kostenloser visueller Editor und CMS sind verfügbar, wenn Sie mit Content-Autoren für Ihre Übersetzungen arbeiten müssen, was wiederum die Notwendigkeit einer Lokalisierungsplattform beseitigt und die Externalisierung von Inhalten aus der Codebasis ermöglicht.
-- **Vereinfachte Inhaltsabrufung**: Keine Notwendigkeit, Ihre `t`-Funktion für jedes Inhaltselement aufzurufen; rufen Sie alle Ihre Inhalte direkt mit einem einzigen Hook ab.
-- **Konsistente Implementierung**: Die gleiche Implementierung für Client- und Server-Komponenten, keine Notwendigkeit, Ihre `t`-Funktion durch jede Server-Komponente zu übergeben.
-- **Tree-shakable-Inhalte**: Die Inhalte sind tree-shakable, was das endgültige Bundle leichter macht.
-- **Nicht-blockierendes statisches Rendering**: Intlayer blockiert das statische Rendering nicht wie `next-intl`.
-- **Interoperabilität**: Ermöglicht Interoperabilität mit [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md), und [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react-intl.md).
+| Funktion                                      | Beschreibung                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **JavaScript-gesteuertes Content-Management** | Nutzen Sie die Flexibilität von JavaScript, um Ihre Inhalte effizient zu definieren und zu verwalten.                                                                                                                                                                                                                                                                                                                                                                               |
+| **Typensichere Umgebung**                     | Nutzen Sie TypeScript, um sicherzustellen, dass alle Ihre Inhaltsdefinitionen präzise und fehlerfrei sind.                                                                                                                                                                                                                                                                                                                                                                          |
+| **Integrierte Inhaltsdateien**                | Halten Sie Ihre Übersetzungen nahe bei den jeweiligen Komponenten, um die Wartbarkeit und Klarheit zu verbessern.                                                                                                                                                                                                                                                                                                                                                                   |
+| **Vereinfachte Einrichtung**                  | Starten Sie schnell mit minimaler Konfiguration, speziell optimiert für Next.js-Projekte.                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Server-Komponenten-Unterstützung**          | Perfekt geeignet für Next.js-Serverkomponenten und gewährleistet ein reibungsloses serverseitiges Rendering.                                                                                                                                                                                                                                                                                                                                                                        |
+| **Erweiterte Routing-Funktionalität**         | Vollständige Unterstützung für das Routing von Next.js-Apps, die sich nahtlos an komplexe Anwendungsstrukturen anpasst.                                                                                                                                                                                                                                                                                                                                                             |
+| **Organisierte Codebasis**                    | Halten Sie Ihre Codebasis besser organisiert: 1 Komponente = 1 Wörterbuch im selben Ordner.                                                                                                                                                                                                                                                                                                                                                                                         |
+| **CI Auto-Übersetzung**                       | Füllen Sie Ihre Übersetzungen in Ihrer CI automatisch mit Ihrem eigenen OpenAI API-Schlüssel aus, wodurch die Notwendigkeit einer L10n-Plattform entfällt.                                                                                                                                                                                                                                                                                                                          |
+| **MCP-Server-Integration**                    | Bietet einen MCP (Model Context Protocol) Server für IDE-Automatisierung, der nahtloses Content-Management und i18n-Workflows direkt in Ihrer Entwicklungsumgebung ermöglicht. [Mehr erfahren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/mcp_server.md).                                                                                                                                                                                                        |
+| **Markdown-Unterstützung**                    | Importieren und Interpretieren von Markdown-Dateien für mehrsprachige Inhalte wie Datenschutzrichtlinien.                                                                                                                                                                                                                                                                                                                                                                           |
+| **Kostenloser visueller Editor & CMS**        | Ein kostenloser visueller Editor und CMS stehen zur Verfügung, wenn Sie mit Content-Autoren für Ihre Übersetzungen zusammenarbeiten müssen. Dies eliminiert erneut die Notwendigkeit einer Lokalisierungsplattform und ermöglicht die Auslagerung von Inhalten aus dem Codebasis.                                                                                                                                                                                                   |
+| **Vereinfachte Inhaltsabfrage**               | Es ist nicht erforderlich, Ihre `t`-Funktion für jeden einzelnen Inhalt aufzurufen; rufen Sie alle Ihre Inhalte direkt mit einem einzigen Hook ab.                                                                                                                                                                                                                                                                                                                                  |
+| **Konsistente Implementierung**               | Dieselbe Implementierung für sowohl Client- als auch Server-Komponenten, es ist nicht notwendig, Ihre `t`-Funktion über jede Server-Komponente weiterzugeben.                                                                                                                                                                                                                                                                                                                       |
+| **Tree-shakable Inhalte**                     | Der Inhalt ist tree-shakable, was das endgültige Bundle erleichtert.                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Nicht-blockierendes statisches Rendering**  | Intlayer blockiert das statische Rendering nicht, wie es `next-intl` tut.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Interoperabilität**                         | Ermöglicht die Interoperabilität mit [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_next-intl.md) und [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_react-intl.md). |
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

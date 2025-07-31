@@ -1,26 +1,27 @@
 ---
-docName: package__express-intlayer
-url: https://intlayer.org/doc/packages/express-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Package Documentation | express-intlayer
 description: See how to use the express-intlayer package
 keywords:
   - Intlayer
   - express-intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - express-intlayer
 ---
 
 # express-intlayer: JavaScript Package to internationalise (i18n) an Express.js application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, Next.js, and Express.js.
 
-**The `express-intlayer` package** allows you to internationalise your Express.js application. It provides a middleware to detect the user's preferred locale, and returns the appropriate dictionary for the user.
+**The `express-intlayer` package** allows you to internationalise your Express.js application. It provides middleware to detect the user's preferred locale, and returns the appropriate dictionary for the user.
 
 ## Why Internationalise Your Backend?
 
@@ -32,7 +33,7 @@ Internationalising your backend is essential for serving a global audience effec
 
 - **Retrieving Multilingual Content**: For applications pulling content from a database, internationalisation ensures that you can serve this content in multiple languages. This is crucial for platforms like e-commerce sites or content management systems that need to display product descriptions, articles, and other content in the language preferred by the user.
 
-- **Sending Multilingual Emails**: Whether it's transactional emails, marketing campaigns, or notifications, sending emails in the recipient’s language can significantly increase engagement and effectiveness.
+- **Sending Multilingual Emails**: Whether it is transactional emails, marketing campaigns, or notifications, sending emails in the recipient’s language can significantly increase engagement and effectiveness.
 
 - **Multilingual Push Notifications**: For mobile applications, sending push notifications in a user's preferred language can enhance interaction and retention. This personal touch can make notifications feel more relevant and actionable.
 
@@ -40,9 +41,9 @@ Internationalising your backend is essential for serving a global audience effec
 
 By internationalising the backend, your application not only respects cultural differences but also aligns better with global market needs, making it a key step in scaling your services worldwide.
 
-## Why to integrate Intlayer?
+## Why integrate Intlayer?
 
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
+- **Type-Safe Environment**: Utilise TypeScript to ensure all your content definitions are precise and error-free.
 
 ## Installation
 
@@ -68,7 +69,7 @@ Intlayer provides a configuration file to set up your project. Place this file i
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -82,7 +83,7 @@ import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -96,7 +97,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -109,7 +110,7 @@ module.exports = config;
 
 ## Example of usage
 
-Setup your Express application to use `express-intlayer`:
+Set up your Express application to use `express-intlayer`:
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
 import express, { type Express } from "express";
@@ -184,6 +185,7 @@ app.get("/", (_req, res) => {
 
 // Start server
 app.listen(3000, () => console.log(`Listening on port 3000`));
+app.listen(3000, () => console.log(`Listening on port 3000`));
 ```
 
 ### Compatibility
@@ -238,6 +240,17 @@ const config = {
 };
 
 module.exports = config;
+
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Other configuration options
+  middleware: {
+    headerName: "my-locale-header",
+    cookieName: "my-locale-cookie",
+  },
+};
+
+module.exports = config;
 ```
 
 By default, `express-intlayer` will interpret the `Accept-Language` header to determine the client's preferred language.
@@ -245,3 +258,7 @@ By default, `express-intlayer` will interpret the `Accept-Language` header to de
 ## Functions provided by `express-intlayer` package
 
 - [`t()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/express-intlayer/t.md)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

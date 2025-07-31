@@ -1,3 +1,9 @@
+import type {
+  Organization,
+  OrganizationCreationData,
+  OrganizationDocument,
+} from '@/types/organization.types';
+import type { Plan, PlanDocument } from '@/types/plan.types';
 import { OrganizationModel } from '@models/organization.model';
 import { GenericError } from '@utils/errors';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
@@ -5,13 +11,7 @@ import {
   type OrganizationFields,
   validateOrganization,
 } from '@utils/validation/validateOrganization';
-import type { ObjectId } from 'mongoose';
-import type {
-  Organization,
-  OrganizationCreationData,
-  OrganizationDocument,
-} from '@/types/organization.types';
-import type { Plan, PlanDocument } from '@/types/plan.types';
+import type { Types } from 'mongoose';
 
 /**
  * Finds organizations based on filters and pagination options.
@@ -24,9 +24,8 @@ export const findOrganizations = async (
   filters: OrganizationFilters,
   skip: number,
   limit: number
-): Promise<OrganizationDocument[]> => {
-  return await OrganizationModel.find(filters).skip(skip).limit(limit);
-};
+): Promise<OrganizationDocument[]> =>
+  await OrganizationModel.find(filters).skip(skip).limit(limit);
 
 /**
  * Finds an organization by its ID.
@@ -34,28 +33,13 @@ export const findOrganizations = async (
  * @returns The organization matching the ID.
  */
 export const getOrganizationById = async (
-  organizationId: ObjectId | string
+  organizationId: string | Types.ObjectId
 ): Promise<OrganizationDocument> => {
   const organization = await OrganizationModel.findById(organizationId);
 
   if (!organization) {
     throw new GenericError('ORGANIZATION_NOT_FOUND', { organizationId });
   }
-
-  return organization;
-};
-
-/**
- * Retrieves an organization by its owner.
- * @param userId - The ID of the user to find the organization.
- * @returns The organizations matching the user ID.
- */
-export const getOrganizationsByOwner = async (
-  userId: string | ObjectId
-): Promise<OrganizationDocument[] | null> => {
-  const organization = await OrganizationModel.find({
-    creatorId: userId,
-  });
 
   return organization;
 };
@@ -84,7 +68,7 @@ export const countOrganizations = async (
  */
 export const createOrganization = async (
   organization: OrganizationCreationData,
-  userId: string | ObjectId
+  userId: string | Types.ObjectId
 ): Promise<OrganizationDocument> => {
   const errors = validateOrganization(organization, ['name']);
 
@@ -102,7 +86,9 @@ export const createOrganization = async (
 
     return result;
   } catch (error) {
-    throw new GenericError('ORGANIZATION_CREATION_FAILED', { error });
+    throw new GenericError('ORGANIZATION_CREATION_FAILED', {
+      error: (error as Error).message,
+    });
   }
 };
 
@@ -113,7 +99,7 @@ export const createOrganization = async (
  * @returns The updated organization.
  */
 export const updateOrganizationById = async (
-  organizationId: ObjectId | string,
+  organizationId: string | Types.ObjectId,
   organization: Partial<Organization>
 ): Promise<OrganizationDocument> => {
   const updatedKeys = Object.keys(organization) as OrganizationFields;
@@ -144,7 +130,7 @@ export const updateOrganizationById = async (
  * @returns The result of the deletion operation.
  */
 export const deleteOrganizationById = async (
-  organizationId: ObjectId | string
+  organizationId: string | Types.ObjectId
 ): Promise<OrganizationDocument> => {
   const organization =
     await OrganizationModel.findByIdAndDelete(organizationId);
@@ -173,18 +159,18 @@ export const updatePlan = async (
   }
 
   const updateOrganizationResult = await OrganizationModel.updateOne(
-    { _id: organization._id },
+    { _id: organization.id },
     { $set: { plan: { ...prevPlan, ...plan } } },
     { new: true }
   );
 
   if (updateOrganizationResult.matchedCount === 0) {
     throw new GenericError('ORGANIZATION_UPDATE_FAILED', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
   }
 
-  const updatedOrganization = await getOrganizationById(organization._id);
+  const updatedOrganization = await getOrganizationById(organization.id);
 
   return updatedOrganization;
 };

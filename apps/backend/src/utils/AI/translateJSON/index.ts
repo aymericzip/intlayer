@@ -4,7 +4,7 @@ import { logger } from '@logger';
 import { extractJson } from '@utils/extractJSON';
 import { generateText } from 'ai';
 import { readFileSync } from 'fs';
-import type { Locales } from 'intlayer';
+import { Locales } from 'intlayer';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { AIConfig, AIOptions, AIProvider } from '../aiSdk';
@@ -47,9 +47,8 @@ export const aiDefaultOptions: AIOptions = {
  * @param locale - The locale to format.
  * @returns A string in the format "locale: name", e.g. "en: English".
  */
-const formatLocaleWithName = (locale: Locales): string => {
-  return `${locale}: ${getLocaleName(locale)}`;
-};
+const formatLocaleWithName = (locale: Locales): string =>
+  `${locale}: ${getLocaleName(locale, Locales.ENGLISH)}`;
 
 /**
  * Formats tag instructions for the AI prompt.

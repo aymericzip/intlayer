@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer
-url: https://intlayer.org/doc/packages/intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Package Documentation | intlayer
 description: See how to use the intlayer package
 keywords:
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
 ---
 
 # intlayer: NPM Package to Manage Multilingual Dictionary (i18n)
@@ -492,3 +493,9 @@ The `intlayer` package also provides some functions to help you to international
 - [`getMultilingualUrls()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md)
 - [`getLocalizedUrl()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)
 - [`getPathWithoutLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md)
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

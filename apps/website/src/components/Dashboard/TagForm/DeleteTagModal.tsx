@@ -1,12 +1,12 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
 import type { TagAPI } from '@intlayer/backend';
 import { Form, Modal } from '@intlayer/design-system';
 import { useDeleteTag } from '@intlayer/design-system/hooks';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
+import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type DeleteTagModalProps = {
   tag: TagAPI;
@@ -27,7 +27,7 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
   const router = useRouter();
 
   const handleDelete = async () => {
-    await deleteTag(tag._id).then((response) => {
+    await deleteTag(tag.id).then((response) => {
       if (response.data) {
         onDelete?.();
         onClose?.();

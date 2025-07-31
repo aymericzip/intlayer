@@ -1,9 +1,6 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: CMS Intlayer | Esterna il tuo contenuto nel CMS Intlayer
 description: Esterna il tuo contenuto nel CMS Intlayer per delegare la gestione del tuo contenuto al tuo team.
 keywords:
@@ -15,9 +12,14 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
-# Intlayer Content Management System (CMS) Documentazione
+# Documentazione del Content Management System (CMS) di Intlayer
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -31,7 +33,7 @@ Per questo, Intlayer introduce il concetto di 'dizionari remoti'.
 
 Intlayer distingue tra dizionari 'locali' e 'remoti'.
 
-- Un dizionario 'locale' è un dizionario dichiarato nel tuo progetto Intlayer. Come il file di dichiarazione di un pulsante o della barra di navigazione. Esternalizzare il contenuto non ha senso in questo caso perché il contenuto non dovrebbe cambiare spesso.
+- Un dizionario 'locale' è un dizionario dichiarato nel tuo progetto Intlayer. Come il file di dichiarazione di un pulsante o della barra di navigazione. Esternalizzare il contenuto non ha senso in questo caso perché questo contenuto non dovrebbe cambiare spesso.
 
 - Un dizionario 'remoto' è un dizionario gestito tramite il CMS di Intlayer. Potrebbe essere utile per consentire al tuo team di gestire direttamente i contenuti sul tuo sito web e mira anche a utilizzare funzionalità di test A/B e ottimizzazione automatica SEO.
 
@@ -152,7 +154,7 @@ const config = {
      *
      * Nel caso in cui si stia ospitando autonomamente il CMS di Intlayer, è possibile impostare l'URL del backend.
      *
-     * L'URL del CMS di Intlayer.
+     * L'URL del backend di Intlayer.
      * Per impostazione predefinita, è impostato su https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -194,15 +196,12 @@ const config = {
      *
      * L'URL del CMS di Intlayer.
      * Per impostazione predefinita, è impostato su https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
     /**
      * Opzionale
      *
      * Nel caso in cui si stia ospitando autonomamente il CMS di Intlayer, è possibile impostare l'URL del backend.
      *
-     * L'URL del CMS di Intlayer.
+     * L'URL del backend di Intlayer.
      * Per impostazione predefinita, è impostato su https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -259,8 +258,7 @@ Successivamente, sarai in grado di visualizzare e gestire il tuo dizionario nel 
 Il CMS di Intlayer è in grado di ricaricare automaticamente i dizionari quando viene rilevata una modifica.
 
 Senza il ricaricamento automatico, sarà necessaria una nuova build dell'applicazione per visualizzare il nuovo contenuto.
-
-Attivando la configurazione [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration), l'applicazione sostituirà automaticamente il contenuto aggiornato quando rilevato.
+Attivando la configurazione [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration), l'applicazione sostituirà automaticamente il contenuto aggiornato quando viene rilevato.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -333,8 +331,7 @@ Il ricaricamento automatico sostituisce il contenuto sia lato server che lato cl
 
 - Sul lato server, devi assicurarti che il processo dell'applicazione abbia accesso in scrittura alla directory `.intlayer/dictionaries`.
 - Sul lato client, il ricaricamento automatico consente all'applicazione di aggiornare il contenuto nel browser senza dover ricaricare la pagina. Tuttavia, questa funzionalità è disponibile solo per i componenti client.
-
-> Poiché il ricaricamento automatico richiede una connessione continua al server utilizzando un `EventListener`, è disponibile solo per i clienti del piano `enterprise`.
+  > Poiché il ricaricamento automatico richiede una connessione continua al server utilizzando un `EventListener`, è disponibile solo per i clienti del piano `enterprise`.
 
 ## Debug
 
@@ -346,8 +343,11 @@ Se riscontri problemi con il CMS, verifica quanto segue:
 
   - Campi obbligatori:
     - L'URL dell'applicazione deve corrispondere a quello impostato nella configurazione dell'editor (`applicationURL`).
-    - L'URL del CMS.
+    - L'URL del CMS
 
 - Assicurati che la configurazione del progetto sia stata caricata nel CMS di Intlayer.
-
 - L'editor visivo utilizza un iframe per visualizzare il tuo sito web. Assicurati che la Content Security Policy (CSP) del tuo sito web consenta l'URL del CMS come `frame-ancestors` ('https://intlayer.org' per impostazione predefinita). Controlla la console dell'editor per eventuali errori.
+
+## Cronologia del documento
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

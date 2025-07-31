@@ -1,43 +1,45 @@
 ---
-docName: package__intlayer__getTranslation
-url: https://intlayer.org/doc/packages/intlayer/getTranslation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: وثائق دالة getTranslation | intlayer
-description: انظر كيف تستخدم دالة getTranslation لحزمة intlayer
+updatedAt: 2025-06-29
+title: توثيق دالة getTranslation | intlayer
+description: تعرف على كيفية استخدام دالة getTranslation لحزمة intlayer
 keywords:
   - getTranslation
-  - ترجمة
+  - الترجمة
   - Intlayer
   - intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getTranslation
 ---
 
-# التوثيق: وظيفة `getTranslationContent` في `intlayer`
+# التوثيق: دالة `getTranslationContent` في `intlayer`
 
 ## الوصف
 
-تقوم وظيفة `getTranslationContent` باسترجاع المحتوى المقابل للغة معينة من مجموعة محتوى لغوي قابل للتخصيص. إذا لم يتم العثور على اللغة المحددة، فإنها تعود افتراضيًا إلى إرجاع المحتوى الخاص باللغة الافتراضية المكونة في المشروع.
+تقوم دالة `getTranslationContent` باسترجاع المحتوى المقابل للغة معينة من مجموعة محتويات لغوية قابلة للتخصيص. إذا لم يتم العثور على اللغة المحددة، فإنها تعيد بشكل افتراضي المحتوى الخاص باللغة الافتراضية المكونة في المشروع.
 
 ## المعاملات
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **الوصف**: كائن يحتوي على الترجمات للغات مختلفة. كل مفتاح يمثل لغة، وقيمته هي المحتوى المقابل.
+  - **الوصف**: كائن يحتوي على ترجمات لمختلف اللغات. كل مفتاح يمثل لغة، وقيمته هي المحتوى المقابل.
   - **النوع**: `CustomizableLanguageContent<Content>`
-    - `Content` يمكن أن يكون أي نوع، والافتراضي هو `string`.
+    - يمكن أن يكون `Content` أي نوع، والافتراضي هو `string`.
 
 - `locale: Locales`
 
   - **الوصف**: اللغة التي سيتم استرجاع المحتوى الخاص بها.
   - **النوع**: `Locales`
 
-## الإرجاع
+## القيم المرجعة
 
 - **النوع**: `Content`
 - **الوصف**: المحتوى المقابل للغة المحددة. إذا لم يتم العثور على اللغة، يتم إرجاع محتوى اللغة الافتراضية.
@@ -53,12 +55,11 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبًا",
   },
   Locales.ENGLISH
 );
 
-console.log(content); // Output: "Hello"
+console.log(content); // الناتج: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
@@ -68,12 +69,11 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبًا",
   },
   Locales.ENGLISH
 );
 
-console.log(content); // Output: "Hello"
+console.log(content); // الناتج: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -83,15 +83,14 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبًا",
   },
   Locales.ENGLISH
 );
 
-console.log(content); // Output: "Hello"
+console.log(content); // الناتج: "Bonjour"
 ```
 
-### لغة مفقودة:
+### اللغة غير موجودة:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -100,12 +99,11 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبًا",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (محتوى اللغة الافتراضية)
+console.log(content); // الناتج: "Hello" (محتوى اللغة الافتراضية)
 ```
 
 ```javascript codeFormat="esm"
@@ -115,12 +113,11 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبًا",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (محتوى اللغة الافتراضية)
+console.log(content); // الناتج: "Hello" (محتوى اللغة الافتراضية)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -130,15 +127,14 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ar: "مرحبًا",
   },
   Locales.SPANISH
 );
 
-console.log(content); // Output: "Hello" (محتوى اللغة الافتراضية)
+console.log(content); // الناتج: "Hello" (محتوى اللغة الافتراضية)
 ```
 
-### استخدام أنواع محتوى مخصصة:
+### استخدام أنواع المحتوى المخصصة:
 
 ```typescript codeFormat="typescript"
 import { getTranslationContent, Locales } from "intlayer";
@@ -147,12 +143,11 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    ar: { greeting: "مرحبًا" },
   },
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Output: "Bonjour"
+console.log(customContent.greeting); // الناتج: "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
@@ -162,12 +157,11 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    ar: { greeting: "مرحبًا" },
   },
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Output: "Bonjour"
+console.log(customContent.greeting); // الناتج: "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -177,19 +171,22 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    ar: { greeting: "مرحبًا" },
   },
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Output: "Bonjour"
+console.log(customContent.greeting); // الناتج: "Bonjour"
 ```
 
 ## الحالات الخاصة
 
 - **اللغة غير موجودة:**
-  - عندما لا يتم العثور على `locale` في `languageContent`، تقوم الوظيفة بإرجاع المحتوى الخاص باللغة الافتراضية.
-- **محتوى لغوي غير مكتمل:**
-  - إذا كانت اللغة معرفة جزئيًا، فإن الوظيفة لا تدمج المحتويات. تسترجع فقط القيمة الخاصة باللغة المحددة أو تعود إلى الافتراضية.
+  - عندما لا يتم العثور على `locale` في `languageContent`، تقوم الدالة بإرجاع المحتوى الخاص باللغة الافتراضية.
+- **محتوى اللغة غير مكتمل:**
+  - إذا تم تعريف اللغة جزئيًا، فإن الدالة لا تدمج المحتويات. تسترجع بدقة قيمة اللغة المحددة أو تعود إلى اللغة الافتراضية.
 - **فرض TypeScript:**
-  - إذا لم تتطابق اللغات في `languageContent` مع تكوين المشروع، فإن TypeScript يفرض تعريف جميع اللغات المطلوبة، مما يضمن أن المحتوى كامل وآمن من حيث النوع.
+  - إذا لم تتطابق اللغات في `languageContent` مع تكوين المشروع، فإن TypeScript ستفرض تعريف جميع اللغات المطلوبة، مما يضمن أن المحتوى كامل وآمن من حيث النوع.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بدء التاريخ

@@ -1,11 +1,8 @@
 ---
-docName: package__intlayer__getLocalizedUrl
-url: https://intlayer.org/doc/packages/intlayer/getLocalizedUrl
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: t関数のドキュメント | intlayer
-description: intlayerパッケージのt関数の使用方法を確認してください
+updatedAt: 2025-06-29
+title: getLocalizedUrl 関数ドキュメント | intlayer
+description: intlayer パッケージの getLocalizedUrl 関数の使い方をご覧ください
 keywords:
   - getLocalizedUrl
   - 翻訳
@@ -16,26 +13,31 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocalizedUrl
 ---
 
-# ドキュメント: `getLocalizedUrl` 関数 in `intlayer`
+# ドキュメント: `intlayer` の `getLocalizedUrl` 関数
 
 ## 説明
 
-`getLocalizedUrl` 関数は、指定されたロケールをプレフィックスとして付加することでローカライズされたURLを生成します。この関数は絶対URLと相対URLの両方を処理し、設定に基づいて正しいロケールプレフィックスが適用されることを保証します。
+`getLocalizedUrl` 関数は、指定されたロケールを与えられた URL の前に付加することでローカライズされた URL を生成します。絶対 URL と相対 URL の両方を処理し、設定に基づいて正しいロケールのプレフィックスが適用されることを保証します。
 
 ---
 
-## パラメータ
+## パラメーター
 
 - `url: string`
 
-  - **説明**: ロケールをプレフィックスとして付加する元のURL文字列。
+  - **説明**: ロケールのプレフィックスを付加する元の URL 文字列。
   - **型**: `string`
 
 - `currentLocale: Locales`
 
-  - **説明**: URLをローカライズするための現在のロケール。
+  - **説明**: URL をローカライズする対象の現在のロケール。
   - **型**: `Locales`
 
 - `locales: Locales[]`
@@ -51,20 +53,20 @@ keywords:
   - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
 
 - `prefixDefault: boolean`
-  - **説明**: デフォルトロケールのURLにプレフィックスを付加するかどうか。デフォルトでは、プロジェクトで設定された値が提供されます。
+  - **説明**: デフォルトロケールの URL にプレフィックスを付けるかどうか。デフォルトでは、プロジェクトで設定された値が提供されます。
   - **型**: `boolean`
   - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
 
 ### 戻り値
 
 - **型**: `string`
-- **説明**: 指定されたロケールのローカライズされたURL。
+- **説明**: 指定されたロケールに対応するローカライズされた URL。
 
 ---
 
 ## 使用例
 
-### 相対URL
+### 相対 URL
 
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
@@ -77,8 +79,8 @@ getLocalizedUrl(
   false
 );
 
-// 出力: "/fr/about" (フランス語ロケールの場合)
-// 出力: "/about" (デフォルトの英語ロケールの場合)
+// 出力: フランス語ロケールの場合 "/fr/about"
+// 出力: デフォルト（英語）ロケールの場合 "/about"
 ```
 
 ```javascript codeFormat="esm"
@@ -92,8 +94,8 @@ getLocalizedUrl(
   false
 );
 
-// 出力: "/fr/about" (フランス語ロケールの場合)
-// 出力: "/about" (デフォルトの英語ロケールの場合)
+// 出力: フランス語ロケールの場合 "/fr/about"
+// 出力: デフォルト（英語）ロケールの場合 "/about"
 ```
 
 ```javascript codeFormat="esm"
@@ -107,8 +109,8 @@ getLocalizedUrl(
   false
 );
 
-// 出力: "/fr/about" (フランス語ロケールの場合)
-// 出力: "/about" (デフォルトの英語ロケールの場合)
+// 出力: フランス語ロケールの場合 "/fr/about"
+// 出力: デフォルト（英語）ロケールの場合 "/about"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -122,8 +124,8 @@ getLocalizedUrl(
   false
 );
 
-// 出力: "/fr/about" (フランス語ロケールの場合)
-// 出力: "/about" (デフォルトの英語ロケールの場合)
+// 出力: フランス語ロケールの場合 "/fr/about"
+// 出力: デフォルト（英語）ロケールの場合 "/about"
 ```
 
 ### 絶対URL
@@ -134,24 +136,24 @@ getLocalizedUrl(
   Locales.FRENCH, // 現在のロケール
   [Locales.ENGLISH, Locales.FRENCH], // サポートされているロケール
   Locales.ENGLISH, // デフォルトロケール
-  false // デフォルトロケールのプレフィックス
-); // 出力: "https://example.com/fr/about" (フランス語の場合)
+  false // デフォルトロケールにプレフィックスを付けるかどうか
+); // フランス語の場合の出力: "https://example.com/fr/about"
 
 getLocalizedUrl(
   "https://example.com/about",
   Locales.ENGLISH, // 現在のロケール
   [Locales.ENGLISH, Locales.FRENCH], // サポートされているロケール
   Locales.ENGLISH, // デフォルトロケール
-  false // デフォルトロケールのプレフィックス
-); // 出力: "https://example.com/about" (英語の場合)
+  false // デフォルトロケールにプレフィックスを付けるかどうか
+); // 英語の場合の出力: "https://example.com/about"
 
 getLocalizedUrl(
   "https://example.com/about",
   Locales.ENGLISH, // 現在のロケール
   [Locales.ENGLISH, Locales.FRENCH], // サポートされているロケール
   Locales.ENGLISH, // デフォルトロケール
-  true // デフォルトロケールのプレフィックス
-); // 出力: "https://example.com/en/about" (英語の場合)
+  true // デフォルトロケールにプレフィックスを付けるかどうか
+); // 英語の場合の出力: "https://example.com/en/about"
 ```
 
 ### サポートされていないロケール
@@ -162,29 +164,29 @@ getLocalizedUrl(
   Locales.ITALIAN, // 現在のロケール
   [Locales.ENGLISH, Locales.FRENCH], // サポートされているロケール
   Locales.ENGLISH // デフォルトロケール
-); // 出力: "/about" (サポートされていないロケールにはプレフィックスが適用されません)
+); // 出力: "/about"（サポートされていないロケールにはプレフィックスが適用されません）
 ```
 
 ---
 
 ## エッジケース
 
-- **ロケールセグメントなし:**
+- **ロケールセグメントがない場合:**
 
   - URLにロケールセグメントが含まれていない場合、関数は適切なロケールを安全にプレフィックスします。
 
 - **デフォルトロケール:**
 
-  - `prefixDefault` が `false` の場合、関数はデフォルトロケールのURLにプレフィックスを付加しません。
+  - `prefixDefault` が `false` の場合、関数はデフォルトロケールのURLにプレフィックスを付けません。
 
 - **サポートされていないロケール:**
-  - `locales` にリストされていないロケールの場合、関数はプレフィックスを適用しません。
+  - `locales` にリストされていないロケールには、関数はプレフィックスを適用しません。
 
 ---
 
-## アプリケーションでの使用
+## アプリケーションでの使用方法
 
-多言語対応アプリケーションでは、`locales` と `defaultLocale` を設定することで、正しい言語が表示されるようにすることが重要です。以下は、アプリケーション設定で `getLocalizedUrl` を使用する例です:
+多言語対応アプリケーションでは、`locales` と `defaultLocale` を使用して国際化設定を構成することが、正しい言語を表示するために非常に重要です。以下は、`getLocalizedUrl` をアプリケーションのセットアップでどのように使用できるかの例です。
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -228,9 +230,9 @@ const config = {
 module.exports = config;
 ```
 
-上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。
+上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、フォールバック言語として `ENGLISH` を使用します。
 
-この設定を使用すると、`getLocalizedUrl` 関数はユーザーの言語設定に基づいて動的にローカライズされたURLを生成できます:
+この設定を使用すると、`getLocalizedUrl` 関数はユーザーの言語設定に基づいて動的にローカライズされたURLを生成できます：
 
 ```typescript
 getLocalizedUrl("/about", Locales.FRENCH); // 出力: "/fr/about"
@@ -238,4 +240,8 @@ getLocalizedUrl("/about", Locales.SPANISH); // 出力: "/es/about"
 getLocalizedUrl("/about", Locales.ENGLISH); // 出力: "/about"
 ```
 
-`getLocalizedUrl` を統合することで、開発者は複数言語間で一貫したURL構造を維持し、ユーザーエクスペリエンスとSEOを向上させることができます。
+`getLocalizedUrl` を統合することで、開発者は複数言語にわたって一貫したURL構造を維持でき、ユーザー体験とSEOの両方を向上させることができます。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

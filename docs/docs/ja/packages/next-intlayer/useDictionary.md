@@ -1,69 +1,71 @@
 ---
-docName: package__next-intlayer__useDictionary
-url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: useDictionaryフックのドキュメント | next-intlayer
-description: next-intlayerパッケージのuseDictionaryフックの使用方法をご覧ください
+updatedAt: 2025-06-29
+title: useDictionary フック ドキュメント | next-intlayer
+description: next-intlayer パッケージの useDictionary フックの使い方を解説
 keywords:
   - useDictionary
   - 辞書
   - キー
   - Intlayer
   - 国際化
-  - ドキュメンテーション
+  - ドキュメント
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useDictionary
 ---
 
-# React統合: `useDictionary`フックドキュメント
+# React 統合: `useDictionary` フック ドキュメント
 
-このセクションでは、Reactアプリケーション内で`useDictionary`フックを使用するための詳細なガイダンスを提供します。これにより、ビジュアルエディタを使用せずに効率的にローカライズされたコンテンツを処理できます。
+このセクションでは、React アプリケーション内で `useDictionary` フックを使用する方法について詳しく説明します。ビジュアルエディタを使わずにローカライズされたコンテンツを効率的に扱うことが可能です。
 
-## Reactでの`useDictionary`のインポート
+## React での `useDictionary` のインポート
 
-`useDictionary`フックは、コンテキストに基づいてインポートすることでReactアプリケーションに統合できます。
+`useDictionary` フックは、コンテキストに応じてインポートすることで React アプリケーションに統合できます。
 
 - **クライアントコンポーネント:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "next-intlayer"; // クライアントサイドのReactコンポーネントで使用
+  import { useDictionary } from "next-intlayer"; // クライアントサイドの React コンポーネントで使用
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "next-intlayer"; // クライアントサイドのReactコンポーネントで使用
+  import { useDictionary } from "next-intlayer"; // クライアントサイドの React コンポーネントで使用
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("next-intlayer"); // クライアントサイドのReactコンポーネントで使用
+  const { useDictionary } = require("next-intlayer"); // クライアントサイドの React コンポーネントで使用
   ```
 
 - **サーバーコンポーネント:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "next-intlayer/server"; // サーバーサイドのReactコンポーネントで使用
+  import { useDictionary } from "next-intlayer/server"; // サーバーサイドの React コンポーネントで使用
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "next-intlayer/server"; // サーバーサイドのReactコンポーネントで使用
+  import { useDictionary } from "next-intlayer/server"; // サーバーサイドの React コンポーネントで使用
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("next-intlayer/server"); // サーバーサイドのReactコンポーネントで使用
+  const { useDictionary } = require("next-intlayer/server"); // サーバーサイドの React コンポーネントで使用
   ```
 
-## パラメータ
+## パラメーター
 
-このフックは2つのパラメータを受け取ります:
+このフックは2つのパラメーターを受け取ります：
 
-1. **`dictionary`**: 特定のキーに対するローカライズされたコンテンツを含む宣言された辞書オブジェクト。
-2. **`locale`** (オプション): 希望するロケール。指定されていない場合は現在のコンテキストのロケールがデフォルトになります。
+1. **`dictionary`**: 特定のキーに対応するローカライズされたコンテンツを含む宣言済みの辞書オブジェクト。
+2. **`locale`**（オプション）: 希望するロケール。指定しない場合は現在のコンテキストのロケールがデフォルトで使用されます。
 
 ## 辞書
 
-すべての辞書オブジェクトは、型安全性を確保し、実行時エラーを防ぐために構造化されたコンテンツファイルで宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)をご覧ください。以下はコンテンツ宣言の例です:
+すべての辞書オブジェクトは型の安全性を確保し、実行時エラーを防ぐために構造化されたコンテンツファイル内で宣言する必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)で確認できます。以下はコンテンツ宣言の例です：
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -95,12 +97,12 @@ const exampleContent = {
   key: "component-example",
   content: {
     title: t({
-      en: "Client Component Example",
+      en: "クライアントコンポーネントの例",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
     }),
     content: t({
-      en: "This is the content of a client component example",
+      en: "これはクライアントコンポーネントの例の内容です",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
     }),
@@ -135,7 +137,7 @@ module.exports = exampleContent;
 
 ## Reactクライアントコンポーネントでの使用例
 
-以下は、Reactコンポーネントで`useDictionary`フックを使用する例です:
+以下は、Reactコンポーネント内で`useDictionary`フックを使用する例です:
 
 ```tsx fileName="ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -195,7 +197,7 @@ const ClientComponentExample = () => {
 
 ## Reactサーバーコンポーネントでの使用例
 
-`IntlayerServerProvider`の外部で`useDictionary`フックを使用する場合、コンポーネントをレンダリングする際にロケールを明示的に指定する必要があります:
+`IntlayerServerProvider`の外で`useDictionary`フックを使用する場合、コンポーネントをレンダリングする際にロケールを明示的にパラメータとして渡す必要があります:
 
 ```tsx fileName="ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -248,7 +250,7 @@ const ServerComponentExample = () => {
 
 ## 属性に関する注意点
 
-ビジュアルエディタを使用する統合とは異なり、`buttonTitle.value`のような属性はここでは適用されません。代わりに、コンテンツで宣言されたローカライズされた文字列に直接アクセスします。
+ビジュアルエディタを使用した統合とは異なり、`buttonTitle.value` のような属性はここでは適用されません。代わりに、コンテンツで宣言されたローカライズされた文字列に直接アクセスしてください。
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -256,7 +258,11 @@ const ServerComponentExample = () => {
 
 ## 追加のヒント
 
-- **型安全性**: 辞書を定義する際は常に`Dictionary`を使用して型安全性を確保してください。
-- **ローカライズの更新**: コンテンツを更新する際は、すべてのロケールが一貫していることを確認し、翻訳漏れを防いでください。
+- **型安全性**: 辞書を定義する際は常に `Dictionary` を使用して型安全性を確保してください。
+- **ローカリゼーションの更新**: コンテンツを更新する際は、すべてのロケールが一貫していることを確認し、翻訳漏れを防いでください。
 
-このドキュメントは、`useDictionary`フックの統合に焦点を当てており、ビジュアルエディタ機能に依存せずにローカライズされたコンテンツを管理するための効率的なアプローチを提供します。
+このドキュメントは、`useDictionary` フックの統合に焦点を当てており、ビジュアルエディタの機能に依存せずにローカライズされたコンテンツを管理するための効率的なアプローチを提供します。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴の初期化

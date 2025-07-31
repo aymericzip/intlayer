@@ -1,43 +1,38 @@
 'use client';
 
-import type {
-  AddOrganizationMemberBody,
-  UpdateOrganizationMembersBody,
-  UserAPI,
-} from '@intlayer/backend';
+import type { AddOrganizationMemberBody, UserAPI } from '@intlayer/backend';
 import {
-  useForm,
   Form,
-  useAuth,
-  MultiSelect,
   H3,
   Loader,
+  MultiSelect,
+  useForm,
 } from '@intlayer/design-system';
 import {
-  useUpdateOrganizationMembers,
-  useGetUsers,
   useAddOrganizationMember,
+  useGetUsers,
+  useSession,
+  useUpdateOrganizationMembers,
 } from '@intlayer/design-system/hooks';
-import { X } from 'lucide-react';
-import type { ObjectId } from 'mongoose';
+import { Plus, X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import { RemoveMemberModal } from './RemoveMemberModal';
 import {
-  type OrganizationMembersFormData,
   useOrganizationMembersSchema,
+  type OrganizationMembersFormData,
 } from './useMembersFormSchema';
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
 
 export const MembersForm: FC = () => {
-  const { session, isOrganizationAdmin } = useAuth();
+  const { session } = useSession();
   const { organization } = session ?? {};
   const MembersFormSchema = useOrganizationMembersSchema();
   const NewMembersFormSchema = useOrganizationNewMembersSchema();
   const { form, isSubmitting } = useForm(MembersFormSchema, {
     defaultValues: {
-      membersIds: organization?.membersIds.map((el) => String(el)) ?? [],
-      adminsIds: (organization?.adminsIds ?? []).map((el) => String(el)) ?? [],
+      membersIds: organization?.membersIds ?? [],
+      adminsIds: organization?.adminsIds ?? [],
     },
   });
 
@@ -60,17 +55,11 @@ export const MembersForm: FC = () => {
     getUsers,
     isWaitingData: isLoadingUsers,
   } = useGetUsers();
-  const [memberIdToRemove, setMemberIdToRemove] = useState<ObjectId>();
+  const [memberIdToRemove, setMemberIdToRemove] = useState<string>();
+  const isOrganizationAdmin = session?.roles.includes('org_admin');
 
   const onSubmitSuccess = async (data: OrganizationMembersFormData) => {
-    const formattedData: UpdateOrganizationMembersBody = {
-      membersIds: data.membersIds.map((el) => ({
-        userId: el,
-        isAdmin: data.adminsIds.includes(el),
-      })),
-    };
-
-    await updateOrganizationMembers(formattedData);
+    await updateOrganizationMembers(data);
   };
 
   const onSubmitSuccessAddMember = async () => {
@@ -84,15 +73,15 @@ export const MembersForm: FC = () => {
 
   useEffect(() => {
     if (organization?.membersIds) {
-      const membersIds = organization.membersIds.map((el) => String(el));
+      const membersIds = organization.membersIds;
 
       getUsers({ ids: membersIds });
     }
   }, [getUsers, organization]);
 
-  const getUserName = (memberId: UserAPI['_id'] | string) => {
+  const getUserName = (memberId: UserAPI['id'] | string) => {
     const user = usersResponse?.data?.find(
-      (user) => String(user._id) === String(memberId)
+      (user) => String(user.id) === String(memberId)
     );
     return user?.name ?? user?.email ?? String(memberId);
   };
@@ -126,15 +115,14 @@ export const MembersForm: FC = () => {
                 placeholder={newMemberEmailInput.placeholder.value}
               />
               <Form.Button
-                className="w-auto"
+                className="mb-2"
                 type="submit"
                 color="text"
-                variant="outline"
+                size="icon-lg"
                 isLoading={IsSubmittingNewUser}
                 label={newMemberSubmitButton.label.value}
-              >
-                {newMemberSubmitButton.label}
-              </Form.Button>
+                Icon={Plus}
+              />
             </Form>
           )}
 
@@ -144,34 +132,36 @@ export const MembersForm: FC = () => {
             onSubmitSuccess={onSubmitSuccess}
             {...form}
           >
-            <Form.Label>{title}</Form.Label>
-            <Form.Description>{description}</Form.Description>
+            <div className="flex flex-col gap-2 px-3">
+              <Form.Label>{title}</Form.Label>
+              <Form.Description>{description}</Form.Description>
 
-            {!organization?.membersIds.length && (
-              <span className="text-neutral flex size-full justify-center text-sm">
-                {noMembers}
-              </span>
-            )}
-            <div className="border-text flex max-h-48 flex-col gap-2 overflow-auto rounded-xl border-2 p-2">
-              {organization?.membersIds.map((memberId) => (
-                <div
-                  key={String(memberId)}
-                  className="bg-text/10 flex items-center justify-between rounded-lg px-2 py-1"
-                >
-                  <span>{getUserName(memberId)}</span>
-                  {isOrganizationAdmin && (
-                    <Form.Button
-                      color="text"
-                      label={deleteMemberButton.label.value}
-                      variant="hoverable"
-                      size="icon-md"
-                      onClick={() => setMemberIdToRemove(memberId)}
-                    >
-                      <X size={16} />
-                    </Form.Button>
-                  )}
-                </div>
-              ))}
+              {!organization?.membersIds.length && (
+                <span className="text-neutral flex size-full justify-center text-sm">
+                  {noMembers}
+                </span>
+              )}
+              <div className="border-text flex max-h-48 flex-col gap-2 overflow-auto rounded-xl border-2 p-2">
+                {organization?.membersIds.map((memberId) => (
+                  <div
+                    key={String(memberId)}
+                    className="bg-text/10 flex items-center justify-between rounded-lg px-2 py-1"
+                  >
+                    <span>{getUserName(memberId)}</span>
+                    {isOrganizationAdmin && (
+                      <Form.Button
+                        color="text"
+                        label={deleteMemberButton.label.value}
+                        variant="hoverable"
+                        size="icon-md"
+                        onClick={() => setMemberIdToRemove(memberId)}
+                      >
+                        <X size={16} />
+                      </Form.Button>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
 
             <Form.MultiSelect

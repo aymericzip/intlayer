@@ -1,9 +1,6 @@
 ---
-docName: dictionary__insertion
-url: https://intlayer.org/doc/concept/content/insertion
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Insertion
 description: Learn how to declare and use insertion placeholders in your content. This documentation guides you through the steps to dynamically insert values within predefined content structures.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - insertion
 ---
 
 # Insertion Content / Insertion in Intlayer
@@ -183,3 +185,9 @@ For more detailed information on configuration and usage, refer to the following
 - [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 These resources offer further insights into the setup and usage of Intlayer across various environments and frameworks.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

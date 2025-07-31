@@ -1,22 +1,27 @@
 ---
-docName: intlayer_with_react_native_and_expo
-url: https://intlayer.org/doc/environment/react-native-and-expo
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md
-createdAt: 2025-03-07
-updatedAt: 2025-03-07
-title: Translate your React Native and Expo mobile app (i18n)
-description: Discover how to make your React Native and Expo mobile app multilingual. Follow the documentation to internationalize (i18n) and translate it.
+createdAt: 2024-03-07
+updatedAt: 2024-03-07
+title: Getting Started with Intlayer in Vite + React
+description: Learn how to add internationalization (i18n) to your Vite and React application using Intlayer. Follow this guide to make your app multilingual.
 keywords:
   - Internationalization
   - Documentation
   - Intlayer
   - Vite
   - React
-  - React Native
+  - i18n
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - vite-and-react
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and React
+
+<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
 See [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) on GitHub.
 
@@ -41,17 +46,17 @@ Install the necessary packages using npm:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
-npm install --save-dev vite-intlayer
+npm install vite-intlayer --save-dev
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
-pnpm add --save-dev vite-intlayer
+pnpm add vite-intlayer --save-dev
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer
-yarn add --save-dev vite-intlayer
+yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
@@ -1001,6 +1006,8 @@ const App = () => (
 
 In parallel, you can also use the `intLayerMiddlewarePlugin` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
 
+> Note that to use the `intLayerMiddlewarePlugin` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
@@ -1611,3 +1618,11 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+---
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getTranslation
-url: https://intlayer.org/doc/packages/intlayer/getTranslation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Документация функции getTranslation | intlayer
 description: Узнайте, как использовать функцию getTranslation для пакета intlayer
 keywords:
@@ -11,30 +8,35 @@ keywords:
   - перевод
   - Intlayer
   - intlayer
-  - интернационализация
-  - документация
+  - Интернационализация
+  - Документация
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getTranslation
 ---
 
-# Документация: Функция `getTranslationContent` в `intlayer`
+# Документация: функция `getTranslationContent` в `intlayer`
 
 ## Описание
 
-Функция `getTranslationContent` извлекает содержимое, соответствующее определенной локали, из набора настраиваемого языкового содержимого. Если указанная локаль не найдена, по умолчанию возвращается содержимое для локали по умолчанию, настроенной в проекте.
+Функция `getTranslationContent` извлекает содержимое, соответствующее определённой локали, из набора настраиваемого языкового контента. Если указанная локаль не найдена, по умолчанию возвращается содержимое для локали по умолчанию, настроенной в проекте.
 
 ## Параметры
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Описание**: Объект, содержащий переводы для различных локалей. Каждый ключ представляет локаль, а его значение , соответствующее содержимое.
+  - **Описание**: Объект, содержащий переводы для различных локалей. Каждый ключ представляет локаль, а значение — соответствующее содержимое.
   - **Тип**: `CustomizableLanguageContent<Content>`
     - `Content` может быть любого типа, по умолчанию `string`.
 
 - `locale: Locales`
 
-  - **Описание**: Локаль, для которой нужно получить содержимое.
+  - **Описание**: Локаль, для которой необходимо получить содержимое.
   - **Тип**: `Locales`
 
 ## Возвращаемое значение
@@ -53,7 +55,6 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ru: "Привет",
   },
   Locales.ENGLISH
 );
@@ -68,7 +69,6 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ru: "Привет",
   },
   Locales.ENGLISH
 );
@@ -83,7 +83,6 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ru: "Привет",
   },
   Locales.ENGLISH
 );
@@ -100,7 +99,6 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ru: "Привет",
   },
   Locales.SPANISH
 );
@@ -115,7 +113,6 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ru: "Привет",
   },
   Locales.SPANISH
 );
@@ -130,7 +127,6 @@ const content = getTranslationContent(
   {
     en: "Hello",
     fr: "Bonjour",
-    ru: "Привет",
   },
   Locales.SPANISH
 );
@@ -147,7 +143,6 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    ru: { greeting: "Привет" },
   },
   Locales.FRENCH
 );
@@ -162,7 +157,6 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    ru: { greeting: "Привет" },
   },
   Locales.FRENCH
 );
@@ -177,7 +171,6 @@ const customContent = getTranslationContent<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    ru: { greeting: "Привет" },
   },
   Locales.FRENCH
 );
@@ -185,13 +178,15 @@ const customContent = getTranslationContent<Record<string, string>>(
 console.log(customContent.greeting); // Вывод: "Bonjour"
 ```
 
-## Граничные случаи
+## Крайние случаи
 
 - **Локаль не найдена:**
-  - Когда `locale` не найдена в `languageContent`, функция возвращает содержимое для локали по умолчанию.
-- **Неполное языковое содержимое:**
-  - Если локаль определена частично, функция не объединяет содержимое. Она строго извлекает значение указанной локали или возвращает значение по умолчанию.
-- **Применение TypeScript:**
-  - Если локали в `languageContent` не соответствуют конфигурации проекта, TypeScript потребует определения всех необходимых локалей, обеспечивая полноту и безопасность типов.
+  - Если `locale` не найден в `languageContent`, функция возвращает содержимое локали по умолчанию.
+- **Неполное содержимое языка:**
+  - Если локаль определена частично, функция не объединяет содержимое. Она строго извлекает значение указанной локали или возвращается к локали по умолчанию.
+- **Контроль TypeScript:**
+  - Если локали в `languageContent` не соответствуют конфигурации проекта, TypeScript потребует определения всех необходимых локалей, обеспечивая полноту и типобезопасность содержимого.
 
-[Документация на GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/getTranslationContent.md)
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

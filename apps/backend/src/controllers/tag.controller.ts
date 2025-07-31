@@ -1,5 +1,12 @@
+import type {
+  Tag,
+  TagAPI,
+  TagCreationData,
+  TagData,
+  TagSchema,
+} from '@/types/tag.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as tagService from '@services/tag.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
@@ -9,15 +16,15 @@ import {
   type TagFiltersParams,
 } from '@utils/filtersAndPagination/getTagFiltersAndPagination';
 import { mapTagsToAPI, mapTagToAPI } from '@utils/mapper/tag';
+import { hasPermission } from '@utils/permissions';
 import {
   formatPaginatedResponse,
-  type ResponseData,
-  type PaginatedResponse,
   formatResponse,
+  type PaginatedResponse,
+  type ResponseData,
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { Tag, TagAPI, TagCreationData, TagData } from '@/types/tag.types';
 
 export type GetTagsParams = FiltersAndPagination<TagFiltersParams>;
 export type GetTagsResult = PaginatedResponse<TagAPI>;
@@ -27,10 +34,10 @@ export type GetTagsResult = PaginatedResponse<TagAPI>;
  */
 export const getTags = async (
   req: Request<GetTagsParams>,
-  res: ResponseWithInformation<GetTagsResult>,
+  res: ResponseWithSession<GetTagsResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization } = res.locals;
+  const { user, organization, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getTagFiltersAndPagination(req);
 
@@ -46,11 +53,25 @@ export const getTags = async (
 
   const restrictedFilter: TagFilters = {
     ...filters,
-    organizationId: String(organization._id),
+    organizationId: String(organization.id),
   };
 
   try {
     const tags = await tagService.findTags(restrictedFilter, skip, pageSize);
+
+    if (
+      !hasPermission(
+        roles,
+        'tag:read'
+      )({
+        ...res.locals,
+        targetTags: tags,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
     const totalItems = await tagService.countTags(filters);
 
     const formattedTags = mapTagsToAPI(tags);
@@ -79,10 +100,10 @@ export type AddTagResult = ResponseData<TagAPI>;
  */
 export const addTag = async (
   req: Request<any, any, AddTagBody>,
-  res: ResponseWithInformation<AddTagResult>,
+  res: ResponseWithSession<AddTagResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, user, isOrganizationAdmin } = res.locals;
+  const { organization, project, user, roles } = res.locals;
   const tagData = req.body;
 
   if (!user) {
@@ -95,11 +116,9 @@ export const addTag = async (
     return;
   }
 
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
+  if (!project) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    return;
   }
 
   if (!tagData) {
@@ -107,10 +126,24 @@ export const addTag = async (
   }
 
   const tag: TagData = {
-    creatorId: user._id,
-    organizationId: organization._id,
+    creatorId: user.id,
+    organizationId: organization.id,
+    projectId: project.id,
     ...tagData,
   };
+
+  if (
+    !hasPermission(
+      roles,
+      'tag:admin'
+    )({
+      ...res.locals,
+      targetTags: [tag as Tag],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
 
   try {
     const newTag = await tagService.createTag(tag);
@@ -139,7 +172,7 @@ export const addTag = async (
   }
 };
 
-export type UpdateTagParams = { tagId: string | Tag['_id'] };
+export type UpdateTagParams = { tagId: string | Tag['id'] };
 export type UpdateTagBody = Partial<TagData>;
 export type UpdateTagResult = ResponseData<TagAPI>;
 
@@ -148,11 +181,11 @@ export type UpdateTagResult = ResponseData<TagAPI>;
  */
 export const updateTag = async (
   req: Request<UpdateTagParams, any, UpdateTagBody>,
-  res: ResponseWithInformation<UpdateTagResult>,
+  res: ResponseWithSession<UpdateTagResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { tagId } = req.params;
-  const { organization, user } = res.locals;
+  const { organization, user, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
@@ -166,16 +199,29 @@ export const updateTag = async (
 
   try {
     const tag = {
-      _id: tagId as TagAPI['_id'],
+      _id: tagId,
       name: req.body.name,
       key: req.body.key,
       description: req.body.description,
       instructions: req.body.instructions,
-    };
+    } as Partial<TagSchema> & { _id: Tag['id'] };
 
     const tagToDelete = await tagService.getTagById(tagId);
 
-    if (String(tagToDelete.organizationId) !== String(organization._id)) {
+    if (
+      !hasPermission(
+        roles,
+        'tag:write'
+      )({
+        ...res.locals,
+        targetTags: [tagToDelete],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    if (String(tagToDelete.organizationId) !== String(organization.id)) {
       ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
       return;
     }
@@ -206,7 +252,7 @@ export const updateTag = async (
   }
 };
 
-export type DeleteTagParams = { tagId: string | Tag['_id'] };
+export type DeleteTagParams = { tagId: string | Tag['id'] };
 export type DeleteTagResult = ResponseData<TagAPI>;
 
 /**
@@ -217,10 +263,10 @@ export type DeleteTagResult = ResponseData<TagAPI>;
  */
 export const deleteTag = async (
   req: Request<DeleteTagParams>,
-  res: ResponseWithInformation<DeleteTagResult>,
+  res: ResponseWithSession<DeleteTagResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, organization } = res.locals;
+  const { user, organization, roles } = res.locals;
   const { tagId } = req.params;
 
   if (!user) {
@@ -241,7 +287,20 @@ export const deleteTag = async (
   try {
     const tagToDelete = await tagService.getTagById(tagId);
 
-    if (String(tagToDelete.organizationId) !== String(organization._id)) {
+    if (
+      !hasPermission(
+        roles,
+        'tag:admin'
+      )({
+        ...res.locals,
+        targetTags: [tagToDelete],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    if (String(tagToDelete.organizationId) !== String(organization.id)) {
       ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
       return;
     }
@@ -256,7 +315,7 @@ export const deleteTag = async (
       return;
     }
 
-    logger.info(`Tag deleted: ${String(deletedTag._id)}`);
+    logger.info(`Tag deleted: ${String(deletedTag.id)}`);
 
     const formattedTag = mapTagToAPI(deletedTag);
 

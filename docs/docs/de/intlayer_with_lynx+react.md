@@ -1,11 +1,8 @@
 ---
-docName: intlayer_with_lynx_react
-url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
-updatedAt: 2025-03-09
+updatedAt: 2025-06-29
 title: Übersetzen Sie Ihre Lynx- und React-Mobile-App (i18n)
-description: Entdecken Sie, wie Sie Ihre mit Lynx und React unter Verwendung des Page Router erstellte Website mehrsprachig gestalten können. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
+description: Entdecken Sie, wie Sie Ihre Lynx- und React-Mobile-App mehrsprachig gestalten können. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -14,15 +11,20 @@ keywords:
   - React
   - Lynx
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - lynx-and-react
+applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
 # Erste Schritte mit der Internationalisierung (i18n) mit Intlayer, Lynx und React
 
-[Application Template](https://github.com/aymericzip/intlayer-lynx-template) auf GitHub.
+Siehe [Application Template](https://github.com/aymericzip/intlayer-lynx-template) auf GitHub.
 
 ## Was ist Intlayer?
 
-**Intlayer** ist eine **innovative, Open-Source-Internationalisierungsbibliothek (i18n)**, die die Unterstützung mehrerer Sprachen in modernen Anwendungen vereinfacht. Es funktioniert in vielen JavaScript/TypeScript-Umgebungen, **einschließlich Lynx** (über das `react-intlayer`-Paket).
+**Intlayer** ist eine **innovative, Open-Source-Internationalisierungsbibliothek (i18n)**, die die Unterstützung mehrerer Sprachen in modernen Anwendungen vereinfacht. Sie funktioniert in vielen JavaScript/TypeScript-Umgebungen, **einschließlich Lynx** (über das Paket `react-intlayer`).
 
 Mit Intlayer können Sie:
 
@@ -181,9 +183,9 @@ Erstellen Sie **Inhaltsdeklarationsdateien** an beliebiger Stelle in Ihrem Proje
 - `.content.cjx`
 - usw.
 
-Beispiel (TypeScript mit TSX-Knoten für Lynx):
+Beispiel:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -191,7 +193,6 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      de: "auf Lynx",
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
@@ -263,21 +264,6 @@ const appContent = {
 export default appContent;
 ```
 
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      de: "auf Lynx",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
       de: "Tippen Sie auf das Logo und haben Sie Spaß!",
       en: "Tap the logo and have fun!",
       fr: "Appuyez sur le logo et amusez-vous!",
@@ -298,11 +284,13 @@ const appContent = {
         es: "para ver actualizaciones!",
       }),
     ],
-  },
+
+},
 };
 
 module.exports = appContent;
-```
+
+````
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
 {
@@ -319,40 +307,36 @@ module.exports = appContent;
         "es": "en Lynx"
       }
     },
-    "description": {
-      "nodeType": "translation",
-      "translation": {
-        "de": "Tippen Sie auf das Logo und haben Sie Spaß!",
-        "en": "Tap the logo and have fun!",
-        "fr": "Appuyez sur le logo et amusez-vous!",
-        "es": "¡Toca el logo y diviértete!"
-      }
-    },
-    "hint": [
-      {
-        "nodeType": "translation",
-        "translation": {
-          "de": "Bearbeiten",
-          "en": "Edit",
-          "fr": "Modifier",
-          "es": "Editar"
-        }
-      },
-      " src/App.tsx ",
-      {
-        "nodeType": "translation",
-        "translation": {
-          "de": "um Updates zu sehen!",
-          "en": "to see updates!",
-          "fr": "pour voir les mises à jour!",
-          "es": "para ver actualizaciones!"
-        }
-      }
-    ]
+"description": {
+  "nodeType": "translation",
+  "translation": {
+    "de": "Tippen Sie auf das Logo und haben Sie Spaß!",
+    "en": "Tap the logo and have fun!",
+    "fr": "Appuyez sur le logo et amusez-vous!",
+    "es": "¡Toca el logo y diviértete!"
   }
-}
-```
-
+},
+"hint": [
+  {
+    "nodeType": "translation",
+    "translation": {
+      "de": "Bearbeiten",
+      "en": "Edit",
+      "fr": "Modifier",
+      "es": "Editar"
+    }
+  },
+  " src/App.tsx ",
+  {
+    "nodeType": "translation",
+    "translation": {
+      "de": "um Updates zu sehen!",
+      "en": "to see updates!",
+      "fr": "pour voir les mises à jour!",
+      "es": "para ver actualizaciones!"
+    }
+  }
+]
 > Für Details zu Inhaltsdeklarationen siehe [Intlayers Inhaltsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
 
 ---
@@ -374,7 +358,6 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
     // nur Hintergrund
     setAlterLogo(!alterLogo);
@@ -410,7 +393,7 @@ export const App = () => {
     </view>
   );
 };
-```
+````
 
 > Wenn Sie `content.someKey` in string-basierten Props verwenden (z. B. `title` eines Buttons oder `children` einer `Text`-Komponente), **rufen Sie `content.someKey.value` auf**, um den tatsächlichen String zu erhalten.
 
@@ -423,7 +406,7 @@ Um die Sprache innerhalb Ihrer Komponenten zu wechseln, können Sie die `setLoca
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 import { type FC } from "react";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales, locale } = useLocale();
@@ -482,8 +465,6 @@ Dies ermöglicht Funktionen wie:
 
 ---
 
-## Git-Konfiguration
-
 Um zu vermeiden, dass automatisch generierte Dateien von Intlayer in das Repository aufgenommen werden, fügen Sie Folgendes zu Ihrer `.gitignore` hinzu:
 
 ```plaintext
@@ -493,8 +474,30 @@ Um zu vermeiden, dass automatisch generierte Dateien von Intlayer in das Reposit
 
 ---
 
+### VS Code Erweiterung
+
+Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Erweiterung** installieren.
+
+[Im VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Diese Erweiterung bietet:
+
+- **Autovervollständigung** für Übersetzungsschlüssel.
+- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
+- **Inline-Vorschauen** des übersetzten Inhalts.
+- **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
+  Für weitere Details zur Verwendung der Erweiterung lesen Sie bitte die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ## Weiterführende Schritte
 
 - **Visueller Editor**: Verwenden Sie den [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md), um Übersetzungen visuell zu verwalten.
 - **CMS-Integration**: Sie können Ihr Wörterbuch auch externisieren und Inhalte aus einem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) abrufen.
 - **CLI-Befehle**: Erkunden Sie die [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) für Aufgaben wie **Übersetzungen extrahieren** oder **fehlende Schlüssel überprüfen**.
+
+---
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Init history

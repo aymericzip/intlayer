@@ -17,11 +17,14 @@ import { writeConfiguration } from './writeConfiguration';
 
 export const prepareIntlayer = async (
   configuration: IntlayerConfig = getConfiguration(),
-  projectRequire = ESMxCJSRequire
+  projectRequire = ESMxCJSRequire,
+  clean = false
 ) => {
   const appLogger = getAppLogger(configuration);
 
-  cleanOutputDir(configuration);
+  if (clean) {
+    cleanOutputDir(configuration);
+  }
 
   const files: string[] = listDictionaries(configuration);
 

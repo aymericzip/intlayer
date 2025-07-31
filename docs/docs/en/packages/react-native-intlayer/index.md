@@ -1,9 +1,6 @@
 ---
-docName: package__react-native-intlayer
-url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Package Documentation | react-native-intlayer
 description: See how to use the react-native-intlayer package
 keywords:
@@ -15,6 +12,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-native-intlayer
 ---
 
 # react-native-intlayer: Internationalize (i18n) an React Native application
@@ -76,3 +77,9 @@ Intlayer provides a lot of features to help you internationalize your Vite appli
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
 - [Ask your questions to our smart documentation](https://intlayer.org/docchat)
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

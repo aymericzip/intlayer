@@ -1,9 +1,6 @@
 ---
-blogName: what_is_internationalization
-url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Что такое интернационализация (i18n)? Определение и представления
 description: Узнайте, почему интернационализация вашего веб-сайта является важной. Узнайте ключевые принципы для ускорения SEO, улучшения пользовательского опыта и расширения вашего глобального достижения.
 keywords:
@@ -15,11 +12,14 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - what-is-internationalization
 ---
 
 # Что такое Интернационализация (i18n)? Определение и вызовы
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## Понимание Интернационализации (i18n)
 
@@ -73,7 +73,7 @@ keywords:
 
 ## Общие вызовы i18n
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/pain_i18n.webp)
 
 - **поддерживаемость**  
   Каждое обновление веб-сайта должно быть отражено на всех языках, требуя эффективных рабочих процессов и тщательной координации для обеспечения согласованности во всех версиях.

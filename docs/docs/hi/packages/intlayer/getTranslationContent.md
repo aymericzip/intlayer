@@ -1,26 +1,47 @@
-# दस्तावेज़: `getTranslation` फ़ंक्शन `intlayer` में
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: getTranslation फ़ंक्शन - Intlayer जावास्क्रिप्ट दस्तावेज़ीकरण
+description: Intlayer में getTranslation फ़ंक्शन के लिए दस्तावेज़ीकरण, जो विशिष्ट लोकल के लिए स्थानीयकृत सामग्री प्राप्त करता है और डिफ़ॉल्ट लोकल पर वापस लौटता है।
+keywords:
+  - getTranslation
+  - intlayer
+  - फ़ंक्शन
+  - स्थानीयकरण
+  - i18n
+  - जावास्क्रिप्ट
+  - अनुवाद
+  - लोकल
+slugs:
+  - doc
+  - package
+  - intlayer
+  - getTranslationContent
+---
+
+# दस्तावेज़ीकरण: `intlayer` में `getTranslation` फ़ंक्शन
 
 ## विवरण
 
-`getTranslation` फ़ंक्शन एक सेट से एक विशिष्ट लोकेल के लिए सामग्री प्राप्त करता है जिसमें अनुकूलन योग्य भाषा सामग्री होती है। यदि निर्दिष्ट लोकेल नहीं मिलता है, तो यह प्रोजेक्ट में कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकेल की सामग्री को लौटाता है।
+`getTranslation` फ़ंक्शन एक सेट से किसी विशिष्ट लोकल के अनुरूप सामग्री प्राप्त करता है जो अनुकूलन योग्य भाषा सामग्री होती है। यदि निर्दिष्ट लोकल नहीं मिलता है, तो यह परियोजना में कॉन्फ़िगर किए गए डिफ़ॉल्ट लोकल की सामग्री लौटाता है।
 
-## पैरामीटर्स
+## पैरामीटर
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **विवरण**: विभिन्न लोकेल्स के लिए अनुवादों को संग्रहीत करने वाली एक वस्तु। प्रत्येक कुंजी एक लोकेल का प्रतिनिधित्व करती है, और इसका मान संबंधित सामग्री है।
+  - **विवरण**: एक ऑब्जेक्ट जिसमें विभिन्न लोकलों के लिए अनुवाद होते हैं। प्रत्येक कुंजी एक लोकल का प्रतिनिधित्व करती है, और इसका मान संबंधित सामग्री होती है।
   - **प्रकार**: `CustomizableLanguageContent<Content>`
-    - `Content` किसी भी प्रकार का हो सकता है, डिफ़ॉल्ट रूप से `string`।
+    - `Content` किसी भी प्रकार का हो सकता है, जिसका डिफ़ॉल्ट `string` है।
 
 - `locale: Locales`
 
-  - **विवरण**: वह लोकेल जिसके लिए सामग्री प्राप्त की जानी है।
+  - **विवरण**: वह लोकल जिसके लिए सामग्री प्राप्त करनी है।
   - **प्रकार**: `Locales`
 
-## रिटर्न्स
+## रिटर्न
 
 - **प्रकार**: `Content`
-- **विवरण**: निर्दिष्ट लोकेल के लिए सामग्री। यदि लोकेल नहीं मिलता है, तो डिफ़ॉल्ट लोकेल की सामग्री लौटाई जाती है।
+- **विवरण**: निर्दिष्ट लोकल के अनुरूप सामग्री। यदि लोकल नहीं मिलता है, तो डिफ़ॉल्ट लोकल की सामग्री लौटाई जाती है।
 
 ## उदाहरण उपयोग
 
@@ -33,7 +54,6 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    hi: "नमस्ते",
   },
   Locales.ENGLISH
 );
@@ -48,7 +68,6 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    hi: "नमस्ते",
   },
   Locales.ENGLISH
 );
@@ -62,8 +81,6 @@ const { getTranslation, Locales } = require("intlayer");
 const content = getTranslation(
   {
     en: "Hello",
-    fr: "Bonjour",
-    hi: "नमस्ते",
   },
   Locales.ENGLISH
 );
@@ -71,7 +88,7 @@ const content = getTranslation(
 console.log(content); // आउटपुट: "Bonjour"
 ```
 
-### गायब लोकेल:
+### गायब लोकल:
 
 ```typescript codeFormat="typescript"
 import { getTranslation, Locales } from "intlayer";
@@ -80,12 +97,11 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    hi: "नमस्ते",
   },
   Locales.SPANISH
 );
 
-console.log(content); // आउटपुट: "Hello" (डिफ़ॉल्ट लोकेल सामग्री)
+console.log(content); // आउटपुट: "Hello" (डिफ़ॉल्ट लोकल सामग्री)
 ```
 
 ```javascript codeFormat="esm"
@@ -95,12 +111,11 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    hi: "नमस्ते",
   },
   Locales.SPANISH
 );
 
-console.log(content); // आउटपुट: "Hello" (डिफ़ॉल्ट लोकेल सामग्री)
+console.log(content); // आउटपुट: "Hello" (डिफ़ॉल्ट लोकल सामग्री)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -110,15 +125,14 @@ const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-    hi: "नमस्ते",
   },
   Locales.SPANISH
 );
 
-console.log(content); // आउटपुट: "Hello" (डिफ़ॉल्ट लोकेल सामग्री)
+console.log(content); // आउटपुट: "Hello" (डिफ़ॉल्ट लोकल सामग्री)
 ```
 
-### कस्टम सामग्री प्रकारों का उपयोग:
+### कस्टम कंटेंट प्रकारों का उपयोग:
 
 ```typescript codeFormat="typescript"
 import { getTranslation, Locales } from "intlayer";
@@ -127,7 +141,6 @@ const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    hi: { greeting: "नमस्ते" },
   },
   Locales.FRENCH
 );
@@ -142,7 +155,6 @@ const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    hi: { greeting: "नमस्ते" },
   },
   Locales.FRENCH
 );
@@ -157,7 +169,6 @@ const customContent = getTranslation<Record<string, string>>(
   {
     en: { greeting: "Hello" },
     fr: { greeting: "Bonjour" },
-    hi: { greeting: "नमस्ते" },
   },
   Locales.FRENCH
 );
@@ -165,11 +176,15 @@ const customContent = getTranslation<Record<string, string>>(
 console.log(customContent.greeting); // आउटपुट: "Bonjour"
 ```
 
-## किनारे के मामले
+## एज केस
 
-- **लोकेल नहीं मिला:**
-  - जब `locale` `languageContent` में नहीं मिलता है, तो फ़ंक्शन डिफ़ॉल्ट लोकेल की सामग्री लौटाता है।
+- **लोकल नहीं मिला:**
+  - जब `locale` `languageContent` में नहीं मिलता है, तो फ़ंक्शन डिफ़ॉल्ट लोकल के लिए सामग्री लौटाता है।
 - **अधूरी भाषा सामग्री:**
-  - यदि कोई लोकेल आंशिक रूप से परिभाषित है, तो फ़ंक्शन सामग्री को मर्ज नहीं करता है। यह निर्दिष्ट लोकेल का मान सख्ती से प्राप्त करता है या डिफ़ॉल्ट पर वापस लौटता है।
+  - यदि कोई लोकल आंशिक रूप से परिभाषित है, तो फ़ंक्शन सामग्री को मर्ज नहीं करता है। यह सख्ती से निर्दिष्ट लोकल का मान प्राप्त करता है या डिफ़ॉल्ट पर वापस जाता है।
 - **टाइपस्क्रिप्ट प्रवर्तन:**
-  - यदि `languageContent` में लोकेल्स प्रोजेक्ट कॉन्फ़िगरेशन से मेल नहीं खाते हैं, तो टाइपस्क्रिप्ट सभी आवश्यक लोकेल्स को परिभाषित करने को लागू करेगा, जिससे सामग्री पूर्ण और प्रकार-सुरक्षित हो जाएगी।
+  - यदि `languageContent` में लोकल परियोजना कॉन्फ़िगरेशन से मेल नहीं खाते हैं, तो टाइपस्क्रिप्ट सभी आवश्यक लोकल को परिभाषित करने के लिए प्रवर्तन करेगा, जिससे सामग्री पूरी और प्रकार-सुरक्षित होगी।
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

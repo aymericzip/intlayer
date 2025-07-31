@@ -1,8 +1,9 @@
-import type { Discussion, DiscussionModelType } from '@/types/discussion.types';
+import type { Discussion } from '@/types/discussion.types';
 import { discussionSchema } from '@schemas/discussion.schema';
-import { model } from 'mongoose';
+import type { RenameId } from '@utils/mongoDB/types';
+import { Model, model } from 'mongoose';
 
-export const DiscussionModel = model<Discussion, DiscussionModelType>(
+export const DiscussionModel = model<RenameId<Discussion>, Model<Discussion>>(
   'discussion',
   discussionSchema
 );

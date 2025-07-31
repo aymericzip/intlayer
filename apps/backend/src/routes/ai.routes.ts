@@ -9,6 +9,7 @@ import {
   customQuery,
   translateJSON,
 } from '@controllers/ai.controller';
+import { unauthenticatedChatBotLimiter } from '@utils/rateLimiter';
 import { Router } from 'express';
 
 export const aiRouter: Router = Router();
@@ -77,8 +78,13 @@ aiRouter.post(
   getAiRoutes().auditContentDeclarationMetadata.urlModel,
   auditContentDeclarationMetadata
 );
-aiRouter.post(getAiRoutes().ask.urlModel, askDocQuestion);
 
 aiRouter.post(getAiRoutes().auditTag.urlModel, auditTag);
 
 aiRouter.post(getAiRoutes().autocomplete.urlModel, autocomplete);
+
+/**
+ * This route number of requests is limited for unauthenticated users
+ */
+aiRouter.use(/(.*)/, unauthenticatedChatBotLimiter);
+aiRouter.post(getAiRoutes().ask.urlModel, askDocQuestion);

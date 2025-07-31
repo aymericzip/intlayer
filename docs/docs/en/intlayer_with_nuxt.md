@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_nuxt
-url: https://intlayer.org/doc/environment/nuxt-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md
 createdAt: 2025-06-18
-updatedAt: 2025-06-18
+updatedAt: 2025-06-29
 title: Translate your Nuxt and Vue website (i18n)
 description: Discover how to make your Nuxt and Vue website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -13,6 +10,11 @@ keywords:
   - Nuxt
   - Vue
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - nuxt-and-vue
+applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and Nuxt
@@ -761,3 +763,11 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+---
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

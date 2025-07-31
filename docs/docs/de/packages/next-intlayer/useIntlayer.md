@@ -1,11 +1,8 @@
 ---
-docName: package__next-intlayer__useIntlayer
-url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Dokumentation des useIntlayer-Hooks | next-intlayer
-description: Erfahren Sie, wie Sie den useIntlayer-Hook für das next-intlayer-Paket verwenden
+updatedAt: 2025-06-29
+title: useIntlayer Hook Dokumentation | next-intlayer
+description: Siehe, wie der useIntlayer Hook für das next-intlayer Paket verwendet wird
 keywords:
   - useIntlayer
   - Wörterbuch
@@ -16,58 +13,63 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useIntlayer
 ---
 
-# Next.js-Integration: `useIntlayer` Hook Dokumentation
+# Next.js Integration: `useIntlayer` Hook Dokumentation
 
-Der `useIntlayer` Hook ist speziell für Next.js-Anwendungen entwickelt, um lokalisierte Inhalte effizient abzurufen und zu verwalten. Diese Dokumentation konzentriert sich darauf, wie der Hook in Next.js-Projekten verwendet wird, um eine ordnungsgemäße Lokalisierung sicherzustellen.
+Der `useIntlayer` Hook ist speziell für Next.js-Anwendungen entwickelt, um lokalisierten Inhalt effizient abzurufen und zu verwalten. Diese Dokumentation konzentriert sich darauf, wie der Hook innerhalb von Next.js-Projekten verwendet wird, um eine korrekte Lokalisierung sicherzustellen.
 
 ## Importieren von `useIntlayer` in Next.js
 
-Je nachdem, ob Sie an clientseitigen oder serverseitigen Komponenten in einer Next.js-Anwendung arbeiten, können Sie den `useIntlayer` Hook wie folgt importieren:
+Je nachdem, ob Sie in einer Client- oder Server-Komponente einer Next.js-Anwendung arbeiten, können Sie den `useIntlayer` Hook wie folgt importieren:
 
 - **Client-Komponente:**
 
   ```typescript codeFormat="typescript"
-  import { useIntlayer } from "next-intlayer"; // Wird in clientseitigen Komponenten verwendet
+  import { useIntlayer } from "next-intlayer"; // Wird in Client-seitigen Komponenten verwendet
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "next-intlayer"; // Wird in clientseitigen Komponenten verwendet
+  import { useIntlayer } from "next-intlayer"; // Wird in Client-seitigen Komponenten verwendet
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("next-intlayer"); // Wird in clientseitigen Komponenten verwendet
+  const { useIntlayer } = require("next-intlayer"); // Wird in Client-seitigen Komponenten verwendet
   ```
 
 - **Server-Komponente:**
 
   ```tsx codeFormat="typescript"
-  import { useIntlayer } from "next-intlayer/server"; // Wird in serverseitigen Komponenten verwendet
+  import { useIntlayer } from "next-intlayer/server"; // Wird in Server-seitigen Komponenten verwendet
   ```
 
   ```javascript codeFormat="esm"
-  import { useIntlayer } from "next-intlayer/server"; // Wird in serverseitigen Komponenten verwendet
+  import { useIntlayer } from "next-intlayer/server"; // Wird in Server-seitigen Komponenten verwendet
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("next-intlayer/server"); // Wird in serverseitigen Komponenten verwendet
+  const { useIntlayer } = require("next-intlayer/server"); // Wird in Server-seitigen Komponenten verwendet
   ```
 
 ## Parameter
 
-1. **`key`**: Ein String-Identifikator für den Wörterbuchschlüssel, aus dem Sie Inhalte abrufen möchten.
-2. **`locale`** (optional): Eine spezifische Locale, die verwendet werden soll. Wenn nicht angegeben, verwendet der Hook die im Client- oder Server-Kontext festgelegte Locale.
+1. **`key`**: Ein String-Identifikator für den Wörterbuchschlüssel, von dem Sie Inhalte abrufen möchten.
+2. **`locale`** (optional): Eine spezifische Locale, die verwendet werden soll. Wenn ausgelassen, verwendet der Hook standardmäßig die im Client- oder Server-Kontext gesetzte Locale.
 
 ## Wörterbuchdateien
 
-Es ist entscheidend, dass alle Inhalts-Schlüssel in Inhaltsdeklarationsdateien definiert sind, um Laufzeitfehler zu vermeiden und die Typsicherheit zu gewährleisten. Dieser Ansatz erleichtert auch die Integration von TypeScript für die Validierung zur Kompilierungszeit.
+Es ist entscheidend, dass alle Inhalts-Schlüssel in Inhaltsdeklarationsdateien definiert sind, um Laufzeitfehler zu vermeiden und Typensicherheit zu gewährleisten. Dieser Ansatz erleichtert auch die Integration von TypeScript für die Validierung zur Kompilierzeit.
 
-Anleitungen zur Einrichtung von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
+Anleitungen zum Einrichten von Inhaltsdeklarationsdateien finden Sie [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
 
-## Beispielverwendung in Next.js
+## Beispielhafte Verwendung in Next.js
 
-So können Sie den `useIntlayer` Hook in einer Next.js-Seite implementieren, um lokalisierte Inhalte dynamisch basierend auf der aktuellen Locale der Anwendung zu laden:
+So können Sie den `useIntlayer`-Hook in einer Next.js-Seite implementieren, um lokalisierten Inhalt dynamisch basierend auf der aktuellen Anwendungslocale zu laden:
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -151,6 +153,7 @@ import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
 const ClientComponentExample: FC = () => {
+  // Verwenden Sie den Intlayer-Hook, um den Inhalt für die Komponente zu laden
   const content = useIntlayer("component-content");
 
   return (
@@ -168,6 +171,7 @@ const ClientComponentExample: FC = () => {
 import { useIntlayer } from "next-intlayer";
 
 const ServerComponentExample = () => {
+  // Verwenden Sie den Intlayer-Hook, um den Inhalt für die Komponente zu laden
   const content = useIntlayer("component-content");
 
   return (
@@ -185,6 +189,7 @@ const ServerComponentExample = () => {
 const { useIntlayer } = require("next-intlayer");
 
 const ServerComponentExample = () => {
+  // Verwenden Sie den Intlayer-Hook, um den Inhalt für die Komponente zu laden
   const content = useIntlayer("component-content");
 
   return (
@@ -201,6 +206,7 @@ import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
 
 const ServerComponentExample: FC = () => {
+  // Verwenden Sie den Intlayer-Hook, um den Inhalt für die Server-Komponente zu laden
   const content = useIntlayer("component-content");
 
   return (
@@ -216,6 +222,7 @@ const ServerComponentExample: FC = () => {
 import { useIntlayer } from "next-intlayer/server";
 
 const ServerComponentExample = () => {
+  // Verwenden Sie den Intlayer-Hook, um den Inhalt für die Server-Komponente zu laden
   const content = useIntlayer("component-content");
 
   return (
@@ -242,9 +249,9 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Lokalisierung von Attributen
+## Umgang mit der Attribut-Lokalisierung
 
-Um Attribute wie `alt`, `title`, `href`, `aria-label` usw. zu lokalisieren, stellen Sie sicher, dass Sie die Inhalte korrekt referenzieren:
+Um Attribute wie `alt`, `title`, `href`, `aria-label` usw. zu lokalisieren, stellen Sie sicher, dass Sie den Inhalt korrekt referenzieren:
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
@@ -252,6 +259,10 @@ Um Attribute wie `alt`, `title`, `href`, `aria-label` usw. zu lokalisieren, stel
 
 ## Weitere Informationen
 
-- **Intlayer Visual Editor**: Erfahren Sie, wie Sie den visuellen Editor für eine einfachere Inhaltsverwaltung nutzen können [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
+- **Intlayer Visual Editor**: Erfahren Sie, wie Sie den visuellen Editor für eine einfachere Inhaltsverwaltung [hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) verwenden.
 
-Diese Dokumentation beschreibt die Verwendung des `useIntlayer` Hooks speziell in Next.js-Umgebungen und bietet eine robuste Lösung für die Verwaltung der Lokalisierung in Ihren Next.js-Anwendungen.
+Diese Dokumentation beschreibt die Verwendung des `useIntlayer` Hooks speziell in Next.js-Umgebungen und bietet eine robuste Lösung zur Verwaltung der Lokalisierung in Ihren Next.js-Anwendungen.
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Initiale Historie

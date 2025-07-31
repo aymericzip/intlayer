@@ -1,9 +1,6 @@
 ---
-docName: package__vite-intlayer
-url: https://intlayer.org/doc/packages/vite-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Package Documentation | vite-intlayer
 description: See how to use the vite-intlayer package
 keywords:
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - vite-intlayer
 ---
 
 # vite-intlayer: NPM Package to internationalize (i18n) an Vite application
@@ -69,3 +70,9 @@ export default defineConfig({
 Intlayer provides a lot of features to help you internationalize your Vite application.
 
 **To learn more about these features, refer to the [React Internationalization (i18n) with Intlayer and Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md) guide for Vite and React Application.**
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

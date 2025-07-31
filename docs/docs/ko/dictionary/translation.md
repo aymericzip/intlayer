@@ -1,11 +1,8 @@
 ---
-docName: dictionary__translation
-url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 번역
-description: 다국어 웹사이트에서 번역을 선언하고 사용하는 방법을 알아보세요. 몇 분 안에 프로젝트를 설정하기 위해 이 온라인 문서의 단계를 따르세요.
+description: 다국어 웹사이트에서 번역을 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정할 수 있습니다.
 keywords:
   - 번역
   - 국제화
@@ -14,17 +11,20 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - translation
 ---
 
 # 번역
 
-## 번역 정의
+## 번역 정의하기
 
-`intlayer`의 `t` 함수는 여러 언어로 콘텐츠를 선언할 수 있도록 합니다. 이 함수는 타입 안전성을 보장하며, 번역이 누락된 경우 오류를 발생시켜 특히 TypeScript 환경에서 유용합니다.
+`intlayer`의 `t` 함수는 여러 언어로 콘텐츠를 선언할 수 있게 해줍니다. 이 함수는 타입 안전성을 보장하며, 번역이 누락된 경우 오류를 발생시켜 특히 TypeScript 환경에서 유용합니다.
 
-### TypeScript 사용하기
-
-다음은 번역과 함께 콘텐츠를 선언하는 예제입니다.
+다음은 번역이 포함된 콘텐츠를 선언하는 예시입니다.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -92,9 +92,37 @@ module.exports = {
 }
 ```
 
-## 로케일 설정
+## 로케일 구성
 
-적절한 번역 처리를 보장하려면 `intlayer.config.ts`에서 허용되는 로케일을 설정할 수 있습니다. 이 설정을 통해 애플리케이션이 지원하는 언어를 정의할 수 있습니다:
+적절한 번역 처리를 보장하기 위해 `intlayer.config.ts`에서 허용되는 로케일을 구성할 수 있습니다. 이 구성은 애플리케이션이 지원하는 언어를 정의할 수 있게 합니다:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación"
+      }
+    }
+  }
+}
+```
+
+## 로케일 구성
+
+적절한 번역 처리를 보장하기 위해 `intlayer.config.ts`에서 허용되는 로케일을 구성할 수 있습니다. 이 구성은 애플리케이션이 지원하는 언어를 정의할 수 있게 해줍니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -136,7 +164,7 @@ module.exports = config;
 
 ## React 컴포넌트에서 번역 사용하기
 
-`react-intlayer`를 사용하면 React 컴포넌트에서 번역을 사용할 수 있습니다. 다음은 예제입니다:
+`react-intlayer`를 사용하면 React 컴포넌트 내에서 번역을 사용할 수 있습니다. 다음은 예시입니다:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -147,7 +175,7 @@ const MyComponent: FC = () => {
 
   return (
     <div>
-      <p>{content.welcomeMessage}</p>
+      <p>{content.welcomeMessage}</p> {/* 현재 로케일에 맞는 환영 메시지를 표시합니다 */}
     </div>
   );
 };
@@ -163,7 +191,8 @@ const MyComponent = () => {
 
   return (
     <div>
-      <p>{content.welcomeMessage}</p>
+      <p>{content.welcomeMessage}</p>{" "}
+      {/* 현재 로케일에 맞는 환영 메시지를 표시합니다 */}
     </div>
   );
 };
@@ -179,7 +208,8 @@ const MyComponent = () => {
 
   return (
     <div>
-      <p>{content.welcomeMessage}</p>
+      <p>{content.welcomeMessage}</p>{" "}
+      {/* 현재 로케일에 맞는 환영 메시지를 표시합니다 */}
     </div>
   );
 };
@@ -191,7 +221,7 @@ module.exports = MyComponent;
 
 ## 사용자 정의 콘텐츠 객체
 
-`intlayer`는 번역을 위한 사용자 정의 콘텐츠 객체를 지원하며, 더 복잡한 구조를 정의하면서도 타입 안전성을 보장합니다. 다음은 사용자 정의 객체의 예제입니다:
+`intlayer`는 번역을 위한 사용자 정의 콘텐츠 객체를 지원하여, 더 복잡한 구조를 정의하면서 타입 안전성을 보장할 수 있습니다. 다음은 사용자 정의 객체의 예시입니다:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -235,8 +265,8 @@ export default {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "페이지 제목",
+          content: "페이지 내용",
         },
         fr: {
           title: "Titre de la Page",
@@ -288,18 +318,22 @@ module.exports = {
       "translation": {
         "en": {
           "title": "Page Title",
-          "content": "Page Content"
+          "content": "페이지 내용"
         },
         "fr": {
-          "title": "Titre de la Page",
-          "content": "Contenu de la Page"
+          "title": "페이지 제목",
+          "content": "페이지 내용"
         },
         "es": {
-          "title": "Título de la Página",
-          "content": "Contenido de la Página"
+          "title": "페이지 제목",
+          "content": "페이지 내용"
         }
       }
     }
   }
 }
 ```
+
+## 문서 이력
+
+- 5.5.10 - 2025-06-29: 초기 이력

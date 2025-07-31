@@ -1,11 +1,8 @@
 ---
-docName: package__intlayer__getLocaleLang
-url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentation de la fonction getLocaleLang | intlayer
-description: Découvrez commengetLocaleLang utiliser la fonction getLocaleLang pour le package intlayer
+description: Découvrez comment utiliser la fonction getLocaleLang pour le package intlayer
 keywords:
   - getLocaleLang
   - traduction
@@ -16,13 +13,18 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleLang
 ---
 
-# Documentation: `getLocaleLang` Fonction dans `intlayer`
+# Documentation : Fonction `getLocaleLang` dans `intlayer`
 
 ## Description
 
-La fonction `getLocaleLang` extrait le code de langue à partir d'une chaîne de locale. Elle prend en charge les locales avec ou sans codes de pays. Si aucune locale n'est fournie, elle retourne par défaut une chaîne vide.
+La fonction `getLocaleLang` extrait le code de langue à partir d'une chaîne de locale. Elle prend en charge les locales avec ou sans codes pays. Si aucune locale n'est fournie, elle retourne par défaut une chaîne vide.
 
 ## Paramètres
 
@@ -31,7 +33,7 @@ La fonction `getLocaleLang` extrait le code de langue à partir d'une chaîne de
   - **Description** : La chaîne de locale (par exemple, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) à partir de laquelle le code de langue est extrait.
   - **Type** : `Locales` (optionnel)
 
-## Retourne
+## Retour
 
 - **Type** : `string`
 - **Description** : Le code de langue extrait de la locale. Si la locale n'est pas fournie, elle retourne une chaîne vide (`''`).
@@ -43,28 +45,28 @@ La fonction `getLocaleLang` extrait le code de langue à partir d'une chaîne de
 ```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Résultat : "en"
-getLocaleLang(Locales.ENGLISH); // Résultat : "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Résultat : "fr"
-getLocaleLang(Locales.FRENCH); // Résultat : "fr"
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
+getLocaleLang(Locales.ENGLISH); // Sortie : "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Sortie : "fr"
+getLocaleLang(Locales.FRENCH); // Sortie : "fr"
 ```
 
 ```javascript codeFormat="esm"
 import { getLocaleLang } from "intlayer";
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Résultat : "en"
-getLocaleLang(Locales.ENGLISH); // Résultat : "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Résultat : "fr"
-getLocaleLang(Locales.FRENCH); // Résultat : "fr"
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Sortie : "en"
+getLocaleLang(Locales.ENGLISH); // Sortie : "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Sortie : "fr"
+getLocaleLang(Locales.FRENCH); // Sortie : "fr"
 ```
 
 ```javascript codeFormat="commonjs"
 const { getLocaleLang } = require("intlayer");
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Résultat : "en"
-getLocaleLang(Locales.ENGLISH); // Résultat : "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Résultat : "fr"
-getLocaleLang(Locales.FRENCH); // Résultat : "fr"
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Sortie : "en"
+getLocaleLang(Locales.ENGLISH); // Sortie : "en"
+getLocaleLang(Locales.FRENCH_CANADA); // Sortie : "fr"
+getLocaleLang(Locales.FRENCH); // Sortie : "fr"
 ```
 
 ## Cas particuliers
@@ -73,5 +75,9 @@ getLocaleLang(Locales.FRENCH); // Résultat : "fr"
 
   - La fonction retourne une chaîne vide lorsque `locale` est `undefined`.
 
-- **Chaînes de locale malformées :**
-  - Si la `locale` ne suit pas le format `language-country` (par exemple, `Locales.ENGLISH-US`), la fonction retourne en toute sécurité la partie avant `'-'` ou la chaîne entière si aucun `'-'` n'est présent.
+- **Chaînes de locale mal formées :**
+  - Si la `locale` ne suit pas le format `langue-pays` (par exemple, `Locales.ENGLISH-US`), la fonction retourne en toute sécurité la partie avant `'-'` ou la chaîne entière s'il n'y a pas de `'-'`.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

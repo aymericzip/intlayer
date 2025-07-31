@@ -1,22 +1,42 @@
-# Intlayer supporta due modi per dichiarare contenuti multilingue:
+---
+createdAt: 2025-04-18
+updatedAt: 2025-06-29
+title: Dichiarazione di Contenuto `Per-Locale` in Intlayer
+description: Scopri come dichiarare contenuti per locale in Intlayer. Segui la documentazione per comprendere i diversi formati e casi d'uso.
+keywords:
+  - Internazionalizzazione
+  - Documentazione
+  - Intlayer
+  - Per-Locale
+  - TypeScript
+  - JavaScript
+slugs:
+  - doc
+  - concept
+  - per-locale-file
+---
 
-- File unico con tutte le traduzioni
-- Un file per locale (formato per-locale)
+# Dichiarazione di Contenuto `Per-Locale` in Intlayer
+
+Intlayer supporta due modi per dichiarare contenuti multilingue:
+
+- Un singolo file con tutte le traduzioni
+- Un file per ogni locale (formato per-locale)
 
 Questa flessibilità consente:
 
 - Migrazione semplice da altri strumenti i18n
-- Supporto per flussi di lavoro di traduzione automatizzati
+- Supporto per flussi di lavoro di traduzione automatizzata
 - Organizzazione chiara delle traduzioni in file separati e specifici per locale
 
-## File Unico con Traduzioni Multiple
+## Singolo File con Traduzioni Multiple
 
 Questo formato è ideale per:
 
 - Iterazioni rapide nel codice.
-- Integrazione senza problemi con il CMS.
+- Integrazione senza soluzione di continuità con il CMS.
 
-Questo è l'approccio raccomandato per la maggior parte dei casi d'uso. Centralizza le traduzioni, rendendo facile iterare e integrare con il CMS.
+Questo è l'approccio consigliato per la maggior parte dei casi d'uso. Centralizza le traduzioni, rendendo facile iterare e integrare con il CMS.
 
 ```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -25,7 +45,6 @@ const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      it: "Titolo del mio componente",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -39,11 +58,11 @@ export default helloWorldContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Contenuto per "hello-world" con traduzioni multiple
 const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      it: "Titolo del mio componente",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -57,11 +76,11 @@ export default helloWorldContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// Contenuto per "hello-world" con traduzioni multiple
 const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      it: "Titolo del mio componente",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -79,7 +98,6 @@ module.exports = helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "it": "Titolo del mio componente",
         "en": "Title of my component",
         "es": "Título de mi componente"
       }
@@ -88,16 +106,16 @@ module.exports = helloWorldContent;
 }
 ```
 
-> Raccomandato: Questo formato è il migliore quando si utilizza l'editor visivo di Intlayer o si gestiscono le traduzioni direttamente nel codice.
+> Consigliato: questo formato è il migliore quando si utilizza l'editor visuale di Intlayer o si gestiscono le traduzioni direttamente nel codice.
 
-## Formato Per-Locale
+## Formato per Locale
 
 Questo formato è utile quando:
 
-- Si desidera versionare o sovrascrivere traduzioni in modo indipendente.
-- Si stanno integrando flussi di lavoro di traduzione automatica o manuale.
+- Vuoi versionare o sovrascrivere le traduzioni in modo indipendente.
+- Stai integrando flussi di lavoro di traduzione automatica o umana.
 
-È possibile anche suddividere le traduzioni in file individuali per locale specificando il campo locale:
+Puoi anche suddividere le traduzioni in file di locale individuali specificando il campo locale:
 
 ```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
 import { t, Locales, type Dictionary } from "intlayer";
@@ -105,7 +123,7 @@ import { t, Locales, type Dictionary } from "intlayer";
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // Importante
-  content: { multilingualContent: "Title of my component" },
+  content: { multilingualContent: "Titolo del mio componente" },
 } satisfies Dictionary;
 
 export default helloWorldContent;
@@ -118,17 +136,20 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // Importante
   content: { multilingualContent: "Título de mi componente" },
-};
+} satisfies Dictionary;
+
+export default helloWorldContent;
 ```
 
 ```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Dizionario contenuti per "hello-world" in inglese
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // Importante
-  content: { multilingualContent: "Title of my component" },
+  content: { multilingualContent: "Titolo del mio componente" },
 };
 
 export default helloWorldContent;
@@ -138,6 +159,7 @@ export default helloWorldContent;
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Dizionario contenuti per "hello-world" in spagnolo
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // Importante
@@ -155,7 +177,7 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // Importante
   content: {
-    multilingualContent: "Title of my component",
+    multilingualContent: "Titolo del mio componente",
   },
 };
 
@@ -183,7 +205,7 @@ module.exports = helloWorldContent;
   "key": "hello-world",
   "locale": "en", // Importante
   "content": {
-    "multilingualContent": "Title of my component",
+    "multilingualContent": "Titolo del mio componente",
   },
 }
 ```
@@ -199,21 +221,21 @@ module.exports = helloWorldContent;
 }
 ```
 
-> Importante: Assicurarsi che il campo locale sia definito. Indica a Intlayer quale lingua rappresenta il file.
+> Importante: Assicurati che il campo locale sia definito. Indica a Intlayer quale lingua rappresenta il file.
 
-> Nota: In entrambi i casi, il file di dichiarazione del contenuto deve seguire il pattern di denominazione `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` per essere riconosciuto da Intlayer. Il suffisso `.[locale]` è opzionale e utilizzato solo come convenzione di denominazione.
+> Nota: In entrambi i casi, il file di dichiarazione del contenuto deve seguire il modello di denominazione `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` per essere riconosciuto da Intlayer. Il suffisso `.[locale]` è opzionale ed è usato solo come convenzione di denominazione.
 
-## Formati Misti
+## Mescolare Formati
 
-È possibile mescolare entrambi gli approcci per la stessa chiave di contenuto. Ad esempio:
+Puoi combinare entrambi gli approcci di dichiarazione per la stessa chiave di contenuto. Per esempio:
 
-Dichiarare contenuti predefiniti o di base staticamente (es. `index.content.ts`)
+- Dichiara il tuo contenuto base staticamente in un file come index.content.ts.
+- Aggiungi o sovrascrivi traduzioni specifiche in file separati come index.fr.content.ts o index.content.json.
 
-Aggiungere o sovrascrivere contenuti specifici per locale in `index.content.json`, `index.fr.content.ts`, ecc.
+Questa configurazione è particolarmente utile quando:
 
-Questo è particolarmente utile quando:
-
-- Si desidera dichiarare il contenuto di base staticamente nel proprio codice e riempire automaticamente con traduzioni nel CMS.
+- Vuoi definire la struttura iniziale del contenuto nel codice.
+- Hai intenzione di arricchire o completare le traduzioni successivamente utilizzando il CMS o strumenti automatizzati.
 
 ```bash codeFormat="typescript"
 .
@@ -235,8 +257,8 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH,
   content: {
-    multilingualContent: "Title of my component",
-    projectName: "My project",
+    multilingualContent: "Titolo del mio componente",
+    projectName: "Il mio progetto",
   },
 } satisfies Dictionary;
 
@@ -251,7 +273,6 @@ export default helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "it": "Titolo del mio componente",
         "fr": "Titre de mon composant",
         "es": "Título de mi componente"
       }
@@ -260,18 +281,18 @@ export default helloWorldContent;
 }
 ```
 
-Intlayer unisce automaticamente file multilingue e per-locale.
+Intlayer unisce automaticamente i file multilingue e per locale.
 
 ```tsx fileName="Components/MyComponent/index.ts"
 import { getIntlayer, Locales } from "intlayer";
 
-const intlayer = getIntlayer("hello-world"); // La lingua predefinita è ENGLISH, quindi restituirà il contenuto in ENGLISH
+const intlayer = getIntlayer("hello-world"); // La lingua predefinita è INGLESE, quindi restituirà il contenuto in INGLESE
 
 console.log(JSON.stringify(intlayer, null, 2));
 // Risultato:
 // {
-//  "multilingualContent": "Title of my component",
-//  "projectName": "My project"
+//  "multilingualContent": "Titolo del mio componente",
+//  "projectName": "Il mio progetto"
 // }
 
 const intlayer = getIntlayer("hello-world", Locales.SPANISH);
@@ -280,7 +301,7 @@ console.log(JSON.stringify(intlayer, null, 2));
 // Risultato:
 // {
 //  "multilingualContent": "Título de mi componente",
-//  "projectName": "My project"
+//  "projectName": "Il mio progetto"
 // }
 
 const intlayer = getIntlayer("hello-world", Locales.FRENCH);
@@ -289,10 +310,16 @@ console.log(JSON.stringify(intlayer, null, 2));
 // Risultato:
 // {
 //  "multilingualContent": "Titre de mon composant",
-//  "projectName": "My project"
+//  "projectName": "Il mio progetto"
 // }
 ```
 
 ### Generazione Automatica delle Traduzioni
 
-Utilizza il [CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md) per riempire automaticamente le traduzioni mancanti in base ai tuoi servizi preferiti.
+### Generazione Automatica delle Traduzioni
+
+Usa il [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md) per compilare automaticamente le traduzioni mancanti basandoti sui servizi che preferisci.
+
+## Cronologia del Documento
+
+- 5.5.10 - 2025-06-29: Inizio cronologia

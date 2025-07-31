@@ -1,26 +1,28 @@
 ---
-docName: dictionary__function_fetching
-url: https://intlayer.org/doc/concept/content/function-fetching
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Recuperação de Função
-description: Descubra como declarar e usar a recuperação de função em seu site multilíngue. Siga as etapas desta documentação online para configurar seu projeto em poucos minutos.
+updatedAt: 2025-06-29
+title: Busca por Função
+description: Descubra como declarar e usar busca por função em seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
 keywords:
-  - Recuperação de Função
+  - Busca por Função
   - Internacionalização
   - Documentação
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - function-fetching
 ---
 
-# Função de Busca
+# Busca por Função
 
-O Intlayer permite que você declare funções de conteúdo em seus módulos de conteúdo, que podem ser síncronas ou assíncronas. Quando o aplicativo é construído, o Intlayer executa essas funções para obter o resultado da função. O valor de retorno deve ser um objeto JSON ou um valor simples como uma string ou número.
+Intlayer permite que você declare funções de conteúdo em seus módulos de conteúdo, que podem ser síncronas ou assíncronas. Quando a aplicação é construída, o Intlayer executa essas funções para obter o resultado da função. O valor retornado deve ser um objeto JSON ou um valor simples como uma string ou número.
 
-> Aviso: a função de busca atualmente não está disponível em declarações de conteúdo JSON e arquivos de declarações de conteúdo remoto.
+> Aviso: a busca por função atualmente não está disponível em declarações de conteúdo JSON e em arquivos de declarações de conteúdo remotas.
 
 ## Declarações de Função
 
@@ -32,7 +34,7 @@ import type { Dictionary } from "intlayer";
 const functionContent = {
   key: "function_content",
   content: {
-    text: () => "Este é o conteúdo renderizado por uma função",
+    text: () => "This is the content rendered by a function",
   },
 } satisfies Dictionary;
 
@@ -73,13 +75,13 @@ module.exports = functionContent;
 }
 ```
 
-Neste exemplo, a chave `text` contém uma função que retorna uma string. Este conteúdo pode ser renderizado em seus componentes React usando os pacotes de intérprete do Intlayer, como `react-intlayer`.
+Neste exemplo, a chave `text` contém uma função que retorna uma string. Este conteúdo pode ser renderizado em seus componentes React usando os pacotes interpretadores do Intlayer, como o `react-intlayer`.
 
 ## Busca de Função Assíncrona
 
-Além de funções síncronas, o Intlayer suporta funções assíncronas, permitindo buscar dados de fontes externas ou simular a recuperação de dados com dados fictícios.
+Além das funções síncronas, o Intlayer suporta funções assíncronas, permitindo que você busque dados de fontes externas ou simule a recuperação de dados com dados fictícios.
 
-Abaixo está um exemplo de uma função assíncrona que simula uma busca no servidor:
+Abaixo está um exemplo de uma função assíncrona que simula uma busca em um servidor:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
@@ -137,10 +139,10 @@ module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
-Não há como buscar conteúdo de um arquivo JSON, use um arquivo .ts ou .js em vez disso
+Não é possível buscar conteúdo de um arquivo JSON, use um arquivo .ts ou .js em vez disso
 ```
 
-Neste caso, a função `fakeFetch` imita um atraso para simular o tempo de resposta do servidor. O Intlayer executa a função assíncrona e usa o resultado como o conteúdo para a chave `text`.
+Neste caso, a função `fakeFetch` simula um atraso para imitar o tempo de resposta do servidor. O Intlayer executa a função assíncrona e usa o resultado como o conteúdo para a chave `text`.
 
 ## Usando Conteúdo Baseado em Função em Componentes React
 
@@ -159,7 +161,7 @@ const MyComponent: FC = () => {
       <p>{functionContent.text}</p>
       {/* Saída: Este é o conteúdo renderizado por uma função */}
       <p>{asyncFunctionContent.text}</p>
-      {/* Saída: Este é o conteúdo buscado do servidor */}
+      {/* Saída: Este é o conteúdo obtido do servidor */}
     </div>
   );
 };
@@ -179,7 +181,7 @@ const MyComponent = () => {
       <p>{functionContent.text}</p>
       {/* Saída: Este é o conteúdo renderizado por uma função */}
       <p>{asyncFunctionContent.text}</p>
-      {/* Saída: Este é o conteúdo buscado do servidor */}
+      {/* Saída: Este é o conteúdo obtido do servidor */}
     </div>
   );
 };
@@ -199,10 +201,14 @@ const MyComponent = () => {
       <p>{functionContent.text}</p>
       {/* Saída: Este é o conteúdo renderizado por uma função */}
       <p>{asyncFunctionContent.text}</p>
-      {/* Saída: Este é o conteúdo buscado do servidor */}
+      {/* Saída: Este é o conteúdo obtido do servidor */}
     </div>
   );
 };
 
 module.exports = MyComponent;
 ```
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

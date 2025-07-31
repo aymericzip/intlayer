@@ -1,7 +1,7 @@
 'use client';
 
 import type { OrganizationAPI } from '@intlayer/backend';
-import { useForm, Form } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system';
 import {
   useAddOrganization,
   useSelectOrganization,
@@ -32,7 +32,7 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
     await addOrganization(data).then(async (result) => {
       if (!result.data) return;
 
-      const organizationId = String(result.data?._id);
+      const organizationId = String(result.data?.id);
 
       await selectOrganization(organizationId);
       onOrganizationCreated?.(result.data);

@@ -1,9 +1,6 @@
 ---
-docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Enumeration
 description: Discover how to declare and use enumerations in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - enumeration
 ---
 
 # Enumeration / Plurielisation
@@ -237,3 +239,9 @@ For more detailed information on configuration and usage, refer to the following
 - [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 These resources provide further insights into the setup and usage of Intlayer in different environments and with various frameworks.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

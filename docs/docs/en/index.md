@@ -1,3 +1,23 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: Intlayer Documentation - Complete i18n Guide for JavaScript
+description: Complete documentation for Intlayer, the modern internationalization library for JavaScript, React, Next.js, Express, and more frameworks.
+keywords:
+  - intlayer
+  - internationalization
+  - i18n
+  - JavaScript
+  - React
+  - Next.js
+  - documentation
+  - translation
+  - multilingual
+slugs:
+  - doc
+  - index
+---
+
 # Intlayer Documentation
 
 Welcome to the official **Intlayer** documentation! Here, you'll find everything you need to integrate, configure, and master Intlayer for all your internationalization (i18n) needs, whether you’re working with **Next.js**, **React**, **Vite**, **Express**, or another JavaScript environment.
@@ -42,6 +62,9 @@ Organize your multilingual content close to your code to keep everything consist
 
 - **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/conditional.md)**  
   Learn how to use conditional logic in Intlayer to create dynamic content.
+
+- **[Gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md)**  
+  Learn how to use gender logic in Intlayer to create dynamic content.
 
 - **[Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)**
   Discover how to insert values in a string using insertion placeholders.
@@ -137,3 +160,9 @@ Seamlessly integrate with **Next.js**:
 We value the power of open-source and community-driven development. If you’d like to propose improvements, add a new guide, or correct any issues in our docs, feel free to submit a Pull Request or open an issue on our [GitHub repository](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **Ready to translate your application faster and more efficiently?** Dive into our docs to start using Intlayer today. Experience a robust, streamlined approach to internationalization that keeps your content organized and your team more productive.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

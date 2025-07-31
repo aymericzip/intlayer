@@ -1,9 +1,6 @@
 ---
-docName: dictionary__condition
-url: https://intlayer.org/doc/concept/content/condition
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md
-createdAt: 2025-02-7
-updatedAt: 2025-02-7
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
 title: Conditional Content
 description: Learn how to use conditional content in Intlayer to dynamically display content based on specific conditions. Follow this documentation to implement conditions efficiently in your project.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - condition
 ---
 
 # Conditional Content / Condition in Intlayer
@@ -100,7 +102,7 @@ module.exports = myConditionalContent;
 
 ## Using Conditional Content with React Intlayer
 
-To utilise conditional content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a condition to select the appropriate output.
+To utilize conditional content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a condition to select the appropriate output.
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -224,8 +226,12 @@ module.exports = ConditionalComponent;
 
 For more detailed information on configuration and usage, refer to the following resources:
 
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md)
-- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md)
-- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md)
+- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md)
+- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)
+- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md)
 
 These resources offer further insights into the setup and usage of Intlayer across various environments and frameworks.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

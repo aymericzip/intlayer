@@ -1,58 +1,32 @@
-import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import type { Project, ProjectAPI } from '@/types/project.types';
-import type { User } from '@/types/user.types';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 
 /**
  * Maps a project to an API response.
  * @param project - The project to map.
- * @param isProjectAdmin - Whether the user is an admin of the project.
+ * @param  - Whether the user is an admin of the project.
  * @returns The project mapped to an API response.
  */
-export const mapProjectToAPI = (
-  project: Project,
-  user: User | null,
-  isProjectAdmin: boolean | null
-): ProjectAPI => {
-  let projectObject = ensureMongoDocumentToObject<Project>(project);
-
-  projectObject = {
-    ...projectObject,
-    oAuth2Access: projectObject.oAuth2Access
-      .filter((token) => token.userId !== user?._id)
-      .map((token) => {
-        const isJustUpdated =
-          new Date().getTime() - new Date(token.updatedAt).getTime() <
-          1000 * 60 * 5; // 5 min
-
-        if (isJustUpdated) {
-          return token;
-        }
-
-        return {
-          ...token,
-          clientSecret: `${token.clientSecret.substring(0, 10)}${'*'.repeat(token.clientSecret.length - 10)}`,
-        };
-      }),
-  };
-
-  if (isProjectAdmin) {
-    return projectObject;
+export const mapProjectToAPI = <T extends Project | ProjectAPI | null>(
+  project?: T
+): T extends null ? null : ProjectAPI => {
+  if (!project) {
+    return null as any;
   }
 
-  const { adminsIds, ...projectAPI } = projectObject;
-  return projectAPI;
+  const projectObject = ensureMongoDocumentToObject(project);
+
+  return projectObject as any;
 };
 
 /**
  * Formats an array of projects for API response. Removes sensitive information.
  * @param projects - The array of project objects to format.
  * @param user - The user object.
- * @param isProjectAdmin - Whether the user is an admin of the project.
+ * @param  - Whether the user is an admin of the project.
  * @returns The formatted array of user objects.
  */
 export const mapProjectsToAPI = (
-  projects: Project[],
-  user: User,
-  isProjectAdmin: boolean | null
+  projects: (Project | ProjectAPI)[]
 ): ProjectAPI[] =>
-  projects.map((project) => mapProjectToAPI(project, user, isProjectAdmin));
+  projects.map(mapProjectToAPI).filter(Boolean) as ProjectAPI[];

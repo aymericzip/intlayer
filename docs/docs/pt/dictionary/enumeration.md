@@ -1,11 +1,8 @@
 ---
-docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Enumeração
-description: Descubra como declarar e usar enumerações em seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
+description: Descubra como declarar e usar enumerações no seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
 keywords:
   - Enumeração
   - Internacionalização
@@ -14,13 +11,18 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - enumeration
 ---
 
 # Enumeração / Pluralização
 
-## Como Funciona a Enumeração
+## Como a Enumeração Funciona
 
-No Intlayer, a enumeração é realizada através da função `enu`, que mapeia chaves específicas para seu conteúdo correspondente. Essas chaves podem representar valores numéricos, intervalos ou identificadores personalizados. Quando usado com React Intlayer ou Next Intlayer, o conteúdo apropriado é automaticamente selecionado com base no locale da aplicação e nas regras definidas.
+No Intlayer, a enumeração é realizada através da função `enu`, que mapeia chaves específicas para seu conteúdo correspondente. Essas chaves podem representar valores numéricos, intervalos ou identificadores personalizados. Quando usada com React Intlayer ou Next Intlayer, o conteúdo apropriado é selecionado automaticamente com base na localidade da aplicação e nas regras definidas.
 
 ## Configurando a Enumeração
 
@@ -33,7 +35,7 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "Menos de menos um carro",
+      "<-1": "Menos que menos um carro",
       "-1": "Menos um carro",
       "0": "Nenhum carro",
       "1": "Um carro",
@@ -55,7 +57,7 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "Menos de menos um carro",
+      "<-1": "Menos que menos um carro",
       "-1": "Menos um carro",
       "0": "Nenhum carro",
       "1": "Um carro",
@@ -77,7 +79,7 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "Menos de menos um carro",
+      "<-1": "Menos que menos um carro",
       "-1": "Menos um carro",
       "0": "Nenhum carro",
       "1": "Um carro",
@@ -99,7 +101,7 @@ module.exports = carEnumeration;
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Menos de menos um carro",
+        "<-1": "Menos que menos um carro",
         "-1": "Menos um carro",
         "0": "Nenhum carro",
         "1": "Um carro",
@@ -112,15 +114,15 @@ module.exports = carEnumeration;
 }
 ```
 
-Neste exemplo, `enu` mapeia várias condições para conteúdos específicos. Quando usado em um componente React, o Intlayer pode escolher automaticamente o conteúdo apropriado com base na variável fornecida.
+Neste exemplo, `enu` mapeia várias condições para conteúdos específicos. Quando usado em um componente React, o Intlayer pode automaticamente escolher o conteúdo apropriado com base na variável fornecida.
 
-> A ordem de declaração é importante nas enumerações do Intlayer. A primeira declaração válida é a que será escolhida. Se várias condições se aplicarem, certifique-se de que estão ordenadas corretamente para evitar comportamentos inesperados.
+> A ordem de declaração é importante nas enumerações do Intlayer. A primeira declaração válida é a que será selecionada. Se múltiplas condições se aplicarem, certifique-se de que estão ordenadas corretamente para evitar comportamentos inesperados.
 
-> Se nenhum fallback for declarado, a função retornará `undefined` se nenhuma chave corresponder.
+> Se nenhum valor padrão (fallback) for declarado, a função retornará `undefined` caso nenhuma chave corresponda.
 
 ## Usando Enumeração com React Intlayer
 
-Para usar enumeração em um componente React, você pode utilizar o hook `useIntlayer` do pacote `react-intlayer`. Este hook recupera o conteúdo correto com base no ID especificado. Aqui está um exemplo de como usá-lo:
+Para usar enumeração em um componente React, você pode utilizar o hook `useIntlayer` do pacote `react-intlayer`. Esse hook recupera o conteúdo correto com base no ID especificado. Aqui está um exemplo de como usá-lo:
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -236,4 +238,8 @@ Para informações mais detalhadas sobre configuração e uso, consulte os segui
 - [Documentação do React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_create_react_app.md)
 - [Documentação do Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_15.md)
 
-Esses recursos fornecem mais informações sobre a configuração e uso do Intlayer em diferentes ambientes e com vários frameworks.
+Estes recursos fornecem mais informações sobre a configuração e uso do Intlayer em diferentes ambientes e com vários frameworks.
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

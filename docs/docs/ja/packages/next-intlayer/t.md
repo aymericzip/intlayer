@@ -1,11 +1,8 @@
 ---
-docName: package__next-intlayer__t
-url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: t関数のドキュメント | next-intlayer
-description: next-intlayerパッケージのt関数の使用方法を確認してください
+updatedAt: 2025-06-29
+title: t 関数のドキュメント | next-intlayer
+description: next-intlayer パッケージの t 関数の使い方を説明します
 keywords:
   - t
   - 翻訳
@@ -16,26 +13,31 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - t
 ---
 
-# ドキュメント: `t` 関数 in `next-intlayer`
+# ドキュメント: `next-intlayer` の `t` 関数
 
-`next-intlayer` パッケージの `t` 関数は、Next.js アプリケーション内でインライン国際化を実現するための基本的なツールです。コンポーネント内で直接翻訳を定義できるため、現在のロケールに基づいてローカライズされたコンテンツを簡単に表示できます。
+`next-intlayer` パッケージの `t` 関数は、Next.js アプリケーション内でのインライン国際化の基本的なツールです。コンポーネント内で直接翻訳を定義できるため、現在のロケールに基づいたローカライズされたコンテンツを簡単に表示できます。
 
 ---
 
 ## 概要
 
-`t` 関数は、コンポーネント内で直接異なるロケールの翻訳を提供するために使用されます。サポートされている各ロケールの翻訳を含むオブジェクトを渡すことで、Next.js アプリケーションの現在のロケールコンテキストに基づいて適切な翻訳を返します。
+`t` 関数は、コンポーネント内で異なるロケールの翻訳を直接提供するために使用されます。サポートされている各ロケールの翻訳を含むオブジェクトを渡すことで、Next.js アプリケーションの現在のロケールコンテキストに基づいて適切な翻訳を返します。
 
 ---
 
 ## 主な特徴
 
-- **インライン翻訳**: 別途コンテンツ宣言を必要としない、簡単なインラインテキストに最適です。
+- **インライン翻訳**: 別途コンテンツ宣言を必要としない、素早くインラインでテキストを表示するのに最適です。
 - **自動ロケール選択**: 現在のロケールに対応する翻訳を自動的に返します。
-- **TypeScript サポート**: TypeScript を使用する際に型安全性とオートコンプリートを提供します。
-- **簡単な統合**: Next.js のクライアントおよびサーバーコンポーネントの両方でシームレスに動作します。
+- **TypeScript サポート**: TypeScript 使用時に型安全性とオートコンプリートを提供します。
+- **簡単な統合**: Next.js のクライアントコンポーネントとサーバーコンポーネントの両方でシームレスに動作します。
 
 ---
 
@@ -47,11 +49,11 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### パラメータ
 
-- `translations`: キーがロケールコード（例: `en`, `fr`, `es`）、値が対応する翻訳文字列であるオブジェクト。
+- `translations`: キーがロケールコード（例: `en`, `fr`, `es`）、値が対応する翻訳文字列のオブジェクト。
 
 ### 戻り値
 
-- 現在のロケールに対応する翻訳されたコンテンツを表す文字列。
+- 現在のロケールに対応する翻訳済みコンテンツの文字列。
 
 ---
 
@@ -59,7 +61,7 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### クライアントコンポーネントでの `t` の使用
 
-クライアントサイドコンポーネントで `t` を使用する場合、コンポーネントファイルの先頭に `'use client';` ディレクティブを含めることを確認してください。
+`'use client';` ディレクティブをクライアントサイドコンポーネントで `t` を使用する際には、コンポーネントファイルの先頭に必ず含めてください。
 
 ```tsx codeFormat="typescript"
 "use client";
@@ -151,10 +153,10 @@ const ServerComponentExample = () => (
 );
 ```
 
-### 属性内でのインライン翻訳
+### 属性内のインライン翻訳
 
-`t` 関数は、JSX 属性内でのインライン翻訳に特に便利です。
-`alt`、`title`、`href`、`aria-label` などの属性をローカライズする際に、属性内で直接 `t` を使用できます。
+`t` 関数は、JSX属性内のインライン翻訳に特に便利です。
+`alt`、`title`、`href`、`aria-label` のような属性をローカライズする際に、属性内で直接 `t` を使用できます。
 
 ```jsx
 <button
@@ -186,9 +188,10 @@ const ServerComponentExample = () => (
 
 ### TypeScript 統合
 
-`t` 関数は TypeScript と一緒に使用する際に型安全であり、すべての必要なロケールが提供されていることを保証します。
+`t` 関数は TypeScript と共に使用すると型安全であり、必要なすべてのロケールが提供されていることを保証します。
 
 ```typescript codeFormat="typescript"
+typescript;
 import type { IConfigLocales } from "intlayer";
 import { t } from "next-intlayer";
 
@@ -230,7 +233,7 @@ const greeting = t(translations);
 
 ### ロケール検出とコンテキスト
 
-`next-intlayer` では、現在のロケールはコンテキストプロバイダー `IntlayerClientProvider` と `IntlayerServerProvider` を通じて管理されます。これらのプロバイダーがコンポーネントをラップし、`locale` プロップが正しく渡されていることを確認してください。
+`next-intlayer` では、現在のロケールはコンテキストプロバイダーである `IntlayerClientProvider` と `IntlayerServerProvider` を通じて管理されます。これらのプロバイダーがコンポーネントをラップし、`locale` プロパティが正しく渡されていることを確認してください。
 
 #### 例:
 
@@ -243,7 +246,7 @@ import { IntlayerServerProvider } from "next-intlayer/server";
 const Page: FC<{ locale: Locales }> = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
     <IntlayerClientProvider locale={locale}>
-      {/* Your components here */}
+      {/* ここにコンポーネントを配置 */}
     </IntlayerClientProvider>
   </IntlayerServerProvider>
 );
@@ -256,7 +259,7 @@ import { IntlayerServerProvider } from "next-intlayer/server";
 const Page = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
     <IntlayerClientProvider locale={locale}>
-      {/* Your components here */}
+      {/* ここにコンポーネントを配置 */}
     </IntlayerClientProvider>
   </IntlayerServerProvider>
 );
@@ -269,7 +272,7 @@ const { IntlayerServerProvider } = require("next-intlayer/server");
 const Page = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
     <IntlayerClientProvider locale={locale}>
-      {/* Your components here */}
+      {/* ここにコンポーネントを配置 */}
     </IntlayerClientProvider>
   </IntlayerServerProvider>
 );
@@ -277,25 +280,25 @@ const Page = ({ locale }) => (
 
 ---
 
-## 一般的なエラーとトラブルシューティング
+## よくあるエラーとトラブルシューティング
 
-### `t` が未定義または不正確な翻訳を返す
+### `t` が未定義または誤った翻訳を返す場合
 
-- **原因**: 現在のロケールが正しく設定されていない、または現在のロケールの翻訳が不足している。
+- **原因**: 現在のロケールが正しく設定されていないか、現在のロケールの翻訳が存在しない。
 - **解決策**:
   - `IntlayerClientProvider` または `IntlayerServerProvider` が適切な `locale` で正しく設定されていることを確認してください。
   - 翻訳オブジェクトに必要なすべてのロケールが含まれていることを確認してください。
 
-### TypeScript での翻訳不足
+### TypeScriptでの翻訳の欠落
 
-- **原因**: 翻訳オブジェクトが必要なロケールを満たしておらず、TypeScript エラーが発生する。
-- **解決策**: `IConfigLocales` 型を使用して、翻訳の完全性を保証します。
+- **原因**: 翻訳オブジェクトが必要なロケールを満たしておらず、TypeScriptのエラーが発生する。
+- **解決策**: `IConfigLocales` 型を使用して翻訳の完全性を強制してください。
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // 'es' が不足していると TypeScript エラーが発生します [!code error]
+  // es: 'Texto', // 'es'が欠落しているとTypeScriptエラーが発生します [!code error]
 };
 
 const text = t(translations);
@@ -305,7 +308,7 @@ const text = t(translations);
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // 'es' が不足していると TypeScript エラーが発生します [!code error]
+  // es: 'Texto', // 'es'が欠落しているとTypeScriptエラーが発生します [!code error]
 };
 
 const text = t(translations);
@@ -318,7 +321,7 @@ const { t } = require("next-intlayer");
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // 'es' が不足していると TypeScript エラーが発生します [!code error]
+  // es: 'Texto', // 'es'が欠落しているとTypeScriptエラーが発生します [!code error]
 };
 
 const text = t(translations);
@@ -328,19 +331,23 @@ const text = t(translations);
 
 ## 効果的な使用のためのヒント
 
-1. **簡単なインライン翻訳には `t` を使用**: コンポーネント内で直接小さなテキストを翻訳するのに最適です。
-2. **構造化されたコンテンツには `useIntlayer` を推奨**: より複雑な翻訳やコンテンツの再利用には、宣言ファイルでコンテンツを定義し、`useIntlayer` を使用してください。
-3. **一貫したロケールの提供**: 適切なプロバイダーを通じてアプリケーション全体でロケールが一貫して提供されるようにしてください。
-4. **TypeScript を活用**: 型安全性を確保し、翻訳の不足を検出するために TypeScript 型を使用してください。
+1. **シンプルなインライン翻訳には `t` を使用する**: コンポーネント内で小さなテキストを直接翻訳するのに最適です。
+2. **構造化されたコンテンツには `useIntlayer` を推奨**：より複雑な翻訳やコンテンツの再利用には、宣言ファイルでコンテンツを定義し、`useIntlayer` を使用してください。
+3. **一貫したロケールの提供**：適切なプロバイダーを通じて、アプリケーション全体でロケールが一貫して提供されていることを確認してください。
+4. **TypeScript を活用**：TypeScript の型を利用して、翻訳の欠落を検出し、型の安全性を確保しましょう。
 
 ---
 
 ## 結論
 
-`next-intlayer` の `t` 関数は、Next.js アプリケーションでインライン翻訳を管理するための強力で便利なツールです。これを効果的に統合することで、アプリの国際化機能を強化し、世界中のユーザーにより良い体験を提供できます。
+`next-intlayer` の `t` 関数は、Next.js アプリケーション内でインライン翻訳を管理するための強力で便利なツールです。これを効果的に統合することで、アプリの国際化機能が向上し、世界中のユーザーにより良い体験を提供できます。
 
-詳細な使用方法や高度な機能については、[next-intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を参照してください。
+より詳細な使用方法や高度な機能については、[next-intlayer ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を参照してください。
 
 ---
 
-**注意**: `IntlayerClientProvider` と `IntlayerServerProvider` を正しく設定し、現在のロケールがコンポーネントに正しく渡されるようにしてください。これは、`t` 関数が正しい翻訳を返すために重要です。
+**注意**: `IntlayerClientProvider` と `IntlayerServerProvider` を適切に設定し、現在のロケールがコンポーネントに正しく渡されるようにしてください。これは、`t` 関数が正しい翻訳を返すために非常に重要です。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴の初期化

@@ -1,5 +1,8 @@
+import type {
+  DictionarySchema,
+  VersionedContentEl,
+} from '@/types/dictionary.types';
 import { Schema } from 'mongoose';
-import type { Dictionary, VersionedContentEl } from '@/types/dictionary.types';
 
 const versionedContentElSchema = new Schema<VersionedContentEl>(
   {
@@ -19,7 +22,7 @@ const versionedContentElSchema = new Schema<VersionedContentEl>(
   }
 );
 
-export const dictionarySchema = new Schema<Dictionary>(
+export const dictionarySchema = new Schema<DictionarySchema>(
   {
     projectIds: {
       type: [Schema.Types.ObjectId],
@@ -61,5 +64,21 @@ export const dictionarySchema = new Schema<Dictionary>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret._id; // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
   }
 );

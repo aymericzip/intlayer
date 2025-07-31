@@ -19,7 +19,7 @@ import type { Section } from './types';
 
 type OptionalLinkProps = ComponentProps<typeof Link>;
 
-const OptionalLink: FC<OptionalLinkProps> = ({
+export const OptionalLink: FC<OptionalLinkProps> = ({
   href,
   isActive,
   className,
@@ -72,7 +72,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
         return (
           <div key={key1}>
             <OptionalLink
-              href={sectionDefault?.url ?? ''}
+              href={sectionDefault?.relativeUrl ?? ''}
               label={key1}
               isActive={isActive}
               className="p-0 pl-3"
@@ -98,7 +98,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                           header={
                             <OptionalLink
                               label={key2}
-                              href={sectionDefault?.url ?? ''}
+                              href={sectionDefault?.relativeUrl ?? ''}
                               isActive={isActive}
                             >
                               {section2Data?.title}
@@ -124,7 +124,10 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                                       <OptionalLink
                                         key={key3}
                                         label={key3}
-                                        href={section3Data.default?.url ?? ''}
+                                        href={
+                                          section3Data.default?.relativeUrl ??
+                                          ''
+                                        }
                                         isActive={isActive}
                                       >
                                         {section3Data.title}
@@ -137,7 +140,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                         </Accordion>
                       ) : (
                         <OptionalLink
-                          href={sectionDefault?.url ?? ''}
+                          href={sectionDefault?.relativeUrl ?? ''}
                           className="hover:text-text block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors"
                           label={key2}
                           isActive={isActive}

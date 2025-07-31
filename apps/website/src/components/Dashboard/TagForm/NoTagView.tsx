@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, Button } from '@intlayer/design-system';
+import { Button, useForm } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useTagSchema } from './useTagFormSchema';

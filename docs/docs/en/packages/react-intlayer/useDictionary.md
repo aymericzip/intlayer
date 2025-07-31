@@ -1,3 +1,24 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: useDictionary Hook - React Intlayer Documentation
+description: Complete guide for using the useDictionary hook in React applications with Intlayer for efficient handling of localized content without visual editor.
+keywords:
+  - useDictionary
+  - React
+  - hook
+  - intlayer
+  - localization
+  - i18n
+  - dictionary
+  - translation
+slugs:
+  - doc
+  - package
+  - react-intlayer
+  - useDictionary
+---
+
 # React Integration: `useDictionary` Hook Documentation
 
 This section provides detailed guidance on using the `useDictionary` hook within React applications, enabling efficient handling of localized content without a visual editor.
@@ -258,3 +279,9 @@ Unlike integrations using visual editors, attributes like `buttonTitle.value` do
 - **Localization Updates**: When updating content, ensure all locales are consistent to avoid missing translations.
 
 This documentation focuses on the integration of the `useDictionary` hook, providing a streamlined approach to managing localized content without relying on visual editor functionalities.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

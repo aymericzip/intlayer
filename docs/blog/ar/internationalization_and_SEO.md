@@ -1,9 +1,6 @@
 ---
-blogName: internationalization_and_SEO
-url: https://intlayer.org/blog/SEO-and-i18n
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
-updatedAt: 2024-12-24
+updatedAt: 2025-06-29
 title: SEO و التدويل
 description: تعرّف على كيفية تحسين موقعك متعدد اللغات لمحركات البحث وتحسين SEO.
 keywords:
@@ -14,6 +11,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - SEO-and-i18n
 ---
 
 # SEO & I18n: الدليل الشامل لجعل موقع الويب الخاص بك متعدد اللغات

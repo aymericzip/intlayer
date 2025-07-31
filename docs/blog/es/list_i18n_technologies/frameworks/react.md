@@ -1,9 +1,6 @@
 ---
-blogName: list_i18n_technologies__frameworks__react
-url: https://intlayer.org/blog/i18n-technologies/frameworks/react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Mejores herramientas de internacionalización (i18n) para React
 description: Descubre las mejores soluciones de internacionalización (i18n) para enfrentar desafíos de traducción, mejorar la búsqueda en la web y ofrecer una experiencia web global sin problemas.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Internacionalización
   - Blog
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - react
 ---
 
 # Explorando Soluciones de i18n para Traducir Su Sitio Web de React
@@ -22,7 +24,7 @@ En el panorama digital actual, es esencial expandir el alcance de su sitio web p
 
 ---
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## ¿Qué es la Internacionalización (i18n)?
 

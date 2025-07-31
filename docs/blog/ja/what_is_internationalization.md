@@ -1,9 +1,6 @@
 ---
-blogName: what_is_internationalization
-url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: 国際化とは？定義と挑戦
 description: ウェブサイトを国際化することが必要な理由を理解しましょう。検索エンジンのブースト、ユーザーの経験の向上、グローバルの広域の拡大について学びましょう。
 keywords:
@@ -15,11 +12,14 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - what-is-internationalization
 ---
 
 # 国際化（i18n）とは？ 定義と課題
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## 国際化（i18n）の理解
 
@@ -73,7 +73,7 @@ i18nのもう一つの重要な利点は、ユーザーエクスペリエンス�
 
 ## 一般的なi18nの課題
 
-![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
+![i18n pain illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/pain_i18n.webp)
 
 - **メンテナンス性**  
   各ウェブサイトの更新はすべての言語で反映される必要があり、効率的なワークフローと注意深い調整が求められ、一貫性を確保する必要があります。

@@ -1,9 +1,6 @@
 ---
-docName: configuration
-url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-06-29
 title: Configuração
 description: Aprenda como configurar o Intlayer para sua aplicação. Entenda as várias configurações e opções disponíveis para personalizar o Intlayer de acordo com suas necessidades.
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - Personalização
   - Intlayer
   - Opções
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Documentação de Configuração do Intlayer
@@ -58,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -87,7 +88,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -258,6 +259,8 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Exemplo_: `'x-custom-locale'`
   - _Nota_: Isso é útil para determinação de idioma baseada em API.
 
+- **cookieName**:
+
   - _Tipo_: `string`
   - _Padrão_: `'intlayer-locale'`
   - _Descrição_: O nome do cookie usado para armazenar o idioma.
@@ -267,10 +270,12 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
 - **prefixDefault**:
 
   - _Tipo_: `boolean`
-  - _Padrão_: `true`
+  - _Padrão_: `false`
   - _Descrição_: Indica se o idioma padrão deve ser incluído na URL.
-  - _Exemplo_: `false`
-  - _Nota_: Se `false`, as URLs para o idioma padrão não terão um prefixo de idioma.
+  - _Exemplo_: `true`
+  - _Nota_:
+    - Se `true` e `defaultLocale = 'en'`: path = `/en/dashboard` ou `/fr/dashboard`
+    - Se `false` e `defaultLocale = 'en'`: path = `/dashboard` ou `/fr/dashboard`
 
 - **basePath**:
 
@@ -278,7 +283,11 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Padrão_: `''`
   - _Descrição_: O caminho base para as URLs da aplicação.
   - _Exemplo_: `'/my-app'`
-  - _Nota_: Isso afeta como as URLs são construídas para a aplicação.
+  - _Nota_:
+    - Se a aplicação está hospedada em `https://example.com/my-app`
+    - O caminho base é `'/my-app'`
+    - A URL será `https://example.com/my-app/en`
+    - Se o caminho base não estiver definido, a URL será `https://example.com/en`
 
 - **serverSetCookie**:
 
@@ -290,11 +299,44 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Nota_: Controla se o cookie de idioma é definido em todas as requisições ou nunca.
 
 - **noPrefix**:
+
   - _Tipo_: `boolean`
   - _Padrão_: `false`
   - _Descrição_: Indica se o prefixo de idioma deve ser omitido das URLs.
   - _Exemplo_: `true`
-  - _Nota_: Se `true`, as URLs não conterão informações de idioma.
+  - _Nota_:
+    - Se `true`: Sem prefixo na URL
+    - Se `false`: Prefixo na URL
+    - Exemplo com `basePath = '/my-app'`:
+      - Se `noPrefix = false`: A URL será `https://example.com/my-app/en`
+      - Se `noPrefix = true`: A URL será `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _Tipo_: `boolean`
+  - _Padrão_: `false`
+  - _Descrição_: Controla se a detecção de idioma ocorre durante as requisições de prefetch do Next.js.
+  - _Exemplo_: `true`
+  - _Nota_: Esta configuração afeta como o Next.js gerencia o prefetch de idioma:
+    - **Cenário de exemplo:**
+      - O idioma do navegador do usuário é `'fr'`
+      - A página atual é `/fr/about`
+      - O link faz prefetch de `/about`
+    - **Com `detectLocaleOnPrefetchNoPrefix: true`:**
+      - O prefetch detecta o idioma `'fr'` do navegador
+      - Redireciona o prefetch para `/fr/about`
+    - **Com `detectLocaleOnPrefetchNoPrefix: false` (padrão):**
+      - O prefetch usa o idioma padrão
+      - Redireciona o prefetch para `/en/about` (assumindo que `'en'` é o padrão)
+    - **Quando usar `true`:**
+      - Sua aplicação usa links internos não localizados (ex. `<a href="/about">`)
+      - Você quer comportamento consistente de detecção de idioma entre requisições normais e de prefetch
+    - **Quando usar `false` (padrão):**
+      - Sua aplicação usa links com prefixo de idioma (ex. `<a href="/fr/about">`)
+      - Você quer otimizar a performance do prefetch
+      - Você quer evitar loops de redirecionamento potenciais
+
+---
 
 ### Configuração de Conteúdo
 
@@ -334,6 +376,7 @@ Configurações relacionadas ao gerenciamento de conteúdo dentro da aplicação
 
   - _Tipo_: `string[]`
   - _Padrão_: `['src']`
+  - _Exemplo_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Descrição_: O caminho do diretório onde o conteúdo é armazenado.
 
 - **dictionariesDir**:
@@ -418,11 +461,9 @@ Configurações que controlam o logger, incluindo o prefixo a ser usado.
 ### Configuração de IA
 
 Configurações que controlam os recursos de IA do Intlayer, incluindo o provedor, modelo e chave de API.
-
 Esta configuração é opcional se você estiver registrado no [Painel do Intlayer](https://intlayer.org/dashboard/project) usando uma chave de acesso. O Intlayer gerenciará automaticamente a solução de IA mais eficiente e econômica para suas necessidades. Usar as opções padrão garante melhor manutenção a longo prazo, pois o Intlayer atualiza continuamente para usar os modelos mais relevantes.
 
 Se preferir usar sua própria chave de API ou modelo específico, você pode definir sua configuração personalizada de IA. Esta configuração de IA será usada globalmente em todo o ambiente do Intlayer. Comandos CLI usarão essas configurações como padrão para os comandos (por exemplo, `fill`), bem como o SDK, Editor Visual e CMS. Você pode substituir esses valores padrão para casos de uso específicos usando parâmetros de comando.
-
 O Intlayer suporta vários provedores de IA para maior flexibilidade e escolha. Os provedores atualmente suportados são:
 
 - **OpenAI** (padrão)
@@ -468,7 +509,6 @@ O Intlayer suporta vários provedores de IA para maior flexibilidade e escolha. 
   - _Nota_: Importante: As chaves de API devem ser mantidas em segredo e não compartilhadas publicamente. Certifique-se de mantê-las em um local seguro, como variáveis de ambiente.
 
 - **applicationContext**:
-
   - _Tipo_: `string`
   - _Padrão_: Nenhum
   - _Descrição_: Fornece contexto adicional sobre sua aplicação ao modelo de IA, ajudando-o a gerar traduções mais precisas e contextualmente apropriadas. Isso pode incluir informações sobre o domínio do seu aplicativo, público-alvo, tom ou terminologia específica.
@@ -479,11 +519,9 @@ Configurações que controlam como o Intlayer otimiza e compila a internacionali
 
 As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
 
-> No modo de desenvolvimento, o Intlayer usa uma importação estática centralizada para dicionários para simplificar a experiência de desenvolvimento.
+> No modo de desenvolvimento, o Intlayer usa importações estáticas para dicionários para simplificar a experiência de desenvolvimento.
 
-> Ao otimizar o build, o Intlayer substituirá todas as chamadas de dicionários para otimizar o chunking. Dessa forma, o bundle final importará apenas os dicionários que são utilizados.
-
-- **Nota**: `@intlayer/babel` está disponível por padrão no pacote `vite-intlayer`, mas `@intlayer/swc` não está instalado por padrão no pacote `next-intlayer` pois os plugins SWC ainda são experimentais no Next.js.
+> Durante a otimização, o Intlayer substituirá as chamadas aos dicionários para otimizar o chunking, de modo que o bundle final importe apenas os dicionários que são realmente utilizados.
 
 #### Propriedades
 
@@ -493,27 +531,38 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
   - _Padrão_: `process.env.NODE_ENV === 'production'`
   - _Descrição_: Controla se o build deve ser otimizado.
   - _Exemplo_: `true`
-  - _Nota_: Permitirá importar apenas os dicionários que são utilizados no bundle. Mas todas as importações permanecerão como importação estática para evitar processamento assíncrono ao carregar os dicionários.
-  - _Nota_: Quando ativado, o Intlayer otimizará o chunking do dicionário substituindo todas as chamadas de `useIntlayer` por `useDictionary` e `getIntlayer` por `getDictionary`.
+  - _Nota_: Quando ativado, o Intlayer substituirá todas as chamadas de dicionários para otimizar o chunking. Dessa forma, o bundle final importará apenas os dicionários que são utilizados. Todas as importações permanecerão como importações estáticas para evitar processamento assíncrono ao carregar os dicionários.
+  - _Nota_: O Intlayer substituirá todas as chamadas de `useIntlayer` com o modo definido pela opção `importMode` e `getIntlayer` por `getDictionary`.
+  - _Nota_: Esta opção depende dos plugins `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas `useIntlayer`. por exemplo: `useIntlayer('navbar')`.
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _Tipo_: `boolean`
-  - _Padrão_: `false`
-  - _Descrição_: Controla se o conteúdo do dicionário deve ser importado dinamicamente por idioma.
-  - _Exemplo_: `true`
-  - _Nota_: Permitirá importar dinamicamente o conteúdo do dicionário apenas para o idioma atual.
-  - _Nota_: Importações dinâmicas dependem do React Suspense e podem impactar levemente o desempenho de renderização. Mas se desativado todos os idiomas serão carregados de uma vez, mesmo que não sejam utilizados.
-  - _Nota_: Quando ativado, o Intlayer otimizará o chunking do dicionário substituindo todas as chamadas de `useIntlayer` por `useDynamicDictionary`.
+  - _Tipo_: `'static' | 'dynamic' | 'async'`
+  - _Padrão_: `'static'`
+  - _Descrição_: Controla como os dicionários são importados.
+  - _Exemplo_: `'dynamic'`
+  - _Nota_: Modos disponíveis:
+    - "static": Os dicionários são importados estaticamente. Substitui `useIntlayer` por `useDictionary`.
+    - "dynamic": Os dicionários são importados dinamicamente usando Suspense. Substitui `useIntlayer` por `useDictionaryDynamic`.
+    - "async": Os dicionários são importados dinamicamente de forma assíncrona. Substitui `useIntlayer` por `await useDictionaryAsync`.
+  - _Nota_: Importações dinâmicas dependem do Suspense e podem impactar levemente o desempenho de renderização.
+  - _Nota_: Se desativado, todos os idiomas serão carregados de uma vez, mesmo que não sejam utilizados.
+  - _Nota_: Esta opção depende dos plugins `@intlayer/babel` e `@intlayer/swc`.
+  - _Nota_: Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas `useIntlayer`. por exemplo: `useIntlayer('navbar')`.
   - _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
-  - _Nota_: Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas `useIntlayer`. por exemplo: `useIntlayer('navbar')`.
+  - _Nota_: Na maioria dos casos, `"dynamic"` será usado para aplicações React, `"async"` para aplicações Vue.js.
+  - _Nota_: Esta opção não afetará as funções `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` e `useDictionaryDynamic`.
 
 - **traversePattern**:
   - _Tipo_: `string[]`
-  - _Padrão_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
+  - _Padrão_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
   - _Descrição_: Padrões que definem quais arquivos devem ser percorridos durante a otimização.
-  - _Exemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+    - _Exemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
   - _Nota_: Use isso para limitar a otimização a arquivos de código relevantes e melhorar o desempenho do build.
   - _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
   - _Nota_: Use padrão glob.
+
+## Histórico da Documentação
+
+- 5.5.11 - 2025-06-29: Adicionado comandos `docs`

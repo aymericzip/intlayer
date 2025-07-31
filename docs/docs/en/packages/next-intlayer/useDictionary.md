@@ -1,9 +1,6 @@
 ---
-docName: package__next-intlayer__useDictionary
-url: https://intlayer.org/doc/packages/next-intlayer/useDictionary
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useDictionary.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useDictionary Hook Documentation | next-intlayer
 description: See how to use the useDictionary hook for next-intlayer package
 keywords:
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useDictionary
 ---
 
 # React Integration: `useDictionary` Hook Documentation
@@ -260,3 +262,9 @@ Unlike integrations using visual editors, attributes like `buttonTitle.value` do
 - **Localization Updates**: When updating content, ensure all locales are consistent to avoid missing translations.
 
 This documentation focuses on the integration of the `useDictionary` hook, providing a streamlined approach to managing localized content without relying on visual editor functionalities.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

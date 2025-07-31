@@ -1,50 +1,52 @@
 ---
-docName: package__react-intlayer__useLocale
-url: https://intlayer.org/doc/packages/react-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useLocale हुक दस्तावेज़ | react-intlayer
-description: react-intlayer पैकेज के लिए useLocale हुक का उपयोग कैसे करें, देखें
+description: react-intlayer पैकेज के लिए useLocale हुक का उपयोग कैसे करें देखें
 keywords:
   - useLocale
   - शब्दकोश
   - कुंजी
   - Intlayer
   - अंतरराष्ट्रीयकरण
-  - दस्तावेज
+  - दस्तावेज़ीकरण
   - Next.js
-  - JavaScript
-  - React
+  - जावास्क्रिप्ट
+  - रिएक्ट
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - useLocale
 ---
 
-# React एकीकरण: `useLocale` हुक दस्तावेज़
+# रिएक्ट इंटीग्रेशन: `useLocale` हुक दस्तावेज़
 
-यह अनुभाग React अनुप्रयोगों में स्थानीय प्रबंधन के लिए डिज़ाइन की गई `react-intlayer` लाइब्रेरी से `useLocale` हुक पर व्यापक विवरण प्रदान करता है।
+यह अनुभाग `react-intlayer` लाइब्रेरी के `useLocale` हुक के बारे में व्यापक जानकारी प्रदान करता है, जो रिएक्ट एप्लिकेशन में लोकल प्रबंधन के लिए डिज़ाइन किया गया है।
 
-## React में `useLocale` आयात करना
+## रिएक्ट में `useLocale` को इम्पोर्ट करना
 
-अपने React अनुप्रयोग में `useLocale` हुक को एकीकृत करने के लिए, इसे इसके संबंधित पैकेज से आयात करें:
+अपने रिएक्ट एप्लिकेशन में `useLocale` हुक को एकीकृत करने के लिए, इसे उसके संबंधित पैकेज से इम्पोर्ट करें:
 
 ```typescript codeFormat="typescript"
-import { useLocale } from "react-intlayer"; // React घटकों में स्थानीय प्रबंधन के लिए उपयोग किया जाता है
+import { useLocale } from "react-intlayer"; // लोकल प्रबंधन के लिए रिएक्ट कॉम्पोनेंट्स में उपयोग किया जाता है
 ```
 
 ```javascript codeFormat="esm"
-import { useLocale } from "react-intlayer"; // React घटकों में स्थानीय प्रबंधन के लिए उपयोग किया जाता है
+import { useLocale } from "react-intlayer"; // लोकल प्रबंधन के लिए रिएक्ट कॉम्पोनेंट्स में उपयोग किया जाता है
 ```
 
 ```javascript codeFormat="commonjs"
-const { useLocale } = require("react-intlayer"); // React घटकों में स्थानीय प्रबंधन के लिए उपयोग किया जाता है
+const { useLocale } = require("react-intlayer"); // लोकल प्रबंधन के लिए रिएक्ट कॉम्पोनेंट्स में उपयोग किया जाता है
 ```
 
 ## अवलोकन
 
-`useLocale` हुक React घटकों के भीतर स्थानीय सेटिंग्स तक पहुंचने और उन्हें प्रबंधित करने का एक आसान तरीका प्रदान करता है। यह वर्तमान स्थानीय, डिफ़ॉल्ट स्थानीय, सभी उपलब्ध स्थानीय और स्थानीय सेटिंग्स को अपडेट करने के लिए कार्यों तक पहुंच प्रदान करता है।
+`useLocale` हुक रिएक्ट कॉम्पोनेंट्स के भीतर लोकल सेटिंग्स तक पहुँचने और उन्हें नियंत्रित करने का एक आसान तरीका प्रदान करता है। यह वर्तमान लोकल, डिफ़ॉल्ट लोकल, सभी उपलब्ध लोकल, और लोकल सेटिंग्स को अपडेट करने के लिए फ़ंक्शन तक पहुँच प्रदान करता है।
 
 ## उपयोग
 
-यहां बताया गया है कि आप React घटक के भीतर `useLocale` हुक का उपयोग कैसे कर सकते हैं:
+यहाँ बताया गया है कि आप `useLocale` हुक को रिएक्ट कॉम्पोनेंट के भीतर कैसे उपयोग कर सकते हैं:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -55,8 +57,8 @@ const LocaleSwitcher: FC = () => {
 
   return (
     <div>
-      <h1>वर्तमान स्थानीय: {locale}</h1>
-      <p>डिफ़ॉल्ट स्थानीय: {defaultLocale}</p>
+      <h1>वर्तमान लोकल: {locale}</h1>
+      <p>डिफ़ॉल्ट लोकल: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -72,15 +74,15 @@ export default LocaleSwitcher;
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-import { useLocale } from "react-intlayer";
+import { useLocale } from "react.intlayer";
 
 const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (
     <div>
-      <h1>वर्तमान स्थानीय: {locale}</h1>
-      <p>डिफ़ॉल्ट स्थानीय: {defaultLocale}</p>
+      <h1>वर्तमान लोकल: {locale}</h1>
+      <p>डिफ़ॉल्ट लोकल: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -103,8 +105,8 @@ const LocaleSwitcher = () => {
 
   return (
     <div>
-      <h1>वर्तमान स्थानीय: {locale}</h1>
-      <p>डिफ़ॉल्ट स्थानीय: {defaultLocale}</p>
+      <h1>वर्तमान लोकल: {locale}</h1>
+      <p>डिफ़ॉल्ट लोकल: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>
@@ -121,16 +123,16 @@ export default LocaleSwitcher;
 
 ## पैरामीटर और रिटर्न मान
 
-जब आप `useLocale` हुक को कॉल करते हैं, तो यह एक ऑब्जेक्ट लौटाता है जिसमें निम्नलिखित गुण शामिल होते हैं:
+जब आप `useLocale` हुक को कॉल करते हैं, तो यह एक ऑब्जेक्ट लौटाता है जिसमें निम्नलिखित गुण होते हैं:
 
-- **`locale`**: React संदर्भ में सेट वर्तमान स्थानीय।
-- **`defaultLocale`**: कॉन्फ़िगरेशन में परिभाषित प्राथमिक स्थानीय।
-- **`availableLocales`**: सभी उपलब्ध स्थानीय की सूची जो कॉन्फ़िगरेशन में परिभाषित हैं।
-- **`setLocale`**: अनुप्रयोग के संदर्भ के भीतर वर्तमान स्थानीय को अपडेट करने के लिए एक फ़ंक्शन।
+- **`locale`**: वर्तमान लोकल जो React संदर्भ में सेट किया गया है।
+- **`defaultLocale`**: कॉन्फ़िगरेशन में परिभाषित प्राथमिक लोकल।
+- **`availableLocales`**: कॉन्फ़िगरेशन में परिभाषित सभी उपलब्ध लोकल की सूची।
+- **`setLocale`**: एप्लिकेशन के संदर्भ में वर्तमान लोकल को अपडेट करने के लिए एक फ़ंक्शन।
 
 ## उदाहरण
 
-यह उदाहरण एक घटक दिखाता है जो `useLocale` हुक का उपयोग करता है ताकि एक स्थानीय स्विचर प्रस्तुत किया जा सके, जिससे उपयोगकर्ता अनुप्रयोग की स्थानीय को गतिशील रूप से बदल सकें:
+यह उदाहरण एक ऐसा कॉम्पोनेंट दिखाता है जो `useLocale` हुक का उपयोग करता है ताकि एक लोकल स्विचर रेंडर किया जा सके, जिससे उपयोगकर्ता एप्लिकेशन की लोकल को गतिशील रूप से बदल सकें:
 
 ```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -201,4 +203,8 @@ const LocaleSelector = () => {
 
 ## निष्कर्ष
 
-`react-intlayer` से `useLocale` हुक आपके React अनुप्रयोगों में स्थानीय प्रबंधन के लिए एक आवश्यक उपकरण है, जो विभिन्न अंतर्राष्ट्रीय दर्शकों के लिए आपके अनुप्रयोग को प्रभावी ढंग से अनुकूलित करने के लिए आवश्यक कार्यक्षमता प्रदान करता है।
+`react-intlayer` से `useLocale` हुक आपके React एप्लिकेशन में लोकेल प्रबंधन के लिए एक आवश्यक उपकरण है, जो आपकी एप्लिकेशन को विभिन्न अंतरराष्ट्रीय दर्शकों के अनुसार प्रभावी ढंग से अनुकूलित करने के लिए आवश्यक कार्यक्षमता प्रदान करता है।
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

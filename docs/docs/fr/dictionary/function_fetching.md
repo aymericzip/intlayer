@@ -1,30 +1,32 @@
 ---
-docName: dictionary__function_fetching
-url: https://intlayer.org/doc/concept/content/function-fetching
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Fonction Fetching
-description: Découvrez comment déclarer et utiliser la récupération de fonction dans votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
+updatedAt: 2025-06-29
+title: Récupération par Fonction
+description: Découvrez comment déclarer et utiliser la récupération par fonction dans votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
 keywords:
-  - Récupération de Fonction
+  - Récupération par Fonction
   - Internationalisation
   - Documentation
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - function-fetching
 ---
 
-# Fonction de Récupération
+# Récupération par Fonction
 
-Intlayer vous permet de déclarer des fonctions de contenu dans vos modules de contenu, qui peuvent être synchrones ou asynchrones. Lorsque l'application se construit, Intlayer exécute ces fonctions pour obtenir le résultat de la fonction. La valeur de retour doit être un objet JSON ou une valeur simple comme une chaîne de caractères ou un nombre.
+Intlayer vous permet de déclarer des fonctions de contenu dans vos modules de contenu, qui peuvent être soit synchrones, soit asynchrones. Lors de la construction de l'application, Intlayer exécute ces fonctions pour obtenir le résultat de la fonction. La valeur retournée doit être un objet JSON ou une valeur simple comme une chaîne de caractères ou un nombre.
 
-> Attention : la récupération de fonction n'est actuellement pas disponible dans les déclarations de contenu JSON et les fichiers de déclarations de contenu distants.
+> Attention : la récupération par fonction n'est actuellement pas disponible dans la déclaration de contenu JSON ni dans les fichiers de déclaration de contenu distant.
 
 ## Déclarations de Fonction
 
-Voici un exemple d'une fonction synchrone simple récupérant du contenu :
+Voici un exemple d'une fonction simple et synchrone récupérant du contenu :
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import type { Dictionary } from "intlayer";
@@ -32,7 +34,7 @@ import type { Dictionary } from "intlayer";
 const functionContent = {
   key: "function_content",
   content: {
-    text: () => "Ceci est le contenu rendu par une fonction",
+    text: () => "This is the content rendered by a function",
   },
 } satisfies Dictionary;
 
@@ -73,11 +75,11 @@ module.exports = functionContent;
 }
 ```
 
-Dans cet exemple, la clé `text` contient une fonction qui retourne une chaîne de caractères. Ce contenu peut être rendu dans vos composants React en utilisant les packages interpréteurs d'Intlayer comme `react-intlayer`.
+Dans cet exemple, la clé `text` contient une fonction qui retourne une chaîne de caractères. Ce contenu peut être rendu dans vos composants React en utilisant les packages interprètes d'Intlayer comme `react-intlayer`.
 
-## Récupération Asynchrone de Fonction
+## Récupération de Fonction Asynchrone
 
-En plus des fonctions synchrones, Intlayer prend en charge les fonctions asynchrones, vous permettant de récupérer des données à partir de sources externes ou de simuler la récupération de données avec des données fictives.
+En plus des fonctions synchrones, Intlayer prend en charge les fonctions asynchrones, ce qui vous permet de récupérer des données depuis des sources externes ou de simuler la récupération de données avec des données factices.
 
 Voici un exemple d'une fonction asynchrone qui simule une récupération depuis un serveur :
 
@@ -137,14 +139,14 @@ module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
-Impossible de récupérer du contenu depuis un fichier JSON, utilisez un fichier .ts ou .js à la place
+Impossible de récupérer du contenu depuis un fichier JSON, utilisez plutôt un fichier .ts ou .js
 ```
 
 Dans ce cas, la fonction `fakeFetch` imite un délai pour simuler le temps de réponse du serveur. Intlayer exécute la fonction asynchrone et utilise le résultat comme contenu pour la clé `text`.
 
-## Utilisation de Contenu Basé sur des Fonctions dans des Composants React
+## Utilisation de contenu basé sur une fonction dans les composants React
 
-Pour utiliser du contenu basé sur des fonctions dans un composant React, vous devez importer `useIntlayer` depuis `react-intlayer` et l'appeler avec l'ID de contenu pour récupérer le contenu. Voici un exemple :
+Pour utiliser un contenu basé sur une fonction dans un composant React, vous devez importer `useIntlayer` depuis `react-intlayer` et l'appeler avec l'ID du contenu pour récupérer ce contenu. Voici un exemple :
 
 ```typescript fileName="**/*.jsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -206,3 +208,7 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

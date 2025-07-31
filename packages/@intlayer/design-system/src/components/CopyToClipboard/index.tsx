@@ -24,7 +24,13 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
   };
 
   return (
-    <span className={cn('gap-2', className)}>
+    <span
+      className={cn(
+        'inline-block gap-2 hover:cursor-pointer hover:bg-neutral/10 rounded-md p-0.5',
+        className
+      )}
+      onClick={handleCopy}
+    >
       {children}
 
       <span className="inline-flex">
@@ -40,7 +46,6 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
           ) : (
             <CopyIcon
               size={12}
-              onClick={handleCopy}
               aria-label="copy"
               role="button"
               data-testid="copy-to-clipboard"

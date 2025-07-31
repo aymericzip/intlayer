@@ -1,9 +1,6 @@
 ---
-docName: dictionary__insertion
-url: https://intlayer.org/doc/concept/content/insertion
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Insertion
 description: Learn how to declare and use insertion placeholders in your content. This documentation guides you through the steps to dynamically insert values within predefined content structures.
 keywords:
@@ -14,11 +11,20 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - insertion
 ---
 
 # Insertion Content / Insertion in Intlayer
 
 ## How Insertion Works
+
+In Intlayer, insertion content is achieved through the `insertion` function, which identifies placeholder fields in a string (such as `{{name}}` or `{{age}}`) that can be replaced dynamically at runtime. This approach allows you to create flexible, template-like strings where specific parts of the content are determined by data passed in from your application.
+
+When integrated with React Intlayer or Next Intlayer, you can simply provide the data object containing the values for each placeholder, and Intlayer will automatically render the content with the placeholders replaced.
 
 In Intlayer, insertion content is achieved through the `insertion` function, which identifies placeholder fields in a string (such as `{{name}}` or `{{age}}`) that can be replaced dynamically at runtime. This approach allows you to create flexible, template-like strings where specific parts of the content are determined by data passed in from your application.
 
@@ -172,6 +178,30 @@ const InsertionComponent = () => {
 };
 
 module.exports = InsertionComponent;
+const { useIntlayer } = require("react-intlayer");
+
+const InsertionComponent = () => {
+  const { myInsertion } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>
+        {
+          /* Output: "Hello, my name is John and I am 30 years old!" */
+          myInsertion({ name: "John", age: "30" })
+        }
+      </p>
+      <p>
+        {
+          /* You can reuse the same insertion with different values */
+          myInsertion({ name: "Alice", age: "25" })
+        }
+      </p>
+    </div>
+  );
+};
+
+module.exports = InsertionComponent;
 ```
 
 ## Additional Resources
@@ -182,4 +212,8 @@ For more detailed information on configuration and usage, refer to the following
 - [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_create_react_app.md)
 - [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md)
 
-These resources offer further insights into the setup and usage of Intlayer across various environments and frameworks.
+These resources provide further insights into the setup and usage of Intlayer across various environments and frameworks.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

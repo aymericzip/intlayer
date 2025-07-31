@@ -2,14 +2,14 @@
 
 import type { OAuth2Access } from '@intlayer/backend';
 import {
-  useForm,
-  Form,
-  useAuth,
-  Modal,
   CopyToClipboard,
+  Form,
   H3,
+  Modal,
+  useForm,
 } from '@intlayer/design-system';
 import {
+  useAuth,
   useDeleteAccessKey,
   useRefreshAccessKey,
 } from '@intlayer/design-system/hooks';
@@ -87,7 +87,7 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
         </Form.Button>
       </Modal>
       <div
-        key={String(accessKey._id)}
+        key={String(accessKey.id)}
         className="border-text flex rounded-lg border-2 p-3"
       >
         <div className="flex items-center justify-center p-5">
@@ -128,21 +128,37 @@ const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
 
             <span className="text-neutral block text-wrap break-all text-xs">
               <span className="font-bold">{rights.organization}</span>
-              {accessKey?.rights?.organization.read ? rights.read : '- '}
-              {accessKey?.rights?.organization.write ? rights.write : '- '}
-              {accessKey?.rights?.organization.admin ? rights.admin : '-'}
+              {accessKey?.grants?.includes('organization:read')
+                ? rights.read
+                : '- '}
+              {accessKey?.grants?.includes('organization:write')
+                ? rights.write
+                : '- '}
+              {accessKey?.grants?.includes('organization:admin')
+                ? rights.admin
+                : '-'}
             </span>
             <span className="text-neutral block text-wrap break-all text-xs">
               <span className="font-bold">{rights.project}</span>
-              {accessKey?.rights?.project.read ? rights.read : '- '}
-              {accessKey?.rights?.project.write ? rights.write : '- '}
-              {accessKey?.rights?.project.admin ? rights.admin : '-'}
+              {accessKey?.grants?.includes('project:read') ? rights.read : '- '}
+              {accessKey?.grants?.includes('project:write')
+                ? rights.write
+                : '- '}
+              {accessKey?.grants?.includes('project:admin')
+                ? rights.admin
+                : '-'}
             </span>
             <span className="text-neutral block text-wrap break-all text-xs">
               <span className="font-bold">{rights.dictionary}</span>
-              {accessKey?.rights?.dictionary.read ? rights.read : '- '}
-              {accessKey?.rights?.dictionary.write ? rights.write : '- '}
-              {accessKey?.rights?.dictionary.admin ? rights.admin : '-'}
+              {accessKey?.grants?.includes('dictionary:read')
+                ? rights.read
+                : '- '}
+              {accessKey?.grants?.includes('dictionary:write')
+                ? rights.write
+                : '- '}
+              {accessKey?.grants?.includes('dictionary:admin')
+                ? rights.admin
+                : '-'}
             </span>
           </div>
           <div className="flex gap-3">
@@ -247,21 +263,29 @@ export const AccessKeyForm: FC = () => {
         <span className="text-neutral text-sm">{description}</span>
         <Form.Label>{title}</Form.Label>
         {project?.oAuth2Access.map((accessKey) => (
-          <AccessKeyItem key={String(accessKey._id)} value={accessKey} />
+          <AccessKeyItem key={String(accessKey.id)} value={accessKey} />
         ))}
-        {nbAccessKeys === 0 && (
-          <span className="mt-6 text-center text-sm">{noAccessKeys}</span>
+        {nbAccessKeys === 0 ? (
+          <span className="mb-6 text-center text-sm text-neutral">
+            {noAccessKeys}
+          </span>
+        ) : (
+          <>
+            <blockquote className="border-card text-neutral mb-6 flex flex-col gap-3 border-l-4 pl-5">
+              <ul className="">
+                {tuto.map((el) => (
+                  <li key={el.value}>
+                    <span className="text-neutral text-center text-sm">
+                      {el}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </blockquote>
+            <span className="text-error text-sm">{warningMessage}</span>
+          </>
         )}
-        <blockquote className="border-card text-neutral mb-6 flex flex-col gap-3 border-l-4 pl-5">
-          <ul className="">
-            {tuto.map((el) => (
-              <li key={el.value}>
-                <span className="text-neutral text-center text-sm">{el}</span>
-              </li>
-            ))}
-          </ul>
-        </blockquote>
-        <span className="text-error text-sm">{warningMessage}</span>
+
         <Form.Button
           className="w-full"
           type="submit"

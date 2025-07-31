@@ -5,10 +5,10 @@ const tagListContent = {
   content: {
     noTagView: {
       title: t({
-        en: 'No tag',
+        en: 'No tags',
         fr: 'Aucun tag',
         es: 'Sin tag',
-        'en-GB': 'No tag',
+        'en-GB': 'No tags',
         de: 'Kein Tag',
         ja: 'タグなし',
         ko: '태그 없음',
@@ -16,8 +16,8 @@ const tagListContent = {
         it: 'Nessun tag',
         pt: 'Sem tag',
         hi: 'कोई टैग नहीं',
-        ar: 'لا توجد وسم',
-        ru: 'Нет тега',
+        ar: 'لا يوجد علامات',
+        ru: 'Нет тегов',
       }),
       description: t({
         en: 'Create your first tag to indicate how AI can structure your content',

@@ -1,18 +1,20 @@
 ---
-docName: intlayer_with_nuxt
-url: https://intlayer.org/doc/environment/nuxt-and-vue
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md
 createdAt: 2025-06-18
-updatedAt: 2025-06-18
+updatedAt: 2025-06-29
 title: Translate your Nuxt and Vue website (i18n)
 description: Discover how to make your Nuxt and Vue website multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Nuxt
   - Vue
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - nuxt-and-vue
+applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-template
 ---
 
 # Getting Started Internationalising (i18n) with Intlayer and Nuxt
@@ -58,7 +60,7 @@ yarn add --save-dev nuxt-intlayer
   The core package that provides internationalisation tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
 
 - **vue-intlayer**
-  The package that integrates Intlayer with Vue application. It provides the composables for the Vue components.
+  The package that integrates Intlayer with Vue applications. It provides the composables for the Vue components.
 
 - **nuxt-intlayer**
   The Nuxt module that integrates Intlayer with Nuxt applications. It provides automatic setup, middleware for locale detection, cookie management, and URL redirection.
@@ -71,7 +73,7 @@ Create a config file to configure the languages of your application:
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
@@ -81,7 +83,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   content: {
-    contentDir: ["."],
+    contentDir: ["."], // Because by default Intlayer will watch content declaration files from the `./src` directory
   },
 };
 
@@ -92,8 +94,9 @@ export default config;
 import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
+// Configuration object for Intlayer
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
@@ -103,7 +106,7 @@ const config = {
     defaultLocale: Locales.ENGLISH,
   },
   content: {
-    contentDir: ["."],
+    contentDir: ["."], // Default directory for content declarations
   },
 };
 
@@ -114,8 +117,9 @@ export default config;
 const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
+// Configuration object for Intlayer
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
@@ -132,7 +136,7 @@ const config = {
 module.exports = config;
 ```
 
-> Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+> Through this configuration file, you can configure localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
 ### Step 3: Integrate Intlayer in Your Nuxt Configuration
 
@@ -159,15 +163,8 @@ import { t, type Dictionary } from "intlayer";
 const helloWorldContent = {
   key: "helloworld",
   content: {
-    count: t({
-      "en-GB": "count is ",
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
+    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
     edit: t({
-      "en-GB":
-        "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
       en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
       fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
       es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
@@ -198,7 +195,6 @@ const helloWorldContent = {
     }),
     readTheDocs: t({
       "en-GB": "Click on the Nuxt logo to learn more",
-      en: "Click on the Nuxt logo to learn more",
       fr: "Cliquez sur le logo Nuxt pour en savoir plus",
       es: "Haga clic en el logotipo de Nuxt para obtener más información",
     }),
@@ -228,33 +224,24 @@ const helloWorldContent = {
       fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
       es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
     }),
-    checkOut: t({
-      "en-GB": "Check out ",
-      en: "Check out ",
-      fr: "Vérifiez ",
-      es: "Compruebe ",
-    }),
+    checkOut: t({ "en-GB": "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
     nuxtIntlayer: t({
       "en-GB": "Nuxt Intlayer documentation",
-      en: "Nuxt Intlayer documentation",
       fr: "Documentation de Nuxt Intlayer",
       es: "Documentación de Nuxt Intlayer",
     }),
     learnMore: t({
       "en-GB": "Learn more about Nuxt in the ",
-      en: "Learn more about Nuxt in the ",
       fr: "En savoir plus sur Nuxt dans la ",
       es: "Aprenda más sobre Nuxt en la ",
     }),
     nuxtDocs: t({
       "en-GB": "Nuxt Documentation",
-      en: "Nuxt Documentation",
       fr: "Documentation Nuxt",
       es: "Documentación de Nuxt",
     }),
     readTheDocs: t({
       "en-GB": "Click on the Nuxt logo to learn more",
-      en: "Click on the Nuxt logo to learn more",
       fr: "Cliquez sur le logo Nuxt pour en savoir plus",
       es: "Haga clic en el logotipo de Nuxt para obtener más información",
     }),
@@ -264,52 +251,42 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```javascript fileName="components/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
+```const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 const helloWorldContent = {
   key: "helloworld",
   content: {
-    count: t({
-      "en-GB": "count is ",
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
+    count: t({ 'en-GB': "count is ", en: "count is ", fr: "le compte est ", es: "el recuento es " }),
     edit: t({
-      "en-GB":
-        "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
+      'en-GB': "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
       en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
       fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
       es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
     }),
-    checkOut: t({
-      "en-GB": "Check out ",
-      en: "Check out ",
-      fr: "Vérifiez ",
-      es: "Compruebe ",
-    }),
+    checkOut: t({ 'en-GB': "Check out ", en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
     nuxtIntlayer: t({
-      "en-GB": "Nuxt Intlayer documentation",
+      'en-GB': "Nuxt Intlayer documentation",
       en: "Nuxt Intlayer documentation",
       fr: "Documentation de Nuxt Intlayer",
       es: "Documentación de Nuxt Intlayer",
     }),
+      es: "Documentación de Nuxt Intlayer",
+    }),
     learnMore: t({
-      "en-GB": "Learn more about Nuxt in the ",
+      'en-GB': "Learn more about Nuxt in the ",
       en: "Learn more about Nuxt in the ",
       fr: "En savoir plus sur Nuxt dans la ",
       es: "Aprenda más sobre Nuxt en la ",
     }),
     nuxtDocs: t({
-      "en-GB": "Nuxt Documentation",
+      'en-GB': "Nuxt Documentation",
       en: "Nuxt Documentation",
       fr: "Documentation Nuxt",
       es: "Documentación de Nuxt",
     }),
     readTheDocs: t({
-      "en-GB": "Click on the Nuxt logo to learn more",
+      'en-GB': "Click on the Nuxt logo to learn more",
       en: "Click on the Nuxt logo to learn more",
       fr: "Cliquez sur le logo Nuxt pour en savoir plus",
       es: "Haga clic en el logotipo de Nuxt para obtener más información",
@@ -356,7 +333,6 @@ module.exports = helloWorldContent;
       "nodeType": "translation",
       "translation": {
         "en-GB": "Nuxt Intlayer documentation",
-        "en": "Nuxt Intlayer documentation",
         "fr": "Documentation de Nuxt Intlayer",
         "es": "Documentación de Nuxt Intlayer"
       }
@@ -365,7 +341,6 @@ module.exports = helloWorldContent;
       "nodeType": "translation",
       "translation": {
         "en-GB": "Learn more about Nuxt in the ",
-        "en": "Learn more about Nuxt in the ",
         "fr": "En savoir plus sur Nuxt dans la ",
         "es": "Aprenda más sobre Nuxt en la "
       }
@@ -374,7 +349,6 @@ module.exports = helloWorldContent;
       "nodeType": "translation",
       "translation": {
         "en-GB": "Nuxt Documentation",
-        "en": "Nuxt Documentation",
         "fr": "Documentation Nuxt",
         "es": "Documentación de Nuxt"
       }
@@ -382,6 +356,8 @@ module.exports = helloWorldContent;
     "readTheDocs": {
       "nodeType": "translation",
       "translation": {
+        "en-GB": "Click on the Nuxt logo to learn more",
+        "fr": "Cliquez sur le logo Nuxt pour en savoir plus",
         "en-GB": "Click on the Nuxt logo to learn more",
         "en": "Click on the Nuxt logo to learn more",
         "fr": "Cliquez sur le logo Nuxt pour en savoir plus",
@@ -449,10 +425,10 @@ const countRef = ref(0);
 
 #### Accessing Content in Intlayer
 
-Intlayer offers two APIs to access your content:
+Intlayer offers different APIs to access your content:
 
 - **Component-based syntax** (recommended):
-  Use the `<myContent />`, or `<Component :is="myContent" />` syntax to render content as an Intlayer Node. This integrates seamlessly with the [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+  Use the `<myContent />`, or `<Component :is="myContent" />` syntax to render content as an Intlayer Node. This integrates seamlessly with the [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) and [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
 
 - **String-based syntax**:
   Use `{{ myContent }}` to render the content as plain text, without Visual Editor support.
@@ -461,9 +437,9 @@ Intlayer offers two APIs to access your content:
   Use `<div v-html="myContent" />` to render the content as raw HTML, without Visual Editor support.
 
 - **Destructuration syntax**:
-  The `useIntlayer` composable returns an Proxy with the content. This proxy can be destructured to access the content while keeping the reactivity.
-  - Use `const content = useIntlayer("myContent");` And `{{ content.myContent }}` / `<content.myContent />`.
-  - Or use `const { myContent } = useIntlayer("myContent");` And `{{ myContent}}` / `<myContent/>` to destructure the content.
+  The `useIntlayer` composable returns a Proxy with the content. This proxy can be destructured to access the content while maintaining reactivity.
+  - Use `const content = useIntlayer("myContent");` and `{{ content.myContent }}` / `<content.myContent />`.
+  - Or use `const { myContent } = useIntlayer("myContent");` and `{{ myContent }}` / `<myContent />` to destructure the content.
 
 ### (Optional) Step 6: Change the language of your content
 
@@ -593,7 +569,7 @@ To ensure that your application's navigation respects the current locale, you ca
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { getLocalisedUrl } from "intlayer";
+import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "vue-intlayer";
 
 const props = defineProps({
@@ -609,8 +585,8 @@ const { locale } = useLocale();
 const isExternalLink = computed(() => /^https?:\/\//.test(props.to || ""));
 
 // Create a localised href for internal links
-const localisedHref = computed(() =>
-  isExternalLink.value ? props.to : getLocalisedUrl(props.to, locale.value)
+const localizedHref = computed(() =>
+  isExternalLink.value ? props.to : getLocalizedUrl(props.to, locale.value)
 );
 </script>
 ```
@@ -620,11 +596,10 @@ Then use this component throughout your application:
 ```vue fileName="pages/index.vue"
 <template>
   <div>
-    <LocalisedLink to="/about">
+    <LocalizedLink to="/about">
       {{ content.aboutLink }}
-    </LocalisedLink>
-
-    <LocalizedLink to="/en-GB/contact">
+    </LocalizedLink>
+    <LocalizedLink to="/contact">
       {{ content.contactLink }}
     </LocalizedLink>
   </div>
@@ -640,7 +615,7 @@ const content = useIntlayer("home");
 
 ### (Optional) Step 9: Handle Metadata and SEO
 
-Nuxt provides excellent SEO capabilities. You can use Intlayer to handle localised metadata:
+Nuxt provides excellent SEO capabilities. You can use Intlayer to manage localised metadata:
 
 ```vue fileName="pages/about.vue"
 <script setup lang="ts">
@@ -667,7 +642,7 @@ useSeoMeta({
 
 Create the corresponding content declaration:
 
-```typescript fileName="pages/about-meta.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="pages/about-meta.content.ts"
 import { t, type Dictionary } from "intlayer";
 import type { useSeoMeta } from "nuxt/app";
 
@@ -700,12 +675,14 @@ const aboutMetaContent = {
   key: "about-meta",
   content: {
     title: t({
+      zh: "关于我们 - 我的公司",
       "en-GB": "About Us - My Company",
       en: "About Us - My Company",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
     }),
     description: t({
+      zh: "了解更多关于我们公司和我们的使命",
       "en-GB": "Learn more about our company and our mission",
       en: "Learn more about our company and our mission",
       fr: "En savoir plus sur notre société et notre mission",
@@ -725,12 +702,14 @@ const aboutMetaContent = {
   key: "about-meta",
   content: {
     title: t({
+      zh: "关于我们 - 我的公司",
       "en-GB": "About Us - My Company",
       en: "About Us - My Company",
       fr: "À Propos - Ma Société",
       es: "Acerca de Nosotros - Mi Empresa",
     }),
     description: t({
+      zh: "了解更多关于我们公司和我们的使命",
       "en-GB": "Learn more about our company and our mission",
       en: "Learn more about our company and our mission",
       fr: "En savoir plus sur notre société et notre mission",
@@ -749,6 +728,7 @@ module.exports = aboutMetaContent;
     "title": {
       "nodeType": "translation",
       "translations": {
+        "zh": "关于我们 - 我的公司",
         "en-GB": "About Us - My Company",
         "en": "About Us - My Company",
         "fr": "À Propos - Ma Société",
@@ -758,6 +738,7 @@ module.exports = aboutMetaContent;
     "description": {
       "nodeType": "translation",
       "translations": {
+        "zh": "了解更多关于我们公司和我们的使命",
         "en-GB": "Learn more about our company and our mission",
         "en": "Learn more about our company and our mission",
         "fr": "En savoir plus sur notre société et notre mission",
@@ -770,7 +751,7 @@ module.exports = aboutMetaContent;
 
 ### Configure TypeScript
 
-Intlayer uses module augmentation to get the benefits of TypeScript and make your codebase stronger.
+Intlayer uses module augmentation to gain the benefits of TypeScript and strengthen your codebase.
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
@@ -790,7 +771,7 @@ Ensure your TypeScript configuration includes the autogenerated types.
 
 ### Git Configuration
 
-It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+It is recommended to ignore the files generated by Intlayer. This prevents you from committing them to your Git repository.
 
 To do this, you can add the following instructions to your `.gitignore` file:
 
@@ -801,7 +782,7 @@ To do this, you can add the following instructions to your `.gitignore` file:
 
 ### VS Code Extension
 
-To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+To enhance your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
 
 [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
@@ -818,4 +799,10 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 
 ### Go Further
 
-## To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
+To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
+
+---
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

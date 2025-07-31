@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getMultilingualUrls
-url: https://intlayer.org/doc/packages/intlayer/getMultilingualUrls
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: getMultilingualUrls Function Documentation | intlayer
 description: See how to use the getMultilingualUrls function for intlayer package
 keywords:
@@ -11,11 +8,16 @@ keywords:
   - translation
   - Intlayer
   - intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getMultilingualUrls
 ---
 
 # Documentation: `getMultilingualUrls` Function in `intlayer`
@@ -65,13 +67,13 @@ The `getMultilingualUrls` function generates a mapping of multilingual URLs by p
 import { getMultilingualUrls, Locales } from "intlayer";
 
 getMultilingualUrls(
-  "/{{locale}}/dashboard",
+  "/dashboard",
   [Locales.ENGLISH, Locales.FRENCH],
   Locales.ENGLISH,
   false
 );
 // Output: {
-//   en: "/en-GB/dashboard",
+//   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
@@ -80,13 +82,13 @@ getMultilingualUrls(
 import { getMultilingualUrls, Locales } from "intlayer";
 
 getMultilingualUrls(
-  "/{{locale}}/dashboard",
+  "/dashboard",
   [Locales.ENGLISH, Locales.FRENCH],
   Locales.ENGLISH,
   false
 );
 // Output: {
-//   en: "/en-GB/dashboard",
+//   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
@@ -95,13 +97,13 @@ getMultilingualUrls(
 const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
-  "/{{locale}}/dashboard",
+  "/dashboard",
   [Locales.ENGLISH, Locales.FRENCH],
   Locales.ENGLISH,
   false
 );
 // Output: {
-//   en: "/en-GB/dashboard",
+//   en: "/dashboard",
 //   fr: "/fr/dashboard"
 // }
 ```
@@ -116,7 +118,56 @@ getMultilingualUrls(
   true
 );
 // Output: {
-//   en: "https://example.com/en-GB/dashboard",
+//   en: "https://example.com/en/dashboard",
+//   fr: "https://example.com/fr/dashboard"
+// }
+```
+
+---
+
+## Edge Cases
+
+- **No Locale Segment:**
+
+```typescript
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// Output: {
+// en: "/dashboard",
+// fr: "/fr/dashboard"
+// }
+```
+
+```javascript codeFormat="commonjs"
+const { getMultilingualUrls, Locales } = require("intlayer");
+
+getMultilingualUrls(
+  "/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  false
+);
+// Output: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
+
+### Absolute URLs
+
+```typescript
+getMultilingualUrls(
+  "https://example.com/dashboard",
+  [Locales.ENGLISH, Locales.FRENCH],
+  Locales.ENGLISH,
+  true
+);
+// Output: {
+//   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
 // }
 ```
@@ -140,7 +191,7 @@ getMultilingualUrls(
 
 ## Usage in Applications
 
-In a multilingual application, configuring the internationalization settings with `locales` and `defaultLocale` is critical for ensuring the correct language is displayed. Below is an example of how `getMultilingualUrls` can be used in an application setup:
+In a multilingual application, configuring the internationalisation settings with `locales` and `defaultLocale` is critical for ensuring the correct language is displayed. Below is an example of how `getMultilingualUrls` can be used in an application setup:
 
 ```tsx codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -182,21 +233,23 @@ const config = {
 };
 
 module.exports = config;
+
+module.exports = config;
 ```
 
-The above configuration ensures that the application recognizes `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.
+The above configuration ensures that the application recognises `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.
 
 Using this configuration, the `getMultilingualUrls` function can dynamically generate multilingual URL mappings based on the application's supported locales:
 
 ```typescript
 getMultilingualUrls(
-  "/{{locale}}/dashboard",
+  "/dashboard",
   [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   Locales.ENGLISH
 );
 // Output:
 // {
-//   en: "/en-GB/dashboard",
+//   en: "/dashboard",
 //   fr: "/fr/dashboard",
 //   es: "/es/dashboard"
 // }
@@ -209,10 +262,14 @@ getMultilingualUrls(
 );
 // Output:
 // {
-//   en: "https://example.com/en-GB/dashboard",
+//   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard",
 //   es: "https://example.com/es/dashboard"
 // }
 ```
 
 By integrating `getMultilingualUrls`, developers can maintain consistent URL structures across multiple languages, enhancing both user experience and SEO.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

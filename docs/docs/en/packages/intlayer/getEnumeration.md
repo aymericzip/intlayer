@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getEnumeration
-url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: getEnumeration Function Documentation | intlayer
 description: See how to use the getEnumeration function for intlayer package
 keywords:
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getEnumeration
 ---
 
 # Documentation: `getEnumeration` Function in `intlayer`
@@ -156,3 +158,9 @@ console.log(content); // Output: "You have less than four"
 ## Notes
 
 - The `findMatchingCondition` utility is used to determine the appropriate condition based on the given quantity.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

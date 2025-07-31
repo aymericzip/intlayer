@@ -1,17 +1,31 @@
-import { ProjectModel } from '@models/project.model';
-import { GenericError } from '@utils/errors';
-import type { ObjectId } from 'mongoose';
-import { generateClientCredentials } from './oAuth2.service';
-import { getProjectById } from './project.service';
 import type {
   AccessKeyData,
   OAuth2Access,
   OAuth2AccessData,
   Project,
-  Rights,
-  TokenRights,
 } from '@/types/project.types';
 import type { User } from '@/types/user.types';
+import { ProjectModel } from '@models/project.model';
+import { GenericError } from '@utils/errors';
+import { randomBytes } from 'crypto';
+import type { Types } from 'mongoose';
+import { getProjectById } from './project.service';
+
+/**
+ * Generates cryptographically secure OAuth2 client credentials
+ *
+ * @returns Object containing clientId and clientSecret
+ *
+ * Security improvements:
+ * - clientId: 32 characters (128 bits of entropy)
+ * - clientSecret: 64 characters (256 bits of entropy)
+ * - Uses crypto.randomBytes for cryptographically secure random generation
+ * - Follows OAuth2 best practices for credential strength
+ */
+const generateClientCredentials = () => ({
+  clientId: randomBytes(16).toString('hex'), // 32 character hexadecimal string
+  clientSecret: randomBytes(32).toString('hex'), // 64 character hexadecimal string
+});
 
 /**
  * Adds a new access key to a project.
@@ -24,11 +38,8 @@ import type { User } from '@/types/user.types';
  */
 export const addNewAccessKey = async (
   accessKeyData: AccessKeyData,
-  projectId: string | ObjectId,
-  user: User,
-  organizationRights: Rights,
-  projectRights: Rights,
-  dictionaryRights: Rights
+  projectId: string | Types.ObjectId,
+  user: User
 ): Promise<OAuth2Access> => {
   const { clientId, clientSecret } = generateClientCredentials();
 
@@ -36,14 +47,9 @@ export const addNewAccessKey = async (
     ...accessKeyData,
     clientId,
     clientSecret,
-    userId: user._id,
+    userId: user.id,
     accessToken: [],
-    rights: restrictAccessKeyRights(
-      accessKeyData,
-      organizationRights,
-      projectRights,
-      dictionaryRights
-    ),
+    grants: accessKeyData.grants,
   };
 
   const result = await ProjectModel.updateOne(
@@ -55,7 +61,7 @@ export const addNewAccessKey = async (
     throw new GenericError('ACCESS_KEY_CREATION_FAILED', {
       accessKeyData,
       projectId,
-      userId: user._id,
+      userId: user.id,
     });
   }
 
@@ -69,7 +75,7 @@ export const addNewAccessKey = async (
     throw new GenericError('ACCESS_KEY_CREATION_FAILED', {
       accessKeyData,
       projectId,
-      userId: user._id,
+      userId: user.id,
     });
   }
 
@@ -77,9 +83,9 @@ export const addNewAccessKey = async (
 };
 
 export const deleteAccessKey = async (
-  clientId: string | ObjectId,
+  clientId: string | Types.ObjectId,
   project: Project,
-  userId: string | ObjectId
+  userId: string | Types.ObjectId
 ) => {
   const projectAccess = project.oAuth2Access.find(
     (access) =>
@@ -89,7 +95,7 @@ export const deleteAccessKey = async (
   if (!projectAccess) {
     throw new GenericError('ACCESS_KEY_NOT_FOUND', {
       clientId,
-      projectId: project._id,
+      projectId: project.id,
     });
   }
 
@@ -104,7 +110,7 @@ export const deleteAccessKey = async (
   if (result.modifiedCount === 0) {
     throw new GenericError('ACCESS_KEY_DELETION_FAILED', {
       clientId,
-      projectId: project._id,
+      projectId: project.id,
     });
   }
 
@@ -112,9 +118,9 @@ export const deleteAccessKey = async (
 };
 
 export const refreshAccessKey = async (
-  clientId: string | ObjectId,
-  projectId: string | ObjectId,
-  userId: string | ObjectId
+  clientId: string | Types.ObjectId,
+  projectId: string | Types.ObjectId,
+  userId: string | Types.ObjectId
 ): Promise<OAuth2Access> => {
   const project = await ProjectModel.findOne({
     _id: projectId,
@@ -137,7 +143,7 @@ export const refreshAccessKey = async (
   if (!projectAccess) {
     throw new GenericError('ACCESS_KEY_NOT_FOUND', {
       clientId,
-      projectId: project._id,
+      projectId: project.id,
     });
   }
 
@@ -179,30 +185,3 @@ export const refreshAccessKey = async (
 
   return newAccessKeyId;
 };
-
-const restrictRights = (givenRights: Rights, userRights: Rights): Rights => {
-  const restrictedRights: Rights = {} as Rights;
-
-  for (const key in givenRights) {
-    if (Object.prototype.hasOwnProperty.call(givenRights, key)) {
-      restrictedRights[key as keyof Rights] =
-        givenRights[key as keyof Rights] && userRights[key as keyof Rights];
-    }
-  }
-
-  return restrictedRights;
-};
-
-const restrictAccessKeyRights = (
-  accessKey: AccessKeyData,
-  organizationsRights: Rights,
-  projectRights: Rights,
-  dictionaryRights: Rights
-): TokenRights => ({
-  dictionary: restrictRights(accessKey.rights.dictionary, dictionaryRights),
-  project: restrictRights(accessKey.rights.project, projectRights),
-  organization: restrictRights(
-    accessKey.rights.organization,
-    organizationsRights
-  ),
-});

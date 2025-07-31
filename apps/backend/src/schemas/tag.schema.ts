@@ -1,17 +1,22 @@
+import type { TagSchema } from '@/types/tag.types';
 import {
-  NAME_MIN_LENGTH,
-  NAME_MAX_LENGTH,
   KEY_MAX_LENGTH,
   KEY_MIN_LENGTH,
+  NAME_MAX_LENGTH,
+  NAME_MIN_LENGTH,
 } from '@utils/validation/validateTag';
 import { Schema } from 'mongoose';
-import type { Tag } from '@/types/tag.types';
 
-export const tagSchema = new Schema<Tag>(
+export const tagSchema = new Schema<TagSchema>(
   {
     organizationId: {
       type: Schema.Types.ObjectId,
       ref: 'Organization',
+      required: true,
+    },
+    projectId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Project',
       required: true,
     },
     key: {
@@ -39,5 +44,21 @@ export const tagSchema = new Schema<Tag>(
   },
   {
     timestamps: true,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(doc, ret) {
+        ret.id = ret._id.toString(); // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        ret.id = ret._id; // convert _id to id
+        delete ret._id; // remove _id
+      },
+    },
   }
 );

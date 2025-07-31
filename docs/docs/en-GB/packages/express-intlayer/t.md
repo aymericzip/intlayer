@@ -1,20 +1,22 @@
 ---
-docName: package__express-intlayer__t
-url: https://intlayer.org/doc/packages/express-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md
 createdAt: 2024-12-02
-updatedAt: 2024-12-02
+updatedAt: 2025-06-29
 title: t Function Documentation | express-intlayer
 description: See how to use the t function for express-intlayer package
 keywords:
   - t
   - translation
   - Intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Express
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - express-intlayer
+  - t
 ---
 
 # Documentation: `t` Function in `express-intlayer`
@@ -34,7 +36,7 @@ The `t` function is used to define and retrieve translations for a given set of 
 - **Dynamic Localisation**: Automatically selects the most appropriate translation for the client.
 - **Fallback to Default Locale**: Falls back to a default locale if the client's preferred language isn't available, ensuring continuity in user experience.
 - **Lightweight and Fast**: Designed for high-performance applications, ensuring minimal overhead.
-- **Strict Mode Support**: Enforce strict adherence to declared locales for reliable behaviour.
+- **Strict Mode Support**: Enforces strict adherence to declared locales for reliable behaviour.
 
 ---
 
@@ -279,7 +281,7 @@ If a preferred locale is unavailable, the `t` function will fallback to the defa
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -293,7 +295,7 @@ import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -307,7 +309,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -319,7 +321,7 @@ module.exports = config;
 For example:
 
 - If `defaultLocale` is `Locales.CHINESE` and a client requests `Locales.DUTCH`, the returned translation will default to the `Locales.CHINESE` value.
-- If `defaultLocale` is not defined, the `t` function will fallback to the `Locales.ENGLISH` value.
+- If `defaultLocale` is not defined, the `t` function will fall back to the `Locales.ENGLISH` value.
 
 ---
 
@@ -449,3 +451,7 @@ app.get("/morning", (_req, res) => {
 ## Conclusion
 
 The `t` function is a powerful tool for backend internationalisation. By using it effectively, you can create a more inclusive and user-friendly application for a global audience. For advanced usage and detailed configuration options, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

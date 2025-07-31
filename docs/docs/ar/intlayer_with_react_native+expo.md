@@ -1,17 +1,36 @@
-# البدء في التدويل (i18n) باستخدام Intlayer و React Native
+---
+createdAt: 2025-06-18
+updatedAt: 2025-06-29
+title: ترجمة موقع React Native و Expo الخاص بك (i18n)
+description: اكتشف كيفية جعل موقع React Native و Expo الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
+keywords:
+  - التدويل
+  - التوثيق
+  - Intlayer
+  - React Native
+  - Expo
+  - جافا سكريبت
+slugs:
+  - doc
+  - environment
+  - react-native-and-expo
+applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
+---
 
-انظر [Template Application](https://github.com/aymericzip/intlayer-vite-react-template) على GitHub.
+# البدء في التدويل (i18n) مع Intlayer و React Native
+
+راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-react-native-template) على GitHub.
 
 ## ما هو Intlayer؟
 
-**Intlayer** هو **مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر** تسهل دعم اللغات المتعددة في التطبيقات الحديثة. تعمل في العديد من بيئات JavaScript/TypeScript، **بما في ذلك React Native** (عبر حزمة `react-intlayer`).
+**Intlayer** هي مكتبة **تدويل (i18n) مبتكرة ومفتوحة المصدر** تُبسّط دعم اللغات المتعددة في التطبيقات الحديثة. تعمل في العديد من بيئات JavaScript/TypeScript، **بما في ذلك React Native** (عبر حزمة `react-intlayer`).
 
 مع Intlayer، يمكنك:
 
-- **إدارة الترجمات بسهولة** باستخدام القواميس التصريحية على مستوى المكونات.
-- **ضمان دعم TypeScript** مع الأنواع المولدة تلقائيًا.
-- **تخصيص المحتوى ديناميكيًا**، بما في ذلك **سلاسل واجهة المستخدم** (وفي React للويب، يمكنها أيضًا تخصيص بيانات HTML الوصفية، إلخ).
-- **الاستفادة من الميزات المتقدمة**، مثل اكتشاف اللغة الديناميكي والتبديل.
+- **إدارة الترجمات بسهولة** باستخدام قواميس تصريحية على مستوى المكونات.
+- **ضمان دعم TypeScript** بأنواع مولدة تلقائيًا.
+- **توطين المحتوى ديناميكيًا**، بما في ذلك **سلاسل واجهة المستخدم** (وفي React للويب، يمكنها أيضًا توطين بيانات HTML الوصفية، وما إلى ذلك).
+- **الاستفادة من ميزات متقدمة**، مثل الكشف الديناميكي عن اللغة وتبديلها.
 
 ---
 
@@ -37,10 +56,10 @@ yarn add --save-dev react-native-intlayer
 ### الحزم
 
 - **intlayer**  
-  أداة i18n الأساسية للتكوين، محتوى القاموس، توليد الأنواع، وأوامر CLI.
+  مجموعة أدوات i18n الأساسية للتكوين، محتوى القاموس، توليد الأنواع، وأوامر CLI.
 
 - **react-intlayer**  
-  تكامل React الذي يوفر موفري السياق وخطافات React التي ستستخدمها في React Native للحصول على اللغات وتبديلها.
+  تكامل React الذي يوفر موفري السياق وReact hooks التي ستستخدمها في React Native للحصول على اللغات وتبديلها.
 
 - **react-native-intlayer**  
   تكامل React Native الذي يوفر إضافة Metro لدمج Intlayer مع مجمع React Native.
@@ -49,9 +68,12 @@ yarn add --save-dev react-native-intlayer
 
 ## الخطوة 2: إنشاء تكوين Intlayer
 
-في جذر مشروعك (أو في أي مكان مناسب)، قم بإنشاء ملف **تكوين Intlayer**. قد يبدو مثل هذا:
+في جذر مشروعك (أو في أي مكان مناسب)، أنشئ ملف **تكوين Intlayer**. قد يبدو كالتالي:
 
 ```ts fileName="intlayer.config.ts" codeFormat="typescript"
+/**
+ * إذا لم تكن أنواع Locales متوفرة، حاول تعيين moduleResolution إلى "bundler" في ملف tsconfig.json الخاص بك
+ */
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -106,12 +128,12 @@ module.exports = config;
 
 - تكوين **قائمة اللغات المدعومة**.
 - تعيين لغة **افتراضية**.
-- لاحقًا، يمكنك إضافة خيارات أكثر تقدمًا (مثل السجلات، أدلة المحتوى المخصصة، إلخ).
-- راجع [وثائق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لمزيد من التفاصيل.
+- لاحقًا، يمكنك إضافة خيارات أكثر تقدمًا (مثل السجلات، مجلدات المحتوى المخصصة، إلخ).
+- راجع [وثائق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) للمزيد.
 
-## الخطوة 3: إضافة إضافة Metro
+## الخطوة 3: إضافة ملحق Metro
 
-Metro هو مجمع لـ React Native. وهو المجمع الافتراضي لمشاريع React Native التي تم إنشاؤها باستخدام أمر `react-native init`. لاستخدام Intlayer مع Metro، تحتاج إلى إضافة الإضافة إلى ملف `metro.config.js` الخاص بك:
+Metro هو أداة تجميع (bundler) لـ React Native. وهو أداة التجميع الافتراضية لمشاريع React Native التي تم إنشاؤها باستخدام الأمر `react-native init`. لاستخدام Intlayer مع Metro، تحتاج إلى إضافة الملحق إلى ملف `metro.config.js` الخاص بك:
 
 ```js fileName="metro.config.js"
 const { getDefaultConfig } = require("expo/metro-config");
@@ -126,11 +148,9 @@ module.exports = (async () => {
 
 ## الخطوة 4: إضافة موفر Intlayer
 
-للحفاظ على تزامن لغة المستخدم عبر تطبيقك، تحتاج إلى تغليف المكون الجذري الخاص بك بمكون `IntlayerProvider` من `react-intlayer`.
+للحفاظ على تزامن لغة المستخدم عبر تطبيقك، تحتاج إلى تغليف المكون الجذري الخاص بك بمكون `IntlayerProvider` من مكتبة `react-intlayer`.
 
-قم بتغليف مكون **الجذر** أو المستوى الأعلى الخاص بك بـ `IntlayerProvider` من `react-intlayer`.
-
-أيضًا، تحتاج إلى إضافة وظيفة `intlayerPolyfill` إلى ملف `index.js` الخاص بك لضمان عمل Intlayer بشكل صحيح.
+أيضًا، تحتاج إلى إضافة دالة `intlayerPolyfill` إلى ملف `index.js` الخاص بك لضمان عمل Intlayer بشكل صحيح.
 
 ```tsx fileName="app/_layout.tsx" codeFormat="typescript"
 import { Stack } from "expo-router";
@@ -204,7 +224,7 @@ module.exports = RootLayout;
 
 ## الخطوة 5: إعلان المحتوى الخاص بك
 
-قم بإنشاء ملفات **إعلان المحتوى** في أي مكان في مشروعك (عادةً داخل `src/`)، باستخدام أي من تنسيقات الامتداد التي يدعمها Intlayer:
+قم بإنشاء ملفات **إعلان المحتوى** في أي مكان داخل مشروعك (عادةً داخل مجلد `src/`)، باستخدام أي من صيغ الامتداد التي يدعمها Intlayer:
 
 - `.content.json`
 - `.content.ts`
@@ -232,7 +252,6 @@ const homeScreenContent = {
   key: "home-screen",
   content: {
     title: t({
-      ar: "مرحبًا!",
       en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
@@ -252,7 +271,6 @@ const appContent = {
   key: "home-screen",
   content: {
     title: t({
-      ar: "مرحبًا!",
       en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
@@ -271,7 +289,6 @@ const appContent = {
   key: "home-screen",
   content: {
     title: t({
-      ar: "مرحبًا!",
       en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
@@ -289,8 +306,7 @@ module.exports = appContent;
   "content": {
     "title": {
       "nodeType": "translation",
-
-        "ar": "مرحباً!",
+      "translation": {
         "en": "Welcome!",
         "fr": "Bienvenue!",
         "es": "¡Bienvenido!"
@@ -306,7 +322,7 @@ module.exports = appContent;
 
 ## الخطوة 4: استخدام Intlayer في مكوناتك
 
-قم بتغليف مكون **الجذر** أو المستوى الأعلى بـ `IntlayerProvider` من `react-intlayer`. ثم استخدم الخطاف `useIntlayer` في المكونات الفرعية للحصول على المحتوى المحلي.
+استخدم الخطاف `useIntlayer` في المكونات الفرعية للحصول على المحتوى المحلي.
 
 ### مثال
 
@@ -423,90 +439,167 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
+    alignItems: "center", // محاذاة العناصر في الوسط عمودياً
+    gap: 8, // المسافة بين العناصر
   },
 });
 
 module.exports = HomeScreen;
 ```
 
-> عند استخدام `content.someKey` في الخصائص النصية (مثل خاصية `title` للزر أو خاصية `children` لمكون `Text`)، **قم باستدعاء `content.someKey.value`** للحصول على النص الفعلي.
+> عند استخدام `content.someKey` في الخصائص المعتمدة على النصوص (مثل خاصية `title` لزر أو `children` لمكون `Text`)، **يجب استدعاء `content.someKey.value`** للحصول على النص الفعلي.
 
 ---
 
 ## (اختياري) الخطوة 5: تغيير لغة التطبيق
 
-لتبديل اللغات من داخل مكوناتك، يمكنك استخدام طريقة `setLocale` من خطاف `useLocale`:
+لتغيير اللغة من داخل مكوناتك، يمكنك استخدام دالة `setLocale` من الخطاف `useLocale`:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { type FC } from "react";
-import { Button } from "react-native";
-import { Locales } from "intlayer";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
 export const LocaleSwitcher: FC = () => {
-  const { setLocale } = useLocale();
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="التبديل إلى الفرنسية"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { Locales } from "intlayer";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
+export const LocaleSwitcher = () => {
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="التبديل إلى الفرنسية"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+const { View, Text, TouchableOpacity, StyleSheet } = require("react-native");
+const { getLocaleName } = require("intlayer");
 const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="التبديل إلى الفرنسية"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
-هذا يؤدي إلى إعادة عرض جميع المكونات التي تستخدم محتوى Intlayer، الآن مع عرض الترجمات للغة الجديدة.
+هذا يؤدي إلى إعادة عرض جميع المكونات التي تستخدم محتوى Intlayer، مما يعرض الآن الترجمات للغة الجديدة.
 
-> راجع [وثائق `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) لمزيد من التفاصيل.
+> راجع [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) لمزيد من التفاصيل.
 
 ## تكوين TypeScript (إذا كنت تستخدم TypeScript)
 
-يقوم Intlayer بإنشاء تعريفات الأنواع في مجلد مخفي (افتراضيًا `.intlayer`) لتحسين الإكمال التلقائي واكتشاف أخطاء الترجمة:
+يقوم Intlayer بإنشاء تعريفات النوع في مجلد مخفي (افتراضيًا `.intlayer`) لتحسين الإكمال التلقائي واكتشاف أخطاء الترجمة:
 
 ```json5
 // tsconfig.json
 {
-  // ... إعدادات TS الحالية
+  // ... تكوين TypeScript الحالي الخاص بك
   "include": [
     "src", // كود المصدر الخاص بك
     ".intlayer/types/**/*.ts", // <-- تأكد من تضمين الأنواع التي تم إنشاؤها تلقائيًا
@@ -517,26 +610,49 @@ const LocaleSwitcher = () => {
 
 هذا ما يتيح ميزات مثل:
 
-- **الإكمال التلقائي** لمفاتيح القاموس.
+- **الإكمال التلقائي** لمفاتيح القاموس الخاصة بك.
 - **التحقق من النوع** الذي يحذرك إذا قمت بالوصول إلى مفتاح غير موجود أو عدم تطابق النوع.
 
 ---
 
 ## تكوين Git
 
-لتجنب الالتزام بالملفات التي يتم إنشاؤها تلقائيًا بواسطة Intlayer، أضف ما يلي إلى `.gitignore`:
+لتجنب الالتزام بالملفات التي تم إنشاؤها تلقائيًا بواسطة Intlayer، أضف ما يلي إلى ملف `.gitignore` الخاص بك:
 
 ```plaintext
-# تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 
 ---
 
-## الذهاب أبعد
+### إضافة VS Code
 
-- **المحرر المرئي**: استخدم [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لإدارة الترجمات بشكل مرئي.
-- **تكامل CMS**: يمكنك أيضًا استخراج محتوى القاموس الخاص بك من [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-- **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
+لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **إضافة Intlayer الرسمية لـ VS Code**.
 
-استمتع ببناء تطبيقات **React Native** الخاصة بك مع دعم كامل للتدويل من خلال **Intlayer**!
+[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+تقدم هذه الإضافة:
+
+- **الإكمال التلقائي** لمفاتيح الترجمة.
+- **الكشف عن الأخطاء في الوقت الحقيقي** للترجمات المفقودة.
+- **معاينات داخلية** للمحتوى المترجم.
+- **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
+
+لمزيد من التفاصيل حول كيفية استخدام الإضافة، راجع [توثيق إضافة Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+## التعمق أكثر
+
+- **المحرر المرئي**: استخدم [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لإدارة الترجمات بشكل بصري.
+- **تكامل نظام إدارة المحتوى (CMS)**: يمكنك أيضًا تعهيد واستيراد محتوى القاموس الخاص بك من خلال [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+- **أوامر سطر الأوامر (CLI)**: استكشف [أدوات سطر الأوامر لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
+
+استمتع ببناء تطبيقات **React Native** الخاصة بك مع دعم كامل للترجمة الدولية (i18n) من خلال **Intlayer**!
+
+---
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

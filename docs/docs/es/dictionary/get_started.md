@@ -1,28 +1,29 @@
 ---
-docName: dictionary__get_started
-url: https://intlayer.org/doc/concept/content
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/get_started.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Declaración de Contenido | Empezar
-description: Descubra cómo declarar y usar la declaración de contenido en su sitio web multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.
+updatedAt: 2025-06-29
+title: Diccionario | Primeros pasos
+description: Descubre cómo declarar y usar diccionarios en tu sitio web multilingüe. Sigue los pasos en esta documentación en línea para configurar tu proyecto en pocos minutos.
 keywords:
-  - Empezar
+  - Primeros pasos
   - Internacionalización
   - Documentación
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
 ---
 
-# Comenzando la declaración de su contenido
+# Primeros pasos en la declaración de tu contenido
 
-<iframe title="i18n, Markdown, JSON… one single solution to manage it all | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="i18n, Markdown, JSON… una única solución para gestionarlo todo | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Extensiones de archivos
 
-Por defecto, Intlayer observa todos los archivos con las siguientes extensiones para declaraciones de contenido:
+Por defecto, Intlayer vigila todos los archivos con las siguientes extensiones para declaraciones de contenido:
 
 - `.content.json`
 - `.content.ts`
@@ -36,16 +37,26 @@ Por defecto, Intlayer observa todos los archivos con las siguientes extensiones 
 
 La aplicación buscará archivos que coincidan con el patrón glob `./src/**/*.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}` por defecto.
 
-Estas extensiones predeterminadas son adecuadas para la mayoría de las aplicaciones. Sin embargo, si tiene requisitos específicos, consulte la [guía de personalización de extensiones de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md#content-configuration) para obtener instrucciones sobre cómo gestionarlas.
+Estas extensiones predeterminadas son adecuadas para la mayoría de las aplicaciones. Sin embargo, si tienes requisitos específicos, consulta la [guía de personalización de extensiones de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md#content-configuration) para obtener instrucciones sobre cómo gestionarlas.
 
-Para una lista completa de opciones de configuración, visite la documentación de configuración.
+Para una lista completa de opciones de configuración, visita la documentación de configuración.
 
-## Declare Su Contenido
+## Declara Tu Contenido
 
-Cree y gestione sus diccionarios:
+Crea y gestiona tus diccionarios:
 
 ```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
-import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
+import { type ReactNode } from "react";
+import {
+  t,
+  enu,
+  cond,
+  nest,
+  md,
+  insert,
+  file,
+  type Dictionary,
+} from "intlayer";
 
 interface Content {
   imbricatedContent: {
@@ -59,12 +70,12 @@ interface Content {
   multilingualContent: string;
   quantityContent: string;
   conditionalContent: string;
+  markdownContent: never;
   externalContent: string;
   insertionContent: string;
+  nestedContent: string;
   fileContent: string;
-  nestedContent: any;
-  markdownContent: any;
-  jsxContent: any;
+  jsxContent: ReactNode;
 }
 
 export default {
@@ -72,22 +83,22 @@ export default {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
+        stringContent: "Hola Mundo", // Contenido de cadena
+        numberContent: 123, // Contenido numérico
+        booleanContent: true, // Contenido booleano
+        javaScriptContent: `${process.env.NODE_ENV}`, // Contenido JavaScript
       },
     },
     multilingualContent: t({
       en: "English content",
       "en-GB": "English content (UK)",
       fr: "French content",
-      es: "Spanish content",
+      es: "Contenido en español",
     }),
     quantityContent: enu({
       "<-1": "Menos de menos un coche",
       "-1": "Menos un coche",
-      "0": "Sin coches",
+      "0": "Ningún coche",
       "1": "Un coche",
       ">5": "Algunos coches",
       ">19": "Muchos coches",
@@ -96,11 +107,13 @@ export default {
       true: "La validación está habilitada",
       false: "La validación está deshabilitada",
     }),
+    insertionContent: insert("¡Hola {{name}}!"),
     nestedContent: nest(
-      "navbar", // La clave del diccionario a anidar
-      "login.button" // [Opcional] La ruta al contenido a anidar
+      "navbar", // La clave del diccionario para anidar
+      "login.button" // [Opcional] La ruta al contenido para anidar
     ),
-    externalContent: fetch("https://example.com").then((res) => res.json())
+    fileContent: file("./path/to/file.txt"),
+    externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Ejemplo de Markdown"),
 
     /*
@@ -108,11 +121,11 @@ export default {
      */
     jsxContent: <h1>Mi título</h1>,
   },
-} satisfies Dictionary<Content>; // [opcional] Dictionary es genérico y permite fortalecer el formato de su diccionario
+} satisfies Dictionary<Content>; // [opcional] Dictionary es genérico y te permite reforzar el formato de tu diccionario
 ```
 
 ```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
+import { t, enu, cond, nest, md, insert, file } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 export default {
@@ -120,7 +133,7 @@ export default {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Hello World",
+        stringContent: "Hola Mundo",
         numberContent: 123,
         booleanContent: true,
         javaScriptContent: `${process.env.NODE_ENV}`,
@@ -136,7 +149,7 @@ export default {
     quantityContent: enu({
       "<-1": "Menos de menos un coche",
       "-1": "Menos un coche",
-      "0": "Sin coches",
+      "0": "Ningún coche",
       "1": "Un coche",
       ">5": "Algunos coches",
       ">19": "Muchos coches",
@@ -145,11 +158,13 @@ export default {
       true: "La validación está habilitada",
       false: "La validación está deshabilitada",
     }),
+    insertionContent: insert("¡Hola {{name}}!"),
     nestedContent: nest(
-      "navbar", // La clave del diccionario a anidar
-      "login.button" // [Opcional] La ruta al contenido a anidar
+      "navbar", // La clave del diccionario para anidar
+      "login.button" // [Opcional] La ruta al contenido para anidar
     ),
     markdownContent: md("# Ejemplo de Markdown"),
+    fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Solo disponible usando `react-intlayer` o `next-intlayer`
@@ -159,7 +174,7 @@ export default {
 ```
 
 ```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
+const { t, enu, cond, nest, md, insert, file } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 module.exports = {
@@ -167,23 +182,23 @@ module.exports = {
   content: {
     imbricatedContent: {
       imbricatedContent2: {
-        stringContent: "Hello World",
+        stringContent: "Hola Mundo",
         numberContent: 123,
         booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
+        javaScriptContent: `${process.env.NODE_ENV}`, // Contenido de JavaScript
       },
-      imbricatedArray: [1, 2, 3],
+      imbricatedArray: [1, 2, 3], // Array imbricado
     },
     multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
+      en: "Contenido en inglés",
+      "en-GB": "Contenido en inglés (Reino Unido)",
+      fr: "Contenido en francés",
+      es: "Contenido en español",
     }),
     quantityContent: enu({
       "<-1": "Menos de menos un coche",
       "-1": "Menos un coche",
-      "0": "Sin coches",
+      "0": "Ningún coche",
       "1": "Un coche",
       ">5": "Algunos coches",
       ">19": "Muchos coches",
@@ -192,11 +207,13 @@ module.exports = {
       true: "La validación está habilitada",
       false: "La validación está deshabilitada",
     }),
+    insertionContent: insert("¡Hola {{name}}!"),
     nestedContent: nest(
-      "navbar", // La clave del diccionario a anidar
-      "login.button" // [Opcional] La ruta al contenido a anidar
+      "navbar", // La clave del diccionario para anidar
+      "login.button" // [Opcional] La ruta al contenido para anidar
     ),
     markdownContent: md("# Ejemplo de Markdown"),
+    fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
     // Solo disponible usando `react-intlayer` o `next-intlayer`
@@ -212,7 +229,7 @@ module.exports = {
   "content": {
     "imbricatedContent": {
       "imbricatedContent2": {
-        "stringContent": "Hello World",
+        "stringContent": "Hola Mundo",
         "numberContent": 123,
         "booleanContent": true,
       },
@@ -221,10 +238,10 @@ module.exports = {
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "en": "English content",
-        "en-GB": "English content (UK)",
-        "fr": "French content",
-        "es": "Spanish content",
+        "en": "Contenido en inglés",
+        "en-GB": "Contenido en inglés (Reino Unido)",
+        "fr": "Contenido en francés",
+        "es": "Contenido en español",
       },
     },
     "quantityContent": {
@@ -245,6 +262,10 @@ module.exports = {
         "false": "La validación está deshabilitada",
       },
     },
+    "insertionContent": {
+      "nodeType": "insertion",
+      "insertion": "¡Hola {{name}}!",
+    },
     "nestedContent": {
       "nodeType": "nested",
       "nested": { "dictionaryKey": "app" },
@@ -252,6 +273,10 @@ module.exports = {
     "markdownContent": {
       "nodeType": "markdown",
       "markdown": "# Ejemplo de Markdown",
+    },
+    "fileContent": {
+      "nodeType": "file",
+      "file": "./path/to/file.txt",
     },
     "jsxContent": {
       "type": "h1",
@@ -267,7 +292,7 @@ module.exports = {
 
 ## Imbricación de funciones
 
-Puede sin problema imbricar funciones en otras.
+Puedes sin problema imbricar funciones dentro de otras.
 
 Ejemplo:
 
@@ -279,7 +304,7 @@ const getName = async () => "John Doe";
 export default {
   key: "page",
   content: {
-    // `getIntlayer('page','es').hiMessage` devuelve `['Hola', ' ', 'John Doe']`
+    // `getIntlayer('page','en').hiMessage` devuelve `['Hi', ' ', 'John Doe']`
     hiMessage: [
       t({
         en: "Hi",
@@ -290,7 +315,7 @@ export default {
       getName(),
     ],
     // Contenido compuesto imbricando condición, enumeración y contenido multilingüe
-    // `getIntlayer('page','es').advancedContent(true)(10) devuelve 'Se encontraron múltiples artículos'`
+    // `getIntlayer('page','en').advancedContent(true)(10)` devuelve 'Multiple items found'
     advancedContent: cond({
       true: enu({
         "0": t({
@@ -328,7 +353,7 @@ const getName = async () => "John Doe";
 export default {
   key: "page",
   content: {
-    // `getIntlayer('page','es').hiMessage` devuelve `['Hola', ' ', 'John Doe']`
+    // `getIntlayer('page','en').hiMessage` devuelve `['Hola', ' ', 'John Doe']`
     hiMessage: [
       t({
         en: "Hi",
@@ -338,8 +363,8 @@ export default {
       " ",
       getName(),
     ],
-    // Contenido compuesto imbricando condición, enumeración y contenido multilingüe
-    // `getIntlayer('page','es').advancedContent(true)(10) devuelve 'Se encontraron múltiples artículos'`
+    // Contenido compuesto que imbrica condición, enumeración y contenido multilingüe
+    // `getIntlayer('page','en').advancedContent(true)(10)` devuelve 'Se encontraron múltiples artículos'
     advancedContent: cond({
       true: enu({
         "0": t({
@@ -351,7 +376,7 @@ export default {
           en: "One item found",
           fr: "Un article trouvé",
           es: "Se encontró un artículo",
-        }),
+/        }),
         ">1": t({
           en: "Multiple items found",
           fr: "Plusieurs articles trouvés",
@@ -377,7 +402,7 @@ const getName = async () => "John Doe";
 module.exports = {
   key: "page",
   content: {
-    // `getIntlayer('page','es').hiMessage` devuelve `['Hola', ' ', 'John Doe']`
+    // `getIntlayer('page','en').hiMessage` devuelve `['Hola', ' ', 'John Doe']`
     hiMessage: [
       t({
         en: "Hi",
@@ -387,8 +412,8 @@ module.exports = {
       " ",
       getName(),
     ],
-    // Contenido compuesto imbricando condición, enumeración y contenido multilingüe
-    // `getIntlayer('page','es').advancedContent(true)(10) devuelve 'Se encontraron múltiples artículos'`
+    // Contenido compuesto que imbrica condición, enumeración y contenido multilingüe
+    // `getIntlayer('page','en').advancedContent(true)(10) devuelve 'Se encontraron múltiples artículos'`
     advancedContent: cond({
       true: enu({
         "0": t({
@@ -482,3 +507,21 @@ module.exports = {
   },
 }
 ```
+
+## Recursos Adicionales
+
+Para más detalles en Intlayer, consulte los siguientes recursos:
+
+- [Documentación de Declaración de Contenido por Localización](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/per_locale_file.md)
+- [Documentación de Contenido de Traducción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/translation.md)
+- [Documentación de Contenido de Enumeración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration.md)
+- [Documentación de Contenido de Condición](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/condition.md)
+- [Documentación de Contenido de Inserción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md)
+- [Documentación de Contenido de Archivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/file.md)
+- [Documentación de Contenido Anidado](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/nesting.md)
+- [Documentación de Contenido Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md)
+- [Documentación de Contenido de Obtención de Funciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/function_fetching.md)
+
+## Historial del Documento
+
+- 5.5.10 - 2025-06-29: Historial inicial

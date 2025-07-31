@@ -1,9 +1,6 @@
 ---
-docName: package__preact-intlayer
-url: https://intlayer.org/doc/packages/preact-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/preact-intlayer/index.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Package Documentation | preact-intlayer
 description: See how to use the preact-intlayer package
 keywords:
@@ -13,6 +10,10 @@ keywords:
   - Documentation
   - JavaScript
   - Preact
+slugs:
+  - doc
+  - packages
+  - preact-intlayer
 ---
 
 # preact-intlayer: NPM Package to internationalize (i18n) an Preact application
@@ -46,3 +47,9 @@ yarn add preact-intlayer
 ```bash packageManager="pnpm"
 pnpm add preact-intlayer
 ```
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

@@ -1,11 +1,8 @@
 ---
-docName: package__react-intlayer
-url: https://intlayer.org/doc/packages/react-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Documentación del paquete | react-intlayer
-description: Descubre cómo usar el paquete react-intlayer
+updatedAt: 2025-06-29
+title: Documentación del Paquete | react-intlayer
+description: Vea cómo usar el paquete react-intlayer
 keywords:
   - Intlayer
   - react-intlayer
@@ -14,27 +11,31 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
 ---
 
 # react-intlayer: Paquete NPM para internacionalizar (i18n) una aplicación React
 
-**Intlayer** es un conjunto de paquetes diseñados específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
+**Intlayer** es una suite de paquetes diseñada específicamente para desarrolladores de JavaScript. Es compatible con frameworks como React, React y Express.js.
 
 **El paquete `react-intlayer`** te permite internacionalizar tu aplicación React. Proporciona proveedores de contexto y hooks para la internacionalización en React.
 
 ## ¿Por qué internacionalizar tu aplicación React?
 
-Internacionalizar tu aplicación React es esencial para atender eficazmente a una audiencia global. Permite que tu aplicación entregue contenido y mensajes en el idioma preferido de cada usuario. Esta capacidad mejora la experiencia del usuario y amplía el alcance de tu aplicación al hacerla más accesible y relevante para personas de diferentes antecedentes lingüísticos.
+Internacionalizar tu aplicación React es esencial para atender eficazmente a una audiencia global. Permite que tu aplicación entregue contenido y mensajes en el idioma preferido de cada usuario. Esta capacidad mejora la experiencia del usuario y amplía el alcance de tu aplicación al hacerla más accesible y relevante para personas de diferentes orígenes lingüísticos.
 
 ## ¿Por qué integrar Intlayer?
 
 - **Gestión de contenido impulsada por JavaScript**: Aprovecha la flexibilidad de JavaScript para definir y gestionar tu contenido de manera eficiente.
-- **Entorno seguro para tipos**: Utiliza TypeScript para garantizar que todas tus definiciones de contenido sean precisas y sin errores.
+- **Entorno con tipado seguro**: Aprovecha TypeScript para asegurar que todas tus definiciones de contenido sean precisas y sin errores.
 - **Archivos de contenido integrados**: Mantén tus traducciones cerca de sus respectivos componentes, mejorando la mantenibilidad y claridad.
 
 ## Instalación
 
-Instala el paquete necesario utilizando tu gestor de paquetes preferido:
+Instala el paquete necesario usando tu gestor de paquetes preferido:
 
 ```bash packageManager="npm"
 npm install react-intlayer
@@ -50,11 +51,11 @@ pnpm add react-intlayer
 
 ## Ejemplo de uso
 
-Con Intlayer, puedes declarar tu contenido de manera estructurada en cualquier lugar de tu base de código.
+Con Intlayer, puedes declarar tu contenido de manera estructurada en cualquier parte de tu base de código.
 
-Por defecto, Intlayer busca archivos con la extensión `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
+Por defecto, Intlayer escanea archivos con la extensión `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
 
-> Puedes modificar la extensión predeterminada configurando la propiedad `contentDir` en el [archivo de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+> Puedes modificar la extensión por defecto configurando la propiedad `contentDir` en el [archivo de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 ```bash codeFormat="typescript"
 .
@@ -97,19 +98,18 @@ Por defecto, Intlayer busca archivos con la extensión `.content.{json,ts,tsx,js
 
 ### Declara tu contenido
 
-`react-intlayer` está diseñado para trabajar con el paquete [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/index.md). `intlayer` es un paquete que te permite declarar tu contenido en cualquier lugar de tu código. Convierte las declaraciones de contenido multilingüe en diccionarios estructurados que se integran perfectamente en tu aplicación.
+`react-intlayer` está diseñado para funcionar con el paquete [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/index.md). `intlayer` es un paquete que te permite declarar tu contenido en cualquier parte de tu código. Convierte las declaraciones de contenido multilingüe en diccionarios estructurados que se integran perfectamente en tu aplicación.
 
 Aquí tienes un ejemplo de declaración de contenido:
 
 ```tsx fileName="src/Component1/index.content.ts" codeFormat="typescript"
-// Declaración de contenido para el componente 1
 import { t, type Dictionary } from "intlayer";
 
 const component1Content = {
   key: "component-1",
   content: {
     myTranslatedContent: t({
-      en: "Hello World",
+      en: "Hola Mundo",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
     }),
@@ -128,7 +128,6 @@ export default component1Content;
 ```
 
 ```jsx fileName="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
-// Declaración de contenido para el componente 1
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
@@ -136,7 +135,7 @@ const component1Content = {
   key: "component-1",
   content: {
     myTranslatedContent: t({
-      en: "Hello World",
+      en: "Hola Mundo",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
     }),
@@ -155,7 +154,6 @@ export default component1Content;
 ```
 
 ```jsx fileName="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
-// Declaración de contenido para el componente 1
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
@@ -163,7 +161,7 @@ const component1Content = {
   key: "component-1",
   content: {
     myTranslatedContent: t({
-      en: "Hello World",
+      en: "Hola Mundo",
       fr: "Bonjour le monde",
       es: "Hola Mundo",
     }),
@@ -215,12 +213,11 @@ Una vez que hayas declarado tu contenido, puedes usarlo en tu código. Aquí tie
 ```tsx {4,7} fileName="src/components/Component1Example.tsx" codeFormat="typescript"
 "use client";
 
-// Ejemplo de uso del contenido declarado
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 export const Component1Example: FC = () => {
-  const { myTranslatedContent } = useIntlayer("component-1"); // Crear declaración de contenido relacionada
+  const { myTranslatedContent } = useIntlayer("component-1"); // Crear declaración de contenido relacionado
 
   return (
     <div>
@@ -233,11 +230,10 @@ export const Component1Example: FC = () => {
 ```jsx {3,6} fileName="src/components/Component1Example.mjx" codeFormat="esm"
 "use client";
 
-// Ejemplo de uso del contenido declarado
 import { useIntlayer } from "react-intlayer";
 
 const Component1Example = () => {
-  const { myTranslatedContent } = useIntlayer("component-1"); // Crear declaración de contenido relacionada
+  const { myTranslatedContent } = useIntlayer("component-1"); // Crear declaración de contenido relacionado
 
   return (
     <div>
@@ -250,11 +246,10 @@ const Component1Example = () => {
 ```jsx {3,6} fileName="src/components/Component1Example.csx" codeFormat="commonjs"
 "use client";
 
-// Ejemplo de uso del contenido declarado
 const { useIntlayer } = require("react-intlayer");
 
 const Component1Example = () => {
-  const { myTranslatedContent } = useIntlayer("component-1"); // Crear declaración de contenido relacionada
+  const { myTranslatedContent } = useIntlayer("component-1"); // Crear declaración de contenido relacionado
 
   return (
     <div>
@@ -264,11 +259,11 @@ const Component1Example = () => {
 };
 ```
 
-## Domina la internacionalización de tu aplicación React
+## Dominando la internacionalización de tu aplicación React
 
-Intlayer proporciona muchas características para ayudarte a internacionalizar tu aplicación React.
+Intlayer ofrece muchas funcionalidades para ayudarte a internacionalizar tu aplicación React.
 
-**Para aprender más sobre estas características, consulta la guía [Internacionalización (i18n) en React con Intlayer y Vite y React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md) para aplicaciones Vite y React, o la guía [Internacionalización (i18n) en React con Intlayer y React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md) para aplicaciones creadas con React Create App.**
+**Para aprender más sobre estas características, consulta la guía [Internacionalización (i18n) en React con Intlayer, Vite y React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md) para aplicaciones Vite y React, o la guía [Internacionalización (i18n) en React con Intlayer y React (CRA)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md) para React Create App.**
 
 ## Funciones proporcionadas por el paquete `react-intlayer`
 
@@ -279,3 +274,7 @@ El paquete `react-intlayer` también proporciona algunas funciones para ayudarte
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md)
 - [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayerAsync.md)
+
+## Historial de la documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

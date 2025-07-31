@@ -1,16 +1,17 @@
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { intlayerBabelPlugin } from '@intlayer/babel';
-import { ESMxCJSRequire } from '@intlayer/config';
-import configuration from '@intlayer/config/built';
+import { ESMxCJSRequire, IntlayerConfig } from '@intlayer/config';
 import fg from 'fast-glob';
 import { join } from 'path';
 import { type PluginOption } from 'vite';
 
-export const IntlayerPrunePlugin = (): PluginOption => {
-  const { optimize, activateDynamicImport, traversePattern } =
-    configuration.build;
+export const IntlayerPrunePlugin = (
+  intlayerConfig: IntlayerConfig
+): PluginOption => {
+  const { optimize, importMode, traversePattern } = intlayerConfig.build;
+
   const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
-    configuration.content;
+    intlayerConfig.content;
 
   const filesListPattern = fg
     .sync(traversePattern, {
@@ -58,7 +59,7 @@ export const IntlayerPrunePlugin = (): PluginOption => {
                 dictionariesEntryPath,
                 dynamicDictionariesDir,
                 dynamicDictionariesEntryPath,
-                activateDynamicImport,
+                importMode,
                 filesList,
                 replaceDictionaryEntry: false,
               },

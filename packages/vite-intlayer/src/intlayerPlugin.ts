@@ -1,5 +1,5 @@
 import { cleanOutputDir, prepareIntlayer, watch } from '@intlayer/chokidar';
-import { getConfiguration } from '@intlayer/config';
+import intlayerConfig from '@intlayer/config/built';
 import { join, relative, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { type PluginOption } from 'vite';
@@ -18,8 +18,7 @@ cleanOutputDir();
  * });
  * ```
  *  */
-export const intlayerPlugin = (pluginOptions = {}): PluginOption => {
-  const intlayerConfig = getConfiguration();
+export const intlayerPlugin = (): PluginOption => {
   const {
     mainDir,
     configDir,
@@ -78,9 +77,6 @@ export const intlayerPlugin = (pluginOptions = {}): PluginOption => {
       },
 
       configureServer: async (server) => {
-        // Runs when the dev server starts
-        const intlayerConfig = getConfiguration();
-
         if (intlayerConfig.content.watch) {
           // Start watching (assuming watch is also async)
           watch({ configuration: intlayerConfig });
@@ -89,7 +85,6 @@ export const intlayerPlugin = (pluginOptions = {}): PluginOption => {
 
       buildStart: async () => {
         // Code to run when Vite build starts
-        const intlayerConfig = getConfiguration();
         await prepareIntlayer(intlayerConfig);
       },
     },
@@ -97,7 +92,7 @@ export const intlayerPlugin = (pluginOptions = {}): PluginOption => {
 
   // Add Babel transform plugin if enabled
   if (optimize) {
-    plugins.push(IntlayerPrunePlugin());
+    plugins.push(IntlayerPrunePlugin(intlayerConfig));
   }
 
   return plugins;

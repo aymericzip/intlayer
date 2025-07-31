@@ -1,9 +1,10 @@
-import { cleanOutputDir } from '@intlayer/chokidar';
+import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
   getAppLogger,
   getConfiguration,
   IntlayerConfig,
+  normalizePath,
 } from '@intlayer/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import merge from 'deepmerge';
@@ -13,8 +14,6 @@ import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import { join, relative, resolve } from 'path';
 import { compareVersions } from './compareVersion';
 import { getNextVersion } from './getNextVertion';
-
-cleanOutputDir();
 
 // Extract from the start script if --turbo or --turbopack flag is used
 const isTurbopackEnabled =
@@ -37,8 +36,7 @@ const getIsSwcPluginAvailable = () => {
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig
 ): Partial<NextConfig> => {
-  const { optimize, traversePattern, activateDynamicImport } =
-    intlayerConfig.build;
+  const { optimize, traversePattern, importMode } = intlayerConfig.build;
   const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
     intlayerConfig.content;
 
@@ -52,7 +50,11 @@ const getPruneConfig = (
 
   const logger = getAppLogger(intlayerConfig);
 
-  logger('Intlayer prune plugin is enabled');
+  runOnce(
+    join(baseDir, '.next', 'cache', 'intlayer-prune-plugin-enabled.lock'),
+    () => logger('Intlayer prune plugin is enabled'),
+    1000 * 10 // 10 seconds
+  );
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
 
@@ -82,7 +84,7 @@ const getPruneConfig = (
             dictionariesEntryPath,
             dynamicDictionariesDir,
             dynamicDictionariesEntryPath,
-            activateDynamicImport,
+            importMode,
             filesList,
             replaceDictionaryEntry: false,
           } as any,
@@ -105,14 +107,24 @@ type WebpackParams = Parameters<NextJsWebpackConfig>;
  * export default withIntlayer(nextConfig)
  * ```
  */
-export const withIntlayer = <T extends Partial<NextConfig>>(
+export const withIntlayer = async <T extends Partial<NextConfig>>(
   nextConfig: T = {} as T
-): NextConfig & T => {
+): Promise<NextConfig & T> => {
   if (typeof nextConfig !== 'object') {
     nextConfig = {} as T;
   }
 
   const intlayerConfig = getConfiguration();
+
+  const sentinelPath = join(
+    intlayerConfig.content.baseDir,
+    '.next',
+    'cache',
+    'intlayer-prepared.lock'
+  );
+
+  // Only call prepareIntlayer once per server startup
+  await runOnce(sentinelPath, () => prepareIntlayer(intlayerConfig));
 
   // Format all configuration values as environment variables
   const { mainDir, configDir, baseDir } = intlayerConfig.content;
@@ -132,10 +144,15 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {
     resolveAlias: {
-      // "prefix by './' to consider the path as relative to the project root. This is necessary for turbo to work correctly."
-      '@intlayer/dictionaries-entry': `./${relativeDictionariesPath}`,
-      '@intlayer/unmerged-dictionaries-entry': `./${relativeUnmergedDictionariesPath}`,
-      '@intlayer/config/built': `./${relativeConfigurationPath}`,
+      // prefix by './' to consider the path as relative to the project root. This is necessary for turbopack to work correctly.
+      // Normalize the path to avoid issues with the path separator on Windows
+      '@intlayer/dictionaries-entry': normalizePath(
+        `./${relativeDictionariesPath}`
+      ),
+      '@intlayer/unmerged-dictionaries-entry': normalizePath(
+        `./${relativeUnmergedDictionariesPath}`
+      ),
+      '@intlayer/config/built': normalizePath(`./${relativeConfigurationPath}`),
     },
     rules: {
       '*.node': {
@@ -215,7 +232,12 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
       // Only add Intlayer plugin on server side (node runtime)
       const { isServer, nextRuntime } = options;
 
-      if (isServer && nextRuntime === 'nodejs') {
+      // Skip preparation when running next start (production mode)
+      const isBuildCommand =
+        process.env.npm_lifecycle_event === 'build' ||
+        process.argv.some((arg) => arg === 'build');
+
+      if (!isBuildCommand && isServer && nextRuntime === 'nodejs') {
         config.plugins.push(new IntlayerPlugin());
       }
 
@@ -228,5 +250,7 @@ export const withIntlayer = <T extends Partial<NextConfig>>(
   const intlayerNextConfig: Partial<NextConfig> = merge(pruneConfig, newConfig);
 
   // Merge the new config with the user's config
-  return merge(nextConfig, intlayerNextConfig) as NextConfig & T;
+  const result = merge(nextConfig, intlayerNextConfig) as NextConfig & T;
+
+  return result;
 };

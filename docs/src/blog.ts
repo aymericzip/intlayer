@@ -1,102 +1,51 @@
-import { Locales } from '@intlayer/config';
-import { localeRecord } from 'intlayer';
-import { readFileContent } from './readFileContent';
+import { LocalesValues } from 'intlayer';
+import {
+  defaultLocale,
+  FileMetadata,
+  getFile,
+  getFileBySlug,
+  getFileMetadata,
+  getFileMetadataBySlug,
+  getFileMetadataRecord,
+  getFiles,
+} from './common';
+import { blogEntry } from './generated/blog.entry';
 
-const blogs = {
-  index: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/index.md`)
-  ),
-  what_is_internationalization: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/what_is_internationalization.md`)
-  ),
-  internationalization_and_SEO: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/internationalization_and_SEO.md`)
-  ),
-  'intlayer_with_next-i18next': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/intlayer_with_next-i18next.md`)
-  ),
-  'intlayer_with_next-intl': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/intlayer_with_next-intl.md`)
-  ),
-  'intlayer_with_react-i18next': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/intlayer_with_react-i18next.md`)
-  ),
-  'intlayer_with_react-intl': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/intlayer_with_react-intl.md`)
-  ),
-  'next-i18next_vs_next-intl_vs_intlayer': localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/next-i18next_vs_next-intl_vs_intlayer.md`)
-  ),
-  'react-i18next_vs_react-intl_vs_intlayer': localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/react-i18next_vs_react-intl_vs_intlayer.md`
-    )
-  ),
-  list_i18n_technologies__frameworks__angular: localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/list_i18n_technologies/frameworks/angular.md`
-    )
-  ),
-  list_i18n_technologies__frameworks__react: localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/list_i18n_technologies/frameworks/react.md`
-    )
-  ),
-  list_i18n_technologies__frameworks__vue: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/list_i18n_technologies/frameworks/vue.md`)
-  ),
-  list_i18n_technologies__frameworks__svelte: localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/list_i18n_technologies/frameworks/svelte.md`
-    )
-  ),
-  list_i18n_technologies__frameworks__flutter: localeRecord(({ locale }) =>
-    readFileContent(
-      `/blog/${locale}/list_i18n_technologies/frameworks/flutter.md`
-    )
-  ),
-  'list_i18n_technologies__frameworks__react-native': localeRecord(
-    ({ locale }) =>
-      readFileContent(
-        `/blog/${locale}/list_i18n_technologies/frameworks/react-native.md`
-      )
-  ),
-  list_i18n_technologies__CMS__wordpress: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/list_i18n_technologies/CMS/wordpress.md`)
-  ),
-  list_i18n_technologies__CMS__drupal: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/list_i18n_technologies/CMS/drupal.md`)
-  ),
-  list_i18n_technologies__CMS__wix: localeRecord(({ locale }) =>
-    readFileContent(`/blog/${locale}/list_i18n_technologies/CMS/wix.md`)
-  ),
-};
+export type BlogKey = keyof typeof blogEntry;
+export type Blogs = Record<BlogKey, Record<LocalesValues, Promise<string>>>;
+export type BlogMetadata = FileMetadata;
 
-export const getBlogs = async (lang = Locales.ENGLISH) => {
-  const blogsEntries = await Promise.all(
-    Object.entries(blogs)
-      .map(([key, value]) => [key, value[lang]])
-      .map(async ([key, value]) => [key, await value])
-  );
-  const blogsResult = Object.fromEntries(blogsEntries);
-  return blogsResult;
-};
+export const getBlogs = async <L extends LocalesValues>(
+  locale: L = defaultLocale as L
+): Promise<Record<BlogKey, string>> => await getFiles(blogEntry, locale);
 
-export const getBlog = async (
-  docName: keyof typeof blogs,
-  lang = Locales.ENGLISH
-) => {
-  const blog = await blogs[docName]?.[lang];
+export const getBlog = async <L extends LocalesValues>(
+  docName: BlogKey,
+  locale: L = defaultLocale as L
+): Promise<string> => await getFile(blogEntry, docName, locale);
 
-  if (!blog) {
-    const englishBlog = await blogs[docName][Locales.ENGLISH];
+export const getBlogMetadataRecord = async <L extends LocalesValues>(
+  locale: L = defaultLocale as L
+): Promise<Record<BlogKey, FileMetadata>> =>
+  await getFileMetadataRecord(blogEntry, locale);
 
-    if (!englishBlog) {
-      throw new Error(`Blog ${docName} not found`);
-    }
+export const getBlogMetadata = async <
+  D extends BlogKey,
+  L extends LocalesValues,
+>(
+  docName: D,
+  locale: L = defaultLocale as L
+): Promise<FileMetadata> => await getFileMetadata(blogEntry, docName, locale);
 
-    return englishBlog;
-  }
+export const getBlogMetadataBySlug = async <L extends LocalesValues>(
+  slugs: string | string[],
+  locale: L = defaultLocale as L,
+  strict = false
+): Promise<FileMetadata[]> =>
+  await getFileMetadataBySlug(blogEntry, slugs, locale, strict);
 
-  return blog;
-};
+export const getBlogBySlug = async <L extends LocalesValues>(
+  slugs: string | string[],
+  locale: L = defaultLocale as L,
+  strict = false
+): Promise<string[]> => await getFileBySlug(blogEntry, slugs, locale, strict);

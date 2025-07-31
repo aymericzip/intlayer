@@ -1,30 +1,30 @@
 ---
-docName: dictionary__translation
-url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 翻訳
-description: あなたの多言語ウェブサイトで翻訳を宣言し、使用する方法を発見してください。このオンラインドキュメントの手順に従って、数分でプロジェクトを設定してください。
+description: 多言語ウェブサイトでの翻訳の宣言と使用方法を紹介します。このオンラインドキュメントの手順に従って、数分でプロジェクトをセットアップしましょう。
 keywords:
   - 翻訳
   - 国際化
-  - 文書
+  - ドキュメント
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - translation
 ---
 
 # 翻訳
 
 ## 翻訳の定義
 
-`intlayer` の `t` 関数を使用すると、複数の言語でコンテンツを宣言できます。この関数は型の安全性を確保し、翻訳が不足している場合にエラーを発生させます。これは特に TypeScript 環境で役立ちます。
+`intlayer` の `t` 関数を使うと、複数言語でコンテンツを宣言できます。この関数は型安全性を保証し、翻訳が欠けている場合にエラーを発生させます。これは特に TypeScript 環境で役立ちます。
 
-### TypeScript の使用
-
-以下は、翻訳を使用してコンテンツを宣言する方法の例です。
+以下は翻訳付きのコンテンツを宣言する例です。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -94,7 +94,35 @@ module.exports = {
 
 ## ロケールの設定
 
-適切な翻訳処理を確保するために、`intlayer.config.ts` で受け入れ可能なロケールを設定できます。この設定により、アプリケーションがサポートする言語を定義できます。
+適切な翻訳処理を行うために、`intlayer.config.ts`で受け入れるロケールを設定できます。この設定により、アプリケーションがサポートする言語を定義できます。
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+      "nodeType": "translation",
+      "translation": {
+        "en": "Welcome to our application",
+        "fr": "Bienvenue dans notre application",
+        "es": "Bienvenido a nuestra aplicación"
+      }
+    }
+  }
+}
+```
+
+## ロケールの設定
+
+適切な翻訳処理を確実にするために、`intlayer.config.ts`で受け入れるロケールを設定できます。この設定により、アプリケーションがサポートする言語を定義できます。
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -134,9 +162,9 @@ const config = {
 module.exports = config;
 ```
 
-## React コンポーネントでの翻訳の使用
+## Reactコンポーネントでの翻訳の使用
 
-`react-intlayer` を使用すると、React コンポーネントで翻訳を使用できます。以下はその例です。
+`react-intlayer`を使用すると、Reactコンポーネント内で翻訳を利用できます。以下はその例です：
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -191,7 +219,42 @@ module.exports = MyComponent;
 
 ## カスタムコンテンツオブジェクト
 
-`intlayer` は翻訳用のカスタムコンテンツオブジェクトをサポートしており、より複雑な構造を定義しながら型の安全性を確保できます。以下はカスタムオブジェクトの例です。
+`intlayer`は、翻訳のためのカスタムコンテンツオブジェクトをサポートしており、より複雑な構造を定義しつつ型安全性を確保できます。以下はカスタムオブジェクトの例です：
+
+```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+import { t, type Dictionary } from "intlayer";
+
+interface ICustomContent {
+  title: string;
+  content: string;
+}
+
+const customContent = {
+  key: "custom_content",
+  content: {
+    profileText: t<ICustomContent>({
+      en: {
+        title: "Page Title",
+        content: "Page Content",
+      },
+      fr: {
+        title: "Titre de la Page",
+        content: "Contenu de la Page",
+      },
+      es: {
+        title: "Título de la Página",
+        content: "Contenido de la Página",
+      },
+    }),
+  },
+} satisfies Dictionary<ICustomContent>;
+```
+
+このコンポーネントは、アプリケーションで設定された現在のロケールに基づいて対応する翻訳を取得します。
+
+## カスタムコンテンツオブジェクト
+
+`intlayer` は、翻訳のためのカスタムコンテンツオブジェクトをサポートしており、より複雑な構造を定義しつつ型安全性を確保できます。以下はカスタムオブジェクトの例です：
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -263,7 +326,7 @@ module.exports = {
       {
         en: {
           title: "Page Title",
-          content: "Page Content",
+          content: "ページの内容",
         },
         fr: {
           title: "Titre de la Page",
@@ -287,8 +350,8 @@ module.exports = {
       "nodeType": "translation",
       "translation": {
         "en": {
-          "title": "Page Title",
-          "content": "Page Content"
+          "title": "ページタイトル",
+          "content": "ページコンテンツ"
         },
         "fr": {
           "title": "Titre de la Page",
@@ -303,3 +366,7 @@ module.exports = {
   }
 }
 ```
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 初期履歴

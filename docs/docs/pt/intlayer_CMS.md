@@ -1,9 +1,6 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: CMS Intlayer | Externe seu conteúdo no CMS Intlayer
 description: Externe seu conteúdo no CMS Intlayer para delegar a gestão do seu conteúdo ao seu time.
 keywords:
@@ -15,6 +12,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer Sistema de Gerenciamento de Conteúdo (CMS) Documentação
@@ -194,9 +196,6 @@ const config = {
      *
      * A URL do Intlayer CMS.
      * Por padrão, está definido como https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
     /**
      * Opcional
      *
@@ -236,7 +235,7 @@ Este comando carrega sua configuração para o Intlayer CMS.
 
 ### Enviar um dicionário
 
-Para transformar seus dicionários locais em um dicionário distante, você pode usar os comandos do [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/pt/intlayer_cli.md).
+Para transformar seus dicionários locais em um dicionário remoto, você pode usar os comandos do [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/pt/intlayer_cli.md).
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
@@ -259,8 +258,7 @@ Então, você poderá ver e gerenciar seu dicionário no [Intlayer CMS](https://
 O Intlayer CMS é capaz de recarregar os dicionários automaticamente quando uma alteração é detectada.
 
 Sem o hot reloading, será necessário um novo build do aplicativo para exibir o novo conteúdo.
-
-Ao ativar a configuração [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration), o aplicativo substituirá automaticamente o conteúdo atualizado quando detectado.
+Ao ativar a configuração [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration), o aplicativo substituirá automaticamente o conteúdo atualizado quando ele for detectado.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -333,8 +331,7 @@ O hot reloading substitui o conteúdo tanto no lado do servidor quanto no lado d
 
 - No lado do servidor, você deve garantir que o processo do aplicativo tenha acesso de gravação ao diretório `.intlayer/dictionaries`.
 - No lado do cliente, o hot reloading permite que o aplicativo recarregue o conteúdo no navegador, sem a necessidade de recarregar a página. No entanto, este recurso está disponível apenas para componentes clientes.
-
-> Como o hot reloading requer uma conexão contínua com o servidor usando um `EventListener`, ele está disponível apenas para clientes do plano `enterprise`.
+  > Como o hot reloading requer uma conexão contínua com o servidor usando um `EventListener`, ele está disponível apenas para clientes do plano `enterprise`.
 
 ## Depuração
 
@@ -346,8 +343,11 @@ Se você encontrar problemas com o CMS, verifique o seguinte:
 
   - Campos obrigatórios:
     - A URL do aplicativo deve corresponder à que você definiu na configuração do editor (`applicationURL`).
-    - A URL do CMS.
+    - A URL do CMS
 
 - Certifique-se de que a configuração do projeto foi enviada para o Intlayer CMS.
+- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permita a URL do CMS como `frame-ancestors` ('https://intlayer.org' por padrão). Verifique o console do editor para quaisquer erros.
 
-- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permite a URL do CMS como `frame-ancestors` ('https://intlayer.org' por padrão). Verifique o console do editor para quaisquer erros.
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

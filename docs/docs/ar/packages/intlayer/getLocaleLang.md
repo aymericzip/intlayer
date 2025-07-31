@@ -1,51 +1,51 @@
 ---
-docName: package__intlayer__getLocaleLang
-url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: وثائق دالة getLocaleLang | intlayer
-description: انظر كيف تستخدم دالة getLocaleLang لحزمة intlayer
+updatedAt: 2025-06-29
+title: توثيق دالة getLocaleLang | intlayer
+description: تعرف على كيفية استخدام دالة getLocaleLang لحزمة intlayer
 keywords:
   - getLocaleLang
-  - ترجمة
+  - الترجمة
   - Intlayer
   - intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleLang
 ---
 
-To translate this file into Arabic (العربية):
-
-# التوثيق: وظيفة `getLocaleLang` في `intlayer`
+# التوثيق: دالة `getLocaleLang` في `intlayer`
 
 ## الوصف
 
-وظيفة `getLocaleLang` تستخرج رمز اللغة من سلسلة اللغة المحلية. تدعم اللغات المحلية مع أو بدون رموز الدول. إذا لم يتم توفير لغة محلية، فإنها تعود افتراضياً بسلسلة فارغة.
+تقوم دالة `getLocaleLang` باستخراج رمز اللغة من سلسلة الموقع locale. تدعم المواقع التي تحتوي على رموز دولية أو بدونها. إذا لم يتم توفير موقع، فإنها تعيد قيمة فارغة بشكل افتراضي.
 
-## المعلمات
+## المعاملات
 
 - `locale?: Locales`
 
-  - **الوصف**: سلسلة اللغة المحلية (على سبيل المثال، `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) التي يتم استخراج رمز اللغة منها.
+  - **الوصف**: سلسلة الموقع (مثل `Locales.ENGLISH_UNITED_STATES`، `Locales.FRENCH_CANADA`) التي يتم استخراج رمز اللغة منها.
   - **النوع**: `Locales` (اختياري)
 
-## الإرجاع
+## القيم المرجعة
 
 - **النوع**: `string`
-- **الوصف**: رمز اللغة المستخرج من اللغة المحلية. إذا لم يتم توفير اللغة المحلية، فإنه يعود بسلسلة فارغة (`''`).
+- **الوصف**: رمز اللغة المستخرج من الموقع. إذا لم يتم توفير الموقع، تعيد قيمة فارغة (`''`).
 
 ## مثال على الاستخدام
 
-### استخراج رموز اللغات:
+### استخراج رموز اللغة:
 
 ```typescript codeFormat="typescript"
 import { getLocaleLang, Locales } from "intlayer";
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // الناتج: "en"
+getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // الناتج: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // الناتج: "fr"
 getLocaleLang(Locales.FRENCH); // الناتج: "fr"
@@ -71,11 +71,13 @@ getLocaleLang(Locales.FRENCH); // الناتج: "fr"
 
 ## الحالات الخاصة
 
-- **عدم توفير لغة محلية:**
+- **عدم توفير الموقع:**
 
-  - تعود الوظيفة بسلسلة فارغة عندما تكون `locale` غير معرفة.
+- تُعيد الدالة سلسلة فارغة عندما يكون `locale` غير معرف (`undefined`).
 
-- **سلاسل لغة محلية غير صحيحة:**
-  - إذا لم تتبع `locale` تنسيق `language-country` (على سبيل المثال، `Locales.ENGLISH-US`)، فإن الوظيفة تعود بأمان بالجزء قبل `'-'` أو السلسلة الكاملة إذا لم يكن هناك `'-'`.
+- **سلاسل الموقع المشوهة:**
+  - إذا لم يتبع `locale` تنسيق `language-country` (مثلًا، `Locales.ENGLISH-US`)، فإن الدالة تُعيد بأمان الجزء الذي يسبق `'-'` أو السلسلة كاملة إذا لم يكن هناك `'-'`.
 
-[رابط التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/**/*.md)
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

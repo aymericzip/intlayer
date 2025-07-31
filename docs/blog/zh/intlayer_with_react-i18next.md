@@ -1,9 +1,6 @@
 ---
-blogName: intlayer_with_react-i18next
-url: https://intlayer.org/blog/intlayer-with-react-i18next
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_react-i18next.md
 createdAt: 2025-01-02
-updatedAt: 2025-01-02
+updatedAt: 2025-06-29
 title: Intlayer和react-i18next
 description: 比较React应用程序的react-i18next与Intlayer
 keywords:
@@ -15,6 +12,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - intlayer-with-react-i18next
 ---
 
 # React 国际化 (i18n) 与 react-i18next 和 Intlayer

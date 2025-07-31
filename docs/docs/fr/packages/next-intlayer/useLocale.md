@@ -1,10 +1,7 @@
 ---
-docName: package__next-intlayer__useLocale
-url: https://intlayer.org/doc/packages/next-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Documentation du hook useLocale | next-intlayer
+updatedAt: 2025-06-29
+title: Documentation du Hook useLocale | next-intlayer
 description: Découvrez comment utiliser le hook useLocale pour le package next-intlayer
 keywords:
   - useLocale
@@ -16,15 +13,20 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useLocale
 ---
 
 # Intégration Next.js : Documentation du Hook `useLocale` pour `next-intlayer`
 
-Cette section offre une documentation détaillée sur le hook `useLocale` conçu pour les applications Next.js dans la bibliothèque `next-intlayer`. Il est conçu pour gérer efficacement les changements de langue et le routage.
+Cette section offre une documentation détaillée sur le hook `useLocale` conçu pour les applications Next.js au sein de la bibliothèque `next-intlayer`. Il est conçu pour gérer efficacement les changements de langue et le routage.
 
 ## Importer `useLocale` dans Next.js
 
-Pour utiliser le hook `useLocale` dans votre application Next.js, importez-le comme suit :
+Pour utiliser le hook `useLocale` dans votre application Next.js, importez-le comme indiqué ci-dessous :
 
 ```javascript
 import { useLocale } from "next-intlayer"; // Utilisé pour gérer les langues et le routage dans Next.js
@@ -110,16 +112,20 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## Paramètres et Valeurs de Retour
+## Paramètres et valeurs de retour
 
 Lorsque vous invoquez le hook `useLocale`, il retourne un objet contenant les propriétés suivantes :
 
-- **`locale`** : La langue actuelle définie dans le contexte React.
+- **`locale`** : La langue actuelle telle que définie dans le contexte React.
 - **`defaultLocale`** : La langue principale définie dans la configuration.
-- **`availableLocales`** : Une liste de toutes les langues disponibles définies dans la configuration.
-- **`setLocale`** : Une fonction pour changer la langue de l'application et mettre à jour l'URL en conséquence. Elle gère les règles de préfixe, qu'il s'agisse d'ajouter ou non la langue au chemin en fonction de la configuration. Utilise `useRouter` de `next/navigation` pour les fonctions de navigation comme `push` et `refresh`.
-- **`pathWithoutLocale`** : Une propriété calculée qui retourne le chemin sans la langue. Elle est utile pour comparer les URLs. Par exemple, si la langue actuelle est `fr`, et l'url `fr/my_path`, le chemin sans langue est `/my_path`. Utilise `usePathname` de `next/navigation` pour obtenir le chemin actuel.
+- **`availableLocales`** : Une liste de toutes les langues disponibles telles que définies dans la configuration.
+- **`setLocale`** : Une fonction pour changer la langue de l'application et mettre à jour l'URL en conséquence. Elle gère les règles de préfixe, que ce soit pour ajouter ou non la langue au chemin en fonction de la configuration. Utilise `useRouter` de `next/navigation` pour les fonctions de navigation comme `push` et `refresh`.
+- **`pathWithoutLocale`** : Une propriété calculée qui retourne le chemin sans la langue. Elle est utile pour comparer les URLs. Par exemple, si la langue actuelle est `fr`, et l'URL est `fr/my_path`, le chemin sans langue est `/my_path`. Utilise `usePathname` de `next/navigation` pour obtenir le chemin actuel.
 
 ## Conclusion
 
-Le hook `useLocale` de `next-intlayer` est un outil essentiel pour gérer les langues dans les applications Next.js. Il offre une approche intégrée pour adapter votre application à plusieurs langues en gérant le stockage des langues, la gestion des états et les modifications d'URL de manière transparente.
+Le hook `useLocale` de `next-intlayer` est un outil essentiel pour gérer les langues dans les applications Next.js. Il offre une approche intégrée pour adapter votre application à plusieurs langues en gérant de manière transparente le stockage de la langue, la gestion de l'état et les modifications d'URL.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

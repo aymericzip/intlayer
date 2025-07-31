@@ -1,19 +1,21 @@
 ---
-docName: dictionary__translation
-url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Translation
 description: Discover how to declare and use translation in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
   - Translation
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - translation
 ---
 
 # Translation
@@ -22,7 +24,7 @@ keywords:
 
 The `t` function in `intlayer` allows you to declare content in multiple languages. This function ensures type safety, raising an error if any translations are missing, which is particularly useful in TypeScript environments.
 
-Here's an example of how to declare content with translations.
+Here is an example of how to declare content with translations.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -35,7 +37,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en-GB: "Welcome to our application",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -50,7 +52,7 @@ export default {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en-GB: "Welcome to our application",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -65,7 +67,7 @@ module.exports = {
   key: "multi_lang",
   content: {
     welcomeMessage: t({
-      en-GB: "Welcome to our application",
+      en: "Welcome to our application",
       fr: "Bienvenue dans notre application",
       es: "Bienvenido a nuestra aplicación",
     }),
@@ -81,7 +83,7 @@ module.exports = {
     "welcomeMessage": {
       "nodeType": "translation",
       "translation": {
-        "en-GB": "Welcome to our application",
+        "en": "Welcome to our application",
         "fr": "Bienvenue dans notre application",
         "es": "Bienvenido a nuestra aplicación"
       }
@@ -99,7 +101,7 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH_UK, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -112,7 +114,7 @@ import { Locales } from "intlayer";
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH_UK, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -125,7 +127,7 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH_UK, Locales.FRENCH, Locales.SPANISH],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
 };
 
@@ -134,7 +136,7 @@ module.exports = config;
 
 ## Using Translations in React Components
 
-With `react-intlayer`, you can use translations in React components. Here's an example:
+With `react-intlayer`, you can use translations in React components. Here is an example:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -203,7 +205,7 @@ const customContent = {
   key: "custom_content",
   content: {
     profileText: t<ICustomContent>({
-      en-GB: {
+      en: {
         title: "Page Title",
         content: "Page Content",
       },
@@ -232,7 +234,7 @@ export default {
       t <
       ICustomContent >
       {
-        en-GB: {
+        en: {
           title: "Page Title",
           content: "Page Content",
         },
@@ -259,7 +261,7 @@ module.exports = {
       t <
       ICustomContent >
       {
-        en-GB: {
+        "en-GB": {
           title: "Page Title",
           content: "Page Content",
         },
@@ -301,3 +303,7 @@ module.exports = {
   }
 }
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

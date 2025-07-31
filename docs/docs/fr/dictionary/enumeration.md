@@ -1,9 +1,6 @@
 ---
-docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Énumération
 description: Découvrez comment déclarer et utiliser des énumérations dans votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
 keywords:
@@ -14,17 +11,22 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - enumeration
 ---
 
 # Énumération / Plurielisation
 
-## Comment fonctionne l'Énumération
+## Comment fonctionne l'énumération
 
-Dans Intlayer, l'énumération est réalisée via la fonction `enu`, qui associe des clés spécifiques à leur contenu correspondant. Ces clés peuvent représenter des valeurs numériques, des plages ou des identifiants personnalisés. Lorsqu'elle est utilisée avec React Intlayer ou Next Intlayer, le contenu approprié est automatiquement sélectionné en fonction de la locale de l'application et des règles définies.
+Dans Intlayer, l'énumération est réalisée grâce à la fonction `enu`, qui associe des clés spécifiques à leur contenu correspondant. Ces clés peuvent représenter des valeurs numériques, des plages ou des identifiants personnalisés. Lorsqu'elle est utilisée avec React Intlayer ou Next Intlayer, le contenu approprié est automatiquement sélectionné en fonction de la locale de l'application et des règles définies.
 
-## Configuration de l'Énumération
+## Configuration de l'énumération
 
-Pour configurer l'énumération dans votre projet Intlayer, vous devez créer un module de contenu qui inclut des définitions d'énumération. Voici un exemple d'une énumération simple pour le nombre de voitures :
+Pour configurer une énumération dans votre projet Intlayer, vous devez créer un module de contenu qui inclut les définitions d'énumération. Voici un exemple d'une énumération simple pour le nombre de voitures :
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { enu, type Dictionary } from "intlayer";
@@ -33,7 +35,7 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "Moins de moins une voiture",
+      "<-1": "Moins d'une voiture en dessous de moins un",
       "-1": "Moins une voiture",
       "0": "Aucune voiture",
       "1": "Une voiture",
@@ -55,7 +57,7 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "Moins de moins une voiture",
+      "<-1": "Moins d'une voiture en dessous de moins un",
       "-1": "Moins une voiture",
       "0": "Aucune voiture",
       "1": "Une voiture",
@@ -77,7 +79,7 @@ const carEnumeration = {
   key: "car_count",
   content: {
     numberOfCar: enu({
-      "<-1": "Moins de moins une voiture",
+      "<-1": "Moins d'une voiture en dessous de moins un",
       "-1": "Moins une voiture",
       "0": "Aucune voiture",
       "1": "Une voiture",
@@ -99,7 +101,7 @@ module.exports = carEnumeration;
     "numberOfCar": {
       "nodeType": "enumeration",
       "enumeration": {
-        "<-1": "Moins de moins une voiture",
+        "<-1": "Moins d'une voiture en dessous de moins un",
         "-1": "Moins une voiture",
         "0": "Aucune voiture",
         "1": "Une voiture",
@@ -112,15 +114,15 @@ module.exports = carEnumeration;
 }
 ```
 
-Dans cet exemple, `enu` associe diverses conditions à un contenu spécifique. Lorsqu'il est utilisé dans un composant React, Intlayer peut automatiquement choisir le contenu approprié en fonction de la variable donnée.
+Dans cet exemple, `enu` associe différentes conditions à un contenu spécifique. Lorsqu'il est utilisé dans un composant React, Intlayer peut automatiquement choisir le contenu approprié en fonction de la variable donnée.
 
-> L'ordre de déclaration est important dans les énumérations Intlayer. La première déclaration valide est celle qui sera sélectionnée. Si plusieurs conditions s'appliquent, assurez-vous qu'elles sont correctement ordonnées pour éviter un comportement inattendu.
+> L'ordre de déclaration est important dans les énumérations Intlayer. La première déclaration valide est celle qui sera prise en compte. Si plusieurs conditions s'appliquent, assurez-vous qu'elles sont ordonnées correctement pour éviter un comportement inattendu.
 
 > Si aucun fallback n'est déclaré, la fonction retournera `undefined` si aucune clé ne correspond.
 
-## Utilisation de l'Énumération avec React Intlayer
+## Utilisation des énumérations avec React Intlayer
 
-Pour utiliser l'énumération dans un composant React, vous pouvez utiliser le hook `useIntlayer` du package `react-intlayer`. Ce hook récupère le contenu correct en fonction de l'ID spécifié. Voici un exemple d'utilisation :
+Pour utiliser une énumération dans un composant React, vous pouvez utiliser le hook `useIntlayer` du package `react-intlayer`. Ce hook récupère le contenu correct en fonction de l'ID spécifié. Voici un exemple d'utilisation :
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -166,7 +168,7 @@ const CarComponent = () => {
     <div>
       <p>
         {
-          numberOfCar(0) // Résultat : Aucune voiture
+          numberOfCar(0) // Résultat : Pas de voitures
         }
       </p>
       <p>
@@ -201,7 +203,7 @@ const CarComponent = () => {
     <div>
       <p>
         {
-          numberOfCar(0) // Résultat : Aucune voiture
+          numberOfCar(0) // Résultat : Pas de voitures
         }
       </p>
       <p>
@@ -228,12 +230,16 @@ module.exports = CarComponent;
 
 Dans cet exemple, le composant ajuste dynamiquement sa sortie en fonction du nombre de voitures. Le contenu correct est choisi automatiquement, selon la plage spécifiée.
 
-## Ressources Supplémentaires
+## Ressources supplémentaires
 
-Pour plus d'informations détaillées sur la configuration et l'utilisation, consultez les ressources suivantes :
+Pour des informations plus détaillées sur la configuration et l'utilisation, consultez les ressources suivantes :
 
 - [Documentation CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md)
 - [Documentation React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_create_react_app.md)
 - [Documentation Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_15.md)
 
-Ces ressources fournissent des informations supplémentaires sur la configuration et l'utilisation d'Intlayer dans différents environnements et avec divers frameworks.
+Ces ressources fournissent des informations complémentaires sur la configuration et l'utilisation d'Intlayer dans différents environnements et avec divers frameworks.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

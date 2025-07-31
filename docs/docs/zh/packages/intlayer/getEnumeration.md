@@ -1,11 +1,8 @@
 ---
-docName: package__intlayer__getEnumeration
-url: https://intlayer.org/doc/packages/intlayer/getEnumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getEnumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: t函数文档 | intlayer
-description: 查看如何使用 intlayer 软件包的 getEnumeration 函数
+updatedAt: 2025-06-29
+title: getEnumeration 函数文档 | intlayer
+description: 查看如何使用 intlayer 包中的 getEnumeration 函数
 keywords:
   - getEnumeration
   - 翻译
@@ -16,31 +13,36 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getEnumeration
 ---
 
-# 文档: `getEnumeration` 函数在 `intlayer` 中
+# 文档：`intlayer` 中的 `getEnumeration` 函数
 
 ## 描述
 
-`getEnumeration` 函数根据枚举对象中的预定义条件检索与特定数量相对应的内容。条件被定义为键，其优先级由对象中的顺序决定。
+`getEnumeration` 函数根据枚举对象中预定义的条件，检索与特定数量对应的内容。条件以键的形式定义，其优先级由对象中键的顺序决定。
 
 ## 参数
 
 - `enumerationContent: QuantityContent<Content>`
 
-  - **描述**: 一个对象，其中键表示条件（例如，`<=`，`<`，`>=`，`=`），值表示相应的内容。键的顺序定义了它们的匹配优先级。
-  - **类型**: `QuantityContent<Content>`
-    - `Content` 可以是任何类型。
+  - **描述**：一个对象，键表示条件（例如 `<=`、`<`、`>=`、`=`），值表示对应的内容。键的顺序定义了匹配的优先级。
+  - **类型**：`QuantityContent<Content>`
+    - `Content` 可以是任意类型。
 
 - `quantity: number`
 
-  - **描述**: 用于与 `enumerationContent` 中的条件匹配的数值。
-  - **类型**: `number`
+  - **描述**：用于与 `enumerationContent` 中条件匹配的数值。
+  - **类型**：`number`
 
 ## 返回值
 
-- **类型**: `Content`
-- **描述**: 与 `enumerationContent` 中第一个匹配条件相对应的内容。如果没有找到匹配项，则根据实现处理（例如，错误或回退内容）。
+- **类型**：`Content`
+- **描述**：对应于 `enumerationContent` 中第一个匹配条件的内容。如果没有找到匹配项，则根据实现进行默认处理（例如错误处理或回退内容）。
 
 ## 示例用法
 
@@ -51,15 +53,15 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<=-2.3": "您有小于 -2.3",
-    "<1": "您有小于一",
-    "2": "您有二",
-    ">=3": "您有三或更多",
+    "<=-2.3": "你拥有的数量少于 -2.3",
+    "<1": "你拥有的数量少于 1",
+    "2": "你拥有两个",
+    ">=3": "你拥有三个或更多",
   },
   2
 );
 
-console.log(content); // 输出: "您有二"
+console.log(content); // 输出: "你拥有两个"
 ```
 
 ```javascript codeFormat="esm"
@@ -67,14 +69,14 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<1": "您有小于一",
-    "2": "您有二",
-    ">=3": "您有三或更多",
+    "<1": "你拥有的数量少于 1",
+    "2": "你拥有两个",
+    ">=3": "你拥有三个或更多",
   },
   2
 );
 
-console.log(content); // 输出: "您有二"
+console.log(content); // 输出: "你拥有两个"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -82,14 +84,14 @@ const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {
-    "<1": "您有小于一",
-    "2": "您有二",
-    ">=3": "您有三或更多",
+    "<1": "你拥有的数量少于 1",
+    "2": "你拥有两个",
+    ">=3": "你拥有三个或更多",
   },
   2
 );
 
-console.log(content); // 输出: "您有二"
+console.log(content); // 输出: "你拥有两个"
 ```
 
 ### 条件优先级
@@ -99,13 +101,13 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<4": "您有小于四",
-    "2": "您有二",
+    "<4": "你拥有的数量少于 4",
+    "2": "你拥有两个",
   },
   2
 );
 
-console.log(content); // 输出: "您有小于四"
+console.log(content); // 输出: "你拥有的数量少于 4"
 ```
 
 ```javascript codeFormat="esm"
@@ -113,13 +115,13 @@ import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
   {
-    "<4": "您有小于四",
-    "2": "您有二",
+    "<4": "你拥有的数量少于 4",
+    "2": "你拥有两个",
   },
   2
 );
 
-console.log(content); // 输出: "您有小于四"
+console.log(content); // 输出: "你有少于四个"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -127,34 +129,36 @@ const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {
-    "<4": "您有小于四",
-    "2": "您有二",
+    "<4": "你有少于四个",
+    "2": "你有两个",
   },
   2
 );
 
-console.log(content); // 输出: "您有小于四"
+console.log(content); // 输出: "你有少于四个"
 ```
 
 ## 边界情况
 
-- **没有匹配条件:**
+- **无匹配条件：**
 
-  - 如果没有条件与提供的数量匹配，函数将返回 `undefined` 或明确处理默认/回退场景。
+  - 如果没有条件匹配所提供的数量，函数将返回 `undefined` 或者显式处理默认/回退场景。
 
-- **条件重叠:**
+- **条件重叠：**
 
-  - 如果条件重叠，则优先匹配第一个条件（基于对象顺序）。
+  - 如果条件重叠，优先使用第一个匹配的条件（基于对象的顺序）。
 
-- **无效键:**
+- **无效键：**
 
-  - 函数假定 `enumerationContent` 中的所有键都是有效的并且可解析为条件。无效或格式不正确的键可能导致意外行为。
+  - 该函数假设 `enumerationContent` 中的所有键都是有效且可解析为条件的。无效或格式不正确的键可能导致意外行为。
 
-- **TypeScript 强制:**
-  - 函数确保 `Content` 类型在所有键中保持一致，从而在检索内容时提供类型安全性。
+- **TypeScript 强制：**
+  - 该函数确保所有键的 `Content` 类型一致，从而保证检索内容时的类型安全。
 
-## 注意事项
+## 备注
 
-- `findMatchingCondition` 工具用于根据给定数量确定适当的条件。
+- 使用 `findMatchingCondition` 工具根据给定的数量确定适当的条件。
 
-https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/**/*.md
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史

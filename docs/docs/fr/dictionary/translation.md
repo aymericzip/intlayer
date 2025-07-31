@@ -1,9 +1,6 @@
 ---
-docName: dictionary__translation
-url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Traduction
 description: Découvrez comment déclarer et utiliser la traduction dans votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
 keywords:
@@ -14,15 +11,18 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - translation
 ---
 
 # Traduction
 
-## Définir des Traductions
+## Définir les traductions
 
-La fonction `t` dans `intlayer` vous permet de déclarer du contenu dans plusieurs langues. Cette fonction garantit la sécurité des types, en générant une erreur si des traductions sont manquantes, ce qui est particulièrement utile dans les environnements TypeScript.
-
-### Utilisation de TypeScript
+La fonction `t` dans `intlayer` vous permet de déclarer du contenu en plusieurs langues. Cette fonction garantit la sécurité des types, en générant une erreur si des traductions sont manquantes, ce qui est particulièrement utile dans les environnements TypeScript.
 
 Voici un exemple de déclaration de contenu avec des traductions.
 
@@ -92,9 +92,9 @@ module.exports = {
 }
 ```
 
-## Configuration des Locales
+## Configuration des locales
 
-Pour garantir une gestion correcte des traductions, vous pouvez configurer les locales acceptées dans `intlayer.config.ts`. Cette configuration vous permet de définir les langues prises en charge par votre application :
+Pour assurer une gestion correcte des traductions, vous pouvez configurer les locales acceptées dans `intlayer.config.ts`. Cette configuration vous permet de définir les langues que votre application supporte :
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -134,7 +134,7 @@ const config = {
 module.exports = config;
 ```
 
-## Utiliser les Traductions dans les Composants React
+## Utilisation des traductions dans les composants React
 
 Avec `react-intlayer`, vous pouvez utiliser les traductions dans les composants React. Voici un exemple :
 
@@ -214,8 +214,8 @@ const customContent = {
         content: "Contenu de la Page",
       },
       es: {
-        title: "Título de la Página",
-        content: "Contenido de la Página",
+        title: "Titre de la Page",
+        content: "Contenu de la Page",
       },
     }),
   },
@@ -288,7 +288,7 @@ module.exports = {
       "translation": {
         "en": {
           "title": "Page Title",
-          "content": "Page Content"
+          "content": "Contenu de la Page"
         },
         "fr": {
           "title": "Titre de la Page",
@@ -303,3 +303,7 @@ module.exports = {
   }
 }
 ```
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

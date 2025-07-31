@@ -1,10 +1,12 @@
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
+import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
+import { hasPermission, intersectPermissions } from '@utils/permissions';
 import { type ResponseData, formatResponse } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { AccessKeyData, OAuth2Access } from '@/types/project.types';
 
 export type AddNewAccessKeyBody = AccessKeyData;
 export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;
@@ -14,11 +16,11 @@ export type AddNewAccessKeyResponse = ResponseData<OAuth2Access>;
  */
 export const addNewAccessKey = async (
   req: Request<AddNewAccessKeyBody>,
-  res: ResponseWithInformation<AddNewAccessKeyResponse>,
+  res: ResponseWithSession<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, organizationRights, projectRights, dictionaryRights } =
-    res.locals;
+  const { user, project, roles, permissions } = res.locals;
+  const { grants, name, expiresAt } = req.body;
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
@@ -30,32 +32,30 @@ export const addNewAccessKey = async (
     return;
   }
 
-  if (!organizationRights) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_NOT_READ'
-    );
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [project.id],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
-  if (!projectRights) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_RIGHTS_NOT_READ');
-    return;
-  }
-
-  if (!dictionaryRights) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_READ');
-    return;
-  }
+  const filteredPermisions = intersectPermissions(permissions, grants);
 
   try {
     const newAccessKey = await projectAccessKeyService.addNewAccessKey(
-      req.body,
-      project._id,
-      user,
-      organizationRights,
-      projectRights,
-      dictionaryRights
+      {
+        name,
+        expiresAt,
+        grants: filteredPermisions,
+      },
+      project.id,
+      user
     );
 
     const responseData = formatResponse<OAuth2Access>({
@@ -73,6 +73,18 @@ export const addNewAccessKey = async (
     });
 
     res.json(responseData);
+
+    sendEmail({
+      type: 'oAuthTokenCreated',
+      to: user.email,
+      username: user.name,
+      applicationName: newAccessKey.name ?? newAccessKey.clientId,
+      scopes: newAccessKey.grants,
+      tokenDetailsUrl: `${process.env.CLIENT_URL}/oauth2/token`,
+      securityLogUrl: `${process.env.CLIENT_URL}/security-log`,
+      supportUrl: `${process.env.CLIENT_URL}/support`,
+    });
+
     return;
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);
@@ -88,10 +100,10 @@ export type DeleteAccessKeyResponse = ResponseData<null>;
  */
 export const deleteAccessKey = async (
   req: Request,
-  res: ResponseWithInformation<AddNewAccessKeyResponse>,
+  res: ResponseWithSession<AddNewAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, roles } = res.locals;
   const { clientId } = req.body;
 
   if (!project) {
@@ -109,11 +121,24 @@ export const deleteAccessKey = async (
     return;
   }
 
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [project.id],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
+
   try {
     const deletedAccessKey = await projectAccessKeyService.deleteAccessKey(
       clientId,
       project,
-      user._id
+      user.id
     );
 
     if (!deletedAccessKey) {
@@ -153,10 +178,10 @@ export type RefreshAccessKeyResponse = ResponseData<OAuth2Access>;
  */
 export const refreshAccessKey = async (
   req: Request<RefreshAccessKeyBody>,
-  res: ResponseWithInformation<RefreshAccessKeyResponse>,
+  res: ResponseWithSession<RefreshAccessKeyResponse>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project } = res.locals;
+  const { user, project, roles } = res.locals;
   const { clientId } = req.body;
 
   if (!project) {
@@ -171,11 +196,24 @@ export const refreshAccessKey = async (
     ErrorHandler.handleGenericErrorResponse(res, 'CLIENT_ID_NOT_FOUND');
   }
 
+  if (
+    !hasPermission(
+      roles,
+      'project:write'
+    )({
+      ...res.locals,
+      targetProjectIds: [project!.id],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
+
   try {
     const newAccessKey = await projectAccessKeyService.refreshAccessKey(
       clientId,
-      project!._id,
-      user!._id
+      project!.id,
+      user!.id
     );
 
     const responseData = formatResponse<OAuth2Access>({

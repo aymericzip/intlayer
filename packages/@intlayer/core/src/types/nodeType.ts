@@ -12,6 +12,7 @@ export enum NodeType {
   Text = 'text',
   Number = 'number',
   Boolean = 'boolean',
+  Gender = 'gender',
   Unknown = 'unknown',
 }
 

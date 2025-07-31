@@ -5,13 +5,13 @@ import { Container } from '../Container';
 import { CodeBlock } from './CodeBlockClient';
 import { CodeConditionalRender } from './CodeConditionalRenderer';
 import type {
-  PackageManager,
   CodeFormat,
   ContentDeclarationFormat,
+  PackageManager,
 } from './CodeContext';
 import { CodeFormatSelector } from './CodeFormatSelector';
 import { ContentDeclarationFormatSelector } from './ContentDeclarationFormatSelector';
-import { CopyButton } from './CopyButton';
+import { CopyCode } from './CopyCode';
 import { PackageManagerSelector } from './PackageManagerSelector';
 
 export type CodeCompAttributes = {
@@ -76,14 +76,14 @@ export const Code: FC<CodeCompProps> = ({
                 )}
               </div>
             </div>
-            <div className="sticky top-28">
+            <div className="sticky top-48">
               <div
                 className={cn(
                   'absolute bottom-0 right-2 flex h-7 items-center',
                   hadSelectInHeader && 'h-11'
                 )}
               >
-                <CopyButton content={code} />
+                <CopyCode code={code} />
               </div>
             </div>
           </>

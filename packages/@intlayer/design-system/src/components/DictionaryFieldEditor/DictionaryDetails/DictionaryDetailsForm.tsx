@@ -10,7 +10,7 @@ import {
   useGetProjects,
   useGetTags,
 } from '../../../hooks';
-import { useAuth } from '../../Auth';
+import { useAuth } from '../../../hooks/useAuth';
 import { Container } from '../../Container';
 import { Form, useForm } from '../../Form';
 import { Loader } from '../../Loader';
@@ -31,7 +31,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const { data: tags } = useGetTags();
 
   const DictionaryDetailsSchema = useDictionaryDetailsSchema(
-    String(project?._id)
+    String(project?.id)
   );
   const { form, isSubmitting } = useForm(DictionaryDetailsSchema, {
     defaultValues: dictionary,
@@ -174,7 +174,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           >
             <MultiSelect.Trigger
               getBadgeValue={(value) =>
-                projects?.data?.find((project) => String(project._id) === value)
+                projects?.data?.find((project) => String(project.id) === value)
                   ?.name ?? value
               }
             >
@@ -185,8 +185,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                 <MultiSelect.List>
                   {projects?.data?.map((project) => (
                     <MultiSelect.Item
-                      key={String(project._id)}
-                      value={String(project._id)}
+                      key={String(project.id)}
+                      value={String(project.id)}
                     >
                       {project.name}
                     </MultiSelect.Item>
@@ -211,7 +211,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           >
             <MultiSelect.Trigger
               getBadgeValue={(value) =>
-                projects?.data?.find((project) => String(project._id) === value)
+                projects?.data?.find((project) => String(project.id) === value)
                   ?.name ?? value
               }
             >

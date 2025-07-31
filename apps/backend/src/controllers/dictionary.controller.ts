@@ -11,7 +11,7 @@ import type {
   Dictionary as LocalDictionary,
 } from '@intlayer/core';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as dictionaryService from '@services/dictionary.service';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -21,6 +21,7 @@ import {
 } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
+import { hasPermission } from '@utils/permissions';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -39,10 +40,10 @@ export type GetDictionariesResult = PaginatedResponse<DictionaryAPI>;
  */
 export const getDictionaries = async (
   req: Request<GetDictionariesParams>,
-  res: ResponseWithInformation<GetDictionariesResult>,
+  res: ResponseWithSession<GetDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, project, organization, dictionaryRights } = res.locals;
+  const { user, project, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getDictionaryFiltersAndPagination(req);
 
@@ -50,12 +51,9 @@ export const getDictionaries = async (
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
+
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
-  }
-  if (!dictionaryRights?.read) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_READ');
     return;
   }
 
@@ -63,15 +61,29 @@ export const getDictionaries = async (
     const dictionaries = await dictionaryService.findDictionaries(
       {
         ...filters,
-        projectIds: project._id,
+        projectIds: project.id,
       },
       skip,
       pageSize
     );
+
+    if (
+      !hasPermission(
+        roles,
+        'dictionary:read'
+      )({
+        ...res.locals,
+        targetDictionaries: dictionaries,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
     const totalItems = await dictionaryService.countDictionaries(filters);
 
     const dictionariesAPI = dictionaries.map((el) =>
-      mapDictionaryToAPI(el, project._id)
+      mapDictionaryToAPI(el, project.id)
     );
 
     const responseData = formatPaginatedResponse<DictionaryAPI>({
@@ -97,24 +109,35 @@ export type GetDictionariesKeysResult = ResponseData<string[]>;
  */
 export const getDictionariesKeys = async (
   _req: Request,
-  res: ResponseWithInformation<GetDictionariesKeysResult>,
+  res: ResponseWithSession<GetDictionariesKeysResult>,
   _next: NextFunction
 ) => {
-  const { project, dictionaryRights } = res.locals;
+  const { project, roles } = res.locals;
 
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
-  if (!dictionaryRights?.read) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_READ');
-    return;
-  }
 
   try {
-    const dictionariesKeys = await dictionaryService.getDictionariesKeys(
-      project._id
-    );
+    const dictionaries = await dictionaryService.findDictionaries({
+      projectIds: project.id,
+    });
+
+    if (
+      !hasPermission(
+        roles,
+        'dictionary:read'
+      )({
+        ...res.locals,
+        targetDictionaries: dictionaries,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    const dictionariesKeys = dictionaries.map((dictionary) => dictionary.key);
 
     const responseData = formatResponse<string[]>({
       data: dictionariesKeys,
@@ -137,10 +160,10 @@ export type GetDictionaryResult = ResponseData<DictionaryAPI>;
  */
 export const getDictionaryByKey = async (
   req: Request<GetDictionaryParams, any, any, GetDictionaryQuery>,
-  res: ResponseWithInformation<GetDictionaryResult>,
+  res: ResponseWithSession<GetDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, user, dictionaryRights } = res.locals;
+  const { project, user, roles } = res.locals;
   const { dictionaryKey } = req.params;
   const version = req.query.version;
 
@@ -152,18 +175,27 @@ export const getDictionaryByKey = async (
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
     return;
   }
-  if (!dictionaryRights?.read) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_READ');
-    return;
-  }
 
   try {
     const dictionary = await dictionaryService.getDictionaryByKey(
       dictionaryKey,
-      project._id
+      project.id
     );
 
-    if (!dictionary.projectIds.map(String).includes(String(project._id))) {
+    if (
+      !hasPermission(
+        roles,
+        'dictionary:read'
+      )({
+        ...res.locals,
+        targetDictionaries: [dictionary],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    if (!dictionary.projectIds.map(String).includes(String(project.id))) {
       ErrorHandler.handleGenericErrorResponse(
         res,
         'DICTIONARY_PROJECT_MISMATCH'
@@ -171,7 +203,7 @@ export const getDictionaryByKey = async (
       return;
     }
 
-    const apiResult = mapDictionaryToAPI(dictionary, project._id, version);
+    const apiResult = mapDictionaryToAPI(dictionary, project.id, version);
 
     const responseData = formatResponse<DictionaryAPI>({
       data: apiResult,
@@ -193,10 +225,10 @@ export type AddDictionaryResult = ResponseData<DictionaryAPI>;
  */
 export const addDictionary = async (
   req: Request<any, any, AddDictionaryBody>,
-  res: ResponseWithInformation<AddDictionaryResult>,
+  res: ResponseWithSession<AddDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, user, dictionaryRights } = res.locals;
+  const { project, user, roles } = res.locals;
   const dictionaryData = req.body.dictionary;
 
   if (!dictionaryData) {
@@ -214,13 +246,8 @@ export const addDictionary = async (
     return;
   }
 
-  if (!dictionaryData.projectIds?.includes(String(project._id))) {
+  if (!dictionaryData.projectIds?.includes(String(project.id))) {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_PROJECT_MISMATCH');
-    return;
-  }
-
-  if (!dictionaryRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_ADMIN');
     return;
   }
 
@@ -231,17 +258,22 @@ export const addDictionary = async (
     content: new Map([
       ['v1', { content: dictionaryData.content ?? ({} as ContentNode) }],
     ]),
-    creatorId: user._id,
+    creatorId: user.id,
     filePath: {
-      [String(project._id)]: dictionaryData.filePath ?? '',
+      [String(project.id)]: dictionaryData.filePath ?? '',
     },
-    projectIds: dictionaryData.projectIds ?? [String(project._id)],
+    projectIds: dictionaryData.projectIds ?? [String(project.id)],
   };
+
+  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+    return;
+  }
 
   try {
     const newDictionary = await dictionaryService.createDictionary(dictionary);
 
-    const apiResult = mapDictionaryToAPI(newDictionary, project._id);
+    const apiResult = mapDictionaryToAPI(newDictionary, project.id);
 
     const responseData = formatResponse<DictionaryAPI>({
       message: t({
@@ -261,7 +293,7 @@ export const addDictionary = async (
 
     eventListener.sendDictionaryUpdate([
       {
-        dictionary: mapDictionaryToAPI(newDictionary, project._id),
+        dictionary: mapDictionaryToAPI(newDictionary, project.id),
         status: 'ADDED',
       },
     ]);
@@ -290,10 +322,10 @@ export type PushDictionariesResult = ResponseData<PushDictionariesResultData>;
  */
 export const pushDictionaries = async (
   req: Request<any, any, PushDictionariesBody>,
-  res: ResponseWithInformation<PushDictionariesResult>,
+  res: ResponseWithSession<PushDictionariesResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, user, dictionaryRights } = res.locals;
+  const { project, user, roles } = res.locals;
   const dictionaryData = req.body.dictionaries;
   const dictionariesKeys = dictionaryData.map((dictionary) => dictionary.key);
 
@@ -319,13 +351,8 @@ export const pushDictionaries = async (
     return;
   }
 
-  if (!dictionaryRights?.write) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_WRITE');
-    return;
-  }
-
-  if (!dictionaryRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_ADMIN');
+  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -333,7 +360,7 @@ export const pushDictionaries = async (
     const { existingDictionariesKey, newDictionariesKey } =
       await dictionaryService.getExistingDictionaryKey(
         dictionariesKeys,
-        project._id
+        project.id
       );
 
     const existingDictionaries = dictionaryData.filter((dictionary) =>
@@ -351,13 +378,13 @@ export const pushDictionaries = async (
       const dictionary: DictionaryData = {
         title: dictionaryDataEl.title,
         description: dictionaryDataEl.description,
-        projectIds: [String(project._id)],
-        creatorId: user._id,
+        projectIds: [String(project.id)],
+        creatorId: user.id,
         content: new Map([
           ['v1', { content: dictionaryDataEl.content ?? ({} as ContentNode) }],
         ]),
         filePath: {
-          [String(project._id)]: dictionaryDataEl.filePath ?? '',
+          [String(project.id)]: dictionaryDataEl.filePath ?? '',
         },
         key: dictionaryDataEl.key,
       };
@@ -366,7 +393,7 @@ export const pushDictionaries = async (
         const newDictionary =
           await dictionaryService.createDictionary(dictionary);
         newDictionariesResult.push(
-          mapDictionaryToAPI(newDictionary, project._id)
+          mapDictionaryToAPI(newDictionary, project.id)
         );
       } catch (error) {
         ErrorHandler.handleAppErrorResponse(res, error as AppError);
@@ -378,7 +405,7 @@ export const pushDictionaries = async (
       const existingDictionariesDB =
         await dictionaryService.getDictionariesByKeys(
           existingDictionariesKey,
-          project._id
+          project.id
         );
 
       for (const dictionaryDataEl of existingDictionaries) {
@@ -414,10 +441,10 @@ export const pushDictionaries = async (
           ...ensureMongoDocumentToObject(existingDictionaryDB),
           ...dictionaryDataEl,
           content: newContent,
-          projectIds: [String(project._id)],
-          creatorId: user._id,
+          projectIds: [String(project.id)],
+          creatorId: user.id,
           filePath: {
-            [String(project._id)]: dictionaryDataEl.filePath ?? '',
+            [String(project.id)]: dictionaryDataEl.filePath ?? '',
           },
           key: dictionaryDataEl.key,
         };
@@ -427,10 +454,10 @@ export const pushDictionaries = async (
             await dictionaryService.updateDictionaryByKey(
               dictionaryDataEl.key,
               dictionary,
-              project._id
+              project.id
             );
           updatedDictionariesResult.push(
-            mapDictionaryToAPI(updatedDictionary, project._id)
+            mapDictionaryToAPI(updatedDictionary, project.id)
           );
         } catch (error) {
           ErrorHandler.handleAppErrorResponse(res, error as AppError);
@@ -497,11 +524,11 @@ export type UpdateDictionaryResult = ResponseData<DictionaryAPI>;
  */
 export const updateDictionary = async (
   req: Request<UpdateDictionaryParam, any, UpdateDictionaryBody>,
-  res: ResponseWithInformation<UpdateDictionaryResult>,
+  res: ResponseWithSession<UpdateDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { dictionaryId } = req.params;
-  const { project, dictionaryRights } = res.locals;
+  const { project, roles } = res.locals;
   const dictionaryData = req.body;
 
   if (!dictionaryData) {
@@ -514,7 +541,7 @@ export const updateDictionary = async (
     return;
   }
 
-  if (!dictionaryData.projectIds?.includes(String(project._id))) {
+  if (!dictionaryData.projectIds?.includes(String(project.id))) {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_PROJECT_MISMATCH');
     return;
   }
@@ -524,8 +551,8 @@ export const updateDictionary = async (
     return;
   }
 
-  if (!dictionaryRights?.write) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_WRITE');
+  if (!hasPermission(roles, 'dictionary:write')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -535,7 +562,7 @@ export const updateDictionary = async (
       dictionaryData
     );
 
-    const apiResult = mapDictionaryToAPI(updatedDictionary, project._id);
+    const apiResult = mapDictionaryToAPI(updatedDictionary, project.id);
 
     const responseData = formatResponse<DictionaryAPI>({
       message: t({
@@ -574,42 +601,32 @@ export type DeleteDictionaryResult = ResponseData<DictionaryAPI>;
  */
 export const deleteDictionary = async (
   req: Request<DeleteDictionaryParam>,
-  res: ResponseWithInformation<DeleteDictionaryResult>,
+  res: ResponseWithSession<DeleteDictionaryResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { project, dictionaryRights } = res.locals;
+  const { project, roles } = res.locals;
   const { dictionaryId } = req.params as Partial<DeleteDictionaryParam>;
-
-  console.log('dictionaryId1', dictionaryId);
 
   if (!dictionaryId) {
     ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_ID_NOT_FOUND');
     return;
   }
 
-  console.log('dictionaryId2', dictionaryId);
-
   if (!project) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
     return;
   }
 
-  console.log('dictionaryId3', dictionaryId);
-
-  if (!dictionaryRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(res, 'DICTIONARY_RIGHTS_NOT_ADMIN');
+  if (!hasPermission(roles, 'dictionary:admin')(res.locals)) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
-
-  console.log('dictionaryId4', dictionaryId);
 
   try {
     const dictionaryToDelete =
       await dictionaryService.getDictionaryById(dictionaryId);
 
-    console.log('dictionaryToDelete', dictionaryToDelete);
-
-    if (!dictionaryToDelete.projectIds.includes(project._id)) {
+    if (!dictionaryToDelete.projectIds.includes(project.id)) {
       ErrorHandler.handleGenericErrorResponse(
         res,
         'DICTIONARY_PROJECT_MISMATCH'
@@ -627,9 +644,9 @@ export const deleteDictionary = async (
       return;
     }
 
-    logger.info(`Dictionary deleted: ${String(deletedDictionary._id)}`);
+    logger.info(`Dictionary deleted: ${String(deletedDictionary.id)}`);
 
-    const apiResult = mapDictionaryToAPI(deletedDictionary, project._id);
+    const apiResult = mapDictionaryToAPI(deletedDictionary, project.id);
 
     const responseData = formatResponse<DictionaryAPI>({
       message: t({

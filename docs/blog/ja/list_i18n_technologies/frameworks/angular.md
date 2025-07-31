@@ -1,9 +1,6 @@
 ---
-blogName: list_i18n_technologies__frameworks__angular
-url: https://intlayer.org/blog/i18n-technologies/frameworks/angular
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/angular.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Angularのための最適な国際化ツール
 description: 翻訳のチャレンジを解決するためのトップのAngularのi18nソリューションを発見し、SEOを向上させ、グローバルなウェブエクスペリエンスを提供する。
 keywords:
@@ -14,13 +11,18 @@ keywords:
   - 国際化
   - ブログ
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - frameworks
+  - angular
 ---
 
 # Angularウェブサイトを翻訳するためのi18nソリューションを探る
 
 今日の相互接続された世界では、ウェブサイトを複数の言語で提供することで、リーチを大幅に拡大し、ユーザーエクスペリエンスを向上させることができます。Angularを使用している開発者にとって、国際化（i18n）の実装は、アプリケーションの構造、SEO、およびパフォーマンスを維持しながら翻訳を効率的に管理するために重要です。この記事では、Angularの組み込みソリューションから人気のサードパーティライブラリに至るまで、さまざまなi18nアプローチを探り、プロジェクトに最適な選択肢を判断できるようにします。
 
-![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## 国際化（i18n）とは何ですか？
 

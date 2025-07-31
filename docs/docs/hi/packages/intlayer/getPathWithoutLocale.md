@@ -1,44 +1,46 @@
 ---
-docName: package__intlayer__getPathWithoutLocale
-url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: getPathWithoutLocale फ़ंक्शन प्रलेखन | intlayer
-description: intlayer पैकेज के लिए getPathWithoutLocale फ़ंक्शन का उपयोग कैसे करें, यह जानें
+updatedAt: 2025-06-29
+title: getPathWithoutLocale फ़ंक्शन दस्तावेज़ीकरण | intlayer
+description: intlayer पैकेज के लिए getPathWithoutLocale फ़ंक्शन का उपयोग कैसे करें देखें
 keywords:
   - getPathWithoutLocale
   - अनुवाद
   - Intlayer
   - intlayer
   - अंतर्राष्ट्रीयकरण
-  - प्रलेखन
+  - दस्तावेज़ीकरण
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getPathWithoutLocale
 ---
 
-# दस्तावेज़: `getPathWithoutLocale` फ़ंक्शन `intlayer` में
+# दस्तावेज़ीकरण: `getPathWithoutLocale` फ़ंक्शन `intlayer` में
 
 ## विवरण
 
-दिए गए URL या पथनाम से स्थानीय खंड को हटा देता है यदि वह मौजूद हो। यह पूर्ण URLs और सापेक्ष पथनाम दोनों के साथ काम करता है।
+यदि मौजूद हो तो दिए गए URL या पाथनेम से लोकल सेगमेंट को हटा देता है। यह पूर्ण URL और सापेक्ष पाथनेम दोनों के साथ काम करता है।
 
 ## पैरामीटर
 
 - `inputUrl: string`
 
-  - **विवरण**: प्रक्रिया के लिए पूर्ण URL स्ट्रिंग या पथनाम।
+  - **विवरण**: संसाधित करने के लिए पूर्ण URL स्ट्रिंग या पाथनेम।
   - **प्रकार**: `string`
 
 - `locales: Locales[]`
-  - **विवरण**: समर्थित स्थानीयताओं की वैकल्पिक सूची। प्रोजेक्ट में कॉन्फ़िगर की गई स्थानीयताओं को डिफ़ॉल्ट करता है।
+  - **विवरण**: समर्थित लोकल्स की वैकल्पिक सूची। डिफ़ॉल्ट रूप से परियोजना में कॉन्फ़िगर किए गए लोकल्स।
   - **प्रकार**: `Locales[]`
 
-## रिटर्न्स
+## रिटर्न करता है
 
 - **प्रकार**: `string`
-- **विवरण**: स्थानीय खंड के बिना URL स्ट्रिंग या पथनाम।
+- **विवरण**: लोकल सेगमेंट के बिना URL स्ट्रिंग या पाथनेम।
 
 ## उदाहरण उपयोग
 
@@ -68,3 +70,7 @@ console.log(getPathWithoutLocale("/en/dashboard")); // आउटपुट: "/das
 console.log(getPathWithoutLocale("/fr/dashboard")); // आउटपुट: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // आउटपुट: "https://example.com/dashboard"
 ```
+
+## दस्तावेज़ इतिहास
+
+- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास

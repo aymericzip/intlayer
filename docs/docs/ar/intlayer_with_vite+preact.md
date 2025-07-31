@@ -1,36 +1,38 @@
 ---
-docName: intlayer_with_vite_preact
-url: https://intlayer.org/doc/environment/vite-and-preact
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+preact.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
-title: ترجم موقعك الإلكتروني Vite و Preact (i18n)
-description: اكتشف كيفية جعل موقعك الإلكتروني باستخدام Vite وPreact متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
+updatedAt: 2025-06-29
+title: ترجمة موقعك باستخدام Vite و Preact (i18n)
+description: اكتشف كيفية جعل موقعك باستخدام Vite و Preact متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
-  - ت Documentation
+  - التوثيق
   - Intlayer
   - Vite
   - Preact
-  - JavaScript
+  - جافا سكريبت
+slugs:
+  - doc
+  - environment
+  - vite-and-preact
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 
-# البدء في التدويل (i18n) باستخدام Intlayer و Vite و Preact
+# البدء بالتدويل (i18n) باستخدام Intlayer و Vite و Preact
 
-> هذه الحزمة قيد التطوير. انظر [المشكلة](https://github.com/aymericzip/intlayer/issues/118) لمزيد من المعلومات. أظهر اهتمامك بـ Intlayer لـ Preact من خلال الإعجاب بالمشكلة.
+> هذه الحزمة قيد التطوير. راجع [المشكلة](https://github.com/aymericzip/intlayer/issues/118) لمزيد من المعلومات. أظهر اهتمامك بـ Intlayer لـ Preact من خلال الإعجاب بالمشكلة
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-vite-preact-template) على GitHub.
 
 ## ما هو Intlayer؟
 
-**Intlayer** هو مكتبة مفتوحة المصدر مبتكرة للتدويل (i18n) مصممة لتبسيط دعم اللغات المتعددة في تطبيقات الويب الحديثة.
+**Intlayer** هي مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر مصممة لتبسيط دعم اللغات المتعددة في تطبيقات الويب الحديثة.
 
 مع Intlayer، يمكنك:
 
-- **إدارة الترجمات بسهولة** باستخدام القواميس التصريحية على مستوى المكونات.
-- **توطين البيانات الوصفية ديناميكيًا**، والمسارات، والمحتوى.
-- **ضمان دعم TypeScript** مع الأنواع المولدة تلقائيًا، مما يحسن الإكمال التلقائي واكتشاف الأخطاء.
-- **الاستفادة من الميزات المتقدمة**، مثل اكتشاف اللغة الديناميكي والتبديل.
+- **إدارة الترجمات بسهولة** باستخدام قواميس إعلانية على مستوى المكون.
+- **توطين البيانات الوصفية والمسارات والمحتوى ديناميكيًا**.
+- **ضمان دعم TypeScript** بأنواع مولدة تلقائيًا، مما يحسن الإكمال التلقائي واكتشاف الأخطاء.
+- **الاستفادة من الميزات المتقدمة**، مثل الكشف الديناميكي عن اللغة وتبديلها.
 
 ---
 
@@ -38,36 +40,36 @@ keywords:
 
 ### الخطوة 1: تثبيت التبعيات
 
-قم بتثبيت الحزم الضرورية باستخدام npm:
+قم بتثبيت الحزم اللازمة باستخدام npm:
 
 ```bash packageManager="npm"
 npm install intlayer preact-intlayer
-npm install --save-dev vite-intlayer
+npm install vite-intlayer --save-dev
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer preact-intlayer
-pnpm add --save-dev vite-intlayer
+pnpm add vite-intlayer --save-dev
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer preact-intlayer
-yarn add --save-dev vite-intlayer
+yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
 
-  الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، الترجمة، [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)، الترجمة، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)، والترجمة البرمجية، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
 
 - **preact-intlayer**
-  الحزمة التي تدمج Intlayer مع تطبيق Preact. توفر موفري السياق وخطافات لتدويل Preact.
+  الحزمة التي تدمج Intlayer مع تطبيق Preact. توفر مزودي السياق (context providers) وخطافات (hooks) لتدويل Preact.
 
 - **vite-intlayer**
-  تتضمن مكون Vite الإضافي لدمج Intlayer مع [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط لاكتشاف اللغة المفضلة للمستخدم، إدارة ملفات تعريف الارتباط، ومعالجة إعادة توجيه URL.
+  تتضمن إضافة Vite لدمج Intlayer مع [أداة تجميع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط (middleware) لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط (الكوكيز)، والتعامل مع إعادة توجيه عناوين URL.
 
 ### الخطوة 2: تكوين مشروعك
 
-قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
+قم بإنشاء ملف تكوين لتحديد لغات تطبيقك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -125,11 +127,11 @@ const config = {
 module.exports = config;
 ```
 
-> من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL المحلية، إعادة توجيه الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
+من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، إعادة توجيه الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 ### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
 
-أضف المكون الإضافي intlayer إلى تكوينك.
+أضف مكون intlayer الإضافي إلى تكوينك.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -164,50 +166,58 @@ module.exports = defineConfig({
 });
 ```
 
-> يتم استخدام المكون الإضافي `intlayerPlugin()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ومراقبتها في وضع التطوير. كما يحدد متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
+> يتم استخدام مكون Vite الإضافي `intlayerPlugin()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يحدد متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر ألقابًا لتحسين الأداء.
 
-### الخطوة 4: إعلان محتواك
+### الخطوة 4: إعلان المحتوى الخاص بك
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
+import type { ComponentChildren } from "preact";
 
 const appContent = {
   key: "app",
   content: {
     viteLogo: t({
-      ar: "شعار Vite",
       en: "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
     }),
     preactLogo: t({
-      ar: "شعار Preact",
       en: "Preact logo",
       fr: "Logo Preact",
-      es: "Logo Preact",
+      es: "شعار Preact",
     }),
 
     title: "Vite + Preact",
 
     count: t({
-      ar: "العدد هو ",
       en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
     }),
 
-    edit: t({
-      ar: "قم بتعديل src/app.tsx واحفظ لاختبار HMR",
-      en: "Edit src/app.tsx and save to test HMR",
-      fr: "Éditez src/app.tsx et enregistrez pour tester HMR",
-      es: "Edita src/app.tsx y guarda para probar HMR",
+    edit: t<ComponentChildren>({
+      en: (
+        <>
+          حرر <code>src/app.tsx</code> واحفظ لاختبار HMR
+        </>
+      ),
+      fr: (
+        <>
+          Éditez <code>src/app.tsx</code> et enregistrez pour tester HMR
+        </>
+      ),
+      es: (
+        <>
+          Edita <code>src/app.tsx</code> y guarda para probar HMR
+        </>
+      ),
     }),
 
     readTheDocs: t({
-      ar: "انقر على شعاري Vite و Preact لمعرفة المزيد",
-      en: "Click on the Vite and Preact logos to learn more",
+      en: "انقر على شعارات Vite و Preact لمعرفة المزيد",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
     }),
@@ -219,45 +229,47 @@ export default appContent;
 
 ```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
+// import { h } from 'preact'; // مطلوب إذا كنت تستخدم JSX مباشرة في .mjs
 
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
   content: {
     viteLogo: t({
-      ar: "شعار Vite",
       en: "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
+      ar: "شعار Vite",
     }),
     preactLogo: t({
-      ar: "شعار Preact",
       en: "Preact logo",
       fr: "Logo Preact",
       es: "Logo Preact",
+      ar: "شعار Preact",
     }),
 
     title: "Vite + Preact",
 
     count: t({
-      ar: "العدد هو ",
       en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
+      ar: "العدد هو ",
     }),
 
     edit: t({
-      ar: "قم بتحرير src/app.jsx واحفظ لاختبار HMR",
       en: "Edit src/app.jsx and save to test HMR",
       fr: "Éditez src/app.jsx et enregistrez pour tester HMR",
+      ar: "حرر src/app.jsx واحفظ لاختبار HMR",
+    }),
       es: "Edita src/app.jsx y guarda para probar HMR",
     }),
 
     readTheDocs: t({
-      ar: "انقر على شعاري Vite و Preact لمعرفة المزيد",
       en: "Click on the Vite and Preact logos to learn more",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
+      ar: "انقر على شعارات Vite و Preact لمعرفة المزيد",
     }),
   },
 };
@@ -267,45 +279,45 @@ export default appContent;
 
 ```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
+// const { h } = require('preact'); // Needed if you use JSX directly in .cjs
 
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
   content: {
     viteLogo: t({
-      ar: "شعار Vite",
       en: "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
+      ar: "شعار Vite",
     }),
     preactLogo: t({
-      ar: "شعار Preact",
       en: "Preact logo",
-      fr: "Logo Preact",
-      es: "Logo Preact",
+      fr: "شعار Preact",
+      es: "شعار Preact",
     }),
 
     title: "Vite + Preact",
 
     count: t({
-      ar: "العدد هو ",
       en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
+      ar: "العدد هو ",
     }),
 
     edit: t({
-      ar: "قم بتعديل src/app.tsx واحفظ لاختبار HMR",
       en: "Edit src/app.tsx and save to test HMR",
       fr: "Éditez src/app.tsx et enregistrez pour tester HMR",
       es: "Edita src/app.tsx y guarda para probar HMR",
+      ar: "حرر src/app.tsx واحفظ لاختبار HMR",
     }),
 
     readTheDocs: t({
-      ar: "انقر على شعارات Vite و Preact لمعرفة المزيد",
       en: "Click on the Vite and Preact logos to learn more",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
+      ar: "انقر على شعاري Vite و Preact لمعرفة المزيد",
     }),
   },
 };
@@ -357,7 +369,7 @@ module.exports = appContent;
     "edit": {
       "nodeType": "translation",
       "translation": {
-        "ar": "قم بتعديل src/app.tsx واحفظ لاختبار HMR",
+        "ar": "حرر src/app.tsx واحفظ لاختبار HMR",
         "en": "Edit src/app.tsx and save to test HMR",
         "fr": "Éditez src/app.tsx et enregistrez pour tester HMR",
         "es": "Edita src/app.tsx y guarda para probar HMR"
@@ -376,22 +388,22 @@ module.exports = appContent;
 }
 ```
 
-> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك طالما تم تضمينها في دليل `contentDir` (افتراضيًا، `./src`). وتطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (افتراضيًا، `./src`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
+> لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
 
-> إذا كان ملف المحتوى الخاص بك يتضمن كود TSX، قد تحتاج إلى استيراد `import { h } from "preact";` أو التأكد من إعداد JSX pragma بشكل صحيح لـ Preact.
+> إذا كان ملف المحتوى الخاص بك يتضمن كود TSX، فقد تحتاج إلى استيراد `import { h } from "preact";` أو التأكد من تعيين براغما JSX بشكل صحيح لـ Preact.
 
-### الخطوة 5: استخدام Intlayer في الكود الخاص بك
+### الخطوة 5: استخدام Intlayer في كودك
 
-الوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء التطبيق:
+يمكنك الوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
 ```tsx {6,10} fileName="src/app.tsx" codeFormat="typescript"
 import { useState } from "preact/hooks";
 import type { FunctionalComponent } from "preact";
-import preactLogo from "./assets/preact.svg"; // بافتراض أن لديك preact.svg
+import preactLogo from "./assets/preact.svg"; // بافتراض أن لديك ملف preact.svg
 import viteLogo from "/vite.svg";
-import "./app.css"; // بافتراض أن ملف CSS الخاص بك يسمى app.css
+import "./app.css"; // بافتراض أن ملف CSS الخاص بك اسمه app.css
 import { IntlayerProvider, useIntlayer } from "preact-intlayer";
 
 const AppContent: FunctionalComponent = () => {
@@ -528,19 +540,19 @@ const App = () => (
 module.exports = App;
 ```
 
-> إذا كنت ترغب في استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الوظيفة، مثل:
+> إذا كنت تريد استخدام المحتوى الخاص بك في خاصية من نوع `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الدالة، مثل:
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> ملاحظة: في Preact، يتم كتابة `className` عادةً كـ `class`.
+> ملاحظة: في Preact، عادةً ما يُكتب `className` كـ `class`.
 
-> لمعرفة المزيد عن هوك `useIntlayer`، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md) (واجهة برمجة التطبيقات مشابهة لـ `preact-intlayer`).
+> لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md) (واجهة برمجة التطبيقات مشابهة لـ `preact-intlayer`).
 
 ### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
 
-لتغيير لغة المحتوى الخاص بك، يمكنك استخدام وظيفة `setLocale` المقدمة من هوك `useLocale`. تتيح لك هذه الوظيفة تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
+لتغيير لغة المحتوى الخاص بك، يمكنك استخدام الدالة `setLocale` المقدمة من الخطاف `useLocale`. تتيح لك هذه الدالة تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FunctionalComponent } from "preact";
@@ -553,7 +565,14 @@ const LocaleSwitcher: FunctionalComponent = () => {
   return (
     <button onClick={() => setLocale(Locales.ENGLISH)}>
       تغيير اللغة إلى الإنجليزية
+    </button>
+  );
+};
 
+export default LocaleSwitcher;
+```
+
+```jsx fileName="src/components/LocaleSwitcher.jsx" codeFormat="esm"
 import { Locales } from "intlayer";
 import { useLocale } from "preact-intlayer";
 
@@ -591,7 +610,7 @@ module.exports = LocaleSwitcher;
 
 ### (اختياري) الخطوة 7: إضافة التوجيه المحلي إلى تطبيقك
 
-الغرض من هذه الخطوة هو إنشاء مسارات فريدة لكل لغة. هذا مفيد لتحسين محركات البحث (SEO) وعناوين URL الصديقة لمحركات البحث.
+الغرض من هذه الخطوة هو جعل المسارات فريدة لكل لغة. هذا مفيد لتحسين محركات البحث (SEO) ولعناوين URL الصديقة لمحركات البحث.
 مثال:
 
 ```plaintext
@@ -600,9 +619,9 @@ module.exports = LocaleSwitcher;
 - https://example.com/fr/about
 ```
 
-> بشكل افتراضي، لا يتم إضافة بادئة للمسارات للغة الافتراضية. إذا كنت تريد إضافة بادئة للغة الافتراضية، يمكنك تعيين الخيار `middleware.prefixDefault` إلى `true` في إعداداتك. راجع [توثيق الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لمزيد من المعلومات.
+> بشكل افتراضي، لا يتم إضافة بادئة للمسارات للغة الافتراضية. إذا كنت ترغب في إضافة بادئة للغة الافتراضية، يمكنك تعيين الخيار `middleware.prefixDefault` إلى `true` في إعداداتك. راجع [توثيق الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لمزيد من المعلومات.
 
-لإضافة التوجيه المحلي إلى تطبيقك، يمكنك إنشاء مكون `LocaleRouter` يلتف حول مسارات تطبيقك ويتعامل مع التوجيه المستند إلى اللغة. إليك مثال باستخدام [preact-iso](https://github.com/preactjs/preact-iso):
+لإضافة التوجيه المحلي إلى تطبيقك، يمكنك إنشاء مكون `LocaleRouter` الذي يلف مسارات تطبيقك ويتعامل مع التوجيه بناءً على اللغة. إليك مثالًا باستخدام [preact-iso](https://github.com/preactjs/preact-iso):
 
 أولاً، قم بتثبيت `preact-iso`:
 
@@ -640,8 +659,9 @@ const Navigate: FunctionalComponent<{ to: string; replace?: boolean }> = ({
 };
 
 /**
- * مكون يتعامل مع التوطين ويلتف حول الأطفال بسياق اللغة المناسب.
- * يدير الكشف عن اللغة المستندة إلى عنوان URL والتحقق من صحتها.
+/**
+ * مكون يتعامل مع التوطين ويغلف الأطفال بسياق اللغة المناسب.
+ * يدير اكتشاف اللغة بناءً على عنوان URL والتحقق من صحتها.
  */
 const AppLocalized: FunctionalComponent<{
   children: ComponentChildren;
@@ -658,33 +678,33 @@ const AppLocalized: FunctionalComponent<{
   // تحديد اللغة الحالية، مع الرجوع إلى اللغة الافتراضية إذا لم يتم توفيرها
   const currentLocale = locale ?? defaultLocale;
 
-  // إزالة بادئة اللغة من المسار لإنشاء مسار أساسي
+  // إزالة بادئة اللغة من المسار لبناء مسار أساسي
   const pathWithoutLocale = getPathWithoutLocale(
-    pathname // المسار الحالي لعنوان URL
+    pathname // مسار URL الحالي
   );
 
   /**
-   * إذا كان middleware.prefixDefault صحيحًا، يجب دائمًا إضافة بادئة للغة الافتراضية.
+   * إذا كانت الخاصية middleware.prefixDefault صحيحة، يجب دائمًا إضافة بادئة للغة الافتراضية.
    */
   if (middleware.prefixDefault) {
     // التحقق من صحة اللغة
     if (!locale || !locales.includes(locale)) {
-      // إعادة التوجيه إلى اللغة الافتراضية مع تحديث المسار
+      // إعادة التوجيه إلى اللغة الافتراضية مع المسار المحدث
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // استبدال إدخال السجل الحالي بالجديد
+          replace // استبدال الإدخال الحالي في السجل بالإدخال الجديد
         />
       );
     }
 
-    // التفاف الأطفال بـ IntlayerProvider وتعيين اللغة الحالية
+    // تغليف العناصر الفرعية بمزود Intlayer وتعيين اللغة الحالية
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
   } else {
     /**
-     * عندما يكون middleware.prefixDefault خاطئًا، لا يتم إضافة بادئة للغة الافتراضية.
+     * عندما تكون الخاصية middleware.prefixDefault خاطئة، لا تتم إضافة بادئة للغة الافتراضية.
      * تأكد من أن اللغة الحالية صالحة وليست اللغة الافتراضية.
      */
     if (
@@ -693,13 +713,13 @@ const AppLocalized: FunctionalComponent<{
         .filter(
           (loc) => loc.toString() !== defaultLocale.toString() // استبعاد اللغة الافتراضية
         )
-        .includes(currentLocale) // التحقق مما إذا كانت اللغة الحالية موجودة في قائمة اللغات الصالحة
+        .includes(currentLocale) // تحقق مما إذا كانت اللغة الحالية ضمن قائمة اللغات الصالحة
     ) {
       // إعادة التوجيه إلى المسار بدون بادئة اللغة
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
     }
 
-    // التفاف الأطفال بـ IntlayerProvider وتعيين اللغة الحالية
+    // لف العناصر الفرعية بمزود Intlayer وتعيين اللغة الحالية
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -735,8 +755,8 @@ const RouterContent: FunctionalComponent<{
 };
 
 /**
- * مكون التوجيه الذي يقوم بإعداد المسارات الخاصة باللغة.
- * يستخدم preact-iso لإدارة التنقل وعرض المكونات المحلية.
+ * مكون راوتر يقوم بإعداد مسارات خاصة بكل لغة.
+ * يستخدم preact-iso لإدارة التنقل وعرض المكونات المترجمة.
  */
 export const LocaleRouter: FunctionalComponent<{
   children: ComponentChildren;
@@ -755,7 +775,7 @@ import { LocationProvider, useLocation } from "preact-iso";
 import { useEffect } from "preact/hooks";
 import { h } from "preact"; // مطلوب لـ JSX
 
-// تفكيك الإعدادات من Intlayer
+// تفكيك التكوين من Intlayer
 const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
@@ -768,8 +788,8 @@ const Navigate = ({ to, replace }) => {
 };
 
 /**
- * مكون يتعامل مع التوطين ويلتف حول الأطفال بسياق اللغة المناسب.
- * يدير الكشف عن اللغة المستندة إلى عنوان URL والتحقق من صحتها.
+ * مكون يتعامل مع التوطين ويغلف الأطفال بسياق اللغة المناسب.
+ * يدير اكتشاف اللغة بناءً على عنوان URL والتحقق من صحتها.
  */
 const AppLocalized = ({ children, locale }) => {
   const { path: pathname, url } = useLocation();
@@ -780,30 +800,30 @@ const AppLocalized = ({ children, locale }) => {
 
   const search = url.substring(pathname.length);
 
-  // تحديد اللغة الحالية، مع الرجوع إلى اللغة الافتراضية إذا لم يتم توفيرها
+  // تحديد اللغة الحالية، والرجوع إلى اللغة الافتراضية إذا لم يتم توفيرها
   const currentLocale = locale ?? defaultLocale;
 
-  // إزالة بادئة اللغة من المسار لإنشاء مسار أساسي
+  // إزالة بادئة اللغة من المسار لبناء مسار أساسي
   const pathWithoutLocale = getPathWithoutLocale(
-    pathname // المسار الحالي لعنوان URL
+    pathname // مسار URL الحالي
   );
 
   /**
-   * إذا كان middleware.prefixDefault صحيحًا، يجب دائمًا إضافة بادئة للغة الافتراضية.
+   * إذا كانت middleware.prefixDefault صحيحة، يجب دائمًا إضافة بادئة اللغة الافتراضية.
    */
   if (middleware.prefixDefault) {
     // التحقق من صحة اللغة
     if (!locale || !locales.includes(locale)) {
-      // إعادة التوجيه إلى اللغة الافتراضية مع تحديث المسار
+      // إعادة التوجيه إلى اللغة الافتراضية مع المسار المحدث
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // استبدال إدخال السجل الحالي بالجديد
+          replace // استبدال الإدخال الحالي في السجل بالإدخال الجديد
         />
       );
     }
 
-    // التفاف الأطفال بـ IntlayerProvider وتعيين اللغة الحالية
+    // تغليف الأطفال بمزود Intlayer وتعيين اللغة الحالية
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -818,35 +838,13 @@ const AppLocalized = ({ children, locale }) => {
         .filter(
           (loc) => loc.toString() !== defaultLocale.toString() // استبعاد اللغة الافتراضية
         )
-        .includes(currentLocale) // التحقق مما إذا كانت اللغة الحالية موجودة في قائمة اللغات الصالحة
+        .includes(currentLocale) // التحقق مما إذا كانت اللغة الحالية ضمن قائمة اللغات الصالحة
     ) {
       // إعادة التوجيه إلى المسار بدون بادئة اللغة
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
     }
 
-    // التفاف الأطفال بـ IntlayerProvider وتعيين اللغة الحالية
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-* عندما يكون middleware.prefixDefault هو false، لا يتم إضافة بادئة للغة الافتراضية.
-     * تأكد من أن اللغة الحالية صالحة وليست اللغة الافتراضية.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // استبعاد اللغة الافتراضية
-        )
-        .includes(currentLocale) // تحقق مما إذا كانت اللغة الحالية موجودة في قائمة اللغات الصالحة
-    ) {
-      // إعادة التوجيه إلى المسار بدون بادئة اللغة
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // تغليف الأطفال باستخدام IntlayerProvider وتعيين اللغة الحالية
+    // تغليف العناصر الفرعية بمزود Intlayer وتعيين اللغة الحالية
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -880,7 +878,7 @@ const RouterContent = ({ children }) => {
 };
 
 /**
- * مكون موجه يقوم بإعداد مسارات خاصة باللغات.
+ * مكون راوتر يقوم بإعداد مسارات خاصة بكل لغة.
  * يستخدم preact-iso لإدارة التنقل وعرض المكونات المترجمة.
  */
 export const LocaleRouter = ({ children }) => (
@@ -898,7 +896,7 @@ const { LocationProvider, useLocation } = require("preact-iso");
 const { useEffect } = require("preact/hooks");
 const { h } = require("preact"); // مطلوب لـ JSX
 
-// تفكيك التكوين من Intlayer
+// تفكيك التهيئة من Intlayer
 const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
@@ -911,8 +909,8 @@ const Navigate = ({ to, replace }) => {
 };
 
 /**
- * مكون يتعامل مع الترجمة ويغلف الأطفال بالسياق المناسب للغة.
- * يدير الكشف عن اللغة بناءً على عنوان URL والتحقق من صحتها.
+ * مكون يتعامل مع التوطين ويغلف الأطفال بسياق اللغة المناسب.
+ * يدير اكتشاف اللغة بناءً على عنوان URL والتحقق من صحتها.
  */
 const AppLocalized = ({ children, locale }) => {
   const { path: pathname, url } = useLocation();
@@ -923,21 +921,21 @@ const AppLocalized = ({ children, locale }) => {
 
   const search = url.substring(pathname.length);
 
-  // تحديد اللغة الحالية، مع الرجوع إلى اللغة الافتراضية إذا لم يتم توفيرها
+  // تحديد اللغة الحالية، والرجوع إلى اللغة الافتراضية إذا لم يتم توفيرها
   const currentLocale = locale ?? defaultLocale;
 
-  // إزالة بادئة اللغة من المسار لإنشاء مسار أساسي
+  // إزالة بادئة اللغة من المسار لبناء مسار أساسي
   const pathWithoutLocale = getPathWithoutLocale(
-    pathname // المسار الحالي لعنوان URL
+    pathname // مسار URL الحالي
   );
 
   /**
-   * إذا كان middleware.prefixDefault هو true، يجب دائمًا إضافة بادئة للغة الافتراضية.
+   * إذا كانت middleware.prefixDefault صحيحة، يجب دائمًا إضافة بادئة اللغة الافتراضية.
    */
   if (middleware.prefixDefault) {
     // التحقق من صحة اللغة
     if (!locale || !locales.includes(locale)) {
-      // إعادة التوجيه إلى اللغة الافتراضية مع تحديث المسار
+      // إعادة التوجيه إلى اللغة الافتراضية مع المسار المحدث
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
@@ -946,13 +944,13 @@ const AppLocalized = ({ children, locale }) => {
       );
     }
 
-    // تغليف الأطفال باستخدام IntlayerProvider وتعيين اللغة الحالية
+    // تغليف العناصر الفرعية بـ IntlayerProvider وتعيين اللغة الحالية
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
   } else {
     /**
-     * عندما يكون middleware.prefixDefault هو false، لا يتم إضافة بادئة للغة الافتراضية.
+     * عندما تكون middleware.prefixDefault خاطئة، لا يتم إضافة بادئة اللغة الافتراضية.
      * تأكد من أن اللغة الحالية صالحة وليست اللغة الافتراضية.
      */
     if (
@@ -967,7 +965,7 @@ const AppLocalized = ({ children, locale }) => {
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
     }
 
-    // تغليف الأطفال باستخدام IntlayerProvider وتعيين اللغة الحالية
+    // لف العناصر الفرعية بمزود Intlayer وتعيين اللغة الحالية
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -1001,7 +999,7 @@ const RouterContent = ({ children }) => {
 };
 
 /**
- * مكون موجه يقوم بإعداد مسارات خاصة باللغات.
+ * مكون راوتر يقوم بإعداد مسارات خاصة بكل لغة.
  * يستخدم preact-iso لإدارة التنقل وعرض المكونات المترجمة.
  */
 const LocaleRouter = ({ children }) => (
@@ -1018,7 +1016,8 @@ module.exports = { LocaleRouter };
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FunctionalComponent } from "preact";
-// ... مكون AppContent الخاص بك (المُعرّف في الخطوة 5)
+tsx fileName="src/app.tsx" codeFormat="typescript"
+// ... مكون AppContent الخاص بك (المعرف في الخطوة 5)
 
 const App: FunctionalComponent = () => (
   <LocaleRouter>
@@ -1031,7 +1030,7 @@ export default App;
 
 ```jsx fileName="src/app.jsx" codeFormat="esm"
 import { LocaleRouter } from "./components/LocaleRouter";
-// ... مكون AppContent الخاص بك (المُعرّف في الخطوة 5)
+// ... مكون AppContent الخاص بك (المعرف في الخطوة 5)
 
 const App = () => (
   <LocaleRouter>
@@ -1044,7 +1043,7 @@ export default App;
 
 ```jsx fileName="src/app.cjsx" codeFormat="commonjs"
 const { LocaleRouter } = require("./components/LocaleRouter");
-// ... مكون AppContent الخاص بك (المُعرّف في الخطوة 5)
+// ... مكون AppContent الخاص بك (المعرف في الخطوة 5)
 
 const App = () => (
   <LocaleRouter>
@@ -1055,7 +1054,7 @@ const App = () => (
 module.exports = App;
 ```
 
-بالتوازي، يمكنك أيضًا استخدام `intLayerMiddlewarePlugin` لإضافة التوجيه من جانب الخادم إلى تطبيقك. سيكتشف هذا المكون الإضافي اللغة الحالية تلقائيًا بناءً على عنوان URL ويضبط ملف تعريف الارتباط المناسب للغة. إذا لم يتم تحديد لغة، سيحدد المكون الإضافي اللغة الأنسب بناءً على تفضيلات لغة المتصفح للمستخدم. إذا لم يتم اكتشاف لغة، فسيعيد التوجيه إلى اللغة الافتراضية.
+بالتوازي، يمكنك أيضًا استخدام `intLayerMiddlewarePlugin` لإضافة التوجيه من جانب الخادم إلى تطبيقك. سيقوم هذا المكون الإضافي تلقائيًا بالكشف عن اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط المناسب للغة. إذا لم يتم تحديد لغة، سيحدد المكون الإضافي اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. إذا لم يتم الكشف عن أي لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1092,6 +1091,8 @@ module.exports = defineConfig({
 
 ### (اختياري) الخطوة 8: تغيير عنوان URL عند تغيير اللغة
 
+لتغيير عنوان URL عند تغيير اللغة، يمكنك استخدام الخاصية `onLocaleChange` التي يوفرها الخطاف `useLocale`. بالتوازي، يمكنك استخدام `useLocation` و `route` من مكتبة `preact-iso` لتحديث مسار URL.
+
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { useLocation, route } from "preact-iso";
 import {
@@ -1107,12 +1108,12 @@ const LocaleSwitcher: FunctionalComponent = () => {
   const location = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url; // توفر مكتبة preact-iso العنوان الكامل
-      // إنشاء عنوان URL مع اللغة المحلية المحدثة
+      const currentFullPath = location.url; // توفر preact-iso عنوان URL الكامل
+      // بناء عنوان URL مع اللغة المحدّثة
       // مثال: /es/about?foo=bar
       const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
 
-      // تحديث مسار عنوان URL
+      // تحديث مسار URL
       route(pathWithLocale, true); // true للاستبدال
     },
   });
@@ -1129,24 +1130,24 @@ const LocaleSwitcher: FunctionalComponent = () => {
             onClick={(e) => {
               e.preventDefault();
               setLocale(localeItem);
-              // سيتم التعامل مع التنقل البرمجي بعد تعيين اللغة المحلية بواسطة onLocaleChange
+              // سيتم التعامل مع التنقل البرمجي بعد تعيين اللغة بواسطة onLocaleChange
             }}
             key={localeItem}
           >
             <span>
-              {/* اللغة المحلية - مثال: FR */}
+              {/* اللغة - مثل FR */}
               {localeItem}
             </span>
             <span>
-              {/* اللغة بلغتها الخاصة - مثال: Français */}
+              {/* اللغة بلغتها الأصلية - مثل Français */}
               {getLocaleName(localeItem, localeItem)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* اللغة باللغة الحالية - مثال: Francés مع تعيين اللغة الحالية إلى Locales.SPANISH */}
+              {/* اللغة باللغة الحالية - مثل Francés مع تعيين اللغة الحالية إلى Locales.SPANISH */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* اللغة بالإنجليزية - مثال: French */}
+              {/* اللغة بالإنجليزية - مثل French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1168,7 +1169,7 @@ import {
   getLocalizedUrl,
 } from "intlayer";
 import { useLocale } from "preact-intlayer";
-import { h } from "preact"; // لاستخدام JSX
+import { h } from "preact"; // للـ JSX
 
 const LocaleSwitcher = () => {
   const location = useLocation();
@@ -1222,7 +1223,7 @@ const {
   getLocalizedUrl,
 } = require("intlayer");
 const { useLocale } = require("preact-intlayer");
-const { h } = require("preact"); // لاستخدام JSX
+const { h } = require("preact"); // للـ JSX
 
 const LocaleSwitcher = () => {
   const location = useLocation();
@@ -1269,58 +1270,59 @@ module.exports = LocaleSwitcher;
 
 > مراجع التوثيق:
 >
-> - [خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) (تشابه API مع `preact-intlayer`)
-> - [خطاف `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocaleName.md)
-> - [خطاف `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)
-> - [خطاف `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getHTMLTextDir.md)
-> - [خاصية `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ar)
-> - [خاصية `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
-> - [خاصية `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
-> - [خاصية `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
-> - [واجهة برمجة التطبيقات Popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
+> > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) (واجهة برمجة التطبيقات مشابهة لـ `preact-intlayer`)
+>
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getHTMLTextDir.md)
+> - [`hreflang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> - [`lang` attribute](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` attribute](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` attribute](https://developer.mozilla.org/ar/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [واجهة برمجة تطبيقات Popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) > > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) (واجهة برمجة التطبيقات مشابهة لـ `preact-intlayer`) > - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocaleName.md) > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md) > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getHTMLTextDir.md) > - [خاصية `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ar) > - [خاصية `lang`](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/lang) > - [خاصية `dir`](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/dir) > - [خاصية `aria-current`](https://developer.mozilla.org/ar/docs/Web/Accessibility/ARIA/Attributes/aria-current) > - [واجهة برمجة التطبيقات Popover](https://developer.mozilla.org/ar/docs/Web/API/Popover_API)
+
+فيما يلي الخطوة التاسعة المحدثة مع شرح إضافي وأمثلة كود محسنة:
 
 ---
 
-### (اختياري) الخطوة 9: تبديل سمات اللغة والاتجاه في HTML
+### (اختياري) الخطوة 9: تبديل خصائص اللغة والاتجاه في وسم HTML
 
-عندما يدعم تطبيقك لغات متعددة، من المهم تحديث سمات `lang` و `dir` في علامة `<html>` لتتوافق مع اللغة المحلية الحالية. القيام بذلك يضمن:
+عندما يدعم تطبيقك عدة لغات، من الضروري تحديث خصائص `lang` و `dir` في وسم `<html>` لتتوافق مع اللغة الحالية. يضمن ذلك:
 
-- **إمكانية الوصول**: تعتمد قارئات الشاشة والتقنيات المساعدة على السمة `lang` الصحيحة لنطق المحتوى وتفسيره بدقة.
-- **عرض النصوص**: تضمن السمة `dir` (الاتجاه) عرض النصوص بالترتيب الصحيح (مثلًا، من اليسار إلى اليمين للإنجليزية، ومن اليمين إلى اليسار للعربية أو العبرية)، وهو أمر ضروري للقراءة.
-- **تحسين محركات البحث (SEO)**: تستخدم محركات البحث السمة `lang` لتحديد لغة صفحتك، مما يساعد على تقديم المحتوى المحلي المناسب في نتائج البحث.
+- **إمكانية الوصول**: تعتمد برامج قراءة الشاشة وتقنيات المساعدة على خاصية `lang` الصحيحة لنطق وتفسير المحتوى بدقة.
+- **عرض النص**: تضمن خاصية `dir` (الاتجاه) عرض النص بالترتيب الصحيح (مثلًا من اليسار إلى اليمين للإنجليزية، ومن اليمين إلى اليسار للعربية أو العبرية)، وهو أمر أساسي لسهولة القراءة.
+- **تحسين محركات البحث (SEO)**: تستخدم محركات البحث الخاصية `lang` لتحديد لغة صفحتك، مما يساعد في تقديم المحتوى المحلي المناسب في نتائج البحث.
 
-من خلال تحديث هذه السمات ديناميكيًا عند تغيير اللغة المحلية، تضمن تجربة متسقة وسهلة الوصول للمستخدمين عبر جميع اللغات المدعومة.
+من خلال تحديث هذه الخصائص ديناميكيًا عند تغيير اللغة، تضمن تجربة متسقة وسهلة الوصول للمستخدمين عبر جميع اللغات المدعومة.
 
-#### تنفيذ الخطاف
+#### تنفيذ الـ Hook
 
-قم بإنشاء خطاف مخصص لإدارة سمات HTML. يستمع الخطاف لتغييرات اللغة المحلية ويقوم بتحديث السمات وفقًا لذلك:
+قم بإنشاء hook مخصص لإدارة خصائص HTML. يستمع الـ hook لتغييرات اللغة ويحدث الخصائص وفقًا لذلك:
 
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
 import { useEffect } from "preact/hooks";
 import { useLocale } from "preact-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
-/\*\*
-
-- يقوم بتحديث سمات `lang` و `dir` لعنصر HTML <html> بناءً على اللغة الحالية.
-- - `lang`: يُعلم المتصفحات ومحركات البحث بلغة الصفحة.
-- - `dir`: يضمن ترتيب القراءة الصحيح (مثل 'ltr' للإنجليزية، 'rtl' للعربية).
--
-- هذا التحديث الديناميكي ضروري لعرض النصوص بشكل صحيح، وتحسين الوصول، وتحسين محركات البحث.
-  \*/
-  export const useI18nHTMLAttributes = () => {
+/**
+ * يقوم بتحديث خصائص `lang` و `dir` لعنصر <html> بناءً على اللغة الحالية.
+ * - `lang`: يُعلم المتصفحات ومحركات البحث بلغة الصفحة.
+ * - `dir`: يضمن ترتيب القراءة الصحيح (مثل 'ltr' للإنجليزية، 'rtl' للعربية).
+ *
+ * هذا التحديث الديناميكي ضروري لعرض النص بشكل صحيح، وللوصولية، وتحسين محركات البحث (SEO).
+ */
+export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
-useEffect(() => {
-// تحديث سمة اللغة إلى اللغة الحالية.
-document.documentElement.lang = locale;
+  useEffect(() => {
+    // تحديث خاصية اللغة إلى اللغة الحالية.
+    document.documentElement.lang = locale;
 
     // تعيين اتجاه النص بناءً على اللغة الحالية.
     document.documentElement.dir = getHTMLTextDir(locale);
-
-}, [locale]);
+  }, [locale]);
 };
-
-````
+```
 
 ```jsx fileName="src/hooks/useI18nHTMLAttributes.jsx" codeFormat="esm"
 import { useEffect } from "preact/hooks";
@@ -1328,7 +1330,7 @@ import { useLocale } from "preact-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
- * يقوم بتحديث سمات `lang` و `dir` لعنصر HTML <html> بناءً على اللغة الحالية.
+ * يقوم بتحديث خصائص `lang` و `dir` لعنصر HTML <html> بناءً على اللغة الحالية.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1338,7 +1340,7 @@ export const useI18nHTMLAttributes = () => {
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
-````
+```
 
 ```jsx fileName="src/hooks/useI18nHTMLAttributes.cjsx" codeFormat="commonjs"
 const { useEffect } = require("preact/hooks");
@@ -1346,7 +1348,7 @@ const { useLocale } = require("preact-intlayer");
 const { getHTMLTextDir } = require("intlayer");
 
 /**
- * يقوم بتحديث سمات `lang` و `dir` لعنصر HTML <html> بناءً على اللغة الحالية.
+ * يقوم بتحديث خصائص `lang` و `dir` لعنصر HTML <html> بناءً على اللغة الحالية.
  */
 const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1360,22 +1362,22 @@ const useI18nHTMLAttributes = () => {
 module.exports = { useI18nHTMLAttributes };
 ```
 
-#### استخدام الخطاف في تطبيقك
+#### استخدام الـ Hook في تطبيقك
 
-قم بدمج الخطاف في المكون الرئيسي الخاص بك بحيث يتم تحديث سمات HTML كلما تغيرت اللغة:
+ادمج الـ hook في المكون الرئيسي الخاص بك بحيث يتم تحديث خصائص HTML في كل مرة يتغير فيها locale:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FunctionalComponent } from "preact";
-import { IntlayerProvider } from "preact-intlayer"; // تم استيراد useIntlayer بالفعل إذا كان AppContent يحتاجه
+import { IntlayerProvider } from "preact-intlayer"; // تم استيراد useIntlayer مسبقًا إذا كان AppContent يحتاجه
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./app.css";
 // تعريف AppContent من الخطوة 5
 
 const AppWithHooks: FunctionalComponent = () => {
-  // تطبيق الخطاف لتحديث سمات lang و dir لعلامة <html> بناءً على اللغة.
+  // تطبيق الـ hook لتحديث خصائص lang و dir في وسم <html> بناءً على اللغة المختارة.
   useI18nHTMLAttributes();
 
-  // بافتراض أن AppContent هو مكون العرض الرئيسي الخاص بك من الخطوة 5
+  // بافتراض أن AppContent هو مكون عرض المحتوى الرئيسي الخاص بك من الخطوة 5
   return <AppContent />;
 };
 
@@ -1428,29 +1430,29 @@ const App = () => (
 module.exports = App;
 ```
 
-من خلال تطبيق هذه التغييرات، سيقوم تطبيقك بـ:
+بتطبيق هذه التغييرات، سيقوم تطبيقك بـ:
 
-- ضمان أن تعكس سمة **اللغة** (`lang`) اللغة الحالية بشكل صحيح، وهو أمر مهم لتحسين محركات البحث وسلوك المتصفح.
-- ضبط **اتجاه النص** (`dir`) وفقًا للغة، مما يعزز قابلية القراءة وسهولة الاستخدام للغات ذات أوامر قراءة مختلفة.
-- توفير تجربة أكثر **وصولاً**، حيث تعتمد تقنيات المساعدة على هذه السمات لتعمل بشكل مثالي.
+- التأكد من أن خاصية **اللغة** (`lang`) تعكس اللغة الحالية بشكل صحيح، وهو أمر مهم لتحسين محركات البحث وسلوك المتصفح.
+- ضبط **اتجاه النص** (`dir`) وفقًا للغة المختارة، مما يعزز من قابلية القراءة وسهولة الاستخدام للغات ذات اتجاهات قراءة مختلفة.
+- توفير تجربة أكثر **سهولة في الوصول**، حيث تعتمد تقنيات المساعدة على هذه السمات لتعمل بشكل مثالي.
 
 ### (اختياري) الخطوة 10: إنشاء مكون رابط محلي
 
-لضمان أن التنقل في تطبيقك يحترم اللغة الحالية، يمكنك إنشاء مكون `Link` مخصص. يقوم هذا المكون تلقائيًا بإضافة بادئة لعناوين URL الداخلية باللغة الحالية.
+لضمان أن تتوافق تنقلات تطبيقك مع اللغة الحالية، يمكنك إنشاء مكون `Link` مخصص. يقوم هذا المكون تلقائيًا بإضافة بادئة اللغة الحالية إلى عناوين URL الداخلية.
 
 هذا السلوك مفيد لعدة أسباب:
 
-- **تحسين محركات البحث وتجربة المستخدم**: تساعد عناوين URL المحلية محركات البحث على فهرسة الصفحات الخاصة باللغة بشكل صحيح وتوفر للمستخدمين محتوى بلغتهم المفضلة.
-- **الاتساق**: باستخدام رابط محلي في جميع أنحاء تطبيقك، تضمن أن التنقل يظل ضمن اللغة الحالية، مما يمنع التبديل غير المتوقع للغة.
-- **سهولة الصيانة**: تبسيط إدارة عناوين URL من خلال مركزية منطق الترجمة في مكون واحد.
+- **تحسين محركات البحث وتجربة المستخدم**: تساعد عناوين URL المحلية محركات البحث على فهرسة الصفحات الخاصة بكل لغة بشكل صحيح وتوفر للمستخدمين محتوى بلغتهم المفضلة.
+- **الاتساق**: باستخدام رابط محلي في جميع أنحاء تطبيقك، تضمن بقاء التنقل ضمن اللغة الحالية، مما يمنع التبديلات غير المتوقعة في اللغة.
+- **قابلية الصيانة**: تركيز منطق التوطين في مكون واحد يبسط إدارة عناوين URL.
 
-بالنسبة لـ Preact مع `preact-iso`، يتم استخدام علامات `<a>` القياسية عادةً للتنقل، ويتولى `preact-iso` التعامل مع التوجيه. إذا كنت بحاجة إلى التنقل البرمجي عند النقر (على سبيل المثال، لتنفيذ إجراءات قبل التنقل)، يمكنك استخدام وظيفة `route` من `useLocation`. إليك كيفية إنشاء مكون رابط مخصص يقوم بتوطين عناوين URL:
+بالنسبة لـ Preact مع `preact-iso`، عادةً ما تُستخدم علامات `<a>` القياسية للملاحة، ويتولى `preact-iso` التعامل مع التوجيه. إذا كنت بحاجة إلى التنقل برمجيًا عند النقر (مثل تنفيذ إجراءات قبل التنقل)، يمكنك استخدام دالة `route` من `useLocation`. إليك كيفية إنشاء مكون رابط مخصص يقوم بتوطين عناوين URL:
 
 ```tsx fileName="src/components/LocalizedLink.tsx" codeFormat="typescript"
 import { getLocalizedUrl } from "intlayer";
-import { useLocale, useLocation, route } from "preact-intlayer"; // بافتراض أن useLocation و route يمكن أن تكون من preact-iso عبر preact-intlayer إذا تم إعادة تصديرها، أو الاستيراد مباشرة
-// إذا لم يتم إعادة التصدير، قم بالاستيراد مباشرة: import { useLocation, route } from "preact-iso";
-import type { JSX } from "preact"; // للسمات HTML
+import { useLocale, useLocation, route } from "preact-intlayer"; // بافتراض أن useLocation و route يمكن أن يكونا من preact-iso عبر preact-intlayer إذا تم إعادة التصدير، أو استيرادهما مباشرة
+// إذا لم يتم إعادة التصدير، استورد مباشرة: import { useLocation, route } from "preact-iso";
+import type { JSX } from "preact"; // للسمات HTMLAttributes
 import { forwardRef } from "preact/compat"; // لإعادة توجيه المراجع
 
 export interface LocalizedLinkProps
@@ -1460,17 +1462,17 @@ export interface LocalizedLinkProps
 }
 
 /**
- * وظيفة مساعدة للتحقق مما إذا كان عنوان URL معين خارجيًا.
- * إذا بدأ عنوان URL بـ http:// أو https://، فإنه يعتبر خارجيًا.
+ * دالة مساعدة للتحقق مما إذا كان الرابط المعطى خارجيًا.
+ * إذا بدأ الرابط بـ http:// أو https://، يعتبر خارجيًا.
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
 
 /**
- * مكون رابط مخصص يتكيف مع سمة href بناءً على اللغة الحالية.
- * بالنسبة للروابط الداخلية، يستخدم `getLocalizedUrl` لإضافة بادئة للعنوان باللغة (مثل /ar/about).
- * يضمن ذلك أن يظل التنقل ضمن نفس سياق اللغة.
- * يستخدم علامة <a> القياسية ولكنه يمكن أن يؤدي إلى التنقل على جانب العميل باستخدام وظيفة `route` الخاصة بـ preact-iso.
+ * مكون رابط مخصص يقوم بتكييف خاصية href بناءً على اللغة الحالية.
+ * بالنسبة للروابط الداخلية، يستخدم `getLocalizedUrl` لإضافة بادئة اللغة إلى عنوان URL (مثلاً /fr/about).
+ * هذا يضمن أن التنقل يبقى ضمن نفس سياق اللغة.
+ * يستخدم وسم <a> عادي ولكنه يمكن أن يفعّل التنقل من جهة العميل باستخدام `route` من preact-iso.
  */
 export const LocalizedLink = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(
   ({ href, children, onClick, replace = false, ...props }, ref) => {
@@ -1487,18 +1489,18 @@ export const LocalizedLink = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(
       }
       if (
         !isExternalLink &&
-        href && // تأكد من أن href محدد
-        event.button === 0 && // النقر الأيسر
+        href && // التأكد من تعريف href
+        event.button === 0 && // نقرة زر الفأرة الأيسر
         !event.metaKey &&
         !event.ctrlKey &&
         !event.shiftKey &&
-        !event.altKey && // تحقق من المعدلات القياسية
-        !props.target // عدم استهداف علامة تبويب/نافذة جديدة
+        !event.altKey && // التحقق من عدم وجود مفاتيح تعديل قياسية
+        !props.target // عدم استهداف نافذة/تبويب جديد
       ) {
         event.preventDefault();
         if (location.url !== hrefI18n) {
-          // التنقل فقط إذا كان عنوان URL مختلفًا
-          route(hrefI18n, replace); // استخدم وظيفة route الخاصة بـ preact-iso
+          // التنقل فقط إذا كان الرابط مختلفًا
+          route(hrefI18n, replace); // استخدام route من preact-iso
         }
       }
     };
@@ -1515,10 +1517,9 @@ export const LocalizedLink = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(
 ```jsx fileName="src/components/LocalizedLink.jsx" codeFormat="esm"
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "preact-intlayer";
-
 import { useLocation, route } from "preact-iso"; // استيراد من preact-iso
 import { forwardRef } from "preact/compat";
-import { h } from "preact"; // لاستخدام JSX
+import { h } from "preact"; // من أجل JSX
 
 export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
@@ -1566,22 +1567,22 @@ const { getLocalizedUrl } = require("intlayer");
 const { useLocale } = require("preact-intlayer");
 const { useLocation, route } = require("preact-iso"); // استيراد من preact-iso
 const { forwardRef } = require("preact/compat");
-const { h } = require("preact"); // لاستخدام JSX
+const { h } = require("preact"); // من أجل JSX
 
-const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
+const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? ""); // تحقق مما إذا كان الرابط خارجيًا
 
 const LocalizedLink = forwardRef(
   ({ href, children, onClick, replace = false, ...props }, ref) => {
-    const { locale } = useLocale();
-    const location = useLocation();
-    const isExternalLink = checkIsExternalLink(href);
+    const { locale } = useLocale(); // الحصول على اللغة الحالية
+    const location = useLocation(); // الحصول على الموقع الحالي
+    const isExternalLink = checkIsExternalLink(href); // التحقق مما إذا كان الرابط خارجيًا
 
     const hrefI18n =
-      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+      href && !isExternalLink ? getLocalizedUrl(href, locale) : href; // تعريب الرابط إذا لم يكن خارجيًا
 
     const handleClick = (event) => {
       if (onClick) {
-        onClick(event);
+        onClick(event); // استدعاء دالة النقر إذا كانت موجودة
       }
       if (
         !isExternalLink &&
@@ -1593,7 +1594,7 @@ const LocalizedLink = forwardRef(
         !event.altKey &&
         !props.target
       ) {
-        event.preventDefault();
+        event.preventDefault(); // منع السلوك الافتراضي للنقر
         if (location.url !== hrefI18n) {
           route(hrefI18n, replace);
         }
@@ -1614,29 +1615,29 @@ module.exports = { LocalizedLink, checkIsExternalLink };
 #### كيف يعمل
 
 - **كشف الروابط الخارجية**:  
-  تقوم وظيفة المساعدة `checkIsExternalLink` بتحديد ما إذا كان الرابط خارجيًا. يتم ترك الروابط الخارجية دون تغيير.
+  تقوم دالة المساعدة `checkIsExternalLink` بتحديد ما إذا كان الرابط URL خارجيًا. تُترك الروابط الخارجية دون تغيير.
 - **استرجاع اللغة الحالية**:  
   يوفر الخطاف `useLocale` اللغة الحالية.
 - **توطين الرابط**:  
-  بالنسبة للروابط الداخلية، يضيف `getLocalizedUrl` بادئة الرابط باللغة الحالية.
-- **التنقل على جانب العميل**:  
-  تتحقق وظيفة `handleClick` مما إذا كان الرابط داخليًا وما إذا كان يجب منع التنقل القياسي. إذا كان الأمر كذلك، فإنها تستخدم وظيفة `route` الخاصة بـ `preact-iso` (المستمدة عبر `useLocation` أو المستوردة مباشرة) لتنفيذ التنقل على جانب العميل. يوفر هذا سلوكًا يشبه تطبيقات SPA دون إعادة تحميل الصفحة بالكامل.
+  بالنسبة للروابط الداخلية، تضيف دالة `getLocalizedUrl` بادئة اللغة الحالية إلى الرابط.
+- **التنقل من جانب العميل**:
+  تتحقق دالة `handleClick` مما إذا كان الرابط داخليًا وإذا كان يجب منع التنقل القياسي. إذا كان الأمر كذلك، فإنها تستخدم دالة `route` من مكتبة `preact-iso` (التي يتم الحصول عليها عبر `useLocation` أو استيرادها مباشرة) لتنفيذ التنقل على جانب العميل. هذا يوفر سلوكًا يشبه تطبيق الصفحة الواحدة (SPA) بدون إعادة تحميل الصفحة بالكامل.
 - **إرجاع الرابط**:  
-  تقوم المكونة بإرجاع عنصر `<a>` مع الرابط الموطّن ومعالج النقر المخصص.
+  تُرجع المكون عنصر `<a>` مع عنوان URL المحلي ومعالج النقر المخصص.
 
-### إعداد TypeScript
+### تكوين TypeScript
 
-يستخدم Intlayer توسيع الوحدات للحصول على فوائد TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
+يستخدم Intlayer توسيع الوحدات (module augmentation) للاستفادة من TypeScript وجعل قاعدة الشيفرة الخاصة بك أقوى.
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
-تأكد من أن إعدادات TypeScript الخاصة بك تتضمن الأنواع التي يتم إنشاؤها تلقائيًا.
+تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع التي تم إنشاؤها تلقائيًا.
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... إعدادات TypeScript الحالية
+  // ... تكوينات TypeScript الحالية الخاصة بك
   "compilerOptions": {
     // ...
     "jsx": "react-jsx",
@@ -1644,22 +1645,22 @@ module.exports = { LocalizedLink, checkIsExternalLink };
     // ...
   },
   "include": [
-    // ... إعدادات TypeScript الحالية
-    ".intlayer/**/*.ts", // تضمين الأنواع التي يتم إنشاؤها تلقائيًا
+    // ... تكوينات TypeScript الحالية الخاصة بك
+    ".intlayer/**/*.ts", // تضمين الأنواع التي تم إنشاؤها تلقائيًا
   ],
 }
 ```
 
-> تأكد من أن `tsconfig.json` الخاص بك معد لـ Preact، خاصةً `jsx` و `jsxImportSource` أو `jsxFactory`/`jsxFragmentFactory` للإصدارات الأقدم من Preact إذا لم تكن تستخدم الإعدادات الافتراضية لـ `preset-vite`.
+> تأكد من إعداد `tsconfig.json` الخاص بك لـ Preact، خاصةً `jsx` و `jsxImportSource` أو `jsxFactory`/`jsxFragmentFactory` لإصدارات Preact الأقدم إذا لم تستخدم إعدادات `preset-vite` الافتراضية.
 
-### إعداد Git
+### تكوين Git
 
-يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب إضافتها إلى مستودع Git الخاص بك.
+يوصى بتجاهل الملفات التي تم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
 
-للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+لعمل ذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
 ```plaintext
-# تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 
@@ -1669,17 +1670,23 @@ module.exports = { LocalizedLink, checkIsExternalLink };
 
 [التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-توفر هذه الإضافة:
+تقدم هذه الإضافة:
 
 - **الإكمال التلقائي** لمفاتيح الترجمة.
-- **كشف الأخطاء في الوقت الفعلي** للترجمات المفقودة.
+- **كشف الأخطاء في الوقت الحقيقي** للترجمات المفقودة.
 - **معاينات داخلية** للمحتوى المترجم.
-- **إجراءات سريعة** لإنشاء الترجمات وتحديثها بسهولة.
+- **إجراءات سريعة** لإنشاء الترجمة وتحديثها بسهولة.
 
-لمزيد من التفاصيل حول كيفية استخدام الإضافة، راجع [وثائق إضافة Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
+لمزيد من التفاصيل حول كيفية استخدام الإضافة، راجع [توثيق إضافة Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
-### الذهاب إلى أبعد من ذلك
+### التقدم أكثر
 
-## للمزيد، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو نقل المحتوى الخاص بك باستخدام [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+---
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

@@ -190,53 +190,58 @@ export const useAsync = <
       setQueryState(keyWithArgs, { isLoading: true });
       let response = null;
 
-      await asyncFunction(...args)
-        .then((result) => {
-          response = result;
+      try {
+        // Ensure asyncFunction returns a Promise
+        const asyncResult = asyncFunction(...args);
 
-          setQueryState(keyWithArgs, {
-            data: result,
-            errorCount: 0,
-            isLoading: false,
-            isFetched: true,
-            fetchedDateTime: new Date(),
-            isSuccess: true,
-            isInvalidated: false,
-            error: null,
-          });
+        // Check if the result is a Promise-like object
+        if (!asyncResult || typeof asyncResult.then !== 'function') {
+          throw new Error('asyncFunction must return a Promise');
+        }
 
-          onSuccess?.(result);
+        const result = await asyncResult;
+        response = result;
 
-          // Invalidate other queries if necessary
-          if (invalidateQueries.length > 0) {
-            setQueriesState(invalidateQueries, {
-              isInvalidated: true,
-            });
-          }
-
-          // Update other queries if necessary
-          if (updateQueries.length > 0) {
-            setQueriesState(updateQueries, {
-              data: result,
-            });
-          }
-
-          // Store the result in local storage
-          if (storeEnabled) {
-            localStorage.setItem(keyWithArgs, JSON.stringify(result));
-          }
-        })
-        .catch((error) => {
-          console.error({ error });
-          const msg = error instanceof Error ? error.message : String(error);
-
-          makeQueryInError(keyWithArgs, msg);
-          onError?.(error.message);
-        })
-        .finally(() => {
-          // Remove the pending promise from the cache
-          pendingPromises.delete(keyWithArgs);
+        setQueryState(keyWithArgs, {
+          data: result,
+          errorCount: 0,
+          isLoading: false,
+          isFetched: true,
+          fetchedDateTime: new Date(),
+          isSuccess: true,
+          isInvalidated: false,
+          error: null,
         });
+
+        onSuccess?.(result);
+
+        // Invalidate other queries if necessary
+        if (invalidateQueries.length > 0) {
+          setQueriesState(invalidateQueries, {
+            isInvalidated: true,
+          });
+        }
+
+        // Update other queries if necessary
+        if (updateQueries.length > 0) {
+          setQueriesState(updateQueries, {
+            data: result,
+          });
+        }
+
+        // Store the result in local storage
+        if (storeEnabled) {
+          localStorage.setItem(keyWithArgs, JSON.stringify(result));
+        }
+      } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+
+        makeQueryInError(keyWithArgs, msg);
+        onError?.(msg);
+      } finally {
+        // Remove the pending promise from the cache
+        pendingPromises.delete(keyWithArgs);
+      }
 
       return response;
     })();
@@ -368,7 +373,6 @@ export const useAsync = <
     if (!isEnabled || !enabled) return; // Hook is disabled
     if (!isRetryEnabled) return; // Retry is disabled
     if (isRetryLimitReached) return; // Retry limit has been reached
-    if (!(cacheEnabled || storeEnabled)) return; // Useless to retry if caching is disabled
     if (isLoading) return; // Fetch is already in progress
     if (isSuccess) return; // Hook has already fetched successfully
 
@@ -383,8 +387,6 @@ export const useAsync = <
     retryLimit,
     enabled,
     retryTime,
-    cacheEnabled,
-    storeEnabled,
     isSuccess,
     isLoading,
     fetch,
@@ -400,7 +402,6 @@ export const useAsync = <
     if (!isEnabled || !enabled) return; // Hook is disabled
     if (isLoading) return; // Fetch is already in progress
     if (!isSuccess || !fetchedDateTime) return; // Should retry either of revalidate
-    if (!(cacheEnabled || storeEnabled)) return; // Useless to revalidate if caching is disabled
 
     const timeout = setTimeout(() => {
       fetch(...storedArgsRef.current);
@@ -410,8 +411,6 @@ export const useAsync = <
   }, [
     revalidationEnabled,
     revalidateTime,
-    cacheEnabled,
-    storeEnabled,
     isSuccess,
     fetchedDateTime,
     isLoading,

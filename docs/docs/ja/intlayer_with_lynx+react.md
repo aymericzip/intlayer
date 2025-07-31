@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_lynx_react
-url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
-updatedAt: 2025-03-09
+updatedAt: 2025-06-29
 title: LynxとReactのモバイルアプリを翻訳する (i18n)
 description: LynxとReactを使用してPage Routerを利用したウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - React
   - Lynx
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - lynx-and-react
+applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
 # IntlayerとLynxとReactで国際化（i18n）を始める
@@ -27,8 +29,8 @@ keywords:
 Intlayerを使用すると、以下が可能です：
 
 - **コンポーネントレベルで宣言的な辞書を使用して翻訳を簡単に管理**できます。
-- **TypeScriptサポートを確保**し、自動生成された型を利用できます。
-- **動的にローカライズ**されたコンテンツ（**UI文字列**を含む）を提供できます（React for webではHTMLメタデータなどもローカライズ可能）。
+- **自動生成された型でTypeScriptサポートを確保**できます。
+- **UI文字列を含むコンテンツを動的にローカライズ**できます（React for webではHTMLメタデータなどもローカライズ可能）。
 - **動的なロケール検出や切り替え**などの高度な機能を利用できます。
 
 ---
@@ -181,9 +183,9 @@ if (import.meta.webpackHot) {
 - `.content.cjx`
 - など
 
-例（Lynx用のTSXノードを使用したTypeScript）：
+例：
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -191,7 +193,6 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      ja: "Lynx上で",
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
@@ -374,7 +375,6 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
     // 背景のみ
     setAlterLogo(!alterLogo);
@@ -461,7 +461,7 @@ export const LocaleSwitcher: FC = () => {
 
 ## TypeScriptの設定（TypeScriptを使用している場合）
 
-Intlayerは、隠しフォルダ（デフォルトでは`.intlayer`）に型定義を生成し、自動補完を改善し、翻訳エラーを検出します。
+Intlayerは、自動補完を改善し翻訳エラーを検出するために、隠しフォルダ（デフォルトは`.intlayer`）に型定義を生成します。
 
 ```json5
 // tsconfig.json
@@ -478,7 +478,7 @@ Intlayerは、隠しフォルダ（デフォルトでは`.intlayer`）に型定�
 これにより、以下の機能が有効になります：
 
 - **辞書キーの自動補完**。
-- 存在しないキーへのアクセスや型の不一致を警告する**型チェック**。
+- 存在しないキーにアクセスしたり型が不一致の場合に警告する**型チェック**。
 
 ---
 
@@ -493,8 +493,30 @@ Intlayerによって自動生成されたファイルをコミットしないよ
 
 ---
 
+### VS Code拡張機能
+
+Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
+
+[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+この拡張機能は以下を提供します：
+
+- 翻訳キーの**自動補完**。
+- 欠落している翻訳の**リアルタイムエラー検出**。
+- 翻訳内容の**インラインプレビュー**。
+- 翻訳の作成や更新を簡単に行う**クイックアクション**。
+  拡張機能の使い方の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+
+---
+
 ## さらに進む
 
 - **ビジュアルエディター**: [Intlayerビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を使用して翻訳を視覚的に管理します。
 - **CMS統合**: 辞書コンテンツを[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)から外部化して取得することもできます。
 - **CLIコマンド**: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を使用して、**翻訳の抽出**や**欠落キーの確認**などのタスクを実行します。
+
+---
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴開始

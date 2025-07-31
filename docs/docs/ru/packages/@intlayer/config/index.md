@@ -1,8 +1,28 @@
-# @intlayer/config: NPM Пакет для получения конфигурации Intlayer
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/config - Управление конфигурацией для Intlayer
+description: NPM пакет для получения конфигурации Intlayer и определения переменных окружения для настроек интернационализации в разных средах.
+keywords:
+  - intlayer
+  - конфигурация
+  - окружение
+  - настройки
+  - i18n
+  - JavaScript
+  - NPM
+  - переменные
+slugs:
+  - doc
+  - package
+  - @intlayer_config
+---
 
-**Intlayer** , это набор пакетов, специально разработанных для разработчиков JavaScript. Он совместим с такими фреймворками, как React, React и Express.js.
+# @intlayer/config: NPM пакет для получения конфигурации Intlayer
 
-Пакет **`@intlayer/config`** , это NPM пакет, который позволяет получить конфигурацию Intlayer и определить переменные окружения, связанные с текущей средой.
+**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+
+Пакет **`@intlayer/config`** — это NPM-пакет, который позволяет получить конфигурацию Intlayer и определить переменные окружения, связанные с текущей средой.
 
 ## Установка
 
@@ -41,7 +61,7 @@ console.log(config);
 // }
 ```
 
-> Эта функция использует пакеты `fs` и будет работать только на стороне сервера.
+> Эта функция использует пакет `fs` и будет работать только на стороне сервера.
 
 ### Чтение конфигурации Intlayer с использованием переменных окружения
 
@@ -64,7 +84,7 @@ console.log(config);
 // }
 ```
 
-> Эта функция не вернет ничего, если переменные окружения не определены.
+> Эта функция не вернёт ничего, если переменные окружения не определены.
 
 ### Определение переменных окружения
 
@@ -91,7 +111,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> См. [Документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) для получения более подробной информации.
+> См. [документацию по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) для получения дополнительной информации.
 
 2. Определите переменные окружения.
 
@@ -100,10 +120,10 @@ import { getConfiguration } from "@intlayer/config";
 
 const intlayerConfig = getConfiguration();
 
-// Форматирование всех значений конфигурации как переменных окружения
+// Форматируем все значения конфигурации как переменные окружения
 const env = formatEnvVariable();
 
-// Установка каждой отформатированной переменной окружения в process.env
+// Устанавливаем каждую отформатированную переменную окружения в process.env
 Object.assign(process.env, env);
 ```
 
@@ -114,3 +134,7 @@ import { getConfiguration } from "@intlayer/config/client";
 
 const intlayerConfig = getConfiguration();
 ```
+
+## История документа
+
+- 5.5.10 - 2025-06-29: Инициализация истории

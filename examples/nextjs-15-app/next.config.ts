@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-const RETURN_BUNDLE_ANALYZER = true;
+const RETURN_BUNDLE_ANALYZER = false;
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -15,4 +15,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withIntlayer(RETURN_BUNDLE_ANALYZER ? (nextConfig as any) : {});
+const config = withIntlayer(RETURN_BUNDLE_ANALYZER ? (nextConfig as any) : {});
+
+export default config;

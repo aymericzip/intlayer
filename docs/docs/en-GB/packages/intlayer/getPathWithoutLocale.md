@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getPathWithoutLocale
-url: https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: getPathWithoutLocale Function Documentation | intlayer
 description: See how to use the getPathWithoutLocale function for intlayer package
 keywords:
@@ -11,11 +8,16 @@ keywords:
   - translation
   - Intlayer
   - intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getPathWithoutLocale
 ---
 
 # Documentation: `getPathWithoutLocale` Functions in `intlayer`
@@ -46,25 +48,29 @@ Removes the locale segment from the given URL or pathname if present. It works w
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Output: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output: "https://example.com/dashboard"
 ```
 
 ```javascript codeFormat="esm"
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Output: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output: "https://example.com/dashboard"
 ```
 
 ```javascript codeFormat="commonjs"
 const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("/{{locale}}/dashboard")); // Output: "/dashboard"
+console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/{{locale}}/dashboard")); // Output: "https://example.com/dashboard"
+console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output: "https://example.com/dashboard"
 ```
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

@@ -58,7 +58,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
     const intlayerAPI = getIntlayerAPI(undefined, config);
 
-    const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
+    const oAuth2TokenResult = await intlayerAPI.oAuth.getOAuth2AccessToken();
 
     const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
 

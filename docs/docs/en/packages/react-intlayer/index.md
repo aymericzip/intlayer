@@ -1,9 +1,6 @@
 ---
-docName: package__react-intlayer
-url: https://intlayer.org/doc/packages/react-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Package Documentation | react-intlayer
 description: See how to use the react-intlayer package
 keywords:
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
 ---
 
 # react-intlayer: NPM Package to internationalize (i18n) an React application
@@ -273,3 +274,9 @@ The `react-intlayer` package also provides some functions to help you to interna
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
 - [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayerAsync.md)
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

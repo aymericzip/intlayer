@@ -1,30 +1,32 @@
 ---
-docName: dictionary__function_fetching
-url: https://intlayer.org/doc/concept/content/function-fetching
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 関数フェッチング
-description: 多言語ウェブサイトで関数フェッチングを宣言および使用する方法を発見してください。このオンラインドキュメンテーションの手順に従って、数分でプロジェクトを設定できます。
+description: 多言語ウェブサイトで関数フェッチングを宣言し使用する方法を紹介します。このオンラインドキュメントの手順に従って、数分でプロジェクトをセットアップしましょう。
 keywords:
   - 関数フェッチング
   - 国際化
-  - ドキュメンテーション
+  - ドキュメント
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - function-fetching
 ---
 
 # 関数フェッチング
 
-Intlayerを使用すると、コンテンツモジュール内で同期または非同期のコンテンツ関数を宣言できます。アプリケーションがビルドされると、Intlayerはこれらの関数を実行して関数の結果を取得します。戻り値はJSONオブジェクト、または文字列や数値のような単純な値である必要があります。
+Intlayerでは、コンテンツモジュール内で同期または非同期の関数を宣言できます。アプリケーションのビルド時に、Intlayerはこれらの関数を実行して関数の結果を取得します。返り値はJSONオブジェクトか、文字列や数値のような単純な値でなければなりません。
 
 > 警告: 関数フェッチングは現在、JSONコンテンツ宣言およびリモートコンテンツ宣言ファイルでは利用できません。
 
-## 関数宣言
+## 関数の宣言
 
-以下は、シンプルな同期関数でコンテンツをフェッチする例です:
+以下は、単純な同期関数でコンテンツをフェッチする例です。
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import type { Dictionary } from "intlayer";
@@ -73,13 +75,13 @@ module.exports = functionContent;
 }
 ```
 
-この例では、`text`キーに文字列を返す関数が含まれています。このコンテンツは、Intlayerの`react-intlayer`のようなインタープリターパッケージを使用してReactコンポーネント内でレンダリングできます。
+この例では、`text`キーに文字列を返す関数が含まれています。このコンテンツは、`react-intlayer`のようなIntlayerのインタープリターパッケージを使用して、Reactコンポーネント内でレンダリングできます。
 
-## 非同期関数フェッチング
+## 非同期関数のフェッチ
 
-同期関数に加えて、Intlayerは非同期関数もサポートしており、外部ソースからデータをフェッチしたり、モックデータでデータ取得をシミュレートしたりすることができます。
+同期関数に加えて、Intlayerは非同期関数もサポートしており、外部ソースからデータを取得したり、モックデータでデータ取得をシミュレートしたりすることが可能です。
 
-以下は、サーバーフェッチをシミュレートする非同期関数の例です:
+以下は、サーバーフェッチをシミュレートする非同期関数の例です：
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
@@ -88,7 +90,7 @@ import type { Dictionary } from "intlayer";
 const fakeFetch = async (): Promise<string> => {
   // サーバーからのフェッチをシミュレートするために200ms待機
   return await setTimeout(200).then(
-    () => "これはサーバーからフェッチされたコンテンツです"
+    () => "これはサーバーから取得したコンテンツです"
   );
 };
 
@@ -107,7 +109,7 @@ import { setTimeout } from "node:timers/promises";
 const fakeFetch = async () => {
   // サーバーからのフェッチをシミュレートするために200ms待機
   await setTimeout(200);
-  return "これはサーバーからフェッチされたコンテンツです";
+  return "これはサーバーから取得したコンテンツです";
 };
 
 const asyncFunctionContent = {
@@ -125,7 +127,7 @@ const { setTimeout } = require("node:timers/promises");
 const fakeFetch = async () => {
   // サーバーからのフェッチをシミュレートするために200ms待機
   await setTimeout(200);
-  return "これはサーバーからフェッチされたコンテンツです";
+  return "これはサーバーから取得したコンテンツです";
 };
 
 const asyncFunctionContent = {
@@ -137,14 +139,14 @@ module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
-JSONファイルからコンテンツをフェッチする方法はありません。.tsまたは.jsファイルを使用してください
+JSONファイルからコンテンツを取得する方法はありません。代わりに.tsまたは.jsファイルを使用してください
 ```
 
-この場合、`fakeFetch`関数はサーバー応答時間をシミュレートするための遅延を模倣します。Intlayerは非同期関数を実行し、その結果を`text`キーのコンテンツとして使用します。
+この場合、`fakeFetch` 関数はサーバーの応答時間をシミュレートするために遅延を模倣しています。Intlayer は非同期関数を実行し、その結果を `text` キーのコンテンツとして使用します。
 
-## Reactコンポーネントで関数ベースのコンテンツを使用する
+## React コンポーネントで関数ベースのコンテンツを使用する
 
-Reactコンポーネントで関数ベースのコンテンツを使用するには、`react-intlayer`から`useIntlayer`をインポートし、コンテンツIDを使用してコンテンツを取得します。以下はその例です:
+React コンポーネントで関数ベースのコンテンツを使用するには、`react-intlayer` から `useIntlayer` をインポートし、コンテンツ ID を指定して呼び出す必要があります。以下はその例です。
 
 ```typescript fileName="**/*.jsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -159,7 +161,34 @@ const MyComponent: FC = () => {
       <p>{functionContent.text}</p>
       {/* 出力: これは関数によってレンダリングされたコンテンツです */}
       <p>{asyncFunctionContent.text}</p>
-      {/* 出力: これはサーバーからフェッチされたコンテンツです */}
+      {/* 出力: これはサーバーから取得されたコンテンツです */}
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+この場合、`fakeFetch`関数はサーバーの応答時間をシミュレートするために遅延を模倣しています。Intlayerは非同期関数を実行し、その結果を`text`キーのコンテンツとして使用します。
+
+## Reactコンポーネントで関数ベースのコンテンツを使用する
+
+Reactコンポーネントで関数ベースのコンテンツを使用するには、`react-intlayer`から`useIntlayer`をインポートし、コンテンツIDを渡してコンテンツを取得します。以下は例です：
+
+```typescript fileName="**/*.jsx" codeFormat="typescript"
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const MyComponent: FC = () => {
+  const functionContent = useIntlayer("function_content");
+  const asyncFunctionContent = useIntlayer("async_function_content");
+
+  return (
+    <div>
+      <p>{functionContent.text}</p>
+      {/* 出力: これは関数によってレンダリングされたコンテンツです */}
+      <p>{asyncFunctionContent.text}</p>
+      {/* 出力: これはサーバーから取得されたコンテンツです */}
     </div>
   );
 };
@@ -179,7 +208,7 @@ const MyComponent = () => {
       <p>{functionContent.text}</p>
       {/* 出力: これは関数によってレンダリングされたコンテンツです */}
       <p>{asyncFunctionContent.text}</p>
-      {/* 出力: これはサーバーからフェッチされたコンテンツです */}
+      {/* 出力: これはサーバーから取得されたコンテンツです */}
     </div>
   );
 };
@@ -199,10 +228,14 @@ const MyComponent = () => {
       <p>{functionContent.text}</p>
       {/* 出力: これは関数によってレンダリングされたコンテンツです */}
       <p>{asyncFunctionContent.text}</p>
-      {/* 出力: これはサーバーからフェッチされたコンテンツです */}
+      {/* 出力: これはサーバーから取得されたコンテンツです */}
     </div>
   );
 };
 
 module.exports = MyComponent;
 ```
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

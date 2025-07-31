@@ -1,22 +1,42 @@
-# يدعم Intlayer طريقتين لإعلان المحتوى متعدد اللغات:
+---
+createdAt: 2025-04-18
+updatedAt: 2025-06-29
+title: إعلان محتوى "لكل لغة" في Intlayer
+description: اكتشف كيفية إعلان المحتوى لكل لغة في Intlayer. اتبع الوثائق لفهم التنسيقات المختلفة وحالات الاستخدام.
+keywords:
+  - التدويل
+  - التوثيق
+  - Intlayer
+  - لكل لغة
+  - TypeScript
+  - JavaScript
+slugs:
+  - doc
+  - concept
+  - per-locale-file
+---
+
+# إعلان محتوى "لكل لغة" في Intlayer
+
+يدعم Intlayer طريقتين لإعلان المحتوى متعدد اللغات:
 
 - ملف واحد يحتوي على جميع الترجمات
-- ملف واحد لكل لغة (صيغة per-locale)
+- ملف واحد لكل لغة (تنسيق لكل لغة)
 
 تتيح هذه المرونة:
 
-- سهولة الانتقال من أدوات i18n الأخرى
-- دعم سير العمل التلقائي للترجمة
+- سهولة الترحيل من أدوات التدويل الأخرى
+- دعم سير عمل الترجمة الآلية
 - تنظيم واضح للترجمات في ملفات منفصلة خاصة بكل لغة
 
-## ملف واحد يحتوي على ترجمات متعددة
+## ملف واحد مع ترجمات متعددة
 
-هذه الصيغة مثالية لـ:
+هذا التنسيق مثالي لـ:
 
 - التكرار السريع في الكود.
 - التكامل السلس مع نظام إدارة المحتوى (CMS).
 
-هذا هو النهج الموصى به لمعظم حالات الاستخدام. فهو يركز الترجمات، مما يجعل من السهل التكرار والتكامل مع نظام إدارة المحتوى.
+هذه هي الطريقة الموصى بها لمعظم حالات الاستخدام. فهو يركز الترجمات في مكان واحد، مما يسهل التكرار والتكامل مع نظام إدارة المحتوى.
 
 ```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -25,7 +45,6 @@ const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      ar: "عنوان مكوني",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -39,11 +58,11 @@ export default helloWorldContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// محتوى مرحب بالعالم
 const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      ar: "عنوان مكوني",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -57,11 +76,11 @@ export default helloWorldContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// محتوى مرحب بالعالم
 const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      ar: "عنوان مكوني",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -79,7 +98,6 @@ module.exports = helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "ar": "عنوان مكوني",
         "en": "Title of my component",
         "es": "Título de mi componente"
       }
@@ -88,14 +106,14 @@ module.exports = helloWorldContent;
 }
 ```
 
-> موصى به: هذه الصيغة هي الأفضل عند استخدام محرر Intlayer المرئي أو إدارة الترجمات مباشرة في الكود.
+> موصى به: هذا التنسيق هو الأفضل عند استخدام محرر Intlayer المرئي أو إدارة الترجمات مباشرة في الكود.
 
-## صيغة Per-Locale
+## تنسيق حسب اللغة
 
-تكون هذه الصيغة مفيدة عندما:
+هذا التنسيق مفيد عندما:
 
 - تريد إصدار أو تجاوز الترجمات بشكل مستقل.
-- تقوم بدمج سير العمل التلقائي أو البشري للترجمة.
+- تقوم بدمج سير عمل الترجمة الآلية أو البشرية.
 
 يمكنك أيضًا تقسيم الترجمات إلى ملفات لغة فردية عن طريق تحديد حقل اللغة:
 
@@ -105,7 +123,7 @@ import { t, Locales, type Dictionary } from "intlayer";
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // مهم
-  content: { multilingualContent: "Title of my component" },
+  content: { multilingualContent: "عنوان المكون الخاص بي" },
 } satisfies Dictionary;
 
 export default helloWorldContent;
@@ -118,17 +136,20 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // مهم
   content: { multilingualContent: "Título de mi componente" },
-};
+} satisfies Dictionary;
+
+export default helloWorldContent;
 ```
 
 ```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// محتوى "مرحبا بالعالم" للغة الإنجليزية
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // مهم
-  content: { multilingualContent: "Title of my component" },
+  content: { multilingualContent: "عنوان المكون الخاص بي" },
 };
 
 export default helloWorldContent;
@@ -138,6 +159,7 @@ export default helloWorldContent;
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// محتوى "مرحبا بالعالم" للغة الإسبانية
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // مهم
@@ -151,11 +173,12 @@ export default helloWorldContent;
 const { t, Locales } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// محتوى "مرحبا بالعالم" للغة الإنجليزية
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // مهم
   content: {
-    multilingualContent: "Title of my component",
+    multilingualContent: "عنوان المكون الخاص بي",
   },
 };
 
@@ -166,6 +189,7 @@ module.exports = helloWorldContent;
 const { t, Locales } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// محتوى "مرحبا بالعالم" للغة الإسبانية
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // مهم
@@ -183,7 +207,7 @@ module.exports = helloWorldContent;
   "key": "hello-world",
   "locale": "en", // مهم
   "content": {
-    "multilingualContent": "Title of my component",
+    "multilingualContent": "عنوان المكون الخاص بي",
   },
 }
 ```
@@ -199,21 +223,21 @@ module.exports = helloWorldContent;
 }
 ```
 
-> مهم: تأكد من تعريف حقل اللغة. يوضح هذا الحقل لـ Intlayer اللغة التي يمثلها الملف.
+> مهم: تأكد من تعريف حقل locale. فهو يخبر Intlayer باللغة التي يمثلها الملف.
 
-> ملاحظة: في كلتا الحالتين، يجب أن يتبع ملف إعلان المحتوى نمط التسمية `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` ليتم التعرف عليه بواسطة Intlayer. اللاحقة `.[locale]` اختيارية وتستخدم فقط كاتفاقية تسمية.
+> ملاحظة: في كلتا الحالتين، يجب أن يتبع ملف إعلان المحتوى نمط التسمية `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` ليتم التعرف عليه من قبل Intlayer. اللاحقة `.[locale]` اختيارية وتستخدم فقط كاتفاقية تسمية.
 
 ## مزج الصيغ
 
-يمكنك مزج كلا النهجين لنفس مفتاح المحتوى. على سبيل المثال:
+يمكنك دمج كلا النهجين للإعلان عن نفس مفتاح المحتوى. على سبيل المثال:
 
-إعلان المحتوى الافتراضي أو الأساسي بشكل ثابت (مثل `index.content.ts`)
+- أعلن عن المحتوى الأساسي الخاص بك بشكل ثابت في ملف مثل index.content.ts.
+- أضف أو استبدل الترجمات المحددة في ملفات منفصلة مثل index.fr.content.ts أو index.content.json.
 
-إضافة أو تجاوز محتوى خاص بلغة معينة في `index.content.json`، `index.fr.content.ts`، إلخ.
+هذا الإعداد مفيد بشكل خاص عندما:
 
-هذا مفيد بشكل خاص عندما:
-
-- تريد إعلان المحتوى الأساسي الخاص بك بشكل ثابت في قاعدة الكود الخاصة بك وملء الترجمات تلقائيًا في نظام إدارة المحتوى.
+- تريد تعريف هيكل المحتوى الأولي في الكود.
+- تخطط لإثراء أو إكمال الترجمات لاحقًا باستخدام نظام إدارة المحتوى (CMS) أو الأدوات الآلية.
 
 ```bash codeFormat="typescript"
 .
@@ -235,8 +259,8 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH,
   content: {
-    multilingualContent: "Title of my component",
-    projectName: "My project",
+    multilingualContent: "عنوان المكون الخاص بي",
+    projectName: "مشروعي",
   },
 } satisfies Dictionary;
 
@@ -251,7 +275,6 @@ export default helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "ar": "عنوان مكوني",
         "fr": "Titre de mon composant",
         "es": "Título de mi componente"
       }
@@ -260,18 +283,18 @@ export default helloWorldContent;
 }
 ```
 
-يقوم Intlayer بدمج الملفات متعددة اللغات وملفات per-locale تلقائيًا.
+يقوم Intlayer بدمج الملفات متعددة اللغات وملفات كل لغة تلقائيًا.
 
 ```tsx fileName="Components/MyComponent/index.ts"
 import { getIntlayer, Locales } from "intlayer";
 
-const intlayer = getIntlayer("hello-world"); // اللغة الافتراضية هي ENGLISH، لذلك ستعيد المحتوى باللغة الإنجليزية
+const intlayer = getIntlayer("hello-world"); // اللغة الافتراضية هي الإنجليزية، لذا ستُرجع المحتوى باللغة الإنجليزية
 
 console.log(JSON.stringify(intlayer, null, 2));
 // النتيجة:
 // {
-//  "multilingualContent": "Title of my component",
-//  "projectName": "My project"
+//  "multilingualContent": "عنوان المكون الخاص بي",
+//  "projectName": "مشروعي"
 // }
 
 const intlayer = getIntlayer("hello-world", Locales.SPANISH);
@@ -280,7 +303,7 @@ console.log(JSON.stringify(intlayer, null, 2));
 // النتيجة:
 // {
 //  "multilingualContent": "Título de mi componente",
-//  "projectName": "My project"
+//  "projectName": "مشروعي"
 // }
 
 const intlayer = getIntlayer("hello-world", Locales.FRENCH);
@@ -289,10 +312,14 @@ console.log(JSON.stringify(intlayer, null, 2));
 // النتيجة:
 // {
 //  "multilingualContent": "Titre de mon composant",
-//  "projectName": "My project"
+//  "projectName": "مشروعي"
 // }
 ```
 
-### إنشاء الترجمة تلقائيًا
+### التوليد التلقائي للترجمة
 
 استخدم [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) لملء الترجمات المفقودة تلقائيًا بناءً على الخدمات المفضلة لديك.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بدء التاريخ

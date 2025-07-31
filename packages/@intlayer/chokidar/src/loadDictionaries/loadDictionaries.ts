@@ -8,7 +8,7 @@ import {
 import type { Dictionary } from '@intlayer/core';
 import { fetchDistantDictionaryKeys } from '../fetchDistantDictionaryKeys';
 import { logger } from '../log';
-import { sortAlphabetically } from '../utils';
+import { sortAlphabetically } from '../utils/sortAlphabetically';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadDistantDictionaries } from './loadDistantDictionaries';
 
@@ -31,7 +31,24 @@ export const loadDictionaries = async (
       files,
       projectRequire
     );
-    const localDictionaryKeys = localDictionaries
+
+    const filteredLocalDictionaries = localDictionaries.filter((dict) => {
+      const hasKey = Boolean(dict.key);
+      const hasContent = Boolean(dict.content);
+
+      if (!hasContent) {
+        console.error(
+          'Content declaration has no exported content',
+          dict.filePath
+        );
+      } else if (!hasKey) {
+        console.error('Content declaration has no key', dict.filePath);
+      }
+
+      return hasKey && hasContent;
+    });
+
+    const localDictionaryKeys = filteredLocalDictionaries
       .map((dict) => dict.key)
       .filter(Boolean); // Remove empty or undefined keys
 
@@ -40,7 +57,7 @@ export const loadDictionaries = async (
 
     // Update logger statuses for local dictionaries
     logger.updateStatus(
-      localDictionaries.map((dict) => ({
+      filteredLocalDictionaries.map((dict) => ({
         dictionaryKey: dict.key,
         type: 'local',
         status: { status: 'built' },
@@ -75,7 +92,7 @@ export const loadDictionaries = async (
     // Ensure the logger is stopped
     logger.stop();
 
-    return [...localDictionaries, ...distantDictionaries];
+    return [...filteredLocalDictionaries, ...distantDictionaries];
   } catch (error) {
     // Ensure the logger is stopped
     logger.stop();

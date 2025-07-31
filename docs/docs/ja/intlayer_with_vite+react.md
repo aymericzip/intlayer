@@ -1,72 +1,74 @@
 ---
-docName: intlayer_with_react_native_and_expo
-url: https://intlayer.org/doc/environment/react-native-and-expo
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md
-createdAt: 2025-03-07
-updatedAt: 2025-03-07
-title: React NativeとExpoのモバイルアプリを翻訳する (i18n)
-description: React NativeとExpoを使用してPage Routerを利用したウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
+createdAt: 2024-03-07
+updatedAt: 2024-03-07
+title: Vite + ReactでのIntlayerの使い始め
+description: Intlayerを使ってViteとReactアプリケーションに国際化（i18n）を追加する方法を学びます。このガイドに従ってアプリを多言語対応にしましょう。
 keywords:
   - 国際化
-  - ドキュメンテーション
+  - ドキュメント
   - Intlayer
   - Vite
   - React
-  - React Native
+  - i18n
   - JavaScript
----
+slugs:
+  - doc
+  - environment
+  - vite-and-react
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
+youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4---
 
-# IntlayerとViteおよびReactを使用した国際化（i18n）の開始
+# IntlayerとViteとReactで始める国際化（i18n）
 
-<iframe title="Vite + React: Build a Multilingual App from Scratch using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
-[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-vite-react-template) をGitHubで見る。
+GitHubの[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-vite-react-template)を参照してください。
 
 ## Intlayerとは？
 
-**Intlayer**は、モダンなウェブアプリケーションでの多言語対応を簡素化するために設計された革新的なオープンソースの国際化（i18n）ライブラリです。
+**Intlayer**は、最新のウェブアプリケーションでの多言語対応を簡素化するために設計された革新的なオープンソースの国際化（i18n）ライブラリです。
 
-Intlayerを使用すると、以下のことが可能です：
+Intlayerを使うと、以下が可能です：
 
-- **コンポーネントレベルで宣言的な辞書を使用して翻訳を簡単に管理**。
-- **メタデータ、ルート、およびコンテンツを動的にローカライズ**。
-- **TypeScriptサポートを確保**し、自動生成された型で補完機能とエラー検出を向上。
-- **高度な機能を活用**、例えば動的なロケール検出と切り替え。
+- **コンポーネントレベルで宣言的な辞書を使って** 翻訳を簡単に管理できます。
+- **メタデータ、ルート、コンテンツを動的にローカライズ** できます。
+- **自動生成された型によりTypeScriptサポートを保証** し、オートコンプリートやエラー検出を向上させます。
+- **動的なロケール検出や切り替えなどの高度な機能を活用** できます。
 
 ---
 
-## ViteとReactアプリケーションでIntlayerをセットアップするためのステップバイステップガイド
+## ViteとReactアプリケーションでIntlayerをセットアップするステップバイステップガイド
 
 ### ステップ1: 依存関係のインストール
 
-npmを使用して必要なパッケージをインストールします：
+npmを使って必要なパッケージをインストールします：
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
-npm install --save-dev vite-intlayer
+npm install vite-intlayer --save-dev
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
-pnpm add --save-dev vite-intlayer
+pnpm add vite-intlayer --save-dev
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer
-yarn add --save-dev vite-intlayer
+yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
 
-  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を提供するコアパッケージ。
+  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージです。
 
 - **react-intlayer**
-  IntlayerをReactアプリケーションと統合するためのパッケージ。Reactの国際化のためのコンテキストプロバイダーとフックを提供します。
+  IntlayerをReactアプリケーションと統合するパッケージです。Reactの国際化のためのコンテキストプロバイダーとフックを提供します。
 
 - **vite-intlayer**
-  [Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)とIntlayerを統合するためのViteプラグインを含み、ユーザーの優先ロケールを検出し、クッキーを管理し、URLリダイレクションを処理するミドルウェアを提供します。
+  Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのViteプラグイン、およびユーザーの優先ロケール検出、クッキー管理、URLリダイレクト処理のためのミドルウェアを含みます。
 
-### ステップ2: プロジェクトの設定
+### ステップ 2: プロジェクトの設定
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -79,7 +81,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // 他のロケール
+      // 他のロケールをここに追加
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -98,7 +100,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // 他のロケール
+      // 他のロケールをここに追加
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -117,7 +119,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // 他のロケール
+      // 他のロケールをここに追加
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -126,9 +128,9 @@ const config = {
 module.exports = config;
 ```
 
-> この設定ファイルを通じて、ローカライズされたURL、ミドルウェアリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+> この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Vite設定へのIntlayerの統合
+### ステップ3: Vite設定にIntlayerを統合する
 
 設定にintlayerプラグインを追加します。
 
@@ -165,11 +167,11 @@ module.exports = defineConfig({
 });
 ```
 
-> `intlayerPlugin()` Viteプラグインは、IntlayerをViteと統合するために使用されます。コンテンツ宣言ファイルのビルドを確実にし、開発モードでそれらを監視します。また、Viteアプリケーション内でIntlayer環境変数を定義し、パフォーマンスを最適化するためのエイリアスを提供します。
+> `intlayerPlugin()` Viteプラグインは、IntlayerをViteと統合するために使用されます。これにより、コンテンツ宣言ファイルのビルドが保証され、開発モードで監視されます。また、Viteアプリケーション内でIntlayerの環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスも提供します。
 
-### ステップ4: コンテンツの宣言
+### ステップ4: コンテンツを宣言する
 
-翻訳を保存するためのコンテンツ宣言を作成および管理します：
+翻訳を格納するためのコンテンツ宣言を作成および管理します:
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -179,13 +181,11 @@ const appContent = {
   key: "app",
   content: {
     viteLogo: t({
-      ja: "Viteロゴ",
       en: "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
     }),
     reactLogo: t({
-      ja: "Reactロゴ",
       en: "React logo",
       fr: "Logo React",
       es: "Logo React",
@@ -194,37 +194,30 @@ const appContent = {
     title: "Vite + React",
 
     count: t({
-      ja: "カウントは ",
       en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
     }),
 
     edit: t<ReactNode>({
-      ja: (
-        <>
-          <code>src/App.tsx</code>を編集して保存し、HMRをテストしてください
-        </>
-      ),
       en: (
         <>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          <code>src/App.tsx</code> を編集して保存し、HMRをテストします
         </>
       ),
       fr: (
         <>
-          Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
+          <code>src/App.tsx</code> を編集して保存し、HMRをテストします
         </>
       ),
       es: (
         <>
-          Edita <code>src/App.tsx</code> y guarda para probar HMR
+          <code>src/App.tsx</code> を編集して保存し、HMRをテストします
         </>
       ),
     }),
 
     readTheDocs: t({
-      ja: "ViteとReactのロゴをクリックして詳細を確認してください",
       en: "Click on the Vite and React logos to learn more",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
@@ -243,13 +236,11 @@ const appContent = {
   key: "app",
   content: {
     viteLogo: t({
-      ja: "Viteロゴ",
       en: "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
     }),
     reactLogo: t({
-      ja: "Reactロゴ",
       en: "React logo",
       fr: "Logo React",
       es: "Logo React",
@@ -258,7 +249,6 @@ const appContent = {
     title: "Vite + React",
 
     count: t({
-      ja: "カウントは ",
       en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
@@ -268,12 +258,67 @@ const appContent = {
       t <
       ReactNode >
       {
-        // Reactノードをコンテンツで使用する場合はReactをインポートすることを忘れないでください
-        ja: (
+        // コンテンツ内でReactノードを使用する場合はReactをインポートすることを忘れないでください
+        en: (
           <>
-            <code>src/App.tsx</code>を編集して保存し、HMRをテストしてください
+            Edit <code>src/App.tsx</code>{" "}
+            を編集して保存し、HMRをテストしてください
           </>
         ),
+        fr: (
+          <>
+            Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
+          </>
+        ),
+        es: (
+          <>
+            Edita <code>src/App.tsx</code> y guarda para probar HMR
+          </>
+        ),
+      },
+
+    readTheDocs: t({
+      en: "ViteとReactのロゴをクリックして詳細を確認してください",
+      fr: "Cliquez sur les logos Vite et React pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y React para obtener más información",
+    }),
+  },
+};
+
+export default appContent;
+```
+
+```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const appContent = {
+  key: "app",
+  content: {
+    viteLogo: t({
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    reactLogo: t({
+      en: "React logo",
+      fr: "Logo React",
+      es: "Logo React",
+    }),
+
+    title: "Vite + React",
+
+    count: t({
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+
+    edit:
+      t <
+      ReactNode >
+      {
+        // コンテンツ内でReactノードを使用する場合はReactをインポートすることを忘れないでください
         en: (
           <>
             Edit <code>src/App.tsx</code> and save to test HMR
@@ -292,45 +337,18 @@ const appContent = {
       },
 
     readTheDocs: t({
-      ja: "ViteとReactのロゴをクリックして詳細を確認してください",
       en: "Click on the Vite and React logos to learn more",
       fr: "Cliquez sur les logos Vite et React pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y React para obtener más información",
+      ja: "詳細を知るには、Vite と React のロゴをクリックしてください",
     }),
   },
 };
 
-export default appContent;
+module.exports = appContent;
 ```
 
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      ja: "Viteロゴ",
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    reactLogo: t({
-      ja: "Reactロゴ",
-      en: "React logo",
-      fr: "Logo React",
-      es: "Logo React",
-    }),
-
-    title: "Vite + React",
-
-    count: t({
-      ja: "カウントは ",
-      en: "count is ",
-      fr: "le compte est ",
----
-
+```json fileName="src/app.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "app",
@@ -347,59 +365,59 @@ const appContent = {
     "reactLogo": {
       "nodeType": "translation",
       "translation": {
+        "ja": "React ロゴ",
         "en": "React logo",
         "fr": "Logo React",
-        "es": "Logo React",
-        "ja": "React ロゴ"
+        "es": "Logo React"
       }
     },
     "title": {
       "nodeType": "translation",
       "translation": {
+        "ja": "Vite + React",
         "en": "Vite + React",
         "fr": "Vite + React",
-        "es": "Vite + React",
-        "ja": "Vite + React"
+        "es": "Vite + React"
       }
     },
     "count": {
       "nodeType": "translation",
       "translation": {
+        "ja": "カウントは ",
         "en": "count is ",
         "fr": "le compte est ",
-        "es": "el recuento es ",
-        "ja": "カウントは "
+        "es": "el recuento es "
       }
     },
     "edit": {
       "nodeType": "translation",
       "translation": {
+        "ja": "src/App.tsx を編集して保存し、HMR をテストしてください",
         "en": "Edit src/App.tsx and save to test HMR",
         "fr": "Éditez src/App.tsx et enregistrez pour tester HMR",
-        "es": "Edita src/App.tsx y guarda para probar HMR",
-        "ja": "src/App.tsx を編集して保存し、HMR をテストしてください"
+        "es": "Edita src/App.tsx y guarda para probar HMR"
       }
     },
     "readTheDocs": {
       "nodeType": "translation",
       "translation": {
+        "ja": "ViteとReactのロゴをクリックして詳細を学びましょう",
         "en": "Click on the Vite and React logos to learn more",
         "fr": "Cliquez sur les logos Vite et React pour en savoir plus",
-        "es": "Haga clic en los logotipos de Vite y React para obtener más información",
-        "ja": "Vite と React のロゴをクリックして詳細を確認してください"
+        "es": "Haga clic en los logotipos de Vite y React para obtener más información"
       }
     }
   }
 }
 ```
 
-> コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトでは `./src`）に含まれている限り、アプリケーション内のどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトでは `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致する必要があります。
+> あなたのコンテンツ宣言は、`contentDir`ディレクトリ（デフォルトは`./src`）に含まれた時点で、アプリケーションのどこにでも定義できます。そして、コンテンツ宣言ファイルの拡張子（デフォルトは`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致する必要があります。
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)を参照してください。
 
-> コンテンツファイルに TSX コードが含まれている場合は、`import React from "react";` をコンテンツファイルにインポートすることを検討してください。
+> コンテンツファイルにTSXコードが含まれている場合は、`import React from "react";`をコンテンツファイルにインポートすることを検討してください。
 
-### ステップ 5: コード内で Intlayer を利用する
+### ステップ5: コード内でIntlayerを利用する
 
 アプリケーション全体でコンテンツ辞書にアクセスします:
 
@@ -518,7 +536,7 @@ const AppContent = () => {
           <img
             src={reactLogo}
             className="logo react"
-            alt={content.reactLogo.value}
+            alt={content.reactLogo.value} // Reactロゴの代替テキスト
           />
         </a>
       </div>
@@ -544,7 +562,7 @@ const App = () => (
 module.exports = App;
 ```
 
-> `alt`、`title`、`href`、`aria-label` などの `string` 属性でコンテンツを使用する場合、関数の値を呼び出す必要があります。例えば:
+> もし `alt`、`title`、`href`、`aria-label` などの `string` 属性でコンテンツを使用したい場合は、関数の値を呼び出す必要があります。例えば：
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
@@ -552,9 +570,9 @@ module.exports = App;
 
 > `useIntlayer` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
 
-### （オプション）ステップ 6: コンテンツの言語を変更する
+### （オプション）ステップ6: コンテンツの言語を変更する
 
-コンテンツの言語を変更するには、`useLocale` フックが提供する `setLocale` 関数を使用します。この関数を使用すると、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
+コンテンツの言語を変更するには、`useLocale` フックが提供する `setLocale` 関数を使用します。この関数を使うことで、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -565,7 +583,7 @@ const LocaleSwitcher: FC = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.English)}>言語を英語に変更</button>
+    <button onClick={() => setLocale(Locales.English)}>英語に言語を変更</button>
   );
 };
 ```
@@ -578,31 +596,30 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.English)}>言語を英語に変更</button>
+    <button onClick={() => setLocale(Locales.English)}>英語に言語を変更</button>
   );
 };
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
 const { Locales } = require("intlayer");
-
 const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.English)}>言語を英語に変更</button>
+    <button onClick={() => setLocale(Locales.English)}>英語に言語を変更</button>
   );
 };
 ```
 
-> `useLocale`フックについて詳しくは、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
+> `useLocale` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
 
-### (オプション) ステップ7: アプリケーションにローカライズされたルーティングを追加する
+### （オプション）ステップ7：アプリケーションにローカライズされたルーティングを追加する
 
-このステップの目的は、各言語に固有のルートを作成することです。これはSEOおよびSEOフレンドリーなURLに役立ちます。
-例:
+このステップの目的は、各言語ごとにユニークなルートを作成することです。これはSEOやSEOに適したURLに役立ちます。
+例：
 
 ```plaintext
 - https://example.com/about
@@ -610,14 +627,14 @@ const LocaleSwitcher = () => {
 - https://example.com/fr/about
 ```
 
-> デフォルトでは、デフォルトのロケールにはルートがプレフィックスされません。デフォルトのロケールにプレフィックスを付けたい場合は、設定で`middleware.prefixDefault`オプションを`true`に設定できます。詳細は[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+> デフォルトでは、ルートはデフォルトロケールに対してプレフィックスが付きません。デフォルトロケールにもプレフィックスを付けたい場合は、設定の `middleware.prefixDefault` オプションを `true` に設定できます。詳細は[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-アプリケーションにローカライズされたルーティングを追加するには、アプリケーションのルートをラップし、ロケールベースのルーティングを処理する`LocaleRouter`コンポーネントを作成します。以下は[React Router](https://reactrouter.com/home)を使用した例です:
+アプリケーションにローカライズされたルーティングを追加するには、アプリケーションのルートをラップし、ロケールベースのルーティングを処理する `LocaleRouter` コンポーネントを作成できます。以下は [React Router](https://reactrouter.com/home) を使用した例です。
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-// 必要な依存関係と関数をインポート
+// 必要な依存関係と関数のインポート
 import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'からのユーティリティ関数と型
-import type { FC, PropsWithChildren } from "react"; // 関数型コンポーネントとプロップのReact型
+import type { FC, PropsWithChildren } from "react"; // 関数コンポーネントとプロパティのReact型
 import { IntlayerProvider } from "react-intlayer"; // 国際化コンテキストのプロバイダー
 import {
   BrowserRouter,
@@ -625,14 +642,14 @@ import {
   Route,
   Navigate,
   useLocation,
-} from "react-router-dom"; // ナビゲーションを管理するためのルーターコンポーネント
+} from "react-router-dom"; // ナビゲーション管理用のルーターコンポーネント
 
-// Intlayerから設定を分解
+// Intlayerから設定を分割代入
 const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
- * ローカリゼーションを処理し、適切なロケールコンテキストで子要素をラップするコンポーネント。
+ * ローカリゼーションを処理し、子要素を適切なロケールコンテキストでラップするコンポーネント。
  * URLベースのロケール検出と検証を管理します。
  */
 const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
@@ -641,21 +658,21 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 }) => {
   const { pathname, search } = useLocation(); // 現在のURLパスを取得
 
-  // 現在のロケールを決定し、指定されていない場合はデフォルトにフォールバック
+  // 現在のロケールを決定し、指定がなければデフォルトロケールを使用
   const currentLocale = locale ?? defaultLocale;
 
-  // ロケールプレフィックスをパスから削除してベースパスを構築
+  // パスからロケールのプレフィックスを取り除き、ベースパスを構築
   const pathWithoutLocale = getPathWithoutLocale(
     pathname // 現在のURLパス
   );
 
   /**
-   * middleware.prefixDefaultがtrueの場合、デフォルトのロケールは常にプレフィックスされるべきです。
+   * middleware.prefixDefaultがtrueの場合、デフォルトロケールには常にプレフィックスを付ける必要があります。
    */
   if (middleware.prefixDefault) {
-    // ロケールを検証
+    // ロケールの検証
     if (!locale || !locales.includes(locale)) {
-      // 更新されたパスでデフォルトのロケールにリダイレクト
+      // 更新されたパスでデフォルトロケールへリダイレクト
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
@@ -664,28 +681,28 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
       );
     }
 
-    // 子要素をIntlayerProviderでラップし、現在のロケールを設定
+    // IntlayerProviderで子要素をラップし、現在のロケールを設定する
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
   } else {
     /**
-     * middleware.prefixDefaultがfalseの場合、デフォルトのロケールはプレフィックスされません。
-     * 現在のロケールが有効であり、デフォルトのロケールでないことを確認します。
+     * middleware.prefixDefaultがfalseの場合、デフォルトロケールはプレフィックスされません。
+     * 現在のロケールが有効であり、デフォルトロケールでないことを確認します。
      */
     if (
       currentLocale.toString() !== defaultLocale.toString() &&
       !locales
         .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // デフォルトのロケールを除外
+          (locale) => locale.toString() !== defaultLocale.toString() // デフォルトロケールを除外
         )
-        .includes(currentLocale) // 現在のロケールが有効なロケールリストに含まれているか確認
+        .includes(currentLocale) // 現在のロケールが有効なロケールのリストに含まれているかをチェック
     ) {
-      // ロケールプレフィックスなしのパスにリダイレクト
+      // ロケールのプレフィックスなしのパスへリダイレクト
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
     }
 
-    // 子要素をIntlayerProviderでラップし、現在のロケールを設定
+    // IntlayerProviderで子要素をラップし、現在のロケールを設定
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -705,21 +722,21 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
         )
         .map((locale) => (
           <Route
-            // ロケールをキャプチャし（例: /en/, /fr/）、すべての後続パスにマッチするルートパターン
+            // ロケールをキャプチャするルートパターン（例: /en/, /fr/）およびそれに続くすべてのパスにマッチ
             path={`/${locale}/*`}
             key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 子要素をロケール管理でラップ
+            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // ロケール管理で子要素をラップ
           />
         ))}
 
       {
-        // デフォルトのロケールのプレフィックスが無効な場合、ルートパスで子要素を直接レンダリング
+        // デフォルトロケールのプレフィックスが無効の場合、ルートパスで直接子要素をレンダリング
         !middleware.prefixDefault && (
           <Route
             path="*"
             element={
               <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 子要素をロケール管理でラップ
+            } // ロケール管理で子要素をラップ
           />
         )
       }
@@ -729,8 +746,9 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 ```
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// 必要な依存関係と関数をインポート
+// 必要な依存関係と関数のインポート
 import { configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'からのユーティリティ関数と型
+// 'intlayer'からのユーティリティ関数と型
 import { IntlayerProvider } from "react-intlayer"; // 国際化コンテキストのプロバイダー
 import {
   BrowserRouter,
@@ -738,132 +756,24 @@ import {
   Route,
   Navigate,
   useLocation,
-} from "react-router-dom"; // ナビゲーションを管理するためのルーターコンポーネント
+} from "react-router-dom"; // ナビゲーション管理のためのルーターコンポーネント
 
-// Intlayerから設定を分解
+// Intlayerからの設定の分割代入
 const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
  * ローカリゼーションを処理し、適切なロケールコンテキストで子要素をラップするコンポーネント。
+/**
  * URLベースのロケール検出と検証を管理します。
  */
 const AppLocalized = ({ children, locale }) => {
   const { pathname, search } = useLocation(); // 現在のURLパスを取得
 
-  // 現在のロケールを決定し、指定されていない場合はデフォルトにフォールバック
+  // 現在のロケールを決定し、指定がなければデフォルトにフォールバック
   const currentLocale = locale ?? defaultLocale;
 
-  // ロケールプレフィックスをパスから削除してベースパスを構築
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 現在のURLパス
-  );
-
-  /**
-   * middleware.prefixDefaultがtrueの場合、デフォルトのロケールは常にプレフィックスされるべきです。
-   */
-  if (middleware.prefixDefault) {
-    // ロケールを検証
-    if (!locale || !locales.includes(locale)) {
-      // 更新されたパスでデフォルトのロケールにリダイレクト
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 現在の履歴エントリを新しいものに置き換える
-        />
-      );
-    }
-
-    // 子要素をIntlayerProviderでラップし、現在のロケールを設定
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefaultがfalseの場合、デフォルトのロケールはプレフィックスされません。
-     * 現在のロケールが有効であり、デフォルトのロケールでないことを確認します。
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // デフォルトのロケールを除外
-        )
-        .includes(currentLocale) // 現在のロケールが有効なロケールリストに含まれているか確認
-    ) {
-      // ロケールプレフィックスなしのパスにリダイレクト
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // 子要素をIntlayerProviderでラップし、現在のロケールを設定
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * React Routerを使用してナビゲーションを管理し、ローカライズされたコンポーネントをレンダリングします。
- */
-export const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // ロケールをキャプチャするルートパターン（例: /en/, /fr/）とその後のすべてのパスを一致させる
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 子要素をロケール管理でラップ
-          />
-        ))}
-
-      {
-        // デフォルトロケールのプレフィックスが無効化されている場合、子要素をルートパスで直接レンダリング
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 子要素をロケール管理でラップ
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
-```
-
-```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// 必要な依存関係と関数をインポート
-const { configuration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'からのユーティリティ関数と型
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // 国際化コンテキストのプロバイダー
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // ナビゲーションを管理するためのルーターコンポーネント
-
-// Intlayerからの設定を分解
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * ローカリゼーションを処理し、適切なロケールコンテキストで子要素をラップするコンポーネント。
- * URLベースのロケール検出と検証を管理します。
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // 現在のURLパスを取得
-
-  // 現在のロケールを決定し、指定されていない場合はデフォルトにフォールバック
-  const currentLocale = locale ?? defaultLocale;
-
-  // パスからロケールプレフィックスを削除してベースパスを構築
+  // パスからロケールのプレフィックスを削除してベースパスを構築
   const pathWithoutLocale = getPathWithoutLocale(
     pathname // 現在のURLパス
   );
@@ -872,18 +782,18 @@ const AppLocalized = ({ children, locale }) => {
    * middleware.prefixDefaultがtrueの場合、デフォルトロケールは常にプレフィックスされるべきです。
    */
   if (middleware.prefixDefault) {
-    // ロケールを検証
+    // ロケールの検証
     if (!locale || !locales.includes(locale)) {
-      // 更新されたパスでデフォルトロケールにリダイレクト
+      // 更新されたパスでデフォルトロケールへリダイレクト
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 現在の履歴エントリを新しいものに置き換え
+          replace // 現在の履歴エントリを新しいものに置き換えます
         />
       );
     }
 
-    // 子要素をIntlayerProviderでラップし、現在のロケールを設定
+    // IntlayerProviderで子要素をラップし、現在のロケールを設定します
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -898,13 +808,123 @@ const AppLocalized = ({ children, locale }) => {
         .filter(
           (locale) => locale.toString() !== defaultLocale.toString() // デフォルトロケールを除外
         )
-        .includes(currentLocale) // 現在のロケールが有効なロケールリストに含まれているか確認
+        .includes(currentLocale) // 現在のロケールが有効なロケールのリストに含まれているかをチェック
+    ) {
+      // ロケールのプレフィックスなしのパスにリダイレクト
+      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
+    }
+
+    // IntlayerProviderで子要素をラップし、現在のロケールを設定
+    return (
+      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
+    );
+  }
+};
+
+/**
+ * ロケール固有のルートを設定するルーターコンポーネント。
+ * React Routerを使用してナビゲーションを管理し、ローカライズされたコンポーネントをレンダリングします。
+ */
+export const LocaleRouter = ({ children }) => (
+  <BrowserRouter>
+    <Routes>
+      {locales
+        .filter(
+          (locale) => middleware.prefixDefault || locale !== defaultLocale
+        )
+        .map((locale) => (
+          <Route
+            // ロケールをキャプチャするルートパターン（例：/en/、/fr/）およびその後のすべてのパスにマッチ
+            path={`/${locale}/*`}
+            key={locale}
+            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // ロケール管理で子要素をラップ
+          />
+        ))}
+
+      {
+        // デフォルトロケールのプレフィックスが無効の場合、ルートパスで直接子要素をレンダリング
+        !middleware.prefixDefault && (
+          <Route
+            path="*"
+            element={
+              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
+            } // ロケール管理で子要素をラップ
+          />
+        )
+      }
+    </Routes>
+  </BrowserRouter>
+);
+```
+
+```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
+// 必要な依存関係と関数のインポート
+const { configuration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'からのユーティリティ関数と型
+const { IntlayerProvider, useLocale } = require("react-intlayer"); // 国際化コンテキストのプロバイダー
+const {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} = require("react-router-dom"); // ナビゲーション管理のためのルーターコンポーネント
+
+// Intlayerからの設定の分割代入
+const { internationalization, middleware } = configuration;
+const { locales, defaultLocale } = internationalization;
+
+/**
+ * ローカリゼーションを処理し、子要素を適切なロケールコンテキストでラップするコンポーネント。
+ * URLベースのロケール検出と検証を管理する。
+ */
+const AppLocalized = ({ children, locale }) => {
+  const { pathname, search } = useLocation(); // 現在のURLパスを取得
+
+  // 現在のロケールを決定。指定がなければデフォルトロケールを使用
+  const currentLocale = locale ?? defaultLocale;
+
+  // パスからロケールのプレフィックスを取り除き、ベースパスを作成
+  const pathWithoutLocale = getPathWithoutLocale(
+    pathname // 現在のURLパス
+  );
+
+  /**
+   * middleware.prefixDefaultがtrueの場合、デフォルトロケールは常にプレフィックスされるべき
+   */
+  if (middleware.prefixDefault) {
+    // ロケールの検証
+    if (!locale || !locales.includes(locale)) {
+      // 更新されたパスでデフォルトロケールへリダイレクト
+      return (
+        <Navigate
+          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
+          replace // 現在の履歴エントリを新しいものに置き換えます
+        />
+      );
+    }
+
+    // IntlayerProviderで子要素をラップし、現在のロケールを設定します
+    return (
+      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
+    );
+  } else {
+    /**
+     * middleware.prefixDefaultがfalseの場合、デフォルトのロケールはプレフィックスされません。
+     * 現在のロケールが有効であり、デフォルトのロケールでないことを確認します。
+     */
+    if (
+      currentLocale.toString() !== defaultLocale.toString() &&
+      !locales
+        .filter(
+          (locale) => locale.toString() !== defaultLocale.toString() // デフォルトのロケールを除外
+        )
+        .includes(currentLocale) // 現在のロケールが有効なロケールのリストに含まれているか確認
     ) {
       // ロケールプレフィックスなしのパスにリダイレクト
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
     }
 
-    // 子要素をIntlayerProviderでラップし、現在のロケールを設定
+    // IntlayerProviderで子要素をラップし、現在のロケールを設定
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -924,21 +944,21 @@ const LocaleRouter = ({ children }) => (
         )
         .map((locale) => (
           <Route
-            // ロケールをキャプチャするルートパターン（例: /en/, /fr/）とその後のすべてのパスを一致させる
+            // ロケールをキャプチャするルートパターン（例: /en/, /fr/）およびそれに続くすべてのパスにマッチ
             path={`/${locale}/*`}
             key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 子要素をロケール管理でラップ
+            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 子コンポーネントをロケール管理でラップします
           />
         ))}
 
       {
-        // デフォルトロケールのプレフィックスが無効化されている場合、子要素をルートパスで直接レンダリング
+        // デフォルトロケールのプレフィックスが無効の場合、ルートパスで直接子コンポーネントをレンダリングします
         !middleware.prefixDefault && (
           <Route
             path="*"
             element={
               <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 子要素をロケール管理でラップ
+            } // 子コンポーネントをロケール管理でラップします
           />
         )
       }
@@ -947,13 +967,13 @@ const LocaleRouter = ({ children }) => (
 );
 ```
 
-次に、アプリケーションで`LocaleRouter`コンポーネントを使用できます:
+次に、アプリケーションで `LocaleRouter` コンポーネントを使用できます:
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FC } from "react";
 
-// ... AppContentコンポーネント
+// ... あなたの AppContent コンポーネント
 
 const App: FC = () => (
   <LocaleRouter>
@@ -965,7 +985,7 @@ const App: FC = () => (
 ```jsx fileName="src/App.mjx" codeFormat="esm"
 import { LocaleRouter } from "./components/LocaleRouter";
 
-// ... AppContentコンポーネント
+// ... あなたの AppContent コンポーネント
 
 const App = () => (
   <LocaleRouter>
@@ -977,7 +997,7 @@ const App = () => (
 ```jsx fileName="src/App.cjx" codeFormat="commonjs"
 const { LocaleRouter } = require("./components/LocaleRouter");
 
-// ... AppContentコンポーネント
+// ... あなたの AppContent コンポーネント
 
 const App = () => (
   <LocaleRouter>
@@ -986,7 +1006,7 @@ const App = () => (
 );
 ```
 
-並行して、`intLayerMiddlewarePlugin`を使用してアプリケーションにサーバーサイドルーティングを追加することもできます。このプラグインは、URLに基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザ言語設定に基づいて最適なロケールを決定します。ロケールが検出されない場合、デフォルトロケールにリダイレクトします。
+並行して、`intLayerMiddlewarePlugin` を使用してアプリケーションにサーバーサイドルーティングを追加することもできます。このプラグインは、URL に基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザの言語設定に基づいて最も適切なロケールを判断します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -1010,7 +1030,7 @@ export default defineConfig({
 });
 ```
 
-```javascript {5,10} fileName="vite.config.cjs" codeFormat="commonjs"
+```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const react = require("@vitejs/plugin-react-swc");
 const { intlayerPlugin, intLayerMiddlewarePlugin } = require("vite-intlayer");
@@ -1021,9 +1041,9 @@ module.exports = defineConfig({
 });
 ```
 
-### （オプション）ステップ8: ロケールが変更されたときにURLを変更する
+### （オプション）ステップ8：ロケールが変更されたときにURLを変更する
 
-ロケールが変更されたときにURLを変更するには、`useLocale`フックで提供される`onLocaleChange`プロップを使用できます。同時に、`react-router-dom`の`useLocation`および`useNavigate`フックを使用してURLパスを更新できます。
+ロケールが変更されたときにURLを変更するには、`useLocale`フックが提供する`onLocaleChange`プロパティを使用できます。同時に、`react-router-dom`の`useLocation`と`useNavigate`フックを使用してURLパスを更新できます。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { useLocation, useNavigate } from "react-router-dom";
@@ -1042,11 +1062,11 @@ const LocaleSwitcher: FC = () => {
 
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
-      // 更新されたロケールでURLを構築
+      // 更新されたロケールでURLを構築する
       // 例: /es/about?foo=bar
       const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
 
-      // URLパスを更新
+      // URLパスを更新する
       navigate(pathWithLocale);
     },
   });
@@ -1075,7 +1095,7 @@ const LocaleSwitcher: FC = () => {
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 現在のロケールでの言語名 - 例: Francés (現在のロケールがLocales.SPANISHの場合) */}
+              {/* 現在のロケールでの言語名 - 例: Francés（現在のロケールがLocales.SPANISHの場合） */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
@@ -1101,16 +1121,16 @@ import {
 import { useLocale } from "react-intlayer";
 
 const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // 現在のURLパスを取得。例: /fr/about?foo=bar
+  const { pathname, search } = useLocation(); // 現在のURLパスを取得します。例: /fr/about?foo=bar
   const navigate = useNavigate();
 
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
-      // 更新されたロケールでURLを構築
+      // 更新されたロケールでURLを構築します
       // 例: /es/about?foo=bar
       const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
 
-      // URLパスを更新
+      // URLパスを更新します
       navigate(pathWithLocale);
     },
   });
@@ -1135,11 +1155,11 @@ const LocaleSwitcher = () => {
               {localeItem}
             </span>
             <span>
-              {/* 自身のロケールでの言語名 - 例: Français */}
+              {/* そのロケールでの言語名 - 例: Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 現在のロケールでの言語名 - 例: Francés (現在のロケールがLocales.SPANISHの場合) */}
+              {/* 現在のロケールでの言語名 - 例: Locales.SPANISH に設定された現在のロケールでの "Francés" */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
@@ -1165,16 +1185,16 @@ const {
 const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // 現在のURLパスを取得。例: /fr/about?foo=bar
+  const { pathname, search } = useLocation(); // 現在のURLパスを取得します。例: /fr/about?foo=bar
   const navigate = useNavigate();
 
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (locale) => {
-      // 更新されたロケールでURLを構築
+      // 更新されたロケールでURLを構築します
       // 例: /es/about?foo=bar
       const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
 
-      // URLパスを更新
+      // URLパスを更新します
       navigate(pathWithLocale);
     },
   });
@@ -1203,7 +1223,7 @@ const LocaleSwitcher = () => {
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 現在のロケールでの言語名 - 例: Francés (現在のロケールがLocales.SPANISHの場合) */}
+              {/* 現在のロケールでの言語名 - 例: Locales.SPANISHに設定された現在のロケールでのFrancés */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
@@ -1225,25 +1245,27 @@ const LocaleSwitcher = () => {
 > - [`getLocalizedUrl` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
 > - [`getHTMLTextDir` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> - [`lang` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
-> - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`lang` 属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` 属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` 属性](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
+以下は、説明を追加しコード例を洗練させた更新版の**ステップ9**です。
 
 ---
 
-### (オプション) ステップ 9: HTMLの言語と方向属性を切り替える
+### （オプション）ステップ9: HTMLの言語属性と方向属性を切り替える
 
-アプリケーションが複数の言語をサポートしている場合、現在のロケールに合わせて `<html>` タグの `lang` および `dir` 属性を更新することが重要です。これにより以下が保証されます:
+アプリケーションが複数の言語をサポートしている場合、`<html>`タグの`lang`属性と`dir`属性を現在のロケールに合わせて更新することが非常に重要です。これにより、以下が保証されます：
 
-- **アクセシビリティ**: スクリーンリーダーや支援技術は正しい `lang` 属性に依存して、コンテンツを正確に発音・解釈します。
-- **テキストレンダリング**: `dir` (方向) 属性は、テキストが適切な順序でレンダリングされることを保証します（例: 英語は左から右、アラビア語やヘブライ語は右から左）。これは可読性にとって重要です。
-- **SEO**: 検索エンジンはページの言語を判断するために `lang` 属性を使用し、検索結果で適切なローカライズされたコンテンツを提供します。
+- **アクセシビリティ**：スクリーンリーダーや支援技術は、正しい`lang`属性に依存してコンテンツを正確に発音・解釈します。
+- **テキストのレンダリング**：`dir`（方向）属性は、テキストが適切な順序（例：英語は左から右、アラビア語やヘブライ語は右から左）で表示されることを保証し、読みやすさに不可欠です。
+- **SEO**：検索エンジンは`lang`属性を使用してページの言語を判別し、適切なローカライズされたコンテンツを検索結果に提供します。
 
-ロケールが変更されるたびにこれらの属性を動的に更新することで、すべてのサポート言語で一貫性があり、アクセシブルなユーザー体験を提供できます。
+ロケールが変更されるたびにこれらの属性を動的に更新することで、すべての対応言語において一貫性がありアクセシブルなユーザー体験を保証します。
 
 #### フックの実装
 
-カスタムフックを作成してHTML属性を管理します。このフックはロケールの変更を監視し、属性を適切に更新します:
+HTML属性を管理するカスタムフックを作成します。このフックはロケールの変更を監視し、それに応じて属性を更新します。
 
 ```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
 import { useEffect } from "react";
@@ -1251,23 +1273,42 @@ import { useLocale } from "react-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
-
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-/**
- * 現在のロケールに基づいてHTML <html> 要素の `lang` と `dir` 属性を更新します。
- * - `lang`: ページの言語をブラウザや検索エンジンに通知します。
- * - `dir`: 正しい読み順を保証します（例: 英語の場合は 'ltr'、アラビア語の場合は 'rtl'）。
+ * 現在のロケールに基づいてHTMLの<html>要素の`lang`および`dir`属性を更新します。
+ * - `lang`: ブラウザや検索エンジンにページの言語を通知します。
+ * - `dir`: 正しい読み順を保証します（例：英語は'ltr'、アラビア語は'rtl'）。
  *
- * この動的な更新は、適切なテキストレンダリング、アクセシビリティ、SEOにとって重要です。
+ * この動的な更新は、適切なテキストレンダリング、アクセシビリティ、およびSEOに不可欠です。
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // 言語属性を現在のロケールに更新します。
+    // 現在のロケールに言語属性を更新します。
+    document.documentElement.lang = locale;
+
+    // 現在のロケールに基づいてテキストの方向を設定します。
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
+```
+
+```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
+import { useEffect } from "react";
+import { useLocale } from "react-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+/**
+ * 現在のロケールに基づいてHTMLの<html>要素の`lang`および`dir`属性を更新します。
+ * - `lang`: ブラウザや検索エンジンにページの言語を通知します。
+ * - `dir`: 正しい読み順を保証します（例：英語は 'ltr'、アラビア語は 'rtl'）。
+ *
+ * この動的な更新は、適切なテキストレンダリング、アクセシビリティ、およびSEOに不可欠です。
+ */
+export const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // 現在のロケールに言語属性を更新します。
     document.documentElement.lang = locale;
 
     // 現在のロケールに基づいてテキストの方向を設定します。
@@ -1282,17 +1323,17 @@ const { useLocale } = require("react-intlayer");
 const { getHTMLTextDir } = require("intlayer");
 
 /**
- * 現在のロケールに基づいてHTML <html> 要素の `lang` と `dir` 属性を更新します。
- * - `lang`: ページの言語をブラウザや検索エンジンに通知します。
- * - `dir`: 正しい読み順を保証します（例: 英語の場合は 'ltr'、アラビア語の場合は 'rtl'）。
+ * 現在のロケールに基づいてHTMLの<html>要素の`lang`および`dir`属性を更新します。
+ * - `lang`: ブラウザや検索エンジンにページの言語を通知します。
+ * - `dir`: 正しい読み順を保証します（例：英語は'ltr'、アラビア語は'rtl'）。
  *
- * この動的な更新は、適切なテキストレンダリング、アクセシビリティ、SEOにとって重要です。
+ * この動的な更新は、適切なテキストレンダリング、アクセシビリティ、およびSEOに不可欠です。
  */
 const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // 言語属性を現在のロケールに更新します。
+    // 現在のロケールに言語属性を更新します。
     document.documentElement.lang = locale;
 
     // 現在のロケールに基づいてテキストの方向を設定します。
@@ -1303,9 +1344,9 @@ const useI18nHTMLAttributes = () => {
 module.exports = { useI18nHTMLAttributes };
 ```
 
-#### アプリケーションでフックを使用する
+#### アプリケーションでのフックの使用方法
 
-ロケールが変更されるたびにHTML属性が更新されるように、メインコンポーネントにフックを統合します。
+ロケールが変更されるたびにHTML属性が更新されるように、メインコンポーネントにフックを統合します：
 
 ```tsx fileName="src/App.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -1314,10 +1355,36 @@ import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
 
 const AppContent: FC = () => {
-  // フックを適用して、ロケールに基づいて <html> タグの lang と dir 属性を更新します。
+  // ロケールに基づいて<html>タグのlangとdir属性を更新するためにフックを適用します。
   useI18nHTMLAttributes();
 
-  // ... 残りのコンポーネント
+  // ... コンポーネントの残りの部分
+};
+
+const App: FC = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+#### アプリケーションでのフックの使用
+
+フックをメインコンポーネントに統合し、ロケールが変更されるたびにHTML属性が更新されるようにします：
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import type { FC } from "react";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
+import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
+import "./App.css";
+
+const AppContent: FC = () => {
+  // ロケールに基づいて<html>タグのlangとdir属性を更新するためにフックを適用します。
+  useI18nHTMLAttributes();
+
+  // ... コンポーネントの残りの部分
 };
 
 const App: FC = () => (
@@ -1335,10 +1402,10 @@ import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./App.css";
 
 const AppContent = () => {
-  // フックを適用して、ロケールに基づいて <html> タグの lang と dir 属性を更新します。
+  // ロケールに基づいて<html>タグのlangとdir属性を更新するためにフックを適用します。
   useI18nHTMLAttributes();
 
-  // ... 残りのコンポーネント
+  // ... コンポーネントの残りの部分
 };
 
 const App = () => (
@@ -1357,10 +1424,10 @@ const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
 require("./App.css");
 
 const AppContent = () => {
-  // フックを適用して、ロケールに基づいて <html> タグの lang と dir 属性を更新します。
+  // ロケールに基づいて<html>タグのlangとdir属性を更新するためにフックを適用します。
   useI18nHTMLAttributes();
 
-  // ... 残りのコンポーネント
+  // ... コンポーネントの残りの部分
 };
 
 const App = () => (
@@ -1374,21 +1441,29 @@ module.exports = App;
 
 これらの変更を適用することで、アプリケーションは以下を実現します：
 
-- 現在のロケールを正確に反映する **言語** (`lang`) 属性を保証し、SEOやブラウザの動作に重要な役割を果たします。
-- ロケールに応じて **テキストの方向** (`dir`) を調整し、異なる読み順を持つ言語の可読性と使いやすさを向上させます。
-- **アクセシビリティ** を向上させ、支援技術がこれらの属性に依存して最適に機能するようにします。
+- 現在のロケールを正確に反映する**言語**（`lang`）属性を確実に設定し、SEOやブラウザの動作に重要な役割を果たします。
+- ロケールに応じて**テキストの方向**（`dir`）を調整し、異なる読み順の言語に対して読みやすさと使いやすさを向上させます。
+- これらの属性に依存する支援技術のために、より**アクセシブル**な体験を提供します。
 
-### （オプション）ステップ10: ローカライズされたリンクコンポーネントの作成
+### （オプション）ステップ10：ローカライズされたリンクコンポーネントの作成
 
-アプリケーションのナビゲーションが現在のロケールを尊重するようにするために、カスタム `Link` コンポーネントを作成できます。このコンポーネントは内部URLに自動的に現在の言語をプレフィックスとして付加します。例えば、フランス語を話すユーザーが「About」ページへのリンクをクリックすると、`/about` の代わりに `/fr/about` にリダイレクトされます。
+これらの変更を適用することで、アプリケーションは以下を実現します：
+
+- **言語**（`lang`）属性が現在のロケールを正確に反映し、SEOやブラウザの動作に重要な役割を果たします。
+- ロケールに応じて**テキストの方向**（`dir`）を調整し、異なる読み方向の言語に対して読みやすさと使いやすさを向上させます。
+- 支援技術がこれらの属性に依存して最適に機能するため、より**アクセシブル**な体験を提供します。
+
+### （オプション）ステップ10：ローカライズされたリンクコンポーネントの作成
+
+アプリケーションのナビゲーションが現在のロケールを尊重するようにするために、カスタムの `Link` コンポーネントを作成できます。このコンポーネントは内部のURLに自動的に現在の言語をプレフィックスとして付加します。例えば、フランス語を話すユーザーが「About」ページへのリンクをクリックすると、`/about` ではなく `/fr/about` にリダイレクトされます。
 
 この動作は以下の理由で有用です：
 
-- **SEOとユーザーエクスペリエンス**: ローカライズされたURLは、検索エンジンが言語別のページを正確にインデックス化し、ユーザーに好みの言語でコンテンツを提供するのに役立ちます。
-- **一貫性**: アプリケーション全体でローカライズされたリンクを使用することで、ナビゲーションが現在のロケール内に留まり、予期しない言語切り替えを防ぎます。
-- **保守性**: URLのローカライズロジックを単一のコンポーネントに集中させることで、コードベースの管理が簡単になり、アプリケーションの成長に伴う拡張が容易になります。
+- **SEOとユーザー体験**：ローカライズされたURLは、検索エンジンが言語別のページを正しくインデックスし、ユーザーに好みの言語でコンテンツを提供するのに役立ちます。
+- **一貫性**：アプリケーション全体でローカライズされたリンクを使用することで、ナビゲーションが現在のロケール内に留まり、予期しない言語の切り替えを防ぎます。
+- **保守性**: ローカリゼーションのロジックを単一のコンポーネントに集約することで、URLの管理が簡素化され、アプリケーションの成長に伴いコードベースの保守や拡張が容易になります。
 
-以下は、TypeScriptで実装されたローカライズされた `Link` コンポーネントです：
+以下は、TypeScriptで実装されたローカライズされた `Link` コンポーネントの例です。
 
 ```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
 import { getLocalizedUrl } from "intlayer";
@@ -1406,15 +1481,15 @@ export interface LinkProps
   > {}
 
 /**
- * 指定されたURLが外部リンクかどうかを確認するユーティリティ関数。
- * URLが http:// または https:// で始まる場合、外部リンクと見なされます。
+ * 指定されたURLが外部リンクかどうかを判定するユーティリティ関数。
+ * URLが http:// または https:// で始まる場合、外部リンクとみなされます。
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
 
 /**
- * 現在のロケールに基づいて href 属性を適応させるカスタム Link コンポーネント。
- * 内部リンクの場合、`getLocalizedUrl` を使用してURLにロケールをプレフィックスとして付加します（例: /fr/about）。
+ * 現在のロケールに基づいてhref属性を適応するカスタムLinkコンポーネント。
+ * 内部リンクの場合、`getLocalizedUrl`を使用してURLの先頭にロケールを付加します（例：/fr/about）。
  * これにより、ナビゲーションが同じロケールコンテキスト内に留まることを保証します。
  */
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -1422,7 +1497,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     const { locale } = useLocale();
     const isExternalLink = checkIsExternalLink(href);
 
-    // リンクが内部リンクで有効な href が提供されている場合、ローカライズされたURLを取得します。
+    // リンクが内部リンクで有効なhrefが提供されている場合、ローカライズされたURLを取得します。
     const hrefI18n =
       href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
@@ -1443,23 +1518,22 @@ import { useLocale } from "react-intlayer";
 import { forwardRef } from "react";
 
 /**
- * 指定されたURLが外部リンクかどうかを確認するユーティリティ関数。
- * URLが http:// または https:// で始まる場合、外部リンクと見なされます。
+ * 指定されたURLが外部リンクかどうかをチェックするユーティリティ関数。
+ * URLが http:// または https:// で始まる場合、外部リンクとみなされます。
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
 
 /**
- * 現在のロケールに基づいて href 属性を適応させるカスタム Link コンポーネント。
- * 内部リンクの場合、`getLocalizedUrl` を使用してURLにロケールをプレフィックスとして付加します（例: /fr/about）。
- * これにより、ナビゲーションが同じロケールコンテキスト内に留まることを保証します。
+ * 現在のロケールに基づいてhref属性を適応させるカスタムLinkコンポーネント。
+ * 内部リンクの場合、`getLocalizedUrl`を使用してURLにロケールのプレフィックスを付けます（例：/fr/about）。
+ * これにより、ナビゲーションが同じロケールのコンテキスト内に留まることが保証されます。
  */
 export const Link = forwardRef(({ href, children, ...props }, ref) => {
-
-const { locale } = useLocale();
+  const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href);
 
-  // リンクが内部リンクで有効な href が提供されている場合、ローカライズされた URL を取得します。
+  // リンクが内部リンクで有効なhrefが提供されている場合、ローカライズされたURLを取得します。
   const hrefI18n =
     href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
@@ -1479,15 +1553,15 @@ const { useLocale } = require("react-intlayer");
 const { forwardRef } = require("react");
 
 /**
- * 指定された URL が外部リンクかどうかを確認するユーティリティ関数。
- * URL が http:// または https:// で始まる場合、それは外部リンクと見なされます。
+ * 指定されたURLが外部リンクかどうかをチェックするユーティリティ関数。
+ * URLが http:// または https:// で始まる場合、外部リンクと見なされます。
  */
 const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
 /**
- * 現在のロケールに基づいて href 属性を適応させるカスタム Link コンポーネント。
- * 内部リンクの場合、`getLocalizedUrl` を使用して URL にロケールをプレフィックスします (例: /ja/about)。
- * これにより、ナビゲーションが同じロケールコンテキスト内に留まることが保証されます。
+ * 現在のロケールに基づいて href 属性を適応するカスタム Link コンポーネント。
+ * 内部リンクの場合、`getLocalizedUrl` を使用して URL にロケールをプレフィックスします（例: /fr/about）。
+ * これにより、ナビゲーションが同じロケールのコンテキスト内に留まることが保証されます。
  */
 const Link = forwardRef(({ href, children, ...props }, ref) => {
   const { locale } = useLocale();
@@ -1514,50 +1588,87 @@ Link.displayName = "Link";
 #### 動作の仕組み
 
 - **外部リンクの検出**:  
-  ヘルパー関数 `checkIsExternalLink` は URL が外部リンクかどうかを判定します。外部リンクはローカライズを必要としないため、そのまま変更されません。
+  ヘルパー関数 `checkIsExternalLink` は、URLが外部リンクかどうかを判定します。外部リンクはローカライズの必要がないため、そのままにされます。
 
 - **現在のロケールの取得**:  
-  `useLocale` フックは現在のロケール (例: フランス語の場合は `fr`) を提供します。
+  `useLocale` フックは現在のロケール（例：フランス語の場合は `fr`）を提供します。
 
-- **URL のローカライズ**:  
-  内部リンク (外部でないリンク) の場合、`getLocalizedUrl` を使用して URL に現在のロケールを自動的にプレフィックスします。これにより、ユーザーがフランス語を使用している場合、`/about` を `href` として渡すと `/fr/about` に変換されます。
+- **URLのローカライズ**:  
+  内部リンク（すなわち外部リンクでない場合）には、`getLocalizedUrl` が使用され、URLの先頭に現在のロケールを自動的に付加します。例えば、ユーザーがフランス語環境にいる場合、`href` に `/about` を渡すと `/fr/about` に変換されます。
 
 - **リンクの返却**:  
-  コンポーネントはローカライズされた URL を持つ `<a>` 要素を返し、ロケールに一致したナビゲーションを保証します。
+  コンポーネントはローカライズされたURLを持つ `<a>` 要素を返し、ナビゲーションがロケールに一貫して対応するようにします。
 
-この `Link` コンポーネントをアプリケーション全体で統合することで、一貫性があり言語に配慮したユーザー体験を維持しつつ、SEO と使いやすさを向上させることができます。
+この `Link` コンポーネントをアプリケーション全体に統合することで、一貫性のある言語対応のユーザー体験を維持しつつ、SEOや使いやすさの向上も実現できます。
 
 ### TypeScript の設定
 
-Intlayer はモジュール拡張を使用して TypeScript の利点を活用し、コードベースを強化します。
+Intlayer はモジュール拡張を利用して TypeScript の利点を活かし、コードベースをより強固にします。
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
-TypeScript 設定に自動生成された型を含めてください。
+TypeScript の設定に自動生成された型が含まれていることを確認してください。
+
+コンポーネントはローカライズされたURLを持つ`<a>`要素を返し、ナビゲーションがロケールに沿って一貫して行われることを保証します。
+
+この`Link`コンポーネントをアプリケーション全体に統合することで、一貫性のある言語対応のユーザー体験を維持しつつ、SEOや使いやすさの向上も期待できます。
+
+### TypeScriptの設定
+
+Intlayerはモジュール拡張を利用してTypeScriptの利点を活かし、コードベースをより堅牢にします。
+
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+
+![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+
+TypeScriptの設定に自動生成された型を含めることを確認してください。
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... 既存の TypeScript 設定
+  // ... 既存のTypeScript設定
   "include": [
-    // ... 既存の TypeScript 設定
+    // ... 既存のTypeScript設定
     ".intlayer/**/*.ts", // 自動生成された型を含める
   ],
 }
 ```
 
-### Git の設定
+### Gitの設定
 
-Intlayer によって生成されたファイルを無視することをお勧めします。これにより、それらを Git リポジトリにコミットするのを避けることができます。
+Intlayerによって生成されたファイルはGitリポジトリにコミットしないように無視することを推奨します。
 
-これを行うには、以下の指示を `.gitignore` ファイルに追加します:
+これを行うには、`.gitignore`ファイルに以下の指示を追加してください。
 
 ```plaintext
-# Intlayer によって生成されたファイルを無視
+# Intlayerによって生成されたファイルを無視する
 .intlayer
 ```
 
-### さらに進む
+### VS Code拡張機能
 
-さらに進むために、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用してコンテンツを外部化することができます。
+Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
+
+[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+この拡張機能は以下を提供します：
+
+- 翻訳キーの**オートコンプリート**。
+- **翻訳が不足している場合のリアルタイムエラー検出**。
+- **翻訳内容のインラインプレビュー**。
+- **翻訳の作成や更新を簡単に行うクイックアクション**。
+
+拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+
+---
+
+### さらに進むために
+
+さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
+
+---
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴の初期化

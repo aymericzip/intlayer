@@ -1,3 +1,23 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: intlayer-editor - Visual Translation Editor Package
+description: Visual editor package for Intlayer providing an intuitive interface for managing translations and collaborative content editing with AI assistance.
+keywords:
+  - intlayer
+  - editor
+  - visual
+  - translation
+  - collaborative
+  - AI
+  - NPM
+  - interface
+slugs:
+  - doc
+  - package
+  - intlayer-editor
+---
+
 # intlayer-editor: NPM Package to use the Intlayer visual editor
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
@@ -111,3 +131,9 @@ When the editor is installed, enabled, and started, you can view each field inde
 ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 If your content is outlined, you can long-press it to display the edit drawer.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

@@ -24,6 +24,8 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     basePath: process.env.INTLAYER_BASE_PATH,
     serverSetCookie: process.env.INTLAYER_SERVER_SET_COOKIE,
     noPrefix: process.env.INTLAYER_NO_PREFIX,
+    detectLocaleOnPrefetchNoPrefix:
+      process.env.INTLAYER_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX,
   };
 
   const content: ReplaceValue<ContentConfig> = {
@@ -78,7 +80,7 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
 
   const build: ReplaceValue<BuildConfig> = {
     optimize: process.env.INTLAYER_BUILD_OPTIMIZE,
-    activateDynamicImport: process.env.INTLAYER_BUILD_ACTIVATE_DYNAMIC_IMPORT,
+    importMode: process.env.INTLAYER_BUILD_IMPORT_MODE,
     traversePattern: process.env.INTLAYER_BUILD_TRAVERSE_PATTERN,
   };
 

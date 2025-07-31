@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_vite_solid
-url: https://intlayer.org/doc/environment/vite-and-solid
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+solid.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Translate your Vite and Solid website (i18n)
 description: Discover how to make your Vite and Solid website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -13,6 +10,11 @@ keywords:
   - Vite
   - Solid
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - vite-and-solid
+# applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and Solid
@@ -42,17 +44,17 @@ Install the necessary packages using npm:
 
 ```bash packageManager="npm"
 npm install intlayer solid-intlayer
-npm install --save-dev vite-intlayer
+npm install vite-intlayer --save-dev
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer solid-intlayer
-pnpm add --save-dev vite-intlayer
+pnpm add vite-intlayer --save-dev
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer solid-intlayer
-yarn add --save-dev vite-intlayer
+yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
@@ -272,3 +274,11 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+---
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

@@ -1,25 +1,28 @@
 ---
-docName: package__react-native-intlayer
-url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Package Documentation | react-native-intlayer
 description: See how to use the react-native-intlayer package
 keywords:
   - Intlayer
   - React Native
   - react-native-intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-native-intlayer
 ---
+
+# react-native-intlayer: Internationalise (i18n) a React Native application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-**The `react-native-intlayer` package** allows you to internationalise your Vite application. It includes the Metro plugin to set the configuration through environment variables into the [Metro bundler](https://docs.expo.dev/guides/customising-metro/).
+**The `react-native-intlayer` package** allows you to internationalise your Vite application. It includes the Metro plugin to set the configuration through environment variables into the [Metro bundler](https://docs.expo.dev/guides/customizing-metro/).
 
 ## Why Internationalise Your React Native Application?
 
@@ -47,7 +50,7 @@ pnpm add react-native-intlayer
 
 ## Example of usage
 
-See an example of how to include the plugins into your Vite configuration.
+See an example of how to include the plugins into your vite configuration.
 
 ```js
 // metro.config.js
@@ -74,3 +77,7 @@ Intlayer provides a lot of features to help you internationalise your Vite appli
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
 - [Ask your questions to our smart documentation](https://intlayer.org/docchat)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

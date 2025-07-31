@@ -17,6 +17,7 @@ const {
   basePath,
   serverSetCookie,
   noPrefix,
+  detectLocaleOnPrefetchNoPrefix,
 } = middleware;
 
 /**
@@ -76,8 +77,8 @@ export const intlayerMiddleware = (
   _response?: NextResponse
 ): NextResponse => {
   const pathname = request.nextUrl.pathname;
-  const isPrefetch = isPrefetchRequest(request);
-  const cookieLocale = isPrefetch ? undefined : getCookieLocale(request);
+
+  const cookieLocale = getCookieLocale(request);
   const basePathTrailingSlash = basePath.endsWith('/');
 
   if (
@@ -132,6 +133,7 @@ const handleNoPrefix = (
   basePathTrailingSlash: boolean
 ): NextResponse => {
   const locale = cookieLocale ?? defaultLocale;
+
   const newPath = constructPath(
     locale,
     pathname,
@@ -173,6 +175,17 @@ const handlePrefix = (
   if (
     !pathLocale // If the URL does not contain a locale prefix
   ) {
+    const isPrefetch = isPrefetchRequest(request);
+
+    if (isPrefetch && !detectLocaleOnPrefetchNoPrefix) {
+      return handleMissingPathLocale(
+        request,
+        defaultLocale,
+        pathname,
+        basePathTrailingSlash
+      );
+    }
+
     return handleMissingPathLocale(
       request,
       cookieLocale,

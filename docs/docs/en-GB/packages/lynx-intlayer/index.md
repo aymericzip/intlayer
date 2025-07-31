@@ -1,20 +1,23 @@
 ---
-docName: package__lynx-intlayer
-url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Package Documentation | lynx-intlayer
 description: See how to use the lynx-intlayer package
 keywords:
   - Intlayer
   - lynx-intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - lynx-intlayer
 ---
+
+# lynx-intlayer: Internationalise (i18n) a Lynx application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
@@ -46,7 +49,7 @@ pnpm add lynx-intlayer
 
 ## Example of usage
 
-See an example of how to include the plugins into your Vite configuration.
+See an example of how to include the plugins into your vite configuration.
 
 ```ts
 // lynx.config.ts
@@ -73,4 +76,14 @@ Intlayer provides a lot of features to help you internationalise your Vite appli
 - [Intlayer Documentation](https://intlayer.org/doc)
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
-- [Ask your questions to our smart documentation](https://intlayer.org/docchat)
+- [Ask your questions to our smart documentation](https://intlayer.org/doc/chat)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history
+
+- [Ask your questions to our smart documentation](https://intlayer.org/doc/chat)
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

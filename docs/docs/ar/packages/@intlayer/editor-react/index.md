@@ -1,8 +1,28 @@
-# @intlayer/editor-react: حزمة NPM توفر حالات React، وسياقات، وخطافات ومكونات للتفاعل مع محرر Intlayer
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/editor-react - مكونات React لمحرر Intlayer
+description: حزمة NPM توفر مكونات وخطافات React لدمج محرر Intlayer المرئي في تطبيقات React للتدويل.
+keywords:
+  - intlayer
+  - محرر
+  - React
+  - مكونات
+  - خطافات
+  - i18n
+  - جافا سكريبت
+  - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_editor-react
+---
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React، وNext.js، وExpress.js.
+# @intlayer/editor-react: حزمة NPM توفر حالات React، وسياقات، وخطافات، ومكونات للتفاعل مع محرر Intlayer
 
-توفر حزمة **`@intlayer/editor-react`** حالات، وسياقات، وخطافات ومكونات للتفاعل مع محرر Intlayer لتطبيق React.
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافا سكريبت. وهي متوافقة مع أُطُر العمل مثل React و Next.js و Express.js.
+
+توفر حزمة **`@intlayer/editor-react`** حالات وسياقات وخطافات ومكونات للتفاعل مع محرر Intlayer في تطبيق React.
 
 ## التثبيت
 
@@ -19,3 +39,7 @@ yarn add @intlayer/editor-react
 ```bash
 pnpm add @intlayer/editor-react
 ```
+
+## تاريخ الوثائق
+
+- 5.5.10 - 2025-06-29: بداية السجل

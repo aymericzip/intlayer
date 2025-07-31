@@ -243,7 +243,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
-  USER_NOT_ORGANIZATION_MEMBER: {
+  USER_ORGANIZATION_MEMBER_MISSING: {
     title: {
       en: 'User Not Organization Member',
       fr: "Utilisateur non membre de l'organisation",
@@ -256,7 +256,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
-  USER_NOT_ORGANIZATION_ADMIN: {
+  USER_ORGANIZATION_ADMIN_MISSING: {
     title: {
       en: 'User Not Organization Admin',
       fr: "Utilisateur non administrateur de l'organisation",
@@ -893,18 +893,18 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
-  EMAIL_ALREADY_REGISTERED: {
+  USER_ALREADY_EXISTS: {
     title: {
-      en: 'Email Already registered',
-      fr: 'Email déjà enregistré',
-      es: 'Email ya registrado',
+      en: 'User Already Exists',
+      fr: 'Utilisateur existe déjà',
+      es: 'Usuario ya existe',
     },
     message: {
-      en: 'The email has already been registered.',
-      fr: "L'email a déjà été enregistré.",
-      es: 'El correo electrónico ya ha sido registrado.',
+      en: 'A user with this email already exists in our system.',
+      fr: 'Un utilisateur avec cet email existe déjà dans notre système.',
+      es: 'Un usuario con este correo electrónico ya existe en nuestro sistema.',
     },
-    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+    statusCode: HttpStatusCodes.CONFLICT_409,
   },
   SECRET_NOT_PROVIDED: {
     title: {
@@ -945,32 +945,6 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
-  USER_IS_NOT_ADMIN_OF_ORGANIZATION: {
-    title: {
-      en: 'User Is Not Admin Of Organization',
-      fr: "L'utilisateur n'est pas administrateur de l'organisation",
-      es: 'El usuario no es administrador de la organización',
-    },
-    message: {
-      en: 'The user is not an admin of the organization.',
-      fr: "L'utilisateur n'est pas administrateur de l'organisation.",
-      es: 'El usuario no es administrador de la organización.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  USER_IS_NOT_ADMIN_OF_PROJECT: {
-    title: {
-      en: 'User Is Not Admin Of Project',
-      fr: "L'utilisateur n'est pas administrateur du projet",
-      es: 'El usuario no es administrador del proyecto',
-    },
-    message: {
-      en: 'The user is not an admin of the project.',
-      fr: "L'utilisateur n'est pas administrateur du projet.",
-      es: 'El usuario no es administrador del proyecto.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
   PROJECT_DATA_NOT_FOUND: {
     title: {
       en: 'Project Data Not Found',
@@ -994,123 +968,6 @@ export const errorData = {
       en: 'The project is not in the organization.',
       fr: "Le projet n'est pas dans l'organisation.",
       es: 'El proyecto no está en la organización.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  DICTIONARY_RIGHTS_NOT_READ: {
-    title: {
-      en: 'Dictionary Rights Not Read',
-      fr: 'Droits de dictionnaire non lus',
-      es: 'Derechos de diccionario no leídos',
-    },
-    message: {
-      en: 'You do not have read access to this dictionary.',
-      fr: "Vous n'avez pas accès en lecture à ce dictionnaire.",
-      es: 'No tienes acceso de lectura a este diccionario.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  DICTIONARY_RIGHTS_NOT_WRITE: {
-    title: {
-      en: 'Dictionary Rights Not Write',
-      fr: 'Droits de dictionnaire non écrits',
-      es: 'Derechos de diccionario no escritos',
-    },
-    message: {
-      en: 'You do not have write access to this dictionary.',
-      fr: "Vous n'avez pas accès en écriture à ce dictionnaire.",
-      es: 'No tienes acceso de escritura a este diccionario.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  DICTIONARY_RIGHTS_NOT_ADMIN: {
-    title: {
-      en: 'Dictionary Rights Not Admin',
-      fr: 'Droits de dictionnaire non admin',
-      es: 'Derechos de diccionario no admin',
-    },
-    message: {
-      en: 'You do not have admin access to this dictionary.',
-      fr: "Vous n'avez pas accès en admin à ce dictionnaire.",
-      es: 'No tienes acceso de admin a este diccionario.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  PROJECT_RIGHTS_NOT_READ: {
-    title: {
-      en: 'Project Rights Not Read',
-      fr: 'Droits de projet non lus',
-      es: 'Derechos de proyecto no leídos',
-    },
-    message: {
-      en: 'You do not have read access to this project.',
-      fr: "Vous n'avez pas accès en lecture à ce projet.",
-      es: 'No tienes acceso de lectura a este proyecto.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  PROJECT_RIGHTS_NOT_WRITE: {
-    title: {
-      en: 'Project Rights Not Write',
-      fr: 'Droits de projet non écrits',
-      es: 'Derechos de proyecto no escritos',
-    },
-    message: {
-      en: 'You do not have write access to this project.',
-      fr: "Vous n'avez pas accès en écriture à ce projet.",
-      es: 'No tienes acceso de escritura a este proyecto.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  PROJECT_RIGHTS_NOT_ADMIN: {
-    title: {
-      en: 'Project Rights Not Admin',
-      fr: 'Droits de projet non admin',
-      es: 'Derechos de proyecto no admin',
-    },
-    message: {
-      en: 'You do not have admin access to this project.',
-      fr: "Vous n'avez pas accès en admin à ce projet.",
-      es: 'No tienes acceso de admin a este proyecto.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  ORGANIZATION_RIGHTS_NOT_READ: {
-    title: {
-      en: 'Organization Rights Not Read',
-      fr: "Droits d'organisation non lus",
-      es: 'Derechos de organización no leídos',
-    },
-    message: {
-      en: 'You do not have read access to this organization.',
-      fr: "Vous n'avez pas accès en lecture à cette organisation.",
-      es: 'No tienes acceso de lectura a esta organización.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  ORGANIZATION_RIGHTS_NOT_WRITE: {
-    title: {
-      en: 'Organization Rights Not Write',
-      fr: "Droits d'organisation non écrits",
-      es: 'Derechos de organización no escritos',
-    },
-    message: {
-      en: 'You do not have write access to this organization.',
-      fr: "Vous n'avez pas accès en écriture à cette organisation.",
-      es: 'No tienes acceso de escritura a esta organización.',
-    },
-    statusCode: HttpStatusCodes.FORBIDDEN_403,
-  },
-  ORGANIZATION_RIGHTS_NOT_ADMIN: {
-    title: {
-      en: 'Organization Rights Not Admin',
-      fr: "Droits d'organisation non admin",
-      es: 'Derechos de organización no admin',
-    },
-    message: {
-      en: 'You do not have admin access to this organization.',
-      fr: "Vous n'avez pas accès en admin à cette organisation.",
-      es: 'No tienes acceso de admin a esta organización.',
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
@@ -1415,6 +1272,123 @@ export const errorData = {
       es: 'Claves de acceso no válidas. Las claves de acceso deben definirse para usar funciones AI. Ver https://intlayer.org/doc/concept/editor. Alternativamente, puede agregar su propia clave API openAI en la configuración.',
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  RATE_LIMIT_EXCEEDED: {
+    title: {
+      en: 'Rate Limit Exceeded',
+      fr: 'Limite de taux dépassée',
+      es: 'Límite de tasa excedido',
+    },
+    message: {
+      en: 'Rate limit exceeded. Please try again later.',
+      fr: 'Limite de taux dépassée. Veuillez réessayer plus tard.',
+      es: 'Límite de tasa excedido. Por favor, inténtelo de nuevo más tarde.',
+    },
+    statusCode: HttpStatusCodes.TOO_MANY_REQUESTS_429,
+  },
+  RATE_LIMIT_EXCEEDED_UNAUTHENTICATED: {
+    title: {
+      en: 'Rate Limit Exceeded',
+      fr: 'Limite de taux dépassée',
+      es: 'Límite de tasa excedido',
+    },
+    message: {
+      en: 'The number of requests is limited for unauthenticated users. Please try again later, or sign in at https://intlayer.org/login to increase your limit.',
+      fr: 'Le nombre de requêtes est limité pour les utilisateurs non authentifiés. Veuillez réessayer plus tard, ou connectez-vous à https://intlayer.org/login pour augmenter votre limite.',
+      es: 'El número de solicitudes está limitado para usuarios no autenticados. Por favor, inténtelo de nuevo más tarde, o inicie sesión en https://intlayer.org/login para aumentar su límite.',
+    },
+    statusCode: HttpStatusCodes.TOO_MANY_REQUESTS_429,
+  },
+  SESSION_NOT_DEFINED: {
+    title: {
+      en: 'Session not defined',
+      fr: 'Session non définie',
+      es: 'Sesión no definida',
+    },
+    message: {
+      en: 'The session is not defined.',
+      fr: "La session n'est pas définie.",
+      es: 'La sesión no está definida.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  INVALID_OAUTH_GRANT_TYPE: {
+    title: {
+      en: 'Invalid OAuth grant type',
+      fr: 'Type de grant OAuth invalide',
+      es: 'Tipo de grant OAuth inválido',
+    },
+    message: {
+      en: 'The grant type is invalid.',
+      fr: 'Le type de grant est invalide.',
+      es: 'El tipo de grant es inválido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  INVALID_OAUTH_CLIENT: {
+    title: {
+      en: 'Invalid OAuth client',
+      fr: 'Client OAuth invalide',
+      es: 'Cliente OAuth inválido',
+    },
+    message: {
+      en: 'The client is invalid.',
+      fr: 'Le client est invalide.',
+      es: 'El cliente es inválido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  INVALID_ACCESS_TOKEN: {
+    title: {
+      en: 'Invalid access token',
+      fr: "Jeton d'accès invalide",
+      es: 'Token de acceso inválido',
+    },
+    message: {
+      en: 'The access token is invalid.',
+      fr: "Le jeton d'accès est invalide.",
+      es: 'El token de acceso es inválido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  EXPIRED_ACCESS_TOKEN: {
+    title: {
+      en: 'Expired access token',
+      fr: "Jeton d'accès expiré",
+      es: 'Token de acceso expirado',
+    },
+    message: {
+      en: 'The access token has expired.',
+      fr: "Le jeton d'accès a expiré.",
+      es: 'El token de acceso ha expirado.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
+  PERMISSION_DENIED: {
+    title: {
+      en: 'Permission Denied',
+      fr: 'Permission refusée',
+      es: 'Permiso denegado',
+    },
+    message: {
+      en: 'You do not have permission to access this resource.',
+      fr: "Vous n'avez pas les permissions nécessaires pour accéder à cette ressource.",
+      es: 'No tienes permisos para acceder a este recurso.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+  INVALID_REQUEST_BODY: {
+    title: {
+      en: 'Invalid Request Body',
+      fr: 'Corps de requête invalide',
+      es: 'Cuerpo de solicitud inválido',
+    },
+    message: {
+      en: 'The request body is invalid.',
+      fr: 'Le corps de la requête est invalide.',
+      es: 'El cuerpo de la solicitud es inválido.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
 } satisfies Record<string, ErrorCode>;
 

@@ -1,9 +1,6 @@
 ---
-docName: intlayer_cli
-url: https://intlayer.org/doc/concept/cli
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-07-11
 title: CLI
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -15,6 +12,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cli
 ---
 
 # Intlayer CLI
@@ -98,22 +99,57 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 ##### Arguments:
 
-- `-d`, `--dictionaries`: ids of the dictionaries to pull. If not specified, all dictionaries will be pushed.
+**Dictionary options:**
+
+- **`-d`, `--dictionaries`**: ids of the dictionaries to pull. If not specified, all dictionaries will be pushed.
+
   > Example: `npx intlayer dictionary push -d my-dictionary-id my-other-dictionary-id`
-- `-r`, `--deleteLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
+
+**Configuration options:**
+
+- **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
+
+  > Example: `npx intlayer dictionary push --env-file .env.production.local`
+
+**Environment variables options:**
+
+- **`--env`**: Specify the environment (e.g., `development`, `production`). Useful in the case you use environment variables in your intlayer configuration file.
+- **`--env-file`**: Provide a custom environment file to load variables from. Useful in the case you use environment variables in your intlayer configuration file.
+
+  > Example: `npx intlayer dictionary push --env-file .env.production.local`
+
+  > Example: `npx intlayer dictionary push --env production`
+
+**Output options:**
+
+- **`-r`, `--delete-locale-dictionary`**: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and remove them. By default, if the dictionary is defined locally, it will overwrite distant dictionaries content.
+
   > Example: `npx intlayer dictionary push -r`
-- `-k`, `--keepLocaleDictionary`: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
+
+  > Example: `npx intlayer dictionary push --delete-locale-dictionary`
+
+- **`-k`, `--keep-locale-dictionary`**: Skip the question that asking to delete the locales directories once the dictionaries are pushed, and keep them. By default, is the dictionary is defined locally, it will overwrite distant dictionaries content.
+
   > Example: `npx intlayer dictionary push -k`
-- `--env`: Specify the environment (e.g., `development`, `production`).
-- `--env-file`: Provide a custom environment file to load variables from.
-- `--base-dir`: Specify the base directory for the project.
-- `--verbose`: Enable verbose logging for debugging.
-- `--git-diff`: Only run on dictionaries that includes changes from base (default `origin/main`) to current branch (default: `HEAD`).
-- `--git-diff-base`: Specify the base reference for git diff (default `origin/main`).
-- `--git-diff-current`: Specify the current reference for git diff (default: `HEAD`).
-- `--uncommitted`: Include uncommitted changes.
-- `--unpushed`: Include unpushed changes.
-- `--untracked`: Include untracked files.
+
+  > Example: `npx intlayer dictionary push --keep-locale-dictionary`
+
+**Log options:**
+
+- **`--verbose`**: Enable verbose logging for debugging.
+
+**Git options:**
+
+- **`--git-diff`**: Only run on dictionaries that includes changes from base (default `origin/main`) to current branch (default: `HEAD`).
+- **`--git-diff-base`**: Specify the base reference for git diff (default `origin/main`).
+- **`--git-diff-current`**: Specify the current reference for git diff (default: `HEAD`).
+- **`--uncommitted`**: Include uncommitted changes.
+- **`--unpushed`**: Include unpushed changes.
+- **`--untracked`**: Include untracked files.
+
+  > Example: `npx intlayer dictionary push --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
+  > Example: `npx intlayer dictionary push --uncommitted --unpushed --untracked`
 
 ### Pull distant dictionaries
 
@@ -131,13 +167,35 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 ##### Arguments:
 
-- `-d, --dictionaries`: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
+**Dictionary options:**
+
+- **`-d, --dictionaries`**: Ids of the dictionaries to pull. If not specified, all dictionaries will be pulled.
+
   > Example: `npx intlayer dictionary pull -d my-dictionary-id my-other-dictionary-id`
-- `--newDictionariesPath` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
-- `--env`: Specify the environment (e.g., `development`, `production`).
-- `--env-file`: Provide a custom environment file to load variables from.
-- `--base-dir`: Specify the base directory for the project.
-- `--verbose`: Enable verbose logging for debugging.
+
+**Configuration options:**
+
+- **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
+
+  > Example: `npx intlayer dictionary push --env-file .env.production.local`
+
+**Environment variables options:**
+
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file`**: Provide a custom environment file to load variables from.
+- **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
+
+  > Example: `npx intlayer dictionary push --env-file .env.production.local`
+
+  > Example: `npx intlayer dictionary push --env production`
+
+**Output options:**
+
+- \*\*`--new-dictionaries-path` : Path to the directory where the new dictionaries will be saved. If not specified, the news dictionaries will be saved in the `./intlayer-dictionaries` directory of the project. If a `filePath` fields is specified in your dictionary content, the dictionaries will not consider this argument and will be saved in the specified `filePath` directory.
+
+**Log options:**
+
+- **`--verbose`**: Enable verbose logging for debugging.
 
 ##### Example:
 
@@ -161,77 +219,74 @@ This command analyzes your content declaration files for potential issues such a
 
 ##### Arguments:
 
-- `-f, --file [files...]`
-  A list of specific content declaration files to audit. If not provided, all discovered `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` files will be audited.
+**Files list options:**
 
-- `--exclude [excludedGlobs...]`
-  Globs pattern to exclude from the audit (e.g. `--exclude "src/test/**"`).
+- **`-f, --file [files...]`**: A list of specific content declaration files to audit. If not provided, all discovered `*.content.{ts,js,mjs,cjs,tsx,jsx,json}` based on your configuration file setup will be audited.
 
-- `--source-locale [sourceLocale]`
-  The source locale to translate from. If not specified, the default locale from your configuration will be used.
+  > Example: `npx intlayer dictionary fill -f src/home/app.content.ts`
 
-- `--output-locales [outputLocales...]`
-  Target locales to translate to. If not specified, all locales from your configuration will be used except the source locale.
+- **`-k, --keys [keys...]`**: Filter dictionaries based on keys. If not provided, all dictionaries will be audited.
 
-- `--mode [mode]`
-  Translation mode: 'complete', 'review', or 'missing-only'. Default is 'missing-only'.
+  > Example: `npx intlayer dictionary fill -k key1 key2`
 
-- `--git-diff`
-  Filters dictionaries that includes changes from base (default `origin/main`) to current branch (default: `HEAD`).
+- **`--excluded-keys [excludedKeys...]`**: Filter out dictionaries based on keys. If not provided, all dictionaries will be audited.
 
-- `--git-diff-base`
-  Specify the base reference for git diff (default `origin/main`).
+  > Example: `npx intlayer dictionary fill --excluded-keys key1 key2`
 
-- `--git-diff-current`
-  Specify the current reference for git diff (default: `HEAD`).
+- **`--path-filter [pathFilters...]`**: Filter dictionaries based on glob pattern for file paths.
 
-- `--uncommitted`
-  Filters dictionaries that includes uncommitted changes.
+  > Example: `npx intlayer dictionary fill --path-filter "src/home/**"`
 
-- `--unpushed`
-  Filters dictionaries that includes unpushed changes.
+**Entry output options:**
 
-- `--untracked`
-  Filters dictionaries that includes untracked files.
+- **`--source-locale [sourceLocale]`**: The source locale to translate from. If not specified, the default locale from your configuration will be used.
 
-- `--keys [keys...]`
-  Filter dictionaries based on specified keys.
+- **`--output-locales [outputLocales...]`**: Target locales to translate to. If not specified, all locales from your configuration will be used except the source locale.
 
-- `--excluded-keys [excludedKeys...]`
-  Filter out dictionaries based on specified keys.
+- **`--mode [mode]`**: Translation mode: 'complete', 'review', or 'missing-only'. Default is 'missing-only'.
 
-- `--path-filter [pathFilters...]`
-  Filter dictionaries based on glob pattern for file paths.
+**Git options:**
 
-- `--model [model]`
-  The AI model to use for the translation (e.g., `gpt-3.5-turbo`).
+- **`--git-diff`**: Only run on dictionaries that includes changes from base (default `origin/main`) to current branch (default: `HEAD`).
+- **`--git-diff-base`**: Specify the base reference for git diff (default `origin/main`).
+- **`--git-diff-current`**: Specify the current reference for git diff (default: `HEAD`).
+- **`--uncommitted`**: Include uncommitted changes.
+- **`--unpushed`**: Include unpushed changes.
+- **`--untracked`**: Include untracked files.
 
-- `--provider [provider]`
-  The AI provider to use for the translation.
+  > Example: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
 
-- `--temperature [temperature]`
-  Temperature setting for the AI model.
+  > Example: `npx intlayer doc translate --uncommitted --unpushed --untracked`
 
-- `--api-key [apiKey]`
-  Provide your own API key for the AI service.
+**AI options:**
 
-- `--custom-prompt [prompt]`
-  Provide a custom prompt for your translation instructions.
+- **`--model [model]`**: The AI model to use for the translation (e.g., `gpt-3.5-turbo`).
+- **`--provider [provider]`**: The AI provider to use for the translation.
+- **`--temperature [temperature]`**: Temperature setting for the AI model.
+- **`--api-key [apiKey]`**: Provide your own API key for the AI service.
+- **`--custom-prompt [prompt]`**: Provide a custom prompt for your translation instructions.
+- **`--application-context [applicationContext]`**: Provide additional context for the AI translation.
 
-- `--application-context [applicationContext]`
-  Provide additional context for the AI translation.
+  > Example: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`
 
-- `--env`
-  Specify the environment (e.g., `development`, `production`).
+**Environment variables options:**
 
-- `--env-file [envFile]`
-  Provide a custom environment file to load variables from.
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file [envFile]`**: Provide a custom environment file to load variables from.
 
-- `--base-dir`
-  Specify the base directory for the project.
+  > Example: `npx intlayer fill --env-file .env.production.local`
 
-- `--verbose`
-  Enable verbose logging for debugging.
+  > Example: `npx intlayer fill --env production`
+
+**Configuration options:**
+
+- **`--base-dir`**: Specify the base directory for the project.
+
+  > Example: `npx intlayer fill --base-dir ./src`
+
+**Log options:**
+
+- **`--verbose`**: Enable verbose logging for debugging.
 
 ##### Example:
 
@@ -285,6 +340,145 @@ npx intlayer configuration push
 
 By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.
 
+### Documentation Management
+
+The `doc` commands provide tools for managing and translating documentation files across multiple locales.
+
+#### Translate Documentation
+
+The `doc translate` command automatically translates documentation files from a base locale to target locales using AI translation services.
+
+```bash
+npx intlayer doc translate
+```
+
+##### Arguments:
+
+**File list options:**
+
+- **`--doc-pattern [docPattern...]`**: Glob patterns to match documentation files to translate.
+
+  > Example: `npx intlayer doc translate --doc-pattern "docs/**/*.md" "src/**/*.mdx"`
+
+- **`--excluded-glob-pattern [excludedGlobPattern...]`**: Glob patterns to exclude from translation.
+
+  > Example: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
+
+- **`--skip-if-modified-before [skipIfModifiedBefore]`**: Skip the file if it has been modified before the given time.
+
+  - Can be an absolute time as "2025-12-05" (string or Date)
+  - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
+  - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
+
+  > Example: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
+
+- **`--skip-if-modified-after [skipIfModifiedAfter]`**: Skip the file if it has been modified within the given time.
+
+  - Can be an absolute time as "2025-12-05" (string or Date)
+  - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
+  - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
+
+  > Example: `npx intlayer doc translate --skip-if-modified-after "2025-12-05"`
+
+**Entry output options:**
+
+- **`--locales [locales...]`**: Target locales to translate documentation to.
+
+  > Example: `npx intlayer doc translate --locales fr es de`
+
+- **`--base-locale [baseLocale]`**: Source locale to translate from.
+
+  > Example: `npx intlayer doc translate --base-locale en`
+
+**File processing options:**
+
+- **`--nb-simultaneous-file-processed [nbSimultaneousFileProcessed]`**: Number of files to process simultaneously for translation.
+
+  > Example: `npx intlayer doc translate --nb-simultaneous-file-processed 5`
+
+**AI options:**
+
+- **`--model [model]`**: The AI model to use for translation (e.g., `gpt-3.5-turbo`).
+- **`--provider [provider]`**: The AI provider to use for translation.
+- **`--temperature [temperature]`**: Temperature setting for the AI model.
+- **`--api-key [apiKey]`**: Provide your own API key for the AI service.
+- **`--application-context [applicationContext]`**: Provide additional context for the AI translation.
+- **`--custom-prompt [prompt]`**: Customize the base prompt used for translation. (Note: For most use cases, the `--custom-instructions` option is recommended instead as it provides better control over translation behavior.)
+
+  > Example: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`
+
+**Environment variables options:**
+
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file [envFile]`**: Provide a custom environment file to load variables from.
+- **`--base-dir`**: Specify the base directory for the project.
+
+  > Example: `npx intlayer doc translate --base-dir ./docs --env-file .env.production.local`
+
+**Log options:**
+
+- **`--verbose`**: Enable verbose logging for debugging.
+
+  > Example: `npx intlayer doc translate --verbose`
+
+**Custom instructions options:**
+
+- **`--custom-instructions [customInstructions]`**: Custom instructions added to the prompt. Usefull to apply specific rules regarding formatting, urls translation, etc.
+
+  - Can be an absolute time as "2025-12-05" (string or Date)
+  - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
+  - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
+
+  > Example: `npx intlayer doc translate --custom-instructions "Avoid translating urls, and keep the markdown format"`
+
+  > Example: `npx intlayer doc translate --custom-instructions "$(cat ./instructions.md)"`
+
+**Git options:**
+
+- **`--git-diff`**: Only run on dictionaries that includes changes from base (default `origin/main`) to current branch (default: `HEAD`).
+- **`--git-diff-base`**: Specify the base reference for git diff (default `origin/main`).
+- **`--git-diff-current`**: Specify the current reference for git diff (default: `HEAD`).
+- **`--uncommitted`**: Include uncommitted changes.
+- **`--unpushed`**: Include unpushed changes.
+- **`--untracked`**: Include untracked files.
+
+  > Example: `npx intlayer doc translate --git-diff --git-diff-base origin/main --git-diff-current HEAD`
+
+  > Example: `npx intlayer doc translate --uncommitted --unpushed --untracked`
+
+> Note that the output file path will be determined by replacing the following patterns
+>
+> - `/{{baseLocale}}/` by `/{{locale}}/` (Unix)
+> - `\{{baseLocale}}\` by `\{{locale}}\` (Windows)
+> - `_{{baseLocale}}.` by `_{{locale}}.`
+> - `{{baseLocale}}_` by `{{locale}}_`
+> - `.{{baseLocaleName}}.` by `.{{localeName}}.`
+>
+> If the pattern is not found, the output file will add the `.{{locale}}` at the extentions of the file. `./my/file.md` will be translated to `./my/file.fr.md` for the French locale.
+
+#### Review Documentation
+
+The `doc review` command analyzes documentation files for quality, consistency, and completeness across different locales.
+
+```bash
+npx intlayer doc review
+```
+
+It can be used to review files that are already translated, and to check if the translation is correct.
+
+For most use cases,
+
+- prefer using the `doc translate` when the translated version of this file is not available.
+- prefer using the `doc review` when the translated version of this file already exists.
+
+> Note that the review process consumes more entry tokens than the translate process to review the same file entirely. However, the review process will optimize the chunks to review, and will skip the parts that are not changed.
+
+##### Arguments:
+
+The `doc review` command accepts the same arguments as `doc translate`, allowing you to review specific documentation files and apply quality checks.
+
+If you activated one of the git options, the command will only review the part of the files that getting changed. The script will process by chunking the file and review each chunk. If there is no changes in the chunk, the script will skip it to speed up the review process and limit the AI Provider API cost.
+
 ## Use intlayer commands in your `package.json`
 
 ```json fileName="package.json"
@@ -293,8 +487,52 @@ By pushing the configuration, your project is fully integrated with the Intlayer
   "intlayer:watch": "npx intlayer build --watch",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
-  "intlayer:fill": "npx intlayer fill"
+  "intlayer:fill": "npx intlayer fill",
+  "intlayer:doc:translate": "npx intlayer doc translate",
+  "intlayer:doc:review": "npx intlayer doc review"
 }
+```
+
+## CLI SDK
+
+The CLI SDK is a library that allows you to use the Intlayer CLI in your own code.
+
+```bash packageManager="npm"
+npm install @intlayer/cli --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/cli --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/cli --save-dev
+```
+
+Example of usage:
+
+```ts
+import {
+  push,
+  pull,
+  fill,
+  build,
+  docTranslate,
+  docReview,
+} from "@intlayer/cli";
+
+push();
+// ...
+pull();
+// ...
+fill();
+// ...
+build();
+// ...
+docTranslate();
+// ...
+docReview();
+// ...
 ```
 
 ## Debug intlayer command
@@ -326,3 +564,10 @@ Sometimes a terminal restart is needed to recognize new commands.
 ```bash
 npx clear-npx-cache
 ```
+
+## Doc History
+
+| Version | Date       | Changes                                     |
+| ------- | ---------- | ------------------------------------------- |
+| 5.5.11  | 2025-07-11 | Update CLI command parameters documentation |
+| 5.5.10  | 2025-06-29 | Init history                                |

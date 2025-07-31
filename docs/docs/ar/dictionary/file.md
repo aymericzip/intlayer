@@ -1,32 +1,32 @@
 ---
-docName: dictionary__file
-url: https://intlayer.org/doc/concept/content/file
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: ملف
-description: تعلم كيفية تضمين الملفات الخارجية في قاموس المحتوى الخاص بك باستخدام وظيفة `file`. توضح هذه الوثيقة كيفية قيام Intlayer بربط محتوى الملفات وإدارته ديناميكيًا.
+description: تعلّم كيفية تضمين ملفات خارجية في قاموس المحتوى الخاص بك باستخدام دالة `file`. تشرح هذه الوثائق كيف يربط Intlayer محتوى الملفات ويديره بشكل ديناميكي.
 keywords:
   - ملف
   - التدويل
   - التوثيق
   - Intlayer
   - Next.js
-  - JavaScript
+  - جافا سكريبت
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - file
 ---
 
 # محتوى الملف / تضمين الملفات في Intlayer
 
-## كيفية عمل تضمين الملفات
+## كيف يعمل تضمين الملفات
 
-في Intlayer، تتيح وظيفة `file` تضمين محتوى الملفات الخارجية في القاموس. يضمن هذا النهج أن يتعرف Intlayer على ملف المصدر، مما يتيح التكامل السلس مع محرر Intlayer المرئي ونظام إدارة المحتوى (CMS). على عكس طرق القراءة المباشرة للملفات باستخدام `import` أو `require` أو `fs`، فإن استخدام `file` يربط الملف بالقاموس، مما يسمح لـ Intlayer بتتبع وتحديث المحتوى ديناميكيًا عند تحرير الملف.
+في Intlayer، تتيح دالة `file` تضمين محتوى ملف خارجي داخل قاموس. تضمن هذه الطريقة أن يتعرف Intlayer على الملف المصدر، مما يمكّن من التكامل السلس مع محرر Intlayer المرئي ونظام إدارة المحتوى (CMS). على عكس طرق قراءة الملفات المباشرة مثل `import` أو `require` أو `fs`، فإن استخدام `file` يربط الملف بالقاموس، مما يسمح لـ Intlayer بتتبع المحتوى وتحديثه ديناميكيًا عند تعديل الملف.
 
 ## إعداد محتوى الملف
 
-لتضمين محتوى الملف في مشروع Intlayer الخاص بك، استخدم وظيفة `file` في وحدة المحتوى. أدناه أمثلة توضح تطبيقات مختلفة.
-
-### تطبيق TypeScript
+لتضمين محتوى ملف في مشروع Intlayer الخاص بك، استخدم دالة `file` في وحدة المحتوى. فيما يلي أمثلة توضح تطبيقات مختلفة.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { file, type Dictionary } from "intlayer";
@@ -40,8 +40,6 @@ const myFileContent = {
 
 export default myFileContent;
 ```
-
-### تطبيق ECMAScript Module (ESM)
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { file } from "intlayer";
@@ -57,8 +55,6 @@ const myFileContent = {
 export default myFileContent;
 ```
 
-### تطبيق CommonJS
-
 ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
 const { file } = require("intlayer");
 
@@ -72,8 +68,6 @@ const myFileContent = {
 
 module.exports = myFileContent;
 ```
-
-### إعداد JSON
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
 {
@@ -90,7 +84,7 @@ module.exports = myFileContent;
 
 ## استخدام محتوى الملف في React Intlayer
 
-لاستخدام محتوى الملف المضمن في مكون React، قم باستيراد واستخدام الخطاف `useIntlayer` من حزمة `react-intlayer`. يسترجع هذا المحتوى من المفتاح المحدد ويسمح بعرضه ديناميكيًا.
+لاستخدام محتوى ملف مضمن في مكون React، قم باستيراد واستخدام الخطاف `useIntlayer` من حزمة `react-intlayer`. هذا يسترجع المحتوى من المفتاح المحدد ويسمح بعرضه بشكل ديناميكي.
 
 ```tsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -112,6 +106,7 @@ export default FileComponent;
 ```javascript fileName="**/*.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
+// مكون لعرض محتوى الملف باستخدام React و esm
 const FileComponent = () => {
   const { myFile } = useIntlayer("my_key");
 
@@ -128,6 +123,7 @@ export default FileComponent;
 ```javascript fileName="**/*.cjs" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
+// مكون لعرض محتوى الملف باستخدام React و commonjs
 const FileComponent = () => {
   const { myFile } = useIntlayer("my_key");
 
@@ -141,9 +137,9 @@ const FileComponent = () => {
 module.exports = FileComponent;
 ```
 
-## مثال Markdown متعدد اللغات
+## مثال على ملفات Markdown متعددة اللغات
 
-لدعم ملفات Markdown القابلة للتحرير متعددة اللغات، يمكنك استخدام `file` مع `t()` و `md()` لتعريف إصدارات مختلفة من ملفات محتوى Markdown.
+لدعم ملفات Markdown القابلة للتحرير متعددة اللغات، يمكنك استخدام `file` مع `t()` و `md()` لتعريف نسخ مختلفة من ملف محتوى Markdown بلغات متعددة.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { file, t, md, type Dictionary } from "intlayer";
@@ -194,7 +190,6 @@ const myMultilingualContent = {
   content: {
     myContent: md(
       t({
-        ar: file("src/components/test.ar.md"),
         en: file("src/components/test.en.md"),
         fr: file("src/components/test.fr.md"),
         es: file("src/components/test.es.md"),
@@ -204,24 +199,28 @@ const myMultilingualContent = {
 };
 ```
 
-يتيح هذا الإعداد استرجاع المحتوى ديناميكيًا بناءً على تفضيل لغة المستخدم. عند استخدامه في محرر Intlayer المرئي أو CMS، سيتعرف النظام على أن المحتوى يأتي من ملفات Markdown المحددة ويضمن بقاءها قابلة للتحرير.
+يتيح هذا الإعداد استرجاع المحتوى بشكل ديناميكي بناءً على تفضيل لغة المستخدم. عند استخدامه في محرر Intlayer المرئي أو نظام إدارة المحتوى (CMS)، سيتعرف النظام على أن المحتوى يأتي من ملفات Markdown المحددة ويضمن بقاؤها قابلة للتحرير.
 
-## كيفية تعامل Intlayer مع محتوى الملفات
+## كيف يتعامل Intlayer مع محتوى الملفات
 
-تعتمد وظيفة `file` على وحدة `fs` في Node.js لقراءة محتوى الملف المحدد وإدراجه في القاموس. عند استخدامها مع محرر Intlayer المرئي أو CMS، يمكن لـ Intlayer تتبع العلاقة بين القاموس والملف. يتيح ذلك لـ Intlayer:
+تعتمد دالة `file` على وحدة `fs` الخاصة بـ Node.js لقراءة محتوى الملف المحدد وإدراجه في القاموس. عند استخدامها بالتزامن مع محرر Intlayer المرئي أو نظام إدارة المحتوى، يمكن لـ Intlayer تتبع العلاقة بين القاموس والملف. هذا يسمح لـ Intlayer بـ:
 
-- التعرف على أن المحتوى يأتي من ملف معين.
-- تحديث محتوى القاموس تلقائيًا عند تحرير الملف المرتبط.
+- التعرف على أن المحتوى أصله من ملف محدد.
+- تحديث محتوى القاموس تلقائيًا عند تعديل الملف المرتبط.
 - ضمان التزامن بين الملف والقاموس، مع الحفاظ على سلامة المحتوى.
 
 ## موارد إضافية
 
-لمزيد من التفاصيل حول إعداد واستخدام تضمين الملفات في Intlayer، راجع الموارد التالية:
+لمزيد من التفاصيل حول تكوين واستخدام تضمين الملفات في Intlayer، يرجى الرجوع إلى الموارد التالية:
 
-- [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)
-- [وثائق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)
-- [وثائق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
-- [وثائق محتوى Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
-- [وثائق محتوى الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)
+- [توثيق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)
+- [توثيق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)
+- [توثيق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
+- [توثيق محتوى Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)
+- [توثيق محتوى الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)
 
-تقدم هذه الموارد مزيدًا من الرؤى حول تضمين الملفات، إدارة المحتوى، وتكامل Intlayer مع مختلف الأطر.
+توفر هذه الموارد رؤى إضافية حول تضمين الملفات، إدارة المحتوى، وتكامل Intlayer مع أُطُر العمل المختلفة.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

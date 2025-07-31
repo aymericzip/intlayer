@@ -1,9 +1,6 @@
 ---
-docName: how_works_intlayer
-url: https://intlayer.org/doc/concept/how-works-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md
 createdAt: 2024-08-12
-updatedAt: 2024-08-12
+updatedAt: 2025-06-29
 title: Intlayerの仕組み
 description: Intlayerが内部でどのように機能するかを学びます。Intlayerを強力にするアーキテクチャとコンポーネントを理解しましょう。
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - アーキテクチャ
   - コンポーネント
   - 内部動作
+slugs:
+  - doc
+  - concept
+  - how-works-intlayer
 ---
 
 # Intlayerの仕組み
@@ -54,17 +55,16 @@ Intlayerの主なアイデアは、コンポーネントごとのコンテンツ
    - これらの辞書は、すべてのニーズに対応し、アプリケーションのパフォーマンスを最適化するために、さまざまな形式で生成されます。
 
 3. 辞書型の生成
-
    `辞書`に基づいて、Intlayerはアプリケーションで使用可能な型を生成します。
 
-   - 辞書型はIntlayerの`辞書`から生成されます。デフォルトでは、Intlayer辞書型はプロジェクトの`.intlayer/types`ディレクトリに生成されます。
+- 辞書型はIntlayerの`コンテンツ宣言ファイル`から生成されます。デフォルトでは、Intlayer辞書型はプロジェクトの`.intlayer/types`ディレクトリに生成されます。
 
-   - Intlayerの[モジュール拡張](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)は、Intlayerに追加の型を定義できるTypeScriptの機能です。これにより、利用可能な引数や必要な引数を提案することで開発体験が向上します。
-     生成された型の中には、Intlayer辞書型や言語設定型が含まれ、`types/intlayer.d.ts`ファイルに追加され、他のパッケージで使用されます。これを行うには、`tsconfig.json`ファイルがプロジェクトの`types`ディレクトリを含むように設定されている必要があります。
+- Intlayerの[モジュール拡張](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)は、Intlayerに追加の型を定義できるTypeScriptの機能です。これにより、利用可能な引数や必要な引数を提案することで開発体験が向上します。
+  生成された型の中には、Intlayer辞書型や言語設定型が含まれ、`types/intlayer.d.ts`ファイルに追加され、他のパッケージで使用されます。これを行うには、`tsconfig.json`ファイルがプロジェクトの`types`ディレクトリを含むように設定されている必要があります。
 
 ### 辞書の解釈ステップ
 
-Intlayerを使用すると、`useIntlayer`フックを使用してアプリケーション内でコンテンツにアクセスできます。
+Intlayerを使用すると、`useIntlayer`フックを使ってアプリケーション内でコンテンツにアクセスできます。
 
 ```tsx
 const MyComponent = () => {
@@ -83,7 +83,7 @@ Intlayerを使用すると、コンテンツをローカルで宣言し、それ
 
 そのため、Gitでコードを操作するのと同様に、CMSからアプリケーションにコンテンツをプッシュおよびプルすることが可能です。
 
-プロジェクトで設定されている場合、Intlayerはアプリケーションの開始（開発）/ビルド（本番）時にCMSからコンテンツを自動的に取得します。
+CMSを使用して外部化された辞書の場合、Intlayerは基本的なフェッチ操作を行い、遠隔の辞書を取得してローカルの辞書とマージします。プロジェクトで設定されている場合、Intlayerはアプリケーションの起動（開発）やビルド（本番）時にCMSからのコンテンツ取得を自動的に管理します。
 
 ## ビジュアルエディタ
 
@@ -91,15 +91,19 @@ Intlayerは、視覚的にコンテンツを編集できるビジュアルエデ
 
 ![ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
+- サーバーは、クライアントからのリクエストを受け取り、`dictionaries`やクライアント側でアクセス可能にするための設定など、アプリケーションのコンテンツを取得するシンプルなExpressアプリケーションです。
+- 一方、クライアントは視覚的なインターフェースを使ってコンテンツとやり取りするためのReactアプリケーションです。
+  `useIntlayer`を使ってコンテンツを呼び出し、エディタが有効になっている場合、文字列は自動的に`IntlayerNode`という名前のProxyオブジェクトでラップされます。このノードは、ビジュアルエディタのインターフェースを含むラップされたiframeと通信するために`window.postMessage`を使用します。
+  エディタ側では、これらのメッセージを受信してコンテンツとの実際のインタラクションをシミュレートし、アプリケーションのコンテキスト内で直接テキストを編集できるようにします。
+
 ## アプリビルドの最適化
 
 アプリケーションのバンドルサイズを最適化するために、Intlayerはアプリケーションのビルドを最適化するための2つのプラグインを提供しています：`@intlayer/babel`と`@intlayer/swc`プラグイン。
+BabelおよびSWCプラグインは、アプリケーションの抽象構文木（AST）を解析してIntlayer関数の呼び出しを最適化されたコードに置き換えることで動作します。このプロセスにより、実際に使用されている辞書のみがインポートされるようになり、チャンクの最適化とバンドルサイズの削減が行われるため、本番環境での最終バンドルが軽量化されます。
 
 開発モードでは、Intlayerは辞書の集中型静的インポートを使用して開発体験を簡素化します。
 
-ビルドを最適化することで、Intlayerは辞書の呼び出しを置き換えてチャンク化を最適化します。この方法では、最終的なバンドルは使用される辞書のみをインポートします。
-
-[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で`activateDynamicImport`オプションを有効にすると、Intlayerは動的インポートを使用して辞書をロードします。このオプションは、アプリケーションのレンダリング時に非同期処理を回避するためにデフォルトでは無効になっています。
+[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で`importMode = "dynamic"`オプションを有効にすると、Intlayerは動的インポートを使用して辞書をロードします。このオプションは、アプリケーションのレンダリング時に非同期処理を回避するためにデフォルトで無効になっています。
 
 > `@intlayer/babel`は`vite-intlayer`パッケージでデフォルトで利用可能です。
 
@@ -129,6 +133,12 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
 
 `vue-intlayer`パッケージは、Intlayer辞書を解釈し、Vueアプリケーションで使用可能にします。
 
+### nuxt-intlayer
+
+### nuxt-intlayer
+
+`nuxt-intlayer`パッケージは、NuxtモジュールとしてIntlayer辞書をNuxtアプリケーションで使用可能にします。翻訳ミドルウェア、ルーティング、`nuxt.config.js`ファイルの設定など、Nuxt環境でIntlayerを動作させるための重要な機能を統合しています。
+
 ### svelte-intlayer (作業中)
 
 `svelte-intlayer`パッケージは、Intlayer辞書を解釈し、Svelteアプリケーションで使用可能にします。
@@ -137,7 +147,7 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
 
 `solid-intlayer`パッケージは、Intlayer辞書を解釈し、Solid.jsアプリケーションで使用可能にします。
 
-## preact-intlayer(作業中)
+### preact-intlayer
 
 `preact-intlayer`パッケージは、Intlayer辞書を解釈し、Preactアプリケーションで使用可能にします。
 
@@ -163,9 +173,11 @@ Viteバンドラー([Vite](https://vite.dev/guide/why.html#why-bundle-for-produc
 
 ### react-scripts-intlayer
 
+`react-scripts-intlayer`パッケージには、Create React AppベースのアプリケーションとIntlayerを統合するためのコマンドとプラグインが含まれています。これらのプラグインは[craco](https://craco.js.org/)に基づいており、[Webpack](https://webpack.js.org/)バンドラーの追加設定も含まれています。
+
 ### intlayer-editor
 
-`intlayer-editor`パッケージは、ビジュアルエディターを使用できるようにするために使用されます。このパッケージはオプションであり、アプリケーションにインストールして`react-intlayer`パッケージによって使用されます。
+`intlayer-editor`パッケージは、ビジュアルエディターの使用を可能にするために使用されます。このパッケージはオプションであり、アプリケーションにインストールして`react-intlayer`パッケージによって使用されます。
 2つの部分で構成されています：サーバーとクライアント。
 
 クライアントには、`react-intlayer`で使用されるUI要素が含まれています。
@@ -192,29 +204,34 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 
 `@intlayer/cli`パッケージは、Intlayerコマンドラインインターフェースに関連するスクリプトを宣言するために使用されるNPMパッケージです。すべてのIntlayer CLIコマンドの一貫性を確保します。このパッケージは特に、[intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/ja/packages/intlayer-cli/index.md)や[intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ja/packages/intlayer/index.md)パッケージによって使用されます。
 
+### @intlayer/mcp
+
+`@intlayer/mcp`パッケージは、Intlayerエコシステム向けにAI搭載のIDE支援を提供するMCP（Model Context Protocol）サーバーを提供します。ドキュメントを自動的に読み込み、Intlayer CLIと統合されます。
+`@intlayer/mcp`パッケージは、Intlayerエコシステムに特化したAI搭載のIDE支援を提供するMCP（Model Context Protocol）サーバーを提供します。ドキュメントを自動的に読み込み、Intlayer CLIと統合されます。
+
 ### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
 
-`@intlayer/dictionaries-entry`、`@intlayer/unmerged-dictionaries-entry`、および`@intlayer/dynamic-dictionaries-entry`パッケージは、Intlayer辞書のエントリーパスを返します。ブラウザからファイルシステムを検索することは不可能であるため、WebpackやRollupのようなバンドラーを使用して辞書のエントリーパスを取得することはできません。これらのパッケージはエイリアスとして設計されており、Vite、Webpack、Turbopackなどのさまざまなバンドラー間でのバンドリング最適化を可能にします。
+`@intlayer/dictionaries-entry`、`@intlayer/unmerged-dictionaries-entry`、および`@intlayer/dynamic-dictionaries-entry`パッケージは、Intlayer辞書のエントリパスを返します。ブラウザからファイルシステムを検索することは不可能なため、WebpackやRollupのようなバンドラーを使用して辞書のエントリパスを取得することはできません。これらのパッケージはエイリアスとして設計されており、Vite、Webpack、Turbopackなどのさまざまなバンドラーでのバンドル最適化を可能にします。
 
 ### @intlayer/chokidar
 
-`@intlayer/chokidar`パッケージは、コンテンツファイルを監視し、変更ごとに修正された辞書を再生成するために使用されます。
+`@intlayer/chokidar`パッケージは、コンテンツファイルを監視し、変更があるたびに修正された辞書を再生成するために使用されます。
 
 ### @intlayer/editor
 
-`@intlayer/editor`パッケージは、辞書エディターに関連するユーティリティを提供します。特に、アプリケーションをIntlayerエディターとインターフェースするためのAPIや、辞書を操作するためのユーティリティが含まれています。このパッケージはクロスプラットフォームです。
+`@intlayer/editor`パッケージは、辞書エディターに関連するユーティリティを提供します。特に、アプリケーションとIntlayerエディターを連携させるためのAPIや、辞書を操作するためのユーティリティが含まれています。このパッケージはクロスプラットフォーム対応です。
 
 ### @intlayer/editor-react
 
-`@intlayer/editor-react`パッケージは、ReactアプリケーションをIntlayerエディターとインターフェースするための状態、コンテキスト、フック、およびコンポーネントを提供します。
+`@intlayer/editor-react`パッケージは、ReactアプリケーションとIntlayerエディターを連携させるための状態、コンテキスト、フック、およびコンポーネントを提供します。
 
 ### @intlayer/babel
 
-`@intlayer/babel`パッケージは、ViteおよびWebpackベースのアプリケーションの辞書のバンドリングを最適化するツールを提供します。
+`@intlayer/babel`パッケージは、ViteおよびWebpackベースのアプリケーション向けに辞書のバンドルを最適化するツールを提供します。
 
 ### @intlayer/swc
 
-`@intlayer/swc`パッケージは、Next.jsアプリケーションの辞書のバンドリングを最適化するツールを提供します。
+`@intlayer/swc`パッケージは、Next.jsアプリケーション向けに辞書のバンドルを最適化するツールを提供します。
 
 ### @intlayer/api
 
@@ -231,3 +248,7 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 ## スマートドキュメントとチャットする
 
 - [スマートドキュメントに質問する](https://intlayer.org/doc/chat)
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 初期履歴

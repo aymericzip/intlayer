@@ -1,12 +1,32 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: intlayer-editor - Visual Translation Editor Package
+description: Visual editor package for Intlayer providing an intuitive interface for managing translations and collaborative content editing with AI assistance.
+keywords:
+  - intlayer
+  - editor
+  - visual
+  - translation
+  - collaborative
+  - AI
+  - NPM
+  - interface
+slugs:
+  - doc
+  - package
+  - intlayer-editor
+---
+
 # intlayer-editor: NPM Package to use the Intlayer visual editor
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-The **`intlayer-editor`** package is a NPM package that integrates the Intlayer visual editor into your React project.
+The **`intlayer-editor`** package is an NPM package that integrates the Intlayer visual editor into your React project.
 
 ## How Intlayer Editor Works
 
-The intlayer editor allows to interact with the Intlayer distant dictionary. It can be installed on the client side and transform your application into a CMS-like editor to manage your site's content in all configured languages.
+The Intlayer editor allows interaction with the Intlayer remote dictionary. It can be installed on the client side and transform your application into a CMS-like editor to manage your site's content in all configured languages.
 
 ![Intlayer Editor Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png)
 
@@ -36,7 +56,7 @@ const config: IntlayerConfig = {
   editor: {
     enabled: process.env.INTLAYER_ENABLED === "true", // If false, the editor is inactive and cannot be accessed.
     // Client ID and client secret are required to enable the editor.
-    // They allow the identify the user who is editing the content.
+    // They allow the identification of the user who is editing the content.
     // They can be obtained by creating a new client in the Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects).
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
@@ -87,7 +107,7 @@ To integrate the Intlayer visual editor into your React project, follow these st
 
 - Import the Intlayer editor styles into your Next.js application:
 
-  ```tsx fileName="src/app/{{locale}}/layout.jsx"
+  ```tsx fileName="src/app/[locale]/layout.jsx"
   import { IntlayerEditorStyles } from "intlayer-editor";
 
   export default async function RootLayout({ children, params }) {
@@ -111,3 +131,7 @@ When the editor is installed, enabled, and started, you can view each field inde
 ![Hovering over content](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 If your content is outlined, you can long-press it to display the edit drawer.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

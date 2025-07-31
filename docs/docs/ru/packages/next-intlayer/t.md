@@ -1,32 +1,34 @@
 ---
-docName: package__next-intlayer__t
-url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Документация функции t | next-intlayer
-description: Узнайте, как использовать функцию t для пакета next-intlayer
+description: Узнайте, как использовать функцию t в пакете next-intlayer
 keywords:
   - t
   - перевод
   - Intlayer
   - next-intlayer
-  - интернационализация
-  - документация
+  - Интернационализация
+  - Документация
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - t
 ---
 
-# Документация: Функция `t` в `next-intlayer`
+# Документация: функция `t` в `next-intlayer`
 
-Функция `t` в пакете `next-intlayer` является основным инструментом для встроенной интернационализации в вашем приложении Next.js. Она позволяет определять переводы непосредственно в компонентах, упрощая отображение локализованного контента в зависимости от текущей локали.
+Функция `t` в пакете `next-intlayer` является основным инструментом для встроенной интернационализации в вашем приложении Next.js. Она позволяет определять переводы непосредственно внутри компонентов, что упрощает отображение локализованного контента в зависимости от текущей локали.
 
 ---
 
 ## Обзор
 
-Функция `t` используется для предоставления переводов для различных локалей прямо в компонентах. Передавая объект, содержащий переводы для каждой поддерживаемой локали, `t` возвращает соответствующий перевод на основе текущего контекста локали в вашем приложении Next.js.
+Функция `t` используется для предоставления переводов для разных локалей прямо в ваших компонентах. Передавая объект, содержащий переводы для каждой поддерживаемой локали, `t` возвращает соответствующий перевод на основе текущего контекста локали в вашем приложении Next.js.
 
 ---
 
@@ -34,8 +36,8 @@ keywords:
 
 - **Встроенные переводы**: Идеально подходит для быстрого, встроенного текста, который не требует отдельного объявления контента.
 - **Автоматический выбор локали**: Автоматически возвращает перевод, соответствующий текущей локали.
-- **Поддержка TypeScript**: Обеспечивает безопасность типов и автозаполнение при использовании с TypeScript.
-- **Простая интеграция**: Бесшовно работает как в клиентских, так и в серверных компонентах Next.js.
+- **Поддержка TypeScript**: Обеспечивает типобезопасность и автозаполнение при использовании с TypeScript.
+- **Легкая интеграция**: Бесшовно работает как в клиентских, так и в серверных компонентах Next.js.
 
 ---
 
@@ -47,11 +49,11 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### Параметры
 
-- `translations`: Объект, где ключи , это коды локалей (например, `en`, `fr`, `es`), а значения , соответствующие переведенные строки.
+- `translations`: Объект, где ключами являются коды локалей (например, `en`, `fr`, `es`), а значениями — соответствующие переведённые строки.
 
 ### Возвращает
 
-- Строку, представляющую переведенный контент для текущей локали.
+- Строку, представляющую переведённый контент для текущей локали.
 
 ---
 
@@ -59,7 +61,7 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### Использование `t` в клиентском компоненте
 
-Убедитесь, что вы включили директиву `'use client';` в начале файла компонента при использовании `t` в клиентском компоненте.
+Убедитесь, что вы включили директиву `'use client';` в начале файла вашего компонента при использовании `t` в клиентском компоненте.
 
 ```tsx codeFormat="typescript"
 "use client";
@@ -73,7 +75,6 @@ export const ClientComponentExample: FC = () => (
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido d un ejemplo de componente cliente",
-      ru: "Это содержимое примера клиентского компонента",
     })}
   </p>
 );
@@ -88,7 +89,6 @@ const ClientComponentExample = () => (
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido d un ejemplo de componente cliente",
-      ru: "Это содержимое примера клиентского компонента",
     })}
   </p>
 );
@@ -103,7 +103,6 @@ const ClientComponentExample = () => (
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es le contenido d un ejemplo de componente cliente",
-      ru: "Это содержимое примера клиентского компонента",
     })}
   </p>
 );
@@ -121,7 +120,6 @@ export const ServerComponentExample: FC = () => (
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
-      ru: "Это содержимое примера серверного компонента",
     })}
   </p>
 );
@@ -135,8 +133,7 @@ const ServerComponentExample = () => (
     {t({
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un ejemplo de componente сервер",
-      ru: "Это содержимое примера серверного компонента",
+      es: "Este es el contenido de un ejemplo de componente servidor",
     })}
   </p>
 );
@@ -150,16 +147,16 @@ const ServerComponentExample = () => (
     {t({
       en: "This is the content of a server component example",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un ejemplo de componente сервер",
-      ru: "Это содержимое примера серверного компонента",
+      es: "Este es el contenido de un ejemplo de componente servidor",
     })}
   </p>
 );
 ```
 
-### Встроенные переводы в атрибутах
+###Встроенные переводы в атрибутах
 
-Функция `t` особенно полезна для встроенных переводов в атрибутах JSX. При локализации атрибутов, таких как `alt`, `title`, `href` или `aria-label`, вы можете использовать `t` непосредственно в атрибуте.
+Функция `t` особенно полезна для встроенных переводов в атрибутах JSX.
+При локализации атрибутов, таких как `alt`, `title`, `href` или `aria-label`, вы можете использовать `t` непосредственно внутри атрибута.
 
 ```jsx
 <button
@@ -167,14 +164,12 @@ const ServerComponentExample = () => (
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
-    ru: "Отправить",
   })}
 >
   {t({
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
-    ru: "Отправить",
   })}
   <img
     src="/path/to/image"
@@ -182,7 +177,6 @@ const ServerComponentExample = () => (
       en: "A beautiful scenery",
       fr: "Un beau paysage",
       es: "Un hermoso paisaje",
-      ru: "Красивый пейзаж",
     })}
   />
 </button>
@@ -190,11 +184,11 @@ const ServerComponentExample = () => (
 
 ---
 
-## Продвинутые темы
+## Расширенные темы
 
 ### Интеграция с TypeScript
 
-Функция `t` безопасна для типов при использовании с TypeScript, гарантируя, что все необходимые локали предоставлены.
+Функция `t` является типобезопасной при использовании с TypeScript, гарантируя, что все необходимые локали предоставлены.
 
 ```typescript codeFormat="typescript"
 import type { IConfigLocales } from "intlayer";
@@ -204,7 +198,6 @@ const translations: IConfigLocales<string> = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
-  ru: "Добро пожаловать",
 };
 
 const greeting = t(translations);
@@ -215,11 +208,11 @@ import type { IConfigLocales } from "intlayer";
 import { t } from "next-intlayer";
 
 /** @type {import('next-intlayer').IConfigLocales<string>} */
+// Переводы для разных локалей
 const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
-  ru: "Добро пожаловать",
 };
 
 const greeting = t(translations);
@@ -229,11 +222,11 @@ const greeting = t(translations);
 const { t } = require("next-intlayer");
 
 /** @type {import('next-intlayer').IConfigLocales<string>} */
+// Переводы для разных локалей
 const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
-  ru: "Добро пожаловать",
 };
 
 const greeting = t(translations);
@@ -241,7 +234,7 @@ const greeting = t(translations);
 
 ### Обнаружение локали и контекст
 
-В `next-intlayer` текущая локаль управляется через провайдеры контекста: `IntlayerClientProvider` и `IntlayerServerProvider`. Убедитесь, что эти провайдеры оборачивают ваши компоненты, и свойство `locale` передается правильно.
+В `next-intlayer` текущая локаль управляется через провайдеры контекста: `IntlayerClientProvider` и `IntlayerServerProvider`. Убедитесь, что эти провайдеры оборачивают ваши компоненты и что проп `locale` передается корректно.
 
 #### Пример:
 
@@ -288,26 +281,25 @@ const Page = ({ locale }) => (
 
 ---
 
-## Частые ошибки и их устранение
+## Распространённые ошибки и устранение неполадок
 
-### `t` возвращает undefined или неправильный перевод
+### `t` Возвращает undefined или неправильный перевод
 
-- **Причина**: Текущая локаль не установлена должным образом или перевод для текущей локали отсутствует.
+- **Причина**: Текущая локаль неправильно установлена или отсутствует перевод для текущей локали.
 - **Решение**:
-  - Убедитесь, что `IntlayerClientProvider` или `IntlayerServerProvider` настроены правильно с соответствующей локалью.
+  - Проверьте, что `IntlayerClientProvider` или `IntlayerServerProvider` корректно настроены с соответствующим `locale`.
   - Убедитесь, что ваш объект переводов включает все необходимые локали.
 
 ### Отсутствие переводов в TypeScript
 
-- **Причина**: Объект переводов не удовлетворяет требованиям локалей, что приводит к ошибкам TypeScript.
-- **Решение**: Используйте тип `IConfigLocales`, чтобы обеспечить полноту переводов.
+- **Причина**: Объект переводов не удовлетворяет требуемым локалям, что приводит к ошибкам TypeScript.
+- **Решение**: Используйте тип `IConfigLocales` для обеспечения полноты ваших переводов.
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
   en: "Text",
   fr: "Texte",
   // es: 'Texto', // Отсутствие 'es' вызовет ошибку TypeScript [!code error]
-  ru: "Текст",
 };
 
 const text = t(translations);
@@ -318,7 +310,6 @@ const translations = {
   en: "Text",
   fr: "Texte",
   // es: 'Texto', // Отсутствие 'es' вызовет ошибку TypeScript [!code error]
-  ru: "Текст",
 };
 
 const text = t(translations);
@@ -332,7 +323,6 @@ const translations = {
   en: "Text",
   fr: "Texte",
   // es: 'Texto', // Отсутствие 'es' вызовет ошибку TypeScript [!code error]
-  ru: "Текст",
 };
 
 const text = t(translations);
@@ -342,19 +332,23 @@ const text = t(translations);
 
 ## Советы по эффективному использованию
 
-1. **Используйте `t` для простых встроенных переводов**: Идеально подходит для перевода небольших текстов прямо в компонентах.
-2. **Предпочитайте `useIntlayer` для структурированного контента**: Для более сложных переводов и повторного использования контента определяйте контент в файлах деклараций и используйте `useIntlayer`.
-3. **Последовательное предоставление локали**: Убедитесь, что локаль последовательно предоставляется через соответствующие провайдеры.
-4. **Используйте TypeScript**: Используйте типы TypeScript, чтобы выявлять отсутствующие переводы и обеспечивать безопасность типов.
+1. **Используйте `t` для простых встроенных переводов**: Идеально подходит для перевода небольших фрагментов текста непосредственно внутри ваших компонентов.
+2. **Предпочитайте `useIntlayer` для структурированного контента**: Для более сложных переводов и повторного использования контента определяйте содержимое в декларационных файлах и используйте `useIntlayer`.
+3. **Последовательное предоставление локали**: Убедитесь, что локаль последовательно передается по всему вашему приложению через соответствующие провайдеры.
+4. **Используйте TypeScript**: Применяйте типы TypeScript для обнаружения отсутствующих переводов и обеспечения типобезопасности.
 
 ---
 
 ## Заключение
 
-Функция `t` в `next-intlayer` , это мощный и удобный инструмент для управления встроенными переводами в ваших приложениях Next.js. Эффективно интегрируя её, вы улучшаете возможности интернационализации вашего приложения, обеспечивая лучший опыт для пользователей по всему миру.
+Функция `t` в `next-intlayer` — это мощный и удобный инструмент для управления встроенными переводами в ваших приложениях Next.js. Эффективно интегрируя её, вы улучшаете возможности интернационализации вашего приложения, обеспечивая лучший опыт для пользователей по всему миру.
 
-Для более детального использования и продвинутых функций обратитесь к [документации next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
+Для более подробного использования и расширенных возможностей обратитесь к [документации next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
 ---
 
-**Примечание**: Не забудьте правильно настроить ваши `IntlayerClientProvider` и `IntlayerServerProvider`, чтобы текущая локаль корректно передавалась вашим компонентам. Это важно для того, чтобы функция `t` возвращала правильные переводы.
+**Примечание**: Не забудьте правильно настроить `IntlayerClientProvider` и `IntlayerServerProvider`, чтобы текущая локаль корректно передавалась вашим компонентам. Это важно для того, чтобы функция `t` возвращала правильные переводы.
+
+## История документа
+
+- 5.5.10 - 2025-06-29: Инициализация истории

@@ -1,11 +1,8 @@
 ---
-docName: package__intlayer__getLocaleName
-url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Dokumentation der t-Funktion | intlayer
-description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetLocaleName verwenden
+updatedAt: 2025-06-29
+title: getLocaleName Funktionsdokumentation | intlayer
+description: Siehe, wie die Funktion getLocaleName im intlayer-Paket verwendet wird
 keywords:
   - getLocaleName
   - Übersetzung
@@ -16,31 +13,36 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleName
 ---
 
 # Dokumentation: `getLocaleName` Funktion in `intlayer`
 
 ## Beschreibung
 
-Die Funktion `getLocaleName` gibt den lokalisierten Namen eines bestimmten Gebietsschemas (`targetLocale`) im Anzeigegbietsschema (`displayLocale`) zurück. Wenn kein `targetLocale` angegeben ist, gibt sie den Namen des `displayLocale` in seiner eigenen Sprache zurück.
+Die Funktion `getLocaleName` gibt den lokalisierten Namen einer gegebenen Locale (`targetLocale`) in der Anzeigelocale (`displayLocale`) zurück. Wenn keine `targetLocale` angegeben ist, gibt sie den Namen der `displayLocale` in deren eigener Sprache zurück.
 
 ## Parameter
 
 - `displayLocale: Locales`
 
-  - **Beschreibung**: Das Gebietsschema, in dem der Name des Zielgebietsschemas angezeigt wird.
-  - **Typ**: Enum oder String, der gültige Gebietsschemas darstellt.
+  - **Beschreibung**: Die Locale, in der der Name der Ziel-Locale angezeigt wird.
+  - **Typ**: Enum oder String, der gültige Locales repräsentiert.
 
 - `targetLocale?: Locales`
-  - **Beschreibung**: Das Gebietsschema, dessen Name lokalisiert werden soll.
-  - **Typ**: Optional. Enum oder String, der gültige Gebietsschemas darstellt.
+  - **Beschreibung**: Die Locale, deren Name lokalisiert werden soll.
+  - **Typ**: Optional. Enum oder String, der gültige Locales repräsentiert.
 
-## Rückgabewerte
+## Rückgabewert
 
 - **Typ**: `string`
-- **Beschreibung**: Der lokalisierte Name des `targetLocale` im `displayLocale`, oder der eigene Name des `displayLocale`, wenn `targetLocale` nicht angegeben ist. Wenn keine Übersetzung gefunden wird, gibt die Funktion `"Unbekanntes Gebietsschema"` zurück.
+- **Beschreibung**: Der lokalisierte Name der `targetLocale` in der `displayLocale` oder der eigene Name der `displayLocale`, wenn keine `targetLocale` angegeben ist. Wenn keine Übersetzung gefunden wird, gibt sie `"Unbekannte Locale"` zurück.
 
-## Beispielverwendung
+## Beispielhafte Verwendung
 
 ```typescript codeFormat="typescript"
 import { Locales, getLocaleName } from "intlayer";
@@ -60,7 +62,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // Ausgabe: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Ausgabe: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Ausgabe: "Chinese"
 
-getLocaleName("unknown-locale"); // Ausgabe: "Unbekanntes Gebietsschema"
+getLocaleName("unknown-locale"); // Ausgabe: "Unbekannte Locale"
 ```
 
 ```javascript codeFormat="esm"
@@ -81,7 +83,7 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // Ausgabe: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Ausgabe: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Ausgabe: "Chinese"
 
-getLocaleName("unknown-locale"); // Ausgabe: "Unbekanntes Gebietsschema"
+getLocaleName("unknown-locale"); // Ausgabe: "Unbekannte Locale"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -102,12 +104,16 @@ getLocaleName(Locales.CHINESE, Locales.FRENCH); // Ausgabe: "Chinois"
 getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Ausgabe: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Ausgabe: "Chinese"
 
-getLocaleName("unknown-locale"); // Ausgabe: "Unbekanntes Gebietsschema"
+getLocaleName("unknown-locale"); // Ausgabe: "Unbekannte Locale"
 ```
 
 ## Randfälle
 
 - **Kein `targetLocale` angegeben:**
-  - Die Funktion gibt standardmäßig den eigenen Namen des `displayLocale` zurück.
+  - Die Funktion gibt standardmäßig den eigenen Namen von `displayLocale` zurück.
 - **Fehlende Übersetzungen:**
-  - Wenn `localeNameTranslations` keinen Eintrag für das `targetLocale` oder das spezifische `displayLocale` enthält, greift die Funktion auf den `ownLocalesName` zurück oder gibt `"Unbekanntes Gebietsschema"` zurück.
+  - Wenn `localeNameTranslations` keinen Eintrag für das `targetLocale` oder das spezifische `displayLocale` enthält, greift die Funktion auf den `ownLocalesName` zurück oder gibt `"Unbekannte Sprache"` zurück.
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Initialer Verlauf

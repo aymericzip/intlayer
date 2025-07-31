@@ -1,8 +1,28 @@
-# @intlayer/core: Intlayerコア機能を含むNPMパッケージ
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/core - Intlayer i18nのコア機能
+description: 翻訳機能、辞書機能、国際化のためのユーティリティ機能を含むIntlayerのコア機能を提供するNPMパッケージ。
+keywords:
+  - intlayer
+  - core
+  - translation
+  - dictionary
+  - utilities
+  - i18n
+  - JavaScript
+  - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_core
+---
 
-**Intlayer**は、JavaScript開発者向けに特別に設計されたパッケージ群です。React、React、Express.jsのようなフレームワークと互換性があります。
+# @intlayer/core: Intlayerのコア機能を含むNPMパッケージ
 
-**`@intlayer/core`**パッケージは、複数のパッケージで共有されるIntlayerのコア機能を含むNPMパッケージです。特に以下を含みます：
+**Intlayer**はJavaScript開発者向けに特化して設計されたパッケージ群です。ReactやExpress.jsなどのフレームワークと互換性があります。
+
+**`@intlayer/core`** パッケージは、複数のパッケージで共有されるIntlayerのコア機能を含むNPMパッケージです。主に以下の機能を含みます：
 
 - 翻訳機能
 - 辞書機能
@@ -23,3 +43,7 @@ pnpm add @intlayer/core
 ```bash packageManager="yarn"
 yarn add @intlayer/core
 ```
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 初期履歴

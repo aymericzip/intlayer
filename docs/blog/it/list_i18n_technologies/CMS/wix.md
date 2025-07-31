@@ -1,9 +1,6 @@
 ---
-blogName: list_i18n_technologies__CMS__wix
-url: https://intlayer.org/blog/i18n-technologies/CMS/wix
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/CMS/wix.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: Migliori strumenti di internazionalizzazione (i18n) per Wix
 description: Scopri i migliori strumenti di internazionalizzazione (i18n) per Wix per affrontare i sfide di traduzione, migliorare la ricerca sul web e fornire un'esperienza web globale senza problemi.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Internazionalizzazione
   - Blog
   - JavaScript
+slugs:
+  - blog
+  - i18n-technologies
+  - CMS
+  - wix
 ---
 
 # Esplorare le Soluzioni i18n per Tradurre il Tuo Sito Wix

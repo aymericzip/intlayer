@@ -1,4 +1,4 @@
-import { file, insert, md, t, type Dictionary } from 'intlayer';
+import { file, gender, insert, md, t, type Dictionary } from 'intlayer';
 import { ReactNode } from 'react';
 
 const appContent = {
@@ -6,6 +6,12 @@ const appContent = {
   content: {
     markdown: md('## Hello world'),
     file: md(file('./test.md')),
+
+    test: gender({
+      male: 'male',
+      female: 'female',
+      fallback: 'fallback',
+    }),
 
     insertion: insert('test {{ count }}'),
     viteLogo: t({

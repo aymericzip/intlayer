@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { LocalesValues } from '@intlayer/config/client';
+import { Locales, LocalesValues } from '@intlayer/config/client';
 
 export type LocaleData = {
   locale: LocalesValues;
@@ -35,7 +35,7 @@ export type LocaleData = {
  * @param mapper - The mapper function that returns an object
  * @returns An array of objects
  */
-export const localeMap = <T extends object>(
+export const localeMap = <T>(
   mapper: (locale: LocaleData) => T,
   locales: LocalesValues[] = configuration.internationalization.locales,
   defaultLocale: LocalesValues = configuration.internationalization
@@ -120,11 +120,10 @@ export const localeFlatMap = <T>(
  */
 export const localeRecord = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: LocalesValues[] = configuration.internationalization.locales,
-  defaultLocale: LocalesValues = configuration.internationalization
-    .defaultLocale,
-  prefixDefault: boolean = configuration.middleware.prefixDefault
-): Record<LocalesValues, T> =>
+  locales: Locales[] = configuration?.internationalization.locales,
+  defaultLocale: Locales = configuration?.internationalization.defaultLocale,
+  prefixDefault: boolean = configuration?.middleware.prefixDefault
+): Record<Locales, T> =>
   locales.reduce(
     (acc, locale) => {
       acc[locale] = mapper({
@@ -137,5 +136,5 @@ export const localeRecord = <T>(
       });
       return acc;
     },
-    {} as Record<LocalesValues, T>
+    {} as Record<Locales, T>
   );

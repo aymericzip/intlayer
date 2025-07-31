@@ -51,7 +51,7 @@ export const Form = <T extends ZodObject>({
     await awaitFunction(onSubmitProp?.(values));
 
     if (parsedValues.success) {
-      await awaitFunction(onSubmitSuccessProp?.(parsedValues.data));
+      await awaitFunction(onSubmitSuccessProp?.(parsedValues.data!));
     } else {
       await awaitFunction(
         onSubmitErrorProp?.(

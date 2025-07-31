@@ -14,6 +14,7 @@ import type { InsertionContent } from '../transpiler/insertion';
 import type { MarkdownContent } from '../transpiler/markdown';
 import type { NestedContent } from '../transpiler/nesting';
 import type { TranslationContent } from '../transpiler/translation';
+import type { GenderContent } from '../transpiler/gender';
 
 /**
  * Provides a fallback to string type if the generic type T is undefined,
@@ -46,6 +47,7 @@ export type TypedNode<NodeType = undefined> =
   | InsertionContent<NodeType>
   | MarkdownContent<NodeType>
   | NestedContent<DictionaryKeys>
+  | GenderContent<NodeType>
   | FileContent;
 
 type FetchableContentNode<NodeType> = (
@@ -87,7 +89,7 @@ type ReplaceContentValue<
         | ReplaceContentValueObject<NodeType, FetchableNode>
   : ContentNode<NodeType, FetchableNode>;
 
-export type AutoFill = true | string | LanguageContent<string>;
+export type AutoFill = true | string | Partial<LanguageContent<string>>;
 
 export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   $schema?: string;

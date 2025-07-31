@@ -1,28 +1,36 @@
-import {
-  AuthenticationBarrierServer as AuthenticationBarrierServerUI,
-  type AuthenticationBarrierProps as AuthenticationBarrierPropsUI,
-} from '@intlayer/design-system';
+import { PagesRoutes } from '@/Routes';
 import { redirect } from 'next/navigation';
 import { type FC } from 'react';
-import { PagesRoutes } from '@/Routes';
+import {
+  accessValidation,
+  AuthenticationBarrierProps,
+} from './accessValidation';
 
-type AuthenticationBarrierProps = Omit<
-  AuthenticationBarrierPropsUI,
+type AuthenticationBarrierServerProps = Omit<
+  AuthenticationBarrierProps,
   'sessionToken' | 'redirectionFunction'
 > & {
   redirectionRoute?: PagesRoutes | string;
 };
 
-export const AuthenticationBarrierServer: FC<AuthenticationBarrierProps> = ({
+export const AuthenticationBarrierServer: FC<
+  AuthenticationBarrierServerProps
+> = ({
   children,
   redirectionRoute = PagesRoutes.Home,
-  ...props
-}) => (
-  <AuthenticationBarrierServerUI
-    {...props}
-    redirectionRoute={redirectionRoute}
-    redirectionFunction={redirect}
-  >
-    {children}
-  </AuthenticationBarrierServerUI>
-);
+  session,
+  accessRule,
+  isEnabled,
+}) => {
+  if (typeof session !== 'undefined') {
+    accessValidation(
+      accessRule,
+      session,
+      redirect,
+      redirectionRoute,
+      isEnabled
+    );
+  }
+
+  return children;
+};

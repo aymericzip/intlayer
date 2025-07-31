@@ -1,10 +1,30 @@
-# intlayer-cli: NPM-Paket zur Verwendung der Intlayer-CLI
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: intlayer-cli - Kommandozeilenwerkzeug für Internationalisierung
+description: Kommandozeilen-Interface-Paket für Intlayer, das Werkzeuge zum Verwalten von Übersetzungen, Erstellen von Wörterbüchern und Automatisieren von Internationalisierungs-Workflows bereitstellt.
+keywords:
+  - intlayer
+  - CLI
+  - Kommandozeile
+  - Internationalisierung
+  - i18n
+  - Werkzeuge
+  - NPM
+  - Automatisierung
+slugs:
+  - doc
+  - package
+  - intlayer-cli
+---
 
-**Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurde. Es ist mit Frameworks wie React, React und Express.js kompatibel.
+# intlayer-cli: NPM-Paket zur Nutzung der Intlayer-CLI
 
-Das **`intlayer-cli`**-Paket ist ein NPM-Paket, das das `@intlayer/cli`-Paket konsumiert und es für die `intlayer`-Befehlszeilenschnittstellen verfügbar macht.
+**Intlayer** ist eine Sammlung von Paketen, die speziell für JavaScript-Entwickler entwickelt wurden. Es ist kompatibel mit Frameworks wie React, React und Express.js.
 
-> Beachten Sie, dass dieses Paket nicht erforderlich ist, wenn das [`intlayer`](https://github.com/aymericzip/intlayer/tree/main/docs/de/packages/intlayer/index.md)-Paket installiert ist. Im Vergleich zum `intlayer`-Paket ist das `intlayer-cli`-Paket ein leichteres Paket, das nur das CLI-Tool ohne `@intlayer/core`-Abhängigkeiten enthält.
+**`intlayer-cli`** ist ein NPM-Paket, das das Paket `@intlayer/cli` verwendet und die `intlayer`-Kommandozeilen-Schnittstellen verfügbar macht.
+
+> Beachten Sie, dass dieses Paket nicht benötigt wird, wenn das [`intlayer`](https://github.com/aymericzip/intlayer/tree/main/docs/de/packages/intlayer/index.md) Paket installiert ist. Im Vergleich zum `intlayer`-Paket ist das `intlayer-cli`-Paket ein leichteres Paket, das nur das CLI-Werkzeug enthält, ohne Abhängigkeiten von `@intlayer/core`.
 
 ## Installation
 
@@ -32,10 +52,14 @@ npx intlayer dictionaries build
 
 ## CLI-Befehle
 
-Intlayer bietet ein CLI-Tool, um:
+Intlayer stellt ein CLI-Tool zur Verfügung, um:
 
-- Ihre Inhaltsdeklarationen zu prüfen und fehlende Übersetzungen zu vervollständigen
+- Ihre Inhaltsdeklarationen zu prüfen und fehlende Übersetzungen zu ergänzen
 - Wörterbücher aus Ihren Inhaltsdeklarationen zu erstellen
-- entfernte Wörterbücher von Ihrem CMS in Ihr lokales Projekt zu übertragen und umgekehrt
+- entfernte Wörterbücher von Ihrem CMS in Ihr Lokalisierungsprojekt zu übertragen und abzurufen
 
-Konsultieren Sie [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) für weitere Informationen.
+Weitere Informationen finden Sie unter [intlayer-cli](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Initialer Verlauf

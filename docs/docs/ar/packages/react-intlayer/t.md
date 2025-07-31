@@ -1,44 +1,46 @@
 ---
-docName: package__react-intlayer__t
-url: https://intlayer.org/doc/packages/react-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: توثيق دالة t | react-intlayer
-description: اطلع على كيفية استخدام دالة t لحزمة react-intlayer
+description: تعرف على كيفية استخدام دالة t لحزمة react-intlayer
 keywords:
   - t
-  - ترجمة
+  - الترجمة
   - Intlayer
-  - العولمة
+  - التدويل
   - التوثيق
   - Next.js
-  - JavaScript
+  - جافا سكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - t
 ---
 
-# التوثيق: وظيفة `t` في `react-intlayer`
+# التوثيق: دالة `t` في `react-intlayer`
 
-وظيفة `t` في حزمة `react-intlayer` هي أداة أساسية للتدويل المضمن داخل تطبيق React الخاص بك. تتيح لك تعريف الترجمات مباشرة داخل مكوناتك، مما يجعل من السهل عرض المحتوى المحلي بناءً على اللغة الحالية.
+تُعد دالة `t` في حزمة `react-intlayer` أداة أساسية للتدويل المضمن داخل تطبيق React الخاص بك. تتيح لك تعريف الترجمات مباشرة داخل مكوناتك، مما يجعل من السهل عرض المحتوى المحلي بناءً على اللغة الحالية.
 
 ---
 
 ## نظرة عامة
 
-تُستخدم وظيفة `t` لتوفير الترجمات للغات المختلفة مباشرة في مكوناتك. من خلال تمرير كائن يحتوي على الترجمات لكل لغة مدعومة، تُعيد `t` الترجمة المناسبة بناءً على سياق اللغة الحالي في تطبيق React الخاص بك.
+تُستخدم دالة `t` لتوفير الترجمات للغات المختلفة مباشرة في مكوناتك. من خلال تمرير كائن يحتوي على الترجمات لكل لغة مدعومة، تقوم دالة `t` بإرجاع الترجمة المناسبة بناءً على سياق اللغة الحالي في تطبيق React الخاص بك.
 
 ---
 
 ## الميزات الرئيسية
 
-- **ترجمات مضمنة**: مثالية للنصوص السريعة المضمنة التي لا تتطلب إعلان محتوى منفصل.
-- **اختيار اللغة تلقائيًا**: تُعيد الترجمة المطابقة للغة الحالية تلقائيًا.
-- **دعم TypeScript**: يوفر أمان الأنواع والإكمال التلقائي عند استخدامه مع TypeScript.
+- **الترجمات المضمنة**: مثالية للنصوص السريعة والمضمنة التي لا تتطلب إعلان محتوى منفصل.
+- **الاختيار التلقائي للغة**: يعيد الترجمة المطابقة للغة الحالية تلقائيًا.
+- **دعم TypeScript**: يوفر أمان النوع والإكمال التلقائي عند استخدامه مع TypeScript.
 - **تكامل سهل**: يعمل بسلاسة داخل مكونات React.
 
 ---
 
-## توقيع الوظيفة
+## توقيع الدالة
 
 ```typescript
 t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
@@ -46,19 +48,20 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### المعاملات
 
-- `translations`: كائن حيث تكون المفاتيح رموز اللغات (مثل `en`, `fr`, `es`) والقيم هي النصوص المترجمة المقابلة.
+- `translations`: كائن حيث تكون المفاتيح رموز اللغات (مثل `en`، `fr`، `es`) والقيم هي النصوص المترجمة المقابلة.
 
-### الإرجاع
+### القيم المرجعة
 
-- سلسلة نصية تمثل المحتوى المترجم للغة الحالية.
+- نص يمثل المحتوى المترجم للغة الحالية.
 
 ---
 
 ## أمثلة الاستخدام
 
-### الاستخدام الأساسي لـ `t` في مكون
+### الاستخدام الأساسي لدالة `t` في مكون
 
 ```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { t } from "react-intlayer";
 
@@ -70,7 +73,6 @@ export const ComponentExample: FC = () => {
           en: "This is an example of a component",
           fr: "Ceci est un exemple de composant",
           es: "Este es un ejemplo de componente",
-          ar: "هذا مثال على مكون",
         })}
       </p>
     </div>
@@ -89,7 +91,6 @@ const ComponentExample = () => {
           en: "This is an example of a component",
           fr: "Ceci est un exemple de composant",
           es: "Este es un ejemplo de componente",
-          ar: "هذا مثال على مكون",
         })}
       </p>
     </div>
@@ -100,6 +101,7 @@ const ComponentExample = () => {
 ```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
 const { t } = require("react-intlayer");
 
+// مثال على مكون يستخدم الترجمة
 const ComponentExample = () => {
   return (
     <div>
@@ -108,7 +110,6 @@ const ComponentExample = () => {
           en: "This is an example of a component",
           fr: "Ceci est un exemple de composant",
           es: "Este es un ejemplo de componente",
-          ar: "هذا مثال على مكون",
         })}
       </p>
     </div>
@@ -118,7 +119,7 @@ const ComponentExample = () => {
 
 ### الترجمات المضمنة في السمات
 
-تعد وظيفة `t` مفيدة بشكل خاص للترجمات المضمنة في سمات JSX. عند توطين سمات مثل `alt`, `title`, `href`, أو `aria-label`، يمكنك استخدام `t` مباشرة داخل السمة.
+دالة `t` مفيدة بشكل خاص للترجمات المضمنة داخل سمات JSX. عند تعريب سمات مثل `alt`، `title`، `href`، أو `aria-label`، يمكنك استخدام `t` مباشرة داخل السمة.
 
 ```jsx
 <button
@@ -126,22 +127,19 @@ const ComponentExample = () => {
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
-    ar: "إرسال",
   })}
 >
   {t({
     en: "Submit",
     fr: "Soumettre",
     es: "Enviar",
-    ar: "إرسال",
   })}
   <img
     src="/path/to/image"
     alt={t({
-      en: "A beautiful scenery",
+      en: "منظر طبيعي جميل",
       fr: "Un beau paysage",
       es: "Un hermoso paisaje",
-      ar: "منظر جميل",
     })}
   />
 </button>
@@ -149,11 +147,11 @@ const ComponentExample = () => {
 
 ---
 
-## المواضيع المتقدمة
+## مواضيع متقدمة
 
 ### تكامل TypeScript
 
-تكون وظيفة `t` آمنة من حيث النوع عند استخدامها مع TypeScript، مما يضمن توفير جميع اللغات المطلوبة.
+دالة `t` آمنة من حيث النوع عند استخدامها مع TypeScript، مما يضمن توفير جميع اللغات المطلوبة.
 
 ```typescript codeFormat="typescript"
 import { t, type IConfigLocales } from "react-intlayer";
@@ -162,7 +160,6 @@ const translations: IConfigLocales<string> = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
-  ar: "مرحبًا",
 };
 
 const greeting = t(translations);
@@ -176,7 +173,6 @@ const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
-  ar: "مرحبًا",
 };
 
 const greeting = t(translations);
@@ -190,7 +186,6 @@ const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
-  ar: "مرحبًا",
 };
 
 const greeting = t(translations);
@@ -198,7 +193,7 @@ const greeting = t(translations);
 
 ### اكتشاف اللغة والسياق
 
-في `react-intlayer`، يتم إدارة اللغة الحالية من خلال `IntlayerProvider`. تأكد من أن هذا المزود يلتف حول مكوناتك وأن الخاصية `locale` يتم تمريرها بشكل صحيح.
+في `react-intlayer`، يتم إدارة اللغة الحالية من خلال `IntlayerProvider`. تأكد من أن هذا المزود يغلف مكوناتك وأن خاصية `locale` تم تمريرها بشكل صحيح.
 
 #### مثال:
 
@@ -232,24 +227,23 @@ const App = ({ locale }) => (
 
 ## الأخطاء الشائعة واستكشاف الأخطاء وإصلاحها
 
-### `t` تُعيد قيمة غير معرّفة أو ترجمة غير صحيحة
+### `t` تُعيد undefined أو ترجمة غير صحيحة
 
 - **السبب**: لم يتم تعيين اللغة الحالية بشكل صحيح، أو الترجمة للغة الحالية مفقودة.
 - **الحل**:
-  - تحقق من أن `IntlayerProvider` تم إعداده بشكل صحيح مع اللغة المناسبة.
-  - تأكد من أن كائن الترجمات الخاص بك يتضمن جميع اللغات الضرورية.
+  - تحقق من أن `IntlayerProvider` تم إعداده بشكل صحيح مع اللغة المناسبة `locale`.
+  - تأكد من أن كائن الترجمات الخاص بك يشمل جميع اللغات اللازمة.
 
 ### الترجمات المفقودة في TypeScript
 
-- **السبب**: كائن الترجمات لا يفي باللغات المطلوبة، مما يؤدي إلى أخطاء TypeScript.
-- **الحل**: استخدم نوع `IConfigLocales` لفرض اكتمال الترجمات.
+- **السبب**: كائن الترجمات لا يلبي اللغات المطلوبة، مما يؤدي إلى أخطاء في TypeScript.
+- **الحل**: استخدم نوع `IConfigLocales` لفرض اكتمال الترجمات الخاصة بك.
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // فقدان 'es' سيتسبب في خطأ TypeScript
-  ar: "نص",
+  // es: 'Texto', // نقص 'es' سيسبب خطأ في TypeScript
 };
 
 const text = t(translations);
@@ -259,8 +253,7 @@ const text = t(translations);
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // فقدان 'es' سيتسبب في خطأ TypeScript
-  ar: "نص",
+  // es: 'Texto', // نقص 'es' سيسبب خطأ في TypeScript
 };
 
 const text = t(translations);
@@ -273,8 +266,7 @@ const { t, type IConfigLocales } = require("react-intlayer");
 const translations = {
   en: "Text",
   fr: "Texte",
-  // es: 'Texto', // فقدان 'es' سيتسبب في خطأ TypeScript
-  ar: "نص",
+  // es: 'Texto', // نقص 'es' سيسبب خطأ في TypeScript
 };
 
 const text = t(translations);
@@ -282,21 +274,38 @@ const text = t(translations);
 
 ---
 
-## نصائح للاستخدام الفعّال
+## نصائح للاستخدام الفعال
 
-1. **استخدم `t` للترجمات المضمنة البسيطة**: مثالي لترجمة النصوص الصغيرة مباشرة داخل مكوناتك.
-2. **يفضل استخدام `useIntlayer` للمحتوى المنظم**: للترجمات الأكثر تعقيدًا وإعادة استخدام المحتوى، قم بتعريف المحتوى في ملفات التصريح واستخدم `useIntlayer`.
-3. **توفير اللغة بشكل متسق**: تأكد من أن اللغة يتم توفيرها بشكل متسق عبر تطبيقك من خلال `IntlayerProvider`.
-4. **الاستفادة من TypeScript**: استخدم أنواع TypeScript لاكتشاف الترجمات المفقودة وضمان أمان الأنواع.
+1. **استخدم `t` للترجمات البسيطة داخل السطر**: مثالي لترجمة قطع صغيرة من النص مباشرة داخل مكوناتك.
+2. **فضل استخدام `useIntlayer` للمحتوى المنظم**: للمترجمات الأكثر تعقيدًا وإعادة استخدام المحتوى، قم بتعريف المحتوى في ملفات التصريحات واستخدم `useIntlayer`.
+3. **توفير اللغة بشكل متسق**: تأكد من توفير اللغة الخاصة بك بشكل متسق عبر تطبيقك من خلال `IntlayerProvider`.
+4. **الاستفادة من TypeScript**: استخدم أنواع TypeScript لاكتشاف الترجمات المفقودة وضمان سلامة الأنواع.
 
 ---
 
 ## الخاتمة
 
-وظيفة `t` في `react-intlayer` هي أداة قوية ومريحة لإدارة الترجمات المضمنة في تطبيقات React الخاصة بك. من خلال دمجها بشكل فعّال، تعزز قدرات التدويل في تطبيقك، مما يوفر تجربة أفضل للمستخدمين في جميع أنحاء العالم.
+تُعد دالة `t` في مكتبة `react-intlayer` أداة قوية ومريحة لإدارة الترجمات المضمنة داخل تطبيقات React الخاصة بك. من خلال دمجها بشكل فعال، تقوم بتحسين قدرات التدويل في تطبيقك، مما يوفر تجربة أفضل للمستخدمين حول العالم.
 
 لمزيد من الاستخدامات التفصيلية والميزات المتقدمة، راجع [توثيق react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 ---
 
-**ملاحظة**: تذكر إعداد `IntlayerProvider` بشكل صحيح لضمان تمرير اللغة الحالية بشكل صحيح إلى مكوناتك. هذا ضروري لكي تُعيد وظيفة `t` الترجمات الصحيحة.
+3. **توفير اللغة بشكل متسق**: تأكد من توفير اللغة الخاصة بك بشكل متسق عبر تطبيقك من خلال `IntlayerProvider`.
+4. **الاستفادة من TypeScript**: استخدم أنواع TypeScript لاكتشاف الترجمات المفقودة وضمان سلامة الأنواع.
+
+---
+
+## الخاتمة
+
+تُعد دالة `t` في `react-intlayer` أداة قوية ومريحة لإدارة الترجمات المضمنة في تطبيقات React الخاصة بك. من خلال دمجها بشكل فعال، تقوم بتحسين قدرات التدويل في تطبيقك، مما يوفر تجربة أفضل للمستخدمين حول العالم.
+
+للحصول على استخدام أكثر تفصيلاً وميزات متقدمة، راجع [توثيق react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
+
+---
+
+**ملاحظة**: تذكر إعداد `IntlayerProvider` بشكل صحيح لضمان تمرير اللغة الحالية بشكل صحيح إلى مكوناتك. هذا أمر حيوي لكي تعيد دالة `t` الترجمات الصحيحة.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

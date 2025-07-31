@@ -1,9 +1,6 @@
 ---
-blogName: what_is_internationalization
-url: https://intlayer.org/blog/what-is-internationalization
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md
 createdAt: 2025-01-16
-updatedAt: 2025-01-16
+updatedAt: 2025-06-29
 title: ما هو التدويل (i18n)? التعريف والمعاملات
 description: تعرف على سبب التدويل المهم للويب الخاص بك. تعلم الأساسيات الرئيسية لتسريع SEO، تحسين تجربة المستخدم وتوسيع مجال الاستخدام العالمي.
 keywords:
@@ -15,11 +12,14 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - what-is-internationalization
 ---
 
 # ما هو التدويل (i18n)؟ التعريف والتحديات
 
-![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/i18n.webp)
+![توضيح i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
 ## فهم التدويل (i18n)
 
@@ -73,7 +73,7 @@ keywords:
 
 ## التحديات الشائعة في i18n
 
-![توضيح ألم i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/assets/pain_i18n.webp)
+![توضيح ألم i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/pain_i18n.webp)
 
 - **قابلية الصيانة**  
   يجب أن تتزامن كل تحديثات الموقع مع جميع اللغات، مما يتطلب سير عمل فعال وتنسيق دقيق لضمان الاتساق عبر جميع النسخ.

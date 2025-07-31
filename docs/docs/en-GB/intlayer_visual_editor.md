@@ -1,9 +1,6 @@
 ---
-docName: intlayer_visual_editor
-url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayer Visual Editor | Edit your content using a visual editor
 description: Discover how to use the Intlayer Editor to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - editor
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer Visual Editor Documentation
@@ -52,9 +54,9 @@ For integration with Vite + React, refer to the [setup guide](https://github.com
 
 The visual editor in an application that includes two things:
 
-- A frontend application that will display your website into a iframe. If your website uses Intlayer, the visual editor will automatically detect your content, and will allow you to interact with it. Once a modification is made, you will be able to download your changes.
+- A frontend application that will display your website into an iframe. If your website uses Intlayer, the visual editor will automatically detect your content, and will allow you to interact with it. Once a modification is made, you will be able to download your changes.
 
-- Once you clicked the download button, the visual editor will send a request to the server to replace your content declaration files with the new content (wherever these files are declared in your project).
+- Once you have clicked the download button, the visual editor will send a request to the server to replace your content declaration files with the new content (wherever these files are declared in your project).
 
 > Note that for now, Intlayer Editor will write your content declaration files as JSON files.
 
@@ -94,7 +96,7 @@ const config: IntlayerConfig = {
     /**
      * Optional
      * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
+     * Can be used to disable the editor for specific environments for security reasons, such as production.
      */
     enabled: process.env.INTLAYER_ENABLED,
     /**
@@ -130,7 +132,7 @@ const config = {
     /**
      * Optional
      * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
+     * Can be used to disable the editor for specific environments for security reasons, such as production.
      */
     enabled: process.env.INTLAYER_ENABLED,
     /**
@@ -142,7 +144,7 @@ const config = {
     /**
      * Optional
      * Default as "http://localhost:8000"
-     * The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if port is changed, or if the editor is hosted on a different domain.
+     * The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if the port is changed, or if the editor is hosted on a different domain.
      */
     editorURL: process.env.INTLAYER_EDITOR_URL,
   },
@@ -177,7 +179,7 @@ const config = {
     /**
      * Optional
      * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reason, such as production.
+     * Can be used to disable the editor for specific environments for security reasons, such as production.
      */
     enabled: process.env.INTLAYER_ENABLED,
   },
@@ -214,15 +216,53 @@ module.exports = config;
 
 3. If your content is outlined, you can long-press it to display the edit drawer.
 
+## Environment configuration
+
+The editor can be configured to use a specific environment file. This is useful when you want to use the same configuration file for development and production.
+
+To use a specific environment file, you can use the `--env-file` or `-f` flag when starting the editor:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> Note that the environment file should be located in the root directory of your project.
+
+Or you can use the `--env` or `-e` flag to specify the environment:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
+
 ## Debug
 
 If you encounter any issues with the visual editor, check the following:
 
 - The visual editor and the application are running.
 
-- The [`editor`](/en-GB/doc/concept/configuration#editor-configuration) configuration are correctly set in your Intlayer configuration file.
+- The [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration is correctly set in your Intlayer configuration file.
 
   - Required fields:
     - The application URL should match the one you set in the editor configuration (`applicationURL`).
 
-- The visual editor use an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS url as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.
+- The visual editor uses an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS URL as `frame-ancestors` ('http://localhost:8000' by default). Check the editor console for any error.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

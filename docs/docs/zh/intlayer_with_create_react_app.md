@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_create_react_app
-url: https://intlayer.org/doc/environment/create-react-app
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: 翻译你的Create React App (CRA)网站 (i18n)
 description: 了解如何使您的 Create React App (CRA) 网站实现多语言。请遵循文档进行国际化（i18n）和翻译。
 keywords:
@@ -14,11 +11,16 @@ keywords:
   - CRA
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - create-react-app
+applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 ---
 
 # 开始使用 Intlayer 和 React Create App 进行国际化 (i18n)
 
-[应用模板](https://github.com/aymericzip/intlayer-react-cra-template) 参考。
+请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-react-cra-template)。
 
 ## 什么是 Intlayer？
 
@@ -59,7 +61,7 @@ yarn add intlayer react-intlayer react-scripts-intlayer
 
 - **react-scripts-intlayer**
 
-  包括 `react-scripts-intlayer` 命令和插件，用于将 Intlayer 集成到基于 Create React App 的应用中。这些插件基于 [craco](https://craco.js.org/)，并包括对 [Webpack](https://webpack.js.org/) 打包器的额外配置。
+包括 `react-scripts-intlayer` 命令和插件，用于将 Intlayer 集成到基于 Create React App 的应用中。这些插件基于 [craco](https://craco.js.org/)，并包含对 [Webpack](https://webpack.js.org/) 打包器的额外配置。
 
 ### 第二步：配置您的项目
 
@@ -141,6 +143,12 @@ module.exports = config;
 
 创建并管理您的内容声明以存储翻译：
 
+> `react-scripts-intlayer` 脚本基于 [CRACO](https://craco.js.org/)。您也可以基于 Intlayer craco 插件实现自己的设置。[查看示例](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js)。
+
+### 第四步：声明您的内容
+
+创建并管理您的内容声明以存储翻译：
+
 ```tsx fileName="src/app.content.tsx" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 import React, { type ReactNode } from "react";
@@ -164,11 +172,6 @@ const appContent = {
           Edita <code>src/App.tsx</code> y guarda para recargar
         </>
       ),
-      zh: (
-        <>
-          编辑 <code>src/App.tsx</code> 并保存以重新加载
-        </>
-      ),
     }),
     reactLink: {
       href: "https://reactjs.org",
@@ -176,7 +179,6 @@ const appContent = {
         en: "Learn React",
         fr: "Apprendre React",
         es: "Aprender React",
-        zh: "学习 React",
       }),
     },
   },
@@ -196,7 +198,6 @@ const appContent = {
       en: "Get started by editing",
       fr: "Commencez par éditer",
       es: "Comience por editar",
-      zh: "通过编辑开始",
     }),
     reactLink: {
       href: "https://reactjs.org",
@@ -204,13 +205,38 @@ const appContent = {
         en: "Learn React",
         fr: "Apprendre React",
         es: "Aprender React",
-        zh: "学习 React",
       }),
     },
   },
 };
 
 export default appContent;
+```
+
+```jsx fileName="src/app.content.csx" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const appContent = {
+  key: "app",
+  content: {
+    getStarted: t({
+      en: "Get started by editing",
+      fr: "Commencez par éditer",
+      es: "Comience por editar",
+    }),
+    reactLink: {
+      href: "https://reactjs.org",
+      content: t({
+        en: "Learn React",
+        fr: "Apprendre React",
+        es: "Aprender React",
+      }),
+    },
+  },
+};
+
+module.exports = appContent;
 ```
 
 ```jsx fileName="src/app.content.csx" codeFormat="commonjs"
@@ -241,7 +267,7 @@ const appContent = {
 module.exports = appContent;
 ```
 
-> 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认情况下为 `./src`）。并匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+> 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认情况下为 `./src`），并且文件扩展名符合内容声明的要求（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
 
 > 有关更多详细信息，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
 
@@ -355,7 +381,7 @@ const App = () => (
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
-
+>
 > 要了解有关 `useIntlayer` 钩子的更多信息，请参阅 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)。
 
 ### （可选）第六步：更改内容的语言
@@ -370,7 +396,7 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.ENGLISH)}>切换语言到英语</button>
+    <button onClick={() => setLocale(Locales.English)}>切换语言到英语</button>
   );
 };
 ```
@@ -383,7 +409,7 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.ENGLISH)}>切换语言到英语</button>
+    <button onClick={() => setLocale(Locales.English)}>切换语言到英语</button>
   );
 };
 ```
@@ -396,7 +422,7 @@ const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.ENGLISH)}>切换语言到英语</button>
+    <button onClick={() => setLocale(Locales.English)}>切换语言到英语</button>
   );
 };
 ```
@@ -420,7 +446,7 @@ const LocaleSwitcher = () => {
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
 // 导入必要的依赖项和函数
-import { configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
+import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
 import type { FC, PropsWithChildren } from "react"; // React 的函数组件和 props 类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供者
 import {
@@ -534,7 +560,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 // 导入必要的依赖项和函数
-// 来自 'intlayer' 的实用函数和类型
+import { configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供者
 import {
   BrowserRouter,
@@ -1161,9 +1187,9 @@ module.exports = App;
 
 通过应用这些更改，您的应用将：
 
-- 确保 **语言** (`lang`) 属性正确反映当前语言环境，这对 SEO 和浏览器行为很重要。
-- 根据语言环境调整 **文本方向** (`dir`)，提高可读性和可用性。
-- 提供更 **可访问** 的体验，因为辅助技术依赖这些属性以最佳方式运行。
+- 确保 **语言** (`lang`) 属性正确反映当前语言环境，这对 SEO 和浏览器行为非常重要。
+- 根据语言环境调整 **文本方向** (`dir`)，提升不同阅读顺序语言的可读性和可用性。
+- 提供更 **无障碍** 的体验，因为辅助技术依赖这些属性以实现最佳功能。
 
 ### 配置 TypeScript
 
@@ -1172,7 +1198,6 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
 ![alt text](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
 确保您的 TypeScript 配置包含自动生成的类型。
 
 ```json5 fileName="tsconfig.json"
@@ -1196,6 +1221,38 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 .intlayer
 ```
 
+### VS Code 扩展
+
+为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+此扩展提供：
+
+- **翻译键的自动补全**。
+- **实时检测缺失的翻译错误**。
+- **内联预览已翻译的内容**。
+- **快速操作**，轻松创建和更新翻译。
+
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+
 ### 深入了解
 
 要进一步了解，您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 外部化您的内容。
+[从 VS Code Marketplace 安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+此扩展提供：
+
+- **翻译键的自动补全**。
+- **实时错误检测**，用于缺失的翻译。
+- **内联预览**已翻译的内容。
+- **快速操作**，轻松创建和更新翻译。
+
+有关如何使用此扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+
+### 要进一步了解
+
+要进一步了解，您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 外部化您的内容。
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29: 初始化历史记录

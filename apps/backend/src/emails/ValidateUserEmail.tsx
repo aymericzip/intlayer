@@ -10,8 +10,8 @@ import {
   Link,
   Preview,
   Section,
-  Text,
   Tailwind,
+  Text,
 } from '@react-email/components';
 
 export type ValidateUserEmailProps = {
@@ -61,14 +61,14 @@ export const ValidateUserEmailEN = ({
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              or copy and paste this URL into your browser:{' '}
-              <Link
-                href={validationLink}
-                className="text-[#E879BA] no-underline"
-              >
-                {validationLink}
-              </Link>
+              or copy and paste this URL into your browser:
             </Text>
+            <Link
+              href={validationLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {validationLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               This email was intended for{' '}
@@ -125,14 +125,14 @@ export const ValidateUserEmailFR = ({
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              ou copiez et collez cette URL dans votre navigateur :{' '}
-              <Link
-                href={validationLink}
-                className="text-[#E879BA] no-underline"
-              >
-                {validationLink}
-              </Link>
+              ou copiez et collez cette URL dans votre navigateur :
             </Text>
+            <Link
+              href={validationLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {validationLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               Cet e-mail était destiné à{' '}
@@ -189,14 +189,14 @@ export const ValidateUserEmailES = ({
               </Button>
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
-              o copia y pega esta URL en tu navegador:{' '}
-              <Link
-                href={validationLink}
-                className="text-[#E879BA] no-underline"
-              >
-                {validationLink}
-              </Link>
+              o copia y pega esta URL en tu navegador:
             </Text>
+            <Link
+              href={validationLink}
+              className="text-[#8a8a8a] no-underline text-[10px]"
+            >
+              {validationLink}
+            </Link>
             <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Text className="text-[12px] leading-[24px] text-[#666666]">
               Este correo fue enviado a{' '}

@@ -1,9 +1,6 @@
 ---
-docName: intlayer_visual_editor
-url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Intlayerビジュアルエディター | ビジュアルエディターを使用してコンテンツを編集します
 description: Intlayerエディターを使用して多言語ウェブサイトを管理する方法を発見してください。このオンラインドキュメントの手順に従って、数分でプロジェクトを設定することができます。
 keywords:
@@ -14,19 +11,24 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - editor
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Intlayer Visual Editor ドキュメント
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-Intlayer Visual Editor は、ビジュアルエディタを使用してコンテンツ宣言ファイルと対話するためにウェブサイトをラップするツールです。
+Intlayer Visual Editor は、ビジュアルエディターを使用してコンテンツ宣言ファイルと対話するためにウェブサイトをラップするツールです。
 
 ![Intlayer Visual Editor インターフェース](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.gif)
 
 `intlayer-editor` パッケージは Intlayer に基づいており、React (Create React App)、Vite + React、Next.js などの JavaScript アプリケーションで利用可能です。
 
-## ビジュアルエディタ vs CMS
+## ビジュアルエディター vs CMS
 
 Intlayer Visual Editor は、ローカル辞書のビジュアルエディタでコンテンツを管理できるツールです。変更が行われると、コンテンツはコードベース内で置き換えられます。つまり、アプリケーションが再構築され、ページがリロードされて新しいコンテンツが表示されます。
 
@@ -35,6 +37,8 @@ Intlayer Visual Editor は、ローカル辞書のビジュアルエディタで
 ## アプリケーションへの Intlayer の統合
 
 Intlayer の統合方法についての詳細は、以下の関連セクションを参照してください:
+
+### Next.js との統合
 
 ### Next.js との統合
 
@@ -76,7 +80,7 @@ pnpm add intlayer-editor --save-dev
 
 ## 設定
 
-Intlayer 設定ファイルで、エディタの設定をカスタマイズできます:
+Intlayer の設定ファイルで、エディタの設定をカスタマイズできます:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -94,7 +98,7 @@ const config: IntlayerConfig = {
     /**
      * 任意
      * デフォルトは `true`。`false` の場合、エディタは無効化されアクセスできません。
-     * 本番環境などのセキュリティ上の理由でエディタを無効化する場合に使用します。
+     * 本番環境などのセキュリティ上の理由で特定の環境でエディタを無効化するために使用できます。
      */
     enabled: process.env.INTLAYER_ENABLED,
     /**
@@ -180,7 +184,7 @@ const config = {
     /**
      * 任意
      * デフォルトは `true`。`false` の場合、エディタは無効化されアクセスできません。
-     * 本番環境などのセキュリティ上の理由でエディタを無効化する場合に使用します。
+     * 本番環境などのセキュリティ上の理由で特定の環境でエディタを無効化するために使用できます。
      */
     enabled: process.env.INTLAYER_ENABLED,
   },
@@ -193,7 +197,7 @@ module.exports = config;
 
 ## エディタの使用方法
 
-1. エディタがインストールされたら、次のコマンドを使用してエディタを開始できます:
+1. エディタがインストールされたら、次のコマンドを使用してエディタを起動できます:
 
    ```bash packageManager="npm"
    npx intlayer-editor start
@@ -207,15 +211,49 @@ module.exports = config;
    pnpm intlayer-editor start
    ```
 
-   > **アプリケーションを並行して実行する必要があります。** アプリケーション URL はエディタ設定 (`applicationURL`) に設定したものと一致する必要があります。
+   > **アプリケーションは並行して実行する必要があります。** アプリケーションの URL はエディタ設定の `applicationURL` と一致している必要があります。
 
-2. 提供された URL を開きます。デフォルトは `http://localhost:8000` です。
+2. 次に、指定された URL を開きます。デフォルトは `http://localhost:8000` です。
 
-   Intlayer によってインデックス付けされた各フィールドを、カーソルでコンテンツ上をホバーすることで表示できます。
+   コンテンツ上にカーソルをホバーすると、Intlayer によってインデックスされた各フィールドを確認できます。
 
    ![コンテンツ上をホバー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_hover_content.png)
 
 3. コンテンツがアウトライン表示されている場合、長押しして編集ドロワーを表示できます。
+
+## 環境設定
+
+エディタは特定の環境ファイルを使用するように設定できます。これは、開発環境と本番環境で同じ設定ファイルを使いたい場合に便利です。
+
+特定の環境ファイルを使用するには、エディタ起動時に `--env-file` または `-f` フラグを使用します:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> 環境ファイルはプロジェクトのルートディレクトリに配置する必要があります。
+
+または、`--env` または `-e` フラグを使って環境を指定することもできます:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
 
 ## デバッグ
 
@@ -228,4 +266,8 @@ module.exports = config;
   - 必須フィールド:
     - アプリケーション URL はエディタ設定 (`applicationURL`) に設定したものと一致する必要があります。
 
-- ビジュアルエディタは iframe を使用してウェブサイトを表示します。ウェブサイトのコンテンツセキュリティポリシー (CSP) が `frame-ancestors` として CMS URL を許可していることを確認してください (デフォルトは 'http://localhost:8000')。エディタコンソールでエラーを確認してください。
+- ビジュアルエディターは iframe を使用してウェブサイトを表示します。ウェブサイトのコンテンツセキュリティポリシー（CSP）が CMS の URL を `frame-ancestors` として許可していることを確認してください（デフォルトは 'http://localhost:8000'）。エディターのコンソールでエラーがないか確認してください。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴を初期化

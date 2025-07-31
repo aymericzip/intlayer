@@ -13,10 +13,9 @@ import {
 import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionary } from '@intlayer/editor-react';
 import { Pencil } from 'lucide-react';
-import { useDictionary } from 'next-intlayer';
-import { useCallback, useState, type FC } from 'react';
+import { useIntlayer } from 'next-intlayer';
+import { useState, type FC } from 'react';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
-import dictionaryEditionDrawerContent from './dictionaryEditionDrawer.content';
 import {
   getDrawerIdentifier,
   useDictionaryEditionDrawer,
@@ -34,17 +33,17 @@ type DictionaryEditionDrawerContentProps = {
 export const DictionaryEditionDrawerContent: FC<
   DictionaryEditionDrawerContentProps
 > = ({ locale, identifier, handleOnBack, isDarkMode }) => {
-  const { modalTitle, openDictionaryEditor } = useDictionary(
-    dictionaryEditionDrawerContent
+  const { modalTitle, openDictionaryEditor } = useIntlayer(
+    'dictionary-edition-drawer'
   );
   const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
   const { all: dictionaries } = useGetAllDictionaries();
   const { focusedContent } = useDictionaryEditionDrawer(identifier);
 
-  const onClickDictionaryList = useCallback(() => {
+  const onClickDictionaryList = () => {
     setEditionModalOpen(false);
     handleOnBack();
-  }, [handleOnBack]);
+  };
 
   const dictionaryKey = focusedContent?.dictionaryKey;
 
@@ -110,7 +109,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   dictionaryKey,
   isDarkMode,
 }) => {
-  const { backButtonText } = useDictionary(dictionaryEditionDrawerContent);
+  const { backButtonText } = useIntlayer('dictionary-edition-drawer');
   const id = getDrawerIdentifier(dictionaryKey);
 
   const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryKey);

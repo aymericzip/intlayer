@@ -1,20 +1,53 @@
 ---
-docName: package__svelte-intlayer
-url: https://intlayer.org/doc/packages/svelte-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/svelte-intlayer/index.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
-title: وثائق حزمة | svelte-intlayer
-description: انظر كيف تستخدم حزمة svelte-intlayer
+updatedAt: 2025-06-29
+title: توثيق الحزمة | svelte-intlayer
+description: تعرف على كيفية استخدام حزمة svelte-intlayer
 keywords:
   - Intlayer
   - svelte-intlayer
-  - الدولية
-  - المستندات
-  - JavaScript
-  - Svelte
+  - التدويل
+  - التوثيق
+  - جافاسكريبت
+  - سفيليت
+slugs:
+  - doc
+  - packages
+  - svelte-intlayer
 ---
 
-this doc will be automatically generated translated from the english doc
+# svelte-intlayer: حزمة NPM لتدويل تطبيق Solid
 
-see /docs/en/packages/svelte-intlayer/index.md
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافاسكريبت. وهي متوافقة مع أُطُر العمل مثل Solid و Solid و Express.js.
+
+**حزمة `svelte-intlayer`** تتيح لك تدويل تطبيق Solid الخاص بك. فهي توفر موفري السياق (context providers) وخطافات (hooks) لتدويل Solid.
+
+## لماذا تقوم بتدويل تطبيق Solid الخاص بك؟
+
+تدويل تطبيق Solid الخاص بك أمر ضروري لخدمة جمهور عالمي بفعالية. فهو يسمح لتطبيقك بتقديم المحتوى والرسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق تطبيقك من خلال جعله أكثر سهولة وملاءمة للأشخاص من خلفيات لغوية مختلفة.
+
+## لماذا تدمج Intlayer؟
+
+- **إدارة المحتوى مدعومة بجافاسكريبت**: استغل مرونة جافاسكريبت لتعريف وإدارة المحتوى الخاص بك بكفاءة.
+- **بيئة آمنة من حيث النوع**: استفد من TypeScript لضمان أن جميع تعريفات المحتوى الخاصة بك دقيقة وخالية من الأخطاء.
+- **ملفات محتوى مدمجة**: احتفظ بترجماتك قريبة من مكوناتها الخاصة، مما يعزز سهولة الصيانة والوضوح.
+
+## التثبيت
+
+قم بتثبيت الحزمة اللازمة باستخدام مدير الحزم المفضل لديك:
+
+```bash packageManager="npm"
+npm install svelte-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add svelte-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add svelte-intlayer
+```
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

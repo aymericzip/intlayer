@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_nextjs_14
-url: https://intlayer.org/doc/environment/nextjs/14
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md
 createdAt: 2024-12-06
-updatedAt: 2024-12-07
+updatedAt: 2025-06-29
 title: Переведите свой сайт Next.js 14 и App Router
 description: Узнайте, как сделать ваш сайт на Next.js 14 App Router многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
@@ -13,6 +10,12 @@ keywords:
   - Next.js 14
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
+  - 14
+applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 ---
 
 # Начало работы с интернационализацией (i18n) с Intlayer и Next.js 14 с App Router
@@ -228,21 +231,20 @@ const LocaleLayout: Next14LayoutIntlayer = ({
 );
 ```
 
+```jsx fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const LocaleLayout = ({ children, params: { locale } }) => (
-
   <html lang={locale} dir={getHTMLTextDir(locale)}>
     <body className={inter.className}>{children}</body>
   </html>
 );
 
 export default LocaleLayout;
-
-````
+```
 
 ```jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
 const { Inter } = require("next/font/google");
@@ -257,7 +259,7 @@ const LocaleLayout = ({ children, params: { locale } }) => (
 );
 
 module.exports = LocaleLayout;
-````
+```
 
 > Сегмент пути `[locale]` используется для определения локали. Пример: `/en-US/about` будет относиться к `en-US`, а `/fr/about` к `fr`.
 

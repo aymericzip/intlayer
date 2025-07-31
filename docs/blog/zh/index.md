@@ -1,9 +1,6 @@
 ---
-blogName: index
-url: https://intlayer.org/blog/search/
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/index.md
 createdAt: 2024-24-12
-updatedAt: 2024-24-12
+updatedAt: 2025-06-29
 title: 博客
 description: 了解所有与 Intlayer、国际化和其他相关的主题
 keywords:
@@ -13,6 +10,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - search
 ---
 
 # 在 JavaScript 中拥抱国际化：提升全球范围和 SEO

@@ -2,24 +2,24 @@
 
 import type { Locales } from '@intlayer/config';
 import {
+  type ConditionContent,
+  type ContentNode,
   type Dictionary,
+  type EnumerationContent,
+  type KeyPath,
   type MarkdownContent,
   type NestedContent,
-  type EnumerationContent,
   type TranslationContent,
-  NodeType,
-  type KeyPath,
-  type ContentNode,
+  FileContent,
+  getEmptyNode,
   getLocaleName,
   getNodeType,
-  type ConditionContent,
-  getEmptyNode,
   InsertionContent,
-  FileContent,
+  NodeType,
 } from '@intlayer/core';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
-import { Fragment, ReactNode, useState, type FC } from 'react';
+import { type FC, Fragment, ReactNode, useState } from 'react';
 import { useDictionary, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
@@ -87,9 +87,11 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
               }),
               keyPath,
               locales: configuration.internationalization.locales ?? [],
-              openAiApiKey: configuration.editor.openAiApiKey,
-              model: configuration.editor.openAiApiModel,
-              temperature: configuration.editor.openAiApiTemperature,
+              aiOptions: {
+                apiKey: configuration.ai?.apiKey,
+                model: configuration.ai?.model,
+                temperature: configuration.ai?.temperature,
+              },
             }).then((response) => {
               if (!response?.data) return;
 

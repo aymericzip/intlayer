@@ -14,7 +14,7 @@ export const fetchDistantDictionaryKeys = async (
 
   const intlayerAPI = getIntlayerAPI(undefined, configuration);
 
-  const oAuth2TokenResult = await intlayerAPI.auth.getOAuth2AccessToken();
+  const oAuth2TokenResult = await intlayerAPI.oAuth.getOAuth2AccessToken();
 
   const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
 

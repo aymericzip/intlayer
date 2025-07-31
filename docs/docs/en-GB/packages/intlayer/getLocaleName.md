@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getLocaleName
-url: https://intlayer.org/doc/packages/intlayer/getLocaleName
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: getLocaleName Function Documentation | intlayer
 description: See how to use the getLocaleName function for intlayer package
 keywords:
@@ -11,18 +8,23 @@ keywords:
   - translation
   - Intlayer
   - intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleName
 ---
 
 # Documentation: `getLocaleName` Function in `intlayer`
 
 ## Description
 
-The `getLocaleName` function returns the localized name of a given locale (`targetLocale`) in the display locale (`displayLocale`). If no `targetLocale` is provided, it returns the name of the `displayLocale` in its own language.
+The `getLocaleName` function returns the localised name of a given locale (`targetLocale`) in the display locale (`displayLocale`). If no `targetLocale` is provided, it returns the name of the `displayLocale` in its own language.
 
 ## Parameters
 
@@ -32,13 +34,13 @@ The `getLocaleName` function returns the localized name of a given locale (`targ
   - **Type**: Enum or string representing valid locales.
 
 - `targetLocale?: Locales`
-  - **Description**: The locale whose name is to be localized.
+  - **Description**: The locale whose name is to be localised.
   - **Type**: Optional. Enum or string representing valid locales.
 
 ## Returns
 
 - **Type**: `string`
-- **Description**: The localized name of the `targetLocale` in the `displayLocale`, or the `displayLocale`'s own name if `targetLocale` is not provided. If no translation is found, it returns `"Unknown locale"`.
+- **Description**: The localised name of the `targetLocale` in the `displayLocale`, or the `displayLocale`'s own name if `targetLocale` is not provided. If no translation is found, it returns `"Unknown locale"`.
 
 ## Example Usage
 
@@ -111,3 +113,7 @@ getLocaleName("unknown-locale"); // Output: "Unknown locale"
   - The function defaults to returning the `displayLocale`'s own name.
 - **Missing translations:**
   - If `localeNameTranslations` does not contain an entry for the `targetLocale` or the specific `displayLocale`, the function falls back to the `ownLocalesName` or returns `"Unknown locale"`.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

@@ -1,33 +1,36 @@
 ---
-docName: package__react-native-intlayer
-url: https://intlayer.org/doc/packages/react-native-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-native-intlayer/index.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
-title: وثائق حزمة | react-native-intlayer
-description: انظر كيف تستخدم حزمة react-native-intlayer
+updatedAt: 2025-06-29
+title: توثيق الحزمة | react-native-intlayer
+description: تعرف على كيفية استخدام حزمة react-native-intlayer
 keywords:
   - Intlayer
   - React Native
   - react-native-intlayer
-  - الدولية
-  - المستندات
+  - التدويل
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافا سكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - react-native-intlayer
 ---
 
-**Intlayer** هي مجموعة من الحزم المصممة خصيصًا لمطوري JavaScript. وهي متوافقة مع أطر العمل مثل React وReact وExpress.js.
+# react-native-intlayer: تدويل (i18n) تطبيق React Native
 
-**حزمة `react-native-intlayer`** تتيح لك تعريب تطبيق Vite الخاص بك. تتضمن مكون Metro الإضافي لتعيين التكوين من خلال متغيرات البيئة في [Metro bundler](https://docs.expo.dev/guides/customizing-metro/).
+**Intlayer** هي مجموعة من الحزم مصممة خصيصًا لمطوري جافا سكريبت. وهي متوافقة مع أُطُر العمل مثل React وReact وExpress.js.
 
-## لماذا يجب تعريب تطبيق React Native الخاص بك؟
+**حزمة `react-native-intlayer`** تتيح لك تدويل تطبيق Vite الخاص بك. تشمل هذه الحزمة إضافة Metro التي تسمح بضبط الإعدادات من خلال متغيرات البيئة في [مجمع Metro](https://docs.expo.dev/guides/customizing-metro/).
 
-تعريب تطبيق React Native الخاص بك أمر ضروري لخدمة جمهور عالمي بشكل فعال. يتيح ذلك لتطبيقك تقديم المحتوى والرسائل بلغة المستخدم المفضلة. هذه القدرة تعزز تجربة المستخدم وتوسع نطاق تطبيقك من خلال جعله أكثر وصولاً وملاءمة للأشخاص من خلفيات لغوية مختلفة.
+## لماذا تقوم بتدويل تطبيق React Native الخاص بك؟
 
-## التكوين
+تدويل تطبيق React Native الخاص بك أمر ضروري لخدمة جمهور عالمي بشكل فعال. فهو يسمح لتطبيقك بتقديم المحتوى والرسائل باللغة المفضلة لكل مستخدم. تعزز هذه القدرة تجربة المستخدم وتوسع نطاق تطبيقك بجعله أكثر وصولًا وملاءمة للأشخاص من خلفيات لغوية مختلفة.
 
-تعمل حزمة `react-native-intlayer` بسلاسة مع [حزمة `react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)، و[حزمة `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md). اطلع على الوثائق ذات الصلة لمزيد من المعلومات.
+## الإعداد
+
+تعمل حزمة `react-native-intlayer` بسلاسة مع حزمة [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)، وحزمة [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/index.md). ألقِ نظرة على الوثائق ذات الصلة لمزيد من المعلومات.
 
 ## التثبيت
 
@@ -47,7 +50,7 @@ pnpm add react-native-intlayer
 
 ## مثال على الاستخدام
 
-اطلع على مثال حول كيفية تضمين المكونات الإضافية في تكوين Vite الخاص بك.
+انظر مثالًا على كيفية تضمين الإضافات في تكوين vite الخاص بك.
 
 ```js
 // metro.config.js
@@ -61,16 +64,20 @@ module.exports = (async () => {
 })();
 ```
 
-## إتقان تعريب تطبيق Vite الخاص بك
+## إتقان التدويل لتطبيق Vite الخاص بك
 
-يوفر Intlayer العديد من الميزات لمساعدتك في تعريب تطبيق Vite الخاص بك.
+يوفر Intlayer العديد من الميزات لمساعدتك في تدويل تطبيق Vite الخاص بك.
 
-**للتعرف على المزيد حول هذه الميزات، راجع دليل [تعريب React (i18n) باستخدام Intlayer وReact Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_native+expo.md) لتطبيق React Native.**
+**لتعلم المزيد عن هذه الميزات، راجع دليل [التدويل في React (i18n) مع Intlayer و React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_native+expo.md) لتطبيق React Native.**
 
 ## اقرأ عن Intlayer
 
-- [موقع Intlayer](https://intlayer.org)
-- [وثائق Intlayer](https://intlayer.org/doc)
-- [Intlayer على GitHub](https://github.com/aymericzip/intlayer)
+- [موقع Intlayer الإلكتروني](https://intlayer.org)
+- [توثيق Intlayer](https://intlayer.org/doc)
+- [مستودع Intlayer على GitHub](https://github.com/aymericzip/intlayer)
 
-- [اطرح أسئلتك على وثائقنا الذكية](https://intlayer.org/docchat)
+- [اطرح أسئلتك على توثيقنا الذكي](https://intlayer.org/docchat)
+
+## تاريخ التوثيق
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

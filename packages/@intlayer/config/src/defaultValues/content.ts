@@ -11,9 +11,16 @@ export const FILE_EXTENSIONS = [
   '.content.tsx',
   '.content.jsx',
 ];
-export const EXCLUDED_PATHS = ['node_modules'];
+export const EXCLUDED_PATHS = [
+  'node_modules',
+  '.intlayer',
+  '.next',
+  '.nuxt',
+  '.expo',
+  'dist',
+];
 
-export const CONTENT_DIR = ['src'];
+export const CONTENT_DIR = ['.'];
 
 export const MAIN_DIR = '.intlayer/main';
 

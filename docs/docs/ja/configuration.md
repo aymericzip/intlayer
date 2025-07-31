@@ -1,9 +1,6 @@
 ---
-docName: configuration
-url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-06-29
 title: 構成
 description: アプリケーションのためにIntlayerを設定する方法を学びます。Intlayerをニーズに合わせてカスタマイズするために利用可能なさまざまな設定とオプションを理解します。
 keywords:
@@ -12,13 +9,17 @@ keywords:
   - カスタマイズ
   - Intlayer
   - オプション
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Intlayer設定ドキュメント
 
 ## 概要
 
-Intlayer の設定ファイルは、国際化、ミドルウェア、コンテンツ処理など、プラグインのさまざまな側面をカスタマイズすることを可能にします。このドキュメントでは、設定内の各プロパティについて詳細に説明します。
+Intlayerの設定ファイルは、国際化、ミドルウェア、コンテンツ処理など、プラグインのさまざまな側面をカスタマイズすることを可能にします。このドキュメントでは、設定内の各プロパティについて詳細に説明します。
 
 ---
 
@@ -58,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -87,7 +88,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    activateDynamicImport: true,
+    importMode: "dynamic",
   },
 };
 
@@ -112,7 +113,7 @@ module.exports = config;
 
 ## 設定リファレンス
 
-以下のセクションでは、Intlayer のさまざまな設定オプションについて説明します。
+以下のセクションでは、Intlayer で利用可能なさまざまな設定オプションについて説明します。
 
 ---
 
@@ -130,14 +131,12 @@ module.exports = config;
   - _例_: `['en', 'fr', 'es']`
 
 - **requiredLocales**:
-
   - _型_: `string[]`
   - _デフォルト_: `[]`
   - _説明_: アプリケーションで必須のロケールのリスト。
   - _例_: `[]`
   - _注意_: 空の場合、`strict` モードではすべてのロケールが必須とみなされます。
   - _注意_: 必須ロケールは `locales` フィールドにも定義されている必要があります。
-
 - **strictMode**:
 
   - _型_: `string`
@@ -151,7 +150,7 @@ module.exports = config;
 
   - _型_: `string`
   - _デフォルト_: `'en'`
-  - _説明_: リクエストされたロケールが見つからない場合に使用されるデフォルトのロケール。
+  - _説明_: リクエストされたロケールが見つからない場合に使用されるフォールバックのデフォルトロケール。
   - _例_: `'en'`
   - _注意_: URL、クッキー、またはヘッダーにロケールが指定されていない場合に使用されます。
 
@@ -246,7 +245,7 @@ module.exports = config;
 
 ### ミドルウェア設定
 
-クッキー、ヘッダー、ロケール管理のための URL プレフィックスの処理方法など、ミドルウェアの動作を制御する設定。
+ミドルウェアの動作を制御する設定で、アプリケーションがクッキー、ヘッダー、ロケール管理のためのURLプレフィックスをどのように扱うかを含みます。
 
 #### プロパティ
 
@@ -254,51 +253,88 @@ module.exports = config;
 
   - _型_: `string`
   - _デフォルト_: `'x-intlayer-locale'`
-  - _説明_: ロケールを決定するために使用される HTTP ヘッダーの名前。
+  - _説明_: ロケールを判別するために使用されるHTTPヘッダーの名前。
   - _例_: `'x-custom-locale'`
-  - _注意_: API ベースのロケール決定に役立ちます。
-
----
+  - _注意_: APIベースのロケール判別に便利です。
 
 - **cookieName**:
 
-  - _タイプ_: `string`
-  - _デフォルト値_: `'intlayer-locale'`
+  - _型_: `string`
+  - _デフォルト_: `'intlayer-locale'`
   - _説明_: ロケールを保存するために使用されるクッキーの名前。
   - _例_: `'custom-locale'`
   - _注意_: セッション間でロケールを保持するために使用されます。
 
 - **prefixDefault**:
 
-  - _タイプ_: `boolean`
-  - _デフォルト値_: `true`
+  - _型_: `boolean`
+  - _デフォルト_: `false`
   - _説明_: デフォルトのロケールをURLに含めるかどうか。
-  - _例_: `false`
-  - _注意_: `false`の場合、デフォルトのロケールのURLにはロケールプレフィックスが含まれません。
+  - _例_: `true`
+  - _注意_:
+    - `true`で`defaultLocale = 'en'`の場合: path = `/en/dashboard`または`/fr/dashboard`
+    - `false`で`defaultLocale = 'en'`の場合: path = `/dashboard`または`/fr/dashboard`
 
 - **basePath**:
 
-  - _タイプ_: `string`
-  - _デフォルト値_: `''`
+  - _型_: `string`
+  - _デフォルト_: `''`
   - _説明_: アプリケーションURLのベースパス。
   - _例_: `'/my-app'`
-  - _注意_: これはアプリケーションのURLの構築方法に影響します。
+  - _注意_:
+    - アプリケーションが`https://example.com/my-app`でホストされている場合
+    - ベースパスは`'/my-app'`
+    - URLは`https://example.com/my-app/en`になります
+    - ベースパスが設定されていない場合、URLは`https://example.com/en`になります
 
 - **serverSetCookie**:
 
-  - _タイプ_: `string`
-  - _デフォルト値_: `'always'`
+  - _型_: `string`
+  - _デフォルト_: `'always'`
   - _説明_: サーバーでロケールクッキーを設定するルール。
   - _オプション_: `'always'`, `'never'`
   - _例_: `'never'`
-  - _注意_: ロケールクッキーをすべてのリクエストで設定するか、または設定しないかを制御します。
+  - _注意_: ロケールクッキーをすべてのリクエストで設定するか、まったく設定しないかを制御します。
 
 - **noPrefix**:
-  - _タイプ_: `boolean`
-  - _デフォルト値_: `false`
+
+  - _型_: `boolean`
+  - _デフォルト_: `false`
   - _説明_: URLからロケールプレフィックスを省略するかどうか。
   - _例_: `true`
-  - _注意_: `true`の場合、URLにはロケール情報が含まれません。
+  - _注意_:
+    - `true`の場合: URLにプレフィックスなし
+    - `false`の場合: URLにプレフィックスあり
+    - `basePath = '/my-app'`の例:
+      - `noPrefix = false`の場合: URLは`https://example.com/my-app/en`になります
+      - `noPrefix = true`の場合: URLは`https://example.com`になります
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _型_: `boolean`
+  - _デフォルト_: `false`
+  - _説明_: Next.jsのプリフェッチリクエスト中にロケール検出が行われるかどうかを制御します。
+  - _例_: `true`
+  - _注意_: この設定はNext.jsがロケールプリフェッチを処理する方法に影響します:
+    - **例のシナリオ:**
+      - ユーザーのブラウザ言語は`'fr'`
+      - 現在のページは`/fr/about`
+      - リンクが`/about`をプリフェッチ
+    - **`detectLocaleOnPrefetchNoPrefix: true`の場合:**
+      - プリフェッチがブラウザから`'fr'`ロケールを検出
+      - プリフェッチを`/fr/about`にリダイレクト
+    - **`detectLocaleOnPrefetchNoPrefix: false`（デフォルト）の場合:**
+      - プリフェッチがデフォルトロケールを使用
+      - プリフェッチを`/en/about`にリダイレクト（`'en'`がデフォルトと仮定）
+    - **`true`を使用する場合:**
+      - アプリが非ローカライズされた内部リンクを使用する場合（例: `<a href="/about">`）
+      - 通常のリクエストとプリフェッチリクエスト間で一貫したロケール検出動作を望む場合
+    - **`false`（デフォルト）を使用する場合:**
+      - アプリがロケールプレフィックス付きリンクを使用する場合（例: `<a href="/fr/about">`）
+      - プリフェッチパフォーマンスを最適化したい場合
+      - 潜在的なリダイレクトループを避けたい場合
+
+---
 
 ### コンテンツ設定
 
@@ -338,6 +374,7 @@ module.exports = config;
 
   - _タイプ_: `string[]`
   - _デフォルト値_: `['src']`
+  - _例_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _説明_: コンテンツが保存されているディレクトリパス。
 
 - **dictionariesDir**:
@@ -422,12 +459,10 @@ module.exports = config;
 ### AI設定
 
 IntlayerのAI機能を制御する設定（プロバイダー、モデル、APIキーなど）。
-
 この設定は、[Intlayer Dashboard](https://intlayer.org/dashboard/project)でアクセスキーを使用して登録されている場合はオプションです。Intlayerは、ニーズに最も効率的でコスト効果の高いAIソリューションを自動的に管理します。デフォルトオプションを使用することで、Intlayerが最も関連性の高いモデルを使用するよう継続的に更新されるため、長期的な保守性が向上します。
 
 独自のAPIキーや特定のモデルを使用したい場合は、カスタムAI設定を定義できます。
 このAI設定は、Intlayer環境全体でグローバルに使用されます。CLIコマンドは、これらの設定をコマンド（例: `fill`）のデフォルトとして使用し、SDK、ビジュアルエディター、CMSも同様です。特定のユースケースに対してこれらのデフォルト値を上書きするには、コマンドパラメータを使用できます。
-
 Intlayerは、柔軟性と選択肢を向上させるために複数のAIプロバイダーをサポートしています。現在サポートされているプロバイダーは以下の通りです：
 
 - **OpenAI** (デフォルト)
@@ -475,19 +510,17 @@ Intlayerは、柔軟性と選択肢を向上させるために複数のAIプロ�
 - **applicationContext**:
   - _タイプ_: `string`
   - _デフォルト値_: なし
-  - _説明_: AIモデルにアプリケーションに関する追加のコンテキストを提供し、より正確で文脈に適した翻訳を生成するのに役立ちます。これには、アプリケーションのドメイン、ターゲットユーザー、トーン、または特定の用語に関する情報が含まれる場合があります。
+  - _説明_: AIモデルにアプリケーションに関する追加のコンテキストを提供し、より正確で文脈に適した翻訳を生成するのに役立ちます。これには、アプリのドメイン、ターゲットユーザー、トーン、または特定の用語に関する情報が含まれる場合があります。
 
 ### ビルド設定
 
-アプリケーションの国際化をIntlayerがどのように最適化およびビルドするかを制御する設定。
+Intlayerがアプリケーションの国際化をどのように最適化しビルドするかを制御する設定。
 
 ビルドオプションは`@intlayer/babel`および`@intlayer/swc`プラグインに適用されます。
 
-> 開発モードでは、Intlayerは開発体験を簡素化するために辞書の一元化された静的インポートを使用します。
+> 開発モードでは、Intlayerは開発体験を簡素化するために辞書の静的インポートを使用します。
 
-> ビルドを最適化することで、Intlayerはチャンキングを最適化するためにすべての辞書の呼び出しを置き換えます。これにより、最終的なバンドルは使用される辞書のみをインポートします。
-
-- **注意**: `@intlayer/babel`は`vite-intlayer`パッケージでデフォルトで利用可能ですが、`@intlayer/swc`は`next-intlayer`パッケージではデフォルトでインストールされていません。これは、SWCプラグインがNext.jsではまだ実験的であるためです。
+> 最適化時、Intlayerはチャンキングを最適化するために辞書の呼び出しを置き換え、最終的なバンドルが実際に使用される辞書のみをインポートするようにします。
 
 #### プロパティ
 
@@ -497,27 +530,16 @@ Intlayerは、柔軟性と選択肢を向上させるために複数のAIプロ�
   - _デフォルト_: `process.env.NODE_ENV === 'production'`
   - _説明_: ビルドを最適化するかどうかを制御します。
   - _例_: `true`
-  - _注意_: 使用される辞書のみをバンドルにインポートすることを可能にします。ただし、すべてのインポートは辞書の読み込み時の非同期処理を避けるために静的インポートのままとなります。
-  - _注意_: 有効にすると、Intlayerはすべての`useIntlayer`呼び出しを`useDictionary`に、`getIntlayer`を`getDictionary`に置き換えることで辞書のチャンキングを最適化します。
+  - _注意_: 有効にすると、Intlayerはチャンキングを最適化するためにすべての辞書の呼び出しを置き換えます。これにより、最終的なバンドルは使用される辞書のみをインポートします。すべてのインポートは辞書の読み込み時の非同期処理を避けるために静的インポートのままとなります。
+  - _注意_: Intlayerは`importMode`オプションによって定義されたモードですべての`useIntlayer`呼び出しを置き換え、`getIntlayer`を`getDictionary`に置き換えます。
+  - _注意_: このオプションは`@intlayer/babel`および`@intlayer/swc`プラグインに依存します。
   - _注意_: すべてのキーが`useIntlayer`呼び出しで静的に宣言されていることを確認してください。例：`useIntlayer('navbar')`。
 
-- **activateDynamicImport**:
+- **importMode**:
 
-  - _型_: `boolean`
-  - _デフォルト_: `false`
-  - _説明_: 辞書コンテンツをロケールごとに動的にインポートするかどうかを制御します。
-  - _例_: `true`
-  - _注意_: 現在のロケールの辞書コンテンツのみを動的にインポートすることを可能にします。
-  - _注意_: 動的インポートはReact Suspenseに依存し、レンダリングパフォーマンスに若干の影響を与える可能性があります。ただし、無効にすると、使用されていない場合でもすべてのロケールが一度に読み込まれます。
-  - _注意_: 有効にすると、Intlayerはすべての`useIntlayer`呼び出しを`useDynamicDictionary`に置き換えることで辞書のチャンキングを最適化します。
-  - _注意_: このオプションは`optimize`が無効の場合は無視されます。
-  - _注意_: すべてのキーが`useIntlayer`呼び出しで静的に宣言されていることを確認してください。例：`useIntlayer('navbar')`。
-
-- **traversePattern**:
-  - _型_: `string[]`
-  - _デフォルト_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
-  - _説明_: 最適化中にトラバースするファイルを定義するパターン。
-  - _例_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _注意_: 関連するコードファイルに最適化を制限し、ビルドパフォーマンスを向上させるために使用します。
-  - _注意_: このオプションは`optimize`が無効の場合は無視されます。
-  - _注意_: globパターンを使用します。
+  - _型_: `'static' | 'dynamic' | 'async'`
+  - _デフォルト_: `'static'`
+  - _説明_: 辞書がどのようにインポートされるかを制御します。
+  - _例_: `'dynamic'`
+  - _注意_: 利用可能なモード：
+    - "static": 辞書が静的にインポートされます。`useIntlayer`を`useDictionary`

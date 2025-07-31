@@ -1,11 +1,8 @@
 ---
-docName: package__intlayer__getConfiguration
-url: https://intlayer.org/doc/packages/intlayer/getConfiguration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getConfiguration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Dokumentation der t-Funktion | intlayer
-description: Erfahren Sie, wie Sie die t-Funktion für das intlayer-PakegetConfiguration verwenden
+updatedAt: 2025-06-29
+title: getConfiguration Funktionsdokumentation | intlayer
+description: Sehen Sie, wie die Funktion getConfiguration für das intlayer-Paket verwendet wird
 keywords:
   - getConfiguration
   - Übersetzung
@@ -16,13 +13,18 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getConfiguration
 ---
 
 # Dokumentation: `getConfiguration` Funktion in `intlayer`
 
 ## Beschreibung
 
-Die Funktion `getConfiguration` ruft die gesamte Konfiguration für die `intlayer`-Anwendung ab, indem sie Umgebungsvariablen extrahiert. Diese Funktion bietet die Flexibilität, dieselbe Konfiguration sowohl auf der Client- als auch auf der Serverseite zu verwenden, um Konsistenz in der gesamten Anwendung zu gewährleisten.
+Die Funktion `getConfiguration` ruft die gesamte Konfiguration für die `intlayer`-Anwendung ab, indem sie Umgebungsvariablen extrahiert. Diese Funktion bietet die Flexibilität, dieselbe Konfiguration sowohl auf der Client- als auch auf der Serverseite zu verwenden, um Konsistenz in der gesamten Anwendung sicherzustellen.
 
 ---
 
@@ -30,21 +32,21 @@ Die Funktion `getConfiguration` ruft die gesamte Konfiguration für die `intlaye
 
 Die Funktion nimmt keine Parameter entgegen. Stattdessen verwendet sie Umgebungsvariablen für die Konfiguration.
 
-### Rückgabewerte
+### Rückgabewert
 
 - **Typ**: `IntlayerConfig`
 - **Beschreibung**: Ein Objekt, das die vollständige Konfiguration für `intlayer` enthält. Die Konfiguration umfasst die folgenden Abschnitte:
 
-  - `internationalization`: Einstellungen zu Lokalisierungen und dem strikten Modus.
-  - `middleware`: Einstellungen zu URL- und Cookie-Management.
-  - `content`: Einstellungen zu Inhaltsdateien, Verzeichnissen und Mustern.
+  - `internationalization`: Einstellungen im Zusammenhang mit Sprachversionen und dem strikten Modus.
+  - `middleware`: Einstellungen im Zusammenhang mit URL- und Cookie-Verwaltung.
+  - `content`: Einstellungen im Zusammenhang mit Inhaltsdateien, Verzeichnissen und Mustern.
   - `editor`: Editor-spezifische Konfigurationen.
 
-Siehe [Intlayer-Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) für weitere Details.
+Siehe [Intlayer Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) für weitere Details.
 
 ---
 
-## Beispielverwendung
+## Beispielhafte Verwendung
 
 ### Abrufen der vollständigen Konfiguration
 
@@ -92,7 +94,7 @@ console.log(config);
 
 ### Extrahieren von `availableLocales` und `defaultLocale`
 
-Der Abschnitt `internationalization` der Konfiguration bietet lokalisierungsbezogene Einstellungen wie `locales` (verfügbare Lokalisierungen) und `defaultLocale` (Fallback-Sprache).
+Der Abschnitt `internationalization` der Konfiguration stellt sprachbezogene Einstellungen bereit, wie z.B. `locales` (verfügbare Sprachen) und `defaultLocale` (Fallback-Sprache).
 
 ```typescript codeFormat="typescript"
 import { getConfiguration } from "intlayer";
@@ -137,4 +139,8 @@ console.log(cookieName); // Ausgabe: "INTLAYER_LOCALE"
 
 ## Verwendung in Anwendungen
 
-Die Funktion `getConfiguration` ist ein grundlegendes Werkzeug zur Initialisierung und Verwaltung der Konfiguration einer `intlayer`-Anwendung. Durch den Zugriff auf Einstellungen wie Lokalisierungen, Middleware und Inhaltsverzeichnisse gewährleistet sie Konsistenz und Skalierbarkeit in mehrsprachigen und inhaltsgesteuerten Anwendungen.
+Die Funktion `getConfiguration` ist ein grundlegendes Werkzeug zur Initialisierung und Verwaltung der Konfiguration einer `intlayer`-Anwendung. Durch den Zugriff auf Einstellungen wie Sprachversionen, Middleware und Inhaltsverzeichnisse gewährleistet sie Konsistenz und Skalierbarkeit in mehrsprachigen und inhaltsorientierten Anwendungen.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

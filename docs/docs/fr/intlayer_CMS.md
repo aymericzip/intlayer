@@ -1,9 +1,6 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: CMS Intlayer | Externez votre contenu dans le CMS Intlayer
 description: Externez votre contenu dans le CMS Intlayer pour déléguer la gestion de votre contenu à votre équipe.
 keywords:
@@ -15,31 +12,36 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
-# Système de Gestion de Contenu (CMS) Intlayer Documentation
+# Documentation du Système de Gestion de Contenu (CMS) Intlayer
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Le CMS Intlayer est une application qui vous permet d'externaliser le contenu d'un projet Intlayer.
 
-Pour cela, Intlayer introduit le concept de 'dictionnaires distants'.
+Pour cela, Intlayer introduit le concept de « dictionnaires distants ».
 
 ![Interface du CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
 ## Comprendre les dictionnaires distants
 
-Intlayer fait une distinction entre les dictionnaires 'locaux' et 'distants'.
+Intlayer fait une distinction entre les dictionnaires « locaux » et « distants ».
 
-- Un dictionnaire 'local' est un dictionnaire déclaré dans votre projet Intlayer. Comme le fichier de déclaration d'un bouton ou de votre barre de navigation. Externaliser ce contenu n'a pas de sens dans ce cas, car ce contenu n'est pas censé changer fréquemment.
+- Un dictionnaire 'local' est un dictionnaire déclaré dans votre projet Intlayer. Comme le fichier de déclaration d'un bouton ou de votre barre de navigation. Externaliser votre contenu n'a pas de sens dans ce cas car ce contenu n'est pas censé changer fréquemment.
 
 - Un dictionnaire 'distant' est un dictionnaire géré via le CMS Intlayer. Cela peut être utile pour permettre à votre équipe de gérer directement le contenu de votre site web, et vise également à utiliser des fonctionnalités de tests A/B et d'optimisation automatique pour le SEO.
 
 ## Éditeur visuel vs CMS
 
-L'[éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour les dictionnaires locaux. Une fois une modification effectuée, le contenu sera remplacé dans le code source. Cela signifie que l'application sera reconstruite et que la page sera rechargée pour afficher le nouveau contenu.
+L'[éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour les dictionnaires locaux. Une fois une modification effectuée, le contenu sera remplacé dans la base de code. Cela signifie que l'application sera reconstruite et que la page sera rechargée pour afficher le nouveau contenu.
 
-En revanche, le CMS Intlayer est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour les dictionnaires distants. Une fois une modification effectuée, le contenu **n'impactera pas** votre code source. Et le site web affichera automatiquement le contenu modifié.
+En revanche, le CMS Intlayer est un outil qui vous permet de gérer votre contenu dans un éditeur visuel pour les dictionnaires distants. Une fois une modification effectuée, le contenu **n'impactera pas** votre base de code. Et le site web affichera automatiquement le contenu modifié.
 
 ## Intégration
 
@@ -152,7 +154,7 @@ const config = {
      *
      * Dans le cas où vous hébergez vous-même le CMS Intlayer, vous pouvez définir l'URL du backend.
      *
-     * L'URL du CMS Intlayer.
+     * L'URL du backend Intlayer.
      * Par défaut, il est défini sur https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -194,7 +196,6 @@ const config = {
      *
      * L'URL du CMS Intlayer.
      * Par défaut, il est défini sur https://intlayer.org
-     */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
@@ -202,8 +203,8 @@ const config = {
      *
      * Dans le cas où vous hébergez vous-même le CMS Intlayer, vous pouvez définir l'URL du backend.
      *
-     * L'URL du CMS Intlayer.
-     * Par défaut, il est défini sur https://back.intlayer.org
+     * L'URL du backend Intlayer.
+     * Par défaut, elle est définie sur https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
   },
@@ -259,7 +260,6 @@ Vous pourrez ensuite voir et gérer votre dictionnaire dans le [CMS Intlayer](ht
 Le CMS Intlayer est capable de recharger à chaud les dictionnaires lorsqu'un changement est détecté.
 
 Sans le rechargement à chaud, une nouvelle construction de l'application sera nécessaire pour afficher le nouveau contenu.
-
 En activant la configuration [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration), l'application remplacera automatiquement le contenu mis à jour lorsqu'il est détecté.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -349,5 +349,8 @@ Si vous rencontrez des problèmes avec le CMS, vérifiez les points suivants :
     - L'URL du CMS.
 
 - Assurez-vous que la configuration du projet a été poussée vers le CMS Intlayer.
-
 - L'éditeur visuel utilise une iframe pour afficher votre site web. Assurez-vous que la politique de sécurité du contenu (CSP) de votre site web autorise l'URL du CMS comme `frame-ancestors` ('https://intlayer.org' par défaut). Vérifiez la console de l'éditeur pour toute erreur.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

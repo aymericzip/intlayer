@@ -1,4 +1,5 @@
-import type { ObjectId, Document } from 'mongoose';
+import type { RenameId } from '@utils/mongoDB/types';
+import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Plan } from './plan.types';
 import type { User } from './user.types';
 
@@ -8,21 +9,21 @@ export type OrganizationCreationData = {
 
 export type OrganizationData = {
   name: string;
-  membersIds: User['_id'][];
-  adminsIds: User['_id'][];
+  membersIds: User['id'][];
+  adminsIds: User['id'][];
 };
 
 export type Organization = OrganizationData & {
-  _id: ObjectId;
-  creatorId: User['_id'];
+  id: Types.ObjectId;
+  creatorId: User['id'];
   plan?: Plan;
   createdAt: number;
   updatedAt: number;
 };
 
-export type OrganizationAPI = Omit<Organization, 'adminsIds'> & {
-  adminsIds?: User['_id'][];
-};
+export type OrganizationAPI = ObjectIdToString<Organization>;
 
+export type OrganizationSchema = RenameId<Organization>;
+export type OrganizationModelType = Model<Organization>;
 export type OrganizationDocument = Document<unknown, {}, Organization> &
   Organization;

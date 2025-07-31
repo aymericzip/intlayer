@@ -56,9 +56,9 @@ struct PluginConfig {
     #[serde(rename = "dynamicDictionariesEntryPath")]
     dynamic_dictionaries_entry_path: String,
 
-    /// Indicates if the dynamic import should be activated
-    #[serde(rename = "activateDynamicImport")]
-    activate_dynamic_import: Option<bool>,
+    /// Import mode for the plugin: "static", "dynamic", or "async"
+    #[serde(rename = "importMode")]
+    import_mode: Option<String>,
 
     /// If true, the plugin will replace the dictionary entry file with `export default {}`.
     #[serde(rename = "replaceDictionaryEntry")]
@@ -75,24 +75,27 @@ struct PluginConfig {
 struct TransformVisitor<'a> {
     dictionaries_dir: &'a str,
     dynamic_dictionaries_dir: &'a str,
-    activate_dynamic_import: bool,
+    import_mode: String,
     /// Per-file cache: key → imported ident for static imports
     new_static_imports: BTreeMap<String, Ident>,
     /// Per-file cache: key → imported ident for dynamic imports
     new_dynamic_imports: BTreeMap<String, Ident>,
     /// Track if current file imports from packages supporting dynamic imports
     use_dynamic_helpers: bool,
+    /// Track if current file imports from packages supporting async imports
+    use_async_helpers: bool,
 }
 
 impl<'a> TransformVisitor<'a> {
-    fn new(dictionaries_dir: &'a str, dynamic_dictionaries_dir: &'a str, activate_dynamic_import: bool) -> Self {
+    fn new(dictionaries_dir: &'a str, dynamic_dictionaries_dir: &'a str, import_mode: String) -> Self {
         Self {
             dictionaries_dir,
             dynamic_dictionaries_dir,
-            activate_dynamic_import,
+            import_mode,
             new_static_imports: BTreeMap::new(),
             new_dynamic_imports: BTreeMap::new(),
             use_dynamic_helpers: false,
+            use_async_helpers: false,
         }
     }
 
@@ -175,6 +178,96 @@ static PACKAGE_LIST_DYNAMIC: LazyLock<Vec<Atom>> = LazyLock::new(|| {
 });
 
 impl<'a> VisitMut for TransformVisitor<'a> {
+    // ── 0.  handle expression-level transformations (like await wrapping)  ──
+    fn visit_mut_expr(&mut self, expr: &mut Expr) {
+        // First visit children
+        expr.visit_mut_children_with(self);
+
+        // Then handle our specific transformations
+        if let Expr::Call(call) = expr {
+            // Check if this is a useIntlayer or getIntlayer call
+            let callee_ident = match &call.callee {
+                Callee::Expr(callee_expr) => {
+                    if let Expr::Ident(id) = &**callee_expr {
+                        id.sym.as_ref()
+                    } else {
+                        return;
+                    }
+                }
+                _ => return,
+            };
+            
+            if callee_ident != "useIntlayer" && callee_ident != "getIntlayer" {
+                return;
+            }
+
+            // First argument must be a string literal
+            let Some(first_arg) = call.args.first_mut() else { return };
+            let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr else { return };
+            
+            let key = value.to_string();
+
+            // Remember the key globally (optional)
+            if let Ok(mut set) = INTLAYER_KEYS.lock() {
+                set.insert(key.clone());
+            }
+
+            // Determine if this specific call should use dynamic imports
+            let should_use_dynamic_for_this_call = callee_ident == "useIntlayer" && self.use_dynamic_helpers;
+            // Determine if this specific call should use async imports
+            let should_use_async_for_this_call = callee_ident == "useIntlayer" && self.use_async_helpers;
+
+            if should_use_async_for_this_call {
+                // Use dynamic imports for useIntlayer when async helpers are enabled
+                let ident = if let Some(id) = self.new_dynamic_imports.get(&key) {
+                    id.clone()
+                } else {
+                    let id = self.make_dynamic_ident(&key);
+                    self.new_dynamic_imports.insert(key.clone(), id.clone());
+                    id
+                };
+
+                // Async helper: first argument is the dictionary promise
+                first_arg.expr = Box::new(Expr::Ident(ident));
+
+                // Wrap the call with await for async helpers
+                let call_expr = Expr::Call(call.clone());
+                *expr = Expr::Await(AwaitExpr {
+                    span: DUMMY_SP,
+                    arg: Box::new(call_expr),
+                });
+            } else if should_use_dynamic_for_this_call {
+                // Use dynamic imports for useIntlayer when dynamic helpers are enabled
+                let ident = if let Some(id) = self.new_dynamic_imports.get(&key) {
+                    id.clone()
+                } else {
+                    let id = self.make_dynamic_ident(&key);
+                    self.new_dynamic_imports.insert(key.clone(), id.clone());
+                    id
+                };
+
+                // Dynamic helper: first argument is the dictionary, second is the original key
+                call.args.insert(0, ExprOrSpread {
+                    spread: None,
+                    expr: Box::new(Expr::Ident(ident)),
+                });
+                // Keep the original string literal as the second argument
+            } else {
+                // Use static imports for getIntlayer or useIntlayer when not using dynamic helpers
+                let ident = if let Some(id) = self.new_static_imports.get(&key) {
+                    id.clone()
+                } else {
+                    let id = self.make_ident(&key);
+                    self.new_static_imports.insert(key.clone(), id.clone());
+                    id
+                };
+
+                // Static helper: replace the string argument with the identifier
+                first_arg.expr = Box::new(Expr::Ident(ident));
+            }
+        }
+    }
+
     // ── 1.  patch  import { useIntlayer }  ──────────────────────────────────
     fn visit_mut_import_decl(&mut self, import: &mut ImportDecl) {
         import.visit_mut_children_with(self);
@@ -186,18 +279,30 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 
         // Determine if this package supports dynamic imports
         let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a == &pkg);
-        let should_use_dynamic_helpers = self.activate_dynamic_import && package_supports_dynamic;
+        let should_use_dynamic_helpers = self.import_mode == "dynamic" && package_supports_dynamic;
+        let should_use_async_helpers = self.import_mode == "async" && package_supports_dynamic;
         
         if should_use_dynamic_helpers {
             self.use_dynamic_helpers = true;
+        }
+
+        if should_use_async_helpers {
+            self.use_async_helpers = true;
         }
 
         for spec in &mut import.specifiers {
             if let ImportSpecifier::Named(named) = spec {
                 match named.local.sym.as_ref() {
                     "useIntlayer" => {
-                        if should_use_dynamic_helpers {
-                            // Use dynamic helper for useIntlayer when dynamic imports are enabled
+                        if should_use_async_helpers {
+                            // Use async helper for useIntlayer when async mode is enabled
+                            named.imported = Some(ModuleExportName::Ident(Ident::new(
+                                Atom::from("useDictionaryAsync"),
+                                DUMMY_SP,
+                                SyntaxContext::empty(),
+                            )));
+                        } else if should_use_dynamic_helpers {
+                            // Use dynamic helper for useIntlayer when dynamic mode is enabled
                             named.imported = Some(ModuleExportName::Ident(Ident::new(
                                 Atom::from("useDictionaryDynamic"),
                                 DUMMY_SP,
@@ -226,69 +331,9 @@ impl<'a> VisitMut for TransformVisitor<'a> {
         }
     }
 
-    // ── 2.  replace useIntlayer("foo")  ─────────────────────────────────────
-    fn visit_mut_call_expr(&mut self, call: &mut CallExpr) {
-        call.visit_mut_children_with(self);
 
-        // is callee the bare identifier `useIntlayer` or `getIntlayer` ?
-        let callee_ident = match &call.callee {
-            Callee::Expr(expr) => {
-                if let Expr::Ident(id) = &**expr {
-                    id.sym.as_ref()
-                } else {
-                    return;
-                }
-            }
-            _ => return,
-        };
-        if callee_ident != "useIntlayer" && callee_ident != "getIntlayer" {
-            return;
-        }
 
-        // first argument must be a string literal
-        let Some(first_arg) = call.args.first_mut() else { return };
-        let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr else { return };
-        
-        let key = value.to_string();
 
-        // remember the key globally (optional)
-        if let Ok(mut set) = INTLAYER_KEYS.lock() {
-            set.insert(key.clone());
-        }
-
-        // Determine if this specific call should use dynamic imports
-        let should_use_dynamic_for_this_call = callee_ident == "useIntlayer" && self.use_dynamic_helpers;
-
-        if should_use_dynamic_for_this_call {
-            // Use dynamic imports for useIntlayer when dynamic helpers are enabled
-            let ident = if let Some(id) = self.new_dynamic_imports.get(&key) {
-                id.clone()
-            } else {
-                let id = self.make_dynamic_ident(&key);
-                self.new_dynamic_imports.insert(key.clone(), id.clone());
-                id
-            };
-
-            // Dynamic helper: first argument is the dictionary, second is the original key
-            call.args.insert(0, ExprOrSpread {
-                spread: None,
-                expr: Box::new(Expr::Ident(ident)),
-            });
-            // Keep the original string literal as the second argument
-        } else {
-            // Use static imports for getIntlayer or useIntlayer when not using dynamic helpers
-            let ident = if let Some(id) = self.new_static_imports.get(&key) {
-                id.clone()
-            } else {
-                let id = self.make_ident(&key);
-                self.new_static_imports.insert(key.clone(), id.clone());
-                id
-            };
-
-            // Static helper: replace the string argument with the identifier
-            first_arg.expr = Box::new(Expr::Ident(ident));
-        }
-    }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -334,8 +379,8 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
     }
 
     // 3) run visitor
-    let activate_dynamic_import = cfg.activate_dynamic_import.unwrap_or(false);
-    let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir, &cfg.dynamic_dictionaries_dir, activate_dynamic_import);
+    let import_mode = cfg.import_mode.unwrap_or("static".to_string());
+    let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir, &cfg.dynamic_dictionaries_dir, import_mode);
     program.visit_mut_with(&mut visitor);
 
     // ── 4) inject JSON/MJS imports (if any) ───────────────────────────────────

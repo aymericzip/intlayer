@@ -1,20 +1,22 @@
 ---
-docName: package__react-intlayer__t
-url: https://intlayer.org/doc/packages/react-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: t Function Documentation | react-intlayer
 description: See how to use the t function for react-intlayer package
 keywords:
   - t
   - translation
   - Intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - t
 ---
 
 # Documentation: `t` Function in `react-intlayer`
@@ -98,6 +100,7 @@ const ComponentExample = () => {
 ```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
 const { t } = require("react-intlayer");
 
+// ComponentExample demonstrates usage of the translation function `t` in a CommonJS module.
 const ComponentExample = () => {
   return (
     <div>
@@ -115,7 +118,7 @@ const ComponentExample = () => {
 
 ### Inline Translations in Attributes
 
-The `t` function is particularly useful for inline translations in JSX attributes. When localising attributes like `alt`, `title`, `href`, or `aria-label`, you can use `t` directly within the attribute.
+The `t` function is especially useful for inline translations within JSX attributes. When localising attributes such as `alt`, `title`, `href`, or `aria-label`, you can use `t` directly inside the attribute.
 
 ```jsx
 <button
@@ -168,7 +171,7 @@ import { t, type IConfigLocales } from "react-intlayer";
 const translations = {
   en: "Welcome",
   fr: "Bienvenue",
-  es: "Bienvenido",
+  es: "Welcome",
 };
 
 const greeting = t(translations);
@@ -181,7 +184,7 @@ const { t, type IConfigLocales } = require("react-intlayer");
 const translations = {
   en: "Welcome",
   fr: "Bienvenue",
-  es: "Bienvenido",
+  es: "Welcome",
 };
 
 const greeting = t(translations);
@@ -238,7 +241,7 @@ const App = ({ locale }) => (
 
 ### Missing Translations in TypeScript
 
-- **Cause**: Translations object doesn't satisfy the required locales, leading to TypeScript errors.
+- **Cause**: Translations object does not satisfy the required locales, leading to TypeScript errors.
 - **Solution**: Use the `IConfigLocales` type to enforce completeness of your translations.
 
 ```typescript codeFormat="typescript"
@@ -294,3 +297,7 @@ For more detailed usage and advanced features, refer to the [react-intlayer docu
 ---
 
 **Note**: Remember to set up your `IntlayerProvider` properly to ensure that the current locale is correctly passed down to your components. This is crucial for the `t` function to return the correct translations.
+
+## Doc History
+
+- 5.5.10 - 29-06-2025: Init history

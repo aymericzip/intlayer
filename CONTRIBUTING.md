@@ -32,7 +32,7 @@ npm install -g pnpm@10.12.1
 #### Installing Dependencies
 
 ```sh
-pnpm install --filter '!./examples/**'
+pnpm install --filter '!./examples/**' --filter '!./apps/website/**'
 ```
 
 The `--filter '!./examples/\*\*'` argument in pnpm install is used to exclude all packages within the examples directory from being installed. This is necessary to avoid installing dependencies for example projects that you are not currently working on, which can save time and disk space by only installing the essential packages needed for your specific development task.
@@ -136,19 +136,22 @@ To understand the interest of all packages, you can read the [documentation name
 
 > If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
+> ⏱️ On Github Actions, building packages usualy take around 2 to 4 minutes.
+> ⏱️ On old environment, building packages can be really slow and can take more than 10 minutes.
+
 ```sh
-# Build all packages
+# Build all packages (clean dist folders, and build packages)
 pnpm build
 ```
 
 ```sh
-# Select a package and build it
-pnpm build:pick
+# Build all packages (only build packages, without cleaning dist folders)
+pnpm build:ci
 ```
 
 ```sh
-# Detect all packages that include changes using git, and build them
-pnpm build:changes
+# Select a package and build it (clean dist folder, and build package)
+pnpm build:pick
 ```
 
 ### Development mode
@@ -167,36 +170,28 @@ pnpm dev
 pnpm dev:pick
 ```
 
-### Reset
-
-If you meet problems with the build, you can use the command `pnpm clean` to remove the dist folders of the packages.
-
-The following commands clean the packages output folders for then build them again.
-
-```sh
-# Reset all packages
-pnpm reset
-```
-
-```sh
-# Select a package and reset it
-pnpm reset:pick
-```
-
-```sh
-# Detect all packages that include changes using git, and reset them
-pnpm reset:changes
-```
-
-### Includes a new package
-
-> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
-
 ### Setup environment variables
 
 For each project necessitating environment variables, like `@intlayer/backend`, you can find a `.env.template` file in the root of the project. Copy the file and rename it to `.env`. Then, fill the variables with the correct values.
 
 For specific environment, use `.env.local`, `.env.[environment]` or `.env.[environment].local` files.
+
+## Starting an application
+
+For applications locates in `apps/` folder, as well as example applications locates in `examples/` folder, you can start them with the following command:
+
+```sh
+cd ./apps/backend # or ./apps/website, ./examples/nextjs-15-app, etc.
+pnpm dev # or pnpm dev:turbo, etc.
+```
+
+> Adapt the path to the application you want to start.
+> See the application `package.json` to check the command to start it. Example for nextjs-15-app: `pnpm dev:turbo` is the most efficient command to start the dev server.
+> If you filtered some applications during the installation, do not forget to add the related dependencies using the install command (Example: `pnpm install --filter './examples/nextjs-15-app'`).
+
+## Includes a new package
+
+> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
 ## Commit formatting
 

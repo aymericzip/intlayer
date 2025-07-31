@@ -1,13 +1,33 @@
-# Intlayer suporta duas maneiras de declarar conteúdo multilíngue:
+---
+createdAt: 2025-04-18
+updatedAt: 2025-06-29
+title: Declaração de Conteúdo `Por Localidade` no Intlayer
+description: Descubra como declarar conteúdo por localidade no Intlayer. Siga a documentação para entender os diferentes formatos e casos de uso.
+keywords:
+  - Internacionalização
+  - Documentação
+  - Intlayer
+  - Por-Localidade
+  - TypeScript
+  - JavaScript
+slugs:
+  - doc
+  - concept
+  - per-locale-file
+---
+
+# Declaração de Conteúdo `Por Localidade` no Intlayer
+
+O Intlayer suporta duas formas de declarar conteúdo multilíngue:
 
 - Arquivo único com todas as traduções
-- Um arquivo por localidade (formato por localidade)
+- Um arquivo por localidade (formato por-localidade)
 
 Essa flexibilidade permite:
 
-- Migração fácil de outras ferramentas de i18n
+- Migração fácil a partir de outras ferramentas de i18n
 - Suporte para fluxos de trabalho de tradução automatizados
-- Organização clara das traduções em arquivos separados e específicos por localidade
+- Organização clara das traduções em arquivos separados, específicos por localidade
 
 ## Arquivo Único com Múltiplas Traduções
 
@@ -16,7 +36,7 @@ Este formato é ideal para:
 - Iteração rápida no código.
 - Integração perfeita com o CMS.
 
-Esta é a abordagem recomendada para a maioria dos casos de uso. Centraliza as traduções, facilitando a iteração e integração com o CMS.
+Esta é a abordagem recomendada para a maioria dos casos de uso. Centraliza as traduções, facilitando a iteração e a integração com o CMS.
 
 ```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -25,7 +45,6 @@ const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      pt: "Título do meu componente",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -39,11 +58,11 @@ export default helloWorldContent;
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Conteúdo do olá mundo com traduções multilíngues
 const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      pt: "Título do meu componente",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -57,11 +76,11 @@ export default helloWorldContent;
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
+// Conteúdo do olá mundo com traduções multilíngues
 const helloWorldContent = {
   key: "hello-world",
   content: {
     multilingualContent: t({
-      pt: "Título do meu componente",
       en: "Title of my component",
       es: "Título de mi componente",
     }),
@@ -79,7 +98,6 @@ module.exports = helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "pt": "Título do meu componente",
         "en": "Title of my component",
         "es": "Título de mi componente"
       }
@@ -88,16 +106,16 @@ module.exports = helloWorldContent;
 }
 ```
 
-> Recomendado: Este formato é o melhor ao usar o editor visual do Intlayer ou ao gerenciar traduções diretamente no código.
+> Recomendado: Este formato é o melhor quando se utiliza o editor visual do Intlayer ou se gerenciam traduções diretamente no código.
 
 ## Formato Por Localidade
 
 Este formato é útil quando:
 
-- Você deseja versionar ou substituir traduções de forma independente.
-- Está integrando fluxos de trabalho de tradução automática ou humana.
+- Você deseja versionar ou sobrescrever traduções de forma independente.
+- Você está integrando fluxos de trabalho de tradução automática ou humana.
 
-Você também pode dividir as traduções em arquivos individuais por localidade especificando o campo de localidade:
+Você também pode dividir as traduções em arquivos individuais por localidade especificando o campo locale:
 
 ```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
 import { t, Locales, type Dictionary } from "intlayer";
@@ -105,7 +123,7 @@ import { t, Locales, type Dictionary } from "intlayer";
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // Importante
-  content: { multilingualContent: "Title of my component" },
+  content: { multilingualContent: "Título do meu componente" },
 } satisfies Dictionary;
 
 export default helloWorldContent;
@@ -118,17 +136,20 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // Importante
   content: { multilingualContent: "Título de mi componente" },
-};
+} satisfies Dictionary;
+
+export default helloWorldContent;
 ```
 
 ```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Conteúdo para o componente "hello-world" em inglês
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // Importante
-  content: { multilingualContent: "Title of my component" },
+  content: { multilingualContent: "Título do meu componente" },
 };
 
 export default helloWorldContent;
@@ -138,6 +159,7 @@ export default helloWorldContent;
 import { t, Locales } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
+// Conteúdo para o componente "hello-world" em espanhol
 const helloWorldContent = {
   key: "hello-world",
   locale: Locales.SPANISH, // Importante
@@ -155,7 +177,7 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH, // Importante
   content: {
-    multilingualContent: "Title of my component",
+    multilingualContent: "Título do meu componente",
   },
 };
 
@@ -183,7 +205,7 @@ module.exports = helloWorldContent;
   "key": "hello-world",
   "locale": "en", // Importante
   "content": {
-    "multilingualContent": "Title of my component",
+    "multilingualContent": "Título do meu componente",
   },
 }
 ```
@@ -199,21 +221,21 @@ module.exports = helloWorldContent;
 }
 ```
 
-> Importante: Certifique-se de que o campo de localidade esteja definido. Ele informa ao Intlayer qual idioma o arquivo representa.
+> Importante: Certifique-se de que o campo locale está definido. Ele informa ao Intlayer qual idioma o arquivo representa.
 
 > Nota: Em ambos os casos, o arquivo de declaração de conteúdo deve seguir o padrão de nomenclatura `*.content.{ts,tsx,js,jsx,mjs,cjs,json}` para ser reconhecido pelo Intlayer. O sufixo `.[locale]` é opcional e usado apenas como convenção de nomenclatura.
 
 ## Misturando Formatos
 
-Você pode misturar ambas as abordagens para a mesma chave de conteúdo. Por exemplo:
+Você pode combinar ambas as abordagens de declaração para a mesma chave de conteúdo. Por exemplo:
 
-Declare conteúdo padrão ou base de forma estática (por exemplo, `index.content.ts`)
+- Declare seu conteúdo base estaticamente em um arquivo como index.content.ts.
+- Adicione ou substitua traduções específicas em arquivos separados, como index.fr.content.ts ou index.content.json.
 
-Adicione ou substitua conteúdo específico por localidade em `index.content.json`, `index.fr.content.ts`, etc.
+Esta configuração é especialmente útil quando:
 
-Isso é especialmente útil quando:
-
-- Você deseja declarar seu conteúdo base de forma estática no código e preencher automaticamente com traduções no CMS.
+- Você deseja definir a estrutura inicial do conteúdo no código.
+- Você planeja enriquecer ou completar traduções posteriormente usando o CMS ou ferramentas automatizadas.
 
 ```bash codeFormat="typescript"
 .
@@ -226,7 +248,7 @@ Isso é especialmente útil quando:
 
 ### Exemplo
 
-Aqui está um arquivo de declaração de conteúdo multilíngue:
+Aqui um arquivo de declaração de conteúdo multilíngue:
 
 ```tsx fileName="Components/MyComponent/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -235,8 +257,8 @@ const helloWorldContent = {
   key: "hello-world",
   locale: Locales.ENGLISH,
   content: {
-    multilingualContent: "Title of my component",
-    projectName: "My project",
+    multilingualContent: "Título do meu componente",
+    projectName: "Meu projeto",
   },
 } satisfies Dictionary;
 
@@ -251,7 +273,6 @@ export default helloWorldContent;
     "multilingualContent": {
       "nodeType": "translation",
       "translation": {
-        "pt": "Título do meu componente",
         "fr": "Titre de mon composant",
         "es": "Título de mi componente"
       }
@@ -265,13 +286,13 @@ O Intlayer mescla automaticamente arquivos multilíngues e por localidade.
 ```tsx fileName="Components/MyComponent/index.ts"
 import { getIntlayer, Locales } from "intlayer";
 
-const intlayer = getIntlayer("hello-world"); // O idioma padrão é INGLÊS, então retornará o conteúdo em INGLÊS
+const intlayer = getIntlayer("hello-world"); // O locale padrão é INGLÊS, então ele retornará o conteúdo em INGLÊS
 
 console.log(JSON.stringify(intlayer, null, 2));
 // Resultado:
 // {
-//  "multilingualContent": "Title of my component",
-//  "projectName": "My project"
+//  "multilingualContent": "Título do meu componente",
+//  "projectName": "Meu projeto"
 // }
 
 const intlayer = getIntlayer("hello-world", Locales.SPANISH);
@@ -280,7 +301,7 @@ console.log(JSON.stringify(intlayer, null, 2));
 // Resultado:
 // {
 //  "multilingualContent": "Título de mi componente",
-//  "projectName": "My project"
+//  "projectName": "Meu projeto"
 // }
 
 const intlayer = getIntlayer("hello-world", Locales.FRENCH);
@@ -289,10 +310,14 @@ console.log(JSON.stringify(intlayer, null, 2));
 // Resultado:
 // {
 //  "multilingualContent": "Titre de mon composant",
-//  "projectName": "My project"
+//  "projectName": "Meu projeto"
 // }
 ```
 
-### Geração Automática de Traduções
+### Geração Automática de Tradução
 
-Use o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md) para preencher automaticamente traduções ausentes com base nos seus serviços preferidos.
+Use o [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md) para preencher automaticamente as traduções faltantes com base nos seus serviços preferidos.
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial

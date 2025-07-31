@@ -1,9 +1,6 @@
 ---
-blogName: internationalization_and_SEO
-url: https://intlayer.org/blog/SEO-and-i18n
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/internationalization_and_SEO.md
 createdAt: 2024-12-24
-updatedAt: 2024-12-24
+updatedAt: 2025-06-29
 title: SEO e Internazionalizzazione
 description: Scopri come ottimizzare il tuo sito web multilingue per i motori di ricerca e migliorare il tuo SEO.
 keywords:
@@ -14,6 +11,9 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - blog
+  - SEO-and-i18n
 ---
 
 # SEO & I18n: La Guida Definitiva per Rendere il Tuo Sito Web Multilingue

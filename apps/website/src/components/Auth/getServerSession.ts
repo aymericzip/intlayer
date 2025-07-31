@@ -1,27 +1,16 @@
-import { getAuthAPI } from '@intlayer/api';
-import type { Session } from '@intlayer/design-system';
-import { cookies } from 'next/headers';
+import type { Session } from '@intlayer/backend';
+import { getAuthAPI } from '@intlayer/design-system/hooks';
+import { headers } from 'next/headers';
 
-export const getServerSession = async () => {
-  const cookiesStore = await cookies();
-  const session_token = cookiesStore.get('intlayer_auth');
-
-  if (!session_token?.value) {
-    return null;
-  }
-
+export const getServerSession = async (): Promise<Session | null> => {
   try {
-    const { data } = await getAuthAPI().getSession(session_token.value);
+    const { data } = await getAuthAPI().getSession({
+      fetchOptions: {
+        headers: await headers(),
+      },
+    });
 
-    const session: Session = {
-      user: data?.user ?? null,
-      organization: null,
-      project: null,
-      isOrganizationAdmin: false,
-      isProjectAdmin: false,
-    };
-
-    return session;
+    return data as unknown as Session;
   } catch (error) {
     console.error(error);
 

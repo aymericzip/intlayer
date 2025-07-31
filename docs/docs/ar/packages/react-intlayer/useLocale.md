@@ -1,50 +1,52 @@
 ---
-docName: package__react-intlayer__useLocale
-url: https://intlayer.org/doc/packages/react-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: وثائق hook useLocale | react-intlayer
-description: اطلع على كيفية استخدام hook useLocale لحزمة react-intlayer
+updatedAt: 2025-06-29
+title: توثيق هوك useLocale | react-intlayer
+description: تعرف على كيفية استخدام هوك useLocale لحزمة react-intlayer
 keywords:
   - useLocale
-  - قاموس
-  - مفتاح
+  - dictionary
+  - key
   - Intlayer
   - التدويل
-  - توثيق
+  - التوثيق
   - Next.js
-  - JavaScript
+  - جافاسكريبت
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - useLocale
 ---
 
-# دمج React: توثيق `useLocale` Hook
+# تكامل React: توثيق هوك `useLocale`
 
-يوفر هذا القسم تفاصيل شاملة حول `useLocale` hook من مكتبة `react-intlayer`، المصممة لإدارة إعدادات اللغة في تطبيقات React.
+يوفر هذا القسم تفاصيل شاملة حول هوك `useLocale` من مكتبة `react-intlayer`، المصممة لإدارة الإعدادات المحلية في تطبيقات React.
 
 ## استيراد `useLocale` في React
 
-لدمج `useLocale` hook في تطبيق React الخاص بك، قم باستيراده من الحزمة الخاصة به:
+لدمج هوك `useLocale` في تطبيق React الخاص بك، قم باستيراده من الحزمة الخاصة به:
 
 ```typescript codeFormat="typescript"
-import { useLocale } from "react-intlayer"; // تُستخدم في مكونات React لإدارة إعدادات اللغة
+import { useLocale } from "react-intlayer"; // يستخدم في مكونات React لإدارة الإعدادات المحلية
 ```
 
 ```javascript codeFormat="esm"
-import { useLocale } from "react-intlayer"; // تُستخدم في مكونات React لإدارة إعدادات اللغة
+import { useLocale } from "react-intlayer"; // يستخدم في مكونات React لإدارة الإعدادات المحلية
 ```
 
 ```javascript codeFormat="commonjs"
-const { useLocale } = require("react-intlayer"); // تُستخدم في مكونات React لإدارة إعدادات اللغة
+const { useLocale } = require("react-intlayer"); // يستخدم في مكونات React لإدارة الإعدادات المحلية
 ```
 
 ## نظرة عامة
 
-يوفر `useLocale` hook طريقة سهلة للوصول إلى إعدادات اللغة والتعامل معها داخل مكونات React. يتيح الوصول إلى اللغة الحالية، اللغة الافتراضية، جميع اللغات المتاحة، ووظائف لتحديث إعدادات اللغة.
+يوفر هوك `useLocale` طريقة سهلة للوصول إلى إعدادات اللغة والتعامل معها داخل مكونات React. حيث يتيح الوصول إلى اللغة الحالية، اللغة الافتراضية، جميع اللغات المتاحة، بالإضافة إلى دوال لتحديث إعدادات اللغة.
 
 ## الاستخدام
 
-إليك كيفية استخدام `useLocale` hook داخل مكون React:
+إليك كيفية استخدام هوك `useLocale` داخل مكون React:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -119,18 +121,18 @@ const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-## المعلمات وقيم الإرجاع
+## المعاملات وقيم الإرجاع
 
-عند استدعاء `useLocale` hook، فإنه يُرجع كائنًا يحتوي على الخصائص التالية:
+عند استدعاء هوك `useLocale`، فإنه يعيد كائنًا يحتوي على الخصائص التالية:
 
 - **`locale`**: اللغة الحالية كما تم تعيينها في سياق React.
-- **`defaultLocale`**: اللغة الأساسية المحددة في التكوين.
-- **`availableLocales`**: قائمة بجميع اللغات المتاحة كما تم تعريفها في التكوين.
-- **`setLocale`**: وظيفة لتحديث اللغة الحالية داخل سياق التطبيق.
+- **`defaultLocale`**: اللغة الأساسية المعرفة في الإعدادات.
+- **`availableLocales`**: قائمة بجميع اللغات المتاحة كما هو معرف في الإعدادات.
+- **`setLocale`**: دالة لتحديث اللغة الحالية ضمن سياق التطبيق.
 
 ## مثال
 
-يوضح هذا المثال مكونًا يستخدم `useLocale` hook لعرض مبدل لغة، مما يسمح للمستخدمين بتغيير لغة التطبيق ديناميكيًا:
+يوضح هذا المثال مكونًا يستخدم هوك `useLocale` لعرض مبدل اللغة، مما يسمح للمستخدمين بتغيير لغة التطبيق ديناميكيًا:
 
 ```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -201,4 +203,8 @@ const LocaleSelector = () => {
 
 ## الخاتمة
 
-يُعد `useLocale` hook من `react-intlayer` أداة أساسية لإدارة اللغات في تطبيقات React الخاصة بك، حيث يوفر الوظائف اللازمة لتكييف تطبيقك مع جمهور دولي متنوع بشكل فعال.
+تُعدّ الخطاف `useLocale` من مكتبة `react-intlayer` أداة أساسية لإدارة اللغات في تطبيقات React الخاصة بك، حيث توفر الوظائف اللازمة لتكييف تطبيقك مع جماهير دولية متنوعة بفعالية.
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بدء التاريخ

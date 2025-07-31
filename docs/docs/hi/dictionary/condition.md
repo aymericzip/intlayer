@@ -1,9 +1,6 @@
 ---
-docName: dictionary__condition
-url: https://intlayer.org/doc/concept/content/condition
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md
-createdAt: 2025-02-7
-updatedAt: 2025-02-7
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
 title: शर्तों के साथ सामग्री
 description: Intlayer में शर्तीय सामग्री का उपयोग करके विशिष्ट शर्तों के आधार पर सामग्री को गतिशील रूप से प्रदर्शित करने का तरीका जानें। इस दस्तावेज़ का पालन करें और अपने प्रोजेक्ट में शर्तों को कुशलतापूर्वक लागू करें।
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - condition
 ---
 
 # Conditional Content / Condition in Intlayer

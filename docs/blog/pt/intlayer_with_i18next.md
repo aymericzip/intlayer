@@ -1,3 +1,24 @@
+---
+createdAt: 2024-12-24
+updatedAt: 2025-06-29
+title: Intlayer e i18next
+description: Integre o Intlayer com o i18next para uma internacionalização ideal. Compare os dois frameworks e aprenda como configurá-los juntos.
+keywords:
+  - Intlayer
+  - i18next
+  - Internacionalização
+  - i18n
+  - Localização
+  - Tradução
+  - React
+  - Next.js
+  - JavaScript
+  - TypeScript
+slugs:
+  - blog
+  - intlayer-with-i18next
+---
+
 # Internacionalização com Intlayer e i18next
 
 i18next é um framework de internacionalização (i18n) de código aberto projetado para aplicações JavaScript. É amplamente utilizado para gerenciar traduções, localização e troca de idiomas em projetos de software. No entanto, possui algumas limitações que podem complicar a escalabilidade e o desenvolvimento.

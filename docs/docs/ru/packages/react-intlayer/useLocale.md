@@ -1,50 +1,52 @@
 ---
-docName: package__react-intlayer__useLocale
-url: https://intlayer.org/doc/packages/react-intlayer/useLocale
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Документация hook useLocale | react-intlayer
-description: Узнайте, как использовать hook useLocale для пакета react-intlayer
+updatedAt: 2025-06-29
+title: Документация по хуку useLocale | react-intlayer
+description: Узнайте, как использовать хук useLocale из пакета react-intlayer
 keywords:
   - useLocale
   - словарь
   - ключ
   - Intlayer
-  - интернационализация
+  - Интернационализация
   - Документация
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - useLocale
 ---
 
-# React Интеграция: Документация по хуку `useLocale`
+# Интеграция с React: Документация по хуку `useLocale`
 
-Этот раздел предоставляет подробную информацию о хуке `useLocale` из библиотеки `react-intlayer`, предназначенном для управления локалями в React-приложениях.
+В этом разделе представлены подробные сведения о хуке `useLocale` из библиотеки `react-intlayer`, предназначенном для управления локалями в React-приложениях.
 
-## Импортирование `useLocale` в React
+## Импорт хуков `useLocale` в React
 
 Чтобы интегрировать хук `useLocale` в ваше React-приложение, импортируйте его из соответствующего пакета:
 
 ```typescript codeFormat="typescript"
-import { useLocale } from "react-intlayer"; // Используется в React-компонентах для управления локалями
+import { useLocale } from "react-intlayer"; // Используется в React-компонентах для управления локалью
 ```
 
 ```javascript codeFormat="esm"
-import { useLocale } from "react-intlayer"; // Используется в React-компонентах для управления локалями
+import { useLocale } from "react-intlayer"; // Используется в React-компонентах для управления локалью
 ```
 
 ```javascript codeFormat="commonjs"
-const { useLocale } = require("react-intlayer"); // Используется в React-компонентах для управления локалями
+const { useLocale } = require("react-intlayer"); // Используется в React-компонентах для управления локалью
 ```
 
 ## Обзор
 
-Хук `useLocale` предлагает простой способ доступа и управления настройками локали внутри React-компонентов. Он предоставляет доступ к текущей локали, локали по умолчанию, всем доступным локалям и функциям для обновления настроек локали.
+Хук `useLocale` предоставляет простой способ доступа и управления настройками локали внутри React-компонентов. Он обеспечивает доступ к текущей локали, локали по умолчанию, всем доступным локалям, а также функции для обновления настроек локали.
 
 ## Использование
 
-Вот как можно использовать хук `useLocale` внутри React-компонента:
+Вот как вы можете использовать хук `useLocale` внутри React-компонента:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -121,22 +123,16 @@ export default LocaleSwitcher;
 
 ## Параметры и возвращаемые значения
 
-Когда вы вызываете хук `useLocale`, он возвращает объект, содержащий следующие свойства:
+При вызове хука `useLocale` он возвращает объект, содержащий следующие свойства:
 
 - **`locale`**: Текущая локаль, установленная в контексте React.
-- **`defaultLocale`**: Основная локаль, определенная в конфигурации.
-- **`availableLocales`**: Список всех доступных локалей, определенных в конфигурации.
-- **`setLocale`**: Функция для обновления текущей локали в контексте приложения.
+- **`defaultLocale`**: Основная локаль, определённая в конфигурации.
+- **`availableLocales`**: Список всех доступных локалей, определённых в конфигурации.
 
-## Пример
-
-Этот пример показывает компонент, который использует хук `useLocale` для отображения переключателя локалей, позволяя пользователям динамически изменять локаль приложения:
-
-```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
-import type { FC } from "react";
+```typescript
 import { useLocale } from "react-intlayer";
 
-const LocaleSelector: FC = () => {
+const LocaleSelector = () => {
   const { locale, setLocale, availableLocales } = useLocale();
 
   const handleLocaleChange = (newLocale) => {
@@ -153,6 +149,8 @@ const LocaleSelector: FC = () => {
     </select>
   );
 };
+
+export default LocaleSelector;
 ```
 
 ```jsx fileName="src/components/LocaleSelector.mjx" codeFormat="esm"
@@ -202,3 +200,7 @@ const LocaleSelector = () => {
 ## Заключение
 
 Хук `useLocale` из `react-intlayer` является важным инструментом для управления локалями в ваших React-приложениях, предоставляя функциональность, необходимую для эффективной адаптации вашего приложения к различным международным аудиториям.
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

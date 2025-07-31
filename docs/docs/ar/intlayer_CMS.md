@@ -1,23 +1,25 @@
 ---
-docName: intlayer_CMS
-url: https://intlayer.org/doc/concept/cms
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: محرر المرئي لِانتلاير | تحرير محتوىك باستخدام محرر المرئي
-description: استخرج محتوىك إلى محرر المرئي للمشاركة في المشروع الخاص بك.
+updatedAt: 2025-06-29
+title: نظام إدارة المحتوى Intlayer | استخرج محتواك إلى نظام إدارة المحتوى Intlayer
+description: استخرج محتواك إلى نظام إدارة المحتوى Intlayer لتفويض إدارة المحتوى لفريقك.
 keywords:
-  - محرر
-  - محرر المرئي
+  - نظام إدارة المحتوى
+  - محرر مرئي
   - تدويل
-  - وثائق
+  - توثيق
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - cms
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
-# نظام إدارة المحتوى (CMS) الخاص بـ Intlayer
+# توثيق نظام إدارة المحتوى (CMS) الخاص بـ Intlayer
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
@@ -44,6 +46,8 @@ keywords:
 ## التكامل
 
 لمزيد من التفاصيل حول كيفية تثبيت الحزمة، راجع القسم ذي الصلة أدناه:
+
+### التكامل مع Next.js
 
 ### التكامل مع Next.js
 
@@ -81,6 +85,8 @@ const config: IntlayerConfig = {
      * معرف العميل والسر الخاص بالعميل مطلوبان لتمكين المحرر.
      * يسمحان بتحديد هوية المستخدم الذي يقوم بتحرير المحتوى.
      * يمكن الحصول عليهما عن طريق إنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://intlayer.org/dashboard/projects).
+     * clientId: process.env.INTLAYER_CLIENT_ID,
+     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
     clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
@@ -242,7 +248,7 @@ npx intlayer dictionary push -d my-first-dictionary-key
 npx intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
-يقوم هذا الأمر بتحميل قواميس المحتوى الأولية الخاصة بك، مما يجعلها متاحة لجلبها بشكل غير متزامن وتحريرها من خلال منصة Intlayer.
+يقوم هذا الأمر بتحميل قواميس المحتوى الأولية الخاصة بك، مما يجعلها متاحة للجلب غير المتزامن والتحرير من خلال منصة Intlayer.
 
 ### تحرير القاموس
 
@@ -252,8 +258,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 يستطيع نظام إدارة المحتوى Intlayer إعادة تحميل القواميس تلقائيًا عند اكتشاف تغيير.
 
-بدون إعادة التحميل الفوري، ستكون هناك حاجة إلى إنشاء جديد للتطبيق لعرض المحتوى الجديد.
-
+بدون إعادة التحميل الفوري، سيكون من الضروري إنشاء جديد للتطبيق لعرض المحتوى الجديد.
 من خلال تفعيل إعداد [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration)، سيقوم التطبيق تلقائيًا باستبدال المحتوى المحدث عند اكتشافه.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
@@ -345,3 +350,7 @@ module.exports = config;
 - تأكد من أن تكوين المشروع تم دفعه إلى نظام إدارة المحتوى Intlayer.
 
 - يستخدم المحرر البصري إطار iframe لعرض موقعك. تأكد من أن سياسة أمان المحتوى (CSP) لموقعك تسمح بعنوان URL لنظام إدارة المحتوى كـ `frame-ancestors` ('https://intlayer.org' افتراضيًا). تحقق من وحدة تحكم المحرر لأي أخطاء.
+
+## سجل الوثائق
+
+- 5.5.10 - 2025-06-29: بداية السجل

@@ -1,11 +1,8 @@
 ---
-docName: package__next-intlayer__useIntlayer
-url: https://intlayer.org/doc/packages/next-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: useIntlayerフックのドキュメント | next-intlayer
-description: next-intlayerパッケージのuseIntlayerフックの使い方を見てください
+updatedAt: 2025-06-29
+title: useIntlayer フック ドキュメント | next-intlayer
+description: next-intlayer パッケージの useIntlayer フックの使い方を説明します
 keywords:
   - useIntlayer
   - 辞書
@@ -16,15 +13,20 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useIntlayer
 ---
 
-# Next.js統合: `useIntlayer`フックのドキュメント
+# Next.js 統合: `useIntlayer` フック ドキュメント
 
-`useIntlayer`フックは、Next.jsアプリケーション向けに設計されており、ローカライズされたコンテンツを効率的に取得および管理するためのものです。このドキュメントでは、Next.jsプロジェクト内でフックを利用する方法に焦点を当て、適切なローカライゼーションの実践を確保します。
+`useIntlayer` フックは、Next.js アプリケーション向けに設計されており、ローカライズされたコンテンツを効率的に取得および管理します。このドキュメントでは、Next.js プロジェクト内でのフックの利用方法に焦点を当て、適切なローカリゼーションの実践を保証します。
 
-## Next.jsでの`useIntlayer`のインポート
+## Next.js での `useIntlayer` のインポート
 
-Next.jsアプリケーションでクライアントサイドまたはサーバーサイドのコンポーネントを操作するかに応じて、以下のように`useIntlayer`フックをインポートできます。
+Next.js アプリケーションでクライアントサイドコンポーネントまたはサーバーサイドコンポーネントのどちらを扱っているかに応じて、`useIntlayer` フックを以下のようにインポートできます。
 
 - **クライアントコンポーネント:**
 
@@ -54,20 +56,20 @@ Next.jsアプリケーションでクライアントサイドまたはサーバ�
   const { useIntlayer } = require("next-intlayer/server"); // サーバーサイドコンポーネントで使用
   ```
 
-## パラメータ
+## パラメーター
 
-1. **`key`**: 取得したいコンテンツの辞書キーを示す文字列識別子。
-2. **`locale`** (オプション): 使用する特定のロケール。省略された場合、フックはクライアントまたはサーバーコンテキストで設定されたロケールをデフォルトとして使用します。
+1. **`key`**: 取得したいコンテンツの辞書キーを識別する文字列。
+2. **`locale`**（省略可能）: 使用する特定のロケール。省略した場合、フックはクライアントまたはサーバーのコンテキストで設定されたロケールをデフォルトで使用します。
 
 ## 辞書ファイル
 
-すべてのコンテンツキーがコンテンツ宣言ファイル内で定義されていることが重要です。これにより、ランタイムエラーを防ぎ、型安全性を確保できます。このアプローチは、TypeScript統合を容易にし、コンパイル時の検証を可能にします。
+すべてのコンテンツキーがコンテンツ宣言ファイル内で定義されていることは、ランタイムエラーを防ぎ、型の安全性を確保するために非常に重要です。この方法は、コンパイル時の検証のためにTypeScriptとの統合も容易にします。
 
-コンテンツ宣言ファイルの設定手順については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)をご覧ください。
+コンテンツ宣言ファイルの設定手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)で確認できます。
 
 ## Next.jsでの使用例
 
-以下は、`useIntlayer`フックをNext.jsページ内で実装し、アプリケーションの現在のロケールに基づいてローカライズされたコンテンツを動的にロードする方法です。
+以下は、Next.jsのページ内で`useIntlayer`フックを実装し、アプリケーションの現在のロケールに基づいてローカライズされたコンテンツを動的に読み込む方法です。
 
 ```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import { ClientComponentExample } from "@components/ClientComponentExample";
@@ -242,16 +244,20 @@ const ServerComponentExample = () => {
 };
 ```
 
-## 属性ローカライゼーションの処理
+## 属性のローカライズの取り扱い
 
-`alt`、`title`、`href`、`aria-label`などの属性をローカライズするには、コンテンツを正しく参照してください。
+`alt`、`title`、`href`、`aria-label`などの属性をローカライズするには、コンテンツを正しく参照していることを確認してください：
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
 ```
 
-## 詳細情報
+## さらなる情報
 
-- **Intlayerビジュアルエディタ**: コンテンツ管理を容易にするビジュアルエディタの使用方法については[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
+- **Intlayerビジュアルエディター**: より簡単なコンテンツ管理のためのビジュアルエディターの使い方は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
-このドキュメントは、Next.js環境内での`useIntlayer`フックの使用に特化しており、Next.jsアプリケーション全体でローカライゼーションを管理するための堅牢なソリューションを提供します。
+このドキュメントは、Next.js環境内での`useIntlayer`フックの使用方法を説明しており、Next.jsアプリケーション全体でのローカリゼーション管理に強力なソリューションを提供します。
+
+## ドキュメント履歴
+
+- 5.5.10 - 2025-06-29: 履歴初期化

@@ -23,6 +23,7 @@ export { configuration, getConfiguration, IntlayerConfig };
 export {
   cond,
   enu,
+  gender,
   getDictionary,
   getEnumeration,
   /**
@@ -36,6 +37,7 @@ export {
   getLocaleLang,
   getLocaleName,
   getLocalizedUrl,
+  getMarkdownMetadata,
   getMultilingualUrls,
   getNesting,
   getPathWithoutLocale,

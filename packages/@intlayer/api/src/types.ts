@@ -29,6 +29,7 @@ export type {
   AuditContentDeclarationResult,
   AuditTagBody,
   AuditTagResult,
+  AuthClient,
   AutocompleteBody,
   AutocompleteResponse,
   ChatCompletionRequestMessage,
@@ -58,6 +59,8 @@ export type {
   GetDictionaryQuery,
   GetDictionaryResult,
   GetOAuth2TokenBody,
+  GetOAuth2TokenBody,
+  GetOAuth2TokenResult,
   GetOAuth2TokenResult,
   GetOrganizationParam,
   GetOrganizationResult,
@@ -134,3 +137,11 @@ export type {
   WriteContentDeclarationBody,
   WriteContentDeclarationResult,
 } from 'intlayer-editor';
+
+export type AutocompleteBody = {
+  text: string;
+  aiOptions?: AIOptions;
+  contextBefore?: string;
+  currentLine?: string;
+  contextAfter?: string;
+};

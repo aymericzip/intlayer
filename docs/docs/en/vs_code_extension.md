@@ -1,9 +1,6 @@
 ---
-docName: vscode_extension
-url: https://intlayer.org/doc/vs-code-extension
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md
 createdAt: 2025-03-17
-updatedAt: 2025-03-17
+updatedAt: 2025-06-29
 title: Official VS Code Extension
 description: Learn how to use the Intlayer extension in VS Code to enhance your development workflow. Quickly navigate between localized content and manage your dictionaries efficiently.
 keywords:
@@ -15,6 +12,9 @@ keywords:
   - Next.js
   - JavaScript
   - TypeScript
+slugs:
+  - doc
+  - vs-code-extension
 ---
 
 # Official VS Code Extension
@@ -146,3 +146,9 @@ Found a bug or have a feature request? Open an issue on our **GitHub repository*
 ## License
 
 Intlayer is released under the **MIT License**.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

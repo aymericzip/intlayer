@@ -1,8 +1,6 @@
-'use client';
-
 import type { AddNewAccessKeyResponse } from '@intlayer/backend';
-import { Form, useAuth, useForm } from '@intlayer/design-system';
-import { useAddNewAccessKey } from '@intlayer/design-system/hooks';
+import { Form, useForm } from '@intlayer/design-system';
+import { useAddNewAccessKey, useAuth } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {
@@ -10,25 +8,58 @@ import {
   useAccessKeyCreationSchema,
 } from './useAccessKeyCreationFormSchema';
 
+/**
+ * Form used to create a new access‑key.
+ * Default grants (dictionary:* & project:*) are now checked automatically ‑ even
+ * when the session arrives after the first render.
+ */
+
 type AccessKeyCreationFormProps = {
   onAccessKeyCreated: (response: AddNewAccessKeyResponse) => void;
 };
 
+const isDefaultGrant = (permission: string) =>
+  permission.startsWith('dictionary:') || permission.startsWith('project:');
+
+const getDefaultGrants = (permissions: string[]) =>
+  Object.fromEntries(
+    permissions.map((permission) => [permission, isDefaultGrant(permission)])
+  );
+
 export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   onAccessKeyCreated,
 }) => {
-  const { isOrganizationAdmin, isProjectAdmin } = useAuth();
-  const AccessKeyCreationSchema = useAccessKeyCreationSchema();
+  /** ------------------------------------------------------------------ hooks */
+  const { session } = useAuth();
+
+  // Don’t render the form until the session (and its permissions) is loaded
+  if (!session) return null;
+
+  const permissions = session.permissions ?? [];
   const { addNewAccessKey } = useAddNewAccessKey();
   const { nameInput, expiresAtInput, rights, createAccessKeyButton } =
     useIntlayer('access-key-creation-form');
-  const { form, isSubmitting } = useForm(AccessKeyCreationSchema);
 
+  const AccessKeyCreationSchema = useAccessKeyCreationSchema(permissions);
+
+  const defaultValues = {
+    grants: getDefaultGrants(permissions),
+  };
+
+  const { form, isSubmitting } = useForm(AccessKeyCreationSchema, {
+    defaultValues,
+  });
+
+  /** -------------------------------------------------------- form handlers */
   const onSubmitSuccess = async (data: AccessKeyFormCreationData) => {
-    // Send a request to the backend to create the access key
+    const selectedGrants = Object.entries(data.grants ?? {})
+      .filter(([, granted]) => granted)
+      .map(([permission]) => permission);
+
     await addNewAccessKey({
-      ...data,
+      name: data.name,
       expiresAt: data.expiresAt ? new Date(data.expiresAt) : undefined,
+      grants: selectedGrants,
     }).then(onAccessKeyCreated);
   };
 
@@ -54,98 +85,19 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         min={new Date().toISOString()}
       />
 
-      <div>
+      <div className="flex flex-col justify-center p-3">
         <Form.Label className="w-full" isRequired>
           {rights.label}
         </Form.Label>
-        <table className="w-full">
-          <thead>
-            <tr>
-              <th className="px-4 py-2"></th>
-              <th className="px-4 py-2">{rights.read}</th>
-              <th className="px-4 py-2">{rights.write}</th>
-              <th className="px-4 py-2">{rights.admin}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="w-20 px-4">{rights.dictionary}</td>
-              <td className="w-20 px-4 py-2 text-center">
-                <Form.Checkbox
-                  name="rights.dictionary.read"
-                  color="text"
-                  size="sm"
-                />
-              </td>
-              <td className="w-20 px-4 py-2 text-center">
-                <Form.Checkbox
-                  name="rights.dictionary.write"
-                  size="sm"
-                  color="text"
-                />
-              </td>
-              <td className="w-20 px-4 py-2 text-center">
-                <Form.Checkbox
-                  name="rights.dictionary.admin"
-                  size="sm"
-                  color="text"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="w-20 px-4">{rights.project}</td>
-              <td className="w-20 px-4 py-2 text-center">
-                <Form.Checkbox
-                  name="rights.project.read"
-                  size="sm"
-                  color="text"
-                />
-              </td>
-              <td className="w-20 px-4 py-2 text-center">
-                <Form.Checkbox
-                  name="rights.project.write"
-                  size="sm"
-                  color="text"
-                  disabled={!isProjectAdmin}
-                />
-              </td>
-              <td className="w-20 px-4 py-2 text-center">
-                <Form.Checkbox
-                  name="rights.project.admin"
-                  size="sm"
-                  color="text"
-                  disabled={!isProjectAdmin}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="w-20 px-4">{rights.organization}</td>
-              <td className="w-20 px-4 py-2 text-center">
-                <Form.Checkbox
-                  name="rights.organization.read"
-                  size="sm"
-                  color="text"
-                />
-              </td>
-              <td className="w-20 px-4 py-2 text-center">
-                <Form.Checkbox
-                  name="rights.organization.write"
-                  size="sm"
-                  color="text"
-                  disabled={!isOrganizationAdmin}
-                />
-              </td>
-              <td className="w-20 px-4 py-2 text-center">
-                <Form.Checkbox
-                  name="rights.organization.admin"
-                  size="sm"
-                  color="text"
-                  disabled={!isOrganizationAdmin}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        {permissions.map((permission) => (
+          <Form.Checkbox
+            key={permission}
+            name={`grants.${permission}`}
+            inputLabel={permission.split(':').join(' : ').toUpperCase()}
+            color="text"
+            defaultChecked={isDefaultGrant(permission)}
+          />
+        ))}
       </div>
 
       <Form.Button

@@ -1,30 +1,32 @@
 ---
-docName: dictionary__function_fetching
-url: https://intlayer.org/doc/concept/content/function-fetching
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Recupero Funzione
-description: Scopri come dichiarare e utilizzare il recupero della funzione nel tuo sito web multilingue. Segui i passaggi di questa documentazione online per configurare il tuo progetto in pochi minuti.
+updatedAt: 2025-06-29
+title: Recupero Funzioni
+description: Scopri come dichiarare e utilizzare il recupero di funzioni nel tuo sito web multilingue. Segui i passaggi in questa documentazione online per configurare il tuo progetto in pochi minuti.
 keywords:
-  - Recupero Funzione
+  - Recupero Funzioni
   - Internazionalizzazione
   - Documentazione
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - function-fetching
 ---
 
-# Funzione di Recupero
+# Recupero Funzioni
 
-Intlayer consente di dichiarare funzioni di contenuto nei tuoi moduli di contenuto, che possono essere sincrone o asincrone. Quando l'applicazione viene costruita, Intlayer esegue queste funzioni per ottenere il risultato della funzione. Il valore restituito deve essere un oggetto JSON o un valore semplice come una stringa o un numero.
+Intlayer ti permette di dichiarare funzioni di contenuto nei tuoi moduli di contenuto, che possono essere sia sincrone che asincrone. Quando l'applicazione viene compilata, Intlayer esegue queste funzioni per ottenere il risultato della funzione. Il valore di ritorno deve essere un oggetto JSON o un valore semplice come una stringa o un numero.
 
-> Avviso: il recupero delle funzioni non è attualmente disponibile nella dichiarazione di contenuti JSON e nei file di dichiarazione di contenuti remoti.
+> Attenzione: il recupero di funzioni non è attualmente disponibile nelle dichiarazioni di contenuto JSON e nei file di dichiarazioni di contenuto remoti.
 
 ## Dichiarazioni di Funzioni
 
-Ecco un esempio di una semplice funzione sincrona per il recupero del contenuto:
+Ecco un esempio di una semplice funzione sincrona che recupera contenuto:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import type { Dictionary } from "intlayer";
@@ -73,13 +75,13 @@ module.exports = functionContent;
 }
 ```
 
-In questo esempio, la chiave `text` contiene una funzione che restituisce una stringa. Questo contenuto può essere reso nei tuoi componenti React utilizzando i pacchetti interprete di Intlayer come `react-intlayer`.
+In questo esempio, la chiave `text` contiene una funzione che restituisce una stringa. Questo contenuto può essere reso nei tuoi componenti React utilizzando i pacchetti interpreti di Intlayer come `react-intlayer`.
 
 ## Recupero di Funzioni Asincrone
 
-Oltre alle funzioni sincrone, Intlayer supporta funzioni asincrone, consentendo di recuperare dati da fonti esterne o simulare il recupero di dati con dati mock.
+Oltre alle funzioni sincrone, Intlayer supporta funzioni asincrone, permettendoti di recuperare dati da fonti esterne o simulare il recupero di dati con dati fittizi.
 
-Di seguito è riportato un esempio di una funzione asincrona che simula un recupero dal server:
+Di seguito un esempio di funzione asincrona che simula un recupero da server:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { setTimeout } from "node:timers/promises";
@@ -137,10 +139,10 @@ module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
-Nessun modo per recuperare contenuti da un file JSON, usa un file .ts o .js invece
+Impossibile recuperare contenuti da un file JSON, usa invece un file .ts o .js
 ```
 
-In questo caso, la funzione `fakeFetch` simula un ritardo per simulare il tempo di risposta del server. Intlayer esegue la funzione asincrona e utilizza il risultato come contenuto per la chiave `text`.
+In questo caso, la funzione `fakeFetch` simula un ritardo per imitare il tempo di risposta del server. Intlayer esegue la funzione asincrona e utilizza il risultato come contenuto per la chiave `text`.
 
 ## Utilizzo di Contenuti Basati su Funzioni nei Componenti React
 
@@ -206,3 +208,7 @@ const MyComponent = () => {
 
 module.exports = MyComponent;
 ```
+
+## Cronologia Documentazione
+
+- 5.5.10 - 2025-06-29: Cronologia iniziale

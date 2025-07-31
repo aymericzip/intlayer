@@ -1,10 +1,10 @@
+import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { createI18nextDictionaries } from './convertContentDeclarationInto18nDictionaries';
 import {
   writeDictionary,
   type DictionariesDeclaration,
 } from './writeDictionary';
-import { getConfiguration } from '@intlayer/config';
 
 /**
  * This function transpile content declaration to i18n dictionaries

@@ -1,10 +1,10 @@
 import { logger } from '@logger';
-import type { Request, NextFunction } from 'express';
-import type { ResponseWithInformation } from './sessionAuth.middleware';
+import type { NextFunction, Request } from 'express';
+import { Response } from 'express';
 
 export const logAPIRequestURL = (
   req: Request,
-  res: ResponseWithInformation,
+  res: Response,
   next: NextFunction
 ): void => {
   const queryDetails = {

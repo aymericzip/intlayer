@@ -1,49 +1,70 @@
-# Интеграция React: Документация по хуку `useDictionary`
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: Хук useDictionary - Документация React Intlayer
+description: Полное руководство по использованию хука useDictionary в React-приложениях с Intlayer для эффективной работы с локализованным контентом без визуального редактора.
+keywords:
+  - useDictionary
+  - React
+  - хук
+  - intlayer
+  - локализация
+  - i18n
+  - словарь
+  - перевод
+slugs:
+  - doc
+  - package
+  - react-intlayer
+  - useDictionary
+---
 
-Этот раздел предоставляет подробное руководство по использованию хука `useDictionary` в приложениях React, позволяя эффективно управлять локализованным контентом без визуального редактора.
+# Интеграция с React: Документация по хуку `useDictionary`
 
-## Импорт `useDictionary` в React
+Этот раздел предоставляет подробные инструкции по использованию хука `useDictionary` в React-приложениях, позволяя эффективно работать с локализованным контентом без визуального редактора.
 
-Хук `useDictionary` может быть интегрирован в приложения React путем импорта в зависимости от контекста:
+## Импортирование `useDictionary` в React
+
+Хук `useDictionary` можно интегрировать в React-приложения, импортируя его в зависимости от контекста:
 
 - **Клиентский компонент:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // Используется в клиентских компонентах React
+  import { useDictionary } from "react-intlayer"; // Используется в клиентских React-компонентах
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // Используется в клиентских компонентах React
+  import { useDictionary } from "react-intlayer"; // Используется в клиентских React-компонентах
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // Используется в клиентских компонентах React
+  const { useDictionary } = require("react-intlayer"); // Используется в клиентских React-компонентах
   ```
 
 - **Серверный компонент:**
 
   ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Используется в серверных компонентах React
+  import { useDictionary } from "react-intlayer/server"; // Используется в серверных React-компонентах
   ```
 
   ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Используется в серверных компонентах React
+  import { useDictionary } from "react-intlayer/server"; // Используется в серверных React-компонентах
   ```
 
   ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // Используется в серверных компонентах React
+  const { useDictionary } = require("react-intlayer/server"); // Используется в серверных React-компонентах
   ```
 
 ## Параметры
 
 Хук принимает два параметра:
 
-1. **`dictionary`**: Объявленный объект словаря, содержащий локализованный контент для определенных ключей.
-2. **`locale`** (необязательно): Желаемая локаль. По умолчанию используется локаль текущего контекста, если не указано.
+1. **`dictionary`**: Объявленный объект словаря, содержащий локализованный контент для определённых ключей.
+2. **`locale`** (необязательный): Желаемая локаль. По умолчанию используется локаль текущего контекста.
 
 ## Словарь
 
-Все объекты словаря должны быть объявлены в структурированных файлах контента для обеспечения безопасности типов и предотвращения ошибок во время выполнения. Инструкции по настройке можно найти [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md). Вот пример объявления контента:
+Все объекты словарей должны быть объявлены в структурированных файлах контента для обеспечения типобезопасности и предотвращения ошибок во время выполнения. Вы можете найти [инструкции по настройке здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md). Вот пример объявления контента:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -55,13 +76,11 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      ru: "Пример клиентского компонента",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
-      ru: "Это содержимое примера клиентского компонента",
     }),
   },
 } satisfies Dictionary;
@@ -80,13 +99,11 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      ru: "Пример клиентского компонента",
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
-      ru: "Это содержимое примера клиентского компонента",
     }),
   },
 };
@@ -105,13 +122,13 @@ const componentContent = {
       en: "Client Component Example",
       fr: "Exemple de composant client",
       es: "Ejemplo de componente cliente",
-      ru: "Пример клиентского компонента",
+      ru: "Пример клиентского компонента", // комментарий на русском
     }),
     content: t({
       en: "This is the content of a client component example",
       fr: "Ceci est le contenu d'un exemple de composant client",
       es: "Este es el contenido de un ejemplo de componente cliente",
-      ru: "Это содержимое примера клиентского компонента",
+      ru: "Это содержимое примера клиентского компонента", // комментарий на русском
     }),
   },
 };
@@ -148,7 +165,7 @@ module.exports = componentContent;
 
 ## Пример использования в React
 
-Ниже приведен пример использования хука `useDictionary` в компоненте React:
+Ниже приведён пример использования хука `useDictionary` в React-компоненте:
 
 ```tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -201,7 +218,7 @@ const ComponentExample = () => {
 
 ## Интеграция на сервере
 
-Если вы используете хук `useDictionary` вне `IntlayerProvider`, локаль должна быть явно указана в качестве параметра при рендеринге компонента:
+Если вы используете хук `useDictionary` вне `IntlayerProvider`, локаль должна быть явно передана в качестве параметра при рендеринге компонента:
 
 ```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -252,9 +269,9 @@ const ServerComponentExample = ({ locale }) => {
 };
 ```
 
-## Заметки по атрибутам
+## Примечания по атрибутам
 
-В отличие от интеграций с использованием визуальных редакторов, такие атрибуты, как `buttonTitle.value`, здесь не применяются. Вместо этого напрямую используйте локализованные строки, как они объявлены в вашем контенте.
+В отличие от интеграций с визуальными редакторами, такие атрибуты, как `buttonTitle.value`, здесь не применяются. Вместо этого напрямую обращайтесь к локализованным строкам, как они объявлены в вашем контенте.
 
 ```jsx
 <button title={content.title}>{content.content}</button>
@@ -262,7 +279,11 @@ const ServerComponentExample = ({ locale }) => {
 
 ## Дополнительные советы
 
-- **Безопасность типов**: Всегда используйте `Dictionary` для определения ваших словарей, чтобы обеспечить безопасность типов.
-- **Обновления локализации**: При обновлении контента убедитесь, что все локали согласованы, чтобы избежать отсутствия переводов.
+- **Типобезопасность**: Всегда используйте `Dictionary` для определения ваших словарей, чтобы обеспечить типобезопасность.
+- **Обновления локализации**: При обновлении контента убедитесь, что все локали согласованы, чтобы избежать отсутствующих переводов.
 
-Эта документация сосредоточена на интеграции хука `useDictionary`, предоставляя упрощенный подход к управлению локализованным контентом без использования функционала визуального редактора.
+Данная документация сосредоточена на интеграции хука `useDictionary`, предоставляя упрощённый подход к управлению локализованным контентом без зависимости от функционала визуального редактора.
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

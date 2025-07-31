@@ -3,6 +3,10 @@
     "intlayer": {
       "command": "npx",
       "args": ["-y", "@intlayer/mcp"]
+    },
+    "intlayer-sse": {
+      "transport": "sse",
+      "url": "https://mcp.intlayer.org"
     }
   }
 }

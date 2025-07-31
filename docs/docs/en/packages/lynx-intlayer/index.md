@@ -1,9 +1,6 @@
 ---
-docName: package__lynx-intlayer
-url: https://intlayer.org/doc/packages/lynx-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/lynx-intlayer/index.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
+updatedAt: 2025-06-29
 title: Package Documentation | lynx-intlayer
 description: See how to use the lynx-intlayer package
 keywords:
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - lynx-intlayer
 ---
 
 # lynx-intlayer: Internationalize (i18n) an Lynx application
@@ -76,3 +77,9 @@ Intlayer provides a lot of features to help you internationalize your Vite appli
 - [Intlayer GitHub](https://github.com/aymericzip/intlayer)
 
 - [Ask your questions to our smart documentation](https://intlayer.org/doc/chat)
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

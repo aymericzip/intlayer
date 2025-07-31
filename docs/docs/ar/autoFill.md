@@ -1,26 +1,27 @@
 ---
-docName: autoFill
-url: https://intlayer.org/doc/concept/auto-fill
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md
 createdAt: 2025-03-13
-updatedAt: 2025-03-13
-title: الملء التلقائي
-description: تعلم كيفية استخدام وظيفة الملء التلقائي في Intlayer لملء المحتوى تلقائيًا بناءً على الأنماط المحددة مسبقًا. اتبع هذه الوثيقة لتنفيذ ميزات الملء التلقائي بكفاءة في مشروعك.
+updatedAt: 2025-06-29
+title: التعبئة التلقائية
+description: تعلّم كيفية استخدام وظيفة التعبئة التلقائية في Intlayer لملء المحتوى تلقائيًا بناءً على أنماط محددة مسبقًا. اتبع هذا التوثيق لتنفيذ ميزات التعبئة التلقائية بكفاءة في مشروعك.
 keywords:
-  - الملء التلقائي
+  - التعبئة التلقائية
   - أتمتة المحتوى
-  - محتوى ديناميكي
+  - المحتوى الديناميكي
   - Intlayer
   - Next.js
-  - JavaScript
+  - جافا سكريبت
   - React
+slugs:
+  - doc
+  - concept
+  - auto-fill
 ---
 
-# ملفات إعلان المحتوى المملوءة تلقائياً
+# ملفات إعلان المحتوى بالتعبئة التلقائية
 
-**ملفات إعلان المحتوى المملوءة تلقائياً** هي طريقة لتسريع سير العمل في التطوير.
+**ملفات إعلان المحتوى بالتعبئة التلقائية** هي طريقة لتسريع سير عمل التطوير الخاص بك.
 
-يعمل آلية الملء التلقائي من خلال علاقة _سيد-عبد_ بين ملفات إعلان المحتوى. عندما يتم تحديث الملف الرئيسي (السيد)، سيقوم Intlayer تلقائياً بتطبيق هذه التغييرات على ملفات الإعلان المشتقة (المملوءة تلقائياً).
+The autofill mechanism works through a _master-slave_ relationship between content declaration files. When the main (master) file is updated, Intlayer will automatically apply those changes to the derived (autofilled) declaration files.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -37,15 +38,36 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-هذا هو [ملف إعلان المحتوى لكل لغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) باستخدام تعليمات `autoFill`.
+Here is a [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) using the `autoFill` instruction.
 
-ثم، عندما تقوم بتنفيذ الأمر التالي:
+Then, when you run the following command:
+يعمل آلية التعبئة التلقائية من خلال علاقة _رئيسية-تابعة_ بين ملفات إعلان المحتوى. عندما يتم تحديث الملف الرئيسي (الرئيسي)، سيقوم Intlayer تلقائيًا بتطبيق تلك التغييرات على ملفات الإعلان المشتقة (المعبأة تلقائيًا).
+
+```ts fileName="src/components/example/example.content.ts"
+import { Locales, type Dictionary } from "intlayer";
+
+// تعريف محتوى المثال
+const exampleContent = {
+  key: "example",
+  locale: Locales.ENGLISH, // اللغة الافتراضية
+  autoFill: "./example.content.json", // ملف التعبئة التلقائية المرتبط
+  content: {
+    contentExample: "This is an example of content", // مثال على المحتوى
+  },
+} satisfies Dictionary;
+
+export default exampleContent;
+```
+
+إليك [ملف إعلان محتوى لكل لغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) يستخدم تعليمة `autoFill`.
+
+ثم، عند تشغيل الأمر التالي:
 
 ```bash
 npx intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-سيقوم Intlayer تلقائياً بإنشاء ملف الإعلان المشتق في `src/components/example/example.content.json`، وملء جميع اللغات التي لم يتم الإعلان عنها بعد في الملف الرئيسي.
+سيقوم Intlayer تلقائيًا بإنشاء ملف الإعلان المشتق في `src/components/example/example.content.json`، مع ملء جميع اللغات غير المعلنة بالفعل في الملف الرئيسي.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -62,11 +84,11 @@ npx intlayer fill --file 'src/components/example/example.content.ts'
 }
 ```
 
-بعد ذلك، سيتم دمج ملفي الإعلان في قاموس واحد، يمكن الوصول إليه باستخدام الخطاف القياسي `useIntlayer("example")` (react) / قابل للتكوين (vue).
+بعد ذلك، سيتم دمج كلا ملفي الإعلان في قاموس واحد، يمكن الوصول إليه باستخدام الخطاف القياسي `useIntlayer("example")` (react) / القابل للاستخدام (vue).
 
-## تنسيق الملفات المملوءة تلقائياً
+## تنسيق الملف المعبأ تلقائيًا
 
-التنسيق الموصى به لملفات الإعلان المملوءة تلقائياً هو **JSON**، مما يساعد على تجنب قيود التنسيق. ومع ذلك، يدعم Intlayer أيضاً تنسيقات `.ts`، `.js`، `.mjs`، `.cjs` وغيرها.
+التنسيق الموصى به لملفات إعلان التعبئة التلقائية هو **JSON**، مما يساعد على تجنب قيود التنسيق. ومع ذلك، يدعم Intlayer أيضًا تنسيقات `.ts` و `.js` و `.mjs` و `.cjs` وغيرها.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -78,20 +100,20 @@ const exampleContent = {
 };
 ```
 
-سيقوم هذا بإنشاء الملف في:
+سيتم إنشاء الملف في:
 
 ```
 src/components/example/example.filled.content.ts
 ```
 
-> يعمل إنشاء ملفات `.js`، `.ts` وما شابه ذلك كما يلي:
+> يتم إنشاء ملفات `.js` و `.ts` والملفات المشابهة كما يلي:
 >
-> - إذا كان الملف موجوداً بالفعل، سيقوم Intlayer بتحليله باستخدام AST (شجرة البنية المجردة) لتحديد كل حقل وإدخال الترجمات المفقودة.
-> - إذا لم يكن الملف موجوداً، سيقوم Intlayer بإنشائه باستخدام قالب الإعداد الافتراضي لملفات إعلان المحتوى.
+> - إذا كان الملف موجودًا بالفعل، سيقوم Intlayer بتحليله باستخدام شجرة البنية التجريدية (AST) لتحديد كل حقل وإدخال أي ترجمات مفقودة.
+> - إذا لم يكن الملف موجودًا، فسيقوم Intlayer بإنشائه باستخدام قالب ملف إعلان المحتوى الافتراضي.
 
 ## المسارات المطلقة
 
-يدعم حقل `autoFill` أيضاً المسارات المطلقة.
+يدعم الحقل `autoFill` أيضًا المسارات المطلقة.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -103,15 +125,15 @@ const exampleContent = {
 };
 ```
 
-سيقوم هذا بإنشاء الملف في:
+سيتم إنشاء الملف في:
 
 ```
 /messages/example.content.json
 ```
 
-## إنشاء ملفات إعلان المحتوى لكل لغة تلقائياً
+## التوليد التلقائي لملفات إعلان المحتوى لكل لغة
 
-يدعم حقل `autoFill` أيضاً إنشاء ملفات إعلان المحتوى **لكل لغة**.
+يدعم الحقل `autoFill` أيضًا توليد ملفات إعلان المحتوى **لكل لغة**.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -126,14 +148,14 @@ const exampleContent = {
 };
 ```
 
-سيقوم هذا بإنشاء ملفين منفصلين:
+سيؤدي هذا إلى إنشاء ملفين منفصلين:
 
 - `src/components/example/example.fr.content.json`
 - `src/components/example/example.es.content.json`
 
-## تصفية الملء التلقائي حسب لغة محددة
+## تصفية تعبئة تلقائية للغة محددة
 
-يتيح استخدام كائن لحقل `autoFill` تطبيق المرشحات وإنشاء ملفات لغة محددة فقط.
+استخدام كائن لحقل `autoFill` يسمح لك بتطبيق عوامل تصفية وإنشاء ملفات لغة محددة فقط.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -147,16 +169,16 @@ const exampleContent = {
 };
 ```
 
-سيقوم هذا بإنشاء ملف الترجمة الفرنسية فقط.
+سيؤدي هذا إلى إنشاء ملف الترجمة الفرنسية فقط.
 
 ## متغيرات المسار
 
-يمكنك استخدام متغيرات داخل مسار `autoFill` لحل مسارات الهدف للملفات المنشأة ديناميكياً.
+يمكنك استخدام المتغيرات داخل مسار `autoFill` لحل المسارات المستهدفة للملفات التي تم إنشاؤها بشكل ديناميكي.
 
 **المتغيرات المتاحة:**
 
-- `{{locale}}` – رمز اللغة (مثال: `fr`، `es`)
-- `{{key}}` – مفتاح القاموس (مثال: `example`)
+- `{{locale}}` – رمز اللغة (مثل `fr`، `es`)
+- `{{key}}` – مفتاح القاموس (مثل `example`)
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -168,7 +190,11 @@ const exampleContent = {
 };
 ```
 
-سيقوم هذا بإنشاء:
+سيؤدي هذا إلى إنشاء:
 
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
+
+## تاريخ الوثيقة
+
+- 5.5.10 - 2025-06-29: بداية التاريخ

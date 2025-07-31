@@ -1,0 +1,14 @@
+# This loads nvm.sh and sets the correct PATH before running hook
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+
+# Validate commit message with commitlint
+if ! pnpm exec commitlint --edit "$1"; then
+  echo "Commit message validation failed."
+  echo "Please use the Conventional Commits format:\n"
+  echo "  <type>(<scope>): <subject>\n"
+  echo "Where:\n  <type>   is one of: build, chore, ci, doc, feat, fix, perf, refactor, style, test\n  <scope>  is optional and should be lower-case (e.g., package or feature name)\n  <subject> should be a concise description in the imperative mood (no period at end)\n"
+  echo "Examples:\n  feat(core): add support for custom dictionaries\n  fix(website): correct broken 404 layout\n  chore: update lockfile\n"
+  exit 1
+fi 

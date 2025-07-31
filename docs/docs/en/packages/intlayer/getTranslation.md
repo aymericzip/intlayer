@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getTranslation
-url: https://intlayer.org/doc/packages/intlayer/getTranslation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: getTranslation Function Documentation | intlayer
 description: See how to use the getTranslation function for intlayer package
 keywords:
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getTranslation
 ---
 
 # Documentation: `getTranslationContent` Function in `intlayer`
@@ -184,3 +186,9 @@ console.log(customContent.greeting); // Output: "Bonjour"
   - If a locale is partially defined, the function does not merge contents. It strictly retrieves the value of the specified locale or falls back to the default.
 - **TypeScript Enforcement:**
   - If the locales in `languageContent` do not match the project configuration, TypeScript will enforce all required locales to be defined, ensuring the content is complete and type-safe.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

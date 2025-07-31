@@ -1,11 +1,8 @@
 ---
-docName: package__next-intlayer__t
-url: https://intlayer.org/doc/packages/next-intlayer/t
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/t.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
-title: Dokumentation der t-Funktion | next-intlayer
-description: Erfahren Sie, wie Sie die t-Funktion für das next-intlayer-Paket verwenden
+updatedAt: 2025-06-29
+title: Dokumentation der Funktion t | next-intlayer
+description: Siehe, wie die Funktion t im next-intlayer-Paket verwendet wird
 keywords:
   - t
   - Übersetzung
@@ -16,26 +13,31 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - t
 ---
 
 # Dokumentation: `t` Funktion in `next-intlayer`
 
-Die `t` Funktion im `next-intlayer` Paket ist ein grundlegendes Werkzeug für Inline-Internationalisierung innerhalb Ihrer Next.js-Anwendung. Sie ermöglicht es, Übersetzungen direkt in Ihren Komponenten zu definieren, was es einfach macht, lokalisierte Inhalte basierend auf der aktuellen Sprache anzuzeigen.
+Die `t`-Funktion im `next-intlayer`-Paket ist ein grundlegendes Werkzeug für die Inline-Internationalisierung innerhalb Ihrer Next.js-Anwendung. Sie ermöglicht es Ihnen, Übersetzungen direkt in Ihren Komponenten zu definieren, wodurch es einfach wird, lokalisierten Inhalt basierend auf der aktuellen Sprache anzuzeigen.
 
 ---
 
 ## Überblick
 
-Die `t` Funktion wird verwendet, um Übersetzungen für verschiedene Sprachen direkt in Ihren Komponenten bereitzustellen. Durch die Übergabe eines Objekts, das Übersetzungen für jede unterstützte Sprache enthält, gibt `t` die entsprechende Übersetzung basierend auf dem aktuellen Sprachkontext in Ihrer Next.js-Anwendung zurück.
+Die `t`-Funktion wird verwendet, um Übersetzungen für verschiedene Sprachen direkt in Ihren Komponenten bereitzustellen. Indem Sie ein Objekt übergeben, das Übersetzungen für jede unterstützte Sprache enthält, gibt `t` die passende Übersetzung basierend auf dem aktuellen Sprachkontext in Ihrer Next.js-Anwendung zurück.
 
 ---
 
 ## Hauptmerkmale
 
-- **Inline-Übersetzungen**: Ideal für schnelle, inline Texte, die keine separate Inhaltsdeklaration erfordern.
+- **Inline-Übersetzungen**: Ideal für schnelle, inline-Texte, die keine separate Inhaltsdeklaration erfordern.
 - **Automatische Sprachauswahl**: Gibt automatisch die Übersetzung zurück, die der aktuellen Sprache entspricht.
-- **TypeScript-Unterstützung**: Bietet Typsicherheit und Autovervollständigung bei der Verwendung mit TypeScript.
-- **Einfache Integration**: Funktioniert nahtlos in sowohl Client- als auch Server-Komponenten in Next.js.
+- **TypeScript-Unterstützung**: Bietet Typsicherheit und Autovervollständigung bei Verwendung mit TypeScript.
+- **Einfache Integration**: Funktioniert nahtlos sowohl in Client- als auch in Server-Komponenten in Next.js.
 
 ---
 
@@ -47,11 +49,11 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### Parameter
 
-- `translations`: Ein Objekt, bei dem die Schlüssel Sprachcodes (z. B. `en`, `fr`, `es`) und die Werte die entsprechenden übersetzten Zeichenketten sind.
+- `translations`: Ein Objekt, bei dem die Schlüssel Sprachcodes (z. B. `en`, `fr`, `es`) sind und die Werte die entsprechenden übersetzten Strings.
 
 ### Rückgabewert
 
-- Eine Zeichenkette, die den übersetzten Inhalt für die aktuelle Sprache darstellt.
+- Ein String, der den übersetzten Inhalt für die aktuelle Sprache repräsentiert.
 
 ---
 
@@ -59,7 +61,7 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### Verwendung von `t` in einer Client-Komponente
 
-Stellen Sie sicher, dass Sie die Direktive `'use client';` am Anfang Ihrer Komponentendatei einfügen, wenn Sie `t` in einer Client-seitigen Komponente verwenden.
+Stellen Sie sicher, dass Sie die Direktive `'use client';` am Anfang Ihrer Komponenten-Datei einfügen, wenn Sie `t` in einer Client-Komponente verwenden.
 
 ```tsx codeFormat="typescript"
 "use client";
@@ -153,7 +155,8 @@ const ServerComponentExample = () => (
 
 ### Inline-Übersetzungen in Attributen
 
-Die `t` Funktion ist besonders nützlich für Inline-Übersetzungen in JSX-Attributen. Beim Lokalisieren von Attributen wie `alt`, `title`, `href` oder `aria-label` können Sie `t` direkt innerhalb des Attributs verwenden.
+Die Funktion `t` ist besonders nützlich für Inline-Übersetzungen in JSX-Attributen.
+Beim Lokalisieren von Attributen wie `alt`, `title`, `href` oder `aria-label` können Sie `t` direkt innerhalb des Attributs verwenden.
 
 ```jsx
 <button
@@ -181,11 +184,11 @@ Die `t` Funktion ist besonders nützlich für Inline-Übersetzungen in JSX-Attri
 
 ---
 
-## Erweiterte Themen
+## Fortgeschrittene Themen
 
 ### TypeScript-Integration
 
-Die `t` Funktion ist typsicher, wenn sie mit TypeScript verwendet wird, und stellt sicher, dass alle erforderlichen Sprachen bereitgestellt werden.
+Die Funktion `t` ist typensicher, wenn sie mit TypeScript verwendet wird, und stellt sicher, dass alle erforderlichen Sprachversionen bereitgestellt werden.
 
 ```typescript codeFormat="typescript"
 import type { IConfigLocales } from "intlayer";
@@ -227,9 +230,9 @@ const translations = {
 const greeting = t(translations);
 ```
 
-### Spracherkennung und Kontext
+### Lokalerkennung und Kontext
 
-In `next-intlayer` wird die aktuelle Sprache über Kontextanbieter verwaltet: `IntlayerClientProvider` und `IntlayerServerProvider`. Stellen Sie sicher, dass diese Anbieter Ihre Komponenten umschließen und die `locale` Eigenschaft korrekt übergeben wird.
+In `next-intlayer` wird die aktuelle Locale über Kontext-Provider verwaltet: `IntlayerClientProvider` und `IntlayerServerProvider`. Stellen Sie sicher, dass diese Provider Ihre Komponenten umschließen und die `locale`-Eigenschaft korrekt übergeben wird.
 
 #### Beispiel:
 
@@ -276,19 +279,19 @@ const Page = ({ locale }) => (
 
 ---
 
-## Häufige Fehler und Fehlerbehebung
+## Häufige Fehler und Problemlösungen
 
-### `t` gibt undefiniert oder falsche Übersetzung zurück
+### `t` Gibt Undefined oder falsche Übersetzung zurück
 
-- **Ursache**: Die aktuelle Sprache ist nicht richtig eingestellt, oder die Übersetzung für die aktuelle Sprache fehlt.
+- **Ursache**: Die aktuelle Locale ist nicht korrekt gesetzt oder die Übersetzung für die aktuelle Locale fehlt.
 - **Lösung**:
-  - Überprüfen Sie, ob der `IntlayerClientProvider` oder `IntlayerServerProvider` korrekt mit der entsprechenden `locale` eingerichtet ist.
-  - Stellen Sie sicher, dass Ihr Übersetzungsobjekt alle erforderlichen Sprachen enthält.
+  - Überprüfen Sie, ob der `IntlayerClientProvider` oder `IntlayerServerProvider` korrekt mit der passenden `locale` eingerichtet ist.
+  - Stellen Sie sicher, dass Ihr Übersetzungsobjekt alle notwendigen Locales enthält.
 
 ### Fehlende Übersetzungen in TypeScript
 
-- **Ursache**: Das Übersetzungsobjekt erfüllt nicht die erforderlichen Sprachen, was zu TypeScript-Fehlern führt.
-- **Lösung**: Verwenden Sie den Typ `IConfigLocales`, um die Vollständigkeit Ihrer Übersetzungen zu erzwingen.
+- **Ursache**: Das Übersetzungsobjekt erfüllt nicht die erforderlichen Locales, was zu TypeScript-Fehlern führt.
+- **Lösung**: Verwenden Sie den Typ `IConfigLocales`, um die Vollständigkeit Ihrer Übersetzungen sicherzustellen.
 
 ```typescript codeFormat="typescript"
 const translations: IConfigLocales<string> = {
@@ -325,21 +328,25 @@ const text = t(translations);
 
 ---
 
-## Tipps für effektive Nutzung
+## Tipps für eine effektive Nutzung
 
-1. **Verwenden Sie `t` für einfache Inline-Übersetzungen**: Ideal zum Übersetzen kleiner Textstücke direkt in Ihren Komponenten.
-2. **Bevorzugen Sie `useIntlayer` für strukturierte Inhalte**: Für komplexere Übersetzungen und Inhaltswiederverwendung definieren Sie Inhalte in Deklarationsdateien und verwenden Sie `useIntlayer`.
-3. **Konsistente Sprachbereitstellung**: Stellen Sie sicher, dass Ihre Sprache konsistent über die entsprechenden Anbieter in Ihrer Anwendung bereitgestellt wird.
-4. **Nutzen Sie TypeScript**: Verwenden Sie TypeScript-Typen, um fehlende Übersetzungen zu erkennen und Typsicherheit zu gewährleisten.
+1. **Verwenden Sie `t` für einfache Inline-Übersetzungen**: Ideal, um kleine Textstücke direkt in Ihren Komponenten zu übersetzen.
+2. **Bevorzugen Sie `useIntlayer` für strukturierte Inhalte**: Für komplexere Übersetzungen und die Wiederverwendung von Inhalten definieren Sie Inhalte in Deklarationsdateien und verwenden Sie `useIntlayer`.
+3. **Konsistente Bereitstellung der Locale**: Stellen Sie sicher, dass Ihre Locale in Ihrer gesamten Anwendung durch die entsprechenden Provider konsistent bereitgestellt wird.
+4. **Nutzen Sie TypeScript**: Verwenden Sie TypeScript-Typen, um fehlende Übersetzungen zu erkennen und Typensicherheit zu gewährleisten.
 
 ---
 
 ## Fazit
 
-Die `t` Funktion in `next-intlayer` ist ein leistungsstarkes und praktisches Werkzeug zur Verwaltung von Inline-Übersetzungen in Ihren Next.js-Anwendungen. Durch eine effektive Integration verbessern Sie die Internationalisierungsfähigkeiten Ihrer App und bieten eine bessere Benutzererfahrung weltweit.
+Die `t`-Funktion in `next-intlayer` ist ein leistungsstarkes und praktisches Werkzeug zur Verwaltung von Inline-Übersetzungen in Ihren Next.js-Anwendungen. Durch eine effektive Integration verbessern Sie die Internationalisierungsfähigkeiten Ihrer App und bieten Nutzern weltweit ein besseres Erlebnis.
 
-Für detailliertere Nutzung und erweiterte Funktionen lesen Sie die [next-intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
+Für eine detailliertere Nutzung und erweiterte Funktionen verweisen wir auf die [next-intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md).
 
 ---
 
-**Hinweis**: Denken Sie daran, Ihre `IntlayerClientProvider` und `IntlayerServerProvider` ordnungsgemäß einzurichten, um sicherzustellen, dass die aktuelle Sprache korrekt an Ihre Komponenten weitergegeben wird. Dies ist entscheidend, damit die `t` Funktion die richtigen Übersetzungen zurückgibt.
+**Hinweis**: Denken Sie daran, Ihren `IntlayerClientProvider` und `IntlayerServerProvider` korrekt einzurichten, um sicherzustellen, dass die aktuelle Locale korrekt an Ihre Komponenten weitergegeben wird. Dies ist entscheidend dafür, dass die `t`-Funktion die richtigen Übersetzungen zurückgibt.
+
+## Dokumentationshistorie
+
+- 5.5.10 - 2025-06-29: Initiale Historie

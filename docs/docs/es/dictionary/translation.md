@@ -1,11 +1,8 @@
 ---
-docName: dictionary__translation
-url: https://intlayer.org/doc/concept/content/translation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/translation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Traducción
-description: Descubra cómo declarar y usar la traducción en su sitio web multilingüe. Siga los pasos de esta documentación en línea para configurar su proyecto en unos minutos.
+description: Descubre cómo declarar y usar traducción en tu sitio web multilingüe. Sigue los pasos en esta documentación en línea para configurar tu proyecto en pocos minutos.
 keywords:
   - Traducción
   - Internacionalización
@@ -14,17 +11,20 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - translation
 ---
 
 # Traducción
 
 ## Definiendo Traducciones
 
-La función `t` en `intlayer` te permite declarar contenido en múltiples idiomas. Esta función asegura la seguridad de tipos, generando un error si faltan traducciones, lo cual es particularmente útil en entornos TypeScript.
+La función `t` en `intlayer` te permite declarar contenido en múltiples idiomas. Esta función garantiza la seguridad de tipos, generando un error si falta alguna traducción, lo cual es especialmente útil en entornos TypeScript.
 
-### Usando TypeScript
-
-Aquí hay un ejemplo de cómo declarar contenido con traducciones.
+Aquí tienes un ejemplo de cómo declarar contenido con traducciones.
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -92,7 +92,7 @@ module.exports = {
 }
 ```
 
-## Configuración para Locales
+## Configuración de Locales
 
 Para asegurar un manejo adecuado de las traducciones, puedes configurar los locales aceptados en `intlayer.config.ts`. Esta configuración te permite definir los idiomas que tu aplicación soporta:
 
@@ -134,9 +134,9 @@ const config = {
 module.exports = config;
 ```
 
-## Usando Traducciones en Componentes React
+## Uso de Traducciones en Componentes React
 
-Con `react-intlayer`, puedes usar traducciones en componentes React. Aquí hay un ejemplo:
+Con `react-intlayer`, puedes usar traducciones en componentes React. Aquí tienes un ejemplo:
 
 ```jsx fileName="**/*.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -187,11 +187,11 @@ const MyComponent = () => {
 module.exports = MyComponent;
 ```
 
-Este componente obtiene la traducción correspondiente basada en el locale actual configurado en tu aplicación.
+Este componente obtiene la traducción correspondiente según la configuración de la localidad actual en su aplicación.
 
 ## Objetos de Contenido Personalizados
 
-`intlayer` soporta objetos de contenido personalizados para traducción, permitiéndote definir estructuras más complejas mientras asegura la seguridad de tipos. Aquí hay un ejemplo con un objeto personalizado:
+`intlayer` soporta objetos de contenido personalizados para la traducción, permitiéndole definir estructuras más complejas mientras asegura la seguridad de tipos. Aquí hay un ejemplo con un objeto personalizado:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -235,8 +235,8 @@ export default {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "Título de la Página",
+          content: "Contenido de la Página",
         },
         fr: {
           title: "Titre de la Page",
@@ -262,8 +262,8 @@ module.exports = {
       ICustomContent >
       {
         en: {
-          title: "Page Title",
-          content: "Page Content",
+          title: "Título de la Página",
+          content: "Contenido de la Página",
         },
         fr: {
           title: "Titre de la Page",
@@ -287,8 +287,8 @@ module.exports = {
       "nodeType": "translation",
       "translation": {
         "en": {
-          "title": "Page Title",
-          "content": "Page Content"
+          "title": "Título de la Página",
+          "content": "Contenido de la Página"
         },
         "fr": {
           "title": "Titre de la Page",
@@ -303,3 +303,7 @@ module.exports = {
   }
 }
 ```
+
+## Historial de Documentación
+
+- 5.5.10 - 2025-06-29: Historial inicial

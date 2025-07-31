@@ -1,11 +1,8 @@
 ---
-docName: package__intlayer__getTranslation
-url: https://intlayer.org/doc/packages/intlayer/getTranslation
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getTranslation.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Documentation de la fonction getTranslation | intlayer
-description: Découvrez commengetTranslation utiliser la fonction getTranslation pour le package intlayer
+description: Découvrez comment utiliser la fonction getTranslation pour le package intlayer
 keywords:
   - getTranslation
   - traduction
@@ -16,9 +13,14 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getTranslation
 ---
 
-# Documentation: Fonction `getTranslationContent` dans `intlayer`
+# Documentation : Fonction `getTranslationContent` dans `intlayer`
 
 ## Description
 
@@ -28,16 +30,16 @@ La fonction `getTranslationContent` récupère le contenu correspondant à une l
 
 - `languageContent: CustomizableLanguageContent<Content>`
 
-  - **Description** : Un objet contenant les traductions pour diverses locales. Chaque clé représente une locale, et sa valeur est le contenu correspondant.
+  - **Description** : Un objet contenant les traductions pour différentes locales. Chaque clé représente une locale, et sa valeur est le contenu correspondant.
   - **Type** : `CustomizableLanguageContent<Content>`
-    - `Content` peut être de n'importe quel type, par défaut `string`.
+    - `Content` peut être de n'importe quel type, avec `string` comme valeur par défaut.
 
 - `locale: Locales`
 
   - **Description** : La locale pour laquelle le contenu doit être récupéré.
   - **Type** : `Locales`
 
-## Retours
+## Retour
 
 - **Type** : `Content`
 - **Description** : Le contenu correspondant à la locale spécifiée. Si la locale n'est pas trouvée, le contenu de la locale par défaut est retourné.
@@ -57,7 +59,7 @@ const content = getTranslationContent(
   Locales.ENGLISH
 );
 
-console.log(content); // Résultat : "Bonjour"
+console.log(content); // Sortie : "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
@@ -71,7 +73,7 @@ const content = getTranslationContent(
   Locales.ENGLISH
 );
 
-console.log(content); // Résultat : "Bonjour"
+console.log(content); // Sortie : "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -85,7 +87,7 @@ const content = getTranslationContent(
   Locales.ENGLISH
 );
 
-console.log(content); // Résultat : "Bonjour"
+console.log(content); // Sortie : "Bonjour"
 ```
 
 ### Locale manquante :
@@ -101,7 +103,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Résultat : "Hello" (contenu de la locale par défaut)
+console.log(content); // Sortie : "Hello" (contenu de la locale par défaut)
 ```
 
 ```javascript codeFormat="esm"
@@ -115,7 +117,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Résultat : "Hello" (contenu de la locale par défaut)
+console.log(content); // Sortie : "Hello" (contenu de la locale par défaut)
 ```
 
 ```javascript codeFormat="commonjs"
@@ -129,7 +131,7 @@ const content = getTranslationContent(
   Locales.SPANISH
 );
 
-console.log(content); // Résultat : "Hello" (contenu de la locale par défaut)
+console.log(content); // Sortie : "Hello" (contenu de la locale par défaut)
 ```
 
 ### Utilisation de types de contenu personnalisés :
@@ -145,7 +147,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Résultat : "Bonjour"
+console.log(customContent.greeting); // Sortie : "Bonjour"
 ```
 
 ```javascript codeFormat="esm"
@@ -159,7 +161,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Résultat : "Bonjour"
+console.log(customContent.greeting); // Sortie : "Bonjour"
 ```
 
 ```javascript codeFormat="commonjs"
@@ -173,7 +175,7 @@ const customContent = getTranslationContent<Record<string, string>>(
   Locales.FRENCH
 );
 
-console.log(customContent.greeting); // Résultat : "Bonjour"
+console.log(customContent.greeting); // Sortie : "Bonjour"
 ```
 
 ## Cas particuliers
@@ -182,5 +184,9 @@ console.log(customContent.greeting); // Résultat : "Bonjour"
   - Lorsque la `locale` n'est pas trouvée dans le `languageContent`, la fonction retourne le contenu de la locale par défaut.
 - **Contenu linguistique incomplet :**
   - Si une locale est partiellement définie, la fonction ne fusionne pas les contenus. Elle récupère strictement la valeur de la locale spécifiée ou revient à la valeur par défaut.
-- **Application stricte de TypeScript :**
-  - Si les locales dans `languageContent` ne correspondent pas à la configuration du projet, TypeScript imposera que toutes les locales requises soient définies, garantissant que le contenu est complet et conforme au typage.
+- **Application de TypeScript :**
+  - Si les locales dans `languageContent` ne correspondent pas à la configuration du projet, TypeScript exigera que toutes les locales requises soient définies, garantissant ainsi que le contenu est complet et sûr au niveau du typage.
+
+## Historique de la documentation
+
+- 5.5.10 - 2025-06-29 : Historique initial

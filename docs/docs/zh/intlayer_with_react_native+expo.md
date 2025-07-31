@@ -1,23 +1,42 @@
-# 开始使用 Intlayer 和 React Native 进行国际化 (i18n)
+---
+createdAt: 2025-06-18
+updatedAt: 2025-06-29
+title: 翻译你的 React Native 和 Expo 网站（i18n）
+description: 了解如何使你的 React Native 和 Expo 网站支持多语言。按照文档进行国际化（i18n）和翻译。
+keywords:
+  - 国际化
+  - 文档
+  - Intlayer
+  - React Native
+  - Expo
+  - JavaScript
+slugs:
+  - doc
+  - environment
+  - react-native-and-expo
+applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
+---
 
-Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-react-native-template) на GitHub.
+# 使用 Intlayer 和 React Native 开始国际化（i18n）
+
+请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-react-native-template)。
 
 ## 什么是 Intlayer？
 
-**Intlayer** 是一个**创新的开源国际化 (i18n) 库**，简化了现代应用程序中的多语言支持。它适用于许多 JavaScript/TypeScript 环境，**包括 React Native**（通过 `react-intlayer` 包）。
+**Intlayer** 是一个**创新的开源国际化（i18n）库**，简化了现代应用中的多语言支持。它适用于多种 JavaScript/TypeScript 环境，**包括 React Native**（通过 `react-intlayer` 包）。
 
-使用 Intlayer，您可以：
+使用 Intlayer，你可以：
 
-- **轻松管理翻译**，使用组件级别的声明式字典。
-- **确保 TypeScript 支持**，通过自动生成的类型。
-- **动态本地化**内容，包括 **UI 字符串**（在 Web 的 React 中，它还可以本地化 HTML 元数据等）。
-- **受益于高级功能**，如动态语言检测和切换。
+- **通过声明式字典在组件级别轻松管理翻译**。
+- **通过自动生成的类型确保 TypeScript 支持**。
+- **动态本地化**内容，包括**UI 字符串**（在 React Web 中，还可以本地化 HTML 元数据等）。
+- **享受高级功能**，如动态语言环境检测和切换。
 
 ---
 
-## 第一步：安装依赖项
+## 第一步：安装依赖
 
-在您的 React Native 项目中，安装以下包：
+在你的 React Native 项目中，安装以下包：
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -37,21 +56,24 @@ yarn add --save-dev react-native-intlayer
 ### 包说明
 
 - **intlayer**  
-  核心 i18n 工具包，用于配置、字典内容、类型生成和 CLI 命令。
+  核心的国际化工具包，用于配置、词典内容、类型生成和命令行工具。
 
 - **react-intlayer**  
-  React 集成，提供上下文提供者和 React 钩子，您将在 React Native 中使用它们来获取和切换语言。
+  React 集成，提供上下文提供者和 React 钩子，供你在 React Native 中获取和切换语言环境。
 
 - **react-native-intlayer**  
-  React Native 集成，提供 Metro 插件，用于将 Intlayer 与 React Native 打包器集成。
+  React Native 集成，提供 Metro 插件，用于将 Intlayer 集成到 React Native 打包工具中。
 
 ---
 
-## 第二步：创建 Intlayer 配置
+## 第二步：创建 Intlayer 配置文件
 
-在您的项目根目录（或任何方便的位置）创建一个 **Intlayer 配置**文件。它可能如下所示：
+在你的项目根目录（或任何方便的位置），创建一个 **Intlayer 配置** 文件。它可能看起来像这样：
 
 ```ts fileName="intlayer.config.ts" codeFormat="typescript"
+/**
+ * 如果 Locales 类型不可用，尝试在你的 tsconfig.json 中将 moduleResolution 设置为 "bundler"
+ */
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -60,7 +82,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // ... 添加您需要的其他语言
+      // ... 添加你需要的其他语言环境
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -79,7 +101,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // ... 添加您需要的其他语言
+      // ... 添加你需要的其他语言环境
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -105,13 +127,13 @@ module.exports = config;
 在此配置中，您可以：
 
 - 配置您的**支持语言列表**。
-- 设置一个**默认**语言。
-- 以后，您可以添加更高级的选项（例如日志、自定义内容目录等）。
-- 查看 [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 了解更多信息。
+- 设置一个**默认**语言环境。
+- 以后，您可以添加更高级的选项（例如，日志、自定义内容目录等）。
+- 更多信息请参见[Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-## 第三步：添加 Metro 插件
+## 第3步：添加 Metro 插件
 
-Metro 是 React Native 的打包器。它是通过 `react-native init` 命令创建的 React Native 项目的默认打包器。要在 Metro 中使用 Intlayer，您需要将插件添加到您的 `metro.config.js` 文件中：
+Metro 是 React Native 的打包工具。它是通过 `react-native init` 命令创建的 React Native 项目的默认打包工具。要在 Metro 中使用 Intlayer，您需要将插件添加到您的 `metro.config.js` 文件中：
 
 ```js fileName="metro.config.js"
 const { getDefaultConfig } = require("expo/metro-config");
@@ -124,11 +146,28 @@ module.exports = (async () => {
 })();
 ```
 
-## 第四步：添加 Intlayer 提供者
+## 第4步：添加 Intlayer 提供者
 
-为了在您的应用程序中同步用户语言，您需要使用 `react-intlayer` 中的 `IntlayerProvider` 组件包装您的根组件。
+为了在整个应用程序中保持用户语言的同步，您需要使用 `react-intlayer` 中的 `IntlayerProvider` 组件包裹您的根组件。
 
-将您的**根**或顶级组件用 `react-intlayer` 中的 `IntlayerProvider` 包装。
+此外，您还需要在 `index.js` 文件中添加 `intlayerPolyfill` 函数，以确保 Intlayer 能够正常工作。
+
+````tsx fileName="app/_layout.tsx" codeFormat="typescript"
+import { Stack } from "expo-router";
+import { getLocales } from "expo-localization";
+import { IntlayerProviderContent } from "react-intlayer";
+import { intlayerPolyfill } from "react-native-intlayer";
+import { type FC } from "react";
+
+intlayerPolyfill();
+
+const getDeviceLocale = () => getLocales()[0]?.languageTag;
+
+const RootLayout: FC = () => {
+  return (
+    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
+      <Stack>
+为了在您的应用程序中保持用户语言的同步，您需要使用来自 `react-intlayer` 的 `IntlayerProvider` 组件包裹您的根组件。
 
 此外，您需要在 `index.js` 文件中添加 `intlayerPolyfill` 函数，以确保 Intlayer 能够正常工作。
 
@@ -154,7 +193,7 @@ const RootLayout: FC = () => {
 };
 
 export default RootLayout;
-```
+````
 
 ```jsx fileName="app/_layout.mjx" codeFormat="esm"
 import { Stack } from "expo-router";
@@ -202,9 +241,37 @@ const RootLayout = () => {
 module.exports = RootLayout;
 ```
 
-## 第五步：声明您的内容
+## 第5步：声明您的内容
 
-在项目中的任何位置创建**内容声明**文件（通常在 `src/` 中），使用 Intlayer 支持的任何扩展格式：
+````
+
+```jsx fileName="app/_layout.cjx" codeFormat="commonjs"
+const { Stack } = require("expo-router");
+const { getLocales } = require("expo-localization");
+const { IntlayerProviderContent } = require("react-intlayer");
+const { intlayerPolyfill } = require("react-native-intlayer");
+
+intlayerPolyfill();
+
+// 获取设备的语言环境
+const getDeviceLocale = () => getLocales()[0]?.languageTag;
+
+const RootLayout = () => {
+  return (
+    <IntlayerProviderContent defaultLocale={getDeviceLocale()}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </IntlayerProviderContent>
+  );
+};
+
+module.exports = RootLayout;
+````
+
+## 第5步：声明您的内容
+
+在项目中的任意位置（通常在 `src/` 目录下）创建**内容声明**文件，使用 Intlayer 支持的任何扩展名格式：
 
 - `.content.json`
 - `.content.ts`
@@ -217,7 +284,7 @@ module.exports = RootLayout;
 - `.content.cjx`
 - 等等。
 
-示例（使用 TSX 节点的 TypeScript，适用于 React Native）：
+示例（使用带有 React Native TSX 节点的 TypeScript）：
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -232,7 +299,6 @@ const homeScreenContent = {
   key: "home-screen",
   content: {
     title: t({
-      zh: "欢迎！",
       en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
@@ -252,7 +318,6 @@ const appContent = {
   key: "home-screen",
   content: {
     title: t({
-      zh: "欢迎！",
       en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
@@ -271,7 +336,6 @@ const appContent = {
   key: "home-screen",
   content: {
     title: t({
-      zh: "欢迎！",
       en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
@@ -289,8 +353,7 @@ module.exports = appContent;
   "content": {
     "title": {
       "nodeType": "translation",
-
-        "zh": "欢迎！",
+      "translation": {
         "en": "Welcome!",
         "fr": "Bienvenue!",
         "es": "¡Bienvenido!"
@@ -300,19 +363,19 @@ module.exports = appContent;
 }
 ```
 
-> 有关内容声明的详细信息，请参阅 [Intlayer 的内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
+> 有关内容声明的详细信息，请参阅 [Intlayer 内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
 
 ---
 
-## 第 4 步：在组件中使用 Intlayer
+## 第4步：在组件中使用 Intlayer
 
-使用 `react-intlayer` 的 `IntlayerProvider` 包裹您的 **根** 或顶级组件。然后，在子组件中使用 `useIntlayer` 钩子获取本地化内容。
+在子组件中使用 `useIntlayer` 钩子以获取本地化内容。
 
 ### 示例
 
 ```tsx fileName="app/(tabs)/index.tsx" codeFormat="typescript"
 import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer } from "intlayer";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -342,9 +405,9 @@ const HomeScreen = (): FC => {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
+    flexDirection: "row", // 横向排列
+    alignItems: "center", // 垂直居中对齐
+    gap: 8, // 元素间距为8
   },
 });
 
@@ -422,86 +485,163 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
+    flexDirection: "row", // 水平排列
+    alignItems: "center", // 垂直居中对齐
+    gap: 8, // 元素间距为8
   },
 });
 
 module.exports = HomeScreen;
 ```
 
-> 当在字符串属性（例如按钮的 `title` 或 `Text` 组件的 `children`）中使用 `content.someKey` 时，**调用 `content.someKey.value`** 来获取实际的字符串。
+> 当在基于字符串的属性中使用 `content.someKey`（例如按钮的 `title` 或 `Text` 组件的 `children`）时，**请调用 `content.someKey.value`** 来获取实际的字符串。
 
 ---
 
-## （可选）第 5 步：更改应用程序语言环境
+## （可选）步骤 5：更改应用程序语言环境
 
-要在组件中切换语言环境，可以使用 `useLocale` 钩子的 `setLocale` 方法：
+要在组件内部切换语言环境，可以使用 `useLocale` 钩子的 `setLocale` 方法：
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { type FC } from "react";
-import { Button } from "react-native";
-import { Locales } from "intlayer";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
 export const LocaleSwitcher: FC = () => {
-  const { setLocale } = useLocale();
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="切换到法语"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row", // 容器内元素横向排列
+    justifyContent: "center", // 水平居中对齐
+    alignItems: "center", // 垂直居中对齐
+    gap: 8, // 元素间距为8
+  },
+  button: {
+    paddingVertical: 6, // 垂直内边距6
+    paddingHorizontal: 12, // 水平内边距12
+    borderRadius: 6, // 边角圆角半径6
+    backgroundColor: "#ddd", // 背景颜色为浅灰色
+  },
+  text: {
+    fontSize: 14, // 字体大小14
+    fontWeight: "500", // 字体粗细500
+    color: "#333", // 文字颜色深灰
+  },
+});
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { Locales } from "intlayer";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
+export const LocaleSwitcher = () => {
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="切换到法语"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row", // 容器内元素横向排列
+    justifyContent: "center", // 水平居中对齐
+    alignItems: "center", // 垂直居中对齐
+    gap: 8, // 元素间距为8
+  },
+  button: {
+    paddingVertical: 6, // 垂直内边距6
+    paddingHorizontal: 12, // 水平内边距12
+    borderRadius: 6, // 边角圆角半径6
+    backgroundColor: "#ddd", // 背景颜色为浅灰色
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+const { View, Text, TouchableOpacity, StyleSheet } = require("react-native");
+const { getLocaleName } = require("intlayer");
 const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="切换到法语"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
-这将触发所有使用 Intlayer 内容的组件重新渲染，并显示新语言环境的翻译。
+这会触发所有使用 Intlayer 内容的组件重新渲染，现在显示新语言环境的翻译内容。
 
-> 有关更多详细信息，请参阅 [`useLocale` 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
+> 详情请参见 [`useLocale` 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
 
 ## 配置 TypeScript（如果您使用 TypeScript）
 
-Intlayer 会在一个隐藏文件夹中生成类型定义（默认是 `.intlayer`），以改进自动补全并捕获翻译错误：
+Intlayer 会在一个隐藏文件夹中（默认是 `.intlayer`）生成类型定义，以提升自动补全功能并捕获翻译错误：
 
 ```json5
 // tsconfig.json
@@ -510,7 +650,7 @@ Intlayer 会在一个隐藏文件夹中生成类型定义（默认是 `.intlayer
   "include": [
     "src", // 您的源代码
     ".intlayer/types/**/*.ts", // <-- 确保包含自动生成的类型
-    // ... 其他您已经包含的内容
+    // ... 您已经包含的其他内容
   ],
 }
 ```
@@ -518,25 +658,48 @@ Intlayer 会在一个隐藏文件夹中生成类型定义（默认是 `.intlayer
 这使得以下功能成为可能：
 
 - **自动补全** 您的字典键。
-- **类型检查**，当访问不存在的键或类型不匹配时发出警告。
+- **类型检查**，如果访问不存在的键或类型不匹配，会发出警告。
 
 ---
 
 ## Git 配置
 
-为了避免提交由 Intlayer 自动生成的文件，请将以下内容添加到 `.gitignore` 中：
+为了避免提交 Intlayer 自动生成的文件，请将以下内容添加到您的 `.gitignore` 文件中：
 
 ```plaintext
-# 忽略由 Intlayer 生成的文件
+# 忽略 Intlayer 生成的文件
 .intlayer
 ```
 
 ---
 
+### VS Code 扩展
+
+为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
+
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+此扩展提供：
+
+- 翻译键的**自动补全**。
+- 缺失翻译的**实时错误检测**。
+- 翻译内容的**内联预览**。
+- 轻松创建和更新翻译的**快速操作**。
+
+有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+
+---
+
 ## 深入了解
 
-- **可视化编辑器**：使用 [Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 以可视化方式管理翻译。
-- **CMS 集成**：您还可以将字典内容外部化并从 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 中获取。
-- **CLI 命令**：探索 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 以执行诸如 **提取翻译** 或 **检查缺失键** 的任务。
+- **可视化编辑器**：使用[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)来可视化管理翻译。
+- **CMS 集成**：您还可以将词典内容外部化，并从 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 中获取。
+- **CLI 命令**：探索 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)，用于执行诸如**提取翻译**或**检查缺失键**等任务。
 
-享受使用 **Intlayer** 构建完全支持国际化的 **React Native** 应用程序吧！
+享受通过 **Intlayer** 为您的 **React Native** 应用构建强大国际化支持的乐趣！
+
+---
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史

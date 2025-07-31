@@ -1,3 +1,24 @@
+---
+createdAt: 2024-12-24
+updatedAt: 2025-06-29
+title: Intlayer와 i18next
+description: 최적의 국제화를 위해 Intlayer를 i18next와 통합하세요. 두 프레임워크를 비교하고 함께 구성하는 방법을 알아보세요.
+keywords:
+  - Intlayer
+  - i18next
+  - 국제화
+  - i18n
+  - 현지화
+  - 번역
+  - React
+  - Next.js
+  - JavaScript
+  - TypeScript
+slugs:
+  - blog
+  - intlayer-with-i18next
+---
+
 # 국제화 Intlayer 및 i18next 사용하기
 
 i18next는 JavaScript 응용 프로그램을 위한 오픈 소스 국제화(i18n) 프레임워크입니다. 소프트웨어 프로젝트에서 번역, 지역화 및 언어 전환을 관리하는 데 널리 사용됩니다. 그러나 이는 확장성 및 개발을 복잡하게 만들 수 있는 몇 가지 제한 사항이 있습니다.

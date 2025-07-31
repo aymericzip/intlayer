@@ -1,9 +1,6 @@
 ---
-docName: configuration
-url: https://intlayer.org/fr/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-06-29
 title: Configuration
 description: Apprenez à configurer Intlayer pour votre application. Comprenez les différents paramètres et options disponibles pour personnaliser Intlayer selon vos besoins.
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - Personnalisation
   - Intlayer
   - Options
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Documentation de Configuration d'Intlayer
@@ -58,7 +59,7 @@ const config: IntlayerConfig = {
     applicationContext: "Ceci est une application de test", // Contexte de l'application
   },
   build: {
-    activateDynamicImport: true, // Active l'importation dynamique
+    importMode: "dynamic",
   },
 };
 
@@ -87,7 +88,7 @@ const config = {
     applicationContext: "Ceci est une application de test", // Contexte de l'application
   },
   build: {
-    activateDynamicImport: true, // Active l'importation dynamique
+    importMode: "dynamic",
   },
 };
 
@@ -209,7 +210,7 @@ Définit les paramètres liés à l’éditeur intégré, y compris le port du s
   - _Valeur par défaut_ : `true`
   - _Description_ : Indique si l'application interagit avec l'éditeur visuel.
   - _Exemple_ : `process.env.NODE_ENV !== 'production'`
-  - _Remarque_ : Si la valeur est vraie, l'éditeur pourra interagir avec l'application. Si la valeur est fausse, l'éditeur ne pourra pas interagir avec l'application. Dans tous les cas, l'éditeur ne peut être activé que par l'éditeur visuel. Désactiver l'éditeur pour certains environnements est un moyen de renforcer la sécurité.
+  - _Note_ : Si vrai, l'éditeur pourra interagir avec l'application. Si faux, l'éditeur ne pourra pas interagir avec l'application. Dans tous les cas, l'éditeur ne peut être activé que par l'éditeur visuel. Désactiver l'éditeur pour certains environnements est un moyen de renforcer la sécurité.
 
 - **clientId** :
 
@@ -231,7 +232,7 @@ Définit les paramètres liés à l’éditeur intégré, y compris le port du s
 
   - _Type_ : `boolean`
   - _Par défaut_ : `false`
-  - _Description_ : Indique si l'application doit recharger à chaud les configurations de langue lorsqu'un changement est détecté.
+  - _Description_ : Indique si l’application doit recharger à chaud les configurations de langue lorsqu’un changement est détecté.
   - _Exemple_ : `true`
   - _Note_ : Par exemple, lorsqu’un nouveau dictionnaire est ajouté ou mis à jour, l’application mettra à jour le contenu à afficher sur la page.
   - _Note_ : Comme le rechargement à chaud nécessite une connexion continue au serveur, il est uniquement disponible pour les clients du plan `enterprise`.
@@ -267,10 +268,12 @@ Paramètres qui contrôlent le comportement du middleware, y compris la gestion 
 - **prefixDefault** :
 
   - _Type_ : `boolean`
-  - _Par défaut_ : `true`
-  - _Description_ : Indique s’il faut inclure la langue par défaut dans l’URL.
-  - _Exemple_ : `false`
-  - _Remarque_ : Si `false`, les URL pour la langue par défaut n'auront pas de préfixe de langue.
+  - _Par défaut_ : `false`
+  - _Description_ : Indique s'il faut inclure la langue par défaut dans l'URL.
+  - _Exemple_ : `true`
+  - _Remarque_ :
+    - Si `true` et `defaultLocale = 'en'` : path = `/en/dashboard` ou `/fr/dashboard`
+    - Si `false` et `defaultLocale = 'en'` : path = `/dashboard` ou `/fr/dashboard`
 
 - **basePath** :
 
@@ -278,7 +281,11 @@ Paramètres qui contrôlent le comportement du middleware, y compris la gestion 
   - _Par défaut_ : `''`
   - _Description_ : Le chemin de base pour les URL de l'application.
   - _Exemple_ : `'/my-app'`
-  - _Remarque_ : Cela affecte la manière dont les URL sont construites pour l'application.
+  - _Remarque_ :
+    - Si l'application est hébergée sur `https://example.com/my-app`
+    - Le chemin de base est `'/my-app'`
+    - L'URL sera `https://example.com/my-app/en`
+    - Si le chemin de base n'est pas défini, l'URL sera `https://example.com/en`
 
 - **serverSetCookie** :
 
@@ -290,11 +297,42 @@ Paramètres qui contrôlent le comportement du middleware, y compris la gestion 
   - _Remarque_ : Contrôle si le cookie de langue est défini à chaque requête ou jamais.
 
 - **noPrefix** :
+
   - _Type_ : `boolean`
   - _Par défaut_ : `false`
-  - _Description_ : Indique s’il faut omettre le préfixe de langue dans les URL.
+  - _Description_ : Indique s'il faut omettre le préfixe de langue dans les URL.
   - _Exemple_ : `true`
-  - _Remarque_ : Si `true`, les URLs ne contiendront pas d'information de langue.
+  - _Remarque_ :
+    - Si `true` : Pas de préfixe dans l'URL
+    - Si `false` : Préfixe dans l'URL
+    - Exemple avec `basePath = '/my-app'` :
+      - Si `noPrefix = false` : L'URL sera `https://example.com/my-app/en`
+      - Si `noPrefix = true` : L'URL sera `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix** :
+
+  - _Type_ : `boolean`
+  - _Par défaut_ : `false`
+  - _Description_ : Contrôle si la détection de langue se produit lors des requêtes de préchargement Next.js.
+  - _Exemple_ : `true`
+  - _Remarque_ : Ce paramètre affecte la façon dont Next.js gère le préchargement de langue :
+    - **Scénario d'exemple :**
+      - La langue du navigateur de l'utilisateur est `'fr'`
+      - La page actuelle est `/fr/about`
+      - Le lien précharge `/about`
+    - **Avec `detectLocaleOnPrefetchNoPrefix: true` :**
+      - Le préchargement détecte la langue `'fr'` depuis le navigateur
+      - Redirige le préchargement vers `/fr/about`
+    - **Avec `detectLocaleOnPrefetchNoPrefix: false` (par défaut) :**
+      - Le préchargement utilise la langue par défaut
+      - Redirige le préchargement vers `/en/about` (en supposant que `'en'` est la langue par défaut)
+    - **Quand utiliser `true` :**
+      - Votre application utilise des liens internes non localisés (ex. `<a href="/about">`)
+      - Vous voulez un comportement de détection de langue cohérent entre les requêtes normales et de préchargement
+    - **Quand utiliser `false` (par défaut) :**
+      - Votre application utilise des liens avec préfixe de langue (ex. `<a href="/fr/about">`)
+      - Vous voulez optimiser les performances de préchargement
+      - Vous voulez éviter les boucles de redirection potentielles
 
 ---
 
@@ -498,17 +536,23 @@ Les options de build s'appliquent aux plugins `@intlayer/babel` et `@intlayer/sw
   - _Remarque_ : Lorsqu’il est activé, Intlayer optimisera le découpage des dictionnaires en remplaçant tous les appels à `useIntlayer` par `useDictionary` et `getIntlayer` par `getDictionary`.
   - _Remarque_ : Assurez-vous que toutes les clés soient déclarées statiquement dans les appels à `useIntlayer`. Par exemple : `useIntlayer('navbar')`.
 
-- **activateDynamicImport** :
+- **importMode** :
 
-  - _Type_ : `boolean`
-  - _Par défaut_ : `false`
-  - _Description_ : Contrôle si le contenu du dictionnaire doit être importé dynamiquement par locale.
-  - _Exemple_ : `true`
-  - _Remarque_ : Cela permettra d'importer dynamiquement le contenu du dictionnaire uniquement pour la locale actuelle.
-  - _Remarque_ : Les imports dynamiques reposent sur React Suspense et peuvent légèrement impacter les performances de rendu. Mais si cette option est désactivée, toutes les locales seront chargées en même temps, même si elles ne sont pas utilisées.
-  - _Remarque_ : Lorsqu'elle est activée, Intlayer optimisera le découpage des dictionnaires en remplaçant tous les appels à `useIntlayer` par `useDynamicDictionary`.
-  - _Remarque_ : Cette option sera ignorée si `optimize` est désactivé.
+  - _Type_ : `'static' | 'dynamic' | 'async'`
+  - _Par défaut_ : `'static'`
+  - _Description_ : Contrôle comment les dictionnaires sont importés.
+  - _Exemple_ : `'dynamic'`
+  - _Remarque_ : Modes disponibles :
+    - "static" : Les dictionnaires sont importés statiquement. Remplace `useIntlayer` par `useDictionary`.
+    - "dynamic" : Les dictionnaires sont importés dynamiquement en utilisant Suspense. Remplace `useIntlayer` par `useDictionaryDynamic`.
+    - "async" : Les dictionnaires sont importés dynamiquement de manière asynchrone. Remplace `useIntlayer` par `await useDictionaryAsync`.
+  - _Remarque_ : Les imports dynamiques reposent sur Suspense et peuvent légèrement impacter les performances de rendu.
+  - _Remarque_ : Si désactivé, toutes les locales seront chargées en même temps, même si elles ne sont pas utilisées.
+  - _Remarque_ : Cette option s'appuie sur les plugins `@intlayer/babel` et `@intlayer/swc`.
   - _Remarque_ : Assurez-vous que toutes les clés soient déclarées statiquement dans les appels à `useIntlayer`. Par exemple : `useIntlayer('navbar')`.
+  - _Remarque_ : Cette option sera ignorée si `optimize` est désactivé.
+  - _Remarque_ : Dans la plupart des cas, `"dynamic"` sera utilisé pour les applications React, `"async"` pour les applications Vue.js.
+  - _Remarque_ : Cette option n'impactera pas les fonctions `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` et `useDictionaryDynamic`.
 
 - **traversePattern** :
   - _Type_ : `string[]`
@@ -519,39 +563,10 @@ Les options de build s'appliquent aux plugins `@intlayer/babel` et `@intlayer/sw
   - _Remarque_ : Cette option sera ignorée si `optimize` est désactivé.
   - _Remarque_ : Utilisez un motif glob.
 
-### Opérations CLI de documentation
+## Historique de la documentation
 
-Intlayer fournit deux commandes CLI dédiées pour simplifier la localisation de votre documentation Markdown.
-| Commande | Objectif |
-| ------------------------ | --------------------------------------------------------------------------------------------- |
-| `intlayer doc translate` | Traduire automatiquement la documentation depuis la langue source vers une ou plusieurs langues cibles. |
-| `intlayer doc review` | Auditer les traductions existantes et laisser l’IA améliorer la précision, le ton et la cohérence. |
-
-#### Options communes
-
-- **--doc-pattern [glob]** : Motif glob décrivant les fichiers Markdown à traiter. Par défaut : `docs/docs/fr/**/*.md`.
-- **--excluded-glob-pattern [glob]** : Motif(s) glob supplémentaire(s) à exclure de la recherche.
-- **--base-locale [locale]** : Langue source (par défaut : `en`).
-- **--locales [locale…]** : Une ou plusieurs locales cibles, par exemple `fr es`.
-- **--nb-simultaneous-file-processed [number]** : Nombre maximum de fichiers traités en parallèle (par défaut : `3`).
-
-Toutes les options génériques de la CLI sont également disponibles :
-
-- IA : `--provider`, `--model`, `--temperature`, `--api-key`, `--application-context`
-- Configuration : `--env`, `--env-file`, `--base-dir`, `--verbose`, `--prefix`
-
-#### Exemples
-
-```bash
-# Traduire tous les documents anglais en français et en espagnol
-npx intlayer doc translate \
-  --doc-pattern docs/docs/en/**/*.md \
-  --locales fr es \
-  --base-locale en
-
-# Revoir la documentation française et la mettre à jour sur place
-npx intlayer doc review \
-  --doc-pattern docs/docs/en/**/*.md \
-  --locales fr \
-  --base-locale en
-```
+| Version | Date       | Changements                                                       |
+| ------- | ---------- | ----------------------------------------------------------------- |
+| 5.6.1   | 2025-07-25 | Remplacement de `activateDynamicImport` par l'option `importMode` |
+| 5.6.0   | 2025-07-13 | Changement du contentDir par défaut vers `['.']`                  |
+| 5.5.11  | 2025-06-29 | Ajout des commandes `docs`                                        |

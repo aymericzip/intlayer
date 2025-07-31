@@ -1,0 +1,73 @@
+# Dependencies (will be installed fresh in container)
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+**/dist/
+build/
+**/build/
+
+# Git history and cache files
+.git/
+.gitignore
+.github/
+.husky/
+.changeset/
+
+# IDE and editor files
+.vscode/
+.cursor/
+*.code-workspace
+.DS_Store
+
+# Cache and temporary files
+.eslintcache
+*.log
+*.tmp
+*.temp
+.cache/
+.turbo/
+
+# Intlayer
+**/.intlayer/
+
+# Next
+**/.next/
+
+# Development and testing files (not needed for build)
+coverage/
+.nyc_output/
+test-results/
+tests/
+
+# Documentation (not needed for package build)
+README.md
+CONTRIBUTING.md
+LICENSE
+**/README.md
+
+# Examples (not needed for core package build)
+examples/
+
+# Linting and formatting configs (already copied via package manifests)
+.prettierrc.*
+.prettierignore
+.lintstagedrc
+eslint.config.*
+commitlint.config.*
+
+# TypeScript and build configs at root (packages have their own)
+tsconfig.json
+vitest.config.ts
+
+# Rust Cargo build artifacts (can be multiple hundreds of MB and are not needed in Docker)
+**/target/
+# Keep the plugin binary that is needed at runtime
+!**/target/wasm32-wasip1/release/intlayer_swc_plugin.wasm 
+
+# Environment variables
+.env
+**/.env
+.env.*
+**/.env.*

@@ -1,11 +1,8 @@
 ---
-docName: vscode_extension
-url: https://intlayer.org/doc/vs-code-extension
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md
 createdAt: 2025-03-17
-updatedAt: 2025-03-17
+updatedAt: 2025-06-29
 title: Официальное расширение VS Code
-description: Узнайте, как использовать расширение Intlayer в VS Code, чтобы улучшить ваш рабочий процесс разработки. Быстро перемещайтесь между локализованным контентом и эффективно управляйте своими словарями.
+description: Узнайте, как использовать расширение Intlayer в VS Code для улучшения вашего рабочего процесса разработки. Быстро переходите между локализованным контентом и эффективно управляйте своими словарями.
 keywords:
   - Расширение VS Code
   - Intlayer
@@ -15,17 +12,18 @@ keywords:
   - Next.js
   - JavaScript
   - TypeScript
+slugs:
+  - doc
+  - vs-code-extension
 ---
 
-# Официальное расширение для VS Code
+# Официальное расширение VS Code
 
 ## Обзор
 
-**Intlayer** , это официальное расширение Visual Studio Code для **Intlayer**, разработанное для улучшения опыта разработчиков при работе с локализованным контентом в проектах на **React, Next.js и JavaScript**.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) — официальное расширение Visual Studio Code для **Intlayer**, созданное для улучшения опыта разработчика при работе с локализованным контентом в ваших проектах.
 
-С помощью этого расширения разработчики могут **быстро перемещаться** к своим словарям контента, управлять файлами локализации и оптимизировать свой рабочий процесс с помощью мощных автоматизированных команд.
-
-![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+![Расширение Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
 Ссылка на расширение: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 
@@ -33,8 +31,8 @@ keywords:
 
 ### Мгновенная навигация
 
-**Поддержка перехода к определению** – Используйте `Cmd+Click` (Mac) или `Ctrl+Click` (Windows/Linux) на ключе `useIntlayer`, чтобы мгновенно открыть соответствующий файл контента.  
-**Бесшовная интеграция** – Работает без проблем с проектами **react-intlayer** и **next-intlayer**.  
+**Поддержка перехода к определению** – Используйте `Cmd+Click` (Mac) или `Ctrl+Click` (Windows/Linux) по ключу `useIntlayer`, чтобы мгновенно открыть соответствующий файл с контентом.  
+**Бесшовная интеграция** – Работает без усилий с проектами **react-intlayer** и **next-intlayer**.  
 **Поддержка нескольких языков** – Поддерживает локализованный контент на разных языках.  
 **Интеграция с VS Code** – Плавно интегрируется с навигацией и палитрой команд VS Code.
 
@@ -42,13 +40,13 @@ keywords:
 
 Управляйте своими словарями контента прямо из VS Code:
 
-- **Создание словарей** (`extension.buildDictionaries`) – Генерация файлов контента на основе структуры вашего проекта.
-- **Отправка словарей** (`extension.pushDictionaries`) – Загрузка последнего содержимого словарей в ваш репозиторий.
-- **Получение словарей** (`extension.pullDictionaries`) – Синхронизация последнего содержимого словарей из вашего репозитория в локальную среду.
+- **Сборка словарей** (`extension.buildDictionaries`) – Генерирует файлы контента на основе структуры вашего проекта.
+- **Отправка словарей** (`extension.pushDictionaries`) – Загружает последний контент словарей в ваш репозиторий.
+- **Загрузка словарей** (`extension.pullDictionaries`) – Синхронизирует последний контент словарей из вашего репозитория с локальной средой.
 
 ### Генератор деклараций контента
 
-Легко создавайте структурированные файлы словарей в различных форматах:
+Легко генерируйте структурированные файлы словарей в различных форматах:
 
 - **TypeScript (`.ts`)** – `extension.createDictionaryFile.ts`
 - **ES Module (`.esm`)** – `extension.createDictionaryFile.esm`
@@ -57,14 +55,14 @@ keywords:
 
 ## Установка
 
-Вы можете установить **Intlayer** напрямую из VS Code Marketplace:
+Вы можете установить **Intlayer** напрямую из Marketplace VS Code:
 
 1. Откройте **VS Code**.
 2. Перейдите в **Marketplace расширений**.
 3. Найдите **"Intlayer"**.
 4. Нажмите **Установить**.
 
-Или установите через командную строку:
+Альтернативно, установите через командную строку:
 
 ```sh
 code --install-extension intlayer
@@ -81,20 +79,20 @@ code --install-extension intlayer
    const content = useIntlayer("app");
    ```
 
-3. **Command-click** (`⌘+Click` на macOS) или **Ctrl+Click** (на Windows/Linux) на ключе (например, `"app"`).
+3. **Командный клик** (`⌘+Click` на macOS) или **Ctrl+Click** (на Windows/Linux) по ключу (например, `"app"`).
 4. VS Code автоматически откроет соответствующий файл словаря, например, `src/app.content.ts`.
 
 ### Управление словарями контента
 
-#### Создание словарей
+#### Сборка словарей
 
-Создайте все файлы контента словарей с помощью:
+Сгенерируйте все файлы содержимого словарей с помощью:
 
 ```sh
 Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 ```
 
-Найдите **Build Dictionaries** и выполните команду.
+Найдите команду **Build Dictionaries** и выполните её.
 
 #### Отправка словарей
 
@@ -112,17 +110,9 @@ Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 2. Найдите **Pull Dictionaries**.
 3. Выберите словари для получения.
 
-### Настройка путей к файлам словарей
+## Разработка и Вклад
 
-По умолчанию расширение следует стандартной структуре проекта **Intlayer**. Однако вы можете настроить пользовательские пути:
-
-1. Откройте **Настройки (`Cmd + ,` на macOS / `Ctrl + ,` на Windows/Linux)`**.
-2. Найдите `Intlayer`.
-3. Настройте параметр пути к файлам контента.
-
-## Разработка и вклад
-
-Хотите внести вклад? Мы приветствуем участие сообщества!
+Хотите внести свой вклад? Мы приветствуем участие сообщества!
 
 URL репозитория: https://github.com/aymericzip/intlayer-vs-code-extension
 
@@ -149,10 +139,14 @@ npm install
 
 ## Обратная связь и проблемы
 
-Нашли ошибку или хотите предложить новую функцию? Откройте задачу в нашем **репозитории GitHub**:
+Нашли ошибку или хотите предложить новую функцию? Откройте issue в нашем **репозитории на GitHub**:
 
 [GitHub Issues](https://github.com/aymericzip/intlayer-vs-code-extension/issues)
 
 ## Лицензия
 
-Intlayer распространяется под лицензией **MIT License**.
+Intlayer распространяется под **лицензией MIT**.
+
+## История документации
+
+- 5.5.10 - 2025-06-29: Инициализация истории

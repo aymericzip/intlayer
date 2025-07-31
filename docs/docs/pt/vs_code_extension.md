@@ -1,50 +1,48 @@
 ---
-docName: vscode_extension
-url: https://intlayer.org/doc/vs-code-extension
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md
 createdAt: 2025-03-17
-updatedAt: 2025-03-17
-title: Extensão oficial do VS Code
-description: Aprenda a usar a extensão Intlayer no VS Code para melhorar seu fluxo de trabalho de desenvolvimento. Navegue rapidamente entre conteúdos localizados e gerencie seus dicionários de forma eficiente.
+updatedAt: 2025-06-29
+title: Extensão Oficial do VS Code
+description: Aprenda a usar a extensão Intlayer no VS Code para aprimorar seu fluxo de trabalho de desenvolvimento. Navegue rapidamente entre conteúdos localizados e gerencie seus dicionários de forma eficiente.
 keywords:
   - Extensão VS Code
   - Intlayer
   - Localização
-  - Ferramentas de desenvolvimento
+  - Ferramentas de Desenvolvimento
   - React
   - Next.js
   - JavaScript
   - TypeScript
+slugs:
+  - doc
+  - vs-code-extension
 ---
 
-# Extensão oficial do VS Code
+# Extensão Oficial do VS Code
 
 ## Visão Geral
 
-**Intlayer** é a extensão oficial do Visual Studio Code para **Intlayer**, projetada para melhorar a experiência do desenvolvedor ao trabalhar com conteúdo localizado em projetos **React, Next.js e JavaScript**.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) é a extensão oficial do Visual Studio Code para **Intlayer**, projetada para melhorar a experiência do desenvolvedor ao trabalhar com conteúdo localizado em seus projetos.
 
-Com esta extensão, os desenvolvedores podem **navegar rapidamente** para seus dicionários de conteúdo, gerenciar arquivos de localização e otimizar seu fluxo de trabalho com comandos de automação poderosos.
+![Extensão Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
 Link da extensão: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
-
-![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
 ## Funcionalidades
 
 ### Navegação Instantânea
 
 **Suporte a Ir para Definição** – Use `Cmd+Click` (Mac) ou `Ctrl+Click` (Windows/Linux) em uma chave `useIntlayer` para abrir instantaneamente o arquivo de conteúdo correspondente.  
-**Integração Sem Esforço** – Funciona perfeitamente com projetos **react-intlayer** e **next-intlayer**.  
+**Integração Fluida** – Funciona perfeitamente com projetos **react-intlayer** e **next-intlayer**.  
 **Suporte Multilíngue** – Suporta conteúdo localizado em diferentes idiomas.  
-**Integração com VS Code** – Integra-se suavemente com a navegação e o painel de comandos do VS Code.
+**Integração com VS Code** – Integra-se suavemente com a navegação e a paleta de comandos do VS Code.
 
 ### Comandos de Gerenciamento de Dicionários
 
 Gerencie seus dicionários de conteúdo diretamente do VS Code:
 
-- **Construir Dicionários** (`extension.buildDictionaries`) – Gere arquivos de conteúdo com base na estrutura do seu projeto.
-- **Enviar Dicionários** (`extension.pushDictionaries`) – Faça upload do conteúdo mais recente do dicionário para o seu repositório.
-- **Baixar Dicionários** (`extension.pullDictionaries`) – Sincronize o conteúdo mais recente do dicionário do seu repositório para o seu ambiente local.
+- **Construir Dicionários** (`extension.buildDictionaries`) – Gera arquivos de conteúdo com base na estrutura do seu projeto.
+- **Enviar Dicionários** (`extension.pushDictionaries`) – Envia o conteúdo mais recente do dicionário para o seu repositório.
+- **Puxar Dicionários** (`extension.pullDictionaries`) – Sincroniza o conteúdo mais recente do dicionário do seu repositório para o seu ambiente local.
 
 ### Gerador de Declaração de Conteúdo
 
@@ -57,7 +55,7 @@ Gere facilmente arquivos de dicionário estruturados em diferentes formatos:
 
 ## Instalação
 
-Você pode instalar o **Intlayer** diretamente do Marketplace do VS Code:
+Você pode instalar o **Intlayer** diretamente no Marketplace do VS Code:
 
 1. Abra o **VS Code**.
 2. Vá para o **Marketplace de Extensões**.
@@ -74,7 +72,7 @@ code --install-extension intlayer
 
 ### Navegação Rápida
 
-1. Abra um projeto usando **react-intlayer**.
+1. Abra um projeto que utilize **react-intlayer**.
 2. Localize uma chamada para `useIntlayer()`, como:
 
    ```tsx
@@ -94,37 +92,29 @@ Gere todos os arquivos de conteúdo do dicionário com:
 Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 ```
 
-Procure por **Construir Dicionários** e execute o comando.
+Procure por **Build Dictionaries** e execute o comando.
 
 #### Enviando Dicionários
 
 Faça upload do conteúdo mais recente do dicionário:
 
-1. Abra o **Painel de Comandos**.
-2. Procure por **Enviar Dicionários**.
+1. Abra a **Paleta de Comandos**.
+2. Procure por **Push Dictionaries**.
 3. Selecione os dicionários para enviar e confirme.
 
 #### Baixando Dicionários
 
 Sincronize o conteúdo mais recente do dicionário:
 
-1. Abra o **Painel de Comandos**.
-2. Procure por **Baixar Dicionários**.
+1. Abra a **Paleta de Comandos**.
+2. Procure por **Pull Dictionaries**.
 3. Escolha os dicionários para baixar.
 
-### Personalizando Caminhos de Arquivos de Dicionário
-
-Por padrão, a extensão segue a estrutura padrão do projeto **Intlayer**. No entanto, você pode configurar caminhos personalizados:
-
-1. Abra **Configurações (`Cmd + ,` no macOS / `Ctrl + ,` no Windows/Linux)`**.
-2. Procure por `Intlayer`.
-3. Ajuste a configuração do caminho do arquivo de conteúdo.
-
-## Desenvolvimento e Contribuição
+## Desenvolvimento & Contribuição
 
 Quer contribuir? Agradecemos contribuições da comunidade!
 
-URL do Repositório: https://github.com/aymericzip/intlayer-vs-code-extension
+URL do repositório: https://github.com/aymericzip/intlayer-vs-code-extension
 
 ### Começando
 
@@ -147,12 +137,16 @@ npm install
 
 Se você melhorar a extensão, envie um PR no [GitHub](https://github.com/aymericzip/intlayer-vs-code-extension).
 
-## Feedback e Problemas
+## Feedback & Problemas
 
-Encontrou um bug ou tem uma solicitação de recurso? Abra um problema no nosso **repositório do GitHub**:
+Encontrou um bug ou tem uma solicitação de recurso? Abra uma issue em nosso **repositório do GitHub**:
 
-[Problemas no GitHub](https://github.com/aymericzip/intlayer-vs-code-extension/issues)
+[GitHub Issues](https://github.com/aymericzip/intlayer-vs-code-extension/issues)
 
 ## Licença
 
 O Intlayer é lançado sob a **Licença MIT**.
+
+## Histórico da Documentação
+
+- 5.5.10 - 2025-06-29: Histórico inicial

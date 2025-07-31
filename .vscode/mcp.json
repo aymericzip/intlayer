@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "intlayer": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@intlayer/mcp"]
+    },
+    "intlayer-sse": {
+      "type": "sse",
+      "url": "https://mcp.intlayer.org"
+    }
+  }
+}

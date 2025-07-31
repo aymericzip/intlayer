@@ -1,5 +1,8 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
+import { Link } from '@components/Link/Link';
+import { Container } from '@intlayer/design-system';
 import {
   useAskDocQuestion,
   usePersistedStore,
@@ -63,8 +66,38 @@ export const ChatBot: FC<ChatBotProps> = ({
   displayRelatedFiles = true,
   stateReloaderTrigger,
 }) => {
-  const { isLoading, askDocQuestion } = useAskDocQuestion();
-  const { firstMessageContent } = useIntlayer('chat');
+  const [hasReachedRateLimit, setHasReachedRateLimit] = useState(false);
+  const { isLoading, askDocQuestion } = useAskDocQuestion({
+    onSuccess: () => {
+      setHasReachedRateLimit(false);
+    },
+    onError: (errorMessage) => {
+      let error;
+
+      // If json is valid, parse it
+      try {
+        if (typeof errorMessage === 'undefined') return;
+
+        error = JSON.parse(errorMessage);
+      } catch (e) {
+        // If json is not valid, set error to the original errorMessage
+
+        error = errorMessage;
+      }
+
+      // render toast for each error if there is more than one
+      // otherwise render the toast with the error message
+      [error]
+        .flatMap((error) => error)
+        .forEach((error) => {
+          if (error.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
+            setHasReachedRateLimit(true);
+          }
+        });
+    },
+  });
+  const { firstMessageContent, rateLimitExceededMessage, signInButton } =
+    useIntlayer('chat');
   const isFirstRender = useRef(true);
   const [currentResponse, setCurrentResponse] = useState('');
 
@@ -110,7 +143,7 @@ export const ChatBot: FC<ChatBotProps> = ({
       onDone: (response: AskDocQuestionResult) => {
         const responseData = 'data' in response ? response.data : response;
 
-        if (!responseData?.response) {
+        if (!responseData) {
           console.error('Invalid response format:', response);
           return;
         }
@@ -191,6 +224,25 @@ export const ChatBot: FC<ChatBotProps> = ({
       <div className="w-full flex-1">
         {displayRelatedFiles && (
           <FileReference relatedFiles={discution?.relatedFiles ?? []} />
+        )}
+        {hasReachedRateLimit && (
+          <Container
+            className="text-center text-sm max-w-md mt-3 gap-4 flex flex-col mx-auto"
+            borderColor="neutral"
+            border
+            roundedSize="xl"
+            padding="md"
+          >
+            <span>{rateLimitExceededMessage}</span>
+            <Link
+              href={PagesRoutes.Auth_SignIn}
+              label={signInButton.label.value}
+              color="text"
+              variant="button-outlined"
+            >
+              {signInButton.text}
+            </Link>
+          </Container>
         )}
 
         <FormSection

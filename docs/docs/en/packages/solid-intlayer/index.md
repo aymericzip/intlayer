@@ -1,9 +1,6 @@
 ---
-docName: package__solid-intlayer
-url: https://intlayer.org/doc/packages/solid-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/index.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Package Documentation | solid-intlayer
 description: See how to use the solid-intlayer package
 keywords:
@@ -14,6 +11,10 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - solid-intlayer
 ---
 
 # solid-intlayer: NPM Package to internationalize (i18n) an Solid application
@@ -47,3 +48,9 @@ yarn add solid-intlayer
 ```bash packageManager="pnpm"
 pnpm add solid-intlayer
 ```
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

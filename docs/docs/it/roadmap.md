@@ -1,23 +1,23 @@
 ---
-docName: roadmap
-url: https://intlayer.org/doc/roadmap
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/roadmap.md
 createdAt: 2025-03-01
-updatedAt: 2025-03-01
-title: Tabella di marcia
-description: Scopri la roadmap di Intlayer. Vedi tutte le funzionalità che l'Intlayer ha implementato, e sta pianificando di implementarle.
+updatedAt: 2025-06-29
+title: Roadmap
+description: Scopri la roadmap di Intlayer. Visualizza tutte le funzionalità che Intlayer ha implementato e che prevede di implementare.
 keywords:
   - Roadmap
   - Intlayer
   - Internazionalizzazione
   - CMS
-  - Sistema di gestione dei contenuti
-  - Editor visuale
+  - Sistema di Gestione dei Contenuti
+  - Editor Visivo
+slugs:
+  - doc
+  - roadmap
 ---
 
-# Intlayer: Panoramica delle Funzionalità e Roadmap
+# Intlayer: Panoramica delle Funzionalità & Roadmap
 
-Intlayer è una soluzione per la gestione dei contenuti e l'internazionalizzazione progettata per semplificare la dichiarazione, la gestione e l'aggiornamento dei contenuti nelle tue applicazioni. Offre funzionalità potenti come dichiarazione centralizzata o distribuita dei contenuti, ampie opzioni di internazionalizzazione, supporto Markdown, rendering condizionale, integrazione con TypeScript/JavaScript/JSON e altro ancora. Di seguito è riportata una panoramica completa di ciò che Intlayer offre attualmente, seguita dalle funzionalità in arrivo nella roadmap.
+Intlayer è una soluzione per la gestione dei contenuti e l'internazionalizzazione progettata per semplificare il modo in cui dichiari, gestisci e aggiorni i contenuti nelle tue applicazioni. Offre funzionalità potenti come la dichiarazione dei contenuti centralizzata o distribuita, ampie opzioni di internazionalizzazione, supporto per Markdown, rendering condizionale, integrazione con TypeScript/JavaScript/JSON e altro ancora. Di seguito è riportata una panoramica completa di ciò che Intlayer offre attualmente, seguita dalle funzionalità previste nella roadmap.
 
 ---
 
@@ -27,8 +27,8 @@ Intlayer è una soluzione per la gestione dei contenuti e l'internazionalizzazio
 
 #### Centralizzata o Distribuita
 
-- **Centralizzata**: Dichiarare tutti i tuoi contenuti in un unico file di grandi dimensioni alla base della tua applicazione, simile a i18next, in modo da poter gestire tutto in un unico posto.
-- **Distribuita**: In alternativa, suddividi i tuoi contenuti in file separati a livello di componente o funzionalità per una migliore manutenibilità. Questo mantiene i tuoi contenuti vicini al codice pertinente (componenti, test, Storybook, ecc.). Rimuovere un componente garantisce che qualsiasi contenuto associato venga rimosso, evitando che dati residui ingombrino il tuo codice.
+- **Centralizzata**: Dichiara tutti i tuoi contenuti in un unico grande file alla base della tua applicazione, simile a i18next, in modo da poter gestire tutto in un unico posto.
+- **Distribuita**: In alternativa, suddividi i tuoi contenuti in file separati a livello di componente o funzionalità per una migliore manutenibilità. Questo mantiene i tuoi contenuti vicini al codice pertinente (componenti, test, Storybook, ecc.). Rimuovendo un componente, si assicura che anche i contenuti associati vengano eliminati, evitando che dati residui ingombrino il tuo codice.
 
 > Risorse:
 >
@@ -36,8 +36,8 @@ Intlayer è una soluzione per la gestione dei contenuti e l'internazionalizzazio
 
 ### 2. Internazionalizzazione
 
-- Supporto per **230 lingue e localizzazioni** (inclusi varianti regionali come Francese (Francia), Inglese (Canada), Inglese (Regno Unito), Portoghese (Portogallo), ecc.).
-- Gestisci facilmente le traduzioni per tutte queste localizzazioni da un unico posto.
+- Supporto per **230 lingue e località** (inclusi varianti regionali come francese (Francia), inglese (Canada), inglese (Regno Unito), portoghese (Portogallo), ecc.).
+- Gestisci facilmente le traduzioni per tutte queste località da un unico posto.
 
 > Risorse:
 >
@@ -45,62 +45,117 @@ Intlayer è una soluzione per la gestione dei contenuti e l'internazionalizzazio
 
 ### 3. Supporto Markdown
 
-- Dichiarare contenuti utilizzando **Markdown**, consentendo di formattare automaticamente il testo con paragrafi, intestazioni, collegamenti e altro.
-- Ideale per post di blog, articoli, pagine di documentazione o qualsiasi scenario in cui è necessaria una formattazione di testo ricca.
+- Dichiara contenuti usando **Markdown**, permettendoti di formattare automaticamente il testo con paragrafi, titoli, link e altro.
+- Ideale per post di blog, articoli, pagine di documentazione o qualsiasi scenario in cui sia necessaria una formattazione di testo ricca.
 
 > Risorse:
 >
 > - [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md)
 
-### 4. Rendering Condizionale
+### 4. Supporto file esterni
 
-- Definire contenuti che si adattano in base a condizioni specifiche, come la lingua dell'utente, lo stato di accesso dell'utente o qualsiasi altra variabile contestuale.
-- Aiuta a creare esperienze personalizzate senza duplicare contenuti in più file.
+- Importa contenuti da file esterni in formato testo, come TXT, HTML, JSON, YAML o CSV.
+- Usa la funzione `file` in Intlayer per incorporare il contenuto di file esterni in un dizionario, garantendo un'integrazione senza soluzione di continuità con l'Editor Visuale e il CMS di Intlayer.
+- Supporta aggiornamenti dinamici dei contenuti, il che significa che quando il file sorgente viene modificato, il contenuto si aggiorna automaticamente all'interno di Intlayer.
+- Consente la gestione multilingue dei contenuti collegando dinamicamente file Markdown specifici per lingua.
 
 > Risorse:
 >
-> - [Rendering Condizionale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/condition.md)
+> - [Incorporamento contenuti da file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file.md)
 
-### 5. Formati di Dichiarazione dei Contenuti
+### 5. Contenuto Dinamico e Recupero Funzioni
 
-Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i contenuti.
+Intlayer offre vari metodi per inserire e gestire contenuti dinamici, garantendo flessibilità e adattabilità nella distribuzione dei contenuti. Questo include funzioni per l'inserimento dinamico di contenuti, il rendering condizionale, l'enumerazione, l'annidamento e il recupero di funzioni.
+
+1. Inserimento di Contenuti Dinamici
+
+   Usa la funzione insert per definire contenuti con segnaposto ({{name}}, {{age}}, ecc.).
+
+   Consente contenuti simili a template che si adattano in base all'input dell'utente, alle risposte API o ad altre fonti di dati dinamici.
+
+   Funziona perfettamente con configurazioni TypeScript, ESM, CommonJS e JSON.
+
+   Si integra facilmente con React Intlayer e Next Intlayer utilizzando useIntlayer.
+
+2. Rendering Condizionale
+
+   Definisce contenuti che si adattano in base a condizioni specifiche dell'utente, come la lingua o lo stato di autenticazione.
+
+   Personalizza esperienze senza duplicare contenuti su più file.
+
+3. Enumerazione e Pluralizzazione
+
+   Usa la funzione enu per definire variazioni di contenuto basate su valori numerici, intervalli o chiavi personalizzate.
+
+   Garantisce la selezione automatica della frase corretta in base a un valore dato.
+
+   Supporta regole di ordinamento, assicurando un comportamento prevedibile.
+
+4. Annidamento e Riferimento a Sotto-Contenuti
+
+   Usa la funzione nest per fare riferimento e riutilizzare contenuti da un altro dizionario, riducendo la duplicazione.
+
+   Supporta una gestione dei contenuti strutturata e gerarchica per una migliore manutenibilità.
+
+5. Recupero tramite Funzioni
+
+   Intlayer consente di dichiarare i contenuti come funzioni, permettendo sia il recupero sincrono che asincrono dei contenuti.
+
+   Funzioni Sincrone: I contenuti vengono generati dinamicamente in fase di build.
+
+   Funzioni Asincrone: Recupera dati da fonti esterne (es. API, database) in modo dinamico.
+
+   Integrazione: Funziona con TypeScript, ESM e CommonJS ma non è supportato nei file JSON o nei file di contenuti remoti.
+
+### 6. Formati di Dichiarazione dei Contenuti
+
+Intlayer supporta **TypeScript** (e anche JavaScript) e **JSON** per dichiarare i contenuti.
 
 - **TypeScript**:
 
-  - Garantisce che la struttura dei tuoi contenuti sia corretta e che non manchino traduzioni.
+  - Garantisce che la struttura del contenuto sia corretta e che non manchino traduzioni.
   - Offre modalità di validazione rigorose o più flessibili.
-  - Consente il recupero dinamico dei dati da variabili, funzioni o API esterne.
+  - Permette il recupero dinamico dei dati da variabili, funzioni o API esterne.
 
 - **JSON**:
 
-  - Facilita l'integrazione con strumenti esterni (come editor visivi) grazie al suo formato standardizzato.
+  - Facilita l'integrazione con strumenti esterni (come editor visuali) grazie al suo formato standardizzato.
 
   > Risorse:
   >
-  > - [Formati di Dichiarazione dei Contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_extention_customization.md)
+  > - [Formati di Dichiarazione del Contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_extention_customization.md)
+
+### 7. Pulizia, ottimizzazione del bundle e importazioni dinamiche
+
+- Intlayer integra i plugin `Babel` e `SWC` per ottimizzare il tuo bundle e migliorare le prestazioni. Sostituisce gli import, permettendo di importare solo i dizionari effettivamente utilizzati nel bundle.
+- Attivando l'opzione, Intlayer consente anche di importare dinamicamente il contenuto del dizionario solo per la locale corrente.
+
+> Risorse:
+>
+> - [Configurazione della Build](https://intlayer.org/doc/concept/configuration#build-configuration)
 
 ---
 
-## Integrazione con Framework ed Ambienti
+## Integrazione con Framework e Ambienti
 
 ### 1. Next.js
 
 #### a. Componenti Server e Client
 
-- Fornisce un **approccio unificato alla gestione dei contenuti** per componenti server e client.
+- Fornisce un **approccio unificato alla gestione dei contenuti** sia per i componenti server che client.
 - Offre un contesto integrato per i componenti server, semplificando l'implementazione rispetto ad altre soluzioni.
 
-#### b. Metadata, Sitemaps e robots.txt
+#### b. Metadata, Sitemap e robots.txt
 
-- Recupera e inietta contenuti dinamicamente per generare metadata, sitemaps o file `robots.txt`.
+- Recupera e inietta contenuti dinamicamente per generare metadata, sitemap o file `robots.txt`.
 
 #### c. Middleware
 
-- Aggiungi un middleware per **reindirizzare gli utenti** ai contenuti in base alla loro lingua preferita.
+- Aggiunge un middleware per **reindirizzare gli utenti** ai contenuti basati sulla loro lingua preferita.
 
-#### d. Compatibilità con Turbopack e Webpack
+#### d. Compatibilità Turbopack e Webpack
 
-- Completamente compatibile con il nuovo Turbopack di Next.js e con il tradizionale Webpack.
+- Completamente compatibile con il nuovo Turbopack di Next.js così come con il tradizionale Webpack.
 
 > Risorse:
 >
@@ -116,21 +171,65 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 
 ### 3. Express
 
-- Gestisci contenuti e internazionalizza i servizi backend costruiti su Express.
-- Personalizza email, messaggi di errore, notifiche push e altro con testo localizzato.
+- Gestisci i contenuti e internazionalizza i servizi backend basati su Express.
+- Personalizza email, messaggi di errore, notifiche push e altro ancora con testi localizzati.
 
 > Risorse:
 >
 > - [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_express.md)
 
+### 4. React Native
+
+- Integra Intlayer con React Native per gestire i contenuti e internazionalizzare le tue applicazioni mobili.
+- Supporta entrambe le piattaforme iOS e Android.
+
+> Risorse:
+>
+> - [React Native](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_react_native.md)
+
+### 5. Lynx
+
+- Integra Intlayer con Lynx per gestire i contenuti e internazionalizzare le tue applicazioni mobili.
+- Supporta entrambe le piattaforme iOS e Android.
+
+> Risorse:
+>
+> - [Lynx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_lynx.md)
+
+### 6. Vue
+
+- Integra Intlayer con Vue per gestire i contenuti e internazionalizzare le tue applicazioni Vite / Vue.js.
+
+> Risorse:
+>
+> - [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_vue.md)
+
+### 7. Nuxt
+
+- Integra Intlayer con Nuxt per gestire i contenuti e internazionalizzare le tue applicazioni Nuxt / Vue.js.
+- Supporta sia componenti server che client.
+- Integra il routing e il middleware per reindirizzare gli utenti ai contenuti in base alla loro lingua preferita.
+
+> Risorse:
+>
+> - [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nuxt.md)
+
+### 8. Preact
+
+- Integra Intlayer con Preact per gestire i contenuti e internazionalizzare le tue applicazioni Preact.
+
+> Risorse:
+>
+> - [Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_preact.md)
+
 ---
 
-## Editor Visivi e CMS
+## Editor Visuali e CMS
 
-### 1. Editor Visivo Locale
+### 1. Editor Visuale Locale
 
-- Un **editor visivo locale gratuito** che ti consente di modificare i contenuti della tua applicazione selezionando direttamente gli elementi sulla pagina.
-- Integra funzionalità AI per aiutarti a:
+- Un **editor visuale locale gratuito** che ti permette di modificare il contenuto della tua applicazione selezionando direttamente gli elementi sulla pagina.
+- Integra funzionalità di intelligenza artificiale per aiutarti a:
   - Generare o correggere traduzioni
   - Controllare sintassi e ortografia
   - Suggerire miglioramenti
@@ -138,12 +237,12 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 
 > Risorse:
 >
-> - [Editor Visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md)
+> - [Editor Visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md)
 
 ### 2. Intlayer CMS (Remoto)
 
-- Una soluzione **CMS ospitata** che ti consente di gestire i contenuti dell'applicazione online, senza toccare il tuo codice.
-- Fornisce funzionalità AI-assistite per dichiarare contenuti, gestire traduzioni e correggere errori di sintassi o ortografia.
+- Una soluzione **CMS ospitata** che ti consente di gestire il contenuto dell'applicazione online, senza modificare il codice.
+- Fornisce funzionalità assistite da AI per dichiarare contenuti, gestire traduzioni e correggere errori di sintassi o ortografia.
 - Interagisci con i tuoi contenuti tramite l'interfaccia della tua applicazione live.
 
 > Risorse:
@@ -152,11 +251,24 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 
 ---
 
+## Estensioni IDE
+
+- Estensioni per i principali IDE che forniscono un'**interfaccia grafica** per gestire le traduzioni locali e remote.
+- Le funzionalità potrebbero includere la generazione automatica di file di dichiarazione dei contenuti per i componenti, l'integrazione diretta con l'Intlayer CMS e la validazione in tempo reale.
+
+---
+
+## Server MCP
+
+- Un **server MCP** che ti permette di gestire i tuoi contenuti e traduzioni utilizzando uno strumento integrato nel tuo IDE.
+
+---
+
 ## Intlayer CLI
 
-- **Audit e Generazione di Traduzioni**: Esegui audit sui tuoi file di contenuti per generare traduzioni mancanti o identificare quelle inutilizzate.
-- **Interazione Remota**: Pubblica i tuoi contenuti locali sul CMS remoto o recupera contenuti remoti per integrarli nella tua applicazione locale.
-- Utile per **pipeline CI/CD**, garantendo che i tuoi contenuti siano sempre sincronizzati con il tuo codice.
+- **Traduzione e generazione file**: Esegui audit sui tuoi file di contenuto per generare traduzioni mancanti e rivedere le incoerenze.
+- **Interazione remota**: Invia i tuoi contenuti locali al CMS remoto o scarica contenuti remoti per integrarli nella tua applicazione locale.
+- **Traduzione e revisione della documentazione**: Traduci e rivedi la tua documentazione / file ecc.
 
 > Risorse:
 >
@@ -166,14 +278,14 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 
 ## Ambienti
 
-- Utilizza **variabili di ambiente** per configurare Intlayer in modo diverso tra ambienti di produzione, test e locali.
-- Definisci quale progetto dell'editor visivo o del CMS remoto mirare a seconda del tuo ambiente.
+- Usa le **variabili d'ambiente** per configurare Intlayer in modo differente tra produzione, test e ambienti locali.
+- Definisci quale editor visuale o progetto CMS remoto utilizzare a seconda del tuo ambiente.
 
 ---
 
-## Aggiornamenti Contenuti in Tempo Reale
+## Aggiornamenti Contenuti a Caldo
 
-- Quando utilizzi dizionari remoti e il CMS Intlayer, puoi **aggiornare i contenuti della tua applicazione al volo**, senza bisogno di ridistribuire.
+- Quando usi dizionari remoti e il CMS Intlayer, puoi **aggiornare i contenuti della tua applicazione al volo**, senza bisogno di ridistribuire.
 
 > Risorse:
 >
@@ -181,43 +293,45 @@ Intlayer supporta **TypeScript** (anche JavaScript) e **JSON** per dichiarare i 
 
 ---
 
-## Roadmap: Funzionalità in Arrivo
+## Funzionalità in Arrivo
 
 ### 1. Test A/B e Personalizzazione
 
-- **Test Multivariati**: Testa diverse versioni di un determinato contenuto per vedere quale performa meglio (ad esempio, tasso di clic più alto).
-- **Personalizzazione Basata sui Dati**: Mostra contenuti diversi in base a demografia dell'utente (genere, età, posizione, ecc.) o altri schemi comportamentali.
-- **Iterazione Automatica**: Consenti all'AI di testare automaticamente più versioni e scegliere il miglior performer o raccomandare opzioni per l'approvazione dell'amministratore.
+- **Test multivariati**: Testa diverse versioni di un dato contenuto per vedere quale funziona meglio (ad esempio, con un tasso di clic più alto).
+- **Personalizzazione basata sui dati**: Mostra contenuti diversi in base a dati demografici dell’utente (genere, età, posizione, ecc.) o altri modelli di comportamento.
+- **Iterazione automatizzata**: Permetti all’IA di testare automaticamente più versioni e scegliere quella con le migliori prestazioni o raccomandare opzioni per l’approvazione dell’amministratore.
 
 ### 2. Versionamento
 
 - Ripristina versioni precedenti dei tuoi contenuti con il **versionamento dei contenuti**.
-- Tieni traccia delle modifiche nel tempo e torna a stati precedenti se necessario.
+- Monitora le modifiche nel tempo e torna a stati precedenti se necessario.
 
-### 3. Traduzione Automatica
+### 3. Traduzione automatica
 
-- Per gli utenti del CMS remoto, **generazione di traduzioni con un clic** per qualsiasi lingua supportata.
-- Il sistema genererà traduzioni in background e poi ti chiederà di convalidarle o modificarle.
+- Per gli utenti del CMS remoto, **generazione della traduzione con un clic** per qualsiasi lingua supportata.
+- Il sistema genererebbe traduzioni in background e poi ti chiederebbe di convalidarle o modificarle.
 
 ### 4. Miglioramenti SEO
 
-- Strumenti per **analizzare parole chiave**, intento di ricerca degli utenti e tendenze emergenti.
-- Suggerisci contenuti migliorati per un posizionamento migliore e monitora le prestazioni a lungo termine.
+- Strumenti per **analizzare le parole chiave**, l'intento di ricerca degli utenti e le tendenze emergenti.
+- Suggerire contenuti migliorati per un posizionamento migliore e monitorare le prestazioni a lungo termine.
 
-### 5. Compatibilità con Altri Framework
+### 5. Compatibilità con più Framework
 
-- Sono in corso sforzi per supportare **Vue, Solid, Svelte, Angular** e altro.
+- Sono in corso sforzi per supportare **Solid, Svelte, Angular** e altri.
 - L'obiettivo è rendere Intlayer compatibile con **qualsiasi applicazione basata su JavaScript**.
-
-### 6. Estensioni IDE
-
-- Estensioni per i principali IDE per fornire un'interfaccia grafica per la gestione delle traduzioni locali e remote.
-- Le funzionalità potrebbero includere la generazione automatica di file di dichiarazione dei contenuti per i componenti, l'integrazione diretta con il CMS Intlayer e la validazione in tempo reale.
 
 ---
 
 ## Conclusione
 
-Intlayer mira a essere una soluzione completa per la gestione dei contenuti e l'internazionalizzazione. Si concentra su flessibilità (file centralizzati o distribuiti), ampio supporto linguistico, facile integrazione con framework e bundler moderni e potenti funzionalità guidate dall'AI. Con l'introduzione di nuove capacità, come test A/B, versionamento e traduzioni automatiche, Intlayer continuerà a semplificare i flussi di lavoro dei contenuti e migliorare le esperienze degli utenti su diverse piattaforme.
+Intlayer mira a essere una soluzione completa per la gestione dei contenuti e l'internazionalizzazione. Si concentra sulla flessibilità (file centralizzati o distribuiti), sul supporto a un'ampia gamma di lingue, sull'integrazione semplice con framework e bundler moderni, e su potenti funzionalità basate sull'intelligenza artificiale. Man mano che nuove capacità, come i test A/B, il versioning e le traduzioni automatizzate, diventeranno disponibili, Intlayer continuerà a semplificare i flussi di lavoro dei contenuti e a migliorare l'esperienza utente su diverse piattaforme.
 
-Rimani aggiornato per i prossimi rilasci e sentiti libero di esplorare le funzionalità esistenti per vedere come Intlayer può aiutarti a centralizzare e ottimizzare i tuoi processi di gestione dei contenuti oggi!
+Rimanete sintonizzati per i prossimi rilasci e sentitevi liberi di esplorare le funzionalità esistenti per vedere come Intlayer può aiutare a centralizzare e ottimizzare oggi i vostri processi di gestione dei contenuti!
+
+---
+
+## Cronologia del Documento
+
+- 5.5.10 - 2025-06-30: Aggiunto supporto per Preact e Nuxt, MCP Server, aggiornamento CLI
+- 5.5.10 - 2025-06-29: Inizializzazione della cronologia

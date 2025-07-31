@@ -1,8 +1,28 @@
-# @intlayer/dictionary-entry: Pacchetto NPM per recuperare i dizionari Intlayer
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/dictionary-entry - Gestione del Dizionario per Intlayer
+description: Pacchetto NPM per la gestione delle voci del dizionario in Intlayer, che fornisce utility per creare, aggiornare e organizzare dizionari di traduzione.
+keywords:
+  - intlayer
+  - dizionario
+  - voci
+  - gestione
+  - traduzione
+  - i18n
+  - JavaScript
+  - NPM
+slugs:
+  - doc
+  - package
+  - @intlayer_dictionary-entry
+---
 
-**Intlayer** è una suite di pacchetti progettata specificamente per gli sviluppatori JavaScript. È compatibile con framework come React, React e Express.js.
+# @intlayer/dictionary-entry: Pacchetto NPM per recuperare i dizionari di Intlayer
 
-Il pacchetto **`@intlayer/dictionary-entry`** è un pacchetto NPM che restituisce solo il percorso di ingresso dei dizionari intlayer. Poiché la ricerca nel filesystem è impossibile dal browser, utilizzare bundler come Webpack o Rollup per recuperare il percorso di ingresso dei dizionari non è possibile. Questo pacchetto mira ad essere aliasato.
+**Intlayer** è una suite di pacchetti progettata specificamente per sviluppatori JavaScript. È compatibile con framework come React, React e Express.js.
+
+Il pacchetto **`@intlayer/dictionary-entry`** è un pacchetto NPM che restituisce solo il percorso di ingresso dei dizionari intlayer. Poiché la ricerca nel filesystem è impossibile dal browser, utilizzare bundler come Webpack o Rollup per recuperare il percorso di ingresso dei dizionari non è possibile. Questo pacchetto è pensato per essere aliasato.
 
 ## Installazione
 
@@ -19,3 +39,7 @@ pnpm add @intlayer/dictionary-entry
 ```bash packageManager="yarn"
 yarn add @intlayer/dictionary-entry
 ```
+
+## Cronologia della documentazione
+
+- 5.5.10 - 2025-06-29: Inizializzazione della cronologia

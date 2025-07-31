@@ -1,19 +1,21 @@
 ---
-docName: dictionary__enumeration
-url: https://intlayer.org/doc/concept/content/enumeration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Enumeration
 description: Discover how to declare and use enumerations in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
   - Enumeration
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - enumeration
 ---
 
 # Enumeration / Pluralisation
@@ -112,9 +114,9 @@ module.exports = carEnumeration;
 }
 ```
 
-In this example, `enu` maps various conditions to specific content. When used in a React component, Intlayer can automatically choose the appropriate content based on the given variable.
+In this example, `enu` maps various conditions to specific content. When used in a React component, Intlayer can automatically select the appropriate content based on the given variable.
 
-> The order of declaration is important in Intlayer enumerations. The first valid declaration is the one that will be picked up. If multiple conditions apply, ensure they are ordered correctly to avoid unexpected behaviour.
+> The order of declaration is important in Intlayer enumerations. The first valid declaration is the one that will be chosen. If multiple conditions apply, ensure they are ordered correctly to avoid unexpected behaviour.
 
 > If no fallback is declared, the function will return `undefined` if no keys match.
 
@@ -237,3 +239,7 @@ For more detailed information on configuration and usage, refer to the following
 - [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_15.md)
 
 These resources provide further insights into the setup and usage of Intlayer in different environments and with various frameworks.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

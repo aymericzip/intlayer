@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_vite_preact
-url: https://intlayer.org/doc/environment/vite-and-preact
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+preact.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Translate your Vite and Preact website (i18n)
 description: Discover how to make your Vite and Preact website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -13,6 +10,11 @@ keywords:
   - Vite
   - Preact
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - vite-and-preact
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and Vite and Preact
@@ -42,17 +44,17 @@ Install the necessary packages using npm:
 
 ```bash packageManager="npm"
 npm install intlayer preact-intlayer
-npm install --save-dev vite-intlayer
+npm install vite-intlayer --save-dev
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer preact-intlayer
-pnpm add --save-dev vite-intlayer
+pnpm add vite-intlayer --save-dev
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer preact-intlayer
-yarn add --save-dev vite-intlayer
+yarn add vite-intlayer --save-dev
 ```
 
 - **intlayer**
@@ -1036,6 +1038,8 @@ module.exports = App;
 
 In parallel, you can also use the `intLayerMiddlewarePlugin` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
 
+> Note that to use the `intLayerMiddlewarePlugin` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
@@ -1655,3 +1659,11 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+---
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

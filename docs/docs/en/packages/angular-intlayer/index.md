@@ -1,9 +1,6 @@
 ---
-docName: package__angular-intlayer
-url: https://intlayer.org/doc/packages/angular-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/angular-intlayer/index.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Package Documentation | angular-intlayer
 description: See how to use the angular-intlayer package
 keywords:
@@ -13,6 +10,10 @@ keywords:
   - Documentation
   - JavaScript
   - Angular
+slugs:
+  - doc
+  - packages
+  - angular-intlayer
 ---
 
 # angular-intlayer: NPM Package to internationalize (i18n) an Angular application
@@ -46,3 +47,9 @@ yarn add angular-intlayer
 ```bash packageManager="pnpm"
 pnpm add angular-intlayer
 ```
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

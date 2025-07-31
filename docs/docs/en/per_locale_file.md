@@ -1,3 +1,21 @@
+---
+createdAt: 2025-04-18
+updatedAt: 2025-06-29
+title: Declaration of `Per-Locale` Content Declaration in Intlayer
+description: Discover how to declare content per locale in Intlayer. Follow the documentation to understand the different formats and use cases.
+keywords:
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Per-Locale
+  - TypeScript
+  - JavaScript
+slugs:
+  - doc
+  - concept
+  - per-locale-file
+---
+
 # Declaration of `Per-Locale` Content Declaration in Intlayer
 
 Intlayer supports two ways to declare multilingual content:
@@ -295,3 +313,9 @@ console.log(JSON.stringify(intlayer, null, 2));
 ### Automatic Translation Generation
 
 Use the [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) to auto-fill missing translations based on your preferred services.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

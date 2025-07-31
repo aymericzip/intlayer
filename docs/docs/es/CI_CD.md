@@ -1,11 +1,8 @@
 ---
-docName: ci_cd
-url: https://intlayer.org/doc/concept/ci-cd
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/CI_CD.md
 createdAt: 2025-05-20
-updatedAt: 2025-05-20
+updatedAt: 2025-06-29
 title: Integración CI/CD
-description: Descubre cómo integrar Intlayer en tu pipeline CI/CD para la gestión y despliegue automatizado de contenido.
+description: Aprende cómo integrar Intlayer en tu pipeline de CI/CD para la gestión y despliegue automatizado de contenido.
 keywords:
   - CI/CD
   - Integración Continua
@@ -14,17 +11,21 @@ keywords:
   - Internacionalización
   - Documentación
   - Intlayer
+slugs:
+  - doc
+  - concept
+  - ci-cd
 ---
 
 # Generación Automática de Traducciones en un Pipeline CI/CD
 
-Intlayer permite la generación automática de traducciones para tus archivos de declaración de contenido. Hay múltiples formas de lograr esto dependiendo de tu flujo de trabajo.
+Intlayer permite la generación automática de traducciones para tus archivos de declaración de contenido. Existen varias formas de lograr esto dependiendo de tu flujo de trabajo.
 
-## Usando el CMS
+## Uso del CMS
 
-Con Intlayer, puedes adoptar un flujo de trabajo donde solo se declara un único locale localmente, mientras que todas las traducciones se gestionan de forma remota a través del CMS. Esto permite que el contenido y las traducciones estén completamente desvinculados del código, ofreciendo más flexibilidad para los editores de contenido y habilitando la recarga en caliente del contenido (sin necesidad de reconstruir la aplicación para aplicar cambios).
+Con Intlayer, puedes adoptar un flujo de trabajo donde solo se declara un único locale localmente, mientras que todas las traducciones se gestionan de forma remota a través del CMS. Esto permite que el contenido y las traducciones estén completamente desacoplados de la base de código, ofreciendo mayor flexibilidad para los editores de contenido y habilitando la recarga dinámica del contenido (sin necesidad de reconstruir la aplicación para aplicar cambios).
 
-### Ejemplo de Configuración
+### Configuración de ejemplo
 
 ```ts fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -38,26 +39,26 @@ const config: IntlayerConfig = {
   editor: {
     dictionaryPriorityStrategy: "distant_first", // El contenido remoto tiene prioridad
 
-    applicationURL: process.env.APPLICATION_URL, // URL de la aplicación utilizada por el CMS
+    applicationURL: process.env.APPLICATION_URL, // URL de la aplicación usada por el CMS
 
     clientId: process.env.INTLAYER_CLIENT_ID, // Credenciales del CMS
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   ai: {
-    applicationContext: "Esta es una aplicación de prueba", // Ayuda a garantizar la generación consistente de traducciones
+    applicationContext: "This is a test application", // Ayuda a asegurar la generación consistente de traducciones
   },
 };
 
 export default config;
 ```
 
-Para obtener más información sobre el CMS, consulta la [documentación oficial](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+Para aprender más sobre el CMS, consulta la [documentación oficial](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
 
-## Usando Husky
+## Uso de Husky
 
-Puedes integrar la generación de traducciones en tu flujo de trabajo local de Git utilizando [Husky](https://typicode.github.io/husky/).
+Puedes integrar la generación de traducciones en tu flujo de trabajo local de Git usando [Husky](https://typicode.github.io/husky/).
 
-### Ejemplo de Configuración
+### Configuración de ejemplo
 
 ```ts fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -76,7 +77,7 @@ const config: IntlayerConfig = {
     provider: "openai",
     apiKey: process.env.OPENAI_API_KEY, // Usa tu propia clave API
 
-    applicationContext: "Esta es una aplicación de prueba", // Ayuda a garantizar la generación consistente de traducciones
+    applicationContext: "This is a test application", // Ayuda a asegurar la generación consistente de traducciones
   },
 };
 
@@ -85,12 +86,12 @@ export default config;
 
 ```bash fileName=".husky/pre-push"
 npx intlayer build                          # Para asegurar que los diccionarios estén actualizados
-npx intlayer fill --unpushed --mode fill    # Solo llena contenido faltante, no actualiza los existentes
+npx intlayer fill --unpushed --mode fill    # Solo rellena el contenido faltante, no actualiza los existentes
 ```
 
-> Para más información sobre los comandos de Intlayer CLI y su uso, consulta la [documentación CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
+> Para más información sobre los comandos CLI de Intlayer y su uso, consulta la [documentación CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
 
-> Si tienes múltiples aplicaciones en tu repositorio usando instancias separadas de Intlayer, puedes usar el argumento `--base-dir` de esta manera:
+> Si tienes múltiples aplicaciones en tu repositorio usando instancias separadas de Intlayer, puedes usar el argumento `--base-dir` así:
 
 ```bash fileName=".husky/pre-push"
 # App 1
@@ -102,12 +103,12 @@ npx intlayer build --base-dir ./app2
 npx intlayer fill --base-dir ./app2 --unpushed --mode fill
 ```
 
-## Usando GitHub Actions
+## Uso de GitHub Actions
 
-Intlayer proporciona un comando CLI para autofill y revisar el contenido de los diccionarios. Esto puede integrarse en tu flujo de trabajo CI/CD utilizando GitHub Actions.
+Intlayer proporciona un comando CLI para auto-rellenar y revisar el contenido del diccionario. Esto puede integrarse en tu flujo de trabajo CI/CD usando GitHub Actions.
 
 ```yaml fileName=".github/workflows/intlayer-translate.yml"
-name: Intlayer Auto-Fill
+name: Auto-Relleno Intlayer
 on:
   push:
     branches: [ main ]
@@ -132,36 +133,40 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
-      - name: ⬇️ Checkout repository
+      - name: ⬇️ Clonar repositorio
         uses: actions/checkout@v3
         with:
           persist-credentials: true
 
-      - name: 🟢 Set up Node.js
+      - name: 🟢 Configurar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      - name: 📦 Install dependencies
+      - name: 📦 Instalar dependencias
         run: npm ci
 
-      - name: ⚙️ Build Intlayer project
+      - name: ⚙️ Construir proyecto Intlayer
         run: npx intlayer build
 
-      - name: 🤖 Auto-fill missing translations
+      - name: 🤖 Auto-rellenar traducciones faltantes
         run: npx intlayer fill --git-diff --mode fill
 
-      - name: 📤 Create or update translation PR
+      - name: 📤 Crear o actualizar PR de traducción
         uses: peter-evans/create-pull-request@v4
         with:
-          commit-message: chore: auto-fill missing translations [skip ci]
+          commit-message: chore: auto-rellenar traducciones faltantes [skip ci]
           branch: auto-translations
-          title: chore: update missing translations
+          title: chore: actualizar traducciones faltantes
           labels: translation, automated
 ```
 
-> Al igual que con Husky, en el caso de un monorepo, puedes usar el argumento `--base-dir` para tratar secuencialmente cada aplicación.
+> Igual que con Husky, en el caso de un monorepo, puedes usar el argumento `--base-dir` para tratar secuencialmente cada aplicación.
 
 > Por defecto, el argumento `--git-diff` filtra los diccionarios que incluyen cambios desde la base (por defecto `origin/main`) hasta la rama actual (por defecto: `HEAD`).
 
-> Para más información sobre los comandos de Intlayer CLI y su uso, consulta la [documentación CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
+> Para más información sobre los comandos de la CLI de Intlayer y su uso, consulta la [documentación de la CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
+
+## Historial del documento
+
+- 5.5.10 - 2025-06-29: Historial inicial

@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getLocaleLang
-url: https://intlayer.org/doc/packages/intlayer/getLocaleLang
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: getLocaleLang Function Documentation | intlayer
 description: See how to use the getLocaleLang function for intlayer package
 keywords:
@@ -11,11 +8,16 @@ keywords:
   - translation
   - Intlayer
   - intlayer
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getLocaleLang
 ---
 
 # Documentation: `getLocaleLang` Function in `intlayer`
@@ -75,3 +77,7 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
 
 - **Malformed Locale Strings:**
   - If the `locale` does not follow the `language-country` format (e.g., `Locales.ENGLISH-US`), the function safely returns the part before `'-'` or the entire string if no `'-'` is present.
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Initial history

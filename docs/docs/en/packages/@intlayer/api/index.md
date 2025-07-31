@@ -1,3 +1,24 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/api - SDK for Intlayer API Integration
+description: NPM package providing Software Development Kit (SDK) to interact with Intlayer API for content auditing, organizations, projects, and user management.
+keywords:
+  - intlayer
+  - API
+  - SDK
+  - integration
+  - content audit
+  - organizations
+  - projects
+  - JavaScript
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - api
+---
+
 # @intlayer/api: NPM Package to interact with Intlayer API
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
@@ -29,3 +50,9 @@ pnpm add @intlayer/api
 ```bash packageManager="yarn"
 yarn add @intlayer/api
 ```
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

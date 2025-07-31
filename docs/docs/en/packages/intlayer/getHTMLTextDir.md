@@ -1,9 +1,6 @@
 ---
-docName: package__intlayer__getHTMLTextDir
-url: https://intlayer.org/doc/packages/intlayer/getHTMLTextDir
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: getHTMLTextDir Function Documentation | intlayer
 description: See how to use the getHTMLTextDir function for intlayer package
 keywords:
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - intlayer
+  - getHTMLTextDir
 ---
 
 # Documentation: `getHTMLTextDir` Function in `intlayer`
@@ -115,3 +117,9 @@ const HTMLLayout = ({ children, locale }) => (
 ```
 
 In the example above, the `dir` attribute is dynamically set based on the locale.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

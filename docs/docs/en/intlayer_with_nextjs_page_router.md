@@ -1,9 +1,6 @@
 ---
-docName: intlayer_with_nextjs_page_router
-url: https://intlayer.org/doc/environment/nextjs/next-with-Page-Router
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md
 createdAt: 2024-12-07
-updatedAt: 2024-12-07
+updatedAt: 2025-06-29
 title: Translate your Next.js and Page Router website (i18n)
 description: Discover how to make your Next.js using Page Router website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - environment
+  - nextjs
+  - next-with-Page-Router
 ---
 
 # Getting Started Internationalizing (i18n) with Intlayer and Next.js using Page Router
@@ -137,6 +139,7 @@ export default withIntlayer(nextConfig);
 ```
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimize performance and ensures compatibility with server components.
+> The `withIntlayer()` Next.js plugin is a promise based function.
 
 ### Step 4: Configure Middleware for Locale Detection
 
@@ -1477,3 +1480,10 @@ By following this guide, you can effectively integrate Intlayer into your Next.j
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+## Doc History
+
+| Version | Date       | Changes                                                         |
+| ------- | ---------- | --------------------------------------------------------------- |
+| 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
+| 5.5.10  | 2025-06-29 | Init history                                                    |

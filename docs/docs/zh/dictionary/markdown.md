@@ -1,9 +1,6 @@
 ---
-docName: dictionary__markdown
-url: https://intlayer.org/doc/concept/content/markdown
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md
-createdAt: 2025-02-7
-updatedAt: 2025-02-7
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
 title: Markdown
 description: 了解如何在多语言网站中使用Intlayer声明和使用Markdown内容。按照此在线文档中的步骤，将Markdown无缝集成到您的项目中。
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - content
+  - markdown
 ---
 
 # Markdown / 富文本内容
@@ -284,11 +286,6 @@ AppProvider = () => (
 );
 ```
 
-AppProvider,
-};
-
-````
-
 在此实现中：
 
 - `MarkdownProvider` 包裹了应用程序（或其相关部分），并接受一个 `renderMarkdown` 函数。此函数使用 `markdown-to-jsx` 包将 Markdown 字符串转换为 JSX。
@@ -316,7 +313,7 @@ export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
     {children}
   </MarkdownProvider>
 );
-````
+```
 
 ```jsx title="src/providers/IntlayerMarkdownProvider.msx" codeFormat="esm"
 "use client";

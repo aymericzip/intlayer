@@ -1,11 +1,8 @@
 ---
-docName: package__angular-intlayer
-url: https://intlayer.org/doc/packages/angular-intlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/angular-intlayer/index.md
 createdAt: 2025-04-18
-updatedAt: 2025-04-18
+updatedAt: 2025-06-29
 title: Paketdokumentation | angular-intlayer
-description: Erfahren Sie, wie Sie das angular-intlayer-Paket verwenden
+description: Siehe, wie man das angular-intlayer Paket verwendet
 keywords:
   - Intlayer
   - angular-intlayer
@@ -13,27 +10,31 @@ keywords:
   - Dokumentation
   - JavaScript
   - Angular
+slugs:
+  - doc
+  - packages
+  - angular-intlayer
 ---
 
-# angular-intlayer: NPM Package to internationalize (i18n) an Angular application
+# angular-intlayer: NPM-Paket zur Internationalisierung (i18n) einer Angular-Anwendung
 
-**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like Angular, Angular, and Express.js.
+**Intlayer** ist eine Suite von Paketen, die speziell für JavaScript-Entwickler entwickelt wurden. Es ist kompatibel mit Frameworks wie Angular, Angular und Express.js.
 
-**The `angular-intlayer` package** allows you to internationalize your Angular application. It provides context providers and hooks for Angular internationalization.
+**Das `angular-intlayer` Paket** ermöglicht es Ihnen, Ihre Angular-Anwendung zu internationalisieren. Es stellt Kontextanbieter und Hooks für die Internationalisierung in Angular bereit.
 
-## Why Internationalize Your Angular Application?
+## Warum sollten Sie Ihre Angular-Anwendung internationalisieren?
 
-Internationalizing your Angular application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
+Die Internationalisierung Ihrer Angular-Anwendung ist entscheidend, um ein globales Publikum effektiv zu bedienen. Sie ermöglicht es Ihrer Anwendung, Inhalte und Nachrichten in der bevorzugten Sprache jedes Benutzers bereitzustellen. Diese Fähigkeit verbessert die Benutzererfahrung und erweitert die Reichweite Ihrer Anwendung, indem sie für Menschen aus verschiedenen sprachlichen Hintergründen zugänglicher und relevanter wird.
 
-## Why to integrate Intlayer?
+## Warum Intlayer integrieren?
 
-- **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
-- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
+- **JavaScript-gesteuertes Content-Management**: Nutzen Sie die Flexibilität von JavaScript, um Ihre Inhalte effizient zu definieren und zu verwalten.
+- **Typensichere Umgebung**: Nutzen Sie TypeScript, um sicherzustellen, dass alle Ihre Inhaltsdefinitionen präzise und fehlerfrei sind.
+- **Integrierte Inhaltsdateien**: Halten Sie Ihre Übersetzungen nahe bei den jeweiligen Komponenten, um die Wartbarkeit und Klarheit zu verbessern.
 
 ## Installation
 
-Install the necessary package using your preferred package manager:
+Installieren Sie das erforderliche Paket mit Ihrem bevorzugten Paketmanager:
 
 ```bash packageManager="npm"
 npm install angular-intlayer
@@ -46,3 +47,7 @@ yarn add angular-intlayer
 ```bash packageManager="pnpm"
 pnpm add angular-intlayer
 ```
+
+## Dokumentationsverlauf
+
+- 5.5.10 - 2025-06-29: Historie initialisiert

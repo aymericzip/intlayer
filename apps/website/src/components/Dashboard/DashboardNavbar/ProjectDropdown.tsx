@@ -1,23 +1,18 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
+import { Button, Container, DropDown, Modal } from '@intlayer/design-system';
 import {
-  Button,
-  Container,
-  DropDown,
-  Modal,
   useAuth,
-} from '@intlayer/design-system';
-import {
   useGetProjects,
   useSelectProject,
   useUnselectProject,
 } from '@intlayer/design-system/hooks';
 import { ChevronsUpDown } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { type ComponentProps, useState, type FC } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState, type ComponentProps, type FC } from 'react';
 import { ProjectCreationForm } from '../ProjectForm/ProjectCreationForm';
-import { PagesRoutes } from '@/Routes';
 
 type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>>;
 
@@ -52,7 +47,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   };
 
   const otherProjects = (projects?.data ?? []).filter(
-    (projectEl) => String(projectEl._id) !== String(project?._id)
+    (projectEl) => String(projectEl.id) !== String(project?.id)
   );
 
   return project ? (
@@ -85,11 +80,11 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
               {otherProjects.length ? (
                 otherProjects.map((project) => (
                   <Button
-                    key={String(project._id)}
+                    key={String(project.id)}
                     variant="outline"
                     color="text"
                     label={project.name}
-                    onClick={() => handleSelectProject(String(project._id))}
+                    onClick={() => handleSelectProject(String(project.id))}
                     isLoading={isSelectProjectLoading}
                   >
                     {project.name}

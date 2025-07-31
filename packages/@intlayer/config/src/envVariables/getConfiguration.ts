@@ -53,6 +53,10 @@ export const getConfiguration = (
       'string'
     )!,
     noPrefix: getEnvValue(env.middleware.noPrefix, 'boolean')!,
+    detectLocaleOnPrefetchNoPrefix: getEnvValue(
+      env.middleware.detectLocaleOnPrefetchNoPrefix,
+      'boolean'
+    )!,
   };
 
   const intlayerContentConfiguration: ContentConfig = {
@@ -133,10 +137,7 @@ export const getConfiguration = (
 
   const buildConfiguration: BuildConfig = {
     optimize: getEnvValue(env.build.optimize, 'boolean')!,
-    activateDynamicImport: getEnvValue(
-      env.build.activateDynamicImport,
-      'boolean'
-    )!,
+    importMode: getEnvValue(env.build.importMode, 'string')!,
     traversePattern: getEnvValue<string>(env.build.traversePattern, 'array')!,
   };
 

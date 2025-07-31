@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/swc",
-  "version": "5.5.10",
+  "version": "5.7.5",
   "private": false,
   "description": "A SWC plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
@@ -45,9 +45,11 @@
   ],
   "scripts": {
     "build": "",
+    "build:ci": "",
     "clean": "",
     "prepublishOnly": "cargo build-wasip1 --release",
-    "reset": ""
+    "reset": "",
+    "test": ""
   },
   "engines": {
     "node": ">=14.18"

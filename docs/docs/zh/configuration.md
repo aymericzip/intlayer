@@ -1,9 +1,6 @@
 ---
-docName: configuration
-url: https://intlayer.org/doc/concept/configuration
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md
 createdAt: 2024-08-13
-updatedAt: 2024-08-13
+updatedAt: 2025-06-29
 title: 配置
 description: 学习如何为您的应用程序配置Intlayer。了解可用于根据您的需要自定义Intlayer的各种设置和选项。
 keywords:
@@ -12,6 +9,10 @@ keywords:
   - 自定义
   - Intlayer
   - 选项
+slugs:
+  - doc
+  - concept
+  - configuration
 ---
 
 # Intlayer 配置文档
@@ -24,7 +25,7 @@ Intlayer 配置文件允许自定义插件的各个方面，例如国际化、�
 
 ## 配置文件支持
 
-Intlayer 接受 JSON、JS、MJS 和 TS 配置文件格式：
+Intlayer 支持 JSON、JS、MJS 和 TS 格式的配置文件：
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -42,13 +43,23 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH], // 支持的语言列表
+    locales: [Locales.ENGLISH],
   },
   content: {
-    typesDir: "content/types", // 内容类型目录
+    contentDir: ["src", "../ui-library"],
   },
   middleware: {
-    noPrefix: false, // 是否禁用前缀
+    noPrefix: false,
+  },
+  editor: {
+    applicationURL: "https://example.com",
+  },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: "This is a test application",
+  },
+  build: {
+    importMode: "dynamic",
   },
 };
 
@@ -64,10 +75,20 @@ const config = {
     locales: [Locales.ENGLISH], // 支持的语言列表
   },
   content: {
-    typesDir: "content/types", // 内容类型目录
+    contentDir: ["src", "../ui-library"], // 内容目录
   },
   middleware: {
     noPrefix: false, // 是否禁用前缀
+  },
+  editor: {
+    applicationURL: "https://example.com", // 编辑器应用程序 URL
+  },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY, // AI API 密钥
+    applicationContext: "This is a test application", // 应用程序上下文
+  },
+  build: {
+    importMode: "dynamic", // 启用动态导入
   },
 };
 
@@ -83,7 +104,7 @@ module.exports = config;
     "typesDir": "content/types", // 内容类型目录
   },
   "middleware": {
-    "noPrefix": false, // 是否禁用前缀
+    "noPrefix": false,
   },
 }
 ```
@@ -110,14 +131,12 @@ module.exports = config;
   - _示例_: `['en', 'fr', 'es']`
 
 - **requiredLocales**:
-
   - _类型_: `string[]`
   - _默认值_: `[]`
   - _描述_: 应用程序中必需的语言列表。
   - _示例_: `[]`
   - _注意_: 如果为空，在 `strict` 模式下所有语言都是必需的。
   - _注意_: 确保必需的语言也在 `locales` 字段中定义。
-
 - **strictMode**:
 
   - _类型_: `string`
@@ -131,9 +150,9 @@ module.exports = config;
 
   - _类型_: `string`
   - _默认值_: `'en'`
-  - _描述_: 如果请求的语言未找到，则使用的默认语言。
+  - _描述_: 当请求的语言环境未找到时，使用的默认语言环境作为回退。
   - _示例_: `'en'`
-  - _注意_: 当 URL、Cookie 或 Header 中未指定语言时，用于确定语言。
+  - _注意_: 当 URL、cookie 或请求头中未指定语言环境时，使用此项来确定语言环境。
 
 ---
 
@@ -168,7 +187,7 @@ module.exports = config;
     - `'http://localhost:3000'`
     - `'https://example.com'`
     - `process.env.INTLAYER_EDITOR_URL`
-  - _注意_: 应用程序访问编辑器服务器的 URL。用于限制可以与应用程序交互的来源以确保安全。如果设置为 `'*'`，编辑器可以从任何来源访问。如果更改了端口，或者编辑器托管在不同的域上，则应设置此项。
+  - _注意_: 从应用程序访问的编辑器服务器的 URL。用于限制可以与应用程序交互的来源以确保安全。如果设置为 `'*'`，则编辑器可从任何来源访问。如果更改了端口或编辑器托管在不同域上，应设置此项。
 
 - **cmsURL**:
 
@@ -197,7 +216,7 @@ module.exports = config;
 
   - _类型_: `string` | `undefined`
   - _默认值_: `undefined`
-  - _描述_: clientId 和 clientSecret 允许 Intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
+  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
   - _示例_: `true`
   - _注意_: 重要：clientId 和 clientSecret 应该保密，不应公开共享。请确保将它们保存在安全的位置，例如环境变量中。
 
@@ -205,28 +224,28 @@ module.exports = config;
 
   - _类型_: `string` | `undefined`
   - _默认值_: `undefined`
-  - _描述_: clientId 和 clientSecret 允许 Intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
+  - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
   - _示例_: `true`
-  - _注意_: 重要：clientId 和 clientSecret 应该保密，不应公开共享。请确保将它们保存在安全的位置，例如环境变量中。
+  - _注意_: 重要提示：clientId 和 clientSecret 应保密，不得公开分享。请确保将它们保存在安全的位置，例如环境变量中。
 
 - **hotReload**:
 
   - _类型_: `boolean`
   - _默认值_: `false`
-  - _描述_: 指示应用程序是否在检测到更改时热加载语言配置。
+  - _描述_: 指示应用程序在检测到更改时是否应热加载语言配置。
   - _示例_: `true`
-  - _注意_: 例如，当添加或更新新词典时，应用程序将更新页面中显示的内容。
-  - _注意_: 由于热加载需要与服务器的持续连接，因此仅适用于 `enterprise` 计划的客户。
+  - _注意_: 例如，当添加或更新新的词典时，应用程序将更新页面中显示的内容。
+  - _注意_: 由于热重载需要与服务器保持持续连接，因此仅对 `enterprise` 计划的客户端可用。
 
 - **dictionaryPriorityStrategy**:
   - _类型_: `string`
   - _默认值_: `'local_first'`
-  - _描述_: 在本地和远程词典同时存在的情况下优先选择词典的策略。如果设置为 `'distant_first'`，应用程序将优先选择远程词典。如果设置为 `'local_first'`，应用程序将优先选择本地词典。
+  - _描述_: 当本地词典和远程词典同时存在时，优先使用词典的策略。如果设置为 `'distant_first'`，应用程序将优先使用远程词典；如果设置为 `'local_first'`，应用程序将优先使用本地词典。
   - _示例_: `'distant_first'`
 
 ### 中间件配置
 
-控制中间件行为的设置，包括应用程序如何处理 Cookies、Headers 和用于语言管理的 URL 前缀。
+控制中间件行为的设置，包括应用程序如何处理 Cookie、头信息和用于语言环境管理的 URL 前缀。
 
 #### 属性
 
@@ -234,9 +253,11 @@ module.exports = config;
 
   - _类型_: `string`
   - _默认值_: `'x-intlayer-locale'`
-  - _描述_: 用于确定语言的 HTTP Header 名称。
+  - _描述_: 用于确定语言环境的 HTTP 头名称。
   - _示例_: `'x-custom-locale'`
-  - _注意_: 这对于基于 API 的语言确定非常有用。
+  - _注意_: 这对于基于 API 的语言环境确定非常有用。
+
+- **cookieName**:
 
   - _类型_: `string`
   - _默认值_: `'intlayer-locale'`
@@ -247,10 +268,12 @@ module.exports = config;
 - **prefixDefault**:
 
   - _类型_: `boolean`
-  - _默认值_: `true`
+  - _默认值_: `false`
   - _描述_: 是否在 URL 中包含默认语言环境。
-  - _示例_: `false`
-  - _注意_: 如果为 `false`，默认语言环境的 URL 将不会有语言环境前缀。
+  - _示例_: `true`
+  - _注意_:
+    - 如果 `true` 且 `defaultLocale = 'en'`: path = `/en/dashboard` 或 `/fr/dashboard`
+    - 如果 `false` 且 `defaultLocale = 'en'`: path = `/dashboard` 或 `/fr/dashboard`
 
 - **basePath**:
 
@@ -258,7 +281,11 @@ module.exports = config;
   - _默认值_: `''`
   - _描述_: 应用程序 URL 的基础路径。
   - _示例_: `'/my-app'`
-  - _注意_: 这会影响应用程序 URL 的构建方式。
+  - _注意_:
+    - 如果应用程序托管在 `https://example.com/my-app`
+    - 基础路径是 `'/my-app'`
+    - URL 将是 `https://example.com/my-app/en`
+    - 如果基础路径未设置，URL 将是 `https://example.com/en`
 
 - **serverSetCookie**:
 
@@ -270,11 +297,44 @@ module.exports = config;
   - _注意_: 控制是否在每个请求上设置语言环境 Cookie 或从不设置。
 
 - **noPrefix**:
+
   - _类型_: `boolean`
   - _默认值_: `false`
   - _描述_: 是否从 URL 中省略语言环境前缀。
   - _示例_: `true`
-  - _注意_: 如果为 `true`，URL 将不包含语言环境信息。
+  - _注意_:
+    - 如果 `true`: URL 中没有前缀
+    - 如果 `false`: URL 中有前缀
+    - 使用 `basePath = '/my-app'` 的示例:
+      - 如果 `noPrefix = false`: URL 将是 `https://example.com/my-app/en`
+      - 如果 `noPrefix = true`: URL 将是 `https://example.com`
+
+- **detectLocaleOnPrefetchNoPrefix**:
+
+  - _类型_: `boolean`
+  - _默认值_: `false`
+  - _描述_: 控制是否在 Next.js 预取请求期间进行语言环境检测。
+  - _示例_: `true`
+  - _注意_: 此设置影响 Next.js 处理语言环境预取的方式:
+    - **示例场景:**
+      - 用户的浏览器语言是 `'fr'`
+      - 当前页面是 `/fr/about`
+      - 链接预取 `/about`
+    - **使用 `detectLocaleOnPrefetchNoPrefix: true`:**
+      - 预取从浏览器检测到 `'fr'` 语言环境
+      - 将预取重定向到 `/fr/about`
+    - **使用 `detectLocaleOnPrefetchNoPrefix: false` (默认):**
+      - 预取使用默认语言环境
+      - 将预取重定向到 `/en/about` (假设 `'en'` 是默认值)
+    - **何时使用 `true`:**
+      - 您的应用程序使用非本地化的内部链接 (例如 `<a href="/about">`)
+      - 您希望在常规请求和预取请求之间保持一致的语言环境检测行为
+    - **何时使用 `false` (默认):**
+      - 您的应用程序使用带语言环境前缀的链接 (例如 `<a href="/fr/about">`)
+      - 您希望优化预取性能
+      - 您希望避免潜在的重定向循环
+
+---
 
 ### 内容配置
 
@@ -314,6 +374,7 @@ module.exports = config;
 
   - _类型_: `string[]`
   - _默认值_: `['src']`
+  - _示例_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _描述_: 存储内容的目录路径。
 
 - **dictionariesDir**:
@@ -344,6 +405,7 @@ module.exports = config;
   - _描述_: 用于存储本地化字典的目录。
   - _示例_: `'translations'`
 
+- **i18nextResourcesDir**:
 - **i18nextResourcesDir**:
 
   - _类型_: `string`
@@ -398,15 +460,13 @@ module.exports = config;
 ### AI 配置
 
 控制 Intlayer AI 功能的设置，包括提供商、模型和 API 密钥。
-
 如果您已使用访问密钥在 [Intlayer Dashboard](https://intlayer.org/dashboard/project) 上注册，则此配置是可选的。Intlayer 将自动为您的需求管理最有效和最具成本效益的 AI 解决方案。使用默认选项可确保更好的长期可维护性，因为 Intlayer 会不断更新以使用最相关的模型。
 
 如果您更喜欢使用自己的 API 密钥或特定模型，可以定义自定义 AI 配置。
 此 AI 配置将在整个 Intlayer 环境中全局使用。CLI 命令将使用这些设置作为命令（例如 `fill`）的默认值，以及 SDK、可视化编辑器和 CMS。您可以使用命令参数为特定用例覆盖这些默认值。
+Intlayer 支持多个 AI 提供商，以增强灵活性和选择性。目前支持的提供商有：
 
-Intlayer 支持多个 AI 提供商以增强灵活性和选择性。目前支持的提供商包括：
-
-- **OpenAI** (默认)
+- **OpenAI**（默认）
 - **Anthropic Claude**
 - **Mistral AI**
 - **DeepSeek**
@@ -415,21 +475,21 @@ Intlayer 支持多个 AI 提供商以增强灵活性和选择性。目前支持�
 
 #### 属性
 
-- **provider**:
+- **provider**：
 
-  - _类型_: `string`
-  - _默认值_: `'openai'`
-  - _描述_: 用于 Intlayer AI 功能的提供商。
-  - _选项_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
-  - _示例_: `'anthropic'`
-  - _注意_: 不同的提供商可能需要不同的 API 密钥，并具有不同的定价模型。
+  - _类型_：`string`
+  - _默认值_：`'openai'`
+  - _描述_：用于 Intlayer AI 功能的提供商。
+  - _选项_：`'openai'`、`'anthropic'`、`'mistral'`、`'deepseek'`、`'gemini'`
+  - _示例_：`'anthropic'`
+  - _注意_：不同的提供商可能需要不同的 API 密钥，并具有不同的定价模型。
 
-- **model**:
+- **model**：
 
-  - _类型_: `string`
-  - _默认值_: 无
-  - _描述_: 用于 Intlayer AI 功能的模型。
-  - _示例_: `'gpt-4o-2024-11-20'`
+  - _类型_：`string`
+  - _默认值_：无
+  - _描述_：用于 Intlayer AI 功能的模型。
+  - _示例_：`'gpt-4o-2024-11-20'`
   - _注意_: 不同提供商使用的具体模型可能有所不同。
 
 - **temperature**:
@@ -449,10 +509,9 @@ Intlayer 支持多个 AI 提供商以增强灵活性和选择性。目前支持�
   - _注意_: 重要提示：API 密钥应保密，不得公开共享。请确保将其保存在安全位置，例如环境变量。
 
 - **applicationContext**:
-
   - _类型_: `string`
   - _默认值_: 无
-  - _描述_: 为 AI 模型提供有关您应用程序的额外上下文，帮助其生成更准确和上下文适当的翻译。这可以包括有关您应用程序的领域、目标受众、语气或特定术语的信息。
+  - _描述_：为 AI 模型提供有关您的应用程序的额外上下文，帮助其生成更准确且符合上下文的翻译。这可以包括您的应用领域、目标受众、语气或特定术语等信息。
 
 ### 构建配置
 
@@ -460,11 +519,9 @@ Intlayer 支持多个 AI 提供商以增强灵活性和选择性。目前支持�
 
 构建选项适用于 `@intlayer/babel` 和 `@intlayer/swc` 插件。
 
-> 在开发模式下，Intlayer 使用集中式静态导入字典以简化开发体验。
+> 在开发模式下，Intlayer 使用静态导入字典以简化开发体验。
 
-> 通过优化构建，Intlayer 将替换所有字典调用以优化分块。这样，最终的包只会导入使用到的字典。
-
-- **注意**：`@intlayer/babel` 在 `vite-intlayer` 包中默认可用，但 `@intlayer/swc` 在 `next-intlayer` 包中默认未安装，因为 SWC 插件在 Next.js 中仍处于实验阶段。
+> 优化时，Intlayer 将替换字典调用以优化分块，以便最终包只导入实际使用的字典。
 
 #### 属性
 
@@ -472,29 +529,40 @@ Intlayer 支持多个 AI 提供商以增强灵活性和选择性。目前支持�
 
   - _类型_：`boolean`
   - _默认值_：`process.env.NODE_ENV === 'production'`
-  - _描述_：控制是否应该优化构建。
+  - _描述_：控制构建是否应被优化。
   - _示例_：`true`
-  - _注意_：这将允许只导入包中使用的字典。但所有导入都将保持为静态导入，以避免加载字典时的异步处理。
-  - _注意_：启用时，Intlayer 将通过将所有 `useIntlayer` 调用替换为 `useDictionary` 和 `getIntlayer` 替换为 `getDictionary` 来优化字典分块。
+  - _注意_：启用时，Intlayer 将替换所有字典调用以优化分块。这样，最终包将只导入使用的字典。所有导入都将保持为静态导入，以避免加载字典时的异步处理。
+  - _注意_：Intlayer 将用 `importMode` 选项定义的模式替换所有 `useIntlayer` 调用，并将 `getIntlayer` 替换为 `getDictionary`。
+  - _注意_：此选项依赖于 `@intlayer/babel` 和 `@intlayer/swc` 插件。
   - _注意_：确保所有键都在 `useIntlayer` 调用中静态声明。例如：`useIntlayer('navbar')`。
 
-- **activateDynamicImport**：
+- **importMode**：
 
-  - _类型_：`boolean`
-  - _默认值_：`false`
-  - _描述_：控制是否应该按语言环境动态导入字典内容。
-  - _示例_：`true`
-  - _注意_：这将允许仅动态导入当前语言环境的字典内容。
-  - _注意_：动态导入依赖于 React Suspense，可能会略微影响渲染性能。但如果禁用，所有语言环境将一次性加载，即使它们未被使用。
-  - _注意_：启用时，Intlayer 将通过将所有 `useIntlayer` 调用替换为 `useDynamicDictionary` 来优化字典分块。
+  - _类型_：`'static' | 'dynamic' | 'async'`
+  - _默认值_：`'static'`
+  - _描述_：控制字典的导入方式。
+  - _示例_：`'dynamic'`
+  - _注意_：可用模式：
+    - "static"：字典静态导入。将 `useIntlayer` 替换为 `useDictionary`。
+    - "dynamic"：字典使用 Suspense 动态导入。将 `useIntlayer` 替换为 `useDictionaryDynamic`。
+    - "async"：字典异步动态导入。将 `useIntlayer` 替换为 `await useDictionaryAsync`。
+  - _注意_：动态导入依赖于 Suspense，可能会略微影响渲染性能。
+  - _注意_：如果禁用，所有语言环境将一次性加载，即使未被使用。
+  - _注意_：此选项依赖于 `@intlayer/babel` 和 `@intlayer/swc` 插件。
+  - _注意_：确保所有键在 `useIntlayer` 调用中静态声明。例如：`useIntlayer('navbar')`。
   - _注意_：如果 `optimize` 被禁用，此选项将被忽略。
-  - _注意_：确保所有键都在 `useIntlayer` 调用中静态声明。例如：`useIntlayer('navbar')`。
+  - _注意_：在大多数情况下，React 应用程序将使用 `"dynamic"`，Vue.js 应用程序将使用 `"async"`。
+  - _注意_：此选项不会影响 `getIntlayer`、`getDictionary`、`useDictionary`、`useDictionaryAsync` 和 `useDictionaryDynamic` 函数。
 
 - **traversePattern**：
   - _类型_：`string[]`
-  - _默认值_：`['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}', '!**/node_modules/**']`
-  - _描述_：定义在优化期间应遍历哪些文件的模式。
-  - _示例_：`['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _注意_：使用此选项将优化限制在相关代码文件上并提高构建性能。
-  - _注意_：如果 `optimize` 被禁用，此选项将被忽略。
+  - _默认值_：`['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _描述_：定义在优化过程中应遍历哪些文件的模式。
+    - _示例_：`['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _注意_：使用此选项限制优化到相关的代码文件，以提升构建性能。
+  - _注意_：如果禁用 `optimize`，此选项将被忽略。
   - _注意_：使用 glob 模式。
+
+## 文档历史
+
+- 5.5.11 - 2025-06-29：新增 `docs` 命令

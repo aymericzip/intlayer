@@ -85,7 +85,8 @@
               { "$ref": "#/definitions/insertionContent" },
               { "$ref": "#/definitions/markdownContent" },
               { "$ref": "#/definitions/nestedContent" },
-              { "$ref": "#/definitions/fileContent" }
+              { "$ref": "#/definitions/fileContent" },
+              { "$ref": "#/definitions/genderContent" }
             ]
           },
           "else": { "$ref": "#/definitions/objectValue" }
@@ -300,6 +301,17 @@
       },
       "required": ["props"],
       "additionalProperties": true
+    },
+
+    "genderContent": {
+      "type": "object",
+      "description": "Represents a gender node.",
+      "properties": {
+        "nodeType": { "type": "string", "const": "gender" },
+        "gender": { "$ref": "#/definitions/contentValue" }
+      },
+      "required": ["nodeType", "gender"],
+      "additionalProperties": false
     }
   }
 }

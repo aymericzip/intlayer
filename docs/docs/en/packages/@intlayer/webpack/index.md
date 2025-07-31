@@ -1,3 +1,23 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: @intlayer/webpack - Webpack Plugin for Intlayer i18n
+description: NPM package providing Webpack configuration and plugin for seamless integration of Intlayer internationalization with Webpack-based applications.
+keywords:
+  - intlayer
+  - webpack
+  - plugin
+  - configuration
+  - i18n
+  - JavaScript
+  - NPM
+  - bundler
+slugs:
+  - doc
+  - package
+  - @intlayer_webpack
+---
+
 # @intlayer/webpack: NPM Package to use the Intlayer Webpack Plugin into your application
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
@@ -33,3 +53,9 @@ pnpm add @intlayer/webpack
 ```bash packageManager="yarn"
 yarn add @intlayer/webpack
 ```
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

@@ -1,6 +1,6 @@
 {
   "name": "intlayer-monorepo",
-  "version": "1.00.0",
+  "version": "5.7.5",
   "private": false,
   "description": "Intlayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "homepage": "https://intlayer.org",
@@ -26,11 +26,9 @@
   "type": "module",
   "scripts": {
     "build": "node ./scripts/script-package-command.mjs --command build",
-    "build:backend": "pnpm build && pnpm --filter './apps/backend' build",
     "build:changed": "node ./scripts/script-changed-package-command.mjs --command build",
-    "build:examples": "pnpm --filter './examples/**' build",
+    "build:ci": "node ./scripts/script-package-command.mjs --command build:ci",
     "build:pick": "node ./scripts/script-pick.mjs --command build",
-    "build:website": "pnpm build && pnpm --filter './apps/website' build",
     "changeset": "changeset",
     "changeset:publish": "changeset publish",
     "changeset:version": "changeset version",
@@ -38,7 +36,7 @@
     "clean:dist": "rimraf node_modules ./**/dist",
     "clean:examples": "node ./scripts/script-package-command.mjs --command clean",
     "clean:node_modules": "rimraf node_modules ./**/node_modules",
-    "dev": "node ./scripts/script-dev-package-command.mjs --command reset",
+    "dev": "node ./scripts/script-dev-package-command.mjs --command build",
     "dev:pick": "node ./scripts/script-pick.mjs --command dev",
     "lint": "eslint . --cache",
     "lint-staged": "lint-staged --allow-empty",
@@ -48,8 +46,9 @@
     "prepublishOnly": "npm run test",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "reset": "node ./scripts/script-package-command.mjs --command reset",
-    "reset:pick": "node ./scripts/script-pick.mjs --command reset",
+    "start:docker:backend": "docker run --rm -p 3100:3100 --name intlayer-backend-app intlayer-backend",
+    "start:docker:mcp": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",
+    "start:docker:website": "docker run --rm -p 3000:3000 --name intlayer-website-app intlayer-website",
     "test": "node ./scripts/script-package-command.mjs --command test",
     "test:pick": "node ./scripts/script-pick.mjs --command test",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
@@ -73,7 +72,6 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
     "minimist": "^1.2.8",
-    "next": "^15.3.3",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "rollup-plugin-visualizer": "^5.14.0",
@@ -89,6 +87,7 @@
   },
   "pnpm": {
     "overrides": {
+      "nanostores": "npm:nanostores-cjs@0.7.1",
       "react": "19.0.0",
       "react-dom": "19.0.0"
     }

@@ -26,7 +26,7 @@ export const getContent = <
 >(
   node: T,
   nodeProps: NodeProps,
-  locale: L = configuration.internationalization.defaultLocale as L
+  locale: L = configuration?.internationalization.defaultLocale as L
 ) => {
   const plugins: Plugins[] = [
     insertionPlugin,

@@ -1,3 +1,22 @@
+---
+createdAt: 2025-06-18
+updatedAt: 2025-06-29
+title: Translate your React Native and Expo website (i18n)
+description: Discover how to make your React Native and Expo website multilingual. Follow the documentation to internationalise (i18n) and translate it.
+keywords:
+  - Internationalisation
+  - Documentation
+  - Intlayer
+  - React Native
+  - Expo
+  - JavaScript
+slugs:
+  - doc
+  - environment
+  - react-native-and-expo
+applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
+---
+
 # Getting Started Internationalising (i18n) with Intlayer and React Native
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-native-template) on GitHub.
@@ -52,10 +71,13 @@ yarn add --save-dev react-native-intlayer
 In your project root (or anywhere convenient), create an **Intlayer config** file. It might look like this:
 
 ```ts fileName="intlayer.config.ts" codeFormat="typescript"
+/**
+ * If Locales types is not available, try to set moduleResolution to "bundler" in your tsconfig.json
+ */
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalisation: {
+  internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
@@ -74,7 +96,7 @@ import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
@@ -93,7 +115,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  internationalisation: {
+  internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
@@ -128,13 +150,11 @@ module.exports = (async () => {
 
 To keep the user language synchronised across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-intlayer`.
 
-Wrap your **root** or top-level component with `IntlayerProvider` from `react-intlayer`.
-
-Also, you need to add the `intlayerPolyfill` function to your `index.js` file to ensure that Intlayer can work properly.
+Additionally, you need to add the `intlayerPolyfill` function to your `index.js` file to ensure that Intlayer functions correctly.
 
 ```tsx fileName="app/_layout.tsx" codeFormat="typescript"
 import { Stack } from "expo-router";
-import { getLocales } from "expo-localisation";
+import { getLocales } from "expo-localization";
 import { IntlayerProviderContent } from "react-intlayer";
 import { intlayerPolyfill } from "react-native-intlayer";
 import { type FC } from "react";
@@ -158,7 +178,7 @@ export default RootLayout;
 
 ```jsx fileName="app/_layout.mjx" codeFormat="esm"
 import { Stack } from "expo-router";
-import { getLocales } from "expo-localisation";
+import { getLocales } from "expo-localization";
 import { IntlayerProviderContent } from "react-intlayer";
 import { intlayerPolyfill } from "react-native-intlayer";
 
@@ -181,12 +201,13 @@ export default RootLayout;
 
 ```jsx fileName="app/_layout.cjx" codeFormat="commonjs"
 const { Stack } = require("expo-router");
-const { getLocales } = require("expo-localisation");
+const { getLocales } = require("expo-localization");
 const { IntlayerProviderContent } = require("react-intlayer");
 const { intlayerPolyfill } = require("react-native-intlayer");
 
 intlayerPolyfill();
 
+// Function to get the device's locale
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 const RootLayout = () => {
@@ -253,7 +274,6 @@ const appContent = {
   content: {
     title: t({
       "en-GB": "Welcome!",
-      en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
     }),
@@ -272,7 +292,6 @@ const appContent = {
   content: {
     title: t({
       "en-GB": "Welcome!",
-      en: "Welcome!",
       fr: "Bienvenue!",
       es: "¡Bienvenido!",
     }),
@@ -289,9 +308,8 @@ module.exports = appContent;
   "content": {
     "title": {
       "nodeType": "translation",
-
+      "translation": {
         "en-GB": "Welcome!",
-        "en": "Welcome!",
         "fr": "Bienvenue!",
         "es": "¡Bienvenido!"
       }
@@ -306,13 +324,13 @@ module.exports = appContent;
 
 ## Step 4: Use Intlayer in Your Components
 
-Wrap your **root** or top-level component with `IntlayerProvider` from `react-intlayer`. Then, use the `useIntlayer` hook in child components to get localised content.
+Use the `useIntlayer` hook in child components to obtain localised content.
 
 ### Example
 
 ```tsx fileName="app/(tabs)/index.tsx" codeFormat="typescript"
 import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer } from "intlayer";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -343,7 +361,7 @@ const HomeScreen = (): FC => {
 const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "centre",
     gap: 8,
   },
 });
@@ -353,7 +371,7 @@ export default HomeScreen;
 
 ```jsx fileName="app/(tabs)/index.content.msx" codeFormat="esm"
 import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer } from "intlayer";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -383,7 +401,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "centre",
     gap: 8,
   },
 });
@@ -423,7 +441,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "centre",
     gap: 8,
   },
 });
@@ -431,7 +449,7 @@ const styles = StyleSheet.create({
 module.exports = HomeScreen;
 ```
 
-> When using `content.someKey` in string-based props (e.g., a button’s `title` or a `Text` component’s `children`), **call `content.someKey.value`** to get the actual string.
+> When using `content.someKey` in string-based props (e.g., a button’s `title` or a `Text` component’s `children`), **call `content.someKey.value`** to obtain the actual string.
 
 ---
 
@@ -441,61 +459,138 @@ To switch locales from within your components, you can use the `useLocale` hook�
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import { type FC } from "react";
-import { Button } from "react-native";
-import { Locales } from "intlayer";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
 export const LocaleSwitcher: FC = () => {
-  const { setLocale } = useLocale();
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="Switch to French"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "500",
+    colour: "#333",
+  },
+});
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { Locales } from "intlayer";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
+export const LocaleSwitcher = () => {
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="Switch to French"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+const { View, Text, TouchableOpacity, StyleSheet } = require("react-native");
+const { getLocaleName } = require("intlayer");
 const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
+  const { setLocale, availableLocales } = useLocale();
 
   return (
-    <Button
-      title="Switch to French"
-      onPress={() => {
-        setLocale(Locales.FRENCH);
-      }}
-    />
+    <View style={styles.container}>
+      {availableLocales.map((locale) => (
+        <TouchableOpacity
+          key={locale}
+          style={styles.button}
+          onPress={() => setLocale(locale)}
+        >
+          <Text style={styles.text}>{getLocaleName(locale)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: "#ddd",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#333",
+  },
+});
 ```
 
-This triggers a re-render of all components that use Intlayer content, now showing translations for the new locale.
+This triggers a re-render of all components that use Intlayer content, now displaying translations for the new locale.
 
 > See [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md) for more details.
 
@@ -515,16 +610,16 @@ Intlayer generates type definitions in a hidden folder (by default `.intlayer`) 
 }
 ```
 
-This is what enables features like:
+This enables features such as:
 
 - **Autocompletion** for your dictionary keys.
-- **Type checking** that warns if you access a non-existent key or mismatch the type.
+- **Type checking** that warns if you access a non-existent key or have a type mismatch.
 
 ---
 
 ## Git Configuration
 
-To avoid committing auto-generated files by Intlayer, add the following to your `.gitignore`:
+To prevent committing auto-generated files by Intlayer, add the following to your `.gitignore`:
 
 ```plaintext
 # Ignore the files generated by Intlayer
@@ -533,10 +628,33 @@ To avoid committing auto-generated files by Intlayer, add the following to your 
 
 ---
 
+### VS Code Extension
+
+To enhance your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+
+[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+This extension provides:
+
+- **Autocompletion** for translation keys.
+- **Real-time error detection** for missing translations.
+- **Inline previews** of translated content.
+- **Quick actions** to easily create and update translations.
+
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ## Go Further
 
 - **Visual Editor**: Use the [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) to manage translations visually.
-- **CMS Integration**: You can also externalise and fetch your dictionary content from a [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
-- **CLI Commands**: Explore the [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md) for tasks like **extracting translations** or **checking missing keys**.
+- **CMS Integration**: You can also externalise and fetch your dictionary content from a [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+- **CLI Commands**: Explore the [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_cli.md) for tasks like **extracting translations** or **checking missing keys**.
 
 Enjoy building your **React Native** apps with fully powered i18n through **Intlayer**!
+
+---
+
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

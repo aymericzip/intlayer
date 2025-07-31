@@ -1,11 +1,8 @@
 ---
-docName: intlayer_with_lynx_react
-url: https://intlayer.org/doc/environment/lynx-and-react
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md
 createdAt: 2025-03-09
-updatedAt: 2025-03-09
+updatedAt: 2025-06-29
 title: 翻译你的Lynx和React移动应用 (i18n)
-description: 了解如何使您的使用 Lynx 和 React 的 Page Router 网站实现多语言。请遵循文档进行国际化（i18n）和翻译。
+description: 了解如何使您的使用 Lynx 和 React 的移动应用实现多语言。请遵循文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化
   - 文档
@@ -14,11 +11,16 @@ keywords:
   - React
   - Lynx
   - JavaScript
+slugs:
+  - doc
+  - environment
+  - lynx-and-react
+applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 ---
 
 # 开始使用 Intlayer 和 Lynx 以及 React 进行国际化 (i18n)
 
-Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-lynx-template) на GitHub.
+请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-lynx-template)。
 
 ## 什么是 Intlayer？
 
@@ -30,8 +32,6 @@ keywords:
 - **确保 TypeScript 支持**，通过自动生成的类型。
 - **动态本地化**内容，包括**UI 字符串**（在 Web 的 React 中，还可以本地化 HTML 元数据等）。
 - **受益于高级功能**，如动态语言检测和切换。
-
-> **重要提示**：在 Lynx 中，您不会更改 `<html lang="...">` 或依赖 Vite 插件。相反，您将集成 `react-intlayer` API，可选地与 [`I18nManager`](https://reactnative.dev/docs/i18nmanager) 协调以支持 RTL，并且如果您使用 React Navigation，还需要调整路由器以反映语言更改。
 
 ---
 
@@ -183,9 +183,9 @@ if (import.meta.webpackHot) {
 - `.content.cjx`
 - 等等。
 
-示例（使用 TSX 节点的 TypeScript，适用于 Lynx）：
+示例：
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -193,7 +193,6 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
-      zh: "在 Lynx 上",
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
@@ -280,22 +279,22 @@ const appContent = {
       es: "en Lynx",
     }),
     description: t({
-      zh: "点击标志并享受乐趣！",
       en: "Tap the logo and have fun!",
+      zh: "点击标志并享受乐趣！",
       fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
     }),
     hint: [
       t({
-        zh: "编辑",
         en: "Edit",
+        zh: "编辑",
         fr: "Modifier",
         es: "Editar",
       }),
       " src/App.tsx ",
       t({
-        zh: "以查看更新！",
         en: "to see updates!",
+        zh: "以查看更新！",
         fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",
       }),
@@ -315,43 +314,42 @@ module.exports = appContent;
     "subtitle": {
       "nodeType": "translation",
       "translation": {
-        "zh": "在 Lynx 上",
         "en": "on Lynx",
+        "zh": "在 Lynx 上",
         "fr": "sur Lynx",
         "es": "en Lynx"
       }
     },
-    "description": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "点击标志并享受乐趣！",
-        "en": "Tap the logo and have fun!",
-        "fr": "Appuyez sur le logo et amusez-vous!",
-        "es": "¡Toca el logo y diviértete!"
-      }
-    },
-    "hint": [
-      {
-        "nodeType": "translation",
-        "translation": {
-          "zh": "编辑",
-          "en": "Edit",
-          "fr": "Modifier",
-          "es": "Editar"
-        }
-      },
-      " src/App.tsx ",
-      {
-        "nodeType": "translation",
-        "translation": {
-          "zh": "查看更新！",
-          "en": "to see updates!",
-          "fr": "pour voir les mises à jour!",
-          "es": "para ver actualizaciones!"
-        }
-      }
-    ]
+"description": {
+  "nodeType": "translation",
+  "translation": {
+    "zh": "点击标志并享受乐趣！",
+    "en": "Tap the logo and have fun!",
+    "fr": "Appuyez sur le logo et amusez-vous!",
+    "es": "¡Toca el logo y diviértete!"
   }
+},
+"hint": [
+  {
+    "nodeType": "translation",
+    "translation": {
+      "zh": "编辑",
+      "en": "Edit",
+      "fr": "Modifier",
+      "es": "Editar"
+    }
+  },
+  " src/App.tsx ",
+  {
+    "nodeType": "translation",
+    "translation": {
+      "zh": "查看更新！",
+      "en": "to see updates!",
+      "fr": "pour voir les mises à jour!",
+      "es": "para ver actualizaciones!"
+    }
+  }
+]
 }
 ```
 
@@ -376,7 +374,6 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
-
   const onTap = useCallback(() => {
     // 仅更改背景
     setAlterLogo(!alterLogo);
@@ -495,8 +492,30 @@ Intlayer 在一个隐藏文件夹中生成类型定义（默认是 `.intlayer`�
 
 ---
 
+### VS Code 扩展
+
+为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
+
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+该扩展提供：
+
+- **翻译键的自动补全**。
+- **实时错误检测**，用于发现缺失的翻译。
+- **内联预览**已翻译的内容。
+- **快速操作**，轻松创建和更新翻译。
+  有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+
+---
+
 ## 深入了解
 
-- **可视化编辑器**：使用 [Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 以可视化方式管理翻译。
-- **CMS 集成**：您还可以将字典内容外部化并从 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 中获取。
-- **CLI 命令**：探索 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 以执行诸如**提取翻译**或**检查缺失键**等任务。
+- **可视化编辑器**：使用[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)以可视化方式管理翻译。
+- **CMS 集成**：您还可以将字典内容外部化并从[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)中获取。
+- **CLI 命令**：探索[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)以执行诸如**提取翻译**或**检查缺失键**等任务。
+
+---
+
+## 文档历史
+
+- 5.5.10 - 2025-06-29：初始化历史

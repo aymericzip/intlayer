@@ -1,9 +1,6 @@
 ---
-docName: package__react-intlayer__useIntlayer
-url: https://intlayer.org/doc/packages/react-intlayer/useIntlayer
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: useIntlayer Hook Documentation | react-intlayer
 description: See how to use the useIntlayer hook for react-intlayer package
 keywords:
@@ -16,6 +13,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - packages
+  - react-intlayer
+  - useIntlayer
 ---
 
 # React Integration: `useIntlayer` Hook Documentation
@@ -243,3 +245,9 @@ When localizing attributes, access the content values appropriately:
 - **Intlayer Visual Editor**: For a more intuitive content management experience, refer to the visual editor documentation [here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
 
 This section specifically targets the integration of the `useIntlayer` hook in React applications, simplifying the localization process and ensuring content consistency across different locales.
+
+## Doc History
+
+| Version | Date       | Changes      |
+| ------- | ---------- | ------------ |
+| 5.5.10  | 2025-06-29 | Init history |

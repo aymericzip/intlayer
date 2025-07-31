@@ -1,4 +1,4 @@
-import { ChangePasswordForm } from '@components/Auth/ChangePasswordForm';
+import { ChangePasswordForm } from '@components/Auth/ChangePassword';
 import { Container } from '@intlayer/design-system';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';

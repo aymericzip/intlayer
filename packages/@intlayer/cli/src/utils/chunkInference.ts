@@ -1,10 +1,10 @@
-import { AIOptions, getAiAPI, Messages } from '@intlayer/api';
-import {
-  getAppLogger,
-  getConfiguration,
-  GetConfigurationOptions,
-  retryManager,
-} from '@intlayer/config';
+import { type AIOptions, type Messages, getAiAPI } from '@intlayer/api';
+import { retryManager } from '@intlayer/config';
+
+type ChunkInferenceResult = {
+  fileContent: string;
+  tokenUsed: number;
+};
 
 /**
  * Translates a single chunk via the OpenAI API.
@@ -13,13 +13,9 @@ import {
 export const chunkInference = async (
   messages: Messages,
   aiOptions?: AIOptions,
-  configOptions?: GetConfigurationOptions,
   oAuth2AccessToken?: string
-): Promise<string> => {
-  let lastResult: string = '';
-
-  const configuration = getConfiguration(configOptions);
-  const appLogger = getAppLogger(configuration);
+): Promise<ChunkInferenceResult> => {
+  let lastResult: ChunkInferenceResult;
 
   await retryManager(async () => {
     const response = await getAiAPI().customQuery(
@@ -42,16 +38,29 @@ export const chunkInference = async (
 
     const { fileContent, tokenUsed } = response.data;
 
-    appLogger(` -> ${tokenUsed} tokens used in the request`);
-
     const newContent = fileContent
       .replaceAll('///chunksStart///', '')
       .replaceAll('///chunkStart///', '')
       .replaceAll('///chunksEnd///', '')
-      .replaceAll('///chunkEnd///', '');
+      .replaceAll('///chunkEnd///', '')
+      .replaceAll('///chunksStart///', '')
+      .replaceAll('chunkStart///', '')
+      .replaceAll('chunksEnd///', '')
+      .replaceAll('chunkEnd///', '')
+      .replaceAll('///chunksStart', '')
+      .replaceAll('///chunkStart', '')
+      .replaceAll('///chunksEnd', '')
+      .replaceAll('///chunkEnd', '')
+      .replaceAll('chunksStart', '')
+      .replaceAll('chunkStart', '')
+      .replaceAll('chunksEnd', '')
+      .replaceAll('chunkEnd', '');
 
-    lastResult = newContent;
+    lastResult = {
+      fileContent: newContent,
+      tokenUsed,
+    };
   })();
 
-  return lastResult;
+  return lastResult!;
 };

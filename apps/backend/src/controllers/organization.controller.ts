@@ -1,17 +1,28 @@
+import type {
+  Organization,
+  OrganizationAPI,
+  OrganizationCreationData,
+} from '@/types/organization.types';
+import type { User, UserAPI } from '@/types/user.types';
 import { logger } from '@logger';
-import type { ResponseWithInformation } from '@middlewares/sessionAuth.middleware';
-import { getSessionAuthRoutes } from '@routes/sessionAuth.routes';
+import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
+import { SessionModel } from '@models/session.model';
 import { sendEmail } from '@services/email.service';
+import * as organizationService from '@services/organization.service';
 import * as projectService from '@services/project.service';
-import * as sessionAuthService from '@services/sessionAuth.service';
 import * as userService from '@services/user.service';
-import { type AppError, ErrorHandler } from '@utils/errors';
+import { ErrorHandler, type AppError } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import {
   getOrganizationFiltersAndPagination,
-  type OrganizationFiltersParams,
   type OrganizationFilters,
+  type OrganizationFiltersParams,
 } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
+import {
+  mapOrganizationToAPI,
+  mapOrganizationsToAPI,
+} from '@utils/mapper/organization';
+import { hasPermission } from '@utils/permissions';
 import { getPLanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
@@ -21,28 +32,22 @@ import {
 } from '@utils/responseData';
 import type { NextFunction, Request } from 'express';
 import { t } from 'express-intlayer';
-import type { ObjectId } from 'mongoose';
-import type { User } from 'oauth2-server';
+import { Types } from 'mongoose';
 import { Stripe } from 'stripe';
-import * as organizationService from '@/services/organization.service';
-import type {
-  Organization,
-  OrganizationCreationData,
-} from '@/types/organization.types';
 
 export type GetOrganizationsParams =
   FiltersAndPagination<OrganizationFiltersParams>;
-export type GetOrganizationsResult = PaginatedResponse<Organization>;
+export type GetOrganizationsResult = PaginatedResponse<OrganizationAPI>;
 
 /**
  * Retrieves a list of organizations based on filters and pagination.
  */
 export const getOrganizations = async (
   req: Request<GetOrganizationsParams>,
-  res: ResponseWithInformation<GetOrganizationsResult>,
+  res: ResponseWithSession<GetOrganizationsResult>,
   _next: NextFunction
 ) => {
-  const { user, organizationRights } = res.locals;
+  const { user, roles } = res.locals;
   const { filters, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(req);
 
@@ -51,18 +56,9 @@ export const getOrganizations = async (
     return;
   }
 
-  if (!organizationRights?.read) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_NOT_READ'
-    );
-    return;
-  }
-
   const restrictedFilter: OrganizationFilters = {
     ...filters,
-
-    membersIds: { $in: [...(filters.membersIds ?? []), String(user._id)] },
+    membersIds: { $in: [...(filters?.membersIds ?? []), String(user.id)] },
   };
 
   try {
@@ -71,10 +67,24 @@ export const getOrganizations = async (
       skip,
       pageSize
     );
+
+    if (
+      !hasPermission(
+        roles,
+        'organization:read'
+      )({
+        ...res.locals,
+        targetOrganizations: organizations,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
     const totalItems = await organizationService.countOrganizations(filters);
 
-    const responseData = formatPaginatedResponse<Organization>({
-      data: organizations,
+    const responseData = formatPaginatedResponse<OrganizationAPI>({
+      data: mapOrganizationsToAPI(organizations),
       page,
       pageSize,
       totalPages: getNumberOfPages(totalItems),
@@ -90,26 +100,18 @@ export const getOrganizations = async (
 };
 
 export type GetOrganizationParam = { organizationId: string };
-export type GetOrganizationResult = ResponseData<Organization>;
+export type GetOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Retrieves an organization by its ID.
  */
 export const getOrganization = async (
   req: Request<GetOrganizationParam, any, any>,
-  res: ResponseWithInformation<GetOrganizationResult>,
+  res: ResponseWithSession<GetOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organizationRights } = res.locals;
+  const { roles } = res.locals;
   const { organizationId } = req.params as Partial<GetOrganizationParam>;
-
-  if (!organizationRights?.read) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_NOT_READ'
-    );
-    return;
-  }
 
   if (!organizationId) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_ID_NOT_FOUND');
@@ -120,7 +122,22 @@ export const getOrganization = async (
     const organization =
       await organizationService.getOrganizationById(organizationId);
 
-    const responseData = formatResponse<Organization>({ data: organization });
+    if (
+      !hasPermission(
+        roles,
+        'organization:read'
+      )({
+        ...res.locals,
+        targetOrganizations: [organization],
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    const responseData = formatResponse<OrganizationAPI>({
+      data: mapOrganizationToAPI(organization),
+    });
 
     res.json(responseData);
     return;
@@ -131,21 +148,22 @@ export const getOrganization = async (
 };
 
 export type AddOrganizationBody = OrganizationCreationData;
-export type AddOrganizationResult = ResponseData<Organization>;
+export type AddOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Adds a new organization to the database.
  */
 export const addOrganization = async (
   req: Request<any, any, AddOrganizationBody>,
-  res: ResponseWithInformation<AddOrganizationResult>,
+  res: ResponseWithSession<AddOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user } = res.locals;
+  const { user, roles } = res.locals;
   const organization = req.body;
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_DATA_NOT_FOUND');
+    return;
   }
 
   if (!user) {
@@ -156,10 +174,10 @@ export const addOrganization = async (
   try {
     const newOrganization = await organizationService.createOrganization(
       organization,
-      user._id
+      user.id
     );
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization created successfully',
         fr: 'Organisation créée avec succès',
@@ -170,7 +188,7 @@ export const addOrganization = async (
         fr: 'Votre organisation a été créée avec succès',
         es: 'Su organización ha sido creada con éxito',
       }),
-      data: newOrganization,
+      data: mapOrganizationToAPI(newOrganization),
     });
 
     res.json(responseData);
@@ -182,17 +200,17 @@ export const addOrganization = async (
 };
 
 export type UpdateOrganizationBody = Partial<Organization>;
-export type UpdateOrganizationResult = ResponseData<Organization>;
+export type UpdateOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Updates an existing organization in the database.
  */
 export const updateOrganization = async (
   req: Request<undefined, undefined, UpdateOrganizationBody>,
-  res: ResponseWithInformation<UpdateOrganizationResult>,
+  res: ResponseWithSession<UpdateOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { isOrganizationAdmin, organization, organizationRights } = res.locals;
+  const { organization, roles } = res.locals;
   const organizationFields = req.body;
 
   if (!organizationFields) {
@@ -205,30 +223,27 @@ export const updateOrganization = async (
     return;
   }
 
-  if (!organizationRights?.write) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_NOT_WRITE'
-    );
-    return;
-  }
-
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
+  if (
+    !hasPermission(
+      roles,
+      'organization:write'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
   try {
     const updatedOrganization =
       await organizationService.updateOrganizationById(
-        organization._id,
+        organization.id,
         organizationFields
       );
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization updated successfully',
         fr: 'Organisation mise à jour avec succès',
@@ -239,7 +254,7 @@ export const updateOrganization = async (
         fr: 'Votre organisation a été mise à jour avec succès',
         es: 'Su organización ha sido actualizada con éxito',
       }),
-      data: updatedOrganization,
+      data: mapOrganizationToAPI(updatedOrganization),
     });
 
     res.json(responseData);
@@ -250,28 +265,20 @@ export const updateOrganization = async (
   }
 };
 
-type UserAndAdmin = { user: User; isAdmin: boolean };
-
-export type OrganizationMemberByIdOption = {
-  userId: string | ObjectId;
-  isAdmin?: boolean;
-};
-
 export type AddOrganizationMemberBody = {
   userEmail: string;
 };
-export type AddOrganizationMemberResult = ResponseData<Organization>;
+export type AddOrganizationMemberResult = ResponseData<OrganizationAPI>;
 
 /**
  * Add member to the organization in the database.
  */
 export const addOrganizationMember = async (
   req: Request<any, any, AddOrganizationMemberBody>,
-  res: ResponseWithInformation<AddOrganizationMemberResult>,
+  res: ResponseWithSession<AddOrganizationMemberResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, isOrganizationAdmin, user, organizationRights } =
-    res.locals;
+  const { organization, user, roles } = res.locals;
   const { userEmail } = req.body;
 
   if (!organization) {
@@ -284,26 +291,16 @@ export const addOrganizationMember = async (
     return;
   }
 
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
-    return;
-  }
-
-  if (!organizationRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_NOT_ADMIN'
-    );
-    return;
-  }
-
-  if (!organization.plan) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PLAN_NOT_FOUND', {
-      organizationId: organization._id,
-    });
+  if (
+    !hasPermission(
+      roles,
+      'organization:admin'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -314,7 +311,7 @@ export const addOrganizationMember = async (
     organization.membersIds.length >= planType.numberOfOrganizationUsers
   ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PLAN_USER_LIMIT_REACHED', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
     return;
   }
@@ -342,18 +339,18 @@ export const addOrganizationMember = async (
       invitedByUsername: user.name,
       invitedByEmail: user.email,
       organizationName: organization.name,
-      inviteLink: getSessionAuthRoutes().loginEmailPassword.url,
+      inviteLink: `${process.env.CLIENT_URL}/auth/login?email=${newMember.email}`,
       inviteFromIp: req.ip ?? '',
       inviteFromLocation: req.hostname,
     });
 
     const updatedOrganization =
-      await organizationService.updateOrganizationById(organization._id, {
+      await organizationService.updateOrganizationById(organization.id, {
         ...organization,
-        membersIds: [...organization.membersIds, newMember._id],
+        membersIds: [...organization.membersIds, newMember.id],
       });
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization updated successfully',
         fr: 'Organisation mise à jour avec succès',
@@ -364,7 +361,7 @@ export const addOrganizationMember = async (
         fr: 'Votre organisation a été mise à jour avec succès',
         es: 'Su organización ha sido actualizada con éxito',
       }),
-      data: updatedOrganization,
+      data: mapOrganizationToAPI(updatedOrganization),
     });
 
     res.json(responseData);
@@ -376,39 +373,42 @@ export const addOrganizationMember = async (
 };
 
 export type UpdateOrganizationMembersBody = Partial<{
-  membersIds: OrganizationMemberByIdOption[];
+  membersIds: (User | UserAPI)['id'][];
+  adminsIds: (User | UserAPI)['id'][];
 }>;
-export type UpdateOrganizationMembersResult = ResponseData<Organization>;
+export type UpdateOrganizationMembersResult = ResponseData<OrganizationAPI>;
 
 /**
  * Update members to the organization in the database.
  */
 export const updateOrganizationMembers = async (
   req: Request<any, any, UpdateOrganizationMembersBody>,
-  res: ResponseWithInformation<UpdateOrganizationMembersResult>,
+  res: ResponseWithSession<UpdateOrganizationMembersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { organization, organizationRights, isOrganizationAdmin } = res.locals;
-  const { membersIds } = req.body;
+  const { organization, roles } = res.locals;
+  const { membersIds, adminsIds } = req.body;
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
+  if (
+    !hasPermission(
+      roles,
+      'organization:admin'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
-  if (!organizationRights?.write) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_NOT_WRITE'
-    );
+  if (!membersIds) {
+    ErrorHandler.handleGenericErrorResponse(res, 'INVALID_REQUEST_BODY');
     return;
   }
 
@@ -420,7 +420,7 @@ export const updateOrganizationMembers = async (
     return;
   }
 
-  if (membersIds?.map((el) => el.isAdmin)?.length === 0) {
+  if (adminsIds?.filter((id) => membersIds?.includes(id)).length === 0) {
     ErrorHandler.handleGenericErrorResponse(
       res,
       'ORGANIZATION_MUST_HAVE_ADMIN'
@@ -429,44 +429,28 @@ export const updateOrganizationMembers = async (
   }
 
   try {
-    let existingUsers: UserAndAdmin[] = [];
+    const existingUsers = await userService.getUsersByIds(membersIds);
 
-    if (membersIds) {
-      const userIdList = membersIds?.map((member) => member.userId);
-      const users = await userService.getUsersByIds(userIdList);
-
-      if (users) {
-        const userMap: UserAndAdmin[] = users.map((user) => {
-          const isAdmin =
-            membersIds.find(
-              (member) => String(member.userId) === String(user._id)
-            )?.isAdmin ?? false;
-
-          return {
-            user,
-            isAdmin,
-          };
-        });
-
-        existingUsers = userMap;
-      }
+    if (!existingUsers) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
     }
 
-    const formattedMembers: ObjectId[] = existingUsers.map(
-      (user) => user.user._id
-    );
-    const formattedAdmin: ObjectId[] = existingUsers
-      .filter((el) => el.isAdmin)
-      .map((user) => user.user._id);
+    const existingAdmins = await userService.getUsersByIds(adminsIds!);
+
+    if (!existingAdmins) {
+      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+      return;
+    }
 
     const updatedOrganization =
-      await organizationService.updateOrganizationById(organization._id, {
+      await organizationService.updateOrganizationById(organization.id, {
         ...organization,
-        membersIds: formattedMembers,
-        adminsIds: formattedAdmin,
+        membersIds: existingUsers.map((user) => user.id),
+        adminsIds: existingAdmins.map((user) => user.id),
       });
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization updated successfully',
         fr: 'Organisation mise à jour avec succès',
@@ -477,7 +461,7 @@ export const updateOrganizationMembers = async (
         fr: 'Votre organisation a été mise à jour avec succès',
         es: 'Su organización ha sido actualizada con éxito',
       }),
-      data: updatedOrganization,
+      data: mapOrganizationToAPI(updatedOrganization),
     });
 
     res.json(responseData);
@@ -488,48 +472,45 @@ export const updateOrganizationMembers = async (
   }
 };
 
-export type DeleteOrganizationResult = ResponseData<Organization>;
+export type DeleteOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Deletes an organization from the database by its ID.
  */
 export const deleteOrganization = async (
   _req: Request,
-  res: ResponseWithInformation,
+  res: ResponseWithSession,
   _next: NextFunction
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const { isOrganizationAdmin, organization, organizationRights } = res.locals;
+  const { organization, roles } = res.locals;
 
   if (!organization) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
-  if (!isOrganizationAdmin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'USER_IS_NOT_ADMIN_OF_ORGANIZATION'
-    );
-    return;
-  }
-
-  if (!organizationRights?.admin) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
-      'ORGANIZATION_RIGHTS_NOT_ADMIN'
-    );
-    return;
-  }
-
   const projects = await projectService.findProjects({
-    organizationId: organization._id,
+    organizationId: organization.id,
   });
 
   if (projects.length > 0) {
     ErrorHandler.handleGenericErrorResponse(res, 'PROJECTS_EXIST', {
-      organizationId: organization._id,
+      organizationId: organization.id,
     });
+    return;
+  }
+
+  if (
+    !hasPermission(
+      roles,
+      'organization:admin'
+    )({
+      ...res.locals,
+      targetOrganizations: [organization],
+    })
+  ) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
     return;
   }
 
@@ -540,18 +521,18 @@ export const deleteOrganization = async (
     }
 
     const deletedOrganization =
-      await organizationService.deleteOrganizationById(organization._id);
+      await organizationService.deleteOrganizationById(organization.id);
 
     if (!deletedOrganization) {
       ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND', {
-        organizationId: organization._id,
+        organizationId: organization.id,
       });
       return;
     }
 
-    logger.info(`Organization deleted: ${String(deletedOrganization._id)}`);
+    logger.info(`Organization deleted: ${String(deletedOrganization.id)}`);
 
-    const responseData = formatResponse<Organization>({
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization deleted successfully',
         fr: 'Organisation supprimée avec succès',
@@ -562,11 +543,10 @@ export const deleteOrganization = async (
         fr: 'Votre organisation a été supprimée avec succès',
         es: 'Su organización ha sido eliminada con éxito',
       }),
-      data: deletedOrganization,
+      data: mapOrganizationToAPI(deletedOrganization),
     });
 
-    sessionAuthService.clearOrganizationAuth(res);
-
+    // No need to update session here, as it's a delete operation
     res.json(responseData);
     return;
   } catch (error) {
@@ -575,21 +555,29 @@ export const deleteOrganization = async (
   }
 };
 
-export type SelectOrganizationParam = { organizationId: ObjectId | string };
-export type SelectOrganizationResult = ResponseData<Organization>;
+export type SelectOrganizationParam = {
+  organizationId: string | Types.ObjectId;
+};
+export type SelectOrganizationResult = ResponseData<OrganizationAPI>;
 
 /**
  * Select an organization.
  */
 export const selectOrganization = async (
   req: Request<SelectOrganizationParam>,
-  res: ResponseWithInformation<SelectOrganizationResult>,
+  res: ResponseWithSession<SelectOrganizationResult>,
   _next: NextFunction
 ): Promise<void> => {
   const { organizationId } = req.params as Partial<SelectOrganizationParam>;
+  const { session } = res.locals;
 
   if (!organizationId) {
     ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_ID_NOT_FOUND');
+    return;
+  }
+
+  if (typeof session === 'undefined') {
+    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
     return;
   }
 
@@ -597,9 +585,19 @@ export const selectOrganization = async (
     const organization =
       await organizationService.getOrganizationById(organizationId);
 
-    sessionAuthService.setOrganizationAuth(res, organization);
+    // Update session to set activeOrganizationId
+    await SessionModel.updateOne(
+      { _id: session.id },
+      {
+        $set: {
+          activeOrganizationId: String(organization.id),
+          activeProjectId: null,
+        },
+      }
+    );
 
-    const responseData = formatResponse<Organization>({
+    // No need to update session here, as it's a select operation
+    const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization retrieved successfully',
         fr: 'Organisation récupérée avec succès',
@@ -610,7 +608,7 @@ export const selectOrganization = async (
         fr: 'Votre organisation a été récupérée avec succès',
         es: 'Su organización ha sido recuperada con éxito',
       }),
-      data: organization,
+      data: mapOrganizationToAPI(organization),
     });
 
     res.json(responseData);
@@ -626,14 +624,29 @@ export type UnselectOrganizationResult = ResponseData<null>;
 /**
  * Unselect an organization.
  */
-export const unselectOrganization = (
+export const unselectOrganization = async (
   _req: Request,
-  res: ResponseWithInformation<UnselectOrganizationResult>,
+  res: ResponseWithSession<UnselectOrganizationResult>,
   _next: NextFunction
-): void => {
+): Promise<void> => {
+  const { session } = res.locals;
   try {
-    sessionAuthService.clearOrganizationAuth(res);
-    sessionAuthService.clearProjectAuth(res);
+    // Update session to clear activeOrganizationId and activeProjectId
+
+    if (typeof session === 'undefined') {
+      ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
+      return;
+    }
+
+    await SessionModel.updateOne(
+      { _id: session.id },
+      {
+        $set: {
+          activeOrganizationId: null,
+          activeProjectId: null,
+        },
+      }
+    );
 
     const responseData = formatResponse<null>({
       message: t({

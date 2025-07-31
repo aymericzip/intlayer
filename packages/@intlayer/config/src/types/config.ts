@@ -110,6 +110,39 @@ export type MiddlewareConfig = {
    * If true, no locale-based prefix is used in the URL.
    */
   noPrefix: boolean;
+
+  /**
+   * Controls whether locale detection occurs during Next.js prefetch requests
+   * - true: Detect and apply locale during prefetch
+   * - false: Use default locale during prefetch (recommended)
+   *
+   * This setting affects how Next.js handles locale prefetching:
+   *
+   * Example scenario:
+   * - User's browser language is 'fr'
+   * - Current page is /fr/about
+   * - Link prefetches /about
+   *
+   * With `detectLocaleOnPrefetchNoPrefix:true`
+   * - Prefetch detects 'fr' locale from browser
+   * - Redirects prefetch to /fr/about
+   *
+   * With `detectLocaleOnPrefetchNoPrefix:false` (default)
+   * - Prefetch uses default locale
+   * - Redirects prefetch to /en/about (assuming 'en' is default)
+   *
+   * When to use true:
+   * - Your app uses non-localized internal links (e.g. <a href="/about">)
+   * - You want consistent locale detection behavior between regular and prefetch requests
+   *
+   * When to use false (default):
+   * - Your app uses locale-prefixed links (e.g. <a href="/fr/about">)
+   * - You want to optimize prefetching performance
+   * - You want to avoid potential redirect loops
+   *
+   * Default: false
+   */
+  detectLocaleOnPrefetchNoPrefix: boolean;
 };
 
 /**
@@ -294,29 +327,38 @@ export type BuildConfig = {
    * All imports will stay as static import to avoid async processing when loading the dictionaries.
    *
    * Note:
-   * - Intlayer will replace all call of `useIntlayer` with `useDictionary`, `getIntlayer` with `getDictionary`.
+   * - Intlayer will replace all call of `useIntlayer` with the defined mode by the `importMode` option.
+   * - Intlayer will replace all call of `getIntlayer` with `getDictionary`.
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    */
   optimize: boolean;
 
   /**
-   * Indicates if the dynamic import should be activated
+   * Indicates the mode of import to use for the dictionaries.
    *
-   * Default: false
+   * Available modes:
+   * - "static": The dictionaries are imported statically.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
+   * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   * - "async": The dictionaries are imported dynamically in an asynchronous component.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `await useDictionaryAsync`.
+   *
+   * Default: "static"
    *
    * By default, when a dictionary is loaded, it imports content for all locales as it's imported statically.
-   * If this option is set to true, only the current locale’s dictionary content
-   * will be fetched via dynamic import. In that case, Intlayer will replace all
-   * calls to `useIntlayer` with `useDynamicDictionary`.
    *
    * Note:
-   * - Dynamic imports rely on React Suspense and may slightly impact rendering performance. But if desabled all locales will be loaded at once, even if they are not used.
+   * - Dynamic imports rely on Suspense and may slightly impact rendering performance.
+   * - If desabled all locales will be loaded at once, even if they are not used.
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
+   * - In most cases, "dynamic" will be used for React applications, "async" for Vue.js applications.
+   * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
    */
-  activateDynamicImport: boolean;
+  importMode: 'static' | 'dynamic' | 'async';
 
   /**
    * Pattern to traverse the code to optimize.
@@ -440,7 +482,7 @@ export type BaseContentConfig = {
   /**
    * Directories to be excluded from content processing
    *
-   * Default: ['node_modules']
+   * Default: ['node_modules', '.intlayer']
    *
    * A list of directories to exclude from content processing.
    */
@@ -463,7 +505,7 @@ export type BaseDerivedConfig = {
   /**
    * Directory where the content is stored, relative to the base directory
    *
-   * Default: ['src']
+   * Default: ['.']
    *
    * Derived content directory based on the base configuration.
    */

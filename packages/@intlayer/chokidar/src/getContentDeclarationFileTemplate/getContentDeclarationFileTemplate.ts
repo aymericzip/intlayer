@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
-import { kebabCaseToCamelCase } from '../utils';
+import { kebabCaseToCamelCase } from '../utils/kebabCaseToCamelCase';
 
 export const getContentDeclarationFileTemplate = async (
   key: string,

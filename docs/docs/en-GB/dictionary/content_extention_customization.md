@@ -1,3 +1,18 @@
+---
+createdAt: 2025-02-07
+updatedAt: 2025-06-29
+title: Content Extension Customisation
+description: Learn how to customise the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
+keywords:
+  - Content Extension Customisation
+  - Documentation
+  - Intlayer
+slugs:
+  - doc
+  - concept
+  - content
+---
+
 # Content Extension Customisation
 
 ## Content File Extensions
@@ -80,4 +95,6 @@ When customising content file extensions, keep the following guidelines in mind:
 
 Customising content file extensions in Intlayer is a valuable feature for optimising performance and avoiding conflicts in large-scale applications. By following the guidelines outlined in this documentation, you can effectively manage your content declarations and ensure smooth integration with other parts of your project.
 
-[Learn more](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/**/*.md)
+## Doc History
+
+- 5.5.10 - 2025-06-29: Init history

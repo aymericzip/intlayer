@@ -1,15 +1,12 @@
-import { getBlogDataArray } from '@components/BlogPage/blogData';
-import { getDocDataArray } from '@components/DocPage/docData';
-import { Tag, Link } from '@intlayer/design-system';
-import type { Locales } from 'intlayer';
+import { Link, Tag } from '@intlayer/design-system';
 import { File } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
+import { IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
-const FileReferenceTag: FC<{ fileTitle: string; fileUrl: string }> = ({
-  fileTitle,
-  fileUrl,
-}) => (
+const FileReferenceTag: FC<{
+  fileTitle: IntlayerNode | string;
+  fileUrl: string;
+}> = ({ fileTitle, fileUrl }) => (
   <Tag size="sm">
     <Link
       label="See the documentation"
@@ -24,13 +21,14 @@ const FileReferenceTag: FC<{ fileTitle: string; fileUrl: string }> = ({
   </Tag>
 );
 
-export const FileReference: FC<{ relatedFiles: string[] }> = ({
-  relatedFiles,
-}) => {
+export const FileReference: FC<{
+  relatedFiles: string[];
+}> = ({ relatedFiles }) => {
   const { relatedFilesLabel } = useIntlayer('chat-form-related-files');
-  const { locale } = useLocale();
-  const docArray = getDocDataArray(locale as Locales);
-  const blogArray = getBlogDataArray(locale as Locales);
+  const docData = useIntlayer('doc-metadata');
+  const blogData = useIntlayer('blog-metadata');
+
+  const uniqFiles = [...new Set(relatedFiles)];
 
   if (relatedFiles.length === 0) return <></>;
 
@@ -38,10 +36,10 @@ export const FileReference: FC<{ relatedFiles: string[] }> = ({
     <div className="pl-4">
       <span className="text-neutral text-sm">{relatedFilesLabel}</span>
       <div className="flex min-w-full flex-row gap-2 overflow-x-auto pb-1">
-        {relatedFiles.map((fileKey) => {
-          const fileData =
-            docArray.find((docEl) => docEl.docName === fileKey) ??
-            blogArray.find((blogEl) => blogEl.blogName === fileKey);
+        {uniqFiles.map((fileKey) => {
+          const fileData = [...docData, ...blogData]?.find(
+            (docEl) => docEl.docKey.value === fileKey
+          );
 
           if (!fileData) return <></>;
 
@@ -49,7 +47,7 @@ export const FileReference: FC<{ relatedFiles: string[] }> = ({
             <FileReferenceTag
               key={fileKey}
               fileTitle={fileData.title}
-              fileUrl={fileData.url}
+              fileUrl={fileData.url.value}
             />
           );
         })}

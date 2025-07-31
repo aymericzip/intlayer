@@ -1,9 +1,6 @@
 ---
-docName: intlayer_visual_editor
-url: https://intlayer.org/doc/concept/editor
-githubUrl: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md
 createdAt: 2024-08-11
-updatedAt: 2024-08-11
+updatedAt: 2025-06-29
 title: Editor Visual Intlayer | Edite seu conteúdo usando um editor visual
 description: Descubra como usar o Editor Intlayer para gerenciar seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
 keywords:
@@ -14,6 +11,11 @@ keywords:
   - Next.js
   - JavaScript
   - React
+slugs:
+  - doc
+  - concept
+  - editor
+youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
 # Documentação do Editor Visual Intlayer
@@ -38,6 +40,8 @@ Para mais detalhes sobre como integrar o Intlayer, consulte a seção relevante 
 
 ### Integração com Next.js
 
+///chunkStart### Integração com Next.js
+
 Para integração com Next.js, consulte o [guia de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_15.md).
 
 ### Integração com Create React App
@@ -52,7 +56,7 @@ Para integração com Vite + React, consulte o [guia de configuração](https://
 
 O editor visual em uma aplicação inclui duas coisas:
 
-- Uma aplicação frontend que exibirá seu site em um iframe. Se seu site usa o Intlayer, o editor visual detectará automaticamente seu conteúdo e permitirá que você interaja com ele. Uma vez feita uma modificação, você poderá baixar suas alterações.
+- Uma aplicação frontend que exibirá seu site em um iframe. Se seu site usar o Intlayer, o editor visual detectará automaticamente seu conteúdo e permitirá que você interaja com ele. Uma vez feita uma modificação, você poderá baixar suas alterações.
 
 - Após clicar no botão de download, o editor visual enviará uma solicitação ao servidor para substituir seus arquivos de declaração de conteúdo pelo novo conteúdo (onde quer que esses arquivos estejam declarados em seu projeto).
 
@@ -214,6 +218,40 @@ module.exports = config;
 
 3. Se o seu conteúdo estiver destacado, você pode pressioná-lo por um longo tempo para exibir a gaveta de edição.
 
+## Configuração do ambiente
+
+O editor pode ser configurado para usar um arquivo de ambiente específico. Isso é útil quando você deseja usar o mesmo arquivo de configuração para desenvolvimento e produção.
+
+Para usar um arquivo de ambiente específico, você pode usar a flag `--env-file` ou `-f` ao iniciar o editor:
+
+```bash packageManager="npm"
+npx intlayer-editor start -f .env.development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -f .env.development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -f .env.development
+```
+
+> Observe que o arquivo de ambiente deve estar localizado no diretório raiz do seu projeto.
+
+Ou você pode usar a flag `--env` ou `-e` para especificar o ambiente:
+
+```bash packageManager="npm"
+npx intlayer-editor start -e development
+```
+
+```bash packageManager="yarn"
+yarn intlayer-editor start -e development
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer-editor start -e development
+```
+
 ## Depuração
 
 Se você encontrar problemas com o editor visual, verifique o seguinte:
@@ -225,4 +263,8 @@ Se você encontrar problemas com o editor visual, verifique o seguinte:
   - Campos obrigatórios:
     - A URL da aplicação deve corresponder à que você configurou no editor (`applicationURL`).
 
-- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permite a URL do CMS como `frame-ancestors` ('http://localhost:8000' por padrão). Verifique o console do editor para quaisquer erros.
+- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permita a URL do CMS como `frame-ancestors` ('http://localhost:8000' por padrão). Verifique o console do editor para quaisquer erros.
+
+## Histórico do Documento
+
+- 5.5.10 - 2025-06-29: Histórico inicial
