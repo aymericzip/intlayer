@@ -15,6 +15,7 @@ export {
   useDictionary,
   useDictionaryAsync,
   useDictionaryDynamic,
+  useI18n,
   useIntlayer,
   useIntlayerAsync,
   useIntlayerContext,
