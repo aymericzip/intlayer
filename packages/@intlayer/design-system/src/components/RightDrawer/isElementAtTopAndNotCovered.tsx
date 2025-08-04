@@ -1,7 +1,7 @@
 export const isElementAtTopAndNotCovered = (element: HTMLElement) => {
   const rect = element.getBoundingClientRect();
   const elemTop = rect.top;
-  const elemBottom = rect.bottom;
+  const elemBottom = rect.bottom - 1; // -1 to avoid the border of the element
 
   // Check if element is at the top of the viewport
   const isVisibleAtTop = elemTop >= 0 && elemBottom <= window.innerHeight;

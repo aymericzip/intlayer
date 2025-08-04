@@ -11,10 +11,10 @@ import {
 import { useShallow } from 'zustand/react/shallow';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
-import { isElementAtTopAndNotCovered } from '../../utils/isElementAtTopAndNotCovered';
 import { Button } from '../Button';
 import { Container } from '../Container';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
+import { isElementAtTopAndNotCovered } from './isElementAtTopAndNotCovered';
 import { useRightDrawerStore } from './useRightDrawerStore';
 
 type BackButtonProps = {
