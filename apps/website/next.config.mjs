@@ -4,7 +4,7 @@ import { createSecureHeaders } from 'next-secure-headers';
 
 const isProd = process.env.NODE_ENV === 'production';
 
-const secureHeaders = createSecureHeaders({
+const secureHeaders = {
   contentSecurityPolicy: {
     directives: {
       defaultSrc: "'self'",
@@ -69,15 +69,8 @@ const secureHeaders = createSecureHeaders({
         'data:',
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
-      frameSrc: ['*'],
-      frameAncestors: [
-        "'self'",
-        '*.codesandbox.io',
-        'codesandbox.io',
-        '*.youtube.com',
-        'intlayer.org',
-        'localhost:*',
-      ],
+      frameSrc: ["'self'", '*.youtube.com', '*.codesandbox.io'],
+      frameAncestors: ["'self'", 'intlayer.org', 'localhost:*'],
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],
     },
@@ -91,7 +84,32 @@ const secureHeaders = createSecureHeaders({
       }
     : {}),
   referrerPolicy: 'same-origin',
-});
+};
+
+const headersList = [
+  {
+    key: 'Cache-Control',
+    value: 'public, max-age=60, stale-while-revalidate=30',
+  },
+  { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+  { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=31536000; includeSubDomains; preload',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN',
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '0', // Disables legacy XSS protection
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'fullscreen=(self)',
+  },
+];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -135,35 +153,28 @@ const nextConfig = {
     removeConsole: isProd,
   },
 
-  headers: async () => [
+  headers: [
+    {
+      source: '/dashboard/editor',
+      headers: [
+        ...createSecureHeaders({
+          ...secureHeaders,
+          contentSecurityPolicy: {
+            ...secureHeaders.contentSecurityPolicy,
+            directives: {
+              ...secureHeaders.contentSecurityPolicy.directives,
+              frameSrc: ['*'],
+              frameAncestors: ['*'],
+            },
+          },
+        }),
+        ...headersList,
+      ],
+    },
     {
       // All page routes, not the api ones
       source: '/:path((?!api).*)*',
-      headers: [
-        ...secureHeaders,
-        {
-          key: 'Cache-Control',
-          value: 'public, max-age=60, stale-while-revalidate=30',
-        },
-        { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-        { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
-        {
-          key: 'Strict-Transport-Security',
-          value: 'max-age=31536000; includeSubDomains; preload',
-        },
-        {
-          key: 'X-Frame-Options',
-          value: 'SAMEORIGIN',
-        },
-        {
-          key: 'X-XSS-Protection',
-          value: '0', // Disables legacy XSS protection
-        },
-        {
-          key: 'Permissions-Policy',
-          value: 'fullscreen=(self)',
-        },
-      ],
+      headers: [...createSecureHeaders(secureHeaders), ...headersList],
     },
   ],
 };
@@ -177,5 +188,7 @@ const nextConfigPWA = withPWA({
 
 /** @type {import('next').NextConfig} */
 const config = withIntlayer(nextConfigPWA);
+
+console.log(config);
 
 export default config;

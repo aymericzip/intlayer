@@ -34,8 +34,6 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
       ])
     );
 
-    console.log({ dictionariesList, unmergedDictionaries });
-
     setLocaleDictionaries(dictionariesList);
   }, []);
 
