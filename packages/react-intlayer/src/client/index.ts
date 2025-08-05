@@ -10,6 +10,7 @@ export { t } from './t';
 export { useDictionary } from './useDictionary';
 export { useDictionaryAsync } from './useDictionaryAsync';
 export { useDictionaryDynamic } from './useDictionaryDynamic';
+export { useI18n } from './useI18n';
 export { useIntlayer } from './useIntlayer';
 export { useIntlayerAsync } from './useIntlayerAsync';
 export { useLoadDynamic } from './useLoadDynamic';

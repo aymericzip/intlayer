@@ -5,6 +5,7 @@ export {
   t,
   useDictionary,
   useDictionaryDynamic,
+  useI18n,
   useIntlayer,
   useLoadDynamic,
   useLocale,

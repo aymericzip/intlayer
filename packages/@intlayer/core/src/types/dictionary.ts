@@ -5,16 +5,15 @@ import type {
   LanguageContent,
   // @ts-ignore intlayer declared for module augmentation
   LocalesValues,
-  // @ts-ignore intlayer declared for module augmentation
 } from 'intlayer';
 import type { ConditionContent } from '../transpiler/condition';
 import type { EnumerationContent } from '../transpiler/enumeration';
 import type { FileContent } from '../transpiler/file';
+import type { GenderContent } from '../transpiler/gender';
 import type { InsertionContent } from '../transpiler/insertion';
 import type { MarkdownContent } from '../transpiler/markdown';
 import type { NestedContent } from '../transpiler/nesting';
 import type { TranslationContent } from '../transpiler/translation';
-import type { GenderContent } from '../transpiler/gender';
 
 /**
  * Provides a fallback to string type if the generic type T is undefined,
@@ -108,3 +107,11 @@ export type Dictionary<ContentType = undefined, FetchableNode = false> = {
     ? any
     : ReplaceContentValue<ContentType, FetchableNode> | ContentType;
 };
+
+export type GetSubPath<T, P> = P extends `${infer K}.${infer Rest}`
+  ? K extends keyof T
+    ? GetSubPath<T[K], Rest>
+    : never
+  : P extends keyof T
+    ? T[P]
+    : T;

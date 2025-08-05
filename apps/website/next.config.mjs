@@ -163,6 +163,7 @@ const nextConfig = {
             ...secureHeaders.contentSecurityPolicy,
             directives: {
               ...secureHeaders.contentSecurityPolicy.directives,
+              connectSrc: ['*'],
               frameSrc: ['*'],
               frameAncestors: ['*'],
             },
