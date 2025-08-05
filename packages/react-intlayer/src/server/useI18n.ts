@@ -1,19 +1,15 @@
-'use client';
-
 import type { LocalesValues } from '@intlayer/config/client';
 import type {
   DictionaryKeys,
   GetSubPath,
   ValidDotPathsFor,
 } from '@intlayer/core';
-import { useChangedContent } from '@intlayer/editor-react';
 import type { DeepTransformContent } from '../plugins';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import { useContext } from 'react';
-import { getDictionary } from '../getDictionary';
 import { getIntlayer } from '../getIntlayer';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerServerContext } from './IntlayerServerProvider';
+import { getServerContext } from './serverContext';
 
 /**
  * Hook that provides a translation function `t()` for accessing nested content by key.
@@ -28,29 +24,17 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * const t = useI18n('IndexPage');
  * const title = t('title'); // Returns translated string for 'IndexPage.title'
  * const nestedContent = t('section.subtitle'); // Returns 'IndexPage.section.subtitle'
- * // For attributes like `aria-label`, use `.value` to get the plain string
- * const ariaLabel = t('button.ariaLabel').value; // 'Close modal'
  * ```
  */
 export const useI18n = <T extends DictionaryKeys>(
   namespace: T,
   locale?: LocalesValues
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
-  const { changedContent } = useChangedContent();
-  const localeTarget = locale ?? currentLocale;
+  const localeTarget =
+    locale ?? getServerContext<LocalesValues>(IntlayerServerContext);
 
   // Get the dictionary content for the namespace
-  let dictionaryContent: DeepTransformContent<
-    IntlayerDictionaryTypesConnector[T]['content']
-  >;
-
-  if (changedContent?.[namespace]) {
-    // @ts-ignore fix instantiation is excessively deep and possibly infinite
-    dictionaryContent = getDictionary(changedContent[namespace], localeTarget);
-  } else {
-    dictionaryContent = getIntlayer(namespace, localeTarget);
-  }
+  const dictionaryContent = getIntlayer(namespace, localeTarget);
 
   // Return the translation function
   const t = <P extends ValidDotPathsFor<T>>(

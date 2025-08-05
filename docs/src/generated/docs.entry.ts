@@ -5121,6 +5121,86 @@ export const docsEntry = {
       )
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
+  './docs/en/packages/react-intlayer/useI18n.md': {
+    en: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/en/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    fr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/fr/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    ru: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/ru/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    ja: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/ja/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    ko: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/ko/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    zh: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/zh/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    es: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/es/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    de: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/de/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    ar: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/ar/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    pt: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/pt/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    'en-GB': Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/en-GB/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    it: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/it/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    hi: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/hi/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+  } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useIntlayer.md': {
     en: Promise.resolve(
       readFile(

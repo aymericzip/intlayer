@@ -1,21 +1,13 @@
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import type { ValidDotPathsFor } from '../transpiler';
-import type { DictionaryKeys } from '../types';
+import type { DictionaryKeys, GetSubPath } from '../types';
 import type {
   DeepTransformContent,
   IInterpreterPluginState,
   NodeProps,
 } from './getContent';
 import { getIntlayer } from './getIntlayer';
-
-type GetSubPath<T, P> = P extends `${infer K}.${infer Rest}`
-  ? K extends keyof T
-    ? GetSubPath<T[K], Rest>
-    : never
-  : P extends keyof T
-    ? T[P]
-    : T;
 
 export type GetNestingResult<
   K extends DictionaryKeys,
