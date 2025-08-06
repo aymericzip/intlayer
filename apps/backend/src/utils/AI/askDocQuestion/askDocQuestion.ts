@@ -299,8 +299,6 @@ export const searchChunkReference = async (
     )
   );
 
-  console.log({ orderedDocKeys });
-
   // Return the content of the top matching documents
   return results;
 };
