@@ -147,9 +147,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
   });
 
-  if (process.env.SKIP_DOC_EMBEDDINGS_INDEX === 'true') {
-    return;
-  }
+  // if (process.env.SKIP_DOC_EMBEDDINGS_INDEX === 'true') return;
 
   // Retrieve documentation and blog posts in English locale
   const frequentQuestions = await getFrequentQuestions();
@@ -247,20 +245,17 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   // Merge filtered existing embeddings with new ones
   result = { ...filteredEmbeddings, ...result };
 
-  if (process.env.NODE_ENV === 'development') {
-    try {
-      // Compare the newly generated embeddings with existing ones
-      if (JSON.stringify(result) !== JSON.stringify(embeddingsList)) {
-        // If there are new embeddings or changes, save them to embeddings.json
-        writeFileSync(
-          'src/utils/AI/askDocQuestion/embeddings.json',
-          JSON.stringify(result, null, 2)
-        );
-        console.info('Updated embeddings.json with new/changed embeddings.');
-      }
-    } catch (error) {
-      console.error(error); // Log any errors during the file write process
+  try {
+    // Compare the newly generated embeddings with existing ones
+    if (JSON.stringify(result) !== JSON.stringify(embeddingsList)) {
+      // If there are new embeddings or changes, save them to embeddings.json
+      writeFileSync(
+        'src/utils/AI/askDocQuestion/embeddings.json',
+        JSON.stringify(result, null, 2)
+      );
     }
+  } catch (error) {
+    console.error(error); // Log any errors during the file write process
   }
 };
 
