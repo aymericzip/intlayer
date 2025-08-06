@@ -235,8 +235,6 @@ const ServerComponentExample = () => {
 属性をローカライズする際は、翻訳値に適切にアクセスしてください：
 
 ```jsx
-<button title={t("buttonTitle.value")}>{t("buttonText")}</button>
-
 <!-- アクセシビリティ属性（例：aria-label）には、純粋な文字列が必要なため .value を使用します -->
 <button aria-label={t("button.ariaLabel").value}>{t("button.text")}</button>
 ```

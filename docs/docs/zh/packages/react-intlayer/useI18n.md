@@ -235,8 +235,6 @@ const ServerComponentExample = () => {
 在本地化属性时，请适当地访问翻译值：
 
 ```jsx
-<button title={t("buttonTitle.value")}>{t("buttonText")}</button>
-
 <!-- 对于无障碍属性（例如 aria-label），请使用 .value，因为需要纯字符串 -->
 <button aria-label={t("button.ariaLabel").value}>{t("button.text")}</button>
 ```

@@ -235,8 +235,6 @@ const ServerComponentExample = () => {
 When localizing attributes, access the translation values appropriately:
 
 ```jsx
-<button title={t("buttonTitle.value")}>{t("buttonText")}</button>
-
 <!-- For accessibility attributes (e.g., aria-label), use .value since pure strings are required -->
 <button aria-label={t("button.ariaLabel").value}>{t("button.text")}</button>
 ```

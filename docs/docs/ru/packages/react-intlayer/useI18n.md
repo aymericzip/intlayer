@@ -235,8 +235,6 @@ const ServerComponentExample = () => {
 При локализации атрибутов обращайтесь к значениям перевода соответствующим образом:
 
 ```jsx
-<button title={t("buttonTitle.value")}>{t("buttonText")}</button>
-
 <!-- Для атрибутов доступности (например, aria-label) используйте .value, так как требуются чистые строки -->
 <button aria-label={t("button.ariaLabel").value}>{t("button.text")}</button>
 ```

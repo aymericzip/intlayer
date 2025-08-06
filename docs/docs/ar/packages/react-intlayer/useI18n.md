@@ -235,8 +235,6 @@ const ServerComponentExample = () => {
 عند تعريب السمات، قم بالوصول إلى قيم الترجمة بشكل مناسب:
 
 ```jsx
-<button title={t("buttonTitle.value")}>{t("buttonText")}</button>
-
 <!-- بالنسبة لسمات الوصول (مثل aria-label)، استخدم .value لأن السلاسل النصية البحتة مطلوبة -->
 <button aria-label={t("button.ariaLabel").value}>{t("button.text")}</button>
 ```
