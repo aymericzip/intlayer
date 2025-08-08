@@ -242,9 +242,9 @@ Defines settings related to the integrated editor, including server port and act
 
   - _Type_: `boolean`
   - _Default_: `false`
-  - _Description_: Indicates if the application should hot reload the locale configurations when a change is detected.
+  - _Description_: Indicates if the application server should hot reload the locale configurations when a change is detected.
   - _Example_: `true`
-  - _Note_: For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+  - _Note_: For example, when a new dictionary is added or updated, the application will update the content to display in the page.
   - _Note_: Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan.
 
 - **dictionaryPriorityStrategy**:
