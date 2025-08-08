@@ -49,7 +49,7 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
           method: 'HEAD', // Use HEAD to avoid downloading the full page
           mode: 'no-cors', // Handle CORS issues
         });
-        setIsApplicationRunning(true);
+        setIsApplicationRunning(response.ok);
       } catch (error) {
         console.warn(
           'Application URL is not responding:',
