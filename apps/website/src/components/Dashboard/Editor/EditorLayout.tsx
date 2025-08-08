@@ -3,6 +3,8 @@
 import { type Locales } from '@intlayer/config/client';
 import { Container } from '@intlayer/design-system';
 import {
+  FileContent,
+  MessageKey,
   useCrossFrameState,
   useDictionariesRecordActions,
 } from '@intlayer/editor-react';
@@ -11,12 +13,17 @@ import { useTheme } from 'next-themes';
 import { useEffect, type FC, type PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
+import { LongPressMessage } from './LongPressMessage';
 import { mergeDictionaries } from './mergeDictionaries';
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   const { resolvedTheme } = useTheme();
+  const [hoveredContent] = useCrossFrameState<FileContent | null>(
+    MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
+    null
+  );
   const [currentLocale] = useCrossFrameState<Locales>(
-    'INTLAYER_CURRENT_LOCALE',
+    MessageKey.INTLAYER_CURRENT_LOCALE,
     undefined,
     {
       receive: true,
@@ -46,6 +53,9 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
         className="size-full flex-1 flex-col items-center justify-center overflow-hidden"
       >
         {children}
+        <div className="absolute bottom-2 right-2">
+          <LongPressMessage {...hoveredContent} />
+        </div>
       </Container>
       <DictionaryEditionDrawerController
         locale={currentLocale}

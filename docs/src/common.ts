@@ -106,7 +106,6 @@ export const getFileMetadata = async <
 
     return formatMetadata(docKey as string, file, locale) as R;
   } catch (error) {
-    console.log({ error, docKey, locale });
     throw error;
   }
 };

@@ -1,6 +1,7 @@
 'use client';
 
 import { type NodeProps, isSameKeyPath } from '@intlayer/core';
+import { MessageKey } from '@intlayer/editor';
 import {
   type FC,
   type HTMLAttributes,
@@ -9,6 +10,7 @@ import {
 } from 'preact/compat';
 import { useIntlayerContext } from '../client';
 import { ContentSelector } from '../UI/ContentSelector';
+import { useCommunicator } from './CommunicatorContext';
 import { useEditorEnabled } from './EditorEnabledContext';
 import { useFocusDictionary } from './FocusDictionaryContext';
 
@@ -21,6 +23,7 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
   keyPath,
 }) => {
   const { focusedContent, setFocusedContent } = useFocusDictionary();
+  const { postMessage, senderId } = useCommunicator();
 
   const handleSelect = useCallback(
     () =>
@@ -29,6 +32,29 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
         keyPath,
       }),
     [dictionaryKey, keyPath]
+  );
+
+  const handleHover = useCallback(
+    () =>
+      postMessage({
+        type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+        data: {
+          dictionaryKey,
+          keyPath,
+        },
+        senderId,
+      }),
+    [dictionaryKey, keyPath]
+  );
+
+  const handleUnhover = useCallback(
+    () =>
+      postMessage({
+        type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+        data: null,
+        senderId,
+      }),
+    [senderId]
   );
 
   const isSelected = useMemo(
@@ -41,7 +67,12 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
   );
 
   return (
-    <ContentSelector onPress={handleSelect} isSelecting={isSelected}>
+    <ContentSelector
+      onPress={handleSelect}
+      onHover={handleHover}
+      onUnhover={handleUnhover}
+      isSelecting={isSelected}
+    >
       {children}
     </ContentSelector>
   );

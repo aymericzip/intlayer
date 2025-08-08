@@ -25,7 +25,7 @@ const AppContent: FC = () => {
         </a>
       </div>
       <h1>{content.title}</h1>
-      <p>{content.test('male')}</p>
+      {/* <p>{content.test('male')}</p> */}
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           {content.count}

@@ -9,7 +9,7 @@ type Props = {
 const DEFAULT_PRESS_DETECT_DURATION = 250;
 
 const props = defineProps<Props>();
-const emit = defineEmits(['click', 'press']);
+const emit = defineEmits(['click', 'press', 'hover', 'unhover']);
 
 const containerRef = ref<HTMLElement | null>(null);
 const isHovered = ref(false);
@@ -49,7 +49,18 @@ const handleMouseDown = () => {
 };
 
 const handleMouseUp = () => {
-  isHovered.value = false;
+  if (isHovered.value) {
+    isHovered.value = false;
+    emit('unhover');
+  }
+  clearPressTimer();
+};
+
+const handleMouseLeave = () => {
+  if (isHovered.value) {
+    isHovered.value = false;
+    emit('unhover');
+  }
   clearPressTimer();
 };
 
@@ -92,12 +103,17 @@ onBeforeUnmount(() => {
     @click="handleClick"
     @mousedown="handleMouseDown"
     @mouseup="handleMouseUp"
-    @mouseleave="handleMouseUp"
+    @mouseleave="handleMouseLeave"
     @touchstart="handleMouseDown"
     @touchend="handleMouseUp"
-    @touchcancel="handleMouseUp"
+    @touchcancel="handleMouseLeave"
     @blur="handleBlur"
-    @mouseenter="isHovered = true"
+    @mouseenter="
+      () => {
+        isHovered = true;
+        emit('hover');
+      }
+    "
     :style="{
       display: isStringSlot ? 'inline' : 'inline-block',
       cursor: 'pointer',

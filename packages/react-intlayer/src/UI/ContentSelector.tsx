@@ -14,6 +14,8 @@ const DEFAULT_PRESS_DETECT_DURATION = 250;
 
 type ContentSelectorProps = {
   onPress: () => void;
+  onHover?: () => void;
+  onUnhover?: () => void;
   onClickOutside?: () => void;
   pressDuration?: number;
   isSelecting?: boolean;
@@ -21,7 +23,9 @@ type ContentSelectorProps = {
 
 export const ContentSelector: FC<ContentSelectorProps> = ({
   children,
-  onPress: onSelect,
+  onPress,
+  onHover,
+  onUnhover,
   onClickOutside: onUnselect,
   pressDuration = DEFAULT_PRESS_DETECT_DURATION,
   isSelecting: isSelectingProp,
@@ -35,7 +39,7 @@ export const ContentSelector: FC<ContentSelectorProps> = ({
 
   const handleOnLongPress = () => {
     setIsSelectingState(true);
-    onSelect();
+    onPress();
   };
 
   const startPressTimer = () => {
@@ -58,9 +62,11 @@ export const ContentSelector: FC<ContentSelectorProps> = ({
 
   const handleMouseEnter = () => {
     setIsHovered(true);
+    onHover?.();
   };
 
   const handleMouseUp = () => {
+    onUnhover?.();
     setIsHovered(false);
     clearPressTimer();
   };

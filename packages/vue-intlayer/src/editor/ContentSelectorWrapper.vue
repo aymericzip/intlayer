@@ -3,6 +3,8 @@
     v-if="editorEnabled?.enabled.value"
     @press="handleSelect"
     :isSelecting="isSelected"
+    @hover="handleHover"
+    @unhover="handleUnhover"
   >
     <slot />
   </ContentSelector>
@@ -16,6 +18,8 @@ import ContentSelector from '../UI/ContentSelector.vue';
 import { useEditorEnabled } from './editorEnabled';
 import { useFocusDictionary } from './focusDictionary';
 import { useEditor } from './useEditor';
+import { MessageKey } from '@intlayer/editor';
+import { useCommunicator } from './communicator';
 
 /**
  * Combine your NodeProps (which include dictionaryKey & keyPath)
@@ -27,6 +31,7 @@ const props = defineProps<Props>();
 // pull in the editor state & focus API
 const focusDictionary = useFocusDictionary();
 const editorEnabled = useEditorEnabled();
+const communicator = useCommunicator();
 
 useEditor();
 
@@ -47,6 +52,23 @@ const handleSelect = () => {
   focusDictionary?.setFocusedContent({
     dictionaryKey: props.dictionaryKey,
     keyPath: props.keyPath,
+  });
+};
+
+const handleHover = () => {
+  communicator?.postMessage({
+    type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+    data: {
+      dictionaryKey: props.dictionaryKey,
+      keyPath: props.keyPath,
+    },
+  });
+};
+
+const handleUnhover = () => {
+  communicator?.postMessage({
+    type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+    data: null,
   });
 };
 </script>

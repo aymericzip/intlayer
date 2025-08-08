@@ -31,7 +31,7 @@ const config: IntlayerConfig = {
     enabled: true,
     hotReload: false,
     dictionaryPriorityStrategy: 'distant_first',
-    applicationURL: process.env.NEXT_PUBLIC_URL,
+    applicationURL: 'http://localhost:3000',
     editorURL: process.env.NEXT_PUBLIC_EDITOR_URL,
     cmsURL: process.env.NEXT_PUBLIC_CMS_URL,
     backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,

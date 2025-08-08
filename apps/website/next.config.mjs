@@ -190,6 +190,4 @@ const nextConfigPWA = withPWA({
 /** @type {import('next').NextConfig} */
 const config = withIntlayer(nextConfigPWA);
 
-console.log(config);
-
 export default config;

@@ -10,6 +10,7 @@ const DEFAULT_PRESS_DETECT_DURATION = 250;
 
 type ContentSelectorProps = {
   onPress: () => void;
+  onHover?: () => void;
   onClickOutside?: () => void;
   pressDuration?: number;
   isSelecting?: boolean;
@@ -51,6 +52,7 @@ export const ContentSelector: Component<ContentSelectorProps> = (props) => {
 
   const handleMouseEnter = () => {
     setIsHovered(true);
+    props.onHover?.();
   };
 
   const handleMouseUp = () => {

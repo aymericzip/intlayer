@@ -4,8 +4,8 @@ import {
   type FileContent,
   type KeyPath,
 } from '@intlayer/core';
-import type { FC } from 'react';
 import { useEditedContent } from '@intlayer/editor-react';
+import type { FC } from 'react';
 import { StringWrapper, type StringWrapperProps } from './StringWrapper';
 
 type FileWrapperProps = Omit<StringWrapperProps, 'section'> & {
@@ -39,15 +39,6 @@ export const FileWrapper: FC<FileWrapperProps> = (props) => {
         section={content}
         editedContentValue={editedContentValue?.content}
         onContentChange={(content) => {
-          console.log('lll', {
-            subSection,
-            file: {
-              ...section,
-              content: content.newValue,
-            },
-            keyPath,
-            newKeyPath,
-          });
           addEditedContent(
             props.dictionary.key,
             {

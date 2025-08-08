@@ -34,8 +34,6 @@ export const VerifyEmailStepForm: FC = () => {
   };
 
   useEffect(() => {
-    console.log({ targetedUserId, isEmailVerified, userId, user });
-
     if (!targetedUserId) return;
     if (isEmailVerified) return;
 

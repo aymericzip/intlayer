@@ -1,5 +1,6 @@
 export * from '@intlayer/editor';
 export * from './ChangedContentContext';
+export * from './CommunicatorContext';
 export * from './ConfigurationContext';
 export * from './DictionariesRecordContext';
 export * from './EditedContentContext';
