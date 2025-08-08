@@ -1,6 +1,5 @@
 import { Injector } from '@angular/core';
 import configuration from '@intlayer/config/built';
-import { installChangedContent } from './changedContent';
 import { installCommunicator } from './communicator';
 import { installDictionariesRecord } from './dictionariesRecord';
 import { installEditedContent } from './editedContent';
@@ -55,7 +54,6 @@ export const installIntlayerEditor = (injector: Injector): void => {
     allowedOrigins: [applicationURL, editorURL, cmsURL] as string[],
   });
   installEditorEnabled(injector);
-  installChangedContent(injector);
   installDictionariesRecord(injector);
   installEditedContent(injector);
   installFocusDictionary(injector);

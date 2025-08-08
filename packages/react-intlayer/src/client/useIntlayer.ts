@@ -2,11 +2,9 @@
 
 import type { LocalesValues } from '@intlayer/config/client';
 import type { DictionaryKeys } from '@intlayer/core';
-import { useChangedContent } from '@intlayer/editor-react';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import { useContext } from 'react';
-import { getDictionary } from '../getDictionary';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -23,13 +21,7 @@ export const useIntlayer = <T extends DictionaryKeys>(
   locale?: LocalesValues
 ): DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']> => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
-  const { changedContent } = useChangedContent();
   const localeTarget = locale ?? currentLocale;
 
-  if (changedContent?.[key]) {
-    // @ts-ignore fix instantiation is excessively deep and possibly infinite
-    return getDictionary(changedContent?.[key], localeTarget);
-  }
-
-  return getIntlayer(key, localeTarget);
+  return getIntlayer(key, localeTarget) as any;
 };

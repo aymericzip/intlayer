@@ -1,9 +1,7 @@
-import { IntlayerEventListener } from '@intlayer/api';
 import configuration from '@intlayer/config/built';
-import { onCleanup, onMount, type Component, type ParentProps } from 'solid-js';
+import { type Component, type ParentProps } from 'solid-js';
 import {
   EditorProvider,
-  useChangedContentActions,
   useCrossURLPathSetter,
   useEditorEnabled,
   useIframeClickInterceptor,
@@ -27,32 +25,6 @@ const { editor } = configuration;
 
 const IntlayerEditorHook: Component = () => {
   const { enabled } = useEditorEnabled();
-
-  /**
-   * Hot reloading
-   */
-  const changedContentActions = useChangedContentActions();
-
-  onMount(() => {
-    if (!editor.hotReload) return;
-    if (!editor.clientId) return;
-    if (!editor.clientSecret) return;
-
-    const eventSource = new IntlayerEventListener();
-    try {
-      eventSource.initialize().then(() => {
-        eventSource.onDictionaryChange = (dictionary) =>
-          changedContentActions?.setChangedContent(
-            dictionary.key,
-            dictionary.content
-          );
-      });
-    } catch (error) {
-      console.error('Error initializing IntlayerEventListener:', error);
-    }
-
-    onCleanup(() => eventSource.cleanup());
-  });
 
   return enabled() ? <IntlayerEditorHooksEnabled /> : <></>;
 };

@@ -7,7 +7,6 @@ import {
   useEffect,
   useState,
 } from 'preact/compat';
-import { ChangedContentProvider } from './ChangedContentContext';
 import {
   type CommunicatorProviderProps,
   CommunicatorProvider,
@@ -98,17 +97,15 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   configuration,
   ...props
 }) => (
-  <ChangedContentProvider>
-    <EditorEnabledProvider>
-      <ConfigurationProvider configuration={configuration}>
-        <IframeCheckRenderer fallback={children}>
-          <CommunicatorProvider {...props}>
-            <EditorEnabledCheckRenderer fallback={children}>
-              <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
-            </EditorEnabledCheckRenderer>
-          </CommunicatorProvider>
-        </IframeCheckRenderer>
-      </ConfigurationProvider>
-    </EditorEnabledProvider>
-  </ChangedContentProvider>
+  <EditorEnabledProvider>
+    <ConfigurationProvider configuration={configuration}>
+      <IframeCheckRenderer fallback={children}>
+        <CommunicatorProvider {...props}>
+          <EditorEnabledCheckRenderer fallback={children}>
+            <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
+          </EditorEnabledCheckRenderer>
+        </CommunicatorProvider>
+      </IframeCheckRenderer>
+    </ConfigurationProvider>
+  </EditorEnabledProvider>
 );

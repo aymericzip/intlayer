@@ -1,10 +1,7 @@
 'use client';
 
-import { IntlayerEventListener } from '@intlayer/api';
 import configuration from '@intlayer/config/built';
 import { type ComponentChildren, type FunctionComponent } from 'preact';
-import { useEffect } from 'preact/hooks';
-import { useChangedContentActions } from './ChangedContentContext';
 import { useEditorEnabled } from './EditorEnabledContext';
 import { EditorProvider } from './EditorProvider';
 import { useCrossURLPathSetter } from './useCrossURLPathState';
@@ -28,32 +25,6 @@ const { editor } = configuration;
 
 const IntlayerEditorHook: FunctionComponent = () => {
   const { enabled } = useEditorEnabled();
-
-  /**
-   * Hot reloading
-   */
-  const changedContentContext = useChangedContentActions();
-
-  useEffect(() => {
-    if (!editor.hotReload) return;
-    if (!editor.clientId) return;
-    if (!editor.clientSecret) return;
-
-    const eventSource = new IntlayerEventListener();
-    try {
-      eventSource.initialize().then(() => {
-        eventSource.onDictionaryChange = (dictionary) =>
-          changedContentContext?.setChangedContent(
-            dictionary.key,
-            dictionary.content
-          );
-      });
-    } catch (error) {
-      console.error('Error initializing IntlayerEventListener:', error);
-    }
-
-    return () => eventSource.cleanup();
-  }, []);
 
   return enabled ? <IntlayerEditorHooksEnabled /> : <></>;
 };

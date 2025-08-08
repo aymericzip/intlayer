@@ -7,7 +7,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { ChangedContentProvider } from './ChangedContentContext';
 import {
   type CommunicatorProviderProps,
   CommunicatorProvider,
@@ -100,23 +99,21 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   configuration,
   ...props
 }) => (
-  <ChangedContentProvider>
-    <EditorEnabledProvider>
-      <ConfigurationProvider configuration={configuration}>
-        {props.mode === 'editor' ? (
+  <EditorEnabledProvider>
+    <ConfigurationProvider configuration={configuration}>
+      {props.mode === 'editor' ? (
+        <CommunicatorProvider {...props}>
+          <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
+        </CommunicatorProvider>
+      ) : (
+        <IframeCheckRenderer fallback={children}>
           <CommunicatorProvider {...props}>
-            <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
+            <EditorEnabledCheckRenderer fallback={children}>
+              <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
+            </EditorEnabledCheckRenderer>
           </CommunicatorProvider>
-        ) : (
-          <IframeCheckRenderer fallback={children}>
-            <CommunicatorProvider {...props}>
-              <EditorEnabledCheckRenderer fallback={children}>
-                <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
-              </EditorEnabledCheckRenderer>
-            </CommunicatorProvider>
-          </IframeCheckRenderer>
-        )}
-      </ConfigurationProvider>
-    </EditorEnabledProvider>
-  </ChangedContentProvider>
+        </IframeCheckRenderer>
+      )}
+    </ConfigurationProvider>
+  </EditorEnabledProvider>
 );

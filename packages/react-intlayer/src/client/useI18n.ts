@@ -6,13 +6,10 @@ import type {
   GetSubPath,
   ValidDotPathsFor,
 } from '@intlayer/core';
-import { useChangedContent } from '@intlayer/editor-react';
 import type { DeepTransformContent } from '../plugins';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
 import { useContext } from 'react';
-import { getDictionary } from '../getDictionary';
-import { getIntlayer } from '../getIntlayer';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
@@ -37,20 +34,12 @@ export const useI18n = <T extends DictionaryKeys>(
   locale?: LocalesValues
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
-  const { changedContent } = useChangedContent();
   const localeTarget = locale ?? currentLocale;
 
   // Get the dictionary content for the namespace
   let dictionaryContent: DeepTransformContent<
     IntlayerDictionaryTypesConnector[T]['content']
   >;
-
-  if (changedContent?.[namespace]) {
-    // @ts-ignore fix instantiation is excessively deep and possibly infinite
-    dictionaryContent = getDictionary(changedContent[namespace], localeTarget);
-  } else {
-    dictionaryContent = getIntlayer(namespace, localeTarget);
-  }
 
   // Return the translation function
   const t = <P extends ValidDotPathsFor<T>>(

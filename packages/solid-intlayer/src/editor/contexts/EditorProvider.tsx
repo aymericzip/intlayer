@@ -5,7 +5,6 @@ import {
   createEffect,
   createSignal,
 } from 'solid-js';
-import { ChangedContentProvider } from './ChangedContentContext';
 import {
   type CommunicatorProviderProps,
   CommunicatorProvider,
@@ -89,20 +88,18 @@ export type EditorProviderProps = CommunicatorProviderProps &
 export const EditorProvider: Component<ParentProps<EditorProviderProps>> = (
   props
 ) => (
-  <ChangedContentProvider>
-    <EditorEnabledProvider>
-      <ConfigurationProvider configuration={props.configuration}>
-        <IframeCheckRenderer fallback={props.children}>
-          <CommunicatorProvider
-            postMessage={props.postMessage}
-            allowedOrigins={props.allowedOrigins}
-          >
-            <EditorEnabledCheckRenderer fallback={props.children}>
-              <EditorProvidersWrapper>{props.children}</EditorProvidersWrapper>
-            </EditorEnabledCheckRenderer>
-          </CommunicatorProvider>
-        </IframeCheckRenderer>
-      </ConfigurationProvider>
-    </EditorEnabledProvider>
-  </ChangedContentProvider>
+  <EditorEnabledProvider>
+    <ConfigurationProvider configuration={props.configuration}>
+      <IframeCheckRenderer fallback={props.children}>
+        <CommunicatorProvider
+          postMessage={props.postMessage}
+          allowedOrigins={props.allowedOrigins}
+        >
+          <EditorEnabledCheckRenderer fallback={props.children}>
+            <EditorProvidersWrapper>{props.children}</EditorProvidersWrapper>
+          </EditorEnabledCheckRenderer>
+        </CommunicatorProvider>
+      </IframeCheckRenderer>
+    </ConfigurationProvider>
+  </EditorEnabledProvider>
 );

@@ -20,5 +20,5 @@ export const useDictionaryAsync = async <T extends Dictionary>(
 
   const dictionary = await dictionaryPromise[localeTarget]!();
 
-  return useDictionary(dictionary, localeTarget);
+  return useDictionary(dictionary, localeTarget) as T;
 };

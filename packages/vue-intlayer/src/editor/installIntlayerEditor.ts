@@ -1,6 +1,5 @@
 import configuration from '@intlayer/config/built';
 import { App } from 'vue';
-import { installChangedContent } from './changedContent';
 import { installCommunicator } from './communicator';
 import { installDictionariesRecord } from './dictionariesRecord';
 import { installEditedContent } from './editedContent';
@@ -52,7 +51,6 @@ export const installIntlayerEditor = (app: App): void => {
     allowedOrigins: [applicationURL, editorURL, cmsURL] as string[],
   });
   installEditorEnabled(app);
-  installChangedContent(app);
   installDictionariesRecord(app);
   installEditedContent(app);
   installFocusDictionary(app);

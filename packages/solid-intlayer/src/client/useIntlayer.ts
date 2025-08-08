@@ -3,8 +3,6 @@ import type { DictionaryKeys } from '@intlayer/core';
 import { createMemo, useContext } from 'solid-js';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import { useChangedContent } from '../editor/contexts';
-import { getDictionary } from '../getDictionary';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -21,16 +19,10 @@ export const useIntlayer = <T extends DictionaryKeys>(
   IntlayerDictionaryTypesConnector[T]['content']
 >) => {
   const context = useContext(IntlayerClientContext);
-  const { changedContent } = useChangedContent();
 
   return createMemo(() => {
     const currentLocale = context?.locale();
     const localeTarget = locale ?? currentLocale;
-
-    if (changedContent?.[key]) {
-      // @ts-ignore fix instantiation is excessively deep and possibly infinite
-      return getDictionary(changedContent?.[key], localeTarget);
-    }
 
     return getIntlayer(key, localeTarget);
   });
