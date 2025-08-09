@@ -1,4 +1,5 @@
 import { AnchorHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from 'react';
+import { DiscordLogo } from './DiscordLogo';
 import { FacebookLogo } from './FacebookLogo';
 import { InstagramLogo } from './InstagramLogo';
 import { LinkedInLogo } from './LinkedInLogo';
@@ -8,6 +9,11 @@ import { XLogo } from './XLogo';
 import { YoutubeLogo } from './YoutubeLogo';
 
 const socialNetworks = [
+  {
+    href: 'https://discord.gg/intlayer',
+    component: <DiscordLogo className="max-w-full max-h-full h-auto" />,
+    label: 'Discord',
+  },
   {
     href: 'https://www.producthunt.com/posts/intlayer?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-intlayer',
     component: <ProductHuntLogo className="max-w-full max-h-full h-auto" />,
@@ -88,6 +94,7 @@ export const SocialNetworks = ({
       ))
   );
 
+export * from './DiscordLogo';
 export * from './FacebookLogo';
 export * from './InstagramLogo';
 export * from './LinkedInLogo';

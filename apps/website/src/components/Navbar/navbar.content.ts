@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
 import { ExternalLinks, PagesRoutes } from '@/Routes';
+import { t, type Dictionary } from 'intlayer';
 
 type SectionsContent = {
   sections: {
@@ -14,6 +14,12 @@ type SectionsContent = {
     title: string;
     label: string;
     gitHubLogoAlt: string;
+  };
+  discord: {
+    id: string;
+    url: string;
+    title: string;
+    label: string;
   };
   logo: {
     label: string;
@@ -291,6 +297,26 @@ export const navbarContent = {
         hi: 'Github लोगो',
         ar: 'شعار Github',
         ru: 'Логотип Github',
+      }),
+    },
+    discord: {
+      id: 'discord',
+      url: ExternalLinks.Discord,
+      title: 'Discord',
+      label: t({
+        en: 'Go to the discord server',
+        fr: 'Aller sur le serveur discord',
+        es: 'Ir al servidor de discord',
+        'en-GB': 'Go to the discord server',
+        de: 'Zur Discord-Server gehen',
+        ja: 'Discordサーバーに移動',
+        ko: 'Discord 서버로 이동',
+        zh: '访问Discord服务器',
+        it: 'Vai al server di Discord',
+        pt: 'Ir para o servidor do Discord',
+        hi: 'Discord सर्वर पर जाएं',
+        ar: 'اذهب إلى خادم Discord',
+        ru: 'Перейти на сервер Discord',
       }),
     },
 
