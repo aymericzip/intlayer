@@ -7,6 +7,7 @@ import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import {
   Avatar,
   Button,
+  DiscordLogo,
   LogoWithText,
   Navbar as UINavBar,
 } from '@intlayer/design-system';
@@ -45,6 +46,7 @@ export const Navbar: FC = () => {
     github,
     login,
     logout: logoutContent,
+    discord,
   } = useIntlayer('navbar');
   const { isAuthenticated, logout, user } = useUser();
   const { pathWithoutLocale } = useLocale();
@@ -154,6 +156,13 @@ export const Navbar: FC = () => {
         <>
           <LocaleSwitcher panelProps={{ className: '-left-16' }} />
           <SwitchThemeSwitcher />
+          <a
+            aria-label={discord.label.value}
+            href={discord.url.value}
+            className="border-text border-[1.5px] flex cursor-pointer items-center gap-2 rounded-full p-1.5 hover:bg-text/10"
+          >
+            <DiscordLogo width={20} />
+          </a>
           <Link
             label={github.label.value}
             href={github.url.value}
