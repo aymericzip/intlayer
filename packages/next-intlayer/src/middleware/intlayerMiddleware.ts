@@ -390,7 +390,12 @@ const rewriteUrl = (
   newPath: string,
   locale: Locales
 ): NextResponse => {
-  const response = NextResponse.rewrite(new URL(newPath, request.url));
+  // Ensure we preserve the original search params if they were present and not explicitly included in newPath
+  const search = request.nextUrl.search;
+  const pathWithSearch =
+    search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
+
+  const response = NextResponse.rewrite(new URL(pathWithSearch, request.url));
   response.headers.set(headerName, locale);
   return response;
 };
@@ -403,5 +408,10 @@ const rewriteUrl = (
  * @returns - The redirect response.
  */
 const redirectUrl = (request: NextRequest, newPath: string): NextResponse => {
-  return NextResponse.redirect(new URL(newPath, request.url));
+  // Ensure we preserve the original search params if they were present and not explicitly included in newPath
+  const search = request.nextUrl.search;
+  const pathWithSearch =
+    search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
+
+  return NextResponse.redirect(new URL(pathWithSearch, request.url));
 };
