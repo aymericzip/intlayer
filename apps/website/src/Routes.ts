@@ -57,7 +57,7 @@ export enum PagesRoutes {
 
 export enum ExternalLinks {
   Github = 'https://github.com/aymericzip/intlayer',
-  Discord = 'https://discord.gg/qwN7MBNV',
+  Discord = 'https://discord.gg/528mBV4N',
   LinkedIn = 'https://www.linkedin.com/company/intlayerorg/',
   ExampleIntlayerWithNextjs = 'https://github.com/aymericzip/intlayer/tree/main/examples/nextjs-15-app',
   ExampleIntlayerWithReactJS = 'https://github.com/aymericzip/intlayer/tree/main/examples/react-app',

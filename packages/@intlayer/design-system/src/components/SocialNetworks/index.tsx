@@ -10,7 +10,7 @@ import { YoutubeLogo } from './YoutubeLogo';
 
 const socialNetworks = [
   {
-    href: 'https://discord.gg/intlayer',
+    href: 'https://discord.gg/528mBV4N',
     component: <DiscordLogo className="max-w-full max-h-full h-auto" />,
     label: 'Discord',
   },
