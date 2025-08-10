@@ -1,6 +1,6 @@
 {
   "name": "react-intlayer",
-  "version": "5.7.6",
+  "version": "5.7.6-canary.0",
   "private": false,
   "description": "Easily internationalize i18n your React applications with type-safe multilingual content management.",
   "keywords": [
