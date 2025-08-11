@@ -34,9 +34,12 @@ type DictionaryEditionDrawerContentProps = {
 export const DictionaryEditionDrawerContent: FC<
   DictionaryEditionDrawerContentProps
 > = ({ locale, identifier, handleOnBack, isDarkMode }) => {
-  const { modalTitle, openDictionaryEditor } = useDictionary(
-    dictionaryEditionDrawerContent
-  );
+  const {
+    modalTitle,
+    openDictionaryEditor,
+    noDictionaryFocused,
+    focusedDictionaryNotFound,
+  } = useDictionary(dictionaryEditionDrawerContent);
   const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
   const { all: dictionaries } = useGetAllDictionaries();
   const { focusedContent } = useDictionaryEditionDrawer(identifier);
@@ -48,11 +51,21 @@ export const DictionaryEditionDrawerContent: FC<
 
   const dictionaryKey = focusedContent?.dictionaryKey;
 
-  if (!dictionaryKey) return <>No dictionary focused</>;
+  if (!dictionaryKey)
+    return (
+      <span className="mx-auto my-10 text-sm text-neutral">
+        {noDictionaryFocused}
+      </span>
+    );
 
   const dictionary: Dictionary = dictionaries[dictionaryKey];
 
-  if (!dictionary) return <>No dictionary focused</>;
+  if (!dictionary)
+    return (
+      <span className="mx-auto my-10 text-sm text-neutral">
+        {focusedDictionaryNotFound}
+      </span>
+    );
 
   return (
     <>

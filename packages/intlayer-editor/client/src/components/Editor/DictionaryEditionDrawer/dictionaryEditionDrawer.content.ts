@@ -65,6 +65,21 @@ const dictionaryEditionDrawerContent = {
       ru: 'Нет фокусированного словаря',
       'en-GB': 'No dictionary focused',
     }),
+    focusedDictionaryNotFound: t({
+      en: 'Focused dictionary not found',
+      fr: 'Dictionnaire focalisé non trouvé',
+      es: 'Diccionario enfocado no encontrado',
+      de: 'Ausgewähltes Wörterbuch nicht gefunden',
+      ja: 'フォーカスされた辞書が見つかりません',
+      ko: '포커스가 있는 사전이 없습니다',
+      zh: '没有聚焦的词典',
+      it: 'Nessun dizionario selezionato',
+      pt: 'Nenhum dicionário focalizado',
+      hi: 'कोई फोकस शब्दकोश नहीं है',
+      ar: 'لا يوجد قاموس مرتبط',
+      ru: 'Нет фокусированного словаря',
+      'en-GB': 'Focused dictionary not found',
+    }),
   },
 } satisfies Dictionary;
 
