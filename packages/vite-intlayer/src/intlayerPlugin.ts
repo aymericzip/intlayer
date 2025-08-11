@@ -1,4 +1,9 @@
-import { cleanOutputDir, prepareIntlayer, watch } from '@intlayer/chokidar';
+import {
+  cleanOutputDir,
+  prepareIntlayer,
+  runOnce,
+  watch,
+} from '@intlayer/chokidar';
 import intlayerConfig from '@intlayer/config/built';
 import { join, relative, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
@@ -84,8 +89,19 @@ export const intlayerPlugin = (): PluginOption => {
       },
 
       buildStart: async () => {
+        const sentinelPath = join(
+          intlayerConfig.content.baseDir,
+          '.intlayer',
+          'cache',
+          'intlayer-prepared.lock'
+        );
+
         // Code to run when Vite build starts
-        await prepareIntlayer(intlayerConfig);
+        // Only call prepareIntlayer once per server startup
+        await runOnce(
+          sentinelPath,
+          async () => await prepareIntlayer(intlayerConfig)
+        );
       },
     },
   ];
