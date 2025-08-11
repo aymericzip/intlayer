@@ -2,11 +2,11 @@
 
 import { Container, Loader } from '@intlayer/design-system';
 import {
-  usePostEditorEnabledState,
   useConfiguration,
   useCrossURLPathState,
-  useIframeClickMerger,
   useGetEditorEnabledState,
+  useIframeClickMerger,
+  usePostEditorEnabledState,
 } from '@intlayer/editor-react';
 import { type FC, type RefObject, useEffect, useState } from 'react';
 import { useEditedContentPersistence } from '../../hooks/useEditedContentPersistence';
@@ -26,7 +26,7 @@ export const IframeController: FC<{
   useEditedContentPersistence();
   useIframeClickMerger();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   /**
    * We need to enable the editor to receive messages from the iframe
