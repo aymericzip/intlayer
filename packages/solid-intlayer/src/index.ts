@@ -16,7 +16,6 @@ export {
   useDictionaryAsync,
   useDictionaryDynamic,
   useIntlayer,
-  useIntlayerAsync,
   useIntlayerContext,
   useLoadDynamic,
   useLocale,

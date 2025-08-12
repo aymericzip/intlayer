@@ -5,7 +5,6 @@ export { useDictionary } from './useDictionary';
 export { useDictionaryAsync } from './useDictionaryAsync';
 export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useIntlayer } from './useIntlayer';
-export { useIntlayerAsync } from './useIntlayerAsync';
 
 // Context and providers
 export { getIntlayerContext, setIntlayerContext } from './intlayerContext';

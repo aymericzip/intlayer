@@ -209,7 +209,6 @@ The `next-intlayer` package also provides some functions to help you to internat
 - [`useIntlayer()`](https://intlayer.org/doc/packages/next-intlayer/useIntlayer)
 - [`useDictionary()`](https://intlayer.org/doc/packages/next-intlayer/useDictionary)
 - [`useLocale()`](https://intlayer.org/doc/packages/next-intlayer/useLocale)
-- [`useIntlayerAsync()`](https://intlayer.org/doc/packages/next-intlayer/useIntlayerAsync)
 
 ## Read about Intlayer
 

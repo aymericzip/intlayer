@@ -279,7 +279,6 @@ Intlayer bietet viele Funktionen, die Ihnen helfen, Ihre Next.js-Anwendung zu in
 - [`useIntlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/useIntlayer.md)
 - [`useDictionary()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/useDictionary.md)
 - [`useLocale()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/useLocale.md)
-- [`useIntlayerAsync()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/useIntlayerAsync.md)
 
 ## Dokumentationshistorie
 

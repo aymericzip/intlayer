@@ -203,7 +203,6 @@ The `react-intlayer` package also provides some functions to help you to interna
 - [`useIntlayer()`](https://intlayer.org/doc/packages/react-intlayer/useIntlayer)
 - [`useDictionary()`](https://intlayer.org/doc/packages/react-intlayer/useDictionary)
 - [`useLocale()`](https://intlayer.org/doc/packages/react-intlayer/useLocale)
-- [`useIntlayerAsync()`](https://intlayer.org/doc/packages/react-intlayer/useIntlayerAsync)
 
 ## Read about Intlayer
 

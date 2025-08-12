@@ -124,7 +124,10 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   );
 
   // Only call prepareIntlayer once per server startup
-  await runOnce(sentinelPath, () => prepareIntlayer(intlayerConfig));
+  await runOnce(
+    sentinelPath,
+    async () => await prepareIntlayer(intlayerConfig)
+  );
 
   // Format all configuration values as environment variables
   const { mainDir, configDir, baseDir } = intlayerConfig.content;

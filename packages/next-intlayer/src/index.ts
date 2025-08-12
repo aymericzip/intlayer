@@ -7,7 +7,6 @@ export {
   useDictionaryDynamic,
   useI18n,
   useIntlayer,
-  useIntlayerAsync,
   useLoadDynamic,
   useLocaleCookie,
   type IntlayerNode,
