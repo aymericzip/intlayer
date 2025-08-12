@@ -8,8 +8,8 @@ import type {
 } from '@intlayer/core';
 import type { DeepTransformContent } from '../plugins';
 // @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import { useContext } from 'react';
+import { getIntlayer, type IntlayerDictionaryTypesConnector } from 'intlayer';
+import { useContext, useMemo } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
@@ -34,12 +34,18 @@ export const useI18n = <T extends DictionaryKeys>(
   locale?: LocalesValues
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
-  const localeTarget = locale ?? currentLocale;
+  const localeTarget = useMemo(
+    () => locale ?? currentLocale,
+    [currentLocale, locale]
+  );
 
   // Get the dictionary content for the namespace
   let dictionaryContent: DeepTransformContent<
     IntlayerDictionaryTypesConnector[T]['content']
-  >;
+  > = useMemo(
+    () => getIntlayer(namespace, localeTarget),
+    [namespace, localeTarget]
+  );
 
   // Return the translation function
   const t = <P extends ValidDotPathsFor<T>>(

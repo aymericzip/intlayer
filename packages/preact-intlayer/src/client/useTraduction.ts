@@ -1,5 +1,5 @@
 import { getTranslation, type LanguageContent } from '@intlayer/core';
-import { useContext } from 'preact/hooks';
+import { useContext, useMemo } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
@@ -28,5 +28,8 @@ export const useTranslation = <Content = string>(
 ): Content => {
   const { locale } = useContext(IntlayerClientContext);
 
-  return getTranslation(languageContent, locale);
+  return useMemo(
+    () => getTranslation(languageContent, locale),
+    [languageContent, locale]
+  );
 };

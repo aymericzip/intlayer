@@ -4,7 +4,7 @@ import type { LocalesValues } from '@intlayer/config/client';
 import type { DictionaryKeys } from '@intlayer/core';
 // @ts-ignore intlayer declared for module augmentation
 import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -21,7 +21,10 @@ export const useIntlayer = <T extends DictionaryKeys>(
   locale?: LocalesValues
 ): DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']> => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
-  const localeTarget = locale ?? currentLocale;
 
-  return getIntlayer(key, localeTarget) as any;
+  return useMemo(() => {
+    const localeTarget = locale ?? currentLocale;
+
+    return getIntlayer(key, localeTarget) as any;
+  }, [key, currentLocale, locale]);
 };

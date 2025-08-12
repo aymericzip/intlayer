@@ -3,7 +3,7 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/config/client';
 import type { Dictionary, LanguageContent } from '@intlayer/core';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
 
@@ -15,14 +15,21 @@ import { useDictionary } from './useDictionary';
 export const useDictionaryAsync = async <T extends Dictionary>(
   dictionaryPromise: LanguageContent<() => Promise<T>>,
   locale?: LocalesValues
-) => {
+): Promise<T> => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
-  const localeTarget =
-    locale ??
-    currentLocale ??
-    configuration?.internationalization.defaultLocale;
 
-  const dictionary = await dictionaryPromise[localeTarget]!();
+  const localeTarget = useMemo(
+    () =>
+      locale ??
+      currentLocale ??
+      configuration?.internationalization.defaultLocale,
+    [currentLocale, locale]
+  );
 
-  return useDictionary(dictionary, localeTarget) as T;
+  const dictionary = await useMemo(
+    async () => (await dictionaryPromise[localeTarget]!()) as T,
+    [dictionaryPromise, localeTarget]
+  );
+
+  return useDictionary<T>(dictionary, localeTarget) as any;
 };

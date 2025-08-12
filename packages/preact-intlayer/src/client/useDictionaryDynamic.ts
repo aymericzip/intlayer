@@ -6,7 +6,7 @@ import type {
   DictionaryKeys,
   LanguageContent,
 } from '@intlayer/core';
-import { useContext } from 'preact/hooks';
+import { useContext, useMemo } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';
@@ -25,7 +25,10 @@ export const useDictionaryDynamic = <
   locale?: LocalesValues
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
-  const localeTarget = locale ?? currentLocale;
+  const localeTarget = useMemo(
+    () => locale ?? currentLocale,
+    [currentLocale, locale]
+  );
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget}`,

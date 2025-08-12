@@ -7,7 +7,7 @@ import type {
   DictionaryKeys,
   LanguageContent,
 } from '@intlayer/core';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';
@@ -26,10 +26,13 @@ export const useDictionaryDynamic = <
   locale?: LocalesValues
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext);
-  const localeTarget =
-    locale ??
-    currentLocale ??
-    configuration?.internationalization.defaultLocale;
+  const localeTarget = useMemo(
+    () =>
+      locale ??
+      currentLocale ??
+      configuration?.internationalization.defaultLocale,
+    [currentLocale, locale]
+  );
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget}`,
