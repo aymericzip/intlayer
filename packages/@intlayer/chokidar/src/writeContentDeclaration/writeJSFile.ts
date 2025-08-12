@@ -245,11 +245,181 @@ export const writeJSFile = async (
     'value'
   ) as NodePath<t.ObjectExpression>;
 
-  // Apply updates to each entry specified in the JSON
+  /**
+   * Build a Babel Expression for any JSON-serializable value or TypedNode.
+   * - Translation nodes become t({...}) or string literal in per-locale files
+   * - Objects recurse to ObjectExpression
+   * - Arrays recurse to ArrayExpression
+   * - Strings/numbers/booleans/null to corresponding literals
+   */
+  const buildValueNodeFromData = (data: any): t.Expression => {
+    // Translation typed node
+    if ((data as TypedNode)?.nodeType === NodeType.Translation) {
+      const translationContent = data as TranslationContent;
+      if (
+        isPerLocaleDeclarationFile &&
+        typeof locale === 'string' &&
+        translationContent?.[NodeType.Translation]?.[locale]
+      ) {
+        return t.stringLiteral(
+          String(translationContent[NodeType.Translation][locale])
+        );
+      }
+      const translationsObj = t.objectExpression(
+        Object.entries(translationContent?.[NodeType.Translation] ?? {}).map(
+          ([langKey, langValue]) => {
+            const keyNode = t.isValidIdentifier(langKey)
+              ? t.identifier(langKey)
+              : t.stringLiteral(langKey);
+            return t.objectProperty(
+              keyNode,
+              t.stringLiteral(String(langValue))
+            );
+          }
+        )
+      );
+      return t.callExpression(t.identifier('t'), [translationsObj]);
+    }
+
+    // Arrays
+    if (Array.isArray(data)) {
+      return t.arrayExpression(data.map((el) => buildValueNodeFromData(el)));
+    }
+
+    // Objects (plain)
+    if (data && typeof data === 'object') {
+      const props = Object.entries(data).map(([k, v]) => {
+        const key = t.isValidIdentifier(k)
+          ? t.identifier(k)
+          : t.stringLiteral(k);
+        return t.objectProperty(key, buildValueNodeFromData(v));
+      });
+      return t.objectExpression(props);
+    }
+
+    // Primitives
+    switch (typeof data) {
+      case 'string':
+        return t.stringLiteral(data);
+      case 'number':
+        return t.numericLiteral(data);
+      case 'boolean':
+        return t.booleanLiteral(data);
+      default:
+        return t.nullLiteral();
+    }
+  };
+
+  /** Ensure an object property exists on a given object expression path. */
+  const ensureObjectProperty = (
+    objPath: NodePath<t.ObjectExpression>,
+    key: string
+  ): NodePath<t.ObjectProperty> => {
+    const existing = (
+      objPath.get('properties') as NodePath<
+        t.ObjectProperty | t.SpreadElement | t.ObjectMethod
+      >[]
+    ).find((propPath) => {
+      if (!propPath.isObjectProperty()) return false;
+      const propNode = propPath.node;
+      const keyName = t.isIdentifier(propNode.key)
+        ? propNode.key.name
+        : t.isStringLiteral(propNode.key)
+          ? propNode.key.value
+          : null;
+      return keyName === key;
+    }) as NodePath<t.ObjectProperty> | undefined;
+
+    if (existing) return existing;
+
+    const keyNode = t.isValidIdentifier(key)
+      ? t.identifier(key)
+      : t.stringLiteral(key);
+    const newProp = t.objectProperty(keyNode, t.objectExpression([]));
+    objPath.node.properties.push(newProp);
+
+    // Return a fresh path for the newly pushed property
+    const props = objPath.get('properties') as NodePath<
+      t.ObjectProperty | t.SpreadElement | t.ObjectMethod
+    >[];
+    return props[props.length - 1] as NodePath<t.ObjectProperty>;
+  };
+
+  /** Recursively merge a JSON-like value into an ObjectExpression property path. */
+  const mergeValueIntoProperty = (
+    propPath: NodePath<t.ObjectProperty>,
+    value: any,
+    propKeyForLogs: string
+  ) => {
+    const valuePath = propPath.get('value') as NodePath;
+
+    // Translation typed node → either update t() args or replace value
+    if ((value as TypedNode)?.nodeType === NodeType.Translation) {
+      const translationContent = value as TranslationContent;
+      if (
+        valuePath.isCallExpression() &&
+        t.isIdentifier(valuePath.node.callee) &&
+        valuePath.node.callee.name === 't'
+      ) {
+        // Replace argument with the full translations object (simpler and robust)
+        const translationsObj = t.objectExpression(
+          Object.entries(translationContent?.[NodeType.Translation] ?? {}).map(
+            ([langKey, langValue]) =>
+              t.objectProperty(
+                t.isValidIdentifier(langKey)
+                  ? t.identifier(langKey)
+                  : t.stringLiteral(langKey),
+                t.stringLiteral(String(langValue))
+              )
+          )
+        );
+
+        if (isPerLocaleDeclarationFile && typeof locale === 'string') {
+          const str = translationContent?.[NodeType.Translation]?.[locale];
+          if (str) {
+            valuePath.replaceWith(t.stringLiteral(String(str)));
+            return;
+          }
+        }
+
+        (valuePath.node as t.CallExpression).arguments = [translationsObj];
+        return;
+      }
+
+      // Otherwise, replace with a fresh node
+      valuePath.replaceWith(buildValueNodeFromData(value));
+      return;
+    }
+
+    // Arrays → replace entirely
+    if (Array.isArray(value)) {
+      valuePath.replaceWith(buildValueNodeFromData(value));
+      return;
+    }
+
+    // Objects → ensure object expression and recurse into each key
+    if (value && typeof value === 'object') {
+      if (!valuePath.isObjectExpression()) {
+        valuePath.replaceWith(t.objectExpression([]));
+      }
+      const objPath = valuePath as NodePath<t.ObjectExpression>;
+      for (const [k, v] of Object.entries(value)) {
+        const childProp = ensureObjectProperty(objPath, k);
+        mergeValueIntoProperty(childProp, v, `${propKeyForLogs}.${k}`);
+      }
+      return;
+    }
+
+    // Primitives → replace
+    valuePath.replaceWith(buildValueNodeFromData(value));
+    return;
+  };
+
+  // Apply updates to each entry specified in the JSON (now supports deep nesting)
   for (const [entryKeyToUpdate, newEntryData] of Object.entries(
     updatesToApply
   )) {
-    const targetPropertyPath = (
+    let targetPropertyPath = (
       contentObjectPath.get('properties') as NodePath<
         t.ObjectProperty | t.SpreadElement | t.ObjectMethod
       >[]
@@ -262,249 +432,24 @@ export const writeJSFile = async (
           ? propNode.key.value
           : null;
       return keyName === entryKeyToUpdate;
-    });
+    }) as NodePath<t.ObjectProperty> | undefined;
 
-    if (!targetPropertyPath || !targetPropertyPath.isObjectProperty()) {
-      appLogger(
-        `Key '${entryKeyToUpdate}' not found in content object of ${filePath}. Adding the missing key.`,
-        {
-          level: 'info',
-          isVerbose: true,
-        }
-      );
-
-      // Create a new property for the missing key
-      let valueNode: t.Expression;
-
-      if ((newEntryData as TypedNode)?.nodeType === NodeType.Translation) {
-        // Create a new t() call with the translations
-        const translationContent = newEntryData as TranslationContent;
-
-        if (
-          isPerLocaleDeclarationFile &&
-          typeof locale === 'string' &&
-          translationContent?.[NodeType.Translation]?.[locale]
-        ) {
-          // For per-locale files, use the string value directly
-          valueNode = t.stringLiteral(
-            String(translationContent[NodeType.Translation][locale])
-          );
-        } else {
-          // Otherwise create a t() call with translations object
-          const translationsObj = t.objectExpression(
-            Object.entries(translationContent?.[NodeType.Translation]).map(
-              ([langKey, langValue]) => {
-                const keyNode = t.isValidIdentifier(langKey)
-                  ? t.identifier(langKey)
-                  : t.stringLiteral(langKey);
-                return t.objectProperty(
-                  keyNode,
-                  t.stringLiteral(String(langValue))
-                );
-              }
-            )
-          );
-          valueNode = t.callExpression(t.identifier('t'), [translationsObj]);
-        }
-      } else if (typeof newEntryData === 'string') {
-        // Create a string literal for string values
-        valueNode = t.stringLiteral(newEntryData);
-      } else {
-        // Fallback to empty string if we don't know how to handle this type
-        appLogger(
-          `Unsupported data type for new key '${entryKeyToUpdate}'. Using empty string.`,
-          { level: 'warn', isVerbose: true }
-        );
-        valueNode = t.stringLiteral('');
-      }
-
-      // Add the new property to the content object
+    if (!targetPropertyPath) {
       const keyNode = t.isValidIdentifier(entryKeyToUpdate)
         ? t.identifier(entryKeyToUpdate)
         : t.stringLiteral(entryKeyToUpdate);
-      const newProperty = t.objectProperty(keyNode, valueNode);
+      // By default create an empty object; merge will replace if needed
+      const newProperty = t.objectProperty(keyNode, t.objectExpression([]));
       contentObjectPath.node.properties.push(newProperty);
-
-      continue;
+      const props = contentObjectPath.get('properties') as NodePath<
+        t.ObjectProperty | t.SpreadElement | t.ObjectMethod
+      >[];
+      targetPropertyPath = props[
+        props.length - 1
+      ] as NodePath<t.ObjectProperty>;
     }
 
-    const callExpressionPath = targetPropertyPath.get('value') as NodePath; // Path to the value, e.g., t(...)
-
-    // Handle different types of values
-    if (callExpressionPath.isCallExpression()) {
-      const calleeNode = (callExpressionPath.node as t.CallExpression).callee;
-      const calleeName = t.isIdentifier(calleeNode) ? calleeNode.name : null;
-
-      // Handle 't' function calls
-      if (
-        (newEntryData as TypedNode)?.nodeType === 'translation' &&
-        calleeName === 't'
-      ) {
-        const args = (callExpressionPath.node as t.CallExpression).arguments;
-        if (args.length === 0 || !t.isObjectExpression(args[0])) {
-          appLogger(
-            `'t' call for '${entryKeyToUpdate}' in ${filePath} does not have an object literal as its first argument. Skipping.`,
-            {
-              level: 'warn',
-              isVerbose: true,
-            }
-          );
-          continue;
-        }
-
-        if (isPerLocaleDeclarationFile && typeof locale === 'string') {
-          // For per-locale files, replace t() call with direct string
-          const translations = (newEntryData as TranslationContent)?.[
-            NodeType.Translation
-          ];
-
-          if (translations[locale]) {
-            targetPropertyPath
-              .get('value')
-              .replaceWith(t.stringLiteral(String(translations[locale])));
-          } else {
-            appLogger(
-              `Missing translation for locale '${locale}' in '${entryKeyToUpdate}'. Using first available translation.`,
-              { level: 'warn', isVerbose: true }
-            );
-            const firstValue = Object.values(translations)[0];
-            if (firstValue) {
-              targetPropertyPath
-                .get('value')
-                .replaceWith(t.stringLiteral(String(firstValue)));
-            }
-          }
-          continue;
-        }
-
-        const translationsObjectAstNode = args[0] as t.ObjectExpression;
-        const processedLangKeysInJsonUpdate = new Set<string>();
-
-        // Update existing language properties in the AST node
-        translationsObjectAstNode.properties.forEach((prop: any) => {
-          if (t.isObjectProperty(prop)) {
-            const langKeyNode = prop.key;
-            const astLangKeyName = t.isIdentifier(langKeyNode)
-              ? langKeyNode.name
-              : t.isStringLiteral(langKeyNode)
-                ? langKeyNode.value
-                : null;
-
-            if (
-              astLangKeyName &&
-              (newEntryData as TranslationContent)?.[
-                NodeType.Translation
-              ].hasOwnProperty(astLangKeyName)
-            ) {
-              prop.value = t.stringLiteral(
-                String(
-                  (newEntryData as TranslationContent)?.[
-                    NodeType.Translation
-                  ]?.[astLangKeyName]
-                )
-              );
-              processedLangKeysInJsonUpdate.add(astLangKeyName);
-            }
-          }
-        });
-
-        // Add new language properties from the JSON update that were not originally in the AST node
-        for (const [jsonLangKey, jsonLangValue] of Object.entries(
-          (newEntryData as TranslationContent)?.[NodeType.Translation]
-        )) {
-          if (!processedLangKeysInJsonUpdate.has(jsonLangKey)) {
-            const newKeyNode = t.isValidIdentifier(jsonLangKey)
-              ? t.identifier(jsonLangKey)
-              : t.stringLiteral(jsonLangKey);
-            translationsObjectAstNode.properties.push(
-              t.objectProperty(
-                newKeyNode,
-                t.stringLiteral(String(jsonLangValue))
-              )
-            );
-          }
-        }
-      }
-      // Handle other function calls in the future
-      else {
-        appLogger(
-          `Unhandled callee '${calleeName || 'unknown'}' for key '${entryKeyToUpdate}' in ${filePath}.`,
-          { level: 'warn', isVerbose: true }
-        );
-      }
-    }
-    // Handle direct string literals
-    else if (callExpressionPath.isStringLiteral()) {
-      // For string literals, directly replace with the new value
-      if (typeof newEntryData === 'string') {
-        targetPropertyPath
-          .get('value')
-          .replaceWith(t.stringLiteral(newEntryData));
-      } else if ((newEntryData as any)?.[NodeType.Translation]) {
-        // Handle translation content (use first available translation)
-        const translations = (newEntryData as TranslationContent)[
-          NodeType.Translation
-        ];
-        const firstValue = Object.values(translations)[0];
-        if (firstValue) {
-          targetPropertyPath
-            .get('value')
-            .replaceWith(t.stringLiteral(String(firstValue)));
-        }
-      } else {
-        appLogger(
-          `Unhandled data structure for string replacement at '${entryKeyToUpdate}' in ${filePath}.`,
-          { level: 'warn', isVerbose: true }
-        );
-      }
-    }
-    // Handle other value types (objects, arrays, etc.)
-    else {
-      const valueType = callExpressionPath.node.type;
-      appLogger(
-        `Updating value of type ${valueType} for '${entryKeyToUpdate}' in ${filePath}`,
-        { level: 'info', isVerbose: true }
-      );
-
-      // For simple values like strings, use direct replacement
-      if (typeof newEntryData === 'string') {
-        targetPropertyPath
-          .get('value')
-          .replaceWith(t.stringLiteral(newEntryData));
-      }
-      // For translation content, use a smart approach
-      else if ((newEntryData as any)?.[NodeType.Translation]) {
-        // Extract just the value relevant to this file's locale
-        const translations = (newEntryData as TranslationContent)[
-          NodeType.Translation
-        ];
-
-        // Try to determine locale from file path (assuming a pattern like .fr.content.ts)
-        const localeMatch = filePath.match(/\.([a-z]{2})\.content\.(ts|js)$/i);
-        const locale = localeMatch
-          ? localeMatch[1]
-          : Object.keys(translations)[0];
-
-        if (translations[locale]) {
-          targetPropertyPath
-            .get('value')
-            .replaceWith(t.stringLiteral(String(translations[locale])));
-        } else {
-          // Fallback to first translation
-          const firstValue = Object.values(translations)[0];
-          if (firstValue) {
-            targetPropertyPath
-              .get('value')
-              .replaceWith(t.stringLiteral(String(firstValue)));
-          }
-        }
-      } else {
-        appLogger(
-          `Cannot update value of type ${valueType} for '${entryKeyToUpdate}' in ${filePath}. Unsupported data structure.`,
-          { level: 'warn', isVerbose: true }
-        );
-      }
-    }
+    mergeValueIntoProperty(targetPropertyPath, newEntryData, entryKeyToUpdate);
   }
 
   // Generate JavaScript/TypeScript code from the modified AST

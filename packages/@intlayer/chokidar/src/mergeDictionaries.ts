@@ -2,7 +2,7 @@ import { getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/core';
 import { getNodeType } from '@intlayer/core';
-import merge from 'deepmerge';
+import merge, { ArrayMergeOptions, Options } from 'deepmerge';
 
 const checkTypesMatch = (
   obj1: any,
@@ -33,10 +33,89 @@ const checkTypesMatch = (
   }
 };
 
+// Custom array merge strategy that merges arrays by key when present, otherwise by index
+const arrayMerge = (
+  destinationArray: any[],
+  sourceArray: any[],
+  options?: ArrayMergeOptions
+): any[] => {
+  const isObject = (value: unknown): value is Record<string, any> =>
+    !!value && typeof value === 'object' && !Array.isArray(value);
+
+  const getKey = (item: any): string | number | undefined => {
+    if (!isObject(item)) return undefined;
+    const key = (item as any).key;
+    if (typeof key === 'string' || typeof key === 'number') return key;
+    return undefined;
+  };
+
+  const result: any[] = [];
+
+  // Build a lookup for destination keyed items and track usage of all destination indices
+  const destKeyToIndex = new Map<string | number, number>();
+  const destUsed: boolean[] = new Array(destinationArray.length).fill(false);
+  for (let i = 0; i < destinationArray.length; i++) {
+    const k = getKey(destinationArray[i]);
+    if (k !== undefined && !destKeyToIndex.has(k)) {
+      destKeyToIndex.set(k, i);
+    }
+  }
+
+  // First pass: respect source (already merged) order
+  for (let i = 0; i < sourceArray.length; i++) {
+    const sourceItem = sourceArray[i];
+    const sourceKey = getKey(sourceItem);
+
+    if (sourceKey !== undefined && destKeyToIndex.has(sourceKey)) {
+      const destIndex = destKeyToIndex.get(sourceKey)!;
+      const destItem = destinationArray[destIndex];
+      destUsed[destIndex] = true;
+
+      if (isObject(destItem) && isObject(sourceItem)) {
+        result.push(merge(sourceItem, destItem, { arrayMerge }));
+      } else {
+        // Prefer destination item (later dictionary) when primitive
+        result.push(destItem !== undefined ? destItem : sourceItem);
+      }
+      continue;
+    }
+
+    // Fallback to index-based merge when no key match
+    const destItem = destinationArray[i];
+    if (destItem !== undefined && !destUsed[i]) {
+      destUsed[i] = true;
+      if (isObject(destItem) && isObject(sourceItem)) {
+        result.push(merge(sourceItem, destItem, { arrayMerge }));
+      } else if (destItem !== undefined) {
+        result.push(destItem);
+      } else {
+        result.push(sourceItem);
+      }
+    } else {
+      result.push(sourceItem);
+    }
+  }
+
+  // Second pass: append remaining unused destination items (including keyed-only in destination or extra by index)
+  for (let i = 0; i < destinationArray.length; i++) {
+    if (!destUsed[i]) {
+      result.push(destinationArray[i]);
+      destUsed[i] = true;
+    }
+  }
+
+  return result;
+};
+
 export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
   const { editor } = configuration;
 
   let mergedDictionaries: Dictionary = dictionaries[0];
+
+  // Configure deepmerge options with custom array merge strategy
+  const mergeOptions: Options = {
+    arrayMerge,
+  };
 
   for (let i = 1; i < dictionaries.length; i++) {
     const currentDictionary = dictionaries[i];
@@ -52,9 +131,17 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
     const isDistant = currentDictionary.location === 'distant';
 
     if (editor.dictionaryPriorityStrategy === 'distant_first' && isDistant) {
-      mergedDictionaries = merge(mergedDictionaries, currentDictionary);
+      mergedDictionaries = merge(
+        mergedDictionaries,
+        currentDictionary,
+        mergeOptions
+      );
     } else {
-      mergedDictionaries = merge(currentDictionary, mergedDictionaries);
+      mergedDictionaries = merge(
+        currentDictionary,
+        mergedDictionaries,
+        mergeOptions
+      );
     }
   }
 

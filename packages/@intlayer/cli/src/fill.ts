@@ -501,6 +501,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
         formattedDict.locale,
         { dictionaryKey, keyPath: [] }
       );
+
       formattedDict = {
         ...formattedDict,
         content: presetOutputContent.content,

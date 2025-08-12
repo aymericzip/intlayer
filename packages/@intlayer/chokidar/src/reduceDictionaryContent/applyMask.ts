@@ -22,8 +22,30 @@ export const applyMask = (full: Dictionary, mask: any): Dictionary => {
   // generic object
   if (mask && typeof mask === 'object' && full && typeof full === 'object') {
     const out: any = {};
-    for (const [k, m] of Object.entries(mask)) {
-      out[k] = applyMask((full as any)[k], m);
+    const maskEntries = Object.entries(mask);
+    const allChildrenAreArrays = maskEntries.every(([, value]) =>
+      Array.isArray(value)
+    );
+
+    for (const [k, m] of maskEntries) {
+      const fullValue = (full as any)[k];
+
+      // If this child is an array, decide preservation rules.
+      // - Preserve when all children at this level are arrays in the mask
+      // - Also preserve when the array is an array of translation nodes
+      if (Array.isArray(m) && Array.isArray(fullValue)) {
+        const isTranslationNode = (val: unknown): boolean =>
+          !!val && typeof val === 'object' && 'nodeType' in (val as any);
+        const isArrayOfTranslationNodes = fullValue.every((item: any) =>
+          isTranslationNode(item)
+        );
+
+        if (!allChildrenAreArrays && !isArrayOfTranslationNodes) {
+          continue; // skip incidental arrays when mixed with non-arrays
+        }
+      }
+
+      out[k] = applyMask(fullValue, m);
     }
     return out;
   }
