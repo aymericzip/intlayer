@@ -160,6 +160,7 @@ export const Navbar: FC = () => {
             aria-label={discord.label.value}
             href={discord.url.value}
             target="_blank"
+            rel="noopener noreferrer nofollow"
             className="border-text border-[1.5px] flex cursor-pointer items-center gap-2 rounded-full p-1.5 hover:bg-text/10"
           >
             <DiscordLogo width={20} />
