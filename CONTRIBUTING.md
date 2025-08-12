@@ -10,17 +10,26 @@ Intlayer is developed as a mono-repo using pnpm.
 
 To set up the repository, you will need to follow these steps:
 
-1. Clone the repository
-2. Install the approved version of pnpm
-3. Install dependencies
-4. Build packages
-5. Start dev mode (to interact with packages)
-6. Launch apps (to interact with frontend, CMS, online docs, etc.)
+1. Create a Copy (Fork the repository)
+2. Clone the repository
+3. Install the approved version of pnpm
+4. Install dependencies
+5. Build packages
+6. Start dev mode (to interact with packages)
+7. Launch apps (to interact with frontend, CMS, online docs, etc.)
 
 ### Cloning
 
+Add your Github Username replace **{username}**
+
 ```sh
-git clone git@github.com:intlayer-org/intlayer.git
+git clone https://github.com/{username}/intlayer.git
+```
+
+or
+
+```sh
+git clone git@github.com:{username}/intlayer.git
 ```
 
 #### Installing packages manager
