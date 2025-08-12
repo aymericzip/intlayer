@@ -4,3 +4,5 @@
 
 .tsconfig.*
 .tsup.config.ts
+
+*.test.*
