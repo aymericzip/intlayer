@@ -1,7 +1,7 @@
 /* AUTO-GENERATED – DO NOT EDIT */
 /* REGENERATE USING `pnpm prepare` */
-import { LocalesValues } from 'intlayer';
 import { readFile } from 'fs/promises';
+import { LocalesValues } from 'intlayer';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -1493,6 +1493,50 @@ export const docsEntry = {
         join(dir, '../../../docs/hi/intlayer_with_react_native+expo.md'),
         'utf8'
       )
+    ),
+  } as unknown as Record<LocalesValues, Promise<string>>,
+  './docs/en/intlayer_with_tanstack.md': {
+    en: Promise.resolve(
+      readFile(join(dir, '../../../docs/en/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    fr: Promise.resolve(
+      readFile(join(dir, '../../../docs/fr/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    ru: Promise.resolve(
+      readFile(join(dir, '../../../docs/ru/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    ja: Promise.resolve(
+      readFile(join(dir, '../../../docs/ja/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    ko: Promise.resolve(
+      readFile(join(dir, '../../../docs/ko/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    zh: Promise.resolve(
+      readFile(join(dir, '../../../docs/zh/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    es: Promise.resolve(
+      readFile(join(dir, '../../../docs/es/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    de: Promise.resolve(
+      readFile(join(dir, '../../../docs/de/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    ar: Promise.resolve(
+      readFile(join(dir, '../../../docs/ar/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    pt: Promise.resolve(
+      readFile(join(dir, '../../../docs/pt/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    'en-GB': Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/en-GB/intlayer_with_tanstack.md'),
+        'utf8'
+      )
+    ),
+    it: Promise.resolve(
+      readFile(join(dir, '../../../docs/it/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    hi: Promise.resolve(
+      readFile(join(dir, '../../../docs/hi/intlayer_with_tanstack.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+preact.md': {
