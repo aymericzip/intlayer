@@ -1,6 +1,6 @@
 {
   "name": "solid-intlayer",
-  "version": "5.7.6",
+  "version": "5.7.7",
   "private": false,
   "description": "Easily internationalize i18n your Solid applications with type-safe multilingual content management.",
   "keywords": [

@@ -1,6 +1,6 @@
 {
   "name": "intlayer-editor",
-  "version": "5.7.6",
+  "version": "5.7.7",
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
@@ -99,8 +99,8 @@
     "helmet": "^8.1.0",
     "lucide-react": "^0.513.0",
     "mime": "^4.0.6",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-intlayer": "workspace:*",
     "react-router-dom": "^7.4.0",
     "rimraf": "^6.0.1",

@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-intlayer": "workspace:*",
     "react-router-dom": "^7.4.0"
   },
