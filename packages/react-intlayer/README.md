@@ -27,6 +27,9 @@
 <div>
     <br/>
     <p align="center">
+      <a href="https://discord.gg/528mBV4N" target="blank"><img align="center"
+         src="https://img.shields.io/badge/discord-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white"
+         alt="Intlayer Discord" height="30"/></a>
       <a href="https://www.linkedin.com/company/intlayerorg" target="blank"><img align="center"
          src="https://img.shields.io/badge/linkedin-%231DA1F2.svg?style=for-the-badge&logo=linkedin&logoColor=white"
          alt="Intlayer LinkedIn" height="30"/></a>
