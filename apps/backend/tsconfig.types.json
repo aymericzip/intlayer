@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config-types",
   "include": ["src/**/*"],
+  "exclude": ["**/*.test.*"],
   "compilerOptions": {
     "outDir": "dist/types",
     "baseUrl": "src",
