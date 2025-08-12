@@ -2,7 +2,12 @@ import { fixImportsPlugin } from 'esbuild-fix-imports-plugin';
 
 /** @type {import('tsup').Options} */
 export const commonOptions = {
-  entry: ['src/**/*'],
+  entry: [
+    'src/**/*',
+    '!src/**/*.test.*',
+    '!src/**/*.spec.*',
+    '!src/**/__tests__/**',
+  ],
   target: 'esnext',
   dts: false,
   external: ['fs', 'path'],
