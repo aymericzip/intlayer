@@ -2,7 +2,7 @@ import { getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/core';
 import { getNodeType } from '@intlayer/core';
-import merge, { ArrayMergeOptions, Options } from 'deepmerge';
+import merge, { Options } from 'deepmerge';
 
 const checkTypesMatch = (
   obj1: any,
@@ -34,11 +34,7 @@ const checkTypesMatch = (
 };
 
 // Custom array merge strategy that merges arrays by key when present, otherwise by index
-const arrayMerge = (
-  destinationArray: any[],
-  sourceArray: any[],
-  options?: ArrayMergeOptions
-): any[] => {
+const arrayMerge = (destinationArray: any[], sourceArray: any[]): any[] => {
   const isObject = (value: unknown): value is Record<string, any> =>
     !!value && typeof value === 'object' && !Array.isArray(value);
 

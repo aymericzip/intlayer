@@ -259,10 +259,10 @@ export const writeJSFile = async (
       if (
         isPerLocaleDeclarationFile &&
         typeof locale === 'string' &&
-        translationContent?.[NodeType.Translation]?.[locale]
+        translationContent?.[NodeType.Translation]?.[locale] !== undefined
       ) {
-        return t.stringLiteral(
-          String(translationContent[NodeType.Translation][locale])
+        return buildValueNodeFromData(
+          translationContent[NodeType.Translation][locale]
         );
       }
       const translationsObj = t.objectExpression(
@@ -271,10 +271,7 @@ export const writeJSFile = async (
             const keyNode = t.isValidIdentifier(langKey)
               ? t.identifier(langKey)
               : t.stringLiteral(langKey);
-            return t.objectProperty(
-              keyNode,
-              t.stringLiteral(String(langValue))
-            );
+            return t.objectProperty(keyNode, buildValueNodeFromData(langValue));
           }
         )
       );
@@ -369,15 +366,16 @@ export const writeJSFile = async (
                 t.isValidIdentifier(langKey)
                   ? t.identifier(langKey)
                   : t.stringLiteral(langKey),
-                t.stringLiteral(String(langValue))
+                buildValueNodeFromData(langValue)
               )
           )
         );
 
         if (isPerLocaleDeclarationFile && typeof locale === 'string') {
-          const str = translationContent?.[NodeType.Translation]?.[locale];
-          if (str) {
-            valuePath.replaceWith(t.stringLiteral(String(str)));
+          const localized =
+            translationContent?.[NodeType.Translation]?.[locale];
+          if (localized !== undefined) {
+            valuePath.replaceWith(buildValueNodeFromData(localized));
             return;
           }
         }
