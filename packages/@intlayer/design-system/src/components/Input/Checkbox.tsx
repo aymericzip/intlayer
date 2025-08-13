@@ -46,6 +46,25 @@ export const checkboxVariants = cva('', {
   },
 });
 
+export enum CheckboxSize {
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+}
+
+export enum CheckboxColor {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  DESTRUCTIVE = 'destructive',
+  NEUTRAL = 'neutral',
+  LIGHT = 'light',
+  TEXT = 'text',
+  DARK = 'dark',
+  ERROR = 'error',
+  SUCCESS = 'success',
+  CUSTOM = 'custom',
+}
+
 export type CheckboxProps = Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   'size'
@@ -53,7 +72,13 @@ export type CheckboxProps = Omit<
   name: string;
   validationStyleEnabled?: boolean;
   label?: ReactNode;
-} & Omit<VariantProps<typeof checkboxVariants>, 'validationStyleEnabled'>;
+} & Omit<
+    VariantProps<typeof checkboxVariants>,
+    'validationStyleEnabled' | 'size' | 'color'
+  > & {
+    size?: CheckboxSize;
+    color?: CheckboxColor;
+  };
 
 const Input: FC<CheckboxProps> = ({
   validationStyleEnabled = false,

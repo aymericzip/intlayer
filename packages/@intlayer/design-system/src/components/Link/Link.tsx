@@ -10,46 +10,74 @@ import {
 } from 'react';
 import { cn } from '../../utils/cn';
 
+export enum LinkVariant {
+  DEFAULT = 'default',
+  INVISIBLE_LINK = 'invisible-link',
+  BUTTON = 'button',
+  BUTTON_OUTLINED = 'button-outlined',
+  HOVERABLE = 'hoverable',
+}
+
+export enum LinkColor {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  DESTRUCTIVE = 'destructive',
+  NEUTRAL = 'neutral',
+  LIGHT = 'light',
+  DARK = 'dark',
+  TEXT = 'text',
+  TEXT_INVERSE = 'text-inverse',
+  ERROR = 'error',
+  SUCCESS = 'success',
+  CUSTOM = 'custom',
+}
+
+export enum LinkUnderlined {
+  DEFAULT = 'default',
+  TRUE = 'true',
+  FALSE = 'false',
+}
+
 export const linkVariants = cva(
   'gap-3 transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        default:
+        [LinkVariant.DEFAULT]:
           'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0 hover:underline',
-        'invisible-link':
+        [LinkVariant.INVISIBLE_LINK]:
           'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
-        button:
+        [LinkVariant.BUTTON]:
           'rounded-lg bg-current *:text-text-opposite min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
-        'button-outlined':
+        [LinkVariant.BUTTON_OUTLINED]:
           'rounded-lg border-[1.5px] hover:bg-current/30 min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
-        hoverable:
+        [LinkVariant.HOVERABLE]:
           'block rounded-lg border-none bg-current/0 transition hover:bg-current/20 aria-[current]:bg-current/5',
       },
       color: {
-        primary: 'text-primary',
-        secondary: 'text-secondary',
-        destructive: 'text-destructive',
-        neutral: 'text-neutral',
-        light: 'text-white',
-        dark: 'text-neutral-800',
-        text: 'text-text',
-        'text-inverse': 'text-text-opposite',
-        error: 'text-error',
-        success: 'text-success',
-        custom: '',
+        [LinkColor.PRIMARY]: 'text-primary',
+        [LinkColor.SECONDARY]: 'text-secondary',
+        [LinkColor.DESTRUCTIVE]: 'text-destructive',
+        [LinkColor.NEUTRAL]: 'text-neutral',
+        [LinkColor.LIGHT]: 'text-white',
+        [LinkColor.DARK]: 'text-neutral-800',
+        [LinkColor.TEXT]: 'text-text',
+        [LinkColor.TEXT_INVERSE]: 'text-text-opposite',
+        [LinkColor.ERROR]: 'text-error',
+        [LinkColor.SUCCESS]: 'text-success',
+        [LinkColor.CUSTOM]: '',
       },
       underlined: {
-        default: '',
-        true: 'underline',
-        false: 'no-underline',
+        [LinkUnderlined.DEFAULT]: '',
+        [LinkUnderlined.TRUE]: 'underline',
+        [LinkUnderlined.FALSE]: 'no-underline',
       },
     },
 
     defaultVariants: {
-      variant: 'default',
-      color: 'primary',
-      underlined: 'default',
+      variant: LinkVariant.DEFAULT,
+      color: LinkColor.PRIMARY,
+      underlined: LinkUnderlined.DEFAULT,
     },
   }
 );
@@ -81,8 +109,8 @@ export const checkIsExternalLink = ({
 
 export const Link: FC<LinkProps> = (props) => {
   const {
-    variant = 'default',
-    color = 'primary',
+    variant = LinkVariant.DEFAULT,
+    color = LinkColor.PRIMARY,
     children,
     label,
     className,

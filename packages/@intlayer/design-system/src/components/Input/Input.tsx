@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
-  type FC,
   type DetailedHTMLProps,
+  type FC,
   type InputHTMLAttributes,
 } from 'react';
 
@@ -34,12 +34,28 @@ export const inputVariants = cva('', {
   },
 });
 
+export enum InputVariant {
+  DEFAULT = 'default',
+  INVISIBLE = 'invisible',
+}
+
+export enum InputSize {
+  MD = 'md',
+  LG = 'lg',
+}
+
 export type InputProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > & {
   validationStyleEnabled?: boolean;
-} & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
+} & Omit<
+    VariantProps<typeof inputVariants>,
+    'validationStyleEnabled' | 'variant' | 'size'
+  > & {
+    variant?: InputVariant;
+    size?: InputSize;
+  };
 
 export const Input: FC<InputProps> = ({
   validationStyleEnabled = false,

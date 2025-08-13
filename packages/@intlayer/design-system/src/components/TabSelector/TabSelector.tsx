@@ -2,13 +2,23 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
+  cloneElement,
   useRef,
   type HTMLAttributes,
   type ReactElement,
-  cloneElement,
 } from 'react';
 import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';
+
+export enum TabSelectorColor {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  DESTRUCTIVE = 'destructive',
+  NEUTRAL = 'neutral',
+  LIGHT = 'light',
+  DARK = 'dark',
+  TEXT = 'text',
+}
 
 const tabSelectorVariant = cva(
   'relative flex size-full flex-row items-center gap-2',
@@ -57,7 +67,9 @@ type TabSelectorProps<T extends TabProps> = {
   onTabClick?: (choice: T['key']) => void;
   hoverable?: boolean;
 } & HTMLAttributes<HTMLElement> &
-  VariantProps<typeof tabSelectorVariant>;
+  Omit<VariantProps<typeof tabSelectorVariant>, 'color'> & {
+    color?: TabSelectorColor;
+  };
 
 /**
  *
@@ -80,7 +92,7 @@ export const TabSelector = <T extends TabProps>({
   tabs,
   selectedChoice,
   onTabClick,
-  color = 'primary',
+  color = TabSelectorColor.PRIMARY,
   hoverable = false,
   className,
 }: TabSelectorProps<T>) => {

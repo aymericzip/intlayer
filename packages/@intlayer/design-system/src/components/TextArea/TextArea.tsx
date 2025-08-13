@@ -1,11 +1,11 @@
 import type { VariantProps } from 'class-variance-authority';
 import {
-  type TextareaHTMLAttributes,
   type DetailedHTMLProps,
   type FC,
+  type TextareaHTMLAttributes,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { inputVariants } from '../Input';
+import { InputVariant, inputVariants } from '../Input';
 
 export type TextAreaProps = DetailedHTMLProps<
   DetailedHTMLProps<
@@ -15,7 +15,12 @@ export type TextAreaProps = DetailedHTMLProps<
   HTMLTextAreaElement
 > & {
   validationStyleEnabled?: boolean;
-} & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
+} & Omit<
+    VariantProps<typeof inputVariants>,
+    'validationStyleEnabled' | 'variant'
+  > & {
+    variant?: InputVariant;
+  };
 
 export const TextArea: FC<TextAreaProps> = ({
   className,

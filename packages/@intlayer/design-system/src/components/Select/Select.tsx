@@ -2,13 +2,18 @@
 
 import * as SelectPrimitive from '@radix-ui/react-select';
 import {
-  ChevronsUpDown,
   CheckIcon,
   ChevronDownIcon,
+  ChevronsUpDown,
   ChevronUpIcon,
 } from 'lucide-react';
-import { type FC, type ComponentProps } from 'react';
+import { type ComponentProps, type FC } from 'react';
 import { cn } from '../../utils/cn';
+
+export enum SelectContentPosition {
+  POPPER = 'popper',
+  ITEM_ALIGNED = 'item-aligned',
+}
 
 const SelectRoot = SelectPrimitive.Root;
 const SelectGroup = SelectPrimitive.Group;
@@ -67,7 +72,12 @@ const SelectScrollDownButton: FC<
 
 export const SelectContent: FC<
   ComponentProps<typeof SelectPrimitive.Content>
-> = ({ className, children, position = 'popper', ...props }) => (
+> = ({
+  className,
+  children,
+  position = SelectContentPosition.POPPER,
+  ...props
+}) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       className={cn(

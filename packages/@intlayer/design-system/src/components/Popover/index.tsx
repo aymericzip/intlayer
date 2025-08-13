@@ -51,10 +51,20 @@ export type DetailProps = HTMLAttributes<HTMLDivElement> & {
   isHidden?: boolean;
   isOverable?: boolean;
   identifier: string;
-  xAlign?: 'start' | 'end';
-  yAlign?: 'bellow' | 'above';
+  xAlign?: PopoverXAlign;
+  yAlign?: PopoverYAlign;
   displayArrow?: boolean;
 };
+
+export enum PopoverXAlign {
+  START = 'start',
+  END = 'end',
+}
+
+export enum PopoverYAlign {
+  BELOW = 'bellow',
+  ABOVE = 'above',
+}
 
 /**
  * Component that opens a popover menu when the trigger is clicked.
@@ -71,8 +81,8 @@ const Detail: FC<DetailProps> = ({
   isHidden = undefined,
   isOverable = true,
   isFocusable = false,
-  xAlign = 'start',
-  yAlign = 'bellow',
+  xAlign = PopoverXAlign.START,
+  yAlign = PopoverYAlign.BELOW,
   identifier,
   className,
   displayArrow = true,

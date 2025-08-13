@@ -11,6 +11,14 @@ import { Button } from '../Button';
 import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
 
+export enum ModalSize {
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+  XL = 'xl',
+  UNSET = 'unset',
+}
+
 type ModalProps = {
   children: React.ReactNode;
   isOpen: boolean;
@@ -19,7 +27,7 @@ type ModalProps = {
   disableScroll?: boolean;
   hasCloseButton?: boolean;
   title?: string;
-  size?: Size;
+  size?: ModalSize;
 } & Pick<
   ContainerProps,
   | 'className'
@@ -51,8 +59,6 @@ const modalVariants = cva(
   }
 );
 
-type Size = 'sm' | 'md' | 'lg' | 'xl' | 'unset';
-
 const MotionModal = m.create(Container);
 
 /**
@@ -71,7 +77,7 @@ export const Modal: FC<ModalProps> = ({
   onClose,
   hasCloseButton = false,
   title,
-  size = 'md',
+  size = ModalSize.MD,
   className,
   ...props
 }) => {

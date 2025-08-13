@@ -79,6 +79,66 @@ export const containerVariants = cva('flex text-text flex-col backdrop-blur', {
   },
 });
 
+export enum ContainerRoundedSize {
+  NONE = 'none',
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+  XL = 'xl',
+  TWO_XL = '2xl',
+  THREE_XL = '3xl',
+  FULL = 'full',
+}
+
+export enum ContainerTransparency {
+  NONE = 'none',
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+  XL = 'xl',
+  FULL = 'full',
+}
+
+export enum ContainerPadding {
+  NONE = 'none',
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+  XL = 'xl',
+}
+
+export enum ContainerSeparator {
+  WITHOUT = 'without',
+  X = 'x',
+  Y = 'y',
+  BOTH = 'both',
+}
+
+export enum ContainerBorderColor {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  NEUTRAL = 'neutral',
+  TEXT = 'text',
+  ERROR = 'error',
+  WARNING = 'warning',
+  SUCCESS = 'success',
+}
+
+export enum ContainerBackground {
+  NONE = 'none',
+  HOVERABLE = 'hoverable',
+  WITH = 'with',
+}
+
+export enum ContainerGap {
+  NONE = 'none',
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+  XL = 'xl',
+  TWO_XL = '2xl',
+}
+
 export type ContainerProps = PropsWithChildren<
   Omit<VariantProps<typeof containerVariants>, 'border'>
 > &

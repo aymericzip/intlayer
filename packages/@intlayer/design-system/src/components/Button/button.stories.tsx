@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
+import { Button, ButtonColor, ButtonSize, ButtonVariant } from './Button';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -13,18 +13,18 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       description: 'The visual style variant of the button',
-      control: { type: 'select', options: ['default', 'outline', 'text'] },
-      defaultValue: 'default',
+      control: { type: 'select', options: Object.values(ButtonVariant) },
+      defaultValue: ButtonVariant.DEFAULT,
     },
     size: {
       description: 'The size of the button',
-      control: { type: 'select', options: ['sm', 'md', 'lg'] },
-      defaultValue: 'md',
+      control: { type: 'select', options: Object.values(ButtonSize) },
+      defaultValue: ButtonSize.MD,
     },
     color: {
       description: 'The color theme of the button',
-      control: 'color',
-      defaultValue: 'primary',
+      control: { type: 'select', options: Object.values(ButtonColor) },
+      defaultValue: ButtonColor.PRIMARY,
     },
     isLoading: {
       description: 'Shows loading spinner when true',
@@ -57,9 +57,9 @@ const meta: Meta<typeof Button> = {
 const Template: StoryObj<typeof Button> = {
   args: {
     children: 'Button',
-    variant: 'default',
-    size: 'md',
-    color: 'primary',
+    variant: ButtonVariant.DEFAULT,
+    size: ButtonSize.MD,
+    color: ButtonColor.PRIMARY,
     isLoading: false,
     isActive: false,
     disabled: false,
@@ -71,3 +71,17 @@ const Template: StoryObj<typeof Button> = {
 export default meta;
 
 export const Default = Template;
+
+export const Loading: StoryObj<typeof Button> = {
+  args: {
+    ...Template.args,
+    isLoading: true,
+  },
+};
+
+export const WithIcons: StoryObj<typeof Button> = {
+  args: {
+    ...Template.args,
+    children: 'Proceed',
+  },
+};

@@ -82,12 +82,17 @@ const Trigger: FC<TriggerProps> = ({
   </button>
 );
 
+export enum DropDownAlign {
+  START = 'start',
+  END = 'end',
+}
+
 export type PanelProps = HTMLAttributes<HTMLDivElement> & {
   isFocusable?: boolean;
   isHidden?: boolean;
   isOverable?: boolean;
   identifier: string;
-  align?: 'start' | 'end';
+  align?: DropDownAlign;
 };
 
 /**
@@ -105,7 +110,7 @@ const Panel: FC<PanelProps> = ({
   isHidden = undefined,
   isOverable = false,
   isFocusable = false,
-  align = 'start',
+  align = DropDownAlign.START,
   identifier,
   className,
   ...props
@@ -113,8 +118,8 @@ const Panel: FC<PanelProps> = ({
   <div
     className={cn(
       'absolute top-[calc(100%+0.5rem)] z-[1000] min-w-full',
-      align === 'start' && 'left-0',
-      align === 'end' && 'right-0',
+      align === DropDownAlign.START && 'left-0',
+      align === DropDownAlign.END && 'right-0',
       className
     )}
     aria-hidden={isHidden}

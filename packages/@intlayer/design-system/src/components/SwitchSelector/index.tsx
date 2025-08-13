@@ -31,38 +31,55 @@ export type SwitchSelectorProps<T = boolean> = {
 } & VariantProps<typeof switchSelectorVariant> &
   VariantProps<typeof choiceVariant>;
 
+export enum SwitchSelectorColor {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  DESTRUCTIVE = 'destructive',
+  NEUTRAL = 'neutral',
+  LIGHT = 'light',
+  DARK = 'dark',
+  TEXT = 'text',
+}
+
 const switchSelectorVariant = cva(
   'flex flex-row gap-2 rounded-full w-fit border-[1.5px] p-[1.5px]',
   {
     variants: {
       color: {
-        primary: 'border-primary text-primary',
-        secondary: 'border-secondary text-secondary',
-        destructive: 'border-destructive bg-destructive text-destructive',
-        neutral: 'border-neutral text-neutral ',
-        light: 'border-white text-white',
-        dark: 'border-neutral-800 text-neutral-800',
-        text: 'border-text text-text',
+        [SwitchSelectorColor.PRIMARY]: 'border-primary text-primary',
+        [SwitchSelectorColor.SECONDARY]: 'border-secondary text-secondary',
+        [SwitchSelectorColor.DESTRUCTIVE]:
+          'border-destructive bg-destructive text-destructive',
+        [SwitchSelectorColor.NEUTRAL]: 'border-neutral text-neutral ',
+        [SwitchSelectorColor.LIGHT]: 'border-white text-white',
+        [SwitchSelectorColor.DARK]: 'border-neutral-800 text-neutral-800',
+        [SwitchSelectorColor.TEXT]: 'border-text text-text',
       },
     },
     defaultVariants: {
-      color: 'primary',
+      color: SwitchSelectorColor.PRIMARY,
     },
   }
 );
+
+export enum SwitchSelectorSize {
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+}
 
 const choiceVariant = cva(
   'z-1 w-full flex-1 text-sm font-medium transition-all duration-300 ease-in-out cursor-pointer aria-selected:cursor-default aria-selected:text-text-opposite motion-reduce:transition-none',
   {
     variants: {
       size: {
-        sm: 'py-1 px-2 text-xs',
-        md: 'p-2 text-sm',
-        lg: 'p-4 text-base',
+        [SwitchSelectorSize.SM]: 'py-1 px-2 text-xs',
+        [SwitchSelectorSize.MD]: 'p-2 text-sm',
+        [SwitchSelectorSize.LG]: 'p-4 text-base',
       },
     },
     defaultVariants: {
-      size: 'md',
+      size: SwitchSelectorSize.MD,
     },
   }
 );
@@ -72,13 +89,14 @@ const indicatorVariant = cva(
   {
     variants: {
       color: {
-        primary: 'bg-primary aria-selected:text-text',
-        secondary: 'bg-secondary aria-selected:text-text',
-        destructive: 'bg-destructive aria-selected:text-text',
-        neutral: 'bg-neutral aria-selected:text-white ',
-        light: 'bg-white aria-selected:text-black',
-        dark: 'bg-neutral-800 aria-selected:text-white',
-        text: 'bg-text aria-selected:text-text-opposite',
+        [SwitchSelectorColor.PRIMARY]: 'bg-primary aria-selected:text-text',
+        [SwitchSelectorColor.SECONDARY]: 'bg-secondary aria-selected:text-text',
+        [SwitchSelectorColor.DESTRUCTIVE]:
+          'bg-destructive aria-selected:text-text',
+        [SwitchSelectorColor.NEUTRAL]: 'bg-neutral aria-selected:text-white ',
+        [SwitchSelectorColor.LIGHT]: 'bg-white aria-selected:text-black',
+        [SwitchSelectorColor.DARK]: 'bg-neutral-800 aria-selected:text-white',
+        [SwitchSelectorColor.TEXT]: 'bg-text aria-selected:text-text-opposite',
       },
     },
   }
@@ -106,8 +124,8 @@ export const SwitchSelector = <T,>({
   value,
   defaultValue,
   onChange,
-  color = 'primary',
-  size = 'md',
+  color = SwitchSelectorColor.PRIMARY,
+  size = SwitchSelectorSize.MD,
   className,
 }: SwitchSelectorProps<T>) => {
   const [valueState, setValue] = useState<T>(

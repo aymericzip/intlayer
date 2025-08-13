@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Link } from './Link';
+import { Link, LinkColor, LinkUnderlined, LinkVariant } from './Link';
 
 const meta: Meta<typeof Link> = {
   title: 'Components/Link',
@@ -12,15 +12,20 @@ const meta: Meta<typeof Link> = {
       defaultValue: 'Link',
     },
     variant: {
-      description: 'The visual style variant of the button',
-      control: { type: 'select', options: ['default', 'outline', 'text'] },
-      defaultValue: 'default',
+      description: 'The visual style variant of the link',
+      control: { type: 'select', options: Object.values(LinkVariant) },
+      defaultValue: LinkVariant.DEFAULT,
     },
 
     color: {
-      description: 'The color theme of the button',
-      control: 'color',
-      defaultValue: 'primary',
+      description: 'The color theme of the link',
+      control: { type: 'select', options: Object.values(LinkColor) },
+      defaultValue: LinkColor.PRIMARY,
+    },
+    underlined: {
+      description: 'Underline style',
+      control: { type: 'select', options: Object.values(LinkUnderlined) },
+      defaultValue: LinkUnderlined.DEFAULT,
     },
 
     isExternalLink: {
@@ -39,14 +44,22 @@ const meta: Meta<typeof Link> = {
 
 const Template: StoryObj<typeof Link> = {
   args: {
-    children: 'Button',
-    variant: 'default',
-    color: 'primary',
+    children: 'Link',
+    variant: LinkVariant.DEFAULT,
+    color: LinkColor.PRIMARY,
     isExternalLink: false,
-    label: 'Button',
+    label: 'Link',
   },
 };
 
 export default meta;
 
 export const Default = Template;
+
+export const External: StoryObj<typeof Link> = {
+  args: {
+    ...Template.args,
+    href: 'https://intlayer.org',
+    isExternalLink: true,
+  },
+};

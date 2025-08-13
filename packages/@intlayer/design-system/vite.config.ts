@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { extname, relative } from 'path';
 import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig, type Plugin } from 'vite';
+import { intlayerPlugin } from 'vite-intlayer';
 import dts from 'vite-plugin-dts';
 import packageJson from './package.json' with { type: 'json' };
 
@@ -25,6 +26,7 @@ export default defineConfig(() => ({
     }),
     preserveDirectives() as Plugin,
     tailwindcss(),
+    intlayerPlugin(),
   ],
   define: {
     'process.env': {},

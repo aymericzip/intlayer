@@ -7,66 +7,114 @@ import {
 } from 'react';
 import { Loader } from '../Loader';
 
+export enum ButtonSize {
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+  XL = 'xl',
+  ICON_SM = 'icon-sm',
+  ICON_MD = 'icon-md',
+  ICON_LG = 'icon-lg',
+  ICON_XL = 'icon-xl',
+}
+
+export enum ButtonIconPosition {
+  LEFT = 'left',
+  RIGHT = 'right',
+}
+
 const buttonIconVariants = cva('', {
   variants: {
     size: {
-      sm: 'size-3 absolute top-1/2 -translate-y-1/2',
-      md: 'size-4 absolute top-1/2 -translate-y-1/2',
-      lg: 'size-5 absolute top-1/2 -translate-y-1/2',
-      xl: 'size-6 absolute top-1/2 -translate-y-1/2',
-      'icon-sm': 'size-3',
-      'icon-md': 'size-4',
-      'icon-lg': 'size-5',
-      'icon-xl': 'size-6',
+      [ButtonSize.SM]: 'size-3 absolute top-1/2 -translate-y-1/2',
+      [ButtonSize.MD]: 'size-4 absolute top-1/2 -translate-y-1/2',
+      [ButtonSize.LG]: 'size-5 absolute top-1/2 -translate-y-1/2',
+      [ButtonSize.XL]: 'size-6 absolute top-1/2 -translate-y-1/2',
+      [ButtonSize.ICON_SM]: 'size-3',
+      [ButtonSize.ICON_MD]: 'size-4',
+      [ButtonSize.ICON_LG]: 'size-5',
+      [ButtonSize.ICON_XL]: 'size-6',
     },
     position: {
-      left: 'left-3',
-      right: 'right-3',
+      [ButtonIconPosition.LEFT]: 'left-3',
+      [ButtonIconPosition.RIGHT]: 'right-3',
     },
   },
   defaultVariants: {
-    size: 'md',
+    size: ButtonSize.MD,
   },
 });
+
+export enum ButtonVariant {
+  DEFAULT = 'default',
+  NONE = 'none',
+  OUTLINE = 'outline',
+  LINK = 'link',
+  INVISIBLE_LINK = 'invisible-link',
+  HOVERABLE = 'hoverable',
+  INPUT = 'input',
+}
+
+export enum ButtonColor {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  DESTRUCTIVE = 'destructive',
+  NEUTRAL = 'neutral',
+  LIGHT = 'light',
+  DARK = 'dark',
+  TEXT = 'text',
+  TEXT_INVERSE = 'text-inverse',
+  ERROR = 'error',
+  SUCCESS = 'success',
+  CUSTOM = 'custom',
+}
+
+export enum ButtonTextAlign {
+  LEFT = 'left',
+  CENTER = 'center',
+  RIGHT = 'right',
+}
 
 const buttonVariants = cva(
   'relative cursor-pointer truncate whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
-        sm: 'min-h-7 px-3 max-md:py-1 text-xs',
-        md: 'min-h-8 px-6 max-md:py-2 text-sm',
-        lg: 'min-h-10 px-8 max-md:py-3 text-lg',
-        xl: 'min-h-11 px-10 max-md:py-4 text-xl',
-        'icon-sm': 'p-1.5',
-        'icon-md': 'p-1.5',
-        'icon-lg': 'p-2',
-        'icon-xl': 'p-3',
+        [ButtonSize.SM]: 'min-h-7 px-3 max-md:py-1 text-xs',
+        [ButtonSize.MD]: 'min-h-8 px-6 max-md:py-2 text-sm',
+        [ButtonSize.LG]: 'min-h-10 px-8 max-md:py-3 text-lg',
+        [ButtonSize.XL]: 'min-h-11 px-10 max-md:py-4 text-xl',
+        [ButtonSize.ICON_SM]: 'p-1.5',
+        [ButtonSize.ICON_MD]: 'p-1.5',
+        [ButtonSize.ICON_LG]: 'p-2',
+        [ButtonSize.ICON_XL]: 'p-3',
       },
       color: {
-        primary: 'text-primary *:text-text-light',
-        secondary: 'text-secondary *:text-text-light',
-        destructive: 'text-destructive *:text-text-light',
-        neutral: 'text-neutral *:text-text-light',
-        light: 'text-white *:text-text-light',
-        dark: 'text-neutral-800 *:text-text-light',
-        text: 'text-text *:text-text-opposite',
-        'text-inverse': 'text-text-opposite *:text-text',
-        error: 'text-error *:text-text-light',
-        success: 'text-success *:text-text-light',
-        custom: '',
+        [ButtonColor.PRIMARY]: 'text-primary *:text-text-light',
+        [ButtonColor.SECONDARY]: 'text-secondary *:text-text-light',
+        [ButtonColor.DESTRUCTIVE]: 'text-destructive *:text-text-light',
+        [ButtonColor.NEUTRAL]: 'text-neutral *:text-text-light',
+        [ButtonColor.LIGHT]: 'text-white *:text-text-light',
+        [ButtonColor.DARK]: 'text-neutral-800 *:text-text-light',
+        [ButtonColor.TEXT]: 'text-text *:text-text-opposite',
+        [ButtonColor.TEXT_INVERSE]: 'text-text-opposite *:text-text',
+        [ButtonColor.ERROR]: 'text-error *:text-text-light',
+        [ButtonColor.SUCCESS]: 'text-success *:text-text-light',
+        [ButtonColor.CUSTOM]: '',
       },
       variant: {
-        default: 'rounded-lg bg-current',
-        none: 'border-none bg-current/0 text-inherit hover:bg-current/0',
-        outline:
+        [ButtonVariant.DEFAULT]: 'rounded-lg bg-current',
+        [ButtonVariant.NONE]:
+          'border-none bg-current/0 text-inherit hover:bg-current/0',
+        [ButtonVariant.OUTLINE]:
           '*:!text-current rounded-lg border-[1.5px] bg-current/0 hover:bg-current/30',
-        link: '*:!text-current h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline',
-        'invisible-link':
+        [ButtonVariant.LINK]:
+          '*:!text-current h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline',
+        [ButtonVariant.INVISIBLE_LINK]:
           '*:!text-current h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent',
-        hoverable:
+        [ButtonVariant.HOVERABLE]:
           '*:!text-current rounded-lg border-none bg-current/0 transition hover:bg-current/10 aria-[current]:bg-current/5',
-        input: [
+        [ButtonVariant.INPUT]: [
           '*:!text-current w-full select-text resize-none rounded-xl border-2 bg-input-background text-sm text-input-text shadow-none outline-0 transition-all',
           'border-input-border hover:border-input-border-hover focus:border-input-border-focus focus:outline-0 focus:[box-shadow:none]',
           'aria-[invalid=true]:border-error',
@@ -75,9 +123,9 @@ const buttonVariants = cva(
       },
 
       textAlign: {
-        left: 'text-left',
-        center: 'text-center',
-        right: 'text-right',
+        [ButtonTextAlign.LEFT]: 'text-left',
+        [ButtonTextAlign.CENTER]: 'text-center',
+        [ButtonTextAlign.RIGHT]: 'text-right',
       },
 
       isFullWidth: {
@@ -95,10 +143,10 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'default',
-      size: 'md',
-      color: 'primary',
-      textAlign: 'center',
+      variant: ButtonVariant.DEFAULT,
+      size: ButtonSize.MD,
+      color: ButtonColor.PRIMARY,
+      textAlign: ButtonTextAlign.CENTER,
       isFullWidth: false,
       hasIconRight: false,
       hasIconLeft: false,
@@ -156,7 +204,9 @@ export const Button: FC<ButtonProps> = ({
         size,
         color,
         isFullWidth,
-        textAlign: textAlign ?? (IconRight ? 'left' : 'center'),
+        textAlign:
+          textAlign ??
+          (IconRight ? ButtonTextAlign.LEFT : ButtonTextAlign.CENTER),
         hasIconLeft: Boolean(
           typeof children !== 'undefined' &&
             (typeof Icon !== 'undefined' || typeof isLoading !== 'undefined')
@@ -173,7 +223,7 @@ export const Button: FC<ButtonProps> = ({
           className={buttonIconVariants({
             size,
             className: iconClassName,
-            position: 'left',
+            position: ButtonIconPosition.LEFT,
           })}
         />
       )}
@@ -182,7 +232,7 @@ export const Button: FC<ButtonProps> = ({
         className={buttonIconVariants({
           size,
           className: iconClassName,
-          position: 'left',
+          position: ButtonIconPosition.LEFT,
         })}
         isLoading={isLoading ?? false}
       />
@@ -194,7 +244,7 @@ export const Button: FC<ButtonProps> = ({
           className={buttonIconVariants({
             size,
             className: iconClassName,
-            position: 'right',
+            position: ButtonIconPosition.RIGHT,
           })}
         />
       )}
