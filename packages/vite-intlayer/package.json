@@ -1,6 +1,6 @@
 {
   "name": "vite-intlayer",
-  "version": "5.7.7",
+  "version": "5.7.8",
   "private": false,
   "description": "A Vite plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration",
   "keywords": [
