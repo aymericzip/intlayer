@@ -183,7 +183,7 @@ jobs:
           git push origin HEAD:${{ github.head_ref }}
 ```
 
-Para configurar las variables de entorno, vaya a GitHub → Configuración → Secrets and variables → Actions y agregue el secreto (API_KEY).
+Para configurar las variables de entorno, vaya a GitHub → Configuración → Secrets and variables → Actions y agregue el secreto .
 
 > Al igual que con Husky, en el caso de un monorepo, puede usar el argumento `--base-dir` para tratar secuencialmente cada aplicación.
 

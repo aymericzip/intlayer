@@ -183,7 +183,7 @@ jobs:
           git push origin HEAD:${{ github.head_ref }}
 ```
 
-पर्यावरण चर सेट करने के लिए, GitHub → Settings → Secrets and variables → Actions पर जाएं और सीक्रेट (API_KEY) जोड़ें।
+पर्यावरण चर सेट करने के लिए, GitHub → Settings → Secrets and variables → Actions पर जाएं और सीक्रेट जोड़ें।
 
 > Husky के समान, मोनोरिपो के मामले में, आप प्रत्येक ऐप को क्रमिक रूप से संसाधित करने के लिए `--base-dir` तर्क का उपयोग कर सकते हैं।
 

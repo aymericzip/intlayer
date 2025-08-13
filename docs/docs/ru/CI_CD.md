@@ -183,7 +183,7 @@ jobs:
           git push origin HEAD:${{ github.head_ref }}
 ```
 
-Чтобы настроить переменные окружения, перейдите в GitHub → Settings → Secrets and variables → Actions и добавьте секрет (API_KEY).
+Чтобы настроить переменные окружения, перейдите в GitHub → Settings → Secrets and variables → Actions и добавьте секрет .
 
 > Аналогично Husky, в случае монорепозитория вы можете использовать аргумент `--base-dir` для последовательной обработки каждого приложения.
 

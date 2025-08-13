@@ -183,7 +183,7 @@ jobs:
           git push origin HEAD:${{ github.head_ref }}
 ```
 
-환경 변수를 설정하려면 GitHub → 설정 → Secrets and variables → Actions로 이동하여 비밀(API_KEY)을 추가하세요.
+환경 변수를 설정하려면 GitHub → 설정 → Secrets and variables → Actions로 이동하여 비밀을 추가하세요.
 
 > Husky와 마찬가지로, 모노레포의 경우 `--base-dir` 인수를 사용하여 각 앱을 순차적으로 처리할 수 있습니다.
 
