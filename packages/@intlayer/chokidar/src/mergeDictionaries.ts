@@ -16,7 +16,7 @@ const checkTypesMatch = (
 
   if (type1 !== type2) {
     appLogger(
-      `Error: Dictionary ${dictionaryKey} has a multiple content files with type mismatch at path "${path.join('.')}": Cannot merge ${type1} with ${type2}`,
+      `Error: Dictionary "${dictionaryKey}" has a multiple content files with type mismatch at path "${path.join('.')}": Cannot merge ${type1} with ${type2}`,
       {
         level: 'error',
       }
