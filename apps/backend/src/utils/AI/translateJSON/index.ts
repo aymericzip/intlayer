@@ -37,8 +37,7 @@ const CHAT_GPT_PROMPT = getFileContent('./PROMPT.md');
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
-  model: 'gpt-4o-mini',
-  temperature: 0.2,
+  model: 'gpt-5-mini',
 };
 
 /**

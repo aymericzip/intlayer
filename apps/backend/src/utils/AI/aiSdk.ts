@@ -91,11 +91,11 @@ const getModel = (
   defaultModel?: Model
 ): Model => {
   // Set default models based on provider
-  let fallBackModel: Model = defaultModel ?? 'chatgpt-4o-latest';
+  let fallBackModel: Model = defaultModel ?? 'gpt-5';
 
   switch (provider) {
     case AIProvider.OPENAI:
-      defaultModel = 'chatgpt-4o-latest';
+      defaultModel = 'gpt-5';
       break;
     case AIProvider.ANTHROPIC:
       defaultModel = 'claude-3-haiku-20240307';
@@ -128,7 +128,7 @@ const getModel = (
 export type AIConfig = Parameters<typeof generateText>[0];
 
 const DEFAULT_PROVIDER: AIProvider = AIProvider.OPENAI as AIProvider;
-const DEFAULT_TEMPERATURE: number = 0.1;
+const DEFAULT_TEMPERATURE: number = 1; // ChatGPT 5 accept only temperature 1
 
 export type AIConfigOptions = {
   userOptions?: AIOptions;
