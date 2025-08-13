@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2025-08-13
 title: CI/CD Integration
 description: Learn how to integrate Intlayer into your CI/CD pipeline for automated content management and deployment.
 keywords:
@@ -8,7 +8,7 @@ keywords:
   - Continuous Integration
   - Continuous Deployment
   - Automation
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
 slugs:
@@ -64,7 +64,7 @@ You can integrate translation generation into your local Git workflow using [Hus
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalization: {
+  internationalisation: {
     locales: [Locales.ENGLISH, Locales.SPANISH, Locales.FRENCH],
     requiredLocales: [Locales.ENGLISH], // Optional locales are handled remotely
     defaultLocale: Locales.ENGLISH,
@@ -109,64 +109,90 @@ Intlayer provides a CLI command to autofill and review dictionary content. This 
 
 ```yaml fileName=".github/workflows/intlayer-translate.yml"
 name: Intlayer Auto-Fill
+# Trigger conditions for this workflow
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'src/**'
   pull_request:
-    branches: [ main ]
-    paths:
-      - 'src/**'
-  workflow_dispatch: {}
+    branches:
+      - "main"
+
+permissions:
+  contents: write
+  pull-requests: write
 
 concurrency:
-  group: 'autofill-${{ github.ref }}'
+  group: "autofill-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
   autofill:
     runs-on: ubuntu-latest
     env:
-      INTLAYER_CLIENT_ID: ${{ secrets.INTLAYER_CLIENT_ID }}
-      INTLAYER_CLIENT_SECRET: ${{ secrets.INTLAYER_CLIENT_SECRET }}
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # OpenAI
+      AI_MODEL: openai
+      AI_PROVIDER: gpt-5-mini
+      AI_API_KEY: ${{ secrets.AI_API_KEY }}
 
     steps:
+      # Step 1: Get the latest code from the repository
       - name: ⬇️ Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: true # Keep credentials for creating PRs
+          fetch-depth: 0 # Get full git history for diff analysis
 
+      # Step 2: Set up Node.js environment
       - name: 🟢 Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20 # Use Node.js 20 LTS for stability
 
+      # Step 3: Install project dependencies
       - name: 📦 Install dependencies
-        run: npm ci
+        run: npm install
 
+      # Step 4: Install Intlayer CLI globally for translation management
+      - name: 📦 Install Intlayer
+        run: npm install -g intlayer-cli
+
+      # Step 5: Build the Intlayer project to generate translation files
       - name: ⚙️ Build Intlayer project
         run: npx intlayer build
 
+      # Step 6: Use AI to automatically fill missing translations
       - name: 🤖 Auto-fill missing translations
-        run: npx intlayer fill --git-diff --mode fill
+        run: npx intlayer fill --git-diff --mode fill --provider $AI_PROVIDER --model $AI_MODEL --api-key $AI_API_KEY
 
-      - name: 📤 Create or update translation PR
-        uses: peter-evans/create-pull-request@v4
-        with:
-          commit-message: chore: auto-fill missing translations [skip ci]
-          branch: auto-translations
-          title: chore: update missing translations
-          labels: translation, automated
+      # Step 7: Check if there are changes and commit them
+      - name: � Check for changes
+        id: check-changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Step 8: Commit and push changes if any exist
+      - name: 📤 Commit and push changes
+        if: steps.check-changes.outputs.has-changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "chore: auto-fill missing translations [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
 ```
 
-> Same as for Husky, in the case of a monorepo, you can use the `--base-dir` argument to sequentially treat each app.
+To set up the environment variables, go to GitHub → Settings → Secrets and variables → Actions and add the secret (API_KEY).
 
-> By default, the `--git-diff` argument filters dictionaries that include changes from base (default `origin/main`) to current branch (default: `HEAD`).
+> Same as for Husky, in the case of a monorepo, you can use the `--base-dir` argument to sequentially process each app.
+
+> By default, the `--git-diff` argument filters dictionaries that include changes from the base (default `origin/main`) to the current branch (default: `HEAD`).
 
 > For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes         |
+| ------- | ---------- | --------------- |
+| 5.5.10  | 2025-06-29 | Initial history |

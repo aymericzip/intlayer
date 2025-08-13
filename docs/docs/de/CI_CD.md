@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2025-08-13
 title: CI/CD-Integration
 description: Erfahren Sie, wie Sie Intlayer in Ihre CI/CD-Pipeline für automatisiertes Content-Management und Deployment integrieren.
 keywords:
@@ -19,11 +19,11 @@ slugs:
 
 # Automatische Generierung von Übersetzungen in einer CI/CD-Pipeline
 
-Intlayer ermöglicht die automatische Generierung von Übersetzungen für Ihre Content-Deklarationsdateien. Es gibt verschiedene Möglichkeiten, dies je nach Ihrem Workflow zu erreichen.
+Intlayer ermöglicht die automatische Generierung von Übersetzungen für Ihre Content-Deklarationsdateien. Es gibt verschiedene Möglichkeiten, dies je nach Ihrem Workflow zu realisieren.
 
 ## Verwendung des CMS
 
-Mit Intlayer können Sie einen Workflow übernehmen, bei dem nur eine einzige Locale lokal deklariert wird, während alle Übersetzungen remote über das CMS verwaltet werden. Dies ermöglicht es, Inhalte und Übersetzungen vollständig von der Codebasis zu trennen, bietet mehr Flexibilität für Content-Editoren und ermöglicht ein Hot Content Reloading (kein Neubauen der Anwendung erforderlich, um Änderungen anzuwenden).
+Mit Intlayer können Sie einen Workflow verwenden, bei dem nur eine einzige Locale lokal deklariert wird, während alle Übersetzungen remote über das CMS verwaltet werden. Dies ermöglicht es, Inhalte und Übersetzungen vollständig von der Codebasis zu trennen, bietet mehr Flexibilität für Content-Editoren und ermöglicht ein Hot Content Reloading (kein erneutes Bauen der Anwendung erforderlich, um Änderungen anzuwenden).
 
 ### Beispielkonfiguration
 
@@ -52,7 +52,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Um mehr über das CMS zu erfahren, siehe die [offizielle Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md).
+Um mehr über das CMS zu erfahren, lesen Sie die [offizielle Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md).
 
 ## Verwendung von Husky
 
@@ -85,11 +85,11 @@ export default config;
 ```
 
 ```bash fileName=".husky/pre-push"
-npx intlayer build                          # Um sicherzustellen, dass die Wörterbücher aktuell sind
-npx intlayer fill --unpushed --mode fill    # Füllt nur fehlende Inhalte, aktualisiert keine bestehenden
+npx intlayer build                          # Um sicherzustellen, dass die Wörterbücher auf dem neuesten Stand sind
+npx intlayer fill --unpushed --mode fill    # Nur fehlende Inhalte ausfüllen, bestehende nicht aktualisieren
 ```
 
-> Für weitere Informationen zu den Intlayer-CLI-Befehlen und deren Verwendung siehe die [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+> Für weitere Informationen zu den Intlayer CLI-Befehlen und deren Verwendung siehe die [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
 
 > Wenn Sie mehrere Apps in Ihrem Repository haben, die separate Intlayer-Instanzen verwenden, können Sie das Argument `--base-dir` wie folgt verwenden:
 
@@ -105,68 +105,94 @@ npx intlayer fill --base-dir ./app2 --unpushed --mode fill
 
 ## Verwendung von GitHub Actions
 
-Intlayer stellt einen CLI-Befehl zum automatischen Ausfüllen und Überprüfen von Wörterbuchinhalten bereit. Dies kann in Ihren CI/CD-Workflow mit GitHub Actions integriert werden.
+Intlayer bietet einen CLI-Befehl zum automatischen Ausfüllen und Überprüfen von Wörterbuchinhalten. Dies kann in Ihren CI/CD-Workflow mit GitHub Actions integriert werden.
 
 ```yaml fileName=".github/workflows/intlayer-translate.yml"
 name: Intlayer Auto-Fill
+# Auslöserbedingungen für diesen Workflow
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'src/**'
   pull_request:
-    branches: [ main ]
-    paths:
-      - 'src/**'
-  workflow_dispatch: {}
+    branches:
+      - "main"
+
+permissions:
+  contents: write
+  pull-requests: write
 
 concurrency:
-  group: 'autofill-${{ github.ref }}'
+  group: "autofill-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
   autofill:
     runs-on: ubuntu-latest
     env:
-      INTLAYER_CLIENT_ID: ${{ secrets.INTLAYER_CLIENT_ID }}
-      INTLAYER_CLIENT_SECRET: ${{ secrets.INTLAYER_CLIENT_SECRET }}
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # OpenAI
+      AI_MODEL: openai
+      AI_PROVIDER: gpt-5-mini
+      AI_API_KEY: ${{ secrets.AI_API_KEY }}
 
     steps:
+      # Schritt 1: Hole den neuesten Code aus dem Repository
       - name: ⬇️ Repository auschecken
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: true # Anmeldeinformationen zum Erstellen von PRs beibehalten
+          fetch-depth: 0 # Vollständige Git-Historie für Differenzanalyse abrufen
 
+      # Schritt 2: Node.js-Umgebung einrichten
       - name: 🟢 Node.js einrichten
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20 # Node.js 20 LTS für Stabilität verwenden
 
+      # Schritt 3: Projektabhängigkeiten installieren
       - name: 📦 Abhängigkeiten installieren
-        run: npm ci
+        run: npm install
 
+      # Schritt 4: Intlayer CLI global für Übersetzungsmanagement installieren
+      - name: 📦 Intlayer installieren
+        run: npm install -g intlayer-cli
+
+      # Schritt 5: Intlayer-Projekt bauen, um Übersetzungsdateien zu generieren
       - name: ⚙️ Intlayer-Projekt bauen
         run: npx intlayer build
 
+      # Schritt 6: KI verwenden, um fehlende Übersetzungen automatisch auszufüllen
       - name: 🤖 Fehlende Übersetzungen automatisch ausfüllen
-        run: npx intlayer fill --git-diff --mode fill
+        run: npx intlayer fill --git-diff --mode fill --provider $AI_PROVIDER --model $AI_MODEL --api-key $AI_API_KEY
 
-      - name: 📤 Übersetzungs-PR erstellen oder aktualisieren
-        uses: peter-evans/create-pull-request@v4
-        with:
-          commit-message: chore: fehlende Übersetzungen automatisch ausfüllen [skip ci]
-          branch: auto-translations
-          title: chore: fehlende Übersetzungen aktualisieren
-          labels: translation, automated
+      # Schritt 7: Prüfen, ob Änderungen vorliegen und diese committen
+      - name: � Auf Änderungen prüfen
+        id: check-changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Schritt 8: Änderungen committen und pushen, falls vorhanden
+      - name: 📤 Änderungen committen und pushen
+        if: steps.check-changes.outputs.has-changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "chore: fehlende Übersetzungen automatisch ausfüllen [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
 ```
+
+Um die Umgebungsvariablen einzurichten, gehen Sie zu GitHub → Einstellungen → Geheimnisse und Variablen → Aktionen und fügen Sie das Geheimnis (API_KEY) hinzu.
 
 > Wie bei Husky können Sie im Fall eines Monorepos das Argument `--base-dir` verwenden, um jede App nacheinander zu behandeln.
 
 > Standardmäßig filtert das Argument `--git-diff` Wörterbücher, die Änderungen vom Basiszweig (Standard `origin/main`) zum aktuellen Zweig (Standard: `HEAD`) enthalten.
 
-> Für weitere Informationen zu den Intlayer-CLI-Befehlen und deren Verwendung lesen Sie bitte die [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+> Für weitere Informationen zu den Intlayer CLI-Befehlen und deren Verwendung lesen Sie bitte die [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
 
-## Dokumentationsverlauf
+## Dokumentationshistorie
 
-- 5.5.10 - 2025-06-29: Initialer Verlauf
+| Version | Datum      | Änderungen              |
+| ------- | ---------- | ----------------------- |
+| 5.5.10  | 2025-06-29 | Historie initialisieren |

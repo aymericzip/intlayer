@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2025-08-13
 title: تكامل CI/CD
-description: تعلّم كيفية دمج Intlayer في خط أنابيب CI/CD الخاص بك لإدارة المحتوى والنشر التلقائي.
+description: تعلّم كيفية دمج Intlayer في خط أنابيب CI/CD الخاص بك لإدارة المحتوى والنشر بشكل آلي.
 keywords:
   - CI/CD
   - التكامل المستمر
@@ -23,7 +23,7 @@ slugs:
 
 ## استخدام نظام إدارة المحتوى (CMS)
 
-مع Intlayer، يمكنك اعتماد سير عمل حيث يتم إعلان لغة واحدة فقط محليًا، بينما تتم إدارة جميع الترجمات عن بُعد من خلال نظام إدارة المحتوى (CMS). يتيح ذلك فصل المحتوى والترجمات تمامًا عن قاعدة الشيفرة، مما يوفر مزيدًا من المرونة لمحرري المحتوى ويسمح بإعادة تحميل المحتوى بشكل فوري (دون الحاجة إلى إعادة بناء التطبيق لتطبيق التغييرات).
+مع Intlayer، يمكنك اعتماد سير عمل حيث يتم إعلان لغة واحدة فقط محليًا، بينما تتم إدارة جميع الترجمات عن بُعد من خلال نظام إدارة المحتوى (CMS). يتيح هذا فصل المحتوى والترجمات تمامًا عن قاعدة الشيفرة، مما يوفر مزيدًا من المرونة لمحرري المحتوى ويمكّن من إعادة تحميل المحتوى الحي (دون الحاجة إلى إعادة بناء التطبيق لتطبيق التغييرات).
 
 ### مثال على التكوين
 
@@ -33,13 +33,13 @@ import { Locales, type IntlayerConfig } from "intlayer";
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.SPANISH, Locales.FRENCH],
-    requiredLocales: [Locales.ENGLISH], // اللغات الاختيارية ستتم إدارتها عن بُعد
+    requiredLocales: [Locales.ENGLISH], // سيتم إدارة اللغات الاختيارية عن بُعد
     defaultLocale: Locales.ENGLISH,
   },
   editor: {
     dictionaryPriorityStrategy: "distant_first", // المحتوى البعيد له الأولوية
 
-    applicationURL: process.env.APPLICATION_URL, // عنوان URL للتطبيق المستخدم من قبل نظام إدارة المحتوى
+    applicationURL: process.env.APPLICATION_URL, // عنوان URL الخاص بالتطبيق المستخدم من قبل نظام إدارة المحتوى
 
     clientId: process.env.INTLAYER_CLIENT_ID, // بيانات اعتماد نظام إدارة المحتوى
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
@@ -56,7 +56,7 @@ export default config;
 
 ## استخدام Husky
 
-يمكنك دمج توليد الترجمة في سير عمل Git المحلي الخاص بك باستخدام [Husky](https://typicode.github.io/husky/).
+يمكنك دمج توليد الترجمات في سير عمل Git المحلي الخاص بك باستخدام [Husky](https://typicode.github.io/husky/).
 
 ### مثال على التكوين
 
@@ -70,7 +70,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   editor: {
-    clientId: process.env.INTLAYER_CLIENT_ID, // بيانات اعتماد نظام إدارة المحتوى
+    clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   ai: {
@@ -86,12 +86,12 @@ export default config;
 
 ```bash fileName=".husky/pre-push"
 npx intlayer build                          # لضمان تحديث القواميس
-npx intlayer fill --unpushed --mode fill    # ملء المحتوى المفقود فقط، لا يتم تحديث المحتويات الموجودة
+npx intlayer fill --unpushed --mode fill    # ملء المحتوى المفقود فقط، لا يقوم بتحديث المحتويات الموجودة
 ```
 
 > لمزيد من المعلومات حول أوامر Intlayer CLI وكيفية استخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
 
-> إذا كان لديك عدة تطبيقات في مستودعك تستخدم نسخ منفصلة من intlayer، يمكنك استخدام الوسيطة `--base-dir` كما يلي:
+> إذا كان لديك عدة تطبيقات في مستودعك تستخدم نسخ منفصلة من intlayer، يمكنك استخدام الوسيط `--base-dir` كما يلي:
 
 ```bash fileName=".husky/pre-push"
 # التطبيق 1
@@ -105,63 +105,87 @@ npx intlayer fill --base-dir ./app2 --unpushed --mode fill
 
 ## استخدام GitHub Actions
 
-توفر Intlayer أمر CLI لملء محتوى القاموس تلقائيًا ومراجعته. يمكن دمج هذا في سير عمل CI/CD الخاص بك باستخدام GitHub Actions.
+توفر Intlayer أمر CLI لملء ومراجعة محتوى القاموس تلقائيًا. يمكن دمج هذا في سير عمل CI/CD الخاص بك باستخدام GitHub Actions.
 
 ```yaml fileName=".github/workflows/intlayer-translate.yml"
-name: ملء تلقائي Intlayer
+name: تعبئة Intlayer تلقائيًا
+# شروط تشغيل هذا سير العمل
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'src/**'
   pull_request:
-    branches: [ main ]
-    paths:
-      - 'src/**'
-  workflow_dispatch: {}
+    branches:
+      - "main"
+
+permissions:
+  contents: write
+  pull-requests: write
 
 concurrency:
-  group: 'autofill-${{ github.ref }}'
+  group: "autofill-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
   autofill:
     runs-on: ubuntu-latest
     env:
-      INTLAYER_CLIENT_ID: ${{ secrets.INTLAYER_CLIENT_ID }}
-      INTLAYER_CLIENT_SECRET: ${{ secrets.INTLAYER_CLIENT_SECRET }}
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # OpenAI
+      AI_MODEL: openai
+      AI_PROVIDER: gpt-5-mini
+      AI_API_KEY: ${{ secrets.AI_API_KEY }}
 
     steps:
-      - name: ⬇️ استنساخ المستودع
-        uses: actions/checkout@v3
+      # الخطوة 1: جلب أحدث كود من المستودع
+      - name: ⬇️ سحب المستودع
+        uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: true # الاحتفاظ بالاعتمادات لإنشاء طلبات السحب
+          fetch-depth: 0 # الحصول على كامل تاريخ git لتحليل الفروقات
 
+      # الخطوة 2: إعداد بيئة Node.js
       - name: 🟢 إعداد Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20 # استخدام Node.js 20 LTS للاستقرار
 
+      # الخطوة 3: تثبيت تبعيات المشروع
       - name: 📦 تثبيت التبعيات
-        run: npm ci
+        run: npm install
 
+      # الخطوة 4: تثبيت Intlayer CLI عالميًا لإدارة الترجمات
+      - name: 📦 تثبيت Intlayer
+        run: npm install -g intlayer-cli
+
+      # الخطوة 5: بناء مشروع Intlayer لإنشاء ملفات الترجمة
       - name: ⚙️ بناء مشروع Intlayer
         run: npx intlayer build
 
-      - name: 🤖 ملء الترجمات المفقودة تلقائيًا
-        run: npx intlayer fill --git-diff --mode fill
+      # الخطوة 6: استخدام الذكاء الاصطناعي لملء الترجمات الناقصة تلقائيًا
+      - name: 🤖 ملء الترجمات الناقصة تلقائيًا
+        run: npx intlayer fill --git-diff --mode fill --provider $AI_PROVIDER --model $AI_MODEL --api-key $AI_API_KEY
 
-      - name: 📤 إنشاء أو تحديث طلب السحب للترجمة
-        uses: peter-evans/create-pull-request@v4
-        with:
-          commit-message: chore: ملء تلقائي للترجمات المفقودة [skip ci]
-          branch: auto-translations
-          title: chore: تحديث الترجمات المفقودة
-          labels: translation, automated
+      # الخطوة 7: التحقق من وجود تغييرات والقيام بعملية الالتزام بها
+      - name: � التحقق من وجود تغييرات
+        id: check-changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      # الخطوة 8: الالتزام ودفع التغييرات إذا وجدت
+      - name: 📤 الالتزام ودفع التغييرات
+        if: steps.check-changes.outputs.has-changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "chore: ملء تلقائي للترجمات المفقودة [تخطي CI]"
+          git push origin HEAD:${{ github.head_ref }}
 ```
 
-> بنفس طريقة Husky، في حالة وجود monorepo، يمكنك استخدام الوسيطة `--base-dir` لمعالجة كل تطبيق بالتتابع.
+لإعداد متغيرات البيئة، انتقل إلى GitHub → الإعدادات → الأسرار والمتغيرات → الإجراءات وأضف السر (API_KEY).
+
+> كما هو الحال مع Husky، في حالة وجود مستودع أحادي (monorepo)، يمكنك استخدام الوسيطة `--base-dir` لمعالجة كل تطبيق بالتتابع.
 
 > بشكل افتراضي، تقوم الوسيطة `--git-diff` بتصفية القواميس التي تتضمن تغييرات من القاعدة (الافتراضية `origin/main`) إلى الفرع الحالي (الافتراضي: `HEAD`).
 
@@ -169,4 +193,6 @@ jobs:
 
 ## تاريخ الوثيقة
 
-- 5.5.10 - 2025-06-29: بداية التاريخ
+| الإصدار | التاريخ    | التغييرات |
+| ------- | ---------- | --------- |
+| 5.5.10  | 2025-06-29 | بدء السجل |

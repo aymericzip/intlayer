@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2025-08-13
 title: CI/CD 統合
 description: Intlayer を CI/CD パイプラインに統合して、自動化されたコンテンツ管理とデプロイメントを実現する方法を学びます。
 keywords:
@@ -19,11 +19,11 @@ slugs:
 
 # CI/CD パイプラインでの翻訳の自動生成
 
-Intlayer は、コンテンツ宣言ファイルの翻訳を自動的に生成することを可能にします。ワークフローに応じて、これを実現する複数の方法があります。
+Intlayer は、コンテンツ宣言ファイルの翻訳を自動生成することを可能にします。ワークフローに応じて、これを実現する複数の方法があります。
 
 ## CMS の利用
 
-Intlayer を使用すると、ローカルでは単一のロケールのみを宣言し、すべての翻訳を CMS を通じてリモートで管理するワークフローを採用できます。これにより、コンテンツと翻訳がコードベースから完全に切り離され、コンテンツ編集者にとってより柔軟性が高まり、ホットコンテンツリロード（変更を適用するためにアプリケーションを再ビルドする必要なし）が可能になります。
+Intlayer を使用すると、ローカルでは単一のロケールのみを宣言し、すべての翻訳は CMS を通じてリモートで管理するワークフローを採用できます。これにより、コンテンツと翻訳がコードベースから完全に切り離され、コンテンツ編集者にとってより柔軟性が提供され、ホットコンテンツリロード（変更を適用するためにアプリケーションを再ビルドする必要なし）が可能になります。
 
 ### 設定例
 
@@ -54,7 +54,7 @@ export default config;
 
 CMSの詳細については、[公式ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を参照してください。
 
-## Huskyの使用方法
+## Huskyの使用
 
 [Husky](https://typicode.github.io/husky/)を使用して、ローカルのGitワークフローに翻訳生成を統合できます。
 
@@ -77,7 +77,7 @@ const config: IntlayerConfig = {
     provider: "openai",
     apiKey: process.env.OPENAI_API_KEY, // ご自身のAPIキーを使用してください
 
-    applicationContext: "これはテストアプリケーションです", // 一貫した翻訳生成を確保するのに役立ちます
+    applicationContext: "This is a test application", // 一貫した翻訳生成を支援します
   },
 };
 
@@ -89,7 +89,7 @@ npx intlayer build                          # 辞書が最新であることを�
 npx intlayer fill --unpushed --mode fill    # 欠落しているコンテンツのみを埋め、既存のものは更新しません
 ```
 
-> IntlayerのCLIコマンドとその使用方法の詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。
+> Intlayer CLIコマンドとその使用方法の詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。
 
 > リポジトリ内に複数のアプリがあり、それぞれ別のintlayerインスタンスを使用している場合は、次のように`--base-dir`引数を使用できます。
 
@@ -103,70 +103,96 @@ npx intlayer build --base-dir ./app2
 npx intlayer fill --base-dir ./app2 --unpushed --mode fill
 ```
 
-## GitHub Actionsの使用方法
+## GitHub Actionsの使用
 
-Intlayerは、辞書の内容を自動入力およびレビューするためのCLIコマンドを提供しています。これはGitHub Actionsを使用してCI/CDワークフローに統合することができます。
+Intlayerは辞書コンテンツの自動入力およびレビューを行うCLIコマンドを提供しています。これはGitHub Actionsを使用してCI/CDワークフローに統合することができます。
 
 ```yaml fileName=".github/workflows/intlayer-translate.yml"
 name: Intlayer 自動入力
+# このワークフローのトリガー条件
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'src/**'
   pull_request:
-    branches: [ main ]
-    paths:
-      - 'src/**'
-  workflow_dispatch: {}
+    branches:
+      - "main"
+
+permissions:
+  contents: write
+  pull-requests: write
 
 concurrency:
-  group: 'autofill-${{ github.ref }}'
+  group: "autofill-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
   autofill:
     runs-on: ubuntu-latest
     env:
-      INTLAYER_CLIENT_ID: ${{ secrets.INTLAYER_CLIENT_ID }}
-      INTLAYER_CLIENT_SECRET: ${{ secrets.INTLAYER_CLIENT_SECRET }}
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # OpenAI
+      AI_MODEL: openai
+      AI_PROVIDER: gpt-5-mini
+      AI_API_KEY: ${{ secrets.AI_API_KEY }}
 
     steps:
+      # ステップ1: リポジトリから最新コードを取得
       - name: ⬇️ リポジトリをチェックアウト
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: true # PR作成のための認証情報を保持
+          fetch-depth: 0 # 差分解析のために完全なGit履歴を取得
 
-      - name: 🟢 Node.js のセットアップ
-        uses: actions/setup-node@v3
+      # ステップ 2: Node.js環境のセットアップ
+      - name: 🟢 Node.jsをセットアップ
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20 # 安定性のためNode.js 20 LTSを使用
 
-      - name: 📦 依存関係のインストール
-        run: npm ci
+      # ステップ 3: プロジェクト依存関係のインストール
+      - name: 📦 依存関係をインストール
+        run: npm install
 
-      - name: ⚙️ Intlayer プロジェクトのビルド
+      # ステップ 4: 翻訳管理のためにIntlayer CLIをグローバルインストール
+      - name: 📦 Intlayerをインストール
+        run: npm install -g intlayer-cli
+
+      # ステップ 5: 翻訳ファイルを生成するためにIntlayerプロジェクトをビルド
+      - name: ⚙️ Intlayerプロジェクトをビルド
         run: npx intlayer build
 
-      - name: 🤖 欠落している翻訳の自動補完
-        run: npx intlayer fill --git-diff --mode fill
+      # ステップ 6: AIを使って不足している翻訳を自動で埋める
+      - name: 🤖 欠落している翻訳を自動入力
+        run: npx intlayer fill --git-diff --mode fill --provider $AI_PROVIDER --model $AI_MODEL --api-key $AI_API_KEY
 
-      - name: 📤 翻訳プルリクエストの作成または更新
-        uses: peter-evans/create-pull-request@v4
-        with:
-          commit-message: chore: auto-fill missing translations [skip ci]
-          branch: auto-translations
-          title: chore: update missing translations
-          labels: translation, automated
+      # ステップ7: 変更があるか確認し、あればコミットする
+      - name: � 変更を確認
+        id: check-changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      # ステップ8: 変更があればコミットしてプッシュする
+      - name: 📤 変更をコミットしてプッシュ
+        if: steps.check-changes.outputs.has-changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "chore: auto-fill missing translations [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
 ```
 
-> Huskyの場合と同様に、モノレポの場合は `--base-dir` 引数を使用して各アプリを順次処理することができます。
+環境変数を設定するには、GitHub → 設定 → Secrets and variables → Actions に移動し、シークレット（API_KEY）を追加してください。
+
+> Huskyの場合と同様に、モノレポの場合は `--base-dir` 引数を使用して各アプリを順番に処理できます。
 
 > デフォルトでは、`--git-diff` 引数はベース（デフォルトは `origin/main`）から現在のブランチ（デフォルトは `HEAD`）への変更を含む辞書をフィルタリングします。
 
-> Intlayer CLI コマンドとその使用方法の詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。
+> Intlayer CLIコマンドとその使用方法の詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を参照してください。
 
 ## ドキュメント履歴
 
-- 5.5.10 - 2025-06-29: 履歴の初期化
+| バージョン | 日付       | 変更内容     |
+| ---------- | ---------- | ------------ |
+| 5.5.10     | 2025-06-29 | 履歴の初期化 |
