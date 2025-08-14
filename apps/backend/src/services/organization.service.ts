@@ -160,8 +160,7 @@ export const updatePlan = async (
 
   const updateOrganizationResult = await OrganizationModel.updateOne(
     { _id: organization.id },
-    { $set: { plan: { ...prevPlan, ...plan } } },
-    { new: true }
+    { $set: { plan: { ...prevPlan, ...plan } } }
   );
 
   if (updateOrganizationResult.matchedCount === 0) {

@@ -11,7 +11,7 @@ export const ipLimiter: (
   req: Request,
   res: Response,
   next: NextFunction
-) => void | Promise<void> = rateLimit({
+) => unknown = rateLimit({
   windowMs: 60 * 1000, // 1-minute window
   limit: 500, // 500 requests / IP / window
   standardHeaders: 'draft-8',
