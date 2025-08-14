@@ -71,3 +71,5 @@ export const structureViewContent = {
     },
   },
 } satisfies Dictionary;
+
+export default structureViewContent;

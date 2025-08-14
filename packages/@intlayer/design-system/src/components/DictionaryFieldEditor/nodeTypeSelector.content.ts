@@ -216,3 +216,5 @@ export const nodeTypeSelectorContent = {
     }),
   },
 } satisfies Dictionary;
+
+export default nodeTypeSelectorContent;

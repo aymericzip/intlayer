@@ -197,3 +197,5 @@ export const navigationViewContent = {
     },
   },
 } satisfies Dictionary;
+
+export default navigationViewContent;

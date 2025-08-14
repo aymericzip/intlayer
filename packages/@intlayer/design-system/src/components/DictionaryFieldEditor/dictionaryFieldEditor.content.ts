@@ -37,3 +37,5 @@ export const dictionaryFieldEditorContent = {
     },
   },
 } satisfies Dictionary;
+
+export default dictionaryFieldEditorContent;

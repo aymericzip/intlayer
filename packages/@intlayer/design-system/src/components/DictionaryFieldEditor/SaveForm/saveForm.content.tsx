@@ -276,3 +276,5 @@ export const saveDictionaryContent = {
     },
   },
 } satisfies Dictionary;
+
+export default saveDictionaryContent;

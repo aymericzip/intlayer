@@ -278,3 +278,5 @@ export const dictionaryDetailsContent = {
     },
   },
 } satisfies Dictionary;
+
+export default dictionaryDetailsContent;

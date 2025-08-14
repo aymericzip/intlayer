@@ -220,3 +220,5 @@ export const dictionaryFormContent = {
     },
   },
 } satisfies Dictionary;
+
+export default dictionaryFormContent;

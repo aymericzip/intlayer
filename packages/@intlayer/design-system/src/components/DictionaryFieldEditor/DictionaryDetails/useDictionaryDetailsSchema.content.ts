@@ -197,3 +197,5 @@ export const useDictionaryDetailsSchemaContent = {
     }),
   },
 } satisfies Dictionary;
+
+export default useDictionaryDetailsSchemaContent;

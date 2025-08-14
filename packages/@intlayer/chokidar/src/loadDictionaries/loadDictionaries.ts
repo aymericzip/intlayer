@@ -6,6 +6,7 @@ import {
   getConfiguration,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
+import { relative } from 'node:path';
 import { fetchDistantDictionaryKeys } from '../fetchDistantDictionaryKeys';
 import { logger } from '../log';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
@@ -40,6 +41,8 @@ export const loadDictionaries = async (
         console.error(
           'Content declaration has no exported content',
           dict.filePath
+            ? relative(configuration.content.baseDir, dict.filePath)
+            : ''
         );
       } else if (!hasKey) {
         console.error('Content declaration has no key', dict.filePath);
