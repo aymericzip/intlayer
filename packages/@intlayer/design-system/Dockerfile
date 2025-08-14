@@ -11,6 +11,8 @@ WORKDIR /workspace
 # Remove directories to keep the image slim
 COPY \
     --exclude=packages/@intlayer/mcp \
+    --exclude=packages/@intlayer/webpack \
+    --exclude=packages/@intlayer/swc \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/vue-intlayer \
@@ -19,6 +21,7 @@ COPY \
     --exclude=packages/pnext-intlayer \
     --exclude=packages/angular-intlayer \
     --exclude=packages/nuxt-intlayer \
+    --exclude=packages/next-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/intlayer-editor \
