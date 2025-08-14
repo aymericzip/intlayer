@@ -33,7 +33,7 @@
     "intlayer-editor": "workspace:*",
     "postcss": "^8.5.4",
     "tailwindcss": "^4.1.8",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "webpack-bundle-analyzer": "^4.10.2"
   }
 }

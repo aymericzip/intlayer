@@ -32,7 +32,7 @@
     "intlayer-editor": "workspace:*",
     "prettier": "^3.5.3",
     "tailwindcss": "^4.1.8",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "vite": "^7.1.2",
     "vite-intlayer": "workspace:*"
   }

@@ -32,7 +32,6 @@ export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
   model: 'gpt-4o-mini',
   temperature: 0.7,
-  maxTokens: 128,
 };
 
 /**
@@ -64,7 +63,6 @@ export const autocomplete = async ({
       { role: 'system', content: prompt },
       { role: 'assistant', content: text },
     ],
-    maxTokens: aiConfig.maxTokens ?? 128, // Generate next tokens
   });
 
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);

@@ -45,7 +45,6 @@ export type AIOptions = {
   temperature?: number;
   apiKey?: string;
   applicationContext?: string;
-  maxTokens?: number;
 };
 
 // Define the structure of messages used in chat completions
@@ -225,7 +224,6 @@ export const getAIConfig = async (
 
   return {
     model: languageModel,
-    maxTokens: protectedOptions.maxTokens,
     temperature: protectedOptions.temperature,
   };
 };
