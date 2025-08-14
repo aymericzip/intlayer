@@ -27,17 +27,15 @@ COPY \
     --exclude=examples \
     . .
 
-# Installer toutes les dépendances (dev + prod) (frozen for reproducible builds)
+# Install all dependencies (dev + prod) (frozen for reproducible builds)
 RUN pnpm install --frozen-lockfile
+
 
 # Build every package in the workspace (uses the root "build" script)
 RUN pnpm run build:ci
 
 # Set working directory to the design-system package and run Storybook
 WORKDIR /workspace/packages/@intlayer/design-system
-
-# Prepare Intlayer
-RUN pnpm run intlayer build
 
 # Build Storybook
 RUN pnpm run build:storybook

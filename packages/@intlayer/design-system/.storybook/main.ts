@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig, mergeConfig, type Plugin } from 'vite';
+import { defineConfig, mergeConfig, Plugin } from 'vite';
 import { intlayerPlugin } from 'vite-intlayer';
 
 const config: StorybookConfig = {
@@ -22,18 +22,17 @@ const config: StorybookConfig = {
       mode: configType === 'DEVELOPMENT' ? 'development' : 'production',
     } as const;
 
-    const rawCustomConfig = defineConfig(async () => {
-      const { default: tailwindcss } = await import('@tailwindcss/vite');
+    const tailwindcss = (await import('@tailwindcss/vite')).default;
 
-      return {
-        plugins: [
-          react({ jsxRuntime: 'automatic' }) as unknown as Plugin,
-          tailwindcss(),
-          intlayerPlugin(),
-        ],
-      };
-    });
-    return mergeConfig(config, rawCustomConfig(env));
+    const viteConfig = defineConfig(() => ({
+      plugins: [
+        react({ jsxRuntime: 'automatic' }),
+        tailwindcss() as unknown as Plugin,
+        intlayerPlugin(),
+      ],
+    }));
+
+    return mergeConfig(config, viteConfig(env));
   },
 };
 
