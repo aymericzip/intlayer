@@ -72,7 +72,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "preview": "vite preview",
-    "start": "pnpm storybook -p 6006",
+    "start": "pnpm storybook -p 6006 --no-open",
     "start:docker": "docker run --rm -p 6006:6006 --name intlayer-design-system-app intlayer-design-system",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run",
