@@ -10,7 +10,6 @@ WORKDIR /workspace
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/babel \
     --exclude=packages/@intlayer/mcp \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
@@ -19,7 +18,6 @@ COPY \
     --exclude=packages/svelte-intlayer \
     --exclude=packages/pnext-intlayer \
     --exclude=packages/angular-intlayer \
-    --exclude=packages/vite-intlayer \
     --exclude=packages/nuxt-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
@@ -37,6 +35,12 @@ RUN pnpm run build:ci
 
 # Set working directory to the design-system package and run Storybook
 WORKDIR /workspace/packages/@intlayer/design-system
+
+# Prepare Intlayer
+RUN pnpm run intlayer build
+
+# Build Storybook
+RUN pnpm run build:storybook
 
 ENV NODE_ENV=production
 

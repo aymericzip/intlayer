@@ -71,3 +71,6 @@ vitest.config.ts
 **/.env
 .env.*
 **/.env.*
+
+# Storybook
+storybook-static/
