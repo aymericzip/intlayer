@@ -87,7 +87,7 @@
     "@changesets/cli": "2.29.4",
     "@types/cls-hooked": "^4.3.9",
     "@types/express": "^5.0.2",
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.2.1",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",

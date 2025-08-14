@@ -89,7 +89,7 @@
     "esbuild": "^0.25.2"
   },
   "devDependencies": {
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.2.1",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",

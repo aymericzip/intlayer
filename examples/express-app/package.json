@@ -40,7 +40,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/webpack": "workspace:*",
     "@types/express": "^5.0.2",
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.2.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

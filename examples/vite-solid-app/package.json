@@ -16,7 +16,7 @@
   "devDependencies": {
     "solid-refresh": "^0.7.5",
     "typescript": "~5.7.2",
-    "vite": "^6.3.5",
+    "vite": "^7.1.2",
     "vite-intlayer": "workspace:*",
     "vite-plugin-solid": "^2.11.6"
   }

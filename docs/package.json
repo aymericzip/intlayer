@@ -77,7 +77,7 @@
   "devDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.2.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",

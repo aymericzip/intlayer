@@ -87,7 +87,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.2.1",
     "@types/webpack": "^5.28.5",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",

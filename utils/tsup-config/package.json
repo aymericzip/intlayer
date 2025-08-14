@@ -9,7 +9,7 @@
   "module": "./tsup-config.mjs",
   "scripts": {},
   "devDependencies": {
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.2.1",
     "esbuild": "^0.25.5",
     "esbuild-fix-imports-plugin": "^1.0.21",
     "eslint": "^9.28.0",

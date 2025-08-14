@@ -22,7 +22,7 @@
     "@types/eslint-plugin-security": "^3.0.0",
     "@types/eslint-plugin-tailwindcss": "^3.17.0",
     "@types/espree": "^10.1.0",
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.2.1",
     "@typescript-eslint/eslint-plugin": "^8.27.0",
     "@typescript-eslint/parser": "^8.33.1",
     "deepmerge": "^4.3.1",

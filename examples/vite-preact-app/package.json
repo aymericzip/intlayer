@@ -21,7 +21,7 @@
     "intlayer-editor": "workspace:*",
     "tailwindcss": "^4.1.8",
     "typescript": "~5.7.2",
-    "vite": "^6.3.5",
+    "vite": "^7.1.2",
     "vite-intlayer": "workspace:*"
   }
 }

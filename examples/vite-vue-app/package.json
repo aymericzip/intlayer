@@ -21,10 +21,10 @@
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.2.1",
     "@vitejs/plugin-vue": "^5.2.2",
     "intlayer-editor": "workspace:*",
-    "vite": "^6.3.5",
+    "vite": "^7.1.2",
     "vite-intlayer": "workspace:*",
     "vue-demi": "^0.14.10"
   }

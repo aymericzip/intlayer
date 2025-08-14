@@ -111,7 +111,7 @@
     "@types/csurf": "^1.11.5",
     "@types/express": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.2.1",
     "@types/oauth2-server": "^3.0.18",
     "@types/react": "^19.1.6",
     "@types/validator": "^13.12.2",
