@@ -3,7 +3,6 @@ import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
 import type { FC } from 'react';
 import { cn } from '../../utils/cn';
 import { H1, H2, H3, H4 } from '../Headers';
-import { SectionScroller } from '../Headers/SectionScroller';
 import { Code } from '../IDE/Code';
 import { CodeProvider } from '../IDE/CodeContext';
 import { Link } from '../Link';
@@ -170,15 +169,6 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             ),
             ...overrides,
           },
-          wrapper: ({ className, ...props }) => (
-            <>
-              <SectionScroller />
-              <div
-                className={cn('flex flex-col gap-8 p-10', className)}
-                {...props}
-              />
-            </>
-          ),
           ...restOptions,
         }}
       >
