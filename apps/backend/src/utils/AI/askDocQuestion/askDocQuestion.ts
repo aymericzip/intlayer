@@ -36,7 +36,7 @@ const vectorStore: VectorStoreEl[] = [];
 /*
  * Ask question AI configuration
  */
-const MODEL: AIOptions['model'] = 'gpt-5'; // Model to use for chat completions
+const MODEL: AIOptions['model'] = 'chatgpt-4o-latest'; // Model to use for chat completions
 const MODEL_TEMPERATURE: AIOptions['temperature'] = 0.1; // Temperature to use for chat completions
 const MAX_RELEVANT_CHUNKS_NB: number = 20; // Maximum number of relevant chunks to attach to chatGPT context
 const MIN_RELEVANT_CHUNKS_SIMILARITY: number = 0.42; // Minimum similarity required for a chunk to be considered relevant

@@ -3,7 +3,13 @@ import { createDeepSeek, deepseek } from '@ai-sdk/deepseek';
 import { createGoogleGenerativeAI, google } from '@ai-sdk/google';
 import { createMistral, mistral } from '@ai-sdk/mistral';
 import { createOpenAI, openai } from '@ai-sdk/openai';
-import { CoreMessage, generateText } from 'ai';
+import {
+  AssistantModelMessage,
+  generateText,
+  SystemModelMessage,
+  ToolModelMessage,
+  UserModelMessage,
+} from 'ai';
 import { Response } from 'express';
 
 type AnthropicModel = Parameters<typeof anthropic>[0];
@@ -12,7 +18,12 @@ type MistralModel = Parameters<typeof mistral>[0];
 type OpenAIModel = Parameters<typeof openai>[0];
 type GoogleModel = Parameters<typeof google>[0];
 
-export type Messages = CoreMessage[];
+export type Messages = (
+  | SystemModelMessage
+  | UserModelMessage
+  | AssistantModelMessage
+  | ToolModelMessage
+)[];
 
 /**
  * Supported AI models
@@ -90,11 +101,11 @@ const getModel = (
   defaultModel?: Model
 ): Model => {
   // Set default models based on provider
-  let fallBackModel: Model = defaultModel ?? 'gpt-5';
+  let fallBackModel: Model = defaultModel ?? 'chatgpt-4o-latest';
 
   switch (provider) {
     case AIProvider.OPENAI:
-      defaultModel = 'gpt-5';
+      defaultModel = 'chatgpt-4o-latest';
       break;
     case AIProvider.ANTHROPIC:
       defaultModel = 'claude-3-haiku-20240307';
