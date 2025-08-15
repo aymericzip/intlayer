@@ -64,8 +64,8 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
         url={docData.url}
       />
       <DocHeader {...docData} markdownContent={docContent} locale={locale} />
-      <DocumentationRender>{docContent}</DocumentationRender>
 
+      <DocumentationRender>{docContent}</DocumentationRender>
       <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
     </IntlayerServerProvider>
   );

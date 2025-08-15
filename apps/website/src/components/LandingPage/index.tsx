@@ -52,12 +52,20 @@ const DynamicChatBotModal = dynamic(
   }
 );
 
+const DynamicAIABTestingSection = dynamic(
+  () => import('./AIABTestingSection').then((mod) => mod.AIABTestingSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 export const LandingPage: FC = () => (
   <>
     <div className="flex flex-col gap-10">
       <LandingSection />
       <DynamicWhyToChoseIntlayerSection />
       <DynamicFeaturesSection />
+      <DynamicAIABTestingSection />
       <DynamicAvailableTechnoSection />
       <DynamicLanguageSection />
       <DynamicDemoSection />

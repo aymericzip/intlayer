@@ -59,6 +59,9 @@ export enum ExternalLinks {
   Github = 'https://github.com/aymericzip/intlayer',
   Discord = 'https://discord.gg/528mBV4N',
   LinkedIn = 'https://www.linkedin.com/company/intlayerorg/',
+
+  AI_Landing_Page = 'ai.intlayer.org',
+
   ExampleIntlayerWithNextjs = 'https://github.com/aymericzip/intlayer/tree/main/examples/nextjs-15-app',
   ExampleIntlayerWithReactJS = 'https://github.com/aymericzip/intlayer/tree/main/examples/react-app',
   ExampleIntlayerWithViteAndReact = 'https://github.com/aymericzip/intlayer/tree/main/examples/vite-react-app',

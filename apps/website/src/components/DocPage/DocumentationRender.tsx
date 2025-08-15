@@ -17,8 +17,10 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
 
   const isDarkMode = resolvedTheme === 'dark';
   return (
-    <MarkdownRenderer isDarkMode={isDarkMode} locale={locale}>
-      {children}
-    </MarkdownRenderer>
+    <div className="flex flex-col gap-8 p-10">
+      <MarkdownRenderer isDarkMode={isDarkMode} locale={locale}>
+        {children}
+      </MarkdownRenderer>
+    </div>
   );
 };
