@@ -2,7 +2,7 @@
 
 import type { ReactElement, ReactNode } from 'react';
 
-import { type TabProps, TabSelector } from '../TabSelector';
+import { type TabProps, TabSelector, TabSelectorColor } from '../TabSelector';
 
 type DesktopNavbarProps<T extends TabProps> = {
   logo: ReactNode;
@@ -26,7 +26,7 @@ export const DesktopNavbar = <T extends TabProps>({
         className="text-neutral ml-[2vw] gap-3 overflow-x-auto tracking-wide lg:ml-[10vw] lg:gap-6"
         tabs={sections}
         hoverable
-        color="text"
+        color={TabSelectorColor.TEXT}
       />
 
       <div className="mr-4 flex items-center justify-end gap-2 md:gap-4">

@@ -43,29 +43,29 @@ export const linkVariants = cva(
   {
     variants: {
       variant: {
-        [LinkVariant.DEFAULT]:
+        [`${LinkVariant.DEFAULT}`]:
           'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0 hover:underline',
-        [LinkVariant.INVISIBLE_LINK]:
+        [`${LinkVariant.INVISIBLE_LINK}`]:
           'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
-        [LinkVariant.BUTTON]:
+        [`${LinkVariant.BUTTON}`]:
           'rounded-lg bg-current *:text-text-opposite min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
-        [LinkVariant.BUTTON_OUTLINED]:
+        [`${LinkVariant.BUTTON_OUTLINED}`]:
           'rounded-lg border-[1.5px] hover:bg-current/30 min-h-8 px-6 max-md:py-2 text-sm flex items-center justify-center gap-2 whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
-        [LinkVariant.HOVERABLE]:
+        [`${LinkVariant.HOVERABLE}`]:
           'block rounded-lg border-none bg-current/0 transition hover:bg-current/20 aria-[current]:bg-current/5',
       },
       color: {
-        [LinkColor.PRIMARY]: 'text-primary',
-        [LinkColor.SECONDARY]: 'text-secondary',
-        [LinkColor.DESTRUCTIVE]: 'text-destructive',
-        [LinkColor.NEUTRAL]: 'text-neutral',
-        [LinkColor.LIGHT]: 'text-white',
-        [LinkColor.DARK]: 'text-neutral-800',
-        [LinkColor.TEXT]: 'text-text',
-        [LinkColor.TEXT_INVERSE]: 'text-text-opposite',
-        [LinkColor.ERROR]: 'text-error',
-        [LinkColor.SUCCESS]: 'text-success',
-        [LinkColor.CUSTOM]: '',
+        [`${LinkColor.PRIMARY}`]: 'text-primary',
+        [`${LinkColor.SECONDARY}`]: 'text-secondary',
+        [`${LinkColor.DESTRUCTIVE}`]: 'text-destructive',
+        [`${LinkColor.NEUTRAL}`]: 'text-neutral',
+        [`${LinkColor.LIGHT}`]: 'text-white',
+        [`${LinkColor.DARK}`]: 'text-neutral-800',
+        [`${LinkColor.TEXT}`]: 'text-text',
+        [`${LinkColor.TEXT_INVERSE}`]: 'text-text-opposite',
+        [`${LinkColor.ERROR}`]: 'text-error',
+        [`${LinkColor.SUCCESS}`]: 'text-success',
+        [`${LinkColor.CUSTOM}`]: '',
       },
       underlined: {
         [LinkUnderlined.DEFAULT]: '',

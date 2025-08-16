@@ -1,3 +1,10 @@
+/**
+ * Client-side exports for internal package use.
+ *
+ * Note: This file is used by other packages that import from 'react-intlayer/client'.
+ * The main package index.ts imports directly from individual files to avoid circular dependencies.
+ */
+
 export { getBrowserLocale } from './getBrowserLocale';
 export {
   IntlayerClientContext,

@@ -1,13 +1,13 @@
 import configuration from '@intlayer/config/built';
 
 import {
-  NodeType,
-  type KeyPath,
-  type ContentNode,
-  isSameKeyPath,
   getContentNodeByKeyPath,
-  getNodeType,
   getEmptyNode,
+  getNodeType,
+  isSameKeyPath,
+  NodeType,
+  type ContentNode,
+  type KeyPath,
 } from '@intlayer/core';
 import {
   useEditedContentActions,
@@ -18,7 +18,12 @@ import type { FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { camelCaseToSentence } from '../../../utils/camelCase';
 import { Accordion } from '../../Accordion';
-import { Button } from '../../Button';
+import {
+  Button,
+  ButtonColor,
+  ButtonTextAlign,
+  ButtonVariant,
+} from '../../Button';
 import { getIsEditableSection } from '../getIsEditableSection';
 import { navigationViewContent } from './navigationViewNode.content';
 
@@ -52,8 +57,8 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     return (
       <Button
         label={goToField.label.value}
-        variant="hoverable"
-        color="text"
+        variant={ButtonVariant.HOVERABLE}
+        color={ButtonColor.TEXT}
         className="w-full"
         onClick={() => setFocusedContentKeyPath(keyPath)}
         IconRight={ChevronRight}
@@ -135,9 +140,9 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
           <Button
             label={addNewElement.label.value}
-            variant="hoverable"
-            color="neutral"
-            textAlign="left"
+            variant={ButtonVariant.HOVERABLE}
+            color={ButtonColor.NEUTRAL}
+            textAlign={ButtonTextAlign.LEFT}
             onClick={() => {
               const newKeyPath: KeyPath[] = [
                 ...keyPath,
@@ -202,8 +207,8 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 label={`${goToField.label.value} ${key}`}
                 key={key}
                 isActive={getIsSelected(childKeyPath)}
-                variant="hoverable"
-                color="text"
+                variant={ButtonVariant.HOVERABLE}
+                color={ButtonColor.TEXT}
                 className="w-full"
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 IconRight={ChevronRight}

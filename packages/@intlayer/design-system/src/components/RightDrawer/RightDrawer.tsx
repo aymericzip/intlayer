@@ -11,7 +11,7 @@ import {
 import { useShallow } from 'zustand/react/shallow';
 import { useDevice } from '../../hooks/useDevice';
 import { useScrollBlockage } from '../../hooks/useScrollBlockage';
-import { Button } from '../Button';
+import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 import { Container } from '../Container';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { isElementAtTopAndNotCovered } from './isElementAtTopAndNotCovered';
@@ -127,8 +127,8 @@ export const RightDrawer: FC<RightDrawerProps> = ({
               <div>
                 {backButton && (
                   <Button
-                    variant="hoverable"
-                    color="text"
+                    variant={ButtonVariant.HOVERABLE}
+                    color={ButtonColor.TEXT}
                     label={backButton.text ?? 'Go back'}
                     onClick={backButton.onBack}
                     Icon={ChevronLeft}
@@ -139,13 +139,13 @@ export const RightDrawer: FC<RightDrawerProps> = ({
               </div>
               <div>
                 <Button
-                  variant="hoverable"
-                  color="text"
+                  variant={ButtonVariant.HOVERABLE}
+                  color={ButtonColor.TEXT}
                   label="Close"
                   className="ml-auto"
                   onClick={close}
                   Icon={X}
-                  size="icon-md"
+                  size={ButtonSize.ICON_MD}
                 />
               </div>
             </div>

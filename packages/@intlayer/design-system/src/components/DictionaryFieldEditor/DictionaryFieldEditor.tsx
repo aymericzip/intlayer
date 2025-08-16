@@ -9,9 +9,13 @@ import {
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { Button } from '../Button';
+import { Button, ButtonColor, ButtonVariant } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
-import { SwitchSelector } from '../SwitchSelector';
+import {
+  SwitchSelector,
+  SwitchSelectorColor,
+  SwitchSelectorSize,
+} from '../SwitchSelector';
 import { ContentEditor } from './ContentEditor';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
 import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
@@ -70,9 +74,9 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
       <div className="flex size-full flex-col gap-6 px-2">
         <Button
           onClick={onClickDictionaryList}
-          variant="hoverable"
+          variant={ButtonVariant.HOVERABLE}
           className="z-10 ml-5 mr-auto"
-          color="text"
+          color={ButtonColor.TEXT}
           Icon={ArrowLeft}
           label={returnToDictionaryList.label.value}
         >
@@ -82,8 +86,8 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         <SwitchSelector
           defaultValue={editorView}
           onChange={(value) => setEditorView(value)}
-          color="text"
-          size="sm"
+          color={SwitchSelectorColor.TEXT}
+          size={SwitchSelectorSize.SM}
           className="m-auto w-full max-w-xl"
           choices={[
             {

@@ -7,6 +7,7 @@ import {
   useGetProjects,
 } from '../../../hooks/intlayerAPIHooks';
 import { useAuth } from '../../../hooks/useAuth';
+import { ButtonColor } from '../../Button';
 import { Form, useForm } from '../../Form';
 import { MultiSelect } from '../../Select';
 import { dictionaryFormContent } from './dictionaryCreationForm.content';
@@ -78,7 +79,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
       <Form.Button
         className="ml-auto mt-12"
         type="submit"
-        color="text"
+        color={ButtonColor.TEXT}
         isLoading={isSubmitting}
         label={createDictionaryButton.ariaLabel.value}
         isFullWidth

@@ -3,7 +3,13 @@
 import { MoveVertical } from 'lucide-react';
 import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { Button } from '../../Button';
+import {
+  Button,
+  ButtonColor,
+  ButtonSize,
+  ButtonTextAlign,
+  ButtonVariant,
+} from '../../Button';
 import { Container } from '../../Container';
 import { DropDown, type PanelProps } from '../../DropDown';
 import { useVersionSwitcher } from './VersionSwitcherContext';
@@ -63,11 +69,11 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
                     onClick={() => setSelectedVersion(version)}
                     label={`${switchTo} v${version}`}
                     isActive={selectedVersion === version}
-                    variant="hoverable"
-                    color="text"
+                    variant={ButtonVariant.HOVERABLE}
+                    color={ButtonColor.TEXT}
                     isFullWidth
-                    textAlign="left"
-                    size="sm"
+                    textAlign={ButtonTextAlign.LEFT}
+                    size={ButtonSize.SM}
                   >
                     <div className="text-neutral flex flex-1 flex-row items-center justify-between gap-3 px-2 py-1 text-sm">
                       {version}

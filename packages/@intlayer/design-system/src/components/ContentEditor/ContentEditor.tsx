@@ -1,8 +1,9 @@
 'use client';
 
 import { Check, X } from 'lucide-react';
-import { useState, type FC, type ChangeEventHandler } from 'react';
+import { useState, type ChangeEventHandler, type FC } from 'react';
 import { cn } from '../../utils/cn';
+import { InputVariant } from '../Input';
 import {
   AutoSizedTextArea,
   AutoSizedTextAreaProps,
@@ -44,7 +45,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
         )}
         onChange={handleOnContentChange}
         key={resetIncrementor}
-        variant="invisible"
+        variant={InputVariant.INVISIBLE}
         defaultValue={children}
         {...props}
       />

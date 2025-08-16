@@ -4,25 +4,29 @@ declare module '@intlayer/core' {
   interface IInterpreterPlugin<T, S> extends IInterpreterPluginReact<T> {}
 }
 
+// Import directly from individual files to avoid circular dependency issues
+export { getBrowserLocale } from './client/getBrowserLocale';
 export {
-  getBrowserLocale,
   IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
+  useIntlayerContext,
+  type IntlayerProviderProps,
+} from './client/IntlayerProvider';
+export { t } from './client/t';
+export { useDictionary } from './client/useDictionary';
+export { useDictionaryAsync } from './client/useDictionaryAsync';
+export { useDictionaryDynamic } from './client/useDictionaryDynamic';
+export { useI18n } from './client/useI18n';
+export { useIntlayer } from './client/useIntlayer';
+export { useLoadDynamic } from './client/useLoadDynamic';
+export { useLocale } from './client/useLocale';
+export { useLocaleBase } from './client/useLocaleBase';
+export {
   localeCookie,
   setLocaleCookie,
-  t,
-  useDictionary,
-  useDictionaryAsync,
-  useDictionaryDynamic,
-  useI18n,
-  useIntlayer,
-  useIntlayerContext,
-  useLoadDynamic,
-  useLocale,
-  useLocaleBase,
   useLocaleCookie,
-  type IntlayerProviderProps,
-} from './client/index';
+} from './client/useLocaleCookie';
+
 export { type IntlayerNode } from './IntlayerNode';
 export { MarkdownProvider } from './markdown/index';

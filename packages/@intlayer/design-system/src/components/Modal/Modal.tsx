@@ -7,7 +7,7 @@ import { type FC } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
 import { cn } from '../../utils/cn';
-import { Button } from '../Button';
+import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
 
@@ -145,8 +145,8 @@ export const Modal: FC<ModalProps> = ({
             )}
             {hasCloseButton && (
               <Button
-                variant="hoverable"
-                color="text"
+                variant={ButtonVariant.HOVERABLE}
+                color={ButtonColor.TEXT}
                 label="Close modal"
                 className="ml-auto"
                 onClick={(e) => {
@@ -154,7 +154,7 @@ export const Modal: FC<ModalProps> = ({
                   onClose?.();
                 }}
                 Icon={X}
-                size="icon-md"
+                size={ButtonSize.ICON_MD}
               />
             )}
           </div>

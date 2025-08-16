@@ -19,7 +19,7 @@ export type TextAreaProps = DetailedHTMLProps<
     VariantProps<typeof inputVariants>,
     'validationStyleEnabled' | 'variant'
   > & {
-    variant?: InputVariant;
+    variant?: InputVariant | `${InputVariant}`;
   };
 
 export const TextArea: FC<TextAreaProps> = ({

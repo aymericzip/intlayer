@@ -1,6 +1,6 @@
 'use client';
 
-import { X as RemoveIcon, Check } from 'lucide-react';
+import { Check, X as RemoveIcon } from 'lucide-react';
 import {
   type ComponentProps,
   type Dispatch,
@@ -21,7 +21,7 @@ import {
   useState,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { Badge } from '../Badge';
+import { Badge, BadgeColor } from '../Badge';
 import { Command, CommandRoot } from '../Command';
 
 type MultiSelectContextProps = {
@@ -305,7 +305,7 @@ const MultiSelectTrigger: FC<
                 'flex items-center gap-1 rounded-xl px-1',
                 activeIndex === index && 'ring-muted-foreground ring-2'
               )}
-              color="text"
+              color={BadgeColor.TEXT}
             >
               <span className="text-xs">{getBadgeValue(item)}</span>
               <button

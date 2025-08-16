@@ -1,19 +1,17 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 'use client';
 
-import { Pencil, Check, X } from 'lucide-react';
+import { Check, Pencil, X } from 'lucide-react';
 import {
-  type HTMLAttributes,
   type FC,
+  type HTMLAttributes,
   type ReactNode,
-  useState,
+  useCallback,
   useEffect,
   useRef,
-  useCallback,
+  useState,
 } from 'react';
 import { cn } from '../../utils/cn';
-import { Button } from '../Button';
+import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 
 type EditableFieldLayoutProps = {
   value?: string | null | undefined;
@@ -99,9 +97,9 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
         {children}
         <Button
           label="Save"
-          variant="hoverable"
-          size="icon-sm"
-          color="text"
+          variant={ButtonVariant.HOVERABLE}
+          size={ButtonSize.ICON_SM}
+          color={ButtonColor.TEXT}
           Icon={Check}
           onClick={handleSave}
           disabled={isDisabled}
@@ -109,10 +107,10 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
         />
         <Button
           label="Cancel"
-          color="text"
-          variant="hoverable"
+          color={ButtonColor.TEXT}
+          variant={ButtonVariant.HOVERABLE}
           className="!text-current"
-          size="icon-sm"
+          size={ButtonSize.ICON_SM}
           Icon={X}
           onClick={handleCancel}
           disabled={isDisabled}
@@ -128,9 +126,9 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
         <Button
           label="Edit"
           Icon={Pencil}
-          color="text"
-          variant="hoverable"
-          size="icon-sm"
+          color={ButtonColor.TEXT}
+          variant={ButtonVariant.HOVERABLE}
+          size={ButtonSize.ICON_SM}
           className="invisible !text-current group-hover/editable-field:visible"
           disabled={isDisabled}
           onClick={(e) => {

@@ -5,8 +5,8 @@ import { ChevronRightIcon } from 'lucide-react';
 import { Fragment, type FC, type HTMLAttributes } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { cn } from '../../utils/cn';
-import { Button, type ButtonProps } from '../Button';
-import { Link, type LinkProps } from '../Link';
+import { Button, ButtonVariant, type ButtonProps } from '../Button';
+import { Link, LinkColor, type LinkProps } from '../Link';
 import { breadCrumbContent } from './breadcrumb.content';
 
 type LinkLinkProps = {
@@ -67,7 +67,7 @@ const ButtonLink: FC<ButtonButtonProps> = ({
     <>
       <Button
         onClick={onClick}
-        variant="link"
+        variant={ButtonVariant.LINK}
         label={`${linkLabel} ${text}`}
         color={color}
         itemProp="item"
@@ -103,14 +103,7 @@ export type BreadcrumbLink = string | DetailedBreadcrumbLink;
 
 export type BreadcrumbProps = {
   links: BreadcrumbLink[];
-  color?:
-    | 'primary'
-    | 'destructive'
-    | 'neutral'
-    | 'light'
-    | 'dark'
-    | 'text'
-    | 'custom';
+  color?: `${LinkColor}` | LinkColor;
   locale?: Locales;
   elementType?: 'page' | 'location';
 } & HTMLAttributes<HTMLOListElement>;
@@ -118,7 +111,7 @@ export type BreadcrumbProps = {
 export const Breadcrumb: FC<BreadcrumbProps> = ({
   links,
   className,
-  color = 'text',
+  color = LinkColor.TEXT,
   locale,
   elementType = 'page',
   ...props

@@ -11,6 +11,7 @@ import {
   useGetTags,
 } from '../../../hooks';
 import { useAuth } from '../../../hooks/useAuth';
+import { ButtonColor, ButtonVariant } from '../../Button';
 import { Container } from '../../Container';
 import { Form, useForm } from '../../Form';
 import { Loader } from '../../Loader';
@@ -239,8 +240,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             type="button"
             label={auditButton.label.value}
             Icon={WandSparkles}
-            variant="outline"
-            color="text"
+            variant={ButtonVariant.OUTLINE}
+            color={ButtonColor.TEXT}
             className="max-md:w-full"
             onClick={handleOnAuditFile}
             disabled={isSubmitting || isAuditing}

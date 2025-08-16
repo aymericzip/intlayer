@@ -20,9 +20,10 @@ import { Plus, Trash } from 'lucide-react';
 import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { camelCaseToSentence } from '../../../utils/camelCase';
-import { Button } from '../../Button';
+import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../../Button';
 import { Container } from '../../Container';
 import { EditableFieldInput } from '../../EditableField';
+import { InputVariant } from '../../Input';
 import { NodeTypeSelector } from '../NodeTypeSelector';
 import { structureViewContent } from './structureView.content';
 
@@ -192,13 +193,13 @@ export const NodeView: FC<NodeWrapperProps> = ({
                 placeholder={titleInput.placeholder.value}
                 defaultValue={sectionKey}
                 onSave={(value) => handleRenameNodeKey(value)}
-                variant="invisible"
+                variant={InputVariant.INVISIBLE}
               />
               <Button
                 label={deleteButton.label.value}
-                variant="hoverable"
-                size="icon-sm"
-                color="text"
+                variant={ButtonVariant.HOVERABLE}
+                size={ButtonSize.ICON_SM}
+                color={ButtonColor.TEXT}
                 className="translate-x-2"
                 Icon={Trash}
                 onClick={() => {
@@ -263,9 +264,9 @@ export const ObjectView: FC<ObjectViewProps> = ({
       </ul>
       <Button
         label={addNodeButton.label.value}
-        variant="hoverable"
-        size="md"
-        color="text"
+        variant={ButtonVariant.HOVERABLE}
+        size={ButtonSize.MD}
+        color={ButtonColor.TEXT}
         Icon={Plus}
         className="flex-1"
         onClick={() => {

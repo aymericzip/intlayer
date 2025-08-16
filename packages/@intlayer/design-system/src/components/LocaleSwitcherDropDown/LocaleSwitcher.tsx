@@ -6,7 +6,7 @@ import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { useCallback, useMemo, useRef, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { Button } from '../Button';
+import { Button, ButtonColor, ButtonTextAlign, ButtonVariant } from '../Button';
 import { Container } from '../Container';
 import { DropDown, type PanelProps } from '../DropDown';
 import { Input } from '../Input';
@@ -143,10 +143,10 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                         !(availableLocales ?? localeList).includes(localeItem)
                       }
                       isActive={locale === localeItem}
-                      variant="hoverable"
-                      color="text"
+                      variant={ButtonVariant.HOVERABLE}
+                      color={ButtonColor.TEXT}
                       isFullWidth
-                      textAlign="left"
+                      textAlign={ButtonTextAlign.LEFT}
                     >
                       <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                         <div className="flex flex-col text-nowrap">

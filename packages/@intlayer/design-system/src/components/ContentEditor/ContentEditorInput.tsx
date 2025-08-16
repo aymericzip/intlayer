@@ -2,14 +2,14 @@
 
 import { Check, X } from 'lucide-react';
 import {
-  type ReactNode,
-  useState,
-  type FC,
   type ChangeEventHandler,
+  type FC,
+  type ReactNode,
   useEffect,
+  useState,
 } from 'react';
-import { Button } from '../Button';
-import { type InputProps, Input } from '../Input';
+import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { type InputProps, Input, InputVariant } from '../Input';
 
 export type ContentEditorInputProps = {
   children: InputProps['value'];
@@ -58,7 +58,7 @@ export const ContentEditorInput: FC<ContentEditorInputProps> = ({
         onChange={handleOnContentChange}
         key={resetIncrementor}
         aria-label="value"
-        variant="invisible"
+        variant={InputVariant.INVISIBLE}
         className="size-full"
         defaultValue={children}
         {...props}
@@ -70,9 +70,9 @@ export const ContentEditorInput: FC<ContentEditorInputProps> = ({
               <Button
                 Icon={Check}
                 label="Validate"
-                variant="hoverable"
-                color="text"
-                size="icon-sm"
+                variant={ButtonVariant.HOVERABLE}
+                color={ButtonColor.TEXT}
+                size={ButtonSize.ICON_SM}
                 className="cursor-pointer hover:scale-110"
                 disabled={disabled || !isValid}
                 onClick={handleValid}
@@ -80,9 +80,9 @@ export const ContentEditorInput: FC<ContentEditorInputProps> = ({
               <Button
                 Icon={X}
                 label="Cancel"
-                variant="hoverable"
-                size="icon-sm"
-                color="text"
+                variant={ButtonVariant.HOVERABLE}
+                size={ButtonSize.ICON_SM}
+                color={ButtonColor.TEXT}
                 className="cursor-pointer hover:scale-110"
                 onClick={handleCancel}
               />

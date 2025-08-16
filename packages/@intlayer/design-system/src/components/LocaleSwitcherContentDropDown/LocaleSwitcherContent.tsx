@@ -7,11 +7,21 @@ import { Check, Globe, MoveVertical } from 'lucide-react';
 import { useCallback, useMemo, useRef, useState, type FC } from 'react';
 import { useDictionary, useLocale } from 'react-intlayer';
 import { usePersistedStore } from '../../hooks';
-import { Button } from '../Button';
+import {
+  Button,
+  ButtonColor,
+  ButtonSize,
+  ButtonTextAlign,
+  ButtonVariant,
+} from '../Button';
 import { Container } from '../Container';
 import { DropDown, type PanelProps } from '../DropDown';
 import { Input } from '../Input';
-import { SwitchSelector } from '../SwitchSelector';
+import {
+  SwitchSelector,
+  SwitchSelectorColor,
+  SwitchSelectorSize,
+} from '../SwitchSelector';
 import localeSwitcherContent from './localeSwitcher.content';
 import { useLocaleSwitcherContent } from './LocaleSwitcherContentContext';
 
@@ -159,8 +169,8 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                 <SwitchSelector
                   defaultValue={false}
                   onChange={handleSeeAllLocales}
-                  color="text"
-                  size="sm"
+                  color={SwitchSelectorColor.TEXT}
+                  size={SwitchSelectorSize.SM}
                   className="!w-60"
                   choices={[
                     {
@@ -204,11 +214,11 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                             )
                           }
                           isActive={selectedLocales.includes(localeItem)}
-                          variant="hoverable"
-                          color="text"
+                          variant={ButtonVariant.HOVERABLE}
+                          color={ButtonColor.TEXT}
                           isFullWidth
-                          textAlign="left"
-                          size="sm"
+                          textAlign={ButtonTextAlign.LEFT}
+                          size={ButtonSize.SM}
                         >
                           <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                             {isMultilingual && (

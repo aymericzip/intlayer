@@ -1,8 +1,8 @@
 'use client';
 
-import { Moon, Sun, CircleDashed } from 'lucide-react';
+import { CircleDashed, Moon, Sun } from 'lucide-react';
 import { useState, type FC } from 'react';
-import { type ButtonProps, Button } from '../Button';
+import { Button, ButtonVariant, type ButtonProps } from '../Button';
 import { Container } from '../Container';
 import { DropDown } from '../DropDown';
 import { Modes } from './types';
@@ -14,7 +14,7 @@ const ButtonItem: FC<ButtonProps> = ({ Icon, children, ...props }) => (
       Icon={Icon}
       data-mode="system"
       role="option"
-      variant="none"
+      variant={ButtonVariant.NONE}
       {...props}
     >
       {children}

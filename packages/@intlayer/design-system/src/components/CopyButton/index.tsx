@@ -3,7 +3,13 @@
 import { CopyCheckIcon, CopyIcon } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
-import { Button, ButtonProps } from '../Button';
+import {
+  Button,
+  ButtonColor,
+  ButtonProps,
+  ButtonSize,
+  ButtonVariant,
+} from '../Button';
 import { copyContentContent } from '../IDE/CopyButton.content';
 
 type CopyButtonProps = {
@@ -34,9 +40,9 @@ export const CopyButton: FC<CopyButtonProps> = ({ content, ...props }) => {
     <Button
       Icon={copied ? CopyCheckIcon : CopyIcon}
       onClick={handleCopy}
-      variant="hoverable"
-      color="text"
-      size="icon-sm"
+      variant={ButtonVariant.HOVERABLE}
+      color={ButtonColor.TEXT}
+      size={ButtonSize.ICON_SM}
       {...props}
       label={props.label ?? label.value}
     />

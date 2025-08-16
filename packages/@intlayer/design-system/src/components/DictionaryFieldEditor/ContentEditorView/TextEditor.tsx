@@ -23,7 +23,13 @@ import { type FC, Fragment, ReactNode, useState } from 'react';
 import { useDictionary, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
-import { Button } from '../../Button';
+import {
+  Button,
+  ButtonColor,
+  ButtonSize,
+  ButtonTextAlign,
+  ButtonVariant,
+} from '../../Button';
 import { Container } from '../../Container';
 import {
   type ContentEditorInputProps as ContentEditorInputPropsBase,
@@ -33,6 +39,7 @@ import {
   type ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
   ContentEditorTextArea as ContentEditorTextAreaBase,
 } from '../../ContentEditor/ContentEditorTextArea';
+import { InputVariant } from '../../Input';
 import { Label } from '../../Label';
 import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
 import { MarkdownRenderer } from '../../MarkDownRender';
@@ -40,6 +47,8 @@ import {
   type SwitchSelectorChoices,
   type SwitchSelectorProps,
   SwitchSelector,
+  SwitchSelectorColor,
+  SwitchSelectorSize,
 } from '../../SwitchSelector';
 import { EnumKeyInput } from '../EnumKeyInput';
 import { navigationViewContent } from '../NavigationView/navigationViewNode.content';
@@ -66,7 +75,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
 
   return (
     <ContentEditorTextAreaBase
-      variant="default"
+      variant={InputVariant.DEFAULT}
       onContentChange={(newValue) =>
         addEditedContent(dictionary.key, newValue, keyPath)
       }
@@ -74,9 +83,9 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
         <Button
           Icon={WandSparkles}
           label="Audit"
-          variant="hoverable"
-          size="icon-sm"
-          color="text"
+          variant={ButtonVariant.HOVERABLE}
+          size={ButtonSize.ICON_SM}
+          color={ButtonColor.TEXT}
           className="cursor-pointer hover:scale-110"
           isLoading={isAuditing}
           onClick={() => {
@@ -128,7 +137,7 @@ const ContentEditorInput: FC<ContentEditorInputProps> = ({
 
   return (
     <ContentEditorInputBase
-      variant="default"
+      variant={InputVariant.DEFAULT}
       onContentChange={(newValue) =>
         addEditedContent(dictionary.key, newValue, keyPath)
       }
@@ -165,8 +174,8 @@ const ContentEditorToggle: FC<ContentEditorToggleProps> = ({
       choices={toggleContent}
       value={true}
       onChange={(value) => addEditedContent(dictionary.key, value, keyPath)}
-      color="text"
-      size="sm"
+      color={SwitchSelectorColor.TEXT}
+      size={SwitchSelectorSize.SM}
       {...props}
     />
   );
@@ -265,8 +274,8 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                   <div className="flex flex-1">
                     <Button
                       label={removeEnumeration.label.value}
-                      variant="hoverable"
-                      color="text"
+                      variant={ButtonVariant.HOVERABLE}
+                      color={ButtonColor.TEXT}
                       Icon={Trash}
                       className="ml-auto"
                       onClick={() =>
@@ -321,9 +330,9 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
 
       <Button
         label={addNewEnumeration.label.value}
-        variant="hoverable"
-        color="neutral"
-        textAlign="left"
+        variant={ButtonVariant.HOVERABLE}
+        color={ButtonColor.NEUTRAL}
+        textAlign={ButtonTextAlign.LEFT}
         isFullWidth
         onClick={() =>
           addEditedContent(
@@ -400,10 +409,10 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                 <span className="text-xs">{String(index)}</span>
                 <Button
                   label={removeElement.label.value}
-                  variant="hoverable"
-                  color="neutral"
+                  variant={ButtonVariant.HOVERABLE}
+                  color={ButtonColor.NEUTRAL}
                   className="ml-auto"
-                  textAlign="left"
+                  textAlign={ButtonTextAlign.LEFT}
                   onClick={() => {
                     const newKeyPath: KeyPath[] = [
                       ...keyPath,
@@ -443,9 +452,9 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
       </table>
       <Button
         label={addNewElement.label.value}
-        variant="hoverable"
-        color="neutral"
-        textAlign="left"
+        variant={ButtonVariant.HOVERABLE}
+        color={ButtonColor.NEUTRAL}
+        textAlign={ButtonTextAlign.LEFT}
         isFullWidth
         onClick={() => {
           const newKeyPath: KeyPath[] = [
@@ -556,8 +565,8 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         choices={toggleContent}
         value={mode}
         onChange={setMode}
-        color="text"
-        size="sm"
+        color={SwitchSelectorColor.TEXT}
+        size={SwitchSelectorSize.SM}
         className="ml-auto"
       />
 
@@ -642,7 +651,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
       <ContentEditorInputBase
         aria-label="Edit field"
         type="text"
-        variant="default"
+        variant={InputVariant.DEFAULT}
         {...props}
         onContentChange={(newValue) => {
           addEditedContent(
@@ -662,7 +671,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
       <ContentEditorInputBase
         aria-label="Edit field"
         type="text"
-        variant="default"
+        variant={InputVariant.DEFAULT}
         {...props}
         onContentChange={(newValue) => {
           addEditedContent(
@@ -821,7 +830,7 @@ export const TextEditor: FC<TextEditorProps> = ({
           renderSection(section as string)
         ) : (
           <ContentEditorTextArea
-            variant="default"
+            variant={InputVariant.DEFAULT}
             aria-label="Edit field"
             keyPath={keyPath}
             dictionary={dictionary}

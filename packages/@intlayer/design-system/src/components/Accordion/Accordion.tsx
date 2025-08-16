@@ -3,7 +3,12 @@
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useState, type FC, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
-import { type ButtonProps, Button } from '../Button';
+import {
+  Button,
+  ButtonColor,
+  ButtonVariant,
+  type ButtonProps,
+} from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 type AccordionProps = {
@@ -45,8 +50,8 @@ export const Accordion: FC<AccordionProps> = ({
   return (
     <div className="w-full">
       <Button
-        variant="hoverable"
-        color="text"
+        variant={ButtonVariant.HOVERABLE}
+        color={ButtonColor.TEXT}
         onClick={(e) => {
           setIsOpen((prevIsOpen) => !prevIsOpen);
           onClick?.(e);

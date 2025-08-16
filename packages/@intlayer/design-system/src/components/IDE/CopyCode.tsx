@@ -3,7 +3,7 @@
 import { type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { CopyButton } from '../CopyButton';
-import { Popover } from '../Popover';
+import { Popover, PopoverXAlign } from '../Popover';
 import copyContentContent from './copyCode.content';
 
 type CopyCodeProps = {
@@ -20,7 +20,7 @@ export const CopyCode: FC<CopyCodeProps> = ({ code }) => {
       <Popover.Detail
         identifier="copy"
         className="flex flex-col gap-3 p-3 min-w-64 text-sm"
-        xAlign="end"
+        xAlign={PopoverXAlign.END}
       >
         <strong>{title}</strong>
         <p className="text-neutral">{description}</p>
