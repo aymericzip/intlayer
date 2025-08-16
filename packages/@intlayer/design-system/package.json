@@ -63,6 +63,7 @@
     "build:ci": "pnpm build:package",
     "build:css": "npx tailwindcss --minify -i ./src/tailwind.css -o ./dist/tailwind.css",
     "build:docker": "docker build -t intlayer-design-system -f Dockerfile .",
+    "build:intlayer": "intlayer build",
     "build:package": "vite build",
     "build:storybook": "storybook build",
     "clean": "rimraf ./dist",

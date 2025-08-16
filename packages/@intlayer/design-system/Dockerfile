@@ -33,12 +33,17 @@ COPY \
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
 RUN pnpm install --frozen-lockfile
 
+# Install intlayer-cli
+RUN npm install -g intlayer-cli@latest
 
 # Build every package in the workspace (uses the root "build" script)
 RUN pnpm run build:ci
 
 # Set working directory to the design-system package and run Storybook
 WORKDIR /workspace/packages/@intlayer/design-system
+
+# Build the Intlayer dictionaries
+RUN pnpm run build:intlayer
 
 # Build Storybook
 RUN pnpm run build:storybook

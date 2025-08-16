@@ -24,7 +24,7 @@ const config: StorybookConfig = {
     const tailwindcss = (await import('@tailwindcss/vite')).default;
 
     const viteConfig = defineConfig(() => ({
-      plugins: [tailwindcss(), intlayerPlugin()],
+      plugins: [intlayerPlugin(), tailwindcss()],
     }));
 
     return mergeConfig(config, viteConfig(env));
