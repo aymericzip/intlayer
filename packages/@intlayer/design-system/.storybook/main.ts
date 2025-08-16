@@ -16,6 +16,12 @@ const config: StorybookConfig = {
     options: {},
   },
   async viteFinal(config, { configType }) {
+    config.server = {
+      ...config.server,
+      host: true,
+      allowedHosts: ['storybook.intlayer.org', 'localhost', '127.0.0.1'],
+    };
+
     const env = {
       command: configType === 'DEVELOPMENT' ? 'serve' : 'build',
       mode: configType === 'DEVELOPMENT' ? 'development' : 'production',
