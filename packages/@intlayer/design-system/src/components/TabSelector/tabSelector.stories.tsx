@@ -25,8 +25,8 @@ const meta: Meta<typeof TabSelector> = {
       description: 'Color theme',
       control: {
         type: 'select',
-        options: Object.values(TabSelectorColor),
       },
+      options: Object.values(TabSelectorColor),
       defaultValue: TabSelectorColor.PRIMARY,
     },
     hoverable: {

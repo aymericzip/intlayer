@@ -21,24 +21,24 @@ const meta: Meta<typeof CopyButton> = {
       description: 'Icon button size',
       control: {
         type: 'select',
-        options: Object.values(ButtonSize),
       },
+      options: Object.values(ButtonSize),
       defaultValue: ButtonSize.ICON_SM,
     },
     variant: {
       description: 'Visual style variant',
       control: {
         type: 'select',
-        options: Object.values(ButtonVariant),
       },
+      options: Object.values(ButtonVariant),
       defaultValue: ButtonVariant.HOVERABLE,
     },
     color: {
       description: 'Color theme of the button',
       control: {
         type: 'select',
-        options: Object.values(ButtonColor),
       },
+      options: Object.values(ButtonColor),
       defaultValue: ButtonColor.TEXT,
     },
     isLoading: {

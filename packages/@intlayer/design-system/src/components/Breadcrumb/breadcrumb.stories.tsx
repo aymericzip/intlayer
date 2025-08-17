@@ -17,16 +17,16 @@ const meta: Meta<typeof Breadcrumb> = {
       description: 'Color theme of the links/buttons',
       control: {
         type: 'select',
-        options: [
-          ButtonColor.PRIMARY,
-          ButtonColor.DESTRUCTIVE,
-          ButtonColor.NEUTRAL,
-          ButtonColor.LIGHT,
-          ButtonColor.DARK,
-          ButtonColor.TEXT,
-          ButtonColor.CUSTOM,
-        ],
       },
+      options: [
+        ButtonColor.PRIMARY,
+        ButtonColor.DESTRUCTIVE,
+        ButtonColor.NEUTRAL,
+        ButtonColor.LIGHT,
+        ButtonColor.DARK,
+        ButtonColor.TEXT,
+        ButtonColor.CUSTOM,
+      ],
       defaultValue: ButtonColor.TEXT,
     },
     locale: {

@@ -15,16 +15,16 @@ const meta: Meta<typeof Badge> = {
       description: 'Visual variant of the badge',
       control: {
         type: 'select',
-        options: Object.values(BadgeVariant),
       },
+      options: Object.values(BadgeVariant),
       defaultValue: BadgeVariant.DEFAULT,
     },
     color: {
       description: 'Color theme of the badge',
       control: {
         type: 'select',
-        options: Object.values(BadgeColor),
       },
+      options: Object.values(BadgeColor),
       defaultValue: BadgeColor.PRIMARY,
     },
     className: {

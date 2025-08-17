@@ -22,16 +22,16 @@ const meta: Meta<typeof Tag> = {
       description: 'Color theme of the tag',
       control: {
         type: 'select',
-        options: Object.values(TagColor),
       },
+      options: Object.values(TagColor),
       defaultValue: TagColor.TEXT,
     },
     roundedSize: {
       description: 'Border radius size',
       control: {
         type: 'select',
-        options: Object.values(TagRoundedSize),
       },
+      options: Object.values(TagRoundedSize),
       defaultValue: TagRoundedSize.FULL,
     },
     size: {

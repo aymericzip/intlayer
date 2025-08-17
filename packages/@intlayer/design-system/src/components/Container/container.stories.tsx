@@ -24,16 +24,16 @@ const meta: Meta<typeof Container> = {
       description: 'Border radius size',
       control: {
         type: 'select',
-        options: Object.values(ContainerRoundedSize),
       },
+      options: Object.values(ContainerRoundedSize),
       defaultValue: ContainerRoundedSize.MD,
     },
     transparency: {
       description: 'Background transparency level',
       control: {
         type: 'select',
-        options: Object.values(ContainerTransparency),
       },
+      options: Object.values(ContainerTransparency),
       defaultValue: ContainerTransparency.MD,
     },
     padding: {
@@ -57,8 +57,8 @@ const meta: Meta<typeof Container> = {
       description: 'Border color',
       control: {
         type: 'select',
-        options: Object.values(ContainerBorderColor),
       },
+      options: Object.values(ContainerBorderColor),
       defaultValue: ContainerBorderColor.TEXT,
     },
     background: {
@@ -71,8 +71,8 @@ const meta: Meta<typeof Container> = {
       description: 'Gap between children',
       control: {
         type: 'select',
-        options: Object.values(ContainerGap),
       },
+      options: Object.values(ContainerGap),
       defaultValue: ContainerGap.NONE,
     },
   },

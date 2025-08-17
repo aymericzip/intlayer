@@ -39,8 +39,8 @@ const meta: Meta<typeof Select> = {
       description: 'Positioning strategy for the content',
       control: {
         type: 'select',
-        options: Object.values(SelectContentPosition),
       },
+      options: Object.values(SelectContentPosition),
       defaultValue: SelectContentPosition.POPPER,
     },
   },
