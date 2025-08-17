@@ -40,6 +40,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./format": {
+      "types": "./dist/types/client/format/index.d.ts",
+      "require": "./dist/cjs/client/format/index.cjs",
+      "import": "./dist/esm/client/format/index.mjs"
+    },
     "./middleware": {
       "types": "./dist/types/middleware/index.d.ts",
       "require": "./dist/cjs/middleware/index.cjs",
@@ -49,6 +54,11 @@
       "types": "./dist/types/server/index.d.ts",
       "require": "./dist/cjs/server/index.cjs",
       "import": "./dist/esm/server/index.mjs"
+    },
+    "./server/format": {
+      "types": "./dist/types/server/format/index.d.ts",
+      "require": "./dist/cjs/server/format/index.cjs",
+      "import": "./dist/esm/server/format/index.mjs"
     },
     "./package.json": "./package.json"
   },

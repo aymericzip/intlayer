@@ -1,4 +1,5 @@
 export * from './dictionaryManipulator/index';
+export * from './formatters/index';
 export * from './interpreter/index';
 export * from './localization/index';
 export * from './transpiler/index';

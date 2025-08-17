@@ -1,0 +1,1 @@
+export const FRACTION_NUMBER_DIGITS = 2;
