@@ -52,7 +52,7 @@ importers:
         specifier: ^2.4.1
         version: 2.4.1
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       fast-glob:
         specifier: ^3.3.3
@@ -233,7 +233,7 @@ importers:
         specifier: ^1.0.21
         version: 1.0.21
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       intlayer:
         specifier: workspace:*
@@ -396,7 +396,7 @@ importers:
         specifier: ^0.25.5
         version: 0.25.9
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       eslint-config-next:
         specifier: 15.3.3
@@ -454,7 +454,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       fast-glob:
         specifier: ^3.3.3
@@ -591,7 +591,7 @@ importers:
         specifier: ^19.1.6
         version: 19.1.7(@types/react@19.1.10)
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -637,7 +637,7 @@ importers:
         specifier: workspace:*
         version: link:../../utils/tsup-config
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -689,7 +689,7 @@ importers:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       eslint-config-next:
         specifier: 15.0.4
@@ -753,7 +753,7 @@ importers:
         specifier: ^4.7.0
         version: 4.7.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       eslint-config-next:
         specifier: 15.1.4
@@ -1067,7 +1067,7 @@ importers:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       eslint-plugin-react-hooks:
         specifier: ^5.2.0
@@ -1242,7 +1242,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       intlayer-editor:
         specifier: workspace:*
@@ -1330,7 +1330,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -1448,7 +1448,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -1521,7 +1521,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -1579,7 +1579,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -1643,7 +1643,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -1839,7 +1839,7 @@ importers:
         specifier: ^9.2.0
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       fast-glob:
         specifier: ^3.3.3
@@ -1906,7 +1906,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -1958,7 +1958,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -2003,7 +2003,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -2067,7 +2067,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -2146,7 +2146,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -2200,7 +2200,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -2273,7 +2273,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -2358,7 +2358,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -2431,7 +2431,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       express:
         specifier: ^5.1.0
@@ -2495,7 +2495,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -2553,7 +2553,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -2686,7 +2686,7 @@ importers:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       eslint-plugin-react-hooks:
         specifier: ^5.2.0
@@ -2762,7 +2762,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       expo:
         specifier: ^52.0.37
@@ -2853,7 +2853,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       intlayer:
         specifier: workspace:*
@@ -2926,7 +2926,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       fast-glob:
         specifier: ^3.3.3
@@ -2996,7 +2996,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -3084,7 +3084,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -3142,7 +3142,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       expo:
         specifier: ^52.0.37
@@ -3224,7 +3224,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -3300,7 +3300,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       jsdom:
         specifier: ^26.1.0
@@ -3376,7 +3376,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -3437,7 +3437,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
@@ -3519,7 +3519,7 @@ importers:
         specifier: ^9.1.2
         version: 9.2.0
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       fast-glob:
         specifier: ^3.3.3
@@ -3588,7 +3588,7 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       eslint-config-prettier:
         specifier: ^10.0.1
@@ -3696,7 +3696,7 @@ importers:
         specifier: ^1.0.21
         version: 1.0.21
       eslint:
-        specifier: ^9.28.0
+        specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
       prettier:
         specifier: ^3.5.3
