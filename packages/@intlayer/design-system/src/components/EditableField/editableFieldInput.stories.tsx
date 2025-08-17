@@ -19,12 +19,14 @@ const meta: Meta<typeof EditableFieldInput> = {
     },
     variant: {
       description: 'Visual variant of the input',
-      control: { type: 'select', options: Object.values(InputVariant) },
+      control: { type: 'select' },
+      options: Object.values(InputVariant),
       defaultValue: InputVariant.DEFAULT,
     },
     size: {
       description: 'Size of the input',
-      control: { type: 'select', options: Object.values(InputSize) },
+      control: { type: 'select' },
+      options: Object.values(InputSize),
       defaultValue: InputSize.MD,
     },
     validationStyleEnabled: {
@@ -63,11 +65,9 @@ export const Default: Story = {
     <EditableFieldInput
       {...args}
       onSave={(value) => {
-         
         console.log('Saved value:', value);
       }}
       onCancel={() => {
-         
         console.log('Edit cancelled');
       }}
     />

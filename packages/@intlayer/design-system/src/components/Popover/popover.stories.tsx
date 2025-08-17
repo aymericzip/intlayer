@@ -64,11 +64,13 @@ export const Default: Story = {
     },
     xAlign: {
       description: 'Horizontal alignment relative to the trigger',
-      control: { type: 'select', options: Object.values(PopoverXAlign) },
+      control: { type: 'select' },
+      options: Object.values(PopoverXAlign),
     },
     yAlign: {
       description: 'Vertical alignment relative to the trigger',
-      control: { type: 'select', options: Object.values(PopoverYAlign) },
+      control: { type: 'select' },
+      options: Object.values(PopoverYAlign),
     },
     displayArrow: {
       description: 'Show the small directional arrow on the popover',

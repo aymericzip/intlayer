@@ -35,7 +35,8 @@ const meta: Meta<typeof Breadcrumb> = {
     },
     elementType: {
       description: 'Value used for aria-current on the last item',
-      control: { type: 'select', options: ['page', 'location'] },
+      control: { type: 'select' },
+      options: ['page', 'location'],
       defaultValue: 'page',
     },
     className: {

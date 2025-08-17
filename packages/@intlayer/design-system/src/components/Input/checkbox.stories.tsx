@@ -28,15 +28,14 @@ const meta: Meta<typeof Checkbox> = {
     },
     size: {
       description: 'Checkbox size',
-      control: { type: 'select', options: Object.values(CheckboxSize) },
+      control: { type: 'select' },
+      options: Object.values(CheckboxSize),
       defaultValue: CheckboxSize.MD,
     },
     color: {
       description: 'Accent color',
-      control: {
-        type: 'select',
-        options: Object.values(CheckboxColor),
-      },
+      control: { type: 'select' },
+      options: Object.values(CheckboxColor),
       defaultValue: CheckboxColor.PRIMARY,
     },
     validationStyleEnabled: {

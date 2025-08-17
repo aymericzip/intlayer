@@ -22,15 +22,14 @@ const meta: Meta<typeof SwitchSelector> = {
     },
     color: {
       description: 'Color theme.',
-      control: {
-        type: 'select',
-        options: Object.values(SwitchSelectorColor),
-      },
+      control: { type: 'select' },
+      options: Object.values(SwitchSelectorColor),
       defaultValue: SwitchSelectorColor.PRIMARY,
     },
     size: {
       description: 'Size of choices.',
-      control: { type: 'select', options: Object.values(SwitchSelectorSize) },
+      control: { type: 'select' },
+      options: Object.values(SwitchSelectorSize),
       defaultValue: SwitchSelectorSize.MD,
     },
     className: {

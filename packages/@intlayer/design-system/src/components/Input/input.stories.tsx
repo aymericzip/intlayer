@@ -13,12 +13,14 @@ const meta: Meta<typeof Input> = {
     },
     variant: {
       description: 'Visual style of the input',
-      control: { type: 'select', options: Object.values(InputVariant) },
+      control: { type: 'select' },
+      options: Object.values(InputVariant),
       defaultValue: InputVariant.DEFAULT,
     },
     size: {
       description: 'Input size',
-      control: { type: 'select', options: Object.values(InputSize) },
+      control: { type: 'select' },
+      options: Object.values(InputSize),
       defaultValue: InputSize.MD,
     },
     validationStyleEnabled: {
@@ -30,17 +32,17 @@ const meta: Meta<typeof Input> = {
       description: 'HTML input type',
       control: {
         type: 'select',
-        options: [
-          'text',
-          'email',
-          'number',
-          'search',
-          'tel',
-          'url',
-          'date',
-          'time',
-        ],
       },
+      options: [
+        'text',
+        'email',
+        'number',
+        'search',
+        'tel',
+        'url',
+        'date',
+        'time',
+      ],
       defaultValue: 'text',
     },
     disabled: {

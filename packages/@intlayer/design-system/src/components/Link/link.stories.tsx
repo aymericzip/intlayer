@@ -13,18 +13,21 @@ const meta: Meta<typeof Link> = {
     },
     variant: {
       description: 'The visual style variant of the link',
-      control: { type: 'select', options: Object.values(LinkVariant) },
+      control: { type: 'select' },
+      options: Object.values(LinkVariant),
       defaultValue: LinkVariant.DEFAULT,
     },
 
     color: {
       description: 'The color theme of the link',
-      control: { type: 'select', options: Object.values(LinkColor) },
+      control: { type: 'select' },
+      options: Object.values(LinkColor),
       defaultValue: LinkColor.PRIMARY,
     },
     underlined: {
       description: 'Underline style',
-      control: { type: 'select', options: Object.values(LinkUnderlined) },
+      control: { type: 'select' },
+      options: Object.values(LinkUnderlined),
       defaultValue: LinkUnderlined.DEFAULT,
     },
 

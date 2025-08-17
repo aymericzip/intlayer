@@ -33,7 +33,8 @@ const meta: Meta<typeof Modal> = {
     },
     size: {
       description: 'Controls the maximum height/width of the modal',
-      control: { type: 'select', options: Object.values(ModalSize) },
+      control: { type: 'select' },
+      options: Object.values(ModalSize),
       defaultValue: ModalSize.MD,
     },
     onClose: {

@@ -29,7 +29,8 @@ const meta: Meta<typeof EditableFieldTextArea> = {
     },
     variant: {
       description: 'Visual variant',
-      control: { type: 'select', options: Object.values(InputVariant) },
+      control: { type: 'select' },
+      options: Object.values(InputVariant),
       defaultValue: InputVariant.DEFAULT,
     },
     validationStyleEnabled: {
@@ -65,11 +66,9 @@ export const Default: Story = {
     <EditableFieldTextArea
       {...args}
       onSave={(value) => {
-         
         console.log('Saved value:', value);
       }}
       onCancel={() => {
-         
         console.log('Edit cancelled');
       }}
     />

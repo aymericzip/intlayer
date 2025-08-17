@@ -36,17 +36,20 @@ const meta: Meta<typeof Tag> = {
     },
     size: {
       description: 'Size of the tag',
-      control: { type: 'select', options: Object.values(TagSize) },
+      control: { type: 'select' },
+      options: Object.values(TagSize),
       defaultValue: TagSize.MD,
     },
     border: {
       description: 'Border visibility',
-      control: { type: 'select', options: Object.values(TagBorder) },
+      control: { type: 'select' },
+      options: Object.values(TagBorder),
       defaultValue: TagBorder.NONE,
     },
     background: {
       description: 'Background visibility',
-      control: { type: 'select', options: Object.values(TagBackground) },
+      control: { type: 'select' },
+      options: Object.values(TagBackground),
       defaultValue: TagBackground.NONE,
     },
   },

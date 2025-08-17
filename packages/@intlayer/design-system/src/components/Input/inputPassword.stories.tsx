@@ -14,12 +14,14 @@ const meta: Meta<typeof InputPassword> = {
     },
     size: {
       description: 'Input size',
-      control: { type: 'select', options: Object.values(InputSize) },
+      control: { type: 'select' },
+      options: Object.values(InputSize),
       defaultValue: InputSize.MD,
     },
     variant: {
       description: 'Visual style of the input',
-      control: { type: 'select', options: Object.values(InputVariant) },
+      control: { type: 'select' },
+      options: Object.values(InputVariant),
       defaultValue: InputVariant.DEFAULT,
     },
     disabled: {

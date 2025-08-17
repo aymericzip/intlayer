@@ -50,7 +50,8 @@ const baseArgTypes = {
   },
   align: {
     description: 'Horizontal alignment of the panel relative to the trigger',
-    control: { type: 'select', options: Object.values(DropDownAlign) },
+    control: { type: 'select' },
+    options: Object.values(DropDownAlign),
   },
 } as const;
 

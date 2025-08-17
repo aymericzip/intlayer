@@ -38,12 +38,14 @@ const meta: Meta<typeof Container> = {
     },
     padding: {
       description: 'Padding around content',
-      control: { type: 'select', options: Object.values(ContainerPadding) },
+      control: { type: 'select' },
+      options: Object.values(ContainerPadding),
       defaultValue: ContainerPadding.MD,
     },
     separator: {
       description: 'Dashed dividers between children',
-      control: { type: 'select', options: Object.values(ContainerSeparator) },
+      control: { type: 'select' },
+      options: Object.values(ContainerSeparator),
       defaultValue: ContainerSeparator.WITHOUT,
     },
     border: {
@@ -61,7 +63,8 @@ const meta: Meta<typeof Container> = {
     },
     background: {
       description: 'Background behavior',
-      control: { type: 'select', options: Object.values(ContainerBackground) },
+      control: { type: 'select' },
+      options: Object.values(ContainerBackground),
       defaultValue: ContainerBackground.NONE,
     },
     gap: {

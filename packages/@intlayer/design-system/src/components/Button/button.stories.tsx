@@ -13,17 +13,20 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       description: 'The visual style variant of the button',
-      control: { type: 'select', options: Object.values(ButtonVariant) },
+      control: { type: 'select' },
+      options: Object.values(ButtonVariant),
       defaultValue: ButtonVariant.DEFAULT,
     },
     size: {
       description: 'The size of the button',
-      control: { type: 'select', options: Object.values(ButtonSize) },
+      control: { type: 'select' },
+      options: Object.values(ButtonSize),
       defaultValue: ButtonSize.MD,
     },
     color: {
       description: 'The color theme of the button',
-      control: { type: 'select', options: Object.values(ButtonColor) },
+      control: { type: 'select' },
+      options: Object.values(ButtonColor),
       defaultValue: ButtonColor.PRIMARY,
     },
     isLoading: {
