@@ -103,7 +103,7 @@
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
     "esbuild": "^0.25.5",
-    "eslint": "^9.28.0",
+    "eslint": "^9.33.0",
     "eslint-config-next": "15.3.3",
     "next-pwa": "^5.6.0",
     "postcss": "^8.5.4",

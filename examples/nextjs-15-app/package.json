@@ -28,7 +28,7 @@
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
     "@types/webpack-bundle-analyzer": "^4.7.0",
-    "eslint": "^9.28.0",
+    "eslint": "^9.33.0",
     "eslint-config-next": "15.1.4",
     "intlayer-editor": "workspace:*",
     "postcss": "^8.5.4",

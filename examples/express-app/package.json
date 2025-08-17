@@ -45,7 +45,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "eslint": "^9.28.0",
+    "eslint": "^9.33.0",
     "prettier": "^3.5.3",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",

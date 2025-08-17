@@ -27,7 +27,7 @@
     "@types/react-dom": "^18.3.1",
     "@utils/eslint-config": "workspace:*",
     "autoprefixer": "^10.4.21",
-    "eslint": "^9.28.0",
+    "eslint": "^9.33.0",
     "eslint-config-next": "15.0.4",
     "intlayer-editor": "workspace:*",
     "postcss": "^8.5.4",
