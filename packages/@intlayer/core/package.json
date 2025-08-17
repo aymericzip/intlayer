@@ -57,6 +57,51 @@
       "require": "./dist/cjs/transpiler/file/fileBrowser.cjs",
       "import": "./dist/esm/transpiler/file/fileBrowser.mjs"
     },
+    "./compact": {
+      "types": "./dist/types/formatters/compact.d.ts",
+      "import": "./dist/esm/formatters/compact.mjs",
+      "require": "./dist/cjs/formatters/compact.cjs"
+    },
+    "./currency": {
+      "types": "./dist/types/formatters/currency.d.ts",
+      "import": "./dist/esm/formatters/currency.mjs",
+      "require": "./dist/cjs/formatters/currency.cjs"
+    },
+    "./date": {
+      "types": "./dist/types/formatters/date.d.ts",
+      "import": "./dist/esm/formatters/date.mjs",
+      "require": "./dist/cjs/formatters/date.cjs"
+    },
+    "./relativeTime": {
+      "types": "./dist/types/formatters/relativeTime.d.ts",
+      "import": "./dist/esm/formatters/relativeTime.mjs",
+      "require": "./dist/cjs/formatters/relativeTime.cjs"
+    },
+    "./number": {
+      "types": "./dist/types/formatters/number.d.ts",
+      "import": "./dist/esm/formatters/number.mjs",
+      "require": "./dist/cjs/formatters/number.cjs"
+    },
+    "./units": {
+      "types": "./dist/types/formatters/units.d.ts",
+      "import": "./dist/esm/formatters/units.mjs",
+      "require": "./dist/cjs/formatters/units.cjs"
+    },
+    "./list": {
+      "types": "./dist/types/formatters/list.d.ts",
+      "import": "./dist/esm/formatters/list.mjs",
+      "require": "./dist/cjs/formatters/list.cjs"
+    },
+    "./percentage": {
+      "types": "./dist/types/formatters/percentage.d.ts",
+      "import": "./dist/esm/formatters/percentage.mjs",
+      "require": "./dist/cjs/formatters/percentage.cjs"
+    },
+    "./intl": {
+      "types": "./dist/types/utils/intl.d.ts",
+      "import": "./dist/esm/utils/intl.mjs",
+      "require": "./dist/cjs/utils/intl.cjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
