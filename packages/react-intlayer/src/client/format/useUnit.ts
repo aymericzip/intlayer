@@ -1,7 +1,7 @@
 'use client';
 
-import { createUnit } from '../createUnit';
-import { useLocaleBase } from './useLocaleBase';
+import { createUnit } from '../../createUnit';
+import { useLocaleBase } from '../useLocaleBase';
 
 /**
  * React hook that provides a unit formatting function

@@ -1,7 +1,7 @@
 import { type LocalesValues } from '@intlayer/config/client';
 import { cache } from 'react';
-import { createNumber } from '../createNumber';
-import { useLocale } from './useLocale';
+import { createNumber } from '../../createNumber';
+import { useLocale } from '../useLocale';
 
 const getCachedNumber = cache((locale: LocalesValues) => createNumber(locale));
 

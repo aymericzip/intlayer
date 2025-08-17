@@ -1,7 +1,7 @@
 'use client';
 
-import { createPercentage } from '../createPercentage';
-import { useLocaleBase } from './useLocaleBase';
+import { createPercentage } from '../../createPercentage';
+import { useLocaleBase } from '../useLocaleBase';
 
 /**
  * React hook to provide a percentage formatter function

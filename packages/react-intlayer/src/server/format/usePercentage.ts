@@ -1,7 +1,7 @@
 import { type LocalesValues } from '@intlayer/config/client';
 import { cache } from 'react';
-import { createPercentage } from '../createPercentage';
-import { useLocale } from './useLocale';
+import { createPercentage } from '../../createPercentage';
+import { useLocale } from '../useLocale';
 
 const getCachedPercentage = cache((locale: LocalesValues) =>
   createPercentage(locale)

@@ -1,7 +1,7 @@
 import { type LocalesValues } from '@intlayer/config/client';
 import { cache } from 'react';
-import { createCurrency } from '../createCurrency';
-import { useLocale } from './useLocale';
+import { createCurrency } from '../../createCurrency';
+import { useLocale } from '../useLocale';
 
 const getCachedCurrency = cache((locale: LocalesValues) =>
   createCurrency(locale)

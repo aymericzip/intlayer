@@ -1,7 +1,7 @@
 import { type LocalesValues } from '@intlayer/config/client';
 import { cache } from 'react';
-import { createCompact } from '../createCompact';
-import { useLocale } from './useLocale';
+import { createCompact } from '../../createCompact';
+import { useLocale } from '../useLocale';
 
 const getCachedCompact = cache((locale: LocalesValues) =>
   createCompact(locale)

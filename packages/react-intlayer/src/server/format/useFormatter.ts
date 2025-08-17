@@ -1,10 +1,7 @@
-'use client';
-
 import { useCompact } from './useCompact';
 import { useCurrency } from './useCurrency';
 import { useDate } from './useDate';
 import { useList } from './useList';
-import { useListFormatter } from './useListFormatter';
 import { useNumber } from './useNumber';
 import { usePercentage } from './usePercentage';
 import { useRelativeTime } from './useRelativeTime';
@@ -19,7 +16,6 @@ export const useFormatter = () => {
   const date = useDate();
   const relativeTime = useRelativeTime();
   const list = useList();
-  const listFormatter = useListFormatter();
 
   return {
     currency,
@@ -30,6 +26,5 @@ export const useFormatter = () => {
     date,
     relativeTime,
     list,
-    listFormatter,
   };
 };

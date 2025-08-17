@@ -1,7 +1,7 @@
 'use client';
 
-import { createNumber } from '../createNumber';
-import { useLocaleBase } from './useLocaleBase';
+import { createNumber } from '../../createNumber';
+import { useLocaleBase } from '../useLocaleBase';
 
 /**
  * React client hook that provides a localized number formatter.

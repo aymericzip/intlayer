@@ -1,7 +1,7 @@
 'use client';
 
-import { createList } from '../createList';
-import { useLocaleBase } from './useLocaleBase';
+import { createList } from '../../createList';
+import { useLocaleBase } from '../useLocaleBase';
 
 /**
  * React client hook that provides a localized list formatter

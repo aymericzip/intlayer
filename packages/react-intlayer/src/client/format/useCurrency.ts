@@ -1,7 +1,7 @@
 'use client';
 
-import { createCurrency } from '../createCurrency';
-import { useLocaleBase } from './useLocaleBase';
+import { createCurrency } from '../../createCurrency';
+import { useLocaleBase } from '../useLocaleBase';
 
 /**
  * React client hook that provides a currency formatter

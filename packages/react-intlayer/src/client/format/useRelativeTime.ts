@@ -1,7 +1,7 @@
 'use client';
 
-import { createRelativeTime } from '../createRelativeTime';
-import { useLocaleBase } from './useLocaleBase';
+import { createRelativeTime } from '../../createRelativeTime';
+import { useLocaleBase } from '../useLocaleBase';
 
 /**
  * Client-side React hook for accessing a localized relative time formatter.

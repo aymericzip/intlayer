@@ -1,7 +1,7 @@
 'use client';
 
-import { createCompact } from '../createCompact';
-import { useLocaleBase } from './useLocaleBase';
+import { createCompact } from '../../createCompact';
+import { useLocaleBase } from '../useLocaleBase';
 
 /**
  * React client hook that provides a compact number formatter

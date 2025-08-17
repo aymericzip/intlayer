@@ -1,7 +1,7 @@
 import { type LocalesValues } from '@intlayer/config/client';
 import { cache } from 'react';
-import { createRelativeTime } from '../createRelativeTime';
-import { useLocale } from './useLocale';
+import { createRelativeTime } from '../../createRelativeTime';
+import { useLocale } from '../useLocale';
 
 const getCachedRelativeTime = cache((locale: LocalesValues) =>
   createRelativeTime(locale)

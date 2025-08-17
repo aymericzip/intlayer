@@ -1,11 +1,14 @@
-'use client';
+import { type LocalesValues } from '@intlayer/config/client';
+import { cache } from 'react';
+import { createDate } from '../../createDate';
+import { useLocale } from '../useLocale';
 
-import { createDate } from '../createDate';
-import { useLocaleBase } from './useLocaleBase';
+const getCachedDate = cache((locale: LocalesValues) => createDate(locale));
 
 /**
- * React client hook that provides a localized date/time formatter
- * bound to the current application locale.
+ * React server hook that returns a memoized date/time formatter
+ * bound to the current application locale. Uses {@link React.cache}
+ * to avoid recreating formatters for the same locale.
  *
  * @returns {(date: Date | string | number, options?: DateProps) => string}
  * A function to format dates or timestamps into localized date/time strings.
@@ -30,7 +33,7 @@ import { useLocaleBase } from './useLocaleBase';
  * @see createDate
  */
 export const useDate = () => {
-  const { locale } = useLocaleBase();
+  const { locale } = useLocale();
 
-  return createDate(locale);
+  return getCachedDate(locale);
 };
