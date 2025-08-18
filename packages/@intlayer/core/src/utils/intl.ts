@@ -57,15 +57,14 @@ const cacheKey = (locales: LocalesValues, options: unknown) =>
   JSON.stringify([locales, options]);
 
 // Generic wrapper for any `new Intl.*()` constructor.
-// Returns an arrow function that *looks* like the native constructor but
+// Returns a constructable function (usable with or without `new`) that
 // pulls instances from a Map cache when possible.
 const createCachedConstructor = <T extends new (...args: any[]) => any>(
   Ctor: T
 ) => {
   const cache = new Map<string, InstanceType<T>>();
 
-  // Arrow to satisfy the "use arrow functions everywhere" request 🤘
-  return ((locales?: LocalesValues, options?: any) => {
+  const Wrapped = (locales?: LocalesValues, options?: any) => {
     // Special case – guard older runtimes missing DisplayNames.
     if (
       Ctor.name === 'DisplayNames' &&
@@ -77,7 +76,7 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
             `Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`
         );
       }
-      return locales;
+      return locales as any;
     }
 
     const key = cacheKey(
@@ -92,7 +91,12 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
     }
 
     return instance as InstanceType<T>;
-  }) as unknown as ReplaceLocaleWithLocalesValues<T>;
+  };
+
+  // Ensure it behaves like a constructor when used with `new`.
+  (Wrapped as any).prototype = (Ctor as any).prototype;
+
+  return Wrapped as unknown as ReplaceLocaleWithLocalesValues<T>;
 };
 
 // Factory that turns the global `Intl` into a cached clone.
@@ -103,7 +107,7 @@ export const createCachedIntl = (): WrappedIntl =>
 
       // Wrap *only* constructor functions (safest heuristic: they start with a capital letter).
       return typeof value === 'function' && /^[A-Z]/.test(String(prop))
-        ? createCachedConstructor(value as any)
+        ? createCachedConstructor(value)
         : value;
     },
   }) as unknown as WrappedIntl;

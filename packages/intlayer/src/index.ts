@@ -21,7 +21,10 @@ const getConfiguration = () => configuration;
 export { configuration, getConfiguration, IntlayerConfig };
 
 export {
+  compact,
   cond,
+  currency,
+  date,
   enu,
   gender,
   getDictionary,
@@ -54,7 +57,11 @@ export {
   localeRecord,
   md,
   nest,
+  number,
+  percentage,
+  relativeTime,
   t,
+  units,
   type ContentNode,
   type LanguageContent,
 } from '@intlayer/core';
