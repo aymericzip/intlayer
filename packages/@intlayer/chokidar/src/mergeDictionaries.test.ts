@@ -109,6 +109,33 @@ describe('mergeDictionaries', () => {
     });
   });
 
+  it('should merge arrays', () => {
+    const dictionaries: Dictionary[] = [
+      {
+        key: 'array-test',
+        content: {
+          items: ['test1', 'test2', 'test3', 'test4'],
+        },
+      },
+      {
+        key: 'array-test',
+        content: {
+          items: ['test1.1', 'test2.1', 'test3.1'],
+        },
+      },
+    ];
+
+    const result = mergeDictionaries(dictionaries);
+
+    expect(result.content.items).toHaveLength(4);
+    expect(result.content.items).toEqual([
+      'test1.1',
+      'test2.1',
+      'test3.1',
+      'test4',
+    ]);
+  });
+
   it('should merge arrays by index/position correctly', () => {
     const dictionaries: Dictionary[] = [
       {
@@ -137,6 +164,7 @@ describe('mergeDictionaries', () => {
             {
               nodeType: 'translation',
               translation: {
+                en: 'Item 1.1 EN',
                 fr: 'Item 1 FR',
               },
             },
@@ -155,7 +183,7 @@ describe('mergeDictionaries', () => {
 
     expect(result.content.items).toHaveLength(2);
     expect(result.content.items[0].translation).toEqual({
-      en: 'Item 1 EN',
+      en: 'Item 1.1 EN',
       fr: 'Item 1 FR',
     });
     expect(result.content.items[1].translation).toEqual({
