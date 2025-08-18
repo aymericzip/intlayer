@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/backend",
-  "version": "5.7.8",
+  "version": "5.8.0-canary.0",
   "private": false,
   "description": "Intlayer Backend is a an application that allow you to manage your Intlayer content and interact with the intlayer editor.",
   "keywords": [
