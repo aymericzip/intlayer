@@ -64,7 +64,7 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
 ) => {
   const cache = new Map<string, InstanceType<T>>();
 
-  const Wrapped = (locales?: LocalesValues, options?: any) => {
+  function Wrapped(locales?: LocalesValues, options?: any) {
     // Special case – guard older runtimes missing DisplayNames.
     if (
       Ctor.name === 'DisplayNames' &&
@@ -91,7 +91,7 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
     }
 
     return instance as InstanceType<T>;
-  };
+  }
 
   // Ensure it behaves like a constructor when used with `new`.
   (Wrapped as any).prototype = (Ctor as any).prototype;
