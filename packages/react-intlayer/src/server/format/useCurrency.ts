@@ -1,19 +1,11 @@
 import { type LocalesValues } from '@intlayer/config/client';
-import { cache } from 'react';
-import { createCurrency } from '../../createCurrency';
-import { useLocale } from '../useLocale';
-
-const getCachedCurrency = cache((locale: LocalesValues) =>
-  createCurrency(locale)
-);
+import { currency } from '@intlayer/core';
+import { IntlayerServerContext } from '../IntlayerServerProvider';
+import { getServerContext } from '../serverContext';
 
 /**
- * React server hook that returns a memoized currency formatter
- * bound to the current application locale. Uses {@link React.cache}
- * to avoid recreating formatters for the same locale.
- *
- * @returns {(value: string | number, options?: CurrencyProps) => string}
- * A function to format numbers into localized currency strings.
+ * React client hook that provides a currency formatter
+ * bound to the current application locale.
  *
  * @example
  * ```tsx
@@ -31,11 +23,13 @@ const getCachedCurrency = cache((locale: LocalesValues) =>
  * });
  * // "¥9,876,543"
  * ```
- *
- * @see createCurrency
  */
 export const useCurrency = () => {
-  const { locale } = useLocale();
+  const locale = getServerContext<LocalesValues>(IntlayerServerContext);
 
-  return getCachedCurrency(locale);
+  return (...args: Parameters<typeof currency>) =>
+    currency(args[0], {
+      ...args[1],
+      locale: args[1]?.locale ?? locale,
+    });
 };

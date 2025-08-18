@@ -1,7 +1,8 @@
 'use client';
 
-import { createNumber } from '../../createNumber';
-import { useLocaleBase } from '../useLocaleBase';
+import { number } from '@intlayer/core';
+import { useCallback, useContext } from 'react';
+import { IntlayerClientContext } from '../IntlayerProvider';
 
 /**
  * React client hook that provides a localized number formatter.
@@ -26,7 +27,14 @@ import { useLocaleBase } from '../useLocaleBase';
  * A number formatting function bound to the active locale.
  */
 export const useNumber = () => {
-  const { locale } = useLocaleBase();
+  const { locale } = useContext(IntlayerClientContext);
 
-  return createNumber(locale);
+  return useCallback(
+    (...args: Parameters<typeof number>) =>
+      number(args[0], {
+        ...args[1],
+        locale: args[1]?.locale ?? locale,
+      }),
+    [locale]
+  );
 };

@@ -47,6 +47,7 @@ export {
    */
   getTranslation as getTranslationContent,
   insert,
+  Intl,
   localeFlatMap,
   localeList,
   localeMap,

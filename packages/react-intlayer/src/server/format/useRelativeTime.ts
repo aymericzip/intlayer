@@ -1,35 +1,32 @@
 import { type LocalesValues } from '@intlayer/config/client';
-import { cache } from 'react';
-import { createRelativeTime } from '../../createRelativeTime';
-import { useLocale } from '../useLocale';
-
-const getCachedRelativeTime = cache((locale: LocalesValues) =>
-  createRelativeTime(locale)
-);
+import { relativeTime } from '@intlayer/core';
+import { IntlayerServerContext } from '../IntlayerServerProvider';
+import { getServerContext } from '../serverContext';
 
 /**
- * React server hook that returns a memoized relative time formatter function for the current locale.
+ * Client-side React hook for accessing a localized relative time formatter.
  *
- * This server-side hook leverages React's {@link cache} to avoid repeatedly
- * creating the relative time formatter for the same locale.
+ * This hook:
+ * - Reads the current locale from {@link useLocaleBase}.
+ * - Creates a new relative time formatter with {@link createRelativeTime}.
+ * - Returns a function that can format time differences into localized strings.
  *
- * @function useRelativeTime
- * @returns {(from: Date | number | string, to?: Date | number | string, options?: Omit<RelativeTimeOptions, 'from' | 'to'>) => string}
- * A function that formats a relative time string given two time values and optional options.
- *
- * @example
- * ```ts
+ * Example:
+ * ```tsx
  * const relativeTime = useRelativeTime();
- *
- * relativeTime(new Date(Date.now() - 60000));
- * // → "1 minute ago"
- *
- * relativeTime(new Date(), new Date(Date.now() + 3600000), { numeric: "auto" });
- * // → "in 1 hour"
+ * const formatted = relativeTime(new Date("2024-08-01"), new Date());
+ * // e.g., "2 weeks ago"
  * ```
+ *
+ * @returns {ReturnType<typeof createRelativeTime>} A relative time formatting function
+ *          bound to the current client locale.
  */
 export const useRelativeTime = () => {
-  const { locale } = useLocale();
+  const locale = getServerContext<LocalesValues>(IntlayerServerContext);
 
-  return getCachedRelativeTime(locale);
+  return (...args: Parameters<typeof relativeTime>) =>
+    relativeTime(args[0], args[1] ?? new Date(), {
+      ...args[2],
+      locale: args[2]?.locale ?? locale,
+    });
 };

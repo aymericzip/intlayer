@@ -1,7 +1,8 @@
 'use client';
 
-import { createDate } from '../../createDate';
-import { useLocaleBase } from '../useLocaleBase';
+import { date } from '@intlayer/core';
+import { useContext } from 'react';
+import { IntlayerClientContext } from '../IntlayerProvider';
 
 /**
  * React client hook that provides a localized date/time formatter
@@ -30,7 +31,11 @@ import { useLocaleBase } from '../useLocaleBase';
  * @see createDate
  */
 export const useDate = () => {
-  const { locale } = useLocaleBase();
+  const { locale } = useContext(IntlayerClientContext);
 
-  return createDate(locale);
+  return (...args: Parameters<typeof date>) =>
+    date(args[0], {
+      ...args[1],
+      locale: args[1]?.locale ?? locale,
+    });
 };

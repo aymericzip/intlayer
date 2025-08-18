@@ -1,48 +1,13 @@
-import { Locales, type LocalesValues } from '@intlayer/config/client';
-import { CachedIntl } from '../utils/intl';
+import configuration from '@intlayer/config/built';
+import { type LocalesValues } from '@intlayer/config/client';
+import { Intl } from '../utils/intl';
 
 type RelativeTimeUnit = Intl.RelativeTimeFormatUnit;
-
-export type RelativeTimeOptions = {
-  /**
-   * The date to compare from (past or future).
-   * Can be a `Date`, timestamp, or date string.
-   */
-  from: Date | number | string;
-
-  /**
-   * The date to compare to. Defaults to `new Date()`.
-   * Can be a `Date`, timestamp, or date string.
-   */
-  to?: Date | number | string;
-
-  /**
-   * The locale to use for formatting.
-   * Defaults to Locales.ENGLISH.
-   */
-  locale?: LocalesValues;
-
-  unit?: RelativeTimeUnit;
-
-  /**
-   * Specifies how numeric values are displayed.
-   * - "always": Always use numeric (e.g., "1 day ago")
-   * - "auto": Use words when possible (e.g., "yesterday")
-   * Defaults to "always".
-   */
-  numeric?: Intl.RelativeTimeFormatNumeric;
-
-  /**
-   * The style of the output string: "long", "short", or "narrow".
-   * Defaults to "long".
-   */
-  style?: Intl.RelativeTimeFormatStyle;
-};
 
 /**
  * Calculate the difference between 2 dates in the given unit.
  */
-function diffInUnit(from: Date, to: Date, unit: RelativeTimeUnit): number {
+const diffInUnit = (from: Date, to: Date, unit: RelativeTimeUnit): number => {
   const msDiff = to.getTime() - from.getTime();
   const sec = msDiff / 1000;
 
@@ -64,22 +29,26 @@ function diffInUnit(from: Date, to: Date, unit: RelativeTimeUnit): number {
     default:
       return sec;
   }
-}
+};
 
-export function relativeTime({
-  from,
-  to = new Date(),
-  unit = 'second',
-  locale = Locales.ENGLISH,
-  numeric = 'always',
-  style = 'long',
-}: RelativeTimeOptions): string {
+export const relativeTime = (
+  from: Date | string | number,
+  to: Date | string | number = new Date(),
+  options?: {
+    locale: LocalesValues;
+    unit: RelativeTimeUnit;
+    numeric: Intl.RelativeTimeFormatNumeric;
+    style: Intl.RelativeTimeFormatStyle;
+  }
+): string => {
   const fromDate = new Date(from);
   const toDate = new Date(to);
+  const unit = options?.unit ?? 'second';
 
   const value = diffInUnit(fromDate, toDate, unit);
 
-  const rtf = CachedIntl.relativeTimeFormat(locale, { numeric, style });
-
-  return rtf.format(Math.round(value), unit);
-}
+  return new Intl.RelativeTimeFormat(
+    options?.locale ?? configuration.internationalization.defaultLocale,
+    options
+  ).format(Math.round(value), unit);
+};

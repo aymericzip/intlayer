@@ -1,7 +1,8 @@
 'use client';
 
-import { createCurrency } from '../../createCurrency';
-import { useLocaleBase } from '../useLocaleBase';
+import { currency } from '@intlayer/core';
+import { useCallback, useContext } from 'react';
+import { IntlayerClientContext } from '../IntlayerProvider';
 
 /**
  * React client hook that provides a currency formatter
@@ -28,7 +29,14 @@ import { useLocaleBase } from '../useLocaleBase';
  * ```
  */
 export const useCurrency = () => {
-  const { locale } = useLocaleBase();
+  const { locale } = useContext(IntlayerClientContext);
 
-  return createCurrency(locale);
+  return useCallback(
+    (...args: Parameters<typeof currency>) =>
+      currency(args[0], {
+        ...args[1],
+        locale: args[1]?.locale ?? locale,
+      }),
+    [locale]
+  );
 };

@@ -1,7 +1,8 @@
 'use client';
 
-import { createUnit } from '../../createUnit';
-import { useLocaleBase } from '../useLocaleBase';
+import { units } from '@intlayer/core';
+import { useCallback, useContext } from 'react';
+import { IntlayerClientContext } from '../IntlayerProvider';
 
 /**
  * React hook that provides a unit formatting function
@@ -21,7 +22,14 @@ import { useLocaleBase } from '../useLocaleBase';
  * @returns {Function} A unit formatting function that accepts a value and optional formatting options.
  */
 export const useUnit = () => {
-  const { locale } = useLocaleBase();
+  const { locale } = useContext(IntlayerClientContext);
 
-  return createUnit(locale);
+  return useCallback(
+    (...args: Parameters<typeof units>) =>
+      units(args[0], {
+        ...args[1],
+        locale: args[1]?.locale ?? locale,
+      }),
+    [locale]
+  );
 };

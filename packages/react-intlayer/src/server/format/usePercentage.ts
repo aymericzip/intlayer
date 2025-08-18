@@ -1,32 +1,32 @@
 import { type LocalesValues } from '@intlayer/config/client';
-import { cache } from 'react';
-import { createPercentage } from '../../createPercentage';
-import { useLocale } from '../useLocale';
-
-const getCachedPercentage = cache((locale: LocalesValues) =>
-  createPercentage(locale)
-);
+import { percentage } from '@intlayer/core';
+import { IntlayerServerContext } from '../IntlayerServerProvider';
+import { getServerContext } from '../serverContext';
 
 /**
- * React server hook that provides a memoized, percentage formatter
- * based on the current request's locale.
+ * React hook to provide a percentage formatter function
+ * based on the current application locale.
  *
- * This hook retrieves the locale via {@link useLocale} and
- * returns a memoized percentage formatter specific to that locale.
+ * This hook retrieves the active locale using {@link useLocaleBase}
+ * and memoizes a `createPercentage` instance for that locale.
  *
  * @example
  * ```tsx
  * const formatPercentage = usePercentage();
  *
- * const result = formatPercentage(0.42);
- * // "42%" (depending on locale)
+ * const result = formatPercentage(0.875, { maximumFractionDigits: 1 });
+ * // "87.5%" (depending on locale)
  * ```
  *
  * @returns {(value: string | number, options?: Omit<PercentageOptions, "value">) => string}
- * A function that formats values into localized percentages.
+ * A function that formats numbers or numeric strings into localized percentages.
  */
 export const usePercentage = () => {
-  const { locale } = useLocale();
+  const locale = getServerContext<LocalesValues>(IntlayerServerContext);
 
-  return getCachedPercentage(locale);
+  return (...args: Parameters<typeof percentage>) =>
+    percentage(args[0], {
+      ...args[1],
+      locale: args[1]?.locale ?? locale,
+    });
 };

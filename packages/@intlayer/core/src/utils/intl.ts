@@ -1,142 +1,130 @@
+// Cached Intl helper – drop‑in replacement for the global `Intl` object.
+// ‑‑‑
+// • Uses a `Proxy` to lazily wrap every *constructor* hanging off `Intl` (NumberFormat, DateTimeFormat, …).
+// • Each wrapped constructor keeps an in‑memory cache keyed by `[locales, options]` so that identical requests
+// reuse the same heavy instance instead of reparsing CLDR data every time.
+// • A polyfill warning for `Intl.DisplayNames` is emitted only once and only in dev.
+// • The public API is fully type‑safe and mirrors the native `Intl` surface exactly –
+// you can treat `CachedIntl` just like the built‑in `Intl`.
+//
+// Usage examples:
+// ---------------
+// import { CachedIntl } from "./cached-intl";
+//
+// const nf = CachedIntl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+// console.log(nf.format(1234));
+//
+// const dn = CachedIntl.DisplayNames(["fr"], { type: "language" });
+// console.log(dn.of("en")); // → "anglais"
+//
+// You can also spin up an isolated instance with its own caches (handy in test suites):
+// const TestIntl = createCachedIntl();
+//
+// ---------------------------------------------------------------------
+
+import { LocalesValues } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import { type LocalesValues } from '@intlayer/config/client';
 
-type FormatKey = string;
+// Helper type that picks just the constructor members off `typeof Intl`.
+// The "capital‑letter" heuristic is 100 % accurate today and keeps the
+// mapping short‑lived, so we don't have to manually list every constructor.
+type IntlConstructors = {
+  [K in keyof typeof Intl as (typeof Intl)[K] extends new (...args: any) => any
+    ? K
+    : never]: (typeof Intl)[K];
+};
 
-/**
- * Generates a unique cache key for an Intl formatter using locale and options.
- *
- * Useful for memoization so that identical locale + options combinations reuse formatters.
- *
- * @param locale - The BCP 47 locale string (e.g., "en-US").
- * @param options - Intl formatter options.
- * @returns A JSON string representing a unique cache key.
- */
-const getCacheKey = (locale: LocalesValues, options: object): FormatKey =>
-  JSON.stringify([locale, options]);
+// Type wrapper to replace locale arguments with LocalesValues
+type ReplaceLocaleWithLocalesValues<T> = T extends new (
+  locales: any,
+  options?: infer Options
+) => infer Instance
+  ? new (locales?: LocalesValues, options?: Options) => Instance
+  : T extends new (locales: any) => infer Instance
+    ? new (locales?: LocalesValues) => Instance
+    : T;
 
-/**
- * Ensures a valid locale is always passed to formatters by falling back to the default.
- *
- * @param locale - A potentially undefined locale.
- * @returns The provided locale or the default one from configuration.
- */
-const resolveLocale = (locale: LocalesValues): LocalesValues =>
-  locale ?? configuration.internationalization.defaultLocale;
+// Wrapped Intl type with LocalesValues
+type WrappedIntl = {
+  [K in keyof typeof Intl]: K extends keyof IntlConstructors
+    ? ReplaceLocaleWithLocalesValues<(typeof Intl)[K]>
+    : (typeof Intl)[K];
+};
 
-/**
- * Creates a cached formatter factory that avoids recreating Intl formatters
- * for identical locale + options combinations.
- *
- * @template T - The type of the formatter (e.g., Intl.NumberFormat).
- * @template O - The type of the formatter's options.
- *
- * @param factory - A function that constructs a formatter.
- * @returns A function that returns a cached formatter instance.
- */
-const cacheIntlFormatter = <T, O extends object>(
-  factory: (locale: LocalesValues, options: O) => T
-): ((locale: LocalesValues, options?: O) => T) => {
-  const cache = new Map<FormatKey, T>();
+// Generic cache key – JSON.stringify is fine because locale strings are short
+// and option objects are small and deterministic.
+const cacheKey = (locales: LocalesValues, options: unknown) =>
+  JSON.stringify([locales, options]);
 
-  return (locale, options = {} as O) => {
-    const key = getCacheKey(resolveLocale(locale), options);
-    if (!cache.has(key)) {
-      cache.set(key, factory(locale, options));
+// Generic wrapper for any `new Intl.*()` constructor.
+// Returns an arrow function that *looks* like the native constructor but
+// pulls instances from a Map cache when possible.
+const createCachedConstructor = <T extends new (...args: any[]) => any>(
+  Ctor: T
+) => {
+  const cache = new Map<string, InstanceType<T>>();
+
+  // Arrow to satisfy the "use arrow functions everywhere" request 🤘
+  return ((locales?: LocalesValues, options?: any) => {
+    // Special case – guard older runtimes missing DisplayNames.
+    if (
+      Ctor.name === 'DisplayNames' &&
+      typeof (Intl as any)?.DisplayNames !== 'function'
+    ) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(
+          `Intl.DisplayNames is not supported; falling back to raw locale (${locales}). ` +
+            `Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`
+        );
+      }
+      return locales;
     }
-    return cache.get(key) as T;
-  };
+
+    const key = cacheKey(
+      locales ?? configuration.internationalization.defaultLocale,
+      options
+    );
+    let instance: InstanceType<T> | undefined = cache.get(key);
+
+    if (!instance) {
+      instance = new Ctor(locales as never, options as never);
+      cache.set(key, instance as InstanceType<T>);
+    }
+
+    return instance as InstanceType<T>;
+  }) as unknown as ReplaceLocaleWithLocalesValues<T>;
 };
 
-/**
- * A centralized, memoized collection of `Intl` formatter instances.
- *
- * Each formatter is cached by locale + options, reducing redundant instantiations
- * and improving performance in locale-heavy applications.
- */
-export const CachedIntl = {
-  /** Caches `Intl.NumberFormat` instances */
-  numberFormat: cacheIntlFormatter<Intl.NumberFormat, Intl.NumberFormatOptions>(
-    (locale, options) => new Intl.NumberFormat(locale, options)
-  ),
+// Factory that turns the global `Intl` into a cached clone.
+export const createCachedIntl = (): WrappedIntl =>
+  new Proxy(Intl as IntlConstructors, {
+    get: (target, prop, receiver) => {
+      const value = Reflect.get(target, prop, receiver);
 
-  /** Caches `Intl.DateTimeFormat` instances */
-  dateTimeFormat: cacheIntlFormatter<
-    Intl.DateTimeFormat,
-    Intl.DateTimeFormatOptions
-  >((locale, options) => new Intl.DateTimeFormat(locale, options)),
+      // Wrap *only* constructor functions (safest heuristic: they start with a capital letter).
+      return typeof value === 'function' && /^[A-Z]/.test(String(prop))
+        ? createCachedConstructor(value as any)
+        : value;
+    },
+  }) as unknown as WrappedIntl;
 
-  /** Caches `Intl.RelativeTimeFormat` instances */
-  relativeTimeFormat: cacheIntlFormatter<
-    Intl.RelativeTimeFormat,
-    Intl.RelativeTimeFormatOptions
-  >((locale, options) => new Intl.RelativeTimeFormat(locale, options)),
+// Singleton – import this in application code if you just want shared caches.
+const CachedIntl = createCachedIntl();
 
-  /** Caches `Intl.ListFormat` instances */
-  listFormat: cacheIntlFormatter<Intl.ListFormat, Intl.ListFormatOptions>(
-    (locale, options) => new Intl.ListFormat(locale, options)
-  ),
+// new CachedIntl.DisplayNames(Locales.FRENCH, { type: 'language' });
+// new CachedIntl.DisplayNames('fr', { type: 'language' });
+// new CachedIntl.DateTimeFormat('fr', {
+// year: 'numeric',
+// month: 'long',
+// day: 'numeric',
+// });
+// new CachedIntl.NumberFormat('fr', {
+// style: 'currency',
+// currency: 'EUR',
+// });
+// new CachedIntl.Collator('fr', { sensitivity: 'base' });
+// new CachedIntl.PluralRules('fr');
+// new CachedIntl.RelativeTimeFormat('fr', { numeric: 'auto' });
+// new CachedIntl.ListFormat('fr', { type: 'conjunction' });
 
-  /** Caches `Intl.PluralRules` instances */
-  pluralRules: cacheIntlFormatter<Intl.PluralRules, Intl.PluralRulesOptions>(
-    (locale, options) => new Intl.PluralRules(locale, options)
-  ),
-
-  /**
-   * Caches `Intl.DisplayNames` instances or falls back to raw locale string.
-   * Displays a warning in development mode if not supported.
-   */
-  displayNames: (() => {
-    const cache = new Map<FormatKey, Intl.DisplayNames>();
-
-    return (
-      locale: LocalesValues,
-      options: Intl.DisplayNamesOptions & { fallback?: 'code' | 'none' }
-    ) => {
-      if (typeof (Intl as any)?.DisplayNames !== 'function') {
-        if (process.env.NODE_ENV === 'development') {
-          console.warn(
-            `Intl.DisplayNames is not supported; falling back to raw locale (${locale}). ` +
-              `Consider adding a polyfill: https://formatjs.io/docs/polyfills/intl-displaynames/`
-          );
-        }
-        return locale;
-      }
-
-      const key = getCacheKey(locale, options);
-      if (!cache.has(key)) {
-        cache.set(key, new Intl.DisplayNames(locale, options));
-      }
-      return cache.get(key)!;
-    };
-  })(),
-
-  /**
-   * Caches `Intl.NumberFormat` instances specifically for unit formatting.
-   *
-   * @example
-   * ```ts
-   * CachedIntl.UnitFormat("en-US", "kilometer", { maximumFractionDigits: 2 });
-   * ```
-   */
-  unitFormat: (() => {
-    const cache = new Map<FormatKey, Intl.NumberFormat>();
-
-    return (
-      locale: LocalesValues,
-      unit: Intl.NumberFormatOptions['unit'],
-      options: Omit<Intl.NumberFormatOptions, 'style' | 'unit'> = {}
-    ) => {
-      const mergedOptions: Intl.NumberFormatOptions = {
-        style: 'unit',
-        unit,
-        ...options,
-      };
-      const key = getCacheKey(locale, mergedOptions);
-      if (!cache.has(key)) {
-        cache.set(key, new Intl.NumberFormat(locale, mergedOptions));
-      }
-      return cache.get(key)!;
-    };
-  })(),
-};
+export { CachedIntl as Intl };

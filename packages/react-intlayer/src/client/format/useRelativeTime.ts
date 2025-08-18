@@ -1,7 +1,8 @@
 'use client';
 
-import { createRelativeTime } from '../../createRelativeTime';
-import { useLocaleBase } from '../useLocaleBase';
+import { relativeTime } from '@intlayer/core';
+import { useCallback, useContext } from 'react';
+import { IntlayerClientContext } from '../IntlayerProvider';
 
 /**
  * Client-side React hook for accessing a localized relative time formatter.
@@ -22,7 +23,14 @@ import { useLocaleBase } from '../useLocaleBase';
  *          bound to the current client locale.
  */
 export const useRelativeTime = () => {
-  const { locale } = useLocaleBase();
+  const { locale } = useContext(IntlayerClientContext);
 
-  return createRelativeTime(locale);
+  return useCallback(
+    (...args: Parameters<typeof relativeTime>) =>
+      relativeTime(args[0], args[1], {
+        ...args[2],
+        locale: args[2]?.locale ?? locale,
+      }),
+    [locale]
+  );
 };

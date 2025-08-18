@@ -1,34 +1,36 @@
 import { type LocalesValues } from '@intlayer/config/client';
-import { cache } from 'react';
-import { createNumber } from '../../createNumber';
-import { useLocale } from '../useLocale';
-
-const getCachedNumber = cache((locale: LocalesValues) => createNumber(locale));
+import { number } from '@intlayer/core';
+import { IntlayerServerContext } from '../IntlayerServerProvider';
+import { getServerContext } from '../serverContext';
 
 /**
- * React server hook that provides a memoized, locale-aware number formatter.
+ * React client hook that provides a localized number formatter.
  *
- * The hook retrieves the current locale via {@link useLocale} and
- * returns a cached number formatting function created by
- * {@link createNumber}. The result is stable for the given locale.
+ * Uses the current locale from {@link useLocaleBase} and returns
+ * a function that can be used to format numbers consistently
+ * according to the user's locale.
  *
  * @example
  * ```tsx
  * const formatNumber = useNumber();
  *
- * formatNumber(1000);
- * // → "1,000" (en-US)
- * // → "1 000" (fr-FR)
+ * formatNumber(12345);
+ * // e.g. "12,345" (en-US)
+ * // e.g. "12 345" (fr-FR)
  *
- * formatNumber(0.25, { style: "percent" });
- * // → "25%"
+ * formatNumber(0.75, { style: "percent" });
+ * // e.g. "75%"
  * ```
  *
  * @returns {(value: string | number, options?: import("../createNumber").NumberProps) => string}
- * Locale-aware number formatter function.
+ * A number formatting function bound to the active locale.
  */
 export const useNumber = () => {
-  const { locale } = useLocale();
+  const locale = getServerContext<LocalesValues>(IntlayerServerContext);
 
-  return getCachedNumber(locale);
+  return (...args: Parameters<typeof number>) =>
+    number(args[0], {
+      ...args[1],
+      locale: args[1]?.locale ?? locale,
+    });
 };
