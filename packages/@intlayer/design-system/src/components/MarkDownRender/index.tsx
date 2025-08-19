@@ -6,6 +6,7 @@ import { H1, H2, H3, H4 } from '../Headers';
 import { Code } from '../IDE/Code';
 import { CodeProvider } from '../IDE/CodeContext';
 import { Link } from '../Link';
+import { Table } from '../Table';
 
 type MarkdownRendererProps = {
   children: string;
@@ -104,18 +105,24 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             ),
             ul: ({ className, ...props }) => (
               <ul
-                className={cn('mt-5 flex flex-col gap-3 pl-5', className)}
+                className={cn(
+                  'mt-5 flex flex-col gap-3 pl-5 list-disc',
+                  className
+                )}
                 {...props}
               />
             ),
             ol: ({ className, ...props }) => (
               <ol
-                className={cn('mt-5 flex flex-col gap-3 pl-5', className)}
+                className={cn(
+                  'mt-5 flex flex-col gap-3 pl-5 list-decimal',
+                  className
+                )}
                 {...props}
               />
             ),
             li: ({ className, ...props }) => (
-              <li className={cn('list-disc', className)} {...props} />
+              <li className={cn('', className)} {...props} />
             ),
             img: ({ className, ...props }) => (
               <img
@@ -135,17 +142,8 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               />
             ),
             pre: (props) => props.children,
-            table: ({ className, ...props }) => (
-              <div className="grid w-full max-w-full overflow-auto rounded">
-                <table
-                  className={cn(
-                    'max-w-full table-auto overflow-hidden text-left',
-                    className
-                  )}
-                  {...props}
-                />
-              </div>
-            ),
+            table: (props) => <Table {...props} />,
+
             th: ({ className, ...props }) => (
               <th
                 className={cn(

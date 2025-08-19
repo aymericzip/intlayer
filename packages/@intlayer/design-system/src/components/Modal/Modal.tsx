@@ -3,7 +3,7 @@
 import { cva } from 'class-variance-authority';
 import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
-import { type FC } from 'react';
+import { ReactNode, type FC } from 'react';
 import { createPortal } from 'react-dom';
 import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
 import { cn } from '../../utils/cn';
@@ -20,14 +20,14 @@ export enum ModalSize {
 }
 
 type ModalProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   isOpen: boolean;
   onClose?: () => void;
   container?: HTMLElement;
   disableScroll?: boolean;
   hasCloseButton?: boolean;
   title?: string;
-  size?: ModalSize;
+  size?: ModalSize | `${ModalSize}`;
 } & Pick<
   ContainerProps,
   | 'className'
