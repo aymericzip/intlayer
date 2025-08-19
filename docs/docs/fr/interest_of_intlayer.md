@@ -36,7 +36,6 @@ Toutes ces solutions adoptent une approche centralisée pour lister et gérer vo
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 
@@ -58,7 +57,6 @@ Ou ici en utilisant des namespaces :
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 

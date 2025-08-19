@@ -36,7 +36,6 @@ Todas essas soluções adotam uma abordagem centralizada para listar e gerenciar
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 
@@ -58,7 +57,6 @@ Ou aqui usando namespaces:
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 

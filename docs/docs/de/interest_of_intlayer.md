@@ -36,7 +36,6 @@ Alle diese Lösungen verfolgen einen zentralisierten Ansatz, um Ihre Inhalte auf
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 
@@ -58,7 +57,6 @@ Oder hier mit Namespaces:
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 

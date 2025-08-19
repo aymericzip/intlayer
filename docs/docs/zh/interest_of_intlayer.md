@@ -36,7 +36,6 @@ Intlayer 的创建是为了解决所有常见国际化库（如 `next-intl`、`r
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 
@@ -58,7 +57,6 @@ Intlayer 的创建是为了解决所有常见国际化库（如 `next-intl`、`r
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 

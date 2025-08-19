@@ -36,7 +36,6 @@ Intlayer был создан для решения общей проблемы, 
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 
@@ -58,7 +57,6 @@ Intlayer был создан для решения общей проблемы, 
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 

@@ -36,7 +36,6 @@ Intlayerは、`next-intl`、`react-i18next`、`react-intl`、`next-i18next`、`r
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 
@@ -58,7 +57,6 @@ Intlayerは、`next-intl`、`react-i18next`、`react-intl`、`next-i18next`、`r
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 

@@ -36,7 +36,6 @@ Intlayer는 `next-intl`, `react-i18next`, `react-intl`, `next-i18next`, `react-i
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 
@@ -58,7 +57,6 @@ Intlayer는 `next-intl`, `react-i18next`, `react-intl`, `next-i18next`, `react-i
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 

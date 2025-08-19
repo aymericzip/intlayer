@@ -36,7 +36,6 @@ Todas estas soluciones adoptan un enfoque centralizado para listar y gestionar t
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 
@@ -58,7 +57,6 @@ O aquí usando espacios de nombres:
 └── src
     └── components
         └── MyComponent
-            ├── index.content.ts
             └── index.tsx
 ```
 
