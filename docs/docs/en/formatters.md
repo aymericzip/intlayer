@@ -232,8 +232,19 @@ import { useNumber, useCurrency, useDate } from "next-intlayer/server/format";
 
 > That hooks will consider the locale from the `IntlayerProvider` or `IntlayerServerProvider`
 
+### Vue
+
+Client components:
+
+```ts
+import { useNumber, useCurrency, useDate } from "vue-intlayer/format";
+```
+
+> That composables will consider the locale from the injected `IntlayerProvider`
+
 ## Doc History
 
 | Version | Date       | Changes                      |
 | ------- | ---------- | ---------------------------- |
+| 5.8.0   | 2025-08-20 | Add vue formatters           |
 | 5.8.0   | 2025-08-18 | Add formatters documentation |
