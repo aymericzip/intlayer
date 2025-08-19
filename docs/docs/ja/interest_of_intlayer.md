@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-06-29
+updatedAt: 2025-08-20
 title: Intlayerの利点
 description: プロジェクトでIntlayerを使用する利点とメリットを発見しましょう。Intlayerが他のフレームワークと比べて際立つ理由を理解してください。
 keywords:

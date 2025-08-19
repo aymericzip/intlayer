@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-06-29
+updatedAt: 2025-08-20
 title: Interés de Intlayer
 description: Descubre los beneficios y ventajas de usar Intlayer en tus proyectos. Entiende por qué Intlayer destaca entre otros frameworks.
 keywords:

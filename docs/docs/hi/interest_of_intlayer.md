@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-06-29
+updatedAt: 2025-08-20
 title: Intlayer का महत्व
 description: अपने प्रोजेक्ट्स में Intlayer का उपयोग करने के लाभ और फायदे जानें। समझें कि Intlayer अन्य फ्रेमवर्क्स की तुलना में क्यों बेहतर है।
 keywords:

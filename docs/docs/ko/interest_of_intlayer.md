@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-06-29
+updatedAt: 2025-08-20
 title: Intlayer의 중요성
 description: 프로젝트에서 Intlayer를 사용할 때의 이점과 장점을 알아보세요. Intlayer가 다른 프레임워크와 차별화되는 이유를 이해하세요.
 keywords:

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-18
+updatedAt: 2025-08-20
 title: Formateadores
 description: Utilidades de formato conscientes de la configuración regional basadas en Intl para números, porcentajes, moneda, fechas, tiempo relativo, unidades y notación compacta. Incluye un ayudante Intl con caché.
 keywords:

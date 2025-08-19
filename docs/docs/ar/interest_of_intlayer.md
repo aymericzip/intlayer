@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-06-29
+updatedAt: 2025-08-20
 title: أهمية Intlayer
 description: اكتشف فوائد ومزايا استخدام Intlayer في مشاريعك. فهم لماذا يتميز Intlayer بين الأُطُر الأخرى.
 keywords:

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-18
+updatedAt: 2025-08-20
 title: Formatadores
 description: Utilitários de formatação sensíveis à localidade baseados no Intl para números, percentuais, moeda, datas, tempo relativo, unidades e notação compacta. Inclui um helper Intl com cache.
 keywords:

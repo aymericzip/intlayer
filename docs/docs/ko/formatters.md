@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-18
+updatedAt: 2025-08-20
 title: 포매터
 description: 숫자, 백분율, 통화, 날짜, 상대 시간, 단위 및 축약 표기법에 대해 Intl 기반의 로케일 인식 포매팅 유틸리티. 캐시된 Intl 헬퍼 포함.
 keywords:

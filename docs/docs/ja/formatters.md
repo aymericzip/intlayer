@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-18
+updatedAt: 2025-08-20
 title: フォーマッター
 description: 数字、パーセンテージ、通貨、日付、相対時間、単位、コンパクト表記のためのIntlベースのロケール対応フォーマットユーティリティ。キャッシュされたIntlヘルパーを含む。
 keywords:

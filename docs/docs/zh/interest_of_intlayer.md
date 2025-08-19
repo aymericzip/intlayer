@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-06-29
+updatedAt: 2025-08-20
 title: Intlayer 的优势
 description: 了解在项目中使用 Intlayer 的好处和优势。理解为什么 Intlayer 在众多框架中脱颖而出。
 keywords:

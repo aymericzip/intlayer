@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-08-18
+updatedAt: 2025-08-20
 title: Formatierer
 description: Ortsabhängige Formatierungswerkzeuge basierend auf Intl für Zahlen, Prozentsätze, Währungen, Daten, relative Zeit, Einheiten und kompakte Notation. Enthält einen gecachten Intl-Helfer.
 keywords:
