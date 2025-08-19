@@ -1,7 +1,7 @@
 'use client';
 
 import { MoveDiagonal } from 'lucide-react';
-import { useEffect, useRef, useState, type FC } from 'react';
+import { HTMLAttributes, useEffect, useRef, useState, type FC } from 'react';
 import { useDictionary } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { Button } from '../Button';
@@ -9,9 +9,7 @@ import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import { Modal, ModalSize } from '../Modal';
 import tableContent from './table.content';
 
-type TableProps = {
-  className?: string;
-};
+type TableProps = HTMLAttributes<HTMLTableElement>;
 
 const MIN_HEIGHT = 700;
 
