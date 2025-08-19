@@ -63,14 +63,15 @@ export const OrganizationDropdown: FC = () => {
         />
       </Modal>
       <DropDown identifier="organization-dropdown">
-        <Button
+        <DropDown.Trigger
+          identifier="organization-dropdown"
           label={organizationTrigger.label.value}
           variant="hoverable"
           color="text"
           IconRight={ChevronsUpDown}
         >
           {organization.name}
-        </Button>
+        </DropDown.Trigger>
 
         <DropDown.Panel identifier="organization-dropdown" isFocusable>
           <Container

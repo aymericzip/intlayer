@@ -14,7 +14,9 @@ import { useRouter } from 'next/navigation';
 import { useState, type ComponentProps, type FC } from 'react';
 import { ProjectCreationForm } from '../ProjectForm/ProjectCreationForm';
 
-type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>>;
+type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>> & {
+  align?: 'start' | 'end';
+};
 
 export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   const { session } = useAuth();
@@ -59,14 +61,15 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
         <ProjectCreationForm />
       </Modal>
       <DropDown identifier="project-dropdown">
-        <Button
+        <DropDown.Trigger
+          identifier="project-dropdown"
           label={projectTrigger.label.value}
           variant="hoverable"
           color="text"
           IconRight={ChevronsUpDown}
         >
           {project.name}
-        </Button>
+        </DropDown.Trigger>
 
         <DropDown.Panel isFocusable {...props} identifier="project-dropdown">
           <Container

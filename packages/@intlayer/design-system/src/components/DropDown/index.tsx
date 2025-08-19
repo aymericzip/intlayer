@@ -1,5 +1,6 @@
 import type { FC, HTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
+import { Button, ButtonProps } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 export type DropDownProps = HTMLAttributes<HTMLDivElement> & {
@@ -46,7 +47,7 @@ export const DropDown: DropDownType = ({
   </div>
 );
 
-export type TriggerProps = HTMLAttributes<HTMLButtonElement> & {
+export type TriggerProps = Partial<ButtonProps> & {
   identifier: string;
 };
 
@@ -66,20 +67,22 @@ const Trigger: FC<TriggerProps> = ({
   children,
   identifier,
   className,
+  label,
   ...props
 }) => (
-  <button
+  <Button
     className={cn('w-full cursor-pointer', className)}
-    aria-label={`Open panel ${identifier}`}
+    label={label ?? `Open panel ${identifier}`}
     onClick={(e) => {
       // Ensure focus behavior is consistent across all mobile browsers
       (e.currentTarget as HTMLButtonElement).focus();
     }}
     onBlur={(e) => (e.currentTarget as HTMLButtonElement).blur()}
+    variant="none"
     {...props}
   >
     {children}
-  </button>
+  </Button>
 );
 
 export enum DropDownAlign {
@@ -92,7 +95,7 @@ export type PanelProps = HTMLAttributes<HTMLDivElement> & {
   isHidden?: boolean;
   isOverable?: boolean;
   identifier: string;
-  align?: DropDownAlign;
+  align?: DropDownAlign | `${DropDownAlign}`;
 };
 
 /**

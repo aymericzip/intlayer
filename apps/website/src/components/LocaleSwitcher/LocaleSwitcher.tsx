@@ -50,9 +50,13 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
       aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
-        <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
-          <div className="flex w-full items-center justify-between">
-            <div className="text-nowrap px-2">{localeName}</div>
+        <DropDown.Trigger
+          identifier={DROPDOWN_IDENTIFIER}
+          size="sm"
+          className="!px-0"
+        >
+          <div className="flex w-full items-center justify-between text-text">
+            <div className="text-nowrap px-2 text-base">{localeName}</div>
             <MoveVertical className="w-5 self-center" />
           </div>
         </DropDown.Trigger>
