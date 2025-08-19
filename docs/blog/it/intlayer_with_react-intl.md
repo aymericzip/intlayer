@@ -118,8 +118,8 @@ const content = {
     // Ogni chiamata a t() dichiara un campo traducibile
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     description: t({
       en: "This is a description",

@@ -23,7 +23,6 @@ slugs:
 يتشاركان ثلاث مفاهيم رئيسية:
 
 1. **إعلان المحتوى**: الطريقة لتحديد المحتوى القابل للترجمة في تطبيقك.
-
    - يُسمى `ملف إعلان المحتوى` في Intlayer، والذي يمكن أن يكون ملف JSON أو JS أو TS يقوم بتصدير البيانات المنظمة. راجع [وثائق Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/concept/content.md) لمزيد من المعلومات.
    - يُسمى `الرسائل` أو `رسائل اللغة` في next-intl، عادةً في ملفات JSON. راجع [وثائق next-intl](https://github.com/amannn/next-intl) لمزيد من المعلومات.
 
@@ -170,8 +169,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -188,8 +187,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -205,8 +204,8 @@ module.exports = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

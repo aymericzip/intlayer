@@ -44,8 +44,8 @@ const componentContent = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -64,8 +64,8 @@ const componentContent = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -83,8 +83,8 @@ const componentContent = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

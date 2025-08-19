@@ -23,7 +23,6 @@ next-intl과 Intlayer는 Next.js 애플리케이션을 위해 설계된 오픈 �
 이들은 세 가지 주요 개념을 공유합니다:
 
 1. **콘텐츠 선언**: 애플리케이션의 번역 가능한 콘텐츠를 정의하는 방법입니다.
-
    - Intlayer에서 `content declaration file`이라고 불리는 이 파일은 구조화된 데이터를 내보내는 JSON, JS 또는 TS 파일이 될 수 있습니다. 자세한 내용은 [Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/concept/content)에서 확인하세요.
    - next-intl에서는 일반적으로 JSON 파일에서 `messages` 또는 `locale messages`라고 불립니다. 자세한 내용은 [next-intl 문서](https://github.com/amannn/next-intl)에서 확인하세요.
 
@@ -170,8 +169,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -188,8 +187,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -205,8 +204,8 @@ module.exports = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

@@ -24,7 +24,6 @@ next-i18next और Intlayer दोनों ओपन-सोर्स अंत
 दोनों समाधानों में तीन मुख्य अवधारणाएँ शामिल हैं:
 
 1. **सामग्री घोषणा**: आपके अनुप्रयोग की अनुवाद योग्य सामग्री को परिभाषित करने की विधि।
-
    - `i18next` के मामले में `resource` के नाम से जाना जाता है, सामग्री घोषणा एक संरचित JSON ऑब्जेक्ट है जिसमें एक या अधिक भाषाओं में अनुवाद के लिए कुंजी-मूल्य जोड़ होते हैं। अधिक जानकारी के लिए [i18next डॉक्यूमेंटेशन](https://www.i18next.com/translation-function/essentials) देखें।
    - `Intlayer` के मामले में `content declaration file` के नाम से जाना जाता है, सामग्री घोषणा एक JSON, JS, या TS फ़ाइल हो सकती है जो संरचित डेटा को निर्यात करती है। अधिक जानकारी के लिए [Intlayer डॉक्यूमेंटेशन](https://intlayer.org/fr/doc/concept/content) देखें।
 
@@ -213,8 +212,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -231,8 +230,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -246,8 +245,8 @@ module.exports = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

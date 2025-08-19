@@ -24,7 +24,6 @@ both next-i18next와 Intlayer는 Next.js 애플리케이션용으로 설계된 �
 두 솔루션은 세 가지 주요 개념을 포함합니다:
 
 1. **콘텐츠 선언**: 애플리케이션의 번역 가능한 콘텐츠를 정의하는 방법입니다.
-
    - `i18next`의 경우 `resource`라고 명명된 콘텐츠 선언은 하나 이상의 언어로된 번역의 키-값 쌍을 포함하는 구조화된 JSON 객체입니다. 자세한 내용은 [i18next 문서](https://www.i18next.com/translation-function/essentials)를 참조하십시오.
    - `Intlayer`의 경우 `content declaration file`이라고 명명된 콘텐츠 선언은 구조화된 데이터를 내보내는 JSON, JS 또는 TS 파일이 될 수 있습니다. 자세한 내용은 [Intlayer 문서](https://intlayer.org/fr/doc/concept/content)를 참조하십시오.
 
@@ -213,8 +212,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -231,8 +230,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -246,8 +245,8 @@ module.exports = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

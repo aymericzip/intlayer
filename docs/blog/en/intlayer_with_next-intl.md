@@ -23,7 +23,6 @@ Both next-intl and Intlayer are open-source internationalization (i18n) framewor
 They share three principal notions:
 
 1. **Dictionary**: The method for defining the translatable content of your application.
-
    - Named `content declaration file` in Intlayer, which can be a JSON, JS, or TS file exporting the structured data. See [Intlayer documentation](https://intlayer.org/fr/doc/concept/content) for more information.
    - Named `messages` or `locale messages` in next-intl, usually in JSON files. See [next-intl documentation](https://github.com/amannn/next-intl) for more information.
 
@@ -170,8 +169,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -188,8 +187,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -205,8 +204,8 @@ module.exports = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

@@ -247,8 +247,8 @@ const content = {
     // 每个“t”调用是一个单独的翻译节点
     heading: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     description: t({
       en: "My i18n description text...",

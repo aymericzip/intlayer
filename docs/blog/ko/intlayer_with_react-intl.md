@@ -118,8 +118,8 @@ const content = {
     // t()를 호출할 때마다 번역 가능한 필드를 선언합니다.
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     description: t({
       en: "This is a description",

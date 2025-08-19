@@ -24,7 +24,6 @@ Les frameworks next-i18next et Intlayer sont des frameworks d'internationalisati
 Les deux solutions incluent trois notions principales :
 
 1. **Déclaration de Contenu** : La méthode pour définir le contenu traduisible de votre application.
-
    - Nommée `resource` dans le cas de `i18next`, la déclaration de contenu est un objet JSON structuré contenant des paires clé-valeur pour les traductions dans une ou plusieurs langues. Voir [documentation i18next](https://www.i18next.com/translation-function/essentials) pour plus d'informations.
    - Nommée `content declaration file` dans le cas de `Intlayer`, la déclaration de contenu peut être un fichier JSON, JS ou TS exportant les données structurées. Voir [documentation Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/doc/concept/content) pour plus d'informations.
 
@@ -213,8 +212,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -231,8 +230,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -246,8 +245,8 @@ module.exports = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

@@ -118,8 +118,8 @@ const content = {
     // t() への各呼び出しは翻訳可能なフィールドを宣言します
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     description: t({
       en: "This is a description",

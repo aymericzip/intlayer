@@ -24,7 +24,6 @@ slugs:
 تتضمن كلا الحلقتين ثلاث مفاهيم رئيسية:
 
 1. **إعلان المحتوى**: الطريقة لتعريف المحتوى القابل للترجمة في تطبيقك.
-
    - يسمى `resource` في حالة `i18next`، إعلان المحتوى هو كائن JSON منظم يحتوي على أزواج مفتاح-قيمة للترجمات في لغة واحدة أو أكثر. راجع [وثائق i18next](https://www.i18next.com/translation-function/essentials) لمزيد من المعلومات.
    - يسمى `content declaration file` في حالة `Intlayer`، يمكن أن يكون إعلان المحتوى ملف JSON أو JS أو TS يقوم بتصدير البيانات المنسقة. راجع [وثائق Intlayer](https://intlayer.org/fr/doc/concept/content) لمزيد من المعلومات.
 
@@ -213,8 +212,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -231,8 +230,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -246,8 +245,8 @@ module.exports = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

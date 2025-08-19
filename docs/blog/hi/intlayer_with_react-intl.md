@@ -118,8 +118,8 @@ const content = {
     // t() का प्रत्येक कॉल एक अनुवाद योग्य फ़ील्ड घोषित करता है
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     description: t({
       en: "This is a description",

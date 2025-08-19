@@ -118,8 +118,8 @@ const content = {
     // 每次调用 t() 声明一个可翻译的字段
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     description: t({
       en: "This is a description",

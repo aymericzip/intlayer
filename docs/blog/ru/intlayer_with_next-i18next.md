@@ -24,7 +24,6 @@ slugs:
 Обе решения включают три основных понятия:
 
 1. **Декларация контента**: Метод определения переводимого контента вашего приложения.
-
    - Называемый `resource` в случае `i18next`, декларация контента - это структурированный объект JSON, содержащий пары ключ-значение для переводов на одном или нескольких языках. Смотрите [документацию i18next](https://www.i18next.com/translation-function/essentials) для получения дополнительной информации.
    - Называемый `content declaration file` в случае `Intlayer`, декларация контента может быть JSON, JS или TS файлом, экспортирующим структурированные данные. Смотрите [документацию Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/doc/concept/content) для получения дополнительной информации.
 
@@ -213,8 +212,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -231,8 +230,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -246,8 +245,8 @@ module.exports = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

@@ -149,8 +149,8 @@ const clientComponentContent = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     numberOfCar: enu({
       "<-1": "Weniger als minus ein Auto",
@@ -175,8 +175,8 @@ const clientComponentContent = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     numberOfCar: enu({
       "<-1": "Weniger als minus ein Auto",
@@ -201,8 +201,8 @@ const clientComponentContent = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     numberOfCar: enu({
       "<-1": "Weniger als minus ein Auto",

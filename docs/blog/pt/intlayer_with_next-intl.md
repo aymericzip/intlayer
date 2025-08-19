@@ -23,7 +23,6 @@ Tanto o next-intl quanto o Intlayer são frameworks de internacionalização (i1
 Eles compartilham três noções principais:
 
 1. **Declaração de Conteúdo**: O método para definir o conteúdo traduzível da sua aplicação.
-
    - Chamado de `arquivo de declaração de conteúdo` no Intlayer, que pode ser um arquivo JSON, JS ou TS exportando os dados estruturados. Veja [documentação do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/doc/concept/content) para mais informações.
    - Chamado de `messages` ou `locale messages` no next-intl, geralmente em arquivos JSON. Veja [documentação do next-intl](https://github.com/amannn/next-intl) para mais informações.
 
@@ -170,8 +169,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -188,8 +187,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -205,8 +204,8 @@ module.exports = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

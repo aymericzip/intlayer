@@ -23,7 +23,6 @@ next-intl 和 Intlayer 是为 Next.js 应用程序设计的开源国际化 (i18n
 它们共享三个主要概念：
 
 1. **内容声明**: 定义应用程序可翻译内容的方法。
-
    - 在 Intlayer 中称为 `content declaration file`，可以是导出结构化数据的 JSON、JS 或 TS 文件。有关更多信息，请参见 [Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/concept/content.md)。
    - 在 next-intl 中称为 `messages` 或 `locale messages`，通常在 JSON 文件中。有关更多信息，请参见 [next-intl 文档](https://github.com/amannn/next-intl/blob/main/docs/zh/introduction.md)。
 
@@ -170,8 +169,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -188,8 +187,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -205,8 +204,8 @@ module.exports = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

@@ -247,8 +247,8 @@ const content = {
     // Ogni chiamata "t" è un nodo di traduzione separato
     heading: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     description: t({
       en: "My i18n description text...",

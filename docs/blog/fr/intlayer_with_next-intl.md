@@ -23,7 +23,6 @@ Les deux frameworks open-source next-intl et Intlayer sont conçus pour les appl
 Ils partagent trois notions principales :
 
 1. **Déclaration de Contenu** : La méthode pour définir le contenu traduisible de votre application.
-
    - Appelé `fichier de déclaration de contenu` dans Intlayer, qui peut être un fichier JSON, JS ou TS exportant des données structurées. Consultez la [documentation d’Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/concept/content.md) pour plus d'informations.
    - Appelé `messages` ou `locale messages` dans next-intl, généralement dans des fichiers JSON. Consultez la [documentation de next-intl](https://github.com/amannn/next-intl) pour plus d'informations.
 
@@ -170,8 +169,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -188,8 +187,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -205,8 +204,8 @@ module.exports = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

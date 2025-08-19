@@ -24,7 +24,6 @@ Both next-i18next and Intlayer are open-source internationalization (i18n) frame
 Both solutions include three principal notions:
 
 1. **コンテンツ宣言**: アプリケーションの翻訳可能なコンテンツを定義するための方法。
-
    - `i18next`の場合は`resource`として名付けられ、コンテンツ宣言は、1つまたは複数の言語の翻訳のためのキー-バリューのペアを含む構造化されたJSONオブジェクトです。詳細については、[i18nextのドキュメント](https://www.i18next.com/translation-function/essentials)を参照してください。
    - `Intlayer`の場合は`content declaration file`として名付けられ、コンテンツ宣言は構造化データをエクスポートするJSON、JS、またはTSファイルになることができます。詳細については、[Intlayerのドキュメント](https://intlayer.org/fr/doc/concept/content)を参照してください。
 
@@ -209,8 +208,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -227,8 +226,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -242,8 +241,8 @@ module.exports = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

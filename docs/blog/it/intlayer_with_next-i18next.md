@@ -24,7 +24,6 @@ Sia next-i18next che Intlayer sono framework di internazionalizzazione (i18n) op
 Entrambe le soluzioni includono tre nozioni principali:
 
 1. **Dichiarazione dei Contenuti**: Il metodo per definire i contenuti traducibili della tua applicazione.
-
    - Chiamata `resource` nel caso di `i18next`, la dichiarazione dei contenuti è un oggetto JSON strutturato contenente coppie chiave-valore per traduzioni in una o più lingue. Vedi [documentazione di i18next](https://www.i18next.com/translation-function/essentials) per ulteriori informazioni.
    - Chiamata `file di dichiarazione dei contenuti` nel caso di `Intlayer`, la dichiarazione dei contenuti può essere un file JSON, JS o TS che esporta i dati strutturati. Vedi [documentazione di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/doc/concept/content) per ulteriori informazioni.
 
@@ -213,8 +212,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -231,8 +230,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -246,8 +245,8 @@ module.exports = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

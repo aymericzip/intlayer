@@ -121,8 +121,8 @@ const component1Content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     numberOfCar: enu({
       "<-1": "Less than minus one car",

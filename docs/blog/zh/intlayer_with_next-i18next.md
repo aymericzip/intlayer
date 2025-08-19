@@ -24,7 +24,6 @@ both next-i18next 和 Intlayer 是为 Next.js 应用程序设计的开源国际�
 这两种解决方案包括三个主要概念：
 
 1. **内容声明**：定义应用程序可翻译内容的方法。
-
    - 在 `i18next` 的情况下称为 `resource`，内容声明是一个结构化的 JSON 对象，包含一种或多种语言翻译的键值对。有关更多信息，请参阅 [i18next 文档](https://www.i18next.com/translation-function/essentials)。
    - 在 `Intlayer` 的情况下称为 `content declaration file`，内容声明可以是导出结构化数据的 JSON、JS 或 TS 文件。有关更多信息，请参阅 [Intlayer 文档](https://intlayer.org/fr/doc/concept/content)。
 
@@ -213,8 +212,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -231,8 +230,8 @@ const content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -246,8 +245,8 @@ module.exports = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

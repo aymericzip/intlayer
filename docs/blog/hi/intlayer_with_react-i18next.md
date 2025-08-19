@@ -247,8 +247,8 @@ const content = {
     // प्रत्येक "t" कॉल एक अलग अनुवाद नोड है
     heading: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     description: t({
       en: "My i18n description text...",

@@ -23,7 +23,6 @@ next-intl और Intlayer दोनों ओपन-सोर्स अंतर
 ये तीन मुख्य अवधारणाओं को साझा करते हैं:
 
 1. **सामग्री घोषणा**: आपकी एप्लिकेशन की अनुवादनीय सामग्री को परिभाषित करने की विधि।
-
    - Intlayer में इसे `सामग्री घोषणा फ़ाइल` कहा जाता है, जो JSON, JS, या TS फ़ाइल हो सकती है जो संरचित डेटा निर्यात करती है। अधिक जानकारी के लिए [Intlayer दस्तावेज़](https://intlayer.org/fr/doc/concept/content) देखें।
    - next-intl में इसे `messages` या `locale messages` कहा जाता है, जो आमतौर पर JSON फ़ाइलों में होती हैं। अधिक जानकारी के लिए [next-intl दस्तावेज़](https://github.com/amannn/next-intl) देखें।
 
@@ -170,8 +169,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -188,8 +187,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -205,8 +204,8 @@ module.exports = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

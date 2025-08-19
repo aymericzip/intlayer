@@ -23,7 +23,6 @@ next-intl と Intlayer は、Next.js アプリケーション向けに設計さ�
 それぞれは、3 つの主要な概念を共有しています。
 
 1. **コンテンツ宣言**: アプリケーションの翻訳可能なコンテンツを定義するためのメソッド。
-
    - Intlayer では `content declaration file` と呼ばれ、構造化データをエクスポートする JSON、JS、または TS ファイルです。詳細は [Intlayer documentation](https://intlayer.org/fr/doc/concept/content) を参照してください。
    - next-intl では `messages` または `locale messages` と呼ばれ、通常は JSON ファイルにあります。詳細は [next-intl documentation](https://github.com/amannn/next-intl) を参照してください。
 
@@ -170,8 +169,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -188,8 +187,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -205,8 +204,8 @@ module.exports = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

@@ -23,7 +23,6 @@ slugs:
 Они делят три основных понятия:
 
 1. **Декларация содержимого**: Метод определения переводимого содержимого вашего приложения.
-
    - Называется `content declaration file` в Intlayer, что может быть JSON, JS или TS файлом, экспортирующим структурированные данные. Смотрите [документацию Intlayer](https://intlayer.org/fr/doc/concept/content) для получения дополнительной информации.
    - Называется `messages` или `locale messages` в next-intl, обычно в JSON-файлах. Смотрите [документацию next-intl](https://github.com/amannn/next-intl) для получения дополнительной информации.
 
@@ -170,8 +169,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 } satisfies Dictionary;
@@ -188,8 +187,8 @@ const content = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };
@@ -205,8 +204,8 @@ module.exports = {
   content: {
     helloWorld: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
   },
 };

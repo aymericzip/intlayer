@@ -110,8 +110,8 @@ const component1Content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     numberOfCar: enu({
       "<-1": "माइनस एक कार से कम",
@@ -136,8 +136,8 @@ const component1Content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     numberOfCar: enu({
       "<-1": "माइनस एक कार से कम",
@@ -162,8 +162,8 @@ const component1Content = {
   content: {
     myTranslatedContent: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     numberOfCar: enu({
       "<-1": "माइनस एक कार से कम",

@@ -247,8 +247,8 @@ const content = {
     // Chaque appel "t" est un nœud de traduction séparé
     heading: t({
       en: "Hello World",
-      fr: "Bonjour le monde",
       es: "Hola Mundo",
+      fr: "Bonjour le monde",
     }),
     description: t({
       en: "My i18n description text...",
