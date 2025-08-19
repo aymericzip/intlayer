@@ -17,9 +17,6 @@ type SummarizeAIProps = {
   url: string;
 };
 
-const getMessage = (url: string) =>
-  encodeURIComponent(`Summarize the following doc : ${url}`);
-
 type Provider = {
   name: string;
   url: string;
@@ -72,9 +69,11 @@ const getProviders = (message: string): Provider[] => [
 ];
 
 export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
-  const { title, description, summarizeLabel } = useIntlayer('summarize-ai');
-  const message = getMessage(url);
-  const providers = getProviders(message);
+  const { title, description, summarizeLabel, summarizeMessage } =
+    useIntlayer('summarize-ai');
+
+  const message = summarizeMessage({ url: `${url}.md` });
+  const providers = getProviders(message.value);
 
   const baseProvider = providers[0];
   const [selectedProviderName, setSelectedProviderName] = usePersistedStore<

@@ -51,6 +51,23 @@ const summarizeAIContent = {
         ru: 'Суммируйте документ, используя {{provider}}',
       })
     ),
+    summarizeMessage: insert(
+      t({
+        en: 'Summarize the following doc : {{url}}',
+        fr: 'Résumer le document suivant : {{url}}',
+        es: 'Resumir el documento siguiente : {{url}}',
+        de: 'Resumieren Sie das folgende Dokument : {{url}}',
+        it: 'Riepiloga il documento seguente : {{url}}',
+        pt: 'Resumir o documento seguinte : {{url}}',
+        ja: '次のドキュメントを要約 : {{url}}',
+        ko: '다음 문서를 요약 : {{url}}',
+        zh: '总结以下文档 : {{url}}',
+        ar: 'استخدم {{url}} للملخص',
+        'en-GB': 'Summarize the following doc : {{url}}',
+        hi: '{{url}} का उपयोग करके सारांशित करें',
+        ru: 'Суммируйте документ, используя {{url}}',
+      })
+    ),
   },
 } satisfies Dictionary;
 

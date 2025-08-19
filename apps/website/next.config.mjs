@@ -178,6 +178,32 @@ const nextConfig = {
       headers: [...createSecureHeaders(secureHeaders), ...headersList],
     },
   ],
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // Map localized markdown doc URLs to the raw markdown route
+        {
+          source: '/:locale/doc/:path*.md',
+          destination: '/:locale/doc/raw/:path*',
+        },
+        // Map default (no-locale) markdown doc URLs to English by default
+        {
+          source: '/doc/:path*.md',
+          destination: '/en/doc/raw/:path*',
+        },
+        // Map localized markdown blog URLs to the raw markdown route
+        {
+          source: '/:locale/blog/:path*.md',
+          destination: '/:locale/blog/raw/:path*',
+        },
+        // Map default (no-locale) markdown blog URLs to English by default
+        {
+          source: '/blog/:path*.md',
+          destination: '/en/blog/raw/:path*',
+        },
+      ],
+    };
+  },
 };
 
 const nextConfigPWA = withPWA({
