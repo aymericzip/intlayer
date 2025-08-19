@@ -145,7 +145,7 @@ const buttonVariants = cva(
     defaultVariants: {
       variant: ButtonVariant.DEFAULT,
       size: ButtonSize.MD,
-      color: ButtonColor.PRIMARY,
+      color: ButtonColor.CUSTOM,
       textAlign: ButtonTextAlign.CENTER,
       isFullWidth: false,
       hasIconRight: false,
