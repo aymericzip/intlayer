@@ -7,6 +7,24 @@ const getDocMetadata = (doc: DocKey) =>
 const docDataContent: any = {
   key: 'doc-data',
   content: {
+    why: {
+      title: t({
+        en: 'Why Intlayer ?',
+        'en-GB': 'Why Intlayer ?',
+        fr: 'Pourquoi Intlayer ?',
+        es: '¿Por qué Intlayer?',
+        de: 'Warum Intlayer?',
+        it: 'Perché Intlayer?',
+        ja: 'なぜIntlayer？',
+        ko: 'Intlayer의 이점',
+        zh: '为什么Intlayer？',
+        pt: 'Por que Intlayer?',
+        hi: 'Intlayer का क्यों लाभ',
+        ar: 'لماذا Intlayer؟',
+        ru: 'Почему Intlayer?',
+      }),
+      default: getDocMetadata('./docs/en/interest_of_intlayer.md'),
+    },
     'get-started': {
       title: t({
         en: 'Get Started',
@@ -95,24 +113,6 @@ const docDataContent: any = {
             ru: 'Конфигурация',
           }),
           default: getDocMetadata('./docs/en/configuration.md'),
-        },
-        interest: {
-          title: t({
-            en: 'Interest of Intlayer',
-            'en-GB': 'Interest of Intlayer',
-            fr: 'Intérêt de Intlayer',
-            es: 'Interés de Intlayer',
-            de: 'Vorteile von Intlayer',
-            it: 'Interesse di Intlayer',
-            ja: 'Intlayerの利点',
-            ko: 'Intlayer의 이점',
-            zh: 'Intlayer的优势',
-            pt: 'Interesse do Intlayer',
-            hi: 'Intlayer का लाभ',
-            ar: 'مزايا Intlayer',
-            ru: 'Преимущества Intlayer',
-          }),
-          default: getDocMetadata('./docs/en/interest_of_intlayer.md'),
         },
         cli: {
           title: 'CLI',
