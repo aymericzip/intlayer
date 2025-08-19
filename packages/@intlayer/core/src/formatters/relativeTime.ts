@@ -34,11 +34,9 @@ const diffInUnit = (from: Date, to: Date, unit: RelativeTimeUnit): number => {
 export const relativeTime = (
   from: Date | string | number,
   to: Date | string | number = new Date(),
-  options?: {
-    locale: LocalesValues;
-    unit: RelativeTimeUnit;
-    numeric: Intl.RelativeTimeFormatNumeric;
-    style: Intl.RelativeTimeFormatStyle;
+  options?: Intl.RelativeTimeFormatOptions & {
+    locale?: LocalesValues;
+    unit?: RelativeTimeUnit;
   }
 ): string => {
   const fromDate = new Date(from);
