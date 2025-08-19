@@ -8,7 +8,7 @@ import { defaultLocale, locales } from '../intlayer.config';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
-  './docs/en/packages/react-intlayer/useI18n.md',
+  './docs/en/interest_of_intlayer.md',
   // './docs/en/**/*.md',
   // './blog/en/**/*.md',
   // './frequent_questions/en/**/*.md',
@@ -32,9 +32,9 @@ const LOCALE_LIST_TO_TRANSLATE: Locales[] = locales.filter(
 const SKIP_IF_MODIFIED_BEFORE: number | undefined = undefined; // 1000 * 60 * 60; // 1 hour ago
 const SKIP_IF_MODIFIED_AFTER: number | undefined = undefined;
 
-const GIT_OPTIONS: ListGitFilesOptions | undefined = {
-  mode: ['uncommitted', 'unpushed'],
-};
+const GIT_OPTIONS: ListGitFilesOptions | undefined = undefined; // {
+//   mode: ['uncommitted', 'unpushed'],
+// };
 
 const configuration = getConfiguration();
 

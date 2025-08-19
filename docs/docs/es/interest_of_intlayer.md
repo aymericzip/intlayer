@@ -11,19 +11,77 @@ keywords:
   - Comparación
 slugs:
   - doc
-  - concept
-  - interest
+  - why
 ---
 
-# Intlayer: Una forma personalizada de traducir tu sitio web
+# ¿Por qué deberías considerar Intlayer?
+
+## ¿Qué es Intlayer?
 
 **Intlayer** es una biblioteca de internacionalización diseñada específicamente para desarrolladores de JavaScript. Permite la declaración de tu contenido en cualquier parte de tu código. Convierte la declaración de contenido multilingüe en diccionarios estructurados para integrarlos fácilmente en tu código. Usando TypeScript, **Intlayer** hace que tu desarrollo sea más sólido y eficiente.
 
-## Ejemplo de uso
+## ¿Por qué se creó Intlayer?
+
+Intlayer fue creado para resolver un problema común que presentan todas las bibliotecas i18n comunes como `next-intl`, `react-i18next`, `react-intl`, `next-i18next`, `react-intl`, `vue-i18n`.
+
+Todas esas soluciones adoptan una forma centralizada de listar y gestionar tu contenido. Por ejemplo:
+
+```bash
+.
+├── locales
+│   └── en.json
+│   └── fr.json
+│   └── es.json
+├── i18n.ts
+└── src
+    └── components
+        └── MyComponent
+            ├── index.content.ts
+            └── index.tsx
+```
+
+O aquí usando namespaces:
+
+```bash
+.
+├── locales
+│   ├── en
+│   │  └── navbar.json
+│   │  └── footer.json
+│   ├── fr
+│   │  └── navbar.json
+│   │  └── footer.json
+│   └── es
+│      └── navbar.json
+│      └── footer.json
+├── i18n.ts
+└── src
+    └── components
+        └── MyComponent
+            ├── index.content.ts
+            └── index.tsx
+```
+
+Este tipo de arquitectura ralentiza el proceso de desarrollo y hace que la base de código sea más compleja de mantener por varias razones:
+
+- Para cualquier nuevo componente creado, deberías
+  - Crear el nuevo recurso / namespace en la carpeta `locales`
+  - Pensar en importar el nuevo namespace en tu página
+  - Traducir tu contenido (a menudo hecho manualmente por copiar/pegar desde un proveedor de IA)
+- Para cualquier cambio realizado en tus componentes, deberías
+  - Buscar el recurso / namespace relacionado (lejos del componente)
+  - Traducir tu contenido
+  - Asegurarte de que tu contenido esté actualizado para cualquier locale
+  - Que tu namespace no incluya claves/valores no usados
+  - Que la estructura de tu archivo JSON sea la misma para todos los locales
+
+En proyectos profesionales que utilizan esas soluciones, a menudo se utilizan plataformas de localización para ayudar a gestionar la traducción de tu contenido. Pero puede volverse rápidamente costoso para proyectos grandes.
+
+Para resolver ese problema, Intlayer adopta un enfoque que considera delimitar tu contenido por componente y mantener tu contenido cerca de tu componente, como a menudo hacemos con CSS (`styled-components`), documentación (`storybook`) o pruebas unitarias (`jest`).
 
 ```bash codeFormat="typescript"
 .
-└── Components
+└── components
     └── MyComponent
         ├── index.content.ts
         └── index.tsx
@@ -31,7 +89,7 @@ slugs:
 
 ```bash codeFormat="commonjs"
 .
-└── Components
+└── components
     └── MyComponent
         ├── index.content.cjs
         └── index.mjs
@@ -39,13 +97,13 @@ slugs:
 
 ```bash codeFormat="esm"
 .
-└── Components
+└── components
     └── MyComponent
         ├── index.content.mjs
         └── index.js
 ```
 
-```tsx fileName="./Components/MyComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -62,11 +120,11 @@ const componentExampleContent = {
 export default componentExampleContent;
 ```
 
-```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
+```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
 import { t } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
-// Contenido de ejemplo del componente con traducciones
+// Contenido de ejemplo del componente
 const componentExampleContent = {
   key: "component-example",
   content: {
@@ -81,11 +139,10 @@ const componentExampleContent = {
 export default componentExampleContent;
 ```
 
-```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
+```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
 const { t } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
-// Contenido de ejemplo del componente con traducciones
 const componentExampleContent = {
   key: "component-example",
   content: {
@@ -100,10 +157,9 @@ const componentExampleContent = {
 module.exports = componentExampleContent;
 ```
 
-```tsx fileName="./Components/MyComponent/index.tsx" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.tsx" codeFormat="typescript"
 import { useIntlayer } from "react-intlayer";
 
-// Componente de ejemplo que utiliza la traducción desde Intlayer
 export const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
@@ -111,7 +167,7 @@ export const ComponentExample = () => {
 };
 ```
 
-```jsx fileName="./Components/MyComponent/index.mjx" codeFormat="esm"
+```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
 import { useIntlayer } from "react-intlayer";
 
 const ComponentExample = () => {
@@ -121,7 +177,7 @@ const ComponentExample = () => {
 };
 ```
 
-```jsx fileName="./Components/MyComponent/index.csx" codeFormat="commonjs"
+```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
 const { useIntlayer } = require("react-intlayer");
 
 const ComponentExample = () => {
@@ -131,27 +187,73 @@ const ComponentExample = () => {
 };
 ```
 
-## ¿Por qué elegir Intlayer?
+Este enfoque permite:
 
-| Característica                                    | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Gestión de Contenido Impulsada por JavaScript** | Aprovecha la flexibilidad de JavaScript para definir y gestionar tu contenido de manera eficiente.                                                                                                                                                                                                                                                                                                                                                                             |
-| **Entorno con Tipos Seguros**                     | Aprovecha TypeScript para garantizar que todas tus definiciones de contenido sean precisas y sin errores.                                                                                                                                                                                                                                                                                                                                                                      |
-| **Archivos de Contenido Integrados**              | Mantenga sus traducciones cerca de sus respectivos componentes, mejorando la mantenibilidad y claridad.                                                                                                                                                                                                                                                                                                                                                                        |
-| **Configuración Simplificada**                    | Comience rápidamente con una configuración mínima, especialmente optimizada para proyectos Next.js.                                                                                                                                                                                                                                                                                                                                                                            |
-| **Soporte para Componentes del Servidor**         | Perfectamente adecuado para componentes del servidor de Next.js, asegurando una renderización fluida del lado del servidor.                                                                                                                                                                                                                                                                                                                                                    |
-| **Enrutamiento Mejorado**                         | Soporte completo para el enrutamiento de aplicaciones Next.js, adaptándose sin problemas a estructuras de aplicación complejas.                                                                                                                                                                                                                                                                                                                                                |
-| **Base de código organizada**                     | Mantén tu base de código más organizada: 1 componente = 1 diccionario en la misma carpeta.                                                                                                                                                                                                                                                                                                                                                                                     |
-| **Auto-traducción en CI**                         | Rellena automáticamente tus traducciones en tu CI usando tu propia clave API de OpenAI, eliminando la necesidad de una plataforma de localización (L10n).                                                                                                                                                                                                                                                                                                                      |
-| **Integración del Servidor MCP**                  | Proporciona un servidor MCP (Protocolo de Contexto de Modelo) para la automatización en el IDE, permitiendo una gestión de contenido y flujos de trabajo de i18n sin interrupciones directamente dentro de tu entorno de desarrollo. [Aprende más](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md).                                                                                                                                               |
-| **Soporte para Markdown**                         | Importa e interpreta archivos markdown para contenido multilingüe como políticas de privacidad.                                                                                                                                                                                                                                                                                                                                                                                |
-| **Editor Visual Gratuito y CMS**                  | Un editor visual gratuito y un CMS están disponibles si necesitas trabajar con redactores de contenido para tus traducciones, eliminando nuevamente la necesidad de una plataforma de localización y permitiendo la externalización del contenido fuera de la base de código.                                                                                                                                                                                                  |
-| **Recuperación Simplificada de Contenido**        | No es necesario llamar a tu función `t` para cada fragmento de contenido; recupera todo tu contenido directamente usando un solo hook.                                                                                                                                                                                                                                                                                                                                         |
-| **Implementación Consistente**                    | La misma implementación para componentes cliente y servidor, sin necesidad de pasar tu función `t` a través de cada componente servidor.                                                                                                                                                                                                                                                                                                                                       |
-| **Contenido Tree-shakable**                       | El contenido es tree-shakable, lo que aligera el paquete final.                                                                                                                                                                                                                                                                                                                                                                                                                |
-| **Renderizado Estático No Bloqueante**            | Intlayer no bloquea el Renderizado Estático como lo hace `next-intl`.                                                                                                                                                                                                                                                                                                                                                                                                          |
-| **Interoperabilidad**                             | Permite la interoperabilidad con [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_next-i18next.md), [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_next-intl.md), y [react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_react-intl.md). |
+- Aumentar la velocidad de desarrollo
+  - Los archivos `.content` pueden ser creados usando una extensión de VSCode
+  - Las herramientas de autocompletado con IA en tu IDE (como GitHub Copilot) pueden ayudarte a declarar tu contenido, reduciendo el copiar/pegar
+- Reducir la complejidad de tu base de código
+- Aumentar la mantenibilidad de su base de código
+- Duplicar sus componentes y su contenido relacionado más fácilmente (Ejemplo: componentes de inicio de sesión / registro, etc.)
+  - Limitando el riesgo de afectar el contenido de otros componentes
+  - Copiando y pegando su contenido de una aplicación a otra sin dependencias externas
+- Evitar contaminar su base de código con claves/valores no usados para componentes no utilizados
+  - Si no usa un componente, no necesita importar su contenido
+  - Si elimina un componente, será más fácil pensar en eliminar su contenido relacionado ya que estará presente en la misma carpeta
+- Reducir el costo de razonamiento de los agentes de IA para declarar su contenido multilingüe
+  - El agente de IA no tendrá que listar toda su base de código para saber dónde implementar su contenido
+  - Las traducciones pueden realizarse fácilmente mediante herramientas de autocompletado con IA en su IDE (como GitHub Copilot)
+- Optimizar el rendimiento de carga
+  - Si un componente se carga de forma diferida (lazy loaded), su contenido relacionado se cargará al mismo tiempo
 
-## Historial de Documentación
+## Características adicionales de Intlayer
 
-- 5.5.10 - 2025-06-29: Historial inicial
+| Funcionalidad                                                                                                             | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Característica](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                   | **Compatibilidad entre Frameworks**<br><br>Intlayer es compatible con todos los principales frameworks y bibliotecas, incluyendo Next.js, React, Vite, Vue.js, Nuxt, Preact, Express y más.                                                                                                                                                                                                                                                    |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.png?raw=true)       | **Gestión de Contenido Impulsada por JavaScript**<br><br>Aprovecha la flexibilidad de JavaScript para definir y gestionar tu contenido de manera eficiente. <br><br> - [Declaración de contenido](https://intlayer.org/doc/concept/content)                                                                                                                                                                                                    |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **Archivo de Declaración de Contenido por Localidad**<br><br>Acelera tu desarrollo declarando tu contenido una vez, antes de la generación automática.<br><br> - [Archivo de Declaración de Contenido por Localidad](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                                         |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)                      | **Entorno con Tipos Seguros**<br><br>Aprovecha TypeScript para asegurar que tus definiciones de contenido y código estén libres de errores, además de beneficiarte de la autocompletación en el IDE.<br><br> - [Configuración de TypeScript](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                         |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true)                         | **Configuración Simplificada**<br><br>Comienza rápidamente con una configuración mínima. Ajusta fácilmente las configuraciones para internacionalización, enrutamiento, IA, compilación y manejo de contenido.<br><br> - [Explora la integración con Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                     |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true)                   | **Recuperación de Contenido Simplificada**<br><br>No es necesario llamar a tu función `t` para cada contenido. Recupera todo tu contenido directamente usando un solo hook.<br><br> - [Integración con React](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                                                           |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true)                    | **Implementación Consistente de Componentes del Servidor**<br><br>Perfectamente adecuado para componentes del servidor en Next.js, utiliza la misma implementación tanto para componentes cliente como servidor, sin necesidad de pasar tu función `t` a través de cada componente del servidor. <br><br> - [Componentes del Servidor](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                        |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true)                           | **Base de Código Organizada**<br><br>Mantén tu base de código más organizada: 1 componente = 1 diccionario en la misma carpeta. Traducciones cerca de sus respectivos componentes, mejorando la mantenibilidad y claridad. <br><br> - [Cómo funciona Intlayer](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                                                            |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true)                         | **Enrutamiento Mejorado**<br><br>Soporte completo para el enrutamiento de aplicaciones, adaptándose sin problemas a estructuras de aplicaciones complejas, para Next.js, React, Vite, Vue.js, etc.<br><br> - [Explora la integración con Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                 |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true)                            | **Soporte para Markdown**<br><br>Importa e interpreta archivos de localización y Markdown remoto para contenido multilingüe como políticas de privacidad, documentación, etc. Interpreta y haz accesibles los metadatos de Markdown en tu código.<br><br> - [Archivos de contenido](https://intlayer.org/doc/concept/content/file)                                                                                                             |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.png?raw=true)                       | **Editor Visual y CMS Gratuitos**<br><br>Un editor visual y CMS gratuitos están disponibles para los redactores de contenido, eliminando la necesidad de una plataforma de localización. Mantén tu contenido sincronizado usando Git, o externalízalo total o parcialmente con el CMS.<br><br> - [Editor de Intlayer](https://intlayer.org/doc/concept/editor) <br> - [CMS de Intlayer](https://intlayer.org/doc/concept/cms)                  |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true)                              | **Contenido Tree-shakable**<br><br>Contenido tree-shakable, que reduce el tamaño del paquete final. Carga contenido por componente, excluyendo cualquier contenido no utilizado de tu paquete. Soporta carga diferida para mejorar la eficiencia de carga de la aplicación. <br><br> - [Optimización de construcción de la app](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                                    |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png?raw=true)                    | **Renderizado Estático**<br><br>No bloquea el Renderizado Estático. <br><br> - [Integración con Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                          |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true)                      | **Traducción Potenciada por IA**<br><br>Transforma tu sitio web a 231 idiomas con un solo clic usando las avanzadas herramientas de traducción potenciadas por IA de Intlayer, utilizando tu propio proveedor de IA / clave API. <br><br> - [Integración CI/CD](https://intlayer.org/doc/concept/ci-cd) <br> - [CLI de Intlayer](https://intlayer.org/doc/concept/cli) <br> - [Relleno automático](https://intlayer.org/doc/concept/auto-fill) |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                 | **Integración del Servidor MCP**<br><br>Proporciona un servidor MCP (Protocolo de Contexto de Modelo) para la automatización del IDE, permitiendo una gestión de contenido y flujos de trabajo de i18n sin interrupciones directamente dentro de tu entorno de desarrollo. <br><br> - [Servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)                                                              |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.png?raw=true)                    | **Extensión para VSCode**<br><br>Intlayer proporciona una extensión para VSCode que te ayuda a gestionar tu contenido y traducciones, construir tus diccionarios, traducir tu contenido y más. <br><br> - [Extensión para VSCode](https://intlayer.org/doc/vs-code-extension)                                                                                                                                                                  |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                    | **Interoperabilidad**<br><br>Permite la interoperabilidad con react-i18next, next-i18next, next-intl y react-intl. <br><br> - [Intlayer y react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer y next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer y next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)                                                              |
+
+## Comparativa de Intlayer con otras soluciones
+
+| Característica                                                | Intlayer                                                                                                                                      | React-i18next / i18next                                                            | React-Intl (FormatJS)                                            | LinguiJS                                                         | next-intl                                                        | next-i18next                                                     | vue-i18n                                                                 |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Traducciones Cerca de los Componentes                         | Sí, contenido colocalizado con cada componente                                                                                                | No                                                                                 | No                                                               | No                                                               | No                                                               | No                                                               | Sí - usando `Componentes de Archivo Único` (SFCs)                        |
+| Integración con TypeScript                                    | Avanzada, tipos estrictos generados automáticamente                                                                                           | Básica; configuración adicional para seguridad                                     | Buena, pero menos estricta                                       | Tipos, necesita configuración                                    | Buena                                                            | Básica                                                           | Buena (tipos disponibles; la seguridad de claves requiere configuración) |
+| Detección de Traducción Faltante                              | Error/advertencia en tiempo de compilación                                                                                                    | Mayormente cadenas de reserva en tiempo de ejecución                               | Cadenas de reserva                                               | Requiere configuración adicional                                 | Reserva en tiempo de ejecución                                   | Reserva en tiempo de ejecución                                   | Reserva en tiempo de ejecución/advertencias (configurable)               |
+| Contenido enriquecido (JSX/Markdown/componentes)              | Soporte directo, incluso nodos React                                                                                                          | Limitado / solo interpolación                                                      | Sintaxis ICU, no JSX real                                        | Limitado                                                         | No diseñado para nodos enriquecidos                              | Limitado                                                         | Limitado (componentes vía `<i18n-t>`, Markdown vía plugins)              |
+| Traducción impulsada por IA                                   | Sí, soporta múltiples proveedores de IA. Usable con tus propias claves API. Considera el contexto de tu aplicación y el alcance del contenido | No                                                                                 | No                                                               | No                                                               | No                                                               | No                                                               | No                                                                       |
+| Editor Visual                                                 | Sí, editor visual local + CMS opcional; puede externalizar contenido de la base de código; integrable                                         | No / disponible a través de plataformas externas de localización                   | No / disponible a través de plataformas externas de localización | No / disponible a través de plataformas externas de localización | No / disponible a través de plataformas externas de localización | No / disponible a través de plataformas externas de localización | No / disponible a través de plataformas externas de localización         |
+| Enrutamiento localizado                                       | Integrado, con soporte de middleware                                                                                                          | Plugins o configuración manual                                                     | No integrado                                                     | Plugin/configuración manual                                      | Integrado                                                        | Integrado                                                        | Manual a través de Vue Router (Nuxt i18n lo gestiona)                    |
+| Generación Dinámica de Rutas                                  | Sí                                                                                                                                            | Plugin/ecosistema o configuración manual                                           | No proporcionado                                                 | Plugin/manual                                                    | Sí                                                               | Sí                                                               | No proporcionado (Nuxt i18n lo proporciona)                              |
+| **Pluralización**                                             | Patrones basados en enumeración; ver documentación                                                                                            | Configurable (plugins como i18next-icu)                                            | Avanzado (ICU)                                                   | Avanzado (ICU/messageformat)                                     | Bueno                                                            | Bueno                                                            | Avanzado (reglas de plural integradas)                                   |
+| **Formato (fechas, números, monedas)**                        | Formateadores optimizados (Intl en el núcleo)                                                                                                 | A través de plugins o uso personalizado de Intl                                    | Formateadores avanzados ICU                                      | Ayudantes ICU/CLI                                                | Bueno (ayudantes Intl)                                           | Bueno (ayudantes Intl)                                           | Formateadores integrados de fecha/número (Intl)                          |
+| Formato de contenido                                          | .tsx, .ts, .js, .json, .md, .txt                                                                                                              | .json                                                                              | .json, .js                                                       | .po, .json                                                       | .json, .js, .ts                                                  | .json                                                            | .json, .js                                                               |
+| Soporte ICU                                                   | En desarrollo (ICU nativo)                                                                                                                    | A través de plugin (i18next-icu)                                                   | Sí                                                               | Sí                                                               | Sí                                                               | A través de plugin (i18next-icu)                                 | A través de formateador/compilador personalizado                         |
+| Ayudantes SEO (hreflang, sitemap)                             | Herramientas integradas: ayudantes para sitemap, **robots.txt**, metadatos                                                                    | Plugins comunitarios/manual                                                        | No es núcleo                                                     | No es núcleo                                                     | Bueno                                                            | Bueno                                                            | No es núcleo (Nuxt i18n proporciona ayudantes)                           |
+| Ecosistema / Comunidad                                        | Más pequeño pero creciendo rápido y reactivo                                                                                                  | El más grande y maduro                                                             | Grande, empresarial                                              | En crecimiento, más pequeño                                      | Mediano, enfocado en Next.js                                     | Mediano, enfocado en Next.js                                     | Grande en el ecosistema Vue                                              |
+| Renderizado del lado del servidor y Componentes de Servidor   | Sí, optimizado para SSR / Componentes de Servidor de React                                                                                    | Soportado, se necesita algo de configuración                                       | Soportado en Next.js                                             | Soportado                                                        | Soporte completo                                                 | Soporte completo                                                 | SSR a través de Nuxt/Vue SSR (sin RSC)                                   |
+| Eliminación de código muerto (cargar solo el contenido usado) | Sí, por componente en tiempo de compilación mediante plugins de Babel/SWC                                                                     | Usualmente carga todo (puede mejorarse con espacios de nombres/división de código) | Usualmente carga todo                                            | No por defecto                                                   | Parcial                                                          | Parcial                                                          | Parcial (con división de código/configuración manual)                    |
+| Carga diferida                                                | Sí, por localidad/por componente                                                                                                              | Sí (por ejemplo, backends/namespaces bajo demanda)                                 | Sí (paquetes de localidad divididos)                             | Sí (importaciones dinámicas de catálogos)                        | Sí (por ruta/por localidad)                                      | Sí (por ruta/por localidad)                                      | Sí (mensajes de localidad asíncronos)                                    |
+| Gestión de Proyectos Grandes                                  | Fomenta la modularidad, adecuado para sistemas de diseño                                                                                      | Requiere buena disciplina en los archivos                                          | Los catálogos centrales pueden volverse grandes                  | Puede volverse complejo                                          | Modular con configuración                                        | Modular con configuración                                        | Modular con configuración de Vue Router/Nuxt i18n                        |
+
+## Historial del Documento
+
+| Versión | Fecha      | Cambios                               |
+| ------- | ---------- | ------------------------------------- |
+| 5.8.0   | 2025-08-19 | Actualización de la tabla comparativa |
+| 5.5.10  | 2025-06-29 | Historial inicial                     |
