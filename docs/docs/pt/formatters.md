@@ -16,7 +16,7 @@ keywords:
   - Internacionalização
 slugs:
   - doc
-  - formatadores
+  - formatters
 ---
 
 # Formatadores Intlayer

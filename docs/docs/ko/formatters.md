@@ -207,18 +207,12 @@ compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 
 예시:
 
-````ts
-// 앱 코드 (권장)
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }` (내부적으로 `notation: 'compact'` 사용)
-
-예시:
-
 ```ts
 import { compact } from "intlayer";
 
 compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
-````
+```
 
 ## 참고 사항
 

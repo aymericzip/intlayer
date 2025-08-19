@@ -206,10 +206,6 @@ compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 
 フォーマッターはコアパッケージに存在し、ランタイム間でのインポートを使いやすくするために上位パッケージから再エクスポートされています。
 
-例:
-
-````ts
-// アプリコード（推奨）
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`（内部で `notation: 'compact'` を使用）
 
 例:
@@ -219,7 +215,7 @@ import { compact } from "intlayer";
 
 compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
-````
+```
 
 ## 注意事項
 
