@@ -39,6 +39,8 @@ export async function GET(_request: Request, context: RouteContext) {
           'public, max-age=300, s-maxage=300, stale-while-revalidate=300',
         'Access-Control-Allow-Origin': '*',
         'X-Robots-Tag': 'all', // Ensure search engines can access
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'SAMEORIGIN',
       },
     });
   } catch (error) {
