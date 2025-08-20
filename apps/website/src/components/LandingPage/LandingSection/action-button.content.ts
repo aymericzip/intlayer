@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
+import { t, type Dictionary } from 'intlayer';
 
 const actionButtonContent = {
   key: 'landing-section-action-button',
@@ -68,7 +68,7 @@ const actionButtonContent = {
         ar: 'لماذا Intlayer؟',
         ru: 'Почему Intlayer?',
       }),
-      url: PagesRoutes.Doc_Interest,
+      url: PagesRoutes.Doc_Why,
     },
   },
 } satisfies Dictionary;

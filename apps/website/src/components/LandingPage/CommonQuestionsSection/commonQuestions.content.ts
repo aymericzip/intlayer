@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
 import { PagesRoutes } from '@/Routes';
+import { t, type Dictionary } from 'intlayer';
 
 const docNavTitlesContent = {
   key: 'common-questions',
@@ -216,7 +216,7 @@ const docNavTitlesContent = {
             ar: 'انقر هنا لقراءة المزيد عن ميزات Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о функциях Intlayer',
           }),
-          url: PagesRoutes.Doc_Interest,
+          url: PagesRoutes.Doc_Why,
         },
       },
       {

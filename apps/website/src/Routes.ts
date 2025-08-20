@@ -13,9 +13,9 @@ export enum PagesRoutes {
   Dashboard_Profile = '/dashboard/profile',
 
   Doc = '/doc/get-started',
+  Doc_Why = '/doc/why',
   Doc_Search = '/doc/search',
   Doc_Chat = '/doc/chat',
-  Doc_Interest = '/doc/concept/interest',
   Doc_IntlayerVisualEditor = '/doc/concept/editor',
   Doc_IntlayerCMS = '/doc/concept/cms',
 

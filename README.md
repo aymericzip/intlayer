@@ -91,6 +91,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 ### Get Started
 
+- [Why Intlayer?](https://intlayer.org/doc/why)
 - [Introduction](https://intlayer.org/doc)
 
 ### Concept
@@ -98,7 +99,6 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 - [How Intlayer Works](https://intlayer.org/doc/concept/how-works-intlayer)
 - [Configuration](https://intlayer.org/doc/concept/configuration)
 - [AI provider](https://intlayer.org/doc/concept/ai)
-- [Interest of Intlayer](https://intlayer.org/doc/concept/interest)
 - [Intlayer CLI](https://intlayer.org/doc/concept/cli)
 - [Intlayer Editor](https://intlayer.org/doc/concept/editor)
 - [Intlayer CMS](https://intlayer.org/doc/concept/cms)
