@@ -7,7 +7,7 @@ type RouteContext = {
   };
 };
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request, context: RouteContext) {
   try {
@@ -31,6 +31,8 @@ export async function GET(request: Request, context: RouteContext) {
 
     const file = await getDoc(matches[0].docKey as any, locale as any);
 
+    const url = new URL(request.url);
+    const format = (url.searchParams.get('format') || '').toLowerCase();
     const accept = request.headers.get('accept') || '';
     const baseHeaders: Record<string, string> = {
       'Cache-Control':
@@ -38,15 +40,22 @@ export async function GET(request: Request, context: RouteContext) {
       'Access-Control-Allow-Origin': '*',
       'X-Robots-Tag': 'all', // Ensure search engines can access
       'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'SAMEORIGIN',
+      // Allow embedding by external tools (some bots render in iframes)
+      'Content-Security-Policy': 'frame-ancestors *',
       Vary: 'Accept',
-      'Content-Disposition': `inline; filename="${
-        (Array.isArray(slugs) ? slugs[slugs.length - 1] : slugs) + '.md'
-      }"`,
+      // Avoid Content-Disposition which some bots mishandle
     };
 
+    // Decide representation from explicit query first, then Accept header
+    const wantsHtml =
+      format === 'html' || (format === '' && accept.includes('text/html'));
+    const wantsText =
+      format === 'txt' ||
+      (format === '' &&
+        (accept.includes('text/plain') || accept.includes('*/*')));
+
     // Default to markdown; fall back to text/plain for generic clients; allow HTML if explicitly requested
-    if (accept.includes('text/html')) {
+    if (wantsHtml) {
       const htmlContent = `<!DOCTYPE html><html lang="${locale}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${
         (matches[0] as any).title || 'Documentation'
       }</title><meta name="robots" content="all"></head><body><pre style="white-space: pre-wrap; font-family: monospace; line-height: 1.5; padding: 20px;">${file
@@ -63,7 +72,7 @@ export async function GET(request: Request, context: RouteContext) {
       });
     }
 
-    if (accept.includes('text/plain') || accept.includes('*/*')) {
+    if (wantsText) {
       return new Response(file, {
         status: 200,
         headers: {
@@ -104,6 +113,8 @@ export async function HEAD(request: Request, context: RouteContext) {
       return new Response(null, { status: 404 });
     }
 
+    const url = new URL(request.url);
+    const format = (url.searchParams.get('format') || '').toLowerCase();
     const accept = request.headers.get('accept') || '';
     const baseHeaders: Record<string, string> = {
       'Cache-Control':
@@ -118,11 +129,16 @@ export async function HEAD(request: Request, context: RouteContext) {
       }"`,
     };
 
-    const contentType = accept.includes('text/html')
-      ? 'text/html; charset=utf-8'
-      : accept.includes('text/plain') || accept.includes('*/*')
-        ? 'text/plain; charset=utf-8'
-        : 'text/markdown; charset=utf-8';
+    const contentType =
+      format === 'html'
+        ? 'text/html; charset=utf-8'
+        : format === 'txt'
+          ? 'text/plain; charset=utf-8'
+          : accept.includes('text/html')
+            ? 'text/html; charset=utf-8'
+            : accept.includes('text/plain') || accept.includes('*/*')
+              ? 'text/plain; charset=utf-8'
+              : 'text/markdown; charset=utf-8';
 
     return new Response(null, {
       status: 200,
@@ -134,4 +150,17 @@ export async function HEAD(request: Request, context: RouteContext) {
   } catch (_error) {
     return new Response(null, { status: 500 });
   }
+}
+
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
+      'Access-Control-Allow-Headers': '*',
+      'Cache-Control':
+        'public, max-age=300, s-maxage=300, stale-while-revalidate=300',
+    },
+  });
 }

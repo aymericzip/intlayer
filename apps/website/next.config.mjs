@@ -181,25 +181,25 @@ const nextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        // Map localized markdown doc URLs to the raw markdown route
+        // Map localized markdown doc URLs to the raw route, force plain text for broad client compatibility
         {
           source: '/:locale/doc/:path*.md',
-          destination: '/:locale/doc/raw/:path*',
+          destination: '/:locale/doc/raw/:path*?format=txt',
         },
-        // Map default (no-locale) markdown doc URLs to English by default
+        // Map default (no-locale) markdown doc URLs to English by default, force plain text
         {
           source: '/doc/:path*.md',
-          destination: '/en/doc/raw/:path*',
+          destination: '/en/doc/raw/:path*?format=txt',
         },
-        // Map localized markdown blog URLs to the raw markdown route
+        // Map localized markdown blog URLs to the raw route, force plain text
         {
           source: '/:locale/blog/:path*.md',
-          destination: '/:locale/blog/raw/:path*',
+          destination: '/:locale/blog/raw/:path*?format=txt',
         },
-        // Map default (no-locale) markdown blog URLs to English by default
+        // Map default (no-locale) markdown blog URLs to English by default, force plain text
         {
           source: '/blog/:path*.md',
-          destination: '/en/blog/raw/:path*',
+          destination: '/en/blog/raw/:path*?format=txt',
         },
       ],
     };
