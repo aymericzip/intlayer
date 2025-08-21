@@ -88,6 +88,7 @@ export const SearchView: FC<{
   isOpen?: boolean;
 }> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchQuery = useSearchParams().get('search');
 
   const [results, setResults] = useState<DocMetadata[]>([]);
@@ -156,8 +157,13 @@ export const SearchView: FC<{
 
   useEffect(() => {
     if (isOpen) {
-      inputRef.current?.focus();
+      timeoutRef.current = setTimeout(() => inputRef.current?.focus(), 10);
     }
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, [isOpen]);
 
   const isNoResult =
