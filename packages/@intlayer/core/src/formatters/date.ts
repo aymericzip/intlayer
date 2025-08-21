@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { type LocalesValues } from '@intlayer/config/client';
-import { Intl } from '../utils/intl';
+import { Intl as CachedIntl } from '../utils/intl';
 
 type DateTimePreset = 'short' | 'long' | 'dateOnly' | 'timeOnly' | 'full';
 
@@ -59,7 +59,7 @@ export const date = (
   const resolvedOptions =
     typeof options === 'string' ? (presets[options] ?? {}) : options;
 
-  const formatter = new Intl.DateTimeFormat(
+  const formatter = new CachedIntl.DateTimeFormat(
     options?.locale ?? configuration.internationalization.defaultLocale,
     resolvedOptions
   );

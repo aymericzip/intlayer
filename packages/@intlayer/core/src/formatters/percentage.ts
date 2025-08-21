@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { type LocalesValues } from '@intlayer/config/client';
-import { Intl } from '../utils/intl';
+import { Intl as CachedIntl } from '../utils/intl';
 
 /**
  * Formats a number as a percentage string (e.g., 0.25 → "25%").
@@ -20,7 +20,7 @@ export const percentage = (
     numericValue = numericValue / 100;
   }
 
-  const formatter = new Intl.NumberFormat(
+  const formatter = new CachedIntl.NumberFormat(
     options?.locale ?? configuration.internationalization.defaultLocale,
     {
       style: 'percent',

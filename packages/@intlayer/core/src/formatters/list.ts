@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { type LocalesValues } from '@intlayer/config/client';
-import { Intl } from '../utils/intl';
+import { Intl as CachedIntl } from '../utils/intl';
 
 /**
  * Formats an array of values into a localized list string using the Intl API.
@@ -21,7 +21,7 @@ export const list = (
   values: (string | number)[],
   options?: Intl.ListFormatOptions & { locale?: LocalesValues }
 ): string =>
-  new Intl.ListFormat(
+  new CachedIntl.ListFormat(
     options?.locale ?? configuration.internationalization.defaultLocale,
     {
       type: options?.type ?? 'conjunction',

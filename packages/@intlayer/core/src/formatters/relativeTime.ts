@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { type LocalesValues } from '@intlayer/config/client';
-import { Intl } from '../utils/intl';
+import { Intl as CachedIntl } from '../utils/intl';
 
 type RelativeTimeUnit = Intl.RelativeTimeFormatUnit;
 
@@ -45,7 +45,7 @@ export const relativeTime = (
 
   const value = diffInUnit(fromDate, toDate, unit);
 
-  return new Intl.RelativeTimeFormat(
+  return new CachedIntl.RelativeTimeFormat(
     options?.locale ?? configuration.internationalization.defaultLocale,
     options
   ).format(Math.round(value), unit);

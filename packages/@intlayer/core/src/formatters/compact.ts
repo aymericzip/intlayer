@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { LocalesValues } from '@intlayer/config/client';
-import { Intl } from '../utils/intl';
+import { Intl as CachedIntl } from '../utils/intl';
 
 /**
  * Formats a numeric value using compact notation (e.g., 1K, 1M, 1B)
@@ -17,7 +17,7 @@ export const compact = (
   value: string | number,
   options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
 ): string =>
-  new Intl.NumberFormat(
+  new CachedIntl.NumberFormat(
     options?.locale ?? configuration.internationalization.defaultLocale,
     {
       ...options,
