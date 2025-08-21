@@ -197,24 +197,21 @@ Este enfoque te permite:
    - Los archivos `.content.{{ts|mjs|cjs|json}}` pueden ser creados usando una extensión de VSCode
    - Las herramientas de autocompletado con IA en tu IDE (como GitHub Copilot) pueden ayudarte a declarar tu contenido, reduciendo el copiar/pegar
 
-2. **Reducir la complejidad de tu base de código**
+2. **Limpiar tu base de código**
+   - Reducir la complejidad
+   - Incrementar la mantenibilidad
 
-3. **Incrementar la mantenibilidad de tu base de código**
-
-4. **Duplicar tus componentes y su contenido relacionado más fácilmente (Ejemplo: componentes de login/registro, etc.)**
+3. **Duplicar tus componentes y su contenido relacionado más fácilmente (Ejemplo: componentes de login/registro, etc.)**
    - Limitando el riesgo de impactar el contenido de otros componentes
    - Copiando/pegando tu contenido de una aplicación a otra sin dependencias externas
 
-5. **Evitar contaminar tu base de código con claves/valores no usados para componentes no usados**
-   - Si no usas un componente, no necesitas importar su contenido
+4. **Evitar contaminar tu base de código con claves/valores no usados para componentes no usados**
+   - Si no usas un componente, Intlayer no importará su contenido relacionado
    - Si eliminas un componente, te será más fácil recordar eliminar su contenido relacionado ya que estará presente en la misma carpeta
 
-6. **Reducir el costo de razonamiento para que los agentes de IA declaren tu contenido multilingüe**
+5. **Reducir el costo de razonamiento para que los agentes de IA declaren tu contenido multilingüe**
    - El agente de IA no tendrá que escanear toda tu base de código para saber dónde implementar tu contenido
    - Las traducciones pueden realizarse fácilmente mediante herramientas de autocompletado con IA en tu IDE (como GitHub Copilot)
-
-7. **Optimizar el rendimiento de carga**
-   - Si un componente se carga de forma diferida (lazy-loaded), su contenido relacionado se cargará al mismo tiempo
 
 ## Características adicionales de Intlayer
 

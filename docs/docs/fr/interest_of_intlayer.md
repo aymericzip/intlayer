@@ -198,24 +198,21 @@ Cette approche vous permet de :
    - Les fichiers `.content.{{ts|mjs|cjs|json}}` peuvent être créés à l'aide d'une extension VSCode
    - Les outils d'autocomplétion IA dans votre IDE (comme GitHub Copilot) peuvent vous aider à déclarer votre contenu, réduisant ainsi le copier/coller
 
-2. **Réduire la complexité de votre base de code**
+2. **Nettoyer votre base de code**
+   - Réduire la complexité
+   - Augmenter la maintenabilité
 
-3. **Augmenter la maintenabilité de votre base de code**
-
-4. **Dupliquer plus facilement vos composants et leur contenu associé (Exemple : composants de connexion/inscription, etc.)**
+3. **Dupliquer plus facilement vos composants et leur contenu associé (Exemple : composants de connexion/inscription, etc.)**
    - En limitant le risque d'impacter le contenu d'autres composants
    - En copiant/collant votre contenu d'une application à une autre sans dépendances externes
 
-5. **Éviter de polluer votre base de code avec des clés/valeurs inutilisées pour des composants non utilisés**
-   - Si vous n'utilisez pas un composant, vous n'avez pas besoin d'importer son contenu
+4. **Éviter de polluer votre base de code avec des clés/valeurs inutilisées pour des composants non utilisés**
+   - Si vous ne utilisez pas un composant, Intlayer ne l'importera pas
    - Si vous supprimez un composant, vous vous souviendrez plus facilement de supprimer son contenu associé puisqu'il sera présent dans le même dossier
 
-6. **Réduire le coût de raisonnement pour les agents IA afin de déclarer votre contenu multilingue**
+5. **Réduire le coût de raisonnement pour les agents IA afin de déclarer votre contenu multilingue**
    - L'agent IA n'aura pas à scanner l'ensemble de votre base de code pour savoir où implémenter votre contenu
    - Les traductions peuvent facilement être réalisées par des outils d'autocomplétion IA dans votre IDE (comme GitHub Copilot)
-
-7. **Optimiser les performances de chargement**
-   - Si un composant est chargé de manière paresseuse (lazy-loaded), son contenu associé sera chargé en même temps
 
 ## Fonctionnalités supplémentaires d'Intlayer
 

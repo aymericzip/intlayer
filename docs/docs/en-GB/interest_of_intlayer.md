@@ -197,24 +197,21 @@ This approach allows you to:
    - `.content.{{ts|mjs|cjs|json}}` files can be created using a VSCode extension
    - Autocompletion AI tools in your IDE (such as GitHub Copilot) can help you declare your content, reducing copy/paste
 
-2. **Reduce the complexity of your codebase**
+2. **Clean your codebase**
+   - Reduce the complexity
+   - Increase the maintainability
 
-3. **Increase the maintainability of your codebase**
-
-4. **Duplicate your components and their related content more easily (Example: login/register components, etc.)**
+3. **Duplicate your components and their related content more easily (Example: login/register components, etc.)**
    - By limiting the risk of impacting other components' content
    - By copy/pasting your content from one application to another without external dependencies
 
-5. **Avoid polluting your codebase with unused keys/values for unused components**
-   - If you don't use a component, you don't need to import its content
+4. **Avoid polluting your codebase with unused keys/values for unused components**
+   - If you don't use a component, Intlayer will not import its related content
    - If you delete a component, you'll more easily remember to remove its related content as it will be present in the same folder
 
-6. **Reduce reasoning cost for AI agents to declare your multilingual content**
+5. **Reduce reasoning cost for AI agents to declare your multilingual content**
    - The AI agent won't have to scan your entire codebase to know where to implement your content
    - Translations can easily be done by autocompletion AI tools in your IDE (such as GitHub Copilot)
-
-7. **Optimise loading performance**
-   - If a component is lazy-loaded, its related content will be loaded at the same time
 
 ## Additional features of Intlayer
 

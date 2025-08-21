@@ -198,24 +198,21 @@ Questo approccio ti permette di:
    - I file `.content.{{ts|mjs|cjs|json}}` possono essere creati utilizzando un'estensione di VSCode
    - Gli strumenti di completamento automatico basati su AI nel tuo IDE (come GitHub Copilot) possono aiutarti a dichiarare il tuo contenuto, riducendo il copia/incolla
 
-2. **Ridurre la complessità della tua codebase**
+2. **Pulire la tua codebase**
+   - Ridurre la complessità
+   - Aumentare la manutenibilità
 
-3. **Aumentare la manutenibilità della tua codebase**
-
-4. **Duplicare i tuoi componenti e i loro contenuti correlati più facilmente (esempio: componenti di login/registrazione, ecc.)**
+3. **Duplicare i tuoi componenti e i loro contenuti correlati più facilmente (esempio: componenti di login/registrazione, ecc.)**
    - Limitando il rischio di impattare il contenuto di altri componenti
    - Copiando/incollando il tuo contenuto da un'applicazione all'altra senza dipendenze esterne
 
-5. **Evitare di inquinare la tua codebase con chiavi/valori inutilizzati per componenti non usati**
-   - Se non usi un componente, non devi importarne il contenuto
+4. **Evitare di inquinare la tua codebase con chiavi/valori inutilizzati per componenti non usati**
+   - Se non usi un componente, Intlayer non importarà il suo contenuto correlato
    - Se elimini un componente, ti sarà più facile ricordarti di rimuovere il suo contenuto correlato poiché sarà presente nella stessa cartella
 
-6. **Ridurre il costo di ragionamento per gli agenti AI nella dichiarazione del tuo contenuto multilingue**
+5. **Ridurre il costo di ragionamento per gli agenti AI nella dichiarazione del tuo contenuto multilingue**
    - L'agente AI non dovrà scansionare l'intera codebase per sapere dove implementare il tuo contenuto
    - Le traduzioni possono essere facilmente effettuate dagli strumenti di completamento automatico basati su AI nel tuo IDE (come GitHub Copilot)
-
-7. **Ottimizzare le prestazioni di caricamento**
-   - Se un componente viene caricato in modo lazy, il suo contenuto correlato sarà caricato contemporaneamente
 
 ## Funzionalità aggiuntive di Intlayer
 
