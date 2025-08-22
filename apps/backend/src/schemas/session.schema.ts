@@ -1,4 +1,4 @@
-import { SessionSchema } from '@/export';
+import { SessionSchema } from '@/types/session.types';
 import { Schema } from 'mongoose';
 
 export const sessionSchema = new Schema<SessionSchema>(

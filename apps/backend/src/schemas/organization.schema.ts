@@ -1,4 +1,4 @@
-import { OrganizationSchema } from '@/export';
+import { OrganizationSchema } from '@/types/organization.types';
 import {
   MEMBERS_MIN_LENGTH,
   NAME_MAX_LENGTH,

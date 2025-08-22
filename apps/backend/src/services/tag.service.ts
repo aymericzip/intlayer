@@ -1,4 +1,4 @@
-import type { Organization } from '@/export';
+import type { Organization } from '@/types/organization.types';
 import type { Tag, TagData, TagDocument } from '@/types/tag.types';
 import { TagModel } from '@models/tag.model';
 import { GenericError } from '@utils/errors';
