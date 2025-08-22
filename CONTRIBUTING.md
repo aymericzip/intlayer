@@ -202,6 +202,14 @@ pnpm dev # or pnpm dev:turbo, etc.
 
 > If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
+## Codebase conventions
+
+- Prefer arrow function (`() => {}`) over function declaration (`function () {}`).
+- Prefer TypeScript `type` over `interface`. Use `interface` for modules augmentation only.
+- For testing and reusability, prefer 1 function per file.
+- Prefer `??` over `||` syntax.
+- Prefer `import type` over `import` for type imports.
+
 ## Commit formatting
 
 We follow a conventional commit format to make our Git history cleaner and more readable. Each commit message should follow the pattern:
