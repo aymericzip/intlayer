@@ -3693,8 +3693,8 @@ importers:
         specifier: ^0.25.5
         version: 0.25.9
       esbuild-fix-imports-plugin:
-        specifier: ^1.0.21
-        version: 1.0.21
+        specifier: ^1.0.22
+        version: 1.0.22
       eslint:
         specifier: ^9.33.0
         version: 9.33.0(jiti@2.5.1)
@@ -18685,6 +18685,12 @@ packages:
     resolution:
       {
         integrity: sha512-Ee4W4fU5nPL2klGqtPciRm8Ke553EIa6By1jsw/aG7lvHtlrtuqxBEFD7BttsCVb0eUWW5bag3KA2BVwxMAZxQ==,
+      }
+
+  esbuild-fix-imports-plugin@1.0.22:
+    resolution:
+      {
+        integrity: sha512-8Q8FDsnZgDwa+dHu0/bpU6gOmNrxmqgsIG1s7p1xtv6CQccRKc3Ja8o09pLNwjFgkOWtmwjS0bZmSWN7ATgdJQ==,
       }
 
   esbuild-register@3.6.0:
@@ -45585,6 +45591,8 @@ snapshots:
       is-symbol: 1.1.1
 
   esbuild-fix-imports-plugin@1.0.21: {}
+
+  esbuild-fix-imports-plugin@1.0.22: {}
 
   esbuild-register@3.6.0(esbuild@0.25.9):
     dependencies:
