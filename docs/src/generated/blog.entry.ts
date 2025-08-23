@@ -1,7 +1,7 @@
 /* AUTO-GENERATED – DO NOT EDIT */
 /* REGENERATE USING `pnpm prepare` */
-import { LocalesValues } from 'intlayer';
 import { readFile } from 'fs/promises';
+import { LocalesValues } from 'intlayer';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -1579,6 +1579,47 @@ export const blogEntry = {
         ),
         'utf8'
       )
+    ),
+  } as unknown as Record<LocalesValues, Promise<string>>,
+  './blog/en/vue-i18n_vs_intlayer.md': {
+    en: Promise.resolve(
+      readFile(join(dir, '../../../blog/en/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    fr: Promise.resolve(
+      readFile(join(dir, '../../../blog/fr/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    ru: Promise.resolve(
+      readFile(join(dir, '../../../blog/ru/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    ja: Promise.resolve(
+      readFile(join(dir, '../../../blog/ja/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    ko: Promise.resolve(
+      readFile(join(dir, '../../../blog/ko/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    zh: Promise.resolve(
+      readFile(join(dir, '../../../blog/zh/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    es: Promise.resolve(
+      readFile(join(dir, '../../../blog/es/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    de: Promise.resolve(
+      readFile(join(dir, '../../../blog/de/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    ar: Promise.resolve(
+      readFile(join(dir, '../../../blog/ar/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    pt: Promise.resolve(
+      readFile(join(dir, '../../../blog/pt/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    'en-GB': Promise.resolve(
+      readFile(join(dir, '../../../blog/en-GB/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    it: Promise.resolve(
+      readFile(join(dir, '../../../blog/it/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    hi: Promise.resolve(
+      readFile(join(dir, '../../../blog/hi/vue-i18n_vs_intlayer.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/what_is_internationalization.md': {
