@@ -142,16 +142,6 @@ We focus on **Next.js 13+ App Router** (with **React Server Components**) and ev
 
 ---
 
-## Practical migration notes (next-intl / next-i18next → Intlayer)
-
-- **Start per-feature**: Move one route or component at a time to **local dictionaries**.
-- **Keep old catalogues in parallel**: Bridge during migration; avoid a big bang.
-- **Turn on strict checks**: Let build-time detection surface gaps early.
-- **Adopt middleware & helpers**: Standardise locale detection and SEO tags site-wide.
-- **Measure bundles**: Expect **bundle size reductions** as unused content is dropped.
-
----
-
 ## Conclusion
 
 All three libraries succeed at core localisation. The difference is **how much work you must do** to achieve a robust, scalable setup in **modern Next.js**:

@@ -136,15 +136,6 @@ We evaluate:
 
 ---
 
-## Practical migration notes (react-intl / react-i18next → Intlayer)
-
-- **Migrate incrementally**: Start with one feature or route; keep legacy catalogs in parallel during the transition.
-- **Adopt per-component dictionaries**: Co-locate content with components to reduce coupling.
-- **Enable strict checks**: Let build-time errors surface missing keys/locales early in CI.
-- **Measure bundles**: Expect reductions as unused strings are pruned.
-
----
-
 ## Conclusion
 
 All three libraries localize React effectively. The differentiator is how much **infrastructure** you must build to reach a **safe, scalable** setup:

@@ -248,16 +248,6 @@ This approach:
 
 ---
 
-## Practical migration notes (vue-i18n → Intlayer)
-
-- **Start per-feature**: Move one route/view/component at a time to local Intlayer dictionaries.
-- **Bridge during migration**: Keep vue-i18n catalogues in parallel; gradually replace lookups.
-- **Enable strict checks**: Let build-time detection surface missing keys/locales early.
-- **Adopt router/SEO helpers**: Standardise locale detection and `hreflang` tags.
-- **Measure bundles**: Expect **bundle size drops** as unused content is excluded.
-
----
-
 ## Conclusion
 
 Both **vue-i18n** and **Intlayer** localise Vue apps well. The difference is **how much you must build yourself** to achieve a robust, scalable setup:
