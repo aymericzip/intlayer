@@ -32,8 +32,8 @@ Intlayer एक वैकल्पिक दृश्य संपादक भ�
 .
 └── Components
     └── MyComponent
-        ├── index.content.cjs
-        └── index.mjs
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"

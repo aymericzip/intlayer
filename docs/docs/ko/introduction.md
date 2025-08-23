@@ -32,8 +32,8 @@ Intlayer는 또한 콘텐츠를 쉽게 편집하고 관리할 수 있는 선택�
 .
 └── Components
     └── MyComponent
-        ├── index.content.cjs
-        └── index.mjs
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"

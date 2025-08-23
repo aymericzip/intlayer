@@ -25,8 +25,8 @@ Intlayer 的核心理念是采用每个组件的内容管理。因此，Intlayer
 .
 └── Components
     └── MyComponent
-        ├── index.content.cjs
-        └── index.mjs
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 为此，Intlayer 的作用是找到项目中所有的 `内容声明文件`，无论格式如何，然后从中生成 `字典`。
@@ -45,12 +45,10 @@ Intlayer 的核心理念是采用每个组件的内容管理。因此，Intlayer
 - 使用应用插件，例如 [`vite-intlayer` 包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md)，或其在 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 中的等价插件。当您使用这些插件之一时，Intlayer 会在启动（开发模式）或构建（生产模式）应用时自动构建您的字典。
 
 1. 内容文件的声明
-
    - 内容文件可以以多种格式定义，例如 TypeScript、ECMAScript、CommonJS 或 JSON。
    - 内容文件可以在项目中的任何地方定义，这有助于更好的维护和扩展性。重要的是要遵守内容文件的文件扩展名约定。默认扩展名为 `*.content.{js|cjs|mjs|ts|tsx|json}`，但可以在 [配置文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 中修改。
 
 2. `字典` 的生成
-
    - 字典是从内容文件生成的。默认情况下，Intlayer 字典生成在项目的 `.intlayer/dictionaries` 目录中。
    - 这些字典以不同格式生成，以满足所有需求并优化应用性能。
 

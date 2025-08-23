@@ -25,8 +25,8 @@ Intlayer의 주요 아이디어는 컴포넌트별 콘텐츠 관리를 채택하
 .
 └── Components
     └── MyComponent
-        ├── index.content.cjs
-        └── index.mjs
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 이를 위해 Intlayer의 역할은 프로젝트에 존재하는 다양한 형식의 `콘텐츠 선언 파일`을 모두 찾아내고, 이를 기반으로 `사전(dictionary)`을 생성하는 것입니다.
@@ -45,12 +45,10 @@ Intlayer의 주요 아이디어는 컴포넌트별 콘텐츠 관리를 채택하
 - [`vite-intlayer` 패키지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md)와 같은 앱 플러그인 또는 [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md)용 동등한 플러그인을 사용하는 방법. 이러한 플러그인 중 하나를 사용하면 Intlayer는 애플리케이션을 시작(개발)하거나 빌드(프로덕션)할 때 자동으로 사전을 빌드합니다.
 
 1. 콘텐츠 파일 선언
-
    - 콘텐츠 파일은 TypeScript, ECMAScript, CommonJS 또는 JSON과 같은 다양한 형식으로 정의할 수 있습니다.
    - 콘텐츠 파일은 프로젝트 어디에서나 정의할 수 있어 유지 관리와 확장성이 향상됩니다. 콘텐츠 파일의 파일 확장자 규칙을 준수하는 것이 중요합니다. 기본 확장자는 `*.content.{js|cjs|mjs|ts|tsx|json}`이지만, [설정 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에서 수정할 수 있습니다.
 
 2. `사전(dictionary)` 생성
-
    - 사전은 콘텐츠 파일에서 생성됩니다. 기본적으로 Intlayer 사전은 프로젝트의 `.intlayer/dictionaries` 디렉토리에 생성됩니다.
    - 이러한 사전은 모든 요구를 충족하고 애플리케이션 성능을 최적화하기 위해 다양한 형식으로 생성됩니다.
 

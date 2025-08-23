@@ -32,8 +32,8 @@ Intlayer 还提供了一个可选的可视化编辑器，允许您轻松编辑�
 .
 └── Components
     └── MyComponent
-        ├── index.content.cjs
-        └── index.mjs
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"

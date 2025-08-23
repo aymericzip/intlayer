@@ -25,8 +25,8 @@ A ideia principal por trás do Intlayer é adotar um gerenciamento de conteúdo 
 .
 └── Components
     └── MyComponent
-        ├── index.content.cjs
-        └── index.mjs
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 Para isso, o papel do Intlayer é encontrar todos os seus `arquivos de declaração de conteúdo`, em todos os formatos diferentes presentes no seu projeto, e então ele gerará os `dicionários` a partir deles.
@@ -45,12 +45,10 @@ A etapa de construção pode ser feita de três maneiras:
 - usando os plugins de aplicativos, como o pacote [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/index.md), ou seus equivalentes para [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/next-intlayer/index.md). Quando você usa um desses plugins, o Intlayer construirá automaticamente seus dicionários ao iniciar (dev) ou construir (prod) sua aplicação.
 
 1. Declaração de arquivos de conteúdo
-
    - Os arquivos de conteúdo podem ser definidos em vários formatos, como TypeScript, ECMAScript, CommonJS ou JSON.
    - Os arquivos de conteúdo podem ser definidos em qualquer lugar do projeto, o que permite uma melhor manutenção e escalabilidade. É importante respeitar as convenções de extensão de arquivo para arquivos de conteúdo. Essa extensão é por padrão `*.content.{js|cjs|mjs|ts|tsx|json}`, mas pode ser modificada no [arquivo de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
 2. Geração de `dicionários`
-
    - Os dicionários são gerados a partir dos arquivos de conteúdo. Por padrão, os dicionários do Intlayer são gerados no diretório `.intlayer/dictionaries` do projeto.
    - Esses dicionários são gerados em diferentes formatos para atender a todas as necessidades e otimizar o desempenho da aplicação.
 

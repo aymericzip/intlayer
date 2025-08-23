@@ -32,8 +32,8 @@ Intlayer bietet außerdem einen optionalen visuellen Editor, mit dem Sie Ihre In
 .
 └── Components
     └── MyComponent
-        ├── index.content.cjs
-        └── index.mjs
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 ```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"

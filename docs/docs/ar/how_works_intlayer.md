@@ -25,8 +25,8 @@ slugs:
 .
 └── Components
     └── MyComponent
-        ├── index.content.cjs
-        └── index.mjs
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 للقيام بذلك، دور Intlayer هو العثور على جميع `ملفات إعلان المحتوى`، بجميع التنسيقات المختلفة الموجودة في مشروعك، ثم سيقوم بإنشاء `القواميس` منها.
@@ -45,12 +45,10 @@ slugs:
 - باستخدام إضافات التطبيقات مثل حزمة [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md)، أو ما يعادلها لـ [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md). عند استخدامك لإحدى هذه الإضافات، سيقوم Intlayer تلقائيًا ببناء القواميس عند بدء (التطوير) أو بناء (الإنتاج) تطبيقك.
 
 1. إعلان ملفات المحتوى
-
    - يمكن تعريف ملفات المحتوى بتنسيقات مختلفة، مثل TypeScript، ECMAScript، CommonJS، أو JSON.
    - يمكن تعريف ملفات المحتوى في أي مكان في المشروع، مما يسمح بصيانة أفضل وقابلية للتوسع. من المهم احترام قواعد امتداد الملفات لملفات المحتوى. هذا الامتداد هو افتراضيًا `*.content.{js|cjs|mjs|ts|tsx|json}`، ولكن يمكن تعديله في [ملف التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
 2. إنشاء `القواميس`
-
    - يتم إنشاء القواميس من ملفات المحتوى. افتراضيًا، يتم إنشاء قواميس Intlayer في دليل `.intlayer/dictionaries` الخاص بالمشروع.
    - يتم إنشاء هذه القواميس بتنسيقات مختلفة لتلبية جميع الاحتياجات وتحسين أداء التطبيق.
 

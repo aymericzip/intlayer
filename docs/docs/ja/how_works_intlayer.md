@@ -25,8 +25,8 @@ Intlayerの主なアイデアは、コンポーネントごとのコンテンツ
 .
 └── Components
     └── MyComponent
-        ├── index.content.cjs
-        └── index.mjs
+        ├── index.content.ts
+        └── index.tsx
 ```
 
 これを実現するために、Intlayerの役割は、プロジェクト内に存在するさまざまな形式の`コンテンツ宣言ファイル`をすべて見つけ出し、それらから`辞書`を生成することです。
@@ -45,12 +45,10 @@ Intlayerの主なアイデアは、コンポーネントごとのコンテンツ
 - [`vite-intlayer`パッケージ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)などのアプリプラグインを使用、または[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)用の同等のプラグインを使用。これらのプラグインのいずれかを使用すると、アプリケーションを開始（開発）またはビルド（本番）する際に、Intlayerが自動的に辞書をビルドします。
 
 1. コンテンツファイルの宣言
-
    - コンテンツファイルは、TypeScript、ECMAScript、CommonJS、JSONなど、さまざまな形式で定義できます。
    - コンテンツファイルはプロジェクト内のどこにでも定義でき、これによりメンテナンス性とスケーラビリティが向上します。コンテンツファイルの拡張子の規約を守ることが重要です。この拡張子はデフォルトで`*.content.{js|cjs|mjs|ts|tsx|json}`ですが、[設定ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)で変更できます。
 
 2. `辞書`の生成
-
    - 辞書はコンテンツファイルから生成されます。デフォルトでは、Intlayer辞書はプロジェクトの`.intlayer/dictionaries`ディレクトリに生成されます。
    - これらの辞書は、すべてのニーズに対応し、アプリケーションのパフォーマンスを最適化するために、さまざまな形式で生成されます。
 
