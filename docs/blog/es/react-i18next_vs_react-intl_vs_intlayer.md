@@ -1,14 +1,14 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-06-29
-title: react-i18n vs react-intl vs Intlayer
-description: Integra react-i18next con next-intl y Intlayer para la internacionalización (i18n) de una aplicación React
+title: react-i18next vs react-intl vs Intlayer
+description: Integrar react-i18next con next-intl e Intlayer para la internacionalización (i18n) de una aplicación React
 keywords:
   - next-intl
   - react-i18next
   - Intlayer
   - Internacionalización
-  - Blogumentación
+  - Blog
   - Next.js
   - JavaScript
   - React
@@ -17,178 +17,137 @@ slugs:
   - react-i18next-vs-react-intl-vs-intlayer
 ---
 
-# React-Intl VS React-i18next VS Intlayer | React Internationalization (i18n)
+# react-Intl VS react-i18next VS intlayer | Internacionalización (i18n) en React
 
-A continuación se presenta una comparación concisa de tres bibliotecas populares de i18n (internacionalización) para React: **React-Intl**, **React-i18next** e **Intlayer**. Cada biblioteca ofrece características y flujos de trabajo únicos para integrar el soporte multilingüe en su aplicación React. Después de leer esto, debería poder decidir cuál solución se adapta mejor a sus necesidades.
+Esta guía compara tres opciones consolidadas de i18n para **React**: **react-intl** (FormatJS), **react-i18next** (i18next) y **Intlayer**.
+Nos centramos en aplicaciones de **React puro** (por ejemplo, Vite, CRA, SPA). Si usas Next.js, consulta nuestra comparación dedicada a Next.js.
 
----
+Evaluamos:
 
-## 1. Introducción
+- Arquitectura y organización del contenido
+- TypeScript y seguridad
+- Manejo de traducciones faltantes
+- Contenido enriquecido y capacidades de formato
+- Rendimiento y comportamiento de carga
+- Experiencia del desarrollador (DX), herramientas y mantenimiento
+- SEO/ruteo (dependiente del framework)
 
-La internacionalización (i18n) en aplicaciones React se puede lograr de múltiples maneras. Las tres bibliotecas presentadas aquí tienen diferentes filosofías de diseño, conjuntos de características y soporte comunitario:
-
-1. **React-Intl**
-2. **React-i18next**
-3. **Intlayer**
-
-A continuación, encontrará una descripción general de cada solución, seguida de una comparación de características, pros y contras, y casos de uso de ejemplo.
-
----
-
-## 2. React-Intl
-
-### Descripción General
-
-[**React-Intl**](https://formatjs.io/docs/react-intl/) es parte de la suite [FormatJS](https://formatjs.io/). Proporciona un conjunto poderoso de **APIs y componentes** para manejar el formato de mensajes, pluralización, fechas/hora y formateo de números. React-Intl es ampliamente utilizado en aplicaciones empresariales, principalmente porque es parte de un ecosistema que estandariza la sintaxis y el formato de los mensajes.
-
-### Características Clave
-
-- **Sintaxis de Mensaje ICU**: Ofrece una sintaxis integral para interpolación de mensajes, pluralización y más.
-- **Formateo Localizado**: Utilidades integradas para formatear fechas, horas, números y tiempos relativos según la localidad.
-- **Componentes Declarativos**: Expone `<FormattedMessage>`, `<FormattedNumber>`, `<FormattedDate>`, etc., para un uso sin problemas en JSX.
-- **Rico Ecosistema**: Se integra bien con las herramientas de FormatJS (por ejemplo, [babel-plugin-react-intl](https://formatjs.io/docs/tooling/babel-plugin/) ) para extraer, gestionar y compilar mensajes.
-
-### Flujo de Trabajo Típico
-
-1. **Definir catálogos de mensajes** (normalmente archivos JSON por localidad).
-2. **Wrap su aplicación** en `<IntlProvider locale="en" messages={messages}>`.
-3. **Usar** `<FormattedMessage id="myMessage" defaultMessage="Hello world" />` o el hook `useIntl()` para acceder a las cadenas de traducción.
-
-### Pros
-
-- Bien establecido y utilizado en muchos entornos de producción.
-- Formateo de mensajes avanzado, incluida la pluralización, género, zonas horarias y más.
-- Fuerte soporte de herramientas para la extracción y compilación de mensajes.
-
-### Contras
-
-- Requiere familiaridad con el **formato de mensaje ICU**, que puede ser extenso.
-- No es tan sencillo manejar traducciones dinámicas o complejas que son más que solo texto.
+> **resumen**: Los tres pueden localizar una aplicación React. Si quieres **contenido con alcance por componente**, **tipos estrictos en TypeScript**, **verificaciones de claves faltantes en tiempo de compilación**, **diccionarios optimizados por tree-shaking** y herramientas editoriales integradas (Editor Visual/CMS + traducción asistida por IA opcional), **Intlayer** es la opción más completa para bases de código React modulares.
 
 ---
 
-## 3. React-i18next
+## Posicionamiento a alto nivel
 
-### Descripción General
-
-[**React-i18next**](https://react.i18next.com/) es una extensión de React de [i18next](https://www.i18next.com/), uno de los marcos de i18n de JavaScript más populares. Ofrece **extensas características** para traducciones en tiempo de ejecución, carga diferida y detección de idiomas, lo que lo hace extremadamente flexible para una amplia variedad de casos de uso.
-
-### Características Clave
-
-- **Estructura de Traducción Flexible**: No está atada a un formato único como ICU. Puede almacenar traducciones en JSON, usar interpolación, pluralización, etc.
-- **Cambio de Idioma Dinámico**: Plugins de detección de idiomas integrados y actualizaciones en tiempo de ejecución.
-- **Traducciones Anidadas y Estructuradas**: Puede anidar traducciones fácilmente dentro de JSON.
-- **Extensa Ecosistema de Plugins**: Para detección (navegador, ruta, subdominio, etc.), carga de recursos, almacenamiento en caché y más.
-
-### Flujo de Trabajo Típico
-
-1. **Instalar `i18next` y `react-i18next`.**
-2. **Configurar i18n** para cargar traducciones (JSON) y establecer la detección de idioma o el retroceso.
-3. **Wrap su aplicación** en `I18nextProvider`.
-4. **Usar el hook `useTranslation()`** o el componente `<Trans>` para mostrar traducciones.
-
-### Pros
-
-- Muy **flexible** y rica en características.
-- Comunidad muy activa y gran ecosistema de plugins.
-- Facilidad de **carga dinámica** de traducciones (por ejemplo, desde un servidor, bajo demanda).
-
-### Contras
-
-- **La configuración puede ser extensa**, especialmente si tiene necesidades más avanzadas.
-- Si prefiere traducciones fuertemente tipadas, puede necesitar configuraciones adicionales de TypeScript.
+- **react-intl** — Formateo basado en ICU y alineado con estándares (fechas/números/plurales) con una API madura. Los catálogos suelen estar centralizados; la seguridad de las claves y la validación en tiempo de compilación dependen en gran medida de ti.
+- **react-i18next** — Extremadamente popular y flexible; namespaces, detectores y muchos plugins (ICU, backends). Potente, pero la configuración puede expandirse a medida que los proyectos crecen.
+- **Intlayer** — Modelo de contenido centrado en componentes para React, **tipado estricto en TS**, **verificaciones en tiempo de compilación**, **tree-shaking**, además de **Editor Visual/CMS** y **traducciones asistidas por IA**. Funciona con React Router, Vite, CRA, etc.
 
 ---
 
-## 4. Intlayer
+## Matriz de características (enfoque React)
 
-### Descripción General
-
-[**Intlayer**](https://github.com/aymericzip/intlayer) es una biblioteca de i18n más nueva y de código abierto centrada en **declaraciones de contenido a nivel de componente**, seguridad de tipos y **enrutamiento dinámico**. Está diseñado para flujos de trabajo modernos de React, apoyando tanto **Create React App** como configuraciones de **Vite**. También incluye características avanzadas como **enrutamiento basado en localidades** y **tipos de TypeScript auto-generados** para traducciones.
-
-### Características Clave
-
-- **Archivos de Contenido Declarativos**: Cada componente o módulo puede declarar sus traducciones en archivos dedicados `.content.tsx` o `.content.json`, manteniendo el contenido cerca de donde se utiliza.
-- **Enrutamiento y Middleware Integrados**: Módulos opcionales para enrutamiento localizado (por ejemplo, `/es/acerca`) y middleware de servidor para detectar la localidad del usuario.
-- **Tipos de TypeScript Auto-generados**: Asegura la seguridad de tipos con características como autocompletar y detección de errores en tiempo de compilación.
-- **Traducciones Dinámicas y Ricas**: Puede incluir JSX/TSX en traducciones para casos de uso más complejos (por ejemplo, enlaces, texto en negrita, iconos en traducciones).
-
-### Flujo de Trabajo Típico
-
-1. **Instalar `intlayer` y `react-intlayer`.**
-2. **Crear `intlayer.config.ts`** para definir las localidades disponibles y la localidad predeterminada.
-3. **Usar la CLI de Intlayer** o un plugin para **transpilar** declaraciones de contenido.
-4. **Wrap su aplicación** en `<IntlayerProvider>` y recuperar contenido con `useIntlayer("keyName")`.
-
-### Pros
-
-- **Amigable con TypeScript** con generación de tipos integrado y verificación de errores.
-- **Contenido rico** posible (por ejemplo, pasar nodos React como traducciones).
-- **Enrutamiento Localizado** listo para usar.
-- Integrado con herramientas de construcción populares (CRA, Vite) para una configuración fácil.
-
-### Contras
-
-- Aún **relativamente nueva** en comparación con React-Intl o React-i18next.
-- Enfoque más pesado en un “declaración de contenido a nivel de componente” , puede ser un cambio respecto a los catálogos típicos .json.
-- Ecosistema y comunidad más pequeños en comparación con las bibliotecas más establecidas.
+| Característica                                                   | `react-intlayer` (Intlayer)                                                                                                                      | `react-i18next` (i18next)                                                                                                             | `react-intl` (FormatJS)                                                                                            |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Traducciones Cerca de los Componentes**                        | ✅ Sí, contenido ubicado junto a cada componente                                                                                                 | ❌ No                                                                                                                                 | ❌ No                                                                                                              |
+| **Integración con TypeScript**                                   | ✅ Avanzada, tipos estrictos generados automáticamente                                                                                           | ⚠️ Básica; configuración extra para seguridad                                                                                         | ✅ Buena, pero menos estricta                                                                                      |
+| **Detección de Traducciones Faltantes**                          | ✅ Resaltado de errores en TypeScript y error/advertencia en tiempo de compilación                                                               | ⚠️ Principalmente cadenas de reserva en tiempo de ejecución                                                                           | ⚠️ Cadenas de reserva                                                                                              |
+| **Contenido Enriquecido (JSX/Markdown/componentes)**             | ✅ Soporte directo                                                                                                                               | ⚠️ Limitado / solo interpolación                                                                                                      | ⚠️ Sintaxis ICU, no JSX real                                                                                       |
+| **Traducción impulsada por IA**                                  | ✅ Sí, soporta múltiples proveedores de IA. Usable con tus propias claves API. Considera el contexto de tu aplicación y el alcance del contenido | ❌ No                                                                                                                                 | ❌ No                                                                                                              |
+| **Editor Visual**                                                | ✅ Sí, Editor Visual local + CMS opcional; puede externalizar contenido de la base de código; embebible                                          | ❌ No / disponible a través de plataformas externas de localización                                                                   | ❌ No / disponible a través de plataformas externas de localización                                                |
+| **Enrutamiento Localizado**                                      | ✅ Sí, soporta rutas localizadas desde el inicio (funciona con Next.js y Vite)                                                                   | ⚠️ No incorporado, requiere plugins (p. ej. `next-i18next`) o configuración personalizada del enrutador                               | ❌ No, solo formateo de mensajes, el enrutamiento debe ser manual                                                  |
+| **Generación Dinámica de Rutas**                                 | ✅ Sí                                                                                                                                            | ⚠️ Plugin/ecosistema o configuración manual                                                                                           | ❌ No proporcionado                                                                                                |
+| **Pluralización**                                                | ✅ Patrones basados en enumeraciones                                                                                                             | ✅ Configurable (plugins como i18next-icu)                                                                                            | ✅ (ICU)                                                                                                           |
+| **Formateo (fechas, números, monedas)**                          | ✅ Formateadores optimizados (Intl en el núcleo)                                                                                                 | ⚠️ A través de plugins o uso personalizado de Intl                                                                                    | ✅ Formateadores ICU                                                                                               |
+| **Formato de contenido**                                         | ✅ .tsx, .ts, .js, .json, .md, .txt, (.yaml en desarrollo)                                                                                       | ⚠️ .json                                                                                                                              | ✅ .json, .js                                                                                                      |
+| **Soporte ICU**                                                  | ⚠️ En desarrollo                                                                                                                                 | ⚠️ A través de plugin (i18next-icu)                                                                                                   | ✅ Sí                                                                                                              |
+| **Ayudantes SEO (hreflang, sitemap)**                            | ✅ Herramientas integradas: ayudantes para sitemap, robots.txt, metadatos                                                                        | ⚠️ Plugins comunitarios/manual                                                                                                        | ❌ No es núcleo                                                                                                    |
+| **Ecosistema / Comunidad**                                       | ⚠️ Más pequeño pero creciendo rápido y reactivo                                                                                                  | ✅ Más grande y maduro                                                                                                                | ✅ Grande                                                                                                          |
+| **Renderizado del lado del servidor y Componentes del Servidor** | ✅ Sí, optimizado para SSR / Componentes del Servidor de React                                                                                   | ⚠️ Soportado a nivel de página pero es necesario pasar funciones t en el árbol de componentes para los componentes hijos del servidor | ❌ No soportado, es necesario pasar funciones t en el árbol de componentes para los componentes hijos del servidor |
+| **Tree-shaking (cargar solo contenido usado)**                   | ✅ Sí, por componente en tiempo de compilación mediante plugins de Babel/SWC                                                                     | ⚠️ Usualmente carga todo (puede mejorarse con namespaces/división de código)                                                          | ⚠️ Usualmente carga todo                                                                                           |
+| **Carga diferida**                                               | ✅ Sí, por localización / por diccionario                                                                                                        | ✅ Sí (por ejemplo, backends/namespaces bajo demanda)                                                                                 | ✅ Sí (paquetes de localización divididos)                                                                         |
+| **Eliminación de contenido no usado**                            | ✅ Sí, por diccionario en tiempo de compilación                                                                                                  | ❌ No, solo mediante segmentación manual de namespaces                                                                                | ❌ No, todos los mensajes declarados se incluyen en el paquete                                                     |
+| **Gestión de Proyectos Grandes**                                 | ✅ Fomenta la modularidad, adecuado para sistemas de diseño                                                                                      | ⚠️ Requiere buena disciplina en los archivos                                                                                          | ⚠️ Los catálogos centrales pueden volverse grandes                                                                 |
 
 ---
 
-## 5. Comparación de Características
+## Comparación detallada
 
-| **Características**          | **React-Intl**                                                                       | **React-i18next**                                                                                                                       | **Intlayer**                                                                                                                                   |
-| ---------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Caso de Uso Principal**    | Traducciones basadas en cadenas, formateo de fechas/números, sintaxis de mensaje ICU | i18n completo con fácil cambio dinámico, anidamiento, ecosistema de plugins                                                             | Traducciones a prueba de tipos con enfoque en contenido declarativo, enrutamiento localizado, y middleware de servidor opcional                |
-| **Enfoque**                  | Utiliza `<IntlProvider>` y componentes de mensajes de FormatJS                       | Utiliza `I18nextProvider` y el hook `useTranslation()`                                                                                  | Utiliza `<IntlayerProvider>` y el hook `useIntlayer()` con declaraciones de contenido                                                          |
-| **Formato de Localización**  | Cadenas basadas en ICU (catálogos JSON o JavaScript)                                 | Archivos de recursos JSON (o cargadores personalizados). El formato ICU es opcional a través del plugin de i18next                      | Declaraciones en `.content.[ts/js/tsx]` o JSON; puede contener cadenas o componentes React                                                     |
-| **Enrutamiento**             | Manejado externamente (sin enrutamiento localizado incorporado)                      | Manejado externamente con plugins de i18next (detección de ruta, subdominio, etc.)                                                      | Soporte de enrutamiento localizado integrado (por ejemplo, `/es/acerca`), además de middleware de servidor opcional (para SSR/Vite)            |
-| **Soporte para TypeScript**  | Bueno (tipados para paquetes oficiales)                                              | Bueno pero configuración adicional para traducciones tipadas si desea una verificación estricta                                         | Excelente (definiciones de tipo auto-generadas para claves y traducciones de contenido)                                                        |
-| **Pluralización y Formateo** | Avanzado: formateo de fechas/hora/números incorporado, soporte para plural/género    | Pluralización configurable. El formateo de fechas/hora generalmente se realiza a través de bibliotecas externas o del plugin de i18next | Puede depender del estándar JavaScript Intl o incrustar lógica en el contenido. No tan especializado como FormatJS, pero maneja casos típicos. |
-| **Comunidad y Ecosistema**   | Grande, parte del ecosistema de FormatJS                                             | Muy grande, altamente activa, muchos plugins (detección, almacenamiento en caché, marcos)                                               | Más pequeño pero en crecimiento; enfoque moderno de código abierto                                                                             |
-| **Curva de Aprendizaje**     | Moderada (aprendiendo la sintaxis de mensajes ICU, convenciones de FormatJS)         | Baja a moderada (uso sencillo, pero la configuración avanzada puede volverse extensa)                                                   | Moderada (concepto de declaraciones de contenido y pasos de compilación especializados)                                                        |
+### 1) Arquitectura y escalabilidad
+
+- **react-intl / react-i18next**: La mayoría de las configuraciones mantienen **carpetas de localización centralizadas** por idioma, a veces divididas por **espacios de nombres** (namespaces) (i18next). Funciona bien al principio, pero se convierte en una superficie compartida a medida que las aplicaciones crecen.
+- **Intlayer**: Promueve **diccionarios por componente (o por funcionalidad)** **ubicados junto** a la interfaz de usuario a la que sirven. Esto mantiene clara la propiedad, facilita la duplicación/migración de componentes y reduce la rotación de claves entre equipos. El contenido no utilizado es más fácil de identificar y eliminar.
+
+**Por qué importa:** El contenido modular refleja una interfaz modular. Las grandes bases de código React se mantienen más limpias cuando las traducciones conviven con los componentes a los que pertenecen.
 
 ---
 
-## 6. Cuándo Elegir Cada Uno
+### 2) TypeScript y seguridad
 
-1. **React-Intl**
+- **react-intl**: Tipados sólidos, pero **sin tipado automático de claves**; debes aplicar los patrones de seguridad tú mismo.
+- **react-i18next**: Tipados fuertes para hooks; el **tipado estricto de claves** generalmente requiere configuración adicional o generadores.
+- **Intlayer**: **Genera automáticamente tipos estrictos** a partir de tu contenido. La autocompletación del IDE y los **errores en tiempo de compilación** detectan errores tipográficos y claves faltantes antes de la ejecución.
 
-   - Necesita un **formato poderoso** para fechas/hora/números y una fuerte **sintaxis de mensajes ICU**.
-   - Prefiere un enfoque más basado en “**estándares**” para traducciones.
-   - No requiere enrutamiento localizado o claves de traducción fuertemente tipadas.
-
-2. **React-i18next**
-
-   - Necesita una solución **flexible y establecida** con **carga dinámica** y **a demanda** de traducciones.
-   - Desea un plugin basado en **detección de idiomas** (por ejemplo, desde URL, cookies, almacenamiento local) o almacenamiento en caché avanzado.
-   - Necesita el ecosistema más grande, con muchas integraciones existentes para varios marcos (Next.js, React Native, etc.).
-
-3. **Intlayer**
-   - Desea una integración **fuerte de TypeScript** con tipos _autogenerados_, asegurando que rara vez falte una clave de traducción.
-   - Prefiere un **contenido declarativo** cercano al componente, posiblemente incluyendo nodos React o lógica avanzada en traducciones.
-   - Requiere **enrutamiento localizado incorporado** o quiere incorporarlo fácilmente en su configuración SSR o Vite.
-   - Desea un enfoque moderno o simplemente quiere una única biblioteca que cubra tanto **gestión de contenido** (i18n) como **enrutamiento** de manera segura en tipos.
+**Por qué es importante:** Mover los fallos hacia la **izquierda** (a la compilación/CI) reduce problemas en producción y acelera los ciclos de retroalimentación para los desarrolladores.
 
 ---
 
-## 7. Conclusión
+### 3) Manejo de traducciones faltantes
 
-Cada biblioteca ofrece una solución robusta para internacionalizar una aplicación React:
+- **react-intl / react-i18next**: Por defecto usan **respaldo en tiempo de ejecución** (eco de la clave o idioma predeterminado). Puedes agregar linting/plugins, pero no está garantizado en la compilación.
+- **Intlayer**: **Detección en tiempo de compilación** con advertencias o errores cuando faltan locales o claves requeridas.
 
-- **React-Intl** destaca en el formateo de mensajes y es una opción popular para soluciones empresariales que se centran en la sintaxis de mensajes ICU.
-- **React-i18next** proporciona un entorno altamente flexible y dirigido por plugins para necesidades avanzadas o dinámicas de i18n.
-- **Intlayer** ofrece un enfoque **moderno y fuertemente tipado** que fusiona declaraciones de contenido, enrutamiento localizado avanzado, y integraciones basadas en plugins (CRA, Vite).
-
-Su elección depende en gran medida de los requisitos del proyecto, la experiencia deseada para el desarrollador (DX) y cuán importantes son las traducciones tipadas o el enrutamiento avanzado. Si valora el enrutamiento localizado incorporado y la integración de TypeScript, **Intlayer** puede ser lo más atractivo. Si desea una solución probada en batalla y rica en ecosistemas, **React-i18next** es una excelente opción. Para necesidades de formateo basadas en ICU directas, **React-Intl** es una opción confiable.
+**Por qué es importante:** Que la CI falle por cadenas faltantes evita que “inglés misterioso” se filtre en interfaces no inglesas.
 
 ---
 
-### Lectura Adicional
+### 4) Contenido enriquecido y formato
 
-- [Documentación de React-Intl](https://formatjs.io/docs/react-intl/)
-- [Documentación de React-i18next](https://react.i18next.com/)
-- [Guía de Inicio Rápido de Intlayer + CRA](#) (de su doc)
-- [Guía de Inicio Rápido de Intlayer + Vite & React](#) (de su doc)
+- **react-intl**: Excelente soporte **ICU** para plurales, selectores, fechas/números y composición de mensajes. Se puede usar JSX, pero el modelo mental sigue siendo centrado en el mensaje.
+- **react-i18next**: Interpolación flexible y **`<Trans>`** para incrustar elementos/componentes; ICU disponible mediante un plugin.
+- **Intlayer**: Los archivos de contenido pueden incluir **nodos enriquecidos** (JSX/Markdown/componentes) y **metadatos**. El formateo utiliza Intl internamente; los patrones de plural son ergonómicos.
 
-No dude en mezclar y combinar enfoques para adaptarse a sus requisitos; no hay una solución única para todos, y cada biblioteca continúa evolucionando para abordar nuevos casos de uso en el ecosistema React.
+**Por qué es importante:** Los textos complejos de la interfaz de usuario (enlaces, partes en negrita, componentes en línea) son más fáciles cuando la biblioteca integra nodos React de forma limpia.
+
+---
+
+### 5) Rendimiento y comportamiento de carga
+
+- **react-intl / react-i18next**: Normalmente gestionas el **división de catálogos** y la **carga diferida** manualmente (espacios de nombres/importaciones dinámicas). Efectivo pero requiere disciplina.
+- **Intlayer**: Realiza **tree-shaking** de diccionarios no usados y soporta **carga diferida por diccionario/por localización** de forma nativa.
+
+**Por qué importa:** Paquetes más pequeños y menos cadenas no usadas mejoran el rendimiento de inicio y navegación.
+
+---
+
+### 6) DX, herramientas y mantenimiento
+
+- **react-intl / react-i18next**: Ecosistema comunitario amplio; para flujos editoriales usualmente adoptas plataformas de localización externas.
+- **Intlayer**: Incluye un **Editor Visual gratuito** y un **CMS opcional** (mantén el contenido en Git o externalízalo). También ofrece una **extensión para VSCode** para la creación de contenido y **traducción asistida por IA** usando tus propias claves de proveedor.
+
+**Por qué es importante:** Las herramientas integradas acortan el ciclo entre desarrolladores y autores de contenido — menos código de unión, menos dependencias de proveedores.
+
+---
+
+## ¿Cuándo elegir cuál?
+
+- **Elige react-intl** si quieres un formateo de mensajes **priorizando ICU** con una API sencilla y alineada con estándares, y tu equipo está cómodo manteniendo catálogos y verificaciones de seguridad manualmente.
+- **Elige react-i18next** si necesitas la **amplitud del ecosistema de i18next** (detectores, backends, plugin ICU, integraciones) y aceptas más configuración para ganar flexibilidad.
+- **Elige Intlayer** si valoras el **contenido acotado por componente**, **TypeScript estricto**, **garantías en tiempo de compilación**, **tree-shaking** y herramientas editoriales **incluidas por defecto**, especialmente para aplicaciones React **grandes y modulares**.
+
+---
+
+## Notas prácticas para la migración (react-intl / react-i18next → Intlayer)
+
+- **Migra de forma incremental**: Comienza con una funcionalidad o ruta; mantén los catálogos heredados en paralelo durante la transición.
+- **Adopta diccionarios por componente**: Ubica el contenido junto con los componentes para reducir el acoplamiento.
+- **Activa verificaciones estrictas**: Permite que los errores en tiempo de compilación detecten claves/locales faltantes temprano en CI.
+- **Mide los bundles**: Espera reducciones a medida que se eliminan cadenas no usadas.
+
+---
+
+## Conclusión
+
+Las tres bibliotecas localizan React de manera efectiva. La diferencia radica en cuánto **infraestructura** debes construir para alcanzar una configuración **segura y escalable**:
+
+- Con **Intlayer**, el **contenido modular**, la **tipificación estricta en TS**, la **seguridad en tiempo de compilación**, los **paquetes optimizados por tree-shaking** y las **herramientas editoriales** son valores predeterminados, no tareas.
+- Si tu equipo valora la **mantenibilidad y la velocidad** en aplicaciones React impulsadas por componentes y con múltiples locales, Intlayer ofrece el flujo de trabajo para desarrolladores y contenido más **completo** en la actualidad.

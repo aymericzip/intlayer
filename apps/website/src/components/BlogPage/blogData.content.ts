@@ -132,6 +132,10 @@ const blogDataContent: any = {
         './blog/en/react-i18next_vs_react-intl_vs_intlayer.md'
       ),
     },
+    'vue-i18n-vs-intlayer': {
+      title: 'vue-i18n vs Intlayer',
+      default: getBlogMetadata('./blog/en/vue-i18n_vs_intlayer.md'),
+    },
     'i18n-technologies': {
       title: t({
         en: 'i18n Technologies',

@@ -8,7 +8,7 @@ keywords:
   - next-i18next
   - Intlayer
   - Internazionalizzazione
-  - Blogumentazione
+  - Blog
   - Next.js
   - JavaScript
   - React
@@ -17,269 +17,146 @@ slugs:
   - next-i18next-vs-next-intl-vs-intlayer
 ---
 
-# next-i18next VS next-intl VS Intlayer | Next.js Internazionalizzazione (i18n)
+# next-i18next VS next-intl VS intlayer | Internazionalizzazione (i18n) in Next.js
 
-Di seguito è riportato un confronto conciso di **tre librerie popolari** per internazionalizzare (i18n) un'applicazione Next.js: **next-intl**, **next-i18next** e **Intlayer**.
+Questa guida confronta tre opzioni i18n ampiamente utilizzate per **Next.js**: **next-intl**, **next-i18next** e **Intlayer**.
+Ci concentriamo su **Next.js 13+ App Router** (con **React Server Components**) e valutiamo:
 
-Questo documento evidenzia criteri chiave:
-
-1. **Architettura** (mantenere le traduzioni vicine ai loro componenti)
-2. **Supporto TypeScript**
+1. **Architettura e organizzazione dei contenuti**
+2. **TypeScript e sicurezza**
 3. **Gestione delle traduzioni mancanti**
-4. **Supporto per i Componenti del Server**
-5. **Routing e middleware avanzati** per Next.js
-6. **Semplicità di configurazione**
+4. **Routing e middleware**
+5. **Prestazioni e comportamento di caricamento**
+6. **Esperienza sviluppatore (DX), strumenti e manutenzione**
+7. **SEO e scalabilità per progetti di grandi dimensioni**
 
-La guida fornisce anche uno **sguardo approfondito su Intlayer**, mostrando perché può essere una scelta forte, specialmente per Next.js 13+, inclusi **App Router** e **Server Components**.
-
----
-
-## Panoramica di Ogni Libreria
-
-### 1. next-intl
-
-**Focus principale**: Configurazione rapida e semplice con un approccio leggero alla localizzazione.
-
-- **Architettura**: Incoraggia a posizionare le traduzioni in una singola cartella (ad es., `locales/`), ma consente anche strategie multiple. Non impone strettamente un’architettura “traduzione per componente”.
-- **Supporto TypeScript**: Integrazione di base con TypeScript. Esistono alcune definizioni di tipo, ma non sono incentrate sull'auto-generazione di definizioni TypeScript dai file di traduzione.
-- **Traduzioni mancanti**: Meccanismo di fallback di base. Per impostazione predefinita, torna a una chiave o a una stringa di locale predefinita. Nessun strumento robusto out-of-the-box per controlli avanzati delle traduzioni mancanti.
-- **Supporto per i Componenti del Server**: Funziona con Next.js 13+ in generale, ma il pattern è meno specializzato per un uso profondo lato server (ad es., componenti del server con routing dinamico complesso).
-- **Routing e Middleware**: Il supporto middleware è possibile ma limitato. Si basa tipicamente su Next.js `Middleware` per la rilevazione della lingua, o configurazioni manuali per riscrivere i percorsi delle lingue.
-- **Semplicità di Configurazione**: Molto semplice. Sono necessarie poche boilerplate.
-
-**Usa quando**: Vuoi un approccio più semplice o sei a tuo agio nel gestire le tue traduzioni in modi più convenzionali (come una cartella con file JSON per locale).
+> **tl;dr**: Tutti e tre possono localizzare un'app Next.js. Se desideri **contenuti a livello di componente**, **tipi TypeScript rigorosi**, **controlli delle chiavi mancanti in fase di build**, **dizionari ottimizzati con tree-shaking** e **helper di prima classe per App Router e SEO**, **Intlayer** è la scelta più completa e moderna.
 
 ---
 
-### 2. next-i18next
+## Posizionamento ad alto livello
 
-**Focus principale**: Soluzione collaudata che utilizza `i18next` sotto il cofano, ampiamente adottata per progetti Next.js.
-
-- **Architettura**: Organizza spesso le traduzioni nella cartella `public/locales`. Non è specificamente progettato per mantenere le traduzioni “vicine” a ciascun componente, anche se puoi adottare manualmente una struttura diversa.
-- **Supporto TypeScript**: Copertura ragionevole di TypeScript, ma richiede configurazione personalizzata per traduzioni tipizzate e hooks tipizzati.
-- **Traduzioni mancanti**: i18next offre interpolazione/fallback. Tuttavia, la rilevazione delle traduzioni mancanti richiede generalmente configurazioni extra o plugin di terze parti.
-- **Supporto per i Componenti del Server**: L'uso di base con Next.js 13 è documentato, ma l'uso avanzato (ad es., integrazione profonda con componenti del server, generazione dinamica di percorsi) può essere ingombrante.
-- **Routing e Middleware**: Si basa pesantemente su Next.js `Middleware` e riscritture per i sottopercorsi locali. Per configurazioni più complesse, potresti dover approfondire nella configurazione avanzata di i18next.
-- **Semplicità di Configurazione**: Approccio familiare per chi è abituato a i18next. Tuttavia, può diventare più pesante in termini di boilerplate quando sono necessarie funzionalità i18n avanzate (namespace, più lingue di fallback, ecc.).
-
-**Usa quando**: Sei già impegnato nell'ecosistema `i18next` o hai traduzioni esistenti basate su i18next.
+- **next-intl** — Formattazione dei messaggi leggera e semplice con un solido supporto per Next.js. I cataloghi centralizzati sono comuni; l’esperienza sviluppatore (DX) è semplice, ma la sicurezza e la manutenzione su larga scala rimangono per lo più a tuo carico.
+- **next-i18next** — i18next vestito per Next.js. Ecosistema maturo e funzionalità tramite plugin (ad esempio, ICU), ma la configurazione può essere verbosa e i cataloghi tendono a centralizzarsi con la crescita dei progetti.
+- **Intlayer** — Modello di contenuto incentrato sui componenti per Next.js, **tipizzazione TS rigorosa**, **controlli in fase di build**, **tree-shaking**, **middleware integrati e helper SEO**, **Editor Visivo/CMS** opzionale e **traduzioni assistite da AI**.
 
 ---
 
-### 3. Intlayer
+## Confronto delle funzionalità affiancate (focalizzato su Next.js)
 
-**Focus principale**: Una libreria i18n moderna e open-source specificamente progettata per Next.js **App Router** (12, 13, 14 e 15) con supporto integrato per **Server Components** e **Turbopack**.
-
-#### Vantaggi Chiave
-
-1. **Architettura**
-
-   - Incoraggia a posizionare **le traduzioni direttamente accanto ai loro componenti**. Ogni pagina o componente può avere il proprio file `.content.ts` (o JSON), niente più ricerche in una gigantesca cartella di traduzioni.
-   - Questo rende il tuo codice più **modulare e manutenibile**, specialmente in grandi basi di codice.
-
-2. **Supporto TypeScript**
-
-   - **Definizioni di tipo auto-generate**: Nel momento in cui definisci il tuo contenuto, Intlayer genera tipi che alimentano l'autocompletamento e catturano errori di traduzione.
-   - Minimizza gli errori di runtime come chiavi mancanti e offre avanzate **autocompletamenti** direttamente nel tuo IDE.
-
-3. **Gestione delle Traduzioni Mancanti**
-
-   - Durante la build, Intlayer può **rilevare chiavi di traduzione mancanti** e lanciare avvisi o errori.
-   - Questo garantisce che non spedisci mai accidentalmente con testi mancanti nelle tue lingue.
-
-4. **Ottimizzato per i Componenti del Server**
-
-   - Completamente compatibile con il **App Router** di Next.js e il nuovo paradigma dei **Server Components**.
-   - Fornisce provider specializzati (`IntlayerServerProvider`, `IntlayerClientProvider`) per **isolare il contesto del server** (vitale quando si tratta di Next.js 13+).
-
-5. **Routing e Middleware Avanzati**
-
-   - Include un dedicato [**`intlayerMiddleware`**](#) per **rilevazione automatica delle lingue** (via cookie o intestazioni del browser) e generazione avanzata di percorsi.
-   - Gestisce dinamicamente i percorsi localizzati (ad es., `/en-US/about` vs. `/fr/about`) con configurazione minima.
-   - Offre metodi helper come `getMultilingualUrls` per generare collegamenti a lingue alternative (ottimo per **SEO**).
-
-6. **Configurazione Semplificata**
-   - Un singolo file di configurazione (`intlayer.config.ts`) per definire la tua localizzazione, la lingua predefinita e le preferenze di integrazione.
-   - Un plugin wrapper `withIntlayer(nextConfig)` che **inietta** tutte le variabili d'ambiente e watchers per il tuo contenuto.
-   - **Nessuna grande configurazione di fallback**, il sistema è progettato per “funzionare semplicemente” con frizione minima.
-
-> **Conclusione**: Intlayer è una soluzione moderna che vuole **promuovere le migliori pratiche**: da **mantenere le traduzioni vicine** a ciascun componente React, all'offrire un **robusto supporto TS** e un facile utilizzo lato server, mentre **riduce drasticamente la boilerplate**.
+| Funzionalità                                            | `next-intlayer` (Intlayer)                                                                                                                     | `next-intl`                                                                                                                      | `next-i18next`                                                                                                                   |
+| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Traduzioni Vicino ai Componenti**                     | ✅ Sì, contenuto collocato con ogni componente                                                                                                 | ❌ No                                                                                                                            | ❌ No                                                                                                                            |
+| **Integrazione TypeScript**                             | ✅ Avanzata, tipi rigorosi generati automaticamente                                                                                            | ✅ Buona                                                                                                                         | ⚠️ Base                                                                                                                          |
+| **Rilevamento Traduzioni Mancanti**                     | ✅ Evidenziazione errori TypeScript e errore/avviso in fase di compilazione                                                                    | ⚠️ Ripiego a runtime                                                                                                             | ⚠️ Ripiego a runtime                                                                                                             |
+| **Contenuto Ricco (JSX/Markdown/componenti)**           | ✅ Supporto diretto                                                                                                                            | ❌ Non progettato per nodi ricchi                                                                                                | ⚠️ Limitato                                                                                                                      |
+| **Traduzione basata su AI**                             | ✅ Sì, supporta più provider AI. Utilizzabile con le proprie chiavi API. Considera il contesto della tua applicazione e l'ambito del contenuto | ❌ No                                                                                                                            | ❌ No                                                                                                                            |
+| **Editor Visuale**                                      | ✅ Sì, Editor Visuale locale + CMS opzionale; può esternalizzare il contenuto del codice; integrabile                                          | ❌ No / disponibile tramite piattaforme di localizzazione esterne                                                                | ❌ No / disponibile tramite piattaforme di localizzazione esterne                                                                |
+| **Routing Localizzato**                                 | ✅ Sì, supporta percorsi localizzati nativamente (funziona con Next.js e Vite)                                                                 | ✅ Integrato, App Router supporta il segmento `[locale]`                                                                         | ✅ Integrato                                                                                                                     |
+| **Generazione Dinamica delle Rotte**                    | ✅ Sì                                                                                                                                          | ✅ Sì                                                                                                                            | ✅ Sì                                                                                                                            |
+| **Pluralizzazione**                                     | ✅ Modelli basati su enumerazioni                                                                                                              | ✅ Buono                                                                                                                         | ✅ Buono                                                                                                                         |
+| **Formattazione (date, numeri, valute)**                | ✅ Formatter ottimizzati (Intl sotto il cofano)                                                                                                | ✅ Buono (helper Intl)                                                                                                           | ✅ Buono (helper Intl)                                                                                                           |
+| **Formato del contenuto**                               | ✅ .tsx, .ts, .js, .json, .md, .txt, (.yaml WIP)                                                                                               | ✅ .json, .js, .ts                                                                                                               | ⚠️ .json                                                                                                                         |
+| **Supporto ICU**                                        | ⚠️ In lavorazione                                                                                                                              | ✅ Sì                                                                                                                            | ⚠️ Tramite plugin (`i18next-icu`)                                                                                                |
+| **Helper SEO (hreflang, sitemap)**                      | ✅ Strumenti integrati: helper per sitemap, robots.txt, metadata                                                                               | ✅ Buono                                                                                                                         | ✅ Buono                                                                                                                         |
+| **Ecosistema / Comunità**                               | ⚠️ Più piccolo ma in rapida crescita e reattivo                                                                                                | ✅ Di medie dimensioni, focalizzato su Next.js                                                                                   | ✅ Di medie dimensioni, focalizzato su Next.js                                                                                   |
+| **Rendering lato server & Componenti Server**           | ✅ Sì, ottimizzato per SSR / Componenti Server React                                                                                           | ⚠️ Supportato a livello di pagina ma è necessario passare le funzioni t sull'albero dei componenti per i componenti server figli | ⚠️ Supportato a livello di pagina ma è necessario passare le funzioni t sull'albero dei componenti per i componenti server figli |
+| **Tree-shaking (caricamento solo del contenuto usato)** | ✅ Sì, per componente al momento della build tramite plugin Babel/SWC                                                                          | ⚠️ Parziale                                                                                                                      | ⚠️ Parziale                                                                                                                      |
+| **Lazy loading**                                        | ✅ Sì, per locale / per dizionario                                                                                                             | ✅ Sì (per rotta / per locale), necessita gestione dei namespace                                                                 | ✅ Sì (per rotta / per locale), necessita gestione dei namespace                                                                 |
+| **Rimozione dei contenuti non utilizzati**              | ✅ Sì, per dizionario al momento della build                                                                                                   | ❌ No, può essere gestito manualmente con la gestione dei namespace                                                              | ❌ No, può essere gestito manualmente con la gestione dei namespace                                                              |
+| **Gestione di Grandi Progetti**                         | ✅ Favorisce un approccio modulare, adatto a design-system                                                                                     | ✅ Modulare con configurazione                                                                                                   | ✅ Modulare con configurazione                                                                                                   |
 
 ---
 
-## Confronto delle Caratteristiche a Vista
+## Confronto Approfondito
 
-| **Caratteristica**                               | **next-intl**                                   | **next-i18next**                                  | **Intlayer**                                 |
-| ------------------------------------------------ | ----------------------------------------------- | ------------------------------------------------- | -------------------------------------------- |
-| **Mantenere le traduzioni vicino ai componenti** | Parziale – tipicamente una cartella di lingue   | Non predefinito – spesso `public/locales`         | **Sì – raccomandato & facile**               |
-| **TypeScript Autogenerato**                      | Definizioni di base TS                          | Supporto TS di base                               | **Sì – avanzato out-of-the-box**             |
-| **Rilevazione delle traduzioni mancanti**        | Per lo più stringhe di fallback                 | Per lo più stringhe di fallback                   | **Sì – controlli in fase di build**          |
-| **Supporto per i Componenti del Server**         | Funziona ma non specializzato                   | Supportato ma può essere verboso                  | **Full support con provider specializzati**  |
-| **Routing e Middleware**                         | Integrato manualmente con il middleware di Next | Fornito tramite configurazione di riscrittura     | **Middleware i18n dedicato + hook avanzati** |
-| **Complesso di Configurazione**                  | Semplice, configurazione minima                 | Tradizionale, può essere verbosa per usi avanzati | **Un file di configurazione & plugin**       |
+### 1) Architettura e scalabilità
+
+- **next-intl / next-i18next**: Predefinito a **cataloghi centralizzati** per locale (più **namespace** in i18next). Funziona bene all'inizio, ma spesso diventa una grande superficie condivisa con un aumento del coupling e del churn delle chiavi.
+- **Intlayer**: Favorisce dizionari **per componente** (o per funzionalità) **co-localizzati** con il codice che servono. Questo riduce il carico cognitivo, facilita la duplicazione/migrazione delle parti dell’interfaccia utente e riduce i conflitti tra team. Il contenuto non utilizzato è naturalmente più facile da individuare ed eliminare.
+
+**Perché è importante:** In grandi codebase o configurazioni di design-system, il **contenuto modulare** scala meglio rispetto a cataloghi monolitici.
 
 ---
 
-## Perché Intlayer?
+### 2) TypeScript e sicurezza
 
-Per i team che migrano verso o costruiscono su **Next.js App Router** (versioni 13, 14 o 15) con **Server Components**, Intlayer fornisce:
+- **next-intl**: Supporto solido per TypeScript, ma le **chiavi non sono tipizzate rigorosamente di default**; dovrai mantenere manualmente i pattern di sicurezza.
+- **next-i18next**: Tipizzazioni base per gli hook; la **tipizzazione rigorosa delle chiavi richiede strumenti/configurazioni aggiuntive**.
+- **Intlayer**: **Genera tipi rigorosi** dal tuo contenuto. **Completamento automatico nell’IDE** e **errori a tempo di compilazione** individuano errori di battitura e chiavi mancanti prima del deploy.
 
-1. **Un'Architettura Snella**
-
-   - Ogni percorso o componente contiene le proprie traduzioni. Questo favorisce chiarezza e manutenibilità.
-
-2. **Integrazione Potente con TypeScript**
-
-   - Ottieni sicurezza a livello di compilatore, evitando chiavi di traduzione “piene di errori di battitura” o mancanti.
-
-3. **Avvisi Reali per Traduzioni Mancanti**
-
-   - Se dimentichi una chiave o una traduzione linguistica, sarai avvisato in fase di build (anziché spedire un'interfaccia utente incompleta).
-
-4. **Routing Avanzato Integrato**
-
-   - Rilevazione automatica delle lingue, generazione dinamica dei percorsi e facile gestione degli URL localizzati sono inclusi.
-   - Un `intlayerMiddleware` standard non richiede riscritture personalizzate profonde.
-
-5. **Configurazione Unica**
-
-   - Boilerplate minima: definisci semplicemente il tuo `intlayer.config.ts`, avvolgi `next.config` con `withIntlayer` e aggiungi il middleware ufficiale.
-   - Utilizzo chiaro e diretto per componenti **server** e **client** tramite `IntlayerServerProvider` e `IntlayerClientProvider`.
-
-6. **SEO-Friendly**
-   - Helpers integrati (`getMultilingualUrls`, attributi `hrefLang`, ecc.) rendono facile produrre pagine e sitemap conformi alle norme SEO.
+**Perché è importante:** Il typing forte sposta i fallimenti a sinistra (CI/build) invece che a destra (runtime).
 
 ---
 
-## Esempio: Intlayer in Azione
+### 3) Gestione delle traduzioni mancanti
 
-Di seguito è un _very_ condensa snippet che illustra come sfruttare Intlayer in un progetto Next.js 15. Per i dettagli completi e i codici di esempio, [controlla la guida completa di Intlayer](#).
+- **next-intl / next-i18next**: Si affidano a **fallback a runtime** (es. mostrare la chiave o la lingua predefinita). La build non fallisce.
+- **Intlayer**: **Rilevamento a tempo di build** con **avvisi/errori** per lingue o chiavi mancanti.
 
-<details>
-<summary>Esempio passo-passo</summary>
+**Perché è importante:** Catturare le lacune durante la build previene “stringhe misteriose” in produzione e si allinea a rigide regole di rilascio.
 
-1. **Installa e Configura**
+---
 
-   ```bash
-   npm install intlayer next-intlayer
-   ```
+### 4) Routing, middleware e strategia URL
 
-   ```ts
-   // intlayer.config.ts
-   import { Locales, type IntlayerConfig } from "intlayer";
+- Tutti e tre funzionano con il **routing localizzato di Next.js** sull’App Router.
+- **Intlayer** va oltre con il **middleware i18n** (rilevamento della lingua tramite header/cookie) e **helper** per generare URL localizzati e tag `<link rel="alternate" hreflang="…">`.
 
-   const config: IntlayerConfig = {
-     internationalization: {
-       locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-       defaultLocale: Locales.ENGLISH,
-     },
-   };
-   export default config;
-   ```
+**Perché è importante:** Meno livelli di collegamento personalizzati; **UX coerente** e **SEO pulita** tra le diverse localizzazioni.
 
-2. **Usa il Plugin**
+---
 
-   ```ts
-   // next.config.mjs
-   import { withIntlayer } from "next-intlayer/server";
+### 5) Allineamento con i Server Components (RSC)
 
-   /** @type {import('next').NextConfig} */
-   const nextConfig = {};
+- **Tutti** supportano Next.js 13+.
+- **Intlayer** semplifica il **confine server/client** con un’API coerente e provider progettati per RSC, così non devi passare formatter o funzioni di traduzione attraverso gli alberi dei componenti.
 
-   export default withIntlayer(nextConfig);
-   ```
+**Perché è importante:** Modello mentale più chiaro e meno casi limite negli alberi ibridi.
 
-3. **Aggiungi Middleware**
+---
 
-   ```ts
-   // src/middleware.ts
-   export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+### 6) Prestazioni e comportamento di caricamento
 
-   export const config = {
-     matcher:
-       "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-   };
-   ```
+- **next-intl / next-i18next**: Controllo parziale tramite **namespaces** e **divisioni a livello di route**; rischio di includere stringhe inutilizzate se non si mantiene la disciplina.
+- **Intlayer**: Effettua **tree-shaking** durante la build e **caricamento lazy per dizionario/locale**. Il contenuto non utilizzato non viene incluso.
 
-4. **Crea un Layout Localizzato**
+**Perché è importante:** Bundle più piccoli e avvio più veloce, specialmente su siti multilingua.
 
-   ```tsx
-   // src/app/[locale]/layout.tsx
-   import { getHTMLTextDir } from "intlayer";
-   import { NextLayoutIntlayer } from "next-intlayer";
+---
 
-   const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
-     const { locale } = params;
-     return (
-       <html lang={locale} dir={getHTMLTextDir(locale)}>
-         <body>{children}</body>
-       </html>
-     );
-   };
+### 7) DX, strumenti e manutenzione
 
-   export { generateStaticParams } from "next-intlayer";
-   export default LocaleLayout;
-   ```
+- **next-intl / next-i18next**: Di solito si collegano piattaforme esterne per traduzioni e flussi editoriali.
+- **Intlayer**: Include un **Editor Visivo gratuito** e un **CMS opzionale** (compatibile con Git o esternalizzato). Inoltre, una **estensione VSCode** per la creazione di contenuti e **traduzioni assistite da AI** utilizzando le tue chiavi provider.
 
-5. **Dichiarare e Usare il Contenuto**
+**Perché è importante:** Riduce i costi operativi e accorcia il ciclo tra sviluppatori e autori dei contenuti.
 
-   ```tsx
-   // src/app/[locale]/page.content.ts
-   import { t } from "intlayer";
+---
 
-   export default {
-     key: "page",
-     content: {
-       getStarted: {
-         main: t({
-           en: "Get started by editing",
-           fr: "Commencez par éditer",
-           es: "Comience por editar",
-         }),
-         pageLink: "src/app/page.tsx",
-       },
-     },
-   };
-   ```
+## Quando scegliere quale?
 
-   ```tsx
-   // src/app/[locale]/page.tsx
-   import { IntlayerServerProvider } from "next-intlayer/server";
-   import { IntlayerClientProvider, useIntlayer } from "next-intlayer";
+- **Scegli next-intl** se desideri una soluzione **minimale**, ti senti a tuo agio con cataloghi centralizzati e la tua app è di **dimensioni piccole o medie**.
+- **Scegli next-i18next** se hai bisogno dell’**ecosistema di plugin di i18next** (ad esempio, regole ICU avanzate tramite plugin) e il tuo team conosce già i18next, accettando una **maggiore configurazione** per flessibilità.
+- **Scegli Intlayer** se apprezzi il **contenuto a livello di componente**, il **TypeScript rigoroso**, le **garanzie a build-time**, il **tree-shaking** e gli strumenti **batteries-included** per routing/SEO/editor — specialmente per **Next.js App Router** e **codebase grandi e modulari**.
 
-   const PageContent = () => {
-     const { content } = useIntlayer("page");
-     return (
-       <>
-         <p>{content.getStarted.main}</p>
-         <code>{content.getStarted.pageLink}</code>
-       </>
-     );
-   };
+---
 
-   export default function Page({ params }) {
-     return (
-       <IntlayerServerProvider locale={params.locale}>
-         <IntlayerClientProvider locale={params.locale}>
-           <PageContent />
-         </IntlayerClientProvider>
-       </IntlayerServerProvider>
-     );
-   }
-   ```
+## Note pratiche per la migrazione (next-intl / next-i18next → Intlayer)
 
-   </details>
+- **Inizia per funzionalità**: Sposta una rotta o un componente alla volta verso i **dizionari locali**.
+- **Mantieni i vecchi cataloghi in parallelo**: Usa un ponte durante la migrazione; evita un cambiamento drastico tutto in una volta.
+- **Attiva i controlli rigorosi**: Permetti che la rilevazione a build-time evidenzi presto le lacune.
+- **Adotta middleware e helper**: Standardizza il rilevamento della locale e i tag SEO su tutto il sito.
+- **Misura i bundle**: Aspettati **riduzioni nella dimensione del bundle** man mano che il contenuto non utilizzato viene eliminato.
 
 ---
 
 ## Conclusione
 
-Ogni soluzione, **next-intl**, **next-i18next** e **Intlayer**, si è dimostrata efficace per progetti multilingue Next.js. Tuttavia, **Intlayer** va oltre:
+Tutte e tre le librerie riescono nella localizzazione di base. La differenza è **quanto lavoro devi fare** per ottenere una configurazione robusta e scalabile in **Next.js moderno**:
 
-- **Incoraggiando fortemente un'architettura di traduzione a livello di componente**
-- Integrandosi senza soluzione di continuità con **Next.js 13+ e Server Components**
-- Offrendo un **auto-generazione potente di TypeScript** per un codice più sicuro
-- Gestendo le **traduzioni mancanti** in fase di build
-- Fornendo un **approccio di configurazione semplificato** con routing e middleware avanzati
+- Con **Intlayer**, **contenuti modulari**, **TS rigoroso**, **sicurezza a tempo di build**, **bundle ottimizzati con tree-shaking** e **App Router di prima classe + strumenti SEO** sono **impostazioni predefinite**, non incombenze.
+- Se il tuo team valorizza la **manutenibilità e la velocità** in un'app multi-locale guidata da componenti, Intlayer offre l'esperienza **più completa** oggi disponibile.
 
-Se desideri funzionalità i18n **moderne** personalizzate per Next.js App Router e stai cercando un'esperienza **completamente tipizzata** senza dover configurare manualmente la logica di fallback, riscritture di percorso o complessi passaggi di build, **Intlayer** è una scelta convincente. Non solo accorcia i tempi di configurazione, ma garantisce anche un approccio più manutenibile e scalabile alle traduzioni per il tuo team.
+Consulta il documento ['Perché Intlayer?'](https://intlayer.org/doc/why) per maggiori dettagli.
