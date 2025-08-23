@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: useIntlayer Hook Documentation | next-intlayer
 description: See how to use the useIntlayer hook for next-intlayer package
 keywords:

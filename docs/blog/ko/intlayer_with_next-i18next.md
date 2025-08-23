@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Intlayer와 next-i18next
 description: Next.js 앱을 위해 next-i18next와 Intlayer를 통합하다
 keywords:

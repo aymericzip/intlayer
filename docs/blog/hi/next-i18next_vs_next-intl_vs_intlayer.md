@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: next-i18next बनाम next-intl बनाम Intlayer
 description: Next.js ऐप के अंतरराष्ट्रीयकरण (i18n) के लिए next-i18next की तुलना next-intl और Intlayer के साथ करें
 keywords:

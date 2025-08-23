@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: getMultilingualUrls Function Documentation | intlayer
 description: See how to use the getMultilingualUrls function for intlayer package
 keywords:
@@ -31,18 +31,15 @@ The `getMultilingualUrls` function generates a mapping of multilingual URLs by p
 ## Parameters
 
 - `url: string`
-
   - **Description**: The original URL string to be prefixed with locales.
   - **Type**: `string`
 
 - `locales: Locales[]`
-
   - **Description**: Optional array of supported locales. Defaults to the configured locales in the project.
   - **Type**: `Locales[]`
   - **Default**: `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **Description**: The default locale for the application. Defaults to the configured default locale in the project.
   - **Type**: `Locales`
   - **Default**: `defaultLocaleDefault`
@@ -128,11 +125,9 @@ getMultilingualUrls(
 ## Edge Cases
 
 - **No Locale Segment:**
-
   - The function removes any existing locale segment from the URL before generating the multilingual mappings.
 
 - **Default Locale:**
-
   - When `prefixDefault` is `false`, the function does not prefix the URL for the default locale.
 
 - **Unsupported Locales:**

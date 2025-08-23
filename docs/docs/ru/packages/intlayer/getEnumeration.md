@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Документация функции getEnumeration | intlayer
 description: Узнайте, как использовать функцию getEnumeration для пакета intlayer
 keywords:

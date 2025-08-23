@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: getLocaleLang Function Documentation | intlayer
 description: See how to use the getLocaleLang function for intlayer package
 keywords:
@@ -29,7 +29,6 @@ The `getLocaleLang` function extracts the language code from a locale string. It
 ## Parameters
 
 - `locale?: Locales`
-
   - **Description**: The locale string (e.g., `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) from which the language code is extracted.
   - **Type**: `Locales` (optional)
 
@@ -72,7 +71,6 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
 ## Edge Cases
 
 - **No Locale Provided:**
-
   - The function returns an empty string when `locale` is `undefined`.
 
 - **Malformed Locale Strings:**

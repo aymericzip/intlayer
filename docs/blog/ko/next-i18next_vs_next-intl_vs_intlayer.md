@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: next-i18next vs next-intl vs Intlayer
 description: Next.js 앱의 국제화(i18n)를 위해 next-i18next와 next-intl, Intlayer를 비교합니다
 keywords:

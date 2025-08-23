@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: next-i18next vs next-intl vs Intlayer
 description: Confronta next-i18next con next-intl e Intlayer per l'internazionalizzazione (i18n) di un'app Next.js
 keywords:

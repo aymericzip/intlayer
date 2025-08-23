@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: نظام إدارة المحتوى Intlayer | استخرج محتواك إلى نظام إدارة المحتوى Intlayer
 description: استخرج محتواك إلى نظام إدارة المحتوى Intlayer لتفويض إدارة المحتوى لفريقك.
 keywords:
@@ -342,7 +342,6 @@ module.exports = config;
 - التطبيق يعمل.
 
 - تم تعيين إعدادات [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) بشكل صحيح في ملف تكوين Intlayer الخاص بك.
-
   - الحقول المطلوبة:
     - يجب أن يتطابق عنوان URL للتطبيق مع الذي قمت بتعيينه في إعدادات المحرر (`applicationURL`).
     - عنوان URL لنظام إدارة المحتوى.

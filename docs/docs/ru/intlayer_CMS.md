@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Intlayer CMS | Вынесите свой контент в Intlayer CMS
 description: Вынесите свой контент в Intlayer CMS, чтобы делегировать управление вашим контентом вашей команде.
 keywords:

@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: getLocaleName Function Documentation | intlayer
 description: See how to use the getLocaleName function for intlayer package
 keywords:
@@ -29,7 +29,6 @@ The `getLocaleName` function returns the localized name of a given locale (`targ
 ## Parameters
 
 - `displayLocale: Locales`
-
   - **Description**: The locale in which the name of the target locale will be displayed.
   - **Type**: Enum or string representing valid locales.
 

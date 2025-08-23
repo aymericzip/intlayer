@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Intlayer وnext-i18next
 description: قم بدمج Intlayer مع next-i18next لتطبيق Next.js
 keywords:

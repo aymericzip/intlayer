@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: getTranslation Function Documentation | intlayer
 description: See how to use the getTranslation function for intlayer package
 keywords:
@@ -29,13 +29,11 @@ The `getTranslationContent` function retrieves the content corresponding to a sp
 ## Parameters
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **Description**: An object containing translations for various locales. Each key represents a locale, and its value is the corresponding content.
   - **Type**: `CustomizableLanguageContent<Content>`
     - `Content` can be any type, defaulting to `string`.
 
 - `locale: Locales`
-
   - **Description**: The locale for which content is to be retrieved.
   - **Type**: `Locales`
 

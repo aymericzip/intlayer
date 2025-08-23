@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Intlayer e next-i18next
 description: Integra Intlayer con next-i18next per un'app Next.js
 keywords:

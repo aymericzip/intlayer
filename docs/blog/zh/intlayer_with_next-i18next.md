@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Intlayer和next-i18next
 description: 与Next.js应用程序的next-i18next集成Intlayer
 keywords:

@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Введение
 description: Узнайте, как работает Intlayer. Посмотрите шаги, используемые Intlayer в вашем приложении. Узнайте, что делают разные пакеты.
 keywords:

@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Translate your Create React App (CRA) website (i18n)
 description: Discover how to make your Create React App (CRA) website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:

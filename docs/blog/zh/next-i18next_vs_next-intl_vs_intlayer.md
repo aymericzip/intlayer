@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: next-i18next vs next-intl vs Intlayer
 description: 比较 next-i18next、next-intl 和 Intlayer 在 Next.js 应用国际化（i18n）中的表现
 keywords:

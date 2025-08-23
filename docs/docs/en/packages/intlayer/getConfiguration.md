@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: getConfiguration Function Documentation | intlayer
 description: See how to use the getConfiguration function for intlayer package
 keywords:
@@ -36,7 +36,6 @@ The function does not take any parameters. Instead, it uses environment variable
 
 - **Type**: `IntlayerConfig`
 - **Description**: An object containing the complete configuration for `intlayer`. The configuration includes the following sections:
-
   - `internationalization`: Settings related to locales and strict mode.
   - `middleware`: Settings related to URL and cookie management.
   - `content`: Settings related to content files, directories, and patterns.

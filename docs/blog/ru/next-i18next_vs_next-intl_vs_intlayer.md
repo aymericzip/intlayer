@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: next-i18next против next-intl и Intlayer
 description: Сравнение next-i18next с next-intl и Intlayer для интернационализации (i18n) приложения Next.js
 keywords:

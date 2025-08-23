@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: getEnumeration Function Documentation | intlayer
 description: See how to use the getEnumeration function for intlayer package
 keywords:
@@ -29,13 +29,11 @@ The `getEnumeration` function retrieves content corresponding to a specific quan
 ## Parameters
 
 - `enumerationContent: QuantityContent<Content>`
-
   - **Description**: An object where keys represent conditions (e.g., `<=`, `<`, `>=`, `=`) and values represent the corresponding content. The order of keys defines their matching priority.
   - **Type**: `QuantityContent<Content>`
     - `Content` can be any type.
 
 - `quantity: number`
-
   - **Description**: The numeric value used to match against the conditions in `enumerationContent`.
   - **Type**: `number`
 
@@ -141,15 +139,12 @@ console.log(content); // Output: "You have less than four"
 ## Edge Cases
 
 - **No Matching Condition:**
-
   - If no condition matches the provided quantity, the function will either return `undefined` or handle the default/fallback scenario explicitly.
 
 - **Ambiguous Conditions:**
-
   - If conditions overlap, the first matching condition (based on object order) takes precedence.
 
 - **Invalid Keys:**
-
   - The function assumes that all keys in `enumerationContent` are valid and parsable as conditions. Invalid or improperly formatted keys may lead to unexpected behavior.
 
 - **TypeScript Enforcement:**

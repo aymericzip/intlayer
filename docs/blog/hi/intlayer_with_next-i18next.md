@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Intlayer और next-i18next
 description: Next.js एप्लिकेशन के लिए next-i18next को एक्सटेंशन करें
 keywords:

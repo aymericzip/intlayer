@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: getHTMLTextDir Function Documentation | intlayer
 description: See how to use the getHTMLTextDir function for intlayer package
 keywords:
@@ -29,7 +29,6 @@ The `getHTMLTextDir` function determines the text direction (`ltr`, `rtl`, or `a
 ## Parameters
 
 - `locale?: Locales`
-
   - **Description**: The locale string (e.g., `Locales.ENGLISH`, `Locales.ARABIC`) used to determine the text direction.
   - **Type**: `Locales` (optional)
 
@@ -72,7 +71,6 @@ getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
 ## Edge Cases
 
 - **No Locale Provided:**
-
   - The function returns `'auto'` when `locale` is `undefined`.
 
 - **Unrecognized Locale:**

@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Intlayer Visual Editor | Edit your content using a visual editor
 description: Discover how to use the Intlayer Editor to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -257,7 +257,6 @@ If you encounter any issues with the visual editor, check the following:
 - The visual editor and the application are running.
 
 - The [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration are correctly set in your Intlayer configuration file.
-
   - Required fields:
     - The application URL should match the one you set in the editor configuration (`applicationURL`).
 

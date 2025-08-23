@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: getPathWithoutLocale Function Documentation | intlayer
 description: See how to use the getPathWithoutLocale function for intlayer package
 keywords:
@@ -29,7 +29,6 @@ Removes the locale segment from the given URL or pathname if present. It works w
 ## Parameters
 
 - `inputUrl: string`
-
   - **Description**: The complete URL string or pathname to process.
   - **Type**: `string`
 

@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Intlayer CMS | Externalize your content into the Intlayer CMS
 description: Externalize your content into the Intlayer CMS to delegate the management of your content to your team.
 keywords:
@@ -345,7 +345,6 @@ If you encounter any issues with the CMS, check the following:
 - The application is running.
 
 - The [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration are correctly set in your Intlayer configuration file.
-
   - Required fields:
     - The application URL should match the one you set in the editor configuration (`applicationURL`).
     - The CMS URL

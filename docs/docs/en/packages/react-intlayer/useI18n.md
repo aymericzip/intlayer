@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: useI18n Hook Documentation | react-intlayer
 description: Learn how to use the useI18n hook in the react-intlayer package
 keywords:

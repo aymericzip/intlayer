@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: محرر المرئي لِانتلاير | تحرير محتوىك باستخدام محرر المرئي
 description: اكتشف كيفية استخدام محرر Intlayer لإدارة موقعك الإلكتروني متعدد اللغات. اتبع الخطوات في هذه الوثيقة عبر الإنترنت لإعداد مشروعك في بضع دقائق.
 keywords:
@@ -257,7 +257,6 @@ pnpm intlayer-editor start -e development
 - المحرر البصري والتطبيق يعملان.
 
 - تم إعداد [تكوين المحرر](https://intlayer.org/doc/concept/configuration#editor-configuration) بشكل صحيح في ملف تكوين Intlayer الخاص بك.
-
   - الحقول المطلوبة:
     - يجب أن يتطابق عنوان URL للتطبيق مع الذي قمت بتعيينه في تكوين المحرر (`applicationURL`).
 
