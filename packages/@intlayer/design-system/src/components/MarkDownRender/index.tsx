@@ -167,7 +167,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             ),
             hr: ({ className, ...props }) => (
               <hr
-                className={cn('my-16 mx-6 text-neutral', className)}
+                className={cn('mt-16 mx-6 text-neutral', className)}
                 {...props}
               />
             ),
