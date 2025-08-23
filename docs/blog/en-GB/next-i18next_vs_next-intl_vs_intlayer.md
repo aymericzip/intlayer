@@ -138,7 +138,7 @@ We focus on **Next.js 13+ App Router** (with **React Server Components**) and ev
 
 - **Choose next-intl** if you want a **minimal** solution, you’re comfortable with centralised catalogues, and your app is **small to mid-size**.
 - **Choose next-i18next** if you need **i18next’s plugin ecosystem** (e.g., advanced ICU rules via plugins) and your team already knows i18next, accepting **more configuration** for flexibility.
-- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling - especially for **Next.js App Router** and **large, modular codebases**.
+- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling - especially for **Next.js App Router**, design-systems and **large, modular codebases**.
 
 ---
 

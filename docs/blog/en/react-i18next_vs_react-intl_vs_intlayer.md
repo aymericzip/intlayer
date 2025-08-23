@@ -132,7 +132,7 @@ We evaluate:
 
 - **Choose react-intl** if you want **ICU-first** message formatting with a straightforward, standards-aligned API and your team is comfortable maintaining catalogs and safety checks manually.
 - **Choose react-i18next** if you need the **breadth of i18next’s ecosystem** (detectors, backends, ICU plugin, integrations) and accept more configuration to gain flexibility.
-- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** editorial tooling - especially for **large, modular** React apps.
+- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** editorial tooling - especially for **large, modular** React apps, design-systems, etc.
 
 ---
 

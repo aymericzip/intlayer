@@ -244,7 +244,7 @@ This approach:
 ## When to choose which?
 
 - **Choose vue-i18n** if you want the **standard Vue approach**, you’re comfortable managing catalogs/namespaces yourself, and your app is **small to mid-size** (or you already rely on Nuxt i18n).
-- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling-especially for **large, modular Vue/Nuxt codebases**.
+- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling-especially for **large, modular Vue/Nuxt codebases**, design-systems, etc.
 
 ---
 
