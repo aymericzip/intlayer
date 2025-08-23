@@ -38,9 +38,9 @@ Nous évaluons :
 
 ## Positionnement général
 
-- **react-intl** — Formatage priorisant ICU, conforme aux standards (dates/nombres/pluriels) avec une API mature. Les catalogues sont généralement centralisés ; la sécurité des clés et la validation à la compilation dépendent en grande partie de vous.
-- **react-i18next** — Extrêmement populaire et flexible ; namespaces, détecteurs, et de nombreux plugins (ICU, backends). Puissant, mais la configuration peut devenir complexe à mesure que les projets grandissent.
-- **Intlayer** — Modèle de contenu centré sur les composants pour React, **typage TS strict**, **vérifications à la compilation**, **tree-shaking**, plus **éditeur visuel/CMS** et **traductions assistées par IA**. Fonctionne avec React Router, Vite, CRA, etc.
+- **react-intl** - Formatage priorisant ICU, conforme aux standards (dates/nombres/pluriels) avec une API mature. Les catalogues sont généralement centralisés ; la sécurité des clés et la validation à la compilation dépendent en grande partie de vous.
+- **react-i18next** - Extrêmement populaire et flexible ; namespaces, détecteurs, et de nombreux plugins (ICU, backends). Puissant, mais la configuration peut devenir complexe à mesure que les projets grandissent.
+- **Intlayer** - Modèle de contenu centré sur les composants pour React, **typage TS strict**, **vérifications à la compilation**, **tree-shaking**, plus **éditeur visuel/CMS** et **traductions assistées par IA**. Fonctionne avec React Router, Vite, CRA, etc.
 
 ---
 
@@ -124,7 +124,7 @@ Nous évaluons :
 - **react-intl / react-i18next** : Large écosystème communautaire ; pour les flux éditoriaux, vous adoptez généralement des plateformes de localisation externes.
 - **Intlayer** : Propose un **éditeur visuel gratuit** et un **CMS optionnel** (conservez le contenu dans Git ou externalisez-le). Offre également une **extension VSCode** pour la rédaction de contenu et une **traduction assistée par IA** utilisant vos propres clés de fournisseur.
 
-**Pourquoi c’est important :** Les outils intégrés raccourcissent la boucle entre les développeurs et les auteurs de contenu — moins de code de liaison, moins de dépendances externes.
+**Pourquoi c’est important :** Les outils intégrés raccourcissent la boucle entre les développeurs et les auteurs de contenu - moins de code de liaison, moins de dépendances externes.
 
 ---
 
@@ -132,7 +132,7 @@ Nous évaluons :
 
 - **Choisissez react-intl** si vous souhaitez un formatage de messages **priorisant ICU** avec une API simple et conforme aux standards, et que votre équipe est à l’aise pour maintenir manuellement les catalogues et les vérifications de sécurité.
 - **Choisissez react-i18next** si vous avez besoin de **l’écosystème étendu d’i18next** (détecteurs, backends, plugin ICU, intégrations) et acceptez plus de configuration pour gagner en flexibilité.
-- **Choisissez Intlayer** si vous valorisez le **contenu scoped par composant**, le **TypeScript strict**, les **garanties à la compilation**, le **tree-shaking**, et les outils éditoriaux **tout-en-un** — particulièrement pour les applications React **grandes et modulaires**.
+- **Choisissez Intlayer** si vous valorisez le **contenu scoped par composant**, le **TypeScript strict**, les **garanties à la compilation**, le **tree-shaking**, et les outils éditoriaux **tout-en-un** - particulièrement pour les applications React **grandes et modulaires**.
 
 ---
 
@@ -149,5 +149,5 @@ Nous évaluons :
 
 Les trois bibliothèques permettent de localiser React efficacement. Ce qui fait la différence, c’est la quantité d’**infrastructure** que vous devez construire pour atteindre une configuration **sûre et évolutive** :
 
-- Avec **Intlayer**, le **contenu modulaire**, la **typage strict en TS**, la **sécurité à la compilation**, les **bundles optimisés par tree-shaking** et les **outils éditoriaux** sont des standards — pas des corvées.
+- Avec **Intlayer**, le **contenu modulaire**, la **typage strict en TS**, la **sécurité à la compilation**, les **bundles optimisés par tree-shaking** et les **outils éditoriaux** sont des standards - pas des corvées.
 - Si votre équipe valorise la **maintenabilité et la rapidité** dans des applications React multi-langues et pilotées par composants, Intlayer offre aujourd’hui le flux de travail développeur et contenu le **plus complet**.

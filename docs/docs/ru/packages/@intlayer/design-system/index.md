@@ -20,9 +20,9 @@ slugs:
 
 # @intlayer/design-system: Пакет NPM, содержащий UI библиотеку Intlayer
 
-**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+**Intlayer** - это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
 
-Пакет **`@intlayer/design-system`** — это пакет NPM, включающий дизайн-систему Intlayer. Этот пакет особенно используется в [редакторе Intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ru/packages/intlayer-editor/index.md), на [веб-сайте](https://intlayer.org) и в [Визуальном редакторе / CMS](https://intlayer.org/dashboard).
+Пакет **`@intlayer/design-system`** - это пакет NPM, включающий дизайн-систему Intlayer. Этот пакет особенно используется в [редакторе Intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/ru/packages/intlayer-editor/index.md), на [веб-сайте](https://intlayer.org) и в [Визуальном редакторе / CMS](https://intlayer.org/dashboard).
 
 ## Установка
 

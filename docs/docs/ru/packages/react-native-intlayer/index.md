@@ -20,7 +20,7 @@ slugs:
 
 # react-native-intlayer: Интернационализация (i18n) приложения React Native
 
-**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+**Intlayer** - это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
 
 **Пакет `react-native-intlayer`** позволяет интернационализировать ваше приложение Vite. В него включён плагин Metro, который настраивает конфигурацию через переменные окружения в [Metro bundлере](https://docs.expo.dev/guides/customizing-metro/).
 

@@ -2,7 +2,7 @@
 createdAt: 2025-08-11
 updatedAt: 2025-08-11
 title: Prise en main d'Intlayer avec TanStack Start (React)
-description: Ajoutez l'internationalisation à votre application TanStack Start avec Intlayer — dictionnaires au niveau des composants, URLs localisées et métadonnées optimisées pour le SEO.
+description: Ajoutez l'internationalisation à votre application TanStack Start avec Intlayer - dictionnaires au niveau des composants, URLs localisées et métadonnées optimisées pour le SEO.
 keywords:
   - Internationalisation
   - Documentation

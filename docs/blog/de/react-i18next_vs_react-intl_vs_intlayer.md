@@ -38,9 +38,9 @@ Wir bewerten:
 
 ## Übergeordnete Positionierung
 
-- **react-intl** — ICU-first, standardkonforme Formatierung (Datum/Zahlen/Pluralformen) mit einer ausgereiften API. Kataloge sind typischerweise zentralisiert; Schlüssel-Sicherheit und Build-Zeit-Validierung liegen größtenteils bei Ihnen.
-- **react-i18next** — Extrem beliebt und flexibel; Namespaces, Detektoren und viele Plugins (ICU, Backends). Leistungsstark, aber die Konfiguration kann mit wachsendem Projektumfang umfangreich werden.
-- **Intlayer** — Komponentenorientiertes Inhaltsmodell für React, **strenge TS-Typisierung**, **Build-Zeit-Prüfungen**, **Tree-Shaking**, plus **Visueller Editor/CMS** und **KI-unterstützte Übersetzungen**. Funktioniert mit React Router, Vite, CRA usw.
+- **react-intl** - ICU-first, standardkonforme Formatierung (Datum/Zahlen/Pluralformen) mit einer ausgereiften API. Kataloge sind typischerweise zentralisiert; Schlüssel-Sicherheit und Build-Zeit-Validierung liegen größtenteils bei Ihnen.
+- **react-i18next** - Extrem beliebt und flexibel; Namespaces, Detektoren und viele Plugins (ICU, Backends). Leistungsstark, aber die Konfiguration kann mit wachsendem Projektumfang umfangreich werden.
+- **Intlayer** - Komponentenorientiertes Inhaltsmodell für React, **strenge TS-Typisierung**, **Build-Zeit-Prüfungen**, **Tree-Shaking**, plus **Visueller Editor/CMS** und **KI-unterstützte Übersetzungen**. Funktioniert mit React Router, Vite, CRA usw.
 
 ---
 
@@ -124,7 +124,7 @@ Wir bewerten:
 - **react-intl / react-i18next**: Breites Community-Ökosystem; für redaktionelle Workflows verwendet man üblicherweise externe Lokalisierungsplattformen.
 - **Intlayer**: Bietet einen **kostenlosen Visual Editor** und ein **optionales CMS** (Inhalte in Git behalten oder auslagern). Außerdem gibt es eine **VSCode-Erweiterung** für die Inhaltserstellung und **KI-unterstützte Übersetzung** mit eigenen Anbieter-Schlüsseln.
 
-**Warum das wichtig ist:** Eingebaute Werkzeuge verkürzen den Kreislauf zwischen Entwicklern und Inhaltserstellern — weniger Klebecode, weniger Abhängigkeiten von Drittanbietern.
+**Warum das wichtig ist:** Eingebaute Werkzeuge verkürzen den Kreislauf zwischen Entwicklern und Inhaltserstellern - weniger Klebecode, weniger Abhängigkeiten von Drittanbietern.
 
 ---
 
@@ -149,5 +149,5 @@ Wir bewerten:
 
 Alle drei Bibliotheken lokalisieren React effektiv. Der Unterschied liegt darin, wie viel **Infrastruktur** Sie aufbauen müssen, um eine **sichere, skalierbare** Umgebung zu erreichen:
 
-- Mit **Intlayer** sind **modularer Inhalt**, **strikte TS-Typisierung**, **Build-Zeit-Sicherheit**, **baumgeschüttelte Bundles** und **redaktionelle Werkzeuge** Standard — keine lästige Pflicht.
+- Mit **Intlayer** sind **modularer Inhalt**, **strikte TS-Typisierung**, **Build-Zeit-Sicherheit**, **baumgeschüttelte Bundles** und **redaktionelle Werkzeuge** Standard - keine lästige Pflicht.
 - Wenn Ihr Team **Wartbarkeit und Geschwindigkeit** in mehrsprachigen, komponentenbasierten React-Anwendungen schätzt, bietet Intlayer heute den **vollständigsten** Entwickler- und Inhaltsworkflow.

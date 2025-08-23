@@ -36,9 +36,9 @@ We focus on **Next.js 13+ App Router** (with **React Server Components**) and ev
 
 ## High-level positioning
 
-- **next-intl** — Lightweight, straightforward message formatting with solid Next.js support. Centralized catalogs are common; DX is simple, but safety and large-scale maintenance remain mostly your responsibility.
-- **next-i18next** — i18next in Next.js clothing. Mature ecosystem and features via plugins (e.g., ICU), but configuration can be verbose and catalogs tend to centralize as projects grow.
-- **Intlayer** — Component-centric content model for Next.js, **strict TS typing**, **build-time checks**, **tree-shaking**, **built-in middleware & SEO helpers**, optional **Visual Editor/CMS**, and **AI-assisted translations**.
+- **next-intl** - Lightweight, straightforward message formatting with solid Next.js support. Centralized catalogs are common; DX is simple, but safety and large-scale maintenance remain mostly your responsibility.
+- **next-i18next** - i18next in Next.js clothing. Mature ecosystem and features via plugins (e.g., ICU), but configuration can be verbose and catalogs tend to centralize as projects grow.
+- **Intlayer** - Component-centric content model for Next.js, **strict TS typing**, **build-time checks**, **tree-shaking**, **built-in middleware & SEO helpers**, optional **Visual Editor/CMS**, and **AI-assisted translations**.
 
 ---
 
@@ -138,7 +138,7 @@ We focus on **Next.js 13+ App Router** (with **React Server Components**) and ev
 
 - **Choose next-intl** if you want a **minimal** solution, you’re comfortable with centralized catalogs, and your app is **small to mid-size**.
 - **Choose next-i18next** if you need **i18next’s plugin ecosystem** (e.g., advanced ICU rules via plugins) and your team already knows i18next, accepting **more configuration** for flexibility.
-- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling — especially for **Next.js App Router** and **large, modular codebases**.
+- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling - especially for **Next.js App Router** and **large, modular codebases**.
 
 ---
 

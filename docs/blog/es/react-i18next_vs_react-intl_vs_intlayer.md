@@ -38,9 +38,9 @@ Evaluamos:
 
 ## Posicionamiento a alto nivel
 
-- **react-intl** — Formateo basado en ICU y alineado con estándares (fechas/números/plurales) con una API madura. Los catálogos suelen estar centralizados; la seguridad de las claves y la validación en tiempo de compilación dependen en gran medida de ti.
-- **react-i18next** — Extremadamente popular y flexible; namespaces, detectores y muchos plugins (ICU, backends). Potente, pero la configuración puede expandirse a medida que los proyectos crecen.
-- **Intlayer** — Modelo de contenido centrado en componentes para React, **tipado estricto en TS**, **verificaciones en tiempo de compilación**, **tree-shaking**, además de **Editor Visual/CMS** y **traducciones asistidas por IA**. Funciona con React Router, Vite, CRA, etc.
+- **react-intl** - Formateo basado en ICU y alineado con estándares (fechas/números/plurales) con una API madura. Los catálogos suelen estar centralizados; la seguridad de las claves y la validación en tiempo de compilación dependen en gran medida de ti.
+- **react-i18next** - Extremadamente popular y flexible; namespaces, detectores y muchos plugins (ICU, backends). Potente, pero la configuración puede expandirse a medida que los proyectos crecen.
+- **Intlayer** - Modelo de contenido centrado en componentes para React, **tipado estricto en TS**, **verificaciones en tiempo de compilación**, **tree-shaking**, además de **Editor Visual/CMS** y **traducciones asistidas por IA**. Funciona con React Router, Vite, CRA, etc.
 
 ---
 
@@ -124,7 +124,7 @@ Evaluamos:
 - **react-intl / react-i18next**: Ecosistema comunitario amplio; para flujos editoriales usualmente adoptas plataformas de localización externas.
 - **Intlayer**: Incluye un **Editor Visual gratuito** y un **CMS opcional** (mantén el contenido en Git o externalízalo). También ofrece una **extensión para VSCode** para la creación de contenido y **traducción asistida por IA** usando tus propias claves de proveedor.
 
-**Por qué es importante:** Las herramientas integradas acortan el ciclo entre desarrolladores y autores de contenido — menos código de unión, menos dependencias de proveedores.
+**Por qué es importante:** Las herramientas integradas acortan el ciclo entre desarrolladores y autores de contenido - menos código de unión, menos dependencias de proveedores.
 
 ---
 

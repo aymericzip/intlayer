@@ -36,8 +36,8 @@ Nous nous concentrons sur les outils modernes de Vue (Vite, Composition API) et 
 
 ## Positionnement général
 
-- **vue-i18n** — La bibliothèque i18n de référence pour Vue. Formatage flexible des messages (style ICU), blocs SFC `<i18n>` pour les messages locaux, et un large écosystème. La sécurité et la maintenance à grande échelle dépendent principalement de vous.
-- **Intlayer** — Modèle de contenu centré sur les composants pour Vue/Vite/Nuxt avec **typage TS strict**, **vérifications à la compilation**, **tree-shaking**, **helpers pour le routeur & SEO**, **éditeur visuel/CMS** optionnel, et **traductions assistées par IA**.
+- **vue-i18n** - La bibliothèque i18n de référence pour Vue. Formatage flexible des messages (style ICU), blocs SFC `<i18n>` pour les messages locaux, et un large écosystème. La sécurité et la maintenance à grande échelle dépendent principalement de vous.
+- **Intlayer** - Modèle de contenu centré sur les composants pour Vue/Vite/Nuxt avec **typage TS strict**, **vérifications à la compilation**, **tree-shaking**, **helpers pour le routeur & SEO**, **éditeur visuel/CMS** optionnel, et **traductions assistées par IA**.
 
 ---
 
@@ -245,7 +245,7 @@ Cette approche :
 ## Quand choisir quoi ?
 
 - **Choisissez vue-i18n** si vous souhaitez l’**approche standard Vue**, que vous êtes à l’aise pour gérer vous-même les catalogues/namespaces, et que votre application est de taille **petite à moyenne** (ou si vous utilisez déjà Nuxt i18n).
-- **Choisissez Intlayer** si vous valorisez le **contenu scoped par composant**, un **TypeScript strict**, des **garanties à la compilation**, le **tree-shaking**, et des outils intégrés pour le routage/SEO/éditeur — particulièrement pour des bases de code **Vue/Nuxt larges et modulaires**.
+- **Choisissez Intlayer** si vous valorisez le **contenu scoped par composant**, un **TypeScript strict**, des **garanties à la compilation**, le **tree-shaking**, et des outils intégrés pour le routage/SEO/éditeur - particulièrement pour des bases de code **Vue/Nuxt larges et modulaires**.
 
 ---
 

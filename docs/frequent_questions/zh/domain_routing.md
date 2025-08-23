@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-就是这么简单——对于 **Next.js**、**Vite + React**、**Vite + Vue** 等框架，效果相同。
+就是这么简单--对于 **Next.js**、**Vite + React**、**Vite + Vue** 等框架，效果相同。
 
 ## 如果所有域名都指向**同一个**部署怎么办？
 

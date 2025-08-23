@@ -36,8 +36,8 @@ Nos enfocamos en las herramientas modernas de Vue (Vite, Composition API) y eval
 
 ## Posicionamiento a alto nivel
 
-- **vue-i18n** — La biblioteca de i18n por excelencia para Vue. Formateo flexible de mensajes (estilo ICU), bloques SFC `<i18n>` para mensajes locales y un gran ecosistema. La seguridad y el mantenimiento a gran escala dependen principalmente de ti.
-- **Intlayer** — Modelo de contenido centrado en componentes para Vue/Vite/Nuxt con **tipado estricto en TS**, **verificaciones en tiempo de compilación**, **tree-shaking**, **helpers para router y SEO**, **Editor Visual/CMS** opcional y **traducciones asistidas por IA**.
+- **vue-i18n** - La biblioteca de i18n por excelencia para Vue. Formateo flexible de mensajes (estilo ICU), bloques SFC `<i18n>` para mensajes locales y un gran ecosistema. La seguridad y el mantenimiento a gran escala dependen principalmente de ti.
+- **Intlayer** - Modelo de contenido centrado en componentes para Vue/Vite/Nuxt con **tipado estricto en TS**, **verificaciones en tiempo de compilación**, **tree-shaking**, **helpers para router y SEO**, **Editor Visual/CMS** opcional y **traducciones asistidas por IA**.
 
 ---
 
@@ -244,7 +244,7 @@ Este enfoque:
 ## ¿Cuándo elegir cuál?
 
 - **Elige vue-i18n** si quieres el **enfoque estándar de Vue**, te sientes cómodo gestionando catálogos/espacios de nombres tú mismo, y tu aplicación es de **tamaño pequeño a mediano** (o ya dependes de Nuxt i18n).
-- **Elige Intlayer** si valoras el **contenido con alcance por componente**, **TypeScript estricto**, **garantías en tiempo de compilación**, **tree-shaking**, y herramientas integradas para enrutamiento/SEO/editor—especialmente para **códigos grandes y modulares en Vue/Nuxt**.
+- **Elige Intlayer** si valoras el **contenido con alcance por componente**, **TypeScript estricto**, **garantías en tiempo de compilación**, **tree-shaking**, y herramientas integradas para enrutamiento/SEO/editor-especialmente para **códigos grandes y modulares en Vue/Nuxt**.
 
 ---
 

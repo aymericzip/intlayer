@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-이게 전부입니다—**Next.js**, **Vite + React**, **Vite + Vue** 등에서도 동일하게 작동합니다.
+이게 전부입니다-**Next.js**, **Vite + React**, **Vite + Vue** 등에서도 동일하게 작동합니다.
 
 ## 모든 도메인이 **같은** 배포본을 가리킨다면 어떻게 하나요?
 

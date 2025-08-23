@@ -36,9 +36,9 @@ Ci concentriamo su **Next.js 13+ App Router** (con **React Server Components**) 
 
 ## Posizionamento ad alto livello
 
-- **next-intl** — Formattazione dei messaggi leggera e semplice con un solido supporto per Next.js. I cataloghi centralizzati sono comuni; l’esperienza sviluppatore (DX) è semplice, ma la sicurezza e la manutenzione su larga scala rimangono per lo più a tuo carico.
-- **next-i18next** — i18next vestito per Next.js. Ecosistema maturo e funzionalità tramite plugin (ad esempio, ICU), ma la configurazione può essere verbosa e i cataloghi tendono a centralizzarsi con la crescita dei progetti.
-- **Intlayer** — Modello di contenuto incentrato sui componenti per Next.js, **tipizzazione TS rigorosa**, **controlli in fase di build**, **tree-shaking**, **middleware integrati e helper SEO**, **Editor Visivo/CMS** opzionale e **traduzioni assistite da AI**.
+- **next-intl** - Formattazione dei messaggi leggera e semplice con un solido supporto per Next.js. I cataloghi centralizzati sono comuni; l’esperienza sviluppatore (DX) è semplice, ma la sicurezza e la manutenzione su larga scala rimangono per lo più a tuo carico.
+- **next-i18next** - i18next vestito per Next.js. Ecosistema maturo e funzionalità tramite plugin (ad esempio, ICU), ma la configurazione può essere verbosa e i cataloghi tendono a centralizzarsi con la crescita dei progetti.
+- **Intlayer** - Modello di contenuto incentrato sui componenti per Next.js, **tipizzazione TS rigorosa**, **controlli in fase di build**, **tree-shaking**, **middleware integrati e helper SEO**, **Editor Visivo/CMS** opzionale e **traduzioni assistite da AI**.
 
 ---
 
@@ -138,7 +138,7 @@ Ci concentriamo su **Next.js 13+ App Router** (con **React Server Components**) 
 
 - **Scegli next-intl** se desideri una soluzione **minimale**, ti senti a tuo agio con cataloghi centralizzati e la tua app è di **dimensioni piccole o medie**.
 - **Scegli next-i18next** se hai bisogno dell’**ecosistema di plugin di i18next** (ad esempio, regole ICU avanzate tramite plugin) e il tuo team conosce già i18next, accettando una **maggiore configurazione** per flessibilità.
-- **Scegli Intlayer** se apprezzi il **contenuto a livello di componente**, il **TypeScript rigoroso**, le **garanzie a build-time**, il **tree-shaking** e gli strumenti **batteries-included** per routing/SEO/editor — specialmente per **Next.js App Router** e **codebase grandi e modulari**.
+- **Scegli Intlayer** se apprezzi il **contenuto a livello di componente**, il **TypeScript rigoroso**, le **garanzie a build-time**, il **tree-shaking** e gli strumenti **batteries-included** per routing/SEO/editor - specialmente per **Next.js App Router** e **codebase grandi e modulari**.
 
 ---
 

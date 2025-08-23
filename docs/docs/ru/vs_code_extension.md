@@ -21,7 +21,7 @@ slugs:
 
 ## Обзор
 
-[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) — официальное расширение Visual Studio Code для **Intlayer**, созданное для улучшения опыта разработчика при работе с локализованным контентом в ваших проектах.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) - официальное расширение Visual Studio Code для **Intlayer**, созданное для улучшения опыта разработчика при работе с локализованным контентом в ваших проектах.
 
 ![Расширение Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 

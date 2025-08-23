@@ -38,9 +38,9 @@ We evaluate:
 
 ## High-level positioning
 
-- **react-intl** — ICU-first, standards-aligned formatting (dates/numbers/plurals) with a mature API. Catalogs are typically centralized; key safety and build-time validation are largely on you.
-- **react-i18next** — Extremely popular and flexible; namespaces, detectors, and many plugins (ICU, backends). Powerful, but configuration can sprawl as projects scale.
-- **Intlayer** — Component-centric content model for React, **strict TS typing**, **build-time checks**, **tree-shaking**, plus **Visual Editor/CMS** and **AI-assisted translations**. Works with React Router, Vite, CRA, etc.
+- **react-intl** - ICU-first, standards-aligned formatting (dates/numbers/plurals) with a mature API. Catalogs are typically centralized; key safety and build-time validation are largely on you.
+- **react-i18next** - Extremely popular and flexible; namespaces, detectors, and many plugins (ICU, backends). Powerful, but configuration can sprawl as projects scale.
+- **Intlayer** - Component-centric content model for React, **strict TS typing**, **build-time checks**, **tree-shaking**, plus **Visual Editor/CMS** and **AI-assisted translations**. Works with React Router, Vite, CRA, etc.
 
 ---
 
@@ -124,7 +124,7 @@ We evaluate:
 - **react-intl / react-i18next**: Broad community ecosystem; for editorial workflows you usually adopt external localization platforms.
 - **Intlayer**: Ships a **free Visual Editor** and **optional CMS** (keep content in Git or externalize it). Also offers a **VSCode extension** for content authoring and **AI-assisted translation** using your own provider keys.
 
-**Why it matters:** Built-in tooling shortens the loop between developers and content authors — less glue code, fewer vendor dependencies.
+**Why it matters:** Built-in tooling shortens the loop between developers and content authors - less glue code, fewer vendor dependencies.
 
 ---
 
@@ -132,7 +132,7 @@ We evaluate:
 
 - **Choose react-intl** if you want **ICU-first** message formatting with a straightforward, standards-aligned API and your team is comfortable maintaining catalogs and safety checks manually.
 - **Choose react-i18next** if you need the **breadth of i18next’s ecosystem** (detectors, backends, ICU plugin, integrations) and accept more configuration to gain flexibility.
-- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** editorial tooling — especially for **large, modular** React apps.
+- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** editorial tooling - especially for **large, modular** React apps.
 
 ---
 
@@ -149,7 +149,7 @@ We evaluate:
 
 All three libraries localize React effectively. The differentiator is how much **infrastructure** you must build to reach a **safe, scalable** setup:
 
-- With **Intlayer**, **modular content**, **strict TS typing**, **build-time safety**, **tree-shaken bundles**, and **editorial tooling** are defaults — not chores.
+- With **Intlayer**, **modular content**, **strict TS typing**, **build-time safety**, **tree-shaken bundles**, and **editorial tooling** are defaults - not chores.
 - If your team prizes **maintainability and speed** in multi-locale, component-driven React apps, Intlayer offers the **most complete** developer and content workflow today.
 
 Refer to ['Why Intlayer?' doc](https://intlayer.org/doc/why) for more details.

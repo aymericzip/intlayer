@@ -2,7 +2,7 @@
 createdAt: 2025-08-11
 updatedAt: 2025-08-11
 title: Comenzando con Intlayer en TanStack Start (React)
-description: Añade i18n a tu aplicación TanStack Start usando Intlayer—diccionarios a nivel de componente, URLs localizadas y metadatos amigables para SEO.
+description: Añade i18n a tu aplicación TanStack Start usando Intlayer-diccionarios a nivel de componente, URLs localizadas y metadatos amigables para SEO.
 keywords:
   - Internacionalización
   - Documentación

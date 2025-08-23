@@ -286,7 +286,7 @@ Intlayer автоматически объединяет мультиязычн�
 ```tsx fileName="Components/MyComponent/index.ts"
 import { getIntlayer, Locales } from "intlayer";
 
-const intlayer = getIntlayer("hello-world"); // Локаль по умолчанию — ENGLISH, поэтому будет возвращено содержимое на английском
+const intlayer = getIntlayer("hello-world"); // Локаль по умолчанию - ENGLISH, поэтому будет возвращено содержимое на английском
 
 console.log(JSON.stringify(intlayer, null, 2));
 // Результат:

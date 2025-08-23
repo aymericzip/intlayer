@@ -20,7 +20,7 @@ slugs:
 
 # @intlayer/chokidar: Пакет NPM для сканирования и сборки декларационных файлов Intlayer в словари
 
-**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
+**Intlayer** - это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, React и Express.js.
 
 Пакет **`@intlayer/chokidar`** используется для сканирования и построения файлов деклараций Intlayer в словари с использованием [chokidar](https://github.com/paulmillr/chokidar) и в соответствии с [конфигурацией Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 

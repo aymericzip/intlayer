@@ -52,7 +52,7 @@ export const Default: Story = {
 
 export const WithProvidedSuggestion: Story = {
   args: {
-    suggestion: ' — example inline suggestion',
+    suggestion: ' - example inline suggestion',
     defaultValue: 'Start typing',
   },
 };

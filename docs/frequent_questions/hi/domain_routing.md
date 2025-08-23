@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-बस इतना ही—यह **Next.js**, **Vite + React**, **Vite + Vue**, आदि के लिए समान रूप से काम करता है।
+बस इतना ही-यह **Next.js**, **Vite + React**, **Vite + Vue**, आदि के लिए समान रूप से काम करता है।
 
 ## अगर हर डोमेन एक ही तैनाती को हिट करता है तो क्या होगा?
 

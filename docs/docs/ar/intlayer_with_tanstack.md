@@ -2,7 +2,7 @@
 createdAt: 2025-08-11
 updatedAt: 2025-08-11
 title: البدء مع Intlayer في TanStack Start (React)
-description: أضف التدويل (i18n) إلى تطبيق TanStack Start الخاص بك باستخدام Intlayer — قواميس على مستوى المكونات، عناوين URL محلية، وبيانات وصفية صديقة لمحركات البحث.
+description: أضف التدويل (i18n) إلى تطبيق TanStack Start الخاص بك باستخدام Intlayer - قواميس على مستوى المكونات، عناوين URL محلية، وبيانات وصفية صديقة لمحركات البحث.
 keywords:
   - التدويل
   - التوثيق

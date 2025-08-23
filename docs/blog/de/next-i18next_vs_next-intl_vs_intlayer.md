@@ -36,9 +36,9 @@ Wir konzentrieren uns auf den **Next.js 13+ App Router** (mit **React Server Com
 
 ## Übergeordnete Positionierung
 
-- **next-intl** — Leichtgewichtiges, unkompliziertes Nachrichtenformat mit solider Next.js-Unterstützung. Zentralisierte Kataloge sind üblich; die Entwicklererfahrung ist einfach, aber Sicherheit und großflächige Wartung liegen größtenteils in Ihrer Verantwortung.
-- **next-i18next** — i18next im Next.js-Gewand. Ausgereiftes Ökosystem und Funktionen über Plugins (z. B. ICU), aber die Konfiguration kann umfangreich sein und Kataloge neigen dazu, mit wachsendem Projektumfang zentralisiert zu werden.
-- **Intlayer** — Komponentenorientiertes Inhaltsmodell für Next.js, **strenge TS-Typisierung**, **Build-Zeit-Prüfungen**, **Tree-Shaking**, **eingebaute Middleware- und SEO-Hilfen**, optionaler **Visueller Editor/CMS** und **KI-unterstützte Übersetzungen**.
+- **next-intl** - Leichtgewichtiges, unkompliziertes Nachrichtenformat mit solider Next.js-Unterstützung. Zentralisierte Kataloge sind üblich; die Entwicklererfahrung ist einfach, aber Sicherheit und großflächige Wartung liegen größtenteils in Ihrer Verantwortung.
+- **next-i18next** - i18next im Next.js-Gewand. Ausgereiftes Ökosystem und Funktionen über Plugins (z. B. ICU), aber die Konfiguration kann umfangreich sein und Kataloge neigen dazu, mit wachsendem Projektumfang zentralisiert zu werden.
+- **Intlayer** - Komponentenorientiertes Inhaltsmodell für Next.js, **strenge TS-Typisierung**, **Build-Zeit-Prüfungen**, **Tree-Shaking**, **eingebaute Middleware- und SEO-Hilfen**, optionaler **Visueller Editor/CMS** und **KI-unterstützte Übersetzungen**.
 
 ---
 

@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Eso es todo—funciona igual para **Next.js**, **Vite + React**, **Vite + Vue**, etc.
+Eso es todo-funciona igual para **Next.js**, **Vite + React**, **Vite + Vue**, etc.
 
 ## ¿Qué pasa si todos los dominios apuntan al **mismo** despliegue?
 

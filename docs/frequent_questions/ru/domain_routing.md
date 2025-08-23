@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Вот и всё — работает одинаково для **Next.js**, **Vite + React**, **Vite + Vue** и т.д.
+Вот и всё - работает одинаково для **Next.js**, **Vite + React**, **Vite + Vue** и т.д.
 
 ## Что если все домены указывают на **одно и то же** развертывание?
 

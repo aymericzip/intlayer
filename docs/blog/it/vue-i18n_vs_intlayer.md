@@ -36,8 +36,8 @@ Ci concentriamo sugli strumenti moderni di Vue (Vite, Composition API) e valutia
 
 ## Posizionamento ad alto livello
 
-- **vue-i18n** — La libreria i18n de-facto per Vue. Formattazione flessibile dei messaggi (stile ICU), blocchi SFC `<i18n>` per messaggi locali e un grande ecosistema. La sicurezza e la manutenzione su larga scala dipendono principalmente da te.
-- **Intlayer** — Modello di contenuto incentrato sui componenti per Vue/Vite/Nuxt con **tipizzazione TS rigorosa**, **controlli in fase di build**, **tree-shaking**, **helper per router e SEO**, **Editor Visivo/CMS** opzionale e **traduzioni assistite da AI**.
+- **vue-i18n** - La libreria i18n de-facto per Vue. Formattazione flessibile dei messaggi (stile ICU), blocchi SFC `<i18n>` per messaggi locali e un grande ecosistema. La sicurezza e la manutenzione su larga scala dipendono principalmente da te.
+- **Intlayer** - Modello di contenuto incentrato sui componenti per Vue/Vite/Nuxt con **tipizzazione TS rigorosa**, **controlli in fase di build**, **tree-shaking**, **helper per router e SEO**, **Editor Visivo/CMS** opzionale e **traduzioni assistite da AI**.
 
 ---
 
@@ -244,7 +244,7 @@ Questo approccio:
 ## Quando scegliere quale?
 
 - **Scegli vue-i18n** se vuoi l’**approccio standard di Vue**, ti senti a tuo agio a gestire cataloghi/namespace da solo e la tua app è di **dimensioni piccole o medie** (o già usi Nuxt i18n).
-- **Scegli Intlayer** se apprezzi il **contenuto scoped per componente**, il **TypeScript rigoroso**, le **garanzie a build-time**, il **tree-shaking** e gli strumenti **batteries-included** per routing/SEO/editor—specialmente per **codebase Vue/Nuxt grandi e modulari**.
+- **Scegli Intlayer** se apprezzi il **contenuto scoped per componente**, il **TypeScript rigoroso**, le **garanzie a build-time**, il **tree-shaking** e gli strumenti **batteries-included** per routing/SEO/editor-specialmente per **codebase Vue/Nuxt grandi e modulari**.
 
 ---
 

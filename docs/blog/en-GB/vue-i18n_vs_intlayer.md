@@ -36,8 +36,8 @@ We focus on modern Vue tooling (Vite, Composition API) and evaluate:
 
 ## High-level positioning
 
-- **vue-i18n** — The de-facto i18n library for Vue. Flexible message formatting (ICU-style), SFC `<i18n>` blocks for local messages, and a large ecosystem. Safety and large-scale maintenance are mostly your responsibility.
-- **Intlayer** — Component-centric content model for Vue/Vite/Nuxt with **strict TS typing**, **build-time checks**, **tree-shaking**, **router & SEO helpers**, optional **Visual Editor/CMS**, and **AI-assisted translations**.
+- **vue-i18n** - The de-facto i18n library for Vue. Flexible message formatting (ICU-style), SFC `<i18n>` blocks for local messages, and a large ecosystem. Safety and large-scale maintenance are mostly your responsibility.
+- **Intlayer** - Component-centric content model for Vue/Vite/Nuxt with **strict TS typing**, **build-time checks**, **tree-shaking**, **router & SEO helpers**, optional **Visual Editor/CMS**, and **AI-assisted translations**.
 
 ---
 
@@ -244,7 +244,7 @@ This approach:
 ## When to choose which?
 
 - **Choose vue-i18n** if you want the **standard Vue approach**, you’re comfortable managing catalogues/namespaces yourself, and your app is **small to mid-size** (or you already rely on Nuxt i18n).
-- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling—especially for **large, modular Vue/Nuxt codebases**.
+- **Choose Intlayer** if you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling-especially for **large, modular Vue/Nuxt codebases**.
 
 ---
 

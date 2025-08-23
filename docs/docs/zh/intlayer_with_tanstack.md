@@ -2,7 +2,7 @@
 createdAt: 2025-08-11
 updatedAt: 2025-08-11
 title: 在 TanStack Start (React) 中使用 Intlayer 入门
-description: 使用 Intlayer 为您的 TanStack Start 应用添加国际化——组件级字典、本地化 URL 以及 SEO 友好的元数据。
+description: 使用 Intlayer 为您的 TanStack Start 应用添加国际化--组件级字典、本地化 URL 以及 SEO 友好的元数据。
 keywords:
   - 国际化
   - 文档

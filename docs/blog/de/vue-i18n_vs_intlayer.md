@@ -36,8 +36,8 @@ Wir konzentrieren uns auf moderne Vue-Tools (Vite, Composition API) und bewerten
 
 ## Übergeordnete Positionierung
 
-- **vue-i18n** — Die de-facto i18n-Bibliothek für Vue. Flexible Nachrichtenformatierung (ICU-Stil), SFC-`<i18n>`-Blöcke für lokale Nachrichten und ein großes Ökosystem. Sicherheit und groß angelegte Wartung liegen größtenteils bei Ihnen.
-- **Intlayer** — Komponentenorientiertes Inhaltsmodell für Vue/Vite/Nuxt mit **strenger TS-Typisierung**, **Build-Zeit-Prüfungen**, **Tree-Shaking**, **Router- & SEO-Hilfen**, optionalem **Visuellen Editor/CMS** und **KI-unterstützten Übersetzungen**.
+- **vue-i18n** - Die de-facto i18n-Bibliothek für Vue. Flexible Nachrichtenformatierung (ICU-Stil), SFC-`<i18n>`-Blöcke für lokale Nachrichten und ein großes Ökosystem. Sicherheit und groß angelegte Wartung liegen größtenteils bei Ihnen.
+- **Intlayer** - Komponentenorientiertes Inhaltsmodell für Vue/Vite/Nuxt mit **strenger TS-Typisierung**, **Build-Zeit-Prüfungen**, **Tree-Shaking**, **Router- & SEO-Hilfen**, optionalem **Visuellen Editor/CMS** und **KI-unterstützten Übersetzungen**.
 
 ---
 

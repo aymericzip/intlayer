@@ -2,7 +2,7 @@
 createdAt: 2025-08-11
 updatedAt: 2025-08-11
 title: TanStack Start (React) में Intlayer के साथ शुरुआत करना
-description: Intlayer का उपयोग करके अपने TanStack Start ऐप में i18n जोड़ें—कंपोनेंट-स्तरीय शब्दकोश, स्थानीयकृत URL, और SEO-अनुकूल मेटाडेटा।
+description: Intlayer का उपयोग करके अपने TanStack Start ऐप में i18n जोड़ें-कंपोनेंट-स्तरीय शब्दकोश, स्थानीयकृत URL, और SEO-अनुकूल मेटाडेटा।
 keywords:
   - अंतरराष्ट्रीयकरण
   - दस्तावेज़ीकरण

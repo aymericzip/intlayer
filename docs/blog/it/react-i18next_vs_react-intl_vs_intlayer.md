@@ -38,9 +38,9 @@ Valutiamo:
 
 ## Posizionamento ad alto livello
 
-- **react-intl** — Formattazione basata su ICU e allineata agli standard (date/numeri/plurali) con un'API matura. I cataloghi sono tipicamente centralizzati; la sicurezza delle chiavi e la validazione in fase di build dipendono in gran parte da te.
-- **react-i18next** — Estremamente popolare e flessibile; namespaces, rilevatori e molti plugin (ICU, backend). Potente, ma la configurazione può espandersi man mano che i progetti crescono.
-- **Intlayer** — Modello di contenuto incentrato sul componente per React, **tipizzazione TS rigorosa**, **controlli in fase di build**, **tree-shaking**, oltre a **Visual Editor/CMS** e **traduzioni assistite da AI**. Funziona con React Router, Vite, CRA, ecc.
+- **react-intl** - Formattazione basata su ICU e allineata agli standard (date/numeri/plurali) con un'API matura. I cataloghi sono tipicamente centralizzati; la sicurezza delle chiavi e la validazione in fase di build dipendono in gran parte da te.
+- **react-i18next** - Estremamente popolare e flessibile; namespaces, rilevatori e molti plugin (ICU, backend). Potente, ma la configurazione può espandersi man mano che i progetti crescono.
+- **Intlayer** - Modello di contenuto incentrato sul componente per React, **tipizzazione TS rigorosa**, **controlli in fase di build**, **tree-shaking**, oltre a **Visual Editor/CMS** e **traduzioni assistite da AI**. Funziona con React Router, Vite, CRA, ecc.
 
 ---
 
@@ -124,7 +124,7 @@ Valutiamo:
 - **react-intl / react-i18next**: Ampio ecosistema comunitario; per i flussi editoriali solitamente si adottano piattaforme di localizzazione esterne.
 - **Intlayer**: Include un **Editor Visivo gratuito** e un **CMS opzionale** (mantieni i contenuti in Git o esternalizzali). Offre inoltre un’**estensione per VSCode** per la creazione di contenuti e una **traduzione assistita da AI** utilizzando le tue chiavi provider.
 
-**Perché è importante:** Gli strumenti integrati accorciano il ciclo tra sviluppatori e autori di contenuti — meno codice di collegamento, meno dipendenze da fornitori.
+**Perché è importante:** Gli strumenti integrati accorciano il ciclo tra sviluppatori e autori di contenuti - meno codice di collegamento, meno dipendenze da fornitori.
 
 ---
 
@@ -132,7 +132,7 @@ Valutiamo:
 
 - **Scegli react-intl** se desideri un formato messaggi **ICU-first** con un’API semplice e conforme agli standard e il tuo team è a suo agio nel mantenere manualmente cataloghi e controlli di sicurezza.
 - **Scegli react-i18next** se ti serve l’**ampiezza dell’ecosistema di i18next** (rilevatori, backend, plugin ICU, integrazioni) e accetti una configurazione più complessa per ottenere maggiore flessibilità.
-- **Scegli Intlayer** se apprezzi il **contenuto a livello di componente**, il **TypeScript rigoroso**, le **garanzie a tempo di compilazione**, il **tree-shaking** e gli strumenti editoriali **completi** — specialmente per applicazioni React **grandi e modulari**.
+- **Scegli Intlayer** se apprezzi il **contenuto a livello di componente**, il **TypeScript rigoroso**, le **garanzie a tempo di compilazione**, il **tree-shaking** e gli strumenti editoriali **completi** - specialmente per applicazioni React **grandi e modulari**.
 
 ---
 
@@ -149,5 +149,5 @@ Valutiamo:
 
 Tutte e tre le librerie localizzano React in modo efficace. La differenza sta in quanta **infrastruttura** devi costruire per raggiungere una configurazione **sicura e scalabile**:
 
-- Con **Intlayer**, **contenuti modulari**, **tipizzazione TypeScript rigorosa**, **sicurezza a tempo di compilazione**, **bundle ottimizzati con tree-shaking** e **strumenti editoriali** sono impostazioni predefinite — non incombenze.
+- Con **Intlayer**, **contenuti modulari**, **tipizzazione TypeScript rigorosa**, **sicurezza a tempo di compilazione**, **bundle ottimizzati con tree-shaking** e **strumenti editoriali** sono impostazioni predefinite - non incombenze.
 - Se il tuo team valorizza la **manutenibilità e la velocità** in app React multi-locale e basate su componenti, Intlayer offre il flusso di lavoro per sviluppatori e contenuti più **completo** oggi disponibile.

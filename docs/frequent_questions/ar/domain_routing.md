@@ -46,7 +46,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-هذا كل شيء — يعمل بنفس الطريقة مع **Next.js**، **Vite + React**، **Vite + Vue**، إلخ.
+هذا كل شيء - يعمل بنفس الطريقة مع **Next.js**، **Vite + React**، **Vite + Vue**، إلخ.
 
 ## ماذا لو كان كل النطاقات تشير إلى نفس النشر؟
 

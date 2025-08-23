@@ -36,9 +36,9 @@ Nous nous concentrons sur **Next.js 13+ App Router** (avec **React Server Compon
 
 ## Positionnement général
 
-- **next-intl** — Formatage de messages léger et simple avec un bon support Next.js. Les catalogues centralisés sont courants ; l’expérience développeur est simple, mais la sécurité et la maintenance à grande échelle restent principalement de votre responsabilité.
-- **next-i18next** — i18next habillé pour Next.js. Écosystème mature et fonctionnalités via des plugins (par exemple, ICU), mais la configuration peut être verbeuse et les catalogues ont tendance à se centraliser à mesure que les projets grandissent.
-- **Intlayer** — Modèle de contenu centré sur les composants pour Next.js, **typage TS strict**, **vérifications à la compilation**, **tree-shaking**, **middleware intégré et helpers SEO**, **éditeur visuel/CMS** optionnel, et **traductions assistées par IA**.
+- **next-intl** - Formatage de messages léger et simple avec un bon support Next.js. Les catalogues centralisés sont courants ; l’expérience développeur est simple, mais la sécurité et la maintenance à grande échelle restent principalement de votre responsabilité.
+- **next-i18next** - i18next habillé pour Next.js. Écosystème mature et fonctionnalités via des plugins (par exemple, ICU), mais la configuration peut être verbeuse et les catalogues ont tendance à se centraliser à mesure que les projets grandissent.
+- **Intlayer** - Modèle de contenu centré sur les composants pour Next.js, **typage TS strict**, **vérifications à la compilation**, **tree-shaking**, **middleware intégré et helpers SEO**, **éditeur visuel/CMS** optionnel, et **traductions assistées par IA**.
 
 ---
 
@@ -138,7 +138,7 @@ Nous nous concentrons sur **Next.js 13+ App Router** (avec **React Server Compon
 
 - **Choisissez next-intl** si vous souhaitez une solution **minimale**, que vous êtes à l’aise avec des catalogues centralisés, et que votre application est de taille **petite à moyenne**.
 - **Choisissez next-i18next** si vous avez besoin de **l’écosystème de plugins d’i18next** (par exemple, des règles ICU avancées via des plugins) et que votre équipe connaît déjà i18next, acceptant une **configuration plus importante** pour plus de flexibilité.
-- **Choisissez Intlayer** si vous valorisez le **contenu scoped par composant**, un **TypeScript strict**, des **garanties à la compilation**, le **tree-shaking**, et des outils de routage/SEO/édition **tout-en-un** — particulièrement pour le **Next.js App Router** et les **bases de code larges et modulaires**.
+- **Choisissez Intlayer** si vous valorisez le **contenu scoped par composant**, un **TypeScript strict**, des **garanties à la compilation**, le **tree-shaking**, et des outils de routage/SEO/édition **tout-en-un** - particulièrement pour le **Next.js App Router** et les **bases de code larges et modulaires**.
 
 ---
 

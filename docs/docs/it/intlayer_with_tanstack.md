@@ -2,7 +2,7 @@
 createdAt: 2025-08-11
 updatedAt: 2025-08-11
 title: Iniziare con Intlayer in TanStack Start (React)
-description: Aggiungi l'internazionalizzazione alla tua app TanStack Start usando Intlayer—dizionari a livello di componente, URL localizzati e metadati ottimizzati per SEO.
+description: Aggiungi l'internazionalizzazione alla tua app TanStack Start usando Intlayer-dizionari a livello di componente, URL localizzati e metadati ottimizzati per SEO.
 keywords:
   - Internazionalizzazione
   - Documentazione

@@ -38,9 +38,9 @@ Nós avaliamos:
 
 ## Posicionamento de alto nível
 
-- **react-intl** — Formatação alinhada a padrões e centrada em ICU (datas/números/plurais) com uma API madura. Os catálogos são tipicamente centralizados; a segurança das chaves e a validação em tempo de build ficam majoritariamente a seu cargo.
-- **react-i18next** — Extremamente popular e flexível; namespaces, detectores e muitos plugins (ICU, backends). Poderoso, mas a configuração pode se expandir conforme os projetos crescem.
-- **Intlayer** — Modelo de conteúdo centrado em componentes para React, **tipagem TS rigorosa**, **verificações em tempo de build**, **tree-shaking**, além de **Editor Visual/CMS** e **traduções assistidas por IA**. Funciona com React Router, Vite, CRA, etc.
+- **react-intl** - Formatação alinhada a padrões e centrada em ICU (datas/números/plurais) com uma API madura. Os catálogos são tipicamente centralizados; a segurança das chaves e a validação em tempo de build ficam majoritariamente a seu cargo.
+- **react-i18next** - Extremamente popular e flexível; namespaces, detectores e muitos plugins (ICU, backends). Poderoso, mas a configuração pode se expandir conforme os projetos crescem.
+- **Intlayer** - Modelo de conteúdo centrado em componentes para React, **tipagem TS rigorosa**, **verificações em tempo de build**, **tree-shaking**, além de **Editor Visual/CMS** e **traduções assistidas por IA**. Funciona com React Router, Vite, CRA, etc.
 
 ---
 
@@ -124,7 +124,7 @@ Nós avaliamos:
 - **react-intl / react-i18next**: Ecossistema comunitário amplo; para fluxos editoriais, normalmente você adota plataformas externas de localização.
 - **Intlayer**: Inclui um **Editor Visual gratuito** e um **CMS opcional** (mantenha o conteúdo no Git ou externalize-o). Também oferece uma **extensão para VSCode** para autoria de conteúdo e **tradução assistida por IA** usando suas próprias chaves de provedor.
 
-**Por que isso importa:** Ferramentas integradas encurtam o ciclo entre desenvolvedores e autores de conteúdo — menos código de ligação, menos dependências de fornecedores.
+**Por que isso importa:** Ferramentas integradas encurtam o ciclo entre desenvolvedores e autores de conteúdo - menos código de ligação, menos dependências de fornecedores.
 
 ---
 
@@ -132,7 +132,7 @@ Nós avaliamos:
 
 - **Escolha react-intl** se você quiser formatação de mensagens **priorizando ICU** com uma API direta e alinhada aos padrões, e sua equipe estiver confortável em manter catálogos e verificações de segurança manualmente.
 - **Escolha react-i18next** se precisar da **amplitude do ecossistema do i18next** (detectores, backends, plugin ICU, integrações) e aceitar mais configuração para ganhar flexibilidade.
-- **Escolha Intlayer** se você valoriza **conteúdo escopado por componente**, **TypeScript rigoroso**, **garantias em tempo de build**, **tree-shaking** e ferramentas editoriais **com tudo incluído** — especialmente para apps React **grandes e modulares**.
+- **Escolha Intlayer** se você valoriza **conteúdo escopado por componente**, **TypeScript rigoroso**, **garantias em tempo de build**, **tree-shaking** e ferramentas editoriais **com tudo incluído** - especialmente para apps React **grandes e modulares**.
 
 ---
 
@@ -149,5 +149,5 @@ Nós avaliamos:
 
 Todas as três bibliotecas localizam o React de forma eficaz. O diferencial é quanto de **infraestrutura** você precisa construir para alcançar uma configuração **segura e escalável**:
 
-- Com o **Intlayer**, **conteúdo modular**, **tipagem TS rigorosa**, **segurança em tempo de compilação**, **pacotes otimizados por tree-shaking** e **ferramentas editoriais** são padrões — não tarefas.
+- Com o **Intlayer**, **conteúdo modular**, **tipagem TS rigorosa**, **segurança em tempo de compilação**, **pacotes otimizados por tree-shaking** e **ferramentas editoriais** são padrões - não tarefas.
 - Se sua equipe valoriza **manutenibilidade e velocidade** em aplicativos React multi-idioma e orientados a componentes, o Intlayer oferece o fluxo de trabalho para desenvolvedores e conteúdo mais **completo** atualmente.

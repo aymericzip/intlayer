@@ -243,7 +243,7 @@ npx intlayer fill
 
 - **`--output-locales [outputLocales...]`**: Целевые локали для перевода. Если не указано, будут использованы все локали из вашей конфигурации, кроме исходной локали.
 
-- **`--mode [mode]`**: Режим перевода: 'complete' (полный), 'review' (проверка) или 'missing-only' (только отсутствующие). По умолчанию — 'missing-only'.
+- **`--mode [mode]`**: Режим перевода: 'complete' (полный), 'review' (проверка) или 'missing-only' (только отсутствующие). По умолчанию - 'missing-only'.
 
 **Опции Git:**
 
@@ -267,7 +267,7 @@ npx intlayer fill
 - **`--custom-prompt [prompt]`**: Укажите пользовательский запрос для инструкций по переводу.
 - **`--application-context [applicationContext]`**: Предоставьте дополнительный контекст для перевода ИИ.
 
-  > Пример: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Моё приложение — магазин для кошек"`
+  > Пример: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Моё приложение - магазин для кошек"`
 
 **Опции переменных окружения:**
 
@@ -365,7 +365,6 @@ npx intlayer doc translate
   > Пример: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**: Пропустить файл, если он был изменён до указанного времени.
-
   - Может быть абсолютным временем, например "2025-12-05" (строка или объект Date)
   - Может быть относительным временем в миллисекундах `1 * 60 * 60 * 1000` (1 час)
   - Эта опция проверяет время обновления файла с помощью метода `fs.stat`. Поэтому она может быть затронута Git или другими инструментами, которые изменяют файл.
@@ -373,7 +372,6 @@ npx intlayer doc translate
   > Пример: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**: Пропустить файл, если он был изменён в течение указанного времени.
-
   - Может быть абсолютным временем, например "2025-12-05" (строка или объект Date)
   - Может быть относительным временем в миллисекундах `1 * 60 * 60 * 1000` (1 час)
   - Эта опция проверяет время обновления файла с помощью метода `fs.stat`. Поэтому она может быть затронута Git или другими инструментами, которые изменяют файл.
@@ -405,7 +403,7 @@ npx intlayer doc translate
 - **`--application-context [applicationContext]`**: Предоставьте дополнительный контекст для перевода ИИ.
 - **`--custom-prompt [prompt]`**: Настроить базовый запрос, используемый для перевода. (Примечание: для большинства случаев рекомендуется использовать опцию `--custom-instructions`, так как она обеспечивает лучший контроль над поведением перевода.)
 
-  > Пример: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "Моё приложение — магазин для кошек"`
+  > Пример: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "Моё приложение - магазин для кошек"`
 
 **Опции переменных окружения:**
 
@@ -424,7 +422,6 @@ npx intlayer doc translate
 **Опции пользовательских инструкций:**
 
 - **`--custom-instructions [customInstructions]`**: Пользовательские инструкции, добавляемые в запрос. Полезно для применения специфических правил по форматированию, переводу URL и т.д.
-
   - Может быть абсолютное время, например "2025-12-05" (строка или объект Date)
   - Может быть относительное время в миллисекундах `1 * 60 * 60 * 1000` (1 час)
   - Эта опция проверяет время обновления файла с помощью метода `fs.stat`. Поэтому она может быть затронута Git или другими инструментами, которые изменяют файл.
@@ -495,7 +492,7 @@ npx intlayer doc review
 
 ## CLI SDK
 
-CLI SDK — это библиотека, которая позволяет использовать Intlayer CLI в вашем собственном коде.
+CLI SDK - это библиотека, которая позволяет использовать Intlayer CLI в вашем собственном коде.
 
 ```bash packageManager="npm"
 npm install @intlayer/cli --save-dev

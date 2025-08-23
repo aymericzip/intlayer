@@ -19,7 +19,7 @@ slugs:
 
 # next-intlayer: NPM пакет для интернационализации (i18n) приложения Next.js
 
-**Intlayer** — это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, Next.js и Express.js.
+**Intlayer** - это набор пакетов, разработанных специально для JavaScript-разработчиков. Он совместим с такими фреймворками, как React, Next.js и Express.js.
 
 **Пакет `next-intlayer`** позволяет интернационализировать ваше приложение Next.js. Он предоставляет провайдеры контекста и хуки для интернационализации в Next.js. Кроме того, в него входит плагин Next.js для интеграции Intlayer с [Webpack](https://webpack.js.org/) или [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), а также middleware для определения предпочтительной локали пользователя, управления cookies и обработки перенаправления URL.
 
@@ -98,7 +98,7 @@ pnpm add next-intlayer
 
 ### Объявите ваш контент
 
-`next-intlayer` создан для работы с пакетом [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/index.md). `intlayer` — это пакет, который позволяет объявлять ваш контент в любом месте кода. Он преобразует многоязычные объявления контента в структурированные словари, которые бесшовно интегрируются в ваше приложение.
+`next-intlayer` создан для работы с пакетом [`intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/index.md). `intlayer` - это пакет, который позволяет объявлять ваш контент в любом месте кода. Он преобразует многоязычные объявления контента в структурированные словари, которые бесшовно интегрируются в ваше приложение.
 
 Вот пример объявления контента:
 
