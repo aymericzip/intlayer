@@ -2,17 +2,18 @@
 createdAt: 2024-08-13
 updatedAt: 2025-08-20
 title: Formatadores
-description: Utilitários de formatação sensíveis à localidade baseados no Intl para números, percentuais, moeda, datas, tempo relativo, unidades e notação compacta. Inclui um helper Intl com cache.
+description: Utilitários de formatação sensíveis à localidade baseados em Intl para números, percentagens, moeda, datas, tempo relativo, unidades e notação compacta. Inclui um helper Intl em cache.
 keywords:
   - Formatadores
   - Intl
   - Número
   - Moeda
-  - Percentual
+  - Percentagem
   - Data
   - Tempo Relativo
   - Unidades
   - Compacto
+  - Lista
   - Internacionalização
 slugs:
   - doc
@@ -23,7 +24,7 @@ slugs:
 
 ## Visão Geral
 
-O Intlayer fornece um conjunto de helpers leves construídos sobre as APIs nativas `Intl`, além de um wrapper `Intl` com cache para evitar a construção repetida de formatadores pesados. Esses utilitários são totalmente sensíveis à localidade e podem ser usados a partir do pacote principal `intlayer`.
+O Intlayer fornece um conjunto de helpers leves construídos sobre as APIs nativas `Intl`, além de um wrapper `Intl` em cache para evitar a construção repetida de formatadores pesados. Esses utilitários são totalmente sensíveis à localidade e podem ser usados a partir do pacote principal `intlayer`.
 
 ### Importação
 
@@ -37,40 +38,302 @@ import {
   relativeTime,
   units,
   compact,
+  list,
+  getLocaleName,
+  getLocaleLang,
+  getLocaleFromPath,
+  getPathWithoutLocale,
+  getLocalizedUrl,
+  getHTMLTextDir,
+  getContent,
+  getLocalisedContent,
+  getTranslation,
+  getIntlayer,
+  getIntlayerAsync,
 } from "intlayer";
 ```
 
-Se você estiver usando React, hooks também estão disponíveis; veja `react-intlayer/format`.
+Se estiver a usar React, os hooks também estão disponíveis; veja `react-intlayer/format`.
 
-## Intl com Cache
+## Intl em Cache
 
-O `Intl` exportado é um wrapper leve com cache em torno do `Intl` global. Ele memoiza instâncias de `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, o que evita reconstruir o mesmo formatador repetidamente.
+O `Intl` exportado é um wrapper leve e em cache em torno do `Intl` global. Ele memoiza instâncias de `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` e `PluralRules`, o que evita reconstruir o mesmo formatador repetidamente.
 
-Como a construção do formatador é relativamente custosa, esse cache melhora a performance sem alterar o comportamento. O wrapper expõe a mesma API do `Intl` nativo, então o uso é idêntico.
+Como a construção do formatador é relativamente dispendiosa, este cache melhora o desempenho sem alterar o comportamento. O wrapper expõe a mesma API do `Intl` nativo, portanto o uso é idêntico.
 
 - O cache é por processo e transparente para os chamadores.
 
-> Se `Intl.DisplayNames` não estiver disponível no ambiente, um único aviso para desenvolvedores é exibido (considere usar um polyfill).
+> Se `Intl.DisplayNames` não estiver disponível no ambiente, um único aviso para desenvolvedores é exibido (considere um polyfill).
 
-Exemplo:
+Exemplos:
 
 ```ts
 import { Intl } from "intlayer";
 
+// Formatação de números
 const numberFormat = new Intl.NumberFormat("en-GB", {
   style: "currency",
   currency: "GBP",
 });
 numberFormat.format(1234.5); // "£1,234.50"
+
+// Nomes exibidos para idiomas, regiões, etc.
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// Ordenação para sorting
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (igual)
+
+// Regras de plural
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
 ```
+
+## Utilitários adicionais do Intl
+
+Além dos auxiliares de formatadores, você também pode usar diretamente o wrapper Intl em cache para outros recursos do Intl:
+
+### `Intl.DisplayNames`
+
+Para nomes localizados de idiomas, regiões, moedas e scripts:
+
+```ts
+import { Intl } from "intlayer";
+
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
+
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
+```
+
+### `Intl.Collator`
+
+Para comparação e ordenação de strings sensíveis ao local:
+
+```ts
+import { Intl } from "intlayer";
+
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
+```
+
+### `Intl.PluralRules`
+
+Para determinar formas plurais em diferentes locais:
+
+```ts
+import { Intl } from "intlayer";
+
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
+```
+
+## Utilitários de Localidade
+
+### `getLocaleName(displayLocale, targetLocale?)`
+
+Obtém o nome localizado de uma localidade em outra localidade:
+
+```ts
+import { getLocaleName } from "intlayer";
+
+getLocaleName("fr", "en"); // "French"
+getLocaleName("en", "fr"); // "anglais"
+getLocaleName("de", "es"); // "alemán"
+```
+
+- **displayLocale**: O locale para o qual obter o nome
+- **targetLocale**: O locale para exibir o nome (padrão é displayLocale)
+
+### `getLocaleLang(locale?)`
+
+Extrai o código de idioma de uma string de locale:
+
+```ts
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang("en-US"); // "en"
+getLocaleLang("fr-CA"); // "fr"
+getLocaleLang("de"); // "de"
+```
+
+- **locale**: O locale do qual extrair o idioma (padrão é o locale atual)
+
+### `getLocaleFromPath(inputUrl)`
+
+Extrai o segmento de locale de uma URL ou pathname:
+
+```ts
+import { getLocaleFromPath } from "intlayer";
+
+getLocaleFromPath("/en/dashboard"); // "en"
+getLocaleFromPath("/fr/dashboard"); // "fr"
+getLocaleFromPath("/dashboard"); // "en" (locale padrão)
+getLocaleFromPath("https://example.com/es/about"); // "es"
+```
+
+- **inputUrl**: A string completa da URL ou caminho para processar
+- **returns**: O locale detectado ou o locale padrão se nenhum locale for encontrado
+
+### `getPathWithoutLocale(inputUrl, locales?)`
+
+Remove o segmento de locale de uma URL ou caminho:
+
+```ts
+import { getPathWithoutLocale } from "intlayer";
+
+getPathWithoutLocale("/en/dashboard"); // "/dashboard"
+getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
+getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
+```
+
+- **inputUrl**: A string completa da URL ou caminho para processar
+- **locales**: Array opcional de locales suportados (padrão para os locales configurados)
+- **returns**: A URL sem o segmento de locale
+
+### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
+
+Gera uma URL localizada para o locale atual:
+
+```ts
+import { getLocalizedUrl } from "intlayer";
+
+getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
+getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
+getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
+```
+
+- **url**: A URL original para localizar
+- **currentLocale**: O locale atual
+- **locales**: Array opcional de locales suportados (padrão para os locales configurados)
+- **defaultLocale**: Locale padrão opcional (padrão para o locale padrão configurado)
+- **prefixDefault**: Se deve prefixar o locale padrão (padrão para o valor configurado)
+
+### `getHTMLTextDir(locale?)`
+
+Retorna a direção do texto para um locale:
+
+```ts
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir("en-US"); // "ltr"
+getHTMLTextDir("ar"); // "rtl"
+getHTMLTextDir("he"); // "rtl"
+```
+
+- **locale**: O locale para obter a direção do texto (padrão para o locale atual)
+- **returns**: `"ltr"`, `"rtl"` ou `"auto"`
+
+## Utilitários para Manipulação de Conteúdo
+
+### `getContent(node, nodeProps, locale?)`
+
+Transforma um nó de conteúdo com todos os plugins disponíveis (tradução, enumeração, inserção, etc.):
+
+```ts
+import { getContent } from "intlayer";
+
+const content = getContent(
+  contentNode,
+  { dictionaryKey: "common", dictionaryPath: "/path/to/dict" },
+  "fr"
+);
+```
+
+- **node**: O nó de conteúdo a ser transformado
+- **nodeProps**: Propriedades para o contexto da transformação
+- **locale**: Locale opcional (padrão para o locale padrão configurado)
+
+### `getLocalisedContent(node, locale, nodeProps, fallback?)`
+
+Transforma um nó de conteúdo usando apenas o plugin de tradução:
+
+```ts
+import { getLocalisedContent } from "intlayer";
+
+const content = getLocalisedContent(
+  contentNode,
+  "fr",
+  { dictionaryKey: "common" },
+  true // fallback para o locale padrão se a tradução estiver ausente
+);
+```
+
+- **node**: O nó de conteúdo a ser transformado
+- **locale**: O locale a ser usado para tradução
+- **nodeProps**: Propriedades para o contexto da transformação
+- **fallback**: Se deve retornar ao locale padrão (padrão é false)
+
+### `getTranslation(languageContent, locale?, fallback?)`
+
+Extrai conteúdo para um locale específico a partir de um objeto de conteúdo multilíngue:
+
+```ts
+import { getTranslation } from "intlayer";
+
+const content = getTranslation(
+  {
+    en: "Hello",
+    fr: "Bonjour",
+    de: "Hallo",
+  },
+  "fr",
+  true
+); // "Bonjour"
+```
+
+- **languageContent**: Objeto que mapeia locales para conteúdo
+- **locale**: Locale alvo (padrão para o locale padrão configurado)
+- **fallback**: Se deve retornar ao locale padrão (padrão é true)
+
+### `getIntlayer(dictionaryKey, locale?, plugins?)`
+
+Recupera e transforma conteúdo de um dicionário pela chave:
+
+```ts
+import { getIntlayer } from "intlayer";
+
+const content = getIntlayer("common", "fr");
+const nestedContent = getIntlayer("common", "fr", customPlugins);
+```
+
+- **dictionaryKey**: A chave do dicionário a ser recuperada
+- **locale**: Locale opcional (padrão para o locale padrão configurado)
+- **plugins**: Array opcional de plugins de transformação personalizados
+
+### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
+
+Recupera conteúdo de um dicionário remoto de forma assíncrona:
+
+```ts
+import { getIntlayerAsync } from "intlayer";
+
+const content = await getIntlayerAsync("common", "fr");
+```
+
+- **dictionaryKey**: A chave do dicionário a ser recuperada
+- **locale**: Locale opcional (padrão para o locale padrão configurado)
+- **plugins**: Array opcional de plugins de transformação personalizados
 
 ## Formatadores
 
-Todos os helpers abaixo são exportados do `intlayer`.
+Todos os helpers abaixo são exportados de `intlayer`.
 
 ### `number(value, options?)`
 
-Formata um valor numérico usando agrupamento e decimais sensíveis ao local.
+Formata um valor numérico usando agrupamento e decimais sensíveis ao locale.
 
 - **value**: `number | string`
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
@@ -81,7 +344,7 @@ Exemplos:
 import { number } from "intlayer";
 
 number(123456.789); // "123,456.789" (em en-US)
-number("1000000", { locale: "fr" }); // "1 000 000"
+number("1000000", { locale: "fr" }); // "1 000 000"
 number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
 ```
 
@@ -89,7 +352,7 @@ number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
 
 Formata um número como uma string percentual.
 
-Comportamento: valores maiores que 1 são interpretados como percentagens inteiras e normalizados (por exemplo, `25` → `25%`, `0.25` → `25%`).
+Comportamento: valores maiores que 1 são interpretados como percentuais inteiros e normalizados (ex.: `25` → `25%`, `0.25` → `25%`).
 
 - **value**: `number | string`
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
@@ -117,8 +380,8 @@ Exemplos:
 ```ts
 import { currency } from "intlayer";
 
-currency(1234.5, { currency: "EUR" }); // "€1.234,50"
-currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
+currency(1234.5, { currency: "EUR" }); // "€1,234.50"
+currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
 ```
 
 ### `date(date, optionsOrPreset?)`
@@ -195,15 +458,34 @@ compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 milhão"
 ```
 
+### `list(values, options?)`
+
+Formata um array de valores em uma string de lista localizada usando `Intl.ListFormat`.
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - Campos comuns: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+  - Padrões: `type: 'conjunction'`, `style: 'long'`
+
+Exemplos:
+
+```ts
+import { list } from "intlayer";
+
+list(["apple", "banana", "orange"]); // "apple, banana e orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
+list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
+```
+
 ## Notas
 
 - Todos os helpers aceitam entradas do tipo `string`; elas são internamente convertidas para números ou datas.
-- O locale padrão é o configurado em `internationalization.defaultLocale` caso não seja fornecido.
-- Essas utilidades são wrappers simples; para formatações avançadas, utilize as opções padrão do `Intl`.
+- O locale padrão é o configurado em `internationalization.defaultLocale`, caso não seja fornecido.
+- Essas utilidades são wrappers simples; para formatações avançadas, utilize diretamente as opções padrão do `Intl`.
 
-## Pontos de entrada e reexportações (`@index.ts`)
+## Pontos de entrada e re-exportações (`@index.ts`)
 
-Os formatadores estão no pacote core e são reexportados por pacotes de nível superior para manter os imports ergonômicos em diferentes runtimes:
+Os formatadores estão no pacote core e são re-exportados por pacotes de nível superior para manter as importações ergonômicas em diferentes runtimes:
 
 Exemplos:
 
@@ -216,7 +498,19 @@ import {
   relativeTime,
   units,
   compact,
+  list,
   Intl,
+  getLocaleName,
+  getLocaleLang,
+  getLocaleFromPath,
+  getPathWithoutLocale,
+  getLocalizedUrl,
+  getHTMLTextDir,
+  getContent,
+  getLocalisedContent,
+  getTranslation,
+  getIntlayer,
+  getIntlayerAsync,
 } from "intlayer";
 ```
 
@@ -224,7 +518,7 @@ import {
 
 Componentes cliente:
 
-```ts
+```tsx
 import {
   useNumber,
   useCurrency,
@@ -246,6 +540,30 @@ import {
   useRelativeTime,
   useUnit,
 } from "next-intlayer/client/format";
+
+const MyComponent = () => {
+  const number = useNumber();
+  const currency = useCurrency();
+  const date = useDate();
+  const percentage = usePercentage();
+  const compact = useCompact();
+  const list = useList();
+  const relativeTime = useRelativeTime();
+  const unit = useUnit();
+
+  return (
+    <div>
+      <p>{number(123456.789)}</p>
+      <p>{currency(1234.5, { currency: "EUR" })}</p>
+      <p>{date(new Date(), "short")}</p>
+      <p>{percentage(0.25)}</p>
+      <p>{compact(1200)}</p>
+      <p>{list(["apple", "banana", "orange"])}</p>
+      <p>{relativeTime(new Date(), new Date() + 1000)}</p>
+      <p>{unit(123456.789, { unit: "kilometer" })}</p>
+    </div>
+  );
+};
 ```
 
 Componentes servidor (ou runtime React Server):
@@ -260,7 +578,7 @@ import {
   useList,
   useRelativeTime,
   useUnit,
-} from "intlayer/server/format";
+} from "react-intlayer/server/format";
 // ou em apps Next.js
 import {
   useNumber,
@@ -274,10 +592,34 @@ import {
 } from "next-intlayer/server/format";
 ```
 
-> Esses hooks considerarão o locale do `IntlayerProvider` ou `IntlayerServerProvider`
+> Esses hooks irão considerar a localidade do `IntlayerProvider` ou `IntlayerServerProvider`
 
-## Histórico da documentação
+### Vue
 
-| Versão | Data       | Alterações                             |
-| ------ | ---------- | -------------------------------------- |
-| 5.8.0  | 2025-08-18 | Adiciona documentação dos formatadores |
+Componentes cliente:
+
+```ts
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "vue-intlayer/format";
+```
+
+> Esses composables irão considerar o locale do `IntlayerProvider` injetado
+
+## Histórico da Documentação
+
+| Versão | Data       | Alterações                                                                                         |
+| ------ | ---------- | -------------------------------------------------------------------------------------------------- |
+| 5.8.0  | 2025-08-20 | Adicionados formatadores para Vue                                                                  |
+| 5.8.0  | 2025-08-18 | Adicionada documentação dos formatadores                                                           |
+| 5.8.0  | 2025-08-20 | Adicionar documentação do formatador de listas                                                     |
+| 5.8.0  | 2025-08-20 | Adicionar utilitários adicionais do Intl (DisplayNames, Collator, PluralRules)                     |
+| 5.8.0  | 2025-08-20 | Adicionar utilitários de locale (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)            |
+| 5.8.0  | 2025-08-20 | Adicionar utilitários para manipulação de conteúdo (getContent, getTranslation, getIntlayer, etc.) |
