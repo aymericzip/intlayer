@@ -142,6 +142,16 @@ We focus on **Next.js 13+ App Router** (with **React Server Components**) and ev
 
 ---
 
+## Interoperability with `next-intl` and `next-i18next`
+
+`intlayer` can also help to manage your `next-intl` and `next-i18next` namespaces.
+
+Using `intlayer`, you can declare your content in the format of your favorite i18n library, and intlayer will generate your namespaces in the location of your choice (example: `/messages/{{locale}}/{{namespace}}.json`).
+
+Refer to [`dictionaryOutput` and `i18nextResourcesDir` options](https://intlayer.org/doc/concept/configuration#content-configuration) for more details.
+
+---
+
 ## Conclusion
 
 All three libraries succeed at core localization. The difference is **how much work you must do** to achieve a robust, scalable setup in **modern Next.js**:

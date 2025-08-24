@@ -262,6 +262,16 @@ This approach allows you to:
 | **Purge unused content**                      | ✅ Yes, per-dictionary at build time                                                                                                | ❌ No, only via manual namespace segmentation                                                            | ❌ No, all declared messages are bundled                                                                                         | ✅ Yes, unused keys detected & dropped at build       | ❌ No, can be managed manually with namespace management                                                 | ❌ No, can be managed manually with namespace management                                                 | ❌ No, only possible via manual lazy-loading                 |
 | **Management of Large Projects**              | ✅ Encourages modular, suited for design-system                                                                                     | ⚠️ Needs good file discipline                                                                            | ⚠️ Central catalogs can get large                                                                                                | ⚠️ May get complex                                    | ✅ Modular with setup                                                                                    | ✅ Modular with setup                                                                                    | ✅ Modular with Vue Router/Nuxt i18n setup                   |
 
+---
+
+## Interoperability
+
+`intlayer` can also help to manage your `react-intl`, `react-i18next`, `next-intl`, `next-i18next`, and `vue-i18n` namespaces.
+
+Using `intlayer`, you can declare your content in the format of your favorite i18n library, and intlayer will generate your namespaces in the location of your choice (example: `/messages/{{locale}}/{{namespace}}.json`).
+
+Refer to [`dictionaryOutput` and `i18nextResourcesDir` options](https://intlayer.org/doc/concept/configuration#content-configuration) for more details.
+
 ## Document History
 
 | Version | Date       | Changes                  |

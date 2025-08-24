@@ -136,6 +136,16 @@ We evaluate:
 
 ---
 
+## Interoperability with `react-intl` and `react-i18next`
+
+`intlayer` can also help to manage your `react-intl` and `react-i18next` namespaces.
+
+Using `intlayer`, you can declare your content in the format of your favorite i18n library, and intlayer will generate your namespaces in the location of your choice (example: `/messages/{{locale}}/{{namespace}}.json`).
+
+Refer to [`dictionaryOutput` and `i18nextResourcesDir` options](https://intlayer.org/doc/concept/configuration#content-configuration) for more details.
+
+---
+
 ## Conclusion
 
 All three libraries localize React effectively. The differentiator is how much **infrastructure** you must build to reach a **safe, scalable** setup:
