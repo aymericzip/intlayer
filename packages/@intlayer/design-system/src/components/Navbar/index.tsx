@@ -29,7 +29,7 @@ export const Navbar = <T extends TabProps>({
   rightItemsMobile,
   selectedChoice,
 }: NavbarProps<T>) => {
-  const { isMobile } = useDevice();
+  const { isMobile } = useDevice('lg');
   const isMoUnted = useIsMounted();
 
   if (!isMoUnted) return <></>;
