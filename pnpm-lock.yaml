@@ -320,8 +320,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/intlayer-editor
       lucide-react:
-        specifier: ^0.539.0
-        version: 0.539.0(react@19.1.1)
+        specifier: ^0.541.0
+        version: 0.541.0(react@19.1.1)
       markdown-to-jsx:
         specifier: ^7.7.6
         version: 7.7.13(react@19.1.1)
@@ -1845,8 +1845,8 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3
       lucide-react:
-        specifier: ^0.539.0
-        version: 0.539.0(react@19.1.1)
+        specifier: ^0.541.0
+        version: 0.541.0(react@19.1.1)
       prettier:
         specifier: ^3.5.3
         version: 3.6.2
@@ -2634,8 +2634,8 @@ importers:
         specifier: workspace:*
         version: link:../intlayer
       lucide-react:
-        specifier: ^0.539.0
-        version: 0.539.0(react@19.1.1)
+        specifier: ^0.541.0
+        version: 0.541.0(react@19.1.1)
       mime:
         specifier: ^4.0.6
         version: 4.0.7
@@ -23804,10 +23804,10 @@ packages:
     peerDependencies:
       react: ^19.1.1
 
-  lucide-react@0.539.0:
+  lucide-react@0.541.0:
     resolution:
       {
-        integrity: sha512-VVISr+VF2krO91FeuCrm1rSOLACQUYVy7NQkzrOty52Y8TlTPcXcMdQFj9bYzBgXbWCiywlwSZ3Z8u6a+6bMlg==,
+        integrity: sha512-s0Vircsu5WaGv2KoJZ5+SoxiAJ3UXV5KqEM3eIFDHaHkcLIFdIWgXtZ412+Gh02UsdS7Was+jvEpBvPCWQISlg==,
       }
     peerDependencies:
       react: ^19.1.1
@@ -50034,7 +50034,7 @@ snapshots:
     dependencies:
       react: 19.1.1
 
-  lucide-react@0.539.0(react@19.1.1):
+  lucide-react@0.541.0(react@19.1.1):
     dependencies:
       react: 19.1.1
 

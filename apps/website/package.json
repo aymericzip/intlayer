@@ -76,7 +76,7 @@
     "fuse.js": "^7.1.0",
     "intlayer": "workspace:*",
     "intlayer-editor": "workspace:*",
-    "lucide-react": "^0.539.0",
+    "lucide-react": "^0.541.0",
     "markdown-to-jsx": "^7.7.6",
     "next": "^15.4.6",
     "next-intlayer": "workspace:*",

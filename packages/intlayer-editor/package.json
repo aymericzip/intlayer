@@ -97,7 +97,7 @@
     "express-intlayer": "workspace:*",
     "framer-motion": "^12.16.0",
     "helmet": "^8.1.0",
-    "lucide-react": "^0.539.0",
+    "lucide-react": "^0.541.0",
     "mime": "^4.0.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
