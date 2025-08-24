@@ -57,7 +57,7 @@ export const Code: FC<CodeCompProps> = ({
 }) => {
   const [codeContainerHeight, setCodeContainerHeight] = useState(0);
   const codeContainerRef = useRef<HTMLDivElement>(null);
-  const { show, hide } = useDictionary(codeContent);
+  const { expandCollapseContent } = useDictionary(codeContent);
   const isTooBig = (codeContainerHeight ?? 0) > MIN_HEIGHT;
   const code = children.endsWith('\n') ? children.slice(0, -1) : children;
 
@@ -112,8 +112,7 @@ export const Code: FC<CodeCompProps> = ({
         {isTooBig ? (
           <ExpandCollapse
             minHeight={MIN_HEIGHT}
-            expandText={show}
-            collapseText={hide}
+            content={expandCollapseContent}
           >
             <div
               className="grid size-full grid-cols-[0px] overflow-auto p-3"

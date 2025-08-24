@@ -5,15 +5,13 @@ import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 type ExpandCollapseCompProps = {
   minHeight: number;
-  expandText: IntlayerNode<string>;
-  collapseText: IntlayerNode<string>;
+  content: (isExpanded: boolean) => IntlayerNode<string>;
   children: ReactNode;
 };
 
 export const ExpandCollapse: FC<ExpandCollapseCompProps> = ({
   minHeight,
-  expandText,
-  collapseText,
+  content,
   children,
 }) => {
   const [isDeployed, setIsDeployed] = useState(false);
@@ -32,7 +30,7 @@ export const ExpandCollapse: FC<ExpandCollapseCompProps> = ({
         )}
         onClick={() => setIsDeployed((prev) => !prev)}
       >
-        {isDeployed ? collapseText : expandText}
+        {content(!isDeployed)}
       </button>
     </MaxHeightSmoother>
   );
