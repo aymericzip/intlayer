@@ -23,7 +23,7 @@ export const DesktopNavbar = <T extends TabProps>({
 
       <TabSelector
         selectedChoice={selectedChoice}
-        className="text-neutral ml-[2vw] gap-3 overflow-x-auto tracking-wide lg:ml-[10vw] lg:gap-6"
+        className="text-neutral ml-[2vw] gap-3 overflow-x-auto tracking-wide lg:ml-[5vw] lg:gap-3 xl:ml-[10vw] xl:gap-6"
         tabs={sections}
         hoverable
         color={TabSelectorColor.TEXT}
