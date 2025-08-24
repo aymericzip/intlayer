@@ -1,7 +1,15 @@
-import { type FC, type HTMLAttributes } from 'react';
+import {
+  type FC,
+  type HTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { useDictionary } from 'react-intlayer';
 import type { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
+import { ExpandCollapse } from '../ExpandCollapse';
 import { CodeBlock } from './CodeBlockClient';
 import { CodeConditionalRender } from './CodeConditionalRenderer';
 import type {
@@ -13,6 +21,7 @@ import { CodeFormatSelector } from './CodeFormatSelector';
 import { ContentDeclarationFormatSelector } from './ContentDeclarationFormatSelector';
 import { CopyCode } from './CopyCode';
 import { PackageManagerSelector } from './PackageManagerSelector';
+import codeContent from './code.content';
 
 export type CodeCompAttributes = {
   fileName?: string;
@@ -31,6 +40,8 @@ type CodeCompProps = {
 } & CodeCompAttributes &
   HTMLAttributes<HTMLDivElement>;
 
+const MIN_HEIGHT = 700;
+
 export const Code: FC<CodeCompProps> = ({
   children,
   language,
@@ -44,10 +55,20 @@ export const Code: FC<CodeCompProps> = ({
   contentDeclarationFormat,
   ...props
 }) => {
+  const [codeContainerHeight, setCodeContainerHeight] = useState(0);
+  const codeContainerRef = useRef<HTMLDivElement>(null);
+  const { show, hide } = useDictionary(codeContent);
+  const isTooBig = (codeContainerHeight ?? 0) > MIN_HEIGHT;
   const code = children.endsWith('\n') ? children.slice(0, -1) : children;
 
   const hadSelectInHeader =
     packageManager || codeFormat || contentDeclarationFormat;
+
+  useEffect(() => {
+    if (codeContainerRef.current) {
+      setCodeContainerHeight(codeContainerRef.current.clientHeight);
+    }
+  }, []);
 
   return (
     <CodeConditionalRender
@@ -88,11 +109,31 @@ export const Code: FC<CodeCompProps> = ({
             </div>
           </>
         )}
-        <div className="grid size-full grid-cols-[0px] overflow-auto p-3">
-          <CodeBlock lang={language} isDarkMode={isDarkMode}>
-            {code}
-          </CodeBlock>
-        </div>
+        {isTooBig ? (
+          <ExpandCollapse
+            minHeight={MIN_HEIGHT}
+            expandText={show}
+            collapseText={hide}
+          >
+            <div
+              className="grid size-full grid-cols-[0px] overflow-auto p-3"
+              ref={codeContainerRef}
+            >
+              <CodeBlock lang={language} isDarkMode={isDarkMode}>
+                {code}
+              </CodeBlock>
+            </div>
+          </ExpandCollapse>
+        ) : (
+          <div
+            className="grid size-full grid-cols-[0px] overflow-auto p-3"
+            ref={codeContainerRef}
+          >
+            <CodeBlock lang={language} isDarkMode={isDarkMode}>
+              {code}
+            </CodeBlock>
+          </div>
+        )}
       </Container>
     </CodeConditionalRender>
   );
