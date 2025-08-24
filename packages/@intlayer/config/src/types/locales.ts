@@ -492,6 +492,73 @@ export enum Locales {
   AMHARIC_ETHIOPIA = 'am-ET',
   /** Nepali language */
   NEPALI = 'ne',
+  /** Nepali language as used in Nepal */
+  NEPALI_NEPAL = 'ne-NP',
+  /** Sinhala language */
+  SINHALA = 'si',
+  /** Sinhala language as used in Sri Lanka */
+  SINHALA_SRI_LANKA = 'si-LK',
+  /** Serbian language (Cyrillic script) */
+  SERBIAN_CYRILLIC = 'sr-Cyrl',
+  /** Serbian language (Cyrillic script) as used in Serbia */
+  SERBIAN_CYRILLIC_SERBIA = 'sr-RS',
+  /** Serbian language (Cyrillic script) as used in Bosnia and Herzegovina */
+  SERBIAN_CYRILLIC_BOSNIA_AND_HERZEGOVINA = 'sr-BA',
+  /** English language as used in India */
+  ENGLISH_INDIA = 'en-IN',
+  /** English language as used in Singapore */
+  ENGLISH_SINGAPORE = 'en-SG',
+  /** English language as used in Hong Kong */
+  ENGLISH_HONG_KONG = 'en-HK',
+  /** English language as used in Nigeria */
+  ENGLISH_NIGERIA = 'en-NG',
+  /** English language as used in Pakistan */
+  ENGLISH_PAKISTAN = 'en-PK',
+  /** English language as used in Malaysia */
+  ENGLISH_MALAYSIA = 'en-MY',
+  /** English language as used in Botswana */
+  ENGLISH_BOTSWANA = 'en-BW',
+  /** English language as used in Kenya */
+  ENGLISH_KENYA = 'en-KE',
+  /** English language as used in Tanzania */
+  ENGLISH_TANZANIA = 'en-TZ',
+  /** English language as used in Ghana */
+  ENGLISH_GHANA = 'en-GH',
+  /** English language as used in Uganda */
+  ENGLISH_UGANDA = 'en-UG',
+  /** Spanish language as used in Cuba */
+  SPANISH_CUBA = 'es-CU',
+  /** Spanish language as used in United States */
+  SPANISH_UNITED_STATES = 'es-US',
+
+  /** Portuguese language as used in Guinea-Bissau */
+  PORTUGUESE_GUINEA_BISSAU = 'pt-GW',
+  /** Portuguese language as used in Mozambique */
+  PORTUGUESE_MOZAMBIQUE = 'pt-MZ',
+  /** Portuguese language as used in São Tomé and Príncipe */
+  PORTUGUESE_SAO_TOME_AND_PRINCIPE = 'pt-ST',
+  /** Portuguese language as used in Cape Verde */
+  PORTUGUESE_CAPE_VERDE = 'pt-CV',
+  /** Portuguese language as used in Timor-Leste */
+  PORTUGUESE_TIMOR_LESTE = 'pt-TL',
+  /** Portuguese language as used in Macau */
+  PORTUGUESE_MACAU = 'pt-MO',
+  /** Chinese language as used in Taiwan */
+  CHINESE_TAIWAN = 'zh-TW',
+  /** Arabic language as used in Mauritania */
+  ARABIC_MAURITANIA = 'ar-MR',
+  /** Arabic language as used in Palestinian Territories */
+  ARABIC_PALESTINE = 'ar-PS',
+  /** Arabic language as used in Sudan */
+  ARABIC_SUDAN = 'ar-SD',
+  /** Arabic language as used in Djibouti */
+  ARABIC_DJIBOUTI = 'ar-DJ',
+  /** Arabic language as used in Somalia */
+  ARABIC_SOMALIA = 'ar-SO',
+  /** Arabic language as used in Chad */
+  ARABIC_CHAD = 'ar-TD',
+  /** Arabic language as used in Comoros */
+  ARABIC_COMOROS = 'ar-KM',
 }
 
 /** Define MyType using the ValueOf utility type on Locales */
