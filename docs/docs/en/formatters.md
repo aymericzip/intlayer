@@ -529,17 +529,10 @@ import {
   useRelativeTime,
   useUnit,
 } from "react-intlayer/format";
+// or in Preact apps
+// "preact-intlayer/format";
 // or in Next.js apps
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "next-intlayer/client/format";
+// "next-intlayer/client/format";
 
 const MyComponent = () => {
   const number = useNumber();
