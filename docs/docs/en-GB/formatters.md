@@ -209,7 +209,15 @@ Examples:
 
 ```ts
 // App code (recommended)
-import { number, currency, date, Intl } from "intlayer";
+import {
+  number,
+  currency,
+  date,
+  relativeTime,
+  units,
+  compact,
+  Intl,
+} from "intlayer";
 ```
 
 ### React
@@ -217,17 +225,53 @@ import { number, currency, date, Intl } from "intlayer";
 Client components:
 
 ```ts
-import { useNumber, useCurrency, useDate } from "react-intlayer/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "react-intlayer/format";
 // or in Next.js apps
-import { useNumber, useCurrency, useDate } from "next-intlayer/client/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "next-intlayer/client/format";
 ```
 
 Server components (or React Server runtime):
 
 ```ts
-import { useNumber, useCurrency, useDate } from "intlayer/server/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "intlayer/server/format";
 // or in Next.js apps
-import { useNumber, useCurrency, useDate } from "next-intlayer/server/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "next-intlayer/server/format";
 ```
 
 > These hooks will consider the locale from the `IntlayerProvider` or `IntlayerServerProvider`

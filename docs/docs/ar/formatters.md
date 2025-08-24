@@ -209,7 +209,15 @@ compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 
 ```ts
 // كود التطبيق (موصى به)
-import { number, currency, date, Intl } from "intlayer";
+import {
+  number,
+  currency,
+  date,
+  relativeTime,
+  units,
+  compact,
+  Intl,
+} from "intlayer";
 ```
 
 ### React
@@ -217,17 +225,53 @@ import { number, currency, date, Intl } from "intlayer";
 مكونات العميل:
 
 ```ts
-import { useNumber, useCurrency, useDate } from "react-intlayer/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "react-intlayer/format";
 // أو في تطبيقات Next.js
-import { useNumber, useCurrency, useDate } from "next-intlayer/client/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "next-intlayer/client/format";
 ```
 
 مكونات الخادم (أو بيئة تشغيل React Server):
 
 ```ts
-import { useNumber, useCurrency, useDate } from "intlayer/server/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "intlayer/server/format";
 // أو في تطبيقات Next.js
-import { useNumber, useCurrency, useDate } from "next-intlayer/server/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "next-intlayer/server/format";
 ```
 
 > هذه الخطافات ستأخذ اللغة من `IntlayerProvider` أو `IntlayerServerProvider`

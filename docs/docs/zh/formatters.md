@@ -209,7 +209,15 @@ compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 
 ```ts
 // 应用代码（推荐）
-import { number, currency, date, Intl } from "intlayer";
+import {
+  number,
+  currency,
+  date,
+  relativeTime,
+  units,
+  compact,
+  Intl,
+} from "intlayer";
 ```
 
 ### React
@@ -217,17 +225,53 @@ import { number, currency, date, Intl } from "intlayer";
 客户端组件：
 
 ```ts
-import { useNumber, useCurrency, useDate } from "react-intlayer/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "react-intlayer/format";
 // 或者在 Next.js 应用中
-import { useNumber, useCurrency, useDate } from "next-intlayer/client/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "next-intlayer/client/format";
 ```
 
 服务端组件（或 React 服务器运行时）：
 
 ```ts
-import { useNumber, useCurrency, useDate } from "intlayer/server/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "intlayer/server/format";
 // 或者在 Next.js 应用中
-import { useNumber, useCurrency, useDate } from "next-intlayer/server/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "next-intlayer/server/format";
 ```
 
 > 这些钩子会考虑来自 `IntlayerProvider` 或 `IntlayerServerProvider` 的 locale

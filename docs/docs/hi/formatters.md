@@ -209,7 +209,15 @@ compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 
 ```ts
 // ऐप कोड (अनुशंसित)
-import { number, currency, date, Intl } from "intlayer";
+import {
+  number,
+  currency,
+  date,
+  relativeTime,
+  units,
+  compact,
+  Intl,
+} from "intlayer";
 ```
 
 ### रिएक्ट
@@ -217,17 +225,53 @@ import { number, currency, date, Intl } from "intlayer";
 क्लाइंट कंपोनेंट्स:
 
 ```ts
-import { useNumber, useCurrency, useDate } from "react-intlayer/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "react-intlayer/format";
 // या Next.js ऐप्स में
-import { useNumber, useCurrency, useDate } from "next-intlayer/client/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "next-intlayer/client/format";
 ```
 
 सर्वर कंपोनेंट्स (या रिएक्ट सर्वर रनटाइम):
 
 ```ts
-import { useNumber, useCurrency, useDate } from "react-intlayer/server/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "react-intlayer/server/format";
 // या Next.js ऐप्स में
-import { useNumber, useCurrency, useDate } from "next-intlayer/server/format";
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "next-intlayer/server/format";
 ```
 
 > ये हुक्स `IntlayerProvider` या `IntlayerServerProvider` से लोकल को ध्यान में रखेंगे
