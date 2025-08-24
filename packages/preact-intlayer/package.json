@@ -39,6 +39,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./format": {
+      "types": "./dist/types/client/format/index.d.ts",
+      "require": "./dist/cjs/client/format/index.cjs",
+      "import": "./dist/esm/client/format/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
