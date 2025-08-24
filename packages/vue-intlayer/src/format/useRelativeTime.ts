@@ -32,5 +32,5 @@ export const useRelativeTime = () => {
         ...args[2],
         locale: args[2]?.locale ?? locale,
       });
-  }).value;
+  });
 };

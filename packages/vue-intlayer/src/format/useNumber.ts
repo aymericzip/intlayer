@@ -35,5 +35,5 @@ export const useNumber = () => {
         ...args[1],
         locale: args[1]?.locale ?? locale,
       });
-  }).value;
+  });
 };

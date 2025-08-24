@@ -26,5 +26,5 @@ export const useCompact = () => {
         ...args[1],
         locale: args[1]?.locale ?? locale,
       });
-  }).value;
+  });
 };
