@@ -18,9 +18,6 @@ coverage
 .intlayer
 dictionaries
 
-# Intlater output
-.intlayer
-
 # Storybook
 storybook-static
 
