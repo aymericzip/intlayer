@@ -9,7 +9,7 @@ const meta: Meta<typeof Loader> = {
     isLoading: {
       description:
         'Controls whether the loader (spinner) is displayed. Defaults to true when undefined.',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
       defaultValue: true,
     },
     children: {

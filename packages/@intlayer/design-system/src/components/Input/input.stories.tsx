@@ -25,7 +25,7 @@ const meta: Meta<typeof Input> = {
     },
     validationStyleEnabled: {
       description: 'Enable native valid/invalid outline styles',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
       defaultValue: false,
     },
     type: {
@@ -47,7 +47,7 @@ const meta: Meta<typeof Input> = {
     },
     disabled: {
       description: 'Disable the input',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
       defaultValue: false,
     },
     className: {

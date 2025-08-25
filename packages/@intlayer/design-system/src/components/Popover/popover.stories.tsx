@@ -52,15 +52,15 @@ export const Default: Story = {
     isHidden: {
       description:
         'Controls visibility. When false, popover is visible. When true, hidden. When undefined, visibility is handled by hover/focus states.',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
     },
     isOverable: {
       description: 'Show on hover of the trigger',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
     },
     isFocusable: {
       description: 'Show when the trigger is focused',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
     },
     xAlign: {
       description: 'Horizontal alignment relative to the trigger',
@@ -74,7 +74,7 @@ export const Default: Story = {
     },
     displayArrow: {
       description: 'Show the small directional arrow on the popover',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
     },
   },
   render: (args) => (

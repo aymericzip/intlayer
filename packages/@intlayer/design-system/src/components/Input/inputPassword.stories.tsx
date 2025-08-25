@@ -26,7 +26,7 @@ const meta: Meta<typeof InputPassword> = {
     },
     disabled: {
       description: 'Disable the input',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
       defaultValue: false,
     },
   },

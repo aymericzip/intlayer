@@ -23,12 +23,12 @@ const meta: Meta<typeof Modal> = {
     },
     hasCloseButton: {
       description: 'Displays a close button in the header',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
       defaultValue: true,
     },
     disableScroll: {
       description: 'Disables background scroll when the modal is open',
-      control: 'boolean',
+      control: { type: 'boolean', allowUndefined: true },
       defaultValue: false,
     },
     size: {
