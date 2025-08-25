@@ -1,6 +1,5 @@
 import {
   checkDictionaryChanges,
-  cleanOutputDir,
   prepareIntlayer,
   runOnce,
   watch,
@@ -10,8 +9,6 @@ import { join, relative, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { type PluginOption } from 'vite';
 import { IntlayerPrunePlugin } from './intlayerPrunePlugin';
-
-cleanOutputDir();
 
 /**
  *
