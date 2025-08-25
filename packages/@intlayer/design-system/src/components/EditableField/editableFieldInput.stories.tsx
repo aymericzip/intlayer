@@ -31,13 +31,13 @@ const meta: Meta<typeof EditableFieldInput> = {
     },
     validationStyleEnabled: {
       description: 'Enable native valid/invalid outline styles',
-      control: 'boolean',
-      defaultValue: false,
+      control: { type: 'boolean', allowUndefined: true },
+      defaultValue: undefined,
     },
     disabled: {
       description: 'Disable the input element',
-      control: 'boolean',
-      defaultValue: false,
+      control: { type: 'boolean', allowUndefined: true },
+      defaultValue: undefined,
     },
     onSave: {
       table: { disable: true },
