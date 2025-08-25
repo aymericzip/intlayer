@@ -7,7 +7,7 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
   content: {
-    contentDir: ['./', '../../apps'],
+    contentDir: ['./'],
   },
   editor: {
     enabled: true,
