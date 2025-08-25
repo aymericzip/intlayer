@@ -2,7 +2,7 @@
 
 import { CopyCheckIcon, CopyIcon } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import {
   Button,
   ButtonColor,
@@ -10,7 +10,6 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '../Button';
-import { copyContentContent } from '../IDE/CopyButton.content';
 
 type CopyButtonProps = {
   content: string;
@@ -18,7 +17,7 @@ type CopyButtonProps = {
 
 export const CopyButton: FC<CopyButtonProps> = ({ content, ...props }) => {
   const [copied, setCopied] = useState(false);
-  const { label } = useDictionary(copyContentContent);
+  const { label } = useIntlayer('copy-button');
 
   const handleCopy = async () => {
     try {

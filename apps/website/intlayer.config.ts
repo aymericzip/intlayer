@@ -17,7 +17,6 @@ export const locales = [
 ];
 export const defaultLocale = Locales.ENGLISH;
 
-/** @type {import('intlayer').IntlayerConfig} */
 const config: IntlayerConfig = {
   internationalization: {
     locales,
@@ -26,6 +25,7 @@ const config: IntlayerConfig = {
   },
   content: {
     dictionaryOutput: ['intlayer'],
+    contentDir: ['./src', '../../packages/@intlayer/design-system/src'],
   },
   editor: {
     enabled: true,

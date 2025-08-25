@@ -18,14 +18,13 @@ import {
 } from '@intlayer/editor-react';
 import { Plus, Trash } from 'lucide-react';
 import { type FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { camelCaseToSentence } from '../../../utils/camelCase';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../../Button';
 import { Container } from '../../Container';
 import { EditableFieldInput } from '../../EditableField';
 import { InputVariant } from '../../Input';
 import { NodeTypeSelector } from '../NodeTypeSelector';
-import { structureViewContent } from './structureView.content';
 
 type NodeTypeViewProps = {
   dictionaryKey: string;
@@ -159,7 +158,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
   const { focusedContent, setFocusedContentKeyPath } = useFocusDictionary();
   const { renameEditedContent, addEditedContent } = useEditedContentActions();
 
-  const { titleInput, deleteButton } = useDictionary(structureViewContent);
+  const { titleInput, deleteButton } = useIntlayer('structure-view');
 
   const handleRenameNodeKey = (keyName: string) => {
     renameEditedContent(dictionaryKey, keyName, keyPath);
@@ -240,7 +239,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
   keyPath,
   dictionaryKey,
 }) => {
-  const { addNodeButton } = useDictionary(structureViewContent);
+  const { addNodeButton } = useIntlayer('structure-view');
   const { setFocusedContentKeyPath } = useFocusDictionaryActions();
   const { addEditedContent } = useEditedContentActions();
 

@@ -2,12 +2,11 @@
 
 import { MoveDiagonal } from 'lucide-react';
 import { HTMLAttributes, useEffect, useRef, useState, type FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import { Modal, ModalSize } from '../Modal';
-import tableContent from './table.content';
 
 type TableProps = HTMLAttributes<HTMLTableElement>;
 
@@ -16,7 +15,7 @@ const MIN_HEIGHT = 700;
 export const Table: FC<TableProps> = ({ className, ...props }) => {
   const [isDeployed, setIsDeployed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { show, hide } = useDictionary(tableContent);
+  const { show, hide } = useIntlayer('table');
   const [tableHeight, setTableHeight] = useState(0);
   const tableRef = useRef<HTMLTableElement>(null);
   const isTooBig = (tableHeight ?? 0) > MIN_HEIGHT;

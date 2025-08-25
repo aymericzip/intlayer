@@ -1,6 +1,5 @@
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/v4';
-import { useDictionaryDetailsSchemaContent } from './useDictionaryDetailsSchema.content';
 
 export const useDictionaryDetailsSchema = (projectId: string) => {
   const {
@@ -16,7 +15,7 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
     requiredErrorProjectId,
     invalidTypeErrorProjectId,
     invalidTypeErrorTags,
-  } = useDictionary(useDictionaryDetailsSchemaContent);
+  } = useIntlayer('dictionary-detail-schema');
 
   return z.object({
     title: z

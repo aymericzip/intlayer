@@ -4,7 +4,7 @@ import type { Dictionary } from '@intlayer/core';
 import { useEditedContent } from '@intlayer/editor-react';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import {
   useAuditContentDeclarationMetadata,
   useGetProjects,
@@ -16,7 +16,6 @@ import { Container } from '../../Container';
 import { Form, useForm } from '../../Form';
 import { Loader } from '../../Loader';
 import { MultiSelect } from '../../Select';
-import { dictionaryDetailsContent } from './dictionaryDetails.content';
 import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
@@ -46,7 +45,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     projectInput,
     tagsSelect,
     auditButton,
-  } = useDictionary(dictionaryDetailsContent);
+  } = useIntlayer('dictionary-details');
   const { auditContentDeclaration, isLoading: isAuditing } =
     useAuditContentDeclarationMetadata();
   const updatedDictionary = editedContent?.[dictionary.key];

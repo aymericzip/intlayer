@@ -20,7 +20,7 @@ import {
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import { type FC, Fragment, ReactNode, useState } from 'react';
-import { useDictionary, useLocale } from 'react-intlayer';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { useAuditContentDeclarationField } from '../../../hooks';
 import { renameKey } from '../../../utils/object';
 import {
@@ -51,7 +51,6 @@ import {
   SwitchSelectorSize,
 } from '../../SwitchSelector';
 import { EnumKeyInput } from '../EnumKeyInput';
-import { navigationViewContent } from '../NavigationView/navigationViewNode.content';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -250,9 +249,8 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   renderSection,
 }) => {
   const { addEditedContent } = useEditedContent();
-  const { addNewEnumeration, removeEnumeration } = useDictionary(
-    navigationViewContent
-  );
+  const { addNewEnumeration, removeEnumeration } =
+    useIntlayer('navigation-view');
 
   const content = (section as EnumerationContent<string>)[NodeType.Enumeration];
   const firstKey = Object.keys(content)[0] as keyof typeof content;
@@ -397,7 +395,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
   renderSection,
 }) => {
   const { addEditedContent } = useEditedContent();
-  const { addNewElement, removeElement } = useDictionary(navigationViewContent);
+  const { addNewElement, removeElement } = useIntlayer('navigation-view');
 
   return (
     <div className="flex flex-col gap-2">
@@ -697,7 +695,7 @@ export const TextEditor: FC<TextEditorProps> = ({
   renderSection,
   isDarkMode,
 }) => {
-  const { tsxNotEditable } = useDictionary(navigationViewContent);
+  const { tsxNotEditable } = useIntlayer('navigation-view');
   const nodeType = getNodeType(section);
 
   if (nodeType === NodeType.ReactNode) {

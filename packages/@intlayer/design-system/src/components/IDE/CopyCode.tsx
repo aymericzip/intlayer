@@ -1,17 +1,16 @@
 'use client';
 
 import { type FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { CopyButton } from '../CopyButton';
 import { Popover, PopoverXAlign } from '../Popover';
-import copyContentContent from './copyCode.content';
 
 type CopyCodeProps = {
   code: string;
 };
 
 export const CopyCode: FC<CopyCodeProps> = ({ code }) => {
-  const { title, description } = useDictionary(copyContentContent);
+  const { title, description } = useIntlayer('code');
 
   return (
     <Popover identifier="copy">

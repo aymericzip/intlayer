@@ -3,11 +3,10 @@
 import type { Locales } from '@intlayer/config/client';
 import { ChevronRightIcon } from 'lucide-react';
 import { Fragment, type FC, type HTMLAttributes } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { Button, ButtonVariant, type ButtonProps } from '../Button';
 import { Link, LinkColor, type LinkProps } from '../Link';
-import { breadCrumbContent } from './breadcrumb.content';
 
 type LinkLinkProps = {
   children: string;
@@ -25,7 +24,7 @@ const LinkLink: FC<LinkLinkProps> = ({
   locale,
   ...props
 }) => {
-  const { linkLabel } = useDictionary(breadCrumbContent);
+  const { linkLabel } = useIntlayer('breadcrumb');
 
   return (
     <>
@@ -61,7 +60,7 @@ const ButtonLink: FC<ButtonButtonProps> = ({
   position,
   ...props
 }) => {
-  const { linkLabel } = useDictionary(breadCrumbContent);
+  const { linkLabel } = useIntlayer('breadcrumb');
 
   return (
     <>

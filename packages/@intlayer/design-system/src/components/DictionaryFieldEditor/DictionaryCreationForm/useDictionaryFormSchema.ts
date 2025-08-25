@@ -1,6 +1,5 @@
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/v4';
-import { dictionaryFormSchemaContent } from './useDictionaryFormSchema.content';
 
 export const useDictionarySchema = (projectId: string) => {
   const {
@@ -8,7 +7,7 @@ export const useDictionarySchema = (projectId: string) => {
     invalidTypeErrorName,
     requiredErrorProjectId,
     invalidTypeErrorProjectId,
-  } = useDictionary(dictionaryFormSchemaContent);
+  } = useIntlayer('dictionary-form-schema');
 
   return z.object({
     key: z

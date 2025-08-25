@@ -19,7 +19,7 @@ import {
   type FormHTMLAttributes,
   useState,
 } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { Modal, ModalSize } from '../../../components/Modal';
 import {
   useAuth,
@@ -30,7 +30,6 @@ import {
 import { cn } from '../../../utils/cn';
 import { ButtonColor, ButtonVariant } from '../../Button';
 import { Form } from '../../Form';
-import { saveDictionaryContent } from './saveForm.content';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
@@ -62,7 +61,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
     publishButton,
     downloadButton,
     confirmation,
-  } = useDictionary(saveDictionaryContent);
+  } = useIntlayer('save-dictionary-details');
   const { isAuthenticated } = useAuth();
 
   const editedDictionary = editedContent?.[dictionary.key];

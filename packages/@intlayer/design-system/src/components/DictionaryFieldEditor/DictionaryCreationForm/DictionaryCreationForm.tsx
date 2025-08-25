@@ -1,7 +1,7 @@
 'use client';
 
 import { type FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import {
   useAddDictionary,
   useGetProjects,
@@ -10,7 +10,6 @@ import { useAuth } from '../../../hooks/useAuth';
 import { ButtonColor } from '../../Button';
 import { Form, useForm } from '../../Form';
 import { MultiSelect } from '../../Select';
-import { dictionaryFormContent } from './dictionaryCreationForm.content';
 import {
   useDictionarySchema,
   type DictionaryFormData,
@@ -29,9 +28,8 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
   const { data: projects } = useGetProjects();
   const DictionarySchema = useDictionarySchema(String(project?.id));
   const { form, isSubmitting } = useForm(DictionarySchema);
-  const { keyInput, createDictionaryButton, projectInput } = useDictionary(
-    dictionaryFormContent
-  );
+  const { keyInput, createDictionaryButton, projectInput } =
+    useIntlayer('dictionary-form');
 
   const onSubmitSuccess = async (data: DictionaryFormData) => {
     await addDictionary({ dictionary: data }).then(() =>

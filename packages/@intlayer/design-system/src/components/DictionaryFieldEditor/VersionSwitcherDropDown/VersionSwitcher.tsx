@@ -2,7 +2,7 @@
 
 import { MoveVertical } from 'lucide-react';
 import { type FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import {
   Button,
   ButtonColor,
@@ -13,7 +13,6 @@ import {
 import { Container } from '../../Container';
 import { DropDown, type PanelProps } from '../../DropDown';
 import { useVersionSwitcher } from './VersionSwitcherContext';
-import versionSwitcherContent from './versionSwitcherDropDown.content';
 
 export type VersionSwitcherProps = {
   panelProps?: Omit<PanelProps, 'identifier'>;
@@ -22,9 +21,8 @@ export type VersionSwitcherProps = {
 const DROPDOWN_IDENTIFIER = 'version-switcher';
 
 export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
-  const { switchTo, versionSwitcherLabel, versionListLabel } = useDictionary(
-    versionSwitcherContent
-  );
+  const { switchTo, versionSwitcherLabel, versionListLabel } =
+    useIntlayer('version-switcher');
   const { selectedVersion, availableVersions, setSelectedVersion } =
     useVersionSwitcher();
 

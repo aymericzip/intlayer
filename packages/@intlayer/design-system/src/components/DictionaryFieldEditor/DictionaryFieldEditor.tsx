@@ -8,7 +8,7 @@ import {
 } from '@intlayer/editor-react';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState, type FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { Button, ButtonColor, ButtonVariant } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
 import {
@@ -18,7 +18,6 @@ import {
 } from '../SwitchSelector';
 import { ContentEditor } from './ContentEditor';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
-import { dictionaryFieldEditorContent } from './dictionaryFieldEditor.content';
 import { JSONEditor } from './JSONEditor';
 import { SaveForm } from './SaveForm/SaveForm';
 import { StructureEditor } from './StructureEditor';
@@ -49,9 +48,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const [editorView, setEditorView] = useState<EditorViewType>(
     EditorViewType.ContentEditor
   );
-  const { returnToDictionaryList } = useDictionary(
-    dictionaryFieldEditorContent
-  );
+  const { returnToDictionaryList } = useIntlayer('dictionary-field-editor');
   const { setFocusedContent } = useFocusDictionaryActions();
   const { setLocaleDictionaries } = useDictionariesRecordActions();
 

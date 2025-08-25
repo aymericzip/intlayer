@@ -1,7 +1,7 @@
 import { t, type Dictionary } from 'intlayer';
 
 export const structureViewContent = {
-  key: 'editor-view',
+  key: 'structure-view',
   content: {
     titleInput: {
       placeholder: t({

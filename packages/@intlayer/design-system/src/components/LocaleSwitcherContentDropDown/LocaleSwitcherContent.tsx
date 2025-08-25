@@ -5,7 +5,7 @@ import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
 import { useCallback, useMemo, useRef, useState, type FC } from 'react';
-import { useDictionary, useLocale } from 'react-intlayer';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { usePersistedStore } from '../../hooks';
 import {
   Button,
@@ -22,7 +22,6 @@ import {
   SwitchSelectorColor,
   SwitchSelectorSize,
 } from '../SwitchSelector';
-import localeSwitcherContent from './localeSwitcher.content';
 import { useLocaleSwitcherContent } from './LocaleSwitcherContentContext';
 
 export type LocaleSwitcherContentProps = {
@@ -49,7 +48,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
     localeSwitcherLabel,
     languageListLabel,
     seeAllLocalesSwitch,
-  } = useDictionary(localeSwitcherContent);
+  } = useIntlayer('locale-switcher-content');
   const inputRef = useRef<HTMLInputElement>(null);
   const { locale } = useLocale();
   const { availableLocales, selectedLocales, setSelectedLocales } =

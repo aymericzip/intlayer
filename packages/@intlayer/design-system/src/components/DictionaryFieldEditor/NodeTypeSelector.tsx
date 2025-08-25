@@ -2,9 +2,8 @@
 
 import { type ContentNode, NodeType, getNodeType } from '@intlayer/core';
 import { type FC, useState } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { Select } from '../Select';
-import { nodeTypeSelectorContent } from './nodeTypeSelector.content';
 
 type NodeTypeSelectorProps = {
   section: ContentNode;
@@ -30,7 +29,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
     insertion,
     reactNode,
     file,
-  } = useDictionary(nodeTypeSelectorContent);
+  } = useIntlayer('node-type-selector');
   const nodeType = getNodeType(section);
   const [keyType, setKeyType] = useState<NodeType>(nodeType);
 

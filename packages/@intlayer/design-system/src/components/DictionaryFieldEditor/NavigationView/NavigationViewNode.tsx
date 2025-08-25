@@ -15,7 +15,7 @@ import {
 } from '@intlayer/editor-react';
 import { ChevronRight, Plus } from 'lucide-react';
 import type { FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { camelCaseToSentence } from '../../../utils/camelCase';
 import { Accordion } from '../../Accordion';
 import {
@@ -25,7 +25,6 @@ import {
   ButtonVariant,
 } from '../../Button';
 import { getIsEditableSection } from '../getIsEditableSection';
-import { navigationViewContent } from './navigationViewNode.content';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -44,7 +43,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   const section = getContentNodeByKeyPath(sectionProp, keyPath);
   const { addEditedContent } = useEditedContentActions();
   const { setFocusedContentKeyPath, focusedContent } = useFocusDictionary();
-  const { addNewElement, goToField } = useDictionary(navigationViewContent);
+  const { addNewElement, goToField } = useIntlayer('navigation-view');
   const nodeType = getNodeType(section);
   const getIsSelected = (keyPath: KeyPath[]) =>
     (focusedContent?.keyPath?.length ?? 0) > 0 &&

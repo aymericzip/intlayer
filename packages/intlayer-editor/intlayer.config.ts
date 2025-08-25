@@ -17,12 +17,14 @@ export const locales = [
 ];
 export const defaultLocale = Locales.ENGLISH;
 
-/** @type {import('intlayer').IntlayerConfig} */
 const config: IntlayerConfig = {
   internationalization: {
     locales,
     defaultLocale,
     strictMode: 'strict',
+  },
+  content: {
+    contentDir: ['./src', '../@intlayer/design-system/src'],
   },
   editor: {
     applicationURL: 'http://localhost:5173/',
