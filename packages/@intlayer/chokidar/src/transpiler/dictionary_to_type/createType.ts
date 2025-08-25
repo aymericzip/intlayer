@@ -1,11 +1,11 @@
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
 import {
-  getConfiguration,
   ESMxCJSRequire,
+  getConfiguration,
   IntlayerConfig,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { resolve } from 'path';
 
 const requireUncached = (module: string) => {
   delete ESMxCJSRequire.cache[ESMxCJSRequire.resolve(module)];
@@ -13,17 +13,7 @@ const requireUncached = (module: string) => {
 };
 
 export const generateTypeScriptType = (dictionary: Dictionary) => {
-  const jsonString = JSON.stringify(dictionary, null, 2)
-    // Remove quotes from keys only if they are valid identifiers.
-    .replace(/"([^"]+)":/g, (_, key) => {
-      // Valid identifier: must start with a letter, underscore, or dollar sign,
-      // followed by letters, digits, underscores, or dollar signs.
-      if (/^[$A-Za-z_][0-9A-Za-z_$]*$/.test(key)) {
-        return `${key}:`;
-      }
-      // Otherwise, keep the quotes
-      return `"${key}":`;
-    });
+  const jsonString = JSON.stringify(dictionary, null, 2);
 
   return `/* eslint-disable */\nexport default ${jsonString} as const;\n`;
 };
