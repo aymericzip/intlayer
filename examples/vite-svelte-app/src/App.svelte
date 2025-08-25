@@ -1,91 +1,57 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import svelteLogo from './assets/svelte.svg';
+  import viteLogo from '/vite.svg';
+  import Counter from './lib/Counter.svelte';
+  import { useIntlayer, intlayerStore } from 'svelte-intlayer';
 
-  //  Import the custom useLocale hook
-  import { useLocale } from './hooks/useLocale'
+  // Use the locale store via getLocale()
+  const locale = intlayerStore.getLocale();
 
-  //  Destructure locale (store) and setLocale (function)
-  const { locale, setLocale } = useLocale()
+  // Reactive content updates whenever locale changes
+  $: content = useIntlayer('app', $locale);
+
+  // Locale switcher functions
+  const changeToEnglish = () => intlayerStore.setLocale('en');
+  const changeToFrench = () => intlayerStore.setLocale('fr');
+  const changeToSpanish = () => intlayerStore.setLocale('es');
 </script>
 
 <main>
   <div>
     <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
+      <img src={viteLogo} class="logo" alt={$content?.viteLogoAlt} />
     </a>
     <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
+      <img src={svelteLogo} class="logo svelte" alt={$content?.svelteLogoAlt} />
     </a>
   </div>
-  <h1>Vite + Svelte</h1>
+
+  <h1>{$content?.title}</h1>
 
   <div class="card">
     <Counter />
   </div>
 
-  <!-- Locale Switcher Buttons -->
-
-
   <div class="locale-switcher">
-    <button on:click={() => setLocale('en')}>English</button>
-    <button on:click={() => setLocale('fr')}>Français</button>
-    <button on:click={() => setLocale('es')}>Español</button>
+    <button on:click={changeToEnglish}>English</button>
+    <button on:click={changeToFrench}>Français</button>
+    <button on:click={changeToSpanish}>Español</button>
   </div>
 
-  <!-- Display current locale -->
-
-
   <p>Current locale: {$locale}</p>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, 
-    the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <p>{$content?.checkOut}</p>
+  <p class="read-the-docs">{$content?.readTheDocs}</p>
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
-
-  /* Styling for locale switcher buttons */
-
-
-  .locale-switcher {
-    margin-top: 1rem;
-    display: flex;
-    gap: 0.5rem;
-  }
-
+  .logo { height: 6em; padding: 1.5em; will-change: filter; transition: filter 300ms; }
+  .logo:hover { filter: drop-shadow(0 0 2em #646cffaa); }
+  .logo.svelte:hover { filter: drop-shadow(0 0 2em #ff3e00aa); }
+  .read-the-docs { color: #888; }
+  .locale-switcher { margin-top: 1rem; display: flex; gap: 0.5rem; }
   .locale-switcher button {
-    padding: 0.5rem 1rem;
-    border: none;
-    background: #646cff;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 200ms;
+    padding: 0.5rem 1rem; border: none; background: #646cff;
+    color: white; border-radius: 4px; cursor: pointer; transition: background 200ms;
   }
-
-  .locale-switcher button:hover {
-    background: #4a4ee3;
-  }
+  .locale-switcher button:hover { background: #4a4ee3; }
 </style>
