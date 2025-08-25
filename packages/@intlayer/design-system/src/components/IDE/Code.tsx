@@ -37,6 +37,7 @@ type CodeCompProps = {
   isDarkMode?: boolean;
   showHeader?: boolean;
   showLineNumbers?: boolean;
+  isRollable?: boolean;
 } & CodeCompAttributes &
   HTMLAttributes<HTMLDivElement>;
 
@@ -53,6 +54,7 @@ export const Code: FC<CodeCompProps> = ({
   packageManager,
   codeFormat,
   contentDeclarationFormat,
+  isRollable = true,
   ...props
 }) => {
   const [codeContainerHeight, setCodeContainerHeight] = useState(0);
@@ -109,7 +111,7 @@ export const Code: FC<CodeCompProps> = ({
             </div>
           </>
         )}
-        {isTooBig ? (
+        {isTooBig && isRollable ? (
           <ExpandCollapse
             minHeight={MIN_HEIGHT}
             content={expandCollapseContent}
