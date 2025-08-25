@@ -80,56 +80,6 @@ export const intlayerPlugin = (): PluginOption => {
           };
         }
 
-        if (hotReload) {
-          // If hotReload is enabled, ensure Intlayer virtual entries aren't pre-bundled
-          config.optimizeDeps = {
-            ...config.optimizeDeps,
-            exclude: [
-              ...(config.optimizeDeps?.exclude ?? []),
-              '@intlayer/dictionaries-entry',
-              '@intlayer/unmerged-dictionaries-entry',
-              '@intlayer/config/built',
-            ],
-          };
-
-          // Also externalize any imports that point to generated .intlayer paths during build
-          const previousExternal = config.build?.rollupOptions?.external;
-          config.build = {
-            ...config.build,
-            rollupOptions: {
-              ...(config.build?.rollupOptions ?? {}),
-              external: (
-                source: string,
-                importer?: string,
-                isResolved?: boolean
-              ) => {
-                const isIntlayerGenerated =
-                  source.includes(mainDir) ||
-                  source.includes(dictionariesDir) ||
-                  source.includes(unmergedDictionariesDir) ||
-                  source.includes(dynamicDictionariesDir);
-
-                if (typeof previousExternal === 'function') {
-                  return (
-                    isIntlayerGenerated ||
-                    Boolean(
-                      previousExternal(source, importer, isResolved ?? false)
-                    )
-                  );
-                }
-
-                if (Array.isArray(previousExternal)) {
-                  return (
-                    isIntlayerGenerated || previousExternal.includes(source)
-                  );
-                }
-
-                return isIntlayerGenerated;
-              },
-            },
-          };
-        }
-
         return config;
       },
 
