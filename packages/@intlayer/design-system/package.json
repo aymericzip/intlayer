@@ -101,6 +101,7 @@
     "deepmerge": "^4.3.1",
     "framer-motion": "^12.16.0",
     "fuse.js": "^7.1.0",
+    "intlayer": "workspace:*",
     "markdown-to-jsx": "^7.7.6",
     "react-hook-form": "^7.54.2",
     "react-intlayer": "workspace:*",
