@@ -115,7 +115,7 @@ export const Code: FC<CodeCompProps> = ({
             content={expandCollapseContent}
           >
             <div
-              className="grid size-full grid-cols-[0px] overflow-auto p-3"
+              className="grid size-full grid-cols-[0px] p-3"
               ref={codeContainerRef}
             >
               <CodeBlock lang={language} isDarkMode={isDarkMode}>
