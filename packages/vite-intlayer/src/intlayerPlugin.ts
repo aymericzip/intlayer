@@ -127,7 +127,7 @@ export const intlayerPlugin = (): PluginOption => {
                   );
                 }
 
-                return isIntlayerGenerated || false;
+                return isIntlayerGenerated;
               },
             },
           };
