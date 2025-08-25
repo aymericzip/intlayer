@@ -19,12 +19,12 @@ const meta: Meta<typeof Checkbox> = {
     checked: {
       description: 'Controlled checked state',
       control: { type: 'boolean', allowUndefined: true },
-      defaultValue: false,
+      defaultValue: undefined,
     },
     disabled: {
       description: 'Disable the checkbox',
       control: { type: 'boolean', allowUndefined: true },
-      defaultValue: false,
+      defaultValue: undefined,
     },
     size: {
       description: 'Checkbox size',
@@ -41,7 +41,7 @@ const meta: Meta<typeof Checkbox> = {
     validationStyleEnabled: {
       description: 'Enable valid/invalid styles',
       control: { type: 'boolean', allowUndefined: true },
-      defaultValue: false,
+      defaultValue: undefined,
     },
     onChange: {
       description: 'Change handler',

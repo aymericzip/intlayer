@@ -32,22 +32,22 @@ const meta: Meta<typeof Button> = {
     isLoading: {
       description: 'Shows loading spinner when true',
       control: { type: 'boolean', allowUndefined: true },
-      defaultValue: false,
+      defaultValue: undefined,
     },
     isActive: {
       description: 'Sets the active state of the button',
       control: { type: 'boolean', allowUndefined: true },
-      defaultValue: false,
+      defaultValue: undefined,
     },
     isDisabled: {
       description: 'Disables the button when true',
       control: { type: 'boolean', allowUndefined: true },
-      defaultValue: false,
+      defaultValue: undefined,
     },
     isFullWidth: {
       description: 'Expands the button to the full width of its container',
       control: { type: 'boolean', allowUndefined: true },
-      defaultValue: false,
+      defaultValue: undefined,
     },
     label: {
       description: 'Accessible label for the button',
