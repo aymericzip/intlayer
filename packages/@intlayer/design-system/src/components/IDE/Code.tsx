@@ -94,7 +94,11 @@ export const Code: FC<CodeCompProps> = ({
           </>
         )}
         <ExpandCollapse minHeight={MIN_HEIGHT} isRollable={isRollable}>
-          <CodeBlock lang={language} isDarkMode={isDarkMode} className="p-2">
+          <CodeBlock
+            lang={language}
+            isDarkMode={isDarkMode}
+            className="p-2 scroll-w-auto"
+          >
             {code}
           </CodeBlock>
         </ExpandCollapse>
