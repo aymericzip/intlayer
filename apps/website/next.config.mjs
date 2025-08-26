@@ -55,6 +55,7 @@ const secureHeaders = {
         '*.producthunt.com',
         'cdn.jsdelivr.net',
         '*.ahrefs.com',
+        '*.star-history.com',
       ],
       imgSrc: ["'self'", 'https:', 'data:'],
       workerSrc: [
