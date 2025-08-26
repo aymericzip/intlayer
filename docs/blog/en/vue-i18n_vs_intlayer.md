@@ -258,6 +258,14 @@ Refer to [`dictionaryOutput` and `i18nextResourcesDir` options](https://intlayer
 
 ---
 
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+
+---
+
 ## Conclusion
 
 Both **vue-i18n** and **Intlayer** localize Vue apps well. The difference is **how much you must build yourself** to achieve a robust, scalable setup:

@@ -152,6 +152,14 @@ Refer to [`dictionaryOutput` and `i18nextResourcesDir` options](https://intlayer
 
 ---
 
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+
+---
+
 ## Conclusion
 
 All three libraries succeed at core localization. The difference is **how much work you must do** to achieve a robust, scalable setup in **modern Next.js**:

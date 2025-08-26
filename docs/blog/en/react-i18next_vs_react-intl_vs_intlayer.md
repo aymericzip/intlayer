@@ -146,6 +146,12 @@ Refer to [`dictionaryOutput` and `i18nextResourcesDir` options](https://intlayer
 
 ---
 
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
+
+## [![Star History Chart](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+
 ## Conclusion
 
 All three libraries localize React effectively. The differentiator is how much **infrastructure** you must build to reach a **safe, scalable** setup:
