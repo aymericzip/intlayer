@@ -13,6 +13,7 @@ export * from './DictionaryEditor';
 export * from './DictionaryFieldEditor';
 export * from './DropDown';
 export * from './EditableField';
+export * from './ExpandCollapse';
 export * from './Flags';
 export * from './Footer';
 export * from './Form';

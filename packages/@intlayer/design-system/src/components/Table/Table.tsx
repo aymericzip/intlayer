@@ -1,30 +1,18 @@
 'use client';
 
 import { MoveDiagonal } from 'lucide-react';
-import { HTMLAttributes, useEffect, useRef, useState, type FC } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import { HTMLAttributes, useState, type FC } from 'react';
 import { cn } from '../../utils/cn';
 import { Button } from '../Button';
-import { MaxHeightSmoother } from '../MaxHeightSmoother';
+import { ExpandCollapse } from '../ExpandCollapse';
 import { Modal, ModalSize } from '../Modal';
 
-type TableProps = HTMLAttributes<HTMLTableElement>;
+type TableProps = HTMLAttributes<HTMLTableElement> & {
+  isRollable?: boolean;
+};
 
-const MIN_HEIGHT = 700;
-
-export const Table: FC<TableProps> = ({ className, ...props }) => {
-  const [isDeployed, setIsDeployed] = useState(false);
+export const Table: FC<TableProps> = ({ className, isRollable, ...props }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { show, hide } = useIntlayer('table');
-  const [tableHeight, setTableHeight] = useState(0);
-  const tableRef = useRef<HTMLTableElement>(null);
-  const isTooBig = (tableHeight ?? 0) > MIN_HEIGHT;
-
-  useEffect(() => {
-    if (tableRef.current) {
-      setTableHeight(tableRef.current.clientHeight);
-    }
-  }, []);
 
   return (
     <div className="relative">
@@ -41,40 +29,16 @@ export const Table: FC<TableProps> = ({ className, ...props }) => {
           />
         </div>
       </div>
-      {isTooBig ? (
-        <MaxHeightSmoother
-          isHidden={!isDeployed}
-          minHeight={MIN_HEIGHT}
-          className="w-full overflow-x-scroll overflow-y-hidden"
-        >
-          <table
-            className={cn(
-              'max-w-full table-auto text-left min-w-full',
-              className
-            )}
-            ref={tableRef}
-            {...props}
-          />
-          <button
-            className={cn(
-              'absolute bottom-0 right-0 flex justify-center cursor-pointer w-full px-2 py-0.5 hover:py-1 transition-all duration-300 text-md text-neutral-700 dark:text-neutral-400 items-center shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur rounded-t-2xl bg-gradient-to-t from-card/80 to-transparent',
-              isDeployed && 'w-auto'
-            )}
-            onClick={() => setIsDeployed((prev) => !prev)}
-          >
-            {isDeployed ? hide : show}
-          </button>
-        </MaxHeightSmoother>
-      ) : (
+      <ExpandCollapse isRollable={isRollable}>
         <table
           className={cn(
             'max-w-full table-auto text-left min-w-full',
             className
           )}
-          ref={tableRef}
           {...props}
         />
-      )}
+      </ExpandCollapse>
+
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -88,7 +52,6 @@ export const Table: FC<TableProps> = ({ className, ...props }) => {
                 'max-w-full table-auto text-left min-w-full',
                 className
               )}
-              ref={tableRef}
               {...props}
             />
           </div>
