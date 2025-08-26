@@ -2,6 +2,7 @@ import { type FC, type HTMLAttributes } from 'react';
 import type { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';
 import { Container } from '../Container';
+import { ExpandCollapse } from '../ExpandCollapse';
 import { CodeBlock } from './CodeBlockClient';
 import { CodeConditionalRender } from './CodeConditionalRenderer';
 import type {
@@ -28,8 +29,11 @@ type CodeCompProps = {
   isDarkMode?: boolean;
   showHeader?: boolean;
   showLineNumbers?: boolean;
+  isRollable?: boolean;
 } & CodeCompAttributes &
   HTMLAttributes<HTMLDivElement>;
+
+const MIN_HEIGHT = 700;
 
 export const Code: FC<CodeCompProps> = ({
   children,
@@ -42,6 +46,7 @@ export const Code: FC<CodeCompProps> = ({
   packageManager,
   codeFormat,
   contentDeclarationFormat,
+  isRollable = true,
   ...props
 }) => {
   const code = children.endsWith('\n') ? children.slice(0, -1) : children;
@@ -88,11 +93,11 @@ export const Code: FC<CodeCompProps> = ({
             </div>
           </>
         )}
-        <div className="grid size-full grid-cols-[0px] overflow-auto p-3">
-          <CodeBlock lang={language} isDarkMode={isDarkMode}>
+        <ExpandCollapse minHeight={MIN_HEIGHT} isRollable={isRollable}>
+          <CodeBlock lang={language} isDarkMode={isDarkMode} className="p-2">
             {code}
           </CodeBlock>
-        </div>
+        </ExpandCollapse>
       </Container>
     </CodeConditionalRender>
   );
