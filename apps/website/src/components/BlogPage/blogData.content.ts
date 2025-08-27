@@ -99,7 +99,7 @@ const blogDataContent: any = {
             ar: 'Intlayer و react-i18next',
             ru: 'Intlayer и react-i18next',
           }),
-          default: getBlogMetadata('./blog/en/intlayer_with_i18next.md'),
+          default: getBlogMetadata('./blog/en/intlayer_with_react-i18next.md'),
         },
         'intlayer-with-next-intl': {
           title: t({
