@@ -110,6 +110,7 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
   const { youReOrganizationIsAlreadySubscribed, pickANewProductButton } =
     useIntlayer('payment-step');
   const [isLoading, setIsLoading] = useState(false);
+  const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
   const router = useRouter();
   const { session } = useAuth();
 
@@ -141,6 +142,13 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
       return;
     }
 
+    // Ensure the Payment Element is mounted before confirming
+    const mountedPaymentElement = elements.getElement(PaymentElement);
+    if (!mountedPaymentElement) {
+      console.error('PaymentElement is not mounted yet.');
+      return;
+    }
+
     setIsLoading(true);
 
     await stripe
@@ -165,9 +173,16 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
     setIsLoading(false);
   };
 
+  const isSubmitDisabled =
+    isLoading || (!isPlanValid && !isPaymentElementReady);
+
   return (
     <form onSubmit={onSubmit} autoComplete="on" className="flex flex-col gap-6">
-      <StepLayout onGoToPreviousStep={goPreviousStep} isLoading={isLoading}>
+      <StepLayout
+        onGoToPreviousStep={goPreviousStep}
+        isLoading={isLoading}
+        disabled={isSubmitDisabled}
+      >
         <Label>Payment details</Label>
         <Container
           border={true}
@@ -197,7 +212,7 @@ export const PaymentStepContent: FC<PaymentStepContentProps> = ({
             </Button>
           </>
         ) : (
-          <PaymentElement />
+          <PaymentElement onReady={() => setIsPaymentElementReady(true)} />
         )}
       </StepLayout>
     </form>
