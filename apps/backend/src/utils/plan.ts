@@ -54,7 +54,7 @@ const planDetails: Record<Plan['type'], PlanDetails> = {
   },
 };
 
-export const getPLanDetails = (plan?: Plan): PlanDetails => {
+export const getPlanDetails = (plan?: Plan): PlanDetails => {
   if (plan?.status !== 'active') {
     return planDetails['FREE'];
   }

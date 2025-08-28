@@ -20,7 +20,7 @@ import {
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
 import { mapProjectsToAPI, mapProjectToAPI } from '@utils/mapper/project';
 import { hasPermission } from '@utils/permissions';
-import { getPLanDetails } from '@utils/plan';
+import { getPlanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -145,7 +145,7 @@ export const addProject = async (
 
   const { plan } = organization;
 
-  const planType = getPLanDetails(plan);
+  const planType = getPlanDetails(plan);
 
   if (planType.numberOfProjects) {
     const projectCount = await projectService.countProjects({

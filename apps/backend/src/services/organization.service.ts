@@ -1,5 +1,6 @@
 import type {
   Organization,
+  OrganizationAPI,
   OrganizationCreationData,
   OrganizationDocument,
 } from '@/types/organization.types';
@@ -100,7 +101,7 @@ export const createOrganization = async (
  */
 export const updateOrganizationById = async (
   organizationId: string | Types.ObjectId,
-  organization: Partial<Organization>
+  organization: Partial<Organization | OrganizationAPI>
 ): Promise<OrganizationDocument> => {
   const updatedKeys = Object.keys(organization) as OrganizationFields;
   const errors = validateOrganization(organization, updatedKeys);

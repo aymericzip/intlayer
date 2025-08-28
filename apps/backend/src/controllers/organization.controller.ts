@@ -23,7 +23,7 @@ import {
   mapOrganizationsToAPI,
 } from '@utils/mapper/organization';
 import { hasPermission } from '@utils/permissions';
-import { getPLanDetails } from '@utils/plan';
+import { getPlanDetails } from '@utils/plan';
 import {
   formatPaginatedResponse,
   formatResponse,
@@ -304,7 +304,7 @@ export const addOrganizationMember = async (
     return;
   }
 
-  const planType = getPLanDetails(organization.plan);
+  const planType = getPlanDetails(organization.plan);
 
   if (
     planType.numberOfOrganizationUsers &&
@@ -332,18 +332,6 @@ export const addOrganizationMember = async (
       newMember = newUser;
     }
 
-    await sendEmail({
-      type: 'invite',
-      to: userEmail,
-      username: newMember.email.slice(0, newMember.email.indexOf('@')),
-      invitedByUsername: user.name,
-      invitedByEmail: user.email,
-      organizationName: organization.name,
-      inviteLink: `${process.env.CLIENT_URL}/auth/login?email=${newMember.email}`,
-      inviteFromIp: req.ip ?? '',
-      inviteFromLocation: req.hostname,
-    });
-
     const updatedOrganization =
       await organizationService.updateOrganizationById(organization.id, {
         ...organization,
@@ -365,6 +353,19 @@ export const addOrganizationMember = async (
     });
 
     res.json(responseData);
+
+    await sendEmail({
+      type: 'invite',
+      to: userEmail,
+      username: newMember.email.slice(0, newMember.email.indexOf('@')),
+      invitedByUsername: user.name,
+      invitedByEmail: user.email,
+      organizationName: organization.name,
+      inviteLink: `${process.env.CLIENT_URL}/auth/login?email=${newMember.email}`,
+      inviteFromIp: req.ip ?? '',
+      inviteFromLocation: req.hostname,
+    });
+
     return;
   } catch (error) {
     ErrorHandler.handleAppErrorResponse(res, error as AppError);

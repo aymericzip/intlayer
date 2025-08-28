@@ -1,6 +1,6 @@
+import type { Organization, OrganizationAPI } from '@/types/organization.types';
 import { validateArray } from './validateArray';
 import { validateString } from './validateString';
-import type { Organization } from '@/types/organization.types';
 
 export type OrganizationFields = (keyof Organization)[];
 
@@ -26,17 +26,19 @@ export const MEMBERS_MIN_LENGTH = 1;
  * @returns An object containing the validation errors for each field.
  */
 export const validateOrganization = (
-  organization: Partial<Organization>,
+  organization: Partial<Organization | OrganizationAPI>,
   fieldsToCheck = defaultFieldsToCheck
 ): ValidationErrors => {
   const errors: ValidationErrors = {};
+
+  const organizationObject = JSON.parse(JSON.stringify(organization));
 
   // Define the fields to validate
   const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
 
   // Validate each field
   for (const field of fieldsToValidate) {
-    const value = organization[field];
+    const value = organizationObject[field];
 
     // Initialize error array for the field
     errors[field] = [];
@@ -56,6 +58,10 @@ export const validateOrganization = (
     }
 
     if (field === 'membersIds' || field === 'adminsIds') {
+      console.log('field', field);
+      console.log('value', value);
+      console.log('typeof value', typeof value);
+
       const membersErrors = validateArray<string>(
         value as unknown as string[],
         'Members',
