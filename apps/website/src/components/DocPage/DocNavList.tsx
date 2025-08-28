@@ -193,7 +193,14 @@ export const DocNavList: FC<DocNavListProps> = ({
         }
       }}
     >
-      <Container className="h-full" roundedSize="none" transparency="sm">
+      <Container
+        className={cn(
+          isHidden ? 'h-[100px]' : 'h-full',
+          'sticky top-[60px] rounded-br-2xl'
+        )}
+        roundedSize="none"
+        transparency="sm"
+      >
         <div className="relative h-full max-w-80">
           <Container
             transparency="sm"

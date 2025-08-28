@@ -26,7 +26,10 @@ export const AsideNavigation: FC = (props) => {
       <Container
         roundedSize="none"
         transparency="sm"
-        className="h-full"
+        className={cn(
+          isHidden ? 'h-[100px]' : 'h-full',
+          'sticky top-[60px] rounded-bl-xl'
+        )}
         {...props}
       >
         <aside className="relative h-full max-w-80 px-2">
