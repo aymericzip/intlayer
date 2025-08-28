@@ -51,8 +51,8 @@ export type DetailProps = HTMLAttributes<HTMLDivElement> & {
   isHidden?: boolean;
   isOverable?: boolean;
   identifier: string;
-  xAlign?: PopoverXAlign;
-  yAlign?: PopoverYAlign;
+  xAlign?: PopoverXAlign | `${PopoverXAlign}`;
+  yAlign?: PopoverYAlign | `${PopoverYAlign}`;
   displayArrow?: boolean;
 };
 

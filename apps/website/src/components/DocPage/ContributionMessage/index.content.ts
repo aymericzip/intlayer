@@ -4,6 +4,21 @@ const contributionMessageContent = {
   key: 'contribution-message',
   content: {
     contribution: {
+      title: t({
+        en: 'Edit this doc',
+        'en-GB': 'Edit this doc',
+        fr: 'Modifier cette documentation',
+        es: 'Editar esta documentación',
+        de: 'Diese Dokumentation bearbeiten',
+        ja: 'このドキュメントを編集',
+        ko: '문서 수정',
+        zh: '编辑此文档',
+        it: 'Modifica questa documentazione',
+        pt: 'Editar esta documentação',
+        hi: 'इस दस्तावेज़ को संपादित करें',
+        ar: 'تعديل هذه الوثيقة',
+        ru: 'Изменить эту документацию',
+      }),
       text: t({
         en: 'If you have an idea for improving this documentation, please feel free to contribute by submitting a pull request on GitHub.',
         'en-GB':

@@ -25,7 +25,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
         className="flex flex-1 flex-col gap-2 min-w-64 p-3 text-sm"
         xAlign="end"
       >
-        <strong>Edit this doc</strong>
+        <strong>{contribution.title}</strong>
         <p className="text-neutral">{contribution.text}</p>
         <Link
           href={githubUrl}
