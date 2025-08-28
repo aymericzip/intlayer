@@ -72,6 +72,13 @@ export const MembersForm: FC = () => {
   };
 
   useEffect(() => {
+    form.reset({
+      membersIds: organization?.membersIds ?? [],
+      adminsIds: organization?.adminsIds ?? [],
+    });
+  }, [organization, form]);
+
+  useEffect(() => {
     if (organization?.membersIds) {
       const membersIds = organization.membersIds;
 
