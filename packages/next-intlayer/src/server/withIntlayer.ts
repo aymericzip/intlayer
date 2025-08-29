@@ -51,7 +51,7 @@ const getPruneConfig = (
   const logger = getAppLogger(intlayerConfig);
 
   runOnce(
-    join(baseDir, '.next', 'cache', 'intlayer-prune-plugin-enabled.lock'),
+    join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
     () => logger('Intlayer prune plugin is enabled'),
     1000 * 10 // 10 seconds
   );
@@ -118,7 +118,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const sentinelPath = join(
     intlayerConfig.content.baseDir,
-    '.next',
+    '.intlayer',
     'cache',
     'intlayer-prepared.lock'
   );
