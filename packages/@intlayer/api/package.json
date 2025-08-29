@@ -50,9 +50,6 @@
       ]
     }
   },
-  "bin": {
-    "intlayer": "./dist/cjs/cli.cjs"
-  },
   "files": [
     "./dist",
     "./package.json"
