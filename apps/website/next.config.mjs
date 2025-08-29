@@ -154,7 +154,7 @@ const nextConfig = {
     removeConsole: isProd,
   },
 
-  headers: [
+  headers: () => [
     {
       source: '/dashboard/editor',
       headers: [
