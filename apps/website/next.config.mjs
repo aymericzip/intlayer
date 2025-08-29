@@ -56,6 +56,7 @@ const secureHeaders = {
         'cdn.jsdelivr.net',
         '*.ahrefs.com',
         '*.star-history.com',
+        '*.vercel.app',
       ],
       imgSrc: ["'self'", 'https:', 'data:'],
       workerSrc: [
@@ -71,6 +72,8 @@ const secureHeaders = {
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
       frameSrc: ["'self'", '*.youtube.com', '*.codesandbox.io'],
+      // Allow embedding preview apps hosted on Vercel
+      frameSrc: ["'self'", '*.youtube.com', '*.codesandbox.io', '*.vercel.app'],
       frameAncestors: ["'self'", 'intlayer.org', 'localhost:*'],
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],
@@ -157,6 +160,24 @@ const nextConfig = {
   headers: () => [
     {
       source: '/dashboard/editor',
+      headers: [
+        ...createSecureHeaders({
+          ...secureHeaders,
+          contentSecurityPolicy: {
+            ...secureHeaders.contentSecurityPolicy,
+            directives: {
+              ...secureHeaders.contentSecurityPolicy.directives,
+              connectSrc: ['*'],
+              frameSrc: ['*'],
+              frameAncestors: ['*'],
+            },
+          },
+        }),
+        ...headersList,
+      ],
+    },
+    {
+      source: '/:locale/dashboard/editor',
       headers: [
         ...createSecureHeaders({
           ...secureHeaders,
