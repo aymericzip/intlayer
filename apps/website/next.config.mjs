@@ -115,6 +115,24 @@ const headersList = [
   },
 ];
 
+const defaultHeaders = [...createSecureHeaders(secureHeaders), ...headersList];
+
+const dashboardHeaders = [
+  ...createSecureHeaders({
+    ...secureHeaders,
+    contentSecurityPolicy: {
+      ...secureHeaders.contentSecurityPolicy,
+      directives: {
+        ...secureHeaders.contentSecurityPolicy.directives,
+        connectSrc: ['*'],
+        frameSrc: ['*'],
+        frameAncestors: ['*'],
+      },
+    },
+  }),
+  ...headersList,
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
@@ -159,45 +177,21 @@ const nextConfig = {
 
   headers: () => [
     {
-      source: '/dashboard/editor',
-      headers: [
-        ...createSecureHeaders({
-          ...secureHeaders,
-          contentSecurityPolicy: {
-            ...secureHeaders.contentSecurityPolicy,
-            directives: {
-              ...secureHeaders.contentSecurityPolicy.directives,
-              connectSrc: ['*'],
-              frameSrc: ['*'],
-              frameAncestors: ['*'],
-            },
-          },
-        }),
-        ...headersList,
-      ],
+      source: '/dashboard',
+      headers: dashboardHeaders,
     },
     {
-      source: '/:locale/dashboard/editor',
-      headers: [
-        ...createSecureHeaders({
-          ...secureHeaders,
-          contentSecurityPolicy: {
-            ...secureHeaders.contentSecurityPolicy,
-            directives: {
-              ...secureHeaders.contentSecurityPolicy.directives,
-              connectSrc: ['*'],
-              frameSrc: ['*'],
-              frameAncestors: ['*'],
-            },
-          },
-        }),
-        ...headersList,
-      ],
+      source: '/dashboard/:path*',
+      headers: dashboardHeaders,
+    },
+    {
+      source: '/:locale/dashboard',
+      headers: dashboardHeaders,
     },
     {
       // All page routes, not the api ones
       source: '/:path((?!api).*)*',
-      headers: [...createSecureHeaders(secureHeaders), ...headersList],
+      headers: defaultHeaders,
     },
   ],
   async rewrites() {
