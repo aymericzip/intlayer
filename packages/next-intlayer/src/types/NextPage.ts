@@ -1,13 +1,13 @@
-import type { Locales } from '@intlayer/config';
+import type { LocalesValues } from '@intlayer/config';
 import type { NextPage } from 'next';
 import type { PropsWithChildren, ReactNode } from 'react';
 
 export type LocalParams<T = {}> = {
-  params: { locale: Locales } & T;
+  params: { locale: LocalesValues } & T;
 };
 
 export type LocalPromiseParams<T = {}> = {
-  params: Promise<{ locale: Locales } & T>;
+  params: Promise<{ locale: LocalesValues } & T>;
 };
 
 export type Next14PageIntlayer<T = {}> = NextPage<LocalParams<T>>;

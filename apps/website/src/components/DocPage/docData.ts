@@ -64,7 +64,10 @@ export const getDocSection = (
   return { paths, docs, title };
 };
 
-export const getPreviousNextDocMetadata = (docKey: DocKey, locale: Locales) => {
+export const getPreviousNextDocMetadata = (
+  docKey: DocKey,
+  locale: LocalesValues
+) => {
   const docData = getDocData(locale);
   const { docs, paths, title } = getDocSection(docData);
 

@@ -1,6 +1,6 @@
 import { Container } from '@intlayer/design-system';
 import { DocMetadata } from '@intlayer/docs';
-import { Locales } from 'intlayer';
+import { LocalesValues } from 'intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import { FC } from 'react';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
@@ -12,7 +12,7 @@ import { TranslatedContentMessage } from '../TranslatedContentMessage';
 import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
 
 type DocHeaderProps = DocMetadata & {
-  locale: Locales;
+  locale: LocalesValues;
   markdownContent: string;
 };
 

@@ -562,4 +562,4 @@ export enum Locales {
 }
 
 /** Define MyType using the ValueOf utility type on Locales */
-export type LocalesValues = Locales | `${Locales}`;
+export type LocalesValues = (Locales | `${Locales}`) | (string & {});

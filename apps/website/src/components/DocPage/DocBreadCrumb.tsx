@@ -1,18 +1,18 @@
+import { PagesRoutes } from '@/Routes';
 import {
   Breadcrumb,
   type BreadcrumbLink,
   type BreadcrumbProps,
 } from '@intlayer/design-system';
-import { type Locales, getLocalizedUrl } from 'intlayer';
+import { type LocalesValues, getLocalizedUrl } from 'intlayer';
 import { type FC, useMemo } from 'react';
 import { getDocSubSection } from './docData';
-import { type CategorizedDocData } from './types';
-import { PagesRoutes } from '@/Routes';
+import { type CategorizedDocMetadata } from './types';
 
 type DocBreadCrumbProps = {
   activeSections: string[];
-  docData: Record<string, CategorizedDocData>;
-  locale: Locales;
+  docData: Record<string, CategorizedDocMetadata>;
+  locale: LocalesValues;
 } & Omit<BreadcrumbProps, 'links'>;
 
 export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({

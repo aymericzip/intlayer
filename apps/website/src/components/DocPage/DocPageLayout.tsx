@@ -1,7 +1,7 @@
 import { AsideNavigation } from '@components/AsideNavigation/AsideNavigation';
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
-import { getIntlayer, type Locales } from 'intlayer';
+import { getIntlayer, type LocalesValues } from 'intlayer';
 import { type FC, type ReactNode } from 'react';
 import { DocBreadCrumb } from './DocBreadCrumb';
 import { DocNavList } from './DocNavList';
@@ -10,7 +10,7 @@ import { Section } from './types';
 type DocPageLayoutProps = {
   children?: ReactNode;
   activeSections?: string[];
-  locale: Locales;
+  locale: LocalesValues;
   displayAsideNavigation?: boolean;
   displayBreadCrumb?: boolean;
 };

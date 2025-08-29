@@ -1,5 +1,10 @@
 import { DocMetadata } from '@intlayer/docs';
-import { getIntlayer, getLocalizedUrl, localeMap, Locales } from 'intlayer';
+import {
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+  LocalesValues,
+} from 'intlayer';
 
 // ---------------------------------------------------------------------------
 // Build a set of regexp–replacement pairs. Each regexp is created once so
@@ -26,7 +31,10 @@ type URLMap = {
  * @returns Content with URLs rewritten to the correct locale-aware routes
  *          and stripped of the base domain.
  */
-export const urlRenamer = (content: string, pageLocale: Locales): string => {
+export const urlRenamer = (
+  content: string,
+  pageLocale: LocalesValues
+): string => {
   if (!content) return '';
 
   const urlMap: URLMap[] = [];
