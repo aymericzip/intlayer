@@ -1,6 +1,6 @@
 'use client';
 
-import type { Locales } from '@intlayer/config';
+import type { Locales, LocalesValues } from '@intlayer/config';
 import {
   type ConditionContent,
   type ContentNode,
@@ -8,9 +8,9 @@ import {
   type EnumerationContent,
   type KeyPath,
   type MarkdownContent,
-  type NestedContent,
   type TranslationContent,
   FileContent,
+  GenderContent,
   getEmptyNode,
   getLocaleName,
   getNodeType,
@@ -202,7 +202,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
     NodeType.Translation
   ] as Record<Locales, string>;
 
-  const sectionContentKeys = Object.keys(sectionContent) as Locales[];
+  const sectionContentKeys = Object.keys(sectionContent) as LocalesValues[];
 
   const isFiltered = availableLocales.length > selectedLocales.length;
 
@@ -224,8 +224,8 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
             <tr>
               <TextEditorContainer
                 section={
-                  content[translationKey] ??
-                  getEmptyNode(content[defaultLocale])
+                  (content[translationKey] as any) ??
+                  getEmptyNode(content[defaultLocale] as any)
                 }
                 keyPath={[
                   ...keyPath,
@@ -374,6 +374,46 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
                   ...keyPath,
                   {
                     type: NodeType.Condition,
+                    key: condKey,
+                  } as KeyPath,
+                ]}
+                dictionary={dictionary}
+                renderSection={renderSection}
+              />
+            </tr>
+          </Fragment>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+const GenderTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+  renderSection,
+}) => {
+  const content = (section as GenderContent<string>)[NodeType.Gender];
+
+  return (
+    <table className="w-full">
+      <tbody className="flex w-full flex-col gap-2">
+        {['male', 'female', 'fallback'].map((condKey) => (
+          <Fragment key={condKey}>
+            <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
+              {String(condKey)}
+            </tr>
+            <tr key={condKey} className="block w-full">
+              <TextEditorContainer
+                section={
+                  content[condKey as keyof typeof content] ??
+                  getEmptyNode(content['male'])
+                }
+                keyPath={[
+                  ...keyPath,
+                  {
+                    type: NodeType.Gender,
                     key: condKey,
                   } as KeyPath,
                 ]}
@@ -640,7 +680,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
 }) => {
   const { addEditedContent } = useEditedContent();
 
-  const content = (section as NestedContent)[NodeType.Nested];
+  const content = (section as any)[NodeType.Nested];
   const childrenKeyPath = [...keyPath, { type: NodeType.Nested }] as KeyPath[];
 
   return (
@@ -743,6 +783,17 @@ export const TextEditor: FC<TextEditorProps> = ({
   if (nodeType === NodeType.Condition) {
     return (
       <ConditionTextEditor
+        dictionary={dictionary}
+        renderSection={renderSection}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeType.Gender) {
+    return (
+      <GenderTextEditor
         dictionary={dictionary}
         renderSection={renderSection}
         keyPath={keyPath}

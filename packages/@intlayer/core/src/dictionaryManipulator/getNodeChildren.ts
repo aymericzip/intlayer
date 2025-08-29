@@ -19,7 +19,9 @@ export const getNodeChildren = (section: ContentNode): ContentNode => {
       typedNode.nodeType === NodeType.Enumeration ||
       typedNode.nodeType === NodeType.Condition ||
       typedNode.nodeType === NodeType.Insertion ||
-      typedNode.nodeType === NodeType.File
+      typedNode.nodeType === NodeType.Gender ||
+      typedNode.nodeType === NodeType.File ||
+      typedNode.nodeType === NodeType.Markdown
     ) {
       const firstKey = Object.keys(content)[0] as keyof typeof content;
       return content[firstKey] as ContentNode;
