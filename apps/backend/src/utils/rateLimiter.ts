@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import rateLimit from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import { ErrorHandler } from './errors';
 
 // -------------------------------------------------------------
@@ -18,8 +18,8 @@ export const ipLimiter: (
   legacyHeaders: false,
   // Use a custom key generator that handles proxy headers securely
   keyGenerator: (req) => {
-    // Use the real IP address, falling back to socket remote address
-    return req.ip ?? req.socket?.remoteAddress ?? 'unknown';
+    // Normalize IPv6 to subnet using helper to avoid bypasses
+    return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
   },
   handler: (req, res, _next) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
@@ -44,8 +44,8 @@ export const unauthenticatedChatBotLimiter: (
   legacyHeaders: false,
   // Use a custom key generator that handles proxy headers securely
   keyGenerator: (req) => {
-    // Use the real IP address, falling back to socket remote address
-    return req.ip ?? req.socket?.remoteAddress ?? 'unknown';
+    // Normalize IPv6 to subnet using helper to avoid bypasses
+    return ipKeyGenerator(req.ip ?? req.socket?.remoteAddress ?? 'unknown');
   },
   handler: (req, res) => {
     const { limit, remaining, resetTime } = (req as any).rateLimit;
