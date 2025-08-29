@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/editor",
-  "version": "5.8.0",
+  "version": "5.8.1",
   "private": false,
   "description": "Provides the utilities to interface the application with the Intlayer editor and manipulate dictionaries",
   "keywords": [
