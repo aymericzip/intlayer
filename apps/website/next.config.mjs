@@ -176,23 +176,23 @@ const nextConfig = {
   },
 
   headers: () => [
-    {
-      source: '/dashboard',
-      headers: dashboardHeaders,
-    },
-    {
-      source: '/dashboard/:path*',
-      headers: dashboardHeaders,
-    },
-    {
-      source: '/:locale/dashboard',
-      headers: dashboardHeaders,
-    },
-    {
-      // All page routes, not the api ones
-      source: '/:path((?!api).*)*',
-      headers: defaultHeaders,
-    },
+    // {
+    //   source: '/dashboard',
+    //   headers: dashboardHeaders,
+    // },
+    // {
+    //   source: '/dashboard/:path*',
+    //   headers: dashboardHeaders,
+    // },
+    // {
+    //   source: '/:locale/dashboard',
+    //   headers: dashboardHeaders,
+    // },
+    // {
+    //   // All page routes, not the api ones
+    //   source: '/:path((?!api).*)*',
+    //   headers: defaultHeaders,
+    // },
   ],
   async rewrites() {
     return {
