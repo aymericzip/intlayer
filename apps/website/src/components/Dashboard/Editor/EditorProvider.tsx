@@ -30,25 +30,24 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   const { session } = useAuth();
   const intlayerConfig =
     configuration ?? (session?.project?.configuration as IntlayerConfig);
-  const applicationURL = intlayerConfig?.editor.applicationURL ?? '*';
+  const applicationURL = intlayerConfig?.editor.applicationURL;
   const [isApplicationRunning, setIsApplicationRunning] = useState<
     boolean | null
   >(null);
 
   // Health check for the application URL
   useEffect(() => {
-    if (!intlayerConfig || applicationURL === '*') {
-      setIsApplicationRunning(true);
+    if (!intlayerConfig) {
+      setIsApplicationRunning(false);
       return;
     }
 
     const checkApplicationHealth = async () => {
       try {
-        // Try to fetch the application URL to check if it's responding
         const response = await fetch(applicationURL, {
           method: 'HEAD', // Use HEAD to avoid downloading the full page
-          mode: 'no-cors', // Handle CORS issues
         });
+
         setIsApplicationRunning(response.ok);
       } catch (error) {
         console.warn(
