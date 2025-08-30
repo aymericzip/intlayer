@@ -21,18 +21,23 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const searchParams = useSearchParams();
   const email = searchParams.get('email') ?? undefined;
 
-  const { register } = useRegister();
+  const { mutate: register } = useRegister();
 
-  const handleRegistration = async ({ email, password }: SignUp) => {
-    const { data } = await register({
-      name: email.split('@')[0],
-      email,
-      password,
-    });
-
-    if (data?.user) {
-      setUser(data.user);
-    }
+  const handleRegistration = ({ email, password }: SignUp) => {
+    register(
+      {
+        name: email.split('@')[0],
+        email,
+        password,
+      },
+      {
+        onSuccess: (response) => {
+          if (response?.data?.user) {
+            setUser(response.data.user);
+          }
+        },
+      }
+    );
   };
 
   const getEmailContext = () => {

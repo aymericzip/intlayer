@@ -14,7 +14,6 @@ import type {
   PushDictionariesBody,
   PushDictionariesResult,
   UpdateDictionaryBody,
-  UpdateDictionaryParam,
   UpdateDictionaryResult,
 } from '../types';
 
@@ -118,12 +117,11 @@ export const getDictionaryAPI = (
    * @param dictionary - Updated dictionary data.
    */
   const updateDictionary = async (
-    dictionaryId: UpdateDictionaryParam['dictionaryId'],
     dictionary: UpdateDictionaryBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<UpdateDictionaryResult>(
-      `${PROJECT_API_ROUTE}/${dictionaryId}`,
+      `${PROJECT_API_ROUTE}/${dictionary.id}`,
       authAPIOptions,
       otherOptions,
       {

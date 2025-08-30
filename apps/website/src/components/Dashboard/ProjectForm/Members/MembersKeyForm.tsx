@@ -14,7 +14,7 @@ import {
   useUpdateProjectMembers,
 } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { useEffect, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import {
   useProjectMembersSchema,
   type ProjectMembersFormData,
@@ -38,9 +38,18 @@ export const MembersForm: FC = () => {
   const { title, addMembersButton, membersSelect, adminsSelect } = useIntlayer(
     'project-members-form'
   );
-  const { updateProjectMembers } = useUpdateProjectMembers();
-  const { getUsers, isWaitingData: isLoadingUsers } = useGetUsers();
   const [users, setUsers] = useState<UserAPI[]>([]);
+  const { mutate: updateProjectMembers } = useUpdateProjectMembers();
+  const { isPending: isLoadingUsers } = useGetUsers(
+    {
+      ids: project?.membersIds ?? [],
+    },
+    {
+      onSuccess: (response) => {
+        setUsers(response.data);
+      },
+    }
+  );
   const isProjectAdmin = session?.roles.includes('project_admin');
 
   const onSubmitSuccess = async (data: ProjectMembersFormData) => {
@@ -53,17 +62,6 @@ export const MembersForm: FC = () => {
 
     await updateProjectMembers(formattedData);
   };
-
-  useEffect(() => {
-    if (organization?.membersIds) {
-      const membersIds = organization.membersIds.map((el) => String(el));
-      getUsers({ ids: membersIds }).then((response) => {
-        if (response?.data) {
-          setUsers(response.data);
-        }
-      });
-    }
-  }, [getUsers, organization]);
 
   return (
     <>

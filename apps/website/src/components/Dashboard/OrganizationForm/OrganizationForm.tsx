@@ -18,11 +18,7 @@ const OrganizationFormContent: FC = () => {
   const { organization } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
-  const {
-    data: organizations,
-    isWaitingData,
-    isSuccess,
-  } = useGetOrganizations();
+  const { data: organizations, isPending, isSuccess } = useGetOrganizations();
   const { deleteOrganizationButton } = useIntlayer('organization-form');
 
   if (organization) {
@@ -77,7 +73,7 @@ const OrganizationFormContent: FC = () => {
     return <OrganizationList organizations={organizations?.data ?? []} />;
   }
 
-  if (isSuccess && !isWaitingData) {
+  if (isSuccess && !isPending) {
     return (
       <Container roundedSize="xl" className="flex justify-center p-6">
         <Modal

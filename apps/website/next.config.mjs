@@ -71,9 +71,7 @@ const secureHeaders = {
         'data:',
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
-      frameSrc: ["'self'", '*.youtube.com', '*.github.dev'],
-      // Allow embedding preview apps hosted on Vercel
-      frameSrc: ["'self'", '*.youtube.com', '*.github.dev'],
+      frameSrc: ["'self'", '*.youtube.com', '*.github.dev', '*.stripe.com'],
       frameAncestors: ["'self'", 'intlayer.org', 'localhost:*'],
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],
@@ -177,15 +175,11 @@ const nextConfig = {
 
   headers: () => [
     {
-      source: '/dashboard',
-      headers: dashboardHeaders,
-    },
-    {
       source: '/dashboard/:path*',
       headers: dashboardHeaders,
     },
     {
-      source: '/:locale/dashboard',
+      source: '/:locale/dashboard/:path*',
       headers: dashboardHeaders,
     },
     {

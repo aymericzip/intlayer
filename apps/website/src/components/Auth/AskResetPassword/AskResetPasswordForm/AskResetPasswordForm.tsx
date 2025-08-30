@@ -10,7 +10,7 @@ import {
 
 type AskResetPasswordFormProps = {
   email?: string;
-  onSubmitSuccess: (data: AskResetPassword) => Promise<void>;
+  onSubmitSuccess: (data: AskResetPassword) => Promise<void> | void;
   onClickBackToLogin: () => void;
   onSubmitError?: (error: Error) => void;
   emailInputRef?: RefObject<HTMLInputElement | null>;

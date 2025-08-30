@@ -4,10 +4,7 @@ import { Container, Form, H3, useForm } from '@intlayer/design-system';
 import { useAuth, useUpdateUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import {
-  useProfileFormSchema,
-  type ProfileFormData,
-} from './useProfileFormSchema';
+import { ProfileFormData, useProfileFormSchema } from './useProfileFormSchema';
 
 export const ProfileForm: FC = () => {
   const { session } = useAuth();
@@ -16,14 +13,12 @@ export const ProfileForm: FC = () => {
   const { form, isSubmitting } = useForm(ProfileFormSchema);
   const { title, nameInput, emailInput, editButton } =
     useIntlayer('profile-form');
-  const { updateUser } = useUpdateUser();
+  const { mutate: updateUser, isPending } = useUpdateUser();
 
-  const onSubmitSuccess = async (data: ProfileFormData) => {
-    await updateUser(data);
-  };
+  const onSubmitSuccess = (data: ProfileFormData) => {
+    if (!user) return;
 
-  const onSubmitError = (error: Error) => {
-    console.error(error);
+    updateUser({ ...data, id: String(user.id) });
   };
 
   return (
@@ -35,7 +30,7 @@ export const ProfileForm: FC = () => {
       <Form
         schema={ProfileFormSchema}
         onSubmitSuccess={onSubmitSuccess}
-        onSubmitError={onSubmitError}
+        onSubmitError={(data) => console.error(data)}
         className="w-full"
         {...form}
       >
@@ -59,7 +54,7 @@ export const ProfileForm: FC = () => {
           className="mt-12 w-full"
           type="submit"
           color="text"
-          isLoading={isSubmitting}
+          isLoading={isSubmitting || isPending}
           label={editButton.ariaLabel.value}
         >
           {editButton.text}

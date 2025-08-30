@@ -1,11 +1,11 @@
 'use client';
 
-import { useLogout } from '..';
+import { useLogout } from '../reactQuery';
 import { useAuth } from '../useAuth';
 
 export const useUser = () => {
   const { session, revalidateSession, setSession } = useAuth();
-  const { logout } = useLogout();
+  const { mutate: logout } = useLogout();
 
   const status = session?.user ? 'authenticated' : 'unauthenticated';
 
@@ -16,7 +16,7 @@ export const useUser = () => {
 
   const logoutHandle = async () => {
     setSession(null);
-    await logout();
+    logout({});
   };
 
   return {

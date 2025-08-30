@@ -226,6 +226,9 @@ export const dictionaryDetailsContent = {
         zh: '字典可以与一个或多个标签关联。这使您能够在不同的应用程序中加载字典，并在不同的团队之间共享。',
         it: 'Un dizionario può essere associato a uno o più tag. Questo ti consente di caricare il dizionario in diverse applicazioni e condividerlo tra diversi team.',
         pt: 'Um dicionário pode ser associado a um ou mais tags. Isso permite que você carregue o dicionário em diferentes aplicativos e o compartilhe entre diferentes equipes.',
+        hi: 'एक शब्दकोश को एक या अधिक टैग से जोड़ा जा सकता है। यह आपको विभिन्न अनुप्रयोगों में शब्दकोश लोड करने और विभिन्न टीमों के बीच साझा करने की अनुमति देता है।',
+        ar: 'يمكن ربط قاموس بواحد أو أكثر من الوسوم. يتيح لك تحميل القاموس في تطبيقات مختلفة ومشاركته بين فرق مختلفة.',
+        ru: 'Словарь можно связать с одним или несколькими тегами. Это позволяет загружать словарь в различных приложениях и делиться им между различными командами.',
       }),
       placeholder: t({
         en: 'Select the tags to associate with your dictionary',

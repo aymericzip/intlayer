@@ -1,5 +1,5 @@
 import { PagesRoutes } from '@/Routes';
-import type { Plan } from '@intlayer/backend';
+import type { PlanAPI } from '@intlayer/backend';
 import { Button, Form, H3, Modal, Tag } from '@intlayer/design-system';
 import { useAuth, useCancelSubscription } from '@intlayer/design-system/hooks';
 import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
@@ -9,9 +9,9 @@ import { useState, type FC } from 'react';
 
 type PlanDetailsProps = {};
 
-const getIsFreePlan = (plan?: Plan) => plan?.type === 'FREE';
+const getIsFreePlan = (plan?: PlanAPI) => plan?.type === 'FREE';
 
-const getStatusTagColor = (plan?: Plan) => {
+const getStatusTagColor = (plan?: PlanAPI) => {
   switch (plan?.status) {
     case 'active':
       return 'success';
@@ -21,7 +21,7 @@ const getStatusTagColor = (plan?: Plan) => {
   }
 };
 
-const getTypeTagColor = (plan?: Plan) => {
+const getTypeTagColor = (plan?: PlanAPI) => {
   switch (plan?.type) {
     case 'PREMIUM':
       return 'success';
@@ -38,13 +38,18 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
   const { session } = useAuth();
   const { title, upgradeButton, renewButton, cancelButton, cancelModal } =
     useIntlayer('organization-plan');
-  const { cancelSubscription, isLoading: isDeleting } = useCancelSubscription();
+  const { mutate: cancelSubscription, isPending: isDeleting } =
+    useCancelSubscription();
   const plan = session?.organization?.plan;
   const router = useRouter();
   const [isCancellationModalOpen, setIsCancellationModalOpen] = useState(false);
 
-  const handleCancelSubscription = async () => {
-    await cancelSubscription().then(() => setIsCancellationModalOpen(false));
+  const handleCancelSubscription = () => {
+    cancelSubscription(undefined, {
+      onSuccess: () => {
+        setIsCancellationModalOpen(false);
+      },
+    });
   };
 
   return (

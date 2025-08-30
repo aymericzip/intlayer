@@ -1,4 +1,4 @@
-import type { User, UserDocument } from '@/types/user.types';
+import type { User, UserAPI, UserDocument } from '@/types/user.types';
 import { UserModel } from '@models/user.model';
 import { GenericError } from '@utils/errors';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -126,7 +126,7 @@ export const countUsers = async (filters: UserFilters): Promise<number> => {
  */
 export const updateUserById = async (
   userId: string | Types.ObjectId,
-  updates: Partial<User>
+  updates: Partial<UserAPI>
 ): Promise<UserDocument> => {
   const keyToValidate = Object.keys(updates) as UserFields;
   const errors = validateUser(updates, keyToValidate);

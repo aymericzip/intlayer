@@ -1,5 +1,5 @@
 import type { RenameId } from '@utils/mongoDB/types';
-import type { Document, Model, Types } from 'mongoose';
+import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { User } from './user.types';
 
 export type PlanType = 'FREE' | 'PREMIUM' | 'ENTERPRISE';
@@ -27,6 +27,8 @@ export type Plan = PlanData & {
   createdAt: number;
   updatedAt: number;
 };
+
+export type PlanAPI = ObjectIdToString<Plan>;
 
 export type PlanSchema = RenameId<Plan>;
 export type PlanModelType = Model<Plan>;

@@ -7,11 +7,8 @@ import {
   MaxWidthSmoother,
   ProductHuntLogo,
 } from '@intlayer/design-system';
-import {
-  useAsync,
-  useDevice,
-  usePersistedStore,
-} from '@intlayer/design-system/hooks';
+import { useDevice, usePersistedStore } from '@intlayer/design-system/hooks';
+import { useQuery } from '@tanstack/react-query';
 import { cn } from '@utils/cn';
 import { X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -82,23 +79,17 @@ export const ProductHunt: FC = () => {
     null
   );
   const [isMiniaturized, setIsMiniaturized] = useState(false);
-  const { data: phData, isLoading } = useAsync(
-    'product-hunt-data',
-    fetchProductHuntData,
-    {
-      cache: true,
-      store: true,
-      retryLimit: 3,
-      autoFetch: true,
-      revalidation: true,
-      revalidateTime: 5 * 60 * 1000, // 5 minutes
-    }
-  );
+  const { data: phData, isLoading } = useQuery({
+    queryKey: ['product-hunt-data'],
+    queryFn: fetchProductHuntData,
+    retry: 3,
+    refetchInterval: 5 * 60 * 1000, // 5 minutes
+  });
   const { title, content, details, linkLabel, closeLabel } =
     useIntlayer('product-hunt');
 
   const upvotes = phData?.votesCount || 0;
-  const launchActive = isLaunchActive(phData);
+  const launchActive = isLaunchActive(phData ?? null);
 
   useEffect(() => {
     // If launch is over, hide the component

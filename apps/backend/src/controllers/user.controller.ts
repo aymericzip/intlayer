@@ -81,10 +81,15 @@ export const getUsers = async (
   res: ResponseWithSession<GetUsersResult>,
   _next: NextFunction
 ): Promise<void> => {
-  const { user, roles } = res.locals;
+  const { user, organization, roles } = res.locals;
 
   if (!user) {
     ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
+    return;
+  }
+
+  if (!organization) {
+    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
     return;
   }
 
@@ -92,7 +97,11 @@ export const getUsers = async (
     getOrganizationFiltersAndPagination(req);
 
   try {
-    const users = await userService.findUsers(filters, skip, pageSize);
+    const users = await userService.findUsers(
+      { $and: [filters, { _id: { $in: organization.membersIds } }] },
+      skip,
+      pageSize
+    );
 
     if (
       !hasPermission(
@@ -127,7 +136,7 @@ export const getUsers = async (
   }
 };
 
-export type GetUserByIdParams = { userId: string };
+export type GetUserByIdParams = { userId: UserAPI['id'] };
 export type GetUserByIdResult = ResponseData<UserAPI>;
 
 export const getUserById = async (
@@ -198,7 +207,7 @@ export const getUserByEmail = async (
   }
 };
 
-export type UpdateUserBody = Partial<User>;
+export type UpdateUserBody = Partial<UserAPI>;
 export type UpdateUserResult = ResponseData<UserAPI>;
 
 /**
@@ -222,13 +231,25 @@ export const updateUser = async (
     return;
   }
 
+  if (!userData.id) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_INVALID_FIELDS');
+    return;
+  }
+
+  const userDB = await userService.getUserById(userData.id);
+
+  if (!userDB) {
+    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
+    return;
+  }
+
   if (
     !hasPermission(
       roles,
       'user:write'
     )({
       ...res.locals,
-      targetUsers: [userData as User],
+      targetUsers: [userDB],
     })
   ) {
     ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
@@ -236,7 +257,7 @@ export const updateUser = async (
   }
 
   try {
-    const updatedUser = await userService.updateUserById(user.id, userData);
+    const updatedUser = await userService.updateUserById(userDB.id, userData);
 
     logger.info(
       `User updated: Name: ${updatedUser.name}, id: ${String(updatedUser.id)}`

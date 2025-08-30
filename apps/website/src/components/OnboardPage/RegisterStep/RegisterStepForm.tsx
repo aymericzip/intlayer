@@ -3,7 +3,7 @@
 import { PagesRoutes } from '@/Routes';
 import { ExternalsLoginButtons } from '@components/Auth/ExternalsLoginButtons';
 import { Form, H2, useForm } from '@intlayer/design-system';
-import { useRegister, useUser } from '@intlayer/design-system/hooks';
+import { useUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
 import { type FC } from 'react';
@@ -16,14 +16,8 @@ export const RegisterStepForm: FC = () => {
   const { user } = useUser();
   const { emailInput, loginLink, title } = useIntlayer('register-step');
   const RegisterSchema = useRegisterSchema();
-  const {
-    goNextStep,
-    goPreviousStep,
-    setState,
-    setFormData,
-    formData,
-    nextUrl,
-  } = useStep(Steps.Registration);
+  const { goNextStep, goPreviousStep, setFormData, formData, setState } =
+    useStep(Steps.Registration);
   const { goNextStep: goToNextStep2 } = useStep(Steps.Password);
 
   const defaultValues = { ...formData, email: user?.email ?? formData?.email };
@@ -33,28 +27,15 @@ export const RegisterStepForm: FC = () => {
   });
   const router = useRouter();
 
-  const { register, isLoading } = useRegister();
-
   const onClickToSignIn = () =>
     router.push(
       `${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(window.location.href)}`
     );
 
-  const onSubmitSuccess = async (data: Register) => {
+  const onSubmitSuccess = (data: Register) => {
+    setState(data);
     setFormData(data);
-
-    await register({
-      email: data.email,
-      callbackURL: `${window.location.origin}${nextUrl}`,
-    }).then((response) => {
-      if (response?.data?.user) {
-        setState({
-          user: response.data.user,
-        });
-
-        goNextStep();
-      }
-    });
+    goNextStep();
   };
 
   return (
@@ -66,7 +47,7 @@ export const RegisterStepForm: FC = () => {
     >
       <StepLayout
         onGoToPreviousStep={goPreviousStep}
-        isLoading={isLoading || isSubmitting}
+        isLoading={isSubmitting}
         isSkippable={Boolean(user?.email)}
         onSkipStep={goNextStep}
       >

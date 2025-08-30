@@ -10,13 +10,13 @@ export const SignInForm: FC<{
   callbackUrl?: string;
 }> = ({ callbackUrl }) => {
   const router = useRouter();
-  const { login } = useLogin();
+  const { mutate: login } = useLogin();
   const searchParams = useSearchParams();
   const email = searchParams.get('email');
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  const onSubmitSuccess = async ({ email, password, rememberMe }: SignIn) => {
-    await login({
+  const onSubmitSuccess = ({ email, password, rememberMe }: SignIn) => {
+    login({
       email,
       password,
       rememberMe,

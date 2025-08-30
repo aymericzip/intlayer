@@ -1,7 +1,7 @@
+import type { Project } from '@/types/project.types';
 import { getOrganizationById } from '@services/organization.service';
 import { validateArray } from './validateArray';
 import { validateString } from './validateString';
-import type { Project } from '@/types/project.types';
 
 export type ProjectFields = (keyof Project)[];
 
@@ -36,9 +36,11 @@ export const validateProject = async (
   // Define the fields to validate
   const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
 
+  const projectJson = JSON.parse(JSON.stringify(project));
+
   // Validate each field
   for (const field of fieldsToValidate) {
-    const value = project[field];
+    const value = projectJson[field];
 
     // Initialize error array for the field
     errors[field] = [];

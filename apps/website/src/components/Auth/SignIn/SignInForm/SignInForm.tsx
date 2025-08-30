@@ -8,7 +8,7 @@ import { useSignInSchema, type SignIn } from './useSignInSchema';
 
 type SignInFormProps = {
   defaultEmail?: string;
-  onSubmitSuccess: (data: SignIn) => Promise<void>;
+  onSubmitSuccess: (data: SignIn) => Promise<void> | void;
   onClickForgotPassword: () => void;
   onClickSignUp: () => void;
   onSubmitError?: (error: Error) => void;

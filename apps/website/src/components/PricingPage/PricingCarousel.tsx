@@ -55,21 +55,20 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   const allParams = Object.fromEntries(searchParams.entries());
 
   const { pricing, period } = useIntlayer('pricing');
-  const { data: pricingData, isLoading } = useGetPricing({
-    autoFetch: true,
-    enable: Boolean(allParams.promoCode),
-    args: [
-      {
-        priceIds: [
-          process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
-          process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
-          process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
-          process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
-        ],
-        promoCode: allParams.promoCode,
-      },
-    ],
-  });
+  const { data: pricingData, isFetching: isLoading } = useGetPricing(
+    {
+      priceIds: [
+        process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
+        process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
+        process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
+        process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
+      ],
+      promoCode: allParams.promoCode,
+    },
+    {
+      enabled: Boolean(allParams.promoCode),
+    }
+  );
   const [selectedPlanIndex, setSelectedPlanIndex] = useState<number | null>(
     null
   ); // Index of selected plan, starting as null

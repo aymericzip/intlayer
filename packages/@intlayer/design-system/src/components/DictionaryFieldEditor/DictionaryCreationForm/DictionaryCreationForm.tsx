@@ -2,10 +2,7 @@
 
 import { type FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import {
-  useAddDictionary,
-  useGetProjects,
-} from '../../../hooks/intlayerAPIHooks';
+import { useAddDictionary, useGetProjects } from '../../../hooks/reactQuery';
 import { useAuth } from '../../../hooks/useAuth';
 import { ButtonColor } from '../../Button';
 import { Form, useForm } from '../../Form';
@@ -24,16 +21,21 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
 }) => {
   const { session } = useAuth();
   const { project } = session ?? {};
-  const { addDictionary } = useAddDictionary();
+  const { mutate: addDictionary } = useAddDictionary();
   const { data: projects } = useGetProjects();
   const DictionarySchema = useDictionarySchema(String(project?.id));
   const { form, isSubmitting } = useForm(DictionarySchema);
   const { keyInput, createDictionaryButton, projectInput } =
     useIntlayer('dictionary-form');
 
-  const onSubmitSuccess = async (data: DictionaryFormData) => {
-    await addDictionary({ dictionary: data }).then(() =>
-      onDictionaryCreated?.()
+  const onSubmitSuccess = (data: DictionaryFormData) => {
+    addDictionary(
+      { dictionary: data },
+      {
+        onSuccess: () => {
+          onDictionaryCreated?.();
+        },
+      }
     );
   };
 

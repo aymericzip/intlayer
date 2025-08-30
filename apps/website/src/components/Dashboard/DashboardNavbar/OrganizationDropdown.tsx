@@ -18,10 +18,12 @@ export const OrganizationDropdown: FC = () => {
   const { session } = useAuth();
   const { data: organizations } = useGetOrganizations();
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const { selectOrganization, isLoading: isSelectOrganizationLoading } =
+  const { mutate: selectOrganization, isPending: isSelectOrganizationLoading } =
     useSelectOrganization();
-  const { unselectOrganization, isLoading: isUnselectOrganizationLoading } =
-    useUnselectOrganization();
+  const {
+    mutate: unselectOrganization,
+    isPending: isUnselectOrganizationLoading,
+  } = useUnselectOrganization();
   const {
     organizationTrigger,
     organizationLogout,
@@ -34,14 +36,18 @@ export const OrganizationDropdown: FC = () => {
   const router = useRouter();
 
   const handleUnselectOrganization = async () => {
-    await unselectOrganization().then(() => {
-      router.push(PagesRoutes.Dashboard_Organization);
+    unselectOrganization(undefined, {
+      onSuccess: () => {
+        router.push(PagesRoutes.Dashboard_Organization);
+      },
     });
   };
 
   const handleSelectOrganization = (organizationId: string) => {
-    selectOrganization(organizationId).then(async () => {
-      router.push(PagesRoutes.Dashboard_Projects);
+    selectOrganization(organizationId, {
+      onSuccess: () => {
+        router.push(PagesRoutes.Dashboard_Projects);
+      },
     });
   };
 

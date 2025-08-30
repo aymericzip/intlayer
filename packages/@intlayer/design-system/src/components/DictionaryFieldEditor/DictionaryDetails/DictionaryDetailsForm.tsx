@@ -46,7 +46,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     tagsSelect,
     auditButton,
   } = useIntlayer('dictionary-details');
-  const { auditContentDeclaration, isLoading: isAuditing } =
+  const { mutate: auditContentDeclaration, isPending: isAuditing } =
     useAuditContentDeclarationMetadata();
   const updatedDictionary = editedContent?.[dictionary.key];
 
@@ -60,35 +60,40 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     }
   }, [updatedDictionary]);
 
-  const handleOnAuditFile = async () => {
+  const handleOnAuditFile = () => {
     const dictionaryToAudit = {
       ...dictionary,
       ...updatedDictionary,
     };
 
-    await auditContentDeclaration({
-      fileContent: JSON.stringify(dictionaryToAudit),
-    }).then((response) => {
-      if (!response?.data) return;
+    auditContentDeclaration(
+      {
+        fileContent: JSON.stringify(dictionaryToAudit),
+      },
+      {
+        onSuccess: (response) => {
+          if (!response?.data) return;
 
-      try {
-        const auditedDictionary = JSON.parse(response.data.fileContent) as
-          | Partial<Dictionary>
-          | undefined;
+          try {
+            const auditedDictionary = JSON.parse(response.data.fileContent) as
+              | Partial<Dictionary>
+              | undefined;
 
-        setEditedDictionary((prev) => ({
-          ...prev,
-          ...dictionaryToAudit,
-          ...auditedDictionary,
-        }));
-        form.reset({
-          ...dictionaryToAudit,
-          ...auditedDictionary,
-        });
-      } catch (error) {
-        console.error(error);
+            setEditedDictionary((prev) => ({
+              ...prev,
+              ...dictionaryToAudit,
+              ...auditedDictionary,
+            }));
+            form.reset({
+              ...dictionaryToAudit,
+              ...auditedDictionary,
+            });
+          } catch (error) {
+            console.error(error);
+          }
+        },
       }
-    });
+    );
   };
 
   return (

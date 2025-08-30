@@ -20,8 +20,8 @@ type SignUpFormProps = {
 export const OnboardFlow: FC<SignUpFormProps> = ({ step, plan, period }) => (
   <Suspense fallback={<Loader />}>
     {step === Steps.Registration && <RegisterStepForm />}
-    {step === Steps.VerifyEmail && <VerifyEmailStepForm />}
     {step === Steps.Password && <DefinePasswordStepForm />}
+    {step === Steps.VerifyEmail && <VerifyEmailStepForm />}
     {step === Steps.SetupOrganization && <SetupOrganizationStepForm />}
     {step === Steps.Payment && <PaymentStepForm plan={plan} period={period} />}
     {step === Steps.Confirmation && <ConfirmationsStep />}

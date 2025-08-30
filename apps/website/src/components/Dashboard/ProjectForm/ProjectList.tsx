@@ -14,13 +14,15 @@ type ProjectListProps = {
 
 export const ProjectList: FC<ProjectListProps> = ({ projects }) => {
   const { selectButton } = useIntlayer('project-list');
-  const { selectProject } = useSelectProject();
+  const { mutate: selectProject } = useSelectProject();
   const router = useRouter();
 
   const handleSelectProject = (projectId: string) => {
-    selectProject(projectId).then(() =>
-      router.push(PagesRoutes.Dashboard_Content)
-    );
+    selectProject(projectId, {
+      onSuccess: () => {
+        router.push(PagesRoutes.Dashboard_Content);
+      },
+    });
   };
 
   return (

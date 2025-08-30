@@ -46,9 +46,12 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
 }) => {
   const [isFormatAlertModalOpen, setIsFormatAlertModalOpen] = useState(false);
   const { setLocaleDictionary } = useDictionariesRecordActions();
-  const { deleteDictionary, isLoading: isDeleting } = useDeleteDictionary();
-  const { writeDictionary, isLoading: isWriting } = useWriteDictionary();
-  const { pushDictionaries, isLoading: isPushing } = usePushDictionaries();
+  const { mutate: deleteDictionary, isPending: isDeleting } =
+    useDeleteDictionary();
+  const { mutate: writeDictionary, isPending: isWriting } =
+    useWriteDictionary();
+  const { mutate: pushDictionaries, isPending: isPushing } =
+    usePushDictionaries();
   const isLoading = isWriting || isPushing;
   const isJsonFormat =
     mode.includes('local') && dictionary.filePath?.endsWith('.json');
@@ -81,15 +84,20 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       ...editedContent?.[dictionary.key],
     };
 
-    await writeDictionary({
-      dictionary: updatedDictionary,
-    }).then(() => {
-      setLocaleDictionary(editedContent?.[dictionary.key]);
-      restoreEditedContent(dictionary.key);
-    });
+    writeDictionary(
+      {
+        dictionary: updatedDictionary,
+      },
+      {
+        onSuccess: () => {
+          setLocaleDictionary(editedContent?.[dictionary.key]);
+          restoreEditedContent(dictionary.key);
+        },
+      }
+    );
   };
 
-  const handlePushDictionary = async () => {
+  const handlePushDictionary = () => {
     if (!editedContent?.[dictionary.key]) return;
 
     const updatedDictionary = {
@@ -97,23 +105,25 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       ...editedContent?.[dictionary.key],
     };
 
-    await pushDictionaries([updatedDictionary]).then((res) => {
-      if (res) {
-        setLocaleDictionary(editedContent?.[dictionary.key]);
-        restoreEditedContent(dictionary.key);
-      }
+    pushDictionaries([updatedDictionary], {
+      onSuccess: (res) => {
+        if (res) {
+          setLocaleDictionary(editedContent?.[dictionary.key]);
+          restoreEditedContent(dictionary.key);
+        }
+      },
     });
   };
 
-  const handleDeleteDictionary = async () => {
+  const handleDeleteDictionary = () => {
     if (!(dictionary as DistantDictionary).id) return;
 
-    await deleteDictionary(
-      (dictionary as DistantDictionary).id.toString()
-    ).then((res) => {
-      if (res) {
-        onDelete?.();
-      }
+    deleteDictionary((dictionary as DistantDictionary).id.toString(), {
+      onSuccess: (res) => {
+        if (res) {
+          onDelete?.();
+        }
+      },
     });
   };
 

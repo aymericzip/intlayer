@@ -9,10 +9,9 @@ import { Button, ButtonVariant, type ButtonProps } from '../Button';
 import { Link, LinkColor, type LinkProps } from '../Link';
 
 type LinkLinkProps = {
-  children: string;
   position: number;
   locale?: Locales;
-} & Omit<LinkProps, 'children' | 'label'>;
+} & Omit<LinkProps, 'label'>;
 
 const LinkLink: FC<LinkLinkProps> = ({
   href,

@@ -8,7 +8,7 @@ import {
 } from './useChangePasswordSchema';
 
 type ChangePasswordFormProps = {
-  onSubmitSuccess: (data: ChangePassword) => Promise<void>;
+  onSubmitSuccess: (data: ChangePassword) => Promise<void> | void;
   onSubmitError?: (error: Error) => void;
 };
 

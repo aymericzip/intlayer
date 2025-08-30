@@ -5,7 +5,7 @@ import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import { Container, Logo, TabSelector } from '@intlayer/design-system';
-import { useAuth, useDevice } from '@intlayer/design-system/hooks';
+import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { useLocale } from 'next-intlayer';
 import dynamic from 'next/dynamic';
 import { type FC, type ReactNode } from 'react';
@@ -63,7 +63,7 @@ const shouldHaveProjectRoutes = [
 
 export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { pathWithoutLocale } = useLocale();
-  const { session } = useAuth();
+  const { session } = useSession();
   const { organization, project } = session ?? {};
   const { isMobile } = useDevice('sm');
 

@@ -18,10 +18,7 @@ import { Plus, X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 import { RemoveMemberModal } from './RemoveMemberModal';
-import {
-  useOrganizationMembersSchema,
-  type OrganizationMembersFormData,
-} from './useMembersFormSchema';
+import { useOrganizationMembersSchema } from './useMembersFormSchema';
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
 
 export const MembersForm: FC = () => {
@@ -48,27 +45,21 @@ export const MembersForm: FC = () => {
     newMemberSubmitButton,
     noMembers,
   } = useIntlayer('organization-members-form');
-  const { updateOrganizationMembers } = useUpdateOrganizationMembers();
-  const { addOrganizationMember } = useAddOrganizationMember();
-  const {
-    data: usersResponse,
-    getUsers,
-    isWaitingData: isLoadingUsers,
-  } = useGetUsers();
+  const { mutate: updateOrganizationMembers } = useUpdateOrganizationMembers();
+  const { mutate: addOrganizationMember } = useAddOrganizationMember();
+  const { data: usersResponse, isPending: isLoadingUsers } = useGetUsers({
+    ids: organization?.membersIds ?? [],
+  });
   const [memberIdToRemove, setMemberIdToRemove] = useState<string>();
   const isOrganizationAdmin = session?.roles.includes('org_admin');
 
-  const onSubmitSuccess = async (data: OrganizationMembersFormData) => {
-    await updateOrganizationMembers(data);
-  };
-
-  const onSubmitSuccessAddMember = async () => {
+  const onSubmitSuccessAddMember = () => {
     const userEmail = newUserForm.getValues('userEmail');
     const formattedData: AddOrganizationMemberBody = {
       userEmail,
     };
 
-    await addOrganizationMember(formattedData);
+    addOrganizationMember(formattedData);
   };
 
   useEffect(() => {
@@ -77,14 +68,6 @@ export const MembersForm: FC = () => {
       adminsIds: organization?.adminsIds ?? [],
     });
   }, [organization, form]);
-
-  useEffect(() => {
-    if (organization?.membersIds) {
-      const membersIds = organization.membersIds;
-
-      getUsers({ ids: membersIds });
-    }
-  }, [getUsers, organization]);
 
   const getUserName = (memberId: UserAPI['id'] | string) => {
     const user = usersResponse?.data?.find(
@@ -136,7 +119,7 @@ export const MembersForm: FC = () => {
           <Form
             className="w-full"
             schema={MembersFormSchema}
-            onSubmitSuccess={onSubmitSuccess}
+            onSubmitSuccess={updateOrganizationMembers}
             {...form}
           >
             <div className="flex flex-col gap-2 px-3">

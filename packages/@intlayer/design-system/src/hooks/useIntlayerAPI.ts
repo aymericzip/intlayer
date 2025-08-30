@@ -21,7 +21,7 @@ export const useIntlayerOAuth = (props?: UseIntlayerAuthProps): IntlayerAPI => {
     {
       ...(oAuth2AccessToken && {
         headers: {
-          Authorization: `Bearer ${oAuth2AccessToken}`,
+          Authorization: `Bearer ${oAuth2AccessToken.accessToken}`,
         },
       }),
       ...(props?.options ?? {}),

@@ -1,6 +1,6 @@
+import type { Dictionary } from '@/types/dictionary.types';
 import { findProjects } from '@services/project.service';
 import { validateArray } from './validateArray';
-import type { Dictionary } from '@/types/dictionary.types';
 
 export type DictionaryFields = (keyof Dictionary)[];
 
@@ -25,19 +25,21 @@ export const validateDictionary = async (
   // Define the fields to validate
   const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
 
+  const dictionaryJSON = JSON.parse(JSON.stringify(dictionary));
+
   const projects = await findProjects({
     _id: dictionary.projectIds as unknown as string[],
   });
 
   // Validate each field
   for (const field of fieldsToValidate) {
-    const value = dictionary[field];
+    const value = dictionaryJSON[field];
 
     // Initialize error array for the field
     errors[field] = [];
 
     if (field === 'projectIds') {
-      const projectsErrors = validateArray<string>(
+      const projectsErrors: string[] = validateArray<string>(
         value as unknown as string[],
         'Project',
         'string',

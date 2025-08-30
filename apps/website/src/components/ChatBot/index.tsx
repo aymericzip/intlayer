@@ -67,35 +67,7 @@ export const ChatBot: FC<ChatBotProps> = ({
   stateReloaderTrigger,
 }) => {
   const [hasReachedRateLimit, setHasReachedRateLimit] = useState(false);
-  const { isLoading, askDocQuestion } = useAskDocQuestion({
-    onSuccess: () => {
-      setHasReachedRateLimit(false);
-    },
-    onError: (errorMessage) => {
-      let error;
-
-      // If json is valid, parse it
-      try {
-        if (typeof errorMessage === 'undefined') return;
-
-        error = JSON.parse(errorMessage);
-      } catch (e) {
-        // If json is not valid, set error to the original errorMessage
-
-        error = errorMessage;
-      }
-
-      // render toast for each error if there is more than one
-      // otherwise render the toast with the error message
-      [error]
-        .flatMap((error) => error)
-        .forEach((error) => {
-          if (error.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
-            setHasReachedRateLimit(true);
-          }
-        });
-    },
-  });
+  const { mutate: askDocQuestion, isPending } = useAskDocQuestion();
   const { firstMessageContent, rateLimitExceededMessage, signInButton } =
     useIntlayer('chat');
   const isFirstRender = useRef(true);
@@ -136,51 +108,83 @@ export const ChatBot: FC<ChatBotProps> = ({
       },
     ];
 
-    askDocQuestion({
-      messages: newMessages,
-      discutionId: discution?.discutionId ?? '',
-      onMessage: (chunk: string) => setCurrentResponse((prev) => prev + chunk),
-      onDone: (response: AskDocQuestionResult) => {
-        const responseData = 'data' in response ? response.data : response;
+    askDocQuestion(
+      {
+        messages: newMessages,
+        discutionId: discution?.discutionId ?? '',
+        onMessage: (chunk: string) =>
+          setCurrentResponse((prev) => prev + chunk),
+        onDone: (response: AskDocQuestionResult) => {
+          const responseData = 'data' in response ? response.data : response;
 
-        if (!responseData) {
-          console.error('Invalid response format:', response);
-          return;
-        }
+          if (!responseData) {
+            console.error('Invalid response format:', response);
+            return;
+          }
 
-        setDiscution(
-          (discution) =>
-            ({
-              ...discution,
-              storedPrompt: [
-                ...(discution?.storedPrompt ?? []),
-                {
-                  role: 'assistant' as const,
-                  content: responseData.response,
-                  timestamp: new Date(),
-                },
-              ],
-            }) as DiscutionStore
-        );
-        setDiscution(
-          (discution) =>
-            ({
-              ...discution,
-              relatedFiles: [
-                ...new Set([
-                  ...(discution?.relatedFiles ?? []),
-                  ...(responseData.relatedFiles ?? []),
-                ]),
-              ],
-            }) as DiscutionStore
-        );
-        setCurrentResponse('');
+          setDiscution(
+            (discution) =>
+              ({
+                ...discution,
+                storedPrompt: [
+                  ...(discution?.storedPrompt ?? []),
+                  {
+                    role: 'assistant' as const,
+                    content: responseData.response,
+                    timestamp: new Date(),
+                  },
+                ],
+              }) as DiscutionStore
+          );
+          setDiscution(
+            (discution) =>
+              ({
+                ...discution,
+                relatedFiles: [
+                  ...new Set([
+                    ...(discution?.relatedFiles ?? []),
+                    ...(responseData.relatedFiles ?? []),
+                  ]),
+                ],
+              }) as DiscutionStore
+          );
+          setCurrentResponse('');
+        },
       },
-    }).catch((error) => {
-      console.error('Error in askDocQuestion:', error);
-      setCurrentResponse('');
-      // You might want to show an error toast here
-    });
+      {
+        onSuccess: () => {
+          setHasReachedRateLimit(false);
+        },
+        onError: (errorMessage) => {
+          let error;
+
+          // If json is valid, parse it
+          try {
+            if (typeof errorMessage === 'undefined') return;
+
+            if (typeof errorMessage.message === 'string') {
+              error = errorMessage.message;
+            } else {
+              error = JSON.parse(errorMessage as any);
+            }
+          } catch (e) {
+            // If json is not valid, set error to the original errorMessage
+
+            error = errorMessage;
+          }
+
+          // render toast for each error if there is more than one
+          // otherwise render the toast with the error message
+          [error]
+            .flatMap((error) => error)
+            .forEach((error) => {
+              if (error.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
+                setHasReachedRateLimit(true);
+              }
+            });
+        },
+      }
+    );
   };
 
   const handleClear = () => {
@@ -217,7 +221,7 @@ export const ChatBot: FC<ChatBotProps> = ({
                 ? [{ role: 'assistant' as const, content: currentResponse }]
                 : []),
             ]}
-            isLoading={isLoading}
+            isLoading={isPending}
           />
         </div>
       </div>

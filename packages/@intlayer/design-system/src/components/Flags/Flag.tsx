@@ -240,7 +240,7 @@ type FlagProps = ImgHTMLAttributes<HTMLImageElement> & {
   locale: Locales;
 };
 
-const flagRecord: Record<Locales, typeof unknown> = {
+const flagRecord: Partial<Record<Locales, typeof unknown>> = {
   [Locales.ENGLISH]: unitedStatesOfAmerica,
   [Locales.FRENCH]: france,
   [Locales.SPANISH]: spain,
@@ -487,6 +487,7 @@ const flagRecord: Record<Locales, typeof unknown> = {
   [Locales.AMHARIC]: ethiopia,
   [Locales.AMHARIC_ETHIOPIA]: ethiopia,
   [Locales.NEPALI]: nepal,
+  [Locales.NEPALI_NEPAL]: nepal,
 };
 
 export const Flag: FC<FlagProps> = ({ locale, ...props }): JSX.Element => (

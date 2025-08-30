@@ -76,8 +76,8 @@ export type CheckboxProps = Omit<
     VariantProps<typeof checkboxVariants>,
     'validationStyleEnabled' | 'size' | 'color'
   > & {
-    size?: CheckboxSize;
-    color?: CheckboxColor;
+    size?: CheckboxSize | `${CheckboxSize}`;
+    color?: CheckboxColor | `${CheckboxColor}`;
   };
 
 const Input: FC<CheckboxProps> = ({

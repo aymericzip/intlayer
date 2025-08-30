@@ -1,6 +1,5 @@
 export * from './auth';
-export * from './intlayerAPIHooks';
-export * from './useAsync';
+export * from './reactQuery';
 export * from './useAuth';
 export * from './useDevice';
 export * from './useGetAllDictionaries';

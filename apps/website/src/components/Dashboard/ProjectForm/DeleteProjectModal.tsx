@@ -1,11 +1,11 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
 import { Form, Modal } from '@intlayer/design-system';
 import { useDeleteProject } from '@intlayer/design-system/hooks';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
+import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type DeleteProjectModalProps = {
   isOpen: boolean;
@@ -18,19 +18,19 @@ export const DeleteProjectModal: FC<DeleteProjectModalProps> = ({
   onDelete,
   isOpen,
 }) => {
-  const { deleteProject, isLoading: isDeleting } = useDeleteProject();
+  const { mutate: deleteProject, isPending: isDeleting } = useDeleteProject();
   const { confirmButton, cancelButton, description, title } = useIntlayer(
     'delete-project-modal'
   );
   const router = useRouter();
 
-  const handleDelete = async () => {
-    await deleteProject().then((response) => {
-      if (response.data) {
+  const handleDelete = () => {
+    deleteProject(undefined, {
+      onSuccess: () => {
         onDelete?.();
         onClose?.();
         router.push(PagesRoutes.Dashboard_Projects);
-      }
+      },
     });
   };
 

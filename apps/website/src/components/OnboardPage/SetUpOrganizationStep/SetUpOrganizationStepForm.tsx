@@ -27,11 +27,7 @@ const OrganizationFormContent: FC<{
   onSelectOrganization: (organization: OrganizationAPI) => void;
 }> = ({ onSelectOrganization, selectedOrganizationId }) => {
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const {
-    data: organizations,
-    isWaitingData,
-    isSuccess,
-  } = useGetOrganizations();
+  const { data: organizations, isPending, isSuccess } = useGetOrganizations();
 
   if ((organizations?.data ?? []).length > 0) {
     return (
@@ -43,7 +39,7 @@ const OrganizationFormContent: FC<{
     );
   }
 
-  if (isSuccess && !isWaitingData) {
+  if (isSuccess && !isPending) {
     return (
       <>
         <Modal
@@ -69,7 +65,7 @@ export const SetupOrganizationStepForm: FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { selectOrganization } = useSelectOrganization();
+  const { mutate: selectOrganization } = useSelectOrganization();
   const { formData, goNextStep, goPreviousStep, setFormData } = useStep(
     Steps.SetupOrganization
   );
@@ -84,7 +80,7 @@ export const SetupOrganizationStepForm: FC = () => {
   });
   const { title } = useIntlayer('set-up-organization-step');
 
-  const onSubmitSuccess = async (data: SetUpOrganization) => {
+  const onSubmitSuccess = (data: SetUpOrganization) => {
     setFormData(data);
 
     if (String(data.organizationId) === String(session?.organization?.id)) {
@@ -92,9 +88,11 @@ export const SetupOrganizationStepForm: FC = () => {
     }
 
     if (formData?.organizationId) {
-      await selectOrganization(formData.organizationId).then(() =>
-        goNextStep()
-      );
+      selectOrganization(formData.organizationId, {
+        onSuccess: () => {
+          goNextStep();
+        },
+      });
     }
   };
 

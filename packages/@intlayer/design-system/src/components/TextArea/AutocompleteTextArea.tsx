@@ -1,8 +1,9 @@
 'use client';
 
+import { AutocompleteResponse } from '@intlayer/backend';
 import { useConfiguration } from '@intlayer/editor-react';
 import { type FC, useEffect, useRef, useState } from 'react';
-import { useAutocomplete } from '../../hooks';
+import { useAutocomplete } from '../../hooks/reactQuery';
 import {
   type AutoSizedTextAreaProps,
   AutoSizedTextArea,
@@ -34,7 +35,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
   ...props
 }) => {
   const defaultValue = String(props.value ?? props.defaultValue ?? '');
-  const { autocomplete } = useAutocomplete();
+  const { mutate: autocomplete } = useAutocomplete();
   const configuration = useConfiguration();
   const [isTyped, setIsTyped] = useState(false);
   const [text, setText] = useState(defaultValue);
@@ -77,21 +78,25 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
         const afterLines = after.split('\n');
         const contextAfter = afterLines.slice(1, numLines + 1).join('\n');
 
-        const response = await autocomplete({
-          text: before,
-          contextBefore,
-          currentLine,
-          contextAfter,
-          aiOptions: {
-            apiKey: configuration.ai?.apiKey,
-            model: configuration.ai?.model,
-            temperature: configuration.ai?.temperature,
+        autocomplete(
+          {
+            text: before,
+            contextBefore,
+            currentLine,
+            contextAfter,
+            aiOptions: {
+              apiKey: configuration.ai?.apiKey,
+              model: configuration.ai?.model,
+              temperature: configuration.ai?.temperature,
+            },
           },
-        });
-        const autocompletion = response?.data?.autocompletion ?? '';
-
-        setSuggestion(autocompletion);
-        setCursorAtFetch(cursor);
+          {
+            onSuccess: (data: AutocompleteResponse) => {
+              setSuggestion(data.data?.autocompletion ?? '');
+              setCursorAtFetch(cursor);
+            },
+          }
+        );
       } catch (err) {
         console.error('Autocomplete error:', err);
       }

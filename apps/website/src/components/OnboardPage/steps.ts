@@ -1,6 +1,5 @@
 import { type Period, Plans } from '@components/PricingPage/data.content';
 import type { OrganizationAPI, UserAPI } from '@intlayer/backend';
-import type { DefinePassword } from './DefinePasswordStep/useDefinePasswordSchema';
 import type { Register } from './RegisterStep/useRegisterSchema';
 import type { SetUpOrganization } from './SetUpOrganizationStep/useSetUpOrganizationSchema';
 import type { VerifyEmail } from './VerifyEmailStep/VerifyEmailSchema';
@@ -33,7 +32,7 @@ export const getSessionStorageDynamicsContent = <T extends OnboardingStepIds>(
 export const isRegistrationStepValid = (): boolean => {
   const state = getSessionStorageDynamicsContent(Steps.Registration)?.state;
 
-  return Boolean(state?.user?.id);
+  return Boolean(state?.email);
 };
 
 export const isVerifyEmailStepValid = (): boolean => {
@@ -45,7 +44,7 @@ export const isVerifyEmailStepValid = (): boolean => {
 export const isPasswordStepValid = (): boolean => {
   const state = getSessionStorageDynamicsContent(Steps.Password)?.state;
 
-  return state?.isPasswordDefined ?? false;
+  return Boolean(state?.user?.id);
 };
 
 export const isSetupOrganizationStepValid = (): boolean => {
@@ -81,7 +80,7 @@ export type OnboardingStep = {
 };
 
 export type RegisterStep = OnboardingStep & {
-  state?: { user: UserAPI };
+  state?: Register;
   formData?: Register;
 };
 
@@ -91,8 +90,7 @@ export type VerifyEmailStep = OnboardingStep & {
 };
 
 export type DefinePasswordStep = OnboardingStep & {
-  state?: { isPasswordDefined: boolean };
-  formData?: DefinePassword;
+  state?: { user: UserAPI };
 };
 
 export type SetupOrganizationStep = OnboardingStep & {
@@ -111,25 +109,25 @@ export type PaymentStep = OnboardingStep & {
 
 export const onboardingSteps = {
   [Steps.Registration]: {
-    getNextStep: () => Steps.VerifyEmail,
+    getNextStep: () => Steps.Password,
     getIsValid: isRegistrationStepValid,
     state: undefined,
     formData: undefined,
   } as RegisterStep,
-  [Steps.VerifyEmail]: {
-    getPreviousStep: () => Steps.Registration,
-    getNextStep: () => Steps.Password,
-    getIsValid: isVerifyEmailStepValid,
-    state: undefined,
-    formData: undefined,
-  } as VerifyEmailStep,
   [Steps.Password]: {
-    getPreviousStep: () => Steps.VerifyEmail,
-    getNextStep: () => Steps.SetupOrganization,
+    getPreviousStep: () => Steps.Registration,
+    getNextStep: () => Steps.VerifyEmail,
     getIsValid: isPasswordStepValid,
     state: undefined,
     formData: undefined,
   } as DefinePasswordStep,
+  [Steps.VerifyEmail]: {
+    getPreviousStep: () => Steps.Password,
+    getNextStep: () => Steps.SetupOrganization,
+    getIsValid: isVerifyEmailStepValid,
+    state: undefined,
+    formData: undefined,
+  } as VerifyEmailStep,
   [Steps.SetupOrganization]: {
     getPreviousStep: () => Steps.Password,
     getNextStep: ({ plan }) => {

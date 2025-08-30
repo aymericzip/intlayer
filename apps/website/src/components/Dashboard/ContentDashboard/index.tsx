@@ -20,16 +20,14 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 }) => {
   const { resolvedTheme } = useTheme();
   const { isLoading } = useGetAllDictionaries();
-  const { data: dictionaryResult, isWaitingData } = useGetDictionary({
-    autoFetch: true,
-    args: [dictionaryKey],
-  });
+  const { data: dictionaryResult, isPending } = useGetDictionary(dictionaryKey);
+
   const router = useRouter();
   const dictionary = dictionaryResult?.data;
 
   return (
     <Suspense fallback={<Loader />}>
-      <Loader isLoading={!dictionary || isWaitingData || isLoading}>
+      <Loader isLoading={!dictionary || isPending || isLoading}>
         <EditorConfigurationProvider>
           {dictionary && (
             <DictionaryFieldEditor

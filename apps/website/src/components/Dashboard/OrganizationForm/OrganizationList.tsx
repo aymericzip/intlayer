@@ -19,7 +19,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   selectedOrganizationId,
   onSelectOrganization,
 }) => {
-  const { selectOrganization } = useSelectOrganization();
+  const { mutate: selectOrganization } = useSelectOrganization();
   const { selectButton, addOrganizationButton } =
     useIntlayer('organization-form');
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -39,9 +39,11 @@ export const OrganizationList: FC<OrganizationListProps> = ({
       return;
     }
 
-    selectOrganization(organizationId).then(() =>
-      router.push(PagesRoutes.Dashboard_Projects)
-    );
+    selectOrganization(organizationId, {
+      onSuccess: () => {
+        router.push(PagesRoutes.Dashboard_Projects);
+      },
+    });
   };
 
   return (

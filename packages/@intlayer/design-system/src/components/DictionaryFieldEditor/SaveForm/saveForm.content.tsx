@@ -208,6 +208,9 @@ export const saveDictionaryContent = {
         zh: '字典是在不同格式中，它将转换为JSON文件。你确定要继续吗？这将覆盖现有的字典。',
         it: 'Il dizionario è in un formato diverso, verrà trasformato in un file JSON. Sei sicuro di voler continuare? Questo sovrascriverà il dizionario esistente.',
         pt: 'O dicionário está em um formato diferente, ele será transformado em um arquivo JSON. Você tem certeza de que deseja continuar? Isso sobrescreverá o dicionário existente.',
+        hi: 'शब्दकोश अलग स्वरूप में है, यह JSON फ़ाइल में बदल जाएगा। क्या आप सुनिश्चित हैं कि आप जारी रखना चाहते हैं? यह मौजूदा शब्दकोश को ओवरराइट करेगा।',
+        ar: 'القاموس في تنسيق مختلف. سيتم تحويله إلى ملف JSON. هل أنت متأكد من أنك تريد المتابعة؟ سيتم الكتابة على القاموس الحالي.',
+        ru: 'Словарь в другом формате, он будет преобразован в файл JSON. Вы уверены, что хотите продолжить? Это перезапишет существующий словарь.',
       }),
       confirmButton: {
         text: t({

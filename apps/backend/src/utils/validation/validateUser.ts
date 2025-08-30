@@ -1,8 +1,7 @@
-/* eslint-disable sonarjs/cognitive-complexity */
+import type { User, UserAPI } from '@/types/user.types';
 import { validateEmail } from './validateEmail';
 import { validatePhone } from './validatePhone';
 import { validateString } from './validateString';
-import type { User } from '@/types/user.types';
 
 export type UserFields = (keyof User)[];
 
@@ -21,7 +20,7 @@ export const NAMES_MAX_LENGTH = 100;
  * @returns An object containing the validation errors for each field.
  */
 export const validateUser = (
-  project: Partial<User>,
+  user: Partial<User | UserAPI>,
   fieldsToCheck = defaultFieldsToCheck
 ): ValidationErrors => {
   const errors: ValidationErrors = {};
@@ -29,9 +28,11 @@ export const validateUser = (
   // Define the fields to validate
   const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
 
+  const userJson = JSON.parse(JSON.stringify(user));
+
   // Validate each field
   for (const field of fieldsToValidate) {
-    const value = project[field];
+    const value = userJson[field];
 
     // Initialize error array for the field
     errors[field] = [];

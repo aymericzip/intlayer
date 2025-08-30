@@ -69,7 +69,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
 }) => {
   const { editedContent, addEditedContent } = useEditedContent();
   const configuration = useConfiguration();
-  const { auditContentDeclarationField, isLoading: isAuditing } =
+  const { mutate: auditContentDeclarationField, isPending: isAuditing } =
     useAuditContentDeclarationField();
 
   return (
@@ -88,29 +88,34 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
           className="cursor-pointer hover:scale-110"
           isLoading={isAuditing}
           onClick={() => {
-            auditContentDeclarationField({
-              fileContent: JSON.stringify({
-                ...dictionary,
-                ...(editedContent?.[dictionary.key] ?? {}),
-              }),
-              keyPath,
-              locales: configuration.internationalization.locales ?? [],
-              aiOptions: {
-                apiKey: configuration.ai?.apiKey,
-                model: configuration.ai?.model,
-                temperature: configuration.ai?.temperature,
+            auditContentDeclarationField(
+              {
+                fileContent: JSON.stringify({
+                  ...dictionary,
+                  ...(editedContent?.[dictionary.key] ?? {}),
+                }),
+                keyPath,
+                locales: configuration.internationalization.locales ?? [],
+                aiOptions: {
+                  apiKey: configuration.ai?.apiKey,
+                  model: configuration.ai?.model,
+                  temperature: configuration.ai?.temperature,
+                },
               },
-            }).then((response) => {
-              if (!response?.data) return;
+              {
+                onSuccess: (response) => {
+                  if (!response?.data) return;
 
-              try {
-                const editedContent = response.data.fileContent as string;
+                  try {
+                    const editedContent = response.data.fileContent as string;
 
-                addEditedContent(dictionary.key, editedContent, keyPath);
-              } catch (error) {
-                console.error(error);
+                    addEditedContent(dictionary.key, editedContent, keyPath);
+                  } catch (error) {
+                    console.error(error);
+                  }
+                },
               }
-            });
+            );
           }}
         />
       }
@@ -211,7 +216,9 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
     : // If the translation include content in other locales, we display all of them
       [...new Set([...availableLocales, ...sectionContentKeys])];
 
-  const content = (section as TranslationContent<string>)[NodeType.Translation];
+  const content: any = (section as TranslationContent<string>)[
+    NodeType.Translation
+  ];
 
   return (
     <table className="w-full">
@@ -224,8 +231,8 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
             <tr>
               <TextEditorContainer
                 section={
-                  (content[translationKey] as any) ??
-                  getEmptyNode(content[defaultLocale] as any)
+                  content[translationKey] ??
+                  getEmptyNode(content[defaultLocale])
                 }
                 keyPath={[
                   ...keyPath,

@@ -28,26 +28,28 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
   onRemove,
   isOpen,
 }) => {
-  const { updateOrganizationMembers, isLoading: isRemoving } =
-    useUpdateOrganizationMembers();
+  const updateMembersMutation = useUpdateOrganizationMembers() as any;
+  const { mutateAsync: updateOrganizationMembers, isPending: isRemoving } =
+    updateMembersMutation;
   const { confirmButton, cancelButton, description, title } = useIntlayer(
     'remove-member-modal'
   );
+  const usersQuery = useGetUsers() as any;
   const {
     data: usersResponse,
-    getUsers,
-    isWaitingData: isLoadingUsers,
-  } = useGetUsers();
+    refetch: getUsers,
+    isLoading: isLoadingUsers,
+  } = usersQuery;
 
   const user = usersResponse?.data?.find(
-    (user) => String(user.id) === String(memberId)
+    (user: UserAPI) => String(user.id) === String(memberId)
   );
 
   useEffect(() => {
     if (organization?.membersIds) {
       const membersIds = organization.membersIds;
 
-      getUsers({ ids: membersIds });
+      getUsers();
     }
   }, [getUsers, organization]);
 

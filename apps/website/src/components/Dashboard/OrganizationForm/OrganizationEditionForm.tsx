@@ -13,12 +13,12 @@ export const OrganizationEditionForm: FC = () => {
   const { session } = useAuth();
   const { organization } = session ?? {};
   const OrganizationSchema = useOrganizationSchema();
-  const { updateOrganization } = useUpdateOrganization();
+  const { mutate: updateOrganization } = useUpdateOrganization();
   const { form, isSubmitting } = useForm(OrganizationSchema);
   const { title, nameInput, editButton } = useIntlayer('organization-form');
 
-  const onSubmitSuccess = async (data: OrganizationFormData) => {
-    await updateOrganization(data);
+  const onSubmitSuccess = (data: OrganizationFormData) => {
+    updateOrganization(data);
   };
 
   return (

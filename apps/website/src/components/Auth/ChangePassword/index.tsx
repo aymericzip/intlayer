@@ -7,10 +7,7 @@ import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import {
-  ChangePasswordForm as ChangePasswordFormUI,
-  type ChangePassword,
-} from './ChangePasswordForm';
+import { ChangePasswordForm as ChangePasswordFormUI } from './ChangePasswordForm';
 
 type ChangePasswordFormProps = {
   callbackUrl?: string;
@@ -21,18 +18,8 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
 }) => {
   const router = useRouter();
   const { user } = useUser();
-  const { changePassword, isSuccess } = useChangePassword();
+  const { mutate: changePassword, isSuccess } = useChangePassword();
   const { goToLoginButton } = useIntlayer('change-password-form');
-
-  const onSubmitSuccess = async ({
-    currentPassword,
-    newPassword,
-  }: ChangePassword) => {
-    await changePassword({
-      currentPassword,
-      newPassword,
-    });
-  };
 
   if (!user) return null;
 
@@ -55,5 +42,5 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     );
   }
 
-  return <ChangePasswordFormUI onSubmitSuccess={onSubmitSuccess} />;
+  return <ChangePasswordFormUI onSubmitSuccess={changePassword} />;
 };

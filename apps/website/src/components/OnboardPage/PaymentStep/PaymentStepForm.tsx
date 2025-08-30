@@ -27,17 +27,13 @@ import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
 
-type PaymentStepContentProps = {
+type PaymentDetailsProps = {
   plan: Plans;
   period: Period;
   invoice: Stripe.Invoice;
 };
 
-const PaymentDetails: FC<PaymentStepContentProps> = ({
-  plan,
-  period,
-  invoice,
-}) => {
+const PaymentDetails: FC<PaymentDetailsProps> = ({ plan, period, invoice }) => {
   const { pricing, period: periodContent } = useIntlayer('pricing');
   const { title, description } = pricing[period][plan];
   const subtotal = invoice.subtotal / 100;
@@ -99,7 +95,7 @@ const PaymentDetails: FC<PaymentStepContentProps> = ({
   );
 };
 
-export const PaymentStepContent: FC<PaymentStepContentProps> = ({
+export const PaymentStepContent: FC<PaymentDetailsProps> = ({
   plan,
   period,
   invoice,
@@ -223,6 +219,11 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
+type PaymentStepContentProps = {
+  plan: Plans;
+  period: Period;
+};
+
 export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   plan,
   period,
@@ -245,14 +246,8 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   }
 
   const { data, isLoading } = useGetSubscription({
-    autoFetch: true,
-    enable: true,
-    args: [
-      {
-        priceId,
-        promoCode,
-      },
-    ],
+    priceId,
+    promoCode,
   });
 
   const invoice = data?.data?.subscription?.latest_invoice as Stripe.Invoice & {
@@ -267,8 +262,8 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   return (
     <>
       <H2 className="mb-4 mt-0">{title}</H2>
-      {!priceId && <span>{incorrectProductMessage}</span>}
       <Loader isLoading={isLoading}>
+        {!priceId && <span>{incorrectProductMessage}</span>}
         {clientSecret ? (
           <Elements
             stripe={stripePromise}

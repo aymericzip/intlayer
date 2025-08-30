@@ -19,12 +19,12 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
 }) => {
   const router = useRouter();
   const { toast } = useToast();
-  const { resetPassword, isSuccess } = useResetPassword();
+  const { mutate: resetPassword, isSuccess } = useResetPassword();
   const { goToLoginButton } = useIntlayer('define-password-form');
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
-  const onSubmitSuccess = async ({ newPassword }: DefinePassword) => {
+  const onSubmitSuccess = ({ newPassword }: DefinePassword) => {
     if (!token) {
       toast({
         title: 'Error',
@@ -34,7 +34,7 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
       return;
     }
 
-    await resetPassword({
+    resetPassword({
       newPassword,
       token: token,
     });

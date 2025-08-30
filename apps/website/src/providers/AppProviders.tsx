@@ -1,6 +1,6 @@
 import { ServiceWorkerSubscriber } from '@components/ServiceWorker/ServiceWorkerSubscriber';
 import { Toaster } from '@intlayer/design-system';
-import { AsyncStateProvider } from '@intlayer/design-system/hooks';
+import { ReactQueryProvider } from '@intlayer/design-system/providers';
 import { GoogleTagManager } from '@next/third-parties/google';
 import type { IntlayerClientProviderProps } from 'next-intlayer';
 import type { FC } from 'react';
@@ -15,7 +15,7 @@ export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
     <ThemeProvider>
       <AnimatePresenceProvider>
         <ServiceWorkerSubscriber />
-        <AsyncStateProvider>
+        <ReactQueryProvider>
           <Toaster />
           {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
             <GoogleTagManager
@@ -23,7 +23,7 @@ export const AppProviders: FC<AppProvidersProps> = ({ children, locale }) => (
             />
           )}
           {children}
-        </AsyncStateProvider>
+        </ReactQueryProvider>
       </AnimatePresenceProvider>
     </ThemeProvider>
   </IntlayerProvider>

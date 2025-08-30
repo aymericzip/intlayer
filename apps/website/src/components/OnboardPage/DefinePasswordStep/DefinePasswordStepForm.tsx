@@ -1,5 +1,5 @@
 import { Form, H2, useForm } from '@intlayer/design-system';
-import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
+import { useRegister, useUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { type FC } from 'react';
 import { StepLayout } from '../StepLayout';
@@ -11,35 +11,45 @@ import {
 } from './useDefinePasswordSchema';
 
 export const DefinePasswordStepForm: FC = () => {
-  const {
-    title,
-    currentPasswordInput,
-    newPasswordInput,
-    confirmPasswordInput,
-  } = useIntlayer('define-password-step');
+  const { title, newPasswordInput, confirmPasswordInput } = useIntlayer(
+    'define-password-step'
+  );
   const { user } = useUser();
-  const { formData, goNextStep, goPreviousStep, setState, setFormData } =
-    useStep(Steps.Password);
+  const { goNextStep, goPreviousStep, setState, nextUrl } = useStep(
+    Steps.Password
+  );
   const { formData: registrationFormData } = useStep(Steps.Registration);
-  const { changePassword, isLoading } = useChangePassword();
+  const { mutate: register, isPending } = useRegister();
 
-  const isPasswordDefined = Boolean(false);
-
-  const DefinePasswordSchema = useDefinePasswordSchema(isPasswordDefined);
-  const { form, isSubmitting } = useForm(DefinePasswordSchema, {
-    defaultValues: formData,
-  });
+  const DefinePasswordSchema = useDefinePasswordSchema();
+  const { form, isSubmitting } = useForm(DefinePasswordSchema);
 
   const onSubmitSuccess = async (data: DefinePassword) => {
-    setFormData(data);
-    await changePassword(data).then((response) => {
-      if (response?.data) {
-        setState({
-          isPasswordDefined: true,
-        });
+    if (!registrationFormData) {
+      return goPreviousStep();
+    }
+
+    register(
+      {
+        email: registrationFormData.email,
+        name: registrationFormData.email.split('@')[0],
+        password: data.newPassword,
+        callbackURL: `${window.location.origin}${nextUrl}`,
+      },
+      {
+        onSuccess: (response) => {
+          if (response?.data?.user) {
+            setState({
+              user: response.data.user,
+            });
+
+            goNextStep();
+          } else {
+            goPreviousStep();
+          }
+        },
       }
-    });
-    goNextStep();
+    );
   };
 
   const userEmail = user?.email ?? registrationFormData?.email ?? '';
@@ -53,10 +63,10 @@ export const DefinePasswordStepForm: FC = () => {
     >
       <H2>{title}</H2>
       <StepLayout
-        isLoading={isLoading || isSubmitting}
+        isLoading={isPending || isSubmitting}
         onGoToPreviousStep={goPreviousStep}
         onSkipStep={goNextStep}
-        isSkippable={isPasswordDefined}
+        isSkippable={false}
       >
         <Form.Input
           type="text"
@@ -67,15 +77,7 @@ export const DefinePasswordStepForm: FC = () => {
           hidden
           className="hidden"
         />
-        {isPasswordDefined && (
-          <Form.Input
-            name="currentPassword"
-            label={currentPasswordInput.label.value}
-            placeholder={currentPasswordInput.placeholder.value}
-            autoComplete="current-password"
-            isRequired
-          />
-        )}
+
         <Form.InputPassword
           name="newPassword"
           label={newPasswordInput.label.value}

@@ -19,13 +19,13 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   callbackUrl = PagesRoutes.Auth_SignIn,
 }) => {
   const router = useRouter();
-  const { askResetPassword } = useAskResetPassword();
+  const { mutate: askResetPassword } = useAskResetPassword();
   const searchParams = useSearchParams();
   const emailFromParams = searchParams.get('email');
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  const onSubmitSuccess = async ({ email }: AskResetPassword) => {
-    await askResetPassword({
+  const onSubmitSuccess = ({ email }: AskResetPassword) => {
+    askResetPassword({
       email,
       redirectTo: `${process.env.NEXT_PUBLIC_URL}/${callbackUrl}`,
     });

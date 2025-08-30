@@ -14,6 +14,9 @@ export const loaderContent = {
       zh: '动画图标，意味着网站正在处理',
       it: 'Icona animata, che significa che il sito web è in fase di elaborazione',
       pt: 'Ícone animado, o que significa que o site está processando',
+      hi: 'एनिमेटेड आइकन, जो कि वेबसाइट को प्रसंस्करण हो रहा है इसका मतलब है',
+      ar: 'رمز متحرك، مما يعني أن الموقع الإلكتروني يتم التحميل',
+      ru: 'Анимационный значок, что означает, что сайт обрабатывается',
     }),
   },
 } satisfies Dictionary;

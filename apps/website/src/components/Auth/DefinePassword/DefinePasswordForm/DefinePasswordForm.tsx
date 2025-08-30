@@ -7,7 +7,7 @@ import {
 } from './useDefinePasswordSchema';
 
 type DefinePasswordFormProps = {
-  onSubmitSuccess: (data: DefinePassword) => Promise<void>;
+  onSubmitSuccess: (data: DefinePassword) => Promise<void> | void;
   onSubmitError?: (error: Error) => void;
 };
 

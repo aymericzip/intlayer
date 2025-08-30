@@ -21,9 +21,9 @@ type ProjectDropdownProps = Partial<ComponentProps<typeof DropDown.Panel>> & {
 export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   const { session } = useAuth();
   const { data: projects } = useGetProjects();
-  const { selectProject, isLoading: isSelectProjectLoading } =
+  const { mutate: selectProject, isPending: isSelectProjectLoading } =
     useSelectProject();
-  const { unselectProject, isLoading: isUnselectProjectLoading } =
+  const { mutate: unselectProject, isPending: isUnselectProjectLoading } =
     useUnselectProject();
   const { project } = session ?? {};
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -37,15 +37,19 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   } = useIntlayer('dashboard-navbar');
 
   const handleUnselectProject = async () => {
-    await unselectProject().then(() =>
-      router.push(PagesRoutes.Dashboard_Projects)
-    );
+    unselectProject(undefined, {
+      onSuccess: () => {
+        router.push(PagesRoutes.Dashboard_Projects);
+      },
+    });
   };
 
   const handleSelectProject = (projectId: string) => {
-    selectProject(projectId).then(() =>
-      router.push(PagesRoutes.Dashboard_Content)
-    );
+    selectProject(projectId, {
+      onSuccess: () => {
+        router.push(PagesRoutes.Dashboard_Content);
+      },
+    });
   };
 
   const otherProjects = (projects?.data ?? []).filter(

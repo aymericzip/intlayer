@@ -9,13 +9,13 @@ import type { Dictionary } from '@intlayer/core';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import merge from 'deepmerge';
 import { useMemo } from 'react';
-import { useGetDictionaries } from './intlayerAPIHooks';
+import { useGetDictionaries } from './reactQuery';
 
 type Args = Parameters<typeof useGetDictionaries>;
 
 export const useGetAllDictionaries = (...props: Args) => {
   const { localeDictionaries } = useDictionariesRecord();
-  const { data: onlineDictionariesAPI, isWaitingData } = useGetDictionaries(
+  const { data: onlineDictionariesAPI, isPending } = useGetDictionaries(
     ...props
   );
 
@@ -40,6 +40,6 @@ export const useGetAllDictionaries = (...props: Args) => {
     online: onlineDictionaries,
     locale: localeDictionaries,
     all: allDictionaries,
-    isLoading: isWaitingData,
+    isLoading: isPending,
   };
 };

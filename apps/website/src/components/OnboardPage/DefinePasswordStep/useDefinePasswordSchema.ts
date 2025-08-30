@@ -1,10 +1,8 @@
 import { useIntlayer } from 'next-intlayer';
 import { z } from 'zod/v4';
 
-export const useDefinePasswordSchema = (isPasswordDefined: boolean) => {
+export const useDefinePasswordSchema = () => {
   const {
-    requiredErrorPassword,
-    invalidTypeErrorPassword,
     invalidPasswordLengthError,
     requiredErrorNewPassword,
     invalidTypeErrorNewPassword,
@@ -15,16 +13,6 @@ export const useDefinePasswordSchema = (isPasswordDefined: boolean) => {
 
   return z
     .object({
-      currentPassword: isPasswordDefined
-        ? z
-            .string({
-              error: (issue) =>
-                issue.input === undefined
-                  ? requiredErrorPassword.value
-                  : invalidTypeErrorPassword.value,
-            })
-            .min(8, invalidPasswordLengthError.value)
-        : z.undefined(),
       newPassword: z
         .string({
           error: (issue) =>
