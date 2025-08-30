@@ -59,8 +59,7 @@ const content = {
         ar: 'مرحبا, اسمي {{name}} وأنا {{age}} سنة!',
       })
     ),
-    myFile: file('./path/to/file.txt'),
-    myMarkdownFile: file('./path/to/file.md'),
+    myFile: file('./file.md'),
     subContent: {
       contentNumber: 0,
       contentString: 'string',
@@ -69,7 +68,7 @@ const content = {
     // References a specific nested value:
     partialNestedContent: nest('code', 'title') as any,
     myMarkdownContent: md('## My title \n\nLorem Ipsum'),
-    myMarkdownFileContent: md(file('./path/to/file.md')),
+    myMarkdownFileContent: md(file('./file.md')),
     contentMultilingual: t({
       en: md('## test en'),
       fr: md('## test fr'),
