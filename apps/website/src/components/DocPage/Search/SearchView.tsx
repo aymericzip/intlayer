@@ -92,7 +92,12 @@ export const SearchView: FC<{
   const searchQuery = useSearchParams().get('search');
 
   const [results, setResults] = useState<DocMetadata[]>([]);
-  const { mutate: searchDoc, isPending } = useSearchDoc();
+  const [currentSearchQuery, setCurrentSearchQuery] = useState<string | null>(
+    searchQuery
+  );
+  const { data: searchDocData, isPending } = useSearchDoc(
+    currentSearchQuery ? { input: currentSearchQuery } : undefined
+  );
 
   const { noContentText, searchInput } = useIntlayer('doc-search-view');
 
@@ -108,51 +113,53 @@ export const SearchView: FC<{
     if (searchQuery) {
       // Prioritize backend search for longer queries, but always include Fuse results
       if (searchQuery.length > 2) {
-        // Adjusted threshold for calling backend search
-        searchDoc(
-          {
-            input: searchQuery,
-          },
-          {
-            onSuccess: (data) => {
-              if (data && data.data) {
-                let backendResults: DocMetadata[] = data.data
-                  .map((docKey: string) =>
-                    filesData.find((doc) => doc.docKey === docKey)
-                  )
-                  .filter((doc: DocMetadata | undefined): doc is DocMetadata =>
-                    Boolean(doc)
-                  );
-
-                // Perform client-side Fuse search
-                const fuseSearchResults = fuse
-                  .search(searchQuery)
-                  .map((result) => result.item);
-
-                // Merge results: backend results first, then Fuse results, avoiding duplicates
-                const combinedResults = [...backendResults];
-                const backendResultUrls = new Set(
-                  backendResults.map((doc) => doc.docKey)
-                );
-
-                fuseSearchResults.forEach((fuseDoc) => {
-                  if (!backendResultUrls.has(fuseDoc.docKey)) {
-                    combinedResults.push(fuseDoc);
-                  }
-                });
-
-                setResults(combinedResults);
-              }
-            },
-          }
-        );
+        // Set the search query to trigger the useSearchDoc hook
+        setCurrentSearchQuery(searchQuery);
+      } else {
+        // For shorter queries, only use Fuse search
+        setCurrentSearchQuery(null);
+        const fuseSearchResults = fuse
+          .search(searchQuery)
+          .map((result) => result.item);
+        setResults(fuseSearchResults);
       }
     } else {
+      setCurrentSearchQuery(null);
       setResults([]);
     }
   };
 
   const debouncedSearch = debounce(handleSearch, 200, () => null);
+
+  // Handle backend search results
+  useEffect(() => {
+    if (searchDocData && searchDocData.data && currentSearchQuery) {
+      let backendResults: DocMetadata[] = searchDocData.data
+        .map((docKey: string) => filesData.find((doc) => doc.docKey === docKey))
+        .filter((doc: DocMetadata | undefined): doc is DocMetadata =>
+          Boolean(doc)
+        );
+
+      // Perform client-side Fuse search
+      const fuseSearchResults = fuse
+        .search(currentSearchQuery)
+        .map((result) => result.item);
+
+      // Merge results: backend results first, then Fuse results, avoiding duplicates
+      const combinedResults = [...backendResults];
+      const backendResultUrls = new Set(
+        backendResults.map((doc) => doc.docKey)
+      );
+
+      fuseSearchResults.forEach((fuseDoc) => {
+        if (!backendResultUrls.has(fuseDoc.docKey)) {
+          combinedResults.push(fuseDoc);
+        }
+      });
+
+      setResults(combinedResults);
+    }
+  }, [searchDocData, currentSearchQuery, filesData, fuse]);
 
   useEffect(() => {
     if (!searchQuery) return;

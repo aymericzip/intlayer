@@ -12,6 +12,7 @@ import {
   GetProjectsParams,
   GetTagsParams,
   GetUsersParams,
+  SearchDocUtilParams,
 } from '@intlayer/backend';
 import { useConfiguration } from '@intlayer/editor-react';
 import {
@@ -777,12 +778,12 @@ export const useAutocomplete = () => {
  * Search
  */
 
-export const useSearchDoc = () => {
+export const useSearchDoc = (params?: SearchDocUtilParams) => {
   const intlayerOAuth = useIntlayerOAuth();
 
-  return useMutation({
-    mutationKey: ['search'],
-    mutationFn: intlayerOAuth.search.searchDoc,
+  return useQuery({
+    queryKey: ['search', params],
+    queryFn: () => intlayerOAuth.search.searchDoc(params),
   });
 };
 
