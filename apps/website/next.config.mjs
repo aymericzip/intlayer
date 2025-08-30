@@ -71,9 +71,9 @@ const secureHeaders = {
         'data:',
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
-      frameSrc: ["'self'", '*.youtube.com', '*.codesandbox.io'],
+      frameSrc: ["'self'", '*.youtube.com', '*.github.dev'],
       // Allow embedding preview apps hosted on Vercel
-      frameSrc: ["'self'", '*.youtube.com', '*.codesandbox.io', '*.vercel.app'],
+      frameSrc: ["'self'", '*.youtube.com', '*.github.dev'],
       frameAncestors: ["'self'", 'intlayer.org', 'localhost:*'],
       manifestSrc: ["'self'"],
       childSrc: ["'self'", '*.googletagmanager.com'],

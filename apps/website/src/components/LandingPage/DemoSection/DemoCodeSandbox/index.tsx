@@ -37,7 +37,7 @@ export const DemoCodeSandbox: FC = () => {
       <Loader isLoading={!isVisible} />
       {isVisible && (
         <iframe
-          src="https://codesandbox.io/p/github/aypineau/intlayer-example-nextjs/main?import=true&file=%2Fintlayer.config.ts&embed=1"
+          src="https://github.dev/aymericzip/intlayer-next-15-template"
           className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-[16/9] md:w-full"
           title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
           sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
