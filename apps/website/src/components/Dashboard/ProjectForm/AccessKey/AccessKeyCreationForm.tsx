@@ -36,7 +36,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   if (!session) return null;
 
   const permissions = session.permissions ?? [];
-  const { addNewAccessKey } = useAddNewAccessKey();
+  const { mutate: addNewAccessKey, isPending } = useAddNewAccessKey();
   const { nameInput, expiresAtInput, rights, createAccessKeyButton } =
     useIntlayer('access-key-creation-form');
 
@@ -51,16 +51,23 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   });
 
   /** -------------------------------------------------------- form handlers */
-  const onSubmitSuccess = async (data: AccessKeyFormCreationData) => {
+  const onSubmitSuccess = (data: AccessKeyFormCreationData) => {
     const selectedGrants = Object.entries(data.grants ?? {})
       .filter(([, granted]) => granted)
       .map(([permission]) => permission);
 
-    await addNewAccessKey({
-      name: data.name,
-      expiresAt: data.expiresAt ? new Date(data.expiresAt) : undefined,
-      grants: selectedGrants,
-    }).then(onAccessKeyCreated);
+    addNewAccessKey(
+      {
+        name: data.name,
+        expiresAt: data.expiresAt ? new Date(data.expiresAt) : undefined,
+        grants: selectedGrants,
+      },
+      {
+        onSuccess: (response) => {
+          onAccessKeyCreated(response);
+        },
+      }
+    );
   };
 
   return (
@@ -104,7 +111,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         type="submit"
         label={createAccessKeyButton.label.value}
         color="text"
-        isLoading={isSubmitting}
+        isLoading={isSubmitting || isPending}
         className="w-full"
       >
         {createAccessKeyButton.text.value}

@@ -1,4 +1,4 @@
-import type { Project } from '@/types/project.types';
+import type { Project, ProjectAPI } from '@/types/project.types';
 import { getOrganizationById } from '@services/organization.service';
 import { validateArray } from './validateArray';
 import { validateString } from './validateString';
@@ -28,7 +28,7 @@ export const MEMBERS_MIN_LENGTH = 1;
  * @returns An object containing the validation errors for each field.
  */
 export const validateProject = async (
-  project: Partial<Project>,
+  project: Partial<Project | ProjectAPI>,
   fieldsToCheck = defaultFieldsToCheck
 ): Promise<ValidationErrors> => {
   const errors: ValidationErrors = {};

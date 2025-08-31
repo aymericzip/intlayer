@@ -3,7 +3,7 @@
 import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { Logo } from '@intlayer/design-system';
-import type { Locales } from 'intlayer';
+import type { LocalesValues } from 'intlayer';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
 
@@ -16,7 +16,7 @@ export type DashboardFooterLink = {
 
 export type DashboardFooterProps = {
   links?: DashboardFooterLink[];
-  locale: Locales;
+  locale: LocalesValues;
 };
 
 export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {

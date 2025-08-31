@@ -1,5 +1,6 @@
 import type {
   Project,
+  ProjectAPI,
   ProjectData,
   ProjectDocument,
 } from '@/types/project.types';
@@ -91,7 +92,7 @@ export const createProject = async (
  */
 export const updateProjectById = async (
   projectId: string | Types.ObjectId,
-  project: Partial<Project>
+  project: Partial<Project | ProjectAPI>
 ): Promise<ProjectDocument> => {
   const projectObject = ensureMongoDocumentToObject(project);
   const projectToUpdate = removeObjectKeys(projectObject, [

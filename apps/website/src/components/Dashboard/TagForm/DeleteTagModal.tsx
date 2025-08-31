@@ -21,18 +21,20 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
   onDelete,
   isOpen,
 }) => {
-  const { deleteTag, isLoading: isDeleting } = useDeleteTag();
+  const { mutate: deleteTag, isPending: isDeleting } = useDeleteTag();
   const { confirmButton, cancelButton, description, title } =
     useIntlayer('delete-tag-modal');
   const router = useRouter();
 
-  const handleDelete = async () => {
-    await deleteTag(tag.id).then((response) => {
-      if (response.data) {
-        onDelete?.();
-        onClose?.();
-        router.push(PagesRoutes.Dashboard_Tags);
-      }
+  const handleDelete = () => {
+    deleteTag(tag.id, {
+      onSuccess: (response) => {
+        if (response.data) {
+          onDelete?.();
+          onClose?.();
+          router.push(PagesRoutes.Dashboard_Tags);
+        }
+      },
     });
   };
 

@@ -21,7 +21,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
   const searchParams = useSearchParams();
   const email = searchParams.get('email') ?? undefined;
 
-  const { mutate: register } = useRegister();
+  const { mutate: register, isPending } = useRegister();
 
   const handleRegistration = ({ email, password }: SignUp) => {
     register(
@@ -75,6 +75,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ callbackUrl }) => {
       onClickBackToSignIn={onClickBackToSignIn}
       emailInputRef={emailInputRef}
       defaultEmail={email}
+      isLoading={isPending}
     />
   );
 };

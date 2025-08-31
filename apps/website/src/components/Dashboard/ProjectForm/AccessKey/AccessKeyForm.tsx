@@ -1,6 +1,5 @@
 'use client';
 
-import type { OAuth2Access } from '@intlayer/backend';
 import {
   CopyToClipboard,
   Form,
@@ -19,26 +18,32 @@ import { useState, type FC } from 'react';
 import { AccessKeyCreationForm } from './AccessKeyCreationForm';
 import { getAccessKeySchema } from './AccessKeyFormSchema';
 
-const AccessKeyItem: FC<{ value: OAuth2Access }> = ({ value: accessKey }) => {
+const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
+  value: accessKey,
+}) => {
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const { deleteAccessKey, isLoading: isDeleting } = useDeleteAccessKey();
-  const { refreshAccessKey, isLoading: isRefreshing } = useRefreshAccessKey();
+  const { mutate: deleteAccessKey, isPending: isDeleting } =
+    useDeleteAccessKey();
+  const { mutate: refreshAccessKey, isPending: isRefreshing } =
+    useRefreshAccessKey();
   const { rights, modal, labels } = useIntlayer('access-key-form');
 
   const isLoading = isDeleting || isRefreshing;
 
-  const handleDelete = () => {
-    deleteAccessKey(accessKey.clientId).then(() =>
-      setIsDeletionModalOpen(false)
-    );
-  };
+  const handleDelete = () =>
+    deleteAccessKey(accessKey.clientId, {
+      onSuccess: () => {
+        setIsDeletionModalOpen(false);
+      },
+    });
 
-  const handleUpdate = () => {
-    refreshAccessKey(accessKey.clientId).then(() =>
-      setIsUpdateModalOpen(false)
-    );
-  };
+  const handleUpdate = () =>
+    refreshAccessKey(accessKey.clientId, {
+      onSuccess: () => {
+        setIsUpdateModalOpen(false);
+      },
+    });
 
   return (
     <>

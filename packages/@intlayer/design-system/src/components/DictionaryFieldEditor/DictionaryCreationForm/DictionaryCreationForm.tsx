@@ -21,7 +21,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
 }) => {
   const { session } = useAuth();
   const { project } = session ?? {};
-  const { mutate: addDictionary } = useAddDictionary();
+  const { mutate: addDictionary, isPending } = useAddDictionary();
   const { data: projects } = useGetProjects();
   const DictionarySchema = useDictionarySchema(String(project?.id));
   const { form, isSubmitting } = useForm(DictionarySchema);
@@ -80,7 +80,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
         className="ml-auto mt-12"
         type="submit"
         color={ButtonColor.TEXT}
-        isLoading={isSubmitting}
+        isLoading={isSubmitting || isPending}
         label={createDictionaryButton.ariaLabel.value}
         isFullWidth
       >

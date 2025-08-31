@@ -6,11 +6,12 @@ import { RefObject, type FC } from 'react';
 import { useSignUpSchema, type SignUp } from './useSignUpSchema';
 
 type SignUpFormProps = {
-  onSubmitSuccess: (data: SignUp) => Promise<void>;
+  onSubmitSuccess: (data: SignUp) => Promise<void> | void;
   onClickBackToSignIn: () => void;
   onSubmitError?: (error: Error) => void;
   defaultEmail?: string;
   emailInputRef?: RefObject<HTMLInputElement | null>;
+  isLoading?: boolean;
 };
 
 export const SignUpForm: FC<SignUpFormProps> = ({
@@ -19,6 +20,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
   onClickBackToSignIn,
   defaultEmail,
   emailInputRef,
+  isLoading,
 }) => {
   const {
     emailInput,
@@ -84,7 +86,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         className="mt-12 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting}
+        isLoading={isSubmitting || isLoading}
         label={signUpButton.ariaLabel.value}
       >
         {signUpButton.text}

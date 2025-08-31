@@ -10,7 +10,7 @@ export const SignInForm: FC<{
   callbackUrl?: string;
 }> = ({ callbackUrl }) => {
   const router = useRouter();
-  const { mutate: login } = useLogin();
+  const { mutate: login, isPending } = useLogin();
   const searchParams = useSearchParams();
   const email = searchParams.get('email');
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -62,6 +62,7 @@ export const SignInForm: FC<{
       onClickSignUp={onClickSignUp}
       defaultEmail={email ?? undefined}
       emailInputRef={emailInputRef}
+      isLoading={isPending}
     />
   );
 };

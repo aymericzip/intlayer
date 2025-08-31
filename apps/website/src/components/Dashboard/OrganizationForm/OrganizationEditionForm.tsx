@@ -13,7 +13,7 @@ export const OrganizationEditionForm: FC = () => {
   const { session } = useAuth();
   const { organization } = session ?? {};
   const OrganizationSchema = useOrganizationSchema();
-  const { mutate: updateOrganization } = useUpdateOrganization();
+  const { mutate: updateOrganization, isPending } = useUpdateOrganization();
   const { form, isSubmitting } = useForm(OrganizationSchema);
   const { title, nameInput, editButton } = useIntlayer('organization-form');
 
@@ -42,7 +42,7 @@ export const OrganizationEditionForm: FC = () => {
           className="mt-12 w-full"
           type="submit"
           color="text"
-          isLoading={isSubmitting}
+          isLoading={isSubmitting || isPending}
           label={editButton.ariaLabel.value}
         >
           {editButton.text}

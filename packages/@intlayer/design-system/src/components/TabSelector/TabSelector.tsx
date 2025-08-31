@@ -68,7 +68,7 @@ type TabSelectorProps<T extends TabProps> = {
   hoverable?: boolean;
 } & HTMLAttributes<HTMLElement> &
   Omit<VariantProps<typeof tabSelectorVariant>, 'color'> & {
-    color?: TabSelectorColor;
+    color?: TabSelectorColor | `${TabSelectorColor}`;
   };
 
 /**

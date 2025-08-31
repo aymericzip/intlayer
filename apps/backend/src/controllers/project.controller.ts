@@ -1,5 +1,4 @@
 import type {
-  Project,
   ProjectAPI,
   ProjectConfiguration,
   ProjectCreationData,
@@ -199,7 +198,7 @@ export const addProject = async (
   }
 };
 
-export type UpdateProjectBody = Partial<Project>;
+export type UpdateProjectBody = Partial<ProjectAPI>;
 export type UpdateProjectResult = ResponseData<ProjectAPI>;
 
 /**

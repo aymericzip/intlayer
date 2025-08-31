@@ -15,22 +15,23 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
   onProjectCreated,
 }) => {
   const ProjectSchema = useProjectSchema();
-  const { addProject } = useAddProject();
-  const { selectProject } = useSelectProject();
+  const { mutate: addProject, isPending } = useAddProject();
+  const { mutate: selectProject } = useSelectProject();
   const { form, isSubmitting } = useForm(ProjectSchema);
   const { nameInput, createProjectButton } = useIntlayer('project-form');
 
-  const onSubmitSuccess: (data: ProjectFormData) => Promise<void> = async (
-    data
-  ) => {
-    await addProject(data).then(async (result) => {
-      const projectId = String(result.data?.id);
+  const onSubmitSuccess: (data: ProjectFormData) => Promise<void> = (data) =>
+    addProject(data, {
+      onSuccess: (result) => {
+        const projectId = String(result.data?.id);
 
-      await selectProject(projectId);
+        if (result.data) {
+          selectProject(projectId);
 
-      onProjectCreated?.(result.data);
+          onProjectCreated?.(result.data);
+        }
+      },
     });
-  };
 
   return (
     <Form
@@ -50,7 +51,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
         className="mt-12 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting}
+        isLoading={isSubmitting || isPending}
         label={createProjectButton.ariaLabel.value}
       >
         {createProjectButton.text}

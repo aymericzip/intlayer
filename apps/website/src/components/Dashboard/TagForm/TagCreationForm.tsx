@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, Form } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system';
 import { useAddTag } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -12,7 +12,7 @@ type TagCreationFormProps = {
 
 export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
   const TagSchema = useTagSchema();
-  const { addTag } = useAddTag();
+  const { addTag, isPending } = useAddTag();
   const { form, isSubmitting } = useForm(TagSchema);
   const { nameInput, createTagButton } = useIntlayer('tag-form');
 
@@ -45,7 +45,7 @@ export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
         className="mt-12 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting}
+        isLoading={isSubmitting || isPending}
         label={createTagButton.ariaLabel.value}
       >
         {createTagButton.text}

@@ -60,6 +60,8 @@ export type OAuth2Access = OAuth2AccessData & {
   updatedAt: number;
 };
 
+export type OAuth2AccessAPI = ObjectIdToString<OAuth2Access>;
+
 export type Project = ProjectData & {
   id: Types.ObjectId;
   createdAt: number;

@@ -11,14 +11,16 @@ export const ProjectEditionForm: FC = () => {
   const isProjectAdmin = session?.roles?.includes('project_admin');
   const { project } = session ?? {};
   const ProjectSchema = useProjectSchema();
-  const { updateProject } = useUpdateProject();
+  const { mutate: updateProject, isPending } = useUpdateProject();
   const { form, isSubmitting } = useForm(ProjectSchema, {
     defaultValues: project ?? undefined,
   });
   const { title, nameInput, editButton } = useIntlayer('project-form');
 
-  const onSubmitSuccess = async (data: ProjectFormData) => {
-    await updateProject({ ...data, id: project?.id });
+  const onSubmitSuccess = (data: ProjectFormData) => {
+    if (project?.id) {
+      updateProject({ ...data, id: project.id });
+    }
   };
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export const ProjectEditionForm: FC = () => {
             className="mt-12 w-full"
             type="submit"
             color="text"
-            isLoading={isSubmitting}
+            isLoading={isSubmitting || isPending}
             label={editButton.ariaLabel.value}
           >
             {editButton.text}

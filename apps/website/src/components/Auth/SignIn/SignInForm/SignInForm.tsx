@@ -13,6 +13,7 @@ type SignInFormProps = {
   onClickSignUp: () => void;
   onSubmitError?: (error: Error) => void;
   emailInputRef?: RefObject<HTMLInputElement | null>;
+  isLoading?: boolean;
 };
 
 export const SignInForm: FC<SignInFormProps> = ({
@@ -22,6 +23,7 @@ export const SignInForm: FC<SignInFormProps> = ({
   onClickForgotPassword,
   onClickSignUp,
   emailInputRef,
+  isLoading,
 }) => {
   const SignInSchema = useSignInSchema();
   const { form, isSubmitting } = useForm(SignInSchema, {
@@ -90,7 +92,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           className="mt-12 w-full"
           type="submit"
           color="text"
-          isLoading={isSubmitting}
+          isLoading={isSubmitting || isLoading}
           label={loginButton.ariaLabel.value}
         >
           {loginButton.text}
