@@ -14,6 +14,7 @@ keywords:
   - जावास्क्रिप्ट
 slugs:
   - blog
+  - alternative-i18n-libraries
   - vue-i18n-vs-intlayer
 ---
 
