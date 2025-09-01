@@ -5,6 +5,10 @@
 </div>
 
 <div align="center">
+  <a href="./README.md" style="color: #0969da; font-weight: bold; text-decoration: none;">English README</a> | <a href="./README.zh-cn.md" style="color: #656d76; text-decoration: none;">简体中文说明</a>
+</div>
+
+<div align="center">
   <a href="https://www.npmjs.com/package/intlayer" target="blank"><img
     align="center"
     alt="npm"
