@@ -49,7 +49,7 @@ export const Code: FC<CodeCompProps> = ({
   isRollable = true,
   ...props
 }) => {
-  const code = children.endsWith('\n') ? children.slice(0, -1) : children;
+  const code = children?.endsWith('\n') ? children.slice(0, -1) : children;
 
   const hadSelectInHeader =
     packageManager || codeFormat || contentDeclarationFormat;

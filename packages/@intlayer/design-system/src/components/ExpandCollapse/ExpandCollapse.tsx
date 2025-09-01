@@ -5,7 +5,7 @@ import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
-export type ExpandCollapseCompProps = {
+export type ExpandCollapseProps = {
   isRollable?: boolean;
   minHeight?: number;
   children: ReactNode;
@@ -14,7 +14,7 @@ export type ExpandCollapseCompProps = {
 
 const DEFAULT_MIN_HEIGHT = 700;
 
-export const ExpandCollapse: FC<ExpandCollapseCompProps> = ({
+export const ExpandCollapse: FC<ExpandCollapseProps> = ({
   isRollable = true,
   minHeight = DEFAULT_MIN_HEIGHT,
   children,
