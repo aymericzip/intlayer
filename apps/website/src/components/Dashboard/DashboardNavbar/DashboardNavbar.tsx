@@ -5,14 +5,7 @@ import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import { Container, Logo, TabSelector } from '@intlayer/design-system';
-import {
-  useDevice,
-  useGetDictionaries,
-  useGetOrganizations,
-  useGetProjects,
-  useGetTags,
-  useSession,
-} from '@intlayer/design-system/hooks';
+import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { useLocale } from 'next-intlayer';
 import dynamic from 'next/dynamic';
 import { type FC, type ReactNode } from 'react';
@@ -73,12 +66,6 @@ export const DashboardNavbar: FC<NavbarProps> = ({ links }) => {
   const { session } = useSession();
   const { organization, project } = session ?? {};
   const { isMobile } = useDevice('sm');
-
-  // Allow prefetching
-  useGetOrganizations();
-  useGetProjects();
-  useGetDictionaries();
-  useGetTags();
 
   const filteredLinks = links
     .filter(
