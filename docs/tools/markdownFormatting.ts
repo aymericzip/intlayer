@@ -38,9 +38,8 @@ const validationRules: ValidationRule[] = [
       const hasFrontmatter = frontmatterPattern.test(content);
 
       if (!hasFrontmatter) {
-        errors.push(
-          'Document is missing frontmatter (YAML metadata between --- markers at the beginning)'
-        );
+        // No frontmatter, return empty errors and warnings
+        return { errors, warnings };
       } else {
         // If frontmatter exists, validate it has basic required fields
         const frontmatterMatch = content.match(frontmatterPattern);
