@@ -227,7 +227,12 @@ export const DocNavList: FC<DocNavListProps> = ({
                 ])}
                 onClick={() => setIsHidden((isHidden) => !isHidden)}
               />
-              <div className="from-card/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur" />
+              <div
+                className={cn(
+                  'from-card/90 absolute bottom-0 left-0 h-8 w-full translate-y-full bg-gradient-to-b backdrop-blur',
+                  isHidden && 'hidden'
+                )}
+              />
             </div>
           </Container>
 
