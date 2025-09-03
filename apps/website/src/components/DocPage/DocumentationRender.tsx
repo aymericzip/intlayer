@@ -28,7 +28,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
             <>
               <SectionScroller />
               <div
-                className={cn('flex flex-col gap-8 p-10', className)}
+                className={cn('flex flex-col gap-8 py-10', className)}
                 {...props}
               />
             </>

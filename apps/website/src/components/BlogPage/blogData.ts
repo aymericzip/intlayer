@@ -1,9 +1,9 @@
 import type { BlogKey, BlogMetadata } from '@intlayer/docs';
-import { Locales, getIntlayer } from 'intlayer';
+import { Locales, LocalesValues, getIntlayer } from 'intlayer';
 import type { CategorizedBlogData, Section } from './types';
 
 export const getBlogData = (
-  locale = Locales.ENGLISH
+  locale: LocalesValues = Locales.ENGLISH
 ): Record<string, CategorizedBlogData> => {
   const blog = getIntlayer('blog-data', locale);
 
@@ -67,7 +67,10 @@ export const getBlogSection = (
   return { paths, blog, title };
 };
 
-export const getPreviousNextBlogData = (docKey: BlogKey, locale: Locales) => {
+export const getPreviousNextBlogData = (
+  docKey: BlogKey,
+  locale: LocalesValues
+) => {
   const docData = getBlogData(locale);
   const { blog, paths, title } = getBlogSection(docData);
 
