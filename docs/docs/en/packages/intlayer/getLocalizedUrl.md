@@ -26,31 +26,61 @@ slugs:
 
 The `getLocalizedUrl` function generates a localized URL by prefixing the given URL with the specified locale. It handles both absolute and relative URLs, ensuring that the correct locale prefix is applied based on the configuration.
 
+**Key Features:**
+
+- Only 2 parameters are required: `url` and `currentLocale`
+- 3 optional parameters: `locales`, `defaultLocale`, and `prefixDefault`
+- Uses your project's internationalization configuration as defaults
+- Can be used with minimal parameters for simple cases or fully customized for complex scenarios
+
+---
+
+## Function Signature
+
+```typescript
+getLocalizedUrl(
+  url: string,                   // Required
+  currentLocale: Locales,        // Required
+  locales?: Locales[],           // Optional
+  defaultLocale?: Locales,       // Optional
+  prefixDefault?: boolean        // Optional
+): string
+```
+
 ---
 
 ## Parameters
 
+### Required Parameters
+
 - `url: string`
   - **Description**: The original URL string to be prefixed with a locale.
   - **Type**: `string`
+  - **Required**: Yes
 
 - `currentLocale: Locales`
   - **Description**: The current locale for which the URL is being localized.
   - **Type**: `Locales`
+  - **Required**: Yes
 
-- `locales: Locales[]`
-  - **Description**: Optional array of supported locales. By defaults, the configured locales in the project are provided.
+### Optional Parameters
+
+- `locales?: Locales[]`
+  - **Description**: Array of supported locales. If not provided, uses the configured locales from your project configuration.
   - **Type**: `Locales[]`
+  - **Required**: No (Optional)
   - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
-- `defaultLocale: Locales`
-  - **Description**: The default locale for the application. By defaults, the configured default locale in the project are provided.
+- `defaultLocale?: Locales`
+  - **Description**: The default locale for the application. If not provided, uses the configured default locale from your project configuration.
   - **Type**: `Locales`
+  - **Required**: No (Optional)
   - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
-- `prefixDefault: boolean`
-  - **Description**: Whether to prefix the URL for the default locale. By defaults, the configured value in the project are provided.
+- `prefixDefault?: boolean`
+  - **Description**: Whether to prefix the URL for the default locale. If not provided, uses the configured value from your project configuration.
   - **Type**: `boolean`
+  - **Required**: No (Optional)
   - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md#middleware)
 
 ### Returns
@@ -62,17 +92,53 @@ The `getLocalizedUrl` function generates a localized URL by prefixing the given 
 
 ## Example Usage
 
-### Relative URLs
+### Basic Usage (Only Required Parameters)
+
+When you have configured your project with internationalization settings, you can use the function with just the required parameters:
 
 ```typescript codeFormat="typescript"
 import { getLocalizedUrl, Locales } from "intlayer";
 
+// Uses your project's configuration for locales, defaultLocale, and prefixDefault
+getLocalizedUrl("/about", Locales.FRENCH);
+// Output: "/fr/about" (assuming French is supported in your config)
+
+getLocalizedUrl("/about", Locales.ENGLISH);
+// Output: "/about" or "/en/about" (depending on your prefixDefault setting)
+```
+
+```javascript codeFormat="esm"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Uses your project's configuration
+getLocalizedUrl("/about", Locales.FRENCH);
+// Output: "/fr/about"
+```
+
+```javascript codeFormat="commonjs"
+const { getLocalizedUrl, Locales } = require("intlayer");
+
+// Uses your project's configuration
+getLocalizedUrl("/about", Locales.FRENCH);
+// Output: "/fr/about"
+```
+
+### Advanced Usage (With Optional Parameters)
+
+You can override the default configuration by providing optional parameters:
+
+### Relative URLs (All Parameters Specified)
+
+```typescript codeFormat="typescript"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Explicitly providing all optional parameters
 getLocalizedUrl(
   "/about",
   Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
+  [Locales.ENGLISH, Locales.FRENCH], // locales
+  Locales.ENGLISH, // defaultLocale
+  false // prefixDefault
 );
 
 // Output: "/fr/about" for the French locale
@@ -82,27 +148,13 @@ getLocalizedUrl(
 ```javascript codeFormat="esm"
 import { getLocalizedUrl, Locales } from "intlayer";
 
+// Explicitly providing all optional parameters
 getLocalizedUrl(
   "/about",
   Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Output: "/fr/about" for the French locale
-// Output: "/about" for the default (English) locale
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
+  [Locales.ENGLISH, Locales.FRENCH], // locales
+  Locales.ENGLISH, // defaultLocale
+  false // prefixDefault
 );
 
 // Output: "/fr/about" for the French locale
@@ -112,16 +164,41 @@ getLocalizedUrl(
 ```javascript codeFormat="commonjs"
 const { getLocalizedUrl, Locales } = require("intlayer");
 
+// Explicitly providing all optional parameters
 getLocalizedUrl(
   "/about",
   Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
+  [Locales.ENGLISH, Locales.FRENCH], // locales
+  Locales.ENGLISH, // defaultLocale
+  false // prefixDefault
 );
 
 // Output: "/fr/about" for the French locale
 // Output: "/about" for the default (English) locale
+```
+
+### Partial Configuration Override
+
+You can also provide only some of the optional parameters. The function will use your project configuration for any parameters you don't specify:
+
+```typescript codeFormat="typescript"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Only override the locales, use project config for defaultLocale and prefixDefault
+getLocalizedUrl(
+  "/about",
+  Locales.SPANISH,
+  [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH] // Only specify locales
+);
+
+// Only override prefixDefault, use project config for locales and defaultLocale
+getLocalizedUrl(
+  "/about",
+  Locales.ENGLISH,
+  undefined, // Use project config for locales
+  undefined, // Use project config for defaultLocale
+  true // Force prefix for default locale
+);
 ```
 
 ### Absolute URLs
