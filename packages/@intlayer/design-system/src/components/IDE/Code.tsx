@@ -93,12 +93,12 @@ export const Code: FC<CodeCompProps> = ({
             </div>
           </>
         )}
-        <ExpandCollapse minHeight={MIN_HEIGHT} isRollable={isRollable}>
-          <CodeBlock
-            lang={language}
-            isDarkMode={isDarkMode}
-            className="p-2 scroll-w-auto"
-          >
+        <ExpandCollapse
+          minHeight={MIN_HEIGHT}
+          isRollable={isRollable}
+          className="p-2 overflow-x-auto"
+        >
+          <CodeBlock lang={language} isDarkMode={isDarkMode}>
             {code}
           </CodeBlock>
         </ExpandCollapse>
