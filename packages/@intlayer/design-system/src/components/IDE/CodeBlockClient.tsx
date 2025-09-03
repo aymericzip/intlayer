@@ -1,19 +1,19 @@
 'use client';
 
 import {
-  transformerNotationDiff,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight,
-  transformerNotationErrorLevel,
   transformerMetaHighlight,
   transformerMetaWordHighlight,
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
 } from '@shikijs/transformers';
 import {
-  type HTMLAttributes,
   type FC,
-  useState,
+  type HTMLAttributes,
   useEffect,
   useMemo,
+  useState,
 } from 'react';
 import {
   type BundledLanguage,
@@ -74,7 +74,7 @@ export const CodeBlockShiki = (({
     <div
       dangerouslySetInnerHTML={{ __html: out }}
       {...props}
-      style={{ backgroundColor: 'transparent' }}
+      style={{ backgroundColor: 'transparent', minWidth: 0, overflow: 'auto' }}
     />
   );
 }) as unknown as FC<CodeBlockProps>;
