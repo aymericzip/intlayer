@@ -1,7 +1,8 @@
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
-import configuration from '@intlayer/config/built';
+import { getAppLogger, getConfiguration } from '@intlayer/config';
 import type { IntlayerConfig } from '@intlayer/config/client';
+import { EventSource } from 'eventsource';
 import { getOAuthAPI } from './getIntlayerAPI/oAuth';
 
 export type IntlayerMessageEvent = MessageEvent;
@@ -31,7 +32,15 @@ export type IntlayerMessageEvent = MessageEvent;
  *   };
  */
 export class IntlayerEventListener {
+  private configuration = getConfiguration();
+  private appLogger = getAppLogger(this.configuration);
+
   private eventSource: EventSource | null = null;
+  private reconnectAttempts = 0;
+  private maxReconnectAttempts = 5;
+  private reconnectDelay = 1000; // Start with 1 second
+  private isManuallyDisconnected = false;
+  private reconnectTimeout: NodeJS.Timeout | null = null;
 
   /**
    * Callback triggered when a Dictionary is ADDED.
@@ -48,40 +57,129 @@ export class IntlayerEventListener {
    */
   public onDictionaryDeleted?: (dictionary: DictionaryAPI) => any;
 
-  constructor(private intlayerConfig: IntlayerConfig = configuration) {}
+  /**
+   * Callback triggered when connection is established or re-established.
+   */
+  public onConnectionOpen?: () => any;
+
+  /**
+   * Callback triggered when connection encounters an error.
+   */
+  public onConnectionError?: (error: Event) => any;
+
+  constructor(private intlayerConfig: IntlayerConfig = this.configuration) {
+    this.appLogger = getAppLogger(this.intlayerConfig);
+  }
 
   /**
    * Initializes the EventSource connection using the given intlayerConfig
    * (or the default config if none was provided).
    */
   public async initialize(): Promise<void> {
-    const backendURL = this.intlayerConfig.editor.backendURL;
+    this.isManuallyDisconnected = false;
+    await this.connect();
+  }
 
-    // Retrieve the access token
-    const accessToken = await getOAuthAPI(
-      this.intlayerConfig
-    ).getOAuth2AccessToken();
+  /**
+   * Establishes the EventSource connection with automatic reconnection support.
+   */
+  private async connect(): Promise<void> {
+    try {
+      const backendURL = this.intlayerConfig.editor.backendURL;
 
-    if (!accessToken) {
-      throw new Error('Failed to retrieve access token');
+      // Retrieve the access token
+      const accessToken = await getOAuthAPI(
+        this.intlayerConfig
+      ).getOAuth2AccessToken();
+
+      if (!accessToken) {
+        throw new Error('Failed to retrieve access token');
+      }
+
+      const API_ROUTE = `${backendURL}/api/event-listener`;
+
+      // Close existing connection if any
+      if (this.eventSource) {
+        this.eventSource.close();
+      }
+
+      this.eventSource = new EventSource(API_ROUTE, {
+        fetch: (input, init) =>
+          fetch(input, {
+            ...init,
+            headers: {
+              ...(init?.headers ?? {}),
+              Authorization: `Bearer ${accessToken.data?.accessToken}`,
+            },
+          }),
+      });
+
+      this.eventSource.onopen = () => {
+        this.reconnectAttempts = 0;
+        this.reconnectDelay = 1000; // Reset delay
+        this.onConnectionOpen?.();
+      };
+
+      this.eventSource.onmessage = (event) => this.handleMessage(event);
+      this.eventSource.onerror = (event) => this.handleError(event);
+    } catch (error) {
+      this.appLogger(['Failed to establish EventSource connection:', error], {
+        level: 'error',
+      });
+      this.scheduleReconnect();
     }
-
-    const API_ROUTE = `${backendURL}/api/event-listener`;
-    const url = `${API_ROUTE}/${accessToken}`;
-
-    this.eventSource = new EventSource(url);
-    this.eventSource.onmessage = (event) => this.handleMessage(event);
-    this.eventSource.onerror = (event) => this.handleError(event);
   }
 
   /**
    * Cleans up (closes) the EventSource connection.
    */
   public cleanup(): void {
+    this.isManuallyDisconnected = true;
+
+    if (this.reconnectTimeout) {
+      clearTimeout(this.reconnectTimeout);
+      this.reconnectTimeout = null;
+    }
+
     if (this.eventSource) {
       this.eventSource.close();
       this.eventSource = null;
     }
+  }
+
+  /**
+   * Schedules a reconnection attempt with exponential backoff.
+   */
+  private scheduleReconnect(): void {
+    if (
+      this.isManuallyDisconnected ||
+      this.reconnectAttempts >= this.maxReconnectAttempts
+    ) {
+      if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+        this.appLogger(
+          [
+            `Max reconnection attempts (${this.maxReconnectAttempts}) reached. Giving up.`,
+          ],
+          {
+            level: 'error',
+          }
+        );
+      }
+      return;
+    }
+
+    this.reconnectAttempts++;
+    const delay = this.reconnectDelay * Math.pow(2, this.reconnectAttempts - 1); // Exponential backoff
+
+    this.appLogger(
+      `Scheduling reconnection attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts} in ${delay}ms`
+    );
+
+    this.reconnectTimeout = setTimeout(async () => {
+      if (!this.isManuallyDisconnected) {
+        await this.connect();
+      }
+    }, delay);
   }
 
   /**
@@ -108,25 +206,70 @@ export class IntlayerEventListener {
                 await this.onDictionaryDeleted?.(dataEl.data);
                 break;
               default:
-                console.error('Unhandled dictionary status:', dataEl.status);
+                this.appLogger(
+                  ['Unhandled dictionary status:', dataEl.status],
+                  {
+                    level: 'error',
+                  }
+                );
                 break;
             }
             break;
           default:
-            console.error('Unknown object type:', dataEl.object);
+            this.appLogger(['Unknown object type:', dataEl.object], {
+              level: 'error',
+            });
             break;
         }
       }
     } catch (error) {
-      console.error('Error processing dictionary update:', error);
+      this.appLogger(['Error processing dictionary update:', error], {
+        level: 'error',
+      });
     }
   }
 
   /**
-   * Handles any SSE errors and then performs cleanup.
+   * Handles any SSE errors and attempts reconnection if appropriate.
    */
   private handleError(event: Event): void {
-    console.error('EventSource error:', event);
-    this.cleanup();
+    const errorEvent = event as any;
+
+    // Log detailed error information
+    this.appLogger(
+      [
+        'EventSource error:',
+        {
+          type: errorEvent.type,
+          message: errorEvent.message,
+          code: errorEvent.code,
+          readyState: this.eventSource?.readyState,
+          url: this.eventSource?.url,
+        },
+      ],
+      {
+        level: 'error',
+      }
+    );
+
+    // Notify error callback
+    this.onConnectionError?.(event);
+
+    // Check if this is a connection close error
+    const isConnectionClosed =
+      errorEvent.type === 'error' &&
+      (errorEvent.message?.includes('terminated') ||
+        errorEvent.message?.includes('closed') ||
+        this.eventSource?.readyState === EventSource.CLOSED);
+
+    if (isConnectionClosed && !this.isManuallyDisconnected) {
+      this.appLogger(
+        'Connection was terminated by server, attempting to reconnect...'
+      );
+      this.scheduleReconnect();
+    } else {
+      // For other types of errors, close the connection
+      this.cleanup();
+    }
   }
 }

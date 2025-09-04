@@ -4,10 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "bridge": "tsx hotReloadBridge.ts",
     "build": "tsc && vite build",
     "dev": "vite",
     "lint": "eslint . --cache --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "start": "pnpm intlayer live --process 'vite preview'",
     "start:editor": "npx intlayer-editor start -e development",
     "test": ""
   },

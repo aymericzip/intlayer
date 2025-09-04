@@ -27,6 +27,7 @@ let pushConfigMock: ReturnType<typeof vi.fn>;
 let listContentDeclarationMock: ReturnType<typeof vi.fn>;
 let translateDocMock: ReturnType<typeof vi.fn>;
 let reviewDocMock: ReturnType<typeof vi.fn>;
+let liveSyncMock: ReturnType<typeof vi.fn>;
 
 // Hoisted mocks – evaluated before the tested module is imported
 vi.mock('./build', () => ({
@@ -66,6 +67,10 @@ vi.mock('./reviewDoc', () => ({
   reviewDoc: (...args: any[]) => reviewDocMock(...args),
 }));
 
+vi.mock('./liveSync', () => ({
+  liveSync: (...args: any[]) => liveSyncMock(...args),
+}));
+
 // Mock getParentPackageJSON utility
 vi.mock('./utils/getParentPackageJSON', () => ({
   getParentPackageJSON: vi.fn(() => ({
@@ -101,6 +106,7 @@ describe('Intlayer CLI', () => {
     listContentDeclarationMock = vi.fn();
     translateDocMock = vi.fn();
     reviewDocMock = vi.fn();
+    liveSyncMock = vi.fn();
   });
 
   afterEach(() => {
@@ -495,6 +501,60 @@ describe('Intlayer CLI', () => {
       setAPI();
 
       expect(getConfigMock).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('live command', () => {
+    it('triggers live sync without process option', async () => {
+      setProcessArgv(['live']);
+
+      const { setAPI } = await import('./cli');
+      setAPI();
+
+      expect(liveSyncMock).toHaveBeenCalledTimes(1);
+      expect(liveSyncMock).toHaveBeenCalledWith(expect.objectContaining({}));
+    });
+
+    it('triggers live sync with process option for vite preview', async () => {
+      setProcessArgv(['live', '--process', 'vite preview']);
+
+      const { setAPI } = await import('./cli');
+      setAPI();
+
+      expect(liveSyncMock).toHaveBeenCalledTimes(1);
+      expect(liveSyncMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          process: 'vite preview',
+        })
+      );
+    });
+
+    it('triggers live sync with process option for next start', async () => {
+      setProcessArgv(['live', '--process', 'next start']);
+
+      const { setAPI } = await import('./cli');
+      setAPI();
+
+      expect(liveSyncMock).toHaveBeenCalledTimes(1);
+      expect(liveSyncMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          process: 'next start',
+        })
+      );
+    });
+
+    it('triggers live sync with process option for npm run dev', async () => {
+      setProcessArgv(['live', '--process', 'npm run dev']);
+
+      const { setAPI } = await import('./cli');
+      setAPI();
+
+      expect(liveSyncMock).toHaveBeenCalledTimes(1);
+      expect(liveSyncMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          process: 'npm run dev',
+        })
+      );
     });
   });
 });

@@ -15,4 +15,27 @@ export default defineConfig({
       filename: 'stats.html',
     }),
   ],
+  optimizeDeps: {
+    exclude: [
+      '@intlayer/dictionaries-entry',
+      '@intlayer/unmerged-dictionaries-entry',
+      '@intlayer/dynamic-dictionaries-entry',
+    ],
+  }, // don’t prebundle in dev
+  ssr: {
+    external: [
+      '@intlayer/dictionaries-entry',
+      '@intlayer/unmerged-dictionaries-entry',
+      '@intlayer/dynamic-dictionaries-entry',
+    ],
+  }, // SSR external
+  build: {
+    rollupOptions: {
+      external: [
+        '@intlayer/dictionaries-entry',
+        '@intlayer/unmerged-dictionaries-entry',
+        '@intlayer/dynamic-dictionaries-entry',
+      ],
+    },
+  },
 });

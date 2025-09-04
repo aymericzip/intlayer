@@ -1,9 +1,5 @@
-import {
-  checkDictionaryChanges,
-  prepareIntlayer,
-  watch,
-} from '@intlayer/chokidar';
-import { ESMxCJSRequire, getConfiguration, logger } from '@intlayer/config';
+import { prepareIntlayer, watch } from '@intlayer/chokidar';
+import { ESMxCJSRequire, getConfiguration } from '@intlayer/config';
 import type { RsbuildPlugin } from '@rsbuild/core';
 import { join, relative } from 'path';
 
@@ -76,19 +72,6 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
           },
         });
       });
-
-      // Optionally, before compile check for dictionary changes if hot reload is enabled.
-      if (intlayerConfig.editor.hotReload) {
-        api.onBeforeEnvironmentCompile(async () => {
-          try {
-            await checkDictionaryChanges();
-          } catch (error) {
-            logger(`Error checking dictionary changes: ${error}`, {
-              level: 'error',
-            });
-          }
-        });
-      }
     },
   };
 };

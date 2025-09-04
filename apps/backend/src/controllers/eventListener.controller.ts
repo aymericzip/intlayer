@@ -50,12 +50,7 @@ export const listenChangeSSE = async (
   req: Request<CheckDictionaryChangeSSEParams, any, any>,
   res: Response
 ) => {
-  const { accessToken } = req.params;
-
-  if (!accessToken) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_AUTHENTICATED');
-    return;
-  }
+  const { project } = res.locals;
 
   if (clients.length >= MAX_SSE_CONNECTIONS) {
     ErrorHandler.handleGenericErrorResponse(res, 'TOO_MANY_CONNECTIONS');
@@ -77,7 +72,7 @@ export const listenChangeSSE = async (
   // Add client to the list
   const newClient = {
     id: clientId,
-    projectId: String((res.locals.session as any).session.activeProjectId),
+    projectId: String(project.id),
     res,
   };
   clients.push(newClient);

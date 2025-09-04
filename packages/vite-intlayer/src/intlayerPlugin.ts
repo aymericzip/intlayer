@@ -1,15 +1,9 @@
-import {
-  checkDictionaryChanges,
-  prepareIntlayer,
-  runOnce,
-  watch,
-} from '@intlayer/chokidar';
+import { prepareIntlayer, runOnce, watch } from '@intlayer/chokidar';
 import intlayerConfig from '@intlayer/config/built';
 import { join, relative, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { type PluginOption } from 'vite';
 import { IntlayerPrunePlugin } from './intlayerPrunePlugin';
-
 /**
  *
  * A Vite plugin that integrates Intlayer configuration into the build process
@@ -24,14 +18,10 @@ import { IntlayerPrunePlugin } from './intlayerPrunePlugin';
 export const intlayerPlugin = (): PluginOption => {
   const {
     mainDir,
-    dictionariesDir,
-    unmergedDictionariesDir,
-    dynamicDictionariesDir,
     configDir,
     baseDir,
     watch: isWatchMode,
   } = intlayerConfig.content;
-  const { hotReload } = intlayerConfig.editor;
   const { optimize } = intlayerConfig.build;
 
   const plugins: PluginOption[] = [
@@ -87,11 +77,6 @@ export const intlayerPlugin = (): PluginOption => {
         if (intlayerConfig.content.watch) {
           // Start watching (assuming watch is also async)
           watch({ configuration: intlayerConfig });
-        }
-
-        if (hotReload) {
-          // Start SSE listener to rebuild dictionaries on remote changes
-          await checkDictionaryChanges();
         }
       },
 

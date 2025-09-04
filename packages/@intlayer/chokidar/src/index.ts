@@ -1,4 +1,3 @@
-export { checkDictionaryChanges } from './checkDictionaryChanges';
 export {
   buildAndWatchIntlayer,
   handleAdditionalContentDeclarationFile,

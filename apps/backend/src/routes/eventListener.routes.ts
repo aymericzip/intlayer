@@ -11,9 +11,8 @@ const baseURL = () => `${process.env.BACKEND_URL}${eventListenerRoute}`;
 export const eventListenerRoutes = () =>
   ({
     checkDictionaryChangeSSE: {
-      urlModel: '/:accessToken',
-      url: ({ accessToken }: { accessToken: string }) =>
-        `${baseURL()}/${accessToken}`,
+      urlModel: '/',
+      url: baseURL(),
       method: 'GET',
     },
   }) satisfies Routes;

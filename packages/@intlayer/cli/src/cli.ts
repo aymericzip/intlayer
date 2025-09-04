@@ -12,6 +12,7 @@ import { build } from './build';
 import { getConfig } from './config';
 import { fill, FillOptions } from './fill';
 import { listContentDeclaration } from './listContentDeclaration';
+import { liveSync } from './liveSync';
 import { pull } from './pull';
 import { push } from './push';
 import { pushConfig } from './pushConfig';
@@ -518,6 +519,24 @@ export const setAPI = (): Command => {
       skipIfModifiedAfter: options.skipIfModifiedAfter,
     })
   );
+
+  /**
+   * LIVE SYNC
+   */
+
+  const liveOptions = [
+    ['--process [process]', 'Start command in parallel with the live sync'],
+  ];
+
+  const liveCmd = program
+    .command('live')
+    .description(
+      'Live sync - Watch for changes made on the CMS and update the application content accordingly'
+    );
+
+  applyOptions(liveCmd, liveOptions);
+
+  liveCmd.action((options) => liveSync(options));
 
   program.parse(process.argv);
 

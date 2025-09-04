@@ -51,7 +51,7 @@ export const oAuth2Middleware = async (
   }
 
   try {
-    const hasToken = !!req.headers.authorization;
+    const hasToken = Boolean(req.headers.authorization);
 
     if (!hasToken) {
       // If the request does not have a token, skip the oAuth2 authentication
