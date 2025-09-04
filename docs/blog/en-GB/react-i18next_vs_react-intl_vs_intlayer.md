@@ -14,6 +14,7 @@ keywords:
   - React
 slugs:
   - blog
+  - alternative-i18n-libraries
   - react-i18next-vs-react-intl-vs-intlayer
 ---
 

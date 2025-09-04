@@ -14,6 +14,7 @@ keywords:
   - 자바스크립트
 slugs:
   - blog
+  - alternative-i18n-libraries
   - vue-i18n-vs-intlayer
 ---
 

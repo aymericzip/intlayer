@@ -14,6 +14,7 @@ keywords:
   - JavaScript
 slugs:
   - blog
+  - alternative-i18n-libraries
   - vue-i18n-vs-intlayer
 ---
 

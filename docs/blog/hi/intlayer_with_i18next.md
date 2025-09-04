@@ -16,6 +16,7 @@ keywords:
   - TypeScript
 slugs:
   - blog
+  - alternative-i18n-libraries
   - intlayer-with-i18next
 ---
 
