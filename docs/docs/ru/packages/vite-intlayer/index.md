@@ -53,17 +53,17 @@ pnpm add vite-intlayer
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [intlayerPlugin(), intlayerMiddlewarePlugin()],
 });
 ```
 
 > Плагин Vite `intlayerPlugin()` используется для интеграции Intlayer с Vite. Он обеспечивает сборку файлов деклараций контента и их мониторинг в режиме разработки. Определяет переменные окружения Intlayer внутри приложения Vite. Кроме того, предоставляет алиасы для оптимизации производительности.
 
-> Плагин `intLayerMiddlewarePlugin()` добавляет маршрутизацию на стороне сервера в ваше приложение. Этот плагин автоматически определит текущую локаль на основе URL и установит соответствующее cookie с локалью. Если локаль не указана, плагин определит наиболее подходящую локаль на основе языковых предпочтений браузера пользователя. Если локаль не обнаружена, будет выполнено перенаправление на локаль по умолчанию.
+> Плагин `intlayerMiddlewarePlugin()` добавляет маршрутизацию на стороне сервера в ваше приложение. Этот плагин автоматически определит текущую локаль на основе URL и установит соответствующее cookie с локалью. Если локаль не указана, плагин определит наиболее подходящую локаль на основе языковых предпочтений браузера пользователя. Если локаль не обнаружена, будет выполнено перенаправление на локаль по умолчанию.
 
 ## Освоение интернационализации вашего приложения Vite
 

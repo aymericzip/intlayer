@@ -53,17 +53,17 @@ viteの設定にプラグインを組み込む例を示します。
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [intlayerPlugin(), intlayerMiddlewarePlugin()],
 });
 ```
 
 > `intlayerPlugin()` は Intlayer を Vite と統合するための Vite プラグインです。コンテンツ宣言ファイルのビルドを保証し、開発モードでそれらを監視します。Vite アプリケーション内で Intlayer の環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスも提供します。
 
-> `intLayerMiddlewarePlugin()` はアプリケーションにサーバーサイドルーティングを追加します。このプラグインは URL に基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、ユーザーのブラウザの言語設定に基づいて最適なロケールを判別します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
+> `intlayerMiddlewarePlugin()` はアプリケーションにサーバーサイドルーティングを追加します。このプラグインは URL に基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、ユーザーのブラウザの言語設定に基づいて最適なロケールを判別します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
 
 ## Vite アプリケーションの国際化をマスターする
 

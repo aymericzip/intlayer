@@ -86,14 +86,14 @@ CommonJS/ESMのバリアントは、`cjs`/`mjs`を好む場合でも元のドキ
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
     react(),
     intlayerPlugin(),
     // ロケール検出、クッキー、リダイレクトのためにオプションだが推奨：
-    intLayerMiddlewarePlugin(),
+    intlayerMiddlewarePlugin(),
   ],
 });
 ```

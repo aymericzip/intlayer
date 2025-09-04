@@ -53,17 +53,17 @@ pnpm add vite-intlayer
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [intlayerPlugin(), intlayerMiddlewarePlugin()],
 });
 ```
 
 > `intlayerPlugin()` 是用于将 Intlayer 集成到 Vite 的插件。它确保内容声明文件的构建，并在开发模式下进行监控。它在 Vite 应用中定义了 Intlayer 的环境变量。此外，它还提供别名以优化性能。
 
-> `intLayerMiddlewarePlugin()` 为您的应用添加服务器端路由。该插件会根据 URL 自动检测当前语言环境并设置相应的语言环境 Cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果未检测到语言环境，则会重定向到默认语言环境。
+> `intlayerMiddlewarePlugin()` 为您的应用添加服务器端路由。该插件会根据 URL 自动检测当前语言环境并设置相应的语言环境 Cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果未检测到语言环境，则会重定向到默认语言环境。
 
 ## 掌握您的 Vite 应用的国际化
 

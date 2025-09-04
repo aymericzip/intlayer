@@ -53,17 +53,17 @@ pnpm add vite-intlayer
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [intlayerPlugin(), intlayerMiddlewarePlugin()],
 });
 ```
 
 > يستخدم مكون Vite الإضافي `intlayerPlugin()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يحدد متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
 
-> يضيف مكون `intLayerMiddlewarePlugin()` التوجيه على جانب الخادم إلى تطبيقك. سيقوم هذا المكون تلقائيًا بالكشف عن اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط المناسب للغة. إذا لم يتم تحديد لغة، سيحدد المكون اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. وإذا لم يتم الكشف عن أي لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
+> يضيف مكون `intlayerMiddlewarePlugin()` التوجيه على جانب الخادم إلى تطبيقك. سيقوم هذا المكون تلقائيًا بالكشف عن اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط المناسب للغة. إذا لم يتم تحديد لغة، سيحدد المكون اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. وإذا لم يتم الكشف عن أي لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
 
 ## إتقان التدويل في تطبيق Vite الخاص بك
 

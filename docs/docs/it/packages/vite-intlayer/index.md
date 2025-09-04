@@ -53,17 +53,17 @@ Ecco un esempio di come includere i plugin nella tua configurazione di vite.
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [intlayerPlugin(), intlayerMiddlewarePlugin()],
 });
 ```
 
 > Il plugin Vite `intlayerPlugin()` viene utilizzato per integrare Intlayer con Vite. Garantisce la creazione dei file di dichiarazione dei contenuti e li monitora in modalità sviluppo. Definisce le variabili d'ambiente di Intlayer all'interno dell'applicazione Vite. Inoltre, fornisce alias per ottimizzare le prestazioni.
 
-> Il plugin `intLayerMiddlewarePlugin()` aggiunge il routing lato server alla tua applicazione. Questo plugin rileverà automaticamente la locale corrente in base all'URL e imposterà il cookie della locale appropriata. Se non viene specificata alcuna locale, il plugin determinerà la locale più appropriata in base alle preferenze linguistiche del browser dell'utente. Se non viene rilevata alcuna locale, reindirizzerà alla locale predefinita.
+> Il plugin `intlayerMiddlewarePlugin()` aggiunge il routing lato server alla tua applicazione. Questo plugin rileverà automaticamente la locale corrente in base all'URL e imposterà il cookie della locale appropriata. Se non viene specificata alcuna locale, il plugin determinerà la locale più appropriata in base alle preferenze linguistiche del browser dell'utente. Se non viene rilevata alcuna locale, reindirizzerà alla locale predefinita.
 
 ## Padroneggiare l'internazionalizzazione della tua applicazione Vite
 

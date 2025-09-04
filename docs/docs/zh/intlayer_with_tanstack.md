@@ -86,14 +86,14 @@ export default config;
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
     react(),
     intlayerPlugin(),
     // 可选但推荐用于语言环境检测、Cookies 和重定向：
-    intLayerMiddlewarePlugin(),
+    intlayerMiddlewarePlugin(),
   ],
 });
 ```

@@ -2,11 +2,11 @@ import vue from '@vitejs/plugin-vue';
 import { createRequire } from 'module';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
-import { intLayerMiddlewarePlugin, intlayerPlugin } from 'vite-intlayer';
+import { intlayerMiddlewarePlugin, intlayerPlugin } from 'vite-intlayer';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [intlayerPlugin(), intLayerMiddlewarePlugin(), vue()],
+  plugins: [intlayerPlugin(), intlayerMiddlewarePlugin(), vue()],
 
   resolve: {
     dedupe: ['vue'],

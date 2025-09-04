@@ -86,14 +86,14 @@ export default config;
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
     react(),
     intlayerPlugin(),
     // वैकल्पिक लेकिन स्थानीय पहचान, कुकीज़ और रीडायरेक्ट के लिए अनुशंसित:
-    intLayerMiddlewarePlugin(),
+    intlayerMiddlewarePlugin(),
   ],
 });
 ```

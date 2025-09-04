@@ -672,38 +672,38 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 </template>
 ```
 
-In parallel, you can also use the `intLayerMiddlewarePlugin` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+In parallel, you can also use the `intlayerMiddlewarePlugin` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [vue(), intlayerPlugin(), intlayerMiddlewarePlugin()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [vue(), intlayerPlugin(), intlayerMiddlewarePlugin()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const vue = require("@vitejs/plugin-vue");
-const { intlayerPlugin, intLayerMiddlewarePlugin } = require("vite-intlayer");
+const { intlayerPlugin, intlayerMiddlewarePlugin } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [vue(), intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [vue(), intlayerPlugin(), intlayerMiddlewarePlugin()],
 });
 ```
 
@@ -722,9 +722,9 @@ To automatically update the URL when the user changes the language, you can modi
   </div>
   const { defineConfig } = require("vite"); const vue =
   require("@vitejs/plugin-vue"); const { intlayerPlugin,
-  intLayerMiddlewarePlugin } = require("vite-intlayer"); //
+  intlayerMiddlewarePlugin } = require("vite-intlayer"); //
   https://vitejs.dev/config/ module.exports = defineConfig({ plugins: [vue(),
-  intlayerPlugin(), intLayerMiddlewarePlugin()], });
+  intlayerPlugin(), intlayerMiddlewarePlugin()], });
 </template>
 ```
 

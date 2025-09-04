@@ -86,14 +86,14 @@ As variantes CommonJS/ESM são idênticas ao seu documento original caso prefira
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
     react(),
     intlayerPlugin(),
     // Opcional, mas recomendado para detecção de localidade, cookies e redirecionamentos:
-    intLayerMiddlewarePlugin(),
+    intlayerMiddlewarePlugin(),
   ],
 });
 ```
