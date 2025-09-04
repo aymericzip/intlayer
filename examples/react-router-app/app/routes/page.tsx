@@ -1,8 +1,15 @@
+import { useEffect } from 'react';
 import { useLocale } from 'react-intlayer';
-import { Navigate } from 'react-router';
+// eslint-disable-next-line no-restricted-imports
+import { useNavigate } from 'react-router';
 
 export default function Page() {
   const { locale } = useLocale();
+  const navigate = useNavigate();
 
-  return <Navigate replace to={locale} />;
+  useEffect(() => {
+    navigate(locale, { replace: true });
+  }, [locale, navigate]);
+
+  return null;
 }

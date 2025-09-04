@@ -6,7 +6,7 @@ import { intLayerMiddlewarePlugin, intlayerPlugin } from 'vite-intlayer';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayerPlugin(), intLayerMiddlewarePlugin()],
+  plugins: [intlayerPlugin(), intLayerMiddlewarePlugin(), vue()],
 
   resolve: {
     dedupe: ['vue'],
