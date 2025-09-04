@@ -3,7 +3,7 @@ import { getConfiguration } from '@intlayer/config';
 import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
 import { join, relative, resolve } from 'path';
-import { intLayerMiddlewarePlugin, IntlayerPrunePlugin } from 'vite-intlayer';
+import { intlayerMiddlewarePlugin, IntlayerPrunePlugin } from 'vite-intlayer';
 
 // @ts-ignore fix instantiation is excessively deep and possibly infinite
 export const module: NuxtModule = defineNuxtModule({
@@ -40,7 +40,7 @@ export const module: NuxtModule = defineNuxtModule({
       if (isServer) {
         // We only need the middleware on the server side during development
         // viteConfig.plugins can be undefined at this stage
-        (viteConfig.plugins ?? []).push(intLayerMiddlewarePlugin() as any);
+        (viteConfig.plugins ?? []).push(intlayerMiddlewarePlugin() as any);
       }
       if (optimize) {
         // viteConfig.plugins can be undefined at this stage

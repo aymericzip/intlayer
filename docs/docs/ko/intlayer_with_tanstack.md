@@ -86,14 +86,14 @@ CommonJS/ESM 변형은 `cjs`/`mjs`를 선호하는 경우 원본 문서와 동�
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intLayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
     react(),
     intlayerPlugin(),
     // 선택 사항이지만 로케일 감지, 쿠키 및 리디렉션에 권장됩니다:
-    intLayerMiddlewarePlugin(),
+    intlayerMiddlewarePlugin(),
   ],
 });
 ```

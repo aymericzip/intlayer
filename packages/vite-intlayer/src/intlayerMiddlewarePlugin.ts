@@ -1,7 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { parse } from 'url';
 import { getConfiguration, type Locales } from '@intlayer/config';
 import { localeDetector } from '@intlayer/core';
+import type { IncomingMessage, ServerResponse } from 'http';
+import { parse } from 'url';
 /* @ts-ignore - Vite types error */
 import type { Connect, Plugin } from 'vite';
 
@@ -32,7 +32,7 @@ const {
 /**
  * A Vite plugin that integrates a logic similar to the Next.js intlayer middleware.
  */
-export const intLayerMiddlewarePlugin = (): Plugin => {
+export const intlayerMiddlewarePlugin = (): Plugin => {
   return {
     name: 'vite-intlayer-middleware-plugin',
     configureServer: (server) => {
@@ -278,6 +278,27 @@ const handleMissingPathLocale = ({
   originalPath: string;
   cookieLocale?: Locales;
 }) => {
+  // If navigation comes from the same origin (e.g., via an in-app language switcher),
+  // treat unprefixed paths as an explicit intent to view the default locale.
+  // This avoids redirecting back to the cookie locale (e.g., '/tr/') when user selects '/'.
+  const referer = (req.headers.referer || req.headers.referrer) as
+    | string
+    | undefined;
+  if (referer) {
+    try {
+      const refererUrl = new URL(referer);
+      const host = req.headers.host;
+      if (host && refererUrl.host === host) {
+        const locale = defaultLocale as Locales;
+        const newPath = constructPath(locale, originalPath);
+        rewriteUrl(req, res, newPath, locale);
+        return next();
+      }
+    } catch {
+      // ignore invalid referer
+    }
+  }
+
   // 1. Choose the best locale
   let locale = (cookieLocale ??
     localeDetector(
