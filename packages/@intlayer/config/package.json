@@ -39,6 +39,7 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
+      "browser": "./dist/esm/client.mjs",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },

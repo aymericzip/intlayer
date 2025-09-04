@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/config';
+import type { LocalesValues } from '@intlayer/config/client';
 /**
  * @intlayer/dictionaries-entry is a package that only returns the dictionary entry path.
  * Using an external package allow to alias it in the bundle configuration (such as webpack).

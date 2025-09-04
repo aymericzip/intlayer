@@ -1,5 +1,5 @@
 import type { AIOptions as BaseAIOptions } from '@intlayer/api';
-import { GetConfigurationOptions, isESModule } from '@intlayer/config';
+import type { GetConfigurationOptions } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { Command } from 'commander';
 import { dirname as pathDirname } from 'path';
@@ -24,6 +24,8 @@ import { getParentPackageJSON } from './utils/getParentPackageJSON';
 type AIOptions = BaseAIOptions & {
   customPrompt?: string;
 };
+
+const isESModule = typeof import.meta.url === 'string';
 
 export const dirname = isESModule
   ? pathDirname(fileURLToPath(import.meta.url))

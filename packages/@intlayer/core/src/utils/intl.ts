@@ -22,8 +22,7 @@
 //
 // ---------------------------------------------------------------------
 
-import { LocalesValues } from '@intlayer/config';
-import configuration from '@intlayer/config/built';
+import { Locales, type LocalesValues } from '@intlayer/config/client';
 
 // Helper type that picks just the constructor members off `typeof Intl`.
 // The "capital‑letter" heuristic is 100 % accurate today and keeps the
@@ -79,10 +78,7 @@ const createCachedConstructor = <T extends new (...args: any[]) => any>(
       return locales as any;
     }
 
-    const key = cacheKey(
-      locales ?? configuration.internationalization.defaultLocale,
-      options
-    );
+    const key = cacheKey(locales ?? Locales.ENGLISH, options);
     let instance: InstanceType<T> | undefined = cache.get(key);
 
     if (!instance) {

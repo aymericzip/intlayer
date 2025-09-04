@@ -1,6 +1,6 @@
 'use client';
 
-import type { Locales, LocalesValues } from '@intlayer/config';
+import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
   type ConditionContent,
   type ContentNode,

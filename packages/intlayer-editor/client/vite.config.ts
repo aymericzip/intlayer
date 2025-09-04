@@ -1,9 +1,9 @@
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { intlayerPlugin } from 'vite-intlayer';
-import tailwindcss from '@tailwindcss/vite';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -12,6 +12,11 @@ export default defineConfig({
   root: __dirname,
   server: {
     port: 8000,
+  },
+  resolve: {
+    alias: {
+      '@intlayer/config': '@intlayer/config/client',
+    },
   },
 
   plugins: [react(), intlayerPlugin(), tailwindcss()],
