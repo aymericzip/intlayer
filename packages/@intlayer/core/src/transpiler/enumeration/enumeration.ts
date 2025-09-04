@@ -4,9 +4,9 @@ import {
   NodeType,
 } from '../../types/index';
 
-type Positif = number | `${number}`;
-type Negatif = `-${number}`;
-type Numbers = Positif | Negatif;
+type Positive = number | `${number}`;
+type Negative = `-${number}`;
+type Numbers = Positive | Negative;
 
 type Equal = Numbers;
 type EqualString = `=${Numbers}`;
