@@ -22,8 +22,6 @@
       alt="types included"
       height="30"
     /></a>
-
-[![Trust Score](https://archestra.ai/mcp-catalog/api/badge/quality/aymericzip/intlayer)](https://archestra.ai/mcp-catalog/aymericzip__intlayer)
 </div>
 
 <div>
