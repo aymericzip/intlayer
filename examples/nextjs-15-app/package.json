@@ -16,7 +16,7 @@
     "fuse.js": "^7.1.0",
     "intlayer": "workspace:*",
     "markdown-to-jsx": "^7.7.6",
-    "next": "^15.5.2",
+    "next": "^14.2.32",
     "next-intlayer": "workspace:*",
     "react": "18.3.1",
     "react-dom": "18.3.1"

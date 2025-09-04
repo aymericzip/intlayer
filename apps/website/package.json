@@ -81,7 +81,7 @@
     "intlayer-editor": "workspace:*",
     "lucide-react": "^0.541.0",
     "markdown-to-jsx": "^7.7.6",
-    "next": "^15.5.2",
+    "next": "^14.2.32",
     "next-intlayer": "workspace:*",
     "next-secure-headers": "^2.2.0",
     "next-themes": "^0.4.6",
