@@ -262,7 +262,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 如果没有热加载，则需要重新构建应用程序以显示新内容。
 
-通过激活 [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) 配置，当检测到更新时，应用程序将自动替换更新的内容。
+通过激活 [`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration) 配置，当检测到更新时，应用程序将自动替换更新的内容。
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -280,7 +280,7 @@ const config: IntlayerConfig = {
      *
      * 默认值：false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -302,7 +302,7 @@ const config = {
      *
      * 默认值：false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -324,7 +324,7 @@ const config = {
      *
      * 默认值：false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -344,7 +344,6 @@ module.exports = config;
 - 应用程序正在运行。
 
 - [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 配置已正确设置在您的 Intlayer 配置文件中。
-
   - 必需字段：
     - 应用程序 URL 应与您在编辑器配置中设置的 URL (`applicationURL`) 匹配。
     - CMS URL

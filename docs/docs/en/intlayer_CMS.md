@@ -262,7 +262,7 @@ The Intlayer CMS is able to hot reload the dictionaries when a change is detecte
 
 Without the hot reloading, a new build of the application will be needed to display the new content.
 
-By activating the [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration, the application will automatically replace the updated content when it is detected.
+By activating the [`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration, the application will automatically replace the updated content when it is detected.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -280,7 +280,7 @@ const config: IntlayerConfig = {
      *
      * Default: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -302,7 +302,7 @@ const config = {
      *
      * Default: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -324,7 +324,7 @@ const config = {
      *
      * Default: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -355,6 +355,7 @@ If you encounter any issues with the CMS, check the following:
 
 ## Doc History
 
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |
+| Version | Date       | Changes                                 |
+| ------- | ---------- | --------------------------------------- |
+| 5.9.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` |
+| 5.5.10  | 2025-06-29 | Init history                            |

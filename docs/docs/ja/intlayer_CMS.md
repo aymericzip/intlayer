@@ -260,7 +260,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 Intlayer CMS は、変更が検出された場合に辞書をホットリロードすることができます。
 
 ホットリロードがない場合、新しいコンテンツを表示するにはアプリケーションの新しいビルドが必要です。
-[`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) 設定を有効にすると、変更が検出された際にアプリケーションは自動的に更新されたコンテンツを置き換えます。
+[`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration) 設定を有効にすると、変更が検出された際にアプリケーションは自動的に更新されたコンテンツを置き換えます。
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -278,7 +278,7 @@ const config: IntlayerConfig = {
      *
      * デフォルト: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -300,7 +300,7 @@ const config = {
      *
      * デフォルト: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -322,7 +322,7 @@ const config = {
      *
      * デフォルト: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -343,7 +343,6 @@ CMS に問題が発生した場合、以下を確認してください。
 - アプリケーションが実行中であること。
 
 - Intlayer 設定ファイルで [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 設定が正しく設定されていること。
-
   - 必須フィールド:
     - アプリケーション URL がエディタ設定 (`applicationURL`) に設定したものと一致していること。
     - CMS URL

@@ -260,7 +260,7 @@ Dann können Sie Ihr Wörterbuch im [Intlayer CMS](https://intlayer.org/dashboar
 Das Intlayer CMS kann die Wörterbücher automatisch neu laden, wenn eine Änderung erkannt wird.
 
 Ohne das Hot Reloading wird ein neuer Build der Anwendung benötigt, um den neuen Inhalt anzuzeigen.
-Durch Aktivieren der [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) Konfiguration wird die Anwendung den aktualisierten Inhalt automatisch ersetzen, sobald er erkannt wird.
+Durch Aktivieren der [`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration) Konfiguration wird die Anwendung den aktualisierten Inhalt automatisch ersetzen, sobald er erkannt wird.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -278,7 +278,7 @@ const config: IntlayerConfig = {
      *
      * Standard: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -300,7 +300,7 @@ const config = {
      *
      * Standard: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -322,7 +322,7 @@ const config = {
      *
      * Standard: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -342,7 +342,6 @@ Falls Sie Probleme mit dem CMS haben, überprüfen Sie Folgendes:
 - Die Anwendung läuft.
 
 - Die [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) Konfiguration ist korrekt in Ihrer Intlayer-Konfigurationsdatei eingestellt.
-
   - Erforderliche Felder:
     - Die Anwendungs-URL sollte mit der übereinstimmen, die Sie in der Editor-Konfiguration (`applicationURL`) eingestellt haben.
     - Die CMS-URL

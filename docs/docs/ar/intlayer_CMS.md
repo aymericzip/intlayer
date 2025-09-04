@@ -259,7 +259,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 يستطيع نظام إدارة المحتوى Intlayer إعادة تحميل القواميس تلقائيًا عند اكتشاف تغيير.
 
 بدون إعادة التحميل الفوري، سيكون من الضروري إنشاء جديد للتطبيق لعرض المحتوى الجديد.
-من خلال تفعيل إعداد [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration)، سيقوم التطبيق تلقائيًا باستبدال المحتوى المحدث عند اكتشافه.
+من خلال تفعيل إعداد [`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration)، سيقوم التطبيق تلقائيًا باستبدال المحتوى المحدث عند اكتشافه.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -277,7 +277,7 @@ const config: IntlayerConfig = {
      *
      * الافتراضي: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -299,7 +299,7 @@ const config = {
      *
      * الافتراضي: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -321,7 +321,7 @@ const config = {
      *
      * الافتراضي: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 

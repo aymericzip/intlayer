@@ -124,7 +124,6 @@ Definiert Einstellungen im Zusammenhang mit der Internationalisierung, einschlie
 #### Eigenschaften
 
 - **locales**:
-
   - _Typ_: `string[]`
   - _Standard_: `['en']`
   - _Beschreibung_: Die Liste der unterstützten Sprachen in der Anwendung.
@@ -138,7 +137,6 @@ Definiert Einstellungen im Zusammenhang mit der Internationalisierung, einschlie
   - _Hinweis_: Wenn leer, sind im `strict`-Modus alle Sprachen erforderlich.
   - _Hinweis_: Stellen Sie sicher, dass erforderliche Sprachen auch im Feld `locales` definiert sind.
 - **strictMode**:
-
   - _Typ_: `string`
   - _Standard_: `inclusive`
   - _Beschreibung_: Stellt sicher, dass internationalisierte Inhalte mit TypeScript stark implementiert werden.
@@ -147,7 +145,6 @@ Definiert Einstellungen im Zusammenhang mit der Internationalisierung, einschlie
   - _Hinweis_: Wenn auf "loose" gesetzt, akzeptiert die Übersetzungsfunktion `t` jede vorhandene Sprache.
 
 - **defaultLocale**:
-
   - _Typ_: `string`
   - _Standard_: `'en'`
   - _Beschreibung_: Die Standardsprache, die als Fallback verwendet wird, wenn die angeforderte Sprache nicht gefunden wird.
@@ -163,7 +160,6 @@ Definiert Einstellungen im Zusammenhang mit dem integrierten Editor, einschließ
 #### Eigenschaften
 
 - **applicationURL**:
-
   - _Typ_: `string`
   - _Standard_: `http://localhost:3000`
   - _Beschreibung_: Die URL der Anwendung. Wird verwendet, um den Ursprung des Editors aus Sicherheitsgründen einzuschränken.
@@ -174,13 +170,11 @@ Definiert Einstellungen im Zusammenhang mit dem integrierten Editor, einschließ
   - _Hinweis_: Die URL der Anwendung. Wird verwendet, um den Ursprung des Editors aus Sicherheitsgründen einzuschränken. Wenn auf `'*'` gesetzt, ist der Editor von jedem Ursprung aus zugänglich.
 
 - **port**:
-
   - _Typ_: `number`
   - _Standard_: `8000`
   - _Beschreibung_: Der Port, der vom visuellen Editor-Server verwendet wird.
 
 - **editorURL**:
-
   - _Typ_: `string`
   - _Standard_: `'http://localhost:8000'`
   - _Beschreibung_: Die URL des Editor-Servers. Wird verwendet, um den Ursprung des Editors aus Sicherheitsgründen einzuschränken.
@@ -190,7 +184,6 @@ Definiert Einstellungen im Zusammenhang mit dem integrierten Editor, einschließ
   - _Hinweis_: Die URL des Editor-Servers, die von der Anwendung erreicht werden kann. Wird verwendet, um die Ursprünge einzuschränken, die mit der Anwendung interagieren können. Wenn auf `'*'` gesetzt, ist der Editor von jedem Ursprung aus zugänglich. Sollte gesetzt werden, wenn der Port geändert wird oder wenn der Editor auf einer anderen Domain gehostet wird.
 
 - **cmsURL**:
-
   - _Typ_: `string`
   - _Standard_: `'https://intlayer.org'`
   - _Beschreibung_: Die URL des Intlayer CMS.
@@ -198,14 +191,12 @@ Definiert Einstellungen im Zusammenhang mit dem integrierten Editor, einschließ
   - _Hinweis_: Die URL des Intlayer CMS.
 
 - **backendURL**:
-
   - _Typ_: `string`
   - _Standard_: `https://back.intlayer.org`
   - _Beschreibung_: Die URL des Backend-Servers.
   - _Beispiel_: `http://localhost:4000`
 
 - **enabled**:
-
   - _Typ_: `boolean`
   - _Standard_: `true`
   - _Beschreibung_: Gibt an, ob die Anwendung mit dem visuellen Editor interagiert.
@@ -213,7 +204,6 @@ Definiert Einstellungen im Zusammenhang mit dem integrierten Editor, einschließ
   - _Hinweis_: Wenn true, kann der Editor mit der Anwendung interagieren. Wenn false, kann der Editor nicht mit der Anwendung interagieren. In jedem Fall kann der Editor nur durch den visuellen Editor aktiviert werden. Das Deaktivieren des Editors für bestimmte Umgebungen ist eine Möglichkeit, die Sicherheit zu gewährleisten.
 
 - **clientId**:
-
   - _Typ_: `string` | `undefined`
   - _Standard_: `undefined`
   - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich mit dem Backend über oAuth2-Authentifizierung zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer zu authentifizieren, der mit dem Projekt verbunden ist. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://intlayer.org/dashboard/project und erstellen Sie ein Konto.
@@ -221,15 +211,13 @@ Definiert Einstellungen im Zusammenhang mit dem integrierten Editor, einschließ
   - _Hinweis_: Wichtig: Die clientId und clientSecret sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte stellen Sie sicher, dass sie an einem sicheren Ort aufbewahrt werden, z. B. in Umgebungsvariablen.
 
 - **clientSecret**:
-
   - _Typ_: `string` | `undefined`
   - _Standard_: `undefined`
   - _Beschreibung_: clientId und clientSecret ermöglichen es den Intlayer-Paketen, sich mit dem Backend über oAuth2-Authentifizierung zu authentifizieren. Ein Zugriffstoken wird verwendet, um den Benutzer zu authentifizieren, der mit dem Projekt verbunden ist. Um ein Zugriffstoken zu erhalten, gehen Sie zu https://intlayer.org/dashboard/project und erstellen Sie ein Konto.
   - _Beispiel_: `true`
   - _Hinweis_: Wichtig: Die clientId und clientSecret sollten geheim gehalten und nicht öffentlich geteilt werden. Bitte stellen Sie sicher, dass sie an einem sicheren Ort aufbewahrt werden, z. B. in Umgebungsvariablen.
 
-- **hotReload**:
-
+- **liveSync**:
   - _Typ_: `boolean`
   - _Standard_: `false`
   - _Beschreibung_: Gibt an, ob die Anwendung die Sprachkonfigurationen bei einer Änderung automatisch neu laden soll.
@@ -250,7 +238,6 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
 #### Eigenschaften
 
 - **headerName**:
-
   - _Typ_: `string`
   - _Standard_: `'x-intlayer-locale'`
   - _Beschreibung_: Der Name des HTTP-Headers, der zur Bestimmung der Sprache verwendet wird.
@@ -258,7 +245,6 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
   - _Hinweis_: Dies ist nützlich für die API-basierte Sprachbestimmung.
 
 - **cookieName**:
-
   - _Typ_: `string`
   - _Standard_: `'intlayer-locale'`
   - _Beschreibung_: Der Name des Cookies, das verwendet wird, um die Spracheinstellung zu speichern.
@@ -266,7 +252,6 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
   - _Hinweis_: Wird verwendet, um die Spracheinstellung über Sitzungen hinweg beizubehalten.
 
 - **prefixDefault**:
-
   - _Typ_: `boolean`
   - _Standard_: `false`
   - _Beschreibung_: Ob die Standardsprache in der URL enthalten sein soll.
@@ -276,7 +261,6 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
     - Wenn `false` und `defaultLocale = 'en'`: path = `/dashboard` oder `/fr/dashboard`
 
 - **basePath**:
-
   - _Typ_: `string`
   - _Standard_: `''`
   - _Beschreibung_: Der Basis-Pfad für die Anwendungs-URLs.
@@ -288,7 +272,6 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
     - Wenn der Basis-Pfad nicht gesetzt ist, wird die URL `https://example.com/en` sein
 
 - **serverSetCookie**:
-
   - _Typ_: `string`
   - _Standard_: `'always'`
   - _Beschreibung_: Regel zum Setzen des Sprach-Cookies auf dem Server.
@@ -297,7 +280,6 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
   - _Hinweis_: Steuert, ob das Sprach-Cookie bei jeder Anfrage oder nie gesetzt wird.
 
 - **noPrefix**:
-
   - _Typ_: `boolean`
   - _Standard_: `false`
   - _Beschreibung_: Ob das Sprachpräfix in URLs weggelassen werden soll.
@@ -310,7 +292,6 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich der Han
       - Wenn `noPrefix = true`: URL wird `https://example.com` sein
 
 - **detectLocaleOnPrefetchNoPrefix**:
-
   - _Typ_: `boolean`
   - _Standard_: `false`
   - _Beschreibung_: Steuert, ob die Spracherkennung während Next.js Prefetch-Anfragen stattfindet.
@@ -343,13 +324,11 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
 #### Eigenschaften
 
 - **watch**:
-
   - _Typ_: `boolean`
   - _Standard_: `process.env.NODE_ENV === 'development'`
   - _Beschreibung_: Gibt an, ob Intlayer Änderungen in den Inhaltsdeklarationsdateien der App überwachen soll, um die zugehörigen Wörterbücher neu zu erstellen.
 
 - **fileExtensions**:
-
   - _Typ_: `string[]`
   - _Standard_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
   - _Beschreibung_: Dateierweiterungen, nach denen beim Erstellen von Wörterbüchern gesucht wird.
@@ -357,7 +336,6 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
   - _Hinweis_: Die Anpassung der Dateierweiterungen kann helfen, Konflikte zu vermeiden.
 
 - **baseDir**:
-
   - _Typ_: `string`
   - _Standard_: `process.cwd()`
   - _Beschreibung_: Das Basisverzeichnis für das Projekt.
@@ -365,26 +343,22 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
   - _Hinweis_: Wird verwendet, um alle Intlayer-bezogenen Verzeichnisse aufzulösen.
 
 - **dictionaryOutput**:
-
   - _Typ_: `string[]`
   - _Standard_: `['intlayer']`
   - _Beschreibung_: Der Typ der Wörterbuchausgabe, z.B. `'intlayer'` oder `'i18next'`.
 
 - **contentDir**:
-
   - _Typ_: `string[]`
   - _Standard_: `['src']`
   - _Beispiel_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Beschreibung_: Der Verzeichnispfad, in dem Inhalte gespeichert sind.
 
 - **dictionariesDir**:
-
   - _Typ_: `string`
   - _Standard_: `'.intlayer/dictionaries'`
   - _Beschreibung_: Der Verzeichnispfad zur Speicherung von Zwischen- oder Ausgabedaten.
 
 - **moduleAugmentationDir**:
-
   - _Typ_: `string`
   - _Standard_: `'.intlayer/types'`
   - _Beschreibung_: Verzeichnis für Modulerweiterungen, um bessere IDE-Vorschläge und Typprüfungen zu ermöglichen.
@@ -392,21 +366,18 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
   - _Hinweis_: Stellen Sie sicher, dass dieses Verzeichnis in `tsconfig.json` enthalten ist.
 
 - **unmergedDictionariesDir**:
-
   - _Typ_: `string`
   - _Standard_: `'.intlayer/unmerged_dictionary'`
   - _Beschreibung_: Das Verzeichnis zur Speicherung von nicht zusammengeführten Wörterbüchern.
   - _Beispiel_: `'translations'`
 
 - **dictionariesDir**:
-
   - _Typ_: `string`
   - _Standard_: `'.intlayer/dictionary'`
   - _Beschreibung_: Das Verzeichnis zur Speicherung von Lokalisierungswörterbüchern.
   - _Beispiel_: `'translations'`
 
 - **i18nextResourcesDir**:
-
   - _Typ_: `string`
   - _Standard_: `'i18next_dictionary'`
   - _Beschreibung_: Das Verzeichnis zur Speicherung von i18n-Wörterbüchern.
@@ -414,14 +385,12 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
   - _Hinweis_: Stellen Sie sicher, dass dieses Verzeichnis für den i18next-Ausgabetyp konfiguriert ist.
 
 - **typesDir**:
-
   - _Typ_: `string`
   - _Standard_: `'types'`
   - _Beschreibung_: Das Verzeichnis zur Speicherung von Wörterbuchtypen.
   - _Beispiel_: `'intlayer-types'`
 
 - **mainDir**:
-
   - _Typ_: `string`
   - _Standard_: `'main'`
   - _Beschreibung_: Das Verzeichnis, in dem die Hauptanwendungsdateien gespeichert werden.
@@ -440,7 +409,6 @@ Einstellungen, die den Logger steuern, einschließlich des zu verwendenden Präf
 #### Eigenschaften
 
 - **mode**:
-
   - _Typ_: `string`
   - _Standard_: `default`
   - _Beschreibung_: Gibt den Modus des Loggers an.
@@ -449,7 +417,6 @@ Einstellungen, die den Logger steuern, einschließlich des zu verwendenden Präf
   - _Hinweis_: Der Modus des Loggers. Der verbose-Modus protokolliert mehr Informationen und kann zu Debugging-Zwecken verwendet werden. Der disabled-Modus deaktiviert den Logger.
 
 - **prefix**:
-
   - _Typ_: `string`
   - _Standard_: `'[intlayer] '`
   - _Beschreibung_: Das Präfix des Loggers.
@@ -475,7 +442,6 @@ Intlayer unterstützt mehrere KI-Anbieter für mehr Flexibilität und Auswahl. D
 #### Eigenschaften
 
 - **provider**:
-
   - _Typ_: `string`
   - _Standard_: `'openai'`
   - _Beschreibung_: Der Anbieter, der für die KI-Funktionen von Intlayer verwendet wird.
@@ -484,7 +450,6 @@ Intlayer unterstützt mehrere KI-Anbieter für mehr Flexibilität und Auswahl. D
   - _Hinweis_: Verschiedene Anbieter können unterschiedliche API-Schlüssel und Preismodelle erfordern.
 
 - **model**:
-
   - _Typ_: `string`
   - _Standard_: Keine
   - _Beschreibung_: Das Modell, das für die KI-Funktionen von Intlayer verwendet wird.
@@ -492,7 +457,6 @@ Intlayer unterstützt mehrere KI-Anbieter für mehr Flexibilität und Auswahl. D
   - _Hinweis_: Das spezifische Modell variiert je nach Anbieter.
 
 - **temperature**:
-
   - _Typ_: `number`
   - _Standard_: Keine
   - _Beschreibung_: Die Temperatur steuert die Zufälligkeit der Antworten der KI.
@@ -500,7 +464,6 @@ Intlayer unterstützt mehrere KI-Anbieter für mehr Flexibilität und Auswahl. D
   - _Hinweis_: Eine höhere Temperatur macht die KI kreativer und weniger vorhersehbar.
 
 - **apiKey**:
-
   - _Typ_: `string`
   - _Standard_: Keine
   - _Beschreibung_: Ihr API-Schlüssel für den ausgewählten Anbieter.
@@ -525,7 +488,6 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
 #### Eigenschaften
 
 - **optimize**:
-
   - _Typ_: `boolean`
   - _Standard_: `process.env.NODE_ENV === 'production'`
   - _Beschreibung_: Steuert, ob der Build optimiert werden soll.
@@ -536,7 +498,6 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel statisch in den `useIntlayer`-Aufrufen deklariert sind, z. B. `useIntlayer('navbar')`.
 
 - **importMode**:
-
   - _Typ_: `'static' | 'dynamic' | 'async'`
   - _Standard_: `'static'`
   - _Beschreibung_: Steuert, wie Wörterbücher importiert werden.

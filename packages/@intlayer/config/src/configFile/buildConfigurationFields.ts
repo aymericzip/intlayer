@@ -621,7 +621,7 @@ const buildEditorFields = (
    *
    * Default: false
    */
-  hotReload: customConfiguration?.hotReload ?? HOT_RELOAD,
+  liveSync: customConfiguration?.liveSync ?? HOT_RELOAD,
 });
 
 const buildLogFields = (

@@ -120,7 +120,7 @@ export const getConfiguration = (
       env.editor.dictionaryPriorityStrategy,
       'string'
     )! as 'local_first' | 'distant_first',
-    hotReload: getEnvValue(env.editor.hotReload, 'boolean')!,
+    liveSync: getEnvValue(env.editor.liveSync, 'boolean')!,
   };
 
   const logConfiguration: LogConfig = {

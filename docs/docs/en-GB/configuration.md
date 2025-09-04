@@ -124,7 +124,6 @@ Defines settings related to internationalisation, including available locales an
 #### Properties
 
 - **locales**:
-
   - _Type_: `string[]`
   - _Default_: `['en']`
   - _Description_: The list of supported locales in the application.
@@ -138,7 +137,6 @@ Defines settings related to internationalisation, including available locales an
   - _Note_: If empty, all locales are required in `strict` mode.
   - _Note_: Ensure required locales are also defined in the `locales` field.
 - **strictMode**:
-
   - _Type_: `string`
   - _Default_: `inclusive`
   - _Description_: Ensure strong implementations of internationalised content using TypeScript.
@@ -147,7 +145,6 @@ Defines settings related to internationalisation, including available locales an
   - _Note_: If set to "loose", the translation `t` function will accept any existing locale.
 
 - **defaultLocale**:
-
   - _Type_: `string`
   - _Default_: `'en'`
   - _Description_: The default locale used as a fallback if the requested locale is not found.
@@ -163,7 +160,6 @@ Defines settings related to the integrated editor, including server port and act
 #### Properties
 
 - **applicationURL**:
-
   - _Type_: `string`
   - _Default_: `http://localhost:3000`
   - _Description_: The URL of the application. Used to restrict the origin of the editor for security reasons.
@@ -174,13 +170,11 @@ Defines settings related to the integrated editor, including server port and act
   - _Note_: The URL of the application. Used to restrict the origin of the editor for security reasons. If set to `'*'`, the editor is accessible from any origin.
 
 - **port**:
-
   - _Type_: `number`
   - _Default_: `8000`
   - _Description_: The port used by the visual editor server.
 
 - **editorURL**:
-
   - _Type_: `string`
   - _Default_: `'http://localhost:8000'`
   - _Description_: The URL of the editor server. Used to restrict the origin of the editor for security reasons.
@@ -190,7 +184,6 @@ Defines settings related to the integrated editor, including server port and act
   - _Note_: The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if port is changed, or if the editor is hosted on a different domain.
 
 - **cmsURL**:
-
   - _Type_: `string`
   - _Default_: `'https://intlayer.org'`
   - _Description_: The URL of the Intlayer CMS.
@@ -198,14 +191,12 @@ Defines settings related to the integrated editor, including server port and act
   - _Note_: The URL of the Intlayer CMS.
 
 - **backendURL**:
-
   - _Type_: `string`
   - _Default_: `https://back.intlayer.org`
   - _Description_: The URL of the backend server.
   - _Example_: `http://localhost:4000`
 
 - **enabled**:
-
   - _Type_: `boolean`
   - _Default_: `true`
   - _Description_: Indicates if the application interacts with the visual editor.
@@ -213,7 +204,6 @@ Defines settings related to the integrated editor, including server port and act
   - _Note_: If true, the editor will be able to interact with the application. If false, the editor will not be able to interact with the application. In any case, the editor can only be enabled by the visual editor. Disabling the editor for specific environments is a way to enforce security.
 
 - **clientId**:
-
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
   - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
@@ -221,15 +211,13 @@ Defines settings related to the integrated editor, including server port and act
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
 - **clientSecret**:
-
   - _Type_: `string` | `undefined`
   - _Default_: `undefined`
   - _Description_: clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication. An access token is used to authenticate the user related to the project. To get an access token, go to https://intlayer.org/dashboard/project and create an account.
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
-- **hotReload**:
-
+- **liveSync**:
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Indicates if the application should hot reload the locale configurations when a change is detected.
@@ -250,7 +238,6 @@ Settings that control middleware behaviour, including how the application handle
 #### Properties
 
 - **headerName**:
-
   - _Type_: `string`
   - _Default_: `'x-intlayer-locale'`
   - _Description_: The name of the HTTP header used to determine the locale.
@@ -258,7 +245,6 @@ Settings that control middleware behaviour, including how the application handle
   - _Note_: This is useful for API-based locale determination.
 
 - **cookieName**:
-
   - _Type_: `string`
   - _Default_: `'intlayer-locale'`
   - _Description_: The name of the cookie used to store the locale.
@@ -266,7 +252,6 @@ Settings that control middleware behaviour, including how the application handle
   - _Note_: Used to persist the locale across sessions.
 
 - **prefixDefault**:
-
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Whether to include the default locale in the URL.
@@ -276,7 +261,6 @@ Settings that control middleware behaviour, including how the application handle
     - If `false` and `defaultLocale = 'en'`: path = `/dashboard` or `/fr/dashboard`
 
 - **basePath**:
-
   - _Type_: `string`
   - _Default_: `''`
   - _Description_: The base path for the application URLs.
@@ -288,7 +272,6 @@ Settings that control middleware behaviour, including how the application handle
     - If the base path is not set, the URL will be `https://example.com/en`
 
 - **serverSetCookie**:
-
   - _Type_: `string`
   - _Default_: `'always'`
   - _Description_: Rule for setting the locale cookie on the server.
@@ -297,7 +280,6 @@ Settings that control middleware behaviour, including how the application handle
   - _Note_: Controls whether the locale cookie is set on every request or never.
 
 - **noPrefix**:
-
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Whether to omit the locale prefix from URLs.
@@ -310,7 +292,6 @@ Settings that control middleware behaviour, including how the application handle
       - If `noPrefix = true`: URL will be `https://example.com`
 
 - **detectLocaleOnPrefetchNoPrefix**:
-
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Controls whether locale detection occurs during Next.js prefetch requests.
@@ -343,13 +324,11 @@ Settings related to content handling within the application, including directory
 #### Properties
 
 - **watch**:
-
   - _Type_: `boolean`
   - _Default_: `process.env.NODE_ENV === 'development'`
   - _Description_: Indicates if Intlayer should watch for changes in the content declaration files in the app to rebuild the related dictionaries.
 
 - **fileExtensions**:
-
   - _Type_: `string[]`
   - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
   - _Description_: File extensions to look for when building dictionaries.
@@ -357,7 +336,6 @@ Settings related to content handling within the application, including directory
   - _Note_: Customising file extensions can help avoid conflicts.
 
 - **baseDir**:
-
   - _Type_: `string`
   - _Default_: `process.cwd()`
   - _Description_: The base directory for the project.
@@ -365,26 +343,22 @@ Settings related to content handling within the application, including directory
   - _Note_: This is used to resolve all Intlayer-related directories.
 
 - **dictionaryOutput**:
-
   - _Type_: `string[]`
   - _Default_: `['intlayer']`
   - _Description_: The type of dictionary output to use, e.g., `'intlayer'` or `'i18next'`.
 
 - **contentDir**:
-
   - _Type_: `string[]`
   - _Default_: `['src']`
   - _Example_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Description_: The directory path where content is stored.
 
 - **dictionariesDir**:
-
   - _Type_: `string`
   - _Default_: `'.intlayer/dictionaries'`
   - _Description_: The directory path for storing intermediate or output results.
 
 - **moduleAugmentationDir**:
-
   - _Type_: `string`
   - _Default_: `'.intlayer/types'`
   - _Description_: Directory for module augmentation, allowing better IDE suggestions and type checking.
@@ -392,21 +366,18 @@ Settings related to content handling within the application, including directory
   - _Note_: Be sure to include this in `tsconfig.json`.
 
 - **unmergedDictionariesDir**:
-
   - _Type_: `string`
   - _Default_: `'.intlayer/unmerged_dictionary'`
   - _Description_: The directory for storing unmerged dictionaries.
   - _Example_: `'translations'`
 
 - **dictionariesDir**:
-
   - _Type_: `string`
   - _Default_: `'.intlayer/dictionary'`
   - _Description_: The directory for storing localisation dictionaries.
   - _Example_: `'translations'`
 
 - **i18nextResourcesDir**:
-
   - _Type_: `string`
   - _Default_: `'i18next_dictionary'`
   - _Description_: The directory for storing i18n dictionaries.
@@ -414,14 +385,12 @@ Settings related to content handling within the application, including directory
   - _Note_: Ensure this directory is configured for the i18next output type.
 
 - **typesDir**:
-
   - _Type_: `string`
   - _Default_: `'types'`
   - _Description_: The directory for storing dictionary types.
   - _Example_: `'intlayer-types'`
 
 - **mainDir**:
-
   - _Type_: `string`
   - _Default_: `'main'`
   - _Description_: The directory where main application files are stored.
@@ -440,7 +409,6 @@ Settings that control the logger, including the prefix to use.
 #### Properties
 
 - **mode**:
-
   - _Type_: `string`
   - _Default_: `default`
   - _Description_: Indicates the mode of the logger.
@@ -449,7 +417,6 @@ Settings that control the logger, including the prefix to use.
   - _Note_: The mode of the logger. Verbose mode will log more information, but can be used for debugging purposes. Disabled mode will disable the logger.
 
 - **prefix**:
-
   - _Type_: `string`
   - _Default_: `'[intlayer] '`
   - _Description_: The prefix of the logger.
@@ -475,7 +442,6 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
 #### Properties
 
 - **provider**:
-
   - _Type_: `string`
   - _Default_: `'openai'`
   - _Description_: The provider to use for the AI features of Intlayer.
@@ -484,7 +450,6 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Note_: Different providers may require different API keys and have different pricing models.
 
 - **model**:
-
   - _Type_: `string`
   - _Default_: None
   - _Description_: The model to use for the AI features of Intlayer.
@@ -492,7 +457,6 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Note_: The specific model to use varies by provider.
 
 - **temperature**:
-
   - _Type_: `number`
   - _Default_: None
   - _Description_: The temperature controls the randomness of the AI's responses.
@@ -500,7 +464,6 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Note_: A higher temperature will make the AI more creative and less predictable.
 
 - **apiKey**:
-
   - _Type_: `string`
   - _Default_: None
   - _Description_: Your API key for the selected provider.
@@ -525,7 +488,6 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 #### Properties
 
 - **optimize**:
-
   - _Type_: `boolean`
   - _Default_: `process.env.NODE_ENV === 'production'`
   - _Description_: Controls whether the build should be optimised.
@@ -536,7 +498,6 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
 
 - **importMode**:
-
   - _Type_: `'static' | 'dynamic' | 'async'`
   - _Default_: `'static'`
   - _Description_: Controls how dictionaries are imported.

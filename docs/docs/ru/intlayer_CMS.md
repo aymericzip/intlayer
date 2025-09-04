@@ -263,7 +263,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 Intlayer CMS может выполнять горячую перезагрузку словарей при обнаружении изменений.
 
 Без горячей перезагрузки потребуется новая сборка приложения для отображения нового контента.
-Активировав конфигурацию [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration), приложение автоматически заменит обновленный контент при его обнаружении.
+Активировав конфигурацию [`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration), приложение автоматически заменит обновленный контент при его обнаружении.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -281,7 +281,7 @@ const config: IntlayerConfig = {
      *
      * По умолчанию: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -303,7 +303,7 @@ const config = {
      *
      * По умолчанию: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -325,7 +325,7 @@ const config = {
      *
      * По умолчанию: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 

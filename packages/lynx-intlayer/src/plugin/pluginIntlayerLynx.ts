@@ -18,9 +18,7 @@ import { join, relative } from 'path';
  *
  *   export default defineConfig({
  *     plugins: [
- *       pluginIntlayerLynx({
- *         hotReload: true, // optional
- *       }),
+ *       pluginIntlayerLynx(),
  *     ],
  *     // ...other configuration
  *   })

@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "bridge": "tsx hotReloadBridge.ts",
     "build": "tsc && vite build",
     "dev": "vite",
     "lint": "eslint . --cache --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

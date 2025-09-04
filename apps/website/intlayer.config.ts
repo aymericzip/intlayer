@@ -29,7 +29,7 @@ const config: IntlayerConfig = {
   },
   editor: {
     enabled: true,
-    hotReload: false,
+    liveSync: false,
     dictionaryPriorityStrategy: 'distant_first',
     applicationURL: process.env.NEXT_PUBLIC_URL,
     editorURL: process.env.NEXT_PUBLIC_EDITOR_URL,

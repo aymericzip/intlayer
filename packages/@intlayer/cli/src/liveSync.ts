@@ -60,7 +60,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
 
   // Initialize the event listener for hot reload if configured
   if (
-    configuration.editor.hotReload &&
+    configuration.editor.liveSync &&
     configuration.editor.clientId &&
     configuration.editor.clientSecret
   ) {
@@ -124,7 +124,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
       );
     }
   } else {
-    if (!configuration.editor.hotReload) {
+    if (!configuration.editor.liveSync) {
       appLogger('Hot reload is disabled in configuration');
     } else if (
       !configuration.editor.clientId ||
@@ -168,7 +168,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
   });
 
   const getLiveSyncParam = () => {
-    if (!configuration.editor.hotReload) return '\x1b[31m✗ Disabled\x1b[0m';
+    if (!configuration.editor.liveSync) return '\x1b[31m✗ Disabled\x1b[0m';
 
     return '\x1b[32m✓ Enabled\x1b[0m';
   };

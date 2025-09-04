@@ -260,7 +260,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 Intlayer CMS तब शब्दकोशों को हॉट रीलोड कर सकता है जब कोई परिवर्तन पता चलता है।
 
 हॉट रीलोडिंग के बिना, नई सामग्री प्रदर्शित करने के लिए एप्लिकेशन का एक नया निर्माण आवश्यक होगा।
-[`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration) कॉन्फ़िगरेशन को सक्रिय करके, एप्लिकेशन स्वचालित रूप से अद्यतन सामग्री को प्रतिस्थापित करेगा जब इसे पता लगाया जाएगा।
+[`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration) कॉन्फ़िगरेशन को सक्रिय करके, एप्लिकेशन स्वचालित रूप से अद्यतन सामग्री को प्रतिस्थापित करेगा जब इसे पता लगाया जाएगा।
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -278,7 +278,7 @@ const config: IntlayerConfig = {
      *
      * डिफ़ॉल्ट: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -300,7 +300,7 @@ const config = {
      *
      * डिफ़ॉल्ट: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -322,7 +322,7 @@ const config = {
      *
      * डिफ़ॉल्ट: false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -342,7 +342,6 @@ module.exports = config;
 - एप्लिकेशन चल रहा है।
 
 - आपके Intlayer कॉन्फ़िगरेशन फ़ाइल में [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) कॉन्फ़िगरेशन सही ढंग से सेट हैं।
-
   - आवश्यक फ़ील्ड:
     - एप्लिकेशन URL को संपादक कॉन्फ़िगरेशन (`applicationURL`) में सेट किए गए URL से मेल खाना चाहिए।
     - CMS URL

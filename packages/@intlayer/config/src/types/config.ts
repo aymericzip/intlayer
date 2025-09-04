@@ -254,7 +254,7 @@ export type EditorConfig = {
    *
    * Default: false
    */
-  hotReload: boolean;
+  liveSync: boolean;
 };
 
 export type AiConfig = {

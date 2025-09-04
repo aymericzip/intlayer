@@ -124,7 +124,6 @@ module.exports = config;
 #### 属性
 
 - **locales**:
-
   - _类型_: `string[]`
   - _默认值_: `['en']`
   - _描述_: 应用程序支持的语言列表。
@@ -138,7 +137,6 @@ module.exports = config;
   - _注意_: 如果为空，在 `strict` 模式下所有语言都是必需的。
   - _注意_: 确保必需的语言也在 `locales` 字段中定义。
 - **strictMode**:
-
   - _类型_: `string`
   - _默认值_: `inclusive`
   - _描述_: 使用 TypeScript 确保国际化内容的强实现。
@@ -147,7 +145,6 @@ module.exports = config;
   - _注意_: 如果设置为 "loose"，翻译函数 `t` 将接受任何现有的语言。
 
 - **defaultLocale**:
-
   - _类型_: `string`
   - _默认值_: `'en'`
   - _描述_: 当请求的语言环境未找到时，使用的默认语言环境作为回退。
@@ -163,7 +160,6 @@ module.exports = config;
 #### 属性
 
 - **applicationURL**:
-
   - _类型_: `string`
   - _默认值_: `http://localhost:3000`
   - _描述_: 应用程序的 URL。用于限制编辑器的来源以确保安全。
@@ -174,13 +170,11 @@ module.exports = config;
   - _注意_: 应用程序的 URL。用于限制编辑器的来源以确保安全。如果设置为 `'*'`，编辑器可以从任何来源访问。
 
 - **port**:
-
   - _类型_: `number`
   - _默认值_: `8000`
   - _描述_: 可视化编辑器服务器使用的端口。
 
 - **editorURL**:
-
   - _类型_: `string`
   - _默认值_: `'http://localhost:8000'`
   - _描述_: 编辑器服务器的 URL。用于限制编辑器的来源以确保安全。
@@ -190,7 +184,6 @@ module.exports = config;
   - _注意_: 从应用程序访问的编辑器服务器的 URL。用于限制可以与应用程序交互的来源以确保安全。如果设置为 `'*'`，则编辑器可从任何来源访问。如果更改了端口或编辑器托管在不同域上，应设置此项。
 
 - **cmsURL**:
-
   - _类型_: `string`
   - _默认值_: `'https://intlayer.org'`
   - _描述_: Intlayer CMS 的 URL。
@@ -198,14 +191,12 @@ module.exports = config;
   - _注意_: Intlayer CMS 的 URL。
 
 - **backendURL**:
-
   - _类型_: `string`
   - _默认值_: `https://back.intlayer.org`
   - _描述_: 后端服务器的 URL。
   - _示例_: `http://localhost:4000`
 
 - **enabled**:
-
   - _类型_: `boolean`
   - _默认值_: `true`
   - _描述_: 指示应用程序是否与可视化编辑器交互。
@@ -213,7 +204,6 @@ module.exports = config;
   - _注意_: 如果为 true，编辑器将能够与应用程序交互。如果为 false，编辑器将无法与应用程序交互。在任何情况下，编辑器只能由可视化编辑器启用。为特定环境禁用编辑器是一种增强安全性的方式。
 
 - **clientId**:
-
   - _类型_: `string` | `undefined`
   - _默认值_: `undefined`
   - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
@@ -221,15 +211,13 @@ module.exports = config;
   - _注意_: 重要：clientId 和 clientSecret 应该保密，不应公开共享。请确保将它们保存在安全的位置，例如环境变量中。
 
 - **clientSecret**:
-
   - _类型_: `string` | `undefined`
   - _默认值_: `undefined`
   - _描述_: clientId 和 clientSecret 允许 intlayer 包使用 oAuth2 认证与后端进行身份验证。访问令牌用于验证与项目相关的用户。要获取访问令牌，请访问 https://intlayer.org/dashboard/project 并创建一个账户。
   - _示例_: `true`
   - _注意_: 重要提示：clientId 和 clientSecret 应保密，不得公开分享。请确保将它们保存在安全的位置，例如环境变量中。
 
-- **hotReload**:
-
+- **liveSync**:
   - _类型_: `boolean`
   - _默认值_: `false`
   - _描述_: 指示应用程序在检测到更改时是否应热加载语言配置。
@@ -250,7 +238,6 @@ module.exports = config;
 #### 属性
 
 - **headerName**:
-
   - _类型_: `string`
   - _默认值_: `'x-intlayer-locale'`
   - _描述_: 用于确定语言环境的 HTTP 头名称。
@@ -258,7 +245,6 @@ module.exports = config;
   - _注意_: 这对于基于 API 的语言环境确定非常有用。
 
 - **cookieName**:
-
   - _类型_: `string`
   - _默认值_: `'intlayer-locale'`
   - _描述_: 用于存储语言环境的 Cookie 名称。
@@ -266,7 +252,6 @@ module.exports = config;
   - _注意_: 用于在会话之间保持语言环境。
 
 - **prefixDefault**:
-
   - _类型_: `boolean`
   - _默认值_: `false`
   - _描述_: 是否在 URL 中包含默认语言环境。
@@ -276,7 +261,6 @@ module.exports = config;
     - 如果 `false` 且 `defaultLocale = 'en'`: path = `/dashboard` 或 `/fr/dashboard`
 
 - **basePath**:
-
   - _类型_: `string`
   - _默认值_: `''`
   - _描述_: 应用程序 URL 的基础路径。
@@ -288,7 +272,6 @@ module.exports = config;
     - 如果基础路径未设置，URL 将是 `https://example.com/en`
 
 - **serverSetCookie**:
-
   - _类型_: `string`
   - _默认值_: `'always'`
   - _描述_: 在服务器上设置语言环境 Cookie 的规则。
@@ -297,7 +280,6 @@ module.exports = config;
   - _注意_: 控制是否在每个请求上设置语言环境 Cookie 或从不设置。
 
 - **noPrefix**:
-
   - _类型_: `boolean`
   - _默认值_: `false`
   - _描述_: 是否从 URL 中省略语言环境前缀。
@@ -310,7 +292,6 @@ module.exports = config;
       - 如果 `noPrefix = true`: URL 将是 `https://example.com`
 
 - **detectLocaleOnPrefetchNoPrefix**:
-
   - _类型_: `boolean`
   - _默认值_: `false`
   - _描述_: 控制是否在 Next.js 预取请求期间进行语言环境检测。
@@ -343,13 +324,11 @@ module.exports = config;
 #### 属性
 
 - **watch**:
-
   - _类型_: `boolean`
   - _默认值_: `process.env.NODE_ENV === 'development'`
   - _描述_: 指示 Intlayer 是否应监视应用程序中的内容声明文件的更改以重新构建相关字典。
 
 - **fileExtensions**:
-
   - _类型_: `string[]`
   - _默认值_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
   - _描述_: 构建字典时要查找的文件扩展名。
@@ -357,7 +336,6 @@ module.exports = config;
   - _注意_: 自定义文件扩展名可以帮助避免冲突。
 
 - **baseDir**:
-
   - _类型_: `string`
   - _默认值_: `process.cwd()`
   - _描述_: 项目的基础目录。
@@ -365,26 +343,22 @@ module.exports = config;
   - _注意_: 用于解析所有与 Intlayer 相关的目录。
 
 - **dictionaryOutput**:
-
   - _类型_: `string[]`
   - _默认值_: `['intlayer']`
   - _描述_: 要使用的字典输出类型，例如 `'intlayer'` 或 `'i18next'`。
 
 - **contentDir**:
-
   - _类型_: `string[]`
   - _默认值_: `['src']`
   - _示例_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _描述_: 存储内容的目录路径。
 
 - **dictionariesDir**:
-
   - _类型_: `string`
   - _默认值_: `'.intlayer/dictionaries'`
   - _描述_: 用于存储中间或输出结果的目录路径。
 
 - **moduleAugmentationDir**:
-
   - _类型_: `string`
   - _默认值_: `'.intlayer/types'`
   - _描述_: 模块增强目录，允许更好的 IDE 建议和类型检查。
@@ -392,14 +366,12 @@ module.exports = config;
   - _注意_: 请确保将其包含在 `tsconfig.json` 中。
 
 - **unmergedDictionariesDir**:
-
   - _类型_: `string`
   - _默认值_: `'.intlayer/unmerged_dictionary'`
   - _描述_: 用于存储未合并字典的目录。
   - _示例_: `'translations'`
 
 - **dictionariesDir**:
-
   - _类型_: `string`
   - _默认值_: `'.intlayer/dictionary'`
   - _描述_: 用于存储本地化字典的目录。
@@ -407,7 +379,6 @@ module.exports = config;
 
 - **i18nextResourcesDir**:
 - **i18nextResourcesDir**:
-
   - _类型_: `string`
   - _默认值_: `'i18next_dictionary'`
   - _描述_: 用于存储 i18n 字典的目录。
@@ -415,14 +386,12 @@ module.exports = config;
   - _注意_: 确保此目录已为 i18next 输出类型配置。
 
 - **typesDir**:
-
   - _类型_: `string`
   - _默认值_: `'types'`
   - _描述_: 用于存储字典类型的目录。
   - _示例_: `'intlayer-types'`
 
 - **mainDir**:
-
   - _类型_: `string`
   - _默认值_: `'main'`
   - _描述_: 存储主应用程序文件的目录。
@@ -441,7 +410,6 @@ module.exports = config;
 #### 属性
 
 - **mode**:
-
   - _类型_: `string`
   - _默认值_: `default`
   - _描述_: 指示日志记录器的模式。
@@ -450,7 +418,6 @@ module.exports = config;
   - _注意_: 日志记录器的模式。详细模式将记录更多信息，但可用于调试目的。禁用模式将禁用日志记录器。
 
 - **prefix**:
-
   - _类型_: `string`
   - _默认值_: `'[intlayer] '`
   - _描述_: 日志记录器的前缀。
@@ -476,7 +443,6 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择性。目前支�
 #### 属性
 
 - **provider**：
-
   - _类型_：`string`
   - _默认值_：`'openai'`
   - _描述_：用于 Intlayer AI 功能的提供商。
@@ -485,7 +451,6 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择性。目前支�
   - _注意_：不同的提供商可能需要不同的 API 密钥，并具有不同的定价模型。
 
 - **model**：
-
   - _类型_：`string`
   - _默认值_：无
   - _描述_：用于 Intlayer AI 功能的模型。
@@ -493,7 +458,6 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择性。目前支�
   - _注意_: 不同提供商使用的具体模型可能有所不同。
 
 - **temperature**:
-
   - _类型_: `number`
   - _默认值_: 无
   - _描述_: 温度控制 AI 响应的随机性。
@@ -501,7 +465,6 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择性。目前支�
   - _注意_: 较高的温度会使 AI 更具创造性且更不可预测。
 
 - **apiKey**:
-
   - _类型_: `string`
   - _默认值_: 无
   - _描述_: 您为所选提供商提供的 API 密钥。
@@ -526,7 +489,6 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择性。目前支�
 #### 属性
 
 - **optimize**：
-
   - _类型_：`boolean`
   - _默认值_：`process.env.NODE_ENV === 'production'`
   - _描述_：控制构建是否应被优化。
@@ -537,7 +499,6 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择性。目前支�
   - _注意_：确保所有键都在 `useIntlayer` 调用中静态声明。例如：`useIntlayer('navbar')`。
 
 - **importMode**：
-
   - _类型_：`'static' | 'dynamic' | 'async'`
   - _默认值_：`'static'`
   - _描述_：控制字典的导入方式。

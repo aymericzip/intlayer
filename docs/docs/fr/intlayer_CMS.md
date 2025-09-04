@@ -260,7 +260,7 @@ Vous pourrez ensuite voir et gérer votre dictionnaire dans le [CMS Intlayer](ht
 Le CMS Intlayer est capable de recharger à chaud les dictionnaires lorsqu'un changement est détecté.
 
 Sans le rechargement à chaud, une nouvelle construction de l'application sera nécessaire pour afficher le nouveau contenu.
-En activant la configuration [`hotReload`](https://intlayer.org/doc/concept/configuration#editor-configuration), l'application remplacera automatiquement le contenu mis à jour lorsqu'il est détecté.
+En activant la configuration [`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration), l'application remplacera automatiquement le contenu mis à jour lorsqu'il est détecté.
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -278,7 +278,7 @@ const config: IntlayerConfig = {
      *
      * Par défaut : false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -300,7 +300,7 @@ const config = {
      *
      * Par défaut : false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -322,7 +322,7 @@ const config = {
      *
      * Par défaut : false
      */
-    hotReload: true,
+    liveSync: true,
   },
 };
 
@@ -343,7 +343,6 @@ Si vous rencontrez des problèmes avec le CMS, vérifiez les points suivants :
 - L'application est en cours d'exécution.
 
 - Les paramètres de configuration de l'[éditeur](https://intlayer.org/doc/concept/configuration#editor-configuration) sont correctement définis dans votre fichier de configuration Intlayer.
-
   - Champs obligatoires :
     - L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
     - L'URL du CMS.

@@ -40,11 +40,11 @@ export const module: NuxtModule = defineNuxtModule({
       if (isServer) {
         // We only need the middleware on the server side during development
         // viteConfig.plugins can be undefined at this stage
-        (viteConfig.plugins ?? []).push(intLayerMiddlewarePlugin());
+        (viteConfig.plugins ?? []).push(intLayerMiddlewarePlugin() as any);
       }
       if (optimize) {
         // viteConfig.plugins can be undefined at this stage
-        viteConfig.plugins?.push(IntlayerPrunePlugin(configuration));
+        viteConfig.plugins?.push(IntlayerPrunePlugin(configuration) as any);
       }
     });
 

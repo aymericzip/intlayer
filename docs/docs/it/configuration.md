@@ -124,7 +124,6 @@ Definisce le impostazioni relative all'internazionalizzazione, inclusi i locali 
 #### Proprietà
 
 - **locales**:
-
   - _Tipo_: `string[]`
   - _Predefinito_: `['en']`
   - _Descrizione_: L'elenco dei locali supportati nell'applicazione.
@@ -138,7 +137,6 @@ Definisce le impostazioni relative all'internazionalizzazione, inclusi i locali 
   - _Nota_: Se vuoto, tutti i locali sono richiesti in modalità `strict`.
   - _Nota_: Assicurarsi che i locali richiesti siano anche definiti nel campo `locales`.
 - **strictMode**:
-
   - _Tipo_: `string`
   - _Predefinito_: `inclusive`
   - _Descrizione_: Garantisce implementazioni rigorose di contenuti internazionalizzati utilizzando TypeScript.
@@ -147,7 +145,6 @@ Definisce le impostazioni relative all'internazionalizzazione, inclusi i locali 
   - _Nota_: Se impostato su "loose", la funzione di traduzione `t` accetterà qualsiasi locale esistente.
 
 - **defaultLocale**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'en'`
   - _Descrizione_: Il locale predefinito utilizzato come fallback se il locale richiesto non viene trovato.
@@ -163,7 +160,6 @@ Definisce le impostazioni relative all'editor integrato, inclusi la porta del se
 #### Proprietà
 
 - **applicationURL**:
-
   - _Tipo_: `string`
   - _Predefinito_: `http://localhost:3000`
   - _Descrizione_: L'URL dell'applicazione. Utilizzato per limitare l'origine dell'editor per motivi di sicurezza.
@@ -174,13 +170,11 @@ Definisce le impostazioni relative all'editor integrato, inclusi la porta del se
   - _Nota_: L'URL dell'applicazione. Utilizzato per limitare l'origine dell'editor per motivi di sicurezza. Se impostato su `'*'`, l'editor è accessibile da qualsiasi origine.
 
 - **port**:
-
   - _Tipo_: `number`
   - _Predefinito_: `8000`
   - _Descrizione_: La porta utilizzata dal server dell'editor visivo.
 
 - **editorURL**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'http://localhost:8000'`
   - _Descrizione_: L'URL del server dell'editor. Utilizzato per limitare l'origine dell'editor per motivi di sicurezza.
@@ -190,7 +184,6 @@ Definisce le impostazioni relative all'editor integrato, inclusi la porta del se
   - _Nota_: L'URL del server dell'editor da raggiungere dall'applicazione. Utilizzato per limitare le origini che possono interagire con l'applicazione per motivi di sicurezza. Se impostato su `'*'`, l'editor è accessibile da qualsiasi origine. Dovrebbe essere impostato se la porta viene modificata o se l'editor è ospitato su un dominio diverso.
 
 - **cmsURL**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'https://intlayer.org'`
   - _Descrizione_: L'URL del CMS di Intlayer.
@@ -198,14 +191,12 @@ Definisce le impostazioni relative all'editor integrato, inclusi la porta del se
   - _Nota_: L'URL del CMS di Intlayer.
 
 - **backendURL**:
-
   - _Tipo_: `string`
   - _Predefinito_: `https://back.intlayer.org`
   - _Descrizione_: L'URL del server backend.
   - _Esempio_: `http://localhost:4000`
 
 - **enabled**:
-
   - _Tipo_: `boolean`
   - _Predefinito_: `true`
   - _Descrizione_: Indica se l'applicazione interagisce con l'editor visivo.
@@ -213,7 +204,6 @@ Definisce le impostazioni relative all'editor integrato, inclusi la porta del se
   - _Nota_: Se true, l'editor sarà in grado di interagire con l'applicazione. Se false, l'editor non sarà in grado di interagire con l'applicazione. In ogni caso, l'editor può essere abilitato solo dall'editor visivo. Disabilitare l'editor per ambienti specifici è un modo per rafforzare la sicurezza.
 
 - **clientId**:
-
   - _Tipo_: `string` | `undefined`
   - _Predefinito_: `undefined`
   - _Descrizione_: clientId e clientSecret consentono ai pacchetti intlayer di autenticarsi con il backend utilizzando l'autenticazione oAuth2. Un token di accesso viene utilizzato per autenticare l'utente relativo al progetto. Per ottenere un token di accesso, vai su https://intlayer.org/dashboard/project e crea un account.
@@ -221,15 +211,13 @@ Definisce le impostazioni relative all'editor integrato, inclusi la porta del se
   - _Nota_: Importante: Il clientId e il clientSecret devono essere mantenuti segreti e non condivisi pubblicamente. Assicurati di conservarli in un luogo sicuro, come variabili di ambiente.
 
 - **clientSecret**:
-
   - _Tipo_: `string` | `undefined`
   - _Predefinito_: `undefined`
   - _Descrizione_: clientId e clientSecret consentono ai pacchetti Intlayer di autenticarsi con il backend utilizzando l'autenticazione oAuth2. Un token di accesso viene utilizzato per autenticare l'utente relativo al progetto. Per ottenere un token di accesso, vai su https://intlayer.org/dashboard/project e crea un account.
   - _Esempio_: `true`
   - _Nota_: Importante: Il clientId e il clientSecret devono essere mantenuti segreti e non condivisi pubblicamente. Assicurarsi di conservarli in un luogo sicuro, come variabili di ambiente.
 
-- **hotReload**:
-
+- **liveSync**:
   - _Tipo_: `boolean`
   - _Predefinito_: `false`
   - _Descrizione_: Indica se l'applicazione deve ricaricare automaticamente le configurazioni dei locali quando viene rilevata una modifica.
@@ -250,7 +238,6 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
 #### Proprietà
 
 - **headerName**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'x-intlayer-locale'`
   - _Descrizione_: Il nome dell'intestazione HTTP utilizzata per determinare il locale.
@@ -258,7 +245,6 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
   - _Nota_: Utile per la determinazione del locale basata su API.
 
 - **cookieName**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'intlayer-locale'`
   - _Descrizione_: Il nome del cookie utilizzato per memorizzare il locale.
@@ -266,7 +252,6 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
   - _Nota_: Utilizzato per mantenere il locale tra le sessioni.
 
 - **prefixDefault**:
-
   - _Tipo_: `boolean`
   - _Predefinito_: `false`
   - _Descrizione_: Indica se includere il locale predefinito nell'URL.
@@ -276,7 +261,6 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
     - Se `false` e `defaultLocale = 'en'`: path = `/dashboard` o `/fr/dashboard`
 
 - **basePath**:
-
   - _Tipo_: `string`
   - _Predefinito_: `''`
   - _Descrizione_: Il percorso base per gli URL dell'applicazione.
@@ -288,7 +272,6 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
     - Se il percorso base non è impostato, l'URL sarà `https://example.com/en`
 
 - **serverSetCookie**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'always'`
   - _Descrizione_: Regola per impostare il cookie della lingua sul server.
@@ -297,7 +280,6 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
   - _Nota_: Controlla se il cookie della lingua viene impostato su ogni richiesta o mai.
 
 - **noPrefix**:
-
   - _Tipo_: `boolean`
   - _Predefinito_: `false`
   - _Descrizione_: Indica se omettere il prefisso della lingua dagli URL.
@@ -310,7 +292,6 @@ Impostazioni che controllano il comportamento del middleware, inclusa la gestion
       - Se `noPrefix = true`: L'URL sarà `https://example.com`
 
 - **detectLocaleOnPrefetchNoPrefix**:
-
   - _Tipo_: `boolean`
   - _Predefinito_: `false`
   - _Descrizione_: Controlla se la rilevazione del locale avviene durante le richieste di prefetch di Next.js.
@@ -343,13 +324,11 @@ Impostazioni relative alla gestione dei contenuti all'interno dell'applicazione,
 #### Proprietà
 
 - **watch**:
-
   - _Tipo_: `boolean`
   - _Predefinito_: `process.env.NODE_ENV === 'development'`
   - _Descrizione_: Indica se Intlayer deve monitorare le modifiche nei file di dichiarazione del contenuto nell'app per ricostruire i dizionari correlati.
 
 - **fileExtensions**:
-
   - _Tipo_: `string[]`
   - _Predefinito_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
   - _Descrizione_: Estensioni di file da cercare durante la costruzione dei dizionari.
@@ -357,7 +336,6 @@ Impostazioni relative alla gestione dei contenuti all'interno dell'applicazione,
   - _Nota_: Personalizzare le estensioni dei file può aiutare a evitare conflitti.
 
 - **baseDir**:
-
   - _Tipo_: `string`
   - _Predefinito_: `process.cwd()`
   - _Descrizione_: La directory base per il progetto.
@@ -365,26 +343,22 @@ Impostazioni relative alla gestione dei contenuti all'interno dell'applicazione,
   - _Nota_: Viene utilizzata per risolvere tutte le directory relative a Intlayer.
 
 - **dictionaryOutput**:
-
   - _Tipo_: `string[]`
   - _Predefinito_: `['intlayer']`
   - _Descrizione_: Il tipo di output del dizionario da utilizzare, ad esempio `'intlayer'` o `'i18next'`.
 
 - **contentDir**:
-
   - _Tipo_: `string[]`
   - _Predefinito_: `['src']`
   - _Esempio_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Descrizione_: Il percorso della directory in cui sono memorizzati i contenuti.
 
 - **dictionariesDir**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'.intlayer/dictionaries'`
   - _Descrizione_: Il percorso della directory per memorizzare risultati intermedi o di output.
 
 - **moduleAugmentationDir**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'.intlayer/types'`
   - _Descrizione_: Directory per l'augmentazione dei moduli, consentendo migliori suggerimenti IDE e controllo dei tipi.
@@ -392,21 +366,18 @@ Impostazioni relative alla gestione dei contenuti all'interno dell'applicazione,
   - _Nota_: Assicurati di includerlo in `tsconfig.json`.
 
 - **unmergedDictionariesDir**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'.intlayer/unmerged_dictionary'`
   - _Descrizione_: La directory per memorizzare i dizionari non uniti.
   - _Esempio_: `'translations'`
 
 - **dictionariesDir**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'.intlayer/dictionary'`
   - _Descrizione_: La directory per memorizzare i dizionari di localizzazione.
   - _Esempio_: `'translations'`
 
 - **i18nextResourcesDir**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'i18next_dictionary'`
   - _Descrizione_: La directory per memorizzare i dizionari i18n.
@@ -414,14 +385,12 @@ Impostazioni relative alla gestione dei contenuti all'interno dell'applicazione,
   - _Nota_: Assicurati che questa directory sia configurata per il tipo di output i18next.
 
 - **typesDir**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'types'`
   - _Descrizione_: La directory per memorizzare i tipi di dizionario.
   - _Esempio_: `'intlayer-types'`
 
 - **mainDir**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'main'`
   - _Descrizione_: La directory in cui sono memorizzati i file principali dell'applicazione.
@@ -440,7 +409,6 @@ Impostazioni che controllano il logger, incluso il prefisso da utilizzare.
 #### Proprietà
 
 - **mode**:
-
   - _Tipo_: `string`
   - _Predefinito_: `default`
   - _Descrizione_: Indica la modalità del logger.
@@ -449,7 +417,6 @@ Impostazioni che controllano il logger, incluso il prefisso da utilizzare.
   - _Nota_: La modalità del logger. La modalità verbose registrerà più informazioni, ma può essere utilizzata per scopi di debug. La modalità disabled disabiliterà il logger.
 
 - **prefix**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'[intlayer] '`
   - _Descrizione_: Il prefisso del logger.
@@ -474,7 +441,6 @@ Intlayer supporta più provider AI per una maggiore flessibilità e scelta. I pr
 #### Proprietà
 
 - **provider**:
-
   - _Tipo_: `string`
   - _Predefinito_: `'openai'`
   - _Descrizione_: Il provider da utilizzare per le funzionalità AI di Intlayer.
@@ -483,7 +449,6 @@ Intlayer supporta più provider AI per una maggiore flessibilità e scelta. I pr
   - _Nota_: I diversi provider possono richiedere chiavi API diverse e avere modelli di prezzo differenti.
 
 - **model**:
-
   - _Tipo_: `string`
   - _Predefinito_: Nessuno
   - _Descrizione_: Il modello da utilizzare per le funzionalità AI di Intlayer.
@@ -491,7 +456,6 @@ Intlayer supporta più provider AI per una maggiore flessibilità e scelta. I pr
   - _Nota_: Il modello specifico da utilizzare varia in base al provider.
 
 - **temperature**:
-
   - _Tipo_: `number`
   - _Predefinito_: Nessuno
   - _Descrizione_: La temperatura controlla la casualità delle risposte dell'AI.
@@ -499,7 +463,6 @@ Intlayer supporta più provider AI per una maggiore flessibilità e scelta. I pr
   - _Nota_: Una temperatura più alta renderà l'AI più creativa e meno prevedibile.
 
 - **apiKey**:
-
   - _Tipo_: `string`
   - _Predefinito_: Nessuno
   - _Descrizione_: La tua chiave API per il provider selezionato.
@@ -524,7 +487,6 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
 #### Proprietà
 
 - **optimize**:
-
   - _Tipo_: `boolean`
   - _Predefinito_: `process.env.NODE_ENV === 'production'`
   - _Descrizione_: Controlla se il build deve essere ottimizzato.
@@ -535,7 +497,6 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Assicurati che tutte le chiavi siano dichiarate staticamente nelle chiamate `useIntlayer`. ad esempio: `useIntlayer('navbar')`.
 
 - **importMode**:
-
   - _Tipo_: `'static' | 'dynamic' | 'async'`
   - _Predefinito_: `'static'`
   - _Descrizione_: Controlla come vengono importati i dizionari.
