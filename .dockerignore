@@ -45,7 +45,6 @@ tests/
 README.md
 CONTRIBUTING.md
 LICENSE
-**/README.md
 
 # Examples (not needed for core package build)
 examples/
