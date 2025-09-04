@@ -32,4 +32,9 @@ describe('getMarkdownMetadata', () => {
       tags: ['tag1', 'tag2', 'tag3'],
     });
   });
+
+  it('should return an empty object if the markdown file is empty', () => {
+    const metadata = getMarkdownMetadata('');
+    expect(metadata).toEqual({});
+  });
 });
