@@ -6,19 +6,19 @@
 
 <div align="center">
   <br/>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/README.md"><img src="https://img.shields.io/badge/Deutsch-README-656d76?style=for-the-badge" alt="Deutsches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/README.md"><img src="https://img.shields.io/badge/简体中文-说明-656d76?style=for-the-badge" alt="简体中文说明" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/README.md"><img src="https://img.shields.io/badge/Russisch-README-656d76?style=for-the-badge" alt="Russisches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/README.md"><img src="https://img.shields.io/badge/Japanisch-README-656d76?style=for-the-badge" alt="Japanisches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/README.md"><img src="https://img.shields.io/badge/Französisch-README-656d76?style=for-the-badge" alt="Französisches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/README.md"><img src="https://img.shields.io/badge/Koreanisch-README-656d76?style=for-the-badge" alt="Koreanisches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/README.md"><img src="https://img.shields.io/badge/Spanisch-README-656d76?style=for-the-badge" alt="Spanisches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/README.md"><img src="https://img.shields.io/badge/Deutsch-README-0969da?style=for-the-badge" alt="Deutsches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/README.md"><img src="https://img.shields.io/badge/Arabisch-README-656d76?style=for-the-badge" alt="Arabisches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/README.md"><img src="https://img.shields.io/badge/Italienisch-README-656d76?style=for-the-badge" alt="Italienisches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/README.md"><img src="https://img.shields.io/badge/Englisch (UK)-README-656d76?style=for-the-badge" alt="Englisches (UK) README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/README.md"><img src="https://img.shields.io/badge/Portugiesisch-README-656d76?style=for-the-badge" alt="Portugiesisches README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/README.md"><img src="https://img.shields.io/badge/Hindi-README-656d76?style=for-the-badge" alt="Hindi README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/readme.md"><img src="https://img.shields.io/badge/Deutsch-README-656d76?style=for-the-badge" alt="Deutsches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/readme.md"><img src="https://img.shields.io/badge/简体中文-说明-656d76?style=for-the-badge" alt="简体中文说明" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/readme.md"><img src="https://img.shields.io/badge/Russisch-README-656d76?style=for-the-badge" alt="Russisches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/readme.md"><img src="https://img.shields.io/badge/Japanisch-README-656d76?style=for-the-badge" alt="Japanisches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/readme.md"><img src="https://img.shields.io/badge/Französisch-README-656d76?style=for-the-badge" alt="Französisches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/readme.md"><img src="https://img.shields.io/badge/Koreanisch-README-656d76?style=for-the-badge" alt="Koreanisches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/readme.md"><img src="https://img.shields.io/badge/Spanisch-README-656d76?style=for-the-badge" alt="Spanisches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/readme.md"><img src="https://img.shields.io/badge/Deutsch-README-0969da?style=for-the-badge" alt="Deutsches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/readme.md"><img src="https://img.shields.io/badge/Arabisch-README-656d76?style=for-the-badge" alt="Arabisches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/readme.md"><img src="https://img.shields.io/badge/Italienisch-README-656d76?style=for-the-badge" alt="Italienisches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/readme.md"><img src="https://img.shields.io/badge/Englisch (UK)-README-656d76?style=for-the-badge" alt="Englisches (UK) README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/readme.md"><img src="https://img.shields.io/badge/Portugiesisch-README-656d76?style=for-the-badge" alt="Portugiesisches README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/readme.md"><img src="https://img.shields.io/badge/Hindi-README-656d76?style=for-the-badge" alt="Hindi README" /></a>
 </div>
 
 <div align="center">

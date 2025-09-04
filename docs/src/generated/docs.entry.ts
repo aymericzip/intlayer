@@ -50,45 +50,45 @@ export const docsEntry = {
       readFile(join(dir, '../../../docs/hi/CI_CD.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
-  './docs/en/README.md': {
+  './docs/en/readme.md': {
     en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/en/readme.md'), 'utf8')
     ),
     fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/fr/readme.md'), 'utf8')
     ),
     ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/ru/readme.md'), 'utf8')
     ),
     ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/ja/readme.md'), 'utf8')
     ),
     ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/ko/readme.md'), 'utf8')
     ),
     zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/zh/readme.md'), 'utf8')
     ),
     es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/es/readme.md'), 'utf8')
     ),
     de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/de/readme.md'), 'utf8')
     ),
     ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/ar/readme.md'), 'utf8')
     ),
     pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/pt/readme.md'), 'utf8')
     ),
     'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/en-GB/readme.md'), 'utf8')
     ),
     it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/it/readme.md'), 'utf8')
     ),
     hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/README.md'), 'utf8')
+      readFile(join(dir, '../../../docs/hi/readme.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/autoFill.md': {
