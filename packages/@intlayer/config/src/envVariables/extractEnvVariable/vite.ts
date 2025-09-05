@@ -76,6 +76,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryPriorityStrategy: import.meta.env
       .VITE_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
     liveSync: import.meta.env.VITE_INTLAYER_LIVE_SYNC,
+    liveSyncPort: import.meta.env.VITE_INTLAYER_LIVE_SYNC_PORT,
+    liveSyncURL: import.meta.env.VITE_INTLAYER_LIVE_SYNC_URL,
   };
 
   const log: ReplaceValue<LogConfig> = {

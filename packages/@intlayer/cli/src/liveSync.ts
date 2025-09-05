@@ -6,15 +6,14 @@ import type { IntlayerConfig } from '@intlayer/config';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { getDynamicDictionaries } from '@intlayer/dynamic-dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { ChildProcess, spawn } from 'child_process';
 import { createServer } from 'http';
 
 type LiveSyncOptions = {
   process?: string;
 };
-
-const serverPort = 4000;
-const serverURL = `http://localhost:${serverPort}`;
 
 const writeDictionary = async (
   dictionary: DictionaryAPI,
@@ -28,6 +27,8 @@ const writeDictionary = async (
 export const liveSync = async (options?: LiveSyncOptions) => {
   const configuration = getConfiguration();
   const appLogger = getAppLogger(configuration);
+
+  const { liveSyncPort, liveSyncURL } = configuration.editor;
 
   let childProcess: ChildProcess | null = null;
   let eventListener: IntlayerEventListener | null = null;
@@ -61,6 +62,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
   // Initialize the event listener for hot reload if configured
   if (
     configuration.editor.liveSync &&
+    configuration.editor.backendURL &&
     configuration.editor.clientId &&
     configuration.editor.clientSecret
   ) {
@@ -123,17 +125,17 @@ export const liveSync = async (options?: LiveSyncOptions) => {
         }
       );
     }
-  } else {
-    if (!configuration.editor.liveSync) {
-      appLogger('Hot reload is disabled in configuration');
-    } else if (
-      !configuration.editor.clientId ||
-      !configuration.editor.clientSecret
-    ) {
-      appLogger(
-        'Missing client credentials for hot reload. Please configure clientId and clientSecret'
-      );
-    }
+  } else if (!configuration.editor.liveSync) {
+    appLogger(
+      'Hot reload is disabled. Please enable it in the configuration (editor.liveSync).'
+    );
+  } else if (
+    !configuration.editor.clientId ||
+    !configuration.editor.clientSecret
+  ) {
+    appLogger(
+      'Missing client credentials for hot reload. Please configure clientId and clientSecret'
+    );
   }
 
   const server = createServer(async (req, res) => {
@@ -159,12 +161,49 @@ export const liveSync = async (options?: LiveSyncOptions) => {
       const dictionaries = getDictionaries();
 
       res.end(`export default ${JSON.stringify(dictionaries)};`);
-    } else {
-      res.writeHead(404, {
-        'Access-Control-Allow-Origin': '*',
-      });
-      res.end('Not found');
+      return;
     }
+
+    if (req.url?.startsWith('/dynamic_dictionaries')) {
+      res.writeHead(200, {
+        'Content-Type': 'text/javascript; charset=utf-8',
+        'Cache-Control': 'no-store',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      });
+      const dynamicDictionaries = getDynamicDictionaries();
+      res.end(`export default ${JSON.stringify(dynamicDictionaries)};`);
+      return;
+    }
+
+    if (req.url?.startsWith('/unmerged_dictionaries')) {
+      res.writeHead(200, {
+        'Content-Type': 'text/javascript; charset=utf-8',
+        'Cache-Control': 'no-store',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      });
+      const unmergedDictionaries = getUnmergedDictionaries();
+      res.end(`export default ${JSON.stringify(unmergedDictionaries)};`);
+      return;
+    }
+
+    if (req.url === '/configuration') {
+      res.writeHead(200, {
+        'Content-Type': 'text/javascript; charset=utf-8',
+        'Cache-Control': 'no-store',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      });
+      res.end(`export default ${JSON.stringify(configuration)};`);
+      return;
+    }
+
+    res.end('Not found');
+    return;
   });
 
   const getLiveSyncParam = () => {
@@ -172,11 +211,11 @@ export const liveSync = async (options?: LiveSyncOptions) => {
 
     return '\x1b[32m✓ Enabled\x1b[0m';
   };
-  server.listen(4000, () => {
+  server.listen(liveSyncPort, () => {
     console.log(`
       \x1b[1;90mINTLAYER v${packageJson.version}\x1b[0m
   
-      Live server running at:          \x1b[90m${serverURL}\x1b[0m
+      Live server running at:          \x1b[90m${liveSyncURL}\x1b[0m
       - Backend URL:                   \x1b[90m${configuration.editor.backendURL ?? '-'}\x1b[0m
       - Live sync:                     ${getLiveSyncParam()}
       - Parallel process:              ${options?.process === '' ? '-' : `\x1b[90m${options?.process}\x1b[0m`}

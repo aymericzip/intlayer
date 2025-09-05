@@ -255,6 +255,20 @@ export type EditorConfig = {
    * Default: false
    */
   liveSync: boolean;
+
+  /**
+   * Port of the live sync server
+   *
+   * Default: 4000
+   */
+  liveSyncPort: number;
+
+  /**
+   * URL of the live sync server in case of remote live sync server
+   *
+   * Default: `http://localhost:${liveSyncPort}`
+   */
+  liveSyncURL: string;
 };
 
 export type AiConfig = {

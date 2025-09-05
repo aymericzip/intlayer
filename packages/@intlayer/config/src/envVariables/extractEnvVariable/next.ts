@@ -67,6 +67,8 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryPriorityStrategy:
       process.env.NEXT_PUBLIC_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
     liveSync: process.env.NEXT_PUBLIC_INTLAYER_LIVE_SYNC,
+    liveSyncPort: process.env.NEXT_PUBLIC_INTLAYER_LIVE_SYNC_PORT,
+    liveSyncURL: process.env.NEXT_PUBLIC_INTLAYER_LIVE_SYNC_URL,
   };
 
   const ai: ReplaceValue<AiConfig> = {

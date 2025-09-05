@@ -5,9 +5,7 @@ import fg from 'fast-glob';
 import { join } from 'path';
 import { type PluginOption } from 'vite';
 
-export const IntlayerPrunePlugin = (
-  intlayerConfig: IntlayerConfig
-): PluginOption => {
+export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
   const { optimize, importMode, traversePattern } = intlayerConfig.build;
 
   const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =

@@ -28,6 +28,7 @@ import {
   EDITOR_URL,
   HOT_RELOAD,
   IS_ENABLED,
+  LIVE_SYNC_PORT,
   PORT,
 } from '../defaultValues/editor';
 import {
@@ -622,6 +623,22 @@ const buildEditorFields = (
    * Default: false
    */
   liveSync: customConfiguration?.liveSync ?? HOT_RELOAD,
+
+  /**
+   * Port of the live sync server
+   *
+   * Default: 4000
+   */
+  liveSyncPort: customConfiguration?.liveSyncPort ?? LIVE_SYNC_PORT,
+
+  /**
+   * URL of the live sync server in case of remote live sync server
+   *
+   * Default: `http://localhost:${LIVE_SYNC_PORT}`
+   */
+  liveSyncURL:
+    customConfiguration?.liveSyncURL ??
+    `http://localhost:${customConfiguration?.liveSyncPort ?? LIVE_SYNC_PORT}`,
 });
 
 const buildLogFields = (

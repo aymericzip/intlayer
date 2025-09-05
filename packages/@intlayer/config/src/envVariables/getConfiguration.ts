@@ -121,6 +121,8 @@ export const getConfiguration = (
       'string'
     )! as 'local_first' | 'distant_first',
     liveSync: getEnvValue(env.editor.liveSync, 'boolean')!,
+    liveSyncPort: getEnvValue(env.editor.liveSyncPort, 'number')!,
+    liveSyncURL: getEnvValue(env.editor.liveSyncURL, 'string')!,
   };
 
   const logConfiguration: LogConfig = {

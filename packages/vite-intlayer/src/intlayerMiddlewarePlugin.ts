@@ -32,7 +32,7 @@ const {
 /**
  * A Vite plugin that integrates a logic similar to the Next.js intlayer middleware.
  */
-export const intlayerMiddlewarePlugin = (): Plugin => {
+export const intlayerMiddleware = (): Plugin => {
   return {
     name: 'vite-intlayer-middleware-plugin',
     configureServer: (server) => {
@@ -396,3 +396,15 @@ const handleDefaultLocaleRedirect = ({
   rewriteUrl(req, res, originalPath, pathLocale);
   return next();
 };
+
+/**
+ * @deprecated Rename to intlayerMiddleware instead
+ *
+ * ```ts
+ * // Example usage of the plugin in a Vite configuration
+ * export default defineConfig({
+ *   plugins: [ intlayerMiddleware() ],
+ * });
+ * ```
+ */
+export const intlayerMiddlewarePlugin = intlayerMiddleware;

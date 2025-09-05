@@ -227,6 +227,12 @@ Defines settings related to the integrated editor, including server port and act
   - _Example_: `true`
   - _Note_: Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
 
+- **dictionaryPriorityStrategy**:
+  - _Type_: `string`
+  - _Default_: `'local_first'`
+  - _Description_: The strategy to prioritize dictionaries in the case of both local and distant dictionaries being present. If set to `'distant_first'`, the application will prioritize distant dictionaries over local dictionaries. If set to `'local_first'`, the application will prioritize local dictionaries over distant dictionaries.
+  - _Example_: `'distant_first'`
+
 - **liveSync**:
   - _Type_: `boolean`
   - _Default_: `false`
@@ -235,11 +241,19 @@ Defines settings related to the integrated editor, including server port and act
   - _Note_: For example, when a new dictionary is added or updated, the application will update the content to display in the page.
   - _Note_: Live sync need to externalize the content of the application to another server. That means that it can slightly impact the performance of the application. To limit this, we recommand to host the application and the live sync server on the same machine. Also, the combination of live sync and `optimize` can apply a consequent number of requests to the live sync server. Depending of your infrastructure, we recommand to test both options and their combination.
 
-- **dictionaryPriorityStrategy**:
+- **liveSyncPort**:
+  - _Type_: `number`
+  - _Default_: `4000`
+  - _Description_: The port of the live sync server.
+  - _Example_: `4000`
+  - _Note_: The port of the live sync server.
+
+- **liveSyncURL**:
   - _Type_: `string`
-  - _Default_: `'local_first'`
-  - _Description_: The strategy to prioritize dictionaries in the case of both local and distant dictionaries being present. If set to `'distant_first'`, the application will prioritize distant dictionaries over local dictionaries. If set to `'local_first'`, the application will prioritize local dictionaries over distant dictionaries.
-  - _Example_: `'distant_first'`
+  - _Default_: `'http://localhost:{liveSyncPort}'`
+  - _Description_: The URL of the live sync server.
+  - _Example_: `'https://example.com'`
+  - _Note_: Point to localhost by default but can be changed to any URL in the case of a remote live sync server.
 
 ### Middleware Configuration
 
@@ -537,9 +551,9 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 ## Doc History
 
-| Version | Date       | Changes                                                  |
-| ------- | ---------- | -------------------------------------------------------- |
-| 5.9.0   | 2025-09-04 | Replace `hotReload` field by `liveSync`                  |
-| 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option |
-| 5.6.0   | 2025-07-13 | Change default contentDir from `['src']` to `['.']`      |
-| 5.5.11  | 2025-06-29 | Add `docs` commands                                      |
+| Version | Date       | Changes                                                                                 |
+| ------- | ---------- | --------------------------------------------------------------------------------------- |
+| 5.9.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields |
+| 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option                                |
+| 5.6.0   | 2025-07-13 | Change default contentDir from `['src']` to `['.']`                                     |
+| 5.5.11  | 2025-06-29 | Add `docs` commands                                                                     |

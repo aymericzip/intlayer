@@ -67,6 +67,8 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     dictionaryPriorityStrategy:
       process.env.REACT_APP_INTLAYER_DICTIONARY_PRIORITY_STRATEGY,
     liveSync: process.env.REACT_APP_INTLAYER_LIVE_SYNC,
+    liveSyncPort: process.env.REACT_APP_INTLAYER_LIVE_SYNC_PORT,
+    liveSyncURL: process.env.REACT_APP_INTLAYER_LIVE_SYNC_URL,
   };
 
   const log: ReplaceValue<LogConfig> = {
