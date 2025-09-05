@@ -79,8 +79,8 @@ const buildEntryContent = (
   const header = [
     `/* AUTO-GENERATED – DO NOT EDIT */`,
     `/* REGENERATE USING \`pnpm prepare\` */`,
-    `import { LocalesValues } from 'intlayer';`,
     `import { readFile } from 'fs/promises';`,
+    `import { LocalesValues } from 'intlayer';`,
     `import { dirname, join } from 'path';`,
     `import { fileURLToPath } from 'url';`,
     ``,
