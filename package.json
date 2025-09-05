@@ -72,11 +72,11 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
     "minimist": "^1.2.8",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
-    "rollup-plugin-visualizer": "^5.14.0",
+    "rollup-plugin-visualizer": "^6.0.3",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.2"
+    "vitest": "^3.2.4"
   },
   "packageManager": "pnpm@10.12.1",
   "engines": {

@@ -13,7 +13,7 @@
     "esbuild": "^0.25.5",
     "esbuild-fix-imports-plugin": "^1.0.22",
     "eslint": "^9.33.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   }

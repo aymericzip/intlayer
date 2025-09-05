@@ -150,12 +150,12 @@
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
     "eslint": "^9.33.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.2"
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",

@@ -135,7 +135,7 @@ const getModel = (
   return fallBackModel;
 };
 
-export type AIConfig = Parameters<typeof generateText>[0];
+export type AIConfig = Omit<Parameters<typeof generateText>[0], 'prompt'>;
 
 const DEFAULT_PROVIDER: AIProvider = AIProvider.OPENAI as AIProvider;
 const DEFAULT_TEMPERATURE: number = 1; // ChatGPT 5 accept only temperature 1

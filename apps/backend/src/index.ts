@@ -106,7 +106,7 @@ const startServer = async () => {
   });
 
   // Session Auth
-  const auth = getAuth(dbClient);
+  const auth = getAuth(dbClient as any);
   app.all('/api/auth/{*any}', toNodeHandler(auth));
   app.use(/(.*)/, authMiddleware(auth));
 

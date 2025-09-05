@@ -151,7 +151,7 @@
     "eslint": "^9.33.0",
     "fast-glob": "^3.3.3",
     "lucide-react": "^0.541.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "storybook": "^8.6.14",
     "tailwindcss": "^4.1.8",
@@ -159,7 +159,7 @@
     "vite": "^7.1.2",
     "vite-intlayer": "workspace:*",
     "vite-plugin-dts": "^4.5.3",
-    "vitest": "^3.2.2"
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",

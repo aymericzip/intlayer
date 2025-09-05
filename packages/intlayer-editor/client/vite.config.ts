@@ -13,11 +13,6 @@ export default defineConfig({
   server: {
     port: 8000,
   },
-  resolve: {
-    alias: {
-      '@intlayer/config': '@intlayer/config/client',
-    },
-  },
 
   plugins: [react(), intlayerPlugin(), tailwindcss()],
 });

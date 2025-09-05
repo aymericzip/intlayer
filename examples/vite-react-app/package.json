@@ -31,7 +31,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "intlayer-editor": "workspace:*",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.9.2",
     "vite": "^7.1.2",

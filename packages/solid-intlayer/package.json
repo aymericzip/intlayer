@@ -89,13 +89,13 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.33.0",
     "jsdom": "^26.1.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "typescript": "^5.9.2",
     "vite": "^7.1.2",
     "vite-plugin-dts": "^4.5.3",
     "vite-plugin-solid": "^2.11.6",
-    "vitest": "^3.2.2"
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
