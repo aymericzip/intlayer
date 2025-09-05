@@ -1,7 +1,7 @@
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
-import { getAppLogger, getConfiguration } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/config/client';
+import configuration from '@intlayer/config/built';
+import { type IntlayerConfig, getAppLogger } from '@intlayer/config/client';
 import { EventSource } from 'eventsource';
 import { getOAuthAPI } from './getIntlayerAPI/oAuth';
 
@@ -32,8 +32,7 @@ export type IntlayerMessageEvent = MessageEvent;
  *   };
  */
 export class IntlayerEventListener {
-  private configuration = getConfiguration();
-  private appLogger = getAppLogger(this.configuration);
+  private appLogger = getAppLogger(configuration);
 
   private eventSource: EventSource | null = null;
   private reconnectAttempts = 0;
@@ -67,7 +66,7 @@ export class IntlayerEventListener {
    */
   public onConnectionError?: (error: Event) => any;
 
-  constructor(private intlayerConfig: IntlayerConfig = this.configuration) {
+  constructor(private intlayerConfig: IntlayerConfig = configuration) {
     this.appLogger = getAppLogger(this.intlayerConfig);
   }
 

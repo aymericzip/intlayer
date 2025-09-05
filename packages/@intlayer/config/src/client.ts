@@ -1,4 +1,4 @@
-export { logger } from './logger';
+export { getAppLogger, logger } from './logger';
 export type {
   BaseContentConfig,
   BaseDerivedConfig,
