@@ -85,6 +85,10 @@ type State = PluginPass & {
      * Files list to traverse.
      */
     filesList?: string[];
+    /**
+     * If true, the plugin will activate the live sync of the dictionaries.
+     */
+    liveSync?: boolean;
   };
   /** map key → generated ident (per-file) for static imports */
   _newStaticImports?: Map<string, t.Identifier>;
@@ -112,18 +116,25 @@ const makeIdent = (key: string): t.Identifier => {
   return t.identifier(`_${hash}`);
 };
 
-const computeRelativeImport = (
+const computeImport = (
   fromFile: string,
   dictionariesDir: string,
   dynamicDictionariesDir: string,
   key: string,
-  isDynamic = false
+  isDynamic: boolean,
+  liveSync: boolean
 ): string => {
-  const jsonPath = isDynamic
+  if (liveSync) {
+    return isDynamic
+      ? `@intlayer/dynamic-dictionaries-entry/${key}`
+      : `@intlayer/dictionaries-entry/${key}`;
+  }
+
+  const realtivePath = isDynamic
     ? join(dynamicDictionariesDir, `${key}.mjs`)
     : join(dictionariesDir, `${key}.json`);
 
-  let rel = relative(dirname(fromFile), jsonPath).replace(/\\/g, '/'); // win →
+  let rel = relative(dirname(fromFile), realtivePath).replace(/\\/g, '/'); // win →
   if (!rel.startsWith('./') && !rel.startsWith('../')) rel = `./${rel}`;
   return rel;
 };
@@ -241,17 +252,20 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
           const file = state.file.opts.filename!;
           const dictionariesDir = state.opts.dictionariesDir;
           const dynamicDictionariesDir = state.opts.dynamicDictionariesDir;
+          const liveSync = state.opts.liveSync;
           const imports: t.ImportDeclaration[] = [];
 
           // Generate static imports (for getIntlayer and useIntlayer when not using dynamic)
           for (const [key, ident] of state._newStaticImports!) {
-            const rel = computeRelativeImport(
+            const rel = computeImport(
               file,
               dictionariesDir,
               dynamicDictionariesDir,
               key,
-              false // Always static
+              false, // Always static
+              liveSync
             );
+
             const importDeclarationNode = t.importDeclaration(
               [t.importDefaultSpecifier(t.identifier(ident.name))],
               t.stringLiteral(rel)
@@ -266,12 +280,13 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
 
           // Generate dynamic imports (for useIntlayer when using dynamic helpers)
           for (const [key, ident] of state._newDynamicImports!) {
-            const rel = computeRelativeImport(
+            const rel = computeImport(
               file,
               dictionariesDir,
               dynamicDictionariesDir,
               key,
-              true // Always dynamic
+              true, // Always dynamic
+              liveSync
             );
             imports.push(
               t.importDeclaration(

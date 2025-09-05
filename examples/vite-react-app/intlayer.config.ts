@@ -16,8 +16,8 @@ const config: IntlayerConfig = {
     editorURL: 'http://localhost:8000',
     backendURL: 'http://localhost:3100',
     clientId: process.env.INTLAYER_CLIENT_ID,
-    liveSync: true,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    liveSync: true,
   },
   build: {
     optimize: false,

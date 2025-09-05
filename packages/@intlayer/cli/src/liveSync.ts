@@ -160,6 +160,16 @@ export const liveSync = async (options?: LiveSyncOptions) => {
       });
       const dictionaries = getDictionaries();
 
+      const prefix = '/dictionaries/';
+      if (req.url.startsWith(prefix)) {
+        const key = decodeURIComponent(
+          req.url.slice(prefix.length).split('?')[0]
+        );
+        const one = (dictionaries as any)[key] ?? null;
+        res.end(`export default ${JSON.stringify(one)};`);
+        return;
+      }
+
       res.end(`export default ${JSON.stringify(dictionaries)};`);
       return;
     }
@@ -173,6 +183,17 @@ export const liveSync = async (options?: LiveSyncOptions) => {
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
       const dynamicDictionaries = getDynamicDictionaries();
+
+      const prefix = '/dynamic_dictionaries/';
+      if (req.url.startsWith(prefix)) {
+        const key = decodeURIComponent(
+          req.url.slice(prefix.length).split('?')[0]
+        );
+        const one = (dynamicDictionaries as any)[key] ?? null;
+        res.end(`export default ${JSON.stringify(one)};`);
+        return;
+      }
+
       res.end(`export default ${JSON.stringify(dynamicDictionaries)};`);
       return;
     }
@@ -186,6 +207,17 @@ export const liveSync = async (options?: LiveSyncOptions) => {
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
       const unmergedDictionaries = getUnmergedDictionaries();
+
+      const prefix = '/unmerged_dictionaries/';
+      if (req.url.startsWith(prefix)) {
+        const key = decodeURIComponent(
+          req.url.slice(prefix.length).split('?')[0]
+        );
+        const one = (unmergedDictionaries as any)[key] ?? null;
+        res.end(`export default ${JSON.stringify(one)};`);
+        return;
+      }
+
       res.end(`export default ${JSON.stringify(unmergedDictionaries)};`);
       return;
     }

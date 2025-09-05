@@ -7,6 +7,7 @@ import { type PluginOption } from 'vite';
 
 export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
   const { optimize, importMode, traversePattern } = intlayerConfig.build;
+  const { liveSync } = intlayerConfig.editor;
 
   const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
     intlayerConfig.content;
@@ -60,6 +61,7 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
                 importMode,
                 filesList,
                 replaceDictionaryEntry: false,
+                liveSync,
               },
             ],
           ],
