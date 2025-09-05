@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
-import { intlayerMiddlewarePlugin, intlayerPlugin } from 'vite-intlayer';
+import { intlayer, intlayerMiddlewarePlugin } from 'vite-intlayer';
 import solid from 'vite-plugin-solid';
 
 export default defineConfig({
-  plugins: [solid(), intlayerPlugin(), intlayerMiddlewarePlugin()],
+  plugins: [solid(), intlayer(), intlayerMiddlewarePlugin()],
 });

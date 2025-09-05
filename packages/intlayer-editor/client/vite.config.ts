@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
-import { intlayerPlugin } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -14,5 +14,5 @@ export default defineConfig({
     port: 8000,
   },
 
-  plugins: [react(), intlayerPlugin(), tailwindcss()],
+  plugins: [react(), intlayer(), tailwindcss()],
 });

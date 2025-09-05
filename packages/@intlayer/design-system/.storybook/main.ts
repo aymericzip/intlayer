@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import { defineConfig, mergeConfig } from 'vite';
-import { intlayerPlugin } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -30,7 +30,7 @@ const config: StorybookConfig = {
     const tailwindcss = (await import('@tailwindcss/vite')).default;
 
     const viteConfig = defineConfig(() => ({
-      plugins: [intlayerPlugin(), tailwindcss()],
+      plugins: [intlayer(), tailwindcss()],
     }));
 
     return mergeConfig(config, viteConfig(env));

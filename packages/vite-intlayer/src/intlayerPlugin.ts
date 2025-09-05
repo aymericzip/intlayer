@@ -11,11 +11,11 @@ import { IntlayerPrunePlugin } from './intlayerPrunePlugin';
  * ```ts
  * // Example usage of the plugin in a Vite configuration
  * export default defineConfig({
- *   plugins: [ intlayerPlugin() ],
+ *   plugins: [ intlayer() ],
  * });
  * ```
  *  */
-export const intlayerPlugin = (): PluginOption => {
+export const intlayer = (): PluginOption => {
   const {
     mainDir,
     configDir,
@@ -105,3 +105,15 @@ export const intlayerPlugin = (): PluginOption => {
 
   return plugins;
 };
+
+/**
+ * @deprecated Rename to intlayer instead
+ *
+ * ```ts
+ * // Example usage of the plugin in a Vite configuration
+ * export default defineConfig({
+ *   plugins: [ intlayer() ],
+ * });
+ * ```
+ */
+export const intlayerPlugin = intlayer;
