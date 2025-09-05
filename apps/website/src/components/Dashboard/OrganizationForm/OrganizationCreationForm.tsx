@@ -22,22 +22,24 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
   onOrganizationCreated,
 }) => {
   const organizationSchema = useOrganizationSchema();
-  const { addOrganization } = useAddOrganization();
-  const { selectOrganization } = useSelectOrganization();
+  const { mutate: addOrganization, isPending: isAddingOrganization } =
+    useAddOrganization();
+  const { mutate: selectOrganization } = useSelectOrganization();
   const { form, isSubmitting } = useForm(organizationSchema);
   const { nameInput, createOrganizationButton } =
     useIntlayer('organization-form');
 
-  const onSubmitSuccess = async (data: OrganizationFormData) => {
-    await addOrganization(data).then(async (result) => {
-      if (!result.data) return;
+  const onSubmitSuccess = (data: OrganizationFormData) =>
+    addOrganization(data, {
+      onSuccess: (result) => {
+        if (!result.data) return;
 
-      const organizationId = String(result.data?.id);
+        const organizationId = String(result.data?.id);
 
-      await selectOrganization(organizationId);
-      onOrganizationCreated?.(result.data);
+        selectOrganization(organizationId);
+        onOrganizationCreated?.(result.data);
+      },
     });
-  };
 
   return (
     <Form
@@ -57,7 +59,7 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
         className="mt-12 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting}
+        isLoading={isSubmitting || isAddingOrganization}
         label={createOrganizationButton.ariaLabel.value}
         Icon={Plus}
       >
