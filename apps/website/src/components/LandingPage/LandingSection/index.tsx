@@ -26,6 +26,7 @@ import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
 import { ViteLogo } from '../AvailableTechnoSection/Vitejs';
 import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
 
+const SHOW_WHATS_NEW = false;
 // Animated Technology logos
 const TechLogos: FC = () => {
   const { icons } = useIntlayer('available-techno-section');
@@ -125,33 +126,33 @@ export const LandingSection: FC = () => {
         {/* Centered Content */}
         <div className="w-full max-w-4xl mx-auto mb-8 lg:mb-0">
           {/* What's New Tag */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            // className="mb-8 flex justify-center items-center gap-2"
-            // comment this 👇 and uncomment ☝️ to show the what's new
-            className="hidden"
-          >
-            <Tag
-              size={TagSize.SM}
-              border={TagBorder.WITH}
-              color={TagColor.NEUTRAL}
-              className="border text-text rounded-full text-sm font-medium"
+          {SHOW_WHATS_NEW && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8 flex justify-center items-center gap-2"
             >
-              {whatsNew}
-            </Tag>
-            <Link
-              href={PagesRoutes.Changelog}
-              color="custom"
-              label="What's new"
-            >
-              <span className="flex items-center gap-1 text-sm sm:text-lg font-semibold text-neutral-500 dark:text-neutral-400">
-                {version} v{packageJSON.version}{' '}
-                <ArrowRight className="w-3 h-3" />
-              </span>
-            </Link>
-          </motion.div>
+              <Tag
+                size={TagSize.SM}
+                border={TagBorder.WITH}
+                color={TagColor.NEUTRAL}
+                className="border text-text rounded-full text-sm font-medium"
+              >
+                {whatsNew}
+              </Tag>
+              <Link
+                href={PagesRoutes.Changelog}
+                color="custom"
+                label="What's new"
+              >
+                <span className="flex items-center gap-1 text-sm sm:text-lg font-semibold text-neutral-500 dark:text-neutral-400">
+                  {version} v{packageJSON.version}{' '}
+                  <ArrowRight className="w-3 h-3" />
+                </span>
+              </Link>
+            </motion.div>
+          )}
 
           {/* Title */}
           <BlurInText
