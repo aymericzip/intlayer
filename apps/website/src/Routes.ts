@@ -3,7 +3,7 @@ export enum PagesRoutes {
   Demo = '/demo',
   Playground = '/playground',
   NotFound = '/404',
-
+  Changelog = '/changelog',
   Dashboard = '/dashboard',
   Dashboard_Editor = '/dashboard/editor',
   Dashboard_Content = '/dashboard/content',
