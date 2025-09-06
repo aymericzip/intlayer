@@ -20,9 +20,9 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   build: {
-    optimize: false,
+    optimize: true,
     // optimize: process.env.NODE_ENV === 'production',
-    importMode: 'dynamic',
+    importMode: 'static',
   },
 };
 

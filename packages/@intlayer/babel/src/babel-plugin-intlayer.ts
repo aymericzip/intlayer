@@ -124,10 +124,8 @@ const computeImport = (
   isDynamic: boolean,
   liveSync: boolean
 ): string => {
-  if (liveSync) {
-    return isDynamic
-      ? `@intlayer/dynamic-dictionaries-entry/${key}`
-      : `@intlayer/dictionaries-entry/${key}`;
+  if (liveSync && !isDynamic) {
+    return `@intlayer/dictionaries-entry/${key}`;
   }
 
   const realtivePath = isDynamic

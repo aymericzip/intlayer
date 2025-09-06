@@ -5,8 +5,8 @@ import { buildDictionary } from '@intlayer/chokidar';
 import type { IntlayerConfig } from '@intlayer/config';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json';
+import { getLocalisedContent } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import { getDynamicDictionaries } from '@intlayer/dynamic-dictionaries-entry';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { ChildProcess, spawn } from 'child_process';
 import { createServer } from 'http';
@@ -146,6 +146,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
+
       res.end();
       return;
     }
@@ -162,39 +163,27 @@ export const liveSync = async (options?: LiveSyncOptions) => {
 
       const prefix = '/dictionaries/';
       if (req.url.startsWith(prefix)) {
-        const key = decodeURIComponent(
-          req.url.slice(prefix.length).split('?')[0]
-        );
-        const one = (dictionaries as any)[key] ?? null;
-        res.end(`export default ${JSON.stringify(one)};`);
+        const [key, locale] = decodeURIComponent(req.url)
+          .slice(prefix.length)
+          .split('/');
+
+        const dictionary = dictionaries[key] ?? null;
+
+        if (locale) {
+          const sourceLocaleContent = getLocalisedContent(dictionary, locale, {
+            dictionaryKey: key,
+            keyPath: [],
+          });
+
+          res.end(`export default ${JSON.stringify(sourceLocaleContent)};`);
+          return;
+        }
+
+        res.end(`export default ${JSON.stringify(dictionary)};`);
         return;
       }
 
       res.end(`export default ${JSON.stringify(dictionaries)};`);
-      return;
-    }
-
-    if (req.url?.startsWith('/dynamic_dictionaries')) {
-      res.writeHead(200, {
-        'Content-Type': 'text/javascript; charset=utf-8',
-        'Cache-Control': 'no-store',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      });
-      const dynamicDictionaries = getDynamicDictionaries();
-
-      const prefix = '/dynamic_dictionaries/';
-      if (req.url.startsWith(prefix)) {
-        const key = decodeURIComponent(
-          req.url.slice(prefix.length).split('?')[0]
-        );
-        const one = (dynamicDictionaries as any)[key] ?? null;
-        res.end(`export default ${JSON.stringify(one)};`);
-        return;
-      }
-
-      res.end(`export default ${JSON.stringify(dynamicDictionaries)};`);
       return;
     }
 
@@ -210,10 +199,9 @@ export const liveSync = async (options?: LiveSyncOptions) => {
 
       const prefix = '/unmerged_dictionaries/';
       if (req.url.startsWith(prefix)) {
-        const key = decodeURIComponent(
-          req.url.slice(prefix.length).split('?')[0]
-        );
-        const one = (unmergedDictionaries as any)[key] ?? null;
+        const key = decodeURIComponent(req.url.slice(prefix.length));
+        const one = unmergedDictionaries[key] ?? null;
+
         res.end(`export default ${JSON.stringify(one)};`);
         return;
       }

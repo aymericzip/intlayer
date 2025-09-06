@@ -6,8 +6,8 @@ import { formatDictionaryText } from './formatDictionaryText';
 
 const groupDictionariesByKey = (
   dictionaries: Dictionary[]
-): Record<string, Dictionary[]> => {
-  return dictionaries.reduce(
+): Record<string, Dictionary[]> =>
+  dictionaries.reduce(
     (acc, dictionary) => {
       const key = dictionary.key;
       if (!acc[key]) {
@@ -18,7 +18,6 @@ const groupDictionariesByKey = (
     },
     {} as Record<string, Dictionary[]>
   );
-};
 
 export type UnmergedDictionaryResult = {
   dictionaryPath: string;

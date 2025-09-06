@@ -5,10 +5,6 @@ import { type PluginOption } from 'vite';
 const importmap: Record<string, string> = {
   '@intlayer/dictionaries-entry': 'http://localhost:4000/dictionaries',
   '@intlayer/dictionaries-entry/': 'http://localhost:4000/dictionaries/',
-  '@intlayer/dynamic-dictionaries-entry':
-    'http://localhost:4000/dynamic_dictionaries',
-  '@intlayer/dynamic-dictionaries-entry/':
-    'http://localhost:4000/dynamic_dictionaries/',
   '@intlayer/unmerged-dictionaries-entry':
     'http://localhost:4000/unmerged_dictionaries',
   '@intlayer/unmerged-dictionaries-entry/':
@@ -17,6 +13,12 @@ const importmap: Record<string, string> = {
 };
 
 const importKeys = Object.keys(importmap);
+// Normalize keys to a base form without trailing slash for robust boundary checks
+const importKeyBases = importKeys.map((key) => key.replace(/\/$/, ''));
+const importKeyRegexes = importKeyBases.map(
+  (base) =>
+    new RegExp(`^${base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:$|\/)`)
+);
 
 /**
  *
@@ -86,21 +88,37 @@ export const intlayerLiveSync = (
                   isResolved?: boolean
                 ) =>
                   previousExternal(source, importer, !!isResolved) === true ||
-                  importKeys.includes(source);
+                  importKeyBases.some(
+                    (base) => source === base || source.startsWith(`${base}/`)
+                  );
               }
 
               if (Array.isArray(previousExternal)) {
-                return [...previousExternal, ...importKeys];
+                return [
+                  ...previousExternal,
+                  ...importKeys,
+                  // Ensure subpath imports like "@intlayer/.../app" are also external
+                  ...importKeyRegexes,
+                ];
               }
 
               if (
                 typeof previousExternal === 'string' ||
                 previousExternal instanceof RegExp
               ) {
-                return [previousExternal, ...importKeys];
+                return [
+                  previousExternal,
+                  ...importKeys,
+                  // Ensure subpath imports like "@intlayer/.../app" are also external
+                  ...importKeyRegexes,
+                ];
               }
 
-              return [...importKeys];
+              return [
+                ...importKeys,
+                // Ensure subpath imports like "@intlayer/.../app" are also external
+                ...importKeyRegexes,
+              ];
             })() as any,
           },
         };

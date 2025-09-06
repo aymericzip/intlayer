@@ -28,6 +28,7 @@ export const generateDictionaryEntryPoint = (
   format: 'cjs' | 'esm' = 'esm',
   configuration = getConfiguration()
 ): string => {
+  const { liveSync } = configuration.editor;
   const { dynamicDictionariesDir } = configuration.content;
 
   let content = '';
@@ -43,7 +44,14 @@ export const generateDictionaryEntryPoint = (
       );
 
       if (format === 'esm') {
+        if (liveSync) {
+          return `  '${locale}': () => import('@intlayer/dictionaries-entry/${dictionary.dictionary.key}/${locale}', { assert: { type: 'json' }}).then(mod => mod.default)`;
+        }
         return `  '${locale}': () => import('./${relativePath}', { assert: { type: 'json' }}).then(mod => mod.default)`;
+      }
+
+      if (liveSync) {
+        return `  '${locale}': () => Promise.resolve(require('@intlayer/dictionaries-entry/${dictionary.dictionary.key}/${locale}'))`;
       }
 
       return `  '${locale}': () => Promise.resolve(require('./${relativePath}'))`;
