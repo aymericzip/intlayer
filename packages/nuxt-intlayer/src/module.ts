@@ -3,7 +3,7 @@ import { getConfiguration } from '@intlayer/config';
 import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
 import { join, relative, resolve } from 'path';
-import { intlayerMiddleware, IntlayerPrune } from 'vite-intlayer';
+import { intlayerMiddleware, intlayerPrune } from 'vite-intlayer';
 
 // @ts-ignore fix instantiation is excessively deep and possibly infinite
 export const module: NuxtModule = defineNuxtModule({
@@ -44,7 +44,7 @@ export const module: NuxtModule = defineNuxtModule({
       }
       if (optimize) {
         // viteConfig.plugins can be undefined at this stage
-        viteConfig.plugins?.push(IntlayerPrune(configuration) as any);
+        viteConfig.plugins?.push(intlayerPrune(configuration) as any);
       }
     });
 
