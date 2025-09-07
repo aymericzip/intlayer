@@ -2,24 +2,6 @@ import { IntlayerConfig } from '@intlayer/config';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { type PluginOption } from 'vite';
 
-const importmap: Record<string, string> = {
-  '@intlayer/dictionaries-entry': 'http://localhost:4000/dictionaries',
-  '@intlayer/dictionaries-entry/': 'http://localhost:4000/dictionaries/',
-  '@intlayer/unmerged-dictionaries-entry':
-    'http://localhost:4000/unmerged_dictionaries',
-  '@intlayer/unmerged-dictionaries-entry/':
-    'http://localhost:4000/unmerged_dictionaries/',
-  '@intlayer/config/built': 'http://localhost:4000/configuration',
-};
-
-const importKeys = Object.keys(importmap);
-// Normalize keys to a base form without trailing slash for robust boundary checks
-const importKeyBases = importKeys.map((key) => key.replace(/\/$/, ''));
-const importKeyRegexes = importKeyBases.map(
-  (base) =>
-    new RegExp(`^${base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:$|\/)`)
-);
-
 /**
  *
  * A Vite plugin that integrates Intlayer configuration into the build process
@@ -34,7 +16,23 @@ const importKeyRegexes = importKeyBases.map(
 export const intlayerLiveSync = (
   intlayerConfig: IntlayerConfig
 ): PluginOption => {
-  const { liveSync } = intlayerConfig.editor;
+  const { liveSync, liveSyncURL } = intlayerConfig.editor;
+
+  const importmap: Record<string, string> = {
+    '@intlayer/dictionaries-entry': `${liveSyncURL}/dictionaries`,
+    '@intlayer/dictionaries-entry/': `${liveSyncURL}/dictionaries/`,
+    '@intlayer/unmerged-dictionaries-entry': `${liveSyncURL}/unmerged_dictionaries`,
+    '@intlayer/unmerged-dictionaries-entry/': `${liveSyncURL}/unmerged_dictionaries/`,
+    '@intlayer/config/built': `${liveSyncURL}/configuration`,
+  };
+
+  const importKeys = Object.keys(importmap);
+  // Normalize keys to a base form without trailing slash for robust boundary checks
+  const importKeyBases = importKeys.map((key) => key.replace(/\/$/, ''));
+  const importKeyRegexes = importKeyBases.map(
+    (base) =>
+      new RegExp(`^${base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:$|\/)`)
+  );
 
   if (!liveSync) {
     return [];
