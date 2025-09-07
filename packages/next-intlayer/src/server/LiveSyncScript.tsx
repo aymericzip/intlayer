@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import Script from 'next/script';
+import Script from 'next/script.js';
 import { FC } from 'react';
 
 export const LiveSyncScript: FC = () => {
