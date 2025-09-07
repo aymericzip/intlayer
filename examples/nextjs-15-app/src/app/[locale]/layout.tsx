@@ -3,6 +3,7 @@ import { IntlayerProvider } from '@providers/IntlayerProvider';
 import { getHTMLTextDir, getIntlayer } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
+import { LiveSyncScript } from 'next-intlayer/server';
 import localFont from 'next/font/local';
 
 export { generateStaticParams } from 'next-intlayer';
@@ -34,18 +35,19 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
 
   return (
-    <IntlayerProvider locale={locale}>
-      <html lang={locale} dir={getHTMLTextDir(locale)}>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <IntlayerProvider locale={locale}>
+          <LiveSyncScript />
           <header className="fixed top-5 flex w-full justify-end px-10">
             <LocaleSwitcher />
           </header>
           {children}
-        </body>
-      </html>
-    </IntlayerProvider>
+        </IntlayerProvider>
+      </body>
+    </html>
   );
 };
 

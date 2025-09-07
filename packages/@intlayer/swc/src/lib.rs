@@ -67,6 +67,10 @@ struct PluginConfig {
     /// Files list to traverse
     #[serde(rename = "filesList")]
     files_list: Vec<String>,
+
+    /// If true, activate live sync: import from virtual entry instead of JSON file
+    #[serde(rename = "liveSync")]
+    live_sync: Option<bool>,
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -411,15 +415,19 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
 
         // 4.b  inject static imports after the directives  ─────────────────────
         for (key, ident) in visitor.new_static_imports.clone().into_iter().rev() {
-            let file_path = Path::new(&filename);
-            let dict_file = Path::new(&dictionaries_dir).join(format!("{}.json", key));
+            // When liveSync is enabled, import from the virtual dictionaries entry
+            // instead of the JSON file path, mirroring the Babel plugin behavior.
+            let import_path = if cfg.live_sync.unwrap_or(false) {
+                format!("@intlayer/dictionaries-entry/{}", key)
+            } else {
+                let file_path = Path::new(&filename);
+                let dict_file = Path::new(&dictionaries_dir).join(format!("{}.json", key));
 
-            // Compute a relative path FROM the source file's directory TO the JSON file
-            let relative = diff_paths(&dict_file, file_path.parent().unwrap())
-                .unwrap_or_else(|| PathBuf::from(&dict_file));
+                // Compute a relative path FROM the source file's directory TO the JSON file
+                let relative = diff_paths(&dict_file, file_path.parent().unwrap())
+                    .unwrap_or_else(|| PathBuf::from(&dict_file));
 
-            // If it doesn't start with "./" or "../", add "./"
-            let import_path = {
+                // If it doesn't start with "./" or "../", add "./"
                 let s = relative.to_string_lossy();
                 if s.starts_with("./") || s.starts_with("../") {
                     s.into_owned()
