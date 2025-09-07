@@ -17,6 +17,7 @@ const aiAbTestingSectionContent = {
       hi: 'जल्द ही बीटा में',
       ar: 'قريبا في نسخة تجريبية',
       ru: 'Вскоре в бета-версии',
+      tr: "Yakında Beta'da",
     }),
     title: t({
       en: 'Your Playground for Product Experiments.',
@@ -32,6 +33,7 @@ const aiAbTestingSectionContent = {
       hi: 'उत्पाद प्रयोगों के लिए आपका खेल का मैदान।',
       ar: 'ملعبك لتجارب المنتجات.',
       ru: 'Ваша площадка для экспериментов с продуктом.',
+      tr: 'Ürün Deneyleri için Playground.',
     }),
     description: md(
       t({
@@ -49,6 +51,7 @@ const aiAbTestingSectionContent = {
         hi: 'Intlayer के नए **AI-संचालित A/B टेस्टिंग** बीटा का पता लगाने वाले पहले व्यक्ति बनें, जो खोज योग्यता बढ़ाने और स्मार्ट उत्पाद निर्णयों का मार्गदर्शन करने के लिए बनाया गया है। कॉपी और डिज़ाइन से लेकर पूरे फीचर्स तक, रियल टाइम में कुछ भी टेस्ट करें, और डेटा को दिखाने दें कि वास्तव में क्या काम करता है।',
         ar: 'كن أول من يستكشف نسخة تجريبية جديدة من **A/B Testing** المدعوم بالذكاء الاصطناعي من Intlayer، والمصممة لتعزيز قابلية الاكتشاف وتوجيه قرارات المنتج الأكثر ذكاءً. اختبر أي شيء في الوقت الفعلي، من النسخ والتصميم إلى الميزات الكاملة، ودع البيانات تظهر لك ما يعمل حقًا.',
         ru: 'Станьте первыми, кто исследует новую бета-версию **A/B-тестирования на базе ИИ** от Intlayer, созданную для повышения обнаруживаемости и направления более умных решений по продукту. Тестируйте что угодно в реальном времени, от текстов и дизайна до целых функций, и позвольте данным показать вам, что действительно работает.',
+        tr: "Intlayer'ın yeni **Yapay Zeka destekli A/B Testi** beta sürümünü keşfeden ilk kişi olun. Keşfedilebilirliği artırmak ve daha akıllı ürün kararlarına rehberlik etmek için tasarlandı. Kopya ve tasarımdan tüm özelliklere kadar her şeyi gerçek zamanlı olarak test edin ve verilerin gerçekten neyin işe yaradığını göstermesine izin verin.",
       })
     ),
     ctaButton: {
@@ -67,6 +70,7 @@ const aiAbTestingSectionContent = {
         hi: '*AI A/B टेस्टिंग फीचर के बारे में और जानें (नए टैब में खुलता है)',
         ar: 'تعرف على المزيد حول ميزة اختبار A/B بالذكاء الاصطناعي (يفتح في علامة تبويب جديدة)',
         ru: 'Узнайте больше о функции *AI A/B Testing (открывается в новой вкладке)',
+        tr: '*Yapay Zeka A/B Testi özelliği hakkında daha fazla bilgi edinin (yeni sekmede açılır)',
       }),
       text: t({
         en: 'Learn more about the feature',
@@ -82,6 +86,7 @@ const aiAbTestingSectionContent = {
         hi: 'फीचर के बारे में और जानें',
         ar: 'تعرف على المزيد حول الميزة',
         ru: 'Узнайте больше о функции',
+        tr: 'Özellik hakkında daha fazla bilgi edinin',
       }),
     },
   },

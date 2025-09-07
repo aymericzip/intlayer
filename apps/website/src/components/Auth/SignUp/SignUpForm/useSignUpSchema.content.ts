@@ -17,6 +17,7 @@ export const signUpSchemaContent = {
       hi: 'कृपया अपना ईमेल पता दर्ज करें',
       ar: 'يرجى إدخال عنوان بريدك الإلكتروني',
       ru: 'Пожалуйста, введите свой адрес электронной почты',
+      tr: 'Lütfen e-posta adresinizi girin',
     }),
 
     invalidTypeErrorEmail: t({
@@ -33,6 +34,7 @@ export const signUpSchemaContent = {
       hi: 'कृपया एक वैध ईमेल पता दर्ज करें',
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
       ru: 'Пожалуйста, введите корректный адрес электронной почты',
+      tr: 'Lütfen geçerli bir e-posta adresi girin',
     }),
 
     requiredErrorPassword: t({
@@ -49,6 +51,7 @@ export const signUpSchemaContent = {
       hi: 'कृपया अपना पासवर्ड डालें',
       ar: 'يرجى إدخال كلمة المرور الخاصة بك',
       ru: 'Пожалуйста, введите ваш пароль',
+      tr: 'Lütfen şifrenizi girin',
     }),
 
     invalidTypeErrorPassword: t({
@@ -65,6 +68,7 @@ export const signUpSchemaContent = {
       hi: 'कृपया एक वैध पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة مرور صالحة',
       ru: 'Пожалуйста, введите корректный пароль',
+      tr: 'Lütfen geçerli bir şifre girin',
     }),
 
     requiredErrorPasswordConfirmation: t({
@@ -81,6 +85,7 @@ export const signUpSchemaContent = {
       hi: 'कृपया अपना पासवर्ड फिर से दर्ज करें',
       ar: 'يرجى إعادة إدخال كلمة المرور الخاصة بك',
       ru: 'Пожалуйста, введите ваш пароль еще раз',
+      tr: 'Lütfen şifrenizi tekrar girin',
     }),
 
     invalidTypeErrorPasswordConfirmation: t({
@@ -97,6 +102,7 @@ export const signUpSchemaContent = {
       hi: 'कृपया एक वैध पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة مرور صالحة',
       ru: 'Пожалуйста, введите корректный пароль',
+      tr: 'Lütfen geçerli bir şifre girin',
     }),
 
     passwordNotMatchError: t({
@@ -113,6 +119,7 @@ export const signUpSchemaContent = {
       hi: 'पासवर्ड और पासवर्ड की पुष्टि मेल खानी चाहिए',
       ar: 'يجب أن تتطابق كلمة المرور وتأكيد كلمة المرور',
       ru: 'Пароль и подтверждение пароля должны совпадать',
+      tr: 'Parola ve parola onayı eşleşmelidir',
     }),
     termsAndConditionsError: t({
       en: 'You must agree to the terms and conditions',
@@ -128,6 +135,7 @@ export const signUpSchemaContent = {
       hi: 'शर्तें और शर्तें सहमत होते हैं',
       ar: 'يجب أن توافق على شروط وأحكامنا',
       ru: 'Вы должны согласиться с условиями и положениями',
+      tr: 'Şartlar ve koşulları kabul etmelisiniz',
     }),
   },
 } satisfies Dictionary;

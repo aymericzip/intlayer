@@ -1,5 +1,5 @@
-import { t, type Dictionary } from 'intlayer';
 import { ExternalLinks } from '@/Routes';
+import { t, type Dictionary } from 'intlayer';
 
 type DashboardFooterContent = {
   logo: {
@@ -34,6 +34,7 @@ const dashboardFooterContent = {
         hi: 'मुख्य पृष्ठ',
         ar: 'الصفحة الرئيسية',
         ru: 'Главная',
+        tr: 'Ana Sayfa',
       }),
       label: t({
         en: 'Go to the Intlayer home page',
@@ -49,6 +50,7 @@ const dashboardFooterContent = {
         hi: 'Intlayer होम पेज पर जाएं',
         ar: 'اذهب إلى الصفحة الرئيسية لـ Intlayer',
         ru: 'Перейти на главную страницу Intlayer',
+        tr: 'Intlayer ana sayfasına git',
       }),
     },
     github: {
@@ -68,6 +70,7 @@ const dashboardFooterContent = {
         hi: 'Github रेपो पर जाएं',
         ar: 'اذهب إلى مستودع github',
         ru: 'Перейти к репозиторию github',
+        tr: 'Github deposuna git',
       }),
       alt: t({
         en: 'Github logo',
@@ -83,6 +86,7 @@ const dashboardFooterContent = {
         hi: 'Github का लोगो',
         ar: 'شعار Github',
         ru: 'Логотип Github',
+        tr: 'Github logosu',
       }),
     },
   },

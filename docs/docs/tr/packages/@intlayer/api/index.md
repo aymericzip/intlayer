@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: @intlayer/api - SDK for Intlayer API Integration
-description: NPM package providing Software Development Kit (SDK) to interact with Intlayer API for content auditing, organizations, projects, and user management.
+title: @intlayer/api - Intlayer API Entegrasyonu için SDK
+description: İçerik denetimi, organizasyonlar, projeler ve kullanıcı yönetimi için Intlayer API ile etkileşim kurmak üzere Yazılım Geliştirme Kiti (SDK) sağlayan NPM paketi.
 keywords:
   - intlayer
   - API
@@ -21,9 +21,9 @@ slugs:
 
 # @intlayer/api: Intlayer API ile etkileşim için NPM Paketi
 
-**Intlayer**, özellikle JavaScript geliştiricileri için tasarlanmış bir paket paketidir. React, React ve Express.js gibi çerçevelerle uyumludur.
+**Intlayer**, özellikle JavaScript geliştiricileri için tasarlanmış bir paket paketidir. React, Next.js ve Express.js gibi çerçevelerle uyumludur.
 
-**`@intlayer/api`** paketi, Intlayer API ile etkileşim için bir SDK'dir (Software Development Kit). İçerik beyanını denetlemek, organizasyonlarla, projelerle ve kullanıcılarla etkileşim kurmak vb. için bir dizi fonksiyon sağlar.
+**`@intlayer/api`** paketi, Intlayer API ile etkileşim için bir SDK'dir. İçerik bildirimini denetlemek, organizasyonlarla, projelerle ve kullanıcılarla etkileşim kurmak için bir dizi fonksiyon sağlar, vb.
 
 ## Kullanım
 
@@ -37,7 +37,7 @@ intlayerAPI.user.getUser({
 
 ## Kurulum
 
-Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketi yükleyin:
+Gerekli paketi tercih ettiğiniz paket yöneticisi kullanarak yükleyin:
 
 ```bash packageManager="npm"
 npm install @intlayer/api

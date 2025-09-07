@@ -18,6 +18,7 @@ export default {
         hi: 'अगला',
         ar: 'التالي',
         ru: 'Далее',
+        tr: 'Sonraki',
       }),
       text: t({
         en: 'Next',
@@ -33,6 +34,7 @@ export default {
         hi: 'अगला',
         ar: 'التالي',
         ru: 'Далее',
+        tr: 'Sonraki',
       }),
     },
     previousStepButton: {
@@ -50,6 +52,7 @@ export default {
         hi: 'पिछला',
         ar: 'السابق',
         ru: 'Предыдущий',
+        tr: 'Önceki',
       }),
       text: t({
         en: 'Previous',
@@ -65,6 +68,7 @@ export default {
         hi: 'पिछला',
         ar: 'السابق',
         ru: 'Предыдущий',
+        tr: 'Önceki',
       }),
     },
     skipButton: {
@@ -82,6 +86,7 @@ export default {
         hi: 'छोड़ें',
         ar: 'تجاوز',
         ru: 'Пропустить',
+        tr: 'Atla',
       }),
       text: t({
         en: 'Skip',
@@ -97,6 +102,7 @@ export default {
         hi: 'छोड़ें',
         ar: 'تجاوز',
         ru: 'Пропустить',
+        tr: 'Atla',
       }),
     },
   },

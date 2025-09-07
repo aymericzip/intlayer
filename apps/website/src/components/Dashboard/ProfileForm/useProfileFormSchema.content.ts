@@ -17,6 +17,7 @@ const content = {
       hi: 'कृपया अपना नाम दर्ज करें',
       ar: 'يرجى إدخال اسمك',
       ru: 'Пожалуйста, введите ваше имя',
+      tr: 'Lütfen adınızı girin',
     }),
 
     invalidTypeErrorName: t({
@@ -33,6 +34,7 @@ const content = {
       hi: 'कृपया सही उपयोगकर्ता नाम दर्ज करें',
       ar: 'يرجى إدخال اسم مستخدم صالح',
       ru: 'Пожалуйста, введите действительное имя пользователя',
+      tr: 'Lütfen geçerli bir kullanıcı adı girin',
     }),
   },
 } satisfies Dictionary;

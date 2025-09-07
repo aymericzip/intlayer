@@ -54,6 +54,7 @@ export const navbarContent = {
         hi: 'कंपनी का लोगो - घर के पृष्ठ पर जाएं',
         ar: 'شعار الشركة - انتقل إلى الصفحة الرئيسية',
         ru: 'Логотип компании - Перейти на главную страницу',
+        tr: 'Şirket logosu - Ana sayfaya git',
       }),
       url: PagesRoutes.Home,
     },
@@ -74,6 +75,7 @@ export const navbarContent = {
           hi: 'घर',
           ar: 'الرئيسية',
           ru: 'Главная',
+          tr: 'Ana Sayfa',
         }),
         url: PagesRoutes.Home,
         label: t({
@@ -90,6 +92,7 @@ export const navbarContent = {
           hi: 'घर के पृष्ठ पर जाएं',
           ar: 'اذهب إلى الصفحة الرئيسية',
           ru: 'Перейти на главную страницу',
+          tr: 'Ana sayfaya git',
         }),
       },
       {
@@ -108,6 +111,7 @@ export const navbarContent = {
           hi: 'सैंडबॉक्स',
           ar: 'بيئة اختبار',
           ru: 'Песочница',
+          tr: 'Playground',
         }),
         url: PagesRoutes.Playground,
         label: t({
@@ -124,6 +128,7 @@ export const navbarContent = {
           hi: 'प्लेग्राउंड पर जाएं',
           ar: 'اذهب إلى الملعب',
           ru: 'Перейти на Playground',
+          tr: "Playground'a git",
         }),
       },
 
@@ -177,6 +182,7 @@ export const navbarContent = {
           hi: 'डैशबोर्ड',
           ar: 'لوحة القيادة',
           ru: 'Приборная панель',
+          tr: 'Dashboard',
         }),
         url: PagesRoutes.Dashboard,
         label: t({
@@ -193,6 +199,7 @@ export const navbarContent = {
           hi: 'डैशबोर्ड पर जाएं',
           ar: 'اذهب إلى لوحة القيادة',
           ru: 'Перейти на прибортную панель',
+          tr: 'Dashboardne git',
         }),
       },
       {
@@ -211,6 +218,7 @@ export const navbarContent = {
           hi: 'डॉक',
           ar: 'وثيقة',
           ru: 'Документ',
+          tr: 'Doküman',
         }),
         url: PagesRoutes.Doc,
         label: t({
@@ -227,6 +235,7 @@ export const navbarContent = {
           hi: 'दस्तावेज़ पृष्ठ पर जाएं',
           ar: 'اذهب إلى صفحة الوثيقة',
           ru: 'Перейти на страницу документации',
+          tr: 'Dokümantasyon sayfasına git',
         }),
       },
       {
@@ -246,6 +255,7 @@ export const navbarContent = {
           hi: 'ब्लॉग',
           ar: 'مدونة',
           ru: 'Блог',
+          tr: 'Blog',
         }),
         label: t({
           en: 'Go to the blog',
@@ -261,6 +271,7 @@ export const navbarContent = {
           hi: 'ब्लॉग पर जाएं',
           ar: 'اذهب إلى المدونة',
           ru: 'Перейти на блог',
+          tr: 'Bloga git',
         }),
       },
     ],
@@ -282,6 +293,7 @@ export const navbarContent = {
         hi: 'Github रिपॉजिटरी पर जाएं',
         ar: 'اذهب إلى مستودع Github',
         ru: 'Перейти в репозиторий Github',
+        tr: 'Github deposuna git',
       }),
       gitHubLogoAlt: t({
         en: 'Github logo',
@@ -297,6 +309,7 @@ export const navbarContent = {
         hi: 'Github लोगो',
         ar: 'شعار Github',
         ru: 'Логотип Github',
+        tr: 'Github logosu',
       }),
     },
     discord: {
@@ -317,6 +330,7 @@ export const navbarContent = {
         hi: 'Discord सर्वर पर जाएं',
         ar: 'اذهب إلى خادم Discord',
         ru: 'Перейти на сервер Discord',
+        tr: 'Discord sunucusuna git',
       }),
     },
 
@@ -335,6 +349,7 @@ export const navbarContent = {
         hi: 'लॉग आउट',
         ar: 'تسجيل الخروج',
         ru: 'Выйти',
+        tr: 'Çıkış Yap',
       }),
       label: t({
         en: 'Logout',
@@ -350,6 +365,7 @@ export const navbarContent = {
         hi: 'लॉग आउट',
         ar: 'تسجيل الخروج',
         ru: 'Выйти',
+        tr: 'Çıkış Yap',
       }),
     },
     login: {
@@ -368,6 +384,7 @@ export const navbarContent = {
         hi: 'लॉग इन करें',
         ar: 'تسجيل الدخول',
         ru: 'Войти',
+        tr: 'Giriş Yap',
       }),
       label: t({
         en: 'Go to login page',
@@ -383,6 +400,7 @@ export const navbarContent = {
         hi: 'लॉगिन पृष्ठ पर जाएं',
         ar: 'اذهب إلى صفحة تسجيل الدخول',
         ru: 'Перейти на страницу входа',
+        tr: 'Giriş sayfasına git',
       }),
     },
   },

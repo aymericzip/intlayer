@@ -17,6 +17,7 @@ const content = {
       hi: 'कृपया अपनी संगठन का नाम दर्ज करें',
       ar: 'يرجى إدخال اسم لمنظمتك',
       ru: 'Пожалуйста, введите название вашей организации',
+      tr: 'Lütfen organizasyonunuz için bir isim girin',
     }),
 
     invalidTypeErrorName: t({
@@ -33,6 +34,7 @@ const content = {
       hi: 'कृपया अपनी संगठन का एक मान्य नाम दर्ज करें',
       ar: 'يرجى إدخال اسم صالح لمنظمتك',
       ru: 'Пожалуйста, введите корректное название вашей организации',
+      tr: 'Lütfen organizasyonunuz için geçerli bir isim girin',
     }),
   },
 } satisfies Dictionary;

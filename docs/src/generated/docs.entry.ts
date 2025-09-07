@@ -49,6 +49,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/CI_CD.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/CI_CD.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/autoFill.md': {
     en: Promise.resolve(
@@ -89,6 +92,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/autoFill.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/autoFill.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/configuration.md': {
@@ -131,6 +137,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/configuration.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/configuration.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/condition.md': {
     en: Promise.resolve(
@@ -171,6 +180,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/dictionary/condition.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/dictionary/condition.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/content_extention_customization.md': {
@@ -291,6 +303,15 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../docs/tr/dictionary/content_extention_customization.md'
+        ),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/enumeration.md': {
     en: Promise.resolve(
@@ -335,6 +356,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/dictionary/enumeration.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/dictionary/enumeration.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/file.md': {
     en: Promise.resolve(
@@ -375,6 +399,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/dictionary/file.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/dictionary/file.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/function_fetching.md': {
@@ -456,6 +483,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/dictionary/function_fetching.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/gender.md': {
     en: Promise.resolve(
@@ -496,6 +529,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/dictionary/gender.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/dictionary/gender.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/get_started.md': {
@@ -541,6 +577,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/dictionary/get_started.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/dictionary/get_started.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/insertion.md': {
     en: Promise.resolve(
@@ -581,6 +620,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/dictionary/insertion.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/dictionary/insertion.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/markdown.md': {
@@ -623,6 +665,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/dictionary/markdown.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/dictionary/markdown.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/nesting.md': {
     en: Promise.resolve(
@@ -663,6 +708,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/dictionary/nesting.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/dictionary/nesting.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/translation.md': {
@@ -708,6 +756,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/dictionary/translation.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/dictionary/translation.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/formatters.md': {
     en: Promise.resolve(
@@ -748,6 +799,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/formatters.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/formatters.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/how_works_intlayer.md': {
@@ -790,6 +844,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/how_works_intlayer.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/how_works_intlayer.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/index.md': {
     en: Promise.resolve(
@@ -830,6 +887,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/index.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/index.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/interest_of_intlayer.md': {
@@ -872,6 +932,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/interest_of_intlayer.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/interest_of_intlayer.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_CMS.md': {
     en: Promise.resolve(
@@ -913,6 +976,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_CMS.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_CMS.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_cli.md': {
     en: Promise.resolve(
@@ -953,6 +1019,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_cli.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_cli.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_visual_editor.md': {
@@ -998,6 +1067,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_visual_editor.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_visual_editor.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_angular.md': {
     en: Promise.resolve(
@@ -1041,6 +1113,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_with_angular.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_with_angular.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_create_react_app.md': {
@@ -1122,6 +1197,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/intlayer_with_create_react_app.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_express.md': {
     en: Promise.resolve(
@@ -1165,6 +1246,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_with_express.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_with_express.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_lynx+react.md': {
@@ -1246,6 +1330,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/intlayer_with_lynx+react.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_14.md': {
     en: Promise.resolve(
@@ -1290,6 +1380,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_with_nextjs_14.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_with_nextjs_14.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_15.md': {
     en: Promise.resolve(
@@ -1333,6 +1426,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_with_nextjs_15.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_with_nextjs_15.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_page_router.md': {
@@ -1414,6 +1510,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/intlayer_with_nextjs_page_router.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nuxt.md': {
     en: Promise.resolve(
@@ -1454,6 +1556,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_with_nuxt.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_with_nuxt.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_react_native+expo.md': {
@@ -1532,6 +1637,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/intlayer_with_react_native+expo.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/intlayer_with_react_native+expo.md'),
         'utf8'
       )
     ),
@@ -1615,6 +1726,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/intlayer_with_react_router_v7.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_tanstack.md': {
     en: Promise.resolve(
@@ -1658,6 +1775,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_with_tanstack.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_with_tanstack.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+preact.md': {
@@ -1736,6 +1856,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/intlayer_with_vite+preact.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/intlayer_with_vite+preact.md'),
         'utf8'
       )
     ),
@@ -1819,6 +1945,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/intlayer_with_vite+react.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+solid.md': {
     en: Promise.resolve(
@@ -1896,6 +2028,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/intlayer_with_vite+solid.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/intlayer_with_vite+solid.md'),
         'utf8'
       )
     ),
@@ -1979,6 +2117,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/intlayer_with_vite+svelte.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+vue.md': {
     en: Promise.resolve(
@@ -2023,6 +2167,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/intlayer_with_vite+vue.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/intlayer_with_vite+vue.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/introduction.md': {
     en: Promise.resolve(
@@ -2063,6 +2210,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/introduction.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/introduction.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/locale_mapper.md': {
@@ -2105,6 +2255,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/locale_mapper.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/locale_mapper.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/mcp_server.md': {
     en: Promise.resolve(
@@ -2145,6 +2298,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/mcp_server.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/mcp_server.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/api/index.md': {
@@ -2223,6 +2379,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/@intlayer/api/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/@intlayer/api/index.md'),
         'utf8'
       )
     ),
@@ -2306,6 +2468,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/@intlayer/chokidar/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/cli/index.md': {
     en: Promise.resolve(
@@ -2383,6 +2551,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/@intlayer/cli/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/@intlayer/cli/index.md'),
         'utf8'
       )
     ),
@@ -2466,6 +2640,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/@intlayer/config/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/core/index.md': {
     en: Promise.resolve(
@@ -2543,6 +2723,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/@intlayer/core/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/@intlayer/core/index.md'),
         'utf8'
       )
     ),
@@ -2626,6 +2812,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/@intlayer/design-system/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/@intlayer/design-system/index.md'),
         'utf8'
       )
     ),
@@ -2748,6 +2940,15 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../docs/tr/packages/@intlayer/dictionary-entry/index.md'
+        ),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/editor-react/index.md': {
     en: Promise.resolve(
@@ -2831,6 +3032,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/@intlayer/editor-react/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/editor/index.md': {
     en: Promise.resolve(
@@ -2908,6 +3115,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/@intlayer/editor/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/@intlayer/editor/index.md'),
         'utf8'
       )
     ),
@@ -2991,6 +3204,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/@intlayer/webpack/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/angular-intlayer/index.md': {
     en: Promise.resolve(
@@ -3068,6 +3287,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/angular-intlayer/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/angular-intlayer/index.md'),
         'utf8'
       )
     ),
@@ -3151,6 +3376,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/express-intlayer/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/express-intlayer/t.md': {
     en: Promise.resolve(
@@ -3228,6 +3459,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/express-intlayer/t.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/express-intlayer/t.md'),
         'utf8'
       )
     ),
@@ -3311,6 +3548,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer-cli/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer-editor/index.md': {
     en: Promise.resolve(
@@ -3388,6 +3631,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/intlayer-editor/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer-editor/index.md'),
         'utf8'
       )
     ),
@@ -3471,6 +3720,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer/getConfiguration.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getEnumeration.md': {
     en: Promise.resolve(
@@ -3548,6 +3803,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/intlayer/getEnumeration.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer/getEnumeration.md'),
         'utf8'
       )
     ),
@@ -3631,6 +3892,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer/getHTMLTextDir.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocaleLang.md': {
     en: Promise.resolve(
@@ -3708,6 +3975,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/intlayer/getLocaleLang.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer/getLocaleLang.md'),
         'utf8'
       )
     ),
@@ -3791,6 +4064,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer/getLocaleName.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocalizedUrl.md': {
     en: Promise.resolve(
@@ -3868,6 +4147,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/intlayer/getLocalizedUrl.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer/getLocalizedUrl.md'),
         'utf8'
       )
     ),
@@ -3954,6 +4239,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer/getMultilingualUrls.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getPathWithoutLocale.md': {
     en: Promise.resolve(
@@ -4037,6 +4328,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer/getPathWithoutLocale.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getTranslation.md': {
     en: Promise.resolve(
@@ -4114,6 +4411,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/intlayer/getTranslation.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/intlayer/getTranslation.md'),
         'utf8'
       )
     ),
@@ -4236,6 +4539,15 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../docs/tr/packages/intlayer/getTranslationContent.md'
+        ),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/index.md': {
     en: Promise.resolve(
@@ -4279,6 +4591,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/packages/intlayer/index.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/packages/intlayer/index.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/lynx-intlayer/index.md': {
@@ -4357,6 +4672,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/lynx-intlayer/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/lynx-intlayer/index.md'),
         'utf8'
       )
     ),
@@ -4440,6 +4761,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/next-intlayer/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/t.md': {
     en: Promise.resolve(
@@ -4517,6 +4844,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/next-intlayer/t.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/next-intlayer/t.md'),
         'utf8'
       )
     ),
@@ -4603,6 +4936,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/next-intlayer/useDictionary.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/useIntlayer.md': {
     en: Promise.resolve(
@@ -4680,6 +5019,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/next-intlayer/useIntlayer.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/next-intlayer/useIntlayer.md'),
         'utf8'
       )
     ),
@@ -4763,6 +5108,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/next-intlayer/useLocale.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/nuxt-intlayer/index.md': {
     en: Promise.resolve(
@@ -4840,6 +5191,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/nuxt-intlayer/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/nuxt-intlayer/index.md'),
         'utf8'
       )
     ),
@@ -4923,6 +5280,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/preact-intlayer/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/index.md': {
     en: Promise.resolve(
@@ -5003,6 +5366,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/react-intlayer/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/t.md': {
     en: Promise.resolve(
@@ -5080,6 +5449,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/react-intlayer/t.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/react-intlayer/t.md'),
         'utf8'
       )
     ),
@@ -5166,6 +5541,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/react-intlayer/useDictionary.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useI18n.md': {
     en: Promise.resolve(
@@ -5243,6 +5624,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/react-intlayer/useI18n.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/react-intlayer/useI18n.md'),
         'utf8'
       )
     ),
@@ -5326,6 +5713,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/react-intlayer/useIntlayer.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useLocale.md': {
     en: Promise.resolve(
@@ -5403,6 +5796,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/react-intlayer/useLocale.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/react-intlayer/useLocale.md'),
         'utf8'
       )
     ),
@@ -5489,6 +5888,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/react-native-intlayer/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-scripts-intlayer/index.md': {
     en: Promise.resolve(
@@ -5572,6 +5977,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/react-scripts-intlayer/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/solid-intlayer/index.md': {
     en: Promise.resolve(
@@ -5649,6 +6060,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/solid-intlayer/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/solid-intlayer/index.md'),
         'utf8'
       )
     ),
@@ -5732,6 +6149,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/svelte-intlayer/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vite-intlayer/index.md': {
     en: Promise.resolve(
@@ -5809,6 +6232,12 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../docs/hi/packages/vite-intlayer/index.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/vite-intlayer/index.md'),
         'utf8'
       )
     ),
@@ -5892,6 +6321,12 @@ export const docsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../docs/tr/packages/vue-intlayer/index.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/per_locale_file.md': {
     en: Promise.resolve(
@@ -5932,6 +6367,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/per_locale_file.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/per_locale_file.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/readme.md': {
@@ -5974,6 +6412,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/readme.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/readme.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/roadmap.md': {
     en: Promise.resolve(
@@ -6015,6 +6456,9 @@ export const docsEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/roadmap.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/roadmap.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/vs_code_extension.md': {
     en: Promise.resolve(
@@ -6055,6 +6499,9 @@ export const docsEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../docs/hi/vs_code_extension.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../docs/tr/vs_code_extension.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;

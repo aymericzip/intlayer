@@ -17,6 +17,7 @@ const landingSectionContent = {
       hi: 'स्केलेबलिटी पर केंद्रित अंतर्राष्ट्रीयकरण',
       ar: 'التدويل المركزي على القابلية التوسع',
       ru: 'Решение для интернационализации, ориентированное на масштабируемость',
+      tr: 'Ölçeklenebilirliğe odaklanan uluslararasılaştırma',
     }),
     description: t({
       en: [
@@ -71,6 +72,10 @@ const landingSectionContent = {
         'Intlayer - это решение для интернационализации и управления контентом, специально разработанное для разработчиков. Сделайте ваш код поддерживаемым и масштабируемым. Доступно для React, Next.js, Vue, Svelte и других.',
         'Работайте в команде и упростите редактирование контента, вынеся его в CMS, ориентированную на компоненты. Используйте ИИ-инструменты для ускорения написания и автоматизации переводов.',
       ],
+      tr: [
+        'Intlayer, özellikle geliştiriciler için tasarlanmış bir uluslararasılaştırma ve içerik yönetim çözümüdür. Kodunuzu sürdürülebilir ve ölçeklenebilir hale getirin. React, Next.js, Vue, Svelte ve daha fazlası için kullanılabilir.',
+        'Ekibinizle iş birliği yapın ve bileşen odaklı bir CMS ile içeriğinizi dışsallaştırarak düzenlemeyi basitleştirin. Yazmayı hızlandırmak ve çevirileri otomatikleştirmek için yapay zeka araçlarından yararlanın.',
+      ],
     }),
     keyPoints: [
       'TypeScript',
@@ -88,6 +93,7 @@ const landingSectionContent = {
         hi: 'React / Next.js / Vue / Svelte और अन्य',
         ar: 'React / Next.js / Vue / Svelte والمزيد',
         ru: 'React / Next.js / Vue / Svelte и другие',
+        tr: 'React / Next.js / Vue / Svelte ve daha fazlası',
       }),
       t({
         en: 'AI powered Visual Editor / CMS',
@@ -103,6 +109,7 @@ const landingSectionContent = {
         hi: 'फ्री AI संचालित विज़ुअल एडिटर / CMS',
         ar: 'محرر مرئي / CMS مجاني مدعوم بالذكاء الاصطناعي',
         ru: 'Бесплатный визуальный редактор / CMS на базе ИИ',
+        tr: 'Ücretsiz AI destekli Görsel Editör / CMS',
       }),
       t({
         en: 'Modern set up and user experience',
@@ -118,6 +125,7 @@ const landingSectionContent = {
         hi: 'आधुनिक सेटअप और बेहतरीन उपयोगकर्ता अनुभव',
         ar: 'إعداد حديث وتجربة مستخدم محسّنة',
         ru: 'Современная настройка и оптимизированный пользовательский опыт',
+        tr: 'Modern kurulum ve optimize edilmiş kullanıcı deneyimi',
       }),
     ],
   },

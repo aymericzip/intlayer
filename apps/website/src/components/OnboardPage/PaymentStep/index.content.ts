@@ -17,6 +17,7 @@ export const paymentStepContent = {
       hi: 'भुगतान',
       ar: 'الدفع',
       ru: 'Платеж',
+      tr: 'Ödeme',
     }),
     paymentDetails: {
       title: t({
@@ -33,6 +34,7 @@ export const paymentStepContent = {
         hi: 'भुगतान विवरण',
         ar: 'تفاصيل الدفع',
         ru: 'Детали платежа',
+        tr: 'Ödeme Detayları',
       }),
     },
     youReOrganizationIsAlreadySubscribed: {
@@ -50,6 +52,7 @@ export const paymentStepContent = {
         hi: 'आपका संगठन पहले से ही सब्सक्राइब है',
         ar: 'منظمتك مشترك بها بالفعل',
         ru: 'Ваша организация уже подписана',
+        tr: 'Organizasyonunuz zaten abone olmuş',
       }),
     },
     incorrectProductMessage: t({
@@ -67,6 +70,7 @@ export const paymentStepContent = {
       hi: 'वर्तमान में चुना गया उत्पाद मान्य नहीं है। कृपया एक मान्य उत्पाद चुनें।',
       ar: 'المنتج المحدد حاليا غير صالح. يرجى اختيار منتج صالح.',
       ru: 'Текущий выбранный продукт недействителен. Пожалуйста, выберите действительный продукт.',
+      tr: 'Seçilen ürün geçerli değil. Lütfen geçerli bir ürün seçin.',
     }),
     pickANewProductButton: {
       text: t({
@@ -83,6 +87,7 @@ export const paymentStepContent = {
         hi: 'नया उत्पाद चुनें',
         ar: 'اختر منتجًا جديدًا',
         ru: 'Выберите новый продукт',
+        tr: 'Yeni bir ürün seçin',
       }),
       label: t({
         en: 'Pick a new product',
@@ -98,6 +103,7 @@ export const paymentStepContent = {
         hi: 'नया उत्पाद चुनें',
         ar: 'اختر منتجًا جديدًا',
         ru: 'Выберите новый продукт',
+        tr: 'Yeni bir ürün seçin',
       }),
     },
 
@@ -116,6 +122,7 @@ export const paymentStepContent = {
       hi: 'अमान्य भुगतान अनुरोध है। यह प्रोजेक्ट को पहले से ही सब्सक्राइब है। कृपया फिर से प्रयास करें।',
       ar: 'طلب الدفع غير صالح. ربما قمت بالاشتراك في هذا الخطة. يرجى إعادة المحاولة.',
       ru: 'Недействительный запрос на оплату. Возможно, вы уже подписались на этот план. Пожалуйста, попробуйте еще раз.',
+      tr: 'Geçersiz ödeme isteği. Belki bu plana zaten abone olmuşsunuzdur. Lütfen tekrar deneyin.',
     }),
   },
 } satisfies Dictionary;

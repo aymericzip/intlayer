@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'लॉगिन | Intlayer',
       ar: 'تسجيل الدخول | Intlayer',
       ru: 'Вход | Intlayer',
+      tr: 'Giriş Yap | Intlayer',
     }),
     description: t({
       en: 'Log in to your Intlayer account to access exclusive content and manage your preferences.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'अपने Intlayer खाते में लॉगिन करें ताकि आप विशेष सामग्री तक पहुँच सकें और अपनी प्राथमिकताओं का प्रबंधन कर सकें।',
       ar: 'قم بتسجيل الدخول إلى حساب Intlayer الخاص بك للوصول إلى المحتوى الحصري وإدارة تفضيلاتك.',
       ru: 'Войдите в свою учетную запись Intlayer, чтобы получить доступ к эксклюзивному контенту и управлять своими настройками.',
+      tr: 'Özel içeriğe erişmek ve tercihlerinizi yönetmek için Intlayer hesabınıza giriş yapın.',
     }),
 
     keywords: t<string[]>({
@@ -112,6 +114,14 @@ const metadataContent = {
         'Доступ',
         'Аутентификация',
         'Войти',
+      ],
+      tr: [
+        'Giriş Yap',
+        'Hesap',
+        'Intlayer',
+        'Erişim',
+        'Kimlik doğrulama',
+        'Oturum aç',
       ],
     }),
   },

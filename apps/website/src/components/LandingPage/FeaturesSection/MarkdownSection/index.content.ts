@@ -19,6 +19,7 @@ const markdownSectionContent = {
       ar: '# عنواني\n\nيمكنك تضمين النص بشكل **غامق** والنص بشكل *مائل*.\n\n- العنصر الأول\n- العنصر الثاني\n\nيمكنك أيضا تضمين رابط إلى شيء [هنا](https://example.com).  \n',
       hi: '# मेरा शीर्षक\n\nआप **गाढ़े अक्षरों** और *तिरछे अक्षरों* में पाठ शामिल कर सकते हैं।\n\n- पहला आइटम\n- दूसरा आइटम\n\nआप एक [लिंक जोड़ सकते हैं](https://example.com)।  \n',
       ko: '# 내 제목\n\n텍스트를 **굵게** 및 *기울임꼴*로 포함할 수 있습니다.\n\n- 첫 번째 항목\n- 두 번째 항목\n\n또한 [링크를 포함할 수 있습니다](https://example.com)。  \n',
+      tr: '# Başlığım\n\nMetni **kalın** ve *italik* olarak dahil edebilirsiniz.\n\n- İlk madde\n- İkinci madde\n\nAyrıca bir [şeye bağlantı ekleyebilirsiniz](https://example.com).  \n',
     }),
     ariaLabel: t({
       en: 'Markdown editor',
@@ -34,6 +35,7 @@ const markdownSectionContent = {
       ar: 'محرر Markdown',
       hi: 'मैस्को एडिटर',
       ko: '마크다운 편집기',
+      tr: 'Markdown düzenleyici',
     }),
   },
 } satisfies Dictionary;

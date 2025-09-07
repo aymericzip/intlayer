@@ -17,6 +17,7 @@ const projectDashboardContent = {
       hi: 'प्रोजेक्ट सेटिंग्स',
       ar: 'إعدادات المشاريع',
       ru: 'Настройки проектов',
+      tr: 'Proje ayarları',
     }),
   },
 } satisfies Dictionary;

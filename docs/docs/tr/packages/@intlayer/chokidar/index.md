@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: @intlayer/chokidar - File Watching for Intlayer i18n
-description: NPM package providing file watching capabilities for Intlayer, enabling automatic updates and hot reloading for internationalization content.
+title: @intlayer/chokidar - Intlayer i18n için Dosya İzleme
+description: Intlayer için dosya izleme yetenekleri sağlayan NPM paketi, uluslararasılaştırma içeriği için otomatik güncellemeler ve sıcak yeniden yükleme sağlar.
 keywords:
   - intlayer
   - chokidar
@@ -18,11 +18,11 @@ slugs:
   - @intlayer_chokidar
 ---
 
-# @intlayer/chokidar: Intlayer beyan dosyalarını sözlüklere taramak ve oluşturmak için NPM Paketi
+# @intlayer/chokidar: Intlayer bildirim dosyalarını sözlüklere taramak ve oluşturmak için NPM Paketi
 
-**Intlayer**, özellikle JavaScript geliştiricileri için tasarlanmış bir paket paketidir. React, React ve Express.js gibi çerçevelerle uyumludur.
+**Intlayer**, özellikle JavaScript geliştiricileri için tasarlanmış bir paket paketidir. React, Next.js ve Express.js gibi çerçevelerle uyumludur.
 
-**`@intlayer/chokidar`** paketi, [chokidar](https://github.com/paulmillr/chokidar) kullanarak Intlayer beyan dosyalarını taramak ve sözlüklere oluşturmak için kullanılır ve [Intlayer yapılandırmasına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) göre yapılır.
+**`@intlayer/chokidar`** paketi, [chokidar](https://github.com/paulmillr/chokidar) kullanarak Intlayer bildirim dosyalarını sözlüklere taramak ve oluşturmak için kullanılır ve [Intlayer yapılandırmasına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) göre.
 
 ## Kullanım
 
@@ -36,7 +36,7 @@ watch({ persistent: true }); // Yapılandırma dosyalarındaki değişiklikleri 
 
 ## Kurulum
 
-Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketi yükleyin:
+Gerekli paketi tercih ettiğiniz paket yöneticisi kullanarak yükleyin:
 
 ```bash packageManager="npm"
 npm install @intlayer/chokidar

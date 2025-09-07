@@ -18,6 +18,7 @@ const blogNavTitlesContent = {
         hi: 'संकुचित करें',
         ar: 'اطوي التوسيع',
         ru: 'Свернуть',
+        tr: 'Daralt',
       }),
     },
     docButton: {
@@ -35,6 +36,7 @@ const blogNavTitlesContent = {
         hi: 'दस्तावेज़ पर जाएं',
         ar: 'اذهب إلى الوثائق',
         ru: 'Перейти к документации',
+        tr: 'Belgelere git',
       }),
       text: t({
         en: 'Documentation',
@@ -50,6 +52,7 @@ const blogNavTitlesContent = {
         hi: 'दस्तावेज़',
         ar: 'الوثائق',
         ru: 'Документация',
+        tr: 'Dokümantasyon',
       }),
     },
   },

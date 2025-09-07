@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'संगठन | डैशबोर्ड | Intlayer',
       ar: 'المؤسسة | لوحة التحكم | Intlayer',
       ru: 'Организация | Приборная панель | Intlayer',
+      tr: 'Organizasyon | Dashboard | Intlayer',
     }),
     description: t({
       en: 'Manage your organization settings in the Intlayer dashboard. Update organization details, manage team members, and configure access controls.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'Intlayer डैशबोर्ड में अपनी संगठन सेटिंग्स प्रबंधित करें। संगठन विवरण अपडेट करें, टीम के सदस्यों का प्रबंधन करें और एक्सेस नियंत्रण कॉन्फ़िगर करें।',
       ar: 'إدارة إعدادات مؤسستك في لوحة تحكم Intlayer. قم بتحديث تفاصيل المؤسسة، وإدارة أعضاء الفريق، وتكوين ضوابط الوصول.',
       ru: 'Управляйте настройками вашей организации в панели инструментов Intlayer. Обновите данные организации, управляйте членами команды и настройте контроль доступа.',
+      tr: 'Intlayer kontrol panelinde organizasyon ayarlarınızı yönetin. Organizasyon ayrıntılarını güncelleyin, ekip üyelerini yönetin ve erişim kontrollerini yapılandırın.',
     }),
     keywords: t<string[]>({
       en: [
@@ -118,6 +120,14 @@ const metadataContent = {
         'Контроль доступа',
         'Разрешения',
         'Настройки компании',
+      ],
+      tr: [
+        'Organizasyon',
+        'Ayarlar',
+        'Ekip Yönetimi',
+        'Erişim Kontrolü',
+        'İzinler',
+        'Şirket Ayarları',
       ],
     }),
   },

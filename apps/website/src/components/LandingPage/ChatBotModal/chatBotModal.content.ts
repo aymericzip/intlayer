@@ -18,6 +18,7 @@ const chatbotContent = {
         hi: 'चैटबॉट को खोलने के लिए क्लिक करें',
         ar: 'انقر لفتح الدردشة',
         ru: 'Нажмите, чтобы открыть чат-бота',
+        tr: 'Sohbet botunu açmak için tıklayın',
       }),
     },
     title: t({
@@ -34,6 +35,7 @@ const chatbotContent = {
       hi: 'कुछ प्रश्न करें',
       ar: 'طرح أي شيء',
       ru: 'Спросите что-нибудь',
+      tr: 'Herhangi bir şey sor',
     }),
   },
 } satisfies Dictionary;

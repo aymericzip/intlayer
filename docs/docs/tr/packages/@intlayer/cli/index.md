@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
-title: @intlayer/cli - Command Line Interface Package for Intlayer
-description: NPM package providing scripts for Intlayer CLI commands, ensuring uniformity across all command line interfaces for internationalization management.
+title: @intlayer/cli - Intlayer için Komut Satırı Arayüz Paketi
+description: Uluslararasılaştırma yönetimi için tüm komut satırı arayüzlerinde tekdüzeliği sağlamak üzere Intlayer CLI komutları için komut dosyaları sağlayan NPM paketi.
 keywords:
   - intlayer
   - CLI
@@ -18,15 +18,15 @@ slugs:
   - @intlayer_cli
 ---
 
-# @intlayer/cli: Intlayer CLI tarafından sağlanan komutları kullanmak için NPM Paketi
+# @intlayer/cli: intlayer CLI tarafından sağlanan komut dosyalarını kullanmak için NPM Paketi
 
-**Intlayer**, özellikle JavaScript geliştiricileri için tasarlanmış bir paket paketidir. React, React ve Express.js gibi çerçevelerle uyumludur.
+**Intlayer**, özellikle JavaScript geliştiricileri için tasarlanmış bir paket paketidir. React, Next.js ve Express.js gibi çerçevelerle uyumludur.
 
-**`@intlayer/cli`** paketi, intlayer komut satırı arayüzleriyle ilgili komutları beyan etmek için kullanılan bir NPM paketidir. Tüm intlayer CLI komutlarının tekdüzeliğini sağlar. Bu paket özellikle [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer-cli/index.md) ve [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer/index.md) paketleri tarafından tüketilir.
+**`@intlayer/cli`** paketi, intlayer komut satırı arayüzleriyle ilgili komut dosyalarını bildirmek için kullanılan bir NPM paketidir. Tüm intlayer CLI komutlarının tekdüzeliğini sağlar. Bu paket özellikle [intlayer-cli](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer-cli/index.md) ve [intlayer](https://github.com/aymericzip/intlayer/tree/main/docs/en/packages/intlayer/index.md) paketleri tarafından tüketilir.
 
 ## Kurulum
 
-Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketi yükleyin:
+Gerekli paketi tercih ettiğiniz paket yöneticisi kullanarak yükleyin:
 
 ```bash packageManager="npm"
 npm install @intlayer/cli

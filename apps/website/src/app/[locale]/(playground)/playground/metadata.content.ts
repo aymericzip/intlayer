@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'प्लेगन | Intlayer',
       ar: 'Playground | Intlayer',
       ru: 'Playground | Intlayer',
+      tr: 'Playground | Intlayer',
     }),
     description: t({
       en: 'Test the Intlayer visual editor by interacting with the website.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'वेबसाइट के साथ इन्टलैयार व्हिडिओ एडिटर का अनुकूलता को प्रयोग करके जाँच करें।',
       ar: 'اختبار محرر الفيديو لـ Intlayer عن طريق التفاعل مع الموقع.',
       ru: 'Тестируйте визуальный редактор Intlayer, взаимодействуя с веб-сайтом.',
+      tr: 'Web sitesiyle etkileşimde bulunarak Intlayer görsel düzenleyicisini test edin.',
     }),
     keywords: t<string[]>({
       en: [
@@ -108,6 +110,13 @@ const metadataContent = {
         'Визуальный редактор',
         'Редактор',
         'Панель управления',
+      ],
+      tr: [
+        'CMS',
+        'İçerik Yönetim Sistemi',
+        'Görsel Editör',
+        'Editör',
+        'Dashboard',
       ],
     }),
   },
