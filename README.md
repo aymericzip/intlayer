@@ -1,80 +1,87 @@
 <div align="center">
+  <!-- Logo + Title -->
   <a href="https://intlayer.org">
-    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
+    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="300" alt="Intlayer Logo"/>
+  </a>
+  <h1 style="margin-top:10px;">The open-source way to make your SaaS multilingual in minutes.</h1>
+
+  <!-- Languages -->
+  <div style="margin-top:10px;">
+    <a href="./docs/fr/README.md">
+      <img src="https://img.shields.io/badge/Français-FFFFFF?style=for-the-badge&color=000000&labelColor=FFFFFF&logoColor=000000" alt="Français" height="24"/>
+    </a>
+    <a href="./docs/zh/README.md">
+      <img src="https://img.shields.io/badge/中文-000000?style=for-the-badge&color=FFFFFF&labelColor=000000&logoColor=FFFFFF" alt="中文" height="24"/>
+    </a>
+    <a href="./docs/ja/README.md">
+      <img src="https://img.shields.io/badge/日本語-FFFFFF?style=for-the-badge&color=000000&labelColor=FFFFFF&logoColor=000000" alt="日本語" height="24"/>
+    </a>
+    <a href="./docs/ru/README.md">
+      <img src="https://img.shields.io/badge/Русский-000000?style=for-the-badge&color=FFFFFF&labelColor=000000&logoColor=FFFFFF" alt="Русский" height="24"/>
+    </a>
+    <a href="./docs">
+      <img src="https://img.shields.io/badge/More-FFFFFF?style=for-the-badge&color=000000&labelColor=FFFFFF&logoColor=000000" alt="More" height="24"/>
+    </a>
+  </div>
+</div>
+
+<!-- Tech badges -->
+<div align="center" style="margin-top:15px;">
+  <a href="https://www.npmjs.com/package/intlayer" target="_blank">
+    <img src="https://img.shields.io/npm/v/intlayer?style=for-the-badge&labelColor=FFFFFF&color=000000&logoColor=FFFFFF" alt="npm version" height="24"/>
+  </a>
+  <a href="https://www.npmjs.org/package/intlayer" target="_blank">
+    <img src="https://img.shields.io/npm/dm/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="monthly downloads" height="24"/>
+  </a>
+  <a href="https://www.npmjs.org/package/intlayer" target="_blank">
+    <img src="https://img.shields.io/npm/types/intlayer?style=for-the-badge&labelColor=FFFFFF&color=000000&logoColor=FFFFFF" alt="types included" height="24"/>
+  </a>
+  <a href="https://github.com/aymericzip/intlayer/stargazers" target="_blank">
+    <img src="https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logo=github&logoColor=FFD700" alt="GitHub Stars" height="24"/>
   </a>
 </div>
 
-<div align="center">
-  <br/>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/readme.md"><img src="https://img.shields.io/badge/English-README-0969da?style=for-the-badge" alt="English README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/readme.md"><img src="https://img.shields.io/badge/简体中文-说明-656d76?style=for-the-badge" alt="简体中文说明" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/readme.md"><img src="https://img.shields.io/badge/Русский-README-656d76?style=for-the-badge" alt="Русский README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/readme.md"><img src="https://img.shields.io/badge/日本語-README-656d76?style=for-the-badge" alt="日本語 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/readme.md"><img src="https://img.shields.io/badge/Français-README-656d76?style=for-the-badge" alt="Français README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/readme.md"><img src="https://img.shields.io/badge/한국어-README-656d76?style=for-the-badge" alt="한국어 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/readme.md"><img src="https://img.shields.io/badge/Español-README-656d76?style=for-the-badge" alt="Español README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/readme.md"><img src="https://img.shields.io/badge/Deutsch-README-656d76?style=for-the-badge" alt="Deutsch README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/readme.md"><img src="https://img.shields.io/badge/العربية-README-656d76?style=for-the-badge" alt="العربية README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/readme.md"><img src="https://img.shields.io/badge/Italiano-README-656d76?style=for-the-badge" alt="Italiano README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/readme.md"><img src="https://img.shields.io/badge/English (UK)-README-656d76?style=for-the-badge" alt="English (UK) README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/readme.md"><img src="https://img.shields.io/badge/Português-README-656d76?style=for-the-badge" alt="Português README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/readme.md"><img src="https://img.shields.io/badge/हिन्दी-README-656d76?style=for-the-badge" alt="हिन्दी README" /></a>
+
+<!-- Community / Social -->
+<div align="center" style="margin-top:10px;">
+  <a href="https://discord.gg/528mBV4N" target="_blank">
+    <img src="https://img.shields.io/badge/Discord-000000?style=for-the-badge&labelColor=333333&color=000000" alt="Discord" height="24"/>
+  </a>
+  <a href="https://x.com/Intlayer183096" target="_blank">
+    <img src="https://img.shields.io/badge/X-000000?style=for-the-badge&labelColor=333333&color=000000" alt="X" height="24"/>
+  </a>
+  <a href="https://www.linkedin.com/company/intlayerorg" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-000000?style=for-the-badge&labelColor=333333&color=000000" alt="LinkedIn" height="24"/>
+  </a>
+  <a href="https://www.youtube.com/@intlayer" target="_blank">
+    <img src="https://img.shields.io/badge/YouTube-000000?style=for-the-badge&labelColor=333333&color=000000" alt="YouTube" height="24"/>
+  </a>
+  <a href="https://www.tiktok.com/@intlayer" target="_blank">
+    <img src="https://img.shields.io/badge/TikTok-000000?style=for-the-badge&labelColor=333333&color=000000" alt="TikTok" height="24"/>
+  </a>
 </div>
 
-<div align="center">
-  <br/>
-  <a href="https://www.npmjs.com/package/intlayer" target="blank"><img
-    align="center"
-    alt="npm"
-    src="https://img.shields.io/npm/v/intlayer.svg?labelColor=49516F&color=8994BC&style=for-the-badge"
-    height="30" /></a>
-  <a href="https://npmjs.org/package/intlayer" target="blank"><img
-      align="center"
-      src="https://img.shields.io/npm/dm/intlayer?labelColor=49516F&color=8994BC&style=for-the-badge"
-      alt="monthly downloads"
-      height="30"
-    /></a>
-  <a href="https://npmjs.org/package/intlayer" target="blank"><img
-      align="center"
-      src="https://img.shields.io/npm/types/intlayer?label=types%20included&labelColor=49516F&color=8994BC&style=for-the-badge"
-      alt="types included"
-      height="30"
-    /></a>
-</div>
 
-<div>
-    <br/>
-    <p align="center">
-      <a href="https://discord.gg/528mBV4N" target="blank"><img align="center"
-         src="https://img.shields.io/badge/discord-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white"
-         alt="Intlayer Discord" height="30"/></a>
-      <a href="https://www.linkedin.com/company/intlayerorg" target="blank"><img align="center"
-         src="https://img.shields.io/badge/linkedin-%231DA1F2.svg?style=for-the-badge&logo=linkedin&logoColor=white"
-         alt="Intlayer LinkedIn" height="30"/></a>
-      <a href="https://www.facebook.com/intlayer" target="blank"><img align="center"
-         src="https://img.shields.io/badge/facebook-4267B2.svg?style=for-the-badge&logo=facebook&logoColor=white"
-         alt="Intlayer Facebook" height="30"/></a>
-      <a href="https://www.instagram.com/intlayer/" target="blank"><img align="center"
-         src="https://img.shields.io/badge/instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white"
-         alt="Intlayer Instagram" height="30"/></a>
-      <a href="https://x.com/Intlayer183096" target="blank"><img align="center"
-         src="https://img.shields.io/badge/x-1DA1F2.svg?style=for-the-badge&logo=x&logoColor=white"
-         alt="Intlayer X" height="30"/></a>
-      <a href="https://www.youtube.com/@intlayer" target="blank"><img align="center"
-         src="https://img.shields.io/badge/youtube-FF0000.svg?style=for-the-badge&logo=youtube&logoColor=white"
-         alt="Intlayer YouTube" height="30"/></a>
-      <a href="https://www.tiktok.com/@intlayer" target="blank"><img align="center"
-         src="https://img.shields.io/badge/tiktok-000000.svg?style=for-the-badge&logo=tiktok&logoColor=white"
-         alt="Intlayer TikTok" height="30"/></a>
-      <br>
-    </p>
-</div>
+# Intlayer: an Open-source solution to make your SaaS multilingual in minutes (React, Next.js, Vue, Node.js)”
 
-# Intlayer: A tailored way to translate your website
+Most i18n libraries are either too complex, too rigid, or not built for modern frameworks.  
+Intlayer is an open-source internationalization solution designed for **Next.js, React, Vue, Node.js and more** with built-in TypeScript support, CMS, and AI translation.
 
-Intlayer offers a more flexible and modern approach to **internationalization** (i18n). Its seamless integration with **Next.js**, **React**, **Vite** and **Express**, customizable configuration, and support for various Content declaration formats, such as **TypeScript** make it a powerful choice for internationalization.
 
 ![Watch the video](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
+
+<div align="center" style="margin-top:20px;">
+  <a href="[https://intlayer.org/doc/concept/content](https://intlayer.org/doc/get-started)" target="_blank">
+    <img src="https://img.shields.io/badge/Get%20Started-000000?style=for-the-badge&color=FFFFFF&labelColor=000000&logoColor=FFFFFF" alt="Get Started" height="28"/>
+  </a>
+  <a href="https://github.com/aymericzip/intlayer/stargazers" target="_blank">
+    <img src="https://img.shields.io/badge/Star%20Repo-000000?style=for-the-badge&color=000000&labelColor=000000&logo=github&logoColor=FFD700" alt="Star this repo" height="28"/>
+  </a>
+  <a href="https://discord.gg/528mBV4N" target="_blank">
+    <img src="https://img.shields.io/badge/Join%20Discord-000000?style=for-the-badge&color=FFFFFF&labelColor=FFFFFF&logo=discord&logoColor=7289DA" alt="Join Discord" height="28"/>
+  </a>
+</div>
+
 
 ### Key Benefits of Intlayer:
 
@@ -99,65 +106,83 @@ Intlayer offers a more flexible and modern approach to **internationalization** 
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                    | **Interoperability**<br><br>Allow interoperability with react-i18next, next-i18next, next-intl, and react-intl. <br><br> - [Intlayer and react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer and next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer and next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)           |
 
 Start your journey with Intlayer today and experience a smoother, more powerful approach to internationalization.  
-[Get Started with Intlayer](https://intlayer.org/doc/concept/content)
 
----
+  <a href="[https://intlayer.org/doc/concept/content](https://intlayer.org/doc/get-started)" target="_blank">
+    <img src="https://img.shields.io/badge/Get%20Started-000000?style=for-the-badge&color=FFFFFF&labelColor=000000&logoColor=FFFFFF" alt="Get Started" height="28"/>
+  </a>
 
 ## Table of Contents
 
 Explore our comprehensive documentation to get started with Intlayer and learn how to integrate it into your projects.
 
-### Get Started
+<details open>
+<summary style="font-size:16px; font-weight:bold;">📘 Get Started</summary>
+<ul>
+  <li><a href="https://intlayer.org/doc/why">Why Intlayer?</a></li>
+  <li><a href="https://intlayer.org/doc">Introduction</a></li>
+</ul>
+</details>
 
-- [Why Intlayer?](https://intlayer.org/doc/why)
-- [Introduction](https://intlayer.org/doc)
+<details>
+<summary style="font-size:16px; font-weight:bold;">⚙️ Concept</summary>
+<ul>
+  <li><a href="https://intlayer.org/doc/concept/how-works-intlayer">How Intlayer Works</a></li>
+  <li><a href="https://intlayer.org/doc/concept/configuration">Configuration</a></li>
+  <li><a href="https://intlayer.org/doc/concept/ai">AI provider</a></li>
+  <li><a href="https://intlayer.org/doc/concept/cli">Intlayer CLI</a></li>
+  <li><a href="https://intlayer.org/doc/concept/editor">Intlayer Editor</a></li>
+  <li><a href="https://intlayer.org/doc/concept/cms">Intlayer CMS</a></li>
+  <li><a href="https://intlayer.org/doc/concept/content">Dictionary</a>
+    <ul>
+      <li><a href="https://intlayer.org/doc/concept/content/per-locale-file">Per-Locale Content Declaration File</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/translation">Translation</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/enumeration">Enumeration</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/condition">Condition</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/nesting">Nesting</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/markdown">Markdown</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/function-fetching">Function Fetching</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/insertion">Insertion</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/file">File</a></li>
+    </ul>
+  </li>
+</ul>
+</details>
 
-### Concept
+<details open>
+<summary style="font-size:16px; font-weight:bold;">🌐 Environment</summary>
+<ul>
+  <li><a href="https://intlayer.org/doc/environment/nextjs">Intlayer with Next.js 15</a>
+    <ul>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/14">Next.js 14 (App Router)</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router">Next.js Page Router</a></li>
+    </ul>
+  </li>
+  <li><a href="https://intlayer.org/doc/environment/create-react-app">React CRA</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md">Vite + React</a></li>
+  <li><a href="https://intlayer.org/fr/doc/environment/react-native-and-expo">React Native</a></li>
+  <li><a href="https://intlayer.org/fr/doc/environment/lynx-and-react">Lynx + React</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-svelte">Vite + Svelte</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-preact">Vite + Preact</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-vue">Vite + Vue</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-nuxt">Vite + Nuxt</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-solid">Vite + Solid</a></li>
+  <li><a href="https://intlayer.org/doc/environment/angular">Angular</a></li>
+  <li><a href="https://intlayer.org/doc/environment/express">Express</a></li>
+</ul>
+</details>
 
-- [How Intlayer Works](https://intlayer.org/doc/concept/how-works-intlayer)
-- [Configuration](https://intlayer.org/doc/concept/configuration)
-- [AI provider](https://intlayer.org/doc/concept/ai)
-- [Intlayer CLI](https://intlayer.org/doc/concept/cli)
-- [Intlayer Editor](https://intlayer.org/doc/concept/editor)
-- [Intlayer CMS](https://intlayer.org/doc/concept/cms)
-- [Dictionary](https://intlayer.org/doc/concept/content)
-  - [Per-Locale Content Declaration File](https://intlayer.org/doc/concept/content/per-locale-file)
-  - [Translation](https://intlayer.org/doc/concept/content/translation)
-  - [Enumeration](https://intlayer.org/doc/concept/content/enumeration)
-  - [Condition](https://intlayer.org/doc/concept/content/condition)
-  - [Nesting](https://intlayer.org/doc/concept/content/nesting)
-  - [Markdown](https://intlayer.org/doc/concept/content/markdown)
-  - [Function Fetching](https://intlayer.org/doc/concept/content/function-fetching)
-  - [Insertion](https://intlayer.org/doc/concept/content/insertion)
-  - [File](https://intlayer.org/doc/concept/content/file)
+<details>
+<summary style="font-size:16px; font-weight:bold;">📰 Blog</summary>
+<ul>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md">What is i18n</a></li>
+  <li><a href="https://intlayer.org//blog/SEO-and-i18n">i18n and SEO</a></li>
+  <li><a href="https://intlayer.org//blog/intlayer-with-next-i18next">Intlayer and i18next</a></li>
+  <li><a href="https://intlayer.org//blog/intlayer-with-react-i18next">Intlayer and react-intl</a></li>
+  <li><a href="https://intlayer.org//blog/intlayer-with-next-intl">Intlayer and next-intl</a></li>
+</ul>
+</details>
 
-### Environment
 
-- [Intlayer with Next.js 15](https://intlayer.org/doc/environment/nextjs)
-  - [Intlayer with Next.js 14 (App Router)](https://intlayer.org/doc/environment/nextjs/14)
-  - [Intlayer with Next.js Page Router](https://intlayer.org/doc/environment/nextjs/next-with-Page-Router)
-- [Intlayer with React CRA](https://intlayer.org/doc/environment/create-react-app)
-- [Intlayer with Vite and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
-- [Intlayer with React Native](https://intlayer.org/fr/doc/environment/react-native-and-expo)
-- [Intlayer with Lynx and React](https://intlayer.org/fr/doc/environment/lynx-and-react)
-- [Intlayer with Vite and Svelte](https://intlayer.org/doc/environment/vite-and-svelte)
-- [Intlayer with Vite and Preact](https://intlayer.org/doc/environment/vite-and-preact)
-- [Intlayer with Vite and Vue](https://intlayer.org/doc/environment/vite-and-vue)
-- [Intlayer with Vite and Nuxt](https://intlayer.org/doc/environment/vite-and-nuxt)
-- [Intlayer with Vite and Solid](https://intlayer.org/doc/environment/vite-and-solid)
-- [Intlayer with Angular](https://intlayer.org/doc/environment/angular)
-- [Intlayer with Express](https://intlayer.org/doc/environment/express)
-
-### Blog
-
-- [What is i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md)
-- [i18n and SEO](https://intlayer.org//blog/SEO-and-i18n)
-- [Intlayer and i18next](https://intlayer.org//blog/intlayer-with-next-i18next)
-- [Intlayer and react-intl](https://intlayer.org//blog/intlayer-with-react-i18next)
-- [Intlayer and next-intl](https://intlayer.org//blog/intlayer-with-next-intl)
-- [Intlayer and react-intl](https://intlayer.org//blog/intlayer-with-react-intl)
-
----
 
 ## Live tutorial on YouTube
 
@@ -166,6 +191,8 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 ---
 
 ## Star History
+
+If you like Intlayer, give us a ⭐ on GitHub. It helps others discover the project!
 
 [![Star History Chart](https://api.star-history.com/svg?repos=aymericzip/intlayer&type=Date)](https://star-history.com/#aymericzip/intlayer&Date)
 
