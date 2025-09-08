@@ -16,7 +16,6 @@ slugs:
   - doc
   - environment
   - vite-and-react
-  - intlayer
   - tanstack-start
 applicationTemplate: https://github.com/AydinTheFirst/tanstack-start-intlayer
 author: AydinTheFirst
