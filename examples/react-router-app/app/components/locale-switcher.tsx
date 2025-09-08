@@ -3,9 +3,9 @@ import {
   getLocaleName,
   getLocalizedUrl,
   Locales,
-} from 'intlayer';
-import { useLocale } from 'react-intlayer';
-import { useLocation } from 'react-router';
+} from "intlayer";
+import { useLocale } from "react-intlayer";
+import { useLocation } from "react-router";
 
 export default function LocaleSwitcher() {
   const { pathname, search } = useLocation();

@@ -2,14 +2,21 @@
 
 A modern, production-ready template for building full-stack React applications using React Router v7 with internationalization support via [Intlayer](https://intlayer.org).
 
-This repository demonstrates how to integrate Intlayer for seamless i18n in React Router v7 projects.
+This repository demonstrates how to integrate Intlayer for seamless i18n in React Router v7 projects with simplified routing.
+
+## Key Features of This Implementation
+
+- **Simplified Routing**: Uses optional locale parameters (`/:locale?`) instead of dynamic segments
+- **Unified Content Structure**: Content files are organized in the main routes directory
+- **Streamlined Components**: Simplified `LocalizedLink` and `useLocalizedNavigate` implementations
+- **Clean Architecture**: Reduced complexity while maintaining full internationalization support
 
 ## Features
 
 - 🚀 Server-side rendering
 - ⚡️ Hot Module Replacement (HMR)
 - 📦 Asset bundling and optimization
-- �🔒 TypeScript by default
+- 🔒 TypeScript by default
 - 🎉 TailwindCSS for styling
 - 🌍 Internationalization with Intlayer
 - 🔧 ESLint rules for locale-aware development
@@ -48,12 +55,6 @@ Create a production build:
 npm run build
 ```
 
-Build Intlayer dictionaries:
-
-```bash
-npm run intlayer:build
-```
-
 ## Deployment
 
 ### Docker Deployment
@@ -90,9 +91,7 @@ Make sure to deploy the output of `npm run build`
 │   └── server/    # Server-side code
 ```
 
-## Integrating Intlayer with React Router v7
-
-This section explains how to add [Intlayer](https://intlayer.org) internationalization to a React Router v7 project, using the [react-router-app](https://github.com/aymericzip/intlayer/tree/main/examples/react-router-app) example as a reference.
+This section explains how to add [Intlayer](https://intlayer.org) internationalization to a React Router v7 project with simplified routing, using the [react-router-app](https://github.com/aymericzip/intlayer/tree/main/examples/react-router-app) example as a reference.
 
 ### Prerequisites
 
@@ -127,36 +126,36 @@ export default config;
 
 ### 3. Configure Routes
 
-Create a `routes.ts` file for route configuration:
+Edit `routes.ts` file for simplified route configuration:
 
 ```ts
 import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 
 export default [
   layout("routes/layout.tsx", [
-    route("/", "routes/page.tsx"), // Home page with redirect
-    route("/:lang", "routes/[lang]/page.tsx"), // Localized home
-    route("/:lang/about", "routes/[lang]/about/page.tsx"), // About page
+    route("/:locale?", "routes/page.tsx"),
+    route("/:locale?/about", "routes/about/page.tsx"),
   ]),
 ] satisfies RouteConfig;
 ```
 
 ### 4. Add Intlayer Provider to Layout
 
-For locale-aware routing, wrap your localized content with `IntlayerProvider` in the language-specific layout:
+For locale-aware routing, wrap your localized content with `IntlayerProvider` in the root layout:
 
 ```tsx
 // app/routes/layout.tsx
-import { Outlet } from "react-router";
+import { configuration } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
+import { Outlet } from "react-router";
 
-import { useI18nHTMLAttributes } from "app/hooks/useI18nHTMLAttributes";
+import type { Route } from "./+types/layout";
 
-export default function RootLayout() {
-  useI18nHTMLAttributes(); // Set HTML lang attribute
-
+export default function RootLayout({ params }: Route.ComponentProps) {
   return (
-    <IntlayerProvider>
+    <IntlayerProvider
+      locale={params.locale ?? configuration.internationalization.defaultLocale}
+    >
       <Outlet />
     </IntlayerProvider>
   );
@@ -168,44 +167,75 @@ export default function RootLayout() {
 Access translations/content using the `useIntlayer` hook and use `LocalizedLink` for locale-aware navigation:
 
 ```tsx
-// app/routes/[lang]/page.tsx
+// app/routes/page.tsx
+import { getIntlayer } from "intlayer";
 import { useIntlayer } from "react-intlayer";
+
+import LocaleSwitcher from "~/components/locale-switcher";
 import LocalizedLink from "~/components/localized-link";
+import { useLocalizedNavigate } from "~/hooks/useLocalizedNavigate";
+
+import type { Route } from "./+types/page";
+
+export const meta: Route.MetaFunction = ({ params }) => {
+  const content = getIntlayer("page-meta", params.locale); // Fetch meta content based on locale
+  return [
+    { title: content.title },
+    { content: content.description, name: "description" },
+  ];
+};
 
 export default function Page() {
   const content = useIntlayer("page");
+  const navigate = useLocalizedNavigate();
+
   return (
-    <div>
-      <h1>{content.greeting}</h1>
-      <LocalizedLink to="/about">About</LocalizedLink>
+    <div className="grid place-items-center h-screen">
+      <div className="flex flex-col gap-3 items-center">
+        <h1 className="text-3xl font-bold underline">{content.greeting}</h1>
+        <LocaleSwitcher />
+        <div className="flex gap-2">
+          <a href="/">Index</a>
+          <LocalizedLink to="/">{content.home}</LocalizedLink>
+          <LocalizedLink to="/about">{content.about}</LocalizedLink>
+        </div>
+        <div className="flex gap-2">
+          <button onClick={() => navigate("/")}>
+            {content.home} (navigate)
+          </button>
+          <button onClick={() => navigate("/about")}>
+            {content.about} (navigate)
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 ```
 
-### 5. Configure Vite Plugins
+### 6. Configure Vite Plugins
 
 Add Intlayer plugins to your Vite config:
 
 ```ts
 // vite.config.ts
-import { intlayerMiddlewarePlugin, intlayerPlugin } from "vite-intlayer";
+import { intLayerMiddlewarePlugin, intlayerPlugin } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
     intlayerPlugin(),
-    intlayerMiddlewarePlugin(), // Optional. Use if you need middleware support.
+    intLayerMiddlewarePlugin(), // Optional. Use if you need middleware support.
     // ...other plugins
   ],
 });
 ```
 
-### 6. Add Content Files
+### 7. Add Content Files
 
-Create content files for each page/component, e.g.:
+Create content files for each page/component in the routes directory, e.g.:
 
 ```ts
-// app/routes/[lang]/page.content.ts
+// app/routes/page.content.ts
 import { type Dictionary, t } from "intlayer";
 
 const pageContent = {
@@ -229,9 +259,58 @@ const pageContent = {
 export default pageContent;
 ```
 
-### 7. Use LocalizedLink and useLocalizedNavigate for Navigation
+```ts
+// app/routes/meta.content.ts
+import { type Dictionary, t } from "intlayer";
+
+const metaContent = {
+  content: {
+    description: t({
+      en: "This is the home page description.",
+      tr: "Bu, ana sayfanın açıklamasıdır.",
+    }),
+    title: t({
+      en: "Home",
+      tr: "Ana Sayfa",
+    }),
+  },
+  key: "page-meta",
+} satisfies Dictionary;
+
+export default metaContent;
+```
+
+### 8. Use LocalizedLink and useLocalizedNavigate for Navigation
 
 To ensure all links are locale-aware, use the provided `LocalizedLink` component instead of React Router's `Link`:
+
+```tsx
+// app/components/localized-link.tsx
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "react-intlayer";
+// eslint-disable-next-line no-restricted-imports
+import { Link, type LinkProps } from "react-router";
+
+type LocalizedLinkProps = {
+  to: string;
+} & Omit<LinkProps, "to">;
+
+export default function LocalizedLink(props: LocalizedLinkProps) {
+  const { locale } = useLocale();
+
+  const isExternal = (to: string) => {
+    return /^(https?:)?\/\//.test(to);
+  };
+
+  const to = isExternal(props.to)
+    ? props.to
+    : getLocalizedUrl(props.to, locale);
+
+  return <Link {...props} to={to as LinkProps["to"]} />;
+}
+```
+
+Usage:
 
 ```tsx
 import LocalizedLink from "~/components/localized-link";
@@ -246,18 +325,27 @@ For programmatic navigation, create and use the `useLocalizedNavigate` hook:
 // app/hooks/useLocalizedNavigate.ts
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "react-intlayer";
-import { useNavigate, type NavigateOptions } from "react-router";
+// eslint-disable-next-line no-restricted-imports
+import { type NavigateOptions, useNavigate } from "react-router";
 
-export function useLocalizedNavigate() {
+export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
   const { locale } = useLocale();
 
-  return (to: string, options?: NavigateOptions) => {
-    const final = to.startsWith("/") ? getLocalizedUrl(to, locale) : to;
-    navigate(final, options);
+  const isExternal = (to: string) => {
+    return /^(https?:)?\/\//.test(to);
   };
-}
 
+  const localizedNavigate = (to: string, options?: NavigateOptions) => {
+    const localedTo = isExternal(to) ? to : getLocalizedUrl(to, locale);
+    navigate(localedTo, options);
+  };
+
+  return localizedNavigate;
+};
+```
+
+```tsx
 // Usage in components:
 import { useLocalizedNavigate } from "~/hooks/useLocalizedNavigate";
 
@@ -274,7 +362,7 @@ function MyComponent() {
 
 Note: ESLint is configured to prevent direct imports from `react-router` to encourage using localized wrappers.
 
-### 8. Type Safety
+### 9. Type Safety
 
 To enable type safety for your Intlayer dictionaries and content, ensure your `tsconfig.json` includes the Intlayer types. Add the following to your configuration:
 
@@ -289,13 +377,13 @@ To enable type safety for your Intlayer dictionaries and content, ensure your `t
 
 This will provide autocompletion and type checking for your translation keys and content files throughout your project.
 
-### 9. Run and Build
+### 10. Run and Build
 
 - Start development: `npm run dev`
 - Build for production: `npm run build`
 - Build Intlayer dictionaries: `npm run intlayer:build`
 
-### 10. References
+### 11. References
 
 - [react-router-app example](https://github.com/aymericzip/intlayer/tree/main/examples/react-router-app) - Official Intlayer example
 - [Intlayer with Vite and React](https://intlayer.org/doc/environment/vite-and-react) - Setup guide for Vite + React
