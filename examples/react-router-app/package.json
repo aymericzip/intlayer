@@ -1,23 +1,26 @@
 {
   "name": "react-router-intlayer",
-  "private": true,
   "description": "A React Router v7 + Intlayer i18n example project",
+  "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
-    "intlayer:build": "intlayer build",
-    "lint": "eslint .",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "lint": "eslint .",
+    "intlayer:build": "intlayer build"
   },
   "dependencies": {
     "@react-router/node": "^7.7.1",
     "@react-router/serve": "^7.7.1",
     "intlayer": "workspace:*",
-    "isbot": "^5",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "isbot": "^5.1.27",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-intlayer": "workspace:*",
     "react-router": "^7.7.1"
   },
@@ -26,17 +29,15 @@
     "@react-router/dev": "^7.7.1",
     "@tailwindcss/vite": "^4.1.4",
     "@types/node": "^20",
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.6",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
     "eslint": "^9.34.0",
+    "eslint-plugin-perfectionist": "^4.15.0",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.42.0",
-    "vite": "^7.1.2",
+    "vite": "^6.3.3",
     "vite-intlayer": "workspace:*",
     "vite-tsconfig-paths": "^5.1.4"
-  },
-  "engines": {
-    "node": ">=20"
   }
 }

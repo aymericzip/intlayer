@@ -1,6 +1,6 @@
-import { getHTMLTextDir } from 'intlayer';
-import { useEffect } from 'react';
-import { useLocale } from 'react-intlayer';
+import { getHTMLTextDir } from "intlayer";
+import { useEffect } from "react";
+import { useLocale } from "react-intlayer";
 
 /**
  * Updates the HTML <html> element's `lang` and `dir` attributes based on the current locale.
