@@ -91,7 +91,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
-    "eslint": "^9.33.0",
+    "eslint": "^9.34.0",
     "expo": "^52.0.37",
     "metro-resolver": "^0.82.0",
     "prettier": "^3.6.2",
