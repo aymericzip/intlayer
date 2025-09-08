@@ -1,13 +1,13 @@
-  'use client';
+'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useIntlayer } from 'next-intlayer';
-import { useState, useEffect } from 'react';
-import { cn } from '@utils/cn';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import dynamic from 'next/dynamic';
-import { type Section } from '../../FeaturesSection';
 import { Loader } from '@intlayer/design-system';
+import { cn } from '@utils/cn';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
+import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
+import { type Section } from '../../FeaturesSection';
 
 /* -------------------------------------------------------------------------- */
 /*                   Dynamic Imports (lazy loading heavy UI)                  */
@@ -24,26 +24,18 @@ const DynamicMarkdownSection = dynamic(
 );
 
 const DynamicMultilingualSection = dynamic(
-  () =>
-    import('../MultilingualSection').then(
-      (mod) => mod.MultilingualSection
-    ),
+  () => import('../MultilingualSection').then((mod) => mod.MultilingualSection),
   { loading: () => <Loader /> }
 );
 
 const DynamicAutocompletionSection = dynamic(
   () =>
-    import('../AutocompletionSection').then(
-      (mod) => mod.AutocompletionSection
-    ),
+    import('../AutocompletionSection').then((mod) => mod.AutocompletionSection),
   { loading: () => <Loader /> }
 );
 
 const DynamicVisualEditorSection = dynamic(
-  () =>
-    import('../VisualEditorSection').then(
-      (mod) => mod.VisualEditorSection
-    ),
+  () => import('../VisualEditorSection').then((mod) => mod.VisualEditorSection),
   { loading: () => <Loader /> }
 );
 
@@ -74,9 +66,7 @@ export const MobileFeaturesSection = () => {
     // Create mobile-optimized wrapper for each component
     const MobileWrapper = ({ children }: { children: React.ReactNode }) => (
       <div className="w-full max-w-sm mx-auto">
-        <div className="transform scale-100 origin-center">
-          {children}
-        </div>
+        <div className="transform scale-100 origin-center">{children}</div>
       </div>
     );
 
@@ -171,10 +161,11 @@ export const MobileFeaturesSection = () => {
   // Show loading state until client-side hydration is complete
   if (!isClient) {
     return (
-      <section className="relative flex flex-col w-full items-center justify-center overflow-hidden bg-background py-10">
-        <div className="text-center">
-          <h2 className="text-lg font-bold text-text mb-4">Loading Features...</h2>
-          <p className="text-sm text-neutral">Please wait while we load the features.</p>
+      <section className="relative z-0 w-screen h-[550vh]">
+        <div className="sticky left-0 top-0 mb-[70vh] h-[30vh] w-full">
+          <div className="absolute left-10 top-20 flex h-3/5 w-[2px] md:top-[20vh]">
+            {/* Loading placeholder with same structure as desktop */}
+          </div>
         </div>
       </section>
     );

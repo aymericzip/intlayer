@@ -19,11 +19,12 @@ const mobileFeaturesSectionContent = {
   }),
   description: t({
     en: 'Discover the powerful features that make Intlayer the perfect solution for internationalization',
-    'en-GB': 'Discover the powerful features that make Intlayer the perfect solution for internationalization',
-    fr: 'Découvrez les fonctionnalités puissantes qui font d\'Intlayer la solution parfaite pour l\'internationalisation',
+    'en-GB':
+      'Discover the powerful features that make Intlayer the perfect solution for internationalization',
+    fr: "Découvrez les fonctionnalités puissantes qui font d'Intlayer la solution parfaite pour l'internationalisation",
     es: 'Descubre las potentes características que hacen de Intlayer la solución perfecta para la internacionalización',
     de: 'Entdecken Sie die leistungsstarken Funktionen, die Intlayer zur perfekten Lösung für die Internationalisierung machen',
-    it: 'Scopri le potenti funzionalità che rendono Intlayer la soluzione perfetta per l\'internazionalizzazione',
+    it: "Scopri le potenti funzionalità che rendono Intlayer la soluzione perfetta per l'internazionalizzazione",
     pt: 'Descubra os recursos poderosos que tornam o Intlayer a solução perfeita para internacionalização',
     ru: 'Откройте для себя мощные возможности, которые делают Intlayer идеальным решением для интернационализации',
     zh: '发现使 Intlayer 成为国际化完美解决方案的强大功能',
@@ -51,7 +52,8 @@ const mobileFeaturesSectionContent = {
       }),
       description: t({
         en: 'Improve code maintainability by keeping your content definitions close to your components',
-        'en-GB': 'Improve code maintainability by keeping your content definitions close to your components',
+        'en-GB':
+          'Improve code maintainability by keeping your content definitions close to your components',
         fr: 'Améliorez la maintenabilité du code en gardant vos définitions de contenu proches de vos composants',
         es: 'Mejore la mantenibilidad del código manteniendo sus definiciones de contenido cerca de sus componentes',
         de: 'Verbessern Sie die Wartbarkeit des Codes, indem Sie Ihre Inhaltsdefinitionen in der Nähe Ihrer Komponenten halten',
@@ -83,11 +85,12 @@ const mobileFeaturesSectionContent = {
       }),
       description: t({
         en: 'Leverage the free visual editor to build and manage your site effortlessly',
-        'en-GB': 'Leverage the free visual editor to build and manage your site effortlessly',
-        fr: 'Profitez de l\'éditeur visuel gratuit pour créer et gérer votre site en toute simplicité',
+        'en-GB':
+          'Leverage the free visual editor to build and manage your site effortlessly',
+        fr: "Profitez de l'éditeur visuel gratuit pour créer et gérer votre site en toute simplicité",
         es: 'Aproveche el editor visual gratuito para construir y gestionar su sitio sin esfuerzo',
         de: 'Nutzen Sie den kostenlosen visuellen Editor, um Ihre Website mühelos zu erstellen und zu verwalten',
-        it: 'Sfrutta l\'editor visivo gratuito per costruire e gestire il tuo sito con facilità',
+        it: "Sfrutta l'editor visivo gratuito per costruire e gestire il tuo sito con facilità",
         pt: 'Aproveite o editor visual gratuito para construir e gerenciar seu site sem esforço',
         ru: 'Используйте бесплатный визуальный редактор для легкого создания и управления сайтом',
         zh: '利用免费的可视化编辑器轻松构建和管理您的网站',
@@ -115,7 +118,8 @@ const mobileFeaturesSectionContent = {
       }),
       description: t({
         en: 'Expand your reach with built-in translation support for seamless multilingual experiences',
-        'en-GB': 'Expand your reach with built-in translation support for seamless multilingual experiences',
+        'en-GB':
+          'Expand your reach with built-in translation support for seamless multilingual experiences',
         fr: 'Étendez votre portée grâce à la fonctionnalité de traduction intégrée pour des expériences multilingues fluides',
         es: 'Amplíe su alcance con la función de traducción incorporada para experiencias multilingües fluidas',
         de: 'Erweitern Sie Ihre Reichweite mit integrierter Übersetzungsunterstützung für nahtlose, mehrsprachige Erlebnisse',
@@ -147,7 +151,8 @@ const mobileFeaturesSectionContent = {
       }),
       description: t({
         en: 'Write content in Markdown for a seamless, structured approach to text formatting',
-        'en-GB': 'Write content in Markdown for a seamless, structured approach to text formatting',
+        'en-GB':
+          'Write content in Markdown for a seamless, structured approach to text formatting',
         fr: 'Rédigez votre contenu en Markdown pour une approche fluide et structurée de la mise en forme du texte',
         es: 'Escriba contenido en Markdown para lograr un enfoque fluido y estructurado en la formación de texto',
         de: 'Verfassen Sie Inhalte in Markdown für einen nahtlosen, strukturierten Ansatz zur Textformatierung',
@@ -179,11 +184,12 @@ const mobileFeaturesSectionContent = {
       }),
       description: t({
         en: 'Boost your productivity with AI-powered content suggestions for instant recommendations',
-        'en-GB': 'Boost your productivity with AI-powered content suggestions for instant recommendations',
-        fr: 'Bénéficiez d\'une productivité accrue grâce aux suggestions de contenu alimentées par l\'IA pour des recommandations instantanées',
+        'en-GB':
+          'Boost your productivity with AI-powered content suggestions for instant recommendations',
+        fr: "Bénéficiez d'une productivité accrue grâce aux suggestions de contenu alimentées par l'IA pour des recommandations instantanées",
         es: 'Aumente su productividad con sugerencias de contenido impulsadas por IA para recomendaciones instantáneas',
         de: 'Steigern Sie Ihre Produktivität mit KI-gestützten Inhaltsempfehlungen für sofortige Vorschläge',
-        it: 'Aumenta la tua produttività con suggerimenti di contenuto basati sull\'IA per raccomandazioni istantanee',
+        it: "Aumenta la tua produttività con suggerimenti di contenuto basati sull'IA per raccomandazioni istantanee",
         pt: 'Aumente sua produtividade com sugestões de conteúdo baseadas em IA para recomendações instantâneas',
         ru: 'Повышайте свою продуктивность с помощью предложений контента на основе ИИ для мгновенных рекомендаций',
         zh: '借助 AI 驱动的内容建议，提高您的工作效率，获得即时推荐',

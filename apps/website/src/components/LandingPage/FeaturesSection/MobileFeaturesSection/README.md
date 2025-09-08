@@ -2,79 +2,69 @@
 
 ## Overview
 
-A mobile-optimized version of the FeaturesSection component that replaces the complex carousel with an accordion-style interface for better mobile performance and user experience.
+Mobile-optimized version of FeaturesSection that automatically replaces the complex scroll-based carousel with a touch-friendly interface when `useDevice().isMobile` returns true.
+
+## Key Changes
+
+### **1. Device Detection & Conditional Rendering**
+
+```tsx
+export const FeaturesSection: FC = () => {
+  const { isMobile } = useDevice();
+
+  if (isMobile) {
+    return <MobileFeaturesSection />;
+  }
+
+  return <FeaturesCarousel ... />;
+};
+```
+
+### **2. Mobile Layout Architecture**
+
+- **Replaced**: Complex scroll-based positioning → Touch-friendly carousel
+- **Added**: Swipe gestures, navigation buttons, pagination dots
+- **Optimized**: All child components wrapped in `MobileWrapper` for proper scaling
+
+### **3. Child Component Optimizations**
+
+- **IDESection**: Responsive scaling with `max-w-sm` containers
+- **MultilingualSection**: Independent mobile animations (30ms intervals vs desktop)
+- **AutocompletionSection**: Separate mobile typing animation system
+- **MarkdownSection**: Mobile-specific tabs and touch-friendly controls
+- **VisualEditorSection**: Mobile fullscreen button
+
+### **4. Performance & Hydration**
+
+- **Hydration Safety**: `isClient` state prevents SSR/CSR mismatches
+- **Animation Control**: `useAnimations` state with auto-disable after 1s
+- **Memory Management**: Conditional loading and animation cleanup
 
 ## Features
 
-- **Accordion Layout**: Expandable/collapsible sections for better mobile navigation
-- **Touch-Friendly**: Larger touch targets and simplified interactions
-- **Performance Optimized**: Lightweight animations and conditional loading
-- **Design System Integration**: Uses Container component from @intlayer/design-system
-- **Internationalization**: Full support for 13 languages
-
-## Props
-
-```tsx
-type MobileSectionItemProps = {
-  section: Section;
-  isActive: boolean;
-  onToggle: () => void;
-};
-```
+- **Touch-Friendly**: Swipeable carousel with 50px gesture threshold
+- **Performance Optimized**: No scroll calculations, lighter animations
+- **Hydration-Safe**: Proper client-side rendering
+- **Internationalization**: 13 languages support
+- **Responsive Scaling**: All components properly scaled for mobile
 
 ## Usage
 
 ```tsx
-import { MobileFeaturesSection } from './MobileFeaturesSection';
-
 // Automatically used by FeaturesSection on mobile devices
+// No manual usage required
 <MobileFeaturesSection />
 ```
 
-## Content Structure
-
-The component uses internationalized content from `index.content.ts`:
-
-```tsx
-const mobileFeaturesSectionContent = {
-  key: 'mobile-features-section',
-  title: t({ en: 'Features', fr: 'Fonctionnalités', ... }),
-  description: t({ en: 'Discover...', fr: 'Découvrez...', ... }),
-  sections: {
-    codebase: { title: t(...), description: t(...) },
-    'visual-editor': { title: t(...), description: t(...) },
-    multilingual: { title: t(...), description: t(...) },
-    markdown: { title: t(...), description: t(...) },
-    autocomplete: { title: t(...), description: t(...) },
-  }
-}
-```
-
-## Supported Languages
-
-- English (en, en-GB)
-- French (fr)
-- Spanish (es)
-- German (de)
-- Italian (it)
-- Portuguese (pt)
-- Russian (ru)
-- Chinese (zh)
-- Japanese (ja)
-- Arabic (ar)
-- Hindi (hi)
-- Korean (ko)
-
-## Performance Improvements
-
-- **No Scroll Calculations**: Eliminates complex scroll-based animations
-- **Simplified Rendering**: Linear layout instead of complex positioning
-- **Lighter Animations**: Basic CSS transitions instead of heavy Framer Motion
-- **Conditional Loading**: Heavy components only load when expanded
-
 ## Dependencies
 
-- `@intlayer/design-system` - Container component and useDevice hook
-- `framer-motion` - Lightweight animations
-- `next-intlayer` - Internationalization support
-- `intlayer` - Content management and translation
+- `@intlayer/design-system` - useDevice hook
+- `framer-motion` - Mobile-optimized animations
+- `next-intlayer` - Internationalization
+- `lucide-react` - Touch-friendly icons
+
+## Migration Summary
+
+**Before**: Single complex scroll-based carousel for all devices  
+**After**: Device-specific rendering with mobile-optimized carousel  
+**Benefits**: Better performance, improved UX, hydration safety, touch support
