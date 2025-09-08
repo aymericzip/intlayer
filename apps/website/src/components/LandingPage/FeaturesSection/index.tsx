@@ -3,7 +3,8 @@
 import { Loader } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import dynamic from 'next/dynamic';
 import {
@@ -11,16 +12,54 @@ import {
   type PropsWithChildren,
   type ReactNode,
   startTransition,
+  useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
 
-// Import mobile-optimized version
-import { MobileFeaturesSection } from './MobileFeaturesSection/index';
+/* -------------------------------------------------------------------------- */
+/*                   Dynamic Imports for Heavy Child Sections                 */
+/* -------------------------------------------------------------------------- */
+
+const DynamicIDESection = dynamic(
+  () => import('./IDESection').then((mod) => mod.IDESection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
+const DynamicMarkdownSection = dynamic(
+  () => import('./MarkdownSection').then((mod) => mod.MarkdownSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
+const DynamicMultilingualSection = dynamic(
+  () => import('./MultilingualSection').then((mod) => mod.MultilingualSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
+const DynamicAutocompletionSection = dynamic(
+  () =>
+    import('./AutocompletionSection').then((mod) => mod.AutocompletionSection),
+  {
+    loading: () => <Loader />,
+  }
+);
+
+const DynamicVisualEditorSection = dynamic(
+  () => import('./VisualEditorSection').then((mod) => mod.VisualEditorSection),
+  {
+    loading: () => <Loader />,
+  }
+);
 
 /* -------------------------------------------------------------------------- */
-/*                               Subcomponents                                */
+/*                               Types & Utils                                */
 /* -------------------------------------------------------------------------- */
 
 type SectionItemProps = {
@@ -60,6 +99,295 @@ export type Section = {
   title: IntlayerNode;
   description: IntlayerNode;
   children: ReactNode;
+};
+
+// Utility function to create sections with mobile wrapper when needed
+const createSections = (
+  sectionsData: any[],
+  progress: number,
+  isMobile: boolean
+): Section[] => {
+  const MobileWrapper = ({ children }: { children: React.ReactNode }) => (
+    <div className="w-full max-w-sm mx-auto">
+      <div className="transform scale-100 origin-center">{children}</div>
+    </div>
+  );
+
+  return sectionsData.map((sectionData) => {
+    const baseSection: Section = {
+      ...sectionData,
+      children: (() => {
+        switch (sectionData.id.value) {
+          case 'codebase':
+            return <DynamicIDESection scrollProgress={progress} />;
+          case 'visual-editor':
+            return <DynamicVisualEditorSection />;
+          case 'multilingual':
+            return <DynamicMultilingualSection scrollProgress={progress} />;
+          case 'markdown':
+            return <DynamicMarkdownSection scrollProgress={progress} />;
+          case 'autocomplete':
+            return <DynamicAutocompletionSection scrollProgress={progress} />;
+          default:
+            return <>{sectionData.title}</>;
+        }
+      })(),
+    };
+
+    // Wrap with mobile wrapper if needed
+    return isMobile
+      ? {
+          ...baseSection,
+          children: <MobileWrapper>{baseSection.children}</MobileWrapper>,
+        }
+      : baseSection;
+  });
+};
+
+// Custom hook for unified navigation
+const useFeaturesNavigation = (sectionsData: any[], isMobile: boolean) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+  const [useAnimations, setUseAnimations] = useState(true);
+
+  // Fix hydration issues by ensuring client-side rendering
+  useEffect(() => {
+    setIsClient(true);
+    // Disable animations if there are hydration issues
+    const timer = setTimeout(() => {
+      setUseAnimations(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const navigate = useCallback(
+    (newIndex: number) => {
+      setActiveIndex(newIndex);
+      setProgress(newIndex / sectionsData.length);
+    },
+    [sectionsData.length]
+  );
+
+  const next = useCallback(() => {
+    setDirection(1);
+    setActiveIndex((prev) => {
+      const newIndex = (prev + 1) % sectionsData.length;
+      setProgress(newIndex / sectionsData.length);
+      return newIndex;
+    });
+  }, [sectionsData.length]);
+
+  const prev = useCallback(() => {
+    setDirection(-1);
+    setActiveIndex((prev) => {
+      const newIndex = (prev - 1 + sectionsData.length) % sectionsData.length;
+      setProgress(newIndex / sectionsData.length);
+      return newIndex;
+    });
+  }, [sectionsData.length]);
+
+  return {
+    activeIndex,
+    progress,
+    direction,
+    isClient,
+    useAnimations,
+    navigate,
+    next,
+    prev,
+  };
+};
+
+/* -------------------------------------------------------------------------- */
+/*                               Mobile Components                             */
+/* -------------------------------------------------------------------------- */
+
+// Mobile header with navigation
+const MobileHeader: FC<{
+  sections: Section[];
+  activeIndex: number;
+  onPrev: () => void;
+  onNext: () => void;
+}> = ({ sections, activeIndex, onPrev, onNext }) => (
+  <div className="mb-6 flex w-full flex-row items-center justify-between px-6">
+    <button
+      onClick={onPrev}
+      aria-label="Previous feature"
+      className="rounded-full bg-neutral/20 p-2"
+    >
+      <ChevronLeft className="h-5 w-5 text-text" />
+    </button>
+    <h2 className="text-center text-lg font-bold text-text">
+      {sections[activeIndex].title}
+    </h2>
+    <button
+      onClick={onNext}
+      aria-label="Next feature"
+      className="rounded-full bg-neutral/20 p-2"
+    >
+      <ChevronRight className="h-5 w-5 text-text" />
+    </button>
+  </div>
+);
+
+// Mobile carousel content
+const MobileCarouselContent: FC<{
+  sections: Section[];
+  activeIndex: number;
+  direction: number;
+  useAnimations: boolean;
+  onDragEnd: (event: any, info: any) => void;
+}> = ({ sections, activeIndex, direction, useAnimations, onDragEnd }) => {
+  const variants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? 200 : -200,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? -200 : 200,
+      opacity: 0,
+    }),
+  };
+
+  return (
+    <div className="relative w-full max-w-md overflow-hidden">
+      {useAnimations ? (
+        <AnimatePresence custom={direction} mode="popLayout">
+          <motion.div
+            key={sections[activeIndex].id.value}
+            className="absolute left-0 top-0 flex w-full flex-col items-center justify-center gap-4 px-6 py-6"
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.8}
+            onDragEnd={onDragEnd}
+          >
+            <div className="w-full rounded-2xl bg-neutral/10 p-6 shadow-md">
+              {sections[activeIndex].children}
+            </div>
+            <p className="text-center text-sm text-neutral">
+              {sections[activeIndex].description}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+      ) : (
+        <div className="flex w-full flex-col items-center justify-center gap-4 px-6 py-6">
+          <div className="w-full rounded-2xl bg-neutral/10 p-6 shadow-md">
+            {sections[activeIndex].children}
+          </div>
+          <p className="text-center text-sm text-neutral">
+            {sections[activeIndex].description}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Mobile pagination dots
+const MobilePagination: FC<{
+  sections: Section[];
+  activeIndex: number;
+  onNavigate: (index: number) => void;
+}> = ({ sections, activeIndex, onNavigate }) => (
+  <div className="mt-6 flex gap-2">
+    {sections.map((_, index) => (
+      <button
+        key={index}
+        aria-label={`Go to feature ${index + 1}`}
+        title={`Go to feature ${index + 1}`}
+        onClick={() => onNavigate(index)}
+        className={cn(
+          'h-2 w-2 rounded-full transition-all',
+          index === activeIndex
+            ? 'bg-text w-4'
+            : 'bg-neutral/40 hover:bg-neutral/70'
+        )}
+      />
+    ))}
+  </div>
+);
+
+// Unified mobile carousel
+const MobileCarousel: FC<{
+  sections: Section[];
+  activeIndex: number;
+  direction: number;
+  isClient: boolean;
+  useAnimations: boolean;
+  navigate: (index: number) => void;
+  next: () => void;
+  prev: () => void;
+}> = ({
+  sections,
+  activeIndex,
+  direction,
+  isClient,
+  useAnimations,
+  navigate,
+  next,
+  prev,
+}) => {
+  const handleDragEnd = (event: any, info: any) => {
+    if (info.offset.x < -50) {
+      next();
+    } else if (info.offset.x > 50) {
+      prev();
+    }
+  };
+
+  const handleNavigate = (index: number) => {
+    navigate(index);
+  };
+
+  // Show loading state until client-side hydration is complete
+  if (!isClient) {
+    return (
+      <section className="relative z-0 w-screen h-[550vh]">
+        <div className="sticky left-0 top-0 mb-[70vh] h-[30vh] w-full">
+          <div className="absolute left-10 top-20 flex h-3/5 w-[2px] md:top-[20vh]">
+            {/* Loading placeholder with same structure as desktop */}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="relative flex flex-col w-full items-center justify-center overflow-hidden bg-background py-10">
+      <MobileHeader
+        sections={sections}
+        activeIndex={activeIndex}
+        onPrev={prev}
+        onNext={next}
+      />
+
+      <MobileCarouselContent
+        sections={sections}
+        activeIndex={activeIndex}
+        direction={direction}
+        useAnimations={useAnimations}
+        onDragEnd={handleDragEnd}
+      />
+
+      <MobilePagination
+        sections={sections}
+        activeIndex={activeIndex}
+        onNavigate={handleNavigate}
+      />
+    </section>
+  );
 };
 
 type TitlesProps = {
@@ -267,103 +595,53 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 };
 
 /* -------------------------------------------------------------------------- */
-/*                   Dynamic Imports for Heavy Child Sections                 */
-/* -------------------------------------------------------------------------- */
-
-const DynamicIDESection = dynamic(
-  () => import('./IDESection').then((mod) => mod.IDESection),
-  {
-    loading: () => <Loader />,
-  }
-);
-
-const DynamicMarkdownSection = dynamic(
-  () => import('./MarkdownSection').then((mod) => mod.MarkdownSection),
-  {
-    loading: () => <Loader />,
-  }
-);
-
-const DynamicMultilingualSection = dynamic(
-  () => import('./MultilingualSection').then((mod) => mod.MultilingualSection),
-  {
-    loading: () => <Loader />,
-  }
-);
-
-const DynamicAutocompletionSection = dynamic(
-  () =>
-    import('./AutocompletionSection').then((mod) => mod.AutocompletionSection),
-  {
-    loading: () => <Loader />,
-  }
-);
-
-const DynamicVisualEditorSection = dynamic(
-  () => import('./VisualEditorSection').then((mod) => mod.VisualEditorSection),
-  {
-    loading: () => <Loader />,
-  }
-);
-
-/* -------------------------------------------------------------------------- */
 /*                       FeaturesSection Wrapper Example                      */
 /* -------------------------------------------------------------------------- */
 
 export const FeaturesSection: FC = () => {
   const { isMobile } = useDevice();
-  const [progress, setProgress] = useState(0);
   const sectionsData = useIntlayer('features-section');
+
+  // Use unified navigation hook
+  const {
+    activeIndex,
+    progress,
+    direction,
+    isClient,
+    useAnimations,
+    navigate,
+    next,
+    prev,
+  } = useFeaturesNavigation(sectionsData, isMobile ?? false);
+
+  // Create sections with unified logic
+  const sections = createSections(sectionsData, progress, isMobile ?? false);
 
   // Use mobile-optimized version for mobile devices
   if (isMobile) {
-    return <MobileFeaturesSection />;
+    return (
+      <MobileCarousel
+        sections={sections}
+        activeIndex={activeIndex}
+        direction={direction}
+        isClient={isClient}
+        useAnimations={useAnimations}
+        navigate={navigate}
+        next={next}
+        prev={prev}
+      />
+    );
   }
 
-  const sections: Section[] = sectionsData
-    // Filter out anything you don’t want to display
-    .map((sectionData) => {
-      switch (sectionData.id.value) {
-        case 'codebase':
-          return {
-            ...sectionData,
-            children: <DynamicIDESection scrollProgress={progress} />,
-          };
-        case 'visual-editor':
-          return {
-            ...sectionData,
-            children: <DynamicVisualEditorSection />,
-          };
-        case 'multilingual':
-          return {
-            ...sectionData,
-            children: <DynamicMultilingualSection scrollProgress={progress} />,
-          };
-        case 'markdown':
-          return {
-            ...sectionData,
-            children: <DynamicMarkdownSection scrollProgress={progress} />,
-          };
-        case 'autocomplete':
-          return {
-            ...sectionData,
-            children: (
-              <DynamicAutocompletionSection scrollProgress={progress} />
-            ),
-          };
-        default:
-          return {
-            ...sectionData,
-            children: <>{sectionData.title}</>,
-          };
-      }
-    });
+  // Desktop version with scroll-based progress
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const desktopSections = createSections(sectionsData, scrollProgress, false);
 
   return (
     <FeaturesCarousel
-      sections={sections}
-      progress={progress}
-      setProgress={setProgress}
+      sections={desktopSections}
+      progress={scrollProgress}
+      setProgress={setScrollProgress}
     />
   );
 };
