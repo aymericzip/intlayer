@@ -12,9 +12,14 @@ export const createRouter = () => {
   });
 };
 
+/**
+ * TODO: Enable this if you want type safety for the router instance
+ */
+/* 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
     router: ReturnType<typeof createRouter>;
   }
 }
+ */

@@ -386,7 +386,7 @@ The current implementation uses TanStack Router's dynamic route syntax with `{-l
 - [TanStack Start Documentation](https://tanstack.com/start)
 - [TanStack Router Documentation](https://tanstack.com/router)
 - [Intlayer Documentation](https://intlayer.org)
-- [Complete Example Repository](https://github.com/aymericzip/intlayer/tree/main/examples/tanstack-start-app)
+- [Complete Example Repository](https://github.com/AydinTheFirst/tanstack-start-intlayer)
 
 ---
 
