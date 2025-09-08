@@ -456,13 +456,13 @@ const docDataContent: any = {
               title: 'Tanstack Start',
               default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
             },
-            'create-react-app': {
-              title: 'React CRA',
-              default: getDocMetadata(
-                './docs/en/intlayer_with_create_react_app.md'
-              ),
-            },
           },
+        },
+        'create-react-app': {
+          title: 'React CRA',
+          default: getDocMetadata(
+            './docs/en/intlayer_with_create_react_app.md'
+          ),
         },
         'vite-and-vue': {
           title: t({
