@@ -17,6 +17,7 @@ const applicationNotRunningViewContent = {
       ar: 'التطبيق غير متاح',
       hi: 'आपका एप्लिकेशन पहुंच नहीं है',
       it: 'La tua applicazione non è accessibile',
+      tr: 'Uygulamanız erişilebilir değil',
     }),
     description: t({
       en: 'To use the CMS, you need to ensure that the application is running.',
@@ -33,6 +34,7 @@ const applicationNotRunningViewContent = {
       ar: 'لاستخدام محرك المحتوى، يجب عليك التأكد من أن التطبيق يعمل.',
       hi: 'कैम्स का उपयोग करने के लिए, आपको यह सुनिश्चित करना होगा कि एप्लिकेशन चल रहा है।',
       it: 'Per utilizzare il CMS, è necessario assicurarsi che l’applicazione sia in esecuzione.',
+      tr: "CMS'yi kullanmak için uygulamanın çalıştığından emin olmanız gerekir.",
     }),
     tips: t({
       en: [
@@ -100,6 +102,11 @@ const applicationNotRunningViewContent = {
         'Se la tua applicazione è in esecuzione su un server remoto (esempio: https://my-app.com), assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `https://intlayer.org`.',
         "In tutti i casi, assicurati che l'header CSP ('Content-Security-Policy') non blocchi l'iframe dell'editor.",
       ],
+      tr: [
+        'Uygulamanız yerel olarak çalışıyorsa (örnek: http://localhost:3000), uygulamayı başlatın ve `editor.cmsUrl` yapılandırma alanının `https://intlayer.org` olarak ayarlandığından emin olun.',
+        'Uygulamanız uzak bir sunucuda çalışıyorsa (örnek: https://my-app.com), `editor.cmsUrl` yapılandırma alanının `https://intlayer.org` olarak ayarlandığından emin olun.',
+        "Her durumda, CSP ('Content-Security-Policy') başlığının editörün iframe'ini engellemediğinden emin olun.",
+      ],
     }),
     documentationLink: {
       label: t({
@@ -116,6 +123,7 @@ const applicationNotRunningViewContent = {
         ar: 'انقر هنا للوصول إلى وثائق محرك المحتوى',
         hi: 'क्या आप कैम्स का डॉक्यूमेंट पर जाए रखना चाहते हैं?',
         it: 'Fai clic qui per accedere alla documentazione del CMS',
+        tr: 'CMS belgelerine gitmek için tıklayın',
       }),
       text: t({
         en: 'See how to configure the CMS',
@@ -131,6 +139,7 @@ const applicationNotRunningViewContent = {
         pt: 'Veja como configurar o CMS',
         ko: 'CMS 설정 방법을 보십시오',
         zh: '查看如何配置CMS',
+        tr: "CMS'yi nasıl yapılandıracağınızı görün",
       }),
     },
   },

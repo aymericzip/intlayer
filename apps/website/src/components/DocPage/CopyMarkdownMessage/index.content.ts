@@ -17,6 +17,7 @@ const copyMarkdownMessageContent = {
       'en-GB': 'Copy',
       hi: 'Copy',
       zh: 'Copy',
+      tr: 'Kopyala',
     }),
     description: t({
       en: 'Copy doc Markdown to clipboard',
@@ -32,6 +33,7 @@ const copyMarkdownMessageContent = {
       'en-GB': 'Copy doc Markdown to clipboard',
       hi: 'दस्तावेज़ का Markdown को क्लिपबोर्ड पर कॉपी करें',
       zh: '复制文档 Markdown 到剪贴板',
+      tr: "Belge Markdown'ını panoya kopyala",
     }),
   },
 } satisfies Dictionary;

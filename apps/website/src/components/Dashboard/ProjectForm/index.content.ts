@@ -17,6 +17,7 @@ const projectFormContent = {
       hi: 'परियोजना विवरण',
       ar: 'تفاصيل المشروع',
       ru: 'Детали проекта',
+      tr: 'Proje detayları',
     }),
     noAdminMessage: t({
       en: 'You are not an admin of this project. Contact your administrator if you want to edit the project.',
@@ -33,6 +34,7 @@ const projectFormContent = {
       hi: 'आप इस परियोजना के व्यवस्थापक नहीं हैं। यदि आप परियोजना को संपादित करना चाहते हैं तो अपने व्यवस्थापक से संपर्क करें।',
       ar: 'أنت لست مديرًا لهذا المشروع. اتصل بالمسؤول إذا كنت ترغب في تحرير المشروع.',
       ru: 'Вы не являетесь администратором этого проекта. Свяжитесь с администратором, если хотите редактировать проект.',
+      tr: 'Bu projenin yöneticisi değilsiniz. Projeyi düzenlemek istiyorsanız yöneticinizle iletişime geçin.',
     }),
     nameInput: {
       label: t({
@@ -49,6 +51,7 @@ const projectFormContent = {
         hi: 'परियोजना का नाम',
         ar: 'اسم المشروع',
         ru: 'Название проекта',
+        tr: 'Projenin adı',
       }),
       placeholder: t({
         en: 'Enter the name of the project',
@@ -64,6 +67,7 @@ const projectFormContent = {
         hi: 'परियोजना का नाम दर्ज करें',
         ar: 'أدخل اسم المشروع',
         ru: 'Введите название проекта',
+        tr: 'Projenin adını girin',
       }),
     },
 
@@ -81,6 +85,7 @@ const projectFormContent = {
       hi: 'कोई परियोजना नहीं',
       ar: 'لا توجد مشاريع',
       ru: 'Нет проекта',
+      tr: 'Proje yok',
     }),
 
     createProjectDescription: t({
@@ -97,6 +102,7 @@ const projectFormContent = {
       hi: 'Intlayer का उपयोग शुरू करने के लिए अपना पहला परियोजना बनाएँ',
       ar: 'أنشئ مشروعك الأول للبدء في استخدام Intlayer',
       ru: 'Создайте свой первый проект, чтобы начать использовать Intlayer',
+      tr: 'Intlayer kullanmaya başlamak için ilk projenizi oluşturun',
     }),
 
     createProjectButton: {
@@ -114,6 +120,7 @@ const projectFormContent = {
         hi: 'परियोजना बनाएं',
         ar: 'إنشاء مشروع',
         ru: 'Создать проект',
+        tr: 'Proje oluştur',
       }),
       ariaLabel: t({
         en: 'Click to create project',
@@ -129,6 +136,7 @@ const projectFormContent = {
         hi: 'परियोजना बनाने के लिए क्लिक करें',
         ar: 'انقر لإنشاء مشروع',
         ru: 'Нажмите, чтобы создать проект',
+        tr: 'Proje oluşturmak için tıklayın',
       }),
     },
 
@@ -147,6 +155,7 @@ const projectFormContent = {
         hi: 'परियोजना संपादित करें',
         ar: 'تعديل المشروع',
         ru: 'Редактировать проект',
+        tr: 'Projeyi düzenle',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -162,6 +171,7 @@ const projectFormContent = {
         hi: 'संपादित करने के लिए क्लिक करें',
         ar: 'انقر للتعديل',
         ru: 'Нажмите, чтобы редактировать',
+        tr: 'Düzenlemek için tıklayın',
       }),
     },
 
@@ -180,6 +190,7 @@ const projectFormContent = {
         hi: 'पहुंच कुंजी',
         ar: 'مفاتيح الوصول',
         ru: 'Ключи доступа',
+        tr: 'Erişim anahtarları',
       }),
       description: t({
         en: 'Access keys are used to authenticate your project.',
@@ -195,6 +206,7 @@ const projectFormContent = {
         hi: 'पहुंच कुंजी आपके प्रोजेक्ट को प्रमाणित करने के लिए उपयोग की जाती है।',
         ar: 'تستخدم مفاتيح الوصول للتحقق من مشروعك.',
         ru: 'Ключи доступа используются для аутентификации вашего проекта.',
+        tr: 'Erişim anahtarları, projenizi doğrulamak için kullanılır.',
       }),
       noAccessKeys: t({
         en: 'No access keys',
@@ -210,6 +222,7 @@ const projectFormContent = {
         hi: 'कोई पहुंच कुंजी नहीं',
         ar: 'لا توجد مفاتيح وصول',
         ru: 'Нет ключей доступа',
+        tr: 'Erişim anahtarı yok',
       }),
       createAccessKey: {
         text: t({
@@ -226,6 +239,7 @@ const projectFormContent = {
           hi: 'पहुंच कुंजी बनाएं',
           ar: 'إنشاء مفتاح وصول',
           ru: 'Создать ключ доступа',
+          tr: 'Erişim anahtarı oluştur',
         }),
         label: t({
           en: 'Click to create access key',
@@ -241,6 +255,7 @@ const projectFormContent = {
           hi: 'पहुंच कुंजी बनाने के लिए क्लिक करें',
           ar: 'انقر لإنشاء مفتاح وصول',
           ru: 'Нажмите, чтобы создать ключ доступа',
+          tr: 'Erişim anahtarı oluşturmak için tıklayın',
         }),
       },
     },
@@ -260,6 +275,7 @@ const projectFormContent = {
         hi: 'परियोजना हटाएं',
         ar: 'حذف المشروع',
         ru: 'Удалить проект',
+        tr: 'Projeyi sil',
       }),
       ariaLabel: t({
         en: 'Click to delete project',
@@ -275,6 +291,7 @@ const projectFormContent = {
         hi: 'परियोजना को हटाने के लिए क्लिक करें',
         ar: 'انقر لحذف المشروع',
         ru: 'Нажмите, чтобы удалить проект',
+        tr: 'Projeyi silmek için tıklayın',
       }),
     },
   },

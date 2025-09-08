@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'परियोजना | डैशबोर्ड | Intlayer',
       ar: 'المشروع | لوحة التحكم | Intlayer',
       ru: 'Проект | Приборная панель | Intlayer',
+      tr: 'Proje | Dashboard | Intlayer',
     }),
     description: t({
       en: 'Manage your project settings in the Intlayer dashboard. Update project details, adjust configurations, and collaborate with your team.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'Intlayer डैशबोर्ड में अपनी परियोजना की सेटिंग्स प्रबंधित करें। परियोजना के विवरण अपडेट करें, विन्यास समायोजित करें, और अपनी टीम के साथ सहयोग करें।',
       ar: 'إدارة إعدادات مشروعك في لوحة تحكم Intlayer. قم بتحديث تفاصيل المشروع، وضبط التكوينات، وتعاون مع فريقك.',
       ru: 'Управляйте настройками вашего проекта в панели инструментов Intlayer. Обновляйте детали проекта, настраивайте конфигурации и сотрудничайте с вашей командой.',
+      tr: 'Intlayer kontrol panelinde proje ayarlarınızı yönetin. Proje ayrıntılarını güncelleyin, yapılandırmaları ayarlayın ve ekibinizle işbirliği yapın.',
     }),
     keywords: t<string[]>({
       en: [
@@ -124,6 +126,14 @@ const metadataContent = {
         'Команда',
         'Сотрудничество',
         'Управление проектом',
+      ],
+      tr: [
+        'Proje',
+        'Ayarlar',
+        'Yapılandırma',
+        'Ekip',
+        'İşbirliği',
+        'Proje Yönetimi',
       ],
     }),
   },

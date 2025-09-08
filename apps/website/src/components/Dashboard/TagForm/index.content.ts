@@ -18,6 +18,7 @@ const tagFormContent = {
       hi: 'आप इस टैग के व्यवस्थापक नहीं हैं। टैग संपादित करना चाहते हैं तो अपने प्रशासक से संपर्क करें।',
       ar: 'أنت لست مسؤولًا عن هذا الوسم. اتصل بمسؤولك إذا كنت ترغب في تحرير الوسم.',
       ru: 'Вы не являетесь администратором этого тега. Свяжитесь с вашим администратором, если хотите отредактировать тег.',
+      tr: 'Bu tagın yöneticisi değilsiniz. Tagı düzenlemek istiyorsanız yöneticinizle iletişime geçin.',
     }),
 
     keyInput: {
@@ -35,6 +36,7 @@ const tagFormContent = {
         hi: 'की',
         ar: 'مفتاح',
         ru: 'Ключ',
+        tr: 'Anahtar',
       }),
       description: t({
         en: 'Identify your tag with a unique key',
@@ -50,6 +52,7 @@ const tagFormContent = {
         hi: 'अपने टैग को एक अद्वितीय कुंजी के साथ पहचान करें',
         ar: 'تحديد الوسم الخاص بك باستخدام مفتاح فريد',
         ru: 'Укажите уникальный ключ для вашего тега',
+        tr: 'Tagınızı benzersiz bir anahtarla tanımlayın',
       }),
       placeholder: t({
         en: 'Enter the key of your tag',
@@ -65,6 +68,7 @@ const tagFormContent = {
         hi: 'टैग का कुंजी दर्ज करें',
         ar: 'أدخل مفتاح الوسم',
         ru: 'Введите ключ вашего тега',
+        tr: "Tag'ınızın anahtarını girin",
       }),
     },
 
@@ -83,6 +87,7 @@ const tagFormContent = {
         hi: 'नाम',
         ar: 'الاسم',
         ru: 'Название',
+        tr: 'İsim',
       }),
       description: t({
         en: 'Title of your tag to help you identify it',
@@ -98,6 +103,7 @@ const tagFormContent = {
         hi: 'अपने टैग का शीर्षक जो आपको इसे पहचान करने में मदद करता है',
         ar: 'عنوان الوسم الخاص بك لمساعدتك في تحديده',
         ru: 'Название вашего тега, чтобы вам помочь в его идентификации',
+        tr: 'Tagınızın başlığı, onu tanımlamanıza yardımcı olur',
       }),
       placeholder: t({
         en: 'Enter the name of the tag',
@@ -113,6 +119,7 @@ const tagFormContent = {
         hi: 'टैग का नाम दर्ज करें',
         ar: 'أدخل اسم الوسم',
         ru: 'Введите название тега',
+        tr: 'Tagın adını girin',
       }),
     },
 
@@ -131,6 +138,7 @@ const tagFormContent = {
         hi: 'वर्णन',
         ar: 'وصف',
         ru: 'Описание',
+        tr: 'Açıklama',
       }),
       description: t({
         en: 'Description of your tag to help you udnerstand its purpose. This will also be used to search for your tag',
@@ -147,6 +155,7 @@ const tagFormContent = {
         hi: 'अपने टैग का वर्णन करने में मदद करता है इसे अपने टैग के लिए उपयोग किया जाएगा',
         ar: 'وصف الوسم الخاص بك لمساعدتك في فهم الغرض منه. سيتم استخدام هذا أيضًا للبحث عن وسمك',
         ru: 'Описание вашего тега, чтобы помочь вам понять его назначение. Это также будет использоваться для поиска вашего тега',
+        tr: 'Tagınızın amacını anlamanıza yardımcı olacak tag açıklaması. Bu, tagınızı aramak için de kullanılacaktır',
       }),
 
       placeholder: t({
@@ -163,6 +172,7 @@ const tagFormContent = {
         hi: 'टैग का वर्णन दर्ज करें',
         ar: 'أدخل وصف الوسم',
         ru: 'Введите описание вашего тега',
+        tr: "Tag'ınızın açıklamasını girin",
       }),
     },
 
@@ -181,6 +191,7 @@ const tagFormContent = {
         hi: 'निर्देश',
         ar: 'تعليمات',
         ru: 'Инструкции',
+        tr: 'Talimatlar',
       }),
       description: t({
         en: 'Instructions are provided to AI to better understand your tag, and what rules to apply to a dictionary containing your tag',
@@ -197,6 +208,7 @@ const tagFormContent = {
         hi: 'निर्देश एआई को आपके टैग को बेहतर समझने और आपके टैग को समाहित शब्दकोश पर लागू करने के नियमों को लागू करने के लिए प्रदान किए जाते हैं',
         ar: 'توصيات تقدمها للذكاء الذكي لتفهم مزيد من الوسم والقواعد التي ينطبق على قاموس يحتوي على الوسم',
         ru: 'Инструкции предоставляются ИИ для лучшего понимания вашего тега и правил, которые нужно применить к словарю, содержащему ваш тег',
+        tr: "Talimatlar, AI'ya tagınızı ve tagınızı içeren bir sözlüğe uygulanacak kuralları daha iyi anlaması için sağlanır",
       }),
       placeholder: t({
         en: 'Enter the instructions of your tag',
@@ -212,6 +224,7 @@ const tagFormContent = {
         hi: 'टैग का निर्देश दर्ज करें',
         ar: 'أدخل تعليمات الوسم',
         ru: 'Введите инструкции вашего тега',
+        tr: "Tag'ınızın talimatlarını girin",
       }),
     },
 
@@ -229,6 +242,7 @@ const tagFormContent = {
       hi: 'कोई टैग नहीं',
       ar: 'لا توجد وسم',
       ru: 'Нет тега',
+      tr: 'Tag yok',
     }),
 
     createTagDescription: t({
@@ -246,6 +260,7 @@ const tagFormContent = {
       hi: 'AI को अपने सामग्री को संरचित करने के लिए अपने पहला टैग बनाने के लिए बनाएं',
       ar: 'أنشئ مشروعك الأول للبدء في استخدام Intlayer',
       ru: 'Создайте свой первый тег, чтобы показать, как ИИ может структурировать ваш контент',
+      tr: "İçeriğinizi AI'nın nasıl yapılandırabileceğini göstermek için ilk tagınızı oluşturun",
     }),
 
     createTagButton: {
@@ -263,6 +278,7 @@ const tagFormContent = {
         hi: 'टैग बनाएं',
         ar: 'إنشاء وسم',
         ru: 'Создать тег',
+        tr: 'Tag oluştur',
       }),
       ariaLabel: t({
         en: 'Click to create tag',
@@ -278,6 +294,7 @@ const tagFormContent = {
         hi: 'टैग बनाने के लिए क्लिक करें',
         ar: 'انقر لإنشاء وسم',
         ru: 'Нажмите, чтобы создать тег',
+        tr: 'Tag oluşturmak için tıklayın',
       }),
     },
 
@@ -296,6 +313,7 @@ const tagFormContent = {
         hi: 'टैग संपादित करें',
         ar: 'تعديل الوسم',
         ru: 'Редактировать тег',
+        tr: 'Tagı düzenle',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -311,6 +329,7 @@ const tagFormContent = {
         hi: 'संपादित करने के लिए क्लिक करें',
         ar: 'انقر للتعديل',
         ru: 'Нажмите, чтобы редактировать',
+        tr: 'Düzenlemek için tıklayın',
       }),
     },
     deleteButton: {
@@ -328,6 +347,7 @@ const tagFormContent = {
         hi: 'टैग हटाएं',
         ar: 'حذف الوسم',
         ru: 'Удалить тег',
+        tr: 'Tagı sil',
       }),
       ariaLabel: t({
         en: 'Click to delete tag',
@@ -343,6 +363,7 @@ const tagFormContent = {
         hi: 'टैग हटाने के लिए क्लिक करें',
         ar: 'انقر لحذف الوسم',
         ru: 'Нажмите, чтобы удалить тег',
+        tr: 'Tagı silmek için tıklayın',
       }),
     },
     auditButton: {
@@ -360,6 +381,7 @@ const tagFormContent = {
         hi: 'ऑडिट',
         ar: 'التدقيق',
         ru: 'Отслеживание',
+        tr: 'Denetim',
       }),
       text: t({
         en: 'Audit',
@@ -375,6 +397,7 @@ const tagFormContent = {
         hi: 'ऑडिट',
         ar: 'التدقيق',
         ru: 'Отслеживание',
+        tr: 'Denetim',
       }),
     },
   },

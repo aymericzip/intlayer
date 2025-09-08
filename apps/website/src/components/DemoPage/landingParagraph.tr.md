@@ -1,0 +1,4 @@
+- **İçerik yönetimini ekiplerinize devredin** uygulamanızı tek tıkla bir CMS'ye dönüştürerek.
+- **İçerik formatlamayı basitleştirin** Markdown desteğiyle, içeriğinizi yapılandırmayı ve stillendirmeyi kolaylaştırın.
+- **AI ile üretkenliğinizi artırın**, akıllı öneriler ve otomasyon kullanarak içerik oluşturmayı kolaylaştırın.
+- **Birden fazla dili destekleyin** zahmetsizce, küresel kitleler için sorunsuz yerelleştirme sağlayın.

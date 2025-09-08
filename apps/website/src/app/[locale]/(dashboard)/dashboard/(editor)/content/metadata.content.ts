@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'सामग्री | डैशबोर्ड | Intlayer',
       ar: 'المحتوى | لوحة التحكم | Intlayer',
       ru: 'Контент | Приборная панель | Intlayer',
+      tr: 'İçerik | Dashboard | Intlayer',
     }),
     description: t({
       en: 'Manage your content settings in the Intlayer dashboard. Edit, update, and configure your content to ensure it meets your standards.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'Intlayer डैशबोर्ड में अपनी सामग्री की सेटिंग्स प्रबंधित करें। अपनी सामग्री को संपादित, अपडेट और कॉन्फ़िगर करें ताकि यह आपके मानकों पर खरा उतरे।',
       ar: 'قم بإدارة إعدادات المحتوى الخاص بك في لوحة تحكم Intlayer. حرر وقم بتحديث وتكوين المحتوى الخاص بك لضمان مطابقته لمعاييرك.',
       ru: 'Управляйте настройками контента в панели инструментов Intlayer. Редактируйте, обновляйте и настраивайте контент, чтобы он соответствовал вашим стандартам.',
+      tr: 'Intlayer kontrol panelinde içerik ayarlarınızı yönetin. İçeriğinizi düzenleyin, güncelleyin ve standartlarınıza uygun olduğundan emin olun.',
     }),
     keywords: t<string[]>({
       en: [
@@ -104,6 +106,14 @@ const metadataContent = {
         'Управление',
         'Обновления',
         'Публикация',
+      ],
+      tr: [
+        'İçerik',
+        'Ayarlar',
+        'Editör',
+        'Yönetim',
+        'Güncellemeler',
+        'Yayınlama',
       ],
     }),
   },

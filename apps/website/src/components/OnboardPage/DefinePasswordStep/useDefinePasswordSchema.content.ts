@@ -17,6 +17,7 @@ const content = {
       hi: 'कृपया अपना वर्तमान पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة المرور الحالية',
       ru: 'Пожалуйста, введите свой текущий пароль',
+      tr: 'Lütfen mevcut şifrenizi girin',
     }),
 
     invalidTypeErrorPassword: t({
@@ -33,6 +34,7 @@ const content = {
       hi: 'कृपया एक मान्य पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة مرور صالحة',
       ru: 'Пожалуйста, введите действующий пароль',
+      tr: 'Lütfen geçerli bir şifre girin',
     }),
 
     invalidPasswordLengthError: t({
@@ -49,6 +51,7 @@ const content = {
       hi: 'आपका पासवर्ड कम से कम 8 अक्षरों का होना चाहिए',
       ar: 'يجب أن تحتوي كلمة المرور الخاصة بك على 8 أحرف على الأقل',
       ru: 'Ваш пароль должен содержать не менее 8 символов',
+      tr: 'Şifreniz en az 8 karakter olmalıdır',
     }),
 
     requiredErrorNewPassword: t({
@@ -65,6 +68,7 @@ const content = {
       hi: 'कृपया अपना नया पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة المرور الجديدة',
       ru: 'Пожалуйста, введите свой новый пароль',
+      tr: 'Lütfen yeni şifrenizi girin',
     }),
 
     invalidTypeErrorNewPassword: t({
@@ -81,6 +85,7 @@ const content = {
       hi: 'कृपया एक मान्य नया पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة مرور جديدة صالحة',
       ru: 'Пожалуйста, введите действующий новый пароль',
+      tr: 'Lütfen geçerli bir yeni şifre girin',
     }),
 
     requiredErrorNewPasswordConfirmation: t({

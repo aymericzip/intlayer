@@ -17,6 +17,7 @@ const profileFormContent = {
       hi: 'प्रोफ़ाइल विवरण',
       ar: 'تفاصيل الملف الشخصي',
       ru: 'Детали профиля',
+      tr: 'Profil detayları',
     }),
     nameInput: {
       label: t({
@@ -33,6 +34,7 @@ const profileFormContent = {
         hi: 'नाम',
         ar: 'الاسم',
         ru: 'Имя',
+        tr: 'İsim',
       }),
       placeholder: t({
         en: 'Enter your name',
@@ -48,6 +50,7 @@ const profileFormContent = {
         hi: 'अपना नाम दर्ज करें',
         ar: 'أدخل اسمك',
         ru: 'Введите ваше имя',
+        tr: 'Adınızı girin',
       }),
     },
 
@@ -66,6 +69,7 @@ const profileFormContent = {
         hi: 'ईमेल',
         ar: 'البريد الإلكتروني',
         ru: 'Электронная почта',
+        tr: 'E-posta',
       }),
       placeholder: t({
         en: 'Enter your email address',
@@ -81,6 +85,7 @@ const profileFormContent = {
         hi: 'अपना ईमेल पता दर्ज करें',
         ar: 'أدخل عنوان بريدك الإلكتروني',
         ru: 'Введите свой адрес электронной почты',
+        tr: 'E-posta adresinizi girin',
       }),
     },
 
@@ -99,6 +104,7 @@ const profileFormContent = {
         hi: 'प्रोफ़ाइल संपादित करें',
         ar: 'تحرير الملف الشخصي',
         ru: 'Редактировать профиль',
+        tr: 'Profili düzenle',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -114,6 +120,7 @@ const profileFormContent = {
         hi: 'संपादित करने के लिए क्लिक करें',
         ar: 'انقر للتعديل',
         ru: 'Нажмите для редактирования',
+        tr: 'Düzenlemek için tıklayın',
       }),
     },
   },

@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'डैशबोर्ड | Intlayer',
       ar: 'لوحة التحكم | Intlayer',
       ru: 'Приборная панель | Intlayer',
+      tr: 'Dashboard | Intlayer',
     }),
     description: t({
       en: 'Manage your website content with the Intlayer dashboard. Edit, add, or delete projects, dictionaries, and other content. Control user access to various items.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'Intlayer डैशबोर्ड के साथ अपनी वेबसाइट सामग्री का प्रबंधन करें। प्रोजेक्ट, शब्दकोश और अन्य सामग्री को संपादित, जोड़ें या मिटाएँ। विभिन्न वस्तुओं के लिए उपयोगकर्ता पहुंच को नियंत्रित करें।',
       ar: 'إدارة محتوى موقعك على الويب باستخدام لوحة تحكم Intlayer. تحرير أو إضافة أو حذف المشاريع والقواميس والمحتويات الأخرى. التحكم في وصول المستخدمين إلى عناصر مختلفة.',
       ru: 'Управляйте содержимым вашего веб-сайта с помощью панели инструментов Intlayer. Редактировать, добавлять или удалять проекты, словари и другие материалы. Контролируйте доступ пользователей к различным элементам.',
+      tr: 'Intlayer kontrol paneli ile web sitesi içeriğinizi yönetin. Projeleri, sözlükleri ve diğer içerikleri düzenleyin, ekleyin veya silin. Kullanıcı erişimini çeşitli öğelere kontrol edin.',
     }),
 
     keywords: t<string[]>({
@@ -133,6 +135,14 @@ const metadataContent = {
         'Словари',
         'Доступ пользователей',
         'Редактировать содержимое',
+      ],
+      tr: [
+        'Dashboard',
+        'İçerik Yönetimi',
+        'Projeler',
+        'Sözlükler',
+        'Kullanıcı Erişimi',
+        'İçeriği Düzenle',
       ],
     }),
   },

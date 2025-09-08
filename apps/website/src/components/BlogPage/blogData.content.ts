@@ -27,6 +27,7 @@ const blogDataContent: any = {
         hi: 'अंतर्राष्ट्रीयकरण (i18n) क्या है?',
         ar: 'ما هو التدويل (i18n)?',
         ru: 'Что такое интернационализация (i18n)?',
+        tr: 'Uluslararasılaştırma (i18n) nedir?',
       }),
       default: getBlogMetadata('./blog/en/what_is_internationalization.md'),
     },
@@ -45,6 +46,7 @@ const blogDataContent: any = {
         hi: 'SEO और अंतर्राष्ट्रीयकरण',
         ar: 'SEO و التدويل',
         ru: 'SEO и Интернационализация',
+        tr: 'SEO ve i18n',
       }),
       default: getBlogMetadata('./blog/en/internationalization_and_SEO.md'),
     },
@@ -63,6 +65,7 @@ const blogDataContent: any = {
         hi: 'वैकल्पिक i18n लाइब्रेरी',
         ar: 'مكتبات i18n متباينة',
         ru: 'Альтернативные библиотеки i18n',
+        tr: 'Alternatif i18n kütüphaneleri',
       }),
       subSections: {
         'intlayer-with-next-i18next': {
@@ -80,6 +83,7 @@ const blogDataContent: any = {
             hi: 'Intlayer और next-i18next',
             ar: 'Intlayer و next-i18next',
             ru: 'Intlayer и next-i18next',
+            tr: 'Intlayer ve next-i18next',
           }),
           default: getBlogMetadata('./blog/en/intlayer_with_next-i18next.md'),
         },
@@ -98,6 +102,7 @@ const blogDataContent: any = {
             hi: 'Intlayer और react-i18next',
             ar: 'Intlayer و react-i18next',
             ru: 'Intlayer и react-i18next',
+            tr: 'Intlayer ve react-i18next',
           }),
           default: getBlogMetadata('./blog/en/intlayer_with_react-i18next.md'),
         },
@@ -116,6 +121,7 @@ const blogDataContent: any = {
             hi: 'Intlayer और next-intl',
             ar: 'Intlayer و next-intl',
             ru: 'Intlayer и next-intl',
+            tr: 'Intlayer ve next-intl',
           }),
           default: getBlogMetadata('./blog/en/intlayer_with_next-intl.md'),
         },
@@ -134,6 +140,7 @@ const blogDataContent: any = {
             hi: 'Intlayer और react-intl',
             ar: 'Intlayer و react-intl',
             ru: 'Intlayer и react-intl',
+            tr: 'Intlayer ve react-intl',
           }),
           default: getBlogMetadata('./blog/en/intlayer_with_react-intl.md'),
         },
@@ -171,6 +178,7 @@ const blogDataContent: any = {
         hi: 'i18n तकनीकी',
         ar: 'تقنيات i18n',
         it: 'Tecnologie di i18n',
+        tr: 'i18n Teknolojileri',
       }),
       subSections: {
         frameworks: {
@@ -188,6 +196,7 @@ const blogDataContent: any = {
             hi: 'फ्रेमवर्क',
             ar: 'الإطارات',
             ru: 'Фреймворки',
+            tr: 'Frameworks',
           }),
           subSections: {
             angular: {

@@ -18,6 +18,7 @@ const changePasswordContent = {
         ar: 'كلمة المرور الحالية',
         ru: 'Текущий пароль',
         'en-GB': 'Current password',
+        tr: 'Mevcut şifre',
       }),
       placeholder: t({
         en: 'Enter actual password',
@@ -33,6 +34,7 @@ const changePasswordContent = {
         ar: 'أدخل كلمة المرور الحالية',
         ru: 'Введите текущий пароль',
         'en-GB': 'Enter actual password',
+        tr: 'Mevcut şifreyi girin',
       }),
     },
     newPasswordInput: {
@@ -50,6 +52,7 @@ const changePasswordContent = {
         ar: 'كلمة المرور الجديدة',
         ru: 'Новый пароль',
         'en-GB': 'New password',
+        tr: 'Yeni şifre',
       }),
       placeholder: t({
         en: 'Enter new password',
@@ -65,6 +68,7 @@ const changePasswordContent = {
         ar: 'أدخل كلمة المرور الجديدة',
         ru: 'Введите новый пароль',
         'en-GB': 'Enter new password',
+        tr: 'Yeni şifreyi girin',
       }),
     },
     confirmPasswordInput: {
@@ -82,6 +86,7 @@ const changePasswordContent = {
         ar: 'تأكيد كلمة المرور الجديدة',
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
+        tr: 'Yeni şifreyi onayla',
       }),
       placeholder: t({
         en: 'Confirm new password',
@@ -97,6 +102,7 @@ const changePasswordContent = {
         ar: 'تأكيد كلمة المرور الجديدة',
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
+        tr: 'Yeni şifreyi onayla',
       }),
     },
     changePasswordButton: {
@@ -114,6 +120,7 @@ const changePasswordContent = {
         ar: 'تغيير كلمة المرور',
         ru: 'Сменить пароль',
         'en-GB': 'Change password',
+        tr: 'Şifre değiştir',
       }),
       ariaLabel: t({
         en: 'Click to change password',
@@ -129,6 +136,7 @@ const changePasswordContent = {
         ar: 'انقر لتغيير كلمة المرور',
         ru: 'Нажмите, чтобы изменить пароль',
         'en-GB': 'Click to change password',
+        tr: 'Şifreyi değiştirmek için tıklayın',
       }),
     },
   },

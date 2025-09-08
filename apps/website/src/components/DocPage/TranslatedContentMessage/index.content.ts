@@ -17,6 +17,7 @@ const translatedContentMessageContent = {
       ar: 'تمت ترجمة محتوى هذه الصفحة باستخدام الذكاء الاصطناعي.',
       'en-GB': 'The content of this page was translated using an AI.',
       it: "Il contenuto di questa pagina è stato tradotto con un'IA.",
+      tr: 'Bu sayfanın içeriği bir yapay zeka kullanılarak çevrildi.',
     }),
     link: {
       content: t({
@@ -33,6 +34,7 @@ const translatedContentMessageContent = {
         it: "Vedi l'ultima versione del contenuto originale in inglese",
         ar: 'اعرض آخر نسخة المحتوى الأصلي باللغة الإنكليزية',
         'en-GB': 'See the last version of the original content in English',
+        tr: 'Orijinal içeriğin İngilizce son sürümünü görüntüleyin',
       }),
       label: t({
         en: 'Click to change the language to English',
@@ -48,6 +50,7 @@ const translatedContentMessageContent = {
         pt: 'Clique para alterar o idioma para inglês',
         'en-GB': 'Click to change the language to English',
         it: 'Fai clic per cambiare la lingua in inglese',
+        tr: 'Dili İngilizceye değiştirmek için tıklayın',
       }),
     },
   },

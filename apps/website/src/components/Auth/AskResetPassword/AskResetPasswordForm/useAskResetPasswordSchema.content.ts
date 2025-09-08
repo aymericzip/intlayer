@@ -17,6 +17,7 @@ export const useAskResetPasswordSchemaContent = {
       hi: 'कृपया अपना ईमेल पता डालें',
       ar: 'يرجى إدخال عنوان بريدك الإلكتروني',
       ru: 'Пожалуйста, введите свой адрес электронной почты',
+      tr: 'Lütfen e-posta adresinizi girin',
     }),
 
     invalidTypeErrorEmail: t({
@@ -33,6 +34,7 @@ export const useAskResetPasswordSchemaContent = {
       hi: 'कृपया एक वैध ईमेल पता दर्ज करें',
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
       ru: 'Пожалуйста, введите действующий адрес электронной почты',
+      tr: 'Lütfen geçerli bir e-posta adresi girin',
     }),
 
     invalidLengthErrorEmail: t({
@@ -49,6 +51,7 @@ export const useAskResetPasswordSchemaContent = {
       hi: 'कृपया एक वैध ईमेल पता दर्ज करें',
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
       ru: 'Пожалуйста, введите действующий адрес электронной почты',
+      tr: 'Lütfen geçerli bir e-posta adresi girin',
     }),
   },
 } satisfies Dictionary;

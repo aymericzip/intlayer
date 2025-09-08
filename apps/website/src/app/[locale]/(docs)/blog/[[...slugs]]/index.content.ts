@@ -19,6 +19,7 @@ const blogContent = {
         hi: 'अगर आपके पास इस दस्तावेज़ को सुधारने के लिए कोई विचार है, तो कृपया GitHub पर एक पुल अनुरोध सबमिट करके योगदान देने में संकोच न करें।',
         ar: 'إذا كان لديك فكرة لتحسين هذه الوثيقة، فلا تتردد في المساهمة من خلال تقديم طلب سحب على GitHub.',
         ru: 'Если у вас есть идея по улучшению этой документации, не стесняйтесь внести свой вклад, подав запрос на вытягивание на GitHub.',
+        tr: 'Bu belgeyi geliştirmek için bir fikriniz varsa, lütfen GitHub’da bir çekme isteği göndererek katkıda bulunun.',
       }),
       button: t({
         en: 'GitHub link to the blog',
@@ -34,6 +35,7 @@ const blogContent = {
         hi: 'ब्लॉग के लिए GitHub लिंक',
         ar: 'رابط GitHub للمدونة',
         ru: 'Ссылка на блог GitHub',
+        tr: 'Blog için GitHub bağlantısı',
       }),
       buttonLabel: t({
         en: 'Click here to contribute',
@@ -49,6 +51,7 @@ const blogContent = {
         hi: 'योगदान देने के लिए यहाँ क्लिक करें',
         ar: 'انقر هنا للمساهمة',
         ru: 'Нажмите здесь, чтобы внести свой вклад',
+        tr: 'Katkıda bulunmak için buraya tıklayın',
       }),
     },
     goToNextSection: {
@@ -66,6 +69,7 @@ const blogContent = {
         hi: 'अगला अनुभाग पर जाएं',
         ar: 'اذهب إلى القسم التالي',
         ru: 'Перейти к следующей секции',
+        tr: 'Sonraki bölüme git',
       }),
     },
     goToPreviousSection: {
@@ -83,6 +87,7 @@ const blogContent = {
         hi: 'पिछला अनुभाग पर जाएं',
         ar: 'اذهب إلى القسم السابق',
         ru: 'Перейти к предыдущей секции',
+        tr: 'Önceki bölüme git',
       }),
     },
   },

@@ -19,6 +19,7 @@ const chatFormSectionContent = {
         hi: 'नमस्ते! कुछ प्रश्न करें और मुझे उत्तर देंगे।',
         ar: 'مرحبا! اسمح لي بسؤال وسأقوم بالإجابة.',
         ru: 'Привет! Спросите меня что-нибудь и я помогу тебе.',
+        tr: 'Hey! Bana bir şey sor ve cevaplamaya çalışayım.',
       }),
     },
     rateLimitExceededMessage: t({
@@ -36,6 +37,7 @@ const chatFormSectionContent = {
       hi: 'अनुमोदित उपयोगकर्ताओं के लिए अनुरोधों की संख्या सीमित है। कृपया बाद में पुनः प्रयास करें, या लॉग इन करके सीमा बढ़ाएं और बेहतर मॉडल खोलें।',
       ar: 'عدد الطلبات محدود للمستخدمين غير المصرح لهم. يرجى المحاولة مرة أخرى لاحقًا، أو تسجيل الدخول لزيادة الحد وفتح المزيد من المودلات.',
       ru: 'Количество запросов ограничено для неавторизованных пользователей. Пожалуйста, попробуйте снова позже, или войдите для увеличения лимита и открытия лучших моделей.',
+      tr: 'Kimliği doğrulanmamış kullanıcılar için istek sayısı sınırlıdır. Lütfen daha sonra tekrar deneyin veya sınırınızı artırmak ve daha iyi modelleri açmak için giriş yapın.',
     }),
     signInButton: {
       text: t({
@@ -52,6 +54,7 @@ const chatFormSectionContent = {
         hi: 'लॉग इन',
         ar: 'تسجيل الدخول',
         ru: 'Войти',
+        tr: 'Giriş yap',
       }),
       label: t({
         en: 'Go to login page',
@@ -67,6 +70,7 @@ const chatFormSectionContent = {
         hi: 'लॉग इन पेज पर जाएं',
         ar: 'الذهاب إلى صفحة التسجيل',
         ru: 'Перейти на страницу входа',
+        tr: 'Giriş sayfasına git',
       }),
     },
   },

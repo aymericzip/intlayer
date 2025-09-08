@@ -17,6 +17,7 @@ const navTitlesContent = {
       hi: 'सेक्शन पर जाएं',
       ar: 'اذهب إلى القسم',
       ru: 'Перейти к разделу',
+      tr: 'Bölüme git',
     }),
   },
 } satisfies Dictionary;

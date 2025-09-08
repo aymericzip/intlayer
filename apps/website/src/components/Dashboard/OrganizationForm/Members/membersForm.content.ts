@@ -18,6 +18,7 @@ const organizationMembersFormContent = {
       ar: 'أعضاء',
       ru: 'Участники',
       'en-GB': 'Members',
+      tr: 'Üyeler',
     }),
     description: t({
       en: 'Manage the members that have access and can edit your organization.',
@@ -34,6 +35,7 @@ const organizationMembersFormContent = {
       ru: 'Управляйте членами, которые имеют доступ и могут редактировать вашу организацию.',
       'en-GB':
         'Manage the members that have access and can edit your organization.',
+      tr: 'Organizasyonunuza erişimi olan ve düzenleyebilen üyeleri yönetin.',
     }),
     deleteMemberButton: {
       label: t({
@@ -50,6 +52,7 @@ const organizationMembersFormContent = {
         ar: 'حذف',
         ru: 'Удалить',
         'en-GB': 'Delete',
+        tr: 'Sil',
       }),
     },
     noMembers: t({
@@ -66,6 +69,7 @@ const organizationMembersFormContent = {
       ar: 'لا يوجد أعضاء',
       ru: 'Нет участников',
       'en-GB': 'No members',
+      tr: 'Üye yok',
     }),
 
     newMemberEmailInput: {
@@ -83,6 +87,7 @@ const organizationMembersFormContent = {
         ar: 'إضافة عضو',
         ru: 'Добавить участника',
         'en-GB': 'Add a member',
+        tr: 'Üye ekle',
       }),
       placeholder: t({
         en: 'Enter an email address',
@@ -98,6 +103,7 @@ const organizationMembersFormContent = {
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
         'en-GB': 'Enter an email address',
+        tr: 'Bir e-posta adresi girin',
       }),
 
       description: t({
@@ -115,6 +121,7 @@ const organizationMembersFormContent = {
         ru: 'Добавьте членов в вашу организацию, введя их адреса электронной почты.',
         'en-GB':
           'Add members to your organization by entering their email addresses.',
+        tr: 'E-posta adreslerini girerek organizasyonunuza üye ekleyin.',
       }),
     },
 
@@ -133,6 +140,7 @@ const organizationMembersFormContent = {
         ar: 'إضافة عضو',
         ru: 'Добавить участника',
         'en-GB': 'Add member',
+        tr: 'Üye ekle',
       }),
       text: t({
         en: 'Add',
@@ -148,6 +156,7 @@ const organizationMembersFormContent = {
         ar: 'إضافة',
         ru: 'Добавить',
         'en-GB': 'Add',
+        tr: 'Ekle',
       }),
       placeholder: t({
         en: 'Add member',
@@ -163,6 +172,7 @@ const organizationMembersFormContent = {
         ar: 'إضافة عضو',
         ru: 'Добавить участника',
         'en-GB': 'Add member',
+        tr: 'Üye ekle',
       }),
     },
 
@@ -181,6 +191,7 @@ const organizationMembersFormContent = {
         ar: 'حدد المشرفين',
         ru: 'Выберите администраторов',
         'en-GB': 'Select admins',
+        tr: 'Yöneticileri seçin',
       }),
       placeholder: t({
         en: 'Select admins',
@@ -196,6 +207,7 @@ const organizationMembersFormContent = {
         ar: 'حدد المشرفين',
         ru: 'Выберите администраторов',
         'en-GB': 'Select admins',
+        tr: 'Yöneticileri seçin',
       }),
       description: t({
         en: 'Admins can edit members and organization settings.',
@@ -211,6 +223,7 @@ const organizationMembersFormContent = {
         ar: 'يمكن للمسؤولين تعديل الأعضاء وإعدادات المؤسسة.',
         ru: 'Администраторы могут редактировать участников и настройки организации.',
         'en-GB': 'Admins can edit members and organization settings.',
+        tr: 'Yöneticiler üyeleri ve organizasyon ayarlarını düzenleyebilir.',
       }),
     },
     addMembersButton: {
@@ -228,6 +241,7 @@ const organizationMembersFormContent = {
         ar: 'تحديث الأعضاء',
         ru: 'Обновить участников',
         'en-GB': 'Update Members',
+        tr: 'Üyeleri Güncelle',
       }),
       label: t({
         en: 'Update Members',
@@ -243,6 +257,7 @@ const organizationMembersFormContent = {
         ar: 'تحديث الأعضاء',
         ru: 'Обновить участников',
         'en-GB': 'Update Members',
+        tr: 'Üyeleri Güncelle',
       }),
     },
   },

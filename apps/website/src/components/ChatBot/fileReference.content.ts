@@ -17,6 +17,7 @@ const chatFormSectionContent = {
       hi: 'संबंधित फ़ाइलें:',
       ar: 'ملفات ذات صلة:',
       ru: 'Связанные файлы:',
+      tr: 'İlgili dosyalar:',
     }),
   },
 } satisfies Dictionary;

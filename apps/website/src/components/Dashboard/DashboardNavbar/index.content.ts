@@ -18,6 +18,7 @@ const dashboardNavbarContent = {
         hi: 'संस्थान का चयन करने के लिए क्लिक करें',
         ar: 'انقر لاختيار منظمة',
         ru: 'Нажмите, чтобы выбрать организацию',
+        tr: 'Bir organizasyon seçmek için tıklayın',
       }),
     },
     selectOrganizationInstruction: t({
@@ -34,6 +35,7 @@ const dashboardNavbarContent = {
       hi: 'संस्थान चुनें',
       ar: 'اختر منظمة',
       ru: 'Выберите организацию',
+      tr: 'Organizasyon seç',
     }),
 
     noOtherOrganizations: t({
@@ -50,6 +52,7 @@ const dashboardNavbarContent = {
       hi: 'कोई अन्य संगठन नहीं',
       ar: 'لا توجد منظمات أخرى',
       ru: 'Нет других организаций',
+      tr: 'Başka organizasyon yok',
     }),
     organizationLogout: {
       text: t({
@@ -66,6 +69,7 @@ const dashboardNavbarContent = {
         hi: 'सगाई से लॉगआउट करें',
         ar: 'تسجيل الخروج من المنظمة',
         ru: 'Выйти из организации',
+        tr: 'Organizasyondan çıkış yap',
       }),
       label: t({
         en: 'Click to log out from organization',
@@ -81,6 +85,7 @@ const dashboardNavbarContent = {
         hi: 'संस्थान से लॉगआउट करने के लिए क्लिक करें',
         ar: 'انقر لتسجيل الخروج من المنظمة',
         ru: 'Нажмите, чтобы выйти из организации',
+        tr: 'Organizasyondan çıkış yapmak için tıklayın',
       }),
     },
     createNewOrganization: {
@@ -98,6 +103,7 @@ const dashboardNavbarContent = {
         hi: 'नए संगठन का निर्माण करें',
         ar: 'إنشاء منظمة جديدة',
         ru: 'Создать новую организацию',
+        tr: 'Yeni organizasyon oluştur',
       }),
       label: t({
         en: 'Click to create a new organization',
@@ -113,6 +119,7 @@ const dashboardNavbarContent = {
         hi: 'नए संगठन का निर्माण करने के लिए क्लिक करें',
         ar: 'انقر لإنشاء منظمة جديدة',
         ru: 'Нажмите, чтобы создать новую организацию',
+        tr: 'Yeni organizasyon oluşturmak için tıklayın',
       }),
     },
 
@@ -131,6 +138,7 @@ const dashboardNavbarContent = {
         hi: 'परियोजना का चयन करने के लिए क्लिक करें',
         ar: 'انقر لاختيار مشروع',
         ru: 'Нажмите, чтобы выбрать проект',
+        tr: 'Bir proje seçmek için tıklayın',
       }),
     },
     selectProjectInstruction: t({
@@ -147,6 +155,7 @@ const dashboardNavbarContent = {
       hi: 'परियोजना चुनें',
       ar: 'اختر مشروعًا',
       ru: 'Выберите проект',
+      tr: 'Proje seç',
     }),
 
     noOtherProjects: t({
@@ -163,6 +172,7 @@ const dashboardNavbarContent = {
       hi: 'कोई अन्य प्रोजेक्ट नहीं',
       ar: 'لا توجد مشاريع أخرى',
       ru: 'Нет других проектов',
+      tr: 'Başka proje yok',
     }),
     projectLogout: {
       text: t({
@@ -179,6 +189,7 @@ const dashboardNavbarContent = {
         hi: 'परियोजना से लॉगआउट करें',
         ar: 'تسجيل الخروج من المشروع',
         ru: 'Выйти из проекта',
+        tr: 'Projeden çıkış yap',
       }),
       label: t({
         en: 'Click to log out from project',
@@ -194,6 +205,7 @@ const dashboardNavbarContent = {
         hi: 'परियोजना से लॉगआउट करने के लिए क्लिक करें',
         ar: 'انقر لتسجيل الخروج من المشروع',
         ru: 'Нажмите, чтобы выйти из проекта',
+        tr: 'Projeden çıkış yapmak için tıklayın',
       }),
     },
     createNewProject: {
@@ -211,6 +223,7 @@ const dashboardNavbarContent = {
         hi: 'नए प्रोजेक्ट का निर्माण करें',
         ar: 'إنشاء مشروع جديد',
         ru: 'Создать новый проект',
+        tr: 'Yeni proje oluştur',
       }),
       label: t({
         en: 'Click to create a new project',
@@ -226,6 +239,7 @@ const dashboardNavbarContent = {
         hi: 'नए प्रोजेक्ट का निर्माण करने के लिए क्लिक करें',
         ar: 'انقر لإنشاء مشروع جديد',
         ru: 'Нажмите, чтобы создать новый проект',
+        tr: 'Yeni proje oluşturmak için tıklayın',
       }),
     },
   },

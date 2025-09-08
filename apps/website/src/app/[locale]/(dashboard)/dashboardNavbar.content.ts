@@ -1,7 +1,7 @@
+import { PagesRoutes } from '@/Routes';
 import type { DashboardFooterProps } from '@components/Dashboard/DashboardFooter';
 import type { NavbarProps } from '@components/Dashboard/DashboardNavbar/DashboardNavbar';
 import { t, type Dictionary } from 'intlayer';
-import { PagesRoutes } from '@/Routes';
 
 type Content = {
   navbarLinks: NavbarProps['links'];
@@ -28,6 +28,7 @@ const dashboardNavbarContent = {
           hi: 'Intlayer व्हिडिओ एडिटर पर जाएं',
           ar: 'اذهب إلى محرر الفيديو لـ Intlayer',
           ru: 'Перейти к визуальному редактору Intlayer',
+          tr: 'Intlayer görsel düzenleyicisine git',
         }),
         title: t({
           en: 'Editor',
@@ -43,6 +44,7 @@ const dashboardNavbarContent = {
           hi: 'संपादक',
           ar: 'محرر',
           ru: 'Редактор',
+          tr: 'Editör',
         }),
       },
       {
@@ -61,6 +63,7 @@ const dashboardNavbarContent = {
           hi: 'सामग्री डैशबोर्ड पर जाएं',
           ar: 'اذهب إلى لوحة معلومات المحتوى',
           ru: 'Перейти к панели управления контентом',
+          tr: "İçerik Dashboard'ına git",
         }),
         title: t({
           en: 'Content',
@@ -76,6 +79,7 @@ const dashboardNavbarContent = {
           hi: 'सामग्री',
           ar: 'محتوى',
           ru: 'Содержание',
+          tr: 'İçerik',
         }),
       },
       {
@@ -94,6 +98,7 @@ const dashboardNavbarContent = {
           hi: 'टैग डैशबोर्ड पर जाएं',
           ar: 'اذهب إلى لوحة معلومات الوسوم',
           ru: 'Перейти к панели управления тегами',
+          tr: "Etiket Dashboard'ına git",
         }),
         title: t({
           en: 'Tags',
@@ -109,6 +114,7 @@ const dashboardNavbarContent = {
           hi: 'टैग',
           ar: 'وسوم',
           ru: 'Теги',
+          tr: 'Etiketler',
         }),
       },
       {
@@ -127,6 +133,7 @@ const dashboardNavbarContent = {
           hi: 'परियोजना डैशबोर्ड पर जाएं',
           ar: 'اذهب إلى لوحة معلومات المشاريع',
           ru: 'Перейти к панели управления проектами',
+          tr: "Proje Dashboard'ına git",
         }),
         title: t({
           en: 'Projects',
@@ -142,6 +149,7 @@ const dashboardNavbarContent = {
           hi: 'परियोजनाएँ',
           ar: 'مشاريع',
           ru: 'Проекты',
+          tr: 'Projeler',
         }),
       },
 
@@ -161,6 +169,7 @@ const dashboardNavbarContent = {
           hi: 'संगठन डैशबोर्ड पर जाएं',
           ar: 'اذهب إلى لوحة معلومات المؤسسة',
           ru: 'Перейти к панели управления организацией',
+          tr: "Organizasyon Dashboard'ına git",
         }),
         title: t({
           en: 'Organization',
@@ -176,6 +185,7 @@ const dashboardNavbarContent = {
           hi: 'संगठन',
           ar: 'تنظيم',
           ru: 'Организация',
+          tr: 'Organizasyon',
         }),
       },
       {
@@ -194,6 +204,7 @@ const dashboardNavbarContent = {
           hi: 'प्रोफ़ाइल डैशबोर्ड पर जाएं',
           ar: 'اذهب إلى لوحة معلومات الملف الشخصي',
           ru: 'Перейти к панели управления профилем',
+          tr: "Profil Dashboard'ına git",
         }),
         title: t({
           en: 'Profile',
@@ -209,6 +220,7 @@ const dashboardNavbarContent = {
           hi: 'प्रोफ़ाइल',
           ar: 'الملف الشخصي',
           ru: 'Профиль',
+          tr: 'Profil',
         }),
       },
     ],
@@ -229,6 +241,7 @@ const dashboardNavbarContent = {
           hi: 'मुख्य पृष्ठ पर जाएं',
           ar: 'اذهب إلى الصفحة الرئيسية',
           ru: 'Перейти на главную страницу',
+          tr: 'Ana sayfaya git',
         }),
         text: t({
           en: 'Home',
@@ -244,6 +257,7 @@ const dashboardNavbarContent = {
           hi: 'घर',
           ar: 'الرئيسية',
           ru: 'Главная',
+          tr: 'Ana Sayfa',
         }),
       },
       {
@@ -262,6 +276,7 @@ const dashboardNavbarContent = {
           hi: 'डॉक्यूमेंटेशन पृष्ठ पर जाएं',
           ar: 'اذهب إلى صفحة الوثائق',
           ru: 'Перейти на страницу документации',
+          tr: 'Belgeler sayfasına git',
         }),
         text: t({
           en: 'Documentation',
@@ -277,6 +292,7 @@ const dashboardNavbarContent = {
           hi: 'दस्तावेज़',
           ar: 'التوثيق',
           ru: 'Документация',
+          tr: 'Dokümantasyon',
         }),
       },
       {
@@ -295,6 +311,7 @@ const dashboardNavbarContent = {
           hi: 'गोपनीयता सूचना पृष्ठ पर जाएं',
           ar: 'اذهب إلى صفحة إشعار الخصوصية',
           ru: 'Перейти на страницу уведомления о конфиденциальности',
+          tr: 'Gizlilik bildirim sayfasına git',
         }),
         text: t({
           en: 'Privacy Notice',
@@ -310,6 +327,7 @@ const dashboardNavbarContent = {
           hi: 'गोपनीयता सूचना',
           ar: 'إشعار الخصوصية',
           ru: 'Уведомление о конфиденциальности',
+          tr: 'Gizlilik Bildirimi',
         }),
       },
       {
@@ -328,6 +346,7 @@ const dashboardNavbarContent = {
           hi: 'सेवा की शर्तें पृष्ठ पर जाएं',
           ar: 'اذهب إلى صفحة شروط الخدمة',
           ru: 'Перейти на страницу условий обслуживания',
+          tr: 'Hizmet şartları sayfasına git',
         }),
         text: t({
           en: 'Terms of Service',
@@ -343,6 +362,7 @@ const dashboardNavbarContent = {
           hi: 'सेवा की शर्तें',
           ar: 'شروط الخدمة',
           ru: 'Условия обслуживания',
+          tr: 'Hizmet Şartları',
         }),
       },
     ],

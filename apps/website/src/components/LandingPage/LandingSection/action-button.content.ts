@@ -19,6 +19,7 @@ const actionButtonContent = {
         hi: 'प्रारंभिक दस्तावेज़ पर जाएं',
         ar: 'اذهب إلى وثيقة البداية',
         ru: 'Перейти к документации по началу',
+        tr: 'Başlarken belgelerine git',
       }),
       content: t({
         en: 'Get Started',
@@ -34,6 +35,7 @@ const actionButtonContent = {
         hi: 'शुरू करें',
         ar: 'ابدأ',
         ru: 'Начать',
+        tr: 'Başla',
       }),
       url: PagesRoutes.Doc,
     },
@@ -52,6 +54,7 @@ const actionButtonContent = {
         hi: 'intlayer दस्तावेज़ के लाभ पर जाएं',
         ar: 'اذهب إلى وثيقة أهمية intlayer',
         ru: 'Перейти к документации о преимуществах intlayer',
+        tr: 'intlayer belgelerinin faydalarına git',
       }),
       content: t({
         en: 'Why Intlayer?',
@@ -67,6 +70,7 @@ const actionButtonContent = {
         hi: 'इंटलेयर क्यों?',
         ar: 'لماذا Intlayer؟',
         ru: 'Почему Intlayer?',
+        tr: 'Neden Intlayer?',
       }),
       url: PagesRoutes.Doc_Why,
     },

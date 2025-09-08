@@ -18,6 +18,7 @@ const content = {
         ar: 'اذهب إلى الصفحة الرئيسية',
         ru: 'Перейти на главную страницу',
         'en-GB': 'Go to home page',
+        tr: 'Ana sayfaya git',
       }),
       ariaLabel: t({
         en: 'Click to go to home page',
@@ -33,6 +34,7 @@ const content = {
         ar: 'انقر للذهاب إلى الصفحة الرئيسية',
         ru: 'Нажмите, чтобы перейти на главную страницу',
         'en-GB': 'Click to go to home page',
+        tr: 'Ana sayfaya gitmek için tıklayın',
       }),
     },
   },

@@ -18,6 +18,7 @@ const projectListContent = {
         hi: 'परियोजना चुनें',
         ar: 'اختر المشروع',
         ru: 'Выберите проект',
+        tr: 'Proje seç',
       }),
       label: t({
         en: 'Click to select project',
@@ -33,6 +34,7 @@ const projectListContent = {
         hi: 'परियोजना चुनने के लिए क्लिक करें',
         ar: 'انقر لاختيار المشروع',
         ru: 'Нажмите, чтобы выбрать проект',
+        tr: 'Projeyi seçmek için tıklayın',
       }),
     },
   },
