@@ -1,46 +1,22 @@
-import { getLocalizedUrl } from 'intlayer';
-import React from 'react';
-import { useLocale } from 'react-intlayer';
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "react-intlayer";
 // eslint-disable-next-line no-restricted-imports
-import { Link, useLocation } from 'react-router';
+import { Link, type LinkProps } from "react-router";
 
-type RouterLinkProps = React.ComponentProps<typeof Link>;
+type LocalizedLinkProps = {
+  to: string;
+} & Omit<LinkProps, "to">;
 
-export default function LocalizedLink({ to, ...props }: RouterLinkProps) {
+export default function LocalizedLink(props: LocalizedLinkProps) {
   const { locale } = useLocale();
-  const location = useLocation();
 
-  const isExternal = (p: string) =>
-    /^([a-z][a-z0-9+.-]*:)?\/\//i.test(p) || p.startsWith('mailto:');
+  const isExternal = (to: string) => {
+    return /^(https?:)?\/\//.test(to);
+  };
 
-  if (typeof to === 'string') {
-    if (to.startsWith('/') && !isExternal(to)) {
-      return <Link to={getLocalizedUrl(to, locale)} {...props} />;
-    }
-    return <Link to={to} {...props} />;
-  }
+  const to = isExternal(props.to)
+    ? props.to
+    : getLocalizedUrl(props.to, locale);
 
-  if (to && typeof to === 'object') {
-    const pathname = (to as { pathname?: string }).pathname;
-    if (pathname && pathname.startsWith('/') && !isExternal(pathname)) {
-      return (
-        <Link
-          to={{
-            ...to,
-            pathname: getLocalizedUrl(pathname, locale),
-          }}
-          {...props}
-        />
-      );
-    }
-    return <Link to={to} {...props} />;
-  }
-
-  // fallback: current location
-  return (
-    <Link
-      to={getLocalizedUrl(location.pathname + location.search, locale)}
-      {...props}
-    />
-  );
+  return <Link {...props} to={to as LinkProps["to"]} />;
 }
