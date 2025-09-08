@@ -480,24 +480,14 @@ const docDataContent: any = {
           default: getDocMetadata('./docs/en/intlayer_with_vite+react.md'),
           subSections: {
             'react-router-v7': {
-              title: t({
-                en: 'Intlayer with React Router v7',
-                'en-GB': 'Intlayer with React Router v7',
-                fr: 'Intlayer avec React Router v7',
-                es: 'Intlayer con React Router v7',
-                de: 'Intlayer mit React Router v7',
-                ja: 'IntlayerとReact Router v7',
-                ko: 'Intlayer와 React Router v7',
-                zh: 'Intlayer与React Router v7',
-                it: 'Intlayer con React Router v7',
-                pt: 'Intlayer com React Router v7',
-                hi: 'Intlayer के साथ React Router v7',
-                ar: 'Intlayer مع React Router v7',
-                ru: 'Intlayer с React Router v7',
-              }),
+              title: 'React Router v7',
               default: getDocMetadata(
                 './docs/en/intlayer_with_react_router_v7.md'
               ),
+            },
+            'tanstack-start': {
+              title: 'Tanstack Start',
+              default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
             },
           },
         },
