@@ -16,6 +16,9 @@ import {
   useState,
 } from 'react';
 
+// Import mobile-optimized version
+import { MobileFeaturesSection } from './MobileFeaturesSection/index';
+
 /* -------------------------------------------------------------------------- */
 /*                               Subcomponents                                */
 /* -------------------------------------------------------------------------- */
@@ -308,8 +311,14 @@ const DynamicVisualEditorSection = dynamic(
 /* -------------------------------------------------------------------------- */
 
 export const FeaturesSection: FC = () => {
+  const { isMobile } = useDevice();
   const [progress, setProgress] = useState(0);
   const sectionsData = useIntlayer('features-section');
+
+  // Use mobile-optimized version for mobile devices
+  if (isMobile) {
+    return <MobileFeaturesSection />;
+  }
 
   const sections: Section[] = sectionsData
     // Filter out anything you don’t want to display
