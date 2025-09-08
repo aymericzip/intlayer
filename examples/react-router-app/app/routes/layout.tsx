@@ -26,7 +26,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
 
   return (
     <IntlayerProvider
-      locale={params.locale ?? configuration.internationalization.defaultLocale}
+      locale={locale}
     >
       <Outlet />
     </IntlayerProvider>
