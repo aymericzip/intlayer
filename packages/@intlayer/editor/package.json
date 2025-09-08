@@ -80,7 +80,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
-    "eslint": "^9.33.0",
+    "eslint": "^9.34.0",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
