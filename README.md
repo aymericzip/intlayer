@@ -219,7 +219,12 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
     </ul>
   </li>
   <li><a href="https://intlayer.org/doc/environment/create-react-app">React CRA</a></li>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md">Vite + React</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react">Vite + React</a>
+     <ul>
+      <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7">React-router-v7</a></li>
+      <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start">Tanstack start</a></li>
+    </ul>
+  </li>
   <li><a href="https://intlayer.org/fr/doc/environment/react-native-and-expo">React Native</a></li>
   <li><a href="https://intlayer.org/fr/doc/environment/lynx-and-react">Lynx + React</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-svelte">Vite + Svelte</a></li>
