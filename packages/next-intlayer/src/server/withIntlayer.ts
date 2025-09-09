@@ -33,6 +33,11 @@ const getIsSwcPluginAvailable = () => {
   }
 };
 
+const resolvePluginPath = (pluginPath: string) =>
+  normalizePath(
+    './' + relative(process.cwd(), ESMxCJSRequire.resolve(pluginPath))
+  );
+
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig
 ): Partial<NextConfig> => {
@@ -79,7 +84,7 @@ const getPruneConfig = (
     experimental: {
       swcPlugins: [
         [
-          ESMxCJSRequire.resolve('@intlayer/swc'),
+          resolvePluginPath('@intlayer/swc'),
           {
             dictionariesDir,
             dictionariesEntryPath,
