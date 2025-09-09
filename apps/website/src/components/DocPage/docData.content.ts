@@ -597,8 +597,12 @@ const docDataContent: any = {
           default: getDocMetadata('./docs/en/intlayer_with_lynx+react.md'),
         },
         express: {
-          title: 'Express',
+          title: 'Express.js',
           default: getDocMetadata('./docs/en/intlayer_with_express.md'),
+        },
+        nest: {
+          title: 'NestJS',
+          default: getDocMetadata('./docs/en/intlayer_with_nestjs.md'),
         },
       },
     },
