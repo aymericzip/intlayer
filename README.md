@@ -15,7 +15,7 @@
   <a href="https://intlayer.org/doc/environment/nextjs">Next.js</a> •
   <a href="https://intlayer.org/doc/environment/vite-and-react">React + Vite</a> •
   <a href="https://intlayer.org/doc/concept/cms">CMS</a> •
-  <a href="https://discord.gg/528mBV4N">Discord</a>
+  <a href="https://discord.gg/7uxamYVeCk">Discord</a>
 </p>
 <p align="center" style="margin-top:15px;">
   <a href="https://www.npmjs.com/package/intlayer" target="_blank">
@@ -37,6 +37,9 @@
 
 ![Watch the video](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
 
+<a href="https://intlayer.org/doc/concept/content">
+  <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
+</a>
 
 ##  What is Intlayer?
 
@@ -64,6 +67,10 @@ With **per-locale content files**, **TypeScript autocompletion**, **tree-shakabl
 
 You can check more details on this features below ↓
 
+<a href="https://intlayer.org/doc/concept/content">
+  <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
+</a>
+ 
 ## 📦 Installation
 ```bash
 npm install intlayer
@@ -72,18 +79,26 @@ npm install intlayer
 ⚡ Quick Start (Next.js)
 ```ts
 // intlayer.config.ts
-export default {
-  sourceLocale: "en",
-  targetLocales: ["fr", "es"],
+import { Locales, type IntlayerConfig } from 'intlayer';
+
+const config: IntlayerConfig = {
+internationalization: {
+locales: [Locales.ENGLISH,
+          Locales.FRENCH,
+          Locales.SPANISH],
+strictMode: 'strict',
+},
 };
+
+export default config;
 ```
 ```ts
 // app/page.tsx
-import { useDictionary } from "intlayer";
+import { useIntlayer } from "intlayer";
 
 export default function Page() {
-  const dict = useDictionary("home");
-  return <h1>{dict.title}</h1>;
+  const { title } = useIntlayer("home");
+return <h1>{title}</h1>;
 }
 ```
 
@@ -92,6 +107,10 @@ export default function Page() {
 ## 🎥 Live tutorial on YouTube
 
 [![How to Internationalize your application using Intlayer](https://i.ytimg.com/vi/e_PPG7PTqGU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/e_PPG7PTqGU?si=GyU_KpVhr61razRw)
+
+<a href="https://intlayer.org/doc/concept/content">
+  <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
+</a>
 
 ## 🌐 Readme in other languages
 
@@ -249,7 +268,10 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                    | **Interoperability**<br><br>Allow interoperability with react-i18next, next-i18next, next-intl, and react-intl. <br><br> - [Intlayer and react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer and next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer and next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)           |
 
 Start your journey with Intlayer today and experience a smoother, more powerful approach to internationalization.  
-[Get Started with Intlayer](https://intlayer.org/doc/concept/content)
+
+<a href="https://intlayer.org/doc/concept/content">
+  <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
+</a>
 
 ---- 
 ### Contribution
