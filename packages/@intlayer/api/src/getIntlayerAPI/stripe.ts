@@ -1,13 +1,12 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
+import { fetcher, type FetcherOptions } from '../fetcher';
 import type {
   GetCheckoutSessionBody,
   GetCheckoutSessionResult,
   GetPricingBody,
   GetPricingResult,
 } from '../types';
-
-import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getStripeAPI = (
   authAPIOptions: FetcherOptions = {},

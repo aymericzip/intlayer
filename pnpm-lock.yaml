@@ -1368,9 +1368,6 @@ importers:
       '@intlayer/config':
         specifier: workspace:*
         version: link:../config
-      eventsource:
-        specifier: ^3.0.7
-        version: 3.0.7
     devDependencies:
       '@changesets/changelog-github':
         specifier: 0.5.1
@@ -1653,6 +1650,9 @@ importers:
       commander:
         specifier: ^13.0.0
         version: 13.1.0
+      eventsource:
+        specifier: ^3.0.7
+        version: 3.0.7
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3

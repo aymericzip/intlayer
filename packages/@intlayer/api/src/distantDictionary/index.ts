@@ -1,2 +1,2 @@
-export * from './fetchDistantDictionary';
 export * from './fetchDistantDictionaries';
+export * from './fetchDistantDictionary';

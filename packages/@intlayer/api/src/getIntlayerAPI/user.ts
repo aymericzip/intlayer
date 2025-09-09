@@ -1,5 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { type IntlayerConfig } from '@intlayer/config/client';
+import { fetcher, type FetcherOptions } from '../fetcher';
 import type {
   CreateUserBody,
   CreateUserResult,
@@ -15,8 +16,6 @@ import type {
   UpdateUserResult,
   UserAPI,
 } from '../types';
-
-import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getUserAPI = (
   authAPIOptions: FetcherOptions = {},

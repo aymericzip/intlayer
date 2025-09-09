@@ -1,5 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
+import { fetcher, type FetcherOptions } from '../fetcher';
 import type {
   AddDictionaryBody,
   AddDictionaryResult,
@@ -16,8 +17,6 @@ import type {
   UpdateDictionaryBody,
   UpdateDictionaryResult,
 } from '../types';
-
-import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getDictionaryAPI = (
   authAPIOptions: FetcherOptions = {},
