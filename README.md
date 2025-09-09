@@ -134,7 +134,7 @@ Intlayer is built with and for the community and we’d love your input!
 
 - Have a suggestion? [Open an issue](https://github.com/aymericzip/intlayer/issues)  
 - Found a bug or improvement? [Submit a PR](https://github.com/aymericzip/intlayer/pulls)  
-- Need help or want to connect? [Join our Discord](https://discord.gg/528mBV4N)
+- Need help or want to connect? [Join our Discord](https://discord.gg/7uxamYVeCk)
 
 You can also follow us on :
 
