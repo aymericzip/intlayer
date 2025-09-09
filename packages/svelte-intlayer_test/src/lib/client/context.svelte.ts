@@ -1,10 +1,6 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import type { DeepTransformContent, DictionaryKeys } from '@intlayer/core';
 import { getContext, setContext } from 'svelte';
-import { getIntlayer } from '../utils/getIntLayer.js';
-//@ts-ignore
-import type { IntlayerDictionaryTypesConnector } from 'intlayer';
-const SYMBOL_KEY = 'int_layer_provider';
+import { SYMBOL_KEY } from '../utils/constants.js';
 
 type ProviderProps = {
   locale?: LocalesValues;
@@ -33,15 +29,6 @@ export function setIntLayer(props: ProviderProps) {
   return setContext(SYMBOL_KEY, new IntlayerState(props));
 }
 
-function getProviderCtx() {
+export function getProviderCtx() {
   return getContext(SYMBOL_KEY) as IntlayerState;
-}
-
-export function useIntLayer<T extends DictionaryKeys>(
-  key: T,
-  locale?: LocalesValues
-): DeepTransformContent<IntlayerDictionaryTypesConnector[T]['content']> {
-  const state = getProviderCtx();
-  let currentLocale = locale ?? state.getLocale();
-  return getIntlayer(key, currentLocale);
 }

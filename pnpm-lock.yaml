@@ -3506,6 +3506,12 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5
     devDependencies:
+      '@eslint/compat':
+        specifier: ^1.2.5
+        version: 1.3.2(eslint@9.34.0(jiti@2.5.1))
+      '@eslint/js':
+        specifier: ^9.18.0
+        version: 9.34.0
       '@sveltejs/adapter-auto':
         specifier: ^6.0.0
         version: 6.1.0(@sveltejs/kit@2.37.1(@opentelemetry/api@1.9.0)(@sveltejs/vite-plugin-svelte@6.1.4(svelte@5.38.6)(vite@7.1.4(@types/node@24.3.1)(jiti@2.5.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.44.0)(tsx@4.20.5)(yaml@2.8.1)))(svelte@5.38.6)(vite@7.1.4(@types/node@24.3.1)(jiti@2.5.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.44.0)(tsx@4.20.5)(yaml@2.8.1)))
@@ -3518,6 +3524,15 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^6.0.0
         version: 6.1.4(svelte@5.38.6)(vite@7.1.4(@types/node@24.3.1)(jiti@2.5.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.44.0)(tsx@4.20.5)(yaml@2.8.1))
+      eslint:
+        specifier: ^9.18.0
+        version: 9.34.0(jiti@2.5.1)
+      eslint-plugin-svelte:
+        specifier: ^3.0.0
+        version: 3.12.2(eslint@9.34.0(jiti@2.5.1))(svelte@5.38.6)(ts-node@10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@24.3.1)(typescript@5.9.2))
+      globals:
+        specifier: ^16.0.0
+        version: 16.3.0
       publint:
         specifier: ^0.3.2
         version: 0.3.12
@@ -3530,6 +3545,9 @@ importers:
       typescript:
         specifier: ^5.0.0
         version: 5.9.2
+      typescript-eslint:
+        specifier: ^8.20.0
+        version: 8.42.0(eslint@9.34.0(jiti@2.5.1))(typescript@5.9.2)
       vite:
         specifier: ^7.0.4
         version: 7.1.4(@types/node@24.3.1)(jiti@2.5.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.44.0)(tsx@4.20.5)(yaml@2.8.1)
@@ -18899,6 +18917,19 @@ packages:
     peerDependencies:
       eslint: '>=8'
 
+  eslint-plugin-svelte@3.12.2:
+    resolution:
+      {
+        integrity: sha512-NDYltSWcDybvnXD5P3NtrLAfdrgr2lklZsXpyIoSlQfg2d80p/E853XXccu+uVn+w4+Q/iHy4oRw00GJH9I/Cg==,
+      }
+    engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
+    peerDependencies:
+      eslint: ^8.57.1 || ^9.0.0
+      svelte: ^3.37.0 || ^4.0.0 || ^5.0.0
+    peerDependenciesMeta:
+      svelte:
+        optional: true
+
   eslint-plugin-tailwindcss@3.18.0:
     resolution:
       {
@@ -22784,6 +22815,12 @@ packages:
         integrity: sha512-xYSH7AvuQ6nXkq42x0v5S8/Iry+cfulBz/DJQzhIyESdLD7425jXsPy4vn5cCXU+HhRN2kVw51Vd1K6/By4BQg==,
       }
 
+  known-css-properties@0.37.0:
+    resolution:
+      {
+        integrity: sha512-JCDrsP4Z1Sb9JwG0aJ8Eo2r7k4Ou5MwmThS/6lcIe1ICyb7UBJKGRIUUdqc2ASdE/42lgz6zFUnzAIhtXnBVrQ==,
+      }
+
   kolorist@1.8.0:
     resolution:
       {
@@ -26648,6 +26685,21 @@ packages:
     peerDependencies:
       postcss: ^8.4
 
+  postcss-load-config@3.1.4:
+    resolution:
+      {
+        integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==,
+      }
+    engines: { node: '>= 10' }
+    peerDependencies:
+      postcss: '>=8.0.9'
+      ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      postcss:
+        optional: true
+      ts-node:
+        optional: true
+
   postcss-load-config@4.0.2:
     resolution:
       {
@@ -27407,6 +27459,24 @@ packages:
       }
     peerDependencies:
       postcss: ^8.0.3
+
+  postcss-safe-parser@7.0.1:
+    resolution:
+      {
+        integrity: sha512-0AioNCJZ2DPYz5ABT6bddIqlhgwhpHZ/l65YAYo0BCIn0xiDpsnTHz0gnoTGk0OXZW0JRs+cDwL8u/teRdz+8A==,
+      }
+    engines: { node: '>=18.0' }
+    peerDependencies:
+      postcss: ^8.4.31
+
+  postcss-scss@4.0.9:
+    resolution:
+      {
+        integrity: sha512-AjKOeiwAitL/MXxQW2DliT28EKukvvbEWx3LBmJIRN8KfBGZbRTxNYW0kSqi1COiTZ57nZ9NW06S6ux//N1c9A==,
+      }
+    engines: { node: '>=12.0' }
+    peerDependencies:
+      postcss: ^8.4.29
 
   postcss-selector-not@6.0.1:
     resolution:
@@ -30644,6 +30714,18 @@ packages:
     peerDependencies:
       svelte: ^4.0.0 || ^5.0.0-next.0
       typescript: '>=5.0.0'
+
+  svelte-eslint-parser@1.3.1:
+    resolution:
+      {
+        integrity: sha512-0Iztj5vcOVOVkhy1pbo5uA9r+d3yaVoE5XPc9eABIWDOSJZ2mOsZ4D+t45rphWCOr0uMw3jtSG2fh2e7GvKnPg==,
+      }
+    engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
+    peerDependencies:
+      svelte: ^3.37.0 || ^4.0.0 || ^5.0.0
+    peerDependenciesMeta:
+      svelte:
+        optional: true
 
   svelte2tsx@0.7.42:
     resolution:
@@ -45763,6 +45845,24 @@ snapshots:
       - supports-color
       - typescript
 
+  eslint-plugin-svelte@3.12.2(eslint@9.34.0(jiti@2.5.1))(svelte@5.38.6)(ts-node@10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@24.3.1)(typescript@5.9.2)):
+    dependencies:
+      '@eslint-community/eslint-utils': 4.8.0(eslint@9.34.0(jiti@2.5.1))
+      '@jridgewell/sourcemap-codec': 1.5.5
+      eslint: 9.34.0(jiti@2.5.1)
+      esutils: 2.0.3
+      globals: 16.3.0
+      known-css-properties: 0.37.0
+      postcss: 8.5.6
+      postcss-load-config: 3.1.4(postcss@8.5.6)(ts-node@10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@24.3.1)(typescript@5.9.2))
+      postcss-safe-parser: 7.0.1(postcss@8.5.6)
+      semver: 7.7.2
+      svelte-eslint-parser: 1.3.1(svelte@5.38.6)
+    optionalDependencies:
+      svelte: 5.38.6
+    transitivePeerDependencies:
+      - ts-node
+
   eslint-plugin-tailwindcss@3.18.0(tailwindcss@4.1.13):
     dependencies:
       fast-glob: 3.3.3
@@ -49011,6 +49111,8 @@ snapshots:
 
   knitwork@1.2.0: {}
 
+  known-css-properties@0.37.0: {}
+
   kolorist@1.8.0: {}
 
   konva@9.3.22: {}
@@ -51868,6 +51970,14 @@ snapshots:
       '@csstools/utilities': 2.0.0(postcss@8.5.6)
       postcss: 8.5.6
 
+  postcss-load-config@3.1.4(postcss@8.5.6)(ts-node@10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@24.3.1)(typescript@5.9.2)):
+    dependencies:
+      lilconfig: 2.1.0
+      yaml: 1.10.2
+    optionalDependencies:
+      postcss: 8.5.6
+      ts-node: 10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@24.3.1)(typescript@5.9.2)
+
   postcss-load-config@4.0.2(postcss@8.5.6)(ts-node@10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@24.3.1)(typescript@5.9.2)):
     dependencies:
       lilconfig: 3.1.3
@@ -52435,6 +52545,14 @@ snapshots:
       postcss-value-parser: 4.2.0
 
   postcss-replace-overflow-wrap@4.0.0(postcss@8.5.6):
+    dependencies:
+      postcss: 8.5.6
+
+  postcss-safe-parser@7.0.1(postcss@8.5.6):
+    dependencies:
+      postcss: 8.5.6
+
+  postcss-scss@4.0.9(postcss@8.5.6):
     dependencies:
       postcss: 8.5.6
 
@@ -54903,6 +55021,17 @@ snapshots:
       typescript: 5.9.2
     transitivePeerDependencies:
       - picomatch
+
+  svelte-eslint-parser@1.3.1(svelte@5.38.6):
+    dependencies:
+      eslint-scope: 8.4.0
+      eslint-visitor-keys: 4.2.1
+      espree: 10.4.0
+      postcss: 8.5.6
+      postcss-scss: 4.0.9(postcss@8.5.6)
+      postcss-selector-parser: 7.1.0
+    optionalDependencies:
+      svelte: 5.38.6
 
   svelte2tsx@0.7.42(svelte@5.38.6)(typescript@5.9.2):
     dependencies:
