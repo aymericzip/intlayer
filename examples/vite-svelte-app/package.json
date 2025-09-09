@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "svelte-intlayer": "workspace:*"
+    "svelte-intlayer": "workspace:*",
+    "svelte-intlayer-test": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
