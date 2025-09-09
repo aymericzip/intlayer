@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://intlayer.org">
-    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/logo.png" width="60%" alt="Intlayer Logo" />
+    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/cover.png" width="60%" alt="Intlayer Logo" />
   </a>
 </p>
 
