@@ -9,8 +9,8 @@ export const BackgroundLayout: FC<
       <div className="absolute z-[-1] size-full max-h-full max-w-full overflow-hidden">
         <div className="relative size-full">
           <GridPattern
-            width={100}
-            height={70}
+            width={70}
+            height={100}
             x={-1}
             y={-1}
             className={
