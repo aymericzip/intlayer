@@ -33,7 +33,7 @@ const getIsSwcPluginAvailable = () => {
   }
 };
 
-const resolvePluginPath = (pluginPath: string) => {
+const resolvePluginPath = (pluginPath: string): string => {
   const pluginPathResolved = ESMxCJSRequire.resolve(pluginPath);
 
   if (isTurbopackEnabled)
