@@ -3,6 +3,6 @@ import baseConfig from '@utils/eslint-config';
 export default [
   ...baseConfig,
   {
-    ignores: ['**/examples/*'],
+    ignores: ['**/examples/*', 'packages/svelte-intlayer_test/**'],
   },
 ];
