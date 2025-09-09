@@ -33,10 +33,16 @@ const getIsSwcPluginAvailable = () => {
   }
 };
 
-const resolvePluginPath = (pluginPath: string) =>
-  normalizePath(
-    './' + relative(process.cwd(), ESMxCJSRequire.resolve(pluginPath))
-  );
+const resolvePluginPath = (pluginPath: string) => {
+  const pluginPathResolved = ESMxCJSRequire.resolve(pluginPath);
+
+  if (isTurbopackEnabled)
+    // Relative path for turbopack
+    return normalizePath(`./${relative(process.cwd(), pluginPathResolved)}`);
+
+  // Absolute path for webpack
+  return pluginPathResolved;
+};
 
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig
