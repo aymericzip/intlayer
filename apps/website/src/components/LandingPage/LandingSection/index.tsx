@@ -16,15 +16,16 @@ import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, SVGProps } from 'react';
 import packageJSON from '../../../../package.json' with { type: 'json' };
-import { AngularLogo } from '../AvailableTechnoSection/Angular';
+import { LynxLogo } from '../AvailableTechnoSection/Lynx';
 import { NextJSLogo } from '../AvailableTechnoSection/Nextjs';
 import { NuxtLogo } from '../AvailableTechnoSection/Nuxt';
 import { PreactLogo } from '../AvailableTechnoSection/Preact';
 import { ReactLogo } from '../AvailableTechnoSection/Reactjs';
-import { SolidLogo } from '../AvailableTechnoSection/Solid';
-import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
 import { ViteLogo } from '../AvailableTechnoSection/Vitejs';
 import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
+// import { AngularLogo } from '../AvailableTechnoSection/Angular';
+// import { SolidLogo } from '../AvailableTechnoSection/Solid';
+// import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
 
 const SHOW_WHATS_NEW = false;
 // Animated Technology logos
@@ -41,16 +42,19 @@ const TechLogos: FC = () => {
     { Logo: VuejsLogo, key: 'vue' },
     { Logo: NuxtLogo, key: 'nuxt' },
     { Logo: ViteLogo, key: 'vite' },
-    { Logo: AngularLogo, key: 'angular' },
-    { Logo: SvelteLogo, key: 'svelte' },
-    { Logo: SolidLogo, key: 'solid' },
+    { Logo: LynxLogo, key: 'lynx' },
+    // { Logo: AstroLogo, key: 'astro' },
+    // { Logo: AngularLogo, key: 'angular' },
+    // { Logo: SvelteLogo, key: 'svelte' },
+    // { Logo: SolidLogo, key: 'solid' }
   ];
 
   // Duplicate logos for seamless infinite scroll
-  const duplicatedLogos = [...logos, ...logos, ...logos, ...logos];
+  // const duplicatedLogos = [...logos, ...logos, ...logos, ...logos];
+  const duplicatedLogos = [...logos, ...logos];
 
   return (
-    <div className="w-full overflow-hidden relative">
+    <div className="w-full overflow-hidden relative [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{
@@ -70,23 +74,14 @@ const TechLogos: FC = () => {
           },
         }}
         style={{ willChange: 'transform' }}
-        className="flex gap-8 sm:gap-12 md:gap-16 items-center py-6 transform-gpu"
+        className="flex gap-16 sm:gap-20 md:gap-24 lg:gap-28 items-center py-6 transform-gpu"
       >
         {duplicatedLogos.map((logo, index) => (
           <div key={`${logo.key}-${index}`} className="flex-shrink-0">
-            <logo.Logo className="w-12 h-12 sm:w-12 sm:h-12 md:w-14 md:h-14 opacity-70 hover:opacity-100 transition-opacity duration-200" />
+            <logo.Logo className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 opacity-70 hover:opacity-100 transition-opacity duration-200" />
           </div>
         ))}
       </motion.div>
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          maskImage:
-            'linear-gradient(to right, rgba(255,255,255,0.3) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 80%, rgba(255,255,255,0.3) 100%)',
-          WebkitMaskImage:
-            'linear-gradient(to right, rgba(255,255,255,0.3) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 80%, rgba(255,255,255,0.3) 100%)',
-        }}
-      />
     </div>
   );
 };

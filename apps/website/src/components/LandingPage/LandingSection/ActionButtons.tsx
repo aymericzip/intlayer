@@ -3,6 +3,7 @@
 import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system';
+import { cn } from '@utils/cn';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, HTMLAttributes } from 'react';
@@ -15,22 +16,13 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
     'landing-section-action-button'
   );
 
-  // const {
-  //     primaryBtn: {
-  //       label: primaryLabel,
-  //       content: primaryContent,
-  //       url: primaryUrl,
-  //     },
-  //     secondaryBtn: {
-  //       label: secondaryLabel,
-  //       content: secondaryContent,
-  //       url: secondaryUrl,
-  //     },
-  //   } = useIntlayer('landing-section-action-button')
-
   return (
     <div
-      className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center ${className || ''}`}
+      // className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center ${className || ''}`}
+      className={cn(
+        'flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center',
+        className
+      )}
       {...props}
     >
       <Link
