@@ -1,3 +1,6 @@
+import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/config/client';
+import { fetcher, type FetcherOptions } from '../fetcher';
 import type {
   AskDocQuestionResult,
   AuditContentDeclarationBody,
@@ -16,11 +19,6 @@ import type {
   TranslateJSONBody,
   TranslateJSONResult,
 } from '../types';
-
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/config/client';
-
-import { fetcher, type FetcherOptions } from '../fetcher';
 
 export type AskDocQuestionBody = {
   messages: ChatCompletionRequestMessage[];

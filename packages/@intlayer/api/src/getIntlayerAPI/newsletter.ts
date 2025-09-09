@@ -1,12 +1,11 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
+import { fetcher, type FetcherOptions } from '../fetcher';
 import type {
   NewsletterSubscriptionBody,
   NewsletterSubscriptionResult,
   NewsletterUnsubscriptionBody,
 } from '../types';
-
-import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getNewsletterAPI = (
   authAPIOptions: FetcherOptions = {},

@@ -1,9 +1,9 @@
+import { getOAuthAPI } from '@intlayer/api';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import { type IntlayerConfig, getAppLogger } from '@intlayer/config/client';
 import { EventSource } from 'eventsource';
-import { getOAuthAPI } from './getIntlayerAPI/oAuth';
 
 export type IntlayerMessageEvent = MessageEvent;
 

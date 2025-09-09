@@ -1,9 +1,7 @@
-import type { SearchDocUtilParams, SearchDocUtilResult } from '../types';
-
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
-
 import { fetcher, type FetcherOptions } from '../fetcher';
+import type { SearchDocUtilParams, SearchDocUtilResult } from '../types';
 
 export const getSearchAPI = (
   authAPIOptions: FetcherOptions = {},

@@ -1,5 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
+import { fetcher, type FetcherOptions } from '../fetcher';
 import type {
   AddNewAccessKeyBody,
   AddNewAccessKeyResponse,
@@ -22,8 +23,6 @@ import type {
   UpdateProjectMembersResult,
   UpdateProjectResult,
 } from '../types';
-
-import { fetcher, type FetcherOptions } from '../fetcher';
 
 export const getProjectAPI = (
   authAPIOptions: FetcherOptions = {},

@@ -70,6 +70,7 @@
     "@intlayer/dynamic-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "commander": "^13.0.0",
+    "eventsource": "^3.0.7",
     "fast-glob": "^3.3.3",
     "p-limit": "^3.1.0"
   },
