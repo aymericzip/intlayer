@@ -1,9 +1,10 @@
 'use client';
 
-import { Button } from '@intlayer/design-system';
+import { PagesRoutes } from '@/Routes';
+import { Link } from '@components/Link/Link';
+import { LinkColor, LinkVariant } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { ArrowRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, HTMLAttributes } from 'react';
 
@@ -11,45 +12,42 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...props
 }) => {
-  const {
-    primaryBtn: {
-      label: primaryLabel,
-      content: primaryContent,
-      url: primaryUrl,
-    },
-    secondaryBtn: {
-      label: secondaryLabel,
-      content: secondaryContent,
-      url: secondaryUrl,
-    },
-  } = useIntlayer('landing-section-action-button');
-  const router = useRouter();
+  const { supportButton, getStartedButton } = useIntlayer(
+    'landing-section-action-button'
+  );
 
   return (
     <div
-      className={cn('flex w-full flex-col gap-4 sm:flex-row', className)}
+      // className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center ${className || ''}`}
+      className={cn(
+        'flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center',
+        className
+      )}
       {...props}
     >
-      <Button
-        label={secondaryLabel.value}
-        variant="outline"
-        onClick={() => router.push(secondaryUrl.value)}
-        color="text"
-        className="w-full md:w-auto"
+      <Link
+        href="https://github.com/aymericzip/intlayer"
+        variant={LinkVariant.BUTTON}
+        label={supportButton.value}
+        className="hover:scale-105 px-4 py-2 rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-transparent hover:bg-transparent"
+        isExternalLink
       >
-        {secondaryContent}
-      </Button>
-      <Button
-        label={primaryLabel.value}
-        onClick={() => router.push(primaryUrl.value)}
-        variant="default"
-        color="text"
-        className="w-full md:w-auto"
-        textAlign="center"
-        IconRight={ArrowRight}
+        <span className="flex items-center justify-center gap-2 text-black dark:text-white">
+          <span className="block text-lg">{supportButton}</span>
+        </span>
+      </Link>
+      <Link
+        href={PagesRoutes.Doc}
+        variant={LinkVariant.BUTTON}
+        color={LinkColor.CUSTOM}
+        label={getStartedButton.value}
+        className="hover:scale-105 px-4 py-2 rounded-full"
       >
-        {primaryContent}
-      </Button>
+        <span className="flex items-center justify-center gap-2">
+          <span className="text-lg">{getStartedButton}</span>
+          <ArrowRight width={20} height={20} />
+        </span>
+      </Link>
     </div>
   );
 };

@@ -1,58 +1,260 @@
-import { Globe } from '@components/Globe/Globe';
-import { Check } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
-import { ActionButtons } from './ActionButtons';
-import { AnimatedDescription } from './AnimatedDescription';
-import { ChevronDown } from './ChevronDown';
+'use client';
+
+import { PagesRoutes } from '@/Routes';
+import { Link } from '@components/Link/Link';
+import {
+  LinkColor,
+  LinkVariant,
+  Tag,
+  TagBorder,
+  TagColor,
+  TagSize,
+} from '@intlayer/design-system';
+import { cn } from '@utils/cn';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
+import type { FC, ReactNode, SVGProps } from 'react';
+import packageJSON from '../../../../package.json' with { type: 'json' };
+import { ExpressLogo } from '../AvailableTechnoSection/Express';
+import { LynxLogo } from '../AvailableTechnoSection/Lynx';
+import { NestJSLogo } from '../AvailableTechnoSection/NestJS';
+import { NextJSLogo } from '../AvailableTechnoSection/Nextjs';
+import { NuxtLogo } from '../AvailableTechnoSection/Nuxt';
+import { PreactLogo } from '../AvailableTechnoSection/Preact';
+import { ReactLogo } from '../AvailableTechnoSection/Reactjs';
+import { TanstackLogo } from '../AvailableTechnoSection/Tanstack';
+import { ViteLogo } from '../AvailableTechnoSection/Vitejs';
+import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
+// import { SolidLogo } from '../AvailableTechnoSection/Solid';
+// import { AngularLogo } from '../AvailableTechnoSection/Angular';
+// import { SolidLogo } from '../AvailableTechnoSection/Solid';
+// import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
+
+const SHOW_WHATS_NEW = false;
+// Animated Technology logos
+const logos = [
+  { Logo: ReactLogo, key: 'react', route: PagesRoutes.Doc_Environment_CRA },
+  {
+    Logo: NextJSLogo,
+    key: 'nextjs',
+    route: PagesRoutes.Doc_Environment_NextJS_15,
+  },
+  {
+    Logo: PreactLogo,
+    key: 'preact',
+    route: PagesRoutes.Doc_Environment_ViteAndPreact,
+  },
+  {
+    Logo: VuejsLogo,
+    key: 'vue',
+    route: PagesRoutes.Doc_Environment_ViteAndVue,
+  },
+  {
+    Logo: NuxtLogo,
+    key: 'nuxt',
+    route: PagesRoutes.Doc_Environment_NuxtAndVue,
+  },
+  {
+    Logo: ViteLogo,
+    key: 'vite',
+    route: PagesRoutes.Doc_Environment_ViteAndReact,
+  },
+  {
+    Logo: TanstackLogo,
+    key: 'tanstack',
+    route: PagesRoutes.Doc_Environment_Tanstack,
+  },
+  {
+    Logo: ExpressLogo,
+    key: 'express',
+    route: PagesRoutes.Doc_Environment_Express,
+  },
+  {
+    Logo: NestJSLogo,
+    key: 'nestjs',
+    route: PagesRoutes.Doc_Environment_NestJS,
+  },
+  {
+    Logo: LynxLogo,
+    key: 'lynx',
+    route: PagesRoutes.Doc_Intlayer_with_Lynx_and_React,
+  },
+  // { Logo: AstroLogo, key: 'astro' , route: PagesRoutes.Doc_Environment_Astro },
+  // { Logo: AngularLogo, key: 'angular', route: PagesRoutes.Doc_Environment_Angular },
+  // { Logo: SvelteLogo, key: 'svelte', route: PagesRoutes.Doc_Environment_ViteAndSvelte },
+  // { Logo: SolidLogo, key: 'solid', route: PagesRoutes.Doc_Environment_ViteAndSolid },
+];
+
+const LogoItem: FC<{
+  Logo: FC<SVGProps<SVGSVGElement>>;
+  key: string;
+  route: string;
+  className?: string;
+}> = ({ Logo, route, key, className }) => (
+  <Link href={route} label={key} color="custom">
+    <Logo
+      className={cn(
+        'size-16 sm:size-18 md:size-20 lg:size-24 opacity-70 hover:opacity-100 transition-opacity duration-200',
+        className
+      )}
+    />
+  </Link>
+);
+
+const TechLogos: FC = () => (
+  <div className="my-10 w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_170px,_black_calc(100%-170px),transparent_100%)]">
+    <div className="relative w-[300vw] gap-5 whitespace-nowrap flex items-center justify-evenly horizontal-loop-4">
+      {logos.map((logo, index) => (
+        <LogoItem {...logo} key={`${logo.key}-${index}-1`} />
+      ))}
+      {logos.map((logo, index) => (
+        <LogoItem {...logo} key={`${logo.key}-${index}-2`} />
+      ))}
+    </div>
+  </div>
+);
+
+const BlurInText: FC<{
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}> = ({ children, className = '', delay = 0 }) => {
+  return (
+    <motion.div
+      initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
+      animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export const LandingSection: FC = () => {
-  const { title, description, keyPoints } = useIntlayer('landing-section');
+  const {
+    whatsNew,
+    version,
+    title,
+    subheading,
+    description,
+    supportButton,
+    getStartedButton,
+    availableFor,
+  } = useIntlayer('landing-section');
 
   return (
-    <section className="relative flex min-h-[calc(100vh-64px)] w-full flex-col gap-16 md:flex-row md:px-10 md:pr-0">
-      <div className="relative flex w-full flex-1 flex-col items-center justify-between md:justify-center">
-        <div className="flex w-full md:flex-auto md:items-center">
-          <div className="relative z-10 flex flex-col md:w-3/5">
-            <div className="/90 bg-background/90 relative z-10 flex w-full flex-col justify-evenly gap-4 md:gap-16 md:!bg-transparent">
-              <h1 className="mt-5 px-8 text-4xl font-light leading-[3rem] md:w-[120%] md:text-6xl md:leading-[4rem]">
-                {title}
-              </h1>
-              <div className="flex flex-col gap-4">
-                {description.map((el) => (
-                  <AnimatedDescription
-                    className="text-neutral inset-x-0 w-full px-8 leading-7 max-md:text-sm"
-                    key={el.value}
-                  >
-                    {el}
-                  </AnimatedDescription>
-                ))}
-              </div>
-              <div className="ml-8 flex flex-col gap-3 px-8">
-                {keyPoints.map((el) => (
-                  <div
-                    className="flex items-center gap-2 text-sm"
-                    key={el.value}
-                  >
-                    <Check className="size-3 text-lime-800 dark:text-lime-600" />
+    <section className="relative flex flex-col min-h-[calc(100vh-64px)] w-full px-4 md:px-8 lg:px-12">
+      <div className="flex flex-col flex-1 items-center justify-center text-center">
+        {/* Centered Content */}
+        <div className="w-full max-w-4xl mx-auto mb-8 lg:mb-0">
+          {/* What's New Tag */}
+          {SHOW_WHATS_NEW && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8 flex justify-center items-center gap-2"
+            >
+              <Tag
+                size={TagSize.SM}
+                border={TagBorder.WITH}
+                color={TagColor.NEUTRAL}
+                className="border text-text rounded-full text-sm font-medium"
+              >
+                {whatsNew}
+              </Tag>
+              <Link
+                href={PagesRoutes.Changelog}
+                color="custom"
+                label="What's new"
+              >
+                <span className="flex items-center gap-1 text-sm sm:text-lg font-semibold text-neutral-500 dark:text-neutral-400">
+                  {version} v{packageJSON.version}{' '}
+                  <ArrowRight className="w-3 h-3" />
+                </span>
+              </Link>
+            </motion.div>
+          )}
 
-                    <span className="text-neutral">{el}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="from-background/90 relative z-10 flex h-20 flex-col gap-10 bg-gradient-to-b from-0% to-100% md:hidden md:w-3/5"></div>
-            <ActionButtons className="mt-10 px-8 max-md:hidden lg:mt-[15vh]" />
-          </div>
-          <div className="relative z-0 flex size-full max-w-full flex-1 justify-end overflow-hidden max-md:absolute max-md:bottom-28">
-            <div className="absolute bottom-0 left-0 w-[170%]">
-              <Globe />
-            </div>
-          </div>
+          {/* Title */}
+          <BlurInText
+            delay={0.3}
+            className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 lg:mb-6 text-center"
+          >
+            {title}
+          </BlurInText>
+
+          {/* Subtitle */}
+          <BlurInText
+            delay={0.5}
+            className="text-xl sm:text-3xl md:text-4xl font-semibold text-text mb-6 lg:mb-8 text-center"
+          >
+            {subheading}
+          </BlurInText>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="text-sm sm:text-lg text-neutral-600 dark:text-neutral-200 font-medium mb-8 lg:mb-12 leading-relaxed text-center max-w-2xl mx-auto"
+          >
+            {description}
+          </motion.p>
+
+          {/* Action Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 lg:mb-10 justify-center"
+          >
+            <Link
+              href="https://github.com/aymericzip/intlayer"
+              variant={LinkVariant.BUTTON}
+              // color={LinkColor.DARK}
+              label={supportButton.value}
+              className="hover:scale-105 px-4 py-2 rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-transparent hover:bg-transparent"
+              isExternalLink
+            >
+              <span className="flex items-center justify-center gap-2 text-text">
+                {/* <span className="block">
+                <Github width={20} height={20} />
+              </span> */}
+                <span className="block text-lg">{supportButton}</span>
+              </span>
+            </Link>
+
+            <Link
+              href={PagesRoutes.Doc}
+              variant={LinkVariant.BUTTON}
+              color={LinkColor.CUSTOM}
+              label={getStartedButton.value}
+              className="hover:scale-105 px-4 py-2 rounded-full"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <span className="text-lg">{getStartedButton}</span>
+                <ArrowRight width={20} height={20} />
+              </span>
+            </Link>
+          </motion.div>
+
+          {/* Available For Section - Full Viewport Width */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.0, duration: 0.6 }}
+            className="text-center w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-8"
+          >
+            <p className="text-sm sm:text-base text-text mb-6 font-medium tracking-wider">
+              {availableFor}
+            </p>
+            <TechLogos />
+          </motion.div>
         </div>
-        <ActionButtons className="z-10 mb-5 p-8 pt-0 md:hidden" />
       </div>
-      <ChevronDown className="absolute z-10 max-md:hidden text-neutral bottom-10 left-1/2 -translate-x-1/2 size-10 hover:cursor-pointer hover:translate-y-1 animate-bounce animate-infinite animate-duration-1000 animate-ease-linear" />
     </section>
   );
 };

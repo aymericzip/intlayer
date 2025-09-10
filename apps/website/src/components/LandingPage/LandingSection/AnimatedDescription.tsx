@@ -1,7 +1,7 @@
 'use client';
 
 import { m } from 'framer-motion';
-import { type HTMLAttributes, type FC } from 'react';
+import { type FC, type HTMLAttributes } from 'react';
 
 type AnimatedDescriptionProps = Pick<
   HTMLAttributes<HTMLParagraphElement>,
@@ -16,12 +16,10 @@ export const AnimatedDescription: FC<AnimatedDescriptionProps> = ({
   ...props
 }) => (
   <m.p
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: false }}
-    transition={{
-      delay: 0.8,
-    }}
+    initial={{ opacity: 0, y: 8, filter: 'blur(6px)' }}
+    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+    viewport={{ once: false, amount: 0.4 }}
+    transition={{ duration: 0.6, ease: 'easeOut' }}
     {...props}
   >
     {children}
