@@ -1462,6 +1462,86 @@ export const blogEntry = {
       )
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
+  './blog/en/rag_powered_documentation_assistant.md': {
+    en: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/en/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    fr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/fr/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    ru: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/ru/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    ja: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/ja/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    ko: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/ko/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    zh: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/zh/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    es: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/es/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    de: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/de/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    ar: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/ar/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    pt: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/pt/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    'en-GB': Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/en-GB/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    it: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/it/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    hi: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/hi/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+  } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/react-i18next_vs_react-intl_vs_intlayer.md': {
     en: Promise.resolve(
       readFile(
