@@ -58,6 +58,8 @@ RAG가 인기 있는 접근법이 된 데는 이유가 있습니다. 대형 언�
 
 ## RAG 파이프라인 작동 방식
 
+![RAG Pipeline](https://github.com/aymericzip/intlayer/blob/main/docs/assets/rag_flow.svg)
+
 전체적인 개요는 다음과 같습니다:
 
 1.  **문서 청킹(Chunking)** 큰 마크다운 파일을 여러 청크로 분할합니다. 청킹은 문서의 관련된 부분만 컨텍스트로 제공할 수 있게 합니다.

@@ -58,6 +58,8 @@ Ainsi, RAG n’est pas seulement un outil de support. C’est aussi un **moteur 
 
 ## Comment fonctionne le pipeline RAG
 
+![RAG Pipeline](https://github.com/aymericzip/intlayer/blob/main/docs/assets/rag_flow.svg)
+
 À un niveau élevé, voici la recette que j’ai utilisée :
 
 1.  **Découpage de la documentation** De gros fichiers Markdown sont divisés en morceaux. Le découpage permet de fournir comme contexte uniquement les parties pertinentes de la documentation.

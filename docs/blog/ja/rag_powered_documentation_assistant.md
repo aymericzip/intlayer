@@ -58,6 +58,8 @@ RAGが人気のアプローチになったのには理由があります。そ�
 
 ## RAGパイプラインの仕組み
 
+![RAG Pipeline](https://github.com/aymericzip/intlayer/blob/main/docs/assets/rag_flow.svg)
+
 大まかに言うと、私が使ったレシピは以下の通りです：
 
 1.  **ドキュメントのチャンク分割** 大きなMarkdownファイルをチャンクに分割します。チャンク分割により、ドキュメントの関連部分だけをコンテキストとして提供できます。
