@@ -40,7 +40,7 @@ COPY \
 RUN pnpm install --frozen-lockfile
 
 # Build every package in the workspace (uses the root "build" script)
-RUN turbo run build:ci --filter=./packages/@intlayer/mcp
+RUN npx turbo run build:ci --filter=./packages/@intlayer/mcp
 
 # Remove all dev dependencies
 RUN pnpm prune --prod
