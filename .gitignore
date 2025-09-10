@@ -28,3 +28,6 @@ dictionaries
 # service-worker
 sw.js
 workbox-*.js
+
+# turbo
+.turbo

@@ -75,6 +75,9 @@ importers:
       rollup-plugin-visualizer:
         specifier: ^6.0.3
         version: 6.0.3(rollup@4.50.0)
+      turbo:
+        specifier: ^2.1.3
+        version: 2.5.6
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.9.2)(vite@7.1.4(@types/node@24.3.1)(jiti@2.5.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.44.0)(tsx@4.20.5)(yaml@2.8.1))
@@ -359,9 +362,6 @@ importers:
         specifier: ^3.25.56
         version: 3.25.76
     devDependencies:
-      '@intlayer/backend':
-        specifier: workspace:*
-        version: link:../backend
       '@intlayer/swc':
         specifier: workspace:*
         version: link:../../packages/@intlayer/swc
@@ -1475,9 +1475,6 @@ importers:
       '@changesets/cli':
         specifier: 2.29.5
         version: 2.29.5
-      '@intlayer/backend':
-        specifier: workspace:*
-        version: link:../../../apps/backend
       '@types/node':
         specifier: ^24.2.1
         version: 24.3.1
@@ -1502,9 +1499,6 @@ importers:
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.5.1)
-      intlayer-editor:
-        specifier: workspace:*
-        version: link:../../intlayer-editor
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
@@ -1669,9 +1663,6 @@ importers:
       '@changesets/cli':
         specifier: 2.29.5
         version: 2.29.5
-      '@intlayer/backend':
-        specifier: workspace:*
-        version: link:../../../apps/backend
       '@types/babel__generator':
         specifier: ^7.27.0
         version: 7.27.0
@@ -2024,9 +2015,6 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^3.2.7
         version: 3.2.7(react@19.1.1)(storybook@8.6.14(prettier@3.6.2))
-      '@intlayer/backend':
-        specifier: workspace:*
-        version: link:../../../apps/backend
       '@storybook/addon-essentials':
         specifier: ^8.6.14
         version: 8.6.14(@types/react@19.1.12)(storybook@8.6.14(prettier@3.6.2))
@@ -2943,9 +2931,6 @@ importers:
         specifier: workspace:*
         version: link:../vite-intlayer
     devDependencies:
-      '@intlayer/backend':
-        specifier: workspace:*
-        version: link:../../apps/backend
       '@tailwindcss/vite':
         specifier: ^4.0.14
         version: 4.1.13(vite@7.1.4(@types/node@24.3.1)(jiti@2.5.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.44.0)(tsx@4.20.5)(yaml@2.8.1))
@@ -3316,9 +3301,6 @@ importers:
       '@intlayer/editor-react':
         specifier: workspace:*
         version: link:../@intlayer/editor-react
-      intlayer:
-        specifier: workspace:*
-        version: link:../intlayer
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -3332,9 +3314,6 @@ importers:
       '@craco/types':
         specifier: ^7.1.0
         version: 7.1.0(@swc/core@1.13.5(@swc/helpers@0.5.17))(eslint@9.34.0(jiti@2.5.1))(postcss@8.5.6)
-      '@intlayer/backend':
-        specifier: workspace:*
-        version: link:../../apps/backend
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -3368,6 +3347,9 @@ importers:
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.5.1)
+      intlayer:
+        specifier: workspace:*
+        version: link:../intlayer
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
@@ -3475,9 +3457,6 @@ importers:
       '@craco/types':
         specifier: ^7.1.0
         version: 7.1.0(@swc/core@1.13.5(@swc/helpers@0.5.17))(eslint@9.34.0(jiti@2.5.1))(postcss@8.5.6)
-      '@intlayer/backend':
-        specifier: workspace:*
-        version: link:../../apps/backend
       '@types/cross-spawn':
         specifier: ^6.0.6
         version: 6.0.6
@@ -3770,9 +3749,6 @@ importers:
         specifier: ^3.5.13
         version: 3.5.21(typescript@5.9.2)
     devDependencies:
-      '@intlayer/backend':
-        specifier: workspace:*
-        version: link:../../apps/backend
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -32506,11 +32482,66 @@ packages:
       }
     engines: { node: ^18.17.0 || >=20.5.0 }
 
+  turbo-darwin-64@2.5.6:
+    resolution:
+      {
+        integrity: sha512-3C1xEdo4aFwMJAPvtlPqz1Sw/+cddWIOmsalHFMrsqqydcptwBfu26WW2cDm3u93bUzMbBJ8k3zNKFqxJ9ei2A==,
+      }
+    cpu: [x64]
+    os: [darwin]
+
+  turbo-darwin-arm64@2.5.6:
+    resolution:
+      {
+        integrity: sha512-LyiG+rD7JhMfYwLqB6k3LZQtYn8CQQUePbpA8mF/hMLPAekXdJo1g0bUPw8RZLwQXUIU/3BU7tXENvhSGz5DPA==,
+      }
+    cpu: [arm64]
+    os: [darwin]
+
+  turbo-linux-64@2.5.6:
+    resolution:
+      {
+        integrity: sha512-GOcUTT0xiT/pSnHL4YD6Yr3HreUhU8pUcGqcI2ksIF9b2/r/kRHwGFcsHgpG3+vtZF/kwsP0MV8FTlTObxsYIA==,
+      }
+    cpu: [x64]
+    os: [linux]
+
+  turbo-linux-arm64@2.5.6:
+    resolution:
+      {
+        integrity: sha512-10Tm15bruJEA3m0V7iZcnQBpObGBcOgUcO+sY7/2vk1bweW34LMhkWi8svjV9iDF68+KJDThnYDlYE/bc7/zzQ==,
+      }
+    cpu: [arm64]
+    os: [linux]
+
   turbo-stream@3.1.0:
     resolution:
       {
         integrity: sha512-tVI25WEXl4fckNEmrq70xU1XumxUwEx/FZD5AgEcV8ri7Wvrg2o7GEq8U7htrNx3CajciGm+kDyhRf5JB6t7/A==,
       }
+
+  turbo-windows-64@2.5.6:
+    resolution:
+      {
+        integrity: sha512-FyRsVpgaj76It0ludwZsNN40ytHN+17E4PFJyeliBEbxrGTc5BexlXVpufB7XlAaoaZVxbS6KT8RofLfDRyEPg==,
+      }
+    cpu: [x64]
+    os: [win32]
+
+  turbo-windows-arm64@2.5.6:
+    resolution:
+      {
+        integrity: sha512-j/tWu8cMeQ7HPpKri6jvKtyXg9K1gRyhdK4tKrrchH8GNHscPX/F71zax58yYtLRWTiK04zNzPcUJuoS0+v/+Q==,
+      }
+    cpu: [arm64]
+    os: [win32]
+
+  turbo@2.5.6:
+    resolution:
+      {
+        integrity: sha512-gxToHmi9oTBNB05UjUsrWf0OyN5ZXtD0apOarC1KIx232Vp3WimRNy3810QzeNSgyD5rsaIDXlxlbnOzlouo+w==,
+      }
+    hasBin: true
 
   tween-functions@1.2.0:
     resolution:
@@ -57873,7 +57904,34 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  turbo-darwin-64@2.5.6:
+    optional: true
+
+  turbo-darwin-arm64@2.5.6:
+    optional: true
+
+  turbo-linux-64@2.5.6:
+    optional: true
+
+  turbo-linux-arm64@2.5.6:
+    optional: true
+
   turbo-stream@3.1.0: {}
+
+  turbo-windows-64@2.5.6:
+    optional: true
+
+  turbo-windows-arm64@2.5.6:
+    optional: true
+
+  turbo@2.5.6:
+    optionalDependencies:
+      turbo-darwin-64: 2.5.6
+      turbo-darwin-arm64: 2.5.6
+      turbo-linux-64: 2.5.6
+      turbo-linux-arm64: 2.5.6
+      turbo-windows-64: 2.5.6
+      turbo-windows-arm64: 2.5.6
 
   tween-functions@1.2.0: {}
 
