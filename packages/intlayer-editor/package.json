@@ -110,7 +110,6 @@
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@intlayer/backend": "workspace:*",
     "@tailwindcss/vite": "^4.0.14",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.2",

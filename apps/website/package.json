@@ -94,7 +94,6 @@
     "zod": "^3.25.56"
   },
   "devDependencies": {
-    "@intlayer/backend": "workspace:*",
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "^4.1.8",
     "@types/next-pwa": "^5.6.9",
