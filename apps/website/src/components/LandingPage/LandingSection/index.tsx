@@ -14,23 +14,8 @@ import { motion } from 'framer-motion';
 import packageJSON from 'intlayer/package.json' with { type: 'json' };
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import { TechLogos } from './TechLogos';
-
-const BlurInText: FC<{
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-}> = ({ children, className = '', delay = 0 }) => (
-  <motion.div
-    initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
-    animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay }}
-    className={className}
-  >
-    {children}
-  </motion.div>
-);
 
 const SHOW_WHATS_NEW = false;
 
@@ -81,20 +66,24 @@ export const LandingSection: FC = () => {
           )}
 
           {/* Title */}
-          <BlurInText
-            delay={0.3}
+          <motion.h1
+            initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
+            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 lg:mb-6 text-center"
           >
             {title}
-          </BlurInText>
+          </motion.h1>
 
           {/* Subtitle */}
-          <BlurInText
-            delay={0.5}
+          <motion.h2
+            initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
+            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
             className="text-xl sm:text-3xl md:text-4xl font-semibold text-text mb-6 lg:mb-8 text-center"
           >
             {subheading}
-          </BlurInText>
+          </motion.h2>
 
           {/* Description */}
           <motion.p
