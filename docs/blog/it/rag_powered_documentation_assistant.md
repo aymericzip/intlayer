@@ -58,6 +58,8 @@ Quindi, RAG non è solo uno strumento di supporto. È anche un **motore di scope
 
 ## Come funziona la pipeline RAG
 
+![RAG Pipeline](https://github.com/aymericzip/intlayer/blob/main/docs/assets/rag_flow.svg)
+
 Ad alto livello, ecco la ricetta che ho usato:
 
 1.  **Suddivisione della documentazione in chunk** Grandi file Markdown vengono divisi in chunk. La suddivisione permette di fornire come contesto solo le parti rilevanti della documentazione.

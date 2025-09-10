@@ -58,6 +58,8 @@ RAG之所以成为流行的方法，是有原因的：它是让大型语言模�
 
 ## RAG 流程是如何工作的
 
+![RAG Pipeline](https://github.com/aymericzip/intlayer/blob/main/docs/assets/rag_flow.svg)
+
 从高层次来看，我使用的流程如下：
 
 1. **文档分块** 大型 Markdown 文件被拆分成多个块。分块可以让上下文只包含文档中相关的部分。

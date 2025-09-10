@@ -58,6 +58,8 @@ So, RAG isn’t just a support tool. It’s also a **product discovery engine**
 
 ## How the RAG Pipeline Works
 
+![RAG Pipeline](https://github.com/aymericzip/intlayer/blob/main/docs/assets/rag_flow.svg)
+
 At a high level, here’s the recipe I used:
 
 1.  **Chunking the documentation** Large Markdown files are split into chunks. Chunking allows you to provide as context only the relevant parts of the documentation.

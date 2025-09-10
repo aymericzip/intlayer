@@ -58,6 +58,8 @@ Así que, RAG no es solo una herramienta de soporte. También es un **motor de d
 
 ## Cómo funciona la canalización RAG
 
+![RAG Pipeline](https://github.com/aymericzip/intlayer/blob/main/docs/assets/rag_flow.svg)
+
 A grandes rasgos, esta es la receta que usé:
 
 1.  **Dividir la documentación en fragmentos** Los archivos grandes de Markdown se dividen en fragmentos. Dividir permite proporcionar como contexto solo las partes relevantes de la documentación.
