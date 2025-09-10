@@ -23,7 +23,7 @@ Intlayer allows the automatic generation of translations for your content declar
 
 ## Using the CMS
 
-With Intlayer, you can adopt a workflow where only a single locale is declared locally, while all translations are managed remotely through the CMS. This allows content and translations to be completely detached from the codebase, offering more flexibility for content editors and enabling hot content reloading (no need to rebuild the application to apply changes).
+With Intlayer, you can adopt a workflow where only a single locale is declared locally, while all translations are managed remotely through the CMS. This allows content and translations to be completely detached from the codebase, offering more flexibility for content editors and enabling Live Sync (no need to rebuild the application to apply changes).
 
 ### Example Configuration
 
@@ -37,12 +37,10 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   editor: {
-    dictionaryPriorityStrategy: "distant_first", // Remote content takes priority
-
-    applicationURL: process.env.APPLICATION_URL, // Application URL used by the CMS
-
-    clientId: process.env.INTLAYER_CLIENT_ID, // CMS credentials
+    // CMS credentials if you use the CMS
+    clientId: process.env.INTLAYER_CLIENT_ID,
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    liveSync: true,
   },
   ai: {
     applicationContext: "This is a test application", // Helps ensure consistent translation generation
