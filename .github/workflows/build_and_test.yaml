@@ -70,7 +70,7 @@ jobs:
       - name: 🏗️ Build
         id: build-the-mono-repo
         run: |
-          pnpm build
+          pnpm build:ci
 
       # - name: 🧪 Test packages
       #   run: npm test

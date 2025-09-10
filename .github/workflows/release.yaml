@@ -68,7 +68,7 @@ jobs:
       - name: 🏗️ Build
         id: build-the-mono-repo
         run: |
-          pnpm build
+          pnpm build:ci
 
       - name: 🔍 Check for changesets
         id: check-changesets
