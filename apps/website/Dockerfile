@@ -70,7 +70,7 @@ COPY \
 RUN pnpm install --frozen-lockfile
 
 # Build every package in the workspace (uses the root "build" script)
-RUN pnpm run build:ci
+RUN turbo run build:ci --filter=./apps/website
 
 # Set working directory to the website package and build it
 WORKDIR /workspace/apps/website
