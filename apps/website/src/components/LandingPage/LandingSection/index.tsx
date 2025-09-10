@@ -2,7 +2,6 @@
 
 import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
-
 import {
   LinkColor,
   LinkVariant,
@@ -14,7 +13,7 @@ import {
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import type { FC, SVGProps } from 'react';
+import type { FC, ReactNode, SVGProps } from 'react';
 import packageJSON from '../../../../package.json' with { type: 'json' };
 import { LynxLogo } from '../AvailableTechnoSection/Lynx';
 import { NextJSLogo } from '../AvailableTechnoSection/Nextjs';
@@ -29,65 +28,73 @@ import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
 
 const SHOW_WHATS_NEW = false;
 // Animated Technology logos
-const TechLogos: FC = () => {
-  const { icons } = useIntlayer('available-techno-section');
+const logos: Array<{
+  Logo: FC<SVGProps<SVGSVGElement>>;
+  key: string;
+  route: string;
+}> = [
+  { Logo: ReactLogo, key: 'react', route: PagesRoutes.Doc_Environment_CRA },
+  {
+    Logo: NextJSLogo,
+    key: 'nextjs',
+    route: PagesRoutes.Doc_Environment_NextJS_15,
+  },
+  {
+    Logo: PreactLogo,
+    key: 'preact',
+    route: PagesRoutes.Doc_Environment_ViteAndPreact,
+  },
+  {
+    Logo: VuejsLogo,
+    key: 'vue',
+    route: PagesRoutes.Doc_Environment_ViteAndVue,
+  },
+  {
+    Logo: NuxtLogo,
+    key: 'nuxt',
+    route: PagesRoutes.Doc_Environment_NuxtAndVue,
+  },
+  {
+    Logo: ViteLogo,
+    key: 'vite',
+    route: PagesRoutes.Doc_Environment_ViteAndReact,
+  },
+  {
+    Logo: LynxLogo,
+    key: 'lynx',
+    route: PagesRoutes.Doc_Intlayer_with_Lynx_and_React,
+  },
+  // { Logo: AstroLogo, key: 'astro' , route: PagesRoutes.Doc_Environment_Astro },
+  // { Logo: AngularLogo, key: 'angular', route: PagesRoutes.Doc_Environment_Angular },
+  // { Logo: SvelteLogo, key: 'svelte', route: PagesRoutes.Doc_Environment_ViteAndSvelte },
+  // { Logo: SolidLogo, key: 'solid', route: PagesRoutes.Doc_Environment_ViteAndSolid },
+];
 
-  const logos: Array<{
-    Logo: FC<SVGProps<SVGSVGElement>>;
-    key: keyof typeof icons;
-  }> = [
-    { Logo: ReactLogo, key: 'react' },
-    { Logo: NextJSLogo, key: 'nextjs' },
-    { Logo: PreactLogo, key: 'preact' },
-    { Logo: VuejsLogo, key: 'vue' },
-    { Logo: NuxtLogo, key: 'nuxt' },
-    { Logo: ViteLogo, key: 'vite' },
-    { Logo: LynxLogo, key: 'lynx' },
-    // { Logo: AstroLogo, key: 'astro' },
-    // { Logo: AngularLogo, key: 'angular' },
-    // { Logo: SvelteLogo, key: 'svelte' },
-    // { Logo: SolidLogo, key: 'solid' }
-  ];
+// Duplicate logos for seamless infinite scroll
 
-  // Duplicate logos for seamless infinite scroll
-  // const duplicatedLogos = [...logos, ...logos, ...logos, ...logos];
-  const duplicatedLogos = [...logos, ...logos];
-
-  return (
-    <div className="w-full overflow-hidden relative [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{
-          opacity: 1,
-          y: 0,
-          x: [0, -(logos.length * 100)],
-        }}
-        transition={{
-          opacity: { duration: 0.7 },
-          y: { duration: 0.7 },
-          x: {
-            repeat: Infinity,
-            repeatType: 'loop',
-            duration: 25,
-            ease: 'linear',
-            delay: 1,
-          },
-        }}
-        style={{ willChange: 'transform' }}
-        className="flex gap-16 sm:gap-20 md:gap-24 lg:gap-28 items-center py-6 transform-gpu"
-      >
-        {duplicatedLogos.map((logo, index) => (
-          <div key={`${logo.key}-${index}`} className="flex-shrink-0">
-            <logo.Logo className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 opacity-70 hover:opacity-100 transition-opacity duration-200" />
-          </div>
-        ))}
-      </motion.div>
+const TechLogos: FC = () => (
+  <div className="my-10 w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_170px,_black_calc(100%-170px),transparent_100%)]">
+    <div className="relative w-[200vw] gap-5 whitespace-nowrap flex items-center justify-evenly horizontal-loop-4">
+      {logos.map((logo, index) => (
+        <Link href={logo.route} key={`${logo.key}-${index}-1`}>
+          <logo.Logo
+            key={`${logo.key}-${index}-1`}
+            className="flex-shrink-0 w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 opacity-70 hover:opacity-100 transition-opacity duration-200"
+          />
+        </Link>
+      ))}
+      {logos.map((logo, index) => (
+        <logo.Logo
+          key={`${logo.key}-${index}-2`}
+          className="flex-shrink-0 w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 opacity-70 hover:opacity-100 transition-opacity duration-200"
+        />
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 const BlurInText: FC<{
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   delay?: number;
 }> = ({ children, className = '', delay = 0 }) => {

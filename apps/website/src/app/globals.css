@@ -47,6 +47,13 @@
   animation-timing-function: linear;
 }
 
+.horizontal-loop-4 {
+  animation-name: infiniteScroll;
+  animation-duration: 50s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
 .animate-float {
   animation-name: float;
   animation-duration: 3s;
