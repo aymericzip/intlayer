@@ -66,7 +66,7 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
       id={doc.url}
       href={doc.url}
       className="w-full max-w-full"
-      onClickLink={onClickLink}
+      onClick={onClickLink}
     >
       <div className="flex items-center justify-between gap-2 text-wrap p-3">
         <div className="flex flex-1 flex-col gap-2 text-left">
