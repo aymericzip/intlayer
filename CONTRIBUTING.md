@@ -65,20 +65,31 @@ To understand the interest of all packages, you can read the [documentation name
 
 ### Building pacakges
 
-> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
+> The repo use turborepo to optimize the building process.
 
-> ⏱️ On Github Actions, building packages usualy take around 2 to 4 minutes.
-> ⏱️ On old environment, building packages can be really slow and can take more than 10 minutes.
+Look at the application that you want to contribute to, and build it with the following example commands:
+
+```sh
+# Build website and all related packages
+pnpm turbo run build --filter=./apps/website
+```
+
+```sh
+# Build vite-react-app example app and all related packages
+pnpm turbo run build --filter=./examples/vite-react-app
+```
+
+Or if you want to build all packages, you can use the following command:
 
 ```sh
 # Build all packages (clean dist folders, and build packages)
 pnpm build
 ```
 
-```sh
-# Build all packages (only build packages, without cleaning dist folders)
-pnpm build:ci
-```
+> ⏱️ On Github Actions, building all packages usualy take around 2 to 4 minutes.
+> ⏱️ On old environment, building all packages can be really slow and can take more than 10 minutes.
+
+To pick a package and build it, without having to navigate in the repository, you can use the following command:
 
 ```sh
 # Select a package and build it (clean dist folder, and build package)
@@ -86,8 +97,6 @@ pnpm build:pick
 ```
 
 ### Development mode
-
-> If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
 ```sh
 # Start development mode for all packages
