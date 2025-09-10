@@ -44,102 +44,24 @@ npm install -g pnpm@10.12.1
 pnpm install:packages
 ```
 
-The `--filter '!./examples/\*\*'` argument in pnpm install is used to exclude all packages within the examples directory from being installed. This is necessary to avoid installing dependencies for example projects that you are not currently working on, which can save time and disk space by only installing the essential packages needed for your specific development task.
-
 ##### Tips
 
-If you're only working on a specific example (`vite-react-app`, `nextjs-14-app`, etc.), you can install only the necessary dependencies.  
+Then, if you're only working on a specific example (`vite-react-app`, `nextjs-14-app`, etc.), you can install only the necessary dependencies.  
 This prevents installing docs, backend apps, and all other frameworks you're not working with.
 
-Example: Install only the root package, utils, `react-intlayer`, and the `vite-react-app` example
+Example: Install only the `vite-react-app` example
 
 ```bash
-pnpm install \
-  -F . \
-  -F ./utils/ts-config \
-  -F ./utils/ts-config-types \
-  -F ./utils/tsup-config \
-  -F ./utils/eslint-config \
-  -F ./packages/react-intlayer \
-  -F ./examples/vite-react-app
+pnpm install  -F ./examples/vite-react-app
 ```
 
 > `-F` is the short form for `--filter`, used to limit installation to selected packages only.
 
+The `--filter '!./examples/\*\*'` argument in pnpm install is used to exclude all packages within the examples directory from being installed.
+
 ##### Packages List
 
 To understand the interest of all packages, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md).
-
-###### Core repository
-
-- `.` (root `package.json`)
-- `utils/eslint-config`
-- `utils/ts-config`
-- `utils/ts-config-types`
-- `utils/tsup-config`
-
-###### Official Packages
-
-- `packages/angular-intlayer`
-- `packages/express-intlayer`
-- `packages/intlayer`
-- `packages/intlayer-cli`
-- `packages/intlayer-editor`
-- `packages/lynx-intlayer`
-- `packages/next-intlayer`
-- `packages/nuxt-intlayer`
-- `packages/preact-intlayer`
-- `packages/react-intlayer`
-- `packages/react-native-intlayer`
-- `packages/react-scripts-intlayer`
-- `packages/solid-intlayer`
-- `packages/svelte-intlayer`
-- `packages/vite-intlayer`
-- `packages/vue-intlayer`
-
-###### Intlayer Internal Packages (`@intlayer/`)
-
-- `packages/@intlayer/api`
-- `packages/@intlayer/babel`
-- `packages/@intlayer/chokidar`
-- `packages/@intlayer/cli`
-- `packages/@intlayer/config`
-- `packages/@intlayer/core`
-- `packages/@intlayer/design-system`
-- `packages/@intlayer/dictionaries-entry`
-- `packages/@intlayer/dynamic-dictionaries-entry`
-- `packages/@intlayer/unmerged-dictionaries-entry`
-- `packages/@intlayer/editor`
-- `packages/@intlayer/editor-react`
-- `packages/@intlayer/mcp`
-- `packages/@intlayer/swc`
-- `packages/@intlayer/webpack`
-
-###### Applications
-
-- `apps/backend`
-- `apps/website`
-
-###### Documentation & Blog
-
-- `blog/`
-- `docs/`
-
-###### Examples
-
-- `examples/angular-app`
-- `examples/cli`
-- `examples/express-app`
-- `examples/nextjs-14-app`
-- `examples/nextjs-15-app`
-- `examples/nuxt-app`
-- `examples/react-app`
-- `examples/react-native-app`
-- `examples/vite-preact-app`
-- `examples/vite-react-app`
-- `examples/vite-solid-app`
-- `examples/vite-svelte-app`
-- `examples/vite-vue-app`
 
 ### Building pacakges
 
