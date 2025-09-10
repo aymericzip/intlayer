@@ -119,7 +119,6 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.7",
-    "@intlayer/backend": "workspace:*",
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/addon-interactions": "^8.6.14",
     "@storybook/addon-links": "^8.6.14",

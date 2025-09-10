@@ -75,7 +75,6 @@
   "devDependencies": {
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "2.29.5",
-    "@intlayer/backend": "workspace:*",
     "@types/node": "^24.2.1",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
@@ -84,7 +83,6 @@
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
     "eslint": "^9.34.0",
-    "intlayer-editor": "workspace:*",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",

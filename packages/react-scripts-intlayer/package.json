@@ -85,7 +85,6 @@
   },
   "devDependencies": {
     "@craco/types": "^7.1.0",
-    "@intlayer/backend": "workspace:*",
     "@types/cross-spawn": "^6.0.6",
     "@types/node": "^24.2.1",
     "@types/webpack": "^5.28.5",
