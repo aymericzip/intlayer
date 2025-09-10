@@ -10,29 +10,30 @@ import {
   TagColor,
   TagSize,
 } from '@intlayer/design-system';
+import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode, SVGProps } from 'react';
 import packageJSON from '../../../../package.json' with { type: 'json' };
+import { ExpressLogo } from '../AvailableTechnoSection/Express';
 import { LynxLogo } from '../AvailableTechnoSection/Lynx';
+import { NestJSLogo } from '../AvailableTechnoSection/NestJS';
 import { NextJSLogo } from '../AvailableTechnoSection/Nextjs';
 import { NuxtLogo } from '../AvailableTechnoSection/Nuxt';
 import { PreactLogo } from '../AvailableTechnoSection/Preact';
 import { ReactLogo } from '../AvailableTechnoSection/Reactjs';
+import { TanstackLogo } from '../AvailableTechnoSection/Tanstack';
 import { ViteLogo } from '../AvailableTechnoSection/Vitejs';
 import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
+// import { SolidLogo } from '../AvailableTechnoSection/Solid';
 // import { AngularLogo } from '../AvailableTechnoSection/Angular';
 // import { SolidLogo } from '../AvailableTechnoSection/Solid';
 // import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
 
 const SHOW_WHATS_NEW = false;
 // Animated Technology logos
-const logos: Array<{
-  Logo: FC<SVGProps<SVGSVGElement>>;
-  key: string;
-  route: string;
-}> = [
+const logos = [
   { Logo: ReactLogo, key: 'react', route: PagesRoutes.Doc_Environment_CRA },
   {
     Logo: NextJSLogo,
@@ -60,6 +61,21 @@ const logos: Array<{
     route: PagesRoutes.Doc_Environment_ViteAndReact,
   },
   {
+    Logo: TanstackLogo,
+    key: 'tanstack',
+    route: PagesRoutes.Doc_Environment_Tanstack,
+  },
+  {
+    Logo: ExpressLogo,
+    key: 'express',
+    route: PagesRoutes.Doc_Environment_Express,
+  },
+  {
+    Logo: NestJSLogo,
+    key: 'nestjs',
+    route: PagesRoutes.Doc_Environment_NestJS,
+  },
+  {
     Logo: LynxLogo,
     key: 'lynx',
     route: PagesRoutes.Doc_Intlayer_with_Lynx_and_React,
@@ -70,24 +86,30 @@ const logos: Array<{
   // { Logo: SolidLogo, key: 'solid', route: PagesRoutes.Doc_Environment_ViteAndSolid },
 ];
 
-// Duplicate logos for seamless infinite scroll
+const LogoItem: FC<{
+  Logo: FC<SVGProps<SVGSVGElement>>;
+  key: string;
+  route: string;
+  className?: string;
+}> = ({ Logo, route, key, className }) => (
+  <Link href={route} label={key} color="custom">
+    <Logo
+      className={cn(
+        'size-16 sm:size-18 md:size-20 lg:size-24 opacity-70 hover:opacity-100 transition-opacity duration-200',
+        className
+      )}
+    />
+  </Link>
+);
 
 const TechLogos: FC = () => (
   <div className="my-10 w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_170px,_black_calc(100%-170px),transparent_100%)]">
-    <div className="relative w-[200vw] gap-5 whitespace-nowrap flex items-center justify-evenly horizontal-loop-4">
+    <div className="relative w-[300vw] gap-5 whitespace-nowrap flex items-center justify-evenly horizontal-loop-4">
       {logos.map((logo, index) => (
-        <Link href={logo.route} key={`${logo.key}-${index}-1`}>
-          <logo.Logo
-            key={`${logo.key}-${index}-1`}
-            className="flex-shrink-0 w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 opacity-70 hover:opacity-100 transition-opacity duration-200"
-          />
-        </Link>
+        <LogoItem {...logo} key={`${logo.key}-${index}-1`} />
       ))}
       {logos.map((logo, index) => (
-        <logo.Logo
-          key={`${logo.key}-${index}-2`}
-          className="flex-shrink-0 w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 opacity-70 hover:opacity-100 transition-opacity duration-200"
-        />
+        <LogoItem {...logo} key={`${logo.key}-${index}-2`} />
       ))}
     </div>
   </div>
@@ -167,7 +189,7 @@ export const LandingSection: FC = () => {
           {/* Subtitle */}
           <BlurInText
             delay={0.5}
-            className="text-xl sm:text-3xl md:text-4xl font-semibold text-black dark:text-white mb-6 lg:mb-8 text-center"
+            className="text-xl sm:text-3xl md:text-4xl font-semibold text-text mb-6 lg:mb-8 text-center"
           >
             {subheading}
           </BlurInText>
@@ -197,7 +219,7 @@ export const LandingSection: FC = () => {
               className="hover:scale-105 px-4 py-2 rounded-full border-2 border-neutral-300 dark:border-neutral-600 bg-transparent hover:bg-transparent"
               isExternalLink
             >
-              <span className="flex items-center justify-center gap-2 text-black dark:text-white">
+              <span className="flex items-center justify-center gap-2 text-text">
                 {/* <span className="block">
                 <Github width={20} height={20} />
               </span> */}
@@ -226,7 +248,7 @@ export const LandingSection: FC = () => {
             transition={{ delay: 1.0, duration: 0.6 }}
             className="text-center w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-8"
           >
-            <p className="text-sm sm:text-base text-black dark:text-white mb-6 font-medium tracking-wider">
+            <p className="text-sm sm:text-base text-text mb-6 font-medium tracking-wider">
               {availableFor}
             </p>
             <TechLogos />

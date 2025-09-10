@@ -23,6 +23,7 @@ export enum PagesRoutes {
   Doc_Environment_NextJS_14 = '/doc/environment/nextjs/14',
   Doc_Environment_CRA = '/doc/environment/create-react-app',
   Doc_Environment_ViteAndReact = '/doc/environment/vite-and-react',
+  Doc_Environment_Tanstack = '/doc/environment/tanstack',
   Doc_Environment_ViteAndVue = '/doc/environment/vite-and-vue',
   Doc_Environment_ViteAndSolid = '/doc/environment/vite-and-solid',
   Doc_Environment_ViteAndSvelte = '/doc/environment/vite-and-svelte',
@@ -33,6 +34,7 @@ export enum PagesRoutes {
   Doc_Environment_ReactNativeAndExpo = '/doc/environment/react-native-and-expo',
   Doc_Environment_Lynx = '/doc/environment/lynx-and-react',
   Doc_Environment_Express = '/doc/environment/express',
+  Doc_Environment_NestJS = '/doc/environment/nestjs',
 
   Doc_MCP = '/doc/mcp-server',
 
