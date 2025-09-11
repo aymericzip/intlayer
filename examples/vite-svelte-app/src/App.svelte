@@ -2,12 +2,8 @@
   import svelteLogo from './assets/svelte.svg';
   import viteLogo from '/vite.svg';
   import Counter from './lib/Counter.svelte';
-  import { IntLayerProvider } from 'svelte-intlayer-test';
-  import Test from './test.svelte';
-
-  let content = {
-    title: 'Hello World',
-  };
+  import { IntLayerProvider } from 'svelte-intlayer';
+  import Test from './Content.svelte';
 </script>
 
 <IntLayerProvider locale="fr">
@@ -20,9 +16,6 @@
         <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
       </a>
     </div>
-
-    {content.title}
-    <!-- {JSON.stringify(test)} -->
     <h1>Vite + Svelte</h1>
 
     <div class="card">

@@ -1,155 +1,58 @@
-<div align="center">
-  <a href="https://intlayer.org">
-    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
-  </a>
-</div>
+# Svelte library
 
-<div align="center">
-  <a href="https://www.npmjs.com/package/svelte-intlayer" target="blank"><img
-    align="center"
-    alt="npm"
-    src="https://img.shields.io/npm/v/svelte-intlayer.svg?labelColor=49516F&color=8994BC&style=for-the-badge"
-    height="30" /></a>
-  <a href="https://npmjs.org/package/svelte-intlayer" target="blank"><img
-      align="center"
-      src="https://img.shields.io/npm/dm/svelte-intlayer?labelColor=49516F&color=8994BC&style=for-the-badge"
-      alt="monthly downloads"
-      height="30"
-    /></a>
-  <a href="https://npmjs.org/package/svelte-intlayer" target="blank"><img
-      align="center"
-      src="https://img.shields.io/npm/types/svelte-intlayer?label=types%20included&labelColor=49516F&color=8994BC&style=for-the-badge"
-      alt="types included"
-      height="30"
-    /></a>
-</div>
+Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
 
-<div>
-    <br/>
-    <p align="center">
-      <a href="https://discord.gg/528mBV4N" target="blank"><img align="center"
-         src="https://img.shields.io/badge/discord-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white"
-         alt="Intlayer Discord" height="30"/></a>
-      <a href="https://www.linkedin.com/company/intlayerorg" target="blank"><img align="center"
-         src="https://img.shields.io/badge/linkedin-%231DA1F2.svg?style=for-the-badge&logo=linkedin&logoColor=white"
-         alt="Intlayer LinkedIn" height="30"/></a>
-      <a href="https://www.facebook.com/intlayer" target="blank"><img align="center"
-         src="https://img.shields.io/badge/facebook-4267B2.svg?style=for-the-badge&logo=facebook&logoColor=white"
-         alt="Intlayer Facebook" height="30"/></a>
-      <a href="https://www.instagram.com/intlayer/" target="blank"><img align="center"
-         src="https://img.shields.io/badge/instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white"
-         alt="Intlayer Instagram" height="30"/></a>
-      <a href="https://x.com/Intlayer183096" target="blank"><img align="center"
-         src="https://img.shields.io/badge/x-1DA1F2.svg?style=for-the-badge&logo=x&logoColor=white"
-         alt="Intlayer X" height="30"/></a>
-      <a href="https://www.youtube.com/@intlayer" target="blank"><img align="center"
-         src="https://img.shields.io/badge/youtube-FF0000.svg?style=for-the-badge&logo=youtube&logoColor=white"
-         alt="Intlayer YouTube" height="30"/></a>
-      <a href="https://www.tiktok.com/@intlayer" target="blank"><img align="center"
-         src="https://img.shields.io/badge/tiktok-000000.svg?style=for-the-badge&logo=tiktok&logoColor=white"
-         alt="Intlayer TikTok" height="30"/></a>
-      <br>
-    </p>
-</div>
+Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
 
-> This package is in development.
+## Creating a project
 
-# svelte-intlayer: Internationalize (i18n) an Svelte application
+If you're seeing this, you've probably already done this step. Congrats!
 
-**Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like Svelte, React, and Express.js.
+```sh
+# create a new project in the current directory
+npx sv create
 
-**The `svelte-intlayer` package** allows you to internationalize your Svelte application. It provides context providers and hooks for Svelte internationalization.
-
-## Why Internationalize Your Svelte Application?
-
-Internationalizing your Svelte application is essential for serving a global audience effectively. It allows your application to deliver content and messages in the preferred language of each user. This capability enhances user experience and broadens your application's reach by making it more accessible and relevant to people from different linguistic backgrounds.
-
-## Why to integrate Intlayer?
-
-- **JavaScript-Powered Content Management**: Harness the flexibility of JavaScript to define and manage your content efficiently.
-- **Type-Safe Environment**: Leverage TypeScript to ensure all your content definitions are precise and error-free.
-- **Integrated Content Files**: Keep your translations close to their respective components, enhancing maintainability and clarity.
-
-## Installation
-
-Install the necessary package using your preferred package manager:
-
-```bash packageManager="npm"
-npm install svelte-intlayer
+# create a new project in my-app
+npx sv create my-app
 ```
 
-```bash packageManager="yarn"
-yarn add svelte-intlayer
+## Developing
+
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+
+```sh
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-```bash packageManager="pnpm"
-pnpm add svelte-intlayer
+Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+
+## Building
+
+To build your library:
+
+```sh
+npm pack
 ```
 
-## Example of usage
+To create a production version of your showcase app:
 
-With Intlayer, you can declare your content in a structured way anywhere in your codebase.
-
-By default, Intlayer scans for files with the extension `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
-
-> You can modify the default extension by setting the `contentDir` property in the [configuration file](https://intlayer.org/doc/concept/configuration).
-
-```bash codeFormat="typescript"
-.
-├── intlayer.config.ts
-└── src
-    └── components
-        ├── Component1
-        │   ├── index.content.ts
-        │   └── index.svelte
-        └── Component2
-            ├── index.content.ts
-            └── index.svelte
+```sh
+npm run build
 ```
 
-### Declare your content
+You can preview the production build with `npm run preview`.
 
-`svelte-intlayer` is made to work with the [`intlayer` package](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/index.md).`intlayer` is a package that allows you to declare your content anywhere in your code. It converts multilingual content declarations into structured dictionaries that integrate seamlessly into your application.
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
 
-Here’s an example of content declaration:
+## Publishing
 
-```tsx fileName="src/Component1/index.content.ts" codeFormat="typescript"
-import { t, type Dictionary } from "intlayer";
+Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
 
-const component1Content = {
-  key: "component-1",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-    }),
-  },
-} satisfies Dictionary;
+To publish your library to [npm](https://www.npmjs.com):
 
-export default component1Content;
+```sh
+npm publish
 ```
-
-### Utilize Content in Your Code
-
-...
-
-## Functions provided by `svelte-intlayer` package
-
-The `svelte-intlayer` package also provides some functions to help you to internationalize your application.
-
-## Read about Intlayer
-
-- [Intlayer Website](https://intlayer.org)
-- [Intlayer Documentation](https://intlayer.org/doc)
-- [Intlayer GitHub](https://github.com/aymericzip/intlayer)
-
-- [Ask your questions to our smart documentation](https://intlayer.org/docchat)
