@@ -1,9 +1,9 @@
+import type { LocalesValues } from '@intlayer/config/client';
 import {
   type DictionaryKeys,
   type Plugins,
   getIntlayer as getIntlayerCore,
 } from '@intlayer/core';
-import type { LocalesValues } from 'intlayer';
 // import {
 //   type DeepTransformContent,
 //   intlayerNodePlugins,
@@ -11,6 +11,13 @@ import type { LocalesValues } from 'intlayer';
 //   reactNodePlugins,
 // } from './plugins';
 
+/**
+ * Get dictionary content by key for Svelte applications
+ * @param key The dictionary key to retrieve
+ * @param locale The target locale (optional)
+ * @param additionalPlugins Additional transformation plugins
+ * @returns Transformed dictionary content optimized for Svelte
+ */
 export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,
   locale?: L,

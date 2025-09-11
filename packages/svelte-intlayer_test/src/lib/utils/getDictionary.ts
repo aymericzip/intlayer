@@ -1,10 +1,10 @@
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
-  Dictionary,
-  Plugins,
+  type DeepTransformContent,
+  type Dictionary,
+  type Plugins,
   getDictionary as getDictionaryCore,
 } from '@intlayer/core';
-import { DeepTransformContent } from './plugins';
 
 /**
  * Get dictionary content for a specific locale in Svelte applications

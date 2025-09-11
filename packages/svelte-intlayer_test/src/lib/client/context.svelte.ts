@@ -4,15 +4,15 @@ import { SYMBOL_KEY } from '../utils/constants.js';
 
 type ProviderProps = {
   locale?: LocalesValues;
-  defaultLocale?: LocalesValues;
+  // defaultLocale?: LocalesValues;
 };
 
 class IntlayerState {
   locale: LocalesValues | undefined = $state('');
-  defaultLocale: LocalesValues | undefined = $state('');
+  // defaultLocale: LocalesValues | undefined = $state('');
 
   constructor(props: ProviderProps) {
-    this.defaultLocale = props.locale;
+    // this.defaultLocale = props.locale;
     this.locale = props.locale;
   }
 
@@ -25,7 +25,6 @@ class IntlayerState {
 }
 
 export function setIntLayer(props: ProviderProps) {
-  console.log('Running setting up context with key', SYMBOL_KEY);
   return setContext(SYMBOL_KEY, new IntlayerState(props));
 }
 

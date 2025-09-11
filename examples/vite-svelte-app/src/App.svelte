@@ -10,7 +10,7 @@
   };
 </script>
 
-<IntLayerProvider>
+<IntLayerProvider locale="fr">
   <main>
     <div>
       <a href="https://vite.dev" target="_blank" rel="noreferrer">
