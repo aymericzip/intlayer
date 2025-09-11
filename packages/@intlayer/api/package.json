@@ -91,7 +91,9 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@intlayer/config": "workspace:*"
+    "@intlayer/backend": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "intlayer-editor": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

@@ -1465,9 +1465,15 @@ importers:
 
   packages/@intlayer/api:
     dependencies:
+      '@intlayer/backend':
+        specifier: workspace:*
+        version: link:../../../apps/backend
       '@intlayer/config':
         specifier: workspace:*
         version: link:../config
+      intlayer-editor:
+        specifier: workspace:*
+        version: link:../../intlayer-editor
     devDependencies:
       '@changesets/changelog-github':
         specifier: 0.5.1
