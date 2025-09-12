@@ -63,7 +63,7 @@ The `--filter '!./examples/\*\*'` argument in pnpm install is used to exclude al
 
 To understand the interest of all packages, you can read the [documentation named "How Intlayer Works"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/how_works_intlayer.md).
 
-### Building pacakges
+### Building packages
 
 > The repo use turborepo to optimize the building process.
 
@@ -71,12 +71,12 @@ Look at the application that you want to contribute to, and build it with the fo
 
 ```sh
 # Build website and all related packages
-pnpm turbo run build --filter=./apps/website
+pnpm turbo build --filter=./apps/website
 ```
 
 ```sh
 # Build vite-react-app example app and all related packages
-pnpm turbo run build --filter=./examples/vite-react-app
+pnpm turbo build --filter=./examples/vite-react-app
 ```
 
 Or if you want to build all packages, you can use the following command:
