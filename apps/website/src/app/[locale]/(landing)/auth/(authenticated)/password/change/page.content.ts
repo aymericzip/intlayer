@@ -17,6 +17,7 @@ const changePasswordContent = {
       hi: 'पासवर्ड बदलें',
       ar: 'تغيير كلمة المرور',
       ru: 'Изменить пароль',
+      tr: 'Şifre değiştir',
     }),
     title2: t({
       en: 'Change your password',
@@ -32,6 +33,7 @@ const changePasswordContent = {
       hi: 'अपना पासवर्ड बदलें',
       ar: 'غير كلمة المرور الخاصة بك',
       ru: 'Измените ваш пароль',
+      tr: 'Şifrenizi değiştirin',
     }),
     description: t({
       en: 'Change your password to access your account.',
@@ -47,6 +49,7 @@ const changePasswordContent = {
       hi: 'अपने खाते में पहुँचने के लिए अपना पासवर्ड बदलें।',
       ar: 'غيّر كلمة المرور الخاصة بك للوصول إلى حسابك.',
       ru: 'Измените ваш пароль, чтобы получить доступ к вашей учетной записи.',
+      tr: 'Hesabınıza erişmek için şifrenizi değiştirin.',
     }),
   },
 } satisfies Dictionary;

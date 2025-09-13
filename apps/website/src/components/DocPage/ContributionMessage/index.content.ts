@@ -18,6 +18,7 @@ const contributionMessageContent = {
         hi: 'इस दस्तावेज़ को संपादित करें',
         ar: 'تعديل هذه الوثيقة',
         ru: 'Изменить эту документацию',
+        tr: 'Bu dokümanı düzenle',
       }),
       text: t({
         en: 'If you have an idea for improving this documentation, please feel free to contribute by submitting a pull request on GitHub.',
@@ -34,6 +35,7 @@ const contributionMessageContent = {
         hi: 'अगर आपके पास इस दस्तावेज़ को सुधारने के लिए कोई विचार है, तो कृपया GitHub पर एक पुल अनुरोध सबमिट करके योगदान देने में संकोच न करें।',
         ar: 'إذا كان لديك فكرة لتحسين هذه الوثيقة، فلا تتردد في المساهمة من خلال تقديم طلب سحب على GitHub.',
         ru: 'Если у вас есть идея по улучшению этой документации, не стесняйтесь внести свой вклад, подав запрос на вытягивание на GitHub.',
+        tr: "Bu dokümantasyonu geliştirmek için bir fikriniz varsa, lütfen GitHub'da bir çekme isteği göndererek katkıda bulunmaktan çekinmeyin.",
       }),
       button: t({
         en: 'GitHub link to the documentation',
@@ -49,6 +51,7 @@ const contributionMessageContent = {
         hi: 'दस्तावेज़ के लिए GitHub लिंक',
         ar: 'رابط GitHub للتوثيق',
         ru: 'Ссылка на документацию GitHub',
+        tr: 'Dokümantasyon için GitHub bağlantısı',
       }),
       buttonLabel: t({
         en: 'Click here to contribute',
@@ -64,6 +67,7 @@ const contributionMessageContent = {
         hi: 'योगदान देने के लिए यहाँ क्लिक करें',
         ar: 'انقر هنا للمساهمة',
         ru: 'Нажмите здесь, чтобы внести свой вклад',
+        tr: 'Katkıda bulunmak için buraya tıklayın',
       }),
     },
   },

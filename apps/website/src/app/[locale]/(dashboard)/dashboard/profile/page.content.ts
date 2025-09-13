@@ -17,6 +17,7 @@ const profileDashboardContent = {
       ar: 'إعدادات الملف الشخصي',
       ru: 'Настройки профиля',
       'en-GB': 'Profile settings',
+      tr: 'Profil ayarları',
     }),
   },
 } satisfies Dictionary;

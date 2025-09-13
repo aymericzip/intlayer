@@ -18,6 +18,7 @@ const tagListContent = {
         hi: 'कोई टैग नहीं',
         ar: 'لا يوجد علامات',
         ru: 'Нет тегов',
+        tr: 'Etiket yok',
       }),
       description: t({
         en: 'Create your first tag to indicate how AI can structure your content',
@@ -34,6 +35,7 @@ const tagListContent = {
         hi: 'अपनी सामग्री को AI कैसे संरचित कर सकती है इसे दिखाने के लिए अपना पहला टैग बनाएं',
         ar: 'أنشئ مشروعك الأول للبدء في استخدام Intlayer',
         ru: 'Создайте свой первый тег, чтобы показать, как ИИ может структурировать ваш контент',
+        tr: 'İçeriğinizi yapay zekanın nasıl yapılandırabileceğini göstermek için ilk etiketinizi oluşturun',
       }),
     },
 
@@ -52,6 +54,7 @@ const tagListContent = {
         hi: 'टैग बनाएँ',
         ar: 'إنشاء وسم',
         ru: 'Создать тег',
+        tr: 'Etiket oluştur',
       }),
       ariaLabel: t({
         en: 'Click to create tag',
@@ -67,6 +70,7 @@ const tagListContent = {
         hi: 'टैग बनाने के लिए क्लिक करें',
         ar: 'انقر لإنشاء وسم',
         ru: 'Нажмите, чтобы создать тег',
+        tr: 'Etiket oluşturmak için tıklayın',
       }),
     },
     tagList: {
@@ -84,6 +88,7 @@ const tagListContent = {
         hi: 'टैग सूची',
         ar: 'قائمة الوسوم',
         ru: 'Список тегов',
+        tr: 'Etiket listesi',
       }),
     },
   },

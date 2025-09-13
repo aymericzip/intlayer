@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'पासवर्ड भूल गए | Intlayer',
       ar: 'كلمة المرور منسية | Intlayer',
       ru: 'Забыли пароль | Intlayer',
+      tr: 'Şifremi Unuttum | Intlayer',
     }),
     description: t({
       en: 'Recover your Intlayer account by resetting your forgotten password. Follow the instructions to restore access.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'अपना Intlayer खाता पुनर्प्राप्त करने के लिए अपना भूल गया पासवर्ड रीसेट करें। एक्सेस बहाल करने के लिए निर्देशों का पालन करें।',
       ar: 'استعد حسابك في Intlayer عن طريق إعادة تعيين كلمة المرور المنسية. اتبع التعليمات لاستعادة الوصول.',
       ru: 'Восстановите свой аккаунт Intlayer, сбросив забытый пароль. Следуйте инструкциям, чтобы восстановить доступ.',
+      tr: 'Unutulan şifrenizi sıfırlayarak Intlayer hesabınızı kurtarın. Erişimi geri yüklemek için talimatları izleyin.',
     }),
 
     keywords: t<string[]>({
@@ -118,6 +120,13 @@ const metadataContent = {
       ru: [
         'Забыли пароль',
         'Восстановление пароля',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      tr: [
+        'Şifremi Unuttum',
+        'Şifre Kurtarma',
         'Intlayer',
         'React',
         'JavaScript',

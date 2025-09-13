@@ -17,6 +17,7 @@ export const registerStepContent = {
       hi: 'अपना खाता बनाएं',
       ar: 'إنشاء حسابك',
       ru: 'Создайте свою учетную запись',
+      tr: 'Hesabınızı oluşturun',
     }),
 
     emailInput: {
@@ -34,6 +35,7 @@ export const registerStepContent = {
         hi: 'ईमेल पता',
         ar: 'عنوان البريد الإلكتروني',
         ru: 'Адрес электронной почты',
+        tr: 'E-posta adresi',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -49,6 +51,7 @@ export const registerStepContent = {
         hi: 'ईमेल पता दर्ज करें',
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
+        tr: 'E-posta adresinizi girin',
       }),
     },
 
@@ -67,6 +70,7 @@ export const registerStepContent = {
         hi: 'क्या आपके पास पहले से एक खाता है?',
         ar: 'هل لديك حساب بالفعل؟',
         ru: 'У вас уже есть учетная запись?',
+        tr: 'Zaten bir hesabınız var mı?',
       }),
       text: t({
         en: 'Log in',
@@ -82,6 +86,7 @@ export const registerStepContent = {
         hi: 'लॉग इन करें',
         ar: 'تسجيل الدخول',
         ru: 'Войти',
+        tr: 'Giriş yapın',
       }),
       ariaLabel: t({
         en: 'Click to go to login page',
@@ -97,6 +102,7 @@ export const registerStepContent = {
         hi: 'लॉगिन पृष्ठ पर जाने के लिए क्लिक करें',
         ar: 'انقر للانتقال إلى صفحة تسجيل الدخول',
         ru: 'Нажмите, чтобы перейти на страницу входа',
+        tr: 'Giriş sayfasına gitmek için tıklayın',
       }),
     },
   },

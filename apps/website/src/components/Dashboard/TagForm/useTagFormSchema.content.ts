@@ -17,6 +17,7 @@ const content = {
       hi: 'कृपया अपने टैग का कुंजी दर्ज करें',
       ar: 'يرجى إدخال مفتاح لوسمك',
       ru: 'Пожалуйста, введите ключ для вашего тега',
+      tr: 'Lütfen etiketiniz için bir anahtar girin',
     }),
 
     invalidTypeErrorKey: t({
@@ -33,6 +34,7 @@ const content = {
       hi: 'कृपया अपने टैग का एक वैध टैग दर्ज करें',
       ar: 'يرجى إدخال علامة تعريف صالحة لوسمك',
       ru: 'Пожалуйста, введите допустимый тег для вашего тега',
+      tr: 'Lütfen etiketiniz için geçerli bir etiket girin',
     }),
 
     requiredErrorName: t({
@@ -49,6 +51,7 @@ const content = {
       hi: 'कृपया अपने टैग का कुंजी दर्ज करें',
       ar: 'يرجى إدخال مفتاح لوسمك',
       ru: 'Пожалуйста, введите ключ для вашего тега',
+      tr: 'Lütfen etiketiniz için bir anahtar girin',
     }),
 
     invalidTypeErrorName: t({
@@ -65,6 +68,7 @@ const content = {
       hi: 'कृपया अपने टैग का एक वैध टैग दर्ज करें',
       ar: 'يرجى إدخال علامة تعريف صالحة لوسمك',
       ru: 'Пожалуйста, введите допустимый тег для вашего тега',
+      tr: 'Lütfen etiketiniz için geçerli bir etiket girin',
     }),
 
     invalidTypeErrorDescription: t({
@@ -81,6 +85,7 @@ const content = {
       hi: 'कृपया अपने टैग का एक वैध वर्णन दर्ज करें',
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
+      tr: 'Lütfen etiketiniz için geçerli bir açıklama girin',
     }),
 
     requiredErrorDescription: t({
@@ -97,6 +102,7 @@ const content = {
       hi: 'कृपया अपने टैग का एक वैध वर्णन दर्ज करें',
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
+      tr: 'Lütfen etiketiniz için bir açıklama girin',
     }),
 
     requiredErrorInstructions: t({
@@ -113,6 +119,7 @@ const content = {
       hi: 'कृपया अपने टैग का एक वैध वर्णन दर्ज करें',
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
+      tr: 'Lütfen etiketiniz için talimatlar girin',
     }),
 
     invalidTypeErrorInstructions: t({
@@ -129,6 +136,7 @@ const content = {
       hi: 'कृपया अपने टैग का एक वैध वर्णन दर्ज करें',
       ar: 'يرجى إدخال وصف صالح لوسمك',
       ru: 'Пожалуйста, введите допустимое описание для вашего тега',
+      tr: 'Lütfen etiketiniz için geçerli talimatlar girin',
     }),
   },
 } satisfies Dictionary;

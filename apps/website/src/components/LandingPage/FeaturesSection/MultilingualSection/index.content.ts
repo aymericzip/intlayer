@@ -17,6 +17,7 @@ const multilingualSectionContent = {
       ar: 'المحتوى المولد تلقائيًا في ',
       hi: 'स्वचालित सामग्री में एक्सटेंड किया गया है ',
       ko: '자동 생성된 콘텐츠가 ',
+      tr: 'Otomatik Oluşturulmuş içerik ',
     }),
   },
 } satisfies Dictionary;

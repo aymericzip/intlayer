@@ -17,6 +17,7 @@ const content = {
       hi: 'कृपया एक संगठन चुनें',
       ar: 'يرجى اختيار منظمة',
       ru: 'Пожалуйста, выберите организацию',
+      tr: 'Lütfen bir organizasyon seçin',
     }),
   },
 } satisfies Dictionary;

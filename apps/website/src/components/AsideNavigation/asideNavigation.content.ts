@@ -17,6 +17,7 @@ const asideNavigationContent = {
       hi: 'इस पृष्ठ में',
       ar: 'في هذه الصفحة',
       ru: 'На этой странице',
+      tr: 'Bu sayfada',
     }),
     linkLabel: t({
       en: 'Go to section',
@@ -32,6 +33,7 @@ const asideNavigationContent = {
       hi: 'सेक्शन पर जाएं',
       ar: 'اذهب إلى القسم',
       ru: 'Перейти к разделу',
+      tr: 'Bölüme git',
     }),
     collapseButton: {
       label: t({
@@ -48,6 +50,7 @@ const asideNavigationContent = {
         hi: 'संकुचित करें',
         ar: 'اطوي التوسيع',
         ru: 'Свернуть',
+        tr: 'Daralt',
       }),
     },
   },

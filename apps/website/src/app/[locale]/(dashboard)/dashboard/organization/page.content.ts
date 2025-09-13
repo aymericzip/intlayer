@@ -17,6 +17,7 @@ const profileDashboardContent = {
       hi: 'संगठन सेटिंग',
       ar: 'إعدادات المنظمة',
       ru: 'Настройки организации',
+      tr: 'Organizasyon ayarları',
     }),
   },
 } satisfies Dictionary;

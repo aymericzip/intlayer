@@ -17,6 +17,7 @@ const resetPasswordContent = {
       hi: 'ऑनबोर्डिंग',
       ar: 'إعداد الحساب',
       ru: 'Настройка аккаунта',
+      tr: 'Hesap Kurulumu',
     }),
 
     description: t({
@@ -33,6 +34,7 @@ const resetPasswordContent = {
       hi: 'निर्देशों का पालन करके अपना Intlayer खाता सेट करें।',
       ar: 'قم بإعداد حسابك في Intlayer باتباع التعليمات.',
       ru: 'Настройте свою учетную запись Intlayer, следуя инструкциям.',
+      tr: 'Talimatları izleyerek Intlayer hesabınızı kurun.',
     }),
   },
 } satisfies Dictionary;

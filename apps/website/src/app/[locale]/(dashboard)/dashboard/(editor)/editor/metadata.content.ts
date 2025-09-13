@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'संपादक | डैशबोर्ड | Intlayer',
       ar: 'محرر | لوحة القيادة | Intlayer',
       ru: 'Редактор | Панель управления | Intlayer',
+      tr: 'Editör | Dashboard Paneli | Intlayer',
     }),
     description: t({
       en: 'Manage your website content using the Intlayer visual editor.',
@@ -33,6 +34,7 @@ const metadataContent = {
       hi: 'अनुकूलताओं को अनुकूल एडिटर का उपयोग करें और अपनी वेब साइट का सामग्री करें।',
       ar: 'إدارة محتوى موقعك باستخدام محرر الفيديو لـ Intlayer.',
       ru: 'Управляйте содержимым веб-сайта с помощью визуального редактора Intlayer.',
+      tr: 'Intlayer görsel düzenleyicisini kullanarak web sitesi içeriğinizi yönetin.',
     }),
     keywords: t<string[]>({
       en: [
@@ -107,6 +109,13 @@ const metadataContent = {
         'Визуальный редактор',
         'Редактор',
         'Панель управления',
+      ],
+      tr: [
+        'CMS',
+        'İçerik Yönetim Sistemi',
+        'Görsel Editör',
+        'Editör',
+        'Dashboard',
       ],
     }),
   },

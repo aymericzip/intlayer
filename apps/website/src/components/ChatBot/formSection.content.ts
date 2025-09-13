@@ -18,6 +18,7 @@ const chatFormSectionContent = {
         hi: 'हमारे एआई-पॉयटेड स्मार्ट दस्तावेज़ के लिए अपनी प्रश्न करें',
         ar: 'طرح سؤالك لدردشة الوثائق الخاصة بنا AI',
         ru: 'Спросите нашу умную документацию',
+        tr: 'Yapay Zeka Destekli Akıllı Belgelerimize sorunuzu sorun',
       }),
       placeholder: t({
         en: 'Ask me anything...',
@@ -33,6 +34,7 @@ const chatFormSectionContent = {
         hi: 'कुछ प्रश्न करें...',
         ar: 'طرح شيئا...',
         ru: 'Спросите меня что-нибудь...',
+        tr: 'Bana bir şey sor...',
       }),
     },
     sendQuestionButton: {
@@ -50,6 +52,7 @@ const chatFormSectionContent = {
         hi: 'प्रश्न भेजने के लिए क्लिक करें',
         ar: 'انقر لإرسال السؤال',
         ru: 'Нажмите, чтобы отправить вопрос',
+        tr: 'Soruyu göndermek için tıklayın',
       }),
     },
     clearButton: {
@@ -67,6 +70,7 @@ const chatFormSectionContent = {
         hi: 'साफ़ करने के लिए क्लिक करें',
         ar: 'انقر لمسح',
         ru: 'Нажмите, чтобы очистить',
+        tr: 'Temizlemek için tıklayın',
       }),
     },
   },

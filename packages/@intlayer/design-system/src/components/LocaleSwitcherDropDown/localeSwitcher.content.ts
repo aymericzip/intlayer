@@ -17,6 +17,7 @@ const localeSwitcherContent = {
       hi: 'भाषा स्विचर',
       ar: 'مبدل اللغة',
       ru: 'Переключатель языка',
+      tr: 'Dil değiştirici',
     }),
     languageListLabel: t({
       en: 'Language list',
@@ -32,6 +33,7 @@ const localeSwitcherContent = {
       hi: 'भाषा सूची',
       ar: 'قائمة اللغات',
       ru: 'Список языков',
+      tr: 'Dil listesi',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -47,6 +49,7 @@ const localeSwitcherContent = {
       hi: 'स्विच करें',
       ar: 'التبديل إلى',
       ru: 'Переключиться на',
+      tr: 'Geçiş yap',
     }),
     searchInput: {
       text: t({
@@ -63,6 +66,7 @@ const localeSwitcherContent = {
         hi: 'भाषा खोजें',
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
+        tr: 'Dil ara',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -78,6 +82,7 @@ const localeSwitcherContent = {
         hi: 'भाषा खोजें',
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
+        tr: 'Dil ara',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -93,6 +98,7 @@ const localeSwitcherContent = {
         hi: 'भाषा खोजें',
         ar: 'بحث اللغة',
         ru: 'Поиск языка',
+        tr: 'Dil ara',
       }),
     },
   },

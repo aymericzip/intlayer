@@ -18,6 +18,7 @@ const signInContent = {
         hi: 'क्या आपने अपना पासवर्ड भुला दिया?',
         ar: 'نسيت كلمة المرور؟',
         ru: 'Забыли пароль?',
+        tr: 'Şifrenizi mi unuttunuz?',
       }),
       text: t({
         en: 'Forgot password?',
@@ -33,6 +34,7 @@ const signInContent = {
         hi: 'क्या आपने अपना पासवर्ड भुला दिया?',
         ar: 'نسيت كلمة المرور؟',
         ru: 'Забыли пароль?',
+        tr: 'Şifrenizi mi unuttunuz?',
       }),
     },
     emailInput: {
@@ -50,6 +52,7 @@ const signInContent = {
         hi: 'ईमेल पता',
         ar: 'عنوان البريد الإلكتروني',
         ru: 'Адрес электронной почты',
+        tr: 'E-posta adresi',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -65,6 +68,7 @@ const signInContent = {
         hi: 'ईमेल पता दर्ज करें',
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
+        tr: 'E-posta adresinizi girin',
       }),
     },
     passwordInput: {
@@ -82,6 +86,7 @@ const signInContent = {
         hi: 'पासवर्ड',
         ar: 'كلمة المرور',
         ru: 'Пароль',
+        tr: 'Parola',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -97,6 +102,7 @@ const signInContent = {
         hi: 'पासवर्ड दर्ज करें',
         ar: 'أدخل كلمة المرور',
         ru: 'Введите пароль',
+        tr: 'Parolanızı girin',
       }),
     },
     rememberMeCheckbox: {
@@ -114,6 +120,7 @@ const signInContent = {
         hi: 'इस डिवाइस पर मुझे याद रखें',
         ar: 'تذكرني على هذا الجهاز',
         ru: 'Запомнить меня на этом устройстве',
+        tr: 'Bu cihazda beni hatırla',
       }),
     },
 
@@ -132,6 +139,7 @@ const signInContent = {
         hi: 'लॉग इन करें',
         ar: 'تسجيل الدخول',
         ru: 'Войти',
+        tr: 'Giriş yap',
       }),
       ariaLabel: t({
         en: 'Click to log in',
@@ -147,6 +155,7 @@ const signInContent = {
         hi: 'लॉग इन करने के लिए क्लिक करें',
         ar: 'انقر لتسجيل الدخول',
         ru: 'Нажмите, чтобы войти',
+        tr: 'Giriş yapmak için tıklayın',
       }),
     },
     signInButton: {
@@ -164,6 +173,7 @@ const signInContent = {
         hi: 'लॉग इन करें',
         ar: 'تسجيل الدخول',
         ru: 'Войти',
+        tr: 'Giriş yap',
       }),
       ariaLabel: t({
         en: 'Click to log in',
@@ -179,6 +189,7 @@ const signInContent = {
         hi: 'लॉग इन करने के लिए क्लिक करें',
         ar: 'انقر لتسجيل الدخول',
         ru: 'Нажмите, чтобы войти',
+        tr: 'Giriş yapmak için tıklayın',
       }),
     },
     signUpLink: {
@@ -196,6 +207,7 @@ const signInContent = {
         hi: 'क्या आपके पास खाता नहीं है?',
         ar: 'ليس لديك حساب؟',
         ru: 'У вас нет аккаунта?',
+        tr: 'Hesabınız yok mu?',
       }),
       ariaLabel: t({
         en: 'Click to go to create an account page',
@@ -211,6 +223,7 @@ const signInContent = {
         hi: 'खाता बनाने के पृष्ठ पर जाने के लिए क्लिक करें',
         ar: 'انقر للانتقال إلى صفحة إنشاء حساب',
         ru: 'Нажмите, чтобы перейти на страницу создания аккаунта',
+        tr: 'Hesap oluşturma sayfasına gitmek için tıklayın',
       }),
       text: t({
         en: 'Create an account',
@@ -226,6 +239,7 @@ const signInContent = {
         hi: 'एक खाता बनाएं',
         ar: 'إنشاء حساب',
         ru: 'Создать аккаунт',
+        tr: 'Hesap oluştur',
       }),
     },
   },

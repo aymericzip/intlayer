@@ -17,6 +17,7 @@ const content = {
       hi: 'कृपया अपनी पहुँच कुंजी के लिए एक नाम दर्ज करें',
       ar: 'الرجاء إدخال اسم لمفتاح الوصول الخاص بك',
       ru: 'Пожалуйста, введите имя для вашего ключа доступа',
+      tr: 'Lütfen erişim anahtarınız için bir ad girin',
     }),
 
     invalidTypeErrorName: t({
@@ -33,6 +34,7 @@ const content = {
       hi: 'कृपया अपनी पहुँच कुंजी के लिए एक वैध नाम दर्ज करें',
       ar: 'الرجاء إدخال اسم صالح لمفتاح الوصول الخاص بك',
       ru: 'Пожалуйста, введите допустимое имя для вашего ключа доступа',
+      tr: 'Lütfen erişim anahtarınız için geçerli bir ad girin',
     }),
 
     invalidDateErrorName: t({
@@ -49,6 +51,7 @@ const content = {
       hi: 'कृपया अपनी पहुँच कुंजी की समाप्ति तिथि के लिए एक वैध तिथि दर्ज करें',
       ar: 'الرجاء إدخال تاريخ صالح لتاريخ انتهاء صلاحية مفتاح الوصول الخاص بك',
       ru: 'Пожалуйста, введите допустимую дату для даты истечения срока действия вашего ключа доступа',
+      tr: 'Lütfen erişim anahtarınızın son kullanma tarihi için geçerli bir tarih girin',
     }),
   },
 } satisfies Dictionary;

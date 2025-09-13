@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'स्मार्ट दस्तावेज़ | AI चैट बॉट | Intlayer',
       ar: 'الوثائق الذكية | ChatBot AI | Intlayer',
       ru: 'Умная документация | ИС чат-бот | Intlayer',
+      tr: 'Akıllı Dokümantasyon | AI Destekli ChatBot | Intlayer',
     }),
     description: t({
       en: 'Get instant answers with our AI-powered documentation chatbot. Explore interactive guides, troubleshoot issues, and find solutions effortlessly, just ask!',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'हमारे AI प्लग किए गए दस्तावेज़ चैटबॉट के साथ तुरंत उत्तर देने के लिए आपको कोई भी पूछें!',
       ar: 'احصل على إجابات فورية مع دردشة الوثائق الخاصة بنا AI. استكشف دليلات تفاعلية، حل المشاكل والعثور على حلول بسهولة,  سواء تسأل!',
       ru: 'Получите мгновенные ответы с нашего AI-поддерживаемого чат-бота документации. Исследуйте интерактивные руководства, устраняйте проблемы и найдите решения без усилий, просто спросите!',
+      tr: 'Yapay zeka destekli dokümantasyon sohbet botumuzla anında cevaplar alın. Etkileşimli kılavuzları keşfedin, sorunları giderin ve zahmetsizce çözümler bulun, sadece sorun!',
     }),
 
     keywords: t<string[]>({
@@ -50,6 +52,7 @@ const metadataContent = {
       hi: ['चैटबॉट', 'AI', 'स्मार्ट', 'दस्तावेज़', 'intlayer'],
       ar: ['الدردشة', 'AI', 'ذكي', 'وثائق', 'intlayer'],
       ru: ['чат-бот', 'AI', 'умный', 'документация', 'intlayer'],
+      tr: ['sohbet botu', 'AI', 'akıllı', 'dokümantasyon', 'intlayer'],
     }),
   },
 } satisfies Dictionary<Metadata>;

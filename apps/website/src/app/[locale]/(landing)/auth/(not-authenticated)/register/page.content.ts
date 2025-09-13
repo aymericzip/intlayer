@@ -17,6 +17,7 @@ const signUpContent = {
       ar: 'سجل',
       ru: 'Зарегистрироваться',
       'en-GB': 'Sign up',
+      tr: 'Kayıt Ol',
     }),
     title2: t({
       en: 'Create an account',
@@ -32,6 +33,7 @@ const signUpContent = {
       ar: 'إنشاء حساب',
       ru: 'Создать аккаунт',
       'en-GB': 'Create an account',
+      tr: 'Hesap Oluştur',
     }),
     description: t({
       en: 'Enter your email and password to create an account.',
@@ -47,6 +49,7 @@ const signUpContent = {
       ar: 'أدخل بريدك الإلكتروني وكلمة المرور لإنشاء حساب.',
       ru: 'Введите свой адрес электронной почты и пароль, чтобы создать аккаунт.',
       'en-GB': 'Enter your email and password to create an account.',
+      tr: 'Hesap oluşturmak için e-posta adresinizi ve şifrenizi girin.',
     }),
   },
 } satisfies Dictionary;

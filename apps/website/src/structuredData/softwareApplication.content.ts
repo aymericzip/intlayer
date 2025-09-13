@@ -17,6 +17,7 @@ export default {
       hi: 'डेवलपर्स, सामग्री प्रबंधक',
       ar: 'المطورون، مدراء المحتوى',
       ru: 'Разработчики, Менеджеры контента',
+      tr: 'Geliştiriciler, İçerik Yöneticileri',
     }),
     description: t({
       en: 'i18n for Next.js & React. Easily build multilingual sites with AI-powered visual editor for your translations. TypeScript internationalization.',
@@ -33,6 +34,7 @@ export default {
       hi: 'Next.js और React के लिए i18n। अपनी अनुवादों के लिए AI-पॉवर्ड विज़ुअल संपादक के साथ बहुभाषी साइटें आसानी से बनाएं। TypeScript अंतर्राष्ट्रीयकरण।',
       ar: 'i18n لـ Next.js و React. أنشئ مواقع متعددة اللغات بسهولة باستخدام محرر مرئي مدعوم بالذكاء الاصطناعي لترجماتك. التدويل مع TypeScript.',
       ru: 'i18n для Next.js и React. Легко создавайте многоязычные сайты с помощью визуального редактора на основе ИИ для ваших переводов. Интернационализация с помощью TypeScript.',
+      tr: 'Next.js & React için i18n. Çevirileriniz için yapay zeka destekli görsel editör ile çok dilli siteler kolayca oluşturun. TypeScript uluslararasılaştırması.',
     }),
     keywords: t<string[]>({
       en: [
@@ -227,6 +229,20 @@ export default {
         'React',
         'CMS',
         'Система управления контентом',
+      ],
+      tr: [
+        'çeviri',
+        'yerelleştirme',
+        'çok dilli',
+        'Uluslararasılaştırma',
+        'i18n',
+        'Web Geliştirme',
+        'Next.js',
+        'JavaScript',
+        'Vite',
+        'React',
+        'CMS',
+        'İçerik Yönetim Sistemi',
       ],
     }),
   },

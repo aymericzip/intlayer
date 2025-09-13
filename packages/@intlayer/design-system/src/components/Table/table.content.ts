@@ -17,6 +17,7 @@ const tableContent = {
       hi: 'सभी तालिका सामग्री दिखाएं',
       ar: 'اظهار جميع محتويات الجدول',
       ru: 'Показать все данные таблицы',
+      tr: 'Tüm tablo içeriğini göster',
     }),
   },
 } satisfies Dictionary;

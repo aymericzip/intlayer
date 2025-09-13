@@ -17,6 +17,7 @@ const definePasswordStepContent = {
       hi: 'एक पासवर्ड निर्दिष्ट करें',
       ar: 'حدد كلمة مرور',
       ru: 'Установить пароль',
+      tr: 'Bir şifre belirleyin',
     }),
 
     newPasswordInput: {
@@ -34,6 +35,7 @@ const definePasswordStepContent = {
         hi: 'पासवर्ड',
         ar: 'كلمة المرور',
         ru: 'Пароль',
+        tr: 'Parola',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -49,6 +51,7 @@ const definePasswordStepContent = {
         hi: 'पासवर्ड दर्ज करें',
         ar: 'أدخل كلمة المرور',
         ru: 'Введите пароль',
+        tr: 'Parolayı girin',
       }),
     },
     confirmPasswordInput: {
@@ -66,6 +69,7 @@ const definePasswordStepContent = {
         hi: 'पासवर्ड की पुष्टि करें',
         ar: 'تأكيد كلمة المرور',
         ru: 'Подтвердите пароль',
+        tr: 'Parolayı onayla',
       }),
       placeholder: t({
         en: 'Confirm password',
@@ -81,6 +85,7 @@ const definePasswordStepContent = {
         hi: 'पासवर्ड की पुष्टि करें',
         ar: 'تأكيد كلمة المرور',
         ru: 'Подтвердите пароль',
+        tr: 'Parolayı onayla',
       }),
     },
   },

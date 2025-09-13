@@ -18,6 +18,7 @@ export const structureViewContent = {
         hi: 'अपनी नोड की कुंजी दर्ज करें',
         ar: 'أدخل مفتاح العقدة الخاص بك',
         ru: 'Введите ключ вашего узла',
+        tr: 'Düğümünüzün anahtarını girin',
       }),
     },
     deleteButton: {
@@ -35,6 +36,7 @@ export const structureViewContent = {
         hi: 'सेक्शन से नोड हटाएं',
         ar: 'إزالة العقدة من القسم',
         ru: 'Удалить узел из секции',
+        tr: 'Düğümü bölümden kaldır',
       }),
     },
     addNodeButton: {
@@ -52,6 +54,7 @@ export const structureViewContent = {
         hi: 'नया नोड जोड़ने के लिए क्लिक करें',
         ar: 'انقر لإضافة عقدة جديدة',
         ru: 'Нажмите, чтобы добавить новый узел',
+        tr: 'Yeni bir düğüm eklemek için tıklayın',
       }),
       text: t({
         en: 'Add a new node',
@@ -67,6 +70,7 @@ export const structureViewContent = {
         hi: 'नया नोड जोड़ें',
         ar: 'إضافة عقدة جديدة',
         ru: 'Добавить новый узел',
+        tr: 'Yeni bir düğüm ekle',
       }),
     },
   },

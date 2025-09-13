@@ -18,6 +18,7 @@ export const dictionaryDetailsContent = {
         hi: 'शीर्षक',
         ar: 'العنوان',
         ru: 'Заголовок',
+        tr: 'Başlık',
       }),
       description: t({
         en: 'The title of your dictionary allows you to easily identify it',
@@ -34,6 +35,7 @@ export const dictionaryDetailsContent = {
         hi: 'आपके शब्दकोश का शीर्षक इसे आसानी से पहचानने में मदद करता है',
         ar: 'يتيح لك عنوان القاموس الخاص بك التعرف عليه بسهولة',
         ru: 'Название вашего словаря позволяет легко его идентифицировать',
+        tr: 'Sözlüğünüzün başlığı, onu kolayca tanımlamanızı sağlar',
       }),
       placeholder: t({
         en: 'Enter the title of your dictionary',
@@ -49,6 +51,7 @@ export const dictionaryDetailsContent = {
         hi: 'आपके शब्दकोश का शीर्षक दर्ज करें',
         ar: 'أدخل عنوان القاموس الخاص بك',
         ru: 'Введите название вашего словаря',
+        tr: 'Sözlüğünüzün başlığını girin',
       }),
     },
     keyInput: {
@@ -66,6 +69,7 @@ export const dictionaryDetailsContent = {
         hi: 'कुंजी',
         ar: 'مفتاح',
         ru: 'Ключ',
+        tr: 'Anahtar',
       }),
       description: t({
         en: 'The key of your dictionary is used to identify it in the application',
@@ -82,6 +86,7 @@ export const dictionaryDetailsContent = {
         hi: 'आपके शब्दकोश की कुंजी इसे एप्लिकेशन में पहचानने के लिए उपयोग की जाती है',
         ar: 'مفتاح القاموس الخاص بك يُستخدم لتحديده في التطبيق',
         ru: 'Ключ вашего словаря используется для его идентификации в приложении',
+        tr: 'Sözlüğünüzün anahtarı, uygulamada onu tanımlamak için kullanılır',
       }),
       placeholder: t({
         en: 'Enter the key of your dictionary',
@@ -97,6 +102,7 @@ export const dictionaryDetailsContent = {
         hi: 'अपने शब्दकोश की कुंजी दर्ज करें',
         ar: 'أدخل مفتاح القاموس الخاص بك',
         ru: 'Введите ключ вашего словаря',
+        tr: 'Sözlüğünüzün anahtarını girin',
       }),
     },
     descriptionInput: {
@@ -114,6 +120,7 @@ export const dictionaryDetailsContent = {
         hi: 'विवरण',
         ar: 'الوصف',
         ru: 'Описание',
+        tr: 'Açıklama',
       }),
       placeholder: t({
         en: 'Enter the description of your dictionary',
@@ -129,6 +136,7 @@ export const dictionaryDetailsContent = {
         hi: 'अपने शब्दकोश का विवरण दर्ज करें',
         ar: 'أدخل وصف القاموس الخاص بك',
         ru: 'Введите описание вашего словаря',
+        tr: 'Sözlüğünüzün açıklamasını girin',
       }),
       description: t({
         en: 'The description of your dictionary allows you to easily identify it using keywords. It is also used to search for your dictionary, and to assist the AI in understanding your dictionary.',
@@ -145,6 +153,7 @@ export const dictionaryDetailsContent = {
         hi: 'आपके शब्दकोश का विवरण आपको कुंजीशब्दों का उपयोग करके इसे आसानी से पहचानने की अनुमति देता है। इसका उपयोग आपके शब्दकोश की खोज करने और AI को आपके शब्दकोश को समझने में मदद करने के लिए भी किया जाता है।',
         ar: 'يتيح لك وصف القاموس الخاص بك التعرف عليه بسهولة باستخدام الكلمات الرئيسية. كما أنه يستخدم للبحث عن القاموس الخاص بك ، ولمساعدة الذكاء الاصطناعي على فهم القاموس الخاص بك.',
         ru: 'Описание вашего словаря позволяет легко его идентифицировать с помощью ключевых слов. Оно также используется для поиска вашего словаря и для помощи ИИ в понимании вашего словаря.',
+        tr: "Sözlüğünüzün açıklaması, anahtar kelimeleri kullanarak onu kolayca tanımlamanızı sağlar. Ayrıca sözlüğünüzü aramak ve AI'nın sözlüğünüzü anlamasına yardımcı olmak için de kullanılır.",
       }),
     },
 
@@ -163,6 +172,7 @@ export const dictionaryDetailsContent = {
         hi: 'परियोजनाएँ',
         ar: 'المشاريع',
         ru: 'Проекты',
+        tr: 'Projeler',
       }),
       description: t({
         en: 'A dictionary can be associated with one or more projects. This allows you load the dictionary on different applications, and share it across different teams.',
@@ -179,6 +189,7 @@ export const dictionaryDetailsContent = {
         hi: 'एक शब्दकोश को एक या अधिक परियोजनाओं से जोड़ा जा सकता है। यह आपको विभिन्न अनुप्रयोगों में शब्दकोश लोड करने और विभिन्न टीमों के बीच साझा करने की अनुमति देता है।',
         ar: 'يمكن ربط قاموس بواحد أو أكثر من المشاريع. وهذا يتيح لك تحميل القاموس على تطبيقات مختلفة ومشاركته عبر فرق مختلفة.',
         ru: 'Словарь можно ассоциировать с одним или несколькими проектами. Это позволяет загружать словарь в различных приложениях и делиться им между разными командами.',
+        tr: 'Sözlük, bir veya daha fazla projeyle ilişkilendirilebilir. Bu, sözlüğü farklı uygulamalarda yüklemenize ve farklı ekipler arasında paylaşmanıza olanak tanır.',
       }),
       placeholder: t({
         en: 'Select one or more projects to associate with your dictionary',
@@ -195,6 +206,7 @@ export const dictionaryDetailsContent = {
         hi: 'अपने शब्दकोश से जोड़ने के लिए एक या अधिक परियोजनाएँ चुनें',
         ar: 'حدد مشروعًا أو أكثر لربطه بقاموسك',
         ru: 'Выберите один или несколько проектов, чтобы связать их с вашим словарем',
+        tr: 'Sözlüğünüzle ilişkilendirmek için bir veya daha fazla proje seçin',
       }),
     },
 
@@ -213,6 +225,7 @@ export const dictionaryDetailsContent = {
         hi: 'टैग',
         ar: 'الوسوم',
         ru: 'Теги',
+        tr: 'Etiketler',
       }),
       description: t({
         en: 'A dictionary can be associated with one or more tags. This allows you to load the dictionary on different applications, and share it across different teams.',
@@ -229,6 +242,7 @@ export const dictionaryDetailsContent = {
         hi: 'एक शब्दकोश को एक या अधिक टैग से जोड़ा जा सकता है। यह आपको विभिन्न अनुप्रयोगों में शब्दकोश लोड करने और विभिन्न टीमों के बीच साझा करने की अनुमति देता है।',
         ar: 'يمكن ربط قاموس بواحد أو أكثر من الوسوم. يتيح لك تحميل القاموس في تطبيقات مختلفة ومشاركته بين فرق مختلفة.',
         ru: 'Словарь можно связать с одним или несколькими тегами. Это позволяет загружать словарь в различных приложениях и делиться им между различными командами.',
+        tr: 'Sözlük, bir veya daha fazla etiketle ilişkilendirilebilir. Bu, sözlüğü farklı uygulamalarda yüklemenize ve farklı ekipler arasında paylaşmanıza olanak tanır.',
       }),
       placeholder: t({
         en: 'Select the tags to associate with your dictionary',
@@ -244,6 +258,7 @@ export const dictionaryDetailsContent = {
         hi: 'अपने शब्दकोश से जोड़ने के लिए टैग का चयन करें',
         ar: 'حدد الوسوم التي تريد ربطها بقاموسك',
         ru: 'Выберите теги, которые нужно связать с словарем',
+        tr: 'Sözlüğünüzle ilişkilendirmek için etiketleri seçin',
       }),
     },
 
@@ -262,6 +277,7 @@ export const dictionaryDetailsContent = {
         hi: 'ऑडिट',
         ar: 'التدقيق',
         ru: 'Отслеживание',
+        tr: 'Denetle',
       }),
       text: t({
         en: 'Audit',
@@ -277,6 +293,7 @@ export const dictionaryDetailsContent = {
         hi: 'ऑडिट',
         ar: 'التدقيق',
         ru: 'Отслеживание',
+        tr: 'Denetle',
       }),
     },
   },

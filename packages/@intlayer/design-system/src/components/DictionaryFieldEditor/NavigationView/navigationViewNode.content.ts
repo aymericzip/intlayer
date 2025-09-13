@@ -17,6 +17,7 @@ export const navigationViewContent = {
       hi: 'सम्पादित न करने योग्य React नोड',
       ar: 'عقدة React غير قابلة للتحرير',
       ru: 'React-узел не редактируемый',
+      tr: 'React düğümü düzenlenemez',
     }),
     goToField: {
       label: t({
@@ -33,6 +34,7 @@ export const navigationViewContent = {
         hi: 'फ़ील्ड पर जाएं',
         ar: 'اذهب إلى الحقل',
         ru: 'Перейти к полю',
+        tr: 'Alana git',
       }),
     },
     addNewElement: {
@@ -50,6 +52,7 @@ export const navigationViewContent = {
         hi: 'तत्व जोड़ने के लिए क्लिक करें',
         ar: 'انقر لإضافة عنصر',
         ru: 'Нажмите, чтобы добавить элемент',
+        tr: 'Eleman eklemek için tıklayın',
       }),
       text: t({
         en: 'Add new element',
@@ -65,6 +68,7 @@ export const navigationViewContent = {
         hi: 'नया तत्व जोड़ें',
         ar: 'أضف عنصرًا جديدًا',
         ru: 'Добавить новый элемент',
+        tr: 'Yeni eleman ekle',
       }),
     },
     removeElement: {
@@ -82,6 +86,7 @@ export const navigationViewContent = {
         hi: 'तत्व निकालने के लिए क्लिक करें',
         ar: 'انقر لإزالة عنصر',
         ru: 'Нажмите, чтобы удалить элемент',
+        tr: 'Elemanı kaldırmak için tıklayın',
       }),
       text: t({
         en: 'Remove element',
@@ -97,6 +102,7 @@ export const navigationViewContent = {
         hi: 'तत्व निकालें',
         ar: 'إزالة عنصر',
         ru: 'Удалить элемент',
+        tr: 'Elemanı kaldır',
       }),
     },
     addNewEnumeration: {
@@ -114,6 +120,7 @@ export const navigationViewContent = {
         hi: 'सूची जोड़ने के लिए क्लिक करें',
         ar: 'انقر لإضافة تعداد',
         ru: 'Нажмите, чтобы добавить перечисление',
+        tr: 'Numaralandırma eklemek için tıklayın',
       }),
       text: t({
         en: 'Add new enumeration',
@@ -129,6 +136,7 @@ export const navigationViewContent = {
         hi: 'नया सूची जोड़ें',
         ar: 'أضف تعدادًا جديدًا',
         ru: 'Добавить новое перечисление',
+        tr: 'Yeni numaralandırma ekle',
       }),
     },
     removeEnumeration: {
@@ -146,6 +154,7 @@ export const navigationViewContent = {
         hi: 'सूची निकालने के लिए क्लिक करें',
         ar: 'انقر لإزالة تعداد',
         ru: 'Нажмите, чтобы удалить перечисление',
+        tr: 'Numaralandırmayı kaldırmak için tıklayın',
       }),
       text: t({
         en: 'Remove enumeration',
@@ -161,6 +170,7 @@ export const navigationViewContent = {
         hi: 'सूची निकालें',
         ar: 'إزالة تعداد',
         ru: 'Удалить перечисление',
+        tr: 'Numaralandırmayı kaldır',
       }),
     },
     addNewCondition: {
@@ -178,6 +188,7 @@ export const navigationViewContent = {
         hi: 'शर्ते जोड़ने के लिए क्लिक करें',
         ar: 'انقر لإضافة شرط',
         ru: 'Нажмите, чтобы добавить условие',
+        tr: 'Koşul eklemek için tıklayın',
       }),
       text: t({
         en: 'Add new condition',
@@ -193,6 +204,7 @@ export const navigationViewContent = {
         hi: 'नया शर्ते जोड़ें',
         ar: 'أضف شرطًا جديدًا',
         ru: 'Добавить новое условие',
+        tr: 'Yeni koşul ekle',
       }),
     },
   },
