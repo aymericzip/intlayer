@@ -17,6 +17,7 @@ export const dictionaryFormSchemaContent = {
       hi: 'कृपया अपने शब्दकोश के लिए एक कुंजी दर्ज करें',
       ar: 'الرجاء إدخال مفتاح لقاموسك',
       ru: 'Пожалуйста, введите ключ для вашего словаря',
+      tr: 'Lütfen sözlüğünüz için bir anahtar girin',
     }),
 
     invalidTypeErrorName: t({
@@ -33,6 +34,7 @@ export const dictionaryFormSchemaContent = {
       hi: 'कृपया अपने शब्दकोश के लिए एक मान्य कुंजी दर्ज करें',
       ar: 'الرجاء إدخال مفتاح صالح لقاموسك',
       ru: 'Пожалуйста, введите действительный ключ для вашего словаря',
+      tr: 'Lütfen sözlüğünüz için geçerli bir anahtar girin',
     }),
 
     requiredErrorProjectId: t({
@@ -49,6 +51,7 @@ export const dictionaryFormSchemaContent = {
       hi: 'कृपया एक परियोजना चुनें',
       ar: 'الرجاء تحديد مشروع',
       ru: 'Пожалуйста, выберите проект',
+      tr: 'Lütfen bir proje seçin',
     }),
 
     invalidTypeErrorProjectId: t({
@@ -65,6 +68,7 @@ export const dictionaryFormSchemaContent = {
       hi: 'कृपया एक मान्य परियोजना चुनें',
       ar: 'الرجاء تحديد مشروع صالح',
       ru: 'Пожалуйста, выберите действительный проект',
+      tr: 'Lütfen geçerli bir proje seçin',
     }),
   },
 } satisfies Dictionary;

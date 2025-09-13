@@ -17,6 +17,7 @@ const dashboardContent = {
       hi: 'डैशबोर्ड',
       ar: 'لوحة التحكم',
       ru: 'Панель управления',
+      tr: 'Dashboard',
     }),
   },
 } satisfies Dictionary;

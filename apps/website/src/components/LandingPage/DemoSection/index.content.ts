@@ -17,6 +17,7 @@ const demoSectionContent = {
       hi: 'लाइव डेमो का प्रयास करें',
       ar: 'جرب العرض التوضيحي المباشر',
       ru: 'Попробуйте демонстрацию в реальном времени',
+      tr: 'Canlı demoyu deneyin',
     }),
     demoSwitchSelector: {
       youtube: t({
@@ -33,6 +34,7 @@ const demoSectionContent = {
         hi: 'YouTube डेमो देखें',
         ar: 'شاهد العرض التوضيحي على YouTube',
         ru: 'Посмотрите демо на YouTube',
+        tr: 'YouTube demosunu izleyin',
       }),
       codeSandbox: t({
         en: 'Try using CodeSandbox',
@@ -48,6 +50,7 @@ const demoSectionContent = {
         hi: 'CodeSandbox का उपयोग करने का प्रयास करें',
         ar: 'جرب استخدام CodeSandbox',
         ru: 'Попробуйте использовать CodeSandbox',
+        tr: 'CodeSandbox kullanmayı deneyin',
       }),
     },
   },

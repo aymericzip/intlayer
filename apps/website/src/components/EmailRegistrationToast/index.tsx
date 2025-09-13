@@ -47,7 +47,8 @@ export const EmailRegistrationToast: FC = () => {
   );
   const [isVisible, setIsVisible] = useState(false);
   const [shouldShow, setShouldShow] = useState(false);
-  const { isLoading, subscribeToNewsletter } = useSubscribeToNewsletter();
+  const { isPending: isLoading, mutateAsync: subscribeToNewsletter } =
+    useSubscribeToNewsletter();
   const { content, closeLabel, registerLabel, emailInput } = useIntlayer(
     'email-registration-toast'
   );

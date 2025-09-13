@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'React, Next.js, Vue के लिए i18n समाधान और CMS | Intlayer',
       ar: 'حل i18n و CMS مدعوم بالذكاء الاصطناعي لـ React و Next.js و Vue | Intlayer',
       ru: 'Решение i18n и CMS для React, Next.js, Vue | Intlayer',
+      tr: 'React, Next.js, Vue için i18n Çözümü ve CMS | Intlayer',
     }),
 
     description: t({
@@ -35,6 +36,7 @@ const metadataContent = {
       hi: 'Intlayer के साथ अपने ऐप की स्केलेबिलिटी बढ़ाएं: एक अंतर्राष्ट्रीयकरण (i18n) और सामग्री प्रबंधन समाधान, जो AI द्वारा संचालित है। React, Next.js, Vue, Svelte आदि के लिए डिज़ाइन किया गया।',
       ar: 'عزز قابلية التوسع لتطبيقك مع Intlayer: حل للتدويل (i18n) وإدارة المحتوى مدعوم بالذكاء الاصطناعي. مصمم لـ React وNext.js وVue وSvelte والمزيد.',
       ru: 'Увеличьте масштабируемость вашего приложения с помощью Intlayer: решение для интернационализации (i18n) и управления контентом на базе ИИ. Поддержка React, Next.js, Vue, Svelte и других.',
+      tr: 'Intlayer ile uygulamanızın ölçeklenebilirliğini artırın: AI destekli bir uluslararasılaştırma (i18n) ve içerik yönetim çözümü. React, Next.js, Vue, Svelte ve daha fazlası için tasarlandı.',
     }),
 
     keywords: t<string[]>({
@@ -231,6 +233,21 @@ const metadataContent = {
         'CMS',
         'Система управления контентом',
       ],
+      tr: [
+        'çeviri',
+        'yerelleştirme',
+        'çok dilli',
+        'SEO',
+        'Uluslararasılaştırma',
+        'i18n',
+        'Web Geliştirme',
+        'Next.js',
+        'JavaScript',
+        'Vite',
+        'React',
+        'CMS',
+        'İçerik Yönetim Sistemi',
+      ],
     }),
     openGraph: {
       title: t({
@@ -247,6 +264,7 @@ const metadataContent = {
         hi: 'अंतर्राष्ट्रीयकरण (i18n) Next.js को आसानी से बनाया गया | Intlayer',
         ar: 'التدويل (i18n) يجعل Next.js سهلًا | Intlayer',
         ru: 'Интернационализация (i18n) Next.js стала простой | Intlayer',
+        tr: "Uluslararasılaştırma (i18n) Next.js'i Kolaylaştırır | Intlayer",
       }),
     },
   },

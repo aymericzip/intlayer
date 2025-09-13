@@ -88,6 +88,12 @@ export const frequentQuestionsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/SSR_Next_no_[locale].md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/array_as_content_declaration.md': {
     en: Promise.resolve(
@@ -207,6 +213,15 @@ export const frequentQuestionsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../frequent_questions/tr/array_as_content_declaration.md'
+        ),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/build_dictionaries.md': {
     en: Promise.resolve(
@@ -287,6 +302,12 @@ export const frequentQuestionsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/build_dictionaries.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/build_error_CI_CD.md': {
     en: Promise.resolve(
@@ -364,6 +385,12 @@ export const frequentQuestionsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../frequent_questions/hi/build_error_CI_CD.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/build_error_CI_CD.md'),
         'utf8'
       )
     ),
@@ -450,6 +477,12 @@ export const frequentQuestionsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/customized_locale_list.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/domain_routing.md': {
     en: Promise.resolve(
@@ -527,6 +560,12 @@ export const frequentQuestionsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../frequent_questions/hi/domain_routing.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/domain_routing.md'),
         'utf8'
       )
     ),
@@ -610,6 +649,12 @@ export const frequentQuestionsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/esbuild_error.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/get_locale_cookie.md': {
     en: Promise.resolve(
@@ -687,6 +732,12 @@ export const frequentQuestionsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../frequent_questions/hi/get_locale_cookie.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/get_locale_cookie.md'),
         'utf8'
       )
     ),
@@ -809,6 +860,15 @@ export const frequentQuestionsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../frequent_questions/tr/intlayer_command_undefined.md'
+        ),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/locale_incorect_in_url.md': {
     en: Promise.resolve(
@@ -892,6 +952,12 @@ export const frequentQuestionsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/locale_incorect_in_url.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/static_rendering.md': {
     en: Promise.resolve(
@@ -969,6 +1035,12 @@ export const frequentQuestionsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../frequent_questions/hi/static_rendering.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/static_rendering.md'),
         'utf8'
       )
     ),
@@ -1052,6 +1124,12 @@ export const frequentQuestionsEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/translated_path_url.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/unknown_command.md': {
     en: Promise.resolve(
@@ -1129,6 +1207,12 @@ export const frequentQuestionsEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../frequent_questions/hi/unknown_command.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../frequent_questions/tr/unknown_command.md'),
         'utf8'
       )
     ),

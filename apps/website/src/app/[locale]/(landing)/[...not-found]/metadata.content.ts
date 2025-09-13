@@ -18,6 +18,7 @@ const metadataContent = {
       ar: '404 - الصفحة غير موجودة | Intlayer',
       ru: '404 - Страница Не Найдена | Intlayer',
       'en-GB': '404 - Page Not Found | Intlayer',
+      tr: '404 - Sayfa Bulunamadı | Intlayer',
     }),
     description: t({
       en: 'Oops! The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Navigate back to our homepage or use the search function to find what you need.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'अरे! जिस पृष्ठ की आप तलाश कर रहे हैं वह हटा दी गई हो, उसका नाम बदल दिया गया हो या अस्थायी रूप से अनुपलब्ध हो। हमारी मुख्य पृष्ठ पर वापस जाएं या जो आपको चाहिए उसे खोजने के लिए खोज फ़унк्शन का उपयोग करें।',
       ar: 'عذرًا! قد تكون الصفحة التي تبحث عنها قد أزيلت أو تم تغيير اسمها أو أنها غير متاحة مؤقتًا. انتقل إلى صفحتنا الرئيسية أو استخدم وظيفة البحث للعثور على ما تحتاجه.',
       ru: 'Упс! Страница, которую вы ищете, возможно, была удалена, изменила название или временно недоступна. Вернитесь на нашу домашнюю страницу или воспользуйтесь функцией поиска, чтобы найти то, что вам нужно.',
+      tr: 'Hata! Aradığınız sayfa kaldırılmış, adı değiştirilmiş veya geçici olarak kullanılamıyor olabilir. Ana sayfamıza geri dönün veya ihtiyacınız olanı bulmak için arama işlevini kullanın.',
     }),
     keywords: t<string[]>({
       en: [
@@ -164,6 +166,16 @@ const metadataContent = {
         'JavaScript',
         'React',
         'веб-разработка',
+        'i18n',
+      ],
+      tr: [
+        '404 hatası',
+        'sayfa bulunamadı',
+        'hata',
+        'Intlayer',
+        'JavaScript',
+        'React',
+        'web geliştirme',
         'i18n',
       ],
     }),

@@ -18,6 +18,7 @@ const docNavTitlesContent = {
       hi: 'अधिकतर पूछे जाने वाले प्रश्न',
       ar: 'الأسئلة الشائعة',
       ru: 'Часто задаваемые вопросы',
+      tr: 'Sıkça Sorulan Sorular',
     }),
 
     content: [
@@ -36,6 +37,7 @@ const docNavTitlesContent = {
           hi: 'अंतर्राष्ट्रीयकरण (i18n) क्या है?',
           ar: 'ما هو التدويل (i18n)؟',
           ru: 'Что такое интернационализация (i18n)?',
+          tr: 'Uluslararasılaştırma (i18n) nedir?',
         }),
         answer: t({
           en: 'Internationalization (i18n) is the process of designing and developing applications like Next.js, react, or express to support multiple languages easily. It enables you to create multilingual websites by simplifying the translation process. Tools like TypeScript make it easier to implement i18n, allowing for efficient and easy adaptation of your application to different languages and regions.',
@@ -52,6 +54,7 @@ const docNavTitlesContent = {
           hi: 'अंतर्राष्ट्रीयकरण (i18n) वह प्रक्रिया है जिसमें Next.js, react, या express जैसी आवेदन को आसानी से कई भाषाओं का समर्थन करने के लिए डिजाइन और विकसित किया जाता है। यह आपको अनुवाद प्रक्रिया को सरल बनाकर बहुभाषी वेबसाइट बनाने की अनुमति देता है। TypeScript जैसे उपकरण i18n का कार्यान्वयन करने को आसान बनाते हैं, जिससे आपके अनुप्रयोग को विभिन्न भाषाओं और क्षेत्रों के अनुकूल बनाना कुशल और आसान हो जाता है।',
           ar: 'التدويل (i18n) هو عملية تصميم وتطوير التطبيقات مثل Next.js وReact أو Express لدعم لغات متعددة بسهولة. يتيح لك إنشاء مواقع ويب متعددة اللغات من خلال تبسيط عملية الترجمة. تجعل الأدوات مثل TypeScript من السهل تنفيذ i18n، مما يسمح بتكيف كفء وسهل لتطبيقك مع لغات ومناطق مختلفة.',
           ru: 'Интернационализация (i18n) - это процесс проектирования и разработки приложений, таких как Next.js, React или Express, для удобной поддержки нескольких языков. Она позволяет создавать многоязычные веб-сайты, упрощая процесс перевода. Инструменты, такие как TypeScript, облегчают реализацию i18n, позволяя эффективно и легко адаптировать ваше приложение к различным языкам и регионам.',
+          tr: 'Uluslararasılaştırma (i18n), Next.js, React veya Express gibi uygulamaların birden çok dili kolayca destekleyecek şekilde tasarlanması ve geliştirilmesi sürecidir. Çeviri sürecini basitleştirerek çok dilli web siteleri oluşturmanızı sağlar. TypeScript gibi araçlar, i18n uygulamasını kolaylaştırır ve uygulamanızın farklı dillere ve bölgelere verimli ve kolay bir şekilde uyum sağlamasına olanak tanır.',
         }),
         callToAction: {
           label: t({
@@ -68,6 +71,7 @@ const docNavTitlesContent = {
             hi: 'अंतर्राष्ट्रीयकरण के बारे में अधिक पढ़ें',
             ar: 'اقرأ المزيد عن التدويل',
             ru: 'Узнайте больше о i18n',
+            tr: 'i18n hakkında daha fazla bilgi edinin',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur l'internationalisation",
@@ -83,6 +87,7 @@ const docNavTitlesContent = {
             hi: 'अंतर्राष्ट्रीयकरण के बारे में अधिक जानने के लिए यहां क्लिक करें',
             ar: 'انقر هنا لقراءة المزيد عن التدويل',
             ru: 'Нажмите здесь, чтобы узнать больше о i18n',
+            tr: 'i18n hakkında daha fazla bilgi edinmek için tıklayın',
           }),
           url: PagesRoutes.Blog_What_is_i18n,
         },
@@ -102,6 +107,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer क्या है?',
           ar: 'ما هو Intlayer؟',
           ru: 'Что такое Intlayer?',
+          tr: 'Intlayer nedir?',
         }),
         answer: t({
           en: 'Intlayer is a package that allows you to manage your multilingual website. It provides a set of tools and utilities that make it easy to set up your website for multilingual content and localization.',
@@ -118,6 +124,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer एक पैकेज है जो आपको अपनी बहुभाषी वेबसाइट को प्रबंधित करने की अनुमति देता है। यह बहुभाषी सामग्री और स्थानीयकरण के लिए आपकी वेबसाइट को सेटअप करना आसान बनाने के लिए टूल और उपयोगिताओं का एक सेट प्रदान करता है。',
           ar: 'Intlayer هو حزمة تسمح لك بإدارة موقع الويب متعدد اللغات الخاص بك. يوفر مجموعة من الأدوات والمرافق التي تجعل من السهل إعداد موقع الويب الخاص بك لمحتوى متعدد اللغات والتعريب.',
           ru: 'Intlayer - это пакет, который позволяет вам управлять вашим многоязычным веб-сайтом. Он предоставляет набор инструментов и утилит, которые облегчают настройку вашего веб-сайта для многоязычного контента и локализации.',
+          tr: 'Intlayer, çok dilli web sitenizi yönetmenizi sağlayan bir pakettir. Çok dilli içerik ve yerelleştirme için web sitenizi kolayca kurmanızı sağlayan bir dizi araç ve yardımcı program sunar.',
         }),
         callToAction: {
           label: t({
@@ -134,6 +141,7 @@ const docNavTitlesContent = {
             hi: 'Intlayer के बारे में अधिक पढ़ें',
             ar: 'اقرأ المزيد عن Intlayer',
             ru: 'Узнайте больше о Intlayer',
+            tr: 'Intlayer hakkında daha fazla bilgi edinin',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur l'utilisation d'Intlayer",
@@ -149,6 +157,7 @@ const docNavTitlesContent = {
             hi: 'Intlayer के उपयोग के बारे में अधिक पढ़ने के लिए यहां क्लिक करें',
             ar: 'انقر هنا لقراءة المزيد عن استخدام Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о использовании Intlayer',
+            tr: 'Intlayer kullanımı hakkında daha fazla bilgi edinmek için tıklayın',
           }),
           url: PagesRoutes.Doc,
         },
@@ -168,6 +177,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer की मुख्य विशेषताएँ क्या हैं?',
           ar: 'ما هي المميزات الرئيسية لـ Intlayer؟',
           ru: 'Каковы основные функции Intlayer?',
+          tr: 'Intlayer’ın temel özellikleri nelerdir?',
         }),
         answer: t({
           en: 'Intlayer simplifies configuration management and enables internationalization for various types of JavaScript applications, including server components. It allows content declaration directly alongside components, improving codebase maintainability. Additionally, Intlayer leverages TypeScript to prevent missing declarations. Finally, Intlayer offers a visual editor, enabling non-developers to edit website content, translate automatically using AI, and optimize the application’s SEO.',
@@ -184,6 +194,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer कॉन्फ़िगरेशन प्रबंधन को सरल बनाता है और विभिन्न प्रकार के JavaScript अनुप्रयोगों, जिसमें सर्वर घटक शामिल हैं, के लिए अंतर्राष्ट्रीयकरण सक्षम करता है। यह घटकों के साथ सीधे सामग्री की घोषणा की अनुमति देता है, जिससे कोडबेस की रखरखाव क्षमता में सुधार होता है। इसके अलावा, Intlayer को अनुप्रयोग की घोषणा समाप्त होने से रोकने के लिए TypeScript का लाभ उठाता है। अंततः, Intlayer एक दृश्य संपादक प्रदान करता है, जो गैर-डेवलपर्स को वेबसाइट की सामग्री को संपादित करने, AI का उपयोग करके स्वचालित रूप से अनुवाद करने और एप्लिकेशन के SEO को अनुकूलित करने में सक्षम बनाता है।',
           ar: 'تسهل Intlayer إدارة التكوين وتتيح التدويل لمجموعة متنوعة من أنواع تطبيقات JavaScript، بما في ذلك المكونات الخادم. يسمح بإعلان المحتوى مباشرة بجانب المكونات، مما يحسن من قابلية صيانة قاعدة التعليمات البرمجية. بالإضافة إلى ذلك، تستفيد Intlayer من TypeScript لمنع فقدان التصريحات. أخيرًا، تقدم Intlayer محررًا مرئيًا، مما يتيح لغير المطورين تحرير محتوى الموقع، والترجمة تلقائيًا باستخدام الذكاء الاصطناعي، وتحسين تحسين محركات البحث للتطبيق.',
           ru: 'Intlayer упрощает управление конфигурацией и позволяет интернационализировать различные типы JavaScript-приложений, включая серверные компоненты. Он позволяет объявлять содержимое непосредственно рядом с компонентами, улучшая поддерживаемость кодовой базы. Кроме того, Intlayer использует TypeScript, чтобы предотвратить отсутствие деклараций. Наконец, Intlayer предлагает визуальный редактор, позволяя недевелоперам редактировать содержимое сайта, автоматически переводить с помощью ИИ и оптимизировать SEO приложения.',
+          tr: "Intlayer, yapılandırma yönetimini basitleştirir ve sunucu bileşenleri de dahil olmak üzere çeşitli türde JavaScript uygulamaları için uluslararasılaştırmayı etkinleştirir. İçerik beyanını bileşenlerin yanında doğrudan yapmanıza olanak tanır ve kod tabanının sürdürülebilirliğini artırır. Ayrıca, Intlayer, eksik beyanları önlemek için TypeScript'ten yararlanır. Son olarak, Intlayer, geliştirici olmayanların web sitesi içeriğini düzenlemesine, AI kullanarak otomatik olarak çeviri yapmasına ve uygulamanın SEO'sunu optimize etmesine olanak tanıyan görsel bir editör sunar.",
         }),
         callToAction: {
           label: t({
@@ -200,6 +211,7 @@ const docNavTitlesContent = {
             hi: 'Intlayer की विशेषताओं के बारे में अधिक पढ़ें',
             ar: 'اقرأ المزيد عن مميزات Intlayer',
             ru: 'Узнайте больше о функциях Intlayer',
+            tr: 'Intlayer’ın özellikleri hakkında daha fazla bilgi edinin',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur les fonctionnalités d'Intlayer",
@@ -215,6 +227,7 @@ const docNavTitlesContent = {
             hi: 'Intlayer की विशेषताओं के बारे में अधिक जानने के लिए यहां क्लिक करें',
             ar: 'انقر هنا لقراءة المزيد عن ميزات Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о функциях Intlayer',
+            tr: 'Intlayer özellikleri hakkında daha fazla bilgi edinmek için tıklayın',
           }),
           url: PagesRoutes.Doc_Why,
         },
@@ -234,6 +247,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer कैसे Next.js के साथ एकीकृत होता है?',
           ar: 'كيف يتكامل Intlayer مع Next.js؟',
           ru: 'Как Intlayer интегрируется с Next.js?',
+          tr: 'Intlayer, Next.js ile nasıl entegre olur?',
         }),
         answer: t({
           en: 'Intlayer integrates with Next.js to enable server-side rendering and static site generation, making multilingual content delivery more efficient.',
@@ -250,6 +264,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer Next.js के साथ सर्वर-साइड रेंडरिंग और स्थिर साइट जनरेट करने के लिए एकीकृत होता है, जिससे बहुभाषी सामग्री वितरण अधिक प्रभावी तरीके से हो सके।',
           ar: 'يتكامل Intlayer مع Next.js لتمكين عملية التجسيد من جانب الخادم وإنشاء المواقع الثابتة، مما يجعل تسليم المحتوى متعدد اللغات أكثر كفاءة.',
           ru: 'Intlayer интегрируется с Next.js, чтобы обеспечить рендеринг на стороне сервера и генерацию статических сайтов, делая доставку многоязычного контента более эффективной.',
+          tr: 'Intlayer, Next.js ile entegre olarak sunucu tarafı render ve statik site oluşturmayı etkinleştirir, çok dilli içerik teslimatını daha verimli hale getirir.',
         }),
         callToAction: {
           label: t({
@@ -266,6 +281,7 @@ const docNavTitlesContent = {
             hi: 'Next.js के साथ एकीकरण के बारे में अधिक पढ़ें',
             ar: 'اقرأ المزيد عن تكامل Intlayer مع Next.js',
             ru: 'Узнайте больше об интеграции с Next.js',
+            tr: 'Next.js entegrasyonu hakkında daha fazla bilgi edinin',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur l'intégration d'Intlayer avec Next.js",
@@ -282,6 +298,7 @@ const docNavTitlesContent = {
             hi: 'Next.js के साथ Intlayer की एकीकरण के बारे में अधिक पढ़ने के लिए यहां क्लिक करें',
             ar: 'انقر هنا لقراءة المزيد عن تكامل Intlayer مع Next.js',
             ru: 'Нажмите здесь, чтобы узнать больше об интеграции с Next.js',
+            tr: "Intlayer'ın Next.js ile entegrasyonu hakkında daha fazla bilgi edinmek için tıklayın",
           }),
           url: PagesRoutes.Doc_Environment_NextJS_15,
         },
@@ -301,6 +318,7 @@ const docNavTitlesContent = {
           hi: 'क्या Intlayer में एक दृश्य संपादक है?',
           ar: 'هل هناك محرر مرئي في Intlayer؟',
           ru: 'Есть ли визуальный редактор в Intlayer?',
+          tr: "Intlayer'da görsel bir editör var mı?",
         }),
         answer: t({
           en: 'Yes, Intlayer provides an optional visual editor for managing content easily without diving into code.',
@@ -317,6 +335,7 @@ const docNavTitlesContent = {
           hi: 'जी हां, Intlayer एक वैकल्पिक दृश्य संपादक प्रदान करता है जिससे बिना कोड में जाकर सामग्री को आसानी से प्रबंधित किया जा सकता है।',
           ar: 'نعم، يقدم Intlayer محررًا مرئيًا اختياريًا لإدارة المحتوى بسهولة دون الحاجة إلى التعمق في الكود.',
           ru: 'Да, Intlayer предоставляет необязательный визуальный редактор для легкого управления содержимым, не углубляясь в код.',
+          tr: 'Evet, Intlayer, koda dalmadan içeriği kolayca yönetmek için isteğe bağlı bir görsel editör sağlar.',
         }),
         callToAction: {
           label: t({
@@ -333,6 +352,7 @@ const docNavTitlesContent = {
             hi: 'दृश्य संपादक के बारे में अधिक पढ़ें',
             ar: 'اقرأ المزيد عن المحرر المرئي',
             ru: 'Узнайте больше о визуальном редакторе',
+            tr: 'Görsel editör hakkında daha fazla bilgi edinin',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur l'éditeur visuel d'Intlayer",
@@ -348,6 +368,7 @@ const docNavTitlesContent = {
             hi: 'Intlayer दृश्य संपादक के बारे में अधिक जानकारी के लिए यहां क्लिक करें',
             ar: 'انقر هنا لقراءة المزيد عن محرر Intlayer المرئي',
             ru: 'Нажмите здесь, чтобы узнать больше о визуальном редакторе Intlayer',
+            tr: 'Intlayer görsel editör hakkında daha fazla bilgi edinmek için tıklayın',
           }),
           url: PagesRoutes.Doc_IntlayerVisualEditor,
         },
@@ -367,6 +388,7 @@ const docNavTitlesContent = {
           hi: 'मैं Intlayer में कैसे योगदान कर सकता हूँ?',
           ar: 'كيف يمكنني المساهمة في Intlayer؟',
           ru: 'Как я могу сделать вклад в Intlayer?',
+          tr: "Intlayer'a nasıl katkıda bulunabilirim?",
         }),
         answer: t({
           en: 'You can contribute by submitting pull requests or reporting issues on the GitHub repository.',
@@ -383,6 +405,7 @@ const docNavTitlesContent = {
           hi: 'आप पुल अनुरोध सबमिट करके या GitHub भंडार पर मुद्दों की रिपोर्ट करके योगदान कर सकते हैं।',
           ar: 'يمكنك المساهمة من خلال تقديم طلبات سحب أو الإبلاغ عن مشكلات على مستودع GitHub.',
           ru: 'Вы можете внести свой вклад, отправив запросы на извлечение или сообщив об ошибках в репозитории GitHub.',
+          tr: 'GitHub deposunda çekme istekleri göndererek veya sorunları bildirerek katkıda bulunabilirsiniz.',
         }),
         callToAction: {
           label: t({
@@ -399,6 +422,7 @@ const docNavTitlesContent = {
             hi: 'योगदान करने के तरीके के बारे में अधिक पढ़ें',
             ar: 'اقرأ المزيد عن كيفية المساهمة',
             ru: 'Узнайте больше о том, как внести свой вклад',
+            tr: 'Katkıda bulunma hakkında daha fazla bilgi edinin',
           }),
           alt: t({
             fr: 'Cliquez ici pour en savoir plus sur la façon de contribuer à Intlayer',
@@ -415,6 +439,7 @@ const docNavTitlesContent = {
             hi: 'Intlayer में योगदान करने के तरीके के बारे में अधिक जानकारी के लिए यहां क्लिक करें',
             ar: 'انقر هنا لقراءة المزيد عن كيفية المساهمة في Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о том, как внести свой вклад в Intlayer',
+            tr: "Intlayer'a nasıl katkıda bulunulacağı hakkında daha fazla bilgi edinmek için tıklayın",
           }),
           url: 'https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md',
         },
@@ -434,6 +459,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer का उपयोग करने की लागत क्या है?',
           ar: 'ما هي تكلفة استخدام Intlayer؟',
           ru: 'Какова стоимость использования Intlayer?',
+          tr: "Intlayer'ı kullanmanın maliyeti nedir?",
         }),
         answer: t({
           en: 'Intlayer integrates a selection of free NPM packages along with a visual editor. Additionally, it offers a CMS for externalizing content. This CMS is free to use but includes additional features for Premium and Enterprise plan members.',
@@ -450,6 +476,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer एक चयनित नि:शुल्क NPM पैकेज और एक विज़ुअल एडिटर को एकीकृत करता है। इसके अलावा, यह सामग्री को बाहरीकरण करने के लिए एक CMS प्रदान करता है। यह CMS निःशुल्क उपयोग के लिए उपलब्ध है, लेकिन Premium और Enterprise योजना के सदस्यों के लिए अतिरिक्त सुविधाएँ शामिल हैं।',
           ar: 'يُدمج Intlayer مجموعة مختارة من حزم NPM المجانية جنبًا إلى جنب مع محرر مرئي. بالإضافة إلى ذلك، يقدم نظام CMS لخارجية المحتوى. هذا النظام مجاني للاستخدام ولكنه يتضمن ميزات إضافية لأعضاء خطط Premium و Enterprise.',
           ru: 'Intlayer интегрирует подборку бесплатных пакетов NPM вместе с визуальным редактором. Кроме того, он предлагает CMS для внешнего управления контентом. Этот CMS бесплатен в использовании, но включает дополнительные функции для участников планов Premium и Enterprise.',
+          tr: 'Intlayer, görsel bir editörle birlikte ücretsiz NPM paketlerinden oluşan bir seçkiyi entegre eder. Ayrıca, içeriği dışa aktarmak için bir CMS sunar. Bu CMS ücretsizdir, ancak Premium ve Enterprise plan üyeleri için ek özellikler içerir.',
         }),
         callToAction: {
           label: t({
@@ -466,6 +493,7 @@ const docNavTitlesContent = {
             hi: 'Intlayer की योजनाओं के बारे में अधिक पढ़ें',
             ar: 'اقرأ المزيد عن خطط Intlayer',
             ru: 'Узнайте больше о планах Intlayer',
+            tr: 'Intlayer planları hakkında daha fazla bilgi edinin',
           }),
           alt: t({
             fr: "Cliquez ici pour en savoir plus sur les plans d'Intlayer",
@@ -481,6 +509,7 @@ const docNavTitlesContent = {
             hi: 'Intlayer की योजनाओं के बारे में अधिक पढ़ने के लिए यहां क्लिक करें',
             ar: 'انقر هنا لقراءة المزيد عن خطط Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о планах Intlayer',
+            tr: 'Intlayer planları hakkında daha fazla bilgi edinmek için tıklayın',
           }),
           url: PagesRoutes.Pricing,
         },
@@ -500,6 +529,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer किन प्लेटफार्मों का समर्थन करता है?',
           ar: 'ما هي المنصات التي يدعمها Intlayer؟',
           ru: 'Какие платформы поддерживает Intlayer?',
+          tr: 'Intlayer hangi platformları destekliyor?',
         }),
         answer: t({
           en: 'Intlayer is available for React (including Create React App), Vite with React, Next.js, and Express. This ensures a seamless integration with modern JavaScript frameworks and server-side environments.',
@@ -516,6 +546,7 @@ const docNavTitlesContent = {
           hi: 'Intlayer React (Create React App सहित), Vite के साथ React, Next.js, और Express के लिए उपलब्ध है। यह आधुनिक JavaScript ढांचे और सर्वर-साइड वातावरण के साथ एक सहज एकीकरण सुनिश्चित करता है।',
           ar: 'يتوفر Intlayer لـ React (بما في ذلك Create React App) و Vite مع React و Next.js و Express. يضمن ذلك تكاملاً سلساً مع إطار العمل الحديث JavaScript والبيئات من جانب الخادم.',
           ru: 'Intlayer доступен для React (включая Create React App), Vite с React, Next.js и Express. Это обеспечивает бесшовную интеграцию с современными JavaScript-фреймворками и серверными средами.',
+          tr: 'Intlayer, React (Create React App dahil), Vite with React, Next.js ve Express için kullanılabilir. Bu, modern JavaScript çerçeveleri ve sunucu tarafı ortamlarla sorunsuz entegrasyon sağlar.',
         }),
         callToAction: {
           label: t({
@@ -532,6 +563,7 @@ const docNavTitlesContent = {
             hi: 'समर्थित प्लेटफार्मों के बारे में अधिक पढ़ें',
             ar: 'اقرأ المزيد عن المنصات المدعومة',
             ru: 'Узнайте больше о поддерживаемых платформах',
+            tr: 'Desteklenen platformlar hakkında daha fazla bilgi edinin',
           }),
           alt: t({
             fr: 'Cliquez ici pour en savoir plus sur les plateformes prises en charge par Intlayer',
@@ -548,6 +580,7 @@ const docNavTitlesContent = {
             hi: 'Intlayer द्वारा समर्थित प्लेटफार्मों के बारे में अधिक जानने के लिए यहां क्लिक करें',
             ar: 'انقر هنا لقراءة المزيد عن المنصات المدعومة من Intlayer',
             ru: 'Нажмите здесь, чтобы узнать больше о поддерживаемых платформах Intlayer',
+            tr: 'Intlayer tarafından desteklenen platformlar hakkında daha fazla bilgi edinmek için tıklayın',
           }),
           url: `${PagesRoutes.Doc}#platforms-supported`,
         },

@@ -18,6 +18,7 @@ const pageContent = {
       hi: 'दस्तावेज़ में खोजें',
       ar: 'البحث في المستند',
       ru: '',
+      tr: 'Dokümanda ara',
     }),
   },
 } satisfies Dictionary<Metadata>;

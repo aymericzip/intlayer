@@ -17,6 +17,7 @@ export const changePasswordSchemaContent = {
       hi: 'कृपया अपना वर्तमान पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة المرور الحالية',
       ru: 'Пожалуйста, введите ваш текущий пароль',
+      tr: 'Lütfen mevcut şifrenizi girin',
     }),
 
     invalidTypeErrorPassword: t({
@@ -33,6 +34,7 @@ export const changePasswordSchemaContent = {
       hi: 'कृपया एक मान्य पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة مرور صالحة',
       ru: 'Пожалуйста, введите действительный пароль',
+      tr: 'Lütfen geçerli bir şifre girin',
     }),
 
     invalidPasswordLengthError: t({
@@ -49,6 +51,7 @@ export const changePasswordSchemaContent = {
       hi: 'आपका पासवर्ड कम से कम 8 अक्षरों का होना चाहिए',
       ar: 'يجب أن تحتوي كلمة المرور الخاصة بك على 8 أحرف على الأقل',
       ru: 'Ваш пароль должен содержать не менее 8 символов',
+      tr: 'Şifreniz en az 8 karakter olmalıdır',
     }),
 
     requiredErrorNewPassword: t({
@@ -65,6 +68,7 @@ export const changePasswordSchemaContent = {
       hi: 'कृपया अपना नया पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة المرور الجديدة الخاصة بك',
       ru: 'Пожалуйста, введите ваш новый пароль',
+      tr: 'Lütfen yeni şifrenizi girin',
     }),
 
     invalidTypeErrorNewPassword: t({
@@ -81,6 +85,7 @@ export const changePasswordSchemaContent = {
       hi: 'कृपया एक वैध नया पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة مرور جديدة صالحة',
       ru: 'Пожалуйста, введите действительный новый пароль',
+      tr: 'Lütfen geçerli bir yeni şifre girin',
     }),
 
     requiredErrorNewPasswordConfirmation: t({
@@ -97,6 +102,7 @@ export const changePasswordSchemaContent = {
       hi: 'कृपया अपना नया पासवर्ड फिर से दर्ज करें',
       ar: 'يرجى إدخال كلمة المرور الجديدة الخاصة بك مرة أخرى',
       ru: 'Пожалуйста, повторно введите ваш новый пароль',
+      tr: 'Lütfen yeni şifrenizi tekrar girin',
     }),
 
     invalidTypeErrorNewPasswordConfirmation: t({
@@ -113,6 +119,7 @@ export const changePasswordSchemaContent = {
       hi: 'कृपया एक वैध नया पासवर्ड फिर से दर्ज करें',
       ar: 'يرجى إدخال كلمة مرور جديدة صالحة مرة أخرى',
       ru: 'Пожалуйста, повторно введите действительный новый пароль',
+      tr: 'Lütfen geçerli bir yeni şifreyi tekrar girin',
     }),
 
     passwordNotMatchError: t({
@@ -129,6 +136,7 @@ export const changePasswordSchemaContent = {
       hi: 'नया पासवर्ड और पासवर्ड की पुष्टि मिलनी चाहिए',
       ar: 'يجب أن يتطابق كلمة المرور الجديدة مع تأكيد كلمة المرور',
       ru: 'Новый пароль и подтверждение пароля должны совпадать',
+      tr: 'Yeni şifre ve şifre onayı eşleşmelidir',
     }),
   },
 } satisfies Dictionary;

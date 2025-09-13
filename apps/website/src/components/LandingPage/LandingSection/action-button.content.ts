@@ -17,6 +17,7 @@ const actionButtonContent = {
       hi: 'परियोजना का समर्थन करें',
       ar: 'دعم المشروع',
       ru: 'Поддержать проект',
+      tr: 'Projeyi destekle',
     }),
     getStartedButton: t({
       en: 'Get started',
@@ -32,6 +33,7 @@ const actionButtonContent = {
       hi: 'शुरू हो जाओ',
       ar: 'البدء',
       ru: 'Начать',
+      tr: 'Başlayın',
     }),
   },
 } satisfies Dictionary;

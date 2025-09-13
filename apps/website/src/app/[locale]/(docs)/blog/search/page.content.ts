@@ -18,6 +18,7 @@ const pageContent = {
       hi: 'ब्लॉग में खोजें',
       ar: 'البحث في المدونة',
       ru: 'Поиск в блоге',
+      tr: 'Blogda ara',
     }),
   },
 } satisfies Dictionary<Metadata>;

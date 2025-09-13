@@ -17,6 +17,7 @@ export const copyContentContent = {
       hi: 'सामग्री कॉपी करें',
       ar: 'نسخ المحتوى',
       ru: 'Копировать содержимое',
+      tr: 'İçeriği kopyala',
     }),
   },
 } satisfies Dictionary;

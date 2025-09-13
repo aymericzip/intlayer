@@ -17,6 +17,7 @@ export const externalsLoginButtonsContent = {
       ar: 'أو',
       ru: 'или',
       'en-GB': 'or',
+      tr: 'veya',
     }),
     github: {
       label: t({
@@ -33,6 +34,7 @@ export const externalsLoginButtonsContent = {
         ar: 'تسجيل الدخول باستخدام GitHub',
         ru: 'Войти с GitHub',
         'en-GB': 'Sign in with GitHub',
+        tr: 'GitHub ile giriş yap',
       }),
       ariaLabel: t({
         en: 'Sign in with GitHub',
@@ -48,6 +50,7 @@ export const externalsLoginButtonsContent = {
         ar: 'تسجيل الدخول باستخدام GitHub',
         ru: 'Войти с GitHub',
         'en-GB': 'Sign in with GitHub',
+        tr: 'GitHub ile giriş yap',
       }),
     },
     google: {
@@ -65,6 +68,7 @@ export const externalsLoginButtonsContent = {
         ar: 'تسجيل الدخول باستخدام Google',
         ru: 'Войти с Google',
         'en-GB': 'Sign in with Google',
+        tr: 'Google ile giriş yap',
       }),
       ariaLabel: t({
         en: 'Sign in with Google',
@@ -80,6 +84,7 @@ export const externalsLoginButtonsContent = {
         ar: 'تسجيل الدخول باستخدام Google',
         ru: 'Войти с Google',
         'en-GB': 'Sign in with Google',
+        tr: 'Google ile giriş yap',
       }),
     },
   },

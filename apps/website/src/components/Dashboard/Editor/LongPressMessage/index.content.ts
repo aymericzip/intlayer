@@ -18,6 +18,7 @@ const longPressMessageContent = {
         'en-GB': 'Long press to edit the "{{dictionaryKey}}" dictionary',
         ar: 'اضغط طويلاً للتعديل "{{dictionaryKey}}"',
         hi: 'लंग प्रेस करें टू एडिट "{{dictionaryKey}}"',
+        tr: '"{{dictionaryKey}}" sözlüğünü düzenlemek için uzun basın',
       })
     ),
   },

@@ -18,6 +18,7 @@ const dictionaryEditionDrawerContent = {
         ar: 'انقر لفتح قاموس في المحرر',
         ru: 'Нажмите, чтобы открыть словарь в редакторе',
         'en-GB': 'Click to open the dictionary in the editor',
+        tr: 'Sözlüğü düzenleyicide açmak için tıklayın',
       }),
     },
     backButtonText: t({
@@ -34,6 +35,7 @@ const dictionaryEditionDrawerContent = {
       ar: 'قائمة القوامل',
       ru: 'Список словарей',
       'en-GB': 'Dictionary list',
+      tr: 'Sözlük listesi',
     }),
     modalTitle: t({
       en: 'Edit dictionary',
@@ -49,6 +51,7 @@ const dictionaryEditionDrawerContent = {
       ar: 'تحرير قاموس',
       ru: 'Редактировать словарь',
       'en-GB': 'Edit dictionary',
+      tr: 'Sözlüğü düzenle',
     }),
     noDictionaryFocused: t({
       en: 'No dictionary focused',
@@ -64,6 +67,7 @@ const dictionaryEditionDrawerContent = {
       ar: 'لا يوجد قاموس مرتبط',
       ru: 'Нет фокусированного словаря',
       'en-GB': 'No dictionary focused',
+      tr: 'Hiçbir sözlük odaklanmadı',
     }),
     focusedDictionaryNotFound: t({
       en: 'Focused dictionary not found',
@@ -79,6 +83,7 @@ const dictionaryEditionDrawerContent = {
       ar: 'لا يوجد قاموس مرتبط',
       ru: 'Нет фокусированного словаря',
       'en-GB': 'Focused dictionary not found',
+      tr: 'Odaklanılan sözlük bulunamadı',
     }),
   },
 } satisfies Dictionary;

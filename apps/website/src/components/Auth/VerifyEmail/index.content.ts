@@ -18,6 +18,7 @@ const verifyEmailFormContent = {
         hi: 'अपने ईमेल की पुष्टि करें',
         ar: 'تحقق من بريدك الإلكتروني',
         ru: 'Подтвердите ваш адрес электронной почты',
+        tr: 'E-postanızı doğrulayın',
       }),
       description: t({
         en: 'We sent you an email to verify your email address. Please check your inbox and click on the link to verify your email.',
@@ -34,6 +35,7 @@ const verifyEmailFormContent = {
         hi: 'हमने आपको आपके ईमेल पते की पुष्टि करने के लिए एक ईमेल भेजा है। कृपया अपने इनबॉक्स की जांच करें और अपने ईमेल की पुष्टि करने के लिए लिंक पर क्लिक करें।',
         ar: 'لقد أرسلنا إليك بريدًا إلكترونيًا للتحقق من عنوان بريدك الإلكتروني. يرجى التحقق من صندوق الوارد الخاص بك والنقر على الرابط للتحقق من بريدك الإلكتروني.',
         ru: 'Мы отправили вам письмо для подтверждения вашего адреса электронной почты. Пожалуйста, проверьте свой почтовый ящик и нажмите на ссылку, чтобы подтвердить электронную почту.',
+        tr: 'E-posta adresinizi doğrulamak için size bir e-posta gönderdik. Lütfen gelen kutunuzu kontrol edin ve e-postanızı doğrulamak için bağlantıya tıklayın.',
       }),
     },
     doneButton: {
@@ -51,6 +53,7 @@ const verifyEmailFormContent = {
         hi: 'किया',
         ar: 'تم',
         ru: 'Готово',
+        tr: 'Tamamlandı',
       }),
       ariaLabel: t({
         en: 'Click to return to the previous page',
@@ -66,6 +69,7 @@ const verifyEmailFormContent = {
         hi: 'पिछला पृष्ठ पर वापस जाने के लिए क्लिक करें',
         ar: 'انقر للرجوع إلى الصفحة السابقة',
         ru: 'Нажмите, чтобы вернуться на предыдущую страницу',
+        tr: 'Önceki sayfaya dönmek için tıklayın',
       }),
     },
   },

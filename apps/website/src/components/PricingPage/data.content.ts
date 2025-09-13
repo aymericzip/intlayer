@@ -38,6 +38,7 @@ export const planDetails = {
       hi: 'मुफ्त',
       ar: 'مجاني',
       ru: 'Бесплатный',
+      tr: 'Ücretsiz',
     }),
     description: t({
       en: 'Ideal for individuals looking to activate the visual editor on their application. Edit content directly with the AI interface and get a feel for Intlayer’s capabilities.',
@@ -54,6 +55,7 @@ export const planDetails = {
       hi: 'व्यक्तियों के लिए आदर्श जो अपने एप्लिकेशन पर दृश्य संपादक को सक्रिय करना चाहते हैं। AI इंटरफ़ेस के साथ सीधे सामग्री संपादित करें और Intlayer की क्षमताओं का अनुभव करें。',
       ar: 'مثالي للأفراد الذين يتطلعون إلى تفعيل محرر الصور في تطبيقهم. قم بتحرير المحتوى مباشرةً من خلال واجهة الذكاء الاصطناعي واحصل على إحساس بإمكانيات Intlayer.',
       ru: 'Идеально подходит для людей, которые хотят активировать визуальный редактор в своем приложении. Редактируйте контент напрямую с помощью интерфейса ИИ и узнайте о возможностях Intlayer.',
+      tr: 'Uygulamanızda görsel düzenleyiciyi etkinleştirmek isteyen bireyler için idealdir. İçeriği AI arayüzü ile doğrudan düzenleyin ve Intlayer’ın yeteneklerini hissedin.',
     }),
     checkPoint: t({
       en: [
@@ -160,6 +162,14 @@ export const planDetails = {
         '1 проект',
         '1 пользователь организации',
       ],
+      tr: [
+        'Tüm Intlayer paketlerine erişim',
+        'Görsel düzenleyicinin sınırsız kullanımı',
+        'Sınırsız uzak sözlükler',
+        '100 Mb depolama',
+        '1 proje',
+        '1 organizasyon kullanıcısı',
+      ],
     }),
     callToAction: {
       label: t({
@@ -176,6 +186,7 @@ export const planDetails = {
         hi: 'यह मुफ्त में आजमाएँ',
         ar: 'جربه مجاناً',
         ru: 'Попробуйте бесплатно',
+        tr: 'Ücretsiz deneyin',
       }),
       text: t({
         en: 'Try it for free',
@@ -191,6 +202,7 @@ export const planDetails = {
         hi: 'यह मुफ्त में आजमाएँ',
         ar: 'جربه مجاناً',
         ru: 'Попробуйте бесплатно',
+        tr: 'Ücretsiz deneyin',
       }),
     },
   },
@@ -209,6 +221,7 @@ export const planDetails = {
       hi: 'प्रीमियम',
       ar: 'متميز',
       ru: 'Премиум',
+      tr: 'Premium',
     }),
     description: t({
       en: 'Designed for small to medium teams needing more flexibility. Includes AI content generation, up to 10 projects, and 20 organization users.',
@@ -225,6 +238,7 @@ export const planDetails = {
       hi: 'छोटे से मध्यम दलों के लिए डिज़ाइन किया गया जो अधिक लचीलापन चाहते हैं। इसमें AI सामग्री निर्माण, 10 तक परियोजनाएँ और 20 संगठन उपयोगकर्ता शामिल हैं।',
       ar: 'مصمم للفرق الصغيرة والمتوسطة التي تحتاج إلى مزيد من المرونة. يتضمن إنشاء محتوى مدفوع بالذكاء الاصطناعي، يصل إلى 10 مشاريع، و20 مستخدمًا للمنظمة.',
       ru: 'Разработан для небольших и средних команд, которым требуется больше гибкости. Включает генерацию контента на основе ИИ, до 10 проектов и 20 пользовательских организаций.',
+      tr: 'Daha fazla esneklik gerektiren küçük ve orta ölçekli ekipler için tasarlanmıştır. AI içerik oluşturma, 10 projeye kadar ve 20 organizasyon kullanıcısı içerir.',
     }),
     checkPoint: t({
       en: [
@@ -357,6 +371,16 @@ export const planDetails = {
         'Генерация контента с поддержкой ИИ',
         'Премиум поддержка',
       ],
+      tr: [
+        'Tüm Intlayer paketlerine erişim',
+        'Görsel düzenleyicinin sınırsız kullanımı',
+        'Sınırsız uzak sözlükler',
+        '500 Mb depolama',
+        '10 proje',
+        '20 organizasyon kullanıcısı',
+        'AI destekli içerik oluşturma',
+        'Premium destek',
+      ],
     }),
   },
   enterprise: {
@@ -374,6 +398,7 @@ export const planDetails = {
       hi: 'एंटरप्राइज',
       ar: 'مؤسسة',
       ru: 'Корпоративный',
+      tr: 'Kurumsal',
     }),
     description: t({
       en: 'Built for larger teams requiring advanced tools. Get unlimited projects, AI-powered SEO, and content generation with unlimited users.',
@@ -390,6 +415,7 @@ export const planDetails = {
       hi: 'उन्नत उपकरणों की आवश्यकता वाले बड़े टीमों के लिए निर्मित। असीमित परियोजनाएँ, एआई-समर्थित एसईओ और असीमित उपयोगकर्ताओं के साथ सामग्री निर्माण प्राप्त करें।',
       ar: 'بناءً للفرق الكبيرة التي تتطلب أدوات متقدمة. احصل على مشاريع غير محدودة ، وتحسين محركات البحث المعتمد على الذكاء الاصطناعي ، وإنشاء محتوى مع مستخدمين غير محدودين.',
       ru: 'Создано для крупных команд, которым требуются современные инструменты. Получите неограниченное количество проектов, SEO с поддержкой ИИ и создание контента с неограниченным числом пользователей.',
+      tr: 'Daha büyük ekipler için tasarlanmıştır ve gelişmiş araçlar gerektirir. Sınırsız projeler, AI destekli SEO ve sınırsız kullanıcı ile içerik oluşturma elde edin.',
     }),
     checkPoint: t({
       en: [
@@ -548,6 +574,18 @@ export const planDetails = {
         'Быстрое обновление для контента на клиенте и сервере',
         'Премиум поддержка',
       ],
+      tr: [
+        'Tüm Intlayer paketlerine erişim',
+        'Görsel düzenleyicinin sınırsız kullanımı',
+        'Sınırsız uzak sözlükler',
+        '2+ Gb depolama',
+        'Sınırsız projeler',
+        'Sınırsız organizasyon kullanıcıları',
+        'AI destekli içerik oluşturma',
+        'AI destekli SEO optimizasyonu',
+        'İstemci ve sunucu tarafı içerik için sıcak yeniden yükleme',
+        'Premium destek',
+      ],
     }),
   },
 } satisfies Dictionary<Record<Plans, Partial<PricingInfo>>>['content'];
@@ -573,6 +611,7 @@ const pricing = {
           hi: 'शुरू करें',
           ar: 'ابدأ',
           ru: 'Начать',
+          tr: 'Başla',
         }),
         text: t({
           en: 'Get started',
@@ -588,6 +627,7 @@ const pricing = {
           hi: 'शुरू करें',
           ar: 'ابدأ',
           ru: 'Начать',
+          tr: 'Başla',
         }),
       },
     },
@@ -609,6 +649,7 @@ const pricing = {
           hi: 'शुरू करें',
           ar: 'ابدأ',
           ru: 'Начать',
+          tr: 'Başla',
         }),
         text: t({
           en: 'Get started',
@@ -624,6 +665,7 @@ const pricing = {
           hi: 'शुरू करें',
           ar: 'ابدأ',
           ru: 'Начать',
+          tr: 'Başla',
         }),
       },
     },
@@ -649,6 +691,7 @@ const pricing = {
           hi: 'शुरू करें',
           ar: 'ابدأ',
           ru: 'Начать',
+          tr: 'Başla',
         }),
         text: t({
           en: 'Get started',
@@ -664,6 +707,7 @@ const pricing = {
           hi: 'शुरू करें',
           ar: 'ابدأ',
           ru: 'Начать',
+          tr: 'Başla',
         }),
       },
     },
@@ -685,6 +729,7 @@ const pricing = {
           hi: 'शुरू करें',
           ar: 'ابدأ',
           ru: 'Начать',
+          tr: 'Başla',
         }),
         text: t({
           en: 'Get started',
@@ -700,6 +745,7 @@ const pricing = {
           hi: 'शुरू करें',
           ar: 'ابدأ',
           ru: 'Начать',
+          tr: 'Başla',
         }),
       },
     },
@@ -723,6 +769,7 @@ const pricingContent = {
       hi: 'मूल्य निर्धारण CMS',
       ar: 'سعر CMS',
       ru: 'Цены CMS',
+      tr: 'Fiyatlandırma CMS',
     }),
     description: t({
       fr: "Intlayer est avant tout une suite d'outil gratuit et open source. Le pricing associée s'applique uniquement à l'utilisation du CMS, de l'éditeur visuel et des outils d'IA associés. (Note: Il est aussi possible de self hoster le CMS en clonant le dépôt GitHub.)",
@@ -739,6 +786,7 @@ const pricingContent = {
       hi: 'Intlayer मुख्य रूप से एक मुफ्त और ओपन-सोर्स टूल सूट है। संबंधित मूल्य निर्धारण केवल CMS, दृश्य संपादक और संबंधित AI उपकरणों के उपयोग पर लागू होता है। (नोट: GitHub रिपॉजिटरी को क्लोन करके CMS को स्वयं होस्ट करना भी संभव है।)',
       ar: 'إن Intlayer هو في المقام الأول مجموعة أدوات مجانية ومفتوحة المصدر. يتم تطبيق التسعير المرتبط فقط لاستخدام CMS، والمحرر المرئي، وأدوات الذكاء الاصطناعي المرتبطة. (ملاحظة: من الممكن أيضًا استضافة CMS بنفسك عن طريق استنساخ مستودع GitHub.)',
       ru: 'Intlayer - это, прежде всего, набор бесплатных и открытых инструментов. Сопутствующая цена применяется только к использованию CMS, визуального редактора и связанных инструментов ИИ. (Примечание: также возможно саморазмещение CMS с помощью клонирования репозитория на GitHub.)',
+      tr: "Intlayer öncelikle ücretsiz ve açık kaynaklı bir araç setidir. İlgili fiyatlandırma yalnızca CMS, görsel düzenleyici ve ilgili AI araçlarının kullanımı için geçerlidir. (Not: GitHub deposunu klonlayarak CMS'yi kendi kendinize barındırmak da mümkündür.)",
     }),
     pricing,
     period: {
@@ -756,6 +804,7 @@ const pricingContent = {
         hi: 'मासिक',
         ar: 'شهريًا',
         ru: 'Ежемесячно',
+        tr: 'Aylık',
       }),
 
       yearly: t({
@@ -772,6 +821,7 @@ const pricingContent = {
         hi: 'वार्षिक',
         ar: 'سنويًا',
         ru: 'Ежегодно',
+        tr: 'Yıllık',
       }),
     },
   },

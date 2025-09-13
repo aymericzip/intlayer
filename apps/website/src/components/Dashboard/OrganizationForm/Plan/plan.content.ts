@@ -17,6 +17,7 @@ const planContent = {
       hi: 'प्लान',
       ar: 'الخطة',
       ru: 'План',
+      tr: 'Plan',
     }),
 
     upgradeButton: {
@@ -34,6 +35,7 @@ const planContent = {
         hi: 'अपग्रेड',
         ar: 'ترقية',
         ru: 'Обновить',
+        tr: 'Yükselt',
       }),
       label: t({
         en: 'Click to upgrade',
@@ -49,6 +51,7 @@ const planContent = {
         hi: 'अपग्रेड करने के लिए क्लिक करें',
         ar: 'انقر لترقية',
         ru: 'Нажмите, чтобы обновить',
+        tr: 'Yükseltmek için tıklayın',
       }),
     },
 
@@ -67,6 +70,7 @@ const planContent = {
         hi: 'प्रोजेक्ट रीनोवर्ड करें',
         ar: 'إعادة ترقية الخطة',
         ru: 'Продлить план',
+        tr: 'Planı yenile',
       }),
       label: t({
         en: 'Click to renew plan',
@@ -82,6 +86,7 @@ const planContent = {
         hi: 'प्रोजेक्ट रीनोवर्ड करने के लिए क्लिक करें',
         ar: 'انقر لإعادة ترقية الخطة',
         ru: 'Нажмите, чтобы продлить план',
+        tr: 'Planı yenilemek için tıklayın',
       }),
     },
 
@@ -100,6 +105,7 @@ const planContent = {
         hi: 'प्लान रद्द करें',
         ar: 'إلغاء الخطة',
         ru: 'Отменить план',
+        tr: 'Planı iptal et',
       }),
       label: t({
         en: 'Click to cancel plan',
@@ -115,6 +121,7 @@ const planContent = {
         hi: 'प्लान रद्द करने के लिए क्लिक करें',
         ar: 'انقر لإلغاء الخطة',
         ru: 'Нажмите, чтобы отменить план',
+        tr: 'Planı iptal etmek için tıklayın',
       }),
     },
 
@@ -133,6 +140,7 @@ const planContent = {
         hi: 'क्या आप अपने सदस्यता रद्द करना चाहते हैं?',
         ar: 'هل أنت متأكد من أنك ترغب في إلغاء اشتراكك؟',
         ru: 'Вы уверены, что хотите отменить подписку?',
+        tr: 'Aboneliğinizi iptal etmek istediğinizden emin misiniz?',
       }),
 
       message: t({
@@ -150,6 +158,7 @@ const planContent = {
         hi: 'यह कार्रवाई पूर्ववत नहीं की जा सकती। यह आपकी सदस्यता को स्थायी रूप से रद्द करेगा। आपके अन्य संगठन सदस्य भी संगठन तक पहुंच खो देंगे और प्रीमियम सुविधाओं तक पहुंच अक्षम हो जाएगी। यदि आप इसे भविष्य में उपयोग करना चाहते हैं, तो आपको इसे फिर से बनाना होगा।',
         ar: 'هذا الإجراء لا يمكن التراجع عنه. سيتم إلغاء اشتراكك بشكل دائم. سيفقد أعضاء المنظمة الآخرون أيضًا الوصول إلى المنظمة وسيتم تعطيل الوصول إلى الميزات المميزة. إذا كنت ترغب في استخدامه في المستقبل ، فيجب عليك إعادة إنشائه.',
         ru: 'Это действие НЕЛЬЗЯ отменить. Это навсегда отменит вашу подписку. Ваши другие члены организации также потеряют доступ к организации, и доступ к премиальным функциям будет отключен. Если вы хотите использовать его в будущем, вам нужно будет создать его снова.',
+        tr: 'Bu işlem geri alınamaz. Bu, aboneliğinizi kalıcı olarak iptal edecektir. Diğer organizasyon üyeleriniz de organizasyona erişimi kaybedecek ve premium özelliklere erişim devre dışı bırakılacaktır. Gelecekte kullanmak isterseniz, yeniden oluşturmanız gerekecektir.',
       }),
 
       buttonLabel: t({
@@ -166,6 +175,7 @@ const planContent = {
         hi: 'मेरी सदस्यता रद्द करें',
         ar: 'إلغاء اشتراكي',
         ru: 'Отменить мою подписку',
+        tr: 'Aboneliğimi iptal et',
       }),
 
       confirmText: t({
@@ -182,6 +192,7 @@ const planContent = {
         hi: 'मैं समझ सकता हूं, मेरी सदस्यता रद्द करें',
         ar: 'أفهم، إلغاء اشتراكي',
         ru: 'Я понимаю, отменить мою подписку',
+        tr: 'Anlıyorum, aboneliğimi iptal et',
       }),
     },
   },

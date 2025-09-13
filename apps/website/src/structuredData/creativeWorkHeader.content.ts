@@ -17,6 +17,7 @@ export default {
       hi: 'डेवलपर्स, सामग्री प्रबंधक',
       ar: 'المطورون ومديرو المحتوى',
       ru: 'Разработчики, менеджеры контента',
+      tr: 'Geliştiriciler, İçerik Yöneticileri',
     }),
   },
 } satisfies Dictionary;

@@ -17,6 +17,7 @@ const applicationTemplateMessageContent = {
       ko: 'GitHub에서 애플리케이션 템플릿 보기',
       pt: 'Ver o modelo de aplicação no GitHub',
       zh: '在 GitHub 上查看应用程序模板',
+      tr: "GitHub'da uygulama şablonunu görüntüle",
     }),
     description: t({
       en: 'This page has an application template available.',
@@ -32,6 +33,7 @@ const applicationTemplateMessageContent = {
       ar: 'هذه الصفحة لديها قالب تطبيق متاح.',
       'en-GB': 'This page has an application template available.',
       it: 'Questa pagina ha un modello di applicazione disponibile.',
+      tr: 'Bu sayfada kullanılabilir bir uygulama şablonu var.',
     }),
     label: t({
       en: 'See the application template',
@@ -47,6 +49,7 @@ const applicationTemplateMessageContent = {
       ko: '애플리케이션 템플릿 보기',
       pt: 'Ver o modelo de aplicação',
       zh: '查看应用程序模板',
+      tr: 'Uygulama şablonunu görüntüle',
     }),
   },
 } satisfies Dictionary;

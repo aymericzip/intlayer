@@ -19,6 +19,7 @@
   <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/readme.md"><img src="https://img.shields.io/badge/Englisch (UK)-README-656d76?style=for-the-badge" alt="Englisches (UK) README" /></a>
   <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/readme.md"><img src="https://img.shields.io/badge/Portugiesisch-README-656d76?style=for-the-badge" alt="Portugiesisches README" /></a>
   <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/readme.md"><img src="https://img.shields.io/badge/Hindi-README-656d76?style=for-the-badge" alt="Hindi README" /></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/readme.md"><img src="https://img.shields.io/badge/Turkish-README-656d76?style=for-the-badge" alt="Turkish README" /></a>
 </div>
 
 <div align="center">

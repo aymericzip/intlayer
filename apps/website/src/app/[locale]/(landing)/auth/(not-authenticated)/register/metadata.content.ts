@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'रजिस्टर करें | Intlayer',
       ar: 'تسجيل | Intlayer',
       ru: 'Регистрация | Intlayer',
+      tr: 'Kayıt Ol | Intlayer',
     }),
     description: t({
       en: 'Create a new account on Intlayer to start exploring personalized content and features.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'Intlayer पर एक नया खाता बनाएं और व्यक्तिगत सामग्री और सुविधाओं की खोज करें।',
       ar: 'إنشاء حساب جديد على Intlayer لبدء استكشاف المحتوى والميزات المخصصة.',
       ru: 'Создайте новую учетную запись на Intlayer, чтобы начать изучение персонализированного контента и функций.',
+      tr: "Kişiselleştirilmiş içerik ve özellikleri keşfetmeye başlamak için Intlayer'da yeni bir hesap oluşturun.",
     }),
 
     keywords: t<string[]>({
@@ -110,6 +112,14 @@ const metadataContent = {
         'Создать учетную запись',
         'Intlayer',
         'Учетная запись',
+        'React',
+        'JavaScript',
+      ],
+      tr: [
+        'Kayıt Ol',
+        'Hesap Oluştur',
+        'Intlayer',
+        'Hesap',
         'React',
         'JavaScript',
       ],

@@ -17,6 +17,7 @@ export const loaderContent = {
       hi: 'एनिमेटेड आइकन, जो कि वेबसाइट को प्रसंस्करण हो रहा है इसका मतलब है',
       ar: 'رمز متحرك، مما يعني أن الموقع الإلكتروني يتم التحميل',
       ru: 'Анимационный значок, что означает, что сайт обрабатывается',
+      tr: 'Web sitesinin işlemde olduğunu belirten animasyonlu simge',
     }),
   },
 } satisfies Dictionary;
