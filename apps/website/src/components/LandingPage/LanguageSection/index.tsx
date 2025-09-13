@@ -97,10 +97,22 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
       {...props}
     >
       <ul className="relative grid size-full gap-5 overflow-hidden whitespace-nowrap py-3">
-        <LocalCardList localeList={firstPart} className="horizontal-loop-1" />
-        <LocalCardList localeList={secondPart} className="horizontal-loop-2" />
-        <LocalCardList localeList={thirdPart} className="horizontal-loop-1" />
-        <LocalCardList localeList={fourthPart} className="horizontal-loop-2" />
+        <LocalCardList
+          localeList={firstPart}
+          className="animate-infinite-scroll duration-slow"
+        />
+        <LocalCardList
+          localeList={secondPart}
+          className="animate-infinite-scroll duration-slow animation-reverse"
+        />
+        <LocalCardList
+          localeList={thirdPart}
+          className="animate-infinite-scroll duration-slow"
+        />
+        <LocalCardList
+          localeList={fourthPart}
+          className="animate-infinite-scroll duration-slow animation-reverse"
+        />
       </ul>
     </section>
   );
