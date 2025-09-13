@@ -1,21 +1,15 @@
-import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const RETURN_BUNDLE_ANALYZER = false;
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: RETURN_BUNDLE_ANALYZER,
+});
+
 const getConfig = async () => {
-  const nextConfig: NextConfig = {
-    webpack: (config, { isServer }) => {
-      if (!isServer && RETURN_BUNDLE_ANALYZER) {
-        config.plugins.push(new BundleAnalyzerPlugin());
-      }
+  const config = await withIntlayer(withBundleAnalyzer());
 
-      return config;
-    },
-  };
-
-  const config = await withIntlayer(nextConfig as any);
+  // console.log(config);
 
   return config;
 };

@@ -10,9 +10,11 @@
     "lint": "next lint",
     "start": "next start",
     "start:editor": "npx intlayer-editor start",
+    "start:live": "pnpm intlayer live --process 'next start'",
     "test": ""
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^15.5.3",
     "fuse.js": "^7.1.0",
     "intlayer": "workspace:*",
     "markdown-to-jsx": "^7.7.6",
@@ -27,13 +29,11 @@
     "@types/node": "^24.2.1",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
-    "@types/webpack-bundle-analyzer": "^4.7.0",
     "eslint": "^9.34.0",
     "eslint-config-next": "15.1.4",
     "intlayer-editor": "workspace:*",
     "postcss": "^8.5.4",
     "tailwindcss": "^4.1.8",
-    "typescript": "^5.9.2",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "typescript": "^5.9.2"
   }
 }
