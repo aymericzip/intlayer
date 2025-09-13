@@ -17,6 +17,7 @@ export const setUpOrganizationStepContent = {
       hi: 'अपने संगठन का चयन करें',
       ar: 'اختر منظمتك',
       ru: 'Выберите вашу организацию',
+      tr: 'Organizasyonunuzu seçin',
     }),
   },
 } satisfies Dictionary;

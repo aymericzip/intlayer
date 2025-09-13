@@ -49,6 +49,9 @@ export const blogEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../blog/hi/index.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../blog/tr/index.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/internationalization_and_SEO.md': {
     en: Promise.resolve(
@@ -129,6 +132,12 @@ export const blogEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/internationalization_and_SEO.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_i18next.md': {
     en: Promise.resolve(
@@ -172,6 +181,9 @@ export const blogEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../blog/hi/intlayer_with_i18next.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../blog/tr/intlayer_with_i18next.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_next-i18next.md': {
@@ -253,6 +265,12 @@ export const blogEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/intlayer_with_next-i18next.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_next-intl.md': {
     en: Promise.resolve(
@@ -296,6 +314,9 @@ export const blogEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../blog/hi/intlayer_with_next-intl.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../blog/tr/intlayer_with_next-intl.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/intlayer_with_react-i18next.md': {
@@ -374,6 +395,12 @@ export const blogEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../blog/hi/intlayer_with_react-i18next.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/intlayer_with_react-i18next.md'),
         'utf8'
       )
     ),
@@ -457,6 +484,12 @@ export const blogEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/intlayer_with_react-intl.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/CMS/drupal.md': {
     en: Promise.resolve(
@@ -534,6 +567,12 @@ export const blogEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../blog/hi/list_i18n_technologies/CMS/drupal.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/list_i18n_technologies/CMS/drupal.md'),
         'utf8'
       )
     ),
@@ -617,6 +656,12 @@ export const blogEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/list_i18n_technologies/CMS/wix.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/CMS/wordpress.md': {
     en: Promise.resolve(
@@ -697,6 +742,12 @@ export const blogEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../blog/hi/list_i18n_technologies/CMS/wordpress.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/list_i18n_technologies/CMS/wordpress.md'),
         'utf8'
       )
     ),
@@ -815,6 +866,15 @@ export const blogEntry = {
         join(
           dir,
           '../../../blog/hi/list_i18n_technologies/frameworks/angular.md'
+        ),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../blog/tr/list_i18n_technologies/frameworks/angular.md'
         ),
         'utf8'
       )
@@ -938,6 +998,15 @@ export const blogEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../blog/tr/list_i18n_technologies/frameworks/flutter.md'
+        ),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/frameworks/react-native.md': {
     en: Promise.resolve(
@@ -1053,6 +1122,15 @@ export const blogEntry = {
         join(
           dir,
           '../../../blog/hi/list_i18n_technologies/frameworks/react-native.md'
+        ),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../blog/tr/list_i18n_technologies/frameworks/react-native.md'
         ),
         'utf8'
       )
@@ -1176,6 +1254,15 @@ export const blogEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../blog/tr/list_i18n_technologies/frameworks/react.md'
+        ),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/frameworks/svelte.md': {
     en: Promise.resolve(
@@ -1295,6 +1382,15 @@ export const blogEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../blog/tr/list_i18n_technologies/frameworks/svelte.md'
+        ),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/list_i18n_technologies/frameworks/vue.md': {
     en: Promise.resolve(
@@ -1375,6 +1471,12 @@ export const blogEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../blog/hi/list_i18n_technologies/frameworks/vue.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/list_i18n_technologies/frameworks/vue.md'),
         'utf8'
       )
     ),
@@ -1461,6 +1563,12 @@ export const blogEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/next-i18next_vs_next-intl_vs_intlayer.md'),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/rag_powered_documentation_assistant.md': {
     en: Promise.resolve(
@@ -1538,6 +1646,12 @@ export const blogEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../blog/hi/rag_powered_documentation_assistant.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/rag_powered_documentation_assistant.md'),
         'utf8'
       )
     ),
@@ -1660,6 +1774,15 @@ export const blogEntry = {
         'utf8'
       )
     ),
+    tr: Promise.resolve(
+      readFile(
+        join(
+          dir,
+          '../../../blog/tr/react-i18next_vs_react-intl_vs_intlayer.md'
+        ),
+        'utf8'
+      )
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/vue-i18n_vs_intlayer.md': {
     en: Promise.resolve(
@@ -1700,6 +1823,9 @@ export const blogEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../blog/hi/vue-i18n_vs_intlayer.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../blog/tr/vue-i18n_vs_intlayer.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/what_is_internationalization.md': {
@@ -1778,6 +1904,12 @@ export const blogEntry = {
     hi: Promise.resolve(
       readFile(
         join(dir, '../../../blog/hi/what_is_internationalization.md'),
+        'utf8'
+      )
+    ),
+    tr: Promise.resolve(
+      readFile(
+        join(dir, '../../../blog/tr/what_is_internationalization.md'),
         'utf8'
       )
     ),

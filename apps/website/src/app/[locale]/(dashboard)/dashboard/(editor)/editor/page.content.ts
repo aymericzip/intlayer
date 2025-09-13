@@ -17,6 +17,7 @@ const profileDashboardContent = {
       hi: 'Intlayer एडिटर',
       ar: 'محرر Intlayer',
       ru: 'Редактор Intlayer',
+      tr: 'Intlayer Editör',
     }),
   },
 } satisfies Dictionary;

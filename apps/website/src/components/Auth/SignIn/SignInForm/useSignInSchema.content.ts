@@ -17,6 +17,7 @@ export const signInSchemaContent = {
       hi: 'कृपया अपना उपयोगकर्ता नाम दर्ज करें',
       ar: 'يرجى إدخال اسم المستخدم الخاص بك',
       ru: 'Пожалуйста, введите ваше имя пользователя',
+      tr: 'Lütfen kullanıcı adınızı girin',
     }),
 
     invalidTypeErrorEmail: t({
@@ -33,6 +34,7 @@ export const signInSchemaContent = {
       hi: 'कृपया एक मान्य उपयोगकर्ता नाम दर्ज करें',
       ar: 'يرجى إدخال اسم مستخدم صالح',
       ru: 'Пожалуйста, введите корректное имя пользователя',
+      tr: 'Lütfen geçerli bir kullanıcı adı girin',
     }),
 
     requiredErrorPassword: t({
@@ -49,6 +51,7 @@ export const signInSchemaContent = {
       hi: 'कृपया अपना पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة المرور الخاصة بك',
       ru: 'Пожалуйста, введите ваш пароль',
+      tr: 'Lütfen şifrenizi girin',
     }),
 
     invalidTypeErrorPassword: t({
@@ -65,6 +68,7 @@ export const signInSchemaContent = {
       hi: 'कृपया एक मान्य पासवर्ड दर्ज करें',
       ar: 'يرجى إدخال كلمة مرور صالحة',
       ru: 'Пожалуйста, введите корректный пароль',
+      tr: 'Lütfen geçerli bir şifre girin',
     }),
   },
 } satisfies Dictionary;

@@ -17,6 +17,7 @@ const useFormSectionSchemaContent = {
       hi: 'कृपया एक प्रश्न दर्ज करें।',
       ar: 'يرجى إدخال سؤال.',
       ru: 'Пожалуйста, введите вопрос.',
+      tr: 'Lütfen bir soru girin',
     }),
 
     questionInvalidTypeError: t({
@@ -33,6 +34,7 @@ const useFormSectionSchemaContent = {
       hi: 'प्रश्न नाम एक वैध स्ट्रिंग होना चाहिए।',
       ar: 'يجب أن يكون اسم السؤال سلسلة صحيحة.',
       ru: 'Имя вопроса должно быть правильной строкой.',
+      tr: 'Soru adı geçerli bir dize olmalıdır',
     }),
   },
 } satisfies Dictionary;

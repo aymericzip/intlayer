@@ -17,6 +17,7 @@ const tagListContent = {
       hi: 'डिक्शन्स को प्रबंधित करें',
       ar: 'إدارة قاموس',
       ru: 'Управление словарем',
+      tr: 'Sözlüğü yönet',
     }),
 
     noDictionaryView: {
@@ -34,6 +35,7 @@ const tagListContent = {
         hi: 'कोई डिक्शन नहीं',
         ar: 'لا يوجد قاموس',
         ru: 'Нет словаря',
+        tr: 'Sözlük yok',
       }),
       description: t({
         en: 'There are no dictionaries associated with this tag',
@@ -49,6 +51,7 @@ const tagListContent = {
         hi: 'इस टैग के साथ संबंधित डिक्शन्स नहीं हैं',
         ar: 'لا توجد قاموس مرتبطة بهذا الوسم',
         ru: 'Словари, связанные с этим тегом нет',
+        tr: 'Bu etiketle ilişkili sözlük yok',
       }),
     },
   },

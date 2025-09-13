@@ -17,6 +17,7 @@ const summarizeAIContent = {
       'en-GB': 'Reference this doc to your favorite AI assistant',
       hi: 'इस दस्तावेज़ को अपने पसंदीदा AI एसिस्टेंट के साथ संदर्भित करें',
       ru: 'Ссылайтесь на этот документ на ваш любимый ассистент AI',
+      tr: 'Bu dokümanı favori AI asistanınıza referans verin',
     }),
     description: t({
       en: 'Ask your question and get a summary of the document by referencing this page and the AI provider of your choice',
@@ -33,6 +34,7 @@ const summarizeAIContent = {
         'Ask your question and get a summary of the document by referencing this page and the AI provider of your choice',
       hi: 'अपने प्रश्न को पूछें और दस्तावेज़ का सारांश प्राप्त करें, इस पृष्ठ और आपके चुने हुए AI प्रदाता का उपयोग करके',
       ru: 'Спросите свой вопрос и получите сводку документа, используя эту страницу и выбранного вами поставщика AI',
+      tr: 'Sorunuzu sorun ve bu sayfaya ve seçtiğiniz AI sağlayıcısına referans vererek belgenin bir özetini alın',
     }),
     summarizeLabel: insert(
       t({
@@ -49,6 +51,7 @@ const summarizeAIContent = {
         'en-GB': 'Summarize using {{provider}}',
         hi: '{{provider}} का उपयोग करके सारांशित करें',
         ru: 'Суммируйте документ, используя {{provider}}',
+        tr: '{{provider}} kullanarak özetle',
       })
     ),
     summarizeMessage: insert(
@@ -66,6 +69,7 @@ const summarizeAIContent = {
         'en-GB': 'Summarize the following doc : {{url}}',
         hi: '{{url}} का उपयोग करके सारांशित करें',
         ru: 'Суммируйте документ, используя {{url}}',
+        tr: 'Aşağıdaki dokümanı özetle : {{url}}',
       })
     ),
   },

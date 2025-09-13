@@ -17,6 +17,7 @@ const noApplicationURLViewContent = {
       ar: 'تم إنشاء مشروعك بدون تضمين عنوان URL التطبيق',
       hi: 'आपके प्रोजेक्ट कॉन्फ़िगरेशन में ऐप का URL शामिल नहीं है',
       it: 'La configurazione del progetto non include l’URL dell’applicazione',
+      tr: "Proje yapılandırmanız uygulama URL'sini içermiyor",
     }),
     description: t({
       en: 'To use the CMS, you need to add the URL of the application to access to the configuration file.',
@@ -33,6 +34,7 @@ const noApplicationURLViewContent = {
       ar: 'لاستخدام محرك المحتوى، يجب عليك إضافة عنوان URL التطبيق للوصول إلى ملف التكوين.',
       hi: 'कैम्स का उपयोग करने के लिए, आपको कॉन्फ़िगरेशन फ़ाइल तक ऐप का URL को जोड़ना होगा।',
       it: 'Per utilizzare il CMS, è necessario aggiungere l’URL dell’applicazione per accedere al file di configurazione.',
+      tr: "CMS'yi kullanmak için yapılandırma dosyasına erişmek için uygulamanın URL'sini eklemeniz gerekir.",
     }),
     documentationLink: {
       label: t({
@@ -49,6 +51,7 @@ const noApplicationURLViewContent = {
         ar: 'انقر هنا للوصول إلى وثائق محرك المحتوى',
         hi: 'क्या आप कैम्स का डॉक्यूमेंट पर जाए रखना चाहते हैं?',
         it: 'Fai clic qui per accedere alla documentazione del CMS',
+        tr: 'CMS belgelerine gitmek için tıklayın',
       }),
       text: t({
         en: 'See how to configure the CMS',
@@ -64,6 +67,7 @@ const noApplicationURLViewContent = {
         pt: 'Veja como configurar o CMS',
         ko: 'CMS 설정 방법을 보십시오',
         zh: '查看如何配置CMS',
+        tr: "CMS'yi nasıl yapılandıracağınızı görün",
       }),
     },
   },

@@ -18,6 +18,7 @@ export const dictionaryFieldEditorContent = {
         hi: 'शब्दकोश सूची में वापस जाएं',
         ar: 'العودة إلى قائمة المعاجم',
         ru: 'Вернуться к списку словарей',
+        tr: 'Sözlük listesine dön',
       }),
       text: t({
         en: 'Dictionary list',
@@ -33,6 +34,7 @@ export const dictionaryFieldEditorContent = {
         hi: 'शब्दकोश सूची',
         ar: 'قائمة المعاجم',
         ru: 'Список словарей',
+        tr: 'Sözlük listesi',
       }),
     },
   },

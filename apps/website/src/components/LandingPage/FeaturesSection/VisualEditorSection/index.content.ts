@@ -17,6 +17,7 @@ const featuresSectionContent = {
       ar: 'جربه مجاناً باستخدام الملعب.',
       hi: 'प्लेगन का उपयोग करके मुफ्त को खेलें।',
       ko: '플레이그라운드를 사용하여 무료로 시도하세요.',
+      tr: 'Playground kullanarak ücretsiz deneyin.',
     }),
     gotToPlaygroundButton: {
       text: t({
@@ -33,6 +34,7 @@ const featuresSectionContent = {
         ar: 'اذهب إلى الملعب',
         hi: 'प्लेगन पर जाएं',
         ko: '플레이그라운드로 이동',
+        tr: "Playground'a git",
       }),
       label: t({
         en: 'Click to go to the playground',
@@ -48,6 +50,7 @@ const featuresSectionContent = {
         ar: 'انقر للذهاب إلى الملعب',
         hi: 'प्लेगन पर जाएं',
         ko: '클릭하여 플레이그라운드로 이동',
+        tr: "Playground'a gitmek için tıklayın",
       }),
     },
   },

@@ -18,6 +18,7 @@ const markdownSectionContent = {
       ar: 'عزيز العملاء،\n\nأنا أريد كتابة لك ',
       hi: 'धन्यवाद, मैंने आपको ',
       ko: '사용자님,\n\n안녕하세요. 나는 당신에게 ',
+      tr: 'Değerli müşteri,\n\nSize yazıyorum ',
     }),
     suggestion: t({
       en: 'to confirm your order',
@@ -33,6 +34,7 @@ const markdownSectionContent = {
       ar: 'لتأكيد طلبك',
       hi: 'आपके आदेश की पुष्टि करने के लिए',
       ko: '당신의 주문을 확인하려면',
+      tr: 'siparişinizi onaylamak için',
     }),
     ariaLabel: t({
       en: 'Autocompletion editor',
@@ -48,6 +50,7 @@ const markdownSectionContent = {
       ar: 'محرر الإكمال التلقائي',
       hi: 'स्वचालित पूर्णिति एडिटर',
       ko: '자동 완성 편집기',
+      tr: 'Otomatik Tamamlama düzenleyicisi',
     }),
   },
 } satisfies Dictionary;

@@ -17,6 +17,7 @@ const content = {
       hi: 'कृपया अपने प्रोजेक्ट का नाम दर्ज करें',
       ar: 'يرجى إدخال اسم لمشروعك',
       ru: 'Пожалуйста, введите название вашего проекта',
+      tr: 'Lütfen projeniz için bir isim girin',
     }),
 
     invalidTypeErrorName: t({
@@ -33,6 +34,7 @@ const content = {
       hi: 'कृपया अपने प्रोजेक्ट का एक वैध नाम दर्ज करें',
       ar: 'يرجى إدخال اسم صالح لمشروعك',
       ru: 'Пожалуйста, введите допустимое имя для вашего проекта',
+      tr: 'Lütfen projeniz için geçerli bir isim girin',
     }),
   },
 } satisfies Dictionary;

@@ -17,6 +17,7 @@ const codeContent = {
       'en-GB': 'Copy code',
       ru: 'Копировать код',
       ar: 'نسخ الكود',
+      tr: 'Kodu kopyala',
     }),
     description: t({
       en: 'Copy the code to the clipboard',
@@ -32,6 +33,7 @@ const codeContent = {
       'en-GB': 'Copy the code to the clipboard',
       ru: 'Копировать код в буфер обмена',
       ar: 'نسخ الكود إلى الحافظة',
+      tr: 'Kodu panoya kopyala',
     }),
   },
 } satisfies Dictionary;

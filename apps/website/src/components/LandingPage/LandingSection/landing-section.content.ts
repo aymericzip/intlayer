@@ -17,6 +17,7 @@ const landingSectionContent = {
       hi: 'नया क्या है',
       ar: 'ما الجديد',
       ru: 'Что нового',
+      tr: 'Neler Yeni',
     }),
     version: t({
       en: 'Just shipped  ',
@@ -32,6 +33,7 @@ const landingSectionContent = {
       hi: 'अभी   शिप किया गया',
       ar: 'تم شحن   للتو',
       ru: 'Только что выпустили  ',
+      tr: 'Az önce yayınlandı  ',
     }),
     title: t({
       en: 'Per-Component i18n - Speed up your development process',
@@ -47,6 +49,7 @@ const landingSectionContent = {
       hi: 'घड़ा को कंपोनेंट आई 18 एन - डेवलपमेंट प्रोसेस को त्वरित करें',
       ar: 'i18n بالمكون - تسريع عملية التطوير',
       ru: 'i18n по компоненту - Ускорение процесса разработки',
+      tr: 'Bileşen Başına i18n - Geliştirme Sürecinizi Hızlandırın',
     }),
     subheading: t({
       en: 'Type-Safe. Translate with AI. Edit Visually.',
@@ -62,6 +65,7 @@ const landingSectionContent = {
       hi: 'टाइप-सेफ। AI से अनुवाद करें। विजुअली एडिट करें।',
       ar: 'آمن الأنواع. ترجم بالذكاء الاصطناعي. حرر بصريًا.',
       ru: 'Типобезопасный. Переводите с ИИ. Редактируйте визуально.',
+      tr: 'Type-Safe. Yapay Zeka ile Çeviri. Görsel Olarak Düzenle.',
     }),
     description: t({
       en: 'Intlayer provides your team with a developer-first workflow for internationalization and content management, ensuring your code remains maintainable and scalable. It works as a component-oriented CMS and is fully open source. Every contribution genuinely appreciated.',
@@ -78,6 +82,7 @@ const landingSectionContent = {
       hi: 'Intlayer आपकी टीम को अंतर्राष्ट्रीयकरण और सामग्री प्रबंधन के लिए डेवलपर-प्रथम वर्कफ़्लो प्रदान करता है, यह सुनिश्चित करते हुए कि आपका कोड रखरखाव योग्य और स्केलेबल बना रहे। यह एक कंपोनेंट-उन्मुख CMS के रूप में कार्य करता है और पूरी तरह से ओपन सोर्स है। हर योगदान का सच्चे दिल से आभार।',
       ar: 'يوفر Intlayer لفريقك سير عمل يركز على المطور للتدويل وإدارة المحتوى، مما يضمن بقاء كودك قابلاً للصيانة وقابلاً للتطوير. يعمل كنظام إدارة محتوى موجه للمكونات وهو مفتوح المصدر بالكامل. كل مساهمة مقدرة بصدق.',
       ru: 'Intlayer предоставляет вашей команде ориентированный на разработчиков рабочий процесс для интернационализации и управления контентом, обеспечивая поддерживаемость и масштабируемость вашего кода. Он работает как компонентно-ориентированная CMS и полностью открыт. Каждый вклад искренне ценится.',
+      tr: 'Intlayer, ekibinize uluslararasılaştırma ve içerik yönetimi için geliştirici odaklı bir iş akışı sağlar ve kodunuzun sürdürülebilir ve ölçeklenebilir kalmasını sağlar. Bileşen odaklı bir CMS olarak çalışır ve tamamen açık kaynaktır. Her katkı gerçekten takdir edilmektedir.',
     }),
 
     availableFor: t({
@@ -94,6 +99,7 @@ const landingSectionContent = {
       hi: 'केवल इसके लिए उपलब्ध',
       ar: 'متاح ل',
       ru: 'Доступно для',
+      tr: 'Şunun için mevcut',
     }),
     supportButton: t({
       en: 'Support the project',
@@ -109,6 +115,7 @@ const landingSectionContent = {
       hi: 'परियोजना का समर्थन करें',
       ar: 'دعم المشروع',
       ru: 'Поддержать проект',
+      tr: 'Projeyi destekle',
     }),
     getStartedButton: t({
       en: 'Get started',
@@ -124,6 +131,7 @@ const landingSectionContent = {
       hi: 'शुरू हो जाओ',
       ar: 'البدء',
       ru: 'Начать',
+      tr: 'Başlayın',
     }),
   },
 } satisfies Dictionary;

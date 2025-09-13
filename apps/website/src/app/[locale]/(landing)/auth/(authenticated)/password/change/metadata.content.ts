@@ -18,6 +18,7 @@ const metadataContent = {
       ar: 'تغيير كلمة المرور | Intlayer',
       ru: 'Сменить пароль | Intlayer',
       'en-GB': 'Change Password | Intlayer',
+      tr: 'Şifre Değiştir | Intlayer',
     }),
     description: t({
       en: 'Secure your account by changing your current password. Keep your Intlayer account safe with a new password.',
@@ -34,6 +35,7 @@ const metadataContent = {
       ru: 'Обеспечьте безопасность своей учетной записи, изменив текущий пароль. Держите свою учетную запись Intlayer в безопасности с помощью нового пароля.',
       'en-GB':
         'Secure your account by changing your current password. Keep your Intlayer account safe with a new password.',
+      tr: 'Hesabınızı mevcut şifrenizi değiştirerek güvence altına alın. Intlayer hesabınızı yeni bir şifre ile güvende tutun.',
     }),
 
     keywords: t<string[]>({
@@ -112,6 +114,13 @@ const metadataContent = {
       ru: [
         'Сменить пароль',
         'Безопасность аккаунта',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      tr: [
+        'Şifre değiştir',
+        'Hesap güvenliği',
         'Intlayer',
         'React',
         'JavaScript',

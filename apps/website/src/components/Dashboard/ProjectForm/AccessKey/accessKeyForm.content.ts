@@ -18,6 +18,7 @@ const accessKeyFormContent = {
       hi: 'पहुँच कुंजी',
       ar: 'مفاتيح الوصول',
       ru: 'Ключи доступа',
+      tr: 'Erişim anahtarları',
     }),
     description: t({
       en: 'Access keys are used to authenticate your project.',
@@ -33,6 +34,7 @@ const accessKeyFormContent = {
       hi: 'पहुँच कुंजी आपके परियोजना को प्रमाणित करने के लिए उपयोग किया जाता है।',
       ar: 'مفاتيح الوصول تستخدم للمصادقة على مشروعك.',
       ru: 'Ключи доступа используются для аутентификации вашего проекта.',
+      tr: 'Erişim anahtarları projenizi doğrulamak için kullanılır.',
     }),
     noAccessKeys: t({
       en: 'No access keys',
@@ -48,6 +50,7 @@ const accessKeyFormContent = {
       hi: 'कोई पहुँच कुंजी नहीं',
       ar: 'لا توجد مفاتيح الوصول',
       ru: 'Нет ключей доступа',
+      tr: 'Erişim anahtarı yok',
     }),
     createAccessKey: {
       text: t({
@@ -64,6 +67,7 @@ const accessKeyFormContent = {
         hi: 'पहुँच कुंजी बनाएं',
         ar: 'إنشاء مفتاح الوصول',
         ru: 'Создать ключ доступа',
+        tr: 'Erişim anahtarı oluştur',
       }),
       label: t({
         en: 'Click to create access key',
@@ -79,6 +83,7 @@ const accessKeyFormContent = {
         hi: 'पहुँच कुंजी बनाने के लिए क्लिक करें',
         ar: 'انقر لإنشاء مفتاح الوصول',
         ru: 'Нажмите, чтобы создать ключ доступа',
+        tr: 'Erişim anahtarı oluşturmak için tıklayın',
       }),
     },
     rights: {
@@ -96,6 +101,7 @@ const accessKeyFormContent = {
         hi: 'अधिकार',
         ar: 'الصلاحيات',
         ru: 'Права',
+        tr: 'Haklar',
       }),
       read: t({
         en: 'Read ',
@@ -111,6 +117,7 @@ const accessKeyFormContent = {
         hi: 'पढ़ने ',
         ar: 'قراءة ',
         ru: 'Чтение ',
+        tr: 'Oku ',
       }),
       write: t({
         en: 'Write ',
@@ -126,6 +133,7 @@ const accessKeyFormContent = {
         hi: 'लिखने ',
         ar: 'كتابة ',
         ru: 'Запись ',
+        tr: 'Yaz ',
       }),
       admin: 'Admin',
       organization: t({
@@ -142,6 +150,7 @@ const accessKeyFormContent = {
         hi: 'संगठन: ',
         ar: 'المنظمة: ',
         ru: 'Организация: ',
+        tr: 'Organizasyon: ',
       }),
       project: t({
         en: 'Project: ',
@@ -157,6 +166,7 @@ const accessKeyFormContent = {
         hi: 'परियोजना: ',
         ar: 'المشروع: ',
         ru: 'Проект: ',
+        tr: 'Proje: ',
       }),
       dictionary: t({
         en: 'Dictionary: ',
@@ -172,6 +182,7 @@ const accessKeyFormContent = {
         hi: 'शब्दकोश: ',
         ar: 'قاموس: ',
         ru: 'Словарь: ',
+        tr: 'Sözlük: ',
       }),
     },
     labels: {
@@ -189,6 +200,7 @@ const accessKeyFormContent = {
         hi: 'clientId:',
         ar: 'clientId:',
         ru: 'clientId:',
+        tr: 'clientId:',
       }),
       clientSecret: t({
         en: 'clientSecret:',
@@ -204,6 +216,7 @@ const accessKeyFormContent = {
         hi: 'clientSecret:',
         ar: 'clientSecret:',
         ru: 'clientSecret:',
+        tr: 'clientSecret:',
       }),
       addedOn: t({
         en: 'Added on:',
@@ -219,6 +232,7 @@ const accessKeyFormContent = {
         hi: 'जोड़ा था:',
         ar: 'أضيف في:',
         ru: 'Добавлено:',
+        tr: 'Eklendi:',
       }),
       expireOn: t({
         en: 'Expire on:',
@@ -234,6 +248,7 @@ const accessKeyFormContent = {
         hi: 'समाप्ति के दिन:',
         ar: 'تنتهي في:',
         ru: 'Истекает:',
+        tr: 'Süresi doluyor:',
       }),
       deleteButtonText: t({
         en: 'Delete',
@@ -249,6 +264,7 @@ const accessKeyFormContent = {
         hi: 'हटाएं',
         ar: 'حذف',
         ru: 'Удалить',
+        tr: 'Sil',
       }),
       deleteButtonLabel: t({
         en: 'Delete the access key',
@@ -264,6 +280,7 @@ const accessKeyFormContent = {
         hi: 'पहुँच कुंजी हटाएं',
         ar: 'حذف مفتاح الوصول',
         ru: 'Удалите ключ доступа',
+        tr: 'Erişim anahtarını sil',
       }),
       refreshButtonText: t({
         en: 'Refresh',
@@ -279,6 +296,7 @@ const accessKeyFormContent = {
         hi: 'ताज़ा करें',
         ar: 'تحديث',
         ru: 'Обновить',
+        tr: 'Yenile',
       }),
       refreshButtonLabel: t({
         en: 'Refresh the access key secret key',
@@ -294,6 +312,7 @@ const accessKeyFormContent = {
         hi: 'पहुँच कुंजी की गुप्त कुंजी को ताज़ा करें',
         ar: 'تحديث المفتاح السري لمفتاح الوصول',
         ru: 'Обновите секретный ключ ключа доступа',
+        tr: 'Erişim anahtarı gizli anahtarını yenile',
       }),
     },
     modal: {
@@ -311,6 +330,7 @@ const accessKeyFormContent = {
         hi: 'क्या आप इस पहुँच कुंजी को हटाना चाहते हैं?',
         ar: 'هل أنت متأكد من أنك تريد حذف هذا المفتاح الوصولي؟',
         ru: 'Вы уверены, что хотите удалить этот ключ доступа?',
+        tr: 'Bu erişim anahtarını silmek istediğinizden emin misiniz?',
       }),
       updateTitle: t({
         en: 'Are you sure you want to update this access key?',
@@ -326,6 +346,7 @@ const accessKeyFormContent = {
         hi: 'क्या आप इस पहुँच कुंजी को अद्यतन करना चाहते हैं?',
         ar: 'هل أنت متأكد من أنك تريد تحديث هذا المفتاح الوصولي؟',
         ru: 'Вы уверены, что хотите обновить этот ключ доступа?',
+        tr: 'Bu erişim anahtarını güncellemek istediğinizden emin misiniz?',
       }),
       deleteMessage: t({
         en: 'This action CANNOT be undone. This will permanently delete the access key and if you’d like to use it in the future, you will need to create it again.',
@@ -342,6 +363,7 @@ const accessKeyFormContent = {
         hi: 'यह क्रिया पूर्ववत नहीं की जा सकती। यह पहुँच कुंजी को स्थायी रूप से हटा देगा और यदि आप इसे भविष्य में उपयोग करना चाहते हैं तो आपको इसे फिर से बनाना होगा।',
         ar: 'لا يمكن التراجع عن هذا الإجراء. سيتم حذف مفتاح الوصول نهائيًا، وإذا كنت ترغب في استخدامه في المستقبل، فستحتاج إلى إنشائه مرة أخرى.',
         ru: 'Это действие НЕ МОЖЕТ быть отменено. Ключ доступа будет удален навсегда, и если вы захотите использовать его в будущем, вам придется создать его заново.',
+        tr: 'Bu işlem geri alınamaz. Bu, erişim anahtarını kalıcı olarak silecek ve gelecekte kullanmak isterseniz, yeniden oluşturmanız gerekecektir.',
       }),
       updateMessage: t({
         en: 'This action will generate a new client secret. The old secret will no longer be valid. Please make sure to update your configurations accordingly.',
@@ -358,6 +380,7 @@ const accessKeyFormContent = {
         hi: 'यह क्रिया एक नया क्लाइंट सीक्रेट उत्पन्न करेगी। पुराना सीक्रेट अब मान्य नहीं होगा। कृपया अपनी कॉन्फ़िगरेशन को तदनुसार अपडेट करना सुनिश्चित करें।',
         ar: 'سيؤدي هذا الإجراء إلى إنشاء مفتاح سري جديد. المفتاح القديم لن يكون صالحًا بعد الآن. يرجى التأكد من تحديث تكويناتك وفقًا لذلك.',
         ru: 'Это действие создаст новый клиентский секрет. Старый секрет больше не будет действительным. Обязательно обновите свои настройки соответственно.',
+        tr: 'Bu işlem yeni bir istemci sırrı oluşturacaktır. Eski sır artık geçerli olmayacaktır. Lütfen yapılandırmalarınızı buna göre güncellediğinizden emin olun.',
       }),
       deleteButtonLabel: t({
         en: 'Delete the access key',
@@ -373,6 +396,7 @@ const accessKeyFormContent = {
         hi: 'पहुँच कुंजी को हटाएं',
         ar: 'احذف مفتاح الوصول',
         ru: 'Удалить ключ доступа',
+        tr: 'Erişim anahtarını sil',
       }),
       updateButtonLabel: t({
         en: 'Update the access key',
@@ -388,6 +412,7 @@ const accessKeyFormContent = {
         hi: 'पहुँच कुंजी को अपडेट करें',
         ar: 'قم بتحديث مفتاح الوصول',
         ru: 'Обновить ключ доступа',
+        tr: 'Erişim anahtarını güncelle',
       }),
       deleteConfirmText: t({
         en: 'I understand, delete the access key',
@@ -403,6 +428,7 @@ const accessKeyFormContent = {
         hi: 'मैं समझ गया, पहुँच कुंजी को हटाएं',
         ar: 'فهمت، احذف مفتاح الوصول',
         ru: 'Я понимаю, удалите ключ доступа',
+        tr: 'Anladım, erişim anahtarını sil',
       }),
       updateConfirmText: t({
         en: 'I understand, update the access key',
@@ -418,6 +444,7 @@ const accessKeyFormContent = {
         hi: 'मैं समझ गया, पहुँच कुंजी को अपडेट करें',
         ar: 'فهمت، قم بتحديث مفتاح الوصول',
         ru: 'Я понимаю, обновите ключ доступа',
+        tr: 'Anladım, erişim anahtarını güncelle',
       }),
     },
 
@@ -436,6 +463,7 @@ const accessKeyFormContent = {
         hi: '1 - एक पहुँच कुंजी बनाएँ',
         ar: '1 - أنشئ مفتاح وصول',
         ru: '1 - Создайте ключ доступа',
+        tr: '1 - Bir erişim anahtarı oluşturun',
       }),
       t({
         en: '2 - Copy the access key into your intlayer config file',
@@ -451,6 +479,7 @@ const accessKeyFormContent = {
         hi: '2 - पहुँच कुंजी को अपने इंटलेयर कॉन्फ़िग फ़ाइल में कॉपी करें',
         ar: '2 - انسخ مفتاح الوصول إلى ملف التكوين Intlayer الخاص بك',
         ru: '2 - Скопируйте ключ доступа в файл конфигурации Intlayer',
+        tr: '2 - Erişim anahtarını intlayer yapılandırma dosyanıza kopyalayın',
       }),
     ],
 
@@ -469,6 +498,7 @@ const accessKeyFormContent = {
       hi: 'पहुँच कुंजियाँ व्यक्तिगत होती हैं और इन्हें दूसरों के साथ साझा नहीं किया जाना चाहिए। इन्हें सुरक्षित रूप से संग्रहीत करने का ध्यान रखें, जैसे कि पर्यावरणीय चरों के रूप में।',
       ar: 'مفاتيح الوصول شخصية ولا ينبغي مشاركتها مع الآخرين. تأكد من تخزين هذه المفاتيح بشكل آمن، مثل المتغيرات البيئية.',
       ru: 'Ключи доступа являются личными и не должны передаваться другим лицам. Обеспечьте их безопасное хранение, например, в виде переменных окружения.',
+      tr: 'Erişim anahtarları kişiseldir ve başkalarıyla paylaşılmamalıdır. Bu erişim anahtarlarını ortam değişkenleri gibi güvenli bir şekilde sakladığınızdan emin olun.',
     }),
   },
 } satisfies Dictionary;

@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'ऑनबोर्डिंग | Intlayer',
       ar: 'التوجيه | Intlayer',
       ru: 'Онбординг | Intlayer',
+      tr: 'Onboarding | Intlayer',
     }),
     description: t({
       en: 'Get started with Intlayer by completing the onboarding process. Follow each step to set up your account efficiently.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'इंटलेयर के साथ शुरुआत करने के लिए ऑनबोर्डिंग प्रक्रिया को पूरा करें। अपने खाते को कुशलता से सेट करने के लिए प्रत्येक कदम का पालन करें।',
       ar: 'ابدأ باستخدام Intlayer من خلال إكمال عملية التوجيه. اتبع كل خطوة لضبط حسابك بكفاءة.',
       ru: 'Начните работу с Intlayer, завершив процесс онбординга. Следуйте каждому шагу, чтобы эффективно настроить свою учетную запись.',
+      tr: 'Hesabınızı verimli bir şekilde kurmak için her adımı izleyin. Onboarding sürecini tamamlayarak Intlayer ile başlayın.',
     }),
 
     keywords: t<string[]>({
@@ -140,6 +142,14 @@ const metadataContent = {
         'React',
         'JavaScript',
         'Руководство пользователя',
+      ],
+      tr: [
+        'Onboarding',
+        'Hesap kurulumu',
+        'Intlayer',
+        'React',
+        'JavaScript',
+        'Kullanıcı kılavuzu',
       ],
     }),
   },

@@ -17,6 +17,7 @@ const organizationFormContent = {
       hi: 'संगठन विवरण',
       ar: 'تفاصيل المنظمة',
       ru: 'Детали организации',
+      tr: 'Organizasyon detayları',
     }),
     nameInput: {
       label: t({
@@ -33,6 +34,7 @@ const organizationFormContent = {
         hi: 'नाम',
         ar: 'اسم',
         ru: 'Имя',
+        tr: 'İsim',
       }),
       placeholder: t({
         en: 'Enter the name of your organization',
@@ -48,6 +50,7 @@ const organizationFormContent = {
         hi: 'अपने संगठन का नाम दर्ज करें',
         ar: 'أدخل اسم منظمتك',
         ru: 'Введите название вашей организации',
+        tr: 'Organizasyonunuzun adını girin',
       }),
     },
 
@@ -65,6 +68,7 @@ const organizationFormContent = {
       hi: 'कोई संगठन नहीं',
       ar: 'لا توجد منظمة',
       ru: 'Нет организации',
+      tr: 'Organizasyon yok',
     }),
 
     createOrganizationDescription: t({
@@ -81,6 +85,7 @@ const organizationFormContent = {
       hi: 'Intlayer का उपयोग शुरू करने के लिए अपना पहला संगठन बनाएं',
       ar: 'قم بإنشاء منظمتك الأولى لبدء استخدام Intlayer',
       ru: 'Создайте свою первую организацию, чтобы начать использовать Intlayer',
+      tr: 'Intlayer kullanmaya başlamak için ilk organizasyonunuzu oluşturun',
     }),
 
     createOrganizationButton: {
@@ -98,6 +103,7 @@ const organizationFormContent = {
         hi: 'संगठन बनाएँ',
         ar: 'إنشاء منظمة',
         ru: 'Создать организацию',
+        tr: 'Organizasyon oluştur',
       }),
       ariaLabel: t({
         en: 'Click to create organization',
@@ -113,6 +119,7 @@ const organizationFormContent = {
         hi: 'संगठन बनाने के लिए क्लिक करें',
         ar: 'انقر لإنشاء منظمة',
         ru: 'Нажмите, чтобы создать организацию',
+        tr: 'Organizasyon oluşturmak için tıklayın',
       }),
     },
 
@@ -131,6 +138,7 @@ const organizationFormContent = {
         hi: 'संगठन संपादित करें',
         ar: 'تحرير المنظمة',
         ru: 'Редактировать организацию',
+        tr: 'Organizasyonu düzenle',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -146,6 +154,7 @@ const organizationFormContent = {
         hi: 'संपादित करने के लिए क्लिक करें',
         ar: 'انقر لتحرير',
         ru: 'Нажмите, чтобы отредактировать',
+        tr: 'Düzenlemek için tıklayın',
       }),
     },
 
@@ -164,6 +173,7 @@ const organizationFormContent = {
         hi: 'चुनें',
         ar: 'اختر',
         ru: 'Выбрать',
+        tr: 'Seç',
       }),
       ariaLabel: t({
         en: 'Click to select',
@@ -179,6 +189,7 @@ const organizationFormContent = {
         hi: 'चुनने के लिए क्लिक करें',
         ar: 'انقر للاختيار',
         ru: 'Нажмите, чтобы выбрать',
+        tr: 'Seçmek için tıklayın',
       }),
       selected: t({
         en: 'Selected',
@@ -194,6 +205,7 @@ const organizationFormContent = {
         hi: 'चुना हुआ',
         ar: 'محدد',
         ru: 'Выбран',
+        tr: 'Seçildi',
       }),
       unselected: t({
         en: 'Select',
@@ -209,6 +221,7 @@ const organizationFormContent = {
         hi: 'चुनें',
         ar: 'اختر',
         ru: 'Выбрать',
+        tr: 'Seç',
       }),
     },
     addOrganizationButton: {
@@ -226,6 +239,7 @@ const organizationFormContent = {
         ja: '組織を追加',
         ko: '조직 추가',
         zh: '添加组织',
+        tr: 'Organizasyon ekle',
       }),
       ariaLabel: t({
         en: 'Click to add organization',
@@ -241,6 +255,7 @@ const organizationFormContent = {
         ja: '組織を追加するにはクリック',
         ko: '조직을 추가하려면 클릭',
         zh: '单击添加组织',
+        tr: 'Organizasyon eklemek için tıklayın',
       }),
     },
     deleteOrganizationButton: {
@@ -258,6 +273,7 @@ const organizationFormContent = {
         hi: 'संगठन हटाएं',
         ar: 'حذف المنظمة',
         ru: 'Удалить организацию',
+        tr: 'Organizasyonu sil',
       }),
       ariaLabel: t({
         en: 'Click to delete organization',
@@ -273,6 +289,7 @@ const organizationFormContent = {
         hi: 'संगठन को हटाने के लिए क्लिक करें',
         ar: 'انقر لحذف المنظمة',
         ru: 'Нажмите, чтобы удалить организацию',
+        tr: 'Organizasyonu silmek için tıklayın',
       }),
     },
   },

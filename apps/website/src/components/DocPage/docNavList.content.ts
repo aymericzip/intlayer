@@ -18,6 +18,7 @@ const docNavTitlesContent = {
         hi: 'संकुचित करें',
         ar: 'اطوي التوسيع',
         ru: 'Свернуть',
+        tr: 'Daralt',
       }),
     },
     blogButton: {
@@ -35,6 +36,7 @@ const docNavTitlesContent = {
         hi: 'ब्लॉग पर जाएं',
         ar: 'اذهب إلى المدونة',
         ru: 'Перейти к блогу',
+        tr: 'Bloga git',
       }),
       text: t({
         en: 'Blog',
@@ -50,6 +52,7 @@ const docNavTitlesContent = {
         hi: 'ब्लॉग',
         ar: 'مدونة',
         ru: 'Блог',
+        tr: 'Blog',
       }),
     },
     chatBotButton: {
@@ -67,6 +70,7 @@ const docNavTitlesContent = {
         hi: 'प्रश्न करें',
         ar: 'طرح سؤال',
         ru: 'Задать вопрос',
+        tr: 'Bir soru sor',
       }),
       label: t({
         en: 'Click to go to the AI powered smart documentation chatbot',
@@ -82,6 +86,7 @@ const docNavTitlesContent = {
         hi: 'क्लिक करें केंद्रित सामग्री चैटबॉट पर जाएं',
         ar: 'انقر للدخول إلى الدردشة الذكية للوثائق الذكية',
         ru: 'Нажмите, чтобы перейти к интеллектуальному чат-боту для умной документации',
+        tr: 'Yapay zeka destekli akıllı dokümantasyon sohbet botuna gitmek için tıklayın',
       }),
     },
   },

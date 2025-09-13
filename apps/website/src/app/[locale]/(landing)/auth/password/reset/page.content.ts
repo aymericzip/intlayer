@@ -17,6 +17,7 @@ const resetPasswordContent = {
       hi: 'पासवर्ड रीसेट करें',
       ar: 'إعادة تعيين كلمة المرور',
       ru: 'Сбросить пароль',
+      tr: 'Şifreyi Sıfırla',
     }),
     title2: t({
       en: 'Reset your password',
@@ -32,6 +33,7 @@ const resetPasswordContent = {
       hi: 'अपने पासवर्ड को रीसेट करें',
       ar: 'إعادة تعيين كلمة المرور الخاصة بك',
       ru: 'Сбросьте свой пароль',
+      tr: 'Şifrenizi Sıfırlayın',
     }),
     description: t({
       en: 'Enter your email to reset your password.',
@@ -47,6 +49,7 @@ const resetPasswordContent = {
       hi: 'अपने पासवर्ड को रीसेट करने के लिए अपना ईमेल दर्ज करें।',
       ar: 'أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك.',
       ru: 'Введите вашу электронную почту, чтобы сбросить пароль.',
+      tr: 'E-postanızı girerek şifrenizi sıfırlayın.',
     }),
   },
 } satisfies Dictionary;

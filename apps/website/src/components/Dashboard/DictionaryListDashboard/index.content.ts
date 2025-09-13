@@ -18,6 +18,7 @@ const dictionaryFormContent = {
         hi: 'कुंजी',
         ar: 'المفتاح',
         ru: 'Ключ',
+        tr: 'Anahtar',
       }),
       placeholder: t({
         en: 'Enter the key of your dictionary',
@@ -33,6 +34,7 @@ const dictionaryFormContent = {
         hi: 'अपने शब्दकोश की कुंजी दर्ज करें',
         ar: 'أدخل مفتاح القاموس الخاص بك',
         ru: 'Введите ключ вашего словаря',
+        tr: 'Sözlüğünüzün anahtarını girin',
       }),
     },
 
@@ -51,6 +53,7 @@ const dictionaryFormContent = {
         hi: 'परियोजना',
         ar: 'مشروع',
         ru: 'Проект',
+        tr: 'Proje',
       }),
       placeholder: t({
         en: 'Select one or more projects to associate with your dictionary',
@@ -67,6 +70,7 @@ const dictionaryFormContent = {
         hi: 'अपने शब्दकोश से संलग्न करने के लिए एक या अधिक परियोजनाओं का चयन करें',
         ar: 'حدد مشروعًا أو أكثر لربطه بقاموسك',
         ru: 'Выберите один или несколько проектов, чтобы связать их со своим словарем',
+        tr: 'Sözlüğünüzle ilişkilendirmek için bir veya daha fazla proje seçin',
       }),
     },
 
@@ -85,6 +89,7 @@ const dictionaryFormContent = {
         hi: 'कोई शब्दकोश नहीं',
         ar: 'لا يوجد قاموس',
         ru: 'Нет словаря',
+        tr: 'Sözlük yok',
       }),
       description: t({
         en: 'Create your first dictionary to start using Intlayer',
@@ -100,6 +105,7 @@ const dictionaryFormContent = {
         hi: 'Intlayer का उपयोग शुरू करने के लिए अपना पहला शब्दकोश बनाएं',
         ar: 'أنشئ قاموسك الأول لبدء استخدام Intlayer',
         ru: 'Создайте свой первый словарь, чтобы начать использовать Intlayer',
+        tr: 'Intlayer kullanmaya başlamak için ilk sözlüğünüzü oluşturun',
       }),
     },
 
@@ -118,6 +124,7 @@ const dictionaryFormContent = {
         hi: 'शब्दकोश सूची',
         ar: 'قائمة القواميس',
         ru: 'Список словарей',
+        tr: 'Sözlük listesi',
       }),
     },
 
@@ -135,6 +142,7 @@ const dictionaryFormContent = {
       hi: 'Intlayer का उपयोग शुरू करने के लिए अपना पहला शब्दकोश बनाएं',
       ar: 'أنشئ قاموسك الأول لبدء استخدام Intlayer',
       ru: 'Создайте свой первый словарь, чтобы начать использовать Intlayer',
+      tr: 'Intlayer kullanmaya başlamak için ilk sözlüğünüzü oluşturun',
     }),
 
     createDictionaryButton: {
@@ -152,6 +160,7 @@ const dictionaryFormContent = {
         hi: 'नया शब्दकोश बनाएं',
         ar: 'إنشاء قاموس جديد',
         ru: 'Создать новый словарь',
+        tr: 'Yeni sözlük oluştur',
       }),
       ariaLabel: t({
         en: 'Click to create a new dictionary',
@@ -167,6 +176,7 @@ const dictionaryFormContent = {
         hi: 'नया शब्दकोश बनाने के लिए क्लिक करें',
         ar: 'اضغط لإنشاء قاموس جديد',
         ru: 'Нажмите, чтобы создать новый словарь',
+        tr: 'Yeni bir sözlük oluşturmak için tıklayın',
       }),
     },
 
@@ -185,6 +195,7 @@ const dictionaryFormContent = {
         hi: 'शब्दकोश संपादित करें',
         ar: 'تعديل القاموس',
         ru: 'Редактировать словарь',
+        tr: 'Sözlüğü düzenle',
       }),
       ariaLabel: t({
         en: 'Click to edit',
@@ -200,6 +211,7 @@ const dictionaryFormContent = {
         hi: 'संपादित करने के लिए क्लिक करें',
         ar: 'اضغط لتحرير',
         ru: 'Нажмите, чтобы отредактировать',
+        tr: 'Düzenlemek için tıklayın',
       }),
     },
 
@@ -218,6 +230,7 @@ const dictionaryFormContent = {
         hi: 'शब्दकोश का चयन करने के लिए क्लिक करें',
         ar: 'اضغط لتحديد قاموس',
         ru: 'Нажмите, чтобы выбрать словарь',
+        tr: 'Bir sözlük seçmek için tıklayın',
       }),
     },
   },

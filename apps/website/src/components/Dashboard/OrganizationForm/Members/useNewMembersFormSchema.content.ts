@@ -17,6 +17,7 @@ const content = {
       hi: 'कृपया एक मान्य ईमेल पता दर्ज करें',
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
       ru: 'Пожалуйста, введите правильный адрес электронной почты',
+      tr: 'Lütfen geçerli bir e-posta adresi girin',
     }),
   },
 } satisfies Dictionary;

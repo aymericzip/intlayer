@@ -17,6 +17,7 @@ const contentDashboardContent = {
       hi: 'शब्दकोश संपादित करें',
       ar: 'تعديل القاموس',
       ru: 'Редактировать словарь',
+      tr: 'Sözlüğü düzenle',
     }),
   },
 } satisfies Dictionary;

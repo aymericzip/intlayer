@@ -17,6 +17,7 @@ const content = {
       hi: 'कृपया अपना ईमेल पता दर्ज करें',
       ar: 'يرجى إدخال عنوان بريدك الإلكتروني',
       ru: 'Пожалуйста, введите ваш адрес электронной почты',
+      tr: 'Lütfen e-posta adresinizi girin',
     }),
 
     invalidTypeErrorEmail: t({
@@ -33,6 +34,7 @@ const content = {
       hi: 'कृपया एक मान्य ईमेल पता दर्ज करें',
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
       ru: 'Пожалуйста, введите действующий адрес электронной почты',
+      tr: 'Lütfen geçerli bir e-posta adresi girin',
     }),
   },
 } satisfies Dictionary;

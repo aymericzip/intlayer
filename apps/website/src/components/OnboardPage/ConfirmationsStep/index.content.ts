@@ -18,6 +18,7 @@ export const confirmationStepContent = {
         hi: 'निष्कर्ष',
         ar: 'تأكيد',
         ru: 'Подтверждение',
+        tr: 'Onay',
       }),
       hiText: t({
         en: 'Hi {name}!',
@@ -33,6 +34,7 @@ export const confirmationStepContent = {
         hi: 'नमस्ते {name}!',
         ar: 'مرحبا {name}!',
         ru: 'Привет {name}!',
+        tr: 'Merhaba {name}!',
       }),
       description: t({
         en: 'You are now ready to start using Intlayer.',
@@ -48,6 +50,7 @@ export const confirmationStepContent = {
         hi: 'आप अब Intlayer का उपयोग करने के लिए तैयार हैं।',
         ar: 'أنت الآن جاهز لبدء استخدام Intlayer.',
         ru: 'Теперь вы готовы начать использовать Intlayer.',
+        tr: 'Artık Intlayer kullanmaya hazırsınız.',
       }),
     },
     goToDashboardButton: {
@@ -65,6 +68,7 @@ export const confirmationStepContent = {
         hi: 'डैशबोर्ड पर जाएं',
         ar: 'اذهب إلى لوحة التحكم',
         ru: 'Перейти к приборной панели',
+        tr: 'Kontrol paneline git',
       }),
       text: t({
         en: 'Go to dashboard',
@@ -80,6 +84,7 @@ export const confirmationStepContent = {
         hi: 'डैशबोर्ड पर जाएं',
         ar: 'اذهب إلى لوحة التحكم',
         ru: 'Перейти к приборной панели',
+        tr: 'Kontrol paneline git',
       }),
     },
   },

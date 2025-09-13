@@ -17,6 +17,7 @@ const youtubeVideoMessageContent = {
       ko: '비디오 튜토리얼 보기',
       pt: 'Assistir ao vídeo tutorial',
       zh: '观看视频教程',
+      tr: 'Video eğitimini izleyin',
     }),
     description: t({
       en: 'This page has a video tutorial available.',
@@ -32,6 +33,7 @@ const youtubeVideoMessageContent = {
       ar: 'هذه الصفحة لديها فيديو تعليمي متاح.',
       'en-GB': 'This page has a video tutorial available.',
       it: 'Questa pagina ha un video tutorial disponibile.',
+      tr: 'Bu sayfada bir video eğitimi mevcuttur.',
     }),
     label: t({
       en: 'Watch the video tutorial',
@@ -47,6 +49,7 @@ const youtubeVideoMessageContent = {
       ko: '비디오 튜토리얼 보기',
       pt: 'Assistir ao vídeo tutorial',
       zh: '观看视频教程',
+      tr: 'Video eğitimini izleyin',
     }),
   },
 } satisfies Dictionary;
