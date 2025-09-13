@@ -18,6 +18,7 @@ const expandCollapseContent = {
         hi: 'सभी दिखाएँ',
         ar: 'عرض الكل',
         ru: 'Показать все',
+        tr: 'Hepsini göster',
       }),
       false: t({
         en: 'Show less',
@@ -33,6 +34,7 @@ const expandCollapseContent = {
         hi: 'कम दिखाएँ',
         ar: 'عرض أقل',
         ru: 'Показать меньше',
+        tr: 'Daha az göster',
       }),
     }),
   },

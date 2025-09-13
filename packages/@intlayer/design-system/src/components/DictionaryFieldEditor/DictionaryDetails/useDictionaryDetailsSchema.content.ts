@@ -17,6 +17,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'कृपया अपने संगठन का नाम दर्ज करें।',
       ar: 'يرجى إدخال اسم منظمتك.',
       ru: 'Пожалуйста, введите название вашей организации.',
+      tr: 'Lütfen organizasyonunuz için bir isim girin.',
     }),
 
     titleInvalidTypeError: t({
@@ -33,6 +34,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'संगठन का नाम एक वैध स्ट्रिंग होना चाहिए।',
       ar: 'يجب أن يكون اسم المنظمة سلسلة صحيحة.',
       ru: 'Имя организации должно быть правильной строкой.',
+      tr: 'Organizasyon adı geçerli bir dize olmalıdır.',
     }),
 
     titleMinLengthError: t({
@@ -49,6 +51,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'संगठन का नाम कम से कम 4 वर्ण का होना चाहिए।',
       ar: 'يجب أن يكون اسم المنظمة مكونًا من 4 أحرف على الأقل.',
       ru: 'Имя организации должно содержать не менее 4 символов.',
+      tr: 'Organizasyon adı en az 4 karakter uzunluğunda olmalıdır.',
     }),
 
     keyRequiredError: t({
@@ -65,6 +68,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'कृपया अपने संगठन के लिए एक कुंजी दर्ज करें।',
       ar: 'يرجى إدخال مفتاح لمنظمتك.',
       ru: 'Пожалуйста, введите ключ для вашей организации.',
+      tr: 'Lütfen organizasyonunuz için bir anahtar girin.',
     }),
 
     keyInvalidTypeError: t({
@@ -81,6 +85,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'कुंजी एक वैध स्ट्रिंग होनी चाहिए।',
       ar: 'يجب أن يكون المفتاح سلسلة صحيحة.',
       ru: 'Ключ должен быть правильной строкой.',
+      tr: 'Anahtar geçerli bir dize olmalıdır.',
     }),
 
     keySpaceError: t({
@@ -97,6 +102,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'कुंजी में स्पेस या विशेष वर्ण नहीं हो सकते।',
       ar: 'لا يمكن أن يحتوي المفتاح على مسافات أو أحرف خاصة.',
       ru: 'Ключ не может содержать пробелы или специальные символы.',
+      tr: 'Anahtar boşluk veya özel karakterler içeremez.',
     }),
 
     keyMinLengthError: t({
@@ -113,6 +119,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'कुंजी में कम से कम 4 वर्ण होने चाहिए।',
       ar: 'يجب أن يكون المفتاح مكونًا من 4 أحرف على الأقل.',
       ru: 'Ключ должен содержать не менее 4 символов.',
+      tr: 'Anahtar en az 4 karakter uzunluğunda olmalıdır.',
     }),
 
     // Description Field Error Messages
@@ -130,6 +137,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'कृपया अपने संगठन का विवरण दर्ज करें।',
       ar: 'يرجى إدخال وصف لمنظمتك.',
       ru: 'Пожалуйста, введите описание вашей организации.',
+      tr: 'Lütfen organizasyonunuz için bir açıklama girin.',
     }),
 
     descriptionInvalidTypeError: t({
@@ -146,6 +154,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'विवरण एक वैध स्ट्रिंग होना चाहिए।',
       ar: 'يجب أن يكون الوصف سلسلة صحيحة.',
       ru: 'Описание должно быть правильной строкой.',
+      tr: 'Açıklama geçerli bir dize olmalıdır.',
     }),
 
     requiredErrorProjectId: t({
@@ -162,6 +171,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'कृपया एक प्रोजेक्ट चुनें',
       ar: 'يرجى اختيار مشروع',
       ru: 'Пожалуйста, выберите проект',
+      tr: 'Lütfen bir proje seçin',
     }),
 
     invalidTypeErrorProjectId: t({
@@ -178,6 +188,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'कृपया एक वैध परियोजना चुनें',
       ar: 'يرجى اختيار مشروع صالح',
       ru: 'Пожалуйста, выберите действительный проект',
+      tr: 'Lütfen geçerli bir proje seçin',
     }),
 
     invalidTypeErrorTags: t({
@@ -194,6 +205,7 @@ export const useDictionaryDetailsSchemaContent = {
       hi: 'कृपया एक वैध टैग दर्ज करें',
       ar: 'يرجى إدخال وسم صالح',
       ru: 'Пожалуйста, введите действительный тег',
+      tr: 'Lütfen geçerli bir etiket girin',
     }),
   },
 } satisfies Dictionary;

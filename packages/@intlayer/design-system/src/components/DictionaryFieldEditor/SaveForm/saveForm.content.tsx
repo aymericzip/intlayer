@@ -18,6 +18,7 @@ export const saveDictionaryContent = {
         hi: 'शब्दकोश हटाएं',
         ar: 'حذف القاموس',
         ru: 'Удалить словарь',
+        tr: 'Sözlüğü sil',
       }),
       label: t({
         en: 'Click to delete dictionary',
@@ -33,6 +34,7 @@ export const saveDictionaryContent = {
         hi: 'शब्दकोश हटाने के लिए क्लिक करें',
         ar: 'انقر لحذف القاموس',
         ru: 'Нажмите, чтобы удалить словарь',
+        tr: 'Sözlüğü silmek için tıklayın',
       }),
     },
     resetButton: {
@@ -50,6 +52,7 @@ export const saveDictionaryContent = {
         hi: 'सभी परिवर्तनों को रीसेट करें',
         ar: 'إعادة تعيين جميع التغييرات',
         ru: 'Сбросить все изменения',
+        tr: 'Tüm değişiklikleri sıfırla',
       }),
       label: t({
         en: 'Click to reset all the changes',
@@ -65,6 +68,7 @@ export const saveDictionaryContent = {
         hi: 'सभी परिवर्तनों को रीसेट करने के लिए क्लिक करें',
         ar: 'انقر لإعادة تعيين جميع التغييرات',
         ru: 'Нажмите, чтобы сбросить все изменения',
+        tr: 'Tüm değişiklikleri sıfırlamak için tıklayın',
       }),
     },
     saveButton: {
@@ -82,6 +86,7 @@ export const saveDictionaryContent = {
         hi: 'परिवर्तनों को सहेजें',
         ar: 'احفظ التغييرات',
         ru: 'Сохранить изменения',
+        tr: 'Değişiklikleri kaydet',
       }),
       label: t({
         en: 'Click to save changes',
@@ -97,6 +102,7 @@ export const saveDictionaryContent = {
         hi: 'परिवर्तनों को सहेजने के लिए क्लिक करें',
         ar: 'انقر لحفظ التغييرات',
         ru: 'Нажмите, чтобы сохранить изменения',
+        tr: 'Değişiklikleri kaydetmek için tıklayın',
       }),
     },
     publishButton: {
@@ -114,6 +120,7 @@ export const saveDictionaryContent = {
         hi: 'शब्दकोश प्रकाशित करें',
         ar: 'نشر القاموس',
         ru: 'Опубликовать словарь',
+        tr: 'Sözlüğü yayınla',
       }),
       label: t({
         en: 'Click to publish dictionary',
@@ -129,6 +136,7 @@ export const saveDictionaryContent = {
         hi: 'शब्दकोश प्रकाशित करने के लिए क्लिक करें',
         ar: 'انقر لنشر القاموس',
         ru: 'Нажмите, чтобы опубликовать словарь',
+        tr: 'Sözlüğü yayınlamak için tıklayın',
       }),
     },
     downloadButton: {
@@ -146,6 +154,7 @@ export const saveDictionaryContent = {
         hi: 'डाउनलोड',
         ar: 'تنزيل',
         ru: 'Скачать',
+        tr: 'İndir',
       }),
       label: t({
         en: 'Click to download',
@@ -161,6 +170,7 @@ export const saveDictionaryContent = {
         hi: 'डाउनलोड करने के लिए क्लिक करें',
         ar: 'انقر لتنزيل',
         ru: 'Нажмите, чтобы скачать',
+        tr: 'İndirmek için tıklayın',
       }),
     },
 
@@ -179,6 +189,7 @@ export const saveDictionaryContent = {
         hi: 'पुष्टि करें',
         ar: 'تأكيد',
         ru: 'Подтверждение',
+        tr: 'Onay',
       }),
       message: t({
         en: 'This will overwrite the existing dictionary. Are you sure you want to continue?',
@@ -195,6 +206,7 @@ export const saveDictionaryContent = {
         hi: 'यह मौजूदा शब्दकोश को ओवरराइट करने जारी है। आप क्या आप जारी रखना चाहते हैं?',
         ar: 'سيتم الكتابة على القاموس الحالي. هل أنت متأكد من أنك تريد المتابعة؟',
         ru: 'Это перезапишет существующий словарь. Вы уверены, что хотите продолжить?',
+        tr: 'Bu, mevcut sözlüğün üzerine yazacaktır. Devam etmek istediğinizden emin misiniz?',
       }),
       differentFormatMessage: t({
         en: 'The dictionary is in a different format, it will be transformed into a JSON file. Are you sure you want to continue? This will overwrite the existing dictionary.',
@@ -211,6 +223,7 @@ export const saveDictionaryContent = {
         hi: 'शब्दकोश अलग स्वरूप में है, यह JSON फ़ाइल में बदल जाएगा। क्या आप सुनिश्चित हैं कि आप जारी रखना चाहते हैं? यह मौजूदा शब्दकोश को ओवरराइट करेगा।',
         ar: 'القاموس في تنسيق مختلف. سيتم تحويله إلى ملف JSON. هل أنت متأكد من أنك تريد المتابعة؟ سيتم الكتابة على القاموس الحالي.',
         ru: 'Словарь в другом формате, он будет преобразован в файл JSON. Вы уверены, что хотите продолжить? Это перезапишет существующий словарь.',
+        tr: 'Sözlük farklı bir formatta, JSON dosyasına dönüştürülecektir. Devam etmek istediğinizden emin misiniz? Bu, mevcut sözlüğün üzerine yazacaktır.',
       }),
       confirmButton: {
         text: t({
@@ -227,6 +240,7 @@ export const saveDictionaryContent = {
           hi: 'पुष्टि करें',
           ar: 'تأكيد',
           ru: 'Подтвердить',
+          tr: 'Onayla',
         }),
         label: t({
           en: 'Click to confirm',
@@ -242,6 +256,7 @@ export const saveDictionaryContent = {
           hi: 'पुष्टि करने के लिए क्लिक करें',
           ar: 'انقر لتأكيد',
           ru: 'Нажмите, чтобы подтвердить',
+          tr: 'Onaylamak için tıklayın',
         }),
       },
       cancelButton: {
@@ -259,6 +274,7 @@ export const saveDictionaryContent = {
           hi: 'रद्द करें',
           ar: 'إلغاء',
           ru: 'Отмена',
+          tr: 'İptal',
         }),
         label: t({
           en: 'Click to cancel',
@@ -274,6 +290,7 @@ export const saveDictionaryContent = {
           hi: 'रद्द करने के लिए क्लिक करें',
           ar: 'انقر لإلغاء',
           ru: 'Нажмите, чтобы отменить',
+          tr: 'İptal etmek için tıklayın',
         }),
       },
     },

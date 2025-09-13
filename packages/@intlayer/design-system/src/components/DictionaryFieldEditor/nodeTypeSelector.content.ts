@@ -17,6 +17,7 @@ export const nodeTypeSelectorContent = {
       hi: 'नोड प्रकार',
       ar: 'نوع العقدة',
       ru: 'Тип узла',
+      tr: 'Düğüm türü',
     }),
     multilingual: t({
       en: 'Multilingual content',
@@ -32,6 +33,7 @@ export const nodeTypeSelectorContent = {
       hi: 'बहुभाषी सामग्री',
       ar: 'محتوى متعدد اللغات',
       ru: 'Многоязычный контент',
+      tr: 'Çok dilli içerik',
     }),
     text: t({
       en: 'Text',
@@ -47,6 +49,7 @@ export const nodeTypeSelectorContent = {
       hi: 'पाठ',
       ar: 'نص',
       ru: 'Текст',
+      tr: 'Metin',
     }),
     number: t({
       en: 'Number',
@@ -62,6 +65,7 @@ export const nodeTypeSelectorContent = {
       hi: 'संख्या',
       ar: 'رقم',
       ru: 'Число',
+      tr: 'Sayı',
     }),
     boolean: t({
       en: 'Boolean',
@@ -77,6 +81,7 @@ export const nodeTypeSelectorContent = {
       hi: 'बूलियन',
       ar: 'منطقي',
       ru: 'Булево',
+      tr: 'Boolean',
     }),
     node: t({
       en: 'Object',
@@ -92,6 +97,7 @@ export const nodeTypeSelectorContent = {
       hi: 'ऑब्जेक्ट',
       ar: 'كائن',
       ru: 'Объект',
+      tr: 'Nesne',
     }),
     array: t({
       en: 'Array',
@@ -107,6 +113,7 @@ export const nodeTypeSelectorContent = {
       hi: 'ऐरे',
       ar: 'مصفوفة',
       ru: 'Массив',
+      tr: 'Dizi',
     }),
     enumeration: t({
       en: 'Enumeration',
@@ -122,6 +129,7 @@ export const nodeTypeSelectorContent = {
       hi: 'गणना',
       ar: 'تعداد',
       ru: 'Перечисление',
+      tr: 'Numaralandırma',
     }),
     nest: t({
       en: 'Nesting',
@@ -137,7 +145,7 @@ export const nodeTypeSelectorContent = {
       hi: 'नेस्टेंस',
       ar: 'مستوى',
       ru: 'Вложенность',
-      nl: 'Nest',
+      tr: 'İç içe geçme',
     }),
     insertion: t({
       en: 'Insertion',
@@ -153,6 +161,7 @@ export const nodeTypeSelectorContent = {
       hi: 'सम्मिलन',
       ar: 'إدراج',
       ru: 'Вставка',
+      tr: 'Ekleme',
     }),
     condition: t({
       en: 'Condition',
@@ -168,6 +177,7 @@ export const nodeTypeSelectorContent = {
       hi: 'शर्त्ता',
       ar: 'شرط',
       ru: 'Условие',
+      tr: 'Koşul',
     }),
     file: t({
       en: 'File',
@@ -183,6 +193,7 @@ export const nodeTypeSelectorContent = {
       hi: 'फ़ाइल',
       ar: 'ملف',
       ru: 'Файл',
+      tr: 'Dosya',
     }),
     markdown: t({
       en: 'Markdown',
@@ -198,6 +209,7 @@ export const nodeTypeSelectorContent = {
       hi: 'मार्कडाउन',
       ar: 'مارك داون',
       ru: 'Markdown',
+      tr: 'Markdown',
     }),
     reactNode: t({
       en: 'React Node',
@@ -213,6 +225,7 @@ export const nodeTypeSelectorContent = {
       hi: 'रेड नोड',
       ar: 'عقدة رياكت',
       ru: 'Реакт узел',
+      tr: 'React Node',
     }),
   },
 } satisfies Dictionary;

@@ -17,6 +17,7 @@ export const breadCrumbContent = {
       hi: 'कर जाएं',
       ar: 'اذهب إلى',
       ru: 'Перейти на',
+      tr: 'Git',
     }),
   },
 } satisfies Dictionary;

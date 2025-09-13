@@ -17,6 +17,7 @@ const versionSwitcherContent = {
       hi: 'संस्करण चयनकर्ता',
       ar: 'منتقي الإصدار',
       ru: 'Выбор версии',
+      tr: 'Sürüm seçici',
     }),
     versionListLabel: t({
       en: 'Version list',
@@ -32,6 +33,7 @@ const versionSwitcherContent = {
       hi: 'संस्करण सूची',
       ar: 'قائمة الإصدارات',
       ru: 'Список версий',
+      tr: 'Sürüm listesi',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -47,6 +49,7 @@ const versionSwitcherContent = {
       hi: 'स्विच करें',
       ar: 'التبديل إلى',
       ru: 'Переключиться на',
+      tr: 'Geçiş yap',
     }),
   },
 } satisfies Dictionary;
