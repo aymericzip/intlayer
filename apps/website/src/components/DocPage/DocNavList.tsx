@@ -9,6 +9,7 @@ import {
   ClickOutsideDiv,
   Container,
   MaxWidthSmoother,
+  KeyboardShortcut,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
@@ -215,6 +216,7 @@ export const DocNavList: FC<DocNavListProps> = ({
               )}
             >
               <SearchTrigger isMini={isHidden} />
+              <KeyboardShortcut shortcut="⌘ + L" onTriggered={() => setIsHidden((isHidden) => !isHidden)} />
               <Button
                 Icon={ArrowLeftToLine}
                 size="icon-md"

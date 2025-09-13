@@ -9,6 +9,7 @@ import {
   MaxWidthSmoother,
   Modal,
   SocialNetworks,
+  KeyboardShortcut,
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { ArrowRightToLine, MoveDiagonal } from 'lucide-react';
@@ -57,6 +58,7 @@ export const AsideNavigation: FC = (props) => {
                   )}
                   onClick={() => setIsHidden((isHidden) => !isHidden)}
                 />
+                <KeyboardShortcut shortcut="⌘ + K" onTriggered={() => setIsHidden((isHidden) => !isHidden)} />
                 <MaxWidthSmoother isHidden={isHidden}>
                   <h2 className="ml-3 text-nowrap font-bold">{title}</h2>
                 </MaxWidthSmoother>

@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Modal } from '@intlayer/design-system';
+import { Button, KeyboardShortcut, Modal } from '@intlayer/design-system';
 import { Search } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
@@ -35,6 +35,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
           isFullWidth={false}
         >
           {searchButton.text}
+          <KeyboardShortcut shortcut="⌘ + F" onTriggered={() => setIsModalOpen(true)} />
         </Button>
       )}
       <Modal
