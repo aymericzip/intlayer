@@ -15,7 +15,7 @@ slugs:
   - doc
   - environment
   - nextjs
-  - next-with-Page-Router
+  - next-with-page-router
 ---
 
 # البدء في التدويل (i18n) مع Intlayer و Next.js باستخدام Page Router

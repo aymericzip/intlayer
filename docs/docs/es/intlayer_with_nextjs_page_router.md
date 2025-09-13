@@ -15,7 +15,7 @@ slugs:
   - doc
   - environment
   - nextjs
-  - next-with-Page-Router
+  - next-with-page-router
 ---
 
 # Comenzando a internacionalizar (i18n) con Intlayer y Next.js usando Page Router

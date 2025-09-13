@@ -15,7 +15,7 @@ slugs:
   - doc
   - environment
   - nextjs
-  - next-with-Page-Router
+  - next-with-page-router
 ---
 
 # Intlayer와 Next.js의 Page Router를 사용한 국제화(i18n) 시작하기

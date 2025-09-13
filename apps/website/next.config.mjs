@@ -211,6 +211,14 @@ const nextConfig = {
           source: '/blog/:path*.md',
           destination: '/en/blog/raw/:path*?format=txt',
         },
+        {
+          source: '/environment/nextjs/next-with-Page-Router',
+          destination: '/environment/nextjs/next-with-page-router',
+        },
+        {
+          source: '/:locale/environment/nextjs/next-with-Page-Router',
+          destination: '/:locale/environment/nextjs/next-with-page-router',
+        },
       ],
     };
   },
