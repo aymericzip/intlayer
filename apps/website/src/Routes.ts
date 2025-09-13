@@ -12,6 +12,12 @@ export enum PagesRoutes {
   Dashboard_Organization = '/dashboard/organization',
   Dashboard_Profile = '/dashboard/profile',
 
+  Admin = '/admin',
+  Admin_Users = '/admin/users',
+  Admin_Organizations = '/admin/organizations',
+  Admin_Projects = '/admin/projects',
+  Admin_System = '/admin/system',
+
   Doc = '/doc/get-started',
   Doc_Why = '/doc/why',
   Doc_Search = '/doc/search',
