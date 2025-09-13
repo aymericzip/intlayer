@@ -64,7 +64,7 @@ export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
   return (
     <IDE
       {...ideProps}
-      className="mx-auto max-h-[440px] flex-1 scale-90 text-xs"
+      className="mx-auto min-h-[440px] md:max-h-[440px] md:min-h-auto flex-1 scale-100 md:scale-90 text-xs"
     />
   );
 };

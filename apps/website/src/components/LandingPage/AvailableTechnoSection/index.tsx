@@ -13,7 +13,7 @@ import {
 } from 'framer-motion';
 import { useIntlayer } from 'next-intlayer';
 import type { CSSProperties, FC, SVGProps } from 'react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AngularLogo } from './Angular';
 import { NextJSLogo } from './Nextjs';
 import { NuxtLogo } from './Nuxt';
@@ -70,30 +70,42 @@ const LogoItem: FC<LogoItemProps> = ({
   ]);
   const isEnabled = useTransform(animationProgress, outputRange, [true, false]);
 
-  const [isFloating, setIsFloating] = useState(isEnabled.get());
+  const [isFloating, setIsFloating] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  // Fix hydration issues by ensuring client-side rendering
+  useEffect(() => {
+    setIsClient(true);
+    setIsFloating(isEnabled.get());
+  }, []);
 
   useMotionValueEvent(isEnabled, 'change', (latest) => {
-    setIsFloating(latest);
+    if (isClient) {
+      setIsFloating(latest);
+    }
   });
+
+  // Ensure consistent initial scale values for hydration
+  const safeScale = isClient ? (isMobile ? 1 : scale) : 1;
 
   return (
     <motion.div
       style={{
-        x,
-        y,
-        scale: isMobile ? 1 : scale,
+        x: isClient ? x : 0,
+        y: isClient ? y : 0,
+        scale: safeScale,
       }}
     >
       <Link href={route} color="custom" label={label}>
         <Logo
           className={cn(
             'size-14 hover:scale-110 transition-transform duration-200',
-            isFloating && 'animate-float',
+            isClient && isFloating && 'animate-float',
             logoClassName
           )}
           style={
             {
-              animationDelay: `${animationDelay}s`,
+              animationDelay: isClient ? `${animationDelay}s` : '0s',
             } as CSSProperties
           }
         />
