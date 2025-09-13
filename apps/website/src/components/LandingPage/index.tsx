@@ -1,3 +1,5 @@
+
+import { BackgroundLayout } from '@components/BackgroundLayout';
 import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsSection/CommonQuestions';
 import { Loader } from '@intlayer/design-system';
 import dynamic from 'next/dynamic';
@@ -62,8 +64,10 @@ const DynamicAIABTestingSection = dynamic(
 export const LandingPage: FC = () => (
   <>
     <div className="flex flex-col gap-10">
-      <LandingSection />
-      <DynamicWhyToChoseIntlayerSection />
+      <BackgroundLayout>
+        <LandingSection />
+        <DynamicWhyToChoseIntlayerSection />
+      </BackgroundLayout>
       <DynamicFeaturesSection />
       <DynamicAIABTestingSection />
       <DynamicAvailableTechnoSection />
