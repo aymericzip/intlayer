@@ -18,6 +18,8 @@ export const intlayerLiveSync = (
 ): PluginOption => {
   const { liveSync, liveSyncURL } = intlayerConfig.editor;
 
+  if (!liveSync) return [];
+
   const importmap: Record<string, string> = {
     '@intlayer/dictionaries-entry': `${liveSyncURL}/dictionaries`,
     '@intlayer/dictionaries-entry/': `${liveSyncURL}/dictionaries/`,
@@ -33,10 +35,6 @@ export const intlayerLiveSync = (
     (base) =>
       new RegExp(`^${base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:$|\/)`)
   );
-
-  if (!liveSync) {
-    return [];
-  }
 
   const plugins: PluginOption[] = [
     {
