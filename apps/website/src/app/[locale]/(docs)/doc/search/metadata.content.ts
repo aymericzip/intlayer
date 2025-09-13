@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'दस्तावेज़ में खोजें | Intlayer',
       ar: 'البحث في الوثائق | Intlayer',
       ru: 'Поиск в документации | Intlayer',
+      tr: 'Belgelerde ara | Intlayer',
     }),
     description: t({
       en: 'Search documentation',
@@ -33,6 +34,7 @@ const metadataContent = {
       hi: 'दस्तावेज़ खोजें',
       ar: 'البحث في الوثائق',
       ru: 'Поиск документации',
+      tr: 'Belgelerde ara',
     }),
 
     keywords: t<string[]>({
@@ -49,6 +51,7 @@ const metadataContent = {
       hi: ['खोज', 'दस्तावेज़', 'intlayer'],
       ar: ['بحث', 'وثيقة', 'intlayer'],
       ru: ['поиск', 'документация', 'intlayer'],
+      tr: ['ara', 'belgeler', 'intlayer'],
     }),
   },
 } satisfies Dictionary<Metadata>;

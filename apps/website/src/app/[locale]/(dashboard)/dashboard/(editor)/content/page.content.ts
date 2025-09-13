@@ -17,6 +17,7 @@ const contentDashboardContent = {
       hi: 'सामग्री प्रबंधन',
       ar: 'إدارة المحتوى',
       ru: 'Управление контентом',
+      tr: 'İçerik yönetimi',
     }),
   },
 } satisfies Dictionary;

@@ -17,6 +17,7 @@ const notFountContent = {
       hi: '404 - पृष्ठ नहीं मिला',
       ar: '404 - الصفحة غير موجودة',
       ru: '404 - Страница не найдена',
+      tr: '404 - Sayfa Bulunamadı',
     }),
     content: t({
       en: 'Page not found',
@@ -32,6 +33,7 @@ const notFountContent = {
       hi: 'पृष्ठ नहीं मिला',
       ar: 'الصفحة غير موجودة',
       ru: 'Страница не найдена',
+      tr: 'Sayfa bulunamadı',
     }),
   },
 } satisfies Dictionary;

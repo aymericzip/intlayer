@@ -17,6 +17,7 @@ const signInContent = {
       hi: 'साइन इन',
       ar: 'تسجيل الدخول',
       ru: 'Войти',
+      tr: 'Giriş Yap',
     }),
     title2: t({
       en: 'Sign in',
@@ -32,6 +33,7 @@ const signInContent = {
       hi: 'साइन इन',
       ar: 'تسجيل الدخول',
       ru: 'Войти',
+      tr: 'Giriş Yap',
     }),
     description: t({
       en: 'Enter your email and password to log in.',
@@ -47,6 +49,7 @@ const signInContent = {
       hi: 'लॉग इन करने के लिए अपनी ईमेल और पासवर्ड दर्ज करें।',
       ar: 'أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول.',
       ru: 'Введите свой адрес электронной почты и пароль, чтобы войти.',
+      tr: 'Giriş yapmak için e-posta adresinizi ve şifrenizi girin.',
     }),
   },
 } satisfies Dictionary;

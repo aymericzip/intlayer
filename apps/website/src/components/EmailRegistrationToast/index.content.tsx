@@ -18,6 +18,7 @@ const productHuntContent = {
       hi: 'आगामी Intlayer रिलीज़ के बारे में सूचनाएं प्राप्त करें',
       ar: 'تلقي إشعارات حول الإصدارات القادمة من Intlayer',
       ru: 'Получайте уведомления о предстоящих релизах Intlayer',
+      tr: 'Yaklaşan Intlayer sürümleri hakkında bildirim alın',
     }),
     closeLabel: t({
       en: 'Close',
@@ -33,6 +34,7 @@ const productHuntContent = {
       hi: 'बंद करें',
       ar: 'إغلاق',
       ru: 'Закрыть',
+      tr: 'Kapat',
     }),
     registerLabel: t({
       en: 'Keep me updated',
@@ -48,6 +50,7 @@ const productHuntContent = {
       hi: 'मुझे अपडेट रखें',
       ar: 'أبقني على اطلاع',
       ru: 'Держите меня в курсе',
+      tr: 'Beni güncel tut',
     }),
     emailInput: {
       placeholder: t({
@@ -64,6 +67,7 @@ const productHuntContent = {
         hi: 'ईमेल पता दर्ज करें',
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
+        tr: 'E-posta adresinizi girin',
       }),
     },
     requiredErrorEmail: t({
@@ -80,6 +84,7 @@ const productHuntContent = {
       hi: 'कृपया अपना उपयोगकर्ता नाम दर्ज करें',
       ar: 'يرجى إدخال اسم المستخدم الخاص بك',
       ru: 'Пожалуйста, введите ваше имя пользователя',
+      tr: 'Lütfen kullanıcı adınızı girin',
     }),
 
     invalidTypeErrorEmail: t({
@@ -96,6 +101,7 @@ const productHuntContent = {
       hi: 'कृपया एक मान्य उपयोगकर्ता नाम दर्ज करें',
       ar: 'يرجى إدخال اسم مستخدم صالح',
       ru: 'Пожалуйста, введите корректное имя пользователя',
+      tr: 'Lütfen geçerli bir kullanıcı adı girin',
     }),
   },
 } satisfies Dictionary;

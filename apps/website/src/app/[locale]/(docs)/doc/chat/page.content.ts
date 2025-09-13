@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'हमारे एआई-पॉयटेड स्मार्ट दस्तावेज़ के लिए अपनी प्रश्न करें',
       ar: 'طرح سؤالك لدردشة الوثائق الخاصة بنا AI',
       ru: 'Спросите нашу умную документацию',
+      tr: 'Yapay Zeka Destekli Akıllı Dokümantasyonumuza Sorun',
     }),
   },
 } satisfies Dictionary<Metadata>;

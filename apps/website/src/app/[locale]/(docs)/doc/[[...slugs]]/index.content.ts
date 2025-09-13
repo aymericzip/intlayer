@@ -18,6 +18,7 @@ const docContent = {
         hi: 'अगला अनुभाग पर जाएं',
         ar: 'اذهب إلى القسم التالي',
         ru: 'Перейти к следующей секции',
+        tr: 'Sonraki bölüme git',
       }),
     },
     goToPreviousSection: {
@@ -35,6 +36,7 @@ const docContent = {
         hi: 'पिछला अनुभाग पर जाएं',
         ar: 'اذهب إلى القسم السابق',
         ru: 'Перейти к предыдущей секции',
+        tr: 'Önceki bölüme git',
       }),
     },
   },

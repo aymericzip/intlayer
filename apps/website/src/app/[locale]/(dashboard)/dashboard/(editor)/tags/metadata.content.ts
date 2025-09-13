@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'टैग | डैशबोर्ड | Intlayer',
       ar: 'العلامات | لوحة التحكم | Intlayer',
       ru: 'Теги | Приборная панель | Intlayer',
+      tr: 'Etiketler | Dashboard | Intlayer',
     }),
     description: t({
       en: 'Manage and organize your tags in the Intlayer dashboard. Create, edit, and delete tags to better categorize your content.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'Intlayer डैशबोर्ड में अपने टैग्स को प्रबंधित और व्यवस्थित करें। अपने कंटेंट को बेहतर तरीके से वर्गीकृत करने के लिए टैग्स बनाएं, संपादित करें और हटाएं।',
       ar: 'قم بإدارة وتنظيم العلامات الخاصة بك في لوحة تحكم Intlayer. أنشئ وعدل واحذف العلامات لتحسين تصنيف المحتوى الخاص بك.',
       ru: 'Управляйте и организуйте свои теги в панели инструментов Intlayer. Создавайте, редактируйте и удаляйте теги для лучшей категоризации вашего контента.',
+      tr: 'Intlayer kontrol panelinde etiketlerinizi yönetin ve düzenleyin. İçeriğinizi daha iyi kategorize etmek için etiketler oluşturun, düzenleyin ve silin.',
     }),
     keywords: t<string[]>({
       en: [
@@ -104,6 +106,13 @@ const metadataContent = {
         'Управление',
         'Организация контента',
         'Метаданные',
+      ],
+      tr: [
+        'Etiketler',
+        'Kategorilendirme',
+        'Yönetim',
+        'İçerik Organizasyonu',
+        'Meta Veriler',
       ],
     }),
   },

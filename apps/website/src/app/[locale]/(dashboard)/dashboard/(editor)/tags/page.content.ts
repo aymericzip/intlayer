@@ -17,6 +17,7 @@ const tagDashboardContent = {
       hi: 'टैग सेटिंग',
       ar: 'إعدادات الوسوم',
       ru: 'Настройки тегов',
+      tr: 'Etiket ayarları',
     }),
   },
 } satisfies Dictionary;

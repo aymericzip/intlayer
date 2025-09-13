@@ -18,6 +18,7 @@ export default {
       hi: 'Intlayer CMS एक लचीला सामग्री प्रबंधन प्रणाली है जो डेवलपर्स और सामग्री प्रबंधकों के लिए है।',
       ar: 'Intlayer CMS هو نظام إدارة محتوى مرن للمطورين ومديري المحتوى.',
       ru: 'Intlayer CMS - это гибкая система управления контентом для разработчиков и менеджеров по контенту.',
+      tr: 'Intlayer CMS, geliştiriciler ve içerik yöneticileri için esnek bir içerik yönetim sistemidir.',
     }),
   },
 } satisfies Dictionary;

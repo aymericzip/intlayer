@@ -17,6 +17,7 @@ const projectConfigDetailsContent = {
       hi: 'प्रोजेक्ट कॉन्फ़िगरेशन',
       ar: 'تكوين المشروع',
       ru: 'Конфигурация проекта',
+      tr: 'Proje yapılandırması',
     }),
     i18nSection: {
       title: t({
@@ -33,6 +34,7 @@ const projectConfigDetailsContent = {
         hi: 'अनेक्षांश',
         ar: 'التدويل الدولي',
         ru: 'Интернационализация',
+        tr: 'Uluslararasılaştırma',
       }),
       localeListTitle: t({
         en: 'Available locales',
@@ -48,6 +50,7 @@ const projectConfigDetailsContent = {
         hi: 'उपलब्ध स्थान',
         ar: 'المواقع المتاحة',
         ru: 'Доступные локализации',
+        tr: 'Mevcut yereller',
       }),
       defaultLocaleTitle: t({
         en: 'Default locale',
@@ -63,6 +66,7 @@ const projectConfigDetailsContent = {
         hi: 'डिफ़ॉल्ट स्थान',
         ar: 'الموقع الافتراضي',
         ru: 'Локализация по умолчанию',
+        tr: 'Varsayılan yerel',
       }),
     },
 
@@ -81,6 +85,7 @@ const projectConfigDetailsContent = {
         hi: 'संपादक',
         ar: 'المحرر',
         ru: 'Редактор',
+        tr: 'Editör',
       }),
       applicationURL: {
         title: t({
@@ -97,6 +102,7 @@ const projectConfigDetailsContent = {
           hi: 'एप्लीकेशन URL',
           ar: 'عنوان URL التطبيق',
           ru: 'URL-адрес приложения',
+          tr: "Uygulama URL'si",
         }),
         label: t({
           en: "Click to navigate to the application's URL",
@@ -112,6 +118,7 @@ const projectConfigDetailsContent = {
           hi: 'एप्लीकेशन URL पर जाने के लिए क्लिक करें',
           ar: 'انقر للانتقال إلى عنوان URL التطبيق',
           ru: 'Нажмите, чтобы перейти к URL-адресу приложения',
+          tr: "Uygulamanın URL'sine gitmek için tıklayın",
         }),
       },
       cmsURL: {
@@ -129,6 +136,7 @@ const projectConfigDetailsContent = {
           hi: 'CMS URL',
           ar: 'عنوان URL للمحرك المرئي',
           ru: 'URL-адрес CMS',
+          tr: 'CMS URL',
         }),
         label: t({
           en: 'Click to navigate to the CMS URL',
@@ -144,6 +152,7 @@ const projectConfigDetailsContent = {
           hi: 'क्लिक करें के लिए CMS URL पर जाएं',
           ar: 'انقر للانتقال إلى عنوان URL للمحرك المرئي',
           ru: 'Нажмите, чтобы перейти к URL-адресу CMS',
+          tr: "CMS URL'ine gitmek için tıklayın",
         }),
       },
     },
@@ -164,6 +173,7 @@ const projectConfigDetailsContent = {
         hi: 'कोई विन्यास पुश्पित नहीं है। कृपया पहले CLI का उपयोग करें से अपने विन्यास पुश्पित करें।',
         ar: 'لا تم تحميل التكوين. يرجى تحميل التكوين الخاص بك أولاً باستخدام CLI.',
         ru: 'Не загружена конфигурация. Пожалуйста, сначала загрузите конфигурацию с помощью CLI.',
+        tr: 'Yapılandırma yüklenmedi. Lütfen önce CLI kullanarak yapılandırmanızı yükleyin.',
       }),
     },
     updateConfig: {
@@ -181,6 +191,7 @@ const projectConfigDetailsContent = {
         hi: 'आप CLI के साथ अपनी विन्यास को अद्यतन कर सकते हैं।',
         ar: 'يمكنك تحديث تكوينك باستخدام CLI.',
         ru: 'Вы можете обновить конфигурацию с помощью CLI.',
+        tr: 'Yapılandırmanızı CLI kullanarak güncelleyebilirsiniz',
       }),
     },
     pushConfigDocLink: {
@@ -198,6 +209,7 @@ const projectConfigDetailsContent = {
         hi: 'अपनी विन्यास कैसे पुश करें देखें',
         ar: 'شاهد كيفية تحميل التكوين الخاص بك',
         ru: 'Посмотрите, как загрузить вашу конфигурацию',
+        tr: 'Yapılandırmanızı nasıl göndereceğinizi görün',
       }),
       label: t({
         en: 'Click to go to the related documentation',
@@ -213,6 +225,7 @@ const projectConfigDetailsContent = {
         hi: 'संबंधित दस्तावेज़ीकरण पर जाने के लिए क्लिक करें',
         ar: 'انقر للانتقال إلى الوثائق ذات الصلة',
         ru: 'Нажмите, чтобы перейти к соответствующей документации',
+        tr: 'İlgili belgelere gitmek için tıklayın',
       }),
     },
   },

@@ -17,6 +17,7 @@ const checkingApplicationStatusViewContent = {
       hi: 'एप्लिकेशन की स्थिति की जांच हो रही है',
       ar: 'يتم التحقق من حالة التطبيق',
       ru: 'Проверка состояния приложения',
+      tr: 'Uygulama durumu kontrol ediliyor',
     }),
   },
 } satisfies Dictionary;

@@ -17,6 +17,7 @@ const docHeaderContent = {
       zh: '作者',
       'en-GB': 'Author',
       hi: 'Author',
+      tr: 'Yazar',
     }),
     creationLabel: t({
       en: 'Creation',
@@ -32,6 +33,7 @@ const docHeaderContent = {
       'en-GB': 'Creation',
       hi: 'Creation',
       zh: 'Creation',
+      tr: 'Oluşturma',
     }),
     lastUpdateLabel: t({
       en: 'Last update',
@@ -47,6 +49,7 @@ const docHeaderContent = {
       ko: '마지막 업데이트',
       pt: 'Última atualização',
       ru: 'Последнее обновление',
+      tr: 'Son güncelleme',
     }),
   },
 } satisfies Dictionary;

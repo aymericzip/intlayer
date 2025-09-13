@@ -18,6 +18,7 @@ const definePasswordContent = {
         ar: 'كلمة المرور الجديدة',
         ru: 'Новый пароль',
         'en-GB': 'New password',
+        tr: 'Yeni şifre',
       }),
       placeholder: t({
         en: 'Enter new password',
@@ -33,6 +34,7 @@ const definePasswordContent = {
         ar: 'أدخل كلمة المرور الجديدة',
         ru: 'Введите новый пароль',
         'en-GB': 'Enter new password',
+        tr: 'Yeni şifreyi girin',
       }),
     },
     confirmPasswordInput: {
@@ -50,6 +52,7 @@ const definePasswordContent = {
         ar: 'تأكيد كلمة المرور الجديدة',
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
+        tr: 'Yeni şifreyi onayla',
       }),
       placeholder: t({
         en: 'Confirm new password',
@@ -65,6 +68,7 @@ const definePasswordContent = {
         ar: 'تأكيد كلمة المرور الجديدة',
         ru: 'Подтвердите новый пароль',
         'en-GB': 'Confirm new password',
+        tr: 'Yeni şifreyi onayla',
       }),
     },
     definePasswordButton: {
@@ -82,6 +86,7 @@ const definePasswordContent = {
         ar: 'تغيير كلمة المرور',
         ru: 'Сменить пароль',
         'en-GB': 'Change password',
+        tr: 'Yeni şifreyi tanımla',
       }),
       ariaLabel: t({
         en: 'Click to change password',
@@ -97,6 +102,7 @@ const definePasswordContent = {
         ar: 'انقر لتغيير كلمة المرور',
         ru: 'Нажмите, чтобы изменить пароль',
         'en-GB': 'Click to change password',
+        tr: 'Şifreyi değiştirmek için tıklayın',
       }),
     },
   },

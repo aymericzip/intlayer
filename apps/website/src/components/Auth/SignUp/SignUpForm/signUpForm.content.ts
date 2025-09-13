@@ -18,6 +18,7 @@ const content = {
         hi: 'ई-मेल पता',
         ar: 'عنوان البريد الإلكتروني',
         ru: 'Адрес электронной почты',
+        tr: 'E-posta adresi',
       }),
       placeholder: t({
         en: 'Enter e-mail address',
@@ -33,6 +34,7 @@ const content = {
         hi: 'ई-मेल पता दर्ज करें',
         ar: 'أدخل عنوان البريد الإلكتروني',
         ru: 'Введите адрес электронной почты',
+        tr: 'E-posta adresinizi girin',
       }),
     },
     passwordInput: {
@@ -50,6 +52,7 @@ const content = {
         hi: 'पासवर्ड',
         ar: 'كلمة المرور',
         ru: 'Пароль',
+        tr: 'Parola',
       }),
       placeholder: t({
         en: 'Enter password',
@@ -65,6 +68,7 @@ const content = {
         hi: 'पासवर्ड डालें',
         ar: 'أدخل كلمة المرور',
         ru: 'Введите пароль',
+        tr: 'Parolanızı girin',
       }),
     },
     passwordConfirmationInput: {
@@ -82,6 +86,7 @@ const content = {
         hi: 'पासवर्ड की पुष्टि',
         ar: 'تأكيد كلمة المرور',
         ru: 'Подтверждение пароля',
+        tr: 'Parola Onayı',
       }),
       placeholder: t({
         en: 'Enter password again',
@@ -97,6 +102,7 @@ const content = {
         hi: 'पासवर्ड पुनः दर्ज करें',
         ar: 'أعد إدخال كلمة المرور',
         ru: 'Введите пароль еще раз',
+        tr: 'Parolayı tekrar girin',
       }),
     },
     termsAndConditionsCheckbox: {
@@ -114,6 +120,7 @@ const content = {
         hi: 'शर्तें और शर्तें सहमत होते हैं',
         ar: 'أوافق على الشروط والأحكام',
         ru: 'Соглашаюсь с условиями и положениями',
+        tr: 'Şartlar ve koşulları kabul ediyorum',
       }),
     },
 
@@ -132,6 +139,7 @@ const content = {
         hi: 'खाता बनाएं',
         ar: 'إنشاء حساب',
         ru: 'Создать аккаунт',
+        tr: 'Hesap oluştur',
       }),
       ariaLabel: t({
         en: 'Submit form to create account',
@@ -147,6 +155,7 @@ const content = {
         hi: 'खाता बनाने के लिए फॉर्म जमा करें',
         ar: 'إرسال النموذج لإنشاء حساب',
         ru: 'Отправить форму для создания аккаунта',
+        tr: 'Hesap oluşturmak için formu gönderin',
       }),
     },
     loginLink: {
@@ -164,6 +173,7 @@ const content = {
         hi: 'क्या आपके पास पहले से ही एक खाता है?',
         ar: 'هل لديك حساب بالفعل؟',
         ru: 'У вас уже есть аккаунт?',
+        tr: 'Zaten bir hesabınız var mı?',
       }),
       text: t({
         en: 'Log in',
@@ -179,6 +189,7 @@ const content = {
         hi: 'लॉग इन करें',
         ar: 'تسجيل الدخول',
         ru: 'Войти',
+        tr: 'Giriş yap',
       }),
       ariaLabel: t({
         en: 'Click to go to login page',
@@ -194,6 +205,7 @@ const content = {
         hi: 'लॉगिन पृष्ठ पर जाने के लिए क्लिक करें',
         ar: 'انقر للذهاب إلى صفحة تسجيل الدخول',
         ru: 'Нажмите, чтобы перейти на страницу входа',
+        tr: 'Giriş sayfasına gitmek için tıklayın',
       }),
     },
   },

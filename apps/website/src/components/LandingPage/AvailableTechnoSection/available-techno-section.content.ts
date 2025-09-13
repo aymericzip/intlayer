@@ -17,6 +17,7 @@ const availableTechnoContent = {
       hi: 'उपलब्ध है',
       ar: 'متاح على',
       ru: 'Доступно на',
+      tr: 'Mevcut',
     }),
     commingSoon: t({
       en: 'Comming soon',
@@ -32,6 +33,7 @@ const availableTechnoContent = {
       hi: 'जल्द उपलब्ध है',
       ar: 'قريبا متاح على',
       ru: 'Скоро доступно',
+      tr: 'Çok yakında',
     }),
     icons: {
       react: {
@@ -49,6 +51,7 @@ const availableTechnoContent = {
           hi: 'ReactJS की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ ReactJS',
           ru: 'Перейти на официальный сайт ReactJS',
+          tr: 'ReactJS resmi web sitesine git',
         }),
       },
       nextjs: {
@@ -66,6 +69,7 @@ const availableTechnoContent = {
           hi: 'NextJS की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ NextJS',
           ru: 'Перейти на официальный сайт NextJS',
+          tr: 'NextJS resmi web sitesine git',
         }),
       },
       vite: {
@@ -83,6 +87,7 @@ const availableTechnoContent = {
           hi: 'ViteJS की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ ViteJS',
           ru: 'Перейти на официальный сайт ViteJS',
+          tr: 'ViteJS resmi web sitesine git',
         }),
       },
       vue: {
@@ -100,6 +105,7 @@ const availableTechnoContent = {
           hi: 'VueJS की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ VueJS',
           ru: 'Перейти на официальный сайт VueJS',
+          tr: 'VueJS resmi web sitesine git',
         }),
       },
       nuxt: {
@@ -117,6 +123,7 @@ const availableTechnoContent = {
           hi: 'NuxtJS की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ NuxtJS',
           ru: 'Перейти на официальный сайт NuxtJS',
+          tr: 'NuxtJS resmi web sitesine git',
         }),
       },
       angular: {
@@ -134,6 +141,7 @@ const availableTechnoContent = {
           hi: 'AngularJS की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ AngularJS',
           ru: 'Перейти на официальный сайт AngularJS',
+          tr: 'AngularJS resmi web sitesine git',
         }),
       },
       preact: {
@@ -151,6 +159,7 @@ const availableTechnoContent = {
           hi: 'Preact की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ Preact',
           ru: 'Перейти на официальный сайт Preact',
+          tr: 'Preact resmi web sitesine git',
         }),
       },
       solid: {
@@ -168,6 +177,7 @@ const availableTechnoContent = {
           hi: 'SolidJS की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ SolidJS',
           ru: 'Перейти на официальный сайт SolidJS',
+          tr: 'SolidJS resmi web sitesine git',
         }),
       },
       svelte: {
@@ -185,6 +195,7 @@ const availableTechnoContent = {
           hi: 'Svelte की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ Svelte',
           ru: 'Перейти на официальный сайт Svelte',
+          tr: 'Svelte resmi web sitesine git',
         }),
       },
       astro: {

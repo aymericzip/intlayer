@@ -26,6 +26,7 @@ const whyToChoseIntlayerContent = {
       hi: 'Intlayer को क्यों चुनें?',
       ar: 'لماذا تختار Intlayer؟',
       ru: 'Почему стоит выбрать Intlayer?',
+      tr: "Neden Intlayer'ı seçmelisiniz?",
     }),
     content: [
       {
@@ -43,6 +44,7 @@ const whyToChoseIntlayerContent = {
           hi: 'नि:शुल्क और ओपन सोर्स',
           ar: 'مجاني ومفتوح المصدر',
           ru: 'Бесплатно и с открытым исходным кодом',
+          tr: 'Ücretsiz ve Açık Kaynak',
         }),
         description: t({
           en: 'Intlayer is free and open source, allowing you to use it for free and contribute to suit your needs.',
@@ -59,6 +61,7 @@ const whyToChoseIntlayerContent = {
           hi: 'Intlayer नि:शुल्क और ओपन-सोर्स है, जिससे आप इसे मुफ्त में उपयोग कर सकते हैं और अपनी आवश्यकताओं के अनुसार योगदान कर सकते हैं।',
           ar: 'Intlayer مجاني ومفتوح المصدر، مما يتيح لك استخدامه مجانًا والمساهمة وفقًا لاحتياجاتك.',
           ru: 'Intlayer бесплатен и с открытым исходным кодом, что позволяет вам использовать его бесплатно и вносить изменения по мере необходимости.',
+          tr: 'Intlayer ücretsiz ve açık kaynaklıdır, böylece ücretsiz kullanabilir ve ihtiyaçlarınıza göre katkıda bulunabilirsiniz.',
         }),
         iconKey: 'free',
       },
@@ -77,6 +80,7 @@ const whyToChoseIntlayerContent = {
           hi: 'JavaScript संचालित सामग्री प्रबंधन',
           ar: 'إدارة المحتوى المدعومة من JavaScript',
           ru: 'Управление контентом на базе JavaScript',
+          tr: 'JavaScript Destekli İçerik Yönetimi',
         }),
         description: t({
           en: 'Harness the flexibility of JavaScript to define and manage your content efficiently.',
@@ -93,6 +97,7 @@ const whyToChoseIntlayerContent = {
           hi: 'JavaScript की लचीलापन का लाभ उठाकर, अपनी सामग्री को प्रभावी ढंग से परिभाषित और प्रबंधित करें।',
           ar: 'استفد من مرونة JavaScript لتعريف وإدارة المحتوى الخاص بك بكفاءة.',
           ru: 'Используйте гибкость JavaScript, чтобы эффективно определять и управлять своим контентом.',
+          tr: "JavaScript'in esnekliğini kullanarak içeriğinizi verimli bir şekilde tanımlayın ve yönetin.",
         }),
         iconKey: 'code',
       },
@@ -111,6 +116,7 @@ const whyToChoseIntlayerContent = {
           hi: 'टाइप-सुरक्षित वातावरण',
           ar: 'بيئة آمنة من نوعها',
           ru: 'Типобезопасная среда',
+          tr: 'Tip Güvenli Ortam',
         }),
         description: t({
           en: 'Leverage TypeScript to ensure all your content definitions are precise and error-free.',
@@ -127,6 +133,7 @@ const whyToChoseIntlayerContent = {
           hi: 'TypeScript का लाभ उठाएं ताकि आपकी सभी सामग्री परिभाषाएँ सटीक और त्रुटि-मुक्त हों।',
           ar: 'استفد من TypeScript لضمان دقة جميع تعريفات المحتوى الخاصة بك وخلوها من الأخطاء.',
           ru: 'Используйте TypeScript, чтобы гарантировать, что все ваши определения контента точны и свободны от ошибок.',
+          tr: "TypeScript'i kullanarak tüm içerik tanımlarınızın kesin ve hatasız olmasını sağlayın.",
         }),
         iconKey: 'type',
       },
@@ -145,6 +152,7 @@ const whyToChoseIntlayerContent = {
           hi: 'घटक स्तर पर घोषणा',
           ar: 'إعلان على مستوى المكون',
           ru: 'Декларация на уровне компонента',
+          tr: 'Bileşen düzeyinde beyan',
         }),
         description: t({
           en: 'Keep your translations close to their respective components, enhancing maintainability and clarity.',
@@ -161,6 +169,7 @@ const whyToChoseIntlayerContent = {
           hi: 'अपनी अनुवादों को उनके संबंधित घटकों के करीब रखें, जिससे रखरखाव और स्पष्टता में सुधार होता है।',
           ar: 'احتفظ بترجمتك بالقرب من مكوناتها الخاصة، مما يعزز القابلية للصيانة والوضوح.',
           ru: 'Держите переводы рядом с соответствующими компонентами, улучшая поддерживаемость и ясность.',
+          tr: 'Çevirilerinizi ilgili bileşenlerine yakın tutarak sürdürülebilirliği ve netliği artırın.',
         }),
         iconKey: 'file-tree',
       },
@@ -179,6 +188,7 @@ const whyToChoseIntlayerContent = {
           hi: 'सरल सेटअप',
           ar: 'إعداد مبسط',
           ru: 'Упрощенный процесс настройки',
+          tr: 'Basitleştirilmiş Kurulum',
         }),
         description: t({
           en: 'Get up and running quickly with minimal configuration, especially optimized for Next.js projects.',
@@ -195,6 +205,7 @@ const whyToChoseIntlayerContent = {
           hi: 'न्यूनतम कॉन्फ़िगरेशन के साथ जल्दी सेटअप करें, विशेष रूप से Next.js परियोजनाओं के लिए अनुकूलित।',
           ar: 'ابدأ بسرعة مع الحد الأدنى من التكوين، مع تحسين خاص لمشاريع Next.js.',
           ru: 'Быстро начните работу с минимальной настройкой, особенно оптимизированной для проектов Next.js.',
+          tr: 'Özellikle Next.js projeleri için optimize edilmiş, minimum yapılandırma ile hızlıca başlayın.',
         }),
         iconKey: 'timer',
       },
@@ -213,6 +224,7 @@ const whyToChoseIntlayerContent = {
           hi: 'एकीकृत CMS',
           ar: 'CMS متكامل',
           ru: 'Интегрированная CMS',
+          tr: 'Entegre CMS',
         }),
         description: t({
           en: 'Edit your content on your website with an integrated CMS directly on your website. Boost content generation thanks to AI.',
@@ -229,6 +241,7 @@ const whyToChoseIntlayerContent = {
           hi: 'अपनी वेबसाइट पर एकीकृत CMS के साथ अपने सामग्री को संपादित करें। AI के माध्यम से सामग्री निर्माण को बढ़ावा दें।',
           ar: 'قم بتحرير المحتوى الخاص بك على موقع الويب الخاص بك باستخدام نظام إدارة المحتوى المتكامل مباشرة على موقع الويب الخاص بك. عزز إنتاج المحتوى بفضل الذكاء الاصطناعي.',
           ru: 'Редактируйте свой контент на своем сайте с помощью интегрированной CMS непосредственно на вашем сайте. Ускорьте создание контента благодаря ИИ.',
+          tr: 'Entegre CMS ile web sitenizdeki içeriğinizi doğrudan web sitenizde düzenleyin. Yapay zeka sayesinde içerik üretimini artırın.',
         }),
         iconKey: 'cms',
       },

@@ -22,6 +22,7 @@ const featuresSectionContent = {
         ar: 'قاعدة الشفرة',
         hi: 'कोडबेस',
         ko: '코드베이스',
+        tr: 'Kod tabanı',
       }),
       description: t({
         en: 'Improve code maintainability by keeping your content definitions close to your components. Reduce redundancy, enhance clarity, and simplify updates with a structured approach that makes your code easier to manage and scale over time.',
@@ -38,6 +39,7 @@ const featuresSectionContent = {
         ar: 'حسِّن صيانة الكود عن طريق إبقاء تعريفات المحتوى قريبة من مكوناته. قلل التكرار، عزز الوضوح، وبسط التحديثات باستخدام نهج منظم يجعل الكود أسهل في الإدارة والتوسع بمرور الوقت.',
         hi: 'अपने कोड की अनुरक्षणीयता में सुधार करें अपने सामग्री परिभाषाओं को अपने घटकों के पास रखकर। अतिरेक को कम करें, स्पष्टता बढ़ाएं, और एक संरचित दृष्टिकोण के साथ अपडेट्स को सरल बनाएं जिससे कोड को प्रबंधित करना और समय के साथ स्केल करना आसान हो जाए।',
         ko: '콘텐츠 정의를 구성 요소 가까이에 유지하여 코드 유지 관리를 개선하세요. 중복을 줄이고 명확성을 향상시키며 구조화된 접근 방식을 사용하여 업데이트를 단순화하여 코드 관리 및 확장을 용이하게 합니다.',
+        tr: 'İçerik tanımlarını bileşenlerinizin yakınında tutarak kodun bakımını iyileştirin. Tekrarı azaltın, netliği artırın ve kodunuzu yönetmeyi ve zamanla ölçeklendirmeyi kolaylaştıran yapılandırılmış bir yaklaşım ile güncellemeleri basitleştirin.',
       }),
     },
     {
@@ -56,6 +58,7 @@ const featuresSectionContent = {
         ar: 'المحرر المرئي',
         hi: 'विज़ुअल एडिटर',
         ko: '비주얼 편집기',
+        tr: 'Görsel Editör',
       }),
       description: t({
         en: 'Leverage the free visual editor to build and manage your site effortlessly. Create, edit, and organize components and pages without touching code, making it easier for content managers and developers to collaborate efficiently.',
@@ -72,6 +75,7 @@ const featuresSectionContent = {
         ar: 'استخدم المحرر المرئي المجاني لإنشاء وإدارة موقعك بسهولة. قم بإنشاء وتحرير وتنظيم المكونات والصفحات دون لمس الكود، مما يسهل التعاون بين مديري المحتوى والمطورين.',
         hi: 'नि:शुल्क विज़ुअल एडिटर का उपयोग करके आसानी से अपनी साइट बनाएं और प्रबंधित करें। बिना कोड को छुए घटकों और पृष्ठों को बनाएँ, संपादित करें और व्यवस्थित करें, जिससे सामग्री प्रबंधकों और डेवलपर्स के बीच सहयोग सुगम हो जाता है।',
         ko: '무료 비주얼 편집기를 활용하여 사이트를 손쉽게 구축하고 관리하세요. 코드를 만지지 않고도 구성 요소와 페이지를 만들고, 편집하고, 구성할 수 있어 콘텐츠 관리자와 개발자가 효율적으로 협업할 수 있습니다.',
+        tr: 'Ücretsiz görsel editörü kullanarak sitenizi zahmetsizce oluşturun ve yönetin. İçerik yöneticileri ve geliştiricilerin verimli bir şekilde iş birliği yapmasını kolaylaştırarak, kodla uğraşmadan bileşenler ve sayfalar oluşturun, düzenleyin ve organize edin.',
       }),
     },
     {
@@ -90,6 +94,7 @@ const featuresSectionContent = {
         ar: 'متعدد اللغات',
         hi: 'बहुभाषी',
         ko: '다국어',
+        tr: 'Çok Dilli',
       }),
       description: t({
         en: 'Expand your reach with built-in translation support. Easily translate your content using an intuitive interface, ensuring seamless multilingual experiences for your users without the hassle of managing multiple content versions manually.',
@@ -106,6 +111,7 @@ const featuresSectionContent = {
         ar: 'وسّع نطاق وصولك باستخدام دعم الترجمة المدمج. ترجم المحتوى الخاص بك بسهولة عبر واجهة سهلة الاستخدام، مما يضمن تجربة متعددة اللغات سلسة لمستخدميك دون عناء إدارة عدة إصدارات للمحتوى يدويًا.',
         hi: 'अंतर्निर्मित अनुवाद समर्थन के साथ अपनी पहुँच का विस्तार करें। एक सहज इंटरफ़ेस का उपयोग करके अपने कंटेंट का आसानी से अनुवाद करें, जिससे आपके उपयोगकर्ताओं को एक सुगम बहुभाषी अनुभव मिले और आपको कई कंटेंट संस्करणों को मैन्युअल रूप से प्रबंधित करने की झंझट से मुक्ति मिले।',
         ko: '내장된 번역 지원을 통해 도달 범위를 넓히세요. 직관적인 인터페이스를 사용하여 콘텐츠를 손쉽게 번역하고, 여러 콘텐츠 버전을 수동으로 관리할 필요 없이 사용자에게 원활한 다국어 경험을 제공합니다.',
+        tr: 'Yerleşik çeviri desteği ile erişiminizi genişletin. İçeriğinizi sezgisel bir arayüz kullanarak kolayca çevirin ve birden fazla içerik sürümünü manuel olarak yönetme zahmetinden kurtulun.',
       }),
     },
     {
@@ -124,6 +130,7 @@ const featuresSectionContent = {
         ar: 'الإكمال التلقائي',
         hi: 'स्वतः पूर्ण',
         ko: '자동 완성',
+        tr: 'Otomatik Tamamlama',
       }),
       description: t({
         en: 'Boost your productivity with AI-powered content suggestions. As you type, get instant recommendations for text, headings, and key phrases, helping you maintain consistency, improve readability, and speed up content creation across your project.',
@@ -140,6 +147,7 @@ const featuresSectionContent = {
         ar: 'عزز إنتاجيتك باستخدام اقتراحات المحتوى المدعومة بالذكاء الاصطناعي. أثناء الكتابة، احصل على توصيات فورية للنصوص والعناوين والعبارات الرئيسية لمساعدتك على الحفاظ على الاتساق، وتحسين قابلية القراءة، وتسريع إنشاء المحتوى في مشروعك.',
         hi: 'AI-संचालित सामग्री सुझावों के साथ अपनी उत्पादकता बढ़ाएँ। टाइप करते समय, आपको पाठ, शीर्षक और मुख्य वाक्यांशों के लिए त्वरित अनुशंसाएँ मिलती हैं, जो आपको निरंतरता बनाए रखने, पठनीयता में सुधार करने और अपने प्रोजेक्ट में सामग्री निर्माण को तेज करने में मदद करती हैं।',
         ko: 'AI 기반 콘텐츠 제안을 통해 생산성을 높이세요. 입력하는 동안 텍스트, 제목 및 주요 구문에 대한 즉각적인 추천을 받아 일관성을 유지하고 가독성을 개선하며 프로젝트 전반의 콘텐츠 작성 속도를 높일 수 있습니다.',
+        tr: 'Yapay zeka destekli içerik önerileriyle üretkenliğinizi artırın. Yazarken, metin, başlıklar ve anahtar ifadeler için anında öneriler alın; bu da tutarlılığı korumanıza, okunabilirliği artırmanıza ve projeniz genelinde içerik oluşturmayı hızlandırmanıza yardımcı olur.',
       }),
     },
     {
@@ -160,6 +168,7 @@ const featuresSectionContent = {
         ar: 'استخدم Markdown لكتابة المحتوى بأسلوب سلس ومنظم لتنسيق النص. أنشئ صفحات موقعك وأدِرها بسهولة مستفيدًا من بساطة Markdown للحفاظ على الاتساق وتحسين قابلية القراءة عبر منصتك بأكملها.',
         hi: 'Markdown में सामग्री लिखें, जो पाठ स्वरूपण के लिए एक सहज और संरचित दृष्टिकोण प्रदान करता है। Markdown की सरलता का उपयोग करके अपनी साइट के पृष्ठों को आसानी से बनाएं और प्रबंधित करें, जिससे अपने प्लेटफ़ॉर्म पर निरंतरता बनाए रखना और पठनीयता में सुधार करना आसान हो जाता है।',
         ko: 'Markdown을 사용하여 콘텐츠를 작성하면 텍스트 서식에 있어 매끄럽고 구조화된 접근 방식을 구현할 수 있습니다. Markdown의 단순함을 활용하여 사이트 페이지를 손쉽게 생성 및 관리하고, 플랫폼 전반에서 일관성과 가독성을 높이세요.',
+        tr: 'Metin biçimlendirme için sorunsuz, yapılandırılmış bir yaklaşım için içeriğinizi Markdown ile yazın. Markdown’un sadeliğini kullanarak sitenizin sayfalarını kolayca oluşturun ve yönetin; bu da platformunuz genelinde tutarlılığı korumanıza ve okunabilirliği artırmanıza yardımcı olur.',
       }),
     },
   ],

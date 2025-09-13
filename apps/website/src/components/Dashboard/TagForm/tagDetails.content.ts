@@ -18,6 +18,7 @@ const tagFormContent = {
         hi: 'टैग सूची पर वापस जाएं',
         ar: 'العودة إلى قائمة الوسوم',
         ru: 'Вернуться к списку тегов',
+        tr: 'Tag listesine dön',
       }),
       label: t({
         en: 'Click to return to tags list',
@@ -33,6 +34,7 @@ const tagFormContent = {
         hi: 'टैग सूची पर वापस जाने के लिए क्लिक करें',
         ar: 'انقر للعودة إلى قائمة الوسوم',
         ru: 'Нажмите, чтобы вернуться к списку тегов',
+        tr: 'Tag listesine dönmek için tıklayın',
       }),
     },
 
@@ -50,6 +52,7 @@ const tagFormContent = {
       hi: 'टैग विवरण',
       ar: 'تفاصيل الوسم',
       ru: 'Детали тега',
+      tr: 'Etiket detayları',
     }),
 
     dictionariesListTitle: t({
@@ -66,6 +69,7 @@ const tagFormContent = {
       hi: 'इस टैग के साथ संबंधित डिक्शन्स',
       ar: 'قاموس مرتبطة بهذا الوسم',
       ru: 'Словари, связанные с этим тегом',
+      tr: 'Bu etiketle ilişkili sözlükler',
     }),
   },
 } satisfies Dictionary;

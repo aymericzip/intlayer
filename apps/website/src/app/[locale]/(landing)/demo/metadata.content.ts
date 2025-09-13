@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'डेमो | Intlayer',
       ar: 'تجربة | Intlayer',
       ru: 'Демо | Intlayer',
+      tr: 'Demo | Intlayer',
     }),
     description: t({
       en: 'Try the new Intlayer online editor. Empower your teams to take control of your content and transform your application into a CMS.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'नए Intlayer ऑनलाइन संपादक को आज़माएँ। अपनी टीमों को अपने कंटेंट पर नियंत्रण प्राप्त करने और अपने एप्लिकेशन को CMS में बदलने के लिए सक्षम करें।',
       ar: 'جرب محرر Intlayer الإلكتروني الجديد. مكن فرقك من السيطرة على المحتوى الخاص بك وتحويل تطبيقك إلى نظام إدارة محتوى.',
       ru: 'Попробуйте новый онлайн-редактор Intlayer. Дайте вашим командам возможность контролировать ваш контент и превратить ваше приложение в CMS.',
+      tr: "Yeni Intlayer çevrimiçi düzenleyicisini deneyin. Ekiplerinize içeriğiniz üzerinde kontrol sağlama ve uygulamanızı bir CMS'ye dönüştürme gücü verin.",
     }),
 
     keywords: t<string[]>({
@@ -162,6 +164,16 @@ const metadataContent = {
         'Демонстрация',
         'Онлайн-редактор',
         'Попробовать',
+        'CMS',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      tr: [
+        'Demo',
+        'Demonstrasyon',
+        'Çevrimiçi düzenleyici',
+        'Deneyin',
         'CMS',
         'Intlayer',
         'React',

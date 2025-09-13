@@ -49,6 +49,9 @@ export const legalEntry = {
     hi: Promise.resolve(
       readFile(join(dir, '../../../legal/hi/privacy_notice.md'), 'utf8')
     ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../legal/tr/privacy_notice.md'), 'utf8')
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './legal/en/terms_of_service.md': {
     en: Promise.resolve(
@@ -89,6 +92,9 @@ export const legalEntry = {
     ),
     hi: Promise.resolve(
       readFile(join(dir, '../../../legal/hi/terms_of_service.md'), 'utf8')
+    ),
+    tr: Promise.resolve(
+      readFile(join(dir, '../../../legal/tr/terms_of_service.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;

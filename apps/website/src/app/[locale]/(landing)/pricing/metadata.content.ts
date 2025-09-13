@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'मूल्य निर्धारण CMS | Intlayer',
       ar: 'التسعير CMS | Intlayer',
       ru: 'Цены CMS | Intlayer',
+      tr: 'Fiyatlandırma CMS | Intlayer',
     }),
     description: t({
       en: 'Discover our pricing plans and get access to premium features with Intlayer. Choose the plan that suits you best.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'हमारी मूल्य निर्धारण योजनाओं को खोजें और Intlayer के साथ प्रीमियम सुविधाओं तक पहुंच प्राप्त करें। उस योजना को चुनें जो आपके लिए सबसे अच्छी हो।',
       ar: 'اكتشف خطط التسعير لدينا واحصل على إمكانية الوصول إلى الميزات المميزة مع Intlayer. اختر الخطة التي تناسبك أكثر.',
       ru: 'Откройте для себя наши ценовые планы и получите доступ к премиум-функциям с Intlayer. Выберите план, который вам больше всего подходит.',
+      tr: 'Fiyatlandırma planlarımızı keşfedin ve Intlayer ile premium özelliklere erişin. Size en uygun planı seçin.',
     }),
 
     keywords: t<string[]>({
@@ -176,6 +178,17 @@ const metadataContent = {
         'Планы',
         'Intlayer',
         'Международная',
+        'Next.js',
+        'React',
+        'JavaScript',
+      ],
+      tr: [
+        'Fiyatlandırma',
+        'Abonelik',
+        'Premium',
+        'Planlar',
+        'Intlayer',
+        'Uluslararasılaştırma',
         'Next.js',
         'React',
         'JavaScript',

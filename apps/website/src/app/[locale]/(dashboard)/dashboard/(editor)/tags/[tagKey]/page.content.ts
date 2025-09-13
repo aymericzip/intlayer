@@ -17,6 +17,7 @@ const tagDashboardContent = {
       hi: 'टैग संपादित करें',
       ar: 'تعديل الوسم',
       ru: 'Редактировать тег',
+      tr: 'Etiketi düzenle',
     }),
   },
 } satisfies Dictionary;

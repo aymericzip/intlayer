@@ -18,6 +18,7 @@ const metadataContent = {
       hi: 'प्रोफ़ाइल | डैशबोर्ड | Intlayer',
       ar: 'الملف الشخصي | لوحة التحكم | Intlayer',
       ru: 'Профиль | Приборная панель | Intlayer',
+      tr: 'Profil | Dashboard | Intlayer',
     }),
     description: t({
       en: 'Manage your profile settings in the Intlayer dashboard. Update your personal information, change your password, and configure preferences.',
@@ -34,6 +35,7 @@ const metadataContent = {
       hi: 'Intlayer डैशबोर्ड में अपनी प्रोफ़ाइल सेटिंग्स प्रबंधित करें। अपनी व्यक्तिगत जानकारी अपडेट करें, पासवर्ड बदलें और प्राथमिकताएँ कॉन्फ़िगर करें।',
       ar: 'إدارة إعدادات ملفك الشخصي في لوحة تحكم Intlayer. قم بتحديث معلوماتك الشخصية، وتغيير كلمة المرور، وتكوين التفضيلات.',
       ru: 'Управляйте настройками профиля в панели инструментов Intlayer. Обновите личную информацию, измените пароль и настройте предпочтения.',
+      tr: 'Intlayer kontrol panelinde profil ayarlarınızı yönetin. Kişisel bilgilerinizi güncelleyin, şifrenizi değiştirin ve tercihlerinizi yapılandırın.',
     }),
     keywords: t<string[]>({
       en: [
@@ -132,6 +134,14 @@ const metadataContent = {
         'Пароль',
         'Предпочтения',
         'Управление аккаунтом',
+      ],
+      tr: [
+        'Profil',
+        'Ayarlar',
+        'Kullanıcı Bilgileri',
+        'Parola',
+        'Tercihler',
+        'Hesap Yönetimi',
       ],
     }),
   },
