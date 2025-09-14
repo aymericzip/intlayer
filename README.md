@@ -193,20 +193,22 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 
 ## 🌐 Readme in other languages
 
-[English](https://github.com/aymericzip/intlayer/blob/main/readme.md) •
-[简体中文](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/readme.md) •
-[Русский](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/readme.md) •
-[日本語](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/readme.md) •
-[Français](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/readme.md) •
-[한국어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/readme.md) •
-[Español](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/readme.md) •
-[Deutsch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/readme.md) •
-[العربية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/readme.md) •
-[Italiano](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/readme.md) •
-[English (UK)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/readme.md) •
-[Português](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/readme.md) •
-[हिन्दी](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/readme.md)
-[Türkçe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/readme.md)
+<p align="center">
+  <a href="https://github.com/aymericzip/intlayer/blob/main/readme.md">English</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/readme.md">简体中文</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/readme.md">Русский</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/readme.md">日本語</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/readme.md">Français</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/readme.md">한국어</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/readme.md">Español</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/readme.md">Deutsch</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/readme.md">العربية</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/readme.md">Italiano</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/readme.md">English (UK)</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/readme.md">Português</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/readme.md">हिन्दी</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/readme.md">Türkçe</a>
+</p>
 
 ## 🤝 Community
 
