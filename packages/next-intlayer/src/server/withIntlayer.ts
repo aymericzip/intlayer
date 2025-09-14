@@ -272,35 +272,14 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
       // Always alias on the server (node/edge) for stability.
       // On the client, alias only when not using live sync.
-      if (isServer || !liveSync) {
-        config.resolve.alias = {
-          ...config.resolve.alias,
-          '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-          '@intlayer/unmerged-dictionaries-entry': resolve(
-            relativeUnmergedDictionariesPath
-          ),
-          '@intlayer/config/built': resolve(relativeConfigurationPath),
-        };
-      }
-
-      // In live sync mode during development on the client, externalize Intlayer entries to the live sync server URLs.
-      if (liveSync && isDevCommand && !isServer) {
-        // Use 'import' so webpack emits dynamic import() for externals without requiring outputModule
-        config.externalsType = 'import';
-
-        // Push each external as a separate entry to match webpack schema
-        config.externals = config.externals || [];
-        config.externals.push({
-          '@intlayer/dictionaries-entry': 'import @intlayer/dictionaries-entry',
-          '@intlayer/dictionaries-entry/':
-            'import @intlayer/dictionaries-entry/',
-          '@intlayer/unmerged-dictionaries-entry':
-            'import @intlayer/unmerged-dictionaries-entry',
-          '@intlayer/unmerged-dictionaries-entry/':
-            'import @intlayer/unmerged-dictionaries-entry/',
-          '@intlayer/config/built': 'import @intlayer/config/built',
-        });
-      }
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+        '@intlayer/unmerged-dictionaries-entry': resolve(
+          relativeUnmergedDictionariesPath
+        ),
+        '@intlayer/config/built': resolve(relativeConfigurationPath),
+      };
 
       // Activate watch mode webpack plugin
       if (isDevCommand && isServer && nextRuntime === 'nodejs') {
