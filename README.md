@@ -18,17 +18,17 @@
   <a href="https://discord.gg/7uxamYVeCk">Discord</a>
 </p>
 <p align="center" style="margin-top:15px;">
-  <a href="https://www.npmjs.com/package/intlayer" target="_blank"><img src="https://img.shields.io/npm/v/intlayer?style=for-the-badge&labelColor=FFFFFF&color=000000&logoColor=FFFFFF" alt="npm version" height="24"/></a>
-  <a href="https://github.com/aymericzip/intlayer/stargazers" target="_blank"><img src="https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logo=github&logoColor=FFD700" alt="GitHub Stars" height="24"/></a>
-  <a href="https://www.npmjs.org/package/intlayer" target="_blank"><img src="https://img.shields.io/npm/dm/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="monthly downloads" height="24"/></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/LICENSE"><img src="https://img.shields.io/github/license/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="license"/></a>
-  <a href="https://github.com/aymericzip/intlayer/commits/main"><img src="https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="last commit"/>
+  <a href="https://www.npmjs.com/package/intlayer" target="_blank" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/npm/v/intlayer?style=for-the-badge&labelColor=FFFFFF&color=000000&logoColor=FFFFFF" alt="npm version" height="24"/></a>
+  <a href="https://github.com/aymericzip/intlayer/stargazers" target="_blank" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logo=github&logoColor=FFD700" alt="GitHub Stars" height="24"/></a>
+  <a href="https://www.npmjs.org/package/intlayer" target="_blank" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/npm/dm/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="monthly downloads" height="24"/></a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/LICENSE" target="_blank" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/github/license/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="license"/></a>
+  <a href="https://github.com/aymericzip/intlayer/commits/main" target="_blank" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="last commit"/>
   </a>
 </p>
 
 ![Watch the video](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
 
-<a href="https://intlayer.org/doc/concept/content">
+<a href="https://intlayer.org/doc/concept/content" rel="">
   <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -121,31 +121,30 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 <details open>
 <summary style="font-size:16px; font-weight:bold;">📘 Get Started</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/why">Why Intlayer?</a></li>
-  <li><a href="https://intlayer.org/doc">Introduction</a></li>
+  <li><a href="https://intlayer.org/doc/why" rel=''>Why Intlayer?</a></li>
+  <li><a href="https://intlayer.org/doc" rel=''>Introduction</a></li>
 </ul>
 </details>
 
 <details>
 <summary style="font-size:16px; font-weight:bold;">⚙️ Concept</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/concept/how-works-intlayer">How Intlayer Works</a></li>
-  <li><a href="https://intlayer.org/doc/concept/configuration">Configuration</a></li>
-  <li><a href="https://intlayer.org/doc/concept/ai">AI provider</a></li>
-  <li><a href="https://intlayer.org/doc/concept/cli">Intlayer CLI</a></li>
-  <li><a href="https://intlayer.org/doc/concept/editor">Intlayer Editor</a></li>
-  <li><a href="https://intlayer.org/doc/concept/cms">Intlayer CMS</a></li>
-  <li><a href="https://intlayer.org/doc/concept/content">Dictionary</a>
+  <li><a href="https://intlayer.org/doc/concept/how-works-intlayer" rel=''>How Intlayer Works</a></li>
+  <li><a href="https://intlayer.org/doc/concept/configuration" rel=''>Configuration</a></li>
+  <li><a href="https://intlayer.org/doc/concept/cli" rel=''>Intlayer CLI</a></li>
+  <li><a href="https://intlayer.org/doc/concept/editor" rel=''>Intlayer Editor</a></li>
+  <li><a href="https://intlayer.org/doc/concept/cms" rel=''>Intlayer CMS</a></li>
+  <li><a href="https://intlayer.org/doc/concept/content" rel=''>Dictionary</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/concept/content/per-locale-file">Per-Locale Content Declaration File</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/translation">Translation</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/enumeration">Enumeration</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/condition">Condition</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/nesting">Nesting</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/markdown">Markdown</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/function-fetching">Function Fetching</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/insertion">Insertion</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/file">File</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/per-locale-file" rel=''>Per-Locale Content Declaration File</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/translation" rel=''>Translation</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/enumeration" rel=''>Enumeration</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/condition" rel=''>Condition</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/nesting" rel=''>Nesting</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/markdown" rel=''>Markdown</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/function-fetching" rel=''>Function Fetching</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/insertion" rel=''>Insertion</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/file" rel=''>File</a></li>
     </ul>
   </li>
 </ul>
@@ -154,40 +153,40 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 <details open>
 <summary style="font-size:16px; font-weight:bold;">🌐 Environment</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/environment/nextjs">Intlayer with Next.js 15</a>
+  <li><a href="https://intlayer.org/doc/environment/nextjs" rel=''>Intlayer with Next.js 15</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/14">Next.js 14 (App Router)</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router">Next.js Page Router</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (App Router)</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router" rel=''>Next.js Page Router</a></li>
     </ul>
   </li>
-  <li><a href="https://intlayer.org/doc/environment/create-react-app">React CRA</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react">Vite + React</a>
+  <li><a href="https://intlayer.org/doc/environment/create-react-app" rel=''>React CRA</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a>
      <ul>
-      <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7">React-router-v7</a></li>
-      <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start">Tanstack start</a></li>
+      <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7" rel=''>React-router-v7</a></li>
+      <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start" rel=''>Tanstack start</a></li>
     </ul>
   </li>
-  <li><a href="https://intlayer.org/doc/environment/react-native-and-expo">React Native</a></li>
-  <li><a href="https://intlayer.org/doc/environment/lynx-and-react">Lynx + React</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-svelte">Vite + Svelte</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-preact">Vite + Preact</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-vue">Vite + Vue</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-nuxt">Vite + Nuxt</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-solid">Vite + Solid</a></li>
-  <li><a href="https://intlayer.org/doc/environment/angular">Angular</a></li>
-  <li><a href="https://intlayer.org/doc/environment/express">Express</a></li>
-  <li><a href="https://intlayer.org/doc/environment/nest">NestJS</a></li>
+  <li><a href="https://intlayer.org/doc/environment/react-native-and-expo" rel=''>React Native</a></li>
+  <li><a href="https://intlayer.org/doc/environment/lynx-and-react" rel=''>Lynx + React</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-svelte" rel=''>Vite + Svelte</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-preact" rel=''>Vite + Preact</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-vue" rel=''>Vite + Vue</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-nuxt" rel=''>Vite + Nuxt</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-solid" rel=''>Vite + Solid</a></li>
+  <li><a href="https://intlayer.org/doc/environment/angular" rel=''>Angular</a></li>
+  <li><a href="https://intlayer.org/doc/environment/express" rel=''>Express</a></li>
+  <li><a href="https://intlayer.org/doc/environment/nest" rel=''>NestJS</a></li>
 </ul>
 </details>
 
 <details>
 <summary style="font-size:16px; font-weight:bold;">📰 Blog</summary>
 <ul>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md">What is i18n</a></li>
-  <li><a href="https://intlayer.org/blog/SEO-and-i18n">i18n and SEO</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-next-i18next">Intlayer and i18next</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-react-i18next">Intlayer and react-intl</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-next-intl">Intlayer and next-intl</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md" rel=''>What is i18n</a></li>
+  <li><a href="https://intlayer.org/blog/SEO-and-i18n" rel=''>i18n and SEO</a></li>
+  <li><a href="https://intlayer.org/blog/intlayer-with-next-i18next" rel=''>Intlayer and i18next</a></li>
+  <li><a href="https://intlayer.org/blog/intlayer-with-react-i18next" rel=''>Intlayer and react-intl</a></li>
+  <li><a href="https://intlayer.org/blog/intlayer-with-next-intl" rel=''>Intlayer and next-intl</a></li>
 </ul>
 </details>
 
@@ -223,25 +222,25 @@ You can also follow us on :
   <div>
     <br/>
     <p align="center">
-      <a href="https://discord.gg/528mBV4N" target="blank"><img align="center"
+      <a href="https://discord.gg/528mBV4N" target="blank" rel='noopener noreferrer nofollow'><img align="center"
          src="https://img.shields.io/badge/discord-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white"
          alt="Intlayer Discord" height="30"/></a>
-      <a href="https://www.linkedin.com/company/intlayerorg" target="blank"><img align="center"
+      <a href="https://www.linkedin.com/company/intlayerorg" target="blank" rel='noopener noreferrer nofollow'><img align="center"
          src="https://img.shields.io/badge/linkedin-%231DA1F2.svg?style=for-the-badge&logo=linkedin&logoColor=white"
          alt="Intlayer LinkedIn" height="30"/></a>
-      <a href="https://www.facebook.com/intlayer" target="blank"><img align="center"
+      <a href="https://www.facebook.com/intlayer" target="blank" rel='noopener noreferrer nofollow'><img align="center"
          src="https://img.shields.io/badge/facebook-4267B2.svg?style=for-the-badge&logo=facebook&logoColor=white"
          alt="Intlayer Facebook" height="30"/></a>
-      <a href="https://www.instagram.com/intlayer/" target="blank"><img align="center"
+      <a href="https://www.instagram.com/intlayer/" target="blank" rel='noopener noreferrer nofollow'><img align="center"
          src="https://img.shields.io/badge/instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white"
          alt="Intlayer Instagram" height="30"/></a>
-      <a href="https://x.com/Intlayer183096" target="blank"><img align="center"
+      <a href="https://x.com/Intlayer183096" target="blank" rel='noopener noreferrer nofollow'><img align="center"
          src="https://img.shields.io/badge/x-1DA1F2.svg?style=for-the-badge&logo=x&logoColor=white"
          alt="Intlayer X" height="30"/></a>
-      <a href="https://www.youtube.com/@intlayer" target="blank"><img align="center"
+      <a href="https://www.youtube.com/@intlayer" target="blank" rel='noopener noreferrer nofollow'><img align="center"
          src="https://img.shields.io/badge/youtube-FF0000.svg?style=for-the-badge&logo=youtube&logoColor=white"
          alt="Intlayer YouTube" height="30"/></a>
-      <a href="https://www.tiktok.com/@intlayer" target="blank"><img align="center"
+      <a href="https://www.tiktok.com/@intlayer" target="blank" rel='noopener noreferrer nofollow'><img align="center"
          src="https://img.shields.io/badge/tiktok-000000.svg?style=for-the-badge&logo=tiktok&logoColor=white"
          alt="Intlayer TikTok" height="30"/></a>
       <br>
