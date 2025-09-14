@@ -48,19 +48,37 @@ const getPruneConfig = (
   intlayerConfig: IntlayerConfig
 ): Partial<NextConfig> => {
   const { optimize, traversePattern, importMode } = intlayerConfig.build;
-  const { liveSync } = intlayerConfig.editor;
+  const { liveSync, liveSyncURL } = intlayerConfig.editor;
   const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
     intlayerConfig.content;
 
+  const logger = getAppLogger(intlayerConfig);
+
+  if (liveSync && !optimize) {
+    logger('Live sync is enabled but optimize is disabled');
+  }
+
   if (!optimize) return {};
+
+  let safeImportMode = importMode;
+  if (liveSync && importMode === 'static') {
+    logger(
+      'Live sync is enabled but import mode is static, switching to dynamic'
+    );
+
+    safeImportMode = 'dynamic';
+  }
 
   if (!isGteNext13) return {};
 
   const isSwcPluginAvailable = getIsSwcPluginAvailable();
 
-  if (!isSwcPluginAvailable) return {};
-
-  const logger = getAppLogger(intlayerConfig);
+  if (!isSwcPluginAvailable) {
+    logger(
+      'Swc plugin is not available, install @intlayer/swc to optimize the build'
+    );
+    return {};
+  }
 
   runOnce(
     join(baseDir, '.next', 'cache', 'intlayer-prune-plugin-enabled.lock'),
@@ -96,7 +114,7 @@ const getPruneConfig = (
             dictionariesEntryPath,
             dynamicDictionariesDir,
             dynamicDictionariesEntryPath,
-            importMode,
+            importMode: safeImportMode,
             filesList,
             replaceDictionaryEntry: false,
             liveSync,
@@ -281,25 +299,6 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
           ),
           '@intlayer/config/built': resolve(relativeConfigurationPath),
         };
-      }
-
-      // In live sync mode during development on the client, externalize Intlayer entries to the live sync server URLs.
-      if (liveSync && isDevCommand && !isServer) {
-        // Use 'import' so webpack emits dynamic import() for externals without requiring outputModule
-        config.externalsType = 'import';
-
-        // Push each external as a separate entry to match webpack schema
-        config.externals = config.externals || [];
-        config.externals.push({
-          '@intlayer/dictionaries-entry': 'import @intlayer/dictionaries-entry',
-          '@intlayer/dictionaries-entry/':
-            'import @intlayer/dictionaries-entry/',
-          '@intlayer/unmerged-dictionaries-entry':
-            'import @intlayer/unmerged-dictionaries-entry',
-          '@intlayer/unmerged-dictionaries-entry/':
-            'import @intlayer/unmerged-dictionaries-entry/',
-          '@intlayer/config/built': 'import @intlayer/config/built',
-        });
       }
 
       // Activate watch mode webpack plugin
