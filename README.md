@@ -210,6 +210,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
 [English (UK)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/readme.md) •
 [Português](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/readme.md) •
 [हिन्दी](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/readme.md)
+[Türkçe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/readme.md)
 
 ## 🤝 Community
 
