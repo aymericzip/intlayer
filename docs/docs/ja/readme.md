@@ -1,49 +1,228 @@
-<div align="center">
+<p align="center">
   <a href="https://intlayer.org">
-    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/572ae9c9acafb74307b81530c1931a8e98990aef/docs/assets/logo.png" width="500" alt="intlayer" />
+    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/cover.png" width="60%" alt="Intlayer ロゴ" />
   </a>
-</div>
+</p>
 
-<div align="center">
-  <br/>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/readme.md"><img src="https://img.shields.io/badge/English-README-656d76?style=for-the-badge" alt="English README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/readme.md"><img src="https://img.shields.io/badge/简体中文-说明-656d76?style=for-the-badge" alt="简体中文説明" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/readme.md"><img src="https://img.shields.io/badge/Русский-README-656d76?style=for-the-badge" alt="Русский README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/readme.md"><img src="https://img.shields.io/badge/日本語-README-0969da?style=for-the-badge" alt="日本語 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/readme.md"><img src="https://img.shields.io/badge/Français-README-656d76?style=for-the-badge" alt="Français README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/readme.md"><img src="https://img.shields.io/badge/한국어-README-656d76?style=for-the-badge" alt="한국어 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/readme.md"><img src="https://img.shields.io/badge/スペイン語-README-656d76?style=for-the-badge" alt="スペイン語 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/readme.md"><img src="https://img.shields.io/badge/ドイツ語-README-656d76?style=for-the-badge" alt="ドイツ語 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/readme.md"><img src="https://img.shields.io/badge/アラビア語-README-656d76?style=for-the-badge" alt="アラビア語 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/readme.md"><img src="https://img.shields.io/badge/イタリア語-README-656d76?style=for-the-badge" alt="イタリア語 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/readme.md"><img src="https://img.shields.io/badge/英語 (UK)-README-656d76?style=for-the-badge" alt="英語 (UK) README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/readme.md"><img src="https://img.shields.io/badge/ポルトガル語-README-656d76?style=for-the-badge" alt="ポルトガル語 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/readme.md"><img src="https://img.shields.io/badge/ヒンディー語-README-656d76?style=for-the-badge" alt="ヒンディー語 README" /></a>
-  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/readme.md"><img src="https://img.shields.io/badge/Turkish-README-656d76?style=for-the-badge" alt="Turkish README" /></a>
-</div>
+<h1 align="center">
+  <strong> Intlayer：AI翻訳とCMSを備えたオープンソースの柔軟なi18nツールキット。</strong>
+</h1>
 
-<div align="center">
-  <br/>
-  <a href="https://www.npmjs.com/package/intlayer" target="blank"><img
-    align="center"
-    alt="npm"
-    src="https://img.shields.io/npm/v/intlayer.svg?labelColor=49516F&color=8994BC&style=for-the-badge"
-    height="30" /></a>
-  <a href="https://npmjs.org/package/intlayer" target="blank"><img
-      align="center"
-      src="https://img.shields.io/npm/dm/intlayer?labelColor=49516F&color=8994BC&style=for-the-badge"
-      alt="月間ダウンロード数"
-      height="30"
-    /></a>
-  <a href="https://npmjs.org/package/intlayer" target="blank"><img
-      align="center"
-      src="https://img.shields.io/npm/types/intlayer?label=types%20included&labelColor=49516F&color=8994BC&style=for-the-badge"
-      alt="型定義を含む"
-      height="30"
-    /></a>
-</div>
+<br />
 
-<div>
+<p align="center">
+  <a href="https://intlayer.org/doc/concept/content">ドキュメント</a> •
+  <a href="https://intlayer.org/doc/environment/nextjs">Next.js</a> •
+  <a href="https://intlayer.org/doc/environment/vite-and-react">React + Vite</a> •
+  <a href="https://intlayer.org/doc/concept/cms">CMS</a> •
+  <a href="https://discord.gg/7uxamYVeCk">Discord</a>
+</p>
+<p align="center" style="margin-top:15px;">
+  <a href="https://www.npmjs.com/package/intlayer" target="_blank"><img src="https://img.shields.io/npm/v/intlayer?style=for-the-badge&labelColor=FFFFFF&color=000000&logoColor=FFFFFF" alt="npm バージョン" height="24"/>
+  </a>
+    <a href="https://github.com/aymericzip/intlayer/stargazers" target="_blank"><img src="https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logo=github&logoColor=FFD700" alt="GitHub スター" height="24"/>
+  </a>
+  <a href="https://www.npmjs.org/package/intlayer" target="_blank"><img src="https://img.shields.io/npm/dm/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="月間ダウンロード数" height="24"/>
+  </a>
+  <a href="https://github.com/aymericzip/intlayer/blob/main/LICENSE"><img src="https://img.shields.io/github/license/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="ライセンス"/>
+  </a>
+  <a href="https://github.com/aymericzip/intlayer/commits/main"><img src="https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge&labelColor=000000&color=FFFFFF&logoColor=000000" alt="最終コミット"/>
+  </a>
+</p>
+
+![ビデオを見る](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
+
+<a href="https://intlayer.org/doc/concept/content">
+  <img src="https://img.shields.io/badge/はじめに-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
+</a>
+
+## Intlayerとは何ですか？
+
+ほとんどのi18nライブラリは、複雑すぎるか、柔軟性に欠けるか、または最新のフレームワーク向けに設計されていません。
+
+Intlayerは、ウェブおよびモバイルアプリ向けの**最新のi18nソリューション**です。  
+フレームワークに依存せず、**AI搭載**で、無料の**CMS＆ビジュアルエディター**が含まれています。
+
+**ロケールごとのコンテンツファイル**、**TypeScriptの自動補完**、**ツリーシェイカブルな辞書**、および**CI/CD統合**により、Intlayerは国際化を**より速く、よりクリーンに、よりスマートに**します。
+
+## Intlayerの主な利点：
+
+| 機能                                                                                                                                                | 説明                                                                                                                                                                                                                                                                                                                                                                              |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true" alt="Feature" width="700">                          | **クロスフレームワーク対応**<br><br>Intlayerは、Next.js、React、Vite、Vue.js、Nuxt、Preact、Expressなど、主要なフレームワークやライブラリすべてに対応しています。                                                                                                                                                                                                                 |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.png?raw=true" alt="Feature" width="700">       | **JavaScript駆動のコンテンツ管理**<br><br>JavaScriptの柔軟性を活用して、コンテンツを効率的に定義および管理します。<br><br> - [コンテンツ宣言](https://intlayer.org/doc/concept/content)                                                                                                                                                                                           |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true" alt="Feature" width="700"> | **ロケール別コンテンツ宣言ファイル**<br><br>自動生成の前にコンテンツを一度宣言することで、開発をスピードアップします。<br><br> - [ロケール別コンテンツ宣言ファイル](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                             |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true" alt="Feature" width="700">                      | **型安全な環境**<br><br>TypeScriptを活用して、コンテンツ定義やコードのエラーを防ぎつつ、IDEの自動補完機能も利用できます。<br><br> - [TypeScriptの設定](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                                                  |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true" alt="Feature" width="700">                         | **簡素化されたセットアップ**<br><br>最小限の設定で迅速に開始できます。国際化、ルーティング、AI、ビルド、コンテンツ処理の設定を簡単に調整可能です。<br><br> - [Next.js統合を探る](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                     |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true" alt="機能" width="700">                      | **簡素化されたコンテンツ取得**<br><br>各コンテンツごとに `t` 関数を呼び出す必要はありません。単一のフックを使ってすべてのコンテンツを直接取得できます。<br><br> - [React 統合](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                             |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true" alt="Feature" width="700">                    | **一貫したサーバーコンポーネントの実装**<br><br>Next.jsのサーバーコンポーネントに完全に適合し、クライアントコンポーネントとサーバーコンポーネントの両方で同じ実装を使用できます。各サーバーコンポーネントに`t`関数を渡す必要はありません。<br><br> - [サーバーコンポーネント](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                    |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true" alt="Feature" width="700">                           | **整理されたコードベース**<br><br>コードベースをより整理された状態に保ちます：1つのコンポーネント = 同じフォルダ内の1つの辞書。翻訳をそれぞれのコンポーネントの近くに配置することで、保守性と明確さを向上させます。<br><br> - [Intlayerの仕組み](https://intlayer.org/doc/concept/how-works-intlayer)                                                                             |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true" alt="Feature" width="700">                         | **強化されたルーティング**<br><br>Next.js、React、Vite、Vue.jsなどの複雑なアプリケーション構造にシームレスに対応し、アプリのルーティングを完全にサポートします。<br><br> - [Next.js統合を探る](https://intlayer.org/doc/environment/nextjs)                                                                                                                                       |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true" alt="Feature" width="700">                            | **Markdown サポート**<br><br>多言語コンテンツ（プライバシーポリシー、ドキュメントなど）向けに、ロケールファイルやリモートのMarkdownをインポートして解釈します。Markdownのメタデータを解釈し、コード内でアクセス可能にします。<br><br> - [コンテンツファイル](https://intlayer.org/doc/concept/content/file)                                                                       |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.png?raw=true" alt="Feature" width="700">                       | **無料のビジュアルエディター＆CMS**<br><br>コンテンツライター向けに無料のビジュアルエディターとCMSが利用可能で、ローカリゼーションプラットフォームは不要です。Gitを使ってコンテンツを同期させるか、CMSで完全または部分的に外部化できます。<br><br> - [Intlayer エディター](https://intlayer.org/doc/concept/editor) <br> - [Intlayer CMS](https://intlayer.org/doc/concept/cms)   |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true" alt="Feature" width="700">                              | **ツリーシェイカブルコンテンツ**<br><br>ツリーシェイカブルコンテンツにより、最終バンドルのサイズを削減します。コンポーネントごとにコンテンツを読み込み、未使用のコンテンツはバンドルから除外されます。遅延読み込みをサポートし、アプリの読み込み効率を向上させます。<br><br> - [アプリビルドの最適化](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization) |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png?raw=true" alt="Feature" width="700">                    | **静的レンダリング**<br><br>静的レンダリングを妨げません。<br><br> - [Next.js 統合](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                  |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true" alt="Feature" width="700">                      | **AI駆動の翻訳**<br><br>Intlayerの高度なAI駆動翻訳ツールを使用し、ご自身のAIプロバイダー / APIキーを使って、ワンクリックでウェブサイトを231言語に変換します。 <br><br> - [CI/CD統合](https://intlayer.org/doc/concept/ci-cd) <br> - [Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [自動入力](https://intlayer.org/doc/concept/auto-fill)                            |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true" alt="Feature" width="700">                                 | **MCPサーバー統合**<br><br>IDEの自動化のためのMCP（モデルコンテキストプロトコル）サーバーを提供し、開発環境内でシームレスなコンテンツ管理と国際化（i18n）ワークフローを可能にします。<br><br> - [MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)                                                                                        |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.png?raw=true" alt="Feature" width="700">                    | **VSCode 拡張機能**<br><br>Intlayer は、コンテンツと翻訳の管理、辞書の構築、コンテンツの翻訳などを支援する VSCode 拡張機能を提供します。<br><br> - [VSCode 拡張機能](https://intlayer.org/doc/ja/vs-code-extension)                                                                                                                                                               |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true" alt="Feature" width="700">                    | **相互運用性**<br><br>react-i18next、next-i18next、next-intl、react-intlとの相互運用性を可能にします。<br><br> - [Intlayer と react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer と next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer と next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)           |
+
+---
+
+## 📦 インストール
+
+今日からIntlayerを始めて、よりスムーズで強力な国際化アプローチを体験しましょう。
+
+<a href="https://intlayer.org/doc/concept/content">
+  <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
+</a>
+
+```bash
+npm install intlayer react-intlayer
+```
+
+⚡ クイックスタート (Next.js)
+
+```ts
+// intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```tsx
+// app/page.tsx
+import { useIntlayer } from "react-intlayer";
+
+const Component = () => {
+  const { title } = useIntlayer("home");
+
+  return <h1>{title}</h1>;
+};
+```
+
+<a href="https://intlayer.org/doc/environment/nextjs"> 完全ガイドを見る → </a>
+
+## 🎥 YouTubeでのライブチュートリアル
+
+[![Intlayerを使ったアプリケーションの国際化方法](https://i.ytimg.com/vi/e_PPG7PTqGU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/e_PPG7PTqGU?si=GyU_KpVhr61razRw)
+
+<a href="https://intlayer.org/doc/concept/content">
+  <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
+</a>
+
+## 目次
+
+Intlayerの包括的なドキュメントを探索し、Intlayerの使い始め方やプロジェクトへの統合方法を学びましょう。
+
+<details open>
+<summary style="font-size:16px; font-weight:bold;">📘 はじめに</summary>
+<ul>
+  <li><a href="https://intlayer.org/doc/why">なぜIntlayerなのか？</a></li>
+  <li><a href="https://intlayer.org/doc">イントロダクション</a></li>
+</ul>
+</details>
+
+<details>
+<summary style="font-size:16px; font-weight:bold;">⚙️ コンセプト</summary>
+<ul>
+  <li><a href="https://intlayer.org/doc/concept/how-works-intlayer">Intlayerの仕組み</a></li>
+  <li><a href="https://intlayer.org/doc/concept/configuration">設定</a></li>
+  <li><a href="https://intlayer.org/doc/concept/ai">AIプロバイダー</a></li>
+  <li><a href="https://intlayer.org/doc/concept/cli">Intlayer CLI</a></li>
+  <li><a href="https://intlayer.org/doc/concept/editor">Intlayerエディター</a></li>
+  <li><a href="https://intlayer.org/doc/concept/cms">Intlayer CMS</a></li>
+  <li><a href="https://intlayer.org/doc/concept/content">辞書</a>
+    <ul>
+      <li><a href="https://intlayer.org/doc/concept/content/per-locale-file">ロケール別コンテンツ宣言ファイル</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/translation">翻訳</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/enumeration">列挙</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/condition">条件</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/nesting">ネスティング</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/markdown">マークダウン</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/function-fetching">関数フェッチング</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/insertion">挿入</a></li>
+      <li><a href="https://intlayer.org/doc/concept/content/file">ファイル</a></li>
+    </ul>
+  </li>
+</ul>
+</details>
+
+<details open>
+<summary style="font-size:16px; font-weight:bold;">🌐 環境</summary>
+<ul>
+  <li><a href="https://intlayer.org/doc/environment/nextjs">Next.js 15 と Intlayer</a>
+    <ul>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/14">Next.js 14（App Router）</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router">Next.js Page Router</a></li>
+    </ul>
+  </li>
+  <li><a href="https://intlayer.org/doc/environment/create-react-app">React CRA</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react">Vite + React</a>
+     <ul>
+      <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7">React-router-v7</a></li>
+      <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start">Tanstack スタート</a></li>
+    </ul>
+  </li>
+  <li><a href="https://intlayer.org/doc/environment/react-native-and-expo">React Native</a></li>
+  <li><a href="https://intlayer.org/doc/environment/lynx-and-react">Lynx + React</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-svelte">Vite + Svelte</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-preact">Vite + Preact</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-vue">Vite + Vue</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-nuxt">Vite + Nuxt</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-solid">Vite + Solid</a></li>
+  <li><a href="https://intlayer.org/doc/environment/angular">Angular</a></li>
+  <li><a href="https://intlayer.org/doc/environment/express">Express</a></li>
+  <li><a href="https://intlayer.org/doc/environment/nest">NestJS</a></li>
+</ul>
+</details>
+
+<details>
+<summary style="font-size:16px; font-weight:bold;">📰 ブログ</summary>
+<ul>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/what_is_internationalization.md">i18nとは何か</a></li>
+  <li><a href="https://intlayer.org/blog/SEO-and-i18n">i18nとSEO</a></li>
+  <li><a href="https://intlayer.org/blog/intlayer-with-next-i18next">Intlayerとi18next</a></li>
+  <li><a href="https://intlayer.org/blog/intlayer-with-react-i18next">Intlayerとreact-intl</a></li>
+  <li><a href="https://intlayer.org/blog/intlayer-with-next-intl">Intlayer と next-intl</a></li>
+</ul>
+</details>
+
+## 🌐 他言語の Readme
+
+[English](https://github.com/aymericzip/intlayer/blob/main/readme.md) •
+[简体中文](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/readme.md) •
+[Русский](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/readme.md) •
+[日本語](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/readme.md) •
+[Français](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/readme.md) •
+[한국어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/readme.md) •
+[Español](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/readme.md) •
+[ドイツ語](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/readme.md) •
+[العربية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/readme.md) •
+[イタリア語](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/readme.md) •
+[英語（英国）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/readme.md) •
+[ポルトガル語](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/readme.md) •
+[ヒンディー語](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/readme.md)
+[トルコ語](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/readme.md)
+
+## 🤝 コミュニティ
+
+Intlayerはコミュニティと共に、そしてコミュニティのために構築されており、皆様のご意見をお待ちしています！
+
+- ご提案はありますか？ [Issueを開く](https://github.com/aymericzip/intlayer/issues)
+- バグや改善点を見つけましたか？[プルリクエストを送信する](https://github.com/aymericzip/intlayer/pulls)
+- ヘルプが必要ですか？またはつながりたいですか？[Discordに参加する](https://discord.gg/7uxamYVeCk)
+
+また、以下でもフォローできます：
+
+  <div>
     <br/>
     <p align="center">
       <a href="https://discord.gg/528mBV4N" target="blank"><img align="center"
@@ -71,107 +250,14 @@
     </p>
 </div>
 
-# Intlayer: あなたのウェブサイトを翻訳するためのカスタマイズされた方法
+### 貢献
 
-Intlayerは、より柔軟でモダンな**国際化**（i18n）アプローチを提供します。**Next.js**、**React**、**Vite**、**Express**とのシームレスな統合、カスタマイズ可能な設定、そして**TypeScript**などのさまざまなコンテンツ宣言フォーマットのサポートにより、国際化のための強力な選択肢となっています。
+### 貢献について
 
-![ビデオを見る](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
+このプロジェクトへの貢献に関する詳細なガイドラインについては、[`CONTRIBUTING.md`](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md) ファイルをご参照ください。開発プロセス、コミットメッセージの規約、リリース手順などの重要な情報が含まれています。皆様の貢献は私たちにとって非常に価値があり、このプロジェクトをより良くするためのご尽力に感謝いたします！
 
-### Intlayerの主な利点:
+### ご支援ありがとうございます
 
-| 機能                                                                                                                      | 説明                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **クロスフレームワーク対応**<br><br>IntlayerはNext.js、React、Vite、Vue.js、Nuxt、Preact、Expressなど、主要なフレームワークやライブラリすべてに対応しています。                                                                                                                                                                                                                            |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.png?raw=true)       | **JavaScriptによるコンテンツ管理**<br><br>JavaScriptの柔軟性を活用して、コンテンツを効率的に定義および管理します。<br><br> - [コンテンツ宣言](https://intlayer.org/doc/concept/content)                                                                                                                                                                                                    |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **ロケール別コンテンツ宣言ファイル**<br><br>自動生成の前に一度だけコンテンツを宣言することで、開発をスピードアップします。<br><br> - [ロケール別コンテンツ宣言ファイル](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                                  |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)                      | **型安全な環境**<br><br>TypeScriptを活用して、コンテンツ定義やコードのエラーを防ぎ、IDEのオートコンプリート機能も利用できます。<br><br> - [TypeScriptの設定](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                                                     |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true)                         | **簡素化されたセットアップ**<br><br>最小限の設定で迅速に開始できます。国際化、ルーティング、AI、ビルド、コンテンツ処理の設定を簡単に調整可能です。<br><br> - [Next.js統合を探る](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                              |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true)                   | **簡素化されたコンテンツ取得**<br><br>各コンテンツごとに `t` 関数を呼び出す必要はありません。単一のフックを使用して、すべてのコンテンツを直接取得できます。<br><br> - [React 統合](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                                  |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true)                    | **一貫したサーバーコンポーネントの実装**<br><br>Next.jsのサーバーコンポーネントに最適で、クライアントコンポーネントとサーバーコンポーネントの両方で同じ実装を使用できます。各サーバーコンポーネントに対して`t`関数を渡す必要はありません。<br><br> - [サーバーコンポーネント](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                             |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true)                           | **整理されたコードベース**<br><br>コードベースをより整理された状態に保ちます：1つのコンポーネント = 同じフォルダ内の1つの辞書。翻訳をそれぞれのコンポーネントの近くに配置することで、保守性と明確さを向上させます。 <br><br> - [Intlayerの仕組み](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                     |
-| ![機能](https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true)                            | **強化されたルーティング**<br><br>Next.js、React、Vite、Vue.jsなどの複雑なアプリケーション構造にシームレスに適応し、アプリのルーティングを完全にサポートします。<br><br> - [Next.js統合を探る](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true)                            | **マークダウンサポート**<br><br>プライバシーポリシーやドキュメントなどの多言語コンテンツのために、ロケールファイルやリモートのMarkdownをインポートして解釈します。Markdownのメタデータを解釈し、コード内でアクセス可能にします。<br><br> - [コンテンツファイル](https://intlayer.org/doc/concept/content/file)                                                                             |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.png?raw=true)                       | **無料のビジュアルエディター＆CMS**<br><br>コンテンツ作成者向けに無料のビジュアルエディターとCMSが利用可能で、ローカリゼーションプラットフォームは不要です。Gitを使ってコンテンツを同期させることも、CMSで完全または部分的に外部化することもできます。<br><br> - [Intlayerエディター](https://intlayer.org/doc/concept/editor) <br> - [Intlayer CMS](https://intlayer.org/doc/concept/cms) |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true)                              | **ツリーシェイカブルコンテンツ**<br><br>ツリーシェイカブルなコンテンツにより、最終バンドルのサイズを削減します。コンポーネントごとにコンテンツを読み込み、未使用のコンテンツはバンドルから除外されます。遅延読み込みをサポートし、アプリの読み込み効率を向上させます。<br><br> - [アプリビルドの最適化](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)        |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png?raw=true)                    | **静的レンダリング**<br><br>静的レンダリングを妨げません。<br><br> - [Next.js 統合](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                           |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true)                      | **AI搭載の翻訳**<br><br>Intlayerの高度なAI搭載翻訳ツールを使い、ご自身のAIプロバイダー/APIキーを利用して、ワンクリックでウェブサイトを231言語に変換します。<br><br> - [CI/CD統合](https://intlayer.org/doc/concept/ci-cd) <br> - [Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [自動入力](https://intlayer.org/doc/concept/auto-fill)                                        |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                 | **MCPサーバー統合**<br><br>IDEの自動化のためのMCP（モデルコンテキストプロトコル）サーバーを提供し、開発環境内でシームレスなコンテンツ管理と国際化（i18n）ワークフローを可能にします。 <br><br> - [MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)                                                                                                |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.png?raw=true)                    | **VSCode拡張機能**<br><br>Intlayerは、コンテンツや翻訳の管理、辞書の構築、コンテンツの翻訳などを支援するVSCode拡張機能を提供します。<br><br> - [VSCode拡張機能](https://intlayer.org/doc/ja/vs-code-extension)                                                                                                                                                                             |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                    | **相互運用性**<br><br>react-i18next、next-i18next、next-intl、react-intlとの相互運用性を可能にします。<br><br> - [Intlayer と react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer と next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer と next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)                    |
-
-今日からIntlayerで旅を始め、よりスムーズで強力な国際化アプローチを体験してください。  
-[Intlayerの始め方](https://intlayer.org/doc/concept/content)
-
----
-
-## 目次
-
-Intlayerを始めるための包括的なドキュメントを探索し、プロジェクトへの統合方法を学びましょう。
-
-### はじめに
-
-- [なぜIntlayerか？](https://intlayer.org/doc/why)
-- [イントロダクション](https://intlayer.org/doc)
-
-### コンセプト
-
-- [Intlayerの仕組み](https://intlayer.org/doc/concept/how-works-intlayer)
-- [設定](https://intlayer.org/doc/concept/configuration)
-- [AIプロバイダー](https://intlayer.org/doc/concept/ai)
-- [Intlayer CLI](https://intlayer.org/doc/concept/cli)
-- [Intlayerエディター](https://intlayer.org/doc/concept/editor)
-- [Intlayer CMS](https://intlayer.org/doc/concept/cms)
-- [辞書](https://intlayer.org/doc/concept/content)
-  - [ロケール別コンテンツ宣言ファイル](https://intlayer.org/doc/concept/content/per-locale-file)
-  - [翻訳](https://intlayer.org/doc/concept/content/translation)
-  - [列挙](https://intlayer.org/doc/concept/content/enumeration)
-  - [条件](https://intlayer.org/doc/concept/content/condition)
-  - [ネスティング](https://intlayer.org/doc/concept/content/nesting)
-  - [マークダウン](https://intlayer.org/doc/concept/content/markdown)
-  - [関数フェッチング](https://intlayer.org/doc/concept/content/function-fetching)
-  - [挿入](https://intlayer.org/doc/concept/content/insertion)
-  - [ファイル](https://intlayer.org/doc/concept/content/file)
-
-### 環境
-
-- [Next.js 15 と Intlayer](https://intlayer.org/doc/environment/nextjs)
-  - [Next.js 14（App Router）と Intlayer](https://intlayer.org/doc/environment/nextjs/14)
-  - [Next.js Page RouterとIntlayer](https://intlayer.org/doc/environment/nextjs/next-with-Page-Router)
-- [React CRAとIntlayer](https://intlayer.org/doc/environment/create-react-app)
-- [ViteとReactとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
-- [React NativeとIntlayer](https://intlayer.org/ja/doc/environment/react-native-and-expo)
-- [LynxとReactとIntlayer](https://intlayer.org/ja/doc/environment/lynx-and-react)
-- [ViteとSvelteとIntlayer](https://intlayer.org/doc/environment/vite-and-svelte)
-- [ViteとPreactとIntlayer](https://intlayer.org/doc/environment/vite-and-preact)
-- [ViteとVueとIntlayer](https://intlayer.org/doc/environment/vite-and-vue)
-- [ViteとNuxtでのIntlayer](https://intlayer.org/doc/environment/vite-and-nuxt)
-- [ViteとSolidでのIntlayer](https://intlayer.org/doc/environment/vite-and-solid)
-- [AngularでのIntlayer](https://intlayer.org/doc/environment/angular)
-- [ExpressでのIntlayer](https://intlayer.org/doc/environment/express)
-
-### ブログ
-
-- [i18nとは何か](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/what_is_internationalization.md)
-- [i18nとSEO](https://intlayer.org//blog/SEO-and-i18n)
-- [Intlayerとi18next](https://intlayer.org//blog/intlayer-with-next-i18next)
-- [Intlayerとreact-intl](https://intlayer.org//blog/intlayer-with-react-i18next)
-- [Intlayerとnext-intl](https://intlayer.org//blog/intlayer-with-next-intl)
-- [Intlayer と react-intl](https://intlayer.org//blog/intlayer-with-react-intl)
-
----
-
-## YouTubeでのライブチュートリアル
-
-[![Intlayerを使ったアプリケーションの国際化方法](https://i.ytimg.com/vi/e_PPG7PTqGU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/e_PPG7PTqGU?si=GyU_KpVhr61razRw)
-
----
-
-## スター履歴
+Intlayerを気に入っていただけましたら、GitHubで⭐をお願いします。これにより他の方々がプロジェクトを見つけやすくなります！
 
 [![スター履歴チャート](https://api.star-history.com/svg?repos=aymericzip/intlayer&type=Date)](https://star-history.com/#aymericzip/intlayer&Date)
-
----
-
-### コントリビューション
-
-このプロジェクトへの貢献に関するより詳細なガイドラインについては、[`CONTRIBUTING.md`](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md) ファイルをご参照ください。そこには、開発プロセス、コミットメッセージの規約、リリース手順に関する重要な情報が含まれています。皆様の貢献は私たちにとって非常に価値があり、このプロジェクトをより良くするためのご尽力に感謝いたします！
