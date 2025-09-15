@@ -9,6 +9,11 @@ keywords:
   - typescript
   - react
   - nextjs-14
+slugs:
+  - doc
+  - environment
+  - nextjs
+  - 14
 ---
 
 # Intlayer ile Next.js 14
