@@ -1,9 +1,9 @@
 'use client';
 
+import { Link } from '@components/Link/Link';
 import {
   Breadcrumb,
   type BreadcrumbLink,
-  Button,
   Input,
   Loader,
 } from '@intlayer/design-system';
@@ -13,7 +13,7 @@ import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { type FC, useEffect, useRef, useState } from 'react';
 
 // Convert the documentation into an array of objects for Fuse.js
@@ -49,7 +49,6 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
   doc,
   onClickLink,
 }) => {
-  const router = useRouter();
   const { searchResultItemButton } = useIntlayer('doc-search-view');
 
   const breadcrumbLinks: BreadcrumbLink[] = doc.url
@@ -60,16 +59,14 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
     });
 
   return (
-    <Button
+    <Link
       label={searchResultItemButton.label.value}
       variant="hoverable"
       color="text"
       id={doc.url}
-      onClick={() => {
-        router.push(doc.url);
-        onClickLink();
-      }}
+      href={doc.url}
       className="w-full max-w-full"
+      onClick={onClickLink}
     >
       <div className="flex items-center justify-between gap-2 text-wrap p-3">
         <div className="flex flex-1 flex-col gap-2 text-left">
@@ -79,7 +76,7 @@ const SearchResultItem: FC<{ doc: DocMetadata; onClickLink: () => void }> = ({
         </div>
         <ArrowRight size={24} />
       </div>
-    </Button>
+    </Link>
   );
 };
 

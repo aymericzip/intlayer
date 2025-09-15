@@ -33,10 +33,22 @@ const getIsSwcPluginAvailable = () => {
   }
 };
 
+const resolvePluginPath = (pluginPath: string): string => {
+  const pluginPathResolved = ESMxCJSRequire.resolve(pluginPath);
+
+  if (isTurbopackEnabled)
+    // Relative path for turbopack
+    return normalizePath(`./${relative(process.cwd(), pluginPathResolved)}`);
+
+  // Absolute path for webpack
+  return pluginPathResolved;
+};
+
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig
 ): Partial<NextConfig> => {
   const { optimize, traversePattern, importMode } = intlayerConfig.build;
+  const { liveSync } = intlayerConfig.editor;
   const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
     intlayerConfig.content;
 
@@ -78,7 +90,7 @@ const getPruneConfig = (
     experimental: {
       swcPlugins: [
         [
-          ESMxCJSRequire.resolve('@intlayer/swc'),
+          resolvePluginPath('@intlayer/swc'),
           {
             dictionariesDir,
             dictionariesEntryPath,
@@ -87,10 +99,37 @@ const getPruneConfig = (
             importMode,
             filesList,
             replaceDictionaryEntry: false,
+            liveSync,
           } as any,
         ],
       ],
     },
+  };
+};
+
+const getCommandsEvent = () => {
+  const lifecycleEvent = process.env.npm_lifecycle_event;
+  const lifecycleScript = process.env.npm_lifecycle_script ?? '';
+
+  const isDevCommand =
+    lifecycleEvent === 'dev' ||
+    process.argv.some((arg) => arg === 'dev') ||
+    /(^|\s)(next\s+)?dev(\s|$)/.test(lifecycleScript);
+
+  const isBuildCommand =
+    lifecycleEvent === 'build' ||
+    process.argv.some((arg) => arg === 'build') ||
+    /(^|\s)(next\s+)?build(\s|$)/.test(lifecycleScript);
+
+  const isStartCommand =
+    lifecycleEvent === 'start' ||
+    process.argv.some((arg) => arg === 'start') ||
+    /(^|\s)(next\s+)?start(\s|$)/.test(lifecycleScript);
+
+  return {
+    isDevCommand,
+    isBuildCommand,
+    isStartCommand,
   };
 };
 
@@ -115,6 +154,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   }
 
   const intlayerConfig = getConfiguration();
+  const { isDevCommand, isBuildCommand } = getCommandsEvent();
 
   const sentinelPath = join(
     intlayerConfig.content.baseDir,
@@ -123,11 +163,14 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
     'intlayer-prepared.lock'
   );
 
-  // Only call prepareIntlayer once per server startup
-  await runOnce(
-    sentinelPath,
-    async () => await prepareIntlayer(intlayerConfig)
-  );
+  // Only call prepareIntlayer during `dev` or `build` (not during `start`)
+
+  if (isBuildCommand || isDevCommand) {
+    await runOnce(
+      sentinelPath,
+      async () => await prepareIntlayer(intlayerConfig)
+    );
+  }
 
   // Format all configuration values as environment variables
   const { mainDir, configDir, baseDir } = intlayerConfig.content;
@@ -143,6 +186,8 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const configurationPath = join(configDir, 'configuration.json');
   const relativeConfigurationPath = relative(baseDir, configurationPath);
+
+  const { liveSync, liveSyncURL } = intlayerConfig.editor;
 
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {
@@ -202,20 +247,13 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
     }),
 
     webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
+      // Only add Intlayer plugin on server side (node runtime)
+      const { isServer, nextRuntime } = options;
+
       // If the user has defined their own webpack config, call it
       if (typeof nextConfig.webpack === 'function') {
         config = nextConfig.webpack(config, options);
       }
-
-      // Alias the dictionary entry for all builds
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-        '@intlayer/unmerged-dictionaries-entry': resolve(
-          relativeUnmergedDictionariesPath
-        ),
-        '@intlayer/config/built': resolve(relativeConfigurationPath),
-      };
 
       // Mark these modules as externals
       config.externals.push({
@@ -232,15 +270,40 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
         loader: 'node-loader',
       });
 
-      // Only add Intlayer plugin on server side (node runtime)
-      const { isServer, nextRuntime } = options;
+      // Always alias on the server (node/edge) for stability.
+      // On the client, alias only when not using live sync.
+      if (isServer || !liveSync) {
+        config.resolve.alias = {
+          ...config.resolve.alias,
+          '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
+          '@intlayer/unmerged-dictionaries-entry': resolve(
+            relativeUnmergedDictionariesPath
+          ),
+          '@intlayer/config/built': resolve(relativeConfigurationPath),
+        };
+      }
 
-      // Skip preparation when running next start (production mode)
-      const isBuildCommand =
-        process.env.npm_lifecycle_event === 'build' ||
-        process.argv.some((arg) => arg === 'build');
+      // In live sync mode during development on the client, externalize Intlayer entries to the live sync server URLs.
+      if (liveSync && isDevCommand && !isServer) {
+        // Use 'import' so webpack emits dynamic import() for externals without requiring outputModule
+        config.externalsType = 'import';
 
-      if (!isBuildCommand && isServer && nextRuntime === 'nodejs') {
+        // Push each external as a separate entry to match webpack schema
+        config.externals = config.externals || [];
+        config.externals.push({
+          '@intlayer/dictionaries-entry': 'import @intlayer/dictionaries-entry',
+          '@intlayer/dictionaries-entry/':
+            'import @intlayer/dictionaries-entry/',
+          '@intlayer/unmerged-dictionaries-entry':
+            'import @intlayer/unmerged-dictionaries-entry',
+          '@intlayer/unmerged-dictionaries-entry/':
+            'import @intlayer/unmerged-dictionaries-entry/',
+          '@intlayer/config/built': 'import @intlayer/config/built',
+        });
+      }
+
+      // Activate watch mode webpack plugin
+      if (isDevCommand && isServer && nextRuntime === 'nodejs') {
         config.plugins.push(new IntlayerPlugin());
       }
 

@@ -13,10 +13,11 @@ const config: IntlayerConfig = {
     // contentDir: ['./', '../../apps'],
   },
   editor: {
+    liveSync: false,
     applicationURL: 'http://localhost:3000',
   },
   build: {
-    importMode: 'dynamic',
+    importMode: 'static',
   },
 };
 

@@ -119,7 +119,6 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.7",
-    "@intlayer/backend": "workspace:*",
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/addon-interactions": "^8.6.14",
     "@storybook/addon-links": "^8.6.14",
@@ -148,7 +147,7 @@
     "@utils/tsup-config": "workspace:*",
     "@vitejs/plugin-react": "^5.0.0",
     "concurrently": "^9.2.0",
-    "eslint": "^9.33.0",
+    "eslint": "^9.34.0",
     "fast-glob": "^3.3.3",
     "lucide-react": "^0.541.0",
     "prettier": "^3.6.2",

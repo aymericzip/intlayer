@@ -37,7 +37,7 @@ RUN pnpm install --frozen-lockfile
 RUN npm install -g intlayer-cli@latest
 
 # Build every package in the workspace (uses the root "build" script)
-RUN pnpm run build:ci
+RUN npx turbo run build:ci --filter=./packages/@intlayer/design-system
 
 # Set working directory to the design-system package and run Storybook
 WORKDIR /workspace/packages/@intlayer/design-system

@@ -1,4 +1,4 @@
-import { IntlayerEventListener } from '@intlayer/api';
+import { IntlayerEventListener } from './IntlayerEventListener';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { buildDictionary } from '@intlayer/chokidar';

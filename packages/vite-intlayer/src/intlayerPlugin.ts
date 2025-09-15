@@ -3,7 +3,7 @@ import intlayerConfig from '@intlayer/config/built';
 import { join, relative, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { type PluginOption } from 'vite';
-import { intlayerLiveSync } from './intlayerLiveSync';
+import { intlayerLiveSync } from './intlayerLiveSyncPlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
 /**
  *

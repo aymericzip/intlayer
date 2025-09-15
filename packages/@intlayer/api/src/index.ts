@@ -10,5 +10,4 @@ export * from './getIntlayerAPI/project';
 export * from './getIntlayerAPI/stripe';
 export * from './getIntlayerAPI/tag';
 export * from './getIntlayerAPI/user';
-export * from './IntlayerEventListener';
 export * from './types';

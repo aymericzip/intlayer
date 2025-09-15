@@ -70,13 +70,11 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@intlayer/config": "workspace:*",
-    "eventsource": "^3.0.7"
+    "@intlayer/config": "workspace:*"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "2.29.5",
-    "@intlayer/backend": "workspace:*",
     "@types/node": "^24.2.1",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
@@ -84,8 +82,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
     "concurrently": "^9.1.2",
-    "eslint": "^9.33.0",
-    "intlayer-editor": "workspace:*",
+    "eslint": "^9.34.0",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",
@@ -94,7 +91,9 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@intlayer/config": "workspace:*"
+    "@intlayer/backend": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "intlayer-editor": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"
