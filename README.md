@@ -93,11 +93,29 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+```ts
+// app/home.content.ts
+import { t, type Dictionary } from "intlayer";
+
+const content = {
+  key: "home",
+  content: {
+    title: t({
+      en: "Home",
+      fr: "Accueil",
+      es: "Inicio",
+    }),
+  },
+} satisfies Dictionary;
+
+export default content;
+```
+
 ```tsx
 // app/page.tsx
 import { useIntlayer } from "react-intlayer";
 
-const Component = () => {
+const HomePage = () => {
   const { title } = useIntlayer("home");
 
   return <h1>{title}</h1>;
