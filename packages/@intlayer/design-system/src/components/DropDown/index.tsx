@@ -137,7 +137,8 @@ const Panel: FC<PanelProps> = ({
       isHidden={isHidden}
       className={cn(
         'overflow-x-visible',
-        isHidden !== false ? 'invisible' : 'visible',
+        isHidden === false && 'invisible',
+        isHidden === true && 'visible',
         isOverable &&
           'group-hover/dropdown:visible group-hover/dropdown:grid-rows-[1fr]',
         isFocusable &&
