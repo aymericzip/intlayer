@@ -200,7 +200,7 @@ const comingSoon = [
 ] as const;
 
 export const AvailableTechnoSection: FC = () => {
-  const { commingSoon, availableOn, icons } = useIntlayer(
+  const { comingSoon, availableOn, icons } = useIntlayer(
     'available-techno-section'
   );
 
@@ -240,7 +240,7 @@ export const AvailableTechnoSection: FC = () => {
         ))}
       </motion.div>
 
-      <h2 className="text-neutral-500 mb-3 text-lg mt-5">{commingSoon}</h2>
+      <h2 className="text-neutral-500 mb-3 text-lg mt-5">{comingSoon}</h2>
       <motion.div className="mt-[30px] grid justify-items-center grid-cols-3 w-2/3 h-56 gap-0 p-0 sm:w-1/3">
         {comingSoon.map((logoConfig, index) => (
           <LogoItem

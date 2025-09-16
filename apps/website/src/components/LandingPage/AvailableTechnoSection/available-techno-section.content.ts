@@ -19,9 +19,9 @@ const availableTechnoContent = {
       ru: 'Доступно на',
       tr: 'Mevcut',
     }),
-    commingSoon: t({
-      en: 'Comming soon',
-      'en-GB': 'Comming soon',
+    comingSoon: t({
+      en: 'Coming soon',
+      'en-GB': 'Coming soon',
       fr: 'Bientôt disponible',
       es: 'Próximamente disponible',
       de: 'Demnächst verfügbar',
