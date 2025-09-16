@@ -81,6 +81,11 @@ Why chunk? Because language models have **context limits**. Feeding them an ent
 
 So the idea is to break text into manageable chunks (e.g. 500 tokens each) with overlap (e.g. 100 tokens). Overlap ensures continuity so you don’t lose meaning at chunk boundaries.
 
+<p align="center">
+  <img width="480" alt="Reliable data source" src="https://github.com/user-attachments/assets/ee548851-7206-4cc6-821e-de8a4366c6a3" />
+</p>
+
+
 **Example:**
 
 - Chunk 1 → “…the old library that many had forgotten. Its towering shelves were filled with books…”
