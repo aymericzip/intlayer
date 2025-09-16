@@ -76,7 +76,8 @@
     "@intlayer/babel": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*"
+    "@intlayer/core": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.2.1",
@@ -98,6 +99,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
     "vite": ">=4.0.0"
   },
   "engines": {
