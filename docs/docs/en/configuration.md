@@ -537,6 +537,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
   - _Note_: This option will be ignored if `optimize` is disabled.
+  - _Note_: If set to "live", only the dictionaries that are including remote content, and set as "live" flags will be transformed as live mode. Others will be imported dynamically as "dynamic" mode to optimize the number of fetch queries, and load performance.
   - _Note_: Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
   - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
 
