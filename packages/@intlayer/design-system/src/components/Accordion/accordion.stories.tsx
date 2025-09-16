@@ -40,30 +40,30 @@ const meta: Meta<AccordionProps> = {
     docs: {
       description: {
         component: `
-          The Accordion component provides expandable/collapsible content sections. It supports both controlled and uncontrolled modes, keyboard navigation, and full accessibility features.
+The Accordion component provides expandable/collapsible content sections. It supports both controlled and uncontrolled modes, keyboard navigation, and full accessibility features.
 
-          ## Features
-          - **Controlled/Uncontrolled**: Use \`isOpen\` prop for controlled mode or \`defaultIsOpen\` for uncontrolled
-          - **Accessible**: Full ARIA support with proper roles and states
-          - **Keyboard Navigation**: Enter/Space keys to toggle
-          - **Customizable**: Custom styling for header and content
-          - **Smooth Animations**: Built-in expand/collapse animations
+## Features
+- **Controlled/Uncontrolled**: Use \`isOpen\` prop for controlled mode or \`defaultIsOpen\` for uncontrolled
+- **Accessible**: Full ARIA support with proper roles and states
+- **Keyboard Navigation**: Enter/Space keys to toggle
+- **Customizable**: Custom styling for header and content
+- **Smooth Animations**: Built-in expand/collapse animations
 
-          ## Usage
-          \`\`\`jsx
-          
-          <Accordion header="Section Title" defaultIsOpen={false}>
-            <p>Content goes here</p>
-          </Accordion>
+## Usage
+\`\`\`jsx
 
-          <Accordion 
-            header="Controlled Section"
-            isOpen={isOpen}
-            onToggle={setIsOpen}
-          >
-            <p>Controlled content</p>
-          </Accordion>
-          \`\`\`
+<Accordion header="Section Title" defaultIsOpen={false}>
+  <p>Content goes here</p>
+</Accordion>
+
+<Accordion 
+  header="Controlled Section"
+  isOpen={isOpen}
+  onToggle={setIsOpen}
+>
+  <p>Controlled content</p>
+</Accordion>
+\`\`\`
         `,
       },
     },
@@ -85,7 +85,7 @@ const meta: Meta<AccordionProps> = {
       </div>
     ),
   ],
-
+  tags: ['autodocs'],
   argTypes: {
     header: {
       control: 'text',
