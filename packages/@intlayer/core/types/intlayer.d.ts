@@ -5,6 +5,8 @@ export {};
 
 declare module 'intlayer' {
   interface IntlayerDictionaryTypesConnector {}
+  interface LanguageContent {}
+  interface LocalesValues {}
 
   enum ConfigLocales {
     ENGLISH = 'en',
