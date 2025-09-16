@@ -9,6 +9,7 @@ export const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/dist/**',
   '**/src/**',
   '**/tools/**',
+  '**/readme.md',
 ];
 
 interface MarkdownValidationResult {
