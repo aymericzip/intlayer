@@ -1,4 +1,4 @@
-import { getConfiguration, Locales } from '@intlayer/config';
+import { getConfiguration, Locales, normalizePath } from '@intlayer/config';
 import { type Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { relative, resolve } from 'path';
@@ -28,7 +28,6 @@ export const generateDictionaryEntryPoint = (
   format: 'cjs' | 'esm' = 'esm',
   configuration = getConfiguration()
 ): string => {
-  const { liveSync } = configuration.editor;
   const { dynamicDictionariesDir } = configuration.content;
 
   let content = '';
@@ -38,20 +37,12 @@ export const generateDictionaryEntryPoint = (
     localedDictionariesPathsRecord
   )
     .map(([locale, dictionary]) => {
-      const relativePath = relative(
-        dynamicDictionariesDir,
-        dictionary.dictionaryPath
+      const relativePath = normalizePath(
+        relative(dynamicDictionariesDir, dictionary.dictionaryPath)
       );
 
       if (format === 'esm') {
-        if (liveSync) {
-          return `  '${locale}': () => import('@intlayer/dictionaries-entry/${dictionary.dictionary.key}/${locale}', { assert: { type: 'json' }}).then(mod => mod.default)`;
-        }
         return `  '${locale}': () => import('./${relativePath}', { assert: { type: 'json' }}).then(mod => mod.default)`;
-      }
-
-      if (liveSync) {
-        return `  '${locale}': () => Promise.resolve(require('@intlayer/dictionaries-entry/${dictionary.dictionary.key}/${locale}'))`;
       }
 
       return `  '${locale}': () => Promise.resolve(require('./${relativePath}'))`;
@@ -78,7 +69,7 @@ export const generateDictionaryEntryPoint = (
  * const finalDictionaries = await writeFinalDictionaries(unmergedDictionaries);
  * console.log(finalDictionaries);
  *
- * // .intlayer/dictionaries/home.json
+ * // .intlayer/dynamic_dictionaries/home.json
  * // { key: 'home', content: { ... } },
  * ```
  */

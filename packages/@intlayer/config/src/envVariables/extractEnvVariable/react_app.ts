@@ -33,11 +33,12 @@ export const extractReactAppEnvVariable = (): IntlayerConfigEnvVariable => {
     baseDir: process.env.REACT_APP_INTLAYER_BASE_DIR,
     contentDir: process.env.REACT_APP_INTLAYER_CONTENT_DIR,
     excludedPath: process.env.REACT_APP_INTLAYER_EXCLUDED_PATH,
-    dictionariesDir: process.env.REACT_APP_INTLAYER_RESULT_DIR,
     unmergedDictionariesDir:
       process.env.REACT_APP_INTLAYER_UNMERGED_DICTIONARIES_DIR,
+    dictionariesDir: process.env.REACT_APP_INTLAYER_RESULT_DIR,
     dynamicDictionariesDir:
       process.env.REACT_APP_INTLAYER_DYNAMIC_DICTIONARIES_DIR,
+    fetchDictionariesDir: process.env.REACT_APP_INTLAYER_FETCH_DICTIONARIES_DIR,
     moduleAugmentationDir:
       process.env.REACT_APP_INTLAYER_MODULE_AUGMENTATION_DIR,
     i18nextResourcesDir: process.env.REACT_APP_INTLAYER_I18N_DICTIONARIES_DIR,

@@ -3,8 +3,8 @@ import intlayerConfig from '@intlayer/config/built';
 import { join, relative, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { type PluginOption } from 'vite';
-import { intlayerLiveSync } from './intlayerLiveSyncPlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
+
 /**
  *
  * A Vite plugin that integrates Intlayer configuration into the build process
@@ -23,7 +23,6 @@ export const intlayer = (): PluginOption => {
     baseDir,
     watch: isWatchMode,
   } = intlayerConfig.content;
-  const { liveSync } = intlayerConfig.editor;
   const { optimize } = intlayerConfig.build;
 
   const plugins: PluginOption[] = [
@@ -103,10 +102,6 @@ export const intlayer = (): PluginOption => {
   // Add Babel transform plugin if enabled
   if (optimize) {
     plugins.push(intlayerPrune(intlayerConfig));
-  }
-
-  if (liveSync) {
-    plugins.push(intlayerLiveSync(intlayerConfig));
   }
 
   return plugins;

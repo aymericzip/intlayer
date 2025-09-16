@@ -52,26 +52,26 @@
     </p>
 </div>
 
-# @intlayer/unmerged-dictionary-entry: Retrieve Intlayer dictionaries
+# @intlayer/fetch-dictionary-entry: Retrieve Intlayer dictionaries
 
 **Intlayer** is a suite of packages designed specifically for JavaScript developers. It is compatible with frameworks like React, React, and Express.js.
 
-The **`@intlayer/unmerged-dictionary-entry`** package is a NPM package that only returns the entry path of the intlayer dictionaries. Since the filesystem search is impossible from the browser, using bundlers like Webpack or Rollup to retrieve the entry path of the dictionaries is not possible. This package aims to be aliased.
+The **`@intlayer/fetch-dictionary-entry`** package is a NPM package that only returns the entry path of the intlayer dictionaries. Since the filesystem search is impossible from the browser, using bundlers like Webpack or Rollup to retrieve the entry path of the dictionaries is not possible. This package aims to be aliased.
 
 ## Installation
 
 Install the necessary package using your preferred package manager:
 
 ```bash packageManager="npm"
-npm install @intlayer/unmerged-dictionary-entry
+npm install @intlayer/fetch-dictionary-entry
 ```
 
 ```bash packageManager="pnpm"
-pnpm add @intlayer/unmerged-dictionary-entry
+pnpm add @intlayer/fetch-dictionary-entry
 ```
 
 ```bash packageManager="yarn"
-yarn add @intlayer/unmerged-dictionary-entry
+yarn add @intlayer/fetch-dictionary-entry
 ```
 
 ## Read about Intlayer

@@ -11,6 +11,7 @@ import {
   DICTIONARY_OUTPUT,
   DYNAMIC_DICTIONARIES_DIR,
   EXCLUDED_PATHS,
+  FETCH_DICTIONARIES_DIR,
   FILE_EXTENSIONS,
   I18NEXT_DICTIONARIES_DIR,
   MAIN_DIR,
@@ -26,8 +27,8 @@ import {
   CMS_URL,
   DICTIONARY_PRIORITY_STRATEGY,
   EDITOR_URL,
-  HOT_RELOAD,
   IS_ENABLED,
+  LIVE_SYNC,
   LIVE_SYNC_PORT,
   PORT,
 } from '../defaultValues/editor';
@@ -385,6 +386,18 @@ const buildContentFields = (
     ),
 
     /**
+     * Directory where the fetch dictionaries will be stored
+     *
+     * Relative to the result directory
+     *
+     * Default: .intlayer/fetch_dictionary
+     */
+    fetchDictionariesDir: join(
+      notDerivedContentConfig.baseDir,
+      customConfiguration?.fetchDictionariesDir ?? FETCH_DICTIONARIES_DIR
+    ),
+
+    /**
      * Directory where the 18n dictionaries will be stored
      *
      * Relative to the result directory
@@ -622,7 +635,7 @@ const buildEditorFields = (
    *
    * Default: false
    */
-  liveSync: customConfiguration?.liveSync ?? HOT_RELOAD,
+  liveSync: customConfiguration?.liveSync ?? LIVE_SYNC,
 
   /**
    * Port of the live sync server
@@ -723,8 +736,8 @@ const buildBuildFields = (
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
    * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   * - "async": The dictionaries are imported dynamically in an asynchronous component.
-   *   In that case, Intlayer will replace all calls to `useIntlayer` with `await useDictionaryAsync`.
+   * - "live": The dictionaries are imported dynamically using the live sync API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryFetch`.
    *
    * Default: "static"
    *
@@ -737,6 +750,7 @@ const buildBuildFields = (
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
+   * - The "live" allows to sync the dictionaries to the live sync server.
    */
   importMode: customConfiguration?.importMode ?? IMPORT_MODE,
 

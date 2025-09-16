@@ -26,7 +26,7 @@ use base62::encode as base62_encode;
 use twox_hash::XxHash64;
 
 
-static DEBUG_LOG: bool = false;
+static DEBUG_LOG: bool = true;
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -56,7 +56,15 @@ struct PluginConfig {
     #[serde(rename = "dynamicDictionariesEntryPath")]
     dynamic_dictionaries_entry_path: String,
 
-    /// Import mode for the plugin: "static", "dynamic", or "async"
+    /// Directory that contains `<key>.mjs` files for live/fetch imports
+    #[serde(rename = "fetchDictionariesDir")]
+    fetch_dictionaries_dir: String,
+
+    /// Path to the live/fetch dictionaries entry file
+    #[serde(rename = "fetchDictionariesEntryPath")]
+    fetch_dictionaries_entry_path: String,
+
+    /// Import mode for the plugin: "static", "dynamic", or "live"
     #[serde(rename = "importMode")]
     import_mode: Option<String>,
 
@@ -68,9 +76,9 @@ struct PluginConfig {
     #[serde(rename = "filesList")]
     files_list: Vec<String>,
 
-    /// If true, activate live sync: import from virtual entry instead of JSON file
-    #[serde(rename = "liveSync")]
-    live_sync: Option<bool>,
+    /// Keys that should use live sync (per-key) when importMode is "live"
+    #[serde(rename = "liveSyncKeys")]
+    live_sync_keys: Vec<String>,
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -80,26 +88,25 @@ struct TransformVisitor<'a> {
     dictionaries_dir: &'a str,
     dynamic_dictionaries_dir: &'a str,
     import_mode: String,
+    live_sync_keys: &'a HashSet<String>,
     /// Per-file cache: key → imported ident for static imports
     new_static_imports: BTreeMap<String, Ident>,
     /// Per-file cache: key → imported ident for dynamic imports
     new_dynamic_imports: BTreeMap<String, Ident>,
     /// Track if current file imports from packages supporting dynamic imports
     use_dynamic_helpers: bool,
-    /// Track if current file imports from packages supporting async imports
-    use_async_helpers: bool,
 }
 
 impl<'a> TransformVisitor<'a> {
-    fn new(dictionaries_dir: &'a str, dynamic_dictionaries_dir: &'a str, import_mode: String) -> Self {
+    fn new(dictionaries_dir: &'a str, dynamic_dictionaries_dir: &'a str, import_mode: String, live_sync_keys: &'a HashSet<String>) -> Self {
         Self {
             dictionaries_dir,
             dynamic_dictionaries_dir,
             import_mode,
+            live_sync_keys,
             new_static_imports: BTreeMap::new(),
             new_dynamic_imports: BTreeMap::new(),
             use_dynamic_helpers: false,
-            use_async_helpers: false,
         }
     }
 
@@ -144,6 +151,23 @@ impl<'a> TransformVisitor<'a> {
             SyntaxContext::empty(),
         )
     }
+
+    /// Create a live/fetch import identifier (with _fetch suffix)
+    fn make_fetch_ident(&self, key: &str) -> Ident {
+        let mut hasher = BuildHasherDefault::<XxHash64>::default().build_hasher();
+        hasher.write(key.as_bytes());
+        let hash = hasher.finish();
+
+        let mut encoded = base62_encode(hash);
+        encoded.insert(0, '_');
+        encoded.push_str("_fetch");
+
+        Ident::new(
+            Atom::from(encoded),
+            DUMMY_SP,
+            SyntaxContext::empty(),
+        )
+    }
 }
 
 static PACKAGE_LIST: LazyLock<Vec<Atom>> = LazyLock::new(|| {
@@ -175,6 +199,11 @@ static PACKAGE_LIST_DYNAMIC: LazyLock<Vec<Atom>> = LazyLock::new(|| {
         "next-intlayer",
         "next-intlayer/client",
         "next-intlayer/server",
+        "preact-intlayer",
+        "vue-intlayer",
+        "solid-intlayer",
+        "svelte-intlayer",
+        "angular-intlayer",
     ]
     .into_iter()
     .map(|s| Atom::from(s))
@@ -182,7 +211,7 @@ static PACKAGE_LIST_DYNAMIC: LazyLock<Vec<Atom>> = LazyLock::new(|| {
 });
 
 impl<'a> VisitMut for TransformVisitor<'a> {
-    // ── 0.  handle expression-level transformations (like await wrapping)  ──
+    // ── 0.  handle expression-level transformations  ──
     fn visit_mut_expr(&mut self, expr: &mut Expr) {
         // First visit children
         expr.visit_mut_children_with(self);
@@ -216,29 +245,22 @@ impl<'a> VisitMut for TransformVisitor<'a> {
                 set.insert(key.clone());
             }
 
-            // Determine if this specific call should use dynamic imports
+            // Determine if this specific call should use live or dynamic imports (per-key in live mode)
             let should_use_dynamic_for_this_call = callee_ident == "useIntlayer" && self.use_dynamic_helpers;
-            // Determine if this specific call should use async imports
-            let should_use_async_for_this_call = callee_ident == "useIntlayer" && self.use_async_helpers;
+            let should_use_live_for_this_call = callee_ident == "useIntlayer" && self.use_dynamic_helpers && self.live_sync_keys.contains(&key);
 
-            if should_use_async_for_this_call {
-                // Use dynamic imports for useIntlayer when async helpers are enabled
+            if should_use_live_for_this_call {
+                // Live helper: first argument is the live dictionary, second is the original key
                 let ident = if let Some(id) = self.new_dynamic_imports.get(&key) {
                     id.clone()
                 } else {
-                    let id = self.make_dynamic_ident(&key);
+                    let id = self.make_fetch_ident(&key);
                     self.new_dynamic_imports.insert(key.clone(), id.clone());
                     id
                 };
-
-                // Async helper: first argument is the dictionary promise
-                first_arg.expr = Box::new(Expr::Ident(ident));
-
-                // Wrap the call with await for async helpers
-                let call_expr = Expr::Call(call.clone());
-                *expr = Expr::Await(AwaitExpr {
-                    span: DUMMY_SP,
-                    arg: Box::new(call_expr),
+                call.args.insert(0, ExprOrSpread {
+                    spread: None,
+                    expr: Box::new(Expr::Ident(ident)),
                 });
             } else if should_use_dynamic_for_this_call {
                 // Use dynamic imports for useIntlayer when dynamic helpers are enabled
@@ -283,29 +305,17 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 
         // Determine if this package supports dynamic imports
         let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a == &pkg);
-        let should_use_dynamic_helpers = self.import_mode == "dynamic" && package_supports_dynamic;
-        let should_use_async_helpers = self.import_mode == "async" && package_supports_dynamic;
+        let should_use_dynamic_helpers = (self.import_mode == "dynamic" || self.import_mode == "live") && package_supports_dynamic;
         
         if should_use_dynamic_helpers {
             self.use_dynamic_helpers = true;
-        }
-
-        if should_use_async_helpers {
-            self.use_async_helpers = true;
         }
 
         for spec in &mut import.specifiers {
             if let ImportSpecifier::Named(named) = spec {
                 match named.local.sym.as_ref() {
                     "useIntlayer" => {
-                        if should_use_async_helpers {
-                            // Use async helper for useIntlayer when async mode is enabled
-                            named.imported = Some(ModuleExportName::Ident(Ident::new(
-                                Atom::from("useDictionaryAsync"),
-                                DUMMY_SP,
-                                SyntaxContext::empty(),
-                            )));
-                        } else if should_use_dynamic_helpers {
+                        if should_use_dynamic_helpers {
                             // Use dynamic helper for useIntlayer when dynamic mode is enabled
                             named.imported = Some(ModuleExportName::Ident(Ident::new(
                                 Atom::from("useDictionaryDynamic"),
@@ -384,7 +394,8 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
 
     // 3) run visitor
     let import_mode = cfg.import_mode.unwrap_or("static".to_string());
-    let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir, &cfg.dynamic_dictionaries_dir, import_mode);
+    let live_sync_keys_set: HashSet<String> = cfg.live_sync_keys.into_iter().collect();
+    let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir, &cfg.dynamic_dictionaries_dir, import_mode.clone(), &live_sync_keys_set);
     program.visit_mut_with(&mut visitor);
 
     // ── 4) inject JSON/MJS imports (if any) ───────────────────────────────────
@@ -393,6 +404,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         // save the strings so we don't need `visitor` inside the loop
         let dictionaries_dir = visitor.dictionaries_dir.to_owned();
         let dynamic_dictionaries_dir = visitor.dynamic_dictionaries_dir.to_owned();
+        let fetch_dictionaries_dir = cfg.fetch_dictionaries_dir.to_owned();
 
         // 4.a  where should we inject?  ─────────────────────────────────────
         //     keep all leading `'use …'` strings at the top
@@ -415,19 +427,15 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
 
         // 4.b  inject static imports after the directives  ─────────────────────
         for (key, ident) in visitor.new_static_imports.clone().into_iter().rev() {
-            // When liveSync is enabled, import from the virtual dictionaries entry
-            // instead of the JSON file path, mirroring the Babel plugin behavior.
-            let import_path = if cfg.live_sync.unwrap_or(false) {
-                format!("@intlayer/dictionaries-entry/{}", key)
-            } else {
-                let file_path = Path::new(&filename);
-                let dict_file = Path::new(&dictionaries_dir).join(format!("{}.json", key));
+            let file_path = Path::new(&filename);
+            let dict_file = Path::new(&dictionaries_dir).join(format!("{}.json", key));
 
-                // Compute a relative path FROM the source file's directory TO the JSON file
-                let relative = diff_paths(&dict_file, file_path.parent().unwrap())
-                    .unwrap_or_else(|| PathBuf::from(&dict_file));
+            // Compute a relative path FROM the source file's directory TO the JSON file
+            let relative = diff_paths(&dict_file, file_path.parent().unwrap())
+                .unwrap_or_else(|| PathBuf::from(&dict_file));
 
-                // If it doesn't start with "./" or "../", add "./"
+            // If it doesn't start with "./" or "../", add "./"
+            let import_path = {
                 let s = relative.to_string_lossy();
                 if s.starts_with("./") || s.starts_with("../") {
                     s.into_owned()
@@ -470,10 +478,13 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             insert_pos += 1;                 // keep later injected imports in order
         }
 
-        // 4.c  inject dynamic imports after the static imports  ─────────────────
+        // 4.c  inject dynamic/fetch imports after the static imports  ──────────
         for (key, ident) in visitor.new_dynamic_imports.clone().into_iter().rev() {
             let file_path = Path::new(&filename);
-            let dict_file = Path::new(&dynamic_dictionaries_dir).join(format!("{}.mjs", key));
+            let ident_name: &str = ident.sym.as_ref();
+            let is_live_ident = ident_name.ends_with("_fetch");
+            let target_dir = if is_live_ident { &fetch_dictionaries_dir } else { &dynamic_dictionaries_dir };
+            let dict_file = Path::new(target_dir).join(format!("{}.mjs", key));
 
             // Compute a relative path FROM the source file's directory TO the MJS file
             let relative = diff_paths(&dict_file, file_path.parent().unwrap())

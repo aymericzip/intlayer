@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { getBuiltDictionariesPath } from '../../getBuiltDictionariesPath';
 import { getBuiltDynamicDictionariesPath } from '../../getBuiltDynamicDictionariesPath';
+import { getBuiltFetchDictionariesPath } from '../../getBuiltFetchDictionariesPath';
 import { getBuiltUnmergedDictionariesPath } from '../../getBuiltUnmergedDictionariesPath';
 import { generateDictionaryListContent } from './generateDictionaryListContent';
 
@@ -69,14 +70,28 @@ export const createDictionaryEntryPoint = (
   }
 
   for (const format of formats) {
-    const dynamicDictionariesPathCJS = getBuiltDynamicDictionariesPath(
+    const dynamicDictionariesPath = getBuiltDynamicDictionariesPath(
       configuration,
       format
     );
 
     writeDictionaryFiles(
-      dynamicDictionariesPathCJS,
+      dynamicDictionariesPath,
       'dynamic_dictionaries',
+      format,
+      configuration
+    );
+  }
+
+  for (const format of formats) {
+    const fetchDictionariesPath = getBuiltFetchDictionariesPath(
+      configuration,
+      format
+    );
+
+    writeDictionaryFiles(
+      fetchDictionariesPath,
+      'fetch_dictionaries',
       format,
       configuration
     );

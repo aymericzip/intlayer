@@ -64,7 +64,6 @@ export const getConfiguration = (
     baseDir: getEnvValue(env.content.baseDir, 'string')!,
     contentDir: getEnvValue<string>(env.content.contentDir, 'array')!,
     excludedPath: getEnvValue<string>(env.content.excludedPath, 'array')!,
-    dictionariesDir: getEnvValue(env.content.dictionariesDir, 'string')!,
     moduleAugmentationDir: getEnvValue(
       env.content.moduleAugmentationDir,
       'string'
@@ -73,12 +72,17 @@ export const getConfiguration = (
       env.content.dictionaryOutput,
       'array'
     )!,
+    dictionariesDir: getEnvValue(env.content.dictionariesDir, 'string')!,
     unmergedDictionariesDir: getEnvValue(
       env.content.unmergedDictionariesDir,
       'string'
     )!,
     dynamicDictionariesDir: getEnvValue(
       env.content.dynamicDictionariesDir,
+      'string'
+    )!,
+    fetchDictionariesDir: getEnvValue(
+      env.content.fetchDictionariesDir,
       'string'
     )!,
     i18nextResourcesDir: getEnvValue(

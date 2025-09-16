@@ -26,7 +26,7 @@ export type MergedDictionaryOutput = Record<string, MergedDictionaryResult>;
  * const finalDictionaries = await writeFinalDictionaries(unmergedDictionaries);
  * console.log(finalDictionaries);
  *
- * // .intlayer/dictionaries/home.json
+ * // .intlayer/dictionary/home.json
  * // { key: 'home', content: { ... } },
  * ```
  */

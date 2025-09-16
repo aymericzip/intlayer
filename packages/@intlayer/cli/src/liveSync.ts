@@ -153,7 +153,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
 
     if (req.url?.startsWith('/dictionaries')) {
       res.writeHead(200, {
-        'Content-Type': 'text/javascript; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'no-store',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -175,21 +175,21 @@ export const liveSync = async (options?: LiveSyncOptions) => {
             keyPath: [],
           });
 
-          res.end(`export default ${JSON.stringify(sourceLocaleContent)};`);
+          res.end(JSON.stringify(sourceLocaleContent));
           return;
         }
 
-        res.end(`export default ${JSON.stringify(dictionary)};`);
+        res.end(JSON.stringify(dictionary));
         return;
       }
 
-      res.end(`export default ${JSON.stringify(dictionaries)};`);
+      res.end(JSON.stringify(dictionaries));
       return;
     }
 
     if (req.url?.startsWith('/unmerged_dictionaries')) {
       res.writeHead(200, {
-        'Content-Type': 'text/javascript; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'no-store',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -202,23 +202,31 @@ export const liveSync = async (options?: LiveSyncOptions) => {
         const key = decodeURIComponent(req.url.slice(prefix.length));
         const one = unmergedDictionaries[key] ?? null;
 
-        res.end(`export default ${JSON.stringify(one)};`);
+        res.end(JSON.stringify(one));
         return;
       }
 
-      res.end(`export default ${JSON.stringify(unmergedDictionaries)};`);
+      res.end(JSON.stringify(unmergedDictionaries));
       return;
     }
 
     if (req.url === '/configuration') {
       res.writeHead(200, {
-        'Content-Type': 'text/javascript; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'no-store',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
-      res.end(`export default ${JSON.stringify(configuration)};`);
+      res.end(JSON.stringify(configuration));
+      return;
+    }
+
+    if (req.url === '/health') {
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=utf-8',
+      });
+      res.end(JSON.stringify({ status: 'ok' }));
       return;
     }
 

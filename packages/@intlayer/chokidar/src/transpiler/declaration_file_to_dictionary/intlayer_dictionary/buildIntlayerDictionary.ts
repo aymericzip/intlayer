@@ -2,7 +2,11 @@
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { writeDynamicDictionary } from './writeDynamicDictionary';
+import {
+  LocalizedDictionaryOutput,
+  writeDynamicDictionary,
+} from './writeDynamicDictionary';
+import { writeFetchDictionary } from './writeFetchDictionary';
 import { writeMergedDictionaries } from './writeMergedDictionary';
 import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
 
@@ -14,6 +18,8 @@ export const buildIntlayerDictionary = async (
   configuration = getConfiguration(),
   formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
 ) => {
+  const { importMode } = configuration.build;
+
   const unmergedDictionaries = await writeUnmergedDictionaries(
     contentDeclarations,
     configuration
@@ -24,15 +30,30 @@ export const buildIntlayerDictionary = async (
     configuration
   );
 
-  const dynamicDictionaries = await writeDynamicDictionary(
-    mergedDictionaries,
-    configuration,
-    formats
-  );
+  let dynamicDictionaries: LocalizedDictionaryOutput | null = null;
+
+  if (importMode === 'dynamic' || importMode === 'live') {
+    dynamicDictionaries = await writeDynamicDictionary(
+      mergedDictionaries,
+      configuration,
+      formats
+    );
+  }
+
+  let fetchDictionaries: LocalizedDictionaryOutput | null = null;
+
+  if (importMode === 'live') {
+    fetchDictionaries = await writeFetchDictionary(
+      dynamicDictionaries!,
+      configuration,
+      formats
+    );
+  }
 
   return {
     unmergedDictionaries,
     mergedDictionaries,
     dynamicDictionaries,
+    fetchDictionaries,
   };
 };

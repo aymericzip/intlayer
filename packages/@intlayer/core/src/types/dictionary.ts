@@ -5,7 +5,6 @@ import type {
   LanguageContent,
   // @ts-ignore intlayer declared for module augmentation
   LocalesValues,
-  // @ts-ignore intlayer declared for module augmentation
 } from 'intlayer';
 import type { ConditionContent } from '../transpiler/condition';
 import type { EnumerationContent } from '../transpiler/enumeration';
@@ -103,6 +102,7 @@ export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   locale?: LocalesValues;
   autoFill?: AutoFill;
   autoFilled?: true;
+  live?: boolean;
   location?: 'distant' | 'locale';
   content: ContentType extends undefined // Applying the generic to replace ContentValue with Replacement
     ? any

@@ -6,6 +6,7 @@ import {
   IntlayerConfig,
   normalizePath,
 } from '@intlayer/config';
+import dictionaries from '@intlayer/dictionaries-entry';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import merge from 'deepmerge';
 import fg from 'fast-glob';
@@ -48,9 +49,13 @@ const getPruneConfig = (
   intlayerConfig: IntlayerConfig
 ): Partial<NextConfig> => {
   const { optimize, traversePattern, importMode } = intlayerConfig.build;
-  const { liveSync } = intlayerConfig.editor;
-  const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
-    intlayerConfig.content;
+  const {
+    dictionariesDir,
+    dynamicDictionariesDir,
+    fetchDictionariesDir,
+    mainDir,
+    baseDir,
+  } = intlayerConfig.content;
 
   if (!optimize) return {};
 
@@ -75,6 +80,8 @@ const getPruneConfig = (
     'dynamic_dictionaries.mjs'
   );
 
+  const fetchDictionariesEntryPath = join(mainDir, 'fetch_dictionaries.mjs');
+
   const filesListPattern = fg
     .sync(traversePattern, {
       cwd: baseDir,
@@ -86,6 +93,10 @@ const getPruneConfig = (
     dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
   ];
 
+  const liveSyncKeys = Object.values(dictionaries)
+    .filter((dictionary) => dictionary.live)
+    .map((dictionary) => dictionary.key);
+
   return {
     experimental: {
       swcPlugins: [
@@ -96,10 +107,12 @@ const getPruneConfig = (
             dictionariesEntryPath,
             dynamicDictionariesDir,
             dynamicDictionariesEntryPath,
+            fetchDictionariesDir,
+            fetchDictionariesEntryPath,
             importMode,
             filesList,
             replaceDictionaryEntry: false,
-            liveSync,
+            liveSyncKeys,
           } as any,
         ],
       ],
@@ -186,8 +199,6 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const configurationPath = join(configDir, 'configuration.json');
   const relativeConfigurationPath = relative(baseDir, configurationPath);
-
-  const { liveSync, liveSyncURL } = intlayerConfig.editor;
 
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {

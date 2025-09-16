@@ -250,9 +250,7 @@ export type EditorConfig = {
    * Indicates if the application should hot reload the locale configurations when a change is detected.
    * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
    *
-   * The hot reload is only available for clients of the `enterprise` plan.
-   *
-   * Default: false
+   * Default: true
    */
   liveSync: boolean;
 
@@ -356,8 +354,8 @@ export type BuildConfig = {
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
    * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   * - "async": The dictionaries are imported dynamically in an asynchronous component.
-   *   In that case, Intlayer will replace all calls to `useIntlayer` with `await useDictionaryAsync`.
+   * - "live": The dictionaries are imported dynamically using the live sync API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryFetch`.
    *
    * Default: "static"
    *
@@ -369,10 +367,10 @@ export type BuildConfig = {
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
-   * - In most cases, "dynamic" will be used for React applications, "async" for Vue.js applications.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
+   * - The "live" allows to sync the dictionaries to the live sync server.
    */
-  importMode: 'static' | 'dynamic' | 'async';
+  importMode: 'static' | 'dynamic' | 'live';
 
   /**
    * Pattern to traverse the code to optimize.
@@ -588,6 +586,15 @@ export type ResultDirDerivedConfig = {
    * Specifies the derived path for dynamic dictionaries relative to the result directory.
    */
   dynamicDictionariesDir: string;
+
+  /**
+   * Directory where fetch dictionaries are stored, relative to the result directory
+   *
+   * Default: .intlayer/fetch_dictionary
+   *
+   * Specifies the derived path for fetch dictionaries relative to the result directory.
+   */
+  fetchDictionariesDir: string;
 
   /**
    * Directory where dictionaries are stored, relative to the result directory

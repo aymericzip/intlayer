@@ -1,16 +1,21 @@
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import { intlayerBabelPlugin } from '@intlayer/babel';
 import { ESMxCJSRequire, IntlayerConfig } from '@intlayer/config';
+import dictionaries from '@intlayer/dictionaries-entry';
 import fg from 'fast-glob';
 import { join } from 'path';
 import { type PluginOption } from 'vite';
 
 export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
   const { optimize, importMode, traversePattern } = intlayerConfig.build;
-  const { liveSync } = intlayerConfig.editor;
 
-  const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
-    intlayerConfig.content;
+  const {
+    dictionariesDir,
+    dynamicDictionariesDir,
+    fetchDictionariesDir,
+    mainDir,
+    baseDir,
+  } = intlayerConfig.content;
 
   const filesListPattern = fg
     .sync(traversePattern, {
@@ -18,21 +23,25 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
     })
     .map((file) => join(baseDir, file));
 
+  const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
+  const dynamicDictionariesEntryPath = join(
+    mainDir,
+    'dynamic_dictionaries.mjs'
+  );
+
+  const filesList = [
+    ...filesListPattern,
+    dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
+  ];
+
+  const liveSyncKeys = Object.values(dictionaries)
+    .filter((dictionary) => dictionary.live)
+    .map((dictionary) => dictionary.key);
+
   return {
     name: 'vite-intlayer-babel-transform',
     enforce: 'post', // Run after other transformations as vue
     transform(code, id) {
-      const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
-      const dynamicDictionariesEntryPath = join(
-        mainDir,
-        'dynamic_dictionaries.mjs'
-      );
-
-      const filesList = [
-        ...filesListPattern,
-        dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
-      ];
-
       /**
        * Transform file as
        * .../HelloWorld.vue?vue&type=script&setup=true&lang.ts
@@ -58,10 +67,11 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
                 dictionariesEntryPath,
                 dynamicDictionariesDir,
                 dynamicDictionariesEntryPath,
+                fetchDictionariesDir,
                 importMode,
                 filesList,
                 replaceDictionaryEntry: false,
-                liveSync,
+                liveSyncKeys,
               },
             ],
           ],
@@ -86,6 +96,7 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
         });
 
         if (result?.code) {
+          console.log(result.code);
           return {
             code: result.code,
             map: result.map,

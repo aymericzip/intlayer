@@ -2,6 +2,7 @@ import { t, type Dictionary } from 'intlayer';
 
 const homeContent = {
   key: 'home-content',
+  live: true,
   content: {
     getStartedByEditing: t({
       en: 'Get started by editing',
