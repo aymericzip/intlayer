@@ -1,11 +1,3 @@
-// @ts-ignore intlayer declared for module augmentation
-import type {
-  IntlayerDictionaryTypesConnector,
-  // @ts-ignore intlayer declared for module augmentation
-  LanguageContent,
-  // @ts-ignore intlayer declared for module augmentation
-  LocalesValues,
-} from 'intlayer';
 import type { ConditionContent } from '../transpiler/condition';
 import type { EnumerationContent } from '../transpiler/enumeration';
 import type { FileContent } from '../transpiler/file';
@@ -14,6 +6,11 @@ import type { InsertionContent } from '../transpiler/insertion';
 import type { MarkdownContent } from '../transpiler/markdown';
 import type { NestedContent } from '../transpiler/nesting';
 import type { TranslationContent } from '../transpiler/translation';
+import type {
+  IntlayerDictionaryTypesConnector,
+  LanguageContent,
+  LocalesValues,
+} from './intlayer';
 
 /**
  * Provides a fallback to string type if the generic type T is undefined,

@@ -1,8 +1,5 @@
-/** @ts-nocheck */
-
 import type { LocalesValues } from '@intlayer/config/client';
-// @ts-ignore intlayer declared for module augmentation
-import type { IConfigLocales } from 'intlayer';
+import type { IConfigLocales } from './intlayer';
 
 /**
  * If module augmented, it will return the configured locales such as Locales.ENGLISH | Locales.FRENCH | Locales.SPANISH | ...
