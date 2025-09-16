@@ -77,7 +77,39 @@ const Trigger: FC<TriggerProps> = ({
       // Ensure focus behavior is consistent across all mobile browsers
       (e.currentTarget as HTMLButtonElement).focus();
     }}
-    onBlur={(e) => (e.currentTarget as HTMLButtonElement).blur()}
+    onBlur={(e) => {
+      const buttonEl = e.currentTarget as HTMLButtonElement;
+      const rootEl = document.getElementById(
+        `unrollable-panel-button-${identifier}`
+      );
+      const nextFocusedEl = e.relatedTarget as Node | null;
+
+      const isTouchDevice =
+        typeof window !== 'undefined' &&
+        ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
+      if (isTouchDevice) {
+        // If focus moves within the dropdown, avoid forcing blur to keep panel open
+        if (rootEl && nextFocusedEl && rootEl.contains(nextFocusedEl)) {
+          return;
+        }
+
+        // Some mobile browsers don't set relatedTarget; defer to detect the destination
+        if (!nextFocusedEl) {
+          setTimeout(() => {
+            const activeEl = document.activeElement;
+            if (rootEl && activeEl && rootEl.contains(activeEl)) {
+              return;
+            }
+            buttonEl.blur();
+          }, 0);
+          return;
+        }
+      }
+
+      // Default behavior: ensure the trigger is unfocused when leaving the dropdown
+      buttonEl.blur();
+    }}
     variant="none"
     {...props}
   >
