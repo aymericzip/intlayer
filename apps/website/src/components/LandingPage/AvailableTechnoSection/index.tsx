@@ -166,7 +166,7 @@ const logos = [
   },
 ] as const;
 
-const comingSoon = [
+const comingSoonData = [
   {
     Logo: SolidLogo,
     route: PagesRoutes.Doc_Environment_ViteAndSolid,
@@ -242,7 +242,7 @@ export const AvailableTechnoSection: FC = () => {
 
       <h2 className="text-neutral-500 mb-3 text-lg mt-5">{comingSoon}</h2>
       <motion.div className="mt-[30px] grid justify-items-center grid-cols-3 w-2/3 h-56 gap-0 p-0 sm:w-1/3">
-        {comingSoon.map((logoConfig, index) => (
+        {comingSoonData.map((logoConfig, index) => (
           <LogoItem
             key={index}
             {...logoConfig}
