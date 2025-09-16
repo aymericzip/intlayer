@@ -4,6 +4,7 @@ import {
   listGitFiles,
   ListGitFilesOptions,
   mergeDictionaries,
+  prepareIntlayer,
   processPerLocaleDictionary,
   reduceDictionaryContent,
   writeContentDeclaration,
@@ -303,6 +304,8 @@ export const fill = async (options: FillOptions): Promise<void> => {
   const configuration = getConfiguration(options.configOptions);
   const appLogger = getAppLogger(configuration);
 
+  await prepareIntlayer(configuration);
+
   const { defaultLocale, locales } = configuration.internationalization;
   const mode = options.mode ?? 'review';
   const baseLocale = options.sourceLocale ?? defaultLocale;
@@ -379,7 +382,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
     );
 
     appLogger(`Processing content declaration: ${relativePath}`, {
-      isVerbose: true,
+      level: 'info',
     });
 
     const sourceLocaleContent = getLocalisedContent(
@@ -414,7 +417,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
             Locales.ENGLISH
           )} (${sourceLocale}) to ${getLocaleName(targetLocale, Locales.ENGLISH)} (${targetLocale})`,
           {
-            isVerbose: true,
+            level: 'info',
           }
         );
 
