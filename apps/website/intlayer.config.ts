@@ -40,7 +40,7 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
   build: {
-    importMode: 'live',
+    importMode: 'dynamic',
   },
   log: {
     mode: 'verbose',
