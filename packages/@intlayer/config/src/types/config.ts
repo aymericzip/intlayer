@@ -355,7 +355,8 @@ export type BuildConfig = {
    * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
    * - "live": The dictionaries are imported dynamically using the live sync API.
-   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryFetch`.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
    *
    * Default: "static"
    *

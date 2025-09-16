@@ -524,20 +524,20 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Type_: `'static' | 'dynamic' | 'async'`
+  - _Type_: `'static' | 'dynamic' | 'live'`
   - _Default_: `'static'`
   - _Description_: Controls how dictionaries are imported.
   - _Example_: `'dynamic'`
   - _Note_: Available modes:
     - "static": Dictionaries are imported statically. Replaces `useIntlayer` with `useDictionary`.
     - "dynamic": Dictionaries are imported dynamically using Suspense. Replaces `useIntlayer` with `useDictionaryDynamic`.
-    - "async": Dictionaries are imported dynamically asynchronously. Replaces `useIntlayer` with `await useDictionaryAsync`.
+    - "live": Dictionaries are fetched dynamically using the live sync API. Replaces `useIntlayer` with `useDictionaryFetch`.
   - _Note_: Dynamic imports rely on Suspense and may slightly impact rendering performance.
   - _Note_: If disabled all locales will be loaded at once, even if they are not used.
   - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
   - _Note_: This option will be ignored if `optimize` is disabled.
-  - _Note_: In most cases, `"dynamic"` will be used for React applications, `"async"` for Vue.js applications.
+  - _Note_: Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
   - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
 
 - **traversePattern**:
@@ -553,6 +553,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 | Version | Date       | Changes                                                                                 |
 | ------- | ---------- | --------------------------------------------------------------------------------------- |
+| 5.9.0   | 2025-09-16 | Add `live` import mode                                                                  |
 | 5.9.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields |
 | 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option                                |
 | 5.6.0   | 2025-07-13 | Change default contentDir from `['src']` to `['.']`                                     |
