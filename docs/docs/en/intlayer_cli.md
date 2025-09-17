@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-09-17
 title: CLI
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -296,6 +296,65 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 
 This command will translate content from English to French and Spanish for all content declaration files in the `src/home/` directory using the GPT-3.5 Turbo model.
 
+### Test missing translations
+
+```bash
+npx intlayer content test
+```
+
+This command analyzes your content declaration files to identify missing translations across all configured locales. It provides a comprehensive report showing which translation keys are missing for which locales, helping you maintain consistency across your multilingual content.
+
+##### Arguments:
+
+**Configuration options:**
+
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file [envFile]`**: Provide a custom environment file to load variables from.
+- **`--base-dir`**: Specify the base directory for the project.
+
+  > Example: `npx intlayer content test --base-dir ./src --env-file .env.production.local`
+
+**Log options:**
+
+- **`--verbose`**: Enable verbose logging for debugging.
+
+  > Example: `npx intlayer content test --verbose`
+
+##### Example:
+
+```bash
+npx intlayer content test --verbose
+```
+
+This command will scan all your content declaration files and display:
+
+- A detailed list of missing translations with their keys, missing locales, and file paths
+- Summary statistics including total missing locales and missing required locales
+- Color-coded output for easy identification of issues
+
+The output helps you quickly identify which translations need to be completed to ensure your application works properly across all configured locales.
+
+### List content declaration files
+
+```bash
+npx intlayer content list
+```
+
+This command displays all content declaration files in your project, showing their dictionary keys and file paths. It's useful for getting an overview of all your content files and verifying that they are properly discovered by Intlayer.
+
+##### Example:
+
+```bash
+npx intlayer content list
+```
+
+This command will output:
+
+- A formatted list of all content declaration files with their keys and relative file paths
+- The total count of content declaration files found
+
+The output helps you verify that all your content files are properly configured and discoverable by the Intlayer system.
+
 ### Manage Configuration
 
 #### Get Configuration
@@ -365,7 +424,6 @@ npx intlayer doc translate
   > Example: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**: Skip the file if it has been modified before the given time.
-
   - Can be an absolute time as "2025-12-05" (string or Date)
   - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
   - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
@@ -373,7 +431,6 @@ npx intlayer doc translate
   > Example: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**: Skip the file if it has been modified within the given time.
-
   - Can be an absolute time as "2025-12-05" (string or Date)
   - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
   - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
@@ -424,7 +481,6 @@ npx intlayer doc translate
 **Custom instructions options:**
 
 - **`--custom-instructions [customInstructions]`**: Custom instructions added to the prompt. Usefull to apply specific rules regarding formatting, urls translation, etc.
-
   - Can be an absolute time as "2025-12-05" (string or Date)
   - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
   - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
@@ -488,6 +544,8 @@ If you activated one of the git options, the command will only review the part o
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
   "intlayer:fill": "npx intlayer fill",
+  "intlayer:list": "npx intlayer content list",
+  "intlayer:test": "npx intlayer content test",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
@@ -517,6 +575,8 @@ import {
   pull,
   fill,
   build,
+  listContentDeclaration,
+  testMissingTranslations,
   docTranslate,
   docReview,
 } from "@intlayer/cli";
@@ -528,6 +588,10 @@ pull();
 fill();
 // ...
 build();
+// ...
+listContentDeclaration();
+// ...
+testMissingTranslations();
 // ...
 docTranslate();
 // ...
@@ -569,5 +633,6 @@ npx clear-npx-cache
 
 | Version | Date       | Changes                                     |
 | ------- | ---------- | ------------------------------------------- |
+| 5.9.0   | 2025-09-17 | Add content test and list command           |
 | 5.5.11  | 2025-07-11 | Update CLI command parameters documentation |
 | 5.5.10  | 2025-06-29 | Init history                                |
