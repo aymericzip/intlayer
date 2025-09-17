@@ -1,4 +1,10 @@
-import { fill, pull, push } from '@intlayer/cli';
+import {
+  fill,
+  listContentDeclaration,
+  pull,
+  push,
+  testMissingTranslations,
+} from '@intlayer/cli';
 import { Locales } from '@intlayer/config';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
@@ -198,6 +204,106 @@ export const loadCLITools = async (server: McpServer) => {
             {
               type: 'text',
               text: `Pull failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
+  server.tool(
+    'intlayer-content-list',
+    'List the content declaration files',
+    {
+      configOptions: z
+        .object({
+          baseDir: z.string().optional(),
+          env: z.string().optional(),
+          envFile: z.string().optional(),
+          override: z
+            .object({
+              log: z
+                .object({
+                  prefix: z.string().optional(),
+                  verbose: z.boolean().optional(),
+                })
+                .optional(),
+            })
+            .optional(),
+        })
+        .optional()
+        .describe('Configuration options'),
+    },
+    async (props) => {
+      try {
+        await listContentDeclaration(props);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: 'Content list successful.',
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Content list failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
+  server.tool(
+    'intlayer-content-test',
+    'Test if there are missing translations',
+    {
+      configOptions: z
+        .object({
+          baseDir: z.string().optional(),
+          env: z.string().optional(),
+          envFile: z.string().optional(),
+          override: z
+            .object({
+              log: z
+                .object({
+                  prefix: z.string().optional(),
+                  verbose: z.boolean().optional(),
+                })
+                .optional(),
+            })
+            .optional(),
+        })
+        .optional()
+        .describe('Configuration options'),
+    },
+    async (props) => {
+      try {
+        await testMissingTranslations(props);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: 'Content test successful.',
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Content test failed: ${errorMessage}`,
             },
           ],
         };
