@@ -9,6 +9,9 @@ import {
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
+  colorize,
+  colorizeKey,
+  colorizePath,
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
@@ -20,6 +23,7 @@ import {
   getFilterTranslationsOnlyContent,
   getLocaleName,
   getLocalisedContent,
+  getMissingLocalesContent,
 } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import pLimit from 'p-limit';
@@ -48,20 +52,33 @@ export type FillOptions = {
   build?: boolean;
 };
 
+const formatLocaleName = (locale: Locales) =>
+  colorize(
+    `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`,
+    ANSIColors.GREEN
+  );
+
 /**
  * Fill translations based on the provided options.
  */
 export const fill = async (options: FillOptions): Promise<void> => {
   const configuration = getConfiguration(options.configOptions);
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger(configuration, {
+    config: {
+      prefix: '',
+    },
+  });
 
   if (options.build) {
     await prepareIntlayer(configuration);
   }
 
   const { defaultLocale, locales } = configuration.internationalization;
-  const mode = options.mode ?? 'review';
+  const mode = options.mode ?? 'complete';
   const baseLocale = options.sourceLocale ?? defaultLocale;
+  const outputLocales = (
+    options.outputLocales ? ensureArray(options.outputLocales) : locales
+  ).filter((locale) => locale !== baseLocale);
 
   checkAIAccess(configuration, options.aiOptions);
 
@@ -79,15 +96,6 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
   const targetUnmergedDictionaries = await getTargetDictionary(options);
 
-  // Determine output locales
-  const outputLocalesList: Locales[] = (
-    options.outputLocales ? ensureArray(options.outputLocales) : locales
-  ).filter((locale) =>
-    // If mode is review, translate all locales
-    // If mode is complete, translate only the locales that are not the source locale
-    mode === 'review' ? true : locale !== baseLocale
-  );
-
   const affectedDictionaryKeys = new Set<string>();
   targetUnmergedDictionaries.forEach((dict) => {
     affectedDictionaryKeys.add(dict.key);
@@ -97,7 +105,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
     [
       'Affected dictionary keys for processing:',
       Array.from(affectedDictionaryKeys)
-        .map((key) => `${ANSIColors.GREY}${key}${ANSIColors.RESET}`)
+        .map((key) => colorizeKey(key))
         .join(', '),
     ],
     {
@@ -113,7 +121,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (!mainDictionaryToProcess) {
       appLogger(
-        `Dictionary with key '${ANSIColors.GREY}${dictionaryKey}${ANSIColors.RESET}' not found in dictionariesRecord. Skipping.`,
+        `Dictionary with key '${colorizeKey(dictionaryKey)}' not found in dictionariesRecord. Skipping.`,
         {
           level: 'warn',
         }
@@ -123,7 +131,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (!targetUnmergedDictionary.filePath) {
       appLogger(
-        `Dictionary with key '${ANSIColors.GREY}${dictionaryKey}${ANSIColors.RESET}' has no file path. Skipping.`,
+        `Dictionary with key '${colorizeKey(dictionaryKey)}' has no file path. Skipping.`,
         {
           level: 'warn',
         }
@@ -136,12 +144,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
       targetUnmergedDictionary.filePath
     );
 
-    appLogger(
-      `Processing content declaration: ${ANSIColors.GREY}${relativePath}${ANSIColors.RESET}`,
-      {
-        level: 'info',
-      }
-    );
+    appLogger(`Processing content declaration: ${colorizePath(relativePath)}`, {
+      level: 'info',
+    });
 
     const sourceLocaleContent = getFilterTranslationsOnlyContent(
       mainDictionaryToProcess as unknown as ContentNode,
@@ -151,7 +156,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (Object.keys(sourceLocaleContent).length === 0) {
       appLogger(
-        `No content found for dictionary '${ANSIColors.GREY}${dictionaryKey}${ANSIColors.RESET}' in source locale ${sourceLocale}. Skipping translation for this dictionary.`,
+        `No content found for dictionary '${colorizeKey(dictionaryKey)}' in source locale ${formatLocaleName(sourceLocale)}. Skipping translation for this dictionary.`,
         {
           level: 'warn',
         }
@@ -167,13 +172,29 @@ export const fill = async (options: FillOptions): Promise<void> => {
       options.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
     );
 
+    // Determine output locales
+    let outputLocalesList: Locales[] = outputLocales;
+
+    // If mode is review, translate all locales
+    // If mode is complete, translate only the locales that are not the source locale
+    if (mode === 'complete') {
+      const missingLocales = getMissingLocalesContent(
+        mainDictionaryToProcess as unknown as ContentNode,
+        outputLocales,
+        {
+          dictionaryKey: mainDictionaryToProcess.key,
+          keyPath: [],
+          plugins: [],
+        }
+      );
+
+      outputLocalesList = missingLocales;
+    }
+
     const translationPromises = outputLocalesList.map((targetLocale) =>
       limit(async () => {
         appLogger(
-          `Preparing translation for ${ANSIColors.GREY}'${dictionaryKey}'${ANSIColors.RESET} dictionary from ${ANSIColors.GREEN}${getLocaleName(
-            sourceLocale,
-            Locales.ENGLISH
-          )} (${sourceLocale})${ANSIColors.RESET} to ${ANSIColors.GREEN}${getLocaleName(targetLocale, Locales.ENGLISH)} (${targetLocale})${ANSIColors.RESET}`,
+          `Preparing translation for '${colorizeKey(dictionaryKey)}' dictionary from ${formatLocaleName(sourceLocale)} to ${formatLocaleName(targetLocale)}`,
           {
             level: 'info',
           }
@@ -210,7 +231,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
           if (!translationResult.data?.fileContent) {
             appLogger(
-              `No content result found for '${ANSIColors.GREY}${dictionaryKey}${ANSIColors.RESET}' to ${targetLocale}`,
+              `No content result found for '${colorizeKey(dictionaryKey)}' to ${formatLocaleName(targetLocale)}`,
               {
                 level: 'error',
               }
@@ -227,7 +248,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
           return processedPerLocaleDictionary;
         } catch (error) {
           appLogger(
-            `Error filling '${ANSIColors.GREY}${dictionaryKey}${ANSIColors.RESET}' to ${targetLocale}:` +
+            `Error filling '${colorizeKey(dictionaryKey)}' to ${formatLocaleName(targetLocale)}:` +
               error,
             {
               level: 'error',

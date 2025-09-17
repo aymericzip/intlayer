@@ -243,7 +243,7 @@ This command analyzes your content declaration files for potential issues such a
 
 - **`--output-locales [outputLocales...]`**: Target locales to translate to. If not specified, all locales from your configuration will be used except the source locale.
 
-- **`--mode [mode]`**: Translation mode: 'complete', 'review', or 'missing-only'. Default is 'missing-only'.
+- **`--mode [mode]`**: Translation mode: `complete`, `review`. Default is `complete`. `complete` will fill all missing content, `review` will fill missing content and review existing keys.
 
 **Git options:**
 

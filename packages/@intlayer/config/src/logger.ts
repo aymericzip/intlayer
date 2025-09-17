@@ -91,7 +91,7 @@ export const colorizeLocales = (
     .map((locale) => colorize(locale, color))
     .join(`, `);
 
-export const colorizeKeyPath = (
+export const colorizeKey = (
   keyPath: string | string[],
   color = ANSIColors.GREY
 ) =>

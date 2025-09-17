@@ -430,7 +430,7 @@ export const setAPI = (): Command => {
     .option(
       '--mode [mode]',
       'Fill mode: complete, review. Complete will fill all missing content, review will fill missing content and review existing keys',
-      'review'
+      'complete'
     )
     .option('-k, --keys [keys...]', 'Filter dictionaries based on keys')
     .option(

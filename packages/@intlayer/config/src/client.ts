@@ -1,6 +1,6 @@
 export {
   ANSIColors,
-  colorizeKeyPath,
+  colorizeKey,
   colorizeLocales,
   colorizeNumber,
   colorizePath,

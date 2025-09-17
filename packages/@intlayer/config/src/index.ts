@@ -14,7 +14,7 @@ export { loadExternalFile } from './loadExternalFile';
 export {
   ANSIColors,
   colorize,
-  colorizeKeyPath,
+  colorizeKey,
   colorizeLocales,
   colorizeNumber,
   colorizePath,
