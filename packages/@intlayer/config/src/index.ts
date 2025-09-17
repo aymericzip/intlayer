@@ -13,6 +13,11 @@ export { getSandBoxContext } from './getSandboxContext';
 export { loadExternalFile } from './loadExternalFile';
 export {
   ANSIColors,
+  colorize,
+  colorizeKeyPath,
+  colorizeLocales,
+  colorizeNumber,
+  colorizePath,
   getAppLogger,
   logger,
   spinnerFrames,

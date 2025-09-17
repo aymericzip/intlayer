@@ -1,5 +1,5 @@
 import { getConfiguration, Locales, normalizePath } from '@intlayer/config';
-import { getFilteredLocalesContent, type Dictionary } from '@intlayer/core';
+import { getLocalisedContent, type Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { relative, resolve } from 'path';
 import { formatDictionaryText } from './formatDictionaryText';
@@ -97,12 +97,13 @@ export const writeDynamicDictionary = async (
       const localizedDictionary = {
         ...dictionaryEntry.dictionary,
         locale,
-        content: getFilteredLocalesContent(
+        // @ts-ignore Type instantiation is excessively deep and possibly infinite
+        content: getLocalisedContent(
           dictionaryEntry.dictionary.content as any,
           locale,
           { dictionaryKey: key, keyPath: [] },
           defaultLocale
-        ),
+        ) as any,
       };
 
       const contentString = formatDictionaryText(localizedDictionary);

@@ -17,6 +17,7 @@ import { pull } from './pull';
 import { push } from './push';
 import { pushConfig } from './pushConfig';
 import { reviewDoc } from './reviewDoc';
+import { testMissingTranslations } from './test';
 import { translateDoc } from './translateDoc';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
 
@@ -396,10 +397,26 @@ export const setAPI = (): Command => {
    * CONTENT DECLARATION
    */
 
-  program
-    .command('content list')
+  const contentProgram = program
+    .command('content')
+    .description('Content declaration operations');
+
+  contentProgram
+    .command('list')
     .description('List the content declaration files')
     .action(listContentDeclaration);
+
+  const testProgram = contentProgram
+    .command('test')
+    .description('Test if there are missing translations');
+
+  applyConfigOptions(testProgram);
+  testProgram.action((options) => {
+    testMissingTranslations({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
 
   const fillProgram = program
     .command('fill')

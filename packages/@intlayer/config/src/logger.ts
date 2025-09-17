@@ -1,3 +1,4 @@
+import { Locales } from 'intlayer';
 import type { CustomIntlayerConfig } from './types/config';
 
 export type Details = {
@@ -54,6 +55,9 @@ export enum ANSIColors {
   RED = '\x1b[31m',
   GREEN = '\x1b[32m',
   YELLOW = '\x1b[33m',
+  MAGENTA = '\x1b[35m',
+  CYAN = '\x1b[36m',
+  WHITE = '\x1b[37m',
 }
 
 export const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
@@ -64,8 +68,70 @@ export const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '
  * The configuration is merged with the default configuration from the intlayer config file.
  */
 export const getAppLogger =
-  (configuration?: CustomIntlayerConfig) => (content: any, details?: Details) =>
+  (configuration?: CustomIntlayerConfig, globalDetails?: Details) =>
+  (content: any, details?: Details) =>
     logger(content, {
       ...(details ?? {}),
-      config: { ...configuration?.log, ...(details?.config ?? {}) },
+      config: {
+        ...configuration?.log,
+        ...globalDetails?.config,
+        ...(details?.config ?? {}),
+      },
     });
+
+export const colorize = (s: string, color?: ANSIColors): string =>
+  color ? `${color}${s}${ANSIColors.RESET}` : s;
+
+export const colorizeLocales = (
+  locales: Locales | Locales[],
+  color = ANSIColors.GREEN
+) =>
+  [locales]
+    .flat()
+    .map((locale) => colorize(locale, color))
+    .join(`, `);
+
+export const colorizeKeyPath = (
+  keyPath: string | string[],
+  color = ANSIColors.GREY
+) =>
+  [keyPath]
+    .flat()
+    .map((key) => colorize(key, color))
+    .join(`, `);
+
+export const colorizePath = (
+  path: string | string[],
+  color = ANSIColors.GREY
+) =>
+  [path]
+    .flat()
+    .map((p) => colorize(p, color))
+    .join(`, `);
+
+/**
+ * Colorize numeric value using Intl.NumberFormat and optional ANSI colors.
+ *
+ * Examples:
+ *   colorizeNumber(2, [{ pluralRule: 'one' , color: ANSIColors.GREEN}, { pluralRule: 'other' , color: ANSIColors.RED}]) // "'\x1b[31m2\x1b[0m"
+ */
+export const colorizeNumber = (
+  number: number,
+  options: Partial<Record<Intl.LDMLPluralRule, ANSIColors>> = {
+    zero: ANSIColors.RESET,
+    one: ANSIColors.RESET,
+    two: ANSIColors.RESET,
+    few: ANSIColors.RESET,
+    many: ANSIColors.RESET,
+    other: ANSIColors.RESET,
+  }
+): string => {
+  if (number === 0) {
+    const color = options.zero ?? ANSIColors.GREEN;
+    return colorize(number.toString(), color);
+  }
+
+  const rule = new Intl.PluralRules('en').select(number);
+  const color = options[rule];
+  return colorize(number.toString(), color);
+};

@@ -32,7 +32,7 @@ const hasTranslationNodes = (node: any): boolean => {
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const filterTranslationsOnlyPlugin = (
   locale: LocalesValues,
-  fallback: boolean = true
+  fallback?: LocalesValues
 ): Plugins => ({
   id: 'filter-translations-only-plugin',
   canHandle: (node: ContentNode) => {
@@ -120,10 +120,11 @@ export const getFilterTranslationsOnlyContent = <
 >(
   node: T,
   locale: L = configuration?.internationalization.defaultLocale as L,
-  nodeProps: NodeProps
+  nodeProps: NodeProps,
+  fallback?: LocalesValues
 ) => {
   const plugins: Plugins[] = [
-    filterTranslationsOnlyPlugin(locale),
+    filterTranslationsOnlyPlugin(locale, fallback),
     ...(nodeProps.plugins ?? []),
   ];
 

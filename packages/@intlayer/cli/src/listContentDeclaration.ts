@@ -1,31 +1,11 @@
 import {
+  ANSIColors,
   getAppLogger,
   getConfiguration,
   type GetConfigurationOptions,
 } from '@intlayer/config';
-import fg from 'fast-glob';
-
-type GetContentDeclarationOptions = {
-  exclude?: string[];
-  configOptions?: GetConfigurationOptions;
-};
-
-export const getContentDeclaration = (
-  options?: GetContentDeclarationOptions
-): string[] => {
-  const {
-    content: { watchedFilesPatternWithPath },
-  } = getConfiguration(options?.configOptions);
-
-  const contentDeclarationFilesPath: string[] = fg.sync(
-    watchedFilesPatternWithPath,
-    {
-      ignore: options?.exclude,
-    }
-  );
-
-  return contentDeclarationFilesPath;
-};
+import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
+import { relative } from 'path';
 
 type ListContentDeclarationOptions = {
   configOptions?: GetConfigurationOptions;
@@ -34,10 +14,30 @@ type ListContentDeclarationOptions = {
 export const listContentDeclaration = (
   options?: ListContentDeclarationOptions
 ) => {
-  const contentDeclarationFilesPath = getContentDeclaration(options);
-
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config);
+  const appLogger = getAppLogger(config, {
+    config: {
+      prefix: '',
+    },
+  });
 
-  appLogger([contentDeclarationFilesPath]);
+  const rows = Object.values(unmergedDictionariesRecord)
+    .flat()
+    .map((dictionary) => ({
+      key: dictionary.key ?? '',
+      path: relative(config.content.baseDir, dictionary.filePath ?? 'Remote'),
+    }));
+
+  const keyColWidth = rows.reduce((max, r) => Math.max(max, r.key.length), 0);
+
+  const lines = rows
+    .map((r) => {
+      const keyPadded = r.key.padEnd(keyColWidth, ' ');
+      return ` - ${keyPadded} - ${ANSIColors.GREY}${r.path}${ANSIColors.RESET}`;
+    })
+    .join('\n');
+
+  appLogger(`Content declaration files:\n${lines}`);
+
+  appLogger(`Total content declaration files: ${rows.length}`);
 };

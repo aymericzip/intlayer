@@ -24,7 +24,7 @@ export const getLocalisedContent = <
   node: T,
   locale: L = configuration?.internationalization.defaultLocale as L,
   nodeProps: NodeProps,
-  fallback: boolean = false // fallback mean that if field is not translated, it will use the default locale
+  fallback?: LocalesValues // fallback mean that if field is not translated, it will use the default locale
 ) => {
   const plugins: Plugins[] = [
     translationPlugin(locale, fallback),

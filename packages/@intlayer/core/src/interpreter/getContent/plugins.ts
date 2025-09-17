@@ -55,7 +55,7 @@ export type TranslationCond<T, S> = T extends {
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const translationPlugin = (
   locale: LocalesValues,
-  fallback: boolean = true
+  fallback?: LocalesValues
 ): Plugins => ({
   id: 'translation-plugin',
   canHandle: (node) =>

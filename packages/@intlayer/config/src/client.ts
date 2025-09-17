@@ -1,4 +1,13 @@
-export { ANSIColors, getAppLogger, logger, spinnerFrames } from './logger';
+export {
+  ANSIColors,
+  colorizeKeyPath,
+  colorizeLocales,
+  colorizeNumber,
+  colorizePath,
+  getAppLogger,
+  logger,
+  spinnerFrames,
+} from './logger';
 export type {
   BaseContentConfig,
   BaseDerivedConfig,
