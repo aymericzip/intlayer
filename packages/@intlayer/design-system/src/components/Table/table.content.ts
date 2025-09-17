@@ -2,6 +2,7 @@ import { t, type Dictionary } from 'intlayer';
 
 const tableContent = {
   key: 'table',
+  autoFill: './{{key}}.content.json',
   content: {
     show: t({
       en: 'Show all table content',

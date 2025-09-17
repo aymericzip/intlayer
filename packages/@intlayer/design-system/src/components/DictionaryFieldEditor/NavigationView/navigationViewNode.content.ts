@@ -2,6 +2,7 @@ import { t, type Dictionary } from 'intlayer';
 
 export const navigationViewContent = {
   key: 'navigation-view',
+  autoFill: './{{key}}.content.json',
   content: {
     tsxNotEditable: t({
       en: 'React node is not editable',

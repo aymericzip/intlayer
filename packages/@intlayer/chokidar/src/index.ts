@@ -9,7 +9,6 @@ export { fetchDistantDictionaries } from './fetchDistantDictionaries';
 export { fetchDistantDictionaryKeys } from './fetchDistantDictionaryKeys';
 export { getBuiltDictionariesPath } from './getBuiltDictionariesPath';
 export { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionariesPath';
-export { getFilteredLocalesContent } from './getFilteredLocalesContent';
 export { listDictionaries } from './listDictionariesPath';
 export {
   listGitFiles,

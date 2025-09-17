@@ -1,13 +1,13 @@
 import configuration from '@intlayer/config/built';
 import type { Locales, LocalesValues } from '@intlayer/config/client';
-import type { ContentNode } from '../../types';
-import { deepTransformNode } from './deepTransform';
+import { deepTransformNode } from '../interpreter/getContent/deepTransform';
 import {
   translationPlugin,
   type DeepTransformContent,
   type NodeProps,
   type Plugins,
-} from './plugins';
+} from '../interpreter/getContent/plugins';
+import type { ContentNode } from '../types';
 
 /**
  * Transforms a node in a single pass, applying each plugin as needed.

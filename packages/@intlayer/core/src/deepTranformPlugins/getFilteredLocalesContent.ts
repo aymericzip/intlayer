@@ -1,11 +1,10 @@
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
-  ContentNode,
-  deepTransformNode,
-  NodeType,
   type NodeProps,
   type Plugins,
-} from '@intlayer/core';
+  deepTransformNode,
+} from '../interpreter';
+import { type ContentNode, NodeType } from '../types';
 
 const filterTranlationsPlugin = (
   locales: LocalesValues[] | LocalesValues,

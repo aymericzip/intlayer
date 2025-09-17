@@ -2,6 +2,7 @@ import { t, type Dictionary } from 'intlayer';
 
 export const dictionaryFieldEditorContent = {
   key: 'dictionary-field-editor',
+  autoFill: './{{key}}.content.json',
   content: {
     returnToDictionaryList: {
       label: t({

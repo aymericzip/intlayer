@@ -1,3 +1,4 @@
+export * from './deepTranformPlugins';
 export * from './dictionaryManipulator/index';
 export * from './formatters/index';
 export * from './interpreter/index';

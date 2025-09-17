@@ -1,6 +1,5 @@
 import { AIOptions, getAiAPI, getOAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
-  getFilteredLocalesContent,
   listGitFiles,
   ListGitFilesOptions,
   mergeDictionaries,
@@ -20,6 +19,8 @@ import {
   type AutoFill,
   type ContentNode,
   type Dictionary,
+  getFilteredLocalesContent,
+  getFilterTranslationsOnlyContent,
   getLocaleName,
   getLocalisedContent,
 } from '@intlayer/core';
@@ -30,6 +31,9 @@ import { dirname, extname, join, relative } from 'path';
 import { checkAIAccess } from './utils/checkAIAccess';
 
 const NB_CONCURRENT_TRANSLATIONS = 5;
+
+const RESET = '\x1b[0m';
+const GREY = '\x1b[90m';
 
 // Arguments for the fill function
 export type FillOptions = {
@@ -177,7 +181,7 @@ const formatAutoFillData = (
       outputContentDeclarationFile.push({
         localeList,
         filePath: transformUriToAbsolutePath(
-          autoFillOptions,
+          autoFillOptions.replace('{{key}}', dictionaryKey),
           filePath,
           configuration.content.baseDir
         ),
@@ -247,11 +251,6 @@ const autoFill = async (
     fullDictionary.key,
     configuration
   );
-
-  appLogger(`Auto fill data: ${JSON.stringify(autoFillData, null, 2)}`, {
-    level: 'info',
-    isVerbose: true,
-  });
 
   for await (const output of autoFillData) {
     const reducedDictionary = reduceDictionaryContent(
@@ -343,7 +342,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
   appLogger(
     [
       'Affected dictionary keys for processing:',
-      Array.from(affectedDictionaryKeys).join(', '),
+      Array.from(affectedDictionaryKeys)
+        .map((key) => `${GREY}${key}${RESET}`)
+        .join(', '),
     ],
     {
       isVerbose: true,
@@ -358,7 +359,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (!mainDictionaryToProcess) {
       appLogger(
-        `Dictionary with key "${dictionaryKey}" not found in dictionariesRecord. Skipping.`,
+        `Dictionary with key '${GREY}${dictionaryKey}${RESET}' not found in dictionariesRecord. Skipping.`,
         {
           level: 'warn',
         }
@@ -368,7 +369,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (!targetUnmergedDictionary.filePath) {
       appLogger(
-        `Dictionary with key "${dictionaryKey}" has no file path. Skipping.`,
+        `Dictionary with key '${GREY}${dictionaryKey}${RESET}' has no file path. Skipping.`,
         {
           level: 'warn',
         }
@@ -385,7 +386,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
       level: 'info',
     });
 
-    const sourceLocaleContent = getLocalisedContent(
+    const sourceLocaleContent = getFilterTranslationsOnlyContent(
       mainDictionaryToProcess as unknown as ContentNode,
       sourceLocale,
       { dictionaryKey, keyPath: [] }
@@ -393,7 +394,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (Object.keys(sourceLocaleContent).length === 0) {
       appLogger(
-        `No content found for dictionary ${dictionaryKey} in source locale ${sourceLocale}. Skipping translation for this dictionary.`,
+        `No content found for dictionary '${GREY}${dictionaryKey}${RESET}' in source locale ${sourceLocale}. Skipping translation for this dictionary.`,
         {
           level: 'warn',
         }
@@ -412,7 +413,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
     const translationPromises = outputLocalesList.map((targetLocale) =>
       limit(async () => {
         appLogger(
-          `Preparing translation for '${dictionaryKey}' dictionary from ${getLocaleName(
+          `Preparing translation for '${GREY}${dictionaryKey}${RESET}' dictionary from ${getLocaleName(
             sourceLocale,
             Locales.ENGLISH
           )} (${sourceLocale}) to ${getLocaleName(targetLocale, Locales.ENGLISH)} (${targetLocale})`,
@@ -452,7 +453,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
           if (!translationResult.data?.fileContent) {
             appLogger(
-              `No content result found for ${dictionaryKey} to ${targetLocale}`,
+              `No content result found for '${GREY}${dictionaryKey}${RESET}' to ${targetLocale}`,
               {
                 level: 'error',
               }
@@ -469,7 +470,8 @@ export const fill = async (options: FillOptions): Promise<void> => {
           return processedPerLocaleDictionary;
         } catch (error) {
           appLogger(
-            `Error filling ${dictionaryKey} to ${targetLocale}:` + error,
+            `Error filling '${GREY}${dictionaryKey}${RESET}' to ${targetLocale}:` +
+              error,
             {
               level: 'error',
             }

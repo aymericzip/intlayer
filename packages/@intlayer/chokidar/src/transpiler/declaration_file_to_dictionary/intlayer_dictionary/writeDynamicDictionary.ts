@@ -1,8 +1,7 @@
 import { getConfiguration, Locales, normalizePath } from '@intlayer/config';
-import { type Dictionary } from '@intlayer/core';
+import { getFilteredLocalesContent, type Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { relative, resolve } from 'path';
-import { getFilteredLocalesContent } from '../../../getFilteredLocalesContent';
 import { formatDictionaryText } from './formatDictionaryText';
 import { MergedDictionaryOutput } from './writeMergedDictionary';
 

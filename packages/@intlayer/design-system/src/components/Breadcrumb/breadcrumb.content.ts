@@ -2,6 +2,7 @@ import { t, type Dictionary } from 'intlayer';
 
 export const breadCrumbContent = {
   key: 'breadcrumb',
+  autoFill: './{{key}}.content.json',
   content: {
     linkLabel: t({
       en: 'Go to',
