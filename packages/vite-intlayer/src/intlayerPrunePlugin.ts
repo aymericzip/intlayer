@@ -96,7 +96,6 @@ export const intlayerPrune = (intlayerConfig: IntlayerConfig): PluginOption => {
         });
 
         if (result?.code) {
-          console.log(result.code);
           return {
             code: result.code,
             map: result.map,
