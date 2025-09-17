@@ -11,7 +11,13 @@ export {
 } from './envVariables/index';
 export { getSandBoxContext } from './getSandboxContext';
 export { loadExternalFile } from './loadExternalFile';
-export { getAppLogger, logger, type Logger } from './logger';
+export {
+  ANSIColors,
+  getAppLogger,
+  logger,
+  spinnerFrames,
+  type Logger,
+} from './logger';
 export { retryManager } from './retryManager';
 export type {
   BaseContentConfig,

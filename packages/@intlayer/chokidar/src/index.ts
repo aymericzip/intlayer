@@ -6,7 +6,7 @@ export {
 } from './chokidar/watcher';
 export { cleanOutputDir } from './cleanOutputDir';
 export { fetchDistantDictionaries } from './fetchDistantDictionaries';
-export { fetchDistantDictionaryKeys } from './fetchDistantDictionaryKeys';
+export { fetchDistantDictionaryKeysAndUpdateTimestamp } from './fetchDistantDictionaryKeysAndUpdateTimestamp';
 export { getBuiltDictionariesPath } from './getBuiltDictionariesPath';
 export { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionariesPath';
 export { listDictionaries } from './listDictionariesPath';

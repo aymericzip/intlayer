@@ -1,9 +1,9 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config';
 
-export const fetchDistantDictionaryKeys = async (
+export const fetchDistantDictionaryKeysAndUpdateTimestamp = async (
   configuration: IntlayerConfig = getConfiguration()
-): Promise<string[]> => {
+): Promise<Record<string, number>> => {
   const { clientId, clientSecret } = configuration.editor;
 
   if (!clientId || !clientSecret) {
@@ -20,7 +20,7 @@ export const fetchDistantDictionaryKeys = async (
 
   // Get the list of dictionary keys
   const getDictionariesKeysResult =
-    await intlayerAPI.dictionary.getDictionariesKeys({
+    await intlayerAPI.dictionary.getDictionariesUpdateTimestamp({
       ...(oAuth2AccessToken && {
         headers: {
           Authorization: `Bearer ${oAuth2AccessToken}`,
@@ -32,8 +32,9 @@ export const fetchDistantDictionaryKeys = async (
     throw new Error('No distant dictionaries found');
   }
 
-  const distantDictionariesKeys: string[] = getDictionariesKeysResult.data;
+  const distantDictionariesUpdateTimeStamp: Record<string, number> =
+    getDictionariesKeysResult.data;
 
   // Apply any filtering if needed
-  return distantDictionariesKeys;
+  return distantDictionariesUpdateTimeStamp;
 };

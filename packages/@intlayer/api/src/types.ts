@@ -55,6 +55,7 @@ export type {
   GetDictionariesKeysResult,
   GetDictionariesParams,
   GetDictionariesResult,
+  GetDictionariesUpdateTimestampResult,
   GetDictionaryParams,
   GetDictionaryQuery,
   GetDictionaryResult,

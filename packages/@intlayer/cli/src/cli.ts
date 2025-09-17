@@ -423,6 +423,10 @@ export const setAPI = (): Command => {
     .option(
       '--path-filter [pathFilters...]',
       'Filter dictionaries based on glob pattern'
+    )
+    .option(
+      '--build [build]',
+      'Build the dictionaries before filling to ensure the content is up to date'
     );
 
   applyConfigOptions(fillProgram);

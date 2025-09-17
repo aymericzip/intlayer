@@ -151,6 +151,63 @@ export const getDictionariesKeys = async (
   }
 };
 
+export type GetDictionariesUpdateTimestampResult = ResponseData<
+  Record<string, number>
+>;
+
+/**
+ * Retrieves a list of dictionaries keys based on filters and pagination.
+ */
+export const getDictionariesUpdateTimestamp = async (
+  _req: Request,
+  res: ResponseWithSession<GetDictionariesUpdateTimestampResult>,
+  _next: NextFunction
+) => {
+  const { project, roles } = res.locals;
+
+  if (!project) {
+    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
+    return;
+  }
+
+  try {
+    const dictionaries = await dictionaryService.findDictionaries({
+      projectIds: project.id,
+    });
+
+    if (
+      !hasPermission(
+        roles,
+        'dictionary:read'
+      )({
+        ...res.locals,
+        targetDictionaries: dictionaries,
+      })
+    ) {
+      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
+      return;
+    }
+
+    const dictionariesUpdateTimestamp = dictionaries.reduce(
+      (acc, dictionary) => ({
+        ...acc,
+        [dictionary.key]: new Date(dictionary.updatedAt).getTime(),
+      }),
+      {}
+    );
+
+    const responseData = formatResponse<Record<string, number>>({
+      data: dictionariesUpdateTimestamp,
+    });
+
+    res.json(responseData);
+    return;
+  } catch (error) {
+    ErrorHandler.handleAppErrorResponse(res, error as AppError);
+    return;
+  }
+};
+
 export type GetDictionaryParams = { dictionaryKey: string };
 export type GetDictionaryQuery = { version?: string };
 export type GetDictionaryResult = ResponseData<DictionaryAPI>;

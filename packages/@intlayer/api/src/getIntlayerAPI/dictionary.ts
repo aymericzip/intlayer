@@ -9,6 +9,7 @@ import type {
   GetDictionariesKeysResult,
   GetDictionariesParams,
   GetDictionariesResult,
+  GetDictionariesUpdateTimestampResult,
   GetDictionaryParams,
   GetDictionaryQuery,
   GetDictionaryResult,
@@ -56,6 +57,18 @@ export const getDictionaryAPI = (
   const getDictionariesKeys = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetDictionariesKeysResult>(
       `${PROJECT_API_ROUTE}/keys`,
+      authAPIOptions,
+      otherOptions
+    );
+
+  /**
+   * Retrieves a list of dictionary keys related to the project.
+   */
+  const getDictionariesUpdateTimestamp = async (
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetDictionariesUpdateTimestampResult>(
+      `${PROJECT_API_ROUTE}/update`,
       authAPIOptions,
       otherOptions
     );
@@ -149,6 +162,7 @@ export const getDictionaryAPI = (
   return {
     getDictionaries,
     getDictionariesKeys,
+    getDictionariesUpdateTimestamp,
     getDictionary,
     pushDictionaries,
     addDictionary,

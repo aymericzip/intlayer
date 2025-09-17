@@ -1,4 +1,4 @@
-export { getAppLogger, logger } from './logger';
+export { ANSIColors, getAppLogger, logger, spinnerFrames } from './logger';
 export type {
   BaseContentConfig,
   BaseDerivedConfig,

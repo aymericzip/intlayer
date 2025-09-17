@@ -46,6 +46,18 @@ export const logger: Logger = (
   console.log(...flatContent);
 };
 
+export enum ANSIColors {
+  RESET = '\x1b[0m',
+  GREY = '\x1b[90m',
+  GREY_DARK = '\x1b[90m',
+  BLUE = '\x1b[34m',
+  RED = '\x1b[31m',
+  GREEN = '\x1b[32m',
+  YELLOW = '\x1b[33m',
+}
+
+export const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+
 /**
  * The appLogger function takes the logger and merges it with the configuration from the intlayer config file.
  * It allows overriding the default configuration by passing a config object in the details parameter.

@@ -1,4 +1,9 @@
-import { type IntlayerConfig, getConfiguration } from '@intlayer/config';
+import {
+  ANSIColors,
+  getConfiguration,
+  spinnerFrames,
+  type IntlayerConfig,
+} from '@intlayer/config';
 import readline from 'readline';
 import { sortAlphabetically } from './utils/sortAlphabetically';
 
@@ -17,15 +22,6 @@ export type DictionariesStatus = {
 };
 
 const LINE_DETECTOR = '\u200B\u200B\u200B'; // Three zero-width spaces
-const SPINNER_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-
-// ANSI color codes
-const RESET = '\x1b[0m';
-const GREEN = '\x1b[32m';
-const RED = '\x1b[31m';
-const BLUE = '\x1b[34m';
-const GREY = '\x1b[90m';
-const GREY_DARK = '\x1b[90m';
 
 class Logger {
   private dictionariesStatuses: DictionariesStatus[] = [];
@@ -314,22 +310,22 @@ class Logger {
       let icon = this.getStatusIcon(state.status);
       if (state.status === 'fetching') {
         // Use spinner frame
-        icon = SPINNER_FRAMES[state.spinnerFrameIndex! % SPINNER_FRAMES.length];
-        colorStart = BLUE;
-        colorEnd = RESET;
+        icon = spinnerFrames[state.spinnerFrameIndex! % spinnerFrames.length];
+        colorStart = ANSIColors.BLUE;
+        colorEnd = ANSIColors.RESET;
       } else if (state.status === 'error') {
-        colorStart = RED;
-        colorEnd = RESET;
+        colorStart = ANSIColors.RED;
+        colorEnd = ANSIColors.RESET;
       } else if (state.status === 'imported' || state.status === 'built') {
-        colorStart = GREEN;
-        colorEnd = RESET;
+        colorStart = ANSIColors.GREEN;
+        colorEnd = ANSIColors.RESET;
       } else {
-        colorStart = GREY;
-        colorEnd = RESET;
+        colorStart = ANSIColors.GREY;
+        colorEnd = ANSIColors.RESET;
       }
 
       // Format the status block
-      const statusBlock = `${GREY_DARK}[${state.type}: ${colorStart}${icon} ${state.status}${GREY_DARK}]${colorEnd}`;
+      const statusBlock = `${ANSIColors.GREY_DARK}[${state.type}: ${colorStart}${icon} ${state.status}${ANSIColors.GREY_DARK}]${colorEnd}`;
 
       return `${colorStart}${statusBlock}${colorEnd}`;
     });
@@ -347,7 +343,7 @@ class Logger {
         if (state.status === 'fetching') {
           // Update spinner frame
           state.spinnerFrameIndex =
-            (state.spinnerFrameIndex! + 1) % SPINNER_FRAMES.length;
+            (state.spinnerFrameIndex! + 1) % spinnerFrames.length;
         }
       });
       return this.getStatusLine(statusObj);

@@ -1,9 +1,11 @@
 import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
 import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
+  ANSIColors,
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
+  spinnerFrames,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
@@ -29,15 +31,6 @@ type DictionariesStatus = {
   errorMessage?: string;
   spinnerFrameIndex?: number;
 };
-
-const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-
-const RESET = '\x1b[0m';
-const GREEN = '\x1b[32m';
-const RED = '\x1b[31m';
-const BLUE = '\x1b[34m';
-const GREY = '\x1b[90m';
-const GREY_DARK = '\x1b[90m';
 
 /**
  * Get all locale dictionaries and push them simultaneously.
@@ -287,20 +280,20 @@ const getStatusLine = (statusObj: DictionariesStatus): string => {
   if (statusObj.status === 'pushing') {
     // Use spinner frame
     icon = spinnerFrames[statusObj.spinnerFrameIndex! % spinnerFrames.length];
-    colorStart = BLUE;
-    colorEnd = RESET;
+    colorStart = ANSIColors.BLUE;
+    colorEnd = ANSIColors.RESET;
   } else if (statusObj.status === 'error') {
-    colorStart = RED;
-    colorEnd = RESET;
+    colorStart = ANSIColors.RED;
+    colorEnd = ANSIColors.RESET;
   } else if (statusObj.status === 'pushed' || statusObj.status === 'modified') {
-    colorStart = GREEN;
-    colorEnd = RESET;
+    colorStart = ANSIColors.GREEN;
+    colorEnd = ANSIColors.RESET;
   } else {
-    colorStart = GREY;
-    colorEnd = RESET;
+    colorStart = ANSIColors.GREY;
+    colorEnd = ANSIColors.RESET;
   }
 
-  return `- ${statusObj.dictionary.key} ${GREY_DARK}[${colorStart}${icon}${statusObj.status}${GREY_DARK}]${colorEnd}`;
+  return `- ${statusObj.dictionary.key} ${ANSIColors.GREY_DARK}[${colorStart}${icon}${statusObj.status}${ANSIColors.GREY_DARK}]${colorEnd}`;
 };
 
 const updateAllStatusLines = (dictionariesStatuses: DictionariesStatus[]) => {

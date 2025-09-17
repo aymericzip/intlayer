@@ -4,11 +4,12 @@ import {
   type DictionaryStatus,
 } from '@intlayer/chokidar';
 import {
+  ANSIColors,
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
+  spinnerFrames,
 } from '@intlayer/config';
-
 import type { Dictionary } from '@intlayer/core';
 import pLimit from 'p-limit';
 import * as readline from 'readline';
@@ -28,16 +29,6 @@ type DictionariesStatus = {
   errorMessage?: string;
   spinnerFrameIndex?: number;
 };
-
-const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-
-const RESET = '\x1b[0m';
-const GREEN = '\x1b[32m';
-const RED = '\x1b[31m';
-const BLUE = '\x1b[34m';
-const GREY = '\x1b[90m';
-const YELLOW = '\x1b[33m';
-const GREY_DARK = '\x1b[90m';
 
 /**
  * Fetch distant dictionaries and write them locally,
@@ -210,31 +201,31 @@ const getStatusLine = (statusObj: DictionariesStatus): string => {
   if (statusObj.status === 'fetching') {
     // Use spinner frame
     icon = spinnerFrames[statusObj.spinnerFrameIndex! % spinnerFrames.length];
-    colorStart = BLUE;
-    colorEnd = RESET;
+    colorStart = ANSIColors.BLUE;
+    colorEnd = ANSIColors.RESET;
   } else if (statusObj.status === 'error') {
-    colorStart = RED;
-    colorEnd = RESET;
+    colorStart = ANSIColors.RED;
+    colorEnd = ANSIColors.RESET;
   } else if (
     statusObj.status === 'fetched' ||
     statusObj.status === 'imported' ||
     statusObj.status === 'updated' ||
     statusObj.status === 'up-to-date'
   ) {
-    colorStart = GREEN;
-    colorEnd = RESET;
+    colorStart = ANSIColors.GREEN;
+    colorEnd = ANSIColors.RESET;
   } else if (
     statusObj.status === 'reimported in JSON' ||
     statusObj.status === 'reimported in new location'
   ) {
-    colorStart = YELLOW;
-    colorEnd = RESET;
+    colorStart = ANSIColors.YELLOW;
+    colorEnd = ANSIColors.RESET;
   } else {
-    colorStart = GREY;
-    colorEnd = RESET;
+    colorStart = ANSIColors.GREY;
+    colorEnd = ANSIColors.RESET;
   }
 
-  return `- ${statusObj.dictionaryKey} ${GREY_DARK}[${colorStart}${icon}${statusObj.status}${GREY_DARK}]${colorEnd}`;
+  return `- ${statusObj.dictionaryKey} ${ANSIColors.GREY_DARK}[${colorStart}${icon}${statusObj.status}${ANSIColors.GREY_DARK}]${colorEnd}`;
 };
 
 const updateAllStatusLines = (dictionariesStatuses: DictionariesStatus[]) => {

@@ -6,8 +6,9 @@ import {
   getConfiguration,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
+import dictionariesRecord from '@intlayer/dictionaries-entry';
 import { relative } from 'node:path';
-import { fetchDistantDictionaryKeys } from '../fetchDistantDictionaryKeys';
+import { fetchDistantDictionaryKeysAndUpdateTimestamp } from '../fetchDistantDictionaryKeysAndUpdateTimestamp';
 import { logger } from '../log';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
 import { loadContentDeclarations } from './loadContentDeclaration';
@@ -68,15 +69,26 @@ export const loadDictionaries = async (
     );
 
     let distantDictionaries: DictionaryAPI[] = [];
-    let distantDictionaryKeys: string[] = [];
+    let distantDictionaryUpdateTimeStamp: Record<string, number> = {};
 
     if (editor.clientId && editor.clientSecret) {
       try {
         // Fetch distant dictionary keys
-        distantDictionaryKeys = await fetchDistantDictionaryKeys();
+        distantDictionaryUpdateTimeStamp =
+          await fetchDistantDictionaryKeysAndUpdateTimestamp();
+
+        const dictionariesToFetch = Object.entries(
+          distantDictionaryUpdateTimeStamp
+        )
+          .filter(
+            ([key, updateTimeStamp]) =>
+              !dictionariesRecord[key] ||
+              updateTimeStamp > dictionariesRecord[key].updatedAt
+          )
+          .map(([key]) => key);
 
         const orderedDistantDictionaryKeys =
-          distantDictionaryKeys.sort(sortAlphabetically);
+          dictionariesToFetch.sort(sortAlphabetically);
 
         // Add distant dictionaries to the logger
         logger.addDictionaryKeys('distant', orderedDistantDictionaryKeys);
