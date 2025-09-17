@@ -28,7 +28,7 @@ import {
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
 import pLimit from 'p-limit';
-import { dirname, extname, join, relative } from 'path';
+import { basename, dirname, extname, join, relative } from 'path';
 import { checkAIAccess } from './utils/checkAIAccess';
 
 const NB_CONCURRENT_TRANSLATIONS = 5;
@@ -133,10 +133,36 @@ const transformUriToAbsolutePath = (
 export type AutoFillData = {
   localeList: Locales[];
   filePath: string;
+  isPerLocale: boolean;
+};
+
+const formatAutoFilledFilePath = (
+  autoFillField: string,
+  dictionaryKey: string,
+  dictionaryFilePath: string,
+  baseDir: string,
+  locale?: Locales
+) => {
+  // transform `/src/components/home/index.content.json` to `index`
+  // transform `./test.content.tsx` to `test`
+  const fileName = basename(dictionaryFilePath)
+    .split('.')
+    .slice(0, -2) // Remove last 2 extensions (.content.tsx)
+    .join('.');
+
+  let result: string = autoFillField
+    .replace('{{key}}', dictionaryKey)
+    .replace('{{fileName}}', fileName);
+
+  if (locale) {
+    result = result.replace('{{locale}}', locale);
+  }
+
+  return transformUriToAbsolutePath(result, dictionaryFilePath, baseDir);
 };
 
 const formatAutoFillData = (
-  autoFillOptions: AutoFill,
+  autoFillField: AutoFill,
   localeList: Locales[],
   filePath: string,
   dictionaryKey: string,
@@ -144,9 +170,11 @@ const formatAutoFillData = (
 ): AutoFillData[] => {
   const outputContentDeclarationFile: AutoFillData[] = [];
 
-  if (!Boolean(autoFillOptions)) return outputContentDeclarationFile;
+  const baseDir = configuration.content.baseDir;
 
-  if (autoFillOptions === true) {
+  if (!Boolean(autoFillField)) return outputContentDeclarationFile;
+
+  if (autoFillField === true) {
     // wanted jsonFilePath: /..../src/components/home/index.content.json
     // replace file extension in json
     let jsonFilePath = filePath.replace(extname(filePath), '.json');
@@ -159,50 +187,69 @@ const formatAutoFillData = (
     outputContentDeclarationFile.push({
       localeList,
       filePath: jsonFilePath,
+      isPerLocale: false,
     });
   }
 
-  if (typeof autoFillOptions === 'string') {
-    if (autoFillOptions.includes('{{locale}}')) {
-      const output = localeList.map((locale) => ({
-        localeList: [locale],
-        filePath: transformUriToAbsolutePath(
-          autoFillOptions
-            .replace('{{locale}}', locale)
-            .replace('{{key}}', dictionaryKey),
+  if (typeof autoFillField === 'string') {
+    if (autoFillField.includes('{{locale}}')) {
+      const output = localeList.map((locale) => {
+        const formattedFilePath = formatAutoFilledFilePath(
+          autoFillField,
+          dictionaryKey,
           filePath,
-          configuration.content.baseDir
-        ),
-      }));
+          baseDir,
+          locale
+        );
+
+        return {
+          localeList: [locale],
+          filePath: formattedFilePath,
+          isPerLocale: true,
+        };
+      });
 
       outputContentDeclarationFile.push(...output);
     } else {
+      const formattedFilePath = formatAutoFilledFilePath(
+        autoFillField,
+        dictionaryKey,
+        filePath,
+        baseDir
+      );
+
       outputContentDeclarationFile.push({
         localeList,
-        filePath: transformUriToAbsolutePath(
-          autoFillOptions.replace('{{key}}', dictionaryKey),
-          filePath,
-          configuration.content.baseDir
-        ),
+        filePath: formattedFilePath,
+        isPerLocale: false,
       });
     }
 
     return outputContentDeclarationFile;
   }
 
-  if (typeof autoFillOptions === 'object') {
-    const localeList = Object.keys(autoFillOptions).filter(
-      (locale) => typeof autoFillOptions[locale] === 'string'
+  if (typeof autoFillField === 'object') {
+    const localeList = Object.keys(autoFillField).filter(
+      (locale) => typeof autoFillField[locale] === 'string'
     ) as Locales[];
 
-    const output: AutoFillData[] = localeList.map((locale) => ({
-      localeList: [locale],
-      filePath: transformUriToAbsolutePath(
-        autoFillOptions[locale].replace('{{key}}', dictionaryKey),
-        filePath,
-        configuration.content.baseDir
-      ),
-    }));
+    const output: AutoFillData[] = localeList
+      .filter((locale) => Boolean(autoFillField[locale]))
+      .map((locale) => {
+        const formattedFilePath = formatAutoFilledFilePath(
+          autoFillField[locale],
+          dictionaryKey,
+          filePath,
+          baseDir,
+          locale
+        );
+
+        return {
+          localeList: [locale],
+          filePath: formattedFilePath,
+          isPerLocale: true,
+        };
+      });
 
     // Group by filePath and merge localeList
     const groupedByFilePath = output.reduce((acc, curr) => {
@@ -257,9 +304,7 @@ const autoFill = async (
       contentDeclarationFile
     );
 
-    const isPerLocaleDeclarationFile = output.localeList.length === 1;
-
-    if (isPerLocaleDeclarationFile) {
+    if (output.isPerLocale) {
       const sourceLocale = output.localeList[0];
 
       const sourceLocaleContent = getLocalisedContent(
@@ -519,21 +564,21 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     const reducedResult = reduceDictionaryContent(mergedResults, formattedDict);
 
-    await writeContentDeclaration(
-      { ...formattedDict, content: reducedResult.content },
-      configuration,
-      formattedDict.filePath
-    );
-
-    if (!formattedDict.autoFill) return;
-
-    await autoFill(
-      mergedResults,
-      targetUnmergedDictionary,
-      formattedDict.autoFill,
-      outputLocalesList,
-      [sourceLocale],
-      configuration
-    );
+    if (formattedDict.autoFill) {
+      await autoFill(
+        mergedResults,
+        targetUnmergedDictionary,
+        formattedDict.autoFill,
+        outputLocalesList,
+        [sourceLocale],
+        configuration
+      );
+    } else {
+      await writeContentDeclaration(
+        { ...formattedDict, content: reducedResult.content },
+        configuration,
+        formattedDict.filePath
+      );
+    }
   }
 };

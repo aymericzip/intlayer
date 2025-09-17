@@ -7,27 +7,13 @@ import {
 import { type ContentNode, NodeType } from '../types';
 
 const filterTranlationsPlugin = (
-  locales: LocalesValues[] | LocalesValues,
-  fallback: LocalesValues | undefined = undefined // fallback mean that if field is not translated, it will use the default locale,
+  locales: LocalesValues[] | LocalesValues
 ): Plugins => ({
   id: 'filter-translations-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
   transform: (node, props, deepTransformNode) => {
     const translationMap = node.translation as Record<Locales, string>;
-
-    const localesArray = Array.isArray(locales) ? locales : [locales];
-    const isSingleLocale = localesArray.length === 1;
-
-    if (isSingleLocale) {
-      let content = translationMap[localesArray[0] as Locales];
-
-      if (typeof content === 'undefined' && fallback) {
-        content = translationMap[fallback as Locales];
-      }
-
-      return deepTransformNode(content, props);
-    }
 
     const filteredTranslationMap = Object.fromEntries(
       Object.entries(translationMap).filter(([key]) =>
@@ -51,11 +37,10 @@ const filterTranlationsPlugin = (
 export const getFilteredLocalesContent = (
   node: ContentNode,
   locale: LocalesValues | LocalesValues[],
-  nodeProps: NodeProps,
-  fallback?: LocalesValues // fallback mean that if field is not translated, it will use the default locale,
+  nodeProps: NodeProps
 ) => {
   const plugins: Plugins[] = [
-    filterTranlationsPlugin(locale, fallback),
+    filterTranlationsPlugin(locale),
     ...(nodeProps.plugins ?? []),
   ];
 
