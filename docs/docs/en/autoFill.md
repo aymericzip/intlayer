@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2025-09-17
 title: Auto Fill
 description: Learn how to use auto fill functionality in Intlayer to automatically populate content based on predefined patterns. Follow this documentation to implement auto fill features efficiently in your project.
 keywords:
@@ -132,6 +132,8 @@ This will generate two separate files:
 - `src/components/example/example.fr.content.json`
 - `src/components/example/example.es.content.json`
 
+> In this case, if the object does not contain all locales, Intlayer skip the generation of the remaining locales.
+
 ## Filter Specific Locale Autofill
 
 Using an object for the `autoFill` field allows you to apply filters and generate only specific locale files.
@@ -157,9 +159,10 @@ You can use variables inside the `autoFill` path to dynamically resolve the targ
 **Available variables:**
 
 - `{{locale}}` – Locale code (e.g. `fr`, `es`)
+- `{{fileName}}` – File name (e.g. `example`)
 - `{{key}}` – Dictionary key (e.g. `example`)
 
-```ts fileName="src/components/example/example.content.ts"
+```ts fileName="src/components/example/index.content.ts"
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -174,8 +177,24 @@ This will generate:
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
 
+```ts fileName="src/components/example/index.content.ts"
+const exampleContent = {
+  key: "example",
+  autoFill: "./{{fileName}}.content.json",
+  content: {
+    // Your content
+  },
+};
+```
+
+This will generate:
+
+- `./index.content.json`
+- `./index.content.json`
+
 ## Doc History
 
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |
+| Version | Date       | Changes                     |
+| ------- | ---------- | --------------------------- |
+| 5.9.0   | 2025-09-17 | Add `{{fileName}}` variable |
+| 5.5.10  | 2025-06-29 | Init history                |
