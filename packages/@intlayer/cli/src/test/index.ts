@@ -11,6 +11,8 @@ import {
 import { relative } from 'path';
 import { listMissingTranslations } from './listMissingTranslations';
 
+export { listMissingTranslations };
+
 type ListMissingTranslationsOptions = {
   configOptions?: GetConfigurationOptions;
 };

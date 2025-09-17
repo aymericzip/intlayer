@@ -11,6 +11,20 @@ type ListContentDeclarationOptions = {
   configOptions?: GetConfigurationOptions;
 };
 
+export const listContentDeclarationRows = (
+  options?: ListContentDeclarationOptions
+) => {
+  const config = getConfiguration(options?.configOptions);
+
+  const rows = Object.values(unmergedDictionariesRecord)
+    .flat()
+    .map((dictionary) => ({
+      key: dictionary.key ?? '',
+      path: relative(config.content.baseDir, dictionary.filePath ?? 'Remote'),
+    }));
+  return rows;
+};
+
 export const listContentDeclaration = (
   options?: ListContentDeclarationOptions
 ) => {
@@ -21,12 +35,7 @@ export const listContentDeclaration = (
     },
   });
 
-  const rows = Object.values(unmergedDictionariesRecord)
-    .flat()
-    .map((dictionary) => ({
-      key: dictionary.key ?? '',
-      path: relative(config.content.baseDir, dictionary.filePath ?? 'Remote'),
-    }));
+  const rows = listContentDeclarationRows(options);
 
   const keyColWidth = rows.reduce((max, r) => Math.max(max, r.key.length), 0);
 

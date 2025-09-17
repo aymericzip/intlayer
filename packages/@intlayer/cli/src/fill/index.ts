@@ -28,7 +28,7 @@ import { checkAIAccess } from '../utils/checkAIAccess';
 import { autoFill } from './autoFill';
 import { ensureArray, getTargetDictionary } from './getTargetDictionary';
 
-const NB_CONCURRENT_TRANSLATIONS = 5;
+const NB_CONCURRENT_TRANSLATIONS = 8;
 
 // Arguments for the fill function
 export type FillOptions = {

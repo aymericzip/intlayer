@@ -1,9 +1,9 @@
 import {
   fill,
-  listContentDeclaration,
+  listContentDeclarationRows,
+  listMissingTranslations,
   pull,
   push,
-  testMissingTranslations,
 } from '@intlayer/cli';
 import { Locales } from '@intlayer/config';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
@@ -213,7 +213,7 @@ export const loadCLITools = async (server: McpServer) => {
 
   server.tool(
     'intlayer-content-list',
-    'List the content declaration files',
+    'List the content declaration (.content.{ts,tsx,js,json,...}) files present in the project. That files contain the multilingual content of the application and are used to build the dictionaries.',
     {
       configOptions: z
         .object({
@@ -236,13 +236,12 @@ export const loadCLITools = async (server: McpServer) => {
     },
     async (props) => {
       try {
-        await listContentDeclaration(props);
-
+        const rows = listContentDeclarationRows(props);
         return {
           content: [
             {
               type: 'text',
-              text: 'Content list successful.',
+              text: JSON.stringify(rows, null, 2),
             },
           ],
         };
@@ -263,7 +262,7 @@ export const loadCLITools = async (server: McpServer) => {
 
   server.tool(
     'intlayer-content-test',
-    'Test if there are missing translations',
+    'Test if there are missing translations in the content declaration files. That files contain the multilingual content of the application and are used to build the dictionaries.',
     {
       configOptions: z
         .object({
@@ -286,13 +285,12 @@ export const loadCLITools = async (server: McpServer) => {
     },
     async (props) => {
       try {
-        await testMissingTranslations(props);
-
+        const missingTranslations = listMissingTranslations(props);
         return {
           content: [
             {
               type: 'text',
-              text: 'Content test successful.',
+              text: JSON.stringify(missingTranslations, null, 2),
             },
           ],
         };

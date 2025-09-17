@@ -7,4 +7,5 @@ export * from './pull';
 export * from './push';
 export * from './pushConfig';
 export * from './reviewDoc';
+export * from './test';
 export * from './translateDoc';
