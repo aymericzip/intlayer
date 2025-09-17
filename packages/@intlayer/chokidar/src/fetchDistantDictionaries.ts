@@ -3,7 +3,7 @@ import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
 import pLimit from 'p-limit';
-import { logger } from './log';
+import { DictionariesStatus } from './loadDictionaries';
 
 type FetchDistantDictionariesOptions = {
   dictionaryKeys: string[];
@@ -15,7 +15,8 @@ type FetchDistantDictionariesOptions = {
  * Fetch distant dictionaries and update the logger with their statuses.
  */
 export const fetchDistantDictionaries = async (
-  options: FetchDistantDictionariesOptions
+  options: FetchDistantDictionariesOptions,
+  onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<DictionaryAPI[]> => {
   const config = getConfiguration();
   const appLogger = getAppLogger(config);
@@ -37,16 +38,16 @@ export const fetchDistantDictionaries = async (
     const distantDictionariesKeys = options.dictionaryKeys;
 
     // Process dictionaries in parallel with a concurrency limit
-    const limit = pLimit(5); // Limit the number of concurrent requests
+    const limit = pLimit(10); // Limit the number of concurrent requests
 
     const processDictionary = async (
       dictionaryKey: string
     ): Promise<DictionaryAPI | undefined> => {
-      logger.updateStatus([
+      onStatusUpdate?.([
         {
           dictionaryKey,
-          type: 'distant',
-          status: { status: 'fetching' },
+          type: 'remote',
+          status: 'fetching',
         },
       ]);
 
@@ -70,21 +71,18 @@ export const fetchDistantDictionaries = async (
           throw new Error(`Dictionary ${dictionaryKey} not found on remote`);
         }
 
-        logger.updateStatus([
-          { dictionaryKey, type: 'distant', status: { status: 'imported' } },
+        onStatusUpdate?.([
+          { dictionaryKey, type: 'remote', status: 'imported' },
         ]);
 
         return distantDictionary;
       } catch (error) {
-        logger.updateStatus([
+        onStatusUpdate?.([
           {
             dictionaryKey,
-            type: 'distant',
-            status: {
-              status: 'error',
-              error: error as Error,
-              errorMessage: `${options?.logPrefix ?? ''}Error fetching dictionary ${dictionaryKey}: ${error}`,
-            },
+            type: 'remote',
+            status: 'error',
+            error: `Error fetching dictionary ${dictionaryKey}: ${error}`,
           },
         ]);
         return undefined;
@@ -97,18 +95,10 @@ export const fetchDistantDictionaries = async (
 
     const result = await Promise.all(fetchPromises);
 
-    // Output any error messages
-    const statuses = logger.getStatuses();
-    for (const statusObj of statuses) {
-      const currentState = statusObj.state.find((s) => s.type === 'distant');
-      if (currentState && currentState.errorMessage) {
-        appLogger(currentState.errorMessage, { level: 'error' });
-      }
-    }
-
     // Remove undefined values
     const filteredResult = result.filter(
-      (dict): dict is DictionaryAPI => dict !== undefined
+      (dict: DictionaryAPI | undefined): dict is DictionaryAPI =>
+        dict !== undefined
     );
 
     return filteredResult;

@@ -99,7 +99,7 @@ export const writeDynamicDictionary = async (
         locale,
         // @ts-ignore Type instantiation is excessively deep and possibly infinite
         content: getLocalisedContent(
-          dictionaryEntry.dictionary.content as any,
+          JSON.parse(JSON.stringify(dictionaryEntry.dictionary.content)),
           locale,
           { dictionaryKey: key, keyPath: [] },
           defaultLocale

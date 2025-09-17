@@ -52,7 +52,7 @@ export type FillOptions = {
   build?: boolean;
 };
 
-const formatLocaleName = (locale: Locales) =>
+export const formatLocaleName = (locale: Locales) =>
   colorize(
     `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`,
     ANSIColors.GREEN
@@ -308,6 +308,15 @@ export const fill = async (options: FillOptions): Promise<void> => {
         configuration,
         formattedDict.filePath
       );
+
+      if (formattedDict.filePath) {
+        appLogger(
+          `Content declaration for '${colorizeKey(dictionaryKey)}' written to ${colorizePath(relative(configuration.content.baseDir, formattedDict.filePath))}`,
+          {
+            level: 'info',
+          }
+        );
+      }
     }
   }
 };

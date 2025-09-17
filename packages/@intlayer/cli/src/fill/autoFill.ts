@@ -2,7 +2,13 @@ import {
   reduceDictionaryContent,
   writeContentDeclaration,
 } from '@intlayer/chokidar';
-import { getAppLogger, type IntlayerConfig, Locales } from '@intlayer/config';
+import {
+  colorizeKey,
+  colorizePath,
+  getAppLogger,
+  type IntlayerConfig,
+  Locales,
+} from '@intlayer/config';
 import {
   type AutoFill,
   type ContentNode,
@@ -10,7 +16,9 @@ import {
   getFilteredLocalesContent,
   getLocalisedContent,
 } from '@intlayer/core';
+import { relative } from 'path';
 import { AutoFillData, formatAutoFillData } from './formatAutoFillData';
+import { formatLocaleName } from './index';
 
 export const autoFill = async (
   fullDictionary: Dictionary,
@@ -65,6 +73,15 @@ export const autoFill = async (
         content: sourceLocaleContent.content,
         filePath: output.filePath,
       });
+
+      if (output.filePath) {
+        appLogger(
+          `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${colorizePath(relative(configuration.content.baseDir, output.filePath))} for locale ${formatLocaleName(sourceLocale)}`,
+          {
+            level: 'info',
+          }
+        );
+      }
     } else {
       const content = getFilteredLocalesContent(
         reducedDictionary.content as unknown as ContentNode,
@@ -80,6 +97,15 @@ export const autoFill = async (
         content,
         filePath: output.filePath,
       });
+
+      if (output.filePath) {
+        appLogger(
+          `Auto filled content declaration for '${colorizeKey(fullDictionary.key)}' written to ${colorizePath(relative(configuration.content.baseDir, output.filePath))}`,
+          {
+            level: 'info',
+          }
+        );
+      }
     }
   }
 };
