@@ -1,6 +1,5 @@
 import { AIOptions, getAiAPI, getOAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
-  listGitFiles,
   ListGitFilesOptions,
   mergeDictionaries,
   prepareIntlayer,
@@ -13,23 +12,21 @@ import {
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
-  type IntlayerConfig,
   Locales,
 } from '@intlayer/config';
 import {
-  type AutoFill,
   type ContentNode,
   type Dictionary,
-  getFilteredLocalesContent,
   getFilterTranslationsOnlyContent,
   getLocaleName,
   getLocalisedContent,
 } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
-import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
 import pLimit from 'p-limit';
-import { basename, dirname, extname, join, relative } from 'path';
-import { checkAIAccess } from './utils/checkAIAccess';
+import { relative } from 'path';
+import { checkAIAccess } from '../utils/checkAIAccess';
+import { autoFill } from './autoFill';
+import { ensureArray, getTargetDictionary } from './getTargetDictionary';
 
 const NB_CONCURRENT_TRANSLATIONS = 5;
 
@@ -49,295 +46,6 @@ export type FillOptions = {
   verbose?: boolean;
   nbConcurrentTranslations?: number;
   build?: boolean;
-};
-
-const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
-
-const getTargetDictionary = async (options: FillOptions) => {
-  const configuration = getConfiguration(options.configOptions);
-
-  const { baseDir } = configuration.content;
-
-  let result = Object.values(unmergedDictionariesRecord).flat();
-
-  // 1. if filePath not defined, list all content declaration files based on unmerged dictionaries list
-  if (typeof options.file !== 'undefined') {
-    const fileArray = ensureArray(options.file);
-    const absoluteFilePaths = fileArray.map((file) => join(baseDir, file));
-
-    result = result.filter(
-      (dict) =>
-        dict.filePath &&
-        (absoluteFilePaths.includes(dict.filePath) ||
-          absoluteFilePaths.includes(join(baseDir, dict.filePath)))
-    );
-  }
-
-  if (typeof options.keys !== 'undefined') {
-    result = result.filter((dict) =>
-      ensureArray(options.keys)?.includes(dict.key)
-    );
-  }
-
-  if (typeof options.excludedKeys !== 'undefined') {
-    result = result.filter(
-      (dict) => !ensureArray(options.excludedKeys)?.includes(dict.key)
-    );
-  }
-
-  if (typeof options.pathFilter !== 'undefined') {
-    result = result.filter((dict) =>
-      ensureArray(options.pathFilter)?.includes(dict.filePath ?? '')
-    );
-  }
-
-  if (typeof options.filter !== 'undefined') {
-    result = result.filter(options.filter);
-  }
-
-  const gitOptions = options.gitOptions;
-  if (gitOptions) {
-    const gitChangedFiles = await listGitFiles(gitOptions);
-
-    if (gitChangedFiles) {
-      // Convert dictionary file paths to be relative to git root for comparison
-
-      // Filter dictionaries based on git changed files
-      result = result.filter((dict) => {
-        if (!dict.filePath) return false;
-
-        return gitChangedFiles.some((gitFile) => dict.filePath === gitFile);
-      });
-    }
-  }
-
-  return result.filter((dict) => !dict.autoFilled);
-};
-
-const transformUriToAbsolutePath = (
-  uri: string,
-  filePath: string,
-  baseDir: string
-) => {
-  if (uri.startsWith('/')) {
-    return join(baseDir, uri);
-  }
-
-  if (uri.startsWith('./')) {
-    return join(dirname(filePath), uri);
-  }
-
-  return filePath;
-};
-
-export type AutoFillData = {
-  localeList: Locales[];
-  filePath: string;
-  isPerLocale: boolean;
-};
-
-const formatAutoFilledFilePath = (
-  autoFillField: string,
-  dictionaryKey: string,
-  dictionaryFilePath: string,
-  baseDir: string,
-  locale?: Locales
-) => {
-  // transform `/src/components/home/index.content.json` to `index`
-  // transform `./test.content.tsx` to `test`
-  const fileName = basename(dictionaryFilePath)
-    .split('.')
-    .slice(0, -2) // Remove last 2 extensions (.content.tsx)
-    .join('.');
-
-  let result: string = autoFillField
-    .replace('{{key}}', dictionaryKey)
-    .replace('{{fileName}}', fileName);
-
-  if (locale) {
-    result = result.replace('{{locale}}', locale);
-  }
-
-  return transformUriToAbsolutePath(result, dictionaryFilePath, baseDir);
-};
-
-const formatAutoFillData = (
-  autoFillField: AutoFill,
-  localeList: Locales[],
-  filePath: string,
-  dictionaryKey: string,
-  configuration: IntlayerConfig
-): AutoFillData[] => {
-  const outputContentDeclarationFile: AutoFillData[] = [];
-
-  const baseDir = configuration.content.baseDir;
-
-  if (!Boolean(autoFillField)) return outputContentDeclarationFile;
-
-  if (autoFillField === true) {
-    // wanted jsonFilePath: /..../src/components/home/index.content.json
-    // replace file extension in json
-    let jsonFilePath = filePath.replace(extname(filePath), '.json');
-
-    // if both filePath jsonFilePath are same path, change it as : /..../src/components/home/index.fill.content.json
-    if (filePath === jsonFilePath) {
-      jsonFilePath = jsonFilePath.replace(extname(jsonFilePath), '.fill.json');
-    }
-
-    outputContentDeclarationFile.push({
-      localeList,
-      filePath: jsonFilePath,
-      isPerLocale: false,
-    });
-  }
-
-  if (typeof autoFillField === 'string') {
-    if (autoFillField.includes('{{locale}}')) {
-      const output = localeList.map((locale) => {
-        const formattedFilePath = formatAutoFilledFilePath(
-          autoFillField,
-          dictionaryKey,
-          filePath,
-          baseDir,
-          locale
-        );
-
-        return {
-          localeList: [locale],
-          filePath: formattedFilePath,
-          isPerLocale: true,
-        };
-      });
-
-      outputContentDeclarationFile.push(...output);
-    } else {
-      const formattedFilePath = formatAutoFilledFilePath(
-        autoFillField,
-        dictionaryKey,
-        filePath,
-        baseDir
-      );
-
-      outputContentDeclarationFile.push({
-        localeList,
-        filePath: formattedFilePath,
-        isPerLocale: false,
-      });
-    }
-
-    return outputContentDeclarationFile;
-  }
-
-  if (typeof autoFillField === 'object') {
-    const localeList = Object.keys(autoFillField).filter(
-      (locale) => typeof autoFillField[locale] === 'string'
-    ) as Locales[];
-
-    const output: AutoFillData[] = localeList
-      .filter((locale) => Boolean(autoFillField[locale]))
-      .map((locale) => {
-        const formattedFilePath = formatAutoFilledFilePath(
-          autoFillField[locale],
-          dictionaryKey,
-          filePath,
-          baseDir,
-          locale
-        );
-
-        return {
-          localeList: [locale],
-          filePath: formattedFilePath,
-          isPerLocale: true,
-        };
-      });
-
-    // Group by filePath and merge localeList
-    const groupedByFilePath = output.reduce((acc, curr) => {
-      const existing = acc.find((item) => item.filePath === curr.filePath);
-      if (existing) {
-        existing.localeList.push(...curr.localeList);
-      } else {
-        acc.push(curr);
-      }
-      return acc;
-    }, [] as AutoFillData[]);
-
-    outputContentDeclarationFile.push(...groupedByFilePath);
-  }
-
-  return outputContentDeclarationFile;
-};
-
-const autoFill = async (
-  fullDictionary: Dictionary,
-  contentDeclarationFile: Dictionary,
-  autoFillOptions: AutoFill,
-  outputLocales: Locales[],
-  parentLocales: Locales[],
-  configuration: IntlayerConfig
-) => {
-  const appLogger = getAppLogger(configuration);
-  let localeList: Locales[] = (
-    outputLocales ?? configuration.internationalization.locales
-  ).filter((locale) => !parentLocales?.includes(locale));
-
-  const filePath = contentDeclarationFile.filePath;
-
-  if (!filePath) {
-    appLogger('No file path found for dictionary', {
-      level: 'error',
-    });
-    return;
-  }
-
-  const autoFillData: AutoFillData[] = formatAutoFillData(
-    autoFillOptions,
-    localeList,
-    filePath,
-    fullDictionary.key,
-    configuration
-  );
-
-  for await (const output of autoFillData) {
-    const reducedDictionary = reduceDictionaryContent(
-      fullDictionary,
-      contentDeclarationFile
-    );
-
-    if (output.isPerLocale) {
-      const sourceLocale = output.localeList[0];
-
-      const sourceLocaleContent = getLocalisedContent(
-        reducedDictionary as unknown as ContentNode,
-        sourceLocale,
-        { dictionaryKey: reducedDictionary.key, keyPath: [] }
-      );
-
-      await writeContentDeclaration({
-        ...fullDictionary,
-        locale: sourceLocale,
-        autoFilled: true,
-        autoFill: undefined,
-        content: sourceLocaleContent.content,
-        filePath: output.filePath,
-      });
-    } else {
-      const content = getFilteredLocalesContent(
-        reducedDictionary.content as unknown as ContentNode,
-        output.localeList,
-        { dictionaryKey: reducedDictionary.key, keyPath: [] }
-      );
-
-      // write file
-      await writeContentDeclaration({
-        ...fullDictionary,
-        autoFilled: true,
-        autoFill: undefined,
-        content,
-        filePath: output.filePath,
-      });
-    }
-  }
 };
 
 /**
@@ -462,10 +170,10 @@ export const fill = async (options: FillOptions): Promise<void> => {
     const translationPromises = outputLocalesList.map((targetLocale) =>
       limit(async () => {
         appLogger(
-          `Preparing translation for '${ANSIColors.GREY}${dictionaryKey}${ANSIColors.RESET}' dictionary from ${getLocaleName(
+          `Preparing translation for ${ANSIColors.GREY}'${dictionaryKey}'${ANSIColors.RESET} dictionary from ${ANSIColors.GREEN}${getLocaleName(
             sourceLocale,
             Locales.ENGLISH
-          )} (${sourceLocale}) to ${getLocaleName(targetLocale, Locales.ENGLISH)} (${targetLocale})`,
+          )} (${sourceLocale})${ANSIColors.RESET} to ${ANSIColors.GREEN}${getLocaleName(targetLocale, Locales.ENGLISH)} (${targetLocale})${ANSIColors.RESET}`,
           {
             level: 'info',
           }
