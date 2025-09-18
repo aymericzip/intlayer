@@ -304,6 +304,22 @@ npx intlayer content test
 
 This command analyzes your content declaration files to identify missing translations across all configured locales. It provides a comprehensive report showing which translation keys are missing for which locales, helping you maintain consistency across your multilingual content.
 
+##### Example output:
+
+```bash
+pnpm intlayer content test
+Missing translations:
+ - home-page                      - tr         - src/components/HomePage/homePage.content.ts
+ - server-component               - es, tr     - src/components/ServerComponent/serverComponent.content.ts
+ - client-component               - pl, tr     - src/components/ClientComponent/clientComponent.content.ts
+Locales: en, ru, ja, fr, ko, zh, es, de, ar, it, en-GB, pt, hi, tr, pl
+Required locales: en
+Missing locales: pl, tr, es
+Missing required locales: -
+Total missing locales: 3
+Total missing required locales: 0
+```
+
 ##### Arguments:
 
 **Configuration options:**
@@ -324,6 +340,18 @@ This command analyzes your content declaration files to identify missing transla
 
 ```bash
 npx intlayer content test --verbose
+```
+
+##### Example output:
+
+```bash
+npx intlayer content list
+Content declaration files:
+ - home-page        - src/components/HomePage/homePage.content.ts
+ - server-component - src/components/ServerComponent/serverComponent.content.ts
+ - client-component - src/components/ClientComponent/clientComponent.content.ts
+
+Total content declaration files: 3
 ```
 
 This command will scan all your content declaration files and display:
