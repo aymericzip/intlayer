@@ -55,7 +55,7 @@ export const getEditorAPI = (
    * @param dictionary - Dictionary data.
    */
   const writeDictionary = async (
-    dictionary: WriteContentDeclarationBody,
+    body: WriteContentDeclarationBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<WriteContentDeclarationResult>(
@@ -64,7 +64,7 @@ export const getEditorAPI = (
       otherOptions,
       {
         method: 'POST',
-        body: { dictionary },
+        body,
       }
     );
 
