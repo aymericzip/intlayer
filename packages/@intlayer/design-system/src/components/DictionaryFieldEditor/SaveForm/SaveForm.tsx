@@ -53,8 +53,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   const { mutate: pushDictionaries, isPending: isPushing } =
     usePushDictionaries();
   const isLoading = isWriting || isPushing;
-  const isJsonFormat =
-    mode.includes('local') && dictionary.filePath?.endsWith('.json');
 
   const { editedContent, restoreEditedContent } = useEditedContent();
   const {
@@ -135,13 +133,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         size={ModalSize.MD}
       >
         <form className="size-full px-3">
-          {isJsonFormat ? (
-            <p className="text-neutral py-4 text-sm">{confirmation.message}</p>
-          ) : (
-            <p className="text-neutral py-4 text-sm">
-              {confirmation.differentFormatMessage}
-            </p>
-          )}
+          <p className="text-neutral py-4 text-sm">{confirmation.message}</p>
+
           <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
             <Form.Button
               label={confirmation.cancelButton.label.value}

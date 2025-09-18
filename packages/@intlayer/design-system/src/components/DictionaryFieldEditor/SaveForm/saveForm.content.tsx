@@ -208,23 +208,6 @@ export const saveDictionaryContent = {
         ru: 'Это перезапишет существующий словарь. Вы уверены, что хотите продолжить?',
         tr: 'Bu, mevcut sözlüğün üzerine yazacaktır. Devam etmek istediğinizden emin misiniz?',
       }),
-      differentFormatMessage: t({
-        en: 'The dictionary is in a different format, it will be transformed into a JSON file. Are you sure you want to continue? This will overwrite the existing dictionary.',
-        'en-GB':
-          'The dictionary is in a different format, it will be transformed into a JSON file. Are you sure you want to continue? This will overwrite the existing dictionary.',
-        fr: 'Le dictionnaire est dans un format différent, il sera transformé en un fichier JSON. Êtes-vous sûr de vouloir continuer ? Cela remplacera le dictionnaire existant.',
-        es: 'El diccionario está en un formato diferente, se transformará en un archivo JSON. ¿Estás seguro de que quieres continuar? Esto sobrescribirá el diccionario existente.',
-        de: 'Das Wörterbuch ist in einem anderen Format, es wird in eine JSON-Datei umgewandelt. Sind Sie sicher, dass Sie fortfahren möchten? Dies wird das existierende Wörterbuch überschreiben.',
-        ja: '辞書は異なる形式です。JSONファイルに変換されます。続行しますか？既存の辞書を上書きします。',
-        ko: '사전은 다른 형식입니다. JSON 파일로 변환됩니다. 계속하시겠습니까? 이는 기존 사전을 덮어 쓸 것입니다.',
-        zh: '字典是在不同格式中，它将转换为JSON文件。你确定要继续吗？这将覆盖现有的字典。',
-        it: 'Il dizionario è in un formato diverso, verrà trasformato in un file JSON. Sei sicuro di voler continuare? Questo sovrascriverà il dizionario esistente.',
-        pt: 'O dicionário está em um formato diferente, ele será transformado em um arquivo JSON. Você tem certeza de que deseja continuar? Isso sobrescreverá o dicionário existente.',
-        hi: 'शब्दकोश अलग स्वरूप में है, यह JSON फ़ाइल में बदल जाएगा। क्या आप सुनिश्चित हैं कि आप जारी रखना चाहते हैं? यह मौजूदा शब्दकोश को ओवरराइट करेगा।',
-        ar: 'القاموس في تنسيق مختلف. سيتم تحويله إلى ملف JSON. هل أنت متأكد من أنك تريد المتابعة؟ سيتم الكتابة على القاموس الحالي.',
-        ru: 'Словарь в другом формате, он будет преобразован в файл JSON. Вы уверены, что хотите продолжить? Это перезапишет существующий словарь.',
-        tr: 'Sözlük farklı bir formatta, JSON dosyasına dönüştürülecektir. Devam etmek istediğinizden emin misiniz? Bu, mevcut sözlüğün üzerine yazacaktır.',
-      }),
       confirmButton: {
         text: t({
           en: 'Confirm',
