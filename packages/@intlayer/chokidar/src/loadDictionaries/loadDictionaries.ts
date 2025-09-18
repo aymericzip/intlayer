@@ -87,57 +87,6 @@ const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
   if (configuration.log.mode !== 'verbose') return;
 
   const appLogger = getAppLogger(configuration);
-  // Stop spinner and show final progress line(s)
-  logger.finish();
-
-  // Compute final progress counts
-  const localKeys = new Set(
-    loadDictionariesStatus
-      .filter(
-        (s) =>
-          s.type === 'local' &&
-          (s.status === 'found' ||
-            s.status === 'building' ||
-            s.status === 'built' ||
-            s.status === 'error')
-      )
-      .map((s) => s.dictionaryKey)
-  );
-
-  const localDoneKeys = new Set(
-    loadDictionariesStatus
-      .filter(
-        (s) =>
-          s.type === 'local' && (s.status === 'built' || s.status === 'error')
-      )
-      .map((s) => s.dictionaryKey)
-  );
-
-  const remoteKeys = new Set(
-    loadDictionariesStatus
-      .filter(
-        (s) =>
-          s.type === 'remote' &&
-          (s.status === 'pending' ||
-            s.status === 'fetching' ||
-            s.status === 'fetched' ||
-            s.status === 'imported' ||
-            s.status === 'error')
-      )
-      .map((s) => s.dictionaryKey)
-  );
-
-  const remoteDoneKeys = new Set(
-    loadDictionariesStatus
-      .filter(
-        (s) =>
-          s.type === 'remote' &&
-          (s.status === 'fetched' ||
-            s.status === 'imported' ||
-            s.status === 'error')
-      )
-      .map((s) => s.dictionaryKey)
-  );
 
   // Aggregate by dictionary key
   const byKey = new Map<string, StatusRecord>();
@@ -252,6 +201,9 @@ export const loadDictionaries = async (
       setLoadDictionariesStatus
     );
   }
+
+  // Stop spinner and show final progress line(s)
+  logger.finish();
 
   printSummary(configuration);
 

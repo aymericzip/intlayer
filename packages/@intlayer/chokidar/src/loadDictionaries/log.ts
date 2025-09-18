@@ -6,11 +6,6 @@ import {
 } from '@intlayer/config';
 import type { DictionariesStatus } from './loadDictionaries';
 
-type StatusRecord = {
-  local?: DictionariesStatus['status'];
-  remote?: DictionariesStatus['status'];
-};
-
 export class DictionariesLogger {
   private statuses: DictionariesStatus[] = [];
   private spinnerTimer: NodeJS.Timeout | null = null;
@@ -70,23 +65,36 @@ export class DictionariesLogger {
       this.computeProgress();
 
     const frame = this.spinnerFrames[this.spinnerIndex];
-    const localSymbol =
-      localTotal > 0 && localDone === localTotal ? '✔' : frame;
-    const remoteSymbol =
-      remoteTotal > 0 && remoteDone === remoteTotal ? '✔' : frame;
     const lines: string[] = [];
-    lines.push(
-      `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} locale dictionaries: ${localDone}/${localTotal}`
-    );
-    if (remoteTotal > 0) {
+
+    const isLocalDone = localDone === localTotal;
+    const isRemoteDone = remoteDone === remoteTotal;
+
+    if (isLocalDone) {
       lines.push(
-        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} remote dictionaries: ${remoteDone}/${remoteTotal}`
+        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} locale dictionaries: ${localDone}/${localTotal}`
       );
+    } else {
+      lines.push(
+        `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} locale dictionaries: ${localDone}/${localTotal}`
+      );
+    }
+
+    if (remoteTotal > 0) {
+      if (isRemoteDone) {
+        lines.push(
+          `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} remote dictionaries: ${remoteDone}/${remoteTotal}`
+        );
+      } else {
+        lines.push(
+          `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} remote dictionaries: ${remoteDone}/${remoteTotal}`
+        );
+      }
     }
 
     // Check if the state has changed to avoid duplicate rendering
     const currentState = lines.join('\n');
-    if (currentState === this.lastRenderedState && !this.isFinished) {
+    if (currentState === this.lastRenderedState) {
       return;
     }
     this.lastRenderedState = currentState;
@@ -111,14 +119,7 @@ export class DictionariesLogger {
   private computeProgress() {
     const localKeys = new Set(
       this.statuses
-        .filter(
-          (s) =>
-            s.type === 'local' &&
-            (s.status === 'found' ||
-              s.status === 'building' ||
-              s.status === 'built' ||
-              s.status === 'error')
-        )
+        .filter((s) => s.type === 'local')
         .map((s) => s.dictionaryKey)
     );
 
@@ -133,15 +134,7 @@ export class DictionariesLogger {
 
     const remoteKeys = new Set(
       this.statuses
-        .filter(
-          (s) =>
-            s.type === 'remote' &&
-            (s.status === 'pending' ||
-              s.status === 'fetching' ||
-              s.status === 'fetched' ||
-              s.status === 'imported' ||
-              s.status === 'error')
-        )
+        .filter((s) => s.type === 'remote')
         .map((s) => s.dictionaryKey)
     );
 
