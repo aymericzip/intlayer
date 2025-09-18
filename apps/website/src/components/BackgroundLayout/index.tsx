@@ -5,7 +5,7 @@ export const BackgroundLayout: FC<
   PropsWithChildren<{ hasSpotlight?: boolean }>
 > = ({ children, hasSpotlight = true }) => {
   return (
-    <>
+    <div className="relative">
       <div className="absolute z-[-1] size-full max-h-full max-w-full overflow-hidden">
         <div className="relative size-full">
           <GridPattern
@@ -22,6 +22,6 @@ export const BackgroundLayout: FC<
         </div>
       </div>
       {children}
-    </>
+    </div>
   );
 };
