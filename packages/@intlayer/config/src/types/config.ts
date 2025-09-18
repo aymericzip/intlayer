@@ -571,6 +571,15 @@ export type ResultDirDerivedConfig = {
   unmergedDictionariesDir: string;
 
   /**
+   * Directory where remote dictionaries are stored, relative to the result directory
+   *
+   * Default: .intlayer/remote_dictionary
+   *
+   * Specifies the derived path for remote dictionaries relative to the result directory.
+   */
+  remoteDictionariesDir: string;
+
+  /**
    * Directory where final dictionaries are stored, relative to the result directory
    *
    * Default: .intlayer/dictionary

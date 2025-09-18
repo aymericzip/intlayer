@@ -77,6 +77,10 @@ export const getConfiguration = (
       env.content.unmergedDictionariesDir,
       'string'
     )!,
+    remoteDictionariesDir: getEnvValue(
+      env.content.remoteDictionariesDir,
+      'string'
+    )!,
     dynamicDictionariesDir: getEnvValue(
       env.content.dynamicDictionariesDir,
       'string'

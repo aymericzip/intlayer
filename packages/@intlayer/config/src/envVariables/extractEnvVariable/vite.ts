@@ -47,6 +47,8 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR,
     unmergedDictionariesDir: import.meta.env
       .VITE_INTLAYER_UNMERGED_DICTIONARIES_DIR,
+    remoteDictionariesDir: import.meta.env
+      .VITE_INTLAYER_REMOTE_DICTIONARIES_DIR,
     dynamicDictionariesDir: import.meta.env
       .VITE_INTLAYER_DYNAMIC_DICTIONARIES_DIR,
     fetchDictionariesDir: import.meta.env.VITE_INTLAYER_FETCH_DICTIONARIES_DIR,

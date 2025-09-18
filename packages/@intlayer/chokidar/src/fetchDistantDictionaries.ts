@@ -72,7 +72,7 @@ export const fetchDistantDictionaries = async (
         }
 
         onStatusUpdate?.([
-          { dictionaryKey, type: 'remote', status: 'imported' },
+          { dictionaryKey, type: 'remote', status: 'fetched' },
         ]);
 
         return distantDictionary;
@@ -103,7 +103,7 @@ export const fetchDistantDictionaries = async (
 
     return filteredResult;
   } catch (error) {
-    appLogger(error, { level: 'error' });
+    appLogger('Failed to fetch distant dictionaries', { level: 'error' });
     return [];
   }
 };

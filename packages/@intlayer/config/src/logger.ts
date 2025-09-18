@@ -1,5 +1,5 @@
-import { Locales } from 'intlayer';
 import type { CustomIntlayerConfig } from './types/config';
+import { Locales } from './types/locales';
 
 export type Details = {
   isVerbose?: boolean;

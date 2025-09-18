@@ -10,7 +10,7 @@ import {
 import type { Dictionary } from '@intlayer/core';
 import { relative } from 'node:path';
 import { loadContentDeclarations } from './loadContentDeclaration';
-import { loadDistantDictionaries } from './loadDistantDictionaries';
+import { loadRemoteDictionaries } from './loadRemoteDictionaries';
 import { DictionariesLogger } from './log';
 
 export type DictionariesStatus = {
@@ -189,7 +189,10 @@ export const loadDictionaries = async (
   contentDeclarationsPaths: string[] | string,
   configuration: IntlayerConfig = getConfiguration(),
   projectRequire = ESMxCJSRequire
-): Promise<Dictionary[]> => {
+): Promise<{
+  localDictionaries: Dictionary[];
+  remoteDictionaries: Dictionary[];
+}> => {
   const appLogger = getAppLogger(configuration);
 
   appLogger('Dictionaries:', { isVerbose: true });
@@ -238,12 +241,22 @@ export const loadDictionaries = async (
 
   setLoadDictionariesStatus(localDictionariesStatus);
 
-  const distantDictionaries = await loadDistantDictionaries(
-    configuration,
-    setLoadDictionariesStatus
+  const hasRemoteDictionaries = Boolean(
+    configuration.editor.clientId && configuration.editor.clientSecret
   );
+
+  let remoteDictionaries: Dictionary[] = [];
+  if (hasRemoteDictionaries) {
+    remoteDictionaries = await loadRemoteDictionaries(
+      configuration,
+      setLoadDictionariesStatus
+    );
+  }
 
   printSummary(configuration);
 
-  return [...filteredLocalDictionaries, ...distantDictionaries];
+  return {
+    localDictionaries: filteredLocalDictionaries,
+    remoteDictionaries,
+  };
 };

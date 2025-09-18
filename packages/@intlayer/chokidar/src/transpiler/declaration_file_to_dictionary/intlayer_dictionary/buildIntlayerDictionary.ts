@@ -1,5 +1,4 @@
 // @ts-ignore: @intlayer/backend is not built yet
-import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import {
@@ -14,14 +13,14 @@ import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
  * This function transpile the bundled code to to make dictionaries as JSON files
  */
 export const buildIntlayerDictionary = async (
-  contentDeclarations: (DictionaryAPI | Dictionary)[],
+  localDictionariesEntries: Dictionary[],
   configuration = getConfiguration(),
   formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
 ) => {
   const { importMode } = configuration.build;
 
   const unmergedDictionaries = await writeUnmergedDictionaries(
-    contentDeclarations,
+    localDictionariesEntries,
     configuration
   );
 

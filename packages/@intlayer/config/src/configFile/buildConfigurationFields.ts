@@ -17,6 +17,7 @@ import {
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
   REACT_INTL_MESSAGES_DIR,
+  REMOTE_DICTIONARIES_DIR,
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
   WATCH,
@@ -350,6 +351,18 @@ const buildContentFields = (
       notDerivedContentConfig.baseDir,
 
       customConfiguration?.unmergedDictionariesDir ?? UNMERGED_DICTIONARIES_DIR
+    ),
+
+    /**
+     * Directory where the remote dictionaries will be stored
+     *
+     * Relative to the result directory
+     *
+     * Default: '.intlayer/remote_dictionary'
+     */
+    remoteDictionariesDir: join(
+      notDerivedContentConfig.baseDir,
+      customConfiguration?.remoteDictionariesDir ?? REMOTE_DICTIONARIES_DIR
     ),
 
     /**

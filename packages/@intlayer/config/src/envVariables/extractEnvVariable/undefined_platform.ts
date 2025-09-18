@@ -34,6 +34,7 @@ export const extractEmptyEnvVariable = (): IntlayerConfigEnvVariable => {
     contentDir: process.env.INTLAYER_CONTENT_DIR,
     excludedPath: process.env.INTLAYER_EXCLUDED_PATH,
     dictionariesDir: process.env.INTLAYER_RESULT_DIR,
+    remoteDictionariesDir: process.env.INTLAYER_REMOTE_DICTIONARIES_DIR,
     unmergedDictionariesDir: process.env.INTLAYER_UNMERGED_DICTIONARIES_DIR,
     dynamicDictionariesDir: process.env.INTLAYER_DYNAMIC_DICTIONARIES_DIR,
     fetchDictionariesDir: process.env.INTLAYER_FETCH_DICTIONARIES_DIR,

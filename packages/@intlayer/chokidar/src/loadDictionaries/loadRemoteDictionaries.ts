@@ -1,67 +1,54 @@
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
-import dictionariesRecord from '@intlayer/dictionaries-entry';
+import remoteDictionariesRecord from '@intlayer/remote-dictionaries-entry';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
 import { fetchDistantDictionaryKeysAndUpdateTimestamp } from '../fetchDistantDictionaryKeysAndUpdateTimestamp';
 import { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
 
-const formatDistantDictionaries = (dictionaries: DictionaryAPI[]) => {
+export const formatDistantDictionaries = (dictionaries: DictionaryAPI[]) => {
   return dictionaries.map((dict) => ({
     ...dict,
     location: 'distant' as const,
   }));
 };
 
-export const loadDistantDictionaries = async (
+export const loadRemoteDictionaries = async (
   configuration = getConfiguration(),
   onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<DictionaryAPI[]> => {
   const appLogger = getAppLogger(configuration);
   const { editor } = configuration;
 
-  if (!editor.clientId || !editor.clientSecret) {
-    throw new Error(
-      'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
-    );
-  }
+  const hasRemoteDictionaries = Boolean(editor.clientId && editor.clientSecret);
+
+  if (!hasRemoteDictionaries) return [];
 
   try {
     const distantDictionaryUpdateTimeStamp: Record<string, number> =
       await fetchDistantDictionaryKeysAndUpdateTimestamp(configuration);
 
-    const allDictionaries = Object.values(dictionariesRecord);
-
-    const dictionariesToFetch = allDictionaries
-      .filter((dictionary) => {
+    const dictionariesKeysToFetch = Object.entries(
+      distantDictionaryUpdateTimeStamp
+    )
+      .filter(([dictionaryKey, updatedAt]) => {
         // If dictionary doesn't have updatedAt, always fetch it
-        if (!dictionary?.updatedAt) {
-          return true;
-        }
+        if (!updatedAt) return true;
 
         // If remote timestamp doesn't exist, fetch it
-        if (!distantDictionaryUpdateTimeStamp[dictionary.key]) {
-          return true;
-        }
+        if (!remoteDictionariesRecord[dictionaryKey]) return true;
 
         // If remote timestamp is newer than local, fetch it
-        return (
-          distantDictionaryUpdateTimeStamp[dictionary.key] >
-          dictionary.updatedAt
-        );
+        return remoteDictionariesRecord[dictionaryKey] > updatedAt;
       })
-      .map((dictionary) => dictionary.key);
+      .map(([dictionaryKey]) => dictionaryKey);
 
-    const cachedDictionaries: DictionaryAPI[] = allDictionaries
-      .filter(
-        (dictionary) =>
-          dictionary?.updatedAt && !dictionariesToFetch.includes(dictionary.key)
-      )
-      .map((dictionary) => ({
-        ...dictionary,
-        location: 'distant' as const,
-      }));
+    const cachedDictionaries = Object.values(remoteDictionariesRecord).filter(
+      (dictionary) =>
+        dictionary?.updatedAt &&
+        !dictionariesKeysToFetch.includes(dictionary.key)
+    );
 
     // Report cached as already imported
     if (cachedDictionaries.length > 0) {
@@ -75,7 +62,7 @@ export const loadDistantDictionaries = async (
     }
 
     const orderedDistantDictionaryKeys =
-      dictionariesToFetch.sort(sortAlphabetically);
+      dictionariesKeysToFetch.sort(sortAlphabetically);
 
     // Report pending for keys to be fetched so totals are visible immediately
     if (orderedDistantDictionaryKeys.length > 0) {

@@ -19,8 +19,8 @@ export {
 } from './listGitFiles';
 export {
   loadDictionaries,
-  loadDistantDictionaries,
   loadLocalDictionaries,
+  loadRemoteDictionaries,
 } from './loadDictionaries/index';
 export { mergeDictionaries } from './mergeDictionaries';
 export { prepareContentDeclaration } from './prepareContentDeclaration';

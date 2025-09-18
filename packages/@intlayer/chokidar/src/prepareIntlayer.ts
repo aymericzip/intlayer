@@ -8,6 +8,7 @@ import { cleanOutputDir } from './cleanOutputDir';
 import { listDictionaries } from './listDictionariesPath';
 import { loadDictionaries } from './loadDictionaries/loadDictionaries';
 import { buildDictionary } from './transpiler/declaration_file_to_dictionary/index';
+import { writeRemoteDictionary } from './transpiler/declaration_file_to_dictionary/intlayer_dictionary/writeRemoteDictionary';
 import { createDictionaryEntryPoint } from './transpiler/dictionary_to_main/createDictionaryEntryPoint';
 import {
   createModuleAugmentation,
@@ -35,7 +36,14 @@ export const prepareIntlayer = async (
   );
 
   // Build locale dictionaries
-  const dictionariesOutput = await buildDictionary(dictionaries, configuration);
+  const dictionariesOutput = await buildDictionary(
+    dictionaries.localDictionaries,
+    configuration
+  );
+
+  // Write remote dictionaries
+  // Used as cache for next fetch
+  await writeRemoteDictionary(dictionaries.remoteDictionaries, configuration);
 
   const dictionariesPaths = Object.values(
     dictionariesOutput?.mergedDictionaries ?? {}

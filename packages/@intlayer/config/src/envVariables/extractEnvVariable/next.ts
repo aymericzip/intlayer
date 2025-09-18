@@ -35,6 +35,8 @@ export const extractNextEnvVariable = (): IntlayerConfigEnvVariable => {
     excludedPath: process.env.NEXT_PUBLIC_INTLAYER_EXCLUDED_PATH,
     unmergedDictionariesDir:
       process.env.NEXT_PUBLIC_INTLAYER_UNMERGED_DICTIONARIES_DIR,
+    remoteDictionariesDir:
+      process.env.NEXT_PUBLIC_INTLAYER_REMOTE_DICTIONARIES_DIR,
     dictionariesDir: process.env.NEXT_PUBLIC_INTLAYER_RESULT_DIR,
     dynamicDictionariesDir:
       process.env.NEXT_PUBLIC_INTLAYER_DYNAMIC_DICTIONARIES_DIR,

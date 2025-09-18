@@ -1,17 +1,13 @@
 {
-  "name": "@intlayer/chokidar",
+  "name": "@intlayer/remote-dictionaries-entry",
   "version": "5.8.1",
   "private": false,
-  "description": "Uses chokidar to scan and build Intlayer declaration files into dictionaries based on Intlayer configuration.",
+  "description": "Provides the entry path for Intlayer remote dictionaries, solving filesystem retrieval issues for bundlers like Webpack and Rollup.",
   "keywords": [
     "intlayer",
-    "chokidar",
-    "application",
-    "transpile",
-    "typescript",
-    "javascript",
-    "json",
-    "file"
+    "alias",
+    "dictionaries",
+    "entry"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
@@ -36,6 +32,11 @@
   "sideEffects": false,
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./*": {
       "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
@@ -66,35 +67,16 @@
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
-    "prettier:fix": "prettier --write src/**/*",
+    "prettier:fix": "prettier . --write",
+    "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@babel/generator": "^7.27.5",
-    "@babel/parser": "^7.27.5",
-    "@babel/traverse": "^7.27.4",
-    "@babel/types": "^7.27.6",
-    "@intlayer/api": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
-    "@intlayer/remote-dictionaries-entry": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "chokidar": "^3.6.0",
-    "crypto-js": "^4.2.0",
-    "deep-equal": "^2.2.3",
-    "deepmerge": "^4.3.1",
-    "fast-glob": "^3.3.3",
-    "p-limit": "^3.1.0",
-    "simple-git": "^3.27.0"
+    "@intlayer/config": "workspace:*"
   },
   "devDependencies": {
-    "@changesets/cli": "2.29.5",
-    "@types/babel__generator": "^7.27.0",
-    "@types/babel__traverse": "^7.20.7",
-    "@types/crypto-js": "^4.2.2",
-    "@types/deep-equal": "^1.0.4",
     "@types/node": "^24.2.1",
     "@typescript-eslint/parser": "^8.33.1",
     "@utils/eslint-config": "workspace:*",
@@ -111,12 +93,8 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "fast-glob": "^3.3.3",
-    "intlayer": "workspace:*",
-    "react": ">=16.0.0"
+    "intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"
