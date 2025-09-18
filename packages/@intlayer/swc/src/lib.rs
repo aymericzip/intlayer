@@ -26,7 +26,7 @@ use base62::encode as base62_encode;
 use twox_hash::XxHash64;
 
 
-static DEBUG_LOG: bool = true;
+static DEBUG_LOG: bool = false;
 
 
 // ─────────────────────────────────────────────────────────────────────────────
