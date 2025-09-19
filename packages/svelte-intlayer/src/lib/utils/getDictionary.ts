@@ -1,15 +1,10 @@
 import type { Locales, LocalesValues } from '@intlayer/config/client';
 import {
-  Dictionary,
-  Plugins,
+  type DeepTransformContent,
+  type Dictionary,
+  type Plugins,
   getDictionary as getDictionaryCore,
 } from '@intlayer/core';
-import {
-  DeepTransformContent,
-  intlayerNodePlugins,
-  markdownPlugin,
-  svelteNodePlugins,
-} from './plugins';
 
 /**
  * Get dictionary content for a specific locale in Svelte applications
@@ -27,9 +22,9 @@ export const getDictionary = <
   additionalPlugins?: Plugins[]
 ) => {
   const plugins: Plugins[] = [
-    intlayerNodePlugins,
-    svelteNodePlugins,
-    markdownPlugin,
+    // intlayerNodePlugins,
+    // svelteNodePlugins,
+    // markdownPlugin,
     ...(additionalPlugins ?? []),
   ];
 

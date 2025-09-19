@@ -1,11 +1,11 @@
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { getLocalizedUrl } from 'intlayer';
+import { useLocale } from 'react-intlayer';
 // eslint-disable-next-line no-restricted-imports
-import { Link, type LinkProps } from "react-router";
+import { Link, type LinkProps } from 'react-router';
 
 type LocalizedLinkProps = {
   to: string;
-} & Omit<LinkProps, "to">;
+} & Omit<LinkProps, 'to'>;
 
 export default function LocalizedLink(props: LocalizedLinkProps) {
   const { locale } = useLocale();
@@ -18,5 +18,5 @@ export default function LocalizedLink(props: LocalizedLinkProps) {
     ? props.to
     : getLocalizedUrl(props.to, locale);
 
-  return <Link {...props} to={to as LinkProps["to"]} />;
+  return <Link {...props} to={to as LinkProps['to']} />;
 }

@@ -1,7 +1,7 @@
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { getLocalizedUrl } from 'intlayer';
+import { useLocale } from 'react-intlayer';
 // eslint-disable-next-line no-restricted-imports
-import { type NavigateOptions, useNavigate } from "react-router";
+import { type NavigateOptions, useNavigate } from 'react-router';
 
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();

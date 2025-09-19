@@ -1,10 +1,10 @@
-import { configuration } from "intlayer";
-import { IntlayerProvider, useLocale } from "react-intlayer";
-import { Navigate, Outlet } from "react-router";
+import { configuration } from 'intlayer';
+import { IntlayerProvider, useLocale } from 'react-intlayer';
+import { Navigate, Outlet } from 'react-router';
 
-import { useI18nHTMLAttributes } from "~/hooks/useI18nHTMLAttributes";
+import { useI18nHTMLAttributes } from '~/hooks/useI18nHTMLAttributes';
 
-import type { Route } from "./+types/layout";
+import type { Route } from './+types/layout';
 
 export default function RootLayout({ params }: Route.ComponentProps) {
   useI18nHTMLAttributes();
@@ -25,9 +25,7 @@ export default function RootLayout({ params }: Route.ComponentProps) {
   }
 
   return (
-    <IntlayerProvider
-      locale={locale}
-    >
+    <IntlayerProvider locale={locale}>
       <Outlet />
     </IntlayerProvider>
   );

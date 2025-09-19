@@ -1,18 +1,15 @@
 {
   "name": "react-router-intlayer",
-  "description": "A React Router v7 + Intlayer i18n example project",
   "private": true,
+  "description": "A React Router v7 + Intlayer i18n example project",
   "type": "module",
-  "engines": {
-    "node": ">=20"
-  },
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
-    "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc",
+    "intlayer:build": "intlayer build",
     "lint": "eslint .",
-    "intlayer:build": "intlayer build"
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
     "@react-router/node": "^7.7.1",
@@ -39,5 +36,8 @@
     "vite": "^6.3.3",
     "vite-intlayer": "workspace:*",
     "vite-tsconfig-paths": "^5.1.4"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

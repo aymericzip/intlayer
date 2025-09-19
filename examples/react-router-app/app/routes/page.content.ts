@@ -1,21 +1,21 @@
-import { type Dictionary, t } from "intlayer";
+import { type Dictionary, t } from 'intlayer';
 
 const appContent = {
   content: {
     about: t({
-      en: "About",
-      tr: "Hakkında",
+      en: 'About',
+      tr: 'Hakkında',
     }),
     greeting: t({
-      en: "Hello World",
-      tr: "Merhaba Dünya",
+      en: 'Hello World',
+      tr: 'Merhaba Dünya',
     }),
     home: t({
-      en: "Home",
-      tr: "Ana Sayfa",
+      en: 'Home',
+      tr: 'Ana Sayfa',
     }),
   },
-  key: "page",
+  key: 'page',
 } satisfies Dictionary;
 
 export default appContent;

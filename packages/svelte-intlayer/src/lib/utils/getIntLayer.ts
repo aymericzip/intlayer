@@ -1,16 +1,15 @@
+import type { LocalesValues } from '@intlayer/config/client';
 import {
-  DictionaryKeys,
+  type DictionaryKeys,
+  type Plugins,
   getIntlayer as getIntlayerCore,
-  Plugins,
 } from '@intlayer/core';
-// @ts-ignore intlayer declared for module augmentation
-import type { IntlayerDictionaryTypesConnector, LocalesValues } from 'intlayer';
-import {
-  DeepTransformContent,
-  intlayerNodePlugins,
-  markdownPlugin,
-  svelteNodePlugins,
-} from './plugins';
+// import {
+//   type DeepTransformContent,
+//   intlayerNodePlugins,
+//   markdownPlugin,
+//   reactNodePlugins,
+// } from './plugins';
 
 /**
  * Get dictionary content by key for Svelte applications
@@ -25,13 +24,14 @@ export const getIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   additionalPlugins?: Plugins[]
 ) => {
   const plugins: Plugins[] = [
-    intlayerNodePlugins,
-    svelteNodePlugins,
-    markdownPlugin,
+    // intlayerNodePlugins,
+    // reactNodePlugins,
+    // markdownPlugin,
     ...(additionalPlugins ?? []),
   ];
 
-  return getIntlayerCore(key, locale, plugins) as any as DeepTransformContent<
-    IntlayerDictionaryTypesConnector[T]['content']
-  >;
+  return getIntlayerCore(key, locale, plugins) as any;
+  //as DeepTransformContent<
+  //     IntlayerDictionaryTypesConnector[T]['content']
+  //   >;
 };
