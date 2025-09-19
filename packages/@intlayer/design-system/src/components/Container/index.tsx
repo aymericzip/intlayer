@@ -7,6 +7,10 @@ import {
 } from 'react';
 import { cn } from '../../utils/cn';
 
+/**
+ * Container component variants using class-variance-authority
+ * Provides flexible styling options for background, padding, borders, and layout
+ */
 export const containerVariants = cva('flex text-text flex-col backdrop-blur', {
   variants: {
     roundedSize: {
@@ -79,6 +83,7 @@ export const containerVariants = cva('flex text-text flex-col backdrop-blur', {
   },
 });
 
+/** Available rounded corner sizes for the container */
 export enum ContainerRoundedSize {
   NONE = 'none',
   SM = 'sm',
@@ -90,6 +95,7 @@ export enum ContainerRoundedSize {
   FULL = 'full',
 }
 
+/** Background transparency levels for the container */
 export enum ContainerTransparency {
   NONE = 'none',
   SM = 'sm',
@@ -99,6 +105,7 @@ export enum ContainerTransparency {
   FULL = 'full',
 }
 
+/** Padding sizes for container content */
 export enum ContainerPadding {
   NONE = 'none',
   SM = 'sm',
@@ -107,6 +114,7 @@ export enum ContainerPadding {
   XL = 'xl',
 }
 
+/** Separator options for dividing container children */
 export enum ContainerSeparator {
   WITHOUT = 'without',
   X = 'x',
@@ -114,6 +122,7 @@ export enum ContainerSeparator {
   BOTH = 'both',
 }
 
+/** Border color options for the container */
 export enum ContainerBorderColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
@@ -124,12 +133,14 @@ export enum ContainerBorderColor {
   SUCCESS = 'success',
 }
 
+/** Background interaction states for the container */
 export enum ContainerBackground {
   NONE = 'none',
   HOVERABLE = 'hoverable',
   WITH = 'with',
 }
 
+/** Gap sizes between container children */
 export enum ContainerGap {
   NONE = 'none',
   SM = 'sm',
@@ -139,13 +150,44 @@ export enum ContainerGap {
   TWO_XL = '2xl',
 }
 
+/** Container component props extending HTML div attributes */
 export type ContainerProps = PropsWithChildren<
   Omit<VariantProps<typeof containerVariants>, 'border'>
 > &
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
+    /** Whether to show a border around the container */
     border?: boolean;
   };
 
+/**
+ * Container Component
+ *
+ * A flexible container component for organizing content with customizable styling options.
+ * Supports various visual states, layouts, and accessibility features.
+ *
+ * ## Features
+ * - **Flexible Layout**: Supports different padding, gap, and separator options
+ * - **Visual Variants**: Multiple background transparency levels and border styles
+ * - **Responsive Design**: Configurable rounded corners and spacing
+ * - **Semantic HTML**: Proper div element with extensible attributes
+ *
+ * ## Accessibility
+ * - Inherits all standard div accessibility features
+ * - Supports ARIA attributes through spread props
+ * - Maintains proper semantic structure for screen readers
+ *
+ * @param children - The content to display inside the container
+ * @param roundedSize - Border radius size (default: 'md')
+ * @param transparency - Background transparency level (default: 'md')
+ * @param padding - Internal padding size (default: 'none')
+ * @param separator - Divider lines between children (default: 'without')
+ * @param border - Whether to show border (default: false)
+ * @param borderColor - Color of the border (default: 'text')
+ * @param background - Background interaction behavior (default: 'none')
+ * @param gap - Space between child elements (default: 'none')
+ * @param className - Additional CSS classes
+ * @param props - Additional HTML div attributes including ARIA attributes
+ */
 export const Container: FC<ContainerProps> = ({
   children,
   roundedSize,
@@ -156,6 +198,7 @@ export const Container: FC<ContainerProps> = ({
   border,
   borderColor,
   background,
+  gap,
   ...props
 }) => (
   <div
@@ -169,6 +212,7 @@ export const Container: FC<ContainerProps> = ({
           typeof border === 'boolean' ? (border ? 'with' : 'none') : undefined,
         background,
         borderColor,
+        gap,
         className,
       })
     )}
