@@ -1,9 +1,8 @@
-
 'use client';
 
-import { useDevice } from '@/hooks/useDevice';
-import { cn } from '@utils/cn';
 import { useEffect, type FC, type HTMLAttributes } from 'react';
+import { useDevice } from '../../hooks/useDevice';
+import { cn } from '../../utils/cn';
 
 export enum KeyList {
   '⌘' = '⌘',
@@ -32,14 +31,14 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
 
   const keys = shortcut.split(' + ');
 
-  const displayedShortcut = isMac
-    ? shortcut
-    : shortcut.replace('⌘', 'Ctrl');
+  const displayedShortcut = isMac ? shortcut : shortcut.replace('⌘', 'Ctrl');
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const isModifierPressed = isMac ? event.metaKey : event.ctrlKey;
-      const regularKeyPressed = keys.find((key: string) => key !== '⌘' && key !== 'Ctrl');
+      const regularKeyPressed = keys.find(
+        (key: string) => key !== '⌘' && key !== 'Ctrl'
+      );
 
       if (isModifierPressed && event.key.toUpperCase() === regularKeyPressed) {
         event.preventDefault();
