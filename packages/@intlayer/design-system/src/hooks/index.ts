@@ -2,7 +2,6 @@ export * from './auth';
 export * from './reactQuery';
 export * from './useAuth';
 export * from './useDevice';
-export * from './useGetAllDictionaries';
 export * from './useGetElementOrWindow';
 export * from './useIsDarkMode';
 export * from './useIsMounted';

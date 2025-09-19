@@ -1,13 +1,13 @@
 'use client';
 
+import { PagesRoutes } from '@/Routes';
 import { Button, Loader } from '@intlayer/design-system';
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionaryActions } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
+import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type TagsDictionariesListProps = {
   tagKey: string;
@@ -30,7 +30,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
   const router = useRouter();
   const { setFocusedContent } = useFocusDictionaryActions();
   const { dictionaryLinkLabel } = useIntlayer('tags-dictionaries-list');
-  const { data, isWaitingData } = useGetDictionaries({
+  const { data, isPending } = useGetDictionaries({
     args: {
       tags: [tagKey],
     },
@@ -38,7 +38,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <Loader isLoading={isWaitingData}>
+      <Loader isLoading={isPending}>
         {data?.data?.map((dictionary) => (
           <Button
             key={String(dictionary.key)}
@@ -49,8 +49,8 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
             onClick={() => {
               setFocusedContent({
                 dictionaryKey: dictionary.key,
+                dictionaryLocalId: dictionary.localId,
                 keyPath: [],
-                dictionaryPath: dictionary.filePath,
               });
               router.push(`${PagesRoutes.Dashboard_Content}/${dictionary.key}`);
             }}

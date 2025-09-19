@@ -1,6 +1,6 @@
 {
   "extends": "@utils/ts-config",
-  "include": ["**/*"],
+  "include": ["**/*", ".intlayer/**/*"],
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["DOM"],

@@ -1,18 +1,21 @@
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
+import type { Dictionary } from '@intlayer/core';
 import remoteDictionariesRecord from '@intlayer/remote-dictionaries-entry';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
 import { fetchDistantDictionaryKeysAndUpdateTimestamp } from '../fetchDistantDictionaryKeysAndUpdateTimestamp';
 import { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
 
-export const formatDistantDictionaries = (dictionaries: DictionaryAPI[]) => {
-  return dictionaries.map((dict) => ({
+export const formatDistantDictionaries = (
+  dictionaries: DictionaryAPI[]
+): Dictionary[] =>
+  dictionaries.map((dict) => ({
     ...dict,
+    localId: `${dict.key}::remote::${dict.id}`,
     location: 'distant' as const,
   }));
-};
 
 export const loadRemoteDictionaries = async (
   configuration = getConfiguration(),

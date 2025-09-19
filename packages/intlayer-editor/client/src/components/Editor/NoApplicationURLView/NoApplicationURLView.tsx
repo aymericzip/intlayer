@@ -1,10 +1,11 @@
 import { H3, Link } from '@intlayer/design-system';
 import { type FC } from 'react';
-import { useDictionary } from 'react-intlayer';
-import content from './noApplicationURLView.content';
+import { useIntlayer } from 'react-intlayer';
 
 export const NoApplicationURLView: FC = () => {
-  const { title, description, documentationLink } = useDictionary(content);
+  const { title, description, documentationLink } = useIntlayer(
+    'no-application-url-view'
+  );
 
   return (
     <div className="flex flex-col gap-6">

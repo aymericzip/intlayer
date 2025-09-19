@@ -57,10 +57,11 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     setFocusedContent((prev) => ({
       ...(prev ?? {}),
       dictionaryKey: dictionary.key,
+      dictionaryLocalId: dictionary.localId,
     }));
     setLocaleDictionaries((prev) => ({
       ...prev,
-      [dictionary.key]: dictionary,
+      [dictionary.localId!]: dictionary,
     }));
   }, []);
 

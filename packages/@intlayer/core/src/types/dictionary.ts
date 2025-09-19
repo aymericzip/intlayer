@@ -87,8 +87,13 @@ type ReplaceContentValue<
 
 export type AutoFill = true | string | Partial<LanguageContent<string>>;
 
+export type LocalDictionaryId = string;
+
 export type Dictionary<ContentType = undefined, FetchableNode = false> = {
   $schema?: string;
+  id?: string;
+  localId?: LocalDictionaryId;
+  localIds?: LocalDictionaryId[];
   key: string;
   title?: string;
   description?: string;

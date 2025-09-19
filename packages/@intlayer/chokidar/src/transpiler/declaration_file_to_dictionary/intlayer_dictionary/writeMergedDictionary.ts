@@ -34,10 +34,13 @@ export const writeMergedDictionaries = async (
   groupedDictionaries: UnmergedDictionaryOutput,
   configuration = getConfiguration()
 ): Promise<MergedDictionaryOutput> => {
-  const { dictionariesDir } = configuration.content;
+  const { dictionariesDir, masksDir } = configuration.content;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dictionariesDir), { recursive: true });
+
+  // Create the masks folder if it doesn't exist
+  await mkdir(resolve(masksDir), { recursive: true });
 
   let resultDictionariesPaths: MergedDictionaryOutput = {};
 
@@ -53,7 +56,7 @@ export const writeMergedDictionaries = async (
 
     const mergedDictionary = mergeDictionaries(multiLocaleDictionaries);
 
-    const contentString = formatDictionaryText(mergedDictionary);
+    const contentString = formatDictionaryText(mergedDictionary.result);
 
     const outputFileName = `${key}.json`;
     const resultFilePath = resolve(dictionariesDir, outputFileName);
@@ -63,9 +66,15 @@ export const writeMergedDictionaries = async (
       console.error(`Error creating merged ${outputFileName}:`, err);
     });
 
+    const maskString = formatDictionaryText(mergedDictionary.mask);
+    const maskFilePath = resolve(masksDir, `${key}.json`);
+    await writeFile(maskFilePath, maskString, 'utf8').catch((err) => {
+      console.error(`Error creating mask ${outputFileName}:`, err);
+    });
+
     resultDictionariesPaths[key] = {
       dictionaryPath: resultFilePath,
-      dictionary: mergedDictionary,
+      dictionary: mergedDictionary.result,
     };
   }
 

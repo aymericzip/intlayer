@@ -135,6 +135,7 @@ export type {
 } from '@intlayer/backend';
 export type {
   GetConfigurationResult,
+  GetEditorDictionariesResult,
   WriteContentDeclarationBody,
   WriteContentDeclarationResult,
 } from 'intlayer-editor';

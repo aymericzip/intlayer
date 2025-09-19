@@ -73,6 +73,7 @@ export const getConfiguration = (
       'array'
     )!,
     dictionariesDir: getEnvValue(env.content.dictionariesDir, 'string')!,
+    masksDir: getEnvValue(env.content.masksDir, 'string')!,
     unmergedDictionariesDir: getEnvValue(
       env.content.unmergedDictionariesDir,
       'string'

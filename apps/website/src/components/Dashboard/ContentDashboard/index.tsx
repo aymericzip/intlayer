@@ -2,10 +2,7 @@
 
 import { PagesRoutes } from '@/Routes';
 import { DictionaryFieldEditor, Loader } from '@intlayer/design-system';
-import {
-  useGetAllDictionaries,
-  useGetDictionary,
-} from '@intlayer/design-system/hooks';
+import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { Suspense, type FC } from 'react';
@@ -19,7 +16,6 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   dictionaryKey,
 }) => {
   const { resolvedTheme } = useTheme();
-  const { isLoading } = useGetAllDictionaries();
   const { data: dictionaryResult, isPending } = useGetDictionary(dictionaryKey);
 
   const router = useRouter();
@@ -27,7 +23,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 
   return (
     <Suspense fallback={<Loader />}>
-      <Loader isLoading={!dictionary || isPending || isLoading}>
+      <Loader isLoading={!dictionary || isPending}>
         <EditorConfigurationProvider>
           {dictionary && (
             <DictionaryFieldEditor

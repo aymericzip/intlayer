@@ -10,13 +10,13 @@ type NodeEditorProps = {
 };
 
 export const StructureEditor: FC<NodeEditorProps> = ({ dictionary }) => {
-  const { content, key } = dictionary;
+  const { content, key, localId } = dictionary;
 
   const { editedContent } = useEditedContent();
   const initialSection =
-    typeof editedContent?.[key]?.content === 'undefined'
+    typeof editedContent?.[localId!]?.content === 'undefined'
       ? content
-      : editedContent?.[key]?.content;
+      : editedContent?.[localId!]?.content;
 
   return (
     <NodeView

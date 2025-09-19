@@ -1,5 +1,5 @@
 import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { ESMxCJSRequire, getConfiguration } from '@intlayer/config';
+import { ESMxCJSRequire, getAlias, getConfiguration } from '@intlayer/config';
 import type { RsbuildPlugin } from '@rsbuild/core';
 import { join, relative } from 'path';
 
@@ -39,15 +39,6 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
       const dictionariesPath = join(mainDir, 'dictionaries.mjs');
       const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
-      const unmergedDictionariesPath = join(
-        mainDir,
-        'unmerged_dictionaries.mjs'
-      );
-      const relativeUnmergedDictionariesPath = relative(
-        baseDir,
-        unmergedDictionariesPath
-      );
-
       const configurationPath = join(configDir, 'configuration.json');
       const relativeConfigurationPath = relative(baseDir, configurationPath);
 
@@ -61,10 +52,7 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
         return mergeRsbuildConfig(config, {
           source: {
             alias: {
-              '@intlayer/dictionaries-entry': relativeDictionariesPath,
-              '@intlayer/unmerged-dictionaries-entry':
-                relativeUnmergedDictionariesPath,
-              '@intlayer/config/built': relativeConfigurationPath,
+              ...getAlias({ configuration: intlayerConfig }),
               react: ESMxCJSRequire.resolve('@lynx-js/react'),
             },
           },

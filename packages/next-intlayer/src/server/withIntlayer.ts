@@ -1,6 +1,7 @@
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
+  getAlias,
   getAppLogger,
   getConfiguration,
   IntlayerConfig,
@@ -12,7 +13,7 @@ import merge from 'deepmerge';
 import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
-import { join, relative, resolve } from 'path';
+import { join, relative } from 'path';
 import { compareVersions } from './compareVersion';
 import { getNextVersion } from './getNextVertion';
 
@@ -185,34 +186,13 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
     );
   }
 
-  // Format all configuration values as environment variables
-  const { mainDir, configDir, baseDir } = intlayerConfig.content;
-
-  const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-  const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-
-  const unmergedDictionariesPath = join(mainDir, 'unmerged_dictionaries.mjs');
-  const relativeUnmergedDictionariesPath = relative(
-    baseDir,
-    unmergedDictionariesPath
-  );
-
-  const configurationPath = join(configDir, 'configuration.json');
-  const relativeConfigurationPath = relative(baseDir, configurationPath);
-
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {
-    resolveAlias: {
-      // prefix by './' to consider the path as relative to the project root. This is necessary for turbopack to work correctly.
-      // Normalize the path to avoid issues with the path separator on Windows
-      '@intlayer/dictionaries-entry': normalizePath(
-        `./${relativeDictionariesPath}`
-      ),
-      '@intlayer/unmerged-dictionaries-entry': normalizePath(
-        `./${relativeUnmergedDictionariesPath}`
-      ),
-      '@intlayer/config/built': normalizePath(`./${relativeConfigurationPath}`),
-    },
+    resolveAlias: getAlias({
+      configuration: intlayerConfig,
+      formatter: (value: string) => `./${value}`, // prefix by './' to consider the path as relative to the project root. This is necessary for turbopack to work correctly.
+    }),
+
     rules: {
       '*.node': {
         as: '*.node',
@@ -285,11 +265,9 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
       // On the client, alias only when not using live sync.
       config.resolve.alias = {
         ...config.resolve.alias,
-        '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-        '@intlayer/unmerged-dictionaries-entry': resolve(
-          relativeUnmergedDictionariesPath
-        ),
-        '@intlayer/config/built': resolve(relativeConfigurationPath),
+        ...getAlias({
+          configuration: intlayerConfig,
+        }),
       };
 
       // Activate watch mode webpack plugin

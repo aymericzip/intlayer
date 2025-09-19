@@ -114,6 +114,9 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/remote-dictionaries-entry": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "fast-glob": "^3.3.3",
     "intlayer": "workspace:*",
     "react": ">=16.0.0"

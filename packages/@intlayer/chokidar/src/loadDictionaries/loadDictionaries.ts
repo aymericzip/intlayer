@@ -152,6 +152,7 @@ export const loadDictionaries = async (
 
   const localDictionaries: Dictionary[] = await loadContentDeclarations(
     files,
+    configuration,
     projectRequire,
     setLoadDictionariesStatus
   );

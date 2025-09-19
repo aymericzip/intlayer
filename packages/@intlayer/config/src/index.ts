@@ -1,3 +1,4 @@
+export { getAlias } from './alias';
 export {
   getConfiguration,
   type GetConfigurationOptions,

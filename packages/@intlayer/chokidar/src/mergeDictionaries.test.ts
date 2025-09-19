@@ -28,6 +28,7 @@ vi.mock('@intlayer/core', () => ({
     }
     return 'unknown';
   }),
+  getReplacedValuesContent: vi.fn((content: any) => content),
 }));
 
 describe('mergeDictionaries', () => {
@@ -63,12 +64,13 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.key).toBe('test-key');
-    expect(result.content.title.translation).toEqual({
+    expect(result.result.key).toBe('test-key');
+    expect(result.result.content.title.translation).toEqual({
       en: 'Hello',
       fr: 'Bonjour',
     });
-    expect(result.filePath).toBeUndefined();
+    expect(result.result.filePath).toBeUndefined();
+    expect(result.mask).toBeDefined();
   });
 
   it('should merge nested translation objects correctly', () => {
@@ -103,7 +105,7 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.content.section.subsection.translation).toEqual({
+    expect(result.result.content.section.subsection.translation).toEqual({
       en: 'English text',
       fr: 'French text',
     });
@@ -127,8 +129,8 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.content.items).toHaveLength(4);
-    expect(result.content.items).toEqual([
+    expect(result.result.content.items).toHaveLength(4);
+    expect(result.result.content.items).toEqual([
       'test1.1',
       'test2.1',
       'test3.1',
@@ -181,12 +183,12 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.content.items).toHaveLength(2);
-    expect(result.content.items[0].translation).toEqual({
+    expect(result.result.content.items).toHaveLength(2);
+    expect(result.result.content.items[0].translation).toEqual({
       en: 'Item 1.1 EN',
       fr: 'Item 1 FR',
     });
-    expect(result.content.items[1].translation).toEqual({
+    expect(result.result.content.items[1].translation).toEqual({
       en: 'Item 2 EN',
       fr: 'Item 2 FR',
     });
@@ -230,12 +232,12 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.content.items).toHaveLength(2);
-    expect(result.content.items[0].translation).toEqual({
+    expect(result.result.content.items).toHaveLength(2);
+    expect(result.result.content.items[0].translation).toEqual({
       en: 'Item 1 EN',
       fr: 'Item 1 FR',
     });
-    expect(result.content.items[1].translation).toEqual({
+    expect(result.result.content.items[1].translation).toEqual({
       fr: 'Item 2 FR',
     });
   });
@@ -271,10 +273,10 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.content.stringValue).toBe('Hello');
-    expect(result.content.numberValue).toBe(42);
-    expect(result.content.booleanValue).toBe(true);
-    expect(result.content.translationValue.translation).toEqual({
+    expect(result.result.content.stringValue).toBe('Hello');
+    expect(result.result.content.numberValue).toBe(42);
+    expect(result.result.content.booleanValue).toBe(true);
+    expect(result.result.content.translationValue.translation).toEqual({
       en: 'English',
       fr: 'French',
     });
@@ -292,9 +294,9 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.key).toBe('single-test');
-    expect(result.content.title).toBe('Single item');
-    expect(result.filePath).toBeUndefined();
+    expect(result.result.key).toBe('single-test');
+    expect(result.result.content.title).toBe('Single item');
+    expect(result.result.filePath).toBeUndefined();
   });
 
   it('should preserve non-translation content during merge', () => {
@@ -329,9 +331,9 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.content.metadata.version).toBe('1.0.0');
-    expect(result.content.metadata.author).toBe('Test Author');
-    expect(result.content.title.translation).toEqual({
+    expect(result.result.content.metadata.version).toBe('1.0.0');
+    expect(result.result.content.metadata.author).toBe('Test Author');
+    expect(result.result.content.title.translation).toEqual({
       en: 'English Title',
       fr: 'French Title',
     });
@@ -389,12 +391,12 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.content.level1.level2.level3).toHaveLength(2);
-    expect(result.content.level1.level2.level3[0].translation).toEqual({
+    expect(result.result.content.level1.level2.level3).toHaveLength(2);
+    expect(result.result.content.level1.level2.level3[0].translation).toEqual({
       en: 'Deep item 1 EN',
       fr: 'Deep item 1 FR',
     });
-    expect(result.content.level1.level2.level3[1].translation).toEqual({
+    expect(result.result.content.level1.level2.level3[1].translation).toEqual({
       en: 'Deep item 2 EN',
       fr: 'Deep item 2 FR',
     });
@@ -513,34 +515,34 @@ describe('mergeDictionaries', () => {
     const result = mergeDictionaries(dictionaries);
 
     // Test that arrays are merged by index/position
-    expect(result.content.test.test6).toHaveLength(2);
-    expect(result.content.test.test6[0].translation).toEqual({
+    expect(result.result.content.test.test6).toHaveLength(2);
+    expect(result.result.content.test.test6[0].translation).toEqual({
       en: 'Test 6 en',
       fr: 'Test 6 fr',
     });
-    expect(result.content.test.test6[1].translation).toEqual({
+    expect(result.result.content.test.test6[1].translation).toEqual({
       en: 'Test 7 en',
       fr: 'Test 7 fr',
     });
 
     // Test that other translations are merged correctly
-    expect(result.content.title.translation).toEqual({
+    expect(result.result.content.title.translation).toEqual({
       en: 'Onboarding',
       fr: 'Configurer votre compte',
     });
-    expect(result.content.test.test2.test3.translation).toEqual({
+    expect(result.result.content.test.test2.test3.translation).toEqual({
       en: 'Test 3 en',
       fr: 'Test 3 fr',
     });
-    expect(result.content.test.test4.translation).toEqual({
+    expect(result.result.content.test.test4.translation).toEqual({
       en: 'Test 4 en',
       fr: 'Test 4 fr',
     });
-    expect(result.content.test5.translation).toEqual({
+    expect(result.result.content.test5.translation).toEqual({
       en: 'Test 5 en',
       fr: 'Test 5 fr',
     });
-    expect(result.content.description.translation).toEqual({
+    expect(result.result.content.description.translation).toEqual({
       en: 'Set up your Intlayer account by following the instructions.',
       fr: 'Suivez les instructions pour configurer votre compte Intlayer.',
     });
@@ -613,25 +615,76 @@ describe('mergeDictionaries', () => {
 
     const result = mergeDictionaries(dictionaries);
 
-    expect(result.content.items).toHaveLength(4);
+    expect(result.result.content.items).toHaveLength(4);
     // Keyed items matched regardless of their positions
-    expect(result.content.items[0].translation).toEqual({
+    expect(result.result.content.items[0].translation).toEqual({
       en: 'First EN',
       fr: 'First FR',
     });
-    expect(result.content.items[1].translation).toEqual({
+    expect(result.result.content.items[1].translation).toEqual({
       en: 'Second EN',
       fr: 'Second FR',
     });
     // Unkeyed item falls back to index-based merge
-    expect(result.content.items[2].translation).toEqual({
+    expect(result.result.content.items[2].translation).toEqual({
       en: 'Index EN',
       fr: 'Index FR',
     });
     // Additional source-only keyed item is appended
-    expect(result.content.items[3].translation).toEqual({
+    expect(result.result.content.items[3].translation).toEqual({
       fr: 'Third FR',
     });
+  });
+
+  it('should return both result and mask in the merged output', () => {
+    const dictionaries: Dictionary[] = [
+      {
+        key: 'mask-test',
+        localId: 'local-1',
+        content: {
+          title: {
+            nodeType: 'translation',
+            translation: {
+              en: 'Title EN',
+            },
+          },
+        },
+      },
+      {
+        key: 'mask-test',
+        localId: 'local-2',
+        content: {
+          title: {
+            nodeType: 'translation',
+            translation: {
+              fr: 'Title FR',
+            },
+          },
+        },
+      },
+    ];
+
+    const result = mergeDictionaries(dictionaries);
+
+    // Check that result has both result and mask properties
+    expect(result).toHaveProperty('result');
+    expect(result).toHaveProperty('mask');
+
+    // Check result structure
+    expect(result.result.key).toBe('mask-test');
+    expect(result.result.content.title.translation).toEqual({
+      en: 'Title EN',
+      fr: 'Title FR',
+    });
+    expect(result.result.localIds).toEqual(['local-1', 'local-2']);
+    expect(result.result.filePath).toBeUndefined();
+    expect(result.result.localId).toBeUndefined();
+    expect(result.result.id).toBeUndefined();
+
+    // Check mask structure
+    expect(result.mask.key).toBe('mask-test');
+    expect(result.mask.localId).toBe('local-2'); // Mask gets merged with later dictionaries
+    expect(result.mask.content).toBeDefined();
   });
 
   it('should deep-merge object properties inside array elements (keyed and by index)', () => {
@@ -738,10 +791,10 @@ describe('mergeDictionaries', () => {
     const result = mergeDictionaries(dictionaries);
 
     // Order should follow the first dictionary for matched items, with new keyed items appended
-    expect(result.content.items).toHaveLength(3);
+    expect(result.result.content.items).toHaveLength(3);
 
     // Keyed merge: deep-merge nested objects and arrays, later dictionary overrides conflicts
-    const keyed = result.content.items[0];
+    const keyed = result.result.content.items[0];
     expect(keyed.title.translation).toEqual({ en: 'Hello', fr: 'Bonjour' });
     expect(keyed.meta).toEqual({
       leftOnly: true,
@@ -754,7 +807,7 @@ describe('mergeDictionaries', () => {
     expect(keyed.list[1].translation).toEqual({ fr: 'L2 FR' });
 
     // Index merge: unkeyed elements at same index are deep-merged
-    const byIndex = result.content.items[1];
+    const byIndex = result.result.content.items[1];
     expect(byIndex.title.translation).toEqual({
       en: 'Index EN',
       fr: 'Index FR',
@@ -762,7 +815,7 @@ describe('mergeDictionaries', () => {
     expect(byIndex.meta).toEqual({ onlyLeftIndex: 1, onlyRightIndex: true });
 
     // Additional keyed element from second dictionary is appended
-    const appended = result.content.items[2];
+    const appended = result.result.content.items[2];
     expect(appended.meta).toEqual({ extra: 'from second' });
   });
 });

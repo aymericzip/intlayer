@@ -26,6 +26,8 @@ export const MAIN_DIR = '.intlayer/main';
 
 export const DICTIONARIES_DIR = '.intlayer/dictionary';
 
+export const MASKS_DIR = '.intlayer/mask';
+
 export const REMOTE_DICTIONARIES_DIR = '.intlayer/remote_dictionary';
 
 export const UNMERGED_DICTIONARIES_DIR = '.intlayer/unmerged_dictionary';

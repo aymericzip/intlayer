@@ -41,6 +41,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   dictionary,
   mode,
   className,
+
   onDelete,
   ...props
 }) => {
@@ -65,7 +66,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   } = useIntlayer('save-dictionary-details');
   const { isAuthenticated } = useAuth();
 
-  const editedDictionary = editedContent?.[dictionary.key];
+  const editedDictionary = editedContent?.[dictionary.localId!];
 
   const isEdited =
     editedDictionary &&
@@ -75,11 +76,11 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
     typeof (dictionary as DistantDictionary)?.id !== 'undefined';
 
   const handleSaveDictionaryConfirmation = async () => {
-    if (!editedContent?.[dictionary.key]) return;
+    if (!editedContent?.[dictionary.localId!]) return;
 
     const updatedDictionary = {
       ...dictionary,
-      ...editedContent?.[dictionary.key],
+      ...editedContent?.[dictionary.localId!],
     };
 
     writeDictionary(
@@ -88,26 +89,26 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       },
       {
         onSuccess: () => {
-          setLocaleDictionary(editedContent?.[dictionary.key]);
-          restoreEditedContent(dictionary.key);
+          setLocaleDictionary(editedContent?.[dictionary.localId!]);
+          restoreEditedContent(dictionary.localId!);
         },
       }
     );
   };
 
   const handlePushDictionary = () => {
-    if (!editedContent?.[dictionary.key]) return;
+    if (!editedContent?.[dictionary.localId!]) return;
 
     const updatedDictionary = {
       ...dictionary,
-      ...editedContent?.[dictionary.key],
+      ...editedContent?.[dictionary.localId!],
     };
 
     pushDictionaries([updatedDictionary], {
       onSuccess: (res) => {
         if (res) {
-          setLocaleDictionary(editedContent?.[dictionary.key]);
-          restoreEditedContent(dictionary.key);
+          setLocaleDictionary(editedContent?.[dictionary.localId!]);
+          restoreEditedContent(dictionary.localId!);
         }
       },
     });
@@ -188,7 +189,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             variant={ButtonVariant.OUTLINE}
             color={ButtonColor.TEXT}
             className="max-md:w-full"
-            onClick={() => restoreEditedContent(dictionary.key)}
+            onClick={() => restoreEditedContent(dictionary.localId!)}
           >
             {resetButton.text}
           </Form.Button>

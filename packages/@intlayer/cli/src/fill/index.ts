@@ -274,7 +274,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
         ? [...result, mainDictionaryToProcess] // Mode review: generated content will override the base one
         : [mainDictionaryToProcess, ...result]; // Mode complete: base content will override the generated one
 
-    const mergedResults = mergeDictionaries(dictionaryToMerge);
+    const mergedResults = mergeDictionaries(dictionaryToMerge).result;
 
     let formattedDict = targetUnmergedDictionary;
 

@@ -83,6 +83,20 @@ This command will find your declaration content files as default as `./src/**/*.
 - `npx intlayer dictionary build`
 - `npx intlayer dic build`
 
+##### Arguments:
+
+- **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
+
+  > Example: `npx intlayer build --base-dir ./src`
+
+- **`--env`**: Specify the environment (e.g., `development`, `production`). Useful in the case you use environment variables in your intlayer configuration file.
+
+  > Example: `npx intlayer build --env production`
+
+- **`--env-file`**: Provide a custom environment file to load variables from. Useful in the case you use environment variables in your intlayer configuration file.
+
+  > Example: `npx intlayer build --env-file .env.production.local`
+
 ### Push dictionaries
 
 ```bash

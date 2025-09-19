@@ -534,6 +534,15 @@ export type BaseDerivedConfig = {
   dictionariesDir: string;
 
   /**
+   * Directory where the masks are stored, relative to the base directory
+   *
+   * Default: .intlayer/mask
+   *
+   * Derived masks directory based on the base configuration.
+   */
+  masksDir: string;
+
+  /**
    * Directory for module augmentation, relative to the base directory
    *
    * Default: .intlayer/types

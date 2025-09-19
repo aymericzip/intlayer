@@ -1,8 +1,8 @@
 import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { getConfiguration } from '@intlayer/config';
+import { getAlias, getConfiguration } from '@intlayer/config';
 import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
-import { join, relative, resolve } from 'path';
+import { resolve } from 'path';
 import { intlayerMiddleware, intlayerPrune } from 'vite-intlayer';
 
 // @ts-ignore fix instantiation is excessively deep and possibly infinite
@@ -13,7 +13,6 @@ export const module: NuxtModule = defineNuxtModule({
   setup({}, nuxt) {
     const configuration = getConfiguration();
 
-    const { mainDir, baseDir, configDir } = configuration.content;
     const { optimize } = configuration.build;
     /**
      * -------------------------------------------------
@@ -59,25 +58,12 @@ export const module: NuxtModule = defineNuxtModule({
       }
     });
 
-    const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-    const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-
-    const unmergedDictionariesPath = join(mainDir, 'unmerged_dictionaries.mjs');
-    const relativeUnmergedDictionariesPath = relative(
-      baseDir,
-      unmergedDictionariesPath
-    );
-
-    const configurationPath = join(configDir, 'configuration.json');
-    const relativeConfigurationPath = relative(baseDir, configurationPath);
-
     nuxt.options.alias = {
       ...nuxt.options.alias,
-      '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-      '@intlayer/unmerged-dictionaries-entry': resolve(
-        relativeUnmergedDictionariesPath
-      ),
-      '@intlayer/config/built': resolve(relativeConfigurationPath),
+      ...getAlias({
+        configuration,
+        formatter: (value: string) => resolve(value),
+      }),
     };
 
     // After setting up aliases, extend Nuxt pages with locale-aware routes

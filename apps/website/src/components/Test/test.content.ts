@@ -50,7 +50,7 @@ const content = {
         pt: 'Olá, meu nome é {{name}} e eu tenho {{age}} anos!',
         ru: 'Привет, моё имя {{name}} и мне {{age}} лет!',
         zh: '你好，我的名字是 {{name}} ，我 {{age}} 岁了！',
-        id: 'Halo, nama saya {{name}} dan saya berumur {{age}} tahun!',
+        es: '¡Hola, mi nombre es {{name}} y tengo {{age}} años!',
         hi: 'नमस्ते, मेरा नाम {{name}} है और मैं {{age}} वर्ष का हूँ!',
         it: 'Ciao, mi chiamo {{name}} e ho {{age}} anni!',
         ja: 'こんにちは、私の名前は {{name}} で、私は {{age}} 歳です！',

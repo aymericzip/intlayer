@@ -1,7 +1,8 @@
 import { prepareIntlayer, runOnce, watch } from '@intlayer/chokidar';
 import intlayerConfig from '@intlayer/config/built';
-import { join, relative, resolve } from 'path';
+import { join, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
+import { getAlias } from '@intlayer/config';
 import { type PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
@@ -17,12 +18,7 @@ import { intlayerPrune } from './intlayerPrunePlugin';
  * ```
  *  */
 export const intlayer = (): PluginOption => {
-  const {
-    mainDir,
-    configDir,
-    baseDir,
-    watch: isWatchMode,
-  } = intlayerConfig.content;
+  const { watch: isWatchMode } = intlayerConfig.content;
   const { optimize } = intlayerConfig.build;
 
   const plugins: PluginOption[] = [
@@ -30,31 +26,15 @@ export const intlayer = (): PluginOption => {
       name: 'vite-intlayer-plugin',
 
       config: (config) => {
-        const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-        const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-
-        const unmergedDictionariesPath = join(
-          mainDir,
-          'unmerged_dictionaries.mjs'
-        );
-        const relativeUnmergedDictionariesPath = relative(
-          baseDir,
-          unmergedDictionariesPath
-        );
-
-        const configurationPath = join(configDir, 'configuration.json');
-        const relativeConfigurationPath = relative(baseDir, configurationPath);
-
         // Update Vite's resolve alias
         config.resolve = {
           ...config.resolve,
           alias: {
             ...config.resolve?.alias,
-            '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-            '@intlayer/unmerged-dictionaries-entry': resolve(
-              relativeUnmergedDictionariesPath
-            ),
-            '@intlayer/config/built': resolve(relativeConfigurationPath),
+            ...getAlias({
+              configuration: intlayerConfig,
+              formatter: (value: string) => resolve(value),
+            }),
           },
         };
 
@@ -65,7 +45,6 @@ export const intlayer = (): PluginOption => {
             exclude: [
               ...(config.optimizeDeps?.exclude ?? []),
               '@intlayer/dictionaries-entry',
-              '@intlayer/unmerged-dictionaries-entry',
               '@intlayer/config/built',
             ],
           };

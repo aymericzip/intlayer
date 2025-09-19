@@ -73,11 +73,11 @@ const logos = [
 
 const LogoItem: FC<{
   Logo: FC<SVGProps<SVGSVGElement>>;
-  key: string;
+  label: string;
   route: string;
   className?: string;
-}> = ({ Logo, route, key, className }) => (
-  <Link href={route} label={key} color="custom">
+}> = ({ Logo, route, label, className }) => (
+  <Link href={route} label={label} color="custom">
     <Logo
       className={cn(
         'size-16 sm:size-18 md:size-20 lg:size-24 opacity-70 hover:opacity-100 transition-opacity duration-200',
@@ -91,10 +91,10 @@ export const TechLogos: FC = () => (
   <div className="my-10 w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_170px,_black_calc(100%-170px),transparent_100%)]">
     <div className="relative w-[300vw] gap-5 whitespace-nowrap flex items-center justify-evenly horizontal-loop-4">
       {logos.map((logo, index) => (
-        <LogoItem {...logo} key={`${logo.key}-${index}-1`} />
+        <LogoItem {...logo} key={`${logo.key}-${index}-1`} label={logo.key} />
       ))}
       {logos.map((logo, index) => (
-        <LogoItem {...logo} key={`${logo.key}-${index}-2`} />
+        <LogoItem {...logo} key={`${logo.key}-${index}-2`} label={logo.key} />
       ))}
     </div>
   </div>

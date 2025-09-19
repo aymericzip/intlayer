@@ -24,10 +24,7 @@ const config: IntlayerConfig = {
     strictMode: 'strict',
   },
   content: {
-    contentDir: ['./src', '../@intlayer/design-system/src'],
-  },
-  editor: {
-    applicationURL: 'http://localhost:5173/',
+    contentDir: ['./client/src', '../@intlayer/design-system/src'],
   },
 };
 

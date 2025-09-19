@@ -9,7 +9,7 @@ import {
   Loader,
   Modal,
 } from '@intlayer/design-system';
-import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
+import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionaryActions } from '@intlayer/editor-react';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -22,11 +22,10 @@ export const DictionaryListDashboardContent: FC = () => {
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const { noDictionaryView, createDictionaryButton, dictionaryList } =
     useIntlayer('dictionary-form');
-  const { online, isLoading } = useGetAllDictionaries();
-  const dictionaries = Object.values(online ?? {}) ?? [];
+  const { data, isPending } = useGetDictionaries();
   const router = useRouter();
 
-  if (isLoading) return <Loader />;
+  if (isPending) return <Loader />;
 
   return (
     <Container
@@ -35,14 +34,14 @@ export const DictionaryListDashboardContent: FC = () => {
     >
       <H2 className="mb-6 mt-2">{dictionaryList.title}</H2>
 
-      {dictionaries.length === 0 && (
+      {data?.data?.length === 0 && (
         <span className="text-neutral text-sm m-auto">
           {noDictionaryView.title}
         </span>
       )}
-      {dictionaries.map((dictionary) => (
+      {data?.data?.map((dictionary) => (
         <Button
-          key={String(dictionary.key)}
+          key={String(dictionary.localId)}
           label={selectDictionaryButton.label.value}
           variant="hoverable"
           color="text"
@@ -50,8 +49,8 @@ export const DictionaryListDashboardContent: FC = () => {
           onClick={() => {
             setFocusedContent({
               dictionaryKey: dictionary.key,
+              dictionaryLocalId: dictionary.localId,
               keyPath: [],
-              dictionaryPath: dictionary.filePath,
             });
             router.push(`${PagesRoutes.Dashboard_Content}/${dictionary.key}`);
           }}

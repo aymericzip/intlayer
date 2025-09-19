@@ -8,9 +8,9 @@ import type {
   CracoPlugin,
   WebpackConfigOverride,
 } from '@craco/types';
-import { ESMxCJSRequire, getConfiguration } from '@intlayer/config';
+import { ESMxCJSRequire, getAlias, getConfiguration } from '@intlayer/config';
 import { IntlayerPlugin as IntlayerWebpackPlugin } from '@intlayer/webpack';
-import { join, relative, resolve } from 'path';
+import { join, relative } from 'path';
 import type { Configuration as WebpackConfig } from 'webpack';
 
 // Get Intlayer configuration
@@ -55,12 +55,6 @@ export const overrideCracoConfig = ({
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
-  const unmergedDictionariesPath = join(mainDir, 'unmerged_dictionaries.mjs');
-  const relativeUnmergedDictionariesPath = relative(
-    baseDir,
-    unmergedDictionariesPath
-  );
-
   const configurationPath = join(configDir, 'configuration.json');
   const relativeConfigurationPath = relative(baseDir, configurationPath);
 
@@ -94,11 +88,10 @@ export const overrideCracoConfig = ({
       // 4) Alias @intlayer/dictionaries-entry so it no longer tries to use the ESM that depends on `fs`, etc.
       alias: {
         ...cracoConfig.webpack?.alias,
-        '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-        '@intlayer/unmerged-dictionaries-entry': resolve(
-          relativeUnmergedDictionariesPath
-        ),
-        '@intlayer/config/built': resolve(relativeConfigurationPath),
+        ...getAlias({
+          configuration: intlayerConfig,
+          formatter: (value: string) => resolve(value),
+        }),
       },
     },
   };

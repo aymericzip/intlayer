@@ -4,6 +4,7 @@ import { resolve } from 'path';
 import { getBuiltDictionariesPath } from '../../getBuiltDictionariesPath';
 import { getBuiltDynamicDictionariesPath } from '../../getBuiltDynamicDictionariesPath';
 import { getBuiltFetchDictionariesPath } from '../../getBuiltFetchDictionariesPath';
+import { getBuiltMaskDictionariesPath } from '../../getBuiltMaskDictionariesPath';
 import { getBuiltRemoteDictionariesPath } from '../../getBuiltRemoteDictionariesPath';
 import { getBuiltUnmergedDictionariesPath } from '../../getBuiltUnmergedDictionariesPath';
 import { generateDictionaryListContent } from './generateDictionaryListContent';
@@ -38,25 +39,21 @@ export const createDictionaryEntryPoint = (
   formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
 ) => {
   const { mainDir } = configuration.content;
-  const { clientId, clientSecret } = configuration.editor;
 
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {
     mkdirSync(mainDir, { recursive: true });
   }
 
-  if (clientId && clientSecret) {
-    const remoteDictionariesPath =
-      getBuiltRemoteDictionariesPath(configuration);
+  const remoteDictionariesPath = getBuiltRemoteDictionariesPath(configuration);
 
-    for (const format of formats) {
-      writeDictionaryFiles(
-        remoteDictionariesPath,
-        'remote_dictionaries',
-        format,
-        configuration
-      );
-    }
+  for (const format of formats) {
+    writeDictionaryFiles(
+      remoteDictionariesPath,
+      'remote_dictionaries',
+      format,
+      configuration
+    );
   }
 
   const dictionariesPath = filterDictionaries(
@@ -71,6 +68,15 @@ export const createDictionaryEntryPoint = (
       format,
       configuration
     );
+  }
+
+  const masksPath = filterDictionaries(
+    getBuiltMaskDictionariesPath(configuration),
+    dictionariesKeys
+  );
+
+  for (const format of formats) {
+    writeDictionaryFiles(masksPath, 'masks', format, configuration);
   }
 
   const unmergedDictionariesPath =

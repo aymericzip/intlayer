@@ -1,6 +1,7 @@
 'use client';
 
 import { type Locales } from '@intlayer/config/client';
+import { Dictionary } from '@intlayer/core';
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import {
   FileContent,
@@ -26,17 +27,21 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
     MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
     null
   );
-  const { data: localeDictionaries } = useGetEditorDictionaries({
-    autoFetch: true,
-  });
+  const { data: unmergedDictionaries } = useGetEditorDictionaries();
 
   const { setLocaleDictionaries } = useDictionariesRecordActions();
 
   useEffect(() => {
-    if (!localeDictionaries) return;
+    if (!unmergedDictionaries) return;
 
-    setLocaleDictionaries(localeDictionaries);
-  }, [localeDictionaries]);
+    const dictionariesList = Object.fromEntries(
+      Object.values(unmergedDictionaries as Record<string, Dictionary[]>)
+        .flat()
+        .map((dictionary) => [dictionary.localId, dictionary])
+    );
+
+    setLocaleDictionaries(dictionariesList);
+  }, [unmergedDictionaries]);
 
   return (
     <div className="bg-card relative size-full p-3">

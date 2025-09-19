@@ -1,7 +1,10 @@
 import { getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import type { Dictionary } from '@intlayer/core';
-import { getNodeType } from '@intlayer/core';
+import {
+  type Dictionary,
+  getNodeType,
+  getReplacedValuesContent,
+} from '@intlayer/core';
 import merge, { Options } from 'deepmerge';
 
 const checkTypesMatch = (
@@ -103,8 +106,29 @@ const arrayMerge = (destinationArray: any[], sourceArray: any[]): any[] => {
   return result;
 };
 
-export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
+const getMergedMask = (dictionaries: Dictionary[]): Dictionary => ({
+  ...dictionaries[0],
+  content: getReplacedValuesContent(
+    dictionaries[0].content,
+    dictionaries[0].localId!,
+    {
+      dictionaryKey: dictionaries[0].key,
+      keyPath: [],
+    }
+  ),
+});
+
+export type MergedDictionariesResult = {
+  result: Dictionary;
+  mask: Dictionary;
+};
+
+export const mergeDictionaries = (
+  dictionaries: Dictionary[]
+): MergedDictionariesResult => {
   const { editor } = configuration;
+
+  let margedMask: Dictionary = getMergedMask(dictionaries);
 
   let mergedDictionaries: Dictionary = dictionaries[0];
 
@@ -132,14 +156,35 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
         currentDictionary,
         mergeOptions
       );
+      margedMask = merge(margedMask, currentDictionary, mergeOptions);
     } else {
       mergedDictionaries = merge(
         currentDictionary,
         mergedDictionaries,
         mergeOptions
       );
+      margedMask = merge(margedMask, currentDictionary, mergeOptions);
     }
   }
 
-  return { ...mergedDictionaries, filePath: undefined };
+  return {
+    result: {
+      ...mergedDictionaries,
+      localIds: dictionaries
+        .filter((dict) => dict.localId)
+        .map((dict) => dict.localId!),
+      filePath: undefined,
+      localId: undefined,
+      id: undefined,
+    },
+    mask: {
+      ...margedMask,
+      localIds: dictionaries
+        .filter((dict) => dict.localId)
+        .map((dict) => dict.localId!),
+      filePath: undefined,
+      localId: undefined,
+      id: undefined,
+    },
+  };
 };

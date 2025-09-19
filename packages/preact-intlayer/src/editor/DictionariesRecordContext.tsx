@@ -52,7 +52,7 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
       setLocaleDictionary: (dictionary: Dictionary) => {
         setLocaleDictionaries((dictionaries) => ({
           ...dictionaries,
-          [dictionary.key]: dictionary,
+          [dictionary.localId]: dictionary,
         }));
       },
     }),

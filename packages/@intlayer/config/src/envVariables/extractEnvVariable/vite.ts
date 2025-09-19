@@ -43,6 +43,7 @@ export const extractViteEnvVariable = (): IntlayerConfigEnvVariable => {
     contentDir: import.meta.env.VITE_INTLAYER_CONTENT_DIR,
     excludedPath: import.meta.env.VITE_INTLAYER_EXCLUDED_PATH,
     dictionariesDir: import.meta.env.VITE_INTLAYER_RESULT_DIR,
+    masksDir: import.meta.env.VITE_INTLAYER_MASKS_DIR,
     moduleAugmentationDir: import.meta.env
       .VITE_INTLAYER_MODULE_AUGMENTATION_DIR,
     unmergedDictionariesDir: import.meta.env
