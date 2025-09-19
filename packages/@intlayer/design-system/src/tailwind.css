@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: 'Inter Variable', sans-serif;
+  --font-sans: 'Figtree Variable', sans-serif;
 
   --color-background: rgba(255, 255, 255);
   --color-background-opposite: rgba(18, 18, 18);
@@ -123,7 +123,7 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 [data-theme='dark'] {
-  --font-sans: 'Inter Variable', sans-serif;
+  --font-sans: 'Figtree Variable', sans-serif;
 
   --color-background: rgba(23, 23, 23);
   --color-background-opposite: rgba(255, 255, 255);

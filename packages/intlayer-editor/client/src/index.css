@@ -6,7 +6,7 @@
 @source "../../../@intlayer/design-system/src/**/*.{ts,tsx}";
 
 html {
-  font-family: 'Inter';
+  font-family: 'Figtree';
 }
 
 #root {
@@ -17,7 +17,7 @@ html {
 }
 
 @font-face {
-  font-family: 'Inter';
+  font-family: 'Figtree';
   src:
-    local('Inter-VariableFont'), url('./assets/fonts/Inter-VariableFont.ttf');
+    local('Figtree-VariableFont'), url('./assets/fonts/Figtree-VariableFont.ttf');
 }

@@ -1,13 +1,13 @@
 import { cn } from '@utils/cn';
 import { type LocalesValues, getHTMLTextDir } from 'intlayer';
-import { Inter } from 'next/font/google';
+import { Figtree } from 'next/font/google';
 import type { FC, PropsWithChildren } from 'react';
 
 export type LocalParams = PropsWithChildren<{
   locale?: LocalesValues;
 }>;
 
-const inter = Inter({ subsets: ['latin'] });
+const figtree = Figtree({ subsets: ['latin'] });
 
 export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => (
   <html lang={locale} dir={getHTMLTextDir(locale)} suppressHydrationWarning>
@@ -30,7 +30,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({ children, locale }) => (
     </head>
     <body
       className={cn(
-        inter.className,
+        figtree.className,
         'bg-background relative flex size-full min-h-screen flex-col overflow-auto scroll-smooth leading-8 transition'
       )}
       suppressHydrationWarning
