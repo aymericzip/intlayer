@@ -89,19 +89,13 @@ const LogoItem: FC<{
 
 export const TechLogos: FC = () => (
   <div className="my-10 w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_170px,_black_calc(100%-170px),transparent_100%)]">
-    <ul
-      className="relative whitespace-nowrap flex items-center animate-infinite-scroll duration-medium gap-medium"
-    >
+    <div className="relative w-[300vw] gap-5 whitespace-nowrap flex items-center justify-evenly horizontal-loop-4">
       {logos.map((logo, index) => (
-        <li key={`${logo.key}-${index}-1`} className="mx-5">
-          <LogoItem {...logo} />
-        </li>
+        <LogoItem {...logo} key={`${logo.key}-${index}-1`} />
       ))}
       {logos.map((logo, index) => (
-        <li key={`${logo.key}-${index}-2`} className="mx-5">
-          <LogoItem {...logo} />
-        </li>
+        <LogoItem {...logo} key={`${logo.key}-${index}-2`} />
       ))}
-    </ul>
+    </div>
   </div>
 );

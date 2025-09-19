@@ -5,6 +5,23 @@
 @source "../src/**/*.{ts,tsx}";
 @source "../../../../packages/@intlayer/design-system/src/**/*.{ts,tsx}";
 
+@keyframes infiniteScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes infiniteScrollInverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
 
 @keyframes float {
   0%,
@@ -16,52 +33,30 @@
   }
 }
 
+.horizontal-loop-1 {
+  animation-name: infiniteScroll;
+  animation-duration: 85s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.horizontal-loop-2 {
+  animation-name: infiniteScrollInverse;
+  animation-duration: 85s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.horizontal-loop-4 {
+  animation-name: infiniteScroll;
+  animation-duration: 50s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
 .animate-float {
   animation-name: float;
   animation-duration: 3s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
-}
-
-@keyframes infinite-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(calc(-100% - var(--gap)));
-  }
-}
-
-.animate-infinite-scroll {
-  --gap: 1rem;
-  --duration: 40s;
-  animation: infinite-scroll var(--duration, 40s) linear infinite;
-}
-
-.animation-reverse {
-	animation-direction: reverse;
-}
-
-.duration-fast {
-  --duration: 20s;
-}
-
-.duration-medium {
-  --duration: 50s;
-}
-
-.duration-slow {
-  --duration: 85s;
-}
-
-.gap-small {
-  --gap: 1rem;
-}
-
-.gap-medium {
-  --gap: 2.5rem;
-}
-
-.gap-large {
-  --gap: 4rem;
 }
