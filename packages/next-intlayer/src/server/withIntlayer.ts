@@ -71,6 +71,7 @@ const getPruneConfig = (
   runOnce(
     join(baseDir, '.next', 'cache', 'intlayer-prune-plugin-enabled.lock'),
     () => logger('Intlayer prune plugin is enabled'),
+    undefined,
     1000 * 10 // 10 seconds
   );
 
