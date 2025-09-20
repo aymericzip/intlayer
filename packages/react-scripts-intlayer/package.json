@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-intlayer",
-  "version": "6.0.0-canary.2",
+  "version": "6.0.0-canary.3",
   "private": false,
   "description": "Integrate Intlayer with Create React App using custom React scripts for internationalization i18n and advanced Webpack configurations",
   "keywords": [

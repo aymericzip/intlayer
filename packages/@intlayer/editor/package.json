@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/editor",
-  "version": "6.0.0-canary.2",
+  "version": "6.0.0-canary.3",
   "private": false,
   "description": "Provides the utilities to interface the application with the Intlayer editor and manipulate dictionaries",
   "keywords": [

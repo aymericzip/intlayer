@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "6.0.0-canary.2",
+  "version": "6.0.0-canary.3",
   "private": true,
   "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
   "keywords": [
