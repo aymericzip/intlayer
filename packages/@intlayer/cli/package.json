@@ -67,6 +67,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "commander": "^13.0.0",
     "eventsource": "^3.0.7",
@@ -95,6 +96,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "bug": {

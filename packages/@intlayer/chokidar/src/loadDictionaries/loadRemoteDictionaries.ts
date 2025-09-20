@@ -35,23 +35,52 @@ export const loadRemoteDictionaries = async (
     const dictionariesKeysToFetch = Object.entries(
       distantDictionaryUpdateTimeStamp
     )
-      .filter(([dictionaryKey, updatedAt]) => {
-        // If dictionary doesn't have updatedAt, always fetch it
-        if (!updatedAt) return true;
+      .filter(([dictionaryKey, remoteUpdatedAt]) => {
+        // If remote doesn't provide updatedAt, fetch to be safe
+        if (!remoteUpdatedAt) return true;
 
-        // If remote timestamp doesn't exist, fetch it
-        if (!remoteDictionariesRecord[dictionaryKey]) return true;
+        // If no local cache exists, fetch
+        const local = (remoteDictionariesRecord as any)[dictionaryKey];
+        if (!local) return true;
 
-        // If remote timestamp is newer than local, fetch it
-        return remoteDictionariesRecord[dictionaryKey] > updatedAt;
+        const localUpdatedAtRaw = (local as any)?.updatedAt as
+          | number
+          | string
+          | undefined;
+        const localUpdatedAt =
+          typeof localUpdatedAtRaw === 'number'
+            ? localUpdatedAtRaw
+            : localUpdatedAtRaw
+              ? new Date(localUpdatedAtRaw).getTime()
+              : undefined;
+
+        // If local timestamp missing or older than remote, fetch
+        if (typeof localUpdatedAt !== 'number') return true;
+        return remoteUpdatedAt > localUpdatedAt;
       })
       .map(([dictionaryKey]) => dictionaryKey);
 
-    const cachedDictionaries = Object.values(remoteDictionariesRecord).filter(
-      (dictionary) =>
-        dictionary?.updatedAt &&
-        !dictionariesKeysToFetch.includes(dictionary.key)
-    );
+    const cachedDictionaries = Object.entries(remoteDictionariesRecord)
+      .filter(([key, dictionary]) => {
+        const remoteUpdatedAt = distantDictionaryUpdateTimeStamp[key];
+        const localUpdatedAtRaw = (dictionary as any)?.updatedAt as
+          | number
+          | string
+          | undefined;
+        const localUpdatedAt =
+          typeof localUpdatedAtRaw === 'number'
+            ? localUpdatedAtRaw
+            : localUpdatedAtRaw
+              ? new Date(localUpdatedAtRaw).getTime()
+              : undefined;
+        // Consider as cached/imported when local exists and is up-to-date or newer
+        return (
+          typeof localUpdatedAt === 'number' &&
+          typeof remoteUpdatedAt === 'number' &&
+          localUpdatedAt >= remoteUpdatedAt
+        );
+      })
+      .map(([, dictionary]) => dictionary as any);
 
     // Report cached as already imported
     if (cachedDictionaries.length > 0) {

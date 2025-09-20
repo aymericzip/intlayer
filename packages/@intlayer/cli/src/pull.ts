@@ -6,11 +6,14 @@ import {
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
+  ESMxCJSRequire,
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
+import { existsSync } from 'fs';
+import { join } from 'path';
 import { PullLogger, type PullStatus } from './pullLog';
 
 type PullOptions = {
@@ -49,25 +52,82 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
     const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
-    // Get the list of dictionary keys
-    const getDictionariesKeysResult =
-      await intlayerAPI.dictionary.getDictionariesKeys();
+    // Get remote update timestamps map
+    const getDictionariesUpdateTimestampResult =
+      await intlayerAPI.dictionary.getDictionariesUpdateTimestamp();
 
-    if (!getDictionariesKeysResult.data) {
+    if (!getDictionariesUpdateTimestampResult.data) {
       throw new Error('No distant dictionaries found');
     }
 
-    let distantDictionariesKeys: string[] = getDictionariesKeysResult.data;
+    let distantDictionariesUpdateTimeStamp: Record<string, number> =
+      getDictionariesUpdateTimestampResult.data;
 
+    // Optional filtering by requested dictionaries
     if (options?.dictionaries) {
-      // Filter the dictionaries from the provided list of IDs
-      distantDictionariesKeys = distantDictionariesKeys.filter(
-        (dictionaryKey) => options.dictionaries!.includes(dictionaryKey)
+      distantDictionariesUpdateTimeStamp = Object.fromEntries(
+        Object.entries(distantDictionariesUpdateTimeStamp).filter(([key]) =>
+          options.dictionaries!.includes(key)
+        )
       );
     }
 
+    // Load local cached remote dictionaries (if any)
+    const remoteDictionariesPath = join(
+      config.content.mainDir,
+      'remote_dictionaries.cjs'
+    );
+    const remoteDictionariesRecord: Record<string, any> = existsSync(
+      remoteDictionariesPath
+    )
+      ? (ESMxCJSRequire(remoteDictionariesPath) as any)
+      : {};
+
+    // Determine which keys need fetching by comparing updatedAt with local cache
+    const entries = Object.entries(distantDictionariesUpdateTimeStamp);
+    const keysToFetch = entries
+      .filter(([key, remoteUpdatedAt]) => {
+        if (!remoteUpdatedAt) return true;
+        const local = (remoteDictionariesRecord as any)[key];
+        if (!local) return true;
+        const localUpdatedAtRaw = (local as any)?.updatedAt as
+          | number
+          | string
+          | undefined;
+        const localUpdatedAt =
+          typeof localUpdatedAtRaw === 'number'
+            ? localUpdatedAtRaw
+            : localUpdatedAtRaw
+              ? new Date(localUpdatedAtRaw).getTime()
+              : undefined;
+        if (typeof localUpdatedAt !== 'number') return true;
+        return remoteUpdatedAt > localUpdatedAt;
+      })
+      .map(([key]) => key);
+
+    const cachedKeys = entries
+      .filter(([key, remoteUpdatedAt]) => {
+        const local = (remoteDictionariesRecord as any)[key];
+        const localUpdatedAtRaw = (local as any)?.updatedAt as
+          | number
+          | string
+          | undefined;
+        const localUpdatedAt =
+          typeof localUpdatedAtRaw === 'number'
+            ? localUpdatedAtRaw
+            : localUpdatedAtRaw
+              ? new Date(localUpdatedAtRaw).getTime()
+              : undefined;
+        return (
+          typeof localUpdatedAt === 'number' &&
+          typeof remoteUpdatedAt === 'number' &&
+          localUpdatedAt >= remoteUpdatedAt
+        );
+      })
+      .map(([key]) => key);
+
     // Check if dictionaries list is empty
-    if (distantDictionariesKeys.length === 0) {
+    if (entries.length === 0) {
       appLogger('No dictionaries to fetch', {
         level: 'error',
       });
@@ -77,18 +137,23 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     appLogger('Fetching dictionaries:');
 
     // Prepare dictionaries statuses
-    const dictionariesStatuses: DictionariesStatus[] =
-      distantDictionariesKeys.map((dictionaryKey) => ({
+    const dictionariesStatuses: DictionariesStatus[] = [
+      ...cachedKeys.map((dictionaryKey) => ({
         dictionaryKey,
-        status: 'pending',
-      }));
+        status: 'imported' as DictionaryStatus,
+      })),
+      ...keysToFetch.map((dictionaryKey) => ({
+        dictionaryKey,
+        status: 'pending' as const,
+      })),
+    ];
 
     // Initialize aggregated logger
     const logger = new PullLogger();
     logger.update(
       dictionariesStatuses.map<PullStatus>((s) => ({
         dictionaryKey: s.dictionaryKey,
-        status: 'pending',
+        status: s.status,
       }))
     );
 
@@ -97,6 +162,13 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     const processDictionary = async (
       statusObj: DictionariesStatus
     ): Promise<void> => {
+      if (
+        statusObj.status === 'imported' ||
+        statusObj.status === 'up-to-date'
+      ) {
+        // Already up-to-date; nothing to do
+        return;
+      }
       statusObj.status = 'fetching';
       logger.update([
         { dictionaryKey: statusObj.dictionaryKey, status: 'fetching' },
@@ -137,7 +209,13 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     };
 
     // Process dictionaries in parallel with concurrency limit
-    await parallelize(dictionariesStatuses, processDictionary, 5);
+    await parallelize(
+      dictionariesStatuses.filter(
+        (s) => s.status === 'pending' || s.status === 'fetching'
+      ),
+      processDictionary,
+      5
+    );
 
     // Stop the logger and render final state
     logger.finish();
