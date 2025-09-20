@@ -1,4 +1,4 @@
-import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
+import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   formatPath,
   listGitFiles,
@@ -53,10 +53,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
       );
     }
 
-    const intlayerAuthAPI = getOAuthAPI(config);
-    const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
-
-    const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
+    const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
     let dictionaries: Dictionary[] = Object.values(dictionariesRecord);
     const existingDictionariesKeys: string[] = Object.keys(dictionariesRecord);
@@ -127,15 +124,9 @@ export const push = async (options?: PushOptions): Promise<void> => {
       statusObj.status = 'pushing';
 
       try {
-        const intlayerDictionaryAPI = getDictionaryAPI(undefined, config);
-        const pushResult = await intlayerDictionaryAPI.pushDictionaries(
-          [statusObj.dictionary],
-          {
-            headers: {
-              Authorization: `Bearer ${oAuth2AccessToken}`,
-            },
-          }
-        );
+        const pushResult = await intlayerAPI.dictionary.pushDictionaries([
+          statusObj.dictionary,
+        ]);
 
         const updatedDictionaries = pushResult.data?.updatedDictionaries || [];
         const newDictionaries = pushResult.data?.newDictionaries || [];

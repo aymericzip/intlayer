@@ -1,4 +1,4 @@
-import { getIntlayerAPI } from '@intlayer/api';
+import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   getAppLogger,
   getConfiguration,
@@ -29,21 +29,11 @@ export const pushConfig = async (options?: PushOptions) => {
     return;
   }
 
-  const intlayerAPI = getIntlayerAPI(undefined, config);
+  const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
-  const oAuth2TokenResult = await intlayerAPI.oAuth.getOAuth2AccessToken();
-
-  const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
-
-  // Get the list of dictionary keys
+  // Push the project configuration
   const getDictionariesKeysResult =
-    await intlayerAPI.project.pushProjectConfiguration(config, {
-      ...(oAuth2AccessToken && {
-        headers: {
-          Authorization: `Bearer ${oAuth2AccessToken}`,
-        },
-      }),
-    });
+    await intlayerAPI.project.pushProjectConfiguration(config);
 
   if (!getDictionariesKeysResult.data) {
     throw new Error('Error pushing project configuration');

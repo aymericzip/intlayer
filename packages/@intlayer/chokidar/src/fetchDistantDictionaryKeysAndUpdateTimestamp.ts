@@ -1,4 +1,4 @@
-import { getIntlayerAPI } from '@intlayer/api';
+import { getIntlayerAPIProxy } from '@intlayer/api';
 import { getConfiguration, type IntlayerConfig } from '@intlayer/config';
 
 export const fetchDistantDictionaryKeysAndUpdateTimestamp = async (
@@ -12,21 +12,11 @@ export const fetchDistantDictionaryKeysAndUpdateTimestamp = async (
     );
   }
 
-  const intlayerAPI = getIntlayerAPI(undefined, configuration);
-
-  const oAuth2TokenResult = await intlayerAPI.oAuth.getOAuth2AccessToken();
-
-  const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
+  const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
 
   // Get the list of dictionary keys
   const getDictionariesKeysResult =
-    await intlayerAPI.dictionary.getDictionariesUpdateTimestamp({
-      ...(oAuth2AccessToken && {
-        headers: {
-          Authorization: `Bearer ${oAuth2AccessToken}`,
-        },
-      }),
-    });
+    await intlayerAPI.dictionary.getDictionariesUpdateTimestamp();
 
   if (!getDictionariesKeysResult.data) {
     throw new Error('No distant dictionaries found');

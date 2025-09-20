@@ -1,4 +1,4 @@
-import { AIOptions, getOAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
+import { AIOptions } from '@intlayer/api'; // OAuth handled by API proxy
 import {
   formatLocale,
   formatPath,
@@ -45,7 +45,6 @@ export const reviewFile = async (
   baseLocale: Locales,
   aiOptions?: AIOptions,
   configOptions?: GetConfigurationOptions,
-  oAuth2AccessToken?: string,
   customInstructions?: string,
   changedLines?: number[]
 ) => {
@@ -150,7 +149,7 @@ export const reviewFile = async (
             { role: 'user', content: baseChunkContext.content },
           ],
           aiOptions,
-          oAuth2AccessToken
+          configOptions
         );
 
         appLogger(
@@ -255,13 +254,7 @@ export const reviewDoc = async ({
 
   checkAIAccess(configuration, aiOptions);
 
-  let oAuth2AccessToken: string | undefined;
-  if (configuration.editor.clientId) {
-    const intlayerAuthAPI = getOAuthAPI(configuration);
-    const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
-
-    oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
-  }
+  // OAuth handled by API proxy internally
 
   appLogger(`Base locale is ${formatLocale(baseLocale)}`);
   appLogger(
@@ -318,7 +311,6 @@ export const reviewDoc = async ({
           baseLocale,
           aiOptions,
           configOptions,
-          oAuth2AccessToken,
           customInstructions,
           changedLines
         );

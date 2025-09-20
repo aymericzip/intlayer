@@ -1,4 +1,4 @@
-import { getOAuthAPI } from '@intlayer/api';
+import { getIntlayerAPIProxy } from '@intlayer/api';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
@@ -86,10 +86,11 @@ export class IntlayerEventListener {
     try {
       const backendURL = this.intlayerConfig.editor.backendURL;
 
-      // Retrieve the access token
-      const accessToken = await getOAuthAPI(
+      // Retrieve the access token via proxy
+      const accessToken = await getIntlayerAPIProxy(
+        undefined,
         this.intlayerConfig
-      ).getOAuth2AccessToken();
+      ).oAuth.getOAuth2AccessToken();
 
       if (!accessToken) {
         throw new Error('Failed to retrieve access token');

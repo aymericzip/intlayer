@@ -2,8 +2,7 @@
 import type { DictionaryAPI } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/config/client';
-import { getDictionaryAPI } from '../getIntlayerAPI/dictionary';
-import { getOAuthAPI } from '../getIntlayerAPI/oAuth';
+import { getIntlayerAPIProxy } from '../proxy';
 
 /**
  * Fetch distant dictionary
@@ -21,23 +20,11 @@ export const fetchDistantDictionary = async (
       );
     }
 
-    const dictionaryAPI = getDictionaryAPI(undefined, intlayerConfig);
-    const authAPI = getOAuthAPI(intlayerConfig);
-
-    const accessToken = await authAPI.getOAuth2AccessToken();
+    const api = getIntlayerAPIProxy(undefined, intlayerConfig);
 
     // Fetch the dictionary
-    const getDictionaryResult = await dictionaryAPI.getDictionary(
-      dictionaryKey,
-      undefined,
-      {
-        ...(accessToken && {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }),
-      }
-    );
+    const getDictionaryResult =
+      await api.dictionary.getDictionary(dictionaryKey);
 
     const distantDictionary = getDictionaryResult.data;
 

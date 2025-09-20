@@ -39,6 +39,10 @@ const getExpiryTimestamp = (
   return undefined;
 };
 
+let currentAccessToken: string | undefined;
+let currentExpiryTs: number | undefined;
+let pendingRefresh: Promise<void> | undefined;
+
 /**
  * Build an auto-auth proxy around getIntlayerAPI that:
  * - Fetches an OAuth2 token when needed
@@ -48,14 +52,12 @@ const getExpiryTimestamp = (
  * The returned API matches the shape of getIntlayerAPI.
  */
 export const getIntlayerAPIProxy = (
-  baseAuthOptions: FetcherOptions = {},
+  _baseAuthOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ): IntlayerAPI => {
-  const baseApi = getIntlayerAPI(baseAuthOptions, intlayerConfig);
-
-  let currentAccessToken: string | undefined;
-  let currentExpiryTs: number | undefined;
-  let pendingRefresh: Promise<void> | undefined;
+  // Use a shared mutable auth options object captured by the API closures
+  const authOptionsRef: FetcherOptions = { ..._baseAuthOptions };
+  const baseApi = getIntlayerAPI(authOptionsRef, intlayerConfig);
 
   const needsRefresh = (): boolean => {
     if (!currentAccessToken) return true;
@@ -86,15 +88,13 @@ export const getIntlayerAPIProxy = (
     }
   };
 
-  const withAuthHeader = (options?: FetcherOptions): FetcherOptions => ({
-    ...(options ?? {}),
-    headers: {
-      ...(options?.headers ?? {}),
-      ...(currentAccessToken
-        ? { Authorization: `Bearer ${currentAccessToken}` }
-        : {}),
-    },
-  });
+  const applyAuthHeaderToRef = () => {
+    if (!currentAccessToken) return;
+    authOptionsRef.headers = {
+      ...(authOptionsRef.headers ?? {}),
+      Authorization: `Bearer ${currentAccessToken}`,
+    } as HeadersInit;
+  };
 
   const wrapSection = <T extends Record<string, unknown>>(
     section: T,
@@ -108,18 +108,7 @@ export const getIntlayerAPIProxy = (
           return async (...args: unknown[]) => {
             if (!skipAuth) {
               await ensureValidToken();
-            }
-
-            // Inject/merge FetcherOptions on the last argument
-            const lastArg = args[args.length - 1];
-            if (
-              lastArg &&
-              typeof lastArg === 'object' &&
-              (lastArg as FetcherOptions)
-            ) {
-              args[args.length - 1] = withAuthHeader(lastArg as FetcherOptions);
-            } else {
-              args.push(withAuthHeader());
+              applyAuthHeaderToRef();
             }
 
             try {
@@ -128,12 +117,7 @@ export const getIntlayerAPIProxy = (
               // Best-effort retry: if token might be stale, refresh once and retry
               if (!skipAuth) {
                 await refreshToken();
-                const retryLastArg = args[args.length - 1];
-                if (retryLastArg && typeof retryLastArg === 'object') {
-                  args[args.length - 1] = withAuthHeader(
-                    retryLastArg as FetcherOptions
-                  );
-                }
+                applyAuthHeaderToRef();
                 return await value.apply(target, args);
               }
               throw err;

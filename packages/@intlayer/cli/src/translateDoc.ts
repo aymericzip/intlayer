@@ -1,4 +1,4 @@
-import { AIOptions, getOAuthAPI } from '@intlayer/api';
+import { AIOptions } from '@intlayer/api';
 import {
   formatLocale,
   formatPath,
@@ -44,7 +44,6 @@ export const translateFile = async (
   baseLocale: Locales,
   aiOptions?: AIOptions,
   configOptions?: GetConfigurationOptions,
-  oAuth2AccessToken?: string,
   customInstructions?: string
 ) => {
   try {
@@ -123,7 +122,7 @@ export const translateFile = async (
             { role: 'user', content: fileToTranslateCurrentChunk },
           ],
           aiOptions,
-          oAuth2AccessToken
+          configOptions
         );
 
         appLogger(
@@ -228,13 +227,7 @@ export const translateDoc = async ({
     }
   }
 
-  let oAuth2AccessToken: string | undefined;
-  if (configuration.editor.clientId) {
-    const intlayerAuthAPI = getOAuthAPI(configuration);
-    const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
-
-    oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
-  }
+  // OAuth handled by API proxy internally
 
   appLogger(`Base locale is ${formatLocale(baseLocale)}`);
   appLogger(
@@ -285,7 +278,6 @@ export const translateDoc = async ({
           baseLocale,
           aiOptions,
           configOptions,
-          oAuth2AccessToken,
           customInstructions
         );
       })
