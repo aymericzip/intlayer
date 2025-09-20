@@ -10,6 +10,7 @@ import {
   RightDrawer,
   useRightDrawerStore,
 } from '@intlayer/design-system';
+import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionary } from '@intlayer/editor-react';
 import { Pencil } from 'lucide-react';
 import { useCallback, useState, type FC } from 'react';
@@ -40,6 +41,7 @@ export const DictionaryEditionDrawerContent: FC<
   } = useIntlayer('dictionary-edition-drawer');
   const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
   const { focusedContent } = useDictionaryEditionDrawer(identifier);
+  const { data: unmergedDictionaries } = useGetEditorDictionaries();
 
   const onClickDictionaryList = useCallback(() => {
     setEditionModalOpen(false);
@@ -57,7 +59,8 @@ export const DictionaryEditionDrawerContent: FC<
 
   const dictionary = getUnmergedDictionaryByKeyPath(
     dictionaryKey,
-    focusedContent.keyPath ?? []
+    focusedContent.keyPath ?? [],
+    unmergedDictionaries
   );
 
   if (!dictionary)
