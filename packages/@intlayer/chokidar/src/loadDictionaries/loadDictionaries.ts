@@ -101,6 +101,18 @@ const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
 
   const keys = Array.from(byKey.keys()).sort((a, b) => a.localeCompare(b));
 
+  // Compute the max visible length of the local label to align distant labels
+  let maxLocalLabelLen = 0;
+  for (const key of keys) {
+    const rec = byKey.get(key)!;
+    if (rec.local) {
+      const visibleLocal = `[local: ${iconFor(rec.local)} ${rec.local}]`;
+      if (visibleLocal.length > maxLocalLabelLen) {
+        maxLocalLabelLen = visibleLocal.length;
+      }
+    }
+  }
+
   for (const key of keys) {
     const rec = byKey.get(key)!;
     const labels: string[] = [];
@@ -110,12 +122,19 @@ const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
         `${iconFor(rec.local)} ${rec.local}`,
         colorFor(rec.local)
       );
-      labels.push(
+      const coloredLocal =
         `${ANSIColors.GREY}[` +
-          colorize('local: ', ANSIColors.GREY) +
-          inner +
-          `${ANSIColors.GREY}]${ANSIColors.RESET}`
-      );
+        colorize('local: ', ANSIColors.GREY) +
+        inner +
+        `${ANSIColors.GREY}]${ANSIColors.RESET}`;
+
+      // Pad to align distant label across rows
+      const visibleLocal = `[local: ${iconFor(rec.local)} ${rec.local}]`;
+      const pad = Math.max(0, maxLocalLabelLen - visibleLocal.length);
+      labels.push(coloredLocal + ' '.repeat(pad));
+    } else {
+      // If no local label, insert spaces to keep distant aligned
+      labels.push(' '.repeat(maxLocalLabelLen));
     }
 
     if (rec.remote) {
