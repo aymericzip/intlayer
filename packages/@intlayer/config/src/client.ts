@@ -1,5 +1,6 @@
 export {
   ANSIColors,
+  clock,
   colon,
   colorizeKey,
   colorizeLocales,
@@ -8,6 +9,8 @@ export {
   getAppLogger,
   logger,
   spinnerFrames,
+  v,
+  x,
 } from './logger';
 export type {
   BaseContentConfig,

@@ -8,6 +8,7 @@ export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
 export { loadExternalFile } from './loadExternalFile';
 export {
   ANSIColors,
+  clock,
   colon,
   colorize,
   colorizeKey,
@@ -17,6 +18,8 @@ export {
   getAppLogger,
   logger,
   spinnerFrames,
+  v,
+  x,
   type Logger,
 } from './logger';
 export { retryManager } from './retryManager';

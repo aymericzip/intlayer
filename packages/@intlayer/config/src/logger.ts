@@ -201,3 +201,7 @@ export const colon = (
       return `${text}${' '.repeat(spacesLength)}`;
     })
     .join('');
+
+export const x = colorize('✗', ANSIColors.RED);
+export const v = colorize('✓', ANSIColors.GREEN);
+export const clock = colorize('⏲', ANSIColors.BLUE);

@@ -72,11 +72,11 @@ export class DictionariesLogger {
 
     if (isLocalDone) {
       lines.push(
-        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} locale dictionaries: ${localDone}/${localTotal}`
+        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} local dictionaries: ${localDone}/${localTotal}`
       );
     } else {
       lines.push(
-        `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} locale dictionaries: ${localDone}/${localTotal}`
+        `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} local dictionaries: ${localDone}/${localTotal}`
       );
     }
 

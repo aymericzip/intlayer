@@ -1,8 +1,10 @@
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration, x } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
+import { filterInvalidDictionaries } from '../../../filterInvalidDictionaries';
 import { orderDictionaries } from '../../../orderDictionaries';
+import { parallelize } from '../../../utils/parallelize';
 import { formatDictionaryText } from './formatDictionaryText';
 
 const groupDictionariesByKey = (
@@ -56,34 +58,48 @@ export const writeUnmergedDictionaries = async (
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(unmergedDictionariesDir), { recursive: true });
 
-  const filteredDictionaries = dictionaries.filter(
-    (dictionary) => dictionary.key
-  );
+  const filteredDictionaries = filterInvalidDictionaries(dictionaries);
 
   //  Group dictionaries by key and write to unmergedDictionariesDir
   const groupedDictionaries = groupDictionariesByKey(filteredDictionaries);
 
-  let resultDictionariesPaths: UnmergedDictionaryOutput = {};
+  const results = await parallelize(
+    Object.entries(groupedDictionaries),
+    async ([key, dictionaries]) => {
+      if (key === 'undefined') {
+        return undefined as unknown as readonly [
+          string,
+          UnmergedDictionaryResult,
+        ];
+      }
 
-  for await (const [key, dictionaries] of Object.entries(groupedDictionaries)) {
-    if (key === 'undefined') continue;
+      const orderedDictionaries = orderDictionaries(
+        dictionaries,
+        configuration
+      );
+      const contentString = formatDictionaryText(orderedDictionaries);
 
-    const orderedDictionaries = orderDictionaries(dictionaries, configuration);
-    const contentString = formatDictionaryText(orderedDictionaries);
+      const outputFileName = `${key}.json`;
+      const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
 
-    const outputFileName = `${key}.json`;
-    const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
+      // Write the grouped dictionaries
+      await writeFile(unmergedFilePath, contentString, 'utf8').catch((err) => {
+        console.error(`${x} Error creating unmerged ${outputFileName}:`, err);
+      });
 
-    // Write the grouped dictionaries
-    await writeFile(unmergedFilePath, contentString, 'utf8').catch((err) => {
-      console.error(`Error creating unmerged ${outputFileName}:`, err);
-    });
+      return [
+        key,
+        {
+          dictionaryPath: unmergedFilePath,
+          dictionaries: dictionaries,
+        } as UnmergedDictionaryResult,
+      ] as const;
+    }
+  );
 
-    resultDictionariesPaths[key] = {
-      dictionaryPath: unmergedFilePath,
-      dictionaries: dictionaries,
-    };
-  }
-
-  return resultDictionariesPaths;
+  return Object.fromEntries(
+    results.filter(Boolean) as Array<
+      readonly [string, UnmergedDictionaryResult]
+    >
+  );
 };

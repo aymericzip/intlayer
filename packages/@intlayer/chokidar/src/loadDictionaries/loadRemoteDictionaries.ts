@@ -1,11 +1,6 @@
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import {
-  ANSIColors,
-  colorize,
-  getAppLogger,
-  getConfiguration,
-} from '@intlayer/config';
+import { getAppLogger, getConfiguration, x } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import remoteDictionariesRecord from '@intlayer/remote-dictionaries-entry';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
@@ -96,10 +91,7 @@ export const loadRemoteDictionaries = async (
 
     return [...cachedDictionaries, ...distantDictionaries];
   } catch (error) {
-    appLogger(
-      `${colorize('✗', ANSIColors.RED)} Failed to fetch distant dictionaries`,
-      { level: 'error' }
-    );
+    appLogger(`${x} Failed to fetch distant dictionaries`, { level: 'error' });
     return [];
   }
 };

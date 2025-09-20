@@ -7,8 +7,8 @@ import {
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
-import pLimit from 'p-limit';
 import { DictionariesStatus } from './loadDictionaries';
+import { parallelize } from './utils/parallelize';
 
 type FetchDistantDictionariesOptions = {
   dictionaryKeys: string[];
@@ -43,7 +43,6 @@ export const fetchDistantDictionaries = async (
     const distantDictionariesKeys = options.dictionaryKeys;
 
     // Process dictionaries in parallel with a concurrency limit
-    const limit = pLimit(10); // Limit the number of concurrent requests
 
     const processDictionary = async (
       dictionaryKey: string
@@ -94,11 +93,10 @@ export const fetchDistantDictionaries = async (
       }
     };
 
-    const fetchPromises = distantDictionariesKeys.map((dictionaryKey) =>
-      limit(async () => await processDictionary(dictionaryKey))
+    const result = await parallelize(
+      distantDictionariesKeys,
+      async (dictionaryKey) => await processDictionary(dictionaryKey)
     );
-
-    const result = await Promise.all(fetchPromises);
 
     // Remove undefined values
     const filteredResult = result.filter(

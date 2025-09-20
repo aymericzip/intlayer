@@ -2,6 +2,7 @@ import { getConfiguration, Locales, normalizePath } from '@intlayer/config';
 import { getLocalisedContent, type Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { relative, resolve } from 'path';
+import { parallelize } from '../../../utils/parallelize';
 import { formatDictionaryText } from './formatDictionaryText';
 import { MergedDictionaryOutput } from './writeMergedDictionary';
 
@@ -86,58 +87,59 @@ export const writeDynamicDictionary = async (
   let resultDictionariesPaths: LocalizedDictionaryOutput = {};
 
   // Merge dictionaries with the same key and write to dictionariesDir
-  for await (const [key, dictionaryEntry] of Object.entries(
-    mergedDictionaries
-  )) {
-    if (key === 'undefined') continue;
+  await parallelize(
+    Object.entries(mergedDictionaries),
+    async ([key, dictionaryEntry]) => {
+      if (key === 'undefined') return;
 
-    let localedDictionariesPathsRecord: LocalizedDictionaryResult = {};
+      let localedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
-    for await (const locale of locales) {
-      const localizedDictionary = {
-        ...dictionaryEntry.dictionary,
-        locale,
-        // @ts-ignore Type instantiation is excessively deep and possibly infinite
-        content: getLocalisedContent(
-          JSON.parse(JSON.stringify(dictionaryEntry.dictionary.content)),
+      await parallelize(locales, async (locale) => {
+        const localizedDictionary = {
+          ...dictionaryEntry.dictionary,
           locale,
-          { dictionaryKey: key, keyPath: [] },
-          defaultLocale
-        ) as any,
-      };
+          // @ts-ignore Type instantiation is excessively deep and possibly infinite
+          content: getLocalisedContent(
+            JSON.parse(JSON.stringify(dictionaryEntry.dictionary.content)),
+            locale,
+            { dictionaryKey: key, keyPath: [] },
+            defaultLocale
+          ) as any,
+        };
 
-      const contentString = formatDictionaryText(localizedDictionary);
+        const contentString = formatDictionaryText(localizedDictionary);
 
-      const outputFileName = `${key}.${locale}.json`;
-      const resultFilePath = resolve(dynamicDictionariesDir, outputFileName);
+        const outputFileName = `${key}.${locale}.json`;
+        const resultFilePath = resolve(dynamicDictionariesDir, outputFileName);
 
-      // Write the localized dictionary
-      await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {
-        console.error(`Error creating localized ${outputFileName}:`, err);
+        // Write the localized dictionary
+        await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {
+          console.error(`Error creating localized ${outputFileName}:`, err);
+        });
+
+        localedDictionariesPathsRecord[locale] = {
+          dictionaryPath: resultFilePath,
+          dictionary: localizedDictionary,
+        };
       });
 
-      localedDictionariesPathsRecord[locale] = {
-        dictionaryPath: resultFilePath,
-        dictionary: localizedDictionary,
-      };
+      resultDictionariesPaths[key] = localedDictionariesPathsRecord;
+
+      await parallelize(formats, async (format) => {
+        const extension = format === 'cjs' ? 'cjs' : 'mjs';
+        const content = generateDictionaryEntryPoint(
+          localedDictionariesPathsRecord,
+          format,
+          configuration
+        );
+
+        await writeFile(
+          resolve(dynamicDictionariesDir, `${key}.${extension}`),
+          content
+        );
+      });
     }
-
-    resultDictionariesPaths[key] = localedDictionariesPathsRecord;
-
-    for await (const format of formats) {
-      const extension = format === 'cjs' ? 'cjs' : 'mjs';
-      const content = generateDictionaryEntryPoint(
-        localedDictionariesPathsRecord,
-        format,
-        configuration
-      );
-
-      await writeFile(
-        resolve(dynamicDictionariesDir, `${key}.${extension}`),
-        content
-      );
-    }
-  }
+  );
 
   return resultDictionariesPaths;
 };

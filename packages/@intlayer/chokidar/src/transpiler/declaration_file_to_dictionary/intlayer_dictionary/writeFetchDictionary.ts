@@ -1,6 +1,7 @@
 import { getConfiguration, normalizePath } from '@intlayer/config';
 import { mkdir, writeFile } from 'fs/promises';
 import { relative, resolve } from 'path';
+import { parallelize } from '../../../utils/parallelize';
 import type {
   LocalizedDictionaryOutput,
   LocalizedDictionaryResult,
@@ -71,26 +72,27 @@ export const writeFetchDictionary = async (
 
   let resultDictionariesPaths: LocalizedDictionaryOutput = {};
 
-  // Merge dictionaries with the same key and write to dictionariesDir
-  for await (const [key, localedDictionariesPathsRecord] of Object.entries(
-    dynamicDictionaries
-  )) {
-    if (key === 'undefined') continue;
+  // Write entry points for each dictionary in parallel
+  await parallelize(
+    Object.entries(dynamicDictionaries),
+    async ([key, localedDictionariesPathsRecord]) => {
+      if (key === 'undefined') return;
 
-    for await (const format of formats) {
-      const extension = format === 'cjs' ? 'cjs' : 'mjs';
-      const content = generateDictionaryEntryPoint(
-        localedDictionariesPathsRecord,
-        format,
-        configuration
-      );
+      await parallelize(formats, async (format) => {
+        const extension = format === 'cjs' ? 'cjs' : 'mjs';
+        const content = generateDictionaryEntryPoint(
+          localedDictionariesPathsRecord,
+          format,
+          configuration
+        );
 
-      await writeFile(
-        resolve(fetchDictionariesDir, `${key}.${extension}`),
-        content
-      );
+        await writeFile(
+          resolve(fetchDictionariesDir, `${key}.${extension}`),
+          content
+        );
+      });
     }
-  }
+  );
 
   return resultDictionariesPaths;
 };

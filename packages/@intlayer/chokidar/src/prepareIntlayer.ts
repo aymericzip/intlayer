@@ -35,7 +35,7 @@ export const prepareIntlayer = async (
     projectRequire
   );
 
-  // Build locale dictionaries
+  // Build local dictionaries
   const dictionariesOutput = await buildDictionary(
     [...dictionaries.localDictionaries, ...dictionaries.remoteDictionaries],
     configuration

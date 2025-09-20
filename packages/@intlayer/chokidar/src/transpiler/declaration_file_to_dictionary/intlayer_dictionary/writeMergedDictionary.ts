@@ -4,6 +4,7 @@ import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { mergeDictionaries } from '../../../mergeDictionaries';
 import { processPerLocaleDictionary } from '../../../processPerLocaleDictionary';
+import { parallelize } from '../../../utils/parallelize';
 import { formatDictionaryText } from './formatDictionaryText';
 import { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
 
@@ -39,35 +40,43 @@ export const writeMergedDictionaries = async (
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dictionariesDir), { recursive: true });
 
-  let resultDictionariesPaths: MergedDictionaryOutput = {};
+  const results = await parallelize(
+    Object.entries(groupedDictionaries),
+    async ([key, dictionariesEntry]) => {
+      if (key === 'undefined') {
+        return undefined as unknown as readonly [
+          string,
+          MergedDictionaryResult,
+        ];
+      }
 
-  // Merge dictionaries with the same key and write to dictionariesDir
-  for await (const [key, dictionariesEntry] of Object.entries(
-    groupedDictionaries
-  )) {
-    if (key === 'undefined') continue;
+      const multiLocaleDictionaries = dictionariesEntry.dictionaries.map(
+        (dictionary) => processPerLocaleDictionary(dictionary)
+      );
 
-    const multiLocaleDictionaries = dictionariesEntry.dictionaries.map(
-      (dictionary) => processPerLocaleDictionary(dictionary)
-    );
+      const mergedDictionary = mergeDictionaries(multiLocaleDictionaries);
 
-    const mergedDictionary = mergeDictionaries(multiLocaleDictionaries);
+      const contentString = formatDictionaryText(mergedDictionary);
 
-    const contentString = formatDictionaryText(mergedDictionary);
+      const outputFileName = `${key}.json`;
+      const resultFilePath = resolve(dictionariesDir, outputFileName);
 
-    const outputFileName = `${key}.json`;
-    const resultFilePath = resolve(dictionariesDir, outputFileName);
+      // Write the merged dictionary
+      await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {
+        console.error(`Error creating merged ${outputFileName}:`, err);
+      });
 
-    // Write the merged dictionary
-    await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {
-      console.error(`Error creating merged ${outputFileName}:`, err);
-    });
+      return [
+        key,
+        {
+          dictionaryPath: resultFilePath,
+          dictionary: mergedDictionary,
+        } as MergedDictionaryResult,
+      ] as const;
+    }
+  );
 
-    resultDictionariesPaths[key] = {
-      dictionaryPath: resultFilePath,
-      dictionary: mergedDictionary,
-    };
-  }
-
-  return resultDictionariesPaths;
+  return Object.fromEntries(
+    results.filter(Boolean) as Array<readonly [string, MergedDictionaryResult]>
+  );
 };

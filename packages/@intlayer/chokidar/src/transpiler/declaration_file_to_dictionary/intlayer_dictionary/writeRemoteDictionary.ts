@@ -2,7 +2,9 @@ import { getConfiguration } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
+import { filterInvalidDictionaries } from '../../../filterInvalidDictionaries';
 import { formatDistantDictionaries } from '../../../loadDictionaries';
+import { parallelize } from '../../../utils/parallelize';
 import { formatDictionaryText } from './formatDictionaryText';
 
 /**
@@ -30,20 +32,23 @@ export const writeRemoteDictionary = async (
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(remoteDictionariesDir), { recursive: true });
 
+  const filteredDictionaries = filterInvalidDictionaries(remoteDictionaries);
+
   // Merge dictionaries with the same key and write to dictionariesDir
-  for await (const dictionary of remoteDictionaries) {
-    if (dictionary.key === 'undefined') continue;
+  await parallelize(
+    filteredDictionaries.filter((dictionary) => dictionary.key !== 'undefined'),
+    async (dictionary) => {
+      const outputFileName = `${dictionary.key}.json`;
+      const resultFilePath = resolve(remoteDictionariesDir, outputFileName);
 
-    const outputFileName = `${dictionary.key}.json`;
-    const resultFilePath = resolve(remoteDictionariesDir, outputFileName);
+      const contentString = formatDictionaryText(dictionary);
 
-    const contentString = formatDictionaryText(dictionary);
-
-    // Write the merged dictionary
-    await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {
-      console.error(`Error creating merged ${outputFileName}:`, err);
-    });
-  }
+      // Write the merged dictionary
+      await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {
+        console.error(`Error creating merged ${outputFileName}:`, err);
+      });
+    }
+  );
 
   return formatDistantDictionaries(remoteDictionaries);
 };

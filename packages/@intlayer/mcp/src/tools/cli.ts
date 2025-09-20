@@ -103,7 +103,7 @@ export const loadCLITools = async (server: McpServer) => {
 
   server.tool(
     'intlayer-push',
-    'Push locale dictionaries to the server',
+    'Push local dictionaries to the server',
     {
       deleteLocaleDictionary: z
         .boolean()
