@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/config/client';
+import { colorizePath, x, type IntlayerConfig } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
@@ -129,6 +129,10 @@ const writeFileWithDirectories = async (
       await writeJSFile(filePath, data as unknown as Dictionary);
     }
   } catch (error) {
-    throw new Error(`Error writing file to ${filePath}: ${error}`);
+    console.error(data);
+
+    throw new Error(
+      `${x} Error writing file to ${colorizePath(filePath)}: ${error}`
+    );
   }
 };

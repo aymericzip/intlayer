@@ -1,6 +1,7 @@
-import generator from '@babel/generator';
+import * as generate from '@babel/generator';
 import * as babelParser from '@babel/parser';
-import traverse, { NodePath } from '@babel/traverse';
+import type { NodePath } from '@babel/traverse';
+import * as babelTraverse from '@babel/traverse';
 import * as t from '@babel/types';
 import { getAppLogger, logger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
@@ -17,7 +18,7 @@ import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileT
 import { formatCode } from './formatCode';
 
 /**
- * Updates a JavaScript/TypeScript file based on the provided JSON instructions.
+ * Updates a JavaScriptå/TypeScript file based on the provided JSON instructions.
  * It targets a specific dictionary object within the file (identified by its 'key' property)
  * and updates its 'content' entries. Currently, it focuses on modifying arguments
  * of 't' (translation) function calls.
@@ -26,6 +27,22 @@ export const writeJSFile = async (
   filePath: string,
   dictionary: Dictionary
 ): Promise<void> => {
+  // Ensure compatibility with various ESM/CJS interop shapes of @babel/traverse
+  const normalizeTraverse = (mod: unknown) => {
+    const candidate = mod as any;
+    if (typeof candidate === 'function') return candidate;
+    if (candidate?.default) {
+      if (typeof candidate.default === 'function') return candidate.default;
+      if (typeof candidate.default?.default === 'function')
+        return candidate.default.default;
+      if (typeof candidate.default?.traverse === 'function')
+        return candidate.default.traverse;
+    }
+    if (typeof candidate?.traverse === 'function') return candidate.traverse;
+    return candidate;
+  };
+
+  const traverse = normalizeTraverse(babelTraverse) as any;
   const appLogger = getAppLogger(configuration);
 
   const {
@@ -84,26 +101,28 @@ export const writeJSFile = async (
 
   // First look for direct objects with the right key, regardless of variable assignments
   traverse(ast, {
-    ObjectExpression(path) {
+    ObjectExpression(path: NodePath<t.ObjectExpression>) {
       if (dictionaryObjectPath) return; // Already found
 
       // Check if this object has a key property with the right value
-      const keyProp = path.node.properties.find((prop) => {
-        if (!t.isObjectProperty(prop)) return false;
-        if (!t.isIdentifier(prop.key) && !t.isStringLiteral(prop.key))
-          return false;
+      const keyProp = path.node.properties.find(
+        (prop: t.ObjectProperty | t.SpreadElement | t.ObjectMethod) => {
+          if (!t.isObjectProperty(prop)) return false;
+          if (!t.isIdentifier(prop.key) && !t.isStringLiteral(prop.key))
+            return false;
 
-        const keyName = t.isIdentifier(prop.key)
-          ? prop.key.name
-          : prop.key.value;
+          const keyName = t.isIdentifier(prop.key)
+            ? prop.key.name
+            : prop.key.value;
 
-        if (keyName !== 'key' || !t.isStringLiteral(prop.value)) return false;
+          if (keyName !== 'key' || !t.isStringLiteral(prop.value)) return false;
 
-        // Unescape the value for comparison
-        const propValue = prop.value.value;
-        // Compare actual string content, not just raw representation
-        return propValue === dictionaryIdentifierKey;
-      });
+          // Unescape the value for comparison
+          const propValue = prop.value.value;
+          // Compare actual string content, not just raw representation
+          return propValue === dictionaryIdentifierKey;
+        }
+      );
 
       if (keyProp) {
         dictionaryObjectPath = path;
@@ -123,7 +142,7 @@ export const writeJSFile = async (
       [];
 
     traverse(ast, {
-      VariableDeclarator(path) {
+      VariableDeclarator(path: NodePath<t.VariableDeclarator>) {
         const { node } = path;
         if (!t.isIdentifier(node.id)) return;
 
@@ -183,24 +202,26 @@ export const writeJSFile = async (
         isVerbose: true,
       });
       traverse(ast, {
-        ObjectExpression(path) {
+        ObjectExpression(path: NodePath<t.ObjectExpression>) {
           const props = path.node.properties
-            .map((prop) => {
-              if (!t.isObjectProperty(prop)) return 'non-object-property';
-              if (!t.isIdentifier(prop.key) && !t.isStringLiteral(prop.key))
-                return 'complex-key';
+            .map(
+              (prop: t.ObjectProperty | t.SpreadElement | t.ObjectMethod) => {
+                if (!t.isObjectProperty(prop)) return 'non-object-property';
+                if (!t.isIdentifier(prop.key) && !t.isStringLiteral(prop.key))
+                  return 'complex-key';
 
-              const keyName = t.isIdentifier(prop.key)
-                ? prop.key.name
-                : prop.key.value;
-              let valueDesc = 'unknown-value';
+                const keyName = t.isIdentifier(prop.key)
+                  ? prop.key.name
+                  : prop.key.value;
+                let valueDesc = 'unknown-value';
 
-              if (t.isStringLiteral(prop.value)) {
-                valueDesc = `"${prop.value.value}"`;
+                if (t.isStringLiteral(prop.value)) {
+                  valueDesc = `"${prop.value.value}"`;
+                }
+
+                return `${keyName}: ${valueDesc}`;
               }
-
-              return `${keyName}: ${valueDesc}`;
-            })
+            )
             .join(', ');
 
           appLogger(`Object: { ${props} }`);
@@ -451,7 +472,7 @@ export const writeJSFile = async (
   }
 
   // Generate JavaScript/TypeScript code from the modified AST
-  const generatedCode = generator(ast, {
+  const generatedCode = generate.generate(ast, {
     retainLines: true,
     comments: true,
     jsescOption: {
