@@ -1,6 +1,6 @@
 {
   "name": "react-native-intlayer",
-  "version": "6.0.0-canary.1",
+  "version": "6.0.0-canary.2",
   "private": false,
   "description": "A React Native plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration",
   "keywords": [
