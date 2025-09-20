@@ -3,17 +3,12 @@ export {
   getConfiguration,
   type GetConfigurationOptions,
 } from './configFile/getConfiguration';
-export {
-  formatEnvVariable,
-  getConfiguration as getClientConfiguration,
-  getEnvFilePath,
-  getPlatform,
-  loadEnvFile,
-} from './envVariables/index';
 export { getSandBoxContext } from './getSandboxContext';
+export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
 export { loadExternalFile } from './loadExternalFile';
 export {
   ANSIColors,
+  colon,
   colorize,
   colorizeKey,
   colorizeLocales,

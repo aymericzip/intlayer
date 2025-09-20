@@ -1,7 +1,9 @@
 // @ts-ignore @intlayer/backend is not build yet
 import {
   ANSIColors,
+  colon,
   colorize,
+  colorizeKey,
   ESMxCJSRequire,
   getAppLogger,
   getConfiguration,
@@ -129,8 +131,9 @@ const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
       );
     }
 
-    const paddedKey = key.padEnd(35, ' ');
-    appLogger(` - ${paddedKey} ${labels.join(' ')}`);
+    appLogger(
+      ` - ${colon(colorizeKey(key), { colSize: keys })} ${labels.join(' ')}`
+    );
   }
 };
 

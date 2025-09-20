@@ -507,7 +507,7 @@ Para diccionarios fusionados, este arreglo contiene los IDs de todos los diccion
 
 La ruta del archivo del diccionario local, indicando de qué archivo `.content` se generó el diccionario. Ayuda con la depuración y el seguimiento de la fuente.
 
-##### `availableVersions` (string[])
+##### `versions` (string[])
 
 Para diccionarios remotos, este arreglo contiene todas las versiones disponibles del diccionario. Ayuda a rastrear qué versiones están disponibles para su uso.
 

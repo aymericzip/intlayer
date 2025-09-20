@@ -1,5 +1,6 @@
 export {
   ANSIColors,
+  colon,
   colorizeKey,
   colorizeLocales,
   colorizeNumber,

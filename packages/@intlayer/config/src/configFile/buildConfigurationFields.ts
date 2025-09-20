@@ -15,7 +15,6 @@ import {
   FILE_EXTENSIONS,
   I18NEXT_DICTIONARIES_DIR,
   MAIN_DIR,
-  MASKS_DIR,
   MODULE_AUGMENTATION_DIR,
   REACT_INTL_MESSAGES_DIR,
   REMOTE_DICTIONARIES_DIR,
@@ -265,6 +264,13 @@ const buildContentFields = (
      * Default: process.env.NODE_ENV === 'development'
      */
     watch: customConfiguration?.watch ?? WATCH,
+
+    /**
+     * Indicate how the content should be automatically filled using AI.
+     *
+     * Default: undefined
+     */
+    autoFill: customConfiguration?.autoFill ?? undefined,
   };
 
   const baseDirDerivedConfiguration: BaseDerivedConfig = {
@@ -303,15 +309,6 @@ const buildContentFields = (
 
       customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
     ),
-
-    /**
-     * Directory where the masks are stored. Masks are used to resolve a field of a dictionary once the dictionary is merged.
-     *
-     * Relative to the base directory of the project
-     *
-     * Default: .intlayer/mask
-     */
-    masksDir: join(notDerivedContentConfig.baseDir, MASKS_DIR),
 
     /**
      * Directory where the module augmentation will be stored

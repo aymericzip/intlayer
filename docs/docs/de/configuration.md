@@ -11,8 +11,8 @@ keywords:
   - Optionen
 slugs:
   - doc
-  - konzept
-  - konfiguration
+  - concept
+  - configuration
 ---
 
 # Intlayer Konfigurationsdokumentation

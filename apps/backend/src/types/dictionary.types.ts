@@ -13,8 +13,9 @@ export type DictionaryCreationData = {
   content?: ContentNode;
   title?: string;
   description?: string;
+  priority?: number;
+  live?: boolean;
   tags?: string[];
-  filePath?: string;
 };
 
 export type VersionedContentEl = {
@@ -33,8 +34,9 @@ export type DictionaryData = {
   creatorId: User['id'];
   title?: string;
   description?: string;
+  priority?: number;
+  live?: boolean;
   tags?: string[];
-  filePath?: Record<string, string>;
 };
 
 export type Dictionary = DictionaryData & {

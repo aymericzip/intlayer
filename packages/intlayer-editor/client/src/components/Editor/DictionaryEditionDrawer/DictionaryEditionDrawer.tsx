@@ -1,6 +1,7 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
+import { getUnmergedDictionaryByKeyPath } from '@intlayer/core';
 import {
   Button,
   DictionaryEditor,
@@ -14,7 +15,6 @@ import { Pencil } from 'lucide-react';
 import { useCallback, useState, type FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
-import { getUnmergedDictionary } from './getDictionaryFilePath';
 import {
   getDrawerIdentifier,
   useDictionaryEditionDrawer,
@@ -55,7 +55,7 @@ export const DictionaryEditionDrawerContent: FC<
       </span>
     );
 
-  const dictionary = getUnmergedDictionary(
+  const dictionary = getUnmergedDictionaryByKeyPath(
     dictionaryKey,
     focusedContent.keyPath ?? []
   );

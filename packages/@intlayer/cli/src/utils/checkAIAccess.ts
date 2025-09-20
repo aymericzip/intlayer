@@ -5,7 +5,11 @@ export const checkAIAccess = (
   configuration: IntlayerConfig,
   aiOptions?: AIOptions
 ) => {
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger(configuration, {
+    config: {
+      prefix: '',
+    },
+  });
 
   if (
     !configuration.editor.clientId &&

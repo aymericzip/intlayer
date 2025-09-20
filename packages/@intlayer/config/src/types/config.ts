@@ -507,6 +507,14 @@ export type BaseContentConfig = {
    * Default: process.env.NODE_ENV === 'development'
    */
   watch: boolean;
+
+  /**
+   * Indicate how the content should be automatically filled using AI.
+   *
+   * Default: undefined
+   *
+   */
+  autoFill?: boolean | string | { [key in Locales]?: string };
 };
 
 export type DictionaryOutput = 'intlayer' | 'i18next' | 'react-intl';
@@ -532,15 +540,6 @@ export type BaseDerivedConfig = {
    * Derived results directory based on the base configuration.
    */
   dictionariesDir: string;
-
-  /**
-   * Directory where the masks are stored, relative to the base directory
-   *
-   * Default: .intlayer/mask
-   *
-   * Derived masks directory based on the base configuration.
-   */
-  masksDir: string;
 
   /**
    * Directory for module augmentation, relative to the base directory

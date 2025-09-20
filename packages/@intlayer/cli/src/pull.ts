@@ -35,7 +35,11 @@ type DictionariesStatus = {
  * with progress indicators and concurrency control.
  */
 export const pull = async (options?: PullOptions): Promise<void> => {
-  const appLogger = getAppLogger(options?.configOptions?.override);
+  const appLogger = getAppLogger(options?.configOptions?.override, {
+    config: {
+      prefix: '',
+    },
+  });
 
   try {
     const config = getConfiguration(options?.configOptions);

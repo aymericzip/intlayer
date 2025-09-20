@@ -6,13 +6,16 @@ import {
 } from '@intlayer/config';
 
 type PushOptions = {
-  logPrefix?: string;
   configOptions?: GetConfigurationOptions;
 };
 
 export const pushConfig = async (options?: PushOptions) => {
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config);
+  const appLogger = getAppLogger(config, {
+    config: {
+      prefix: '',
+    },
+  });
 
   const { clientId, clientSecret } = config.editor;
 
@@ -21,9 +24,6 @@ export const pushConfig = async (options?: PushOptions) => {
       'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.',
       {
         level: 'error',
-        config: {
-          prefix: options?.logPrefix,
-        },
       }
     );
     return;
@@ -49,15 +49,7 @@ export const pushConfig = async (options?: PushOptions) => {
     throw new Error('Error pushing project configuration');
   }
 
-  appLogger('Project configuration pushed successfully', {
-    config: {
-      prefix: options?.logPrefix,
-    },
-  });
+  appLogger('Project configuration pushed successfully');
 
-  appLogger(JSON.stringify(getDictionariesKeysResult.data, null, 2), {
-    config: {
-      prefix: options?.logPrefix,
-    },
-  });
+  appLogger(JSON.stringify(getDictionariesKeysResult.data, null, 2));
 };

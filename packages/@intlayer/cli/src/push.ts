@@ -1,5 +1,9 @@
 import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
-import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
+import {
+  formatPath,
+  listGitFiles,
+  ListGitFilesOptions,
+} from '@intlayer/chokidar';
 import {
   ANSIColors,
   getAppLogger,
@@ -11,7 +15,6 @@ import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import * as fsPromises from 'fs/promises';
 import pLimit from 'p-limit';
-import { relative } from 'path';
 import * as readline from 'readline';
 
 type PushOptions = {
@@ -33,11 +36,15 @@ type DictionariesStatus = {
 };
 
 /**
- * Get all locale dictionaries and push them simultaneously.
+ * Get all local dictionaries and push them simultaneously.
  */
 export const push = async (options?: PushOptions): Promise<void> => {
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config);
+  const appLogger = getAppLogger(config, {
+    config: {
+      prefix: '',
+    },
+  });
   const { clientId, clientSecret } = config.editor;
   try {
     if (!clientId || !clientSecret) {
@@ -220,8 +227,11 @@ const deleteLocalDictionaries = async (
   options?: PushOptions
 ): Promise<void> => {
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config);
-  const { baseDir } = config.content;
+  const appLogger = getAppLogger(config, {
+    config: {
+      prefix: '',
+    },
+  });
 
   // Use a Set to collect all unique file paths
   const filePathsSet: Set<string> = new Set();
@@ -240,21 +250,22 @@ const deleteLocalDictionaries = async (
   }
 
   for (const filePath of filePathsSet) {
-    const relativePath = relative(baseDir, filePath);
-
     try {
       const stats = await fsPromises.lstat(filePath);
 
       if (stats.isFile()) {
         await fsPromises.unlink(filePath);
-        appLogger(`Deleted file ${relativePath}`, {});
+        appLogger(`Deleted file ${formatPath(filePath)}`, {});
       } else if (stats.isDirectory()) {
-        appLogger(`Path is a directory ${relativePath}, skipping.`, {});
+        appLogger(`Path is a directory ${formatPath(filePath)}, skipping.`, {});
       } else {
-        appLogger(`Unknown file type for ${relativePath}, skipping.`, {});
+        appLogger(
+          `Unknown file type for ${formatPath(filePath)}, skipping.`,
+          {}
+        );
       }
     } catch (err) {
-      appLogger(`Error deleting ${relativePath}: ${err}`, {
+      appLogger(`Error deleting ${formatPath(filePath)}: ${err}`, {
         level: 'error',
       });
     }

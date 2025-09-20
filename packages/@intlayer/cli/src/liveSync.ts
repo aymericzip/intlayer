@@ -26,7 +26,11 @@ const writeDictionary = async (
 
 export const liveSync = async (options?: LiveSyncOptions) => {
   const configuration = getConfiguration();
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger(configuration, {
+    config: {
+      prefix: '',
+    },
+  });
 
   const { liveSyncPort, liveSyncURL } = configuration.editor;
 

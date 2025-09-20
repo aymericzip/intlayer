@@ -9,8 +9,8 @@ keywords:
   - Intlayer
 slugs:
   - doc
-  - konzept
-  - inhalt
+  - concept
+  - content
 ---
 
 # Inhaltsdatei
@@ -508,7 +508,7 @@ Für zusammengeführte Wörterbücher enthält dieses Array die IDs aller Wörte
 
 Der Dateipfad des lokalen Wörterbuchs, der angibt, aus welcher `.content`-Datei das Wörterbuch generiert wurde. Hilft bei der Fehlerbehebung und Quellenverfolgung.
 
-##### `availableVersions` (string[])
+##### `versions` (string[])
 
 Für entfernte Wörterbücher enthält dieses Array alle verfügbaren Versionen des Wörterbuchs. Hilft dabei, nachzuvollziehen, welche Versionen verwendet werden können.
 

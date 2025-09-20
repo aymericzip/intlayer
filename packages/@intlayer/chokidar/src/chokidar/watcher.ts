@@ -4,7 +4,7 @@ import {
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
-import { basename, relative } from 'path';
+import { basename } from 'path';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { getBuiltDictionariesPath } from '../getBuiltDictionariesPath';
@@ -17,6 +17,7 @@ import {
   createModuleAugmentation,
   createTypes,
 } from '../transpiler/dictionary_to_type/index';
+import { formatPath } from '../utils/formatter';
 
 const recentlyAddedFiles = new Set<string>();
 
@@ -26,15 +27,11 @@ export const handleAdditionalContentDeclarationFile = async (
 ) => {
   const config = configuration ?? getConfiguration();
   const appLogger = getAppLogger(config);
-  const { content } = config;
 
   // Process the file with the functionToRun
-  appLogger(
-    `Additional file detected: ${relative(content.baseDir, filePath)}`,
-    {
-      isVerbose: true,
-    }
-  );
+  appLogger(`Additional file detected: ${formatPath(filePath)}`, {
+    isVerbose: true,
+  });
 
   const localeDictionaries = await loadLocalDictionaries(filePath);
 
@@ -65,10 +62,9 @@ export const handleUnlikedContentDeclarationFile = async (
 ) => {
   const config = configuration ?? getConfiguration();
   const appLogger = getAppLogger(config);
-  const { content } = config;
 
   // Process the file with the functionToRun
-  appLogger(`Unlinked detected: ${relative(content.baseDir, filePath)}`, {
+  appLogger(`Unlinked detected: ${formatPath(filePath)}`, {
     isVerbose: true,
   });
 
@@ -103,10 +99,9 @@ export const handleContentDeclarationFileChange = async (
 ) => {
   const config = configuration ?? getConfiguration();
   const appLogger = getAppLogger(config);
-  const { content } = config;
 
   // Process the file with the functionToRun
-  appLogger(`Change detected: ${relative(content.baseDir, filePath)}`, {
+  appLogger(`Change detected: ${formatPath(filePath)}`, {
     isVerbose: true,
   });
 

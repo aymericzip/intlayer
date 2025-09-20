@@ -27,15 +27,6 @@ export const getAlias = ({
   );
 
   /**
-   * Mask dictionaries
-   */
-  const maskDictionariesPath = join(mainDir, `masks.${extension}`);
-  const relativeMaskDictionariesPath = relative(baseDir, maskDictionariesPath);
-  const normalizedMaskDictionariesPath = formatter(
-    normalizePath(relativeMaskDictionariesPath)
-  );
-
-  /**
    * Unmerged dictionaries
    */
   const unmergedDictionariesPath = join(
@@ -106,7 +97,6 @@ export const getAlias = ({
 
   return {
     '@intlayer/dictionaries-entry': normalizedDictionariesPath,
-    '@intlayer/mask-dictionaries-entry': normalizedMaskDictionariesPath,
     '@intlayer/unmerged-dictionaries-entry': normalizedUnmergedDictionariesPath,
     '@intlayer/remote-dictionaries-entry': normalizedRemoteDictionariesPath,
     '@intlayer/dynamic-dictionaries-entry': normalizedDynamicDictionariesPath,

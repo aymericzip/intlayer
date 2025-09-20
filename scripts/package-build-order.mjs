@@ -5,7 +5,6 @@ export const packageBuildOrder = [
   'packages/@intlayer/dynamic-dictionaries-entry',
   'packages/@intlayer/remote-dictionaries-entry',
   'packages/@intlayer/fetch-dictionaries-entry',
-  'packages/@intlayer/mask-dictionaries-entry',
   'packages/@intlayer/api',
   'packages/@intlayer/core',
   'packages/@intlayer/chokidar',

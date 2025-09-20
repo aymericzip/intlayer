@@ -64,7 +64,6 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/docs": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
-    "@intlayer/mask-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@monaco-editor/react": "^4.7.0",
     "@next/third-parties": "^15.3.3",

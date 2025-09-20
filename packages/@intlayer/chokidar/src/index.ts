@@ -33,6 +33,7 @@ export {
   generateDictionaryListContent,
 } from './transpiler/dictionary_to_main';
 export { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
+export { formatLocale, formatPath } from './utils/formatter';
 export { getFileHash } from './utils/getFileHash';
 export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
 export { resolveObjectPromises } from './utils/resolveObjectPromises';

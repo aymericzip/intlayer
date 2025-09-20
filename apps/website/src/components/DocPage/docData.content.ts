@@ -183,7 +183,7 @@ const docDataContent: any = {
             ru: 'Объявление контента',
             tr: 'İçerik Beyanı',
           }),
-          default: getDocMetadata('./docs/en/dictionary/get_started.md'),
+          default: getDocMetadata('./docs/en/dictionary/content_file.md'),
           subSections: {
             translation: {
               title: t({

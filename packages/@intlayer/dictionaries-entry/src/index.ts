@@ -62,4 +62,4 @@ export const getDictionaries = () => {
   >;
 };
 
-export default getDictionaries();
+export default (() => getDictionaries())();

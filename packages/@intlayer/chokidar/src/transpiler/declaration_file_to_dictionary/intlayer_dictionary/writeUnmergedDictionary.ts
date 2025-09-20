@@ -2,6 +2,7 @@ import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
+import { orderDictionaries } from '../../../orderDictionaries';
 import { formatDictionaryText } from './formatDictionaryText';
 
 const groupDictionariesByKey = (
@@ -63,7 +64,8 @@ export const writeUnmergedDictionaries = async (
   for await (const [key, dictionaries] of Object.entries(groupedDictionaries)) {
     if (key === 'undefined') continue;
 
-    const contentString = formatDictionaryText(dictionaries);
+    const orderedDictionaries = orderDictionaries(dictionaries, configuration);
+    const contentString = formatDictionaryText(orderedDictionaries);
 
     const outputFileName = `${key}.json`;
     const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);

@@ -82,9 +82,7 @@ export const getDictionaries = async (
 
     const totalItems = await dictionaryService.countDictionaries(filters);
 
-    const dictionariesAPI = dictionaries.map((el) =>
-      mapDictionaryToAPI(el, project.id)
-    );
+    const dictionariesAPI = dictionaries.map((el) => mapDictionaryToAPI(el));
 
     const responseData = formatPaginatedResponse<DictionaryAPI>({
       data: dictionariesAPI,
@@ -260,7 +258,7 @@ export const getDictionaryByKey = async (
       return;
     }
 
-    const apiResult = mapDictionaryToAPI(dictionary, project.id, version);
+    const apiResult = mapDictionaryToAPI(dictionary, version);
 
     const responseData = formatResponse<DictionaryAPI>({
       data: apiResult,
@@ -316,9 +314,6 @@ export const addDictionary = async (
       ['v1', { content: dictionaryData.content ?? ({} as ContentNode) }],
     ]),
     creatorId: user.id,
-    filePath: {
-      [String(project.id)]: dictionaryData.filePath ?? '',
-    },
     projectIds: dictionaryData.projectIds ?? [String(project.id)],
   };
 
@@ -330,7 +325,7 @@ export const addDictionary = async (
   try {
     const newDictionary = await dictionaryService.createDictionary(dictionary);
 
-    const apiResult = mapDictionaryToAPI(newDictionary, project.id);
+    const apiResult = mapDictionaryToAPI(newDictionary);
 
     const responseData = formatResponse<DictionaryAPI>({
       message: t({
@@ -350,7 +345,7 @@ export const addDictionary = async (
 
     eventListener.sendDictionaryUpdate([
       {
-        dictionary: mapDictionaryToAPI(newDictionary, project.id),
+        dictionary: mapDictionaryToAPI(newDictionary),
         status: 'ADDED',
       },
     ]);
@@ -440,18 +435,13 @@ export const pushDictionaries = async (
         content: new Map([
           ['v1', { content: dictionaryDataEl.content ?? ({} as ContentNode) }],
         ]),
-        filePath: {
-          [String(project.id)]: dictionaryDataEl.filePath ?? '',
-        },
         key: dictionaryDataEl.key,
       };
 
       try {
         const newDictionary =
           await dictionaryService.createDictionary(dictionary);
-        newDictionariesResult.push(
-          mapDictionaryToAPI(newDictionary, project.id)
-        );
+        newDictionariesResult.push(mapDictionaryToAPI(newDictionary));
       } catch (error) {
         ErrorHandler.handleAppErrorResponse(res, error as AppError);
         return;
@@ -500,9 +490,6 @@ export const pushDictionaries = async (
           content: newContent,
           projectIds: [String(project.id)],
           creatorId: user.id,
-          filePath: {
-            [String(project.id)]: dictionaryDataEl.filePath ?? '',
-          },
           key: dictionaryDataEl.key,
         };
 
@@ -513,9 +500,7 @@ export const pushDictionaries = async (
               dictionary,
               project.id
             );
-          updatedDictionariesResult.push(
-            mapDictionaryToAPI(updatedDictionary, project.id)
-          );
+          updatedDictionariesResult.push(mapDictionaryToAPI(updatedDictionary));
         } catch (error) {
           ErrorHandler.handleAppErrorResponse(res, error as AppError);
           return;
@@ -619,7 +604,7 @@ export const updateDictionary = async (
       dictionaryData
     );
 
-    const apiResult = mapDictionaryToAPI(updatedDictionary, project.id);
+    const apiResult = mapDictionaryToAPI(updatedDictionary);
 
     const responseData = formatResponse<DictionaryAPI>({
       message: t({
@@ -703,7 +688,7 @@ export const deleteDictionary = async (
 
     logger.info(`Dictionary deleted: ${String(deletedDictionary.id)}`);
 
-    const apiResult = mapDictionaryToAPI(deletedDictionary, project.id);
+    const apiResult = mapDictionaryToAPI(deletedDictionary);
 
     const responseData = formatResponse<DictionaryAPI>({
       message: t({

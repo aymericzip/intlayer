@@ -507,7 +507,7 @@ Birleştirilmiş sözlükler için, bu dizi birleştirilen tüm sözlüklerin ki
 
 Yerel sözlüğün dosya yolu, sözlüğün hangi `.content` dosyasından oluşturulduğunu gösterir. Hata ayıklama ve kaynak takibi için yardımcı olur.
 
-##### `availableVersions` (string[])
+##### `versions` (string[])
 
 Uzak sözlükler için, bu dizi sözlüğün mevcut tüm sürümlerini içerir. Hangi sürümlerin kullanılabilir olduğunu takip etmeye yardımcı olur.
 

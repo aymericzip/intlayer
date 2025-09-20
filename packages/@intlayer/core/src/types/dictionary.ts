@@ -165,7 +165,7 @@ export type Dictionary<ContentType = undefined, FetchableNode = false> = {
    *
    * The available versions of the remote dictionary. Helps to know the versions of the dictionary that are available.
    */
-  availableVersions?: string[];
+  versions?: string[];
   /**
    * _Managable on the CMS, do not modify it locally_
    *

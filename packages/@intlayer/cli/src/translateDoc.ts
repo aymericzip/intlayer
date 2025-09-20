@@ -1,18 +1,26 @@
 import { AIOptions, getOAuthAPI } from '@intlayer/api';
-import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
+  formatLocale,
+  formatPath,
+  listGitFiles,
+  ListGitFilesOptions,
+} from '@intlayer/chokidar';
+import {
+  ANSIColors,
+  colon,
+  colorize,
+  colorizeNumber,
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
   Locales,
   retryManager,
 } from '@intlayer/config';
-import { getLocaleName } from '@intlayer/core';
 import fg from 'fast-glob';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import pLimit from 'p-limit';
-import { dirname, join } from 'path';
+import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
 import { checkAIAccess } from './utils/checkAIAccess';
@@ -41,7 +49,11 @@ export const translateFile = async (
 ) => {
   try {
     const configuration = getConfiguration(configOptions);
-    const appLogger = getAppLogger(configuration);
+    const appLogger = getAppLogger(configuration, {
+      config: {
+        prefix: '',
+      },
+    });
 
     // Determine the target locale file path
     const fileContent = await readFile(baseFilePath, 'utf-8');
@@ -51,33 +63,41 @@ export const translateFile = async (
     const basePrompt = (
       await readFile(join(dir, './prompts/TRANSLATE_PROMPT.md'), 'utf-8')
     )
-      .replaceAll(
-        '{{localeName}}',
-        `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`
-      )
-      .replaceAll(
-        '{{baseLocaleName}}',
-        `${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale})`
-      )
+      .replaceAll('{{localeName}}', `${formatLocale(locale, false)}`)
+      .replaceAll('{{baseLocaleName}}', `${formatLocale(baseLocale, false)}`)
       .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
       .replace('{{customInstructions}}', customInstructions ?? '-');
 
+    const filePrexixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}] `;
+    const filePrefix = [
+      colon(filePrexixText, { colSize: 40 }),
+      `→ ${ANSIColors.RESET}`,
+    ].join('');
+
+    const prefixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}][${formatLocale(locale)}${ANSIColors.GREY_DARK}] `;
+    const prefix = [
+      colon(prefixText, { colSize: 40 }),
+      `→ ${ANSIColors.RESET}`,
+    ].join('');
+
     // 1. Chunk the file by number of lines instead of characters
     const chunks = chunkText(fileContent);
-    appLogger(`Base file splitted into ${chunks.length} chunks`);
+    appLogger(
+      `${filePrefix}Base file splitted into ${colorizeNumber(chunks.length)} chunks`
+    );
 
     for await (const [i, chunk] of chunks.entries()) {
       const isFirstChunk = i === 0;
 
       // Build the chunk-specific prompt
       const getPrevChunkPrompt = () =>
-        `**CHUNK ${i} of ${chunks.length}** that has been translated in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}):\n` +
+        `**CHUNK ${i} of ${chunks.length}** that has been translated in ${formatLocale(locale)}:\n` +
         `///chunkStart///` +
         getChunk(fileResultContent, chunks[i - 1]) +
         `///chunkEnd///`;
 
       const getBaseChunkContextPrompt = () =>
-        `**CHUNK ${i + 1} to ${Math.min(i + 3, chunks.length)} of ${chunks.length}** is the base chunk in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) as reference.\n` +
+        `**CHUNK ${i + 1} to ${Math.min(i + 3, chunks.length)} of ${chunks.length}** is the base chunk in ${formatLocale(baseLocale, false)} as reference.\n` +
         `///chunksStart///` +
         (chunks[i - 1]?.content ?? '') +
         chunks[i].content +
@@ -98,7 +118,7 @@ export const translateFile = async (
               : [{ role: 'system', content: getPrevChunkPrompt() } as const]),
             {
               role: 'system',
-              content: `The next user message will be the **CHUNK ${i + 1} of ${chunks.length}** in ${getLocaleName(baseLocale, Locales.ENGLISH)} (${baseLocale}) to translate in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}):`,
+              content: `The next user message will be the **CHUNK ${colorizeNumber(i + 1)} of ${colorizeNumber(chunks.length)}** in ${formatLocale(baseLocale, false)} to translate in ${formatLocale(locale, false)}:`,
             },
             { role: 'user', content: fileToTranslateCurrentChunk },
           ],
@@ -107,7 +127,7 @@ export const translateFile = async (
         );
 
         appLogger(
-          ` -> ${result.tokenUsed} tokens used - CHUNK ${i + 1} of ${chunks.length}`
+          `${prefix}${colorizeNumber(result.tokenUsed)} tokens used - Chunk ${colorizeNumber(i + 1)} of ${colorizeNumber(chunks.length)}`
         );
 
         const fixedTranslatedChunkResult = fixChunkStartEndChars(
@@ -129,7 +149,14 @@ export const translateFile = async (
     mkdirSync(dirname(outputFilePath), { recursive: true });
     writeFileSync(outputFilePath, fileResultContent);
 
-    appLogger(`File ${outputFilePath} created/updated successfully.`);
+    const relativePath = relative(
+      configuration.content.baseDir,
+      outputFilePath
+    );
+
+    appLogger(
+      `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(relativePath)} created/updated successfully.`
+    );
   } catch (error) {
     console.error(error);
   }
@@ -167,7 +194,11 @@ export const translateDoc = async ({
   gitOptions,
 }: TranslateDocOptions) => {
   const configuration = getConfiguration(configOptions);
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger(configuration, {
+    config: {
+      prefix: '',
+    },
+  });
 
   if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
     appLogger(
@@ -205,24 +236,19 @@ export const translateDoc = async ({
     oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
   }
 
-  appLogger(`Base locale is ${getLocaleName(baseLocale)} (${baseLocale})`);
+  appLogger(`Base locale is ${formatLocale(baseLocale)}`);
   appLogger(
-    `Translating ${locales.length} locales: [ ${locales
-      .map((locale) => `${getLocaleName(locale, baseLocale)} (${locale})`)
-      .join(', ')} ]`
+    `Translating ${colorizeNumber(locales.length)} locales: [ ${formatLocale(locales)} ]`
   );
 
-  appLogger(`Translating ${docList.length} files:`);
-  appLogger(docList.map((path) => ` - ${path}\n`));
+  appLogger(`Translating ${colorizeNumber(docList.length)} files:`);
+  appLogger(docList.map((path) => ` - ${formatPath(path)}\n`));
 
   const tasks = docList.map((docPath) =>
     locales.flatMap((locale) =>
       limit(async () => {
         appLogger(
-          `Translating file: ${docPath} to ${getLocaleName(
-            locale,
-            Locales.ENGLISH
-          )} (${locale})`
+          `Translating file: ${formatPath(docPath)} to ${formatLocale(locale)}`
         );
 
         const absoluteBaseFilePath = join(

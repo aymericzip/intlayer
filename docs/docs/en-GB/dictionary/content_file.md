@@ -506,7 +506,7 @@ For merged dictionaries, this array contains the IDs of all dictionaries that we
 
 The file path of the local dictionary, indicating which `.content` file the dictionary was generated from. Helps with debugging and source tracking.
 
-##### `availableVersions` (string[])
+##### `versions` (string[])
 
 For remote dictionaries, this array contains all available versions of the dictionary. Helps track which versions are available for use.
 

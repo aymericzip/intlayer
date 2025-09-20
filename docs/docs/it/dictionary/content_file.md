@@ -508,7 +508,7 @@ Per i dizionari uniti, questo array contiene gli ID di tutti i dizionari che son
 
 Il percorso del file del dizionario locale, che indica da quale file `.content` è stato generato il dizionario. Aiuta nel debug e nel tracciamento della fonte.
 
-##### `availableVersions` (string[])
+##### `versions` (string[])
 
 Per i dizionari remoti, questo array contiene tutte le versioni disponibili del dizionario. Aiuta a tracciare quali versioni sono disponibili per l'uso.
 

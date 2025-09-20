@@ -508,7 +508,7 @@ Intlayer 中的字典由 `Dictionary` 类型定义，包含多个控制其行为
 
 本地字典的文件路径，指示该字典是从哪个 `.content` 文件生成的。便于调试和源头追踪。
 
-##### `availableVersions` (string[])
+##### `versions` (string[])
 
 对于远程字典，此数组包含字典的所有可用版本。帮助跟踪可用的版本。
 

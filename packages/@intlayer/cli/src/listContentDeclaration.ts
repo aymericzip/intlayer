@@ -1,5 +1,8 @@
+import { formatPath } from '@intlayer/chokidar';
 import {
-  ANSIColors,
+  colon,
+  colorizeKey,
+  colorizeNumber,
   getAppLogger,
   getConfiguration,
   type GetConfigurationOptions,
@@ -37,16 +40,24 @@ export const listContentDeclaration = (
 
   const rows = listContentDeclarationRows(options);
 
-  const keyColWidth = rows.reduce((max, r) => Math.max(max, r.key.length), 0);
+  const lines = rows.map((r) =>
+    [
+      colon(` - ${colorizeKey(r.key)}`, {
+        colSize: rows.map((r) => r.key.length),
+        maxSize: 60,
+      }),
+      ' - ',
+      formatPath(r.path),
+    ].join('')
+  );
 
-  const lines = rows
-    .map((r) => {
-      const keyPadded = r.key.padEnd(keyColWidth, ' ');
-      return ` - ${keyPadded} - ${ANSIColors.GREY}${r.path}${ANSIColors.RESET}`;
-    })
-    .join('\n');
+  appLogger(`Content declaration files:`);
 
-  appLogger(`Content declaration files:\n${lines}`);
+  lines.forEach((l) => {
+    appLogger(l, {
+      level: 'info',
+    });
+  });
 
-  appLogger(`Total content declaration files: ${rows.length}`);
+  appLogger(`Total content declaration files: ${colorizeNumber(rows.length)}`);
 };

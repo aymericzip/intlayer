@@ -11,8 +11,8 @@ keywords:
   - Opciones
 slugs:
   - doc
-  - concepto
-  - configuracion
+  - concept
+  - configuration
 ---
 
 # Documentación de Configuración de Intlayer

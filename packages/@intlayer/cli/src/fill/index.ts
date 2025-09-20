@@ -1,5 +1,7 @@
 import { AIOptions, getAiAPI, getOAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
+  formatLocale,
+  formatPath,
   ListGitFilesOptions,
   mergeDictionaries,
   prepareIntlayer,
@@ -8,8 +10,6 @@ import {
   writeContentDeclaration,
 } from '@intlayer/chokidar';
 import {
-  ANSIColors,
-  colorize,
   colorizeKey,
   colorizePath,
   getAppLogger,
@@ -21,7 +21,6 @@ import {
   type ContentNode,
   type Dictionary,
   getFilterTranslationsOnlyContent,
-  getLocaleName,
   getLocalisedContent,
   getMissingLocalesContent,
 } from '@intlayer/core';
@@ -51,12 +50,6 @@ export type FillOptions = {
   nbConcurrentTranslations?: number;
   build?: boolean;
 };
-
-export const formatLocaleName = (locale: Locales) =>
-  colorize(
-    `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`,
-    ANSIColors.GREEN
-  );
 
 /**
  * Fill translations based on the provided options.
@@ -156,7 +149,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (Object.keys(sourceLocaleContent).length === 0) {
       appLogger(
-        `No content found for dictionary '${colorizeKey(dictionaryKey)}' in source locale ${formatLocaleName(sourceLocale)}. Skipping translation for this dictionary.`,
+        `No content found for dictionary '${colorizeKey(dictionaryKey)}' in source locale ${formatLocale(sourceLocale)}. Skipping translation for this dictionary.`,
         {
           level: 'warn',
         }
@@ -194,7 +187,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
     const translationPromises = outputLocalesList.map((targetLocale) =>
       limit(async () => {
         appLogger(
-          `Preparing translation for '${colorizeKey(dictionaryKey)}' dictionary from ${formatLocaleName(sourceLocale)} to ${formatLocaleName(targetLocale)}`,
+          `Preparing translation for '${colorizeKey(dictionaryKey)}' dictionary from ${formatLocale(sourceLocale)} to ${formatLocale(targetLocale)}`,
           {
             level: 'info',
           }
@@ -231,7 +224,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
           if (!translationResult.data?.fileContent) {
             appLogger(
-              `No content result found for '${colorizeKey(dictionaryKey)}' to ${formatLocaleName(targetLocale)}`,
+              `No content result found for '${colorizeKey(dictionaryKey)}' to ${formatLocale(targetLocale)}`,
               {
                 level: 'error',
               }
@@ -248,7 +241,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
           return processedPerLocaleDictionary;
         } catch (error) {
           appLogger(
-            `Error filling '${colorizeKey(dictionaryKey)}' to ${formatLocaleName(targetLocale)}:` +
+            `Error filling '${colorizeKey(dictionaryKey)}' to ${formatLocale(targetLocale)}:` +
               error,
             {
               level: 'error',
@@ -274,7 +267,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
         ? [...result, mainDictionaryToProcess] // Mode review: generated content will override the base one
         : [mainDictionaryToProcess, ...result]; // Mode complete: base content will override the generated one
 
-    const mergedResults = mergeDictionaries(dictionaryToMerge).result;
+    const mergedResults = mergeDictionaries(dictionaryToMerge);
 
     let formattedDict = targetUnmergedDictionary;
 
@@ -293,11 +286,11 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     const reducedResult = reduceDictionaryContent(mergedResults, formattedDict);
 
-    if (formattedDict.autoFill) {
+    if (formattedDict.autoFill || configuration.content.autoFill) {
       await autoFill(
         mergedResults,
         targetUnmergedDictionary,
-        formattedDict.autoFill,
+        formattedDict.autoFill ?? configuration.content.autoFill,
         outputLocalesList,
         [sourceLocale],
         configuration
@@ -311,7 +304,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
       if (formattedDict.filePath) {
         appLogger(
-          `Content declaration for '${colorizeKey(dictionaryKey)}' written to ${colorizePath(relative(configuration.content.baseDir, formattedDict.filePath))}`,
+          `Content declaration for '${colorizeKey(dictionaryKey)}' written to ${formatPath(formattedDict.filePath)}`,
           {
             level: 'info',
           }

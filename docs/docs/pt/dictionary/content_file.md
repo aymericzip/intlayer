@@ -509,7 +509,7 @@ Para dicionários mesclados, este array contém os IDs de todos os dicionários 
 
 O caminho do arquivo do dicionário local, indicando de qual arquivo `.content` o dicionário foi gerado. Ajuda na depuração e no rastreamento da origem.
 
-##### `availableVersions` (string[])
+##### `versions` (string[])
 
 Para dicionários remotos, este array contém todas as versões disponíveis do dicionário. Ajuda a rastrear quais versões estão disponíveis para uso.
 

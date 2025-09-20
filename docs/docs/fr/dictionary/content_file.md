@@ -506,7 +506,7 @@ Pour les dictionnaires fusionnés, ce tableau contient les identifiants de tous 
 
 Le chemin du fichier du dictionnaire local, indiquant à partir de quel fichier `.content` le dictionnaire a été généré. Aide au débogage et au suivi de la source.
 
-##### `availableVersions` (string[])
+##### `versions` (string[])
 
 Pour les dictionnaires distants, ce tableau contient toutes les versions disponibles du dictionnaire. Aide à suivre quelles versions sont disponibles pour utilisation.
 
