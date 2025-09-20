@@ -50,7 +50,7 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
       // Merge Intlayer-specific environment variables and alias configuration.
       api.modifyRsbuildConfig(async (config, { mergeRsbuildConfig }) => {
         return mergeRsbuildConfig(config, {
-          source: {
+          resolve: {
             alias: {
               ...getAlias({ configuration: intlayerConfig }),
               react: ESMxCJSRequire.resolve('@lynx-js/react'),
