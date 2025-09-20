@@ -53,7 +53,7 @@ Not: CLI ayrıntılı bir rapor yazdırır ancak başarısızlıklarda sıfır o
 
 Gerekli yerel ayarlarınız için eksik çeviri olmadığını doğrulamak için Intlayer CLI API'sini kullanın.
 
-```ts
+```ts file=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("çeviriler", () => {
 
 Jest eşdeğeri:
 
-```ts
+```ts file=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("gerekli yerel ayarlarda eksik yok", () => {

@@ -53,7 +53,7 @@ Nota: o CLI imprime um relatório detalhado, mas não retorna código de erro em
 
 Use a API do CLI do Intlayer para garantir que não há traduções faltando para os locais obrigatórios.
 
-```ts
+```ts file=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("traduções", () => {
 
 Equivalente em Jest:
 
-```ts
+```ts file=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("não possui locais obrigatórios faltando", () => {

@@ -53,7 +53,7 @@ npx intlayer content test
 
 Intlayer CLI API를 사용하여 필수 로케일에 누락된 번역이 없는지 확인하세요.
 
-```ts
+```ts file=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("번역", () => {
 
 Jest 동등 코드:
 
-```ts
+```ts file=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("필수 로케일이 누락되지 않음", () => {

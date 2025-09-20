@@ -53,7 +53,7 @@ npx intlayer content test
 
 使用 Intlayer CLI API 断言您的必需语言环境没有缺失的翻译。
 
-```ts
+```ts file=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("翻译", () => {
 
 Jest 等效代码：
 
-```ts
+```ts file=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("没有缺失的必需语言环境", () => {
