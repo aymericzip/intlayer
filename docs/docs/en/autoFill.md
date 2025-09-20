@@ -159,7 +159,7 @@ You can use variables inside the `autoFill` path to dynamically resolve the targ
 **Available variables:**
 
 - `{{locale}}` – Locale code (e.g. `fr`, `es`)
-- `{{fileName}}` – File name (e.g. `example`)
+- `{{fileName}}` – File name (e.g. `index`)
 - `{{key}}` – Dictionary key (e.g. `example`)
 
 ```ts fileName="src/components/example/index.content.ts"

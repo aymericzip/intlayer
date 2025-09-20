@@ -185,132 +185,51 @@ export const docsEntry = {
       readFile(join(dir, '../../../docs/tr/dictionary/condition.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
-  './docs/en/dictionary/content_extention_customization.md': {
+  './docs/en/dictionary/content_file.md': {
     en: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/en/dictionary/content_file.md'), 'utf8')
     ),
     fr: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/fr/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/fr/dictionary/content_file.md'), 'utf8')
     ),
     ru: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ru/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/ru/dictionary/content_file.md'), 'utf8')
     ),
     ja: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ja/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/ja/dictionary/content_file.md'), 'utf8')
     ),
     ko: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ko/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/ko/dictionary/content_file.md'), 'utf8')
     ),
     zh: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/zh/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/zh/dictionary/content_file.md'), 'utf8')
     ),
     es: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/es/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/es/dictionary/content_file.md'), 'utf8')
     ),
     de: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/de/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/de/dictionary/content_file.md'), 'utf8')
     ),
     ar: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ar/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/ar/dictionary/content_file.md'), 'utf8')
     ),
     pt: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/pt/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/pt/dictionary/content_file.md'), 'utf8')
     ),
     'en-GB': Promise.resolve(
       readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/dictionary/content_extention_customization.md'
-        ),
+        join(dir, '../../../docs/en-GB/dictionary/content_file.md'),
         'utf8'
       )
     ),
     it: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/it/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/it/dictionary/content_file.md'), 'utf8')
     ),
     hi: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/hi/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/hi/dictionary/content_file.md'), 'utf8')
     ),
     tr: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/tr/dictionary/content_extention_customization.md'
-        ),
-        'utf8'
-      )
+      readFile(join(dir, '../../../docs/tr/dictionary/content_file.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/enumeration.md': {
@@ -532,53 +451,6 @@ export const docsEntry = {
     ),
     tr: Promise.resolve(
       readFile(join(dir, '../../../docs/tr/dictionary/gender.md'), 'utf8')
-    ),
-  } as unknown as Record<LocalesValues, Promise<string>>,
-  './docs/en/dictionary/get_started.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/get_started.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/get_started.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/get_started.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/get_started.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/get_started.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/get_started.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/get_started.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/get_started.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/get_started.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/get_started.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/dictionary/get_started.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/get_started.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/get_started.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/get_started.md'), 'utf8')
     ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/insertion.md': {

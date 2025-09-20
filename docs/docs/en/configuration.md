@@ -46,6 +46,7 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH],
   },
   content: {
+    autoFill: "./{{fileName}}.content.json",
     contentDir: ["src", "../ui-library"],
   },
   middleware: {
@@ -346,6 +347,18 @@ Settings that control middleware behavior, including how the application handles
 Settings related to content handling within the application, including directory names, file extensions, and derived configurations.
 
 #### Properties
+
+- **autoFill**:
+  - _Type_: `boolean | string | { [key in Locales]?: string }`
+  - _Default_: `undefined`
+  - _Description_: Indicate how the content should be automatically filled using AI. Can be declared globally in the `intlayer.config.ts` file.
+  - _Example_: true
+  - _Example_: `'./{{fileName}}.content.json'`
+  - _Example_: `{ fr: './{{fileName}}.fr.content.json', es: './{{fileName}}.es.content.json' }`
+  - _Note_: The auto fill configuration. It can be:
+    - boolean: Enable auto fill for all locales
+    - string: Path to a single file or template with variables
+    - object: Per-locale file paths
 
 - **watch**:
   - _Type_: `boolean`

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-06-29
+updatedAt: 2025-09-16
 title: Configuración
-description: Aprenda cómo configurar Intlayer para su aplicación. Comprenda los diferentes ajustes y opciones disponibles para personalizar Intlayer según sus necesidades.
+description: Aprende cómo configurar Intlayer para tu aplicación. Entiende las diversas configuraciones y opciones disponibles para personalizar Intlayer según tus necesidades.
 keywords:
   - Configuración
   - Ajustes
@@ -11,13 +11,13 @@ keywords:
   - Opciones
 slugs:
   - doc
-  - concept
-  - configuration
+  - concepto
+  - configuracion
 ---
 
 # Documentación de Configuración de Intlayer
 
-## Descripción General
+## Visión General
 
 Los archivos de configuración de Intlayer permiten la personalización de varios aspectos del plugin, como la internacionalización, middleware y manejo de contenido. Este documento proporciona una descripción detallada de cada propiedad en la configuración.
 
@@ -36,30 +36,31 @@ Intlayer acepta formatos de archivo de configuración JSON, JS, MJS y TS:
 
 ---
 
-## Ejemplo de archivo de configuración
+## Archivo de configuración de ejemplo
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH],
+    locales: [Locales.ENGLISH], // locales soportados
   },
   content: {
-    contentDir: ["src", "../ui-library"],
+    autoFill: "./{{fileName}}.content.json", // archivo de contenido para autocompletar
+    contentDir: ["src", "../ui-library"], // directorios de contenido
   },
   middleware: {
-    noPrefix: false,
+    noPrefix: false, // si se debe usar prefijo en middleware
   },
   editor: {
-    applicationURL: "https://example.com",
+    applicationURL: "https://example.com", // URL de la aplicación para el editor
   },
   ai: {
-    apiKey: process.env.OPENAI_API_KEY,
-    applicationContext: "This is a test application",
+    apiKey: process.env.OPENAI_API_KEY, // clave API para AI
+    applicationContext: "This is a test application", // contexto de la aplicación para AI
   },
   build: {
-    importMode: "dynamic",
+    importMode: "dynamic", // modo de importación para build
   },
 };
 
@@ -72,23 +73,23 @@ const { Locales } = require("intlayer");
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
-    locales: [Locales.ENGLISH],
+    locales: [Locales.ENGLISH], // locales soportados
   },
   content: {
-    contentDir: ["src", "../ui-library"],
+    contentDir: ["src", "../ui-library"], // directorios de contenido
   },
   middleware: {
-    noPrefix: false,
+    noPrefix: false, // si se debe usar prefijo en middleware
   },
   editor: {
-    applicationURL: "https://example.com",
+    applicationURL: "https://example.com", // URL de la aplicación para el editor
   },
   ai: {
-    apiKey: process.env.OPENAI_API_KEY,
-    applicationContext: "This is a test application",
+    apiKey: process.env.OPENAI_API_KEY, // clave API para AI
+    applicationContext: "Esta es una aplicación de prueba", // contexto de la aplicación para AI
   },
   build: {
-    importMode: "dynamic",
+    importMode: "dynamic", // modo de importación para la construcción
   },
 };
 
@@ -98,13 +99,23 @@ module.exports = config;
 ```json5 fileName=".intlayerrc" codeFormat="json"
 {
   "internationalization": {
-    "locales": ["en"],
+    "locales": ["en"], // locales soportados
   },
   "content": {
-    "typesDir": "content/types",
+    "contentDir": ["src", "../ui-library"], // directorios de contenido
   },
   "middleware": {
-    "noPrefix": false,
+    "noPrefix": false, // si se debe usar prefijo en middleware
+  },
+  "editor": {
+    "applicationURL": "https://example.com", // URL de la aplicación para el editor
+  },
+  "ai": {
+    "apiKey": "XXXX",
+    "applicationContext": "Esta es una aplicación de prueba",
+  },
+  "build": {
+    "importMode": "dynamic",
   },
 }
 ```
@@ -119,37 +130,37 @@ Las siguientes secciones describen las diversas configuraciones disponibles para
 
 ### Configuración de Internacionalización
 
-Define configuraciones relacionadas con la internacionalización, incluyendo los idiomas disponibles y el idioma predeterminado para la aplicación.
+Define configuraciones relacionadas con la internacionalización, incluyendo los locales disponibles y el local predeterminado para la aplicación.
 
 #### Propiedades
 
 - **locales**:
   - _Tipo_: `string[]`
   - _Por defecto_: `['en']`
-  - _Descripción_: La lista de idiomas soportados en la aplicación.
+  - _Descripción_: La lista de locales soportados en la aplicación.
   - _Ejemplo_: `['en', 'fr', 'es']`
 
 - **requiredLocales**:
   - _Tipo_: `string[]`
   - _Por defecto_: `[]`
-  - _Descripción_: La lista de idiomas requeridos en la aplicación.
+  - _Descripción_: La lista de locales requeridos en la aplicación.
   - _Ejemplo_: `[]`
-  - _Nota_: Si está vacío, todos los idiomas son requeridos en modo `strict`.
-  - _Nota_: Asegúrese de que los idiomas requeridos también estén definidos en el campo `locales`.
+  - _Nota_: Si está vacío, todos los locales son obligatorios en modo `strict`.
+  - _Nota_: Asegúrese de que los locales requeridos también estén definidos en el campo `locales`.
 - **strictMode**:
   - _Tipo_: `string`
   - _Por defecto_: `inclusive`
-  - _Descripción_: Asegura implementaciones sólidas de contenido internacionalizado usando TypeScript.
-  - _Nota_: Si se establece en "strict", la función de traducción `t` requerirá que cada idioma declarado esté definido. Si falta un idioma o si un idioma no está declarado en su configuración, lanzará un error.
-  - _Nota_: Si se establece en "inclusive", la función de traducción `t` requerirá que cada idioma declarado esté definido. Si falta un idioma, mostrará una advertencia. Pero aceptará si un idioma no está declarado en su configuración, pero existe.
-  - _Nota_: Si se establece en "loose", la función de traducción `t` aceptará cualquier idioma existente.
+  - _Descripción_: Garantiza implementaciones sólidas de contenido internacionalizado usando typescript.
+  - _Nota_: Si se establece en "strict", la función de traducción `t` requerirá que cada uno de los locales declarados esté definido. Si falta un locale, o si un locale no está declarado en su configuración, lanzará un error.
+  - _Nota_: Si se establece en "inclusive", la función de traducción `t` requerirá que cada uno de los locales declarados esté definido. Si falta un locale, lanzará una advertencia. Pero aceptará si un locale no está declarado en su configuración, pero existe.
+  - _Nota_: Si se establece en "loose", la función de traducción `t` aceptará cualquier locale existente.
 
 - **defaultLocale**:
   - _Tipo_: `string`
   - _Por defecto_: `'en'`
-  - _Descripción_: El idioma predeterminado utilizado como respaldo si no se encuentra el idioma solicitado.
+  - _Descripción_: El locale predeterminado que se usa como respaldo si no se encuentra el locale solicitado.
   - _Ejemplo_: `'en'`
-  - _Nota_: Esto se utiliza para determinar el idioma cuando no se especifica ninguno en la URL, cookie o encabezado.
+  - _Nota_: Esto se usa para determinar el locale cuando no se especifica ninguno en la URL, cookie o encabezado.
 
 ---
 
@@ -162,12 +173,12 @@ Define configuraciones relacionadas con el editor integrado, incluyendo el puert
 - **applicationURL**:
   - _Tipo_: `string`
   - _Por defecto_: `http://localhost:3000`
-  - _Descripción_: La URL de la aplicación. Se utiliza para restringir el origen del editor por razones de seguridad.
+  - _Descripción_: La URL de la aplicación. Se usa para restringir el origen del editor por razones de seguridad.
   - _Ejemplo_:
     - `'http://localhost:3000'`
     - `'https://example.com'`
     - `process.env.INTLAYER_EDITOR_URL`
-  - _Nota_: La URL de la aplicación. Se utiliza para restringir el origen del editor por razones de seguridad. Si se establece en `'*'`, el editor es accesible desde cualquier origen.
+  - _Nota_: La URL de la aplicación. Se usa para restringir el origen del editor por razones de seguridad. Si se establece en `'*'`, el editor es accesible desde cualquier origen.
 
 - **port**:
   - _Tipo_: `number`
@@ -177,11 +188,11 @@ Define configuraciones relacionadas con el editor integrado, incluyendo el puert
 - **editorURL**:
   - _Tipo_: `string`
   - _Por defecto_: `'http://localhost:8000'`
-  - _Descripción_: La URL del servidor del editor. Se utiliza para restringir el origen del editor por razones de seguridad.
+  - _Descripción_: La URL del servidor del editor. Se usa para restringir el origen del editor por razones de seguridad.
     - `'http://localhost:3000'`
     - `'https://example.com'`
     - `process.env.INTLAYER_EDITOR_URL`
-  - _Nota_: La URL del servidor del editor para acceder desde la aplicación. Se utiliza para restringir los orígenes que pueden interactuar con la aplicación por razones de seguridad. Si se establece en `'*'`, el editor es accesible desde cualquier origen. Debe configurarse si el puerto cambia o si el editor está alojado en un dominio diferente.
+  - _Nota_: La URL del servidor del editor a la que se accede desde la aplicación. Se usa para restringir los orígenes que pueden interactuar con la aplicación por razones de seguridad. Si se establece en `'*'`, el editor es accesible desde cualquier origen. Debe configurarse si se cambia el puerto o si el editor está alojado en un dominio diferente.
 
 - **cmsURL**:
   - _Tipo_: `string`
@@ -206,59 +217,73 @@ Define configuraciones relacionadas con el editor integrado, incluyendo el puert
 - **clientId**:
   - _Tipo_: `string` | `undefined`
   - _Por defecto_: `undefined`
-  - _Descripción_: clientId y clientSecret permiten que los paquetes de Intlayer se autentiquen con el backend utilizando autenticación oAuth2. Se utiliza un token de acceso para autenticar al usuario relacionado con el proyecto. Para obtener un token de acceso, vaya a https://intlayer.org/dashboard/project y cree una cuenta.
+  - _Descripción_: clientId y clientSecret permiten que los paquetes de intlayer se autentiquen con el backend utilizando la autenticación oAuth2. Un token de acceso se usa para autenticar al usuario relacionado con el proyecto. Para obtener un token de acceso, visite https://intlayer.org/dashboard/project y cree una cuenta.
   - _Ejemplo_: `true`
-  - _Nota_: Importante: El clientId y clientSecret deben mantenerse en secreto y no compartirse públicamente. Asegúrese de mantenerlos en un lugar seguro, como variables de entorno.
+  - _Nota_: Importante: El clientId y clientSecret deben mantenerse en secreto y no compartirse públicamente. Asegúrese de guardarlos en un lugar seguro, como variables de entorno.
 
 - **clientSecret**:
   - _Tipo_: `string` | `undefined`
   - _Por defecto_: `undefined`
-  - _Descripción_: clientId y clientSecret permiten que los paquetes de intlayer se autentiquen con el backend utilizando autenticación oAuth2. Se utiliza un token de acceso para autenticar al usuario relacionado con el proyecto. Para obtener un token de acceso, vaya a https://intlayer.org/dashboard/project y cree una cuenta.
+  - _Descripción_: clientId y clientSecret permiten que los paquetes de intlayer se autentiquen con el backend utilizando la autenticación oAuth2. Se utiliza un token de acceso para autenticar al usuario relacionado con el proyecto. Para obtener un token de acceso, vaya a https://intlayer.org/dashboard/project y cree una cuenta.
   - _Ejemplo_: `true`
-  - _Nota_: Importante: El clientId y clientSecret deben mantenerse en secreto y no compartirse públicamente. Asegúrese de mantenerlos en un lugar seguro, como variables de entorno.
-
-- **liveSync**:
-  - _Tipo_: `boolean`
-  - _Por defecto_: `false`
-  - _Descripción_: Indica si la aplicación debe recargar automáticamente las configuraciones de idioma cuando se detecta un cambio.
-  - _Ejemplo_: `true`
-  - _Nota_: Por ejemplo, cuando se agrega o actualiza un nuevo diccionario, la aplicación actualizará el contenido para mostrar en la página.
-  - _Nota_: Debido a que la recarga automática necesita una conexión continua al servidor, solo está disponible para clientes del plan `enterprise`.
+  - _Nota_: Importante: El clientId y clientSecret deben mantenerse en secreto y no compartirse públicamente. Por favor, asegúrese de mantenerlos en un lugar seguro, como variables de entorno.
 
 - **dictionaryPriorityStrategy**:
   - _Tipo_: `string`
   - _Por defecto_: `'local_first'`
-  - _Descripción_: La estrategia para priorizar diccionarios en caso de que existan diccionarios locales y remotos. Si se establece en `'distant_first'`, la aplicación priorizará los diccionarios remotos sobre los locales. Si se establece en `'local_first'`, la aplicación priorizará los diccionarios locales sobre los remotos.
+  - _Descripción_: La estrategia para priorizar los diccionarios en caso de que estén presentes tanto diccionarios locales como remotos. Si se establece en `'distant_first'`, la aplicación priorizará los diccionarios remotos sobre los locales. Si se establece en `'local_first'`, la aplicación priorizará los diccionarios locales sobre los remotos.
   - _Ejemplo_: `'distant_first'`
 
-### Configuración de Middleware
+- **liveSync**:
+  - _Tipo_: `boolean`
+  - _Por defecto_: `false`
+  - _Descripción_: Indica si el servidor de la aplicación debe recargar en caliente el contenido de la aplicación cuando se detecta un cambio en el CMS / Editor Visual / Backend.
+  - _Ejemplo_: `true`
+  - _Nota_: Por ejemplo, cuando se añade o actualiza un nuevo diccionario, la aplicación actualizará el contenido para mostrarlo en la página.
+  - _Nota_: La sincronización en vivo necesita externalizar el contenido de la aplicación a otro servidor. Esto significa que puede afectar ligeramente el rendimiento de la aplicación. Para limitar esto, recomendamos alojar la aplicación y el servidor de sincronización en vivo en la misma máquina. Además, la combinación de sincronización en vivo y `optimize` puede generar un número considerable de solicitudes al servidor de sincronización en vivo. Dependiendo de su infraestructura, recomendamos probar ambas opciones y su combinación.
 
-Configuraciones que controlan el comportamiento del middleware, incluyendo cómo la aplicación maneja cookies, encabezados y prefijos de URL para la gestión de idiomas.
+- **liveSyncPort**:
+  - _Tipo_: `number`
+  - _Por defecto_: `4000`
+  - _Descripción_: El puerto del servidor de sincronización en vivo.
+  - _Ejemplo_: `4000`
+  - _Nota_: El puerto del servidor de sincronización en vivo.
+
+- **liveSyncURL**:
+  - _Tipo_: `string`
+  - _Por defecto_: `'http://localhost:{liveSyncPort}'`
+  - _Descripción_: La URL del servidor de sincronización en vivo.
+  - _Ejemplo_: `'https://example.com'`
+  - _Nota_: Apunta a localhost por defecto, pero puede cambiarse a cualquier URL en el caso de un servidor de sincronización en vivo remoto.
+
+### Configuración del Middleware
+
+Configuraciones que controlan el comportamiento del middleware, incluyendo cómo la aplicación maneja cookies, encabezados y prefijos de URL para la gestión de locales.
 
 #### Propiedades
 
 - **headerName**:
   - _Tipo_: `string`
   - _Por defecto_: `'x-intlayer-locale'`
-  - _Descripción_: El nombre del encabezado HTTP utilizado para determinar la configuración regional.
+  - _Descripción_: El nombre del encabezado HTTP usado para determinar el locale.
   - _Ejemplo_: `'x-custom-locale'`
-  - _Nota_: Esto es útil para la determinación de la configuración regional basada en API.
+  - _Nota_: Esto es útil para la determinación del locale basada en API.
 
 - **cookieName**:
   - _Tipo_: `string`
   - _Por defecto_: `'intlayer-locale'`
-  - _Descripción_: El nombre de la cookie utilizada para almacenar la configuración regional.
+  - _Descripción_: El nombre de la cookie usada para almacenar el locale.
   - _Ejemplo_: `'custom-locale'`
-  - _Nota_: Se utiliza para mantener la configuración regional entre sesiones.
+  - _Nota_: Se utiliza para mantener la localización a través de las sesiones.
 
 - **prefixDefault**:
   - _Tipo_: `boolean`
   - _Por defecto_: `false`
-  - _Descripción_: Indica si se debe incluir la configuración regional predeterminada en la URL.
+  - _Descripción_: Indica si se debe incluir la localización por defecto en la URL.
   - _Ejemplo_: `true`
   - _Nota_:
-    - Si `true` y `defaultLocale = 'en'`: path = `/en/dashboard` o `/fr/dashboard`
-    - Si `false` y `defaultLocale = 'en'`: path = `/dashboard` o `/fr/dashboard`
+    - Si es `true` y `defaultLocale = 'en'`: ruta = `/en/dashboard` o `/fr/dashboard`
+    - Si es `false` y `defaultLocale = 'en'`: ruta = `/dashboard` o `/fr/dashboard`
 
 - **basePath**:
   - _Tipo_: `string`
@@ -269,24 +294,24 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
     - Si la aplicación está alojada en `https://example.com/my-app`
     - La ruta base es `'/my-app'`
     - La URL será `https://example.com/my-app/en`
-    - Si la ruta base no está configurada, la URL será `https://example.com/en`
+    - Si no se establece la ruta base, la URL será `https://example.com/en`
 
 - **serverSetCookie**:
   - _Tipo_: `string`
   - _Por defecto_: `'always'`
-  - _Descripción_: Regla para establecer la cookie de configuración regional en el servidor.
+  - _Descripción_: Regla para establecer la cookie de localización en el servidor.
   - _Opciones_: `'always'`, `'never'`
   - _Ejemplo_: `'never'`
-  - _Nota_: Controla si la cookie de configuración regional se establece en cada solicitud o nunca.
+  - _Nota_: Controla si la cookie de localización se establece en cada solicitud o nunca.
 
 - **noPrefix**:
   - _Tipo_: `boolean`
   - _Por defecto_: `false`
-  - _Descripción_: Indica si se debe omitir el prefijo de configuración regional en las URLs.
+  - _Descripción_: Indica si se omite el prefijo de localización en las URLs.
   - _Ejemplo_: `true`
   - _Nota_:
-    - Si `true`: Sin prefijo en la URL
-    - Si `false`: Prefijo en la URL
+    - Si es `true`: No hay prefijo en la URL
+    - Si es `false`: Hay prefijo en la URL
     - Ejemplo con `basePath = '/my-app'`:
       - Si `noPrefix = false`: La URL será `https://example.com/my-app/en`
       - Si `noPrefix = true`: La URL será `https://example.com`
@@ -294,26 +319,26 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
 - **detectLocaleOnPrefetchNoPrefix**:
   - _Tipo_: `boolean`
   - _Por defecto_: `false`
-  - _Descripción_: Controla si la detección de configuración regional ocurre durante las solicitudes de precarga de Next.js.
+  - _Descripción_: Controla si la detección de la configuración regional ocurre durante las solicitudes de prefetch de Next.js.
   - _Ejemplo_: `true`
-  - _Nota_: Esta configuración afecta cómo Next.js maneja la precarga de configuración regional:
+  - _Nota_: Esta configuración afecta cómo Next.js maneja el prefetch de locales:
     - **Escenario de ejemplo:**
       - El idioma del navegador del usuario es `'fr'`
       - La página actual es `/fr/about`
-      - El enlace precarga `/about`
+      - El enlace hace prefetch de `/about`
     - **Con `detectLocaleOnPrefetchNoPrefix: true`:**
-      - La precarga detecta la configuración regional `'fr'` desde el navegador
-      - Redirige la precarga a `/fr/about`
+      - El prefetch detecta la configuración regional `'fr'` desde el navegador
+      - Redirige el prefetch a `/fr/about`
     - **Con `detectLocaleOnPrefetchNoPrefix: false` (por defecto):**
-      - La precarga usa la configuración regional predeterminada
-      - Redirige la precarga a `/en/about` (asumiendo que `'en'` es la predeterminada)
+      - El prefetch usa la configuración regional por defecto
+      - Redirige el prefetch a `/en/about` (asumiendo que `'en'` es la predeterminada)
     - **Cuándo usar `true`:**
-      - Tu aplicación usa enlaces internos no localizados (ej. `<a href="/about">`)
-      - Quieres comportamiento consistente de detección de configuración regional entre solicitudes normales y de precarga
+      - Su aplicación utiliza enlaces internos no localizados (por ejemplo, `<a href="/about">`)
+      - Desea un comportamiento consistente en la detección de la configuración regional entre solicitudes regulares y de prefetch
     - **Cuándo usar `false` (por defecto):**
-      - Tu aplicación usa enlaces con prefijo de configuración regional (ej. `<a href="/fr/about">`)
-      - Quieres optimizar el rendimiento de precarga
-      - Quieres evitar bucles de redirección potenciales
+      - Su aplicación utiliza enlaces con prefijo de configuración regional (por ejemplo, `<a href="/fr/about">`)
+      - Desea optimizar el rendimiento del prefetch
+      - Desea evitar posibles bucles de redireccionamiento
 
 ---
 
@@ -323,15 +348,27 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
 
 #### Propiedades
 
+- **autoFill**:
+  - _Tipo_: `boolean | string | { [key in Locales]?: string }`
+  - _Por defecto_: `undefined`
+  - _Descripción_: Indica cómo debe completarse automáticamente el contenido usando IA. Puede declararse globalmente en el archivo `intlayer.config.ts`.
+  - _Ejemplo_: true
+  - _Ejemplo_: `'./{{fileName}}.content.json'`
+  - _Ejemplo_: `{ fr: './{{fileName}}.fr.content.json', es: './{{fileName}}.es.content.json' }`
+  - _Nota_: La configuración de auto completado. Puede ser:
+    - booleano: Habilitar auto completado para todas las locales
+    - cadena: Ruta a un solo archivo o plantilla con variables
+    - objeto: Rutas de archivo por locale
+
 - **watch**:
   - _Tipo_: `boolean`
   - _Por defecto_: `process.env.NODE_ENV === 'development'`
-  - _Descripción_: Indica si Intlayer debe observar cambios en los archivos de declaración de contenido en la aplicación para reconstruir los diccionarios relacionados.
+  - _Descripción_: Indica si Intlayer debe vigilar cambios en los archivos de declaración de contenido en la aplicación para reconstruir los diccionarios relacionados.
 
 - **fileExtensions**:
   - _Tipo_: `string[]`
   - _Por defecto_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
-  - _Descripción_: Extensiones de archivo a buscar al construir diccionarios.
+  - _Descripción_: Extensiones de archivo que se buscan al construir los diccionarios.
   - _Ejemplo_: `['.data.ts', '.data.js', '.data.json']`
   - _Nota_: Personalizar las extensiones de archivo puede ayudar a evitar conflictos.
 
@@ -339,17 +376,17 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
   - _Tipo_: `string`
   - _Por defecto_: `process.cwd()`
   - _Descripción_: El directorio base para el proyecto.
-  - _Ejemplo_: `'/path/to/project'`
-  - _Nota_: Esto se utiliza para resolver todos los directorios relacionados con Intlayer.
+  - _Ejemplo_: `'/ruta/al/proyecto'`
+  - _Nota_: Esto se usa para resolver todos los directorios relacionados con Intlayer.
 
 - **dictionaryOutput**:
   - _Tipo_: `string[]`
   - _Por defecto_: `['intlayer']`
-  - _Descripción_: El tipo de salida de diccionario a usar, por ejemplo, `'intlayer'` o `'i18next'`.
+  - _Descripción_: El tipo de salida del diccionario a usar, por ejemplo, `'intlayer'` o `'i18next'`.
 
 - **contentDir**:
   - _Tipo_: `string[]`
-  - _Por defecto_: `['src']`
+  - _Por defecto_: `['.']`
   - _Ejemplo_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Descripción_: La ruta del directorio donde se almacena el contenido.
 
@@ -374,20 +411,20 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
 - **dictionariesDir**:
   - _Tipo_: `string`
   - _Por defecto_: `'.intlayer/dictionary'`
-  - _Descripción_: El directorio para almacenar diccionarios de localización.
+  - _Descripción_: El directorio para almacenar los diccionarios de localización.
   - _Ejemplo_: `'translations'`
 
 - **i18nextResourcesDir**:
   - _Tipo_: `string`
   - _Por defecto_: `'i18next_dictionary'`
-  - _Descripción_: El directorio para almacenar diccionarios de i18n.
+  - _Descripción_: El directorio para almacenar los diccionarios i18n.
   - _Ejemplo_: `'translations'`
-  - _Nota_: Asegúrate de que este directorio esté configurado para el tipo de salida i18next.
+  - _Nota_: Asegúrese de que este directorio esté configurado para el tipo de salida i18next.
 
 - **typesDir**:
   - _Tipo_: `string`
   - _Por defecto_: `'types'`
-  - _Descripción_: El directorio para almacenar tipos de diccionario.
+  - _Descripción_: El directorio para almacenar los tipos de diccionario.
   - _Ejemplo_: `'intlayer-types'`
 
 - **mainDir**:
@@ -400,7 +437,7 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
   - _Tipo_: `string[]`
   - _Por defecto_: `['node_modules']`
   - _Descripción_: Directorios excluidos de la búsqueda de contenido.
-  - _Nota_: Esta configuración aún no se utiliza, pero está planeada para futuras implementaciones.
+  - _Nota_: Esta configuración aún no se utiliza, pero está planificada para una implementación futura.
 
 ### Configuración del Logger
 
@@ -414,22 +451,25 @@ Configuraciones que controlan el logger, incluyendo el prefijo a usar.
   - _Descripción_: Indica el modo del logger.
   - _Opciones_: `default`, `verbose`, `disabled`
   - _Ejemplo_: `default`
-  - _Nota_: El modo del logger. El modo verbose registrará más información, pero puede usarse con fines de depuración. El modo disabled desactivará el logger.
+  - _Nota_: El modo del logger. El modo verbose registrará más información, pero puede usarse para propósitos de depuración. El modo disabled desactivará el logger.
 
 - **prefix**:
   - _Tipo_: `string`
   - _Por defecto_: `'[intlayer] '`
   - _Descripción_: El prefijo del logger.
   - _Ejemplo_: `'[my custom prefix] '`
-  - _Nota_: El prefijo del logger.
+  - _Nota_: El prefijo del registrador.
 
-### Configuración de AI
+### Configuración de IA
 
-Configuraciones que controlan las características de AI de Intlayer, incluyendo el proveedor, modelo y clave API.
-Esta configuración es opcional si estás registrado en el [Panel de Intlayer](https://intlayer.org/dashboard/project) usando una clave de acceso. Intlayer gestionará automáticamente la solución de AI más eficiente y rentable para tus necesidades. Usar las opciones predeterminadas asegura un mejor mantenimiento a largo plazo, ya que Intlayer se actualiza continuamente para usar los modelos más relevantes.
+Configuraciones que controlan las funciones de IA de Intlayer, incluyendo el proveedor, modelo y clave API.
 
-Si prefieres usar tu propia clave API o un modelo específico, puedes definir tu configuración personalizada de AI. Esta configuración de AI se usará globalmente en todo tu entorno Intlayer. Los comandos CLI usarán estas configuraciones como valores predeterminados para los comandos (por ejemplo, `fill`), así como el SDK, el Editor Visual y el CMS. Puedes sobrescribir estos valores predeterminados para casos específicos usando parámetros de comando.
-Intlayer admite múltiples proveedores de AI para mayor flexibilidad y elección. Los proveedores actualmente soportados son:
+Esta configuración es opcional si estás registrado en el [Panel de Control de Intlayer](https://intlayer.org/dashboard/project) usando una clave de acceso. Intlayer gestionará automáticamente la solución de IA más eficiente y rentable para tus necesidades. Usar las opciones predeterminadas asegura un mejor mantenimiento a largo plazo, ya que Intlayer se actualiza continuamente para usar los modelos más relevantes.
+
+Si prefieres usar tu propia clave API o un modelo específico, puedes definir tu configuración personalizada de IA.
+Esta configuración de IA se utilizará globalmente en todo su entorno Intlayer. Los comandos CLI usarán estas configuraciones como valores predeterminados para los comandos (por ejemplo, `fill`), así como el SDK, el Editor Visual y el CMS. Puede anular estos valores predeterminados para casos de uso específicos utilizando parámetros de comando.
+
+Intlayer admite múltiples proveedores de IA para una mayor flexibilidad y elección. Los proveedores actualmente soportados son:
 
 - **OpenAI** (predeterminado)
 - **Anthropic Claude**
@@ -442,18 +482,18 @@ Intlayer admite múltiples proveedores de AI para mayor flexibilidad y elección
 
 - **provider**:
   - _Tipo_: `string`
-  - _Por defecto_: `'openai'`
-  - _Descripción_: El proveedor a usar para las características de AI de Intlayer.
+  - _Predeterminado_: `'openai'`
+  - _Descripción_: El proveedor a utilizar para las funciones de IA de Intlayer.
   - _Opciones_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
   - _Ejemplo_: `'anthropic'`
-  - _Nota_: Diferentes proveedores pueden requerir diferentes claves API y tener diferentes modelos de precios.
+  - _Nota_: Diferentes proveedores pueden requerir diferentes claves API y tener distintos modelos de precios.
 
 - **model**:
   - _Tipo_: `string`
   - _Por defecto_: Ninguno
-  - _Descripción_: El modelo a usar para las características de AI de Intlayer.
+  - _Descripción_: El modelo a utilizar para las funciones de IA de Intlayer.
   - _Ejemplo_: `'gpt-4o-2024-11-20'`
-  - _Nota_: El modelo específico a usar varía según el proveedor.
+  - _Nota_: El modelo específico a utilizar varía según el proveedor.
 
 - **temperature**:
   - _Tipo_: `number`
@@ -465,67 +505,70 @@ Intlayer admite múltiples proveedores de AI para mayor flexibilidad y elección
 - **apiKey**:
   - _Tipo_: `string`
   - _Por defecto_: Ninguno
-  - _Descripción_: Tu clave API para el proveedor seleccionado.
+  - _Descripción_: Su clave API para el proveedor seleccionado.
   - _Ejemplo_: `process.env.OPENAI_API_KEY`
-  - _Nota_: Importante: Las claves API deben mantenerse en secreto y no compartirse públicamente. Asegúrate de mantenerlas en un lugar seguro, como variables de entorno.
+  - _Nota_: Importante: Las claves API deben mantenerse en secreto y no compartirse públicamente. Por favor, asegúrese de guardarlas en un lugar seguro, como variables de entorno.
 
 - **applicationContext**:
   - _Tipo_: `string`
   - _Por defecto_: Ninguno
-  - _Descripción_: Proporciona contexto adicional sobre tu aplicación al modelo de AI, ayudándolo a generar traducciones más precisas y contextualmente apropiadas. Esto puede incluir información sobre el dominio de tu aplicación, audiencia objetivo, tono o terminología específica.
+  - _Descripción_: Proporciona contexto adicional sobre su aplicación al modelo de IA, ayudándole a generar traducciones más precisas y contextualmente apropiadas. Esto puede incluir información sobre el dominio de su aplicación, público objetivo, tono o terminología específica.
 
-### Configuración de Compilación
+### Configuración de compilación
 
-Ajustes que controlan cómo Intlayer optimiza y compila la internacionalización de tu aplicación.
+Configuraciones que controlan cómo Intlayer optimiza y construye la internacionalización de su aplicación.
 
 Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intlayer/swc`.
 
-> En modo desarrollo, Intlayer utiliza importaciones estáticas para los diccionarios para simplificar la experiencia de desarrollo.
+> En modo de desarrollo, Intlayer utiliza importaciones estáticas para los diccionarios para simplificar la experiencia de desarrollo.
 
-> Al optimizar, Intlayer reemplazará las llamadas a los diccionarios para optimizar el chunking, de modo que el bundle final solo importe los diccionarios que realmente se utilizan.
+> Cuando está optimizado, Intlayer reemplazará las llamadas a diccionarios para optimizar el particionado, de modo que el paquete final solo importe los diccionarios que realmente se usan.
 
 #### Propiedades
 
 - **optimize**:
   - _Tipo_: `boolean`
-  - _Valor por defecto_: `process.env.NODE_ENV === 'production'`
+  - _Por defecto_: `process.env.NODE_ENV === 'production'`
   - _Descripción_: Controla si la compilación debe ser optimizada.
   - _Ejemplo_: `true`
-  - _Nota_: Cuando está habilitado, Intlayer reemplazará todas las llamadas de diccionarios para optimizar el chunking. De esta manera, el bundle final solo importará los diccionarios que se utilizan. Todas las importaciones permanecerán como importaciones estáticas para evitar el procesamiento asíncrono al cargar los diccionarios.
-  - _Nota_: Intlayer reemplazará todas las llamadas de `useIntlayer` con el modo definido por la opción `importMode` y `getIntlayer` con `getDictionary`.
-  - _Nota_: Esta opción se basa en los plugins `@intlayer/babel` y `@intlayer/swc`.
-  - _Nota_: Asegúrate de que todas las claves estén declaradas estáticamente en las llamadas `useIntlayer`. por ejemplo: `useIntlayer('navbar')`.
+  - _Nota_: Cuando está habilitado, Intlayer reemplazará todas las llamadas a diccionarios para optimizar el particionado. De esta forma, el paquete final solo importará los diccionarios que se usan. Todas las importaciones permanecerán como importaciones estáticas para evitar el procesamiento asíncrono al cargar los diccionarios.
+  - _Nota_: Intlayer reemplazará todas las llamadas a `useIntlayer` con el modo definido por la opción `importMode` y `getIntlayer` con `getDictionary`.
+  - _Nota_: Esta opción depende de los plugins `@intlayer/babel` y `@intlayer/swc`.
+  - _Nota_: Asegúrese de que todas las claves estén declaradas estáticamente en las llamadas a `useIntlayer`. Por ejemplo, `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Tipo_: `'static' | 'dynamic' | 'async'`
-  - _Valor por defecto_: `'static'`
+  - _Tipo_: `'static' | 'dynamic' | 'live'`
+  - _Por defecto_: `'static'`
   - _Descripción_: Controla cómo se importan los diccionarios.
   - _Ejemplo_: `'dynamic'`
   - _Nota_: Modos disponibles:
-    - "static": Los diccionarios se importan estáticamente. Reemplaza `useIntlayer` con `useDictionary`.
+    - "static": Los diccionarios se importan de forma estática. Reemplaza `useIntlayer` con `useDictionary`.
     - "dynamic": Los diccionarios se importan dinámicamente usando Suspense. Reemplaza `useIntlayer` con `useDictionaryDynamic`.
-    - "async": Los diccionarios se importan dinámicamente de forma asíncrona. Reemplaza `useIntlayer` con `await useDictionaryAsync`.
+    - "live": Los diccionarios se obtienen dinámicamente usando la API de sincronización en vivo. Reemplaza `useIntlayer` con `useDictionaryFetch`.
   - _Nota_: Las importaciones dinámicas dependen de Suspense y pueden afectar ligeramente el rendimiento del renderizado.
-  - _Nota_: Si está deshabilitado, todos los idiomas se cargarán a la vez, incluso si no se utilizan.
-  - _Nota_: Esta opción se basa en los plugins `@intlayer/babel` y `@intlayer/swc`.
-  - _Nota_: Asegúrate de que todas las claves estén declaradas estáticamente en las llamadas `useIntlayer`. por ejemplo: `useIntlayer('navbar')`.
+  - _Nota_: Si está deshabilitado, todos los locales se cargarán a la vez, incluso si no se usan.
+  - _Nota_: Esta opción depende de los plugins `@intlayer/babel` y `@intlayer/swc`.
+  - _Nota_: Asegúrese de que todas las claves estén declaradas estáticamente en las llamadas a `useIntlayer`. Por ejemplo, `useIntlayer('navbar')`.
   - _Nota_: Esta opción será ignorada si `optimize` está deshabilitado.
-  - _Nota_: En la mayoría de los casos, `"dynamic"` se usará para aplicaciones React, `"async"` para aplicaciones Vue.js.
-  - _Nota_: Esta opción no afectará las funciones `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` y `useDictionaryDynamic`.
+  - _Nota_: Si se establece en "live", solo los diccionarios que incluyen contenido remoto y están marcados con la bandera "live" serán transformados en modo en vivo. Los demás se importarán dinámicamente en modo "dynamic" para optimizar el número de consultas fetch y el rendimiento de carga.
+  - _Nota_: El modo en vivo utilizará la API de sincronización en vivo para obtener los diccionarios. Si la llamada a la API falla, los diccionarios se importarán dinámicamente en modo "dynamic".
+  - _Nota_: Esta opción no afectará a las funciones `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` y `useDictionaryDynamic`.
 
 - **traversePattern**:
   - _Tipo_: `string[]`
-  - _Valor por defecto_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**/node_modules/**']`
+  - _Por defecto_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']`
   - _Descripción_: Patrones que definen qué archivos deben ser recorridos durante la optimización.
-    - _Ejemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _Nota_: Usa esto para limitar la optimización a archivos de código relevantes y mejorar el rendimiento de la compilación.
+    - _Ejemplo_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Nota_: Utilice esto para limitar la optimización a archivos de código relevantes y mejorar el rendimiento de la compilación.
   - _Nota_: Esta opción será ignorada si `optimize` está deshabilitado.
-  - _Nota_: Usa patrón glob.
+  - _Nota_: Use patrón glob.
 
-## Historial de la documentación
+## Historial de Documentación
 
-| Versión | Fecha      | Cambios                                                         |
-| ------- | ---------- | --------------------------------------------------------------- |
-| 5.6.1   | 2025-07-25 | Reemplazo de `activateDynamicImport` con la opción `importMode` |
-| 5.6.0   | 2025-07-13 | Cambio del contentDir predeterminado a `['.']`                  |
-| 5.5.11  | 2025-06-29 | Añadidos comandos `docs`                                        |
+| Versión | Fecha      | Cambios                                                                                            |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------- |
+| 5.9.0   | 2025-09-16 | Añadido modo de importación `live`                                                                 |
+| 5.9.0   | 2025-09-04 | Reemplazar el campo `hotReload` por `liveSync` y agregar los campos `liveSyncPort` y `liveSyncURL` |
+| 5.6.1   | 2025-07-25 | Reemplazar `activateDynamicImport` por la opción `importMode`                                      |
+| 5.6.0   | 2025-07-13 | Cambiar el valor predeterminado de contentDir de `['src']` a `['.']`                               |
+| 5.5.11  | 2025-06-29 | Agregar comandos `docs`                                                                            |
