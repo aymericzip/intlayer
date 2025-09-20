@@ -7,9 +7,13 @@ import {
 import type { Dictionary } from '@intlayer/core';
 import { formatPath } from './utils/formatter';
 
-export const filterInvalidDictionaries = (dictionaries: Dictionary[]) =>
-  dictionaries.filter((dictionary) => {
-    const appLogger = getAppLogger(configuration);
+export const filterInvalidDictionaries = (
+  dictionaries: (Dictionary | undefined)[] | undefined
+): Dictionary[] => {
+  const appLogger = getAppLogger(configuration);
+
+  return (dictionaries ?? [])?.filter((dictionary) => {
+    if (!dictionary) return false;
 
     const isLocal = Boolean(dictionary.location === 'locale');
     const location = isLocal ? 'Local' : 'Remote';
@@ -37,4 +41,5 @@ export const filterInvalidDictionaries = (dictionaries: Dictionary[]) =>
     }
 
     return true;
-  });
+  }) as Dictionary[];
+};
