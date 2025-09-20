@@ -12,7 +12,7 @@ const demoContent = {
       ja: '新しいIntlayerビジュアルエディターをお試しください',
       ko: '새로운 Intlayer 비주얼 편집기를 사용해 보세요',
       zh: '尝试新的 Intlayer 可视化编辑器',
-      // it: 'Prova il nuovo editor visivo di Intlayer',
+      it: 'Prova il nuovo editor visivo di Intlayer',
       pt: 'Experimente o novo editor visual do Intlayer',
       hi: 'Intlayer दृश्य संपादक को आजमाएँ',
       ar: 'جرّب محرر Intlayer المرئي الجديد',

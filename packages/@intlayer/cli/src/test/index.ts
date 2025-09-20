@@ -29,29 +29,30 @@ export const testMissingTranslations = (
     },
   });
 
-  const missingTranslations = listMissingTranslations();
+  const result = listMissingTranslations();
 
-  const maxKeyColSize = missingTranslations
+  const maxKeyColSize = result.missingTranslations
     .map((t) => ` - ${t.key}`)
     .reduce((max, t) => Math.max(max, t.length), 0);
-  const maxLocalesColSize = missingTranslations
+  const maxLocalesColSize = result.missingTranslations
     .map((t) => formatLocale(t.locales, false))
     .reduce((max, t) => Math.max(max, t.length), 0);
 
-  const formattedMissingTranslations = missingTranslations.map((translation) =>
-    [
-      colon(` - ${colorizeKey(translation.key)}`, {
-        colSize: maxKeyColSize,
-        maxSize: 40,
-      }),
-      ' - ',
-      colon(formatLocale(translation.locales, ANSIColors.RED), {
-        colSize: maxLocalesColSize,
-        maxSize: 40,
-      }),
-      ' - ',
-      translation.filePath ? formatPath(translation.filePath) : 'Remote',
-    ].join('')
+  const formattedMissingTranslations = result.missingTranslations.map(
+    (translation) =>
+      [
+        colon(` - ${colorizeKey(translation.key)}`, {
+          colSize: maxKeyColSize,
+          maxSize: 40,
+        }),
+        ' - ',
+        colon(formatLocale(translation.locales, ANSIColors.RED), {
+          colSize: maxLocalesColSize,
+          maxSize: 40,
+        }),
+        ' - ',
+        translation.filePath ? formatPath(translation.filePath) : 'Remote',
+      ].join('')
   );
 
   appLogger(`Missing translations:`, {
@@ -64,33 +65,24 @@ export const testMissingTranslations = (
     });
   });
 
-  const missingLocalesSet = new Set(
-    missingTranslations.flatMap((t) => t.locales)
-  );
-  const missingLocales = Array.from(missingLocalesSet);
-
   appLogger(`Locales: ${formatLocale(locales)}`);
   appLogger(`Required locales: ${formatLocale(requiredLocales ?? locales)}`);
   appLogger(
-    `Missing locales: ${missingLocales.length === 0 ? colorize('-', ANSIColors.GREEN) : formatLocale(missingLocales, ANSIColors.RED)}`
-  );
-
-  const missingRequiredLocales = missingLocales.filter((locale) =>
-    (requiredLocales ?? locales).includes(locale)
+    `Missing locales: ${result.missingLocales.length === 0 ? colorize('-', ANSIColors.GREEN) : formatLocale(result.missingLocales, ANSIColors.RED)}`
   );
 
   appLogger(
-    `Missing required locales: ${missingRequiredLocales.length === 0 ? colorize('-', ANSIColors.GREEN) : formatLocale(missingRequiredLocales, ANSIColors.RED)}`
+    `Missing required locales: ${result.missingRequiredLocales.length === 0 ? colorize('-', ANSIColors.GREEN) : formatLocale(result.missingRequiredLocales, ANSIColors.RED)}`
   );
   appLogger(
-    `Total missing locales: ${colorizeNumber(missingLocales.length, {
+    `Total missing locales: ${colorizeNumber(result.missingLocales.length, {
       other: ANSIColors.RED,
       zero: ANSIColors.GREEN,
     })}`
   );
   appLogger(
     `Total missing required locales: ${colorizeNumber(
-      missingRequiredLocales.length,
+      result.missingRequiredLocales.length,
       {
         other: ANSIColors.RED,
         zero: ANSIColors.GREEN,

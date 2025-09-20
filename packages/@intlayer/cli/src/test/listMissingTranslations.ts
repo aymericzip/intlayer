@@ -16,6 +16,8 @@ export const listMissingTranslations = (
     locales: Locales[];
   }[] = [];
 
+  const { locales, requiredLocales } = configuration.internationalization;
+
   for (const dictionaries of Object.values(dictionariesRecord)) {
     for (const dictionary of dictionaries as unknown as Dictionary[]) {
       const missingLocales = getMissingLocalesContent(
@@ -38,5 +40,14 @@ export const listMissingTranslations = (
     }
   }
 
-  return missingTranslations;
+  const missingLocalesSet = new Set(
+    missingTranslations.flatMap((t) => t.locales)
+  );
+  const missingLocales = Array.from(missingLocalesSet);
+
+  const missingRequiredLocales = missingLocales.filter((locale) =>
+    (requiredLocales ?? locales).includes(locale)
+  );
+
+  return { missingTranslations, missingLocales, missingRequiredLocales };
 };

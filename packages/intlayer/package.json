@@ -39,6 +39,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./cli": {
+      "types": "./dist/types/cli/index.d.ts",
+      "require": "./dist/cjs/cli/index.cjs",
+      "import": "./dist/esm/cli/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -52,7 +57,7 @@
     }
   },
   "bin": {
-    "intlayer": "./dist/cjs/cli.cjs"
+    "intlayer": "./dist/cjs/cli/script.cjs"
   },
   "files": [
     "./dist",
