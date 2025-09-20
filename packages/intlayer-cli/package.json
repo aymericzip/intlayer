@@ -1,6 +1,6 @@
 {
   "name": "intlayer-cli",
-  "version": "6.0.0-canary.0",
+  "version": "6.0.0-canary.1",
   "private": false,
   "description": "Lightweight CLI tool for Intlayer, enabling content audits, dictionary management, and CMS sync. Ideal for JavaScript developers using React or Express.",
   "keywords": [

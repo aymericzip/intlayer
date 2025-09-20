@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/babel",
-  "version": "6.0.0-canary.0",
+  "version": "6.0.0-canary.1",
   "private": false,
   "description": "A Babel plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
