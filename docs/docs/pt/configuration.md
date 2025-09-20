@@ -567,7 +567,7 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
 
 | Versão | Data       | Alterações                           |
 | ------ | ---------- | ------------------------------------ |
-| 5.9.0  | 2025-09-16 | Adicionado modo de importação `live` |
+| 6.0.0  | 2025-09-16 | Adicionado modo de importação `live` |
 
 - _Descrição_: Padrões que definem quais arquivos devem ser percorridos durante a otimização.
 - _Exemplo_: `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
@@ -579,8 +579,8 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
 
 | Versão | Data       | Alterações                                                                                            |
 | ------ | ---------- | ----------------------------------------------------------------------------------------------------- |
-| 5.9.0  | 2025-09-16 | Adicionado modo de importação `live`                                                                  |
-| 5.9.0  | 2025-09-04 | Substituído o campo `hotReload` por `liveSync` e adicionados os campos `liveSyncPort` e `liveSyncURL` |
+| 6.0.0  | 2025-09-16 | Adicionado modo de importação `live`                                                                  |
+| 6.0.0  | 2025-09-04 | Substituído o campo `hotReload` por `liveSync` e adicionados os campos `liveSyncPort` e `liveSyncURL` |
 | 5.6.1  | 2025-07-25 | Substituído `activateDynamicImport` pela opção `importMode`                                           |
 | 5.6.0  | 2025-07-13 | Alterado o valor padrão de contentDir de `['src']` para `['.']`                                       |
 | 5.5.11 | 2025-06-29 | Adicionados comandos `docs`                                                                           |

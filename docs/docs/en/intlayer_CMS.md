@@ -357,5 +357,5 @@ If you encounter any issues with the CMS, check the following:
 
 | Version | Date       | Changes                                 |
 | ------- | ---------- | --------------------------------------- |
-| 5.9.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` |
+| 6.0.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` |
 | 5.5.10  | 2025-06-29 | Init history                            |

@@ -675,6 +675,6 @@ npx clear-npx-cache
 
 | Version | Date       | Changes                                     |
 | ------- | ---------- | ------------------------------------------- |
-| 5.9.0   | 2025-09-17 | Add content test and list command           |
+| 6.0.0   | 2025-09-17 | Add content test and list command           |
 | 5.5.11  | 2025-07-11 | Update CLI command parameters documentation |
 | 5.5.10  | 2025-06-29 | Init history                                |

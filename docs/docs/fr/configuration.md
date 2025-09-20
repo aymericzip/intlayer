@@ -568,7 +568,7 @@ Les options de compilation s'appliquent aux plugins `@intlayer/babel` et `@intla
 
 | Version | Date       | Modifications                      |
 | ------- | ---------- | ---------------------------------- |
-| 5.9.0   | 2025-09-16 | Ajout du mode d'importation `live` |
+| 6.0.0   | 2025-09-16 | Ajout du mode d'importation `live` |
 
 - _Description_ : Modèles qui définissent quels fichiers doivent être parcourus lors de l'optimisation.
 - _Exemple_ : `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']`
@@ -580,8 +580,8 @@ Les options de compilation s'appliquent aux plugins `@intlayer/babel` et `@intla
 
 | Version | Date       | Modifications                                                                                        |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------- |
-| 5.9.0   | 2025-09-16 | Ajout du mode d'importation `live`                                                                   |
-| 5.9.0   | 2025-09-04 | Remplacement du champ `hotReload` par `liveSync` et ajout des champs `liveSyncPort` et `liveSyncURL` |
+| 6.0.0   | 2025-09-16 | Ajout du mode d'importation `live`                                                                   |
+| 6.0.0   | 2025-09-04 | Remplacement du champ `hotReload` par `liveSync` et ajout des champs `liveSyncPort` et `liveSyncURL` |
 | 5.6.1   | 2025-07-25 | Remplacement de `activateDynamicImport` par l'option `importMode`                                    |
 | 5.6.0   | 2025-07-13 | Changement du répertoire par défaut `contentDir` de `['src']` à `['.']`                              |
 | 5.5.11  | 2025-06-29 | Ajout des commandes `docs`                                                                           |

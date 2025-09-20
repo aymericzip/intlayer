@@ -567,8 +567,8 @@ Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intl
 
 | Versión | Fecha      | Cambios                                                                                            |
 | ------- | ---------- | -------------------------------------------------------------------------------------------------- |
-| 5.9.0   | 2025-09-16 | Añadido modo de importación `live`                                                                 |
-| 5.9.0   | 2025-09-04 | Reemplazar el campo `hotReload` por `liveSync` y agregar los campos `liveSyncPort` y `liveSyncURL` |
+| 6.0.0   | 2025-09-16 | Añadido modo de importación `live`                                                                 |
+| 6.0.0   | 2025-09-04 | Reemplazar el campo `hotReload` por `liveSync` y agregar los campos `liveSyncPort` y `liveSyncURL` |
 | 5.6.1   | 2025-07-25 | Reemplazar `activateDynamicImport` por la opción `importMode`                                      |
 | 5.6.0   | 2025-07-13 | Cambiar el valor predeterminado de contentDir de `['src']` a `['.']`                               |
 | 5.5.11  | 2025-06-29 | Agregar comandos `docs`                                                                            |

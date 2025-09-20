@@ -343,5 +343,5 @@ CMS ile ilgili herhangi bir sorunla karşılaşırsanız, aşağıdakileri kontr
 
 | Sürüm  | Tarih      | Değişiklikler                               |
 | ------ | ---------- | ------------------------------------------- |
-| 5.9.0  | 2025-09-04 | `hotReload` alanını `liveSync` ile değiştir |
+| 6.0.0  | 2025-09-04 | `hotReload` alanını `liveSync` ile değiştir |
 | 5.5.10 | 2025-06-29 | Geçmiş başlatıldı                           |

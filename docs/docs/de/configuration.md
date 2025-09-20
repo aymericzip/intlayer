@@ -568,8 +568,8 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
 
 | Version | Datum      | Änderungen                                                                                               |
 | ------- | ---------- | -------------------------------------------------------------------------------------------------------- |
-| 5.9.0   | 2025-09-16 | `live` Importmodus hinzugefügt                                                                           |
-| 5.9.0   | 2025-09-04 | Ersetze das Feld `hotReload` durch `liveSync` und füge die Felder `liveSyncPort` und `liveSyncURL` hinzu |
+| 6.0.0   | 2025-09-16 | `live` Importmodus hinzugefügt                                                                           |
+| 6.0.0   | 2025-09-04 | Ersetze das Feld `hotReload` durch `liveSync` und füge die Felder `liveSyncPort` und `liveSyncURL` hinzu |
 | 5.6.1   | 2025-07-25 | Ersetze `activateDynamicImport` durch die Option `importMode`                                            |
 | 5.6.0   | 2025-07-13 | Ändere das Standard-`contentDir` von `['src']` zu `['.']`                                                |
 | 5.5.11  | 2025-06-29 | Füge `docs`-Befehle hinzu                                                                                |
