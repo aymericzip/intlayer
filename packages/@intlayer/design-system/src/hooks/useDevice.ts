@@ -77,6 +77,12 @@ export const calculateIsMobile = (breakpoint: SizeType | number = 'md') => {
   };
 };
 
+export const checkIsMac = (): boolean | undefined => {
+  if (typeof window === 'undefined') return;
+
+  return window.navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+};
+
 export const useDevice = (breakpoint: SizeType | number = 'md') => {
   const [result, setResult] = useState<UseDeviceState>(
     calculateIsMobile(breakpoint)
@@ -93,5 +99,5 @@ export const useDevice = (breakpoint: SizeType | number = 'md') => {
     return () => window.removeEventListener('resize', handleResize);
   }, [breakpoint]); // Empty dependency array ensures this effect runs only once on mount
 
-  return result;
+  return { ...result, isMac: checkIsMac() };
 };
