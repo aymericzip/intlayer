@@ -49,13 +49,13 @@ export const prepareIntlayer = async (
     dictionariesOutput?.mergedDictionaries ?? {}
   ).map((dictionary) => dictionary.dictionaryPath);
 
-  createTypes(dictionariesPaths);
+  await createTypes(dictionariesPaths);
 
-  createDictionaryEntryPoint(configuration);
+  await createDictionaryEntryPoint(configuration);
 
   appLogger('Dictionaries built');
 
-  createModuleAugmentation(configuration);
+  await createModuleAugmentation(configuration);
 
   appLogger('Module augmentation built', {
     isVerbose: true,

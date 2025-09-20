@@ -41,9 +41,9 @@ export const handleAdditionalContentDeclarationFile = async (
     dictionariesOutput?.mergedDictionaries ?? {}
   ).map((dictionary) => dictionary.dictionaryPath);
 
-  createTypes(dictionariesPaths);
+  await createTypes(dictionariesPaths);
 
-  createDictionaryEntryPoint();
+  await createDictionaryEntryPoint();
 
   appLogger('Dictionaries built', {
     isVerbose: true,
@@ -78,15 +78,15 @@ export const handleUnlikedContentDeclarationFile = async (
     dictionariesOutput?.mergedDictionaries ?? {}
   ).map((dictionary) => dictionary.dictionaryPath);
 
-  createTypes(dictionariesPaths);
+  await createTypes(dictionariesPaths);
 
-  createDictionaryEntryPoint();
+  await createDictionaryEntryPoint();
 
   appLogger('Dictionaries rebuilt', {
     isVerbose: true,
   });
 
-  createModuleAugmentation();
+  await createModuleAugmentation();
 
   appLogger('Module augmentation built', {
     isVerbose: true,
@@ -125,7 +125,7 @@ export const handleContentDeclarationFileChange = async (
         !allDictionariesPaths.includes(updatedDictionaryPath)
     )
   ) {
-    createDictionaryEntryPoint();
+    await createDictionaryEntryPoint();
 
     appLogger('Dictionary list built', {
       isVerbose: true,

@@ -4,8 +4,9 @@ import {
   IntlayerConfig,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { mkdir, writeFile } from 'fs/promises';
 import { resolve } from 'path';
+import { parallelize } from '../../utils/parallelize';
 
 const requireUncached = (module: string) => {
   delete ESMxCJSRequire.cache[ESMxCJSRequire.resolve(module)];
@@ -20,34 +21,33 @@ export const generateTypeScriptType = (dictionary: Dictionary) => {
 /**
  * This function generates a TypeScript type definition from a JSON object
  */
-export const createTypes = (
+export const createTypes = async (
   dictionariesPaths: string[],
   configuration: IntlayerConfig = getConfiguration()
-): string[] => {
+): Promise<string[]> => {
   const { typesDir } = configuration.content;
-  const resultTypesPaths: string[] = [];
 
   // Create type folders if they don't exist
-  if (!existsSync(typesDir)) {
-    mkdirSync(typesDir, { recursive: true });
-  }
+  await mkdir(typesDir, { recursive: true });
 
-  for (const dictionaryPath of dictionariesPaths) {
-    const dictionary: Dictionary = requireUncached(dictionaryPath);
+  const results = await parallelize(
+    dictionariesPaths,
+    async (dictionaryPath): Promise<string | undefined> => {
+      const dictionary: Dictionary = requireUncached(dictionaryPath);
 
-    if (!dictionary.key) {
-      // Skip dictionary if it doesn't have a key, if not exported as default etc
-      continue;
+      if (!dictionary.key) {
+        return undefined;
+      }
+
+      const typeDefinition: string = generateTypeScriptType(dictionary);
+
+      const outputPath: string = resolve(typesDir, `${dictionary.key}.ts`);
+
+      await writeFile(outputPath, typeDefinition);
+
+      return outputPath;
     }
+  );
 
-    const typeDefinition: string = generateTypeScriptType(dictionary);
-
-    const outputPath: string = resolve(typesDir, `${dictionary.key}.ts`);
-
-    writeFileSync(outputPath, typeDefinition);
-
-    resultTypesPaths.push(outputPath);
-  }
-
-  return resultTypesPaths;
+  return results.filter(Boolean) as string[];
 };
