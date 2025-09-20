@@ -1,7 +1,12 @@
 import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { getAppLogger, getConfiguration } from '@intlayer/config';
+import {
+  ANSIColors,
+  colorize,
+  getAppLogger,
+  getConfiguration,
+} from '@intlayer/config';
 import pLimit from 'p-limit';
 import { DictionariesStatus } from './loadDictionaries';
 
@@ -103,7 +108,10 @@ export const fetchDistantDictionaries = async (
 
     return filteredResult;
   } catch (error) {
-    appLogger('Failed to fetch distant dictionaries', { level: 'error' });
+    appLogger(
+      `${colorize('✗', ANSIColors.RED)} Failed to fetch distant dictionaries`,
+      { level: 'error' }
+    );
     return [];
   }
 };

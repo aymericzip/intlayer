@@ -107,7 +107,7 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
   // Order dictionaries based on priority strategy
   const orderedDictionaries = orderDictionaries(dictionaries, configuration);
 
-  let mergedDictionaries: Dictionary = orderedDictionaries[0];
+  let mergedContent: Dictionary['content'] = orderedDictionaries[0].content;
 
   // Configure deepmerge options with custom array merge strategy
   const mergeOptions: Options = {
@@ -119,26 +119,24 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
 
     // Check types before merging
     checkTypesMatch(
-      mergedDictionaries,
-      currentDictionary,
+      mergedContent,
+      currentDictionary.content,
       currentDictionary.key,
       []
     );
 
-    mergedDictionaries = merge(
-      currentDictionary,
-      mergedDictionaries,
+    mergedContent = merge(
+      currentDictionary.content,
+      mergedContent,
       mergeOptions
     );
   }
 
   return {
-    ...mergedDictionaries,
+    key: orderedDictionaries[0].key,
+    content: mergedContent,
     localIds: dictionaries
       .filter((dict) => dict.localId)
       .map((dict) => dict.localId!),
-    filePath: undefined,
-    localId: undefined,
-    id: undefined,
   };
 };

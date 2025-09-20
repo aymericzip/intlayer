@@ -4,9 +4,10 @@ import { getContentNodeByKeyPath } from './getContentNodeByKeyPath';
 
 export const getUnmergedDictionaryByKeyPath = (
   dictionaryKey: string,
-  keyPath: KeyPath[]
+  keyPath: KeyPath[],
+  dictionariesRecord: keyof typeof unmergedDictionary = unmergedDictionary
 ) => {
-  const unmergedEntries = unmergedDictionary?.[dictionaryKey];
+  const unmergedEntries = dictionariesRecord?.[dictionaryKey];
 
   if (!unmergedEntries) {
     return null;
