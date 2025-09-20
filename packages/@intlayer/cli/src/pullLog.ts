@@ -120,7 +120,7 @@ export class PullLogger {
       'updated',
       'up-to-date',
       'reimported in JSON',
-      'reimported in new location',
+      'new content file',
       'error',
     ] as const);
 
@@ -130,7 +130,7 @@ export class PullLogger {
       'updated',
       'up-to-date',
       'reimported in JSON',
-      'reimported in new location',
+      'new content file',
     ] as const);
 
     const done = this.statuses.filter((s) =>

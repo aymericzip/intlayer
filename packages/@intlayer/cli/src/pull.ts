@@ -162,26 +162,34 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     const processDictionary = async (
       statusObj: DictionariesStatus
     ): Promise<void> => {
-      if (
-        statusObj.status === 'imported' ||
-        statusObj.status === 'up-to-date'
-      ) {
-        // Already up-to-date; nothing to do
-        return;
+      const isCached =
+        statusObj.status === 'imported' || statusObj.status === 'up-to-date';
+
+      if (!isCached) {
+        statusObj.status = 'fetching';
+        logger.update([
+          { dictionaryKey: statusObj.dictionaryKey, status: 'fetching' },
+        ]);
       }
-      statusObj.status = 'fetching';
-      logger.update([
-        { dictionaryKey: statusObj.dictionaryKey, status: 'fetching' },
-      ]);
+
       try {
-        // Fetch the dictionary
-        const getDictionaryResult = await intlayerAPI.dictionary.getDictionary(
-          statusObj.dictionaryKey
-        );
+        let sourceDictionary: Dictionary | undefined;
 
-        const distantDictionary = getDictionaryResult.data;
+        if (isCached) {
+          sourceDictionary = remoteDictionariesRecord[
+            statusObj.dictionaryKey
+          ] as Dictionary | undefined;
+        }
 
-        if (!distantDictionary) {
+        if (!sourceDictionary) {
+          // Fetch the dictionary
+          const getDictionaryResult =
+            await intlayerAPI.dictionary.getDictionary(statusObj.dictionaryKey);
+
+          sourceDictionary = getDictionaryResult.data as Dictionary | undefined;
+        }
+
+        if (!sourceDictionary) {
           throw new Error(
             `Dictionary ${statusObj.dictionaryKey} not found on remote`
           );
@@ -189,7 +197,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
         // Now, write the dictionary to local file
         const { status } = await writeContentDeclaration(
-          distantDictionary,
+          sourceDictionary,
           config,
           options?.newDictionariesPath
         );
@@ -197,7 +205,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
         statusObj.status = status;
         logger.update([{ dictionaryKey: statusObj.dictionaryKey, status }]);
 
-        successfullyFetchedDictionaries.push(distantDictionary);
+        successfullyFetchedDictionaries.push(sourceDictionary);
       } catch (error) {
         statusObj.status = 'error';
         statusObj.error = error as Error;
@@ -209,13 +217,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     };
 
     // Process dictionaries in parallel with concurrency limit
-    await parallelize(
-      dictionariesStatuses.filter(
-        (s) => s.status === 'pending' || s.status === 'fetching'
-      ),
-      processDictionary,
-      5
-    );
+    await parallelize(dictionariesStatuses, processDictionary, 5);
 
     // Stop the logger and render final state
     logger.finish();
@@ -228,7 +230,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
         case 'updated':
         case 'up-to-date':
         case 'reimported in JSON':
-        case 'reimported in new location':
+        case 'new content file':
           return '✔';
         case 'error':
           return '✖';
@@ -245,7 +247,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
         case 'up-to-date':
           return ANSIColors.GREEN;
         case 'reimported in JSON':
-        case 'reimported in new location':
+        case 'new content file':
           return ANSIColors.YELLOW;
         case 'error':
           return ANSIColors.RED;

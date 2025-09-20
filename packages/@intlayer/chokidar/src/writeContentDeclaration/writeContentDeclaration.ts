@@ -72,7 +72,7 @@ export const writeContentDeclaration = async (
         );
 
         return {
-          status: 'reimported in new location',
+          status: 'new content file',
           path: contentDeclarationPath,
         };
       }
