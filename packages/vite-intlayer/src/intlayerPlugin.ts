@@ -17,7 +17,7 @@ import { intlayerPrune } from './intlayerPrunePlugin';
  * });
  * ```
  *  */
-export const intlayer = (): PluginOption => {
+export const intlayerPlugin = (): PluginOption => {
   const { watch: isWatchMode } = intlayerConfig.content;
   const { optimize } = intlayerConfig.build;
   const appLogger = getAppLogger(intlayerConfig);
@@ -98,4 +98,4 @@ export const intlayer = (): PluginOption => {
  * });
  * ```
  */
-export const intlayerPlugin = intlayer;
+export const intlayer = intlayerPlugin;

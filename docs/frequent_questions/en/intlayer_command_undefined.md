@@ -24,7 +24,7 @@ slugs:
 
 ## Overview
 
-The Intlayer CLI provides a convenient way to control your intlayer content, including building dictionaries, pushing translations, and more. However, it's not essential for your project to work. If you're using the bundler plugin (like `withIntlayer()` for Next.js or `intlayerPlugin()` for Vite), Intlayer will automatically build dictionaries during app build or development server startup. In development mode, it will also watch for changes and rebuild content declaration files automatically.
+The Intlayer CLI provides a convenient way to control your intlayer content, including building dictionaries, pushing translations, and more. However, it's not essential for your project to work. If you're using the bundler plugin (like `withIntlayer()` for Next.js or `intlayer()` for Vite), Intlayer will automatically build dictionaries during app build or development server startup. In development mode, it will also watch for changes and rebuild content declaration files automatically.
 
 You can access the intlayer commands in different ways:
 
@@ -95,7 +95,6 @@ npm install
 
 6. **Verify installation files**
    If the issue persists, check that these files exist:
-
    - `node_modules/intlayer/dist/cjs/cli.cjs`
    - `node_modules/intlayer/package.json` (should have a `bin` field referencing `./dist/cjs/cli.cjs`)
 

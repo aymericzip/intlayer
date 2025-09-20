@@ -86,12 +86,12 @@ CommonJS/ESM varyantları, `cjs`/`mjs`'yi tercih ederseniz orijinal dokümanın�
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
     react(),
-    intlayerPlugin(),
+    intlayer(),
     // Yerel ayar algılama, çerezler ve yönlendirmeler için isteğe bağlı ancak önerilen:
     intlayerMiddlewarePlugin(),
   ],

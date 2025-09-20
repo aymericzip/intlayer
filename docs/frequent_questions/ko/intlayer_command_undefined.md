@@ -24,7 +24,7 @@ slugs:
 
 ## 개요
 
-Intlayer CLI는 사전 구축, 번역 푸시 등 intlayer 콘텐츠를 편리하게 제어할 수 있는 방법을 제공합니다. 그러나 프로젝트가 작동하는 데 필수적인 것은 아닙니다. 만약 Next.js용 `withIntlayer()`나 Vite용 `intlayerPlugin()`과 같은 번들러 플러그인을 사용하고 있다면, Intlayer는 앱 빌드 또는 개발 서버 시작 시 자동으로 사전을 빌드합니다. 개발 모드에서는 변경 사항을 감지하여 콘텐츠 선언 파일을 자동으로 재빌드하기도 합니다.
+Intlayer CLI는 사전 구축, 번역 푸시 등 intlayer 콘텐츠를 편리하게 제어할 수 있는 방법을 제공합니다. 그러나 프로젝트가 작동하는 데 필수적인 것은 아닙니다. 만약 Next.js용 `withIntlayer()`나 Vite용 `intlayer()`과 같은 번들러 플러그인을 사용하고 있다면, Intlayer는 앱 빌드 또는 개발 서버 시작 시 자동으로 사전을 빌드합니다. 개발 모드에서는 변경 사항을 감지하여 콘텐츠 선언 파일을 자동으로 재빌드하기도 합니다.
 
 intlayer 명령어에 접근하는 방법은 다음과 같습니다:
 
@@ -94,7 +94,6 @@ npm install
 
 6. **설치 파일 확인**
    문제가 계속되면 다음 파일들이 존재하는지 확인하세요:
-
    - `node_modules/intlayer/dist/cjs/cli.cjs`
    - `node_modules/intlayer/package.json` (`bin` 필드가 `./dist/cjs/cli.cjs`를 참조해야 함)
 
