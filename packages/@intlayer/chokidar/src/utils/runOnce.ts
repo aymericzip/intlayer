@@ -42,7 +42,7 @@ export const runOnce = async (
       await unlink(sentinelFilePath);
       // Fall through to create new sentinel and rebuild
     } else {
-      await onIsCached();
+      await onIsCached?.();
       // Sentinel is recent, no need to rebuild
       return;
     }
