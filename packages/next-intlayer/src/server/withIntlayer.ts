@@ -169,6 +169,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const intlayerConfig = getConfiguration();
   const { isDevCommand, isBuildCommand } = getCommandsEvent();
+  const appLogger = getAppLogger(intlayerConfig);
 
   const sentinelPath = join(
     intlayerConfig.content.baseDir,
@@ -182,7 +183,8 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   if (isBuildCommand || isDevCommand) {
     await runOnce(
       sentinelPath,
-      async () => await prepareIntlayer(intlayerConfig)
+      async () => await prepareIntlayer(intlayerConfig),
+      () => appLogger('Intlayer prepared')
     );
   }
 

@@ -2,7 +2,7 @@ import { prepareIntlayer, runOnce, watch } from '@intlayer/chokidar';
 import intlayerConfig from '@intlayer/config/built';
 import { join, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
-import { getAlias } from '@intlayer/config';
+import { getAlias, getAppLogger } from '@intlayer/config';
 import { type PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
@@ -20,6 +20,7 @@ import { intlayerPrune } from './intlayerPrunePlugin';
 export const intlayer = (): PluginOption => {
   const { watch: isWatchMode } = intlayerConfig.content;
   const { optimize } = intlayerConfig.build;
+  const appLogger = getAppLogger(intlayerConfig);
 
   const plugins: PluginOption[] = [
     {
@@ -72,7 +73,8 @@ export const intlayer = (): PluginOption => {
         // Only call prepareIntlayer once per server startup
         await runOnce(
           sentinelPath,
-          async () => await prepareIntlayer(intlayerConfig)
+          async () => await prepareIntlayer(intlayerConfig),
+          () => appLogger('Intlayer prepared')
         );
       },
     },
