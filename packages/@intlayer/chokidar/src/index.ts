@@ -36,6 +36,7 @@ export { createModuleAugmentation } from './transpiler/dictionary_to_type/create
 export { formatLocale, formatPath } from './utils/formatter';
 export { getFileHash } from './utils/getFileHash';
 export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
+export { parallelize } from './utils/parallelize';
 export { resolveObjectPromises } from './utils/resolveObjectPromises';
 export { runOnce } from './utils/runOnce';
 export { sortAlphabetically } from './utils/sortAlphabetically';

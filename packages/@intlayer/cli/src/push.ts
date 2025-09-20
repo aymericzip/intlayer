@@ -3,19 +3,19 @@ import {
   formatPath,
   listGitFiles,
   ListGitFilesOptions,
+  parallelize,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
-  spinnerFrames,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/dictionaries-entry';
 import * as fsPromises from 'fs/promises';
-import pLimit from 'p-limit';
 import * as readline from 'readline';
+import { PushLogger, type PushStatus } from './pushLog';
 
 type PushOptions = {
   deleteLocaleDictionary?: boolean;
@@ -28,11 +28,8 @@ type PushOptions = {
 type DictionariesStatus = {
   dictionary: Dictionary;
   status: 'pending' | 'pushing' | 'modified' | 'pushed' | 'unknown' | 'error';
-  icon: string;
-  index: number;
   error?: Error;
   errorMessage?: string;
-  spinnerFrameIndex?: number;
 };
 
 /**
@@ -97,31 +94,30 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
     // Prepare dictionaries statuses
     const dictionariesStatuses: DictionariesStatus[] = dictionaries.map(
-      (dictionary, index) => ({
+      (dictionary) => ({
         dictionary,
-        icon: getStatusIcon('pending'),
         status: 'pending',
-        index,
-        spinnerFrameIndex: 0,
       })
     );
 
-    // Output initial statuses
-    for (const statusObj of dictionariesStatuses) {
-      process.stdout.write(getStatusLine(statusObj) + '\n');
-    }
+    // Initialize aggregated logger similar to loadDictionaries
+    const logger = new PushLogger();
+    logger.update(
+      dictionariesStatuses.map<PushStatus>((s) => ({
+        dictionaryKey: s.dictionary.key,
+        status: 'pending',
+      }))
+    );
 
     const successfullyPushedDictionaries: Dictionary[] = [];
-
-    // Start spinner timer
-    const spinnerTimer = setInterval(() => {
-      updateAllStatusLines(dictionariesStatuses);
-    }, 100); // Update every 100ms
 
     const processDictionary = async (
       statusObj: DictionariesStatus
     ): Promise<void> => {
       statusObj.status = 'pushing';
+      logger.update([
+        { dictionaryKey: statusObj.dictionary.key, status: 'pushing' },
+      ]);
 
       try {
         const pushResult = await intlayerAPI.dictionary.pushDictionaries([
@@ -134,9 +130,15 @@ export const push = async (options?: PushOptions): Promise<void> => {
         if (updatedDictionaries.includes(statusObj.dictionary.key)) {
           statusObj.status = 'modified';
           successfullyPushedDictionaries.push(statusObj.dictionary);
+          logger.update([
+            { dictionaryKey: statusObj.dictionary.key, status: 'modified' },
+          ]);
         } else if (newDictionaries.includes(statusObj.dictionary.key)) {
           statusObj.status = 'pushed';
           successfullyPushedDictionaries.push(statusObj.dictionary);
+          logger.update([
+            { dictionaryKey: statusObj.dictionary.key, status: 'pushed' },
+          ]);
         } else {
           statusObj.status = 'unknown';
         }
@@ -144,21 +146,50 @@ export const push = async (options?: PushOptions): Promise<void> => {
         statusObj.status = 'error';
         statusObj.error = error as Error;
         statusObj.errorMessage = `Error pushing dictionary ${statusObj.dictionary.key}: ${error}`;
+        logger.update([
+          { dictionaryKey: statusObj.dictionary.key, status: 'error' },
+        ]);
       }
     };
 
-    // Process dictionaries in parallel with a concurrency limit
-    const limit = pLimit(5); // Limit the number of concurrent requests
-    const pushPromises = dictionariesStatuses.map((statusObj) =>
-      limit(() => processDictionary(statusObj))
-    );
-    await Promise.all(pushPromises);
+    // Process dictionaries in parallel with a concurrency limit (reuse parallelize)
+    await parallelize(dictionariesStatuses, processDictionary, 5);
 
-    // Stop the spinner timer
-    clearInterval(spinnerTimer);
+    // Stop the logger and render final state
+    logger.finish();
 
-    // Update statuses one last time
-    updateAllStatusLines(dictionariesStatuses);
+    // Print per-dictionary summary similar to loadDictionaries
+    const iconFor = (status: DictionariesStatus['status']) => {
+      switch (status) {
+        case 'pushed':
+        case 'modified':
+          return '✔';
+        case 'error':
+          return '✖';
+        default:
+          return '⏲';
+      }
+    };
+
+    const colorFor = (status: DictionariesStatus['status']) => {
+      switch (status) {
+        case 'pushed':
+        case 'modified':
+          return ANSIColors.GREEN;
+        case 'error':
+          return ANSIColors.RED;
+        default:
+          return ANSIColors.BLUE;
+      }
+    };
+
+    for (const s of dictionariesStatuses) {
+      const icon = iconFor(s.status);
+      const color = colorFor(s.status);
+      appLogger(
+        ` - ${s.dictionary.key} ${ANSIColors.GREY}[${color}${icon} ${s.status}${ANSIColors.GREY}]${ANSIColors.RESET}`
+      );
+    }
 
     // Output any error messages
     for (const statusObj of dictionariesStatuses) {
@@ -263,55 +294,4 @@ const deleteLocalDictionaries = async (
   }
 };
 
-const getStatusIcon = (status: string): string => {
-  const statusIcons: Record<string, string> = {
-    pending: '⏲',
-    pushing: '', // Spinner handled separately
-    modified: '✔',
-    pushed: '✔',
-    error: '✖',
-  };
-  return statusIcons[status] || '';
-};
-
-const getStatusLine = (statusObj: DictionariesStatus): string => {
-  let icon = getStatusIcon(statusObj.status);
-  let colorStart = '';
-  let colorEnd = '';
-
-  if (statusObj.status === 'pushing') {
-    // Use spinner frame
-    icon = spinnerFrames[statusObj.spinnerFrameIndex! % spinnerFrames.length];
-    colorStart = ANSIColors.BLUE;
-    colorEnd = ANSIColors.RESET;
-  } else if (statusObj.status === 'error') {
-    colorStart = ANSIColors.RED;
-    colorEnd = ANSIColors.RESET;
-  } else if (statusObj.status === 'pushed' || statusObj.status === 'modified') {
-    colorStart = ANSIColors.GREEN;
-    colorEnd = ANSIColors.RESET;
-  } else {
-    colorStart = ANSIColors.GREY;
-    colorEnd = ANSIColors.RESET;
-  }
-
-  return `- ${statusObj.dictionary.key} ${ANSIColors.GREY_DARK}[${colorStart}${icon}${statusObj.status}${ANSIColors.GREY_DARK}]${colorEnd}`;
-};
-
-const updateAllStatusLines = (dictionariesStatuses: DictionariesStatus[]) => {
-  // Move cursor up to the first status line
-  readline.moveCursor(process.stdout, 0, -dictionariesStatuses.length);
-  for (const statusObj of dictionariesStatuses) {
-    // Clear the line
-    readline.clearLine(process.stdout, 0);
-
-    if (statusObj.status === 'pushing') {
-      // Update spinner frame
-      statusObj.spinnerFrameIndex =
-        (statusObj.spinnerFrameIndex! + 1) % spinnerFrames.length;
-    }
-
-    // Write the status line
-    process.stdout.write(getStatusLine(statusObj) + '\n');
-  }
-};
+// Legacy per-line spinner output removed in favor of aggregated PushLogger
