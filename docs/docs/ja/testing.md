@@ -53,7 +53,7 @@ npx intlayer content test
 
 Intlayer CLI APIを使って、必須ロケールの翻訳漏れがないことをアサートします。
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("translations", () => {
 
 Jestの同等コード:
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("必須のロケールが欠落していないこと", () => {

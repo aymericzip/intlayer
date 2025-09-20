@@ -53,7 +53,7 @@ Nota: la CLI stampa un report dettagliato ma non termina con codice diverso da z
 
 Usa l'API CLI di Intlayer per verificare che non ci siano traduzioni mancanti per i locali richiesti.
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("traduzioni", () => {
 
 Equivalente Jest:
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("non ha locali richiesti mancanti", () => {

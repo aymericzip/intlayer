@@ -53,7 +53,7 @@ Nota: la CLI imprime un informe detallado pero no termina con un código distint
 
 Usa la API CLI de Intlayer para asegurar que no falten traducciones en tus locales requeridos.
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("traducciones", () => {
 
 Equivalente en Jest:
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("no tiene locales requeridos faltantes", () => {

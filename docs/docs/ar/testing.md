@@ -52,7 +52,7 @@ npx intlayer content test
 
 استخدم واجهة برمجة تطبيقات Intlayer CLI للتأكد من عدم وجود ترجمات مفقودة للغات المطلوبة.
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -73,7 +73,7 @@ describe("الترجمات", () => {
 
 المكافئ في Jest:
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("لا توجد لغات مطلوبة مفقودة", () => {

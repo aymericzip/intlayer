@@ -53,7 +53,7 @@ npx intlayer content test
 
 अपने आवश्यक स्थानीय भाषाओं के लिए कोई गायब अनुवाद न होने का सत्यापन करने के लिए Intlayer CLI API का उपयोग करें।
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("अनुवाद", () => {
 
 Jest समतुल्य:
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("कोई आवश्यक स्थानीय भाषा गायब नहीं है", () => {

@@ -53,7 +53,7 @@ npx intlayer content test
 
 Используйте API Intlayer CLI, чтобы проверить, что отсутствующих переводов для обязательных локалей нет.
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("переводы", () => {
 
 Эквивалент для Jest:
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("отсутствуют обязательные локали", () => {

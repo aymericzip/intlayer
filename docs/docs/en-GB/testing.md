@@ -53,7 +53,7 @@ Note: the CLI prints a detailed report but does not exit with a non-zero code on
 
 Use the Intlayer CLI API to assert there are no missing translations for your required locales.
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("translations", () => {
 
 Jest equivalent:
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("has no missing required locales", () => {

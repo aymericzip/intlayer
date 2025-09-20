@@ -53,7 +53,7 @@ Hinweis: Die CLI gibt einen detaillierten Bericht aus, beendet sich jedoch bei F
 
 Verwenden Sie die Intlayer CLI API, um sicherzustellen, dass keine Übersetzungen für Ihre erforderlichen Sprachversionen fehlen.
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 /* @vitest-environment node */
 import { listMissingTranslations } from "intlayer/cli";
 import { describe, expect, it } from "vitest";
@@ -74,7 +74,7 @@ describe("Übersetzungen", () => {
 
 Jest-Äquivalent:
 
-```ts file=i18n.test.ts
+```ts fileName=i18n.test.ts
 import { listMissingTranslations } from "intlayer/cli";
 
 test("hat keine fehlenden erforderlichen Sprachversionen", () => {
