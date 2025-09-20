@@ -56,8 +56,12 @@ export const writeUnmergedDictionaries = async (
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(unmergedDictionariesDir), { recursive: true });
 
+  const filteredDictionaries = dictionaries.filter(
+    (dictionary) => dictionary.key
+  );
+
   //  Group dictionaries by key and write to unmergedDictionariesDir
-  const groupedDictionaries = groupDictionariesByKey(dictionaries);
+  const groupedDictionaries = groupDictionariesByKey(filteredDictionaries);
 
   let resultDictionariesPaths: UnmergedDictionaryOutput = {};
 
