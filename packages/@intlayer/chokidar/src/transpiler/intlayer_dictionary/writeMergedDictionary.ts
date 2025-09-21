@@ -1,4 +1,4 @@
-import { getConfiguration } from '@intlayer/config';
+import { colorizePath, getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { mkdir } from 'fs/promises';
 import { resolve } from 'path';
@@ -6,7 +6,6 @@ import { mergeDictionaries } from '../../mergeDictionaries';
 import { processPerLocaleDictionary } from '../../processPerLocaleDictionary';
 import { parallelize } from '../../utils/parallelize';
 import { writeJsonIfChanged } from '../../writeJsonIfChanged';
-import { formatDictionaryText } from './formatDictionaryText';
 import { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
 
 export type MergedDictionaryResult = {
@@ -57,15 +56,18 @@ export const writeMergedDictionaries = async (
 
       const mergedDictionary = mergeDictionaries(multiLocaleDictionaries);
 
-      const contentString = formatDictionaryText(mergedDictionary);
-
       const outputFileName = `${key}.json`;
       const resultFilePath = resolve(dictionariesDir, outputFileName);
 
       // Write the merged dictionary
-      await writeJsonIfChanged(resultFilePath, contentString).catch((err) => {
-        console.error(`Error creating merged ${outputFileName}:`, err);
-      });
+      await writeJsonIfChanged(resultFilePath, mergedDictionary).catch(
+        (err) => {
+          console.error(
+            `Error creating merged ${colorizePath(resultFilePath)}:`,
+            err
+          );
+        }
+      );
 
       return [
         key,

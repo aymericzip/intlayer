@@ -1,4 +1,8 @@
-import { getConfiguration, normalizePath } from '@intlayer/config';
+import {
+  colorizePath,
+  getConfiguration,
+  normalizePath,
+} from '@intlayer/config';
 import { mkdir } from 'fs/promises';
 import { relative, resolve } from 'path';
 import { parallelize } from '../../utils/parallelize';
@@ -90,7 +94,12 @@ export const writeFetchDictionary = async (
         await writeJsonIfChanged(
           resolve(fetchDictionariesDir, `${key}.${extension}`),
           content
-        );
+        ).catch((err) => {
+          console.error(
+            `Error creating fetch ${colorizePath(resolve(fetchDictionariesDir, `${key}.${extension}`))}:`,
+            err
+          );
+        });
       });
     }
   );

@@ -1,4 +1,4 @@
-import { getConfiguration } from '@intlayer/config';
+import { colorizePath, getConfiguration } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { mkdir } from 'fs/promises';
 import { resolve } from 'path';
@@ -6,7 +6,6 @@ import { filterInvalidDictionaries } from '../../filterInvalidDictionaries';
 import { formatDistantDictionaries } from '../../loadDictionaries';
 import { parallelize } from '../../utils/parallelize';
 import { writeJsonIfChanged } from '../../writeJsonIfChanged';
-import { formatDictionaryText } from './formatDictionaryText';
 
 /**
  * Write the localized dictionaries to the dictionariesDir
@@ -42,11 +41,12 @@ export const writeRemoteDictionary = async (
       const outputFileName = `${dictionary.key}.json`;
       const resultFilePath = resolve(remoteDictionariesDir, outputFileName);
 
-      const contentString = formatDictionaryText(dictionary);
-
       // Write the merged dictionary
-      await writeJsonIfChanged(resultFilePath, contentString).catch((err) => {
-        console.error(`Error creating merged ${outputFileName}:`, err);
+      await writeJsonIfChanged(resultFilePath, dictionary).catch((err) => {
+        console.error(
+          `Error creating merged ${colorizePath(resultFilePath)}:`,
+          err
+        );
       });
     }
   );

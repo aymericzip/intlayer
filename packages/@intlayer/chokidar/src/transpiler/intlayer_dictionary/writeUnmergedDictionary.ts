@@ -1,4 +1,4 @@
-import { getConfiguration, x } from '@intlayer/config';
+import { colorizePath, getConfiguration, x } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { mkdir } from 'fs/promises';
 import { resolve } from 'path';
@@ -6,7 +6,6 @@ import { filterInvalidDictionaries } from '../../filterInvalidDictionaries';
 import { orderDictionaries } from '../../orderDictionaries';
 import { parallelize } from '../../utils/parallelize';
 import { writeJsonIfChanged } from '../../writeJsonIfChanged';
-import { formatDictionaryText } from './formatDictionaryText';
 
 const groupDictionariesByKey = (
   dictionaries: Dictionary[]
@@ -78,15 +77,19 @@ export const writeUnmergedDictionaries = async (
         dictionaries,
         configuration
       );
-      const contentString = formatDictionaryText(orderedDictionaries);
 
       const outputFileName = `${key}.json`;
       const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
 
       // Write the grouped dictionaries
-      await writeJsonIfChanged(unmergedFilePath, contentString).catch((err) => {
-        console.error(`${x} Error creating unmerged ${outputFileName}:`, err);
-      });
+      await writeJsonIfChanged(unmergedFilePath, orderedDictionaries).catch(
+        (err) => {
+          console.error(
+            `${x} Error creating unmerged ${colorizePath(unmergedFilePath)}:`,
+            err
+          );
+        }
+      );
 
       return [
         key,

@@ -1,10 +1,14 @@
-import { getConfiguration, Locales, normalizePath } from '@intlayer/config';
+import {
+  colorizePath,
+  getConfiguration,
+  Locales,
+  normalizePath,
+} from '@intlayer/config';
 import { getLocalisedContent, type Dictionary } from '@intlayer/core';
 import { mkdir } from 'fs/promises';
 import { relative, resolve } from 'path';
 import { parallelize } from '../../utils/parallelize';
 import { writeJsonIfChanged } from '../../writeJsonIfChanged';
-import { formatDictionaryText } from './formatDictionaryText';
 import { MergedDictionaryOutput } from './writeMergedDictionary';
 
 export type DictionaryResult = {
@@ -108,15 +112,15 @@ export const writeDynamicDictionary = async (
           ) as any,
         };
 
-        const contentString = formatDictionaryText(localizedDictionary);
-
         const outputFileName = `${key}.${locale}.json`;
         const resultFilePath = resolve(dynamicDictionariesDir, outputFileName);
 
         // Write the localized dictionary
-        await writeJsonIfChanged(resultFilePath, contentString).catch((err) => {
-          console.error(`Error creating localized ${outputFileName}:`, err);
-        });
+        await writeJsonIfChanged(resultFilePath, localizedDictionary).catch(
+          (err) => {
+            console.error(`Error creating localized ${outputFileName}:`, err);
+          }
+        );
 
         localedDictionariesPathsRecord[locale] = {
           dictionaryPath: resultFilePath,
@@ -137,7 +141,12 @@ export const writeDynamicDictionary = async (
         await writeJsonIfChanged(
           resolve(dynamicDictionariesDir, `${key}.${extension}`),
           content
-        );
+        ).catch((err) => {
+          console.error(
+            `Error creating dynamic ${colorizePath(resolve(dynamicDictionariesDir, `${key}.${extension}`))}:`,
+            err
+          );
+        });
       });
     }
   );
