@@ -6,6 +6,7 @@ import {
   v,
   x,
 } from '@intlayer/config';
+import { extractErrorMessage } from '../utils/extractErrorMessage';
 import type { DictionariesStatus } from './loadDictionaries';
 
 export class DictionariesLogger {
@@ -19,7 +20,7 @@ export class DictionariesLogger {
   private lastRenderedState: string = '';
   private remoteCheckInProgress = false;
   private expectRemote = false;
-  private remoteError = false;
+  private remoteError: string | undefined;
 
   constructor() {
     const configuration = getConfiguration();
@@ -87,8 +88,8 @@ export class DictionariesLogger {
     this.spinnerTimer = null;
   }
 
-  public setRemoteError = (_error?: Error) => {
-    this.remoteError = true;
+  public setRemoteError = (error?: Error) => {
+    this.remoteError = extractErrorMessage(error);
     this.render();
   };
 
@@ -109,11 +110,11 @@ export class DictionariesLogger {
     if (!suppressLocalWhileCheckingRemote) {
       if (isLocalDone) {
         lines.push(
-          `${this.prefix} ${v} Local dictionaries: ${colorize(`${localDone}`, ANSIColors.GREEN)}${colorize(`/${localTotal}`, ANSIColors.GREY)}`
+          `${this.prefix} ${v} Local content: ${colorize(`${localDone}`, ANSIColors.GREEN)}${colorize(`/${localTotal}`, ANSIColors.GREY)}`
         );
       } else {
         lines.push(
-          `${this.prefix} ${clock} Local dictionaries: ${colorize(`${localDone}`, ANSIColors.BLUE)}${colorize(`/${localTotal}`, ANSIColors.GREY)}`
+          `${this.prefix} ${clock} Local content: ${colorize(`${localDone}`, ANSIColors.BLUE)}${colorize(`/${localTotal}`, ANSIColors.GREY)}`
         );
       }
     }
@@ -122,19 +123,22 @@ export class DictionariesLogger {
     if (remoteTotal > 0 || this.remoteCheckInProgress || this.remoteError) {
       if (this.remoteError) {
         lines.push(
-          `${this.prefix} ${x} Remote dictionaries: ${colorize('Failed to fetch', ANSIColors.RED)}`
+          `${this.prefix} ${x} Remote content: ${colorize(
+            this.remoteError,
+            ANSIColors.RED
+          )}`
         );
       } else if (remoteTotal === 0) {
         lines.push(
-          `${this.prefix} ${clock} Remote dictionaries: ${colorize('Check server', ANSIColors.BLUE)}`
+          `${this.prefix} ${clock} Remote content: ${colorize('Check server', ANSIColors.BLUE)}`
         );
       } else if (isRemoteDone) {
         lines.push(
-          `${this.prefix} ${v} Remote dictionaries: ${colorize(`${remoteDone}`, ANSIColors.GREEN)}${colorize(`/${remoteTotal}`, ANSIColors.GREY)}`
+          `${this.prefix} ${v} Remote content: ${colorize(`${remoteDone}`, ANSIColors.GREEN)}${colorize(`/${remoteTotal}`, ANSIColors.GREY)}`
         );
       } else {
         lines.push(
-          `${this.prefix} ${clock} Remote dictionaries: ${colorize(`${remoteDone}`, ANSIColors.BLUE)}${colorize(`/${remoteTotal}`, ANSIColors.GREY)}`
+          `${this.prefix} ${clock} Remote content: ${colorize(`${remoteDone}`, ANSIColors.BLUE)}${colorize(`/${remoteTotal}`, ANSIColors.GREY)}`
         );
       }
     }

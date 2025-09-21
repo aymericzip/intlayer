@@ -42,7 +42,7 @@ export const loadRemoteDictionaries = async (
     const getDictionariesKeysResult =
       await intlayerAPI.dictionary.getDictionariesUpdateTimestamp();
 
-    const distantDictionaryUpdateTimeStamp: Record<string, number> =
+    const distantDictionaryUpdateTimeStamp: Record<string, number> | null =
       getDictionariesKeysResult.data;
 
     if (!distantDictionaryUpdateTimeStamp) {
@@ -137,7 +137,6 @@ export const loadRemoteDictionaries = async (
 
     return [...cachedDictionaries, ...distantDictionaries];
   } catch (error) {
-    console.error(error);
     options?.onError?.(error as Error);
     return [];
   } finally {

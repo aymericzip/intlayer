@@ -6,6 +6,7 @@ import {
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
+import packageJson from '@intlayer/config/package.json' with { type: 'json' };
 import { cleanOutputDir } from './cleanOutputDir';
 import { listDictionaries } from './listDictionariesPath';
 import { loadDictionaries } from './loadDictionaries/loadDictionaries';
@@ -26,6 +27,11 @@ export const prepareIntlayer = async (
   const appLogger = getAppLogger(configuration);
   const preparationStartMs = Date.now();
 
+  appLogger([
+    'Preparing Intlayer',
+    colorize(`(v${packageJson.version})`, ANSIColors.GREY_DARK),
+  ]);
+
   if (clean) {
     cleanOutputDir(configuration);
   }
@@ -40,17 +46,22 @@ export const prepareIntlayer = async (
 
   const dictionariesLoadedTime = Date.now();
 
-  appLogger([
-    'Content loaded',
-    colorize(
-      [
-        dictionaries.remoteDictionaries.length > 0
-          ? ` (Total: ${dictionariesLoadedTime - preparationStartMs}ms - Local: ${dictionaries.time.localDictionaries}ms - Remote: ${dictionaries.time.remoteDictionaries}ms)`
-          : `(${dictionariesLoadedTime - preparationStartMs}ms)`,
-      ].join(''),
-      ANSIColors.GREY_DARK
-    ),
-  ]);
+  appLogger(
+    [
+      'Content loaded',
+      colorize(
+        [
+          dictionaries.remoteDictionaries.length > 0
+            ? ` (Total: ${dictionariesLoadedTime - preparationStartMs}ms - Local: ${dictionaries.time.localDictionaries}ms - Remote: ${dictionaries.time.remoteDictionaries}ms)`
+            : `(${dictionariesLoadedTime - preparationStartMs}ms)`,
+        ].join(''),
+        ANSIColors.GREY_DARK
+      ),
+    ],
+    {
+      isVerbose: true,
+    }
+  );
 
   // Build local dictionaries
   const dictionariesOutput = await buildDictionary(

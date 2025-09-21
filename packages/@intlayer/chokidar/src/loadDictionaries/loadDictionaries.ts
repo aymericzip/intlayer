@@ -217,7 +217,7 @@ export const loadDictionaries = async (
       {
         onStartRemoteCheck: () => logger.startRemoteCheck(),
         onStopRemoteCheck: () => logger.stopRemoteCheck(),
-        onError: () => logger.setRemoteError(),
+        onError: (e) => logger.setRemoteError(e),
       }
     );
   }
