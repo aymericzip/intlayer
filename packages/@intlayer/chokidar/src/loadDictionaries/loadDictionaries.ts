@@ -163,7 +163,12 @@ export const loadDictionaries = async (
 ): Promise<{
   localDictionaries: Dictionary[];
   remoteDictionaries: Dictionary[];
+  time: {
+    localDictionaries: number;
+    remoteDictionaries: number;
+  };
 }> => {
+  const loadDictionariesStartTime = Date.now();
   const appLogger = getAppLogger(configuration);
 
   appLogger('Dictionaries:', { isVerbose: true });
@@ -178,6 +183,8 @@ export const loadDictionaries = async (
     projectRequire,
     setLoadDictionariesStatus
   );
+
+  const localDictionariesTime = Date.now();
 
   const filteredLocalDictionaries = localDictionaries.filter((dict) => {
     const hasKey = Boolean(dict.key);
@@ -224,6 +231,7 @@ export const loadDictionaries = async (
       setLoadDictionariesStatus
     );
   }
+  const remoteDictionariesTime = Date.now();
 
   // Stop spinner and show final progress line(s)
   logger.finish();
@@ -233,5 +241,9 @@ export const loadDictionaries = async (
   return {
     localDictionaries: filteredLocalDictionaries,
     remoteDictionaries,
+    time: {
+      localDictionaries: localDictionariesTime - loadDictionariesStartTime,
+      remoteDictionaries: remoteDictionariesTime - localDictionariesTime,
+    },
   };
 };

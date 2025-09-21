@@ -38,6 +38,22 @@ export const prepareIntlayer = async (
     projectRequire
   );
 
+  const dictionariesLoadedTime = Date.now();
+
+  appLogger([
+    'Dictionaries loaded',
+    colorize(
+      [
+        `(Total: ${dictionariesLoadedTime - preparationStartMs}ms - Local: ${dictionaries.time.localDictionaries}ms`,
+        dictionaries.remoteDictionaries.length > 0
+          ? ` - Remote: ${dictionaries.time.remoteDictionaries}ms`
+          : '',
+        ')',
+      ].join(''),
+      ANSIColors.GREY_DARK
+    ),
+  ]);
+
   // Build local dictionaries
   const dictionariesOutput = await buildDictionary(
     [...dictionaries.localDictionaries, ...dictionaries.remoteDictionaries],
@@ -56,19 +72,49 @@ export const prepareIntlayer = async (
 
   await createDictionaryEntryPoint(configuration);
 
-  appLogger('Dictionaries built');
+  const dictionariesBuiltTime = Date.now();
+
+  appLogger([
+    'Dictionaries built',
+    colorize(
+      `(${dictionariesBuiltTime - preparationStartMs}ms)`,
+      ANSIColors.GREY_DARK
+    ),
+  ]);
 
   await createModuleAugmentation(configuration);
 
-  appLogger('Module augmentation built', {
-    isVerbose: true,
-  });
+  const moduleAugmentationBuiltTime = Date.now();
+
+  appLogger(
+    [
+      'Module augmentation built',
+      colorize(
+        `(${moduleAugmentationBuiltTime - dictionariesBuiltTime}ms)`,
+        ANSIColors.GREY_DARK
+      ),
+    ],
+    {
+      isVerbose: true,
+    }
+  );
 
   await writeConfiguration(configuration);
 
-  appLogger('Configuration written', {
-    isVerbose: true,
-  });
+  const configurationWrittenTime = Date.now();
+
+  appLogger(
+    [
+      'Configuration written',
+      colorize(
+        `(${configurationWrittenTime - preparationStartMs}ms)`,
+        ANSIColors.GREY_DARK
+      ),
+    ],
+    {
+      isVerbose: true,
+    }
+  );
 
   const preparationElapsedMs = Date.now() - preparationStartMs;
   appLogger([`Done`, colorize(`${preparationElapsedMs}ms`, ANSIColors.GREEN)], {
