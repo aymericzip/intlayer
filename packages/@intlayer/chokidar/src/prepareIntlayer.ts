@@ -44,11 +44,9 @@ export const prepareIntlayer = async (
     'Content loaded',
     colorize(
       [
-        `(Total: ${dictionariesLoadedTime - preparationStartMs}ms - Local: ${dictionaries.time.localDictionaries}ms`,
         dictionaries.remoteDictionaries.length > 0
-          ? ` - Remote: ${dictionaries.time.remoteDictionaries}ms`
-          : '',
-        ')',
+          ? ` (Total: ${dictionariesLoadedTime - preparationStartMs}ms - Local: ${dictionaries.time.localDictionaries}ms - Remote: ${dictionaries.time.remoteDictionaries}ms)`
+          : `(${dictionariesLoadedTime - preparationStartMs}ms)`,
       ].join(''),
       ANSIColors.GREY_DARK
     ),
