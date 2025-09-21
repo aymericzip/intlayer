@@ -41,7 +41,7 @@ export const prepareIntlayer = async (
   const dictionariesLoadedTime = Date.now();
 
   appLogger([
-    'Dictionaries loaded',
+    'Content loaded',
     colorize(
       [
         `(Total: ${dictionariesLoadedTime - preparationStartMs}ms - Local: ${dictionaries.time.localDictionaries}ms`,

@@ -72,22 +72,22 @@ export class DictionariesLogger {
 
     if (isLocalDone) {
       lines.push(
-        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} local dictionaries: ${localDone}/${localTotal}`
+        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} Local dictionaries: ${localDone}/${localTotal}`
       );
     } else {
       lines.push(
-        `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} local dictionaries: ${localDone}/${localTotal}`
+        `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} Local dictionaries: ${localDone}/${localTotal}`
       );
     }
 
     if (remoteTotal > 0) {
       if (isRemoteDone) {
         lines.push(
-          `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} remote dictionaries: ${remoteDone}/${remoteTotal}`
+          `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} Remote dictionaries: ${remoteDone}/${remoteTotal}`
         );
       } else {
         lines.push(
-          `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} remote dictionaries: ${remoteDone}/${remoteTotal}`
+          `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} Remote dictionaries: ${remoteDone}/${remoteTotal}`
         );
       }
     }
