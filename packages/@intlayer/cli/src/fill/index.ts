@@ -1,9 +1,10 @@
-import { AIOptions, getAiAPI, getOAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
+import { AIOptions, getIntlayerAPIProxy } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
   formatLocale,
   formatPath,
   ListGitFilesOptions,
   mergeDictionaries,
+  parallelize,
   prepareIntlayer,
   processPerLocaleDictionary,
   reduceDictionaryContent,
@@ -14,7 +15,6 @@ import {
   colorizePath,
   getAppLogger,
   getConfiguration,
-  GetConfigurationOptions,
   Locales,
 } from '@intlayer/config';
 import {
@@ -24,12 +24,15 @@ import {
   getLocalisedContent,
   getMissingLocalesContent,
 } from '@intlayer/core';
-import dictionariesRecord from '@intlayer/dictionaries-entry';
-import pLimit from 'p-limit';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { relative } from 'path';
+import {
+  ensureArray,
+  GetTargetDictionaryOptions,
+  getTargetUnmergedDictionaries,
+} from '../getTargetDictionary';
 import { checkAIAccess } from '../utils/checkAIAccess';
 import { autoFill } from './autoFill';
-import { ensureArray, getTargetDictionary } from './getTargetDictionary';
 
 const NB_CONCURRENT_TRANSLATIONS = 8;
 
@@ -37,19 +40,13 @@ const NB_CONCURRENT_TRANSLATIONS = 8;
 export type FillOptions = {
   sourceLocale?: Locales;
   outputLocales?: Locales | Locales[];
-  file?: string | string[];
   mode?: 'complete' | 'review';
-  keys?: string | string[];
-  excludedKeys?: string | string[];
-  filter?: (entry: Dictionary) => boolean; // DictionaryEntry needs to be defined
-  pathFilter?: string | string[];
   gitOptions?: ListGitFilesOptions;
-  configOptions?: GetConfigurationOptions;
   aiOptions?: AIOptions; // Added aiOptions to be passed to translateJSON
   verbose?: boolean;
   nbConcurrentTranslations?: number;
   build?: boolean;
-};
+} & GetTargetDictionaryOptions;
 
 /**
  * Fill translations based on the provided options.
@@ -75,19 +72,12 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
   checkAIAccess(configuration, options.aiOptions);
 
-  let oAuth2AccessToken: string | undefined;
-  if (configuration.editor.clientId) {
-    const intlayerAuthAPI = getOAuthAPI(configuration);
-    const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
-
-    oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
-  }
-
   appLogger('Starting fill function', {
     level: 'info',
   });
 
-  const targetUnmergedDictionaries = await getTargetDictionary(options);
+  const targetUnmergedDictionaries =
+    await getTargetUnmergedDictionaries(options);
 
   const affectedDictionaryKeys = new Set<string>();
   targetUnmergedDictionaries.forEach((dict) => {
@@ -108,7 +98,11 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
   for (const targetUnmergedDictionary of targetUnmergedDictionaries) {
     const dictionaryKey = targetUnmergedDictionary.key;
-    const mainDictionaryToProcess = dictionariesRecord[dictionaryKey];
+    const dictionariesRecord = getDictionaries(configuration);
+
+    const mainDictionaryToProcess: Dictionary =
+      dictionariesRecord[dictionaryKey];
+
     const sourceLocale: Locales =
       (targetUnmergedDictionary.locale as Locales) ?? baseLocale;
 
@@ -159,12 +153,6 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     const result: Dictionary[] = [];
 
-    // 5. for each locale to translate (exclude base locale) generate json translations
-    // Limit concurrent translations to 5 at a time
-    const limit = pLimit(
-      options.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
-    );
-
     // Determine output locales
     let outputLocalesList: Locales[] = outputLocales;
 
@@ -184,8 +172,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
       outputLocalesList = missingLocales;
     }
 
-    const translationPromises = outputLocalesList.map((targetLocale) =>
-      limit(async () => {
+    const translationResults = await parallelize(
+      outputLocalesList,
+      async (targetLocale) => {
         appLogger(
           `Preparing translation for '${colorizeKey(dictionaryKey)}' dictionary from ${formatLocale(sourceLocale)} to ${formatLocale(targetLocale)}`,
           {
@@ -200,27 +189,18 @@ export const fill = async (options: FillOptions): Promise<void> => {
         );
 
         try {
-          const translationResult = await getAiAPI(
+          const translationResult = await getIntlayerAPIProxy(
             undefined,
             configuration
-          ).translateJSON(
-            {
-              entryFileContent: sourceLocaleContent.content, // Should be JSON, ensure getLocalisedContent provides this.
-              presetOutputContent: presetOutputContent.content, // Should be JSON
-              dictionaryDescription: mainDictionaryToProcess.description,
-              entryLocale: sourceLocale,
-              outputLocale: targetLocale,
-              mode,
-              aiOptions: options.aiOptions,
-            },
-            {
-              ...(oAuth2AccessToken && {
-                headers: {
-                  Authorization: `Bearer ${oAuth2AccessToken}`,
-                },
-              }),
-            }
-          );
+          ).ai.translateJSON({
+            entryFileContent: sourceLocaleContent.content, // Should be JSON, ensure getLocalisedContent provides this.
+            presetOutputContent: presetOutputContent.content, // Should be JSON
+            dictionaryDescription: mainDictionaryToProcess.description ?? '',
+            entryLocale: sourceLocale,
+            outputLocale: targetLocale,
+            mode,
+            aiOptions: options.aiOptions,
+          });
 
           if (!translationResult.data?.fileContent) {
             appLogger(
@@ -249,11 +229,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
           );
           return null;
         }
-      })
+      },
+      options.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
     );
-
-    // Wait for all translations to complete
-    const translationResults = await Promise.all(translationPromises);
 
     // Filter out null results and add to result array
     translationResults.forEach((translationResult) => {

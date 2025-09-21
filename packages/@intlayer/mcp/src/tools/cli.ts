@@ -285,7 +285,10 @@ export const loadCLITools = async (server: McpServer) => {
     },
     async (props) => {
       try {
-        const missingTranslations = listMissingTranslations(props);
+        const missingTranslations = listMissingTranslations(
+          undefined,
+          props?.configOptions
+        );
         return {
           content: [
             {

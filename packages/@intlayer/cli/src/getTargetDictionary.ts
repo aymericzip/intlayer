@@ -1,16 +1,30 @@
-import { listGitFiles } from '@intlayer/chokidar';
-import { getConfiguration } from '@intlayer/config';
-import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
+import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
+import { getConfiguration, GetConfigurationOptions } from '@intlayer/config';
+import { Dictionary } from '@intlayer/core';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { join } from 'path';
-import type { FillOptions } from './index';
 
 export const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
 
-export const getTargetDictionary = async (options: FillOptions) => {
+// Arguments for the fill function
+export type GetTargetDictionaryOptions = {
+  file?: string | string[];
+  keys?: string | string[];
+  excludedKeys?: string | string[];
+  filter?: (entry: Dictionary) => boolean; // DictionaryEntry needs to be defined
+  pathFilter?: string | string[];
+  gitOptions?: ListGitFilesOptions;
+  configOptions?: GetConfigurationOptions;
+};
+
+export const getTargetUnmergedDictionaries = async (
+  options: GetTargetDictionaryOptions
+): Promise<Dictionary[]> => {
   const configuration = getConfiguration(options.configOptions);
 
   const { baseDir } = configuration.content;
 
+  const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
   let result = Object.values(unmergedDictionariesRecord).flat();
 
   // 1. if filePath not defined, list all content declaration files based on unmerged dictionaries list

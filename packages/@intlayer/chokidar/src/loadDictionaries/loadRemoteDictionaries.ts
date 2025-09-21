@@ -1,9 +1,9 @@
 import { getIntlayerAPIProxy } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { getAppLogger, getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import remoteDictionariesRecord from '@intlayer/remote-dictionaries-entry';
+import { getRemoteDictionaries } from '@intlayer/remote-dictionaries-entry';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
 import { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
@@ -26,9 +26,8 @@ export const loadRemoteDictionaries = async (
     onError?: (error: Error) => void;
   }
 ): Promise<DictionaryAPI[]> => {
-  const appLogger = getAppLogger(configuration);
-
   const { editor } = configuration;
+  const remoteDictionariesRecord = getRemoteDictionaries(configuration);
 
   const hasRemoteDictionaries = Boolean(editor.clientId && editor.clientSecret);
 
@@ -43,7 +42,8 @@ export const loadRemoteDictionaries = async (
     const getDictionariesKeysResult =
       await intlayerAPI.dictionary.getDictionariesUpdateTimestamp();
 
-    const distantDictionaryUpdateTimeStamp = getDictionariesKeysResult.data;
+    const distantDictionaryUpdateTimeStamp: Record<string, number> =
+      getDictionariesKeysResult.data;
 
     if (!distantDictionaryUpdateTimeStamp) {
       throw new Error('No distant dictionaries found');

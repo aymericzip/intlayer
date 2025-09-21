@@ -25,7 +25,6 @@ const config: IntlayerConfig = {
     strictMode: 'strict',
   },
   content: {
-    dictionaryOutput: ['intlayer'],
     contentDir: ['./src', '../../packages/@intlayer/design-system/src'],
   },
   editor: {

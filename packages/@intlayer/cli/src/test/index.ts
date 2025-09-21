@@ -29,7 +29,7 @@ export const testMissingTranslations = (
     },
   });
 
-  const result = listMissingTranslations();
+  const result = listMissingTranslations(undefined, options?.configOptions);
 
   const maxKeyColSize = result.missingTranslations
     .map((t) => ` - ${t.key}`)

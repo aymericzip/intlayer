@@ -12,8 +12,9 @@ import {
   GetConfigurationOptions,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import dictionariesRecord from '@intlayer/dictionaries-entry';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import * as fsPromises from 'fs/promises';
+import { join } from 'path';
 import * as readline from 'readline';
 import { PushLogger, type PushStatus } from './pushLog';
 
@@ -52,6 +53,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
     const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
+    const dictionariesRecord = getDictionaries(config);
     let dictionaries: Dictionary[] = Object.values(dictionariesRecord);
     const existingDictionariesKeys: string[] = Object.keys(dictionariesRecord);
 
@@ -80,6 +82,12 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
     if (options?.gitOptions) {
       const gitFiles = await listGitFiles(options.gitOptions);
+
+      dictionaries = dictionaries.filter((dictionary) =>
+        gitFiles.includes(
+          join(config.content.baseDir, dictionary.filePath ?? '')
+        )
+      );
     }
 
     // Check if the dictionaries list is empty

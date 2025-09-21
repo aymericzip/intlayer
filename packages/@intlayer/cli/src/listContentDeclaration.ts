@@ -7,7 +7,7 @@ import {
   getConfiguration,
   type GetConfigurationOptions,
 } from '@intlayer/config';
-import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { relative } from 'path';
 
 type ListContentDeclarationOptions = {
@@ -18,6 +18,8 @@ export const listContentDeclarationRows = (
   options?: ListContentDeclarationOptions
 ) => {
   const config = getConfiguration(options?.configOptions);
+
+  const unmergedDictionariesRecord = getUnmergedDictionaries(config);
 
   const rows = Object.values(unmergedDictionariesRecord)
     .flat()

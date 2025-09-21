@@ -1,7 +1,7 @@
 import configuration from '@intlayer/config/built';
 import { colorizePath, x, type IntlayerConfig } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
-import dictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
 import { mkdir, writeFile } from 'fs/promises';
 import { dirname, extname } from 'path';
@@ -40,8 +40,9 @@ export const writeContentDeclaration = async (
     newDictionariesPath ?? DEFAULT_NEW_DICTIONARY_PATH;
   const newDictionaryLocationPath = `${baseDir}/${newDictionaryRelativeLocationPath}`;
 
+  const unmergedDictionariesRecord = getUnmergedDictionaries(config);
   const existingDictionary = (
-    dictionariesRecord[dictionary.key] as Dictionary[]
+    unmergedDictionariesRecord[dictionary.key] as Dictionary[]
   ).filter((el) => el.filePath === dictionary.filePath);
 
   const filePath = dictionary.filePath;
