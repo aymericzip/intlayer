@@ -10,7 +10,7 @@ import {
   type IntlayerConfig,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { relative } from 'node:path';
+import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadRemoteDictionaries } from './loadRemoteDictionaries';
 import { DictionariesLogger } from './log';
@@ -186,28 +186,8 @@ export const loadDictionaries = async (
 
   const localDictionariesTime = Date.now();
 
-  const filteredLocalDictionaries = localDictionaries.filter((dict) => {
-    const hasKey = Boolean(dict.key);
-    const hasContent = Boolean(dict.content);
-
-    if (!hasContent) {
-      appLogger(
-        [
-          'Content declaration has no exported content',
-          dict.filePath
-            ? relative(configuration.content.baseDir, dict.filePath)
-            : '',
-        ],
-        { level: 'error' }
-      );
-    } else if (!hasKey) {
-      appLogger(['Content declaration has no key', dict.filePath], {
-        level: 'error',
-      });
-    }
-
-    return hasKey && hasContent;
-  });
+  const filteredLocalDictionaries =
+    filterInvalidDictionaries(localDictionaries);
 
   const localDictionariesStatus = filteredLocalDictionaries.map(
     (dict) =>
@@ -224,11 +204,21 @@ export const loadDictionaries = async (
     configuration.editor.clientId && configuration.editor.clientSecret
   );
 
+  if (hasRemoteDictionaries) {
+    // We expect to fetch remote dictionaries soon; suppress a transient local-only render
+    logger.setExpectRemote(true);
+  }
+
   let remoteDictionaries: Dictionary[] = [];
   if (hasRemoteDictionaries) {
     remoteDictionaries = await loadRemoteDictionaries(
       configuration,
-      setLoadDictionariesStatus
+      setLoadDictionariesStatus,
+      {
+        onStartRemoteCheck: () => logger.startRemoteCheck(),
+        onStopRemoteCheck: () => logger.stopRemoteCheck(),
+        onError: () => logger.setRemoteError(),
+      }
     );
   }
   const remoteDictionariesTime = Date.now();

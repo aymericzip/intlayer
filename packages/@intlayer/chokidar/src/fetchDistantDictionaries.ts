@@ -1,12 +1,7 @@
-import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
+import { getIntlayerAPIProxy } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import {
-  ANSIColors,
-  colorize,
-  getAppLogger,
-  getConfiguration,
-} from '@intlayer/config';
+import { getAppLogger, getConfiguration, x } from '@intlayer/config';
 import { DictionariesStatus } from './loadDictionaries';
 import { parallelize } from './utils/parallelize';
 
@@ -26,24 +21,10 @@ export const fetchDistantDictionaries = async (
   const config = getConfiguration();
   const appLogger = getAppLogger(config);
   try {
-    const { clientId, clientSecret } = config.editor;
-    const authAPI = getOAuthAPI(config);
-    const dictionaryAPI = getDictionaryAPI(undefined, config);
-
-    if (!clientId || !clientSecret) {
-      throw new Error(
-        'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
-      );
-    }
-
-    const oAuth2TokenResult = await authAPI.getOAuth2AccessToken();
-
-    const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
+    const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
     const distantDictionariesKeys = options.dictionaryKeys;
-
     // Process dictionaries in parallel with a concurrency limit
-
     const processDictionary = async (
       dictionaryKey: string
     ): Promise<DictionaryAPI | undefined> => {
@@ -57,17 +38,8 @@ export const fetchDistantDictionaries = async (
 
       try {
         // Fetch the dictionary
-        const getDictionaryResult = await dictionaryAPI.getDictionary(
-          dictionaryKey,
-          undefined,
-          {
-            ...(oAuth2AccessToken && {
-              headers: {
-                Authorization: `Bearer ${oAuth2AccessToken}`,
-              },
-            }),
-          }
-        );
+        const getDictionaryResult =
+          await intlayerAPI.dictionary.getDictionary(dictionaryKey);
 
         const distantDictionary = getDictionaryResult.data;
 
@@ -106,10 +78,7 @@ export const fetchDistantDictionaries = async (
 
     return filteredResult;
   } catch (error) {
-    appLogger(
-      `${colorize('✗', ANSIColors.RED)} Failed to fetch distant dictionaries`,
-      { level: 'error' }
-    );
+    appLogger(`${x} Failed to fetch distant dictionaries`, { level: 'error' });
     return [];
   }
 };

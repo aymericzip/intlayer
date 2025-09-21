@@ -3,6 +3,8 @@ import {
   colorize,
   getConfiguration,
   spinnerFrames,
+  v,
+  x,
 } from '@intlayer/config';
 import type { DictionariesStatus } from './loadDictionaries';
 
@@ -15,10 +17,28 @@ export class DictionariesLogger {
   private isFinished = false;
   private readonly prefix: string;
   private lastRenderedState: string = '';
+  private remoteCheckInProgress = false;
+  private expectRemote = false;
+  private remoteError = false;
 
   constructor() {
     const configuration = getConfiguration();
     this.prefix = configuration.log.prefix;
+  }
+
+  setExpectRemote(expect: boolean) {
+    this.expectRemote = expect;
+  }
+
+  startRemoteCheck() {
+    if (this.isFinished) return;
+    this.remoteCheckInProgress = true;
+    this.startSpinner();
+    this.render();
+  }
+
+  stopRemoteCheck() {
+    this.remoteCheckInProgress = false;
   }
 
   update(newStatuses: DictionariesStatus[]) {
@@ -33,6 +53,13 @@ export class DictionariesLogger {
       } else {
         this.statuses.push(status);
       }
+    }
+
+    // If we expect remote fetch later, avoid rendering a local-only line first
+    const { remoteTotal } = this.computeProgress();
+    if (this.expectRemote && !this.remoteCheckInProgress && remoteTotal === 0) {
+      // Do not start spinner or render yet; wait until remote check starts
+      return;
     }
 
     this.startSpinner();
@@ -60,34 +87,54 @@ export class DictionariesLogger {
     this.spinnerTimer = null;
   }
 
+  public setRemoteError = (_error?: Error) => {
+    this.remoteError = true;
+    this.render();
+  };
+
   private render() {
     const { localTotal, localDone, remoteTotal, remoteDone } =
       this.computeProgress();
 
     const frame = this.spinnerFrames[this.spinnerIndex];
+    const clock = colorize(frame, ANSIColors.BLUE);
     const lines: string[] = [];
 
     const isLocalDone = localDone === localTotal;
     const isRemoteDone = remoteDone === remoteTotal;
 
-    if (isLocalDone) {
-      lines.push(
-        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} Local dictionaries: ${localDone}/${localTotal}`
-      );
-    } else {
-      lines.push(
-        `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} Local dictionaries: ${localDone}/${localTotal}`
-      );
-    }
+    const suppressLocalWhileCheckingRemote =
+      this.expectRemote && this.remoteCheckInProgress && remoteTotal === 0;
 
-    if (remoteTotal > 0) {
-      if (isRemoteDone) {
+    if (!suppressLocalWhileCheckingRemote) {
+      if (isLocalDone) {
         lines.push(
-          `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} Remote dictionaries: ${remoteDone}/${remoteTotal}`
+          `${this.prefix} ${v} Local dictionaries: ${colorize(`${localDone}`, ANSIColors.GREEN)}${colorize(`/${localTotal}`, ANSIColors.GREY)}`
         );
       } else {
         lines.push(
-          `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} Remote dictionaries: ${remoteDone}/${remoteTotal}`
+          `${this.prefix} ${clock} Local dictionaries: ${colorize(`${localDone}`, ANSIColors.BLUE)}${colorize(`/${localTotal}`, ANSIColors.GREY)}`
+        );
+      }
+    }
+
+    // Single remote line: show error, check, or progress counts
+    if (remoteTotal > 0 || this.remoteCheckInProgress || this.remoteError) {
+      if (this.remoteError) {
+        lines.push(
+          `${this.prefix} ${x} Remote dictionaries: ${colorize('Failed to fetch', ANSIColors.RED)}`
+        );
+      } else if (remoteTotal === 0) {
+        lines.push(
+          `${this.prefix} ${clock} Remote dictionaries: ${colorize('Check server', ANSIColors.BLUE)}`
+        );
+      } else if (isRemoteDone) {
+        lines.push(
+          `${this.prefix} ${v} Remote dictionaries: ${colorize(`${remoteDone}`, ANSIColors.GREEN)}${colorize(`/${remoteTotal}`, ANSIColors.GREY)}`
+        );
+      } else {
+        lines.push(
+          `${this.prefix} ${clock} Remote dictionaries: ${colorize(`${remoteDone}`, ANSIColors.BLUE)}${colorize(`/${remoteTotal}`, ANSIColors.GREY)}`
         );
       }
     }
