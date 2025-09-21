@@ -11,6 +11,9 @@ import {
   writeContentDeclaration,
 } from '@intlayer/chokidar';
 import {
+  ANSIColors,
+  colon,
+  colorize,
   colorizeKey,
   colorizePath,
   getAppLogger,
@@ -72,6 +75,8 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
   checkAIAccess(configuration, options.aiOptions);
 
+  const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
+
   appLogger('Starting fill function', {
     level: 'info',
   });
@@ -84,19 +89,30 @@ export const fill = async (options: FillOptions): Promise<void> => {
     affectedDictionaryKeys.add(dict.key);
   });
 
-  appLogger(
-    [
-      'Affected dictionary keys for processing:',
-      Array.from(affectedDictionaryKeys)
-        .map((key) => colorizeKey(key))
-        .join(', '),
-    ],
-    {
-      isVerbose: true,
-    }
+  appLogger([
+    'Affected dictionary keys for processing:',
+    Array.from(affectedDictionaryKeys)
+      .map((key) => colorizeKey(key))
+      .join(', '),
+  ]);
+
+  const maxKeyLength = Math.max(
+    ...targetUnmergedDictionaries.map((dict) => dict.key.length)
+  );
+  const maxLocaleLength = Math.max(
+    ...locales.map((locale) => formatLocale(locale).length)
   );
 
   for (const targetUnmergedDictionary of targetUnmergedDictionaries) {
+    const dictionaryPreset = colon(
+      [
+        colorize('  - [', ANSIColors.GREY_DARK),
+        colorizeKey(targetUnmergedDictionary.key),
+        colorize(']', ANSIColors.GREY_DARK),
+      ].join(''),
+      { colSize: maxKeyLength + 6 }
+    );
+
     const dictionaryKey = targetUnmergedDictionary.key;
     const dictionariesRecord = getDictionaries(configuration);
 
@@ -108,7 +124,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (!mainDictionaryToProcess) {
       appLogger(
-        `Dictionary with key '${colorizeKey(dictionaryKey)}' not found in dictionariesRecord. Skipping.`,
+        `${dictionaryPreset} Dictionary not found in dictionariesRecord. Skipping.`,
         {
           level: 'warn',
         }
@@ -117,12 +133,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
     }
 
     if (!targetUnmergedDictionary.filePath) {
-      appLogger(
-        `Dictionary with key '${colorizeKey(dictionaryKey)}' has no file path. Skipping.`,
-        {
-          level: 'warn',
-        }
-      );
+      appLogger(`${dictionaryPreset} Dictionary has no file path. Skipping.`, {
+        level: 'warn',
+      });
       continue;
     }
 
@@ -131,9 +144,12 @@ export const fill = async (options: FillOptions): Promise<void> => {
       targetUnmergedDictionary.filePath
     );
 
-    appLogger(`Processing content declaration: ${colorizePath(relativePath)}`, {
-      level: 'info',
-    });
+    appLogger(
+      `${dictionaryPreset} Processing content declaration: ${colorizePath(relativePath)}`,
+      {
+        level: 'info',
+      }
+    );
 
     const sourceLocaleContent = getFilterTranslationsOnlyContent(
       mainDictionaryToProcess as unknown as ContentNode,
@@ -143,7 +159,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (Object.keys(sourceLocaleContent).length === 0) {
       appLogger(
-        `No content found for dictionary '${colorizeKey(dictionaryKey)}' in source locale ${formatLocale(sourceLocale)}. Skipping translation for this dictionary.`,
+        `${dictionaryPreset} No content found for dictionary in source locale ${formatLocale(sourceLocale)}. Skipping translation for this dictionary.`,
         {
           level: 'warn',
         }
@@ -172,11 +188,31 @@ export const fill = async (options: FillOptions): Promise<void> => {
       outputLocalesList = missingLocales;
     }
 
+    if (outputLocalesList.length === 0) {
+      appLogger(
+        `${dictionaryPreset} No locales to fill - Skipping dictionary`,
+
+        {
+          level: 'warn',
+        }
+      );
+      continue;
+    }
+
     const translationResults = await parallelize(
       outputLocalesList,
       async (targetLocale) => {
+        const localePreset = colon(
+          [
+            colorize('[', ANSIColors.GREY_DARK),
+            formatLocale(targetLocale),
+            colorize(']', ANSIColors.GREY_DARK),
+          ].join(''),
+          { colSize: maxLocaleLength }
+        );
+
         appLogger(
-          `Preparing translation for '${colorizeKey(dictionaryKey)}' dictionary from ${formatLocale(sourceLocale)} to ${formatLocale(targetLocale)}`,
+          `${dictionaryPreset}${localePreset} Preparing translation for dictionary from ${formatLocale(sourceLocale)} to ${formatLocale(targetLocale)}`,
           {
             level: 'info',
           }
@@ -189,10 +225,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
         );
 
         try {
-          const translationResult = await getIntlayerAPIProxy(
-            undefined,
-            configuration
-          ).ai.translateJSON({
+          const translationResult = await intlayerAPI.ai.translateJSON({
             entryFileContent: sourceLocaleContent.content, // Should be JSON, ensure getLocalisedContent provides this.
             presetOutputContent: presetOutputContent.content, // Should be JSON
             dictionaryDescription: mainDictionaryToProcess.description ?? '',
@@ -203,12 +236,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
           });
 
           if (!translationResult.data?.fileContent) {
-            appLogger(
-              `No content result found for '${colorizeKey(dictionaryKey)}' to ${formatLocale(targetLocale)}`,
-              {
-                level: 'error',
-              }
-            );
+            appLogger(`${dictionaryPreset}${localePreset} No content result`, {
+              level: 'error',
+            });
             return null;
           }
 
@@ -221,7 +251,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
           return processedPerLocaleDictionary;
         } catch (error) {
           appLogger(
-            `Error filling '${colorizeKey(dictionaryKey)}' to ${formatLocale(targetLocale)}:` +
+            `${dictionaryPreset}${localePreset} ${colorize('Error filling', ANSIColors.RED)}: ` +
               error,
             {
               level: 'error',
@@ -282,7 +312,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
       if (formattedDict.filePath) {
         appLogger(
-          `Content declaration for '${colorizeKey(dictionaryKey)}' written to ${formatPath(formattedDict.filePath)}`,
+          `${dictionaryPreset} Content declaration written to ${formatPath(formattedDict.filePath)}`,
           {
             level: 'info',
           }
