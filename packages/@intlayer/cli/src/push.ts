@@ -17,6 +17,7 @@ import * as fsPromises from 'fs/promises';
 import { join } from 'path';
 import * as readline from 'readline';
 import { PushLogger, type PushStatus } from './pushLog';
+import { checkCMSAuth } from './utils/checkAccess';
 
 type PushOptions = {
   deleteLocaleDictionary?: boolean;
@@ -43,13 +44,11 @@ export const push = async (options?: PushOptions): Promise<void> => {
       prefix: '',
     },
   });
-  const { clientId, clientSecret } = config.editor;
+
   try {
-    if (!clientId || !clientSecret) {
-      throw new Error(
-        'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
-      );
-    }
+    const hasCMSAuth = await checkCMSAuth(config);
+
+    if (!hasCMSAuth) return;
 
     const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 

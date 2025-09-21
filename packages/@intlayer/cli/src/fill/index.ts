@@ -34,7 +34,7 @@ import {
   GetTargetDictionaryOptions,
   getTargetUnmergedDictionaries,
 } from '../getTargetDictionary';
-import { checkAIAccess } from '../utils/checkAIAccess';
+import { checkAIAccess } from '../utils/checkAccess';
 import { autoFill } from './autoFill';
 
 const NB_CONCURRENT_TRANSLATIONS = 8;
@@ -73,13 +73,11 @@ export const fill = async (options: FillOptions): Promise<void> => {
     options.outputLocales ? ensureArray(options.outputLocales) : locales
   ).filter((locale) => locale !== baseLocale);
 
-  checkAIAccess(configuration, options.aiOptions);
+  const hasAIAccess = await checkAIAccess(configuration, options.aiOptions);
+
+  if (!hasAIAccess) return;
 
   const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
-
-  appLogger('Starting fill function', {
-    level: 'info',
-  });
 
   const targetUnmergedDictionaries =
     await getTargetUnmergedDictionaries(options);

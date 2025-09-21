@@ -4,6 +4,7 @@ import {
   getConfiguration,
   type GetConfigurationOptions,
 } from '@intlayer/config';
+import { checkCMSAuth } from './utils/checkAccess';
 
 type PushOptions = {
   configOptions?: GetConfigurationOptions;
@@ -17,17 +18,9 @@ export const pushConfig = async (options?: PushOptions) => {
     },
   });
 
-  const { clientId, clientSecret } = config.editor;
+  const hasCMSAuth = await checkCMSAuth(config);
 
-  if (!clientId || !clientSecret) {
-    appLogger(
-      'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.',
-      {
-        level: 'error',
-      }
-    );
-    return;
-  }
+  if (!hasCMSAuth) return;
 
   const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 

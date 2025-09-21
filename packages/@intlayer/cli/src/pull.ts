@@ -15,6 +15,7 @@ import type { Dictionary } from '@intlayer/core';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { PullLogger, type PullStatus } from './pullLog';
+import { checkCMSAuth } from './utils/checkAccess';
 
 type PullOptions = {
   dictionaries?: string[];
@@ -42,13 +43,10 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
   try {
     const config = getConfiguration(options?.configOptions);
-    const { clientId, clientSecret } = config.editor;
 
-    if (!clientId || !clientSecret) {
-      throw new Error(
-        'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
-      );
-    }
+    const hasCMSAuth = await checkCMSAuth(config);
+
+    if (!hasCMSAuth) return;
 
     const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 

@@ -23,7 +23,7 @@ import pLimit from 'p-limit';
 import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
-import { checkAIAccess } from './utils/checkAIAccess';
+import { checkAIAccess } from './utils/checkAccess';
 import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
@@ -212,7 +212,9 @@ export const translateDoc = async ({
     ignore: excludedGlobPattern,
   });
 
-  checkAIAccess(configuration, aiOptions);
+  const hasCMSAuth = await checkAIAccess(configuration, aiOptions);
+
+  if (!hasCMSAuth) return;
 
   if (gitOptions) {
     const gitChangedFiles = await listGitFiles(gitOptions);

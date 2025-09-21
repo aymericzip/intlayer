@@ -24,7 +24,7 @@ import pLimit from 'p-limit';
 import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
-import { checkAIAccess } from './utils/checkAIAccess';
+import { checkAIAccess } from './utils/checkAccess';
 import { checkFileModifiedRange } from './utils/checkFileModifiedRange';
 import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
@@ -226,6 +226,10 @@ export const reviewDoc = async ({
     },
   });
 
+  const hasCMSAuth = await checkAIAccess(configuration, aiOptions);
+
+  if (!hasCMSAuth) return;
+
   if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
     appLogger(
       `Warning: nbSimultaneousFileProcessed is set to ${nbSimultaneousFileProcessed}, which is greater than 10. Setting it to 10.`
@@ -251,8 +255,6 @@ export const reviewDoc = async ({
       );
     }
   }
-
-  checkAIAccess(configuration, aiOptions);
 
   // OAuth handled by API proxy internally
 
