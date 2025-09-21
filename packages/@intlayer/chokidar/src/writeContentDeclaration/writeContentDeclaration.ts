@@ -3,7 +3,6 @@ import { colorizePath, x, type IntlayerConfig } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
 import dictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
-import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { dirname, extname } from 'path';
 import { prepareContentDeclaration } from '../prepareContentDeclaration';
@@ -101,13 +100,8 @@ const writeFileWithDirectories = async (
     // Extract the directory from the file path
     const dir = dirname(filePath);
 
-    // Check if the directory exists
-    const directoryExists = existsSync(dir);
-
-    if (!directoryExists) {
-      // Create the directory recursively
-      await mkdir(dir, { recursive: true });
-    }
+    // Create the directory recursively
+    await mkdir(dir, { recursive: true });
 
     const extention = extname(filePath);
     const acceptedExtensions = configuration.content.fileExtensions.map(

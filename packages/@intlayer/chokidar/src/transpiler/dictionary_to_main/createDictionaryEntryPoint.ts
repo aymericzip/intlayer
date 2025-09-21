@@ -1,5 +1,5 @@
 import { getConfiguration } from '@intlayer/config';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { resolve } from 'path';
 import { getBuiltDictionariesPath } from '../../getBuiltDictionariesPath';
 import { getBuiltDynamicDictionariesPath } from '../../getBuiltDynamicDictionariesPath';
@@ -7,6 +7,7 @@ import { getBuiltFetchDictionariesPath } from '../../getBuiltFetchDictionariesPa
 import { getBuiltRemoteDictionariesPath } from '../../getBuiltRemoteDictionariesPath';
 import { getBuiltUnmergedDictionariesPath } from '../../getBuiltUnmergedDictionariesPath';
 import { parallelize } from '../../utils/parallelize';
+import { writeFileIfChanged } from '../../writeFileIfChanged';
 import { generateDictionaryListContent } from './generateDictionaryListContent';
 
 const filterDictionaries = (paths: string[], keys?: string[]) => {
@@ -27,7 +28,10 @@ const writeDictionaryFiles = async (
 
   const { mainDir } = configuration.content;
 
-  await writeFile(resolve(mainDir, `${fileName}.${extension}`), content);
+  await writeFileIfChanged(
+    resolve(mainDir, `${fileName}.${extension}`),
+    content
+  );
 };
 
 /**

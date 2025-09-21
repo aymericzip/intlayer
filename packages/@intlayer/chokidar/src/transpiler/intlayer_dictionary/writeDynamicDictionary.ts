@@ -8,6 +8,7 @@ import { getLocalisedContent, type Dictionary } from '@intlayer/core';
 import { mkdir } from 'fs/promises';
 import { relative, resolve } from 'path';
 import { parallelize } from '../../utils/parallelize';
+import { writeFileIfChanged } from '../../writeFileIfChanged';
 import { writeJsonIfChanged } from '../../writeJsonIfChanged';
 import { MergedDictionaryOutput } from './writeMergedDictionary';
 
@@ -41,6 +42,10 @@ export const generateDictionaryEntryPoint = (
   const formattedDictionaryMap: string = Object.entries(
     localedDictionariesPathsRecord
   )
+    // The following filter/sort preserve determinism of the generated map
+    // when files are built in parallel or across different Node versions.
+    .filter((entry): entry is [string, DictionaryResult] => Boolean(entry[1]))
+    .sort(([a], [b]) => String(a).localeCompare(String(b)))
     .map(([locale, dictionary]) => {
       const relativePath = normalizePath(
         relative(dynamicDictionariesDir, dictionary.dictionaryPath)
@@ -93,7 +98,9 @@ export const writeDynamicDictionary = async (
 
   // Merge dictionaries with the same key and write to dictionariesDir
   await parallelize(
-    Object.entries(mergedDictionaries),
+    Object.entries(mergedDictionaries).sort(([a], [b]) =>
+      String(a).localeCompare(String(b))
+    ),
     async ([key, dictionaryEntry]) => {
       if (key === 'undefined') return;
 
@@ -138,7 +145,7 @@ export const writeDynamicDictionary = async (
           configuration
         );
 
-        await writeJsonIfChanged(
+        await writeFileIfChanged(
           resolve(dynamicDictionariesDir, `${key}.${extension}`),
           content
         ).catch((err) => {

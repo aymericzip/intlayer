@@ -4,7 +4,7 @@ import { mkdir } from 'fs/promises';
 import { basename, extname, join, relative } from 'path';
 import { getFileHash } from '../../utils/getFileHash';
 import { kebabCaseToCamelCase } from '../../utils/kebabCaseToCamelCase';
-import { writeJsonIfChanged } from '../../writeJsonIfChanged';
+import { writeFileIfChanged } from '../../writeFileIfChanged';
 
 export const getTypeName = (key: string): string =>
   `${kebabCaseToCamelCase(key)}Content`;
@@ -124,5 +124,5 @@ export const createModuleAugmentation = async (
 
   const tsFilePath = join(moduleAugmentationDir, 'intlayer.d.ts');
 
-  await writeJsonIfChanged(tsFilePath, tsContent);
+  await writeFileIfChanged(tsFilePath, tsContent);
 };

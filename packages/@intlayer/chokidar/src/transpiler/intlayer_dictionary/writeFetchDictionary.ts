@@ -6,7 +6,7 @@ import {
 import { mkdir } from 'fs/promises';
 import { relative, resolve } from 'path';
 import { parallelize } from '../../utils/parallelize';
-import { writeJsonIfChanged } from '../../writeJsonIfChanged';
+import { writeFileIfChanged } from '../../writeFileIfChanged';
 import type {
   LocalizedDictionaryOutput,
   LocalizedDictionaryResult,
@@ -91,7 +91,7 @@ export const writeFetchDictionary = async (
           configuration
         );
 
-        await writeJsonIfChanged(
+        await writeFileIfChanged(
           resolve(fetchDictionariesDir, `${key}.${extension}`),
           content
         ).catch((err) => {
