@@ -89,6 +89,33 @@ vi.mock('@intlayer/config/built', () => ({
 vi.mock('@intlayer/config', () => ({
   __esModule: true,
   isESModule: false,
+  // Minimal constants used by downstream packages
+  spinnerFrames: ['-', '\\', '|', '/'],
+  ANSIColors: {
+    RESET: '',
+    GREY: '',
+    GREY_DARK: '',
+    BLUE: '',
+    RED: '',
+    GREEN: '',
+    YELLOW: '',
+    MAGENTA: '',
+    BEIGE: '',
+    CYAN: '',
+    WHITE: '',
+  },
+  v: '✓',
+  x: '✗',
+  colorize: (s: string) => String(s),
+  // Minimal configuration getter
+  getConfiguration: vi.fn(() => ({
+    content: {
+      mainDir: process.cwd(),
+      resultDir: '.intlayer',
+    },
+    ai: {},
+    log: { mode: 'disabled', prefix: '' },
+  })),
 }));
 
 describe('Intlayer CLI', () => {

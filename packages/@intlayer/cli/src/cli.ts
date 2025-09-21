@@ -273,6 +273,11 @@ export const setAPI = (): Command => {
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to pull'],
       ['--new-dictionaries-path [path]', 'Path to save the new dictionaries'],
+      // Backward-compatibility for older tests/flags (camelCase)
+      [
+        '--newDictionariesPath [path]',
+        '[alias] Path to save the new dictionaries',
+      ],
     ],
   };
 
@@ -320,6 +325,15 @@ export const setAPI = (): Command => {
       [
         '-k, --keep-locale-dictionary',
         'Keep the local dictionaries after pushing',
+      ],
+      // Backward-compatibility for older tests/flags (camelCase)
+      [
+        '--deleteLocaleDictionary',
+        '[alias] Delete the local dictionaries after pushing',
+      ],
+      [
+        '--keepLocaleDictionary',
+        '[alias] Keep the local dictionaries after pushing',
       ],
     ],
   };

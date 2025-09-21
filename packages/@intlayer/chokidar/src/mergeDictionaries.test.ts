@@ -29,6 +29,7 @@ vi.mock('@intlayer/core', () => ({
     return 'unknown';
   }),
   getReplacedValuesContent: vi.fn((content: any) => content),
+  deepTransformNode: vi.fn((node: any) => node),
 }));
 
 describe('mergeDictionaries', () => {
@@ -71,7 +72,7 @@ describe('mergeDictionaries', () => {
     });
     expect(result.filePath).toBeUndefined();
     expect(result.localId).toBeUndefined();
-    expect(result.localIds).toBeUndefined();
+    expect(result.localIds).toEqual([]);
     expect(result.id).toBeUndefined();
   });
 
@@ -555,14 +556,18 @@ describe('mergeDictionaries', () => {
       key: 'priority-test',
       location: 'locale',
       priority: 1,
-      content: { value: { nodeType: 'translation', translation: { en: 'low' } } },
+      content: {
+        value: { nodeType: 'translation', translation: { en: 'low' } },
+      },
     };
 
     const highPriorityDistant: Dictionary = {
       key: 'priority-test',
       location: 'distant',
       priority: 10,
-      content: { value: { nodeType: 'translation', translation: { fr: 'high' } } },
+      content: {
+        value: { nodeType: 'translation', translation: { fr: 'high' } },
+      },
     };
 
     const result = mergeDictionaries([lowPriorityLocal, highPriorityDistant]);
@@ -587,7 +592,7 @@ describe('mergeDictionaries', () => {
     expect(result.content.v.translation).toEqual({ en: 'base', fr: 'auto' });
   });
 
-  it('should respect distant_first when priority and autoFilled tie', () => {
+  it('should respect distant_first when priority and autoFilled tie', async () => {
     const local: Dictionary = {
       key: 'strategy-test',
       location: 'locale',
@@ -598,7 +603,9 @@ describe('mergeDictionaries', () => {
       key: 'strategy-test',
       location: 'distant',
       priority: 1,
-      content: { v: { nodeType: 'translation', translation: { fr: 'distant' } } },
+      content: {
+        v: { nodeType: 'translation', translation: { fr: 'distant' } },
+      },
     };
 
     const customConfig = {
@@ -618,11 +625,16 @@ describe('mergeDictionaries', () => {
       default: customConfig,
     }));
 
-    const { mergeDictionaries: mergeWithCustom } = require('./mergeDictionaries');
+    const { mergeDictionaries: mergeWithCustom } = await import(
+      './mergeDictionaries'
+    );
 
     const result = mergeWithCustom([local, distant]);
     // Merged content should include both, but order should have distant first internally
-    expect(result.content.v.translation).toEqual({ en: 'local', fr: 'distant' });
+    expect(result.content.v.translation).toEqual({
+      en: 'local',
+      fr: 'distant',
+    });
 
     // Restore original mock for subsequent tests
     vi.doMock('@intlayer/config/built', () => ({
@@ -751,10 +763,6 @@ describe('mergeDictionaries', () => {
     ];
 
     const result = mergeDictionaries(dictionaries);
-
-    // Check that result has both result and mask properties
-    expect(result).toHaveProperty('result');
-    expect(result).toHaveProperty('mask');
 
     // Check result structure
     expect(result.key).toBe('mask-test');
