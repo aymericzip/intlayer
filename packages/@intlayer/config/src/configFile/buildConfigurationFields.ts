@@ -8,15 +8,12 @@ import {
   CONFIG_DIR,
   CONTENT_DIR,
   DICTIONARIES_DIR,
-  DICTIONARY_OUTPUT,
   DYNAMIC_DICTIONARIES_DIR,
   EXCLUDED_PATHS,
   FETCH_DICTIONARIES_DIR,
   FILE_EXTENSIONS,
-  I18NEXT_DICTIONARIES_DIR,
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
-  REACT_INTL_MESSAGES_DIR,
   REMOTE_DICTIONARIES_DIR,
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
@@ -331,18 +328,6 @@ const buildContentFields = (
 
       customConfiguration?.moduleAugmentationDir ?? MODULE_AUGMENTATION_DIR
     ),
-
-    /**
-     * Output format of the dictionary
-     *
-     * Default: ['intlayer']
-     *
-     * Note:
-     * - 'i18next' is not yet ensure a 1:1 mapping with the i18next library.
-     * - Removing 'intlayer' will break the compatibility with react-intlayer or next-intlayer
-     */
-    dictionaryOutput:
-      customConfiguration?.dictionaryOutput ?? DICTIONARY_OUTPUT,
   };
 
   const dictionariesDirDerivedConfiguration: ResultDirDerivedConfig = {
@@ -415,42 +400,6 @@ const buildContentFields = (
     fetchDictionariesDir: join(
       notDerivedContentConfig.baseDir,
       customConfiguration?.fetchDictionariesDir ?? FETCH_DICTIONARIES_DIR
-    ),
-
-    /**
-     * Directory where the 18n dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: i18next_resources
-     *
-     * Example: '.intlayer/dictionary/i18n'
-     *
-     * Note:
-     * - If the types are not at the result directory level, update the i18nextResourcesDirName field instead
-     */
-    i18nextResourcesDir: join(
-      notDerivedContentConfig.baseDir,
-
-      customConfiguration?.i18nextResourcesDir ?? I18NEXT_DICTIONARIES_DIR
-    ),
-
-    /**
-     * Directory where the dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: intl_messages
-     *
-     * Example: '.intlayer/react-intl_dictionary'
-     *
-     * Note:
-     * - If the types are not at the result directory level, update the dictionariesDirName field instead
-     */
-    reactIntlMessagesDir: join(
-      notDerivedContentConfig.baseDir,
-
-      customConfiguration?.reactIntlMessagesDir ?? REACT_INTL_MESSAGES_DIR
     ),
 
     /**

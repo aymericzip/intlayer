@@ -1,8 +1,9 @@
 import { getConfiguration, Locales, normalizePath } from '@intlayer/config';
 import { getLocalisedContent, type Dictionary } from '@intlayer/core';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { relative, resolve } from 'path';
-import { parallelize } from '../../../utils/parallelize';
+import { parallelize } from '../../utils/parallelize';
+import { writeJsonIfChanged } from '../../writeJsonIfChanged';
 import { formatDictionaryText } from './formatDictionaryText';
 import { MergedDictionaryOutput } from './writeMergedDictionary';
 
@@ -113,7 +114,7 @@ export const writeDynamicDictionary = async (
         const resultFilePath = resolve(dynamicDictionariesDir, outputFileName);
 
         // Write the localized dictionary
-        await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {
+        await writeJsonIfChanged(resultFilePath, contentString).catch((err) => {
           console.error(`Error creating localized ${outputFileName}:`, err);
         });
 
@@ -133,7 +134,7 @@ export const writeDynamicDictionary = async (
           configuration
         );
 
-        await writeFile(
+        await writeJsonIfChanged(
           resolve(dynamicDictionariesDir, `${key}.${extension}`),
           content
         );

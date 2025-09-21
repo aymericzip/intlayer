@@ -1,10 +1,11 @@
 import { getConfiguration, x } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { resolve } from 'path';
-import { filterInvalidDictionaries } from '../../../filterInvalidDictionaries';
-import { orderDictionaries } from '../../../orderDictionaries';
-import { parallelize } from '../../../utils/parallelize';
+import { filterInvalidDictionaries } from '../../filterInvalidDictionaries';
+import { orderDictionaries } from '../../orderDictionaries';
+import { parallelize } from '../../utils/parallelize';
+import { writeJsonIfChanged } from '../../writeJsonIfChanged';
 import { formatDictionaryText } from './formatDictionaryText';
 
 const groupDictionariesByKey = (
@@ -83,7 +84,7 @@ export const writeUnmergedDictionaries = async (
       const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
 
       // Write the grouped dictionaries
-      await writeFile(unmergedFilePath, contentString, 'utf8').catch((err) => {
+      await writeJsonIfChanged(unmergedFilePath, contentString).catch((err) => {
         console.error(`${x} Error creating unmerged ${outputFileName}:`, err);
       });
 

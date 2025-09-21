@@ -1,7 +1,8 @@
 import { getConfiguration, normalizePath } from '@intlayer/config';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { relative, resolve } from 'path';
-import { parallelize } from '../../../utils/parallelize';
+import { parallelize } from '../../utils/parallelize';
+import { writeJsonIfChanged } from '../../writeJsonIfChanged';
 import type {
   LocalizedDictionaryOutput,
   LocalizedDictionaryResult,
@@ -86,7 +87,7 @@ export const writeFetchDictionary = async (
           configuration
         );
 
-        await writeFile(
+        await writeJsonIfChanged(
           resolve(fetchDictionariesDir, `${key}.${extension}`),
           content
         );

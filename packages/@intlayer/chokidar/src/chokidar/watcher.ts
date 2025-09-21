@@ -11,12 +11,12 @@ import { getBuiltDictionariesPath } from '../getBuiltDictionariesPath';
 import { listDictionaries } from '../listDictionariesPath';
 import { loadLocalDictionaries } from '../loadDictionaries/loadLocalDictionaries';
 import { prepareIntlayer } from '../prepareIntlayer';
-import { buildDictionary } from '../transpiler/declaration_file_to_dictionary/index';
 import { createDictionaryEntryPoint } from '../transpiler/dictionary_to_main/createDictionaryEntryPoint';
 import {
   createModuleAugmentation,
   createTypes,
 } from '../transpiler/dictionary_to_type/index';
+import { buildDictionary } from '../transpiler/intlayer_dictionary/buildIntlayerDictionary';
 import { formatPath } from '../utils/formatter';
 
 const recentlyAddedFiles = new Set<string>();

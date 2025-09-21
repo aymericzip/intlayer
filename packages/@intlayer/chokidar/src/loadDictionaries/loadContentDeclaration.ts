@@ -7,7 +7,7 @@ import {
 import type { Dictionary } from '@intlayer/core';
 import { relative } from 'path';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
-import { processContentDeclaration } from '../transpiler/declaration_file_to_dictionary/intlayer_dictionary/processContentDeclaration';
+import { processContentDeclaration } from '../transpiler/intlayer_dictionary/processContentDeclaration';
 import { parallelize } from '../utils/parallelize';
 import { DictionariesStatus } from './loadDictionaries';
 

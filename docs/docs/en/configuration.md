@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-16
+updatedAt: 2025-09-21
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -379,11 +379,6 @@ Settings related to content handling within the application, including directory
   - _Example_: `'/path/to/project'`
   - _Note_: This is used to resolve all Intlayer-related directories.
 
-- **dictionaryOutput**:
-  - _Type_: `string[]`
-  - _Default_: `['intlayer']`
-  - _Description_: The type of dictionary output to use, e.g., `'intlayer'` or `'i18next'`.
-
 - **contentDir**:
   - _Type_: `string[]`
   - _Default_: `['.']`
@@ -413,13 +408,6 @@ Settings related to content handling within the application, including directory
   - _Default_: `'.intlayer/dictionary'`
   - _Description_: The directory for storing localization dictionaries.
   - _Example_: `'translations'`
-
-- **i18nextResourcesDir**:
-  - _Type_: `string`
-  - _Default_: `'i18next_dictionary'`
-  - _Description_: The directory for storing i18n dictionaries.
-  - _Example_: `'translations'`
-  - _Note_: Ensure this directory is configured for the i18next output type.
 
 - **typesDir**:
   - _Type_: `string`
@@ -567,6 +555,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 | Version | Date       | Changes                                                                                 |
 | ------- | ---------- | --------------------------------------------------------------------------------------- |
+| 6.0.0   | 2025-09-21 | Remove `dictionaryOutput` field and `i18nextResourcesDir` field                         |
 | 6.0.0   | 2025-09-16 | Add `live` import mode                                                                  |
 | 6.0.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields |
 | 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option                                |

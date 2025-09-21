@@ -1,9 +1,10 @@
 import { Locales, getConfiguration, normalizePath } from '@intlayer/config';
 import fg from 'fast-glob';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { basename, extname, join, relative } from 'path';
 import { getFileHash } from '../../utils/getFileHash';
 import { kebabCaseToCamelCase } from '../../utils/kebabCaseToCamelCase';
+import { writeJsonIfChanged } from '../../writeJsonIfChanged';
 
 export const getTypeName = (key: string): string =>
   `${kebabCaseToCamelCase(key)}Content`;
@@ -117,8 +118,11 @@ export const createModuleAugmentation = async (
       ignore: ['**/*.d.ts'],
     }
   );
-  // Create the dictionary list file
 
+  // Create the dictionary list file
   const tsContent = generateTypeIndexContent(dictionariesTypesDefinitions);
-  await writeFile(join(moduleAugmentationDir, 'intlayer.d.ts'), tsContent);
+
+  const tsFilePath = join(moduleAugmentationDir, 'intlayer.d.ts');
+
+  await writeJsonIfChanged(tsFilePath, tsContent);
 };

@@ -12,7 +12,7 @@ import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
 /**
  * This function transpile the bundled code to to make dictionaries as JSON files
  */
-export const buildIntlayerDictionary = async (
+export const buildDictionary = async (
   localDictionariesEntries: Dictionary[],
   configuration = getConfiguration(),
   formats: ('cjs' | 'esm')[] = ['cjs', 'esm']

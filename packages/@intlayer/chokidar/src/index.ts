@@ -27,12 +27,12 @@ export { prepareContentDeclaration } from './prepareContentDeclaration';
 export { prepareIntlayer } from './prepareIntlayer';
 export { processPerLocaleDictionary } from './processPerLocaleDictionary';
 export { reduceDictionaryContent } from './reduceDictionaryContent/reduceDictionaryContent';
-export { buildDictionary } from './transpiler/declaration_file_to_dictionary/index';
 export {
   createDictionaryEntryPoint,
   generateDictionaryListContent,
 } from './transpiler/dictionary_to_main';
 export { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
+export { buildDictionary } from './transpiler/intlayer_dictionary/buildIntlayerDictionary';
 export { formatLocale, formatPath } from './utils/formatter';
 export { getFileHash } from './utils/getFileHash';
 export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';

@@ -7,13 +7,13 @@ import {
 import { cleanOutputDir } from './cleanOutputDir';
 import { listDictionaries } from './listDictionariesPath';
 import { loadDictionaries } from './loadDictionaries/loadDictionaries';
-import { buildDictionary } from './transpiler/declaration_file_to_dictionary/index';
-import { writeRemoteDictionary } from './transpiler/declaration_file_to_dictionary/intlayer_dictionary/writeRemoteDictionary';
 import { createDictionaryEntryPoint } from './transpiler/dictionary_to_main/createDictionaryEntryPoint';
 import {
   createModuleAugmentation,
   createTypes,
 } from './transpiler/dictionary_to_type/index';
+import { buildDictionary } from './transpiler/intlayer_dictionary/buildIntlayerDictionary';
+import { writeRemoteDictionary } from './transpiler/intlayer_dictionary/writeRemoteDictionary';
 import { writeConfiguration } from './writeConfiguration';
 
 export const prepareIntlayer = async (
@@ -61,7 +61,7 @@ export const prepareIntlayer = async (
     isVerbose: true,
   });
 
-  writeConfiguration(configuration);
+  await writeConfiguration(configuration);
 
   appLogger('Configuration written', {
     isVerbose: true,

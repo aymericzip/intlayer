@@ -1,6 +1,6 @@
 import { logger } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
-import { resolveObjectPromises } from '../../../utils/resolveObjectPromises';
+import { resolveObjectPromises } from '../../utils/resolveObjectPromises';
 
 /**
  * Function to load, process the module and return the Intlayer Dictionary from the module file

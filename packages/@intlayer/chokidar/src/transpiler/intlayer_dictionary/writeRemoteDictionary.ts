@@ -1,10 +1,11 @@
 import { getConfiguration } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { resolve } from 'path';
-import { filterInvalidDictionaries } from '../../../filterInvalidDictionaries';
-import { formatDistantDictionaries } from '../../../loadDictionaries';
-import { parallelize } from '../../../utils/parallelize';
+import { filterInvalidDictionaries } from '../../filterInvalidDictionaries';
+import { formatDistantDictionaries } from '../../loadDictionaries';
+import { parallelize } from '../../utils/parallelize';
+import { writeJsonIfChanged } from '../../writeJsonIfChanged';
 import { formatDictionaryText } from './formatDictionaryText';
 
 /**
@@ -44,7 +45,7 @@ export const writeRemoteDictionary = async (
       const contentString = formatDictionaryText(dictionary);
 
       // Write the merged dictionary
-      await writeFile(resultFilePath, contentString, 'utf8').catch((err) => {
+      await writeJsonIfChanged(resultFilePath, contentString).catch((err) => {
         console.error(`Error creating merged ${outputFileName}:`, err);
       });
     }
