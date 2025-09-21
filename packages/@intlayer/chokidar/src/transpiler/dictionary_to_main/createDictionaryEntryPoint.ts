@@ -20,10 +20,16 @@ const filterDictionaries = (paths: string[], keys?: string[]) => {
 const writeDictionaryFiles = async (
   paths: string[],
   fileName: string,
+  functionName: string,
   format: 'cjs' | 'esm',
   configuration = getConfiguration()
 ) => {
-  const content = generateDictionaryListContent(paths, format, configuration);
+  const content = generateDictionaryListContent(
+    paths,
+    functionName,
+    format,
+    configuration
+  );
   const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
   const { mainDir } = configuration.content;
@@ -57,32 +63,39 @@ export const createDictionaryEntryPoint = async (
   const writeOperations = [
     ...formats.map((format) => ({
       paths: remoteDictionariesPath,
+      functionName: 'getRemoteDictionaries',
       fileName: 'remote_dictionaries' as const,
       format,
     })),
     ...formats.map((format) => ({
       paths: dictionariesPath,
+      functionName: 'getDictionaries',
       fileName: 'dictionaries' as const,
       format,
     })),
     ...formats.map((format) => ({
       paths: unmergedDictionariesPath,
+      functionName: 'getUnmergedDictionaries',
       fileName: 'unmerged_dictionaries' as const,
       format,
     })),
     ...formats.map((format) => ({
       paths: getBuiltDynamicDictionariesPath(configuration, format),
+      functionName: 'getDynamicDictionaries',
       fileName: 'dynamic_dictionaries' as const,
       format,
     })),
     ...formats.map((format) => ({
       paths: getBuiltFetchDictionariesPath(configuration, format),
+      functionName: 'getFetchDictionaries',
       fileName: 'fetch_dictionaries' as const,
       format,
     })),
   ];
 
-  await parallelize(writeOperations, async ({ paths, fileName, format }) =>
-    writeDictionaryFiles(paths, fileName, format, configuration)
+  await parallelize(
+    writeOperations,
+    async ({ paths, fileName, format, functionName }) =>
+      writeDictionaryFiles(paths, fileName, functionName, format, configuration)
   );
 };

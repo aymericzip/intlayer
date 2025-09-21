@@ -7,6 +7,7 @@ import { getFileHash } from '../../utils/getFileHash';
  */
 export const generateDictionaryListContent = (
   dictionaries: string[],
+  functionName: string,
   format: 'cjs' | 'esm' = 'esm',
   configuration = getConfiguration()
 ): string => {
@@ -35,10 +36,20 @@ export const generateDictionaryListContent = (
     .map((dictionary) => `  "${dictionary.id}": ${dictionary.hash}`)
     .join(',\n');
 
-  if (format === 'esm')
-    content += `export default {\n${formattedDictionaryMap}\n};\n`;
-  if (format === 'cjs')
-    content += `module.exports = {\n${formattedDictionaryMap}\n};\n`;
+  content += `const dictionaries = {\n${formattedDictionaryMap}\n};\n`;
+  content += `const ${functionName} = () => dictionaries;\n`;
+
+  if (format === 'esm') {
+    content += `\n`;
+    content += `export { ${functionName} };\n`;
+    content += `export default dictionaries;\n`;
+  }
+
+  if (format === 'cjs') {
+    content += `\n`;
+    content += `module.exports.${functionName} = ${functionName};\n`;
+    content += `module.exports = dictionaries;\n`;
+  }
 
   return content;
 };
