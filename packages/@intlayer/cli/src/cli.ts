@@ -10,6 +10,7 @@ import {
 } from '../../chokidar/dist/types/listGitFiles';
 import { build } from './build';
 import { getConfig } from './config';
+import { startEditor } from './editor';
 import { fill, FillOptions } from './fill';
 import { listContentDeclaration } from './listContentDeclaration';
 import { liveSync } from './liveSync';
@@ -560,6 +561,27 @@ export const setAPI = (): Command => {
   applyOptions(liveCmd, liveOptions);
 
   liveCmd.action((options) => liveSync(options));
+
+  /**
+   * EDITOR
+   */
+
+  const editorProgram = program
+    .command('editor')
+    .description('Visual editor operations');
+
+  const editorStartCmd = editorProgram
+    .command('start')
+    .description('Start the Intlayer visual editor');
+
+  applyConfigOptions(editorStartCmd);
+
+  editorStartCmd.action((options) => {
+    startEditor({
+      env: options.env,
+      envFile: options.envFile,
+    });
+  });
 
   program.parse(process.argv);
 
