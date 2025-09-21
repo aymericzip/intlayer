@@ -162,6 +162,7 @@
   },
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
+    "@intlayer/backend": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",

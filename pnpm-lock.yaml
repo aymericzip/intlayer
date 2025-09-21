@@ -1939,6 +1939,9 @@ importers:
       '@intlayer/api':
         specifier: workspace:*
         version: link:../api
+      '@intlayer/backend':
+        specifier: workspace:*
+        version: link:../../../apps/backend
       '@intlayer/config':
         specifier: workspace:*
         version: link:../config

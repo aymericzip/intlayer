@@ -41,7 +41,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   dictionary,
   mode,
   className,
-
   onDelete,
   ...props
 }) => {
@@ -73,7 +72,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
     JSON.stringify(editedDictionary) !== JSON.stringify(dictionary);
 
   const isDistantDictionary =
-    typeof (dictionary as DistantDictionary)?.id !== 'undefined';
+    typeof (dictionary as unknown as DistantDictionary)?.id !== 'undefined';
 
   const handleSaveDictionaryConfirmation = async () => {
     if (!editedContent?.[dictionary.localId!]) return;
@@ -115,15 +114,18 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   };
 
   const handleDeleteDictionary = () => {
-    if (!(dictionary as DistantDictionary).id) return;
+    if (!(dictionary as unknown as DistantDictionary).id) return;
 
-    deleteDictionary((dictionary as DistantDictionary).id.toString(), {
-      onSuccess: (res) => {
-        if (res) {
-          onDelete?.();
-        }
-      },
-    });
+    deleteDictionary(
+      (dictionary as unknown as DistantDictionary).id.toString(),
+      {
+        onSuccess: (res) => {
+          if (res) {
+            onDelete?.();
+          }
+        },
+      }
+    );
   };
 
   return (
