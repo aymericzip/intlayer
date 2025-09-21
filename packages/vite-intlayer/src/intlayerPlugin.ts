@@ -7,6 +7,7 @@ import { type PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
 /**
+ * @deprecated Rename to intlayer instead
  *
  * A Vite plugin that integrates Intlayer configuration into the build process
  *
@@ -89,7 +90,7 @@ export const intlayerPlugin = (): PluginOption => {
 };
 
 /**
- * @deprecated Rename to intlayer instead
+ * A Vite plugin that integrates Intlayer configuration into the build process
  *
  * ```ts
  * // Example usage of the plugin in a Vite configuration
@@ -99,3 +100,16 @@ export const intlayerPlugin = (): PluginOption => {
  * ```
  */
 export const intlayer = intlayerPlugin;
+/**
+ * @deprecated Rename to intlayer instead
+ *
+ * A Vite plugin that integrates Intlayer configuration into the build process
+ *
+ * ```ts
+ * // Example usage of the plugin in a Vite configuration
+ * export default defineConfig({
+ *   plugins: [ intlayer() ],
+ * });
+ * ```
+ */
+export const intLayerPlugin = intlayerPlugin;
