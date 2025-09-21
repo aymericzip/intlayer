@@ -1,8 +1,7 @@
 import { createHash } from 'node:crypto';
-import { createReadStream, createWriteStream } from 'node:fs';
-import { rename, rm, writeFile } from 'node:fs/promises';
+import { createReadStream } from 'node:fs';
+import { writeFile } from 'node:fs/promises';
 import { Readable } from 'node:stream';
-import { pipeline } from 'node:stream/promises';
 
 const hashFile = async (path: string) => {
   const h = createHash('sha256');
@@ -22,48 +21,52 @@ const isReadableStream = (value: unknown): value is Readable =>
 
 export const writeFileIfChanged = async (
   path: string,
-  dataOrStream: string | Buffer | Readable,
+  dataOrStream: string,
   { encoding = 'utf8' }: { encoding?: BufferEncoding } = {}
 ): Promise<boolean> => {
-  // 1) write new content to temporary file (stream-safe)
-  const tmp = `${path}.tmp`;
+  // Disabled because it's too slow. Build time increases from 3s to 7s.
+  await writeFile(path, dataOrStream, { encoding });
 
-  if (isReadableStream(dataOrStream)) {
-    await pipeline(dataOrStream, createWriteStream(tmp));
-  } else {
-    // dataOrStream = string | Buffer
-    const buf = Buffer.isBuffer(dataOrStream)
-      ? dataOrStream
-      : Buffer.from(dataOrStream, encoding);
-    await writeFile(tmp, buf);
-  }
+  // 1) write new content to temporary file (stream-safe)
+  // const tmp = `${path}.tmp`;
+
+  // if (isReadableStream(dataOrStream)) {
+  //   await pipeline(dataOrStream, createWriteStream(tmp));
+  // } else {
+  //   // dataOrStream = string | Buffer
+  //   const buf = Buffer.isBuffer(dataOrStream)
+  //     ? dataOrStream
+  //     : Buffer.from(dataOrStream, encoding);
+  //   await writeFile(tmp, buf);
+  // }
 
   // 2) if old file exists, compare hashes (streaming)
-  let same = false;
-  try {
-    const [oldHash, newHash] = await Promise.all([
-      hashFile(path),
-      hashFile(tmp),
-    ]);
-    same = oldHash === newHash;
-  } catch {
-    // old file missing -> will replace
-  }
+  // let same = false;
+  // try {
+  //   const [oldHash, newHash] = await Promise.all([
+  //     hashFile(path),
+  //     hashFile(tmp),
+  //   ]);
+  //   same = oldHash === newHash;
+  // } catch {
+  //   // old file missing -> will replace
+  // }
 
-  if (same) {
-    await rm(tmp);
-    return false; // no change
-  }
+  // if (same) {
+  //   await rm(tmp);
+  //   return false; // no change
+  // }
 
   // 3) atomic replacement
   // On Unix, rename is atomic. On Windows, if file exists, we can delete it first.
-  try {
-    await rename(tmp, path);
-  } catch {
-    try {
-      await rm(path);
-    } catch {}
-    await rename(tmp, path);
-  }
+  // try {
+  //   await rename(tmp, path);
+  // } catch {
+  //   try {
+  //     await rm(path);
+  //   } catch {}
+  //   await rename(tmp, path);
+  // }
+
   return true; // changed
 };

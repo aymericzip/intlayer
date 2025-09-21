@@ -1,6 +1,8 @@
 import {
+  ANSIColors,
   ESMxCJSRequire,
   type IntlayerConfig,
+  colorize,
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
@@ -22,6 +24,7 @@ export const prepareIntlayer = async (
   clean = false
 ) => {
   const appLogger = getAppLogger(configuration);
+  const preparationStartMs = Date.now();
 
   if (clean) {
     cleanOutputDir(configuration);
@@ -64,6 +67,12 @@ export const prepareIntlayer = async (
   await writeConfiguration(configuration);
 
   appLogger('Configuration written', {
+    isVerbose: true,
+  });
+
+  const preparationElapsedMs = Date.now() - preparationStartMs;
+  appLogger([`Done`, colorize(`${preparationElapsedMs}ms`, ANSIColors.GREEN)], {
+    level: 'info',
     isVerbose: true,
   });
 };
