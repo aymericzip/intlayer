@@ -19,6 +19,7 @@ import fg from 'fast-glob';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname } from 'path';
 import prettier from 'prettier';
+import { locales } from '../intlayer.config';
 
 /* -------------------------------------------------------------------------- */
 /*                                   TYPES                                    */
@@ -97,7 +98,8 @@ const buildEntryContent = (
 
       const localeList = localeMap(
         ({ locale }) =>
-          `'${locale}': Promise.resolve(readFile(join(dir, '../../../${dir}/${locale}/${relativeAfterLocale}'), 'utf8'))`
+          `'${locale}': Promise.resolve(readFile(join(dir, '../../../${dir}/${locale}/${relativeAfterLocale}'), 'utf8'))`,
+        locales
       );
       return `  '${file}': {${localeList.join(',')}} as unknown as Record<LocalesValues, Promise<string>>,`;
     })
