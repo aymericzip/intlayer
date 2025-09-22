@@ -297,7 +297,11 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
     return config;
   };
 
-  const pruneConfig: Partial<NextConfig> = getPruneConfig(intlayerConfig);
+  let pruneConfig: Partial<NextConfig> = {};
+
+  if (isBuildCommand) {
+    pruneConfig = getPruneConfig(intlayerConfig);
+  }
 
   const intlayerNextConfig: Partial<NextConfig> = merge(
     pruneConfig,
