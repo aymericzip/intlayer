@@ -552,7 +552,7 @@ npx intlayer doc translate
 > - `{{baseLocale}}_` by `{{locale}}_`
 > - `.{{baseLocaleName}}.` by `.{{localeName}}.`
 >
-> If the pattern is not found, the output file will add the `.{{locale}}` at the extentions of the file. `./my/file.md` will be translated to `./my/file.fr.md` for the French locale.
+> If the pattern is not found, the output file will add the `.{{locale}}` at the extensions of the file. `./my/file.md` will be translated to `./my/file.fr.md` for the French locale.
 
 #### Review Document
 

@@ -112,18 +112,16 @@ Intlayer 提供多种方法来插入和管理动态内容，确保内容交付�
 Intlayer 支持使用 **TypeScript**（也支持 JavaScript）和 **JSON** 来声明内容。
 
 - **TypeScript**：
-
   - 确保您的内容结构正确且没有遗漏的翻译。
   - 提供严格或更灵活的验证模式。
   - 允许从变量、函数或外部 API 动态获取数据。
 
 - **JSON**：
-
   - 由于其标准化格式，便于与外部工具（如可视化编辑器）集成。
 
   > 资源：
   >
-  > - [内容声明格式](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_extention_customization.md)
+  > - [内容声明格式](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
 
 ### 7. 清理、包优化和动态导入
 

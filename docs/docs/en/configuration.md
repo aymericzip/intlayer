@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-21
+updatedAt: 2025-09-23
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -541,6 +541,12 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: If set to "live", only the dictionaries that are including remote content, and set as "live" flags will be transformed as live mode. Others will be imported dynamically as "dynamic" mode to optimize the number of fetch queries, and load performance.
   - _Note_: Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
   - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
+- **outputFormat**:
+  - _Type_: `'esm' | 'cjs'`
+  - _Default_: `'esm'`
+  - _Description_: Controls the output format of the dictionaries.
+  - _Example_: `'cjs'`
+  - _Note_: The output format of the dictionaries.
 
 - **traversePattern**:
   - _Type_: `string[]`
@@ -555,6 +561,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 | Version | Date       | Changes                                                                                 |
 | ------- | ---------- | --------------------------------------------------------------------------------------- |
+| 6.0.2   | 2025-09-23 | Add `outputFormat` option                                                               |
 | 6.0.0   | 2025-09-21 | Remove `dictionaryOutput` field and `i18nextResourcesDir` field                         |
 | 6.0.0   | 2025-09-16 | Add `live` import mode                                                                  |
 | 6.0.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields |
