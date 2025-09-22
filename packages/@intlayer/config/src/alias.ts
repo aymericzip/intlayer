@@ -1,6 +1,7 @@
 import { join, relative } from 'path';
 import { getConfiguration } from './configFile/getConfiguration';
 import { IntlayerConfig } from './types/config';
+import { getExtension } from './utils/getExtension';
 import { normalizePath } from './utils/normalizePath';
 
 export type GetAliasOptions = {
@@ -11,10 +12,11 @@ export type GetAliasOptions = {
 
 export const getAlias = ({
   configuration = getConfiguration(),
-  format = 'esm',
+  format,
   formatter = (value: string) => value,
 }: GetAliasOptions = {}) => {
-  const extension = format === 'cjs' ? 'cjs' : 'mjs';
+  const extension = getExtension(configuration, format);
+
   const { mainDir, configDir, baseDir } = configuration.content;
 
   /**

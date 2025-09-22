@@ -370,6 +370,7 @@ export type BuildConfig = {
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
    * - The "live" allows to sync the dictionaries to the live sync server.
+   * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
    */
   importMode: 'static' | 'dynamic' | 'live';
 
@@ -388,6 +389,17 @@ export type BuildConfig = {
    * - Use glob pattern.
    */
   traversePattern: string[];
+
+  /**
+   * Output format of the dictionaries
+   *
+   * Default: ['cjs', 'esm']
+   *
+   * The output format of the dictionaries. It can be either 'cjs' or 'esm'. Even if dictionaries are written in JSON, entry point to access the dictionaries are generated.
+   * This function will use the output format defined using this option.
+   * The default format is 'cjs' as it allows better interoperability with other libraries, scripts, and applications. But some build tools, such as Vite, require ES modules.
+   */
+  outputFormat: ('cjs' | 'esm')[];
 };
 
 /**

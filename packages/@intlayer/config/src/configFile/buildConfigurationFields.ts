@@ -2,6 +2,7 @@ import { join } from 'path';
 import {
   IMPORT_MODE,
   OPTIMIZE,
+  OUTPUT_FORMAT,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
 import {
@@ -739,6 +740,19 @@ const buildBuildFields = (
    * - Use glob pattern.
    */
   traversePattern: customConfiguration?.traversePattern ?? TRAVERSE_PATTERN,
+
+  /**
+   * Output format of the dictionaries
+   *
+   * Can be set on large projects to improve build performance.
+   *
+   * Default: ['cjs', 'esm']
+   *
+   * The output format of the dictionaries. It can be either 'cjs' or 'esm'.
+   * - 'cjs': The dictionaries are outputted as CommonJS modules.
+   * - 'esm': The dictionaries are outputted as ES modules.
+   */
+  outputFormat: customConfiguration?.outputFormat ?? OUTPUT_FORMAT,
 });
 
 /**

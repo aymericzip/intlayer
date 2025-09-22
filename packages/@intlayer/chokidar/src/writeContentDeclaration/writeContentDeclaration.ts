@@ -104,18 +104,18 @@ const writeFileWithDirectories = async (
     // Create the directory recursively
     await mkdir(dir, { recursive: true });
 
-    const extention = extname(filePath);
+    const extension = extname(filePath);
     const acceptedExtensions = configuration.content.fileExtensions.map(
-      (extention) => extname(extention)
+      (extension) => extname(extension)
     );
 
-    if (!acceptedExtensions.includes(extention)) {
+    if (!acceptedExtensions.includes(extension)) {
       throw new Error(
-        `Invalid file extension: ${extention}, file: ${filePath}`
+        `Invalid file extension: ${extension}, file: ${filePath}`
       );
     }
 
-    if (extention === '.json') {
+    if (extension === '.json') {
       const jsonDictionary = JSON.stringify(data, null, 2);
 
       // Write the file

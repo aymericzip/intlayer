@@ -46,8 +46,9 @@ const writeDictionaryFiles = async (
 export const createDictionaryEntryPoint = async (
   configuration = getConfiguration(),
   dictionariesKeys?: string[],
-  formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
+  formats?: ('cjs' | 'esm')[]
 ) => {
+  const outputFormats = formats ?? configuration.build.outputFormat;
   const { mainDir } = configuration.content;
 
   await mkdir(mainDir, { recursive: true });
@@ -61,31 +62,31 @@ export const createDictionaryEntryPoint = async (
     getBuiltUnmergedDictionariesPath(configuration);
 
   const writeOperations = [
-    ...formats.map((format) => ({
+    ...outputFormats.map((format) => ({
       paths: remoteDictionariesPath,
       functionName: 'getRemoteDictionaries',
       fileName: 'remote_dictionaries' as const,
       format,
     })),
-    ...formats.map((format) => ({
+    ...outputFormats.map((format) => ({
       paths: dictionariesPath,
       functionName: 'getDictionaries',
       fileName: 'dictionaries' as const,
       format,
     })),
-    ...formats.map((format) => ({
+    ...outputFormats.map((format) => ({
       paths: unmergedDictionariesPath,
       functionName: 'getUnmergedDictionaries',
       fileName: 'unmerged_dictionaries' as const,
       format,
     })),
-    ...formats.map((format) => ({
+    ...outputFormats.map((format) => ({
       paths: getBuiltDynamicDictionariesPath(configuration, format),
       functionName: 'getDynamicDictionaries',
       fileName: 'dynamic_dictionaries' as const,
       format,
     })),
-    ...formats.map((format) => ({
+    ...outputFormats.map((format) => ({
       paths: getBuiltFetchDictionariesPath(configuration, format),
       functionName: 'getFetchDictionaries',
       fileName: 'fetch_dictionaries' as const,

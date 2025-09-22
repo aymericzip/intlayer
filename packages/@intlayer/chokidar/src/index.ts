@@ -34,6 +34,7 @@ export { createModuleAugmentation } from './transpiler/dictionary_to_type/create
 export { buildDictionary } from './transpiler/intlayer_dictionary/buildIntlayerDictionary';
 export { extractErrorMessage } from './utils/extractErrorMessage';
 export { formatLocale, formatPath } from './utils/formatter';
+export { getExtension } from './utils/getExtention';
 export { getFileHash } from './utils/getFileHash';
 export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
 export { parallelize } from './utils/parallelize';
