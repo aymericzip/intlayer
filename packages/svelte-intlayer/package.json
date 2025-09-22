@@ -1,6 +1,45 @@
 {
 	"name": "svelte-intlayer",
+<<<<<<< HEAD
   "version": "6.1.5",
+=======
+	"version": "0.0.1",
+	"description": "Easily internationalize i18n your Svelte applications with type-safe multilingual content management.",
+	"keywords": [
+		"intlayer",
+		"data",
+		"internationalization",
+		"multilingual",
+		"i18n",
+		"typescript",
+		"svelte"
+	],
+	"homepage": "https://intlayer.org",
+	"bugs": {
+		"url": "https://github.com/aymericzip/intlayer/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/aymericzip/intlayer.git"
+	},
+	"license": "Apache-2.0",
+	"author": {
+		"name": "Kalu Victor",
+		"url": "https://github.com/victorbuikemdev"
+	},
+	"contributors": [
+		{
+			"name": "Aymeric Pineau",
+			"email": "ay.pineau@gmail.com",
+			"url": "https://github.com/aymericzip"
+		},
+		{
+			"name": "Kalu Victor",
+			"email": "victorbuikemdev@gmail.com",
+			"url": "https://github.com/victorbuikemdev"
+		}
+	],
+>>>>>>> a847cfa8e (chore: update to package.json)
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
@@ -63,8 +102,5 @@
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.20.0",
 		"vite": "^7.0.4"
-	},
-	"keywords": [
-		"svelte"
-	]
+	}
 }
