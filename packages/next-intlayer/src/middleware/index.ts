@@ -1,1 +1,1 @@
-export * from './intlayerMiddleware';
+export * from './multipleMiddlewares';

@@ -4,6 +4,31 @@ import {
   NextResponse,
 } from 'next/server';
 
+/**
+ * Utility to combine multiple Next.js middlewares into one.
+ *
+ * It executes middlewares in order, merges headers, and correctly handles
+ * redirects and rewrites.
+ *
+ * @example
+ * import { multipleMiddlewares, intlayerMiddleware } from "next-intlayer/middleware";
+ * import { NextResponse } from "next/server";
+ *
+ * const authMiddleware = (req: NextRequest) => {
+ *   if (!req.cookies.get("token")) {
+ *     return NextResponse.redirect(new URL("/login", req.url));
+ *   }
+ *   return NextResponse.next();
+ * };
+ *
+ * export default multipleMiddlewares([
+ *   intlayerMiddleware,
+ *   authMiddleware,
+ * ]);
+ *
+ * @param middlewares - An array of middleware functions to execute in order.
+ * @returns A single middleware function that runs all provided middlewares.
+ */
 export const multipleMiddlewares =
   (
     middlewares: ((
@@ -36,12 +61,12 @@ export const multipleMiddlewares =
     // Merge all the custom headers added by the middlewares
     const transmittedHeaders = new Headers();
 
-    // Merge
+    // Merge headers
     middlewareHeader.forEach((header) => {
       for (const [key, value] of header.entries()) {
         mergedHeaders.append(key, value);
 
-        // check if its a custom header added by one of the middlewares
+        // check if it's a custom header added by one of the middlewares
         if (key.startsWith('x-middleware-request-')) {
           // remove the prefix to get the original key
           const fixedKey = key.replace('x-middleware-request-', '');
@@ -59,7 +84,7 @@ export const multipleMiddlewares =
     if (redirect) {
       // Perform the redirection
       return NextResponse.redirect(new URL(redirect, req.url), {
-        status: 307, // Use the appropriate HTTP status code for the redirect
+        status: 307, // Temporary redirect
       });
     }
 
@@ -74,7 +99,7 @@ export const multipleMiddlewares =
       });
     }
 
-    // Initialize a NextResponse object
+    // Default: continue to next middleware
     return NextResponse.next({
       request: {
         headers: transmittedHeaders,

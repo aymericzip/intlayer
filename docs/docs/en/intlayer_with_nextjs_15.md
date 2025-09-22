@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-06-29
+updatedAt: 2025-09-22
 title: Translate your Next.js 15 website (i18n)
 description: Discover how to make your Next.js 15 website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -1410,6 +1410,24 @@ const Link = ({ href, children, ...props }) => {
     </NextLink>
   );
 };
+
+## Using multiple middlewares
+
+If you need to chain several middlewares together (for example, `intlayerMiddleware` with authentication or custom middlewares), Intlayer now provides a helper called `multipleMiddlewares`.
+
+ts
+import { multipleMiddlewares, intlayerMiddleware } from "next-intlayer/middleware";
+import { queryMiddleware } from "@utils/queryMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  queryMiddleware,
+]);
+
+export const config = {
+  matcher: "/((?!api|static|assets|robots|sitemap|schema|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
+
 ```
 
 #### How It Works
@@ -1504,5 +1522,6 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 | Version | Date       | Changes                                                         |
 | ------- | ---------- | --------------------------------------------------------------- |
+| 5.6.1   | 2025-09-22 | Added docs for `multipleMiddlewares` helper                     |
 | 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
 | 5.5.10  | 2025-06-29 | Init history                                                    |
