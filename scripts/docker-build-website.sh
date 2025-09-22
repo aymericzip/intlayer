@@ -50,6 +50,10 @@ PASSED_KEYS=()
 for key in "${SUPPORTED_KEYS[@]}"; do
   eval "val=\"\${$key-}\""
   if [[ -n "$val" ]]; then
+    # Rewrite localhost references so the build container can reach the host on macOS/Windows
+    # and environments where localhost isn't reachable from within the build context.
+    val="${val//localhost/host.docker.internal}"
+    val="${val//127.0.0.1/host.docker.internal}"
     BUILD_ARGS+=(--build-arg "$key=$val")
     PASSED_KEYS+=("$key")
   fi
@@ -58,6 +62,7 @@ done
 echo "Passing build args for keys: ${PASSED_KEYS[*]}" >/dev/stderr
 
 docker build \
+  --network=host \
   -t intlayer-website \
   -f "${ROOT_DIR}/apps/website/Dockerfile" \
   "${BUILD_ARGS[@]}" \
