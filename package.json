@@ -38,7 +38,7 @@
     "docker:backend:start": "docker run --rm -p 3100:3100 --name intlayer-backend-app intlayer-backend",
     "docker:mcp:build": "docker build -t intlayer-mcp -f ./packages/@intlayer/mcp/Dockerfile .",
     "docker:mcp:start": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",
-    "docker:website:build": "docker build -t intlayer-website -f ./apps/website/Dockerfile .",
+    "docker:website:build": "./scripts/docker-build-website.sh",
     "docker:website:start": "docker run --rm -p 3000:3000 --name intlayer-website-app intlayer-website",
     "install:packages": "pnpm install --filter '!./examples/**' --filter '!./apps/website/**'",
     "lint": "eslint . --cache",
