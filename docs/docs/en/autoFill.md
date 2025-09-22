@@ -69,8 +69,6 @@ Afterward, both declaration files will be merged into a single dictionary, acces
 
 You can configure the global auto fill configuration in the `intlayer.config.ts` file.
 
-You can now enable auto‑fill globally so any dictionary with missing translations gets completed automatically.
-
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
 
@@ -98,6 +96,8 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
+
+You can still fine‑tune per dictionary using the `autoFill` field in content files. Intlayer will first consider the per dictionary configuration and then fallback to the global configuration.
 
 ## Autofilled File Format
 
