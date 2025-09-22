@@ -30,7 +30,18 @@
 		}
 	},
 	"peerDependencies": {
+		"@intlayer/api": "workspace:*",
+		"@intlayer/config": "workspace:*",
+		"@intlayer/core": "workspace:*",
+		"@intlayer/editor": "workspace:*",
 		"svelte": "^5.0.0"
+	},
+	"dependencies": {
+		"@intlayer/api": "workspace:*",
+		"@intlayer/config": "workspace:*",
+		"@intlayer/core": "workspace:*",
+		"@intlayer/editor": "workspace:*",
+		"js-cookie": "^3.0.5"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
