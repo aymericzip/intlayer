@@ -82,6 +82,7 @@ const buildEntryContent = (
     `/* REGENERATE USING \`pnpm prepare\` */`,
     `import type { LocalesValues } from '@intlayer/config';`,
     `import { readFile } from 'fs/promises';`,
+    `import { existsSync } from 'fs';`,
     `import { dirname, join } from 'path';`,
     `import { fileURLToPath } from 'url';`,
     ``,
@@ -98,7 +99,7 @@ const buildEntryContent = (
 
       const localeList = localeMap(
         ({ locale }) =>
-          `'${locale}': Promise.resolve(readFile(join(dir, '../../../${dir}/${locale}/${relativeAfterLocale}'), 'utf8'))`,
+          `'${locale}': (() => { const target = join(dir, '../../../${dir}/${locale}/${relativeAfterLocale}'); if (!existsSync(target)) { console.error('File not found: ' + target); return Promise.resolve(readFile(join(dir, '../../../${dir}/en/${relativeAfterLocale}'), 'utf8')); } return Promise.resolve(readFile(target, 'utf8')); })()`,
         locales
       );
       return `  '${file}': {${localeList.join(',')}} as unknown as Record<LocalesValues, Promise<string>>,`;
