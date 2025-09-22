@@ -389,6 +389,19 @@ module.exports = config;
 
 Start the Live Sync server to wrap your application:
 
+Example using standalone server:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "live:start": "npx intlayer live",
+  },
+}
+```
+
+You can also use your application server in parallel using the `--process` argument.
+
 Example using Next.js:
 
 ```json5 fileName="package.json"
@@ -421,11 +434,11 @@ To receive change notifications from the CMS, the Live Sync server maintains an 
 
 Flow chart (CMS/Backend -> Live Sync Server -> Application Server -> Frontend):
 
-![Live Sync Logic Schema](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_logic_schema.svg)
+![Live Sync Flow CMS/Backend/Live Sync Server/Application Server/Frontend Schema](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
 
 How it works:
 
-![Live Sync Flow CMS/Backend/Live Sync Server/Application Server/Frontend Schema](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
+![Live Sync Logic Schema](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_logic_schema.svg)
 
 ### Development workflow (local)
 
@@ -454,7 +467,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   build: {
-    optimize: true,
+    optimize: true, // default: process.env.NODE_ENV === 'production'
     importMode: "live",
   },
 };
@@ -471,7 +484,7 @@ const config = {
     liveSync: true,
   },
   build: {
-    optimize: true,
+    optimize: true, // default: process.env.NODE_ENV === 'production'
     importMode: "live",
   },
 };
@@ -488,7 +501,7 @@ const config = {
     liveSync: true,
   },
   build: {
-    optimize: true,
+    optimize: true, // default: process.env.NODE_ENV === 'production'
     importMode: "live",
   },
 };
