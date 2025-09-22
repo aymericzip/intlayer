@@ -80,10 +80,7 @@ export const reviewFile = async (
     ].join('');
 
     const prefixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}][${formatLocale(locale)}${ANSIColors.GREY_DARK}] `;
-    const prefix = [
-      colon(prefixText, { colSize: 40 }),
-      `→ ${ANSIColors.RESET}`,
-    ].join('');
+    const prefix = [colon(prefixText, { colSize: 40 })].join('');
 
     appLogger(
       `${filePrefix}Base file splitted into ${colorizeNumber(baseChunks.length)} chunks`
@@ -159,7 +156,7 @@ export const reviewFile = async (
             colorizeNumber(i + 1),
             `${ANSIColors.GREY_DARK} of `,
             colorizeNumber(baseChunks.length),
-            `${ANSIColors.GREY_DARK}]${ANSIColors.RESET} → `,
+            `${ANSIColors.GREY_DARK}] →${ANSIColors.RESET} `,
             `${colorizeNumber(result.tokenUsed)} tokens used`,
           ].join('')
         );

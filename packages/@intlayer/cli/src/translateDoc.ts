@@ -132,7 +132,7 @@ export const translateFile = async (
             colorizeNumber(i + 1),
             `${ANSIColors.GREY_DARK} of `,
             colorizeNumber(chunks.length),
-            `${ANSIColors.GREY_DARK}]${ANSIColors.RESET} → `,
+            `${ANSIColors.GREY_DARK}] →${ANSIColors.RESET} `,
             `${colorizeNumber(result.tokenUsed)} tokens used`,
           ].join('')
         );
