@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-09-21
+updatedAt: 2025-09-22
 title: Intlayer Visual Editor | Edit your content using a visual editor
 description: Discover how to use the Intlayer Editor to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -58,7 +58,7 @@ The visual editor in an application that includes two things:
 
 - Once you clicked the download button, the visual editor will send a request to the server to replace your content declaration files with the new content (wherever these files are declared in your project).
 
-> Note that for now, Intlayer Editor will write your content declaration files as JSON files.
+> Note that Intlayer Editor will write your content declaration files as JSON if the file extension is `.json`. If the file extension is `.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`, `.cjs`, it will write the file as a JavaScript file using a babel transformer.
 
 ## Installation
 
@@ -266,7 +266,8 @@ If you encounter any issues with the visual editor, check the following:
 
 ## Doc History
 
-| Version | Date       | Changes                |
-| ------- | ---------- | ---------------------- |
-| 6.0.0   | 2025-09-21 | Add reexported command |
-| 5.5.10  | 2025-06-29 | Init history           |
+| Version | Date       | Changes                                                              |
+| ------- | ---------- | -------------------------------------------------------------------- |
+| 6.0.1   | 2025-09-22 | Change behavior of the editor when the file extension is not `.json` |
+| 6.0.0   | 2025-09-21 | Add reexported command                                               |
+| 5.5.10  | 2025-06-29 | Init history                                                         |

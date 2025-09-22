@@ -532,7 +532,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Available modes:
     - "static": Dictionaries are imported statically. Replaces `useIntlayer` with `useDictionary`.
     - "dynamic": Dictionaries are imported dynamically using Suspense. Replaces `useIntlayer` with `useDictionaryDynamic`.
-    - "live": Dictionaries are fetched dynamically using the live sync API. Replaces `useIntlayer` with `useDictionaryFetch`.
+    - "live": Dictionaries are fetched dynamically using the live sync API. Replaces `useIntlayer` with `useDictionaryDynamic`.
   - _Note_: Dynamic imports rely on Suspense and may slightly impact rendering performance.
   - _Note_: If disabled all locales will be loaded at once, even if they are not used.
   - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.

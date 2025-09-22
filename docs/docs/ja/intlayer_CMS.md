@@ -1,13 +1,13 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: Intlayer CMS | Intlayer CMSにコンテンツを外部化します
-description: Intlayer CMSにコンテンツを外部化して、コンテンツの管理をチームに委譲します。
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
+title: Intlayer CMS | コンテンツをIntlayer CMSに外部化する
+description: コンテンツ管理をチームに委任するために、コンテンツをIntlayer CMSに外部化します。
 keywords:
   - CMS
   - ビジュアルエディター
   - 国際化
-  - ドキュメント
+  - ドキュメンテーション
   - Intlayer
   - Next.js
   - JavaScript
@@ -19,70 +19,70 @@ slugs:
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 ---
 
-# Intlayer コンテンツ管理システム (CMS) ドキュメント
+# Intlayer コンテンツ管理システム（CMS）ドキュメント
 
-<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="あなたのWebアプリのためのビジュアルエディター + CMS: Intlayerの説明" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-Intlayer CMS は、Intlayer プロジェクトのコンテンツを外部化することを可能にするアプリケーションです。
+Intlayer CMSは、Intlayerプロジェクトのコンテンツを外部化できるアプリケーションです。
 
-そのために、Intlayer は「遠隔辞書」という概念を導入しています。
+そのために、Intlayerは「遠隔辞書（distant dictionaries）」の概念を導入しています。
 
 ![Intlayer CMS インターフェース](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
 ## 遠隔辞書の理解
 
-Intlayer は「ローカル辞書」と「遠隔辞書」を区別しています。
+Intlayerは「ローカル辞書」と「遠隔辞書」を区別しています。
 
-- 「ローカル辞書」は、Intlayer プロジェクト内で宣言される辞書です。ボタンの宣言ファイルやナビゲーションバーなどが該当します。この場合、コンテンツは頻繁に変更されることが想定されていないため、外部化する意味はあまりありません。
+- 「ローカル」辞書とは、Intlayerプロジェクト内で宣言されている辞書のことです。例えば、ボタンの宣言ファイルやナビゲーションバーなどです。この場合、コンテンツは頻繁に変更されることを想定していないため、コンテンツを外部化することは意味がありません。
 
-- 「遠隔辞書」は、Intlayer CMS を通じて管理される辞書です。これにより、チームがウェブサイト上で直接コンテンツを管理できるようになり、A/B テスト機能や SEO 自動最適化の利用も目的としています。
+- 「遠隔」辞書とは、Intlayer CMSを通じて管理される辞書のことです。これは、チームがウェブサイト上で直接コンテンツを管理できるようにするために役立ち、さらにA/Bテスト機能やSEOの自動最適化を利用することも目的としています。
 
-## ビジュアルエディタ vs CMS
+## ビジュアルエディターとCMSの違い
 
-[Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) エディタは、ローカル辞書のコンテンツをビジュアルエディタで管理するためのツールです。変更が行われると、コンテンツはコードベースに置き換えられます。つまり、アプリケーションが再構築され、新しいコンテンツを表示するためにページがリロードされます。
+[Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) エディターは、ローカル辞書のコンテンツをビジュアルエディターで管理できるツールです。変更が行われると、コンテンツはコードベースに置き換えられます。つまり、アプリケーションが再ビルドされ、ページがリロードされて新しいコンテンツが表示されることを意味します。
 
-対照的に、Intlayer CMS は遠隔辞書のコンテンツをビジュアルエディタで管理するためのツールです。変更が行われても、コードベースには影響を与えません。そして、ウェブサイトは自動的に変更されたコンテンツを表示します。
+これに対して、Intlayer CMSは、遠隔辞書のコンテンツをビジュアルエディターで管理できるツールです。変更が行われても、コンテンツはコードベースに影響を与えません。そして、ウェブサイトは自動的に変更されたコンテンツを表示します。
 
 ## 統合
 
-パッケージのインストール方法についての詳細は、以下の関連セクションを参照してください。
+パッケージのインストール方法の詳細については、以下の該当セクションを参照してください。
 
-### Next.js との統合
+### Next.jsとの統合
 
-Next.js との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)を参照してください。
+Next.jsとの統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_15.md)を参照してください。
 
-### Create React App との統合
+### Create React Appとの統合
 
-Create React App との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)を参照してください。
+Create React Appとの統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_create_react_app.md)を参照してください。
 
-### Vite + React との統合
+### Vite + Reactとの統合
 
-Vite + React との統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)を参照してください。
+Vite + Reactとの統合については、[セットアップガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)を参照してください。
 
 ## 設定
 
-Intlayer 設定ファイル内で、CMS 設定をカスタマイズできます。
+Intlayerの設定ファイル内で、CMSの設定をカスタマイズできます：
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... 他の設定
+  // ... その他の設定
   editor: {
     /**
      * 必須
      *
-     * アプリケーションの URL。
-     * これはビジュアルエディタがターゲットとする URL です。
+     * アプリケーションのURL。
+     * これはビジュアルエディターがターゲットとするURLです。
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
 
     /**
      * 必須
      *
-     * クライアント ID とクライアントシークレットはエディタを有効にするために必要です。
+     * エディターを有効にするためにクライアントIDとクライアントシークレットが必要です。
      * これらはコンテンツを編集しているユーザーを識別するために使用されます。
-     * Intlayer ダッシュボード - プロジェクト (https://intlayer.org/dashboard/projects) で新しいクライアントを作成することで取得できます。
+     * Intlayerダッシュボードのプロジェクト（https://intlayer.org/dashboard/projects）で新しいクライアントを作成することで取得できます。
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -92,19 +92,19 @@ const config: IntlayerConfig = {
     /**
      * 任意
      *
-     * Intlayer CMS をセルフホストする場合、CMS の URL を設定できます。
+     * Intlayer CMSをセルフホスティングしている場合、CMSのURLを設定できます。
      *
-     * Intlayer CMS の URL。
+     * Intlayer CMSのURL。
      * デフォルトでは https://intlayer.org に設定されています。
      */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
-     * 任意
+     * オプション
      *
-     * Intlayer CMS をセルフホストする場合、バックエンドの URL を設定できます。
+     * Intlayer CMSをセルフホスティングしている場合、バックエンドのURLを設定できます。
      *
-     * Intlayer CMS の URL。
+     * Intlayer CMSのURL。
      * デフォルトでは https://back.intlayer.org に設定されています。
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -122,17 +122,17 @@ const config = {
     /**
      * 必須
      *
-     * アプリケーションの URL。
-     * これはビジュアルエディタがターゲットとする URL です。
+     * アプリケーションのURL。
+     * これはビジュアルエディタが対象とするURLです。
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
 
     /**
      * 必須
      *
-     * クライアント ID とクライアントシークレットはエディタを有効にするために必要です。
+     * エディタを有効にするには、クライアントIDとクライアントシークレットが必要です。
      * これらはコンテンツを編集しているユーザーを識別するために使用されます。
-     * Intlayer ダッシュボード - プロジェクト (https://intlayer.org/dashboard/projects) で新しいクライアントを作成することで取得できます。
+     * Intlayerダッシュボードのプロジェクト（https://intlayer.org/dashboard/projects）で新しいクライアントを作成することで取得できます。
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -142,19 +142,19 @@ const config = {
     /**
      * 任意
      *
-     * Intlayer CMS をセルフホストする場合、CMS の URL を設定できます。
+     * Intlayer CMSをセルフホスティングしている場合、CMSのURLを設定できます。
      *
-     * Intlayer CMS の URL。
+     * Intlayer CMSのURL。
      * デフォルトでは https://intlayer.org に設定されています。
      */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
-     * 任意
+     * オプション
      *
-     * Intlayer CMS をセルフホストする場合、バックエンドの URL を設定できます。
+     * Intlayer CMSをセルフホスティングしている場合、バックエンドのURLを設定できます。
      *
-     * Intlayer CMS の URL。
+     * Intlayer CMSのURL。
      * デフォルトでは https://back.intlayer.org に設定されています。
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -167,22 +167,22 @@ export default config;
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... 他の設定
+  // ... その他の設定
   editor: {
     /**
      * 必須
      *
-     * アプリケーションの URL。
-     * これはビジュアルエディタがターゲットとする URL です。
+     * アプリケーションのURL。
+     * これはビジュアルエディターがターゲットとするURLです。
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
 
     /**
      * 必須
      *
-     * クライアント ID とクライアントシークレットはエディタを有効にするために必要です。
+     * エディターを有効にするには、クライアントIDとクライアントシークレットが必要です。
      * これらはコンテンツを編集しているユーザーを識別するために使用されます。
-     * Intlayer ダッシュボード - プロジェクト (https://intlayer.org/dashboard/projects) で新しいクライアントを作成することで取得できます。
+     * Intlayerダッシュボードのプロジェクトページ（https://intlayer.org/dashboard/projects）で新しいクライアントを作成することで取得できます。
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -192,18 +192,19 @@ const config = {
     /**
      * 任意
      *
-     * Intlayer CMS をセルフホストする場合、CMS の URL を設定できます。
+     * Intlayer CMSをセルフホスティングしている場合、CMSのURLを設定できます。
      *
-     * Intlayer CMS の URL。
+     * Intlayer CMSのURL。
      * デフォルトでは https://intlayer.org に設定されています。
+     */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
-     * 任意
+     * オプション
      *
-     * Intlayer CMS をセルフホストしている場合、バックエンドの URL を設定できます。
+     * Intlayer CMSをセルフホスティングしている場合、バックエンドのURLを設定できます。
      *
-     * Intlayer CMS のバックエンドの URL。
+     * Intlayer CMSのURLです。
      * デフォルトでは https://back.intlayer.org に設定されています。
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -213,72 +214,87 @@ const config = {
 module.exports = config;
 ```
 
-> クライアント ID とクライアントシークレットをお持ちでない場合は、[Intlayer ダッシュボード - プロジェクト](https://intlayer.org/dashboard/projects)で新しいクライアントを作成することで取得できます。
+> クライアントIDとクライアントシークレットをお持ちでない場合は、[Intlayerダッシュボード - プロジェクト](https://intlayer.org/dashboard/projects)で新しいクライアントを作成して取得できます。
 
 > 利用可能なすべてのパラメータについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-## CMS の使用
+## CMSの使用方法
 
-### 設定をプッシュする
+### 設定のプッシュ
 
-Intlayer CMS を設定するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md) コマンドを使用できます。
+Intlayer CMSを設定するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md)コマンドを使用できます。
 
 ```bash
 npx intlayer config push
 ```
 
-> `intlayer.config.ts` 設定ファイルで環境変数を使用している場合は、`--env` 引数を使用して目的の環境を指定できます。
+> `intlayer.config.ts`設定ファイルで環境変数を使用している場合は、`--env`引数を使って希望の環境を指定できます：
 
 ```bash
 npx intlayer config push --env production
 ```
 
-このコマンドは設定を Intlayer CMS にアップロードします。
+このコマンドは設定をIntlayer CMSにアップロードします。
 
 ### 辞書をプッシュする
 
-ローカル辞書を遠隔辞書に変換するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md) コマンドを使用できます。
+ロケール辞書をリモート辞書に変換するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md)コマンドを使用できます。
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
-> `intlayer.config.ts` 設定ファイルで環境変数を使用している場合は、`--env` 引数を使用して目的の環境を指定できます。
+> `intlayer.config.ts` 設定ファイルで環境変数を使用している場合は、`--env` 引数を使って希望の環境を指定できます。
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
-このコマンドは、初期コンテンツ辞書をアップロードし、非同期フェッチおよび Intlayer プラットフォームを通じた編集が可能になります。
+このコマンドは初期コンテンツの辞書をアップロードし、Intlayer プラットフォームを通じて非同期に取得および編集できるようにします。
 
-### 辞書を編集する
+### 辞書の編集
 
 その後、[Intlayer CMS](https://intlayer.org/dashboard/content) で辞書を確認および管理できるようになります。
 
-## ホットリロード
+## ライブ同期
 
-Intlayer CMS は、変更が検出された場合に辞書をホットリロードすることができます。
+ライブ同期は、アプリが実行時に CMS のコンテンツ変更を反映できるようにします。再ビルドや再デプロイは不要です。有効にすると、更新がライブ同期サーバーにストリームされ、アプリケーションが読み込む辞書が更新されます。
 
-ホットリロードがない場合、新しいコンテンツを表示するにはアプリケーションの新しいビルドが必要です。
-[`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration) 設定を有効にすると、変更が検出された際にアプリケーションは自動的に更新されたコンテンツを置き換えます。
+> Live Syncは継続的なサーバー接続を必要とし、エンタープライズプランで利用可能です。
+
+Intlayerの設定を更新してLive Syncを有効にします：
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... 他の設定
+  // ... その他の設定
   editor: {
-    // ... 他の設定
-
     /**
-     * ロケール設定が変更された場合にアプリケーションがホットリロードを行うかどうかを示します。
-     * 例えば、新しい辞書が追加または更新された場合、アプリケーションはページに表示するコンテンツを更新します。
+     * 変更が検出されたときにロケール設定のホットリロードを有効にします。
+     * 例えば、辞書が追加または更新された場合、アプリケーションは
+     * ページに表示されるコンテンツを更新します。
      *
-     * ホットリロードにはサーバーへの継続的な接続が必要なため、`enterprise` プランのクライアントのみ利用可能です。
+     * ホットリロードは継続的なサーバー接続を必要とするため、
+     * `enterprise`プランのクライアントのみ利用可能です。
      *
      * デフォルト: false
      */
     liveSync: true,
+  },
+  build: {
+    /**
+     * 辞書のインポート方法を制御します：
+     *
+     * - "live"：辞書はLive Sync APIを使用して動的に取得されます。
+     *   useIntlayerの代わりにuseDictionaryDynamicを使用します。
+     *
+     * 注意：ライブモードはLive Sync APIを使用して辞書を取得します。API呼び出しが
+     * 失敗した場合、辞書は動的にインポートされます。
+     * 注意：リモートコンテンツかつ"live"フラグが付いた辞書のみがライブモードを使用します。
+     * その他はパフォーマンスのために動的モードを使用します。
+     */
+    importMode: "live",
   },
 };
 
@@ -288,19 +304,33 @@ export default config;
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... 他の設定
+  // ... その他の設定
   editor: {
-    // ... 他の設定
-
     /**
-     * ロケール設定が変更された場合にアプリケーションがホットリロードを行うかどうかを示します。
-     * 例えば、新しい辞書が追加または更新された場合、アプリケーションはページに表示するコンテンツを更新します。
+     * ロケール設定の変更が検出されたときにホットリロードを有効にします。
+     * 例えば、辞書が追加または更新された場合、アプリケーションは
+     * ページに表示されるコンテンツを更新します。
      *
-     * ホットリロードにはサーバーへの継続的な接続が必要なため、`enterprise` プランのクライアントのみ利用可能です。
+     * ホットリロードはサーバーへの継続的な接続を必要とするため、
+     * `enterprise` プランのクライアントのみ利用可能です。
      *
      * デフォルト: false
      */
     liveSync: true,
+  },
+  build: {
+    /**
+     * 辞書のインポート方法を制御します：
+     *
+     * - "live": Live Sync APIを使用して辞書を動的に取得します。
+     *   useIntlayerをuseDictionaryDynamicに置き換えます。
+     *
+     * 注意: ライブモードはLive Sync APIを使用して辞書を取得します。API呼び出しが
+     * 失敗した場合、辞書は動的にインポートされます。
+     * 注意: リモートコンテンツを持ち、かつ "live" フラグが設定された辞書のみがライブモードを使用します。
+     * その他の辞書はパフォーマンスのためにダイナミックモードを使用します。
+     */
+    importMode: "live",
   },
 };
 
@@ -310,46 +340,201 @@ export default config;
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... 他の設定
+  // ... その他の設定
   editor: {
-    // ... 他の設定
-
     /**
-     * ロケール設定が変更された場合にアプリケーションがホットリロードを行うかどうかを示します。
-     * 例えば、新しい辞書が追加または更新された場合、アプリケーションはページに表示するコンテンツを更新します。
+     * 変更が検出された際にロケール設定のホットリロードを有効にします。
+     * 例えば、辞書が追加または更新された場合、アプリケーションは
+     * ページに表示されるコンテンツを更新します。
      *
-     * ホットリロードにはサーバーへの継続的な接続が必要なため、`enterprise` プランのクライアントのみ利用可能です。
+     * ホットリロードはサーバーへの継続的な接続を必要とするため、
+     * `enterprise` プランのクライアントのみ利用可能です。
      *
      * デフォルト: false
      */
     liveSync: true,
+
+    /**
+     * Live Syncサーバーのポート番号。
+     *
+     * デフォルト: 4000
+     */
+    liveSyncPort: 4000,
+
+    /**
+     * Live SyncサーバーのURL。
+     *
+     * デフォルト: http://localhost:{liveSyncPort}
+     */
+    liveSyncURL: "https://live.example.com",
+  },
+  build: {
+    /**
+     * 辞書のインポート方法を制御します：
+     *
+     * - "live": Live Sync APIを使用して辞書を動的に取得します。
+     *   useIntlayerをuseDictionaryDynamicに置き換えます。
+     *
+     * 注意: ライブモードはLive Sync APIを使用して辞書を取得します。API呼び出しが失敗した場合、
+     * 辞書は動的にインポートされます。
+     * 注意: リモートコンテンツかつ"live"フラグが付いた辞書のみがライブモードを使用します。
+     * その他はパフォーマンスのために動的モードを使用します。
+     */
+    importMode: "live",
   },
 };
 
 module.exports = config;
 ```
 
-ホットリロードは、サーバーサイドとクライアントサイドの両方でコンテンツを置き換えます。
+アプリケーションをラップするために Live Sync サーバーを起動します：
 
-- サーバーサイドでは、アプリケーションプロセスが `.intlayer/dictionaries` ディレクトリへの書き込みアクセス権を持っていることを確認してください。
-- クライアントサイドでは、ホットリロードによりページをリロードすることなくブラウザ内でコンテンツをホットリロードできます。ただし、この機能はクライアントコンポーネントでのみ利用可能です。
+Next.js を使用した例：
 
-> ホットリロードには `EventListener` を使用したサーバーへの継続的な接続が必要なため、`enterprise` プランのクライアントのみ利用可能です。
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... その他のスクリプト
+    "build": "next build",
+    "dev": "next dev",
+    "start": "npx intlayer live --process 'next start'",
+  },
+}
+```
+
+Vite を使用した例：
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... その他のスクリプト
+    "build": "vite build",
+    "dev": "vite dev",
+    "start": "npx intlayer live --process 'vite start'",
+  },
+}
+```
+
+Live Sync サーバーはあなたのアプリケーションをラップし、更新されたコンテンツが到着すると自動的に適用します。
+
+CMSからの変更通知を受け取るために、Live SyncサーバーはバックエンドとのSSE接続を維持します。CMSのコンテンツが変更されると、バックエンドは更新情報をLive Syncサーバーに転送し、新しい辞書を書き込みます。アプリケーションは次のナビゲーションまたはブラウザのリロード時に更新を反映し、再ビルドは不要です。
+
+フローチャート（CMS/バックエンド -> Live Syncサーバー -> アプリケーションサーバー -> フロントエンド）:
+
+![Live Sync ロジックスキーマ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_logic_schema.svg)
+
+動作の仕組み:
+
+![Live Sync フロー CMS/バックエンド/Live Syncサーバー/アプリケーションサーバー/フロントエンド スキーマ](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
+
+### 開発ワークフロー（ローカル）
+
+- 開発中は、アプリケーション起動時にすべてのリモート辞書が取得されるため、更新をすばやくテストできます。
+- Next.jsでローカルにLive Syncをテストするには、開発サーバーをラップします：
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... 他のスクリプト
+    "dev": "npx intlayer live --process 'next dev'",
+    // "dev": "npx intlayer live --process 'vite dev'", // Vite用
+  },
+}
+```
+
+開発中にIntlayerがLiveインポート変換を適用するように最適化を有効にします：
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true,
+    importMode: "live",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true,
+    importMode: "live",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true,
+    importMode: "live",
+  },
+};
+
+module.exports = config;
+```
+
+この設定により、開発サーバーがLive Syncサーバーでラップされ、起動時にリモート辞書を取得し、CMSからの更新をSSE経由でストリーミングします。変更を確認するにはページをリロードしてください。
+
+注意事項と制約：
+
+- サイトのセキュリティポリシー（CSP）にLive Syncのオリジンを追加してください。`connect-src`（および該当する場合は`frame-ancestors`）にLive SyncのURLが許可されていることを確認してください。
+- Live Syncは静的出力では動作しません。Next.jsの場合、ページは動的である必要があり、ランタイムで更新を受け取るために（例：`generateStaticParams`、`generateMetadata`、`getServerSideProps`、または`getStaticProps`を適切に使用して）完全な静的のみの制約を回避してください。
+
+```
+
+このセットアップは、開発サーバーを Live Sync サーバーでラップし、起動時にリモート辞書を取得し、CMS からの更新を SSE 経由でストリーミングします。変更を確認するにはページをリフレッシュしてください。
+
+注意事項と制約：
+
+- Live Sync のオリジンをサイトのセキュリティポリシー（CSP）に追加してください。Live Sync の URL が `connect-src`（および該当する場合は `frame-ancestors`）で許可されていることを確認してください。
+- Live Sync は静的出力では動作しません。Next.js の場合、ページはランタイムで更新を受け取るために動的である必要があります（例：完全な静的のみの制約を避けるために、`generateStaticParams`、`generateMetadata`、`getServerSideProps`、または `getStaticProps` を適切に使用してください）。
+- CMSでは、各辞書に`live`フラグがあります。`live=true`の辞書のみがライブ同期APIを通じて取得され、それ以外は動的にインポートされ、実行時には変更されません。
+- `live`フラグはビルド時に各辞書ごとに評価されます。ビルド時にリモートコンテンツが`live=true`に設定されていなかった場合、その辞書のライブ同期を有効にするには再ビルドが必要です。
+- ライブ同期サーバーは`.intlayer`に書き込み可能でなければなりません。コンテナ環境では`/.intlayer`への書き込み権限を確保してください。
 
 ## デバッグ
 
-CMS に問題が発生した場合、以下を確認してください。
+CMSで問題が発生した場合は、以下を確認してください：
 
-- アプリケーションが実行中であること。
+- アプリケーションが稼働していること。
 
-- Intlayer 設定ファイルで [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 設定が正しく設定されていること。
-  - 必須フィールド:
-    - アプリケーション URL がエディタ設定 (`applicationURL`) に設定したものと一致していること。
-    - CMS URL
+- [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration)の設定がIntlayerの設定ファイルで正しく行われていること。
+  - 必須フィールド：
+- アプリケーションのURLは、エディター設定の `applicationURL` と一致している必要があります。
+- CMSのURL
 
-- プロジェクト設定が Intlayer CMS にプッシュされていることを確認してください。
-- ビジュアルエディタは iframe を使用してウェブサイトを表示します。ウェブサイトのコンテンツセキュリティポリシー (CSP) が `frame-ancestors` として CMS URL ('https://intlayer.org' がデフォルト) を許可していることを確認してください。エディタコンソールでエラーを確認してください。
+- プロジェクトの設定がIntlayer CMSにプッシュされていることを確認してください。
+
+- ビジュアルエディターはiframeを使用してウェブサイトを表示します。ウェブサイトのコンテンツセキュリティポリシー（CSP）がCMSのURLを `frame-ancestors`（デフォルトは 'https://intlayer.org'）として許可していることを確認してください。エディターのコンソールでエラーがないか確認してください。
 
 ## ドキュメント履歴
 
-- 5.5.10 - 2025-06-29: 履歴を初期化
+| バージョン | 日付       | 変更内容                                 |
+| ---------- | ---------- | --------------------------------------- |
+| 6.0.1      | 2025-09-22 | ライブ同期のドキュメントを追加           |
+| 6.0.0      | 2025-09-04 | `hotReload` フィールドを `liveSync` に置き換え |
+| 5.5.10     | 2025-06-29 | 履歴を初期化                             |
+```
