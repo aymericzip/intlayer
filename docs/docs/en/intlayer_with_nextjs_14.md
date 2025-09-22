@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-06-29
+updatedAt: 2025-09-22
 title: Translate your Next.js 14 and App Router website (i18n)
 description: Discover how to make your Next.js 14 App Router website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -179,6 +179,21 @@ module.exports = { middleware: intlayerMiddleware, config };
 > The `intlayerMiddleware` is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md). Additionally, it enables saving the user's preferred locale in a cookie.
 
 > Adapt the `matcher` parameter to match the routes of your application. For more details, refer to the [Next.js documentation on configuring the matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).
+
+> If you need to chain several middlewares together (for example, `intlayerMiddleware` with authentication or custom middlewares), Intlayer now provides a helper called `multipleMiddlewares`.
+
+```ts
+import {
+  multipleMiddlewares,
+  intlayerMiddleware,
+} from "next-intlayer/middleware";
+import { customMiddleware } from "@utils/customMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  customMiddleware,
+]);
+```
 
 ### Step 5: Define Dynamic Locale Routes
 
@@ -1459,5 +1474,6 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 | Version | Date       | Changes                                                         |
 | ------- | ---------- | --------------------------------------------------------------- |
+| 5.6.2   | 2025-09-22 | Added docs for `multipleMiddlewares` helper                     |
 | 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
 | 5.5.10  | 2025-06-29 | Init history                                                    |
