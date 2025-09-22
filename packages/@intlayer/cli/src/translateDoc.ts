@@ -126,7 +126,15 @@ export const translateFile = async (
         );
 
         appLogger(
-          `${prefix}${colorizeNumber(result.tokenUsed)} tokens used - Chunk ${colorizeNumber(i + 1)} of ${colorizeNumber(chunks.length)}`
+          [
+            `${prefix}`,
+            `${ANSIColors.GREY_DARK}[Chunk `,
+            colorizeNumber(i + 1),
+            `${ANSIColors.GREY_DARK} of `,
+            colorizeNumber(chunks.length),
+            `${ANSIColors.GREY_DARK}]${ANSIColors.RESET} → `,
+            `${colorizeNumber(result.tokenUsed)} tokens used`,
+          ].join('')
         );
 
         const fixedTranslatedChunkResult = fixChunkStartEndChars(

@@ -153,7 +153,15 @@ export const reviewFile = async (
         );
 
         appLogger(
-          `${prefix}${colorizeNumber(result.tokenUsed)} tokens used - Chunk ${colorizeNumber(i + 1)} of ${colorizeNumber(baseChunks.length)}`
+          [
+            `${prefix}`,
+            `${ANSIColors.GREY_DARK}[Chunk `,
+            colorizeNumber(i + 1),
+            `${ANSIColors.GREY_DARK} of `,
+            colorizeNumber(baseChunks.length),
+            `${ANSIColors.GREY_DARK}]${ANSIColors.RESET} → `,
+            `${colorizeNumber(result.tokenUsed)} tokens used`,
+          ].join('')
         );
 
         const fixedReviewedChunkResult = fixChunkStartEndChars(
