@@ -14,9 +14,9 @@
  *  and must therefore be 100 % deterministic.
  * ------------------------------------------------------------------------- */
 
+import { localeMap } from '@intlayer/core';
 import fg from 'fast-glob';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { localeMap } from 'intlayer';
 import { dirname } from 'path';
 import prettier from 'prettier';
 
@@ -79,8 +79,8 @@ const buildEntryContent = (
   const header = [
     `/* AUTO-GENERATED – DO NOT EDIT */`,
     `/* REGENERATE USING \`pnpm prepare\` */`,
+    `import type { LocalesValues } from '@intlayer/config';`,
     `import { readFile } from 'fs/promises';`,
-    `import { LocalesValues } from 'intlayer';`,
     `import { dirname, join } from 'path';`,
     `import { fileURLToPath } from 'url';`,
     ``,

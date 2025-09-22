@@ -431,9 +431,9 @@ importers:
       '@intlayer/config':
         specifier: workspace:*
         version: link:../packages/@intlayer/config
-      intlayer:
+      '@intlayer/core':
         specifier: workspace:*
-        version: link:../packages/intlayer
+        version: link:../packages/@intlayer/core
     devDependencies:
       '@intlayer/api':
         specifier: workspace:*
