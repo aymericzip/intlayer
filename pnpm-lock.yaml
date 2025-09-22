@@ -575,31 +575,6 @@ importers:
         specifier: ~5.7.2
         version: 5.7.3
 
-  examples/cli:
-    dependencies:
-      intlayer:
-        specifier: workspace:*
-        version: link:../../packages/intlayer
-    devDependencies:
-      '@types/node':
-        specifier: ^24.2.1
-        version: 24.3.1
-      '@types/react':
-        specifier: ^19.1.6
-        version: 19.1.12
-      '@types/react-dom':
-        specifier: ^19.1.6
-        version: 19.1.9(@types/react@19.1.12)
-      eslint:
-        specifier: ^9.34.0
-        version: 9.34.0(jiti@2.5.1)
-      prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
-      typescript:
-        specifier: ^5.8.3
-        version: 5.9.2
-
   examples/express-app:
     dependencies:
       express:
