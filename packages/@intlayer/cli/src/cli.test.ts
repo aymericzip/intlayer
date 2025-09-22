@@ -107,6 +107,7 @@ vi.mock('@intlayer/config', () => ({
   v: '✓',
   x: '✗',
   colorize: (s: string) => String(s),
+  getExtension: vi.fn(() => 'cjs'),
   // Minimal configuration getter
   getConfiguration: vi.fn(() => ({
     content: {
