@@ -89,6 +89,15 @@ const buildEntryContent = (
     `const isESModule = typeof import.meta.url === 'string';`,
     `const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;`,
     ``,
+    `const readLocale = (relativeAfterLocale: string, locale: LocalesValues): Promise<string> => {`,
+    `  const target = join(dir, '../../../${dir}/' + locale + '/' + relativeAfterLocale);`,
+    `  if (!existsSync(target)) {`,
+    `    console.error('File not found: ' + target);`,
+    `    return readFile(join(dir, '../../../${dir}/en/' + relativeAfterLocale), 'utf8');`,
+    `  }`,
+    `  return readFile(target, 'utf8');`,
+    `};`,
+    ``,
     `\nexport const ${constName} = {\n`,
   ].join('\n');
 
@@ -99,7 +108,7 @@ const buildEntryContent = (
 
       const localeList = localeMap(
         ({ locale }) =>
-          `'${locale}': (() => { const target = join(dir, '../../../${dir}/${locale}/${relativeAfterLocale}'); if (!existsSync(target)) { console.error('File not found: ' + target); return Promise.resolve(readFile(join(dir, '../../../${dir}/en/${relativeAfterLocale}'), 'utf8')); } return Promise.resolve(readFile(target, 'utf8')); })()`,
+          `'${locale}': readLocale('${relativeAfterLocale}', '${locale}')`,
         locales
       );
       return `  '${file}': {${localeList.join(',')}} as unknown as Record<LocalesValues, Promise<string>>,`;

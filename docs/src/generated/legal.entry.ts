@@ -9,289 +9,55 @@ import { fileURLToPath } from 'url';
 const isESModule = typeof import.meta.url === 'string';
 const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
 
+const readLocale = (
+  relativeAfterLocale: string,
+  locale: LocalesValues
+): Promise<string> => {
+  const target = join(
+    dir,
+    '../../../legal/' + locale + '/' + relativeAfterLocale
+  );
+  if (!existsSync(target)) {
+    console.error('File not found: ' + target);
+    return readFile(
+      join(dir, '../../../legal/en/' + relativeAfterLocale),
+      'utf8'
+    );
+  }
+  return readFile(target, 'utf8');
+};
+
 export const legalEntry = {
   './legal/en/privacy_notice.md': {
-    en: (() => {
-      const target = join(dir, '../../../legal/en/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    fr: (() => {
-      const target = join(dir, '../../../legal/fr/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    ru: (() => {
-      const target = join(dir, '../../../legal/ru/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    ja: (() => {
-      const target = join(dir, '../../../legal/ja/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    ko: (() => {
-      const target = join(dir, '../../../legal/ko/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    zh: (() => {
-      const target = join(dir, '../../../legal/zh/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    es: (() => {
-      const target = join(dir, '../../../legal/es/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    de: (() => {
-      const target = join(dir, '../../../legal/de/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    ar: (() => {
-      const target = join(dir, '../../../legal/ar/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    pt: (() => {
-      const target = join(dir, '../../../legal/pt/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    'en-GB': (() => {
-      const target = join(dir, '../../../legal/en-GB/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    it: (() => {
-      const target = join(dir, '../../../legal/it/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    hi: (() => {
-      const target = join(dir, '../../../legal/hi/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    tr: (() => {
-      const target = join(dir, '../../../legal/tr/privacy_notice.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/privacy_notice.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
+    en: readLocale('privacy_notice.md', 'en'),
+    fr: readLocale('privacy_notice.md', 'fr'),
+    ru: readLocale('privacy_notice.md', 'ru'),
+    ja: readLocale('privacy_notice.md', 'ja'),
+    ko: readLocale('privacy_notice.md', 'ko'),
+    zh: readLocale('privacy_notice.md', 'zh'),
+    es: readLocale('privacy_notice.md', 'es'),
+    de: readLocale('privacy_notice.md', 'de'),
+    ar: readLocale('privacy_notice.md', 'ar'),
+    pt: readLocale('privacy_notice.md', 'pt'),
+    'en-GB': readLocale('privacy_notice.md', 'en-GB'),
+    it: readLocale('privacy_notice.md', 'it'),
+    hi: readLocale('privacy_notice.md', 'hi'),
+    tr: readLocale('privacy_notice.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './legal/en/terms_of_service.md': {
-    en: (() => {
-      const target = join(dir, '../../../legal/en/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    fr: (() => {
-      const target = join(dir, '../../../legal/fr/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    ru: (() => {
-      const target = join(dir, '../../../legal/ru/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    ja: (() => {
-      const target = join(dir, '../../../legal/ja/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    ko: (() => {
-      const target = join(dir, '../../../legal/ko/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    zh: (() => {
-      const target = join(dir, '../../../legal/zh/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    es: (() => {
-      const target = join(dir, '../../../legal/es/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    de: (() => {
-      const target = join(dir, '../../../legal/de/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    ar: (() => {
-      const target = join(dir, '../../../legal/ar/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    pt: (() => {
-      const target = join(dir, '../../../legal/pt/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    'en-GB': (() => {
-      const target = join(dir, '../../../legal/en-GB/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    it: (() => {
-      const target = join(dir, '../../../legal/it/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    hi: (() => {
-      const target = join(dir, '../../../legal/hi/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
-    tr: (() => {
-      const target = join(dir, '../../../legal/tr/terms_of_service.md');
-      if (!existsSync(target)) {
-        console.error('File not found: ' + target);
-        return Promise.resolve(
-          readFile(join(dir, '../../../legal/en/terms_of_service.md'), 'utf8')
-        );
-      }
-      return Promise.resolve(readFile(target, 'utf8'));
-    })(),
+    en: readLocale('terms_of_service.md', 'en'),
+    fr: readLocale('terms_of_service.md', 'fr'),
+    ru: readLocale('terms_of_service.md', 'ru'),
+    ja: readLocale('terms_of_service.md', 'ja'),
+    ko: readLocale('terms_of_service.md', 'ko'),
+    zh: readLocale('terms_of_service.md', 'zh'),
+    es: readLocale('terms_of_service.md', 'es'),
+    de: readLocale('terms_of_service.md', 'de'),
+    ar: readLocale('terms_of_service.md', 'ar'),
+    pt: readLocale('terms_of_service.md', 'pt'),
+    'en-GB': readLocale('terms_of_service.md', 'en-GB'),
+    it: readLocale('terms_of_service.md', 'it'),
+    hi: readLocale('terms_of_service.md', 'hi'),
+    tr: readLocale('terms_of_service.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;
