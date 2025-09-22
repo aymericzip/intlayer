@@ -1,4 +1,3 @@
-export type * from '@intlayer/chokidar';
 export * from './build';
 export * from './cli';
 export * from './editor';

@@ -1,5 +1,6 @@
 import type { AIOptions } from '@intlayer/api';
 import { getIntlayerAPIProxy } from '@intlayer/api';
+import { extractErrorMessage } from '@intlayer/chokidar';
 import { getAppLogger, type IntlayerConfig } from '@intlayer/config';
 
 export const checkCMSAuth = async (
@@ -25,13 +26,8 @@ export const checkCMSAuth = async (
   try {
     await intlayerAPI.oAuth.getOAuth2AccessToken();
   } catch (error) {
-    let message;
-    try {
-      const jsonError = JSON.parse((error as Error).message as string);
-      message = jsonError?.message ?? jsonError;
-    } catch (error) {
-      message = `${(error as Error).message} Error getting OAuth2 access token. Your token might be expired.`;
-    }
+    const message = extractErrorMessage(error);
+
     appLogger(message, {
       level: 'error',
     });
@@ -55,6 +51,7 @@ export const checkAIAccess = async (
     configuration.editor.clientId && configuration.editor.clientSecret;
   const hasHisOwnAIAPIKey = configuration.ai?.apiKey || aiOptions?.apiKey;
 
+  // User need to provide either his own AI API key or the CMS auth
   if (!hasCMSAuth && !hasHisOwnAIAPIKey) {
     appLogger('AI options or API key not provided.', {
       level: 'error',
@@ -63,5 +60,10 @@ export const checkAIAccess = async (
     return false;
   }
 
-  return await checkCMSAuth(configuration);
+  // If the user do not have his own AI API key, we need to check the CMS auth
+  if (!hasHisOwnAIAPIKey) {
+    return await checkCMSAuth(configuration);
+  }
+
+  return true;
 };

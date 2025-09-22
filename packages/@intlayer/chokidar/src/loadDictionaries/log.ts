@@ -90,6 +90,9 @@ export class DictionariesLogger {
 
   public setRemoteError = (error?: Error) => {
     this.remoteError = extractErrorMessage(error);
+    // Avoid rendering a transient remote-only line while the remote check flag is still true
+    // Ensure local + remote are rendered together after a failure
+    this.stopRemoteCheck();
     this.render();
   };
 

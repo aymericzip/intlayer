@@ -3,11 +3,7 @@ import {
   getIntlayerAPIProxy,
   type Messages,
 } from '@intlayer/api';
-import {
-  getConfiguration,
-  type GetConfigurationOptions,
-  retryManager,
-} from '@intlayer/config';
+import { type IntlayerConfig, retryManager } from '@intlayer/config';
 
 type ChunkInferenceResult = {
   fileContent: string;
@@ -21,13 +17,13 @@ type ChunkInferenceResult = {
 export const chunkInference = async (
   messages: Messages,
   aiOptions?: AIOptions,
-  configOptions?: GetConfigurationOptions
+  configuration?: IntlayerConfig
 ): Promise<ChunkInferenceResult> => {
   let lastResult: ChunkInferenceResult;
 
   await retryManager(async () => {
-    const configuration = getConfiguration(configOptions);
     const api = getIntlayerAPIProxy(undefined, configuration);
+
     const response = await api.ai.customQuery({
       aiOptions,
       messages,

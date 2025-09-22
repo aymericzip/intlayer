@@ -13,6 +13,7 @@ import {
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
+  IntlayerConfig,
   Locales,
   retryManager,
 } from '@intlayer/config';
@@ -44,12 +45,11 @@ export const reviewFile = async (
   locale: Locales,
   baseLocale: Locales,
   aiOptions?: AIOptions,
-  configOptions?: GetConfigurationOptions,
+  configuration: IntlayerConfig = getConfiguration(),
   customInstructions?: string,
   changedLines?: number[]
 ) => {
   try {
-    const configuration = getConfiguration(configOptions);
     const appLogger = getAppLogger(configuration, {
       config: {
         prefix: '',
@@ -149,7 +149,7 @@ export const reviewFile = async (
             { role: 'user', content: baseChunkContext.content },
           ],
           aiOptions,
-          configOptions
+          configuration
         );
 
         appLogger(
@@ -312,7 +312,7 @@ export const reviewDoc = async ({
           locale as Locales,
           baseLocale,
           aiOptions,
-          configOptions,
+          configuration,
           customInstructions,
           changedLines
         );

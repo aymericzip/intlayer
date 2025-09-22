@@ -13,6 +13,7 @@ import {
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
+  IntlayerConfig,
   Locales,
   retryManager,
 } from '@intlayer/config';
@@ -43,11 +44,10 @@ export const translateFile = async (
   locale: Locales,
   baseLocale: Locales,
   aiOptions?: AIOptions,
-  configOptions?: GetConfigurationOptions,
+  configuration: IntlayerConfig = getConfiguration(),
   customInstructions?: string
 ) => {
   try {
-    const configuration = getConfiguration(configOptions);
     const appLogger = getAppLogger(configuration, {
       config: {
         prefix: '',
@@ -122,7 +122,7 @@ export const translateFile = async (
             { role: 'user', content: fileToTranslateCurrentChunk },
           ],
           aiOptions,
-          configOptions
+          configuration
         );
 
         appLogger(
@@ -279,7 +279,7 @@ export const translateDoc = async ({
           locale as Locales,
           baseLocale,
           aiOptions,
-          configOptions,
+          configuration,
           customInstructions
         );
       })
