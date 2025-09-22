@@ -29,11 +29,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "**/*",
-    ".next/types/**/*.ts",
-    ".intlayer/**/*.ts",
-    "../../packages/next-intlayer/src/middleware/multipleMiddlewares.ts"
-  ],
+  "include": ["**/*", ".next/types/**/*.ts", ".intlayer/**/*.ts"],
   "exclude": ["node_modules", ".next"]
 }

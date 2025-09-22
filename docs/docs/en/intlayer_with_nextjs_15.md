@@ -638,6 +638,21 @@ module.exports = { middleware: intlayerMiddleware, config };
 
 > The `intlayerMiddleware` is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md). Additionally, it enables saving the user's preferred locale in a cookie.
 
+> If you need to chain several middlewares together (for example, `intlayerMiddleware` with authentication or custom middlewares), Intlayer now provides a helper called `multipleMiddlewares`.
+
+```ts
+import {
+  multipleMiddlewares,
+  intlayerMiddleware,
+} from "next-intlayer/middleware";
+import { customMiddleware } from "@utils/customMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  customMiddleware,
+]);
+```
+
 ### (Optional) Step 8: Internationalization of your metadata
 
 In the case you want to internationalize your metadata, such as the title of your page, you can use the `generateMetadata` function provided by Next.js. Inside, you can retrieve the content from the `getIntlayer` function to translate your metadata.
@@ -1410,24 +1425,6 @@ const Link = ({ href, children, ...props }) => {
     </NextLink>
   );
 };
-
-## Using multiple middlewares
-
-If you need to chain several middlewares together (for example, `intlayerMiddleware` with authentication or custom middlewares), Intlayer now provides a helper called `multipleMiddlewares`.
-
-ts
-import { multipleMiddlewares, intlayerMiddleware } from "next-intlayer/middleware";
-import { queryMiddleware } from "@utils/queryMiddleware";
-
-export const middleware = multipleMiddlewares([
-  intlayerMiddleware,
-  queryMiddleware,
-]);
-
-export const config = {
-  matcher: "/((?!api|static|assets|robots|sitemap|schema|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-
 ```
 
 #### How It Works
@@ -1522,6 +1519,6 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 | Version | Date       | Changes                                                         |
 | ------- | ---------- | --------------------------------------------------------------- |
-| 5.6.1   | 2025-09-22 | Added docs for `multipleMiddlewares` helper                     |
+| 5.6.2   | 2025-09-22 | Added docs for `multipleMiddlewares` helper                     |
 | 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
 | 5.5.10  | 2025-06-29 | Init history                                                    |
