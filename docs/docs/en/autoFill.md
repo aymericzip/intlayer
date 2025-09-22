@@ -65,6 +65,40 @@ Intlayer will automatically generate the derived declaration file at `src/compon
 
 Afterward, both declaration files will be merged into a single dictionary, accessible using the standard `useIntlayer("example")` hook (react) / composable (vue).
 
+## Global Configuration
+
+You can configure the global auto fill configuration in the `intlayer.config.ts` file.
+
+You can now enable auto‑fill globally so any dictionary with missing translations gets completed automatically.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+    requiredLocales: [Locales.ENGLISH, Locales.FRENCH],
+  },
+  content: {
+    // Auto-generate missing translations for all dictionaries
+    autoFill: "./{{fileName}}Filled.content.ts",
+    //
+    // autoFill: "/messages/{{locale}}/{{key}}/{{fileName}}.content.json",
+    //
+    // autoFill: true, // auto-generate missing translations for all dictionaries like using "./{{fileName}}.content.json"
+    //
+    // autoFill: {
+    //   en: "./{{fileName}}.en.content.json",
+    //   fr: "./{{fileName}}.fr.content.json",
+    //   es: "./{{fileName}}.es.content.json",
+    // },
+  },
+};
+
+export default config;
+```
+
 ## Autofilled File Format
 
 The recommended format for autofilled declaration files is **JSON**, which helps avoid formatting constraints. However, Intlayer also supports `.ts`, `.js`, `.mjs`, `.cjs`, and other formats.
