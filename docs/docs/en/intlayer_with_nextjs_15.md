@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-09-22
+updatedAt: 2025-09-23
 title: Translate your Next.js 15 website (i18n)
 description: Discover how to make your Next.js 15 website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -1467,6 +1467,34 @@ yarn add @intlayer/swc --save-dev
 
 > Note: This package is not installed by default because SWC plugins are still experimental on Next.js. It may change in the future.
 
+### Watch dictionaries changes on Turbopack
+
+When using Turbopack as your development server with the `next dev --turbopack` command, dictionary changes will not be automatically detected by default.
+
+This limitation occurs because Turbopack cannot run webpack plugins in parallel to monitor changes in your content files. To work around this, you'll need to use the `concurrently` package to run both the development server and the Intlayer build watcher simultaneously.
+
+```bash packageManager="npm"
+npm install concurrently --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add concurrently --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add concurrently --save-dev
+```
+
+```json5 fileName="package.json"
+{
+  // ... Your existing package.json configurations
+  "scripts": {
+    // ... Your existing scripts configurations
+    "dev": "concurrently --raw \"intlayer build --watch\" \"next dev --turbopack\"",
+  },
+}
+```
+
 ### Configure TypeScript
 
 Intlayer use module augmentation to get benefits of TypeScript and make your codebase stronger.
@@ -1521,6 +1549,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 | Version | Date       | Changes                                                         |
 | ------- | ---------- | --------------------------------------------------------------- |
+| 5.6.2   | 2025-09-23 | Added docs for watch dictionaries changes on Turbopack          |
 | 5.6.2   | 2025-09-22 | Added docs for `multipleMiddlewares` helper                     |
 | 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
 | 5.5.10  | 2025-06-29 | Init history                                                    |
