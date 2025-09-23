@@ -296,6 +296,8 @@ module.exports = { default: LocaleLayout, generateStaticParams };
 
 > `generateStaticParams` ensures that your application pre-builds the necessary pages for all locales, reducing runtime computation and improving the user experience. For more details, refer to the [Next.js documentation on generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
 
+> Intlayer works with `export const dynamic = 'force-static';` to ensure that the pages are pre-built for all locales.
+
 ### Step 5: Declare Your Content
 
 Create and manage your content declarations to store translations:
