@@ -6,7 +6,7 @@ const landingSectionContent = {
     whatsNew: t({
       en: "What's new",
       'en-GB': "What's new",
-      fr: 'Quoi de neuf',
+      fr: 'Actualités',
       es: 'Novedades',
       de: 'Was gibt es Neues',
       ja: '新着情報',
@@ -38,7 +38,7 @@ const landingSectionContent = {
     version: t({
       en: 'Just shipped  ',
       'en-GB': 'Just shipped  ',
-      fr: '  vient de sortir',
+      fr: ' Publiée récemment  ',
       es: 'Recién lanzado  ',
       de: 'Gerade   veröffentlicht',
       ja: ' をリリースしました',
@@ -54,7 +54,7 @@ const landingSectionContent = {
     title: t({
       en: 'Per-Component i18n - Speed up your development process',
       'en-GB': 'Per-Component i18n - Speed up your development process',
-      fr: 'i18n par composant - Accélérez votre processus de développement',
+      fr: 'Accélérez votre processus de développement (i18n par composant)',
       es: 'i18n por componente - Acelera tu proceso de desarrollo',
       de: 'i18n pro Komponente - Beschleunigen Sie Ihr Entwicklungsprozess',
       ja: 'コンポーネントごとのi18n - 開発プロセスを加速',
@@ -84,14 +84,14 @@ const landingSectionContent = {
       tr: 'Type-Safe. Yapay Zeka ile Çeviri. Görsel Olarak Düzenle.',
     }),
     description: t({
-      en: 'Intlayer provides your team with a developer-first workflow for internationalization and content management, ensuring your code remains maintainable and scalable. It works as a component-oriented CMS and is fully open source. Every contribution genuinely appreciated.',
+      en: 'Define translations next to components, with full type safety.Invite editors through an optional CMS when needed. Every contribution genuinely appreciated.',
       'en-GB':
-        'Intlayer provides your team with a developer-first workflow for internationalisation and content management, ensuring your code remains maintainable and scalable. It works as a component-oriented CMS and is fully open source. Every contribution genuinely appreciated.',
-      fr: "Intlayer fournit à votre équipe un workflow orienté développeur pour l'internationalisation et la gestion de contenu, garantissant que votre code reste maintenable et évolutif. Il fonctionne comme un CMS orienté composants et est entièrement open source. Chaque contribution est sincèrement appréciée.",
-      es: 'Intlayer proporciona a tu equipo un flujo de trabajo centrado en el desarrollador para la internacionalización y gestión de contenido, asegurando que tu código siga siendo mantenible y escalable. Funciona como un CMS orientado a componentes y es completamente de código abierto. Cada contribución es genuinamente apreciada.',
-      de: 'Intlayer bietet Ihrem Team einen entwicklerorientierten Workflow für Internationalisierung und Content-Management und stellt sicher, dass Ihr Code wartbar und skalierbar bleibt. Es funktioniert als komponentenorientiertes CMS und ist vollständig Open Source. Jeder Beitrag wird wirklich geschätzt.',
-      ja: 'Intlayerは、国際化とコンテンツ管理のための開発者優先のワークフローをチームに提供し、コードの保守性と拡張性を確保します。コンポーネント指向のCMSとして機能し、完全にオープンソースです。すべての貢献を心から感謝します。',
-      ko: 'Intlayer는 팀에게 국제화 및 콘텐츠 관리를 위한 개발자 중심 워크플로우를 제공하여 코드의 유지보수성과 확장성을 보장합니다. 컴포넌트 지향 CMS로 작동하며 완전히 오픈 소스입니다. 모든 기여를 진심으로 감사드립니다.',
+        'Define translations next to components, with full type safety.Invite editors through an optional CMS when needed. Every contribution genuinely appreciated.',
+      fr: "Définissez les traductions au niveau des composants, avec typage strict. Invitez des éditeurs via un CMS optionnel si besoin. Chaque contribution est appréciée.",
+      es: 'Define traducciones junto a los componentes, con una seguridad de tipo completa. Invita a los editores a través de un CMS opcional cuando sea necesario. Cada contribución es genuinamente apreciada.',
+      de: 'Definieren Sie Übersetzungen neben Komponenten mit vollständiger Typsicherheit. Laden Sie bei Bedarf Redakteure über ein optionales CMS ein. Jeder Beitrag wird aufrichtig geschätzt.',
+      ja: 'コンポーネントの隣に翻訳を定義し、完全な型安全性を確保します。必要に応じてオプションのCMSを通じて編集者を招待します。すべての貢献に心から感謝します。',
+      ko: '구성 요소 옆에 번역을 정의하고 완전한 유형 안전성을 보장합니다. 필요에 따라 선택적 CMS를 통해 편집자를 초대합니다. 모든 기여에 진심으로 감사드립니다.',
       zh: 'Intlayer为您的团队提供以开发者为先的国际化和内容管理工作流程，确保您的代码保持可维护性和可扩展性。它作为面向组件的CMS运作，并且完全开源。真诚感谢每一份贡献。',
       it: "Intlayer fornisce al tuo team un flusso di lavoro orientato allo sviluppatore per l'internazionalizzazione e la gestione dei contenuti, garantendo che il tuo codice rimanga manutenibile e scalabile. Funziona come un CMS orientato ai componenti ed è completamente open source. Ogni contributo è sinceramente apprezzato.",
       pt: 'Intlayer fornece à sua equipe um fluxo de trabalho focado no desenvolvedor para internacionalização e gerenciamento de conteúdo, garantindo que seu código permaneça manutenível e escalável. Funciona como um CMS orientado a componentes e é totalmente open source. Cada contribuição é genuinamente apreciada.',
