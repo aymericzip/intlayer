@@ -57,6 +57,8 @@ export const getIntlayerAPIProxy = (
 ): IntlayerAPI => {
   // Use a shared mutable auth options object captured by the API closures
   const authOptionsRef: FetcherOptions = { ..._baseAuthOptions };
+  const hasCMSAuth =
+    intlayerConfig?.editor.clientId && intlayerConfig?.editor.clientSecret;
   const baseApi = getIntlayerAPI(authOptionsRef, intlayerConfig);
 
   const needsRefresh = (): boolean => {
@@ -98,11 +100,12 @@ export const getIntlayerAPIProxy = (
 
   const wrapSection = <T extends Record<string, unknown>>(
     section: T,
-    skipAuth = false
+    skipAuth = !hasCMSAuth
   ): T => {
     return new Proxy(section, {
       get(target, prop, receiver) {
         const value = Reflect.get(target, prop, receiver);
+
         if (typeof value === 'function') {
           // Wrap section method to inject token and headers
           return async (...args: unknown[]) => {
@@ -124,6 +127,7 @@ export const getIntlayerAPIProxy = (
             }
           };
         }
+
         return value;
       },
     });

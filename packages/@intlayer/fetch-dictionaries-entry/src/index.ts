@@ -9,6 +9,7 @@
 import {
   ESMxCJSRequire,
   getConfiguration,
+  getExtension,
   type IntlayerConfig,
 } from '@intlayer/config';
 import { existsSync } from 'fs';
@@ -57,7 +58,12 @@ export const getDynamicDictionaries = (
 ) => {
   const { content } = configuration;
 
-  const dictionariesPath = join(content.mainDir, 'fetch_dictionaries.cjs');
+  const extension = getExtension(configuration);
+
+  const dictionariesPath = join(
+    content.mainDir,
+    `fetch_dictionaries.${extension}`
+  );
   let dictionaries: Record<
     IntlayerDictionaryTypesConnector['key'],
     LanguageContent<Dictionary>

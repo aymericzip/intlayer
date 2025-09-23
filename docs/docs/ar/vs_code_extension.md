@@ -1,10 +1,10 @@
 ---
 createdAt: 2025-03-17
-updatedAt: 2025-06-29
-title: إضافة VS Code الرسمية
-description: تعلّم كيفية استخدام إضافة Intlayer في VS Code لتعزيز سير عمل التطوير الخاص بك. تنقل بسرعة بين المحتوى المحلي وأدر قواميسك بكفاءة.
+updatedAt: 2025-09-22
+title: ملحق VS Code الرسمي
+description: تعلّم كيفية استخدام ملحق Intlayer في VS Code لتعزيز سير عمل التطوير الخاص بك. تنقل بسرعة بين المحتوى المحلي وأدر القواميس الخاصة بك بكفاءة.
 keywords:
-  - إضافة VS Code
+  - ملحق VS Code
   - Intlayer
   - التوطين
   - أدوات التطوير
@@ -17,41 +17,89 @@ slugs:
   - vs-code-extension
 ---
 
-# إضافة VS Code الرسمية
+# ملحق VS Code الرسمي
 
 ## نظرة عامة
 
-[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) هي الإضافة الرسمية لـ Visual Studio Code لـ **Intlayer**، مصممة لتحسين تجربة المطور عند العمل مع المحتوى المحلي في مشاريعك.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) هو الملحق الرسمي لـ Visual Studio Code الخاص بـ **Intlayer**، مصمم لتحسين تجربة المطور عند العمل مع المحتوى المحلي في مشاريعك.
 
-![إضافة Intlayer لـ VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+![ملحق Intlayer لـ VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
-رابط الإضافة: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
+رابط الملحق: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 
 ## الميزات
 
 ### التنقل الفوري
 
-**دعم الانتقال إلى التعريف** – استخدم `Cmd+Click` (لنظام ماك) أو `Ctrl+Click` (لنظام ويندوز/لينكس) على مفتاح `useIntlayer` لفتح ملف المحتوى المقابل فورًا.  
+**دعم الانتقال إلى التعريف** – استخدم `⌘ + Click` (ماك) أو `Ctrl + Click` (ويندوز/لينكس) على مفتاح `useIntlayer` لفتح ملف المحتوى المقابل فورًا.  
 **تكامل سلس** – يعمل بسهولة مع مشاريع **react-intlayer** و **next-intlayer**.  
 **دعم متعدد اللغات** – يدعم المحتوى المحلي عبر لغات مختلفة.  
-**تكامل مع VS Code** – يندمج بسلاسة مع نظام التنقل ولوحة الأوامر في VS Code.
+**تكامل مع VS Code** – يندمج بسلاسة مع التنقل ولوحة الأوامر في VS Code.
 
 ### أوامر إدارة القواميس
 
 قم بإدارة قواميس المحتوى الخاصة بك مباشرة من VS Code:
 
-- **إنشاء القواميس** (`extension.buildDictionaries`) – توليد ملفات المحتوى بناءً على هيكل مشروعك.
-- **دفع القواميس** (`extension.pushDictionaries`) – رفع أحدث محتوى القاموس إلى مستودعك.
-- **سحب القواميس** (`extension.pullDictionaries`) – مزامنة أحدث محتوى القاموس من مستودعك إلى بيئتك المحلية.
+- **إنشاء القواميس** – توليد ملفات المحتوى بناءً على هيكل مشروعك.
+- **دفع القواميس** – رفع أحدث محتوى القاموس إلى مستودعك.
+- **سحب القواميس** – مزامنة أحدث محتوى القاموس من مستودعك إلى بيئتك المحلية.
+- **ملء القواميس** – تعبئة القواميس بالمحتوى من مشروعك.
+- **اختبار القواميس** – تحديد الترجمات المفقودة أو غير المكتملة.
 
 ### مولد إعلان المحتوى
 
-قم بسهولة بإنشاء ملفات قاموس منظمة بصيغ مختلفة:
+قم بسهولة بتوليد ملفات قاموس منظمة بصيغ مختلفة:
 
-- **TypeScript (`.ts`)** – `extension.createDictionaryFile.ts`
-- **ES Module (`.esm`)** – `extension.createDictionaryFile.esm`
-- **CommonJS (`.cjs`)** – `extension.createDictionaryFile.cjs`
-- **JSON (`.json`)** – `extension.createDictionaryFile.json`
+إذا كنت تعمل حاليًا على مكون، فسيتم إنشاء ملف `.content.{ts,tsx,js,jsx,mjs,cjs,json}` لك.
+
+مثال على مكون:
+
+```tsx fileName="src/components/MyComponent/index.tsx"
+const MyComponent = () => {
+  const { myTranslatedContent } = useIntlayer("my-component");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+الملف المُولد بصيغة TypeScript:
+
+```tsx fileName="src/components/MyComponent/index.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const componentContent = {
+  key: "my-component",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      es: "Hola Mundo",
+      fr: "Bonjour le monde",
+    }),
+  },
+};
+
+export default componentContent;
+```
+
+الصيغ المتاحة:
+
+- **TypeScript (`.ts`)**
+- **وحدة ES (`.esm`)**
+- **CommonJS (`.cjs`)**
+- **JSON (`.json`)**
+
+### تبويب Intlayer (شريط النشاط)
+
+افتح تبويب Intlayer بالنقر على أيقونة Intlayer في شريط نشاط VS Code. يحتوي على عرضين:
+
+- **بحث**: شريط بحث مباشر لتصفية القواميس ومحتواها بسرعة. الكتابة تحدث النتائج فورًا.
+- **القواميس**: عرض شجري لبيئاتك/مشاريعك، مفاتيح القواميس، والملفات التي تساهم بالإدخالات. يمكنك:
+  - النقر على ملف لفتحه في المحرر.
+  - استخدام شريط الأدوات لتنفيذ الأوامر: بناء، سحب، دفع، تعبئة، تحديث، اختبار، وإنشاء ملف قاموس.
+  - استخدام قائمة السياق لإجراءات محددة على العنصر:
+    - على قاموس: سحب أو دفع
+    - على ملف: تعبئة القاموس
+  - عند تبديل المحررات، سيكشف العرض الشجري عن الملف المطابق إذا كان ينتمي إلى قاموس.
 
 ## التثبيت
 
@@ -60,29 +108,31 @@ slugs:
 1. افتح **VS Code**.
 2. اذهب إلى **سوق الإضافات**.
 3. ابحث عن **"Intlayer"**.
-4. اضغط على **تثبيت**.
-
-بدلاً من ذلك، قم بتثبيته عبر سطر الأوامر:
-
-```sh
-code --install-extension intlayer
-```
+4. انقر على **تثبيت**.
 
 ## الاستخدام
 
 ### التنقل السريع
 
 1. افتح مشروعًا يستخدم **react-intlayer**.
-2. حدد موقع استدعاء `useIntlayer()`، مثل:
+2. حدد مكالمة إلى `useIntlayer()`، مثل:
 
    ```tsx
    const content = useIntlayer("app");
    ```
 
-3. **انقر مع الضغط على الأمر** (`⌘+Click` على macOS) أو **انقر مع الضغط على Ctrl** (على Windows/Linux) على المفتاح (مثل `"app"`).
-4. سيقوم VS Code بفتح ملف القاموس المقابل تلقائيًا، مثل `src/app.content.ts`.
+3. **انقر مع الضغط على الأمر** (`⌘+Click` على macOS) أو **Ctrl+Click** (على Windows/Linux) على المفتاح (مثل `"app"`).
+4. سيفتح VS Code تلقائيًا ملف القاموس المقابل، مثل `src/app.content.ts`.
 
 ### إدارة قواميس المحتوى
+
+### تبويب Intlayer (شريط النشاط)
+
+استخدم التبويب الجانبي لتصفح وإدارة القواميس:
+
+- افتح أيقونة Intlayer في شريط النشاط.
+- في **البحث**، اكتب لتصفية القواميس والإدخالات في الوقت الحقيقي.
+- في **القواميس**، تصفح البيئات والقواميس والملفات. استخدم شريط الأدوات للبناء، السحب، الدفع، الملء، التحديث، الاختبار، وإنشاء ملف القاموس. انقر بزر الماوس الأيمن للحصول على إجراءات السياق (السحب/الدفع على القواميس، الملء على الملفات). يتم الكشف تلقائيًا عن ملف المحرر الحالي في الشجرة عند الاقتضاء.
 
 #### بناء القواميس
 
@@ -96,7 +146,7 @@ Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 
 #### دفع القواميس
 
-ارفع أحدث محتوى القاموس:
+قم بتحميل أحدث محتوى القاموس:
 
 1. افتح **لوحة الأوامر**.
 2. ابحث عن **Push Dictionaries**.
@@ -104,49 +154,30 @@ Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 
 #### سحب القواميس
 
-زامن أحدث محتوى القاموس:
+مزامنة أحدث محتوى القاموس:
 
 1. افتح **لوحة الأوامر**.
 2. ابحث عن **Pull Dictionaries**.
 3. اختر القواميس التي تريد سحبها.
 
-## التطوير والمساهمة
+#### ملء القواميس
 
-هل ترغب في المساهمة؟ نرحب بمساهمات المجتمع!
+املأ القواميس بالمحتوى من مشروعك:
 
-رابط المستودع: https://github.com/aymericzip/intlayer-vs-code-extension
+1. افتح **لوحة الأوامر**.
+2. ابحث عن **Fill Dictionaries**.
+3. نفذ الأمر لملء القواميس.
 
-### البدء
+#### اختبار القواميس
 
-استنسخ المستودع وقم بتثبيت التبعيات:
+تحقق من صحة القواميس واكتشف الترجمات المفقودة:
 
-```sh
-git clone https://github.com/aymericzip/intlayer-vs-code-extension.git
-cd intlayer-vs-code-extension
-npm install
-```
+1. افتح **لوحة الأوامر**.
+2. ابحث عن **Test Dictionaries**.
+3. راجع المشكلات المبلغ عنها وقم بإصلاحها حسب الحاجة.
 
-> استخدم مدير الحزم `npm` للتوافق مع حزمة `vsce` لبناء ونشر الإضافة.
+## تاريخ الوثيقة
 
-### التشغيل في وضع التطوير
-
-1. افتح المشروع في **VS Code**.
-2. اضغط على `F5` لفتح نافذة جديدة لـ **مضيف تطوير الإضافة**.
-
-### تقديم طلب سحب
-
-إذا قمت بتحسين الإضافة، قدم طلب سحب على [GitHub](https://github.com/aymericzip/intlayer-vs-code-extension).
-
-## الملاحظات والمشاكل
-
-هل وجدت خطأً أو لديك طلب ميزة؟ افتح مشكلة في **مستودع GitHub** الخاص بنا:
-
-[مشاكل GitHub](https://github.com/aymericzip/intlayer-vs-code-extension/issues)
-
-## الترخيص
-
-تم إصدار Intlayer بموجب **رخصة MIT**.
-
-## تاريخ الوثائق
-
-- 5.5.10 - 2025-06-29: بداية التاريخ
+| الإصدار | التاريخ    | التغييرات     |
+| ------- | ---------- | ------------- |
+| 5.5.10  | 2025-06-29 | بداية التاريخ |

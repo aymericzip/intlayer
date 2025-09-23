@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/backend",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "private": false,
   "description": "Intlayer Backend is a an application that allow you to manage your Intlayer content and interact with the intlayer editor.",
   "keywords": [
@@ -52,7 +52,6 @@
   "scripts": {
     "build": "pnpm clean & pnpm build:ci",
     "build:ci": "pnpm build:package & pnpm build:types",
-    "build:docker": "docker build -t intlayer-backend -f Dockerfile .",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",
@@ -63,7 +62,6 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "start": "cross-env NODE_ENV=production node dist/esm/index.mjs",
-    "start:docker": "docker run --rm -p 3100:3100 --name intlayer-backend-app intlayer-backend",
     "start:stripe": "stripe listen --forward-to localhost:3100/webhook/stripe",
     "test": "vitest run",
     "test:watch": "vitest"

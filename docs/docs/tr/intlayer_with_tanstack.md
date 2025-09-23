@@ -15,7 +15,10 @@ keywords:
 slugs:
   - doc
   - environment
+  - vite-and-react
   - tanstack-start
+applicationTemplate: https://github.com/AydinTheFirst/tanstack-start-intlayer
+author: AydinTheFirst
 ---
 
 # Intlayer ve TanStack Start (React) ile uluslararasılaştırma (i18n) başlangıç kılavuzu

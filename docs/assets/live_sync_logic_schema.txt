@@ -1,0 +1,27 @@
+flowchart TD
+  %% What happens when a dictionary is changed in the CMS
+
+  subgraph CMS
+    A[Author edits & saves a dictionary] --> B{Dictionary has<br/>live = true ?}
+  end
+
+  B -- "No" --> B1[Change stored in CMS only]
+  B1 --> B2[No live fetch allowed]
+  B2 --> B3[App keeps previous content]
+  B3 --> B4[Rebuild required to ship change]
+
+  B -- "Yes" --> C[CMS publishes new version<br/>and update event]
+
+  subgraph "Live Sync Server"
+    C --> D[Live server detects update<br/>via watch or webhook]
+  end
+
+  D --> E{App can reach Live Sync API?<br/>URL & CSP connect-src allowed}
+
+  E -- "No" --> E1[Connection blocked or unavailable]
+  E1 --> E2[App falls back to dynamic import]
+  E2 --> E3[Content updates only on once the connection is back]
+
+  E -- "Yes" --> F[App maintains live connection]
+
+  su

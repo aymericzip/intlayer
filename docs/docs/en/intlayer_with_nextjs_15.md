@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-06-29
+updatedAt: 2025-09-22
 title: Translate your Next.js 15 website (i18n)
 description: Discover how to make your Next.js 15 website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -295,6 +295,8 @@ module.exports = { default: LocaleLayout, generateStaticParams };
 ```
 
 > `generateStaticParams` ensures that your application pre-builds the necessary pages for all locales, reducing runtime computation and improving the user experience. For more details, refer to the [Next.js documentation on generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
+
+> Intlayer works with `export const dynamic = 'force-static';` to ensure that the pages are pre-built for all locales.
 
 ### Step 5: Declare Your Content
 
@@ -637,6 +639,21 @@ module.exports = { middleware: intlayerMiddleware, config };
 ```
 
 > The `intlayerMiddleware` is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md). Additionally, it enables saving the user's preferred locale in a cookie.
+
+> If you need to chain several middlewares together (for example, `intlayerMiddleware` with authentication or custom middlewares), Intlayer now provides a helper called `multipleMiddlewares`.
+
+```ts
+import {
+  multipleMiddlewares,
+  intlayerMiddleware,
+} from "next-intlayer/middleware";
+import { customMiddleware } from "@utils/customMiddleware";
+
+export const middleware = multipleMiddlewares([
+  intlayerMiddleware,
+  customMiddleware,
+]);
+```
 
 ### (Optional) Step 8: Internationalization of your metadata
 
@@ -1504,5 +1521,6 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 | Version | Date       | Changes                                                         |
 | ------- | ---------- | --------------------------------------------------------------- |
+| 5.6.2   | 2025-09-22 | Added docs for `multipleMiddlewares` helper                     |
 | 5.6.0   | 2025-07-06 | Transform `withIntlayer()` function to a promise based function |
 | 5.5.10  | 2025-06-29 | Init history                                                    |

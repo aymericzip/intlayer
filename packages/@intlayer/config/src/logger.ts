@@ -80,34 +80,43 @@ export const getAppLogger =
       },
     });
 
-export const colorize = (s: string, color?: ANSIColors): string =>
-  color ? `${color}${s}${ANSIColors.RESET}` : s;
+export const colorize = (
+  s: string,
+  color?: ANSIColors,
+  reset?: boolean | ANSIColors
+): string =>
+  color
+    ? `${color}${s}${reset ? (typeof reset === 'boolean' ? ANSIColors.RESET : reset) : ANSIColors.RESET}`
+    : s;
 
 export const colorizeLocales = (
   locales: Locales | Locales[],
-  color = ANSIColors.GREEN
+  color = ANSIColors.GREEN,
+  reset: boolean | ANSIColors = ANSIColors.RESET
 ) =>
   [locales]
     .flat()
-    .map((locale) => colorize(locale, color))
+    .map((locale) => colorize(locale, color, reset))
     .join(`, `);
 
 export const colorizeKey = (
   keyPath: string | string[],
-  color = ANSIColors.BEIGE
+  color = ANSIColors.BEIGE,
+  reset: boolean | ANSIColors = ANSIColors.RESET
 ) =>
   [keyPath]
     .flat()
-    .map((key) => colorize(key, color))
+    .map((key) => colorize(key, color, reset))
     .join(`, `);
 
 export const colorizePath = (
   path: string | string[],
-  color = ANSIColors.GREY
+  color = ANSIColors.GREY,
+  reset: boolean | ANSIColors = ANSIColors.RESET
 ) =>
   [path]
     .flat()
-    .map((p) => colorize(p, color))
+    .map((p) => colorize(p, color, reset))
     .join(`, `);
 
 /**

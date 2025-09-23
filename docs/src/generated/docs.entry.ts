@@ -1,6467 +1,1506 @@
 /* AUTO-GENERATED – DO NOT EDIT */
 /* REGENERATE USING `pnpm prepare` */
+import type { LocalesValues } from '@intlayer/config';
+import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
-import { LocalesValues } from 'intlayer';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 const isESModule = typeof import.meta.url === 'string';
 const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;
 
+const readLocale = (
+  relativeAfterLocale: string,
+  locale: LocalesValues
+): Promise<string> => {
+  const target = join(
+    dir,
+    '../../../docs/' + locale + '/' + relativeAfterLocale
+  );
+  if (!existsSync(target)) {
+    console.error('File not found: ' + target);
+    return readFile(
+      join(dir, '../../../docs/en/' + relativeAfterLocale),
+      'utf8'
+    );
+  }
+  return readFile(target, 'utf8');
+};
+
 export const docsEntry = {
   './docs/en/CI_CD.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/CI_CD.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/CI_CD.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/CI_CD.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/CI_CD.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/CI_CD.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/CI_CD.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/CI_CD.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/CI_CD.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/CI_CD.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/CI_CD.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/CI_CD.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/CI_CD.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/CI_CD.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/CI_CD.md'), 'utf8')
-    ),
+    en: readLocale('CI_CD.md', 'en'),
+    fr: readLocale('CI_CD.md', 'fr'),
+    ru: readLocale('CI_CD.md', 'ru'),
+    ja: readLocale('CI_CD.md', 'ja'),
+    ko: readLocale('CI_CD.md', 'ko'),
+    zh: readLocale('CI_CD.md', 'zh'),
+    es: readLocale('CI_CD.md', 'es'),
+    de: readLocale('CI_CD.md', 'de'),
+    ar: readLocale('CI_CD.md', 'ar'),
+    pt: readLocale('CI_CD.md', 'pt'),
+    'en-GB': readLocale('CI_CD.md', 'en-GB'),
+    it: readLocale('CI_CD.md', 'it'),
+    hi: readLocale('CI_CD.md', 'hi'),
+    tr: readLocale('CI_CD.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/autoFill.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/autoFill.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/autoFill.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/autoFill.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/autoFill.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/autoFill.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/autoFill.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/autoFill.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/autoFill.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/autoFill.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/autoFill.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/autoFill.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/autoFill.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/autoFill.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/autoFill.md'), 'utf8')
-    ),
+    en: readLocale('autoFill.md', 'en'),
+    fr: readLocale('autoFill.md', 'fr'),
+    ru: readLocale('autoFill.md', 'ru'),
+    ja: readLocale('autoFill.md', 'ja'),
+    ko: readLocale('autoFill.md', 'ko'),
+    zh: readLocale('autoFill.md', 'zh'),
+    es: readLocale('autoFill.md', 'es'),
+    de: readLocale('autoFill.md', 'de'),
+    ar: readLocale('autoFill.md', 'ar'),
+    pt: readLocale('autoFill.md', 'pt'),
+    'en-GB': readLocale('autoFill.md', 'en-GB'),
+    it: readLocale('autoFill.md', 'it'),
+    hi: readLocale('autoFill.md', 'hi'),
+    tr: readLocale('autoFill.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/configuration.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/configuration.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/configuration.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/configuration.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/configuration.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/configuration.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/configuration.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/configuration.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/configuration.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/configuration.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/configuration.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/configuration.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/configuration.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/configuration.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/configuration.md'), 'utf8')
-    ),
+    en: readLocale('configuration.md', 'en'),
+    fr: readLocale('configuration.md', 'fr'),
+    ru: readLocale('configuration.md', 'ru'),
+    ja: readLocale('configuration.md', 'ja'),
+    ko: readLocale('configuration.md', 'ko'),
+    zh: readLocale('configuration.md', 'zh'),
+    es: readLocale('configuration.md', 'es'),
+    de: readLocale('configuration.md', 'de'),
+    ar: readLocale('configuration.md', 'ar'),
+    pt: readLocale('configuration.md', 'pt'),
+    'en-GB': readLocale('configuration.md', 'en-GB'),
+    it: readLocale('configuration.md', 'it'),
+    hi: readLocale('configuration.md', 'hi'),
+    tr: readLocale('configuration.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/condition.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/condition.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/condition.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/condition.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/condition.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/condition.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/condition.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/condition.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/condition.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/condition.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/condition.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/dictionary/condition.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/condition.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/condition.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/condition.md'), 'utf8')
-    ),
+    en: readLocale('dictionary/condition.md', 'en'),
+    fr: readLocale('dictionary/condition.md', 'fr'),
+    ru: readLocale('dictionary/condition.md', 'ru'),
+    ja: readLocale('dictionary/condition.md', 'ja'),
+    ko: readLocale('dictionary/condition.md', 'ko'),
+    zh: readLocale('dictionary/condition.md', 'zh'),
+    es: readLocale('dictionary/condition.md', 'es'),
+    de: readLocale('dictionary/condition.md', 'de'),
+    ar: readLocale('dictionary/condition.md', 'ar'),
+    pt: readLocale('dictionary/condition.md', 'pt'),
+    'en-GB': readLocale('dictionary/condition.md', 'en-GB'),
+    it: readLocale('dictionary/condition.md', 'it'),
+    hi: readLocale('dictionary/condition.md', 'hi'),
+    tr: readLocale('dictionary/condition.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/content_file.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/content_file.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/content_file.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/content_file.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/content_file.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/content_file.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/content_file.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/content_file.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/content_file.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/content_file.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/content_file.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/dictionary/content_file.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/content_file.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/content_file.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/content_file.md'), 'utf8')
-    ),
+    en: readLocale('dictionary/content_file.md', 'en'),
+    fr: readLocale('dictionary/content_file.md', 'fr'),
+    ru: readLocale('dictionary/content_file.md', 'ru'),
+    ja: readLocale('dictionary/content_file.md', 'ja'),
+    ko: readLocale('dictionary/content_file.md', 'ko'),
+    zh: readLocale('dictionary/content_file.md', 'zh'),
+    es: readLocale('dictionary/content_file.md', 'es'),
+    de: readLocale('dictionary/content_file.md', 'de'),
+    ar: readLocale('dictionary/content_file.md', 'ar'),
+    pt: readLocale('dictionary/content_file.md', 'pt'),
+    'en-GB': readLocale('dictionary/content_file.md', 'en-GB'),
+    it: readLocale('dictionary/content_file.md', 'it'),
+    hi: readLocale('dictionary/content_file.md', 'hi'),
+    tr: readLocale('dictionary/content_file.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/enumeration.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/enumeration.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/enumeration.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/enumeration.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/enumeration.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/enumeration.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/enumeration.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/enumeration.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/enumeration.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/enumeration.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/enumeration.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/dictionary/enumeration.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/enumeration.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/enumeration.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/enumeration.md'), 'utf8')
-    ),
+    en: readLocale('dictionary/enumeration.md', 'en'),
+    fr: readLocale('dictionary/enumeration.md', 'fr'),
+    ru: readLocale('dictionary/enumeration.md', 'ru'),
+    ja: readLocale('dictionary/enumeration.md', 'ja'),
+    ko: readLocale('dictionary/enumeration.md', 'ko'),
+    zh: readLocale('dictionary/enumeration.md', 'zh'),
+    es: readLocale('dictionary/enumeration.md', 'es'),
+    de: readLocale('dictionary/enumeration.md', 'de'),
+    ar: readLocale('dictionary/enumeration.md', 'ar'),
+    pt: readLocale('dictionary/enumeration.md', 'pt'),
+    'en-GB': readLocale('dictionary/enumeration.md', 'en-GB'),
+    it: readLocale('dictionary/enumeration.md', 'it'),
+    hi: readLocale('dictionary/enumeration.md', 'hi'),
+    tr: readLocale('dictionary/enumeration.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/file.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/file.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/file.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/file.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/file.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/file.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/file.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/file.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/file.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/file.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/file.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/dictionary/file.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/file.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/file.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/file.md'), 'utf8')
-    ),
+    en: readLocale('dictionary/file.md', 'en'),
+    fr: readLocale('dictionary/file.md', 'fr'),
+    ru: readLocale('dictionary/file.md', 'ru'),
+    ja: readLocale('dictionary/file.md', 'ja'),
+    ko: readLocale('dictionary/file.md', 'ko'),
+    zh: readLocale('dictionary/file.md', 'zh'),
+    es: readLocale('dictionary/file.md', 'es'),
+    de: readLocale('dictionary/file.md', 'de'),
+    ar: readLocale('dictionary/file.md', 'ar'),
+    pt: readLocale('dictionary/file.md', 'pt'),
+    'en-GB': readLocale('dictionary/file.md', 'en-GB'),
+    it: readLocale('dictionary/file.md', 'it'),
+    hi: readLocale('dictionary/file.md', 'hi'),
+    tr: readLocale('dictionary/file.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/function_fetching.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/dictionary/function_fetching.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('dictionary/function_fetching.md', 'en'),
+    fr: readLocale('dictionary/function_fetching.md', 'fr'),
+    ru: readLocale('dictionary/function_fetching.md', 'ru'),
+    ja: readLocale('dictionary/function_fetching.md', 'ja'),
+    ko: readLocale('dictionary/function_fetching.md', 'ko'),
+    zh: readLocale('dictionary/function_fetching.md', 'zh'),
+    es: readLocale('dictionary/function_fetching.md', 'es'),
+    de: readLocale('dictionary/function_fetching.md', 'de'),
+    ar: readLocale('dictionary/function_fetching.md', 'ar'),
+    pt: readLocale('dictionary/function_fetching.md', 'pt'),
+    'en-GB': readLocale('dictionary/function_fetching.md', 'en-GB'),
+    it: readLocale('dictionary/function_fetching.md', 'it'),
+    hi: readLocale('dictionary/function_fetching.md', 'hi'),
+    tr: readLocale('dictionary/function_fetching.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/gender.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/gender.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/gender.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/gender.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/gender.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/gender.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/gender.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/gender.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/gender.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/gender.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/gender.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/dictionary/gender.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/gender.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/gender.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/gender.md'), 'utf8')
-    ),
+    en: readLocale('dictionary/gender.md', 'en'),
+    fr: readLocale('dictionary/gender.md', 'fr'),
+    ru: readLocale('dictionary/gender.md', 'ru'),
+    ja: readLocale('dictionary/gender.md', 'ja'),
+    ko: readLocale('dictionary/gender.md', 'ko'),
+    zh: readLocale('dictionary/gender.md', 'zh'),
+    es: readLocale('dictionary/gender.md', 'es'),
+    de: readLocale('dictionary/gender.md', 'de'),
+    ar: readLocale('dictionary/gender.md', 'ar'),
+    pt: readLocale('dictionary/gender.md', 'pt'),
+    'en-GB': readLocale('dictionary/gender.md', 'en-GB'),
+    it: readLocale('dictionary/gender.md', 'it'),
+    hi: readLocale('dictionary/gender.md', 'hi'),
+    tr: readLocale('dictionary/gender.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/insertion.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/insertion.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/insertion.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/insertion.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/insertion.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/insertion.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/insertion.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/insertion.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/insertion.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/insertion.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/insertion.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/dictionary/insertion.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/insertion.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/insertion.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/insertion.md'), 'utf8')
-    ),
+    en: readLocale('dictionary/insertion.md', 'en'),
+    fr: readLocale('dictionary/insertion.md', 'fr'),
+    ru: readLocale('dictionary/insertion.md', 'ru'),
+    ja: readLocale('dictionary/insertion.md', 'ja'),
+    ko: readLocale('dictionary/insertion.md', 'ko'),
+    zh: readLocale('dictionary/insertion.md', 'zh'),
+    es: readLocale('dictionary/insertion.md', 'es'),
+    de: readLocale('dictionary/insertion.md', 'de'),
+    ar: readLocale('dictionary/insertion.md', 'ar'),
+    pt: readLocale('dictionary/insertion.md', 'pt'),
+    'en-GB': readLocale('dictionary/insertion.md', 'en-GB'),
+    it: readLocale('dictionary/insertion.md', 'it'),
+    hi: readLocale('dictionary/insertion.md', 'hi'),
+    tr: readLocale('dictionary/insertion.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/markdown.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/markdown.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/markdown.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/markdown.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/markdown.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/markdown.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/markdown.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/markdown.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/markdown.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/markdown.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/markdown.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/dictionary/markdown.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/markdown.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/markdown.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/markdown.md'), 'utf8')
-    ),
+    en: readLocale('dictionary/markdown.md', 'en'),
+    fr: readLocale('dictionary/markdown.md', 'fr'),
+    ru: readLocale('dictionary/markdown.md', 'ru'),
+    ja: readLocale('dictionary/markdown.md', 'ja'),
+    ko: readLocale('dictionary/markdown.md', 'ko'),
+    zh: readLocale('dictionary/markdown.md', 'zh'),
+    es: readLocale('dictionary/markdown.md', 'es'),
+    de: readLocale('dictionary/markdown.md', 'de'),
+    ar: readLocale('dictionary/markdown.md', 'ar'),
+    pt: readLocale('dictionary/markdown.md', 'pt'),
+    'en-GB': readLocale('dictionary/markdown.md', 'en-GB'),
+    it: readLocale('dictionary/markdown.md', 'it'),
+    hi: readLocale('dictionary/markdown.md', 'hi'),
+    tr: readLocale('dictionary/markdown.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/nesting.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/nesting.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/nesting.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/nesting.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/nesting.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/nesting.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/nesting.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/nesting.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/nesting.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/nesting.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/nesting.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/dictionary/nesting.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/nesting.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/nesting.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/nesting.md'), 'utf8')
-    ),
+    en: readLocale('dictionary/nesting.md', 'en'),
+    fr: readLocale('dictionary/nesting.md', 'fr'),
+    ru: readLocale('dictionary/nesting.md', 'ru'),
+    ja: readLocale('dictionary/nesting.md', 'ja'),
+    ko: readLocale('dictionary/nesting.md', 'ko'),
+    zh: readLocale('dictionary/nesting.md', 'zh'),
+    es: readLocale('dictionary/nesting.md', 'es'),
+    de: readLocale('dictionary/nesting.md', 'de'),
+    ar: readLocale('dictionary/nesting.md', 'ar'),
+    pt: readLocale('dictionary/nesting.md', 'pt'),
+    'en-GB': readLocale('dictionary/nesting.md', 'en-GB'),
+    it: readLocale('dictionary/nesting.md', 'it'),
+    hi: readLocale('dictionary/nesting.md', 'hi'),
+    tr: readLocale('dictionary/nesting.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/translation.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/dictionary/translation.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/dictionary/translation.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/dictionary/translation.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/dictionary/translation.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/dictionary/translation.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/dictionary/translation.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/dictionary/translation.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/dictionary/translation.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/dictionary/translation.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/dictionary/translation.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/dictionary/translation.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/dictionary/translation.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/dictionary/translation.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/dictionary/translation.md'), 'utf8')
-    ),
+    en: readLocale('dictionary/translation.md', 'en'),
+    fr: readLocale('dictionary/translation.md', 'fr'),
+    ru: readLocale('dictionary/translation.md', 'ru'),
+    ja: readLocale('dictionary/translation.md', 'ja'),
+    ko: readLocale('dictionary/translation.md', 'ko'),
+    zh: readLocale('dictionary/translation.md', 'zh'),
+    es: readLocale('dictionary/translation.md', 'es'),
+    de: readLocale('dictionary/translation.md', 'de'),
+    ar: readLocale('dictionary/translation.md', 'ar'),
+    pt: readLocale('dictionary/translation.md', 'pt'),
+    'en-GB': readLocale('dictionary/translation.md', 'en-GB'),
+    it: readLocale('dictionary/translation.md', 'it'),
+    hi: readLocale('dictionary/translation.md', 'hi'),
+    tr: readLocale('dictionary/translation.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/formatters.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/formatters.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/formatters.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/formatters.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/formatters.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/formatters.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/formatters.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/formatters.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/formatters.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/formatters.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/formatters.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/formatters.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/formatters.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/formatters.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/formatters.md'), 'utf8')
-    ),
+    en: readLocale('formatters.md', 'en'),
+    fr: readLocale('formatters.md', 'fr'),
+    ru: readLocale('formatters.md', 'ru'),
+    ja: readLocale('formatters.md', 'ja'),
+    ko: readLocale('formatters.md', 'ko'),
+    zh: readLocale('formatters.md', 'zh'),
+    es: readLocale('formatters.md', 'es'),
+    de: readLocale('formatters.md', 'de'),
+    ar: readLocale('formatters.md', 'ar'),
+    pt: readLocale('formatters.md', 'pt'),
+    'en-GB': readLocale('formatters.md', 'en-GB'),
+    it: readLocale('formatters.md', 'it'),
+    hi: readLocale('formatters.md', 'hi'),
+    tr: readLocale('formatters.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/how_works_intlayer.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/how_works_intlayer.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/how_works_intlayer.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/how_works_intlayer.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/how_works_intlayer.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/how_works_intlayer.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/how_works_intlayer.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/how_works_intlayer.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/how_works_intlayer.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/how_works_intlayer.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/how_works_intlayer.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/how_works_intlayer.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/how_works_intlayer.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/how_works_intlayer.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/how_works_intlayer.md'), 'utf8')
-    ),
+    en: readLocale('how_works_intlayer.md', 'en'),
+    fr: readLocale('how_works_intlayer.md', 'fr'),
+    ru: readLocale('how_works_intlayer.md', 'ru'),
+    ja: readLocale('how_works_intlayer.md', 'ja'),
+    ko: readLocale('how_works_intlayer.md', 'ko'),
+    zh: readLocale('how_works_intlayer.md', 'zh'),
+    es: readLocale('how_works_intlayer.md', 'es'),
+    de: readLocale('how_works_intlayer.md', 'de'),
+    ar: readLocale('how_works_intlayer.md', 'ar'),
+    pt: readLocale('how_works_intlayer.md', 'pt'),
+    'en-GB': readLocale('how_works_intlayer.md', 'en-GB'),
+    it: readLocale('how_works_intlayer.md', 'it'),
+    hi: readLocale('how_works_intlayer.md', 'hi'),
+    tr: readLocale('how_works_intlayer.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/index.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/index.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/index.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/index.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/index.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/index.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/index.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/index.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/index.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/index.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/index.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/index.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/index.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/index.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/index.md'), 'utf8')
-    ),
+    en: readLocale('index.md', 'en'),
+    fr: readLocale('index.md', 'fr'),
+    ru: readLocale('index.md', 'ru'),
+    ja: readLocale('index.md', 'ja'),
+    ko: readLocale('index.md', 'ko'),
+    zh: readLocale('index.md', 'zh'),
+    es: readLocale('index.md', 'es'),
+    de: readLocale('index.md', 'de'),
+    ar: readLocale('index.md', 'ar'),
+    pt: readLocale('index.md', 'pt'),
+    'en-GB': readLocale('index.md', 'en-GB'),
+    it: readLocale('index.md', 'it'),
+    hi: readLocale('index.md', 'hi'),
+    tr: readLocale('index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/interest_of_intlayer.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/interest_of_intlayer.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/interest_of_intlayer.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/interest_of_intlayer.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/interest_of_intlayer.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/interest_of_intlayer.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/interest_of_intlayer.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/interest_of_intlayer.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/interest_of_intlayer.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/interest_of_intlayer.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/interest_of_intlayer.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/interest_of_intlayer.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/interest_of_intlayer.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/interest_of_intlayer.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/interest_of_intlayer.md'), 'utf8')
-    ),
+    en: readLocale('interest_of_intlayer.md', 'en'),
+    fr: readLocale('interest_of_intlayer.md', 'fr'),
+    ru: readLocale('interest_of_intlayer.md', 'ru'),
+    ja: readLocale('interest_of_intlayer.md', 'ja'),
+    ko: readLocale('interest_of_intlayer.md', 'ko'),
+    zh: readLocale('interest_of_intlayer.md', 'zh'),
+    es: readLocale('interest_of_intlayer.md', 'es'),
+    de: readLocale('interest_of_intlayer.md', 'de'),
+    ar: readLocale('interest_of_intlayer.md', 'ar'),
+    pt: readLocale('interest_of_intlayer.md', 'pt'),
+    'en-GB': readLocale('interest_of_intlayer.md', 'en-GB'),
+    it: readLocale('interest_of_intlayer.md', 'it'),
+    hi: readLocale('interest_of_intlayer.md', 'hi'),
+    tr: readLocale('interest_of_intlayer.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_CMS.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_CMS.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_CMS.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_CMS.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_CMS.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_CMS.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_CMS.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_CMS.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_CMS.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_CMS.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_CMS.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/intlayer_CMS.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_CMS.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_CMS.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_CMS.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_CMS.md', 'en'),
+    fr: readLocale('intlayer_CMS.md', 'fr'),
+    ru: readLocale('intlayer_CMS.md', 'ru'),
+    ja: readLocale('intlayer_CMS.md', 'ja'),
+    ko: readLocale('intlayer_CMS.md', 'ko'),
+    zh: readLocale('intlayer_CMS.md', 'zh'),
+    es: readLocale('intlayer_CMS.md', 'es'),
+    de: readLocale('intlayer_CMS.md', 'de'),
+    ar: readLocale('intlayer_CMS.md', 'ar'),
+    pt: readLocale('intlayer_CMS.md', 'pt'),
+    'en-GB': readLocale('intlayer_CMS.md', 'en-GB'),
+    it: readLocale('intlayer_CMS.md', 'it'),
+    hi: readLocale('intlayer_CMS.md', 'hi'),
+    tr: readLocale('intlayer_CMS.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_cli.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_cli.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_cli.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_cli.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_cli.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_cli.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_cli.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_cli.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_cli.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_cli.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_cli.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/intlayer_cli.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_cli.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_cli.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_cli.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_cli.md', 'en'),
+    fr: readLocale('intlayer_cli.md', 'fr'),
+    ru: readLocale('intlayer_cli.md', 'ru'),
+    ja: readLocale('intlayer_cli.md', 'ja'),
+    ko: readLocale('intlayer_cli.md', 'ko'),
+    zh: readLocale('intlayer_cli.md', 'zh'),
+    es: readLocale('intlayer_cli.md', 'es'),
+    de: readLocale('intlayer_cli.md', 'de'),
+    ar: readLocale('intlayer_cli.md', 'ar'),
+    pt: readLocale('intlayer_cli.md', 'pt'),
+    'en-GB': readLocale('intlayer_cli.md', 'en-GB'),
+    it: readLocale('intlayer_cli.md', 'it'),
+    hi: readLocale('intlayer_cli.md', 'hi'),
+    tr: readLocale('intlayer_cli.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_visual_editor.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_visual_editor.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_visual_editor.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_visual_editor.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_visual_editor.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_visual_editor.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_visual_editor.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_visual_editor.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_visual_editor.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_visual_editor.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_visual_editor.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_visual_editor.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_visual_editor.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_visual_editor.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_visual_editor.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_visual_editor.md', 'en'),
+    fr: readLocale('intlayer_visual_editor.md', 'fr'),
+    ru: readLocale('intlayer_visual_editor.md', 'ru'),
+    ja: readLocale('intlayer_visual_editor.md', 'ja'),
+    ko: readLocale('intlayer_visual_editor.md', 'ko'),
+    zh: readLocale('intlayer_visual_editor.md', 'zh'),
+    es: readLocale('intlayer_visual_editor.md', 'es'),
+    de: readLocale('intlayer_visual_editor.md', 'de'),
+    ar: readLocale('intlayer_visual_editor.md', 'ar'),
+    pt: readLocale('intlayer_visual_editor.md', 'pt'),
+    'en-GB': readLocale('intlayer_visual_editor.md', 'en-GB'),
+    it: readLocale('intlayer_visual_editor.md', 'it'),
+    hi: readLocale('intlayer_visual_editor.md', 'hi'),
+    tr: readLocale('intlayer_visual_editor.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_angular.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_with_angular.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_with_angular.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_with_angular.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_with_angular.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_with_angular.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_with_angular.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_with_angular.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_with_angular.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_with_angular.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_with_angular.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_angular.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_with_angular.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_with_angular.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_with_angular.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_with_angular.md', 'en'),
+    fr: readLocale('intlayer_with_angular.md', 'fr'),
+    ru: readLocale('intlayer_with_angular.md', 'ru'),
+    ja: readLocale('intlayer_with_angular.md', 'ja'),
+    ko: readLocale('intlayer_with_angular.md', 'ko'),
+    zh: readLocale('intlayer_with_angular.md', 'zh'),
+    es: readLocale('intlayer_with_angular.md', 'es'),
+    de: readLocale('intlayer_with_angular.md', 'de'),
+    ar: readLocale('intlayer_with_angular.md', 'ar'),
+    pt: readLocale('intlayer_with_angular.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_angular.md', 'en-GB'),
+    it: readLocale('intlayer_with_angular.md', 'it'),
+    hi: readLocale('intlayer_with_angular.md', 'hi'),
+    tr: readLocale('intlayer_with_angular.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_create_react_app.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/intlayer_with_create_react_app.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('intlayer_with_create_react_app.md', 'en'),
+    fr: readLocale('intlayer_with_create_react_app.md', 'fr'),
+    ru: readLocale('intlayer_with_create_react_app.md', 'ru'),
+    ja: readLocale('intlayer_with_create_react_app.md', 'ja'),
+    ko: readLocale('intlayer_with_create_react_app.md', 'ko'),
+    zh: readLocale('intlayer_with_create_react_app.md', 'zh'),
+    es: readLocale('intlayer_with_create_react_app.md', 'es'),
+    de: readLocale('intlayer_with_create_react_app.md', 'de'),
+    ar: readLocale('intlayer_with_create_react_app.md', 'ar'),
+    pt: readLocale('intlayer_with_create_react_app.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_create_react_app.md', 'en-GB'),
+    it: readLocale('intlayer_with_create_react_app.md', 'it'),
+    hi: readLocale('intlayer_with_create_react_app.md', 'hi'),
+    tr: readLocale('intlayer_with_create_react_app.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_express.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_with_express.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_with_express.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_with_express.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_with_express.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_with_express.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_with_express.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_with_express.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_with_express.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_with_express.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_with_express.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_express.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_with_express.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_with_express.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_with_express.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_with_express.md', 'en'),
+    fr: readLocale('intlayer_with_express.md', 'fr'),
+    ru: readLocale('intlayer_with_express.md', 'ru'),
+    ja: readLocale('intlayer_with_express.md', 'ja'),
+    ko: readLocale('intlayer_with_express.md', 'ko'),
+    zh: readLocale('intlayer_with_express.md', 'zh'),
+    es: readLocale('intlayer_with_express.md', 'es'),
+    de: readLocale('intlayer_with_express.md', 'de'),
+    ar: readLocale('intlayer_with_express.md', 'ar'),
+    pt: readLocale('intlayer_with_express.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_express.md', 'en-GB'),
+    it: readLocale('intlayer_with_express.md', 'it'),
+    hi: readLocale('intlayer_with_express.md', 'hi'),
+    tr: readLocale('intlayer_with_express.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_lynx+react.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/intlayer_with_lynx+react.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('intlayer_with_lynx+react.md', 'en'),
+    fr: readLocale('intlayer_with_lynx+react.md', 'fr'),
+    ru: readLocale('intlayer_with_lynx+react.md', 'ru'),
+    ja: readLocale('intlayer_with_lynx+react.md', 'ja'),
+    ko: readLocale('intlayer_with_lynx+react.md', 'ko'),
+    zh: readLocale('intlayer_with_lynx+react.md', 'zh'),
+    es: readLocale('intlayer_with_lynx+react.md', 'es'),
+    de: readLocale('intlayer_with_lynx+react.md', 'de'),
+    ar: readLocale('intlayer_with_lynx+react.md', 'ar'),
+    pt: readLocale('intlayer_with_lynx+react.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_lynx+react.md', 'en-GB'),
+    it: readLocale('intlayer_with_lynx+react.md', 'it'),
+    hi: readLocale('intlayer_with_lynx+react.md', 'hi'),
+    tr: readLocale('intlayer_with_lynx+react.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nestjs.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_with_nestjs.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_with_nestjs.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_with_nestjs.md', 'en'),
+    fr: readLocale('intlayer_with_nestjs.md', 'fr'),
+    ru: readLocale('intlayer_with_nestjs.md', 'ru'),
+    ja: readLocale('intlayer_with_nestjs.md', 'ja'),
+    ko: readLocale('intlayer_with_nestjs.md', 'ko'),
+    zh: readLocale('intlayer_with_nestjs.md', 'zh'),
+    es: readLocale('intlayer_with_nestjs.md', 'es'),
+    de: readLocale('intlayer_with_nestjs.md', 'de'),
+    ar: readLocale('intlayer_with_nestjs.md', 'ar'),
+    pt: readLocale('intlayer_with_nestjs.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_nestjs.md', 'en-GB'),
+    it: readLocale('intlayer_with_nestjs.md', 'it'),
+    hi: readLocale('intlayer_with_nestjs.md', 'hi'),
+    tr: readLocale('intlayer_with_nestjs.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_14.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_nextjs_14.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_with_nextjs_14.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_with_nextjs_14.md', 'en'),
+    fr: readLocale('intlayer_with_nextjs_14.md', 'fr'),
+    ru: readLocale('intlayer_with_nextjs_14.md', 'ru'),
+    ja: readLocale('intlayer_with_nextjs_14.md', 'ja'),
+    ko: readLocale('intlayer_with_nextjs_14.md', 'ko'),
+    zh: readLocale('intlayer_with_nextjs_14.md', 'zh'),
+    es: readLocale('intlayer_with_nextjs_14.md', 'es'),
+    de: readLocale('intlayer_with_nextjs_14.md', 'de'),
+    ar: readLocale('intlayer_with_nextjs_14.md', 'ar'),
+    pt: readLocale('intlayer_with_nextjs_14.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_nextjs_14.md', 'en-GB'),
+    it: readLocale('intlayer_with_nextjs_14.md', 'it'),
+    hi: readLocale('intlayer_with_nextjs_14.md', 'hi'),
+    tr: readLocale('intlayer_with_nextjs_14.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_15.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_nextjs_15.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_with_nextjs_15.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_with_nextjs_15.md', 'en'),
+    fr: readLocale('intlayer_with_nextjs_15.md', 'fr'),
+    ru: readLocale('intlayer_with_nextjs_15.md', 'ru'),
+    ja: readLocale('intlayer_with_nextjs_15.md', 'ja'),
+    ko: readLocale('intlayer_with_nextjs_15.md', 'ko'),
+    zh: readLocale('intlayer_with_nextjs_15.md', 'zh'),
+    es: readLocale('intlayer_with_nextjs_15.md', 'es'),
+    de: readLocale('intlayer_with_nextjs_15.md', 'de'),
+    ar: readLocale('intlayer_with_nextjs_15.md', 'ar'),
+    pt: readLocale('intlayer_with_nextjs_15.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_nextjs_15.md', 'en-GB'),
+    it: readLocale('intlayer_with_nextjs_15.md', 'it'),
+    hi: readLocale('intlayer_with_nextjs_15.md', 'hi'),
+    tr: readLocale('intlayer_with_nextjs_15.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_page_router.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/intlayer_with_nextjs_page_router.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('intlayer_with_nextjs_page_router.md', 'en'),
+    fr: readLocale('intlayer_with_nextjs_page_router.md', 'fr'),
+    ru: readLocale('intlayer_with_nextjs_page_router.md', 'ru'),
+    ja: readLocale('intlayer_with_nextjs_page_router.md', 'ja'),
+    ko: readLocale('intlayer_with_nextjs_page_router.md', 'ko'),
+    zh: readLocale('intlayer_with_nextjs_page_router.md', 'zh'),
+    es: readLocale('intlayer_with_nextjs_page_router.md', 'es'),
+    de: readLocale('intlayer_with_nextjs_page_router.md', 'de'),
+    ar: readLocale('intlayer_with_nextjs_page_router.md', 'ar'),
+    pt: readLocale('intlayer_with_nextjs_page_router.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_nextjs_page_router.md', 'en-GB'),
+    it: readLocale('intlayer_with_nextjs_page_router.md', 'it'),
+    hi: readLocale('intlayer_with_nextjs_page_router.md', 'hi'),
+    tr: readLocale('intlayer_with_nextjs_page_router.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nuxt.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_with_nuxt.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_with_nuxt.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_with_nuxt.md', 'en'),
+    fr: readLocale('intlayer_with_nuxt.md', 'fr'),
+    ru: readLocale('intlayer_with_nuxt.md', 'ru'),
+    ja: readLocale('intlayer_with_nuxt.md', 'ja'),
+    ko: readLocale('intlayer_with_nuxt.md', 'ko'),
+    zh: readLocale('intlayer_with_nuxt.md', 'zh'),
+    es: readLocale('intlayer_with_nuxt.md', 'es'),
+    de: readLocale('intlayer_with_nuxt.md', 'de'),
+    ar: readLocale('intlayer_with_nuxt.md', 'ar'),
+    pt: readLocale('intlayer_with_nuxt.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_nuxt.md', 'en-GB'),
+    it: readLocale('intlayer_with_nuxt.md', 'it'),
+    hi: readLocale('intlayer_with_nuxt.md', 'hi'),
+    tr: readLocale('intlayer_with_nuxt.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_react_native+expo.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/intlayer_with_react_native+expo.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('intlayer_with_react_native+expo.md', 'en'),
+    fr: readLocale('intlayer_with_react_native+expo.md', 'fr'),
+    ru: readLocale('intlayer_with_react_native+expo.md', 'ru'),
+    ja: readLocale('intlayer_with_react_native+expo.md', 'ja'),
+    ko: readLocale('intlayer_with_react_native+expo.md', 'ko'),
+    zh: readLocale('intlayer_with_react_native+expo.md', 'zh'),
+    es: readLocale('intlayer_with_react_native+expo.md', 'es'),
+    de: readLocale('intlayer_with_react_native+expo.md', 'de'),
+    ar: readLocale('intlayer_with_react_native+expo.md', 'ar'),
+    pt: readLocale('intlayer_with_react_native+expo.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_react_native+expo.md', 'en-GB'),
+    it: readLocale('intlayer_with_react_native+expo.md', 'it'),
+    hi: readLocale('intlayer_with_react_native+expo.md', 'hi'),
+    tr: readLocale('intlayer_with_react_native+expo.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_react_router_v7.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/intlayer_with_react_router_v7.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('intlayer_with_react_router_v7.md', 'en'),
+    fr: readLocale('intlayer_with_react_router_v7.md', 'fr'),
+    ru: readLocale('intlayer_with_react_router_v7.md', 'ru'),
+    ja: readLocale('intlayer_with_react_router_v7.md', 'ja'),
+    ko: readLocale('intlayer_with_react_router_v7.md', 'ko'),
+    zh: readLocale('intlayer_with_react_router_v7.md', 'zh'),
+    es: readLocale('intlayer_with_react_router_v7.md', 'es'),
+    de: readLocale('intlayer_with_react_router_v7.md', 'de'),
+    ar: readLocale('intlayer_with_react_router_v7.md', 'ar'),
+    pt: readLocale('intlayer_with_react_router_v7.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_react_router_v7.md', 'en-GB'),
+    it: readLocale('intlayer_with_react_router_v7.md', 'it'),
+    hi: readLocale('intlayer_with_react_router_v7.md', 'hi'),
+    tr: readLocale('intlayer_with_react_router_v7.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_tanstack.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_tanstack.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_with_tanstack.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_with_tanstack.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_with_tanstack.md', 'en'),
+    fr: readLocale('intlayer_with_tanstack.md', 'fr'),
+    ru: readLocale('intlayer_with_tanstack.md', 'ru'),
+    ja: readLocale('intlayer_with_tanstack.md', 'ja'),
+    ko: readLocale('intlayer_with_tanstack.md', 'ko'),
+    zh: readLocale('intlayer_with_tanstack.md', 'zh'),
+    es: readLocale('intlayer_with_tanstack.md', 'es'),
+    de: readLocale('intlayer_with_tanstack.md', 'de'),
+    ar: readLocale('intlayer_with_tanstack.md', 'ar'),
+    pt: readLocale('intlayer_with_tanstack.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_tanstack.md', 'en-GB'),
+    it: readLocale('intlayer_with_tanstack.md', 'it'),
+    hi: readLocale('intlayer_with_tanstack.md', 'hi'),
+    tr: readLocale('intlayer_with_tanstack.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+preact.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/intlayer_with_vite+preact.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('intlayer_with_vite+preact.md', 'en'),
+    fr: readLocale('intlayer_with_vite+preact.md', 'fr'),
+    ru: readLocale('intlayer_with_vite+preact.md', 'ru'),
+    ja: readLocale('intlayer_with_vite+preact.md', 'ja'),
+    ko: readLocale('intlayer_with_vite+preact.md', 'ko'),
+    zh: readLocale('intlayer_with_vite+preact.md', 'zh'),
+    es: readLocale('intlayer_with_vite+preact.md', 'es'),
+    de: readLocale('intlayer_with_vite+preact.md', 'de'),
+    ar: readLocale('intlayer_with_vite+preact.md', 'ar'),
+    pt: readLocale('intlayer_with_vite+preact.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_vite+preact.md', 'en-GB'),
+    it: readLocale('intlayer_with_vite+preact.md', 'it'),
+    hi: readLocale('intlayer_with_vite+preact.md', 'hi'),
+    tr: readLocale('intlayer_with_vite+preact.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+react.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/intlayer_with_vite+react.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('intlayer_with_vite+react.md', 'en'),
+    fr: readLocale('intlayer_with_vite+react.md', 'fr'),
+    ru: readLocale('intlayer_with_vite+react.md', 'ru'),
+    ja: readLocale('intlayer_with_vite+react.md', 'ja'),
+    ko: readLocale('intlayer_with_vite+react.md', 'ko'),
+    zh: readLocale('intlayer_with_vite+react.md', 'zh'),
+    es: readLocale('intlayer_with_vite+react.md', 'es'),
+    de: readLocale('intlayer_with_vite+react.md', 'de'),
+    ar: readLocale('intlayer_with_vite+react.md', 'ar'),
+    pt: readLocale('intlayer_with_vite+react.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_vite+react.md', 'en-GB'),
+    it: readLocale('intlayer_with_vite+react.md', 'it'),
+    hi: readLocale('intlayer_with_vite+react.md', 'hi'),
+    tr: readLocale('intlayer_with_vite+react.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+solid.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/intlayer_with_vite+solid.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('intlayer_with_vite+solid.md', 'en'),
+    fr: readLocale('intlayer_with_vite+solid.md', 'fr'),
+    ru: readLocale('intlayer_with_vite+solid.md', 'ru'),
+    ja: readLocale('intlayer_with_vite+solid.md', 'ja'),
+    ko: readLocale('intlayer_with_vite+solid.md', 'ko'),
+    zh: readLocale('intlayer_with_vite+solid.md', 'zh'),
+    es: readLocale('intlayer_with_vite+solid.md', 'es'),
+    de: readLocale('intlayer_with_vite+solid.md', 'de'),
+    ar: readLocale('intlayer_with_vite+solid.md', 'ar'),
+    pt: readLocale('intlayer_with_vite+solid.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_vite+solid.md', 'en-GB'),
+    it: readLocale('intlayer_with_vite+solid.md', 'it'),
+    hi: readLocale('intlayer_with_vite+solid.md', 'hi'),
+    tr: readLocale('intlayer_with_vite+solid.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+svelte.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/intlayer_with_vite+svelte.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('intlayer_with_vite+svelte.md', 'en'),
+    fr: readLocale('intlayer_with_vite+svelte.md', 'fr'),
+    ru: readLocale('intlayer_with_vite+svelte.md', 'ru'),
+    ja: readLocale('intlayer_with_vite+svelte.md', 'ja'),
+    ko: readLocale('intlayer_with_vite+svelte.md', 'ko'),
+    zh: readLocale('intlayer_with_vite+svelte.md', 'zh'),
+    es: readLocale('intlayer_with_vite+svelte.md', 'es'),
+    de: readLocale('intlayer_with_vite+svelte.md', 'de'),
+    ar: readLocale('intlayer_with_vite+svelte.md', 'ar'),
+    pt: readLocale('intlayer_with_vite+svelte.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_vite+svelte.md', 'en-GB'),
+    it: readLocale('intlayer_with_vite+svelte.md', 'it'),
+    hi: readLocale('intlayer_with_vite+svelte.md', 'hi'),
+    tr: readLocale('intlayer_with_vite+svelte.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+vue.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/intlayer_with_vite+vue.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/intlayer_with_vite+vue.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/intlayer_with_vite+vue.md'), 'utf8')
-    ),
+    en: readLocale('intlayer_with_vite+vue.md', 'en'),
+    fr: readLocale('intlayer_with_vite+vue.md', 'fr'),
+    ru: readLocale('intlayer_with_vite+vue.md', 'ru'),
+    ja: readLocale('intlayer_with_vite+vue.md', 'ja'),
+    ko: readLocale('intlayer_with_vite+vue.md', 'ko'),
+    zh: readLocale('intlayer_with_vite+vue.md', 'zh'),
+    es: readLocale('intlayer_with_vite+vue.md', 'es'),
+    de: readLocale('intlayer_with_vite+vue.md', 'de'),
+    ar: readLocale('intlayer_with_vite+vue.md', 'ar'),
+    pt: readLocale('intlayer_with_vite+vue.md', 'pt'),
+    'en-GB': readLocale('intlayer_with_vite+vue.md', 'en-GB'),
+    it: readLocale('intlayer_with_vite+vue.md', 'it'),
+    hi: readLocale('intlayer_with_vite+vue.md', 'hi'),
+    tr: readLocale('intlayer_with_vite+vue.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/introduction.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/introduction.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/introduction.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/introduction.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/introduction.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/introduction.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/introduction.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/introduction.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/introduction.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/introduction.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/introduction.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/introduction.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/introduction.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/introduction.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/introduction.md'), 'utf8')
-    ),
+    en: readLocale('introduction.md', 'en'),
+    fr: readLocale('introduction.md', 'fr'),
+    ru: readLocale('introduction.md', 'ru'),
+    ja: readLocale('introduction.md', 'ja'),
+    ko: readLocale('introduction.md', 'ko'),
+    zh: readLocale('introduction.md', 'zh'),
+    es: readLocale('introduction.md', 'es'),
+    de: readLocale('introduction.md', 'de'),
+    ar: readLocale('introduction.md', 'ar'),
+    pt: readLocale('introduction.md', 'pt'),
+    'en-GB': readLocale('introduction.md', 'en-GB'),
+    it: readLocale('introduction.md', 'it'),
+    hi: readLocale('introduction.md', 'hi'),
+    tr: readLocale('introduction.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/locale_mapper.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/locale_mapper.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/locale_mapper.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/locale_mapper.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/locale_mapper.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/locale_mapper.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/locale_mapper.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/locale_mapper.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/locale_mapper.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/locale_mapper.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/locale_mapper.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/locale_mapper.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/locale_mapper.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/locale_mapper.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/locale_mapper.md'), 'utf8')
-    ),
+    en: readLocale('locale_mapper.md', 'en'),
+    fr: readLocale('locale_mapper.md', 'fr'),
+    ru: readLocale('locale_mapper.md', 'ru'),
+    ja: readLocale('locale_mapper.md', 'ja'),
+    ko: readLocale('locale_mapper.md', 'ko'),
+    zh: readLocale('locale_mapper.md', 'zh'),
+    es: readLocale('locale_mapper.md', 'es'),
+    de: readLocale('locale_mapper.md', 'de'),
+    ar: readLocale('locale_mapper.md', 'ar'),
+    pt: readLocale('locale_mapper.md', 'pt'),
+    'en-GB': readLocale('locale_mapper.md', 'en-GB'),
+    it: readLocale('locale_mapper.md', 'it'),
+    hi: readLocale('locale_mapper.md', 'hi'),
+    tr: readLocale('locale_mapper.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/mcp_server.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/mcp_server.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/mcp_server.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/mcp_server.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/mcp_server.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/mcp_server.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/mcp_server.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/mcp_server.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/mcp_server.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/mcp_server.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/mcp_server.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/mcp_server.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/mcp_server.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/mcp_server.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/mcp_server.md'), 'utf8')
-    ),
+    en: readLocale('mcp_server.md', 'en'),
+    fr: readLocale('mcp_server.md', 'fr'),
+    ru: readLocale('mcp_server.md', 'ru'),
+    ja: readLocale('mcp_server.md', 'ja'),
+    ko: readLocale('mcp_server.md', 'ko'),
+    zh: readLocale('mcp_server.md', 'zh'),
+    es: readLocale('mcp_server.md', 'es'),
+    de: readLocale('mcp_server.md', 'de'),
+    ar: readLocale('mcp_server.md', 'ar'),
+    pt: readLocale('mcp_server.md', 'pt'),
+    'en-GB': readLocale('mcp_server.md', 'en-GB'),
+    it: readLocale('mcp_server.md', 'it'),
+    hi: readLocale('mcp_server.md', 'hi'),
+    tr: readLocale('mcp_server.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/api/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/@intlayer/api/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/@intlayer/api/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/api/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/api/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/api/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/api/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/api/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/api/index.md', 'es'),
+    de: readLocale('packages/@intlayer/api/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/api/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/api/index.md', 'pt'),
+    'en-GB': readLocale('packages/@intlayer/api/index.md', 'en-GB'),
+    it: readLocale('packages/@intlayer/api/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/api/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/api/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/chokidar/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/@intlayer/chokidar/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/@intlayer/chokidar/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/chokidar/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/chokidar/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/chokidar/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/chokidar/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/chokidar/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/chokidar/index.md', 'es'),
+    de: readLocale('packages/@intlayer/chokidar/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/chokidar/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/chokidar/index.md', 'pt'),
+    'en-GB': readLocale('packages/@intlayer/chokidar/index.md', 'en-GB'),
+    it: readLocale('packages/@intlayer/chokidar/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/chokidar/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/chokidar/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/cli/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/@intlayer/cli/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/@intlayer/cli/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/cli/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/cli/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/cli/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/cli/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/cli/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/cli/index.md', 'es'),
+    de: readLocale('packages/@intlayer/cli/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/cli/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/cli/index.md', 'pt'),
+    'en-GB': readLocale('packages/@intlayer/cli/index.md', 'en-GB'),
+    it: readLocale('packages/@intlayer/cli/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/cli/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/cli/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/config/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/@intlayer/config/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/@intlayer/config/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/config/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/config/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/config/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/config/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/config/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/config/index.md', 'es'),
+    de: readLocale('packages/@intlayer/config/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/config/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/config/index.md', 'pt'),
+    'en-GB': readLocale('packages/@intlayer/config/index.md', 'en-GB'),
+    it: readLocale('packages/@intlayer/config/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/config/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/config/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/core/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/@intlayer/core/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/@intlayer/core/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/core/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/core/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/core/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/core/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/core/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/core/index.md', 'es'),
+    de: readLocale('packages/@intlayer/core/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/core/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/core/index.md', 'pt'),
+    'en-GB': readLocale('packages/@intlayer/core/index.md', 'en-GB'),
+    it: readLocale('packages/@intlayer/core/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/core/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/core/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/design-system/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/@intlayer/design-system/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/@intlayer/design-system/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/@intlayer/design-system/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/design-system/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/design-system/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/design-system/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/design-system/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/design-system/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/design-system/index.md', 'es'),
+    de: readLocale('packages/@intlayer/design-system/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/design-system/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/design-system/index.md', 'pt'),
+    'en-GB': readLocale('packages/@intlayer/design-system/index.md', 'en-GB'),
+    it: readLocale('packages/@intlayer/design-system/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/design-system/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/design-system/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/dictionary-entry/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
+    en: readLocale('packages/@intlayer/dictionary-entry/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/dictionary-entry/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/dictionary-entry/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/dictionary-entry/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/dictionary-entry/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/dictionary-entry/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/dictionary-entry/index.md', 'es'),
+    de: readLocale('packages/@intlayer/dictionary-entry/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/dictionary-entry/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/dictionary-entry/index.md', 'pt'),
+    'en-GB': readLocale(
+      'packages/@intlayer/dictionary-entry/index.md',
+      'en-GB'
     ),
-    fr: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/fr/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ru/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ja/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ko/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/zh/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/es/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/de/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ar/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/pt/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/it/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/hi/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/tr/packages/@intlayer/dictionary-entry/index.md'
-        ),
-        'utf8'
-      )
-    ),
+    it: readLocale('packages/@intlayer/dictionary-entry/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/dictionary-entry/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/dictionary-entry/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/editor-react/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/@intlayer/editor-react/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/@intlayer/editor-react/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/@intlayer/editor-react/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/editor-react/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/editor-react/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/editor-react/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/editor-react/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/editor-react/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/editor-react/index.md', 'es'),
+    de: readLocale('packages/@intlayer/editor-react/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/editor-react/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/editor-react/index.md', 'pt'),
+    'en-GB': readLocale('packages/@intlayer/editor-react/index.md', 'en-GB'),
+    it: readLocale('packages/@intlayer/editor-react/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/editor-react/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/editor-react/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/editor/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/@intlayer/editor/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/@intlayer/editor/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/editor/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/editor/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/editor/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/editor/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/editor/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/editor/index.md', 'es'),
+    de: readLocale('packages/@intlayer/editor/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/editor/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/editor/index.md', 'pt'),
+    'en-GB': readLocale('packages/@intlayer/editor/index.md', 'en-GB'),
+    it: readLocale('packages/@intlayer/editor/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/editor/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/editor/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer/webpack/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/@intlayer/webpack/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/@intlayer/webpack/index.md', 'en'),
+    fr: readLocale('packages/@intlayer/webpack/index.md', 'fr'),
+    ru: readLocale('packages/@intlayer/webpack/index.md', 'ru'),
+    ja: readLocale('packages/@intlayer/webpack/index.md', 'ja'),
+    ko: readLocale('packages/@intlayer/webpack/index.md', 'ko'),
+    zh: readLocale('packages/@intlayer/webpack/index.md', 'zh'),
+    es: readLocale('packages/@intlayer/webpack/index.md', 'es'),
+    de: readLocale('packages/@intlayer/webpack/index.md', 'de'),
+    ar: readLocale('packages/@intlayer/webpack/index.md', 'ar'),
+    pt: readLocale('packages/@intlayer/webpack/index.md', 'pt'),
+    'en-GB': readLocale('packages/@intlayer/webpack/index.md', 'en-GB'),
+    it: readLocale('packages/@intlayer/webpack/index.md', 'it'),
+    hi: readLocale('packages/@intlayer/webpack/index.md', 'hi'),
+    tr: readLocale('packages/@intlayer/webpack/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/angular-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/angular-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/angular-intlayer/index.md', 'en'),
+    fr: readLocale('packages/angular-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/angular-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/angular-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/angular-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/angular-intlayer/index.md', 'zh'),
+    es: readLocale('packages/angular-intlayer/index.md', 'es'),
+    de: readLocale('packages/angular-intlayer/index.md', 'de'),
+    ar: readLocale('packages/angular-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/angular-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/angular-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/angular-intlayer/index.md', 'it'),
+    hi: readLocale('packages/angular-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/angular-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/express-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/express-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/express-intlayer/index.md', 'en'),
+    fr: readLocale('packages/express-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/express-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/express-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/express-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/express-intlayer/index.md', 'zh'),
+    es: readLocale('packages/express-intlayer/index.md', 'es'),
+    de: readLocale('packages/express-intlayer/index.md', 'de'),
+    ar: readLocale('packages/express-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/express-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/express-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/express-intlayer/index.md', 'it'),
+    hi: readLocale('packages/express-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/express-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/express-intlayer/t.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/express-intlayer/t.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/express-intlayer/t.md', 'en'),
+    fr: readLocale('packages/express-intlayer/t.md', 'fr'),
+    ru: readLocale('packages/express-intlayer/t.md', 'ru'),
+    ja: readLocale('packages/express-intlayer/t.md', 'ja'),
+    ko: readLocale('packages/express-intlayer/t.md', 'ko'),
+    zh: readLocale('packages/express-intlayer/t.md', 'zh'),
+    es: readLocale('packages/express-intlayer/t.md', 'es'),
+    de: readLocale('packages/express-intlayer/t.md', 'de'),
+    ar: readLocale('packages/express-intlayer/t.md', 'ar'),
+    pt: readLocale('packages/express-intlayer/t.md', 'pt'),
+    'en-GB': readLocale('packages/express-intlayer/t.md', 'en-GB'),
+    it: readLocale('packages/express-intlayer/t.md', 'it'),
+    hi: readLocale('packages/express-intlayer/t.md', 'hi'),
+    tr: readLocale('packages/express-intlayer/t.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer-cli/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer-cli/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer-cli/index.md', 'en'),
+    fr: readLocale('packages/intlayer-cli/index.md', 'fr'),
+    ru: readLocale('packages/intlayer-cli/index.md', 'ru'),
+    ja: readLocale('packages/intlayer-cli/index.md', 'ja'),
+    ko: readLocale('packages/intlayer-cli/index.md', 'ko'),
+    zh: readLocale('packages/intlayer-cli/index.md', 'zh'),
+    es: readLocale('packages/intlayer-cli/index.md', 'es'),
+    de: readLocale('packages/intlayer-cli/index.md', 'de'),
+    ar: readLocale('packages/intlayer-cli/index.md', 'ar'),
+    pt: readLocale('packages/intlayer-cli/index.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer-cli/index.md', 'en-GB'),
+    it: readLocale('packages/intlayer-cli/index.md', 'it'),
+    hi: readLocale('packages/intlayer-cli/index.md', 'hi'),
+    tr: readLocale('packages/intlayer-cli/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer-editor/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer-editor/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer-editor/index.md', 'en'),
+    fr: readLocale('packages/intlayer-editor/index.md', 'fr'),
+    ru: readLocale('packages/intlayer-editor/index.md', 'ru'),
+    ja: readLocale('packages/intlayer-editor/index.md', 'ja'),
+    ko: readLocale('packages/intlayer-editor/index.md', 'ko'),
+    zh: readLocale('packages/intlayer-editor/index.md', 'zh'),
+    es: readLocale('packages/intlayer-editor/index.md', 'es'),
+    de: readLocale('packages/intlayer-editor/index.md', 'de'),
+    ar: readLocale('packages/intlayer-editor/index.md', 'ar'),
+    pt: readLocale('packages/intlayer-editor/index.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer-editor/index.md', 'en-GB'),
+    it: readLocale('packages/intlayer-editor/index.md', 'it'),
+    hi: readLocale('packages/intlayer-editor/index.md', 'hi'),
+    tr: readLocale('packages/intlayer-editor/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getConfiguration.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer/getConfiguration.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getConfiguration.md', 'en'),
+    fr: readLocale('packages/intlayer/getConfiguration.md', 'fr'),
+    ru: readLocale('packages/intlayer/getConfiguration.md', 'ru'),
+    ja: readLocale('packages/intlayer/getConfiguration.md', 'ja'),
+    ko: readLocale('packages/intlayer/getConfiguration.md', 'ko'),
+    zh: readLocale('packages/intlayer/getConfiguration.md', 'zh'),
+    es: readLocale('packages/intlayer/getConfiguration.md', 'es'),
+    de: readLocale('packages/intlayer/getConfiguration.md', 'de'),
+    ar: readLocale('packages/intlayer/getConfiguration.md', 'ar'),
+    pt: readLocale('packages/intlayer/getConfiguration.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getConfiguration.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getConfiguration.md', 'it'),
+    hi: readLocale('packages/intlayer/getConfiguration.md', 'hi'),
+    tr: readLocale('packages/intlayer/getConfiguration.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getEnumeration.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer/getEnumeration.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getEnumeration.md', 'en'),
+    fr: readLocale('packages/intlayer/getEnumeration.md', 'fr'),
+    ru: readLocale('packages/intlayer/getEnumeration.md', 'ru'),
+    ja: readLocale('packages/intlayer/getEnumeration.md', 'ja'),
+    ko: readLocale('packages/intlayer/getEnumeration.md', 'ko'),
+    zh: readLocale('packages/intlayer/getEnumeration.md', 'zh'),
+    es: readLocale('packages/intlayer/getEnumeration.md', 'es'),
+    de: readLocale('packages/intlayer/getEnumeration.md', 'de'),
+    ar: readLocale('packages/intlayer/getEnumeration.md', 'ar'),
+    pt: readLocale('packages/intlayer/getEnumeration.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getEnumeration.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getEnumeration.md', 'it'),
+    hi: readLocale('packages/intlayer/getEnumeration.md', 'hi'),
+    tr: readLocale('packages/intlayer/getEnumeration.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getHTMLTextDir.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer/getHTMLTextDir.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getHTMLTextDir.md', 'en'),
+    fr: readLocale('packages/intlayer/getHTMLTextDir.md', 'fr'),
+    ru: readLocale('packages/intlayer/getHTMLTextDir.md', 'ru'),
+    ja: readLocale('packages/intlayer/getHTMLTextDir.md', 'ja'),
+    ko: readLocale('packages/intlayer/getHTMLTextDir.md', 'ko'),
+    zh: readLocale('packages/intlayer/getHTMLTextDir.md', 'zh'),
+    es: readLocale('packages/intlayer/getHTMLTextDir.md', 'es'),
+    de: readLocale('packages/intlayer/getHTMLTextDir.md', 'de'),
+    ar: readLocale('packages/intlayer/getHTMLTextDir.md', 'ar'),
+    pt: readLocale('packages/intlayer/getHTMLTextDir.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getHTMLTextDir.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getHTMLTextDir.md', 'it'),
+    hi: readLocale('packages/intlayer/getHTMLTextDir.md', 'hi'),
+    tr: readLocale('packages/intlayer/getHTMLTextDir.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocaleLang.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer/getLocaleLang.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getLocaleLang.md', 'en'),
+    fr: readLocale('packages/intlayer/getLocaleLang.md', 'fr'),
+    ru: readLocale('packages/intlayer/getLocaleLang.md', 'ru'),
+    ja: readLocale('packages/intlayer/getLocaleLang.md', 'ja'),
+    ko: readLocale('packages/intlayer/getLocaleLang.md', 'ko'),
+    zh: readLocale('packages/intlayer/getLocaleLang.md', 'zh'),
+    es: readLocale('packages/intlayer/getLocaleLang.md', 'es'),
+    de: readLocale('packages/intlayer/getLocaleLang.md', 'de'),
+    ar: readLocale('packages/intlayer/getLocaleLang.md', 'ar'),
+    pt: readLocale('packages/intlayer/getLocaleLang.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getLocaleLang.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getLocaleLang.md', 'it'),
+    hi: readLocale('packages/intlayer/getLocaleLang.md', 'hi'),
+    tr: readLocale('packages/intlayer/getLocaleLang.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocaleName.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer/getLocaleName.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getLocaleName.md', 'en'),
+    fr: readLocale('packages/intlayer/getLocaleName.md', 'fr'),
+    ru: readLocale('packages/intlayer/getLocaleName.md', 'ru'),
+    ja: readLocale('packages/intlayer/getLocaleName.md', 'ja'),
+    ko: readLocale('packages/intlayer/getLocaleName.md', 'ko'),
+    zh: readLocale('packages/intlayer/getLocaleName.md', 'zh'),
+    es: readLocale('packages/intlayer/getLocaleName.md', 'es'),
+    de: readLocale('packages/intlayer/getLocaleName.md', 'de'),
+    ar: readLocale('packages/intlayer/getLocaleName.md', 'ar'),
+    pt: readLocale('packages/intlayer/getLocaleName.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getLocaleName.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getLocaleName.md', 'it'),
+    hi: readLocale('packages/intlayer/getLocaleName.md', 'hi'),
+    tr: readLocale('packages/intlayer/getLocaleName.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocalizedUrl.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer/getLocalizedUrl.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getLocalizedUrl.md', 'en'),
+    fr: readLocale('packages/intlayer/getLocalizedUrl.md', 'fr'),
+    ru: readLocale('packages/intlayer/getLocalizedUrl.md', 'ru'),
+    ja: readLocale('packages/intlayer/getLocalizedUrl.md', 'ja'),
+    ko: readLocale('packages/intlayer/getLocalizedUrl.md', 'ko'),
+    zh: readLocale('packages/intlayer/getLocalizedUrl.md', 'zh'),
+    es: readLocale('packages/intlayer/getLocalizedUrl.md', 'es'),
+    de: readLocale('packages/intlayer/getLocalizedUrl.md', 'de'),
+    ar: readLocale('packages/intlayer/getLocalizedUrl.md', 'ar'),
+    pt: readLocale('packages/intlayer/getLocalizedUrl.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getLocalizedUrl.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getLocalizedUrl.md', 'it'),
+    hi: readLocale('packages/intlayer/getLocalizedUrl.md', 'hi'),
+    tr: readLocale('packages/intlayer/getLocalizedUrl.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getMultilingualUrls.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/intlayer/getMultilingualUrls.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer/getMultilingualUrls.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getMultilingualUrls.md', 'en'),
+    fr: readLocale('packages/intlayer/getMultilingualUrls.md', 'fr'),
+    ru: readLocale('packages/intlayer/getMultilingualUrls.md', 'ru'),
+    ja: readLocale('packages/intlayer/getMultilingualUrls.md', 'ja'),
+    ko: readLocale('packages/intlayer/getMultilingualUrls.md', 'ko'),
+    zh: readLocale('packages/intlayer/getMultilingualUrls.md', 'zh'),
+    es: readLocale('packages/intlayer/getMultilingualUrls.md', 'es'),
+    de: readLocale('packages/intlayer/getMultilingualUrls.md', 'de'),
+    ar: readLocale('packages/intlayer/getMultilingualUrls.md', 'ar'),
+    pt: readLocale('packages/intlayer/getMultilingualUrls.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getMultilingualUrls.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getMultilingualUrls.md', 'it'),
+    hi: readLocale('packages/intlayer/getMultilingualUrls.md', 'hi'),
+    tr: readLocale('packages/intlayer/getMultilingualUrls.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getPathWithoutLocale.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/intlayer/getPathWithoutLocale.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer/getPathWithoutLocale.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getPathWithoutLocale.md', 'en'),
+    fr: readLocale('packages/intlayer/getPathWithoutLocale.md', 'fr'),
+    ru: readLocale('packages/intlayer/getPathWithoutLocale.md', 'ru'),
+    ja: readLocale('packages/intlayer/getPathWithoutLocale.md', 'ja'),
+    ko: readLocale('packages/intlayer/getPathWithoutLocale.md', 'ko'),
+    zh: readLocale('packages/intlayer/getPathWithoutLocale.md', 'zh'),
+    es: readLocale('packages/intlayer/getPathWithoutLocale.md', 'es'),
+    de: readLocale('packages/intlayer/getPathWithoutLocale.md', 'de'),
+    ar: readLocale('packages/intlayer/getPathWithoutLocale.md', 'ar'),
+    pt: readLocale('packages/intlayer/getPathWithoutLocale.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getPathWithoutLocale.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getPathWithoutLocale.md', 'it'),
+    hi: readLocale('packages/intlayer/getPathWithoutLocale.md', 'hi'),
+    tr: readLocale('packages/intlayer/getPathWithoutLocale.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getTranslation.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/intlayer/getTranslation.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getTranslation.md', 'en'),
+    fr: readLocale('packages/intlayer/getTranslation.md', 'fr'),
+    ru: readLocale('packages/intlayer/getTranslation.md', 'ru'),
+    ja: readLocale('packages/intlayer/getTranslation.md', 'ja'),
+    ko: readLocale('packages/intlayer/getTranslation.md', 'ko'),
+    zh: readLocale('packages/intlayer/getTranslation.md', 'zh'),
+    es: readLocale('packages/intlayer/getTranslation.md', 'es'),
+    de: readLocale('packages/intlayer/getTranslation.md', 'de'),
+    ar: readLocale('packages/intlayer/getTranslation.md', 'ar'),
+    pt: readLocale('packages/intlayer/getTranslation.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getTranslation.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getTranslation.md', 'it'),
+    hi: readLocale('packages/intlayer/getTranslation.md', 'hi'),
+    tr: readLocale('packages/intlayer/getTranslation.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getTranslationContent.md': {
-    en: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/fr/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ru/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ja/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ko/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/zh/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/es/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/de/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/ar/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/pt/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/it/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/hi/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/tr/packages/intlayer/getTranslationContent.md'
-        ),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/intlayer/getTranslationContent.md', 'en'),
+    fr: readLocale('packages/intlayer/getTranslationContent.md', 'fr'),
+    ru: readLocale('packages/intlayer/getTranslationContent.md', 'ru'),
+    ja: readLocale('packages/intlayer/getTranslationContent.md', 'ja'),
+    ko: readLocale('packages/intlayer/getTranslationContent.md', 'ko'),
+    zh: readLocale('packages/intlayer/getTranslationContent.md', 'zh'),
+    es: readLocale('packages/intlayer/getTranslationContent.md', 'es'),
+    de: readLocale('packages/intlayer/getTranslationContent.md', 'de'),
+    ar: readLocale('packages/intlayer/getTranslationContent.md', 'ar'),
+    pt: readLocale('packages/intlayer/getTranslationContent.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/getTranslationContent.md', 'en-GB'),
+    it: readLocale('packages/intlayer/getTranslationContent.md', 'it'),
+    hi: readLocale('packages/intlayer/getTranslationContent.md', 'hi'),
+    tr: readLocale('packages/intlayer/getTranslationContent.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/packages/intlayer/index.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/packages/intlayer/index.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/packages/intlayer/index.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/packages/intlayer/index.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/packages/intlayer/index.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/packages/intlayer/index.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/packages/intlayer/index.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/packages/intlayer/index.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/packages/intlayer/index.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/packages/intlayer/index.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/packages/intlayer/index.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/packages/intlayer/index.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/packages/intlayer/index.md'), 'utf8')
-    ),
+    en: readLocale('packages/intlayer/index.md', 'en'),
+    fr: readLocale('packages/intlayer/index.md', 'fr'),
+    ru: readLocale('packages/intlayer/index.md', 'ru'),
+    ja: readLocale('packages/intlayer/index.md', 'ja'),
+    ko: readLocale('packages/intlayer/index.md', 'ko'),
+    zh: readLocale('packages/intlayer/index.md', 'zh'),
+    es: readLocale('packages/intlayer/index.md', 'es'),
+    de: readLocale('packages/intlayer/index.md', 'de'),
+    ar: readLocale('packages/intlayer/index.md', 'ar'),
+    pt: readLocale('packages/intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/intlayer/index.md', 'it'),
+    hi: readLocale('packages/intlayer/index.md', 'hi'),
+    tr: readLocale('packages/intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/lynx-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/lynx-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/lynx-intlayer/index.md', 'en'),
+    fr: readLocale('packages/lynx-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/lynx-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/lynx-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/lynx-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/lynx-intlayer/index.md', 'zh'),
+    es: readLocale('packages/lynx-intlayer/index.md', 'es'),
+    de: readLocale('packages/lynx-intlayer/index.md', 'de'),
+    ar: readLocale('packages/lynx-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/lynx-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/lynx-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/lynx-intlayer/index.md', 'it'),
+    hi: readLocale('packages/lynx-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/lynx-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/next-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/next-intlayer/index.md', 'en'),
+    fr: readLocale('packages/next-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/next-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/next-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/next-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/next-intlayer/index.md', 'zh'),
+    es: readLocale('packages/next-intlayer/index.md', 'es'),
+    de: readLocale('packages/next-intlayer/index.md', 'de'),
+    ar: readLocale('packages/next-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/next-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/next-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/next-intlayer/index.md', 'it'),
+    hi: readLocale('packages/next-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/next-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/t.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/next-intlayer/t.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/next-intlayer/t.md', 'en'),
+    fr: readLocale('packages/next-intlayer/t.md', 'fr'),
+    ru: readLocale('packages/next-intlayer/t.md', 'ru'),
+    ja: readLocale('packages/next-intlayer/t.md', 'ja'),
+    ko: readLocale('packages/next-intlayer/t.md', 'ko'),
+    zh: readLocale('packages/next-intlayer/t.md', 'zh'),
+    es: readLocale('packages/next-intlayer/t.md', 'es'),
+    de: readLocale('packages/next-intlayer/t.md', 'de'),
+    ar: readLocale('packages/next-intlayer/t.md', 'ar'),
+    pt: readLocale('packages/next-intlayer/t.md', 'pt'),
+    'en-GB': readLocale('packages/next-intlayer/t.md', 'en-GB'),
+    it: readLocale('packages/next-intlayer/t.md', 'it'),
+    hi: readLocale('packages/next-intlayer/t.md', 'hi'),
+    tr: readLocale('packages/next-intlayer/t.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/useDictionary.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/next-intlayer/useDictionary.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/next-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/next-intlayer/useDictionary.md', 'en'),
+    fr: readLocale('packages/next-intlayer/useDictionary.md', 'fr'),
+    ru: readLocale('packages/next-intlayer/useDictionary.md', 'ru'),
+    ja: readLocale('packages/next-intlayer/useDictionary.md', 'ja'),
+    ko: readLocale('packages/next-intlayer/useDictionary.md', 'ko'),
+    zh: readLocale('packages/next-intlayer/useDictionary.md', 'zh'),
+    es: readLocale('packages/next-intlayer/useDictionary.md', 'es'),
+    de: readLocale('packages/next-intlayer/useDictionary.md', 'de'),
+    ar: readLocale('packages/next-intlayer/useDictionary.md', 'ar'),
+    pt: readLocale('packages/next-intlayer/useDictionary.md', 'pt'),
+    'en-GB': readLocale('packages/next-intlayer/useDictionary.md', 'en-GB'),
+    it: readLocale('packages/next-intlayer/useDictionary.md', 'it'),
+    hi: readLocale('packages/next-intlayer/useDictionary.md', 'hi'),
+    tr: readLocale('packages/next-intlayer/useDictionary.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/useIntlayer.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/next-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/next-intlayer/useIntlayer.md', 'en'),
+    fr: readLocale('packages/next-intlayer/useIntlayer.md', 'fr'),
+    ru: readLocale('packages/next-intlayer/useIntlayer.md', 'ru'),
+    ja: readLocale('packages/next-intlayer/useIntlayer.md', 'ja'),
+    ko: readLocale('packages/next-intlayer/useIntlayer.md', 'ko'),
+    zh: readLocale('packages/next-intlayer/useIntlayer.md', 'zh'),
+    es: readLocale('packages/next-intlayer/useIntlayer.md', 'es'),
+    de: readLocale('packages/next-intlayer/useIntlayer.md', 'de'),
+    ar: readLocale('packages/next-intlayer/useIntlayer.md', 'ar'),
+    pt: readLocale('packages/next-intlayer/useIntlayer.md', 'pt'),
+    'en-GB': readLocale('packages/next-intlayer/useIntlayer.md', 'en-GB'),
+    it: readLocale('packages/next-intlayer/useIntlayer.md', 'it'),
+    hi: readLocale('packages/next-intlayer/useIntlayer.md', 'hi'),
+    tr: readLocale('packages/next-intlayer/useIntlayer.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/useLocale.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/next-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/next-intlayer/useLocale.md', 'en'),
+    fr: readLocale('packages/next-intlayer/useLocale.md', 'fr'),
+    ru: readLocale('packages/next-intlayer/useLocale.md', 'ru'),
+    ja: readLocale('packages/next-intlayer/useLocale.md', 'ja'),
+    ko: readLocale('packages/next-intlayer/useLocale.md', 'ko'),
+    zh: readLocale('packages/next-intlayer/useLocale.md', 'zh'),
+    es: readLocale('packages/next-intlayer/useLocale.md', 'es'),
+    de: readLocale('packages/next-intlayer/useLocale.md', 'de'),
+    ar: readLocale('packages/next-intlayer/useLocale.md', 'ar'),
+    pt: readLocale('packages/next-intlayer/useLocale.md', 'pt'),
+    'en-GB': readLocale('packages/next-intlayer/useLocale.md', 'en-GB'),
+    it: readLocale('packages/next-intlayer/useLocale.md', 'it'),
+    hi: readLocale('packages/next-intlayer/useLocale.md', 'hi'),
+    tr: readLocale('packages/next-intlayer/useLocale.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/nuxt-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/nuxt-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/nuxt-intlayer/index.md', 'en'),
+    fr: readLocale('packages/nuxt-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/nuxt-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/nuxt-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/nuxt-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/nuxt-intlayer/index.md', 'zh'),
+    es: readLocale('packages/nuxt-intlayer/index.md', 'es'),
+    de: readLocale('packages/nuxt-intlayer/index.md', 'de'),
+    ar: readLocale('packages/nuxt-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/nuxt-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/nuxt-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/nuxt-intlayer/index.md', 'it'),
+    hi: readLocale('packages/nuxt-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/nuxt-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/preact-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/preact-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/preact-intlayer/index.md', 'en'),
+    fr: readLocale('packages/preact-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/preact-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/preact-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/preact-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/preact-intlayer/index.md', 'zh'),
+    es: readLocale('packages/preact-intlayer/index.md', 'es'),
+    de: readLocale('packages/preact-intlayer/index.md', 'de'),
+    ar: readLocale('packages/preact-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/preact-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/preact-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/preact-intlayer/index.md', 'it'),
+    hi: readLocale('packages/preact-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/preact-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/react-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/react-intlayer/index.md', 'en'),
+    fr: readLocale('packages/react-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/react-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/react-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/react-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/react-intlayer/index.md', 'zh'),
+    es: readLocale('packages/react-intlayer/index.md', 'es'),
+    de: readLocale('packages/react-intlayer/index.md', 'de'),
+    ar: readLocale('packages/react-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/react-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/react-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/react-intlayer/index.md', 'it'),
+    hi: readLocale('packages/react-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/react-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/t.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/react-intlayer/t.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/react-intlayer/t.md', 'en'),
+    fr: readLocale('packages/react-intlayer/t.md', 'fr'),
+    ru: readLocale('packages/react-intlayer/t.md', 'ru'),
+    ja: readLocale('packages/react-intlayer/t.md', 'ja'),
+    ko: readLocale('packages/react-intlayer/t.md', 'ko'),
+    zh: readLocale('packages/react-intlayer/t.md', 'zh'),
+    es: readLocale('packages/react-intlayer/t.md', 'es'),
+    de: readLocale('packages/react-intlayer/t.md', 'de'),
+    ar: readLocale('packages/react-intlayer/t.md', 'ar'),
+    pt: readLocale('packages/react-intlayer/t.md', 'pt'),
+    'en-GB': readLocale('packages/react-intlayer/t.md', 'en-GB'),
+    it: readLocale('packages/react-intlayer/t.md', 'it'),
+    hi: readLocale('packages/react-intlayer/t.md', 'hi'),
+    tr: readLocale('packages/react-intlayer/t.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useDictionary.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/react-intlayer/useDictionary.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/react-intlayer/useDictionary.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/react-intlayer/useDictionary.md', 'en'),
+    fr: readLocale('packages/react-intlayer/useDictionary.md', 'fr'),
+    ru: readLocale('packages/react-intlayer/useDictionary.md', 'ru'),
+    ja: readLocale('packages/react-intlayer/useDictionary.md', 'ja'),
+    ko: readLocale('packages/react-intlayer/useDictionary.md', 'ko'),
+    zh: readLocale('packages/react-intlayer/useDictionary.md', 'zh'),
+    es: readLocale('packages/react-intlayer/useDictionary.md', 'es'),
+    de: readLocale('packages/react-intlayer/useDictionary.md', 'de'),
+    ar: readLocale('packages/react-intlayer/useDictionary.md', 'ar'),
+    pt: readLocale('packages/react-intlayer/useDictionary.md', 'pt'),
+    'en-GB': readLocale('packages/react-intlayer/useDictionary.md', 'en-GB'),
+    it: readLocale('packages/react-intlayer/useDictionary.md', 'it'),
+    hi: readLocale('packages/react-intlayer/useDictionary.md', 'hi'),
+    tr: readLocale('packages/react-intlayer/useDictionary.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useI18n.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/react-intlayer/useI18n.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/react-intlayer/useI18n.md', 'en'),
+    fr: readLocale('packages/react-intlayer/useI18n.md', 'fr'),
+    ru: readLocale('packages/react-intlayer/useI18n.md', 'ru'),
+    ja: readLocale('packages/react-intlayer/useI18n.md', 'ja'),
+    ko: readLocale('packages/react-intlayer/useI18n.md', 'ko'),
+    zh: readLocale('packages/react-intlayer/useI18n.md', 'zh'),
+    es: readLocale('packages/react-intlayer/useI18n.md', 'es'),
+    de: readLocale('packages/react-intlayer/useI18n.md', 'de'),
+    ar: readLocale('packages/react-intlayer/useI18n.md', 'ar'),
+    pt: readLocale('packages/react-intlayer/useI18n.md', 'pt'),
+    'en-GB': readLocale('packages/react-intlayer/useI18n.md', 'en-GB'),
+    it: readLocale('packages/react-intlayer/useI18n.md', 'it'),
+    hi: readLocale('packages/react-intlayer/useI18n.md', 'hi'),
+    tr: readLocale('packages/react-intlayer/useI18n.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useIntlayer.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/react-intlayer/useIntlayer.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/react-intlayer/useIntlayer.md', 'en'),
+    fr: readLocale('packages/react-intlayer/useIntlayer.md', 'fr'),
+    ru: readLocale('packages/react-intlayer/useIntlayer.md', 'ru'),
+    ja: readLocale('packages/react-intlayer/useIntlayer.md', 'ja'),
+    ko: readLocale('packages/react-intlayer/useIntlayer.md', 'ko'),
+    zh: readLocale('packages/react-intlayer/useIntlayer.md', 'zh'),
+    es: readLocale('packages/react-intlayer/useIntlayer.md', 'es'),
+    de: readLocale('packages/react-intlayer/useIntlayer.md', 'de'),
+    ar: readLocale('packages/react-intlayer/useIntlayer.md', 'ar'),
+    pt: readLocale('packages/react-intlayer/useIntlayer.md', 'pt'),
+    'en-GB': readLocale('packages/react-intlayer/useIntlayer.md', 'en-GB'),
+    it: readLocale('packages/react-intlayer/useIntlayer.md', 'it'),
+    hi: readLocale('packages/react-intlayer/useIntlayer.md', 'hi'),
+    tr: readLocale('packages/react-intlayer/useIntlayer.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useLocale.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/react-intlayer/useLocale.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/react-intlayer/useLocale.md', 'en'),
+    fr: readLocale('packages/react-intlayer/useLocale.md', 'fr'),
+    ru: readLocale('packages/react-intlayer/useLocale.md', 'ru'),
+    ja: readLocale('packages/react-intlayer/useLocale.md', 'ja'),
+    ko: readLocale('packages/react-intlayer/useLocale.md', 'ko'),
+    zh: readLocale('packages/react-intlayer/useLocale.md', 'zh'),
+    es: readLocale('packages/react-intlayer/useLocale.md', 'es'),
+    de: readLocale('packages/react-intlayer/useLocale.md', 'de'),
+    ar: readLocale('packages/react-intlayer/useLocale.md', 'ar'),
+    pt: readLocale('packages/react-intlayer/useLocale.md', 'pt'),
+    'en-GB': readLocale('packages/react-intlayer/useLocale.md', 'en-GB'),
+    it: readLocale('packages/react-intlayer/useLocale.md', 'it'),
+    hi: readLocale('packages/react-intlayer/useLocale.md', 'hi'),
+    tr: readLocale('packages/react-intlayer/useLocale.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-native-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/react-native-intlayer/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/react-native-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/react-native-intlayer/index.md', 'en'),
+    fr: readLocale('packages/react-native-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/react-native-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/react-native-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/react-native-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/react-native-intlayer/index.md', 'zh'),
+    es: readLocale('packages/react-native-intlayer/index.md', 'es'),
+    de: readLocale('packages/react-native-intlayer/index.md', 'de'),
+    ar: readLocale('packages/react-native-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/react-native-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/react-native-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/react-native-intlayer/index.md', 'it'),
+    hi: readLocale('packages/react-native-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/react-native-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-scripts-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(
-          dir,
-          '../../../docs/en-GB/packages/react-scripts-intlayer/index.md'
-        ),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/react-scripts-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/react-scripts-intlayer/index.md', 'en'),
+    fr: readLocale('packages/react-scripts-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/react-scripts-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/react-scripts-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/react-scripts-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/react-scripts-intlayer/index.md', 'zh'),
+    es: readLocale('packages/react-scripts-intlayer/index.md', 'es'),
+    de: readLocale('packages/react-scripts-intlayer/index.md', 'de'),
+    ar: readLocale('packages/react-scripts-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/react-scripts-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/react-scripts-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/react-scripts-intlayer/index.md', 'it'),
+    hi: readLocale('packages/react-scripts-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/react-scripts-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/solid-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/solid-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/solid-intlayer/index.md', 'en'),
+    fr: readLocale('packages/solid-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/solid-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/solid-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/solid-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/solid-intlayer/index.md', 'zh'),
+    es: readLocale('packages/solid-intlayer/index.md', 'es'),
+    de: readLocale('packages/solid-intlayer/index.md', 'de'),
+    ar: readLocale('packages/solid-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/solid-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/solid-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/solid-intlayer/index.md', 'it'),
+    hi: readLocale('packages/solid-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/solid-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/svelte-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/svelte-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/svelte-intlayer/index.md', 'en'),
+    fr: readLocale('packages/svelte-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/svelte-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/svelte-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/svelte-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/svelte-intlayer/index.md', 'zh'),
+    es: readLocale('packages/svelte-intlayer/index.md', 'es'),
+    de: readLocale('packages/svelte-intlayer/index.md', 'de'),
+    ar: readLocale('packages/svelte-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/svelte-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/svelte-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/svelte-intlayer/index.md', 'it'),
+    hi: readLocale('packages/svelte-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/svelte-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vite-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/vite-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/vite-intlayer/index.md', 'en'),
+    fr: readLocale('packages/vite-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/vite-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/vite-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/vite-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/vite-intlayer/index.md', 'zh'),
+    es: readLocale('packages/vite-intlayer/index.md', 'es'),
+    de: readLocale('packages/vite-intlayer/index.md', 'de'),
+    ar: readLocale('packages/vite-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/vite-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/vite-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/vite-intlayer/index.md', 'it'),
+    hi: readLocale('packages/vite-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/vite-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vue-intlayer/index.md': {
-    en: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    fr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/fr/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ru: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ru/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ja: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ja/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ko: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ko/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    zh: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/zh/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    es: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/es/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    de: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/de/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    ar: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/ar/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    pt: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/pt/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    'en-GB': Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/en-GB/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    it: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/it/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    hi: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/hi/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
-    tr: Promise.resolve(
-      readFile(
-        join(dir, '../../../docs/tr/packages/vue-intlayer/index.md'),
-        'utf8'
-      )
-    ),
+    en: readLocale('packages/vue-intlayer/index.md', 'en'),
+    fr: readLocale('packages/vue-intlayer/index.md', 'fr'),
+    ru: readLocale('packages/vue-intlayer/index.md', 'ru'),
+    ja: readLocale('packages/vue-intlayer/index.md', 'ja'),
+    ko: readLocale('packages/vue-intlayer/index.md', 'ko'),
+    zh: readLocale('packages/vue-intlayer/index.md', 'zh'),
+    es: readLocale('packages/vue-intlayer/index.md', 'es'),
+    de: readLocale('packages/vue-intlayer/index.md', 'de'),
+    ar: readLocale('packages/vue-intlayer/index.md', 'ar'),
+    pt: readLocale('packages/vue-intlayer/index.md', 'pt'),
+    'en-GB': readLocale('packages/vue-intlayer/index.md', 'en-GB'),
+    it: readLocale('packages/vue-intlayer/index.md', 'it'),
+    hi: readLocale('packages/vue-intlayer/index.md', 'hi'),
+    tr: readLocale('packages/vue-intlayer/index.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/per_locale_file.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/per_locale_file.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/per_locale_file.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/per_locale_file.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/per_locale_file.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/per_locale_file.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/per_locale_file.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/per_locale_file.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/per_locale_file.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/per_locale_file.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/per_locale_file.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/per_locale_file.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/per_locale_file.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/per_locale_file.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/per_locale_file.md'), 'utf8')
-    ),
+    en: readLocale('per_locale_file.md', 'en'),
+    fr: readLocale('per_locale_file.md', 'fr'),
+    ru: readLocale('per_locale_file.md', 'ru'),
+    ja: readLocale('per_locale_file.md', 'ja'),
+    ko: readLocale('per_locale_file.md', 'ko'),
+    zh: readLocale('per_locale_file.md', 'zh'),
+    es: readLocale('per_locale_file.md', 'es'),
+    de: readLocale('per_locale_file.md', 'de'),
+    ar: readLocale('per_locale_file.md', 'ar'),
+    pt: readLocale('per_locale_file.md', 'pt'),
+    'en-GB': readLocale('per_locale_file.md', 'en-GB'),
+    it: readLocale('per_locale_file.md', 'it'),
+    hi: readLocale('per_locale_file.md', 'hi'),
+    tr: readLocale('per_locale_file.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/readme.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/readme.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/readme.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/readme.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/readme.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/readme.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/readme.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/readme.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/readme.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/readme.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/readme.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/readme.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/readme.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/readme.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/readme.md'), 'utf8')
-    ),
+    en: readLocale('readme.md', 'en'),
+    fr: readLocale('readme.md', 'fr'),
+    ru: readLocale('readme.md', 'ru'),
+    ja: readLocale('readme.md', 'ja'),
+    ko: readLocale('readme.md', 'ko'),
+    zh: readLocale('readme.md', 'zh'),
+    es: readLocale('readme.md', 'es'),
+    de: readLocale('readme.md', 'de'),
+    ar: readLocale('readme.md', 'ar'),
+    pt: readLocale('readme.md', 'pt'),
+    'en-GB': readLocale('readme.md', 'en-GB'),
+    it: readLocale('readme.md', 'it'),
+    hi: readLocale('readme.md', 'hi'),
+    tr: readLocale('readme.md', 'tr'),
+  } as unknown as Record<LocalesValues, Promise<string>>,
+  './docs/en/releases/v6.md': {
+    en: readLocale('releases/v6.md', 'en'),
+    fr: readLocale('releases/v6.md', 'fr'),
+    ru: readLocale('releases/v6.md', 'ru'),
+    ja: readLocale('releases/v6.md', 'ja'),
+    ko: readLocale('releases/v6.md', 'ko'),
+    zh: readLocale('releases/v6.md', 'zh'),
+    es: readLocale('releases/v6.md', 'es'),
+    de: readLocale('releases/v6.md', 'de'),
+    ar: readLocale('releases/v6.md', 'ar'),
+    pt: readLocale('releases/v6.md', 'pt'),
+    'en-GB': readLocale('releases/v6.md', 'en-GB'),
+    it: readLocale('releases/v6.md', 'it'),
+    hi: readLocale('releases/v6.md', 'hi'),
+    tr: readLocale('releases/v6.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/roadmap.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/roadmap.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/roadmap.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/roadmap.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/roadmap.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/roadmap.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/roadmap.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/roadmap.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/roadmap.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/roadmap.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/roadmap.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/roadmap.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/roadmap.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/roadmap.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/roadmap.md'), 'utf8')
-    ),
+    en: readLocale('roadmap.md', 'en'),
+    fr: readLocale('roadmap.md', 'fr'),
+    ru: readLocale('roadmap.md', 'ru'),
+    ja: readLocale('roadmap.md', 'ja'),
+    ko: readLocale('roadmap.md', 'ko'),
+    zh: readLocale('roadmap.md', 'zh'),
+    es: readLocale('roadmap.md', 'es'),
+    de: readLocale('roadmap.md', 'de'),
+    ar: readLocale('roadmap.md', 'ar'),
+    pt: readLocale('roadmap.md', 'pt'),
+    'en-GB': readLocale('roadmap.md', 'en-GB'),
+    it: readLocale('roadmap.md', 'it'),
+    hi: readLocale('roadmap.md', 'hi'),
+    tr: readLocale('roadmap.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/testing.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/testing.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/testing.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/testing.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/testing.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/testing.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/testing.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/testing.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/testing.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/testing.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/testing.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/testing.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/testing.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/testing.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/testing.md'), 'utf8')
-    ),
+    en: readLocale('testing.md', 'en'),
+    fr: readLocale('testing.md', 'fr'),
+    ru: readLocale('testing.md', 'ru'),
+    ja: readLocale('testing.md', 'ja'),
+    ko: readLocale('testing.md', 'ko'),
+    zh: readLocale('testing.md', 'zh'),
+    es: readLocale('testing.md', 'es'),
+    de: readLocale('testing.md', 'de'),
+    ar: readLocale('testing.md', 'ar'),
+    pt: readLocale('testing.md', 'pt'),
+    'en-GB': readLocale('testing.md', 'en-GB'),
+    it: readLocale('testing.md', 'it'),
+    hi: readLocale('testing.md', 'hi'),
+    tr: readLocale('testing.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/vs_code_extension.md': {
-    en: Promise.resolve(
-      readFile(join(dir, '../../../docs/en/vs_code_extension.md'), 'utf8')
-    ),
-    fr: Promise.resolve(
-      readFile(join(dir, '../../../docs/fr/vs_code_extension.md'), 'utf8')
-    ),
-    ru: Promise.resolve(
-      readFile(join(dir, '../../../docs/ru/vs_code_extension.md'), 'utf8')
-    ),
-    ja: Promise.resolve(
-      readFile(join(dir, '../../../docs/ja/vs_code_extension.md'), 'utf8')
-    ),
-    ko: Promise.resolve(
-      readFile(join(dir, '../../../docs/ko/vs_code_extension.md'), 'utf8')
-    ),
-    zh: Promise.resolve(
-      readFile(join(dir, '../../../docs/zh/vs_code_extension.md'), 'utf8')
-    ),
-    es: Promise.resolve(
-      readFile(join(dir, '../../../docs/es/vs_code_extension.md'), 'utf8')
-    ),
-    de: Promise.resolve(
-      readFile(join(dir, '../../../docs/de/vs_code_extension.md'), 'utf8')
-    ),
-    ar: Promise.resolve(
-      readFile(join(dir, '../../../docs/ar/vs_code_extension.md'), 'utf8')
-    ),
-    pt: Promise.resolve(
-      readFile(join(dir, '../../../docs/pt/vs_code_extension.md'), 'utf8')
-    ),
-    'en-GB': Promise.resolve(
-      readFile(join(dir, '../../../docs/en-GB/vs_code_extension.md'), 'utf8')
-    ),
-    it: Promise.resolve(
-      readFile(join(dir, '../../../docs/it/vs_code_extension.md'), 'utf8')
-    ),
-    hi: Promise.resolve(
-      readFile(join(dir, '../../../docs/hi/vs_code_extension.md'), 'utf8')
-    ),
-    tr: Promise.resolve(
-      readFile(join(dir, '../../../docs/tr/vs_code_extension.md'), 'utf8')
-    ),
+    en: readLocale('vs_code_extension.md', 'en'),
+    fr: readLocale('vs_code_extension.md', 'fr'),
+    ru: readLocale('vs_code_extension.md', 'ru'),
+    ja: readLocale('vs_code_extension.md', 'ja'),
+    ko: readLocale('vs_code_extension.md', 'ko'),
+    zh: readLocale('vs_code_extension.md', 'zh'),
+    es: readLocale('vs_code_extension.md', 'es'),
+    de: readLocale('vs_code_extension.md', 'de'),
+    ar: readLocale('vs_code_extension.md', 'ar'),
+    pt: readLocale('vs_code_extension.md', 'pt'),
+    'en-GB': readLocale('vs_code_extension.md', 'en-GB'),
+    it: readLocale('vs_code_extension.md', 'it'),
+    hi: readLocale('vs_code_extension.md', 'hi'),
+    tr: readLocale('vs_code_extension.md', 'tr'),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;

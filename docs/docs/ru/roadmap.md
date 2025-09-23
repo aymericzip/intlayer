@@ -121,7 +121,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
   > Ресурсы:
   >
-  > - [Форматы объявления контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_extention_customization.md)
+  > - [Форматы объявления контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
 
 ### 7. Очистка, оптимизация бандла и динамические импорты
 

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/design-system",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "private": false,
   "description": "Intlayer design system, including UI components used in the Intlayer editor, website, and visual editor/CMS.",
   "keywords": [
@@ -67,7 +67,6 @@
     "build": "pnpm clean & pnpm build:ci",
     "build:ci": "pnpm build:package",
     "build:css": "npx tailwindcss --minify -i ./src/tailwind.css -o ./dist/tailwind.css",
-    "build:docker": "docker build -t intlayer-design-system -f Dockerfile .",
     "build:intlayer": "intlayer build",
     "build:package": "vite build",
     "build:storybook": "storybook build",
@@ -79,7 +78,6 @@
     "prettier:fix": "prettier . --write",
     "preview": "vite preview",
     "start": "pnpm storybook -p 6006 --no-open --host 0.0.0.0",
-    "start:docker": "docker run --rm -p 6006:6006 --name intlayer-design-system-app intlayer-design-system",
     "start:serve": "npx http-server -y storybook-static -p 6006 -o --no-open",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run",

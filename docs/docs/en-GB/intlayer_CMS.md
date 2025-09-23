@@ -1,12 +1,12 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: Intlayer CMS | Externalize your content into the Intlayer CMS
-description: Externalize your content into the Intlayer CMS to delegate the management of your content to your team.
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
+title: Intlayer CMS | Externalise your content into the Intlayer CMS
+description: Externalise your content into the Intlayer CMS to delegate the management of your content to your team.
 keywords:
   - CMS
   - Visual Editor
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Next.js
@@ -23,27 +23,15 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 <iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-The Intlayer CMS is an application that allows you to externalise your content from an Intlayer project.
+The Intlayer CMS is an application that allows you to externalise the content of an Intlayer project.
 
-For that, Intlayer introduces the concept of 'distant dictionaries'.
-
-![Intlayer CMS Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
-
-## Understanding distant dictionaries
-
-Intlayer makes a difference between 'local' and 'distant' dictionaries.
-
-<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
-
-The Intlayer CMS is an application that allows you to externalise your content from an Intlayer project.
-
-For that, Intlayer introduces the concept of 'distant dictionaries'.
+For this, Intlayer introduces the concept of 'distant dictionaries'.
 
 ![Intlayer CMS Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
 ## Understanding distant dictionaries
 
-Intlayer makes a difference between 'local' and 'distant' dictionaries.
+Intlayer distinguishes between 'local' and 'distant' dictionaries.
 
 - A 'local' dictionary is a dictionary that is declared in your Intlayer project. Such as the declaration file of a button, or your navigation bar. Externalising your content does not make sense in this case because this content is not supposed to change often.
 
@@ -51,9 +39,9 @@ Intlayer makes a difference between 'local' and 'distant' dictionaries.
 
 ## Visual editor vs CMS
 
-The [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) editor is a tool that allows you to manage your content in a visual editor for local dictionaries. Once a change is made, the content will be replaced in the code-base. That means that the application will be rebuilt and the page will be reloaded to display the new content.
+The [Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) editor is a tool that allows you to manage your content in a visual editor for local dictionaries. Once a change is made, the content will be replaced in the code-base. This means that the application will be rebuilt and the page will be reloaded to display the new content.
 
-In contrast, the Intlayer CMS is a tool that allows you to manage your content in a visual editor for distant dictionaries. Once a change is made, the content will **not** impact your code-base. And the website will automatically display the changed content.
+In contrast, the Intlayer CMS is a tool that allows you to manage your content in a visual editor for distant dictionaries. Once a change is made, the content will **not** impact your code-base. The website will automatically display the updated content.
 
 ## Integrating
 
@@ -116,7 +104,7 @@ const config: IntlayerConfig = {
      *
      * In the case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
      *
-     * The URL of the Intlayer backend.
+     * The URL of the Intlayer CMS.
      * By default, it is set to https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -164,7 +152,7 @@ const config = {
     /**
      * Optional
      *
-     * In case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
+     * In the case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
      *
      * The URL of the Intlayer backend.
      * By default, it is set to https://back.intlayer.org
@@ -208,14 +196,15 @@ const config = {
      *
      * The URL of the Intlayer CMS.
      * By default, it is set to https://intlayer.org
+     */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
      * Optional
      *
-     * In case you are self-hosting the Intlayer CMS, you can set the URL of the backend.
+     * If you are self-hosting the Intlayer CMS, you can set the URL of the backend.
      *
-     * The URL of the Intlayer CMS.
+     * The URL of the Intlayer CMS backend.
      * By default, it is set to https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
@@ -225,7 +214,7 @@ const config = {
 module.exports = config;
 ```
 
-> If you don't have a client ID and client secret, you can obtain them by creating a new client in the [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
+> If you do not have a client ID and client secret, you can obtain them by creating a new client in the [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects).
 
 > To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
@@ -265,14 +254,15 @@ This command uploads your initial content dictionaries, making them available fo
 
 ### Edit the dictionary
 
-Then you will be able to see and manage your dictionary in the [Intlayer CMS](https://intlayer.org/dashboard/content).
+You will then be able to view and manage your dictionary in the [Intlayer CMS](https://intlayer.org/dashboard/content).
 
-## Hot reloading
+## Live sync
 
-The Intlayer CMS is able to hot reload the dictionaries when a change is detected.
+Live Sync allows your app to reflect CMS content changes at runtime. No rebuild or redeploy is required. When enabled, updates are streamed to a Live Sync server that refreshes the dictionaries your application reads.
 
-Without the hot reloading, a new build of the application will be needed to display the new content.
-By activating the [`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration, the application will automatically replace the updated content when it is detected.
+> Live Sync requires a continuous server connection and is available on the enterprise plan.
+
+Enable Live Sync by updating your Intlayer configuration:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -280,17 +270,31 @@ import type { IntlayerConfig } from "intlayer";
 const config: IntlayerConfig = {
   // ... other configuration settings
   editor: {
-    // ... other configuration settings
-
     /**
-     * Indicates if the application should hot reload the locale configurations when a change is detected.
-     * For example, when a new dictionary is added or updated, the application will update the content to display on the page.
+     * Enables hot reloading of locale configurations when changes are detected.
+     * For example, when a dictionary is added or updated, the application updates
+     * the content displayed on the page.
      *
-     * Because the hot reloading needs a continuous connection to the server, it is only available for clients of the `enterprise` plan
+     * Because hot reloading requires a continuous connection to the server, it is
+     * only available for clients of the `enterprise` plan.
      *
      * Default: false
      */
     liveSync: true,
+  },
+  build: {
+    /**
+     * Controls how dictionaries are imported:
+     *
+     * - "live": Dictionaries are fetched dynamically using the Live Sync API.
+     *   Replaces useIntlayer with useDictionaryDynamic.
+     *
+     * Note: Live mode uses the Live Sync API to fetch dictionaries. If the API call
+     * fails, dictionaries are imported dynamically.
+     * Note: Only dictionaries with remote content and "live" flags use live mode.
+     * Others use dynamic mode for performance.
+     */
+    importMode: "live",
   },
 };
 
@@ -302,17 +306,31 @@ export default config;
 const config = {
   // ... other configuration settings
   editor: {
-    // ... other configuration settings
-
     /**
-     * Indicates if the application should hot reload the locale configurations when a change is detected.
-     * For example, when a new dictionary is added or updated, the application will update the content to display on the page.
+     * Enables hot reloading of locale configurations when changes are detected.
+     * For example, when a dictionary is added or updated, the application updates
+     * the content displayed on the page.
      *
-     * Because the hot reloading needs a continuous connection to the server, it is only available for clients of the `enterprise` plan
+     * Because hot reloading requires a continuous connection to the server, it is
+     * only available for clients of the `enterprise` plan.
      *
      * Default: false
      */
     liveSync: true,
+  },
+  build: {
+    /**
+     * Controls how dictionaries are imported:
+     *
+     * - "live": Dictionaries are fetched dynamically using the Live Sync API.
+     *   Replaces useIntlayer with useDictionaryDynamic.
+     *
+     * Note: Live mode uses the Live Sync API to fetch dictionaries. If the API call
+     * fails, dictionaries are imported dynamically.
+     * Note: Only dictionaries with remote content and "live" flags use live mode.
+     * Others use dynamic mode for performance.
+     */
+    importMode: "live",
   },
 };
 
@@ -324,28 +342,169 @@ export default config;
 const config = {
   // ... other configuration settings
   editor: {
-    // ... other configuration settings
-
     /**
-     * Indicates if the application should hot reload the locale configurations when a change is detected.
-     * For example, when a new dictionary is added or updated, the application will update the content to display on the page.
+     * Enables hot reloading of locale configurations when changes are detected.
+     * For example, when a dictionary is added or updated, the application updates
+     * the content displayed on the page.
      *
-     * Because the hot reloading needs a continuous connection to the server, it is only available for clients of the `enterprise` plan
+     * Because hot reloading requires a continuous connection to the server, it is
+     * only available for clients of the `enterprise` plan.
      *
      * Default: false
      */
     liveSync: true,
+
+    /**
+     * The port of the Live Sync server.
+     *
+     * Default: 4000
+     */
+    liveSyncPort: 4000,
+
+    /**
+     * The URL of the Live Sync server.
+     *
+     * Default: http://localhost:{liveSyncPort}
+     */
+    liveSyncURL: "https://live.example.com",
+  },
+  build: {
+    /**
+     * Controls how dictionaries are imported:
+     *
+     * - "live": Dictionaries are fetched dynamically using the Live Sync API.
+     *   Replaces useIntlayer with useDictionaryDynamic.
+     *
+     * Note: Live mode uses the Live Sync API to fetch dictionaries. If the API call
+     * fails, dictionaries are imported dynamically.
+     * Note: Only dictionaries with remote content and "live" flags use live mode.
+     * Others use dynamic mode for performance.
+     */
+    importMode: "live",
   },
 };
 
 module.exports = config;
 ```
 
-The hot reloading replaces the content on both server and client sides.
+Start the Live Sync server to wrap your application:
 
-- On the server side, you should ensure that the application process has write access to the `.intlayer/dictionaries` directory.
-- On the client side, the hot reloading allows the application to hot reload the content in the browser, without needing to reload the page. However, this feature is only available for client components.
-  > Because the hot reloading needs a continuous connection to the server using an `EventListener`, it is only available for clients of the `enterprise` plan.
+Example using Next.js:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "build": "next build",
+    "dev": "next dev",
+    "start": "npx intlayer live --process 'next start'",
+  },
+}
+```
+
+Example using Vite:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "build": "vite build",
+    "dev": "vite dev",
+    "start": "npx intlayer live --process 'vite start'",
+  },
+}
+```
+
+The Live Sync server wraps your application and automatically applies updated content as it arrives.
+
+To receive change notifications from the CMS, the Live Sync server maintains an SSE connection to the backend. When content changes in the CMS, the backend forwards the update to the Live Sync server, which writes the new dictionaries. Your application will reflect the update on the next navigation or browser reload—no rebuild required.
+
+Flow chart (CMS/Backend -> Live Sync Server -> Application Server -> Frontend):
+
+![Live Sync Logic Schema](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_logic_schema.svg)
+
+How it works:
+
+![Live Sync Flow CMS/Backend/Live Sync Server/Application Server/Frontend Schema](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
+
+### Development workflow (local)
+
+- In development, all remote dictionaries are fetched when the application starts, so you can test updates quickly.
+- To test Live Sync locally with Next.js, wrap your dev server:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "dev": "npx intlayer live --process 'next dev'",
+    // "dev": "npx intlayer live --process 'vite dev'", // For Vite
+  },
+}
+```
+
+Enable optimisation so Intlayer applies the Live import transformations during development:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true,
+    importMode: "live",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimise: true,
+    importMode: "live",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimise: true,
+    importMode: "live",
+  },
+};
+
+module.exports = config;
+```
+
+This setup wraps your dev server with the Live Sync server, fetches remote dictionaries at startup, and streams updates from the CMS via SSE. Refresh the page to see changes.
+
+Notes and constraints:
+
+- Add the live sync origin to your site security policy (CSP). Ensure the live sync URL is allowed in `connect-src` (and `frame-ancestors` if relevant).
+- Live Sync does not work with static output. For Next.js, the page must be dynamic to receive updates at runtime (e.g., use `generateStaticParams`, `generateMetadata`, `getServerSideProps`, or `getStaticProps` appropriately to avoid full static-only constraints).
+- In the CMS, each dictionary has a `live` flag. Only dictionaries with `live=true` are fetched via the live sync API; others are imported dynamically and remain unchanged at runtime.
+- The `live` flag is evaluated for each dictionary at build time. If remote content was not flagged `live=true` during build, you must rebuild to enable Live Sync for that dictionary.
+- The live sync server must be able to write to `.intlayer`. In containers, ensure write access to `/.intlayer`.
 
 ## Debug
 
@@ -359,8 +518,13 @@ If you encounter any issues with the CMS, check the following:
     - The CMS URL
 
 - Ensure that the project configuration was pushed to the Intlayer CMS.
+
 - The visual editor uses an iframe to display your website. Ensure that the Content Security Policy (CSP) of your website allows the CMS URL as `frame-ancestors` ('https://intlayer.org' by default). Check the editor console for any errors.
 
 ## Doc History
 
-- 5.5.10 - 2025-06-29: Init history
+| Version | Date       | Changes                                   |
+| ------- | ---------- | ----------------------------------------- |
+| 6.0.1   | 2025-09-22 | Add live sync documentation               |
+| 6.0.0   | 2025-09-04 | Replace `hotReload` field with `liveSync` |
+| 5.5.10  | 2025-06-29 | Initialise history                        |

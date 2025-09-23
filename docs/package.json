@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/docs",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "private": false,
   "description": "Intlayer documentation",
   "keywords": [
@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@intlayer/config": "workspace:*",
-    "intlayer": "workspace:*"
+    "@intlayer/core": "workspace:*"
   },
   "devDependencies": {
     "@intlayer/api": "workspace:*",
@@ -94,7 +94,8 @@
   "peerDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
-    "@intlayer/config": "workspace:*"
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

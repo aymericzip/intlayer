@@ -14,6 +14,7 @@ import {
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
+  IntlayerConfig,
   Locales,
   retryManager,
 } from '@intlayer/config';
@@ -46,12 +47,11 @@ export const reviewFile = async (
   locale: Locales,
   baseLocale: Locales,
   aiOptions?: AIOptions,
-  configOptions?: GetConfigurationOptions,
+  configuration: IntlayerConfig = getConfiguration(),
   customInstructions?: string,
   changedLines?: number[]
 ) => {
   try {
-    const configuration = getConfiguration(configOptions);
     const appLogger = getAppLogger(configuration, {
       config: {
         prefix: '',
@@ -80,10 +80,7 @@ export const reviewFile = async (
     ].join('');
 
     const prefixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}][${formatLocale(locale)}${ANSIColors.GREY_DARK}] `;
-    const prefix = [
-      colon(prefixText, { colSize: 40 }),
-      `→ ${ANSIColors.RESET}`,
-    ].join('');
+    const prefix = [colon(prefixText, { colSize: 40 })].join('');
 
     // FIXED: Use proper chunk mapping when changed lines are available
     if (changedLines && changedLines.length > 0) {
@@ -385,7 +382,7 @@ export const reviewDoc = async ({
           locale as Locales,
           baseLocale,
           aiOptions,
-          configOptions,
+          configuration,
           customInstructions,
           changedLines
         );

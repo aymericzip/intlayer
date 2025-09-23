@@ -39,5 +39,7 @@ export type {
 } from './types/config';
 export { Locales } from './types/locales';
 export type { LocalesValues } from './types/locales';
+export { clearModuleCache } from './utils/clearModuleCache';
 export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
+export { getExtension } from './utils/getExtension';
 export { normalizePath } from './utils/normalizePath';

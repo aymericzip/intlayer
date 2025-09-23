@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "private": true,
   "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
   "keywords": [
@@ -36,7 +36,6 @@
   "sideEffects": false,
   "scripts": {
     "build": "next build --turbopack",
-    "build:docker": "docker build -t intlayer-website -f Dockerfile .",
     "build:webpack": "next build",
     "dev": "next dev --turbopack",
     "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
