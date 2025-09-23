@@ -80,10 +80,10 @@ export const mapChunksBetweenFiles = (
  * Creates a mapping between line numbers in base file and updated file
  * Returns a map where key = base line number, value = updated line number (or null if deleted)
  */
-function createLineMapping(
+const createLineMapping = (
   baseLines: string[],
   updatedLines: string[]
-): Map<number, number | null> {
+): Map<number, number | null> => {
   const mapping = new Map<number, number | null>();
 
   // Use a simple diff algorithm (similar to Myers algorithm but simplified)
@@ -123,16 +123,16 @@ function createLineMapping(
   }
 
   return mapping;
-}
+};
 
 /**
  * Maps a line range from base file to updated file using the line mapping
  */
-function mapLineRange(
+const mapLineRange = (
   baseStart: number,
   baseLength: number,
   lineMapping: Map<number, number | null>
-): { start: number; length: number } | null {
+): { start: number; length: number } | null => {
   const mappedLines: number[] = [];
 
   for (let i = baseStart; i < baseStart + baseLength; i++) {
@@ -155,24 +155,24 @@ function mapLineRange(
     start,
     length: end - start + 1,
   };
-}
+};
 
 /**
  * Extracts lines from a range in the lines array
  */
-function extractLinesFromRange(
+const extractLinesFromRange = (
   lines: string[],
   start: number,
   length: number
-): string {
+): string => {
   const endIndex = Math.min(start + length, lines.length);
   return lines.slice(start, endIndex).join('');
-}
+};
 
 /**
  * Gets the character position where a line starts in the text
  */
-function getCharStartForLine(text: string, lineNumber: number): number {
+const getCharStartForLine = (text: string, lineNumber: number): number => {
   const lines = splitTextByLines(text);
   let charStart = 0;
 
@@ -181,16 +181,16 @@ function getCharStartForLine(text: string, lineNumber: number): number {
   }
 
   return charStart;
-}
+};
 
 /**
  * Determines if a chunk has changes based on git changed lines or content comparison
  */
-function determineIfChunkHasChanges(
+const determineIfChunkHasChanges = (
   baseChunk: ChunkLineResult,
   updatedChunk: ChunkLineResult,
   changedLines?: number[]
-): boolean {
+): boolean => {
   // If we have git changed lines, use them for precise detection
   if (changedLines && changedLines.length > 0) {
     return changedLines.some(
@@ -202,4 +202,4 @@ function determineIfChunkHasChanges(
 
   // Fallback to content comparison
   return baseChunk.content !== updatedChunk.content;
-}
+};
