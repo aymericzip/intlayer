@@ -1,7 +1,7 @@
 import { PagesRoutes } from '@/Routes';
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { getServerSession } from '@components/Auth/getServerSession';
-import { Session } from '@intlayer/backend';
+import { type Session } from '@intlayer/design-system/hooks';
 import { PageLayout } from '@layouts/PageLayout';
 import { type LocalesValues } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
