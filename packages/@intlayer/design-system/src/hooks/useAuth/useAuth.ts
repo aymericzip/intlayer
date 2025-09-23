@@ -14,6 +14,8 @@ type SessionContextProps = {
   oAuth2AccessToken: OAuth2Token | null | undefined;
 };
 
+export type Session = SessionAPI;
+
 export const useAuth = ({
   session: sessionProp,
   intlayerConfiguration,

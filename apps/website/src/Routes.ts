@@ -56,6 +56,9 @@ export enum PagesRoutes {
   Auth_AskResetPassword = '/auth/password/ask-reset',
   Auth_ResetPassword = '/auth/password/reset',
   Auth_ChangePassword = '/auth/password/change',
+
+  Admin = '/admin',
+  Admin_Users = '/admin/users',
 }
 
 export enum ExternalLinks {
