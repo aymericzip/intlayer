@@ -13,15 +13,15 @@ flowchart TD
   B -- "Yes" --> C[CMS publishes new version<br/>and update event]
 
   subgraph "Live Sync Server"
-    C --> D[Live server detects update<br/>via watch or webhook]
+    C --> D[Live server detects update<br/>via webhook]
   end
 
-  D --> E{App can reach Live Sync API?<br/>URL & CSP connect-src allowed}
+  D --> E{App can reach Live Sync API?}
 
   E -- "No" --> E1[Connection blocked or unavailable]
-  E1 --> E2[App falls back to dynamic import]
-  E2 --> E3[Content updates only on once the connection is back]
+  E1 --> E2[App falls back content using dynamic import]
+  E2 --> E3[Content updates only on refresh once the connection is back]
 
-  E -- "Yes" --> F[App maintains live connection]
+  E -- "Yes" --> F[Fetch updated dictionary on refresh]
 
   su
