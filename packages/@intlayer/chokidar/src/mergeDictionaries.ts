@@ -1,11 +1,8 @@
-import { getAppLogger } from '@intlayer/config';
+import { colorizeKey, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
-import {
-  type Dictionary,
-  getNodeType,
-  getReplacedValuesContent,
-} from '@intlayer/core';
+import { type Dictionary, getNodeType } from '@intlayer/core';
 import merge, { Options } from 'deepmerge';
+import { orderDictionaries } from './orderDictionaries';
 
 const checkTypesMatch = (
   obj1: any,
@@ -19,7 +16,7 @@ const checkTypesMatch = (
 
   if (type1 !== type2) {
     appLogger(
-      `Error: Dictionary "${dictionaryKey}" has a multiple content files with type mismatch at path "${path.join('.')}": Cannot merge ${type1} with ${type2}`,
+      `Error: Dictionary ${colorizeKey(dictionaryKey)} has a multiple content files with type mismatch at path "${path.join('.')}": Cannot merge ${type1} with ${type2}`,
       {
         level: 'error',
       }
@@ -106,85 +103,40 @@ const arrayMerge = (destinationArray: any[], sourceArray: any[]): any[] => {
   return result;
 };
 
-const getMergedMask = (dictionaries: Dictionary[]): Dictionary => ({
-  ...dictionaries[0],
-  content: getReplacedValuesContent(
-    dictionaries[0].content,
-    dictionaries[0].localId!,
-    {
-      dictionaryKey: dictionaries[0].key,
-      keyPath: [],
-    }
-  ),
-});
+export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
+  // Order dictionaries based on priority strategy
+  const orderedDictionaries = orderDictionaries(dictionaries, configuration);
 
-export type MergedDictionariesResult = {
-  result: Dictionary;
-  mask: Dictionary;
-};
-
-export const mergeDictionaries = (
-  dictionaries: Dictionary[]
-): MergedDictionariesResult => {
-  const { editor } = configuration;
-
-  let margedMask: Dictionary = getMergedMask(dictionaries);
-
-  let mergedDictionaries: Dictionary = dictionaries[0];
+  let mergedContent: Dictionary['content'] = orderedDictionaries[0].content;
 
   // Configure deepmerge options with custom array merge strategy
   const mergeOptions: Options = {
     arrayMerge,
   };
 
-  for (let i = 1; i < dictionaries.length; i++) {
-    const currentDictionary = dictionaries[i];
+  for (let i = 1; i < orderedDictionaries.length; i++) {
+    const currentDictionary = orderedDictionaries[i];
 
     // Check types before merging
     checkTypesMatch(
-      mergedDictionaries,
-      currentDictionary,
+      mergedContent,
+      currentDictionary.content,
       currentDictionary.key,
       []
     );
 
-    const isDistant = currentDictionary.location === 'distant';
-
-    if (editor.dictionaryPriorityStrategy === 'distant_first' && isDistant) {
-      mergedDictionaries = merge(
-        mergedDictionaries,
-        currentDictionary,
-        mergeOptions
-      );
-      margedMask = merge(margedMask, currentDictionary, mergeOptions);
-    } else {
-      mergedDictionaries = merge(
-        currentDictionary,
-        mergedDictionaries,
-        mergeOptions
-      );
-      margedMask = merge(margedMask, currentDictionary, mergeOptions);
-    }
+    mergedContent = merge(
+      currentDictionary.content,
+      mergedContent,
+      mergeOptions
+    );
   }
 
   return {
-    result: {
-      ...mergedDictionaries,
-      localIds: dictionaries
-        .filter((dict) => dict.localId)
-        .map((dict) => dict.localId!),
-      filePath: undefined,
-      localId: undefined,
-      id: undefined,
-    },
-    mask: {
-      ...margedMask,
-      localIds: dictionaries
-        .filter((dict) => dict.localId)
-        .map((dict) => dict.localId!),
-      filePath: undefined,
-      localId: undefined,
-      id: undefined,
-    },
+    key: orderedDictionaries[0].key,
+    content: mergedContent,
+    localIds: dictionaries
+      .filter((dict) => dict.localId)
+      .map((dict) => dict.localId!),
   };
 };

@@ -3,7 +3,10 @@ import {
   colorize,
   getConfiguration,
   spinnerFrames,
+  v,
+  x,
 } from '@intlayer/config';
+import { extractErrorMessage } from '../utils/extractErrorMessage';
 import type { DictionariesStatus } from './loadDictionaries';
 
 export class DictionariesLogger {
@@ -15,10 +18,28 @@ export class DictionariesLogger {
   private isFinished = false;
   private readonly prefix: string;
   private lastRenderedState: string = '';
+  private remoteCheckInProgress = false;
+  private expectRemote = false;
+  private remoteError: string | undefined;
 
   constructor() {
     const configuration = getConfiguration();
     this.prefix = configuration.log.prefix;
+  }
+
+  setExpectRemote(expect: boolean) {
+    this.expectRemote = expect;
+  }
+
+  startRemoteCheck() {
+    if (this.isFinished) return;
+    this.remoteCheckInProgress = true;
+    this.startSpinner();
+    this.render();
+  }
+
+  stopRemoteCheck() {
+    this.remoteCheckInProgress = false;
   }
 
   update(newStatuses: DictionariesStatus[]) {
@@ -33,6 +54,13 @@ export class DictionariesLogger {
       } else {
         this.statuses.push(status);
       }
+    }
+
+    // If we expect remote fetch later, avoid rendering a local-only line first
+    const { remoteTotal } = this.computeProgress();
+    if (this.expectRemote && !this.remoteCheckInProgress && remoteTotal === 0) {
+      // Do not start spinner or render yet; wait until remote check starts
+      return;
     }
 
     this.startSpinner();
@@ -60,34 +88,60 @@ export class DictionariesLogger {
     this.spinnerTimer = null;
   }
 
+  public setRemoteError = (error?: Error) => {
+    this.remoteError = extractErrorMessage(error);
+    // Avoid rendering a transient remote-only line while the remote check flag is still true
+    // Ensure local + remote are rendered together after a failure
+    this.stopRemoteCheck();
+    this.render();
+  };
+
   private render() {
     const { localTotal, localDone, remoteTotal, remoteDone } =
       this.computeProgress();
 
     const frame = this.spinnerFrames[this.spinnerIndex];
+    const clock = colorize(frame, ANSIColors.BLUE);
     const lines: string[] = [];
 
     const isLocalDone = localDone === localTotal;
     const isRemoteDone = remoteDone === remoteTotal;
 
-    if (isLocalDone) {
-      lines.push(
-        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} locale dictionaries: ${localDone}/${localTotal}`
-      );
-    } else {
-      lines.push(
-        `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} locale dictionaries: ${localDone}/${localTotal}`
-      );
-    }
+    const suppressLocalWhileCheckingRemote =
+      this.expectRemote && this.remoteCheckInProgress && remoteTotal === 0;
 
-    if (remoteTotal > 0) {
-      if (isRemoteDone) {
+    if (!suppressLocalWhileCheckingRemote) {
+      if (isLocalDone) {
         lines.push(
-          `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} remote dictionaries: ${remoteDone}/${remoteTotal}`
+          `${this.prefix} ${v} Local content: ${colorize(`${localDone}`, ANSIColors.GREEN)}${colorize(`/${localTotal}`, ANSIColors.GREY)}`
         );
       } else {
         lines.push(
-          `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} remote dictionaries: ${remoteDone}/${remoteTotal}`
+          `${this.prefix} ${clock} Local content: ${colorize(`${localDone}`, ANSIColors.BLUE)}${colorize(`/${localTotal}`, ANSIColors.GREY)}`
+        );
+      }
+    }
+
+    // Single remote line: show error, check, or progress counts
+    if (remoteTotal > 0 || this.remoteCheckInProgress || this.remoteError) {
+      if (this.remoteError) {
+        lines.push(
+          `${this.prefix} ${x} Remote content: ${colorize(
+            this.remoteError,
+            ANSIColors.RED
+          )}`
+        );
+      } else if (remoteTotal === 0) {
+        lines.push(
+          `${this.prefix} ${clock} Remote content: ${colorize('Check server', ANSIColors.BLUE)}`
+        );
+      } else if (isRemoteDone) {
+        lines.push(
+          `${this.prefix} ${v} Remote content: ${colorize(`${remoteDone}`, ANSIColors.GREEN)}${colorize(`/${remoteTotal}`, ANSIColors.GREY)}`
+        );
+      } else {
+        lines.push(
+          `${this.prefix} ${clock} Remote content: ${colorize(`${remoteDone}`, ANSIColors.BLUE)}${colorize(`/${remoteTotal}`, ANSIColors.GREY)}`
         );
       }
     }

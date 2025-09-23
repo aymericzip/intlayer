@@ -88,26 +88,10 @@ yarn add vite-intlayer
 ```ts
 // vite.config.ts
 import { defineConfig } from "vite";
-import { intlayerPlugin } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [intlayerPlugin()],
-});
-```
-
-### Configuration Options
-
-```ts
-// vite.config.ts
-import { defineConfig } from "vite";
-import { intlayerPlugin } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayerPlugin({
-      enableBabelTransform: true, // Enable automatic useIntlayer transformation (default: true)
-    }),
-  ],
+  plugins: [intlayer()],
 });
 ```
 
@@ -164,50 +148,12 @@ function MyComponent() {
 5. **Individual File Loading**: Only the dictionaries you use are imported, reducing bundle size
 6. **Better Caching**: Individual dictionary files can be cached separately by the browser
 
-### Using the Babel Plugin Separately
-
-You can also use the Babel plugin independently:
-
-```ts
-// babel.config.js
-import { babelPluginIntlayer } from "vite-intlayer";
-
-export default {
-  plugins: [
-    babelPluginIntlayer,
-    // other plugins...
-  ],
-};
-```
-
-### Disabling the Transformation
-
-If you prefer to use `useIntlayer` without transformation:
-
-```ts
-// vite.config.ts
-export default defineConfig({
-  plugins: [
-    intlayerPlugin({
-      enableBabelTransform: false,
-    }),
-  ],
-});
-```
-
 ## How It Works
 
 1. **Dictionary Resolution**: The plugin resolves paths to generated dictionaries and configurations
 2. **Alias Setup**: Sets up Vite aliases for dictionary entry points
 3. **Watch Mode**: In development, watches for dictionary changes and triggers rebuilds
 4. **Babel Transformation**: Transforms `useIntlayer` calls to `useDictionary` calls for better performance
-
-## Related Packages
-
-- [`@intlayer/dictionaries-entry`](../dictionaries-entry): Dictionary entry point package
-- [`react-intlayer`](../react-intlayer): React integration for Intlayer
-- [`@intlayer/config`](../config): Configuration management
-- [`@intlayer/chokidar`](../chokidar): File watching and dictionary building
 
 ## License
 

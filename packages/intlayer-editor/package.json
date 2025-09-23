@@ -1,6 +1,6 @@
 {
   "name": "intlayer-editor",
-  "version": "5.8.1",
+  "version": "6.0.2",
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
@@ -89,7 +89,6 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
-    "@intlayer/mask-dictionaries-entry": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@tanstack/query-persist-client-core": "^5.85.5",
     "@tanstack/query-sync-storage-persister": "^5.85.5",

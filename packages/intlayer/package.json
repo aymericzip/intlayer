@@ -1,6 +1,6 @@
 {
   "name": "intlayer",
-  "version": "5.8.1",
+  "version": "6.0.2",
   "private": false,
   "description": "Manage internationalization i18n in a simple way, through TypeScript, declaration file, declare your multilingual content every where in your code.",
   "keywords": [
@@ -39,6 +39,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./cli": {
+      "types": "./dist/types/cli/index.d.ts",
+      "require": "./dist/cjs/cli/index.cjs",
+      "import": "./dist/esm/cli/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -52,7 +57,7 @@
     }
   },
   "bin": {
-    "intlayer": "./dist/cjs/cli.cjs"
+    "intlayer": "./dist/cjs/cli/script.cjs"
   },
   "files": [
     "./dist",

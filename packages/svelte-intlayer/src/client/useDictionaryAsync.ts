@@ -25,7 +25,8 @@ export const useDictionaryAsync = async <T extends Dictionary>(
     // Load dictionary for the target locale asynchronously
     const loadDictionary = async () => {
       try {
-        const dictionaryLoader = dictionaryPromise[targetLocale];
+        const dictionaryLoader =
+          dictionaryPromise[targetLocale as keyof typeof dictionaryPromise];
         if (dictionaryLoader) {
           const loadedDictionary = await dictionaryLoader();
           dictionaryStore.set(loadedDictionary);

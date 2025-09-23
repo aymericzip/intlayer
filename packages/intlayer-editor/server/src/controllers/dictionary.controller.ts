@@ -88,9 +88,9 @@ export const writeContentDeclaration = async (
         });
         break;
       }
-      case 'reimported in new location': {
+      case 'new content file': {
         description = t({
-          en: 'Content declaration reimported in new location successfully',
+          en: 'Content declaration new content file successfully',
           fr: 'Déclaration de contenu réimportée dans un nouveau emplacement avec succès',
           es: 'Declaración de contenido reimportada en un nuevo lugar con éxito',
         });

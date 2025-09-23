@@ -441,11 +441,11 @@ npx intlayer configuration push
 
 By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.
 
-### Documentation Management
+### Document Management
 
 The `doc` commands provide tools for managing and translating documentation files across multiple locales.
 
-#### Translate Documentation
+#### Translate Document
 
 The `doc translate` command automatically translates documentation files from a base locale to target locales using AI translation services.
 
@@ -552,9 +552,9 @@ npx intlayer doc translate
 > - `{{baseLocale}}_` by `{{locale}}_`
 > - `.{{baseLocaleName}}.` by `.{{localeName}}.`
 >
-> If the pattern is not found, the output file will add the `.{{locale}}` at the extentions of the file. `./my/file.md` will be translated to `./my/file.fr.md` for the French locale.
+> If the pattern is not found, the output file will add the `.{{locale}}` at the extensions of the file. `./my/file.md` will be translated to `./my/file.fr.md` for the French locale.
 
-#### Review Documentation
+#### Review Document
 
 The `doc review` command analyzes documentation files for quality, consistency, and completeness across different locales.
 
@@ -675,6 +675,6 @@ npx clear-npx-cache
 
 | Version | Date       | Changes                                     |
 | ------- | ---------- | ------------------------------------------- |
-| 5.9.0   | 2025-09-17 | Add content test and list command           |
+| 6.0.0   | 2025-09-17 | Add content test and list command           |
 | 5.5.11  | 2025-07-11 | Update CLI command parameters documentation |
 | 5.5.10  | 2025-06-29 | Init history                                |

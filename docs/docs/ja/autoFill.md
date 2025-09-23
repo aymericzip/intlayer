@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2025-09-20
 title: 自動入力
-description: Intlayerの自動入力機能を使用して、事前定義されたパターンに基づいてコンテンツを自動的に入力する方法を学びます。このドキュメントに従って、プロジェクトで効率的に自動入力機能を実装しましょう。
+description: Intlayerの自動入力機能を使用して、事前定義されたパターンに基づいてコンテンツを自動的に入力する方法を学びます。このドキュメントに従って、プロジェクトで自動入力機能を効率的に実装してください。
 keywords:
   - 自動入力
   - コンテンツ自動化
@@ -20,25 +20,25 @@ slugs:
 # 自動入力コンテンツ宣言ファイルの翻訳
 
 **自動入力コンテンツ宣言ファイル**は、開発ワークフローを高速化する方法です。
+
 自動入力メカニズムは、コンテンツ宣言ファイル間の _マスター・スレーブ_ 関係を通じて機能します。メイン（マスター）ファイルが更新されると、Intlayerはその変更を派生（自動入力された）宣言ファイルに自動的に適用します。
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
 
-// 例のコンテンツ宣言
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json", // 自動入力ファイルのパス
+  autoFill: "./example.content.json",
   content: {
-    contentExample: "This is an example of content", // コンテンツの例
+    contentExample: "これはコンテンツの例です", // コンテンツの例
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-こちらは `autoFill` 指示を使用した[ロケールごとのコンテンツ宣言ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)です。
+こちらは `autoFill` 指示を使用した[ロケール別コンテンツ宣言ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)です。
 
 次に、以下のコマンドを実行すると：
 
@@ -46,7 +46,7 @@ export default exampleContent;
 npx intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer は、メインファイルにまだ宣言されていないすべてのロケールを自動的に埋めて、派生宣言ファイルを `src/components/example/example.content.json` に生成します。
+Intlayer は、メインファイルにまだ宣言されていないすべてのロケールを埋めて、派生した宣言ファイルを `src/components/example/example.content.json` に自動生成します。
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -63,11 +63,11 @@ Intlayer は、メインファイルにまだ宣言されていないすべて�
 }
 ```
 
-その後、両方の宣言ファイルは単一の辞書にマージされ、標準の `useIntlayer("example")` フック（react）/ コンポーザブル（vue）を使ってアクセス可能になります。
+その後、両方の宣言ファイルは単一の辞書にマージされ、標準の `useIntlayer("example")` フック（React）/ コンポーザブル（Vue）を使ってアクセス可能になります。
 
-## 自動入力ファイルのフォーマット
+## 自動補完されたファイル形式
 
-推奨される自動入力宣言ファイルのフォーマットは **JSON** であり、これによりフォーマットの制約を回避できます。ただし、Intlayer は `.ts`、`.js`、`.mjs`、`.cjs`、およびその他のフォーマットもサポートしています。
+自動補完された宣言ファイルに推奨される形式は **JSON** であり、これによりフォーマットの制約を回避できます。ただし、Intlayer は `.ts`、`.js`、`.mjs`、`.cjs` などの他の形式もサポートしています。
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -85,9 +85,9 @@ const exampleContent = {
 src/components/example/example.filled.content.ts
 ```
 
-> `.js`、`.ts`、および類似ファイルの生成は以下のように動作します：
+> `.js`、`.ts`、および類似のファイルの生成は以下のように動作します：
 >
-> - ファイルが既に存在する場合、Intlayer は AST（抽象構文木）を使って解析し、各フィールドを特定して不足している翻訳を挿入します。
+> - ファイルがすでに存在する場合、Intlayer は AST（抽象構文木）を使用して各フィールドを特定し、欠落している翻訳を挿入します。
 > - ファイルが存在しない場合、Intlayerはデフォルトのコンテンツ宣言ファイルテンプレートを使用して生成します。
 
 ## 絶対パス
@@ -104,15 +104,15 @@ const exampleContent = {
 };
 ```
 
-これにより、以下の場所にファイルが生成されます：
+これにより、以下のファイルが生成されます：
 
 ```
 /messages/example.content.json
 ```
 
-## ロケールごとのコンテンツ宣言ファイルの自動生成
+## ロケール別コンテンツ宣言ファイルの自動生成
 
-`autoFill` フィールドは、**ロケールごとの**コンテンツ宣言ファイルの生成もサポートしています。
+`autoFill` フィールドは、**ロケール別**のコンテンツ宣言ファイルの生成もサポートしています。
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -132,7 +132,9 @@ const exampleContent = {
 - `src/components/example/example.fr.content.json`
 - `src/components/example/example.es.content.json`
 
-## 特定のロケールの自動入力をフィルターする
+> この場合、オブジェクトにすべてのロケールが含まれていない場合、Intlayerは残りのロケールの生成をスキップします。
+
+## 特定のロケールの自動入力をフィルタリングする
 
 `autoFill` フィールドにオブジェクトを使用すると、フィルターを適用して特定のロケールファイルのみを生成できます。
 
@@ -152,14 +154,15 @@ const exampleContent = {
 
 ## パス変数
 
-`autoFill` パス内で変数を使用して、生成されるファイルのターゲットパスを動的に解決できます。
+`autoFill` パス内で変数を使用して、生成されるファイルのターゲットパスを動的に解決することができます。
 
-**利用可能な変数：**
+**使用可能な変数:**
 
-- `{{locale}}` – ロケールコード（例：`fr`、`es`）
-- `{{key}}` – 辞書キー（例：`example`）
+- `{{locale}}` – ロケールコード（例: `fr`, `es`）
+- `{{fileName}}` – ファイル名（例: `index`）
+- `{{key}}` – 辞書キー（例: `example`）
 
-```ts fileName="src/components/example/example.content.ts"
+```ts fileName="src/components/example/index.content.ts"
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -169,11 +172,30 @@ const exampleContent = {
 };
 ```
 
-これにより以下が生成されます：
+これにより、以下のファイルが生成されます:
 
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
 
+```ts fileName="src/components/example/index.content.ts"
+const exampleContent = {
+  key: "example",
+  autoFill: "./{{fileName}}.content.json",
+  content: {
+    // あなたのコンテンツ
+  },
+};
+```
+
+これにより、以下のファイルが生成されます:
+
+- `./index.content.json`
+- `./index.content.json`
+
 ## ドキュメント履歴
 
-- 5.5.10 - 2025-06-29: 履歴初期化
+| バージョン | 日付       | 変更内容                     |
+| ---------- | ---------- | ---------------------------- |
+| 6.0.0      | 2025-09-20 | グローバル設定の追加          |
+| 6.0.0      | 2025-09-17 | `{{fileName}}` 変数の追加    |
+| 5.5.10     | 2025-06-29 | 履歴の初期化                 |

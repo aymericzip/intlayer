@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-09-16
+updatedAt: 2025-09-23
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -46,6 +46,7 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH],
   },
   content: {
+    autoFill: "./{{fileName}}.content.json",
     contentDir: ["src", "../ui-library"],
   },
   middleware: {
@@ -347,6 +348,18 @@ Settings related to content handling within the application, including directory
 
 #### Properties
 
+- **autoFill**:
+  - _Type_: `boolean | string | { [key in Locales]?: string }`
+  - _Default_: `undefined`
+  - _Description_: Indicate how the content should be automatically filled using AI. Can be declared globally in the `intlayer.config.ts` file.
+  - _Example_: true
+  - _Example_: `'./{{fileName}}.content.json'`
+  - _Example_: `{ fr: './{{fileName}}.fr.content.json', es: './{{fileName}}.es.content.json' }`
+  - _Note_: The auto fill configuration. It can be:
+    - boolean: Enable auto fill for all locales
+    - string: Path to a single file or template with variables
+    - object: Per-locale file paths
+
 - **watch**:
   - _Type_: `boolean`
   - _Default_: `process.env.NODE_ENV === 'development'`
@@ -365,11 +378,6 @@ Settings related to content handling within the application, including directory
   - _Description_: The base directory for the project.
   - _Example_: `'/path/to/project'`
   - _Note_: This is used to resolve all Intlayer-related directories.
-
-- **dictionaryOutput**:
-  - _Type_: `string[]`
-  - _Default_: `['intlayer']`
-  - _Description_: The type of dictionary output to use, e.g., `'intlayer'` or `'i18next'`.
 
 - **contentDir**:
   - _Type_: `string[]`
@@ -400,13 +408,6 @@ Settings related to content handling within the application, including directory
   - _Default_: `'.intlayer/dictionary'`
   - _Description_: The directory for storing localization dictionaries.
   - _Example_: `'translations'`
-
-- **i18nextResourcesDir**:
-  - _Type_: `string`
-  - _Default_: `'i18next_dictionary'`
-  - _Description_: The directory for storing i18n dictionaries.
-  - _Example_: `'translations'`
-  - _Note_: Ensure this directory is configured for the i18next output type.
 
 - **typesDir**:
   - _Type_: `string`
@@ -531,7 +532,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Available modes:
     - "static": Dictionaries are imported statically. Replaces `useIntlayer` with `useDictionary`.
     - "dynamic": Dictionaries are imported dynamically using Suspense. Replaces `useIntlayer` with `useDictionaryDynamic`.
-    - "live": Dictionaries are fetched dynamically using the live sync API. Replaces `useIntlayer` with `useDictionaryFetch`.
+    - "live": Dictionaries are fetched dynamically using the live sync API. Replaces `useIntlayer` with `useDictionaryDynamic`.
   - _Note_: Dynamic imports rely on Suspense and may slightly impact rendering performance.
   - _Note_: If disabled all locales will be loaded at once, even if they are not used.
   - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
@@ -540,6 +541,12 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: If set to "live", only the dictionaries that are including remote content, and set as "live" flags will be transformed as live mode. Others will be imported dynamically as "dynamic" mode to optimize the number of fetch queries, and load performance.
   - _Note_: Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
   - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
+- **outputFormat**:
+  - _Type_: `'esm' | 'cjs'`
+  - _Default_: `'esm'`
+  - _Description_: Controls the output format of the dictionaries.
+  - _Example_: `'cjs'`
+  - _Note_: The output format of the dictionaries.
 
 - **traversePattern**:
   - _Type_: `string[]`
@@ -554,8 +561,10 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 
 | Version | Date       | Changes                                                                                 |
 | ------- | ---------- | --------------------------------------------------------------------------------------- |
-| 5.9.0   | 2025-09-16 | Add `live` import mode                                                                  |
-| 5.9.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields |
+| 6.0.2   | 2025-09-23 | Add `outputFormat` option                                                               |
+| 6.0.0   | 2025-09-21 | Remove `dictionaryOutput` field and `i18nextResourcesDir` field                         |
+| 6.0.0   | 2025-09-16 | Add `live` import mode                                                                  |
+| 6.0.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` and add `liveSyncPort` and `liveSyncURL` fields |
 | 5.6.1   | 2025-07-25 | Replace `activateDynamicImport` with `importMode` option                                |
 | 5.6.0   | 2025-07-13 | Change default contentDir from `['src']` to `['.']`                                     |
 | 5.5.11  | 2025-06-29 | Add `docs` commands                                                                     |

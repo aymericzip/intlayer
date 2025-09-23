@@ -140,20 +140,20 @@ Add the intlayer plugin into your configuration:
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import { intlayerMiddlewarePlugin, intlayerPlugin } from "vite-intlayer";
+import { intlayerMiddlewarePlugin, intlayer } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     reactRouter(),
     tsconfigPaths(),
-    intlayerPlugin(),
+    intlayer(),
     intlayerMiddlewarePlugin(),
   ],
 });
 ```
 
-> The `intlayerPlugin()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimize performance.
+> The `intlayer()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimize performance.
 
 ### Step 5: Create Layout Components
 

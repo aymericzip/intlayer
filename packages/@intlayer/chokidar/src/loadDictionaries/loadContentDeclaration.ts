@@ -6,7 +6,9 @@ import {
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { relative } from 'path';
-import { processContentDeclaration } from '../transpiler/declaration_file_to_dictionary/intlayer_dictionary/processContentDeclaration';
+import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
+import { processContentDeclaration } from '../transpiler/intlayer_dictionary/processContentDeclaration';
+import { parallelize } from '../utils/parallelize';
 import { DictionariesStatus } from './loadDictionaries';
 
 export const formatLocalDictionaries = (
@@ -38,8 +40,6 @@ export const loadContentDeclarations = async (
   const contentDeclarations: Dictionary[] =
     formatLocalDictionaries(dictionariesRecord);
 
-  const resultDictionariesPaths: Dictionary[] = [];
-
   const listFoundDictionaries = contentDeclarations.map((declaration) => ({
     dictionaryKey: declaration.key,
     type: 'local' as const,
@@ -48,37 +48,40 @@ export const loadContentDeclarations = async (
 
   onStatusUpdate?.(listFoundDictionaries);
 
-  for await (const contentDeclaration of contentDeclarations) {
-    if (!contentDeclaration) {
-      continue;
+  const processedDictionaries = await parallelize(
+    contentDeclarations,
+    async (contentDeclaration): Promise<Dictionary | undefined> => {
+      if (!contentDeclaration) {
+        return undefined;
+      }
+
+      onStatusUpdate?.([
+        {
+          dictionaryKey: contentDeclaration.key,
+          type: 'local',
+          status: 'building',
+        },
+      ]);
+
+      const processedContentDeclaration = await processContentDeclaration(
+        contentDeclaration as Dictionary
+      );
+
+      if (!processedContentDeclaration) {
+        return undefined;
+      }
+
+      onStatusUpdate?.([
+        {
+          dictionaryKey: processedContentDeclaration.key,
+          type: 'local',
+          status: 'built',
+        },
+      ]);
+
+      return processedContentDeclaration;
     }
+  );
 
-    onStatusUpdate?.([
-      {
-        dictionaryKey: contentDeclaration.key,
-        type: 'local',
-        status: 'building',
-      },
-    ]);
-
-    const processedContentDeclaration = await processContentDeclaration(
-      contentDeclaration as Dictionary
-    );
-
-    if (!processedContentDeclaration) {
-      continue;
-    }
-
-    onStatusUpdate?.([
-      {
-        dictionaryKey: processedContentDeclaration.key,
-        type: 'local',
-        status: 'built',
-      },
-    ]);
-
-    resultDictionariesPaths.push(processedContentDeclaration);
-  }
-
-  return resultDictionariesPaths;
+  return filterInvalidDictionaries(processedDictionaries);
 };

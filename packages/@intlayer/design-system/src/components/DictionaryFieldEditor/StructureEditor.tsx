@@ -18,11 +18,5 @@ export const StructureEditor: FC<NodeEditorProps> = ({ dictionary }) => {
       ? content
       : editedContent?.[localId!]?.content;
 
-  return (
-    <NodeView
-      section={initialSection}
-      keyPath={[]}
-      dictionaryKey={dictionary.key}
-    />
-  );
+  return <NodeView section={initialSection} keyPath={[]} dictionaryKey={key} />;
 };

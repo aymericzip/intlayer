@@ -256,13 +256,13 @@ This command uploads your initial content dictionaries, making them available fo
 
 Then you will be able to see and manage your dictionary in the [Intlayer CMS](https://intlayer.org/dashboard/content).
 
-## Hot reloading
+## Live sync
 
-The Intlayer CMS is able to hot reload the dictionaries when a change is detected.
+Live Sync lets your app reflect CMS content changes at runtime. No rebuild or redeploy required. When enabled, updates are streamed to a Live Sync server that refreshes the dictionaries your application reads.
 
-Without the hot reloading, a new build of the application will be needed to display the new content.
+> Live Sync requires a continuous server connection and is available on the enterprise plan.
 
-By activating the [`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration) configuration, the application will automatically replace the updated content when it is detected.
+Enable Live Sync by updating your Intlayer configuration:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
@@ -270,17 +270,31 @@ import type { IntlayerConfig } from "intlayer";
 const config: IntlayerConfig = {
   // ... other configuration settings
   editor: {
-    // ... other configuration settings
-
     /**
-     * Indicates if the application should hot reload the locale configurations when a change is detected.
-     * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+     * Enables hot reloading of locale configurations when changes are detected.
+     * For example, when a dictionary is added or updated, the application updates
+     * the content displayed on the page.
      *
-     * Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan
+     * Because hot reloading requires a continuous connection to the server, it is
+     * only available for clients of the `enterprise` plan.
      *
      * Default: false
      */
     liveSync: true,
+  },
+  build: {
+    /**
+     * Controls how dictionaries are imported:
+     *
+     * - "live": Dictionaries are fetched dynamically using the Live Sync API.
+     *   Replaces useIntlayer with useDictionaryDynamic.
+     *
+     * Note: Live mode uses the Live Sync API to fetch dictionaries. If the API call
+     * fails, dictionaries are imported dynamically.
+     * Note: Only dictionaries with remote content and "live" flags use live mode.
+     * Others use dynamic mode for performance.
+     */
+    importMode: "live",
   },
 };
 
@@ -292,17 +306,31 @@ export default config;
 const config = {
   // ... other configuration settings
   editor: {
-    // ... other configuration settings
-
     /**
-     * Indicates if the application should hot reload the locale configurations when a change is detected.
-     * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+     * Enables hot reloading of locale configurations when changes are detected.
+     * For example, when a dictionary is added or updated, the application updates
+     * the content displayed on the page.
      *
-     * Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan
+     * Because hot reloading requires a continuous connection to the server, it is
+     * only available for clients of the `enterprise` plan.
      *
      * Default: false
      */
     liveSync: true,
+  },
+  build: {
+    /**
+     * Controls how dictionaries are imported:
+     *
+     * - "live": Dictionaries are fetched dynamically using the Live Sync API.
+     *   Replaces useIntlayer with useDictionaryDynamic.
+     *
+     * Note: Live mode uses the Live Sync API to fetch dictionaries. If the API call
+     * fails, dictionaries are imported dynamically.
+     * Note: Only dictionaries with remote content and "live" flags use live mode.
+     * Others use dynamic mode for performance.
+     */
+    importMode: "live",
   },
 };
 
@@ -314,29 +342,182 @@ export default config;
 const config = {
   // ... other configuration settings
   editor: {
-    // ... other configuration settings
-
     /**
-     * Indicates if the application should hot reload the locale configurations when a change is detected.
-     * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
+     * Enables hot reloading of locale configurations when changes are detected.
+     * For example, when a dictionary is added or updated, the application updates
+     * the content displayed on the page.
      *
-     * Because the hot reloading needs an continuous connection to the server, it is only available for clients of the `enterprise` plan
+     * Because hot reloading requires a continuous connection to the server, it is
+     * only available for clients of the `enterprise` plan.
      *
      * Default: false
      */
     liveSync: true,
+
+    /**
+     * The port of the Live Sync server.
+     *
+     * Default: 4000
+     */
+    liveSyncPort: 4000,
+
+    /**
+     * The URL of the Live Sync server.
+     *
+     * Default: http://localhost:{liveSyncPort}
+     */
+    liveSyncURL: "https://live.example.com",
+  },
+  build: {
+    /**
+     * Controls how dictionaries are imported:
+     *
+     * - "live": Dictionaries are fetched dynamically using the Live Sync API.
+     *   Replaces useIntlayer with useDictionaryDynamic.
+     *
+     * Note: Live mode uses the Live Sync API to fetch dictionaries. If the API call
+     * fails, dictionaries are imported dynamically.
+     * Note: Only dictionaries with remote content and "live" flags use live mode.
+     * Others use dynamic mode for performance.
+     */
+    importMode: "live",
   },
 };
 
 module.exports = config;
 ```
 
-The hot reloading replace the content in both server and client side.
+Start the Live Sync server to wrap your application:
 
-- On the server side, you should ensure that the application process has the write access to the `.intlayer/dictionaries` directory.
-- On the client side, the hot reloading allow the application to hot reload the content in the browser, without needing to reload the page. However, this feature is only available for clients components.
+Example using standalone server:
 
-> Because the hot reloading needs an continuous connection to the server using an `EventListener`, it is only available for clients of the `enterprise` plan.
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "live:start": "npx intlayer live",
+  },
+}
+```
+
+You can also use your application server in parallel using the `--process` argument.
+
+Example using Next.js:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "build": "next build",
+    "dev": "next dev",
+    "start": "npx intlayer live --process 'next start'",
+  },
+}
+```
+
+Example using Vite:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "build": "vite build",
+    "dev": "vite dev",
+    "start": "npx intlayer live --process 'vite start'",
+  },
+}
+```
+
+The Live Sync server wraps your application and automatically applies updated content as it arrives.
+
+To receive change notifications from the CMS, the Live Sync server maintains an SSE connection to the backend. When content changes in the CMS, the backend forwards the update to the Live Sync server, which writes the new dictionaries. Your application will reflect the update on the next navigation or browser reload—no rebuild required.
+
+Flow chart (CMS/Backend -> Live Sync Server -> Application Server -> Frontend):
+
+![Live Sync Flow CMS/Backend/Live Sync Server/Application Server/Frontend Schema](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
+
+How it works:
+
+![Live Sync Logic Schema](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_logic_schema.svg)
+
+### Development workflow (local)
+
+- In development, all remote dictionaries are fetched when the application starts, so you can test updates quickly.
+- To test Live Sync locally with Next.js, wrap your dev server:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "dev": "npx intlayer live --process 'next dev'",
+    // "dev": "npx intlayer live --process 'vite dev'", // For Vite
+  },
+}
+```
+
+Enable optimization so Intlayer applies the Live import transformations during development:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true, // default: process.env.NODE_ENV === 'production'
+    importMode: "live",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true, // default: process.env.NODE_ENV === 'production'
+    importMode: "live",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true, // default: process.env.NODE_ENV === 'production'
+    importMode: "live",
+  },
+};
+
+module.exports = config;
+```
+
+This setup wraps your dev server with the Live Sync server, fetches remote dictionaries at startup, and streams updates from the CMS via SSE. Refresh the page to see changes.
+
+Notes and constraints:
+
+- Add the live sync origin to your site security policy (CSP). Ensure the live sync URL is allowed in `connect-src` (and `frame-ancestors` if relevant).
+- Live Sync does not work with static output. For Next.js, the page must be dynamic to receive updates at runtime (e.g., use `generateStaticParams`, `generateMetadata`, `getServerSideProps`, or `getStaticProps` appropriately to avoid full static-only constraints).
+- In the CMS, each dictionary has a `live` flag. Only dictionaries with `live=true` are fetched via the live sync API; others are imported dynamically and remain unchanged at runtime.
+- The `live` flag is evaluated for each dictionary at build time. If remote content wasn't flagged `live=true` during build, you must rebuild to enable Live Sync for that dictionary.
+- The live sync server must be able to write to `.intlayer`. In containers, ensure write access to `/.intlayer`.
 
 ## Debug
 
@@ -357,5 +538,6 @@ If you encounter any issues with the CMS, check the following:
 
 | Version | Date       | Changes                                 |
 | ------- | ---------- | --------------------------------------- |
-| 5.9.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` |
+| 6.0.1   | 2025-09-22 | Add live sync documentation             |
+| 6.0.0   | 2025-09-04 | Replace `hotReload` field by `liveSync` |
 | 5.5.10  | 2025-06-29 | Init history                            |

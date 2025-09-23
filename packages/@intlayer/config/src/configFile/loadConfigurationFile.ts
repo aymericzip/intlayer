@@ -1,4 +1,4 @@
-import { type LoadEnvFileOptions } from '../envVariables/loadEnvFile';
+import { type LoadEnvFileOptions } from '../loadEnvFile';
 import { loadExternalFile } from '../loadExternalFile';
 import { logger } from '../logger';
 import type { CustomIntlayerConfig } from '../types/config';

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/mcp",
-  "version": "5.8.1",
+  "version": "6.0.2",
   "private": false,
   "description": "Intlayer MCP server. Handle MCP to help IDE to use Intlayer. It build, fill, pull, push, dictionaries",
   "keywords": [
@@ -63,7 +63,6 @@
   "scripts": {
     "build": "pnpm clean & pnpm build:ci",
     "build:ci": "pnpm build:package & pnpm build:types",
-    "build:docker": "docker build -t intlayer-mcp -f Dockerfile .",
     "build:package": "tsup",
     "build:types": "tsc --project ./tsconfig.types.json && tsc-alias --project ./tsconfig.types.json",
     "clean": "rimraf ./dist",

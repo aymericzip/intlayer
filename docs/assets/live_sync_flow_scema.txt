@@ -1,0 +1,37 @@
+flowchart LR
+  %% Sources
+  CMS[(Intlayer CMS)]
+  BE[(Backend / Webhook Receiver)]
+  LSS[Live Sync Server]
+
+  %% Server side
+  subgraph SERVER[Server]
+    SSR[(Application SSR)]
+    DECIDE{"Is page static?"}
+    SERVER_OUT["Server updates response on refresh"]
+    SSR -->|"Fetch updated dictionary"| DECIDE
+    DECIDE -- "No (dynamic)" --> SERVER_OUT
+    DECIDE -- "Yes (static)" --> NO_UPDATE["No server update"]
+  end
+
+  %% Client side
+  subgraph CLIENT[Client Runtime]
+    CLIENT_RT["Client Components"]
+    CLIENT_OUT["Update on refresh"]
+    CLIENT_RT -->|"Fetch updated dictionary"| CLIENT_OUT
+  end
+
+  %% User
+  USER["User Browser (updated UI)"]
+
+  %% Ingestion
+  CMS -->|"Dictionary change saved"| BE -->|"Notify update (webhook)"| LSS
+
+  %% Broadcast
+  LSS -->|"Push update (WS/SSE)"| SSR
+  LSS -->|"Push update (WS/SSE)"| CLIENT_RT
+
+  %% Flows to user
+  SERVER_OUT --> USER
+  NO_UPDATE --> USER
+  CLIENT_OUT --> USER

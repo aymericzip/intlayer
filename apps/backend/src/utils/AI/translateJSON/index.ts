@@ -18,7 +18,7 @@ const getFileContent = (filePath: string) =>
 export type TranslateJSONOptions = {
   entryFileContent: JSON;
   presetOutputContent: JSON;
-  dictionaryDescription: string;
+  dictionaryDescription?: string;
   entryLocale: Locales;
   outputLocale: Locales;
   tags: Tag[];
@@ -99,7 +99,7 @@ export const translateJSON = async ({
     .replace('{{outputLocale}}', formatLocaleWithName(outputLocale))
     .replace('{{entryFileContent}}', JSON.stringify(entryFileContent))
     .replace('{{presetOutputContent}}', JSON.stringify(presetOutputContent))
-    .replace('{{dictionaryDescription}}', dictionaryDescription)
+    .replace('{{dictionaryDescription}}', dictionaryDescription ?? '')
     .replace('{{applicationContext}}', applicationContext ?? '')
     .replace('{{tagsInstructions}}', formatTagInstructions(tags))
     .replace('{{modeInstructions}}', getModeInstructions(mode));

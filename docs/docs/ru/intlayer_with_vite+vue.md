@@ -136,37 +136,37 @@ module.exports = config;
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { intlayerPlugin } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayerPlugin()],
+  plugins: [vue(), intlayer()],
 });
 ```
 
 ```javascript fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { intlayerPlugin } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayerPlugin()],
+  plugins: [vue(), intlayer()],
 });
 ```
 
 ```javascript fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const vue = require("@vitejs/plugin-vue");
-const { intlayerPlugin } = require("vite-intlayer");
+const { intlayer } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [vue(), intlayerPlugin()],
+  plugins: [vue(), intlayer()],
 });
 ```
 
-> Плагин Vite `intlayerPlugin()` используется для интеграции Intlayer с Vite. Он обеспечивает создание файлов деклараций контента и отслеживает их в режиме разработки. Он определяет переменные окружения Intlayer внутри приложения Vite. Кроме того, он предоставляет алиасы для оптимизации производительности.
+> Плагин Vite `intlayer()` используется для интеграции Intlayer с Vite. Он обеспечивает создание файлов деклараций контента и отслеживает их в режиме разработки. Он определяет переменные окружения Intlayer внутри приложения Vite. Кроме того, он предоставляет алиасы для оптимизации производительности.
 
 ### Шаг 4: Объявите Ваш Контент
 
@@ -680,41 +680,41 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue"; // Импорт п�
 ```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayerPlugin(), intlayerMiddlewarePlugin()],
+  plugins: [vue(), intlayer(), intlayerMiddlewarePlugin()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayerPlugin(), intlayerMiddlewarePlugin()],
+  plugins: [vue(), intlayer(), intlayerMiddlewarePlugin()],
 });
 ```
 
 ```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
 const vue = require("@vitejs/plugin-vue");
-const { intlayerPlugin, intlayerMiddlewarePlugin } = require("vite-intlayer");
+const { intlayer, intlayerMiddlewarePlugin } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [vue(), intlayerPlugin(), intlayerMiddlewarePlugin()],
+  plugins: [vue(), intlayer(), intlayerMiddlewarePlugin()],
 });
 const { defineConfig } = require("vite");
 const vue = require("@vitejs/plugin-vue");
-const { intlayerPlugin, intlayerMiddlewarePlugin } = require("vite-intlayer");
+const { intlayer, intlayerMiddlewarePlugin } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [vue(), intlayerPlugin(), intlayerMiddlewarePlugin()],
+  plugins: [vue(), intlayer(), intlayerMiddlewarePlugin()],
 });
 ```
 

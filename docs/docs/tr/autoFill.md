@@ -1,8 +1,8 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
+createdAt: 2025-03-13
+updatedAt: 2025-09-20
 title: Otomatik Doldurma
-description: Önceden tanımlanmış desenlere göre içeriği otomatik olarak doldurmak için Intlayer'da otomatik doldurma işlevselliğini nasıl kullanacağınızı öğrenin. Projenizde otomatik doldurma özelliklerini verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
+description: Intlayer'da önceden tanımlanmış kalıplara göre içeriği otomatik doldurmak için otomatik doldurma işlevinin nasıl kullanılacağını öğrenin. Projenizde otomatik doldurma özelliklerini verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
 keywords:
   - Otomatik Doldurma
   - İçerik Otomasyonu
@@ -17,11 +17,11 @@ slugs:
   - auto-fill
 ---
 
-# Otomatik Doldurma İçerik Bildirim Dosyası Çevirileri
+# Otomatik Doldurma İçerik Beyan Dosyası Çevirileri
 
-**Otomatik doldurma içerik bildirim dosyaları**, geliştirme iş akışınızı hızlandırmanın bir yoludur.
+**Otomatik doldurma içerik beyan dosyaları**, geliştirme iş akışınızı hızlandırmanın bir yoludur.
 
-Otomatik doldurma mekanizması, içerik bildirim dosyaları arasında _ana-alt_ ilişkisi aracılığıyla çalışır. Ana (ana) dosya güncellendiğinde, Intlayer bu değişiklikleri türetilmiş (otomatik doldurulmuş) bildirim dosyalarına otomatik olarak uygular.
+Otomatik doldurma mekanizması, içerik beyan dosyaları arasında bir _ana-uydu_ ilişkisi üzerinden çalışır. Ana (master) dosya güncellendiğinde, Intlayer bu değişiklikleri türetilmiş (otomatik doldurulmuş) beyan dosyalarına otomatik olarak uygular.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -31,22 +31,22 @@ const exampleContent = {
   locale: Locales.ENGLISH,
   autoFill: "./example.content.json",
   content: {
-    contentExample: "This is an example of content",
+    contentExample: "Bu bir içerik örneğidir",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-İşte `autoFill` talimatını kullanan [yerel ayar başına içerik bildirim dosyası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/per_locale_file.md).
+İşte `autoFill` talimatını kullanan bir [her dil için içerik beyan dosyası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md).
 
-Ardından, aşağıdaki komutu çalıştırdığınızda:
+Sonra, aşağıdaki komutu çalıştırdığınızda:
 
 ```bash
 npx intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer, ana dosyada henüz bildirilmemiş tüm yerel ayarları doldurarak türetilmiş bildirim dosyasını `src/components/example/example.content.json` konumunda otomatik olarak oluşturacaktır.
+Intlayer, ana dosyada henüz beyan edilmemiş tüm yerelleri doldurarak, türetilmiş beyan dosyasını `src/components/example/example.content.json` konumunda otomatik olarak oluşturacaktır.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -63,23 +63,23 @@ Intlayer, ana dosyada henüz bildirilmemiş tüm yerel ayarları doldurarak tür
 }
 ```
 
-Bundan sonra, her iki bildirim dosyası da tek bir sözlüğe birleştirilecek ve standart `useIntlayer("example")` kancası (react) / composable (vue) kullanılarak erişilebilir olacaktır.
+Daha sonra, her iki beyan dosyası tek bir sözlükte birleştirilecek ve standart `useIntlayer("example")` hook'u (react) / composable'ı (vue) kullanılarak erişilebilir olacaktır.
 
 ## Otomatik Doldurulmuş Dosya Formatı
 
-Otomatik doldurulmuş bildirim dosyaları için önerilen format **JSON**'dur, bu da biçimlendirme kısıtlamalarından kaçınmaya yardımcı olur. Ancak, Intlayer ayrıca `.ts`, `.js`, `.mjs`, `.cjs` ve diğer formatları da destekler.
+Önerilen otomatik doldurulmuş beyan dosyalarının formatı, biçimlendirme kısıtlamalarından kaçınmaya yardımcı olan **JSON** formatıdır. Ancak, Intlayer `.ts`, `.js`, `.mjs`, `.cjs` ve diğer formatları da destekler.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
   key: "example",
   autoFill: "./example.filled.content.ts",
   content: {
-    // Your content
+    // İçeriğiniz
   },
 };
 ```
 
-Bu, dosyayı şu konumda oluşturacaktır:
+Bu, şu dosyayı oluşturacaktır:
 
 ```
 src/components/example/example.filled.content.ts
@@ -87,32 +87,32 @@ src/components/example/example.filled.content.ts
 
 > `.js`, `.ts` ve benzeri dosyaların oluşturulması şu şekilde çalışır:
 >
-> - Dosya zaten varsa, Intlayer her alanı bulmak için AST (Abstract Syntax Tree) kullanarak ayrıştıracak ve eksik çevirileri ekleyecektir.
-> - Dosya mevcut değilse, Intlayer onu varsayılan içerik bildirim dosyası şablonu kullanarak oluşturacaktır.
+> - Dosya zaten mevcutsa, Intlayer her alanı bulmak ve eksik çevirileri eklemek için AST (Soyut Sözdizimi Ağacı) kullanarak dosyayı ayrıştırır.
+> - Dosya mevcut değilse, Intlayer varsayılan içerik beyan dosyası şablonunu kullanarak dosyayı oluşturur.
 
 ## Mutlak Yollar
 
-`autoFill` alanı ayrıca mutlak yolları da destekler.
+`autoFill` alanı mutlak yolları da destekler.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
   key: "example",
   autoFill: "/messages/example.content.json",
   content: {
-    // Your content
+    // İçeriğiniz
   },
 };
 ```
 
-Bu, dosyayı şu konumda oluşturacaktır:
+Bu, şu dosyayı oluşturacaktır:
 
 ```
 /messages/example.content.json
 ```
 
-## Yerel Ayar Başına İçerik Bildirim Dosyalarını Otomatik Oluştur
+## Yerel Bazlı İçerik Beyan Dosyalarının Otomatik Oluşturulması
 
-`autoFill` alanı ayrıca **yerel ayar başına** içerik bildirim dosyalarının oluşturulmasını destekler.
+`autoFill` alanı ayrıca **yerel bazlı** içerik beyan dosyalarının oluşturulmasını da destekler.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -122,7 +122,7 @@ const exampleContent = {
     es: "./example.es.content.json",
   },
   content: {
-    // Your content
+    // İçeriğiniz
   },
 };
 ```
@@ -132,9 +132,11 @@ Bu, iki ayrı dosya oluşturacaktır:
 - `src/components/example/example.fr.content.json`
 - `src/components/example/example.es.content.json`
 
-## Belirli Yerel Ayar Otomatik Doldurmasını Filtrele
+> Bu durumda, nesne tüm yerelleri içermiyorsa, Intlayer kalan yerellerin oluşturulmasını atlar.
 
-`autoFill` alanı için bir nesne kullanmak, filtreler uygulamaya ve sadece belirli yerel ayar dosyalarını oluşturmaya izin verir.
+## Belirli Yerel Otodoldurmayı Filtreleme
+
+`autoFill` alanı için bir nesne kullanmak, filtre uygulamanıza ve yalnızca belirli yerel dosyalarını oluşturmanıza olanak tanır.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -143,39 +145,57 @@ const exampleContent = {
     fr: "./example.fr.content.json",
   },
   content: {
-    // Your content
+    // İçeriğiniz
   },
 };
 ```
 
-Bu, sadece Fransızca çeviri dosyasını oluşturacaktır.
+Bu sadece Fransızca çeviri dosyasını oluşturacaktır.
 
 ## Yol Değişkenleri
 
-Oluşturulan dosyalar için hedef yolları dinamik olarak çözümlemek için `autoFill` yolunun içinde değişkenler kullanabilirsiniz.
+ `autoFill` yolu içinde değişkenler kullanarak oluşturulan dosyaların hedef yollarını dinamik olarak çözebilirsiniz.
 
 **Kullanılabilir değişkenler:**
 
-- `{{locale}}` – Yerel ayar kodu (ör. `fr`, `es`)
-- `{{key}}` – Sözlük anahtarı (ör. `example`)
+- `{{locale}}` – Yerel kodu (örneğin `fr`, `es`)
+- `{{fileName}}` – Dosya adı (örneğin `index`)
+- `{{key}}` – Sözlük anahtarı (örneğin `example`)
 
-```ts fileName="src/components/example/example.content.ts"
+```ts fileName="src/components/example/index.content.ts"
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
   content: {
-    // Your content
+    // İçeriğiniz
   },
 };
 ```
 
-Bu, şunları oluşturacaktır:
+Bu, aşağıdaki dosyaları oluşturacaktır:
 
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
 
+```ts fileName="src/components/example/index.content.ts"
+const exampleContent = {
+  key: "example",
+  autoFill: "./{{fileName}}.content.json",
+  content: {
+    // İçeriğiniz
+  },
+};
+```
+
+Bu, aşağıdaki dosyaları oluşturacaktır:
+
+- `./index.content.json`
+- `./index.content.json`
+
 ## Doküman Geçmişi
 
-| Sürüm  | Tarih      | Değişiklikler     |
-| ------ | ---------- | ----------------- |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı |
+| Sürüm   | Tarih      | Değişiklikler               |
+| ------- | ---------- | --------------------------- |
+| 6.0.0   | 2025-09-20 | Küresel yapılandırma eklendi |
+| 6.0.0   | 2025-09-17 | `{{fileName}}` değişkeni eklendi |
+| 5.5.10  | 2025-06-29 | Geçmiş başlatıldı           |

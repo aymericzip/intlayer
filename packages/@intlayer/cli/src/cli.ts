@@ -10,6 +10,7 @@ import {
 } from '../../chokidar/dist/types/listGitFiles';
 import { build } from './build';
 import { getConfig } from './config';
+import { startEditor } from './editor';
 import { fill, FillOptions } from './fill';
 import { listContentDeclaration } from './listContentDeclaration';
 import { liveSync } from './liveSync';
@@ -272,6 +273,11 @@ export const setAPI = (): Command => {
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to pull'],
       ['--new-dictionaries-path [path]', 'Path to save the new dictionaries'],
+      // Backward-compatibility for older tests/flags (camelCase)
+      [
+        '--newDictionariesPath [path]',
+        '[alias] Path to save the new dictionaries',
+      ],
     ],
   };
 
@@ -319,6 +325,15 @@ export const setAPI = (): Command => {
       [
         '-k, --keep-locale-dictionary',
         'Keep the local dictionaries after pushing',
+      ],
+      // Backward-compatibility for older tests/flags (camelCase)
+      [
+        '--deleteLocaleDictionary',
+        '[alias] Delete the local dictionaries after pushing',
+      ],
+      [
+        '--keepLocaleDictionary',
+        '[alias] Keep the local dictionaries after pushing',
       ],
     ],
   };
@@ -560,6 +575,27 @@ export const setAPI = (): Command => {
   applyOptions(liveCmd, liveOptions);
 
   liveCmd.action((options) => liveSync(options));
+
+  /**
+   * EDITOR
+   */
+
+  const editorProgram = program
+    .command('editor')
+    .description('Visual editor operations');
+
+  const editorStartCmd = editorProgram
+    .command('start')
+    .description('Start the Intlayer visual editor');
+
+  applyConfigOptions(editorStartCmd);
+
+  editorStartCmd.action((options) => {
+    startEditor({
+      env: options.env,
+      envFile: options.envFile,
+    });
+  });
 
   program.parse(process.argv);
 

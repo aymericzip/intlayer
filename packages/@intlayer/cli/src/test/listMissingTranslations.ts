@@ -1,22 +1,32 @@
-import type { Locales } from '@intlayer/config';
-import configuration from '@intlayer/config/built';
+import {
+  GetConfigurationOptions,
+  type Locales,
+  getConfiguration,
+} from '@intlayer/config';
 import {
   type ContentNode,
   type Dictionary,
   getMissingLocalesContent,
 } from '@intlayer/core';
-import unmergedDictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export const listMissingTranslations = (
-  dictionariesRecord: keyof typeof unmergedDictionariesRecord = unmergedDictionariesRecord
+  dictionariesRecord?: Record<string, Dictionary[]>,
+  configurationOptions?: GetConfigurationOptions
 ) => {
+  const configuration = getConfiguration(configurationOptions);
+  const unmergedDictionariesRecord =
+    dictionariesRecord ?? getUnmergedDictionaries(configuration);
+
   const missingTranslations: {
-    key: keyof typeof unmergedDictionariesRecord;
+    key: string;
     filePath?: string;
     locales: Locales[];
   }[] = [];
 
-  for (const dictionaries of Object.values(dictionariesRecord)) {
+  const { locales, requiredLocales } = configuration.internationalization;
+
+  for (const dictionaries of Object.values(unmergedDictionariesRecord)) {
     for (const dictionary of dictionaries as unknown as Dictionary[]) {
       const missingLocales = getMissingLocalesContent(
         dictionary as unknown as ContentNode,
@@ -38,5 +48,14 @@ export const listMissingTranslations = (
     }
   }
 
-  return missingTranslations;
+  const missingLocalesSet = new Set(
+    missingTranslations.flatMap((t) => t.locales)
+  );
+  const missingLocales = Array.from(missingLocalesSet);
+
+  const missingRequiredLocales = missingLocales.filter((locale) =>
+    (requiredLocales ?? locales).includes(locale)
+  );
+
+  return { missingTranslations, missingLocales, missingRequiredLocales };
 };

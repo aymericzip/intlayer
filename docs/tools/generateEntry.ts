@@ -14,11 +14,12 @@
  *  and must therefore be 100 % deterministic.
  * ------------------------------------------------------------------------- */
 
+import { localeMap } from '@intlayer/core';
 import fg from 'fast-glob';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { localeMap } from 'intlayer';
 import { dirname } from 'path';
 import prettier from 'prettier';
+import { locales } from '../intlayer.config';
 
 /* -------------------------------------------------------------------------- */
 /*                                   TYPES                                    */
@@ -79,13 +80,23 @@ const buildEntryContent = (
   const header = [
     `/* AUTO-GENERATED – DO NOT EDIT */`,
     `/* REGENERATE USING \`pnpm prepare\` */`,
+    `import type { LocalesValues } from '@intlayer/config';`,
+    `import { existsSync } from 'fs';`,
     `import { readFile } from 'fs/promises';`,
-    `import { LocalesValues } from 'intlayer';`,
     `import { dirname, join } from 'path';`,
     `import { fileURLToPath } from 'url';`,
     ``,
     `const isESModule = typeof import.meta.url === 'string';`,
     `const dir = isESModule ? dirname(fileURLToPath(import.meta.url)) : __dirname;`,
+    ``,
+    `const readLocale = (relativeAfterLocale: string, locale: LocalesValues): Promise<string> => {`,
+    `  const target = join(dir, '../../../${dir}/' + locale + '/' + relativeAfterLocale);`,
+    `  if (!existsSync(target)) {`,
+    `    console.error('File not found: ' + target);`,
+    `    return readFile(join(dir, '../../../${dir}/en/' + relativeAfterLocale), 'utf8');`,
+    `  }`,
+    `  return readFile(target, 'utf8');`,
+    `};`,
     ``,
     `\nexport const ${constName} = {\n`,
   ].join('\n');
@@ -97,7 +108,8 @@ const buildEntryContent = (
 
       const localeList = localeMap(
         ({ locale }) =>
-          `'${locale}': Promise.resolve(readFile(join(dir, '../../../${dir}/${locale}/${relativeAfterLocale}'), 'utf8'))`
+          `'${locale}': readLocale('${relativeAfterLocale}', '${locale}')`,
+        locales
       );
       return `  '${file}': {${localeList.join(',')}} as unknown as Record<LocalesValues, Promise<string>>,`;
     })

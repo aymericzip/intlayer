@@ -183,7 +183,7 @@ const docDataContent: any = {
             ru: 'Объявление контента',
             tr: 'İçerik Beyanı',
           }),
-          default: getDocMetadata('./docs/en/dictionary/get_started.md'),
+          default: getDocMetadata('./docs/en/dictionary/content_file.md'),
           subSections: {
             translation: {
               title: t({
@@ -382,6 +382,25 @@ const docDataContent: any = {
             tr: 'Otomatik Doldurma',
           }),
           default: getDocMetadata('./docs/en/autoFill.md'),
+        },
+        testing: {
+          title: t({
+            en: 'Testing',
+            fr: 'Tests',
+            es: 'Pruebas',
+            'en-GB': 'Testing',
+            de: 'Testen',
+            it: 'Test',
+            ja: 'テスト',
+            ko: '테스트',
+            zh: '测试',
+            pt: 'Testes',
+            hi: 'परीक्षण',
+            ar: 'اختبار',
+            ru: 'Тестирование',
+            tr: 'Test',
+          }),
+          default: getDocMetadata('./docs/en/testing.md'),
         },
       },
     },

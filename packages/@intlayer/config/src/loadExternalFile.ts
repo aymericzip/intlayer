@@ -1,8 +1,8 @@
 import { buildSync, type BuildOptions, type BuildResult } from 'esbuild';
 import { dirname } from 'path';
 import { runInNewContext } from 'vm';
-import { LoadEnvFileOptions } from './envVariables/loadEnvFile';
 import { getSandBoxContext } from './getSandboxContext';
+import { LoadEnvFileOptions } from './loadEnvFile';
 import { logger } from './logger';
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 

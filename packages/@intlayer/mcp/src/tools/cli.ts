@@ -103,7 +103,7 @@ export const loadCLITools = async (server: McpServer) => {
 
   server.tool(
     'intlayer-push',
-    'Push locale dictionaries to the server',
+    'Push local dictionaries to the server',
     {
       deleteLocaleDictionary: z
         .boolean()
@@ -285,7 +285,10 @@ export const loadCLITools = async (server: McpServer) => {
     },
     async (props) => {
       try {
-        const missingTranslations = listMissingTranslations(props);
+        const missingTranslations = listMissingTranslations(
+          undefined,
+          props?.configOptions
+        );
         return {
           content: [
             {

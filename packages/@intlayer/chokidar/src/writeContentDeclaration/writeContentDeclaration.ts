@@ -1,9 +1,8 @@
 import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/config/client';
+import { colorizePath, x, type IntlayerConfig } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
-import dictionariesRecord from '@intlayer/unmerged-dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
-import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { dirname, extname } from 'path';
 import { prepareContentDeclaration } from '../prepareContentDeclaration';
@@ -41,8 +40,9 @@ export const writeContentDeclaration = async (
     newDictionariesPath ?? DEFAULT_NEW_DICTIONARY_PATH;
   const newDictionaryLocationPath = `${baseDir}/${newDictionaryRelativeLocationPath}`;
 
+  const unmergedDictionariesRecord = getUnmergedDictionaries(config);
   const existingDictionary = (
-    dictionariesRecord[dictionary.key] as Dictionary[]
+    unmergedDictionariesRecord[dictionary.key] as Dictionary[]
   ).filter((el) => el.filePath === dictionary.filePath);
 
   const filePath = dictionary.filePath;
@@ -72,7 +72,7 @@ export const writeContentDeclaration = async (
         );
 
         return {
-          status: 'reimported in new location',
+          status: 'new content file',
           path: contentDeclarationPath,
         };
       }
@@ -101,26 +101,21 @@ const writeFileWithDirectories = async (
     // Extract the directory from the file path
     const dir = dirname(filePath);
 
-    // Check if the directory exists
-    const directoryExists = existsSync(dir);
+    // Create the directory recursively
+    await mkdir(dir, { recursive: true });
 
-    if (!directoryExists) {
-      // Create the directory recursively
-      await mkdir(dir, { recursive: true });
-    }
-
-    const extention = extname(filePath);
+    const extension = extname(filePath);
     const acceptedExtensions = configuration.content.fileExtensions.map(
-      (extention) => extname(extention)
+      (extension) => extname(extension)
     );
 
-    if (!acceptedExtensions.includes(extention)) {
+    if (!acceptedExtensions.includes(extension)) {
       throw new Error(
-        `Invalid file extension: ${extention}, file: ${filePath}`
+        `Invalid file extension: ${extension}, file: ${filePath}`
       );
     }
 
-    if (extention === '.json') {
+    if (extension === '.json') {
       const jsonDictionary = JSON.stringify(data, null, 2);
 
       // Write the file
@@ -129,6 +124,10 @@ const writeFileWithDirectories = async (
       await writeJSFile(filePath, data as unknown as Dictionary);
     }
   } catch (error) {
-    throw new Error(`Error writing file to ${filePath}: ${error}`);
+    console.error(data);
+
+    throw new Error(
+      `${x} Error writing file to ${colorizePath(filePath)}: ${error}`
+    );
   }
 };

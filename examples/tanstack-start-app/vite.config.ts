@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import viteReact from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
-import { intlayerPlugin } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 const config = defineConfig({
@@ -16,7 +16,7 @@ const config = defineConfig({
       customViteReactPlugin: true,
     }),
     viteReact(),
-    intlayerPlugin(),
+    intlayer(),
   ],
 });
 

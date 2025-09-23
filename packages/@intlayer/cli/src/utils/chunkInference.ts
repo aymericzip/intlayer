@@ -1,5 +1,9 @@
-import { type AIOptions, type Messages, getAiAPI } from '@intlayer/api';
-import { retryManager } from '@intlayer/config';
+import {
+  type AIOptions,
+  getIntlayerAPIProxy,
+  type Messages,
+} from '@intlayer/api';
+import { type IntlayerConfig, retryManager } from '@intlayer/config';
 
 type ChunkInferenceResult = {
   fileContent: string;
@@ -13,24 +17,17 @@ type ChunkInferenceResult = {
 export const chunkInference = async (
   messages: Messages,
   aiOptions?: AIOptions,
-  oAuth2AccessToken?: string
+  configuration?: IntlayerConfig
 ): Promise<ChunkInferenceResult> => {
   let lastResult: ChunkInferenceResult;
 
   await retryManager(async () => {
-    const response = await getAiAPI().customQuery(
-      {
-        aiOptions,
-        messages,
-      },
-      {
-        ...(oAuth2AccessToken && {
-          headers: {
-            Authorization: `Bearer ${oAuth2AccessToken}`,
-          },
-        }),
-      }
-    );
+    const api = getIntlayerAPIProxy(undefined, configuration);
+
+    const response = await api.ai.customQuery({
+      aiOptions,
+      messages,
+    });
 
     if (!response.data) {
       throw new Error('No response from AI API');

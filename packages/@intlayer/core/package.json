@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/core",
-  "version": "5.8.1",
+  "version": "6.0.2",
   "private": false,
   "description": "Includes core Intlayer functions like translation, dictionary, and utility functions shared across multiple packages.",
   "keywords": [
@@ -138,6 +138,7 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "negotiator": "^1.0.0"
   },
   "devDependencies": {
@@ -161,6 +162,7 @@
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "intlayer": "workspace:*"
   },
   "engines": {

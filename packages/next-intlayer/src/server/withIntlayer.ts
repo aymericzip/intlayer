@@ -13,7 +13,7 @@ import merge from 'deepmerge';
 import fg from 'fast-glob';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
-import { join, relative } from 'path';
+import { join, relative, resolve } from 'path';
 import { compareVersions } from './compareVersion';
 import { getNextVersion } from './getNextVertion';
 
@@ -69,8 +69,9 @@ const getPruneConfig = (
   const logger = getAppLogger(intlayerConfig);
 
   runOnce(
-    join(baseDir, '.next', 'cache', 'intlayer-prune-plugin-enabled.lock'),
+    join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
     () => logger('Intlayer prune plugin is enabled'),
+    undefined,
     1000 * 10 // 10 seconds
   );
 
@@ -169,10 +170,11 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const intlayerConfig = getConfiguration();
   const { isDevCommand, isBuildCommand } = getCommandsEvent();
+  const appLogger = getAppLogger(intlayerConfig);
 
   const sentinelPath = join(
     intlayerConfig.content.baseDir,
-    '.next',
+    '.intlayer',
     'cache',
     'intlayer-prepared.lock'
   );
@@ -182,7 +184,8 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   if (isBuildCommand || isDevCommand) {
     await runOnce(
       sentinelPath,
-      async () => await prepareIntlayer(intlayerConfig)
+      async () => await prepareIntlayer(intlayerConfig),
+      () => appLogger('Intlayer prepared')
     );
   }
 
@@ -209,79 +212,101 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
     'fsevents',
   ];
 
-  const newConfig: Partial<NextConfig> = {
-    // Only add `serverExternalPackages` if Next.js is v15+
-    ...(isGteNext15
-      ? {
-          // only for Next ≥15
-          serverExternalPackages,
-        }
-      : {
-          // only for Next ≥13 and <15.3
-          ...(isGteNext13 && {
-            serverComponentsExternalPackages: serverExternalPackages,
-          }),
-        }),
+  const getNewConfig = (): Partial<NextConfig> => {
+    let config: Partial<NextConfig> = {};
 
-    ...(isTurbopackEnabled && {
-      ...(isGteNext15 && isTurbopackStable
-        ? {
-            // only for Next ≥15.3
-            turbopack: turboConfig,
-          }
-        : {
-            experimental: {
-              // only for Next ≥13 and <15.3
-              turbo: turboConfig,
-            },
-          }),
-    }),
-
-    webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
-      // Only add Intlayer plugin on server side (node runtime)
-      const { isServer, nextRuntime } = options;
-
-      // If the user has defined their own webpack config, call it
-      if (typeof nextConfig.webpack === 'function') {
-        config = nextConfig.webpack(config, options);
-      }
-
-      // Mark these modules as externals
-      config.externals.push({
-        esbuild: 'esbuild',
-        module: 'module',
-        fs: 'fs',
-        chokidar: 'chokidar',
-        fsevents: 'fsevents',
-      });
-
-      // Use `node-loader` for any `.node` files
-      config.module.rules.push({
-        test: /\.node$/,
-        loader: 'node-loader',
-      });
-
-      // Always alias on the server (node/edge) for stability.
-      // On the client, alias only when not using live sync.
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        ...getAlias({
-          configuration: intlayerConfig,
-        }),
+    if (isGteNext15) {
+      config = {
+        ...config,
+        serverExternalPackages,
       };
+    }
 
-      // Activate watch mode webpack plugin
-      if (isDevCommand && isServer && nextRuntime === 'nodejs') {
-        config.plugins.push(new IntlayerPlugin());
+    if (isGteNext13 && !isGteNext15) {
+      config = {
+        ...config,
+        experimental: {
+          ...(config?.experimental ?? {}),
+          serverComponentsExternalPackages: serverExternalPackages,
+        },
+      };
+    }
+
+    if (isTurbopackEnabled) {
+      if (isGteNext15 && isTurbopackStable) {
+        config = {
+          ...config,
+          turbopack: turboConfig,
+        };
+      } else {
+        config = {
+          ...config,
+          experimental: {
+            ...(config?.experimental ?? {}),
+            turbo: turboConfig,
+          },
+        };
       }
+    } else {
+      config = {
+        ...config,
+        webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
+          // Only add Intlayer plugin on server side (node runtime)
+          const { isServer, nextRuntime } = options;
 
-      return config;
-    },
+          // If the user has defined their own webpack config, call it
+          if (typeof nextConfig.webpack === 'function') {
+            config = nextConfig.webpack(config, options);
+          }
+
+          // Mark these modules as externals
+          config.externals.push({
+            esbuild: 'esbuild',
+            module: 'module',
+            fs: 'fs',
+            chokidar: 'chokidar',
+            fsevents: 'fsevents',
+          });
+
+          // Use `node-loader` for any `.node` files
+          config.module.rules.push({
+            test: /\.node$/,
+            loader: 'node-loader',
+          });
+
+          // Always alias on the server (node/edge) for stability.
+          // On the client, alias only when not using live sync.
+          config.resolve.alias = {
+            ...config.resolve.alias,
+            ...getAlias({
+              configuration: intlayerConfig,
+              formatter: (value: string) => resolve(value), // get absolute path
+            }),
+          };
+
+          // Activate watch mode webpack plugin
+          if (isDevCommand && isServer && nextRuntime === 'nodejs') {
+            config.plugins.push(new IntlayerPlugin());
+          }
+
+          return config;
+        },
+      };
+    }
+
+    return config;
   };
 
-  const pruneConfig: Partial<NextConfig> = getPruneConfig(intlayerConfig);
+  let pruneConfig: Partial<NextConfig> = {};
 
-  const intlayerNextConfig: Partial<NextConfig> = merge(pruneConfig, newConfig);
+  if (isBuildCommand) {
+    pruneConfig = getPruneConfig(intlayerConfig);
+  }
+
+  const intlayerNextConfig: Partial<NextConfig> = merge(
+    pruneConfig,
+    getNewConfig()
+  );
 
   // Merge the new config with the user's config
   const result = merge(nextConfig, intlayerNextConfig) as NextConfig & T;

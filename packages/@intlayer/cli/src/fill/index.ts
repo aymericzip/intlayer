@@ -1,7 +1,10 @@
-import { AIOptions, getAiAPI, getOAuthAPI } from '@intlayer/api'; // Importing only getAiAPI for now
+import { AIOptions, getIntlayerAPIProxy } from '@intlayer/api'; // Importing only getAiAPI for now
 import {
+  formatLocale,
+  formatPath,
   ListGitFilesOptions,
   mergeDictionaries,
+  parallelize,
   prepareIntlayer,
   processPerLocaleDictionary,
   reduceDictionaryContent,
@@ -9,28 +12,30 @@ import {
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
+  colon,
   colorize,
   colorizeKey,
   colorizePath,
   getAppLogger,
   getConfiguration,
-  GetConfigurationOptions,
   Locales,
 } from '@intlayer/config';
 import {
   type ContentNode,
   type Dictionary,
   getFilterTranslationsOnlyContent,
-  getLocaleName,
   getLocalisedContent,
   getMissingLocalesContent,
 } from '@intlayer/core';
-import dictionariesRecord from '@intlayer/dictionaries-entry';
-import pLimit from 'p-limit';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { relative } from 'path';
-import { checkAIAccess } from '../utils/checkAIAccess';
+import {
+  ensureArray,
+  GetTargetDictionaryOptions,
+  getTargetUnmergedDictionaries,
+} from '../getTargetDictionary';
+import { checkAIAccess } from '../utils/checkAccess';
 import { autoFill } from './autoFill';
-import { ensureArray, getTargetDictionary } from './getTargetDictionary';
 
 const NB_CONCURRENT_TRANSLATIONS = 8;
 
@@ -38,25 +43,13 @@ const NB_CONCURRENT_TRANSLATIONS = 8;
 export type FillOptions = {
   sourceLocale?: Locales;
   outputLocales?: Locales | Locales[];
-  file?: string | string[];
   mode?: 'complete' | 'review';
-  keys?: string | string[];
-  excludedKeys?: string | string[];
-  filter?: (entry: Dictionary) => boolean; // DictionaryEntry needs to be defined
-  pathFilter?: string | string[];
   gitOptions?: ListGitFilesOptions;
-  configOptions?: GetConfigurationOptions;
   aiOptions?: AIOptions; // Added aiOptions to be passed to translateJSON
   verbose?: boolean;
   nbConcurrentTranslations?: number;
   build?: boolean;
-};
-
-export const formatLocaleName = (locale: Locales) =>
-  colorize(
-    `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`,
-    ANSIColors.GREEN
-  );
+} & GetTargetDictionaryOptions;
 
 /**
  * Fill translations based on the provided options.
@@ -80,48 +73,56 @@ export const fill = async (options: FillOptions): Promise<void> => {
     options.outputLocales ? ensureArray(options.outputLocales) : locales
   ).filter((locale) => locale !== baseLocale);
 
-  checkAIAccess(configuration, options.aiOptions);
+  const hasAIAccess = await checkAIAccess(configuration, options.aiOptions);
 
-  let oAuth2AccessToken: string | undefined;
-  if (configuration.editor.clientId) {
-    const intlayerAuthAPI = getOAuthAPI(configuration);
-    const oAuth2TokenResult = await intlayerAuthAPI.getOAuth2AccessToken();
+  if (!hasAIAccess) return;
 
-    oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
-  }
+  const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
 
-  appLogger('Starting fill function', {
-    level: 'info',
-  });
-
-  const targetUnmergedDictionaries = await getTargetDictionary(options);
+  const targetUnmergedDictionaries =
+    await getTargetUnmergedDictionaries(options);
 
   const affectedDictionaryKeys = new Set<string>();
   targetUnmergedDictionaries.forEach((dict) => {
     affectedDictionaryKeys.add(dict.key);
   });
 
-  appLogger(
-    [
-      'Affected dictionary keys for processing:',
-      Array.from(affectedDictionaryKeys)
-        .map((key) => colorizeKey(key))
-        .join(', '),
-    ],
-    {
-      isVerbose: true,
-    }
+  appLogger([
+    'Affected dictionary keys for processing:',
+    Array.from(affectedDictionaryKeys)
+      .map((key) => colorizeKey(key))
+      .join(', '),
+  ]);
+
+  const maxKeyLength = Math.max(
+    ...targetUnmergedDictionaries.map((dict) => dict.key.length)
+  );
+  const maxLocaleLength = Math.max(
+    ...locales.map((locale) => formatLocale(locale).length)
   );
 
   for (const targetUnmergedDictionary of targetUnmergedDictionaries) {
+    const dictionaryPreset = colon(
+      [
+        colorize('  - [', ANSIColors.GREY_DARK),
+        colorizeKey(targetUnmergedDictionary.key),
+        colorize(']', ANSIColors.GREY_DARK),
+      ].join(''),
+      { colSize: maxKeyLength + 6 }
+    );
+
     const dictionaryKey = targetUnmergedDictionary.key;
-    const mainDictionaryToProcess = dictionariesRecord[dictionaryKey];
+    const dictionariesRecord = getDictionaries(configuration);
+
+    const mainDictionaryToProcess: Dictionary =
+      dictionariesRecord[dictionaryKey];
+
     const sourceLocale: Locales =
       (targetUnmergedDictionary.locale as Locales) ?? baseLocale;
 
     if (!mainDictionaryToProcess) {
       appLogger(
-        `Dictionary with key '${colorizeKey(dictionaryKey)}' not found in dictionariesRecord. Skipping.`,
+        `${dictionaryPreset} Dictionary not found in dictionariesRecord. Skipping.`,
         {
           level: 'warn',
         }
@@ -130,12 +131,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
     }
 
     if (!targetUnmergedDictionary.filePath) {
-      appLogger(
-        `Dictionary with key '${colorizeKey(dictionaryKey)}' has no file path. Skipping.`,
-        {
-          level: 'warn',
-        }
-      );
+      appLogger(`${dictionaryPreset} Dictionary has no file path. Skipping.`, {
+        level: 'warn',
+      });
       continue;
     }
 
@@ -144,9 +142,12 @@ export const fill = async (options: FillOptions): Promise<void> => {
       targetUnmergedDictionary.filePath
     );
 
-    appLogger(`Processing content declaration: ${colorizePath(relativePath)}`, {
-      level: 'info',
-    });
+    appLogger(
+      `${dictionaryPreset} Processing content declaration: ${colorizePath(relativePath)}`,
+      {
+        level: 'info',
+      }
+    );
 
     const sourceLocaleContent = getFilterTranslationsOnlyContent(
       mainDictionaryToProcess as unknown as ContentNode,
@@ -156,7 +157,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     if (Object.keys(sourceLocaleContent).length === 0) {
       appLogger(
-        `No content found for dictionary '${colorizeKey(dictionaryKey)}' in source locale ${formatLocaleName(sourceLocale)}. Skipping translation for this dictionary.`,
+        `${dictionaryPreset} No content found for dictionary in source locale ${formatLocale(sourceLocale)}. Skipping translation for this dictionary.`,
         {
           level: 'warn',
         }
@@ -165,12 +166,6 @@ export const fill = async (options: FillOptions): Promise<void> => {
     }
 
     const result: Dictionary[] = [];
-
-    // 5. for each locale to translate (exclude base locale) generate json translations
-    // Limit concurrent translations to 5 at a time
-    const limit = pLimit(
-      options.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
-    );
 
     // Determine output locales
     let outputLocalesList: Locales[] = outputLocales;
@@ -191,10 +186,31 @@ export const fill = async (options: FillOptions): Promise<void> => {
       outputLocalesList = missingLocales;
     }
 
-    const translationPromises = outputLocalesList.map((targetLocale) =>
-      limit(async () => {
+    if (outputLocalesList.length === 0) {
+      appLogger(
+        `${dictionaryPreset} No locales to fill - Skipping dictionary`,
+
+        {
+          level: 'warn',
+        }
+      );
+      continue;
+    }
+
+    const translationResults = await parallelize(
+      outputLocalesList,
+      async (targetLocale) => {
+        const localePreset = colon(
+          [
+            colorize('[', ANSIColors.GREY_DARK),
+            formatLocale(targetLocale),
+            colorize(']', ANSIColors.GREY_DARK),
+          ].join(''),
+          { colSize: maxLocaleLength }
+        );
+
         appLogger(
-          `Preparing translation for '${colorizeKey(dictionaryKey)}' dictionary from ${formatLocaleName(sourceLocale)} to ${formatLocaleName(targetLocale)}`,
+          `${dictionaryPreset}${localePreset} Preparing translation for dictionary from ${formatLocale(sourceLocale)} to ${formatLocale(targetLocale)}`,
           {
             level: 'info',
           }
@@ -207,35 +223,20 @@ export const fill = async (options: FillOptions): Promise<void> => {
         );
 
         try {
-          const translationResult = await getAiAPI(
-            undefined,
-            configuration
-          ).translateJSON(
-            {
-              entryFileContent: sourceLocaleContent.content, // Should be JSON, ensure getLocalisedContent provides this.
-              presetOutputContent: presetOutputContent.content, // Should be JSON
-              dictionaryDescription: mainDictionaryToProcess.description,
-              entryLocale: sourceLocale,
-              outputLocale: targetLocale,
-              mode,
-              aiOptions: options.aiOptions,
-            },
-            {
-              ...(oAuth2AccessToken && {
-                headers: {
-                  Authorization: `Bearer ${oAuth2AccessToken}`,
-                },
-              }),
-            }
-          );
+          const translationResult = await intlayerAPI.ai.translateJSON({
+            entryFileContent: sourceLocaleContent.content, // Should be JSON, ensure getLocalisedContent provides this.
+            presetOutputContent: presetOutputContent.content, // Should be JSON
+            dictionaryDescription: mainDictionaryToProcess.description ?? '',
+            entryLocale: sourceLocale,
+            outputLocale: targetLocale,
+            mode,
+            aiOptions: options.aiOptions,
+          });
 
           if (!translationResult.data?.fileContent) {
-            appLogger(
-              `No content result found for '${colorizeKey(dictionaryKey)}' to ${formatLocaleName(targetLocale)}`,
-              {
-                level: 'error',
-              }
-            );
+            appLogger(`${dictionaryPreset}${localePreset} No content result`, {
+              level: 'error',
+            });
             return null;
           }
 
@@ -248,7 +249,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
           return processedPerLocaleDictionary;
         } catch (error) {
           appLogger(
-            `Error filling '${colorizeKey(dictionaryKey)}' to ${formatLocaleName(targetLocale)}:` +
+            `${dictionaryPreset}${localePreset} ${colorize('Error filling', ANSIColors.RED)}: ` +
               error,
             {
               level: 'error',
@@ -256,11 +257,9 @@ export const fill = async (options: FillOptions): Promise<void> => {
           );
           return null;
         }
-      })
+      },
+      options.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
     );
-
-    // Wait for all translations to complete
-    const translationResults = await Promise.all(translationPromises);
 
     // Filter out null results and add to result array
     translationResults.forEach((translationResult) => {
@@ -274,7 +273,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
         ? [...result, mainDictionaryToProcess] // Mode review: generated content will override the base one
         : [mainDictionaryToProcess, ...result]; // Mode complete: base content will override the generated one
 
-    const mergedResults = mergeDictionaries(dictionaryToMerge).result;
+    const mergedResults = mergeDictionaries(dictionaryToMerge);
 
     let formattedDict = targetUnmergedDictionary;
 
@@ -293,11 +292,11 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
     const reducedResult = reduceDictionaryContent(mergedResults, formattedDict);
 
-    if (formattedDict.autoFill) {
+    if (formattedDict.autoFill || configuration.content.autoFill) {
       await autoFill(
         mergedResults,
         targetUnmergedDictionary,
-        formattedDict.autoFill,
+        formattedDict.autoFill ?? configuration.content.autoFill,
         outputLocalesList,
         [sourceLocale],
         configuration
@@ -311,7 +310,7 @@ export const fill = async (options: FillOptions): Promise<void> => {
 
       if (formattedDict.filePath) {
         appLogger(
-          `Content declaration for '${colorizeKey(dictionaryKey)}' written to ${colorizePath(relative(configuration.content.baseDir, formattedDict.filePath))}`,
+          `${dictionaryPreset} Content declaration written to ${formatPath(formattedDict.filePath)}`,
           {
             level: 'info',
           }

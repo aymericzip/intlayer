@@ -26,7 +26,11 @@ const writeDictionary = async (
 
 export const liveSync = async (options?: LiveSyncOptions) => {
   const configuration = getConfiguration();
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger(configuration, {
+    config: {
+      prefix: '',
+    },
+  });
 
   const { liveSyncPort, liveSyncURL } = configuration.editor;
 
@@ -159,7 +163,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
-      const dictionaries = getDictionaries();
+      const dictionaries = getDictionaries(configuration);
 
       const prefix = '/dictionaries/';
       if (req.url.startsWith(prefix)) {
@@ -195,7 +199,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
-      const unmergedDictionaries = getUnmergedDictionaries();
+      const unmergedDictionaries = getUnmergedDictionaries(configuration);
 
       const prefix = '/unmerged_dictionaries/';
       if (req.url.startsWith(prefix)) {

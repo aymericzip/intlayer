@@ -56,7 +56,7 @@ export const findDictionaries = async (
  * @returns The dictionary matching the ID.
  */
 /**
- * Finds a dictionary by its ID and includes the 'availableVersions' field.
+ * Finds a dictionary by its ID and includes the 'versions' field.
  * @param dictionaryId - The ID of the dictionary to find.
  * @returns The dictionary matching the ID with available versions.
  */
@@ -71,10 +71,10 @@ export const getDictionaryById = async (
     // Stage 1: Match the document by ID
     { $match: { _id: id } },
 
-    // Stage 2: Add the 'availableVersions' field
+    // Stage 2: Add the 'versions' field
     {
       $addFields: {
-        availableVersions: {
+        versions: {
           $map: {
             input: { $objectToArray: '$content' },
             as: 'version',
@@ -114,10 +114,10 @@ export const getDictionariesByKeys = async (
     // Stage 1: Match the document by key
     { $match: { key: { $in: dictionaryKeys }, projectIds: projectId } },
 
-    // Stage 2: Add the 'availableVersions' field
+    // Stage 2: Add the 'versions' field
     {
       $addFields: {
-        availableVersions: {
+        versions: {
           $map: {
             input: { $objectToArray: '$content' },
             as: 'version',
@@ -155,10 +155,10 @@ export const getDictionariesByTags = async (
       },
     },
 
-    // Stage 2: Add the 'availableVersions' field
+    // Stage 2: Add the 'versions' field
     {
       $addFields: {
-        availableVersions: {
+        versions: {
           $map: {
             input: { $objectToArray: '$content' },
             as: 'version',
@@ -361,15 +361,15 @@ const getVersionNumber = (version: string): number => {
 export const incrementVersion = (dictionary: Dictionary): string => {
   const VERSION_PREFIX = 'v';
 
-  const availableVersions = [...(dictionary.content.keys() ?? [])];
-  const lastVersion = availableVersions[availableVersions.length - 1];
+  const versions = [...(dictionary.content.keys() ?? [])];
+  const lastVersion = versions[versions.length - 1];
 
   // Start with the next version number
   let newNumber = getVersionNumber(lastVersion) + 1;
   let newVersion = `${VERSION_PREFIX}${newNumber}`;
 
   // Loop until a unique version is found
-  while (availableVersions.includes(newVersion)) {
+  while (versions.includes(newVersion)) {
     newNumber += 1;
     newVersion = `${VERSION_PREFIX}${newNumber}`;
   }

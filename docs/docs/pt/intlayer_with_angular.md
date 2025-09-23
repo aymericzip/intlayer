@@ -193,7 +193,7 @@ import { prepareIntlayer, watch } from "@intlayer/chokidar";
 import { getConfiguration, logger } from "@intlayer/config";
 import type { Plugin } from "esbuild";
 
-const intlayerPlugin: Plugin = {
+const intlayer: Plugin = {
   name: "intlayer-esbuild-plugin",
   setup(build) {
     const configuration = getConfiguration();
@@ -223,10 +223,10 @@ const intlayerPlugin: Plugin = {
   },
 };
 
-export default intlayerPlugin;
+export default intlayer;
 ```
 
-> O `intlayerPlugin` para esbuild garante que o Intlayer seja preparado antes do início da build e monitora alterações no modo de desenvolvimento.
+> O `intlayer` para esbuild garante que o Intlayer seja preparado antes do início da build e monitora alterações no modo de desenvolvimento.
 
 #### Opção 2: Usando Webpack
 

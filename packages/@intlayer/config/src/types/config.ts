@@ -370,6 +370,7 @@ export type BuildConfig = {
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
    * - The "live" allows to sync the dictionaries to the live sync server.
+   * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
    */
   importMode: 'static' | 'dynamic' | 'live';
 
@@ -388,6 +389,17 @@ export type BuildConfig = {
    * - Use glob pattern.
    */
   traversePattern: string[];
+
+  /**
+   * Output format of the dictionaries
+   *
+   * Default: ['cjs', 'esm']
+   *
+   * The output format of the dictionaries. It can be either 'cjs' or 'esm'. Even if dictionaries are written in JSON, entry point to access the dictionaries are generated.
+   * This function will use the output format defined using this option.
+   * The default format is 'cjs' as it allows better interoperability with other libraries, scripts, and applications. But some build tools, such as Vite, require ES modules.
+   */
+  outputFormat: ('cjs' | 'esm')[];
 };
 
 /**
@@ -507,9 +519,15 @@ export type BaseContentConfig = {
    * Default: process.env.NODE_ENV === 'development'
    */
   watch: boolean;
-};
 
-export type DictionaryOutput = 'intlayer' | 'i18next' | 'react-intl';
+  /**
+   * Indicate how the content should be automatically filled using AI.
+   *
+   * Default: undefined
+   *
+   */
+  autoFill?: boolean | string | { [key in Locales]?: string };
+};
 
 /**
  * Configuration derived based on the base content configuration
@@ -534,15 +552,6 @@ export type BaseDerivedConfig = {
   dictionariesDir: string;
 
   /**
-   * Directory where the masks are stored, relative to the base directory
-   *
-   * Default: .intlayer/mask
-   *
-   * Derived masks directory based on the base configuration.
-   */
-  masksDir: string;
-
-  /**
    * Directory for module augmentation, relative to the base directory
    *
    * Default: .intlayer/types
@@ -550,20 +559,6 @@ export type BaseDerivedConfig = {
    * Defines the derived path for module augmentation.
    */
   moduleAugmentationDir: string;
-
-  /**
-   * Type of dictionary to use as an output
-   *
-   * Default: ['intlayer']
-   *
-   * The type of dictionary to use as an output. It can be either 'intlayer' or 'i18next'.
-   *
-   * Note:
-   * - 'i18next' is not yet ensure a 1:1 mapping with the i18next library.
-   * - Removing 'intlayer' will break the compatibility with react-intlayer or next-intlayer
-   *
-   */
-  dictionaryOutput: DictionaryOutput[];
 };
 
 /**
@@ -614,30 +609,6 @@ export type ResultDirDerivedConfig = {
    * Specifies the derived path for fetch dictionaries relative to the result directory.
    */
   fetchDictionariesDir: string;
-
-  /**
-   * Directory where dictionaries are stored, relative to the result directory
-   *
-   * Default: i18next_resources
-   *
-   * Specifies the derived path for dictionaries relative to the result directory.
-   *
-   * Note:
-   * - Ensure the i18n dictionaries output includes i18next to build the dictionaries for i18next
-   */
-  i18nextResourcesDir: string;
-
-  /**
-   * Directory where dictionaries are stored, relative to the result directory
-   *
-   * Default: intl_messages
-   *
-   * Specifies the derived path for dictionaries relative to the result directory.
-   *
-   * Note:
-   * - Ensure the dictionaries output includes 'react-intl' to build the dictionaries for react-intl
-   */
-  reactIntlMessagesDir: string;
 
   /**
    * Directory where dictionary types are stored, relative to the result directory

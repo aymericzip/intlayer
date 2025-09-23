@@ -1,11 +1,11 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Intlayer CMS | İçeriğinizi Intlayer CMS'ye Dışa Aktarın
-description: İçeriğinizi Intlayer CMS'ye dışa aktararak içerik yönetimini ekibinize devredin.
+description: İçeriğinizin yönetimini ekibinize devretmek için içeriğinizi Intlayer CMS'ye dışa aktarın.
 keywords:
   - CMS
-  - Görsel Düzenleyici
+  - Görsel Editör
   - Uluslararasılaştırma
   - Dokümantasyon
   - Intlayer
@@ -21,43 +21,43 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 
 # Intlayer İçerik Yönetim Sistemi (CMS) Dokümantasyonu
 
-<iframe title="Web Uygulamanız için Görsel Düzenleyici + CMS: Intlayer Açıklaması" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Görsel Editör + Web Uygulamanız için CMS: Intlayer Açıklaması" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-Intlayer CMS, bir Intlayer projesinin içeriğini dışa aktarmanıza izin veren bir Uygulamadır.
+Intlayer CMS, bir Intlayer projesinin içeriğini dışa aktarmanıza olanak tanıyan bir uygulamadır.
 
-Bunun için, Intlayer 'uzak sözlükler' kavramını tanıtır.
+Bunun için Intlayer, 'uzak sözlükler' kavramını tanıtmaktadır.
 
 ![Intlayer CMS Arayüzü](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
 ## Uzak sözlükleri anlama
 
-Intlayer 'yerel' ve 'uzak' sözlükler arasında bir ayrım yapar.
+Intlayer, 'yerel' ve 'uzak' sözlükler arasında ayrım yapar.
 
-- Bir 'yerel' sözlük, Intlayer projenizde bildirilen bir sözlüktür. Örneğin bir düğmenin bildirim dosyası veya navigasyon çubuğunuz. Bu durumda içeriğinizi dışa aktarmak mantıklı değildir çünkü bu içerik sık sık değişmemelidir.
+- 'Yerel' sözlük, Intlayer projenizde tanımlanmış bir sözlüktür. Örneğin bir butonun tanımlama dosyası veya navigasyon çubuğunuz gibi. İçeriğinizi dışa aktarmak bu durumda anlamlı değildir çünkü bu içeriğin sık sık değişmesi beklenmez.
 
-- Bir 'uzak' sözlük, Intlayer CMS aracılığıyla yönetilen bir sözlüktür. Ekibinizin içeriğinizi doğrudan web sitenizde yönetmesine izin vermek için yararlı olabilir ve ayrıca A/B testi özelliklerini ve SEO otomatik optimizasyonunu kullanmayı amaçlar.
+- 'Uzak' sözlük ise Intlayer CMS aracılığıyla yönetilen bir sözlüktür. Ekibinizin içeriğinizi doğrudan web sitenizde yönetmesine olanak tanıyabilir ve ayrıca A/B test özelliklerini ve SEO otomatik optimizasyonunu kullanmayı hedefler.
 
-## Görsel düzenleyici vs CMS
+## Görsel editör ve CMS karşılaştırması
 
-[Intlayer Görsel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) düzenleyici, yerel sözlükler için içeriğinizi görsel bir düzenleyicide yönetmenize izin veren bir araçtır. Bir değişiklik yapıldığında, içerik kod tabanında değiştirilecektir. Bu, uygulamanın yeniden oluşturulacağı ve yeni içeriği görüntülemek için sayfanın yeniden yükleneceği anlamına gelir.
+[Intlayer Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) editörü, yerel sözlükler için içeriğinizi görsel bir editörde yönetmenizi sağlayan bir araçtır. Bir değişiklik yapıldığında, içerik kod tabanında değiştirilir. Bu, uygulamanın yeniden derleneceği ve yeni içeriği göstermek için sayfanın yeniden yükleneceği anlamına gelir.
 
-Buna karşılık, Intlayer CMS, uzak sözlükler için içeriğinizi görsel bir düzenleyicide yönetmenize izin veren bir araçtır. Bir değişiklik yapıldığında, içerik kod tabanınızı **etkilemeyecektir**. Ve web sitesi değiştirilen içeriği otomatik olarak görüntüleyecektir.
+Buna karşılık, Intlayer CMS, uzak sözlükler için içeriğinizi görsel bir editörde yönetmenizi sağlayan bir araçtır. Bir değişiklik yapıldığında, içerik kod tabanınızı **etkilemez**. Ve web sitesi otomatik olarak değiştirilen içeriği gösterir.
 
 ## Entegrasyon
 
-Paketi nasıl yükleyeceğiniz hakkında daha fazla ayrıntı için aşağıdaki ilgili bölüme bakın:
+Paketin nasıl kurulacağına dair daha fazla detay için aşağıdaki ilgili bölüme bakınız:
 
 ### Next.js ile Entegrasyon
 
-Next.js ile entegrasyon için [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_15.md) bakın.
+Next.js ile entegrasyon için, [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_15.md) bakınız.
 
 ### Create React App ile Entegrasyon
 
-Create React App ile entegrasyon için [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md) bakın.
+Create React App ile entegrasyon için, [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_create_react_app.md) bakınız.
 
 ### Vite + React ile Entegrasyon
 
-Vite + React ile entegrasyon için [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md) bakın.
+Vite + React ile entegrasyon için, [kurulum kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md) bakınız.
 
 ## Konfigürasyon
 
@@ -73,16 +73,16 @@ const config: IntlayerConfig = {
      * Gerekli
      *
      * Uygulamanın URL'si.
-     * Bu, görsel düzenleyici tarafından hedeflenen URL'dir.
+     * Bu, görsel editörün hedeflediği URL'dir.
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
 
     /**
      * Gerekli
      *
-     * İstemci kimliği ve istemci sırrı düzenleyiciyi etkinleştirmek için gereklidir.
-     * İçeriği düzenleyen kullanıcıyı tanımlamaya izin verirler.
-     * Intlayer Dashboard - Projects'te yeni bir istemci oluşturarak elde edilebilirler (https://intlayer.org/dashboard/projects).
+     * Editörü etkinleştirmek için Client ID ve client secret gereklidir.
+     * Bunlar, içeriği düzenleyen kullanıcıyı tanımlamaya olanak sağlar.
+     * Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects) üzerinden yeni bir client oluşturarak elde edilebilir.
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -90,35 +90,49 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
 
     /**
-     * İsteğe bağlı
+     * Opsiyonel
      *
-     * Intlayer CMS'yi kendiniz barındırıyorsanız, CMS'nin URL'sini ayarlayabilirsiniz.
+     * Intlayer CMS'yi kendi sunucunuzda barındırıyorsanız, CMS'nin URL'sini ayarlayabilirsiniz.
      *
      * Intlayer CMS'nin URL'si.
-     * Varsayılan olarak https://intlayer.org olarak ayarlanır
+     * Varsayılan olarak https://intlayer.org olarak ayarlanmıştır.
      */
     cmsURL: process.env.INTLAYER_CMS_URL,
+
+    /**
+     * Opsiyonel
+     *
+     * Intlayer CMS'yi kendi sunucunuzda barındırıyorsanız, backend'in URL'sini ayarlayabilirsiniz.
+     *
+     * Intlayer CMS'nin URL'si.
+     * Varsayılan olarak https://back.intlayer.org olarak ayarlanmıştır.
+     */
+    backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+};
+
+export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... diğer konfigürasyon ayarları
+  // ... diğer yapılandırma ayarları
   editor: {
     /**
      * Gerekli
      *
      * Uygulamanın URL'si.
-     * Bu, görsel düzenleyici tarafından hedeflenen URL'dir.
+     * Bu, görsel editörün hedeflediği URL'dir.
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
 
     /**
      * Gerekli
      *
-     * İstemci kimliği ve istemci sırrı düzenleyiciyi etkinleştirmek için gereklidir.
-     * İçeriği düzenleyen kullanıcıyı tanımlamaya izin verirler.
-     * Intlayer Dashboard - Projects'te yeni bir istemci oluşturarak elde edilebilirler (https://intlayer.org/dashboard/projects).
+     * Editörü etkinleştirmek için Client ID ve client secret gereklidir.
+     * Bunlar, içeriği düzenleyen kullanıcıyı tanımlamaya olanak sağlar.
+     * Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects) üzerinde yeni bir client oluşturarak elde edilebilir.
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -126,22 +140,22 @@ const config = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
 
     /**
-     * İsteğe bağlı
+     * Opsiyonel
      *
-     * Intlayer CMS'yi kendiniz barındırıyorsanız, CMS'nin URL'sini ayarlayabilirsiniz.
+     * Intlayer CMS'yi kendi sunucunuzda barındırıyorsanız, CMS'nin URL'sini ayarlayabilirsiniz.
      *
      * Intlayer CMS'nin URL'si.
-     * Varsayılan olarak https://intlayer.org olarak ayarlanır
+     * Varsayılan olarak https://intlayer.org olarak ayarlanmıştır.
      */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
-     * İsteğe bağlı
+     * Opsiyonel
      *
-     * Intlayer CMS'yi kendiniz barındırıyorsanız, arka ucun URL'sini ayarlayabilirsiniz.
+     * Intlayer CMS'yi kendi sunucunuzda barındırıyorsanız, backend'in URL'sini ayarlayabilirsiniz.
      *
      * Intlayer CMS'nin URL'si.
-     * Varsayılan olarak https://back.intlayer.org olarak ayarlanır
+     * Varsayılan olarak https://back.intlayer.org olarak ayarlanmıştır.
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
   },
@@ -153,22 +167,22 @@ export default config;
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... diğer konfigürasyon ayarları
+  // ... diğer yapılandırma ayarları
   editor: {
     /**
      * Gerekli
      *
      * Uygulamanın URL'si.
-     * Bu, görsel düzenleyici tarafından hedeflenen URL'dir.
+     * Bu, görsel editörün hedeflediği URL'dir.
      */
     applicationURL: process.env.INTLAYER_APPLICATION_URL,
 
     /**
      * Gerekli
      *
-     * İstemci kimliği ve istemci sırrı düzenleyiciyi etkinleştirmek için gereklidir.
-     * İçeriği düzenleyen kullanıcıyı tanımlamaya izin verirler.
-     * Intlayer Dashboard - Projects'te yeni bir istemci oluşturarak elde edilebilirler (https://intlayer.org/dashboard/projects).
+     * Editörü etkinleştirmek için Client ID ve client secret gereklidir.
+     * Bunlar, içeriği düzenleyen kullanıcıyı tanımlamaya olanak sağlar.
+     * Intlayer Dashboard - Projects (https://intlayer.org/dashboard/projects) üzerinden yeni bir client oluşturarak elde edilebilirler.
      * clientId: process.env.INTLAYER_CLIENT_ID,
      * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
      */
@@ -176,22 +190,22 @@ const config = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
 
     /**
-     * İsteğe bağlı
+     * Opsiyonel
      *
-     * Intlayer CMS'yi kendiniz barındırıyorsanız, CMS'nin URL'sini ayarlayabilirsiniz.
+     * Intlayer CMS'yi kendi sunucunuzda barındırıyorsanız, CMS'nin URL'sini ayarlayabilirsiniz.
      *
      * Intlayer CMS'nin URL'si.
-     * Varsayılan olarak https://intlayer.org olarak ayarlanır
+     * Varsayılan olarak https://intlayer.org olarak ayarlanmıştır.
      */
     cmsURL: process.env.INTLAYER_CMS_URL,
 
     /**
-     * İsteğe bağlı
+     * Opsiyonel
      *
-     * Intlayer CMS'yi kendiniz barındırıyorsanız, arka ucun URL'sini ayarlayabilirsiniz.
+     * Intlayer CMS'yi kendi sunucunuzda barındırıyorsanız, backend URL'sini ayarlayabilirsiniz.
      *
-     * Intlayer CMS'nin URL'si.
-     * Varsayılan olarak https://back.intlayer.org olarak ayarlanır
+     * Intlayer CMS'nin backend URL'si.
+     * Varsayılan olarak https://back.intlayer.org olarak ayarlanmıştır.
      */
     backendURL: process.env.INTLAYER_BACKEND_URL,
   },
@@ -200,73 +214,86 @@ const config = {
 module.exports = config;
 ```
 
-> İstemci kimliğiniz ve istemci sırrınız yoksa, [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects)'te yeni bir istemci oluşturarak bunları elde edebilirsiniz.
+> Eğer bir client ID ve client secret'ınız yoksa, bunları [Intlayer Dashboard - Projects](https://intlayer.org/dashboard/projects) üzerinden yeni bir client oluşturarak edinebilirsiniz.
 
-> Tüm kullanılabilir parametreleri görmek için [konfigürasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+> Mevcut tüm parametreleri görmek için [konfigürasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakınız.
 
-## CMS'yi Kullanma
+## CMS Kullanımı
 
-### Konfigürasyonunuzu gönderin
+### Konfigürasyonunuzu Gönderme
 
-Intlayer CMS'yi yapılandırmak için [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/en/intlayer_cli.md) komutlarını kullanabilirsiniz.
+Intlayer CMS'yi yapılandırmak için [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/tr/intlayer_cli.md) komutlarını kullanabilirsiniz.
 
 ```bash
 npx intlayer config push
 ```
 
-> `intlayer.config.ts` konfigürasyon dosyanızda ortam değişkenleri kullanıyorsanız, `--env` argümanını kullanarak istenen ortamı belirtebilirsiniz:
+> `intlayer.config.ts` yapılandırma dosyanızda ortam değişkenleri kullanıyorsanız, istediğiniz ortamı `--env` argümanıyla belirtebilirsiniz:
 
 ```bash
 npx intlayer config push --env production
 ```
 
-Bu komut konfigürasyonunuzu Intlayer CMS'ye yükler.
+Bu komut yapılandırmanızı Intlayer CMS'ye yükler.
 
-### Bir sözlüğü gönderin
+### Bir sözlük yükleme
 
-Yerel ayar sözlüklerinizi uzak bir sözlüğe dönüştürmek için [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/en/intlayer_cli.md) komutlarını kullanabilirsiniz.
+Yerel sözlüklerinizi uzak bir sözlüğe dönüştürmek için [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/tr/intlayer_cli.md) komutlarını kullanabilirsiniz.
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key
 ```
 
-> `intlayer.config.ts` konfigürasyon dosyanızda ortam değişkenleri kullanıyorsanız, `--env` argümanını kullanarak istenen ortamı belirtebilirsiniz:
+> `intlayer.config.ts` yapılandırma dosyanızda ortam değişkenleri kullanıyorsanız, istediğiniz ortamı `--env` argümanıyla belirtebilirsiniz:
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
-Bu komut ilk içerik sözlüklerinizi yükler, bunları Intlayer platformu aracılığıyla eşzamansız alma ve düzenleme için kullanılabilir hale getirir.
+Bu komut, başlangıç içerik sözlüklerinizi yükler ve Intlayer platformu üzerinden eşzamansız olarak alınmalarını ve düzenlenmelerini sağlar.
 
-### Sözlüğü düzenleyin
+### Sözlüğü düzenleme
 
-Ardından sözlüğünüzü [Intlayer CMS](https://intlayer.org/dashboard/content)'de görebilir ve yönetebilirsiniz.
+Daha sonra sözlüğünüzü [Intlayer CMS](https://intlayer.org/dashboard/content) üzerinde görüntüleyip yönetebileceksiniz.
 
-## Sıcak yeniden yükleme
+## Canlı senkronizasyon
 
-Intlayer CMS, bir değişiklik algılandığında sözlükleri sıcak yeniden yükleyebilir.
+Canlı Senkronizasyon, uygulamanızın CMS içerik değişikliklerini çalışma zamanında yansıtmasını sağlar. Yeniden derleme veya yeniden dağıtım gerekmez. Etkinleştirildiğinde, güncellemeler uygulamanızın okuduğu sözlükleri yenileyen bir Canlı Senkronizasyon sunucusuna aktarılır.
 
-Sıcak yeniden yükleme olmadan, yeni içeriği görüntülemek için uygulamanın yeni bir yapısı gerekecektir.
+> Canlı Senkronizasyon sürekli bir sunucu bağlantısı gerektirir ve yalnızca enterprise planında kullanılabilir.
 
-[`liveSync`](https://intlayer.org/doc/concept/configuration#editor-configuration) konfigürasyonunu etkinleştirerek, uygulama algılandığında güncellenen içeriği otomatik olarak değiştirecektir.
+Intlayer yapılandırmanızı güncelleyerek Canlı Senkronizasyonu etkinleştirin:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... diğer konfigürasyon ayarları
+  // ... diğer yapılandırma ayarları
   editor: {
-    // ... diğer konfigürasyon ayarları
-
     /**
-     * Bir değişiklik algılandığında uygulamanın yerel ayar konfigürasyonlarını sıcak yeniden yükleyip yüklemeyeceğini belirtir.
-     * Örneğin, yeni bir sözlük eklendiğinde veya güncellendiğinde, uygulama sayfada görüntülemek için içeriği günceller.
+     * Değişiklik algılandığında yerel ayar yapılandırmalarının sıcak yeniden yüklemesini etkinleştirir.
+     * Örneğin, bir sözlük eklendiğinde veya güncellendiğinde, uygulama sayfada görüntülenen içeriği günceller.
      *
-     * Sıcak yeniden yükleme sunucuya sürekli bir bağlantı gerektirdiği için, sadece `enterprise` planının müşterileri için kullanılabilir
+     * Sıcak yeniden yükleme sürekli bir sunucu bağlantısı gerektirdiği için,
+     * yalnızca `enterprise` planı müşterileri için kullanılabilir.
      *
      * Varsayılan: false
      */
     liveSync: true,
+  },
+  build: {
+    /**
+     * Sözlüklerin nasıl içe aktarılacağını kontrol eder:
+     *
+     * - "live": Sözlükler, Live Sync API kullanılarak dinamik olarak getirilir.
+     *   useIntlayer yerine useDictionaryDynamic kullanılır.
+     *
+     * Not: Canlı mod, sözlükleri getirmek için Live Sync API'sini kullanır. API çağrısı
+     * başarısız olursa, sözlükler dinamik olarak içe aktarılır.
+     * Not: Yalnızca uzak içeriğe ve "live" bayraklarına sahip sözlükler canlı modu kullanır.
+     * Diğerleri performans için dinamik modu kullanır.
+     */
+    importMode: "live",
   },
 };
 
@@ -276,19 +303,33 @@ export default config;
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... diğer konfigürasyon ayarları
+  // ... diğer yapılandırma ayarları
   editor: {
-    // ... diğer konfigürasyon ayarları
-
     /**
-     * Bir değişiklik algılandığında uygulamanın yerel ayar konfigürasyonlarını sıcak yeniden yükleyip yüklemeyeceğini belirtir.
-     * Örneğin, yeni bir sözlük eklendiğinde veya güncellendiğinde, uygulama sayfada görüntülemek için içeriği günceller.
+     * Yerel ayar yapılandırmalarında değişiklik algılandığında sıcak yeniden yüklemeyi etkinleştirir.
+     * Örneğin, bir sözlük eklendiğinde veya güncellendiğinde, uygulama sayfada görüntülenen
+     * içeriği günceller.
      *
-     * Sıcak yeniden yükleme sunucuya sürekli bir bağlantı gerektirdiği için, sadece `enterprise` planının müşterileri için kullanılabilir
+     * Sıcak yeniden yükleme, sunucuya sürekli bağlantı gerektirdiği için
+     * yalnızca `enterprise` planı müşterileri için kullanılabilir.
      *
      * Varsayılan: false
      */
     liveSync: true,
+  },
+  build: {
+    /**
+     * Sözlüklerin nasıl içe aktarılacağını kontrol eder:
+     *
+     * - "live": Sözlükler, Live Sync API kullanılarak dinamik olarak getirilir.
+     *   useIntlayer yerine useDictionaryDynamic kullanılır.
+     *
+     * Not: Canlı mod, sözlükleri getirmek için Live Sync API'sini kullanır. API çağrısı
+     * başarısız olursa, sözlükler dinamik olarak içe aktarılır.
+     * Not: Yalnızca uzak içeriğe sahip ve "live" bayraklı sözlükler canlı modu kullanır.
+     * Diğerleri performans için dinamik modu kullanır.
+     */
+    importMode: "live",
   },
 };
 
@@ -298,50 +339,191 @@ export default config;
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... diğer konfigürasyon ayarları
+  // ... diğer yapılandırma ayarları
   editor: {
-    // ... diğer konfigürasyon ayarları
-
     /**
-     * Bir değişiklik algılandığında uygulamanın yerel ayar konfigürasyonlarını sıcak yeniden yükleyip yüklemeyeceğini belirtir.
-     * Örneğin, yeni bir sözlük eklendiğinde veya güncellendiğinde, uygulama sayfada görüntülemek için içeriği günceller.
+     * Değişiklikler algılandığında yerel yapılandırmaların sıcak yeniden yüklenmesini etkinleştirir.
+     * Örneğin, bir sözlük eklendiğinde veya güncellendiğinde, uygulama sayfada görüntülenen
+     * içeriği günceller.
      *
-     * Sıcak yeniden yükleme sunucuya sürekli bir bağlantı gerektirdiği için, sadece `enterprise` planının müşterileri için kullanılabilir
+     * Sıcak yeniden yükleme, sunucuya sürekli bağlantı gerektirdiği için
+     * yalnızca `enterprise` planı müşterileri için kullanılabilir.
      *
      * Varsayılan: false
      */
     liveSync: true,
+
+    /**
+     * Live Sync sunucusunun portu.
+     *
+     * Varsayılan: 4000
+     */
+    liveSyncPort: 4000,
+
+    /**
+     * Live Sync sunucusunun URL'si.
+     *
+     * Varsayılan: http://localhost:{liveSyncPort}
+     */
+    liveSyncURL: "https://live.example.com",
+  },
+  build: {
+    /**
+     * Sözlüklerin nasıl içe aktarılacağını kontrol eder:
+     *
+     * - "live": Sözlükler, Live Sync API kullanılarak dinamik olarak alınır.
+     *   useIntlayer yerine useDictionaryDynamic kullanılır.
+     *
+     * Not: Canlı mod, sözlükleri almak için Live Sync API'sini kullanır. API çağrısı
+     * başarısız olursa, sözlükler dinamik olarak içe aktarılır.
+     * Not: Yalnızca uzak içeriğe sahip ve "live" bayrağı olan sözlükler canlı modu kullanır.
+     * Diğerleri performans için dinamik modu kullanır.
+     */
+    importMode: "live",
   },
 };
 
 module.exports = config;
 ```
 
-Sıcak yeniden yükleme içeriği hem sunucu hem de istemci tarafında değiştirir.
+Uygulamanızı sarmak için Live Sync sunucusunu başlatın:
 
-- Sunucu tarafında, uygulama sürecinin `.intlayer/dictionaries` dizinine yazma erişimi olduğundan emin olun.
-- İstemci tarafında, sıcak yeniden yükleme uygulamanın içeriği tarayıcıda sıcak yeniden yüklemesine izin verir, sayfayı yeniden yüklemeye gerek olmadan. Ancak, bu özellik sadece istemci bileşenleri için kullanılabilir.
+Next.js kullanarak örnek:
 
-> Sıcak yeniden yükleme bir `EventListener` kullanarak sunucuya sürekli bir bağlantı gerektirdiği için, sadece `enterprise` planının müşterileri için kullanılabilir.
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... diğer komutlar
+    "build": "next build",
+    "dev": "next dev",
+    "start": "npx intlayer live --process 'next start'",
+  },
+}
+```
+
+Vite kullanarak örnek:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... diğer komutlar
+    "build": "vite build",
+    "dev": "vite dev",
+    "start": "npx intlayer live --process 'vite start'",
+  },
+}
+```
+
+Live Sync sunucusu uygulamanızı sarar ve güncellenen içeriği geldiği anda otomatik olarak uygular.
+
+CMS'den değişiklik bildirimleri almak için, Live Sync sunucusu backend ile bir SSE bağlantısı sürdürür. CMS'de içerik değiştiğinde, backend güncellemeyi Live Sync sunucusuna iletir ve bu sunucu yeni sözlükleri yazar. Uygulamanız, sonraki gezinme veya tarayıcı yenilemesinde güncellemeyi yansıtacaktır—yeniden derleme gerekmez.
+
+Akış şeması (CMS/Backend -> Live Sync Sunucusu -> Uygulama Sunucusu -> Ön Yüz):
+
+![Live Sync Mantık Şeması](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_logic_schema.svg)
+
+Nasıl çalışır:
+
+![Live Sync Akış CMS/Backend/Live Sync Sunucusu/Uygulama Sunucusu/Ön Yüz Şeması](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
+
+### Geliştirme iş akışı (yerel)
+
+- Geliştirme aşamasında, uygulama başladığında tüm uzak sözlükler alınır, böylece güncellemeleri hızlıca test edebilirsiniz.
+- Next.js ile Live Sync'i yerel olarak test etmek için geliştirme sunucunuzu şu şekilde sarmalayın:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... diğer scriptler
+    "dev": "npx intlayer live --process 'next dev'",
+    // "dev": "npx intlayer live --process 'vite dev'", // Vite için
+  },
+}
+```
+
+Optimizasyonu etkinleştirin, böylece Intlayer geliştirme sırasında Live import dönüşümlerini uygular:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true,
+    importMode: "live",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true,
+    importMode: "live",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  editor: {
+    applicationURL: "http://localhost:5173",
+    liveSyncURL: "http://localhost:4000",
+    liveSync: true,
+  },
+  build: {
+    optimize: true,
+    importMode: "live",
+  },
+};
+
+module.exports = config;
+```
+
+Bu yapılandırma, geliştirme sunucunuzu Live Sync sunucusuyla sarar, başlangıçta uzak sözlükleri getirir ve CMS'den SSE aracılığıyla güncellemeleri aktarır. Değişiklikleri görmek için sayfayı yenileyin.
+
+Notlar ve kısıtlamalar:
+
+- Live sync kaynağını site güvenlik politikanıza (CSP) ekleyin. Live sync URL'sinin `connect-src` içinde (ve ilgili ise `frame-ancestors` içinde) izinli olduğundan emin olun.
+- Live Sync statik çıktı ile çalışmaz. Next.js için, sayfa çalışma zamanında güncellemeleri alabilmek için dinamik olmalıdır (örneğin, tam statik kısıtlamalardan kaçınmak için `generateStaticParams`, `generateMetadata`, `getServerSideProps` veya `getStaticProps` uygun şekilde kullanılmalıdır).
+- CMS'de, her sözlüğün bir `live` bayrağı vardır. Yalnızca `live=true` olan sözlükler live sync API'si aracılığıyla alınır; diğerleri dinamik olarak içe aktarılır ve çalışma zamanında değişmeden kalır.
+- `live` bayrağı her sözlük için derleme zamanında değerlendirilir. Uzaktaki içerik derleme sırasında `live=true` olarak işaretlenmemişse, o sözlük için Live Sync'i etkinleştirmek üzere yeniden derleme yapmanız gerekir.
+- Live sync sunucusunun `.intlayer` dosyasına yazabilmesi gerekir. Konteynerlerde, `/.intlayer` dosyasına yazma erişiminin olduğundan emin olun.
 
 ## Hata Ayıklama
 
 CMS ile ilgili herhangi bir sorunla karşılaşırsanız, aşağıdakileri kontrol edin:
 
-- Uygulama çalışıyor.
+- Uygulamanın çalıştığından emin olun.
 
-- [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) konfigürasyonları Intlayer konfigürasyon dosyanızda doğru şekilde ayarlandı.
+- [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) yapılandırmasının Intlayer yapılandırma dosyanızda doğru şekilde ayarlandığından emin olun.
   - Gerekli alanlar:
-    - Uygulama URL'si düzenleyici konfigürasyonunda ayarladığınızla eşleşmelidir (`applicationURL`).
-    - CMS URL'si
+- Uygulama URL'si, editör yapılandırmasında (`applicationURL`) belirttiğinizle eşleşmelidir.
+- CMS URL'si
 
-- Proje konfigürasyonunun Intlayer CMS'ye gönderildiğinden emin olun.
+- Proje yapılandırmasının Intlayer CMS'ye gönderildiğinden emin olun.
 
-- Görsel düzenleyici web sitenizi görüntülemek için bir iframe kullanır. Web sitenizin İçerik Güvenlik Politikası'nın (CSP) CMS url'sini `frame-ancestors` olarak izin verdiğinden emin olun (varsayılan olarak 'https://intlayer.org'). Herhangi bir hata için düzenleyici konsolu kontrol edin.
+- Görsel editör, web sitenizi görüntülemek için bir iframe kullanır. Web sitenizin İçerik Güvenlik Politikası'nın (CSP), CMS URL'sine `frame-ancestors` olarak izin verdiğinden emin olun (varsayılan olarak 'https://intlayer.org'). Herhangi bir hata için editör konsolunu kontrol edin.
 
 ## Doküman Geçmişi
 
-| Sürüm  | Tarih      | Değişiklikler                               |
-| ------ | ---------- | ------------------------------------------- |
-| 5.9.0  | 2025-09-04 | `hotReload` alanını `liveSync` ile değiştir |
-| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı                           |
+| Sürüm  | Tarih      | Değişiklikler                                 |
+| ------ | ---------- | --------------------------------------------- |
+| 6.0.1  | 2025-09-22 | Canlı senkronizasyon dokümantasyonu eklendi   |
+| 6.0.0  | 2025-09-04 | `hotReload` alanı `liveSync` ile değiştirildi |
+| 5.5.10 | 2025-06-29 | Geçmiş başlatıldı                             |

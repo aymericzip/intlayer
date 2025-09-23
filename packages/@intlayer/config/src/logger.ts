@@ -50,12 +50,13 @@ export const logger: Logger = (
 export enum ANSIColors {
   RESET = '\x1b[0m',
   GREY = '\x1b[90m',
-  GREY_DARK = '\x1b[90m',
+  GREY_DARK = '\x1b[38;5;239m',
   BLUE = '\x1b[34m',
   RED = '\x1b[31m',
   GREEN = '\x1b[32m',
   YELLOW = '\x1b[33m',
   MAGENTA = '\x1b[35m',
+  BEIGE = '\x1b[38;5;3m',
   CYAN = '\x1b[36m',
   WHITE = '\x1b[37m',
 }
@@ -79,34 +80,43 @@ export const getAppLogger =
       },
     });
 
-export const colorize = (s: string, color?: ANSIColors): string =>
-  color ? `${color}${s}${ANSIColors.RESET}` : s;
+export const colorize = (
+  s: string,
+  color?: ANSIColors,
+  reset?: boolean | ANSIColors
+): string =>
+  color
+    ? `${color}${s}${reset ? (typeof reset === 'boolean' ? ANSIColors.RESET : reset) : ANSIColors.RESET}`
+    : s;
 
 export const colorizeLocales = (
   locales: Locales | Locales[],
-  color = ANSIColors.GREEN
+  color = ANSIColors.GREEN,
+  reset: boolean | ANSIColors = ANSIColors.RESET
 ) =>
   [locales]
     .flat()
-    .map((locale) => colorize(locale, color))
+    .map((locale) => colorize(locale, color, reset))
     .join(`, `);
 
 export const colorizeKey = (
   keyPath: string | string[],
-  color = ANSIColors.GREY
+  color = ANSIColors.BEIGE,
+  reset: boolean | ANSIColors = ANSIColors.RESET
 ) =>
   [keyPath]
     .flat()
-    .map((key) => colorize(key, color))
+    .map((key) => colorize(key, color, reset))
     .join(`, `);
 
 export const colorizePath = (
   path: string | string[],
-  color = ANSIColors.GREY
+  color = ANSIColors.GREY,
+  reset: boolean | ANSIColors = ANSIColors.RESET
 ) =>
   [path]
     .flat()
-    .map((p) => colorize(p, color))
+    .map((p) => colorize(p, color, reset))
     .join(`, `);
 
 /**
@@ -118,12 +128,12 @@ export const colorizePath = (
 export const colorizeNumber = (
   number: number,
   options: Partial<Record<Intl.LDMLPluralRule, ANSIColors>> = {
-    zero: ANSIColors.RESET,
-    one: ANSIColors.RESET,
-    two: ANSIColors.RESET,
-    few: ANSIColors.RESET,
-    many: ANSIColors.RESET,
-    other: ANSIColors.RESET,
+    zero: ANSIColors.BLUE,
+    one: ANSIColors.BLUE,
+    two: ANSIColors.BLUE,
+    few: ANSIColors.BLUE,
+    many: ANSIColors.BLUE,
+    other: ANSIColors.BLUE,
   }
 ): string => {
   if (number === 0) {
@@ -135,3 +145,72 @@ export const colorizeNumber = (
   const color = options[rule];
   return colorize(number.toString(), color);
 };
+
+const removeColor = (text: string) => text.replace(/\x1b\[[0-9;]*m/g, '');
+
+const getLength = (length: number | number[] | string | string[]): number => {
+  let value: number = 0;
+  if (typeof length === 'number') {
+    value = length;
+  }
+  if (typeof length === 'string') {
+    value = length.length;
+  }
+  if (Array.isArray(length) && length.every((l) => typeof l === 'string')) {
+    value = Math.max(...length.map((str) => str.length));
+  }
+  if (Array.isArray(length) && length.every((l) => typeof l === 'number')) {
+    value = Math.max(...length);
+  }
+  return Math.max(value, 0);
+};
+
+const defaultColonOptions = {
+  colSize: 0,
+  minSize: 0,
+  maxSize: Infinity,
+  pad: 'right',
+  padChar: '0',
+};
+
+/**
+ * Create a string of spaces of a given length.
+ *
+ * @param colSize - The length of the string to create.
+ * @returns A string of spaces.
+ */
+export const colon = (
+  text: string | string[],
+  options?: {
+    colSize?: number | number[] | string | string[];
+    minSize?: number;
+    maxSize?: number;
+    pad?: 'left' | 'right';
+    padChar?: string;
+  }
+): string =>
+  [text]
+    .flat()
+    .map((text) => {
+      const { colSize, minSize, maxSize, pad, padChar } = {
+        ...defaultColonOptions,
+        ...(options ?? {}),
+      };
+
+      const length = getLength(colSize);
+      const spacesLength = Math.max(
+        minSize!,
+        Math.min(maxSize!, length - removeColor(text).length)
+      );
+
+      if (pad === 'left') {
+        return `${' '.repeat(spacesLength)}${text}`;
+      }
+
+      return `${text}${' '.repeat(spacesLength)}`;
+    })
+    .join('');
+
+export const x = colorize('✗', ANSIColors.RED);
+export const v = colorize('✓', ANSIColors.GREEN);
+export const clock = colorize('⏲', ANSIColors.BLUE);

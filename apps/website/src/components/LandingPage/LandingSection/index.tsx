@@ -17,11 +17,12 @@ import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { TechLogos } from './TechLogos';
 
-const SHOW_WHATS_NEW = false;
+const SHOW_WHATS_NEW = true;
 
 export const LandingSection: FC = () => {
   const {
     whatsNew,
+    whatsNewLabel,
     version,
     title,
     subheading,
@@ -35,7 +36,7 @@ export const LandingSection: FC = () => {
     <section className="relative flex flex-col min-h-[calc(100vh-64px)] w-full px-4 md:px-8 lg:px-12">
       <div className="flex flex-col flex-1 items-center justify-center text-center">
         {/* Centered Content */}
-        <div className="w-full max-w-4xl mx-auto mb-8 lg:mb-0">
+        <div className="w-full max-w-4xl mx-auto mb-8 mt-16 lg:mb-0">
           {/* What's New Tag */}
           {SHOW_WHATS_NEW && (
             <motion.div
@@ -53,9 +54,9 @@ export const LandingSection: FC = () => {
                 {whatsNew}
               </Tag>
               <Link
-                href={PagesRoutes.Changelog}
-                color="custom"
-                label="What's new"
+                href={PagesRoutes.ReleasesV6}
+                color={LinkColor.NEUTRAL}
+                label={whatsNewLabel.value}
               >
                 <span className="flex items-center gap-1 text-sm sm:text-lg font-semibold text-neutral-500 dark:text-neutral-400">
                   {version} v{packageJSON.version}{' '}

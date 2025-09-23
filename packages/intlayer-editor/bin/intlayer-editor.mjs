@@ -30,11 +30,20 @@ if (envIndex !== -1 && args[envIndex + 1]) {
 const envFileIndex = args.findIndex(
   (arg) => arg === '---env-file' || arg === '--env-file' || arg === '-f'
 );
+if (envFileIndex !== -1 && args[envFileIndex + 1]) {
+  envFile = args[envFileIndex + 1];
+}
 
 if (args[0] === 'start') {
   // Start the server pointing to the package's 'dist' directory
-  const command = `NODE_ENV=${env} ${envFileIndex !== -1 ? `ENV_FILE=${envFile}` : ''} node ${distPath}`;
-  const child = exec(command);
+  const command = `node ${distPath}`;
+  const child = exec(command, {
+    env: {
+      ...process.env,
+      NODE_ENV: env,
+      ...(envFileIndex !== -1 ? { ENV_FILE: envFile } : {}),
+    },
+  });
 
   // Pipe child's stdout and stderr to the parent process
   child.stdout.on('data', (data) => {

@@ -1,14 +1,16 @@
 // @ts-ignore @intlayer/backend is not build yet
 import {
   ANSIColors,
+  colon,
   colorize,
+  colorizeKey,
   ESMxCJSRequire,
   getAppLogger,
   getConfiguration,
   type IntlayerConfig,
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { relative } from 'node:path';
+import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { loadContentDeclarations } from './loadContentDeclaration';
 import { loadRemoteDictionaries } from './loadRemoteDictionaries';
 import { DictionariesLogger } from './log';
@@ -99,6 +101,18 @@ const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
 
   const keys = Array.from(byKey.keys()).sort((a, b) => a.localeCompare(b));
 
+  // Compute the max visible length of the local label to align distant labels
+  let maxLocalLabelLen = 0;
+  for (const key of keys) {
+    const rec = byKey.get(key)!;
+    if (rec.local) {
+      const visibleLocal = `[local: ${iconFor(rec.local)} ${rec.local}]`;
+      if (visibleLocal.length > maxLocalLabelLen) {
+        maxLocalLabelLen = visibleLocal.length;
+      }
+    }
+  }
+
   for (const key of keys) {
     const rec = byKey.get(key)!;
     const labels: string[] = [];
@@ -108,12 +122,19 @@ const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
         `${iconFor(rec.local)} ${rec.local}`,
         colorFor(rec.local)
       );
-      labels.push(
+      const coloredLocal =
         `${ANSIColors.GREY}[` +
-          colorize('local: ', ANSIColors.GREY) +
-          inner +
-          `${ANSIColors.GREY}]${ANSIColors.RESET}`
-      );
+        colorize('local: ', ANSIColors.GREY) +
+        inner +
+        `${ANSIColors.GREY}]${ANSIColors.RESET}`;
+
+      // Pad to align distant label across rows
+      const visibleLocal = `[local: ${iconFor(rec.local)} ${rec.local}]`;
+      const pad = Math.max(0, maxLocalLabelLen - visibleLocal.length);
+      labels.push(coloredLocal + ' '.repeat(pad));
+    } else {
+      // If no local label, insert spaces to keep distant aligned
+      labels.push(' '.repeat(maxLocalLabelLen));
     }
 
     if (rec.remote) {
@@ -129,8 +150,9 @@ const printSummary = (configuration: IntlayerConfig = getConfiguration()) => {
       );
     }
 
-    const paddedKey = key.padEnd(35, ' ');
-    appLogger(` - ${paddedKey} ${labels.join(' ')}`);
+    appLogger(
+      ` - ${colon(colorizeKey(key), { colSize: keys })} ${labels.join(' ')}`
+    );
   }
 };
 
@@ -141,7 +163,12 @@ export const loadDictionaries = async (
 ): Promise<{
   localDictionaries: Dictionary[];
   remoteDictionaries: Dictionary[];
+  time: {
+    localDictionaries: number;
+    remoteDictionaries: number;
+  };
 }> => {
+  const loadDictionariesStartTime = Date.now();
   const appLogger = getAppLogger(configuration);
 
   appLogger('Dictionaries:', { isVerbose: true });
@@ -157,28 +184,10 @@ export const loadDictionaries = async (
     setLoadDictionariesStatus
   );
 
-  const filteredLocalDictionaries = localDictionaries.filter((dict) => {
-    const hasKey = Boolean(dict.key);
-    const hasContent = Boolean(dict.content);
+  const localDictionariesTime = Date.now();
 
-    if (!hasContent) {
-      appLogger(
-        [
-          'Content declaration has no exported content',
-          dict.filePath
-            ? relative(configuration.content.baseDir, dict.filePath)
-            : '',
-        ],
-        { level: 'error' }
-      );
-    } else if (!hasKey) {
-      appLogger(['Content declaration has no key', dict.filePath], {
-        level: 'error',
-      });
-    }
-
-    return hasKey && hasContent;
-  });
+  const filteredLocalDictionaries =
+    filterInvalidDictionaries(localDictionaries);
 
   const localDictionariesStatus = filteredLocalDictionaries.map(
     (dict) =>
@@ -195,13 +204,24 @@ export const loadDictionaries = async (
     configuration.editor.clientId && configuration.editor.clientSecret
   );
 
+  if (hasRemoteDictionaries) {
+    // We expect to fetch remote dictionaries soon; suppress a transient local-only render
+    logger.setExpectRemote(true);
+  }
+
   let remoteDictionaries: Dictionary[] = [];
   if (hasRemoteDictionaries) {
     remoteDictionaries = await loadRemoteDictionaries(
       configuration,
-      setLoadDictionariesStatus
+      setLoadDictionariesStatus,
+      {
+        onStartRemoteCheck: () => logger.startRemoteCheck(),
+        onStopRemoteCheck: () => logger.stopRemoteCheck(),
+        onError: (e) => logger.setRemoteError(e),
+      }
     );
   }
+  const remoteDictionariesTime = Date.now();
 
   // Stop spinner and show final progress line(s)
   logger.finish();
@@ -211,5 +231,9 @@ export const loadDictionaries = async (
   return {
     localDictionaries: filteredLocalDictionaries,
     remoteDictionaries,
+    time: {
+      localDictionaries: localDictionariesTime - loadDictionariesStartTime,
+      remoteDictionaries: remoteDictionariesTime - localDictionariesTime,
+    },
   };
 };

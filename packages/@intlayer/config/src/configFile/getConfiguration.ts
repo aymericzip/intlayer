@@ -1,6 +1,5 @@
 import merge from 'deepmerge';
 import { relative } from 'path';
-import type { LoadEnvFileOptions } from '../envVariables/loadEnvFile';
 import { logger } from '../logger';
 import type { CustomIntlayerConfig, IntlayerConfig } from '../types/config';
 import { buildConfigurationFields } from './buildConfigurationFields';
@@ -14,7 +13,9 @@ let storedNumCustomConfiguration: number | undefined;
 export type GetConfigurationOptions = {
   baseDir?: string;
   override?: CustomIntlayerConfig;
-} & LoadEnvFileOptions;
+  env?: string;
+  envFile?: string;
+};
 
 const BASE_DIR_PATH = process.cwd();
 

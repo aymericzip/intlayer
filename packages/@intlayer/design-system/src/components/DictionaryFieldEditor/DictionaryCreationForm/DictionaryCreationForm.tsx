@@ -22,7 +22,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
   const { session } = useAuth();
   const { project } = session ?? {};
   const { mutate: addDictionary, isPending } = useAddDictionary();
-  const { data: projects } = useGetProjects();
+  const { data: projectsData } = useGetProjects();
   const DictionarySchema = useDictionarySchema(String(project?.id));
   const { form, isSubmitting } = useForm(DictionarySchema);
   const { keyInput, createDictionaryButton, projectInput } =
@@ -56,7 +56,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
       <Form.MultiSelect name="projectIds" label={projectInput.label.value}>
         <MultiSelect.Trigger
           getBadgeValue={(value) =>
-            projects?.data?.find((project) => String(project.id) === value)
+            projectsData?.data?.find((project) => String(project.id) === value)
               ?.name ?? value
           }
         >
@@ -64,7 +64,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
         </MultiSelect.Trigger>
         <MultiSelect.Content>
           <MultiSelect.List>
-            {projects?.data?.map((project) => (
+            {projectsData?.data?.map((project) => (
               <MultiSelect.Item
                 key={String(project.id)}
                 value={String(project.id)}

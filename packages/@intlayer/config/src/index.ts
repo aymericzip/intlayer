@@ -3,17 +3,13 @@ export {
   getConfiguration,
   type GetConfigurationOptions,
 } from './configFile/getConfiguration';
-export {
-  formatEnvVariable,
-  getConfiguration as getClientConfiguration,
-  getEnvFilePath,
-  getPlatform,
-  loadEnvFile,
-} from './envVariables/index';
 export { getSandBoxContext } from './getSandboxContext';
+export { getEnvFilePath, loadEnvFile } from './loadEnvFile';
 export { loadExternalFile } from './loadExternalFile';
 export {
   ANSIColors,
+  clock,
+  colon,
   colorize,
   colorizeKey,
   colorizeLocales,
@@ -22,6 +18,8 @@ export {
   getAppLogger,
   logger,
   spinnerFrames,
+  v,
+  x,
   type Logger,
 } from './logger';
 export { retryManager } from './retryManager';
@@ -41,5 +39,7 @@ export type {
 } from './types/config';
 export { Locales } from './types/locales';
 export type { LocalesValues } from './types/locales';
+export { clearModuleCache } from './utils/clearModuleCache';
 export { ESMxCJSRequire, isESModule } from './utils/ESMxCJSHelpers';
+export { getExtension } from './utils/getExtension';
 export { normalizePath } from './utils/normalizePath';

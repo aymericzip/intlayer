@@ -1,5 +1,3 @@
-import type { DictionaryOutput } from '../types/config';
-
 export const FILE_EXTENSIONS = [
   '.content.ts',
   '.content.js',
@@ -39,8 +37,6 @@ export const FETCH_DICTIONARIES_DIR = '.intlayer/fetch_dictionary';
 export const TYPES_DIR = '.intlayer/types';
 
 export const MODULE_AUGMENTATION_DIR = '.intlayer/types';
-
-export const DICTIONARY_OUTPUT: DictionaryOutput[] = ['intlayer'];
 
 export const I18NEXT_DICTIONARIES_DIR = 'i18next_resources';
 

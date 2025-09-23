@@ -53,15 +53,15 @@ Eklentileri vite yapılandırmanıza nasıl dahil edeceğinize dair bir örnek g
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayerPlugin, intlayerMiddlewarePlugin } from "vite-intlayer";
+import { intlayer, intlayerMiddlewarePlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayerPlugin(), intlayerMiddlewarePlugin()],
+  plugins: [intlayer(), intlayerMiddlewarePlugin()],
 });
 ```
 
-> `intlayerPlugin()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda onları izler. Vite uygulamasında Intlayer ortam değişkenlerini tanımlar. Ek olarak, performansı optimize etmek için takma adlar sağlar.
+> `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda onları izler. Vite uygulamasında Intlayer ortam değişkenlerini tanımlar. Ek olarak, performansı optimize etmek için takma adlar sağlar.
 
 > `intlayerMiddlewarePlugin()` uygulamanıza sunucu tarafı yönlendirme ekler. Bu eklenti, URL'ye göre mevcut yerel ayarı otomatik olarak algılayacak ve uygun yerel ayar çerezini ayarlayacaktır. Yerel ayar belirtilmezse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirleyecektir. Yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirecektir.
 

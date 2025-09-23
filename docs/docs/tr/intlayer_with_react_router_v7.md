@@ -144,20 +144,20 @@ Intlayer eklentisini yapılandırmanıza ekleyin:
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import { intlayerMiddlewarePlugin, intlayerPlugin } from "vite-intlayer";
+import { intlayerMiddlewarePlugin, intlayer } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     reactRouter(),
     tsconfigPaths(),
-    intlayerPlugin(),
+    intlayer(),
     intlayerMiddlewarePlugin(),
   ],
 });
 ```
 
-> `intlayerPlugin()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performansı optimize etmek için takma adlar sağlar.
+> `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performansı optimize etmek için takma adlar sağlar.
 
 ### Adım 5: Düzen Bileşenleri Oluşturma
 

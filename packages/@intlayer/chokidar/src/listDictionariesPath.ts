@@ -3,7 +3,7 @@ import fg from 'fast-glob';
 
 export const listDictionaries = (
   configuration: IntlayerConfig = getConfiguration()
-) => {
+): string[] => {
   const files: string[] = fg.sync(
     configuration.content.watchedFilesPatternWithPath,
     {

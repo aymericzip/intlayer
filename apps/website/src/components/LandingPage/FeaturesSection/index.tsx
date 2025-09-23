@@ -43,7 +43,11 @@ const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.p
+
     className="text-neutral bg-background flex size-full items-center justify-center px-4 sm:px-8 md:px-16 text-xs sm:text-sm md:text-base leading-relaxed text-center"
+
+    className="text-neutral flex size-full items-center justify-center px-16 text-sm md:pr-0 lg:pr-16"
+
     initial={{ x: '-100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '-100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut', delay: isActive ? 0.5 : 0 }}

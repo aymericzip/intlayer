@@ -1,9 +1,5 @@
-import {
-  getLocalizedUrl,
-  getMarkdownMetadata,
-  Locales,
-  LocalesValues,
-} from 'intlayer';
+import { Locales, LocalesValues } from '@intlayer/config';
+import { getLocalizedUrl, getMarkdownMetadata } from '@intlayer/core';
 import { join } from 'path';
 
 export const defaultLocale = Locales.ENGLISH;

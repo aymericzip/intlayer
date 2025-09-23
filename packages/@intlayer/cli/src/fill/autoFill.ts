@@ -1,10 +1,11 @@
 import {
+  formatLocale,
+  formatPath,
   reduceDictionaryContent,
   writeContentDeclaration,
 } from '@intlayer/chokidar';
 import {
   colorizeKey,
-  colorizePath,
   getAppLogger,
   type IntlayerConfig,
   Locales,
@@ -16,9 +17,7 @@ import {
   getFilteredLocalesContent,
   getLocalisedContent,
 } from '@intlayer/core';
-import { relative } from 'path';
 import { AutoFillData, formatAutoFillData } from './formatAutoFillData';
-import { formatLocaleName } from './index';
 
 export const autoFill = async (
   fullDictionary: Dictionary,
@@ -28,7 +27,11 @@ export const autoFill = async (
   parentLocales: Locales[],
   configuration: IntlayerConfig
 ) => {
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger(configuration, {
+    config: {
+      prefix: '',
+    },
+  });
   let localeList: Locales[] = (
     outputLocales ?? configuration.internationalization.locales
   ).filter((locale) => !parentLocales?.includes(locale));
@@ -76,7 +79,7 @@ export const autoFill = async (
 
       if (output.filePath) {
         appLogger(
-          `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${colorizePath(relative(configuration.content.baseDir, output.filePath))} for locale ${formatLocaleName(sourceLocale)}`,
+          `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)} for locale ${formatLocale(sourceLocale)}`,
           {
             level: 'info',
           }
@@ -100,7 +103,7 @@ export const autoFill = async (
 
       if (output.filePath) {
         appLogger(
-          `Auto filled content declaration for '${colorizeKey(fullDictionary.key)}' written to ${colorizePath(relative(configuration.content.baseDir, output.filePath))}`,
+          `Auto filled content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)}`,
           {
             level: 'info',
           }

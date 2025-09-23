@@ -6,7 +6,12 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
-import { ESMxCJSRequire, getConfiguration } from '@intlayer/config';
+import {
+  ESMxCJSRequire,
+  getConfiguration,
+  getExtension,
+  type IntlayerConfig,
+} from '@intlayer/config';
 import { existsSync } from 'fs';
 import {
   Dictionary,
@@ -48,10 +53,17 @@ const clearModuleCache = (modulePath: string, visited = new Set<string>()) => {
   }
 };
 
-export const getDynamicDictionaries = () => {
-  const { content } = getConfiguration();
+export const getDynamicDictionaries = (
+  configuration: IntlayerConfig = getConfiguration()
+) => {
+  const { content } = configuration;
 
-  const dictionariesPath = join(content.mainDir, 'fetch_dictionaries.cjs');
+  const extension = getExtension(configuration);
+
+  const dictionariesPath = join(
+    content.mainDir,
+    `fetch_dictionaries.${extension}`
+  );
   let dictionaries: Record<
     IntlayerDictionaryTypesConnector['key'],
     LanguageContent<Dictionary>

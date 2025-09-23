@@ -26,6 +26,7 @@ import { dirname } from 'path';
 export const runOnce = async (
   sentinelFilePath: string,
   callback: () => void | Promise<void>,
+  onIsCached?: () => void | Promise<void>,
   cacheTimeoutMs: number = 60 * 1000 // 1 minute in milliseconds
 ) => {
   const currentTimestamp = Date.now();
@@ -41,6 +42,7 @@ export const runOnce = async (
       await unlink(sentinelFilePath);
       // Fall through to create new sentinel and rebuild
     } else {
+      await onIsCached?.();
       // Sentinel is recent, no need to rebuild
       return;
     }

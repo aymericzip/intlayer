@@ -1,14 +1,14 @@
+import { formatLocale, formatPath } from '@intlayer/chokidar';
 import {
   ANSIColors,
+  colon,
   colorize,
-  colorizeLocales,
+  colorizeKey,
   colorizeNumber,
-  colorizePath,
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
 } from '@intlayer/config';
-import { relative } from 'path';
 import { listMissingTranslations } from './listMissingTranslations';
 
 export { listMissingTranslations };
@@ -28,65 +28,61 @@ export const testMissingTranslations = (
       prefix: '',
     },
   });
-  const baseDir = config.content.baseDir;
 
-  const missingTranslations = listMissingTranslations();
+  const result = listMissingTranslations(undefined, options?.configOptions);
 
-  const rows = missingTranslations.map((translation) => {
-    const localesRaw = translation.locales.join(', ');
-    const localesColored = colorizeLocales(translation.locales, ANSIColors.RED);
-    const path = colorizePath(
-      relative(baseDir, translation.filePath ?? 'Remote')
-    );
-    return { key: translation.key, localesRaw, localesColored, path };
-  });
+  const maxKeyColSize = result.missingTranslations
+    .map((t) => ` - ${t.key}`)
+    .reduce((max, t) => Math.max(max, t.length), 0);
+  const maxLocalesColSize = result.missingTranslations
+    .map((t) => formatLocale(t.locales, false))
+    .reduce((max, t) => Math.max(max, t.length), 0);
 
-  const keyColWidth = rows.reduce((max, r) => Math.max(max, r.key.length), 0);
-  const localesColWidth = rows.reduce(
-    (max, r) => Math.max(max, r.localesRaw.length),
-    0
+  const formattedMissingTranslations = result.missingTranslations.map(
+    (translation) =>
+      [
+        colon(` - ${colorizeKey(translation.key)}`, {
+          colSize: maxKeyColSize,
+          maxSize: 40,
+        }),
+        ' - ',
+        colon(formatLocale(translation.locales, ANSIColors.RED), {
+          colSize: maxLocalesColSize,
+          maxSize: 40,
+        }),
+        ' - ',
+        translation.filePath ? formatPath(translation.filePath) : 'Remote',
+      ].join('')
   );
 
-  const formattedMissingTranslations = rows.map((r) => {
-    const keyPadded = r.key.padEnd(keyColWidth, ' ');
-    const localesPadding = ' '.repeat(localesColWidth - r.localesRaw.length);
-    return ` - ${keyPadded} - ${r.localesColored}${localesPadding} - ${r.path}`;
+  appLogger(`Missing translations:`, {
+    level: 'info',
   });
 
-  appLogger(
-    `Missing translations:\n${formattedMissingTranslations.join('\n')}`,
-    {
+  formattedMissingTranslations.forEach((t) => {
+    appLogger(t, {
       level: 'info',
-    }
-  );
+    });
+  });
 
-  const missingLocalesSet = new Set(
-    missingTranslations.flatMap((t) => t.locales)
-  );
-  const missingLocales = Array.from(missingLocalesSet);
-
-  appLogger(`Locales: ${colorizeLocales(locales)}`);
-  appLogger(`Required locales: ${colorizeLocales(requiredLocales ?? locales)}`);
+  appLogger(`Locales: ${formatLocale(locales)}`);
+  appLogger(`Required locales: ${formatLocale(requiredLocales ?? locales)}`);
   appLogger(
-    `Missing locales: ${missingLocales.length === 0 ? colorize('-', ANSIColors.GREEN) : colorizeLocales(missingLocales, ANSIColors.RED)}`
-  );
-
-  const missingRequiredLocales = missingLocales.filter((locale) =>
-    (requiredLocales ?? locales).includes(locale)
+    `Missing locales: ${result.missingLocales.length === 0 ? colorize('-', ANSIColors.GREEN) : formatLocale(result.missingLocales, ANSIColors.RED)}`
   );
 
   appLogger(
-    `Missing required locales: ${missingRequiredLocales.length === 0 ? colorize('-', ANSIColors.GREEN) : colorizeLocales(missingRequiredLocales, ANSIColors.RED)}`
+    `Missing required locales: ${result.missingRequiredLocales.length === 0 ? colorize('-', ANSIColors.GREEN) : formatLocale(result.missingRequiredLocales, ANSIColors.RED)}`
   );
   appLogger(
-    `Total missing locales: ${colorizeNumber(missingLocales.length, {
+    `Total missing locales: ${colorizeNumber(result.missingLocales.length, {
       other: ANSIColors.RED,
       zero: ANSIColors.GREEN,
     })}`
   );
   appLogger(
     `Total missing required locales: ${colorizeNumber(
-      missingRequiredLocales.length,
+      result.missingRequiredLocales.length,
       {
         other: ANSIColors.RED,
         zero: ANSIColors.GREEN,

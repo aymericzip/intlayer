@@ -177,7 +177,9 @@ export const Navbar: FC = () => {
               className="group-hover/github:fill-text-opposite mr-1"
             />
           </Link>
-          <ProfileDropDown />
+          <div className="-m-1.5">
+            <ProfileDropDown />
+          </div>
         </>
       }
     />

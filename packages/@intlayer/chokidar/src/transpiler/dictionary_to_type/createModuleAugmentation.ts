@@ -1,9 +1,10 @@
 import { Locales, getConfiguration, normalizePath } from '@intlayer/config';
 import fg from 'fast-glob';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { mkdir } from 'fs/promises';
 import { basename, extname, join, relative } from 'path';
 import { getFileHash } from '../../utils/getFileHash';
 import { kebabCaseToCamelCase } from '../../utils/kebabCaseToCamelCase';
+import { writeFileIfChanged } from '../../writeFileIfChanged';
 
 export const getTypeName = (key: string): string =>
   `${kebabCaseToCamelCase(key)}Content`;
@@ -103,15 +104,13 @@ const generateTypeIndexContent = (
 /**
  * This function generates a index file merging all the types
  */
-export const createModuleAugmentation = (
+export const createModuleAugmentation = async (
   configuration = getConfiguration()
 ) => {
   const { moduleAugmentationDir, typesDir } = configuration.content;
 
   // Create main directory if it doesn't exist
-  if (!existsSync(moduleAugmentationDir)) {
-    mkdirSync(moduleAugmentationDir, { recursive: true });
-  }
+  await mkdir(moduleAugmentationDir, { recursive: true });
 
   const dictionariesTypesDefinitions: string[] = fg.sync(
     normalizePath(`${typesDir}/*.ts`),
@@ -119,8 +118,11 @@ export const createModuleAugmentation = (
       ignore: ['**/*.d.ts'],
     }
   );
-  // Create the dictionary list file
 
+  // Create the dictionary list file
   const tsContent = generateTypeIndexContent(dictionariesTypesDefinitions);
-  writeFileSync(join(moduleAugmentationDir, 'intlayer.d.ts'), tsContent);
+
+  const tsFilePath = join(moduleAugmentationDir, 'intlayer.d.ts');
+
+  await writeFileIfChanged(tsFilePath, tsContent);
 };

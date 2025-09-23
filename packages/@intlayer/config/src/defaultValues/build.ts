@@ -6,3 +6,5 @@ export const TRAVERSE_PATTERN = [
   '**/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx,vue,svelte,svte}',
   '!**/node_modules/**',
 ];
+
+export const OUTPUT_FORMAT: ('cjs' | 'esm')[] = ['cjs', 'esm'];

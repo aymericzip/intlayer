@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2025-09-20
 title: Automatisches Ausfüllen
-description: Erfahren Sie, wie Sie die Funktion zum automatischen Ausfüllen in Intlayer verwenden, um Inhalte basierend auf vordefinierten Mustern automatisch zu befüllen. Folgen Sie dieser Dokumentation, um Auto-Fill-Funktionen effizient in Ihrem Projekt zu implementieren.
+description: Erfahren Sie, wie Sie die Funktion zum automatischen Ausfüllen in Intlayer verwenden, um Inhalte basierend auf vordefinierten Mustern automatisch zu befüllen. Folgen Sie dieser Dokumentation, um Funktionen zum automatischen Ausfüllen effizient in Ihrem Projekt zu implementieren.
 keywords:
   - Automatisches Ausfüllen
   - Inhaltsautomatisierung
@@ -17,10 +17,11 @@ slugs:
   - auto-fill
 ---
 
-# Übersetzungen der Inhaltsdeklarationsdateien für automatisches Ausfüllen
+# Übersetzungen der Deklarationsdatei für automatisches Ausfüllen von Inhalten
 
-**Inhaltsdeklarationsdateien für automatisches Ausfüllen** sind eine Möglichkeit, Ihren Entwicklungsworkflow zu beschleunigen.
-Der Autofill-Mechanismus funktioniert durch eine _Master-Slave_-Beziehung zwischen Inhaltsdeklarationsdateien. Wenn die Hauptdatei (Master) aktualisiert wird, wendet Intlayer diese Änderungen automatisch auf die abgeleiteten (automatisch ausgefüllten) Deklarationsdateien an.
+**Deklarationsdateien für automatisches Ausfüllen von Inhalten** sind eine Möglichkeit, Ihren Entwicklungsworkflow zu beschleunigen.
+
+Der Mechanismus des automatischen Ausfüllens funktioniert durch eine _Master-Slave_-Beziehung zwischen Inhaltsdeklarationsdateien. Wenn die Hauptdatei (Master) aktualisiert wird, wendet Intlayer diese Änderungen automatisch auf die abgeleiteten (automatisch ausgefüllten) Deklarationsdateien an.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -30,7 +31,7 @@ const exampleContent = {
   locale: Locales.ENGLISH,
   autoFill: "./example.content.json",
   content: {
-    contentExample: "Dies ist ein Beispielinhalt",
+    contentExample: "Dies ist ein Beispielinhalt", // Beispielinhalt
   },
 } satisfies Dictionary;
 
@@ -62,11 +63,11 @@ Intlayer generiert automatisch die abgeleitete Deklarationsdatei unter `src/comp
 }
 ```
 
-Anschließend werden beide Deklarationsdateien zu einem einzigen Wörterbuch zusammengeführt, das über den standardmäßigen `useIntlayer("example")` Hook (React) / Composable (Vue) zugänglich ist.
+Anschließend werden beide Deklarationsdateien zu einem einzigen Wörterbuch zusammengeführt, das über den Standard-`useIntlayer("example")` Hook (React) / Composable (Vue) zugänglich ist.
 
-## Format der automatisch ausgefüllten Datei
+## Automatisch ausgefülltes Dateiformat
 
-Das empfohlene Format für automatisch ausgefüllte Deklarationsdateien ist **JSON**, da dies Formatierungsbeschränkungen vermeidet. Intlayer unterstützt jedoch auch `.ts`, `.js`, `.mjs`, `.cjs` und andere Formate.
+Das empfohlene Format für automatisch ausgefüllte Deklarationsdateien ist **JSON**, da es Formatierungsbeschränkungen vermeidet. Intlayer unterstützt jedoch auch `.ts`, `.js`, `.mjs`, `.cjs` und andere Formate.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -86,8 +87,8 @@ src/components/example/example.filled.content.ts
 
 > Die Generierung von `.js`, `.ts` und ähnlichen Dateien funktioniert wie folgt:
 >
-> - Wenn die Datei bereits existiert, analysiert Intlayer sie mit dem AST (Abstract Syntax Tree), um jedes Feld zu finden und fehlende Übersetzungen einzufügen.
-> - Wenn die Datei nicht existiert, wird Intlayer sie mit der Standardvorlage für die Inhaltsdeklarationsdatei generieren.
+> - Wenn die Datei bereits existiert, analysiert Intlayer sie mithilfe des AST (Abstract Syntax Tree), um jedes Feld zu finden und fehlende Übersetzungen einzufügen.
+> - Wenn die Datei nicht existiert, generiert Intlayer sie mit der Standardvorlage für Inhaltsdeklarationsdateien.
 
 ## Absolute Pfade
 
@@ -109,9 +110,9 @@ Dies erzeugt die Datei unter:
 /messages/example.content.json
 ```
 
-## Automatische Generierung von pro-Locale Inhaltsdeklarationsdateien
+## Automatische Generierung von Inhaltsdeklarationsdateien pro Locale
 
-Das Feld `autoFill` unterstützt auch die Generierung von **pro-Locale** Inhaltsdeklarationsdateien.
+Das Feld `autoFill` unterstützt auch die Generierung von **pro Locale** Inhaltsdeklarationsdateien.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -131,9 +132,11 @@ Dies erzeugt zwei separate Dateien:
 - `src/components/example/example.fr.content.json`
 - `src/components/example/example.es.content.json`
 
-## Autofill für bestimmte Locale filtern
+> In diesem Fall, wenn das Objekt nicht alle Sprachen enthält, überspringt Intlayer die Generierung der verbleibenden Sprachen.
 
-Die Verwendung eines Objekts für das Feld `autoFill` ermöglicht es Ihnen, Filter anzuwenden und nur bestimmte Locale-Dateien zu generieren.
+## Filter für bestimmte Sprach-Autofill
+
+Die Verwendung eines Objekts für das Feld `autoFill` ermöglicht es Ihnen, Filter anzuwenden und nur bestimmte Sprachdateien zu generieren.
 
 ```ts fileName="src/components/example/example.content.ts"
 const exampleContent = {
@@ -147,7 +150,7 @@ const exampleContent = {
 };
 ```
 
-Dies erzeugt nur die französische Übersetzungsdatei.
+Dies generiert nur die französische Übersetzungsdatei.
 
 ## Pfadvariablen
 
@@ -155,10 +158,11 @@ Sie können Variablen im `autoFill`-Pfad verwenden, um die Zielpfade für die ge
 
 **Verfügbare Variablen:**
 
-- `{{locale}}` – Gebietsschema-Code (z. B. `fr`, `es`)
+- `{{locale}}` – Sprachcode (z. B. `fr`, `es`)
+- `{{fileName}}` – Dateiname (z. B. `index`)
 - `{{key}}` – Wörterbuchschlüssel (z. B. `example`)
 
-```ts fileName="src/components/example/example.content.ts"
+```ts fileName="src/components/example/index.content.ts"
 const exampleContent = {
   key: "example",
   autoFill: "/messages/{{locale}}/{{key}}.content.json",
@@ -173,6 +177,25 @@ Dies erzeugt:
 - `/messages/fr/example.content.json`
 - `/messages/es/example.content.json`
 
+```ts fileName="src/components/example/index.content.ts"
+const exampleContent = {
+  key: "example",
+  autoFill: "./{{fileName}}.content.json",
+  content: {
+    // Ihr Inhalt
+  },
+};
+```
+
+Dies erzeugt:
+
+- `./index.content.json`
+- `./index.content.json`
+
 ## Dokumentationsverlauf
 
-- 5.5.10 - 2025-06-29: Initialer Verlauf
+| Version | Datum      | Änderungen                          |
+| ------- | ---------- | ----------------------------------- |
+| 6.0.0   | 2025-09-20 | Globale Konfiguration hinzugefügt   |
+| 6.0.0   | 2025-09-17 | Variable `{{fileName}}` hinzugefügt |
+| 5.5.10  | 2025-06-29 | Historie initialisiert              |
