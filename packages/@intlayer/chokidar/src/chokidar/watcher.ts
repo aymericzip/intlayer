@@ -136,11 +136,13 @@ export const handleContentDeclarationFileChange = async (
 type WatchOptions = ChokidarOptions & {
   configuration?: IntlayerConfig;
   configOptions?: GetConfigurationOptions;
+  skipPrepare?: boolean;
 };
 
 // Initialize chokidar watcher (non-persistent)
 export const watch = (options?: WatchOptions) => {
-  const configuration = options?.configuration ?? getConfiguration();
+  const configuration =
+    options?.configuration ?? getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(configuration);
 
   const { watch: isWatchMode, watchedFilesPatternWithPath } =
@@ -189,13 +191,19 @@ export const watch = (options?: WatchOptions) => {
 };
 
 export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
+  const { skipPrepare, ...rest } = options ?? {};
   const configuration =
     options?.configuration ?? getConfiguration(options?.configOptions);
 
-  await prepareIntlayer(configuration);
+  if (!options?.skipPrepare) {
+    await prepareIntlayer(configuration);
+  }
 
   if (configuration.content.watch || options.persistent) {
+    const appLogger = getAppLogger(configuration);
+
+    appLogger('Watching Intlayer content declarations');
     // Start watching (assuming watch is also async)
-    watch({ ...options, configuration });
+    watch({ ...rest, configuration });
   }
 };

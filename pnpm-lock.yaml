@@ -1619,6 +1619,9 @@ importers:
       chokidar:
         specifier: ^3.6.0
         version: 3.6.0
+      concurrently:
+        specifier: ^9.1.2
+        version: 9.2.1
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
@@ -1677,9 +1680,6 @@ importers:
       '@utils/tsup-config':
         specifier: workspace:*
         version: link:../../../utils/tsup-config
-      concurrently:
-        specifier: ^9.1.2
-        version: 9.2.1
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.5.1)
@@ -1757,7 +1757,7 @@ importers:
         specifier: workspace:*
         version: link:../../../utils/tsup-config
       concurrently:
-        specifier: ^9.1.2
+        specifier: ^9.2.1
         version: 9.2.1
       eslint:
         specifier: ^9.34.0

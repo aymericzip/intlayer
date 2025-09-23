@@ -1,15 +1,11 @@
+import { runParallel, watch as watchIntlayer } from '@intlayer/chokidar';
 import {
-  buildAndWatchIntlayer,
-  runParallel,
-  type ParallelHandle,
-} from '@intlayer/chokidar';
-import {
+  getAppLogger,
   getConfiguration,
   type GetConfigurationOptions,
 } from '@intlayer/config';
 
-type BuildOptions = {
-  watch?: boolean;
+type WatchOptions = {
   skipPrepare?: boolean;
   with?: string | string[];
   configOptions?: GetConfigurationOptions;
@@ -19,21 +15,17 @@ type BuildOptions = {
  * Get locales dictionaries .content.{json|ts|tsx|js|jsx|mjs|cjs} and build the JSON dictionaries in the .intlayer directory.
  * Watch mode available to get the change in the .content.{json|ts|tsx|js|jsx|mjs|cjs}
  */
-export const build = async (options?: BuildOptions) => {
+export const watch = async (options?: WatchOptions) => {
   const config = getConfiguration(options?.configOptions);
-  let parallelProcess: ParallelHandle | null = null;
+  const appLogger = getAppLogger(config);
 
   if (options?.with) {
-    parallelProcess = runParallel(options.with);
+    runParallel(options.with);
   }
 
-  await buildAndWatchIntlayer({
-    persistent: options?.watch ?? false,
+  appLogger('Watching Intlayer content declarations');
+
+  await watchIntlayer({
     skipPrepare: options?.skipPrepare ?? false,
-    configuration: config,
   });
-
-  if (!options?.watch && parallelProcess) {
-    parallelProcess.kill();
-  }
 };

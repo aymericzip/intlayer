@@ -1,18 +1,21 @@
 import { IntlayerEventListener } from './IntlayerEventListener';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { buildDictionary } from '@intlayer/chokidar';
+import {
+  buildDictionary,
+  runParallel,
+  type ParallelHandle,
+} from '@intlayer/chokidar';
 import type { IntlayerConfig } from '@intlayer/config';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json';
 import { getLocalisedContent } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
-import { ChildProcess, spawn } from 'child_process';
 import { createServer } from 'http';
 
 type LiveSyncOptions = {
-  process?: string;
+  with?: string | string[];
 };
 
 const writeDictionary = async (
@@ -34,33 +37,14 @@ export const liveSync = async (options?: LiveSyncOptions) => {
 
   const { liveSyncPort, liveSyncURL } = configuration.editor;
 
-  let childProcess: ChildProcess | null = null;
+  let parallelProcess: ParallelHandle | null = null;
   let eventListener: IntlayerEventListener | null = null;
   let isHotReloadConnected = false;
   let connectionStatus = 'disconnected'; // 'connected', 'connecting', 'reconnecting', 'disconnected', 'error'
 
   // Start the parallel process if provided
-  if (options?.process) {
-    const [command, ...args] = options.process.split(' ');
-
-    childProcess = spawn(command, args, {
-      stdio: 'inherit',
-      shell: true,
-    });
-
-    childProcess.on('error', (error) => {
-      appLogger(`Failed to start process '${options.process}':`, {
-        level: 'error',
-      });
-    });
-
-    childProcess.on('exit', (code) => {
-      if (code !== 0) {
-        appLogger(`Process "${options.process}" exited with code ${code}`);
-      } else {
-        appLogger(`Process "${options.process}" exited successfully`);
-      }
-    });
+  if (options?.with) {
+    parallelProcess = runParallel(options.with);
   }
 
   // Initialize the event listener for hot reload if configured
@@ -250,7 +234,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
       Live server running at:          \x1b[90m${liveSyncURL}\x1b[0m
       - Backend URL:                   \x1b[90m${configuration.editor.backendURL ?? '-'}\x1b[0m
       - Live sync:                     ${getLiveSyncParam()}
-      - Parallel process:              ${options?.process === '' ? '-' : `\x1b[90m${options?.process}\x1b[0m`}
+      - Parallel process:              ${options?.with ? `\x1b[90m${Array.isArray(options.with) ? options.with.join(' ') : options.with}\x1b[0m` : '-'}
       - Access key:                    ${configuration.editor.clientId ?? '-'}
       `);
   });
@@ -263,18 +247,8 @@ export const liveSync = async (options?: LiveSyncOptions) => {
       eventListener.cleanup();
     }
 
-    // Clean up child process
-    if (childProcess && !childProcess.killed) {
-      appLogger('Terminating parallel process...');
-      childProcess.kill('SIGTERM');
-
-      // Force kill after 5 seconds if process doesn't terminate gracefully
-      setTimeout(() => {
-        if (childProcess && !childProcess.killed) {
-          appLogger('Force killing parallel process...');
-          childProcess.kill('SIGKILL');
-        }
-      }, 5000);
+    if (parallelProcess) {
+      parallelProcess.kill();
     }
 
     server.close(() => {

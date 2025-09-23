@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-09-17
+updatedAt: 2025-09-23
 title: CLI
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -96,6 +96,35 @@ This command will find your declaration content files as default as `./src/**/*.
 - **`--env-file`**: Provide a custom environment file to load variables from. Useful in the case you use environment variables in your intlayer configuration file.
 
   > Example: `npx intlayer build --env-file .env.production.local`
+
+- **`--with`**: Start command in parallel with the build.
+
+  > Example: `npx intlayer build --with "next dev --turbopack"`
+
+- **`--skip-prepare`**: Skip the prepare step.
+
+  > Example: `npx intlayer build --skip-prepare`
+
+### Watch dictionaries
+
+```bash
+npx intlayer watch
+```
+
+This command will watch for changes in your content declaration files and build the dictionaries in the `.intlayer` directory.
+This command is the equivalent of `npx intlayer build --watch --skip-prepare`.
+
+##### Aliases:
+
+- `npx intlayer dictionaries watch`
+- `npx intlayer dictionary watch`
+- `npx intlayer dic watch`
+
+##### Arguments:
+
+- **`--with`**: Start command in parallel with the watch.
+
+  > Example: `npx intlayer watch --with "next dev --turbopack"`
 
 ### Push dictionaries
 
@@ -593,6 +622,18 @@ If you activated one of the git options, the command will only review the part o
 }
 ```
 
+### Editor commands
+
+The `editor` command rewrap the `intlayer-editor` commands.
+
+> To be able to use the `editor` command, the `intlayer-editor` package must be installed. (See [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md))
+
+```json fileName="package.json"
+"scripts": {
+  "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"
+}
+```
+
 ## CLI SDK
 
 The CLI SDK is a library that allows you to use the Intlayer CLI in your own code.
@@ -675,6 +716,8 @@ npx clear-npx-cache
 
 | Version | Date       | Changes                                     |
 | ------- | ---------- | ------------------------------------------- |
+| 6.0.3   | 2025-09-23 | Add watch command and with option           |
+| 6.0.1   | 2025-09-23 | Add editor command                          |
 | 6.0.0   | 2025-09-17 | Add content test and list command           |
 | 5.5.11  | 2025-07-11 | Update CLI command parameters documentation |
 | 5.5.10  | 2025-06-29 | Init history                                |

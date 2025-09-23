@@ -40,6 +40,7 @@ export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
 export { parallelize } from './utils/parallelize';
 export { resolveObjectPromises } from './utils/resolveObjectPromises';
 export { runOnce } from './utils/runOnce';
+export { runParallel, type ParallelHandle } from './utils/runParallel';
 export { sortAlphabetically } from './utils/sortAlphabetically';
 export {
   writeContentDeclaration,

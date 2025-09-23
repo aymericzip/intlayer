@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-09-22
+updatedAt: 2025-09-23
 title: Intlayer Visual Editor | Edit your content using a visual editor
 description: Discover how to use the Intlayer Editor to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -74,6 +74,16 @@ yarn add intlayer-editor --save-dev
 
 ```bash packageManager="pnpm"
 pnpm add intlayer-editor --save-dev
+```
+
+With the `--with` flag, you can start the editor in parallel with another command:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    "start:editor": "npx intlayer-editor start --with 'next dev --turbopack'",
+  },
+}
 ```
 
 ## Configuration
@@ -268,6 +278,7 @@ If you encounter any issues with the visual editor, check the following:
 
 | Version | Date       | Changes                                                              |
 | ------- | ---------- | -------------------------------------------------------------------- |
+| 6.0.3   | 2025-09-23 | Add with option on CLI                                               |
 | 6.0.1   | 2025-09-22 | Change behavior of the editor when the file extension is not `.json` |
 | 6.0.0   | 2025-09-21 | Add reexported command                                               |
 | 5.5.10  | 2025-06-29 | Init history                                                         |

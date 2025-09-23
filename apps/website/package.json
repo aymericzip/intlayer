@@ -37,8 +37,7 @@
   "scripts": {
     "build": "next build --turbopack",
     "build:webpack": "next build",
-    "dev": "concurrently --raw \"next dev --turbopack\" \"intlayer build --watch\"",
-    "dev:all": "concurrently --raw \"npm run start:editor\" \"npm run dev\"",
+    "dev": "intlayer watch --with 'next dev --turbopack'",
     "dev:webpack": "next dev",
     "editor": "intlayer-editor start",
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
@@ -50,7 +49,7 @@
     "serve": "npx intlayer serve",
     "start": "next start",
     "start:docker": "docker run --rm -p 3000:3000 --name intlayer-website-app intlayer-website",
-    "start:editor": "npx intlayer-editor start",
+    "start:editor": "npx intlayer-editor start --with 'next dev --turbopack'",
     "test": "vitest run",
     "transpile": "npx intlayer dictionaries build",
     "watch": "npx intlayer dictionaries build --watch"

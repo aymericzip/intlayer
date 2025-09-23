@@ -21,6 +21,7 @@ import { reviewDoc } from './reviewDoc';
 import { testMissingTranslations } from './test';
 import { translateDoc } from './translateDoc';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
+import { watch } from './watch';
 
 // Extended AI options to include customPrompt
 type AIOptions = BaseAIOptions & {
@@ -236,7 +237,11 @@ export const setAPI = (): Command => {
   // Dictionary build command
   const buildOptions = {
     description: 'Build the dictionaries',
-    options: [['-w, --watch', 'Watch for changes']],
+    options: [
+      ['-w, --watch', 'Watch for changes'],
+      ['--skip-prepare', 'Skip the prepare step'],
+      ['--with [with...]', 'Start command in parallel with the build'],
+    ],
   };
 
   // Add build command to dictionaries program
@@ -262,6 +267,39 @@ export const setAPI = (): Command => {
   applyConfigOptions(rootBuildCmd);
   rootBuildCmd.action((options) => {
     build({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
+
+  const watchOptions = {
+    description: 'Watch the dictionaries changes',
+    options: [['--with [with...]', 'Start command in parallel with the build']],
+  };
+
+  // Add build command to dictionaries program
+  const dictionariesWatchCmd = dictionariesProgram
+    .command('watch')
+    .description(buildOptions.description);
+
+  applyOptions(dictionariesWatchCmd, watchOptions.options);
+  applyConfigOptions(dictionariesWatchCmd);
+  dictionariesWatchCmd.action((options) => {
+    watch({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
+
+  // Add build command to root program as well
+  const rootWatchCmd = program
+    .command('watch')
+    .description(buildOptions.description);
+
+  applyOptions(rootWatchCmd, watchOptions.options);
+  applyConfigOptions(rootWatchCmd);
+  rootWatchCmd.action((options) => {
+    watch({
       ...options,
       configOptions: extractConfigOptions(options),
     });
@@ -563,7 +601,7 @@ export const setAPI = (): Command => {
    */
 
   const liveOptions = [
-    ['--process [process]', 'Start command in parallel with the live sync'],
+    ['--with [with...]', 'Start command in parallel with the live sync'],
   ];
 
   const liveCmd = program

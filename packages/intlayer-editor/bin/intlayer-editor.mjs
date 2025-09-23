@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // bin/intlayer-editor.mjs
 
+import { runParallel, type ParallelHandle } from '@intlayer/chokidar';
 import { exec } from 'child_process';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -17,10 +18,12 @@ const args = process.argv.slice(2);
 
 let env = 'production'; // Default environment
 let envFile = ''; // Default to no env file
+let withCommand;
+let parallelProcess: ParallelHandle | null = null;
 
 // Check for --env or -e flag
 const envIndex = args.findIndex(
-  (arg) => arg === '---environment' || arg === '--env' || arg === '-e'
+  (arg) => arg === '---environment' ?? arg === '--env' ?? arg === '-e'
 );
 if (envIndex !== -1 && args[envIndex + 1]) {
   env = args[envIndex + 1]; // Get the next argument as the environment
@@ -28,10 +31,20 @@ if (envIndex !== -1 && args[envIndex + 1]) {
 
 // Check for --env-file or -f flag
 const envFileIndex = args.findIndex(
-  (arg) => arg === '---env-file' || arg === '--env-file' || arg === '-f'
+  (arg) => arg === '---env-file' ?? arg === '--env-file' ?? arg === '-f'
 );
 if (envFileIndex !== -1 && args[envFileIndex + 1]) {
   envFile = args[envFileIndex + 1];
+}
+
+// Check for --with flag
+const withIndex = args.findIndex((arg) => arg === '--with');
+if (withIndex !== -1 && args[withIndex + 1]) {
+  withCommand = args[withIndex + 1];
+}
+
+if (withCommand) {
+  runParallel(withCommand);
 }
 
 if (args[0] === 'start') {
@@ -55,6 +68,9 @@ if (args[0] === 'start') {
   });
 
   child.on('error', (error) => {
+    if (parallelProcess) {
+      parallelProcess.kill();
+    }
     console.error(`Error starting the editor: ${error.message}`);
     process.exit(1);
   });
@@ -64,6 +80,10 @@ if (args[0] === 'start') {
       code === 255 // EADDRINUSE error when the port is already in use
     )
       return;
+
+    if (parallelProcess) {
+      parallelProcess.kill();
+    }
 
     console.info(`Child process exited with code ${code}`);
   });

@@ -1471,26 +1471,14 @@ yarn add @intlayer/swc --save-dev
 
 When using Turbopack as your development server with the `next dev --turbopack` command, dictionary changes will not be automatically detected by default.
 
-This limitation occurs because Turbopack cannot run webpack plugins in parallel to monitor changes in your content files. To work around this, you'll need to use the `concurrently` package to run both the development server and the Intlayer build watcher simultaneously.
-
-```bash packageManager="npm"
-npm install concurrently --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add concurrently --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add concurrently --save-dev
-```
+This limitation occurs because Turbopack cannot run webpack plugins in parallel to monitor changes in your content files. To work around this, you'll need to use the `intlayer watch` command to run both the development server and the Intlayer build watcher simultaneously.
 
 ```json5 fileName="package.json"
 {
   // ... Your existing package.json configurations
   "scripts": {
     // ... Your existing scripts configurations
-    "dev": "concurrently --raw \"intlayer build --watch\" \"next dev --turbopack\"",
+    "dev": "intlayer watch --with 'next dev --turbopack'",
   },
 }
 ```
