@@ -156,7 +156,7 @@ export const reviewFile = async (
               { role: 'user', content: baseChunkContext.content },
             ],
             aiOptions,
-            configOptions
+            configuration
           );
 
           appLogger(
@@ -219,7 +219,7 @@ export const reviewFile = async (
               { role: 'user', content: baseChunkContext.content },
             ],
             aiOptions,
-            configOptions
+            configuration
           );
 
           appLogger(
