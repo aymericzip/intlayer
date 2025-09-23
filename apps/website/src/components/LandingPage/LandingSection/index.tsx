@@ -60,7 +60,7 @@ export const LandingSection: FC = () => {
                 size={TagSize.SM}
                 border={TagBorder.WITH}
                 color={TagColor.NEUTRAL}
-                className="border text-text rounded-full text-sm font-medium"
+                className="border  text-text rounded-full text-sm font-medium"
               >
                 {whatsNew}
               </Tag>

@@ -6,7 +6,7 @@ const landingSectionContent = {
     whatsNew: t({
       en: "What's new",
       'en-GB': "What's new",
-      fr: 'Actualités',
+      fr: 'Actualités ',
       es: 'Novedades',
       de: 'Was gibt es Neues',
       ja: '新着情報',
