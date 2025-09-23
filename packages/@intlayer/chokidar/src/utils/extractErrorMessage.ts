@@ -35,19 +35,43 @@ export const extractErrorMessage = (error: unknown): string => {
 
     const obj = value as Record<string, unknown>;
 
-    const stringCandidates: Array<string | undefined> = [
-      typeof obj.message === 'string' ? obj.message : undefined,
-      typeof obj.error_description === 'string'
-        ? obj.error_description
-        : undefined,
-      typeof obj.error === 'string' ? obj.error : undefined,
-      typeof obj.title === 'string' ? obj.title : undefined,
-      typeof obj.code === 'string' ? obj.code : undefined,
-      typeof obj.statusText === 'string' ? obj.statusText : undefined,
-    ];
+    // Check for message first (highest priority)
+    if (typeof obj.message === 'string' && obj.message.trim()) {
+      return obj.message;
+    }
 
-    for (const candidate of stringCandidates) {
-      if (candidate && candidate.trim()) return candidate;
+    // Check for error_description
+    if (
+      typeof obj.error_description === 'string' &&
+      obj.error_description.trim()
+    ) {
+      return obj.error_description;
+    }
+
+    // Check for error
+    if (typeof obj.error === 'string' && obj.error.trim()) {
+      return obj.error;
+    }
+
+    // Handle title and code combination
+    const title = typeof obj.title === 'string' ? obj.title.trim() : '';
+    const code = typeof obj.code === 'string' ? obj.code.trim() : '';
+
+    if (title && code) {
+      return `${title} (${code})`;
+    }
+
+    if (title) {
+      return title;
+    }
+
+    if (code) {
+      return code;
+    }
+
+    // Check for statusText
+    if (typeof obj.statusText === 'string' && obj.statusText.trim()) {
+      return obj.statusText;
     }
 
     // Common nested structures (Axios/Fetch-like)
