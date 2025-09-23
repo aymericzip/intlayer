@@ -45,26 +45,45 @@ type IDESectionProps = {
 export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
   const { resolvedTheme } = useTheme();
 
-  // Memoize `activeTab` to prevent unnecessary re-renders
-  const activeTab = useMemo(
-    () => Math.floor(scrollProgress * ideTabs.length),
-    [scrollProgress]
-  );
+  const activeTab = useMemo(() => {
+    const index = Math.floor(scrollProgress * ideTabs.length);
+    const throttledIndex = Math.floor(index / 2) * 2;
+    return Math.min(throttledIndex, ideTabs.length - 1);
+  }, [scrollProgress]);
 
-  // Memoize IDE props to avoid unnecessary renders
   const ideProps = useMemo(
     () => ({
       isDarkMode: resolvedTheme === 'dark',
-      pages: ideTabs, // ideTabs is static, no need to memoize
+      pages: ideTabs,
       activeTab,
     }),
     [activeTab, resolvedTheme]
   );
 
   return (
-    <IDE
-      {...ideProps}
-      className="mx-auto max-h-[440px] flex-1 scale-90 text-xs"
-    />
+    <section
+      className="
+        w-full 
+        px-3 sm:px-4 md:px-0
+        flex flex-col md:flex-row 
+        items-stretch md:items-center 
+        justify-center 
+        gap-3 sm:gap-4 md:gap-8
+      "
+    >
+      <div className="w-full md:flex-1">
+        <IDE
+          {...ideProps}
+          className="
+            mx-auto 
+            w-full 
+            max-h-[400px] sm:max-h-[420px] md:max-h-[440px] 
+            flex-1 
+            scale-100 sm:scale-100 md:scale-95 
+            text-xs sm:text-sm
+          "
+        />
+      </div>
+    </section>
   );
 };

@@ -29,7 +29,7 @@ const SectionItem: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.div
-    className="flex size-full items-center justify-center p-10"
+    className="flex size-full items-center justify-center p-6 sm:p-8 md:p-10"
     initial={{ x: '100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut' }}
@@ -43,7 +43,7 @@ const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.p
-    className="text-neutral bg-background flex size-full items-center justify-center px-16 text-sm md:pr-0 lg:pr-16"
+    className="text-neutral bg-background flex size-full items-center justify-center px-4 sm:px-8 md:px-16 text-xs sm:text-sm md:text-base leading-relaxed text-center"
     initial={{ x: '-100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '-100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut', delay: isActive ? 0.5 : 0 }}
@@ -69,22 +69,40 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
   <>
     {sections.map((section, index) => {
       const isActive = index === activeIndex;
-      // Define the angle step (in radians) between items.
+
+      if (isMobile) {
+        // 📱 Mobile: stack titles clearly, no overlaps
+        return (
+          <motion.h3
+            key={section.id.value}
+            className={cn(
+              'text-neutral aria-selected:text-text mb-3 text-base sm:text-lg font-semibold text-center',
+              isActive && 'text-text'
+            )}
+            animate={{
+              opacity: isActive ? 1 : 0.5,
+              scale: isActive ? 1.05 : 1,
+            }}
+            transition={{ duration: 0.3 }}
+            role="tab"
+            aria-selected={isActive}
+          >
+            {section.title}
+          </motion.h3>
+        );
+      }
+
+      // 💻 Desktop: keep circular/arc layout
       const angleStep = Math.PI / 10;
       const absIndexDiff = Math.abs(index - activeIndex);
-      // Calculate the angle for this item relative to the active item.
       const angle = (index - activeIndex) * angleStep;
-      // Define a radius in rem units.
       const radius = 10;
-
-      const fontConst = isMobile ? 2 : 3;
 
       return (
         <motion.h3
           key={section.id.value}
           className="text-neutral aria-selected:text-text absolute left-3 top-1/4 inline text-xl font-bold leading-snug drop-shadow-sm"
           animate={{
-            // Convert polar coords to Cartesian (rem units)
             translateX: isActive
               ? '5rem'
               : `${(radius * Math.cos(angle)) / 4 + 3}rem`,
@@ -97,7 +115,7 @@ const Titles: FC<TitlesProps> = ({ sections, activeIndex, isMobile }) => (
                   3
                 }rem`,
             opacity: absIndexDiff > 2 ? 0 : absIndexDiff > 1 ? 0.5 : 1,
-            fontSize: `${fontConst / (absIndexDiff + 1)}rem`,
+            fontSize: `${3 / (absIndexDiff + 1)}rem`,
           }}
           role="tab"
           transition={{ duration: 0.3 }}
@@ -122,14 +140,11 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
   setProgress,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  // Track which section is currently "active"
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // We keep references to compare old vs new, so we only update state if changed
   const activeIndexRef = useRef(activeIndex);
   const progressRef = useRef(progress);
 
-  // Keep them in sync whenever state changes
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
@@ -162,21 +177,18 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
           const newIndex = Math.floor(scrollYInContainer / sectionHeight);
           const clampedIndex = Math.max(0, Math.min(newIndex, nbSections - 1));
 
-          // Only update if index changed
           if (activeIndexRef.current !== clampedIndex) {
             startTransition(() => {
               setActiveIndex(clampedIndex);
             });
           }
 
-          // Check boundaries
           const isOverflowing = scrollYInContainer > scrollableHeight;
           const isUnderflowing = scrollYInContainer < 0;
 
           if (!isOverflowing && !isUnderflowing) {
             const progressInSection =
               (scrollYInContainer % sectionHeight) / sectionHeight;
-            // Only update if progress changed
             if (progressRef.current !== progressInSection) {
               startTransition(() => {
                 setProgress(progressInSection);
@@ -200,27 +212,32 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
     <section
       className="relative z-0 w-screen"
       style={{
-        // Make the entire container as tall as the number of sections * 150vh
         height: `${nbSections * 110}vh`,
       }}
       ref={containerRef}
     >
-      {/* Sticky container */}
-      <div className="sticky left-0 top-0 mb-[70vh] h-[30vh] w-full">
-        {/* Progress Bar */}
-        <div className="absolute left-10 top-20 flex h-3/5 w-[2px] md:top-[20vh]">
-          <div className="bg-neutral/20 size-full rounded-full">
-            <div
-              className="bg-text w-full"
-              style={{ height: `${progress * 100}%` }}
-            />
+      <div className="sticky left-0 top-0 mb-[60vh] h-[40vh] sm:mb-[70vh] sm:h-[30vh] w-full">
+        {/* ✅ Mobile dot + Desktop progress bar */}
+        <div className="absolute left-4 top-4 sm:left-10 sm:top-20">
+          {/* Mobile dot */}
+          <div className="block md:hidden">
+            <div className="size-3 rounded-full border border-neutral/40 bg-text" />
+          </div>
+          {/* Desktop bar */}
+          <div className="hidden md:flex h-3/5 w-[2px]">
+            <div className="bg-neutral/20 size-full rounded-full">
+              <div
+                className="bg-text w-full rounded-full"
+                style={{ height: `${progress * 100}%` }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Titles */}
         <div
           role="tablist"
-          className="top-15 absolute left-0 z-30 size-full md:top-[15vh] md:w-0 md:text-nowrap"
+          className="absolute left-0 z-30 w-full text-center sm:top-[15vh] md:w-0 md:text-nowrap"
         >
           <Titles
             sections={sections}
@@ -229,11 +246,11 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
           />
         </div>
 
-        {/* Section content “carousel” in a sticky container */}
+        {/* Section content */}
         {sections.map((section, index) => (
           <div
             className={cn(
-              'absolute right-0 top-[50vh] z-0 h-[50vh] w-full overflow-hidden md:top-0 md:h-screen md:w-2/3',
+              'absolute right-0 top-[45vh] z-0 h-[40vh] w-full overflow-hidden sm:top-[50vh] sm:h-[50vh] md:top-0 md:h-screen md:w-2/3',
               index === activeIndex && 'z-20'
             )}
             key={section.id.value}
@@ -248,7 +265,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {sections.map((section, index) => (
           <div
             className={cn(
-              'absolute left-0 top-[37vh] z-0 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3',
+              'absolute left-0 top-[20vh] z-0 h-[20vh] w-full overflow-hidden sm:top-[37vh] sm:h-[20vh] md:top-[50vh] md:h-[50vh] md:w-1/3',
               index === activeIndex && 'z-10'
             )}
             key={section.id.value}
@@ -269,38 +286,28 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 
 const DynamicIDESection = dynamic(
   () => import('./IDESection').then((mod) => mod.IDESection),
-  {
-    loading: () => <Loader />,
-  }
+  { loading: () => <Loader /> }
 );
 
 const DynamicMarkdownSection = dynamic(
   () => import('./MarkdownSection').then((mod) => mod.MarkdownSection),
-  {
-    loading: () => <Loader />,
-  }
+  { loading: () => <Loader /> }
 );
 
 const DynamicMultilingualSection = dynamic(
   () => import('./MultilingualSection').then((mod) => mod.MultilingualSection),
-  {
-    loading: () => <Loader />,
-  }
+  { loading: () => <Loader /> }
 );
 
 const DynamicAutocompletionSection = dynamic(
   () =>
     import('./AutocompletionSection').then((mod) => mod.AutocompletionSection),
-  {
-    loading: () => <Loader />,
-  }
+  { loading: () => <Loader /> }
 );
 
 const DynamicVisualEditorSection = dynamic(
   () => import('./VisualEditorSection').then((mod) => mod.VisualEditorSection),
-  {
-    loading: () => <Loader />,
-  }
+  { loading: () => <Loader /> }
 );
 
 /* -------------------------------------------------------------------------- */
@@ -311,44 +318,40 @@ export const FeaturesSection: FC = () => {
   const [progress, setProgress] = useState(0);
   const sectionsData = useIntlayer('features-section');
 
-  const sections: Section[] = sectionsData
-    // Filter out anything you don’t want to display
-    .map((sectionData) => {
-      switch (sectionData.id.value) {
-        case 'codebase':
-          return {
-            ...sectionData,
-            children: <DynamicIDESection scrollProgress={progress} />,
-          };
-        case 'visual-editor':
-          return {
-            ...sectionData,
-            children: <DynamicVisualEditorSection />,
-          };
-        case 'multilingual':
-          return {
-            ...sectionData,
-            children: <DynamicMultilingualSection scrollProgress={progress} />,
-          };
-        case 'markdown':
-          return {
-            ...sectionData,
-            children: <DynamicMarkdownSection scrollProgress={progress} />,
-          };
-        case 'autocomplete':
-          return {
-            ...sectionData,
-            children: (
-              <DynamicAutocompletionSection scrollProgress={progress} />
-            ),
-          };
-        default:
-          return {
-            ...sectionData,
-            children: <>{sectionData.title}</>,
-          };
-      }
-    });
+  const sections: Section[] = sectionsData.map((sectionData) => {
+    switch (sectionData.id.value) {
+      case 'codebase':
+        return {
+          ...sectionData,
+          children: <DynamicIDESection scrollProgress={progress} />,
+        };
+      case 'visual-editor':
+        return {
+          ...sectionData,
+          children: <DynamicVisualEditorSection />,
+        };
+      case 'multilingual':
+        return {
+          ...sectionData,
+          children: <DynamicMultilingualSection scrollProgress={progress} />,
+        };
+      case 'markdown':
+        return {
+          ...sectionData,
+          children: <DynamicMarkdownSection scrollProgress={progress} />,
+        };
+      case 'autocomplete':
+        return {
+          ...sectionData,
+          children: <DynamicAutocompletionSection scrollProgress={progress} />,
+        };
+      default:
+        return {
+          ...sectionData,
+          children: <>{sectionData.title}</>,
+        };
+    }
+  });
 
   return (
     <FeaturesCarousel

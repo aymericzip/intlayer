@@ -5,7 +5,6 @@ import { useIntlayer } from 'next-intlayer';
 import { useEffect, useState, type FC } from 'react';
 
 const getTextContent = (text: string, textProgress: number) => {
-  // Pleat text of 3 characters
   const textChunks = [];
   for (let i = 0; i < text.length; i += 1) {
     textChunks.push(text.slice(i, i + 1));
@@ -36,30 +35,50 @@ export const AutocompletionSection: FC<AutocompletionSectionProps> = ({
   }, [input.value, scrollProgress, isControlled]);
 
   return (
-    <div className="w-full scale-90">
-      <Container
-        background="none"
-        border
-        roundedSize="2xl"
-        className="h-auto flex-1 overflow-auto p-5"
+    <section
+      className="
+        flex flex-col md:flex-row 
+        items-stretch md:items-center 
+        justify-center 
+        gap-3 sm:gap-4 md:gap-8 
+        w-full
+        px-3 sm:px-4 md:px-0
+      "
+    >
+      <div
+        className="
+          w-full md:flex-1 
+          scale-100 sm:scale-100 md:scale-95
+        "
       >
-        <AutoCompleteTextarea
-          value={text}
-          aria-label={ariaLabel.value}
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
-          onKeyDown={() => {
-            setIsControlled(true);
-          }}
-          isActive={isControlled}
-          suggestion={
-            !isControlled && scrollProgress > 0.66
-              ? suggestion.value
-              : undefined
-          }
-        />
-      </Container>
-    </div>
+        <Container
+          background="none"
+          border
+          roundedSize="2xl"
+          className="
+            h-auto flex-1 overflow-auto 
+            p-3 sm:p-4 md:p-5 
+            max-w-full
+          "
+        >
+          <AutoCompleteTextarea
+            value={text}
+            aria-label={ariaLabel.value}
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+            onKeyDown={() => {
+              setIsControlled(true);
+            }}
+            isActive={isControlled}
+            suggestion={
+              !isControlled && scrollProgress > 0.66
+                ? suggestion.value
+                : undefined
+            }
+          />
+        </Container>
+      </div>
+    </section>
   );
 };
