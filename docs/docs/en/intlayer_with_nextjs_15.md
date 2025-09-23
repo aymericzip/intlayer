@@ -1490,7 +1490,7 @@ yarn add concurrently --save-dev
   // ... Your existing package.json configurations
   "scripts": {
     // ... Your existing scripts configurations
-    "dev": "concurrently --raw \"npx intlayer build --watch\" \"next dev --turbopack\"",
+    "dev": "concurrently --raw \"intlayer build --watch\" \"next dev --turbopack\"",
   },
 }
 ```
