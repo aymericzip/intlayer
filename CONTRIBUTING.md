@@ -196,3 +196,33 @@ Note: the versioning and the publication are automatically managed by the CI/CD.
 ### Includes a new package
 
 If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
+
+## Support the project
+
+[![GitHub Stars Counter](https://img.shields.io/github/stars/aymericzip/intlayer?style=social)](https://github.com/aymericzip/intlayer)
+
+![GitHub Stars Banner](https://github.com/aymericzip/intlayer/blob/main/docs/assets/star_banner.png)
+
+The simplest way to support Intlayer is to star the repository on GitHub. Dropping a ⭐️ on the [repository](https://github.com/aymericzip/intlayer) on GitHub is on click, free, and takes only a few seconds.
+
+### Why GitHub Stars matter ?
+
+- **🏆 Help getting more social proof**
+
+  Stars help developers feel confident that this project is actively used and appreciated by the community. They also encourage potential YouTubers, influencers, and content creators to feel confident about promoting the project.
+
+- **👥 Attract more contributors**
+
+  Contributors measure the impact of their work by the number of stars a repository receives. More stars help attract additional contributors, which speeds up development and provides complementary checks regarding code quality, solution suggestions, security improvements, and more.
+
+- **👀 Helps to get more visibility**
+
+  More stars lead to even greater visibility. Platforms like GitHub Daily and others track stars to measure project popularity, and showing strong traction helps the project gain recognition.
+
+- **💰 Attract more sponsors**
+
+  GitHub stars are one of the main metrics used to measure traction for open source projects. Demonstrating strong community support helps sponsoring organizations recognize the project's value, which enables continued development.
+
+- **🚀 Encourage us to continue the development of the project**
+
+  We also get encouraged when we see the star count increasing. As open source contributors, we are motivated by building something impactful, and seeing growing community support provides excellent motivation to continue developing the project.
