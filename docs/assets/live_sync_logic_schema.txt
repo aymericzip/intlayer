@@ -2,7 +2,7 @@ flowchart TD
   %% What happens when a dictionary is changed in the CMS
 
   subgraph CMS
-    A[Author edits & saves a dictionary] --> B{Dictionary has<br/>live = true ?}
+    A[Author edits & saves a dictionary] --> B{Dictionary has live = true ?}
   end
 
   B -- "No" --> B1[Change stored in CMS only]
