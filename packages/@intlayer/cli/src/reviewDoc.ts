@@ -4,6 +4,7 @@ import {
   formatPath,
   listGitFiles,
   ListGitFilesOptions,
+  listGitLines,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
@@ -13,7 +14,6 @@ import {
   getAppLogger,
   getConfiguration,
   GetConfigurationOptions,
-  IntlayerConfig,
   Locales,
   retryManager,
 } from '@intlayer/config';
@@ -31,6 +31,7 @@ import { chunkInference } from './utils/chunkInference';
 import { fixChunkStartEndChars } from './utils/fixChunkStartEndChars';
 import { getChunk } from './utils/getChunk';
 import { getOutputFilePath } from './utils/getOutputFilePath';
+import { mapChunksBetweenFiles } from './utils/mapChunksBetweenFiles';
 
 const isESModule = typeof import.meta.url === 'string';
 
@@ -45,11 +46,12 @@ export const reviewFile = async (
   locale: Locales,
   baseLocale: Locales,
   aiOptions?: AIOptions,
-  configuration: IntlayerConfig = getConfiguration(),
+  configOptions?: GetConfigurationOptions,
   customInstructions?: string,
   changedLines?: number[]
 ) => {
   try {
+    const configuration = getConfiguration(configOptions);
     const appLogger = getAppLogger(configuration, {
       config: {
         prefix: '',
@@ -71,8 +73,6 @@ export const reviewFile = async (
       .replace('{{applicationContext}}', aiOptions?.applicationContext ?? '-')
       .replace('{{customInstructions}}', customInstructions ?? '-');
 
-    const baseChunks = chunkText(basedFileContent, 800, 0);
-
     const filePrexixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}] `;
     const filePrefix = [
       colon(filePrexixText, { colSize: 40 }),
@@ -80,101 +80,170 @@ export const reviewFile = async (
     ].join('');
 
     const prefixText = `${ANSIColors.GREY_DARK}[${formatPath(baseFilePath)}${ANSIColors.GREY_DARK}][${formatLocale(locale)}${ANSIColors.GREY_DARK}] `;
-    const prefix = [colon(prefixText, { colSize: 40 })].join('');
+    const prefix = [
+      colon(prefixText, { colSize: 40 }),
+      `→ ${ANSIColors.RESET}`,
+    ].join('');
 
-    appLogger(
-      `${filePrefix}Base file splitted into ${colorizeNumber(baseChunks.length)} chunks`
-    );
-
-    for await (const [i, baseChunk] of baseChunks.entries()) {
-      const baseChunkContext = baseChunk;
-
-      if (changedLines) {
-        const hasChangedLinesInChunk = changedLines.some(
-          (line) =>
-            line > baseChunkContext.lineStart &&
-            line < baseChunkContext.lineStart + baseChunkContext.lineLength
-        );
-
-        if (!hasChangedLinesInChunk) {
-          appLogger(
-            `No git changed lines found for chunk ${colorizeNumber(i + 1)}`
-          );
-
-          const chunkWithNoChange = getChunk(updatedFileContent, {
-            lineStart: baseChunkContext.lineStart,
-            lineLength: baseChunkContext.lineLength,
-          });
-
-          fileResultContent += chunkWithNoChange;
-
-          continue;
-        }
-      }
-
-      const getBaseChunkContextPrompt = () =>
-        `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the base chunk in ${formatLocale(baseLocale, false)} as reference.\n` +
-        `///chunksStart///` +
-        (baseChunks[i - 1]?.content ?? '') +
-        baseChunkContext.content +
-        (baseChunks[i + 1]?.content ?? '') +
-        `///chunksEnd///`;
-
-      const getChunkToReviewPrompt = () =>
-        `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the current chunk to review in ${formatLocale(locale, false)} as reference.\n` +
-        `///chunksStart///` +
-        getChunk(updatedFileContent, {
-          lineStart: baseChunks[i - 1]?.lineStart ?? 0,
-          lineLength:
-            (baseChunks[i - 1]?.lineLength ?? 0) +
-            baseChunkContext.lineLength +
-            (baseChunks[i + 1]?.lineLength ?? 0),
-        }) +
-        `///chunksEnd///`;
-
-      // Make the actual translation call
-      let reviewedChunkResult = await retryManager(async () => {
-        const result = await chunkInference(
-          [
-            { role: 'system', content: basePrompt },
-            { role: 'system', content: getBaseChunkContextPrompt() },
-            { role: 'system', content: getChunkToReviewPrompt() },
-            {
-              role: 'system',
-              content: `The next user message will be the **CHUNK ${colorizeNumber(i + 1)} of ${colorizeNumber(baseChunks.length)}** that should be translated in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}).`,
-            },
-            { role: 'user', content: baseChunkContext.content },
-          ],
-          aiOptions,
-          configuration
-        );
-
-        appLogger(
-          [
-            `${prefix}`,
-            `${ANSIColors.GREY_DARK}[Chunk `,
-            colorizeNumber(i + 1),
-            `${ANSIColors.GREY_DARK} of `,
-            colorizeNumber(baseChunks.length),
-            `${ANSIColors.GREY_DARK}] →${ANSIColors.RESET} `,
-            `${colorizeNumber(result.tokenUsed)} tokens used`,
-          ].join('')
-        );
-
-        const fixedReviewedChunkResult = fixChunkStartEndChars(
-          result?.fileContent,
-          baseChunkContext.content
-        );
-
-        return fixedReviewedChunkResult;
-      })();
-
-      updatedFileContent = updatedFileContent.replace(
-        baseChunkContext.content,
-        reviewedChunkResult
+    // FIXED: Use proper chunk mapping when changed lines are available
+    if (changedLines && changedLines.length > 0) {
+      appLogger(
+        `${filePrefix}Using optimization with ${colorizeNumber(changedLines.length)} changed lines`
       );
 
-      fileResultContent += reviewedChunkResult;
+      // Map chunks between base and updated files properly
+      const chunkMappings = mapChunksBetweenFiles(
+        basedFileContent,
+        updatedFileContent,
+        800,
+        changedLines
+      );
+
+      appLogger(
+        `${filePrefix}Base file mapped to ${colorizeNumber(chunkMappings.length)} chunk mappings`
+      );
+
+      for await (const [i, mapping] of chunkMappings.entries()) {
+        const { baseChunk, updatedChunk, hasChanges } = mapping;
+
+        if (!hasChanges && updatedChunk) {
+          // No changes detected, use the existing translated content
+          appLogger(
+            `${prefix}No changes found for chunk ${colorizeNumber(i + 1)}, preserving existing translation`
+          );
+
+          // Extract the corresponding chunk from the existing translated file
+          const existingChunk = getChunk(fileToReviewContent, {
+            lineStart: updatedChunk.lineStart,
+            lineLength: updatedChunk.lineLength,
+          });
+
+          fileResultContent += existingChunk;
+          continue;
+        }
+
+        if (!updatedChunk) {
+          // Chunk was completely deleted, skip it
+          appLogger(
+            `${prefix}Chunk ${colorizeNumber(i + 1)} was deleted, skipping`
+          );
+          continue;
+        }
+
+        // Process chunks with changes
+        const baseChunkContext = baseChunk;
+
+        const getBaseChunkContextPrompt = () =>
+          `**CHUNK ${i + 1} of ${chunkMappings.length}** is the base chunk in ${formatLocale(baseLocale, false)} as reference.\n` +
+          `///chunksStart///` +
+          baseChunkContext.content +
+          `///chunksEnd///`;
+
+        const getChunkToReviewPrompt = () =>
+          `**CHUNK ${i + 1} of ${chunkMappings.length}** is the current chunk to review in ${formatLocale(locale, false)}.\n` +
+          `///chunksStart///` +
+          updatedChunk.content +
+          `///chunksEnd///`;
+
+        // Make the actual translation call
+        let reviewedChunkResult = await retryManager(async () => {
+          const result = await chunkInference(
+            [
+              { role: 'system', content: basePrompt },
+              { role: 'system', content: getBaseChunkContextPrompt() },
+              { role: 'system', content: getChunkToReviewPrompt() },
+              {
+                role: 'system',
+                content: `The next user message will be the **CHUNK ${colorizeNumber(i + 1)} of ${colorizeNumber(chunkMappings.length)}** that should be translated in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}).`,
+              },
+              { role: 'user', content: baseChunkContext.content },
+            ],
+            aiOptions,
+            configuration
+          );
+
+          appLogger(
+            `${prefix}${colorizeNumber(result.tokenUsed)} tokens used - Chunk ${colorizeNumber(i + 1)} of ${colorizeNumber(chunkMappings.length)}`
+          );
+
+          const fixedReviewedChunkResult = fixChunkStartEndChars(
+            result?.fileContent,
+            baseChunkContext.content
+          );
+
+          return fixedReviewedChunkResult;
+        })();
+
+        fileResultContent += reviewedChunkResult;
+      }
+    } else {
+      // FALLBACK: Process all chunks when no optimization is available
+      appLogger(`${filePrefix}Processing all chunks (no optimization)`);
+
+      const baseChunks = chunkText(basedFileContent, 800, 0);
+      appLogger(
+        `${filePrefix}Base file splitted into ${colorizeNumber(baseChunks.length)} chunks`
+      );
+
+      for await (const [i, baseChunk] of baseChunks.entries()) {
+        const baseChunkContext = baseChunk;
+
+        const getBaseChunkContextPrompt = () =>
+          `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the base chunk in ${formatLocale(baseLocale, false)} as reference.\n` +
+          `///chunksStart///` +
+          (baseChunks[i - 1]?.content ?? '') +
+          baseChunkContext.content +
+          (baseChunks[i + 1]?.content ?? '') +
+          `///chunksEnd///`;
+
+        const getChunkToReviewPrompt = () =>
+          `**CHUNK ${i + 1} to ${Math.min(i + 3, baseChunks.length)} of ${baseChunks.length}** is the current chunk to review in ${formatLocale(locale, false)} as reference.\n` +
+          `///chunksStart///` +
+          getChunk(updatedFileContent, {
+            lineStart: baseChunks[i - 1]?.lineStart ?? 0,
+            lineLength:
+              (baseChunks[i - 1]?.lineLength ?? 0) +
+              baseChunkContext.lineLength +
+              (baseChunks[i + 1]?.lineLength ?? 0),
+          }) +
+          `///chunksEnd///`;
+
+        // Make the actual translation call
+        let reviewedChunkResult = await retryManager(async () => {
+          const result = await chunkInference(
+            [
+              { role: 'system', content: basePrompt },
+              { role: 'system', content: getBaseChunkContextPrompt() },
+              { role: 'system', content: getChunkToReviewPrompt() },
+              {
+                role: 'system',
+                content: `The next user message will be the **CHUNK ${colorizeNumber(i + 1)} of ${colorizeNumber(baseChunks.length)}** that should be translated in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}).`,
+              },
+              { role: 'user', content: baseChunkContext.content },
+            ],
+            aiOptions,
+            configuration
+          );
+
+          appLogger(
+            `${prefix}${colorizeNumber(result.tokenUsed)} tokens used - Chunk ${colorizeNumber(i + 1)} of ${colorizeNumber(baseChunks.length)}`
+          );
+
+          const fixedReviewedChunkResult = fixChunkStartEndChars(
+            result?.fileContent,
+            baseChunkContext.content
+          );
+
+          return fixedReviewedChunkResult;
+        })();
+
+        updatedFileContent = updatedFileContent.replace(
+          baseChunkContext.content,
+          reviewedChunkResult
+        );
+
+        fileResultContent += reviewedChunkResult;
+      }
     }
 
     mkdirSync(dirname(outputFilePath), { recursive: true });
@@ -299,17 +368,16 @@ export const reviewDoc = async ({
         }
 
         let changedLines: number[] | undefined = undefined;
-        // Disabled for now because it's leading to file format issues
-        // if (gitOptions) {
-        //   const gitChangedLines = await listGitLines(
-        //     absoluteBaseFilePath,
-        //     gitOptions
-        //   );
+        // FIXED: Enable git optimization that was previously commented out
+        if (gitOptions) {
+          const gitChangedLines = await listGitLines(
+            absoluteBaseFilePath,
+            gitOptions
+          );
 
-        //   appLogger(`Git changed lines: ${gitChangedLines.join(', ')}`);
-
-        //   changedLines = gitChangedLines;
-        // }
+          appLogger(`Git changed lines: ${gitChangedLines.join(', ')}`);
+          changedLines = gitChangedLines;
+        }
 
         await reviewFile(
           absoluteBaseFilePath,
@@ -317,7 +385,7 @@ export const reviewDoc = async ({
           locale as Locales,
           baseLocale,
           aiOptions,
-          configuration,
+          configOptions,
           customInstructions,
           changedLines
         );
