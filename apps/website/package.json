@@ -37,7 +37,7 @@
   "scripts": {
     "build": "next build --turbopack",
     "build:webpack": "next build",
-    "dev": "concurrently --raw \"next dev --turbopack\" \"npx intlayer build --watch\"",
+    "dev": "concurrently --raw \"next dev --turbopack\" \"intlayer build --watch\"",
     "dev:all": "concurrently --raw \"npm run start:editor\" \"npm run dev\"",
     "dev:webpack": "next dev",
     "editor": "intlayer-editor start",
