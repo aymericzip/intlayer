@@ -37,8 +37,8 @@
   "scripts": {
     "build": "next build --turbopack",
     "build:webpack": "next build",
-    "dev": "next dev --turbopack",
-    "dev:all": "concurrently \"npm run start:editor\" \"npm run dev\"",
+    "dev": "concurrently --raw \"next dev --turbopack\" \"npx intlayer build --watch\"",
+    "dev:all": "concurrently --raw \"npm run start:editor\" \"npm run dev\"",
     "dev:webpack": "next dev",
     "editor": "intlayer-editor start",
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
