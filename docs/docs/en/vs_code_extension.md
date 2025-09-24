@@ -176,9 +176,37 @@ Validate dictionaries and find missing translations:
 2. Search for **Test Dictionaries**.
 3. Review the reported issues and fix as needed.
 
+### Loading Environment Variables
+
+Intlayer recommand to store your AI API keys, as well as Intlayer client ID and secret in environment variables.
+
+The extension can load environment variables from your workspace to run Intlayer commands with the correct context.
+
+- **Load order (by priority)**: `.env.<env>.local` → `.env.<env>` → `.env.local` → `.env`
+- **Non-destructive**: existing `process.env` values are not overridden.
+- **Scope**: files are resolved from the configured base directory (defaults to the workspace root).
+
+#### Selecting the active environment
+
+- **Command Palette**: open the palette and run `Intlayer: Select Environment`, then choose the environment (e.g., `development`, `staging`, `production`). The extension will attempt to load the first available file in the priority list above and show a notification like “Loaded env from .env.<env>.local”.
+- **Settings**: go to `Settings → Extensions → Intlayer`, and set:
+  - **Environment**: the environment name used to resolve `.env.<env>*` files.
+  - (Optional) **Env File**: an explicit path to a `.env` file. When provided, it takes precedence over the inferred list.
+
+#### Monorepos and custom directories
+
+If your `.env` files live outside the workspace root, set the **Base Directory** in `Settings → Extensions → Intlayer`. The loader will look for `.env` files relative to that directory.
+
+#### Notes
+
+- The extension loads the first matching file and keeps any existing variables intact.
+- You’ll see an info message each time a file is successfully loaded.
+- If no candidate file is found, commands still run with your current environment variables.
+
 ## Doc History
 
 | Version | Date       | Changes                             |
 | ------- | ---------- | ----------------------------------- |
+| 6.1.0   | 2025-09-24 | Added environment selection section |
 | 6.0.0   | 2025-09-22 | Intlayer Tab / Fill & Test commands |
 | 5.5.10  | 2025-06-29 | Init history                        |

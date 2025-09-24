@@ -17,6 +17,7 @@ export {
   colorizePath,
   getAppLogger,
   logger,
+  removeColor,
   spinnerFrames,
   v,
   x,

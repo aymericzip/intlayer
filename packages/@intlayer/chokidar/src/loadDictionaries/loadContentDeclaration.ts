@@ -6,20 +6,26 @@ import {
 } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
 import { relative } from 'path';
-import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
-import { processContentDeclaration } from '../transpiler/intlayer_dictionary/processContentDeclaration';
+import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
+import {
+  filterInvalidDictionaries,
+  isInvalidDictionary,
+} from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { DictionariesStatus } from './loadDictionaries';
 
 export const formatLocalDictionaries = (
-  dictionariesRecord: Record<string, Dictionary>
+  dictionariesRecord: Record<string, Dictionary>,
+  configuration?: IntlayerConfig
 ): Dictionary[] =>
-  Object.entries(dictionariesRecord).map(([relativePath, dict]) => ({
-    ...dict,
-    localId: `${dict.key}::local::${relativePath}`,
-    location: 'locale' as const,
-    filePath: relativePath,
-  }));
+  Object.entries(dictionariesRecord)
+    .filter(([_relativePath, dict]) => isInvalidDictionary(dict, configuration))
+    .map(([relativePath, dict]) => ({
+      ...dict,
+      localId: `${dict.key}::local::${relativePath}`,
+      location: 'locale' as const,
+      filePath: relativePath,
+    }));
 
 export const loadContentDeclarations = async (
   contentDeclarationFilePath: string[],
@@ -37,8 +43,10 @@ export const loadContentDeclarations = async (
     },
     {} as Record<string, Dictionary>
   );
-  const contentDeclarations: Dictionary[] =
-    formatLocalDictionaries(dictionariesRecord);
+  const contentDeclarations: Dictionary[] = formatLocalDictionaries(
+    dictionariesRecord,
+    configuration
+  );
 
   const listFoundDictionaries = contentDeclarations.map((declaration) => ({
     dictionaryKey: declaration.key,

@@ -15,13 +15,13 @@ import { fill, FillOptions } from './fill';
 import { listContentDeclaration } from './listContentDeclaration';
 import { liveSync } from './liveSync';
 import { pull } from './pull';
-import { push } from './push';
+import { push } from './push/push';
 import { pushConfig } from './pushConfig';
 import { reviewDoc } from './reviewDoc';
 import { testMissingTranslations } from './test';
 import { translateDoc } from './translateDoc';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
-import { watch } from './watch';
+import { watchContentDeclaration } from './watch';
 
 // Extended AI options to include customPrompt
 type AIOptions = BaseAIOptions & {
@@ -285,7 +285,7 @@ export const setAPI = (): Command => {
   applyOptions(dictionariesWatchCmd, watchOptions.options);
   applyConfigOptions(dictionariesWatchCmd);
   dictionariesWatchCmd.action((options) => {
-    watch({
+    watchContentDeclaration({
       ...options,
       configOptions: extractConfigOptions(options),
     });
@@ -299,7 +299,7 @@ export const setAPI = (): Command => {
   applyOptions(rootWatchCmd, watchOptions.options);
   applyConfigOptions(rootWatchCmd);
   rootWatchCmd.action((options) => {
-    watch({
+    watchContentDeclaration({
       ...options,
       configOptions: extractConfigOptions(options),
     });

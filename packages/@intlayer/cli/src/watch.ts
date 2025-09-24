@@ -1,4 +1,4 @@
-import { runParallel, watch as watchIntlayer } from '@intlayer/chokidar';
+import { runParallel, watch } from '@intlayer/chokidar';
 import {
   getAppLogger,
   getConfiguration,
@@ -15,7 +15,7 @@ type WatchOptions = {
  * Get locales dictionaries .content.{json|ts|tsx|js|jsx|mjs|cjs} and build the JSON dictionaries in the .intlayer directory.
  * Watch mode available to get the change in the .content.{json|ts|tsx|js|jsx|mjs|cjs}
  */
-export const watch = async (options?: WatchOptions) => {
+export const watchContentDeclaration = async (options?: WatchOptions) => {
   const config = getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(config);
 
@@ -25,7 +25,8 @@ export const watch = async (options?: WatchOptions) => {
 
   appLogger('Watching Intlayer content declarations');
 
-  await watchIntlayer({
+  watch({
+    persistent: true,
     skipPrepare: options?.skipPrepare ?? false,
   });
 };

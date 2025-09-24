@@ -146,7 +146,8 @@ export const colorizeNumber = (
   return colorize(number.toString(), color);
 };
 
-const removeColor = (text: string) => text.replace(/\x1b\[[0-9;]*m/g, '');
+export const removeColor = (text: string) =>
+  text.replace(/\x1b\[[0-9;]*m/g, '');
 
 const getLength = (length: number | number[] | string | string[]): number => {
   let value: number = 0;

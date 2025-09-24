@@ -16,24 +16,24 @@
   "dependencies": {
     "fuse.js": "^7.1.0",
     "intlayer": "workspace:*",
-    "markdown-to-jsx": "^7.7.6",
-    "next": "^15.5.3",
+    "markdown-to-jsx": "^7.7.13",
+    "next": "^15.5.4",
     "next-intlayer": "workspace:*",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
-    "@next/bundle-analyzer": "^15.5.3",
-    "@tailwindcss/postcss": "^4.1.8",
-    "@types/node": "^24.2.1",
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.6",
-    "eslint": "^9.34.0",
-    "eslint-config-next": "15.1.4",
+    "@next/bundle-analyzer": "^15.5.4",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "eslint": "^9.36.0",
+    "eslint-config-next": "15.5.4",
     "intlayer-editor": "workspace:*",
     "postcss": "^8.5.4",
-    "tailwindcss": "^4.1.8",
+    "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2"
   }
 }

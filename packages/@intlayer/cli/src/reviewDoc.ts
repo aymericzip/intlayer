@@ -5,6 +5,7 @@ import {
   listGitFiles,
   ListGitFilesOptions,
   listGitLines,
+  parallelize,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
@@ -21,7 +22,6 @@ import { getLocaleName } from '@intlayer/core';
 import fg from 'fast-glob';
 import { mkdirSync, writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
-import pLimit from 'p-limit';
 import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
@@ -311,8 +311,6 @@ export const reviewDoc = async ({
     nbSimultaneousFileProcessed = 10; // Limit the number of simultaneous file processed to 10
   }
 
-  const limit = pLimit(nbSimultaneousFileProcessed ?? 3);
-
   let docList: string[] = fg.sync(docPattern, {
     ignore: excludedGlobPattern,
   });
@@ -340,58 +338,58 @@ export const reviewDoc = async ({
   appLogger(`Reviewing ${colorizeNumber(docList.length)} files:`);
   appLogger(docList.map((path) => ` - ${formatPath(path)}\n`));
 
-  const tasks = docList.map((docPath) =>
-    locales.flatMap((locale) =>
-      limit(async () => {
-        appLogger(
-          `Reviewing file: ${formatPath(docPath)} to ${formatLocale(locale)}`
-        );
+  // Create all tasks to be processed
+  const allTasks = docList.flatMap((docPath) =>
+    locales.map((locale) => async () => {
+      appLogger(
+        `Reviewing file: ${formatPath(docPath)} to ${formatLocale(locale)}`
+      );
 
-        const absoluteBaseFilePath = join(
-          configuration.content.baseDir,
-          docPath
-        );
-        const outputFilePath = getOutputFilePath(
+      const absoluteBaseFilePath = join(configuration.content.baseDir, docPath);
+      const outputFilePath = getOutputFilePath(
+        absoluteBaseFilePath,
+        locale,
+        baseLocale
+      );
+
+      const fileModificationData = checkFileModifiedRange(outputFilePath, {
+        skipIfModifiedBefore,
+        skipIfModifiedAfter,
+      });
+
+      if (fileModificationData.isSkipped) {
+        appLogger(fileModificationData.message);
+        return;
+      }
+
+      let changedLines: number[] | undefined = undefined;
+      // FIXED: Enable git optimization that was previously commented out
+      if (gitOptions) {
+        const gitChangedLines = await listGitLines(
           absoluteBaseFilePath,
-          locale,
-          baseLocale
+          gitOptions
         );
 
-        const fileModificationData = checkFileModifiedRange(outputFilePath, {
-          skipIfModifiedBefore,
-          skipIfModifiedAfter,
-        });
+        appLogger(`Git changed lines: ${gitChangedLines.join(', ')}`);
+        changedLines = gitChangedLines;
+      }
 
-        if (fileModificationData.isSkipped) {
-          appLogger(fileModificationData.message);
-          return;
-        }
-
-        let changedLines: number[] | undefined = undefined;
-        // FIXED: Enable git optimization that was previously commented out
-        if (gitOptions) {
-          const gitChangedLines = await listGitLines(
-            absoluteBaseFilePath,
-            gitOptions
-          );
-
-          appLogger(`Git changed lines: ${gitChangedLines.join(', ')}`);
-          changedLines = gitChangedLines;
-        }
-
-        await reviewFile(
-          absoluteBaseFilePath,
-          outputFilePath,
-          locale as Locales,
-          baseLocale,
-          aiOptions,
-          configOptions,
-          customInstructions,
-          changedLines
-        );
-      })
-    )
+      await reviewFile(
+        absoluteBaseFilePath,
+        outputFilePath,
+        locale as Locales,
+        baseLocale,
+        aiOptions,
+        configOptions,
+        customInstructions,
+        changedLines
+      );
+    })
   );
 
-  await Promise.all(tasks);
+  await parallelize(
+    allTasks,
+    (task) => task(),
+    nbSimultaneousFileProcessed ?? 3
+  );
 };

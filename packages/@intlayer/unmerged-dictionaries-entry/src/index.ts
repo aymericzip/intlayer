@@ -8,7 +8,6 @@ import {
   clearModuleCache,
   ESMxCJSRequire,
   getConfiguration,
-  getExtension,
   type IntlayerConfig,
 } from '@intlayer/config';
 import { existsSync } from 'fs';
@@ -17,16 +16,13 @@ import { join } from 'path';
 import type { Dictionary, IntlayerDictionaryTypesConnector } from 'intlayer';
 
 export const getUnmergedDictionaries = (
-  configuration: IntlayerConfig = getConfiguration()
+  configuration: IntlayerConfig = getConfiguration(),
+  projectRequire = ESMxCJSRequire
 ) => {
   const { content } = configuration;
 
-  const extension = getExtension(configuration);
-
-  const dictionariesPath = join(
-    content.mainDir,
-    `unmerged_dictionaries.${extension}`
-  );
+  // Always use cjs for dictionaries entry as it uses require
+  const dictionariesPath = join(content.mainDir, `unmerged_dictionaries.cjs`);
   let dictionaries: Record<
     IntlayerDictionaryTypesConnector['key'],
     Dictionary[]
@@ -35,7 +31,7 @@ export const getUnmergedDictionaries = (
   if (existsSync(dictionariesPath)) {
     // Clear cache for unmerged_dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
-    dictionaries = ESMxCJSRequire(dictionariesPath);
+    dictionaries = projectRequire(dictionariesPath);
   }
 
   return dictionaries;

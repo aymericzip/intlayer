@@ -4,6 +4,7 @@ const accessKeyFormContent = {
   key: 'access-key-form',
 
   content: {
+    test: 'test ',
     title: t({
       en: 'Access keys',
       fr: "Clés d'accès",

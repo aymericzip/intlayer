@@ -35,7 +35,7 @@ git clone git@github.com:{username}/intlayer.git
 #### Installing packages manager
 
 ```sh
-npm install -g pnpm@10.12.1
+npm install -g pnpm@10.17.1
 ```
 
 #### Installing Dependencies

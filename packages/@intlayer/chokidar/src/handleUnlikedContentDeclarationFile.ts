@@ -1,10 +1,10 @@
 import { type IntlayerConfig, getAppLogger } from '@intlayer/config';
+import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
+import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
+import { createTypes } from './createType';
+import { createModuleAugmentation } from './createType/createModuleAugmentation';
 import { listDictionaries } from './listDictionariesPath';
 import { loadLocalDictionaries } from './loadDictionaries/loadLocalDictionaries';
-import { createDictionaryEntryPoint } from './transpiler/dictionary_to_main/createDictionaryEntryPoint';
-import { createTypes } from './transpiler/dictionary_to_type';
-import { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
-import { buildDictionary } from './transpiler/intlayer_dictionary/buildIntlayerDictionary';
 import { formatPath } from './utils/formatter';
 
 export const handleUnlikedContentDeclarationFile = async (

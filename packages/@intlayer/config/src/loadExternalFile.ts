@@ -39,7 +39,7 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
 export const loadExternalFile = (
   filePath: string,
   envVarOptions?: LoadEnvFileOptions,
-  projectRequire?: typeof require,
+  projectRequire?: NodeJS.Require,
   additionalEnvVars?: Record<string, string>
 ): any | undefined => {
   let fileContent: any | undefined = undefined;

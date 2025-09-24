@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-intlayer",
-  "version": "6.0.2",
+  "version": "6.1.0",
   "private": false,
   "description": "Integrate Intlayer with Create React App using custom React scripts for internationalization i18n and advanced Webpack configurations",
   "keywords": [
@@ -86,15 +86,15 @@
   "devDependencies": {
     "@craco/types": "^7.1.0",
     "@types/cross-spawn": "^6.0.6",
-    "@types/node": "^24.2.1",
+    "@types/node": "^24.5.2",
     "@types/webpack": "^5.28.5",
-    "@typescript-eslint/parser": "^8.33.1",
+    "@typescript-eslint/parser": "^8.44.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.1.2",
-    "eslint": "^9.34.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.36.0",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",

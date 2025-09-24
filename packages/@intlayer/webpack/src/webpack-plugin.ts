@@ -10,7 +10,7 @@ export class IntlayerPlugin {
   async apply(compiler: Compiler): Promise<void> {
     if (this.configuration.content.watch) {
       // Start watching (assuming watch is also async)
-      watch(this.configuration);
+      watch({ configuration: this.configuration });
     }
 
     compiler.hooks.beforeCompile.tapPromise('IntlayerPlugin', async () => {

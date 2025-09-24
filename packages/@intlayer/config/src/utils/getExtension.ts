@@ -6,11 +6,11 @@ export const getExtension = (
 ) => {
   const outputFormats = configuration.build.outputFormat;
 
-  if (format === 'esm') return 'mjs';
   if (format === 'cjs') return 'cjs';
+  if (format === 'esm') return 'mjs';
 
-  if (outputFormats.includes('esm')) return 'mjs';
   if (outputFormats.includes('cjs')) return 'cjs';
+  if (outputFormats.includes('esm')) return 'mjs';
 
-  return 'mjs';
+  return 'cjs';
 };

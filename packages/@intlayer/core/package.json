@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/core",
-  "version": "6.0.2",
+  "version": "6.1.0",
   "private": false,
   "description": "Includes core Intlayer functions like translation, dictionary, and utility functions shared across multiple packages.",
   "keywords": [
@@ -143,14 +143,14 @@
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^24.2.1",
-    "@typescript-eslint/parser": "^8.33.1",
+    "@types/node": "^24.5.2",
+    "@typescript-eslint/parser": "^8.44.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.1.2",
-    "eslint": "^9.34.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.36.0",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.16",

@@ -16,8 +16,8 @@ import { getDictionaries } from '@intlayer/dictionaries-entry';
 import * as fsPromises from 'fs/promises';
 import { join } from 'path';
 import * as readline from 'readline';
-import { PushLogger, type PushStatus } from './pushLog';
-import { checkCMSAuth } from './utils/checkAccess';
+import { PushLogger, type PushStatus } from '../pushLog';
+import { checkCMSAuth } from '../utils/checkAccess';
 
 type PushOptions = {
   deleteLocaleDictionary?: boolean;
@@ -300,5 +300,3 @@ const deleteLocalDictionaries = async (
     }
   }
 };
-
-// Legacy per-line spinner output removed in favor of aggregated PushLogger

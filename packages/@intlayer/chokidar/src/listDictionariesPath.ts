@@ -1,6 +1,11 @@
 import { type IntlayerConfig, getConfiguration } from '@intlayer/config';
 import fg from 'fast-glob';
 
+/**
+ * List all dictionaries absolute paths in the project
+ * @param configuration - The configuration object
+ * @returns An array of dictionary paths
+ */
 export const listDictionaries = (
   configuration: IntlayerConfig = getConfiguration()
 ): string[] => {

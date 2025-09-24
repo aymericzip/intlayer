@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { type IntlayerConfig } from '@intlayer/config';
 import {
   colorizeKey,
   colorizePath,
@@ -7,39 +7,46 @@ import {
 import type { Dictionary } from '@intlayer/core';
 import { formatPath } from './utils/formatter';
 
-export const filterInvalidDictionaries = (
-  dictionaries: (Dictionary | undefined)[] | undefined
-): Dictionary[] => {
+export const isInvalidDictionary = (
+  dictionary: Dictionary | undefined,
+  configuration?: IntlayerConfig
+): boolean => {
   const appLogger = getAppLogger(configuration);
 
-  return (dictionaries ?? [])?.filter((dictionary) => {
-    if (!dictionary) return false;
+  if (!dictionary) return false;
 
-    const isLocal = Boolean(dictionary.location === 'locale');
-    const location = isLocal ? 'Local' : 'Remote';
-    const hasKey = Boolean(dictionary.key);
-    const hasContent = Boolean(dictionary.content);
+  const isLocal = Boolean(dictionary.location === 'locale');
+  const location = isLocal ? 'Local' : 'Remote';
+  const hasKey = Boolean(dictionary.key);
+  const hasContent = Boolean(dictionary.content);
 
-    if (!hasKey) {
-      appLogger(`${location} dictionary has no key`, {
+  if (!hasKey) {
+    appLogger(`${location} dictionary has no key`, {
+      level: 'error',
+    });
+    appLogger(JSON.stringify(dictionary, null, 2), {
+      level: 'error',
+    });
+    return false;
+  }
+
+  if (!hasContent) {
+    appLogger(
+      `${location} dictionary ${colorizeKey(dictionary.key)} has no content - ${dictionary.filePath ? formatPath(dictionary.filePath) : colorizePath('Remote')}`,
+      {
         level: 'error',
-      });
-      appLogger(JSON.stringify(dictionary, null, 2), {
-        level: 'error',
-      });
-      return false;
-    }
+      }
+    );
+    return false;
+  }
 
-    if (!hasContent) {
-      appLogger(
-        `${location} dictionary ${colorizeKey(dictionary.key)} has no content - ${dictionary.filePath ? formatPath(dictionary.filePath) : colorizePath('Remote')}`,
-        {
-          level: 'error',
-        }
-      );
-      return false;
-    }
-
-    return true;
-  }) as Dictionary[];
+  return true;
 };
+
+export const filterInvalidDictionaries = (
+  dictionaries: (Dictionary | undefined)[] | undefined,
+  configuration?: IntlayerConfig
+): Dictionary[] =>
+  (dictionaries ?? [])?.filter((dictionary) =>
+    isInvalidDictionary(dictionary, configuration)
+  ) as Dictionary[];

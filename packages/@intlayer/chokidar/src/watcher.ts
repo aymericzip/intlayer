@@ -4,9 +4,9 @@ import {
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
-import { basename } from 'path';
-/** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
+/** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions'. */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
+import { basename } from 'path';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
 import { handleUnlikedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';
@@ -33,11 +33,17 @@ export const watch = (options?: WatchOptions) => {
   return chokidarWatch(watchedFilesPatternWithPath, {
     persistent: isWatchMode, // Make the watcher persistent
     ignoreInitial: true, // Process existing files
+    awaitWriteFinish: {
+      stabilityThreshold: 1000,
+      pollInterval: 100,
+    },
     ...options,
   })
     .on('add', async (filePath) => {
       const fileName = basename(filePath);
       recentlyAddedFiles.add(fileName);
+
+      console.log('add', filePath);
 
       await handleAdditionalContentDeclarationFile(filePath, configuration);
 
@@ -80,7 +86,7 @@ export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
     await prepareIntlayer(configuration);
   }
 
-  if (configuration.content.watch || options.persistent) {
+  if (configuration.content.watch || options?.persistent) {
     const appLogger = getAppLogger(configuration);
 
     appLogger('Watching Intlayer content declarations');

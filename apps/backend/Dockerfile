@@ -2,7 +2,7 @@
 
 FROM node:24-alpine AS builder
 
-RUN npm install -g pnpm@10.12.1
+RUN npm install -g pnpm@10.17.1
 
 # Create app directory
 WORKDIR /workspace

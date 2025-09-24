@@ -20,7 +20,7 @@ export type GetConfigurationOptions = {
   env?: string;
   envFile?: string;
   logFunctions?: LogFunctions;
-  projectRequire?: typeof require;
+  projectRequire?: NodeJS.Require;
   additionalEnvVars?: Record<string, string>;
 };
 

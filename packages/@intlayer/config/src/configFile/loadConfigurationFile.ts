@@ -19,7 +19,7 @@ const filterValidConfiguration = (
 export const loadConfigurationFile = (
   configFilePath: string,
   envVarOptions?: LoadEnvFileOptions,
-  projectRequire?: typeof require,
+  projectRequire?: NodeJS.Require,
   additionalEnvVars?: Record<string, string>
 ): CustomIntlayerConfig | undefined => {
   try {

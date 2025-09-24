@@ -11,13 +11,13 @@
   "dependencies": {
     "intlayer": "workspace:*",
     "solid-intlayer": "workspace:*",
-    "solid-js": "^1.9.5"
+    "solid-js": "^1.9.9"
   },
   "devDependencies": {
     "solid-refresh": "^0.7.5",
-    "typescript": "~5.7.2",
-    "vite": "^7.1.2",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7",
     "vite-intlayer": "workspace:*",
-    "vite-plugin-solid": "^2.11.6"
+    "vite-plugin-solid": "^2.11.8"
   }
 }

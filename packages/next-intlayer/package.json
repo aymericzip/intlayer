@@ -1,6 +1,6 @@
 {
   "name": "next-intlayer",
-  "version": "6.0.2",
+  "version": "6.1.0",
   "private": false,
   "description": "Simplify internationalization i18n in Next.js with context providers, hooks, locale detection, and multilingual content integration.",
   "keywords": [
@@ -102,16 +102,16 @@
     "react-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^24.2.1",
+    "@types/node": "^24.5.2",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
-    "@typescript-eslint/parser": "^8.33.1",
+    "@typescript-eslint/parser": "^8.44.1",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "concurrently": "^9.1.2",
-    "eslint": "^9.34.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.36.0",
     "intlayer": "workspace:*",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",

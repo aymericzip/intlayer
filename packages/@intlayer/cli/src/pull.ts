@@ -14,7 +14,7 @@ import {
 import type { Dictionary } from '@intlayer/core';
 import { existsSync } from 'fs';
 import { join } from 'path';
-import { PullLogger, type PullStatus } from './pullLog';
+import { PullLogger, type PullStatus } from './push/pullLog';
 import { checkCMSAuth } from './utils/checkAccess';
 
 type PullOptions = {

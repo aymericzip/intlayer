@@ -716,7 +716,7 @@ npx clear-npx-cache
 
 | Version | Date       | Changes                                     |
 | ------- | ---------- | ------------------------------------------- |
-| 6.0.3   | 2025-09-23 | Add watch command and with option           |
+| 6.1.0   | 2025-09-23 | Add watch command and with option           |
 | 6.0.1   | 2025-09-23 | Add editor command                          |
 | 6.0.0   | 2025-09-17 | Add content test and list command           |
 | 5.5.11  | 2025-07-11 | Update CLI command parameters documentation |

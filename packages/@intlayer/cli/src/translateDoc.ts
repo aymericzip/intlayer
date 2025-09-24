@@ -4,6 +4,7 @@ import {
   formatPath,
   listGitFiles,
   ListGitFilesOptions,
+  parallelize,
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
@@ -20,7 +21,6 @@ import {
 import fg from 'fast-glob';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { readFile } from 'fs/promises';
-import pLimit from 'p-limit';
 import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { chunkText } from './utils/calculateChunks';
@@ -214,8 +214,6 @@ export const translateDoc = async ({
     nbSimultaneousFileProcessed = 10; // Limit the number of simultaneous file processed to 10
   }
 
-  const limit = pLimit(nbSimultaneousFileProcessed ?? 3);
-
   let docList: string[] = fg.sync(docPattern, {
     ignore: excludedGlobPattern,
   });
@@ -247,52 +245,52 @@ export const translateDoc = async ({
   appLogger(`Translating ${colorizeNumber(docList.length)} files:`);
   appLogger(docList.map((path) => ` - ${formatPath(path)}\n`));
 
-  const tasks = docList.map((docPath) =>
-    locales.flatMap((locale) =>
-      limit(async () => {
-        appLogger(
-          `Translating file: ${formatPath(docPath)} to ${formatLocale(locale)}`
-        );
+  // Create all tasks to be processed
+  const allTasks = docList.flatMap((docPath) =>
+    locales.map((locale) => async () => {
+      appLogger(
+        `Translating file: ${formatPath(docPath)} to ${formatLocale(locale)}`
+      );
 
-        const absoluteBaseFilePath = join(
-          configuration.content.baseDir,
-          docPath
-        );
-        const outputFilePath = getOutputFilePath(
-          absoluteBaseFilePath,
-          locale,
-          baseLocale
-        );
+      const absoluteBaseFilePath = join(configuration.content.baseDir, docPath);
+      const outputFilePath = getOutputFilePath(
+        absoluteBaseFilePath,
+        locale,
+        baseLocale
+      );
 
-        // check if the file exist, otherwise create it
-        if (!existsSync(outputFilePath)) {
-          appLogger(`File ${outputFilePath} does not exist, creating it...`);
-          mkdirSync(dirname(outputFilePath), { recursive: true });
-          writeFileSync(outputFilePath, '');
-        }
+      // check if the file exist, otherwise create it
+      if (!existsSync(outputFilePath)) {
+        appLogger(`File ${outputFilePath} does not exist, creating it...`);
+        mkdirSync(dirname(outputFilePath), { recursive: true });
+        writeFileSync(outputFilePath, '');
+      }
 
-        const fileModificationData = checkFileModifiedRange(outputFilePath, {
-          skipIfModifiedBefore,
-          skipIfModifiedAfter,
-        });
+      const fileModificationData = checkFileModifiedRange(outputFilePath, {
+        skipIfModifiedBefore,
+        skipIfModifiedAfter,
+      });
 
-        if (fileModificationData.isSkipped) {
-          appLogger(fileModificationData.message);
-          return;
-        }
+      if (fileModificationData.isSkipped) {
+        appLogger(fileModificationData.message);
+        return;
+      }
 
-        await translateFile(
-          absoluteBaseFilePath,
-          outputFilePath,
-          locale as Locales,
-          baseLocale,
-          aiOptions,
-          configuration,
-          customInstructions
-        );
-      })
-    )
+      await translateFile(
+        absoluteBaseFilePath,
+        outputFilePath,
+        locale as Locales,
+        baseLocale,
+        aiOptions,
+        configuration,
+        customInstructions
+      );
+    })
   );
 
-  await Promise.all(tasks);
+  await parallelize(
+    allTasks,
+    (task) => task(),
+    nbSimultaneousFileProcessed ?? 3
+  );
 };

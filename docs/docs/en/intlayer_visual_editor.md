@@ -278,7 +278,7 @@ If you encounter any issues with the visual editor, check the following:
 
 | Version | Date       | Changes                                                              |
 | ------- | ---------- | -------------------------------------------------------------------- |
-| 6.0.3   | 2025-09-23 | Add with option on CLI                                               |
+| 6.1.0   | 2025-09-23 | Add with option on CLI                                               |
 | 6.0.1   | 2025-09-22 | Change behavior of the editor when the file extension is not `.json` |
 | 6.0.0   | 2025-09-21 | Add reexported command                                               |
 | 5.5.10  | 2025-06-29 | Init history                                                         |
