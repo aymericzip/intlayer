@@ -1,13 +1,10 @@
-export {
-  buildAndWatchIntlayer,
-  handleAdditionalContentDeclarationFile,
-  handleContentDeclarationFileChange,
-  watch,
-} from './chokidar/watcher';
 export { cleanOutputDir } from './cleanOutputDir';
 export { fetchDistantDictionaries } from './fetchDistantDictionaries';
 export { getBuiltDictionariesPath } from './getBuiltDictionariesPath';
 export { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionariesPath';
+export { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
+export { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
+export { handleUnlikedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';
 export { listDictionaries } from './listDictionariesPath';
 export {
   listGitFiles,
@@ -30,6 +27,7 @@ export {
   createDictionaryEntryPoint,
   generateDictionaryListContent,
 } from './transpiler/dictionary_to_main';
+export { createTypes } from './transpiler/dictionary_to_type';
 export { createModuleAugmentation } from './transpiler/dictionary_to_type/createModuleAugmentation';
 export { buildDictionary } from './transpiler/intlayer_dictionary/buildIntlayerDictionary';
 export { extractErrorMessage } from './utils/extractErrorMessage';
@@ -42,6 +40,7 @@ export { resolveObjectPromises } from './utils/resolveObjectPromises';
 export { runOnce } from './utils/runOnce';
 export { runParallel, type ParallelHandle } from './utils/runParallel';
 export { sortAlphabetically } from './utils/sortAlphabetically';
+export { buildAndWatchIntlayer, watch } from './watcher';
 export {
   writeContentDeclaration,
   type DictionaryStatus,
