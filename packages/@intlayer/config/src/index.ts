@@ -31,6 +31,7 @@ export type {
   InternationalizationConfig,
   IntlayerConfig,
   LogConfig,
+  LogFunctions,
   MiddlewareConfig,
   PatternsContentConfig,
   ResultDirDerivedConfig,

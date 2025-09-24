@@ -1,7 +1,11 @@
 import merge from 'deepmerge';
 import { relative } from 'path';
 import { logger } from '../logger';
-import type { CustomIntlayerConfig, IntlayerConfig } from '../types/config';
+import type {
+  CustomIntlayerConfig,
+  IntlayerConfig,
+  LogFunctions,
+} from '../types/config';
 import { buildConfigurationFields } from './buildConfigurationFields';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';
@@ -15,6 +19,9 @@ export type GetConfigurationOptions = {
   override?: CustomIntlayerConfig;
   env?: string;
   envFile?: string;
+  logFunctions?: LogFunctions;
+  projectRequire?: typeof require;
+  additionalEnvVars?: Record<string, string>;
 };
 
 const BASE_DIR_PATH = process.cwd();
@@ -30,7 +37,14 @@ export const getConfiguration = (
     ...options,
   };
 
-  const { baseDir, env, envFile } = mergedOptions;
+  const {
+    baseDir,
+    env,
+    envFile,
+    logFunctions,
+    additionalEnvVars,
+    projectRequire,
+  } = mergedOptions;
 
   if (!storedConfiguration || typeof options !== 'undefined') {
     // Search for configuration files
@@ -41,16 +55,19 @@ export const getConfiguration = (
     let customConfiguration: CustomIntlayerConfig | undefined;
 
     if (configurationFilePath) {
-      customConfiguration = loadConfigurationFile(configurationFilePath, {
-        env,
-        envFile,
-      });
+      customConfiguration = loadConfigurationFile(
+        configurationFilePath,
+        { env, envFile },
+        projectRequire,
+        additionalEnvVars
+      );
     }
 
     // Save the configuration to avoid reading the file again
     storedConfiguration = buildConfigurationFields(
       customConfiguration,
-      baseDir
+      baseDir,
+      logFunctions
     );
 
     storedConfigurationFilePath = configurationFilePath;

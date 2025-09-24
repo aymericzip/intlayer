@@ -18,10 +18,17 @@ const filterValidConfiguration = (
  */
 export const loadConfigurationFile = (
   configFilePath: string,
-  envVarOptions?: LoadEnvFileOptions
+  envVarOptions?: LoadEnvFileOptions,
+  projectRequire?: typeof require,
+  additionalEnvVars?: Record<string, string>
 ): CustomIntlayerConfig | undefined => {
   try {
-    const fileContent = loadExternalFile(configFilePath, envVarOptions);
+    const fileContent = loadExternalFile(
+      configFilePath,
+      envVarOptions,
+      projectRequire,
+      additionalEnvVars
+    );
 
     return filterValidConfiguration(fileContent);
   } catch (error) {

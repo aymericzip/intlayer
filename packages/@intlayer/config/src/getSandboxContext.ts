@@ -4,7 +4,8 @@ import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
 export const getSandBoxContext = (
   envVarOptions?: LoadEnvFileOptions,
-  projectRequire = ESMxCJSRequire
+  projectRequire = ESMxCJSRequire,
+  additionalEnvVars?: Record<string, string>
 ): Context => {
   let additionalGlobalVar = {};
 
@@ -29,6 +30,7 @@ export const getSandBoxContext = (
       env: {
         ...process.env,
         ...loadEnvFile(envVarOptions),
+        ...additionalEnvVars,
       },
     },
     console,

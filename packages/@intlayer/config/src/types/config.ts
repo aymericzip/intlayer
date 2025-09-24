@@ -679,6 +679,13 @@ export type ContentConfig = BaseContentConfig &
   ResultDirDerivedConfig &
   PatternsContentConfig;
 
+export type LogFunctions = {
+  error?: typeof console.error;
+  log?: typeof console.log;
+  info?: typeof console.info;
+  warn?: typeof console.warn;
+};
+
 export type LogConfig = {
   /**
    * Indicates if the logger is enabled
@@ -699,4 +706,13 @@ export type LogConfig = {
    * The prefix of the logger.
    */
   prefix: string;
+
+  /**
+   * Functions to log
+   */
+  error?: typeof console.error;
+  log?: typeof console.log;
+  info?: typeof console.info;
+  warn?: typeof console.warn;
+  debug?: typeof console.debug;
 };

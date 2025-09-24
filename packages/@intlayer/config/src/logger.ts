@@ -9,42 +9,42 @@ export type Details = {
 
 export type Logger = (content: any, details?: Details) => void;
 
-export const logger: Logger = (
-  content,
-  details = {
-    isVerbose: false,
-    level: undefined,
-    config: { mode: 'default', prefix: '' },
-  }
-) => {
-  const mode = details.config?.mode ?? 'default';
-  const prefix = Boolean(details.config?.prefix)
-    ? details.config?.prefix
+export const logger: Logger = (content, details) => {
+  const isVerbose = details?.isVerbose ?? false;
+  const mode = details?.config?.mode ?? 'default';
+  const level = details?.level ?? 'info';
+  const prefix = Boolean(details?.config?.prefix)
+    ? details?.config?.prefix
     : undefined;
+  const log = details?.config?.log ?? console.log;
+  const info = details?.config?.info ?? console.info;
+  const warn = details?.config?.warn ?? console.warn;
+  const error = details?.config?.error ?? console.error;
+  const debug = details?.config?.debug ?? console.debug;
 
   if (mode === 'disabled') return;
 
-  if (details.isVerbose && mode !== 'verbose') return;
+  if (isVerbose && mode !== 'verbose') return;
 
   const flatContent = prefix ? [prefix, ...[content].flat()] : [content].flat();
 
-  if (details.level === 'debug') {
-    return console.debug(...flatContent);
+  if (level === 'debug') {
+    return debug(...flatContent);
   }
 
-  if (details.level === 'info') {
-    return console.info(...flatContent);
+  if (level === 'info') {
+    return info(...flatContent);
   }
 
-  if (details.level === 'warn') {
-    return console.warn(...flatContent);
+  if (level === 'warn') {
+    return warn(...flatContent);
   }
 
-  if (details.level === 'error') {
-    return console.error(...flatContent);
+  if (level === 'error') {
+    return error(...flatContent);
   }
 
-  console.log(...flatContent);
+  log(...flatContent);
 };
 
 export enum ANSIColors {

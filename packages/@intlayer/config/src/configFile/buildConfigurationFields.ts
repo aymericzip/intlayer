@@ -58,6 +58,7 @@ import type {
   InternationalizationConfig,
   IntlayerConfig,
   LogConfig,
+  LogFunctions,
   MiddlewareConfig,
   PatternsContentConfig,
   ResultDirDerivedConfig,
@@ -625,7 +626,8 @@ const buildEditorFields = (
 });
 
 const buildLogFields = (
-  customConfiguration?: Partial<LogConfig>
+  customConfiguration?: Partial<LogConfig>,
+  logFunctions?: LogFunctions
 ): LogConfig => ({
   /**
    * Indicates if the logger is enabled
@@ -646,6 +648,14 @@ const buildLogFields = (
    * The prefix of the logger.
    */
   prefix: customConfiguration?.prefix ?? PREFIX,
+
+  /**
+   * Functions to log
+   */
+  error: logFunctions?.error,
+  log: logFunctions?.log,
+  info: logFunctions?.info,
+  warn: logFunctions?.warn,
 });
 
 const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
@@ -760,7 +770,8 @@ const buildBuildFields = (
  */
 export const buildConfigurationFields = (
   customConfiguration?: CustomIntlayerConfig,
-  baseDir?: string
+  baseDir?: string,
+  logFunctions?: LogFunctions
 ): IntlayerConfig => {
   const internationalizationConfig = buildInternationalizationFields(
     customConfiguration?.internationalization
@@ -777,7 +788,7 @@ export const buildConfigurationFields = (
 
   const editorConfig = buildEditorFields(customConfiguration?.editor);
 
-  const logConfig = buildLogFields(customConfiguration?.log);
+  const logConfig = buildLogFields(customConfiguration?.log, logFunctions);
 
   const aiConfig = buildAiFields(customConfiguration?.ai);
 
