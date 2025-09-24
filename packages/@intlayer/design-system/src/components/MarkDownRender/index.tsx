@@ -128,7 +128,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               <img
                 {...props}
                 loading="lazy"
-                className={cn('max-w-full rounded-md', className)}
+                className={cn('max-w-full max-h-[80vh] rounded-md', className)}
                 src={`${props.src}?raw=true`}
               />
             ),
