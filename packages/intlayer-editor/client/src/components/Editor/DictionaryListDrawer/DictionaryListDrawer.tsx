@@ -1,5 +1,6 @@
 'use client';
 
+import { type Dictionary } from '@intlayer/core';
 import {
   Button,
   RightDrawer,
@@ -24,14 +25,15 @@ export const DictionaryListDrawer: FC = () => {
   const { editedContent } = useEditedContent();
   const { setFocusedContent } = useFocusDictionary();
 
-  const handleClickDictionary = (dictionaryKey: string) => {
+  const handleClickDictionary = (dictionary: Dictionary) => {
     closeDrawer(dictionaryListDrawerIdentifier);
 
     setFocusedContent({
-      dictionaryKey,
+      dictionaryKey: dictionary.key!,
+      dictionaryLocalId: dictionary.localId!,
     });
 
-    openDrawer(getDrawerIdentifier(dictionaryKey));
+    openDrawer(getDrawerIdentifier(dictionary.key!));
   };
 
   const isDictionaryEdited = (dictionaryKey: string) =>
@@ -42,28 +44,24 @@ export const DictionaryListDrawer: FC = () => {
       title={drawerTitle.label.value}
       identifier={dictionaryListDrawerIdentifier}
     >
-      {Object.values(localeDictionaries).map((dictionary) => {
-        return (
-          <div key={dictionary.localId!}>
-            <Button
-              label={
-                buttonLabel.label({ dictionaryLocalId: dictionary.localId! })
-                  .value
-              }
-              onClick={() => handleClickDictionary(dictionary.localId!)}
-              variant="hoverable"
-              color="text"
-              IconRight={ChevronRight}
-              size="md"
-              isFullWidth
-            >
-              {isDictionaryEdited(dictionary.localId!)
-                ? `✎ ${dictionary.key}`
-                : dictionary.key}
-            </Button>
-          </div>
-        );
-      })}
+      {Object.values(localeDictionaries).map((dictionary) => (
+        <Button
+          key={dictionary.localId!}
+          label={
+            buttonLabel.label({ dictionaryLocalId: dictionary.localId! }).value
+          }
+          onClick={() => handleClickDictionary(dictionary)}
+          variant="hoverable"
+          color="text"
+          IconRight={ChevronRight}
+          size="md"
+          isFullWidth
+        >
+          {isDictionaryEdited(dictionary.key!)
+            ? `✎ ${dictionary.key}`
+            : dictionary.key}
+        </Button>
+      ))}
     </RightDrawer>
   );
 };
