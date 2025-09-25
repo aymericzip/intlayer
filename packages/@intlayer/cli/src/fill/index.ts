@@ -100,6 +100,17 @@ export const fill = async (options: FillOptions): Promise<void> => {
   const maxLocaleLength = Math.max(
     ...locales.map((locale) => formatLocale(locale).length)
   );
+  const dictionariesRecord = getDictionaries(configuration);
+
+  type TranslationTask = {
+    dictionaryKey: string;
+    sourceLocale: Locales;
+    targetLocale: Locales;
+    dictionaryPreset: string;
+    localePreset: string;
+  };
+
+  const translationTasks: TranslationTask[] = [];
 
   for (const targetUnmergedDictionary of targetUnmergedDictionaries) {
     const dictionaryPreset = colon(
@@ -112,8 +123,6 @@ export const fill = async (options: FillOptions): Promise<void> => {
     );
 
     const dictionaryKey = targetUnmergedDictionary.key;
-    const dictionariesRecord = getDictionaries(configuration);
-
     const mainDictionaryToProcess: Dictionary =
       dictionariesRecord[dictionaryKey];
 
@@ -165,13 +174,8 @@ export const fill = async (options: FillOptions): Promise<void> => {
       continue;
     }
 
-    const result: Dictionary[] = [];
-
-    // Determine output locales
     let outputLocalesList: Locales[] = outputLocales;
 
-    // If mode is review, translate all locales
-    // If mode is complete, translate only the locales that are not the source locale
     if (mode === 'complete') {
       const missingLocales = getMissingLocalesContent(
         mainDictionaryToProcess as unknown as ContentNode,
@@ -189,7 +193,6 @@ export const fill = async (options: FillOptions): Promise<void> => {
     if (outputLocalesList.length === 0) {
       appLogger(
         `${dictionaryPreset} No locales to fill - Skipping dictionary`,
-
         {
           level: 'warn',
         }
@@ -197,81 +200,143 @@ export const fill = async (options: FillOptions): Promise<void> => {
       continue;
     }
 
-    const translationResults = await parallelize(
-      outputLocalesList,
-      async (targetLocale) => {
-        const localePreset = colon(
-          [
-            colorize('[', ANSIColors.GREY_DARK),
-            formatLocale(targetLocale),
-            colorize(']', ANSIColors.GREY_DARK),
-          ].join(''),
-          { colSize: maxLocaleLength }
-        );
+    for (const targetLocale of outputLocalesList) {
+      const localePreset = colon(
+        [
+          colorize('[', ANSIColors.GREY_DARK),
+          formatLocale(targetLocale),
+          colorize(']', ANSIColors.GREY_DARK),
+        ].join(''),
+        { colSize: maxLocaleLength }
+      );
 
-        appLogger(
-          `${dictionaryPreset}${localePreset} Preparing translation for dictionary from ${formatLocale(sourceLocale)} to ${formatLocale(targetLocale)}`,
-          {
-            level: 'info',
-          }
-        );
+      translationTasks.push({
+        dictionaryKey,
+        sourceLocale,
+        targetLocale,
+        dictionaryPreset,
+        localePreset,
+      });
+    }
+  }
 
-        const presetOutputContent = getLocalisedContent(
-          mainDictionaryToProcess as unknown as ContentNode,
-          targetLocale,
-          { dictionaryKey, keyPath: [] }
-        );
+  const translationResults = await parallelize(
+    translationTasks,
+    async (task) => {
+      const mainDictionaryToProcess: Dictionary =
+        dictionariesRecord[task.dictionaryKey];
 
-        try {
-          const translationResult = await intlayerAPI.ai.translateJSON({
-            entryFileContent: sourceLocaleContent.content, // Should be JSON, ensure getLocalisedContent provides this.
-            presetOutputContent: presetOutputContent.content, // Should be JSON
-            dictionaryDescription: mainDictionaryToProcess.description ?? '',
-            entryLocale: sourceLocale,
-            outputLocale: targetLocale,
-            mode,
-            aiOptions: options.aiOptions,
-          });
+      appLogger(
+        `${task.dictionaryPreset}${task.localePreset} Preparing translation for dictionary from ${formatLocale(task.sourceLocale)} to ${formatLocale(task.targetLocale)}`,
+        {
+          level: 'info',
+        }
+      );
 
-          if (!translationResult.data?.fileContent) {
-            appLogger(`${dictionaryPreset}${localePreset} No content result`, {
-              level: 'error',
-            });
-            return null;
-          }
+      const sourceLocaleContent = getFilterTranslationsOnlyContent(
+        mainDictionaryToProcess as unknown as ContentNode,
+        task.sourceLocale,
+        { dictionaryKey: task.dictionaryKey, keyPath: [] }
+      );
 
-          const processedPerLocaleDictionary = processPerLocaleDictionary({
-            ...mainDictionaryToProcess,
-            content: translationResult.data?.fileContent,
-            locale: targetLocale,
-          });
+      const presetOutputContent = getLocalisedContent(
+        mainDictionaryToProcess as unknown as ContentNode,
+        task.targetLocale,
+        { dictionaryKey: task.dictionaryKey, keyPath: [] }
+      );
 
-          return processedPerLocaleDictionary;
-        } catch (error) {
+      try {
+        const translationResult = await intlayerAPI.ai.translateJSON({
+          entryFileContent: sourceLocaleContent.content,
+          presetOutputContent: presetOutputContent.content,
+          dictionaryDescription: mainDictionaryToProcess.description ?? '',
+          entryLocale: task.sourceLocale,
+          outputLocale: task.targetLocale,
+          mode,
+          aiOptions: options.aiOptions,
+        });
+
+        if (!translationResult.data?.fileContent) {
           appLogger(
-            `${dictionaryPreset}${localePreset} ${colorize('Error filling', ANSIColors.RED)}: ` +
-              error,
+            `${task.dictionaryPreset}${task.localePreset} No content result`,
             {
               level: 'error',
             }
           );
-          return null;
+          return { key: task.dictionaryKey, result: null } as const;
         }
-      },
-      options.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
-    );
 
-    // Filter out null results and add to result array
-    translationResults.forEach((translationResult) => {
-      if (translationResult) {
-        result.push(translationResult);
+        const processedPerLocaleDictionary = processPerLocaleDictionary({
+          ...mainDictionaryToProcess,
+          content: translationResult.data?.fileContent,
+          locale: task.targetLocale,
+        });
+
+        return {
+          key: task.dictionaryKey,
+          result: processedPerLocaleDictionary,
+        } as const;
+      } catch (error) {
+        appLogger(
+          `${task.dictionaryPreset}${task.localePreset} ${colorize('Error filling', ANSIColors.RED)}: ` +
+            error,
+          {
+            level: 'error',
+          }
+        );
+        return { key: task.dictionaryKey, result: null } as const;
       }
-    });
+    },
+    options.nbConcurrentTranslations ?? NB_CONCURRENT_TRANSLATIONS
+  );
+
+  const resultsByDictionary = new Map<string, Dictionary[]>();
+  for (const item of translationResults) {
+    if (item?.result) {
+      const list = resultsByDictionary.get(item.key) ?? [];
+      list.push(item.result);
+      resultsByDictionary.set(item.key, list);
+    }
+  }
+
+  for (const targetUnmergedDictionary of targetUnmergedDictionaries) {
+    const dictionaryKey = targetUnmergedDictionary.key;
+    const mainDictionaryToProcess: Dictionary =
+      dictionariesRecord[dictionaryKey];
+
+    const sourceLocale: Locales =
+      (targetUnmergedDictionary.locale as Locales) ?? baseLocale;
+
+    if (!mainDictionaryToProcess || !targetUnmergedDictionary.filePath) {
+      continue;
+    }
+
+    let outputLocalesList: Locales[] = outputLocales;
+
+    if (mode === 'complete') {
+      const missingLocales = getMissingLocalesContent(
+        mainDictionaryToProcess as unknown as ContentNode,
+        outputLocales,
+        {
+          dictionaryKey: mainDictionaryToProcess.key,
+          keyPath: [],
+          plugins: [],
+        }
+      );
+
+      outputLocalesList = missingLocales;
+    }
+
+    if (outputLocalesList.length === 0) {
+      continue;
+    }
+
+    const perLocaleResults = resultsByDictionary.get(dictionaryKey) ?? [];
 
     const dictionaryToMerge =
       mode === 'review'
-        ? [...result, mainDictionaryToProcess] // Mode review: generated content will override the base one
-        : [mainDictionaryToProcess, ...result]; // Mode complete: base content will override the generated one
+        ? [...perLocaleResults, mainDictionaryToProcess]
+        : [mainDictionaryToProcess, ...perLocaleResults];
 
     const mergedResults = mergeDictionaries(dictionaryToMerge);
 
@@ -309,6 +374,14 @@ export const fill = async (options: FillOptions): Promise<void> => {
       );
 
       if (formattedDict.filePath) {
+        const dictionaryPreset = colon(
+          [
+            colorize('  - [', ANSIColors.GREY_DARK),
+            colorizeKey(targetUnmergedDictionary.key),
+            colorize(']', ANSIColors.GREY_DARK),
+          ].join(''),
+          { colSize: maxKeyLength + 6 }
+        );
         appLogger(
           `${dictionaryPreset} Content declaration written to ${formatPath(formattedDict.filePath)}`,
           {

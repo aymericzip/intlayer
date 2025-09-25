@@ -83,6 +83,13 @@ const productHuntContent = {
           <strong className="underline">Product Hunt</strong>
         </>
       ),
+      tr: (
+        <>
+          Intlayer bu<strong>Pazar, 11 Mayıs</strong>nda{' '}
+          <strong className="underline">Product Hunt</strong> üzerinde
+          yayınlanır
+        </>
+      ),
     }),
     details: t({
       en: 'Visit us on Product Hunt and show your support with an upvote. Your feedback is invaluable!',
@@ -99,6 +106,7 @@ const productHuntContent = {
       hi: 'Product Hunt पर हमें देखें और एक अपvote के साथ अपना समर्थन दिखाएं। आपकी फीडबैक अनमोल है!',
       ar: 'قم بزيارتنا على Product Hunt وأظهر دعمك من خلال التصويت. ملاحظاتك لا تقدر بثمن!',
       ru: 'Посетите нас на Product Hunt и поддержите нас голосованием. Ваш отзыв бесценен!',
+      tr: "Product Hunt'da bizi ziyaret edin ve bir upvote ile desteğinizi gösterin. Yorumunuz değerlidir!",
     }),
     linkLabel: t({
       en: 'Go to see it on Product Hunt',
@@ -114,6 +122,7 @@ const productHuntContent = {
       hi: 'प्रोडक्शन हिंदु में जाएं',
       ar: 'اذهب لرؤيةه على Product Hunt',
       ru: 'Посетите на Product Hunt',
+      tr: "Product Hunt'da görüntüle",
     }),
     closeLabel: t({
       en: 'Close',
@@ -129,6 +138,7 @@ const productHuntContent = {
       hi: 'बंद करें',
       ar: 'إغلاق',
       ru: 'Закрыть',
+      tr: 'Kapat',
     }),
   },
 } satisfies Dictionary;

@@ -19,6 +19,7 @@ const content = {
       pt: 'Bem-vindo à nossa aplicação',
       ru: 'Добро пожаловать в наше приложение',
       zh: '欢迎来到我们的应用程序',
+      tr: 'Uygulamamıza hoş geldiniz',
     }),
     numberOfCar: enu({
       '<-1': 'Less than minus one car',
@@ -57,6 +58,7 @@ const content = {
         ko: '안녕하세요, 저는 {{name}} 이고, {{age}} 살입니다!',
         de: 'Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!',
         ar: 'مرحبا, اسمي {{name}} وأنا {{age}} سنة!',
+        tr: 'Merhaba, benim adım {{name}} ve ben {{age}} yaşındayım!',
       })
     ),
     myFile: file('./file.md'),
