@@ -226,6 +226,9 @@ importers:
       '@utils/tsup-config':
         specifier: workspace:*
         version: link:../../utils/tsup-config
+      esbuild-fix-imports-plugin:
+        specifier: ^1.0.22
+        version: 1.0.22
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
