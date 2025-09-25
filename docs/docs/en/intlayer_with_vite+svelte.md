@@ -135,34 +135,34 @@ Add the intlayer plugin into your configuration.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayerPlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayerPlugin()],
+  plugins: [svelte(), intlayerPlugin()],
 });
 ```
 
 ```javascript fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayerPlugin } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayerPlugin()],
+  plugins: [svelte(), intlayerPlugin()],
 });
 ```
 
 ```javascript fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
+const { svelte } = require("@sveltejs/vite-plugin-svelte");
 const { intlayerPlugin } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [react(), intlayerPlugin()],
+  plugins: [svelte(), intlayerPlugin()],
 });
 ```
 
@@ -221,7 +221,31 @@ module.exports = appContent;
 
 ### Step 5: Utilize Intlayer in Your Code
 
-[to complete]
+To use Intlayer in your code. In your layout or entry file by default it is `App.svelte`. Import the IntlayerProvider from `svelte-intlayer`.
+
+```svelte fileName="src/App.svelte" contentDeclarationFormat="svelte"
+<script lang="ts">
+  import { IntLayerProvider } from 'svelte-intlayer';
+</script>
+
+<IntLayerProvider>
+  <!-- YOUR APP CONTENT GOES HERE -->
+</IntLayerProvider>
+```
+
+> Currently you cannot use the the hooks provided by `svelte-intlayer` directly in the root or layout file
+
+Next, we create a component for where we would use our content. Note, this can be any file.
+
+```svelte fileName="src/Content.svelte" contentDeclarationFormat="svelte"
+<script lang="ts">
+  import { useIntLayer, useDictionary } from 'svelte-intlayer';
+
+  let content = useIntLayer('app');
+</script>
+
+<h1>{content.title}</h1>
+```
 
 ### (Optional) Step 6: Change the language of your content
 
@@ -279,6 +303,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 ## Doc History
 
-| Version | Date       | Changes      |
-| ------- | ---------- | ------------ |
-| 5.5.10  | 2025-06-29 | Init history |
+| Version | Date       | Changes                    |
+| ------- | ---------- | -------------------------- |
+| 5.5.10  | 2025-06-29 | Init history               |
+| 5.5.10  | 2025-09-25 | Implement Doc for provider |

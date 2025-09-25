@@ -3,7 +3,7 @@
   import viteLogo from '/vite.svg';
   import Counter from './lib/Counter.svelte';
   import { IntLayerProvider } from 'svelte-intlayer';
-  import Test from './Content.svelte';
+  import Content from './Content.svelte';
 </script>
 
 <IntLayerProvider locale="fr">
@@ -21,7 +21,7 @@
     <div class="card">
       <Counter />
     </div>
-    <Test />
+    <Content />
     <p>
       Check out <a
         href="https://github.com/sveltejs/kit#readme"
