@@ -128,6 +128,19 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       },
     },
     {
+           url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Admin}`,
+           lastModified: new Date(),
+           changeFrequency: 'monthly',
+           priority: 0.8,
+            alternates: {
+              languages: {
+                ...getMultilingualUrls(
+                  `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Admin}`
+                ),
+              },
+            },
+         },
+    {
       url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
