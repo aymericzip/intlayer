@@ -21,6 +21,10 @@
         "!.next/cache/**"
       ]
     },
+    "prepublish": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
     "dev": {
       "cache": false,
       "persistent": true

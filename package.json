@@ -45,9 +45,9 @@
     "lint-staged": "lint-staged --allow-empty",
     "lint:fix": "eslint . --cache --fix",
     "prepare": "husky",
-    "prepublishOnly": "npm run test",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
+    "prepublish": "turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend",
     "test": "turbo test --parallel --filter=./packages/** --filter=./docs --filter=./apps/backend",
     "test:pick": "node ./scripts/script-pick.mjs --command test",
     "typecheck": "tsup --project ./tsconfig.json --noEmit"

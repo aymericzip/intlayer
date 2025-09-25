@@ -68,6 +68,7 @@
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier --write src/**/*",
+    "prepublish": "cp -f ../../../README.md ./README.md",
     "test": "vitest run",
     "test:watch": "vitest"
   },

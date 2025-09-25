@@ -77,6 +77,7 @@
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
     "preview": "vite preview",
+    "prepublish": "cp -f ../../../README.md ./README.md",
     "start": "pnpm storybook -p 6006 --no-open --host 0.0.0.0",
     "start:serve": "npx http-server -y storybook-static -p 6006 -o --no-open",
     "storybook": "storybook dev -p 6006",

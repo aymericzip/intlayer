@@ -61,6 +61,7 @@
     "lint:fix": "eslint . --cache --fix",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
+    "prepublish": "cp -f ../../README.md ./README.md",
     "start": "cross-env NODE_ENV=production node dist/esm/index.mjs",
     "start:stripe": "stripe listen --forward-to localhost:3100/webhook/stripe",
     "test": "vitest run",
