@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://intlayer.org">
+  <a href="https://intlayer.org" rel="">
     <img src="https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/cover.png" width="60%" alt="Intlayer Logo" />
   </a>
 </p>
@@ -11,11 +11,11 @@
 <br />
 
 <p align="center">
-  <a href="https://intlayer.org/doc/concept/content">Docs</a> •
-  <a href="https://intlayer.org/doc/environment/nextjs">Next.js</a> •
-  <a href="https://intlayer.org/doc/environment/vite-and-react">React + Vite</a> •
-  <a href="https://intlayer.org/doc/concept/cms">CMS</a> •
-  <a href="https://discord.gg/7uxamYVeCk">Discord</a>
+  <a href="https://intlayer.org/doc/concept/content" rel="">Docs</a> •
+  <a href="https://intlayer.org/doc/environment/nextjs" rel="">Next.js</a> •
+  <a href="https://intlayer.org/doc/environment/vite-and-react" rel="">React + Vite</a> •
+  <a href="https://intlayer.org/doc/concept/cms" rel="">CMS</a> •
+  <a href="https://discord.gg/7uxamYVeCk" rel="noopener noreferrer nofollow">Discord</a>
 </p>
 <p align="center" style="margin-top:15px;">
   <a href="https://www.npmjs.com/package/intlayer" target="_blank" rel="noopener noreferrer nofollow"><img src="https://img.shields.io/npm/v/intlayer?style=for-the-badge&labelColor=FFFFFF&color=000000&logoColor=FFFFFF" alt="npm version" height="24"/></a>
@@ -69,7 +69,7 @@ With **per-locale content files**, **TypeScript autocompletion**, **tree-shakabl
 
 Start your journey with Intlayer today and experience a smoother, more powerful approach to internationalization.
 
-<a href="https://intlayer.org/doc/concept/content">
+<a href="https://intlayer.org/doc/concept/content" rel="">
   <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -128,7 +128,7 @@ const HomePage = () => {
 
 [![How to Internationalize your application using Intlayer](https://i.ytimg.com/vi/e_PPG7PTqGU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/e_PPG7PTqGU?si=GyU_KpVhr61razRw)
 
-<a href="https://intlayer.org/doc/concept/content">
+<a href="https://intlayer.org/doc/concept/content" rel="">
   <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
