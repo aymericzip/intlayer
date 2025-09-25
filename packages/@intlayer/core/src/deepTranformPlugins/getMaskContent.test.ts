@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { buildMask, buildMaskPlugin } from './buildMask';
+import { buildMaskPlugin, getMaskContent } from './getMaskContent';
 
-describe('buildMask', () => {
+describe('getMaskContent', () => {
   it('should transform a simple dictionary content to mask format', () => {
     const simpleDictionary = {
       key: 'simple-test',
@@ -11,7 +11,7 @@ describe('buildMask', () => {
       },
     };
 
-    const result = buildMask(simpleDictionary);
+    const result = getMaskContent(simpleDictionary);
 
     expect(result).toEqual({
       key: 'simple-test',
@@ -38,7 +38,7 @@ describe('buildMask', () => {
       },
     };
 
-    const result = buildMask(complexDictionary);
+    const result = getMaskContent(complexDictionary);
 
     expect(result).toEqual({
       key: 'complex-test',
@@ -81,7 +81,7 @@ describe('buildMask', () => {
       },
     };
 
-    const result = buildMask(translationDictionary);
+    const result = getMaskContent(translationDictionary);
 
     expect(result).toEqual({
       key: 'translation-test',
@@ -186,7 +186,7 @@ describe('buildMask', () => {
       },
     };
 
-    const result = buildMask(onboardingDictionary);
+    const result = getMaskContent(onboardingDictionary);
 
     expect(result).toEqual({
       key: 'onboard-page',
@@ -277,7 +277,7 @@ describe('buildMask', () => {
       },
     };
 
-    const result = buildMask(mixedDictionary);
+    const result = getMaskContent(mixedDictionary);
 
     expect(result).toEqual({
       key: 'mixed-test',
@@ -307,7 +307,7 @@ describe('buildMask', () => {
       },
     };
 
-    const result = buildMask(testDictionary);
+    const result = getMaskContent(testDictionary);
 
     expect(result.key).toBe('preserve-key-test');
   });
@@ -318,7 +318,7 @@ describe('buildMask', () => {
       content: {},
     };
 
-    const result = buildMask(emptyDictionary);
+    const result = getMaskContent(emptyDictionary);
 
     expect(result).toEqual({
       key: 'empty-test',

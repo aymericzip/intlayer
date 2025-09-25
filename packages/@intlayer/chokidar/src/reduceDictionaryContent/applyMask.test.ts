@@ -1,6 +1,6 @@
+import { getMaskContent } from '@intlayer/core';
 import { describe, expect, it } from 'vitest';
 import { applyMask } from './applyMask';
-import { buildMask } from './buildMask';
 
 describe('applyMask', () => {
   it('should return the full dictionary when mask is true', () => {
@@ -609,7 +609,7 @@ describe('applyMask', () => {
     };
 
     // Create mask using buildMask
-    const mask = buildMask(originalDictionary);
+    const mask = getMaskContent(originalDictionary);
 
     // Apply the mask back to the original
     const result = applyMask(originalDictionary, mask);

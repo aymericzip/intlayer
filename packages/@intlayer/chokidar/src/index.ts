@@ -3,13 +3,16 @@ export { cleanOutputDir } from './cleanOutputDir';
 export {
   createDictionaryEntryPoint,
   generateDictionaryListContent,
+  getBuiltDictionariesPath,
+  getBuiltDynamicDictionariesPath,
+  getBuiltFetchDictionariesPath,
+  getBuiltRemoteDictionariesPath,
+  getBuiltUnmergedDictionariesPath,
 } from './createDictionaryEntryPoint';
 export { createTypes } from './createType';
 export { createModuleAugmentation } from './createType/createModuleAugmentation';
 export { fetchDistantDictionaries } from './fetchDistantDictionaries';
 export { isInvalidDictionary } from './filterInvalidDictionaries';
-export { getBuiltDictionariesPath } from './getBuiltDictionariesPath';
-export { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionariesPath';
 export { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 export { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
 export { handleUnlikedContentDeclarationFile } from './handleUnlikedContentDeclarationFile';

@@ -1,14 +1,14 @@
 import { getConfiguration } from '@intlayer/config';
 import { mkdir } from 'fs/promises';
 import { resolve } from 'path';
-import { getBuiltDictionariesPath } from '../getBuiltDictionariesPath';
-import { getBuiltDynamicDictionariesPath } from '../getBuiltDynamicDictionariesPath';
-import { getBuiltFetchDictionariesPath } from '../getBuiltFetchDictionariesPath';
-import { getBuiltRemoteDictionariesPath } from '../getBuiltRemoteDictionariesPath';
-import { getBuiltUnmergedDictionariesPath } from '../getBuiltUnmergedDictionariesPath';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { generateDictionaryListContent } from './generateDictionaryListContent';
+import { getBuiltDictionariesPath } from './getBuiltDictionariesPath';
+import { getBuiltDynamicDictionariesPath } from './getBuiltDynamicDictionariesPath';
+import { getBuiltFetchDictionariesPath } from './getBuiltFetchDictionariesPath';
+import { getBuiltRemoteDictionariesPath } from './getBuiltRemoteDictionariesPath';
+import { getBuiltUnmergedDictionariesPath } from './getBuiltUnmergedDictionariesPath';
 
 const filterDictionaries = (paths: string[], keys?: string[]) => {
   if (!keys) return paths;

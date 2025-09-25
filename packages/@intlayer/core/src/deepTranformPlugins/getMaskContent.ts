@@ -1,4 +1,5 @@
-import { deepTransformNode, Dictionary, type Plugins } from '@intlayer/core';
+import { deepTransformNode, type Plugins } from '../interpreter';
+import { type Dictionary } from '../types';
 
 const passTypedNodePlugin: Plugins = {
   id: 'pass-typed-node-plugin',
@@ -15,7 +16,7 @@ export const buildMaskPlugin: Plugins = {
   transform: () => true,
 };
 
-export const buildMask = (source: Dictionary): any => ({
+export const getMaskContent = (source: Dictionary): any => ({
   ...source,
   content: deepTransformNode(source.content, {
     dictionaryKey: source.key,

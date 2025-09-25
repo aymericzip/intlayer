@@ -1,8 +1,8 @@
 import { type IntlayerConfig, getAppLogger } from '@intlayer/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
+import { getBuiltDictionariesPath } from './createDictionaryEntryPoint/getBuiltDictionariesPath';
 import { createTypes } from './createType';
-import { getBuiltDictionariesPath } from './getBuiltDictionariesPath';
 import { loadLocalDictionaries } from './loadDictionaries/loadLocalDictionaries';
 import { formatPath } from './utils/formatter';
 
