@@ -2,6 +2,7 @@
 
 import { PagesRoutes } from '@/Routes';
 import { Link } from '@components/Link/Link';
+
 import {
   LinkColor,
   LinkVariant,
@@ -12,12 +13,14 @@ import {
 } from '@intlayer/design-system';
 import { motion } from 'framer-motion';
 import packageJSON from 'intlayer/package.json' with { type: 'json' };
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import type { FC } from 'react';
+import { useState, type FC } from 'react';
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
+
+
 
 export const LandingSection: FC = () => {
   const {
@@ -32,6 +35,14 @@ export const LandingSection: FC = () => {
     availableFor,
   } = useIntlayer('landing-section');
 
+  const [copied, setCopied] = useState(false);
+
+  function copyToClipboard(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    navigator.clipboard.writeText('npm install intlayer').then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
+  }
   return (
     <section className="relative flex flex-col min-h-[calc(100vh-64px)] w-full px-4 md:px-8 lg:px-12">
       <div className="flex flex-col flex-1 items-center justify-center text-center">
@@ -49,7 +60,7 @@ export const LandingSection: FC = () => {
                 size={TagSize.SM}
                 border={TagBorder.WITH}
                 color={TagColor.NEUTRAL}
-                className="border text-text rounded-full text-sm font-medium"
+                className="border  text-text rounded-full text-sm font-medium"
               >
                 {whatsNew}
               </Tag>
@@ -58,7 +69,7 @@ export const LandingSection: FC = () => {
                 color={LinkColor.NEUTRAL}
                 label={whatsNewLabel.value}
               >
-                <span className="flex items-center gap-1 text-sm sm:text-lg font-semibold text-neutral-500 dark:text-neutral-400">
+                <span className="flex items-center gap-1 text-sm sm:text-sm font-medium text-neutral-500 dark:text-neutral-400">
                   {version} v{packageJSON.version}{' '}
                   <ArrowRight className="w-3 h-3" />
                 </span>
@@ -81,7 +92,7 @@ export const LandingSection: FC = () => {
             initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
             animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-xl sm:text-3xl md:text-4xl font-semibold text-text mb-6 lg:mb-8 text-center"
+            className="text-xl sm:text-3xl md:text-3xl lg:text-4xl font-semibold text-text mb-6 lg:mb-8 text-center"
           >
             {subheading}
           </motion.h2>
@@ -95,6 +106,32 @@ export const LandingSection: FC = () => {
           >
             {description}
           </motion.p>
+
+
+         {/* Bloc de code copiable */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+            className="w-full max-w-2xl mx-auto mb-6 lg:mb-10"
+          >
+            <div className="bg-neutral-900 text-neutral-100 rounded-2xl p-4 font-mono text-sm relative shadow-md">
+             
+              <div className="flex items-center justify-between">
+                <code className="truncate">npm install intlayer</code>
+                <button
+                  onClick={copyToClipboard}
+                  className="ml-3 px-3 py-1 rounded-md bg-neutral-800 hover:bg-neutral-700 text-xs font-medium text-neutral-300 transition"
+                >
+                 {copied ? (
+        <Check className="w-4 h-4 text-green-400" />
+      ) : (
+        <Copy className="w-4 h-4" />
+      )}
+                </button>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Action Buttons */}
           <motion.div
@@ -115,7 +152,7 @@ export const LandingSection: FC = () => {
                 {/* <span className="block">
                 <Github width={20} height={20} />
               </span> */}
-                <span className="block text-lg">{supportButton}</span>
+                <span className="block text-sm sm:text-lg ">{supportButton}</span>
               </span>
             </Link>
 
@@ -127,8 +164,8 @@ export const LandingSection: FC = () => {
               className="hover:scale-105 px-4 py-2 rounded-full"
             >
               <span className="flex items-center justify-center gap-2">
-                <span className="text-lg">{getStartedButton}</span>
-                <ArrowRight width={20} height={20} />
+                <span className="block text-sm sm:text-lg  ">{getStartedButton}</span>
+                <ArrowRight width={15} height={15}/>
               </span>
             </Link>
           </motion.div>
