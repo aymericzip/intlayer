@@ -1,5 +1,6 @@
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import {
   LocalizedDictionaryOutput,
   writeDynamicDictionary,
@@ -19,34 +20,34 @@ export const buildDictionary = async (
 ) => {
   const { importMode } = configuration.build;
 
-  // let unmergedDictionariesToUpdate: Dictionary[] = localDictionariesEntries;
+  let unmergedDictionariesToUpdate: Dictionary[] = [
+    ...localDictionariesEntries,
+  ];
 
-  // if (importOtherDictionaries) {
-  //   const prevUnmergedDictionaries: Record<string, Dictionary[]> =
-  //     getUnmergedDictionaries(configuration);
+  if (importOtherDictionaries) {
+    const prevUnmergedDictionaries: Record<string, Dictionary[]> =
+      getUnmergedDictionaries(configuration);
 
-  //   // Reinsert other dictionaries with the same key to avoid merging errors
-  //   for (const dictionaryToWrite of localDictionariesEntries) {
-  //     const allPrebuiltUnmergedDictionaries =
-  //       prevUnmergedDictionaries[dictionaryToWrite.key];
+    // Reinsert other dictionaries with the same key to avoid merging errors
+    for (const dictionaryToWrite of localDictionariesEntries) {
+      const allPrebuiltUnmergedDictionaries =
+        prevUnmergedDictionaries[dictionaryToWrite.key];
 
-  //     if (allPrebuiltUnmergedDictionaries?.length > 0) {
-  //       // Do not add the same dictionary again by filtering out the one with the same localId
-  //       const otherUnmergedDictionaries =
-  //         allPrebuiltUnmergedDictionaries.filter(
-  //           (unmergedDictionary) =>
-  //             unmergedDictionary.localId !== dictionaryToWrite.localId
-  //         );
+      if (allPrebuiltUnmergedDictionaries?.length > 0) {
+        // Do not add the same dictionary again by filtering out the one with the same localId
+        const otherUnmergedDictionaries =
+          allPrebuiltUnmergedDictionaries.filter(
+            (unmergedDictionary) =>
+              unmergedDictionary.localId !== dictionaryToWrite.localId
+          );
 
-  //       console.log('otherUnmergedDictionaries', otherUnmergedDictionaries);
-
-  //       unmergedDictionariesToUpdate.push(...otherUnmergedDictionaries);
-  //     }
-  //   }
-  // }
+        unmergedDictionariesToUpdate.push(...otherUnmergedDictionaries);
+      }
+    }
+  }
 
   const unmergedDictionaries = await writeUnmergedDictionaries(
-    localDictionariesEntries,
+    unmergedDictionariesToUpdate,
     configuration
   );
 
