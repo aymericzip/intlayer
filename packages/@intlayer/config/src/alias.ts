@@ -12,7 +12,7 @@ export type GetAliasOptions = {
 
 export const getAlias = ({
   configuration = getConfiguration(),
-  format,
+  format = 'esm',
   formatter = (value: string) => value,
 }: GetAliasOptions = {}) => {
   const extension = getExtension(configuration, format);
