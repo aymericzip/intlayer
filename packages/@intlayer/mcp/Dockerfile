@@ -43,7 +43,7 @@ RUN pnpm install --frozen-lockfile
 RUN npx turbo run build:ci --filter=./packages/@intlayer/mcp
 
 # Remove all dev dependencies
-RUN CI=true pnpm prune --prod
+# RUN CI=true pnpm prune --prod
 
 # Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete

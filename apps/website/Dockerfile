@@ -87,7 +87,7 @@ WORKDIR /workspace
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
 
 # Remove all dev dependencies
-RUN CI=true pnpm prune --prod
+# RUN CI=true pnpm prune --prod
 
 
 WORKDIR /workspace/apps/website
