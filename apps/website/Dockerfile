@@ -41,6 +41,7 @@ ENV NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_PREMIUM_MON
 ENV NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID}
 ENV NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID}
 ENV NEXT_PUBLIC_PRODUCTHUNT_TOKEN=${NEXT_PUBLIC_PRODUCTHUNT_TOKEN}
+ENV CI=true
 
 # Create app directory
 WORKDIR /workspace
@@ -86,7 +87,7 @@ WORKDIR /workspace
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
 
 # Remove all dev dependencies
-RUN pnpm prune --prod
+RUN CI=true pnpm prune --prod
 
 
 WORKDIR /workspace/apps/website
