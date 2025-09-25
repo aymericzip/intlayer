@@ -37,7 +37,7 @@ export const dirname = isESModule
 const packageJson = getParentPackageJSON(dirname);
 
 const logOptions = [
-  ['--verbose', 'Verbose'],
+  ['--verbose', 'Verbose (default to true using CLI)'],
   ['--prefix [prefix]', 'Prefix'],
 ];
 
@@ -196,7 +196,7 @@ const extractConfigOptions = (
 
   const log = {
     prefix: prefix ?? '', // Should not consider the prefix set in the intlayer configuration file
-    verbose,
+    verbose: verbose ?? true,
   };
 
   const override = {

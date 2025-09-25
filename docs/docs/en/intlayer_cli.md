@@ -179,7 +179,7 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 **Log options:**
 
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 **Git options:**
 
@@ -238,7 +238,7 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 **Log options:**
 
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 ##### Example:
 
@@ -329,7 +329,7 @@ This command analyzes your content declaration files for potential issues such a
 
 **Log options:**
 
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 ##### Example:
 
@@ -375,7 +375,7 @@ Total missing required locales: 0
 
 **Log options:**
 
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
   > Example: `npx intlayer content test --verbose`
 
@@ -446,7 +446,7 @@ npx intlayer configuration get
 - **`--env`**: Specify the environment (e.g., `development`, `production`).
 - **`--env-file`**: Provide a custom environment file to load variables from.
 - **`--base-dir`**: Specify the base directory for the project.
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 #### Push Configuration
 
@@ -466,7 +466,7 @@ npx intlayer configuration push
 - **`--env`**: Specify the environment (e.g., `development`, `production`).
 - **`--env-file`**: Provide a custom environment file to load variables from.
 - **`--base-dir`**: Specify the base directory for the project.
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.
 
@@ -545,7 +545,7 @@ npx intlayer doc translate
 
 **Log options:**
 
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
   > Example: `npx intlayer doc translate --verbose`
 
@@ -714,10 +714,11 @@ npx clear-npx-cache
 
 ## Doc History
 
-| Version | Date       | Changes                                     |
-| ------- | ---------- | ------------------------------------------- |
-| 6.1.0   | 2025-09-23 | Add watch command and with option           |
-| 6.0.1   | 2025-09-23 | Add editor command                          |
-| 6.0.0   | 2025-09-17 | Add content test and list command           |
-| 5.5.11  | 2025-07-11 | Update CLI command parameters documentation |
-| 5.5.10  | 2025-06-29 | Init history                                |
+| Version | Date       | Changes                                         |
+| ------- | ---------- | ----------------------------------------------- |
+| 6.1.0   | 2025-09-26 | Set verbose option to default to true using CLI |
+| 6.1.0   | 2025-09-23 | Add watch command and with option               |
+| 6.0.1   | 2025-09-23 | Add editor command                              |
+| 6.0.0   | 2025-09-17 | Add content test and list command               |
+| 5.5.11  | 2025-07-11 | Update CLI command parameters documentation     |
+| 5.5.10  | 2025-06-29 | Init history                                    |
