@@ -1592,18 +1592,6 @@ importers:
 
   packages/@intlayer/chokidar:
     dependencies:
-      '@babel/generator':
-        specifier: ^7.28.3
-        version: 7.28.3
-      '@babel/parser':
-        specifier: ^7.28.4
-        version: 7.28.4
-      '@babel/traverse':
-        specifier: ^7.28.4
-        version: 7.28.4
-      '@babel/types':
-        specifier: ^7.27.6
-        version: 7.28.4
       '@intlayer/api':
         specifier: workspace:*
         version: link:../api
@@ -1649,16 +1637,13 @@ importers:
       simple-git:
         specifier: ^3.28.0
         version: 3.28.0
+      ts-morph:
+        specifier: ^27.0.0
+        version: 27.0.0
     devDependencies:
       '@changesets/cli':
         specifier: 2.29.7
         version: 2.29.7(@types/node@24.5.2)
-      '@types/babel__generator':
-        specifier: ^7.27.0
-        version: 7.27.0
-      '@types/babel__traverse':
-        specifier: ^7.28.0
-        version: 7.28.0
       '@types/crypto-js':
         specifier: ^4.2.2
         version: 4.2.2
@@ -13812,6 +13797,12 @@ packages:
       }
     engines: { node: '>=10.13.0' }
 
+  '@ts-morph/common@0.28.0':
+    resolution:
+      {
+        integrity: sha512-4w6X/oFmvXcwux6y6ExfM/xSqMHw20cYwFJH+BlYrtGa6nwY9qGq8GXnUs1sVYeF2o/KT3S8hAH6sKBI3VOkBg==,
+      }
+
   '@tsconfig/node10@1.0.11':
     resolution:
       {
@@ -17555,6 +17546,12 @@ packages:
     resolution:
       {
         integrity: sha512-MA8bu81EFY6JjQpj+FovEuhyJ25khx2Q7Lh+ot/UkCJe5yKyDgzdc6u2lGZIOmsZTXK6Itg1i4lQZIJZbPWnAg==,
+      }
+
+  code-block-writer@13.0.3:
+    resolution:
+      {
+        integrity: sha512-Oofo0pq3IKnsFtuHqSF7TqBfr71aeyZDVJ0HpmqB7FBM2qEigL0iPONSCZSO9pE9dZTAxANe5XHG9Uy0YMv8cg==,
       }
 
   collect-v8-coverage@1.0.2:
@@ -33015,6 +33012,12 @@ packages:
       typescript: '*'
       webpack: ^5.0.0
 
+  ts-morph@27.0.0:
+    resolution:
+      {
+        integrity: sha512-xcqelpTR5PCuZMs54qp9DE3t7tPgA2v/P1/qdW4ke5b3Y5liTGTYj6a/twT35EQW/H5okRqp1UOqwNlgg0K0eQ==,
+      }
+
   ts-node@10.9.2:
     resolution:
       {
@@ -43911,6 +43914,12 @@ snapshots:
 
   '@trysound/sax@0.2.0': {}
 
+  '@ts-morph/common@0.28.0':
+    dependencies:
+      minimatch: 10.0.3
+      path-browserify: 1.0.1
+      tinyglobby: 0.2.15
+
   '@tsconfig/node10@1.0.11': {}
 
   '@tsconfig/node12@1.0.11': {}
@@ -46623,6 +46632,8 @@ snapshots:
   cobe@0.6.5:
     dependencies:
       phenomenon: 1.6.0
+
+  code-block-writer@13.0.3: {}
 
   collect-v8-coverage@1.0.2: {}
 
@@ -58750,6 +58761,11 @@ snapshots:
       source-map: 0.7.6
       typescript: 5.9.2
       webpack: 5.101.3(@swc/core@1.13.5(@swc/helpers@0.5.17))(esbuild@0.25.10)
+
+  ts-morph@27.0.0:
+    dependencies:
+      '@ts-morph/common': 0.28.0
+      code-block-writer: 13.0.3
 
   ts-node@10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@24.5.2)(typescript@5.7.3):
     dependencies:

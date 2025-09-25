@@ -72,10 +72,6 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@babel/generator": "^7.28.3",
-    "@babel/parser": "^7.28.4",
-    "@babel/traverse": "^7.28.4",
-    "@babel/types": "^7.27.6",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -88,12 +84,11 @@
     "deep-equal": "^2.2.3",
     "deepmerge": "^4.3.1",
     "fast-glob": "^3.3.3",
-    "simple-git": "^3.28.0"
+    "simple-git": "^3.28.0",
+    "ts-morph": "^27.0.0"
   },
   "devDependencies": {
     "@changesets/cli": "2.29.7",
-    "@types/babel__generator": "^7.27.0",
-    "@types/babel__traverse": "^7.28.0",
     "@types/crypto-js": "^4.2.2",
     "@types/deep-equal": "^1.0.4",
     "@types/node": "^24.5.2",

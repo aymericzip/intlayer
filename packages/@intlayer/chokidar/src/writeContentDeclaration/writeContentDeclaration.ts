@@ -1,10 +1,10 @@
-import configuration from '@intlayer/config/built';
-import { colorizePath, x, type IntlayerConfig } from '@intlayer/config/client';
+import { getConfiguration } from '@intlayer/config';
+import { type IntlayerConfig } from '@intlayer/config/client';
 import type { Dictionary } from '@intlayer/core';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import deepEqual from 'deep-equal';
 import { mkdir, writeFile } from 'fs/promises';
-import { dirname, extname } from 'path';
+import { dirname, extname, join } from 'path';
 import { prepareContentDeclaration } from '../prepareContentDeclaration';
 import type { DictionaryStatus } from './dictionaryStatus';
 import { writeJSFile } from './writeJSFile';
@@ -30,7 +30,7 @@ const formatContentDeclaration = async (dictionary: Dictionary) => {
 
 export const writeContentDeclaration = async (
   dictionary: Dictionary,
-  config: IntlayerConfig = configuration,
+  config: IntlayerConfig = getConfiguration(),
   newDictionariesPath?: string
 ): Promise<{ status: DictionaryStatus; path: string }> => {
   const { content } = config;
@@ -38,96 +38,92 @@ export const writeContentDeclaration = async (
 
   const newDictionaryRelativeLocationPath =
     newDictionariesPath ?? DEFAULT_NEW_DICTIONARY_PATH;
-  const newDictionaryLocationPath = `${baseDir}/${newDictionaryRelativeLocationPath}`;
+  const newDictionaryLocationPath = join(
+    baseDir,
+    newDictionaryRelativeLocationPath
+  );
 
   const unmergedDictionariesRecord = getUnmergedDictionaries(config);
-  const existingDictionary = (
-    unmergedDictionariesRecord[dictionary.key] as Dictionary[]
-  ).filter((el) => el.filePath === dictionary.filePath);
+  const unmergedDictionaries = unmergedDictionariesRecord[
+    dictionary.key
+  ] as Dictionary[];
 
-  const filePath = dictionary.filePath;
+  const existingDictionary = unmergedDictionaries.filter(
+    (el) => el.localId === dictionary.localId
+  );
+
   const formattedContentDeclaration =
     await formatContentDeclaration(dictionary);
 
-  if (existingDictionary) {
+  if (existingDictionary && dictionary.filePath) {
+    const filePath = join(config.content.baseDir, dictionary.filePath);
+
     // Compare existing dictionary with distant dictionary
-    if (deepEqual(existingDictionary, dictionary)) {
-      // Up to date, nothing to do
+    const isSameFile = deepEqual(existingDictionary, dictionary);
+
+    // Up to date, nothing to do
+    if (isSameFile) {
       return {
         status: 'up-to-date',
-        path: filePath!,
+        path: filePath,
       };
-    } else {
-      if (filePath) {
-        await writeFileWithDirectories(filePath, formattedContentDeclaration);
-
-        return { status: 'updated', path: filePath };
-      } else {
-        // Write the dictionary to the intlayer-dictionaries directory
-        const contentDeclarationPath = `${newDictionaryLocationPath}/${dictionary.key}.content.json`;
-
-        await writeFileWithDirectories(
-          contentDeclarationPath,
-          formattedContentDeclaration
-        );
-
-        return {
-          status: 'new content file',
-          path: contentDeclarationPath,
-        };
-      }
     }
-  } else {
-    // No existing dictionary, write to new location
-    const contentDeclarationPath = `${newDictionaryLocationPath}/${dictionary.key}.content.json`;
 
     await writeFileWithDirectories(
-      contentDeclarationPath,
-      formattedContentDeclaration
+      filePath,
+      formattedContentDeclaration,
+      config
     );
 
-    return {
-      status: 'imported',
-      path: contentDeclarationPath,
-    };
+    return { status: 'updated', path: filePath };
   }
+
+  // No existing dictionary, write to new location
+  const contentDeclarationPath = join(
+    newDictionaryLocationPath,
+    `${dictionary.key}.content.json`
+  );
+
+  await writeFileWithDirectories(
+    contentDeclarationPath,
+    formattedContentDeclaration,
+    config
+  );
+
+  return {
+    status: 'imported',
+    path: contentDeclarationPath,
+  };
 };
 
 const writeFileWithDirectories = async (
   filePath: string,
-  data: string | Buffer
+  data: string | Buffer,
+  configuration: IntlayerConfig
 ): Promise<void> => {
-  try {
-    // Extract the directory from the file path
-    const dir = dirname(filePath);
+  // Extract the directory from the file path
+  const dir = dirname(filePath);
 
-    // Create the directory recursively
-    await mkdir(dir, { recursive: true });
+  // Create the directory recursively
+  await mkdir(dir, { recursive: true });
 
-    const extension = extname(filePath);
-    const acceptedExtensions = configuration.content.fileExtensions.map(
-      (extension) => extname(extension)
-    );
+  const extension = extname(filePath);
+  const acceptedExtensions = configuration.content.fileExtensions.map(
+    (extension) => extname(extension)
+  );
 
-    if (!acceptedExtensions.includes(extension)) {
-      throw new Error(
-        `Invalid file extension: ${extension}, file: ${filePath}`
-      );
-    }
-
-    if (extension === '.json') {
-      const jsonDictionary = JSON.stringify(data, null, 2);
-
-      // Write the file
-      await writeFile(filePath, jsonDictionary);
-    } else {
-      await writeJSFile(filePath, data as unknown as Dictionary);
-    }
-  } catch (error) {
-    console.error(data);
-
-    throw new Error(
-      `${x} Error writing file to ${colorizePath(filePath)}: ${error}`
-    );
+  if (!acceptedExtensions.includes(extension)) {
+    throw new Error(`Invalid file extension: ${extension}, file: ${filePath}`);
   }
+
+  if (extension === '.json') {
+    const jsonDictionary = JSON.stringify(data, null, 2);
+
+    // Write the file
+    await writeFile(filePath, jsonDictionary);
+
+    return;
+  }
+
+  await writeJSFile(filePath, data as unknown as Dictionary, configuration);
 };
