@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // bin/intlayer-editor.mjs
 
-import { runParallel, type ParallelHandle } from '@intlayer/chokidar';
+import { runParallel } from '@intlayer/chokidar';
 import { exec } from 'child_process';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -19,7 +19,7 @@ const args = process.argv.slice(2);
 let env = 'production'; // Default environment
 let envFile = ''; // Default to no env file
 let withCommand;
-let parallelProcess: ParallelHandle | null = null;
+let parallelProcess = null;
 
 // Check for --env or -e flag
 const envIndex = args.findIndex(
