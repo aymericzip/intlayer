@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center">
-  <strong> Intlayer : an Open-source, flexible i18n toolkit with AI-powered translation & CMS.</strong>
+  <strong> Intlayer : an Open-source, per-component i18n toolkit with AI-powered translation & CMS.</strong>
 </h1>
 
 <br />
@@ -271,6 +271,6 @@ For more detailed guidelines on contributing to this project, please refer to th
 
 ### Thank You for the Support
 
-If you like Intlayer, give us a ⭐ on GitHub. It helps others discover the project!
+If you like Intlayer, give us a ⭐ on GitHub. It helps others discover the project! [See why GitHub Stars matter](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md#why-github-stars-matter-).
 
 [![Star History Chart](https://api.star-history.com/svg?repos=aymericzip/intlayer&type=Date)](https://star-history.com/#aymericzip/intlayer&Date)
