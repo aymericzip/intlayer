@@ -22,7 +22,6 @@
       ]
     },
     "prepublish": {
-      "dependsOn": ["^build"],
       "outputs": []
     },
     "dev": {
