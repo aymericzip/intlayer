@@ -26,17 +26,9 @@ const SwitchThemeSwitcher = dynamic(
   { ssr: false }
 );
 
-const getCleanTabSelector = (path: string): string => {
-  // Split the path into components
+const getCleanChoice = (path: string): string => {
   const components = path.split('/');
-
-  // For single component "dashboard", you can choose to append "/"
-  if (components.length > 2) {
-    return components.slice(0, 2).join('/');
-  }
-
-  // Return the path as is for other cases
-  return path;
+  return components.slice(0, 2).join('/');
 };
 
 export const Navbar: FC = () => {
@@ -58,6 +50,8 @@ export const Navbar: FC = () => {
       .catch((err) => console.error(err));
   };
 
+  const selectedChoice = getCleanChoice(pathWithoutLocale);
+
   return (
     <UINavBar
       logo={
@@ -65,15 +59,17 @@ export const Navbar: FC = () => {
           <LogoWithText className="max-h-6 w-auto flex-auto sm:max-h-6" />
         </Link>
       }
-      selectedChoice={getCleanTabSelector(pathWithoutLocale)}
+      selectedChoice={selectedChoice}
       desktopSections={Object.values(sections).map(
         ({ id, url, label, title }) => (
           <Link
             id={id?.value}
-            key={url.value}
+            key={getCleanChoice(url.value)}
             href={url.value}
             label={label.value}
-            aria-current={pathWithoutLocale === url.value ? 'page' : undefined}
+            aria-current={
+              selectedChoice === getCleanChoice(url.value) ? 'page' : undefined
+            }
             color="text"
             variant="invisible-link"
             className="flex text-nowrap px-4 py-0.5 text-sm"
@@ -86,9 +82,11 @@ export const Navbar: FC = () => {
         ({ id, url, label, title }) => (
           <Link
             id={id?.value}
-            key={url.value}
+            key={getCleanChoice(url.value)}
             href={url.value}
-            aria-current={pathWithoutLocale === url.value ? 'page' : undefined}
+            aria-current={
+              selectedChoice === getCleanChoice(url.value) ? 'page' : undefined
+            }
             label={label.value}
             color="text"
             variant="invisible-link"
