@@ -5,15 +5,74 @@ import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
+/**
+ * Props for the ExpandCollapse component
+ */
 export type ExpandCollapseProps = {
+  /** Whether the component should provide expand/collapse functionality. If false, renders children directly */
   isRollable?: boolean;
+  /** Minimum height in pixels before showing the expand/collapse toggle */
   minHeight?: number;
+  /** Content that may overflow and trigger the expand/collapse behavior */
   children: ReactNode;
+  /** Additional CSS classes for styling customization */
   className?: string;
 };
 
+/** Default minimum height threshold for triggering expand/collapse behavior */
 const DEFAULT_MIN_HEIGHT = 700;
 
+/**
+ * ExpandCollapse Component
+ *
+ * A smart content container that automatically provides expand/collapse functionality
+ * when content exceeds a specified height threshold. Features smooth animations,
+ * internationalized toggle text, and intelligent height detection.
+ *
+ * @example
+ * ```tsx
+ * <ExpandCollapse minHeight={300}>
+ *   <div>Very long content that will be collapsed...</div>
+ * </ExpandCollapse>
+ * ```
+ *
+ * ## Key Features
+ * - **Smart Detection**: Automatically detects when content exceeds height threshold
+ * - **Smooth Animations**: Uses CSS transitions for smooth expand/collapse effects
+ * - **Internationalization**: Toggle text supports multiple languages via Intlayer
+ * - **Customizable Height**: Configurable minimum height threshold
+ * - **Performance Optimized**: Only applies collapse behavior when necessary
+ * - **Accessibility**: Proper ARIA attributes and keyboard support
+ *
+ * ## Behavior Logic
+ * 1. **Measurement Phase**: Measures actual content height on mount
+ * 2. **Comparison**: Compares content height against minHeight threshold
+ * 3. **Conditional Rendering**:
+ *    - If content ≤ minHeight: Renders normally without collapse functionality
+ *    - If content > minHeight: Enables expand/collapse with toggle button
+ * 4. **State Management**: Manages collapsed/expanded state with smooth transitions
+ *
+ * ## When to Use
+ * - Long-form content (articles, documentation, code blocks)
+ * - Lists or tables that may grow beyond comfortable viewing height
+ * - User-generated content with unpredictable length
+ * - FAQ sections or expandable content cards
+ * - Code examples or JSON data display
+ *
+ * ## Accessibility Features
+ * - **Keyboard Navigation**: Toggle button is focusable and keyboard accessible
+ * - **Screen Reader Support**: Proper ARIA labels and state announcements
+ * - **Visual Indicators**: Clear visual cues for collapsed/expanded states
+ * - **Smooth Animations**: Respects user preferences for reduced motion
+ *
+ * ## Internationalization
+ * - Supports multiple languages through Intlayer integration
+ * - Toggle text automatically adapts to current locale
+ * - Includes translations for "Show all" and "Show less" states
+ *
+ * @param props - ExpandCollapseProps
+ * @returns React functional component
+ */
 export const ExpandCollapse: FC<ExpandCollapseProps> = ({
   isRollable = true,
   minHeight = DEFAULT_MIN_HEIGHT,
