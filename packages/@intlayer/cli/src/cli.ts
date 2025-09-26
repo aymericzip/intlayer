@@ -224,6 +224,16 @@ export const setAPI = (): Command => {
 
   program.version(packageJson.version!).description('Intlayer CLI');
 
+  // Explicit version subcommand for convenience: `npx intlayer version`
+  program
+    .command('version')
+    .description('Print the Intlayer CLI version')
+    .action(() => {
+      // Prefer the resolved package.json version; fallback to unknown
+      // Keeping output minimal to align with common CLI behavior
+      console.log(packageJson.version ?? 'unknown');
+    });
+
   /**
    * DICTIONARIES
    */

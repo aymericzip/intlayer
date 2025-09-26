@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-09-23
+updatedAt: 2025-09-26
 title: CLI
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -60,6 +60,15 @@ Intlayer accepts multiple configuration file formats:
 To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ## Run intlayer commands
+
+### Check CLI version
+
+```bash
+npx intlayer --version
+npx intlayer version
+```
+
+Both commands print the installed Intlayer CLI version.
 
 ### Build dictionaries
 
@@ -716,6 +725,7 @@ npx clear-npx-cache
 
 | Version | Date       | Changes                                         |
 | ------- | ---------- | ----------------------------------------------- |
+| 6.1.2   | 2025-09-26 | Add version command                             |
 | 6.1.0   | 2025-09-26 | Set verbose option to default to true using CLI |
 | 6.1.0   | 2025-09-23 | Add watch command and with option               |
 | 6.0.1   | 2025-09-23 | Add editor command                              |
