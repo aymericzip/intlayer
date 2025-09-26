@@ -1,6 +1,6 @@
 {
   "name": "lynx-intlayer",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "private": false,
   "description": "A Lynx plugin for seamless internationalization (i18n) and localization (l10n) of your mobile app.",
   "keywords": [
