@@ -3742,6 +3742,9 @@ importers:
 
   packages/vite-intlayer:
     dependencies:
+      '@babel/core':
+        specifier: ^7.28.4
+        version: 7.28.4
       '@intlayer/babel':
         specifier: workspace:*
         version: link:../@intlayer/babel
@@ -40470,7 +40473,7 @@ snapshots:
 
   '@npmcli/fs@4.0.0':
     dependencies:
-      semver: 7.7.1
+      semver: 7.7.2
 
   '@npmcli/git@4.1.0':
     dependencies:
@@ -40507,7 +40510,7 @@ snapshots:
       npm-pick-manifest: 10.0.0
       proc-log: 5.0.0
       promise-retry: 2.0.1
-      semver: 7.7.1
+      semver: 7.7.2
       which: 5.0.0
 
   '@npmcli/installed-package-contents@3.0.0':
@@ -40557,7 +40560,7 @@ snapshots:
       hosted-git-info: 8.1.0
       json-parse-even-better-errors: 4.0.0
       proc-log: 5.0.0
-      semver: 7.7.1
+      semver: 7.7.2
       validate-npm-package-license: 3.0.4
 
   '@npmcli/promise-spawn@6.0.2':
@@ -47093,7 +47096,7 @@ snapshots:
       postcss-modules-scope: 3.2.1(postcss@8.5.6)
       postcss-modules-values: 4.0.0(postcss@8.5.6)
       postcss-value-parser: 4.2.0
-      semver: 7.7.1
+      semver: 7.7.2
     optionalDependencies:
       '@rspack/core': 1.5.7(@swc/helpers@0.5.17)
       webpack: 5.98.0(@swc/core@1.13.5(@swc/helpers@0.5.17))(esbuild@0.25.4)
@@ -50797,7 +50800,7 @@ snapshots:
       '@babel/parser': 7.28.4
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
-      semver: 7.7.1
+      semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
 
@@ -53998,7 +54001,7 @@ snapshots:
       make-fetch-happen: 14.0.3
       nopt: 8.1.0
       proc-log: 5.0.0
-      semver: 7.7.1
+      semver: 7.7.2
       tar: 7.5.1
       tinyglobby: 0.2.15
       which: 5.0.0
@@ -54060,7 +54063,7 @@ snapshots:
 
   npm-install-checks@7.1.2:
     dependencies:
-      semver: 7.7.1
+      semver: 7.7.2
 
   npm-normalize-package-bin@3.0.1: {}
 
@@ -54084,7 +54087,7 @@ snapshots:
     dependencies:
       hosted-git-info: 8.1.0
       proc-log: 5.0.0
-      semver: 7.7.1
+      semver: 7.7.2
       validate-npm-package-name: 6.0.2
 
   npm-packlist@9.0.0:
@@ -54096,7 +54099,7 @@ snapshots:
       npm-install-checks: 7.1.2
       npm-normalize-package-bin: 4.0.0
       npm-package-arg: 12.0.2
-      semver: 7.7.1
+      semver: 7.7.2
 
   npm-pick-manifest@8.0.2:
     dependencies:
@@ -55275,7 +55278,7 @@ snapshots:
       cosmiconfig: 9.0.0(typescript@5.7.3)
       jiti: 1.21.7
       postcss: 8.5.2
-      semver: 7.7.1
+      semver: 7.7.2
     optionalDependencies:
       '@rspack/core': 1.5.7(@swc/helpers@0.5.17)
       webpack: 5.98.0(@swc/core@1.13.5(@swc/helpers@0.5.17))(esbuild@0.25.4)

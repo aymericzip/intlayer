@@ -1,6 +1,6 @@
 {
   "name": "vite-intlayer",
-  "version": "6.1.1",
+  "version": "6.1.2",
   "private": false,
   "description": "A Vite plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration",
   "keywords": [
@@ -74,6 +74,7 @@
     "typecheck": "tsup --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@babel/core": "^7.28.4",
     "@intlayer/babel": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
