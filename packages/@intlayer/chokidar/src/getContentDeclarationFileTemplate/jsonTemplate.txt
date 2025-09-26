@@ -1,0 +1,5 @@
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "{{key}}",{{fileParams}}
+  "content": {}
+}

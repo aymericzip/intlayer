@@ -11,7 +11,7 @@ import {
 import { build } from './build';
 import { getConfig } from './config';
 import { startEditor } from './editor';
-import { fill, FillOptions } from './fill';
+import { fill, FillOptions } from './fill/fill';
 import { listContentDeclaration } from './listContentDeclaration';
 import { liveSync } from './liveSync';
 import { pull } from './pull';

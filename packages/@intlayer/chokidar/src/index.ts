@@ -40,6 +40,10 @@ export { extractErrorMessage } from './utils/extractErrorMessage';
 export { formatLocale, formatPath } from './utils/formatter';
 export { getExtension } from './utils/getExtention';
 export { getFileHash } from './utils/getFileHash';
+export {
+  getExtensionFromFormat,
+  getFormatFromExtension,
+} from './utils/getFormatFromExtension';
 export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
 export { parallelize } from './utils/parallelize';
 export { resolveObjectPromises } from './utils/resolveObjectPromises';
@@ -48,6 +52,10 @@ export { runParallel, type ParallelHandle } from './utils/runParallel';
 export { sortAlphabetically } from './utils/sortAlphabetically';
 export { buildAndWatchIntlayer, watch } from './watcher';
 export {
+  detectExportedComponentName,
+  formatCode,
+  transformJSFile,
   writeContentDeclaration,
+  writeJSFile,
   type DictionaryStatus,
 } from './writeContentDeclaration';

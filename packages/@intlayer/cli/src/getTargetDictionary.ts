@@ -2,7 +2,7 @@ import { listGitFiles, ListGitFilesOptions } from '@intlayer/chokidar';
 import { getConfiguration, GetConfigurationOptions } from '@intlayer/config';
 import { Dictionary } from '@intlayer/core';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
-import { join } from 'path';
+import { join, relative } from 'path';
 
 export const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
 
@@ -30,13 +30,15 @@ export const getTargetUnmergedDictionaries = async (
   // 1. if filePath not defined, list all content declaration files based on unmerged dictionaries list
   if (typeof options.file !== 'undefined') {
     const fileArray = ensureArray(options.file);
-    const absoluteFilePaths = fileArray.map((file) => join(baseDir, file));
+    const relativeFilePaths = fileArray.map((file) =>
+      file.startsWith('/') ? relative(baseDir, file) : join('./', file)
+    );
 
     result = result.filter(
       (dict) =>
         dict.filePath &&
-        (absoluteFilePaths.includes(dict.filePath) ||
-          absoluteFilePaths.includes(join(baseDir, dict.filePath)))
+        // Check for absolute path
+        relativeFilePaths.includes(dict.filePath)
     );
   }
 

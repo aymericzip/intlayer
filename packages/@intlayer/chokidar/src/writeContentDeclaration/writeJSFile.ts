@@ -8,7 +8,11 @@ import { Dictionary } from '@intlayer/core';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
 import { extname } from 'path';
-import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
+import {
+  Extension,
+  getContentDeclarationFileTemplate,
+  getFormatFromExtension,
+} from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import { formatCode } from './formatCode';
 import { transformJSFile } from './transformJSFile';
 
@@ -28,17 +32,9 @@ export const writeJSFile = async (
 
   // Check if the file exist
   if (!existsSync(filePath)) {
-    const fileExtension = extname(filePath);
+    const fileExtension = extname(filePath) as Extension;
 
-    let format = 'ts' as 'ts' | 'cjs' | 'esm';
-
-    if (fileExtension === '.ts' || fileExtension === '.tsx') {
-      format = 'ts';
-    } else if (fileExtension === '.cjs' || fileExtension === '.cjsx') {
-      format = 'cjs';
-    } else {
-      format = 'esm';
-    }
+    let format = getFormatFromExtension(fileExtension);
 
     appLogger('File does not exist, creating it', {
       isVerbose: true,

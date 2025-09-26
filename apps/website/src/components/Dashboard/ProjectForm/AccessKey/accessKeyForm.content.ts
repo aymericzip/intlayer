@@ -124,11 +124,7 @@ const accessKeyFormContent = {
         fr: 'Écriture ',
         es: 'Escritura ',
         'en-GB': 'Write ',
-        de: 'Schreiben ',
-        ja: '書き込み ',
-        ko: '쓰기 ',
-        zh: '写入 ',
-        it: 'Scrittura ',
+
         pt: 'Escrita ',
         hi: 'लिखने ',
         ar: 'كتابة ',
