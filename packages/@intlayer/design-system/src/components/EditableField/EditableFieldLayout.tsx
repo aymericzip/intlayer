@@ -104,6 +104,10 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
           onClick={handleSave}
           disabled={isDisabled}
           className="!text-current"
+          role="button"
+          tabIndex={0}
+          aria-label="Save changes"
+          data-testid="editable-field-save-button"
         />
         <Button
           label="Cancel"
@@ -114,6 +118,10 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
           Icon={X}
           onClick={handleCancel}
           disabled={isDisabled}
+          role="button"
+          tabIndex={0}
+          aria-label="Cancel changes"
+          data-testid="editable-field-cancel-button"
         />
       </div>
 
