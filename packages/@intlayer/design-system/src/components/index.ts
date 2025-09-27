@@ -42,8 +42,6 @@ export * from './Select';
 export * from './SocialNetworks';
 export * from './SwitchSelector';
 export * from './Tab';
-export * from './TabSelector';
-export * from './Tag';
 export * from './TextArea';
 export * from './ThemeSwitcherDropDown';
 export * from './Toaster';
