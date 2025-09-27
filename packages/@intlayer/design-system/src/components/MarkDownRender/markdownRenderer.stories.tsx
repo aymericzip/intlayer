@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import type React from 'react';
-import { MarkdownRenderer } from '.';
+import { MarkdownRenderer } from './MarkDownRender';
 
 const meta: Meta<typeof MarkdownRenderer> = {
   title: 'Components/MarkdownRenderer',
