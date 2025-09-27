@@ -8,11 +8,11 @@ import { Dictionary } from '@intlayer/core';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
 import { extname } from 'path';
+import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {
   Extension,
-  getContentDeclarationFileTemplate,
   getFormatFromExtension,
-} from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
+} from '../utils/getFormatFromExtension';
 import { formatCode } from './formatCode';
 import { transformJSFile } from './transformJSFile';
 
