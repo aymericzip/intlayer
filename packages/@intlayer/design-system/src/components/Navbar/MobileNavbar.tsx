@@ -8,15 +8,29 @@ import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import type { TabProps } from '../TabSelector';
 import { Burger } from './Burger';
 
+/**
+ * Props for the MobileNavbar component
+ * @template T - The tab props type extending TabProps
+ */
 type MobileNavbarProps<T extends TabProps> = {
+  /** Logo component or element displayed in the header */
   logo: ReactNode;
+  /** Additional content displayed at the top of expanded mobile menu */
   topChildren?: ReactNode;
+  /** Navigation sections displayed in the top area of expanded menu */
   topSections?: ReactElement<T>[];
+  /** Additional content displayed at the bottom of expanded mobile menu */
   bottomChildren?: ReactNode;
+  /** Navigation sections displayed in the bottom area of expanded menu */
   bottomSections?: ReactElement<T>[];
+  /** Right-aligned items in the collapsed header (e.g., search, notifications) */
   rightItems?: ReactNode;
 };
 
+/**
+ * Framer Motion animation variants for staggered menu item reveals
+ * Creates a smooth cascading effect when menu opens/closes
+ */
 const navVariants: Variants = {
   open: {
     transition: { staggerChildren: 0.07, delayChildren: 0.2 },
@@ -26,9 +40,91 @@ const navVariants: Variants = {
   },
 };
 
+/**
+ * Shared background styling for mobile navbar components
+ * Provides glass-morphism effect with blur and transparency
+ */
 const bgStyle =
   'bg-card/95 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur';
 
+/**
+ * Mobile Navigation Bar Component
+ *
+ * A sophisticated mobile-first navigation component with collapsible full-screen menu,
+ * scroll-aware behavior, and smooth animations. Optimized for touch interactions and
+ * mobile user experience patterns.
+ *
+ * Features:
+ * - Collapsible hamburger menu with full-screen overlay
+ * - Auto-hide on scroll down, show on scroll up for screen space optimization
+ * - Background scroll prevention when menu is open
+ * - Staggered animations for smooth menu item reveals
+ * - Flexible content areas (top/bottom children and sections)
+ * - Responsive layout with viewport-aware sizing
+ * - Backdrop blur effects for modern glass-morphism design
+ *
+ * Layout Structure:
+ * ```
+ * [Logo] ----------- [Right Items] [Burger]
+ *           (when expanded)
+ * ┌─────────────────────────────────────────┐
+ * │ [Top Children]                          │
+ * │ [Top Sections - Navigation Items]       │
+ * │ [Bottom Sections - Navigation Items]    │
+ * │ [Bottom Children]                       │
+ * └─────────────────────────────────────────┘
+ * ```
+ *
+ * Behavioral Features:
+ * - Sticky positioning with dynamic hide/show based on scroll direction
+ * - Background scroll locking when menu is expanded
+ * - Click outside to close expanded menu
+ * - Smooth height animations with MaxHeightSmoother
+ * - Intelligent burger button visibility (only shown if sections exist)
+ *
+ * Animation Details:
+ * - Menu items animate in with staggered timing (70ms delay between items)
+ * - Exit animations are reversed with 50ms stagger
+ * - Initial delay of 200ms before items start animating in
+ * - Full viewport height menu with dynamic height calculation
+ *
+ * @example
+ * Basic mobile navbar:
+ * ```tsx
+ * <MobileNavbar
+ *   logo={<MobileLogo />}
+ *   topSections={primaryNavItems}
+ *   rightItems={<SearchIcon />}
+ * />
+ * ```
+ *
+ * @example
+ * Full-featured mobile navbar:
+ * ```tsx
+ * <MobileNavbar
+ *   logo={<Logo />}
+ *   topChildren={<WelcomeMessage />}
+ *   topSections={mainNavItems}
+ *   bottomSections={utilityNavItems}
+ *   bottomChildren={<UserProfile />}
+ *   rightItems={
+ *     <>
+ *       <NotificationIcon />
+ *       <SearchIcon />
+ *     </>
+ *   }
+ * />
+ * ```
+ *
+ * Accessibility Features:
+ * - Menu expanded state communicated via aria-expanded
+ * - Focus management and keyboard navigation support
+ * - Screen reader friendly with semantic nav structure
+ *
+ * @template T - Tab properties type extending TabProps for type safety
+ * @param props - MobileNavbar component props
+ * @returns Mobile navigation with collapsible full-screen menu
+ */
 export const MobileNavbar = <T extends TabProps>({
   logo,
   topChildren,
