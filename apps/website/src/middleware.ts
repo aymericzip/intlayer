@@ -1,6 +1,8 @@
-import { multipleMiddlewares } from '@utils/multipleMiddlewares';
 import { queryMiddleware } from '@utils/queryMiddleware';
-import { intlayerMiddleware } from 'next-intlayer/middleware';
+import {
+  intlayerMiddleware,
+  multipleMiddlewares,
+} from 'next-intlayer/middleware';
 
 export const middleware = multipleMiddlewares([
   intlayerMiddleware,

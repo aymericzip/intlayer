@@ -24,7 +24,7 @@ slugs:
 
 ## Vue d'ensemble
 
-L'interface en ligne de commande (CLI) Intlayer offre un moyen pratique de gérer votre contenu intlayer, y compris la construction de dictionnaires, la poussée des traductions, et plus encore. Cependant, elle n'est pas indispensable au fonctionnement de votre projet. Si vous utilisez le plugin de bundler (comme `withIntlayer()` pour Next.js ou `intlayerPlugin()` pour Vite), Intlayer construira automatiquement les dictionnaires lors de la compilation de l'application ou au démarrage du serveur de développement. En mode développement, il surveillera également les modifications et reconstruira automatiquement les fichiers de déclaration de contenu.
+L'interface en ligne de commande (CLI) Intlayer offre un moyen pratique de gérer votre contenu intlayer, y compris la construction de dictionnaires, la poussée des traductions, et plus encore. Cependant, elle n'est pas indispensable au fonctionnement de votre projet. Si vous utilisez le plugin de bundler (comme `withIntlayer()` pour Next.js ou `intlayer()` pour Vite), Intlayer construira automatiquement les dictionnaires lors de la compilation de l'application ou au démarrage du serveur de développement. En mode développement, il surveillera également les modifications et reconstruira automatiquement les fichiers de déclaration de contenu.
 
 Vous pouvez accéder aux commandes intlayer de différentes manières :
 
@@ -95,7 +95,6 @@ npm install
 
 6. **Vérifiez les fichiers d'installation**
    Si le problème persiste, vérifiez que ces fichiers existent :
-
    - `node_modules/intlayer/dist/cjs/cli.cjs`
    - `node_modules/intlayer/package.json` (devrait contenir un champ `bin` pointant vers `./dist/cjs/cli.cjs`)
 

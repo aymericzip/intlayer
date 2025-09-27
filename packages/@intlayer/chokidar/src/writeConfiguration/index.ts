@@ -1,17 +1,17 @@
 import type { IntlayerConfig } from '@intlayer/config';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { mkdir } from 'fs/promises';
 import { join } from 'path';
+import { writeJsonIfChanged } from '../writeJsonIfChanged';
 
-export const writeConfiguration = (configuration: IntlayerConfig) => {
+export const writeConfiguration = async (configuration: IntlayerConfig) => {
   const { content } = configuration;
   const { configDir } = content;
 
-  // Create main directory if it doesn't exist
-  if (!existsSync(configDir)) {
-    mkdirSync(configDir, { recursive: true });
-  }
+  // Ensure target directory exists
+  // configDir is expected to be the directory where configuration.json will live
+  await mkdir(configDir, { recursive: true });
 
   const configFilePath = join(configDir, 'configuration.json');
 
-  writeFileSync(configFilePath, JSON.stringify(configuration, null, 2));
+  await writeJsonIfChanged(configFilePath, configuration);
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
+import { getUnmergedDictionaryByKeyPath } from '@intlayer/core';
 import {
   Button,
   DictionaryEditor,
@@ -10,13 +10,12 @@ import {
   RightDrawer,
   useRightDrawerStore,
 } from '@intlayer/design-system';
-import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
+import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionary } from '@intlayer/editor-react';
 import { Pencil } from 'lucide-react';
 import { useCallback, useState, type FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
-import dictionaryEditionDrawerContent from './dictionaryEditionDrawer.content';
 import {
   getDrawerIdentifier,
   useDictionaryEditionDrawer,
@@ -39,10 +38,10 @@ export const DictionaryEditionDrawerContent: FC<
     openDictionaryEditor,
     noDictionaryFocused,
     focusedDictionaryNotFound,
-  } = useDictionary(dictionaryEditionDrawerContent);
+  } = useIntlayer('dictionary-edition-drawer');
   const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
-  const { all: dictionaries } = useGetAllDictionaries();
   const { focusedContent } = useDictionaryEditionDrawer(identifier);
+  const { data: unmergedDictionaries } = useGetEditorDictionaries();
 
   const onClickDictionaryList = useCallback(() => {
     setEditionModalOpen(false);
@@ -58,7 +57,11 @@ export const DictionaryEditionDrawerContent: FC<
       </span>
     );
 
-  const dictionary: Dictionary = dictionaries[dictionaryKey];
+  const dictionary = getUnmergedDictionaryByKeyPath(
+    dictionaryKey,
+    focusedContent.keyPath ?? [],
+    unmergedDictionaries
+  );
 
   if (!dictionary)
     return (
@@ -124,7 +127,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   dictionaryKey,
   isDarkMode,
 }) => {
-  const { backButtonText } = useDictionary(dictionaryEditionDrawerContent);
+  const { backButtonText } = useIntlayer('dictionary-edition-drawer');
   const id = getDrawerIdentifier(dictionaryKey);
 
   const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryKey);

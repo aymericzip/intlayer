@@ -1,7 +1,19 @@
 import { describe, expect, it, vi } from 'vitest';
 import { retryManager } from './retryManager';
+vi.mock('./logger', () => ({ logger: vi.fn() }));
 
 describe('retryManager', () => {
+  let errorSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeAll(() => {
+    // Silence expected error logs from retries during tests
+    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    errorSpy.mockRestore();
+  });
+
   it('should retry until the wrapped function succeeds', async () => {
     const fn = vi
       .fn<() => Promise<string>>()

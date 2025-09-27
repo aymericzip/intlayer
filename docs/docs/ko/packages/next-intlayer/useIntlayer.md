@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: useIntlayer 훅 문서 | next-intlayer
 description: next-intlayer 패키지의 useIntlayer 훅 사용법을 확인하세요
 keywords:

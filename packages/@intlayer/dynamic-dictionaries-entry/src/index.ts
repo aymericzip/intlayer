@@ -6,7 +6,12 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
-import { ESMxCJSRequire, getConfiguration } from '@intlayer/config';
+import {
+  clearModuleCache,
+  ESMxCJSRequire,
+  getConfiguration,
+  type IntlayerConfig,
+} from '@intlayer/config';
 import { existsSync } from 'fs';
 import {
   Dictionary,
@@ -15,43 +20,15 @@ import {
 } from 'intlayer';
 import { join } from 'path';
 
-/**
- * Recursively clears the require cache for a module and all its dependencies
- */
-const clearModuleCache = (modulePath: string, visited = new Set<string>()) => {
-  // Avoid infinite loops
-  if (visited.has(modulePath)) {
-    return;
-  }
-  visited.add(modulePath);
+export const getDynamicDictionaries = (
+  configuration: IntlayerConfig = getConfiguration(),
+  projectRequire = ESMxCJSRequire
+) => {
+  const { content } = configuration;
 
-  try {
-    const resolvedPath = ESMxCJSRequire.resolve(modulePath);
+  // Always use cjs for dictionaries entry as it uses require
+  const dictionariesPath = join(content.mainDir, `dynamic_dictionaries.cjs`);
 
-    // Get the cached module
-    const cachedModule = ESMxCJSRequire.cache[resolvedPath];
-
-    if (cachedModule) {
-      // Clear cache for all children (dependencies) first
-      if (cachedModule.children) {
-        cachedModule.children.forEach((child) => {
-          clearModuleCache(child.filename, visited);
-        });
-      }
-
-      // Clear the cache for this module
-      delete ESMxCJSRequire.cache[resolvedPath];
-    }
-  } catch (error) {
-    // Module might not exist or be resolvable, skip it
-    console.warn(`Could not clear cache for module: ${modulePath}`, error);
-  }
-};
-
-export const getDynamicDictionaries = () => {
-  const { content } = getConfiguration();
-
-  const dictionariesPath = join(content.mainDir, 'dynamic_dictionaries.cjs');
   let dictionaries: Record<
     IntlayerDictionaryTypesConnector['key'],
     LanguageContent<Dictionary>
@@ -60,7 +37,7 @@ export const getDynamicDictionaries = () => {
   if (existsSync(dictionariesPath)) {
     // Clear cache for dynamic_dictionaries.cjs and all its dependencies (JSON files)
     clearModuleCache(dictionariesPath);
-    dictionaries = ESMxCJSRequire(dictionariesPath);
+    dictionaries = projectRequire(dictionariesPath);
   }
 
   return dictionaries;

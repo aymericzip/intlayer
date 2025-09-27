@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: useLocale 훅 문서 | next-intlayer
 description: next-intlayer 패키지에서 useLocale 훅을 사용하는 방법을 확인하세요
 keywords:

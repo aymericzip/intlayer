@@ -24,7 +24,7 @@ slugs:
 
 ## Genel Bakış
 
-Intlayer CLI, intlayer içeriğinizi yönetmek için (sözlük oluşturma, çeviri gönderme vb.) kolay bir yol sunar. Ancak, projenizin çalışması için zorunlu değildir. Paketleyici eklentisini (ör. Next.js için `withIntlayer()`, Vite için `intlayerPlugin()`) kullanıyorsanız, Intlayer uygulamanızın derlemesi veya geliştirme sunucusu başlatılırken sözlükleri otomatik olarak oluşturur. Geliştirme modunda, içerik bildirim dosyalarındaki değişiklikleri izler ve otomatik olarak yeniden oluşturur.
+Intlayer CLI, intlayer içeriğinizi yönetmek için (sözlük oluşturma, çeviri gönderme vb.) kolay bir yol sunar. Ancak, projenizin çalışması için zorunlu değildir. Paketleyici eklentisini (ör. Next.js için `withIntlayer()`, Vite için `intlayer()`) kullanıyorsanız, Intlayer uygulamanızın derlemesi veya geliştirme sunucusu başlatılırken sözlükleri otomatik olarak oluşturur. Geliştirme modunda, içerik bildirim dosyalarındaki değişiklikleri izler ve otomatik olarak yeniden oluşturur.
 
 Intlayer komutlarına şu şekillerde erişebilirsiniz:
 

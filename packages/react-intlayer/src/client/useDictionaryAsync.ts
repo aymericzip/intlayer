@@ -27,7 +27,10 @@ export const useDictionaryAsync = async <T extends Dictionary>(
   );
 
   const dictionary = await useMemo(
-    async () => (await dictionaryPromise[localeTarget]!()) as T,
+    async () =>
+      (await dictionaryPromise[
+        localeTarget as keyof typeof dictionaryPromise
+      ]!()) as T,
     [dictionaryPromise, localeTarget]
   );
 

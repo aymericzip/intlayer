@@ -1,4 +1,4 @@
-import { getAppLogger } from '@intlayer/config';
+import { ANSIColors, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { relative } from 'path';
 
@@ -26,10 +26,13 @@ export const formatCode = async (filePath: string, code: string) => {
 
       const relativePath = relative(configuration.content.baseDir, filePath);
 
-      appLogger(`Applied Prettier formatting to ${relativePath}`, {
-        level: 'info',
-        isVerbose: true,
-      });
+      appLogger(
+        `Applied Prettier formatting to ${ANSIColors.GREY}${relativePath}${ANSIColors.RESET}`,
+        {
+          level: 'info',
+          isVerbose: true,
+        }
+      );
 
       return formattedCode;
     } catch (error) {

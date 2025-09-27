@@ -17,6 +17,7 @@ const deleteProjectModalContent = {
       hi: 'संगठन से {{memberName}} हटाएं',
       ar: 'حذف {{memberName}} من المنظمة',
       ru: 'Удалить {{memberName}} участника из организации',
+      tr: '{{memberName}} adlı üyeyi organizasyondan çıkar',
     }),
 
     description: t({
@@ -34,6 +35,7 @@ const deleteProjectModalContent = {
       hi: 'क्या आप इस सदस्य को संगठन से हटाना चाहते हैं?',
       ar: 'هل أنت متأكد من أنك تريد حذف هذا العضو من المنظمة؟',
       ru: 'Вы уверены, что хотите удалить этого участника из организации?',
+      tr: 'Bu üyeyi organizasyondan çıkarmak istediğinize emin misiniz?',
     }),
 
     confirmButton: {
@@ -51,6 +53,7 @@ const deleteProjectModalContent = {
         hi: 'हटाएं',
         ar: 'حذف العضو',
         ru: 'Удалить участника',
+        tr: 'Çıkar',
       }),
       label: t({
         en: 'Click to remove member from organization',
@@ -66,6 +69,7 @@ const deleteProjectModalContent = {
         hi: 'संगठन से सदस्य हटाने के लिए क्लिक करें',
         ar: 'انقر لحذف عضو من المنظمة',
         ru: 'Нажмите, чтобы удалить участника из организации',
+        tr: 'Organizasyondan üye çıkarmak için tıklayın',
       }),
     },
 
@@ -84,6 +88,7 @@ const deleteProjectModalContent = {
         hi: 'रद्द करें',
         ar: 'إلغاء',
         ru: 'Отменить',
+        tr: 'İptal etmek için tıklayın',
       }),
       label: t({
         en: 'Click to cancel',
@@ -99,6 +104,7 @@ const deleteProjectModalContent = {
         hi: 'रद्द करने के लिए क्लिक करें',
         ar: 'انقر لإلغاء',
         ru: 'Нажмите, чтобы отменить',
+        tr: 'İptal etmek için tıklayın',
       }),
     },
   },

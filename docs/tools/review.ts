@@ -1,5 +1,5 @@
-import { AIOptions } from '@intlayer/api';
-import { ListGitFilesOptions, reviewDoc } from '@intlayer/cli';
+import type { AIOptions } from '@intlayer/api';
+import { type ListGitFilesOptions, reviewDoc } from '@intlayer/cli';
 import { Locales, getConfiguration } from '@intlayer/config';
 import { readFileSync } from 'fs';
 import { join } from 'path';

@@ -2,20 +2,20 @@ import { join } from 'path';
 import {
   IMPORT_MODE,
   OPTIMIZE,
+  OUTPUT_FORMAT,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
 import {
   CONFIG_DIR,
   CONTENT_DIR,
   DICTIONARIES_DIR,
-  DICTIONARY_OUTPUT,
   DYNAMIC_DICTIONARIES_DIR,
   EXCLUDED_PATHS,
+  FETCH_DICTIONARIES_DIR,
   FILE_EXTENSIONS,
-  I18NEXT_DICTIONARIES_DIR,
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
-  REACT_INTL_MESSAGES_DIR,
+  REMOTE_DICTIONARIES_DIR,
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
   WATCH,
@@ -26,8 +26,8 @@ import {
   CMS_URL,
   DICTIONARY_PRIORITY_STRATEGY,
   EDITOR_URL,
-  HOT_RELOAD,
   IS_ENABLED,
+  LIVE_SYNC,
   LIVE_SYNC_PORT,
   PORT,
 } from '../defaultValues/editor';
@@ -58,6 +58,7 @@ import type {
   InternationalizationConfig,
   IntlayerConfig,
   LogConfig,
+  LogFunctions,
   MiddlewareConfig,
   PatternsContentConfig,
   ResultDirDerivedConfig,
@@ -262,6 +263,13 @@ const buildContentFields = (
      * Default: process.env.NODE_ENV === 'development'
      */
     watch: customConfiguration?.watch ?? WATCH,
+
+    /**
+     * Indicate how the content should be automatically filled using AI.
+     *
+     * Default: undefined
+     */
+    autoFill: customConfiguration?.autoFill ?? undefined,
   };
 
   const baseDirDerivedConfiguration: BaseDerivedConfig = {
@@ -322,18 +330,6 @@ const buildContentFields = (
 
       customConfiguration?.moduleAugmentationDir ?? MODULE_AUGMENTATION_DIR
     ),
-
-    /**
-     * Output format of the dictionary
-     *
-     * Default: ['intlayer']
-     *
-     * Note:
-     * - 'i18next' is not yet ensure a 1:1 mapping with the i18next library.
-     * - Removing 'intlayer' will break the compatibility with react-intlayer or next-intlayer
-     */
-    dictionaryOutput:
-      customConfiguration?.dictionaryOutput ?? DICTIONARY_OUTPUT,
   };
 
   const dictionariesDirDerivedConfiguration: ResultDirDerivedConfig = {
@@ -349,6 +345,18 @@ const buildContentFields = (
       notDerivedContentConfig.baseDir,
 
       customConfiguration?.unmergedDictionariesDir ?? UNMERGED_DICTIONARIES_DIR
+    ),
+
+    /**
+     * Directory where the remote dictionaries will be stored
+     *
+     * Relative to the result directory
+     *
+     * Default: '.intlayer/remote_dictionary'
+     */
+    remoteDictionariesDir: join(
+      notDerivedContentConfig.baseDir,
+      customConfiguration?.remoteDictionariesDir ?? REMOTE_DICTIONARIES_DIR
     ),
 
     /**
@@ -385,39 +393,15 @@ const buildContentFields = (
     ),
 
     /**
-     * Directory where the 18n dictionaries will be stored
+     * Directory where the fetch dictionaries will be stored
      *
      * Relative to the result directory
      *
-     * Default: i18next_resources
-     *
-     * Example: '.intlayer/dictionary/i18n'
-     *
-     * Note:
-     * - If the types are not at the result directory level, update the i18nextResourcesDirName field instead
+     * Default: .intlayer/fetch_dictionary
      */
-    i18nextResourcesDir: join(
+    fetchDictionariesDir: join(
       notDerivedContentConfig.baseDir,
-
-      customConfiguration?.i18nextResourcesDir ?? I18NEXT_DICTIONARIES_DIR
-    ),
-
-    /**
-     * Directory where the dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: intl_messages
-     *
-     * Example: '.intlayer/react-intl_dictionary'
-     *
-     * Note:
-     * - If the types are not at the result directory level, update the dictionariesDirName field instead
-     */
-    reactIntlMessagesDir: join(
-      notDerivedContentConfig.baseDir,
-
-      customConfiguration?.reactIntlMessagesDir ?? REACT_INTL_MESSAGES_DIR
+      customConfiguration?.fetchDictionariesDir ?? FETCH_DICTIONARIES_DIR
     ),
 
     /**
@@ -622,7 +606,7 @@ const buildEditorFields = (
    *
    * Default: false
    */
-  liveSync: customConfiguration?.liveSync ?? HOT_RELOAD,
+  liveSync: customConfiguration?.liveSync ?? LIVE_SYNC,
 
   /**
    * Port of the live sync server
@@ -642,7 +626,8 @@ const buildEditorFields = (
 });
 
 const buildLogFields = (
-  customConfiguration?: Partial<LogConfig>
+  customConfiguration?: Partial<LogConfig>,
+  logFunctions?: LogFunctions
 ): LogConfig => ({
   /**
    * Indicates if the logger is enabled
@@ -663,6 +648,14 @@ const buildLogFields = (
    * The prefix of the logger.
    */
   prefix: customConfiguration?.prefix ?? PREFIX,
+
+  /**
+   * Functions to log
+   */
+  error: logFunctions?.error,
+  log: logFunctions?.log,
+  info: logFunctions?.info,
+  warn: logFunctions?.warn,
 });
 
 const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
@@ -723,8 +716,9 @@ const buildBuildFields = (
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
    * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   * - "async": The dictionaries are imported dynamically in an asynchronous component.
-   *   In that case, Intlayer will replace all calls to `useIntlayer` with `await useDictionaryAsync`.
+   * - "live": The dictionaries are imported dynamically using the live sync API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
    *
    * Default: "static"
    *
@@ -737,6 +731,7 @@ const buildBuildFields = (
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
+   * - The "live" allows to sync the dictionaries to the live sync server.
    */
   importMode: customConfiguration?.importMode ?? IMPORT_MODE,
 
@@ -755,6 +750,19 @@ const buildBuildFields = (
    * - Use glob pattern.
    */
   traversePattern: customConfiguration?.traversePattern ?? TRAVERSE_PATTERN,
+
+  /**
+   * Output format of the dictionaries
+   *
+   * Can be set on large projects to improve build performance.
+   *
+   * Default: ['cjs', 'esm']
+   *
+   * The output format of the dictionaries. It can be either 'cjs' or 'esm'.
+   * - 'cjs': The dictionaries are outputted as CommonJS modules.
+   * - 'esm': The dictionaries are outputted as ES modules.
+   */
+  outputFormat: customConfiguration?.outputFormat ?? OUTPUT_FORMAT,
 });
 
 /**
@@ -762,7 +770,8 @@ const buildBuildFields = (
  */
 export const buildConfigurationFields = (
   customConfiguration?: CustomIntlayerConfig,
-  baseDir?: string
+  baseDir?: string,
+  logFunctions?: LogFunctions
 ): IntlayerConfig => {
   const internationalizationConfig = buildInternationalizationFields(
     customConfiguration?.internationalization
@@ -779,7 +788,7 @@ export const buildConfigurationFields = (
 
   const editorConfig = buildEditorFields(customConfiguration?.editor);
 
-  const logConfig = buildLogFields(customConfiguration?.log);
+  const logConfig = buildLogFields(customConfiguration?.log, logFunctions);
 
   const aiConfig = buildAiFields(customConfiguration?.ai);
 

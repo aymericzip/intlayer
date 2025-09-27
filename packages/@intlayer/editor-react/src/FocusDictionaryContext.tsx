@@ -12,12 +12,10 @@ import {
 } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
 
-type DictionaryPath = string;
-
 export type FileContent = {
   dictionaryKey: string;
+  dictionaryLocalId?: string;
   keyPath?: KeyPath[];
-  dictionaryPath?: DictionaryPath;
 };
 
 type FocusDictionaryState = {

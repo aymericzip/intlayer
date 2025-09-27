@@ -4,12 +4,12 @@ import {
 } from '@intlayer/chokidar';
 import { getConfiguration } from '@intlayer/config';
 import { type Dictionary } from '@intlayer/core';
-import dictionaries from '@intlayer/dictionaries-entry';
+import unmergedDictionaries from '@intlayer/unmerged-dictionaries-entry';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { NextFunction, Request, Response } from 'express';
 import { t } from 'express-intlayer';
 
-type GetDictionariesResult = ResponseData<Record<string, Dictionary>>;
+type GetDictionariesResult = ResponseData<typeof unmergedDictionaries>;
 
 /**
  * Get the Intlayer configuration
@@ -20,8 +20,8 @@ export const getDictionaries = async (
   _next: NextFunction
 ): Promise<void> => {
   try {
-    const formattedResponse = formatResponse<Record<string, Dictionary>>({
-      data: dictionaries,
+    const formattedResponse = formatResponse<typeof unmergedDictionaries>({
+      data: unmergedDictionaries,
     });
 
     res.json(formattedResponse);
@@ -32,7 +32,7 @@ export const getDictionaries = async (
       status: 500,
     };
 
-    const formattedErrorResponse = formatResponse<Record<string, Dictionary>>({
+    const formattedErrorResponse = formatResponse<typeof unmergedDictionaries>({
       error: {
         message: errorMessage.message ?? 'Internal Server Error',
         code: 'INTERNAL_SERVER_ERROR',
@@ -88,9 +88,9 @@ export const writeContentDeclaration = async (
         });
         break;
       }
-      case 'reimported in new location': {
+      case 'new content file': {
         description = t({
-          en: 'Content declaration reimported in new location successfully',
+          en: 'Content declaration new content file successfully',
           fr: 'Déclaration de contenu réimportée dans un nouveau emplacement avec succès',
           es: 'Declaración de contenido reimportada en un nuevo lugar con éxito',
         });

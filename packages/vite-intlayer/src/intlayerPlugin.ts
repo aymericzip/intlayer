@@ -1,11 +1,13 @@
 import { prepareIntlayer, runOnce, watch } from '@intlayer/chokidar';
 import intlayerConfig from '@intlayer/config/built';
-import { join, relative, resolve } from 'path';
+import { join, resolve } from 'path';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
+import { getAlias, getAppLogger } from '@intlayer/config';
 import { type PluginOption } from 'vite';
-import { intlayerLiveSync } from './intlayerLiveSyncPlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
+
 /**
+ * @deprecated Rename to intlayer instead
  *
  * A Vite plugin that integrates Intlayer configuration into the build process
  *
@@ -16,46 +18,25 @@ import { intlayerPrune } from './intlayerPrunePlugin';
  * });
  * ```
  *  */
-export const intlayer = (): PluginOption => {
-  const {
-    mainDir,
-    configDir,
-    baseDir,
-    watch: isWatchMode,
-  } = intlayerConfig.content;
-  const { liveSync } = intlayerConfig.editor;
+export const intlayerPlugin = (): PluginOption => {
+  const { watch: isWatchMode } = intlayerConfig.content;
   const { optimize } = intlayerConfig.build;
+  const appLogger = getAppLogger(intlayerConfig);
 
   const plugins: PluginOption[] = [
     {
       name: 'vite-intlayer-plugin',
 
       config: (config) => {
-        const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-        const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-
-        const unmergedDictionariesPath = join(
-          mainDir,
-          'unmerged_dictionaries.mjs'
-        );
-        const relativeUnmergedDictionariesPath = relative(
-          baseDir,
-          unmergedDictionariesPath
-        );
-
-        const configurationPath = join(configDir, 'configuration.json');
-        const relativeConfigurationPath = relative(baseDir, configurationPath);
-
         // Update Vite's resolve alias
         config.resolve = {
           ...config.resolve,
           alias: {
             ...config.resolve?.alias,
-            '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-            '@intlayer/unmerged-dictionaries-entry': resolve(
-              relativeUnmergedDictionariesPath
-            ),
-            '@intlayer/config/built': resolve(relativeConfigurationPath),
+            ...getAlias({
+              configuration: intlayerConfig,
+              formatter: (value: string) => resolve(value),
+            }),
           },
         };
 
@@ -66,7 +47,6 @@ export const intlayer = (): PluginOption => {
             exclude: [
               ...(config.optimizeDeps?.exclude ?? []),
               '@intlayer/dictionaries-entry',
-              '@intlayer/unmerged-dictionaries-entry',
               '@intlayer/config/built',
             ],
           };
@@ -94,7 +74,8 @@ export const intlayer = (): PluginOption => {
         // Only call prepareIntlayer once per server startup
         await runOnce(
           sentinelPath,
-          async () => await prepareIntlayer(intlayerConfig)
+          async () => await prepareIntlayer(intlayerConfig),
+          () => appLogger('Intlayer prepared')
         );
       },
     },
@@ -105,15 +86,11 @@ export const intlayer = (): PluginOption => {
     plugins.push(intlayerPrune(intlayerConfig));
   }
 
-  if (liveSync) {
-    plugins.push(intlayerLiveSync(intlayerConfig));
-  }
-
   return plugins;
 };
 
 /**
- * @deprecated Rename to intlayer instead
+ * A Vite plugin that integrates Intlayer configuration into the build process
  *
  * ```ts
  * // Example usage of the plugin in a Vite configuration
@@ -122,4 +99,17 @@ export const intlayer = (): PluginOption => {
  * });
  * ```
  */
-export const intlayerPlugin = intlayer;
+export const intlayer = intlayerPlugin;
+/**
+ * @deprecated Rename to intlayer instead
+ *
+ * A Vite plugin that integrates Intlayer configuration into the build process
+ *
+ * ```ts
+ * // Example usage of the plugin in a Vite configuration
+ * export default defineConfig({
+ *   plugins: [ intlayer() ],
+ * });
+ * ```
+ */
+export const intLayerPlugin = intlayerPlugin;

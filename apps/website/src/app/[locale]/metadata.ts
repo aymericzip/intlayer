@@ -34,7 +34,6 @@ export const generateMetadata = async ({
       canonical: getLocalizedUrl('/', locale),
       languages: { ...getMultilingualUrls('/'), 'x-default': '/' },
     },
-
     icons: {
       icon: [
         {
@@ -73,7 +72,10 @@ export const generateMetadata = async ({
       siteName: 'Intlayer',
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_URL}/android-chrome-512x512.png`,
+          url: '/github-social-preview.png',
+          width: 1200,
+          height: 630,
+          alt: 'Intlayer',
         },
       ],
     },
@@ -83,7 +85,7 @@ export const generateMetadata = async ({
       description,
       site: '@Intlayer183096',
       creator: '@aymericzip',
-      images: `${process.env.NEXT_PUBLIC_URL}/cover.png`,
+      images: `/github-social-preview.png`,
     },
     verification: undefined,
     appleWebApp: {

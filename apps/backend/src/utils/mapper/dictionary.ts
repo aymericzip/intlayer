@@ -1,5 +1,4 @@
 import type { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
-import type { Project } from '@/types/project.types';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 
 /**
@@ -12,15 +11,14 @@ import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject'
  */
 export const mapDictionaryToAPI = (
   dictionary: Dictionary,
-  projectId: string | Project['id'],
   version?: string
 ): DictionaryAPI => {
   const dictionaryObject = ensureMongoDocumentToObject<Dictionary>(dictionary);
 
+  let versionList = [...(dictionaryObject.content.keys() ?? [])];
   let returnedVersion = version;
 
   if (!returnedVersion) {
-    const versionList = [...(dictionaryObject.content.keys() ?? [])];
     const lastVersion = versionList[versionList.length - 1];
     returnedVersion = lastVersion;
   }
@@ -32,6 +30,7 @@ export const mapDictionaryToAPI = (
   return {
     ...dictionaryObject,
     content,
-    filePath: dictionaryObject.filePath?.[String(projectId)],
+    version: returnedVersion,
+    versionList,
   } as unknown as DictionaryAPI;
 };

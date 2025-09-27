@@ -1,4 +1,3 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
 import { LandingPage as LandingPageContent } from '@components/LandingPage';
 import { ProductHeader } from '@structuredData/ProductHeader';
 import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
@@ -14,9 +13,7 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
       <WebsiteHeader />
       <SoftwareApplicationHeader />
       <ProductHeader />
-      <BackgroundLayout>
-        <LandingPageContent />
-      </BackgroundLayout>
+      <LandingPageContent />
     </IntlayerServerProvider>
   );
 };

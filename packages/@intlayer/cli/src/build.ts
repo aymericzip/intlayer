@@ -1,4 +1,8 @@
-import { buildAndWatchIntlayer } from '@intlayer/chokidar';
+import {
+  buildAndWatchIntlayer,
+  runParallel,
+  type ParallelHandle,
+} from '@intlayer/chokidar';
 import {
   getConfiguration,
   type GetConfigurationOptions,
@@ -6,6 +10,8 @@ import {
 
 type BuildOptions = {
   watch?: boolean;
+  skipPrepare?: boolean;
+  with?: string | string[];
   configOptions?: GetConfigurationOptions;
 };
 
@@ -15,9 +21,19 @@ type BuildOptions = {
  */
 export const build = async (options?: BuildOptions) => {
   const config = getConfiguration(options?.configOptions);
+  let parallelProcess: ParallelHandle | null = null;
+
+  if (options?.with) {
+    parallelProcess = runParallel(options.with);
+  }
 
   await buildAndWatchIntlayer({
     persistent: options?.watch ?? false,
+    skipPrepare: options?.skipPrepare ?? false,
     configuration: config,
   });
+
+  if (!options?.watch && parallelProcess) {
+    parallelProcess.kill();
+  }
 };

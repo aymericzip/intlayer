@@ -4,6 +4,7 @@ import {
   deleteDictionary,
   getDictionaries,
   getDictionariesKeys,
+  getDictionariesUpdateTimestamp,
   getDictionaryByKey,
   pushDictionaries,
   updateDictionary,
@@ -26,6 +27,11 @@ export const getDictionaryRoutes = () =>
     getDictionariesKeys: {
       urlModel: '/keys',
       url: `${baseURL}/keys`,
+      method: 'GET',
+    },
+    getDictionariesUpdateTimestamp: {
+      urlModel: '/update',
+      url: `${baseURL}/update`,
       method: 'GET',
     },
     getDictionary: {
@@ -66,6 +72,11 @@ dictionaryRouter.get(
 dictionaryRouter.get(
   getDictionaryRoutes().getDictionariesKeys.urlModel,
   getDictionariesKeys
+);
+
+dictionaryRouter.get(
+  getDictionaryRoutes().getDictionariesUpdateTimestamp.urlModel,
+  getDictionariesUpdateTimestamp
 );
 
 dictionaryRouter.get(

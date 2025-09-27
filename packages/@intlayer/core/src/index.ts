@@ -1,3 +1,4 @@
+export * from './deepTranformPlugins';
 export * from './dictionaryManipulator/index';
 export * from './formatters/index';
 export * from './interpreter/index';
@@ -8,3 +9,4 @@ export * from './utils/checkIsURLAbsolute';
 export * from './utils/intl';
 export * from './utils/isSameKeyPath';
 export * from './utils/isValidReactElement';
+export * from './utils/parseYaml';

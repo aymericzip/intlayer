@@ -133,7 +133,10 @@ const Trigger: FC<TriggerProps> = ({
       // Ensure focus behavior is consistent across all mobile browsers
       (e.currentTarget as HTMLButtonElement).focus();
     }}
-    onBlur={(e) => (e.currentTarget as HTMLButtonElement).blur()}
+    // onBlur={(e) => {
+    //   // Default behavior: ensure the trigger is unfocused when leaving the dropdown
+    //   e.currentTarget.blur();
+    // }}
     variant="none"
     {...props}
   >
@@ -253,7 +256,8 @@ const Panel: FC<PanelProps> = ({
       isHidden={isHidden}
       className={cn(
         'overflow-x-visible',
-        isHidden !== false ? 'invisible' : 'visible',
+        isHidden === false && 'invisible',
+        isHidden === true && 'visible',
         isOverable &&
           'group-hover/dropdown:visible group-hover/dropdown:grid-rows-[1fr]',
         isFocusable &&

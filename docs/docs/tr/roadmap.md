@@ -121,7 +121,7 @@ Intlayer içerik bildirmek için **TypeScript** (ayrıca JavaScript) ve **JSON**
 
   > Kaynaklar:
   >
-  > - [İçerik Bildirim Formatları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_extention_customization.md)
+  > - [İçerik Bildirim Formatları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 ### 7. Temizleme, paket optimizasyonu ve dinamik içe aktarmalar
 

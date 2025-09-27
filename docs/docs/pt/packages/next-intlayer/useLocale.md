@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Documentação do Hook useLocale | next-intlayer
 description: Veja como usar o hook useLocale para o pacote next-intlayer
 keywords:

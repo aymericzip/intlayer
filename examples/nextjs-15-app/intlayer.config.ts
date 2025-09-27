@@ -16,8 +16,12 @@ const config: IntlayerConfig = {
     liveSync: false,
     applicationURL: 'http://localhost:3000',
   },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+  },
   build: {
-    importMode: 'static',
+    optimize: true,
+    importMode: 'live',
   },
 };
 

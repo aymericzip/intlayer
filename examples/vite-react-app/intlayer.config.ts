@@ -1,7 +1,5 @@
 import { Locales, type IntlayerConfig } from 'intlayer';
 
-/** @type {import('intlayer').IntlayerConfig} */
-
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
@@ -22,7 +20,7 @@ const config: IntlayerConfig = {
   build: {
     optimize: true,
     // optimize: process.env.NODE_ENV === 'production',
-    importMode: 'static',
+    importMode: 'live',
   },
 };
 

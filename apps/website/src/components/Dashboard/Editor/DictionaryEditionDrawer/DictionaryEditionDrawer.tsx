@@ -1,7 +1,7 @@
 'use client';
 
 import type { Locales } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/core';
+import { getUnmergedDictionaryByKeyPath } from '@intlayer/core';
 import {
   Button,
   DictionaryEditor,
@@ -10,7 +10,6 @@ import {
   RightDrawer,
   useRightDrawerStore,
 } from '@intlayer/design-system';
-import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusDictionary } from '@intlayer/editor-react';
 import { Pencil } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -40,7 +39,6 @@ export const DictionaryEditionDrawerContent: FC<
     focusedDictionaryNotFound,
   } = useIntlayer('dictionary-edition-drawer');
   const [editionModalOpen, setEditionModalOpen] = useState<boolean>(false);
-  const { all: dictionaries } = useGetAllDictionaries();
   const { focusedContent } = useDictionaryEditionDrawer(identifier);
 
   const onClickDictionaryList = () => {
@@ -57,7 +55,10 @@ export const DictionaryEditionDrawerContent: FC<
       </span>
     );
 
-  const dictionary: Dictionary = dictionaries[dictionaryKey];
+  const dictionary = getUnmergedDictionaryByKeyPath(
+    dictionaryKey,
+    focusedContent.keyPath ?? []
+  );
 
   if (!dictionary)
     return (

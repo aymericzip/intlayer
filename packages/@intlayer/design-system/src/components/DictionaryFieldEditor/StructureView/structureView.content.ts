@@ -2,6 +2,7 @@ import { t, type Dictionary } from 'intlayer';
 
 export const structureViewContent = {
   key: 'structure-view',
+  autoFill: './{{key}}.content.json',
   content: {
     titleInput: {
       placeholder: t({

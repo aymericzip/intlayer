@@ -1,7 +1,6 @@
 import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { ESMxCJSRequire, getConfiguration } from '@intlayer/config';
+import { ESMxCJSRequire, getAlias, getConfiguration } from '@intlayer/config';
 import type { RsbuildPlugin } from '@rsbuild/core';
-import { join, relative } from 'path';
 
 /**
  * A Lynx plugin to integrate Intlayer into the Lynx build process.
@@ -29,42 +28,21 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
 
     async setup(api) {
       // Load the Intlayer configuration and format env variables for Lynx.
-      const intlayerConfig = getConfiguration();
+      const configuration = getConfiguration();
 
-      await prepareIntlayer(intlayerConfig);
-
-      // Compute the relative paths for alias configuration.
-      const { mainDir, configDir, baseDir } = intlayerConfig.content;
-
-      const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-      const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-
-      const unmergedDictionariesPath = join(
-        mainDir,
-        'unmerged_dictionaries.mjs'
-      );
-      const relativeUnmergedDictionariesPath = relative(
-        baseDir,
-        unmergedDictionariesPath
-      );
-
-      const configurationPath = join(configDir, 'configuration.json');
-      const relativeConfigurationPath = relative(baseDir, configurationPath);
+      await prepareIntlayer(configuration);
 
       // If file watching is enabled in Intlayer's config, start it.
-      if (intlayerConfig.content.watch) {
-        watch(intlayerConfig);
+      if (configuration.content.watch) {
+        watch({ configuration });
       }
 
       // Merge Intlayer-specific environment variables and alias configuration.
       api.modifyRsbuildConfig(async (config, { mergeRsbuildConfig }) => {
         return mergeRsbuildConfig(config, {
-          source: {
+          resolve: {
             alias: {
-              '@intlayer/dictionaries-entry': relativeDictionariesPath,
-              '@intlayer/unmerged-dictionaries-entry':
-                relativeUnmergedDictionariesPath,
-              '@intlayer/config/built': relativeConfigurationPath,
+              ...getAlias({ configuration }),
               react: ESMxCJSRequire.resolve('@lynx-js/react'),
             },
           },

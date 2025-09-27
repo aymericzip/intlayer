@@ -1,10 +1,13 @@
 export type * from '@intlayer/chokidar';
 export * from './build';
 export * from './cli';
-export * from './fill';
+export * from './editor';
+export * from './fill/fill';
 export * from './listContentDeclaration';
+export * from './liveSync';
 export * from './pull';
-export * from './push';
+export * from './push/push';
 export * from './pushConfig';
 export * from './reviewDoc';
+export * from './test';
 export * from './translateDoc';

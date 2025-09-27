@@ -13,12 +13,6 @@ export const mergeConfig = (baseConfig: WebpackConfig): WebpackConfig => {
   const dictionariesPath = join(mainDir, 'dictionaries.mjs');
   const relativeDictionariesPath = relative(baseDir, dictionariesPath);
 
-  const unmergedDictionariesPath = join(mainDir, 'unmerged_dictionaries.mjs');
-  const relativeUnmergedDictionariesPath = relative(
-    baseDir,
-    unmergedDictionariesPath
-  );
-
   const configurationPath = join(configDir, 'configuration.json');
   const relativeConfigurationPath = relative(baseDir, configurationPath);
 
@@ -26,9 +20,6 @@ export const mergeConfig = (baseConfig: WebpackConfig): WebpackConfig => {
     resolve: {
       alias: {
         '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-        '@intlayer/unmerged-dictionaries-entry': resolve(
-          relativeUnmergedDictionariesPath
-        ),
         '@intlayer/config/built': resolve(relativeConfigurationPath),
       },
     },

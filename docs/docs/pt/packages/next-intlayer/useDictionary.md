@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: Documentação do Hook useDictionary | next-intlayer
 description: Veja como usar o hook useDictionary para o pacote next-intlayer
 keywords:

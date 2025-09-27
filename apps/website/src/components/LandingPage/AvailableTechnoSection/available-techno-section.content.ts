@@ -19,9 +19,9 @@ const availableTechnoContent = {
       ru: 'Доступно на',
       tr: 'Mevcut',
     }),
-    commingSoon: t({
-      en: 'Comming soon',
-      'en-GB': 'Comming soon',
+    comingSoon: t({
+      en: 'Coming soon',
+      'en-GB': 'Coming soon',
       fr: 'Bientôt disponible',
       es: 'Próximamente disponible',
       de: 'Demnächst verfügbar',
@@ -213,6 +213,7 @@ const availableTechnoContent = {
           hi: 'Astro की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ Astro',
           ru: 'Перейти на официальный сайт Astro',
+          tr: 'Astro resmi web sitesine git',
         }),
       },
       lynx: {
@@ -230,6 +231,7 @@ const availableTechnoContent = {
           hi: 'Lynx की आधिकारिक वेबसाइट पर जाएं',
           ar: 'اذهب إلى الموقع الرسمي لـ Lynx',
           ru: 'Перейти на официальный сайт Lynx',
+          tr: 'Lynx resmi web sitesine git',
         }),
       },
     },

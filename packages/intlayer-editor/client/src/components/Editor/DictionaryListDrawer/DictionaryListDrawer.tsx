@@ -1,37 +1,39 @@
 'use client';
 
-import type { Locales } from '@intlayer/config';
+import { type Dictionary } from '@intlayer/core';
 import {
   Button,
   RightDrawer,
   useRightDrawerStore,
 } from '@intlayer/design-system';
-import { useGetAllDictionaries } from '@intlayer/design-system/hooks';
-import { useEditedContent, useFocusDictionary } from '@intlayer/editor-react';
+import {
+  useDictionariesRecord,
+  useEditedContent,
+  useFocusDictionary,
+} from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
 import { type FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
 import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';
 
 export const DictionaryListDrawer: FC = () => {
-  const { all: dictionaries } = useGetAllDictionaries();
-  const dictionaryKeyList = Object.keys(dictionaries) as Locales[];
-
+  const { drawerTitle, buttonLabel } = useIntlayer('dictionary-list-drawer');
   const { close: closeDrawer, open: openDrawer } = useRightDrawerStore();
 
+  const { localeDictionaries } = useDictionariesRecord();
   const { editedContent } = useEditedContent();
   const { setFocusedContent } = useFocusDictionary();
 
-  const handleClickDictionary = (dictionaryKey: string) => {
+  const handleClickDictionary = (dictionary: Dictionary) => {
     closeDrawer(dictionaryListDrawerIdentifier);
 
-    const { filePath } = dictionaries[dictionaryKey];
     setFocusedContent({
-      dictionaryKey,
-      dictionaryPath: filePath,
+      dictionaryKey: dictionary.key!,
+      dictionaryLocalId: dictionary.localId!,
     });
 
-    openDrawer(getDrawerIdentifier(dictionaryKey));
+    openDrawer(getDrawerIdentifier(dictionary.key!));
   };
 
   const isDictionaryEdited = (dictionaryKey: string) =>
@@ -39,25 +41,26 @@ export const DictionaryListDrawer: FC = () => {
 
   return (
     <RightDrawer
-      title="Dictionary list"
+      title={drawerTitle.label.value}
       identifier={dictionaryListDrawerIdentifier}
     >
-      {dictionaryKeyList.map((dictionaryKey) => (
-        <div key={dictionaryKey}>
-          <Button
-            label={`Open dictionary editor ${dictionaryKey}`}
-            onClick={() => handleClickDictionary(dictionaryKey)}
-            variant="hoverable"
-            color="text"
-            IconRight={ChevronRight}
-            size="md"
-            isFullWidth
-          >
-            {isDictionaryEdited(dictionaryKey)
-              ? `✎ ${dictionaryKey}`
-              : dictionaryKey}
-          </Button>
-        </div>
+      {Object.values(localeDictionaries).map((dictionary) => (
+        <Button
+          key={dictionary.localId!}
+          label={
+            buttonLabel.label({ dictionaryLocalId: dictionary.localId! }).value
+          }
+          onClick={() => handleClickDictionary(dictionary)}
+          variant="hoverable"
+          color="text"
+          IconRight={ChevronRight}
+          size="md"
+          isFullWidth
+        >
+          {isDictionaryEdited(dictionary.key!)
+            ? `✎ ${dictionary.key}`
+            : dictionary.key}
+        </Button>
       ))}
     </RightDrawer>
   );

@@ -300,7 +300,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
 const appearanceLight: Appearance = {
   theme: 'flat',
   variables: {
-    fontFamily: 'Inter Variable, sans-serif',
+    fontFamily: 'Figtree Variable, sans-serif',
     fontSizeBase: '1rem',
     borderRadius: '0.75rem',
     colorBackground: 'rgba(255, 255, 255, 1)',
@@ -348,7 +348,7 @@ const appearanceLight: Appearance = {
 const appearanceDark: Appearance = {
   theme: 'flat',
   variables: {
-    fontFamily: 'Inter Variable, sans-serif',
+    fontFamily: 'Figtree Variable, sans-serif',
     fontSizeBase: '1rem',
     borderRadius: '0.75rem',
     colorBackground: 'rgba(61, 61, 61, 1)',

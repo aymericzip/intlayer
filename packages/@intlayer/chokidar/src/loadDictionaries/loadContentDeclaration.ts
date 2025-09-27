@@ -1,32 +1,95 @@
-import { ESMxCJSRequire, loadExternalFile } from '@intlayer/config';
+import {
+  ESMxCJSRequire,
+  getConfiguration,
+  IntlayerConfig,
+  loadExternalFile,
+} from '@intlayer/config';
 import type { Dictionary } from '@intlayer/core';
-import { processContentDeclaration } from '../transpiler/declaration_file_to_dictionary/intlayer_dictionary/processContentDeclaration';
+import { relative } from 'path';
+import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
+import {
+  filterInvalidDictionaries,
+  isInvalidDictionary,
+} from '../filterInvalidDictionaries';
+import { parallelize } from '../utils/parallelize';
+import { DictionariesStatus } from './loadDictionaries';
+
+export const formatLocalDictionaries = (
+  dictionariesRecord: Record<string, Dictionary>,
+  configuration?: IntlayerConfig
+): Dictionary[] =>
+  Object.entries(dictionariesRecord)
+    .filter(([_relativePath, dict]) => isInvalidDictionary(dict, configuration))
+    .map(([relativePath, dict]) => ({
+      ...dict,
+      localId: `${dict.key}::local::${relativePath}`,
+      location: 'locale' as const,
+      filePath: relativePath,
+    }));
 
 export const loadContentDeclarations = async (
   contentDeclarationFilePath: string[],
-  projectRequire = ESMxCJSRequire
+  configuration: IntlayerConfig = getConfiguration(),
+  projectRequire = ESMxCJSRequire,
+  onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<Dictionary[]> => {
-  const contentDeclarations = contentDeclarationFilePath.map((path) => ({
-    ...loadExternalFile(path, undefined, projectRequire),
-    filePath: path,
+  const dictionariesRecord = contentDeclarationFilePath.reduce(
+    (acc, path) => {
+      const relativePath = relative(configuration.content.baseDir, path);
+      return {
+        ...acc,
+        [relativePath]: loadExternalFile(path, undefined, projectRequire),
+      };
+    },
+    {} as Record<string, Dictionary>
+  );
+  const contentDeclarations: Dictionary[] = formatLocalDictionaries(
+    dictionariesRecord,
+    configuration
+  );
+
+  const listFoundDictionaries = contentDeclarations.map((declaration) => ({
+    dictionaryKey: declaration.key,
+    type: 'local' as const,
+    status: 'found' as const,
   }));
-  const resultDictionariesPaths: Dictionary[] = [];
 
-  for await (const contentDeclaration of contentDeclarations) {
-    if (!contentDeclaration) {
-      continue;
+  onStatusUpdate?.(listFoundDictionaries);
+
+  const processedDictionaries = await parallelize(
+    contentDeclarations,
+    async (contentDeclaration): Promise<Dictionary | undefined> => {
+      if (!contentDeclaration) {
+        return undefined;
+      }
+
+      onStatusUpdate?.([
+        {
+          dictionaryKey: contentDeclaration.key,
+          type: 'local',
+          status: 'building',
+        },
+      ]);
+
+      const processedContentDeclaration = await processContentDeclaration(
+        contentDeclaration as Dictionary
+      );
+
+      if (!processedContentDeclaration) {
+        return undefined;
+      }
+
+      onStatusUpdate?.([
+        {
+          dictionaryKey: processedContentDeclaration.key,
+          type: 'local',
+          status: 'built',
+        },
+      ]);
+
+      return processedContentDeclaration;
     }
+  );
 
-    const processedContentDeclaration = await processContentDeclaration(
-      contentDeclaration as Dictionary
-    );
-
-    if (!processedContentDeclaration) {
-      continue;
-    }
-
-    resultDictionariesPaths.push(processedContentDeclaration);
-  }
-
-  return resultDictionariesPaths;
+  return filterInvalidDictionaries(processedDictionaries);
 };

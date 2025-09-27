@@ -22,10 +22,10 @@ const config: IntlayerConfig = {
   internationalization: {
     locales,
     defaultLocale,
+    requiredLocales: [Locales.ENGLISH],
     strictMode: 'strict',
   },
   content: {
-    dictionaryOutput: ['intlayer'],
     contentDir: ['./src', '../../packages/@intlayer/design-system/src'],
   },
   editor: {
@@ -41,6 +41,9 @@ const config: IntlayerConfig = {
   },
   build: {
     importMode: 'dynamic',
+  },
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
   },
   log: {
     mode: 'verbose',

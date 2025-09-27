@@ -1,4 +1,10 @@
-import { fill, pull, push } from '@intlayer/cli';
+import {
+  fill,
+  listContentDeclarationRows,
+  listMissingTranslations,
+  pull,
+  push,
+} from '@intlayer/cli';
 import { Locales } from '@intlayer/config';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
@@ -97,7 +103,7 @@ export const loadCLITools = async (server: McpServer) => {
 
   server.tool(
     'intlayer-push',
-    'Push locale dictionaries to the server',
+    'Push local dictionaries to the server',
     {
       deleteLocaleDictionary: z
         .boolean()
@@ -198,6 +204,107 @@ export const loadCLITools = async (server: McpServer) => {
             {
               type: 'text',
               text: `Pull failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
+  server.tool(
+    'intlayer-content-list',
+    'List the content declaration (.content.{ts,tsx,js,json,...}) files present in the project. That files contain the multilingual content of the application and are used to build the dictionaries.',
+    {
+      configOptions: z
+        .object({
+          baseDir: z.string().optional(),
+          env: z.string().optional(),
+          envFile: z.string().optional(),
+          override: z
+            .object({
+              log: z
+                .object({
+                  prefix: z.string().optional(),
+                  verbose: z.boolean().optional(),
+                })
+                .optional(),
+            })
+            .optional(),
+        })
+        .optional()
+        .describe('Configuration options'),
+    },
+    async (props) => {
+      try {
+        const rows = listContentDeclarationRows(props);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(rows, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Content list failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
+  server.tool(
+    'intlayer-content-test',
+    'Test if there are missing translations in the content declaration files. That files contain the multilingual content of the application and are used to build the dictionaries.',
+    {
+      configOptions: z
+        .object({
+          baseDir: z.string().optional(),
+          env: z.string().optional(),
+          envFile: z.string().optional(),
+          override: z
+            .object({
+              log: z
+                .object({
+                  prefix: z.string().optional(),
+                  verbose: z.boolean().optional(),
+                })
+                .optional(),
+            })
+            .optional(),
+        })
+        .optional()
+        .describe('Configuration options'),
+    },
+    async (props) => {
+      try {
+        const missingTranslations = listMissingTranslations(
+          undefined,
+          props?.configOptions
+        );
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(missingTranslations, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Content test failed: ${errorMessage}`,
             },
           ],
         };

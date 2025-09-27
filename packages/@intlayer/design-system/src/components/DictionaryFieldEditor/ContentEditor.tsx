@@ -25,7 +25,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
 
   const focusedKeyPath = focusedContent?.keyPath;
   const section =
-    typeof editedContent?.[dictionary.key]?.content === 'undefined'
+    typeof editedContent?.[key]?.content === 'undefined'
       ? content
       : editedContent?.[key]?.content;
 

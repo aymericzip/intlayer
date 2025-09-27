@@ -3,6 +3,7 @@ import type { IntlayerConfig } from '@intlayer/config/client';
 import { fetcher, type FetcherOptions } from '../fetcher';
 import type {
   GetConfigurationResult,
+  GetEditorDictionariesResult,
   WriteContentDeclarationBody,
   WriteContentDeclarationResult,
 } from '../types';
@@ -40,14 +41,14 @@ export const getEditorAPI = (
    */
   const getDictionaries = async (
     otherOptions: FetcherOptions = {}
-  ): Promise<Record<string, any>> => {
-    const response = await fetcher<Record<string, any>>(
+  ): Promise<GetEditorDictionariesResult> => {
+    const response = await fetcher<GetEditorDictionariesResult>(
       `${EDITOR_API_ROUTE}/dictionary`,
       authAPIOptions,
       otherOptions
     );
 
-    return response.data;
+    return response.data as unknown as GetEditorDictionariesResult;
   };
 
   /**
@@ -55,7 +56,7 @@ export const getEditorAPI = (
    * @param dictionary - Dictionary data.
    */
   const writeDictionary = async (
-    dictionary: WriteContentDeclarationBody,
+    body: WriteContentDeclarationBody,
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<WriteContentDeclarationResult>(
@@ -64,7 +65,7 @@ export const getEditorAPI = (
       otherOptions,
       {
         method: 'POST',
-        body: { dictionary },
+        body,
       }
     );
 

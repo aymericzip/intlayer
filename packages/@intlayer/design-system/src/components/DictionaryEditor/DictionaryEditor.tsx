@@ -34,13 +34,17 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
           keyPath={[]}
           dictionary={dictionary}
           key={JSON.stringify(
-            (editedContent?.[dictionary.key] ?? dictionary).content
+            (editedContent?.[dictionary.localId!] ?? dictionary).content
           )}
-          editedContent={editedContent?.[dictionary.key]?.content}
+          editedContent={editedContent?.[dictionary.localId!]?.content}
           focusedKeyPath={focusedKeyPath}
           section={dictionary.content}
           onContentChange={(content) => {
-            addEditedContent(dictionary.key, content.newValue, content.keyPath);
+            addEditedContent(
+              dictionary.localId!,
+              content.newValue,
+              content.keyPath
+            );
           }}
           onFocusKeyPath={setFocusedContentKeyPath}
         />

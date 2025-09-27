@@ -19,6 +19,7 @@ export enum PagesRoutes {
   Doc_IntlayerVisualEditor = '/doc/concept/editor',
   Doc_IntlayerCMS = '/doc/concept/cms',
 
+  ReleasesV6 = '/doc/releases/v6',
   Doc_Environment_NextJS_15 = '/doc/environment/nextjs',
   Doc_Environment_NextJS_14 = '/doc/environment/nextjs/14',
   Doc_Environment_CRA = '/doc/environment/create-react-app',
@@ -55,6 +56,9 @@ export enum PagesRoutes {
   Auth_AskResetPassword = '/auth/password/ask-reset',
   Auth_ResetPassword = '/auth/password/reset',
   Auth_ChangePassword = '/auth/password/change',
+
+  Admin = '/admin',
+  Admin_Users = '/admin/users',
 }
 
 export enum ExternalLinks {

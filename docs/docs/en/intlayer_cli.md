@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-07-11
+updatedAt: 2025-09-26
 title: CLI
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -61,6 +61,15 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 ## Run intlayer commands
 
+### Check CLI version
+
+```bash
+npx intlayer --version
+npx intlayer version
+```
+
+Both commands print the installed Intlayer CLI version.
+
 ### Build dictionaries
 
 To build your dictionaries, you can run the commands:
@@ -82,6 +91,49 @@ This command will find your declaration content files as default as `./src/**/*.
 - `npx intlayer dictionaries build`
 - `npx intlayer dictionary build`
 - `npx intlayer dic build`
+
+##### Arguments:
+
+- **`--base-dir`**: Specify the base directory for the project. To retrieve the intlayer configuration, the command will look for the `intlayer.config.{ts,js,json,cjs,mjs}` file in the base directory.
+
+  > Example: `npx intlayer build --base-dir ./src`
+
+- **`--env`**: Specify the environment (e.g., `development`, `production`). Useful in the case you use environment variables in your intlayer configuration file.
+
+  > Example: `npx intlayer build --env production`
+
+- **`--env-file`**: Provide a custom environment file to load variables from. Useful in the case you use environment variables in your intlayer configuration file.
+
+  > Example: `npx intlayer build --env-file .env.production.local`
+
+- **`--with`**: Start command in parallel with the build.
+
+  > Example: `npx intlayer build --with "next dev --turbopack"`
+
+- **`--skip-prepare`**: Skip the prepare step.
+
+  > Example: `npx intlayer build --skip-prepare`
+
+### Watch dictionaries
+
+```bash
+npx intlayer watch
+```
+
+This command will watch for changes in your content declaration files and build the dictionaries in the `.intlayer` directory.
+This command is the equivalent of `npx intlayer build --watch --skip-prepare`.
+
+##### Aliases:
+
+- `npx intlayer dictionaries watch`
+- `npx intlayer dictionary watch`
+- `npx intlayer dic watch`
+
+##### Arguments:
+
+- **`--with`**: Start command in parallel with the watch.
+
+  > Example: `npx intlayer watch --with "next dev --turbopack"`
 
 ### Push dictionaries
 
@@ -136,7 +188,7 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 **Log options:**
 
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 **Git options:**
 
@@ -195,7 +247,7 @@ If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 **Log options:**
 
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 ##### Example:
 
@@ -243,7 +295,7 @@ This command analyzes your content declaration files for potential issues such a
 
 - **`--output-locales [outputLocales...]`**: Target locales to translate to. If not specified, all locales from your configuration will be used except the source locale.
 
-- **`--mode [mode]`**: Translation mode: 'complete', 'review', or 'missing-only'. Default is 'missing-only'.
+- **`--mode [mode]`**: Translation mode: `complete`, `review`. Default is `complete`. `complete` will fill all missing content, `review` will fill missing content and review existing keys.
 
 **Git options:**
 
@@ -286,7 +338,7 @@ This command analyzes your content declaration files for potential issues such a
 
 **Log options:**
 
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 ##### Example:
 
@@ -295,6 +347,93 @@ npx intlayer fill --file src/home/*.content.ts --source-locale en --output-local
 ```
 
 This command will translate content from English to French and Spanish for all content declaration files in the `src/home/` directory using the GPT-3.5 Turbo model.
+
+### Test missing translations
+
+```bash
+npx intlayer content test
+```
+
+This command analyzes your content declaration files to identify missing translations across all configured locales. It provides a comprehensive report showing which translation keys are missing for which locales, helping you maintain consistency across your multilingual content.
+
+##### Example output:
+
+```bash
+pnpm intlayer content test
+Missing translations:
+ - home-page                      - tr         - src/components/HomePage/homePage.content.ts
+ - server-component               - es, tr     - src/components/ServerComponent/serverComponent.content.ts
+ - client-component               - pl, tr     - src/components/ClientComponent/clientComponent.content.ts
+Locales: en, ru, ja, fr, ko, zh, es, de, ar, it, en-GB, pt, hi, tr, pl
+Required locales: en
+Missing locales: pl, tr, es
+Missing required locales: -
+Total missing locales: 3
+Total missing required locales: 0
+```
+
+##### Arguments:
+
+**Configuration options:**
+
+- **`--env`**: Specify the environment (e.g., `development`, `production`).
+- **`--env-file [envFile]`**: Provide a custom environment file to load variables from.
+- **`--base-dir`**: Specify the base directory for the project.
+
+  > Example: `npx intlayer content test --base-dir ./src --env-file .env.production.local`
+
+**Log options:**
+
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
+
+  > Example: `npx intlayer content test --verbose`
+
+##### Example:
+
+```bash
+npx intlayer content test --verbose
+```
+
+##### Example output:
+
+```bash
+npx intlayer content list
+Content declaration files:
+ - home-page        - src/components/HomePage/homePage.content.ts
+ - server-component - src/components/ServerComponent/serverComponent.content.ts
+ - client-component - src/components/ClientComponent/clientComponent.content.ts
+
+Total content declaration files: 3
+```
+
+This command will scan all your content declaration files and display:
+
+- A detailed list of missing translations with their keys, missing locales, and file paths
+- Summary statistics including total missing locales and missing required locales
+- Color-coded output for easy identification of issues
+
+The output helps you quickly identify which translations need to be completed to ensure your application works properly across all configured locales.
+
+### List content declaration files
+
+```bash
+npx intlayer content list
+```
+
+This command displays all content declaration files in your project, showing their dictionary keys and file paths. It's useful for getting an overview of all your content files and verifying that they are properly discovered by Intlayer.
+
+##### Example:
+
+```bash
+npx intlayer content list
+```
+
+This command will output:
+
+- A formatted list of all content declaration files with their keys and relative file paths
+- The total count of content declaration files found
+
+The output helps you verify that all your content files are properly configured and discoverable by the Intlayer system.
 
 ### Manage Configuration
 
@@ -316,7 +455,7 @@ npx intlayer configuration get
 - **`--env`**: Specify the environment (e.g., `development`, `production`).
 - **`--env-file`**: Provide a custom environment file to load variables from.
 - **`--base-dir`**: Specify the base directory for the project.
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 #### Push Configuration
 
@@ -336,15 +475,15 @@ npx intlayer configuration push
 - **`--env`**: Specify the environment (e.g., `development`, `production`).
 - **`--env-file`**: Provide a custom environment file to load variables from.
 - **`--base-dir`**: Specify the base directory for the project.
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
 By pushing the configuration, your project is fully integrated with the Intlayer CMS, enabling seamless dictionary management across teams.
 
-### Documentation Management
+### Document Management
 
 The `doc` commands provide tools for managing and translating documentation files across multiple locales.
 
-#### Translate Documentation
+#### Translate Document
 
 The `doc translate` command automatically translates documentation files from a base locale to target locales using AI translation services.
 
@@ -365,7 +504,6 @@ npx intlayer doc translate
   > Example: `npx intlayer doc translate --excluded-glob-pattern "docs/internal/**"`
 
 - **`--skip-if-modified-before [skipIfModifiedBefore]`**: Skip the file if it has been modified before the given time.
-
   - Can be an absolute time as "2025-12-05" (string or Date)
   - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
   - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
@@ -373,7 +511,6 @@ npx intlayer doc translate
   > Example: `npx intlayer doc translate --skip-if-modified-before "2025-12-05"`
 
 - **`--skip-if-modified-after [skipIfModifiedAfter]`**: Skip the file if it has been modified within the given time.
-
   - Can be an absolute time as "2025-12-05" (string or Date)
   - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
   - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
@@ -417,14 +554,13 @@ npx intlayer doc translate
 
 **Log options:**
 
-- **`--verbose`**: Enable verbose logging for debugging.
+- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
 
   > Example: `npx intlayer doc translate --verbose`
 
 **Custom instructions options:**
 
 - **`--custom-instructions [customInstructions]`**: Custom instructions added to the prompt. Usefull to apply specific rules regarding formatting, urls translation, etc.
-
   - Can be an absolute time as "2025-12-05" (string or Date)
   - Can be a relative time in ms `1 * 60 * 60 * 1000` (1 hour)
   - This option check update time of the file using the `fs.stat` method. So it could be impacted by Git or other tools that modify the file.
@@ -454,9 +590,9 @@ npx intlayer doc translate
 > - `{{baseLocale}}_` by `{{locale}}_`
 > - `.{{baseLocaleName}}.` by `.{{localeName}}.`
 >
-> If the pattern is not found, the output file will add the `.{{locale}}` at the extentions of the file. `./my/file.md` will be translated to `./my/file.fr.md` for the French locale.
+> If the pattern is not found, the output file will add the `.{{locale}}` at the extensions of the file. `./my/file.md` will be translated to `./my/file.fr.md` for the French locale.
 
-#### Review Documentation
+#### Review Document
 
 The `doc review` command analyzes documentation files for quality, consistency, and completeness across different locales.
 
@@ -488,8 +624,22 @@ If you activated one of the git options, the command will only review the part o
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
   "intlayer:fill": "npx intlayer fill",
+  "intlayer:list": "npx intlayer content list",
+  "intlayer:test": "npx intlayer content test",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
+}
+```
+
+### Editor commands
+
+The `editor` command rewrap the `intlayer-editor` commands.
+
+> To be able to use the `editor` command, the `intlayer-editor` package must be installed. (See [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md))
+
+```json fileName="package.json"
+"scripts": {
+  "intlayer:editor:start": "npx intlayer editor start --with 'next dev --turbopack'"
 }
 ```
 
@@ -517,6 +667,8 @@ import {
   pull,
   fill,
   build,
+  listContentDeclaration,
+  testMissingTranslations,
   docTranslate,
   docReview,
 } from "@intlayer/cli";
@@ -528,6 +680,10 @@ pull();
 fill();
 // ...
 build();
+// ...
+listContentDeclaration();
+// ...
+testMissingTranslations();
 // ...
 docTranslate();
 // ...
@@ -567,7 +723,12 @@ npx clear-npx-cache
 
 ## Doc History
 
-| Version | Date       | Changes                                     |
-| ------- | ---------- | ------------------------------------------- |
-| 5.5.11  | 2025-07-11 | Update CLI command parameters documentation |
-| 5.5.10  | 2025-06-29 | Init history                                |
+| Version | Date       | Changes                                         |
+| ------- | ---------- | ----------------------------------------------- |
+| 6.1.2   | 2025-09-26 | Add version command                             |
+| 6.1.0   | 2025-09-26 | Set verbose option to default to true using CLI |
+| 6.1.0   | 2025-09-23 | Add watch command and with option               |
+| 6.0.1   | 2025-09-23 | Add editor command                              |
+| 6.0.0   | 2025-09-17 | Add content test and list command               |
+| 5.5.11  | 2025-07-11 | Update CLI command parameters documentation     |
+| 5.5.10  | 2025-06-29 | Init history                                    |

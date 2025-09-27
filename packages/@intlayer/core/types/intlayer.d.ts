@@ -1,7 +1,5 @@
 // /* eslint-disable */
-import 'intlayer';
-
-export {};
+import { Locales } from 'intlayer';
 
 declare module 'intlayer' {
   interface IntlayerDictionaryTypesConnector {}
@@ -12,5 +10,10 @@ declare module 'intlayer' {
     SPANISH = 'es',
   }
 
-  interface IConfigLocales<Content> extends Record<ConfigLocales, Content> {}
+  type DeclaredLocales = Locales.ENGLISH;
+
+  type RequiredLocales = Locales.ENGLISH;
+  type ExtractedLocales = Extract<Locales, RequiredLocales>;
+  type ExcludedLocales = Exclude<Locales, RequiredLocales>;
+  interface IConfigLocales<Content> extends Record<DeclaredLocales, Content> {}
 }

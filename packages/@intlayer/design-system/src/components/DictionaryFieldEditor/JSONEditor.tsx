@@ -22,7 +22,10 @@ export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
   };
 
   const displayedContent = useMemo(
-    () => editedContent?.[dictionary.key]?.content ?? dictionary?.content ?? {},
+    () =>
+      editedContent?.[dictionary.localId!]?.content ??
+      dictionary?.content ??
+      {},
 
     [dictionary]
   );
@@ -38,7 +41,7 @@ export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
         language="json"
         onChange={(content) => {
           if (isValidJSON(content ?? '{}')) {
-            setEditedContent(dictionary.key, JSON.parse(content ?? '{}'));
+            setEditedContent(dictionary.localId!, JSON.parse(content ?? '{}'));
           }
         }}
         isDarkMode={isDarkMode}

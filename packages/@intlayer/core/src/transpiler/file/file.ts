@@ -1,4 +1,4 @@
-import { getAppLogger } from '@intlayer/config';
+import { colorizePath, getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import { existsSync, readFileSync } from 'fs';
 import { relative, resolve } from 'path';
@@ -59,7 +59,10 @@ export const file = (path: string): FileContent => {
   if (existsSync(filePath)) {
     content = readFileSync(filePath, 'utf8');
   } else {
-    appLogger(`File not found: ${filePath}`, { level: 'warn' });
+    appLogger(
+      `File not found: ${colorizePath(relative(configuration.content.baseDir, filePath))}`,
+      { level: 'warn' }
+    );
 
     content = `File not found`;
   }

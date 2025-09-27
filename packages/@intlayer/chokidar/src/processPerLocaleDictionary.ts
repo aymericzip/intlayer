@@ -2,7 +2,7 @@ import { deepTransformNode, Plugins, t, type Dictionary } from '@intlayer/core';
 
 /**
  *
- * Should transform per locale dictionaries to multi-locale dictionaries
+ * Should transform per local dictionaries to multi-local dictionaries
  *
  * Example:
  *

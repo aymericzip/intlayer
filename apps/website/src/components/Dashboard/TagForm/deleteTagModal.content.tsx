@@ -17,6 +17,7 @@ const deleteTagModalContent = {
       hi: 'टैग हटाएं',
       ar: 'حذف الوسم',
       ru: 'Удалить тег',
+      tr: 'Tagı sil',
     }),
 
     description: t({
@@ -33,6 +34,7 @@ const deleteTagModalContent = {
       hi: 'क्या आप इस टैग को हटाना चाहते हैं?',
       ar: 'هل أنت متأكد من أنك تريد حذف هذا الوسم؟',
       ru: 'Вы уверены, что хотите удалить этот тег?',
+      tr: 'Bu etiketi silmek istediğinize emin misiniz?',
     }),
 
     confirmButton: {
@@ -50,6 +52,7 @@ const deleteTagModalContent = {
         hi: 'हटाएं',
         ar: 'حذف',
         ru: 'Удалить',
+        tr: 'Sil',
       }),
       label: t({
         en: 'Click to delete tag',

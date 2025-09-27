@@ -56,11 +56,6 @@ export const dictionarySchema = new Schema<DictionarySchema>(
       ref: 'User',
       required: true,
     },
-    filePath: {
-      type: Map,
-      of: String,
-      default: null,
-    },
   },
   {
     timestamps: true,

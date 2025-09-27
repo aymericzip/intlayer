@@ -112,18 +112,16 @@ Intlayerは、動的コンテンツの挿入と管理のためのさまざまな
 Intlayer はコンテンツ宣言に **TypeScript**（および JavaScript）と **JSON** をサポートしています。
 
 - **TypeScript**:
-
   - コンテンツ構造が正しく、翻訳が欠落していないことを保証します。
   - 厳密またはより柔軟な検証モードを提供します。
   - 変数、関数、または外部APIからの動的データ取得を可能にします。
 
 - **JSON**:
-
   - 標準化されたフォーマットのため、外部ツール（ビジュアルエディタなど）との統合が容易です。
 
   > リソース:
   >
-  > - [コンテンツ宣言フォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_extention_customization.md)
+  > - [コンテンツ宣言フォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
 
 ### 7. パージ、バンドル最適化、および動的インポート
 

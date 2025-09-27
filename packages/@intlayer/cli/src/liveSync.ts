@@ -1,18 +1,21 @@
 import { IntlayerEventListener } from './IntlayerEventListener';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { buildDictionary } from '@intlayer/chokidar';
+import {
+  buildDictionary,
+  runParallel,
+  type ParallelHandle,
+} from '@intlayer/chokidar';
 import type { IntlayerConfig } from '@intlayer/config';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json';
 import { getLocalisedContent } from '@intlayer/core';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
-import { ChildProcess, spawn } from 'child_process';
 import { createServer } from 'http';
 
 type LiveSyncOptions = {
-  process?: string;
+  with?: string | string[];
 };
 
 const writeDictionary = async (
@@ -26,37 +29,22 @@ const writeDictionary = async (
 
 export const liveSync = async (options?: LiveSyncOptions) => {
   const configuration = getConfiguration();
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger(configuration, {
+    config: {
+      prefix: '',
+    },
+  });
 
   const { liveSyncPort, liveSyncURL } = configuration.editor;
 
-  let childProcess: ChildProcess | null = null;
+  let parallelProcess: ParallelHandle | null = null;
   let eventListener: IntlayerEventListener | null = null;
   let isHotReloadConnected = false;
   let connectionStatus = 'disconnected'; // 'connected', 'connecting', 'reconnecting', 'disconnected', 'error'
 
   // Start the parallel process if provided
-  if (options?.process) {
-    const [command, ...args] = options.process.split(' ');
-
-    childProcess = spawn(command, args, {
-      stdio: 'inherit',
-      shell: true,
-    });
-
-    childProcess.on('error', (error) => {
-      appLogger(`Failed to start process '${options.process}':`, {
-        level: 'error',
-      });
-    });
-
-    childProcess.on('exit', (code) => {
-      if (code !== 0) {
-        appLogger(`Process "${options.process}" exited with code ${code}`);
-      } else {
-        appLogger(`Process "${options.process}" exited successfully`);
-      }
-    });
+  if (options?.with) {
+    parallelProcess = runParallel(options.with);
   }
 
   // Initialize the event listener for hot reload if configured
@@ -153,13 +141,13 @@ export const liveSync = async (options?: LiveSyncOptions) => {
 
     if (req.url?.startsWith('/dictionaries')) {
       res.writeHead(200, {
-        'Content-Type': 'text/javascript; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'no-store',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
-      const dictionaries = getDictionaries();
+      const dictionaries = getDictionaries(configuration);
 
       const prefix = '/dictionaries/';
       if (req.url.startsWith(prefix)) {
@@ -175,50 +163,58 @@ export const liveSync = async (options?: LiveSyncOptions) => {
             keyPath: [],
           });
 
-          res.end(`export default ${JSON.stringify(sourceLocaleContent)};`);
+          res.end(JSON.stringify(sourceLocaleContent));
           return;
         }
 
-        res.end(`export default ${JSON.stringify(dictionary)};`);
+        res.end(JSON.stringify(dictionary));
         return;
       }
 
-      res.end(`export default ${JSON.stringify(dictionaries)};`);
+      res.end(JSON.stringify(dictionaries));
       return;
     }
 
     if (req.url?.startsWith('/unmerged_dictionaries')) {
       res.writeHead(200, {
-        'Content-Type': 'text/javascript; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'no-store',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
-      const unmergedDictionaries = getUnmergedDictionaries();
+      const unmergedDictionaries = getUnmergedDictionaries(configuration);
 
       const prefix = '/unmerged_dictionaries/';
       if (req.url.startsWith(prefix)) {
         const key = decodeURIComponent(req.url.slice(prefix.length));
         const one = unmergedDictionaries[key] ?? null;
 
-        res.end(`export default ${JSON.stringify(one)};`);
+        res.end(JSON.stringify(one));
         return;
       }
 
-      res.end(`export default ${JSON.stringify(unmergedDictionaries)};`);
+      res.end(JSON.stringify(unmergedDictionaries));
       return;
     }
 
     if (req.url === '/configuration') {
       res.writeHead(200, {
-        'Content-Type': 'text/javascript; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'no-store',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
-      res.end(`export default ${JSON.stringify(configuration)};`);
+      res.end(JSON.stringify(configuration));
+      return;
+    }
+
+    if (req.url === '/health') {
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=utf-8',
+      });
+      res.end(JSON.stringify({ status: 'ok' }));
       return;
     }
 
@@ -238,7 +234,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
       Live server running at:          \x1b[90m${liveSyncURL}\x1b[0m
       - Backend URL:                   \x1b[90m${configuration.editor.backendURL ?? '-'}\x1b[0m
       - Live sync:                     ${getLiveSyncParam()}
-      - Parallel process:              ${options?.process === '' ? '-' : `\x1b[90m${options?.process}\x1b[0m`}
+      - Parallel process:              ${options?.with ? `\x1b[90m${Array.isArray(options.with) ? options.with.join(' ') : options.with}\x1b[0m` : '-'}
       - Access key:                    ${configuration.editor.clientId ?? '-'}
       `);
   });
@@ -251,18 +247,8 @@ export const liveSync = async (options?: LiveSyncOptions) => {
       eventListener.cleanup();
     }
 
-    // Clean up child process
-    if (childProcess && !childProcess.killed) {
-      appLogger('Terminating parallel process...');
-      childProcess.kill('SIGTERM');
-
-      // Force kill after 5 seconds if process doesn't terminate gracefully
-      setTimeout(() => {
-        if (childProcess && !childProcess.killed) {
-          appLogger('Force killing parallel process...');
-          childProcess.kill('SIGKILL');
-        }
-      }, 5000);
+    if (parallelProcess) {
+      parallelProcess.kill();
     }
 
     server.close(() => {

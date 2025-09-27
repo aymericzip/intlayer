@@ -10,15 +10,18 @@ import {
 } from '../../chokidar/dist/types/listGitFiles';
 import { build } from './build';
 import { getConfig } from './config';
-import { fill, FillOptions } from './fill';
+import { startEditor } from './editor';
+import { fill, FillOptions } from './fill/fill';
 import { listContentDeclaration } from './listContentDeclaration';
 import { liveSync } from './liveSync';
 import { pull } from './pull';
-import { push } from './push';
+import { push } from './push/push';
 import { pushConfig } from './pushConfig';
 import { reviewDoc } from './reviewDoc';
+import { testMissingTranslations } from './test';
 import { translateDoc } from './translateDoc';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
+import { watchContentDeclaration } from './watch';
 
 // Extended AI options to include customPrompt
 type AIOptions = BaseAIOptions & {
@@ -34,7 +37,7 @@ export const dirname = isESModule
 const packageJson = getParentPackageJSON(dirname);
 
 const logOptions = [
-  ['--verbose', 'Verbose'],
+  ['--verbose', 'Verbose (default to true using CLI)'],
   ['--prefix [prefix]', 'Prefix'],
 ];
 
@@ -193,7 +196,7 @@ const extractConfigOptions = (
 
   const log = {
     prefix: prefix ?? '', // Should not consider the prefix set in the intlayer configuration file
-    verbose,
+    verbose: verbose ?? true,
   };
 
   const override = {
@@ -221,6 +224,16 @@ export const setAPI = (): Command => {
 
   program.version(packageJson.version!).description('Intlayer CLI');
 
+  // Explicit version subcommand for convenience: `npx intlayer version`
+  program
+    .command('version')
+    .description('Print the Intlayer CLI version')
+    .action(() => {
+      // Prefer the resolved package.json version; fallback to unknown
+      // Keeping output minimal to align with common CLI behavior
+      console.log(packageJson.version ?? 'unknown');
+    });
+
   /**
    * DICTIONARIES
    */
@@ -234,7 +247,11 @@ export const setAPI = (): Command => {
   // Dictionary build command
   const buildOptions = {
     description: 'Build the dictionaries',
-    options: [['-w, --watch', 'Watch for changes']],
+    options: [
+      ['-w, --watch', 'Watch for changes'],
+      ['--skip-prepare', 'Skip the prepare step'],
+      ['--with [with...]', 'Start command in parallel with the build'],
+    ],
   };
 
   // Add build command to dictionaries program
@@ -265,12 +282,50 @@ export const setAPI = (): Command => {
     });
   });
 
+  const watchOptions = {
+    description: 'Watch the dictionaries changes',
+    options: [['--with [with...]', 'Start command in parallel with the build']],
+  };
+
+  // Add build command to dictionaries program
+  const dictionariesWatchCmd = dictionariesProgram
+    .command('watch')
+    .description(buildOptions.description);
+
+  applyOptions(dictionariesWatchCmd, watchOptions.options);
+  applyConfigOptions(dictionariesWatchCmd);
+  dictionariesWatchCmd.action((options) => {
+    watchContentDeclaration({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
+
+  // Add build command to root program as well
+  const rootWatchCmd = program
+    .command('watch')
+    .description(buildOptions.description);
+
+  applyOptions(rootWatchCmd, watchOptions.options);
+  applyConfigOptions(rootWatchCmd);
+  rootWatchCmd.action((options) => {
+    watchContentDeclaration({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
+
   // Dictionary pull command
   const pullOptions = {
     description: 'Pull dictionaries from the server',
     options: [
       ['-d, --dictionaries [ids...]', 'List of dictionary IDs to pull'],
       ['--new-dictionaries-path [path]', 'Path to save the new dictionaries'],
+      // Backward-compatibility for older tests/flags (camelCase)
+      [
+        '--newDictionariesPath [path]',
+        '[alias] Path to save the new dictionaries',
+      ],
     ],
   };
 
@@ -318,6 +373,15 @@ export const setAPI = (): Command => {
       [
         '-k, --keep-locale-dictionary',
         'Keep the local dictionaries after pushing',
+      ],
+      // Backward-compatibility for older tests/flags (camelCase)
+      [
+        '--deleteLocaleDictionary',
+        '[alias] Delete the local dictionaries after pushing',
+      ],
+      [
+        '--keepLocaleDictionary',
+        '[alias] Keep the local dictionaries after pushing',
       ],
     ],
   };
@@ -396,10 +460,26 @@ export const setAPI = (): Command => {
    * CONTENT DECLARATION
    */
 
-  program
-    .command('content list')
+  const contentProgram = program
+    .command('content')
+    .description('Content declaration operations');
+
+  contentProgram
+    .command('list')
     .description('List the content declaration files')
     .action(listContentDeclaration);
+
+  const testProgram = contentProgram
+    .command('test')
+    .description('Test if there are missing translations');
+
+  applyConfigOptions(testProgram);
+  testProgram.action((options) => {
+    testMissingTranslations({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    });
+  });
 
   const fillProgram = program
     .command('fill')
@@ -413,7 +493,7 @@ export const setAPI = (): Command => {
     .option(
       '--mode [mode]',
       'Fill mode: complete, review. Complete will fill all missing content, review will fill missing content and review existing keys',
-      'review'
+      'complete'
     )
     .option('-k, --keys [keys...]', 'Filter dictionaries based on keys')
     .option(
@@ -423,6 +503,10 @@ export const setAPI = (): Command => {
     .option(
       '--path-filter [pathFilters...]',
       'Filter dictionaries based on glob pattern'
+    )
+    .option(
+      '--build [build]',
+      'Build the dictionaries before filling to ensure the content is up to date'
     );
 
   applyConfigOptions(fillProgram);
@@ -527,7 +611,7 @@ export const setAPI = (): Command => {
    */
 
   const liveOptions = [
-    ['--process [process]', 'Start command in parallel with the live sync'],
+    ['--with [with...]', 'Start command in parallel with the live sync'],
   ];
 
   const liveCmd = program
@@ -539,6 +623,27 @@ export const setAPI = (): Command => {
   applyOptions(liveCmd, liveOptions);
 
   liveCmd.action((options) => liveSync(options));
+
+  /**
+   * EDITOR
+   */
+
+  const editorProgram = program
+    .command('editor')
+    .description('Visual editor operations');
+
+  const editorStartCmd = editorProgram
+    .command('start')
+    .description('Start the Intlayer visual editor');
+
+  applyConfigOptions(editorStartCmd);
+
+  editorStartCmd.action((options) => {
+    startEditor({
+      env: options.env,
+      envFile: options.envFile,
+    });
+  });
 
   program.parse(process.argv);
 

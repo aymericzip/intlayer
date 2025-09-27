@@ -5,6 +5,7 @@ const option: Options[] = (packageBuildOptions as Options[]).map((option) => ({
   ...option,
   loader: {
     '.md': 'copy',
+    '.txt': 'copy',
     '.json': 'copy',
   },
 }));

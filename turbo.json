@@ -21,6 +21,9 @@
         "!.next/cache/**"
       ]
     },
+    "prepublish": {
+      "outputs": []
+    },
     "dev": {
       "cache": false,
       "persistent": true

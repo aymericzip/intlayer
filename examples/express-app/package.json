@@ -39,17 +39,17 @@
   "devDependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "@types/express": "^5.0.2",
-    "@types/node": "^24.2.1",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.5.2",
     "@utils/eslint-config": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsup-config": "workspace:*",
-    "eslint": "^9.34.0",
+    "eslint": "^9.36.0",
     "prettier": "^3.6.2",
     "tsc-alias": "^1.8.16",
     "tsup": "^8.5.0",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   }
 }

@@ -43,7 +43,7 @@ const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.p
-    className="text-neutral bg-background flex size-full items-center justify-center px-16 text-sm md:pr-0 lg:pr-16"
+    className="text-neutral flex size-full items-center justify-center px-16 text-sm md:pr-0 lg:pr-16"
     initial={{ x: '-100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '-100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut', delay: isActive ? 0.5 : 0 }}
@@ -248,7 +248,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
         {sections.map((section, index) => (
           <div
             className={cn(
-              'absolute left-0 top-[37vh] z-0 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3',
+              'max-md:bg-background absolute left-0 top-[37vh] z-0 h-[20vh] w-full overflow-hidden md:top-[50vh] md:h-[50vh] md:w-1/3',
               index === activeIndex && 'z-10'
             )}
             key={section.id.value}

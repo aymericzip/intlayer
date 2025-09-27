@@ -8,6 +8,7 @@ export default defineConfig({
     mockReset: true,
     restoreMocks: true,
     passWithNoTests: true,
+    setupFiles: ['./test/setup.ts'],
     include: ['src/**/*.test.{js,jsx,ts,tsx}'],
     exclude: ['**/node_modules/**', '**/dist/**'],
   },

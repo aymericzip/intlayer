@@ -4,20 +4,20 @@ import {
   createContext,
   useContext,
   type Dispatch,
+  type FC,
   type PropsWithChildren,
   type SetStateAction,
-  type FC,
 } from 'react';
 import { usePersistedStore } from '../../../hooks';
 
 type VersionSwitcherContextProps = {
-  availableVersions: string[];
+  versions: string[];
   selectedVersion: string | null;
   setSelectedVersion: Dispatch<SetStateAction<string | null>>;
 };
 
 const VersionSwitcherContext = createContext<VersionSwitcherContextProps>({
-  availableVersions: [],
+  versions: [],
   selectedVersion: null,
   setSelectedVersion: () => {},
 });
@@ -25,13 +25,13 @@ const VersionSwitcherContext = createContext<VersionSwitcherContextProps>({
 export const useVersionSwitcher = () => useContext(VersionSwitcherContext);
 
 type VersionSwitcherProviderProps = {
-  availableVersions: string[];
+  versions: string[];
   defaultSelectedVersion?: string;
 };
 
 export const VersionSwitcherProvider: FC<
   PropsWithChildren<VersionSwitcherProviderProps>
-> = ({ availableVersions, defaultSelectedVersion, children }) => {
+> = ({ versions, defaultSelectedVersion, children }) => {
   const [selectedVersion, setSelectedVersion] = usePersistedStore<
     string | null
   >('version-selector', defaultSelectedVersion);
@@ -39,7 +39,7 @@ export const VersionSwitcherProvider: FC<
   return (
     <VersionSwitcherContext
       value={{
-        availableVersions,
+        versions,
         selectedVersion,
         setSelectedVersion,
       }}

@@ -53,8 +53,6 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   const { mutate: pushDictionaries, isPending: isPushing } =
     usePushDictionaries();
   const isLoading = isWriting || isPushing;
-  const isJsonFormat =
-    mode.includes('local') && dictionary.filePath?.endsWith('.json');
 
   const { editedContent, restoreEditedContent } = useEditedContent();
   const {
@@ -67,21 +65,21 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
   } = useIntlayer('save-dictionary-details');
   const { isAuthenticated } = useAuth();
 
-  const editedDictionary = editedContent?.[dictionary.key];
+  const editedDictionary = editedContent?.[dictionary.localId!];
 
   const isEdited =
     editedDictionary &&
     JSON.stringify(editedDictionary) !== JSON.stringify(dictionary);
 
   const isDistantDictionary =
-    typeof (dictionary as DistantDictionary)?.id !== 'undefined';
+    typeof (dictionary as unknown as DistantDictionary)?.id !== 'undefined';
 
   const handleSaveDictionaryConfirmation = async () => {
-    if (!editedContent?.[dictionary.key]) return;
+    if (!editedContent?.[dictionary.localId!]) return;
 
     const updatedDictionary = {
       ...dictionary,
-      ...editedContent?.[dictionary.key],
+      ...editedContent?.[dictionary.localId!],
     };
 
     writeDictionary(
@@ -90,41 +88,44 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       },
       {
         onSuccess: () => {
-          setLocaleDictionary(editedContent?.[dictionary.key]);
-          restoreEditedContent(dictionary.key);
+          setLocaleDictionary(editedContent?.[dictionary.localId!]);
+          restoreEditedContent(dictionary.localId!);
         },
       }
     );
   };
 
   const handlePushDictionary = () => {
-    if (!editedContent?.[dictionary.key]) return;
+    if (!editedContent?.[dictionary.localId!]) return;
 
     const updatedDictionary = {
       ...dictionary,
-      ...editedContent?.[dictionary.key],
+      ...editedContent?.[dictionary.localId!],
     };
 
     pushDictionaries([updatedDictionary], {
       onSuccess: (res) => {
         if (res) {
-          setLocaleDictionary(editedContent?.[dictionary.key]);
-          restoreEditedContent(dictionary.key);
+          setLocaleDictionary(editedContent?.[dictionary.localId!]);
+          restoreEditedContent(dictionary.localId!);
         }
       },
     });
   };
 
   const handleDeleteDictionary = () => {
-    if (!(dictionary as DistantDictionary).id) return;
+    if (!(dictionary as unknown as DistantDictionary).id) return;
 
-    deleteDictionary((dictionary as DistantDictionary).id.toString(), {
-      onSuccess: (res) => {
-        if (res) {
-          onDelete?.();
-        }
-      },
-    });
+    deleteDictionary(
+      (dictionary as unknown as DistantDictionary).id.toString(),
+      {
+        onSuccess: (res) => {
+          if (res) {
+            onDelete?.();
+          }
+        },
+      }
+    );
   };
 
   return (
@@ -135,13 +136,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         size={ModalSize.MD}
       >
         <form className="size-full px-3">
-          {isJsonFormat ? (
-            <p className="text-neutral py-4 text-sm">{confirmation.message}</p>
-          ) : (
-            <p className="text-neutral py-4 text-sm">
-              {confirmation.differentFormatMessage}
-            </p>
-          )}
+          <p className="text-neutral py-4 text-sm">{confirmation.message}</p>
+
           <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
             <Form.Button
               label={confirmation.cancelButton.label.value}
@@ -195,7 +191,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             variant={ButtonVariant.OUTLINE}
             color={ButtonColor.TEXT}
             className="max-md:w-full"
-            onClick={() => restoreEditedContent(dictionary.key)}
+            onClick={() => restoreEditedContent(dictionary.localId!)}
           >
             {resetButton.text}
           </Form.Button>

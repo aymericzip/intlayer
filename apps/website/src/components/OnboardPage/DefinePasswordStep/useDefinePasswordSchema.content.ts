@@ -102,6 +102,7 @@ const content = {
       hi: 'कृपया अपना नया पासवर्ड फिर से दर्ज करें',
       ar: 'يرجى إدخال كلمة المرور الجديدة مرة أخرى',
       ru: 'Пожалуйста, введите свой новый пароль снова',
+      tr: 'Lütfen yeni şifrenizi tekrar girin',
     }),
 
     invalidTypeErrorNewPasswordConfirmation: t({
@@ -118,6 +119,7 @@ const content = {
       hi: 'कृपया एक मान्य नया पासवर्ड फिर से दर्ज करें',
       ar: 'يرجى إدخال كلمة مرور جديدة صالحة مرة أخرى',
       ru: 'Пожалуйста, введите действительный новый пароль еще раз',
+      tr: 'Lütfen geçerli bir yeni şifre tekrar girin',
     }),
 
     passwordNotMatchError: t({
@@ -134,6 +136,7 @@ const content = {
       hi: 'नया पासवर्ड और पासवर्ड पुष्टि मेल खाना चाहिए',
       ar: 'يجب أن تتطابق كلمة المرور الجديدة مع تأكيد كلمة المرور',
       ru: 'Новый пароль и подтверждение пароля должны совпадать',
+      tr: 'Yeni şifre ve şifre onayı eşleşmelidir',
     }),
   },
 } satisfies Dictionary;

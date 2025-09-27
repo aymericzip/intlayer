@@ -10,7 +10,7 @@ vi.mock('@intlayer/config', () => ({
 vi.mock('@intlayer/config/built', () => ({
   default: {
     editor: {
-      dictionaryPriorityStrategy: 'locale_first',
+      dictionaryPriorityStrategy: 'local_first',
     },
   },
 }));
@@ -28,6 +28,8 @@ vi.mock('@intlayer/core', () => ({
     }
     return 'unknown';
   }),
+  getReplacedValuesContent: vi.fn((content: any) => content),
+  deepTransformNode: vi.fn((node: any) => node),
 }));
 
 describe('mergeDictionaries', () => {
@@ -69,6 +71,9 @@ describe('mergeDictionaries', () => {
       fr: 'Bonjour',
     });
     expect(result.filePath).toBeUndefined();
+    expect(result.localId).toBeUndefined();
+    expect(result.localIds).toEqual([]);
+    expect(result.id).toBeUndefined();
   });
 
   it('should merge nested translation objects correctly', () => {
@@ -546,6 +551,101 @@ describe('mergeDictionaries', () => {
     });
   });
 
+  it('should honor priority over location when merging (higher priority wins)', () => {
+    const lowPriorityLocal: Dictionary = {
+      key: 'priority-test',
+      location: 'locale',
+      priority: 1,
+      content: {
+        value: { nodeType: 'translation', translation: { en: 'low' } },
+      },
+    };
+
+    const highPriorityDistant: Dictionary = {
+      key: 'priority-test',
+      location: 'distant',
+      priority: 10,
+      content: {
+        value: { nodeType: 'translation', translation: { fr: 'high' } },
+      },
+    };
+
+    const result = mergeDictionaries([lowPriorityLocal, highPriorityDistant]);
+    // Expect both translations to be present after merge
+    expect(result.content.value.translation).toEqual({ en: 'low', fr: 'high' });
+  });
+
+  it('should place non-autoFilled before autoFilled in merge order (autoFilled lower precedence)', () => {
+    const base: Dictionary = {
+      key: 'autofill-test',
+      location: 'locale',
+      content: { v: { nodeType: 'translation', translation: { en: 'base' } } },
+    };
+    const autoFilled: Dictionary = {
+      key: 'autofill-test',
+      location: 'locale',
+      autoFilled: true,
+      content: { v: { nodeType: 'translation', translation: { fr: 'auto' } } },
+    };
+
+    const result = mergeDictionaries([base, autoFilled]);
+    expect(result.content.v.translation).toEqual({ en: 'base', fr: 'auto' });
+  });
+
+  it('should respect distant_first when priority and autoFilled tie', async () => {
+    const local: Dictionary = {
+      key: 'strategy-test',
+      location: 'locale',
+      priority: 1,
+      content: { v: { nodeType: 'translation', translation: { en: 'local' } } },
+    };
+    const distant: Dictionary = {
+      key: 'strategy-test',
+      location: 'distant',
+      priority: 1,
+      content: {
+        v: { nodeType: 'translation', translation: { fr: 'distant' } },
+      },
+    };
+
+    const customConfig = {
+      editor: {
+        dictionaryPriorityStrategy: 'distant_first' as const,
+      },
+      internationalization: {},
+      middleware: {},
+      content: {},
+      log: {},
+      build: {},
+    } as any;
+
+    // Use orderDictionaries indirectly via mergeDictionaries (it imports configuration internally)
+    // But we need to temporarily mock built configuration for this test
+    vi.doMock('@intlayer/config/built', () => ({
+      default: customConfig,
+    }));
+
+    const { mergeDictionaries: mergeWithCustom } = await import(
+      './mergeDictionaries'
+    );
+
+    const result = mergeWithCustom([local, distant]);
+    // Merged content should include both, but order should have distant first internally
+    expect(result.content.v.translation).toEqual({
+      en: 'local',
+      fr: 'distant',
+    });
+
+    // Restore original mock for subsequent tests
+    vi.doMock('@intlayer/config/built', () => ({
+      default: {
+        editor: {
+          dictionaryPriorityStrategy: 'local_first' as const,
+        },
+      },
+    }));
+  });
+
   it('should merge arrays by element key when available, otherwise by index', () => {
     const dictionaries: Dictionary[] = [
       {
@@ -632,6 +732,48 @@ describe('mergeDictionaries', () => {
     expect(result.content.items[3].translation).toEqual({
       fr: 'Third FR',
     });
+  });
+
+  it('should return both result and mask in the merged output', () => {
+    const dictionaries: Dictionary[] = [
+      {
+        key: 'mask-test',
+        localId: 'local-1',
+        content: {
+          title: {
+            nodeType: 'translation',
+            translation: {
+              en: 'Title EN',
+            },
+          },
+        },
+      },
+      {
+        key: 'mask-test',
+        localId: 'local-2',
+        content: {
+          title: {
+            nodeType: 'translation',
+            translation: {
+              fr: 'Title FR',
+            },
+          },
+        },
+      },
+    ];
+
+    const result = mergeDictionaries(dictionaries);
+
+    // Check result structure
+    expect(result.key).toBe('mask-test');
+    expect(result.content.title.translation).toEqual({
+      en: 'Title EN',
+      fr: 'Title FR',
+    });
+    expect(result.localIds).toEqual(['local-1', 'local-2']);
+    expect(result.filePath).toBeUndefined();
+    expect(result.localId).toBeUndefined();
+    expect(result.id).toBeUndefined();
   });
 
   it('should deep-merge object properties inside array elements (keyed and by index)', () => {

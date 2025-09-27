@@ -1,8 +1,8 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
+createdAt: 2025-03-17
+updatedAt: 2025-09-22
 title: Resmi VS Code Uzantısı
-description: Geliştirme iş akışınızı geliştirmek için VS Code'da Intlayer uzantısının nasıl kullanılacağını öğrenin. Yerelleştirilmiş içerik arasında hızlıca gezinin ve sözlüklerinizi verimli bir şekilde yönetin.
+description: Geliştirme iş akışınızı geliştirmek için VS Code'da Intlayer uzantısını nasıl kullanacağınızı öğrenin. Yerelleştirilmiş içerikler arasında hızlıca gezin ve sözlüklerinizi verimli bir şekilde yönetin.
 keywords:
   - VS Code Uzantısı
   - Intlayer
@@ -21,7 +21,7 @@ slugs:
 
 ## Genel Bakış
 
-[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), projelerinizde yerelleştirilmiş içerikle çalışırken geliştirici deneyimini iyileştirmek için tasarlanmış **Intlayer** için resmi Visual Studio Code uzantısıdır.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), projelerinizde yerelleştirilmiş içeriklerle çalışırken geliştirici deneyimini iyileştirmek için tasarlanmış **Intlayer**'ın resmi Visual Studio Code uzantısıdır.
 
 ![Intlayer VS Code Uzantısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
@@ -31,58 +31,108 @@ Uzantı bağlantısı: [https://marketplace.visualstudio.com/items?itemName=Intl
 
 ### Anında Gezinme
 
-**Tanım Git Desteği** – Karşılık gelen içerik dosyasını anında açmak için bir `useIntlayer` anahtarında `Cmd+Click` (Mac) veya `Ctrl+Click` (Windows/Linux) kullanın.  
-**Sorunsuz Entegrasyon** – **react-intlayer** ve **next-intlayer** projeleriyle zahmetsizce çalışır.  
-**Çok Dilli Destek** – Farklı diller arasında yerelleştirilmiş içeriği destekler.  
-**VS Code Entegrasyonu** – VS Code'un gezinme ve komut paletiyle sorunsuz entegre olur.
+**Tanıma Git Desteği** – `useIntlayer` anahtarında `⌘ + Tıklama` (Mac) veya `Ctrl + Tıklama` (Windows/Linux) kullanarak ilgili içerik dosyasını anında açın.  
+**Sorunsuz Entegrasyon** – **react-intlayer** ve **next-intlayer** projeleriyle sorunsuz çalışır.  
+**Çok Dilli Destek** – Farklı dillerde yerelleştirilmiş içerikleri destekler.  
+**VS Code Entegrasyonu** – VS Code’un gezinme ve komut paleti ile sorunsuz entegre olur.
 
-### Sözlük Yönetimi Komutları
+### Sözlük Yönetim Komutları
 
-İçerik sözlüklerinizi doğrudan VS Code'dan yönetin:
+İçerik sözlüklerinizi doğrudan VS Code’dan yönetin:
 
-- **Sözlükleri Oluştur** (`extension.buildDictionaries`) – Proje yapınıza göre içerik dosyaları oluşturun.
-- **Sözlükleri Gönder** (`extension.pushDictionaries`) – En son sözlük içeriğini deponuza yükleyin.
-- **Sözlükleri Çek** (`extension.pullDictionaries`) – En son sözlük içeriğini deponuzdan yerel ortamınıza senkronize edin.
+- **Sözlükleri Oluştur** – Proje yapınıza göre içerik dosyaları oluşturur.
+- **Sözlükleri Gönder** – En son sözlük içeriğini deponuza yükler.
+- **Sözlükleri Çek** – En son sözlük içeriğini deponuzdan yerel ortamınıza senkronize eder.
+- **Sözlükleri Doldur** – Sözlükleri projenizden içerik ile doldurur.
+- **Sözlükleri Test Et** – Eksik veya tamamlanmamış çevirileri tespit eder.
 
-### İçerik Bildirim Oluşturucu
+### İçerik Beyanı Oluşturucu
 
-Farklı formatlarda yapılandırılmış sözlük dosyaları kolayca oluşturun:
+Farklı formatlarda yapılandırılmış sözlük dosyalarını kolayca oluşturun:
 
-- **TypeScript (`.ts`)** – `extension.createDictionaryFile.ts`
-- **ES Modülü (`.esm`)** – `extension.createDictionaryFile.esm`
-- **CommonJS (`.cjs`)** – `extension.createDictionaryFile.cjs`
-- **JSON (`.json`)** – `extension.createDictionaryFile.json`
+Eğer şu anda bir bileşen üzerinde çalışıyorsanız, sizin için `.content.{ts,tsx,js,jsx,mjs,cjs,json}` dosyasını oluşturacaktır.
+
+Bileşen örneği:
+
+```tsx fileName="src/components/MyComponent/index.tsx"
+const MyComponent = () => {
+  const { myTranslatedContent } = useIntlayer("my-component");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+TypeScript formatında oluşturulan dosya:
+
+```tsx fileName="src/components/MyComponent/index.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const componentContent = {
+  key: "my-component",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      es: "Hola Mundo",
+      fr: "Bonjour le monde",
+    }),
+  },
+};
+
+export default componentContent;
+```
+
+Mevcut formatlar:
+
+- **TypeScript (`.ts`)**
+- **ES Modülü (`.esm`)**
+- **CommonJS (`.cjs`)**
+- **JSON (`.json`)**
+
+### Intlayer Sekmesi (Aktivite Çubuğu)
+
+VS Code Aktivite Çubuğundaki Intlayer simgesine tıklayarak Intlayer sekmesini açın. Bu sekme iki görünüm içerir:
+
+- **Arama**: Sözlükleri ve içeriklerini hızlıca filtrelemek için canlı bir arama çubuğu. Yazdıkça sonuçlar anında güncellenir.
+- **Sözlükler**: Ortamlarınız/projeleriniz, sözlük anahtarları ve giriş sağlayan dosyaların ağaç görünümü. Şunları yapabilirsiniz:
+  - Bir dosyaya tıklayarak düzenleyicide açabilirsiniz.
+  - Araç çubuğunu kullanarak şu işlemleri yapabilirsiniz: Derle (Build), Çek (Pull), Gönder (Push), Doldur (Fill), Yenile (Refresh), Test Et (Test) ve Sözlük Dosyası Oluştur (Create Dictionary File).
+  - Öğeye özel işlemler için bağlam menüsünü kullanabilirsiniz:
+    - Bir sözlük üzerinde: Çek (Pull) veya Gönder (Push)
+    - Bir dosya üzerinde: Sözlüğü Doldur (Fill Dictionary)
+  - Düzenleyiciler arasında geçiş yaptığınızda, dosya bir sözlüğe aitse ağaç görünümü ilgili dosyayı gösterecektir.
 
 ## Kurulum
 
 **Intlayer**'ı doğrudan VS Code Marketplace'ten yükleyebilirsiniz:
 
 1. **VS Code**'u açın.
-2. **Uzantılar Marketplace**'e gidin.
-3. **"Intlayer"** arayın.
-4. **Yükle**'ye tıklayın.
-
-Alternatif olarak, komut satırı aracılığıyla yükleyin:
-
-```sh
-code --install-extension intlayer
-```
+2. **Extensions Marketplace**'e gidin.
+3. **"Intlayer"** için arama yapın.
+4. **Install** (Yükle) butonuna tıklayın.
 
 ## Kullanım
 
 ### Hızlı Gezinme
 
-1. **react-intlayer** kullanan bir proje açın.
-2. Aşağıdaki gibi bir `useIntlayer()` çağrısı bulun:
+1. **react-intlayer** kullanan bir projeyi açın.
+2. `useIntlayer()` çağrısını bulun, örneğin:
 
    ```tsx
    const content = useIntlayer("app");
    ```
 
-3. Anahtar üzerinde (ör. `"app"`) **Command-tıklayın** (`⌘+Click` macOS'ta) veya **Ctrl+Click** (Windows/Linux'ta).
-4. VS Code otomatik olarak karşılık gelen sözlük dosyasını açacaktır, ör. `src/app.content.ts`.
+3. Anahtar üzerinde **Command-click** (`⌘+Click` macOS'ta) veya **Ctrl+Click** (Windows/Linux'ta) yapın (örneğin, `"app"`).
+4. VS Code otomatik olarak ilgili sözlük dosyasını açacaktır, örneğin `src/app.content.ts`.
 
 ### İçerik Sözlüklerini Yönetme
+
+### Intlayer Sekmesi (Activity Bar)
+
+Sözlükleri gözden geçirmek ve yönetmek için yan sekmeyi kullanın:
+
+- Activity Bar'daki Intlayer simgesini açın.
+- **Arama** bölümünde, sözlükleri ve girdileri gerçek zamanlı olarak filtrelemek için yazın.
+- **Sözlükler** bölümünde, ortamları, sözlükleri ve dosyaları gezinin. Araç çubuğunu Kullanarak Oluştur, Çek, Gönder, Doldur, Yenile, Test Et ve Sözlük Dosyası Oluştur işlemlerini yapabilirsiniz. Bağlam menüsü için sağ tıklayın (sözlüklerde Çek/Gönder, dosyalarda Doldur). Geçerli düzenleyici dosyası, uygun olduğunda ağaçta otomatik olarak gösterilir.
 
 #### Sözlükleri Oluşturma
 
@@ -92,60 +142,39 @@ Tüm sözlük içerik dosyalarını oluşturmak için:
 Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 ```
 
-**Sözlükleri Oluştur** arayın ve komutu çalıştırın.
+**Sözlükleri Oluştur** komutunu arayın ve çalıştırın.
 
 #### Sözlükleri Gönderme
 
-En son sözlük içeriğini yükleyin:
+En son sözlük içeriğini yüklemek için:
 
-1. **Komut Paleti**'ni açın.
-2. **Sözlükleri Gönder** arayın.
-3. Gönderilecek sözlükleri seçin ve onaylayın.
+1. **Komut Paletini** açın.
+2. **Sözlükleri Gönder** araması yapın.
+3. Göndermek istediğiniz sözlükleri seçin ve onaylayın.
 
 #### Sözlükleri Çekme
 
 En son sözlük içeriğini senkronize edin:
 
-1. **Komut Paleti**'ni açın.
-2. **Sözlükleri Çek** arayın.
-3. Çekilecek sözlükleri seçin.
+1. **Komut Paletini** açın.
+2. **Sözlükleri Çek** araması yapın.
+3. Çekmek istediğiniz sözlükleri seçin.
 
-## Geliştirme & Katkı
+#### Sözlükleri Doldurma
 
-Katkıda bulunmak mı istiyorsunuz? Topluluk katkılarını memnuniyetle karşılıyoruz!
+Sözlükleri projenizden gelen içerikle doldurun:
 
-Repo URL: https://github.com/aymericzip/intlayer-vs-code-extension
+1. **Komut Paletini** açın.
+2. **Sözlükleri Doldur** araması yapın.
+3. Sözlükleri doldurmak için komutu çalıştırın.
 
-### Başlarken
+#### Sözlükleri Test Etme
 
-Depoyu klonlayın ve bağımlılıkları yükleyin:
+Sözlükleri doğrulayın ve eksik çevirileri bulun:
 
-```sh
-git clone https://github.com/aymericzip/intlayer-vs-code-extension.git
-cd intlayer-vs-code-extension
-npm install
-```
-
-> `vsce` paketiyle uyumluluk için `npm` paket yöneticisini kullanın, uzantıyı oluşturmak ve yayınlamak için.
-
-### Geliştirme Modunda Çalıştırın
-
-1. Projeyi **VS Code**'da açın.
-2. Yeni bir **Uzantı Geliştirme Ana Bilgisayarı** penceresi başlatmak için `F5`'e basın.
-
-### Bir Pull Request Gönderin
-
-Uzantıyı iyileştirirseniz, [GitHub](https://github.com/aymericzip/intlayer-vs-code-extension)'da bir PR gönderin.
-
-## Geri Bildirim & Sorunlar
-
-Bir hata mı buldunuz veya özellik isteğiniz mi var? **GitHub deposumuzda** bir sorun açın:
-
-[GitHub Sorunları](https://github.com/aymericzip/intlayer-vs-code-extension/issues)
-
-## Lisans
-
-Intlayer **MIT Lisansı** altında yayınlanmıştır.
+1. **Komut Paletini** açın.
+2. **Sözlükleri Test Et** araması yapın.
+3. Raporlanan sorunları inceleyin ve gerektiği şekilde düzeltin.
 
 ## Doküman Geçmişi
 

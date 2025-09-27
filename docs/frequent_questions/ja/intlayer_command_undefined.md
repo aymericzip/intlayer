@@ -24,7 +24,7 @@ slugs:
 
 ## 概要
 
-Intlayer CLI は、辞書の構築や翻訳のプッシュなど、intlayer コンテンツを便利に管理する方法を提供します。しかし、プロジェクトの動作に必須ではありません。Next.js 向けの `withIntlayer()` や Vite 向けの `intlayerPlugin()` のようなバンドラープラグインを使用している場合、Intlayer はアプリのビルド時や開発サーバーの起動時に自動的に辞書を構築します。開発モードでは、変更を監視し、コンテンツ宣言ファイルを自動的に再構築します。
+Intlayer CLI は、辞書の構築や翻訳のプッシュなど、intlayer コンテンツを便利に管理する方法を提供します。しかし、プロジェクトの動作に必須ではありません。Next.js 向けの `withIntlayer()` や Vite 向けの `intlayer()` のようなバンドラープラグインを使用している場合、Intlayer はアプリのビルド時や開発サーバーの起動時に自動的に辞書を構築します。開発モードでは、変更を監視し、コンテンツ宣言ファイルを自動的に再構築します。
 
 intlayer コマンドには以下の方法でアクセスできます：
 
@@ -94,7 +94,6 @@ npm install
 
 6. **インストールファイルを確認する**  
    問題が解決しない場合は、以下のファイルが存在するか確認してください：
-
    - `node_modules/intlayer/dist/cjs/cli.cjs`
    - `node_modules/intlayer/package.json` （`bin` フィールドが `./dist/cjs/cli.cjs` を参照している必要があります）
 

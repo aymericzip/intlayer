@@ -1,6 +1,6 @@
 'use client';
 
-import type { Dictionary } from '@intlayer/core';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import {
   createContext,
@@ -13,7 +13,7 @@ import {
 } from 'react';
 import { useCrossFrameState } from './useCrossFrameState';
 
-export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
+export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;
 
 type DictionariesRecordStatesContextType = {
   localeDictionaries: DictionaryContent;
@@ -50,9 +50,11 @@ export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
     () => ({
       setLocaleDictionaries,
       setLocaleDictionary: (dictionary: Dictionary) => {
+        if (!dictionary.localId) return;
+
         setLocaleDictionaries((dictionaries) => ({
           ...dictionaries,
-          [dictionary.key]: dictionary,
+          [dictionary.localId as LocalDictionaryId]: dictionary,
         }));
       },
     }),

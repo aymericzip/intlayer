@@ -1,4 +1,4 @@
-import { type LoadEnvFileOptions } from '../envVariables/loadEnvFile';
+import { type LoadEnvFileOptions } from '../loadEnvFile';
 import { loadExternalFile } from '../loadExternalFile';
 import { logger } from '../logger';
 import type { CustomIntlayerConfig } from '../types/config';
@@ -18,10 +18,17 @@ const filterValidConfiguration = (
  */
 export const loadConfigurationFile = (
   configFilePath: string,
-  envVarOptions?: LoadEnvFileOptions
+  envVarOptions?: LoadEnvFileOptions,
+  projectRequire?: NodeJS.Require,
+  additionalEnvVars?: Record<string, string>
 ): CustomIntlayerConfig | undefined => {
   try {
-    const fileContent = loadExternalFile(configFilePath, envVarOptions);
+    const fileContent = loadExternalFile(
+      configFilePath,
+      envVarOptions,
+      projectRequire,
+      additionalEnvVars
+    );
 
     return filterValidConfiguration(fileContent);
   } catch (error) {

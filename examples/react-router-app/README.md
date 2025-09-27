@@ -219,12 +219,12 @@ Add Intlayer plugins to your Vite config:
 
 ```ts
 // vite.config.ts
-import { intLayerMiddlewarePlugin, intlayerPlugin } from "vite-intlayer";
+import { intlayerMiddleware, intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerPlugin(),
-    intLayerMiddlewarePlugin(), // Optional. Use if you need middleware support.
+    intlayer(),
+    intlayerMiddleware(), // Optional. Use if you need middleware support.
     // ...other plugins
   ],
 });

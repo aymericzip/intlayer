@@ -1,11 +1,13 @@
 import { prepareIntlayer, runOnce } from '@intlayer/chokidar';
 import {
   ESMxCJSRequire,
+  getAlias,
   getAppLogger,
   getConfiguration,
   IntlayerConfig,
   normalizePath,
 } from '@intlayer/config';
+import dictionaries from '@intlayer/dictionaries-entry';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import merge from 'deepmerge';
 import fg from 'fast-glob';
@@ -48,9 +50,13 @@ const getPruneConfig = (
   intlayerConfig: IntlayerConfig
 ): Partial<NextConfig> => {
   const { optimize, traversePattern, importMode } = intlayerConfig.build;
-  const { liveSync } = intlayerConfig.editor;
-  const { dictionariesDir, dynamicDictionariesDir, mainDir, baseDir } =
-    intlayerConfig.content;
+  const {
+    dictionariesDir,
+    dynamicDictionariesDir,
+    fetchDictionariesDir,
+    mainDir,
+    baseDir,
+  } = intlayerConfig.content;
 
   if (!optimize) return {};
 
@@ -63,8 +69,9 @@ const getPruneConfig = (
   const logger = getAppLogger(intlayerConfig);
 
   runOnce(
-    join(baseDir, '.next', 'cache', 'intlayer-prune-plugin-enabled.lock'),
+    join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
     () => logger('Intlayer prune plugin is enabled'),
+    undefined,
     1000 * 10 // 10 seconds
   );
 
@@ -74,6 +81,8 @@ const getPruneConfig = (
     mainDir,
     'dynamic_dictionaries.mjs'
   );
+
+  const fetchDictionariesEntryPath = join(mainDir, 'fetch_dictionaries.mjs');
 
   const filesListPattern = fg
     .sync(traversePattern, {
@@ -86,6 +95,10 @@ const getPruneConfig = (
     dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
   ];
 
+  const liveSyncKeys = Object.values(dictionaries)
+    .filter((dictionary) => dictionary.live)
+    .map((dictionary) => dictionary.key);
+
   return {
     experimental: {
       swcPlugins: [
@@ -96,10 +109,12 @@ const getPruneConfig = (
             dictionariesEntryPath,
             dynamicDictionariesDir,
             dynamicDictionariesEntryPath,
+            fetchDictionariesDir,
+            fetchDictionariesEntryPath,
             importMode,
             filesList,
             replaceDictionaryEntry: false,
-            liveSync,
+            liveSyncKeys,
           } as any,
         ],
       ],
@@ -155,10 +170,11 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const intlayerConfig = getConfiguration();
   const { isDevCommand, isBuildCommand } = getCommandsEvent();
+  const appLogger = getAppLogger(intlayerConfig);
 
   const sentinelPath = join(
     intlayerConfig.content.baseDir,
-    '.next',
+    '.intlayer',
     'cache',
     'intlayer-prepared.lock'
   );
@@ -168,40 +184,18 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   if (isBuildCommand || isDevCommand) {
     await runOnce(
       sentinelPath,
-      async () => await prepareIntlayer(intlayerConfig)
+      async () => await prepareIntlayer(intlayerConfig),
+      () => appLogger('Intlayer prepared')
     );
   }
 
-  // Format all configuration values as environment variables
-  const { mainDir, configDir, baseDir } = intlayerConfig.content;
-
-  const dictionariesPath = join(mainDir, 'dictionaries.mjs');
-  const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-
-  const unmergedDictionariesPath = join(mainDir, 'unmerged_dictionaries.mjs');
-  const relativeUnmergedDictionariesPath = relative(
-    baseDir,
-    unmergedDictionariesPath
-  );
-
-  const configurationPath = join(configDir, 'configuration.json');
-  const relativeConfigurationPath = relative(baseDir, configurationPath);
-
-  const { liveSync, liveSyncURL } = intlayerConfig.editor;
-
   // Only provide turbo-specific config if user explicitly sets it
   const turboConfig = {
-    resolveAlias: {
-      // prefix by './' to consider the path as relative to the project root. This is necessary for turbopack to work correctly.
-      // Normalize the path to avoid issues with the path separator on Windows
-      '@intlayer/dictionaries-entry': normalizePath(
-        `./${relativeDictionariesPath}`
-      ),
-      '@intlayer/unmerged-dictionaries-entry': normalizePath(
-        `./${relativeUnmergedDictionariesPath}`
-      ),
-      '@intlayer/config/built': normalizePath(`./${relativeConfigurationPath}`),
-    },
+    resolveAlias: getAlias({
+      configuration: intlayerConfig,
+      formatter: (value: string) => `./${value}`, // prefix by './' to consider the path as relative to the project root. This is necessary for turbopack to work correctly.
+    }),
+
     rules: {
       '*.node': {
         as: '*.node',
@@ -218,81 +212,101 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
     'fsevents',
   ];
 
-  const newConfig: Partial<NextConfig> = {
-    // Only add `serverExternalPackages` if Next.js is v15+
-    ...(isGteNext15
-      ? {
-          // only for Next ≥15
-          serverExternalPackages,
-        }
-      : {
-          // only for Next ≥13 and <15.3
-          ...(isGteNext13 && {
-            serverComponentsExternalPackages: serverExternalPackages,
-          }),
-        }),
+  const getNewConfig = (): Partial<NextConfig> => {
+    let config: Partial<NextConfig> = {};
 
-    ...(isTurbopackEnabled && {
-      ...(isGteNext15 && isTurbopackStable
-        ? {
-            // only for Next ≥15.3
-            turbopack: turboConfig,
-          }
-        : {
-            experimental: {
-              // only for Next ≥13 and <15.3
-              turbo: turboConfig,
-            },
-          }),
-    }),
-
-    webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
-      // Only add Intlayer plugin on server side (node runtime)
-      const { isServer, nextRuntime } = options;
-
-      // If the user has defined their own webpack config, call it
-      if (typeof nextConfig.webpack === 'function') {
-        config = nextConfig.webpack(config, options);
-      }
-
-      // Mark these modules as externals
-      config.externals.push({
-        esbuild: 'esbuild',
-        module: 'module',
-        fs: 'fs',
-        chokidar: 'chokidar',
-        fsevents: 'fsevents',
-      });
-
-      // Use `node-loader` for any `.node` files
-      config.module.rules.push({
-        test: /\.node$/,
-        loader: 'node-loader',
-      });
-
-      // Always alias on the server (node/edge) for stability.
-      // On the client, alias only when not using live sync.
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@intlayer/dictionaries-entry': resolve(relativeDictionariesPath),
-        '@intlayer/unmerged-dictionaries-entry': resolve(
-          relativeUnmergedDictionariesPath
-        ),
-        '@intlayer/config/built': resolve(relativeConfigurationPath),
+    if (isGteNext15) {
+      config = {
+        ...config,
+        serverExternalPackages,
       };
+    }
 
-      // Activate watch mode webpack plugin
-      if (isDevCommand && isServer && nextRuntime === 'nodejs') {
-        config.plugins.push(new IntlayerPlugin());
+    if (isGteNext13 && !isGteNext15) {
+      config = {
+        ...config,
+        experimental: {
+          ...(config?.experimental ?? {}),
+          serverComponentsExternalPackages: serverExternalPackages,
+        },
+      };
+    }
+
+    if (isTurbopackEnabled) {
+      if (isGteNext15 && isTurbopackStable) {
+        config = {
+          ...config,
+          turbopack: turboConfig,
+        };
+      } else {
+        config = {
+          ...config,
+          experimental: {
+            ...(config?.experimental ?? {}),
+            turbo: turboConfig,
+          },
+        };
       }
+    } else {
+      config = {
+        ...config,
+        webpack: (config: WebpackParams['0'], options: WebpackParams[1]) => {
+          // Only add Intlayer plugin on server side (node runtime)
+          const { isServer, nextRuntime } = options;
 
-      return config;
-    },
+          // If the user has defined their own webpack config, call it
+          if (typeof nextConfig.webpack === 'function') {
+            config = nextConfig.webpack(config, options);
+          }
+
+          // Mark these modules as externals
+          config.externals.push({
+            esbuild: 'esbuild',
+            module: 'module',
+            fs: 'fs',
+            chokidar: 'chokidar',
+            fsevents: 'fsevents',
+          });
+
+          // Use `node-loader` for any `.node` files
+          config.module.rules.push({
+            test: /\.node$/,
+            loader: 'node-loader',
+          });
+
+          // Always alias on the server (node/edge) for stability.
+          // On the client, alias only when not using live sync.
+          config.resolve.alias = {
+            ...config.resolve.alias,
+            ...getAlias({
+              configuration: intlayerConfig,
+              formatter: (value: string) => resolve(value), // get absolute path
+            }),
+          };
+
+          // Activate watch mode webpack plugin
+          if (isDevCommand && isServer && nextRuntime === 'nodejs') {
+            config.plugins.push(new IntlayerPlugin());
+          }
+
+          return config;
+        },
+      };
+    }
+
+    return config;
   };
 
-  const pruneConfig: Partial<NextConfig> = getPruneConfig(intlayerConfig);
+  let pruneConfig: Partial<NextConfig> = {};
 
-  const intlayerNextConfig: Partial<NextConfig> = merge(pruneConfig, newConfig);
+  if (isBuildCommand) {
+    pruneConfig = getPruneConfig(intlayerConfig);
+  }
+
+  const intlayerNextConfig: Partial<NextConfig> = merge(
+    pruneConfig,
+    getNewConfig()
+  );
 
   // Merge the new config with the user's config
   const result = merge(nextConfig, intlayerNextConfig) as NextConfig & T;

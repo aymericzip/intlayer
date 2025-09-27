@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 
 const appContent = {
   key: 'app',
+  live: true,
   content: {
     markdown: md('## Hello world'),
     file: md(file('./test.md')),

@@ -2,6 +2,7 @@ import { t, type Dictionary } from 'intlayer';
 
 export const dictionaryFormContent = {
   key: 'dictionary-form',
+  autoFill: './{{key}}.content.json',
   content: {
     keyInput: {
       label: t({

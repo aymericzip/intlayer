@@ -2,6 +2,7 @@ import { t, type Dictionary } from 'intlayer';
 
 export const loaderContent = {
   key: 'loader',
+  autoFill: './{{key}}.content.json',
   content: {
     label: t({
       en: 'Animated icon, meaning that the website is processing',

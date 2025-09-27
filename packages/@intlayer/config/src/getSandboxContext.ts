@@ -1,13 +1,11 @@
 import type { Context } from 'vm';
-import {
-  type LoadEnvFileOptions,
-  loadEnvFile,
-} from './envVariables/loadEnvFile';
+import { type LoadEnvFileOptions, loadEnvFile } from './loadEnvFile';
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
 export const getSandBoxContext = (
   envVarOptions?: LoadEnvFileOptions,
-  projectRequire = ESMxCJSRequire
+  projectRequire = ESMxCJSRequire,
+  additionalEnvVars?: Record<string, string>
 ): Context => {
   let additionalGlobalVar = {};
 
@@ -32,6 +30,7 @@ export const getSandBoxContext = (
       env: {
         ...process.env,
         ...loadEnvFile(envVarOptions),
+        ...additionalEnvVars,
       },
     },
     console,

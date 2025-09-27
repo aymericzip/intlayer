@@ -18,6 +18,9 @@ import configuration from '@intlayer/config/built';
  * @deprecated Use `import { configuration } from 'intlayer'` instead.
  */
 const getConfiguration = () => configuration;
+
+// Reexport here for CJS compatibility
+// Fix ReferenceError: Cannot access 'xxx' before initialization
 export { configuration, getConfiguration, IntlayerConfig };
 
 export {

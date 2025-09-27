@@ -57,6 +57,8 @@ const CHAR_BY_TOKEN: number = 4.15; // Approximate pessimistically the number of
 const MAX_CHARS: number = MAX_CHUNK_TOKENS * CHAR_BY_TOKEN;
 const OVERLAP_CHARS: number = OVERLAP_TOKENS * CHAR_BY_TOKEN;
 
+const skipDocEmbeddingsIndex = process.env.SKIP_DOC_EMBEDDINGS_INDEX === 'true';
+
 /**
  * Splits a given text into chunks ensuring each chunk does not exceed MAX_CHARS.
  * @param text - The input text to split.
@@ -147,8 +149,6 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
   });
 
-  // if (process.env.SKIP_DOC_EMBEDDINGS_INDEX === 'true') return;
-
   // Retrieve documentation and blog posts in English locale
   const frequentQuestions = await getFrequentQuestions();
   const docs = await getDocs();
@@ -185,7 +185,8 @@ export const indexMarkdownFiles = async (): Promise<void> => {
       console.info(
         `File "${fileKey}" chunk count changed: ${previousChunkCount} -> ${currentChunkCount}. Regenerating embeddings.`
       );
-      shouldRegenerateFileEmbeddings = true;
+
+      shouldRegenerateFileEmbeddings = !skipDocEmbeddingsIndex;
     }
 
     // Iterate over each chunk within the current file

@@ -822,15 +822,12 @@ export const useGetNewsletterStatus = () => {
  * Editor
  */
 
-export const useGetEditorDictionaries = (
-  options?: Partial<UseQueryOptions<Record<string, any>>>
-) => {
+export const useGetEditorDictionaries = () => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useQuery({
-    queryKey: ['editor', 'dictionaries', options],
+    queryKey: ['editor', 'dictionaries'],
     queryFn: intlayerOAuth.editor.getDictionaries,
-    ...options,
   });
 };
 

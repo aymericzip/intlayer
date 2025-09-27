@@ -112,18 +112,16 @@ Intlayer provides various methods to insert and manage dynamic content, ensuring
 Intlayer supports **TypeScript** (also JavaScript) and **JSON** for declaring content.
 
 - **TypeScript**:
-
   - Ensures your content structure is correct and that no translations are missing.
   - Offers strict or more flexible validation modes.
   - Allows dynamic data fetching from variables, functions, or external APIs.
 
 - **JSON**:
-
   - Makes it easy to integrate with external tools (like visual editors) due to its standardized format.
 
   > Resources:
   >
-  > - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_extention_customization.md)
+  > - [Content Declaration Formats](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
 
 ### 7. Purging, bundle optimization and dynamic imports
 

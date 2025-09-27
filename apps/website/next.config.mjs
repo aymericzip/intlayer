@@ -135,7 +135,7 @@ const dashboardHeaders = [
 const nextConfig = {
   // Ensure the full @intlayer/docs package (including markdown assets) is shipped with the server bundle
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
-  transpilePackages: ['@intlayer/design-system'],
+  transpilePackages: ['@intlayer/design-system', 'shiki'],
   productionBrowserSourceMaps: true,
   webpack: (config) => {
     config.module.rules.push({

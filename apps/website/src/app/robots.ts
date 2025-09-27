@@ -1,6 +1,6 @@
+import { PagesRoutes } from '@/Routes';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
-import { PagesRoutes } from '@/Routes';
 
 const getAllUrls = (urls: string[]) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
@@ -14,6 +14,8 @@ const robots = (): MetadataRoute.Robots => ({
       PagesRoutes.Auth_ResetPassword,
       PagesRoutes.Auth_ChangePassword,
       `${PagesRoutes.Dashboard}/`,
+      PagesRoutes.Admin,
+      `${PagesRoutes.Admin}/`,
     ]),
   },
   host: process.env.NEXT_PUBLIC_URL,

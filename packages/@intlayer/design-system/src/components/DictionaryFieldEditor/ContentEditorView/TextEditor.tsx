@@ -76,7 +76,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
     <ContentEditorTextAreaBase
       variant={InputVariant.DEFAULT}
       onContentChange={(newValue) =>
-        addEditedContent(dictionary.key, newValue, keyPath)
+        addEditedContent(dictionary.localId!, newValue, keyPath)
       }
       additionalButtons={
         <Button
@@ -92,7 +92,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
               {
                 fileContent: JSON.stringify({
                   ...dictionary,
-                  ...(editedContent?.[dictionary.key] ?? {}),
+                  ...(editedContent?.[dictionary.localId!] ?? {}),
                 }),
                 keyPath,
                 locales: configuration.internationalization.locales ?? [],
@@ -109,7 +109,11 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
                   try {
                     const editedContent = response.data.fileContent as string;
 
-                    addEditedContent(dictionary.key, editedContent, keyPath);
+                    addEditedContent(
+                      dictionary.localId!,
+                      editedContent,
+                      keyPath
+                    );
                   } catch (error) {
                     console.error(error);
                   }
@@ -143,7 +147,7 @@ const ContentEditorInput: FC<ContentEditorInputProps> = ({
     <ContentEditorInputBase
       variant={InputVariant.DEFAULT}
       onContentChange={(newValue) =>
-        addEditedContent(dictionary.key, newValue, keyPath)
+        addEditedContent(dictionary.localId!, newValue, keyPath)
       }
       {...props}
     />
@@ -177,7 +181,9 @@ const ContentEditorToggle: FC<ContentEditorToggleProps> = ({
     <SwitchSelector
       choices={toggleContent}
       value={true}
-      onChange={(value) => addEditedContent(dictionary.key, value, keyPath)}
+      onChange={(value) =>
+        addEditedContent(dictionary.localId!, value, keyPath)
+      }
       color={SwitchSelectorColor.TEXT}
       size={SwitchSelectorSize.SM}
       {...props}
@@ -285,7 +291,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                       className="ml-auto"
                       onClick={() =>
                         addEditedContent(
-                          dictionary.key,
+                          dictionary.localId!,
                           undefined,
                           childrenKeyPath
                         )
@@ -312,7 +318,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                         [NodeType.Enumeration]: newValueContent,
                       };
 
-                      addEditedContent(dictionary.key, newValue, keyPath);
+                      addEditedContent(dictionary.localId!, newValue, keyPath);
                     }}
                   />
                 </tr>
@@ -341,7 +347,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
         isFullWidth
         onClick={() =>
           addEditedContent(
-            dictionary.key,
+            dictionary.localId!,
             getEmptyNode(content[firstKey]) ?? '',
             [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }]
           )
@@ -466,7 +472,11 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                         key: (section as unknown as ContentNode[]).length,
                       },
                     ];
-                    addEditedContent(dictionary.key, undefined, newKeyPath);
+                    addEditedContent(
+                      dictionary.localId!,
+                      undefined,
+                      newKeyPath
+                    );
                   }}
                   Icon={Trash}
                 >
@@ -510,7 +520,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
             },
           ];
           addEditedContent(
-            dictionary.key,
+            dictionary.localId!,
             getEmptyNode((section as unknown as ContentNode[])[0]) ?? '',
             newKeyPath,
             false
@@ -700,7 +710,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
         {...props}
         onContentChange={(newValue) => {
           addEditedContent(
-            dictionary.key,
+            dictionary.localId!,
             {
               ...content,
               dictionaryKey: String(newValue),
@@ -720,7 +730,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
         {...props}
         onContentChange={(newValue) => {
           addEditedContent(
-            dictionary.key,
+            dictionary.localId!,
             {
               ...content,
               path: newValue !== '' ? newValue : undefined,

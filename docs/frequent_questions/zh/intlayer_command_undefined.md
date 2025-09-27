@@ -24,7 +24,7 @@ slugs:
 
 ## 概述
 
-Intlayer CLI 提供了一种便捷的方式来管理您的 intlayer 内容，包括构建词典、推送翻译等功能。然而，它并不是您的项目正常运行的必需品。如果您使用的是打包插件（例如 Next.js 的 `withIntlayer()` 或 Vite 的 `intlayerPlugin()`），Intlayer 会在应用构建或开发服务器启动时自动构建词典。在开发模式下，它还会监视更改并自动重建内容声明文件。
+Intlayer CLI 提供了一种便捷的方式来管理您的 intlayer 内容，包括构建词典、推送翻译等功能。然而，它并不是您的项目正常运行的必需品。如果您使用的是打包插件（例如 Next.js 的 `withIntlayer()` 或 Vite 的 `intlayer()`），Intlayer 会在应用构建或开发服务器启动时自动构建词典。在开发模式下，它还会监视更改并自动重建内容声明文件。
 
 您可以通过以下不同方式访问 intlayer 命令：
 
@@ -94,7 +94,6 @@ npm install
 
 6. **验证安装文件**  
    如果问题仍然存在，检查以下文件是否存在：
-
    - `node_modules/intlayer/dist/cjs/cli.cjs`
    - `node_modules/intlayer/package.json`（应包含指向 `./dist/cjs/cli.cjs` 的 `bin` 字段）
 

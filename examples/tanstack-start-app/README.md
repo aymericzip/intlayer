@@ -185,12 +185,12 @@ Add Intlayer plugins to your Vite config:
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite';
-import { intlayerPlugin } from 'vite-intlayer';
+import { intlayer } from 'vite-intlayer';
 // ... other imports
 
 export default defineConfig({
   plugins: [
-    intlayerPlugin(),
+    intlayer(),
     // ... other plugins
   ],
 });

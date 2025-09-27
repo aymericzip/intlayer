@@ -250,9 +250,7 @@ export type EditorConfig = {
    * Indicates if the application should hot reload the locale configurations when a change is detected.
    * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
    *
-   * The hot reload is only available for clients of the `enterprise` plan.
-   *
-   * Default: false
+   * Default: true
    */
   liveSync: boolean;
 
@@ -356,8 +354,9 @@ export type BuildConfig = {
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
    * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   * - "async": The dictionaries are imported dynamically in an asynchronous component.
-   *   In that case, Intlayer will replace all calls to `useIntlayer` with `await useDictionaryAsync`.
+   * - "live": The dictionaries are imported dynamically using the live sync API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
    *
    * Default: "static"
    *
@@ -369,10 +368,11 @@ export type BuildConfig = {
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
-   * - In most cases, "dynamic" will be used for React applications, "async" for Vue.js applications.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
+   * - The "live" allows to sync the dictionaries to the live sync server.
+   * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
    */
-  importMode: 'static' | 'dynamic' | 'async';
+  importMode: 'static' | 'dynamic' | 'live';
 
   /**
    * Pattern to traverse the code to optimize.
@@ -389,6 +389,17 @@ export type BuildConfig = {
    * - Use glob pattern.
    */
   traversePattern: string[];
+
+  /**
+   * Output format of the dictionaries
+   *
+   * Default: ['cjs', 'esm']
+   *
+   * The output format of the dictionaries. It can be either 'cjs' or 'esm'. Even if dictionaries are written in JSON, entry point to access the dictionaries are generated.
+   * This function will use the output format defined using this option.
+   * The default format is 'cjs' as it allows better interoperability with other libraries, scripts, and applications. But some build tools, such as Vite, require ES modules.
+   */
+  outputFormat: ('cjs' | 'esm')[];
 };
 
 /**
@@ -508,9 +519,15 @@ export type BaseContentConfig = {
    * Default: process.env.NODE_ENV === 'development'
    */
   watch: boolean;
-};
 
-export type DictionaryOutput = 'intlayer' | 'i18next' | 'react-intl';
+  /**
+   * Indicate how the content should be automatically filled using AI.
+   *
+   * Default: undefined
+   *
+   */
+  autoFill?: boolean | string | { [key in Locales]?: string };
+};
 
 /**
  * Configuration derived based on the base content configuration
@@ -542,20 +559,6 @@ export type BaseDerivedConfig = {
    * Defines the derived path for module augmentation.
    */
   moduleAugmentationDir: string;
-
-  /**
-   * Type of dictionary to use as an output
-   *
-   * Default: ['intlayer']
-   *
-   * The type of dictionary to use as an output. It can be either 'intlayer' or 'i18next'.
-   *
-   * Note:
-   * - 'i18next' is not yet ensure a 1:1 mapping with the i18next library.
-   * - Removing 'intlayer' will break the compatibility with react-intlayer or next-intlayer
-   *
-   */
-  dictionaryOutput: DictionaryOutput[];
 };
 
 /**
@@ -570,6 +573,15 @@ export type ResultDirDerivedConfig = {
    * Specifies the derived path for unmerged dictionaries relative to the result directory.
    */
   unmergedDictionariesDir: string;
+
+  /**
+   * Directory where remote dictionaries are stored, relative to the result directory
+   *
+   * Default: .intlayer/remote_dictionary
+   *
+   * Specifies the derived path for remote dictionaries relative to the result directory.
+   */
+  remoteDictionariesDir: string;
 
   /**
    * Directory where final dictionaries are stored, relative to the result directory
@@ -590,28 +602,13 @@ export type ResultDirDerivedConfig = {
   dynamicDictionariesDir: string;
 
   /**
-   * Directory where dictionaries are stored, relative to the result directory
+   * Directory where fetch dictionaries are stored, relative to the result directory
    *
-   * Default: i18next_resources
+   * Default: .intlayer/fetch_dictionary
    *
-   * Specifies the derived path for dictionaries relative to the result directory.
-   *
-   * Note:
-   * - Ensure the i18n dictionaries output includes i18next to build the dictionaries for i18next
+   * Specifies the derived path for fetch dictionaries relative to the result directory.
    */
-  i18nextResourcesDir: string;
-
-  /**
-   * Directory where dictionaries are stored, relative to the result directory
-   *
-   * Default: intl_messages
-   *
-   * Specifies the derived path for dictionaries relative to the result directory.
-   *
-   * Note:
-   * - Ensure the dictionaries output includes 'react-intl' to build the dictionaries for react-intl
-   */
-  reactIntlMessagesDir: string;
+  fetchDictionariesDir: string;
 
   /**
    * Directory where dictionary types are stored, relative to the result directory
@@ -682,6 +679,13 @@ export type ContentConfig = BaseContentConfig &
   ResultDirDerivedConfig &
   PatternsContentConfig;
 
+export type LogFunctions = {
+  error?: typeof console.error;
+  log?: typeof console.log;
+  info?: typeof console.info;
+  warn?: typeof console.warn;
+};
+
 export type LogConfig = {
   /**
    * Indicates if the logger is enabled
@@ -702,4 +706,13 @@ export type LogConfig = {
    * The prefix of the logger.
    */
   prefix: string;
+
+  /**
+   * Functions to log
+   */
+  error?: typeof console.error;
+  log?: typeof console.log;
+  info?: typeof console.info;
+  warn?: typeof console.warn;
+  debug?: typeof console.debug;
 };

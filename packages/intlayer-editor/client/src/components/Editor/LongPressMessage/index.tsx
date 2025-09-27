@@ -2,9 +2,8 @@
 
 import type { KeyPath } from '@intlayer/core';
 import type { FC } from 'react';
-import { useDictionary } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { cn } from '../../../utils/cn';
-import longPressMessageContent from './index.content';
 
 type LongPressMessageProps =
   | {
@@ -15,7 +14,7 @@ type LongPressMessageProps =
   | null;
 
 export const LongPressMessage: FC<LongPressMessageProps> = (props) => {
-  const { message } = useDictionary(longPressMessageContent);
+  const { message } = useIntlayer('long-press-message');
 
   return (
     <div

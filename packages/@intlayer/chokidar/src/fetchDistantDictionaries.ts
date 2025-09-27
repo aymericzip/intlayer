@@ -1,9 +1,9 @@
-import { getDictionaryAPI, getOAuthAPI } from '@intlayer/api';
+import { getIntlayerAPIProxy } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { getAppLogger, getConfiguration } from '@intlayer/config';
-import pLimit from 'p-limit';
-import { logger } from './log';
+import { getAppLogger, getConfiguration, x } from '@intlayer/config';
+import { DictionariesStatus } from './loadDictionaries';
+import { parallelize } from './utils/parallelize';
 
 type FetchDistantDictionariesOptions = {
   dictionaryKeys: string[];
@@ -15,54 +15,31 @@ type FetchDistantDictionariesOptions = {
  * Fetch distant dictionaries and update the logger with their statuses.
  */
 export const fetchDistantDictionaries = async (
-  options: FetchDistantDictionariesOptions
+  options: FetchDistantDictionariesOptions,
+  onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<DictionaryAPI[]> => {
   const config = getConfiguration();
   const appLogger = getAppLogger(config);
   try {
-    const { clientId, clientSecret } = config.editor;
-    const authAPI = getOAuthAPI(config);
-    const dictionaryAPI = getDictionaryAPI(undefined, config);
-
-    if (!clientId || !clientSecret) {
-      throw new Error(
-        'Missing OAuth2 client ID or client secret. To get access token go to https://intlayer.org/dashboard/project.'
-      );
-    }
-
-    const oAuth2TokenResult = await authAPI.getOAuth2AccessToken();
-
-    const oAuth2AccessToken = oAuth2TokenResult.data?.accessToken;
+    const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
     const distantDictionariesKeys = options.dictionaryKeys;
-
     // Process dictionaries in parallel with a concurrency limit
-    const limit = pLimit(5); // Limit the number of concurrent requests
-
     const processDictionary = async (
       dictionaryKey: string
     ): Promise<DictionaryAPI | undefined> => {
-      logger.updateStatus([
+      onStatusUpdate?.([
         {
           dictionaryKey,
-          type: 'distant',
-          status: { status: 'fetching' },
+          type: 'remote',
+          status: 'fetching',
         },
       ]);
 
       try {
         // Fetch the dictionary
-        const getDictionaryResult = await dictionaryAPI.getDictionary(
-          dictionaryKey,
-          undefined,
-          {
-            ...(oAuth2AccessToken && {
-              headers: {
-                Authorization: `Bearer ${oAuth2AccessToken}`,
-              },
-            }),
-          }
-        );
+        const getDictionaryResult =
+          await intlayerAPI.dictionary.getDictionary(dictionaryKey);
 
         const distantDictionary = getDictionaryResult.data;
 
@@ -70,50 +47,38 @@ export const fetchDistantDictionaries = async (
           throw new Error(`Dictionary ${dictionaryKey} not found on remote`);
         }
 
-        logger.updateStatus([
-          { dictionaryKey, type: 'distant', status: { status: 'imported' } },
+        onStatusUpdate?.([
+          { dictionaryKey, type: 'remote', status: 'fetched' },
         ]);
 
         return distantDictionary;
       } catch (error) {
-        logger.updateStatus([
+        onStatusUpdate?.([
           {
             dictionaryKey,
-            type: 'distant',
-            status: {
-              status: 'error',
-              error: error as Error,
-              errorMessage: `${options?.logPrefix ?? ''}Error fetching dictionary ${dictionaryKey}: ${error}`,
-            },
+            type: 'remote',
+            status: 'error',
+            error: `Error fetching dictionary ${dictionaryKey}: ${error}`,
           },
         ]);
         return undefined;
       }
     };
 
-    const fetchPromises = distantDictionariesKeys.map((dictionaryKey) =>
-      limit(async () => await processDictionary(dictionaryKey))
+    const result = await parallelize(
+      distantDictionariesKeys,
+      async (dictionaryKey) => await processDictionary(dictionaryKey)
     );
-
-    const result = await Promise.all(fetchPromises);
-
-    // Output any error messages
-    const statuses = logger.getStatuses();
-    for (const statusObj of statuses) {
-      const currentState = statusObj.state.find((s) => s.type === 'distant');
-      if (currentState && currentState.errorMessage) {
-        appLogger(currentState.errorMessage, { level: 'error' });
-      }
-    }
 
     // Remove undefined values
     const filteredResult = result.filter(
-      (dict): dict is DictionaryAPI => dict !== undefined
+      (dict: DictionaryAPI | undefined): dict is DictionaryAPI =>
+        dict !== undefined
     );
 
     return filteredResult;
   } catch (error) {
-    appLogger(error, { level: 'error' });
+    appLogger(`${x} Failed to fetch distant dictionaries`, { level: 'error' });
     return [];
   }
 };

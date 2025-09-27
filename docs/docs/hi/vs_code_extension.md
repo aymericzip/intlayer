@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-17
-updatedAt: 2025-06-29
+updatedAt: 2025-09-22
 title: आधिकारिक VS कोड एक्सटेंशन
-description: अपने विकास वर्कफ़्लो को बेहतर बनाने के लिए VS कोड में Intlayer एक्सटेंशन का उपयोग कैसे करें सीखें। स्थानीयकृत सामग्री के बीच तेजी से नेविगेट करें और अपनी शब्दकोशों को कुशलतापूर्वक प्रबंधित करें।
+description: अपने विकास वर्कफ़्लो को बेहतर बनाने के लिए VS कोड में Intlayer एक्सटेंशन का उपयोग करना सीखें। स्थानीयकृत सामग्री के बीच तेजी से नेविगेट करें और अपनी शब्दकोशों का कुशलतापूर्वक प्रबंधन करें।
 keywords:
   - VS कोड एक्सटेंशन
   - Intlayer
@@ -21,9 +21,9 @@ slugs:
 
 ## अवलोकन
 
-[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) **Intlayer** के लिए आधिकारिक Visual Studio Code एक्सटेंशन है, जिसे आपके प्रोजेक्ट्स में स्थानीयकृत सामग्री के साथ काम करते समय डेवलपर अनुभव को बेहतर बनाने के लिए डिज़ाइन किया गया है।
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) **Intlayer** के लिए आधिकारिक विजुअल स्टूडियो कोड एक्सटेंशन है, जिसे आपके प्रोजेक्ट्स में स्थानीयकृत सामग्री के साथ काम करते समय डेवलपर अनुभव को बेहतर बनाने के लिए डिज़ाइन किया गया है।
 
-![Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
+![Intlayer VS कोड एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif)
 
 एक्सटेंशन लिंक: [https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)
 
@@ -31,8 +31,8 @@ slugs:
 
 ### त्वरित नेविगेशन
 
-**परिभाषा पर जाएं समर्थन** – `useIntlayer` कुंजी पर `Cmd+Click` (Mac) या `Ctrl+Click` (Windows/Linux) का उपयोग करके संबंधित सामग्री फ़ाइल तुरंत खोलें।  
-**सुगम एकीकरण** – **react-intlayer** और **next-intlayer** प्रोजेक्ट्स के साथ बिना किसी परेशानी के काम करता है।  
+**परिभाषा पर जाएं समर्थन** – `useIntlayer` कुंजी पर `⌘ + क्लिक` (Mac) या `Ctrl + क्लिक` (Windows/Linux) का उपयोग करें ताकि संबंधित सामग्री फ़ाइल तुरंत खुल जाए।  
+**सहज एकीकरण** – **react-intlayer** और **next-intlayer** प्रोजेक्ट्स के साथ बिना किसी परेशानी के काम करता है।  
 **बहुभाषी समर्थन** – विभिन्न भाषाओं में स्थानीयकृत सामग्री का समर्थन करता है।  
 **VS कोड एकीकरण** – VS कोड के नेविगेशन और कमांड पैलेट के साथ सहजता से एकीकृत होता है।
 
@@ -40,33 +40,75 @@ slugs:
 
 अपने कंटेंट शब्दकोशों का सीधे VS कोड से प्रबंधन करें:
 
-- **शब्दकोश बनाएं** (`extension.buildDictionaries`) – आपके प्रोजेक्ट संरचना के आधार पर सामग्री फ़ाइलें उत्पन्न करें।
-- **शब्दकोश पुश करें** (`extension.pushDictionaries`) – नवीनतम शब्दकोश सामग्री को आपके रिपॉजिटरी में अपलोड करें।
-- **शब्दकोश पुल करें** (`extension.pullDictionaries`) – आपके रिपॉजिटरी से नवीनतम शब्दकोश सामग्री को आपके स्थानीय वातावरण में सिंक करें।
+- **शब्दकोश बनाएँ** – अपने प्रोजेक्ट संरचना के आधार पर कंटेंट फ़ाइलें उत्पन्न करें।
+- **शब्दकोश पुश करें** – नवीनतम शब्दकोश सामग्री को अपने रिपॉजिटरी में अपलोड करें।
+- **शब्दकोश पुल करें** – अपने रिपॉजिटरी से नवीनतम शब्दकोश सामग्री को अपने स्थानीय पर्यावरण में सिंक करें।
+- **शब्दकोश भरें** – अपने प्रोजेक्ट से सामग्री के साथ शब्दकोशों को भरें।
+- **शब्दकोश परीक्षण करें** – गुम या अधूरी अनुवादों की पहचान करें।
 
-### सामग्री घोषणा जनरेटर
+### कंटेंट घोषणा जनरेटर
 
 आसानी से विभिन्न प्रारूपों में संरचित शब्दकोश फ़ाइलें उत्पन्न करें:
 
-- **TypeScript (`.ts`)** – `extension.createDictionaryFile.ts`
-- **ES मॉड्यूल (`.esm`)** – `extension.createDictionaryFile.esm`
-- **CommonJS (`.cjs`)** – `extension.createDictionaryFile.cjs`
-- **JSON (`.json`)** – `extension.createDictionaryFile.json`
+यदि आप वर्तमान में किसी कॉम्पोनेंट पर काम कर रहे हैं, तो यह आपके लिए `.content.{ts,tsx,js,jsx,mjs,cjs,json}` फ़ाइल उत्पन्न करेगा।
+
+कॉम्पोनेंट का उदाहरण:
+
+```tsx fileName="src/components/MyComponent/index.tsx"
+const MyComponent = () => {
+  const { myTranslatedContent } = useIntlayer("my-component");
+
+  return <span>{myTranslatedContent}</span>;
+};
+```
+
+TypeScript प्रारूप में उत्पन्न फ़ाइल:
+
+```tsx fileName="src/components/MyComponent/index.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const componentContent = {
+  key: "my-component",
+  content: {
+    myTranslatedContent: t({
+      en: "Hello World",
+      es: "Hola Mundo",
+      fr: "Bonjour le monde",
+    }),
+  },
+};
+
+export default componentContent;
+```
+
+उपलब्ध प्रारूप:
+
+- **TypeScript (`.ts`)**
+- **ES मॉड्यूल (`.esm`)**
+- **CommonJS (`.cjs`)**
+- **JSON (`.json`)**
+
+### Intlayer टैब (एक्टिविटी बार)
+
+VS कोड एक्टिविटी बार में Intlayer आइकन पर क्लिक करके Intlayer टैब खोलें। इसमें दो दृश्य होते हैं:
+
+- **खोज**: एक लाइव खोज बार जो शब्दकोशों और उनके कंटेंट को जल्दी से फ़िल्टर करता है। टाइप करते ही परिणाम तुरंत अपडेट हो जाते हैं।
+- **शब्दकोश**: आपके एनवायरनमेंट/प्रोजेक्ट्स, शब्दकोश कुंजियों, और प्रविष्टियाँ देने वाली फ़ाइलों का एक ट्री व्यू। आप:
+  - किसी फ़ाइल पर क्लिक करके उसे एडिटर में खोल सकते हैं।
+  - टूलबार का उपयोग करके ये क्रियाएँ चला सकते हैं: Build, Pull, Push, Fill, Refresh, Test, और Create Dictionary File।
+  - आइटम-विशिष्ट क्रियाओं के लिए संदर्भ मेनू का उपयोग करें:
+    - किसी शब्दकोश पर: Pull या Push
+    - किसी फ़ाइल पर: Fill Dictionary
+  - जब आप एडिटर स्विच करते हैं, तो ट्री उस मेल खाने वाली फ़ाइल को दिखाएगा यदि वह किसी शब्दकोश से संबंधित हो।
 
 ## स्थापना
 
-आप **Intlayer** को सीधे VS कोड मार्केटप्लेस से इंस्टॉल कर सकते हैं:
+आप सीधे VS Code मार्केटप्लेस से **Intlayer** इंस्टॉल कर सकते हैं:
 
-1. **VS कोड** खोलें।
-2. **एक्सटेंशंस मार्केटप्लेस** पर जाएं।
+1. **VS Code** खोलें।
+2. **Extensions Marketplace** पर जाएं।
 3. **"Intlayer"** खोजें।
-4. **इंस्टॉल** पर क्लिक करें।
-
-वैकल्पिक रूप से, इसे कमांड लाइन के माध्यम से इंस्टॉल करें:
-
-```sh
-code --install-extension intlayer
-```
+4. **Install** पर क्लिक करें।
 
 ## उपयोग
 
@@ -79,10 +121,18 @@ code --install-extension intlayer
    const content = useIntlayer("app");
    ```
 
-3. कुंजी (जैसे, `"app"`) पर **कमांड-क्लिक** (`⌘+Click` macOS पर) या **Ctrl+क्लिक** (Windows/Linux पर) करें।
-4. VS कोड स्वचालित रूप से संबंधित शब्दकोश फ़ाइल खोलेगा, जैसे `src/app.content.ts`।
+3. कुंजी (जैसे `"app"`) पर **Command-click** (`⌘+Click` macOS पर) या **Ctrl+Click** (Windows/Linux पर) करें।
+4. VS Code स्वचालित रूप से संबंधित शब्दकोश फ़ाइल खोल देगा, जैसे `src/app.content.ts`।
 
-### सामग्री शब्दकोश प्रबंधन
+### कंटेंट शब्दकोश प्रबंधन
+
+### Intlayer टैब (एक्टिविटी बार)
+
+शब्दकोशों को ब्राउज़ और प्रबंधित करने के लिए साइड टैब का उपयोग करें:
+
+- एक्टिविटी बार में Intlayer आइकन खोलें।
+- **Search** में, वास्तविक समय में शब्दकोश और प्रविष्टियों को फ़िल्टर करने के लिए टाइप करें।
+- **Dictionaries** में, पर्यावरण, शब्दकोश, और फ़ाइलों को ब्राउज़ करें। टूलबार का उपयोग करें Build, Pull, Push, Fill, Refresh, Test, और Create Dictionary File के लिए। संदर्भ क्रियाओं के लिए राइट-क्लिक करें (शब्दकोशों पर Pull/Push, फ़ाइलों पर Fill)। जब लागू हो, तो वर्तमान संपादक फ़ाइल स्वचालित रूप से ट्री में प्रकट होती है।
 
 #### शब्दकोश बनाना
 
@@ -92,13 +142,13 @@ code --install-extension intlayer
 Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 ```
 
-**Build Dictionaries** खोजें और कमांड चलाएं।
+**Build Dictionaries** खोजें और कमांड निष्पादित करें।
 
 #### शब्दकोश पुश करना
 
 नवीनतम शब्दकोश सामग्री अपलोड करें:
 
-1. **कमांड पैलेट** खोलें।
+1. **Command Palette** खोलें।
 2. **Push Dictionaries** खोजें।
 3. पुश करने के लिए शब्दकोश चुनें और पुष्टि करें।
 
@@ -106,47 +156,28 @@ Cmd + Shift + P (macOS) / Ctrl + Shift + P (Windows/Linux)
 
 नवीनतम शब्दकोश सामग्री सिंक करें:
 
-1. **कमांड पैलेट** खोलें।
+1. **Command Palette** खोलें।
 2. **Pull Dictionaries** खोजें।
 3. पुल करने के लिए शब्दकोश चुनें।
 
-## विकास और योगदान
+#### शब्दकोश भरना
 
-योगदान देना चाहते हैं? हम समुदाय के योगदान का स्वागत करते हैं!
+अपने प्रोजेक्ट की सामग्री से शब्दकोश भरें:
 
-रिपॉ URL: https://github.com/aymericzip/intlayer-vs-code-extension
+1. **Command Palette** खोलें।
+2. **Fill Dictionaries** खोजें।
+3. शब्दकोश भरने के लिए कमांड चलाएं।
 
-### शुरूआत कैसे करें
+#### शब्दकोश परीक्षण
 
-रिपॉ क्लोन करें और निर्भरताएँ स्थापित करें:
+शब्दकोशों को मान्य करें और गायब अनुवाद खोजें:
 
-```sh
-git clone https://github.com/aymericzip/intlayer-vs-code-extension.git
-cd intlayer-vs-code-extension
-npm install
-```
-
-> एक्सटेंशन को बिल्ड और प्रकाशित करने के लिए `vsce` पैकेज के साथ संगतता के लिए `npm` पैकेज मैनेजर का उपयोग करें।
-
-### विकास मोड में चलाएं
-
-1. प्रोजेक्ट को **VS Code** में खोलें।
-2. एक नया **Extension Development Host** विंडो लॉन्च करने के लिए `F5` दबाएं।
-
-### पुल अनुरोध सबमिट करें
-
-यदि आप एक्सटेंशन में सुधार करते हैं, तो [GitHub](https://github.com/aymericzip/intlayer-vs-code-extension) पर PR सबमिट करें।
-
-## प्रतिक्रिया और समस्याएं
-
-क्या आपको कोई बग मिला है या कोई फीचर रिक्वेस्ट है? हमारे **GitHub रिपॉजिटरी** पर एक इश्यू खोलें:
-
-[GitHub Issues](https://github.com/aymericzip/intlayer-vs-code-extension/issues)
-
-## लाइसेंस
-
-Intlayer को **MIT लाइसेंस** के तहत जारी किया गया है।
+1. **Command Palette** खोलें।
+2. **Test Dictionaries** खोजें।
+3. रिपोर्ट की गई समस्याओं की समीक्षा करें और आवश्यकतानुसार सुधार करें।
 
 ## दस्तावेज़ इतिहास
 
-- 5.5.10 - 2025-06-29: प्रारंभिक इतिहास
+| संस्करण | तिथि       | परिवर्तन       |
+| ------- | ---------- | -------------- |
+| 5.5.10  | 2025-06-29 | इतिहास प्रारंभ |

@@ -1,6 +1,6 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
+createdAt: 2025-08-23
+updatedAt: 2025-08-23
 title: useDictionary 훅 문서 | next-intlayer
 description: next-intlayer 패키지의 useDictionary 훅 사용 방법을 확인하세요
 keywords:

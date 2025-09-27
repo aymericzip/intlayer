@@ -112,18 +112,16 @@ enu 함수를 사용하여 숫자 값, 범위 또는 사용자 정의 키에 따
 Intlayer는 콘텐츠 선언을 위해 **TypeScript**(및 JavaScript)와 **JSON**을 지원합니다.
 
 - **TypeScript**:
-
   - 콘텐츠 구조가 올바르고 누락된 번역이 없도록 보장합니다.
   - 엄격하거나 더 유연한 검증 모드를 제공합니다.
   - 변수, 함수 또는 외부 API에서 동적으로 데이터를 가져올 수 있습니다.
 
 - **JSON**:
-
   - 표준화된 형식 덕분에 외부 도구(예: 시각적 편집기)와 쉽게 통합할 수 있습니다.
 
   > 참고 자료:
   >
-  > - [콘텐츠 선언 형식](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_extention_customization.md)
+  > - [콘텐츠 선언 형식](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
 
 ### 7. 정리, 번들 최적화 및 동적 임포트
 

@@ -1,3 +1,4 @@
+import { colorizePath, x } from '@intlayer/config';
 import {
   deepTransformNode,
   NodeType,
@@ -50,7 +51,9 @@ const writeFilePlugin: Plugins = {
       // Write the file
       writeFileSync(abolsuteFilePath, fileContent);
     } catch (error) {
-      throw new Error(`Error writing file to ${filePath}: ${error}`);
+      throw new Error(
+        `${x} Error writing file to ${colorizePath(filePath)}: ${error}`
+      );
     }
 
     const transformedFileContent: FileContentConstructor = {

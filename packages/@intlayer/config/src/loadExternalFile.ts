@@ -1,8 +1,8 @@
 import { buildSync, type BuildOptions, type BuildResult } from 'esbuild';
 import { dirname } from 'path';
 import { runInNewContext } from 'vm';
-import { LoadEnvFileOptions } from './envVariables/loadEnvFile';
 import { getSandBoxContext } from './getSandboxContext';
+import { LoadEnvFileOptions } from './loadEnvFile';
 import { logger } from './logger';
 import { ESMxCJSRequire } from './utils/ESMxCJSHelpers';
 
@@ -39,7 +39,8 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
 export const loadExternalFile = (
   filePath: string,
   envVarOptions?: LoadEnvFileOptions,
-  projectRequire = ESMxCJSRequire
+  projectRequire?: NodeJS.Require,
+  additionalEnvVars?: Record<string, string>
 ): any | undefined => {
   let fileContent: any | undefined = undefined;
 
@@ -67,7 +68,11 @@ export const loadExternalFile = (
       return undefined;
     }
 
-    const sandboxContext = getSandBoxContext(envVarOptions, projectRequire);
+    const sandboxContext = getSandBoxContext(
+      envVarOptions,
+      projectRequire,
+      additionalEnvVars
+    );
 
     runInNewContext(moduleResultString, sandboxContext);
 

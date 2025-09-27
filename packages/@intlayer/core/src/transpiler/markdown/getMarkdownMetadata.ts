@@ -1,39 +1,4 @@
-const parseToObject = <T = any>(input: string): T | null => {
-  // Normalize different bracket types and keys/values
-  let normalizedInput = input
-    .trim()
-    .replace(/^\[/, '[') // Keep array brackets
-    .replace(/^\{/, '{') // Keep object brackets
-    .replace(/\]$/, ']') // Keep array brackets
-    .replace(/\}$/, '}') // Keep object brackets
-    .replace(/([\w\d_]+)\s*:/g, '"$1":') // Ensure JSON-valid keys (e.g., key: -> "key":)
-    .replace(/:\s*([a-zA-Z_][\w\d_]*)/g, ': "$1"'); // Handle unquoted string values
-
-  // Fix arrays with unquoted items (e.g., [content, anotherContent])
-  normalizedInput = normalizedInput.replace(
-    /\[([^\[\]]+?)\]/g,
-    (_match, arrayContent) => {
-      const newContent = (arrayContent as string)
-        .split(',')
-        .map((item) => {
-          const trimmed = item.trim();
-          // If already quoted or is a valid number, return as is.
-          if (
-            (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
-            !isNaN(Number(trimmed))
-          ) {
-            return trimmed;
-          }
-          return `"${trimmed}"`;
-        })
-        .join(', ');
-      return `[${newContent}]`;
-    }
-  );
-
-  // Parse the string into an object
-  return JSON.parse(normalizedInput) as T;
-};
+import { parseYaml } from '../../utils/parseYaml';
 
 export const getMarkdownMetadata = <T extends Record<string, any>>(
   markdown: string
@@ -102,7 +67,7 @@ export const getMarkdownMetadata = <T extends Record<string, any>>(
             currentArrayItems = [];
           } else {
             try {
-              (metadata as Record<string, any>)[key] = parseToObject(value);
+              (metadata as Record<string, any>)[key] = parseYaml(value);
             } catch (e) {
               (metadata as Record<string, any>)[key] = value;
             }

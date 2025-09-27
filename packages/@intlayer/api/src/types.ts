@@ -55,6 +55,7 @@ export type {
   GetDictionariesKeysResult,
   GetDictionariesParams,
   GetDictionariesResult,
+  GetDictionariesUpdateTimestampResult,
   GetDictionaryParams,
   GetDictionaryQuery,
   GetDictionaryResult,
@@ -134,6 +135,7 @@ export type {
 } from '@intlayer/backend';
 export type {
   GetConfigurationResult,
+  GetEditorDictionariesResult,
   WriteContentDeclarationBody,
   WriteContentDeclarationResult,
 } from 'intlayer-editor';

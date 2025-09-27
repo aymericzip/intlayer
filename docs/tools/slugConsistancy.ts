@@ -1,6 +1,7 @@
 import fg from 'fast-glob';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
+import { locales } from '../intlayer.config';
 import { EXCLUDED_GLOB_PATTEN } from './markdownFormatting';
 
 interface SlugConsistencyResult {
@@ -48,20 +49,6 @@ export const runSlugConsistencyTest = (): SlugConsistencyResult => {
   // Debug: Check current working directory
   console.info('Current working directory:', process.cwd());
 
-  const languageDirs = [
-    'ar',
-    'de',
-    'en-GB',
-    'es',
-    'fr',
-    'hi',
-    'it',
-    'ja',
-    'ko',
-    'pt',
-    'ru',
-    'zh',
-  ];
   const englishDocsPattern = 'docs/en/**/*.md';
   const englishBlogPattern = 'blog/en/**/*.md';
   const englishFrequentQuestionsPattern = 'frequent_questions/en/**/*.md';
@@ -132,7 +119,7 @@ export const runSlugConsistencyTest = (): SlugConsistencyResult => {
     }
 
     // Check corresponding files in other languages
-    languageDirs.forEach((langCode) => {
+    locales.forEach((langCode) => {
       let correspondingFilePath: string;
 
       // Handle different directory structures

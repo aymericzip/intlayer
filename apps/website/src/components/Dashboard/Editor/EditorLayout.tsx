@@ -14,7 +14,6 @@ import { useEffect, type FC, type PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';
 import { LongPressMessage } from './LongPressMessage';
-import { mergeDictionaries } from './mergeDictionaries';
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   const { resolvedTheme } = useTheme();
@@ -35,10 +34,9 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     const dictionariesList = Object.fromEntries(
-      Object.entries(unmergedDictionaries).map(([key, value]) => [
-        key,
-        mergeDictionaries(value),
-      ])
+      Object.values(unmergedDictionaries)
+        .flat()
+        .map((dictionary) => [dictionary.localId, dictionary])
     );
 
     setLocaleDictionaries(dictionariesList);

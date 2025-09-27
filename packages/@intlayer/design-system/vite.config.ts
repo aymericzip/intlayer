@@ -58,8 +58,8 @@ export default defineConfig(() => ({
       name: 'IntlayerDesignSystem',
       formats: ['es', 'cjs'],
       fileName: (format, entry) => {
-        const extention = format === 'es' ? 'mjs' : 'cjs';
-        return `${entry}.${extention}`;
+        const extension = format === 'es' ? 'mjs' : 'cjs';
+        return `${entry}.${extension}`;
       },
     },
 

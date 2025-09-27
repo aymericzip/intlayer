@@ -1,6 +1,7 @@
 import type { NodePath, PluginObj, PluginPass } from '@babel/core';
 import * as t from '@babel/types';
 import { getFileHash } from '@intlayer/chokidar';
+import { normalizePath } from '@intlayer/config';
 import { dirname, join, relative } from 'node:path';
 
 /* ────────────────────────────────────────── constants ───────────────────── */
@@ -45,8 +46,8 @@ const STATIC_IMPORT_FUNCTION = {
   useIntlayer: 'useDictionary',
 } as const;
 
-const ASYNC_IMPORT_FUNCTION = {
-  useIntlayer: 'useDictionaryAsync',
+const FETCH_IMPORT_FUNCTION = {
+  useIntlayer: 'useDictionaryDynamic',
 } as const;
 
 const DYNAMIC_IMPORT_FUNCTION = {
@@ -74,21 +75,30 @@ type State = PluginPass & {
      */
     dynamicDictionariesEntryPath: string;
     /**
+     * The path to the fetch dictionaries directory.
+     */
+    fetchDictionariesDir: string;
+    /**
+     * The path to the fetch dictionaries entry file.
+     */
+    fetchDictionariesEntryPath: string;
+    /**
      * If true, the plugin will replace the dictionary entry file with `export default {}`.
      */
-    replaceDictionaryEntry?: boolean;
+    replaceDictionaryEntry: boolean;
     /**
      * If true, the plugin will activate the dynamic import of the dictionaries. It will rely on Suspense to load the dictionaries.
      */
-    importMode?: 'static' | 'dynamic' | 'async';
+    importMode: 'static' | 'dynamic' | 'live';
+    /**
+     * Activate the live sync of the dictionaries.
+     * If `importMode` is `live`, the plugin will activate the live sync of the dictionaries.
+     */
+    liveSyncKeys: string[];
     /**
      * Files list to traverse.
      */
-    filesList?: string[];
-    /**
-     * If true, the plugin will activate the live sync of the dictionaries.
-     */
-    liveSync?: boolean;
+    filesList: string[];
   };
   /** map key → generated ident (per-file) for static imports */
   _newStaticImports?: Map<string, t.Identifier>;
@@ -100,8 +110,6 @@ type State = PluginPass & {
   _isDictEntry?: boolean;
   /** whether dynamic helpers are active for this file */
   _useDynamicHelpers?: boolean;
-  /** whether async helpers are active for this file */
-  _useAsyncHelpers?: boolean;
 };
 
 /* ────────────────────────────────────────── helpers ─────────────────────── */
@@ -120,80 +128,115 @@ const computeImport = (
   fromFile: string,
   dictionariesDir: string,
   dynamicDictionariesDir: string,
+  fetchDictionariesDir: string,
   key: string,
-  isDynamic: boolean,
-  liveSync: boolean
+  importMode: 'static' | 'dynamic' | 'live'
 ): string => {
-  if (liveSync && !isDynamic) {
-    return `@intlayer/dictionaries-entry/${key}`;
+  let relativePath = join(dictionariesDir, `${key}.json`);
+
+  if (importMode === 'live') {
+    relativePath = join(fetchDictionariesDir, `${key}.mjs`);
   }
 
-  const realtivePath = isDynamic
-    ? join(dynamicDictionariesDir, `${key}.mjs`)
-    : join(dictionariesDir, `${key}.json`);
+  if (importMode === 'dynamic') {
+    relativePath = join(dynamicDictionariesDir, `${key}.mjs`);
+  }
 
-  let rel = relative(dirname(fromFile), realtivePath).replace(/\\/g, '/'); // win →
-  if (!rel.startsWith('./') && !rel.startsWith('../')) rel = `./${rel}`;
+  let rel = relative(dirname(fromFile), relativePath);
+
+  // Fix windows path
+  rel = normalizePath(rel);
+
+  // Fix relative path
+  if (!rel.startsWith('./') && !rel.startsWith('../')) {
+    rel = `./${rel}`;
+  }
+
   return rel;
 };
 
 /* ────────────────────────────────────────── plugin ──────────────────────── */
 
 /**
- * Babel plugin that transforms `useIntlayer/getIntlayer` calls into
- * `useDictionary/getDictionary` and auto-imports the required JSON dictionaries.
+ * Babel plugin that transforms Intlayer function calls and auto-imports dictionaries.
  *
+ * This plugin transforms calls to `useIntlayer()` and `getIntlayer()` from various Intlayer
+ * packages into optimized dictionary access patterns, automatically importing the required
+ * dictionary files based on the configured import mode.
  *
- * This means cases like:
+ * ## Supported Input Patterns
+ *
+ * The plugin recognizes these function calls:
  *
  * ```ts
- * import { getIntlayer } from 'intlayer';
+ * // useIntlayer
  * import { useIntlayer } from 'react-intlayer';
+ * import { useIntlayer } from 'next-intlayer';
  *
- * // ...
+ * // getIntlayer
+ * import { getIntlayer } from 'intlayer';
  *
- * const content1 = getIntlayer('app');
- * const content2 = useIntlayer('app');
+ * // Usage
+ * const content = useIntlayer('app');
+ * const content = getIntlayer('app');
  * ```
  *
- * will be transformed into:
+ * ## Transformation Modes
  *
+ * ### Static Mode (default: `importMode = "static"`)
+ *
+ * Imports JSON dictionaries directly and replaces function calls with dictionary access:
+ *
+ * **Output:**
  * ```ts
- * import _dicHash from '../../.intlayer/dictionaries/app.mjs';
+ * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
+ * import { useDictionary as useIntlayer } from 'react-intlayer';
  * import { getDictionary as getIntlayer } from 'intlayer';
- * import { useDictionaryDynamic as useIntlayer } from 'react-intlayer';
  *
- * // ...
- *
- * const content1 = getIntlayer(_dicHash);
- * const content2 = useIntlayer(_dicHash)
+ * const content1 = useIntlayer(_dicHash);
+ * const content2 = getIntlayer(_dicHash);
  * ```
  *
- * If the `importMode = "dynamic"` option:
+ * ### Dynamic Mode (`importMode = "dynamic"`)
  *
+ * Uses dynamic dictionary loading with Suspense support:
+ *
+ * **Output:**
  * ```ts
- * import _dicHash from '../../.intlayer/dynamic_dictionaries/app.mjs';
- * import _dicHash_dyn from '../../.intlayer/dictionaries/app.mjs';
- *
- * import { useDictionary as getIntlayer } from 'intlayer';
+ * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
+ * import _dicHash_dyn from '../../.intlayer/dynamic_dictionaries/app.mjs';
  * import { useDictionaryDynamic as useIntlayer } from 'react-intlayer';
+ * import { getDictionary as getIntlayer } from 'intlayer';
  *
- * // ...
- *
- * const content1 = getIntlayer(_dicHash);
- * const content2 = useIntlayer(_dicHash_dyn, 'app');
+ * const content1 = useIntlayer(_dicHash_dyn, 'app');
+ * const content2 = getIntlayer(_dicHash);
  * ```
  *
- * Or if the `importMode = "async"` option:
+ * ### Live Mode (`importMode = "live"`)
+ *
+ * Uses live-based dictionary loading for remote dictionaries:
+ *
+ * **Output if `liveSyncKeys` includes the key:**
+ * ```ts
+ * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
+ * import _dicHash_fetch from '../../.intlayer/fetch_dictionaries/app.mjs';
+ * import { useDictionaryDynamic as useIntlayer } from 'react-intlayer';
+ * import { getDictionary as getIntlayer } from 'intlayer';
+ *
+ * const content1 = useIntlayer(_dicHash_fetch, "app");
+ * const content2 = getIntlayer(_dicHash);
+ * ```
+ *
+ * > If `liveSyncKeys` does not include the key, the plugin will fallback to the dynamic import.
  *
  * ```ts
- * import _dicHash from '../../.intlayer/dictionaries/app.mjs';
- * import { useDictionaryAsync as useIntlayer } from 'react-intlayer';
+ * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
+ * import _dicHash_dyn from '../../.intlayer/dynamic_dictionaries/app.mjs';
+ * import { useDictionaryDynamic as useIntlayer } from 'react-intlayer';
+ * import { getDictionary as getIntlayer } from 'intlayer';
  *
- * // ...
- *
- * const content1 = getIntlayer(_dicHash);
- * const content2 = await useIntlayer(_dicHash_dyn);
+ * const content1 = useIntlayer(_dicHash_dyn, 'app');
+ * const content2 = getIntlayer(_dicHash);
  * ```
  */
 export const intlayerBabelPlugin = (): PluginObj<State> => {
@@ -207,7 +250,6 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
       this._hasValidImport = false;
       this._isDictEntry = false;
       this._useDynamicHelpers = false;
-      this._useAsyncHelpers = false;
 
       // If filesList is provided, check if current file is included
       const filename = this.file.opts.filename;
@@ -250,18 +292,18 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
           const file = state.file.opts.filename!;
           const dictionariesDir = state.opts.dictionariesDir;
           const dynamicDictionariesDir = state.opts.dynamicDictionariesDir;
-          const liveSync = state.opts.liveSync;
+          const fetchDictionariesDir = state.opts.fetchDictionariesDir;
           const imports: t.ImportDeclaration[] = [];
 
-          // Generate static imports (for getIntlayer and useIntlayer when not using dynamic)
+          // Generate static JSON imports (getIntlayer always uses JSON dictionaries)
           for (const [key, ident] of state._newStaticImports!) {
             const rel = computeImport(
               file,
               dictionariesDir,
               dynamicDictionariesDir,
+              fetchDictionariesDir,
               key,
-              false, // Always static
-              liveSync
+              'static'
             );
 
             const importDeclarationNode = t.importDeclaration(
@@ -269,6 +311,7 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
               t.stringLiteral(rel)
             );
 
+            // Add 'type: json' attribute for JSON files
             importDeclarationNode.attributes = [
               t.importAttribute(t.identifier('type'), t.stringLiteral('json')),
             ];
@@ -276,15 +319,21 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
             imports.push(importDeclarationNode);
           }
 
-          // Generate dynamic imports (for useIntlayer when using dynamic helpers)
+          // Generate dynamic/fetch imports (for useIntlayer when using dynamic/live helpers)
           for (const [key, ident] of state._newDynamicImports!) {
+            const modeForThisIdent: 'dynamic' | 'live' = ident.name.endsWith(
+              '_fetch'
+            )
+              ? 'live'
+              : 'dynamic';
+
             const rel = computeImport(
               file,
               dictionariesDir,
               dynamicDictionariesDir,
+              fetchDictionariesDir,
               key,
-              true, // Always dynamic
-              liveSync
+              modeForThisIdent
             );
             imports.push(
               t.importDeclaration(
@@ -337,40 +386,19 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
             : (spec.imported as t.StringLiteral).value;
 
           const importMode = state.opts.importMode;
-          // Determine whether this import should use the dynamic helpers. We
-          // only switch to the dynamic helpers when (1) the option is turned
-          // on AND (2) the package we are importing from supports the dynamic
-          // helpers.
+          // Determine whether this import should use the dynamic helpers.
           const shouldUseDynamicHelpers =
-            importMode === 'dynamic' &&
+            (importMode === 'dynamic' || importMode === 'live') &&
             PACKAGE_LIST_DYNAMIC.includes(src as any);
-
-          // Determine whether this import should use the async helpers. We
-          // only switch to the async helpers when (1) the option is turned
-          // on AND (2) the package we are importing from supports the async
-          // helpers.
-          const shouldUseAsyncHelpers =
-            importMode === 'async' && PACKAGE_LIST_DYNAMIC.includes(src as any);
 
           // Remember for later (CallExpression) whether we are using the dynamic helpers
           if (shouldUseDynamicHelpers) {
             state._useDynamicHelpers = true;
           }
 
-          // Remember for later (CallExpression) whether we are using the async helpers
-          if (shouldUseAsyncHelpers) {
-            state._useAsyncHelpers = true;
-          }
-
           let helperMap: Record<string, string>;
 
-          if (shouldUseAsyncHelpers) {
-            // Use async helpers for useIntlayer when async mode is enabled
-            helperMap = {
-              ...STATIC_IMPORT_FUNCTION,
-              ...ASYNC_IMPORT_FUNCTION,
-            } as Record<string, string>;
-          } else if (shouldUseDynamicHelpers) {
+          if (shouldUseDynamicHelpers) {
             // Use dynamic helpers for useIntlayer when dynamic mode is enabled
             helperMap = {
               ...STATIC_IMPORT_FUNCTION,
@@ -411,38 +439,40 @@ export const intlayerBabelPlugin = (): PluginObj<State> => {
         if (!arg || !t.isStringLiteral(arg)) return; // must be literal
 
         const key = arg.value;
-        const useDynamic = Boolean(state._useDynamicHelpers);
-        const useAsync = Boolean(state._useAsyncHelpers);
+        const importMode = state.opts.importMode;
+        const isUseIntlayer = callee.name === 'useIntlayer';
+        const useDynamicHelpers = Boolean(state._useDynamicHelpers);
 
-        // Determine if this specific call should use dynamic imports
-        const shouldUseDynamicForThisCall =
-          callee.name === 'useIntlayer' && useDynamic;
-
-        // Determine if this specific call should use async imports
-        const shouldUseAsyncForThisCall =
-          callee.name === 'useIntlayer' && useAsync;
+        // Decide per-call mode: 'static' | 'dynamic' | 'live'
+        let perCallMode: 'static' | 'dynamic' | 'live' = 'static';
+        if (isUseIntlayer && useDynamicHelpers) {
+          if (importMode === 'dynamic') {
+            perCallMode = 'dynamic';
+          } else if (importMode === 'live') {
+            const liveKeys = state.opts.liveSyncKeys ?? [];
+            perCallMode = liveKeys.includes(key) ? 'live' : 'dynamic';
+          }
+        }
 
         let ident: t.Identifier;
 
-        if (shouldUseAsyncForThisCall) {
-          // Use dynamic imports for useIntlayer when async helpers are enabled
+        if (perCallMode === 'live') {
+          // Use fetch dictionaries entry (live mode for selected keys)
           let dynamicIdent = state._newDynamicImports!.get(key);
           if (!dynamicIdent) {
-            // Create a unique identifier for dynamic imports by appending a suffix
             const hash = getFileHash(key);
-            dynamicIdent = t.identifier(`_${hash}_dyn`);
+            dynamicIdent = t.identifier(`_${hash}_fetch`);
             state._newDynamicImports!.set(key, dynamicIdent);
           }
           ident = dynamicIdent;
 
-          // Async helper: first argument is the dictionary promise.
-          path.node.arguments[0] = t.identifier(ident.name);
-
-          // Wrap the call with await for async helpers
-          const awaitExpression = t.awaitExpression(path.node);
-          path.replaceWith(awaitExpression);
-        } else if (shouldUseDynamicForThisCall) {
-          // Use dynamic imports for useIntlayer when dynamic helpers are enabled
+          // Helper: first argument is the dictionary entry, second is the key
+          path.node.arguments = [
+            t.identifier(ident.name),
+            ...path.node.arguments,
+          ];
+        } else if (perCallMode === 'dynamic') {
+          // Use dynamic dictionaries entry
           let dynamicIdent = state._newDynamicImports!.get(key);
           if (!dynamicIdent) {
             // Create a unique identifier for dynamic imports by appending a suffix

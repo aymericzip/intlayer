@@ -2,6 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 export const dictionaryFormSchemaContent = {
   key: 'dictionary-form-schema',
+  autoFill: './{{key}}.content.json',
   content: {
     requiredErrorName: t({
       en: 'Please enter a key for your dictionary',

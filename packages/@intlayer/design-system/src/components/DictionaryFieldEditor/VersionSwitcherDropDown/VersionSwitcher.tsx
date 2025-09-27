@@ -23,10 +23,10 @@ const DROPDOWN_IDENTIFIER = 'version-switcher';
 export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
   const { switchTo, versionSwitcherLabel, versionListLabel } =
     useIntlayer('version-switcher');
-  const { selectedVersion, availableVersions, setSelectedVersion } =
+  const { selectedVersion, versions, setSelectedVersion } =
     useVersionSwitcher();
 
-  if (availableVersions.length === 0) {
+  if (versions.length === 0) {
     return <></>;
   }
 
@@ -61,7 +61,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
             aria-label={versionSwitcherLabel.value}
           >
             <ol className="divide-text/20 divide-y divide-dashed overflow-y-auto p-1">
-              {availableVersions.reverse().map((version) => (
+              {versions.reverse().map((version) => (
                 <li className="px-1.5 py-1" key={version}>
                   <Button
                     onClick={() => setSelectedVersion(version)}

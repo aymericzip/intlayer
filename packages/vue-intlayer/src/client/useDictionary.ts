@@ -35,6 +35,7 @@ export const useDictionary = <T extends Dictionary>(
     return (explicit ?? providerLocale.value)!;
   });
 
+  // @ts-ignore
   const content = reactive({}) as DeepTransformContent<T['content']>;
 
   const patch = (next: Record<string, any>) => {
