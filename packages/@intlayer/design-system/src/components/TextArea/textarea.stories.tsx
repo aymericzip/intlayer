@@ -514,12 +514,12 @@ export const InteractiveFormField: Story = {
     // Test typing and validation
     await userEvent.type(textarea, 'Hello');
     await expect(
-      canvas.getByText(/must be at least 10 characters/)
+      canvas.getAllByText(/must be at least 10 characters/)[0]
     ).toBeInTheDocument();
 
     // Type more to clear error
     await userEvent.type(textarea, ' world! This is a test.');
-    await expect(canvas.getByText('None')).toBeInTheDocument();
+    await expect(canvas.getAllByText('Error: None')[0]).toBeInTheDocument();
   },
 };
 
