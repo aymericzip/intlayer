@@ -50,218 +50,199 @@ const blogDataContent: any = {
       }),
       default: getBlogMetadata('./blog/en/internationalization_and_SEO.md'),
     },
-    'alternative-i18n-libraries': {
-      title: t({
-        en: 'Alternative i18n libraries',
-        'en-GB': 'Alternative i18n libraries',
-        fr: 'Bibliothèques i18n alternatives',
-        es: 'Bibliotecas i18n alternativas',
-        de: 'Alternative i18n-Bibliotheken',
-        ja: '代替のi18nライブラリ',
-        ko: '대체 i18n 라이브러리',
-        zh: '替代i18n库',
-        it: 'Biblioteche i18n alternative',
-        pt: 'Bibliotecas i18n alternativas',
-        hi: 'वैकल्पिक i18n लाइब्रेरी',
-        ar: 'مكتبات i18n متباينة',
-        ru: 'Альтернативные библиотеки i18n',
-        tr: 'Alternatif i18n kütüphaneleri',
-      }),
-      subSections: {
-        'intlayer-with-next-i18next': {
-          title: t({
-            en: 'Intlayer and next-i18next',
-            fr: 'Intlayer et next-i18next',
-            es: 'Intlayer y next-i18next',
-            'en-GB': 'Intlayer and next-i18next',
-            de: 'Intlayer und next-i18next',
-            ja: 'Intlayerとnext-i18next',
-            ko: 'Intlayer와 next-i18next',
-            zh: 'Intlayer和next-i18next',
-            it: 'Intlayer e next-i18next',
-            pt: 'Intlayer e next-i18next',
-            hi: 'Intlayer और next-i18next',
-            ar: 'Intlayer و next-i18next',
-            ru: 'Intlayer и next-i18next',
-            tr: 'Intlayer ve next-i18next',
-          }),
-          default: getBlogMetadata('./blog/en/intlayer_with_next-i18next.md'),
-        },
-        'intlayer-with-react-i18next': {
-          title: t({
-            en: 'Intlayer and react-i18next',
-            'en-GB': 'Intlayer and react-i18next',
-            fr: 'Intlayer et react-i18next',
-            es: 'Intlayer y react-i18next',
-            de: 'Intlayer und react-i18next',
-            ja: 'Intlayerとreact-i18next',
-            ko: 'Intlayer와 react-i18next',
-            zh: 'Intlayer和react-i18next',
-            it: 'Intlayer e react-i18next',
-            pt: 'Intlayer e react-i18next',
-            hi: 'Intlayer और react-i18next',
-            ar: 'Intlayer و react-i18next',
-            ru: 'Intlayer и react-i18next',
-            tr: 'Intlayer ve react-i18next',
-          }),
-          default: getBlogMetadata('./blog/en/intlayer_with_react-i18next.md'),
-        },
-        'intlayer-with-next-intl': {
-          title: t({
-            en: 'Intlayer and next-intl',
-            'en-GB': 'Intlayer and next-intl',
-            fr: 'Intlayer et next-intl',
-            es: 'Intlayer y next-intl',
-            de: 'Intlayer und next-intl',
-            ja: 'Intlayerとnext-intl',
-            ko: 'Intlayer와 next-intl',
-            zh: 'Intlayer和next-intl',
-            it: 'Intlayer e next-intl',
-            pt: 'Intlayer e next-intl',
-            hi: 'Intlayer और next-intl',
-            ar: 'Intlayer و next-intl',
-            ru: 'Intlayer и next-intl',
-            tr: 'Intlayer ve next-intl',
-          }),
-          default: getBlogMetadata('./blog/en/intlayer_with_next-intl.md'),
-        },
-        'intlayer-with-react-intl': {
-          title: t({
-            en: 'Intlayer and react-intl',
-            'en-GB': 'Intlayer and react-intl',
-            fr: 'Intlayer et react-intl',
-            es: 'Intlayer y react-intl',
-            de: 'Intlayer und react-intl',
-            ja: 'Intlayerとreact-intl',
-            ko: 'Intlayer와 react-intl',
-            zh: 'Intlayer和react-intl',
-            it: 'Intlayer e react-intl',
-            pt: 'Intlayer e react-intl',
-            hi: 'Intlayer और react-intl',
-            ar: 'Intlayer و react-intl',
-            ru: 'Intlayer и react-intl',
-            tr: 'Intlayer ve react-intl',
-          }),
-          default: getBlogMetadata('./blog/en/intlayer_with_react-intl.md'),
-        },
-        'next-i18next-vs-next-intl-vs-intlayer': {
-          title: 'next-i18next vs next-intl vs Intlayer',
-          default: getBlogMetadata(
-            './blog/en/next-i18next_vs_next-intl_vs_intlayer.md'
-          ),
-        },
-        'react-i18next-vs-react-intl-vs-intlayer': {
-          title: 'react-i18next vs react-intl vs Intlayer',
-          default: getBlogMetadata(
-            './blog/en/react-i18next_vs_react-intl_vs_intlayer.md'
-          ),
-        },
-        'vue-i18n-vs-intlayer': {
-          title: 'vue-i18n vs Intlayer',
-          default: getBlogMetadata('./blog/en/vue-i18n_vs_intlayer.md'),
-        },
-      },
-    },
 
-    'i18n-technologies': {
-      title: t({
-        en: 'i18n Technologies',
-        'en-GB': 'i18n Technologies',
-        fr: "Technologies d'i18n",
-        es: 'Tecnologías de i18n',
-        de: 'i18n-Technologien',
-        ja: 'i18n テクノロジー',
-        ko: 'i18n 기술',
-        zh: 'i18n 技术',
-        pt: 'Tecnologias de i18n',
-        ru: 'Технологии i18n',
-        hi: 'i18n तकनीकी',
-        ar: 'تقنيات i18n',
-        it: 'Tecnologie di i18n',
-        tr: 'i18n Teknolojileri',
-      }),
-      subSections: {
-        frameworks: {
-          title: t({
-            en: 'Frameworks',
-            'en-GB': 'Frameworks',
-            fr: 'Frameworks',
-            es: 'Frameworks',
-            de: 'Frameworks',
-            ja: 'フレームワーク',
-            ko: '프레임워크',
-            zh: '框架',
-            it: 'Frameworks',
-            pt: 'Frameworks',
-            hi: 'फ्रेमवर्क',
-            ar: 'الإطارات',
-            ru: 'Фреймворки',
-            tr: 'Frameworks',
-          }),
-          subSections: {
-            angular: {
-              title: 'Angular',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/frameworks/angular.md'
-              ),
-            },
-            react: {
-              title: 'React',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/frameworks/react.md'
-              ),
-            },
-            vue: {
-              title: 'Vue',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/frameworks/vue.md'
-              ),
-            },
-            svelte: {
-              title: 'Svelte',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/frameworks/svelte.md'
-              ),
-            },
-            flutter: {
-              title: 'Flutter',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/frameworks/flutter.md'
-              ),
-            },
-            'react-native': {
-              title: 'React Native',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/frameworks/react-native.md'
-              ),
-            },
-          },
-        },
-        CMS: {
-          title: 'CMS',
-          subSections: {
-            wordpress: {
-              title: 'Wordpress',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/CMS/wordpress.md'
-              ),
-            },
-            drupal: {
-              title: 'Drupal',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/CMS/drupal.md'
-              ),
-            },
-            wix: {
-              title: 'Wix',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/CMS/wix.md'
-              ),
-            },
-          },
-        },
-      },
+    // 'intlayer-with-next-i18next': {
+    //   title: t({
+    //     en: 'Intlayer and next-i18next',
+    //     fr: 'Intlayer et next-i18next',
+    //     es: 'Intlayer y next-i18next',
+    //     'en-GB': 'Intlayer and next-i18next',
+    //     de: 'Intlayer und next-i18next',
+    //     ja: 'Intlayerとnext-i18next',
+    //     ko: 'Intlayer와 next-i18next',
+    //     zh: 'Intlayer和next-i18next',
+    //     it: 'Intlayer e next-i18next',
+    //     pt: 'Intlayer e next-i18next',
+    //     hi: 'Intlayer और next-i18next',
+    //     ar: 'Intlayer و next-i18next',
+    //     ru: 'Intlayer и next-i18next',
+    //     tr: 'Intlayer ve next-i18next',
+    //   }),
+    //   default: getBlogMetadata('./blog/en/intlayer_with_next-i18next.md'),
+    // },
+    // 'intlayer-with-react-i18next': {
+    //   title: t({
+    //     en: 'Intlayer and react-i18next',
+    //     'en-GB': 'Intlayer and react-i18next',
+    //     fr: 'Intlayer et react-i18next',
+    //     es: 'Intlayer y react-i18next',
+    //     de: 'Intlayer und react-i18next',
+    //     ja: 'Intlayerとreact-i18next',
+    //     ko: 'Intlayer와 react-i18next',
+    //     zh: 'Intlayer和react-i18next',
+    //     it: 'Intlayer e react-i18next',
+    //     pt: 'Intlayer e react-i18next',
+    //     hi: 'Intlayer और react-i18next',
+    //     ar: 'Intlayer و react-i18next',
+    //     ru: 'Intlayer и react-i18next',
+    //     tr: 'Intlayer ve react-i18next',
+    //   }),
+    //   default: getBlogMetadata('./blog/en/intlayer_with_react-i18next.md'),
+    // },
+    // 'intlayer-with-next-intl': {
+    //   title: t({
+    //     en: 'Intlayer and next-intl',
+    //     'en-GB': 'Intlayer and next-intl',
+    //     fr: 'Intlayer et next-intl',
+    //     es: 'Intlayer y next-intl',
+    //     de: 'Intlayer und next-intl',
+    //     ja: 'Intlayerとnext-intl',
+    //     ko: 'Intlayer와 next-intl',
+    //     zh: 'Intlayer和next-intl',
+    //     it: 'Intlayer e next-intl',
+    //     pt: 'Intlayer e next-intl',
+    //     hi: 'Intlayer और next-intl',
+    //     ar: 'Intlayer و next-intl',
+    //     ru: 'Intlayer и next-intl',
+    //     tr: 'Intlayer ve next-intl',
+    //   }),
+    //   default: getBlogMetadata('./blog/en/intlayer_with_next-intl.md'),
+    // },
+    // 'intlayer-with-react-intl': {
+    //   title: t({
+    //     en: 'Intlayer and react-intl',
+    //     'en-GB': 'Intlayer and react-intl',
+    //     fr: 'Intlayer et react-intl',
+    //     es: 'Intlayer y react-intl',
+    //     de: 'Intlayer und react-intl',
+    //     ja: 'Intlayerとreact-intl',
+    //     ko: 'Intlayer와 react-intl',
+    //     zh: 'Intlayer和react-intl',
+    //     it: 'Intlayer e react-intl',
+    //     pt: 'Intlayer e react-intl',
+    //     hi: 'Intlayer और react-intl',
+    //     ar: 'Intlayer و react-intl',
+    //     ru: 'Intlayer и react-intl',
+    //     tr: 'Intlayer ve react-intl',
+    //   }),
+    //   default: getBlogMetadata('./blog/en/intlayer_with_react-intl.md'),
+    // },
+    'next-i18next-vs-next-intl-vs-intlayer': {
+      title: 'next-i18next vs next-intl vs Intlayer',
+      default: getBlogMetadata(
+        './blog/en/next-i18next_vs_next-intl_vs_intlayer.md'
+      ),
     },
+    'react-i18next-vs-react-intl-vs-intlayer': {
+      title: 'react-i18next vs react-intl vs Intlayer',
+      default: getBlogMetadata(
+        './blog/en/react-i18next_vs_react-intl_vs_intlayer.md'
+      ),
+    },
+    // 'vue-i18n-vs-intlayer': {
+    //   title: 'vue-i18n vs Intlayer',
+    //   default: getBlogMetadata('./blog/en/vue-i18n_vs_intlayer.md'),
+    // },
+
+    // 'i18n-technologies': {
+    //   title: t({
+    //     en: 'i18n Technologies',
+    //     'en-GB': 'i18n Technologies',
+    //     fr: "Technologies d'i18n",
+    //     es: 'Tecnologías de i18n',
+    //     de: 'i18n-Technologien',
+    //     ja: 'i18n テクノロジー',
+    //     ko: 'i18n 기술',
+    //     zh: 'i18n 技术',
+    //     pt: 'Tecnologias de i18n',
+    //     ru: 'Технологии i18n',
+    //     hi: 'i18n तकनीकी',
+    //     ar: 'تقنيات i18n',
+    //     it: 'Tecnologie di i18n',
+    //     tr: 'i18n Teknolojileri',
+    //   }),
+    //   subSections: {
+    //     frameworks: {
+    //       title: t({
+    //         en: 'Frameworks',
+    //         'en-GB': 'Frameworks',
+    //         fr: 'Frameworks',
+    //         es: 'Frameworks',
+    //         de: 'Frameworks',
+    //         ja: 'フレームワーク',
+    //         ko: '프레임워크',
+    //         zh: '框架',
+    //         it: 'Frameworks',
+    //         pt: 'Frameworks',
+    //         hi: 'फ्रेमवर्क',
+    //         ar: 'الإطارات',
+    //         ru: 'Фреймворки',
+    //         tr: 'Frameworks',
+    //       }),
+    //       subSections: {
+    //         angular: {
+    //           title: 'Angular',
+    //           default: getBlogMetadata(
+    //             './blog/en/list_i18n_technologies/frameworks/angular.md'
+    //           ),
+    //         },
+    //         react: {
+    //           title: 'React',
+    //           default: getBlogMetadata(
+    //             './blog/en/list_i18n_technologies/frameworks/react.md'
+    //           ),
+    //         },
+    //         vue: {
+    //           title: 'Vue',
+    //           default: getBlogMetadata(
+    //             './blog/en/list_i18n_technologies/frameworks/vue.md'
+    //           ),
+    //         },
+    //         svelte: {
+    //           title: 'Svelte',
+    //           default: getBlogMetadata(
+    //             './blog/en/list_i18n_technologies/frameworks/svelte.md'
+    //           ),
+    //         },
+    //         flutter: {
+    //           title: 'Flutter',
+    //           default: getBlogMetadata(
+    //             './blog/en/list_i18n_technologies/frameworks/flutter.md'
+    //           ),
+    //         },
+    //         'react-native': {
+    //           title: 'React Native',
+    //           default: getBlogMetadata(
+    //             './blog/en/list_i18n_technologies/frameworks/react-native.md'
+    //           ),
+    //         },
+    //       },
+    //     },
+    //     CMS: {
+    //       title: 'CMS',
+    //       subSections: {
+    //         wordpress: {
+    //           title: 'Wordpress',
+    //           default: getBlogMetadata(
+    //             './blog/en/list_i18n_technologies/CMS/wordpress.md'
+    //           ),
+    //         },
+    //         drupal: {
+    //           title: 'Drupal',
+    //           default: getBlogMetadata(
+    //             './blog/en/list_i18n_technologies/CMS/drupal.md'
+    //           ),
+    //         },
+    //         wix: {
+    //           title: 'Wix',
+    //           default: getBlogMetadata(
+    //             './blog/en/list_i18n_technologies/CMS/wix.md'
+    //           ),
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
   },
 } satisfies Dictionary;
 
