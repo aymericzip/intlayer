@@ -18,6 +18,7 @@ const dictionaryListDrawerContent = {
         zh: '字典列表',
         ar: 'قائمة القواميس',
         hi: 'शब्दकोश सूची',
+        tr: 'Sözlük listesi',
       }),
     },
     buttonLabel: {
@@ -36,6 +37,7 @@ const dictionaryListDrawerContent = {
           zh: '打开字典编辑器 {{dictionaryLocalId}}',
           ar: 'فتح محرر القاموس {{dictionaryLocalId}}',
           hi: 'शब्दकोश संपादक खोलें {{dictionaryLocalId}}',
+          tr: 'Sözlük düzenleyiciyi aç {{dictionaryLocalId}}',
         })
       ),
     },

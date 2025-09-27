@@ -68,6 +68,7 @@ const deleteTagModalContent = {
         hi: 'टैग को हटाने के लिए क्लिक करें',
         ar: 'انقر لحذف الوسم',
         ru: 'Нажмите, чтобы удалить тег',
+        tr: 'Tagı silmek için tıklayın',
       }),
     },
 
@@ -86,6 +87,7 @@ const deleteTagModalContent = {
         hi: 'रद्द करें',
         ar: 'إلغاء',
         ru: 'Отменить',
+        tr: 'İptal etmek için tıklayın',
       }),
       label: t({
         en: 'Click to cancel',
@@ -101,6 +103,7 @@ const deleteTagModalContent = {
         hi: 'रद्द करने के लिए क्लिक करें',
         ar: 'انقر لإلغاء',
         ru: 'Нажмите, чтобы отменить',
+        tr: 'İptal etmek için tıklayın',
       }),
     },
   },
