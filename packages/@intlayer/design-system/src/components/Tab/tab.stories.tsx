@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tab, TabItem } from './Tab';
+import { Tab } from './Tab';
 
 const meta: Meta<typeof Tab> = {
   title: 'Components/Tab',
@@ -29,7 +29,7 @@ export const Default: Story = {
   render: (args) => (
     <div className="w-96">
       <Tab {...args}>
-        <TabItem label="First Tab" value="tab1">
+        <Tab.Item label="First Tab" value="tab1">
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">First Tab Content</h3>
             <p>
@@ -42,8 +42,8 @@ export const Default: Story = {
               <li>Feature 3</li>
             </ul>
           </div>
-        </TabItem>
-        <TabItem label="Second Tab" value="tab2">
+        </Tab.Item>
+        <Tab.Item label="Second Tab" value="tab2">
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Second Tab Content</h3>
             <p>
@@ -54,8 +54,8 @@ export const Default: Story = {
               <p>This is a highlighted section within the tab content.</p>
             </div>
           </div>
-        </TabItem>
-        <TabItem label="Third Tab" value="tab3">
+        </Tab.Item>
+        <Tab.Item label="Third Tab" value="tab3">
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Third Tab Content</h3>
             <p>The third tab demonstrates how multiple tabs work together.</p>
@@ -63,7 +63,7 @@ export const Default: Story = {
               console.log('Hello from tab 3!');
             </code>
           </div>
-        </TabItem>
+        </Tab.Item>
       </Tab>
     </div>
   ),
@@ -77,18 +77,18 @@ export const Bordered: Story = {
   render: (args) => (
     <div className="w-96">
       <Tab {...args}>
-        <TabItem label="Overview" value="overview">
+        <Tab.Item label="Overview" value="overview">
           <div className="space-y-3">
             <h4 className="font-semibold">Project Overview</h4>
             <p>This tab has a bordered variant styling.</p>
           </div>
-        </TabItem>
-        <TabItem label="Details" value="details">
+        </Tab.Item>
+        <Tab.Item label="Details" value="details">
           <div className="space-y-3">
             <h4 className="font-semibold">Project Details</h4>
             <p>Detailed information about the project.</p>
           </div>
-        </TabItem>
+        </Tab.Item>
       </Tab>
     </div>
   ),
@@ -102,7 +102,7 @@ export const Ghost: Story = {
   render: (args) => (
     <div className="w-96">
       <Tab {...args}>
-        <TabItem label="Documentation" value="docs">
+        <Tab.Item label="Documentation" value="docs">
           <div className="space-y-3">
             <h4 className="font-semibold">Documentation</h4>
             <p>
@@ -110,19 +110,19 @@ export const Ghost: Story = {
               interfaces.
             </p>
           </div>
-        </TabItem>
-        <TabItem label="Examples" value="examples">
+        </Tab.Item>
+        <Tab.Item label="Examples" value="examples">
           <div className="space-y-3">
             <h4 className="font-semibold">Examples</h4>
             <p>Code examples and usage patterns.</p>
           </div>
-        </TabItem>
-        <TabItem label="API" value="api">
+        </Tab.Item>
+        <Tab.Item label="API" value="api">
           <div className="space-y-3">
             <h4 className="font-semibold">API Reference</h4>
             <p>Complete API documentation and reference.</p>
           </div>
-        </TabItem>
+        </Tab.Item>
       </Tab>
     </div>
   ),
@@ -135,24 +135,24 @@ export const WithDisabledTab: Story = {
   render: (args) => (
     <div className="w-96">
       <Tab {...args}>
-        <TabItem label="Active Tab" value="active1">
+        <Tab.Item label="Active Tab" value="active1">
           <div className="space-y-3">
             <h4 className="font-semibold">Active Tab</h4>
             <p>This tab is active and clickable.</p>
           </div>
-        </TabItem>
-        <TabItem label="Disabled Tab" value="disabled" disabled>
+        </Tab.Item>
+        <Tab.Item label="Disabled Tab" value="disabled" disabled>
           <div className="space-y-3">
             <h4 className="font-semibold">Disabled Tab</h4>
             <p>This tab is disabled and cannot be clicked.</p>
           </div>
-        </TabItem>
-        <TabItem label="Another Active" value="active2">
+        </Tab.Item>
+        <Tab.Item label="Another Active" value="active2">
           <div className="space-y-3">
             <h4 className="font-semibold">Another Active Tab</h4>
             <p>This tab is also active and clickable.</p>
           </div>
-        </TabItem>
+        </Tab.Item>
       </Tab>
     </div>
   ),
