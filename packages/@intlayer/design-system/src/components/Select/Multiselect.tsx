@@ -24,21 +24,53 @@ import { cn } from '../../utils/cn';
 import { Badge, BadgeColor } from '../Badge';
 import { Command, CommandRoot } from '../Command';
 
+/**
+ * Context properties for MultiSelect component state management
+ *
+ * @interface MultiSelectContextProps
+ */
 type MultiSelectContextProps = {
+  /** Array of currently selected values */
   value: string[];
+  /** Handler for value changes */
   onValueChange: (value: string) => void;
+  /** Whether the dropdown is currently open */
   open: boolean;
+  /** Function to set the open state */
   setOpen: (value: boolean) => void;
+  /** Current input field value for filtering */
   inputValue: string;
+  /** Function to set the input value */
   setInputValue: Dispatch<SetStateAction<string>>;
+  /** Index of currently focused option for keyboard navigation */
   activeIndex: number;
+  /** Function to set the active index */
   setActiveIndex: Dispatch<SetStateAction<number>>;
+  /** Ref to the input element */
   ref: RefObject<HTMLInputElement | null>;
+  /** Handler for option selection */
   handleSelect: (e: SyntheticEvent<HTMLInputElement>) => void;
 };
 
 const MultiSelectContext = createContext<MultiSelectContextProps | null>(null);
 
+/**
+ * Custom hook to access MultiSelect context
+ *
+ * Provides access to the internal state and methods of the MultiSelect component.
+ * Must be used within a MultiSelect component tree.
+ *
+ * @returns MultiSelectContextProps - All context properties and methods
+ * @throws Error when used outside of MultiSelect component
+ *
+ * @example
+ * ```tsx
+ * function CustomMultiSelectItem() {
+ *   const { value, onValueChange, open } = useMultiSelect();
+ *   // Use context properties...
+ * }
+ * ```
+ */
 const useMultiSelect = () => {
   const context = useContext(MultiSelectContext);
   if (!context) {
@@ -48,36 +80,145 @@ const useMultiSelect = () => {
 };
 
 /**
- * MultiSelect Docs: {@link: https://shadcn-extension.vercel.app/docs/multi-select}
+ * Props interface for the main MultiSelect component
+ *
+ * @interface MultiSelectProps
  */
-
 type MultiSelectProps = ComponentProps<typeof CommandRoot> & {
+  /**
+   * Array of selected values (controlled mode)
+   * @example
+   * ```tsx
+   * const [selected, setSelected] = useState(['react', 'vue']);
+   * <MultiSelect values={selected} onValueChange={setSelected} />
+   * ```
+   */
   values?: string[];
+
+  /**
+   * Default selected values for uncontrolled mode
+   * @example
+   * ```tsx
+   * <MultiSelect defaultValues={['react']} />
+   * ```
+   */
   defaultValues?: string[];
+
+  /**
+   * Callback fired when selection changes
+   * @param value - New array of selected values
+   * @example
+   * ```tsx
+   * <MultiSelect onValueChange={(values) => console.log('Selected:', values)} />
+   * ```
+   */
   onValueChange?: (value: string[]) => void;
+
+  /**
+   * Whether keyboard navigation should loop through options
+   * @default false
+   * @example
+   * ```tsx
+   * <MultiSelect loop /> // Arrow keys wrap around at list boundaries
+   * ```
+   */
   loop?: boolean;
 };
 
 /**
+ * MultiSelect - A comprehensive multi-selection dropdown component
  *
- * Usage example:
- * ```jsx
- * <MultiSelect
- *   values={value}
- *   onValuesChange={setValue}
- *   loop
- * >
- *   <MultiSelectTrigger>
- *     <MultiSelectInput placeholder="Select your framework" />
- *   </MultiSelectTrigger>
- *   <MultiSelectContent>
- *     <MultiSelectList>
- *       <MultiSelectItem value={"React"}>React</MultiSelectItem>
- *       <MultiSelectItem value={"Vue"}>Vue</MultiSelectItem>
- *       <MultiSelectItem value={"Svelte"}>Svelte</MultiSelectItem>
- *     </MultiSelectList>
- *   </MultiSelectContent>
+ * An advanced multi-select component that combines the functionality of a searchable dropdown
+ * with the ability to select multiple values. Built on top of Command component primitives,
+ * it provides filtering, keyboard navigation, and visual feedback through badges.
+ *
+ * ## Key Features
+ * - **Multi-Selection**: Select multiple options with visual badge representation
+ * - **Searchable**: Built-in filtering to quickly find options in large lists
+ * - **Keyboard Navigation**: Full arrow key navigation with optional looping
+ * - **Accessibility**: Screen reader support, ARIA attributes, and focus management
+ * - **Flexible State**: Both controlled and uncontrolled usage patterns
+ * - **Rich UI**: Customizable badges, icons, and content layout
+ *
+ * ## Use Cases
+ * - Tag/category selection in forms
+ * - Multi-user assignment interfaces
+ * - Feature/permission selection
+ * - Filter selection in search interfaces
+ * - Any multi-choice selection requirement
+ *
+ * ## Architecture
+ * The component follows a compound pattern similar to Select:
+ * - `MultiSelect` (root): Manages state and provides context
+ * - `MultiSelect.Trigger`: Container for input and selected badges
+ * - `MultiSelect.Input`: Searchable input field with filtering
+ * - `MultiSelect.Content`: Dropdown container for options
+ * - `MultiSelect.List`: Options container with keyboard navigation
+ * - `MultiSelect.Item`: Individual selectable options
+ *
+ * ## Accessibility
+ * - **Keyboard Navigation**: Arrow keys, Enter to select, Backspace to remove
+ * - **Screen Readers**: Proper ARIA labels and live region announcements
+ * - **Focus Management**: Clear focus indicators and logical tab flow
+ * - **Search**: Real-time filtering with screen reader announcements
+ *
+ * @example
+ * Basic multi-select usage:
+ * ```tsx
+ * const [frameworks, setFrameworks] = useState<string[]>([]);
+ *
+ * <MultiSelect values={frameworks} onValueChange={setFrameworks}>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.Input placeholder="Select frameworks..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.List>
+ *       <MultiSelect.Item value="react">React</MultiSelect.Item>
+ *       <MultiSelect.Item value="vue">Vue</MultiSelect.Item>
+ *       <MultiSelect.Item value="svelte">Svelte</MultiSelect.Item>
+ *     </MultiSelect.List>
+ *   </MultiSelect.Content>
  * </MultiSelect>
+ * ```
+ *
+ * @example
+ * Advanced usage with keyboard looping:
+ * ```tsx
+ * <MultiSelect defaultValues={['react']} loop>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.Input placeholder="Choose technologies..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.List>
+ *       <MultiSelect.Item value="react">⚛️ React</MultiSelect.Item>
+ *       <MultiSelect.Item value="vue">💚 Vue</MultiSelect.Item>
+ *       <MultiSelect.Item value="angular">🔴 Angular</MultiSelect.Item>
+ *     </MultiSelect.List>
+ *   </MultiSelect.Content>
+ * </MultiSelect>
+ * ```
+ *
+ * @example
+ * Form integration with validation:
+ * ```tsx
+ * <form>
+ *   <MultiSelect
+ *     values={selectedSkills}
+ *     onValueChange={setSelectedSkills}
+ *     required
+ *   >
+ *     <MultiSelect.Trigger className="min-h-[2.5rem]">
+ *       <MultiSelect.Input placeholder="Select your skills..." />
+ *     </MultiSelect.Trigger>
+ *     <MultiSelect.Content>
+ *       <MultiSelect.List>
+ *         <MultiSelect.Item value="javascript">JavaScript</MultiSelect.Item>
+ *         <MultiSelect.Item value="typescript">TypeScript</MultiSelect.Item>
+ *         <MultiSelect.Item value="python">Python</MultiSelect.Item>
+ *       </MultiSelect.List>
+ *     </MultiSelect.Content>
+ *   </MultiSelect>
+ * </form>
  * ```
  */
 const MultiSelectRoot: FC<MultiSelectProps> = ({
