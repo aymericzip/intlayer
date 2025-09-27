@@ -166,6 +166,12 @@ How the library handles fallbacks is also important. Let's consider that the app
 
 In the case of `next-intl` and `next-i18next`, the library requires loading the JSON related to the current locale, but also to the fallback locale. Thus, considering that all content has been translated, each page will load 100% unnecessary content. **In comparison, `intlayer` processes the fallback at dictionary build time. Thus, each page will load only the content used.**
 
+Here an example of the impact of bundle size optimization using `intlayer`:
+
+| Optimized bundle                                                                             | No optimized bundle                                                                                             |
+| -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| ![optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png) | ![no optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png) |
+
 ---
 
 ## Developer Experience
@@ -176,7 +182,8 @@ This part makes a deep comparison between the three solutions. Rather than consi
 
 The app structure is important to ensure good maintainability for your codebase.
 
-### next-intl
+<Tabs>
+  <TabItem label="next-intl">
 
 ```bash
 .
@@ -199,7 +206,8 @@ The app structure is important to ensure good maintainability for your codebase.
             └── Navbar.tsx
 ```
 
-### next-i18next
+  </TabItem>
+  <TabItem label="next-i18next">
 
 ```bash
 .
@@ -224,7 +232,8 @@ The app structure is important to ensure good maintainability for your codebase.
             └── Navbar.tsx
 ```
 
-### intlayer
+  </TabItem>
+  <TabItem label="intlayer">
 
 ```bash
 .
@@ -238,6 +247,9 @@ The app structure is important to ensure good maintainability for your codebase.
             ├── Navbar.tsx
             └── navbar.content.ts
 ```
+
+  </TabItem>
+</Tabs>
 
 ### Comparison
 
@@ -268,7 +280,7 @@ To solve this problem, Intlayer adopts an approach that scopes your content per-
 This approach allows you to:
 
 1. **Increase the speed of development**
-   - `.content.{{ts|mjs|cjs|json}}` files can be created using a VSCode extension
+   - `.content.{{ts|js|json}}` files can be created using a VSCode extension
    - Autocompletion AI tools in your IDE (such as GitHub Copilot) can help you declare your content, reducing copy/paste
 
 2. **Clean your codebase**
@@ -295,7 +307,8 @@ This approach allows you to:
 As mentioned previously, you must optimize how each JSON file is imported into your code.
 How the library handles content loading is important.
 
-#### next-intl
+<Tabs>
+  <TabItem label="next-intl">
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -367,7 +380,8 @@ export default async function LandingPage({
 }
 ```
 
-#### next-i18next
+  </TabItem>
+  <TabItem label="next-i18next">
 
 ```tsx fileName="next-i18next.config.js"
 module.exports = {
@@ -431,7 +445,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 ```
 
-#### Intlayer
+  </TabItem>
+  <TabItem label="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -440,31 +455,6 @@ export default {
     defaultLocale: "en",
   },
 };
-```
-
-```tsx fileName="src/app/[locale]/layout.tsx"
-import { getHTMLTextDir } from "intlayer";
-import {
-  IntlayerClientProvider,
-  generateStaticParams,
-  type NextLayoutIntlayer,
-} from "next-intlayer";
-
-export const dynamic = "force-static";
-
-const LandingLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  const { locale } = await params;
-
-  return (
-    <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerClientProvider locale={locale}>
-        {children}
-      </IntlayerClientProvider>
-    </html>
-  );
-};
-
-export default LandingLayout;
 ```
 
 ```tsx fileName="src/app/[locale]/layout.tsx"
@@ -516,6 +506,9 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
+  </TabItem>
+</Tabs>
+
 #### Comparison
 
 In comparison to other solutions, Intlayer uses plugins to optimize the import of content at build time.
@@ -530,7 +523,8 @@ Intlayer also provides a Provider for your server components. We'll see why late
 
 Let's take an example of a client component rendering a counter.
 
-#### next-i18next
+<Tabs>
+  <TabItem label="next-i18next">
 
 **Translations (must be real JSON in `public/locales/...`)**
 
@@ -581,10 +575,11 @@ export default function ClientComponentExample() {
 }
 ```
 
-> Don’t forget to add "about" namespace on the page serverSideTranslations
+> Don't forget to add "about" namespace on the page serverSideTranslations
 > We take here the version of react 19.x.x, but for lower versions, you will need to use useMemo to store the instance of the formatter as it's a heavy function
 
-#### next-intl
+  </TabItem>
+  <TabItem label="next-intl">
 
 **Translations (shape reused; load them into next-intl messages as you prefer)**
 
@@ -631,9 +626,10 @@ export default function ClientComponentExample() {
 }
 ```
 
-> Don’t forget to add "about" message on the page client message
+> Don't forget to add "about" message on the page client message
 
-#### Intlayer
+  </TabItem>
+  <TabItem label="intlayer">
 
 **Content**
 
@@ -675,6 +671,9 @@ export default function ClientComponentExample() {
 }
 ```
 
+  </TabItem>
+</Tabs>
+
 #### Comparison
 
 - **Number formatting**
@@ -696,7 +695,8 @@ export default function ClientComponentExample() {
 
 We will take the case of a UI component. This component is a server component, and should be able to be inserted as a child of a client component. (page (server component) -> client component -> server component). As this component can be inserted as a child of a client component, it cannot be async.
 
-### next-i18next
+<Tabs>
+  <TabItem label="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
 import React from "react";
@@ -729,9 +729,8 @@ export default function ServerComponent({
 > - `const { t, i18n } = useTranslation("about");`
 > - `const formatted = new Intl.NumberFormat(i18n.language).format(initialCount);`
 
----
-
-### next-intl
+  </TabItem>
+  <TabItem label="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { getTranslations, getFormatter } from "next-intl/server";
@@ -759,9 +758,8 @@ export default async function ServerComponent({
 > - `const t = await getTranslations("about.counter");`
 > - `const format = await getFormatter();`
 
----
-
-### Intlayer (App Router, Server Provider + Server hook)
+  </TabItem>
+  <TabItem label="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -781,6 +779,9 @@ const ServerComponent = ({ count }: { count: number }) => {
 
 > Intlayer exposes **server-safe** hooks via `next-intlayer/server`. To work, `useIntlayer` and `useNumber` use hooks-like syntax, similar to the client hooks, but depend under the hood on the server context (`IntlayerServerProvider`).
 
+  </TabItem>
+</Tabs>
+
 ### Metadata / Sitemap / Robots
 
 Translating content is great. But people usually forget that the main goal of internationalization is to make your website more visible to the world. I18n is an incredible lever to improve your website visibility.
@@ -798,7 +799,8 @@ Here's a list of good practices regarding multilingual SEO.
 
 Developers often forget to properly reference their pages across locales.
 
-#### next-intl
+<Tabs>
+  <TabItem label="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx
 import type { Metadata } from "next";
@@ -885,7 +887,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-#### next-i18next
+  </TabItem>
+  <TabItem label="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -985,7 +988,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-#### Intlayer
+  </TabItem>
+  <TabItem label="intlayer">
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1028,11 +1032,6 @@ export const generateMetadata = async ({
 // ... Rest of the page code
 ````
 
-```tsx fileName="src/app/about/page.tsx"
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
-import { ClientComponent, ServerComponent } from "@components";
-```
-
 ```tsx fileName="src/app/sitemap.ts"
 import { getMultilingualUrls } from "intlayer";
 import type { MetadataRoute } from "next";
@@ -1048,8 +1047,8 @@ const sitemap = (): MetadataRoute.Sitemap => [
 ```
 
 ```tsx fileName="src/app/robots.ts"
-import type { MetadataRoute } from "next";
 import { getMultilingualUrls } from "intlayer";
+import type { MetadataRoute } from "next";
 
 const getAllMultilingualUrls = (urls: string[]) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
@@ -1069,91 +1068,8 @@ export default robots;
 
 > Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
 
----
-
-#### Intlayer
-
-````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx"
-import { getIntlayer, getMultilingualUrls } from "intlayer";
-import type { Metadata } from "next";
-import type { LocalPromiseParams } from "next-intlayer";
-
-export const generateMetadata = async ({
-  params,
-}: LocalPromiseParams): Promise<Metadata> => {
-  const { locale } = await params;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Generates an object containing all url for each locale.
-   *
-   * Example:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Returns
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/about");
-
-  return {
-    ...metadata,
-    alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
-      languages: { ...multilingualUrls, "x-default": "/about" },
-    },
-  };
-};
-
-// ... Rest of the code
-````
-
-```tsx fileName="src/app/about/page.tsx"
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
-import { ClientComponent, ServerComponent } from "@components";
-```
-
-```tsx fileName="src/app/sitemap.ts"
-import { getMultilingualUrls } from "intlayer";
-import type { MetadataRoute } from "next";
-
-const sitemap = (): MetadataRoute.Sitemap => [
-  {
-    url: "https://example.com/about",
-    alternates: {
-      languages: { ...getMultilingualUrls("https://example.com/about") },
-    },
-  },
-];
-```
-
-```tsx fileName="src/app/robots.ts"
-import type { MetadataRoute } from "next";
-import { getMultilingualUrls } from "intlayer";
-
-const getAllMultilingualUrls = (urls: string[]) =>
-  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
-
-const robots = (): MetadataRoute.Robots => ({
-  rules: {
-    userAgent: "*",
-    allow: ["/"],
-    disallow: getAllMultilingualUrls(["/dashboard"]),
-  },
-  host: "https://example.com",
-  sitemap: `https://example.com/sitemap.xml`,
-});
-
-export default robots;
-```
-
-> Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
+  </TabItem>
+</Tabs>
 
 ---
 
