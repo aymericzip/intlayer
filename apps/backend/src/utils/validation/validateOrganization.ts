@@ -58,10 +58,6 @@ export const validateOrganization = (
     }
 
     if (field === 'membersIds' || field === 'adminsIds') {
-      console.log('field', field);
-      console.log('value', value);
-      console.log('typeof value', typeof value);
-
       const membersErrors = validateArray<string>(
         value as unknown as string[],
         'Members',
