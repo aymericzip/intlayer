@@ -7,6 +7,9 @@ import {
 } from 'react';
 import { Loader } from '../Loader';
 
+/**
+ * Button size variants for different use cases
+ */
 export enum ButtonSize {
   SM = 'sm',
   MD = 'md',
@@ -18,6 +21,9 @@ export enum ButtonSize {
   ICON_XL = 'icon-xl',
 }
 
+/**
+ * Icon positioning within the button
+ */
 export enum ButtonIconPosition {
   LEFT = 'left',
   RIGHT = 'right',
@@ -45,6 +51,9 @@ const buttonIconVariants = cva('', {
   },
 });
 
+/**
+ * Button visual style variants
+ */
 export enum ButtonVariant {
   DEFAULT = 'default',
   NONE = 'none',
@@ -55,6 +64,9 @@ export enum ButtonVariant {
   INPUT = 'input',
 }
 
+/**
+ * Button color themes that work with the design system
+ */
 export enum ButtonColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
@@ -69,14 +81,20 @@ export enum ButtonColor {
   CUSTOM = 'custom',
 }
 
+/**
+ * Text alignment options for button content
+ */
 export enum ButtonTextAlign {
   LEFT = 'left',
   CENTER = 'center',
   RIGHT = 'right',
 }
 
+/**
+ * Enhanced button variants with improved accessibility and focus states
+ */
 const buttonVariants = cva(
-  'relative cursor-pointer truncate whitespace-nowrap font-medium transition focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50',
+  'relative cursor-pointer truncate whitespace-nowrap font-medium transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 focus:ring-2 focus:ring-offset-2 active:scale-[0.98]',
   {
     variants: {
       size: {
@@ -90,24 +108,35 @@ const buttonVariants = cva(
         [`${ButtonSize.ICON_XL}`]: 'p-3',
       },
       color: {
-        [`${ButtonColor.PRIMARY}`]: 'text-primary *:text-text-light',
-        [`${ButtonColor.SECONDARY}`]: 'text-secondary *:text-text-light',
-        [`${ButtonColor.DESTRUCTIVE}`]: 'text-destructive *:text-text-light',
-        [`${ButtonColor.NEUTRAL}`]: 'text-neutral *:text-text-light',
-        [`${ButtonColor.LIGHT}`]: 'text-white *:text-text-light',
-        [`${ButtonColor.DARK}`]: 'text-neutral-800 *:text-text-light',
-        [`${ButtonColor.TEXT}`]: 'text-text *:text-text-opposite',
-        [`${ButtonColor.TEXT_INVERSE}`]: 'text-text-opposite *:text-text',
-        [`${ButtonColor.ERROR}`]: 'text-error *:text-text-light',
-        [`${ButtonColor.SUCCESS}`]: 'text-success *:text-text-light',
-        [`${ButtonColor.CUSTOM}`]: '',
+        [`${ButtonColor.PRIMARY}`]:
+          'text-primary *:text-text-light focus:ring-primary-500',
+        [`${ButtonColor.SECONDARY}`]:
+          'text-secondary *:text-text-light focus:ring-secondary-500',
+        [`${ButtonColor.DESTRUCTIVE}`]:
+          'text-destructive *:text-text-light focus:ring-destructive-500',
+        [`${ButtonColor.NEUTRAL}`]:
+          'text-neutral *:text-text-light focus:ring-neutral-500',
+        [`${ButtonColor.LIGHT}`]:
+          'text-white *:text-text-light focus:ring-white/50',
+        [`${ButtonColor.DARK}`]:
+          'text-neutral-800 *:text-text-light focus:ring-neutral-800/50',
+        [`${ButtonColor.TEXT}`]:
+          'text-text *:text-text-opposite focus:ring-neutral-500',
+        [`${ButtonColor.TEXT_INVERSE}`]:
+          'text-text-opposite *:text-text focus:ring-neutral-500',
+        [`${ButtonColor.ERROR}`]:
+          'text-error *:text-text-light focus:ring-error/50',
+        [`${ButtonColor.SUCCESS}`]:
+          'text-success *:text-text-light focus:ring-success/50',
+        [`${ButtonColor.CUSTOM}`]: 'focus:ring-primary-500',
       },
       variant: {
-        [`${ButtonVariant.DEFAULT}`]: 'rounded-lg bg-current',
+        [`${ButtonVariant.DEFAULT}`]:
+          'rounded-lg bg-current hover:bg-current/90',
         [`${ButtonVariant.NONE}`]:
           'border-none bg-current/0 text-inherit hover:bg-current/0',
         [`${ButtonVariant.OUTLINE}`]:
-          '*:!text-current rounded-lg border-[1.5px] bg-current/0 hover:bg-current/30',
+          '*:!text-current rounded-lg border-[1.5px] bg-current/0 hover:bg-current/30 border-current',
         [`${ButtonVariant.LINK}`]:
           '*:!text-current h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 hover:bg-transparent hover:underline',
         [`${ButtonVariant.INVISIBLE_LINK}`]:
@@ -154,23 +183,117 @@ const buttonVariants = cva(
   }
 );
 
+/**
+ * Enhanced Button component props with comprehensive type safety and accessibility features
+ */
 export type ButtonProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 > &
   VariantProps<typeof buttonVariants> & {
     /**
-     * Optional icon to be displayed on the button
+     * Accessible label for screen readers and assistive technologies.
+     * This is required for accessibility compliance.
      */
     label: string;
+
+    /**
+     * Optional icon to display on the left side of the button
+     */
     Icon?: FC | LucideIcon;
+
+    /**
+     * Optional icon to display on the right side of the button
+     */
     IconRight?: FC | LucideIcon;
+
+    /**
+     * Additional CSS classes for icon styling
+     */
     iconClassName?: string;
+
+    /**
+     * Shows loading spinner and disables button interaction when true
+     */
     isLoading?: boolean;
+
+    /**
+     * Marks the button as active (useful for navigation or toggle states)
+     */
     isActive?: boolean;
+
+    /**
+     * Makes the button span the full width of its container
+     */
     isFullWidth?: boolean;
+
+    /**
+     * Additional description for complex buttons (optional)
+     */
+    'aria-describedby'?: string;
+
+    /**
+     * Expanded state for collapsible sections (optional)
+     */
+    'aria-expanded'?: boolean;
+
+    /**
+     * Controls whether the button has popup/menu (optional)
+     */
+    'aria-haspopup'?:
+      | boolean
+      | 'true'
+      | 'false'
+      | 'menu'
+      | 'listbox'
+      | 'tree'
+      | 'grid'
+      | 'dialog';
+
+    /**
+     * Indicates if button controls are currently pressed (for toggle buttons)
+     */
+    'aria-pressed'?: boolean;
   };
 
+/**
+ * Button Component - A comprehensive, accessible button component
+ *
+ * Features:
+ * - Full accessibility compliance with ARIA attributes
+ * - Multiple variants and sizes for different use cases
+ * - Icon support (left and right positioning)
+ * - Loading states with spinner
+ * - Keyboard navigation support
+ * - Focus management with visible indicators
+ * - Responsive design adaptations
+ *
+ * @example
+ * ```tsx
+ * // Basic button
+ * <Button label="Click me">Click me</Button>
+ *
+ * // Button with icon and loading state
+ * <Button
+ *   label="Save document"
+ *   Icon={SaveIcon}
+ *   isLoading={saving}
+ *   disabled={!hasChanges}
+ * >
+ *   Save
+ * </Button>
+ *
+ * // Destructive action button
+ * <Button
+ *   variant={ButtonVariant.OUTLINE}
+ *   color={ButtonColor.DESTRUCTIVE}
+ *   label="Delete item permanently"
+ *   aria-describedby="delete-warning"
+ * >
+ *   Delete
+ * </Button>
+ * ```
+ */
 export const Button: FC<ButtonProps> = ({
   variant,
   size,
@@ -179,25 +302,40 @@ export const Button: FC<ButtonProps> = ({
   Icon,
   IconRight,
   iconClassName,
-  isLoading,
-  isActive,
+  isLoading = false,
+  isActive = false,
   isFullWidth = false,
   textAlign,
   disabled,
   label,
   className,
   type = 'button',
+  'aria-describedby': ariaDescribedBy,
+  'aria-expanded': ariaExpanded,
+  'aria-haspopup': ariaHasPopup,
+  'aria-pressed': ariaPressed,
   ...props
 }) => {
-  const isLink = variant === 'link' || variant === 'invisible-link';
+  const isLink =
+    variant === ButtonVariant.LINK || variant === ButtonVariant.INVISIBLE_LINK;
+  const isIconOnly = !children && (Icon || IconRight);
+
+  const accessibilityProps = {
+    'aria-label': isIconOnly ? label : undefined,
+    'aria-labelledby': !isIconOnly ? undefined : undefined,
+    'aria-describedby': ariaDescribedBy,
+    'aria-expanded': ariaExpanded,
+    'aria-haspopup': ariaHasPopup,
+    'aria-pressed': isActive !== undefined ? isActive : ariaPressed,
+    'aria-busy': isLoading,
+    'aria-current': (isActive ? 'page' : undefined) as 'page' | undefined,
+    'aria-disabled': disabled || isLoading,
+  };
 
   return (
     <button
       disabled={isLoading || disabled}
-      aria-current={isActive ? 'page' : undefined}
-      aria-label={label}
-      aria-busy={isLoading}
-      role={isLink ? 'link' : undefined}
+      role={isLink ? 'link' : 'button'}
       type={type}
       className={buttonVariants({
         variant,
@@ -209,13 +347,14 @@ export const Button: FC<ButtonProps> = ({
           (IconRight ? ButtonTextAlign.LEFT : ButtonTextAlign.CENTER),
         hasIconLeft: Boolean(
           typeof children !== 'undefined' &&
-            (typeof Icon !== 'undefined' || typeof isLoading !== 'undefined')
+            (typeof Icon !== 'undefined' || isLoading)
         ),
         hasIconRight: Boolean(
           typeof children !== 'undefined' && typeof IconRight !== 'undefined'
         ),
         className,
       })}
+      {...accessibilityProps}
       {...props}
     >
       {Icon && !isLoading && (
@@ -225,6 +364,7 @@ export const Button: FC<ButtonProps> = ({
             className: iconClassName,
             position: ButtonIconPosition.LEFT,
           })}
+          aria-hidden="true"
         />
       )}
 
@@ -234,10 +374,14 @@ export const Button: FC<ButtonProps> = ({
           className: iconClassName,
           position: ButtonIconPosition.LEFT,
         })}
-        isLoading={isLoading ?? false}
+        isLoading={isLoading}
+        aria-hidden="true"
+        data-testid="loader"
       />
 
-      <span>{children}</span>
+      {children && <span>{children}</span>}
+
+      {!children && isIconOnly && <span className="sr-only">{label}</span>}
 
       {IconRight && (
         <IconRight
@@ -246,6 +390,7 @@ export const Button: FC<ButtonProps> = ({
             className: iconClassName,
             position: ButtonIconPosition.RIGHT,
           })}
+          aria-hidden="true"
         />
       )}
     </button>
