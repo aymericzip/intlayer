@@ -47,8 +47,6 @@ We focus on **Next.js 13+ App Router** (with **React Server Components**) and ev
 
 ---
 
-**October 2025:**
-
 | Library                | GitHub Stars                                                                                                                                                            | Total Commits                                                                                                                                                               | Last Commit                                                                                                                                  | First Version | NPM Version                                                                                                | NPM Downloads                                                                                                         |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `aymericzip/intlayer`  | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=flat&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers)   | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=flat&label=commits)](https://github.com/aymericzip/intlayer/commits)   | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=flat)](https://github.com/aymericzip/intlayer/commits)   | April 2024    | [![npm](https://img.shields.io/npm/v/intlayer?style=flat)](https://www.npmjs.com/package/intlayer)         | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=flat)](https://www.npmjs.com/package/intlayer)         |
@@ -57,8 +55,6 @@ We focus on **Next.js 13+ App Router** (with **React Server Components**) and ev
 | `i18next/next-i18next` | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/next-i18next?style=flat&label=%E2%AD%90%20stars)](https://github.com/i18next/next-i18next/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/next-i18next?style=flat&label=commits)](https://github.com/i18next/next-i18next/commits) | [![Last Commit](https://img.shields.io/github/last-commit/i18next/next-i18next?style=flat)](https://github.com/i18next/next-i18next/commits) | Nov 2018      | [![npm](https://img.shields.io/npm/v/next-i18next?style=flat)](https://www.npmjs.com/package/next-i18next) | [![npm downloads](https://img.shields.io/npm/dm/next-i18next?style=flat)](https://www.npmjs.com/package/next-i18next) |
 
 > Badges update automatically. Snapshots will vary over time.
-
-[![Star History Chart](https://api.star-history.com/svg?repos=i18next/i18next&repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/i18next&i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 
@@ -166,9 +162,9 @@ How the library handles fallbacks is also important. Let's consider that the app
 
 In the case of `next-intl` and `next-i18next`, the library requires loading the JSON related to the current locale, but also to the fallback locale. Thus, considering that all content has been translated, each page will load 100% unnecessary content. **In comparison, `intlayer` processes the fallback at dictionary build time. Thus, each page will load only the content used.**
 
-Here an example of the impact of bundle size optimization using `intlayer`:
+Here an example of the impact of bundle size optimization using `intlayer` in a vite + react application:
 
-| Optimized bundle                                                                             | No optimized bundle                                                                                             |
+| Optimized bundle                                                                             | Bundle no optimized                                                                                             |
 | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | ![optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png) | ![no optimized bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png) |
 
@@ -182,8 +178,7 @@ This part makes a deep comparison between the three solutions. Rather than consi
 
 The app structure is important to ensure good maintainability for your codebase.
 
-<Tabs>
-  <TabItem label="next-intl">
+#### next-intl
 
 ```bash
 .
@@ -199,15 +194,15 @@ The app structure is important to ensure good maintainability for your codebase.
 │      └── navbar.json
 ├── i18n.ts
 └── src
-    ├── pages
+    ├── middleware.ts
+    ├── app
     │   └── home.tsx
     └── components
         └── Navbar
-            └── Navbar.tsx
+            └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-i18next">
+#### next-i18next
 
 ```bash
 .
@@ -223,41 +218,39 @@ The app structure is important to ensure good maintainability for your codebase.
 │          ├── home.json
 │          └── navbar.json
 ├── next-i18next.config.js
-├── pages
-│   ├── _app.tsx
-│   └── home.tsx
 └── src
+    ├── middleware.ts
+    ├── app
+    │   └── home.tsx
     └── components
         └── Navbar
-            └── Navbar.tsx
+            └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer">
+#### intlayer
 
 ```bash
 .
 ├── intlayer.config.ts
 └── src
-    ├── pages
-    │   ├── home.tsx
-    │   └── home.content.ts
+    ├── middleware.ts
+    ├── app
+    │   └── home
+    │       └── index.tsx
+    │       └── index.content.ts
     └── components
         └── Navbar
-            ├── Navbar.tsx
-            └── navbar.content.ts
+            ├── index.tsx
+            └── index.content.ts
 ```
 
-  </TabItem>
-</Tabs>
+#### Comparison
 
-### Comparison
-
-#### Configuration
+##### Configuration
 
 Intlayer uses a centralized configuration file to set up your locale, middleware, build, etc.
 
-#### Content declaration
+##### Content declaration
 
 The centralized type of architecture slows down the development process and makes the codebase more complex to maintain for several reasons:
 
@@ -302,13 +295,12 @@ This approach allows you to:
 6. **Optimize loading performance**
    - If a component is lazy-loaded, its related content will be loaded at the same time
 
-### Setup and Loading Content
+#### Setup and Loading Content
 
 As mentioned previously, you must optimize how each JSON file is imported into your code.
 How the library handles content loading is important.
 
-<Tabs>
-  <TabItem label="next-intl">
+##### next-intl
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -380,8 +372,7 @@ export default async function LandingPage({
 }
 ```
 
-  </TabItem>
-  <TabItem label="next-i18next">
+##### next-i18next
 
 ```tsx fileName="next-i18next.config.js"
 module.exports = {
@@ -445,8 +436,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="intlayer">
+##### intlayer
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -506,9 +496,6 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tabs>
-
 #### Comparison
 
 In comparison to other solutions, Intlayer uses plugins to optimize the import of content at build time.
@@ -523,8 +510,7 @@ Intlayer also provides a Provider for your server components. We'll see why late
 
 Let's take an example of a client component rendering a counter.
 
-<Tabs>
-  <TabItem label="next-i18next">
+##### next-i18next
 
 **Translations (must be real JSON in `public/locales/...`)**
 
@@ -559,11 +545,11 @@ export default function ClientComponentExample() {
   const [count, setCount] = useState(0);
 
   // next-i18next doesn't expose useNumber; use Intl.NumberFormat
-  const nf = new Intl.NumberFormat(i18n.language);
+  const numberFormat = new Intl.NumberFormat(i18n.language);
 
   return (
     <div>
-      <p>{nf.format(count)}</p>
+      <p>{numberFormat.format(count)}</p>
       <button
         aria-label={t("counter.label")}
         onClick={() => setCount((c) => c + 1)}
@@ -578,8 +564,7 @@ export default function ClientComponentExample() {
 > Don't forget to add "about" namespace on the page serverSideTranslations
 > We take here the version of react 19.x.x, but for lower versions, you will need to use useMemo to store the instance of the formatter as it's a heavy function
 
-  </TabItem>
-  <TabItem label="next-intl">
+##### next-intl
 
 **Translations (shape reused; load them into next-intl messages as you prefer)**
 
@@ -628,8 +613,7 @@ export default function ClientComponentExample() {
 
 > Don't forget to add "about" message on the page client message
 
-  </TabItem>
-  <TabItem label="intlayer">
+##### intlayer
 
 **Content**
 
@@ -671,15 +655,13 @@ export default function ClientComponentExample() {
 }
 ```
 
-  </TabItem>
-</Tabs>
-
 #### Comparison
 
-- **Number formatting**
-  - **next-i18next**: no `useNumber`; use `Intl.NumberFormat` (or i18next-icu).
-  - **next-intl**: `useFormatter().number(value)`.
-  - **Intlayer**: `useNumber()` built-in.
+##### Number formatting
+
+- **next-i18next**: no `useNumber`; use `Intl.NumberFormat` (or i18next-icu).
+- **next-intl**: `useFormatter().number(value)`.
+- **Intlayer**: `useNumber()` built-in.
 
 - **Keys**
   - Keep a nested structure (`about.counter.label`) and scope your hook accordingly (`useTranslation("about")` + `t("counter.label")` or `useTranslations("about.counter")` + `t("label")`).
@@ -695,8 +677,7 @@ export default function ClientComponentExample() {
 
 We will take the case of a UI component. This component is a server component, and should be able to be inserted as a child of a client component. (page (server component) -> client component -> server component). As this component can be inserted as a child of a client component, it cannot be async.
 
-<Tabs>
-  <TabItem label="next-i18next">
+##### next-i18next
 
 ```tsx fileName="src/pages/about.tsx"
 import React from "react";
@@ -729,8 +710,7 @@ export default function ServerComponent({
 > - `const { t, i18n } = useTranslation("about");`
 > - `const formatted = new Intl.NumberFormat(i18n.language).format(initialCount);`
 
-  </TabItem>
-  <TabItem label="next-intl">
+##### next-intl
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { getTranslations, getFormatter } from "next-intl/server";
@@ -758,8 +738,7 @@ export default async function ServerComponent({
 > - `const t = await getTranslations("about.counter");`
 > - `const format = await getFormatter();`
 
-  </TabItem>
-  <TabItem label="intlayer">
+##### intlayer
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -779,9 +758,6 @@ const ServerComponent = ({ count }: { count: number }) => {
 
 > Intlayer exposes **server-safe** hooks via `next-intlayer/server`. To work, `useIntlayer` and `useNumber` use hooks-like syntax, similar to the client hooks, but depend under the hood on the server context (`IntlayerServerProvider`).
 
-  </TabItem>
-</Tabs>
-
 ### Metadata / Sitemap / Robots
 
 Translating content is great. But people usually forget that the main goal of internationalization is to make your website more visible to the world. I18n is an incredible lever to improve your website visibility.
@@ -799,8 +775,7 @@ Here's a list of good practices regarding multilingual SEO.
 
 Developers often forget to properly reference their pages across locales.
 
-<Tabs>
-  <TabItem label="next-intl">
+##### next-intl
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx
 import type { Metadata } from "next";
@@ -870,7 +845,9 @@ import { locales, defaultLocale } from "@/i18n";
 const origin = "https://example.com";
 const withAllLocales = (path: string) => [
   path,
-  ...locales.filter((l) => l !== defaultLocale).map((l) => `/${l}${path}`),
+  ...locales
+    .filter((locale) => locale !== defaultLocale)
+    .map((locale) => `/${locale}${path}`),
 ];
 
 export default function robots(): MetadataRoute.Robots {
@@ -887,8 +864,7 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="next-i18next">
+##### next-i18next
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -923,7 +899,7 @@ export async function generateMetadata({
     .default;
 
   const languages = Object.fromEntries(
-    locales.map((l) => [l, localizedPath(l, "/about")])
+    locales.map((locale) => [locale, localizedPath(locale, "/about")])
   );
 
   return {
@@ -947,7 +923,7 @@ import { locales, defaultLocale, abs } from "@/i18n.config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const languages = Object.fromEntries(
-    locales.map((l) => [l, abs(l, "/about")])
+    locales.map((locale) => [locale, abs(locale, "/about")])
   );
   return [
     {
@@ -970,8 +946,8 @@ const ORIGIN = "https://example.com";
 const expandAllLocales = (path: string) => [
   localizedPath(defaultLocale, path),
   ...locales
-    .filter((l) => l !== defaultLocale)
-    .map((l) => localizedPath(l, path)),
+    .filter((locale) => locale !== defaultLocale)
+    .map((locale) => localizedPath(locale, path)),
 ];
 
 export default function robots(): MetadataRoute.Robots {
@@ -988,8 +964,7 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer">
+##### intlayer
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1067,9 +1042,6 @@ export default robots;
 ```
 
 > Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
-
-  </TabItem>
-</Tabs>
 
 ---
 
