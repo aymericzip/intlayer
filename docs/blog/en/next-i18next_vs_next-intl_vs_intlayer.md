@@ -1099,7 +1099,11 @@ It’s not simple. Each option has trade-offs. Here’s how I see it:
 
 - **Intlayer** — built for modern Next.js, with modular content, type safety, tooling, and less boilerplate. If you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling - especially for **Next.js App Router**, design-systems and **large, modular codebases**.
 
-If you prefer minimal setup and accept some manual wiring, next-intl is a good pick. If you need all the features and don’t mind complexity, next-i18next works. But if you want a modern, scalable, modular solution with built tools, Intlayer aims to give you that out of the box.
+If you prefer minimal setup and accept some manual wiring, next-intl is a good pick. If you need all the features and don't mind complexity, next-i18next works. But if you want a modern, scalable, modular solution with built tools, Intlayer aims to give you that out of the box.
+
+> **Alternative for enterprise teams**: If you need a well-proven solution that works perfectly with established localization platforms like **Crowdin**, **Phrase**, or other professional translation management systems, consider **next-intl** or **next-i18next** for their mature ecosystem and proven integrations.
+
+> **Future roadmap**: Intlayer also plans to develop plugins that work on top of **i18next** and **next-intl** solutions. This will give you the advantages of Intlayer for automation, syntax, and content management while keeping the security and stability provided by these established solutions in your application code.
 
 ---
 
