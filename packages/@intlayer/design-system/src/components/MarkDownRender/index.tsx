@@ -6,6 +6,7 @@ import { H1, H2, H3, H4 } from '../Headers';
 import { Code } from '../IDE/Code';
 import { CodeProvider } from '../IDE/CodeContext';
 import { Link } from '../Link';
+import { Tab, TabItem } from '../Tab';
 import { Table } from '../Table';
 
 type MarkdownRendererProps = {
@@ -143,6 +144,8 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
             ),
             pre: (props) => props.children,
             table: (props) => <Table {...props} />,
+            Tab: (props) => <Tab {...props} />,
+            TabItem: (props) => <TabItem {...props} />,
 
             th: ({ className, ...props }) => (
               <th
