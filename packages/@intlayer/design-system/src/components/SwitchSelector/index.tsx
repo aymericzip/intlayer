@@ -11,10 +11,24 @@ import {
 import { useItemSelector } from '../../hooks';
 import { cn } from '../../utils/cn';
 
+/**
+ * Configuration for a single choice in the SwitchSelector
+ *
+ * @template T - The type of the choice value
+ * @interface SwitchSelectorChoice
+ */
 export type SwitchSelectorChoice<T = boolean> = {
+  /** The visual content displayed for this choice (text, icons, or React elements) */
   content: ReactNode;
+  /** The value associated with this choice */
   value: T;
 } & HTMLAttributes<HTMLButtonElement>;
+
+/**
+ * Array of choices for the SwitchSelector component
+ *
+ * @template T - The type of the choice values
+ */
 export type SwitchSelectorChoices<T> = SwitchSelectorChoice<T>[];
 
 const defaultChoices: SwitchSelectorChoices<boolean> = [
@@ -22,22 +36,80 @@ const defaultChoices: SwitchSelectorChoices<boolean> = [
   { content: 'On', value: true },
 ];
 
+/**
+ * Props interface for the SwitchSelector component
+ *
+ * @template T - The type of the choice values
+ * @interface SwitchSelectorProps
+ */
 export type SwitchSelectorProps<T = boolean> = {
+  /**
+   * Array of selectable choices
+   * @default [{ content: 'Off', value: false }, { content: 'On', value: true }]
+   * @example
+   * ```tsx
+   * <SwitchSelector choices={[
+   *   { content: 'Draft', value: 'draft' },
+   *   { content: 'Published', value: 'published' },
+   *   { content: 'Archived', value: 'archived' }
+   * ]} />
+   * ```
+   */
   choices?: SwitchSelectorChoices<T>;
+
+  /**
+   * Controlled value for the selected choice
+   * @example
+   * ```tsx
+   * const [status, setStatus] = useState('draft');
+   * <SwitchSelector value={status} onChange={setStatus} />
+   * ```
+   */
   value?: T;
+
+  /**
+   * Default selected value for uncontrolled mode
+   * @example
+   * ```tsx
+   * <SwitchSelector defaultValue="published" />
+   * ```
+   */
   defaultValue?: T;
+
+  /**
+   * Callback function triggered when selection changes
+   * @param choice - The newly selected choice value
+   * @example
+   * ```tsx
+   * <SwitchSelector onChange={(value) => console.log('Selected:', value)} />
+   * ```
+   */
   onChange?: (choice: T) => void;
+
+  /** Additional CSS classes for custom styling */
   className?: string;
 } & VariantProps<typeof switchSelectorVariant> &
   VariantProps<typeof choiceVariant>;
 
+/**
+ * Color variants for the SwitchSelector component
+ *
+ * @enum SwitchSelectorColor
+ */
 export enum SwitchSelectorColor {
+  /** Primary brand color theme */
   PRIMARY = 'primary',
+  /** Secondary accent color theme */
   SECONDARY = 'secondary',
+  /** Destructive/error color theme for dangerous actions */
   DESTRUCTIVE = 'destructive',
+  /** Neutral gray color theme */
   NEUTRAL = 'neutral',
+  /** Light color theme for dark backgrounds */
   LIGHT = 'light',
+  /** Dark color theme for light backgrounds */
   DARK = 'dark',
+  /** Text color theme that adapts to content */
   TEXT = 'text',
 }
 
@@ -62,9 +134,17 @@ const switchSelectorVariant = cva(
   }
 );
 
+/**
+ * Size variants for the SwitchSelector component
+ *
+ * @enum SwitchSelectorSize
+ */
 export enum SwitchSelectorSize {
+  /** Small size - compact for tight layouts */
   SM = 'sm',
+  /** Medium size - standard for most use cases */
   MD = 'md',
+  /** Large size - prominent for important selections */
   LG = 'lg',
 }
 
@@ -103,19 +183,93 @@ const indicatorVariant = cva(
 );
 
 /**
+ * SwitchSelector - A versatile toggle component for multi-option selection
  *
- * Component that allows the user to select one of the provided choices.
+ * A sophisticated switch selector component that provides an elegant way to choose between
+ * multiple options with smooth animations and visual feedback. Built with accessibility
+ * in mind, it supports keyboard navigation and screen reader announcements.
  *
- * Example:
- * ```jsx
+ * ## Key Features
+ * - **Smooth Animations**: Fluid indicator transitions between options
+ * - **Accessible**: Full keyboard navigation and ARIA support
+ * - **Flexible Styling**: Multiple color themes and size variants
+ * - **Generic Types**: Type-safe values with TypeScript generics
+ * - **Controlled/Uncontrolled**: Supports both usage patterns
+ * - **Custom Content**: Rich content support including icons and text
+ *
+ * ## Use Cases
+ * - Settings toggles (On/Off, Light/Dark theme)
+ * - Status selectors (Draft/Published/Archived)
+ * - View mode switches (List/Grid/Card)
+ * - Filter options (All/Active/Completed)
+ * - Language or region selection
+ * - Any multi-option toggle interface
+ *
+ * ## Accessibility
+ * - **Keyboard Navigation**: Tab to focus, arrow keys to navigate options
+ * - **Screen Readers**: Proper ARIA labels and role attributes
+ * - **Focus Management**: Clear visual focus indicators
+ * - **State Announcements**: Selection changes announced to assistive technology
+ *
+ * ## Visual Design
+ * The component features a pill-shaped container with individual choice buttons.
+ * A smooth-sliding background indicator highlights the active selection, creating
+ * an intuitive and polished user experience.
+ *
+ * @template T - The type of values for the choices (string, number, boolean, etc.)
+ *
+ * @example
+ * Basic boolean toggle:
+ * ```tsx
+ * <SwitchSelector
+ *   defaultValue={false}
+ *   onChange={(value) => setEnabled(value)}
+ * />
+ * ```
+ *
+ * @example
+ * Multi-option selector with custom content:
+ * ```tsx
  * <SwitchSelector
  *   choices={[
- *     { content: 'Option 1', value: 'option1' },
- *     { content: 'Option 2', value: 'option2' },
- *     { content: 'Option 3', value: 'option3' },
+ *     { content: <>📝 Draft</>, value: 'draft' },
+ *     { content: <>✅ Published</>, value: 'published' },
+ *     { content: <>📦 Archived</>, value: 'archived' }
  *   ]}
- *   value="option1"
- *   onChange={(choice) => console.log(choice)}
+ *   value={currentStatus}
+ *   onChange={setStatus}
+ *   color={SwitchSelectorColor.SECONDARY}
+ *   size={SwitchSelectorSize.LG}
+ * />
+ * ```
+ *
+ * @example
+ * View mode switcher:
+ * ```tsx
+ * <SwitchSelector
+ *   choices={[
+ *     { content: 'List', value: 'list' },
+ *     { content: 'Grid', value: 'grid' },
+ *     { content: 'Card', value: 'card' }
+ *   ]}
+ *   defaultValue="grid"
+ *   color={SwitchSelectorColor.NEUTRAL}
+ *   onChange={(view) => setViewMode(view)}
+ * />
+ * ```
+ *
+ * @example
+ * Theme selector with icons:
+ * ```tsx
+ * <SwitchSelector
+ *   choices={[
+ *     { content: <>☀️ Light</>, value: 'light' },
+ *     { content: <>🌙 Dark</>, value: 'dark' },
+ *     { content: <>⚙️ System</>, value: 'system' }
+ *   ]}
+ *   value={theme}
+ *   onChange={setTheme}
+ *   size={SwitchSelectorSize.SM}
  * />
  * ```
  */
