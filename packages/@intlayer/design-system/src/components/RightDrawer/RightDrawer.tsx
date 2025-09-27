@@ -17,22 +17,211 @@ import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { isElementAtTopAndNotCovered } from './isElementAtTopAndNotCovered';
 import { useRightDrawerStore } from './useRightDrawerStore';
 
+/**
+ * Configuration for the back button functionality in the RightDrawer
+ *
+ * @interface BackButtonProps
+ */
 type BackButtonProps = {
+  /** Callback function triggered when the back button is clicked */
   onBack: () => void;
+  /** Optional custom text for the back button. Defaults to "Go back" if not provided */
   text?: string;
 };
 
+/**
+ * Props configuration for the RightDrawer component
+ *
+ * @interface RightDrawerProps
+ */
 type RightDrawerProps = {
+  /**
+   * Title displayed in the drawer header
+   * @example
+   * ```tsx
+   * <RightDrawer title="User Settings" identifier="settings">
+   *   Content here
+   * </RightDrawer>
+   * ```
+   */
   title?: ReactNode;
+
+  /**
+   * Unique identifier for the drawer instance. Required for store management
+   * @example
+   * ```tsx
+   * <RightDrawer identifier="user-profile" title="Profile">
+   *   Profile content
+   * </RightDrawer>
+   * ```
+   */
   identifier: string;
+
+  /** The content to be displayed inside the drawer */
   children?: ReactNode;
+
+  /**
+   * Optional header content displayed below the title
+   * @example
+   * ```tsx
+   * <RightDrawer
+   *   title="Settings"
+   *   header={<div className="text-sm opacity-80">Configure your preferences</div>}
+   *   identifier="settings"
+   * >
+   *   Settings content
+   * </RightDrawer>
+   * ```
+   */
   header?: ReactNode;
+
+  /**
+   * Whether the drawer should close when clicking outside of it
+   * @default true
+   * @example
+   * ```tsx
+   * <RightDrawer closeOnOutsideClick={false} identifier="persistent">
+   *   This drawer requires explicit close action
+   * </RightDrawer>
+   * ```
+   */
   closeOnOutsideClick?: boolean;
+
+  /**
+   * Configuration for an optional back button in the drawer header
+   * @example
+   * ```tsx
+   * <RightDrawer
+   *   backButton={{
+   *     text: "Back to List",
+   *     onBack: () => navigate('/list')
+   *   }}
+   *   identifier="detail-view"
+   * >
+   *   Detail content
+   * </RightDrawer>
+   * ```
+   */
   backButton?: BackButtonProps;
+
+  /**
+   * External control for the open state. When provided, overrides internal store state
+   * @example
+   * ```tsx
+   * const [isOpen, setIsOpen] = useState(false);
+   *
+   * <RightDrawer
+   *   isOpen={isOpen}
+   *   onClose={() => setIsOpen(false)}
+   *   identifier="controlled"
+   * >
+   *   Controlled drawer content
+   * </RightDrawer>
+   * ```
+   */
   isOpen?: boolean;
+
+  /**
+   * Callback function triggered when the drawer is closed
+   * @example
+   * ```tsx
+   * <RightDrawer
+   *   onClose={() => console.log('Drawer closed')}
+   *   identifier="tracked"
+   * >
+   *   Content with close tracking
+   * </RightDrawer>
+   * ```
+   */
   onClose?: () => void;
 };
 
+/**
+ * RightDrawer - A slide-out drawer panel that appears from the right side of the screen
+ *
+ * A versatile drawer component that provides an overlay panel for displaying secondary content,
+ * forms, details, or navigation. Features responsive design that adapts to mobile devices,
+ * configurable close behavior, and integrated state management through Zustand store.
+ *
+ * ## Key Features
+ * - **Responsive Design**: Full-width on mobile, fixed 400px width on desktop
+ * - **State Management**: Built-in Zustand store for managing multiple drawer instances
+ * - **Accessibility**: Proper ARIA attributes, keyboard navigation, and focus management
+ * - **Flexible Layout**: Customizable header, title, and content areas
+ * - **Click Outside**: Configurable outside click detection for auto-closing
+ * - **Scroll Management**: Automatic body scroll blocking when open
+ *
+ * ## Use Cases
+ * - Navigation menus and sidebars
+ * - Detail panels and forms
+ * - Settings and configuration interfaces
+ * - Shopping carts and checkout processes
+ * - User profiles and account management
+ * - Multi-step workflows and wizards
+ *
+ * ## Accessibility
+ * - **Focus Management**: Traps focus within the drawer when open
+ * - **Keyboard Navigation**: Escape key closes the drawer
+ * - **Screen Reader Support**: Proper ARIA labels and announcements
+ * - **Touch Support**: Mobile-optimized touch interactions
+ *
+ * ## State Management
+ * The component uses a Zustand store (`useRightDrawerStore`) to manage drawer state:
+ * - Multiple drawers can be managed simultaneously using unique identifiers
+ * - External components can open/close drawers using the store
+ * - Supports both controlled (via props) and uncontrolled (via store) patterns
+ *
+ * @example
+ * Basic usage with store management:
+ * ```tsx
+ * // Opening the drawer from another component
+ * const { open } = useRightDrawerStore();
+ *
+ * <button onClick={() => open('user-menu')}>
+ *   Open Menu
+ * </button>
+ *
+ * <RightDrawer identifier="user-menu" title="User Menu">
+ *   <nav>Navigation items here</nav>
+ * </RightDrawer>
+ * ```
+ *
+ * @example
+ * Controlled drawer with external state:
+ * ```tsx
+ * const [showDrawer, setShowDrawer] = useState(false);
+ *
+ * <RightDrawer
+ *   identifier="controlled-drawer"
+ *   title="Settings"
+ *   isOpen={showDrawer}
+ *   onClose={() => setShowDrawer(false)}
+ *   closeOnOutsideClick={false}
+ * >
+ *   <SettingsForm onSave={() => setShowDrawer(false)} />
+ * </RightDrawer>
+ * ```
+ *
+ * @example
+ * Complex drawer with back button and header:
+ * ```tsx
+ * <RightDrawer
+ *   identifier="product-detail"
+ *   title="Product Details"
+ *   header={
+ *     <div className="text-sm text-gray-600">
+ *       SKU: {product.sku} | Stock: {product.stock}
+ *     </div>
+ *   }
+ *   backButton={{
+ *     text: "Back to Catalog",
+ *     onBack: () => navigate('/catalog')
+ *   }}
+ * >
+ *   <ProductDetailView product={product} />
+ * </RightDrawer>
+ * ```
+ */
 export const RightDrawer: FC<RightDrawerProps> = ({
   title,
   identifier,
