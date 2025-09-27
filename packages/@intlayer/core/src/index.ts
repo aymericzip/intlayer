@@ -9,3 +9,4 @@ export * from './utils/checkIsURLAbsolute';
 export * from './utils/intl';
 export * from './utils/isSameKeyPath';
 export * from './utils/isValidReactElement';
+export * from './utils/parseYaml';
