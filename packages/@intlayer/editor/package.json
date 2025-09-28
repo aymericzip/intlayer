@@ -35,11 +35,6 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
-    "./server": {
-      "types": "./dist/types/server/index.d.ts",
-      "require": "./dist/cjs/server/index.cjs",
-      "import": "./dist/esm/server/index.mjs"
-    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
