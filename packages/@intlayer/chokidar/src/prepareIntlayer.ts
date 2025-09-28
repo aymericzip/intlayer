@@ -116,7 +116,7 @@ export const prepareIntlayer = async (
     [
       'Configuration written',
       colorize(
-        `(${configurationWrittenTime - preparationStartMs}ms)`,
+        `(${configurationWrittenTime - moduleAugmentationBuiltTime}ms)`,
         ANSIColors.GREY_DARK
       ),
     ],
