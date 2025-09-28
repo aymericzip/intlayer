@@ -905,7 +905,7 @@ export default function robots(): MetadataRoute.Robots {
   </TabItem>
   <TabItem label="next-intl" value="next-intl">
 
-```tsx fileName="src/app/[locale]/about/layout.tsx
+```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
 import { locales, defaultLocale } from "@/i18n";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
