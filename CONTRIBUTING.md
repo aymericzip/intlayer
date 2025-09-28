@@ -197,6 +197,75 @@ Note: the versioning and the publication are automatically managed by the CI/CD.
 
 If you're working on a new package, ensure this pacakge is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
 
+## Adding and translating documentation
+
+Intlayer uses an automated translation system powered by AI to translate documentation across multiple languages. The system supports 14 languages and can translate markdown files while preserving structure, code blocks, and metadata.
+
+### Prerequisites
+
+Before translating documentation, you need to set up the required environment:
+
+1. **Set up OpenAI API key**:
+
+   ```bash
+   # Navigate to the docs directory
+   cd ./docs
+
+   # Create environment file (if it doesn't exist)
+   cp .env.template .env
+
+   # Add your OpenAI API key
+   nano .env
+   ```
+
+### Adding New Documentation Files for Translation
+
+To add new documentation files to the translation system:
+
+1. **Edit the translation configuration**:
+
+   ```bash
+   # Open the translation configuration file
+   code ./docs/tools/translate.ts
+   ```
+
+2. **Update the DOC_PATTERN array**:
+
+   File location: `./docs/tools/translate.ts`
+
+   ```typescript
+   const DOC_PATTERN: string[] = [
+     "./docs/en/your-new-file.md", // Add your new file here
+     // './docs/en/**/*.md',        // Uncomment to translate all docs
+     // './blog/en/**/*.md',        // Uncomment to translate all blog posts
+     // './frequent_questions/en/**/*.md',  // Uncomment to translate FAQ
+     // './legal/en/**/*.md',       // Uncomment to translate legal docs
+   ];
+   ```
+
+3. **Configure translation options**:
+   - `NB_SIMULTANEOUS_FILE_PROCESSED`: Number of files to process simultaneously (default: 3)
+   - `LOCALE_LIST_TO_TRANSLATE`: List of target locales (excludes English by default)
+   - `SKIP_IF_MODIFIED_BEFORE/AFTER`: Time-based filtering for files
+   - `GIT_OPTIONS`: Git-based filtering (uncommitted, unpushed files, etc.)
+
+4. **Navigate to the docs directory**:
+
+   ```bash
+   cd ./docs
+   ```
+
+5. **Run the translation command**:
+
+   ```bash
+   pnpm translate
+   ```
+
+6. **Test the translation**:
+   ```bash
+   pnpm test
+   ```
+
 ## Support the project
 
 [![GitHub Stars Counter](https://img.shields.io/github/stars/aymericzip/intlayer?style=social)](https://github.com/aymericzip/intlayer)
