@@ -1,18 +1,18 @@
+import { PagesRoutes } from '@/Routes';
 import {
   Breadcrumb,
   type BreadcrumbLink,
   type BreadcrumbProps,
 } from '@intlayer/design-system';
-import { type Locales, getLocalizedUrl } from 'intlayer';
+import { type LocalesValues, getLocalizedUrl } from 'intlayer';
 import { type FC, useMemo } from 'react';
 import { getBlogSubSection } from './blogData';
 import type { Section } from './types';
-import { PagesRoutes } from '@/Routes';
 
 type BlogBreadCrumbProps = {
   activeSections: string[];
   blogData: Section;
-  locale: Locales;
+  locale: LocalesValues;
 } & Omit<BreadcrumbProps, 'links'>;
 
 export const BlogBreadCrumb: FC<BlogBreadCrumbProps> = ({

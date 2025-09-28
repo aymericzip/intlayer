@@ -1,6 +1,6 @@
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
 import { getDocMetadataBySlug } from '@intlayer/docs';
-import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 
@@ -46,7 +46,7 @@ export const generateMetadata = async ({
       canonical: getLocalizedUrl(relativeUrl, locale),
       languages: {
         ...getMultilingualUrls(relativeUrl),
-        'x-default': relativeUrl,
+        'x-default': getLocalizedUrl(relativeUrl, Locales.ENGLISH),
       },
     },
     openGraph: {

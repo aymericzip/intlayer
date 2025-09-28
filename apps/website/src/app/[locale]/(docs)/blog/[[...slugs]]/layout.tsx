@@ -1,6 +1,6 @@
 import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
 import { getBlogMetadataBySlug } from '@intlayer/docs';
-import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
 
@@ -47,10 +47,10 @@ export const generateMetadata = async ({
     description: blogData.description,
     keywords: blogData.keywords,
     alternates: {
-      canonical: getLocalizedUrl(relativeUrl, locale),
+      canonical: getLocalizedUrl(relativeUrl, Locales.ENGLISH),
       languages: {
         ...getMultilingualUrls(relativeUrl),
-        'x-default': relativeUrl,
+        'x-default': getLocalizedUrl(relativeUrl, Locales.ENGLISH),
       },
     },
     openGraph: {
