@@ -29,10 +29,13 @@ export const Table: FC<TableProps> = ({ className, isRollable, ...props }) => {
           />
         </div>
       </div>
-      <ExpandCollapse isRollable={isRollable}>
+      <ExpandCollapse
+        isRollable={isRollable}
+        className="max-w-full overflow-x-auto"
+      >
         <table
           className={cn(
-            'max-w-full table-auto text-left min-w-full bg-background',
+            'max-w-full overflow-x-auto table-auto text-left min-w-full bg-background',
             className
           )}
           {...props}

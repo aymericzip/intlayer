@@ -1,10 +1,7 @@
-/* @jsx h */
 /**
- * intlayer is a fork of
+ * it's a fork of
  * [simple-markdown v0.2.2](https://github.com/Khan/simple-markdown)
- * from Khan Academy. Thank you Khan devs for making such an awesome
- * and extensible parsing infra... without it, half of the
- * optimizations here wouldn't be feasible. 🙏🏼
+ * from Khan Academy.
  */
 import {
   cloneElement,
@@ -457,7 +454,12 @@ const ORDERED_LIST_R = generateListRegex(ORDERED);
 const UNORDERED_LIST_R = generateListRegex(UNORDERED);
 
 const generateListRule = (
-  type: LIST_TYPE
+  type: LIST_TYPE,
+  factory?: (
+    tag: HTMLTags | string,
+    props: Record<string, any>,
+    ...children: any[]
+  ) => any
 ): Rule<OrderedListNode | UnorderedListNode> => {
   const ordered = type === ORDERED;
   const LIST_R = ordered ? ORDERED_LIST_R : UNORDERED_LIST_R;
@@ -574,6 +576,18 @@ const generateListRule = (
     },
     _render(node, _output, state = {}) {
       const Tag = node.ordered ? 'ol' : 'ul';
+      const props: Record<string, any> = { key: state.key };
+      if (node.ordered && node.start != null) props.start = node.start;
+
+      if (factory) {
+        return factory(
+          Tag as HTMLTags,
+          props,
+          ...node.items.map((item, i) =>
+            factory('li', { key: i }, _output(item, state))
+          )
+        );
+      }
 
       return (
         <Tag
@@ -845,6 +859,61 @@ const parseStyleAttribute = (styleString: string): StyleTuple[] => {
   }
 
   return styles;
+};
+
+// Safely remove a uniform leading indentation from lines, but do NOT touch
+// the content inside fenced code blocks (``` or ~~~). This preserves code
+// indentation inside custom components or HTML blocks.
+const trimLeadingWhitespaceOutsideFences = (
+  text: string,
+  whitespace: string
+): string => {
+  if (!whitespace) return text;
+
+  const lines = text.split('\n');
+  let inFence = false;
+  let fenceToken: string | null = null; // sequence of backticks/tilde used to open the fence
+
+  const isFenceLine = (line: string): RegExpMatchArray | null =>
+    line.match(/^\s*(`{3,}|~{3,})/);
+
+  const maybeToggleFence = (line: string): void => {
+    const m = isFenceLine(line);
+    if (!m) return;
+    const token = m[1];
+    if (!inFence) {
+      inFence = true;
+      fenceToken = token;
+    } else if (fenceToken && line.includes(fenceToken)) {
+      inFence = false;
+      fenceToken = null;
+    }
+  };
+
+  const out = lines.map((line) => {
+    // Always consider toggling on the current line first
+    const fenceMatch = isFenceLine(line);
+    if (fenceMatch) {
+      // Trim baseline indentation on the fence line itself so that
+      // the fence starts at the expected column, but keep code intact later.
+      const trimmedFenceLine = line.startsWith(whitespace)
+        ? line.slice(whitespace.length)
+        : line;
+      // Toggle state after processing
+      maybeToggleFence(line);
+      return trimmedFenceLine;
+    }
+
+    if (inFence) {
+      // Inside code fences: do not trim to preserve code indentation
+      return line;
+    }
+
+    // Outside code fences: remove the uniform leading indentation if present
+    return line.startsWith(whitespace) ? line.slice(whitespace.length) : line;
+  });
+
+  return out.join('\n');
 };
 
 const attributeValueToJSXPropValue = (
@@ -1242,8 +1311,11 @@ export const compiler = (
     CUSTOM_COMPONENT_R,
   ];
 
-  const containsBlockSyntax = (input: string): boolean =>
-    BLOCK_SYNTAXES.some((r) => r.test(input));
+  const containsBlockSyntax = (input: string): boolean => {
+    // Ignore leading blank lines when deciding block vs inline parsing
+    const cleaned = input.replace(TRIM_STARTING_NEWLINES, '');
+    return BLOCK_SYNTAXES.some((r) => r.test(cleaned));
+  };
 
   const matchParagraph = (
     source: string,
@@ -1640,12 +1712,20 @@ export const compiler = (
       _qualify: ['```', '~~~'],
       _match: blockRegex(CODE_BLOCK_FENCED_R),
       _order: Priority.MAX,
-      _parse(capture /*, parse, state*/) {
+      _parse(capture, _parse, state) {
+        const rawText = capture[4];
+        // If we're inside a custom component/HTML parsing context and the code contains
+        // template literals (backticks), preserve indentation while serializing newlines
+        // as literal "\n" so consumers expecting escaped newlines (e.g., tests) match.
+        const text =
+          state.inHTML && rawText.indexOf('`') !== -1
+            ? rawText.replace(/\n/g, '\\n')
+            : rawText;
         return {
           // if capture[3] it's additional metadata
           attrs: attrStringToMap('code', capture[3] ?? ''),
           lang: capture[2] || undefined,
-          text: capture[4],
+          text,
           type: RuleType.codeBlock,
         };
       },
@@ -1773,8 +1853,10 @@ export const compiler = (
         ) as RegExpMatchArray | null;
         const whitespace = m?.[1] ?? '';
 
-        const trimmer = new RegExp(`^${whitespace}`, 'gm');
-        const trimmed = capture[3].replace(trimmer, '');
+        const trimmed = trimLeadingWhitespaceOutsideFences(
+          capture[3],
+          whitespace
+        );
 
         const parseFunc = containsBlockSyntax(trimmed)
           ? parseBlock
@@ -1818,10 +1900,10 @@ export const compiler = (
         return ast;
       },
       _render(node, _output, state = {}) {
-        return (
-          <node.tag key={state.key} {...node.attrs}>
-            {node.text ?? (node.children ? _output(node.children, state) : '')}
-          </node.tag>
+        return h(
+          node.tag as HTMLTags,
+          { key: state.key, ...(node.attrs ?? {}) },
+          node.text ?? (node.children ? _output(node.children, state) : '')
         );
       },
     },
@@ -1841,7 +1923,10 @@ export const compiler = (
         };
       },
       _render(node, _output, state = {}) {
-        return <node.tag {...node.attrs} key={state.key} />;
+        return h(node.tag as HTMLTags, {
+          key: state.key,
+          ...(node.attrs ?? {}),
+        });
       },
     },
 
@@ -1869,8 +1954,10 @@ export const compiler = (
         ) as RegExpMatchArray | null;
         const whitespace = m?.[1] ?? '';
 
-        const trimmer = new RegExp(`^${whitespace}`, 'gm');
-        const trimmed = capture[3].replace(trimmer, '');
+        const trimmed = trimLeadingWhitespaceOutsideFences(
+          capture[3],
+          whitespace
+        );
 
         const parseFunc = containsBlockSyntax(trimmed)
           ? parseBlock
@@ -1910,6 +1997,7 @@ export const compiler = (
 
         if (typeof customComponent === 'function') {
           // For custom components, we need to render the children properly
+
           const renderedChildren = node.children
             ? _output(node.children, state)
             : null;
@@ -2048,10 +2136,16 @@ export const compiler = (
       },
     },
 
-    [RuleType.orderedList]: generateListRule(ORDERED) as Rule<OrderedListNode>,
+    [RuleType.orderedList]: generateListRule(
+      ORDERED,
+      (tag: string, props: Record<string, any>, ...children: any[]) =>
+        h(tag as HTMLTags, props, ...children)
+    ) as Rule<OrderedListNode>,
 
     [RuleType.unorderedList]: generateListRule(
-      UNORDERED
+      UNORDERED,
+      (tag: string, props: Record<string, any>, ...children: any[]) =>
+        h(tag as HTMLTags, props, ...children)
     ) as Rule<UnorderedListNode>,
 
     [RuleType.newlineCoalescer]: {

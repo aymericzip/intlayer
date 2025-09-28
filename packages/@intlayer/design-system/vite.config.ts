@@ -76,6 +76,7 @@ export default defineConfig(() => ({
         'url',
       ],
       output: {
+        exports: 'named',
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',

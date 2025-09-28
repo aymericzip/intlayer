@@ -11,6 +11,8 @@ import {
   type ReactNode,
 } from 'react';
 import { cn } from '../../utils/cn';
+import { TabSelector, TabSelectorColor } from '../TabSelector';
+import { useTabContext } from './TabContext';
 
 // Context for managing tab state
 type TabContextType = {
@@ -22,7 +24,7 @@ const TabContext = createContext<TabContextType | undefined>(undefined);
 
 // Tab container variants
 const tabContainerVariant = cva(
-  'w-full border border-neutral/20 rounded-lg overflow-hidden bg-card shadow-sm',
+  'relative w-full bg-background/2 border border-neutral/20 rounded-lg shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur',
   {
     variants: {
       variant: {
@@ -37,62 +39,10 @@ const tabContainerVariant = cva(
   }
 );
 
-// Tab header variants
-const tabHeaderVariant = cva('flex border-b border-neutral/20 bg-neutral/5', {
-  variants: {
-    variant: {
-      default: '',
-      pills: 'border-0 bg-transparent gap-1 p-1',
-      underline: 'border-0 bg-transparent',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
-
-// Tab button variants
-const tabButtonVariant = cva(
-  'px-4 py-3 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-neutral/50',
-  {
-    variants: {
-      variant: {
-        default:
-          'hover:bg-neutral/10 data-[active=true]:bg-neutral data-[active=true]:text-text data-[active=true]:shadow-sm',
-        pills:
-          'rounded-md hover:bg-neutral/10 data-[active=true]:bg-text data-[active=true]:text-white',
-        underline:
-          'border-b-2 border-transparent hover:border-neutral/50 data-[active=true]:border-text data-[active=true]:text-text',
-      },
-      state: {
-        active: '',
-        inactive: 'text-neutral/70',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-      state: 'inactive',
-    },
-  }
-);
-
-// Tab content variants
-const tabContentVariant = cva('p-6', {
-  variants: {
-    variant: {
-      default: '',
-      compact: 'p-4',
-      spacious: 'p-8',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
-
 export type TabProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof tabContainerVariant> & {
     defaultTab?: string;
+    group?: string;
     children: ReactNode;
   };
 
@@ -107,11 +57,11 @@ export type TabItemProps = HTMLAttributes<HTMLDivElement> & {
  * TabItem component that represents a single tab
  * Must be used as a child of the Tab component
  */
-const TabItem = ({ children, ...props }: TabItemProps) => {
+const TabItem = ({ children, ...props }: TabItemProps) => (
   // This component is primarily used for its props by the parent Tab component
   // The actual rendering is handled by the Tab component
-  return <div {...props}>{children}</div>;
-};
+  <div {...props}>{children}</div>
+);
 
 // Add display name for better debugging
 TabItem.displayName = 'TabItem';
@@ -133,6 +83,7 @@ TabItem.displayName = 'TabItem';
  */
 const TabComponent = ({
   defaultTab,
+  group,
   variant,
   children,
   className,
@@ -144,39 +95,27 @@ const TabComponent = ({
   }) as ReactElement<TabItemProps>[];
 
   const firstTabValue = tabItems[0]?.props?.value;
-  const [activeTab, setActiveTab] = useState(defaultTab || firstTabValue || '');
+  const { tabsValues, setTabsValues } = useTabContext();
+  const [activeTab, setActiveTab] = useState(defaultTab ?? firstTabValue ?? '');
+  const hasGroup = group && typeof tabsValues === 'object';
+  const currentTabValue =
+    (hasGroup ? tabsValues?.[group] : activeTab) ?? defaultTab ?? firstTabValue;
+  const activeTabIndex = tabItems.findIndex(
+    (tab) => tab.props.value === currentTabValue
+  );
+
+  const handleSetActiveTab = (tab: string) => {
+    setActiveTab(tab);
+
+    if (typeof setTabsValues === 'function') {
+      setTabsValues((prev) => ({ ...prev, [group!]: tab }));
+    }
+  };
 
   const contextValue: TabContextType = {
-    activeTab,
-    setActiveTab,
+    activeTab: activeTab ?? firstTabValue ?? '',
+    setActiveTab: handleSetActiveTab,
   };
-
-  // Map container variants to header/button variants
-  const getHeaderButtonVariant = (containerVariant: typeof variant) => {
-    switch (containerVariant) {
-      case 'bordered':
-        return 'default';
-      case 'ghost':
-        return 'underline';
-      default:
-        return 'default';
-    }
-  };
-
-  // Map container variants to content variants
-  const getContentVariant = (containerVariant: typeof variant) => {
-    switch (containerVariant) {
-      case 'bordered':
-        return 'default';
-      case 'ghost':
-        return 'compact';
-      default:
-        return 'default';
-    }
-  };
-
-  const headerButtonVariant = getHeaderButtonVariant(variant);
-  const contentVariant = getContentVariant(variant);
 
   return (
     <TabContext.Provider value={contextValue}>
@@ -185,53 +124,82 @@ const TabComponent = ({
         {...props}
       >
         {/* Tab Headers */}
-        <div className={cn(tabHeaderVariant({ variant: headerButtonVariant }))}>
-          {tabItems.map((child) => {
-            const { label, value, disabled } = child.props;
-            const isActive = activeTab === value;
+        <div className="sticky top-36 z-10 flex gap-3 p-3 bg-background/70 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur shadow-sm">
+          <TabSelector
+            selectedChoice={currentTabValue}
+            tabs={tabItems.map((child) => {
+              const { label, value, disabled } = child.props;
+              const isActive = currentTabValue === value;
 
-            return (
-              <button
-                key={value}
-                className={cn(
-                  tabButtonVariant({
-                    variant: headerButtonVariant,
-                    state: isActive ? 'active' : 'inactive',
-                  })
-                )}
-                data-active={isActive}
-                disabled={disabled}
-                onClick={() => !disabled && setActiveTab(value)}
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`tabpanel-${value}`}
-                id={`tab-${value}`}
-              >
-                {label}
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={value}
+                  className={cn(
+                    'px-4 text-sm font-medium rounded-md transition-colors cursor-pointer focus:outline-none py-1',
+                    !isActive && 'text-neutral/70'
+                  )}
+                  data-active={isActive}
+                  disabled={disabled}
+                  onClick={() => !disabled && handleSetActiveTab(value)}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`tabpanel-${value}`}
+                  id={`tab-${value}`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+            hoverable
+            color={TabSelectorColor.TEXT}
+          />
         </div>
-
         {/* Tab Content */}
-        <div className={cn(tabContentVariant({ variant: contentVariant }))}>
-          {tabItems.map((child) => {
-            const { value } = child.props;
-            const isActive = activeTab === value;
+        {/* Clipper: no overflow; uses clip-path */}
+        <div
+          className="relative w-full min-w-0"
+          style={{
+            clipPath: 'inset(0)', // standard
+            WebkitClipPath: 'inset(0)', // Safari
+            // If you want rounded corners: 'inset(0 round 12px)'
+          }}
+        >
+          {/* Track */}
+          <div
+            role="tablist"
+            aria-orientation="horizontal"
+            className="grid w-full min-w-0 transition-transform duration-300 ease-in-out"
+            style={{
+              gridTemplateColumns: `repeat(${tabItems.length}, 100%)`,
+              transform: `translateX(-${activeTabIndex * 100}%)`,
+              willChange: 'transform',
+            }}
+          >
+            {tabItems.map(({ props }, index) => {
+              const { value, children } = props;
+              const isActive = index === activeTabIndex;
 
-            if (!isActive) return null;
-
-            return (
-              <div
-                key={value}
-                role="tabpanel"
-                aria-labelledby={`tab-${value}`}
-                id={`tabpanel-${value}`}
-              >
-                {child.props.children}
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={value}
+                  role="tabpanel"
+                  aria-labelledby={`tab-${value}`}
+                  id={`tabpanel-${value}`}
+                  aria-hidden={!isActive}
+                  tabIndex={isActive ? 0 : -1}
+                  data-active={isActive}
+                  className={cn(
+                    'w-full min-w-0 p-6 opacity-100 transition-opacity duration-300 ease-in-out',
+                    !isActive && 'pointer-events-none opacity-0' // prevent offscreen interaction
+                  )}
+                >
+                  <div className="w-full min-w-0 flex flex-col gap-6 items-stretch">
+                    {children}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </TabContext.Provider>

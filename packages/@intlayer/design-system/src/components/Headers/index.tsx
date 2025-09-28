@@ -49,6 +49,16 @@ const StyledH5: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   />
 );
 
+const StyledH6: FC<HTMLAttributes<HTMLHeadingElement>> = ({
+  className,
+  ...props
+}) => (
+  <h6
+    className={cn('mt-3 ml-3 text-base font-bold', styledHeading, className)}
+    {...props}
+  />
+);
+
 type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
   isClickable?: boolean;
 };
@@ -156,4 +166,8 @@ export const H4: FC<HeadingProps> = ({ isClickable = false, ...props }) => (
 );
 export const H5: FC<HeadingProps> = ({ isClickable = false, ...props }) => (
   <HeadingWrapper H={StyledH5} isClickable={isClickable} {...props} />
+);
+
+export const H6: FC<HeadingProps> = ({ isClickable = false, ...props }) => (
+  <HeadingWrapper H={StyledH6} isClickable={isClickable} {...props} />
 );

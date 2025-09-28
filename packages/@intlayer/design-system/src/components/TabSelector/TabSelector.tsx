@@ -124,8 +124,13 @@ export const TabSelector = <T extends TabProps>({
         return cloneElement(Tab, {
           key: key ?? index,
           role: 'tab',
-          onClick: () => onTabClick?.(key),
+          onClick: (e: unknown) => {
+            Tab.props?.onClick?.(e);
+            onTabClick?.(key);
+          },
           'aria-selected': isSelected,
+          'data-active': isSelected as unknown as string,
+          tabIndex: isSelected ? 0 : -1,
           ref: (el: HTMLElement) => {
             optionsRefs.current[index] = el!;
           },
