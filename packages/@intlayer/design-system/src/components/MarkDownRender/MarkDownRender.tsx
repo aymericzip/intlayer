@@ -1,19 +1,21 @@
 import type { LocalesValues } from '@intlayer/config/client';
-import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
-import type { FC } from 'react';
+import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
+import type { BundledLanguage } from 'shiki';
 import { cn } from '../../utils/cn';
 import { H1, H2, H3, H4 } from '../Headers';
+import type { CodeCompAttributes } from '../IDE/Code';
 import { Code } from '../IDE/Code';
 import { CodeProvider } from '../IDE/CodeContext';
 import { Link } from '../Link';
 import { Tab } from '../Tab';
 import { Table } from '../Table';
+import { MarkdownProcessor, type MarkdownProcessorOptions } from './processer';
 
 type MarkdownRendererProps = {
   children: string;
   isDarkMode?: boolean;
   locale?: LocalesValues;
-  options?: MarkdownToJSX.Options;
+  options?: MarkdownProcessorOptions;
 };
 
 /**
@@ -74,28 +76,47 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
 
   return (
     <CodeProvider>
-      <Markdown
+      <MarkdownProcessor
         options={{
           overrides: {
-            h1: (props) => <H1 isClickable={true} {...props} />,
-            h2: (props) => <H2 isClickable={true} {...props} />,
-            h3: (props) => <H3 isClickable={true} {...props} />,
-            h4: (props) => <H4 isClickable={true} {...props} />,
+            h1: (props: ComponentProps<typeof H1>) => (
+              <H1 isClickable={true} {...props} />
+            ),
+            h2: (props: ComponentProps<typeof H2>) => (
+              <H2 isClickable={true} {...props} />
+            ),
+            h3: (props: ComponentProps<typeof H3>) => (
+              <H3 isClickable={true} {...props} />
+            ),
+            h4: (props: ComponentProps<typeof H4>) => (
+              <H4 isClickable={true} {...props} />
+            ),
 
-            code: (props) =>
-              typeof props.className === 'undefined' ? (
+            code: (
+              props: ComponentPropsWithoutRef<'code'> &
+                Partial<CodeCompAttributes>
+            ) =>
+              !props.className ? (
                 <strong className="bg-card/60 rounded p-1 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
-                  {props.children}
+                  {props.children as any}
                 </strong>
               ) : (
                 <Code
-                  isDarkMode={isDarkMode}
-                  language={props.className?.replace('lang-', '')}
                   {...props}
+                  isDarkMode={isDarkMode}
+                  language={
+                    (props.className?.replace('lang-', '') ||
+                      'plaintext') as BundledLanguage
+                  }
+                  fileName={props.fileName}
+                  showHeader={Boolean(props.fileName)}
                 />
               ),
 
-            blockquote: ({ className, ...props }) => (
+            blockquote: ({
+              className,
+              ...props
+            }: ComponentPropsWithoutRef<'blockquote'>) => (
               <blockquote
                 className={cn(
                   'border-card text-neutral mt-5 flex flex-col gap-3 border-l-4 pl-5',
@@ -104,7 +125,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 {...props}
               />
             ),
-            ul: ({ className, ...props }) => (
+            ul: ({ className, ...props }: ComponentPropsWithoutRef<'ul'>) => (
               <ul
                 className={cn(
                   'mt-5 flex flex-col gap-3 pl-5 list-disc',
@@ -113,7 +134,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 {...props}
               />
             ),
-            ol: ({ className, ...props }) => (
+            ol: ({ className, ...props }: ComponentPropsWithoutRef<'ol'>) => (
               <ol
                 className={cn(
                   'mt-5 flex flex-col gap-3 pl-5 list-decimal',
@@ -122,10 +143,10 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 {...props}
               />
             ),
-            li: ({ className, ...props }) => (
+            li: ({ className, ...props }: ComponentPropsWithoutRef<'li'>) => (
               <li className={cn('', className)} {...props} />
             ),
-            img: ({ className, ...props }) => (
+            img: ({ className, ...props }: ComponentPropsWithoutRef<'img'>) => (
               <img
                 {...props}
                 loading="lazy"
@@ -133,7 +154,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 src={`${props.src}?raw=true`}
               />
             ),
-            a: (props) => (
+            a: (props: ComponentProps<typeof Link>) => (
               <Link
                 color="neutral"
                 isExternalLink={props.href?.startsWith('http')}
@@ -142,12 +163,18 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 {...props}
               />
             ),
-            pre: (props) => props.children,
-            table: (props) => <Table {...props} />,
-            Tab: (props) => <Tab {...props} />,
-            TabItem: (props) => <Tab.Item {...props} />,
+            pre: (props: ComponentPropsWithoutRef<'pre'>) => props.children,
+            table: (props: ComponentProps<typeof Table>) => (
+              <Table {...props} />
+            ),
+            // Support both <Tab> and <Tabs> in markdown
+            Tabs: (props: ComponentProps<typeof Tab>) => <Tab {...props} />,
+            Tab: (props: ComponentProps<typeof Tab>) => <Tab {...props} />,
+            TabItem: (props: ComponentProps<typeof Tab.Item>) => (
+              <Tab.Item {...props} />
+            ),
 
-            th: ({ className, ...props }) => (
+            th: ({ className, ...props }: ComponentPropsWithoutRef<'th'>) => (
               <th
                 className={cn(
                   'border-neutral bg-neutral/10 border-b p-4',
@@ -156,19 +183,19 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 {...props}
               />
             ),
-            tr: ({ className, ...props }) => (
+            tr: ({ className, ...props }: ComponentPropsWithoutRef<'tr'>) => (
               <tr
                 className={cn('hover:bg-neutral/10 hover:/10', className)}
                 {...props}
               />
             ),
-            td: ({ className, ...props }) => (
+            td: ({ className, ...props }: ComponentPropsWithoutRef<'td'>) => (
               <td
                 className={cn('border-b border-neutral-500/50 p-4', className)}
                 {...props}
               />
             ),
-            hr: ({ className, ...props }) => (
+            hr: ({ className, ...props }: ComponentPropsWithoutRef<'hr'>) => (
               <hr
                 className={cn('mt-16 mx-6 text-neutral', className)}
                 {...props}
@@ -180,7 +207,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
         }}
       >
         {cleanMarkdown ?? ''}
-      </Markdown>
+      </MarkdownProcessor>
     </CodeProvider>
   );
 };

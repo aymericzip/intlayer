@@ -57,7 +57,7 @@ const indicatorVariant = cva(
   }
 );
 
-export type TabProps = HTMLAttributes<HTMLElement> & {
+type TabProps = HTMLAttributes<HTMLElement> & {
   key: string | number;
 };
 

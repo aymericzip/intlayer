@@ -178,7 +178,8 @@ This part makes a deep comparison between the three solutions. Rather than consi
 
 The app structure is important to ensure good maintainability for your codebase.
 
-#### next-intl
+<Tab defaultTab="next-intl">
+  <TabItem label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -202,7 +203,8 @@ The app structure is important to ensure good maintainability for your codebase.
             └── index.tsx
 ```
 
-#### next-i18next
+  </TabItem>
+  <TabItem label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -227,7 +229,8 @@ The app structure is important to ensure good maintainability for your codebase.
             └── index.tsx
 ```
 
-#### intlayer
+  </TabItem>
+  <TabItem label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -243,6 +246,9 @@ The app structure is important to ensure good maintainability for your codebase.
             ├── index.tsx
             └── index.content.ts
 ```
+
+  </TabItem>
+</Tab>
 
 #### Comparison
 
@@ -300,7 +306,8 @@ This approach allows you to:
 As mentioned previously, you must optimize how each JSON file is imported into your code.
 How the library handles content loading is important.
 
-##### next-intl
+<Tab defaultTab="next-intl">
+  <TabItem label="next-intl" value="next-intl">
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -372,7 +379,8 @@ export default async function LandingPage({
 }
 ```
 
-##### next-i18next
+  </TabItem>
+  <TabItem label="next-i18next" value="next-i18next">
 
 ```tsx fileName="next-i18next.config.js"
 module.exports = {
@@ -436,7 +444,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 ```
 
-##### intlayer
+  </TabItem>
+  <TabItem label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -496,6 +505,9 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
+  </TabItem>
+</Tab>
+
 #### Comparison
 
 In comparison to other solutions, Intlayer uses plugins to optimize the import of content at build time.
@@ -510,8 +522,8 @@ Intlayer also provides a Provider for your server components. We'll see why late
 
 Let's take an example of a client component rendering a counter.
 
-##### next-i18next
-
+<Tab defaultTab="next-intl">
+  <TabItem label="next-i18next" value="next-i18next">
 **Translations (must be real JSON in `public/locales/...`)**
 
 ```json fileName="public/locales/en/about.json"
@@ -563,10 +575,9 @@ export default function ClientComponentExample() {
 
 > Don't forget to add "about" namespace on the page serverSideTranslations
 > We take here the version of react 19.x.x, but for lower versions, you will need to use useMemo to store the instance of the formatter as it's a heavy function
-
-##### next-intl
-
-**Translations (shape reused; load them into next-intl messages as you prefer)**
+> </TabItem>
+> <TabItem label="next-intl" value="next-intl">
+> **Translations (shape reused; load them into next-intl messages as you prefer)**
 
 ```json fileName="locales/en/about.json"
 {
@@ -612,10 +623,9 @@ export default function ClientComponentExample() {
 ```
 
 > Don't forget to add "about" message on the page client message
-
-##### intlayer
-
-**Content**
+> </TabItem>
+> <TabItem label="intlayer" value="intlayer">
+> **Content**
 
 ```ts fileName="src/components/ClientComponentExample/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -655,6 +665,9 @@ export default function ClientComponentExample() {
 }
 ```
 
+  </TabItem>
+</Tab>
+
 #### Comparison
 
 ##### Number formatting
@@ -677,7 +690,8 @@ export default function ClientComponentExample() {
 
 We will take the case of a UI component. This component is a server component, and should be able to be inserted as a child of a client component. (page (server component) -> client component -> server component). As this component can be inserted as a child of a client component, it cannot be async.
 
-##### next-i18next
+<Tab defaultTab="next-intl">
+  <TabItem label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
 import React from "react";
@@ -709,8 +723,8 @@ export default function ServerComponent({
 >
 > - `const { t, i18n } = useTranslation("about");`
 > - `const formatted = new Intl.NumberFormat(i18n.language).format(initialCount);`
-
-##### next-intl
+>   </TabItem>
+>   <TabItem label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { getTranslations, getFormatter } from "next-intl/server";
@@ -737,8 +751,8 @@ export default async function ServerComponent({
 >
 > - `const t = await getTranslations("about.counter");`
 > - `const format = await getFormatter();`
-
-##### intlayer
+>   </TabItem>
+>   <TabItem label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -755,6 +769,9 @@ const ServerComponent = ({ count }: { count: number }) => {
   );
 };
 ```
+
+  </TabItem>
+</Tab>
 
 > Intlayer exposes **server-safe** hooks via `next-intlayer/server`. To work, `useIntlayer` and `useNumber` use hooks-like syntax, similar to the client hooks, but depend under the hood on the server context (`IntlayerServerProvider`).
 
@@ -775,7 +792,8 @@ Here's a list of good practices regarding multilingual SEO.
 
 Developers often forget to properly reference their pages across locales.
 
-##### next-intl
+<Tab defaultTab="next-intl">
+  <TabItem label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx
 import type { Metadata } from "next";
@@ -864,24 +882,26 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-##### next-i18next
-
+  </TabItem>
+  <TabItem label="next-i18next" value="next-i18next">
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "en";
 
-/** Prefix path with locale unless it's the default locale */
+/\*_ Prefix path with locale unless it's the default locale _/
 export function localizedPath(locale: string, path: string) {
-  return locale === defaultLocale ? path : `/${locale}${path}`;
+return locale === defaultLocale ? path : `/${locale}${path}`;
 }
 
-/** Absolute URL helper */
+/\*_ Absolute URL helper _/
 const ORIGIN = "https://example.com";
 export function abs(locale: string, path: string) {
-  return `${ORIGIN}${localizedPath(locale, path)}`;
+return `${ORIGIN}${localizedPath(locale, path)}`;
 }
-```
+
+````
+
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -915,7 +935,7 @@ export async function generateMetadata({
 export default async function AboutPage() {
   return <h1>About</h1>;
 }
-```
+````
 
 ```ts fileName="src/app/sitemap.ts"
 import type { MetadataRoute } from "next";
@@ -964,48 +984,55 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-##### intlayer
-
+  </TabItem>
+  <TabItem label="intlayer" value="intlayer">
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
 import type { Metadata } from "next";
 import type { LocalPromiseParams } from "next-intlayer";
 
 export const generateMetadata = async ({
-  params,
+params,
 }: LocalPromiseParams): Promise<Metadata> => {
-  const { locale } = await params;
+const { locale } = await params;
 
-  const metadata = getIntlayer("page-metadata", locale);
+const metadata = getIntlayer("page-metadata", locale);
 
-  /**
-   * Generates an object containing all url for each locale.
-   *
-   * Example:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Returns
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
+/\*\*
+
+- Generates an object containing all url for each locale.
+-
+- Example:
+- ```ts
+
+  ```
+
+- getMultilingualUrls('/about');
+-
+- // Returns
+- // {
+- // en: '/about',
+- // fr: '/fr/about',
+- // es: '/es/about',
+- // }
+- ```
    */
   const multilingualUrls = getMultilingualUrls("/about");
+  ```
 
-  return {
-    ...metadata,
-    alternates: {
-      canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
-      languages: { ...multilingualUrls, "x-default": "/about" },
-    },
-  };
+return {
+...metadata,
+alternates: {
+canonical: multilingualUrls[locale as keyof typeof multilingualUrls],
+languages: { ...multilingualUrls, "x-default": "/about" },
+},
+};
 };
 
 // ... Rest of the page code
+
 ````
+
 
 ```tsx fileName="src/app/sitemap.ts"
 import { getMultilingualUrls } from "intlayer";
@@ -1020,6 +1047,7 @@ const sitemap = (): MetadataRoute.Sitemap => [
   },
 ];
 ```
+
 
 ```tsx fileName="src/app/robots.ts"
 import { getMultilingualUrls } from "intlayer";
@@ -1040,6 +1068,8 @@ const robots = (): MetadataRoute.Robots => ({
 
 export default robots;
 ```
+  </TabItem>
+</Tab>
 
 > Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
 
@@ -1047,9 +1077,17 @@ export default robots;
 
 ## TypeScript & safety
 
-- **next-intl**: Solid TypeScript support, but **keys aren’t strictly typed by default**; you’ll maintain safety patterns manually.
-- **next-i18next**: Base typings for hooks; **strict key typing requires extra tooling/config**.
-- **Intlayer**: **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deploy.
+<Tab defaultTab="intlayer">
+  <TabItem label="next-intl" value="next-intl">
+Solid TypeScript support, but **keys aren’t strictly typed by default**; you’ll maintain safety patterns manually.
+  </TabItem>
+  <TabItem label="next-i18next" value="next-i18next">
+Base typings for hooks; **strict key typing requires extra tooling/config**.
+  </TabItem>
+  <TabItem label="intlayer" value="intlayer">
+**Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deploy.
+  </TabItem>
+</Tab>
 
 **Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
 
@@ -1057,8 +1095,17 @@ export default robots;
 
 ## Missing translation handling
 
-- **next-intl / next-i18next**: Rely on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
-- **Intlayer**: **Build-time detection** with **warnings/errors** for missing locales or keys.
+<Tab defaultTab="intlayer">
+  <TabItem label="next-intl" value="next-intl">
+Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+  </TabItem>
+  <TabItem label="next-i18next" value="next-i18next">
+Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+  </TabItem>
+  <TabItem label="intlayer" value="intlayer">
+**Build-time detection** with **warnings/errors** for missing locales or keys.
+  </TabItem>
+</Tab>
 
 **Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
 
@@ -1066,8 +1113,17 @@ export default robots;
 
 ## Routing, middleware & URL strategy
 
-- All three work with **Next.js localized routing** on the App Router.
-- **Intlayer** goes further with **i18n middleware** (locale detection via headers/cookies) and **helpers** to generate localized URLs and `<link rel="alternate" hreflang="…">` tags.
+<Tab defaultTab="next-intl">
+  <TabItem label="next-intl" value="next-intl">
+Works with **Next.js localized routing** on the App Router.
+  </TabItem>
+  <TabItem label="next-i18next" value="next-i18next">
+Works with **Next.js localized routing** on the App Router.
+  </TabItem>
+  <TabItem label="intlayer" value="intlayer">
+All of the above, plus **i18n middleware** (locale detection via headers/cookies) and **helpers** to generate localized URLs and `<link rel="alternate" hreflang="…">` tags.
+  </TabItem>
+</Tab>
 
 **Why it matters:** Fewer custom glue layers; **consistent UX** and **clean SEO** across locales.
 
@@ -1075,8 +1131,17 @@ export default robots;
 
 ## Server Components (RSC) alignment
 
-- **All** support Next.js 13+.
-- **Intlayer** smooths the **server/client boundary** with a consistent API and providers designed for RSC, so you don’t shuttle formatters or t-functions through component trees.
+<Tab defaultTab="intlayer">
+  <TabItem label="next-intl" value="next-intl">
+Supports Next.js 13+. Often requires passing t-functions/formatters through component trees in hybrid setups.
+  </TabItem>
+  <TabItem label="next-i18next" value="next-i18next">
+Supports Next.js 13+. Similar constraints with passing translation utilities across boundaries.
+  </TabItem>
+  <TabItem label="intlayer" value="intlayer">
+Supports Next.js 13+ and smooths the **server/client boundary** with a consistent API and RSC-oriented providers, avoiding shuttling formatters or t-functions.
+  </TabItem>
+</Tab>
 
 **Why it matters:** Cleaner mental model and fewer edge cases in hybrid trees.
 
@@ -1084,8 +1149,17 @@ export default robots;
 
 ## DX, tooling & maintenance
 
-- **next-intl / next-i18next**: You’ll typically wire up external platforms for translations and editorial workflows.
-- **Intlayer**: Ships a **free Visual Editor** and **optional CMS** (Git-friendly or externalized). Plus **VSCode extension** for content authoring and **AI-assisted translations** using your own provider keys.
+<Tab defaultTab="intlayer">
+  <TabItem label="next-intl" value="next-intl">
+Commonly paired with external localization platforms and editorial workflows.
+  </TabItem>
+  <TabItem label="next-i18next" value="next-i18next">
+Commonly paired with external localization platforms and editorial workflows.
+  </TabItem>
+  <TabItem label="intlayer" value="intlayer">
+Ships a **free Visual Editor** and **optional CMS** (Git-friendly or externalized), plus a **VSCode extension** and **AI-assisted translations** using your own provider keys.
+  </TabItem>
+</Tab>
 
 ## **Why it matters:** Lowers ops cost and shortens the loop between developers and content authors.
 
@@ -1133,3 +1207,4 @@ All three libraries succeed at core localization. The difference is **how much w
 - If your team prizes **maintainability and speed** in a multi-locale, component-driven app, Intlayer offers the **most complete** experience today.
 
 Refer to ['Why Intlayer?' doc](https://intlayer.org/doc/why) for more details.
+````

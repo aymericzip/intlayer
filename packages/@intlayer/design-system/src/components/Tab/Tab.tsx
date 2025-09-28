@@ -2,18 +2,21 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
+  Children,
   createContext,
+  isValidElement,
   useState,
   type HTMLAttributes,
+  type ReactElement,
   type ReactNode,
 } from 'react';
 import { cn } from '../../utils/cn';
 
 // Context for managing tab state
-interface TabContextType {
+type TabContextType = {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-}
+};
 
 const TabContext = createContext<TabContextType | undefined>(undefined);
 
@@ -50,12 +53,12 @@ const tabHeaderVariant = cva('flex border-b border-neutral/20 bg-neutral/5', {
 
 // Tab button variants
 const tabButtonVariant = cva(
-  'px-4 py-3 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-text/50',
+  'px-4 py-3 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-neutral/50',
   {
     variants: {
       variant: {
         default:
-          'hover:bg-neutral/10 data-[active=true]:bg-white data-[active=true]:text-text data-[active=true]:shadow-sm',
+          'hover:bg-neutral/10 data-[active=true]:bg-neutral data-[active=true]:text-text data-[active=true]:shadow-sm',
         pills:
           'rounded-md hover:bg-neutral/10 data-[active=true]:bg-text data-[active=true]:text-white',
         underline:
@@ -87,19 +90,18 @@ const tabContentVariant = cva('p-6', {
   },
 });
 
-export interface TabProps
-  extends HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof tabContainerVariant> {
-  defaultTab?: string;
-  children: ReactNode;
-}
+export type TabProps = HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof tabContainerVariant> & {
+    defaultTab?: string;
+    children: ReactNode;
+  };
 
-export interface TabItemProps extends HTMLAttributes<HTMLDivElement> {
+export type TabItemProps = HTMLAttributes<HTMLDivElement> & {
   label: string;
   value: string;
   disabled?: boolean;
   children: ReactNode;
-}
+};
 
 /**
  * TabItem component that represents a single tab
@@ -137,9 +139,9 @@ const TabComponent = ({
   ...props
 }: TabProps) => {
   // Extract TabItem children to get their props
-  const tabItems = Array.isArray(children)
-    ? children.filter((child: any) => child?.type?.displayName === 'TabItem')
-    : [children].filter((child: any) => child?.type?.displayName === 'TabItem');
+  const tabItems = Children.toArray(children).filter((child) => {
+    return isValidElement(child) && child.type === TabItem;
+  }) as ReactElement<TabItemProps>[];
 
   const firstTabValue = tabItems[0]?.props?.value;
   const [activeTab, setActiveTab] = useState(defaultTab || firstTabValue || '');
@@ -184,7 +186,7 @@ const TabComponent = ({
       >
         {/* Tab Headers */}
         <div className={cn(tabHeaderVariant({ variant: headerButtonVariant }))}>
-          {tabItems.map((child: any) => {
+          {tabItems.map((child) => {
             const { label, value, disabled } = child.props;
             const isActive = activeTab === value;
 
@@ -213,7 +215,7 @@ const TabComponent = ({
 
         {/* Tab Content */}
         <div className={cn(tabContentVariant({ variant: contentVariant }))}>
-          {tabItems.map((child: any) => {
+          {tabItems.map((child) => {
             const { value } = child.props;
             const isActive = activeTab === value;
 
