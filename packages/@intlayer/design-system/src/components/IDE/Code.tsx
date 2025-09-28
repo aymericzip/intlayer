@@ -81,7 +81,7 @@ export const Code: FC<CodeCompProps> = ({
                 )}
               </div>
             </div>
-            <div className="sticky top-40 z-20">
+            <div className="sticky top-46 z-20">
               <div
                 className={cn(
                   'absolute bottom-0 right-2 flex h-7 items-center',
