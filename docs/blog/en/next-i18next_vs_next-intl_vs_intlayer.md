@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-09-25
+updatedAt: 2025-09-28
 title: next-i18next vs next-intl vs Intlayer
 description: Compare next-i18next with next-intl and Intlayer for the internationalization (i18n) of a Next.js app
 keywords:
@@ -174,6 +174,52 @@ Here an example of the impact of bundle size optimization using `intlayer`:
 
 ---
 
+## TypeScript & safety
+
+- **next-intl**: Solid TypeScript support, but **keys aren’t strictly typed by default**; you’ll maintain safety patterns manually.
+- **next-i18next**: Base typings for hooks; **strict key typing requires extra tooling/config**.
+- **Intlayer**: **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deploy.
+
+**Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
+
+---
+
+## Missing translation handling
+
+- **next-intl / next-i18next**: Rely on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+- **Intlayer**: **Build-time detection** with **warnings/errors** for missing locales or keys.
+
+**Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
+
+---
+
+## Routing, middleware & URL strategy
+
+- All three work with **Next.js localized routing** on the App Router.
+- **Intlayer** goes further with **i18n middleware** (locale detection via headers/cookies) and **helpers** to generate localized URLs and `<link rel="alternate" hreflang="…">` tags.
+
+**Why it matters:** Fewer custom glue layers; **consistent UX** and **clean SEO** across locales.
+
+---
+
+## Server Components (RSC) alignment
+
+- **All** support Next.js 13+.
+- **Intlayer** smooths the **server/client boundary** with a consistent API and providers designed for RSC, so you don’t shuttle formatters or t-functions through component trees.
+
+**Why it matters:** Cleaner mental model and fewer edge cases in hybrid trees.
+
+---
+
+## Tooling & maintenance
+
+- **next-intl / next-i18next**: You’ll typically wire up external platforms for translations and editorial workflows.
+- **Intlayer**: Ships a **free Visual Editor** and **optional CMS** (Git-friendly or externalized). Plus **VSCode extension** for content authoring and **AI-assisted translations** using your own provider keys.
+
+**Why it matters:** Lowers ops cost and shortens the loop between developers and content authors.
+
+---
+
 ## Developer Experience
 
 This part makes a deep comparison between the three solutions. Rather than considering simple cases, as described in the 'getting started' documentation for each solution, we will consider a real use case, more similar to a real project.
@@ -181,6 +227,8 @@ This part makes a deep comparison between the three solutions. Rather than consi
 ### App structure
 
 The app structure is important to ensure good maintainability for your codebase.
+
+### **next-intl**
 
 <Tabs>
   <TabItem label="next-intl">
@@ -205,7 +253,7 @@ The app structure is important to ensure good maintainability for your codebase.
         └── Navbar
             └── Navbar.tsx
 ```
-
+### **next-i18next**
   </TabItem>
   <TabItem label="next-i18next">
 
@@ -231,7 +279,7 @@ The app structure is important to ensure good maintainability for your codebase.
         └── Navbar
             └── Navbar.tsx
 ```
-
+### **Intlayer**
   </TabItem>
   <TabItem label="intlayer">
 
@@ -254,10 +302,11 @@ The app structure is important to ensure good maintainability for your codebase.
 ### Comparison
 
 #### Configuration
+**next-intl** defines locales in next.config.js and requires wrapping your app with a provider and manual message loading.
+**next-i18next** uses a separate next-i18next.config.js file and automatically loads translations from the filesystem.
+**Intlayer** uses a centralized configuration file to set up your locale, middleware, build, etc.
 
-Intlayer uses a centralized configuration file to set up your locale, middleware, build, etc.
-
-#### Content declaration
+<!-- #### Content declaration
 
 The centralized type of architecture slows down the development process and makes the codebase more complex to maintain for several reasons:
 
@@ -300,13 +349,13 @@ This approach allows you to:
    - Translations can easily be done by autocompletion AI tools in your IDE (such as GitHub Copilot)
 
 6. **Optimize loading performance**
-   - If a component is lazy-loaded, its related content will be loaded at the same time
+   - If a component is lazy-loaded, its related content will be loaded at the same time -->
 
 ### Setup and Loading Content
 
 As mentioned previously, you must optimize how each JSON file is imported into your code.
 How the library handles content loading is important.
-
+### **next-intl**
 <Tabs>
   <TabItem label="next-intl">
 
@@ -379,7 +428,7 @@ export default async function LandingPage({
   );
 }
 ```
-
+### **next-i18next**
   </TabItem>
   <TabItem label="next-i18next">
 
@@ -444,7 +493,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 ```
-
+### **Intlayer**
   </TabItem>
   <TabItem label="intlayer">
 
@@ -511,18 +560,17 @@ export default LandingPage;
 
 #### Comparison
 
-In comparison to other solutions, Intlayer uses plugins to optimize the import of content at build time.
+**next-intl** requires manual imports of JSON and wrapping a provider per layout/page.
 
-This means that the client context can be stored in the root layout, to reuse only one instance of the provider for all pages.
+**next-i18next** auto-loads translations from the filesystem but still rebuilds a provider per page and namespace.
 
-In comparison, the other solutions require rebuilding a custom provider for each page.
-
-Intlayer also provides a Provider for your server components. We'll see why later.
+**Intlayer** optimizes imports at build time with plugins, lets you define a single provider in the root layout, and even supports a dedicated server-side provider.
 
 ### Usage in a client component
 
 Let's take an example of a client component rendering a counter.
 
+### **next-i18next**
 <Tabs>
   <TabItem label="next-i18next">
 
@@ -577,7 +625,8 @@ export default function ClientComponentExample() {
 
 > Don't forget to add "about" namespace on the page serverSideTranslations
 > We take here the version of react 19.x.x, but for lower versions, you will need to use useMemo to store the instance of the formatter as it's a heavy function
-
+> 
+### **next-intl**
   </TabItem>
   <TabItem label="next-intl">
 
@@ -627,7 +676,7 @@ export default function ClientComponentExample() {
 ```
 
 > Don't forget to add "about" message on the page client message
-
+### **Intlayer**
   </TabItem>
   <TabItem label="intlayer">
 
@@ -694,7 +743,7 @@ export default function ClientComponentExample() {
 ### Usage in a server component
 
 We will take the case of a UI component. This component is a server component, and should be able to be inserted as a child of a client component. (page (server component) -> client component -> server component). As this component can be inserted as a child of a client component, it cannot be async.
-
+### **next-i18next**
 <Tabs>
   <TabItem label="next-i18next">
 
@@ -728,7 +777,7 @@ export default function ServerComponent({
 >
 > - `const { t, i18n } = useTranslation("about");`
 > - `const formatted = new Intl.NumberFormat(i18n.language).format(initialCount);`
-
+### **next-intl**
   </TabItem>
   <TabItem label="next-intl">
 
@@ -757,7 +806,7 @@ export default async function ServerComponent({
 >
 > - `const t = await getTranslations("about.counter");`
 > - `const format = await getFormatter();`
-
+### **Intlayer**
   </TabItem>
   <TabItem label="intlayer">
 
@@ -798,7 +847,7 @@ Here's a list of good practices regarding multilingual SEO.
   >
 
 Developers often forget to properly reference their pages across locales.
-
+### **next-intl**
 <Tabs>
   <TabItem label="next-intl">
 
@@ -886,7 +935,7 @@ export default function robots(): MetadataRoute.Robots {
   };
 }
 ```
-
+### **next-i18next**
   </TabItem>
   <TabItem label="next-i18next">
 
@@ -987,7 +1036,7 @@ export default function robots(): MetadataRoute.Robots {
   };
 }
 ```
-
+### **Intlayer**
   </TabItem>
   <TabItem label="intlayer">
 
@@ -1073,50 +1122,6 @@ export default robots;
 
 ---
 
-## TypeScript & safety
-
-- **next-intl**: Solid TypeScript support, but **keys aren’t strictly typed by default**; you’ll maintain safety patterns manually.
-- **next-i18next**: Base typings for hooks; **strict key typing requires extra tooling/config**.
-- **Intlayer**: **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deploy.
-
-**Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
-
----
-
-## Missing translation handling
-
-- **next-intl / next-i18next**: Rely on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
-- **Intlayer**: **Build-time detection** with **warnings/errors** for missing locales or keys.
-
-**Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
-
----
-
-## Routing, middleware & URL strategy
-
-- All three work with **Next.js localized routing** on the App Router.
-- **Intlayer** goes further with **i18n middleware** (locale detection via headers/cookies) and **helpers** to generate localized URLs and `<link rel="alternate" hreflang="…">` tags.
-
-**Why it matters:** Fewer custom glue layers; **consistent UX** and **clean SEO** across locales.
-
----
-
-## Server Components (RSC) alignment
-
-- **All** support Next.js 13+.
-- **Intlayer** smooths the **server/client boundary** with a consistent API and providers designed for RSC, so you don’t shuttle formatters or t-functions through component trees.
-
-**Why it matters:** Cleaner mental model and fewer edge cases in hybrid trees.
-
----
-
-## DX, tooling & maintenance
-
-- **next-intl / next-i18next**: You’ll typically wire up external platforms for translations and editorial workflows.
-- **Intlayer**: Ships a **free Visual Editor** and **optional CMS** (Git-friendly or externalized). Plus **VSCode extension** for content authoring and **AI-assisted translations** using your own provider keys.
-
-## **Why it matters:** Lowers ops cost and shortens the loop between developers and content authors.
-
 ## And the winner is…
 
 It’s not simple. Each option has trade-offs. Here’s how I see it:
@@ -1141,13 +1146,6 @@ Refer to [`dictionaryOutput` and `i18nextResourcesDir` options](https://intlayer
 
 ---
 
-## GitHub STARs
-
-GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
-
-[![Star History Chart](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
-
----
 
 ## Conclusion
 
