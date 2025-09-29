@@ -140,6 +140,7 @@ Two important issues:
   > If I'm on the `/about` page, I don't want to load the content of the `/home` page
 
 - **Splitting by locale:**
+
   > If I'm on the `/fr/about` page, I don't want to load the content of the `/en/about` page
 
 Again, all three solutions are aware of these issues and allow managing these optimizations. The difference between the three solutions is the DX (Developer Experience).
