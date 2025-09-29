@@ -43,6 +43,8 @@ export { getFileHash } from './utils/getFileHash';
 export {
   getExtensionFromFormat,
   getFormatFromExtension,
+  type Extension,
+  type Format,
 } from './utils/getFormatFromExtension';
 export { kebabCaseToCamelCase } from './utils/kebabCaseToCamelCase';
 export { parallelize } from './utils/parallelize';
