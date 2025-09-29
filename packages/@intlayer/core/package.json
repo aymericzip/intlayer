@@ -109,6 +109,42 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "file": [
+        "./dist/types/transpiler/file/file.d.ts"
+      ],
+      "file/browser": [
+        "./dist/types/transpiler/file/file.d.ts"
+      ],
+      "compact": [
+        "./dist/types/formatters/compact.d.ts"
+      ],
+      "currency": [
+        "./dist/types/formatters/currency.d.ts"
+      ],
+      "date": [
+        "./dist/types/formatters/date.d.ts"
+      ],
+      "relativeTime": [
+        "./dist/types/formatters/relativeTime.d.ts"
+      ],
+      "number": [
+        "./dist/types/formatters/number.d.ts"
+      ],
+      "units": [
+        "./dist/types/formatters/units.d.ts"
+      ],
+      "list": [
+        "./dist/types/formatters/list.d.ts"
+      ],
+      "percentage": [
+        "./dist/types/formatters/percentage.d.ts"
+      ],
+      "intl": [
+        "./dist/types/utils/intl.d.ts"
+      ],
       "package.json": [
         "./package.json"
       ]

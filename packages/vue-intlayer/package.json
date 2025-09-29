@@ -53,6 +53,12 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/format/index.d.ts"
+      ],
       "package.json": [
         "./package.json"
       ]

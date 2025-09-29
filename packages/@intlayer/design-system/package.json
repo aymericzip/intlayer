@@ -60,6 +60,31 @@
     "./css": "./src/tailwind.css",
     "./css-output": "./dist/tailwind.css"
   },
+  "main": "dist/components/index.cjs",
+  "module": "dist/components/index.mjs",
+  "types": "dist/components/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/components/index.d.ts"
+      ],
+      "hooks": [
+        "./dist/hooks/index.d.ts"
+      ],
+      "providers": [
+        "./dist/providers/index.d.ts"
+      ],
+      "libs": [
+        "./dist/libs/index.d.ts"
+      ],
+      "tailwind-config": [
+        "./dist/tailwind.config.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],

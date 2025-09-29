@@ -51,6 +51,15 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "cli": [
+        "./dist/types/cli/index.d.ts"
+      ],
+      "cli/*": [
+        "./dist/types/cli/*"
+      ],
       "package.json": [
         "./package.json"
       ]

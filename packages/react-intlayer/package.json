@@ -68,6 +68,18 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
+      "format": [
+        "./dist/types/client/format/index.d.ts"
+      ],
+      "server": [
+        "./dist/types/server/index.d.ts"
+      ],
+      "server/format": [
+        "./dist/types/server/format/index.d.ts"
+      ],
+      "editor": [
+        "./dist/types/editor/index.d.ts"
+      ],
       "package.json": [
         "./package.json"
       ]

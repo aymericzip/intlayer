@@ -60,6 +60,15 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "client": [
+        "./dist/types/client.d.ts"
+      ],
+      "built": [
+        "./dist/types/built.d.ts"
+      ],
       "package.json": [
         "./package.json"
       ]

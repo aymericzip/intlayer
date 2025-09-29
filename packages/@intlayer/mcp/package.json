@@ -50,6 +50,12 @@
   "types": "dist/types/server/stdio.d.ts",
   "typesVersions": {
     "*": {
+      ".": [
+        "./dist/types/server/stdio.d.ts"
+      ],
+      "sse": [
+        "./dist/types/server/sse.d.ts"
+      ],
       "package.json": [
         "./package.json"
       ]
