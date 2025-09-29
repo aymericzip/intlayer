@@ -203,17 +203,29 @@ Here an example of the impact of bundle size optimization using `intlayer` in a 
 
 ## Missing translation handling
 
+<Columns>
+  <Column>
+
 **next-intl**
 
 - Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+
+  </Column>
+  <Column>
 
 **next-i18next**
 
 - Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
 
+  </Column>
+  <Column>
+
 **intlayer**
 
 - **Build-time detection** with **warnings/errors** for missing locales or keys.
+
+  </Column>
+</Columns>
 
 **Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
 
@@ -1180,16 +1192,16 @@ It’s not simple. Each option has trade-offs. Here’s how I see it:
 <Columns>
   <Column>
 
-**next-intl**
+**next-i18next**
 
-- simplest, lightweight, fewer decisions forced on you. If you want a **minimal** solution, you’re comfortable with centralized catalogs, and your app is **small to mid-size**.
+- mature, full of features, lots of community plugins, but higher setup cost. If you need **i18next’s plugin ecosystem** (e.g., advanced ICU rules via plugins) and your team already knows i18next, accepting **more configuration** for flexibility.
 
   </Column>
   <Column>
 
-**next-i18next**
+**next-intl**
 
-- mature, full of features, lots of community plugins, but higher setup cost. If you need **i18next’s plugin ecosystem** (e.g., advanced ICU rules via plugins) and your team already knows i18next, accepting **more configuration** for flexibility.
+- simplest, lightweight, fewer decisions forced on you. If you want a **minimal** solution, you’re comfortable with centralized catalogs, and your app is **small to mid-size**.
 
   </Column>
   <Column>
