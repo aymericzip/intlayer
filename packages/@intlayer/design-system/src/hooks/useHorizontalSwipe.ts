@@ -100,11 +100,6 @@ export const useHorizontalSwipe = (
     isTextSelectingRef.current = false;
     setIsDragging(false);
     setDragDeltaPct(0);
-    try {
-      (
-        e.currentTarget as Element & { setPointerCapture: (id: number) => void }
-      ).setPointerCapture(e.pointerId);
-    } catch {}
   };
 
   const onPointerMove: PointerEventHandler<HTMLDivElement> = (e) => {
@@ -140,6 +135,13 @@ export const useHorizontalSwipe = (
     if (!pointerStateRef.current.isHorizontal) {
       return;
     }
+
+    // Defer pointer capture until a horizontal gesture is confirmed
+    try {
+      (
+        e.currentTarget as Element & { setPointerCapture: (id: number) => void }
+      ).setPointerCapture(e.pointerId);
+    } catch {}
 
     e.preventDefault();
 
