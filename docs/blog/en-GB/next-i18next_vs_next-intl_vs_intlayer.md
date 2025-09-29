@@ -845,58 +845,45 @@ We will take the case of a UI component. This component is a server component, a
   <TabItem label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
-import React from "react";
 import type { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 type ServerComponentProps = {
   count: number;
-  t: (key: string) => string;
-  format: (value: number) => string;
 };
 
-export default function ServerComponent({
-  t,
-  format,
-  count,
-}: ServerComponentProps) {
+const ServerComponent = ({ count }: ServerComponentProps) => {
+  const { t, i18n } = useTranslation("about");
+  const formatted = new Intl.NumberFormat(i18n.language).format(count);
+
   return (
     <div>
-      <p>{format(count)}</p>
+      <p>{formatted}</p>
       <button aria-label={t("counter.label")}>{t("counter.increment")}</button>
     </div>
   );
-}
+};
 ```
-
-> As the server component cannot be async, you need to pass the translations and formatter function as props.
->
-> - `const { t, i18n } = useTranslation("about");`
-> - `const formatted = new Intl.NumberFormat(i18n.language).format(initialCount);`
 
   </TabItem>
   <TabItem label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
-import { getTranslations, getFormatter } from "next-intl/server";
-
-export default async function ServerComponent({
-  t,
-  format,
-  count,
-}: {
-  t: (key: string) => string;
-  format: (value: number) => string;
+type ServerComponentProps = {
   count: number;
-}) {
+  t: (key: string) => string;
+};
+
+const ServerComponent = ({ t, count }: ServerComponentProps) => {
+  const formatted = new Intl.NumberFormat(i18n.language).format(count);
+
   return (
     <div>
-      <p>{format.number(count)}</p>
+      <p>{formatted}</p>
       <button aria-label={t("label")}>{t("increment")}</button>
     </div>
   );
-}
+};
 ```
 
 > As the server component cannot be async, you need to pass the translations and formatter function as props.
