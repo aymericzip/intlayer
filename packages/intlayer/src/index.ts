@@ -1,4 +1,3 @@
-export * from '@intlayer/config/client';
 import { type CustomIntlayerConfig as IntlayerConfig } from '@intlayer/config/client';
 import type { Dictionary as DictionaryCore } from '@intlayer/core';
 
@@ -8,6 +7,7 @@ type Dictionary<T = undefined> = DictionaryCore<T, true>;
  */
 type DeclarationContent<T = undefined> = Dictionary<T>;
 
+export { Locales, type LocalesValues } from '@intlayer/config/client';
 export type { DeclarationContent, Dictionary };
 
 /**
