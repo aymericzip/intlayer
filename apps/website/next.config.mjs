@@ -59,7 +59,7 @@ const secureHeaders = {
         '*.vercel.app',
         'img.shields.io',
       ],
-      imgSrc: ["'self'", 'https:', 'data:'],
+      imgSrc: ["'self'", 'https:', 'data:', 'raw.githubusercontent.com'],
       workerSrc: [
         `${process.env.NEXT_PUBLIC_URL}`,
         `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
