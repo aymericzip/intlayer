@@ -31,12 +31,16 @@ const PricingPage: NextPageIntlayer = async ({ params }) => {
       pricingData = pricingDataResponse.data;
     }
   } catch (error) {
-    console.error('Failed to fetch pricing data', {
-      cause: {
-        priceIds,
-        backendURL: configuration.editor?.backendURL,
-      },
-    });
+    if (process.env.NODE_ENV === 'production' && !pricingData) {
+      throw new Error('Failed to fetch pricing data');
+    } else {
+      console.error('Failed to fetch pricing data', {
+        cause: {
+          priceIds,
+          backendURL: configuration.editor?.backendURL,
+        },
+      });
+    }
   }
 
   if (!pricingData) {
