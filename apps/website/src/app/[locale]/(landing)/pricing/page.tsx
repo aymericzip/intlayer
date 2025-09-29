@@ -1,11 +1,12 @@
 import { PricingPage as PricingPageContent } from '@components/PricingPage';
-import { getStripeAPI } from '@intlayer/api';
+import { GetPricingResult, getStripeAPI } from '@intlayer/api';
 import configuration from '@intlayer/config/built';
 import { ProductHeader } from '@structuredData/ProductHeader';
 import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
-import type { NextPageIntlayer } from 'next-intlayer';
+import { type NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
+import { notFound } from 'next/navigation';
 import { generateMetadata } from './metadata';
 
 export { generateMetadata };
@@ -21,17 +22,25 @@ const PricingPage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
   // Cache the data at build time
 
-  const pricingData = await getStripeAPI().getPricing({
-    priceIds,
-  });
-
-  if (!pricingData.data) {
+  let pricingData: GetPricingResult['data'] | null = null;
+  try {
+    const pricingDataResponse = await getStripeAPI().getPricing({
+      priceIds,
+    });
+    if (pricingDataResponse.success) {
+      pricingData = pricingDataResponse.data;
+    }
+  } catch (error) {
     console.error('Failed to fetch pricing data', {
       cause: {
         priceIds,
         backendURL: configuration.editor?.backendURL,
       },
     });
+  }
+
+  if (!pricingData) {
+    return notFound();
   }
 
   return (
