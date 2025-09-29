@@ -15,9 +15,7 @@ keywords:
   - next-i18next
 slugs:
   - blog
-  - seo
-  - i18n
-  - nextjs
+  - blog-seo-i18n-nextjs
 ---
 
 # Next.js 中的 SEO 和国际化：仅仅翻译是不够的

@@ -15,9 +15,7 @@ keywords:
   - next-i18next
 slugs:
   - blog
-  - seo
-  - i18n
-  - nextjs
+  - blog-seo-i18n-nextjs
 ---
 
 # تحسين محركات البحث والتدويل في Next.js: الترجمة ليست كافية

@@ -15,9 +15,7 @@ keywords:
   - next-i18next
 slugs:
   - blog
-  - seo
-  - i18n
-  - nextjs
+  - blog-seo-i18n-nextjs
 ---
 
 # Next.js में SEO और i18n: केवल अनुवाद करना पर्याप्त नहीं है
