@@ -688,6 +688,7 @@ const parseTableRow = (
   state: State,
   tableOutput: boolean
 ): ParserResult[][] => {
+  const start = performance.now();
   const prevInTable = state.inTable;
 
   state.inTable = true;
@@ -729,6 +730,13 @@ const parseTableRow = (
 
   state.inTable = prevInTable;
 
+  const duration = performance.now() - start;
+  if (duration > 1) {
+    console.log(
+      `parseTableRow: ${duration.toFixed(3)}ms, source length: ${source.length}, cells count: ${cells.length}`
+    );
+  }
+
   return cells;
 };
 
@@ -743,11 +751,21 @@ const parseTableCells = (
   parse: NestedParser,
   state: State
 ): ParserResult[][][] => {
+  const start = performance.now();
   const rowsText = source.trim().split('\n');
 
-  return rowsText.map((rowText) => {
+  const result = rowsText.map((rowText) => {
     return parseTableRow(rowText, parse, state, true);
   });
+
+  const duration = performance.now() - start;
+  if (duration > 1) {
+    console.log(
+      `parseTableCells: ${duration.toFixed(3)}ms, source length: ${source.length}, rows count: ${rowsText.length}`
+    );
+  }
+
+  return result;
 };
 
 const parseTable = (
@@ -801,6 +819,7 @@ const normalizeAttributeKey = (key: string): string => {
 type StyleTuple = [key: string, value: string];
 
 const parseStyleAttribute = (styleString: string): StyleTuple[] => {
+  const start = performance.now();
   const styles: StyleTuple[] = [];
   let buffer = '';
   let inUrl = false;
@@ -858,6 +877,13 @@ const parseStyleAttribute = (styleString: string): StyleTuple[] => {
     }
   }
 
+  const duration = performance.now() - start;
+  if (duration > 1) {
+    console.log(
+      `parseStyleAttribute: ${duration.toFixed(3)}ms, styleString length: ${styleString.length}, styles count: ${styles.length}`
+    );
+  }
+
   return styles;
 };
 
@@ -868,6 +894,7 @@ const trimLeadingWhitespaceOutsideFences = (
   text: string,
   whitespace: string
 ): string => {
+  const start = performance.now();
   if (!whitespace) return text;
 
   const lines = text.split('\n');
@@ -913,7 +940,16 @@ const trimLeadingWhitespaceOutsideFences = (
     return line.startsWith(whitespace) ? line.slice(whitespace.length) : line;
   });
 
-  return out.join('\n');
+  const result = out.join('\n');
+
+  const duration = performance.now() - start;
+  if (duration > 1) {
+    console.log(
+      `trimLeadingWhitespaceOutsideFences: ${duration.toFixed(3)}ms, text length: ${text.length}, lines count: ${lines.length}`
+    );
+  }
+
+  return result;
 };
 
 const attributeValueToJSXPropValue = (
@@ -963,10 +999,20 @@ const attributeValueToJSXPropValue = (
 };
 
 const normalizeWhitespace = (source: string): string => {
-  return source
+  const start = performance.now();
+  const result = source
     .replace(CR_NEWLINE_R, '\n')
     .replace(FORMFEED_R, '')
     .replace(TAB_R, '    ');
+
+  const duration = performance.now() - start;
+  if (duration > 1) {
+    console.log(
+      `normalizeWhitespace: ${duration.toFixed(3)}ms, source length: ${source.length}`
+    );
+  }
+
+  return result;
 };
 
 /**
@@ -991,6 +1037,7 @@ const normalizeWhitespace = (source: string): string => {
 const parserFor = (
   rules: Rules
 ): ((source: string, state: State) => ReturnType<NestedParser>) => {
+  const start = performance.now();
   var ruleList = Object.keys(rules) as Array<keyof typeof rules>;
 
   if (process.env.NODE_ENV !== 'production') {
@@ -1011,6 +1058,7 @@ const parserFor = (
   });
 
   const nestedParse = (source: string, state: State = {}): ParserResult[] => {
+    const parseStart = performance.now();
     var result: ParserResult[] = [];
     state.prevCapture = state.prevCapture || '';
 
@@ -1026,11 +1074,28 @@ const parserFor = (
             continue;
           }
 
+          const matchStart = performance.now();
           var capture = rule._match(source, state);
+          const matchDuration = performance.now() - matchStart;
+
+          if (matchDuration > 1) {
+            console.log(
+              `${ruleType}._match: ${matchDuration.toFixed(3)}ms, source length: ${source.length}`
+            );
+          }
+
           if (capture && capture[0]) {
             source = source.substring(capture[0].length);
 
+            const ruleParseStart = performance.now();
             const parsedAny: any = rule._parse(capture, nestedParse, state);
+            const ruleParseDuration = performance.now() - ruleParseStart;
+
+            if (ruleParseDuration > 1) {
+              console.log(
+                `${ruleType}._parse: ${ruleParseDuration.toFixed(3)}ms, capture length: ${capture[0].length}`
+              );
+            }
 
             state.prevCapture += capture[0];
 
@@ -1047,8 +1112,22 @@ const parserFor = (
     // reset on exit
     state.prevCapture = '';
 
+    const parseDuration = performance.now() - parseStart;
+    if (parseDuration > 1) {
+      console.log(
+        `nestedParse: ${parseDuration.toFixed(3)}ms, source length: ${source.length}, result count: ${result.length}`
+      );
+    }
+
     return result;
   };
+
+  const duration = performance.now() - start;
+  if (duration > 1) {
+    console.log(
+      `parserFor: ${duration.toFixed(3)}ms, rules count: ${ruleList.length}`
+    );
+  }
 
   return (source: string, state: State) =>
     nestedParse(normalizeWhitespace(source), state);
@@ -1145,6 +1224,7 @@ const parseInline = (
   children: string,
   state: State
 ): ParserResult[] => {
+  const start = performance.now();
   const isCurrentlyInline = state.inline ?? false;
   const isCurrentlySimple = state.simple ?? false;
   state.inline = true;
@@ -1152,6 +1232,14 @@ const parseInline = (
   const result = parse(children, state);
   state.inline = isCurrentlyInline;
   state.simple = isCurrentlySimple;
+
+  const duration = performance.now() - start;
+  if (duration > 1) {
+    console.log(
+      `parseInline: ${duration.toFixed(3)}ms, children length: ${children.length}, result count: ${result.length}`
+    );
+  }
+
   return result;
 };
 
@@ -1163,6 +1251,7 @@ const parseSimpleInline = (
   children: string,
   state: State
 ): ParserResult[] => {
+  const start = performance.now();
   const isCurrentlyInline = state.inline ?? false;
   const isCurrentlySimple = state.simple ?? false;
   state.inline = false;
@@ -1170,6 +1259,14 @@ const parseSimpleInline = (
   const result = parse(children, state);
   state.inline = isCurrentlyInline;
   state.simple = isCurrentlySimple;
+
+  const duration = performance.now() - start;
+  if (duration > 1) {
+    console.log(
+      `parseSimpleInline: ${duration.toFixed(3)}ms, children length: ${children.length}, result count: ${result.length}`
+    );
+  }
+
   return result;
 };
 
@@ -1178,10 +1275,19 @@ const parseBlock = (
   children: string,
   state: State = {}
 ): ParserResult[] => {
+  const start = performance.now();
   const isCurrentlyInline = state.inline || false;
   state.inline = false;
   const result = parse(children, state);
   state.inline = isCurrentlyInline;
+
+  const duration = performance.now() - start;
+  if (duration > 1) {
+    console.log(
+      `parseBlock: ${duration.toFixed(3)}ms, children length: ${children.length}, result count: ${result.length}`
+    );
+  }
+
   return result;
 };
 
@@ -1234,7 +1340,9 @@ const reactFor =
 
       const duration = performance.now() - start;
       if (duration > 1) {
-        console.log(`reactFor (array): ${duration.toFixed(3)}ms, ast length: ${ast.length}`);
+        console.log(
+          `reactFor (array): ${duration.toFixed(3)}ms, ast length: ${ast.length}`
+        );
       }
 
       return result as unknown as ReactNode[];
@@ -1245,12 +1353,14 @@ const reactFor =
       patchedRender as RuleOutput,
       state
     ) as unknown as ReactNode[];
-    
+
     const duration = performance.now() - start;
     if (duration > 1) {
-      console.log(`reactFor (single): ${duration.toFixed(3)}ms, ast type: ${(ast as ParserResult).type}`);
+      console.log(
+        `reactFor (single): ${duration.toFixed(3)}ms, ast type: ${(ast as ParserResult).type}`
+      );
     }
-    
+
     return result;
   };
 
@@ -1263,12 +1373,14 @@ const createRenderer =
     const result = userRender
       ? userRender(() => renderer?.(ast, render, state), ast, render, state)
       : renderer?.(ast, render, state);
-    
+
     const duration = performance.now() - start;
     if (duration > 1) {
-      console.log(`createRenderer: ${duration.toFixed(3)}ms, ast type: ${ast.type}, hasUserRender: ${!!userRender}`);
+      console.log(
+        `createRenderer: ${duration.toFixed(3)}ms, ast type: ${ast.type}, hasUserRender: ${!!userRender}`
+      );
     }
-    
+
     return result;
   };
 
@@ -1334,8 +1446,14 @@ export const compiler = (
 
   const containsBlockSyntax = (input: string): boolean => {
     // Ignore leading blank lines when deciding block vs inline parsing
+    // Bound the amount of text tested to avoid catastrophic regex on long bodies
     const cleaned = input.replace(TRIM_STARTING_NEWLINES, '');
-    return BLOCK_SYNTAXES.some((r) => r.test(cleaned));
+    const slice = cleaned.length > 2048 ? cleaned.slice(0, 2048) : cleaned;
+    // If raw HTML parsing is disabled, avoid testing HTML regexes entirely
+    const syntaxes = options.disableParsingRawHTML
+      ? [...NON_PARAGRAPH_BLOCK_SYNTAXES, PARAGRAPH_R, CUSTOM_COMPONENT_R]
+      : BLOCK_SYNTAXES;
+    return syntaxes.some((r) => r.test(slice));
   };
 
   const matchParagraph = (
@@ -1439,7 +1557,9 @@ export const compiler = (
     if (options.wrapper === null) {
       const duration = performance.now() - start;
       if (duration > 1) {
-        console.log(`compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`);
+        console.log(
+          `compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`
+        );
       }
       return arr as unknown as JSX.Element;
     }
@@ -1456,13 +1576,17 @@ export const compiler = (
       if (typeof jsx === 'string') {
         const duration = performance.now() - start;
         if (duration > 1) {
-          console.log(`compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`);
+          console.log(
+            `compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`
+          );
         }
         return <span key="outer">{jsx}</span>;
       } else {
         const duration = performance.now() - start;
         if (duration > 1) {
-          console.log(`compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`);
+          console.log(
+            `compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`
+          );
         }
         return jsx as unknown as JSX.Element;
       }
@@ -1473,7 +1597,9 @@ export const compiler = (
 
     const duration = performance.now() - start;
     if (duration > 1) {
-      console.log(`compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`);
+      console.log(
+        `compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`
+      );
     }
 
     return createElementFn(wrapper, { key: 'outer' }, jsx) as JSX.Element;
@@ -1483,6 +1609,7 @@ export const compiler = (
     tag: HTMLTags,
     str: string
   ): JSX.IntrinsicAttributes | null => {
+    const start = performance.now();
     if (!str || !str.trim()) {
       return null;
     }
@@ -1492,7 +1619,7 @@ export const compiler = (
       return null;
     }
 
-    return attributes.reduce((map: any, raw) => {
+    const result = attributes.reduce((map: any, raw) => {
       const delimiterIdx = raw.indexOf('=');
 
       if (delimiterIdx !== -1) {
@@ -1524,6 +1651,15 @@ export const compiler = (
 
       return map;
     }, {});
+
+    const duration = performance.now() - start;
+    if (duration > 1) {
+      console.log(
+        `attrStringToMap: ${duration.toFixed(3)}ms, str length: ${str.length}, attributes count: ${attributes.length}`
+      );
+    }
+
+    return result;
   };
 
   if (process.env.NODE_ENV !== 'production') {
@@ -1560,27 +1696,30 @@ export const compiler = (
       _qualify: ['>'],
       _match: blockRegex(BLOCKQUOTE_R),
       _order: Priority.HIGH,
-    _parse(capture, parse, state) {
-      const start = performance.now();
-      const matchAlert = capture[0]
-        .replace(BLOCKQUOTE_TRIM_LEFT_MULTILINE_R, '')
-        .match(BLOCKQUOTE_ALERT_R) as RegExpMatchArray | null;
-      const alert = matchAlert?.[1];
-      const content = matchAlert?.[2] ?? '';
+      _parse(capture, parse, state) {
+        const start = performance.now();
+        const matchAlert = capture[0]
+          .replace(BLOCKQUOTE_TRIM_LEFT_MULTILINE_R, '')
+          .match(BLOCKQUOTE_ALERT_R) as RegExpMatchArray | null;
+        const alert = matchAlert?.[1];
+        const content = matchAlert?.[2] ?? '';
 
-      const result = {
-        alert,
-        children: parse(content, state),
-      };
-      
-      const duration = performance.now() - start;
-      if (duration > 1) {
-        console.log(`blockQuote._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`);
-      }
-      
-      return result;
-    },
+        const result = {
+          alert,
+          children: parse(content, state),
+        };
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `blockQuote._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`
+          );
+        }
+
+        return result;
+      },
       _render(node, _output, state = {}) {
+        const start = performance.now();
         const props = {
           key: state?.key,
         } as Record<string, unknown>;
@@ -1598,7 +1737,20 @@ export const compiler = (
           });
         }
 
-        return h('blockquote', props, _output(node.children, state as State));
+        const result = h(
+          'blockquote',
+          props,
+          _output(node.children, state as State)
+        );
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `blockQuote._render: ${duration.toFixed(3)}ms, children count: ${node.children.length}, has alert: ${!!node.alert}`
+          );
+        }
+
+        return result;
       },
     },
 
@@ -1637,6 +1789,7 @@ export const compiler = (
       },
 
       _render(node, _output, state = {}) {
+        const start = performance.now();
         const attrs = { ...((node as any).attrs ?? {}) } as Record<string, any>;
         const langClass = node.lang ? `lang-${node.lang}` : 'lang-plaintext';
         attrs.className = attrs.className
@@ -1644,11 +1797,20 @@ export const compiler = (
           : langClass;
         if (node.lang && !attrs.lang) attrs.lang = node.lang;
 
-        return h(
+        const result = h(
           'pre',
           { key: state.key },
           h('code', attrs, (node as any).text)
         );
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `codeBlock._render: ${duration.toFixed(3)}ms, text length: ${(node as any).text.length}, lang: ${node.lang || 'none'}`
+          );
+        }
+
+        return result;
       },
     },
 
@@ -1656,7 +1818,7 @@ export const compiler = (
       _qualify: ['```', '~~~'],
       _match: blockRegex(CODE_BLOCK_FENCED_R),
       _order: Priority.MAX,
-      _parse(capture, _parse, state) {
+      _parse(capture /*, _parse, state*/) {
         const rawText = capture[4];
         // Always preserve real newlines so code blocks render with correct block formatting
         const text = rawText;
@@ -1680,7 +1842,17 @@ export const compiler = (
         };
       },
       _render(node, _output, state = {}) {
-        return h('code', { key: state.key }, (node as any).text);
+        const start = performance.now();
+        const result = h('code', { key: state.key }, (node as any).text);
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `codeInline._render: ${duration.toFixed(3)}ms, text length: ${(node as any).text.length}`
+          );
+        }
+
+        return result;
       },
     },
 
@@ -1758,20 +1930,32 @@ export const compiler = (
           id: slug(capture[2], slugify),
           level: capture[1].length as HeadingNode['level'],
         };
-        
+
         const duration = performance.now() - start;
         if (duration > 1) {
-          console.log(`heading._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}, level: ${capture[1].length}`);
+          console.log(
+            `heading._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}, level: ${capture[1].length}`
+          );
         }
-        
+
         return result;
       },
       _render(node, _output, state = {}) {
-        return h(
+        const start = performance.now();
+        const result = h(
           `h${node.level}`,
           { id: node.id, key: state.key },
           _output(node.children, state)
         );
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `heading._render: ${duration.toFixed(3)}ms, level: ${node.level}, children count: ${node.children.length}, id: ${node.id}`
+          );
+        }
+
+        return result;
       },
     },
 
@@ -1788,7 +1972,16 @@ export const compiler = (
     },
 
     [RuleType.htmlBlock]: {
-      _qualify: ['<'],
+      _qualify: (source) => {
+        // quick pre-checks to avoid heavy regex
+        if (options.disableParsingRawHTML) return false;
+        if (source[0] !== '<') return false;
+        // must start like an HTML tag name in lowercase
+        if (!/^<([a-z][a-z0-9:-]*)\b/.test(source)) return false;
+        // ensure there is a closing tag for the same name somewhere ahead to avoid excessive work
+        const tag = source.match(/^<([a-z][a-z0-9:-]*)\b/)?.[1];
+        return tag ? source.indexOf(`</${tag}>`) !== -1 : false;
+      },
       /**
        * find the first matching end tag and process the interior
        */
@@ -1847,16 +2040,30 @@ export const compiler = (
         return ast;
       },
       _render(node, _output, state = {}) {
-        return h(
+        const start = performance.now();
+        const result = h(
           node.tag as HTMLTags,
           { key: state.key, ...(node.attrs ?? {}) },
           node.text ?? (node.children ? _output(node.children, state) : '')
         );
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `htmlBlock._render: ${duration.toFixed(3)}ms, tag: ${node.tag}, has text: ${!!node.text}, has children: ${!!node.children}`
+          );
+        }
+
+        return result;
       },
     },
 
     [RuleType.htmlSelfClosing]: {
-      _qualify: ['<'],
+      _qualify: (source) => {
+        if (options.disableParsingRawHTML) return false;
+        if (source[0] !== '<') return false;
+        return /^<([a-zA-Z][a-zA-Z0-9:]*)[\s>/]/.test(source);
+      },
       /**
        * find the first matching end tag and process the interior
        */
@@ -1870,10 +2077,20 @@ export const compiler = (
         };
       },
       _render(node, _output, state = {}) {
-        return h(node.tag as HTMLTags, {
+        const start = performance.now();
+        const result = h(node.tag as HTMLTags, {
           key: state.key,
           ...(node.attrs ?? {}),
         });
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `htmlSelfClosing._render: ${duration.toFixed(3)}ms, tag: ${node.tag}`
+          );
+        }
+
+        return result;
       },
     },
 
@@ -2112,12 +2329,24 @@ export const compiler = (
         const result = parseCaptureInline(capture, parse, state);
         const duration = performance.now() - start;
         if (duration > 1) {
-          console.log(`paragraph._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`);
+          console.log(
+            `paragraph._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`
+          );
         }
         return result;
       },
       _render(node, _output, state = {}) {
-        return <p key={state.key}>{_output(node.children, state)}</p>;
+        const start = performance.now();
+        const result = <p key={state.key}>{_output(node.children, state)}</p>;
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `paragraph._render: ${duration.toFixed(3)}ms, children count: ${node.children.length}`
+          );
+        }
+
+        return result;
       },
     } as Rule<ReturnType<typeof parseCaptureInline>>,
 
@@ -2193,13 +2422,16 @@ export const compiler = (
         const result = parseTable(capture, parse, state);
         const duration = performance.now() - start;
         if (duration > 1) {
-          console.log(`table._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`);
+          console.log(
+            `table._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`
+          );
         }
         return result;
       },
       _render(node, _output, state = {}) {
+        const start = performance.now();
         const table = node as TableNode;
-        return h(
+        const result = h(
           'table',
           { key: state.key },
           h(
@@ -2235,6 +2467,15 @@ export const compiler = (
             )
           )
         );
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `table._render: ${duration.toFixed(3)}ms, header count: ${table.header.length}, rows count: ${table.cells.length}`
+          );
+        }
+
+        return result;
       },
     },
 
@@ -2280,7 +2521,19 @@ export const compiler = (
         };
       },
       _render(node, _output, state = {}) {
-        return <strong key={state.key}>{_output(node.children, state)}</strong>;
+        const start = performance.now();
+        const result = (
+          <strong key={state.key}>{_output(node.children, state)}</strong>
+        );
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `textBolded._render: ${duration.toFixed(3)}ms, children count: ${node.children.length}`
+          );
+        }
+
+        return result;
       },
     },
 
@@ -2299,7 +2552,17 @@ export const compiler = (
         };
       },
       _render(node, _output, state = {}) {
-        return <em key={state.key}>{_output(node.children, state)}</em>;
+        const start = performance.now();
+        const result = <em key={state.key}>{_output(node.children, state)}</em>;
+
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(
+            `textEmphasized._render: ${duration.toFixed(3)}ms, children count: ${node.children.length}`
+          );
+        }
+
+        return result;
       },
     },
 

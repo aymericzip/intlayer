@@ -1953,9 +1953,6 @@ importers:
       intlayer:
         specifier: workspace:*
         version: link:../../intlayer
-      markdown-to-jsx:
-        specifier: ^7.7.13
-        version: 7.7.13(react@19.1.1)
       react:
         specifier: ^19.1.1
         version: 19.1.1
