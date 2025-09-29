@@ -3,6 +3,7 @@ export * from './reactQuery';
 export * from './useAuth';
 export * from './useDevice';
 export * from './useGetElementOrWindow';
+export * from './useHorizontalSwipe';
 export * from './useIsDarkMode';
 export * from './useIsMounted';
 export * from './useItemSelector';

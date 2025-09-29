@@ -10,6 +10,7 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react';
+import { useHorizontalSwipe } from '../../hooks';
 import { cn } from '../../utils/cn';
 import { TabSelector, TabSelectorColor } from '../TabSelector';
 import { useTabContext } from './TabContext';
@@ -104,6 +105,23 @@ const TabComponent = ({
     (tab) => tab.props.value === currentTabValue
   );
 
+  const tabsCount = tabItems.length;
+
+  const { containerProps, dragDeltaPct, isDragging } = useHorizontalSwipe({
+    itemIndex: activeTabIndex,
+    itemCount: tabsCount,
+    onSwipeLeft: () => {
+      const targetIndex = Math.min(tabsCount - 1, activeTabIndex + 1);
+      const nextValue = tabItems[targetIndex]?.props?.value;
+      if (nextValue) handleSetActiveTab(nextValue);
+    },
+    onSwipeRight: () => {
+      const targetIndex = Math.max(0, activeTabIndex - 1);
+      const nextValue = tabItems[targetIndex]?.props?.value;
+      if (nextValue) handleSetActiveTab(nextValue);
+    },
+  });
+
   const handleSetActiveTab = (tab: string) => {
     setActiveTab(tab);
 
@@ -157,22 +175,22 @@ const TabComponent = ({
         {/* Tab Content */}
         {/* Clipper: no overflow; uses clip-path */}
         <div
-          className="relative w-full min-w-0"
-          style={{
-            clipPath: 'inset(0)', // standard
-            WebkitClipPath: 'inset(0)', // Safari
-            // If you want rounded corners: 'inset(0 round 12px)'
-          }}
+          className="relative w-full min-w-0 overflow-x-clip [clip-path:inset(0)] [-webkit-clip-path:inset(0)]"
+          {...containerProps}
         >
           {/* Track */}
           <div
             role="tablist"
             aria-orientation="horizontal"
-            className="grid w-full min-w-0 transition-transform duration-300 ease-in-out"
+            className={cn(
+              'grid w-full min-w-0',
+              isDragging
+                ? 'transition-none'
+                : 'transition-transform duration-300 ease-in-out'
+            )}
             style={{
               gridTemplateColumns: `repeat(${tabItems.length}, 100%)`,
-              transform: `translateX(-${activeTabIndex * 100}%)`,
-              willChange: 'transform',
+              transform: `translateX(-${activeTabIndex * 100 - (isDragging ? dragDeltaPct : 0)}%)`,
             }}
           >
             {tabItems.map(({ props }, index) => {
