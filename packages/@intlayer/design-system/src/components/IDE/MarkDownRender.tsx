@@ -1,5 +1,6 @@
-import Markdown from 'markdown-to-jsx';
-import type { FC } from 'react';
+import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
+import { BundledLanguage } from 'shiki';
+import { MarkdownProcessor } from '../MarkDownRender/processor';
 import { Code } from './Code';
 
 type MarkdownRendererProps = {
@@ -11,24 +12,26 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
   isDarkMode,
 }) => (
-  <Markdown
+  <MarkdownProcessor
     options={{
       overrides: {
         code: {
-          component: (props) => (
+          component: (props: ComponentProps<typeof Code>) => (
             <Code
               {...props}
               isDarkMode={isDarkMode}
-              language={props.className?.replace('lang-', '')}
+              language={
+                props.className?.replace('lang-', '') as BundledLanguage
+              }
               showHeader={false}
               className="text-xs leading-5"
             />
           ),
         },
-        pre: (props) => props.children,
+        pre: (props: ComponentPropsWithoutRef<'pre'>) => props.children,
       },
     }}
   >
     {children ?? ''}
-  </Markdown>
+  </MarkdownProcessor>
 );
