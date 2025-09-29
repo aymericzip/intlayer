@@ -171,6 +171,195 @@ Here an example of the impact of bundle size optimization using `intlayer` in a 
 
 ---
 
+## TypeScript & safety
+
+<Columns>
+  <Column>
+
+**next-intl**
+
+- Solid TypeScript support, but **keys aren’t strictly typed by default**; you’ll maintain safety patterns manually.
+
+  </Column>
+  <Column>
+
+**next-i18next**
+
+- Base typings for hooks; **strict key typing requires extra tooling/config**.
+
+  </Column>
+  <Column>
+
+**intlayer**
+
+- **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deploy.
+
+  </Column>
+<Columns>
+
+**Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
+
+---
+
+## Missing translation handling
+
+**next-intl**
+
+- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+
+**next-i18next**
+
+- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
+
+**intlayer**
+
+- **Build-time detection** with **warnings/errors** for missing locales or keys.
+
+**Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
+
+---
+
+## Routing, middleware & URL strategy
+
+<Columns>
+  <Column>
+
+**next-intl**
+
+- Works with **Next.js localized routing** on the App Router.
+
+  </Column>
+  <Column>
+
+**next-i18next**
+
+- Works with **Next.js localized routing** on the App Router.
+
+  </Column>
+  <Column>
+
+**intlayer**
+
+- All of the above, plus **i18n middleware** (locale detection via headers/cookies) and **helpers** to generate localized URLs and `<link rel="alternate" hreflang="…">` tags.
+
+  </Column>
+</Columns>
+
+**Why it matters:** Fewer custom glue layers; **consistent UX** and **clean SEO** across locales.
+
+---
+
+## Server Components (RSC) alignment
+
+<Columns>
+  <Column>
+
+**next-intl**
+
+- Supports Next.js 13+. Often requires passing t-functions/formatters through component trees in hybrid setups.
+
+  </Column>
+  <Column>
+
+**next-i18next**
+
+- Supports Next.js 13+. Similar constraints with passing translation utilities across boundaries.
+
+  </Column>
+  <Column>
+
+**intlayer**
+
+- Supports Next.js 13+ and smooths the **server/client boundary** with a consistent API and RSC-oriented providers, avoiding shuttling formatters or t-functions.
+
+  </Column>
+</Columns>
+
+**Why it matters:** Cleaner mental model and fewer edge cases in hybrid trees.
+
+---
+
+## DX, tooling & maintenance
+
+<Columns>
+  <Column>
+
+**next-intl**
+
+- Commonly paired with external localization platforms and editorial workflows.
+
+  </Column>
+  <Column>
+
+**next-i18next**
+
+- Commonly paired with external localization platforms and editorial workflows.
+
+  </Column>
+  <Column>
+
+**intlayer**
+
+- Ships a **free Visual Editor** and **optional CMS** (Git-friendly or externalized), plus a **VSCode extension** and **AI-assisted translations** using your own provider keys.
+
+  </Column>
+</Columns>
+
+**Why it matters:** Lowers ops cost and shortens the loop between developers and content authors.
+
+## Integration with localization platforms (TMS)
+
+Large organizations often rely on Translation Management Systems (TMS) like **Crowdin**, **Phrase**, **Lokalise**, **Localizely**, or **Localazy**.
+
+- **Why companies care**
+  - **Collaboration & roles**: Multiple actors are involved: developers, product managers, translators, reviewers, marketing teams.
+  - **Scale & efficiency**: continuous localization, in‑context review.
+
+- **next-intl / next-i18next**
+  - Typically use **centralized JSON catalogs**, so export/import with TMS is straightforward.
+  - Mature ecosystems and examples/integrations for the platforms above.
+
+- **Intlayer**
+  - Encourages **decentralized, per-component dictionaries** and supports **TypeScript/TSX/JS/JSON/MD** content.
+  - This improves modularity in code, but can make plug‑and‑play TMS integration harder when a tool expects centralized, flat JSON files.
+  - Intlayer provides alternatives: **AI‑assisted translations** (using your own provider keys), a **Visual Editor/CMS**, and **CLI/CI** workflows to catch and prefill gaps.
+
+> Note: `next-intl` and `i18next` also accepts TypeScript catalogs. If your team stores messages in `.ts` files or decentralizes them by feature, you can face similar TMS friction. However, many `next-intl` setups remain centralized in a `locales/` folder, which is a bit easier to refactor to JSON for TMS.
+
+## And the winner is…
+
+It’s not simple. Each option has trade-offs. Here’s how I see it:
+
+<Columns>
+  <Column>
+
+**next-intl**
+
+- simplest, lightweight, fewer decisions forced on you. If you want a **minimal** solution, you’re comfortable with centralized catalogs, and your app is **small to mid-size**.
+
+  </Column>
+  <Column>
+
+**next-i18next**
+
+- mature, full of features, lots of community plugins, but higher setup cost. If you need **i18next’s plugin ecosystem** (e.g., advanced ICU rules via plugins) and your team already knows i18next, accepting **more configuration** for flexibility.
+
+  </Column>
+  <Column>
+
+**Intlayer**
+
+- built for modern Next.js, with modular content, type safety, tooling, and less boilerplate. If you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling - especially for **Next.js App Router**, design-systems and **large, modular codebases**.
+
+  </Column>
+</Columns>
+
+If you prefer minimal setup and accept some manual wiring, next-intl is a good pick. If you need all the features and don't mind complexity, next-i18next works. But if you want a modern, scalable, modular solution with built tools, Intlayer aims to give you that out of the box.
+
+> **Alternative for enterprise teams**: If you need a well-proven solution that works perfectly with established localization platforms like **Crowdin**, **Phrase**, or other professional translation management systems, consider **next-intl** or **next-i18next** for their mature ecosystem and proven integrations.
+
+> **Future roadmap**: Intlayer also plans to develop plugins that work on top of **i18next** and **next-intl** solutions. This will give you the advantages of Intlayer for automation, syntax, and content management while keeping the security and stability provided by these established solutions in your application code.
+
 ## Developer Experience
 
 This part makes a deep comparison between the three solutions. Rather than considering simple cases, as described in the 'getting started' documentation for each solution, we will consider a real use case, more similar to a real project.
@@ -254,54 +443,8 @@ The app structure is important to ensure good maintainability for your codebase.
 
 #### Comparison
 
-##### Configuration
-
-Intlayer uses a centralized configuration file to set up your locale, middleware, build, etc.
-
-##### Content declaration
-
-The centralized type of architecture slows down the development process and makes the codebase more complex to maintain for several reasons:
-
-1. **For any new component created, you should:**
-   - Create the new resource/namespace in the `locales` folder
-   - Remember to import the new namespace in your page
-   - Translate your content (often done manually by copy/paste from AI providers)
-
-2. **For any change made on your components, you should:**
-   - Search for the related resource/namespace (far from the component)
-   - Translate your content
-   - Ensure your content is up to date for any locale
-   - Verify your namespace doesn't include unused keys/values
-   - Ensure the structure of your JSON files is the same for all locales
-
-On professional projects using these solutions, localization platforms are often used to help manage the translation of your content. However, this can quickly become costly for large projects.
-
-To solve this problem, Intlayer adopts an approach that scopes your content per-component and keeps your content close to your component, as we often do with CSS (`styled-components`), types, documentation (`storybook`), or unit tests (`jest`).
-
-This approach allows you to:
-
-1. **Increase the speed of development**
-   - `.content.{{ts|js|json}}` files can be created using a VSCode extension
-   - Autocompletion AI tools in your IDE (such as GitHub Copilot) can help you declare your content, reducing copy/paste
-
-2. **Clean your codebase**
-   - Reduce the complexity
-   - Increase the maintainability
-
-3. **Duplicate your components and their related content more easily (Example: login/register components, etc.)**
-   - By limiting the risk of impacting other components' content
-   - By copy/pasting your content from one application to another without external dependencies
-
-4. **Avoid polluting your codebase with unused keys/values for unused components**
-   - If you don't use a component, Intlayer will not import its related content
-   - If you delete a component, you'll more easily remember to remove its related content as it will be present in the same folder
-
-5. **Reduce reasoning cost for AI agents to declare your multilingual content**
-   - The AI agent won't have to scan your entire codebase to know where to implement your content
-   - Translations can easily be done by autocompletion AI tools in your IDE (such as GitHub Copilot)
-
-6. **Optimize loading performance**
-   - If a component is lazy-loaded, its related content will be loaded at the same time
+- **next-intl / next-i18next**: Centralized catalogs (JSON; namespaces/messages). Clear structure, integrates well with translation platforms, but can lead to more cross-file edits as apps grow.
+- **Intlayer**: Per-component `.content.{ts|js|json}` dictionaries co-located with components. Easier component reuse and local reasoning; adds files and relies on build-time tooling.
 
 #### Setup and Loading Content
 
@@ -336,7 +479,7 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import { createInstance } from "i18next";
 import { ClientComponent, ServerComponent } from "@components";
 
-export default function HomePage() {
+export default function HomePage({ locale }: { locale: string }) {
   // Déclarez explicitement le namespace utilisé par ce composant
   const resources = await loadMessagesFor(locale); // your loader (JSON, etc.)
 
@@ -395,7 +538,7 @@ export default getRequestConfig(async ({ locale }) => {
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import pick from "lodash/pick";
 
 export default async function LocaleLayout({
@@ -406,9 +549,13 @@ export default async function LocaleLayout({
   params: { locale: string };
 }) {
   const { locale } = params;
-  // Les messages sont chargés côté serveur via src/i18n/request.ts
-  // (voir docs next-intl). Ici on ne pousse au client qu'un sous-ensemble
-  // utile aux composants client (optimisation du payload).
+
+  // Set the active request locale for this server render (RSC)
+  unstable_setRequestLocale(locale);
+
+  // Messages are loaded server-side via src/i18n/request.ts
+  // (see next-intl docs). Here we only push a subset to the client
+  // that's needed for client components (payload optimization).
   const messages = await getMessages();
   const clientMessages = pick(messages, ["common", "about"]);
 
@@ -512,13 +659,13 @@ export default LandingPage;
 
 #### Comparison
 
-In comparison to other solutions, Intlayer uses plugins to optimize the import of content at build time.
+All three support per-locale content loading and providers.
 
-This means that the client context can be stored in the root layout, to reuse only one instance of the provider for all pages.
+- With **next-intl/next-i18next**, you typically load selected messages/namespaces per route and place providers where needed.
 
-In comparison, the other solutions require rebuilding a custom provider for each page.
+- With **Intlayer**, adds build-time analysis to infer usage, which can reduce manual wiring and may allow a single root provider.
 
-Intlayer also provides a Provider for your server components. We'll see why later.
+Choose between explicit control and automation based on team preference.
 
 ### Usage in a client component
 
@@ -910,7 +1057,7 @@ export default function robots(): MetadataRoute.Robots {
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
 import { locales, defaultLocale } from "@/i18n";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 function localizedPath(locale: string, path: string) {
   return locale === defaultLocale ? path : "/" + locale + path;
@@ -1063,176 +1210,6 @@ export default robots;
 > Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
 
 ---
-
-## TypeScript & safety
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- Solid TypeScript support, but **keys aren’t strictly typed by default**; you’ll maintain safety patterns manually.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- Base typings for hooks; **strict key typing requires extra tooling/config**.
-
-  </Column>
-  <Column>
-
-**intlayer**
-
-- **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deploy.
-
-  </Column>
-<Columns>
-
-**Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
-
----
-
-## Missing translation handling
-
-**next-intl**
-
-- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
-
-**next-i18next**
-
-- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
-
-**intlayer**
-
-- **Build-time detection** with **warnings/errors** for missing locales or keys.
-
-**Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
-
----
-
-## Routing, middleware & URL strategy
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- Works with **Next.js localized routing** on the App Router.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- Works with **Next.js localized routing** on the App Router.
-
-  </Column>
-  <Column>
-
-**intlayer**
-
-- All of the above, plus **i18n middleware** (locale detection via headers/cookies) and **helpers** to generate localized URLs and `<link rel="alternate" hreflang="…">` tags.
-
-  </Column>
-</Columns>
-
-**Why it matters:** Fewer custom glue layers; **consistent UX** and **clean SEO** across locales.
-
----
-
-## Server Components (RSC) alignment
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- Supports Next.js 13+. Often requires passing t-functions/formatters through component trees in hybrid setups.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- Supports Next.js 13+. Similar constraints with passing translation utilities across boundaries.
-
-  </Column>
-  <Column>
-
-**intlayer**
-
-- Supports Next.js 13+ and smooths the **server/client boundary** with a consistent API and RSC-oriented providers, avoiding shuttling formatters or t-functions.
-
-  </Column>
-</Columns>
-
-**Why it matters:** Cleaner mental model and fewer edge cases in hybrid trees.
-
----
-
-## DX, tooling & maintenance
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- Commonly paired with external localization platforms and editorial workflows.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- Commonly paired with external localization platforms and editorial workflows.
-
-  </Column>
-  <Column>
-
-**intlayer**
-
-- Ships a **free Visual Editor** and **optional CMS** (Git-friendly or externalized), plus a **VSCode extension** and **AI-assisted translations** using your own provider keys.
-
-  </Column>
-</Columns>
-
-**Why it matters:** Lowers ops cost and shortens the loop between developers and content authors.
-
-## And the winner is…
-
-It’s not simple. Each option has trade-offs. Here’s how I see it:
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- simplest, lightweight, fewer decisions forced on you. If you want a **minimal** solution, you’re comfortable with centralized catalogs, and your app is **small to mid-size**.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- mature, full of features, lots of community plugins, but higher setup cost. If you need **i18next’s plugin ecosystem** (e.g., advanced ICU rules via plugins) and your team already knows i18next, accepting **more configuration** for flexibility.
-
-  </Column>
-  <Column>
-
-**Intlayer**
-
-- built for modern Next.js, with modular content, type safety, tooling, and less boilerplate. If you value **component-scoped content**, **strict TypeScript**, **build-time guarantees**, **tree-shaking**, and **batteries-included** routing/SEO/editor tooling - especially for **Next.js App Router**, design-systems and **large, modular codebases**.
-
-  </Column>
-</Columns>
-
-If you prefer minimal setup and accept some manual wiring, next-intl is a good pick. If you need all the features and don't mind complexity, next-i18next works. But if you want a modern, scalable, modular solution with built tools, Intlayer aims to give you that out of the box.
-
-> **Alternative for enterprise teams**: If you need a well-proven solution that works perfectly with established localization platforms like **Crowdin**, **Phrase**, or other professional translation management systems, consider **next-intl** or **next-i18next** for their mature ecosystem and proven integrations.
-
-> **Future roadmap**: Intlayer also plans to develop plugins that work on top of **i18next** and **next-intl** solutions. This will give you the advantages of Intlayer for automation, syntax, and content management while keeping the security and stability provided by these established solutions in your application code.
 
 ---
 
