@@ -10,7 +10,7 @@ import { Link } from '../Link';
 import { Tab } from '../Tab';
 import { TabProvider } from '../Tab/TabContext';
 import { Table } from '../Table';
-import { MarkdownProcessor, type MarkdownProcessorOptions } from './processer';
+import { MarkdownProcessor, type MarkdownProcessorOptions } from './processor';
 
 type MarkdownRendererProps = {
   children: string;
