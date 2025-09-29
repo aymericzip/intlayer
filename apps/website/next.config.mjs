@@ -57,6 +57,7 @@ const secureHeaders = {
         '*.ahrefs.com',
         '*.star-history.com',
         '*.vercel.app',
+        'img.shields.io',
       ],
       imgSrc: ["'self'", 'https:', 'data:'],
       workerSrc: [
