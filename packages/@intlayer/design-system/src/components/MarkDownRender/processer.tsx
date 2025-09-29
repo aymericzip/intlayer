@@ -1200,6 +1200,7 @@ const renderNothing = (): null => null;
 const reactFor =
   (render: any) =>
   (ast: ParserResult | ParserResult[], state: State = {}): ReactNode[] => {
+    const start = performance.now();
     const patchedRender = (
       ast: ParserResult | ParserResult[],
       state: State = {}
@@ -1231,24 +1232,44 @@ const reactFor =
 
       state.key = oldKey;
 
+      const duration = performance.now() - start;
+      if (duration > 1) {
+        console.log(`reactFor (array): ${duration.toFixed(3)}ms, ast length: ${ast.length}`);
+      }
+
       return result as unknown as ReactNode[];
     }
 
-    return render(
+    const result = render(
       ast,
       patchedRender as RuleOutput,
       state
     ) as unknown as ReactNode[];
+    
+    const duration = performance.now() - start;
+    if (duration > 1) {
+      console.log(`reactFor (single): ${duration.toFixed(3)}ms, ast type: ${(ast as ParserResult).type}`);
+    }
+    
+    return result;
   };
 
 const createRenderer =
   (rules: Rules, userRender?: MarkdownProcessorOptions['renderRule']) =>
   (ast: ParserResult, render: RuleOutput, state: State): ReactNode => {
+    const start = performance.now();
     const renderer = rules[ast.type]._render as Rule['_render'] | undefined;
 
-    return userRender
+    const result = userRender
       ? userRender(() => renderer?.(ast, render, state), ast, render, state)
       : renderer?.(ast, render, state);
+    
+    const duration = performance.now() - start;
+    if (duration > 1) {
+      console.log(`createRenderer: ${duration.toFixed(3)}ms, ast type: ${ast.type}, hasUserRender: ${!!userRender}`);
+    }
+    
+    return result;
   };
 
 const cx = (...args: any[]): string => args.filter(Boolean).join(' ');
@@ -1382,110 +1403,8 @@ export const compiler = (
   };
 
   const compile = (input: string): JSX.Element => {
-    input = input.replace(FRONT_MATTER_R, '');
-
-    // Transform sequences of framework-specific H5 headings into Tabs automatically
-    // Matches: ##### intlayer | ##### next-intl | ##### next-i18next
-    const transformFrameworkH5GroupsToTabs = (src: string): string => {
-      const lines = src.split(/\r?\n/);
-      const out: string[] = [];
-
-      let i = 0;
-      let insideTabsDepth = 0;
-
-      while (i < lines.length) {
-        const line = lines[i];
-
-        // Track existing Tabs blocks to avoid double-transforming
-        if (/<\s*Tabs[>\s]/.test(line)) {
-          insideTabsDepth++;
-        }
-        if (/<\s*\/\s*Tabs\s*>/.test(line)) {
-          insideTabsDepth = Math.max(0, insideTabsDepth - 1);
-        }
-
-        if (!insideTabsDepth) {
-          const headingMatch = line.match(/^#{5}\s+(.+?)\s*$/);
-
-          if (headingMatch) {
-            type TabItem = { label: string; value: string; content: string };
-            const collected: TabItem[] = [];
-
-            // Helper to flush content captured between headings
-            const captureSection = (
-              startIndex: number
-            ): { content: string; endIndex: number } => {
-              let j = startIndex;
-              const buf: string[] = [];
-              while (j < lines.length) {
-                const l = lines[j];
-                if (/^#{1,5}\s+/.test(l)) break; // next heading boundary (same or higher precedence)
-                // Track nested Tabs to avoid consuming them incorrectly
-                if (/<\s*Tabs[>\s]/.test(l)) insideTabsDepth++;
-                if (/<\s*\/\s*Tabs\s*>/.test(l))
-                  insideTabsDepth = Math.max(0, insideTabsDepth - 1);
-                buf.push(l);
-                j++;
-              }
-              return {
-                content: buf.join('\n').replace(/\n+$/, '\n'),
-                endIndex: j,
-              };
-            };
-
-            // Collect consecutive recognized H5 sections
-            let j = i;
-            while (j < lines.length) {
-              const h = lines[j].match(/^#{5}\s+(.+?)\s*$/);
-              if (!h) break;
-              const hLabel = h[1].trim();
-              const { content, endIndex } = captureSection(j + 1);
-              collected.push({
-                label: hLabel,
-                value: hLabel.toLowerCase(),
-                content,
-              });
-              j = endIndex;
-              // Stop if next line is not another H5 heading
-              if (!lines[j]?.startsWith('#####')) break;
-            }
-
-            // If at least two sections found, emit a Tabs block
-            if (collected.length >= 2) {
-              const defaultTab = (
-                collected.find((t) => t.value === 'intlayer') ?? collected[0]
-              ).value;
-              out.push(`<Tabs defaultTab="${defaultTab}">`);
-              // Ensure stable order: intlayer, next-intl, next-i18next, while respecting availability
-              const order = ['intlayer', 'next-intl', 'next-i18next'] as const;
-              for (const key of order) {
-                const item = collected.find((c) => c.value === key);
-                if (!item) continue;
-                out.push(
-                  `  <TabItem label="${item.label}" value="${item.value}">`
-                );
-                // Preserve inner markdown content as-is
-                const inner = item.content.replace(/^\n+|\n+$/g, '');
-                out.push(inner);
-                out.push('  </TabItem>');
-              }
-              out.push('</Tabs>');
-              // Advance pointer
-              i = j;
-              continue;
-            }
-            // Fallback: not enough to make tabs, just emit original line
-          }
-        }
-
-        out.push(line);
-        i++;
-      }
-
-      return out.join('\n');
-    };
-
-    input = transformFrameworkH5GroupsToTabs(input);
+    const start = performance.now();
+    const result = input.replace(FRONT_MATTER_R, '');
 
     let inline = false;
 
@@ -1496,14 +1415,14 @@ export const compiler = (
        * should not contain any block-level markdown like newlines, lists, headings,
        * thematic breaks, blockquotes, tables, etc
        */
-      inline = SHOULD_RENDER_AS_BLOCK_R.test(input) === false;
+      inline = SHOULD_RENDER_AS_BLOCK_R.test(result) === false;
     }
 
     const arr = emitter(
       parser(
         inline
-          ? input
-          : `${trimEnd(input).replace(TRIM_STARTING_NEWLINES, '')}\n\n`,
+          ? result
+          : `${trimEnd(result).replace(TRIM_STARTING_NEWLINES, '')}\n\n`,
         {
           inline,
         }
@@ -1518,6 +1437,10 @@ export const compiler = (
     }
 
     if (options.wrapper === null) {
+      const duration = performance.now() - start;
+      if (duration > 1) {
+        console.log(`compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`);
+      }
       return arr as unknown as JSX.Element;
     }
 
@@ -1531,13 +1454,26 @@ export const compiler = (
 
       // TODO: remove this for React 16
       if (typeof jsx === 'string') {
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(`compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`);
+        }
         return <span key="outer">{jsx}</span>;
       } else {
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(`compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`);
+        }
         return jsx as unknown as JSX.Element;
       }
     } else {
       // TODO: return null for React 16
       jsx = null;
+    }
+
+    const duration = performance.now() - start;
+    if (duration > 1) {
+      console.log(`compile: ${duration.toFixed(3)}ms, input length: ${input.length}, inline: ${inline}`);
     }
 
     return createElementFn(wrapper, { key: 'outer' }, jsx) as JSX.Element;
@@ -1624,18 +1560,26 @@ export const compiler = (
       _qualify: ['>'],
       _match: blockRegex(BLOCKQUOTE_R),
       _order: Priority.HIGH,
-      _parse(capture, parse, state) {
-        const matchAlert = capture[0]
-          .replace(BLOCKQUOTE_TRIM_LEFT_MULTILINE_R, '')
-          .match(BLOCKQUOTE_ALERT_R) as RegExpMatchArray | null;
-        const alert = matchAlert?.[1];
-        const content = matchAlert?.[2] ?? '';
+    _parse(capture, parse, state) {
+      const start = performance.now();
+      const matchAlert = capture[0]
+        .replace(BLOCKQUOTE_TRIM_LEFT_MULTILINE_R, '')
+        .match(BLOCKQUOTE_ALERT_R) as RegExpMatchArray | null;
+      const alert = matchAlert?.[1];
+      const content = matchAlert?.[2] ?? '';
 
-        return {
-          alert,
-          children: parse(content, state),
-        };
-      },
+      const result = {
+        alert,
+        children: parse(content, state),
+      };
+      
+      const duration = performance.now() - start;
+      if (duration > 1) {
+        console.log(`blockQuote._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`);
+      }
+      
+      return result;
+    },
       _render(node, _output, state = {}) {
         const props = {
           key: state?.key,
@@ -1714,13 +1658,8 @@ export const compiler = (
       _order: Priority.MAX,
       _parse(capture, _parse, state) {
         const rawText = capture[4];
-        // If we're inside a custom component/HTML parsing context and the code contains
-        // template literals (backticks), preserve indentation while serializing newlines
-        // as literal "\n" so consumers expecting escaped newlines (e.g., tests) match.
-        const text =
-          state.inHTML && rawText.indexOf('`') !== -1
-            ? rawText.replace(/\n/g, '\\n')
-            : rawText;
+        // Always preserve real newlines so code blocks render with correct block formatting
+        const text = rawText;
         return {
           // if capture[3] it's additional metadata
           attrs: attrStringToMap('code', capture[3] ?? ''),
@@ -1813,11 +1752,19 @@ export const compiler = (
       ),
       _order: Priority.HIGH,
       _parse(capture, parse, state) {
-        return {
+        const start = performance.now();
+        const result = {
           children: parseInline(parse, capture[2], state),
           id: slug(capture[2], slugify),
           level: capture[1].length as HeadingNode['level'],
         };
+        
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(`heading._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}, level: ${capture[1].length}`);
+        }
+        
+        return result;
       },
       _render(node, _output, state = {}) {
         return h(
@@ -2160,7 +2107,15 @@ export const compiler = (
     [RuleType.paragraph]: {
       _match: allowInline(matchParagraph),
       _order: Priority.LOW,
-      _parse: parseCaptureInline,
+      _parse(capture, parse, state) {
+        const start = performance.now();
+        const result = parseCaptureInline(capture, parse, state);
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(`paragraph._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`);
+        }
+        return result;
+      },
       _render(node, _output, state = {}) {
         return <p key={state.key}>{_output(node.children, state)}</p>;
       },
@@ -2233,7 +2188,15 @@ export const compiler = (
       _qualify: ['|'],
       _match: blockRegex(NP_TABLE_R),
       _order: Priority.HIGH,
-      _parse: parseTable,
+      _parse(capture, parse, state) {
+        const start = performance.now();
+        const result = parseTable(capture, parse, state);
+        const duration = performance.now() - start;
+        if (duration > 1) {
+          console.log(`table._parse: ${duration.toFixed(3)}ms, capture length: ${capture[0].length}`);
+        }
+        return result;
+      },
       _render(node, _output, state = {}) {
         const table = node as TableNode;
         return h(

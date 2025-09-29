@@ -1311,15 +1311,82 @@ describe('processer', () => {
         String(preB.props.children.props.children).startsWith('tsx\n')
       ).toBe(false);
 
-      // current result:
-      // export default getRequestConfig(async ({ locale }) => {\\nreturn {\\n  messages: (await import(`./${locale}.json`)).default,\\n};\\n});\\n"
+      // Ensure newlines are preserved (not escaped) so block formatting remains
       expect(preB.props.children.props.children).toBe(
-        'export default getRequestConfig(async ({ locale }) => {\\n  return {\\n    messages: (await import(`./${locale}.json`)).default,\\n  };\\n});\\n'
+        'export default getRequestConfig(async ({ locale }) => {\n  return {\n    messages: (await import(`./${locale}.json`)).default,\n  };\n});\n'.replace(
+          /\\n/g,
+          '\n'
+        )
       );
+    });
 
-      console.log({
-        preB: JSON.stringify(preB.props.children.props.children, null, 2),
-      });
+    test('renders Tabs code block with backticks and preserves block formatting', () => {
+      const markdown = [
+        '<Tabs>',
+        '  <TabItem label="A">',
+        '    ```tsx',
+        '    const locale = "en";',
+        '    const file = `./${locale}.json`;',
+        '    // comment with `backtick` inside',
+        '    console.log(file);',
+        '    ```',
+        '  </TabItem>',
+        '</Tabs>',
+      ].join('\n');
+
+      const result = compiler(markdown);
+      expect(result).toBeDefined();
+
+      const tabItems: any[] = result.props.children;
+      const first = tabItems[0];
+      const pre = first.props.children.find((c: any) => c && c.type === 'pre');
+
+      expect(pre && pre.type).toBe('pre');
+      const code = pre.props.children;
+      expect(code && code.type).toBe('code');
+      expect(code.props.className).toContain('lang-tsx');
+      expect(String(code.props.children).startsWith('tsx\n')).toBe(false);
+      // ensure backtick characters are preserved in the rendered text
+      expect(String(code.props.children)).toContain('`');
+    });
+
+    test('renders quadruple-fenced code with attributes inside Tabs', () => {
+      const markdown = [
+        '<Tabs>',
+        '  <TabItem label="Code">',
+        '    ```tsx fileName="src/app/[locale]/about/layout.tsx"',
+        '    import type { Metadata } from "next";',
+        '    export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {',
+        '      const { locale } = params;',
+        '      const messages = (await import(`@/../public/locales/${locale}/about.json`)).default;',
+        '      return {};',
+        '    }',
+        '    ```',
+        '  </TabItem>',
+        '</Tabs>',
+      ].join('\n');
+
+      const result = compiler(markdown);
+      expect(result).toBeDefined();
+      const items: any[] = result.props.children;
+      const pre = items[0].props.children.find(
+        (c: any) => c && c.type === 'pre'
+      );
+      expect(pre.type).toBe('pre');
+      const code = pre.props.children;
+      expect(code.type).toBe('code');
+      expect(code.props.className).toContain('lang-tsx');
+
+      // entry : '      const messages = (await import("@/../public/locales/locale/about.json")).default;',
+      // result : "children": "    import type { Metadata } from \"next\";\n    export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {\n      const { locale } = params;\n      const messages = (await import(\"@/../public/locales/locale/about.json\")).default;\n      return {};\n    }\n"
+
+      // entry : '      const messages = (await import(`@/../public/locales/${locale}/about.json`)).default;',
+      // result :  "children": "    import type { Metadata } from \"next\";\\n    export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {\\n      const { locale } = params;\\n      const messages = (await import(`@/../public/locales/${locale}/about.json`)).default;\\n      return {};\\n    }\\n"
+
+      expect(code.props.fileName).toBe('src/app/[locale]/about/layout.tsx');
+      expect(String(code.props.children).startsWith('tsx\n')).toBe(false);
+      // The code includes template literals; ensure backticks present
+      expect(String(code.props.children)).toContain('`');
     });
 
     test('renders Tabs with mixed content', () => {
