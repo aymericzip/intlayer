@@ -220,7 +220,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 ...props
               }: ComponentPropsWithoutRef<'div'>) => (
                 <div
-                  className={cn('flex md:flex-col gap-4', className)}
+                  className={cn('flex max-md:flex-col gap-4', className)}
                   {...props}
                 />
               ),
