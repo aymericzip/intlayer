@@ -1,6 +1,5 @@
 import { PricingPage as PricingPageContent } from '@components/PricingPage';
 import { GetPricingResult, getStripeAPI } from '@intlayer/api';
-import configuration from '@intlayer/config/built';
 import { ProductHeader } from '@structuredData/ProductHeader';
 import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
@@ -31,15 +30,13 @@ const PricingPage: NextPageIntlayer = async ({ params }) => {
       pricingData = pricingDataResponse.data;
     }
   } catch (error) {
-    if (process.env.NODE_ENV === 'production' && !pricingData) {
+    if (
+      // Throw an error if the pricing data is not fetched and the stripe publishable key is set
+      typeof process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY === 'string' &&
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.length > 0 &&
+      !pricingData
+    ) {
       throw new Error('Failed to fetch pricing data');
-    } else {
-      console.error('Failed to fetch pricing data', {
-        cause: {
-          priceIds,
-          backendURL: configuration.editor?.backendURL,
-        },
-      });
     }
   }
 
