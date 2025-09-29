@@ -14,6 +14,7 @@ keywords:
   - next-intl
   - next-i18next
 slugs:
+  - blog
   - seo
   - i18n
   - nextjs
